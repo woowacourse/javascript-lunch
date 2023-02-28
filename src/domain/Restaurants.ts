@@ -1,8 +1,9 @@
-import Restaurant from "./Restaurant";
+import Restaurant, { Category } from "./Restaurant";
 
 interface Restaurants {
   restaurantList: Restaurant[];
   addRestaurant: (restaurant: Restaurant) => void;
+  filterByCategory: (category: Category) => Restaurant[];
   sortByName: () => Restaurant[];
   sortByDistance: () => Restaurant[];
 }
@@ -12,6 +13,12 @@ const Restaurants: Restaurants = {
 
   addRestaurant(restaurant) {
     this.restaurantList.push(restaurant);
+  },
+
+  filterByCategory(category) {
+    return this.restaurantList.filter(
+      (restaurant) => restaurant.category === category
+    );
   },
 
   sortByName() {
