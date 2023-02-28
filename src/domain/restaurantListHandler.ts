@@ -20,6 +20,10 @@ class RestaurantListHandler {
       a.name.localeCompare(b.name, "ko-KR")
     );
   }
+
+  getSortedByTakingTime(): Restaurant[] {
+    return [...this.restaurants].sort((a, b) => a.takingTime - b.takingTime);
+  }
 }
 
 export default new RestaurantListHandler();
