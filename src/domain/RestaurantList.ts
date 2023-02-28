@@ -19,19 +19,29 @@ export default class RestaurantList {
     this.#restaurantList = [];
   }
 
+  getRestaurantList(): Restaurant[] {
+    return [...this.#restaurantList];
+  }
+
   addRestaurant(info: RestaurantInfo): void {
     this.#restaurantList.push(new Restaurant(info));
   }
 
-  getSortedListByName(): Restaurant[] {
-    return this.#restaurantList.sort((a, b) =>
+  sortListByName(): void {
+    this.#restaurantList.sort((a, b) =>
       a.getInfo().name > b.getInfo().name ? 1 : -1
     );
   }
 
-  getSortedListByDistance(): Restaurant[] {
-    return this.#restaurantList.sort(
+  sortListByDistance(): void {
+    this.#restaurantList.sort(
       (a, b) => a.getInfo().distance - b.getInfo().distance
+    );
+  }
+
+  getFilteredListByCategory(category: Category) {
+    return this.#restaurantList.filter(
+      (restaurant) => restaurant.getInfo().category === category
     );
   }
 }
