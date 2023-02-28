@@ -4,11 +4,11 @@ type Distance = 5 | 10 | 15 | 20 | 30;
 
 interface Restaurant {
   name: string;
-  categoty: Category;
+  category: Category;
   distance: Distance;
 
   description: string | null;
   link: string | null;
 }
 
-export default Restaurant;
+export { Restaurant, Category, Distance };
