@@ -18,4 +18,13 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
 
     expect(new Restaurant(correctInfo).getInfo()).toEqual(correctInfo);
   });
+
+  test('음식점의 특정 정보를 조회할 수 있다', () => {
+    expect(new Restaurant(correctInfo).getSomeInfo('name')).toBe(correctInfo.name);
+    expect(new Restaurant(correctInfo).getSomeInfo('category')).toBe(correctInfo.category);
+  });
+
+  test('음식점은 설명, 참고 링크 정보를 옵션으로 가질 수 있다', () => {
+    expect(new Restaurant(correctInfo).getInfo()).toEqual(correctInfo);
+  });
 });
