@@ -20,6 +20,8 @@ interface IRestaurants {
   list: IRestaurant[];
   add(restaurant: IRestaurant): void;
   filterByCategory(category: Category): IRestaurant[];
+  sortByName(): IRestaurant[];
+  sortByDistance(): IRestaurant[];
   getList(): IRestaurant[];
 }
 
@@ -64,6 +66,31 @@ class Restaurants implements IRestaurants {
 
   filterByCategory(category: string): IRestaurant[] {
     return this.list.filter((restaurant) => restaurant.info.category === category);
+  }
+
+  sortByName(): IRestaurant[] {
+    return this.list.sort(
+      ({ info: { name: nameA } }: IRestaurant, { info: { name: nameB } }: IRestaurant) => {
+        const upperA = nameA.toUpperCase();
+        const upperB = nameB.toUpperCase();
+
+        if (upperA < upperB) return -1;
+        if (upperA > upperB) return 1;
+
+        return 0;
+      }
+    );
+  }
+
+  sortByDistance(): IRestaurant[] {
+    return this.list.sort(
+      (
+        { info: { distance: distanceA } }: IRestaurant,
+        { info: { distance: distanceB } }: IRestaurant
+      ) => {
+        return distanceA - distanceB;
+      }
+    );
   }
 
   getList() {

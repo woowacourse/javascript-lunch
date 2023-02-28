@@ -1,17 +1,25 @@
 import { Category, Restaurant, RestaurantInfo, Restaurants } from '../../domain/Restaurants';
 
-const getDummyInfo = (category: Category) => {
+type RequiredInfo = Pick<RestaurantInfo, 'name' | 'category' | 'distance'>;
+const getDummyInfo = (requiredInfo: RequiredInfo) => {
   return {
-    name: '친친',
-    category,
-    distance: 0,
+    ...requiredInfo,
     description: 'Since 2004 편리한 교통',
     link: 'https://chinchin.com',
   };
 };
 
-const categoryList: Category[] = ['한식', '중식', '일식', '양식', '기타'];
-const restaurantList = categoryList.map((category) => new Restaurant(getDummyInfo(category)));
+const requiredInfoList: RequiredInfo[] = [
+  { category: '한식', name: '가', distance: 1 },
+  { category: '중식', name: '나', distance: 2 },
+  { category: '일식', name: '다', distance: 4 },
+  { category: '한식', name: '라', distance: 3 },
+  { category: '기타', name: '마', distance: 5 },
+];
+
+const restaurantList = requiredInfoList.map(
+  (requiredInfo) => new Restaurant(getDummyInfo(requiredInfo))
+);
 
 describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
   let restaurant: Restaurant;
@@ -19,9 +27,9 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
   let correctInfo: RestaurantInfo;
 
   beforeEach(() => {
-    correctInfo = getDummyInfo('한식');
-    restaurants = new Restaurants(restaurantList);
-    restaurant = new Restaurant(correctInfo);
+    correctInfo = getDummyInfo({ category: '한식', name: '친친친', distance: 100 });
+    restaurants = new Restaurants([...restaurantList]);
+    restaurant = new Restaurant({ ...correctInfo });
   });
   test('음식점은 카테고리, 이름, 거리정보를 필수로 가져야 한다', () => {
     expect(() => {
@@ -52,5 +60,21 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
     filteredRestaurants.forEach((restaurant) => {
       expect(restaurant.getSomeInfo('category')).toBe('한식');
     });
+  });
+
+  test('음식점 목록은 이름에 따라 정렬이 가능하다', () => {
+    const sortedRestaurants = restaurants
+      .sortByName()
+      .map((restaurant) => restaurant.getSomeInfo('name'));
+
+    expect(sortedRestaurants).toEqual(['가', '나', '다', '라', '마']);
+  });
+
+  test('음식점 목록은 거리에 따라 정렬이 가능하다', () => {
+    const sortedRestaurants = restaurants
+      .sortByDistance()
+      .map((restaurant) => restaurant.getSomeInfo('distance'));
+
+    expect(sortedRestaurants).toEqual([1, 2, 3, 4, 5]);
   });
 });
