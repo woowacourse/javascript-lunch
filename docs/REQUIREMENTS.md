@@ -31,23 +31,33 @@
 ## 파일구조
 
 ```bash
-├── __test__
-├── docs
-│ ├── REQUIREMENTS.md
-├── src
-│ ├── js
-│ │ ├── components
-│ │ │ ├── CategoryFilter
-│ │ │ │ ├── index.html
-│ │ │ │ └── index.js
-│ │ │ ├── .js
-│ │ │ └── .js
-│ │ ├── domain
-│ │ │ ├── .js
-│ │ │ ├── .js
-│ │ │ └── .js
-│ └── css
-│ └── index.js
-├── README.md
-└── index.html
+javascript-lunch
+├─ docs
+│  └─ REQUIREMENTS.md
+├─ index.html
+├─ src
+│  ├─ components
+│  │  ├─ Filter
+│  │  │  ├─ index.html
+│  │  │  └─ index.js
+│  │  ├─ Header
+│  │  │  ├─ index.html
+│  │  │  └─ index.js
+│  │  ├─ Modal
+│  │  │  └─ AddRestaurantModal
+│  │  │     ├─ index.html
+│  │  │     └─ index.js
+│  │  ├─ Restaurant
+│  │  │  ├─ index.html
+│  │  │  └─ index.js
+│  │  └─ RestaurantList
+│  │     ├─ index.html
+│  │     └─ index.js
+│  ├─ domain
+│  │  ├─ Restaurant.ts
+│  │  └─ RestaurantList.ts
+│  ├─ index.js
+│  └─ util
+└─ templates
+
 ```
