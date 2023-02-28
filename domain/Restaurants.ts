@@ -1,14 +1,16 @@
 type PickValue<T, K extends keyof T> = Pick<T, K>[K];
 
-interface RestaurantInfo {
+export type Category = '한식' | '중식' | '일식' | '양식' | '기타' | '카테고리';
+
+export interface RestaurantInfo {
   name: string;
-  category: string;
+  category: Category;
   distance: number;
   description?: string;
   link?: string;
 }
 
-interface IRestaurant {
+export interface IRestaurant {
   info: RestaurantInfo;
   getSomeInfo<T extends keyof RestaurantInfo>(type: T): RestaurantInfo[T];
   getInfo(): RestaurantInfo;
@@ -17,14 +19,14 @@ interface IRestaurant {
 interface IRestaurants {
   list: IRestaurant[];
   add(restaurant: IRestaurant): void;
-  filterByCategory(category: RestaurantInfo['category']): IRestaurant[];
+  filterByCategory(category: Category): IRestaurant[];
   getList(): IRestaurant[];
 }
 
 class Restaurant implements IRestaurant {
   readonly info: RestaurantInfo = {
     name: '',
-    category: '',
+    category: '카테고리',
     distance: 0,
     description: '',
     link: '',
@@ -51,6 +53,10 @@ class Restaurant implements IRestaurant {
 
 class Restaurants implements IRestaurants {
   readonly list: IRestaurant[] = [];
+
+  constructor(list: IRestaurant[]) {
+    this.list = list;
+  }
 
   add(restaurant: IRestaurant): void {
     this.list.push(restaurant);
