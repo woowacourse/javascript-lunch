@@ -7,3 +7,13 @@ interface Restaurant {
   description?: string;
   link?: string;
 }
+
+class RestaurantListHandler {
+  restaurants: Restaurant[] = [];
+
+  addRestaurant(restaurant: Restaurant) {
+    this.restaurants.push(restaurant);
+  }
+}
+
+export default new RestaurantListHandler();
