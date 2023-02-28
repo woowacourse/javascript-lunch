@@ -41,6 +41,7 @@ test('음식점들을 카테고리별로 필터링한다.', () => {
   ];
   restaurantList.forEach((restaurant) => restaurants.add(restaurant));
   const filteredRestaurants = restaurants.filterByCategory(category);
+  const isFiltered = filteredRestaurants.every((restaurant) => restaurant.category === category);
 
-  expect(filteredRestaurants.every((restaurant) => restaurant.category === category)).toBe(true);
+  expect(isFiltered).toBe(true);
 });
