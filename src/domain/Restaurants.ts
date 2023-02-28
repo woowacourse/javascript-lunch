@@ -8,6 +8,17 @@ class Restaurants {
     this.#restaurants = [];
   }
 
+  add(restaurant: Restaurant): void {
+    this.#restaurants.push(this.optionInfoCovertToEmptyString(restaurant));
+  }
+
+  optionInfoCovertToEmptyString(restaurant: Restaurant): Restaurant {
+    if (restaurant.discription === 'undefined') restaurant.discription = '';
+    if (restaurant.link === 'undefined') restaurant.link = '';
+
+    return restaurant;
+  }
+
   getRestaurant(category: string, sortType: string) {
     return this.sortByType(sortType, this.filterByCategory(category, this.#restaurants));
   }
