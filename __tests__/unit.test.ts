@@ -78,16 +78,31 @@ test("음식점 리스트를 이름순으로 정렬한다.", () => {
   ]);
 });
 
-test("음식점 리스트를 이름순으로 정렬한다.", () => {
-  restaurants.sortByName();
-
-  expect(restaurants.list).toMatchObject();
-});
-
 test("음식점 리스트를 거리순으로 정렬한다.", () => {
-  restaurants.sortByDistance();
+  const sortedList = restaurants.sortByDistance();
 
-  expect().toMatchObject();
+  expect(sortedList).toMatchObject([
+    {
+      category: "한식",
+      name: "제주 은희네 해장국",
+      distance: 5,
+    },
+    {
+      category: "한식",
+      name: "경주 은희네 해장국",
+      distance: 10,
+    },
+    {
+      category: "일식",
+      name: "스시야좋아",
+      distance: 15,
+    },
+    {
+      category: "아시안",
+      name: "쌀국수맛있다",
+      distance: 20,
+    },
+  ]);
 });
 
 test("음식점 리스트를 카테고리별로 필터링한다.", () => {
