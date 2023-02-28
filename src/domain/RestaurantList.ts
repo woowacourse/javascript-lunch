@@ -22,4 +22,10 @@ export default class RestaurantList {
   addRestaurant(info: RestaurantInfo): void {
     this.#restaurantList.push(new Restaurant(info));
   }
+
+  getSortedListByName(): Restaurant[] {
+    return this.#restaurantList.sort((a, b) =>
+      a.getInfo().name > b.getInfo().name ? 1 : -1
+    );
+  }
 }
