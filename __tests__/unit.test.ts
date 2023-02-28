@@ -1,4 +1,5 @@
-import Restaurants, { Restaurant } from "../src/domain/Restaurants";
+import type { Restaurant } from "../src/types/restaurant";
+import Restaurants from "../src/domain/Restaurants";
 
 const mockList: Restaurant[] = [
   {

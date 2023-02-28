@@ -13,6 +13,13 @@
 
 - [ ] 화면 구현
 
+  - [ ] 컴포넌트 분리
+    - [ ] SelectBox 컴포넌트
+      - [ ] params: event, option 리스트, id
+    - [x] RestaurantCard 컴포넌트
+      - [x] params: Restaurant 정보
+    - [ ] RestaurantList 컴포넌트
+      - [ ] params: RestaurantCard[]
   - [ ] 음식점 추가 버튼 클릭시 음식점 추가 모달이 보여지는 기능
   - [ ] 카테고리 선택시 해당 카테고리로 필터링된 결과를 보여주는 기능
   - [ ] 이름순/거리순 선택시 해당 기준으로 정렬한 결과를 보여주는 기능
