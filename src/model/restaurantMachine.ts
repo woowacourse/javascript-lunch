@@ -16,10 +16,4 @@ const restaurantMachine = {
 
     JSON.stringify(originalRestaurantList.push(restaurantInput));
   },
-
-  // 이름 길이
-
-  // 설명 길이
-
-  // 참고
 };
