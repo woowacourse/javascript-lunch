@@ -8,11 +8,12 @@ const App = {
   },
 
   controlNewRestaurantModal: () => {
-    executeClickEventListener(
-      ".button--secondary",
-      handleModalCancelButtonClick
+    executeClickEventListener(".button--secondary", () =>
+      handleModalCancelButtonClick(".modal")
     );
-    executeClickEventListener(".modal-backdrop", handleModalCancelButtonClick);
+    executeClickEventListener(".modal-backdrop", () =>
+      handleModalCancelButtonClick(".modal")
+    );
   },
 };
 
