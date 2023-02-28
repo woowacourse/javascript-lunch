@@ -52,4 +52,41 @@ describe("RestaurantList 클래스 테스트", () => {
       "다식당",
     ]);
   });
+
+  test("음식점들을 거리순으로 정렬해서 가져온다.", () => {
+    //given
+    const restaurantList = new RestaurantList();
+
+    //when
+    restaurantList.addRestaurant({
+      name: "나식당",
+      category: "한식",
+      distance: 10,
+    });
+    restaurantList.addRestaurant({
+      name: "가식당",
+      category: "중식",
+      distance: 20,
+    });
+    restaurantList.addRestaurant({
+      name: "다식당",
+      category: "일식",
+      distance: 15,
+    });
+    restaurantList.addRestaurant({
+      name: "라식당",
+      category: "한식",
+      distance: 5,
+    });
+
+    const sortedList = restaurantList.getSortedListByDistance();
+
+    //then
+    expect(sortedList.map((restaurant) => restaurant.getInfo().name)).toEqual([
+      "라식당",
+      "나식당",
+      "다식당",
+      "가식당",
+    ]);
+  });
 });
