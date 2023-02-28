@@ -7,11 +7,18 @@ describe('Restaurant', () => {
       // given
       const category = new Category('한식', 'korean.png');
       const name = '한식당';
+      const distanceByMinutes = 5;
       const description = '맛있는 한식당입니다.';
       const referenceUrl = 'https://example.com/korean-restaurant';
 
       // when
-      const restaurant = new Restaurant({ category, name, description, referenceUrl, restaurant });
+      const restaurant = new Restaurant({
+        category,
+        name,
+        distanceByMinutes,
+        description,
+        referenceUrl,
+      });
 
       // then
       expect(restaurant).toBeInstanceOf(Restaurant);
