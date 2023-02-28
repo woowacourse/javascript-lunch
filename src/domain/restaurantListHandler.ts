@@ -14,6 +14,12 @@ class RestaurantListHandler {
   addRestaurant(restaurant: Restaurant) {
     this.restaurants.push(restaurant);
   }
+
+  getSortedByName(): Restaurant[] {
+    return [...this.restaurants].sort((a, b) =>
+      a.name.localeCompare(b.name, "ko-KR")
+    );
+  }
 }
 
 export default new RestaurantListHandler();
