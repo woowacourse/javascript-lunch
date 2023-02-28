@@ -4,4 +4,8 @@ export const validatorUtils = {
   isNameLengthValidRange(input: string): boolean {
     return regex.nameInputLength.test(input);
   },
+
+  isDescriptionLengthValidRange(input: string): boolean {
+    return regex.descriptionInputLength.test(input);
+  },
 };
