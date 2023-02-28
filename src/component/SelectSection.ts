@@ -1,4 +1,5 @@
 import { createElement } from "../utils/Dom";
+import { CategoryName, OptionValue } from "../constant/Constants";
 
 const $selectSection = createElement("section");
 $selectSection.className = "restaurant-filter-container";
@@ -8,7 +9,15 @@ $selectCategory.className = "restaurant-filter";
 $selectCategory.setAttribute("name", "category");
 $selectCategory.id = "category-filter";
 
-const categories = ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"];
+const categories = [
+  OptionValue.TOTAL,
+  CategoryName.KOREAN,
+  CategoryName.CHINESE,
+  CategoryName.JAPANESE,
+  CategoryName.WESTERN,
+  CategoryName.ASIAN,
+  CategoryName.OTHER,
+];
 categories.forEach((category) => {
   const $option = createElement("option");
   $option.setAttribute("value", category);
@@ -21,7 +30,7 @@ $selectSorting.className = "restaurant-filter";
 $selectSorting.setAttribute("name", "sorting");
 $selectSorting.id = "sorting-filter";
 
-const $sorts = ["이름순", "거리순"];
+const $sorts = [OptionValue.NAME_ORDER, OptionValue.TAKING_TIME_ORDER];
 $sorts.forEach((sort) => {
   const $option = createElement("option");
   $option.setAttribute("value", sort);
