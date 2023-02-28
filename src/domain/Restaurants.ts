@@ -29,6 +29,12 @@ class Restaurants {
       first.name > second.name ? 1 : -1
     );
   }
+
+  sortByDistance() {
+    return [...this.#list].sort(
+      (first, second) => first.distance - second.distance
+    );
+  }
 }
 
 export default Restaurants;
