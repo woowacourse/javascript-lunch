@@ -1,11 +1,26 @@
 {
-  "rules": {},
   "env": {
     "es6": true,
-    "node": true
+    "jest": true,
+    "browser": true
   },
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base/legacy",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {},
+  "overrides": [
+    {
+      "files": [
+        "*.js"
+      ],
+      "rules": {
+        "strict": "off"
+      }
+    }
+  ]
 }
