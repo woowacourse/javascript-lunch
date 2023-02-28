@@ -7,4 +7,10 @@ export const restaurantInputValidator = {
       throw new Error(errorMessage.nameInputLength);
     }
   },
+
+  validateDescriptionInput(input: string): void {
+    if (validatorUtils.isDescriptionLengthValidRange(input)) {
+      throw new Error(errorMessage.descriptionInputLength);
+    }
+  },
 };
