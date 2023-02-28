@@ -1,9 +1,10 @@
 type Category = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+type TakingTime = 5 | 10 | 15 | 20 | 25 | 30;
 
 interface Restaurant {
   category: Category;
   name: string;
-  takingTime: number;
+  takingTime: TakingTime;
   description?: string;
   link?: string;
 }
@@ -16,13 +17,15 @@ class RestaurantListHandler {
   }
 
   getSortedByName(): Restaurant[] {
-    return [...this.restaurants].sort((a, b) =>
-      a.name.localeCompare(b.name, "ko-KR")
+    return [...this.restaurants].sort((resA, resB) =>
+      resA.name.localeCompare(resB.name, "ko-KR")
     );
   }
 
   getSortedByTakingTime(): Restaurant[] {
-    return [...this.restaurants].sort((a, b) => a.takingTime - b.takingTime);
+    return [...this.restaurants].sort(
+      (resA, resB) => resA.takingTime - resB.takingTime
+    );
   }
 
   getFilteredByCategory(category: Category): Restaurant[] {
