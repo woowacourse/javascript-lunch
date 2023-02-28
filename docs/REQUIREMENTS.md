@@ -13,6 +13,7 @@
 
 - [ ] 화면 구현
 
+  - [x] 기본 구조
   - [ ] 컴포넌트 분리
     - [ ] SelectBox 컴포넌트
       - [ ] params: event, option 리스트, id
