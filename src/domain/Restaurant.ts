@@ -22,4 +22,16 @@ export class Restaurant {
   getRestaurantInfo() {
     return { ...this.#state };
   }
+
+  getName() {
+    return this.#state.name;
+  }
+
+  getDistance() {
+    return this.#state.distance;
+  }
+
+  isSameCategory(category: Category) {
+    return this.#state.category === category;
+  }
 }
