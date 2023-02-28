@@ -23,6 +23,12 @@ class Restaurants {
   add(restaurant: Restaurant) {
     this.#list = [...this.#list, restaurant];
   }
+
+  sortByName() {
+    return [...this.#list].sort((first, second) =>
+      first.name > second.name ? 1 : -1
+    );
+  }
 }
 
 export default Restaurants;
