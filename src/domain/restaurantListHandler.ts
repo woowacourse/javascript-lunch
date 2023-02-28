@@ -24,6 +24,12 @@ class RestaurantListHandler {
   getSortedByTakingTime(): Restaurant[] {
     return [...this.restaurants].sort((a, b) => a.takingTime - b.takingTime);
   }
+
+  getFilteredByCategory(category: Category): Restaurant[] {
+    return [...this.restaurants].filter(
+      (restaurant) => restaurant.category === category
+    );
+  }
 }
 
 export default new RestaurantListHandler();
