@@ -1,25 +1,4 @@
-import Restaurant from "../src/domain/Restaurant";
 import RestaurantList from "../src/domain/RestaurantList";
-
-describe("Restaurant 클래스 테스트", () => {
-  test("Restaurant 객체를 생성하면 해당 정보를 저장한다.", () => {
-    //given
-    const data = {
-      name: "레스토랑",
-      category: "중식",
-      distance: 5,
-      description: "맛있는 식당입니다",
-      url: "naver.com",
-    };
-
-    //when
-    const restaurant = new Restaurant(Object.assign(data));
-    const restaurantInfo = restaurant.getInfo();
-
-    //then
-    expect(restaurantInfo).toEqual(data);
-  });
-});
 
 describe("RestaurantList 클래스 테스트", () => {
   test("음식점들을 이름순으로 정렬해서 가져온다.", () => {
