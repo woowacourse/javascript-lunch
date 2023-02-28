@@ -1,2 +1,2 @@
 import "../templates/style.css";
-import "./components/RestaurantComponent";
+import "./components/RestaurantsComponent";
