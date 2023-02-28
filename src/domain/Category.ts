@@ -3,9 +3,9 @@ class Category {
 
   #imageUrl: string;
 
-  constructor(name: string, image: string) {
+  constructor(name: string, imageUrl: string) {
     this.#name = name;
-    this.#imageUrl = image;
+    this.#imageUrl = imageUrl;
   }
 }
 

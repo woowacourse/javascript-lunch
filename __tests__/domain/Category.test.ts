@@ -5,10 +5,10 @@ describe('Category', () => {
     it('정상적으로 생성되어야 한다.', () => {
       // given
       const name = '중식';
-      const image = 'chiness.png';
+      const imageUrl = 'chiness.png';
 
       // when
-      const category = new Category(name, image);
+      const category = new Category(name, imageUrl);
 
       // then
       expect(category).toBeInstanceOf(Category);
