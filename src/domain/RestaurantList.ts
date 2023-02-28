@@ -28,4 +28,10 @@ export default class RestaurantList {
       a.getInfo().name > b.getInfo().name ? 1 : -1
     );
   }
+
+  getSortedListByDistance(): Restaurant[] {
+    return this.#restaurantList.sort(
+      (a, b) => a.getInfo().distance - b.getInfo().distance
+    );
+  }
 }

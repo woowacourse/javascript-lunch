@@ -18,6 +18,6 @@ export default class Restaurant {
   }
 
   getInfo(): RestaurantInfo {
-    return this.#info;
+    return Object.assign(this.#info);
   }
 }
