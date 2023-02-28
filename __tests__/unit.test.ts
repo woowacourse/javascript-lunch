@@ -2,11 +2,6 @@ import Restaurants, { Restaurant } from "../src/domain/Restaurants";
 
 const mockList: Restaurant[] = [
   {
-    category: "한식",
-    name: "경주 은희네 해장국",
-    distance: 10,
-  },
-  {
     category: "일식",
     name: "스시야좋아",
     distance: 15,
@@ -16,11 +11,16 @@ const mockList: Restaurant[] = [
     name: "쌀국수맛있다",
     distance: 20,
   },
+  {
+    category: "한식",
+    name: "경주 은희네 해장국",
+    distance: 10,
+  },
 ];
 
 const restaurants = new Restaurants(mockList);
 
-test.only("새로운 음식점을 음식점 리스트에 추가한다.", () => {
+test("새로운 음식점을 음식점 리스트에 추가한다.", () => {
   restaurants.add({
     category: "한식",
     name: "제주 은희네 해장국",
@@ -28,6 +28,33 @@ test.only("새로운 음식점을 음식점 리스트에 추가한다.", () => {
   });
 
   expect(restaurants.getList()).toMatchObject([
+    {
+      category: "일식",
+      name: "스시야좋아",
+      distance: 15,
+    },
+    {
+      category: "아시안",
+      name: "쌀국수맛있다",
+      distance: 20,
+    },
+    {
+      category: "한식",
+      name: "경주 은희네 해장국",
+      distance: 10,
+    },
+    {
+      category: "한식",
+      name: "제주 은희네 해장국",
+      distance: 5,
+    },
+  ]);
+});
+
+test("음식점 리스트를 이름순으로 정렬한다.", () => {
+  const sortedList = restaurants.sortByName();
+
+  expect(sortedList).toMatchObject([
     {
       category: "한식",
       name: "경주 은희네 해장국",
