@@ -35,6 +35,10 @@ class Restaurants {
       (first, second) => first.distance - second.distance
     );
   }
+
+  filterByCategory(category: Category) {
+    return this.#list.filter((restaurant) => restaurant.category === category);
+  }
 }
 
 export default Restaurants;
