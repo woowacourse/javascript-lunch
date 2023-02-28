@@ -6,6 +6,10 @@ const Validator = {
       throw new Error('[ERROR] 알 수 없는 카테고리입니다');
     }
   },
+
+  isEmpty(rastaurantName: string) {
+    return rastaurantName.length === 0;
+  },
 };
 
 export default Validator;
