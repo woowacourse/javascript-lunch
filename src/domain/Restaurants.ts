@@ -17,6 +17,10 @@ class Restaurants {
       return 1;
     });
   }
+
+  sortByDistance() {
+    return this.getList().sort((a, b) => a.distance - b.distance);
+  }
 }
 
 export default Restaurants;
