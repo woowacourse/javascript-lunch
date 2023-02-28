@@ -1,4 +1,4 @@
-import { Restaurant } from '../../domain/Restaurants';
+import { Restaurant, Restaurants } from '../../domain/Restaurants';
 
 const correctInfo = {
   name: '친친',
@@ -26,5 +26,13 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
 
   test('음식점은 설명, 참고 링크 정보를 옵션으로 가질 수 있다', () => {
     expect(new Restaurant(correctInfo).getInfo()).toEqual(correctInfo);
+  });
+
+  test('음식점 목록에 음식점 추가를 할 수 있다', () => {
+    const restaurants = new Restaurants();
+
+    restaurants.add(new Restaurant(correctInfo));
+
+    expect(restaurants.getList().length).toBe(1);
   });
 });

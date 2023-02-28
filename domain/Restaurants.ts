@@ -15,8 +15,10 @@ interface IRestaurant {
 }
 
 interface IRestaurants {
+  list: IRestaurant[];
   add(restaurant: IRestaurant): void;
   filterByCategory(category: RestaurantInfo['category']): IRestaurant[];
+  getList(): IRestaurant[];
 }
 
 class Restaurant implements IRestaurant {
@@ -48,14 +50,18 @@ class Restaurant implements IRestaurant {
 }
 
 class Restaurants implements IRestaurants {
-  readonly #list: IRestaurant[] = [];
+  readonly list: IRestaurant[] = [];
 
   add(restaurant: IRestaurant): void {
-    this.#list.push(restaurant);
+    this.list.push(restaurant);
   }
 
   filterByCategory(category: string): IRestaurant[] {
-    return this.#list.filter((restaurant) => restaurant.info.category === category);
+    return this.list.filter((restaurant) => restaurant.info.category === category);
+  }
+
+  getList() {
+    return this.list;
   }
 }
 
