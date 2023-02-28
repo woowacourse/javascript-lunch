@@ -7,6 +7,7 @@ import { screen } from '@testing-library/dom';
 
 import { List } from '../src/view/List';
 import { ListItem } from '../src/view/ListItem';
+import { Modal } from '../src/view/Modal';
 
 test('화면에 ListItem을 렌더링한다.', () => {
   const listItem = ListItem({
@@ -53,4 +54,12 @@ test('화면에 List를 렌더링한다.', () => {
   const isRendered = restaurantList.every((restaurant) => screen.getByText(restaurant.name));
 
   expect(isRendered).toBe(true);
+});
+
+test('화면에 Modal을 렌더링한다.', () => {
+  const modal = Modal();
+
+  document.body.insertAdjacentHTML('beforeend', modal);
+
+  expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
 });
