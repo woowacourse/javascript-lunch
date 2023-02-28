@@ -8,4 +8,8 @@ export const validatorUtils = {
   isDescriptionLengthValidRange(input: string): boolean {
     return regex.descriptionInputLength.test(input);
   },
+
+  isValidUrl(input: string): boolean {
+    return regex.urlInput.test(input);
+  },
 };
