@@ -23,12 +23,12 @@ export class Restaurant {
     return { ...this.#state };
   }
 
-  getName() {
-    return this.#state.name;
+  compareName(otherRestaurant: Restaurant) {
+    return this.#state.name.localeCompare(otherRestaurant.#state.name);
   }
 
-  getDistance() {
-    return this.#state.distance;
+  compareDistance(otherRestaurant: Restaurant) {
+    return this.#state.distance - otherRestaurant.#state.distance;
   }
 
   isSameCategory(category: Category) {
