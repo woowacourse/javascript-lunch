@@ -4,6 +4,11 @@ import { Restaurant, Category, Distance } from "../domains/types";
 class ModalView {
   private restaurantAddForm = $("#restaurant-add-form") as HTMLFormElement;
   private modal = $(".modal");
+  private closeButton = $("#modal-close-button");
+
+  constructor() {
+    this.addCloseButtonClickEvent();
+  }
 
   addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {
     this.restaurantAddForm?.addEventListener("submit", (event) => {
@@ -16,8 +21,16 @@ class ModalView {
         ])
       ) as Restaurant;
 
+      this.restaurantAddForm.reset();
       this.modal?.classList.remove("modal--open");
       onSubmitRestaurantAddForm(restaurantItem);
+    });
+  }
+
+  addCloseButtonClickEvent() {
+    this.closeButton?.addEventListener("click", () => {
+      this.restaurantAddForm.reset();
+      this.modal?.classList.remove("modal--open");
     });
   }
 }
