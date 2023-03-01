@@ -13,14 +13,12 @@ class RestaurantService {
     );
   }
 
-  sortByName() {
-    return [...this.restaurantList].sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
+  sortByName(restaurantList: Restaurant[] = this.restaurantList) {
+    return [...restaurantList].sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  sortByDistance() {
-    return [...this.restaurantList].sort((a, b) => a.distance - b.distance);
+  sortByDistance(restaurantList: Restaurant[] = this.restaurantList) {
+    return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 }
 
