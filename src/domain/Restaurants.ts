@@ -14,7 +14,7 @@ class Restaurants {
   }
 
   optionInfoCovertToEmptyString(restaurant: Restaurant): Restaurant {
-    if (restaurant.discription === 'undefined') restaurant.discription = '';
+    if (restaurant.description === 'undefined') restaurant.description = '';
     if (restaurant.link === 'undefined') restaurant.link = '';
 
     return restaurant;
