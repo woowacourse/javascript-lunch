@@ -1,10 +1,12 @@
 import renderList from "./components/RestaurantList";
 import RestaurantService from "./domains/RestaurantService";
 import { Restaurant } from "./domains/types";
+import MainView from "./views/MainView";
 import ModalView from "./views/ModalView";
 
 export class App {
   private restaurantService = new RestaurantService();
+  private mainView = new MainView();
   private modalView = new ModalView();
 
   play() {
