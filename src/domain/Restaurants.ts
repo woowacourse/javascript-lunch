@@ -1,5 +1,6 @@
 import { Restaurant } from '../types/Types';
 import { compareString } from '../utils/common';
+import { VALUE } from '../constants/constants';
 
 class Restaurants {
   #restaurants: Restaurant[];
@@ -24,13 +25,13 @@ class Restaurants {
   }
 
   filterByCategory(category: string, restaurants: Restaurant[]): Restaurant[] {
-    if (category === '전체') return restaurants;
+    if (category === VALUE.catgory.all) return restaurants;
 
     return restaurants.filter(restaurant => restaurant.category === category);
   }
 
   sortByType(sortType: string, restaurants: Restaurant[]): Restaurant[] {
-    if (sortType === '이름순') {
+    if (sortType === VALUE.sortType.nameOrder) {
       return restaurants.sort((a, b) => compareString(a.name, b.name));
     }
 
