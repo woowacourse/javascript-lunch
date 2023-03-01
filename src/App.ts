@@ -1,13 +1,16 @@
-import type { Restaurant } from './types/restaurantTypes';
+import type { Restaurant, Category, State } from './types/restaurantTypes';
 import image from './img/images';
+import Restaurants from './model/Restaurants';
 
 export default class App {
   $target: HTMLElement;
-  $state: { restaurants: Restaurant[] };
+  $state: State;
+  restuarants: Restaurants;
 
   constructor($target: HTMLElement) {
     this.$target = $target;
     this.$state = {
+      filter: '',
       restaurants: [
         {
           name: '피양콩할마니',
@@ -50,6 +53,15 @@ export default class App {
         },
       ],
     };
+    this.render();
+    this.restuarants = new Restaurants(this.$state.restaurants);
+  }
+
+  setState(newState: Partial<State>): void {
+    const filteredRestuarant = this.restuarants.filterByCategory(this.$state.filter as Category);
+
+    this.$state = { ...this.$state, ...newState };
+
     this.render();
   }
 
@@ -106,7 +118,22 @@ export default class App {
     `;
   }
 
-  render() {
+  render(): void {
     this.$target.innerHTML = this.template();
+    console.log(this.$target.innerHTML);
+
+    this.listenEvent();
+  }
+
+  listenEvent() {
+    this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const value = target.value;
+
+      this.setState({ filter: value, restaurants: this.restuarants.filterByCategory(this.$state.filter as Category) });
+    });
   }
 }
+
+// const { items } = this.state;
+// this.setState({ items: [ ...items, `item${items.length + 1}` ] });
