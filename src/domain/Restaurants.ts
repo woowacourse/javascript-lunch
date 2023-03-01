@@ -16,5 +16,10 @@ class Restaurants {
   getRestaurants() {
     return this.#restaurants;
   }
+
+  sortByName() {
+    return [...this.#restaurants].sort((x, y) => x.name.localeCompare(y.name));
+  }
+
 }
 export default Restaurants;
