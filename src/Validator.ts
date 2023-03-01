@@ -3,9 +3,13 @@ import { ERROR_MESSAGE } from './constants/message';
 
 const Validator = {
   validateCategory(categoryOption: string) {
-    if (!CATEGORIES.includes(categoryOption)) {
+    if (!this.isValidCategory(categoryOption)) {
       throw new Error(ERROR_MESSAGE.invalidCategory);
     }
+  },
+
+  isValidCategory(categoryOption: string) {
+    return CATEGORIES.includes(categoryOption);
   },
 
   isEmptyFormValue(formValue: string) {
