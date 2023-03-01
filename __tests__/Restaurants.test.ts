@@ -40,4 +40,13 @@ describe('Restaurants 클래스 테스트', () => {
 
     expect(restaurants.sortByName()).toEqual([menu3, menu2, menu1]);
   });
+
+  test('sortByDistance 메서드 테스트', () => {
+    const restaurants = new Restaurants();
+    restaurants.addRestaurant(menu2);
+    restaurants.addRestaurant(menu1);
+    restaurants.addRestaurant(menu3);
+
+    expect(restaurants.sortByDistance()).toEqual([menu1, menu2, menu3]);
+  });
 });
