@@ -8,8 +8,8 @@ const Validator = {
     }
   },
 
-  isEmpty(rastaurantName: string) {
-    return rastaurantName.length === 0;
+  isEmptyFormValue(formValue: string) {
+    return formValue === '';
   },
 };
 
