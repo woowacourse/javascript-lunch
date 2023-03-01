@@ -2,9 +2,10 @@ import { $ } from "../utils/domSelectors";
 import createRestaurantItem from "./RestaurantItem";
 import { Restaurant } from "../domains/types";
 
-const restaurantList = $(".restaurant-list");
+const restaurantList = $(".restaurant-list") as Element;
 
 function renderList(sortedRestaurants: Restaurant[]) {
+  restaurantList.innerHTML = "";
   const restaurantItems = sortedRestaurants.map((restaurant) =>
     createRestaurantItem(restaurant)
   );
