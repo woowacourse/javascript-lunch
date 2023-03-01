@@ -50,3 +50,21 @@ describe('Validator.validateCategory', () => {
     );
   });
 });
+
+describe('Validator.isValidDistance', () => {
+  test('정해진 거리 옵션 외의 값을 선택한 경우, false를 반환한다.', () => {
+    const selectedDistance = '999';
+
+    const expected = Validator.isValidDistance(selectedDistance);
+
+    expect(expected).toBe(false);
+  });
+
+  test('정해진 거리 옵션 내의 값을 선택한 경우, true를 반환한다.', () => {
+    const selectedDistance = '5';
+
+    const expected = Validator.isValidDistance(selectedDistance);
+
+    expect(expected).toBe(true);
+  });
+});
