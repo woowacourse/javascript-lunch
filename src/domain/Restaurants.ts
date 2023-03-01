@@ -9,6 +9,10 @@ class Restaurants {
     this.#restaurants = [];
   }
 
+  get restaurants(): Restaurant[] {
+    return this.#restaurants;
+  }
+
   add(restaurant: Restaurant): void {
     this.#restaurants.push(this.optionInfoCovertToEmptyString(restaurant));
   }
