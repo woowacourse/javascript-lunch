@@ -17,6 +17,16 @@ const Validator = {
   isRestaurantCategory: (category: string) => {
     return RESTAURANT_CATEGORIES.includes(category);
   },
+
+  checkName: (name: string) => {
+    if (Validator.isBlank(name.trim())) {
+      throw new Error("에러 2");
+    }
+  },
+
+  isBlank: (name: string) => {
+    return name.length === 0;
+  },
 };
 
 export default Validator;
