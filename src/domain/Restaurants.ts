@@ -21,5 +21,11 @@ class Restaurants {
     return [...this.#restaurants].sort((x, y) => x.name.localeCompare(y.name));
   }
 
+  sortByDistance() {
+    return [...this.#restaurants].sort(
+      (x, y) => Number(x.distance) - Number(y.distance)
+    );
+  }
 }
+
 export default Restaurants;
