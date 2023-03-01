@@ -12,6 +12,12 @@ const Validator = {
     }
   },
 
+  validateRestaurantName(restaurantName: string) {
+    if (this.isEmptyFormValue(restaurantName)) {
+      throw new Error(ERROR_MESSAGE.emptyName);
+    }
+  },
+
   isEmptyFormValue(formValue: string) {
     return formValue === '';
   },
