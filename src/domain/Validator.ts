@@ -9,6 +9,10 @@ const RESTAURANT_CATEGORIES = [
 
 const RESTAURANT_DISTANCES = ['5', '10', '15', '20', '25', '30'];
 
+const REGEX = {
+  link: /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+)\.([a-z]+).*$/,
+};
+
 const Validator = {
   checkCategory: (category: string) => {
     if (!Validator.isRestaurantCategory(category)) {
@@ -38,6 +42,16 @@ const Validator = {
 
   isRestaurantDistance: (distance: string) => {
     return RESTAURANT_DISTANCES.includes(distance);
+  },
+
+  checkLink: (link: string) => {
+    if (!Validator.isLink(link)) {
+      throw new Error('에러 4');
+    }
+  },
+
+  isLink: (link: string) => {
+    return REGEX.link.test(link);
   },
 };
 
