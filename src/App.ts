@@ -1,6 +1,6 @@
 import renderList from "./components/RestaurantList";
 import RestaurantService from "./domains/RestaurantService";
-import { Category, Restaurant } from "./domains/types";
+import { Category, Criterion, Restaurant } from "./domains/types";
 import MainView from "./views/MainView";
 import ModalView from "./views/ModalView";
 
@@ -12,6 +12,7 @@ export class App {
   play() {
     this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm);
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
+    this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
   }
 
   onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {
@@ -21,8 +22,17 @@ export class App {
   };
 
   onChangeCategoryFilter = (category: Category) => {
-    const filteredRestaurantList = this.restaurantService.filter(category);
+    const filteredRestaurantList: Restaurant[] =
+      this.restaurantService.filter(category);
     renderList(filteredRestaurantList);
+  };
+
+  onChangeSortingFilter = (criterion: Criterion) => {
+    const sortedRestaurantList: Restaurant[] =
+      criterion === "name"
+        ? this.restaurantService.sortByName()
+        : this.restaurantService.sortByDistance();
+    renderList(sortedRestaurantList);
   };
 }
 
