@@ -2,12 +2,12 @@ import { CATEGORIES } from './constants/formCondition';
 import { ERROR_MESSAGE } from './constants/message';
 
 const Validator = {
-  validateCategory(categoryOption: string) {
-    if (this.isEmptyFormValue(categoryOption)) {
+  validateCategory(selectedCategory: string) {
+    if (this.isEmptyFormValue(selectedCategory)) {
       throw new Error(ERROR_MESSAGE.emptyCategory);
     }
 
-    if (!this.isValidCategory(categoryOption)) {
+    if (!this.isValidCategory(selectedCategory)) {
       throw new Error(ERROR_MESSAGE.invalidCategory);
     }
   },
@@ -16,8 +16,8 @@ const Validator = {
     return formValue === '';
   },
 
-  isValidCategory(categoryOption: string) {
-    return CATEGORIES.includes(categoryOption);
+  isValidCategory(selectedCategory: string) {
+    return CATEGORIES.includes(selectedCategory);
   },
 };
 
