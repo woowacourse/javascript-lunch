@@ -1,4 +1,4 @@
-import { CATEGORIES } from './constants/formCondition';
+import { CATEGORIES, DISTANCES } from './constants/formCondition';
 import { ERROR_MESSAGE } from './constants/message';
 
 const Validator = {
@@ -18,6 +18,10 @@ const Validator = {
 
   isValidCategory(selectedCategory: string) {
     return CATEGORIES.includes(selectedCategory);
+  },
+
+  isValidDistance(selectedDistance: string) {
+    return DISTANCES.includes(selectedDistance);
   },
 };
 
