@@ -24,6 +24,14 @@ const menu3 = {
   link: 'https://machogalbi.com',
 };
 
+const menu4 = {
+  category: '양식',
+  name: '알리오올리오 잘하는 집',
+  distance: '5',
+  description: '너무 맛있어',
+  link: 'https://machogalbi.com',
+};
+
 describe('Restaurants 클래스 테스트', () => {
   test('addRestaurant 메서드 테스트', () => {
     const restaurants = new Restaurants();
@@ -48,5 +56,15 @@ describe('Restaurants 클래스 테스트', () => {
     restaurants.addRestaurant(menu3);
 
     expect(restaurants.sortByDistance()).toEqual([menu1, menu2, menu3]);
+  });
+
+  test('filterByCategory 메서드 테스트', () => {
+    const restaurants = new Restaurants();
+    restaurants.addRestaurant(menu2);
+    restaurants.addRestaurant(menu1);
+    restaurants.addRestaurant(menu3);
+    restaurants.addRestaurant(menu4);
+
+    expect(restaurants.filterByCategory('양식')).toEqual([menu1, menu4]);
   });
 });
