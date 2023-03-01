@@ -1,5 +1,4 @@
 import { Category, Restaurant } from "./types";
-import { sortWordsAscending, sortNumbersAscending } from "../utils/sorter";
 
 class RestaurantService {
   private restaurantList: Restaurant[] = [];
@@ -14,12 +13,13 @@ class RestaurantService {
     );
   }
 
-  sort(criterion: string) {
-    if (criterion === "name") {
-      return [...this.restaurantList].sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-    }
+  sortByName() {
+    return [...this.restaurantList].sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+  }
+
+  sortByDistance() {
     return [...this.restaurantList].sort((a, b) => a.distance - b.distance);
   }
 }
