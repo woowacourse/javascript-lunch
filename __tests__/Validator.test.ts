@@ -51,6 +51,14 @@ describe('Validator.validateCategory', () => {
   });
 });
 
+describe('Validator.validateRestaurantName', () => {
+  test('가게 이름을 입력하지 않은 경우, 에러가 발생한다.', () => {
+    const inputtedName = '';
+
+    expect(() => Validator.validateRestaurantName(inputtedName)).toThrow(ERROR_MESSAGE.emptyName);
+  });
+});
+
 describe('Validator.isValidDistance', () => {
   test('정해진 거리 옵션 외의 값을 선택한 경우, false를 반환한다.', () => {
     const selectedDistance = '999';
