@@ -1,36 +1,6 @@
 import Restaurants from '../src/domain/Restaurants';
-
-const menu1 = {
-  category: '양식',
-  name: '카페베네',
-  distance: '10',
-  description: '너무 맛있어',
-  link: 'https://machogalbi.com',
-};
-
-const menu2 = {
-  category: '한식',
-  name: '마초갈비',
-  distance: '20',
-  description: '너무 맛있어',
-  link: 'https://machogalbi.com',
-};
-
-const menu3 = {
-  category: '중식',
-  name: '간다간다뿅간다 짜장',
-  distance: '30',
-  description: '너무 맛있어',
-  link: 'https://machogalbi.com',
-};
-
-const menu4 = {
-  category: '양식',
-  name: '알리오올리오 잘하는 집',
-  distance: '5',
-  description: '너무 맛있어',
-  link: 'https://machogalbi.com',
-};
+import { Restaurant } from '../src/type/common';
+import { menu1, menu2, menu3, menu4 } from '../src/data/dummy';
 
 describe('Restaurants 클래스 테스트', () => {
   test('addRestaurant 메서드 테스트', () => {
