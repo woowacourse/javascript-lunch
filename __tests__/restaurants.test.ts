@@ -53,4 +53,8 @@ describe('Restaurants 도메인 테스트', () => {
       '도리네 집밥',
     ]);
   });
+
+  test('음식점을 분류 카테고리에 따라 필터링 하는 기능 테스트', () => {
+    expect(restaurants.filterByCategory('한식', restaurants.restaurants)[0].name).toBe('도리네 집밥');
+  });
 });
