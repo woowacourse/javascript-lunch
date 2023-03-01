@@ -68,3 +68,19 @@ describe('Validator.isValidDistance', () => {
     expect(expected).toBe(true);
   });
 });
+
+describe('Validator.validateCategory', () => {
+  test('거리 옵션을 선택하지 않은 경우, 에러가 발생한다.', () => {
+    const selectedDistance = '';
+
+    expect(() => Validator.validateDistance(selectedDistance)).toThrow(ERROR_MESSAGE.emptyDistance);
+  });
+
+  test('정해진 거리 옵션 외의 값을 선택한 경우, 에러가 발생한다.', () => {
+    const selectedDistance = '999';
+
+    expect(() => Validator.validateDistance(selectedDistance)).toThrow(
+      ERROR_MESSAGE.invalidDistance
+    );
+  });
+});
