@@ -51,3 +51,20 @@ describe('거리 유효성 검사', () => {
     }
   );
 });
+
+describe('참고 링크 유효성 검사', () => {
+  test.each([[''], ['만얼'], ['wwwwoowacom'], ['http:**magic.co.kr']])(
+    '(실패 사례) 참고 링크 입력값 %s 유효성 검사',
+    (input) => {
+      expect(() => Validator.checkLink(input)).toThrow('에러 4');
+    }
+  );
+
+  test.each([
+    ['http://naver.me/abcdefg'],
+    ['https://naver.com'],
+    ['https://woowacourse.github.io'],
+  ])('(성공 사례) 참고 링크 입력값 %s 유효성 검사', (input) => {
+    expect(() => Validator.checkLink(input)).not.toThrow();
+  });
+});
