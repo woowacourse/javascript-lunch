@@ -7,6 +7,8 @@ const RESTAURANT_CATEGORIES = [
   '기타',
 ];
 
+const RESTAURANT_DISTANCES = ['5', '10', '15', '20', '25', '30'];
+
 const Validator = {
   checkCategory: (category: string) => {
     if (!Validator.isRestaurantCategory(category)) {
@@ -26,6 +28,16 @@ const Validator = {
 
   isBlank: (name: string) => {
     return name.length === 0;
+  },
+
+  checkDistance: (distance: string) => {
+    if (!Validator.isRestaurantDistance(distance)) {
+      throw new Error('에러 3');
+    }
+  },
+
+  isRestaurantDistance: (distance: string) => {
+    return RESTAURANT_DISTANCES.includes(distance);
   },
 };
 
