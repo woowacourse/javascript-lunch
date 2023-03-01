@@ -20,6 +20,16 @@ const Validator = {
     return CATEGORIES.includes(selectedCategory);
   },
 
+  validateDistance(selectedDistance: string) {
+    if (this.isEmptyFormValue(selectedDistance)) {
+      throw new Error(ERROR_MESSAGE.emptyDistance);
+    }
+
+    if (!this.isValidDistance(selectedDistance)) {
+      throw new Error(ERROR_MESSAGE.invalidDistance);
+    }
+  },
+
   isValidDistance(selectedDistance: string) {
     return DISTANCES.includes(selectedDistance);
   },
