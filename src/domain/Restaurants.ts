@@ -36,10 +36,10 @@ class Restaurants {
 
   sortByType(sortType: string, restaurants: Restaurant[]): Restaurant[] {
     if (sortType === VALUE.sortType.nameOrder) {
-      return restaurants.sort((a, b) => compareString(a.name, b.name));
+      return [...restaurants].sort((a, b) => compareString(a.name, b.name));
     }
 
-    return restaurants.sort((a, b) => a.distance - b.distance);
+    return [...restaurants].sort((a, b) => a.distance - b.distance);
   }
 }
 
