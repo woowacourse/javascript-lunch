@@ -35,3 +35,19 @@ describe('이름 유효성 검사', () => {
     expect(() => Validator.checkName(input)).not.toThrow();
   });
 });
+
+describe('거리 유효성 검사', () => {
+  test.each([[''], ['1'], ['-3'], ['거리']])(
+    '(실패 사례) 거리 입력값 %s 유효성 검사',
+    (input) => {
+      expect(() => Validator.checkDistance(input)).toThrow('에러 3');
+    }
+  );
+
+  test.each([['5'], ['10'], ['15'], ['20'], ['25'], ['30']])(
+    '(성공 사례) 거리 입력값 %s 유효성 검사',
+    (input) => {
+      expect(() => Validator.checkDistance(input)).not.toThrow();
+    }
+  );
+});
