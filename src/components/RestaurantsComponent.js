@@ -9,9 +9,9 @@ class RestaurantsComponent extends CustomElement {
   }
 
   rerender(restaurantList) {
-    const restaurants = restaurantList.map((restaurant) => {
-      console.log(restaurant);
-      return `
+    const restaurants = restaurantList
+      .map((restaurant) => {
+        return `
       <restaurant-element 
       category=${restaurant.category} 
       name=${restaurant.name} 
@@ -20,7 +20,8 @@ class RestaurantsComponent extends CustomElement {
       link=${restaurant.link}
       >
       </restaurant-element>`;
-    });
+      })
+      .join("");
     document.querySelector(".restaurant-list").innerHTML = restaurants;
   }
 
