@@ -4,11 +4,16 @@
     "jest": true,
     "browser": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest"
   },
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "airbnb-base/legacy",
     "plugin:prettier/recommended"
   ],
