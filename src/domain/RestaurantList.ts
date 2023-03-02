@@ -8,10 +8,6 @@ export default class RestaurantList {
     this.#restaurantList = [];
   }
 
-  getRestaurantList(): Restaurant[] {
-    return [...this.#restaurantList];
-  }
-
   addRestaurant(info: RestaurantInfo): void {
     this.#restaurantList.push(new Restaurant(info));
   }
@@ -28,7 +24,11 @@ export default class RestaurantList {
     );
   }
 
-  getFilteredListByCategory(category: Category) {
+  getRestaurantList(): Restaurant[] {
+    return [...this.#restaurantList];
+  }
+
+  getFilteredListByCategory(category: Category): Restaurant[] {
     return this.#restaurantList.filter(
       (restaurant) => restaurant.getInfo().category === category
     );
