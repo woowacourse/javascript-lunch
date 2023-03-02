@@ -1,4 +1,4 @@
-import type { Category } from './types/restaurantTypes';
+import type { Category, State } from './types/restaurantTypes';
 import image from './img/images';
 import Restaurants from './model/Restaurants';
 import Component from './components/Component';
@@ -11,8 +11,9 @@ export default class App extends Component {
     super($target);
     this.restuarants = new Restaurants(this.$state!.restaurants);
   }
+
   setup() {
-    this.$state = {
+    this.$state = this.getStateFromLocalStorage() || {
       filter: '전체',
       sort: 'name',
       restaurants: [
@@ -71,6 +72,18 @@ export default class App extends Component {
     };
   }
 
+  getStateFromLocalStorage(): State | null {
+    const stateString = localStorage.getItem('state');
+    if (!stateString) return null;
+
+    try {
+      const state = JSON.parse(stateString);
+      return state;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
   template() {
     return `
     <header class="gnb">

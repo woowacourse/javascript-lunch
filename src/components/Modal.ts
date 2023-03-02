@@ -104,7 +104,10 @@ export default class Modal extends Component {
       };
 
       this.restaurants.add(restaurant);
-      this.closeModal();
+      this.$state.restaurants = this.restaurants.getRestaurants();
+      localStorage.setItem('state', JSON.stringify(this.$state));
+      this.render();
+      window.location.reload();
     });
 
     this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
