@@ -1,4 +1,5 @@
 import AddModalContainer from './components/AddModalContainer';
+import ListContainer from './components/ListContainer';
 import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
@@ -9,6 +10,7 @@ class App extends Component {
   setup() {
     this.$state = {
       isModalOpened: false,
+      restaurantList: this.getRestaurants(),
     };
   }
 
@@ -38,7 +40,7 @@ class App extends Component {
     );
     const $listContainer = this.$target.querySelector(
       '.restaurant-list-container'
-    );
+    ) as HTMLElement;
 
     new TopNavBar($topNavBar, {
       toggleModal: toggleModal.bind(this),
@@ -54,9 +56,9 @@ class App extends Component {
     //   filterList: filterList.bind(this),
     // });
 
-    // new ListContainer($listContainer, {
-    //   showRestaurants: getRestaurants.bind(this),
-    // });
+    new ListContainer($listContainer, {
+      restaurantList: this.$state.restaurantList,
+    });
   }
 
   toggleModal(): void {
@@ -65,13 +67,12 @@ class App extends Component {
   }
 
   addRestaurant(restaurantInput: IRestaurantInput) {
-    const originalRestaurantList: IRestaurantInput[] = this.getRestaurants();
-    originalRestaurantList.push(restaurantInput);
+    const restaurantList: IRestaurantInput[] = this.getRestaurants();
+    restaurantList.push(restaurantInput);
 
-    localStorage.setItem(
-      'restaurantList',
-      JSON.stringify(originalRestaurantList)
-    );
+    localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
+
+    this.setState({ restaurantList });
   }
 
   filterList(category: Category, order: Order) {
