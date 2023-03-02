@@ -3,6 +3,7 @@ const REGEX = Object.freeze({
 });
 
 const RESTAURANT_CATEGORIES = [
+  '전체',
   '한식',
   '중식',
   '일식',
