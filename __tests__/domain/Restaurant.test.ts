@@ -1,11 +1,10 @@
-import Category from '../../src/domain/Category';
 import Restaurant from '../../src/domain/Restaurant';
 
 describe('Restaurant', () => {
   context('Restaurant는 카테고리, 이름, 거리, 설명, 참고 링크를 입력받았을 떄', () => {
     it('정상적으로 생성이 되어야 한다.', () => {
       // given
-      const category = new Category('한식', 'korean.png');
+      const category = '한식';
       const name = '한식당';
       const distanceByMinutes = 5;
       const description = '맛있는 한식당입니다.';
@@ -29,7 +28,7 @@ describe('Restaurant', () => {
     it('true를 반환한다.', () => {
       // given
       const serachCategory = '한식';
-      const category = new Category('한식', 'korean.png');
+      const category = '한식';
       const name = '한식당';
       const distanceByMinutes = 5;
       const restaurant = new Restaurant({

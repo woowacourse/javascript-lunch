@@ -1,4 +1,3 @@
-import Category from '../../src/domain/Category';
 import Restaurant from '../../src/domain/Restaurant';
 
 describe('Validation', () => {
@@ -9,7 +8,7 @@ describe('Validation', () => {
         (restaurantName) => {
           // given
           const restaurant = new Restaurant({
-            category: new Category('기타', 'etc.png'),
+            category: '기타',
             name: restaurantName,
             distanceByMinutes: 5,
           });
@@ -26,7 +25,7 @@ describe('Validation', () => {
         (restaurantName) => {
           const createRestaurant = () =>
             new Restaurant({
-              category: new Category('기타', 'etc.png'),
+              category: '기타',
               name: restaurantName,
               distanceByMinutes: 5,
             });
