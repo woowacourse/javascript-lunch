@@ -8,15 +8,12 @@ class BottomSheet extends HTMLElement {
   }
 
   render(children: string) {
-    this.insertAdjacentHTML(
-      "afterbegin",
-      `
+    this.innerHTML = `
       <div id="modalBackdrop" class="modal-backdrop"></div>
       <div id="foo" class="modal-container">
         ${children}
       </div>
-    `
-    );
+    `;
   }
 
   onClickBackdrop() {
