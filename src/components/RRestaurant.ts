@@ -61,7 +61,11 @@ class RRestaurant extends RComponent {
 
       <li class="restaurant">
         <div class="restaurant__category">
-          <img src="./category-korean.png" alt="한식" class="category-icon">
+          <img
+            src="assets/categories/${this.getAttribute('category')}.png"
+            alt="${this.getAttribute('category')}"
+            class="category-icon"
+          >
         </div>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">
