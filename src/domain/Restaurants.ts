@@ -22,6 +22,10 @@ class Restaurants {
   }
 
   filterByCategory(category: string) {
+    if (category === '전체') {
+      return this.#restaurants;
+    }
+
     return [...this.#restaurants].filter(
       (restaurant) => restaurant.category === category
     );
