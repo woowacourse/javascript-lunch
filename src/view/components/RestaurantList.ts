@@ -1,5 +1,6 @@
 import RestaurantItem from './RestaurantItem';
 import { Restaurant } from '../../type/common';
+import { $ } from '../../utils/querySelector';
 
 type RestaurantListProps = {
   $target: HTMLElement;
@@ -31,7 +32,7 @@ class RestaurantList {
   #mounted() {
     this.#restaurants.forEach((restaurant: Restaurant) => {
       new RestaurantItem({
-        $target: document.querySelector('.restaurant-list') as HTMLElement,
+        $target: $('.restaurant-list') as HTMLElement,
         restaurant: restaurant,
       });
     });

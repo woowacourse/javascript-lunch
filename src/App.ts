@@ -7,6 +7,8 @@ import RestaurantList from './view/components/RestaurantList';
 import { Restaurant } from './type/common';
 import { menu1, menu2, menu3, menu4 } from './data/dummy';
 
+import { $ } from './utils/querySelector';
+
 /* 더미 데이터 */
 const dummyData = [menu1, menu2, menu3, menu4];
 
@@ -37,7 +39,7 @@ class App {
 
   #mounted() {
     new Header({
-      $target: document.querySelector('.gnb') as HTMLElement,
+      $target: $('.gnb') as HTMLElement,
       addRestaurantEvent: this.addRestaurantEvent.bind(this),
     });
 
@@ -47,6 +49,7 @@ class App {
       ) as HTMLElement,
       restaurants: dummyData,
       // restaurants: this.#state.restaurants as Restaurant[],
+      $target: $('.restaurant-list-container') as HTMLElement,
     });
   }
 
