@@ -14,31 +14,68 @@
   - [ ] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 자유롭게 구현한다.
 - [ ] 새로고침해도 추가한 음식점 정보들이 유지되어야 한다.
 
-## 점심 뭐먹지
+---
+
+## 점심 뭐먹지 src 폴더 구조 및 역할 목록
 
 1. html
 
-- index.html
+- index.html : 시맨틱 태그를 최대한 활용한다.
 
 2. css
 
-- style.css
+- style.css : css 정의 순서를 지킨다.
 
 3. ts
 
 # components
 
-- Button
-- RestaurantList
-- RestaurantItem
-- BottomSheet
-- SelectBox
-- NavBar
-- TextInput
+: 독립적이고 재사용가능한 ui요소들을 분리하고 정의한다.
 
-# model
+1. NavBar
 
-- Restaurant
+2. AddRestaurant
+
+- 레스토랑 추가를 위한 ui와 인풋 태그들을 가진다.
+
+3. BottomSheet
+
+- 위로 올라갔다가 내려가는 애니메이션 효과를 가진다.
+
+4. RestaurantItem
+
+- 레스토랑 이름, 거리, 설명, 카테고리 정보를 담는다.
+
+5. RestaurantList
+
+- RestaurantItem을 리스트로 나열한다.
+
+6. SelectBox
+
+- 카테고리나 정렬순서를 선택한다.
+
+# domain
+
+## Controller.ts
+
+- restaurant 객체들을 관리하고 localStorage에 저장한다.
+- restaurant 객체들을 카테고리별로 필터링한다.
+- restaurant 객체들을 이름순 및 거리순으로 정렬한다.
+- 새로운 restaurant 객체를 추가한다.
+
+## model
+
+1. Restaurant
+
+- restaurant 객체를 올바르게 생성한다.(inputValidator를 호출하며)
+
+## inputValidator
+
+- 카테고리, 이름, 거리(도보 이동 시간), 설명, 참고 링크에 대한 유효성을 검사한다.
+
+# index.js
+
+- component 렌더링 및 클릭 이벤트를 관리한다.
 
 ## 구현 순서
 
