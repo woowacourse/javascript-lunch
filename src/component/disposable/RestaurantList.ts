@@ -1,20 +1,28 @@
+import { $ } from "../../utils/Dom";
+
 class RestaurantList {
-  restaurantTemplates: string[];
-
-  constructor(restaurantTemplates: string[]) {
-    this.restaurantTemplates = restaurantTemplates;
-  }
-
   template() {
-    return `<section class="restaurant-list-container">
+    return `
+    <section class="restaurant-list-container">
       <ul class="restaurant-list">
-       ${this.restaurantTemplates.join("")}
       </ul>
     </section>`;
   }
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
+  }
+
+  replaceTemplate(newTemplates: string) {
+    this.removeTemaplate();
+    $(".restaurant-list")?.insertAdjacentHTML("beforeend", newTemplates);
+  }
+
+  removeTemaplate() {
+    const list = $(".restaurant-list");
+    while (list?.firstChild) {
+      list.removeChild(list.firstChild);
+    }
   }
 }
 
