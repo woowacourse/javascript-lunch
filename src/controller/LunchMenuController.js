@@ -12,7 +12,7 @@ const LunchMenuController = {
   },
 
   bindEvents() {
-    $('main').addEventListener('registerRestaurant', (e) =>
+    $('restaurant-register-modal').addEventListener('registerRestaurant', (e) =>
       this.handleRestaurantRegister(e.detail)
     );
   },
