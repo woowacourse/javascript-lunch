@@ -3,28 +3,31 @@ import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
 } from "./ui/modal";
-import { executeClickEventListener } from "./util/eventListener";
+import {
+  executeClickEventListener,
+  executeSubmitEventListener,
+} from "./util/eventListener";
 
 const App = {
-  init() {
+  initEventListeners() {
     this.controlNewRestaurantModal();
-    this.controlHeaderButton();
   },
 
   controlNewRestaurantModal: () => {
-    executeClickEventListener(".button--secondary", () =>
-      handleModalCancelButtonClick(".modal")
-    );
-    executeClickEventListener(".modal-backdrop", () =>
-      handleModalCancelButtonClick(".modal")
-    );
-  },
-
-  controlHeaderButton: () => {
     executeClickEventListener(".gnb__button", () =>
       handleModalOpenButtonClick(".modal")
     );
+
+    executeClickEventListener(".button--secondary", () =>
+      handleModalCancelButtonClick(".modal")
+    );
+
+    executeClickEventListener(".modal-backdrop", () =>
+      handleModalCancelButtonClick(".modal")
+    );
+
+    executeSubmitEventListener("#new-restaurant-form");
   },
 };
 
-App.init();
+App.initEventListeners();
