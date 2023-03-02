@@ -38,8 +38,8 @@ describe('Restaurants 도메인 테스트', () => {
   });
 
   test('음식점 목록을 타입에 따라 정렬하는 기능 테스트 ', () => {
-    const sortedByName = restaurants.sortByType('이름순', restaurants.restaurants);
-    const sortedByDistance = restaurants.sortByType('거리순', restaurants.restaurants);
+    const sortedByName = restaurants.sortByType('name', restaurants.restaurants);
+    const sortedByDistance = restaurants.sortByType('distance', restaurants.restaurants);
 
     expect(sortedByName.map(restaurant => restaurant.name)).toStrictEqual([
       '공원네 초밥집',

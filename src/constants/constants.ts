@@ -4,6 +4,6 @@ export const VALUE = {
   },
 
   sortType: {
-    nameOrder: '이름순',
+    nameOrder: 'name',
   },
 };
