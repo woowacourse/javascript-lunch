@@ -2,6 +2,7 @@ import Component from "../core/Component";
 
 export default class Filter extends Component {
   template() {
+    const { sortingWay } = this.props;
     return `
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
@@ -14,9 +15,20 @@ export default class Filter extends Component {
         </select>
 
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          <option value="name">이름순</option>
-          <option value="distance">거리순</option>
+          <option value="name" ${
+            sortingWay === "name" ? "selected" : ""
+          }>이름순</option>
+          <option value="distance" ${
+            sortingWay === "distance" ? "selected" : ""
+          }>거리순</option>
         </select>
     `;
+  }
+
+  setEvent() {
+    const { setSortingWay } = this.props;
+    this.addEvent("change", "#sorting-filter", (event) => {
+      setSortingWay(event.target.value);
+    });
   }
 }
