@@ -1,17 +1,31 @@
 import CustomElement from "../abstracts/CustomElement";
-import RestaurantComponent from "./RestaurantComponent";
+import RestaurantsStore from "../domain/RestaurantsStore";
 
 class RestaurantsComponent extends CustomElement {
+  connectedCallback() {
+    super.connectedCallback();
+    RestaurantsStore.subscribe(this);
+  }
+  rerender(restaurantList) {
+    const restaurants = restaurantList.map((restaurant) => {
+      console.log(restaurant);
+      return `
+      <restaurant-element 
+      category=${restaurant.category} 
+      name=${restaurant.name} 
+      distance=${restaurant.distance} 
+      description=${restaurant.description}
+      link=${restaurant.link}
+      >
+      </restaurant-element>`;
+    });
+    document.querySelector(".restaurant-list").innerHTML = restaurants;
+  }
   template() {
     return `
-    <ul class="restaurant-list">
-          <restaurant-element></restaurant-element>
-          <restaurant-element></restaurant-element>
-          <restaurant-element></restaurant-element>
-          <restaurant-element></restaurant-element>
-          <restaurant-element></restaurant-element>
-          <restaurant-element></restaurant-element>
-      </ul>
+    <section class="restaurant-list-container">
+      <ul class="restaurant-list"></ul>
+    </section>
         `;
   }
 }

@@ -1,7 +1,41 @@
 import CustomElement from "../abstracts/CustomElement";
 import ButtonComponent from "./ButtonComponent";
+import dispatcher from "../domain/Dispatcher";
+import { RESTAURANT_ACTION } from "../abstracts/constants";
+import { Restaurant } from "../abstracts/types";
 
 class RestaurantAddFormComponent extends CustomElement {
+  setEvent() {
+    document
+      .querySelector(".button--primary")
+      .addEventListener("click", () => this.addRestaurant());
+  }
+
+  addRestaurant() {
+    const category = document.querySelector("#category").value;
+    const name = document.querySelector("#name").value;
+    const distance = document.querySelector("#distance").value;
+    const description = document.querySelector("#description").value;
+    const link = document.querySelector("#link").value;
+
+    const restaurant = {
+      category,
+      name,
+      distance,
+    };
+
+    if (description.length > 0) {
+      restaurant.description = description;
+    }
+    if (link.length > 0) {
+      restaurant.link = link;
+    }
+
+    dispatcher(RESTAURANT_ACTION.ADD_RESTAURANT, restaurant);
+
+    document.querySelector(".modal").classList.remove("modal--open");
+  }
+
   template() {
     return `
     <h2 class="modal-title text-title">새로운 음식점</h2>
