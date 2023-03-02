@@ -6,6 +6,10 @@ class Category {
     this.#name = name;
     this.#imageUrl = imageUrl;
   }
+
+  getName() {
+    return this.#name;
+  }
 }
 
 export default Category;
