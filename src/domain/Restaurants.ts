@@ -5,8 +5,8 @@ import { VALUE } from '../constants/constants';
 class Restaurants {
   #restaurants: Restaurant[];
 
-  constructor() {
-    this.#restaurants = [];
+  constructor(restaurants: Restaurant[]) {
+    this.#restaurants = restaurants;
   }
 
   get restaurants(): Restaurant[] {
