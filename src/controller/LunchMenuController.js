@@ -37,11 +37,13 @@ const LunchMenuController = {
     const category = $('#category-filter').value;
     const filteredRestaurants = restaurants.filterByCategory(category, restaurants.list);
 
-    LunchMenuView.render(
-      sortingType === 'name'
-        ? restaurants.sortByName(filteredRestaurants)
-        : restaurants.sortByDistance(filteredRestaurants)
-    );
+    const sortByType = {
+      register: () => [...filteredRestaurants].reverse(),
+      name: () => restaurants.sortByName(filteredRestaurants),
+      distance: () => restaurants.sortByDistance(filteredRestaurants),
+    };
+
+    LunchMenuView.render(sortByType[sortingType]());
   },
 };
 
