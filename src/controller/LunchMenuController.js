@@ -8,7 +8,7 @@ import { setLocalStorage } from '../utils/localStorage';
 const LunchMenuController = {
   init() {
     restaurants.init();
-    LunchMenuView.render([...restaurants.list].reverse());
+    LunchMenuView.render(restaurants.list);
     LunchMenuView.bindEvents();
     this.bindEvents();
   },
@@ -38,7 +38,7 @@ const LunchMenuController = {
     const filteredRestaurants = restaurants.filterByCategory(category, restaurants.list);
 
     const sortByType = {
-      register: () => [...filteredRestaurants].reverse(),
+      register: () => filteredRestaurants,
       name: () => restaurants.sortByName(filteredRestaurants),
       distance: () => restaurants.sortByDistance(filteredRestaurants),
     };

@@ -72,7 +72,7 @@ export const restaurants: Restaurants = {
   },
 
   add(restaurant) {
-    this.list = [...this.list, restaurant];
+    this.list = [restaurant, ...this.list];
   },
 
   filterByCategory(category, restaurants) {
