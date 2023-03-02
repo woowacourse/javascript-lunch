@@ -9,7 +9,11 @@
 
   <body>
     <nav-bar />
-    <restaurant-list />
+    <section class="restaurant-filter-container">
+      <category-select-box />
+      <sorting-select-box />
+    </section>
+    <restaurant-list id="restaurantList"></restaurant-list>
     <bottom-sheet id="bottomSheet" class="modal" />
   </body>
 </html>
