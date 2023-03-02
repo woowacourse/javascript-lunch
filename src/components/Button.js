@@ -42,10 +42,11 @@ class Button extends HTMLElement {
     const template = document.createElement('template');
 
     const name = this.getAttribute('name');
+    const id = this.getAttribute('id');
     const color = this.getAttribute('color');
 
     template.innerHTML = `
-    <button type="button" class="button button--${color} text-caption">${name}</button>
+    <button type="button" id=${id} class="button button--${color} text-caption">${name}</button>
     `;
 
     const cloneNode = template.content.cloneNode(true);
@@ -56,11 +57,11 @@ class Button extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['name', 'color'];
+    return ['name', 'color', 'id'];
   }
 
   attributeChangedCallback(name) {
-    if (name === 'name' && name === 'color') {
+    if (name === 'name' && name === 'color' && name === 'id') {
       this.connectedCallback();
     }
   }

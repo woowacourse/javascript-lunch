@@ -50,8 +50,8 @@ class AddRestaurantModal extends HTMLElement {
     const template = document.createElement('template');
 
     template.innerHTML = `
-    <div class="modal modal--open">
-    <div class="modal-backdrop"></div>
+    <div id="modal" class="modal">
+    <div id="modalBackdrop" class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form>
@@ -69,8 +69,8 @@ class AddRestaurantModal extends HTMLElement {
     <add-text-input name="설명" id="description" caption="메뉴 등 추가 정보를 입력해 주세요." ></add-text-input>
     <add-text-input name="참고 링크" id="link" caption="매장 정보를 확인할 수 있는 링크를 입력해 주세요." ></add-text-input>
         <div class="button-container">
-        <lunch-button name="취소하기" color="white"></lunch-button>
-        <lunch-button name="추가하기" color="orange"></lunch-button>
+        <lunch-button name="취소하기" id="cancleModal" color="white"></lunch-button>
+        <lunch-button name="추가하기" id="addRestraunt" color="orange"></lunch-button>
           </div>
       </form>
     </div>
