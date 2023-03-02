@@ -1,6 +1,7 @@
 type PickValue<T, K extends keyof T> = Pick<T, K>[K];
 
-export type Category = '한식' | '중식' | '일식' | '양식' | '기타' | '카테고리';
+export type Category = '한식' | '중식' | '일식' | '양식' | '기타' | '아시안' | '전체';
+export type Filter = '이름순' | '거리순';
 
 export interface RestaurantInfo {
   id: number;
