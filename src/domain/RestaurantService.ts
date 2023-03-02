@@ -1,8 +1,11 @@
+import { mockRestaurant } from '../data';
 import { Category } from '../types/type';
 import { IRestaurant, Restaurant } from './Restaurant';
 
 export default class RestaurantService {
-  #restaurants: Restaurant[] = [];
+  #restaurants: Restaurant[] = mockRestaurant.map(
+    (restaurant) => new Restaurant(restaurant)
+  );
 
   getRestaurantsInfo(restaurant = this.#restaurants) {
     return restaurant.map((restaurant) => restaurant.getRestaurantInfo());
