@@ -1,3 +1,4 @@
+import { Category, SortCondition } from '../data/type';
 import Restaurant from './Restaurant';
 
 class RestaurantList {
@@ -7,7 +8,17 @@ class RestaurantList {
     this.list.push(restaurant);
   }
 
-  filterByCategory() {}
+  getList(condition: SortCondition, category?: Category) {
+    return this.sortByCondition(this.filterByCategory(category), condition);
+  }
 
-  sortByCondition() {}
+  private filterByCategory(category?: Category) {
+    return this.list.filter((restaurant) => restaurant.category === category);
+  }
+
+  private sortByCondition(list: Restaurant[], condition: SortCondition) {
+    return condition === '거리'
+      ? [...list].sort((a, b) => a.distance - b.distance)
+      : [...list].sort();
+  }
 }
