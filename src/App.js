@@ -6,7 +6,15 @@ export default class App {
 
   constructor() {
     this.#restaurants = new Restaurants();
+    this.initRender();
     this.init();
+  }
+
+  initRender() {
+    const restaurants = this.#restaurants.getRestaurants();
+    const restaurant = this.#restaurants.getSortedRestaurantsByName(restaurants);
+
+    this.render(restaurant);
   }
 
   init() {
