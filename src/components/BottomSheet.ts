@@ -4,17 +4,16 @@ class BottomSheet extends HTMLElement {
   constructor() {
     super();
     this.state = { isOpen: false };
-    this.render();
     this.onClickBackdrop();
   }
 
-  render() {
+  render(children: string) {
     this.insertAdjacentHTML(
       "afterbegin",
       `
       <div id="modalBackdrop" class="modal-backdrop"></div>
-      <div class="modal-container">
-        <add-restaurant />
+      <div id="foo" class="modal-container">
+        ${children}
       </div>
     `
     );
