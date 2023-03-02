@@ -36,4 +36,18 @@ describe('Name of the group', () => {
       '호아빈 삼성점',
     ]);
   });
+
+  test('음식점을 거리순으로 정렬하고, 거리가 같은 경우 이름 순으로 정렬한다.', () => {
+    const sortedRestaurants = restaurants.sortByDistance();
+    const names = sortedRestaurants.map((restaurant) => restaurant.name);
+
+    expect(names).toEqual([
+      '도스타코스 선릉점',
+      '친친',
+      '잇쇼우',
+      '피양콩할머니',
+      '호아빈 삼성점',
+      '이태리키친',
+    ]);
+  });
 });

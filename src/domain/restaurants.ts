@@ -14,6 +14,7 @@ interface Restaurants {
   add(restaurant: Restaurant): void;
   filterByCategory(category: Category): Restaurant[];
   sortByName(): Restaurant[];
+  sortByDistance(): Restaurant[];
 }
 
 export const restaurants: Restaurants = {
@@ -75,5 +76,16 @@ export const restaurants: Restaurants = {
     return [...this.list].sort((a: Restaurant, b: Restaurant) =>
       a.name < b.name ? -1 : a.name > b.name ? 1 : 0
     );
+  },
+
+  sortByDistance() {
+    return [...this.list].sort((a: Restaurant, b: Restaurant) => {
+      if (a.distance === b.distance) {
+        // 같은 거리일 경우 이름 순으로 정렬
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      }
+
+      return a.distance - b.distance;
+    });
   },
 };
