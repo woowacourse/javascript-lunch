@@ -1,4 +1,4 @@
-import type { Restaurant, Category, State } from './types/restaurantTypes';
+import type { Category, State } from './types/restaurantTypes';
 import image from './img/images';
 import Restaurants from './model/Restaurants';
 
@@ -10,7 +10,7 @@ export default class App {
   constructor($target: HTMLElement) {
     this.$target = $target;
     this.$state = {
-      filter: '',
+      filter: '전체',
       restaurants: [
         {
           name: '피양콩할마니',
@@ -53,21 +53,19 @@ export default class App {
         },
       ],
     };
-    this.render();
     this.restuarants = new Restaurants(this.$state.restaurants);
+
+    this.render();
   }
 
   setState(newState: Partial<State>): void {
-    const filteredRestuarant = this.restuarants.filterByCategory(this.$state.filter as Category);
-
     this.$state = { ...this.$state, ...newState };
-
     this.render();
   }
 
   template() {
     return `
-     <header class="gnb">
+    <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">
       <img src="${image.추가버튼}" alt="음식점 추가">
@@ -87,7 +85,7 @@ export default class App {
       </select>
 
       <!-- 정렬 셀렉트 박스 -->
-      <select name="sorting" id="sorting-filter" class="restaurant-filter">
+      <select name="sorting" id="sorting-filter" class="restaurant-filter" >
         <option value="name">이름순</option>
         <option value="distance">거리순</option>
       </select>
@@ -120,20 +118,23 @@ export default class App {
 
   render(): void {
     this.$target.innerHTML = this.template();
-    console.log(this.$target.innerHTML);
+
+    const categoryFilter = this.$target.querySelector('#category-filter');
+    if (categoryFilter instanceof HTMLSelectElement) {
+      categoryFilter.value = this.$state.filter;
+    }
 
     this.listenEvent();
+    console.log('RENDER!!');
   }
 
   listenEvent() {
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLInputElement;
       const value = target.value;
-
-      this.setState({ filter: value, restaurants: this.restuarants.filterByCategory(this.$state.filter as Category) });
+      const filteredRestuarant = this.restuarants.filterByCategory(value as Category);
+      this.setState({ filter: value, restaurants: filteredRestuarant });
+      console.log(this.restuarants.getRestaurants());
     });
   }
 }
-
-// const { items } = this.state;
-// this.setState({ items: [ ...items, `item${items.length + 1}` ] });

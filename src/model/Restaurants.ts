@@ -19,7 +19,8 @@ class Restaurants {
     return this.#restaurants.sort((firstElement, secondElement) => (firstElement.name > secondElement.name ? 1 : -1));
   }
 
-  filterByCategory(category: Category): Restaurant[] {
+  filterByCategory(category: Category | '전체'): Restaurant[] {
+    if (category === '전체') return this.#restaurants;
     return this.#restaurants.filter(restaurant => restaurant.category === category);
   }
 
