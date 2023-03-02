@@ -18,16 +18,6 @@
 
 ## 점심 뭐먹지 src 폴더 구조 및 역할 목록
 
-1. html
-
-- index.html : 시맨틱 태그를 최대한 활용한다.
-
-2. css
-
-- style.css : css 정의 순서를 지킨다.
-
-3. ts
-
 # components
 
 : 독립적이고 재사용가능한 ui요소들을 분리하고 정의한다.
@@ -50,19 +40,24 @@
 
 - RestaurantItem을 리스트로 나열한다.
 
-6. SelectBox
+6. CategorySelectBox
 
-- 카테고리나 정렬순서를 선택한다.
+- 카테고리를 선택한다.
+
+7. SortingSelectBox
+
+- 정렬순서를 선택한다.
 
 # domain
 
 ## Controller.ts
 
-- 새로운 restaurant 객체를 추가하고 localStorage에 저장한다.
 - restaurant 객체들을 반환한다.
-- localStorage에 있는 정보를 복구한다.
-- restaurant 객체들을 카테고리별로 필터링한다.
+- 새로운 restaurant 객체를 추가한다.
+- restaurant 객체들을 localStorage에 저장한다.
+- localSorage에 있는 정보를 불러온다.
 - restaurant 객체들을 이름순 및 거리순으로 정렬한다.
+- restaurant 객체들을 카테고리별로 필터링한다.
 
 ## model
 
@@ -76,7 +71,7 @@
 
 # index.js
 
-- component 렌더링 및 클릭 이벤트를 관리한다.
+- customElement들을 정의한다.
 
 ## 구현 순서
 
@@ -86,8 +81,11 @@ NavBar => BottomSheet => form => 음식점 추가하는 기능 완성
 [2]
 음식점 리스트를 영구저장 기능 + 복구하는 기능
 
+# 리팩토링 리스트
+
 // any 없애기
 // 은닉화
 // util함수
 // bottomSheet 열고 닫을 때, 위에 겹겹이 쌓이는 버그 존재
 // map 안의 new 없애기
+// sortRestaurnat 함수
