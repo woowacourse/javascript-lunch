@@ -13,7 +13,9 @@ class BottomSheet extends HTMLElement {
       "afterbegin",
       `
       <div id="modalBackdrop" class="modal-backdrop"></div>
-      <div class="modal-container"></div>
+      <div class="modal-container">
+        <add-restaurant />
+      </div>
     `
     );
   }

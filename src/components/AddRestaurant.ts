@@ -1,5 +1,14 @@
-const AddRestaurant = () => {
-  return `
+class AddRestaurant extends HTMLElement {
+  constructor() {
+    super();
+    this.render();
+    this.onClickCancelButton();
+  }
+
+  render() {
+    this.insertAdjacentHTML(
+      "afterbegin",
+      `
     <h2 class="modal-title text-title">새로운 음식점</h2>
     <form>
 
@@ -52,11 +61,23 @@ const AddRestaurant = () => {
 
       <!-- 취소/추가 버튼 -->
       <div class="button-container">
-        <button id="closeBottomSheet" type="button" class="button button--secondary text-caption">취소하기</button>
+        <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
         <button class="button button--primary text-caption">추가하기</button>
       </div>
     </form>
-    `;
-};
+    `
+    );
+  }
+
+  onClickCancelButton() {
+    const cancelButton = document.getElementById("cancelButton");
+    cancelButton?.addEventListener("click", () => {
+      const bottomSheet: any = document.getElementById("bottomSheet");
+      bottomSheet?.close();
+    });
+  }
+
+  onClickAddButton() {}
+}
 
 export default AddRestaurant;
