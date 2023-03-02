@@ -12,7 +12,7 @@ const FilterButton = {
   </select>`;
   },
   setEvent() {
-    const restaurantFilter = document.querySelector(".restaurant-filter");
+    const restaurantFilter = document.querySelector("#category-filter");
     restaurantFilter?.addEventListener("click", () => {
       // 이벤트 추가 필요
       console.log("filter");
