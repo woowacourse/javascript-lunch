@@ -1,4 +1,4 @@
 import App from './App';
 import '../style.css';
 
-App();
+new App();
