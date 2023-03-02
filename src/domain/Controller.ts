@@ -6,7 +6,7 @@ class Controller {
 
   constructor() {
     this.#restaurants = [];
-    this.loadRestaurants();
+    this.loadLocalStorage();
   }
 
   getRestaurants() {
@@ -15,15 +15,57 @@ class Controller {
   }
 
   addRestaurant(newRestaurant: RestaurantType) {
+    // 컨트롤러 배열에 저장 (임시)
     this.#restaurants.push(new Restaurant(newRestaurant));
-    const restaurants = JSON.stringify(this.#restaurants);
+  }
+
+  renderRestaurantList() {
+    // 재렌더링 요청
+    const restaurantList: any = document.getElementById("restaurantList");
+    restaurantList?.render();
+  }
+
+  updateRestaurantList(restaurants: RestaurantType[]) {
+    // localStorage에 저장
+    this.setLocalStorage(restaurants);
+    // 재렌더링 요청
+    this.renderRestaurantList();
+  }
+
+  setLocalStorage(restaurantsArray: RestaurantType[]) {
+    const restaurants = JSON.stringify(restaurantsArray);
     localStorage.setItem("restaurants", restaurants);
   }
 
-  loadRestaurants() {
-    this.#restaurants = JSON.parse(
-      localStorage.getItem("restaurants") as string
+  loadLocalStorage() {
+    this.#restaurants =
+      JSON.parse(localStorage.getItem("restaurants") as string) ?? [];
+  }
+
+  sortRestaurants(key: string) {
+    // 리팩토링 필요
+    if (key === "name") {
+      const sortedRestaurants = [...this.#restaurants].sort((a, b) =>
+        a["name"].localeCompare(b["name"])
+      );
+      this.#restaurants = sortedRestaurants;
+      this.updateRestaurantList(sortedRestaurants);
+      return;
+    }
+
+    const sortedRestaurants = [...this.#restaurants].sort(
+      (a, b) => a["distance"] - b["distance"]
     );
+    this.#restaurants = sortedRestaurants;
+    this.updateRestaurantList(sortedRestaurants);
+  }
+
+  filterRestaurants(key: string) {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant["category"] === key
+    );
+    this.renderRestaurantList();
+    this.loadLocalStorage();
   }
 }
 
