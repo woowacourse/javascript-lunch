@@ -1,14 +1,16 @@
 import type { Category, State } from './types/restaurantTypes';
 import image from './img/images';
 import Restaurants from './model/Restaurants';
+import Component from './components/Component';
 
-export default class App {
-  $target: HTMLElement;
-  $state: State;
-  restuarants: Restaurants;
+export default class App extends Component {
+  restuarants: Restaurants | undefined;
 
   constructor($target: HTMLElement) {
-    this.$target = $target;
+    super($target);
+    this.restuarants = new Restaurants(this.$state!.restaurants);
+  }
+  setup() {
     this.$state = {
       filter: '전체',
       sort: 'name',
@@ -66,14 +68,6 @@ export default class App {
         },
       ],
     };
-    this.restuarants = new Restaurants(this.$state.restaurants);
-
-    this.render();
-  }
-
-  setState(newState: Partial<State>): void {
-    this.$state = { ...this.$state, ...newState };
-    this.render();
   }
 
   template() {
@@ -107,9 +101,8 @@ export default class App {
     <!-- 음식점 목록 -->
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-        ${this.$state.restaurants
-          .map(
-            ({ name, category, distance, description }) => `
+        ${this.$state!.restaurants.map(
+          ({ name, category, distance, description }) => `
           <li class="restaurant">
             <div class="restaurant__category">
               <img src="${image[category]}" alt="${category}" class="category-icon">
@@ -121,8 +114,7 @@ export default class App {
             </div>
           </li>
         `
-          )
-          .join('')}
+        ).join('')}
       </ul>        
     </section>
     </main>
@@ -134,12 +126,12 @@ export default class App {
 
     const categoryFilter = this.$target.querySelector('#category-filter');
     if (categoryFilter instanceof HTMLSelectElement) {
-      categoryFilter.value = this.$state.filter;
+      categoryFilter.value = this.$state!.filter;
     }
 
     const sortFilter = this.$target.querySelector('#sorting-filter');
     if (sortFilter instanceof HTMLSelectElement) {
-      sortFilter.value = this.$state.sort;
+      sortFilter.value = this.$state!.sort;
     }
 
     this.listenEvent();
@@ -150,7 +142,7 @@ export default class App {
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLInputElement;
       const value = target.value;
-      const filteredRestuarant = this.restuarants.filterByCategory(value as Category);
+      const filteredRestuarant = this.restuarants!.filterByCategory(value as Category);
       this.setState({ filter: value, restaurants: filteredRestuarant });
     });
 
@@ -159,12 +151,12 @@ export default class App {
       const value = target.value;
 
       if (value === 'name') {
-        const sortedByName = this.restuarants.sortByName(this.$state.filter as Category);
+        const sortedByName = this.restuarants!.sortByName(this.$state!.filter as Category);
         this.setState({ sort: value, restaurants: sortedByName });
         return;
       }
       if (value === 'distance') {
-        const sortedByDistance = this.restuarants.sortByDistance(this.$state.filter as Category);
+        const sortedByDistance = this.restuarants!.sortByDistance(this.$state!.filter as Category);
         this.setState({ sort: value, restaurants: sortedByDistance });
         return;
       }
