@@ -1,13 +1,19 @@
 import Restaurant from './Restaurant';
 
-class Restaurants {
-  #restaurants: Restaurant[] = [];
+type RestaurantCompareFn = (a: Restaurant, b: Restaurant) => number;
 
-  getRestaurants(category?: string) {
-    if (!category) return this.#restaurants;
+const Restaurants = {
+  filterByCategory(restaurants: Restaurant[], category: string) {
+    return restaurants.filter((restaurant) => restaurant.isMatchCategory(category));
+  },
 
-    return this.#restaurants.filter((restaurant) => restaurant.isMatchCategory(category));
-  }
-}
+  byName: (a: Restaurant, b: Restaurant) => b.getName().localeCompare(a.getName()),
+
+  byDistance: (a: Restaurant, b: Restaurant) => b.getDistanceByMinutes() - a.getDistanceByMinutes(),
+
+  getSorted(restaurants: Restaurant[], compareFn: RestaurantCompareFn) {
+    return [...restaurants].sort(compareFn);
+  },
+};
 
 export default Restaurants;
