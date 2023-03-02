@@ -3,7 +3,9 @@ import CustomElement from "../abstracts/CustomElement";
 class ButtonComponent extends CustomElement {
   template() {
     return `
-    <button type="button" text-caption">취소하기</button>
+    <button type="button" class="button ${this.getAttribute(
+      "type"
+    )} text-caption">${this.getAttribute("text")}</button>
     `;
   }
 }
