@@ -1,10 +1,12 @@
+import { RestaurantList } from "../../domain/RestaurantList";
+
 export default class Modal {
   #template = `
     <div class="modal modal--open">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form>
+        <form class="modal-form">
 
           <!-- 카테고리 -->
           <div class="form-item form-item--required">
@@ -65,5 +67,21 @@ export default class Modal {
 
   constructor() {
     document.body.insertAdjacentHTML("beforeend", this.#template);
+    this.restaurantList = new RestaurantList();
+    this.modalForm = document.querySelector(".modal-form");
+    this.modalForm.addEventListener("submit", (event) => {
+      this.addRestaurant(event);
+    });
+  }
+
+  addRestaurant(event) {
+    event.preventDefault();
+    const obj = {};
+    const array = ["category", "name", "distance", "description", "link"];
+    document.querySelectorAll(".form-item").forEach((val, index) => {
+      obj[array[index]] = val.children[1].value;
+    });
+    this.restaurantList.add(obj);
+    console.log(this.restaurantList.listRestaurant[0].information);
   }
 }
