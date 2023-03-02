@@ -1,9 +1,9 @@
-import restaurantItem from './index.html';
+import $template from './index.html';
 
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type Distance = 5 | 10 | 15 | 20 | 30;
 
-interface Restaurant {
+export interface Restaurant {
   category: Category;
   name: string;
   distance: Distance;
@@ -14,7 +14,7 @@ interface Restaurant {
 class RestaurantItem extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = restaurantItem;
+    this.innerHTML = $template;
   }
 
   connectedCallback() {
@@ -22,20 +22,11 @@ class RestaurantItem extends HTMLElement {
   }
 
   render() {
-    const $category = document.querySelector('.restaurant__category') as HTMLElement;
-    const $name = document.querySelector('.restaurant__name') as HTMLElement;
-    const $distance = document.querySelector('.restaurant__distance') as HTMLElement;
-    const $description = document.querySelector('.restaurant__description') as HTMLElement;
-
-    const category = this.getAttribute('category');
-    const name = this.getAttribute('name');
-    const distance = this.getAttribute('distance');
-    const description = this.getAttribute('description');
-
-    $category.textContent = category;
-    $name.textContent = name;
-    $distance.textContent = distance;
-    $description.textContent = description;
+    this.innerHTML = $template
+      .replace('{category}', this.getAttribute('category')!)
+      .replace('{name}', this.getAttribute('name')!)
+      .replace('{distance}', this.getAttribute('distance')!)
+      .replace('{description}', this.getAttribute('description')!);
   }
 }
 
