@@ -15,13 +15,20 @@ class RSelect extends RFormControl {
           width: 100%
         }
       </style>
+
       <select>
-        <option value="">선택해 주세요</option>
-        <option value="5">5분 내</option>
-        <option value="10">10분 내</option>
-        <option value="15">15분 내</option>
-        <option value="20">20분 내</option>
-        <option value="30">30분 내</option>
+        ${
+          !this.hasAttribute('values')
+            ? []
+            : this.getAttribute('values')
+                ?.split(',')
+                .map((option) => {
+                  return `
+            <option value="${option}">${option}</option>
+          `;
+                })
+                .join('')
+        }
       </select>
     `;
   }
