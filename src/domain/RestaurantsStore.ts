@@ -46,9 +46,12 @@ class RestaurantsStore {
   }
 
   filterByCategory(category: Category) {
-    return this.#restaurantList.filter(
-      (restaurant) => restaurant.category === category
-    );
+    this.#restaurantList = JSON.parse(localStorage.getItem("restaurantList")!);
+    if (category !== "전체") {
+      this.#restaurantList = this.#restaurantList.filter(
+        (restaurant) => restaurant.category === category
+      );
+    }
   }
 
   sortRestaurants(sortMethod: SortMethod) {

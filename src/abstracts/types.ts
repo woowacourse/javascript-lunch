@@ -1,4 +1,11 @@
-export type Category = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
+export type Category =
+  | "전체"
+  | "한식"
+  | "중식"
+  | "일식"
+  | "아시안"
+  | "양식"
+  | "기타";
 
 export type SortMethod = "이름순" | "거리순";
 
