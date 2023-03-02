@@ -29,13 +29,12 @@ class Modal implements Component<ModalState> {
     this.render();
   }
 
-  setState(newState: ModalState) {
+  setState = (newState: ModalState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
-  render() {
-    // TODO: 상태로 받은 li 띄우기
+  render = () => {
     this.$component.innerHTML = `
     <div class="modal modal--open">
       <div class="modal-backdrop"></div>
@@ -104,7 +103,7 @@ class Modal implements Component<ModalState> {
 
     const $modalForm = document.getElementById('modal-form');
     $modalForm?.addEventListener('submit', this.submitForm);
-  }
+  };
 
   submitForm = (e: Event) => {
     e.preventDefault();

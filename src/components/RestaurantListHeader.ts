@@ -36,12 +36,12 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     $parent.append(this.$component);
   }
 
-  setState(newState: RestaurantListHeaderState) {
+  setState = (newState: RestaurantListHeaderState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
-  render() {
+  render = () => {
     const categories: Category[] = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
     this.$component.innerHTML = `
       <section class="restaurant-filter-container">
@@ -70,7 +70,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
 
     const sortSelect = this.$component.querySelector('#sorting-filter');
     sortSelect?.addEventListener('change', this.onChangeSortBy);
-  }
+  };
 }
 
 export default RestaurantListHeader;
