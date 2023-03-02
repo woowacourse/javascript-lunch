@@ -11,6 +11,7 @@ export default class App {
     this.$target = $target;
     this.$state = {
       filter: '전체',
+      sort: 'name',
       restaurants: [
         {
           name: '피양콩할마니',
@@ -50,6 +51,18 @@ export default class App {
           category: '기타',
           distance: 30,
           description: '타코 맛있어요!.',
+        },
+        {
+          name: '오토상',
+          category: '일식',
+          distance: 5,
+          description: '스시 맛있어요!.',
+        },
+        {
+          name: '곤방와',
+          category: '일식',
+          distance: 15,
+          description: '라멘 전문 레스토랑!.',
         },
       ],
     };
@@ -124,6 +137,11 @@ export default class App {
       categoryFilter.value = this.$state.filter;
     }
 
+    const sortFilter = this.$target.querySelector('#sorting-filter');
+    if (sortFilter instanceof HTMLSelectElement) {
+      sortFilter.value = this.$state.sort;
+    }
+
     this.listenEvent();
     console.log('RENDER!!');
   }
@@ -134,7 +152,22 @@ export default class App {
       const value = target.value;
       const filteredRestuarant = this.restuarants.filterByCategory(value as Category);
       this.setState({ filter: value, restaurants: filteredRestuarant });
-      console.log(this.restuarants.getRestaurants());
+    });
+
+    this.$target.querySelector('#sorting-filter')!.addEventListener('change', (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const value = target.value;
+
+      if (value === 'name') {
+        const sortedByName = this.restuarants.sortByName(this.$state.filter as Category);
+        this.setState({ sort: value, restaurants: sortedByName });
+        return;
+      }
+      if (value === 'distance') {
+        const sortedByDistance = this.restuarants.sortByDistance(this.$state.filter as Category);
+        this.setState({ sort: value, restaurants: sortedByDistance });
+        return;
+      }
     });
   }
 }

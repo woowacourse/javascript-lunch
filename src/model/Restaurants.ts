@@ -15,17 +15,21 @@ class Restaurants {
     this.#restaurants = [...this.#restaurants, restaurant];
   }
 
-  sortByName() {
-    return this.#restaurants.sort((firstElement, secondElement) => (firstElement.name > secondElement.name ? 1 : -1));
-  }
-
   filterByCategory(category: Category | '전체'): Restaurant[] {
     if (category === '전체') return this.#restaurants;
     return this.#restaurants.filter(restaurant => restaurant.category === category);
   }
 
-  sortByDistance(): Restaurant[] {
-    return this.#restaurants.sort((firstElement, secondElement) => firstElement.distance - secondElement.distance);
+  sortByDistance(category: Category): Restaurant[] {
+    return this.filterByCategory(category).sort(
+      (firstElement, secondElement) => firstElement.distance - secondElement.distance
+    );
+  }
+
+  sortByName(category: Category) {
+    return this.filterByCategory(category).sort((firstElement, secondElement) =>
+      firstElement.name > secondElement.name ? 1 : -1
+    );
   }
 }
 
