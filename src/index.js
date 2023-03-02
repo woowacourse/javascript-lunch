@@ -3,3 +3,5 @@ import "./components/RestaurantsComponent";
 import "./components/HeaderComponent";
 import "./components/SelectComponent";
 import "./components/ModalComponent";
+
+import "../templates/add-button.png";
