@@ -1,7 +1,9 @@
+import { Category, MinutesToCampus } from '../data/type';
+
 interface Restaurant {
-  category: string;
+  category: Category;
   name: string;
-  distance: number;
+  distance: MinutesToCampus;
   description?: string;
   link?: string;
 }
