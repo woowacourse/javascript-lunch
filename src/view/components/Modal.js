@@ -1,4 +1,6 @@
 import { RestaurantList } from "../../domain/RestaurantList";
+import RestaurantRegistry from "./RestaurantRegistry";
+import { $, $$ } from "../../utils/Dom";
 
 export default class Modal {
   #template = `
@@ -68,20 +70,41 @@ export default class Modal {
   constructor() {
     document.body.insertAdjacentHTML("beforeend", this.#template);
     this.restaurantList = new RestaurantList();
-    this.modalForm = document.querySelector(".modal-form");
+    this.modalForm = $(".modal-form");
     this.modalForm.addEventListener("submit", (event) => {
-      this.addRestaurant(event);
+      event.preventDefault();
+      this.addRestaurant();
     });
+    this.restaurantRegistry = new RestaurantRegistry();
+    $(".button--secondary").addEventListener("click", this.closeModal);
   }
 
-  addRestaurant(event) {
-    event.preventDefault();
+  addRestaurant() {
     const obj = {};
     const array = ["category", "name", "distance", "description", "link"];
-    document.querySelectorAll(".form-item").forEach((val, index) => {
+    $$(".form-item").forEach((val, index) => {
       obj[array[index]] = val.children[1].value;
     });
     this.restaurantList.add(obj);
-    console.log(this.restaurantList.listRestaurant[0].information);
+    const restaurantLength = this.restaurantList.listRestaurant.length - 1;
+    this.restaurantRegistry.appendRestaurant(
+      this.restaurantList.listRestaurant[restaurantLength].information
+    );
+    this.closeModal();
+  }
+
+  closeModal = () => {
+    this.resetValue();
+    $(".modal--open").style.display = "none";
+  };
+
+  resetValue() {
+    $$(".form-item").forEach((val, index) => {
+      if (index === 0 || index === 2) {
+        val.children[1].value = "";
+        return;
+      }
+      val.children[1].value = null;
+    });
   }
 }

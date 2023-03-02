@@ -1,4 +1,4 @@
-import Modal from "./Modal";
+import { $ } from "../../utils/Dom";
 
 export default class Header {
   #template = `
@@ -12,12 +12,10 @@ export default class Header {
 
   constructor() {
     document.body.insertAdjacentHTML("afterbegin", this.#template);
-    document
-      .querySelector(".gnb__button")
-      .addEventListener("click", this.openModal);
+    $(".gnb__button").addEventListener("click", this.openModal);
   }
 
   openModal() {
-    new Modal();
+    $(".modal--open").style.display = "block";
   }
 }
