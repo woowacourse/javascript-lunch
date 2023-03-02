@@ -1,7 +1,20 @@
 import "../templates/style.css";
-import { render } from "./utils/Dom";
-import Header from "./component/Header";
-import SelectSection from "./component/SelectSection";
+import Header from "./component/disposable/Header";
+import SelectContainer from "./component/disposable/SelectContainer";
+import { $ } from "./utils/Dom";
+import RestaurantList from "./component/disposable/RestaurantList";
+import Modal from "./component/disposable/Modal";
+import "../templates/add-button.png";
+import "../templates/category-asian.png";
+import "../templates/category-chinese.png";
+import "../templates/category-etc.png";
+import "../templates/category-japanese.png";
+import "../templates/category-korean.png";
+import "../templates/category-western.png";
+import "../templates/favorite-icon-filled.png";
+import "../templates/favorite-icon-lined.png";
 
-render(Header);
-render(SelectSection);
+new Header().render($(".body"));
+new SelectContainer().render($(".body"));
+new RestaurantList(template).render($(".body"));
+new Modal().render($(".body"));
