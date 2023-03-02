@@ -7,9 +7,9 @@ class Main {
   #restaurantManager;
   #renderListData;
 
-  constructor() {
+  constructor(RestaurantManager) {
     this.#restaurant = new RestaurantItem();
-    this.#restaurantManager = new RestaurantManager();
+    this.#restaurantManager = RestaurantManager;
     this.#renderListData = this.#restaurantManager.getRestaurantList();
 
     this.addEvent();
@@ -19,15 +19,15 @@ class Main {
     $('#category-filter').addEventListener('change', (e) => {
       if (e.target.value === '전체') {
         const renderData = this.#restaurantManager.getRestaurantList();
-        return ($('.restaurant-list-container').innerHTML = this.reRender(e, renderData));
+        return ($('.restaurant-list-container').innerHTML = this.reRender(renderData));
       }
       const reRenderData = this.#restaurantManager.filterRestaurantList(e.target.value);
-      $('.restaurant-list-container').innerHTML = this.reRender(e, reRenderData);
+      $('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
     });
 
     $('#sorting-filter').addEventListener('change', (e) => {
       const reRenderData = this.#restaurantManager.sortRestaurantList(e.target.value);
-      $('.restaurant-list-container').innerHTML = this.reRender(e, reRenderData);
+      $('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
     });
   }
 
@@ -40,7 +40,7 @@ class Main {
     `;
   }
 
-  reRender(e, data) {
+  reRender(data) {
     return `
     ${data.reduce((acc, element) => {
       acc += this.#restaurant.render(element);
