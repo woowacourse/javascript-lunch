@@ -8,7 +8,7 @@ type MainTemplateState = {
 
 type MainTemplateProps = {
   $parent: HTMLElement;
-  initialState: MainTemplateState;
+  modalHide: boolean;
   toggleModal: () => void;
 };
 
@@ -17,9 +17,11 @@ class MainTemplate implements Component<MainTemplateState> {
   state: MainTemplateState;
   toggleModal: () => void;
 
-  constructor({ $parent, initialState, toggleModal }: MainTemplateProps) {
+  constructor({ $parent, modalHide, toggleModal }: MainTemplateProps) {
     this.$component = document.createElement('div');
-    this.state = initialState;
+    this.state = {
+      modalHide,
+    };
     this.toggleModal = toggleModal;
 
     $parent.append(this.$component);
@@ -34,7 +36,6 @@ class MainTemplate implements Component<MainTemplateState> {
     this.$component.innerHTML = ``;
     new Header({ $parent: this.$component, toggleModal: this.toggleModal }).render();
     new RestaurantListPage({ $parent: this.$component }).render();
-    // TODO: 헤더, 음식 리스트 페이지
   }
 }
 

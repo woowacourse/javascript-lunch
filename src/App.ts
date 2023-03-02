@@ -35,7 +35,7 @@ class App implements Component<AppState> {
 
     new MainTemplate({
       $parent: this.$component,
-      initialState: this.state,
+      modalHide,
       toggleModal: this.toggleModal,
     }).render();
 
