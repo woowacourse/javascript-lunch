@@ -9,9 +9,9 @@ export type Category = "한식" | "중식" | "일식" | "양식" | "아시안" |
 type Distance = 5 | 10 | 15 | 20 | 25 | 30;
 
 export interface Restaurant {
-  category: Category;
+  category: string;
   name: string;
-  distance: Distance;
+  distance: string;
   description?: string;
   link?: string;
 }

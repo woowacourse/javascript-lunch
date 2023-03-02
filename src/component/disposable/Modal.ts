@@ -1,3 +1,4 @@
+import { Restaurant } from "../../type/type";
 import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 
@@ -52,28 +53,51 @@ class Modal {
 
         <div class="button-container">
           <button type="button" class="button button--secondary text-caption modal--close">취소하기</button>
-          <button class="button button--primary text-caption">추가하기</button>
+          <button type="submit" class="button button--primary text-caption modal--submit">추가하기</button>
         </div>
       </form>
     </div>
   </div>`;
   }
 
-  render(target: Element) {
+  render(target: Element, makeTicket: (restaurant: Restaurant) => void) {
     target.insertAdjacentHTML("beforeend", this.template());
-    this.addEvent();
+    this.addEvent(makeTicket);
   }
 
-  addEvent() {
+  addEvent(makeTicket: (obj: Restaurant) => void) {
     $(".modal--close")?.addEventListener("click", () => {
       this.resetFormValues();
-      $(".modal")?.classList.remove("modal--open");
+      this.closeModal();
+    });
+
+    $(".modal-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const $modal = $(".modal-form") as HTMLFormElement;
+      const formData = Object.fromEntries(new FormData($modal).entries());
+      const data = {
+        name: formData.name as string,
+        distance: formData.distance as string,
+        category: formData.category as string,
+        link: formData.link as string,
+        description: formData.description as string,
+      };
+
+      console.log(formData);
+
+      makeTicket(data);
+      this.resetFormValues();
+      this.closeModal();
     });
   }
 
   resetFormValues() {
     const modalForm = $(".modal-form") as HTMLFormElement;
     modalForm.reset();
+  }
+
+  closeModal() {
+    $(".modal")?.classList.remove("modal--open");
   }
 }
 
