@@ -37,6 +37,7 @@
 - [x] feat: input 컴포넌트 생성
 - [x] feat: form item 컴포넌트 생성
 - [x] feat: select 컴포넌트 생성
+- [x] feat: textarea 컴포넌트 생성
 
 # 페어프로그래밍 회고
 
