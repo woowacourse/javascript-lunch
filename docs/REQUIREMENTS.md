@@ -58,10 +58,11 @@
 
 ## Controller.ts
 
-- restaurant 객체들을 관리하고 localStorage에 저장한다.
+- 새로운 restaurant 객체를 추가하고 localStorage에 저장한다.
+- restaurant 객체들을 반환한다.
+- localStorage에 있는 정보를 복구한다.
 - restaurant 객체들을 카테고리별로 필터링한다.
 - restaurant 객체들을 이름순 및 거리순으로 정렬한다.
-- 새로운 restaurant 객체를 추가한다.
 
 ## model
 
@@ -84,3 +85,9 @@ NavBar => BottomSheet => form => 음식점 추가하는 기능 완성
 
 [2]
 음식점 리스트를 영구저장 기능 + 복구하는 기능
+
+// any 없애기
+// 은닉화
+// util함수
+// bottomSheet 열고 닫을 때, 위에 겹겹이 쌓이는 버그 존재
+// map 안의 new 없애기
