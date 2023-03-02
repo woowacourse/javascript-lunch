@@ -17,7 +17,9 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "rules": {},
+  "rules": {
+    "class-methods-use-this": "off"
+  },
   "overrides": [
     {
       "files": [
