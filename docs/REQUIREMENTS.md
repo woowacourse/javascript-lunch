@@ -40,6 +40,7 @@
 - [x] feat: textarea 컴포넌트 생성
 - [x] feat: button 컴포넌트 생성
 - [x] feat: restaurant 컴포넌트 생성
+- [x] feat: modal 컴포넌트 생성
 
 # 페어프로그래밍 회고
 
