@@ -1,14 +1,15 @@
 import Component from "../core/Component";
+import translateCategory from "../util/translateCategory";
 
 export default class Restaurant extends Component {
   template() {
-    const { name, category, distance, description, url } = this.props;
+    const { name, category, distance, description } = this.props;
 
     return `
         <li class="restaurant">
         <div class="restaurant__category">
           <img
-            src="./category-asian.png"
+            src="./category-${translateCategory(category)}.png"
             alt="${category}"
             class="category-icon"
           />
