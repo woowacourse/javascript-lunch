@@ -1,5 +1,5 @@
 export type Restaurant = {
-  category: string;
+  category: Category;
   storeName: string;
   distance: number;
   detail: string;
