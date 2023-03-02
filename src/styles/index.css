@@ -15,7 +15,6 @@ body {
   flex-direction: column;
 }
 
-/* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
@@ -26,67 +25,6 @@ body {
   --grey-500: #000000;
 }
 
-/* Typography *************************************/
-.text-title {
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 600;
-}
-
-.text-subtitle {
-  font-size: 18px;
-  line-height: 28px;
-  font-weight: 600;
-}
-
-.text-body {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-}
-
-.text-caption {
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-}
-
-/* GNB ********************************************/
-.gnb {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 64px;
-
-  padding: 0 16px;
-
-  background-color: var(--primary-color);
-}
-
-.gnb__title {
-  color: #fcfcfd;
-}
-
-.gnb__button {
-  height: 40px;
-
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.gnb__button img {
-  display: block;
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-/* 음식점 목록 *****************************************/
-
-/* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
@@ -95,17 +33,11 @@ body {
   margin-top: 24px;
 }
 
-.restaurant-filter-container select {
-  height: 44px;
-  min-width: 125px;
+/* 음식점 목록 */
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
 
-  border: 1px solid #d0d5dd;
-  border-radius: 8px;
-  background: transparent;
-
-  font-size: 16px;
-}
-
-.restaurant-filter {
-  padding: 8px;
+  padding: 0 16px;
+  margin: 16px 0;
 }
