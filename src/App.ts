@@ -11,16 +11,38 @@ class App {
 
   constructor(body: Element) {
     new Header().render(body);
-    new SelectContainer().render(body);
-    new Modal().render(body, this.makeTicket);
+    new SelectContainer().render(body, this.sortList);
+    new Modal().render(body, this.makeRestaurantList);
     this.restaurantList = new RestaurantList();
     this.restaurantList.render(body);
   }
 
-  makeTicket = (restaurant: Restaurant): void => {
+  makeRestaurantList = (restaurant: Restaurant): void => {
     restaurantListHandler.addRestaurant(restaurant);
 
     const restaurantList = restaurantListHandler.getSortedByName();
+    this.restaurantList.replaceTemplate(
+      restaurantList
+        .map((restaurant: Restaurant) =>
+          new RestaurantTicket(restaurant).template()
+        )
+        .join("")
+    );
+  };
+
+  sortList = (id: string, value: string) => {
+    console.log(id, value);
+    let restaurantList = [];
+    if (id === "category-filter") {
+      restaurantList = restaurantListHandler.getFilteredByCategory(value);
+    } else {
+      if (value === "거리순") {
+        restaurantList = restaurantListHandler.getSortedByTakingTime();
+      } else {
+        restaurantList = restaurantListHandler.getSortedByName();
+      }
+    }
+
     this.restaurantList.replaceTemplate(
       restaurantList
         .map((restaurant: Restaurant) =>
