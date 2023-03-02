@@ -15,7 +15,7 @@ export default class RestaurantList extends Component {
     const { restaurantList } = this.props;
     const $restaurantList = this.$target.querySelector(".restaurant-list");
 
-    restaurantList.map((restaurant) => {
+    restaurantList.forEach((restaurant) => {
       new Restaurant($restaurantList, restaurant);
     });
   }
