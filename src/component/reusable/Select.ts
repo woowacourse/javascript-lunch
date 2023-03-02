@@ -1,27 +1,14 @@
+import { Attribute } from "../../type/type";
 import { $ } from "../../utils/Dom";
-
-interface Attribute {
-  id: string;
-  className: string;
-  name: string;
-  required?: boolean;
-}
 
 class Select {
   options: string[];
-  name: string;
-  id: string;
-  className: string;
-  required: boolean | undefined;
+  attribute: Attribute;
   selectedValue: string;
 
   constructor(attribute: Attribute, options: string[]) {
     this.options = options;
-    const { name, id, className, required } = attribute;
-    this.name = name;
-    this.id = id;
-    this.className = className;
-    this.required = required;
+    this.attribute = attribute;
     this.selectedValue = "";
   }
 
@@ -36,16 +23,16 @@ class Select {
   }
 
   template() {
-    return ` <select name=${this.name} id=${this.id} class=${
-      this.className
-    } required=${this.required}>
+    return ` <select name=${this.attribute.name} id=${
+      this.attribute.id
+    } class=${this.attribute.className} required=${this.attribute.required}>
     ${this.options
       .map((option: string) => `<option value=${option}> ${option} </option>`)
       .join("")}
   </select>`;
   }
 
-  getSelctedValue() {
+  getSelectedValue() {
     return this.selectedValue;
   }
 }
