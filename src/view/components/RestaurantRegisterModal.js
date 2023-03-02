@@ -80,7 +80,7 @@ customElements.define(
       const [category, name, distance, description, link] = [...e.target.elements]
         .slice(0, 5)
         .map((el) => {
-          if (el.id === 'distance') return el.valueAsNumber;
+          if (el.id === 'distance') return Number(el.value);
 
           return el.value;
         });
@@ -95,9 +95,6 @@ customElements.define(
           link,
         },
       });
-      // dispatchCustomEvent(this, {'registerRestaurant', {
-
-      // }})
     }
   }
 );
