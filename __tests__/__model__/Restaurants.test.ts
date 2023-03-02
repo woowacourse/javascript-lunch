@@ -1,4 +1,9 @@
-import { Category, Restaurant, RestaurantInfo, Restaurants } from '../../domain/Restaurants';
+import {
+  Category,
+  Restaurant,
+  RestaurantInfo,
+  Restaurants,
+} from '../../src/domain/model/Restaurants';
 
 type RequiredInfo = Pick<RestaurantInfo, 'name' | 'category' | 'distance'>;
 const getDummyInfo = (requiredInfo: RequiredInfo) => {
