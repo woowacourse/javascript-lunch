@@ -99,6 +99,7 @@ class AddRestaurant extends HTMLElement {
           link: formData.get("link") as string,
         };
         this.controller.addRestaurant(newRestaurant);
+        this.controller.updateRestaurantList(this.controller.getRestaurants());
       });
     });
   }

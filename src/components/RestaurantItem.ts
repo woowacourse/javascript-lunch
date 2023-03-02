@@ -3,7 +3,7 @@ import RestaurantType from "../type/Restaurant";
 class RestaurantItem {
   render(restaurant: RestaurantType) {
     return `
-    <li class="restaurant">
+      <li class="restaurant">
         <div class="restaurant__category">
           <img src="./category-asian.png" alt="아시안" class="category-icon">
         </div>
