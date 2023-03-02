@@ -1,6 +1,15 @@
+import Restaurants from '../model/Restaurants';
+import { Restaurant, Category, Distance, State } from '../types/restaurantTypes';
 import Component from './Component';
 
 export default class Modal extends Component {
+  restaurants: Restaurants;
+
+  constructor($target: HTMLElement, restaurants: Restaurants, state: State) {
+    super($target);
+    this.restaurants = restaurants;
+    this.$state = state;
+  }
   template() {
     return `
       <!-- 음식점 추가 모달 -->
@@ -73,11 +82,39 @@ export default class Modal extends Component {
   }
 
   listenEvent() {
-    this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
-      const elementToRemove = this.$target.querySelector('.modal--open');
-      if (elementToRemove) {
-        elementToRemove.remove();
+    this.$target.querySelector('.button--primary')?.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      const category: Category = this.$target.querySelector<HTMLSelectElement>('#category')!.value as Category;
+      const name: string = this.$target.querySelector<HTMLInputElement>('#name')!.value;
+      const distance: Distance = Number(this.$target.querySelector<HTMLSelectElement>('#distance')!.value) as Distance;
+      const description = this.$target.querySelector<HTMLTextAreaElement>('#description')!.value;
+      const link = this.$target.querySelector<HTMLInputElement>('#link')!.value;
+
+      if (!category || !name || !distance) {
+        alert('카테고리, 이름, 거리는 필수 입력 정보 입니다!!!!');
+        return;
       }
+
+      const restaurant: Restaurant = {
+        name,
+        category,
+        distance,
+        description,
+        link,
+      };
+
+      this.restaurants.add(restaurant);
+      this.closeModal();
     });
+
+    this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
+      this.closeModal();
+    });
+  }
+  closeModal() {
+    const elementToRemove = this.$target.querySelector('.modal--open');
+    if (elementToRemove) {
+      elementToRemove.remove();
+    }
   }
 }

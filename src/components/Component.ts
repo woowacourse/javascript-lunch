@@ -2,7 +2,7 @@ import { State } from '../types/restaurantTypes';
 
 export default class Component {
   $target: HTMLElement;
-  $state: State | undefined;
+  $state!: State;
 
   constructor($target: HTMLElement) {
     this.$target = $target;
@@ -17,6 +17,7 @@ export default class Component {
     this.$target.innerHTML = this.template();
   }
   listenEvent() {}
+
   setState(newState: any): void {
     this.$state = { ...this.$state, ...newState };
     this.render();

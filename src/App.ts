@@ -5,7 +5,7 @@ import Component from './components/Component';
 import Modal from './components/Modal';
 
 export default class App extends Component {
-  restuarants: Restaurants | undefined;
+  restuarants: Restaurants;
 
   constructor($target: HTMLElement) {
     super($target);
@@ -134,12 +134,13 @@ export default class App extends Component {
     if (sortFilter instanceof HTMLSelectElement) {
       sortFilter.value = this.$state!.sort;
     }
+
     this.listenEvent();
   }
 
   listenEvent() {
     this.$target.querySelector('.gnb__button')!.addEventListener('click', (event: Event) => {
-      new Modal(this.$target);
+      new Modal(this.$target, this.restuarants, this.$state);
     });
 
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
