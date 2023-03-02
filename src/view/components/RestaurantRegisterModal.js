@@ -77,23 +77,30 @@ customElements.define(
     handleSubmit(e) {
       e.preventDefault();
 
-      const [category, name, distance, description, link] = [...e.target.elements]
-        .slice(0, 5)
-        .map((el) => {
-          if (el.id === 'distance') return Number(el.value);
+      const restaurant = this.createRestaurantInfo([...e.target.elements].slice(0, 5));
+      this.dispatch(restaurant);
+    }
 
-          return el.value;
-        });
+    createRestaurantInfo(formElements) {
+      const [category, name, distance, description, link] = formElements.map((el) => {
+        if (el.id === 'distance') return Number(el.value);
 
+        return el.value;
+      });
+
+      return {
+        category,
+        name,
+        distance,
+        description,
+        link,
+      };
+    }
+
+    dispatch(data) {
       dispatchCustomEvent(this, {
         eventType: 'registerRestaurant',
-        data: {
-          category,
-          name,
-          distance,
-          description,
-          link,
-        },
+        data,
       });
     }
   }
