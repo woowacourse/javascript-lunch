@@ -5,6 +5,11 @@ class LunchRecommendation {
   constructor() {}
 
   play() {
+    $('lunch-header', '#openModal').addEventListener(
+      'click',
+      webView.openModal
+    );
+
     $('add-restaurant-modal', '#cancleModal').addEventListener(
       'click',
       webView.closeModal
@@ -20,6 +25,8 @@ class LunchRecommendation {
         webView.closeModal();
       }
     });
+
+    $('add-restaurant-modal', '#cancleModal');
   }
 }
 
