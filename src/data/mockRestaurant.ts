@@ -1,6 +1,6 @@
 import { RestaurantType } from "../components/Restaurant";
 
-export const mock: RestaurantType = {
+export const mockKorea: RestaurantType = {
   category: "한식",
   name: "피양콩할마니",
   distance: 10,
@@ -10,4 +10,54 @@ export const mock: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-export const mockList: RestaurantType[] = Array(7).fill(mock);
+const mockJapen: RestaurantType = {
+  category: "일식",
+  name: "피양콩일일일",
+  distance: 15,
+  description: `일이링리일인란이ㅏ린아리나이라니아리낭리`,
+  link: "https://naver.me/G6DyD9tg",
+};
+
+const mockWestern: RestaurantType = {
+  category: "양식",
+  name: "피양콩양양양",
+  distance: 5,
+  description: `ㅌ일ㄴㅈㄹㅇㅁㄴㅇㄹㅎㅈㄷㅁㄹㅇㅇㄴㅎ류이링리일인란이ㅏ린아리나이라니아리낭리`,
+  link: "https://naver.me/G6DyD9tg",
+};
+
+const mockAsian: RestaurantType = {
+  category: "아시안",
+  name: "피양콩아시안",
+  distance: 20,
+  description: `았;ㅇ;;;;;;;;;;;;;;;`,
+  link: "https://naver.me/G6DyD9tg",
+};
+
+const mockEtc: RestaurantType = {
+  category: "기타",
+  name: "피양콩딩가딩가",
+  distance: 15,
+  description: `나는 기타다~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`,
+  link: "https://naver.me/G6DyD9tg",
+};
+
+const mockChina: RestaurantType = {
+  category: "중식",
+  name: "피양콩중중중",
+  distance: 30,
+  description: `중꿔런쭞웆앚ㅇㄴ류ㅓㅏㄴㅁㅇ류머오뉼너ㅗㅠㅇㄹ`,
+  link: "https://naver.me/G6DyD9tg",
+};
+
+export const mockList: RestaurantType[] = [
+  mockAsian,
+  mockChina,
+  mockKorea,
+  mockChina,
+  mockJapen,
+  mockEtc,
+  mockWestern,
+  mockKorea,
+  mockAsian,
+];
