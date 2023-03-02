@@ -1,8 +1,8 @@
-import type { Category, State } from './types/restaurantTypes';
+import type { Category } from './types/restaurantTypes';
 import image from './img/images';
 import Restaurants from './model/Restaurants';
 import Component from './components/Component';
-import Modal from './components/modal';
+import Modal from './components/Modal';
 
 export default class App extends Component {
   restuarants: Restaurants | undefined;
@@ -139,7 +139,7 @@ export default class App extends Component {
 
   listenEvent() {
     this.$target.querySelector('.gnb__button')!.addEventListener('click', (event: Event) => {
-      const modal = new Modal(this.$target);
+      new Modal(this.$target);
     });
 
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {

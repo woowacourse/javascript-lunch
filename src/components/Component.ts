@@ -16,6 +16,7 @@ export default class Component {
   render() {
     this.$target.innerHTML = this.template();
   }
+  listenEvent() {}
   setState(newState: any): void {
     this.$state = { ...this.$state, ...newState };
     this.render();

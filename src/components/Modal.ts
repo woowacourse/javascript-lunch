@@ -69,8 +69,15 @@ export default class Modal extends Component {
   }
   render(): void {
     this.$target.insertAdjacentHTML('beforeend', this.template());
+    this.listenEvent();
   }
+
   listenEvent() {
-    this.$target.querySelector('.button button--secondary')?.addEventListener('click', (event: Event) => {});
+    this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
+      const elementToRemove = this.$target.querySelector('.modal--open');
+      if (elementToRemove) {
+        elementToRemove.remove();
+      }
+    });
   }
 }
