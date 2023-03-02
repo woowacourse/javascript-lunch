@@ -1,16 +1,14 @@
-import { restaurants } from '../../domain/restaurants';
-
 customElements.define(
   'restaurant-list',
   class RestaurantList extends HTMLElement {
     constructor() {
       super();
+    }
 
-      const { list } = restaurants;
-
+    render(restaurants) {
       this.innerHTML = /* html */ `
       <ul class="restaurant-list">
-      ${list
+      ${restaurants
         .map(
           (restaurant) => /* html */ `
           <restaurant-list-item
