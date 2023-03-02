@@ -1,1 +1,2 @@
+import './RFormItem';
 import './RInput';
