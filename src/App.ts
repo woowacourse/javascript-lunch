@@ -3,8 +3,13 @@ import Restaurants from './domain/Restaurants';
 
 import Header from './view/components/Header';
 import RestaurantList from './view/components/RestaurantList';
+import Selector from './view/components/Selector';
 
-import { Restaurant } from './type/common';
+import {
+  Restaurant,
+  RestaurantSortingType,
+  RestaurantCategoryType,
+} from './type/common';
 import { menu1, menu2, menu3, menu4 } from './data/dummy';
 
 import { $ } from './utils/querySelector';
@@ -14,6 +19,8 @@ const dummyData = [menu1, menu2, menu3, menu4];
 
 type StateType = {
   restaurants?: Restaurant[];
+  categorySelector?: RestaurantCategoryType;
+  sortedSelector?: RestaurantSortingType;
 };
 
 class App {

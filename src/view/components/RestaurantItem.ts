@@ -6,6 +6,7 @@ type RestaurantItemProps = {
 };
 
 const categoryImgPath = {
+  전체: null,
   한식: './category-korean.png',
   중식: './category-chinese.png',
   양식: './category-western.png',
