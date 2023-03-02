@@ -26,6 +26,8 @@ class RSelect extends RFormControl {
 
   setSelectedOption(selectedOption: RSelectOption) {
     this.#selectedOption = selectedOption;
+
+    this.dispatchEvent(new CustomEvent('change'));
   }
 
   renderTemplate(): string {
@@ -43,7 +45,7 @@ class RSelect extends RFormControl {
         }
       </style>
 
-      <select>
+      <select id="select">
         ${this.#options
           .map(({ value, label }) => {
             return `<option value="${value}">${label}</option>`;
@@ -51,6 +53,20 @@ class RSelect extends RFormControl {
           .join('')}
       </select>
     `;
+  }
+
+  render(): void {
+    super.render();
+
+    this.shadowRoot
+      ?.querySelector<HTMLSelectElement>('#select')
+      ?.addEventListener('change', (event) => {
+        const $select = event?.target as HTMLSelectElement;
+        this.setSelectedOption({
+          value: $select.value,
+          label: this.#options.find((option) => option.value === $select.value)?.label as string,
+        });
+      });
   }
 }
 
