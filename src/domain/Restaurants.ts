@@ -6,7 +6,7 @@ class Restaurants {
   #restaurants: Restaurant[];
 
   constructor(restaurants: Restaurant[]) {
-    this.#restaurants = restaurants;
+    this.#restaurants = restaurants.map(restaurant => this.optionInfoCovertToEmptyString(restaurant));
   }
 
   get restaurants(): Restaurant[] {

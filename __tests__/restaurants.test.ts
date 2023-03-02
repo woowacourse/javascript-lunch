@@ -2,8 +2,6 @@ import Restaurants from '../src/domain/Restaurants';
 import { Restaurant } from '../src/types/Types';
 
 describe('Restaurants 도메인 테스트', () => {
-  const restaurants = new Restaurants();
-
   const yeoptoRestaurant: Restaurant = {
     category: '기타',
     name: '엽토네 떡볶이',
@@ -20,6 +18,8 @@ describe('Restaurants 도메인 테스트', () => {
     link: 'undefined',
   };
 
+  const restaurants = new Restaurants([yeoptoRestaurant, doriRestaurant]);
+
   const gongwonRestaurant: Restaurant = {
     category: '일식',
     name: '공원네 초밥집',
@@ -29,8 +29,6 @@ describe('Restaurants 도메인 테스트', () => {
   };
 
   test('음식점 목록을 추가하는 기능 테스트', () => {
-    restaurants.add(yeoptoRestaurant);
-    restaurants.add(doriRestaurant);
     restaurants.add(gongwonRestaurant);
 
     expect(restaurants.restaurants.length).toBe(3);
