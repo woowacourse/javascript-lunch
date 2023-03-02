@@ -7,6 +7,7 @@ class RestaurantService {
     this.restaurantList = JSON.parse(
       localStorage.getItem("restaurants") ?? "[]"
     );
+    console.log(this.restaurantList);
   }
 
   add(restaurant: Restaurant) {

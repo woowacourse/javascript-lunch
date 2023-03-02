@@ -9,6 +9,10 @@ export class App {
   private mainView = new MainView();
   private modalView = new ModalView();
 
+  constructor() {
+    renderList(this.restaurantService.sortByName());
+  }
+
   play() {
     this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm);
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
