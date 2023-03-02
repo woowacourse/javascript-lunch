@@ -212,7 +212,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .form-item label {
@@ -227,8 +227,19 @@ body {
   content: "*";
 }
 
+.form-item .info-text {
+  height: 20px;
+  opacity: 0;
+}
+
 .form-item .help-text {
   color: var(--grey-300);
+  opacity: 1;
+}
+
+.form-item .error-text {
+  color: var(--primary-color);
+  opacity: 1;
 }
 
 .form-item input,
