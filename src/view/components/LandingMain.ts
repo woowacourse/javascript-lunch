@@ -1,6 +1,7 @@
 import { Category, Filter } from '../../domain/model/LunchRecommendation';
 import { useState } from '../../utils/core';
 import { Nav } from './Nav';
+import { Restaurants } from './Restaurants';
 
 function LandingMain() {
   const [category, setCategory] = useState<Category>('전체');
@@ -17,6 +18,7 @@ function LandingMain() {
   return `
     <main>
       ${Nav.bind(Nav)({ category, filter, handleCategory, handleFilter })}
+      ${Restaurants()}
     </main>
   `;
 }
