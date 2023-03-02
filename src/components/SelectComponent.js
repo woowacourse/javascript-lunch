@@ -8,10 +8,18 @@ class SelectComponent extends CustomElement {
     dispatcher(RESTAURANT_ACTION.FILTER_BY_CATEGORY, category);
   }
 
+  changeSortMethod() {
+    const sortMethod = document.querySelector("#sorting-filter").value;
+    dispatcher(RESTAURANT_ACTION.SORT_RESTAURANTS, sortMethod);
+  }
+
   setEvent() {
     document
       .querySelector("#category-filter")
       .addEventListener("change", () => this.changeCategory());
+    document
+      .querySelector("#sorting-filter")
+      .addEventListener("change", () => this.changeSortMethod());
   }
 
   template() {

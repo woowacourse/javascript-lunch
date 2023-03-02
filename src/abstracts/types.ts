@@ -7,7 +7,7 @@ export type Category =
   | "양식"
   | "기타";
 
-export type SortMethod = "이름순" | "거리순";
+export type SortMethod = "name" | "distance";
 
 export interface Restaurant {
   category: Category;
@@ -23,7 +23,7 @@ export interface CustomElement extends HTMLElement {
   setEvent: () => void;
   show: () => void;
   hide: () => void;
-  rerender: (data: Restaurant[]) => void;
+  rerender: (data: Restaurant[] | Category | SortMethod) => void;
 }
 
 export interface Action {

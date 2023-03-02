@@ -10,6 +10,9 @@ import { RESTAURANT_ACTION } from "../abstracts/constants";
 class RestaurantsStore {
   #restaurantList: Restaurant[] =
     JSON.parse(localStorage.getItem("restaurantList")!) || [];
+  #category: Category = "전체";
+  #sortMethod: SortMethod = "name";
+
   #subscribers: CustomElement[] = [];
 
   subscribe(element: CustomElement) {
@@ -17,6 +20,8 @@ class RestaurantsStore {
   }
 
   publish() {
+    this.filterByCategory(this.#category);
+    this.sortRestaurants(this.#sortMethod);
     this.#subscribers.forEach((subscriber) => {
       subscriber.rerender(this.#restaurantList);
     });
@@ -46,24 +51,28 @@ class RestaurantsStore {
   }
 
   filterByCategory(category: Category) {
+    this.#category = category;
     this.#restaurantList = JSON.parse(localStorage.getItem("restaurantList")!);
-    if (category !== "전체") {
+    if (this.#category !== "전체") {
       this.#restaurantList = this.#restaurantList.filter(
-        (restaurant) => restaurant.category === category
+        (restaurant) => restaurant.category === this.#category
       );
     }
   }
 
   sortRestaurants(sortMethod: SortMethod) {
-    switch (sortMethod) {
-      case "이름순":
-        return this.#restaurantList.sort((prev, next) =>
+    this.#sortMethod = sortMethod;
+    switch (this.#sortMethod) {
+      case "name":
+        this.#restaurantList = this.#restaurantList.sort((prev, next) =>
           prev.name > next.name ? 1 : -1
         );
-      case "거리순":
-        return this.#restaurantList.sort(
+        break;
+      case "distance":
+        this.#restaurantList = this.#restaurantList.sort(
           (prev, next) => prev.distance - next.distance
         );
+        break;
     }
   }
 }
