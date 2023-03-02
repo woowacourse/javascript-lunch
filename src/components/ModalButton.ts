@@ -10,7 +10,8 @@ const ModalButton = {
     return tamplate;
   },
   setEvent() {
-    document.querySelector(".gnb__button").addEventListener("click", () => {
+    const gnbButton = document.querySelector(".gnb__button");
+    gnbButton?.addEventListener("click", () => {
       // 이벤트 추가 필요
     });
   },
