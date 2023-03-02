@@ -1,8 +1,12 @@
 class AddRestaurant extends HTMLElement {
+  private controller;
+
   constructor() {
     super();
+    this.controller = globalThis.controller;
     this.render();
     this.onClickCancelButton();
+    this.onClickAddButton();
   }
 
   render() {
@@ -10,7 +14,7 @@ class AddRestaurant extends HTMLElement {
       "afterbegin",
       `
     <h2 class="modal-title text-title">새로운 음식점</h2>
-    <form>
+    <form id="restaurantForm">
 
       <!-- 카테고리 -->
       <div class="form-item form-item--required">
@@ -62,7 +66,7 @@ class AddRestaurant extends HTMLElement {
       <!-- 취소/추가 버튼 -->
       <div class="button-container">
         <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
-        <button class="button button--primary text-caption">추가하기</button>
+        <button id="addButton" type="submit" class="button button--primary text-caption">추가하기</button>
       </div>
     </form>
     `
@@ -77,7 +81,27 @@ class AddRestaurant extends HTMLElement {
     });
   }
 
-  onClickAddButton() {}
+  onClickAddButton() {
+    const addButton = document.getElementById("addButton");
+    addButton?.addEventListener("click", () => {
+      const bottomSheet: any = document.getElementById("bottomSheet");
+      bottomSheet?.close();
+
+      const restaurantForm = document.getElementById("restaurantForm");
+      restaurantForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target as any);
+        const newRestaurant = {
+          category: formData.get("category") as string,
+          name: formData.get("name") as string,
+          distance: Number(formData.get("distance")),
+          description: formData.get("description") as string,
+          link: formData.get("link") as string,
+        };
+        this.controller.addRestaurant(newRestaurant);
+      });
+    });
+  }
 }
 
 export default AddRestaurant;
