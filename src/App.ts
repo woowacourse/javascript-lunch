@@ -1,4 +1,5 @@
 import createCustomSelect from "./components/CustomSelect";
+import createCustomModal from "./components/CustomModal";
 
 class App {
   constructor() {
@@ -7,6 +8,7 @@ class App {
 
   init() {
     createCustomSelect();
+    createCustomModal();
     this.renderContainer();
   }
 
@@ -19,10 +21,7 @@ class App {
           <custom-select name="sorting" id="sorting-filter" class="restaurant-filter"></custom-select>
         </section>
         <section class="restaurant-list-container"></section>
-        <div class="modal modal--open">
-          <div class="modal-backdrop"></div>
-          <div class="modal-container"></div>
-        </div>
+        <custom-modal></custom-modal>
       </main>
     `;
   }
