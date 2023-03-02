@@ -5,6 +5,7 @@ import Restaurants from "./domain/Restaurants";
 import {
   Category,
   CategoryOption,
+  Distance,
   Restaurant,
   SortOption,
 } from "./types/restaurant";
@@ -54,7 +55,9 @@ class App {
   };
 
   constructor() {
-    this.#restaurants = new Restaurants(mockList);
+    const restaurants = JSON.parse(localStorage.getItem("restaurants") ?? "[]");
+
+    this.#restaurants = new Restaurants(restaurants);
     this.#showState = {
       filter: "전체",
       sort: "name",
@@ -77,8 +80,8 @@ class App {
       <custom-header></custom-header>
       <main>
         <section class="restaurant-filter-container">
-          <custom-select name="category" id="category-filter" class="restaurant-filter"></custom-select>
-          <custom-select name="sorting" id="sorting-filter" class="restaurant-filter"></custom-select>
+          <custom-select name="category" cid="category-filter" class="restaurant-filter"></custom-select>
+          <custom-select name="sorting" cid="sorting-filter" class="restaurant-filter"></custom-select>
         </section>
         <section class="restaurant-list-container">
           ${createRestaurantCardList(
@@ -122,6 +125,49 @@ class App {
     restaurantListContainer.innerHTML = createRestaurantCardList(
       this.#restaurants.getList(this.#showState)
     );
+  }
+
+  addNewRestaurant(event: Event) {
+    event.preventDefault();
+
+    const category = (document.getElementById("category") as HTMLSelectElement)
+      .value as Category;
+    const name = (document.getElementById("name") as HTMLInputElement).value;
+    const distance = Number(
+      (document.getElementById("distance") as HTMLSelectElement).value
+    ) as Distance;
+    const description = (
+      document.getElementById("description") as HTMLTextAreaElement
+    ).value;
+    const link = (document.getElementById("link") as HTMLInputElement).value;
+
+    this.#restaurants.add({
+      category,
+      name,
+      distance,
+      description,
+      link,
+    });
+
+    this.renderRestaurantList();
+
+    localStorage.setItem(
+      "restaurants",
+      JSON.stringify(
+        this.#restaurants.getList({ filter: "전체", sort: "name" })
+      )
+    );
+
+    this.closeModal();
+    this.resetModalValue();
+  }
+
+  resetModalValue() {
+    (document.getElementById("category") as HTMLSelectElement).value = "";
+    (document.getElementById("name") as HTMLInputElement).value = "";
+    (document.getElementById("distance") as HTMLSelectElement).value = "";
+    (document.getElementById("description") as HTMLTextAreaElement).value = "";
+    (document.getElementById("link") as HTMLInputElement).value = "";
   }
 }
 

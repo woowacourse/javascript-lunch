@@ -25,3 +25,9 @@ export const setFilteringSelectChangeHandler = (
 
   $filteringSelect?.addEventListener("change", filterRestaurantList);
 };
+
+export const setAddNewRestaurantHandler = (addNewRestaurant: () => void) => {
+  const $form = document.querySelector(".modal-container form");
+
+  $form?.addEventListener("submit", addNewRestaurant);
+};

@@ -19,9 +19,9 @@
       - [x] params: Restaurant 정보
     - [x] RestaurantList 컴포넌트
       - [x] params: RestaurantCard[]
-    - [ ] Modal 컴포넌트
+    - [x] Modal 컴포넌트
       - [x] 토글기능
-      - [ ] 새로운 음식점 등록 기능
+      - [x] 새로운 음식점 등록 기능
     - [x] Header 컴포넌트
   - [x] 카테고리 선택시 해당 카테고리로 필터링된 결과를 보여주는 기능
   - [x] 이름순/거리순 선택시 해당 기준으로 정렬한 결과를 보여주는 기능
