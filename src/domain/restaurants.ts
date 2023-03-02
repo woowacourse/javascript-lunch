@@ -13,6 +13,7 @@ interface Restaurants {
   list: Restaurant[];
   add(restaurant: Restaurant): void;
   filterByCategory(category: Category): Restaurant[];
+  sortByName(): Restaurant[];
 }
 
 export const restaurants: Restaurants = {
@@ -68,5 +69,11 @@ export const restaurants: Restaurants = {
 
   filterByCategory(category) {
     return this.list.filter((restaurant) => restaurant.category === category);
+  },
+
+  sortByName() {
+    return [...this.list].sort((a: Restaurant, b: Restaurant) =>
+      a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+    );
   },
 };
