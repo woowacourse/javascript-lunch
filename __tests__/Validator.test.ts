@@ -1,4 +1,4 @@
-import Validator from '../src/Validator';
+import Validator from '../src/domain/Validator';
 import { ERROR_MESSAGE } from '../src/constants/message';
 
 describe('Validator.isEmptyFormValue', () => {

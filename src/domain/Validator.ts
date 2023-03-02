@@ -1,5 +1,5 @@
-import { CATEGORIES, DISTANCES } from './constants/formCondition';
-import { ERROR_MESSAGE } from './constants/message';
+import { CATEGORIES, DISTANCES } from '../constants/formCondition';
+import { ERROR_MESSAGE } from '../constants/message';
 
 const Validator = {
   validateCategory(selectedCategory: string) {
