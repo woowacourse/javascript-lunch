@@ -27,26 +27,41 @@ export default class App extends Component {
           description: "다식당입니다.",
         },
       ],
-      modalToggle: false,
+      modalOpen: false,
     };
   }
 
   template() {
     return `
       <header class="gnb"></header>
-      <main></main>
+      <main>
+        <section class="restaurant-filter-container"></section>
+        <section class="restaurant-list-container"></section>
+        <div class="modal ${this.state.modalOpen && "modal--open"}"></div>
+      </main>
     `;
   }
 
   mounted() {
+    const { toggleModal } = this;
+    const { restaurantList, modalOpen } = this.state;
+
     const $header = this.$target.querySelector(".gnb");
-    const $main = this.$target.querySelector("main");
+    const $restaurantFilter = this.$target.querySelector(
+      ".restaurant-filter-container"
+    );
+    const $restaurantList = this.$target.querySelector(
+      ".restaurant-list-container"
+    );
+    const $modal = this.$target.querySelector(".modal");
 
-    const restaurantList = this.state.restaurantList;
+    new Header($header, { toggleModal: toggleModal.bind(this) });
+    new Filter($restaurantFilter);
+    new RestaurantList($restaurantList, { restaurantList });
+    new Modal($modal, { toggleModal: toggleModal.bind(this) });
+  }
 
-    new Header($header);
-    new Filter($main);
-    new RestaurantList($main, { restaurantList });
-    new Modal($main);
+  toggleModal() {
+    this.setState({ modalOpen: !this.state.modalOpen });
   }
 }

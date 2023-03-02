@@ -3,7 +3,6 @@ import Component from "../core/Component";
 export default class Modal extends Component {
   template() {
     return `
-        <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -79,15 +78,13 @@ export default class Modal extends Component {
             </div>
           </form>
         </div>
-      </div>
         `;
   }
 
   setEvent() {
     this.addEvent("click", "#cancel-button", (event) => {
-      //   event.preventDefault();
-      const $modal = event.target.closest(".modal");
-      $modal.classList.toggle("modal--open");
+      const { toggleModal } = this.props;
+      toggleModal();
     });
   }
 }

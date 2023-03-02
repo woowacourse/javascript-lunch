@@ -4,10 +4,8 @@ import Restaurant from "./Restaurant";
 export default class RestaurantList extends Component {
   template() {
     return `
-    <section class="restaurant-list-container">
       <ul class="restaurant-list">
       </ul>
-    </section>
     `;
   }
 

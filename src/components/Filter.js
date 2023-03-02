@@ -3,7 +3,6 @@ import Component from "../core/Component";
 export default class Filter extends Component {
   template() {
     return `
-    <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
           <option value="한식">한식</option>
@@ -18,7 +17,6 @@ export default class Filter extends Component {
           <option value="name">이름순</option>
           <option value="distance">거리순</option>
         </select>
-      </section>
     `;
   }
 }

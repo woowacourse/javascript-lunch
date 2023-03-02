@@ -9,7 +9,7 @@ export default class Restaurant extends Component {
         <li class="restaurant">
         <div class="restaurant__category">
           <img
-            src="../images/category-${translateCategory(category)}.png"
+            src="./category-${translateCategory(category)}.png"
             alt="${category}"
             class="category-icon"
           />
@@ -25,5 +25,10 @@ export default class Restaurant extends Component {
         </div>
       </li>
         `;
+  }
+
+  render() {
+    this.$target.insertAdjacentHTML("beforeend", this.template());
+    this.mounted();
   }
 }
