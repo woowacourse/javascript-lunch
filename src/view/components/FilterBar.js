@@ -1,4 +1,5 @@
 import { $ } from "../../utils/Dom";
+import { sortByName, sortByDistance } from "../../utils/Sort";
 
 export default class FilterBar {
   #template = `
@@ -27,18 +28,48 @@ export default class FilterBar {
     this.restaurantList = restaurantList;
     this.restaurantRegistry = restaurantRegistry;
     document.body.insertAdjacentHTML("beforeend", this.#template);
-    const selected = $(".restaurant-filter");
+    const selected = $("#category-filter");
     selected.addEventListener("change", () => {
       const selectedValue = selected.options[selected.selectedIndex].value;
       this.filterCategory(selectedValue);
+    });
+    const sorted = $("#sorting-filter");
+    sorted.addEventListener("change", () => {
+      const sortedValue = sorted.options[sorted.selectedIndex].value;
+      if (sortedValue === "name") this.filterByName();
+      if (sortedValue === "distance") this.filterByDistance();
     });
   }
 
   filterCategory(selectedValue) {
     this.restaurantList.categoryFilter(selectedValue);
     $(".restaurant-list").replaceChildren();
-    const arr = JSON.parse(localStorage.getItem("restaurants"));
-    arr.forEach((value) => {
+    const restaurantParsedInfo = JSON.parse(
+      localStorage.getItem("restaurants")
+    );
+    restaurantParsedInfo.forEach((value) => {
+      this.restaurantRegistry.appendRestaurant(value);
+    });
+  }
+
+  filterByName() {
+    $(".restaurant-list").replaceChildren();
+    const restaurantParsedInfo = JSON.parse(
+      localStorage.getItem("restaurants")
+    );
+    sortByName(restaurantParsedInfo);
+    restaurantParsedInfo.forEach((value) => {
+      this.restaurantRegistry.appendRestaurant(value);
+    });
+  }
+
+  filterByDistance() {
+    $(".restaurant-list").replaceChildren();
+    const restaurantParsedInfo = JSON.parse(
+      localStorage.getItem("restaurants")
+    );
+    sortByDistance(restaurantParsedInfo);
+    restaurantParsedInfo.forEach((value) => {
       this.restaurantRegistry.appendRestaurant(value);
     });
   }

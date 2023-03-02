@@ -35,7 +35,6 @@ export class RestaurantList {
     const restaurantString = JSON.stringify(filteredList);
     window.localStorage.clear();
     window.localStorage.setItem("restaurants", restaurantString);
-    // console.log(window.localStorage.getItem("restaurants"));
     return filteredList;
   }
 }
