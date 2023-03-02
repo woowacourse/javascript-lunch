@@ -7,7 +7,7 @@ class Modal {
     <div class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form>
+      <form class="modal-form">
         <div class="form-item form-item--required">
           <label for="category text-caption">카테고리</label>
           ${new Select({ name: "category", id: "category", required: true }, [
@@ -66,8 +66,14 @@ class Modal {
 
   addEvent() {
     $(".modal--close")?.addEventListener("click", () => {
+      this.resetFormValues();
       $(".modal")?.classList.remove("modal--open");
     });
+  }
+
+  resetFormValues() {
+    const modalForm = $(".modal-form") as HTMLFormElement;
+    modalForm.reset();
   }
 }
 
