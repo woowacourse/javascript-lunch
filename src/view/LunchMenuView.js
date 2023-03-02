@@ -2,6 +2,7 @@ import { $ } from '../utils/dom';
 
 const LunchMenuView = {
   render() {
+    $('.restaurant-list-container').replaceChildren();
     $('.restaurant-list-container').insertAdjacentHTML(
       'beforeend',
       `<restaurant-list></restaurant-list>`
@@ -9,7 +10,15 @@ const LunchMenuView = {
   },
 
   bindEvents() {
-    $('.gnb__button').addEventListener('click', () => $('.modal').showModal());
+    $('.gnb__button').addEventListener('click', () => this.openModal());
+  },
+
+  openModal() {
+    $('.modal').showModal();
+  },
+
+  closeModal() {
+    $('.modal').close();
   },
 };
 
