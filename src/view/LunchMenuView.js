@@ -9,9 +9,9 @@ const LunchMenuView = {
   },
 
   bindEvents() {
-    $('.gnb__button').addEventListener('click', () => {
-      $('.modal').showModal();
-    });
+    $('.gnb__button').addEventListener('click', () => $('.modal').showModal());
+
+    $('.cancel-button').addEventListener('click', () => $('.modal').close());
   },
 };
 
