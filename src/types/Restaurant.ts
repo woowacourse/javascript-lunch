@@ -8,4 +8,4 @@ export type Restaurant = {
 
 export type Category = '전체' | '한식' | '중식' | '일식' | '양식' | '아시안' | '기타';
 
-export type SortBy = '이름순' | '거리순';
+export type SortBy = 'name' | 'distance';
