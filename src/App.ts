@@ -34,7 +34,7 @@ class App {
           ${this.#restaurantList.template()}
         </section>
 
-        <div class="modal modal--open">
+        <div class="modal">
           <div class="modal-backdrop"></div>
           <div class="modal-container">
             ${ModalHeader.template()}
@@ -57,6 +57,7 @@ class App {
     FilterButton.setEvent();
     ModalButton.setEvent();
     SortButton.setEvent();
+    AddButton.setEvent();
     this.#restaurantList.setEvent();
   }
 }
