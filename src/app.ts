@@ -1,3 +1,4 @@
+import { Category, Order } from './constants/enum';
 import Component from './core/Component';
 import IRestaurantInput from './interfaces/IRestaurantInput';
 import { restaurantInputValidator } from './validator/restaurantInputValidator';
@@ -46,7 +47,15 @@ class App extends Component {
     );
   }
 
-  filterList() {}
+  filterList(category: Category, order: Order) {
+    const categorySortedList = this.getRestaurants().filter((restaurant) => {
+      return restaurant.category === category;
+    });
+
+    return categorySortedList.sort((first, second) => {
+      return +first.distance - +second.distance;
+    });
+  }
 
   getRestaurants(): IRestaurantInput[] {
     return JSON.parse(localStorage.getItem('restaurantList') || '[]');
