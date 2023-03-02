@@ -19,7 +19,9 @@ class Restaurants {
   }
 
   sortByDistance() {
-    return this.getList().sort((a, b) => a.distance - b.distance);
+    return this.getList().sort(
+      (a, b) => Number(a.distance) - Number(b.distance)
+    );
   }
 }
 

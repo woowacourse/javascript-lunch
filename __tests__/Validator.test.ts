@@ -1,11 +1,11 @@
 import Validator from "../src/Validator";
 
 test("이름이 공백일 때 true를 반환하는 함수 테스트", () => {
-  expect(Validator.isEmptyName("")).toBeTruthy();
+  expect(Validator.isEmptyInput("")).toBeTruthy();
 });
 
 test("이름이 공백이 아닐 때 false를 반환하는 함수 테스트", () => {
-  expect(Validator.isEmptyName("역전우동")).toBeFalsy();
+  expect(Validator.isEmptyInput("역전우동")).toBeFalsy();
 });
 
 test("링크가 형식에 맞을 때 true를 반환하는 함수 테스트", () => {

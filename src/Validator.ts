@@ -1,6 +1,8 @@
+import { Category, Distance } from "./type/restaurant";
+
 const Validator = {
-  isEmptyName(name: string) {
-    return name.length === 0;
+  isEmptyInput(input: string) {
+    return input.length === 0;
   },
 
   isCorrectLink(link: string) {
