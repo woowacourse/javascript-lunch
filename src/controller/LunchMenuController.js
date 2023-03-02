@@ -17,12 +17,8 @@ const LunchMenuController = {
     $('restaurant-register-modal').addEventListener('registerRestaurant', (e) =>
       this.handleRestaurantRegister(e.detail)
     );
-    $('#category-filter').addEventListener('change', (e) =>
-      this.handleRestaurantFilter(e.target.value)
-    );
-    $('#sorting-filter').addEventListener('change', (e) =>
-      this.handleRestaurantSort(e.target.value)
-    );
+    $('#category-filter').addEventListener('change', () => this.handleRestaurantFilter());
+    $('#sorting-filter').addEventListener('change', () => this.handleRestaurantFilter());
   },
 
   handleRestaurantRegister(data) {
@@ -32,19 +28,20 @@ const LunchMenuController = {
     LunchMenuView.closeModal();
   },
 
-  handleRestaurantFilter(category) {
-    const filteredRestaurants = restaurants.filterByCategory(category);
-    LunchMenuView.render(filteredRestaurants);
-  },
-
-  handleRestaurantSort(sortingType) {
-    LunchMenuView.render(
-      sortingType === 'name' ? restaurants.sortByName() : restaurants.sortByDistance()
-    );
-  },
-
   setRestaurantList() {
     setLocalStorage('restaurants', restaurants.list);
+  },
+
+  handleRestaurantFilter() {
+    const sortingType = $('#sorting-filter').value;
+    const category = $('#category-filter').value;
+    const filteredRestaurants = restaurants.filterByCategory(category, restaurants.list);
+
+    LunchMenuView.render(
+      sortingType === 'name'
+        ? restaurants.sortByName(filteredRestaurants)
+        : restaurants.sortByDistance(filteredRestaurants)
+    );
   },
 };
 

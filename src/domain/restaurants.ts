@@ -15,9 +15,9 @@ interface Restaurants {
   list: Restaurant[];
   init(): void;
   add(restaurant: Restaurant): void;
-  filterByCategory(category: Category): Restaurant[];
-  sortByName(): Restaurant[];
-  sortByDistance(): Restaurant[];
+  filterByCategory(category: Category, restaurants: Restaurant[]): Restaurant[];
+  sortByName(restaurants: Restaurant[]): Restaurant[];
+  sortByDistance(restaurants: Restaurant[]): Restaurant[];
 }
 
 export const restaurants: Restaurants = {
@@ -75,18 +75,22 @@ export const restaurants: Restaurants = {
     this.list = [...this.list, restaurant];
   },
 
-  filterByCategory(category) {
-    return this.list.filter((restaurant) => restaurant.category === category);
+  filterByCategory(category, restaurants) {
+    const filteredRestaurants = restaurants.filter(
+      (restaurant) => restaurant.category === category
+    );
+
+    return filteredRestaurants.length > 0 ? filteredRestaurants : this.list;
   },
 
-  sortByName() {
-    return [...this.list].sort((a: Restaurant, b: Restaurant) =>
+  sortByName(restaurants) {
+    return [...restaurants].sort((a: Restaurant, b: Restaurant) =>
       a.name < b.name ? -1 : a.name > b.name ? 1 : 0
     );
   },
 
-  sortByDistance() {
-    return [...this.list].sort((a: Restaurant, b: Restaurant) => {
+  sortByDistance(restaurants) {
+    return [...restaurants].sort((a: Restaurant, b: Restaurant) => {
       if (a.distance === b.distance) {
         // 같은 거리일 경우 이름 순으로 정렬
         return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
