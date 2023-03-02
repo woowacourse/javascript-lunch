@@ -6,3 +6,7 @@ export enum Category {
   Asian = '아시안',
   Etc = '기타',
 }
+
+export enum Order {
+  Distance = '거리순',
+}
