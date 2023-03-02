@@ -15,13 +15,24 @@ class RButton extends RComponent {
 
           font-weight: 600;
           cursor: pointer;    
+        }
 
+        :host([variant="primary"]) > button {
           background: var(--primary-color);
-
           color: var(--grey-100);
         }
+        
+        :host([variant="secondary"]) > button {
+          border: 1px solid var(--grey-300);
+          background: transparent;
+
+          color: var(--grey-300);
+        }
       </style>
-      <button class="text-caption">추가하기</button>
+
+      <button class="text-caption">
+        <slot></slot>
+      </button>
     `;
   }
 }
