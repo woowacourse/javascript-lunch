@@ -1,3 +1,4 @@
+import AddModalContainer from './components/AddModalContainer';
 import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
@@ -6,7 +7,9 @@ import { restaurantInputValidator } from './validator/restaurantInputValidator';
 
 class App extends Component {
   setup() {
-    this.$state = {};
+    this.$state = {
+      isModalOpened: false,
+    };
   }
 
   template() {
@@ -15,12 +18,21 @@ class App extends Component {
   <main>
     <section class="restaurant-filter-container"></section>
     <section class="restaurant-list-container"></section>
+    
+
+    <section class="restaurant-add-modal-container"></section>
+
+
+    
   </main>`;
   }
 
   mounted() {
     const { toggleModal, addRestaurant, filterList, getRestaurants } = this;
     const $topNavBar = this.$target.querySelector('.gnb') as HTMLHeadingElement;
+    const $addModalContainer = this.$target.querySelector(
+      '.restaurant-add-modal-container'
+    ) as HTMLElement;
     const $filterBar = this.$target.querySelector(
       '.restaurant-filter-container'
     );
@@ -30,6 +42,11 @@ class App extends Component {
 
     new TopNavBar($topNavBar, {
       toggleModal: toggleModal.bind(this),
+    });
+
+    new AddModalContainer($addModalContainer, {
+      toggleModal: toggleModal.bind(this),
+      isModalOpened: this.$state.isModalOpened,
       addRestaurant: addRestaurant.bind(this),
     });
 
@@ -42,7 +59,10 @@ class App extends Component {
     // });
   }
 
-  toggleModal() {}
+  toggleModal(): void {
+    const { isModalOpened } = this.$state;
+    this.setState({ isModalOpened: !isModalOpened });
+  }
 
   addRestaurant(restaurantInput: IRestaurantInput) {
     const originalRestaurantList: IRestaurantInput[] = this.getRestaurants();
