@@ -2,6 +2,7 @@ import Component from "./core/Component";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import RestaurantList from "./components/RestaurantList";
+import Modal from "./components/Modal";
 
 export default class App extends Component {
   setup() {
@@ -46,5 +47,6 @@ export default class App extends Component {
     new Header($header);
     new Filter($main);
     new RestaurantList($main, { restaurantList });
+    new Modal($main);
   }
 }

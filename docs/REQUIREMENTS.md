@@ -37,22 +37,13 @@ javascript-lunch
 ├─ index.html
 ├─ src
 │  ├─ components
-│  │  ├─ Filter
-│  │  │  ├─ index.html
-│  │  │  └─ index.js
-│  │  ├─ Header
-│  │  │  ├─ index.html
-│  │  │  └─ index.js
-│  │  ├─ Modal
-│  │  │  └─ AddRestaurantModal
-│  │  │     ├─ index.html
-│  │  │     └─ index.js
-│  │  ├─ Restaurant
-│  │  │  ├─ index.html
-│  │  │  └─ index.js
-│  │  └─ RestaurantList
-│  │     ├─ index.html
-│  │     └─ index.js
+│  │  ├─ Filter.js
+│  │  ├─ Header.js
+│  │  ├─ Modal.js
+│  │  ├─ Restaurant.js
+│  │  └─ RestaurantList.js
+│  ├─ core
+│  │  ├─ Component.js
 │  ├─ domain
 │  │  ├─ Restaurant.ts
 │  │  └─ RestaurantList.ts
