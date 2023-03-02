@@ -24,4 +24,24 @@ describe('Restaurant', () => {
       expect(restaurant).toBeInstanceOf(Restaurant);
     });
   });
+
+  context('검삭하고자 하는 카테고리가 맞다면', () => {
+    it('true를 반환한다.', () => {
+      // given
+      const serachCategory = '한식';
+      const category = new Category('한식', 'korean.png');
+      const name = '한식당';
+      const distanceByMinutes = 5;
+      const restaurant = new Restaurant({
+        category,
+        name,
+        distanceByMinutes,
+      });
+
+      // when
+      const isMatched = restaurant.isMatchCategory(serachCategory);
+
+      expect(isMatched).toBeTruthy();
+    });
+  });
 });
