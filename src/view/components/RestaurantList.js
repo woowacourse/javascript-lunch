@@ -1,4 +1,4 @@
-import { restaurants } from '../domain/restaurants';
+import { restaurants } from '../../domain/restaurants';
 
 customElements.define(
   'restaurant-list',
