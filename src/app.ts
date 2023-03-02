@@ -1,5 +1,6 @@
 import Component from './core/Component';
-import IRestaurantInput from './interfaces/IrestaurantInput';
+import IRestaurantInput from './interfaces/IRestaurantInput';
+import { restaurantInputValidator } from './validator/restaurantInputValidator';
 
 class App extends Component {
   setup() {
@@ -11,7 +12,7 @@ class App extends Component {
   }
 
   mounted() {
-    const { toggleModal, addRestaurant, filterList, showRestaurants } = this;
+    const { toggleModal, addRestaurant, filterList, getRestaurants } = this;
     const $topNavBar = this.$target.querySelector('.gnb');
     const $filterBar = this.$target.querySelector(
       '.restaurant-filter-container'
@@ -30,16 +31,14 @@ class App extends Component {
     // });
 
     // new ListContainer($listContainer, {
-    //   showRestaurants: showRestaurants.bind(this),
+    //   showRestaurants: getRestaurants.bind(this),
     // });
   }
 
   toggleModal() {}
 
   addRestaurant(restaurantInput: IRestaurantInput) {
-    const originalRestaurantList: IRestaurantInput[] = JSON.parse(
-      localStorage.getItem('restaurantList') || '[]'
-    );
+    const originalRestaurantList: IRestaurantInput[] = this.getRestaurants();
 
     localStorage.setItem(
       'restaurantList',
@@ -49,7 +48,9 @@ class App extends Component {
 
   filterList() {}
 
-  showRestaurants() {}
+  getRestaurants(): IRestaurantInput[] {
+    return JSON.parse(localStorage.getItem('restaurantList') || '[]');
+  }
 }
 
 export default App;
