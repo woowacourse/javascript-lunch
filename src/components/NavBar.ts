@@ -10,7 +10,7 @@ class NavBar extends HTMLElement {
       `
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-      <button id="addButton" type="button" class="gnb__button" aria-label="음식점 추가">
+      <button id="addIcon" type="button" class="gnb__button" aria-label="음식점 추가">
         <img src="../templates/add-button.png" alt="음식점 추가">
       </button>
     <header>
@@ -20,10 +20,11 @@ class NavBar extends HTMLElement {
   }
 
   handleClick() {
-    const addButton = document.getElementById("addButton");
-    addButton?.addEventListener("click", () => {
+    const addIcon = document.getElementById("addIcon");
+    addIcon?.addEventListener("click", () => {
       const bottomSheet: any = document.getElementById("bottomSheet");
       bottomSheet?.open();
+      bottomSheet?.render("<add-restaurant />");
     });
   }
 }
