@@ -1,3 +1,4 @@
+import Restaurants from './domain/Restaurants';
 import { $ } from './utils/dom';
 
 const dummy = [

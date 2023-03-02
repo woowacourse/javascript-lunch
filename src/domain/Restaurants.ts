@@ -19,6 +19,14 @@ export default class Restaurants {
     return filteredRestaurants;
   }
 
+  getSortedRestaurantsByName() {
+    const sortedRestaurants = this.#restaurants.sort((restaurant1, restaurant2) => {
+      return restaurant1.name.localeCompare(restaurant2.name);
+    });
+
+    return sortedRestaurants;
+  }
+
   getRestaurants() {
     return this.#restaurants;
   }
