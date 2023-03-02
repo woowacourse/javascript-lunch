@@ -1,3 +1,5 @@
+import { $ } from '../../utils/dom';
+
 customElements.define(
   'restaurant-register-modal',
   class RestaurantRegisterModal extends HTMLElement {
@@ -65,6 +67,10 @@ customElements.define(
         </form>
       </div>
     </dialog>`;
+    }
+
+    connectedCallback() {
+      $('.cancel-button').addEventListener('click', () => $('.modal').close());
     }
   }
 );
