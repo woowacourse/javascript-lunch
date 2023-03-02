@@ -1,10 +1,28 @@
-class AddModal {
+const { $ } = require('../utils/domHelpers');
+import RestaurantManager from '../domain/RestaurantManager.ts';
+
+export default class AddModal {
+  #RestaurantManager;
+  #main;
+
+  constructor(RestaurantManager, main) {
+    this.addEvent();
+    this.#RestaurantManager = RestaurantManager;
+    this.#main = main;
+  }
+
+  addEvent() {
+    $('.modal').addEventListener('click', (e) => {
+      this.test(e);
+    });
+  }
+
   render() {
-    return `<div class="modal modal">
+    return `
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form>
+          <form id="modal-form">
   
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
@@ -60,8 +78,48 @@ class AddModal {
             </div>
           </form>
         </div>
-      </div>`;
+      `;
+  }
+
+  test(e) {
+    if (e.target.innerHTML === '취소하기') {
+      this.cancelInputData(e);
+    }
+    if (e.target.innerHTML === '추가하기') {
+      this.submitData(e);
+    }
+  }
+
+  cancelInputData(e) {
+    e.currentTarget.classList.remove('modal--open');
+  }
+
+  submitData(e) {
+    try {
+      e.preventDefault();
+
+      const inputData = [...e.target.form].map((el) => {
+        if (el.value !== '') return el.value;
+        if (el.type === 'button' || el.type === 'submit') return false;
+        throw new Error('입력값을 입력해주세요');
+      });
+
+      const addData = {
+        category: inputData[0],
+        storeName: inputData[1],
+        distance: inputData[2],
+        detail: inputData[3],
+        link: inputData[4],
+      };
+
+      this.#RestaurantManager.addRestaurant(addData);
+      e.currentTarget.classList.remove('modal--open');
+
+      $('.restaurant-list-container').innerHTML = this.#main.reRender(
+        this.#RestaurantManager.getRestaurantList()
+      );
+    } catch (err) {
+      alert(err.message);
+    }
   }
 }
-
-module.exports = AddModal;
