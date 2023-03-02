@@ -1,6 +1,8 @@
+import { Header } from './Header';
+
 function App() {
   return `
-    <div>hello</div>
+    ${Header()}
   `;
 }
 
