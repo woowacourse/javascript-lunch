@@ -14,7 +14,7 @@ class ModalComponent extends CustomElement {
 
   template() {
     return `
-      <div class="modal modal--open">
+      <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <restaurant-add-form></restaurant-add-form>
