@@ -7,14 +7,27 @@ class RFormItem extends RComponent {
         label {
           color: var(--grey-400);
         }
+
         span {
           color: var(--grey-300);
         }
+
+        label.required::after {
+          padding-left: 4px;
+
+          color: var(--primary-color);
+          content: '*';
+        }
       </style>
+
       <div>
-        <label class="text-caption">참고 링크</label>
+        <label class="text-caption ${this.querySelector('[required]') ? 'required' : ''}">
+          ${this.getAttribute('label') ?? ''}
+        </label>
         <slot></slot>
-        <span class="text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+        <span class="text-caption">
+          ${this.getAttribute('helper-text') ?? ''}
+        </span>
       </div>
     `;
   }
