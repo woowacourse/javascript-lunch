@@ -8,7 +8,8 @@ import {
 import { RESTAURANT_ACTION } from "../abstracts/constants";
 
 class RestaurantsStore {
-  #restaurantList: Restaurant[] = [];
+  #restaurantList: Restaurant[] =
+    JSON.parse(localStorage.getItem("restaurantList")!) || [];
   #subscribers: CustomElement[] = [];
 
   subscribe(element: CustomElement) {
@@ -38,6 +39,10 @@ class RestaurantsStore {
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurantList.push(restaurant);
+    localStorage.setItem(
+      "restaurantList",
+      JSON.stringify(this.#restaurantList)
+    );
   }
 
   filterByCategory(category: Category) {

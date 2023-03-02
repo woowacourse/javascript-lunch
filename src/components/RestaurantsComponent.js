@@ -5,7 +5,9 @@ class RestaurantsComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     RestaurantsStore.subscribe(this);
+    RestaurantsStore.publish();
   }
+
   rerender(restaurantList) {
     const restaurants = restaurantList.map((restaurant) => {
       console.log(restaurant);
@@ -21,6 +23,7 @@ class RestaurantsComponent extends CustomElement {
     });
     document.querySelector(".restaurant-list").innerHTML = restaurants;
   }
+
   template() {
     return `
     <section class="restaurant-list-container">
