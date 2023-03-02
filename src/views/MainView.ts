@@ -13,14 +13,16 @@ class MainView {
   }
 
   addCategoryChangeEventHandler(onChangeCategoryFilter: CallableFunction) {
-    this.categoryFilter?.addEventListener("change", () => {
-      onChangeCategoryFilter(this.categoryFilter?.value);
+    this.categoryFilter?.addEventListener("change", (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      onChangeCategoryFilter(target.value);
     });
   }
 
   addSortingChangeEventHandler(onChangeSortingFilter: CallableFunction) {
-    this.sortingFilter?.addEventListener("change", () => {
-      onChangeSortingFilter(this.sortingFilter?.value);
+    this.sortingFilter?.addEventListener("change", (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      onChangeSortingFilter(target.value);
     });
   }
 }
