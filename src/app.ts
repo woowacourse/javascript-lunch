@@ -66,10 +66,11 @@ class App extends Component {
 
   addRestaurant(restaurantInput: IRestaurantInput) {
     const originalRestaurantList: IRestaurantInput[] = this.getRestaurants();
+    originalRestaurantList.push(restaurantInput);
 
     localStorage.setItem(
       'restaurantList',
-      JSON.stringify(originalRestaurantList.push(restaurantInput))
+      JSON.stringify(originalRestaurantList)
     );
   }
 
