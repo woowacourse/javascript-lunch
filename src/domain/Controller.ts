@@ -10,5 +10,9 @@ class Controller {
 
   addRestaurant(newRestaurant: RestaurantType) {
     this.#restaurants.push(new Restaurant(newRestaurant));
+    const restaurants = JSON.stringify(this.#restaurants);
+    localStorage.setItem("restaurants", restaurants);
   }
 }
+
+export default Controller;
