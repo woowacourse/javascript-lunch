@@ -8,3 +8,5 @@ export interface Restaurant {
   description?: string;
   link?: string;
 }
+
+export type CategoryFilter = '전체' | Category;

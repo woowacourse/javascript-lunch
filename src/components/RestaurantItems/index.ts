@@ -1,5 +1,6 @@
 import $template from './index.html';
 import { store } from '../../store';
+import { Restaurant } from '../../types';
 
 class RestaurantItems extends HTMLElement {
   constructor() {
@@ -7,14 +8,14 @@ class RestaurantItems extends HTMLElement {
   }
 
   connectedCallback() {
-    this.render();
+    this.render(store.restaurants);
   }
 
-  render() {
+  render(restaurants: Restaurant[]) {
     this.innerHTML = $template;
     const $restaurantList = this.querySelector('.restaurant-list') as HTMLElement;
 
-    store.restaurants.forEach((restaurant) => {
+    restaurants.forEach((restaurant) => {
       const { category, name, distance, description } = restaurant;
 
       $restaurantList.insertAdjacentHTML(

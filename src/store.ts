@@ -1,9 +1,10 @@
-import { Restaurant } from './types';
+import { Restaurant, CategoryFilter } from './types';
 import RestaurantItems from './components/RestaurantItems';
 
 interface Store {
   restaurants: Restaurant[];
   addRestaurants: (restaurant: Restaurant) => void;
+  filterRestaurants: (categoryFilter: CategoryFilter) => void;
 }
 
 export const store: Store = {
@@ -27,7 +28,20 @@ export const store: Store = {
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
-    $restaurantItems.render();
+    $restaurantItems.render(this.restaurants);
+  },
+
+  filterRestaurants(categoryFilter: CategoryFilter) {
+    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
+      typeof RestaurantItems
+    >;
+    if (categoryFilter === '전체') {
+      return $restaurantItems.render(store.restaurants);
+    }
+    const filteredRestaurants = this.restaurants.filter(
+      (restaurant) => restaurant.category === categoryFilter,
+    );
+    $restaurantItems.render(filteredRestaurants);
   },
 };
 
