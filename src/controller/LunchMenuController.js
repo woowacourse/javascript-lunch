@@ -1,8 +1,9 @@
+import LunchMenuView from '../view/LunchMenuView';
+
 const LunchMenuController = {
-  render() {
-    document
-      .querySelector('.restaurant-list-container')
-      .insertAdjacentHTML('beforeend', `<restaurant-list></restaurant-list>`);
+  init() {
+    LunchMenuView.render();
+    LunchMenuView.bindEvents();
   },
 };
 
