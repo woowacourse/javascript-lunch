@@ -10,7 +10,8 @@ const ModalButton = {
   setEvent() {
     const gnbButton = document.querySelector(".gnb__button");
     gnbButton?.addEventListener("click", () => {
-      // 이벤트 추가 필요
+      const modal = document.querySelector(".modal") as HTMLElement;
+      modal.className = "modal--open";
     });
   },
 };
