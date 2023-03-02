@@ -45,7 +45,7 @@ export default class App {
           `
         <li class="restaurant">
           <div class="restaurant__category">
-            <img src="./img/${imgFileName[`${restaurant.category}`]}.png" alt="${
+            <img src="./${imgFileName[`${restaurant.category}`]}.png" alt="${
             restaurant.category
           }" class="category-icon" />
           </div>
