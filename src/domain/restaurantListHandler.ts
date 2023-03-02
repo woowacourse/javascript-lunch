@@ -15,11 +15,11 @@ class RestaurantListHandler {
 
   getSortedByTakingTime(): Restaurant[] {
     return [...this.restaurants].sort(
-      (resA, resB) => resA.distance - resB.distance
+      (resA, resB) => Number(resA.distance) - Number(resB.distance)
     );
   }
 
-  getFilteredByCategory(category: Category): Restaurant[] {
+  getFilteredByCategory(category: string): Restaurant[] {
     return [...this.restaurants].filter(
       (restaurant) => restaurant.category === category
     );
