@@ -1,5 +1,8 @@
+import { Category } from '@res/constants/enum';
 import Component from '@res/core/Component';
+import IRestaurantInput from '@res/interfaces/IRestaurantInput';
 
+type InputElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 class AddModalContainer extends Component {
   template() {
     const { isModalOpened } = this.$props;
@@ -12,7 +15,7 @@ class AddModalContainer extends Component {
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form>
+          <form class="restaurant-form" >
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
@@ -78,7 +81,7 @@ class AddModalContainer extends Component {
               >
                 취소하기
               </button>
-              <button class="button button--primary text-caption submit">
+              <button class="button button--primary text-caption submit-restaurant">
                 추가하기
               </button>
             </div>
@@ -90,14 +93,34 @@ class AddModalContainer extends Component {
     `;
   }
 
+  getInputs(): IRestaurantInput {
+    const inputList = this.$target.querySelectorAll<InputElement>(
+      'input, textarea, select'
+    );
+
+    return {
+      category: inputList[0].value,
+      name: inputList[1].value,
+      distance: inputList[2].value,
+      description: inputList[3].value,
+      link: inputList[4].value,
+    };
+  }
+
   setEvent(): void {
-    const { toggleModal } = this.$props;
+    const { toggleModal, addRestaurant } = this.$props;
 
     this.addEvent('click', '.cancel', () => {
       toggleModal();
     });
 
     this.addEvent('click', '.modal-backdrop', () => {
+      toggleModal();
+    });
+
+    this.addEvent('click', '.submit-restaurant', (event: Event) => {
+      event.preventDefault();
+      addRestaurant(this.getInputs());
       toggleModal();
     });
   }
