@@ -1,6 +1,6 @@
 export interface Attribute {
   id: string;
-  className: string;
+  className?: string;
   name: string;
   required?: boolean;
 }
