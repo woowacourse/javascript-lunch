@@ -21,6 +21,8 @@ type StateType = {
   restaurants?: Restaurant[];
   categorySelector?: RestaurantCategoryType;
   sortedSelector?: RestaurantSortingType;
+  isModal?: boolean;
+};
 };
 
 class App {
@@ -31,15 +33,11 @@ class App {
   constructor($target: HTMLElement) {
     this.#root = $target;
 
-    this.#restaurants.addRestaurant(menu1);
-    this.#restaurants.addRestaurant(menu2);
-    this.#restaurants.addRestaurant(menu3);
-    this.#restaurants.addRestaurant(menu4);
-
     this.#state = {
-      restaurants: this.#restaurants.getRestaurants(),
+      restaurants: [],
       categorySelector: '전체',
       sortedSelector: 'name',
+      isModal: false,
     };
 
     this.render();
@@ -58,7 +56,7 @@ class App {
   #mounted() {
     new Header({
       $target: $('.gnb') as HTMLElement,
-      addRestaurantEvent: this.addRestaurantEvent.bind(this),
+      addRestaurantButtonEvent: this.addRestaurantButtonEvent.bind(this),
     });
 
     new Selector({
@@ -110,9 +108,8 @@ class App {
     this.render();
   }
 
-  addRestaurantEvent(restaurant: Restaurant) {
-    this.#restaurants.addRestaurant(restaurant);
-    this.setState({ restaurants: this.#restaurants.getRestaurants() });
+  addRestaurantButtonEvent() {
+    this.setState({ isModal: true });
   }
 
   onChangeEvent(value: string) {

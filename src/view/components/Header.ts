@@ -2,14 +2,16 @@ import { Restaurant } from '../../type/common';
 
 type HeaderProps = {
   $target: HTMLElement;
-  addRestaurantEvent: (restaurant: Restaurant) => void;
+  addRestaurantButtonEvent: () => void;
 };
 
 class Header {
   #target;
+  #addRestaurantButtonEvent;
 
-  constructor({ $target }: HeaderProps) {
+  constructor({ $target, addRestaurantButtonEvent }: HeaderProps) {
     this.#target = $target;
+    this.#addRestaurantButtonEvent = addRestaurantButtonEvent;
 
     this.#render();
     this.#setEvent();
@@ -31,7 +33,7 @@ class Header {
   #setEvent() {
     this.#target.addEventListener('click', (e: MouseEvent) => {
       if (e.target instanceof HTMLImageElement) {
-        console.log(1);
+        this.#addRestaurantButtonEvent();
       }
     });
   }
