@@ -12,7 +12,9 @@ customElements.define(
       this.innerHTML = /* html */ `
       <li class="restaurant">
         <div class="restaurant__category">
-          <img src="./category-korean.png" alt="${category}" class="category-icon" />
+          <img src="./category-${this.getImageByCategory(
+            category
+          )}.png" alt="${category}" class="category-icon" />
         </div>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${restaurantName}</h3>
@@ -20,6 +22,17 @@ customElements.define(
           <p class="restaurant__description text-body">${description}</p>
         </div>
       </li>`;
+    }
+
+    getImageByCategory(category) {
+      return {
+        한식: 'korean',
+        중식: 'chinese',
+        일식: 'japanese',
+        아시안: 'asian',
+        양식: 'western',
+        기타: 'etc',
+      }[category];
     }
   }
 );
