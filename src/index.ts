@@ -1,4 +1,5 @@
 import "../css/style.css";
+import RestaurantsController from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
@@ -9,11 +10,13 @@ import {
 } from "./util/eventListener";
 
 const App = {
+  restaurantsController: RestaurantsController.getInstance(),
+
   initEventListeners() {
     this.controlNewRestaurantModal();
   },
 
-  controlNewRestaurantModal: () => {
+  controlNewRestaurantModal() {
     executeClickEventListener(".gnb__button", () =>
       handleModalOpenButtonClick(".modal")
     );
@@ -26,7 +29,9 @@ const App = {
       handleModalCancelButtonClick(".modal")
     );
 
-    executeSubmitEventListener("#new-restaurant-form");
+    executeSubmitEventListener("#new-restaurant-form", (event: Event) => {
+      this.restaurantsController.addNewRestaurant(event);
+    });
   },
 };
 

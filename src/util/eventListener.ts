@@ -8,10 +8,10 @@ export const executeClickEventListener = (
   $(selector)?.addEventListener("click", callback);
 };
 
-export const executeSubmitEventListener = (selector: string) => {
+export const executeSubmitEventListener = (selector: string, callback: (event:Event) => void) => {
   $(selector)?.addEventListener("submit", (event: Event) => {
     event.preventDefault();
 
-    getFormData(event);
+    callback(event);
   });
 };
