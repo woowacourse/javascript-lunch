@@ -1,5 +1,11 @@
-const $ = (selector) => document.querySelector(selector);
+const $ = (container, selector) => {
+  const shadow = document.querySelector(container).shadowRoot;
+  return shadow.querySelector(selector);
+};
 
-const $$ = (selector) => document.querySelectorAll(selector);
+const $$ = (container, selector) => {
+  const shadow = document.querySelector(container).shadowRoot;
+  return shadow.querySelectorAll(selector);
+};
 
 export { $, $$ };
