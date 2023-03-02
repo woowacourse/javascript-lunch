@@ -15,8 +15,7 @@
 
   - [x] 기본 구조
   - [ ] 컴포넌트 분리
-    - [ ] SelectBox 컴포넌트
-      - [ ] params: event, option 리스트, id
+    - [x] SelectBox 컴포넌트
     - [x] RestaurantCard 컴포넌트
       - [x] params: Restaurant 정보
     - [x] RestaurantList 컴포넌트
