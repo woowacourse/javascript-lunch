@@ -40,7 +40,7 @@ class App implements Component<AppState> {
     }).render();
 
     if (modalHide === false) {
-      new Modal({ $parent: this.$component, modalHide }).render();
+      new Modal({ $parent: this.$component, toggleModal: this.toggleModal }).render();
     }
   }
 

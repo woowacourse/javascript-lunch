@@ -1,29 +1,29 @@
 import { Component, Restaurant } from '../type';
 
 type ModalState = {
-  modalHide: boolean;
   restaurantForm: Restaurant;
 };
 
 type ModalProps = {
   $parent: HTMLElement;
-  modalHide: boolean;
+  toggleModal: () => void;
 };
 
 class Modal implements Component<ModalState> {
   $component: HTMLElement;
   state: ModalState;
+  toggleModal: () => void;
 
-  constructor({ $parent, modalHide }: ModalProps) {
+  constructor({ $parent, toggleModal }: ModalProps) {
     this.$component = document.createElement('div');
     this.state = {
-      modalHide,
       restaurantForm: {
         name: '',
         category: '전체',
         distance: 5,
       },
     };
+    this.toggleModal = toggleModal;
     $parent.append(this.$component);
 
     this.render();
@@ -31,7 +31,6 @@ class Modal implements Component<ModalState> {
 
   setState(newState: ModalState) {
     this.state = newState;
-
     this.render();
   }
 
@@ -93,13 +92,16 @@ class Modal implements Component<ModalState> {
 
           <!-- 취소/추가 버튼 -->
           <div class="button-container">
-            <button type="button" class="button button--secondary text-caption">취소하기</button>
+            <button type="button" id="modal-cancel" class="button button--secondary text-caption">취소하기</button>
             <button class="button button--primary text-caption">추가하기</button>
           </div>
         </form>
       </div>
     </div>
     `;
+
+    const $cancelButton = document.getElementById('modal-cancel');
+    $cancelButton?.addEventListener('click', this.toggleModal);
   }
 }
 
