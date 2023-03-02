@@ -11,14 +11,6 @@ class CustomElement extends HTMLElement {
   template() {}
 
   setEvent() {}
-
-  show() {
-    this.removeAttribute("hidden");
-  }
-
-  hide() {
-    this.setAttribute("hidden", true);
-  }
 }
 
 export default CustomElement;
