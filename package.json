@@ -2,7 +2,7 @@
   "name": "@woowacourse/javascript-lunch",
   "version": "1.0.0",
   "description": "우아한테크코스 레벨1 점심 뭐 먹지 미션",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "watch": "webpack --watch",
     "start": "webpack serve",
