@@ -1,4 +1,5 @@
-import Component from './core/Component.js';
+import Component from './core/Component';
+import IRestaurantInput from './interfaces/IrestaurantInput';
 
 class App extends Component {
   setup() {
@@ -19,23 +20,32 @@ class App extends Component {
       '.restaurant-list-container'
     );
 
-    new TopNavBar($topNavBar, {
-      toggleModal: toggleModal.bind(this),
-      addRestaurant: addRestaurant.bind(this),
-    });
+    // new TopNavBar($topNavBar, {
+    //   toggleModal: toggleModal.bind(this),
+    //   addRestaurant: addRestaurant.bind(this),
+    // });
 
-    new FilterBar($filterBar, {
-      filterList: filterList.bind(this),
-    });
+    // new FilterBar($filterBar, {
+    //   filterList: filterList.bind(this),
+    // });
 
-    new ListContainer($listContainer, {
-      showRestaurants: showRestaurants.bind(this),
-    });
+    // new ListContainer($listContainer, {
+    //   showRestaurants: showRestaurants.bind(this),
+    // });
   }
 
   toggleModal() {}
 
-  addRestaurant() {}
+  addRestaurant(restaurantInput: IRestaurantInput) {
+    const originalRestaurantList: IRestaurantInput[] = JSON.parse(
+      localStorage.getItem('restaurantList') || '[]'
+    );
+
+    localStorage.setItem(
+      'restaurantList',
+      JSON.stringify(originalRestaurantList.push(restaurantInput))
+    );
+  }
 
   filterList() {}
 
