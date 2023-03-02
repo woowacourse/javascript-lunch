@@ -44,7 +44,7 @@ export default class App extends Component {
   }
 
   mounted() {
-    const { toggleModal } = this;
+    const { toggleModal, addRestaurant } = this;
     const { restaurantList } = this.state;
 
     const $header = this.$target.querySelector(".gnb");
@@ -59,10 +59,21 @@ export default class App extends Component {
     new Header($header, { toggleModal: toggleModal.bind(this) });
     new Filter($restaurantFilter);
     new RestaurantList($restaurantList, { restaurantList });
-    new Modal($modal, { toggleModal: toggleModal.bind(this) });
+    new Modal($modal, {
+      toggleModal: toggleModal.bind(this),
+      addRestaurant: addRestaurant.bind(this),
+    });
   }
 
   toggleModal() {
     this.setState({ modalOpen: !this.state.modalOpen });
+  }
+
+  addRestaurant(restaurantInfo) {
+    const { restaurantList } = this.state;
+    const newRestaurant = restaurantInfo;
+
+    this.setState({ restaurantList: [...restaurantList, newRestaurant] });
+    this.toggleModal();
   }
 }

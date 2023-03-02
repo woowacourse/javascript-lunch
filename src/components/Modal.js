@@ -6,7 +6,7 @@ export default class Modal extends Component {
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form>
+          <form id="add-restaurant-form">
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
@@ -72,7 +72,7 @@ export default class Modal extends Component {
               >
                 취소하기
               </button>
-              <button class="button button--primary text-caption">
+              <button id="add-button" class="button button--primary text-caption">
                 추가하기
               </button>
             </div>
@@ -82,9 +82,28 @@ export default class Modal extends Component {
   }
 
   setEvent() {
+    const { toggleModal, addRestaurant } = this.props;
     this.addEvent("click", "#cancel-button", (event) => {
-      const { toggleModal } = this.props;
       toggleModal();
+    });
+
+    this.addEvent("submit", "#add-restaurant-form", (event) => {
+      event.preventDefault();
+
+      const category = event.target[0].value;
+      const name = event.target[1].value;
+      const distance = event.target[2].value;
+      const description = event.target[3].value;
+      const link = event.target[4].value;
+
+      const newRestaurant = {
+        name,
+        category,
+        distance,
+        description,
+        url: link,
+      };
+      addRestaurant(newRestaurant);
     });
   }
 }
