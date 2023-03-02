@@ -32,19 +32,20 @@ export default class App extends Component {
   }
 
   template() {
+    const { modalOpen } = this.state;
     return `
       <header class="gnb"></header>
       <main>
         <section class="restaurant-filter-container"></section>
         <section class="restaurant-list-container"></section>
-        <div class="modal ${this.state.modalOpen && "modal--open"}"></div>
+        <div class="modal${modalOpen ? " modal--open" : ""}"></div>
       </main>
     `;
   }
 
   mounted() {
     const { toggleModal } = this;
-    const { restaurantList, modalOpen } = this.state;
+    const { restaurantList } = this.state;
 
     const $header = this.$target.querySelector(".gnb");
     const $restaurantFilter = this.$target.querySelector(
