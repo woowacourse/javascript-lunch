@@ -5,11 +5,15 @@ export const setModalToggleHandler = (
   const $modalOpenButton = document.querySelector(".gnb__button");
   const $modalCloseButton = document.querySelector(".button--secondary");
 
-  $modalOpenButton?.addEventListener("click", () => {
-    openModal();
-  });
+  $modalOpenButton?.addEventListener("click", openModal);
 
-  $modalCloseButton?.addEventListener("click", () => {
-    closeModal();
-  });
+  $modalCloseButton?.addEventListener("click", closeModal);
+};
+
+export const setSortingSelectChangeHandler = (
+  sortRestaurantList: () => void
+) => {
+  const $sortingSelect = document.querySelector("#sorting-filter");
+
+  $sortingSelect?.addEventListener("change", sortRestaurantList);
 };
