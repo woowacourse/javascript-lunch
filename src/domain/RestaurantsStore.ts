@@ -5,6 +5,7 @@ import {
   Action,
   SortMethod,
 } from "../abstracts/types";
+import { RESTAURANT_ACTION } from "../abstracts/constants";
 
 class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
@@ -21,15 +22,15 @@ class RestaurantsStore {
   }
 
   reducer = {
-    ADD_RESTAURANT: (action: Action) => {
+    [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
       this.addRestaurant(action.data as Restaurant);
       this.publish();
     },
-    FILTER_BY_CATEGORY: (action: Action) => {
+    [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
       this.filterByCategory(action.data as Category);
       this.publish();
     },
-    SORT_RESTAURANTS: (action: Action) => {
+    [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
       this.sortRestaurants(action.data as SortMethod);
       this.publish();
     },
@@ -59,4 +60,6 @@ class RestaurantsStore {
   }
 }
 
-export default RestaurantsStore;
+const RestaurantInstance = new RestaurantsStore();
+
+export default RestaurantInstance;

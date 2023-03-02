@@ -23,3 +23,9 @@ export interface Action {
   type: string;
   data?: Restaurant | Category | SortMethod;
 }
+
+export interface RestaurantAction {
+  ADD_RESTAURANT: string;
+  FILTER_BY_CATEGORY: string;
+  SORT_RESTAURANTS: string;
+}
