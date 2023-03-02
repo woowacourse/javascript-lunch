@@ -79,6 +79,7 @@ customElements.define(
 
       const restaurant = this.createRestaurantInfo([...e.target.elements].slice(0, 5));
       this.dispatch(restaurant);
+      this.resetForm(e.target);
     }
 
     createRestaurantInfo(formElements) {
@@ -102,6 +103,10 @@ customElements.define(
         eventType: 'registerRestaurant',
         data,
       });
+    }
+
+    resetForm($form) {
+      $form.reset();
     }
   }
 );
