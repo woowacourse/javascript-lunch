@@ -1,4 +1,4 @@
-export default interface Restaurant {
+export default interface RestaurantType {
   category: string;
   name: string;
   distance: number;
