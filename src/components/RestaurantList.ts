@@ -10,18 +10,16 @@ class RestaurantList extends HTMLElement {
   }
 
   render() {
-    this.insertAdjacentHTML(
-      "afterbegin",
-      `
+    this.innerHTML = `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
         ${this.controller
           .getRestaurants()
-          .map((restaurant) => new RestaurantItem().render(restaurant))}
+          .map((restaurant) => new RestaurantItem().render(restaurant))
+          .join("")}
         </ul>
       </section>
-    `
-    );
+    `;
   }
 }
 
