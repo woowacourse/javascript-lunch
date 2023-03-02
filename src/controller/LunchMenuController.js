@@ -18,6 +18,9 @@ const LunchMenuController = {
     $('#category-filter').addEventListener('change', (e) =>
       this.handleRestaurantFilter(e.target.value)
     );
+    $('#sorting-filter').addEventListener('change', (e) =>
+      this.handleRestaurantSort(e.target.value)
+    );
   },
 
   handleRestaurantRegister(data) {
@@ -29,6 +32,12 @@ const LunchMenuController = {
   handleRestaurantFilter(category) {
     const filteredRestaurants = restaurants.filterByCategory(category);
     LunchMenuView.render(filteredRestaurants);
+  },
+
+  handleRestaurantSort(sortingType) {
+    LunchMenuView.render(
+      sortingType === 'name' ? restaurants.sortByName() : restaurants.sortByDistance()
+    );
   },
 };
 
