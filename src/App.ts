@@ -137,6 +137,31 @@ class App {
       });
     }
   }
+
+  onClickEvent(type: string) {
+    if (type === 'add') {
+      const { category, description, distance, link, name } = getFormData(
+        $('#modal-form') as HTMLFormElement
+      );
+
+      this.#restaurants.addRestaurant({
+        category,
+        description,
+        distance,
+        link,
+        name,
+      } as Restaurant);
+
+      this.setState({
+        isModal: false,
+        restaurants: this.#restaurants.getRestaurants(),
+      });
+    }
+
+    if (type === 'cancel') {
+      this.setState({ isModal: false });
+    }
+  }
 }
 
 export default App;
