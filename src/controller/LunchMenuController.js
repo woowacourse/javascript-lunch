@@ -8,7 +8,7 @@ import { setLocalStorage } from '../utils/localStorage';
 const LunchMenuController = {
   init() {
     restaurants.init();
-    LunchMenuView.render(restaurants.list);
+    LunchMenuView.render([...restaurants.list].reverse());
     LunchMenuView.bindEvents();
     this.bindEvents();
   },
