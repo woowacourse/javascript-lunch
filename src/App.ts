@@ -43,8 +43,8 @@ class App {
       <custom-header></custom-header>
       <main>
         <section class="restaurant-filter-container">
-          <custom-select name="category" cid="category-filter" class="restaurant-filter"></custom-select>
-          <custom-select name="sorting" cid="sorting-filter" class="restaurant-filter"></custom-select>
+          <select is="custom-select" name="category" id="category-filter" class="restaurant-filter"></select>
+          <select is="custom-select" name="sorting" id="sorting-filter" class="restaurant-filter"></select>
         </section>
         <section class="restaurant-list-container">
           ${createRestaurantCardList(

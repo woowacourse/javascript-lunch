@@ -10,7 +10,7 @@ class CustomModal extends HTMLElement {
           <form>
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
-              <custom-select name="category" cid="category" required></custom-select>
+              <select is="custom-select" name="category" id="category" required></select>
             </div>
             <div class="form-item form-item--required">
               <label for="name text-caption">이름</label>
@@ -18,7 +18,7 @@ class CustomModal extends HTMLElement {
             </div>
             <div class="form-item form-item--required">
               <label for="distance text-caption">거리(도보 이동 시간) </label>
-              <custom-select name="distance" cid="distance" required></custom-select>
+              <select is="custom-select" name="distance" id="distance" required></select>
             </div>
             <div class="form-item">
               <label for="description text-caption">설명</label>

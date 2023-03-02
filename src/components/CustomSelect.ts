@@ -2,30 +2,25 @@ import OPTIONS from "../constants/options";
 
 type SelectId = keyof typeof OPTIONS;
 
-class CustomSelect extends HTMLElement {
+class CustomSelect extends HTMLSelectElement {
   constructor() {
     super();
 
-    const name = this.getAttribute("name") ?? "";
-    const id = (this.getAttribute("cid") as SelectId) ?? "";
-    const className = this.getAttribute("class") ?? "";
-    const required = this.getAttribute("required");
+    const id = (this.getAttribute("id") as SelectId) ?? "";
 
     this.innerHTML = `
-        <select name=${name} id=${id} class=${className} required=${required}>
-          ${OPTIONS[id].text
-            .map(
-              (optionText, index) =>
-                `<option value=${OPTIONS[id].value[index]}>${optionText}</option>`
-            )
-            .join("")}
-        </select>
+      ${OPTIONS[id].text
+        .map(
+          (optionText, index) =>
+            `<option value=${OPTIONS[id].value[index]}>${optionText}</option>`
+        )
+        .join("")}
     `;
   }
 }
 
 const createCustomSelect = () => {
-  customElements.define("custom-select", CustomSelect);
+  customElements.define("custom-select", CustomSelect, { extends: "select" });
 };
 
 export default createCustomSelect;
