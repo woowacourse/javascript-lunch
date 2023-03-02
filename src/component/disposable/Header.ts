@@ -1,46 +1,27 @@
-import { $, createElement } from "../../utils/Dom";
+import { $ } from "../../utils/Dom";
 
 class Header {
-  $header: HTMLElement;
-  $headerButton: HTMLElement;
-
-  constructor() {
-    this.$header = createElement("header", { class: ["gnb"] });
-    this.$headerButton = createElement("button", {
-      class: ["gnb__button"],
-      "aria-label": "음식점 추가",
-      type: "button",
-    });
-    this.makeElement();
-    this.addEvent();
-  }
-
-  private makeElement() {
-    const $header = createElement("header", { class: ["gnb"] });
-    const $headerTitle = createElement("h1", {
-      class: ["gnb__title", "text-title"],
-    });
-    $headerTitle.textContent = "점심 뭐 먹지";
-
-    const $addImg = createElement("img", {
-      alt: "음식점 추가",
-      src: "아직 안돼",
-    });
-
-    this.$headerButton.append($addImg);
-    this.$header.append($headerTitle, this.$headerButton);
+  template() {
+    return `
+    <header class="gnb">
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+      <button type="button" class="gnb__button" aria-label="음식점 추가">
+      <img src="./add-button.png" alt="음식점 추가">
+      </button>
+    </header>`;
   }
 
   addEvent() {
-    this.$headerButton.addEventListener("click", () => {
+    $(".gnb__button")?.addEventListener("click", () => {
       console.log("모달없어..");
       $(".modal")?.classList.add("modal--open");
     });
   }
 
-  get element() {
-    return this.$header;
+  render(target: Element) {
+    target.insertAdjacentHTML("beforeend", this.template());
+    this.addEvent();
   }
 }
 
-export default new Header().element;
+export default Header;
