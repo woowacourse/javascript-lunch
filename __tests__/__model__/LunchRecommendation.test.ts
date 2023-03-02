@@ -4,7 +4,7 @@ import {
   LunchRecommendation,
 } from '../../src/domain/model/LunchRecommendation';
 
-type RequiredInfo = Pick<RestaurantInfo, 'name' | 'category' | 'distance'>;
+type RequiredInfo = Pick<RestaurantInfo, 'id' | 'name' | 'category' | 'distance'>;
 const getDummyInfo = (requiredInfo: RequiredInfo) => {
   return {
     ...requiredInfo,
@@ -22,18 +22,18 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
 
   beforeEach(() => {
     requiredInfoList = [
-      { category: '한식', name: '가', distance: 1 },
-      { category: '중식', name: '나', distance: 2 },
-      { category: '일식', name: '다', distance: 4 },
-      { category: '한식', name: '라', distance: 3 },
-      { category: '기타', name: '마', distance: 5 },
+      { id: 0, category: '한식', name: '가', distance: 1 },
+      { id: 1, category: '중식', name: '나', distance: 2 },
+      { id: 2, category: '일식', name: '다', distance: 4 },
+      { id: 3, category: '한식', name: '라', distance: 3 },
+      { id: 4, category: '기타', name: '마', distance: 5 },
     ];
 
     restaurantList = requiredInfoList.map(
       (requiredInfo) => new Restaurant(getDummyInfo(requiredInfo))
     );
 
-    correctInfo = getDummyInfo({ category: '한식', name: '친친친', distance: 100 });
+    correctInfo = getDummyInfo({ id: 999, category: '한식', name: '친친친', distance: 100 });
     lunchRecommendation = new LunchRecommendation(restaurantList);
     restaurant = new Restaurant(correctInfo);
   });
@@ -56,7 +56,7 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
   });
 
   test('음식점 목록에 음식점 추가를 할 수 있다', () => {
-    lunchRecommendation.add(restaurant);
+    lunchRecommendation.add(correctInfo);
 
     expect(lunchRecommendation.getList().length).toBe(6);
   });
@@ -83,5 +83,11 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
       .map((restaurant) => restaurant.getSomeInfo('distance'));
 
     expect(sortedRestaurants).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  test('음식점 목록에서 음식점을 제거할 수 있다', () => {
+    expect(lunchRecommendation.delete(3)).toEqual(
+      restaurantList.filter((info) => info.getSomeInfo('id') !== 3)
+    );
   });
 });

@@ -3,6 +3,7 @@ type PickValue<T, K extends keyof T> = Pick<T, K>[K];
 export type Category = '한식' | '중식' | '일식' | '양식' | '기타' | '카테고리';
 
 export interface RestaurantInfo {
+  id: number;
   name: string;
   category: Category;
   distance: number;
@@ -17,22 +18,17 @@ export interface IRestaurant {
 }
 
 interface ILunchRecommendation {
-  list: IRestaurant[];
-  add(restaurant: IRestaurant): void;
-  filterByCategory(category: Category): IRestaurant[];
-  sortByName(): IRestaurant[];
-  sortByDistance(): IRestaurant[];
-  getList(): IRestaurant[];
+  list: Restaurant[];
+  add(restaurant: Omit<RestaurantInfo, 'id'>): void;
+  delete(restaurantId: RestaurantInfo['id']): Restaurant[];
+  filterByCategory(category: Category): Restaurant[];
+  sortByName(): Restaurant[];
+  sortByDistance(): Restaurant[];
+  getList(): Restaurant[];
 }
 
 class Restaurant implements IRestaurant {
-  readonly info: RestaurantInfo = {
-    name: '',
-    category: '카테고리',
-    distance: 0,
-    description: '',
-    link: '',
-  };
+  readonly info: RestaurantInfo;
 
   constructor(info: RestaurantInfo) {
     const { name, category, distance } = info;
@@ -54,14 +50,21 @@ class Restaurant implements IRestaurant {
 }
 
 class LunchRecommendation implements ILunchRecommendation {
-  readonly list: IRestaurant[] = [];
+  list: Restaurant[] = [];
 
-  constructor(list: IRestaurant[]) {
+  constructor(list: Restaurant[]) {
     this.list = list;
   }
 
-  add(restaurant: IRestaurant): void {
-    this.list.push(restaurant);
+  add(restaurantInfo: Omit<RestaurantInfo, 'id'>): void {
+    const id = this.list.length + 1;
+    this.list.push(new Restaurant({ ...restaurantInfo, id }));
+  }
+
+  delete(restaurantId: RestaurantInfo['id']): Restaurant[] {
+    this.list = this.list.filter((restaurant) => restaurant.info.id !== restaurantId);
+
+    return this.list;
   }
 
   filterByCategory(category: string): IRestaurant[] {
