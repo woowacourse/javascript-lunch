@@ -41,8 +41,7 @@ class Modal implements Component<ModalState> {
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form>
-
+        <form id="modal-form">
           <!-- 카테고리 -->
           <div class="form-item form-item--required">
             <label for="category text-caption">카테고리</label>
@@ -102,7 +101,34 @@ class Modal implements Component<ModalState> {
 
     const $cancelButton = document.getElementById('modal-cancel');
     $cancelButton?.addEventListener('click', this.toggleModal);
+
+    const $modalForm = document.getElementById('modal-form');
+    $modalForm?.addEventListener('submit', this.submitForm);
   }
+
+  submitForm = (e: Event) => {
+    e.preventDefault();
+    const restaurants = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
+    restaurants.push(this.getFormValues());
+    localStorage.setItem('restaurants', JSON.stringify(restaurants));
+    this.toggleModal();
+  };
+
+  getFormValues = () => {
+    const $category = document.getElementById('category') as HTMLSelectElement;
+    const $name = document.getElementById('name') as HTMLInputElement;
+    const $distance = document.getElementById('distance') as HTMLSelectElement;
+    const $description = document.getElementById('description') as HTMLTextAreaElement;
+    const $link = document.getElementById('link') as HTMLInputElement;
+
+    return {
+      category: $category?.options[$category.selectedIndex].value,
+      name: $name.value,
+      distance: $distance.options[$distance.selectedIndex].value,
+      description: $description.value ?? '',
+      link: $link.value ?? '',
+    };
+  };
 }
 
 export default Modal;
