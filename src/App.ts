@@ -2,6 +2,7 @@ import type { Category, State } from './types/restaurantTypes';
 import image from './img/images';
 import Restaurants from './model/Restaurants';
 import Component from './components/Component';
+import Modal from './components/modal';
 
 export default class App extends Component {
   restuarants: Restaurants | undefined;
@@ -133,12 +134,14 @@ export default class App extends Component {
     if (sortFilter instanceof HTMLSelectElement) {
       sortFilter.value = this.$state!.sort;
     }
-
     this.listenEvent();
-    console.log('RENDER!!');
   }
 
   listenEvent() {
+    this.$target.querySelector('.gnb__button')!.addEventListener('click', (event: Event) => {
+      const modal = new Modal(this.$target);
+    });
+
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLInputElement;
       const value = target.value;
