@@ -1,27 +1,37 @@
-interface RestaurantInfo {
-  category: string;
+type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+
+type Distance = 5 | 10 | 15 | 20 | 30;
+
+export interface RestaurantInfo {
+  category: Category;
   name: string;
-  description: string;
-  distance: number;
-  link: string;
+  distance: Distance;
+  description?: string;
+  link?: string;
 }
 
 class Restaurant {
-  #category: string;
+  #category: Category;
 
   #name: string;
 
-  #distance: number;
+  #distance: Distance;
 
-  #description: string;
+  #description?: string;
 
-  #link: string;
+  #link?: string;
 
-  constructor({ category, name, distance, description, link }: RestaurantInfo) {
+  constructor({
+    category,
+    name,
+    distance,
+    description = '',
+    link = '',
+  }: RestaurantInfo) {
     this.#category = category;
     this.#name = name;
-    this.#description = description;
     this.#distance = distance;
+    this.#description = description;
     this.#link = link;
   }
 
