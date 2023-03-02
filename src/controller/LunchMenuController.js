@@ -3,9 +3,11 @@ import { restaurants } from '../domain/restaurants';
 import LunchMenuView from '../view/LunchMenuView';
 
 import { $ } from '../utils/dom';
+import { setLocalStorage } from '../utils/localStorage';
 
 const LunchMenuController = {
   init() {
+    restaurants.init();
     LunchMenuView.render(restaurants.list);
     LunchMenuView.bindEvents();
     this.bindEvents();
@@ -25,6 +27,7 @@ const LunchMenuController = {
 
   handleRestaurantRegister(data) {
     restaurants.add(data);
+    this.setRestaurantList();
     LunchMenuView.render(restaurants.list);
     LunchMenuView.closeModal();
   },
@@ -38,6 +41,10 @@ const LunchMenuController = {
     LunchMenuView.render(
       sortingType === 'name' ? restaurants.sortByName() : restaurants.sortByDistance()
     );
+  },
+
+  setRestaurantList() {
+    setLocalStorage('restaurants', restaurants.list);
   },
 };
 
