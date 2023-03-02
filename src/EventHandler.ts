@@ -17,3 +17,11 @@ export const setSortingSelectChangeHandler = (
 
   $sortingSelect?.addEventListener("change", sortRestaurantList);
 };
+
+export const setFilteringSelectChangeHandler = (
+  filterRestaurantList: () => void
+) => {
+  const $filteringSelect = document.querySelector("#category-filter");
+
+  $filteringSelect?.addEventListener("change", filterRestaurantList);
+};

@@ -2,7 +2,7 @@ import createCustomSelect from "./components/CustomSelect";
 import createCustomModal from "./components/CustomModal";
 import createCustomHeader from "./components/CustomHeader";
 import Restaurants from "./domain/Restaurants";
-import { Restaurant } from "./types/restaurant";
+import { Category, Restaurant } from "./types/restaurant";
 import createRestaurantCardList from "./components/RestaurantCardList";
 
 const mockList: Restaurant[] = [
@@ -43,8 +43,17 @@ class App {
 
   #restaurants;
 
+  #showState: {
+    filter: Category | "전체";
+    sort: "이름순" | "거리순";
+  };
+
   constructor() {
     this.#restaurants = new Restaurants(mockList);
+    this.#showState = {
+      filter: "전체",
+      sort: "이름순",
+    };
     this.init();
 
     this.#modal = document.querySelector(".modal");
@@ -67,7 +76,9 @@ class App {
           <custom-select name="sorting" id="sorting-filter" class="restaurant-filter"></custom-select>
         </section>
         <section class="restaurant-list-container">
-          ${createRestaurantCardList(this.#restaurants.sortByName())}
+          ${createRestaurantCardList(
+            this.#restaurants.getList(this.#showState)
+          )}
         </section>
         <custom-modal></custom-modal>
       </main>
@@ -83,19 +94,29 @@ class App {
   }
 
   sortRestaurantList(event: Event) {
+    if (!(event.target instanceof HTMLSelectElement)) return;
+
+    this.#showState.sort = event.target.value as "이름순" | "거리순";
+    this.renderRestaurantList();
+  }
+
+  filterRestaurantList(event: Event) {
+    if (!(event.target instanceof HTMLSelectElement)) return;
+
+    this.#showState.filter = event.target.value as Category | "전체";
+    this.renderRestaurantList();
+  }
+
+  renderRestaurantList() {
     const restaurantListContainer = document.querySelector(
       ".restaurant-list-container"
     );
 
     if (restaurantListContainer === null) return;
-    if (!(event.target instanceof HTMLSelectElement)) return;
 
-    const sortedList =
-      event.target.value === "이름순"
-        ? this.#restaurants.sortByName()
-        : this.#restaurants.sortByDistance();
-
-    restaurantListContainer.innerHTML = createRestaurantCardList(sortedList);
+    restaurantListContainer.innerHTML = createRestaurantCardList(
+      this.#restaurants.getList(this.#showState)
+    );
   }
 }
 
