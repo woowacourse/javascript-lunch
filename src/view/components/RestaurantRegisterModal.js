@@ -1,4 +1,4 @@
-import { $ } from '../../utils/dom';
+import { $, dispatchCustomEvent } from '../../utils/dom';
 
 customElements.define(
   'restaurant-register-modal',
@@ -11,7 +11,7 @@ customElements.define(
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form>
+        <form class="restaurant-register-form">
           <!-- 카테고리 -->
           <div class="form-item form-item--required">
             <label for="category text-caption">카테고리</label>
@@ -70,7 +70,34 @@ customElements.define(
     }
 
     connectedCallback() {
+      $('.restaurant-register-form').addEventListener('submit', (e) => this.handleSubmit(e));
       $('.cancel-button').addEventListener('click', () => $('.modal').close());
+    }
+
+    handleSubmit(e) {
+      e.preventDefault();
+
+      const [category, name, distance, description, link] = [...e.target.elements]
+        .slice(0, 5)
+        .map((el) => {
+          if (el.id === 'distance') return el.valueAsNumber;
+
+          return el.value;
+        });
+
+      dispatchCustomEvent(this, {
+        eventType: 'registerRestaurant',
+        data: {
+          category,
+          name,
+          distance,
+          description,
+          link,
+        },
+      });
+      // dispatchCustomEvent(this, {'registerRestaurant', {
+
+      // }})
     }
   }
 );
