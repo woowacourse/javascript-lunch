@@ -1,10 +1,14 @@
 import "../css/style.css";
-import { handleModalCancelButtonClick } from "./ui/modal";
+import {
+  handleModalCancelButtonClick,
+  handleModalOpenButtonClick,
+} from "./ui/modal";
 import { executeClickEventListener } from "./util/eventListener";
 
 const App = {
   init() {
     this.controlNewRestaurantModal();
+    this.controlHeaderButton();
   },
 
   controlNewRestaurantModal: () => {
@@ -13,6 +17,12 @@ const App = {
     );
     executeClickEventListener(".modal-backdrop", () =>
       handleModalCancelButtonClick(".modal")
+    );
+  },
+
+  controlHeaderButton: () => {
+    executeClickEventListener(".gnb__button", () =>
+      handleModalOpenButtonClick(".modal")
     );
   },
 };
