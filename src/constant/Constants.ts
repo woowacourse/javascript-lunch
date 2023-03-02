@@ -1,10 +1,10 @@
-export const CategoryName = Object.freeze({
-  CHINESE: "중식",
-  KOREAN: "한식",
-  JAPANESE: "일식",
-  ASIAN: "아시안",
-  WESTERN: "양식",
-  OTHER: "기타",
+export const CategoryImg = Object.freeze({
+  아시안: "category-asian.png",
+  한식: "category-korean.png",
+  양식: "category-western.png",
+  중식: "category-chinese.png",
+  일식: "category-japanese.png",
+  기타: "category-etc.png",
 });
 
 export const OptionValue = Object.freeze({
