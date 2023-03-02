@@ -1,4 +1,4 @@
-import { getCategoryImage } from "../constants/image";
+import { getCategoryImage } from "../constants/categoryImage";
 import type { Restaurant } from "../types/restaurant";
 
 const createRestaurantCard = (restaurant: Restaurant) => `
