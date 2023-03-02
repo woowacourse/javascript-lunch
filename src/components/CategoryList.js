@@ -39,7 +39,7 @@ class CategoryList extends HTMLElement {
     const options = optionsAttribute.map((option) => this.createOption(option));
 
     template.innerHTML = `
-    <select name=${name} id=${id} class="restaurant-filter">
+    <select name="${name}" id="${id}" class="restaurant-filter">
         ${options.join('\n')}
       </select>
     `;

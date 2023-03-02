@@ -54,7 +54,7 @@ class AddRestaurantModal extends HTMLElement {
     <div id="modalBackdrop" class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form>
+      <form id="restaurantForm">
       <add-category-list
       name="카테고리"
       id="category"
