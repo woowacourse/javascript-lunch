@@ -51,6 +51,16 @@ class AddRestaurantModal extends HTMLElement {
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form>
+      <add-category-list
+      name="카테고리"
+      id="category"
+      options="한식,중식,일식,양식,아시안,기타"
+    ></add-category-list>
+      <add-category-list
+      name="거리(도보 이동 시간)"
+      id="distance"
+      options="5,10,15,20,30"
+    ></add-category-list>
         <div class="button-container">
         </div>
       </form>
