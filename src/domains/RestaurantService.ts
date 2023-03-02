@@ -1,10 +1,17 @@
 import { Category, Restaurant } from "./types";
 
 class RestaurantService {
-  private restaurantList: Restaurant[] = [];
+  private restaurantList: Restaurant[];
+
+  constructor() {
+    this.restaurantList = JSON.parse(
+      localStorage.getItem("restaurants") ?? "[]"
+    );
+  }
 
   add(restaurant: Restaurant) {
     this.restaurantList.push(restaurant);
+    localStorage.setItem("restaurants", JSON.stringify(this.restaurantList));
   }
 
   filter(category: Category) {
