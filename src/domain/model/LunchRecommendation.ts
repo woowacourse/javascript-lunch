@@ -16,7 +16,7 @@ export interface IRestaurant {
   getInfo(): RestaurantInfo;
 }
 
-interface IRestaurants {
+interface ILunchRecommendation {
   list: IRestaurant[];
   add(restaurant: IRestaurant): void;
   filterByCategory(category: Category): IRestaurant[];
@@ -53,7 +53,7 @@ class Restaurant implements IRestaurant {
   }
 }
 
-class Restaurants implements IRestaurants {
+class LunchRecommendation implements ILunchRecommendation {
   readonly list: IRestaurant[] = [];
 
   constructor(list: IRestaurant[]) {
@@ -98,4 +98,4 @@ class Restaurants implements IRestaurants {
   }
 }
 
-export { Restaurant, Restaurants };
+export { Restaurant, LunchRecommendation };
