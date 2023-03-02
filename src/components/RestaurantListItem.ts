@@ -1,10 +1,4 @@
 import { Component, Restaurant } from '../type';
-import categoryKorean from '../asset/icons/category-korean.png';
-import categoryChinese from '../asset/icons/category-chinese.png';
-import categoryJapanese from '../asset/icons/category-japanese.png';
-import categoryWestern from '../asset/icons/category-western.png';
-import categoryAsian from '../asset/icons/category-asian.png';
-import categoryEtc from '../asset/icons/category-etc.png';
 
 type RestaurantListItemState = {
   restaurant: Restaurant;
@@ -37,12 +31,12 @@ class RestaurantListItem implements Component<RestaurantListItemState> {
     const imageMap: {
       [key: string]: string;
     } = {
-      한식: categoryKorean,
-      중식: categoryChinese,
-      일식: categoryJapanese,
-      양식: categoryWestern,
-      아시안: categoryAsian,
-      기타: categoryEtc,
+      한식: './category-korean.png',
+      중식: './category-chinese.png',
+      일식: './category-japanese.png',
+      양식: './category-western.png',
+      아시안: './category-asian.png',
+      기타: './category-etc.png',
     };
 
     const { category, name, distance, description } = this.state.restaurant;
