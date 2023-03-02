@@ -1,4 +1,4 @@
-import { OPTIONS } from "../constants/options";
+import OPTIONS from "../constants/options";
 
 type SelectId = keyof typeof OPTIONS;
 

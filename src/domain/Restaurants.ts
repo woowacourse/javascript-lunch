@@ -1,8 +1,5 @@
-import type {
-  CategoryOption,
-  Restaurant,
-  SortOption,
-} from "../types/restaurant";
+import type { CategoryOption, SortOption } from "../types/option";
+import type { Restaurant } from "../types/restaurant";
 
 class Restaurants {
   #list;
@@ -11,9 +8,9 @@ class Restaurants {
     this.#list = list;
   }
 
-  getList(showState: { filter: CategoryOption; sort: SortOption }) {
+  getListByOption(showState: { filter: CategoryOption; sort: SortOption }) {
     const filteredList = this.filterByCategory(showState.filter);
-    const sortedList = this.sortList(filteredList, showState.sort);
+    const sortedList = this.sortBySortOption(filteredList, showState.sort);
 
     return sortedList;
   }
@@ -22,7 +19,7 @@ class Restaurants {
     this.#list = [...this.#list, restaurant];
   }
 
-  sortList(restaurantList: Restaurant[], sortOption: SortOption) {
+  sortBySortOption(restaurantList: Restaurant[], sortOption: SortOption) {
     return [...restaurantList].sort((first, second) =>
       first[sortOption] > second[sortOption] ? 1 : -1
     );

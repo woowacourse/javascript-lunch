@@ -11,6 +11,6 @@ import {
 const app = new App();
 
 setModalToggleHandler(app.openModal.bind(app), app.closeModal.bind(app));
-setSortingSelectChangeHandler(app.sortRestaurantList.bind(app));
-setFilteringSelectChangeHandler(app.filterRestaurantList.bind(app));
-setAddNewRestaurantHandler(app.addNewRestaurant.bind(app));
+setSortingSelectChangeHandler(app.onClickSortingOption.bind(app));
+setFilteringSelectChangeHandler(app.onClickFilteringOption.bind(app));
+setAddNewRestaurantHandler(app.onSubmitNewRestaurant.bind(app));

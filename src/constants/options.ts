@@ -1,8 +1,9 @@
 // TODO: 배열 중복되는 부분 어떻게 줄일지 생각해보기 (ex 함수로 묶기)
 
-import type { CategoryOption, Distance, SortOption } from "../types/restaurant";
+import type { CategoryOption, SortOption } from "../types/option";
+import type { Distance } from "../types/restaurant";
 
-export const CATEGORY_FILTER_OPTIONS: readonly CategoryOption[] = [
+const CATEGORY_FILTER_OPTIONS: readonly CategoryOption[] = [
   "전체",
   "한식",
   "중식",
@@ -12,11 +13,11 @@ export const CATEGORY_FILTER_OPTIONS: readonly CategoryOption[] = [
   "기타",
 ];
 
-export const SORTING_FILTER_OPTIONS = ["이름순", "거리순"] as const;
+const SORTING_FILTER_OPTIONS = ["이름순", "거리순"] as const;
 
 const SORTING_FILTER_VALUES: readonly SortOption[] = ["name", "distance"];
 
-export const CATEGORY_OPTIONS = [
+const CATEGORY_OPTIONS = [
   "선택해 주세요",
   "한식",
   "중식",
@@ -26,7 +27,7 @@ export const CATEGORY_OPTIONS = [
   "기타",
 ] as const;
 
-export const CATEGORY_OPTION_VALUES = [
+const CATEGORY_OPTION_VALUES = [
   "",
   "한식",
   "중식",
@@ -36,7 +37,7 @@ export const CATEGORY_OPTION_VALUES = [
   "기타",
 ] as const;
 
-export const DISTANCE_OPTIONS = [
+const DISTANCE_OPTIONS = [
   "선택해 주세요",
   "5분 내",
   "10분 내",
@@ -45,7 +46,7 @@ export const DISTANCE_OPTIONS = [
   "30분 내",
 ] as const;
 
-export const DISTANCE_OPTION_VALUES: readonly (Distance | "")[] = [
+const DISTANCE_OPTION_VALUES: readonly (Distance | "")[] = [
   "",
   5,
   10,
@@ -54,7 +55,7 @@ export const DISTANCE_OPTION_VALUES: readonly (Distance | "")[] = [
   30,
 ];
 
-export const OPTIONS = {
+const OPTIONS = {
   "category-filter": {
     text: CATEGORY_FILTER_OPTIONS,
     value: CATEGORY_FILTER_OPTIONS,
@@ -72,3 +73,5 @@ export const OPTIONS = {
     value: DISTANCE_OPTION_VALUES,
   },
 } as const;
+
+export default OPTIONS;
