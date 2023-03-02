@@ -6,25 +6,20 @@ export default class App {
 
   constructor() {
     this.#restaurants = new Restaurants();
-    this.initRender();
+    this.renderBySelectedFilterOptions();
     this.init();
-  }
-
-  initRender() {
-    const restaurants = this.#restaurants.getRestaurants();
-    const restaurant = this.#restaurants.getSortedRestaurantsByName(restaurants);
-
-    this.render(restaurant);
   }
 
   init() {
     $('.restaurant-filter-container').addEventListener(
       'change',
-      this.onChangeFilterContainer.bind(this)
+      this.renderBySelectedFilterOptions.bind(this)
     );
+
+    $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
   }
 
-  onChangeFilterContainer() {
+  renderBySelectedFilterOptions() {
     const categoryOption = $('#category-filter').value;
     const sortOption = $('#sorting-filter').value;
 
