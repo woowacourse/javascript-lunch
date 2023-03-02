@@ -19,9 +19,10 @@ const dummy = [
 ];
 
 export default class App {
-  #restaurants = [];
+  #restaurants;
 
   constructor() {
+    this.#restaurants = new Restaurants();
     this.render();
   }
 
