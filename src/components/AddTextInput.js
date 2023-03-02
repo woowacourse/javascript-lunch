@@ -1,5 +1,4 @@
 import GLOBAL_CSS from '../constants';
-// import { $ } from '../utils';
 
 class AddTextInput extends HTMLElement {
   constructor() {
@@ -38,7 +37,7 @@ class AddTextInput extends HTMLElement {
       .form-item input,
       .form-item textarea,
       .form-item select {
-        padding: 8px;
+        padding: 0 8px;
         margin: 6px 0;
       
         border: 1px solid var(--grey-200);
@@ -64,7 +63,7 @@ class AddTextInput extends HTMLElement {
       
       input[name="name"],
       input[name="link"] {
-        height: 22px;
+        height: 44px;
       }
 `;
 
