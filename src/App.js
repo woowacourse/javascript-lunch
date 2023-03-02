@@ -1,30 +1,33 @@
 import Restaurants from './domain/Restaurants';
 import { $ } from './utils/dom';
 
-const dummy = [
-  {
-    category: '한식',
-    name: '맛이쪙 돈까스',
-    distance: '10',
-    description:
-      '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은',
-    link: 'www.naver.com',
-  },
-  {
-    category: '일식',
-    name: '돈카라',
-    distance: '5',
-    description: '맛있어 맛있어',
-    link: '',
-  },
-];
-
 export default class App {
   #restaurants;
 
   constructor() {
     this.#restaurants = new Restaurants();
-    this.render();
+    this.init();
+  }
+
+  init() {
+    $('.restaurant-filter-container').addEventListener(
+      'change',
+      this.onChangeFilterContainer.bind(this)
+    );
+  }
+
+  onChangeFilterContainer() {
+    const categoryOption = $('#category-filter').value;
+    const sortOption = $('#sorting-filter').value;
+
+    const filterdRestaurants = this.#restaurants.getFilteredRestaurantsByCategory(categoryOption);
+
+    const sortedRestaurants = this.#restaurants.getSortedRestaurants(
+      filterdRestaurants,
+      sortOption
+    );
+
+    this.render(sortedRestaurants);
   }
 
   getTemplate(restaurants) {
@@ -40,8 +43,6 @@ export default class App {
     const template = `
       <ul class="restaurant-list">
       ${restaurants.reduce((html, restaurant) => {
-        console.log(html);
-        console.log(restaurant);
         return (
           html +
           `
@@ -66,8 +67,8 @@ export default class App {
     return template;
   }
 
-  render() {
-    const template = this.getTemplate(dummy);
+  render(restaurants) {
+    const template = this.getTemplate(restaurants);
 
     $('.restaurant-list-container').innerHTML = template;
   }
