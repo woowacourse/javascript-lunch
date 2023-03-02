@@ -1,9 +1,11 @@
 import { Category, Component, SortBy, Restaurant } from '../type';
+import RestaurantList from './RestaurantList';
+import RestaurantListHeader from './RestaurantListHeader';
 
 type RestaurantListPageState = {
   category: Category;
   sortBy: SortBy;
-  restaurant: Restaurant[];
+  restaurants: Restaurant[];
 };
 
 type RestaurantListPageProps = {
@@ -19,17 +21,56 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
     this.state = {
       category: '전체',
       sortBy: 'name',
-      restaurant: [],
+      restaurants: this.getRestaurants(),
     };
     $parent.append(this.$component);
   }
 
-  setState(newState: RestaurantListPageState) {
+  setState = (newState: RestaurantListPageState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
-  render() {}
+  render = () => {
+    this.$component.innerHTML = '';
+
+    new RestaurantListHeader({
+      $parent: this.$component,
+      category: this.state.category,
+      sortBy: this.state.sortBy,
+      onChangeCategory: this.onChangeCategory,
+      onChangeSortBy: this.onChangeSortBy,
+    }).render();
+
+    new RestaurantList({
+      $parent: this.$component,
+      category: this.state.category,
+      sortBy: this.state.sortBy,
+      restaurants: this.state.restaurants,
+    }).render();
+  };
+
+  getRestaurants = () => {
+    return JSON.parse(localStorage.getItem('restaurants') ?? '[]');
+  };
+
+  onChangeCategory = (e: Event) => {
+    const $select = e.target as HTMLSelectElement;
+    const category = $select.value as Category;
+    this.setState({
+      ...this.state,
+      category,
+    });
+  };
+
+  onChangeSortBy = (e: Event) => {
+    const $select = e.target as HTMLSelectElement;
+    const sortBy = $select.value as SortBy;
+    this.setState({
+      ...this.state,
+      sortBy,
+    });
+  };
 }
 
 export default RestaurantListPage;
