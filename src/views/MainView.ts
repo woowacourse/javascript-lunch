@@ -1,3 +1,4 @@
+import { restaurantFormValidator } from "../domains/restaurantFormValidator";
 import { $ } from "../utils/domSelectors";
 
 class MainView {

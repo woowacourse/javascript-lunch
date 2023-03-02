@@ -46,7 +46,7 @@
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form id="restaurant-add-form">
+          <form id="restaurant-add-form" novalidate>
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
@@ -59,14 +59,20 @@
                 <option value="아시안">아시안</option>
                 <option value="기타">기타</option>
               </select>
-              <span class="help-text text-caption info-text"></span>
+              <span
+                class="help-text text-caption info-text"
+                id="category-caption"
+              ></span>
             </div>
 
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
               <label for="name text-caption">이름</label>
               <input type="text" name="name" id="name" required />
-              <span class="help-text text-caption info-text"></span>
+              <span
+                class="help-text text-caption info-text"
+                id="name-caption"
+              ></span>
             </div>
 
             <!-- 거리 -->
@@ -80,7 +86,10 @@
                 <option value="20">20분 내</option>
                 <option value="30">30분 내</option>
               </select>
-              <span class="help-text text-caption info-text"></span>
+              <span
+                class="help-text text-caption info-text"
+                id="distance-caption"
+              ></span>
             </div>
 
             <!-- 설명 -->
@@ -101,7 +110,7 @@
             <div class="form-item">
               <label for="link text-caption">참고 링크</label>
               <input type="text" name="link" id="link" />
-              <span class="help-text text-caption info-text"
+              <span class="help-text text-caption info-text" id="link-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
             </div>

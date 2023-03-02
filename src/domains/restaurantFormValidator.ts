@@ -1,28 +1,36 @@
 import { REGEX, ERROR_MESSAGE } from "../constants/constants";
+import { Restaurant } from "./types";
 
 export const restaurantFormValidator = {
-  throwErrorIfEmptySelectValue(input: string, type: string) {
-    if (!input) throw new Error(ERROR_MESSAGE.EMPTY_SELECT_VALUE(type));
+  verify(restaurantItem: Restaurant) {
+    const Errors: { [key: string]: Boolean } = {};
+
+    Errors["category"] = this.isEmptyCategory(restaurantItem.category);
+    Errors["name"] = this.isInvalidName(restaurantItem.name);
+    Errors["distance"] = this.isEmptyDistance(restaurantItem.distance);
+    Errors["link"] = this.isInvalidLink(restaurantItem.link);
+
+    return Errors;
   },
 
-  verifyNameInput(input: string) {
-    this.throwErrorIfEmptyName(input);
-    this.throwErrorIfInvalidName(input);
+  isEmptyCategory(input: string) {
+    if (!input) return true;
+
+    return false;
   },
 
-  throwErrorIfEmptyName(input: string) {
-    if (!input) throw new Error(ERROR_MESSAGE.EMPTY_NAME);
+  isEmptyDistance(input: number) {
+    if (!input) return true;
+
+    return false;
   },
 
-  throwErrorIfInvalidName(input: string) {
-    if (!REGEX.VALID_NAME.test(input)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NAME);
-    }
+  isInvalidName(input: string) {
+    return !REGEX.VALID_NAME.test(input);
   },
 
-  throwErrorIfInvalidLink(input: string) {
-    if (!REGEX.VALID_URL.test(input)) {
-      throw new Error(ERROR_MESSAGE.INVALID_LINK);
-    }
+  isInvalidLink(input: string | undefined) {
+    if (input) return !REGEX.VALID_URL.test(input);
+    return false;
   },
 };
