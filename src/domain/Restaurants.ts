@@ -1,4 +1,8 @@
-import type { Category, Restaurant } from "../types/restaurant";
+import type {
+  CategoryOption,
+  Restaurant,
+  SortOption,
+} from "../types/restaurant";
 
 class Restaurants {
   #list;
@@ -7,7 +11,7 @@ class Restaurants {
     this.#list = list;
   }
 
-  getList(showState: { filter: Category | "전체"; sort: "거리순" | "이름순" }) {
+  getList(showState: { filter: CategoryOption; sort: SortOption }) {
     const filteredList = this.filterByCategory(showState.filter);
     const sortedList = this.sortList(filteredList, showState.sort);
 
@@ -18,29 +22,13 @@ class Restaurants {
     this.#list = [...this.#list, restaurant];
   }
 
-  sortByName() {
-    return [...this.#list].sort((first, second) =>
-      first.name > second.name ? 1 : -1
+  sortList(restaurantList: Restaurant[], sortOption: SortOption) {
+    return [...restaurantList].sort((first, second) =>
+      first[sortOption] > second[sortOption] ? 1 : -1
     );
   }
 
-  sortByDistance() {
-    return [...this.#list].sort(
-      (first, second) => first.distance - second.distance
-    );
-  }
-
-  sortList(filteredList: Restaurant[], sortingStandard: "거리순" | "이름순") {
-    if (sortingStandard === "거리순")
-      return [...filteredList].sort(
-        (first, second) => first.distance - second.distance
-      );
-    return [...filteredList].sort((first, second) =>
-      first.name > second.name ? 1 : -1
-    );
-  }
-
-  filterByCategory(category: Category | "전체") {
+  filterByCategory(category: CategoryOption) {
     if (category === "전체") return [...this.#list];
 
     return this.#list.filter((restaurant) => restaurant.category === category);

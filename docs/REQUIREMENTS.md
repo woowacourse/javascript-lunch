@@ -19,7 +19,6 @@
       - [x] params: Restaurant 정보
     - [x] RestaurantList 컴포넌트
       - [x] params: RestaurantCard[]
-      - [ ]
     - [ ] Modal 컴포넌트
       - [x] 토글기능
       - [ ] 새로운 음식점 등록 기능

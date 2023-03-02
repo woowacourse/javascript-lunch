@@ -2,7 +2,12 @@ import createCustomSelect from "./components/CustomSelect";
 import createCustomModal from "./components/CustomModal";
 import createCustomHeader from "./components/CustomHeader";
 import Restaurants from "./domain/Restaurants";
-import { Category, Restaurant } from "./types/restaurant";
+import {
+  Category,
+  CategoryOption,
+  Restaurant,
+  SortOption,
+} from "./types/restaurant";
 import createRestaurantCardList from "./components/RestaurantCardList";
 
 const mockList: Restaurant[] = [
@@ -44,15 +49,15 @@ class App {
   #restaurants;
 
   #showState: {
-    filter: Category | "전체";
-    sort: "이름순" | "거리순";
+    filter: CategoryOption;
+    sort: SortOption;
   };
 
   constructor() {
     this.#restaurants = new Restaurants(mockList);
     this.#showState = {
       filter: "전체",
-      sort: "이름순",
+      sort: "name",
     };
     this.init();
 
@@ -96,14 +101,14 @@ class App {
   sortRestaurantList(event: Event) {
     if (!(event.target instanceof HTMLSelectElement)) return;
 
-    this.#showState.sort = event.target.value as "이름순" | "거리순";
+    this.#showState.sort = event.target.value as SortOption;
     this.renderRestaurantList();
   }
 
   filterRestaurantList(event: Event) {
     if (!(event.target instanceof HTMLSelectElement)) return;
 
-    this.#showState.filter = event.target.value as Category | "전체";
+    this.#showState.filter = event.target.value as CategoryOption;
     this.renderRestaurantList();
   }
 

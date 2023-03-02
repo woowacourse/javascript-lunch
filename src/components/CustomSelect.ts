@@ -6,9 +6,9 @@ class CustomSelect extends HTMLElement {
   constructor() {
     super();
 
-    const name = this.getAttribute("name");
-    const id = this.getAttribute("id") as SelectId;
-    const className = this.getAttribute("className");
+    const name = this.getAttribute("name") ?? "";
+    const id = (this.getAttribute("id") as SelectId) ?? "";
+    const className = this.getAttribute("className") ?? "";
     const required = this.getAttribute("required");
 
     this.innerHTML = `
