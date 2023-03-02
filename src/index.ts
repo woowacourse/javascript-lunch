@@ -3,7 +3,10 @@ import Modal from './components/Modal';
 import RestaurantItem from './components/RestaurantItem';
 import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
+import store from './store';
 import './styles';
+
+store.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
 
 customElements.define('lunch-header', Header);
 customElements.define('restaurant-item', RestaurantItem);

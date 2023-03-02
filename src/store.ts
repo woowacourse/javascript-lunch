@@ -29,6 +29,7 @@ export const store: Store = {
       typeof RestaurantItems
     >;
     $restaurantItems.render(this.restaurants);
+    localStorage.setItem('store', JSON.stringify(this.restaurants));
   },
 
   filterRestaurants(categoryFilter: CategoryFilter) {
