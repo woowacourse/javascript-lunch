@@ -1,3 +1,4 @@
+import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 
 class Modal {
@@ -50,7 +51,7 @@ class Modal {
         </div>
 
         <div class="button-container">
-          <button type="button" class="button button--secondary text-caption">취소하기</button>
+          <button type="button" class="button button--secondary text-caption modal--close">취소하기</button>
           <button class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
@@ -60,6 +61,13 @@ class Modal {
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
+    this.addEvent();
+  }
+
+  addEvent() {
+    $(".modal--close")?.addEventListener("click", () => {
+      $(".modal")?.classList.remove("modal--open");
+    });
   }
 }
 
