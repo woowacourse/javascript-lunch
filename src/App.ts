@@ -5,6 +5,8 @@ import Header from './view/components/Header';
 import RestaurantList from './view/components/RestaurantList';
 import Selector from './view/components/Selector';
 
+import getFormData from './utils/getFormData';
+
 import {
   Restaurant,
   RestaurantSortingType,
@@ -13,6 +15,7 @@ import {
 import { menu1, menu2, menu3, menu4 } from './data/dummy';
 
 import { $ } from './utils/querySelector';
+import RestaurantAddModal from './view/components/RestaurantAddModal';
 
 /* 더미 데이터 */
 const dummyData = [menu1, menu2, menu3, menu4];
@@ -22,7 +25,6 @@ type StateType = {
   categorySelector?: RestaurantCategoryType;
   sortedSelector?: RestaurantSortingType;
   isModal?: boolean;
-};
 };
 
 class App {
@@ -49,6 +51,7 @@ class App {
       <main>
         <section class="restaurant-filter-container"></section>
         <section class="restaurant-list-container"></section>
+        <section class="restaurant-modal-container"></section>
       </main>
     `;
   }
@@ -95,6 +98,12 @@ class App {
     new RestaurantList({
       $target: $('.restaurant-list-container') as HTMLElement,
       restaurants: this.#state.restaurants as Restaurant[],
+    });
+
+    new RestaurantAddModal({
+      $target: $('.restaurant-modal-container') as HTMLElement,
+      isModal: this.#state.isModal,
+      onClickEvent: this.onClickEvent.bind(this),
     });
   }
 
