@@ -1,13 +1,13 @@
 import { $ } from "../utils/domSelectors";
 
 class MainView {
-  private addButtton = $(".gnb__button");
+  private addButton = $(".gnb__button");
   private modal = $(".modal");
   private categoryFilter = $("#category-filter") as HTMLSelectElement;
   private sortingFilter = $("#sorting-filter") as HTMLSelectElement;
 
   constructor() {
-    this.addButtton?.addEventListener("click", (event) => {
+    this.addButton?.addEventListener("click", () => {
       this.modal?.classList.add("modal--open");
     });
   }
