@@ -1,4 +1,4 @@
-import { Category, Restaurant } from "./types";
+import { AllCategory, Category, Restaurant } from "./types";
 
 class RestaurantService {
   private restaurantList: Restaurant[];
@@ -15,7 +15,9 @@ class RestaurantService {
     localStorage.setItem("restaurants", JSON.stringify(this.restaurantList));
   }
 
-  filter(category: Category) {
+  filter(category: AllCategory | Category) {
+    if (category === "전체") return [...this.restaurantList];
+
     return this.restaurantList.filter(
       (restaurant) => restaurant.category === category
     );
