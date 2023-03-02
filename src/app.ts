@@ -1,3 +1,4 @@
+import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
 import IRestaurantInput from './interfaces/IRestaurantInput';
@@ -9,12 +10,17 @@ class App extends Component {
   }
 
   template() {
-    return `<div><h1>Hello</h1></div>`;
+    return `<header class="gnb">
+  </header>
+  <main>
+    <section class="restaurant-filter-container"></section>
+    <section class="restaurant-list-container"></section>
+  </main>`;
   }
 
   mounted() {
     const { toggleModal, addRestaurant, filterList, getRestaurants } = this;
-    const $topNavBar = this.$target.querySelector('.gnb');
+    const $topNavBar = this.$target.querySelector('.gnb') as HTMLHeadingElement;
     const $filterBar = this.$target.querySelector(
       '.restaurant-filter-container'
     );
@@ -22,10 +28,10 @@ class App extends Component {
       '.restaurant-list-container'
     );
 
-    // new TopNavBar($topNavBar, {
-    //   toggleModal: toggleModal.bind(this),
-    //   addRestaurant: addRestaurant.bind(this),
-    // });
+    new TopNavBar($topNavBar, {
+      toggleModal: toggleModal.bind(this),
+      addRestaurant: addRestaurant.bind(this),
+    });
 
     // new FilterBar($filterBar, {
     //   filterList: filterList.bind(this),
