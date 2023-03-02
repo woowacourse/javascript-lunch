@@ -5,6 +5,6 @@ export interface Restaurant {
   category: Category;
   name: string;
   distance: Distance;
-  describe?: string;
-  referenceLink?: string;
+  description?: string;
+  link?: string;
 }
