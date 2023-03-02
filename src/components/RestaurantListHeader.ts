@@ -5,39 +5,71 @@ type RestaurantListHeaderState = {
   sortBy: SortBy;
 };
 
+type RestaurantListHeaderProps = {
+  $parent: HTMLElement;
+  category: Category;
+  sortBy: SortBy;
+  onChangeCategory: (e: Event) => void;
+  onChangeSortBy: (e: Event) => void;
+};
+
 class RestaurantListHeader implements Component<RestaurantListHeaderState> {
   $component: HTMLElement;
   state: RestaurantListHeaderState;
+  onChangeCategory: (e: Event) => void;
+  onChangeSortBy: (e: Event) => void;
 
-  constructor($parent: HTMLElement, state: RestaurantListHeaderState) {
+  constructor({
+    $parent,
+    category,
+    sortBy,
+    onChangeCategory,
+    onChangeSortBy,
+  }: RestaurantListHeaderProps) {
     this.$component = document.createElement('div');
-    this.state = state;
+    this.state = {
+      category,
+      sortBy,
+    };
+    this.onChangeCategory = onChangeCategory;
+    this.onChangeSortBy = onChangeSortBy;
+    $parent.append(this.$component);
   }
 
   setState(newState: RestaurantListHeaderState) {
     this.state = newState;
-
     this.render();
   }
 
   render() {
+    const categories: Category[] = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
     this.$component.innerHTML = `
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
-          <option value="전체">전체</option>
-          <option value="한식">한식</option>
-          <option value="중식">중식</option>
-          <option value="일식">일식</option>
-          <option value="양식">양식</option>
-          <option value="아시안">아시안</option>
-          <option value="기타">기타</option>
+          ${categories
+            .map(
+              (category) => `
+              <option value="${category}" ${
+                this.state.category === category ? 'selected' : ''
+              }>${category}</option>
+            `
+            )
+            .join('')}
         </select>
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          <option value="name">이름순</option>
-          <option value="distance">거리순</option>
+          <option value="name" ${this.state.sortBy === 'name' ? 'selected' : ''}>이름순</option>
+          <option value="distance" ${
+            this.state.sortBy === 'distance' ? 'selected' : ''
+          }>거리순</option>
         </select>
       </section>
     `;
+
+    const categorySelect = this.$component.querySelector('#category-filter');
+    categorySelect?.addEventListener('change', this.onChangeCategory);
+
+    const sortSelect = this.$component.querySelector('#sorting-filter');
+    sortSelect?.addEventListener('change', this.onChangeSortBy);
   }
 }
 
