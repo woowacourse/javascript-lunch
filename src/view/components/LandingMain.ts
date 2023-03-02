@@ -17,7 +17,7 @@ function LandingMain() {
 
   return `
     <main>
-      ${Nav.bind(Nav)({ category, filter, handleCategory, handleFilter })}
+      ${Nav({ category, filter, handleCategory, handleFilter })}
       ${Restaurants()}
     </main>
   `;
