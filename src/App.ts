@@ -16,6 +16,7 @@ export default class App extends Component {
     this.$state = this.getStateFromLocalStorage() || {
       filter: '전체',
       sort: 'name',
+      isModal: false,
       restaurants: [
         {
           name: '피양콩할마니',
@@ -84,6 +85,7 @@ export default class App extends Component {
       return null;
     }
   }
+
   template() {
     return `
     <header class="gnb">
@@ -153,13 +155,15 @@ export default class App extends Component {
 
   listenEvent() {
     this.$target.querySelector('.gnb__button')!.addEventListener('click', (event: Event) => {
-      new Modal(this.$target, this.restuarants, this.$state);
+      const onCloseModal = this.onCloseModal.bind(this);
+      new Modal(this.$target, this.restuarants, this.$state, onCloseModal);
     });
 
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLInputElement;
       const value = target.value;
       const filteredRestuarant = this.restuarants!.filterByCategory(value as Category);
+
       this.setState({ filter: value, restaurants: filteredRestuarant });
     });
 
@@ -172,11 +176,16 @@ export default class App extends Component {
         this.setState({ sort: value, restaurants: sortedByName });
         return;
       }
+
       if (value === 'distance') {
         const sortedByDistance = this.restuarants!.sortByDistance(this.$state!.filter as Category);
         this.setState({ sort: value, restaurants: sortedByDistance });
         return;
       }
     });
+  }
+
+  onCloseModal() {
+    this.setState({ isModal: !this.$state.isModal });
   }
 }

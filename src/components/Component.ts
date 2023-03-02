@@ -9,13 +9,17 @@ export default class Component {
     this.setup();
     this.render();
   }
+
   setup() {}
+
   template() {
     return '';
   }
+
   render() {
     this.$target.innerHTML = this.template();
   }
+
   listenEvent() {}
 
   setState(newState: any): void {

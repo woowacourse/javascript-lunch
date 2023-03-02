@@ -4,12 +4,15 @@ import Component from './Component';
 
 export default class Modal extends Component {
   restaurants: Restaurants;
+  onCloseModal;
 
-  constructor($target: HTMLElement, restaurants: Restaurants, state: State) {
+  constructor($target: HTMLElement, restaurants: Restaurants, state: State, onCloseModal: Function) {
     super($target);
     this.restaurants = restaurants;
     this.$state = state;
+    this.onCloseModal = onCloseModal;
   }
+
   template() {
     return `
       <!-- 음식점 추가 모달 -->
@@ -76,6 +79,7 @@ export default class Modal extends Component {
 	    </div>
 	    `;
   }
+
   render(): void {
     this.$target.insertAdjacentHTML('beforeend', this.template());
     this.listenEvent();
@@ -84,6 +88,7 @@ export default class Modal extends Component {
   listenEvent() {
     this.$target.querySelector('.button--primary')?.addEventListener('click', (event: Event) => {
       event.preventDefault();
+
       const category: Category = this.$target.querySelector<HTMLSelectElement>('#category')!.value as Category;
       const name: string = this.$target.querySelector<HTMLInputElement>('#name')!.value;
       const distance: Distance = Number(this.$target.querySelector<HTMLSelectElement>('#distance')!.value) as Distance;
@@ -91,7 +96,7 @@ export default class Modal extends Component {
       const link = this.$target.querySelector<HTMLInputElement>('#link')!.value;
 
       if (!category || !name || !distance) {
-        alert('카테고리, 이름, 거리는 필수 입력 정보 입니다!!!!');
+        alert('카테고리, 이름, 거리는 필수 입력 정보 입니다!');
         return;
       }
 
@@ -105,19 +110,24 @@ export default class Modal extends Component {
 
       this.restaurants.add(restaurant);
       this.$state.restaurants = this.restaurants.getRestaurants();
+
       localStorage.setItem('state', JSON.stringify(this.$state));
-      this.render();
-      window.location.reload();
+
+      this.closeModal();
     });
 
     this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
       this.closeModal();
     });
   }
+
   closeModal() {
     const elementToRemove = this.$target.querySelector('.modal--open');
+
     if (elementToRemove) {
       elementToRemove.remove();
     }
+
+    this.onCloseModal();
   }
 }
