@@ -1,5 +1,4 @@
-import { valueToNode } from "@babel/types";
-import { createElement } from "../../utils/Dom";
+import { $ } from "../../utils/Dom";
 
 interface Attribute {
   id: string;
@@ -9,48 +8,41 @@ interface Attribute {
 }
 
 class Select {
-  private select: Element;
-  private selectedValue: string;
+  options: string[];
+  name: string;
+  id: string;
+  className: string;
+  required: boolean | undefined;
+  selectedValue: string;
 
-  constructor({ id, className, name, required }: Attribute, values: string[]) {
-    this.select = createElement("select");
+  constructor(attribute: Attribute, options: string[]) {
+    this.options = options;
+    const { name, id, className, required } = attribute;
+    this.name = name;
+    this.id = id;
+    this.className = className;
+    this.required = required;
     this.selectedValue = "";
-    this.generateElement({ id, className, name, required });
-    this.generateOptions(values);
-    this.activate();
   }
 
-  generateElement({ id, className, name, required }: Attribute) {
-    this.select.id = id;
-    this.select.className = className;
-    this.select.setAttribute("name", name);
-
-    if (required) {
-      this.select.setAttribute("required", "");
-    }
-  }
-
-  generateOptions(values: string[]) {
-    values.forEach((value) => {
-      const $option = createElement("option");
-      $option.setAttribute("value", value);
-      $option.textContent = value;
-
-      this.select.append($option);
-    });
-  }
-
-  getElement() {
-    return this.select;
-  }
-
-  activate() {
-    this.select.addEventListener("change", (e) => {
-      const select = this.select as HTMLSelectElement;
+  addEvent(id: string) {
+    const selectEl = $(`#${id}`);
+    selectEl?.addEventListener("change", () => {
+      const select = selectEl as HTMLSelectElement;
       const selectedOption = select.options[select.selectedIndex];
 
       this.selectedValue = selectedOption.value;
     });
+  }
+
+  template() {
+    return ` <select name=${this.name} id=${this.id} class=${
+      this.className
+    } required=${this.required}>
+    ${this.options
+      .map((option: string) => `<option value=${option}> ${option} </option>`)
+      .join("")}
+  </select>`;
   }
 
   getSelctedValue() {
