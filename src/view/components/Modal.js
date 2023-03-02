@@ -67,15 +67,15 @@ export default class Modal {
     </div>
     `;
 
-  constructor() {
+  constructor(restaurantList, restaurantRegistry) {
     document.body.insertAdjacentHTML("beforeend", this.#template);
-    this.restaurantList = new RestaurantList();
+    this.restaurantList = restaurantList;
     this.modalForm = $(".modal-form");
     this.modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
       this.addRestaurant();
     });
-    this.restaurantRegistry = new RestaurantRegistry();
+    this.restaurantRegistry = restaurantRegistry;
     $(".button--secondary").addEventListener("click", this.closeModal);
   }
 
