@@ -6,8 +6,8 @@ export interface Restaurant {
   category: Category;
   name: string;
   distance: number;
-  describe?: string;
-  referenceLink?: string;
+  description?: string;
+  link?: string;
 }
 
 export interface CustomElement extends HTMLElement {

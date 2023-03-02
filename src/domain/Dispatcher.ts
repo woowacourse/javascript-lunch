@@ -8,3 +8,5 @@ const dispatcher = (
   const action: Action = { type, data };
   RestaurantInstance.reducer[type](action);
 };
+
+export default dispatcher;
