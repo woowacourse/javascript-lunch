@@ -7,13 +7,21 @@ class ModalView {
   private restaurantAddForm = $("#restaurant-add-form") as HTMLFormElement;
   private modal = $(".modal");
   private closeButton = $("#modal-close-button");
+  private categoryInput = $("#category") as HTMLSelectElement;
   private categoryInputCaption = $("#category-caption") as HTMLSpanElement;
+  private nameInput = $("#name") as HTMLInputElement;
   private nameInputCaption = $("#name-caption") as HTMLSpanElement;
+  private distanceInput = $("#distance") as HTMLInputElement;
   private distanceInputCaption = $("#distance-caption") as HTMLSpanElement;
+  private linkInput = $("#link") as HTMLInputElement;
   private linkInputCaption = $("#link-caption") as HTMLSpanElement;
 
   constructor() {
     this.addCloseButtonClickEvent();
+    this.addCategoryChangeEvent();
+    this.addNameInputEvent();
+    this.addDistanceChangeEvent();
+    this.addLinkInputEvent();
   }
 
   addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {
@@ -43,6 +51,7 @@ class ModalView {
       if (Errors.name) {
         this.nameInputCaption.classList.add("error-text");
         this.nameInputCaption.textContent = ERROR_MESSAGE.INVALID_NAME;
+        this.nameInput.value = "";
       }
 
       if (Errors.distance) {
@@ -53,7 +62,37 @@ class ModalView {
       if (Errors.link) {
         this.linkInputCaption.classList.add("error-text");
         this.linkInputCaption.textContent = ERROR_MESSAGE.INVALID_LINK;
+        this.linkInput.value = "";
       }
+    });
+  }
+
+  addCategoryChangeEvent() {
+    this.categoryInput.addEventListener("change", () => {
+      this.categoryInputCaption.classList.add("error-text");
+      this.categoryInputCaption.textContent = "";
+    });
+  }
+
+  addNameInputEvent() {
+    this.nameInput.addEventListener("input", () => {
+      this.nameInputCaption.classList.remove("error-text");
+      this.nameInputCaption.textContent = "";
+    });
+  }
+
+  addDistanceChangeEvent() {
+    this.distanceInput.addEventListener("change", () => {
+      this.distanceInputCaption.classList.remove("error-text");
+      this.distanceInputCaption.textContent = "";
+    });
+  }
+
+  addLinkInputEvent() {
+    this.linkInput.addEventListener("input", () => {
+      this.linkInputCaption.classList.remove("error-text");
+      this.linkInputCaption.textContent =
+        "매장 정보를 확인할 수 있는 링크를 입력해 주세요.";
     });
   }
 
