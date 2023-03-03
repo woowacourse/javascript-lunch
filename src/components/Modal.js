@@ -74,29 +74,36 @@ class Modal {
   }
 
   setSubmitEvent() {
-    const _this = this;
-
     const $modalForm = document.querySelector('.modal form');
-    $modalForm.addEventListener('submit', function (e) {
+
+    $modalForm.addEventListener('submit', e => {
       e.preventDefault();
 
-      const category = this.category.value;
-      const name = this.name.value;
-      const distance = this.distance.value;
-      const description = this.description.value;
-      const link = this.link.value;
+      const category = document.querySelector('#category').value;
+      const name = document.querySelector('#name').value;
+      const distance = document.querySelector('#distance').value;
+      const description = document.querySelector('#description').value;
+      const link = document.querySelector('#link');
 
-      const restaurant = _this.makeRestaurant({ category, name, distance, description, link });
-      _this.restaurantsList.restaurants.add(restaurant);
-      localStorage.setItem('restaurants', JSON.stringify(_this.restaurantsList.restaurants.restaurants));
-      _this.restaurantsList.setState(restaurant);
+      const restaurant = this.makeRestaurant({ category, name, distance, description, link });
+
+      this.saveRestaurant(restaurant);
+
       document.querySelector('.modal').remove();
     });
   }
 
+  saveRestaurant(restaurant) {
+    this.restaurantsList.restaurants.add(restaurant);
+    localStorage.setItem('restaurants', JSON.stringify(this.restaurantsList.restaurants.restaurants));
+
+    this.restaurantsList.setState(restaurant);
+  }
+
   setModalCloseEvent() {
     const $cancelButton = document.querySelector('.modal .button--secondary');
-    $cancelButton.addEventListener('click', function (e) {
+
+    $cancelButton.addEventListener('click', e => {
       e.preventDefault();
 
       document.querySelector('.modal').remove();
