@@ -24,8 +24,8 @@ const LunchMenuApp = {
       'registerRestaurant',
       ({ detail: restaurant }) => this.handleRestaurantRegister(restaurant)
     );
-    $('.restaurant-filter-container').addEventListener('change', () =>
-      this.handleRestaurantFilter()
+    $('restaurant-filter').addEventListener('filterRestaurant', ({ detail: filterType }) =>
+      this.handleRestaurantFilter(filterType)
     );
     $('.gnb__button').addEventListener('click', () => $('restaurant-register-modal').openModal());
   },
@@ -42,9 +42,7 @@ const LunchMenuApp = {
     setLocalStorage('restaurants', restaurants.list);
   },
 
-  handleRestaurantFilter() {
-    const sortingType = $('#sorting-filter').value;
-    const category = $('#category-filter').value;
+  handleRestaurantFilter({ category = '전체', sortingType = '등록순' }) {
     const filteredRestaurants = restaurants.filterByCategory(category, restaurants.list);
     const sortByType = {
       register: () => filteredRestaurants,
