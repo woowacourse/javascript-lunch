@@ -6,7 +6,7 @@ import { ERROR_MESSAGE } from "../constants/constants";
 class ModalView {
   private restaurantAddForm = $("#restaurant-add-form") as HTMLFormElement;
   private modal = $(".modal") as HTMLDialogElement;
-  private closeButton = $("#modal-close-button");
+  private closeButton = $("#modal-close-button") as HTMLButtonElement;
   private categoryInput = $("#category") as HTMLSelectElement;
   private categoryInputCaption = $("#category-caption") as HTMLSpanElement;
   private nameInput = $("#name") as HTMLInputElement;
@@ -22,11 +22,11 @@ class ModalView {
     this.addNameInputEvent();
     this.addDistanceChangeEvent();
     this.addLinkInputEvent();
-    this.addModalBackdropClickEvent(); //
+    this.addModalBackdropClickEvent();
   }
 
   addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {
-    this.restaurantAddForm?.addEventListener("submit", (event) => {
+    this.restaurantAddForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const formData: FormData = new FormData(this.restaurantAddForm);
       const restaurantItem: Restaurant = Object.fromEntries(
@@ -98,7 +98,7 @@ class ModalView {
   }
 
   addCloseButtonClickEvent() {
-    this.closeButton?.addEventListener("click", () => {
+    this.closeButton.addEventListener("click", () => {
       this.restaurantAddForm.reset();
       this.modal.close();
     });
