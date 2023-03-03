@@ -8,6 +8,7 @@ import { screen } from '@testing-library/dom';
 import RestaurantList from '../src/view/components/RestaurantList';
 import RestaurantListItem from '../src/view/components/RestaurantListItem';
 import RestaurantRegisterModal from '../src/view/components/RestaurantRegisterModal';
+import RestaurantFilter from '../src/view/components/RestaurantFilter';
 
 describe('컴포넌트 렌더링 테스트', () => {
   beforeEach(() => {
@@ -76,5 +77,15 @@ describe('컴포넌트 렌더링 테스트', () => {
     );
 
     expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
+  });
+
+  test('화면에 RestaurantFilter를 렌더링한다.', () => {
+    document.body.insertAdjacentHTML('beforeend', `<restaurant-filter></restaurant-filter>`);
+
+    const categoryFilter = screen.getByDisplayValue('전체');
+    const sortingFilter = screen.getByDisplayValue('등록순');
+
+    expect(categoryFilter).toBeInTheDocument();
+    expect(sortingFilter).toBeInTheDocument();
   });
 });
