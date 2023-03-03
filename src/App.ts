@@ -12,15 +12,12 @@ import {
   RestaurantSortingType,
   RestaurantCategoryType,
 } from './type/common';
-import { menu1, menu2, menu3, menu4 } from './data/dummy';
 
 import { $ } from './utils/querySelector';
 import cache from './data/cache';
 
 import RestaurantAddModal from './view/components/RestaurantAddModal';
 
-/* 더미 데이터 */
-const dummyData = [menu1, menu2, menu3, menu4];
 const LOCAL_STORAGE_KEY = 'RESTAURANT_APP';
 
 type StateType = {
