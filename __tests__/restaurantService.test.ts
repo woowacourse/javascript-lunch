@@ -1,4 +1,4 @@
-import { IRestaurant } from '../src/domain/Restaurant';
+import { IRestaurant, Restaurant } from '../src/domain/Restaurant';
 import RestaurantService from '../src/domain/RestaurantService';
 
 describe('RestaurantService 객체 테스트', () => {
@@ -25,11 +25,6 @@ describe('RestaurantService 객체 테스트', () => {
   });
 
   test('filterByCategory 메서드는 카테고리에 해당하는 restaurant 정보들을 반환한다.', () => {
-    const restaurantService = new RestaurantService();
-
-    const { addRestaurant, filterByCategory, getRestaurantsInfo } =
-      restaurantService;
-
     const restaurants: IRestaurant[] = [
       {
         category: '중식',
@@ -47,13 +42,14 @@ describe('RestaurantService 객체 테스트', () => {
         distance: 10,
       },
     ];
+    const restaurantList = restaurants.map((res) => new Restaurant(res));
 
-    restaurants.forEach((res) => addRestaurant(res));
+    const restaurantService = new RestaurantService(restaurantList);
 
     expect(
-      filterByCategory(getRestaurantsInfo(), '중식').map((res) =>
-        res.getRestaurantInfo()
-      )
+      restaurantService
+        .filterByCategory(restaurantService.getRestaurantsInfo(), '중식')
+        .map((res) => res.getRestaurantInfo())
     ).toEqual([
       {
         category: '중식',
@@ -69,20 +65,11 @@ describe('RestaurantService 객체 테스트', () => {
   });
 
   test('sortByName 메서드는 restaurant 정보들을 이름을 기준으로 오름차순으로 정렬하여 반환한다.', () => {
-    const restaurantService = new RestaurantService();
-
-    const { addRestaurant, sortByName, getRestaurantsInfo } = restaurantService;
-
     const restaurants: IRestaurant[] = [
       {
         category: '중식',
         name: '친친',
         distance: 5,
-      },
-      {
-        category: '한식',
-        name: '얌샘김밥',
-        distance: 30,
       },
       {
         category: '중식',
@@ -94,12 +81,20 @@ describe('RestaurantService 객체 테스트', () => {
         name: '얌샘김밥',
         distance: 10,
       },
+      {
+        category: '한식',
+        name: '얌샘김밥',
+        distance: 30,
+      },
     ];
+    const restaurantList = restaurants.map((res) => new Restaurant(res));
 
-    restaurants.forEach((res) => addRestaurant(res));
+    const restaurantService = new RestaurantService(restaurantList);
 
     expect(
-      sortByName(getRestaurantsInfo()).map((res) => res.getRestaurantInfo())
+      restaurantService
+        .sortByName(restaurantService.getRestaurantsInfo())
+        .map((res) => res.getRestaurantInfo())
     ).toEqual([
       {
         category: '중식',
@@ -125,11 +120,6 @@ describe('RestaurantService 객체 테스트', () => {
   });
 
   test('sortByDistance 메서드는 restaurant 정보들을 걸리는 시간 기준으로 오름차순으로 정렬하여 반환한다.', () => {
-    const restaurantService = new RestaurantService();
-
-    const { addRestaurant, sortByDistance, getRestaurantsInfo } =
-      restaurantService;
-
     const restaurants: IRestaurant[] = [
       {
         category: '중식',
@@ -152,11 +142,14 @@ describe('RestaurantService 객체 테스트', () => {
         distance: 10,
       },
     ];
+    const restaurantList = restaurants.map((res) => new Restaurant(res));
 
-    restaurants.forEach((res) => addRestaurant(res));
+    const restaurantService = new RestaurantService(restaurantList);
 
     expect(
-      sortByDistance(getRestaurantsInfo()).map((res) => res.getRestaurantInfo())
+      restaurantService
+        .sortByDistance(restaurantService.getRestaurantsInfo())
+        .map((res) => res.getRestaurantInfo())
     ).toEqual([
       {
         category: '중식',

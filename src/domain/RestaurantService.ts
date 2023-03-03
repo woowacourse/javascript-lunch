@@ -8,8 +8,8 @@ export default class RestaurantService {
     this.#restaurants = restaurants;
   }
 
-  getRestaurantsInfo(restaurant = this.#restaurants) {
-    return restaurant;
+  getRestaurantsInfo() {
+    return [...this.#restaurants];
   }
 
   filterByCategory(restaurants: Restaurant[], category: Category | '전체') {
@@ -21,7 +21,7 @@ export default class RestaurantService {
       restaurant.isSameCategory(category)
     );
 
-    return this.getRestaurantsInfo(filteredByCategory);
+    return filteredByCategory;
   }
 
   sortByName(restaurants: Restaurant[]) {
@@ -31,7 +31,7 @@ export default class RestaurantService {
       return a.compareName(b);
     });
 
-    return this.getRestaurantsInfo(nameSortedRestaurants);
+    return nameSortedRestaurants;
   }
 
   sortByDistance(restaurants: Restaurant[]) {
@@ -41,7 +41,7 @@ export default class RestaurantService {
       return a.compareDistance(b);
     });
 
-    return this.getRestaurantsInfo(distanceSortedRestaurants);
+    return distanceSortedRestaurants;
   }
 
   addRestaurant(restaurant: IRestaurant) {

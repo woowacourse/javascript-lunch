@@ -94,7 +94,7 @@ export default function App($app) {
   };
 
   const handleFiltersChange = (event) => {
-    const { restaurantService, restaurantList, filters } = this.state;
+    const { filters } = this.state;
     const { id, value } = event.target;
 
     switch (id) {
@@ -103,9 +103,7 @@ export default function App($app) {
         break;
       case 'sorting-filter':
         filterRestaurantList(filters.state.category, value);
-
         break;
-
       default:
         return;
     }
@@ -113,6 +111,7 @@ export default function App($app) {
 
   const filterRestaurantList = (category, filter) => {
     const { restaurantService, restaurantList, filters } = this.state;
+    const { sortByName, sortByDistance } = restaurantService;
 
     const filtered = restaurantService.filterByCategory(
       restaurantService.getRestaurantsInfo(),
@@ -121,10 +120,10 @@ export default function App($app) {
 
     let sorted = null;
     if (filter === '이름순') {
-      sorted = restaurantService.sortByName(filtered);
+      sorted = sortByName(filtered);
     }
     if (filter === '거리순') {
-      sorted = restaurantService.sortByDistance(filtered);
+      sorted = sortByDistance(filtered);
     }
 
     filters.setState({ filter, category });
