@@ -10,3 +10,7 @@ export const ERROR_MESSAGE = {
   INVALID_NAME: `음식점 이름은 한글, 영어, 숫자, !@#$%^&*?'",.만 포함하여 입력해 주세요.`,
   INVALID_LINK: "유효한 링크를 입력해 주세요.",
 };
+
+export const MESSAGE = {
+  LINK_DEFAULT_CAPTION: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
+};

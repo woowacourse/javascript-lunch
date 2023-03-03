@@ -1,7 +1,7 @@
 import { $ } from "../utils/domSelectors";
 import { Errors, Restaurant } from "../types/types";
 import restaurantFormValidator from "../validators/restaurantFormValidator";
-import { ERROR_MESSAGE } from "../constants/constants";
+import { ERROR_MESSAGE, MESSAGE } from "../constants/constants";
 
 class ModalView {
   private restaurantAddForm = $("#restaurant-add-form") as HTMLFormElement;
@@ -108,8 +108,7 @@ class ModalView {
       "input",
       () => {
         this.linkInputCaption.classList.remove("error-text");
-        this.linkInputCaption.textContent =
-          "매장 정보를 확인할 수 있는 링크를 입력해 주세요.";
+        this.linkInputCaption.textContent = MESSAGE.LINK_DEFAULT_CAPTION;
       },
       { once: true }
     );
