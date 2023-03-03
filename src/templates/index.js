@@ -4,7 +4,7 @@ export const renderRestaurant = (info) => {
   return `<li class="restaurant">
     <div class="restaurant__category">
     <img
-        src="/images/category-${CATEGORY_IMAGE[info.category]}.png"
+        src="category-${CATEGORY_IMAGE[info.category]}.png"
         alt="${info.category}"
         class="category-icon"
         />
