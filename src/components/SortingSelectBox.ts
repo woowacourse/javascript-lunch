@@ -9,15 +9,12 @@ class SortingSelectBox extends HTMLElement {
   }
 
   render() {
-    this.insertAdjacentHTML(
-      "afterbegin",
-      `
+    this.innerHTML = `
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
           <option id="sortingOptionName" value="name">이름순</option>
           <option value="distance">거리순</option>
         </select>
-      `
-    );
+      `;
   }
 
   onSelectOption() {

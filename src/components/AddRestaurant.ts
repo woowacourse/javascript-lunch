@@ -6,7 +6,7 @@ class AddRestaurant extends HTMLElement {
     this.controller = globalThis.controller;
     this.render();
     this.onClickCancelButton();
-    this.onClickAddButton();
+    this.onSubmitRestaurantForm();
   }
 
   render() {
@@ -64,7 +64,7 @@ class AddRestaurant extends HTMLElement {
           <!-- 취소/추가 버튼 -->
           <div class="button-container">
             <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
-            <button id="addButton" type="submit" class="button button--primary text-caption">추가하기</button>
+            <button type="submit" class="button button--primary text-caption">추가하기</button>
           </div>
         </form>
       `;
@@ -78,18 +78,15 @@ class AddRestaurant extends HTMLElement {
     });
   }
 
-  onClickAddButton() {
-    const addButton = document.getElementById("addButton");
-    addButton?.addEventListener("click", () => {
-      const restaurantForm = document.getElementById("restaurantForm");
-      restaurantForm?.addEventListener("submit", (event) => {
-        event.preventDefault();
-        this.controller.addRestaurant(this.createNewResaturant(event));
-        this.controller.updateRestaurantList(this.controller.getRestaurants());
+  onSubmitRestaurantForm() {
+    const restaurantForm = document.getElementById("restaurantForm");
+    restaurantForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.controller.addRestaurant(this.createNewResaturant(event));
+      this.controller.updateRestaurantList(this.controller.getRestaurants());
 
-        const bottomSheet: any = document.getElementById("bottomSheet");
-        bottomSheet?.close();
-      });
+      const bottomSheet: any = document.getElementById("bottomSheet");
+      bottomSheet?.close();
     });
   }
 
