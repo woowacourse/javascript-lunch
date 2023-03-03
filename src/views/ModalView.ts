@@ -33,9 +33,7 @@ class ModalView {
       ) as Restaurant;
 
       const formErrors: Errors = restaurantFormValidator.verify(restaurantItem);
-      const hasError = Object.values(formErrors).some(
-        (error) => error === true
-      );
+      const hasError = Object.values(formErrors).some(Boolean);
 
       if (!hasError) {
         this.restaurantAddForm.reset();
