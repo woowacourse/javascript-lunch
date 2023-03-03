@@ -7,7 +7,7 @@ export default class App {
 
   constructor() {
     this.#restaurants = new Restaurants();
-    this.renderBySelectedFilterOptions();
+    this.renderByFilterOptions();
     this.init();
   }
 
@@ -15,7 +15,7 @@ export default class App {
     $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
     $('.restaurant-filter-container').addEventListener(
       'change',
-      this.renderBySelectedFilterOptions.bind(this)
+      this.renderByFilterOptions.bind(this)
     );
     $('.modal-open-button').addEventListener('click', this.toggleModal);
     $('.modal-close-button').addEventListener('click', this.toggleModal);
@@ -53,10 +53,10 @@ export default class App {
     e.target.reset();
     this.toggleModal();
 
-    this.renderBySelectedFilterOptions();
+    this.renderByFilterOptions();
   }
 
-  renderBySelectedFilterOptions() {
+  renderByFilterOptions() {
     const categoryOption = $('#category-filter').value;
     const sortOption = $('#sorting-filter').value;
 
