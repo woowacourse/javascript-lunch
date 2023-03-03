@@ -23,6 +23,7 @@ class LunchRecommendation {
   play() {
     this.modalEvent();
     this.addRestaurantEvent();
+    this.filterEvent();
   }
 
   modalEvent() {
@@ -84,6 +85,29 @@ class LunchRecommendation {
         webView.toggleModal();
         webView.resetForm();
         webView.renderRestaurantList(restaurants);
+      }
+    );
+  }
+
+  filterEvent() {
+    $$$('#categoryFilter', '#categoryFilterSelect').addEventListener(
+      'change',
+      () => {
+        const categoryValue = $$$(
+          '#categoryFilter',
+          '#categoryFilterSelect'
+        ).value;
+
+        const sortingValue = $$$(
+          '#sortingFilter',
+          '#sortingFilterSelect'
+        ).value;
+
+        const filteredList = this.#restaurants.getList(
+          categoryValue,
+          sortingValue
+        );
+        webView.renderRestaurantList(filteredList);
       }
     );
   }
