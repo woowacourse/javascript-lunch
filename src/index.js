@@ -8,29 +8,18 @@ import { $ } from "./util/querySelector";
 import Filter from "./domain/Filter";
 import { IMAGE } from "./util/ImageLoader";
 import { sort } from "./domain/Sort";
-
-const saveLocalStorage = (initialCount) => {
-    let cnt = initialCount
-    return function (restaurantInfo) {
-        localStorage.setItem(cnt, JSON.stringify(restaurantInfo))
-        cnt += 1
-        console.log(cnt)
-    }
-};
-
-const getLocalStorage = () => {
-    return Object.values(window.localStorage).map(item => JSON.parse(item))
-};
+import LocalStorage from "./util/LocalStorage";
+import Elements from "./Element";
 
 const updateRestaurant = () => {
     $(".restaurant-list-container").innerHTML = '';
     const sortResult = sort(sortingFilter.value, newRestaurant.getList());
     const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-    return filterResult.forEach((element) => createElement(element))
+    return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
 };
 
 
-const save = saveLocalStorage(localStorage.length);
+const save = LocalStorage.setItem(localStorage.length);
 
 const modal = new Modal();
 const newRestaurant = new Restaurants()
@@ -52,17 +41,6 @@ const addButton = $(".gnb__button");
 
 const categoryFilter = $('#category-filter');
 const sortingFilter = $('#sorting-filter'); 
-
-const createElement = ({ category, name, distance, description, link }) => {
-    const listTemplate = $("#list-template");
-    const listClone = document.importNode(listTemplate.content, true);
-
-    listClone.querySelector(".restaurant__name").textContent = name;
-    listClone.querySelector(".restaurant__distance").textContent = distance;
-    listClone.querySelector(".restaurant__description").textContent = description;
-    listClone.querySelector(".category-icon").src = IMAGE[category];
-    $(".restaurant-list-container").appendChild(listClone);
-};
 
 addButton.querySelector("img").src = IMAGE.ADD_BTN;
 addButton.addEventListener("click", () => {
@@ -94,7 +72,6 @@ submitButton.addEventListener("click", (event) => {
         submitAlert.hide();
         newRestaurant.add(restaurant);
         updateRestaurant()
-        // createElement(restaurant);
         save(restaurant)
         modal.close();
         resetRestaurantInput()
@@ -147,7 +124,7 @@ linkInput.addEventListener("focusout", () => {
 });
 
 window.onload = function () {
-    getLocalStorage().forEach(item => {
+    LocalStorage.getItems().forEach(item => {
         newRestaurant.add(item);
     });
     updateRestaurant();

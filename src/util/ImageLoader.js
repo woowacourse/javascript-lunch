@@ -13,5 +13,6 @@ export const IMAGE = {
   한식: koreanImg,
   중식: chineseImg,
   기타: etcImg,
+  전체: etcImg,
   ADD_BTN: addButton,
 };
