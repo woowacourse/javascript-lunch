@@ -40,4 +40,22 @@ export const mockRestaurant: IRestaurant[] = [
     name: '도스타코스 선릉점',
     description: '멕시칸 캐주얼 그릴',
   },
+  {
+    category: '한식',
+    distance: 15,
+    name: '진대감',
+    description: '삼겹살 삼합 판매합니다.',
+  },
+  {
+    category: '한식',
+    distance: 15,
+    name: '농민 백암 순대',
+    description: '11시부터 오픈런 해도 줄서는 그 집.',
+  },
+  {
+    category: '한식',
+    distance: 5,
+    name: '용호낙지',
+    description: '낙곱새 맛있는 집',
+  },
 ];
