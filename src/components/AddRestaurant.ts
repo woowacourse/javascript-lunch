@@ -76,7 +76,6 @@ class AddRestaurant extends HTMLElement {
   onClickCancelButton() {
     const cancelButton = document.getElementById("cancelButton");
     cancelButton?.addEventListener("click", () => {
-      // 모듈화 필요
       const bottomSheet = document.getElementById("bottomSheet");
       if (!(bottomSheet instanceof BottomSheet)) {
         return;
@@ -92,8 +91,6 @@ class AddRestaurant extends HTMLElement {
       const newRestaurant = this.createNewRestaurant(event);
       this.controller.addRestaurant(newRestaurant);
       this.controller.setLocalStorage();
-
-      // 모듈화 필요
       const bottomSheet = document.getElementById("bottomSheet");
       if (!(bottomSheet instanceof BottomSheet)) {
         return;
