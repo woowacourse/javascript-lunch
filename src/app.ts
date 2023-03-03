@@ -14,6 +14,7 @@ class App extends Component {
       isModalOpened: false,
       restaurantList: this.getRestaurants(),
       filterOptions: { category: '전체', order: '이름순' },
+      isAddFormValid: true,
     };
   }
 
@@ -33,41 +34,61 @@ class App extends Component {
   }
 
   mounted() {
-    const { toggleModal, addRestaurant, filterList, getRestaurants } = this;
-    const $topNavBar = this.$target.querySelector('.gnb') as HTMLHeadingElement;
-    const $addModalContainer = this.$target.querySelector(
+    const {
+      toggleModal,
+      addRestaurant,
+      filterList,
+      getRestaurants,
+      setIsAddFormState,
+    } = this;
+    const $topNavBar = this.$target.querySelector<HTMLHeadingElement>('.gnb');
+    const $addModalContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-add-modal-container'
-    ) as HTMLElement;
-    const $filterBar = this.$target.querySelector(
+    );
+    const $filterBar = this.$target.querySelector<HTMLElement>(
       '.restaurant-filter-container'
-    ) as HTMLElement;
-    const $listContainer = this.$target.querySelector(
+    );
+    const $listContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-list-container'
-    ) as HTMLElement;
+    );
 
-    new TopNavBar($topNavBar, {
-      toggleModal: toggleModal.bind(this),
-    });
+    if ($topNavBar) {
+      new TopNavBar($topNavBar, {
+        toggleModal: toggleModal.bind(this),
+      });
+    }
 
-    new AddModalContainer($addModalContainer, {
-      toggleModal: toggleModal.bind(this),
-      isModalOpened: this.$state.isModalOpened,
-      addRestaurant: addRestaurant.bind(this),
-    });
+    if ($addModalContainer) {
+      new AddModalContainer($addModalContainer, {
+        toggleModal: toggleModal.bind(this),
+        isModalOpened: this.$state.isModalOpened,
+        addRestaurant: addRestaurant.bind(this),
+        isAddFormValid: this.$state.isAddFormValid,
+        setIsAddFormState: setIsAddFormState.bind(this),
+      });
+    }
 
-    new FilterBar($filterBar, {
-      filterList: filterList.bind(this),
-      filterOptions: this.$state.filterOptions,
-    });
+    if ($filterBar) {
+      new FilterBar($filterBar, {
+        filterList: filterList.bind(this),
+        filterOptions: this.$state.filterOptions,
+      });
+    }
 
-    new ListContainer($listContainer, {
-      restaurantList: this.$state.restaurantList,
-    });
+    if ($listContainer) {
+      new ListContainer($listContainer, {
+        restaurantList: this.$state.restaurantList,
+      });
+    }
   }
 
   toggleModal(): void {
     const { isModalOpened } = this.$state;
     this.setState({ isModalOpened: !isModalOpened });
+  }
+
+  setIsAddFormState(state: boolean): void {
+    this.setState({ isAddFormValid: state });
   }
 
   addRestaurant(restaurantInput: IRestaurantInput) {
