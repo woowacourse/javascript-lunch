@@ -98,8 +98,8 @@ class RestaurantAddFormComponent extends CustomElement {
 
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-              <button-element type="button--secondary" text="취소하기"></button-element>
-              <button-element type="button--primary" text="추가하기"></button-element>
+              <button-element method="button" type="button--secondary" text="취소하기"></button-element>
+              <button-element method="submit" type="button--primary" text="추가하기"></button-element>
             </div>
           </form>
         `;
