@@ -14,7 +14,7 @@ export const OptionValue = Object.freeze({
 });
 
 export const Constants = Object.freeze({
-  RESTAURANT_LIST: "restaurant_list",
+  RESTAURANT_LIST: "restuarantList",
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
 });
