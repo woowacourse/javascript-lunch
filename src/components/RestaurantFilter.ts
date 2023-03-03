@@ -1,6 +1,14 @@
 import CategoryComboBox from './CategoryComboBox';
 import SortComboBox from './SortComboBox';
 
-const RestaurantFilter = `<section class="restaurant-filter-container">${CategoryComboBox}${SortComboBox}</section>`;
+class RestaurantFilter {
+  #template;
+
+  constructor() {
+    this.#template = `<section class="restaurant-filter-container"></section>`;
+
+    document.body.insertAdjacentHTML('beforeend', this.#template);
+  }
+}
 
 export default RestaurantFilter;
