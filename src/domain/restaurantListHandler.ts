@@ -5,9 +5,9 @@ class RestaurantListHandler {
   restaurants: Restaurant[] = [];
 
   constructor() {
-    this.restaurants = JSON.parse(
-      localStorage.getItem(Constants.RESTAURANT_LIST) as string
-    );
+    this.restaurants =
+      JSON.parse(localStorage.getItem(Constants.RESTAURANT_LIST) as string) ||
+      [];
   }
 
   addRestaurant(restaurant: Restaurant) {
