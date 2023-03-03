@@ -4,9 +4,10 @@ import RestaurantItem from './components/RestaurantItem';
 import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
 import store from './store';
+import { restaurants } from './restaurants';
 import './styles';
 
-store.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
+store.restaurants = JSON.parse(localStorage.getItem('store') || JSON.stringify(restaurants));
 
 customElements.define('lunch-header', Header);
 customElements.define('restaurant-item', RestaurantItem);
