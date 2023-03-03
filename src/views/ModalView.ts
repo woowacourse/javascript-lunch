@@ -32,8 +32,10 @@ class ModalView {
         ])
       ) as Restaurant;
 
-      const errors: Errors = restaurantFormValidator.verify(restaurantItem);
-      const hasError = Object.values(errors).some((error) => error === true);
+      const formErrors: Errors = restaurantFormValidator.verify(restaurantItem);
+      const hasError = Object.values(formErrors).some(
+        (error) => error === true
+      );
 
       if (!hasError) {
         this.restaurantAddForm.reset();
@@ -41,7 +43,7 @@ class ModalView {
         return onSubmitRestaurantAddForm(restaurantItem);
       }
 
-      this.showErrorMessages(errors);
+      this.showErrorMessages(formErrors);
       this.addErrorMessageRemovingEvents();
     });
   }
