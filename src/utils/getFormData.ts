@@ -3,7 +3,6 @@ type ConvertedDataType = {
 };
 
 const getFormData = (formElement: HTMLFormElement) => {
-  console.log(formElement);
   const formData = new FormData(formElement);
   const convertedData: ConvertedDataType = {};
 
