@@ -12,29 +12,32 @@ class App {
 
   constructor(body: Element) {
     this.restaurantList = restaurantListHandler.getRestaurants();
+
     Header.render(body);
     SelectContainer.render(body, this.sortList);
     RestaurantList.render(body);
     Modal.render(body, this.makeRestaurantList);
+
     this.rerenderList();
   }
 
   makeRestaurantList = (restaurant: Restaurant): void => {
     restaurantListHandler.addRestaurant(restaurant);
-
     this.restaurantList = restaurantListHandler.getRestaurants();
+
     this.rerenderList();
   };
 
   sortList = (id: string, value: string) => {
     if (id === Constants.CATEGORY_FILTER) {
       this.restaurantList = restaurantListHandler.getFilteredByCategory(value);
-    } else {
-      if (value === OptionValue.DISTANCE_ORDER) {
-        this.restaurantList = restaurantListHandler.getSortedByTakingTime();
-      } else {
-        this.restaurantList = restaurantListHandler.getSortedByName();
-      }
+    }
+
+    if (id === Constants.SORTING_FILTER) {
+      this.restaurantList =
+        value === OptionValue.DISTANCE_ORDER
+          ? restaurantListHandler.getSortedByTakingTime()
+          : restaurantListHandler.getSortedByName();
     }
 
     this.rerenderList();

@@ -17,4 +17,5 @@ export const Constants = Object.freeze({
   RESTAURANT_LIST: "restuarantList",
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
+  SORTING_FILTER: "sorting-filter",
 });
