@@ -3,32 +3,44 @@ import Header from "./components/Header";
 import Filter from "./components/Filter";
 import RestaurantList from "./components/RestaurantList";
 import Modal from "./components/Modal";
+import RestaurantRepository from "./domain/RestaurantRepository";
+
+const dummyData = [
+  {
+    name: "라식당",
+    category: "한식",
+    distance: 5,
+    description: "라식당입니다.",
+  },
+  {
+    name: "다식당",
+    category: "일식",
+    distance: 10,
+    description: "다식당입니다.",
+  },
+  {
+    name: "나식당",
+    category: "아시안",
+    distance: 20,
+    description: "나식당입니다.",
+  },
+  {
+    name: "가식당",
+    category: "아시안",
+    distance: 20,
+    description: "가식당입니다.",
+  },
+];
 
 export default class App extends Component {
   setup() {
+    // 로컬 스토리지에서 데이터 페칭
+    this.restaurantRepository = new RestaurantRepository(dummyData);
+    const sortedList = RestaurantRepository.sortRestaurants("name", dummyData);
     this.state = {
-      restaurantList: [
-        {
-          name: "가식당",
-          category: "한식",
-          distance: 5,
-          description: "가식당입니다.",
-        },
-        {
-          name: "나식당",
-          category: "일식",
-          distance: 10,
-          description: "나식당입니다.",
-        },
-        {
-          name: "다식당",
-          category: "아시안",
-          distance: 20,
-          description: "다식당입니다.",
-        },
-      ],
+      restaurantList: sortedList,
       modalOpen: false,
-      sortingWay: "",
+      sortingWay: "name",
     };
   }
 
@@ -73,15 +85,33 @@ export default class App extends Component {
     this.setState({ modalOpen: !this.state.modalOpen });
   }
 
-  addRestaurant(restaurantInfo) {
-    const { restaurantList } = this.state;
-    const newRestaurant = restaurantInfo;
+  addRestaurant(newRestaurant) {
+    const { restaurantList, sortingWay } = this.state;
+    const newRestaurantList = RestaurantRepository.sortRestaurants(sortingWay, [
+      ...restaurantList,
+      newRestaurant,
+    ]);
 
-    this.setState({ restaurantList: [...restaurantList, newRestaurant] });
+    this.setState({
+      restaurantList: newRestaurantList,
+    });
+
+    this.restaurantRepository.addRestaurant(newRestaurant);
+    // 로컬에 새 음식점 추가
+
     this.toggleModal();
   }
 
   setSortingWay(sortingWay) {
-    this.setState({ sortingWay: sortingWay });
+    const { restaurantList } = this.state;
+    const newRestaurantList = RestaurantRepository.sortRestaurants(
+      sortingWay,
+      restaurantList
+    );
+
+    this.setState({
+      restaurantList: newRestaurantList,
+      sortingWay: sortingWay,
+    });
   }
 }

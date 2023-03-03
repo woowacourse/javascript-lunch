@@ -4,7 +4,7 @@ type Distance = 5 | 10 | 15 | 20 | 30;
 
 type SortingWay = "name" | "distance";
 
-interface Restaurant {
+interface RestaurantInfo {
   name: string;
   category: Category;
   distance: Distance;
