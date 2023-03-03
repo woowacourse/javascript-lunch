@@ -1,9 +1,10 @@
+import { RestaurantInfo } from './domain/model/LunchRecommendation';
 import './styles/reset.css';
 import './styles/style.css';
 import { render } from './utils/core';
 import { App } from './view/components/App';
 
-const mockData = [
+const mockData: RestaurantInfo[] = [
   {
     id: 0,
     name: '피양콩할머니',
