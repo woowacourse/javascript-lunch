@@ -1,15 +1,14 @@
-import { restaurantFormValidator } from "../domains/restaurantFormValidator";
 import { $ } from "../utils/domSelectors";
 
 class MainView {
   private addButton = $(".gnb__button");
-  private modal = $(".modal");
+  private modal = $(".modal") as HTMLDialogElement;
   private categoryFilter = $("#category-filter") as HTMLSelectElement;
   private sortingFilter = $("#sorting-filter") as HTMLSelectElement;
 
   constructor() {
     this.addButton?.addEventListener("click", () => {
-      this.modal?.classList.add("modal--open");
+      this.modal.showModal();
     });
   }
 

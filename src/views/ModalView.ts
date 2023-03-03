@@ -5,7 +5,7 @@ import { ERROR_MESSAGE } from "../constants/constants";
 
 class ModalView {
   private restaurantAddForm = $("#restaurant-add-form") as HTMLFormElement;
-  private modal = $(".modal");
+  private modal = $(".modal") as HTMLDialogElement;
   private closeButton = $("#modal-close-button");
   private categoryInput = $("#category") as HTMLSelectElement;
   private categoryInputCaption = $("#category-caption") as HTMLSpanElement;
@@ -22,6 +22,7 @@ class ModalView {
     this.addNameInputEvent();
     this.addDistanceChangeEvent();
     this.addLinkInputEvent();
+    this.addModalBackdropClickEvent(); //
   }
 
   addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {
@@ -39,7 +40,7 @@ class ModalView {
 
       if (!(Errors.category || Errors.name || Errors.distance || Errors.link)) {
         this.restaurantAddForm.reset();
-        this.modal?.classList.remove("modal--open");
+        this.modal.close();
         return onSubmitRestaurantAddForm(restaurantItem);
       }
 
@@ -99,7 +100,14 @@ class ModalView {
   addCloseButtonClickEvent() {
     this.closeButton?.addEventListener("click", () => {
       this.restaurantAddForm.reset();
-      this.modal?.classList.remove("modal--open");
+      this.modal.close();
+    });
+  }
+
+  addModalBackdropClickEvent() {
+    this.modal.addEventListener("click", (event) => {
+      const target = event.target as HTMLDialogElement;
+      target.close();
     });
   }
 }
