@@ -54,6 +54,7 @@ export default class App {
     };
 
     this.#restaurants.addRestaurant(restaurant);
+    store.setLocalStorage(this.#restaurants.getRestaurants());
 
     e.target.reset();
     this.toggleModal();

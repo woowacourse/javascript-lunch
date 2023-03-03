@@ -1,18 +1,16 @@
 import { Restaurant, Category, RestaurantSortType } from '../types';
 
-import store from '../utils/store';
 import deepCopy from '../utils/deepCopy';
 
 export default class Restaurants {
   #restaurants: Restaurant[];
 
-  constructor(data = []) {
+  constructor(data: Restaurant[] = []) {
     this.#restaurants = data;
   }
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurants.push(restaurant);
-    store.setLocalStorage(this.#restaurants);
   }
 
   getFilteredRestaurantsByCategory(category: Category) {
