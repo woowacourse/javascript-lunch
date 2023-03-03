@@ -4,7 +4,6 @@ import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
 } from "./ui/modal";
-import { renderRestaurantList } from "./ui/restaurantListRenderer";
 import {
   executeChangeEventListener,
   executeClickEventListener,

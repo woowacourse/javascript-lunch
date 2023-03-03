@@ -1,4 +1,3 @@
-import { getFormData } from "./form";
 import { $ } from "./selector";
 
 export const executeClickEventListener = (

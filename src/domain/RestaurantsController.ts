@@ -11,6 +11,7 @@ import {
   renderRestaurantList,
 } from "../ui/restaurantListRenderer";
 import { filterCategory, sortByDistance, sortByName } from "./filter";
+import { SELECTED_OPTION } from "../constant";
 
 export default class RestaurantsController {
   private static instance: RestaurantsController;
@@ -72,11 +73,11 @@ export default class RestaurantsController {
   }
 
   sortRestaurantList(value: string) {
-    if (value === "name") {
+    if (value === SELECTED_OPTION.NAME) {
       this.updateRestaurantList(sortByName(this.restaurantList));
     }
 
-    if (value === "distance") {
+    if (value === SELECTED_OPTION.DISTANCE) {
       this.updateRestaurantList(sortByDistance(this.restaurantList));
     }
   }

@@ -1,14 +1,23 @@
+import {
+  ERROR_MESSAGE,
+  NAME_LENGTH,
+  REGEX_SPECIAL_CHARACTERS,
+} from "../constant";
 import { getAllDataOnLocalStorage } from "../util/localStorage";
 
+const { NO_SPECIAL_CHARACTERS, NAME_LENGTH_LIMIT, DUPLICATE_NAME } =
+  ERROR_MESSAGE;
+const { MIN, MAX } = NAME_LENGTH;
+
 export const checkRestaurantName = (input: string) => {
-  if (/[^가-힣a-zA-Z0-9\s]/.test(input)) {
-    throw new Error("에러");
+  if (REGEX_SPECIAL_CHARACTERS.test(input)) {
+    throw new Error(NO_SPECIAL_CHARACTERS);
   }
 };
 
 export const checkInputLength = (input: string) => {
-  if (input.length < 1 || input.length > 15) {
-    throw new Error("에러");
+  if (input.length < MIN || input.length > MAX) {
+    throw new Error(NAME_LENGTH_LIMIT);
   }
 };
 
@@ -17,6 +26,6 @@ export const checkDuplicate = (input: string) => {
     getAllDataOnLocalStorage().filter((restaurant) => restaurant.name === input)
       .length
   ) {
-    throw new Error("에러");
+    throw new Error(DUPLICATE_NAME);
   }
 };
