@@ -29,7 +29,7 @@ class ModalView {
     this.restaurantAddForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const formData: FormData = new FormData(this.restaurantAddForm);
-      const restaurantItem: Restaurant = Object.fromEntries(
+      const restaurantItem = Object.fromEntries(
         [...formData].map(([key, value]) => [
           key,
           key === "distance" ? Number(value) : value,
