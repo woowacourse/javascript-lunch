@@ -133,6 +133,7 @@ class ModalView {
     this.modal.addEventListener("click", (event) => {
       const target = event.target as HTMLDialogElement;
       if (target === event.currentTarget) {
+        this.restaurantAddForm.reset();
         target.close();
       }
     });
