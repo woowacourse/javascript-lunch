@@ -1,6 +1,5 @@
 import Restaurant, {
   CategoryAll,
-  RestaurantInfo,
   SortTypeAll,
 } from '../../domain/model/Restaurant';
 
@@ -21,9 +20,9 @@ const sortByType = (restaurantList: Restaurant[], type: SortTypeAll) => {
     );
   }
 
-  return [...restaurantList].sort();
+  return [...restaurantList].sort((aRestaurant, bRestaurant) => {
+    return aRestaurant.getInfo().name.localeCompare(bRestaurant.getInfo().name);
+  });
 };
 
 export { filterByCategory, sortByType };
-
-
