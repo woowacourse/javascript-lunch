@@ -74,10 +74,6 @@ class RModal extends RComponent {
 
       if (action === 'cancel') {
         this.close();
-        return;
-      }
-      if (action === 'submit') {
-        this.close();
       }
     });
 
