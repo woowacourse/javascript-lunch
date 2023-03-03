@@ -25,6 +25,7 @@ const Input = {
   },
 
   checkLink(link: string) {
+    if (Validator.isEmptyInput(link)) return;
     if (!Validator.isCorrectLink(link))
       throw new Error("[ERROR] 올바른 URL을 입력해 주세요.");
   },
