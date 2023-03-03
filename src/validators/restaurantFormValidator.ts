@@ -1,7 +1,7 @@
-import { REGEX, ERROR_MESSAGE } from "../constants/constants";
+import { REGEX } from "../constants/constants";
 import { Restaurant } from "../types/types";
 
-export const restaurantFormValidator = {
+const restaurantFormValidator = {
   verify(restaurantItem: Restaurant) {
     const Errors: { [key: string]: Boolean } = {};
 
@@ -34,3 +34,5 @@ export const restaurantFormValidator = {
     return false;
   },
 };
+
+export default restaurantFormValidator;
