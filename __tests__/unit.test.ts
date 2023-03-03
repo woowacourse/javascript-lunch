@@ -28,7 +28,14 @@ test("새로운 음식점을 음식점 리스트에 추가한다.", () => {
     distance: 5,
   });
 
-  expect(restaurants.getList()).toMatchObject([
+  expect(
+    restaurants.getListByOption({ filter: "전체", sort: "name" })
+  ).toMatchObject([
+    {
+      category: "한식",
+      name: "경주 은희네 해장국",
+      distance: 10,
+    },
     {
       category: "일식",
       name: "스시야좋아",
@@ -41,11 +48,6 @@ test("새로운 음식점을 음식점 리스트에 추가한다.", () => {
     },
     {
       category: "한식",
-      name: "경주 은희네 해장국",
-      distance: 10,
-    },
-    {
-      category: "한식",
       name: "제주 은희네 해장국",
       distance: 5,
     },
@@ -53,7 +55,10 @@ test("새로운 음식점을 음식점 리스트에 추가한다.", () => {
 });
 
 test("음식점 리스트를 이름순으로 정렬한다.", () => {
-  const sortedList = restaurants.sortByName();
+  const sortedList = restaurants.getListByOption({
+    filter: "전체",
+    sort: "name",
+  });
 
   expect(sortedList).toMatchObject([
     {
@@ -80,7 +85,10 @@ test("음식점 리스트를 이름순으로 정렬한다.", () => {
 });
 
 test("음식점 리스트를 거리순으로 정렬한다.", () => {
-  const sortedList = restaurants.sortByDistance();
+  const sortedList = restaurants.getListByOption({
+    filter: "전체",
+    sort: "distance",
+  });
 
   expect(sortedList).toMatchObject([
     {
