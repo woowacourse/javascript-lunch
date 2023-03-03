@@ -5,19 +5,24 @@ import {
   Action,
   SortMethod,
 } from "../abstracts/types";
-import { RESTAURANT_ACTION } from "../abstracts/constants";
+import {
+  CATEGORY_DEFAULT,
+  RESTAURANTS_STORAGE,
+  RESTAURANT_ACTION,
+  SORT_METHOD,
+} from "../abstracts/constants";
 
 class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
-  #category: Category = "전체";
-  #sortMethod: SortMethod = "name";
+  #category: Category = CATEGORY_DEFAULT;
+  #sortMethod: SortMethod = SORT_METHOD.NAME;
 
   #subscribers: CustomElement[] = [];
 
   constructor() {
-    if (!localStorage.getItem("restaurantList")) {
+    if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
       localStorage.setItem(
-        "restaurantList",
+        RESTAURANTS_STORAGE,
         JSON.stringify(this.#restaurantList)
       );
     }
@@ -53,15 +58,17 @@ class RestaurantsStore {
   addRestaurant(restaurant: Restaurant) {
     this.#restaurantList.push(restaurant);
     localStorage.setItem(
-      "restaurantList",
+      RESTAURANTS_STORAGE,
       JSON.stringify(this.#restaurantList)
     );
   }
 
   filterByCategory(category: Category) {
     this.#category = category;
-    this.#restaurantList = JSON.parse(localStorage.getItem("restaurantList")!);
-    if (this.#category !== "전체") {
+    this.#restaurantList = JSON.parse(
+      localStorage.getItem(RESTAURANTS_STORAGE)!
+    );
+    if (this.#category !== CATEGORY_DEFAULT) {
       this.#restaurantList = this.#restaurantList.filter(
         (restaurant) => restaurant.category === this.#category
       );
@@ -71,12 +78,12 @@ class RestaurantsStore {
   sortRestaurants(sortMethod: SortMethod) {
     this.#sortMethod = sortMethod;
     switch (this.#sortMethod) {
-      case "name":
+      case SORT_METHOD.NAME:
         this.#restaurantList = this.#restaurantList.sort((prev, next) =>
           prev.name > next.name ? 1 : -1
         );
         break;
-      case "distance":
+      case SORT_METHOD.DISTANCE:
         this.#restaurantList = this.#restaurantList.sort(
           (prev, next) => prev.distance - next.distance
         );

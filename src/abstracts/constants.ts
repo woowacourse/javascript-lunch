@@ -13,4 +13,13 @@ export const CATEGORY_IMG = {
   아시안: "./category-asian.png",
   양식: "./category-western.png",
   기타: "./category-etc.png",
-};
+} as const;
+
+export const RESTAURANTS_STORAGE = "restaurantList";
+
+export const CATEGORY_DEFAULT = "전체";
+
+export const SORT_METHOD = {
+  NAME: "name",
+  DISTANCE: "distance",
+} as const;
