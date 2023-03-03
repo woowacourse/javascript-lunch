@@ -13,6 +13,14 @@ class RestaurantBlockList {
     document.body.insertAdjacentHTML('beforeend', this.#template);
   }
 
+  static render(list: Restaurant[]) {
+    $('.restaurant-list').replaceChildren();
+
+    list.forEach((restaurant) => {
+      new RestaurantBlock(restaurant);
+    });
+  }
+
   // static addRestaurant(restaurant: RestaurantBlock) {
   //   $('.restaurant-list').insertAdjacentHTML('beforeend', restaurant.template);
   // }

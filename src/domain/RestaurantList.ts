@@ -25,7 +25,7 @@ class RestaurantList {
   private sortByCondition(list: Restaurant[], condition: SortCondition) {
     return condition === '거리'
       ? [...list].sort((a, b) => a.distance - b.distance)
-      : [...list].sort();
+      : [...list].sort((a, b) => a.name.localeCompare(b.name));
   }
 }
 

@@ -9,7 +9,11 @@ import initialData from './data/initialData';
 import RestaurantList from './domain/RestaurantList';
 
 class App {
-  constructor(private list = new RestaurantList(initialData)) {}
+  #list;
+
+  constructor() {
+    this.#list = new RestaurantList(initialData);
+  }
 
   init() {
     new Header();
@@ -17,13 +21,13 @@ class App {
     new CategoryComboBox();
     new SortComboBox();
     new RestaurantBlockList();
+    RestaurantBlockList.render(this.#list.getList('이름'));
+    // initialData.forEach((restaurant) => {
+    //   new RestaurantBlock(restaurant);
+    // });
 
-    initialData.forEach((restaurant) => {
-      new RestaurantBlock(restaurant);
-    });
+    new RestaurantAddModal();
   }
-
-  
 }
 
 export default App;
