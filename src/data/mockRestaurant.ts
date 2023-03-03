@@ -50,6 +50,38 @@ const mockChina: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
+const mock1: RestaurantType = {
+  category: "중식",
+  name: "친친",
+  distance: 10,
+  description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통...`,
+  link: "",
+};
+
+const mock2: RestaurantType = {
+  category: "일식",
+  name: "잇쇼우",
+  distance: 5,
+  description: `잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길...`,
+  link: "",
+};
+
+const mock3: RestaurantType = {
+  category: "양식",
+  name: "이태리키친",
+  distance: 20,
+  description: `2005년 장모님에게 전수받은 설렁탕 조리법을 개선하여 시작했다는 외고...`,
+  link: "",
+};
+
+const mock4: RestaurantType = {
+  category: "아시안",
+  name: "호아빈 삼성점",
+  distance: 15,
+  description: `2005년 장모님에게 전수받은 설렁탕 조리법을 개선하여 시작했다는 외고...`,
+  link: "",
+};
+
 export const mockList: RestaurantType[] = [
   mockAsian,
   mockChina,
@@ -60,4 +92,8 @@ export const mockList: RestaurantType[] = [
   mockWestern,
   mockKorea,
   mockAsian,
+  mock1,
+  mock2,
+  mock3,
+  mock4,
 ];
