@@ -1,5 +1,4 @@
 import CustomElement from "../abstracts/CustomElement";
-import ButtonComponent from "./ButtonComponent";
 import dispatcher from "../domain/Dispatcher";
 import { RESTAURANT_ACTION } from "../abstracts/constants";
 import { Restaurant } from "../abstracts/types";
@@ -22,14 +21,9 @@ class RestaurantAddFormComponent extends CustomElement {
       category,
       name,
       distance,
+      description,
+      link,
     };
-
-    if (description.length > 0) {
-      restaurant.description = description;
-    }
-    if (link.length > 0) {
-      restaurant.link = link;
-    }
 
     dispatcher(RESTAURANT_ACTION.ADD_RESTAURANT, restaurant);
 
@@ -98,8 +92,8 @@ class RestaurantAddFormComponent extends CustomElement {
 
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-              <button-element method="button" type="button--secondary" text="취소하기"></button-element>
-              <button-element method="submit" type="button--primary" text="추가하기"></button-element>
+              <button type="button" class="button button--secondary text-caption">취소하기</button>
+              <button type="button" class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
         `;
