@@ -15,7 +15,7 @@ interface Restaurants {
   list: Restaurant[];
   init(): void;
   add(restaurant: Restaurant): void;
-  filterByCategory(category: Category, restaurants: Restaurant[]): Restaurant[];
+  filterByCategory(category: Category | '전체', restaurants: Restaurant[]): Restaurant[];
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
 }
@@ -80,7 +80,7 @@ export const restaurants: Restaurants = {
       (restaurant) => restaurant.category === category
     );
 
-    return filteredRestaurants.length > 0 ? filteredRestaurants : this.list;
+    return category === '전체' ? this.list : filteredRestaurants;
   },
 
   sortByName(restaurants) {
