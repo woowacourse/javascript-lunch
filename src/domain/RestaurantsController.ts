@@ -3,6 +3,7 @@ import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
 import { saveOnLocalStorage } from "../util/localStorage";
+import { renderNewRestaurant } from "../ui/restaurantListRenderer";
 
 export default class RestaurantsController {
   private static instance: RestaurantsController;
@@ -40,6 +41,8 @@ export default class RestaurantsController {
     const restaurantInfo = Object.fromEntries(trimmedInfo);
 
     validateName(restaurantInfo.name);
+    saveOnLocalStorage(restaurantInfo);
+    renderNewRestaurant(restaurantInfo);
   }
 
   saveRestaurantList() {
