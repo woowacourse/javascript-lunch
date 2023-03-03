@@ -26,6 +26,7 @@ class CategorySelectBox extends HTMLElement {
     const categoryFilter: any = document.getElementById("category-filter");
     categoryFilter?.addEventListener("change", () => {
       this.controller.filterRestaurants(categoryFilter.value);
+      this.controller.renderRestaurantList();
     });
   }
 }

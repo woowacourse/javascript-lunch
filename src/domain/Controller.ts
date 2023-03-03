@@ -38,8 +38,11 @@ class Controller {
   }
 
   loadLocalStorage() {
-    this.#restaurants =
-      JSON.parse(localStorage.getItem("restaurants") as string) ?? [];
+    this.#restaurants = this.getLocalStorage();
+  }
+
+  getLocalStorage() {
+    return JSON.parse(localStorage.getItem("restaurants") as string) ?? [];
   }
 
   sortRestaurants(key: string) {
@@ -49,7 +52,6 @@ class Controller {
         a["name"].localeCompare(b["name"])
       );
       this.#restaurants = sortedRestaurants;
-      this.updateRestaurantList(sortedRestaurants);
       return;
     }
 
@@ -57,14 +59,15 @@ class Controller {
       (a, b) => a["distance"] - b["distance"]
     );
     this.#restaurants = sortedRestaurants;
-    this.updateRestaurantList(sortedRestaurants);
   }
 
   filterRestaurants(key: string) {
-    this.#restaurants = this.#restaurants.filter(
-      (restaurant) => restaurant["category"] === key
-    );
-    this.renderRestaurantList();
+    if (key !== "전체") {
+      this.#restaurants = this.getLocalStorage().filter(
+        (restaurant: any) => restaurant["category"] === key
+      );
+      return;
+    }
     this.loadLocalStorage();
   }
 }
