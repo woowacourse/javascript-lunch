@@ -1,5 +1,8 @@
+import RestaurantList from './components/RestaurantList';
+
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
+
 import { $ } from './utils/dom';
 import store from './utils/store';
 
@@ -9,7 +12,7 @@ export default class App {
   constructor() {
     const restaurantsData = store.getLocalStorage();
     this.#restaurants = new Restaurants(restaurantsData);
-    this.renderByFilterOptions();
+    this.renderRestaurantListByFilterOptions();
     this.init();
   }
 
@@ -17,7 +20,7 @@ export default class App {
     $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
     $('.restaurant-filter-container').addEventListener(
       'change',
-      this.renderByFilterOptions.bind(this)
+      this.renderRestaurantListByFilterOptions.bind(this)
     );
     $('.modal-open-button').addEventListener('click', this.toggleModal);
     $('.modal-close-button').addEventListener('click', this.toggleModal);
@@ -55,10 +58,10 @@ export default class App {
     e.target.reset();
     this.toggleModal();
 
-    this.renderByFilterOptions();
+    this.renderRestaurantListByFilterOptions();
   }
 
-  renderByFilterOptions() {
+  renderRestaurantListByFilterOptions() {
     const categoryOption = $('#category-filter').value;
     const sortOption = $('#sorting-filter').value;
 
@@ -69,53 +72,10 @@ export default class App {
       sortOption
     );
 
-    this.render(sortedRestaurants);
+    RestaurantList.render(sortedRestaurants);
   }
 
   toggleModal() {
     $('.modal').classList.toggle('modal--open');
-  }
-
-  getTemplate(restaurants) {
-    const imgFileName = {
-      한식: 'category-korean',
-      중식: 'category-chinese',
-      일식: 'category-japanese',
-      아시안: 'category-asian',
-      양식: 'category-western',
-      기타: 'category-etc',
-    };
-
-    const template = `
-      <ul class="restaurant-list">
-      ${restaurants.reduce((html, restaurant) => {
-        return (
-          html +
-          `
-        <li class="restaurant">
-          <div class="restaurant__category">
-            <img src="./${imgFileName[`${restaurant.category}`]}.png" alt="${
-            restaurant.category
-          }" class="category-icon" />
-          </div>
-          <div class="restaurant__info">
-            <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-            <span class="restaurant__distance text-body">캠퍼스부터 ${
-              restaurant.distance
-            }분 내</span>
-            <p class="restaurant__description text-body">${restaurant.description}</p>
-          </div>
-        </li>`
-        );
-      }, '')}
-      </ul>`;
-
-    return template;
-  }
-
-  render(restaurants) {
-    const template = this.getTemplate(restaurants);
-
-    $('.restaurant-list-container').innerHTML = template;
   }
 }
