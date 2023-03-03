@@ -1,5 +1,5 @@
 import RestaurantService from "./domains/RestaurantService";
-import { Category, Criterion, Restaurant } from "./types/types";
+import { Category, SortingCriterion, Restaurant } from "./types/types";
 import MainView from "./views/MainView";
 import ModalView from "./views/ModalView";
 
@@ -9,10 +9,11 @@ export class App {
   private modalView = new ModalView();
 
   constructor() {
+    this.bindEventHandlers();
     this.mainView.renderRestaurantList(this.restaurantService.filterAndSort());
   }
 
-  play() {
+  bindEventHandlers() {
     this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm);
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
     this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
@@ -31,7 +32,7 @@ export class App {
     this.mainView.renderRestaurantList(filteredRestaurantList);
   };
 
-  onChangeSortingFilter = (criterion: Criterion) => {
+  onChangeSortingFilter = (criterion: SortingCriterion) => {
     this.restaurantService.setCurrentSortingCriterion(criterion);
     const sortedRestaurantList: Restaurant[] =
       this.restaurantService.filterAndSort();
@@ -40,4 +41,3 @@ export class App {
 }
 
 const app = new App();
-app.play();

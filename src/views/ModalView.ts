@@ -1,5 +1,5 @@
 import { $ } from "../utils/domSelectors";
-import { Restaurant } from "../types/types";
+import { Errors, Restaurant } from "../types/types";
 import restaurantFormValidator from "../validators/restaurantFormValidator";
 import { ERROR_MESSAGE } from "../constants/constants";
 
@@ -36,7 +36,7 @@ class ModalView {
         ])
       ) as Restaurant;
 
-      const errors = restaurantFormValidator.verify(restaurantItem);
+      const errors: Errors = restaurantFormValidator.verify(restaurantItem);
 
       if (!(errors.category || errors.name || errors.distance || errors.link)) {
         this.restaurantAddForm.reset();

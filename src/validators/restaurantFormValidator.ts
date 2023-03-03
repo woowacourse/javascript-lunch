@@ -1,9 +1,9 @@
 import { REGEX } from "../constants/constants";
-import { Restaurant } from "../types/types";
+import { Errors, Restaurant } from "../types/types";
 
 const restaurantFormValidator = {
   verify(restaurantItem: Restaurant) {
-    const errors: { [key: string]: Boolean } = {};
+    const errors: Errors = {};
 
     errors["category"] = this.isEmptyCategory(restaurantItem.category);
     errors["name"] = this.isInvalidName(restaurantItem.name);

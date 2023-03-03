@@ -1,9 +1,14 @@
-import { AllCategory, Category, Criterion, Restaurant } from "../types/types";
+import {
+  AllCategory,
+  Category,
+  SortingCriterion,
+  Restaurant,
+} from "../types/types";
 
 class RestaurantService {
   private restaurantList: Restaurant[];
   private currentCategory: AllCategory | Category = "전체";
-  private currentSortingCriterion: Criterion = "name";
+  private currentSortingCriterion: SortingCriterion = "name";
 
   constructor() {
     this.restaurantList = JSON.parse(
@@ -20,7 +25,7 @@ class RestaurantService {
     this.currentCategory = category;
   }
 
-  setCurrentSortingCriterion(criterion: Criterion) {
+  setCurrentSortingCriterion(criterion: SortingCriterion) {
     this.currentSortingCriterion = criterion;
   }
 
