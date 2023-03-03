@@ -9,9 +9,7 @@ class CategorySelectBox extends HTMLElement {
   }
 
   render() {
-    this.insertAdjacentHTML(
-      "afterbegin",
-      `
+    this.innerHTML = `
       <select name="category" id="category-filter" class="restaurant-filter">
         <option value="전체">전체</option>
         <option value="한식">한식</option>
@@ -21,8 +19,7 @@ class CategorySelectBox extends HTMLElement {
         <option value="아시안">아시안</option>
         <option value="기타">기타</option>
       </select>
-      `
-    );
+      `;
   }
 
   onSelectOption() {

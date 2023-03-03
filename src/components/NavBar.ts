@@ -4,7 +4,7 @@ class NavBar extends HTMLElement {
   constructor() {
     super();
     this.render();
-    this.handleClick();
+    this.onClickAddIcon();
   }
 
   render() {
@@ -18,12 +18,11 @@ class NavBar extends HTMLElement {
       `;
   }
 
-  handleClick() {
+  onClickAddIcon() {
     const addIcon = document.getElementById("addIcon");
     addIcon?.addEventListener("click", () => {
       const bottomSheet: any = document.getElementById("bottomSheet");
-      bottomSheet?.open();
-      bottomSheet?.render("<add-restaurant />");
+      bottomSheet?.open("<add-restaurant />");
     });
   }
 }
