@@ -1,13 +1,15 @@
 import Validator from '../src/domain/Validator';
+import { ERROR_MESSAGE } from '../src/constant';
 
 describe('카테고리 유효성 검사', () => {
   test.each([['몰?루'], [''], ['한식1'], [' 한식']])(
     '(실패 사례) 카테고리 입력값 %s 유효성 검사',
     (input) => {
-      expect(() => Validator.checkCategory(input)).toThrow('에러 1');
+      expect(() => Validator.checkCategory(input)).toThrow(
+        ERROR_MESSAGE.category
+      );
     }
   );
-
   test.each([['한식'], ['중식'], ['일식'], ['아시안'], ['양식'], ['기타']])(
     '(성공 사례) 카테고리 입력값 %s 유효성 검사',
     (input) => {
@@ -20,7 +22,7 @@ describe('이름 유효성 검사', () => {
   test.each([[''], ['    ']])(
     '(실패 사례) 이름 입력값 %s 유효성 검사',
     (input) => {
-      expect(() => Validator.checkName(input)).toThrow('에러 2');
+      expect(() => Validator.checkName(input)).toThrow(ERROR_MESSAGE.name);
     }
   );
 
@@ -40,7 +42,9 @@ describe('거리 유효성 검사', () => {
   test.each([[''], ['1'], ['-3'], ['거리']])(
     '(실패 사례) 거리 입력값 %s 유효성 검사',
     (input) => {
-      expect(() => Validator.checkDistance(input)).toThrow('에러 3');
+      expect(() => Validator.checkDistance(input)).toThrow(
+        ERROR_MESSAGE.distance
+      );
     }
   );
 
@@ -56,7 +60,7 @@ describe('참고 링크 유효성 검사', () => {
   test.each([[''], ['만얼'], ['wwwwoowacom'], ['http:**magic.co.kr']])(
     '(실패 사례) 참고 링크 입력값 %s 유효성 검사',
     (input) => {
-      expect(() => Validator.checkLink(input)).toThrow('에러 4');
+      expect(() => Validator.checkLink(input)).toThrow(ERROR_MESSAGE.link);
     }
   );
 

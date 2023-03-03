@@ -2,12 +2,13 @@ import {
   REGEX,
   RESTAURANT_CATEGORIES,
   RESTAURANT_DISTANCES,
+  ERROR_MESSAGE,
 } from '../constant/';
 
 const Validator = {
   checkCategory: (category: string) => {
     if (!Validator.isRestaurantCategory(category)) {
-      throw new Error('에러 1');
+      throw new Error(ERROR_MESSAGE.category);
     }
   },
 
@@ -17,7 +18,7 @@ const Validator = {
 
   checkName: (name: string) => {
     if (Validator.isBlank(name.trim())) {
-      throw new Error('에러 2');
+      throw new Error(ERROR_MESSAGE.name);
     }
   },
 
@@ -27,7 +28,7 @@ const Validator = {
 
   checkDistance: (distance: string) => {
     if (!Validator.isRestaurantDistance(distance)) {
-      throw new Error('에러 3');
+      throw new Error(ERROR_MESSAGE.distance);
     }
   },
 
@@ -37,7 +38,7 @@ const Validator = {
 
   checkLink: (link: string) => {
     if (!Validator.isLink(link)) {
-      throw new Error('에러 4');
+      throw new Error(ERROR_MESSAGE.link);
     }
   },
 
