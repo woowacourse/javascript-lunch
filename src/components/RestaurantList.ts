@@ -21,9 +21,24 @@ const RestaurantList: listInterface = {
       const restaurant = new Restaurant(item);
       return restaurant;
     });
-    this.originList = this.sort(list, this.sortState);
+
+    const localList = localStorage.getItem("restaurantList");
+    if (localList !== null) {
+      this.originList = JSON.parse(localList).map((item: RestaurantType) => {
+        const restaurant = new Restaurant(item);
+        return restaurant;
+      });
+    } else {
+      localStorage.setItem("restaurantList", JSON.stringify(restaurantList));
+      this.originList = list;
+    }
   },
   addRestaurant(restaurant: RestaurantType) {
+    const newRestaurantList = [
+      new Restaurant(restaurant),
+      ...this.originList,
+    ].map((item: Restaurant) => item.getRestaurant());
+    localStorage.setItem("restaurantList", JSON.stringify(newRestaurantList));
     this.originList = [new Restaurant(restaurant), ...this.originList];
   },
   template(restaurantList): string {
