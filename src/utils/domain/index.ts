@@ -1,22 +1,23 @@
-import {
+import Restaurant, {
   CategoryAll,
   RestaurantInfo,
   SortTypeAll,
 } from '../../domain/model/Restaurant';
 
 const filterByCategory = (
-  restaurantList: RestaurantInfo[],
+  restaurantList: Restaurant[],
   category: CategoryAll
 ) => {
-  return restaurantList.filter((restaurant) => {
-    restaurant.category === category;
-  });
+  return restaurantList.filter(
+    (restaurant) => restaurant.getInfo().category === category
+  );
 };
 
-const sortByType = (restaurantList: RestaurantInfo[], type: SortTypeAll) => {
+const sortByType = (restaurantList: Restaurant[], type: SortTypeAll) => {
   if (type === 'distance') {
     return [...restaurantList].sort(
-      (aRestaurant, bRestaurant) => bRestaurant.distance - aRestaurant.distance
+      (aRestaurant, bRestaurant) =>
+        bRestaurant.getInfo().distance - aRestaurant.getInfo().distance
     );
   }
 
