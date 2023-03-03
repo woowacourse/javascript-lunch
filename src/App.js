@@ -1,12 +1,14 @@
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
 import { $ } from './utils/dom';
+import store from './utils/store';
 
 export default class App {
   #restaurants;
 
   constructor() {
-    this.#restaurants = new Restaurants();
+    const restaurantsData = store.getLocalStorage();
+    this.#restaurants = new Restaurants(restaurantsData);
     this.renderByFilterOptions();
     this.init();
   }
