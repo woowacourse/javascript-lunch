@@ -3,6 +3,31 @@ import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 
 class Modal {
+  categorySelect;
+  distanceSelect;
+
+  constructor() {
+    const category = [
+      "선택해 주세요",
+      "한식",
+      "중식",
+      "일식",
+      "양식",
+      "아시안",
+      "기타",
+    ];
+    const distance = ["선택해 주세요", "5", "10", "15", "20", "30"];
+
+    this.categorySelect = new Select(
+      { name: "category", id: "category", required: true },
+      category
+    );
+    this.distanceSelect = new Select(
+      { name: "distance", id: "distance", required: true },
+      distance
+    );
+  }
+
   template() {
     return `<div class="modal">
     <div class="modal-backdrop"></div>
@@ -11,15 +36,7 @@ class Modal {
       <form class="modal-form">
         <div class="form-item form-item--required">
           <label for="category text-caption">카테고리</label>
-          ${new Select({ name: "category", id: "category", required: true }, [
-            "선택해 주세요",
-            "한식",
-            "중식",
-            "일식",
-            "양식",
-            "아시안",
-            "기타",
-          ]).template()}
+          ${this.categorySelect.template()}
         </div>
 
         <div class="form-item form-item--required">
@@ -29,14 +46,7 @@ class Modal {
 
         <div class="form-item form-item--required">
           <label for="distance text-caption">거리(도보 이동 시간) </label>
-         ${new Select({ name: "distance", id: "distance", required: true }, [
-           "선택해 주세요",
-           "5",
-           "10",
-           "15",
-           "20",
-           "30",
-         ]).template()}
+         ${this.distanceSelect.template()}
         </div>
 
         <div class="form-item">
