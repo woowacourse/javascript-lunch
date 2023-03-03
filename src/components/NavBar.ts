@@ -1,9 +1,10 @@
-import addButton from "../assets/add-button.png";
+import { addButton } from "../assets";
 
 class NavBar extends HTMLElement {
   constructor() {
     super();
     this.render();
+    this.handleClick();
   }
 
   render() {
@@ -15,7 +16,6 @@ class NavBar extends HTMLElement {
         </button>
       </header>
       `;
-    this.handleClick();
   }
 
   handleClick() {
