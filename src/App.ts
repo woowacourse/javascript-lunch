@@ -15,10 +15,13 @@ import {
 import { menu1, menu2, menu3, menu4 } from './data/dummy';
 
 import { $ } from './utils/querySelector';
+import cache from './data/cache';
+
 import RestaurantAddModal from './view/components/RestaurantAddModal';
 
 /* 더미 데이터 */
 const dummyData = [menu1, menu2, menu3, menu4];
+const LOCAL_STORAGE_KEY = 'RESTAURANT_APP';
 
 type StateType = {
   restaurants?: Restaurant[];
@@ -43,6 +46,7 @@ class App {
     };
 
     this.render();
+    this.loadLocalStorage();
   }
 
   #template() {
@@ -117,6 +121,22 @@ class App {
     this.render();
   }
 
+  loadLocalStorage() {
+    const data = cache.getCache(LOCAL_STORAGE_KEY);
+    if (!data) return;
+
+    data.restaurants?.forEach((restaurant: Restaurant) => {
+      this.#restaurants.addRestaurant(restaurant);
+    });
+
+    this.setState(data);
+  }
+
+  saveLocalStorage() {
+    cache.setCache(LOCAL_STORAGE_KEY, this.#state);
+    this.loadLocalStorage();
+  }
+
   addRestaurantButtonEvent() {
     this.setState({ isModal: true });
   }
@@ -149,22 +169,18 @@ class App {
 
   onClickEvent(type: string) {
     if (type === 'add') {
-      const { category, description, distance, link, name } = getFormData(
+      const restaurant = getFormData(
         $('#modal-form') as HTMLFormElement
-      );
+      ) as Restaurant;
 
-      this.#restaurants.addRestaurant({
-        category,
-        description,
-        distance,
-        link,
-        name,
-      } as Restaurant);
+      this.#restaurants.addRestaurant(restaurant);
 
       this.setState({
         isModal: false,
         restaurants: this.#restaurants.getRestaurants(),
       });
+
+      this.saveLocalStorage();
     }
 
     if (type === 'cancel') {
