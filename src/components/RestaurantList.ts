@@ -2,9 +2,8 @@ import { $ } from "../utils/domSelectors";
 import createRestaurantItem from "./RestaurantItem";
 import { Restaurant } from "../types/types";
 
-const restaurantList = $(".restaurant-list") as HTMLUListElement;
-
 function renderList(sortedRestaurants: Restaurant[]) {
+  const restaurantList = $(".restaurant-list") as HTMLUListElement;
   restaurantList.innerHTML = "";
   const restaurantItems = sortedRestaurants.map((restaurant) =>
     createRestaurantItem(restaurant)
