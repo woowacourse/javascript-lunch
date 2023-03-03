@@ -26,4 +26,4 @@ class RestaurantList {
   }
 }
 
-export default RestaurantList;
+export default new RestaurantList();

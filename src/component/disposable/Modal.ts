@@ -83,8 +83,6 @@ class Modal {
         description: formData.description as string,
       };
 
-      console.log(formData);
-
       makeTicket(data);
       this.resetFormValues();
       this.closeModal();
@@ -101,4 +99,4 @@ class Modal {
   }
 }
 
-export default Modal;
+export default new Modal();

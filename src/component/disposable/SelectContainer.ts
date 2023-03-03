@@ -49,4 +49,4 @@ class SelectContainer {
   }
 }
 
-export default SelectContainer;
+export default new SelectContainer();

@@ -7,21 +7,18 @@ import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./type/type";
 
 class App {
-  restaurantList: any;
-
   constructor(body: Element) {
-    new Header().render(body);
-    new SelectContainer().render(body, this.sortList);
-    new Modal().render(body, this.makeRestaurantList);
-    this.restaurantList = new RestaurantList();
-    this.restaurantList.render(body);
+    Header.render(body);
+    SelectContainer.render(body, this.sortList);
+    RestaurantList.render(body);
+    Modal.render(body, this.makeRestaurantList);
   }
 
   makeRestaurantList = (restaurant: Restaurant): void => {
     restaurantListHandler.addRestaurant(restaurant);
 
     const restaurantList = restaurantListHandler.getRestaurants();
-    this.restaurantList.replaceTemplate(
+    RestaurantList.replaceTemplate(
       restaurantList
         .map((restaurant: Restaurant) =>
           new RestaurantTicket(restaurant).template()
@@ -31,8 +28,8 @@ class App {
   };
 
   sortList = (id: string, value: string) => {
-    console.log(id, value);
     let restaurantList = [];
+
     if (id === "category-filter") {
       restaurantList = restaurantListHandler.getFilteredByCategory(value);
     } else {
@@ -43,7 +40,7 @@ class App {
       }
     }
 
-    this.restaurantList.replaceTemplate(
+    RestaurantList.replaceTemplate(
       restaurantList
         .map((restaurant: Restaurant) =>
           new RestaurantTicket(restaurant).template()
