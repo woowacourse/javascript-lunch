@@ -89,6 +89,7 @@ customElements.define(
       const restaurant = this.createRestaurantInfo([...e.target.elements].slice(0, 5));
       this.dispatch(restaurant);
       this.resetForm(e.target);
+      this.closeModal();
     }
 
     createRestaurantInfo(formElements) {

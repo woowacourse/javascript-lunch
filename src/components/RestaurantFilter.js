@@ -25,22 +25,5 @@ customElements.define(
         </select>
       `;
     }
-
-    connectedCallback() {
-      this.addEventListener('change', () => this.handleChange());
-    }
-
-    handleChange() {
-      const category = $('#category-filter').value;
-      const sortingType = $('#sorting-filter').value;
-
-      dispatchCustomEvent(this, {
-        eventType: 'filterRestaurant',
-        data: {
-          category,
-          sortingType,
-        },
-      });
-    }
   }
 );
