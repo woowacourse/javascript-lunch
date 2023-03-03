@@ -280,6 +280,11 @@ input[name="link"] {
   cursor: pointer;
 }
 
+#alert-submit {
+  /* float: right; */
+  margin-left: 68%;
+}
+
 .button:last-child {
   margin-right: 0;
 }
@@ -291,8 +296,23 @@ input[name="link"] {
   color: var(--grey-300);
 }
 
+.submit-button {
+  display: flex;
+  flex-direction: column;
+}
+
 .button--primary {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.alert {
+  display: flex;
+  color: red;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }
