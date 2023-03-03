@@ -1,4 +1,4 @@
-import '../templates/style.css';
+import '../style.css';
 import RestaurantManager from './domain/RestaurantManager';
 import Header from './components/Header.js';
 import Main from './components/Main.js';
