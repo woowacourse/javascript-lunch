@@ -1,6 +1,7 @@
 import { Category, Component, SortBy, Restaurant } from '../type';
 import RestaurantList from './RestaurantList';
 import RestaurantListHeader from './RestaurantListHeader';
+import { DEFAULT_CATEGORY } from '../utils/constants';
 
 type RestaurantListPageState = {
   category: Category;
@@ -19,7 +20,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
   constructor({ $parent }: RestaurantListPageProps) {
     this.$component = document.createElement('div');
     this.state = {
-      category: '전체',
+      category: DEFAULT_CATEGORY,
       sortBy: 'name',
       restaurants: this.getRestaurants(),
     };

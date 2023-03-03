@@ -1,4 +1,5 @@
 import { Component, Restaurant } from '../type';
+import { CATEGORY_IMAGE_URL } from '../utils/constants';
 
 type RestaurantListItemState = {
   restaurant: Restaurant;
@@ -28,21 +29,10 @@ class RestaurantListItem implements Component<RestaurantListItemState> {
   };
 
   render = () => {
-    const imageMap: {
-      [key: string]: string;
-    } = {
-      한식: './category-korean.png',
-      중식: './category-chinese.png',
-      일식: './category-japanese.png',
-      양식: './category-western.png',
-      아시안: './category-asian.png',
-      기타: './category-etc.png',
-    };
-
     const { category, name, distance, description } = this.state.restaurant;
     this.$component.innerHTML = `
       <div class="restaurant__category">
-        <img src="${imageMap[category]}"" alt="${category}" class="category-icon" />
+        <img src="${CATEGORY_IMAGE_URL[category]}"" alt="${category}" class="category-icon" />
       </div>
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle">${name}</h3>

@@ -1,4 +1,5 @@
 import { Component, Category, SortBy } from '../type';
+import { CATEGORIES } from '../utils/constants';
 
 type RestaurantListHeaderState = {
   category: Category;
@@ -42,19 +43,16 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
   };
 
   render = () => {
-    const categories: Category[] = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
     this.$component.innerHTML = `
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
-          ${categories
-            .map(
-              (category) => `
+          ${CATEGORIES.map(
+            (category) => `
               <option value="${category}" ${
-                this.state.category === category ? 'selected' : ''
-              }>${category}</option>
+              this.state.category === category ? 'selected' : ''
+            }>${category}</option>
             `
-            )
-            .join('')}
+          ).join('')}
         </select>
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
           <option value="name" ${this.state.sortBy === 'name' ? 'selected' : ''}>이름순</option>

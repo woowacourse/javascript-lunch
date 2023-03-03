@@ -1,5 +1,6 @@
 import { Category, Component, Restaurant, SortBy } from '../type';
 import RestaurantListItem from './RestaurantListItem';
+import { DEFAULT_CATEGORY } from '../utils/constants';
 
 type RestaurantListState = {
   restaurants: Restaurant[];
@@ -46,7 +47,7 @@ class RestaurantList implements Component<RestaurantListState> {
   getShowRestaurants = () => {
     const { category, sortBy } = this.state;
     const filtered = this.state.restaurants.filter(
-      (restaurant) => category === '전체' || restaurant.category === category
+      (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category
     );
     const getPivot = (restaurant: Restaurant) =>
       sortBy === 'name' ? restaurant.name : Number(restaurant.distance);
