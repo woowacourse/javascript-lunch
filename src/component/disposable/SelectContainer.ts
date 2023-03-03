@@ -1,4 +1,5 @@
 import { Constants } from "../../constant/Constants";
+import { RerenderListType } from "../../type/type";
 import Select from "../reusable/Select";
 
 class SelectContainer {
@@ -39,7 +40,7 @@ class SelectContainer {
     `;
   }
 
-  render(target: Element, rerenderList: (id: string, value: string) => void) {
+  render(target: Element, rerenderList: RerenderListType) {
     target.insertAdjacentHTML("beforeend", this.template());
 
     this.categorySelect.addEvent(Constants.CATEGORY_FILTER, rerenderList);

@@ -15,3 +15,5 @@ export interface Restaurant {
   description?: string;
   link?: string;
 }
+
+export type RerenderListType = (id: string, value: string) => void;

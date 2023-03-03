@@ -1,4 +1,4 @@
-import { Attribute } from "../../type/type";
+import { Attribute, RerenderListType } from "../../type/type";
 import { $ } from "../../utils/Dom";
 
 class Select {
@@ -10,7 +10,7 @@ class Select {
     this.attribute = attribute;
   }
 
-  addEvent(id: string, rerenderList: (id: string, value: string) => void) {
+  addEvent(id: string, rerenderList: RerenderListType) {
     const selectEl = $(`#${id}`);
     selectEl?.addEventListener("change", () => {
       const select = selectEl as HTMLSelectElement;
