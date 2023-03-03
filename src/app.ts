@@ -36,13 +36,20 @@ class App {
       { value: 'distance', label: '거리순' },
     ]);
 
-    const restaurants = localStorage.getItem('restaurants');
+    const restaurants = JSON.parse(localStorage.getItem('restaurants') ?? 'null');
     if (!restaurants) {
       document
         .querySelector<RRestaurantList>('#restaurant-list')
         ?.setRestaurants(Restaurants.getSorted(DEFAULT_RESTAURANTS, Restaurants.byName));
 
       this.#restaurants = DEFAULT_RESTAURANTS;
+      this.updateRestaurants();
+    }
+
+    if (restaurants) {
+      this.#restaurants = restaurants.map((restaurant: Restaurant) =>
+        Object.setPrototypeOf(restaurant, Restaurant.prototype),
+      );
       this.updateRestaurants();
     }
 
@@ -122,6 +129,8 @@ class App {
 
       this.#restaurants.push(restaurant);
       this.updateRestaurants();
+
+      localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
     });
   }
 }
