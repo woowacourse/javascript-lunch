@@ -1,4 +1,4 @@
-import { Restaurant } from "../../type/type";
+import { Category, Distance, Restaurant } from "../../type/type";
 import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 
@@ -87,8 +87,8 @@ class Modal {
       const formData = Object.fromEntries(new FormData($modal).entries());
       const data = {
         name: formData.name as string,
-        distance: formData.distance as string,
-        category: formData.category as string,
+        distance: formData.distance as Distance,
+        category: formData.category as Category,
         link: formData.link as string,
         description: formData.description as string,
       };
