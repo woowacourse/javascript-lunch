@@ -1,6 +1,6 @@
-import { CATEGORY_IMAGE } from "../constant/imageConstant";
+import { CATEGORY_IMAGE } from '../constant/imageConstant';
 
-export const renderRestaurant = (info) => {
+export const renderRestaurant = info => {
   return `<li class="restaurant">
     <div class="restaurant__category">
     <img

@@ -1,7 +1,7 @@
-import { SELECTED_OPTION } from "../constant";
-import { RestaurantType } from "../type";
-import { renderRestaurantList } from "../ui/restaurantListRenderer";
-import { getAllDataOnLocalStorage } from "../util/localStorage";
+import { SELECTED_OPTION } from '../constant';
+import { RestaurantType } from '../type';
+import { renderRestaurantList } from '../ui/restaurantListRenderer';
+import { getAllDataOnLocalStorage } from '../util/localStorage';
 
 export const sortByName = (allRestaurants: RestaurantType[]) => {
   return allRestaurants.sort((a, b) => {
@@ -21,7 +21,7 @@ export const filterCategory = (selectedCategory: string) => {
     return renderRestaurantList(restaurantList);
 
   const filteredList = restaurantList.filter(
-    (restaurant) => restaurant.category === selectedCategory
+    restaurant => restaurant.category === selectedCategory
   );
 
   renderRestaurantList(filteredList);

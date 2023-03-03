@@ -1,5 +1,5 @@
-import { LOCAL_STORAGE_KEY } from "../constant";
-import { RestaurantType } from "../type";
+import { LOCAL_STORAGE_KEY } from '../constant';
+import { RestaurantType } from '../type';
 
 export const saveOnLocalStorage = (restaurant: RestaurantType) => {
   const key = `${LOCAL_STORAGE_KEY}${window.localStorage.length + 1}`;
@@ -9,10 +9,10 @@ export const saveOnLocalStorage = (restaurant: RestaurantType) => {
 };
 
 export const getAllDataOnLocalStorage = () => {
-  return Array.from({ length: window.localStorage.length }, () => "").map(
+  return Array.from({ length: window.localStorage.length }, () => '').map(
     (_, index) =>
       JSON.parse(
-        window.localStorage.getItem(`${LOCAL_STORAGE_KEY}${index + 1}`) || ""
+        window.localStorage.getItem(`${LOCAL_STORAGE_KEY}${index + 1}`) || ''
       )
   );
 };

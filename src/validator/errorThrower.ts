@@ -2,8 +2,8 @@ import {
   ERROR_MESSAGE,
   NAME_LENGTH,
   REGEX_SPECIAL_CHARACTERS,
-} from "../constant";
-import { getAllDataOnLocalStorage } from "../util/localStorage";
+} from '../constant';
+import { getAllDataOnLocalStorage } from '../util/localStorage';
 
 const { NO_SPECIAL_CHARACTERS, NAME_LENGTH_LIMIT, DUPLICATE_NAME } =
   ERROR_MESSAGE;
@@ -23,7 +23,7 @@ export const checkInputLength = (input: string) => {
 
 export const checkDuplicate = (input: string) => {
   if (
-    getAllDataOnLocalStorage().filter((restaurant) => restaurant.name === input)
+    getAllDataOnLocalStorage().filter(restaurant => restaurant.name === input)
       .length
   ) {
     throw new Error(DUPLICATE_NAME);
