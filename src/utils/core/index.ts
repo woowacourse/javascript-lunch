@@ -1,13 +1,13 @@
 import { debounce } from '../common/debounce';
+import { $, $$, isTarget } from '../../utils/common/domHelper';
 
 interface Event {
-  $parent: string;
-  $target: string;
+  parentSelector: string;
+  targetSelector: string;
   event: keyof HTMLElementEventMap;
   callback: (this: Element, e: HTMLElementEventMap[Event['event']]) => void;
 }
 interface Options<T = unknown> {
-  currentEventKey: number;
   currentStateKey: number;
   states: T[];
   events: Event[];
@@ -20,7 +20,6 @@ type UnPack<T> = T extends (infer U)[] ? U : T;
 
 function Core() {
   const options: Options<UnPack<Parameters<typeof useState>>> = {
-    currentEventKey: 0,
     currentStateKey: 0,
     states: [],
     events: [],
@@ -36,6 +35,9 @@ function Core() {
     const state = states[key];
 
     const setState = (newState: S) => {
+      if (newState === state) return;
+      if (JSON.stringify(newState) === JSON.stringify(state)) return;
+
       states[key] = newState;
       _render();
     };
@@ -51,29 +53,9 @@ function Core() {
     options.currentStateKey = 0;
 
     _addEvent();
-    options.currentEventKey = 0;
+
+    options.events = [];
   });
-
-  const $ = (t: string) => document.querySelector(t);
-  const $$ = (selector: string, target: ParentNode | null = document) =>
-    target ? target.querySelectorAll(selector) : target;
-
-  function useEvents($parent: string) {
-    function addEvent(
-      event: Event['event'],
-      $target: Event['$target'],
-      callback: Event['callback']
-    ) {
-      const { currentEventKey: key, events } = options;
-
-      if (events.length === key) {
-        events.push({ event, $target, $parent, callback });
-        options.currentEventKey += 1;
-      }
-    }
-
-    return [addEvent];
-  }
 
   function render(rootComponent: Options['rootComponent'], root: Options['root']) {
     options.root = root;
@@ -81,20 +63,27 @@ function Core() {
     _render();
   }
 
+  function useEvents(parentSelector: string) {
+    function addEvent(
+      event: Event['event'],
+      targetSelector: Event['targetSelector'],
+      callback: Event['callback']
+    ) {
+      const { events } = options;
+
+      events.push({ event, targetSelector, parentSelector, callback });
+    }
+
+    return [addEvent];
+  }
+
   function _addEvent() {
-    options.events.forEach(({ $parent, $target, event, callback }) => {
-      const children = $$($target, $($parent));
-      const isTarget = (target: EventTarget | null) => {
-        if (target instanceof Element && children) {
-          return [...children].includes(target) || target.closest($target);
-        }
+    options.events.forEach(({ parentSelector, targetSelector, event, callback }) => {
+      $(parentSelector)?.addEventListener(event, (e) => {
+        const $parent = $(parentSelector);
 
-        return false;
-      };
-
-      $($parent)?.addEventListener(event, (e) => {
-        const parent = $($parent);
-        if (isTarget(e.target) && parent) callback.call(parent, e);
+        if (isTarget(e.target, { targetSelector, parentSelector }) && $parent)
+          callback.call($parent, e);
       });
     });
   }
