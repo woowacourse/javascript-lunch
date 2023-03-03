@@ -1,4 +1,4 @@
-import { RestaurantType } from "../type";
+import { CustomError, RestaurantType } from "../type";
 import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
@@ -50,7 +50,13 @@ export default class RestaurantsController {
     ]);
     const restaurantInfo = Object.fromEntries(trimmedInfo);
 
-    validateName(restaurantInfo.name);
+    try {
+      validateName(restaurantInfo.name);
+    } catch (error: unknown) {
+      const customError = error as CustomError;
+      return alert(customError.message);
+    }
+
     saveOnLocalStorage(restaurantInfo);
     renderNewRestaurant(restaurantInfo);
 
