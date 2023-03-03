@@ -1,5 +1,7 @@
 import { Restaurant, Category, RestaurantSortType } from '../types';
+
 import store from '../utils/store';
+import deepCopy from '../utils/deepCopy';
 
 export default class Restaurants {
   #restaurants: Restaurant[];
@@ -14,11 +16,13 @@ export default class Restaurants {
   }
 
   getFilteredRestaurantsByCategory(category: Category) {
+    const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
+
     if (category === '전체') {
-      return this.#restaurants;
+      return copiedRestaurants;
     }
 
-    return this.#restaurants.filter((restaurant) => {
+    return copiedRestaurants.filter((restaurant) => {
       return restaurant.category === category;
     });
   }
@@ -48,6 +52,6 @@ export default class Restaurants {
   }
 
   getRestaurants() {
-    return this.#restaurants;
+    return deepCopy(this.#restaurants);
   }
 }
