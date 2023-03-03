@@ -1,5 +1,4 @@
 const { $ } = require('../utils/domHelpers');
-import RestaurantManager from '../domain/RestaurantManager.ts';
 
 export default class AddModal {
   #RestaurantManager;
@@ -12,8 +11,12 @@ export default class AddModal {
   }
 
   addEvent() {
-    $('.modal').addEventListener('click', (e) => {
-      this.test(e);
+    const modal = $('.modal');
+    modal.addEventListener('submit', (e) => {
+      this.submitData(e);
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target.innerHTML === '취소하기') this.cancelInputData(e);
     });
   }
 
@@ -81,45 +84,30 @@ export default class AddModal {
       `;
   }
 
-  test(e) {
-    if (e.target.innerHTML === '취소하기') {
-      this.cancelInputData(e);
-    }
-    if (e.target.innerHTML === '추가하기') {
-      this.submitData(e);
-    }
-  }
-
   cancelInputData(e) {
     e.currentTarget.classList.remove('modal--open');
   }
 
   submitData(e) {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
-      const inputData = [...e.target.form].map((el) => {
-        if (el.value !== '') return el.value;
-        if (el.type === 'button' || el.type === 'submit') return false;
-        throw new Error('입력값을 입력해주세요');
-      });
+    const inputData = [...e.target].map((el) => {
+      return el.value;
+    });
 
-      const addData = {
-        category: inputData[0],
-        storeName: inputData[1],
-        distance: inputData[2],
-        detail: inputData[3],
-        link: inputData[4],
-      };
+    const addData = {
+      category: inputData[0],
+      storeName: inputData[1],
+      distance: inputData[2],
+      detail: inputData[3],
+      link: inputData[4],
+    };
 
-      this.#RestaurantManager.addRestaurant(addData);
-      e.currentTarget.classList.remove('modal--open');
+    this.#RestaurantManager.addRestaurant(addData);
+    e.currentTarget.classList.remove('modal--open');
 
-      $('.restaurant-list-container').innerHTML = this.#main.reRender(
-        this.#RestaurantManager.getRestaurantList()
-      );
-    } catch (err) {
-      alert(err.message);
-    }
+    $('.restaurant-list-container').innerHTML = this.#main.reRender(
+      this.#RestaurantManager.getRestaurantList()
+    );
   }
 }
