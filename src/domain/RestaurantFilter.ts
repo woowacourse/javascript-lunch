@@ -5,6 +5,7 @@ const RestaurantFilter = {
     category: Category,
     restaurants: RestaurantInfo[]
   ): RestaurantInfo[] {
+    if (category === "전체") return restaurants;
     return [...restaurants].filter(
       (restaurant) => restaurant.category === category
     );
