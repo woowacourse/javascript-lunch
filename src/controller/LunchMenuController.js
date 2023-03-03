@@ -25,7 +25,7 @@ const LunchMenuController = {
   handleRestaurantRegister(data) {
     restaurants.add(data);
     this.setRestaurantList();
-    LunchMenuView.render(restaurants.list);
+    this.handleRestaurantFilter();
     LunchMenuView.closeModal();
   },
 
@@ -37,7 +37,6 @@ const LunchMenuController = {
     const sortingType = $('#sorting-filter').value;
     const category = $('#category-filter').value;
     const filteredRestaurants = restaurants.filterByCategory(category, restaurants.list);
-
     const sortByType = {
       register: () => filteredRestaurants,
       name: () => restaurants.sortByName(filteredRestaurants),
