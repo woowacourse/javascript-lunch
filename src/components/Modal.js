@@ -87,13 +87,13 @@ class Modal {
 
       const restaurant = this.makeRestaurant({ category, name, distance, description, link });
 
-      this.saveRestaurant(restaurant);
+      this.changeRestaurantsState(restaurant);
 
       document.querySelector('.modal').remove();
     });
   }
 
-  saveRestaurant(restaurant) {
+  changeRestaurantsState(restaurant) {
     this.restaurantsList.restaurants.add(restaurant);
     localStorage.setItem('restaurants', JSON.stringify(this.restaurantsList.restaurants.restaurants));
 
