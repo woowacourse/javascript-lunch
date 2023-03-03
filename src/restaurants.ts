@@ -1,4 +1,4 @@
-export const restaurantList = [
+export const restaurants = [
   {
     category: '한식',
     name: '피양콩할머니',
