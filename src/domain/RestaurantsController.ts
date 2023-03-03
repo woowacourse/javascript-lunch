@@ -1,13 +1,23 @@
+import { RestaurantType } from "../type";
 import { getFormData } from "../util/form";
 import { validateName } from "../validator";
+import { initialRestaurantData } from "../constant/initialRestaurants";
+import { saveOnLocalStorage } from "../util/localStorage";
 
 export default class RestaurantsController {
   private static instance: RestaurantsController;
+  private restaurantList: RestaurantType[] = [];
 
   private constructor() {
     if (!RestaurantsController.instance) {
       RestaurantsController.instance = this;
     }
+    this.initRestaurantsInfos();
+  }
+
+  private initRestaurantsInfos() {
+    this.restaurantList = initialRestaurantData;
+    this.saveRestaurantList();
   }
 
   public static getInstance() {
@@ -18,11 +28,25 @@ export default class RestaurantsController {
     return RestaurantsController.instance;
   }
 
-  addNewRestaurant(event: Event) {
-    const restaurantInfo = Object.values(getFormData(event)).map((info) =>
-      String(info).trim()
-    );
+  getRestaurantList(): RestaurantType[] {
+    return this.restaurantList;
+  }
 
-    validateName(restaurantInfo);
+  addNewRestaurant(event: Event) {
+    const trimmedInfo = getFormData(event).map(([key, value]) => [
+      key,
+      String(value).trim(),
+    ]);
+    const restaurantInfo = Object.fromEntries(trimmedInfo);
+
+    validateName(restaurantInfo.name);
+  }
+
+  saveRestaurantList() {
+    if (!window.localStorage.length) {
+      this.restaurantList.forEach((restaurant: RestaurantType) =>
+        saveOnLocalStorage(restaurant)
+      );
+    }
   }
 }

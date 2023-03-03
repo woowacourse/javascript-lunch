@@ -4,6 +4,7 @@ import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
 } from "./ui/modal";
+import { restaurantList } from "./ui/restaurantListRenderer";
 import {
   executeClickEventListener,
   executeSubmitEventListener,
@@ -11,6 +12,11 @@ import {
 
 const App = {
   restaurantsController: RestaurantsController.getInstance(),
+
+  init() {
+    this.initEventListeners();
+    restaurantList(this.restaurantsController);
+  },
 
   initEventListeners() {
     this.controlNewRestaurantModal();
@@ -35,4 +41,4 @@ const App = {
   },
 };
 
-App.initEventListeners();
+App.init();
