@@ -6,11 +6,12 @@ import { Restaurant } from "../abstracts/types";
 class RestaurantAddFormComponent extends CustomElement {
   setEvent() {
     document
-      .querySelector(".button--primary")
-      .addEventListener("click", () => this.addRestaurant());
+      .querySelector("form")
+      .addEventListener("submit", (e) => this.addRestaurant(e));
   }
 
-  addRestaurant() {
+  addRestaurant(e) {
+    e.preventDefault();
     const category = document.querySelector("#category").value;
     const name = document.querySelector("#name").value;
     const distance = document.querySelector("#distance").value;
@@ -94,7 +95,7 @@ class RestaurantAddFormComponent extends CustomElement {
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
               <button type="button" class="button button--secondary text-caption">취소하기</button>
-              <button type="button" class="button button--primary text-caption">추가하기</button>
+              <button type="submit" class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
         `;
