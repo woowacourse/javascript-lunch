@@ -1,5 +1,4 @@
 import selectTemplate from '../template/selectTemplate';
-import { RestaurantFilterTemplate } from './Filters';
 
 export default function RestaurantForm($root, submitHandler, cancelHandler) {
   const $form = document.createElement('form');
