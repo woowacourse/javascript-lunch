@@ -14,15 +14,11 @@ const restaurantFormValidator = {
   },
 
   isEmptyCategory(input: string) {
-    if (!input) return true;
-
-    return false;
+    return input === "";
   },
 
   isEmptyDistance(input: number) {
-    if (!input) return true;
-
-    return false;
+    return input === 0;
   },
 
   isInvalidName(input: string) {
