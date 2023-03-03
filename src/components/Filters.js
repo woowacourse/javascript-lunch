@@ -1,4 +1,6 @@
+import { CATEGORY, SORT } from '../constants';
 import selectTemplate from '../template/selectTemplate';
+import { arrayElementToObject } from '../utils/util';
 
 export default function Filters($root, eventListener) {
   const $filterSection = document.createElement('section');
@@ -20,25 +22,14 @@ export default function Filters($root, eventListener) {
     ${selectTemplate({
       name: 'category',
       id: 'category-filter',
-      options: [
-        { value: '전체', text: '전체' },
-        { value: '한식', text: '한식' },
-        { value: '중식', text: '중식' },
-        { value: '일식', text: '일식' },
-        { value: '양식', text: '양식' },
-        { value: '아시안', text: '아시안' },
-        { value: '기타', text: '기타' },
-      ],
+      options: arrayElementToObject(['전체', ...CATEGORY]),
       selected: this.state.category,
       className: 'restaurant-filter',
     })}
     ${selectTemplate({
       name: 'sorting',
       id: 'sorting-filter',
-      options: [
-        { value: '이름순', text: '이름순' },
-        { value: '거리순', text: '거리순' },
-      ],
+      options: arrayElementToObject(SORT),
       selected: this.state.filter,
       className: 'restaurant-filter',
     })}
