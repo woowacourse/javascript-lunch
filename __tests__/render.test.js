@@ -18,8 +18,8 @@ test.each([
   "CustomSelect 생성시 id에 따라 적절한 옵션값이 추가된다.",
   (id, optionText) => {
     document.body.innerHTML = `
-    <select is="custom-select" id=${id}></select>
-  `;
+      <select is="custom-select" id=${id}></select>
+    `;
 
     expect(screen.getByText(optionText));
   }
