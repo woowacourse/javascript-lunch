@@ -1,6 +1,6 @@
 import RestaurantItem from './RestaurantItem.js';
-import RestaurantManager from '../domain/RestaurantManager.ts';
 import { $ } from '../utils/domHelpers.js';
+import { RESTAURANT_IMAGE } from '../constants/images.ts';
 
 class Main {
   #restaurant;
@@ -8,7 +8,7 @@ class Main {
   #renderListData;
 
   constructor(RestaurantManager) {
-    this.#restaurant = new RestaurantItem();
+    this.#restaurant = new RestaurantItem(RESTAURANT_IMAGE);
     this.#restaurantManager = RestaurantManager;
     this.#renderListData = this.#restaurantManager.getRestaurantList();
 
