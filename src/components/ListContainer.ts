@@ -11,6 +11,7 @@ const ImageByCategory: ImageByCategory = {
   중식: './category-chinese.png',
   양식: './category-western.png',
   아시안: './category-asian.png',
+  기타: './category-etc.png',
 };
 
 class ListContainer extends Component {
