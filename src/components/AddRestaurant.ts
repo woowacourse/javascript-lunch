@@ -1,3 +1,5 @@
+import RestaurantType from "../type/Restaurant";
+
 class AddRestaurant extends HTMLElement {
   private controller;
 
@@ -82,8 +84,9 @@ class AddRestaurant extends HTMLElement {
     const restaurantForm = document.getElementById("restaurantForm");
     restaurantForm?.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.controller.addRestaurant(this.createNewResaturant(event));
-      this.controller.updateRestaurantList(this.controller.getRestaurants());
+      const newRestaurant = this.createNewResaturant(event);
+      this.controller.addRestaurant(newRestaurant);
+      this.controller.setLocalStorage();
 
       const bottomSheet: any = document.getElementById("bottomSheet");
       bottomSheet?.close();
@@ -92,7 +95,7 @@ class AddRestaurant extends HTMLElement {
 
   createNewResaturant(event: any) {
     const formData = new FormData(event.target as any);
-    const newRestaurant = {
+    const newRestaurant: RestaurantType = {
       category: formData.get("category") as string,
       name: formData.get("name") as string,
       distance: Number(formData.get("distance")),
