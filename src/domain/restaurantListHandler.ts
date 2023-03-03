@@ -3,8 +3,12 @@ import { Category, Restaurant } from "../type/type";
 class RestaurantListHandler {
   restaurants: Restaurant[] = [];
 
+  getRestaurants(): Restaurant[] {
+    return [...this.restaurants];
+  }
+
   addRestaurant(restaurant: Restaurant) {
-    this.restaurants.push(restaurant);
+    this.restaurants = [restaurant, ...this.restaurants];
   }
 
   getSortedByName(): Restaurant[] {
