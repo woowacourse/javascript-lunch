@@ -1,3 +1,5 @@
+import RestaurantList from "./RestaurantList";
+
 const FilterButton = {
   template() {
     return `
@@ -12,10 +14,20 @@ const FilterButton = {
   </select>`;
   },
   setEvent() {
-    const restaurantFilter = document.querySelector("#category-filter");
-    restaurantFilter?.addEventListener("click", () => {
-      // 이벤트 추가 필요
-      console.log("filter");
+    const restaurantListContainer = document.querySelector(
+      ".restaurant-list-container"
+    ) as HTMLElement;
+    const restaurantFilter = document.querySelector(
+      "#category-filter"
+    ) as HTMLSelectElement;
+    restaurantFilter?.addEventListener("change", () => {
+      const selectValue =
+        restaurantFilter.options[restaurantFilter.selectedIndex].value;
+      const result = RestaurantList.filter(
+        RestaurantList.originList,
+        selectValue
+      );
+      restaurantListContainer.innerHTML = RestaurantList.template(result);
     });
   },
 };

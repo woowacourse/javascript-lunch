@@ -15,11 +15,10 @@ import { mockList } from "./data/mockRestaurant";
 class App {
   #app;
 
-  #restaurantList;
-
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
-    this.#restaurantList = new RestaurantList(mockList);
+    RestaurantList.originList = RestaurantList.defaultList(mockList);
+    RestaurantList.valList = RestaurantList.defaultList(mockList);
   }
 
   render() {
@@ -31,7 +30,7 @@ class App {
           ${SortButton.template()}
         </section>
         <section class="restaurant-list-container">
-          ${this.#restaurantList.template()}
+          ${RestaurantList.template(RestaurantList.originList)}
         </section>
 
         <div class="modal">
@@ -58,7 +57,6 @@ class App {
     ModalButton.setEvent();
     SortButton.setEvent();
     AddButton.setEvent();
-    this.#restaurantList.setEvent();
   }
 }
 

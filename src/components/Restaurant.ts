@@ -56,4 +56,8 @@ export class Restaurant {
       }
     });
   }
+
+  getRestaurant() {
+    return this.#restaurant;
+  }
 }
