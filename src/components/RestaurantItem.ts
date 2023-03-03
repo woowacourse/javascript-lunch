@@ -1,5 +1,5 @@
 import { Restaurant } from "../types/types";
-import { RESTAURANT_IMAGE } from "../constants/constants";
+import { RESTAURANT_IMAGE } from "../constants/images";
 
 const createRestaurantItem = function (restaurant: Restaurant) {
   return `<li class="restaurant">
