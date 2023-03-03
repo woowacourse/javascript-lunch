@@ -1,21 +1,17 @@
 import { Constants } from "../constant/Constants";
 import { Restaurant } from "../type/type";
+import { getSavedData, saveData } from "../utils/localStorage";
 
 class RestaurantListHandler {
   restaurants: Restaurant[] = [];
 
   constructor() {
-    this.restaurants =
-      JSON.parse(localStorage.getItem(Constants.RESTAURANT_LIST) as string) ||
-      [];
+    this.restaurants = getSavedData(Constants.RESTAURANT_LIST);
   }
 
   addRestaurant(restaurant: Restaurant) {
     this.restaurants = [restaurant, ...this.restaurants];
-    localStorage.setItem(
-      Constants.RESTAURANT_LIST,
-      JSON.stringify(this.restaurants)
-    );
+    saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
 
   getRestaurants(): Restaurant[] {
