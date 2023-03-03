@@ -21,9 +21,9 @@ export default class RestaurantRegistry {
             <h3 class="restaurant__name text-subtitle">${
               restaurantInfo.name
             }</h3>
-            <span class="restaurant__distance text-body">${
+            <span class="restaurant__distance text-body">캠퍼스로부터 ${
               restaurantInfo.distance
-            }</span>
+            }분 내</span>
             <p class="restaurant__description text-body">${
               restaurantInfo.description
             }</p>

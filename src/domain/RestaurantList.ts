@@ -3,8 +3,17 @@ import { Restaurant, RestaurantForm, Category } from "./Restaurant";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
 
+  constructor() {
+    const res = JSON.parse(localStorage.getItem("restaurants") || "[]");
+    if (res.length !== 0)
+      res.forEach((val: RestaurantForm) => {
+        this.list.push(val);
+      });
+  }
+
   add(restaurantInfo: RestaurantForm) {
     this.list = [...this.list, restaurantInfo];
+
     this.filterAll();
   }
 
@@ -13,13 +22,7 @@ export class RestaurantList {
   }
 
   filterAll() {
-    JSON.parse(localStorage.getItem("restaurants") || "{}").forEach(
-      (val: RestaurantForm) => {
-        this.list.push(val);
-      }
-    );
     const restaurantString = JSON.stringify(this.list.map((info) => info));
-
     window.localStorage.setItem("restaurants", restaurantString);
   }
 
