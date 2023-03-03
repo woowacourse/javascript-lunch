@@ -8,12 +8,20 @@ import {
 import { RESTAURANT_ACTION } from "../abstracts/constants";
 
 class RestaurantsStore {
-  #restaurantList: Restaurant[] =
-    JSON.parse(localStorage.getItem("restaurantList")!) || [];
+  #restaurantList: Restaurant[] = [];
   #category: Category = "전체";
   #sortMethod: SortMethod = "name";
 
   #subscribers: CustomElement[] = [];
+
+  constructor() {
+    if (!localStorage.getItem("restaurantList")) {
+      localStorage.setItem(
+        "restaurantList",
+        JSON.stringify(this.#restaurantList)
+      );
+    }
+  }
 
   subscribe(element: CustomElement) {
     this.#subscribers.push(element);
