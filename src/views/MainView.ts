@@ -7,6 +7,10 @@ class MainView {
   private sortingFilter = $("#sorting-filter") as HTMLSelectElement;
 
   constructor() {
+    this.addRestaurantAddButtonClickEvent();
+  }
+
+  addRestaurantAddButtonClickEvent() {
     this.addButton.addEventListener("click", () => {
       this.modal.showModal();
     });
