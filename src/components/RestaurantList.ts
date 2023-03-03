@@ -24,7 +24,7 @@ const RestaurantList: listInterface = {
     this.originList = this.sort(list, this.sortState);
   },
   addRestaurant(restaurant: RestaurantType) {
-    this.originList = [...this.originList, new Restaurant(restaurant)];
+    this.originList = [new Restaurant(restaurant), ...this.originList];
   },
   template(restaurantList): string {
     return `<ul class='restaurant-list'>
