@@ -3,7 +3,7 @@ const saveToLocalStorage = <T>(data: T[], key: string = "restaurants") => {
 };
 
 const getLocalStorage = (key: string = "restaurants") => {
-  return JSON.parse(localStorage.getItem(key) ?? "[]");
+  return JSON.parse(localStorage.getItem(key) as string);
 };
 
 export { saveToLocalStorage, getLocalStorage };

@@ -4,6 +4,7 @@ import {
   SortingCriterion,
   Restaurant,
 } from "../types/types";
+import { INITIAL_RESTAURANT_DATA } from "../constants/data";
 import { saveToLocalStorage, getLocalStorage } from "../utils/localStorage";
 
 class RestaurantService {
@@ -12,7 +13,7 @@ class RestaurantService {
   private currentSortingCriterion: SortingCriterion = "name";
 
   constructor() {
-    this.restaurantList = getLocalStorage();
+    this.restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
   }
 
   add(restaurant: Restaurant) {
