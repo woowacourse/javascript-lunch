@@ -2,8 +2,15 @@ import { RestaurantType } from "../type";
 import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
-import { saveOnLocalStorage } from "../util/localStorage";
-import { renderNewRestaurant } from "../ui/restaurantListRenderer";
+import {
+  getAllDataOnLocalStorage,
+  saveOnLocalStorage,
+} from "../util/localStorage";
+import {
+  renderNewRestaurant,
+  renderRestaurantList,
+} from "../ui/restaurantListRenderer";
+import { filterCategory, sortByDistance, sortByName } from "./filter";
 
 export default class RestaurantsController {
   private static instance: RestaurantsController;
@@ -17,7 +24,10 @@ export default class RestaurantsController {
   }
 
   private initRestaurantsInfos() {
-    this.restaurantList = initialRestaurantData;
+    window.localStorage.length
+      ? this.updateRestaurantList(getAllDataOnLocalStorage())
+      : this.updateRestaurantList(initialRestaurantData);
+
     this.saveRestaurantList();
   }
 
@@ -43,6 +53,8 @@ export default class RestaurantsController {
     validateName(restaurantInfo.name);
     saveOnLocalStorage(restaurantInfo);
     renderNewRestaurant(restaurantInfo);
+
+    this.updateRestaurantList([...this.restaurantList, restaurantInfo]);
   }
 
   saveRestaurantList() {
@@ -51,5 +63,24 @@ export default class RestaurantsController {
         saveOnLocalStorage(restaurant)
       );
     }
+  }
+
+  sortRestaurantList(value: string) {
+    if (value === "name") {
+      this.updateRestaurantList(sortByName(this.restaurantList));
+    }
+
+    if (value === "distance") {
+      this.updateRestaurantList(sortByDistance(this.restaurantList));
+    }
+  }
+
+  filterRestaurantList(value: string) {
+    filterCategory(value);
+  }
+
+  updateRestaurantList(restaurantList: RestaurantType[]) {
+    this.restaurantList = restaurantList;
+    renderRestaurantList(this.restaurantList);
   }
 }

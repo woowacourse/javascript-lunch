@@ -6,3 +6,10 @@ export const saveOnLocalStorage = (restaurant: RestaurantType) => {
 
   window.localStorage.setItem(key, value);
 };
+
+export const getAllDataOnLocalStorage = () => {
+  return Array.from({ length: window.localStorage.length }, () => "").map(
+    (_, index) =>
+      JSON.parse(window.localStorage.getItem(`key0${index + 1}`) || "")
+  );
+};

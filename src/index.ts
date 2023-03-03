@@ -6,6 +6,7 @@ import {
 } from "./ui/modal";
 import { renderRestaurantList } from "./ui/restaurantListRenderer";
 import {
+  executeChangeEventListener,
   executeClickEventListener,
   executeSubmitEventListener,
 } from "./util/eventListener";
@@ -15,11 +16,11 @@ const App = {
 
   init() {
     this.initEventListeners();
-    renderRestaurantList(this.restaurantsController);
   },
 
   initEventListeners() {
     this.controlNewRestaurantModal();
+    this.controlFilter();
   },
 
   controlNewRestaurantModal() {
@@ -38,6 +39,16 @@ const App = {
     executeSubmitEventListener("#new-restaurant-form", (event: Event) => {
       this.restaurantsController.addNewRestaurant(event);
       handleModalCancelButtonClick(".modal");
+    });
+  },
+
+  controlFilter() {
+    executeChangeEventListener("#sorting-filter", (value: string) => {
+      this.restaurantsController.sortRestaurantList(value);
+    });
+
+    executeChangeEventListener("#category-filter", (value: string) => {
+      this.restaurantsController.filterRestaurantList(value);
     });
   },
 };
