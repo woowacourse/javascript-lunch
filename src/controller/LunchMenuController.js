@@ -17,8 +17,9 @@ const LunchMenuController = {
     $('restaurant-register-modal').addEventListener('registerRestaurant', (e) =>
       this.handleRestaurantRegister(e.detail)
     );
-    $('#category-filter').addEventListener('change', () => this.handleRestaurantFilter());
-    $('#sorting-filter').addEventListener('change', () => this.handleRestaurantFilter());
+    $('.restaurant-filter-container').addEventListener('change', () =>
+      this.handleRestaurantFilter()
+    );
   },
 
   handleRestaurantRegister(data) {
