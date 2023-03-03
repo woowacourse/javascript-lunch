@@ -1,9 +1,9 @@
+import { Category } from '../../types';
 import $template from './index.html';
-
+import { imgSrc } from '../../image';
 class RestaurantItem extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = $template;
   }
 
   connectedCallback() {
@@ -12,6 +12,7 @@ class RestaurantItem extends HTMLElement {
 
   render() {
     this.innerHTML = $template
+      .replace('{src}', imgSrc[this.getAttribute('category') as Category])
       .replace('{category}', this.getAttribute('category')!)
       .replace('{name}', this.getAttribute('name')!)
       .replace('{distance}', this.getAttribute('distance')!)
