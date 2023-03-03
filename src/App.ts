@@ -3,6 +3,7 @@ import Modal from "./component/disposable/Modal";
 import RestaurantList from "./component/disposable/RestaurantList";
 import SelectContainer from "./component/disposable/SelectContainer";
 import RestaurantTicket from "./component/reusable/RestaurantTicket";
+import { Constants, OptionValue } from "./constant/Constants";
 import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./type/type";
 
@@ -11,7 +12,7 @@ class App {
 
   constructor(body: Element) {
     this.restaurantList = JSON.parse(
-      localStorage.getItem("restuarantList") as string
+      localStorage.getItem(Constants.RESTAURANT_LIST) as string
     );
     Header.render(body);
     SelectContainer.render(body, this.sortList);
@@ -28,10 +29,10 @@ class App {
   };
 
   sortList = (id: string, value: string) => {
-    if (id === "category-filter") {
+    if (id === Constants.CATEGORY_FILTER) {
       this.restaurantList = restaurantListHandler.getFilteredByCategory(value);
     } else {
-      if (value === "거리순") {
+      if (value === OptionValue.DISTANCE_ORDER) {
         this.restaurantList = restaurantListHandler.getSortedByTakingTime();
       } else {
         this.restaurantList = restaurantListHandler.getSortedByName();
