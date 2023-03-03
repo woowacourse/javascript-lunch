@@ -11,15 +11,7 @@ export interface RestaurantInfo {
 }
 
 class Restaurant {
-  #category: Category;
-
-  #name: string;
-
-  #distance: Distance;
-
-  #description?: string;
-
-  #link?: string;
+  #information: RestaurantInfo;
 
   constructor({
     category,
@@ -28,21 +20,17 @@ class Restaurant {
     description = '',
     link = '',
   }: RestaurantInfo) {
-    this.#category = category;
-    this.#name = name;
-    this.#distance = distance;
-    this.#description = description;
-    this.#link = link;
+    this.#information = {
+      category,
+      name,
+      distance,
+      description,
+      link,
+    };
   }
 
   getInfo() {
-    return {
-      category: this.#category,
-      name: this.#name,
-      description: this.#description,
-      distance: this.#distance,
-      link: this.#link,
-    };
+    return this.#information;
   }
 }
 
