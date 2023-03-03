@@ -1,5 +1,4 @@
 import GLOBAL_CSS from '../constants';
-import { $ } from '../utils';
 
 class Header extends HTMLElement {
   constructor() {

@@ -1,4 +1,4 @@
-import { $ } from '../../utils';
+import { $$$ } from '../../utils';
 import webView from '../../view/webView';
 
 class LunchRecommendation {
@@ -7,57 +7,43 @@ class LunchRecommendation {
   constructor() {}
 
   play() {
-    $('add-restaurant-modal', '#addRestraunt').addEventListener(
+    $$$('add-restaurant-modal', '#addRestraunt').addEventListener(
       'click',
       (event) => {
         event.preventDefault();
 
-        const category = $(
+        const category = $$$('add-restaurant-modal', '#categoryList').value;
+        const name = $$$('add-restaurant-modal', '#nameInput').value;
+
+        const distance = $$$('add-restaurant-modal', '#distanceList').value;
+        const description = $$$(
           'add-restaurant-modal',
-          '#category'
-        ).shadowRoot.querySelector('#categoryList').value;
-        const name = $(
-          'add-restaurant-modal',
-          '#name'
-        ).shadowRoot.querySelector('#nameInput').value;
-        const distance = $(
-          'add-restaurant-modal',
-          '#distance'
-        ).shadowRoot.querySelector('#distanceList').value;
-        const description = $(
-          'add-restaurant-modal',
-          '#description'
-        ).shadowRoot.querySelector('#descriptionInput').value;
-        const link = $(
-          'add-restaurant-modal',
-          '#link'
-        ).shadowRoot.querySelector('#linkInput').value;
-        console.log(category, name, distance, description, link);
+          '#descriptionInput'
+        ).value;
+        const link = $$$('add-restaurant-modal', '#linkInput').value;
       }
     );
 
-    $('lunch-header', '#openModal').addEventListener(
+    $$$('lunch-header', '#openModal').addEventListener(
       'click',
-      webView.openModal
+      webView.toggleModal
     );
 
-    $('add-restaurant-modal', '#cancleModal').addEventListener(
+    $$$('add-restaurant-modal', '#cancleModal').addEventListener(
       'click',
-      webView.closeModal
+      webView.toggleModal
     );
 
-    $('add-restaurant-modal', '#modalBackdrop').addEventListener(
+    $$$('add-restaurant-modal', '#modalBackdrop').addEventListener(
       'click',
-      webView.closeModal
+      webView.toggleModal
     );
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        webView.closeModal();
+        webView.toggleModal();
       }
     });
-
-    $('add-restaurant-modal', '#cancleModal');
   }
 }
 
