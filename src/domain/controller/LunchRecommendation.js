@@ -2,11 +2,17 @@ import Restaurant from '../model/Restaurant';
 import RestaurantList from '../model/RestaurantList';
 import { $$$ } from '../../utils';
 import webView from '../../view/webView';
+import { DEFAULT_RESTAURANTS } from '../../constants';
 
 class LunchRecommendation {
   #restaurants = new RestaurantList();
 
   constructor() {
+    DEFAULT_RESTAURANTS.forEach((restaurant) => {
+      const defaultRestaurant = new Restaurant(restaurant);
+      this.#restaurants.add(defaultRestaurant);
+    });
+
     const userList = JSON.parse(localStorage.getItem('userList'));
 
     if (userList) {
@@ -93,23 +99,7 @@ class LunchRecommendation {
     $$$('#sortingFilter', '#sortingFilterSelect').addEventListener(
       'change',
       () => {
-        const categoryValue = $$$(
-          '#categoryFilter',
-          '#categoryFilterSelect'
-        ).value;
-
-        const sortingValue = $$$(
-          '#sortingFilter',
-          '#sortingFilterSelect'
-        ).value;
-
-        const englishSortingValue =
-          sortingValue === '이름순' ? 'name' : 'distance';
-        const filteredList = this.#restaurants.getList(
-          categoryValue,
-          englishSortingValue
-        );
-        webView.renderRestaurantList(filteredList);
+        this.drawRestuants();
       }
     );
   }
@@ -118,23 +108,26 @@ class LunchRecommendation {
     $$$('#categoryFilter', '#categoryFilterSelect').addEventListener(
       'change',
       () => {
-        const categoryValue = $$$(
-          '#categoryFilter',
-          '#categoryFilterSelect'
-        ).value;
-
-        const sortingValue = $$$(
-          '#sortingFilter',
-          '#sortingFilterSelect'
-        ).value;
-
-        const filteredList = this.#restaurants.getList(
-          categoryValue,
-          sortingValue
-        );
-        webView.renderRestaurantList(filteredList);
+        this.drawRestuants();
       }
     );
+  }
+
+  drawRestuants() {
+    const categoryValue = $$$('#categoryFilter', '#categoryFilterSelect').value;
+
+    const sortingValue = $$$('#sortingFilter', '#sortingFilterSelect').value;
+
+    const englishSortingValue = sortingValue === '이름순' ? 'name' : 'distance';
+
+    console.log(categoryValue, sortingValue);
+
+    const filteredList = this.#restaurants.getList(
+      categoryValue,
+      englishSortingValue
+    );
+
+    webView.renderRestaurantList(filteredList);
   }
 }
 
