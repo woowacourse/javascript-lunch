@@ -20,6 +20,7 @@ interface Restaurants {
   filterByCategory(category: Category | '전체', restaurants: Restaurant[]): Restaurant[];
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
+  compareByName(a: Restaurant, b: Restaurant): number;
 }
 
 export const restaurants: Restaurants = {
@@ -42,19 +43,21 @@ export const restaurants: Restaurants = {
   },
 
   sortByName(restaurants) {
-    return [...restaurants].sort((a: Restaurant, b: Restaurant) =>
-      a.name < b.name ? -1 : a.name > b.name ? 1 : 0
-    );
+    return [...restaurants].sort(this.compareByName);
   },
 
   sortByDistance(restaurants) {
     return [...restaurants].sort((a: Restaurant, b: Restaurant) => {
       if (a.distance === b.distance) {
         // 같은 거리일 경우 이름 순으로 정렬
-        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+        return this.compareByName(a, b);
       }
 
       return a.distance - b.distance;
     });
+  },
+
+  compareByName(a: Restaurant, b: Restaurant) {
+    return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
   },
 };
