@@ -1,4 +1,8 @@
-import { CategoryAll, RestaurantInfo } from '../../domain/model/Restaurant';
+import {
+  CategoryAll,
+  RestaurantInfo,
+  SortTypeAll,
+} from '../../domain/model/Restaurant';
 
 const filterByCategory = (
   restaurantList: RestaurantInfo[],
@@ -8,3 +12,15 @@ const filterByCategory = (
     restaurant.category === category;
   });
 };
+
+const sortByType = (restaurantList: RestaurantInfo[], type: SortTypeAll) => {
+  if (type === 'distance') {
+    return [...restaurantList].sort(
+      (aRestaurant, bRestaurant) => bRestaurant.distance - aRestaurant.distance
+    );
+  }
+
+  return [...restaurantList].sort();
+};
+
+export { filterByCategory, sortByType };
