@@ -10,7 +10,7 @@ export class App {
   private modalView = new ModalView();
 
   constructor() {
-    renderList(this.restaurantService.sortByName());
+    renderList(this.restaurantService.filterAndSort());
   }
 
   play() {
@@ -21,21 +21,21 @@ export class App {
 
   onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {
     this.restaurantService.add(restaurantItem);
-    const restaurantList = this.restaurantService.sortByName();
+    const restaurantList = this.restaurantService.filterAndSort();
     renderList(restaurantList);
   };
 
   onChangeCategoryFilter = (category: Category) => {
+    this.restaurantService.setCurrentCategory(category);
     const filteredRestaurantList: Restaurant[] =
-      this.restaurantService.filter(category);
+      this.restaurantService.filterAndSort();
     renderList(filteredRestaurantList);
   };
 
   onChangeSortingFilter = (criterion: Criterion) => {
+    this.restaurantService.setCurrentSortingCriterion(criterion);
     const sortedRestaurantList: Restaurant[] =
-      criterion === "name"
-        ? this.restaurantService.sortByName()
-        : this.restaurantService.sortByDistance();
+      this.restaurantService.filterAndSort();
     renderList(sortedRestaurantList);
   };
 }

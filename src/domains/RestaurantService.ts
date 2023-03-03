@@ -1,7 +1,9 @@
-import { AllCategory, Category, Restaurant } from "./types";
+import { AllCategory, Category, Criterion, Restaurant } from "./types";
 
 class RestaurantService {
   private restaurantList: Restaurant[];
+  private currentCategory: AllCategory | Category = "전체";
+  private currentSortingCriterion: Criterion = "name";
 
   constructor() {
     this.restaurantList = JSON.parse(
@@ -14,20 +16,38 @@ class RestaurantService {
     localStorage.setItem("restaurants", JSON.stringify(this.restaurantList));
   }
 
-  filter(category: AllCategory | Category) {
-    if (category === "전체") return [...this.restaurantList];
+  setCurrentCategory(category: AllCategory | Category) {
+    this.currentCategory = category;
+  }
+
+  setCurrentSortingCriterion(criterion: Criterion) {
+    this.currentSortingCriterion = criterion;
+  }
+
+  filter() {
+    if (this.currentCategory === "전체") return [...this.restaurantList];
 
     return this.restaurantList.filter(
-      (restaurant) => restaurant.category === category
+      (restaurant) => restaurant.category === this.currentCategory
     );
   }
 
-  sortByName(restaurantList: Restaurant[] = this.restaurantList) {
+  sortByName(restaurantList: Restaurant[]) {
     return [...restaurantList].sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  sortByDistance(restaurantList: Restaurant[] = this.restaurantList) {
+  sortByDistance(restaurantList: Restaurant[]) {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
+  }
+
+  filterAndSort() {
+    const filteredRestaurantList = this.filter();
+
+    if (this.currentSortingCriterion === "name") {
+      return this.sortByName(filteredRestaurantList);
+    }
+
+    return this.sortByDistance(filteredRestaurantList);
   }
 }
 
