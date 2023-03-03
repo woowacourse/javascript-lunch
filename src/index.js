@@ -4,6 +4,7 @@ import Header from './components/Header.js';
 import Main from './components/Main.js';
 import AddModal from './components/AddModal.js';
 import { $ } from './utils/domHelpers';
+import '../templates/add-button.png';
 
 const restaurantManager = new RestaurantManager();
 const header = new Header();

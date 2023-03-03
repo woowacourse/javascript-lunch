@@ -1,9 +1,11 @@
+import { RESTAURANT_IMAGE } from '../constants/images.ts';
+
 export default class RestaurantItem {
   render({ category, storeName, distance, detail }) {
     return `
         <li class="restaurant">
         <div class="restaurant__category">
-          <img src="../../templates/category-korean.png" alt="${category}" class="category-icon">
+          <img src="${RESTAURANT_IMAGE[category]}" alt="${category}" class="category-icon">
         </div>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${storeName}</h3>
