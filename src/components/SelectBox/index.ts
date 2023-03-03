@@ -1,6 +1,6 @@
 import $template from './index.html';
 import { store } from './../../store';
-import { Category } from '../../types';
+import { Category, SortFilter } from '../../types';
 
 class SelectBox extends HTMLElement {
   constructor() {
@@ -9,11 +9,15 @@ class SelectBox extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    const $filterContainer = this.querySelector('.restaurant-filter-container') as HTMLElement;
     const $categorySelectBox = this.querySelector('#category-filter') as HTMLSelectElement;
+    const $sortSelectBox = this.querySelector('#sorting-filter') as HTMLSelectElement;
 
-    $categorySelectBox.addEventListener('change', () => {
+    $filterContainer.addEventListener('change', () => {
       const categoryFilter = $categorySelectBox.value as Category;
+      const sortFilter = $sortSelectBox.value as SortFilter;
       store.filterRestaurants(categoryFilter);
+      store.sortRestaurants(sortFilter);
     });
   }
 

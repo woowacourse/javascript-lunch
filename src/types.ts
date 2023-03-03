@@ -10,3 +10,4 @@ export interface Restaurant {
 }
 
 export type CategoryFilter = '전체' | Category;
+export type SortFilter = 'name' | 'distance';
