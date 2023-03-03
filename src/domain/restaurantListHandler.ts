@@ -22,7 +22,7 @@ class RestaurantListHandler {
     return [...this.restaurants];
   }
 
-  getSortedByName(restaurants: Restaurant[]): Restaurant[] {
+  getSortedByName(restaurants: Restaurant[] = this.restaurants): Restaurant[] {
     return [...restaurants].sort((resA, resB) =>
       resA.name.localeCompare(resB.name, Constants.KOREAN)
     );

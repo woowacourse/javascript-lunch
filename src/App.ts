@@ -11,7 +11,7 @@ class App {
   restaurantList: Restaurant[];
 
   constructor(body: Element) {
-    this.restaurantList = restaurantListHandler.getRestaurants();
+    this.restaurantList = restaurantListHandler.getSortedByName();
 
     Header.render(body);
     SelectContainer.render(body, this.sortList);
