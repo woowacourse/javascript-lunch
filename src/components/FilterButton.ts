@@ -17,16 +17,12 @@ const FilterButton = {
     const restaurantListContainer = document.querySelector(
       ".restaurant-list-container"
     ) as HTMLElement;
-    const restaurantFilter = document.querySelector(
+    const categoryFilter = document.querySelector(
       "#category-filter"
     ) as HTMLSelectElement;
-    restaurantFilter?.addEventListener("change", () => {
-      const selectValue =
-        restaurantFilter.options[restaurantFilter.selectedIndex].value;
-      const result = RestaurantList.filter(
-        RestaurantList.originList,
-        selectValue
-      );
+    categoryFilter?.addEventListener("change", () => {
+      const select = categoryFilter.options[categoryFilter.selectedIndex].value;
+      const result = RestaurantList.listUp(select, RestaurantList.sortState);
       restaurantListContainer.innerHTML = RestaurantList.template(result);
     });
   },

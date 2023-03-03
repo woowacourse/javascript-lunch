@@ -1,3 +1,5 @@
+import RestaurantList from "./RestaurantList";
+
 const SortButton = {
   template() {
     return `<select name="sorting" id="sorting-filter" class="restaurant-filter">
@@ -7,10 +9,16 @@ const SortButton = {
   },
 
   setEvent() {
-    const sortingFilter = document.querySelector("#sorting-filter");
-    sortingFilter?.addEventListener("click", () => {
-      // 이벤트 추가 필요
-      console.log("sort");
+    const restaurantListContainer = document.querySelector(
+      ".restaurant-list-container"
+    ) as HTMLElement;
+    const sortingFilter = document.querySelector(
+      "#sorting-filter"
+    ) as HTMLSelectElement;
+    sortingFilter?.addEventListener("change", () => {
+      const select = sortingFilter.options[sortingFilter.selectedIndex].value;
+      const result = RestaurantList.listUp(RestaurantList.filterState, select);
+      restaurantListContainer.innerHTML = RestaurantList.template(result);
     });
   },
 };

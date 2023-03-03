@@ -17,8 +17,7 @@ class App {
 
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
-    RestaurantList.originList = RestaurantList.defaultList(mockList);
-    RestaurantList.valList = RestaurantList.defaultList(mockList);
+    RestaurantList.defaultList(mockList);
   }
 
   render() {
