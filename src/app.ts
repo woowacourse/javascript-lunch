@@ -1,9 +1,11 @@
 import AddModalContainer from './components/AddModalContainer';
+import FilterBar from './components/FilterBar';
 import ListContainer from './components/ListContainer';
 import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
 import IRestaurantInput from './interfaces/IRestaurantInput';
+import sortItemsByName from './utils/sortByName';
 import { restaurantInputValidator } from './validator/restaurantInputValidator';
 
 class App extends Component {
@@ -11,6 +13,7 @@ class App extends Component {
     this.$state = {
       isModalOpened: false,
       restaurantList: this.getRestaurants(),
+      filterOptions: { category: '전체', order: '이름순' },
     };
   }
 
@@ -37,7 +40,7 @@ class App extends Component {
     ) as HTMLElement;
     const $filterBar = this.$target.querySelector(
       '.restaurant-filter-container'
-    );
+    ) as HTMLElement;
     const $listContainer = this.$target.querySelector(
       '.restaurant-list-container'
     ) as HTMLElement;
@@ -52,9 +55,10 @@ class App extends Component {
       addRestaurant: addRestaurant.bind(this),
     });
 
-    // new FilterBar($filterBar, {
-    //   filterList: filterList.bind(this),
-    // });
+    new FilterBar($filterBar, {
+      filterList: filterList.bind(this),
+      filterOptions: this.$state.filterOptions,
+    });
 
     new ListContainer($listContainer, {
       restaurantList: this.$state.restaurantList,
@@ -76,13 +80,34 @@ class App extends Component {
   }
 
   filterList(category: Category, order: Order) {
-    const categorySortedList = this.getRestaurants().filter((restaurant) => {
-      return restaurant.category === category;
-    });
+    const categoryFilteredList = this.getFilteredListByCategory(category);
 
-    return categorySortedList.sort((first, second) => {
-      return +first.distance - +second.distance;
+    if (order === Order.Name) {
+      sortItemsByName(categoryFilteredList);
+    }
+
+    if (order === Order.Distance) {
+      categoryFilteredList.sort(
+        (first, second) => +first.distance - +second.distance
+      );
+    }
+
+    this.setState({
+      restaurantList: categoryFilteredList,
+      filterOptions: { category, order },
     });
+  }
+
+  getFilteredListByCategory(category: Category) {
+    const restaurantList = [...this.getRestaurants()];
+
+    if (category === Category.All) {
+      return restaurantList;
+    }
+
+    return restaurantList.filter(
+      (restaurant) => restaurant.category === category
+    );
   }
 
   getRestaurants(): IRestaurantInput[] {
