@@ -167,7 +167,7 @@ body {
   display: -webkit-box;
 
   padding-top: 8px;
-  width: 50%;
+  /* width: 60%; */
 
   overflow: auto;
   text-overflow: ellipsis;
