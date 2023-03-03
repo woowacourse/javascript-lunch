@@ -16,6 +16,8 @@ export default class App {
       this.renderBySelectedFilterOptions.bind(this)
     );
 
+    $('.gnb__button').addEventListener('click', this.toggleModal);
+
     $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
   }
 
@@ -31,6 +33,10 @@ export default class App {
     );
 
     this.render(sortedRestaurants);
+  }
+
+  toggleModal() {
+    $('.modal').classList.toggle('modal--open');
   }
 
   getTemplate(restaurants) {
