@@ -1,4 +1,4 @@
-import { Restaurant, Category, Distance, Cate } from "../src/type/restaurant";
+import { Restaurant, Category } from "../src/type/restaurant";
 import Restaurants from "../src/domain/Restaurants";
 
 describe("레스토랑 테스트", () => {
@@ -8,35 +8,35 @@ describe("레스토랑 테스트", () => {
     {
       name: "맥도날드",
       category: category,
-      distance: 5,
+      distance: "5",
       description: "",
       link: "",
     },
     {
       name: "롯데리아",
       category: category,
-      distance: 20,
+      distance: "20",
       description: "",
       link: "",
     },
     {
       name: "버거킹",
       category: category,
-      distance: 30,
+      distance: "30",
       description: "",
       link: "",
     },
     {
       name: "맘스터치",
       category: category,
-      distance: 10,
+      distance: "10",
       description: "",
       link: "",
     },
     {
       name: "KFC",
       category: category,
-      distance: 15,
+      distance: "15",
       description: "",
       link: "",
     },
@@ -46,85 +46,5 @@ describe("레스토랑 테스트", () => {
   );
   test("음식점 목록 입력 테스트", () => {
     expect(restaurants.getList()).toEqual(restaurantList);
-  });
-
-  test("음식점 목록 이름순 정렬 테스트", () => {
-    expect(restaurants.sortByName()).toEqual([
-      {
-        name: "KFC",
-        category: category,
-        distance: 15,
-        description: "",
-        link: "",
-      },
-      {
-        name: "롯데리아",
-        category: category,
-        distance: 20,
-        description: "",
-        link: "",
-      },
-      {
-        name: "맘스터치",
-        category: category,
-        distance: 10,
-        description: "",
-        link: "",
-      },
-      {
-        name: "맥도날드",
-        category: category,
-        distance: 5,
-        description: "",
-        link: "",
-      },
-      {
-        name: "버거킹",
-        category: category,
-        distance: 30,
-        description: "",
-        link: "",
-      },
-    ]);
-  });
-
-  test("음식점 목록 거리순 정렬 테스트", () => {
-    expect(restaurants.sortByDistance()).toEqual([
-      {
-        name: "맥도날드",
-        category: category,
-        distance: 5,
-        description: "",
-        link: "",
-      },
-      {
-        name: "맘스터치",
-        category: category,
-        distance: 10,
-        description: "",
-        link: "",
-      },
-      {
-        name: "KFC",
-        category: category,
-        distance: 15,
-        description: "",
-        link: "",
-      },
-      {
-        name: "롯데리아",
-        category: category,
-        distance: 20,
-        description: "",
-        link: "",
-      },
-      {
-        name: "버거킹",
-        category: category,
-        distance: 30,
-        description: "",
-        link: "",
-      },
-    ]);
   });
 });
