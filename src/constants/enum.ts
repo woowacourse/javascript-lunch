@@ -8,5 +8,6 @@ export enum Category {
 }
 
 export enum Order {
-  Distance = '거리순',
+  Name = 'name',
+  Distance = 'distance',
 }
