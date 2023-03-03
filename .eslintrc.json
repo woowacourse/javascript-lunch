@@ -1,11 +1,33 @@
 {
-  "rules": {},
   "env": {
     "es6": true,
-    "node": true
+    "jest": true,
+    "browser": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base/legacy",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "class-methods-use-this": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.js"
+      ],
+      "rules": {
+        "strict": "off"
+      }
+    }
+  ]
 }
