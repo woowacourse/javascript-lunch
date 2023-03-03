@@ -1,7 +1,14 @@
 import { CATEGORIES, DISTANCES } from '../constants/formCondition';
 import { ERROR_MESSAGE } from '../constants/message';
+import { Restaurant } from '../types';
 
 const Validator = {
+  validateFormData({ category, name, distance }: Restaurant) {
+    this.validateCategory(category);
+    this.validateRestaurantName(name);
+    this.validateDistance(distance);
+  },
+
   validateCategory(selectedCategory: string) {
     if (this.isEmptyFormValue(selectedCategory)) {
       throw new Error(ERROR_MESSAGE.emptyCategory);

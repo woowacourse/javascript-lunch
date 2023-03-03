@@ -1,4 +1,5 @@
 import Restaurants from './domain/Restaurants';
+import Validator from './domain/Validator';
 import { $ } from './utils/dom';
 
 export default class App {
@@ -33,6 +34,41 @@ export default class App {
     );
 
     this.render(sortedRestaurants);
+  }
+
+  onSubmitAddRestaurantForm(e) {
+    e.preventDefault();
+
+    const {
+      category: { value: category },
+      name: { value: name },
+      distance: { value: distance },
+      description: { value: description },
+      link: { value: link },
+    } = e.target.elements;
+
+    try {
+      Validator.validateFormData({ category, name, distance });
+    } catch ({ message }) {
+      alert(message);
+
+      return;
+    }
+
+    const restaurant = {
+      category,
+      name,
+      distance,
+      description,
+      link,
+    };
+
+    this.#restaurants.addRestaurant(restaurant);
+
+    e.target.reset();
+    this.toggleModal();
+
+    this.renderBySelectedFilterOptions();
   }
 
   toggleModal() {
