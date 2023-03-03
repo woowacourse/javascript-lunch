@@ -10,12 +10,13 @@ class Select {
     this.attribute = attribute;
   }
 
-  addEvent(id: string, callback: (id: string, value: string) => void) {
+  addEvent(id: string, rerenderList: (id: string, value: string) => void) {
     const selectEl = $(`#${id}`);
     selectEl?.addEventListener("change", () => {
       const select = selectEl as HTMLSelectElement;
       const selectedOption = select.options[select.selectedIndex];
-      callback(id, selectedOption.value);
+
+      rerenderList(id, selectedOption.value);
     });
   }
 

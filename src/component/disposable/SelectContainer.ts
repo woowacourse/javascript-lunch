@@ -1,3 +1,4 @@
+import { Constants } from "../../constant/Constants";
 import Select from "../reusable/Select";
 
 class SelectContainer {
@@ -38,14 +39,11 @@ class SelectContainer {
     `;
   }
 
-  render(target: Element, callback: (id: string, value: string) => void) {
+  render(target: Element, rerenderList: (id: string, value: string) => void) {
     target.insertAdjacentHTML("beforeend", this.template());
-    this.categorySelect.addEvent("category-filter", (id, value) =>
-      callback(id, value)
-    );
-    this.sortingSelect.addEvent("sorting-filter", (id, value) =>
-      callback(id, value)
-    );
+
+    this.categorySelect.addEvent(Constants.CATEGORY_FILTER, rerenderList);
+    this.sortingSelect.addEvent(Constants.SORTING_FILTER, rerenderList);
   }
 }
 
