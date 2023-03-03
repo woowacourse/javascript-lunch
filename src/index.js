@@ -4,8 +4,8 @@ import CategorySelectBox from "./components/CategorySelectBox";
 import NavBar from "./components/NavBar";
 import RestaurantList from "./components/RestaurantList";
 import SortingSelectBox from "./components/SortingSelectBox";
-import "./css/style.css";
 import Controller from "./domain/Controller";
+import "./css/style.css";
 
 const controller = new Controller();
 globalThis.controller = controller;
