@@ -4,8 +4,6 @@
 
 import { screen, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
-import Modal from "../src/util/Modal";
-import { $ } from "../src/util/querySelector";
 import RestaurantInfo from "../src/domain/RestaurantInfo";
 
 document.body.innerHTML = `
