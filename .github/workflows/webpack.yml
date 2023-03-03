@@ -27,7 +27,7 @@ jobs:
       - uses: actions/cache@v3
         id: cache
         with:
-          path: "**/node_modules" # node_modules 폴더를 캐싱합니다
+          path: '**/node_modules' # node_modules 폴더를 캐싱합니다
           # package-lock.json 파일이 변경되었을 때 캐시될 수 있게 합니다
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           # cache hit이 발생하지 않았을 경우, restore-keys 에 있는 것을 꺼냅니다.
@@ -41,7 +41,7 @@ jobs:
         # npm ci 실행은 skip합니다.
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - run: npm run start # package.json에 빌드 스크립트를 여기 적으세요
+      - run: npm run build # package.json에 빌드 스크립트를 여기 적으세요
 
       # publish_dir에 들어있는 파일들을 gh-pages 브랜치에 올려줍니다.
       - uses: peaceiris/actions-gh-pages@v3
