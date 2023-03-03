@@ -45,28 +45,32 @@ class ModalView {
         return onSubmitRestaurantAddForm(restaurantItem);
       }
 
-      if (errors.category) {
-        this.categoryInputCaption.classList.add("error-text");
-        this.categoryInputCaption.textContent = ERROR_MESSAGE.EMPTY_CATEGORY;
-      }
-
-      if (errors.name) {
-        this.nameInputCaption.classList.add("error-text");
-        this.nameInputCaption.textContent = ERROR_MESSAGE.INVALID_NAME;
-        this.nameInput.value = "";
-      }
-
-      if (errors.distance) {
-        this.distanceInputCaption.classList.add("error-text");
-        this.distanceInputCaption.textContent = ERROR_MESSAGE.EMPTY_DISTANCE;
-      }
-
-      if (errors.link) {
-        this.linkInputCaption.classList.add("error-text");
-        this.linkInputCaption.textContent = ERROR_MESSAGE.INVALID_LINK;
-        this.linkInput.value = "";
-      }
+      this.showErrorMessages(errors);
     });
+  }
+
+  showErrorMessages(errors: Errors) {
+    if (errors.category) {
+      this.categoryInputCaption.classList.add("error-text");
+      this.categoryInputCaption.textContent = ERROR_MESSAGE.EMPTY_CATEGORY;
+    }
+
+    if (errors.name) {
+      this.nameInputCaption.classList.add("error-text");
+      this.nameInputCaption.textContent = ERROR_MESSAGE.INVALID_NAME;
+      this.nameInput.value = "";
+    }
+
+    if (errors.distance) {
+      this.distanceInputCaption.classList.add("error-text");
+      this.distanceInputCaption.textContent = ERROR_MESSAGE.EMPTY_DISTANCE;
+    }
+
+    if (errors.link) {
+      this.linkInputCaption.classList.add("error-text");
+      this.linkInputCaption.textContent = ERROR_MESSAGE.INVALID_LINK;
+      this.linkInput.value = "";
+    }
   }
 
   addCategoryChangeEvent() {
