@@ -12,9 +12,9 @@ import '../images/favorite-icon-lined.png';
 
 import LunchMenuApp from './LunchMenuApp';
 
-import RestaurantList from './view/components/RestaurantList';
-import RestaurantListItem from './view/components/RestaurantListItem';
-import RestaurantRegisterModal from './view/components/RestaurantRegisterModal';
-import RestaurantFilter from './view/components/RestaurantFilter';
+import RestaurantList from './components/RestaurantList';
+import RestaurantListItem from './components/RestaurantListItem';
+import RestaurantRegisterModal from './components/RestaurantRegisterModal';
+import RestaurantFilter from './components/RestaurantFilter';
 
 LunchMenuApp.init();

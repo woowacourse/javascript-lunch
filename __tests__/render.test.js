@@ -5,10 +5,10 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 
-import RestaurantList from '../src/view/components/RestaurantList';
-import RestaurantListItem from '../src/view/components/RestaurantListItem';
-import RestaurantRegisterModal from '../src/view/components/RestaurantRegisterModal';
-import RestaurantFilter from '../src/view/components/RestaurantFilter';
+import RestaurantList from '../src/components/RestaurantList';
+import RestaurantListItem from '../src/components/RestaurantListItem';
+import RestaurantRegisterModal from '../src/components/RestaurantRegisterModal';
+import RestaurantFilter from '../src/components/RestaurantFilter';
 
 describe('컴포넌트 렌더링 테스트', () => {
   beforeEach(() => {
