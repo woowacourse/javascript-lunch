@@ -1,4 +1,5 @@
 import GLOBAL_CSS from '../constants';
+import logo from '../assets/add-button.png';
 
 class Header extends HTMLElement {
   constructor() {
@@ -51,7 +52,7 @@ class Header extends HTMLElement {
     <header id="head" class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" id="openModal" class="gnb__button" aria-label="음식점 추가">
-        <img src="./assets/add-button.png" alt="음식점 추가" />
+        <img src=${logo} alt="음식점 추가" />
       </button>
     </header>
     `;

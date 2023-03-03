@@ -1,10 +1,25 @@
 import GLOBAL_CSS from '../constants';
+import koreanImage from '../assets/category-korean.png';
+import chineseImage from '../assets/category-chinese.png';
+import japaneseImage from '../assets/category-japanese.png';
+import westernImage from '../assets/category-western.png';
+import asianImage from '../assets/category-asian.png';
+import etcImage from '../assets/category-etc.png';
 
 class RestaurantBox extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
+  getCategoryImage = (category) => {
+    if (category === '한식') return koreanImage;
+    if (category === '중식') return chineseImage;
+    if (category === '일식') return japaneseImage;
+    if (category === '양식') return westernImage;
+    if (category === '아시안') return asianImage;
+    if (category === '기타') return etcImage;
+  };
 
   connectedCallback() {
     const globalStyle = document.createElement('style');
@@ -76,7 +91,9 @@ class RestaurantBox extends HTMLElement {
     template.innerHTML = `
     <li class="restaurant">
           <div class="restaurant__category">
-            <img src="./category-chinese.png" alt=${category} class="category-icon">
+            <img src=${this.getCategoryImage(
+              category
+            )} alt=${category} class="category-icon">
           </div>
           <div class="restaurant__info">
             <h3 class="restaurant__name text-subtitle">${name}</h3>

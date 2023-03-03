@@ -8,7 +8,6 @@ class LunchRecommendation {
 
   constructor() {
     const userList = JSON.parse(localStorage.getItem('userList'));
-    console.log(userList);
 
     if (userList) {
       userList.forEach((restaurant) => {
@@ -106,7 +105,6 @@ class LunchRecommendation {
 
         const englishSortingValue =
           sortingValue === '이름순' ? 'name' : 'distance';
-        console.log(sortingValue, englishSortingValue);
         const filteredList = this.#restaurants.getList(
           categoryValue,
           englishSortingValue

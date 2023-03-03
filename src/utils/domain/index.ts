@@ -25,3 +25,5 @@ const sortByType = (restaurantList: Restaurant[], type: SortTypeAll) => {
 };
 
 export { filterByCategory, sortByType };
+
+
