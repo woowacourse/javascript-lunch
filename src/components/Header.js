@@ -1,4 +1,4 @@
-import GLOBAL_CSS from '../constants';
+import { GLOBAL_CSS } from '../constants';
 import logo from '../assets/add-button.png';
 
 class Header extends HTMLElement {

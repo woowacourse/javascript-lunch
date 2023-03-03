@@ -1,4 +1,4 @@
-import GLOBAL_CSS from '../constants';
+import { GLOBAL_CSS } from '../constants';
 
 class CategoryList extends HTMLElement {
   constructor() {

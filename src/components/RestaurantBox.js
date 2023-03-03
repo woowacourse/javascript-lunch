@@ -1,4 +1,4 @@
-import GLOBAL_CSS from '../constants';
+import { GLOBAL_CSS } from '../constants';
 import koreanImage from '../assets/category-korean.png';
 import chineseImage from '../assets/category-chinese.png';
 import japaneseImage from '../assets/category-japanese.png';
