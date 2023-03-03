@@ -1,6 +1,16 @@
 import '../../assets/add-button.png';
+import { useEvents } from '../../utils/core';
 
-function Header() {
+interface HeaderProps {
+  open: VoidFunction;
+}
+
+function Header({ open }: HeaderProps) {
+  const [addEvent] = useEvents('.gnb');
+
+  addEvent('click', '.gnb__button', (e) => {
+    open();
+  });
   return `
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
