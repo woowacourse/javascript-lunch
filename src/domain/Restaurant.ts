@@ -24,13 +24,15 @@ class Restaurant {
   private referenceUrl?: string;
 
   constructor({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) {
-    this.validate(name);
+    this.validateCategory(category);
+    this.validateName(name);
+    this.validateDistanceByMinutes(distanceByMinutes);
 
     this.category = category;
     this.name = name;
     this.distanceByMinutes = distanceByMinutes;
-    this.description = description;
-    this.referenceUrl = referenceUrl;
+    this.description = description || undefined;
+    this.referenceUrl = referenceUrl || undefined;
   }
 
   isMatchCategory(searchCategory: string) {
@@ -53,11 +55,23 @@ class Restaurant {
     return this.category;
   }
 
-  validate(name: string) {
+  private validateCategory(category: string) {
+    if (!(Restaurant.CATEGORIES as readonly string[]).includes(category)) {
+      throw new Error(`카테고리는 ${Restaurant.CATEGORIES.join(', ')} 중 하나여야 합니다.`);
+    }
+  }
+
+  private validateName(name: string) {
     Validation.validateRestaurantNameLength(name);
   }
-}
 
-(globalThis as any).Restaurant = Restaurant;
+  private validateDistanceByMinutes(distanceByMinutes: number) {
+    if (!(Restaurant.DISTANCE_BY_MINUTES as readonly number[]).includes(distanceByMinutes)) {
+      throw new Error(
+        `거리는 ${Restaurant.DISTANCE_BY_MINUTES.join('분, ')}분 중 하나여야 합니다.`,
+      );
+    }
+  }
+}
 
 export default Restaurant;
