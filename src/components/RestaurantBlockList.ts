@@ -20,16 +20,6 @@ class RestaurantBlockList {
       new RestaurantBlock(restaurant);
     });
   }
-
-  // static addRestaurant(restaurant: RestaurantBlock) {
-  //   $('.restaurant-list').insertAdjacentHTML('beforeend', restaurant.template);
-  // }
 }
-
-// const RestaurantBlockList = (restaurants: Restaurant[]) =>
-//   `<ul class="restaurant-list">${restaurants
-//     .map((restaurant) => RestaurantBlock(restaurant))
-//     .join('')}
-//     </ul>`;
 
 export default RestaurantBlockList;
