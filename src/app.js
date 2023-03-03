@@ -41,6 +41,7 @@ export default class App extends Component {
       restaurantList: sortedList,
       modalOpen: false,
       sortingWay: "name",
+      category: "전체",
     };
   }
 
@@ -57,8 +58,8 @@ export default class App extends Component {
   }
 
   mounted() {
-    const { toggleModal, addRestaurant, setSortingWay } = this;
-    const { restaurantList, sortingWay } = this.state;
+    const { toggleModal, addRestaurant, setSortingWay, setCategory } = this;
+    const { restaurantList, sortingWay, category } = this.state;
 
     const $header = this.$target.querySelector(".gnb");
     const $restaurantFilter = this.$target.querySelector(
@@ -72,7 +73,9 @@ export default class App extends Component {
     new Header($header, { toggleModal: toggleModal.bind(this) });
     new Filter($restaurantFilter, {
       sortingWay,
+      category,
       setSortingWay: setSortingWay.bind(this),
+      setCategory: setCategory.bind(this),
     });
     new RestaurantList($restaurantList, { restaurantList });
     new Modal($modal, {
@@ -112,6 +115,23 @@ export default class App extends Component {
     this.setState({
       restaurantList: newRestaurantList,
       sortingWay: sortingWay,
+    });
+  }
+
+  setCategory(category) {
+    const restaurantList = this.restaurantRepository.getRestaurantList();
+    const filteredRestaurantList = RestaurantRepository.categorizeRestaurants(
+      category,
+      restaurantList
+    );
+    const sortedRestaurantList = RestaurantRepository.sortRestaurants(
+      this.state.sortingWay,
+      filteredRestaurantList
+    );
+
+    this.setState({
+      restaurantList: sortedRestaurantList,
+      category: category,
     });
   }
 }
