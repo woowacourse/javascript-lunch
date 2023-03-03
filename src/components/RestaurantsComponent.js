@@ -13,11 +13,11 @@ class RestaurantsComponent extends CustomElement {
       .map((restaurant) => {
         return `
       <restaurant-element 
-      category=${restaurant.category} 
-      name=${restaurant.name} 
-      distance=${restaurant.distance} 
-      description=${restaurant.description}
-      link=${restaurant.link}
+      category="${restaurant.category}" 
+      name="${restaurant.name}" 
+      distance="${restaurant.distance}" 
+      description="${restaurant.description}" 
+      link="${restaurant.link}"
       >
       </restaurant-element>`;
       })
