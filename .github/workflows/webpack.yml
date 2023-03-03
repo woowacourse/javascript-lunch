@@ -41,7 +41,7 @@ jobs:
         # npm ci 실행은 skip합니다.
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - run: npm run build-step2 # package.json에 빌드 스크립트를 여기 적으세요
+      - run: npm run start # package.json에 빌드 스크립트를 여기 적으세요
 
       # publish_dir에 들어있는 파일들을 gh-pages 브랜치에 올려줍니다.
       - uses: peaceiris/actions-gh-pages@v3
