@@ -88,6 +88,8 @@ export default class Modal extends Component {
       toggleModal();
     });
 
+    this.addEvent("click", ".modal-backdrop", toggleModal);
+
     this.addEvent("submit", "#add-restaurant-form", (event) => {
       event.preventDefault();
 
