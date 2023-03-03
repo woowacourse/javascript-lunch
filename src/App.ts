@@ -11,9 +11,7 @@ class App {
   restaurantList: Restaurant[];
 
   constructor(body: Element) {
-    this.restaurantList = JSON.parse(
-      localStorage.getItem(Constants.RESTAURANT_LIST) as string
-    );
+    this.restaurantList = restaurantListHandler.getRestaurants();
     Header.render(body);
     SelectContainer.render(body, this.sortList);
     RestaurantList.render(body);
