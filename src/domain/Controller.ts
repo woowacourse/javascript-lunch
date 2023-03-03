@@ -1,3 +1,4 @@
+import RestaurantList from "../components/RestaurantList";
 import RestaurantType from "../type/Restaurant";
 import Restaurant from "./model/Restaurant";
 
@@ -10,25 +11,23 @@ class Controller {
   }
 
   getRestaurants() {
-    console.log("식당 부르기");
     return this.#restaurants;
   }
 
   addRestaurant(newRestaurant: RestaurantType) {
-    // 컨트롤러 배열에 저장 (임시)
-    this.#restaurants.push(new Restaurant(newRestaurant));
+    this.#restaurants = [...this.#restaurants, new Restaurant(newRestaurant)];
   }
 
   renderRestaurantList() {
-    // 재렌더링 요청
-    const restaurantList: any = document.getElementById("restaurantList");
-    restaurantList?.render();
+    const restaurantList = document.getElementById("restaurantList");
+    if (!(restaurantList instanceof RestaurantList)) {
+      return;
+    }
+    restaurantList.render();
   }
 
   updateRestaurantList(restaurants: RestaurantType[]) {
-    // localStorage에 저장
     this.setLocalStorage(restaurants);
-    // 재렌더링 요청
     this.renderRestaurantList();
   }
 
