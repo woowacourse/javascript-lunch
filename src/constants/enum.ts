@@ -1,4 +1,5 @@
 export enum Category {
+  All = '전체',
   Korean = '한식',
   Chinese = '중식',
   Japanese = '일식',
