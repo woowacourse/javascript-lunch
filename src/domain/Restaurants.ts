@@ -12,16 +12,18 @@ class Restaurants {
   }
 
   sortByName() {
-    return this.getList().sort((a, b) => {
+    this.#list = this.getList().sort((a, b) => {
       if (a.name <= b.name) return -1;
       return 1;
     });
+    return this.getList();
   }
 
   sortByDistance() {
-    return this.getList().sort(
+    this.#list = this.getList().sort(
       (a, b) => Number(a.distance) - Number(b.distance)
     );
+    return this.getList();
   }
 }
 

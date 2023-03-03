@@ -11,4 +11,4 @@ interface Restaurant {
   link: string;
 }
 
-export { Restaurant, Category, Distance, Cate };
+export { Restaurant, Category, Distance };
