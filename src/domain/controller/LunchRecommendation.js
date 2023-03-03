@@ -24,6 +24,7 @@ class LunchRecommendation {
     this.modalEvent();
     this.addRestaurantEvent();
     this.filterEvent();
+    this.sortEvent();
   }
 
   modalEvent() {
@@ -90,6 +91,32 @@ class LunchRecommendation {
   }
 
   filterEvent() {
+    $$$('#sortingFilter', '#sortingFilterSelect').addEventListener(
+      'change',
+      () => {
+        const categoryValue = $$$(
+          '#categoryFilter',
+          '#categoryFilterSelect'
+        ).value;
+
+        const sortingValue = $$$(
+          '#sortingFilter',
+          '#sortingFilterSelect'
+        ).value;
+
+        const englishSortingValue =
+          sortingValue === '이름순' ? 'name' : 'distance';
+        console.log(sortingValue, englishSortingValue);
+        const filteredList = this.#restaurants.getList(
+          categoryValue,
+          englishSortingValue
+        );
+        webView.renderRestaurantList(filteredList);
+      }
+    );
+  }
+
+  sortEvent() {
     $$$('#categoryFilter', '#categoryFilterSelect').addEventListener(
       'change',
       () => {

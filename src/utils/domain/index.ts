@@ -17,7 +17,7 @@ const sortByType = (restaurantList: Restaurant[], type: SortTypeAll) => {
   if (type === 'distance') {
     return [...restaurantList].sort(
       (aRestaurant, bRestaurant) =>
-        bRestaurant.getInfo().distance - aRestaurant.getInfo().distance
+        aRestaurant.getInfo().distance - bRestaurant.getInfo().distance
     );
   }
 
