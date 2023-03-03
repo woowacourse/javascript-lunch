@@ -11,6 +11,17 @@ class App {
   #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> =
     {};
 
+  updateRestaurants() {
+    document
+      .querySelector<RRestaurantList>('#restaurant-list')
+      ?.setRestaurants(
+        Object.values(this.#filterPipes).reduce(
+          (filteredRestaurants, filter) => filter(filteredRestaurants),
+          this.#restaurants,
+        ),
+      );
+  }
+
   init() {
     document.querySelector<RSelect>('#restaurant-filter-select')?.setOptions([
       { value: '전체', label: '전체' },
@@ -32,6 +43,7 @@ class App {
         ?.setRestaurants(Restaurants.getSorted(DEFAULT_RESTAURANTS, Restaurants.byName));
 
       this.#restaurants = DEFAULT_RESTAURANTS;
+      this.updateRestaurants();
     }
 
     document
@@ -39,16 +51,6 @@ class App {
       ?.addEventListener('click', () => {
         document.querySelector<RModal>('r-modal')?.open();
       });
-
-    const updateState = () =>
-      document
-        .querySelector<RRestaurantList>('#restaurant-list')
-        ?.setRestaurants(
-          Object.values(this.#filterPipes).reduce(
-            (filteredRestaurants, filter) => filter(filteredRestaurants),
-            this.#restaurants,
-          ),
-        );
 
     document
       .querySelector<RSelect>('#restaurant-filter-select')
@@ -64,7 +66,7 @@ class App {
             Restaurants.filterByCategory(_restaurants, String(value));
         }
 
-        updateState();
+        this.updateRestaurants();
       });
 
     document
@@ -82,7 +84,7 @@ class App {
 
         this.#filterPipes.sort = sortFilter;
 
-        updateState();
+        this.updateRestaurants();
       });
 
     document.querySelector<RSelect>('#restaurant-modal-category')?.setOptions([
