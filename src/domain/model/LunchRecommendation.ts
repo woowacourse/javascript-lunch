@@ -1,7 +1,12 @@
-type PickValue<T, K extends keyof T> = Pick<T, K>[K];
+import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
+import { errorHandler } from '../../utils/common/errorHandler';
+import { addData } from '../../utils/common/localStorage';
+import { validator } from '../../validation/validator';
 
-export type Category = '한식' | '중식' | '일식' | '양식' | '기타' | '아시안' | '전체';
-export type Filter = '이름순' | '거리순';
+export interface FilterType {
+  sortOption: SortOption;
+  category: Category;
+}
 
 export interface RestaurantInfo {
   id: number;
@@ -13,23 +18,20 @@ export interface RestaurantInfo {
 }
 
 export interface IRestaurant {
-  info: RestaurantInfo;
   getSomeInfo<T extends keyof RestaurantInfo>(type: T): RestaurantInfo[T];
-  getInfo(): RestaurantInfo;
 }
 
 interface ILunchRecommendation {
-  list: Restaurant[];
   add(restaurant: Omit<RestaurantInfo, 'id'>): void;
   delete(restaurantId: RestaurantInfo['id']): Restaurant[];
-  filterByCategory(category: Category): Restaurant[];
-  sortByName(): Restaurant[];
-  sortByDistance(): Restaurant[];
+  renderBy(filterType: FilterType): Restaurant[];
+  sortByName(list: Restaurant[]): Restaurant[];
+  sortByDistance(list: Restaurant[]): Restaurant[];
   getList(): Restaurant[];
 }
 
-class Restaurant implements IRestaurant {
-  readonly info: RestaurantInfo;
+export class Restaurant implements IRestaurant {
+  info: RestaurantInfo;
 
   constructor(info: RestaurantInfo) {
     const { name, category, distance } = info;
@@ -44,37 +46,44 @@ class Restaurant implements IRestaurant {
   getSomeInfo<T extends keyof RestaurantInfo>(type: T) {
     return this.info[type];
   }
-
-  getInfo() {
-    return this.info;
-  }
 }
 
-class LunchRecommendation implements ILunchRecommendation {
-  list: Restaurant[] = [];
+export class LunchRecommendation implements ILunchRecommendation {
+  private origin: Restaurant[] = [];
 
-  constructor(list: Restaurant[]) {
-    this.list = list;
+  constructor(infoList: RestaurantInfo[]) {
+    this.origin = infoList.map((info) => new Restaurant(info));
   }
 
   add(restaurantInfo: Omit<RestaurantInfo, 'id'>): void {
-    const id = this.list.length + 1;
-    this.list.push(new Restaurant({ ...restaurantInfo, id }));
+    errorHandler(validator, restaurantInfo);
+
+    const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
+    this.origin.push(new Restaurant({ ...restaurantInfo, id }));
+    addData(this.origin.map(({ info }) => info));
   }
 
   delete(restaurantId: RestaurantInfo['id']): Restaurant[] {
-    this.list = this.list.filter((restaurant) => restaurant.info.id !== restaurantId);
+    this.origin = this.origin.filter((restaurant) => restaurant.info.id !== restaurantId);
 
-    return this.list;
+    return this.origin;
   }
 
-  filterByCategory(category: string): IRestaurant[] {
-    return this.list.filter((restaurant) => restaurant.info.category === category);
+  filterByCategory(list: Restaurant[], category: string): Restaurant[] {
+    return list.filter((restaurant) => restaurant.info.category === category);
   }
 
-  sortByName(): IRestaurant[] {
-    return this.list.sort(
-      ({ info: { name: nameA } }: IRestaurant, { info: { name: nameB } }: IRestaurant) => {
+  renderBy({ sortOption, category }: FilterType) {
+    const filtered =
+      category === CATEGORY.ALL ? this.origin : this.filterByCategory(this.origin, category);
+    const sorted = sortOption === NAME ? this.sortByName(filtered) : this.sortByDistance(filtered);
+
+    return sorted;
+  }
+
+  sortByName(list: Restaurant[]): Restaurant[] {
+    return list.sort(
+      ({ info: { name: nameA } }: Restaurant, { info: { name: nameB } }: Restaurant) => {
         const upperA = nameA.toUpperCase();
         const upperB = nameB.toUpperCase();
 
@@ -86,11 +95,11 @@ class LunchRecommendation implements ILunchRecommendation {
     );
   }
 
-  sortByDistance(): IRestaurant[] {
-    return this.list.sort(
+  sortByDistance(list: Restaurant[]): Restaurant[] {
+    return list.sort(
       (
-        { info: { distance: distanceA } }: IRestaurant,
-        { info: { distance: distanceB } }: IRestaurant
+        { info: { distance: distanceA } }: Restaurant,
+        { info: { distance: distanceB } }: Restaurant
       ) => {
         return distanceA - distanceB;
       }
@@ -98,8 +107,6 @@ class LunchRecommendation implements ILunchRecommendation {
   }
 
   getList() {
-    return this.list;
+    return this.origin;
   }
 }
-
-export { Restaurant, LunchRecommendation };
