@@ -36,8 +36,7 @@ class ModalView {
       const hasError = Object.values(formErrors).some(Boolean);
 
       if (!hasError) {
-        this.restaurantAddForm.reset();
-        this.modal.close();
+        this.resetFormAndCloseModal();
         return onSubmitRestaurantAddForm(restaurantItem);
       }
 
@@ -124,8 +123,7 @@ class ModalView {
 
   addCloseButtonClickEvent() {
     this.closeButton.addEventListener("click", () => {
-      this.restaurantAddForm.reset();
-      this.modal.close();
+      this.resetFormAndCloseModal();
     });
   }
 
@@ -133,10 +131,14 @@ class ModalView {
     this.modal.addEventListener("click", (event) => {
       const target = event.target as HTMLDialogElement;
       if (target === event.currentTarget) {
-        this.restaurantAddForm.reset();
-        target.close();
+        this.resetFormAndCloseModal();
       }
     });
+  }
+
+  resetFormAndCloseModal() {
+    this.restaurantAddForm.reset();
+    this.modal.close();
   }
 }
 
