@@ -40,4 +40,4 @@ export class App {
   };
 }
 
-const app = new App();
+new App();
