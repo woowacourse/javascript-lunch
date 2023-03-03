@@ -58,7 +58,10 @@ class Button {
     this.#target.addEventListener('click', (e) => {
       e.preventDefault();
 
-      if (e.target instanceof HTMLButtonElement) {
+      if (
+        e.target instanceof HTMLButtonElement &&
+        e.target.closest(`.${this.#info.buttonStyle}`)
+      ) {
         this.modalButtonEvent(e.target.type);
       }
     });
