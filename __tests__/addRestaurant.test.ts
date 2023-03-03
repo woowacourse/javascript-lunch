@@ -29,7 +29,7 @@ document.body.innerHTML = `
 </form>
 `;
 
-test("음식점 입력정보를 가져오는 함수 테스트", () => {
+test("음식점 정보가 입력되었을 때 음식점 입력정보를 가져오는 함수 테스트", () => {
   const result = RestaurantInfo.get();
   expect(result).toEqual({
     category: "일식",
