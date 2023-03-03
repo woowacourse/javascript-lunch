@@ -7,47 +7,49 @@ import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./type/type";
 
 class App {
+  restaurantList: Restaurant[];
+
   constructor(body: Element) {
+    this.restaurantList = JSON.parse(
+      localStorage.getItem("restuarantList") as string
+    );
     Header.render(body);
     SelectContainer.render(body, this.sortList);
     RestaurantList.render(body);
     Modal.render(body, this.makeRestaurantList);
+    this.rerenderList();
   }
 
   makeRestaurantList = (restaurant: Restaurant): void => {
     restaurantListHandler.addRestaurant(restaurant);
 
-    const restaurantList = restaurantListHandler.getRestaurants();
-    RestaurantList.replaceTemplate(
-      restaurantList
-        .map((restaurant: Restaurant) =>
-          new RestaurantTicket(restaurant).template()
-        )
-        .join("")
-    );
+    this.restaurantList = restaurantListHandler.getRestaurants();
+    this.rerenderList();
   };
 
   sortList = (id: string, value: string) => {
-    let restaurantList = [];
-
     if (id === "category-filter") {
-      restaurantList = restaurantListHandler.getFilteredByCategory(value);
+      this.restaurantList = restaurantListHandler.getFilteredByCategory(value);
     } else {
       if (value === "거리순") {
-        restaurantList = restaurantListHandler.getSortedByTakingTime();
+        this.restaurantList = restaurantListHandler.getSortedByTakingTime();
       } else {
-        restaurantList = restaurantListHandler.getSortedByName();
+        this.restaurantList = restaurantListHandler.getSortedByName();
       }
     }
 
+    this.rerenderList();
+  };
+
+  rerenderList() {
     RestaurantList.replaceTemplate(
-      restaurantList
+      this.restaurantList
         .map((restaurant: Restaurant) =>
           new RestaurantTicket(restaurant).template()
         )
         .join("")
     );
-  };
+  }
 }
 
 export default App;

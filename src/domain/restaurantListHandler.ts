@@ -3,6 +3,12 @@ import { Category, Restaurant } from "../type/type";
 class RestaurantListHandler {
   restaurants: Restaurant[] = [];
 
+  constructor() {
+    this.restaurants = JSON.parse(
+      localStorage.getItem("restuarantList") as string
+    );
+  }
+
   getRestaurants(): Restaurant[] {
     return [...this.restaurants];
   }
