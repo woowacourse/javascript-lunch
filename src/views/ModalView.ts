@@ -37,8 +37,9 @@ class ModalView {
       ) as Restaurant;
 
       const errors: Errors = restaurantFormValidator.verify(restaurantItem);
+      const hasError = Object.values(errors).some((error) => error === true);
 
-      if (!(errors.category || errors.name || errors.distance || errors.link)) {
+      if (!hasError) {
         this.restaurantAddForm.reset();
         this.modal.close();
         return onSubmitRestaurantAddForm(restaurantItem);
