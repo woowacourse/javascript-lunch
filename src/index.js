@@ -1,17 +1,17 @@
-import "../templates/style.css";
-import "./components/RestaurantsComponent";
-import "./components/RestaurantComponent";
+import "../style.css";
+import "./components/restaurant/RestaurantsComponent";
+import "./components/restaurant/RestaurantComponent";
 import "./components/HeaderComponent";
 import "./components/SelectComponent";
-import "./components/ModalComponent";
+import "./components/modal/ModalComponent";
 
-import "../templates/add-button.png";
+import "../img/add-button.png";
 
-import "../templates/category-asian.png";
-import "../templates/category-chinese.png";
-import "../templates/category-etc.png";
-import "../templates/category-japanese.png";
-import "../templates/category-korean.png";
-import "../templates/category-western.png";
-import "../templates/favorite-icon-filled.png";
-import "../templates/favorite-icon-lined.png";
+import "../img/category-asian.png";
+import "../img/category-chinese.png";
+import "../img/category-etc.png";
+import "../img/category-japanese.png";
+import "../img/category-korean.png";
+import "../img/category-western.png";
+import "../img/favorite-icon-filled.png";
+import "../img/favorite-icon-lined.png";

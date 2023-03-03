@@ -1,5 +1,5 @@
-import { CATEGORY_IMG } from "../abstracts/constants";
-import CustomElement from "../abstracts/CustomElement";
+import { CATEGORY_IMG } from "../../abstracts/constants";
+import CustomElement from "../../abstracts/CustomElement";
 
 class RestaurantComponent extends CustomElement {
   template() {

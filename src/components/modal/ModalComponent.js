@@ -1,5 +1,4 @@
-import CustomElement from "../abstracts/CustomElement";
-import RestaurantAddFormComponent from "./RestaurantAddFormComponent";
+import CustomElement from "../../abstracts/CustomElement";
 
 class ModalComponent extends CustomElement {
   hide() {
