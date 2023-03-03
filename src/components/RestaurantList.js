@@ -10,7 +10,7 @@ export default function RestaurantList($root, restaurants) {
   $restaurantListSection.className = 'restaurant-list-cotainer';
 
   this.state = {
-    restaurantList: [], // 보여지는 객체 저장
+    restaurantList: [],
   };
 
   this.init = () => {

@@ -119,12 +119,8 @@ export default function App($app) {
     );
 
     let sorted = null;
-    if (filter === '이름순') {
-      sorted = sortByName(filtered);
-    }
-    if (filter === '거리순') {
-      sorted = sortByDistance(filtered);
-    }
+    if (filter === '이름순') sorted = sortByName(filtered);
+    if (filter === '거리순') sorted = sortByDistance(filtered);
 
     filters.setState({ filter, category });
 
