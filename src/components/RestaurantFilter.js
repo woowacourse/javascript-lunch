@@ -36,8 +36,8 @@ class RestaurantFilter {
   setEvent(restaurantList) {
     const $filters = document.querySelector('.restaurant-filter-container');
 
-    $filters.addEventListener('change', event => {
-      event.preventDefault();
+    $filters.addEventListener('change', e => {
+      e.preventDefault();
       restaurantList.render();
     });
   }
