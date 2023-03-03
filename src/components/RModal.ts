@@ -49,20 +49,13 @@ class RModal extends RComponent {
       .modal-title {
         margin-bottom: 36px;
       }
-
-      ::slotted(p) {
-        color: red;
-        margin-bottom: 20rem;
-      }
       </style>
 
       <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form>
-            <slot></slot>
-          </form>
+          <slot></slot>
         </div>
       </div>
     `;
@@ -84,7 +77,6 @@ class RModal extends RComponent {
         return;
       }
       if (action === 'submit') {
-        // validation?
         this.close();
       }
     });
