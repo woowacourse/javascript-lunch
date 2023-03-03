@@ -1,6 +1,6 @@
 import "../types/restaurant";
 
-export const RestaurantFilter = {
+const RestaurantFilter = {
   categorizeRestaurants(
     category: Category,
     restaurants: RestaurantInfo[]
@@ -20,3 +20,5 @@ export const RestaurantFilter = {
     return [...restaurants].sort((a, b) => (a.name > b.name ? 1 : -1));
   },
 };
+
+export default RestaurantFilter;

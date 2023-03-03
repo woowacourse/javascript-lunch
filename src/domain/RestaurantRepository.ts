@@ -14,24 +14,4 @@ export default class RestaurantRepository {
   getRestaurantList(): RestaurantInfo[] {
     return [...this.#restaurantList];
   }
-
-  static categorizeRestaurants(
-    category: Category,
-    restaurants: RestaurantInfo[]
-  ): RestaurantInfo[] {
-    if (category === "전체") return restaurants;
-    return [...restaurants].filter(
-      (restaurant) => restaurant.category === category
-    );
-  }
-
-  static sortRestaurants(
-    sortingWay: SortingWay,
-    restaurants: RestaurantInfo[]
-  ): RestaurantInfo[] {
-    if (sortingWay === "distance")
-      return [...restaurants].sort((a, b) => a.distance - b.distance);
-
-    return [...restaurants].sort((a, b) => (a.name > b.name ? 1 : -1));
-  }
 }
