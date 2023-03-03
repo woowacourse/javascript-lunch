@@ -1,4 +1,16 @@
+import { $ } from '../utils/domHelpers';
+
 class Header {
+  constructor() {
+    this.addEvent();
+  }
+
+  addEvent() {
+    $('.gnb').addEventListener('click', (e) => {
+      this.test(e);
+    });
+  }
+
   render() {
     return `
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -6,6 +18,13 @@ class Header {
           <img src="./add-button.png" alt="음식점 추가">
         </button>
       `;
+  }
+
+  test(e) {
+    if (e.target.parentNode.type === 'button') {
+      const modal = $('.modal');
+      modal.classList.add('modal--open');
+    }
   }
 }
 
