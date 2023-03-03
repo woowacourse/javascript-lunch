@@ -1,6 +1,6 @@
 import { $ } from "../utils/domSelectors";
 import createRestaurantItem from "./RestaurantItem";
-import { Restaurant } from "../domains/types";
+import { Restaurant } from "../types/types";
 
 const restaurantList = $(".restaurant-list") as HTMLUListElement;
 

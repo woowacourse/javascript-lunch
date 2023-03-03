@@ -1,5 +1,5 @@
 import { $ } from "../utils/domSelectors";
-import { Restaurant } from "../domains/types";
+import { Restaurant } from "../types/types";
 import { restaurantFormValidator } from "../domains/restaurantFormValidator";
 import { ERROR_MESSAGE } from "../constants/constants";
 

@@ -1,6 +1,6 @@
 import renderList from "./components/RestaurantList";
 import RestaurantService from "./domains/RestaurantService";
-import { Category, Criterion, Restaurant } from "./domains/types";
+import { Category, Criterion, Restaurant } from "./types/types";
 import MainView from "./views/MainView";
 import ModalView from "./views/ModalView";
 

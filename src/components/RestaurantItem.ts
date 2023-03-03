@@ -1,4 +1,4 @@
-import { Restaurant } from "../domains/types";
+import { Restaurant } from "../types/types";
 import { RESTAURANT_IMAGE } from "../constants/constants";
 
 const createRestaurantItem = function (restaurant: Restaurant) {

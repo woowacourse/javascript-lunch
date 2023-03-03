@@ -1,5 +1,5 @@
 import { REGEX, ERROR_MESSAGE } from "../constants/constants";
-import { Restaurant } from "./types";
+import { Restaurant } from "../types/types";
 
 export const restaurantFormValidator = {
   verify(restaurantItem: Restaurant) {

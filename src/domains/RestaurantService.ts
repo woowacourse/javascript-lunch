@@ -1,4 +1,4 @@
-import { AllCategory, Category, Criterion, Restaurant } from "./types";
+import { AllCategory, Category, Criterion, Restaurant } from "../types/types";
 
 class RestaurantService {
   private restaurantList: Restaurant[];
