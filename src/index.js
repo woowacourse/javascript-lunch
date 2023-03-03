@@ -1,13 +1,5 @@
 import './css/index.css';
-import '../templates/add-button.png';
-import '../templates/category-western.png';
-import '../templates/category-asian.png';
-import '../templates/category-chinese.png';
-import '../templates/category-etc.png';
-import '../templates/category-japanese.png';
-import '../templates/category-korean.png';
-import '../templates/favorite-icon-filled.png';
-import '../templates/favorite-icon-lined.png';
+import Image from '../image/image';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import RestaurantFilter from './components/RestaurantFilter';
