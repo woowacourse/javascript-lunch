@@ -30,7 +30,6 @@ module.exports = {
         loader: "file-loader",
         options: {
           name: "[name].[ext]",
-          esModule: false,
         },
       },
     ],
