@@ -1,4 +1,4 @@
-import { Restaurant } from "../../type/type";
+import { Category, Restaurant } from "../../type/type";
 import { categoryToSrc } from "../../utils/convertor";
 
 class RestaurantTicket {
@@ -12,7 +12,7 @@ class RestaurantTicket {
     return `
     <li class="restaurant">
       <div class="restaurant__category">
-        img src=${categoryToSrc(this.restaurant.category)} alt=${
+        <img src=${categoryToSrc(this.restaurant.category as Category)} alt=${
       this.restaurant.category
     } class="category-icon">
       </div>
