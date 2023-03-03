@@ -1,5 +1,3 @@
-import { Category, Distance } from "./type/restaurant";
-
 const Validator = {
   isEmptyInput(input: string) {
     return input.length === 0;

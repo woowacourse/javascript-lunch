@@ -1,4 +1,3 @@
-import { Restaurant } from "./type/restaurant";
 import { IMAGE } from "./util/ImageLoader";
 import { $ } from "./util/querySelector";
 
