@@ -20,7 +20,7 @@ class AddModalContainer extends Component {
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
               <select name="category" id="category" required>
-                <option value="">선택해 주세요</option>
+                <option value="" disabled selected>선택해 주세요</option>
                 <option value="한식">한식</option>
                 <option value="중식">중식</option>
                 <option value="일식">일식</option>
@@ -40,7 +40,7 @@ class AddModalContainer extends Component {
             <div class="form-item form-item--required">
               <label for="distance text-caption">거리(도보 이동 시간) </label>
               <select name="distance" id="distance" required>
-                <option value="">선택해 주세요</option>
+                <option value="" disabled selected>선택해 주세요</option>
                 <option value="5">5분 내</option>
                 <option value="10">10분 내</option>
                 <option value="15">15분 내</option>
@@ -101,7 +101,7 @@ class AddModalContainer extends Component {
     return {
       category: inputList[0].value,
       name: inputList[1].value,
-      distance: inputList[2].value,
+      distance: inputList[2].value || '0',
       description: inputList[3].value,
       link: inputList[4].value,
     };
