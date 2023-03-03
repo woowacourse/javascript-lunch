@@ -1,4 +1,6 @@
 import { $ } from "../utils/domSelectors";
+import renderList from "../components/RestaurantList";
+import { Restaurant } from "../types/types";
 
 class MainView {
   private addButton = $(".gnb__button") as HTMLButtonElement;
@@ -28,6 +30,10 @@ class MainView {
       const target = event.target as HTMLSelectElement;
       onChangeSortingFilter(target.value);
     });
+  }
+
+  renderRestaurantList(restaurant: Restaurant[]) {
+    renderList(restaurant);
   }
 }
 
