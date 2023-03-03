@@ -18,10 +18,6 @@ class ModalView {
 
   constructor() {
     this.addCloseButtonClickEvent();
-    this.addCategoryChangeEvent();
-    this.addNameInputEvent();
-    this.addDistanceChangeEvent();
-    this.addLinkInputEvent();
     this.addModalBackdropClickEvent();
   }
 
@@ -46,6 +42,7 @@ class ModalView {
       }
 
       this.showErrorMessages(errors);
+      this.addErrorMessageRemovingEvents();
     });
   }
 
@@ -74,32 +71,55 @@ class ModalView {
   }
 
   addCategoryChangeEvent() {
-    this.categoryInput.addEventListener("change", () => {
-      this.categoryInputCaption.classList.add("error-text");
-      this.categoryInputCaption.textContent = "";
-    });
+    this.categoryInput.addEventListener(
+      "change",
+      () => {
+        this.categoryInputCaption.classList.add("error-text");
+        this.categoryInputCaption.textContent = "";
+      },
+      { once: true }
+    );
   }
 
   addNameInputEvent() {
-    this.nameInput.addEventListener("input", () => {
-      this.nameInputCaption.classList.remove("error-text");
-      this.nameInputCaption.textContent = "";
-    });
+    this.nameInput.addEventListener(
+      "input",
+      () => {
+        this.nameInputCaption.classList.remove("error-text");
+        this.nameInputCaption.textContent = "";
+      },
+      { once: true }
+    );
   }
 
   addDistanceChangeEvent() {
-    this.distanceInput.addEventListener("change", () => {
-      this.distanceInputCaption.classList.remove("error-text");
-      this.distanceInputCaption.textContent = "";
-    });
+    this.distanceInput.addEventListener(
+      "change",
+      () => {
+        this.distanceInputCaption.classList.remove("error-text");
+        this.distanceInputCaption.textContent = "";
+      },
+      { once: true }
+    );
   }
 
   addLinkInputEvent() {
-    this.linkInput.addEventListener("input", () => {
-      this.linkInputCaption.classList.remove("error-text");
-      this.linkInputCaption.textContent =
-        "매장 정보를 확인할 수 있는 링크를 입력해 주세요.";
-    });
+    this.linkInput.addEventListener(
+      "input",
+      () => {
+        this.linkInputCaption.classList.remove("error-text");
+        this.linkInputCaption.textContent =
+          "매장 정보를 확인할 수 있는 링크를 입력해 주세요.";
+      },
+      { once: true }
+    );
+  }
+
+  addErrorMessageRemovingEvents() {
+    this.addCategoryChangeEvent();
+    this.addNameInputEvent();
+    this.addDistanceChangeEvent();
+    this.addLinkInputEvent();
   }
 
   addCloseButtonClickEvent() {
@@ -112,7 +132,9 @@ class ModalView {
   addModalBackdropClickEvent() {
     this.modal.addEventListener("click", (event) => {
       const target = event.target as HTMLDialogElement;
-      target.close();
+      if (target === event.currentTarget) {
+        target.close();
+      }
     });
   }
 }
