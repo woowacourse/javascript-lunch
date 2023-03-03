@@ -173,6 +173,8 @@ class App {
         $('#modal-form') as HTMLFormElement
       ) as Restaurant;
 
+      if (!this.validateInputData(restaurant)) return;
+
       this.#restaurants.addRestaurant(restaurant);
 
       this.setState({
@@ -185,6 +187,22 @@ class App {
 
     if (type === 'cancel') {
       this.setState({ isModal: false });
+    }
+  }
+
+  validateInputData(restaurant: Restaurant) {
+    const { category, distance, link, name } = restaurant;
+    try {
+      Validator.checkCategory(category);
+      Validator.checkName(name);
+      Validator.checkDistance(distance);
+      Validator.checkLink(link);
+      return true;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message);
+        return false;
+      }
     }
   }
 }
