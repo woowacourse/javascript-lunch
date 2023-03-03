@@ -46,17 +46,8 @@ class Controller {
   }
 
   sortRestaurants(key: string) {
-    // 리팩토링 필요
-    if (key === "name") {
-      const sortedRestaurants = [...this.#restaurants].sort((a, b) =>
-        a["name"].localeCompare(b["name"])
-      );
-      this.#restaurants = sortedRestaurants;
-      return;
-    }
-
-    const sortedRestaurants = [...this.#restaurants].sort(
-      (a, b) => a["distance"] - b["distance"]
+    const sortedRestaurants = [...this.#restaurants].sort((a: any, b: any) =>
+      a[key] > b[key] ? 1 : -1
     );
     this.#restaurants = sortedRestaurants;
   }
