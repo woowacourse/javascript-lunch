@@ -3,14 +3,14 @@ import { Restaurant } from "../types/types";
 
 const restaurantFormValidator = {
   verify(restaurantItem: Restaurant) {
-    const Errors: { [key: string]: Boolean } = {};
+    const errors: { [key: string]: Boolean } = {};
 
-    Errors["category"] = this.isEmptyCategory(restaurantItem.category);
-    Errors["name"] = this.isInvalidName(restaurantItem.name);
-    Errors["distance"] = this.isEmptyDistance(restaurantItem.distance);
-    Errors["link"] = this.isInvalidLink(restaurantItem.link);
+    errors["category"] = this.isEmptyCategory(restaurantItem.category);
+    errors["name"] = this.isInvalidName(restaurantItem.name);
+    errors["distance"] = this.isEmptyDistance(restaurantItem.distance);
+    errors["link"] = this.isInvalidLink(restaurantItem.link);
 
-    return Errors;
+    return errors;
   },
 
   isEmptyCategory(input: string) {

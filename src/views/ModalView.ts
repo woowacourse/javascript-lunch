@@ -36,31 +36,31 @@ class ModalView {
         ])
       ) as Restaurant;
 
-      const Errors = restaurantFormValidator.verify(restaurantItem);
+      const errors = restaurantFormValidator.verify(restaurantItem);
 
-      if (!(Errors.category || Errors.name || Errors.distance || Errors.link)) {
+      if (!(errors.category || errors.name || errors.distance || errors.link)) {
         this.restaurantAddForm.reset();
         this.modal.close();
         return onSubmitRestaurantAddForm(restaurantItem);
       }
 
-      if (Errors.category) {
+      if (errors.category) {
         this.categoryInputCaption.classList.add("error-text");
         this.categoryInputCaption.textContent = ERROR_MESSAGE.EMPTY_CATEGORY;
       }
 
-      if (Errors.name) {
+      if (errors.name) {
         this.nameInputCaption.classList.add("error-text");
         this.nameInputCaption.textContent = ERROR_MESSAGE.INVALID_NAME;
         this.nameInput.value = "";
       }
 
-      if (Errors.distance) {
+      if (errors.distance) {
         this.distanceInputCaption.classList.add("error-text");
         this.distanceInputCaption.textContent = ERROR_MESSAGE.EMPTY_DISTANCE;
       }
 
-      if (Errors.link) {
+      if (errors.link) {
         this.linkInputCaption.classList.add("error-text");
         this.linkInputCaption.textContent = ERROR_MESSAGE.INVALID_LINK;
         this.linkInput.value = "";
