@@ -12,10 +12,10 @@ class SortingSelectBox extends HTMLElement {
     this.insertAdjacentHTML(
       "afterbegin",
       `
-      <select name="sorting" id="sorting-filter" class="restaurant-filter">
-        <option id="sortingOptionName" value="name">이름순</option>
-        <option value="distance">거리순</option>
-      </select>
+        <select name="sorting" id="sorting-filter" class="restaurant-filter">
+          <option id="sortingOptionName" value="name">이름순</option>
+          <option value="distance">거리순</option>
+        </select>
       `
     );
   }
