@@ -18,6 +18,22 @@ class RInput extends RFormControl {
       <input>
     `;
   }
+
+  render(): void {
+    super.render();
+
+    this.shadowRoot
+      ?.querySelector<HTMLInputElement>('input')
+      ?.addEventListener('input', (event) => {
+        if (event.target instanceof HTMLInputElement) {
+          this.internals.setFormValue(event.target.value);
+        }
+      });
+  }
+
+  get value() {
+    return document.querySelector<HTMLInputElement>('input')?.value ?? '';
+  }
 }
 
 customElements.define('r-input', RInput);

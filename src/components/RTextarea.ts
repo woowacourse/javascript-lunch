@@ -1,6 +1,6 @@
-import RComponent from './RComponent';
+import RFormControl from './RFormControl';
 
-class RTextarea extends RComponent {
+class RTextarea extends RFormControl {
   renderTemplate(): string {
     return `
       <style>
@@ -18,6 +18,22 @@ class RTextarea extends RComponent {
       </style>
       <textarea rows="4"></textarea>
     `;
+  }
+
+  render(): void {
+    super.render();
+
+    this.shadowRoot
+      ?.querySelector<HTMLTextAreaElement>('textarea')
+      ?.addEventListener('input', (event) => {
+        if (event.target instanceof HTMLTextAreaElement) {
+          this.internals.setFormValue(event.target.value);
+        }
+      });
+  }
+
+  get value() {
+    return document.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
   }
 }
 

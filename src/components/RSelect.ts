@@ -13,6 +13,7 @@ class RSelect extends RFormControl {
   setOptions(options: RSelectOption[]) {
     this.#options = options;
     this.#selectedOption = null;
+
     this.render();
   }
 
@@ -26,8 +27,12 @@ class RSelect extends RFormControl {
 
   setSelectedOption(selectedOption: RSelectOption) {
     this.#selectedOption = selectedOption;
-
+    this.internals.setFormValue(String(selectedOption.value));
     this.dispatchEvent(new CustomEvent('change'));
+  }
+
+  get value() {
+    return String(this.#selectedOption?.value ?? '');
   }
 
   renderTemplate(): string {
