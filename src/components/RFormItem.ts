@@ -18,6 +18,10 @@ class RFormItem extends RComponent {
           color: var(--primary-color);
           content: '*';
         }
+
+        div {
+          margin-bottom: 36px;
+        }
       </style>
 
       <div>
