@@ -75,6 +75,10 @@ customElements.define(
       $('.modal-backdrop').addEventListener('click', () => this.closeModal());
     }
 
+    openModal() {
+      $('.modal').showModal();
+    }
+
     closeModal() {
       $('.modal').close();
     }

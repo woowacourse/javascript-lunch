@@ -10,10 +10,10 @@ import '../images/category-western.png';
 import '../images/favorite-icon-filled.png';
 import '../images/favorite-icon-lined.png';
 
-import LunchMenuController from './controller/LunchMenuController';
+import LunchMenuApp from './LunchMenuApp';
 
 import RestaurantList from './view/components/RestaurantList';
 import RestaurantListItem from './view/components/RestaurantListItem';
 import RestaurantRegisterModal from './view/components/RestaurantRegisterModal';
 
-LunchMenuController.init();
+LunchMenuApp.init();
