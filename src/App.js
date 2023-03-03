@@ -12,28 +12,13 @@ export default class App {
   }
 
   init() {
+    $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
     $('.restaurant-filter-container').addEventListener(
       'change',
       this.renderBySelectedFilterOptions.bind(this)
     );
-
-    $('.gnb__button').addEventListener('click', this.toggleModal);
-
-    $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
-  }
-
-  renderBySelectedFilterOptions() {
-    const categoryOption = $('#category-filter').value;
-    const sortOption = $('#sorting-filter').value;
-
-    const filterdRestaurants = this.#restaurants.getFilteredRestaurantsByCategory(categoryOption);
-
-    const sortedRestaurants = this.#restaurants.getSortedRestaurants(
-      filterdRestaurants,
-      sortOption
-    );
-
-    this.render(sortedRestaurants);
+    $('.modal-open-button').addEventListener('click', this.toggleModal);
+    $('.modal-close-button').addEventListener('click', this.toggleModal);
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -69,6 +54,20 @@ export default class App {
     this.toggleModal();
 
     this.renderBySelectedFilterOptions();
+  }
+
+  renderBySelectedFilterOptions() {
+    const categoryOption = $('#category-filter').value;
+    const sortOption = $('#sorting-filter').value;
+
+    const filterdRestaurants = this.#restaurants.getFilteredRestaurantsByCategory(categoryOption);
+
+    const sortedRestaurants = this.#restaurants.getSortedRestaurants(
+      filterdRestaurants,
+      sortOption
+    );
+
+    this.render(sortedRestaurants);
   }
 
   toggleModal() {

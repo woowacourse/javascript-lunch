@@ -10,7 +10,7 @@
     <!-- GNB -->
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-      <button type="button" class="gnb__button" aria-label="음식점 추가">
+      <button type="button" class="modal-open-button gnb__button" aria-label="음식점 추가">
         <img src="./add-button.png" alt="음식점 추가" />
       </button>
     </header>
@@ -95,7 +95,12 @@
 
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-              <button type="button" class="button button--secondary text-caption">취소하기</button>
+              <button
+                type="button"
+                class="modal-close-button button button--secondary text-caption"
+              >
+                취소하기
+              </button>
               <button class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
