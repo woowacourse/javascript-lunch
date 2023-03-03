@@ -4,39 +4,14 @@ import Filter from "./components/Filter";
 import RestaurantList from "./components/RestaurantList";
 import Modal from "./components/Modal";
 import RestaurantRepository from "./domain/RestaurantRepository";
-
-const dummyData = [
-  {
-    name: "라식당",
-    category: "한식",
-    distance: 5,
-    description: "라식당입니다.",
-  },
-  {
-    name: "다식당",
-    category: "일식",
-    distance: 10,
-    description: "다식당입니다.",
-  },
-  {
-    name: "나식당",
-    category: "아시안",
-    distance: 20,
-    description: "나식당입니다.",
-  },
-  {
-    name: "가식당",
-    category: "아시안",
-    distance: 20,
-    description: "가식당입니다.",
-  },
-];
+import store from "./util/store";
 
 export default class App extends Component {
   setup() {
-    // 로컬 스토리지에서 데이터 페칭
-    this.restaurantRepository = new RestaurantRepository(dummyData);
-    const sortedList = RestaurantRepository.sortRestaurants("name", dummyData);
+    const localList = store.getLocalStorage();
+    this.restaurantRepository = new RestaurantRepository(localList);
+    const sortedList = RestaurantRepository.sortRestaurants("name", localList);
+
     this.state = {
       restaurantList: sortedList,
       modalOpen: false,
@@ -100,7 +75,7 @@ export default class App extends Component {
     });
 
     this.restaurantRepository.addRestaurant(newRestaurant);
-    // 로컬에 새 음식점 추가
+    store.setLocalStorage(newRestaurantList);
 
     this.toggleModal();
   }
