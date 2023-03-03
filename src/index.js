@@ -7,6 +7,7 @@ import Alert from "./util/Alert";
 import { $ } from "./util/querySelector";
 import Filter from "./domain/Filter";
 import { IMAGE } from "./util/ImageLoader";
+import { sort } from "./domain/Sort";
 
 const saveLocalStorage = (initialCount) => {
     let cnt = initialCount
@@ -15,11 +16,19 @@ const saveLocalStorage = (initialCount) => {
         cnt += 1
         console.log(cnt)
     }
-}
+};
 
 const getLocalStorage = () => {
     return Object.values(window.localStorage).map(item => JSON.parse(item))
-}
+};
+
+const updateRestaurant = () => {
+    $(".restaurant-list-container").innerHTML = '';
+    const sortResult = sort(sortingFilter.value, newRestaurant.getList());
+    const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
+    return filterResult.forEach((element) => createElement(element))
+};
+
 
 const save = saveLocalStorage(localStorage.length);
 
@@ -45,17 +54,17 @@ const categoryFilter = $('#category-filter');
 const sortingFilter = $('#sorting-filter'); 
 
 const createElement = ({ category, name, distance, description, link }) => {
-    const listTemplate = $("#list-template")
-    const listClone = document.importNode(listTemplate.content, true)
+    const listTemplate = $("#list-template");
+    const listClone = document.importNode(listTemplate.content, true);
+
     listClone.querySelector(".restaurant__name").textContent = name;
     listClone.querySelector(".restaurant__distance").textContent = distance;
     listClone.querySelector(".restaurant__description").textContent = description;
-    console.log(category)
-    listClone.querySelector(".category-icon").src = IMAGE[category]
-    $(".restaurant-list-container").appendChild(listClone)
+    listClone.querySelector(".category-icon").src = IMAGE[category];
+    $(".restaurant-list-container").appendChild(listClone);
 };
 
-addButton.querySelector("img").src = IMAGE.ADD_BTN
+addButton.querySelector("img").src = IMAGE.ADD_BTN;
 addButton.addEventListener("click", () => {
   modal.open();
 });
@@ -145,46 +154,9 @@ window.onload = function () {
 }
 
 categoryFilter.addEventListener('change', () => {
-    // $(".restaurant-list-container").innerHTML = '';
-    // if (event.target.value === '전체') {
-    //     newRestaurant.getList().forEach((restaurant) => createElement(restaurant));
-    //     return;
-    // }
-    // Filter.byCategory(event.target.value, newRestaurant.getList())
-    //     .forEach((restaurant) => createElement(restaurant));
     updateRestaurant()
 });
 
 sortingFilter.addEventListener('change', () => {
-    // $(".restaurant-list-container").innerHTML = '';
-    // if (event.target.value === 'name') {
-    //     newRestaurant.sortByName().forEach((element) => createElement(element));
-    //     return;
-    // }
-    // if (event.target.value === 'distance') {
-    //     newRestaurant.sortByDistance().forEach((element) => createElement(element));
-    //     return;
-    // }
     updateRestaurant()
-
 });
-
-const sort = () => {
-    if (sortingFilter.value === 'name') {
-        return newRestaurant.sortByName()
-    }
-    if (sortingFilter.value === 'distance') {
-        return newRestaurant.sortByDistance()
-    }
-}
-const filter = (sortedRestaurant) => {
-    if (categoryFilter.value === '전체') {
-        return sortedRestaurant;
-    }
-    return Filter.byCategory(categoryFilter.value, sortedRestaurant)
-}
-
-const updateRestaurant = () => {
-    $(".restaurant-list-container").innerHTML = '';
-    filter(sort()).forEach((element) => createElement(element))
-}
