@@ -1,11 +1,14 @@
 import { Category } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { validatorUtils } from '@res/validator/validatorUtils';
 
 type InputElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 class AddModalContainer extends Component {
+  #isInputValid = true;
+
   template() {
-    const { isModalOpened } = this.$props;
+    const { isModalOpened, isAddFormValid } = this.$props;
 
     return `
       ${
@@ -28,12 +31,14 @@ class AddModalContainer extends Component {
                 <option value="아시안">아시안</option>
                 <option value="기타">기타</option>
               </select>
+              <p id='category-input' class='input-error-message'><p/>
             </div>
   
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
-              <label for="name text-caption">이름</label>
-              <input type="text" name="name" id="name" required />
+            <input type="text" name="name" id="name" required />
+            <label for="name text-caption">이름</label>
+              <p id='name-input class='input-error-message'><p/>
             </div>
   
             <!-- 거리 -->
@@ -47,6 +52,7 @@ class AddModalContainer extends Component {
                 <option value="20">20분 내</option>
                 <option value="30">30분 내</option>
               </select>
+              <p id='distance-input' class='input-error-message'><p/>
             </div>
   
             <!-- 설명 -->
@@ -61,6 +67,7 @@ class AddModalContainer extends Component {
               <span class="help-text text-caption"
                 >메뉴 등 추가 정보를 입력해 주세요.</span
               >
+              <p id='description-input' class='input-error-message'><p/>
             </div>
   
             <!-- 링크 -->
@@ -70,6 +77,7 @@ class AddModalContainer extends Component {
               <span class="help-text text-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
+              <p id='link-input' class='input-error-message'><p/>
             </div>
   
             <!-- 취소/추가 버튼 -->
@@ -107,8 +115,28 @@ class AddModalContainer extends Component {
     };
   }
 
+  inputErrorHandler(inputInfo: string[], setIsAddFormState: Function): void {
+    const [type, input] = inputInfo;
+    console.log(type, 'type');
+    const selector = `#${type}-input`;
+    const $message = this.$target.querySelector(selector);
+
+    if (!($message instanceof HTMLParagraphElement)) {
+      return;
+    }
+
+    this.#isInputValid = validatorUtils[type](input) ? true : false;
+  }
+
+  showErrorMessage(idName: string): void {
+    const target = this.$target.querySelector(`#${idName}`);
+    if (target instanceof HTMLParagraphElement) {
+      target.innerHTML = '에러';
+    }
+  }
+
   setEvent(): void {
-    const { toggleModal, addRestaurant } = this.$props;
+    const { toggleModal, addRestaurant, setIsAddFormState } = this.$props;
 
     this.addEvent('click', '.cancel', () => {
       toggleModal();
@@ -120,8 +148,16 @@ class AddModalContainer extends Component {
 
     this.addEvent('click', '.submit-restaurant', (event: Event) => {
       event.preventDefault();
-      addRestaurant(this.getInputs());
-      toggleModal();
+
+      const restaurantInput: IRestaurantInput = this.getInputs();
+      // Object.entries(restaurantInput).forEach((array) => {
+      //   this.inputErrorHandler(array, setIsAddFormState);
+      // });
+
+      if (this.#isInputValid) {
+        addRestaurant(restaurantInput);
+        toggleModal();
+      }
     });
   }
 }
