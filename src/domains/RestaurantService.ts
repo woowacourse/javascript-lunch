@@ -1,16 +1,11 @@
-import {
-  AllCategory,
-  Category,
-  SortingCriterion,
-  Restaurant,
-} from "../types/types";
-import { INITIAL_RESTAURANT_DATA } from "../constants/data";
-import { saveToLocalStorage, getLocalStorage } from "../utils/localStorage";
+import { AllCategory, Category, SortingCriterion, Restaurant } from '../types/types';
+import { INITIAL_RESTAURANT_DATA } from '../constants/data';
+import { saveToLocalStorage, getLocalStorage } from '../utils/localStorage';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
-  private currentCategory: AllCategory | Category = "전체";
-  private currentSortingCriterion: SortingCriterion = "name";
+  private currentCategory: AllCategory | Category = '전체';
+  private currentSortingCriterion: SortingCriterion = 'name';
 
   constructor() {
     this.restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
@@ -30,11 +25,9 @@ class RestaurantService {
   }
 
   filter() {
-    if (this.currentCategory === "전체") return [...this.restaurantList];
+    if (this.currentCategory === '전체') return [...this.restaurantList];
 
-    return this.restaurantList.filter(
-      (restaurant) => restaurant.category === this.currentCategory
-    );
+    return this.restaurantList.filter((restaurant) => restaurant.category === this.currentCategory);
   }
 
   sortByName(restaurantList: Restaurant[]) {
@@ -48,7 +41,7 @@ class RestaurantService {
   filterAndSort() {
     const filteredRestaurantList = this.filter();
 
-    if (this.currentSortingCriterion === "name") {
+    if (this.currentSortingCriterion === 'name') {
       return this.sortByName(filteredRestaurantList);
     }
 
