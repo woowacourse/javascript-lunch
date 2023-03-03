@@ -11,23 +11,16 @@ import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
 import Elements from "./Element";
 
-const updateRestaurant = () => {
-    $(".restaurant-list-container").innerHTML = '';
-    const sortResult = sort(sortingFilter.value, newRestaurant.getList());
-    const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-    return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
-};
-
-
-const save = LocalStorage.setItem(localStorage.length);
 
 const modal = new Modal();
 const newRestaurant = new Restaurants()
 
+const addButton = $(".gnb__button");
+const cancelButton = $(".button--secondary")
+const modalBg = $(".modal-backdrop");
+
 const submitButton = $(".button--primary");
 const submitAlert = new Alert('#alert-submit');
-const cancelButton = $(".button--secondary")
-
 const linkInput = $("#link");
 const linkAlert = new Alert("#alert-link");
 const catgoryInput = $("#category");
@@ -37,24 +30,18 @@ const nameAlert = new Alert("#alert-name");
 const distanceInput = $("#distance");
 const distanceAlert = new Alert("#alert-distance");
 const descriptionInput = $("#description");
-const addButton = $(".gnb__button");
 
 const categoryFilter = $('#category-filter');
 const sortingFilter = $('#sorting-filter'); 
 
-addButton.querySelector("img").src = IMAGE.ADD_BTN;
-addButton.addEventListener("click", () => {
-  modal.open();
-});
+const updateRestaurant = () => {
+    $(".restaurant-list-container").innerHTML = '';
+    const sortResult = sort(sortingFilter.value, newRestaurant.getList());
+    const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
+    return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
+};
 
-const modalBg = $(".modal-backdrop");
-modalBg.addEventListener("click", () => {
-  modal.close();
-});
-
-document.addEventListener("keyup", (event) => {
-  if (event.key === "Escape") modal.close();
-});
+const save = LocalStorage.setItem(localStorage.length);
 
 const resetRestaurantInput = () => {
     catgoryInput.value = "";
@@ -63,6 +50,19 @@ const resetRestaurantInput = () => {
     linkInput.value = "";
     descriptionInput.value = "";
 };
+
+addButton.querySelector("img").src = IMAGE.ADD_BTN;
+addButton.addEventListener("click", () => {
+  modal.open();
+});
+
+modalBg.addEventListener("click", () => {
+  modal.close();
+});
+
+document.addEventListener("keyup", (event) => {
+  if (event.key === "Escape") modal.close();
+});
 
 submitButton.addEventListener("click", (event) => {
     event.preventDefault();
