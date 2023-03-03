@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-import { screen, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 import { categoryChinese } from "../src/assets";
 import NavBar from "../src/components/NavBar";
