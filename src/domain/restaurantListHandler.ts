@@ -22,14 +22,14 @@ class RestaurantListHandler {
     return [...this.restaurants];
   }
 
-  getSortedByName(): Restaurant[] {
-    return [...this.restaurants].sort((resA, resB) =>
+  getSortedByName(restaurants: Restaurant[]): Restaurant[] {
+    return [...restaurants].sort((resA, resB) =>
       resA.name.localeCompare(resB.name, Constants.KOREAN)
     );
   }
 
-  getSortedByTakingTime(): Restaurant[] {
-    return [...this.restaurants].sort(
+  getSortedByDistance(restaurants: Restaurant[]): Restaurant[] {
+    return [...restaurants].sort(
       (resA, resB) => Number(resA.distance) - Number(resB.distance)
     );
   }

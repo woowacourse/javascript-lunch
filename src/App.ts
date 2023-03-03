@@ -36,8 +36,8 @@ class App {
     if (id === Constants.SORTING_FILTER) {
       this.restaurantList =
         value === OptionValue.DISTANCE_ORDER
-          ? restaurantListHandler.getSortedByTakingTime()
-          : restaurantListHandler.getSortedByName();
+          ? restaurantListHandler.getSortedByDistance(this.restaurantList)
+          : restaurantListHandler.getSortedByName(this.restaurantList);
     }
 
     this.rerenderList();
