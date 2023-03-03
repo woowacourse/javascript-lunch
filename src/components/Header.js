@@ -11,7 +11,7 @@ export default class Header extends Component {
   }
 
   setEvent() {
-    this.addEvent("click", ".gnb__button", (event) => {
+    this.addEvent("click", ".gnb__button", () => {
       const { toggleModal } = this.props;
       toggleModal();
     });

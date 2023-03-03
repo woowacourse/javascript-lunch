@@ -9,5 +9,5 @@ interface RestaurantInfo {
   category: Category;
   distance: Distance;
   description?: string;
-  url?: string;
+  link?: string;
 }

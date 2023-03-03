@@ -39,12 +39,8 @@ export default class App extends Component {
     const { restaurantList, sortingWay, category } = this.state;
 
     const $header = this.$target.querySelector(".gnb");
-    const $restaurantFilter = this.$target.querySelector(
-      ".restaurant-filter-container"
-    );
-    const $restaurantList = this.$target.querySelector(
-      ".restaurant-list-container"
-    );
+    const $restaurantFilter = this.$target.querySelector(".restaurant-filter-container");
+    const $restaurantList = this.$target.querySelector(".restaurant-list-container");
     const $modal = this.$target.querySelector(".modal");
 
     new Header($header, { toggleModal: toggleModal.bind(this) });
@@ -67,48 +63,32 @@ export default class App extends Component {
 
   addRestaurant(newRestaurant) {
     const { restaurantList, sortingWay } = this.state;
-    const newRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, [
-      ...restaurantList,
-      newRestaurant,
-    ]);
-
-    this.setState({
-      restaurantList: newRestaurantList,
-    });
+    const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, [...restaurantList, newRestaurant]);
 
     this.restaurantRepository.addRestaurant(newRestaurant);
-    store.setLocalStorage(newRestaurantList);
+    this.setState({ restaurantList: updatedRestaurantList });
+    store.setLocalStorage(updatedRestaurantList);
 
     this.toggleModal();
   }
 
-  setSortingWay(sortingWay) {
+  setSortingWay(event) {
+    const sortingWay = event.target.value;
     const { restaurantList } = this.state;
-    const newRestaurantList = RestaurantFilter.sortRestaurants(
-      sortingWay,
-      restaurantList
-    );
 
-    this.setState({
-      restaurantList: newRestaurantList,
-      sortingWay: sortingWay,
-    });
+    const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, restaurantList);
+
+    this.setState({ restaurantList: updatedRestaurantList, sortingWay: sortingWay });
   }
 
-  setCategory(category) {
-    const restaurantList = this.restaurantRepository.getRestaurantList();
-    const filteredRestaurantList = RestaurantFilter.categorizeRestaurants(
-      category,
-      restaurantList
-    );
-    const sortedRestaurantList = RestaurantFilter.sortRestaurants(
-      this.state.sortingWay,
-      filteredRestaurantList
-    );
+  setCategory(event) {
+    const category = event.target.value;
+    const { sortingWay } = this.state;
 
-    this.setState({
-      restaurantList: sortedRestaurantList,
-      category: category,
-    });
+    const restaurantList = this.restaurantRepository.getRestaurantList();
+    const filteredRestaurantList = RestaurantFilter.categorizeRestaurants(category, restaurantList);
+    const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, filteredRestaurantList);
+
+    this.setState({ restaurantList: updatedRestaurantList, category: category });
   }
 }

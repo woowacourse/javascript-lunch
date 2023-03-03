@@ -83,7 +83,8 @@ export default class Modal extends Component {
 
   setEvent() {
     const { toggleModal, addRestaurant } = this.props;
-    this.addEvent("click", "#cancel-button", (event) => {
+
+    this.addEvent("click", "#cancel-button", () => {
       toggleModal();
     });
 
@@ -101,7 +102,7 @@ export default class Modal extends Component {
         category,
         distance,
         description,
-        url: link,
+        link,
       };
       addRestaurant(newRestaurant);
     });
