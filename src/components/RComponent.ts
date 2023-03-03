@@ -3,8 +3,15 @@ import style from '../style/style';
 abstract class RComponent extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot!.adoptedStyleSheets = [style];
+
+    if ((this.constructor as typeof RComponent).useShadowDom()) {
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot!.adoptedStyleSheets = [style];
+    }
+  }
+
+  static useShadowDom() {
+    return true;
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -14,7 +21,11 @@ abstract class RComponent extends HTMLElement {
   abstract renderTemplate(): string;
 
   render() {
-    this.shadowRoot!.innerHTML = this.renderTemplate();
+    if ((this.constructor as typeof RComponent).useShadowDom()) {
+      this.shadowRoot!.innerHTML = this.renderTemplate();
+      return;
+    }
+    this.innerHTML = this.renderTemplate();
   }
 
   connectedCallback() {
