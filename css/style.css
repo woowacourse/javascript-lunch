@@ -167,7 +167,6 @@ body {
   display: -webkit-box;
 
   padding-top: 8px;
-  /* width: 60%; */
 
   overflow: auto;
   text-overflow: ellipsis;
@@ -282,7 +281,6 @@ input[name="link"] {
 }
 
 #alert-submit {
-  /* float: right; */
   margin-left: 68%;
 }
 
