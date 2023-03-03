@@ -1,3 +1,4 @@
+import { CATEGORY_IMG } from "../abstracts/constants";
 import CustomElement from "../abstracts/CustomElement";
 
 class RestaurantComponent extends CustomElement {
@@ -10,7 +11,7 @@ class RestaurantComponent extends CustomElement {
     <li class="restaurant">
     <div class="restaurant__category">
         <img
-            src="./category-korean.png"             
+            src="${CATEGORY_IMG[category]}"             
             alt=${category}
             class="category-icon"
         />
