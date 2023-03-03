@@ -1,6 +1,6 @@
-import { RestaurantList } from "../../domain/RestaurantList";
+import { RestaurantList } from "../domain/RestaurantList";
 import RestaurantRegistry from "./RestaurantRegistry";
-import { $, $$ } from "../../utils/Dom";
+import { $, $$ } from "../utils/Dom";
 
 export default class Modal {
   #template = `
@@ -80,15 +80,15 @@ export default class Modal {
   }
 
   addRestaurant() {
-    const obj = {};
+    const restaurantInfo = {};
     const array = ["category", "name", "distance", "description", "link"];
     $$(".form-item").forEach((val, index) => {
-      obj[array[index]] = val.children[1].value;
+      restaurantInfo[array[index]] = val.children[1].value;
     });
-    this.restaurantList.add(obj);
+    this.restaurantList.add(restaurantInfo);
     const restaurantLength = this.restaurantList.listRestaurant.length - 1;
     this.restaurantRegistry.appendRestaurant(
-      this.restaurantList.listRestaurant[restaurantLength].information
+      this.restaurantList.listRestaurant[restaurantLength]
     );
     this.closeModal();
   }
