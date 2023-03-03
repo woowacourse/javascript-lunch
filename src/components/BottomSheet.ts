@@ -1,19 +1,16 @@
 class BottomSheet extends HTMLElement {
-  state: { isOpen: boolean };
-
   constructor() {
     super();
-    this.state = { isOpen: false };
-    this.onClickBackdrop();
   }
 
   render(children: string) {
     this.innerHTML = `
-      <div id="modalBackdrop" class="modal-backdrop"></div>
-      <div id="foo" class="modal-container">
-        ${children}
-      </div>
+    <div id="modalBackdrop" class="modal-backdrop"></div>
+    <div id="foo" class="modal-container">
+    ${children}
+    </div>
     `;
+    this.onClickBackdrop();
   }
 
   onClickBackdrop() {
@@ -23,14 +20,16 @@ class BottomSheet extends HTMLElement {
     });
   }
 
-  open() {
+  open(children: string) {
     const bottomSheet = document.getElementById("bottomSheet");
     bottomSheet?.classList.add("modal--open");
+    this.render(children);
   }
 
   close() {
     const bottomSheet = document.getElementById("bottomSheet");
     bottomSheet?.classList.remove("modal--open");
+    this.render("");
   }
 }
 
