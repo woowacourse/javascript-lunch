@@ -1,4 +1,5 @@
 import RestaurantType from "../type/Restaurant";
+import BottomSheet from "./BottomSheet";
 
 class AddRestaurant extends HTMLElement {
   private controller;
@@ -75,7 +76,11 @@ class AddRestaurant extends HTMLElement {
   onClickCancelButton() {
     const cancelButton = document.getElementById("cancelButton");
     cancelButton?.addEventListener("click", () => {
-      const bottomSheet: any = document.getElementById("bottomSheet");
+      // 모듈화 필요
+      const bottomSheet = document.getElementById("bottomSheet");
+      if (!(bottomSheet instanceof BottomSheet)) {
+        return;
+      }
       bottomSheet?.close();
     });
   }
@@ -84,17 +89,21 @@ class AddRestaurant extends HTMLElement {
     const restaurantForm = document.getElementById("restaurantForm");
     restaurantForm?.addEventListener("submit", (event) => {
       event.preventDefault();
-      const newRestaurant = this.createNewResaturant(event);
+      const newRestaurant = this.createNewRestaurant(event);
       this.controller.addRestaurant(newRestaurant);
       this.controller.setLocalStorage();
 
-      const bottomSheet: any = document.getElementById("bottomSheet");
+      // 모듈화 필요
+      const bottomSheet = document.getElementById("bottomSheet");
+      if (!(bottomSheet instanceof BottomSheet)) {
+        return;
+      }
       bottomSheet?.close();
     });
   }
 
-  createNewResaturant(event: any) {
-    const formData = new FormData(event.target as any);
+  createNewRestaurant(event: SubmitEvent) {
+    const formData = new FormData(event.target as HTMLFormElement);
     const newRestaurant: RestaurantType = {
       category: formData.get("category") as string,
       name: formData.get("name") as string,
