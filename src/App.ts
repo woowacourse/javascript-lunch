@@ -1,5 +1,5 @@
-import RestaurantService from "./domains/RestaurantService";
 import { Category, SortingCriterion, Restaurant } from "./types/types";
+import RestaurantService from "./domains/RestaurantService";
 import MainView from "./views/MainView";
 import ModalView from "./views/ModalView";
 

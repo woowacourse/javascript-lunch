@@ -1,7 +1,7 @@
-import { $ } from "../utils/domSelectors";
-import { Errors, Restaurant } from "../types/types";
-import restaurantFormValidator from "../validators/restaurantFormValidator";
+import { Restaurant, Errors } from "../types/types";
 import { ERROR_MESSAGE, MESSAGE } from "../constants/constants";
+import { $ } from "../utils/domSelectors";
+import restaurantFormValidator from "../validators/restaurantFormValidator";
 
 class ModalView {
   private restaurantAddForm = $("#restaurant-add-form") as HTMLFormElement;

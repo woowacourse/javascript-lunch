@@ -1,6 +1,6 @@
+import { Restaurant } from "../types/types";
 import { $ } from "../utils/domSelectors";
 import renderList from "../components/RestaurantList";
-import { Restaurant } from "../types/types";
 
 class MainView {
   private addButton = $(".gnb__button") as HTMLButtonElement;

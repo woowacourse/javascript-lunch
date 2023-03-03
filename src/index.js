@@ -1,5 +1,5 @@
-import "../style.css";
 import "./App.ts";
+import "../style.css";
 import "../assets/add-button.png";
 import "../assets/category-korean.png";
 import "../assets/category-japanese.png";
