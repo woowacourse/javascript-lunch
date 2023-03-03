@@ -101,7 +101,10 @@ class App extends Component {
   }
 
   filterList(category: Category, order: Order) {
-    const categoryFilteredList = this.getFilteredListByCategory(category);
+    const categoryFilteredList = this.getFilteredListByCategory(
+      this.getRestaurants(),
+      category
+    );
 
     if (order === Order.Name) {
       sortItemsByName(categoryFilteredList);
@@ -119,9 +122,10 @@ class App extends Component {
     });
   }
 
-  getFilteredListByCategory(category: Category) {
-    const restaurantList = [...this.getRestaurants()];
-
+  getFilteredListByCategory(
+    restaurantList: IRestaurantInput[],
+    category: Category
+  ) {
     if (category === Category.All) {
       return restaurantList;
     }
