@@ -1,6 +1,6 @@
 import { getImageSrc } from '../../utils/common/getImageSrc';
 import '../../assets/category-korean.png';
-import { Category, RestaurantInfo } from '../../domain/model/LunchRecommendation';
+import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 
 interface RestaurantProps {
   info: RestaurantInfo;
@@ -10,6 +10,7 @@ function Restaurant(props: RestaurantProps) {
   const {
     info: { category, name, distance, description },
   } = props;
+
   return `
         <li class="restaurant">
             <div class="restaurant__category">

@@ -1,13 +1,15 @@
-import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
+import { Restaurant as IRestaurant, RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { Restaurant } from './Restaurant';
 
-function Restaurants() {
-  const mockData: RestaurantInfo[] = JSON.parse(localStorage.getItem('mock') ?? '[]');
+interface RestaurantProps {
+  restaurants: IRestaurant[];
+}
 
+function Restaurants({ restaurants }: RestaurantProps) {
   return `
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-        ${mockData.map((info) => Restaurant({ info })).join('')}
+        ${restaurants.map(({ info }) => Restaurant({ info })).join('')}
       </ul>
     </section>
   `;

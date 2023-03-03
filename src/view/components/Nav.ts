@@ -1,16 +1,16 @@
-import { Category, Filter } from '../../domain/model/LunchRecommendation';
+import { Category, SortOption } from '../../constants/lunchRecommendation';
 import { useEvents } from '../../utils/core';
 
 const categoryOptions: Category[] = ['한식', '아시안', '양식', '일식', '전체', '중식', '기타'];
-const filterOptions: Filter[] = ['이름순', '거리순'];
+const filterOptions: SortOption[] = ['이름순', '거리순'];
 interface NavProps {
   category: Category;
-  filter: Filter;
+  sortOption: SortOption;
   handleCategory: (category: Category) => void;
-  handleFilter: (filter: Filter) => void;
+  handleSortOption: (SortOption: SortOption) => void;
 }
 
-function Nav({ category, filter, handleCategory, handleFilter }: NavProps) {
+function Nav({ category, sortOption, handleCategory, handleSortOption }: NavProps) {
   const [addEvent] = useEvents('.restaurant-filter-container');
 
   addEvent('change', '#category-filter', (e) => {
@@ -18,7 +18,7 @@ function Nav({ category, filter, handleCategory, handleFilter }: NavProps) {
   });
 
   addEvent('change', '#sorting-filter', (e) => {
-    if (e.target instanceof HTMLSelectElement) handleFilter(e.target.value as Filter);
+    if (e.target instanceof HTMLSelectElement) handleSortOption(e.target.value as SortOption);
   });
 
   return `
@@ -37,7 +37,7 @@ function Nav({ category, filter, handleCategory, handleFilter }: NavProps) {
           ${filterOptions
             .map(
               (option) =>
-                `<option value=${option} ${option === filter && 'selected'}>${option}</option>`
+                `<option value=${option} ${option === sortOption && 'selected'}>${option}</option>`
             )
             .join('')}
         </select>
