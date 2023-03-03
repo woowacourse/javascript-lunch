@@ -2,10 +2,6 @@ import { screen, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 import HeaderComponent from "../src/components/HeaderComponent";
 import ModalComponent from "../src/components/modal/ModalComponent";
-import RestaurantsComponent from "../src/components/RestaurantsComponent";
-import dispatcher from "../src/domain/Dispatcher";
-import { RESTAURANT_ACTION } from "../src/abstracts/constants";
-import RestaurantComponent from "../src/components/restaurant/RestaurantComponent";
 
 /**
  * @jest-environment jsdom
