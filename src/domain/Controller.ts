@@ -3,19 +3,20 @@ import RestaurantType from "../type/Restaurant";
 import Restaurant from "./model/Restaurant";
 
 class Controller {
-  #restaurants: Restaurant[];
+  state: { restaurants: RestaurantType[] };
 
   constructor() {
-    this.#restaurants = [];
+    this.state = new Proxy(
+      { restaurants: [] },
+      {
+        set: (obj: any, prop, value) => {
+          obj[prop] = value;
+          this.renderRestaurantList();
+          return true;
+        },
+      }
+    );
     this.loadLocalStorage();
-  }
-
-  getRestaurants() {
-    return this.#restaurants;
-  }
-
-  addRestaurant(newRestaurant: RestaurantType) {
-    this.#restaurants = [...this.#restaurants, new Restaurant(newRestaurant)];
   }
 
   renderRestaurantList() {
@@ -26,34 +27,40 @@ class Controller {
     restaurantList.render();
   }
 
-  updateRestaurantList(restaurants: RestaurantType[]) {
-    this.setLocalStorage(restaurants);
-    this.renderRestaurantList();
+  getRestaurants() {
+    return this.state.restaurants;
   }
 
-  setLocalStorage(restaurantsArray: RestaurantType[]) {
-    const restaurants = JSON.stringify(restaurantsArray);
-    localStorage.setItem("restaurants", restaurants);
-  }
-
-  loadLocalStorage() {
-    this.#restaurants = this.getLocalStorage();
+  addRestaurant(newRestaurant: RestaurantType) {
+    this.state.restaurants = [
+      ...this.state.restaurants,
+      new Restaurant(newRestaurant),
+    ];
   }
 
   getLocalStorage() {
     return JSON.parse(localStorage.getItem("restaurants") as string) ?? [];
   }
 
+  setLocalStorage() {
+    const restaurants = JSON.stringify(this.state.restaurants);
+    localStorage.setItem("restaurants", restaurants);
+  }
+
+  loadLocalStorage() {
+    this.state.restaurants = this.getLocalStorage();
+  }
+
   sortRestaurants(key: string) {
-    const sortedRestaurants = [...this.#restaurants].sort((a: any, b: any) =>
-      a[key] > b[key] ? 1 : -1
+    const sortedRestaurants = [...this.state.restaurants].sort(
+      (a: any, b: any) => (a[key] > b[key] ? 1 : -1)
     );
-    this.#restaurants = sortedRestaurants;
+    this.state.restaurants = sortedRestaurants;
   }
 
   filterRestaurants(key: string) {
     if (key !== "전체") {
-      this.#restaurants = this.getLocalStorage().filter(
+      this.state.restaurants = this.getLocalStorage().filter(
         (restaurant: any) => restaurant["category"] === key
       );
       return;
