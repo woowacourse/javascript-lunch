@@ -33,7 +33,7 @@ class Modal extends HTMLElement {
         category: $category.value as Category,
         name: $name.value,
         distance: Number($distance.value) as Distance,
-        description: `${$description.value}`,
+        description: `"${$description.value}"`,
         link: $link.value,
       });
       $modal?.classList.remove('modal--open');
