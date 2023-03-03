@@ -74,8 +74,7 @@ class ModalView {
     this.categoryInput.addEventListener(
       "change",
       () => {
-        this.categoryInputCaption.classList.add("error-text");
-        this.categoryInputCaption.textContent = "";
+        this.removeErrors(this.categoryInputCaption);
       },
       { once: true }
     );
@@ -85,8 +84,7 @@ class ModalView {
     this.nameInput.addEventListener(
       "input",
       () => {
-        this.nameInputCaption.classList.remove("error-text");
-        this.nameInputCaption.textContent = "";
+        this.removeErrors(this.nameInputCaption);
       },
       { once: true }
     );
@@ -96,8 +94,7 @@ class ModalView {
     this.distanceInput.addEventListener(
       "change",
       () => {
-        this.distanceInputCaption.classList.remove("error-text");
-        this.distanceInputCaption.textContent = "";
+        this.removeErrors(this.distanceInputCaption);
       },
       { once: true }
     );
@@ -107,8 +104,7 @@ class ModalView {
     this.linkInput.addEventListener(
       "input",
       () => {
-        this.linkInputCaption.classList.remove("error-text");
-        this.linkInputCaption.textContent = MESSAGE.LINK_DEFAULT_CAPTION;
+        this.removeErrors(this.linkInputCaption, MESSAGE.LINK_DEFAULT_CAPTION);
       },
       { once: true }
     );
@@ -119,6 +115,11 @@ class ModalView {
     this.addNameInputEvent();
     this.addDistanceChangeEvent();
     this.addLinkInputEvent();
+  }
+
+  removeErrors(element: HTMLSpanElement, message?: string) {
+    element.classList.remove("error-text");
+    element.textContent = message ?? "";
   }
 
   addCloseButtonClickEvent() {
