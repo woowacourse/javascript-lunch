@@ -1,10 +1,14 @@
+import Restaurant from '../model/Restaurant';
+import RestaurantList from '../model/RestaurantList';
 import { $$$ } from '../../utils';
 import webView from '../../view/webView';
 
 class LunchRecommendation {
-  #restaurants;
+  #restaurants = new RestaurantList();
 
-  constructor() {}
+  constructor() {
+    webView.renderRestaurantList(this.#restaurants.getList('전체', 'name'));
+  }
 
   play() {
     $$$('add-restaurant-modal', '#addRestraunt').addEventListener(
@@ -14,13 +18,23 @@ class LunchRecommendation {
 
         const category = $$$('add-restaurant-modal', '#categoryList').value;
         const name = $$$('add-restaurant-modal', '#nameInput').value;
-
         const distance = $$$('add-restaurant-modal', '#distanceList').value;
         const description = $$$(
           'add-restaurant-modal',
           '#descriptionInput'
         ).value;
         const link = $$$('add-restaurant-modal', '#linkInput').value;
+        const restaurant = new Restaurant({
+          category,
+          name,
+          distance,
+          description,
+          link,
+        });
+        this.#restaurants.add(restaurant);
+        webView.toggleModal();
+        webView.resetForm();
+        webView.renderRestaurantList(this.#restaurants.getList('전체', 'name'));
       }
     );
 

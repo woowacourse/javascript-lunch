@@ -1,8 +1,4 @@
-import Restaurant, {
-  CategoryAll,
-  RestaurantInfo,
-  SortTypeAll,
-} from './Restaurant';
+import Restaurant, { CategoryAll, SortTypeAll } from './Restaurant';
 import { filterByCategory, sortByType } from '../../utils/domain/';
 
 class RestaurantList {
