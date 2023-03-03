@@ -18,7 +18,10 @@ class SortingSelectBox extends HTMLElement {
   }
 
   onSelectOption() {
-    const sortingFilter: any = document.getElementById("sorting-filter");
+    const sortingFilter = document.getElementById("sorting-filter");
+    if (!(sortingFilter instanceof HTMLSelectElement)) {
+      return;
+    }
     sortingFilter?.addEventListener("change", () => {
       this.controller.sortRestaurants(sortingFilter.value);
     });

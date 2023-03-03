@@ -31,13 +31,13 @@ class RestaurantItem {
   }
 
   findImage(category: string) {
-    const imageSrc: any = {
-      한식: categoryKorean as string,
-      중식: categoryChinese as string,
-      일식: categoryJapanese as string,
-      양식: categoryWestern as string,
-      아시안: categoryAsian as string,
-      기타: categoryEtc as string,
+    const imageSrc: { [key: string]: string } = {
+      한식: categoryKorean,
+      중식: categoryChinese,
+      일식: categoryJapanese,
+      양식: categoryWestern,
+      아시안: categoryAsian,
+      기타: categoryEtc,
     };
     return imageSrc[category];
   }

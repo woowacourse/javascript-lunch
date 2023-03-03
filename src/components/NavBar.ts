@@ -1,4 +1,5 @@
 import { addButton } from "../assets";
+import BottomSheet from "./BottomSheet";
 
 class NavBar extends HTMLElement {
   constructor() {
@@ -21,8 +22,11 @@ class NavBar extends HTMLElement {
   onClickAddIcon() {
     const addIcon = document.getElementById("addIcon");
     addIcon?.addEventListener("click", () => {
-      const bottomSheet: any = document.getElementById("bottomSheet");
-      bottomSheet?.open("<add-restaurant />");
+      const bottomSheet = document.getElementById("bottomSheet");
+      if (!(bottomSheet instanceof BottomSheet)) {
+        return;
+      }
+      bottomSheet.open("<add-restaurant />");
     });
   }
 }

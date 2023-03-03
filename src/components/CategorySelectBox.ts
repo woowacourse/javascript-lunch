@@ -23,7 +23,10 @@ class CategorySelectBox extends HTMLElement {
   }
 
   onSelectOption() {
-    const categoryFilter: any = document.getElementById("category-filter");
+    const categoryFilter = document.getElementById("category-filter");
+    if (!(categoryFilter instanceof HTMLSelectElement)) {
+      return;
+    }
     categoryFilter?.addEventListener("change", () => {
       this.controller.filterRestaurants(categoryFilter.value);
     });

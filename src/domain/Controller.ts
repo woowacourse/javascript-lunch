@@ -61,7 +61,7 @@ class Controller {
   filterRestaurants(key: string) {
     if (key !== "전체") {
       this.state.restaurants = this.getLocalStorage().filter(
-        (restaurant: any) => restaurant["category"] === key
+        (restaurant: RestaurantType) => restaurant["category"] === key
       );
       return;
     }
