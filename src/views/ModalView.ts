@@ -1,6 +1,6 @@
 import { $ } from "../utils/domSelectors";
 import { Restaurant } from "../types/types";
-import { restaurantFormValidator } from "../domains/restaurantFormValidator";
+import { restaurantFormValidator } from "../validators/restaurantFormValidator";
 import { ERROR_MESSAGE } from "../constants/constants";
 
 class ModalView {
