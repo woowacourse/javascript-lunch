@@ -20,7 +20,7 @@ class App {
   makeRestaurantList = (restaurant: Restaurant): void => {
     restaurantListHandler.addRestaurant(restaurant);
 
-    const restaurantList = restaurantListHandler.getSortedByName();
+    const restaurantList = restaurantListHandler.getRestaurants();
     this.restaurantList.replaceTemplate(
       restaurantList
         .map((restaurant: Restaurant) =>
