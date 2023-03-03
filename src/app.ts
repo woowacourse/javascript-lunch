@@ -102,6 +102,27 @@ class App {
         label: `${distance}분 내`,
       })),
     ]);
+
+    document.querySelector<HTMLFormElement>('#modal-form')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const restaurantProps = Object.fromEntries([
+        ...new FormData(event.target as HTMLFormElement).entries(),
+      ]);
+
+      const restaurant = new Restaurant({
+        category: String(restaurantProps.category),
+        name: String(restaurantProps.name),
+        distanceByMinutes: Number(restaurantProps.distanceByMinutes),
+        description: String(restaurantProps.description),
+        referenceUrl: String(restaurantProps.referenceUrl),
+      });
+
+      document.querySelector<RModal>('r-modal')?.close();
+
+      this.#restaurants.push(restaurant);
+      this.updateRestaurants();
+    });
   }
 }
 
