@@ -1,4 +1,5 @@
 import RestaurantList from "../components/RestaurantList";
+import { ALL_CATEGORY } from "../constants";
 import RestaurantType from "../type/Restaurant";
 import Restaurant from "./model/Restaurant";
 
@@ -59,9 +60,9 @@ class Controller {
   }
 
   filterRestaurants(key: string) {
-    if (key !== "전체") {
+    if (key !== ALL_CATEGORY) {
       this.state.restaurants = this.getLocalStorage().filter(
-        (restaurant: RestaurantType) => restaurant["category"] === key
+        (restaurant: RestaurantType) => restaurant.category === key
       );
       return;
     }
