@@ -2,6 +2,7 @@ import Restaurant from "../domain/model/Restaurant";
 import RestaurantType from "../type/Restaurant";
 import RestaurantItem from "./RestaurantItem";
 import LocalStorage from "../tools/LocalStorage";
+import defaultRestaurants from "../tools/defaultRestaurants";
 
 class RestaurantList extends HTMLElement {
   state: { restaurants: RestaurantType[]; filter: string; sort: string };
@@ -22,7 +23,9 @@ class RestaurantList extends HTMLElement {
   }
 
   loadLocalStorage() {
-    this.state.restaurants = LocalStorage.getLocalStorage("restaurants");
+    const restaurants = LocalStorage.getLocalStorage("restaurants");
+    this.state.restaurants =
+      restaurants.length > 0 ? restaurants : defaultRestaurants;
   }
 
   render() {
