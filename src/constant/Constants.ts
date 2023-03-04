@@ -1,4 +1,4 @@
-export const CategoryImg: Readonly<{ [key: string]: string }> = {
+export const CategoryImgPath: Readonly<{ [key: string]: string }> = {
   아시안: "category-asian.png",
   한식: "category-korean.png",
   양식: "category-western.png",
