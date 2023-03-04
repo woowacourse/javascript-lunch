@@ -74,15 +74,17 @@ export default class Modal {
     this.addRestaurantHandler();
     this.restaurantRegistry = restaurantRegistry;
     $(".button--secondary").addEventListener("click", this.closeModal);
+    this.closeEscape();
+    this.closeBackDrop();
   }
 
   addRestaurantHandler() {
     this.modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      const restaurant = this.setRestaurant();
-      const hasError = this.validateRestaurantInfo(restaurant);
+      const restaurantInfo = this.setRestaurant();
+      const hasError = this.validateRestaurantInfo(restaurantInfo);
       if (!hasError) {
-        this.addRestaurant(restaurant);
+        this.addRestaurant(restaurantInfo);
         this.renderRestaurant();
         this.closeModal();
       }
@@ -121,6 +123,19 @@ export default class Modal {
     this.resetValue();
     $(".modal--open").style.display = "none";
   };
+
+  closeEscape() {
+    window.addEventListener("keyup", (event) => {
+      if (event.key === "Escape") {
+        this.closeModal();
+      }
+    });
+  }
+  closeBackDrop() {
+    $(".modal-backdrop").addEventListener("click", () => {
+      this.closeModal();
+    });
+  }
 
   resetValue() {
     $$(".form-item").forEach((formItem, index) => {

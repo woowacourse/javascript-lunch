@@ -17,5 +17,6 @@ export default class Header {
 
   openModal() {
     $(".modal--open").style.display = "block";
+    $("#category").focus();
   }
 }
