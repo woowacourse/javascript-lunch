@@ -30,7 +30,6 @@ class RestaurantList extends HTMLElement {
   render() {
     this.innerHTML = `
       <section class="restaurant-list-container">
-        ${JSON.stringify(this.state)}
         <ul class="restaurant-list">
         ${this.state.restaurants
           .filter(
