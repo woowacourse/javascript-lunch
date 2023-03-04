@@ -1,5 +1,4 @@
-import Restaurant, { RestaurantInfo } from '../model/Restaurant';
-import RestaurantList from '../model/RestaurantList';
+import RestaurantList, { Restaurant } from '../model/RestaurantList';
 import { $$$ } from '../../utils';
 import webView from '../../view/webView';
 import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../../constants';
@@ -9,18 +8,16 @@ class LunchRecommendation {
 
   constructor() {
     DEFAULT_RESTAURANTS.forEach((restaurant) => {
-      const defaultRestaurant = new Restaurant(restaurant);
-      this.#restaurants.add(defaultRestaurant);
+      this.#restaurants.add(restaurant);
     });
 
-    const userList: RestaurantInfo[] = JSON.parse(
+    const userList: Restaurant[] = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
     );
 
     if (userList) {
       userList.forEach((restaurant) => {
-        const objectToClass = new Restaurant(restaurant);
-        this.#restaurants.add(objectToClass);
+        this.#restaurants.add(restaurant);
       });
     }
 
@@ -71,24 +68,17 @@ class LunchRecommendation {
           '#descriptionInput'
         ).value;
         const link = $$$('add-restaurant-modal', '#linkInput').value;
-        const restaurant = new Restaurant({
+        const restaurant = {
           category,
           name,
           distance,
           description,
           link,
-        });
+        };
         this.#restaurants.add(restaurant);
         const restaurants = this.#restaurants.getList('전체', 'name');
 
-        const classToObject = restaurants.reduce(
-          (accumulator: RestaurantInfo[], currentRestaurant) => {
-            return [...accumulator, currentRestaurant.getInfo()];
-          },
-          []
-        );
-
-        const restaurantsString = JSON.stringify(classToObject);
+        const restaurantsString = JSON.stringify(restaurants);
         window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
         webView.toggleModal();
         webView.resetForm();

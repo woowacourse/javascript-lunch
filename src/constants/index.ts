@@ -1,8 +1,8 @@
-import { RestaurantInfo } from '../domain/model/Restaurant';
+import { Restaurant } from '../domain/model/RestaurantList';
 
 const LOCAL_STORAGE_KEY = 'userList';
 
-const DEFAULT_RESTAURANTS: RestaurantInfo[] = [
+const DEFAULT_RESTAURANTS: Restaurant[] = [
   {
     name: '이승재참치',
     category: '일식',

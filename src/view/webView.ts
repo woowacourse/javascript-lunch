@@ -1,4 +1,4 @@
-import Restaurant from '../domain/model/Restaurant';
+import { Restaurant } from '../domain/model/RestaurantList';
 import { $, $$$ } from '../utils';
 
 const webView = {
@@ -18,8 +18,7 @@ const webView = {
     $('#restaurantList').innerHTML = '';
 
     list.forEach((restaurant) => {
-      const { category, name, distance, description, link } =
-        restaurant.getInfo();
+      const { category, name, distance, description, link } = restaurant;
       const tagContent = `<restaurant-box
         category="${category}"
         name="${name}"

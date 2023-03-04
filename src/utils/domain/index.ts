@@ -1,27 +1,27 @@
-import Restaurant, {
+import {
   CategoryAll,
+  Restaurant,
   SortTypeAll,
-} from '../../domain/model/Restaurant';
+} from '../../domain/model/RestaurantList';
 
 const filterByCategory = (
   restaurantList: Restaurant[],
   category: CategoryAll
 ) => {
   return restaurantList.filter(
-    (restaurant) => restaurant.getInfo().category === category
+    (restaurant) => restaurant.category === category
   );
 };
 
 const sortByType = (restaurantList: Restaurant[], type: SortTypeAll) => {
   if (type === 'distance') {
     return [...restaurantList].sort(
-      (aRestaurant, bRestaurant) =>
-        aRestaurant.getInfo().distance - bRestaurant.getInfo().distance
+      (aRestaurant, bRestaurant) => aRestaurant.distance - bRestaurant.distance
     );
   }
 
   return [...restaurantList].sort((aRestaurant, bRestaurant) => {
-    return aRestaurant.getInfo().name.localeCompare(bRestaurant.getInfo().name);
+    return aRestaurant.name.localeCompare(bRestaurant.name);
   });
 };
 
