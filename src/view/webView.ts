@@ -1,3 +1,4 @@
+import Restaurant from '../domain/model/Restaurant';
 import { $, $$$ } from '../utils';
 
 const webView = {
@@ -13,7 +14,7 @@ const webView = {
     $$$('add-restaurant-modal', '#linkInput').value = '';
   },
 
-  renderRestaurantList: (list) => {
+  renderRestaurantList: (list: Restaurant[]) => {
     $('#restaurantList').innerHTML = '';
 
     list.forEach((restaurant) => {

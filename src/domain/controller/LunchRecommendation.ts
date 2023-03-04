@@ -1,8 +1,8 @@
-import Restaurant from '../model/Restaurant';
+import Restaurant, { RestaurantInfo } from '../model/Restaurant';
 import RestaurantList from '../model/RestaurantList';
 import { $$$ } from '../../utils';
 import webView from '../../view/webView';
-import { DEFAULT_RESTAURANTS } from '../../constants';
+import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../../constants';
 
 class LunchRecommendation {
   #restaurants = new RestaurantList();
@@ -13,7 +13,9 @@ class LunchRecommendation {
       this.#restaurants.add(defaultRestaurant);
     });
 
-    const userList = JSON.parse(localStorage.getItem('userList'));
+    const userList: RestaurantInfo[] = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
+    );
 
     if (userList) {
       userList.forEach((restaurant) => {
@@ -58,7 +60,7 @@ class LunchRecommendation {
   addRestaurantEvent() {
     $$$('add-restaurant-modal', '#addRestraunt').addEventListener(
       'click',
-      (event) => {
+      (event: SubmitEvent) => {
         event.preventDefault();
 
         const category = $$$('add-restaurant-modal', '#categoryList').value;
@@ -80,14 +82,14 @@ class LunchRecommendation {
         const restaurants = this.#restaurants.getList('전체', 'name');
 
         const classToObject = restaurants.reduce(
-          (accumulator, currentRestaurant) => {
+          (accumulator: RestaurantInfo[], currentRestaurant) => {
             return [...accumulator, currentRestaurant.getInfo()];
           },
           []
         );
 
         const restaurantsString = JSON.stringify(classToObject);
-        window.localStorage.setItem('userList', restaurantsString);
+        window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
         webView.toggleModal();
         webView.resetForm();
         webView.renderRestaurantList(restaurants);
@@ -119,8 +121,6 @@ class LunchRecommendation {
     const sortingValue = $$$('#sortingFilter', '#sortingFilterSelect').value;
 
     const englishSortingValue = sortingValue === '이름순' ? 'name' : 'distance';
-
-    console.log(categoryValue, sortingValue);
 
     const filteredList = this.#restaurants.getList(
       categoryValue,

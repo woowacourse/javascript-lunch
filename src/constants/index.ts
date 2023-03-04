@@ -1,5 +1,7 @@
 import { RestaurantInfo } from '../domain/model/Restaurant';
 
+const LOCAL_STORAGE_KEY = 'userList';
+
 const DEFAULT_RESTAURANTS: RestaurantInfo[] = [
   {
     name: '이승재참치',
@@ -101,4 +103,4 @@ const GLOBAL_CSS = `
 }
   `;
 
-export { DEFAULT_RESTAURANTS, GLOBAL_CSS };
+export { DEFAULT_RESTAURANTS, GLOBAL_CSS, LOCAL_STORAGE_KEY };
