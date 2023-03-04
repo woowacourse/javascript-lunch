@@ -1,6 +1,7 @@
 import Restaurant from "../domain/model/Restaurant";
 import RestaurantType from "../type/Restaurant";
 import RestaurantItem from "./RestaurantItem";
+import LocalStorage from "../tools/LocalStorage";
 
 class RestaurantList extends HTMLElement {
   state: { restaurants: RestaurantType[]; filter: string; sort: string };
@@ -21,7 +22,7 @@ class RestaurantList extends HTMLElement {
   }
 
   loadLocalStorage() {
-    this.state.restaurants = this.getLocalStorage();
+    this.state.restaurants = LocalStorage.getLocalStorage("restaurants");
   }
 
   render() {
@@ -50,7 +51,7 @@ class RestaurantList extends HTMLElement {
       ...this.state.restaurants,
       new Restaurant(newRestaurant),
     ];
-    this.setLocalStorage();
+    LocalStorage.setLocalStorage("restaurants", this.state.restaurants);
   }
 
   filterBy(key: string) {
@@ -59,17 +60,6 @@ class RestaurantList extends HTMLElement {
 
   sortBy(key: string) {
     this.state.sort = key;
-  }
-
-  // 새로운 모듈로 이전 예정
-  setLocalStorage() {
-    const restaurants = JSON.stringify(this.state.restaurants);
-    localStorage.setItem("restaurants", restaurants);
-  }
-
-  // 새로운 모듈로 이전 예정
-  getLocalStorage() {
-    return JSON.parse(localStorage.getItem("restaurants") as string) ?? [];
   }
 }
 
