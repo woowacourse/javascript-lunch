@@ -17,12 +17,9 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    // 프로그래밍 요구 사항
     "functional/no-let": "error",
     "max-depth": ["error", 1],
     "max-params": ["error", 2],
-    // "max-lines-per-function": ["error", 10],
-    // 임의 규칙
     "class-methods-use-this": "off"
   },
   "overrides": [
