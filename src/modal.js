@@ -1,11 +1,11 @@
 export const showModal = () => {
   const $modal = document.querySelector('.modal');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('body--modal-open');
   $modal.classList.add('modal--open');
 };
 
 export const closeModal = () => {
   const $modal = document.querySelector('.modal');
-  document.body.style.overflow = 'visible';
+  document.body.classList.remove('body--modal-open');
   $modal.classList.remove('modal--open');
 };
