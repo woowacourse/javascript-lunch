@@ -53,28 +53,28 @@ export default class FilterBar {
     this.restaurantList.categoryFilter(selectedValue);
     $(".restaurant-list").replaceChildren();
     const restaurantParsedInfo = this.parseInfo();
-    this.appendInfo(restaurantParsedInfo);
+    this.render(restaurantParsedInfo);
   }
 
   filterByName() {
     $(".restaurant-list").replaceChildren();
     const restaurantParsedInfo = this.parseInfo();
     sortByName(restaurantParsedInfo);
-    this.appendInfo(restaurantParsedInfo);
+    this.render(restaurantParsedInfo);
   }
 
   filterByDistance() {
     $(".restaurant-list").replaceChildren();
     const restaurantParsedInfo = this.parseInfo();
     sortByDistance(restaurantParsedInfo);
-    this.appendInfo(restaurantParsedInfo);
+    this.render(restaurantParsedInfo);
   }
 
   parseInfo() {
     return JSON.parse(localStorage.getItem("restaurants"));
   }
 
-  appendInfo(restaurantParsedInfo) {
+  render(restaurantParsedInfo) {
     restaurantParsedInfo.forEach((restaurant) => {
       this.restaurantRegistry.render(restaurant);
     });
