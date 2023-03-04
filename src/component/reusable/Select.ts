@@ -6,8 +6,8 @@ class Select {
   options: string[];
 
   constructor(attribute: Attribute, options: string[]) {
-    this.options = options;
     this.attribute = attribute;
+    this.options = options;
   }
 
   addEvent(id: string, rerenderList: RerenderListType) {
