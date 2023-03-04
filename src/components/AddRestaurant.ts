@@ -1,12 +1,10 @@
 import RestaurantType from "../type/Restaurant";
 import BottomSheet from "./BottomSheet";
+import RestaurantList from "./RestaurantList";
 
 class AddRestaurant extends HTMLElement {
-  private controller;
-
   constructor() {
     super();
-    this.controller = globalThis.controller;
     this.render();
     this.onClickCancelButton();
     this.onSubmitRestaurantForm();
@@ -90,8 +88,12 @@ class AddRestaurant extends HTMLElement {
     restaurantForm?.addEventListener("submit", (event) => {
       event.preventDefault();
       const newRestaurant = this.createNewRestaurant(event);
-      this.controller.addRestaurant(newRestaurant);
-      this.controller.setLocalStorage();
+
+      const restaurantList = document.getElementById("restaurantList");
+      if (!(restaurantList instanceof RestaurantList)) {
+        return;
+      }
+      restaurantList.addRestaurant(newRestaurant);
 
       // 모듈화 필요
       const bottomSheet = document.getElementById("bottomSheet");
