@@ -25,11 +25,15 @@ class CategorySelectBox extends HTMLElement {
     const categoryFilter = document.getElementById("category-filter");
     if (categoryFilter instanceof HTMLSelectElement) {
       categoryFilter.addEventListener("change", () => {
-        const restaurantList = document.getElementById("restaurantList");
-        if (restaurantList instanceof RestaurantList) {
-          restaurantList.filterBy(categoryFilter.value);
-        }
+        this.filterCategory(categoryFilter.value);
       });
+    }
+  }
+
+  filterCategory(key: string) {
+    const restaurantList = document.getElementById("restaurantList");
+    if (restaurantList instanceof RestaurantList) {
+      restaurantList.filterBy(key);
     }
   }
 }
