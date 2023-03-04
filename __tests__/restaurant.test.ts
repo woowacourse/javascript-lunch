@@ -17,7 +17,7 @@ describe('restaurant 객체 테스트.', () => {
     expect(bbomodoro.compareName(addal)).toBeLessThan(0);
   });
 
-  test('getDistance는 restaurant의 distance 프로퍼티를 반환한다.', () => {
+  test('compareDistance는 restaurant 인스턴스들의 distance 프로퍼티를 오름차순으로 비교한다.', () => {
     // given
     const bbomodoro = new Restaurant({
       category: '양식',
