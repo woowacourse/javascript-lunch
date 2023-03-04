@@ -1,7 +1,6 @@
 import RestaurantList from "../components/RestaurantList";
 import { ALL_CATEGORY } from "../constants";
 import RestaurantType from "../type/Restaurant";
-import Restaurant from "./model/Restaurant";
 
 class Controller {
   state: { restaurants: RestaurantType[] };
@@ -33,10 +32,7 @@ class Controller {
   }
 
   addRestaurant(newRestaurant: RestaurantType) {
-    this.state.restaurants = [
-      ...this.state.restaurants,
-      new Restaurant(newRestaurant),
-    ];
+    this.state.restaurants = [...this.state.restaurants, newRestaurant];
   }
 
   getLocalStorage() {
