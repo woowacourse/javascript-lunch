@@ -14,11 +14,11 @@ class RestaurantList {
   }
 
   replaceTemplate(newTemplates: string) {
-    this.removeTemaplate();
+    this.removeTemplate();
     $(".restaurant-list")?.insertAdjacentHTML("beforeend", newTemplates);
   }
 
-  removeTemaplate() {
+  removeTemplate() {
     const list = $(".restaurant-list");
     while (list?.firstChild) {
       list.removeChild(list.firstChild);

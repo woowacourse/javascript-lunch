@@ -14,7 +14,7 @@ export const OptionValue: Readonly<{ [key: string]: string }> = {
 };
 
 export const Constants: Readonly<{ [key: string]: string }> = {
-  RESTAURANT_LIST: "restuarantList",
+  RESTAURANT_LIST: "restaurantList",
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",
