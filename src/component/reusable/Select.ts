@@ -12,11 +12,10 @@ class Select {
 
   addEvent(id: string, rerenderList: RerenderListType) {
     const selectEl = $(`#${id}`);
-    selectEl?.addEventListener("change", () => {
-      const select = selectEl as HTMLSelectElement;
-      const selectedOption = select.options[select.selectedIndex];
+    selectEl?.addEventListener("change", (event) => {
+      const selectedOption = (event.target as HTMLSelectElement).value;
 
-      rerenderList(id, selectedOption.value);
+      rerenderList(id, selectedOption);
     });
   }
 
