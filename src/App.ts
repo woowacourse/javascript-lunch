@@ -1,5 +1,5 @@
 import Header from "./component/disposable/Header";
-import Modal from "./component/disposable/Modal";
+import RestaurantFormBottomSheet from "./component/disposable/RestaurantFormBottomSheet";
 import RestaurantList from "./component/disposable/RestaurantList";
 import SelectContainer from "./component/disposable/SelectContainer";
 import RestaurantTicket from "./component/reusable/RestaurantTicket";
@@ -16,7 +16,7 @@ class App {
     Header.render(body);
     SelectContainer.render(body, this.sortList);
     RestaurantList.render(body);
-    Modal.render(body, this.makeRestaurantList);
+    RestaurantFormBottomSheet.render(body, this.makeRestaurantList);
 
     this.rerenderList();
   }

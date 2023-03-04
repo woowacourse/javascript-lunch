@@ -1,9 +1,9 @@
-import { OptionValue, RestaurantSelect } from "./../../constant/Constants";
+import { OptionValue, RestaurantSelect } from "../../constant/Constants";
 import { Category, TakingTime, Restaurant } from "../../type/type";
 import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 
-class Modal {
+class RestaurantFormBottomSheet {
   categorySelect;
   takingTimeSelect;
 
@@ -99,4 +99,4 @@ class Modal {
   }
 }
 
-export default new Modal();
+export default new RestaurantFormBottomSheet();
