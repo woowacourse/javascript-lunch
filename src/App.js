@@ -14,7 +14,7 @@ export class App {
     new RestaurantContainer();
     new Modal(this.restaurantList, this.restaurantRegistry);
     JSON.parse(localStorage.getItem("restaurants")).forEach((restaurant) => {
-      this.restaurantRegistry.appendRestaurant(restaurant);
+      this.restaurantRegistry.render(restaurant);
     });
   }
 }

@@ -76,7 +76,7 @@ export default class FilterBar {
 
   appendInfo(restaurantParsedInfo) {
     restaurantParsedInfo.forEach((restaurant) => {
-      this.restaurantRegistry.appendRestaurant(restaurant);
+      this.restaurantRegistry.render(restaurant);
     });
   }
 }

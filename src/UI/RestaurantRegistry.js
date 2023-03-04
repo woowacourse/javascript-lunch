@@ -1,7 +1,7 @@
 import { $ } from "../utils/Dom";
 
 export default class RestaurantRegistry {
-  appendRestaurant(restaurantInfo) {
+  render(restaurantInfo) {
     const category = {
       한식: "./category-korean.png",
       일식: "./category-japanese.png",

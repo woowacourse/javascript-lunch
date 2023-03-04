@@ -1,4 +1,5 @@
 import { $, $$ } from "../utils/Dom";
+import { FORM_ARRAY } from "../constants";
 
 export default class Modal {
   #template = `
@@ -69,26 +70,38 @@ export default class Modal {
     document.body.insertAdjacentHTML("beforeend", this.#template);
     this.restaurantList = restaurantList;
     this.modalForm = $(".modal-form");
-    this.modalForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      this.addRestaurant();
-    });
+    this.handleAddRestaurant();
     this.restaurantRegistry = restaurantRegistry;
     $(".button--secondary").addEventListener("click", this.closeModal);
   }
 
-  addRestaurant() {
-    const restaurantInfo = {};
-    const array = ["category", "name", "distance", "description", "link"];
-    $$(".form-item").forEach((inputValue, index) => {
-      restaurantInfo[array[index]] = inputValue.children[1].value;
+  handleAddRestaurant() {
+    this.modalForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.addRestaurant();
+      this.renderRestaurant();
+      this.closeModal();
     });
+  }
+
+  addRestaurant() {
+    const restaurantInfo = this.setRestaurant();
     this.restaurantList.add(restaurantInfo);
+  }
+
+  setRestaurant() {
+    const restaurantInfo = {};
+    $$(".form-item").forEach((inputValue, index) => {
+      restaurantInfo[FORM_ARRAY[index]] = inputValue.children[1].value;
+    });
+    return restaurantInfo;
+  }
+
+  renderRestaurant() {
     const restaurantLength = this.restaurantList.listRestaurant.length - 1;
-    this.restaurantRegistry.appendRestaurant(
+    this.restaurantRegistry.render(
       this.restaurantList.listRestaurant[restaurantLength]
     );
-    this.closeModal();
   }
 
   closeModal = () => {
