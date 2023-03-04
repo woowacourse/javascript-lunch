@@ -1,4 +1,3 @@
-import Restaurant from "../domain/model/Restaurant";
 import RestaurantType from "../type/Restaurant";
 import RestaurantItem from "./RestaurantItem";
 import LocalStorage from "../tools/LocalStorage";
@@ -50,10 +49,7 @@ class RestaurantList extends HTMLElement {
   }
 
   addRestaurant(newRestaurant: RestaurantType) {
-    this.state.restaurants = [
-      ...this.state.restaurants,
-      new Restaurant(newRestaurant),
-    ];
+    this.state.restaurants = [...this.state.restaurants, newRestaurant];
     LocalStorage.setLocalStorage("restaurants", this.state.restaurants);
   }
 
