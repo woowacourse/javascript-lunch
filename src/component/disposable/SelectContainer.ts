@@ -1,3 +1,4 @@
+import { RestaurantSelect } from "./../../constant/Constants";
 import { Constants } from "../../constant/Constants";
 import { RerenderListType } from "../../type/type";
 import Select from "../reusable/Select";
@@ -7,9 +8,6 @@ class SelectContainer {
   sortingSelect;
 
   constructor() {
-    const category = ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"];
-    const sorting = ["이름순", "거리순"];
-
     this.categorySelect = new Select(
       {
         required: false,
@@ -17,7 +15,7 @@ class SelectContainer {
         id: "category-filter",
         className: "restaurant-filter",
       },
-      category
+      RestaurantSelect.CATEGORY
     );
 
     this.sortingSelect = new Select(
@@ -27,7 +25,7 @@ class SelectContainer {
         id: "sorting-filter",
         className: "restaurant-filter",
       },
-      sorting
+      RestaurantSelect.SORTING
     );
   }
 

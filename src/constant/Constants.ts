@@ -19,3 +19,8 @@ export const Constants: Readonly<{ [key: string]: string }> = {
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",
 };
+
+export const RestaurantSelect: Readonly<{ [key: string]: string[] }> = {
+  CATEGORY: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
+  SORTING: ["이름순", "거리순"],
+};
