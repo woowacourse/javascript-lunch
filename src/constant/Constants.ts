@@ -10,7 +10,7 @@ export const CategoryImgPath: Readonly<{ [key: string]: string }> = {
 export const OptionValue: Readonly<{ [key: string]: string }> = {
   TOTAL: "전체",
   NAME_ORDER: "이름순",
-  DISTANCE_ORDER: "거리순",
+  TAKING_TIME_ORDER: "거리순",
   CHOICE: "선택해 주세요",
 };
 

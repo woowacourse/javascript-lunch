@@ -1,19 +1,19 @@
 import { OptionValue, RestaurantSelect } from "./../../constant/Constants";
-import { Category, Distance, Restaurant } from "../../type/type";
+import { Category, TakingTime, Restaurant } from "../../type/type";
 import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 
 class Modal {
   categorySelect;
-  distanceSelect;
+  takingTimeSelect;
 
   constructor() {
     this.categorySelect = new Select(
       { name: "category", id: "category", required: true },
       [OptionValue.CHOICE, ...RestaurantSelect.CATEGORY]
     );
-    this.distanceSelect = new Select(
-      { name: "distance", id: "distance", required: true },
+    this.takingTimeSelect = new Select(
+      { name: "takingTime", id: "takingTime", required: true },
       [OptionValue.CHOICE, ...RestaurantSelect.TAKING_TIME]
     );
   }
@@ -35,8 +35,8 @@ class Modal {
         </div>
 
         <div class="form-item form-item--required">
-          <label for="distance text-caption">거리(도보 이동 시간) </label>
-         ${this.distanceSelect.template()}
+          <label for="takingTime text-caption">거리(도보 이동 시간) </label>
+         ${this.takingTimeSelect.template()}
         </div>
 
         <div class="form-item">
@@ -77,7 +77,7 @@ class Modal {
       const formData = Object.fromEntries(new FormData($modal).entries());
       const data = {
         name: formData.name as string,
-        distance: formData.distance as Distance,
+        takingTime: formData.takingTime as TakingTime,
         category: formData.category as Category,
         link: formData.link as string,
         description: formData.description as string,

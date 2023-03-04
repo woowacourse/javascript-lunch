@@ -24,9 +24,9 @@ class RestaurantListHandler {
     );
   }
 
-  getSortedByDistance(restaurants: Restaurant[]): Restaurant[] {
+  getSortedByTakingTime(restaurants: Restaurant[]): Restaurant[] {
     return [...restaurants].sort(
-      (resA, resB) => Number(resA.distance) - Number(resB.distance)
+      (resA, resB) => Number(resA.takingTime) - Number(resB.takingTime)
     );
   }
 
