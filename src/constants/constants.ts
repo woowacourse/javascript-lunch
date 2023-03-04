@@ -15,4 +15,6 @@ const MESSAGE = {
   LINK_DEFAULT_CAPTION: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
 };
 
-export { REGEX, ERROR_MESSAGE, MESSAGE };
+const LOCAL_STORAGE_KEY = 'restaurants';
+
+export { REGEX, ERROR_MESSAGE, MESSAGE, LOCAL_STORAGE_KEY };
