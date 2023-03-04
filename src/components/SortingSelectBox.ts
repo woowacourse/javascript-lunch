@@ -20,11 +20,15 @@ class SortingSelectBox extends HTMLElement {
     const sortingFilter = document.getElementById("sorting-filter");
     if (sortingFilter instanceof HTMLSelectElement) {
       sortingFilter.addEventListener("change", () => {
-        const restaurantList = document.getElementById("restaurantList");
-        if (restaurantList instanceof RestaurantList) {
-          restaurantList.sortBy(sortingFilter.value);
-        }
+        this.sortRestaurant(sortingFilter.value);
       });
+    }
+  }
+
+  sortRestaurant(key: string) {
+    const restaurantList = document.getElementById("restaurantList");
+    if (restaurantList instanceof RestaurantList) {
+      restaurantList.sortBy(key);
     }
   }
 }
