@@ -1,9 +1,8 @@
-class CategorySelectBox extends HTMLElement {
-  controller;
+import RestaurantList from "./RestaurantList";
 
+class CategorySelectBox extends HTMLElement {
   constructor() {
     super();
-    this.controller = globalThis.controller;
     this.render();
     this.onSelectOption();
   }
@@ -28,7 +27,11 @@ class CategorySelectBox extends HTMLElement {
       return;
     }
     categoryFilter?.addEventListener("change", () => {
-      this.controller.filterRestaurants(categoryFilter.value);
+      const restaurantList = document.getElementById("restaurantList");
+      if (!(restaurantList instanceof RestaurantList)) {
+        return;
+      }
+      restaurantList.filterBy(categoryFilter.value);
     });
   }
 }

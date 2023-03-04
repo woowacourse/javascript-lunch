@@ -3,12 +3,12 @@ import RestaurantType from "../type/Restaurant";
 import RestaurantItem from "./RestaurantItem";
 
 class RestaurantList extends HTMLElement {
-  state: { restaurants: RestaurantType[] };
+  state: { restaurants: RestaurantType[]; filter: string; sort: string };
 
   constructor() {
     super();
     this.state = new Proxy(
-      { restaurants: [] },
+      { restaurants: [], filter: "전체", sort: "name" },
       {
         set: (obj: any, prop, value) => {
           obj[prop] = value;
@@ -20,9 +20,14 @@ class RestaurantList extends HTMLElement {
     this.loadLocalStorage();
   }
 
+  loadLocalStorage() {
+    this.state.restaurants = this.getLocalStorage();
+  }
+
   render() {
     this.innerHTML = `
       <section class="restaurant-list-container">
+        ${JSON.stringify(this.state)}
         <ul class="restaurant-list">
         ${this.state.restaurants
           .map((restaurant) => new RestaurantItem().render(restaurant))
@@ -40,14 +45,18 @@ class RestaurantList extends HTMLElement {
     this.setLocalStorage();
   }
 
+  filterBy(key: string) {
+    this.state.filter = key;
+  }
+
+  sortBy(key: string) {
+    this.state.sort = key;
+  }
+
   // 새로운 모듈로 이전 예정
   setLocalStorage() {
     const restaurants = JSON.stringify(this.state.restaurants);
     localStorage.setItem("restaurants", restaurants);
-  }
-
-  loadLocalStorage() {
-    this.state.restaurants = this.getLocalStorage();
   }
 
   // 새로운 모듈로 이전 예정

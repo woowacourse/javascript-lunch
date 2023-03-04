@@ -1,9 +1,8 @@
-class SortingSelectBox extends HTMLElement {
-  controller;
+import RestaurantList from "./RestaurantList";
 
+class SortingSelectBox extends HTMLElement {
   constructor() {
     super();
-    this.controller = globalThis.controller;
     this.render();
     this.onSelectOption();
   }
@@ -23,7 +22,11 @@ class SortingSelectBox extends HTMLElement {
       return;
     }
     sortingFilter?.addEventListener("change", () => {
-      this.controller.sortRestaurants(sortingFilter.value);
+      const restaurantList = document.getElementById("restaurantList");
+      if (!(restaurantList instanceof RestaurantList)) {
+        return;
+      }
+      restaurantList.sortBy(sortingFilter.value);
     });
   }
 }
