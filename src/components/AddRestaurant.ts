@@ -70,10 +70,9 @@ class AddRestaurant extends HTMLElement {
     cancelButton?.addEventListener("click", () => {
       // 모듈화 필요
       const bottomSheet = document.getElementById("bottomSheet");
-      if (!(bottomSheet instanceof BottomSheet)) {
-        return;
+      if (bottomSheet instanceof BottomSheet) {
+        bottomSheet.close();
       }
-      bottomSheet?.close();
     });
   }
 
@@ -84,17 +83,15 @@ class AddRestaurant extends HTMLElement {
       const newRestaurant = this.createNewRestaurant(event);
 
       const restaurantList = document.getElementById("restaurantList");
-      if (!(restaurantList instanceof RestaurantList)) {
-        return;
+      if (restaurantList instanceof RestaurantList) {
+        restaurantList.addRestaurant(newRestaurant);
       }
-      restaurantList.addRestaurant(newRestaurant);
 
       // 모듈화 필요
       const bottomSheet = document.getElementById("bottomSheet");
-      if (!(bottomSheet instanceof BottomSheet)) {
-        return;
+      if (bottomSheet instanceof BottomSheet) {
+        bottomSheet.close();
       }
-      bottomSheet?.close();
     });
   }
 

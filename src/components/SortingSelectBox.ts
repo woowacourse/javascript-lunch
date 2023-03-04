@@ -18,16 +18,14 @@ class SortingSelectBox extends HTMLElement {
 
   onSelectOption() {
     const sortingFilter = document.getElementById("sorting-filter");
-    if (!(sortingFilter instanceof HTMLSelectElement)) {
-      return;
+    if (sortingFilter instanceof HTMLSelectElement) {
+      sortingFilter.addEventListener("change", () => {
+        const restaurantList = document.getElementById("restaurantList");
+        if (restaurantList instanceof RestaurantList) {
+          restaurantList.sortBy(sortingFilter.value);
+        }
+      });
     }
-    sortingFilter?.addEventListener("change", () => {
-      const restaurantList = document.getElementById("restaurantList");
-      if (!(restaurantList instanceof RestaurantList)) {
-        return;
-      }
-      restaurantList.sortBy(sortingFilter.value);
-    });
   }
 }
 

@@ -23,16 +23,14 @@ class CategorySelectBox extends HTMLElement {
 
   onSelectOption() {
     const categoryFilter = document.getElementById("category-filter");
-    if (!(categoryFilter instanceof HTMLSelectElement)) {
-      return;
+    if (categoryFilter instanceof HTMLSelectElement) {
+      categoryFilter.addEventListener("change", () => {
+        const restaurantList = document.getElementById("restaurantList");
+        if (restaurantList instanceof RestaurantList) {
+          restaurantList.filterBy(categoryFilter.value);
+        }
+      });
     }
-    categoryFilter?.addEventListener("change", () => {
-      const restaurantList = document.getElementById("restaurantList");
-      if (!(restaurantList instanceof RestaurantList)) {
-        return;
-      }
-      restaurantList.filterBy(categoryFilter.value);
-    });
   }
 }
 

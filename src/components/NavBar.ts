@@ -23,10 +23,9 @@ class NavBar extends HTMLElement {
     const addIcon = document.getElementById("addIcon");
     addIcon?.addEventListener("click", () => {
       const bottomSheet = document.getElementById("bottomSheet");
-      if (!(bottomSheet instanceof BottomSheet)) {
-        return;
+      if (bottomSheet instanceof BottomSheet) {
+        bottomSheet.open("<add-restaurant />");
       }
-      bottomSheet.open("<add-restaurant />");
     });
   }
 }
