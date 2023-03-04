@@ -40,7 +40,7 @@ class RestaurantList extends HTMLElement {
           .sort((a: any, b: any) =>
             a[this.state.sort] > b[this.state.sort] ? 1 : -1
           )
-          .map((restaurant) => new RestaurantItem().render(restaurant))
+          .map((restaurant) => RestaurantItem(restaurant))
           .join("")}
         </ul>
       </section>
