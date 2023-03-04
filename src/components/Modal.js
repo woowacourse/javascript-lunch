@@ -84,12 +84,8 @@ export default class Modal extends Component {
   setEvent() {
     const { toggleModal, addRestaurant } = this.props;
 
-    this.addEvent("click", "#cancel-button", () => {
-      toggleModal();
-    });
-
+    this.addEvent("click", "#cancel-button", toggleModal);
     this.addEvent("click", ".modal-backdrop", toggleModal);
-
     this.addEvent("submit", "#add-restaurant-form", (event) => {
       event.preventDefault();
 
