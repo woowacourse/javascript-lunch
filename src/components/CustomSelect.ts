@@ -1,6 +1,6 @@
 import OPTIONS from "../constants/options";
 
-type SelectId = keyof typeof OPTIONS;
+type SelectId = keyof typeof OPTIONS | "";
 
 class CustomSelect extends HTMLSelectElement {
   constructor() {
@@ -8,7 +8,8 @@ class CustomSelect extends HTMLSelectElement {
 
     const id = (this.getAttribute("id") as SelectId) ?? "";
 
-    this.innerHTML = `
+    if (id !== "")
+      this.innerHTML = `
       ${OPTIONS[id].text
         .map(
           (optionText, index) =>
