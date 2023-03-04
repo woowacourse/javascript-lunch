@@ -27,9 +27,9 @@ class Select {
     } required=${this.attribute.required}>
     ${this.options
       .map((option: string, index: number) =>
-        !index
-          ? `<option value=''> ${option}</option>`
-          : `<option value='${option}'> ${option} </option>`
+        index
+          ? `<option value='${option}'> ${option} </option>`
+          : `<option value=''> ${option}</option>`
       )
       .join("")}
     </select>`;
