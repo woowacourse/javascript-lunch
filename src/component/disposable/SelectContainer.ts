@@ -1,4 +1,4 @@
-import { RestaurantSelect } from "./../../constant/Constants";
+import { OptionValue, RestaurantSelect } from "./../../constant/Constants";
 import { Constants } from "../../constant/Constants";
 import { RerenderListType } from "../../type/type";
 import Select from "../reusable/Select";
@@ -15,7 +15,7 @@ class SelectContainer {
         id: "category-filter",
         className: "restaurant-filter",
       },
-      RestaurantSelect.CATEGORY
+      [OptionValue.TOTAL, ...RestaurantSelect.CATEGORY]
     );
 
     this.sortingSelect = new Select(

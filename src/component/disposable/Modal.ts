@@ -1,3 +1,4 @@
+import { OptionValue, RestaurantSelect } from "./../../constant/Constants";
 import { Category, Distance, Restaurant } from "../../type/type";
 import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
@@ -7,24 +8,13 @@ class Modal {
   distanceSelect;
 
   constructor() {
-    const category = [
-      "선택해 주세요",
-      "한식",
-      "중식",
-      "일식",
-      "양식",
-      "아시안",
-      "기타",
-    ];
-    const distance = ["선택해 주세요", "5", "10", "15", "20", "30"];
-
     this.categorySelect = new Select(
       { name: "category", id: "category", required: true },
-      category
+      [OptionValue.CHOICE, ...RestaurantSelect.CATEGORY]
     );
     this.distanceSelect = new Select(
       { name: "distance", id: "distance", required: true },
-      distance
+      [OptionValue.CHOICE, ...RestaurantSelect.TAKING_TIME]
     );
   }
 

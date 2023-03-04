@@ -11,6 +11,7 @@ export const OptionValue: Readonly<{ [key: string]: string }> = {
   TOTAL: "전체",
   NAME_ORDER: "이름순",
   DISTANCE_ORDER: "거리순",
+  CHOICE: "선택해 주세요",
 };
 
 export const Constants: Readonly<{ [key: string]: string }> = {
@@ -21,6 +22,7 @@ export const Constants: Readonly<{ [key: string]: string }> = {
 };
 
 export const RestaurantSelect: Readonly<{ [key: string]: string[] }> = {
-  CATEGORY: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
+  CATEGORY: ["한식", "중식", "일식", "양식", "아시안", "기타"],
   SORTING: ["이름순", "거리순"],
+  TAKING_TIME: ["5", "10", "15", "20", "30"],
 };
