@@ -13,8 +13,11 @@ export class App {
     new FilterBar(this.restaurantList, this.restaurantRegistry);
     new RestaurantContainer();
     new Modal(this.restaurantList, this.restaurantRegistry);
-    JSON.parse(localStorage.getItem("restaurants")).forEach((restaurant) => {
-      this.restaurantRegistry.render(restaurant);
-    });
+
+    const restaurants = JSON.parse(localStorage.getItem("restaurants"));
+    if (restaurants !== null)
+      JSON.parse(localStorage.getItem("restaurants")).forEach((restaurant) => {
+        this.restaurantRegistry.render(restaurant);
+      });
   }
 }

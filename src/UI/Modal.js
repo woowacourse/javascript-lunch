@@ -1,5 +1,6 @@
 import { $, $$ } from "../utils/Dom";
 import { FORM_ARRAY } from "../constants";
+import Validator from "../Validator";
 
 export default class Modal {
   #template = `
@@ -70,22 +71,25 @@ export default class Modal {
     document.body.insertAdjacentHTML("beforeend", this.#template);
     this.restaurantList = restaurantList;
     this.modalForm = $(".modal-form");
-    this.handleAddRestaurant();
+    this.addRestaurantHandler();
     this.restaurantRegistry = restaurantRegistry;
     $(".button--secondary").addEventListener("click", this.closeModal);
   }
 
-  handleAddRestaurant() {
+  addRestaurantHandler() {
     this.modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.addRestaurant();
-      this.renderRestaurant();
-      this.closeModal();
+      const restaurant = this.setRestaurant();
+      const hasError = this.validateRestaurantInfo(restaurant);
+      if (!hasError) {
+        this.addRestaurant(restaurant);
+        this.renderRestaurant();
+        this.closeModal();
+      }
     });
   }
 
-  addRestaurant() {
-    const restaurantInfo = this.setRestaurant();
+  addRestaurant(restaurantInfo) {
     this.restaurantList.add(restaurantInfo);
   }
 
@@ -94,7 +98,16 @@ export default class Modal {
     $$(".form-item").forEach((inputValue, index) => {
       restaurantInfo[FORM_ARRAY[index]] = inputValue.children[1].value;
     });
+
     return restaurantInfo;
+  }
+
+  validateRestaurantInfo(restaurantInfo) {
+    if (Validator.validateName(restaurantInfo.name)) {
+      $("#name").value = "";
+      return true;
+    }
+    return false;
   }
 
   renderRestaurant() {
@@ -110,12 +123,12 @@ export default class Modal {
   };
 
   resetValue() {
-    $$(".form-item").forEach((inputValue, index) => {
+    $$(".form-item").forEach((formItem, index) => {
       if (index === 0 || index === 2) {
-        inputValue.children[1].value = "";
+        formItem.children[1].value = "";
         return;
       }
-      inputValue.children[1].value = null;
+      formItem.children[1].value = null;
     });
   }
 }
