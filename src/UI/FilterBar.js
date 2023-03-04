@@ -28,11 +28,19 @@ export default class FilterBar {
     this.restaurantList = restaurantList;
     this.restaurantRegistry = restaurantRegistry;
     document.body.insertAdjacentHTML("beforeend", this.#template);
+    this.handleSelectedValue();
+    this.handleSortedValue();
+  }
+
+  handleSelectedValue() {
     const selected = $("#category-filter");
     selected.addEventListener("change", () => {
       const selectedValue = selected.options[selected.selectedIndex].value;
       this.filterCategory(selectedValue);
     });
+  }
+
+  handleSortedValue() {
     const sorted = $("#sorting-filter");
     sorted.addEventListener("change", () => {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
@@ -44,33 +52,31 @@ export default class FilterBar {
   filterCategory(selectedValue) {
     this.restaurantList.categoryFilter(selectedValue);
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = JSON.parse(
-      localStorage.getItem("restaurants")
-    );
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
-    });
+    const restaurantParsedInfo = this.parseInfo();
+    this.appendInfo(restaurantParsedInfo);
   }
 
   filterByName() {
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = JSON.parse(
-      localStorage.getItem("restaurants")
-    );
+    const restaurantParsedInfo = this.parseInfo();
     sortByName(restaurantParsedInfo);
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
-    });
+    this.appendInfo(restaurantParsedInfo);
   }
 
   filterByDistance() {
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = JSON.parse(
-      localStorage.getItem("restaurants")
-    );
+    const restaurantParsedInfo = this.parseInfo();
     sortByDistance(restaurantParsedInfo);
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
+    this.appendInfo(restaurantParsedInfo);
+  }
+
+  parseInfo() {
+    return JSON.parse(localStorage.getItem("restaurants"));
+  }
+
+  appendInfo(restaurantParsedInfo) {
+    restaurantParsedInfo.forEach((restaurant) => {
+      this.restaurantRegistry.appendRestaurant(restaurant);
     });
   }
 }

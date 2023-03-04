@@ -1,28 +1,29 @@
-import { Restaurant, RestaurantForm, Category } from "./Restaurant";
+import { RestaurantForm, Category } from "./Restaurant";
 
 export class RestaurantList {
-  private list: RestaurantForm[] = [];
+  private formList: RestaurantForm[] = [];
 
   constructor() {
-    const res = JSON.parse(localStorage.getItem("restaurants") || "[]");
-    if (res.length !== 0)
-      res.forEach((val: RestaurantForm) => {
-        this.list.push(val);
+    const parsedRestaurants = JSON.parse(
+      localStorage.getItem("restaurants") || "[]"
+    );
+    if (parsedRestaurants.length !== 0)
+      parsedRestaurants.forEach((restaurant: RestaurantForm) => {
+        this.formList = [...this.formList, restaurant];
       });
   }
 
   add(restaurantInfo: RestaurantForm) {
-    this.list = [...this.list, restaurantInfo];
-
+    this.formList = [...this.formList, restaurantInfo];
     this.filterAll();
   }
 
   get listRestaurant(): RestaurantForm[] {
-    return this.list;
+    return this.formList;
   }
 
   filterAll() {
-    const restaurantString = JSON.stringify(this.list.map((info) => info));
+    const restaurantString = JSON.stringify(this.formList.map((info) => info));
     window.localStorage.setItem("restaurants", restaurantString);
   }
 
@@ -32,13 +33,10 @@ export class RestaurantList {
       this.filterAll();
       return;
     }
-
-    this.list.filter((info) => {
+    this.formList.filter((info) => {
       if (info.category === category) filteredList.push(info);
     });
-
-    const restaurantString = JSON.stringify(filteredList);
-    window.localStorage.setItem("restaurants", restaurantString);
+    window.localStorage.setItem("restaurants", JSON.stringify(filteredList));
     return filteredList;
   }
 }

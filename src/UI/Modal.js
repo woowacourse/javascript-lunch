@@ -1,5 +1,3 @@
-import { RestaurantList } from "../domain/RestaurantList";
-import RestaurantRegistry from "./RestaurantRegistry";
 import { $, $$ } from "../utils/Dom";
 
 export default class Modal {
@@ -82,8 +80,8 @@ export default class Modal {
   addRestaurant() {
     const restaurantInfo = {};
     const array = ["category", "name", "distance", "description", "link"];
-    $$(".form-item").forEach((val, index) => {
-      restaurantInfo[array[index]] = val.children[1].value;
+    $$(".form-item").forEach((inputValue, index) => {
+      restaurantInfo[array[index]] = inputValue.children[1].value;
     });
     this.restaurantList.add(restaurantInfo);
     const restaurantLength = this.restaurantList.listRestaurant.length - 1;
@@ -99,12 +97,12 @@ export default class Modal {
   };
 
   resetValue() {
-    $$(".form-item").forEach((val, index) => {
+    $$(".form-item").forEach((inputValue, index) => {
       if (index === 0 || index === 2) {
-        val.children[1].value = "";
+        inputValue.children[1].value = "";
         return;
       }
-      val.children[1].value = null;
+      inputValue.children[1].value = null;
     });
   }
 }
