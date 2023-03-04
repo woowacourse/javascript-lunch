@@ -30,6 +30,14 @@ class RestaurantList extends HTMLElement {
         ${JSON.stringify(this.state)}
         <ul class="restaurant-list">
         ${this.state.restaurants
+          .filter(
+            (restaurant) =>
+              this.state.filter === "전체" ||
+              restaurant.category === this.state.filter
+          )
+          .sort((a: any, b: any) =>
+            a[this.state.sort] > b[this.state.sort] ? 1 : -1
+          )
           .map((restaurant) => new RestaurantItem().render(restaurant))
           .join("")}
         </ul>
