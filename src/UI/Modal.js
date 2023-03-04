@@ -91,6 +91,26 @@ export default class Modal {
     });
   }
 
+  validateRestaurantInfo(restaurantInfo) {
+    if (this.isInvalidName(restaurantInfo.name)) {
+      $("#name").value = "";
+      return true;
+    }
+    if (this.isInvalidURL(restaurantInfo.link)) {
+      $("#link").value = "";
+      return true;
+    }
+    return false;
+  }
+
+  isInvalidName(restaurantName) {
+    return Validator.name(restaurantName);
+  }
+
+  isInvalidURL(restaurantLink) {
+    return Validator.url(restaurantLink) && restaurantLink !== "";
+  }
+
   addRestaurant(restaurantInfo) {
     this.restaurantList.add(restaurantInfo);
   }
@@ -102,14 +122,6 @@ export default class Modal {
     });
 
     return restaurantInfo;
-  }
-
-  validateRestaurantInfo(restaurantInfo) {
-    if (Validator.validateName(restaurantInfo.name)) {
-      $("#name").value = "";
-      return true;
-    }
-    return false;
   }
 
   renderRestaurant() {
