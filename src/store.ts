@@ -1,10 +1,13 @@
 import { Restaurant, CategoryFilter, SortFilter } from './types';
 import RestaurantItems from './components/RestaurantItems';
+import { restaurants } from './restaurants';
 
 interface Store {
   restaurants: Restaurant[];
   categoryFilter: CategoryFilter;
   sortFilter: SortFilter;
+  initRestaurants: () => void;
+  getRestuarants: () => Restaurant[];
   addRestaurants: (restaurant: Restaurant) => void;
   filterRestaurants: (categoryFilter: CategoryFilter) => void;
   sortRestaurants: (sortFilter: SortFilter) => void;
@@ -15,16 +18,23 @@ export const store: Store = {
   categoryFilter: '전체',
   sortFilter: 'name',
 
+  initRestaurants() {
+    localStorage.setItem('store', JSON.stringify(restaurants));
+    store.restaurants = JSON.parse(localStorage.getItem('store') || JSON.stringify(restaurants));
+  },
+
+  getRestuarants() {
+    store.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
+    return store.restaurants;
+  },
+
   addRestaurants(restaurant: Restaurant) {
     this.restaurants = [...this.restaurants, restaurant];
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
     $restaurantItems.render(this.restaurants);
-    localStorage.setItem(
-      'store',
-      JSON.stringify([...JSON.parse(localStorage.getItem('store') || '[]'), restaurant]),
-    );
+    localStorage.setItem('store', JSON.stringify([...this.getRestuarants(), restaurant]));
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   },
@@ -34,7 +44,8 @@ export const store: Store = {
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
-    this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
+    this.restaurants = this.getRestuarants();
+
     if (categoryFilter === '전체') {
       return $restaurantItems.render(this.restaurants);
     }
