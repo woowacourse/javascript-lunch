@@ -2,13 +2,8 @@ import { $ } from '../utils/domHelpers';
 
 class Header {
   constructor() {
-    this.addEvent();
-  }
-
-  addEvent() {
-    $('.gnb').addEventListener('click', (e) => {
-      this.test(e);
-    });
+    this.openAddDataModal();
+    this.openAddDataModal = this.openAddDataModal.bind(this);
   }
 
   render() {
@@ -20,11 +15,13 @@ class Header {
       `;
   }
 
-  test(e) {
-    if (e.target.parentNode.type === 'button') {
-      const modal = $('.modal');
-      modal.classList.add('modal--open');
-    }
+  openAddDataModal() {
+    $('header').addEventListener('click', (e) => {
+      if (e.target.parentNode.type === 'button') {
+        const modal = $('.modal');
+        modal.classList.add('modal--open');
+      }
+    });
   }
 }
 
