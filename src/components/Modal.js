@@ -83,7 +83,7 @@ class Modal {
       const name = document.querySelector('#name').value;
       const distance = document.querySelector('#distance').value;
       const description = document.querySelector('#description').value;
-      const link = document.querySelector('#link');
+      const link = document.querySelector('#link').value;
 
       const restaurant = this.makeRestaurant({ category, name, distance, description, link });
 
