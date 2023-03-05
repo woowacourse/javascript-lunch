@@ -71,7 +71,7 @@ class ModalView {
     this.categoryInput.addEventListener(
       'change',
       () => {
-        this.categoryInputCaption.classList.add('error-text');
+        this.categoryInputCaption.classList.remove('error-text');
         this.categoryInputCaption.textContent = '';
       },
       { once: true },
