@@ -1,19 +1,12 @@
 import { $ } from "../utils/Dom";
+import { CATEGORY } from "../constants";
 
-export default class RestaurantRegistry {
+export default class RestaurantItem {
   render(restaurantInfo) {
-    const category = {
-      한식: "./category-korean.png",
-      일식: "./category-japanese.png",
-      양식: "./category-western.png",
-      중식: "./category-chinese.png",
-      아시안: "./category-asian.png",
-      기타: "./category-etc.png",
-    };
     const template = `
     <li class="restaurant">
           <div class="restaurant__category">
-            <img src="${category[restaurantInfo.category]}" alt="${
+            <img src="${CATEGORY[restaurantInfo.category]}" alt="${
       restaurantInfo.category
     }" class="category-icon">
           </div>

@@ -1,6 +1,6 @@
 import { RestaurantForm, Category } from "./Restaurant";
 
-export class RestaurantList {
+export default class RestaurantList {
   private formList: RestaurantForm[] = [];
 
   constructor() {

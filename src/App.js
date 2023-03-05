@@ -1,23 +1,23 @@
 import Header from "./UI/Header.js";
-import RestaurantContainer from "./UI/RestaurantContainer.js";
 import Modal from "./UI/Modal";
 import FilterBar from "./UI/FilterBar";
-import { RestaurantList } from "./domain/RestaurantList";
-import RestaurantRegistry from "./UI/RestaurantRegistry.js";
+import RestaurantList from "./domain/RestaurantList";
+import RestaurantContainer from "./UI/RestaurantContainer.js";
+import RestaurantItem from "./UI/RestaurantItem.js";
 
 export class App {
   constructor() {
     this.restaurantList = new RestaurantList();
-    this.restaurantRegistry = new RestaurantRegistry();
+    this.restaurantItem = new RestaurantItem();
     new Header();
-    new FilterBar(this.restaurantList, this.restaurantRegistry);
+    new FilterBar(this.restaurantList, this.restaurantItem);
     new RestaurantContainer();
-    new Modal(this.restaurantList, this.restaurantRegistry);
+    new Modal(this.restaurantList, this.restaurantItem);
 
     const restaurants = JSON.parse(localStorage.getItem("restaurants"));
     if (restaurants !== null)
       JSON.parse(localStorage.getItem("restaurants")).forEach((restaurant) => {
-        this.restaurantRegistry.render(restaurant);
+        this.restaurantItem.render(restaurant);
       });
   }
 }

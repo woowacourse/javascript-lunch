@@ -24,9 +24,9 @@ export default class FilterBar {
     </main>
  `;
 
-  constructor(restaurantList, restaurantRegistry) {
+  constructor(restaurantList, restaurantItem) {
     this.restaurantList = restaurantList;
-    this.restaurantRegistry = restaurantRegistry;
+    this.restaurantItem = restaurantItem;
     document.body.insertAdjacentHTML("beforeend", this.#template);
     this.handleSelectedValue();
     this.handleSortedValue();
@@ -76,7 +76,7 @@ export default class FilterBar {
 
   render(restaurantParsedInfo) {
     restaurantParsedInfo.forEach((restaurant) => {
-      this.restaurantRegistry.render(restaurant);
+      this.restaurantItem.render(restaurant);
     });
   }
 }

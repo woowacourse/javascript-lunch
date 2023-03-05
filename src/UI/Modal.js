@@ -67,12 +67,12 @@ export default class Modal {
     </div>
     `;
 
-  constructor(restaurantList, restaurantRegistry) {
+  constructor(restaurantList, restaurantItem) {
     document.body.insertAdjacentHTML("beforeend", this.#template);
     this.restaurantList = restaurantList;
     this.modalForm = $(".modal-form");
     this.addRestaurantHandler();
-    this.restaurantRegistry = restaurantRegistry;
+    this.restaurantItem = restaurantItem;
     $(".button--secondary").addEventListener("click", this.closeModal);
     this.closeEscape();
     this.closeBackDrop();
@@ -126,7 +126,7 @@ export default class Modal {
 
   renderRestaurant() {
     const restaurantLength = this.restaurantList.listRestaurant.length - 1;
-    this.restaurantRegistry.render(
+    this.restaurantItem.render(
       this.restaurantList.listRestaurant[restaurantLength]
     );
   }

@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/dom";
-import RestaurantRegistry from "../src/UI/RestaurantRegistry.js";
+import RestaurantItem from "../src/UI/RestaurantItem.js";
 import FilterBar from "../src/UI/FilterBar";
 
 describe("렌더링 테스트", () => {
@@ -19,7 +19,7 @@ describe("렌더링 테스트", () => {
       name: "진대감",
       distance: "5",
     };
-    const restaurantItem = new RestaurantRegistry();
+    const restaurantItem = new RestaurantItem();
     restaurantItem.render(restaurant);
 
     expect(screen.getByText("진대감")).toBeInTheDocument;
@@ -43,8 +43,8 @@ describe("렌더링 테스트", () => {
       },
     ];
 
-    const restaurantRegistry = new RestaurantRegistry();
-    const filterBar = new FilterBar(restaurantList, restaurantRegistry);
+    const restaurantItem = new RestaurantItem();
+    const filterBar = new FilterBar(restaurantList, restaurantItem);
     filterBar.render(restaurantList);
 
     expect(screen.getByTestId("restaurant-list").childElementCount).toBe(3);
