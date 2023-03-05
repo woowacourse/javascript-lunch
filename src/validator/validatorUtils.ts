@@ -1,10 +1,10 @@
 import { regex } from '@res/constants/regex';
 
-interface a {
+interface IValidatorUtils {
   [key: string]: (input: string) => boolean;
 }
 
-export const validatorUtils: a = {
+export const validatorUtils: IValidatorUtils = {
   name: (input: string): boolean => {
     console.log(regex.nameInputLength.test(input), input, 'name');
     return regex.nameInputLength.test(input);
@@ -26,12 +26,3 @@ export const validatorUtils: a = {
     return regex.urlInput.test(input);
   },
 };
-
-// export const validatorUtils: a = {
-//   name: (input: string): boolean => regex.nameInputLength.test(input),
-//   category: (input: string): boolean => input !== '',
-//   distance: (input: string): boolean => input !== '',
-//   description: (input: string): boolean =>
-//     regex.descriptionInputLength.test(input),
-//   link: (input: string): boolean => regex.urlInput.test(input),
-// };
