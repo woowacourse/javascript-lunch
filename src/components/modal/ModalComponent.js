@@ -19,7 +19,7 @@ class ModalComponent extends CustomElement {
 
   handleEvent() {
     this.querySelector(".button--secondary").addEventListener("click", () =>
-      dispatcher("modal_off", false)
+      dispatcher("modal_off")
     );
   }
 

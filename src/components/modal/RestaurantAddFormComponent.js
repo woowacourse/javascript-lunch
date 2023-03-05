@@ -3,19 +3,19 @@ import dispatcher from "../../domain/Dispatcher";
 import { RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class RestaurantAddFormComponent extends CustomElement {
-  setEvent() {
-    document
-      .querySelector("form")
-      .addEventListener("submit", (e) => this.addRestaurant(e));
+  handleEvent() {
+    this.querySelector("form").addEventListener("submit", (event) =>
+      this.addRestaurant(event)
+    );
   }
 
-  addRestaurant(e) {
-    e.preventDefault();
-    const category = document.querySelector("#category").value;
-    const name = document.querySelector("#name").value;
-    const distance = document.querySelector("#distance").value;
-    const description = document.querySelector("#description").value;
-    const link = document.querySelector("#link").value;
+  addRestaurant(event) {
+    event.preventDefault();
+    const category = this.querySelector("#category").value;
+    const name = this.querySelector("#name").value;
+    const distance = this.querySelector("#distance").value;
+    const description = this.querySelector("#description").value;
+    const link = this.querySelector("#link").value;
 
     const restaurant = {
       category,
@@ -26,9 +26,9 @@ class RestaurantAddFormComponent extends CustomElement {
     };
 
     dispatcher(RESTAURANT_ACTION.ADD_RESTAURANT, restaurant);
+    dispatcher("modal_off");
 
-    document.querySelector(".modal").classList.remove("modal--open");
-    document.querySelector("form").reset();
+    this.querySelector("form").reset();
   }
 
   template() {

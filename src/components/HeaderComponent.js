@@ -4,7 +4,7 @@ import dispatcher from "../domain/Dispatcher";
 class HeaderComponent extends CustomElement {
   handleEvent() {
     this.querySelector(".gnb__button").addEventListener("click", () =>
-      dispatcher("modal_on", true)
+      dispatcher("modal_on")
     );
   }
 
