@@ -31,7 +31,7 @@ class RestaurantListHandler {
   }
 
   getFilteredByCategory(category: string): Restaurant[] {
-    return category === ""
+    return category === Constants.TOTAL
       ? [...this.restaurants]
       : [...this.restaurants].filter(
           (restaurant) => restaurant.category === category

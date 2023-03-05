@@ -6,8 +6,8 @@ class Select {
   options: string[];
 
   constructor(attribute: Attribute, options: string[]) {
-    this.options = options;
     this.attribute = attribute;
+    this.options = options;
   }
 
   addEvent(id: string, rerenderList: RerenderListType) {
@@ -26,11 +26,7 @@ class Select {
       this.attribute.className
     } required=${this.attribute.required}>
     ${this.options
-      .map((option: string, index: number) =>
-        !index
-          ? `<option value=''> ${option}</option>`
-          : `<option value='${option}'> ${option} </option>`
-      )
+      .map((option: string) => `<option value='${option}'> ${option} </option>`)
       .join("")}
     </select>`;
   }
