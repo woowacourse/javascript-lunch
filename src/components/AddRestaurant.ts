@@ -83,15 +83,19 @@ class AddRestaurant extends HTMLElement {
     const restaurantForm = document.getElementById("restaurantForm");
     restaurantForm?.addEventListener("submit", (event) => {
       event.preventDefault();
-      const newRestaurant = this.createNewRestaurant(event);
 
-      const restaurantList = document.getElementById("restaurantList");
-      if (restaurantList instanceof RestaurantList) {
-        restaurantList.addRestaurant(newRestaurant);
-      }
+      const newRestaurant = this.createNewRestaurant(event);
+      this.addNewRestaurant(newRestaurant);
 
       this.closeBottomSheet();
     });
+  }
+
+  addNewRestaurant(newRestaurant: RestaurantType) {
+    const restaurantList = document.getElementById("restaurantList");
+    if (restaurantList instanceof RestaurantList) {
+      restaurantList.addRestaurant(newRestaurant);
+    }
   }
 
   createNewRestaurant(event: SubmitEvent) {
