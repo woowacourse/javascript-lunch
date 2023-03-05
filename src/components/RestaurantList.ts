@@ -11,8 +11,8 @@ class RestaurantList extends HTMLElement {
     this.state = new Proxy(
       { restaurants: [], filter: "전체", sort: "name" },
       {
-        set: (obj, prop: string, value) => {
-          //type-guard
+        set: (obj, prop, value) => {
+          // type-guard
           if (prop === "restaurants" || prop === "filter" || prop === "sort") {
             obj[prop] = value;
           }
