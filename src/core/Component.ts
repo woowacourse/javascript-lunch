@@ -1,11 +1,13 @@
-import IProps from '@res/interfaces/IProps';
+import { IComponent, IComponentPropState } from '@res/interfaces/IComponent';
 
-export default class Component {
-  $target;
-  $props;
-  $state: any;
+export default class Component<P extends IComponentPropState>
+  implements IComponent<P>
+{
+  $target: HTMLElement;
+  $props: P;
+  $state!: P;
 
-  constructor(target: HTMLElement, props: IProps) {
+  constructor(target: HTMLElement, props: P) {
     this.$target = target;
     this.$props = props;
 
@@ -27,7 +29,7 @@ export default class Component {
 
   mounted(): void {}
 
-  setEvent() {}
+  setEvent(): void {}
 
   setState(newState: any) {
     this.$state = { ...this.$state, ...newState };
