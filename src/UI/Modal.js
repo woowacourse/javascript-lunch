@@ -1,5 +1,5 @@
 import { $, $$ } from "../utils/Dom";
-import { FORM_ARRAY } from "../constants";
+import { FORM_ARRAY, ERROR_MESSAGE } from "../constants";
 import Validator from "../Validator";
 
 export default class Modal {
@@ -71,11 +71,9 @@ export default class Modal {
     document.body.insertAdjacentHTML("beforeend", this.#template);
     this.restaurantList = restaurantList;
     this.modalForm = $(".modal-form");
-    this.addRestaurantHandler();
     this.restaurantItem = restaurantItem;
-    $(".button--secondary").addEventListener("click", this.closeModal);
-    this.closeEscape();
-    this.closeBackDrop();
+    this.addRestaurantHandler();
+    this.close();
   }
 
   addRestaurantHandler() {
@@ -92,23 +90,37 @@ export default class Modal {
   }
 
   validateRestaurantInfo(restaurantInfo) {
-    if (this.isInvalidName(restaurantInfo.name)) {
-      $("#name").value = "";
+    if (this.isInvalidName(restaurantInfo.name)) return true;
+    if (
+      this.isDuplicated(this.restaurantList.listRestaurant, restaurantInfo.name)
+    )
       return true;
-    }
-    if (this.isInvalidURL(restaurantInfo.link)) {
-      $("#link").value = "";
+    if (this.isInvalidURL(restaurantInfo.link)) return true;
+    return false;
+  }
+
+  isInvalidName(restaurantName) {
+    if (Validator.name(restaurantName)) {
+      alert(ERROR_MESSAGE.NAME);
       return true;
     }
     return false;
   }
 
-  isInvalidName(restaurantName) {
-    return Validator.name(restaurantName);
+  isDuplicated(restaurantList, inputName) {
+    if (Validator.duplicatedName(restaurantList, inputName)) {
+      alert(ERROR_MESSAGE.DUPLICATED);
+      return true;
+    }
+    return false;
   }
 
   isInvalidURL(restaurantLink) {
-    return Validator.url(restaurantLink) && restaurantLink !== "";
+    if (Validator.url(restaurantLink) && restaurantLink !== "") {
+      alert(ERROR_MESSAGE.URL);
+      return true;
+    }
+    return false;
   }
 
   addRestaurant(restaurantInfo) {
@@ -131,6 +143,12 @@ export default class Modal {
     );
   }
 
+  close() {
+    $(".button--secondary").addEventListener("click", this.closeModal);
+    this.closeEscape();
+    this.closeBackDrop();
+  }
+
   closeModal = () => {
     this.resetValue();
     $(".modal--open").style.display = "none";
@@ -144,14 +162,14 @@ export default class Modal {
     });
   }
 
-  isVisibleModal() {
-    return $(".modal--open").style.display === "block";
-  }
-
   closeBackDrop() {
     $(".modal-backdrop").addEventListener("click", () => {
       if (this.isVisibleModal()) this.closeModal();
     });
+  }
+
+  isVisibleModal() {
+    return $(".modal--open").style.display === "block";
   }
 
   resetValue() {
