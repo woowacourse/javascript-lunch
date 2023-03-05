@@ -6,9 +6,9 @@ interface listInterface {
   defaultList: (restaurantList: RestaurantType[]) => void;
   addRestaurant: (restaurant: RestaurantType) => void;
   // template(restaurantList: Restaurant[]): string;
-  listUp(category: string, priority: string): Restaurant[];
-  filter(category: string): Restaurant[];
-  sort(restaurantList: Restaurant[], priority: string): Restaurant[];
+  // listUp(category: string, priority: string): Restaurant[];
+  // filter(category: string): Restaurant[];
+  // sort(restaurantList: Restaurant[], priority: string): Restaurant[];
 }
 
 const RestaurantList: listInterface = {
@@ -34,14 +34,14 @@ const RestaurantList: listInterface = {
     }
   },
 
-  addRestaurant(restaurant: RestaurantType) {
-    const newRestaurantList = [
-      new Restaurant(restaurant),
-      ...this.originList,
-    ].map((item: Restaurant) => item.getRestaurant());
-    localStorage.setItem("restaurantList", JSON.stringify(newRestaurantList));
-    this.originList = [new Restaurant(restaurant), ...this.originList];
-  },
+  // addRestaurant(restaurant: RestaurantType) {
+  //   const newRestaurantList = [
+  //     new Restaurant(restaurant),
+  //     ...this.originList,
+  //   ].map((item: Restaurant) => item.getRestaurant());
+  //   localStorage.setItem("restaurantList", JSON.stringify(newRestaurantList));
+  //   this.originList = [new Restaurant(restaurant), ...this.originList];
+  // },
 
   // template(restaurantList): string {
   //   return `<ul class='restaurant-list'>
@@ -49,33 +49,33 @@ const RestaurantList: listInterface = {
   //   </ul>`;
   // },
 
-  listUp(category, priority) {
-    return this.sort(this.filter(category), priority);
-  },
+  // listUp(category, priority) {
+  //   return this.sort(this.filter(category), priority);
+  // },
 
-  filter(category) {
-    this.filterState = category;
-    if (category === "전체") return this.originList;
+  // filter(category) {
+  //   this.filterState = category;
+  //   if (category === "전체") return this.originList;
 
-    return this.originList.filter(
-      (item) => item.getRestaurant().category === category && item
-    );
-  },
-  sort(restaurantList, priority) {
-    this.sortState = priority;
-    if (priority === "distance") {
-      const result = restaurantList.sort((current, next) => {
-        return current.getRestaurant().takeTime - next.getRestaurant().takeTime;
-      });
+  //   return this.originList.filter(
+  //     (item) => item.getRestaurant().category === category && item
+  //   );
+  // },
+  // sort(restaurantList, priority) {
+  //   this.sortState = priority;
+  //   if (priority === "distance") {
+  //     const result = restaurantList.sort((current, next) => {
+  //       return current.getRestaurant().takeTime - next.getRestaurant().takeTime;
+  //     });
 
-      return result;
-    }
+  //     return result;
+  //   }
 
-    const result = restaurantList.sort((current, next) => {
-      return current.getRestaurant().name > next.getRestaurant().name ? 1 : -1;
-    });
+  //   const result = restaurantList.sort((current, next) => {
+  //     return current.getRestaurant().name > next.getRestaurant().name ? 1 : -1;
+  //   });
 
-    return result;
-  },
+  //   return result;
+  // },
 };
 export default RestaurantList;
