@@ -1,8 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-
-import { screen, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 import RestaurantInfo from "../src/domain/RestaurantInfo";
 

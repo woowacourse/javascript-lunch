@@ -22,7 +22,6 @@ test("모달창 열기 테스트", () => {
 });
 
 test("모달창 닫기 테스트", () => {
-    // const myModal = screen.getByRole("modal");
     modal.close();
     expect(myModal.classList.contains('modal--open')).toBe(false);
 });
