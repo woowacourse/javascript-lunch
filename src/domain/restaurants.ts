@@ -58,6 +58,6 @@ export const restaurants: Restaurants = {
   },
 
   compareByName(a: Restaurant, b: Restaurant) {
-    return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    return a.name.localeCompare(b.name);
   },
 };
