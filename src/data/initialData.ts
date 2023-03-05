@@ -1,6 +1,6 @@
-import Restaurant from '../domain/Restaurant';
+import { Restaurant } from '../type/Restaurant';
 
-const initialData: Restaurant[] = [
+const InitialData: Restaurant[] = [
   {
     category: '한식',
     name: '피양콩할마니',
@@ -34,4 +34,4 @@ const initialData: Restaurant[] = [
   { category: '기타', name: '도스타코스 선릉점', distance: 5, description: `멕시칸 캐주얼 그릴` },
 ];
 
-export default initialData;
+export default InitialData;

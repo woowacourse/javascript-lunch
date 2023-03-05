@@ -1,3 +1,2 @@
-const $ = (selector: string) => document.querySelector(selector) as HTMLElement;
-
-export default $;
+export const $ = (selector: string) => document.querySelector(selector);
+export const $$ = (selector: string) => document.querySelectorAll(selector);

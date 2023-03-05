@@ -1,25 +1,26 @@
-import { Category, SortCondition } from '../data/type';
-import Restaurant from './Restaurant';
+import { Restaurant, Category } from '../type/Restaurant';
+
+type SortCondition = '이름' | '거리';
+
+type FilterCategory = '전체' | Category;
 
 class RestaurantList {
-  private list: Restaurant[];
+  private list: Restaurant[] = [];
 
-  constructor(initList: Restaurant[]) {
-    this.list = initList;
-  }
+  constructor() {}
 
   add(restaurant: Restaurant) {
     this.list.push(restaurant);
   }
 
-  getList(condition: SortCondition, category?: Category) {
+  getList(category: FilterCategory, condition: SortCondition) {
     return this.sortByCondition(this.filterByCategory(category), condition);
   }
 
-  private filterByCategory(category?: Category) {
-    return category
-      ? this.list.filter((restaurant) => restaurant.category === category)
-      : this.list;
+  private filterByCategory(category: FilterCategory) {
+    return category === '전체'
+      ? this.list
+      : this.list.filter((restaurant) => restaurant.category === category);
   }
 
   private sortByCondition(list: Restaurant[], condition: SortCondition) {
@@ -29,4 +30,4 @@ class RestaurantList {
   }
 }
 
-export default RestaurantList;
+export { SortCondition, FilterCategory, RestaurantList };
