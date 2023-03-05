@@ -1,5 +1,5 @@
-import { Category, Restaurant } from "../../type/type";
-import { categoryToSrc } from "../../utils/convertor";
+import { Category, Restaurant } from "@/type/type";
+import { categoryToSrc } from "@/utils/convertor";
 
 class RestaurantItem {
   restaurant: Restaurant;

@@ -1,5 +1,5 @@
-import { Attribute, RerenderListType } from "../../type/type";
-import { $ } from "../../utils/Dom";
+import { Attribute, RerenderListType } from "@/type/type";
+import { $ } from "@/utils/Dom";
 
 class Select {
   attribute: Attribute;
@@ -15,7 +15,6 @@ class Select {
     selectEl?.addEventListener("change", (e) => {
       const select = e.target as HTMLSelectElement;
       const selectedOption = select.value;
-      console.log(selectedOption);
 
       rerenderList(id, selectedOption);
     });

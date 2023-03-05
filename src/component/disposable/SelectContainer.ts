@@ -1,6 +1,6 @@
-import { Constants } from "../../constant/Constants";
-import { RerenderListType } from "../../type/type";
-import Select from "../reusable/Select";
+import { Constants } from "@/constant/Constants";
+import { RerenderListType } from "@/type/type";
+import Select from "@/component/reusable/Select";
 
 class SelectContainer {
   categorySelect;

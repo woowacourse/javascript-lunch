@@ -1,11 +1,11 @@
-import Header from "./component/disposable/Header";
-import Modal from "./component/disposable/Modal";
-import RestaurantList from "./component/disposable/RestaurantList";
-import SelectContainer from "./component/disposable/SelectContainer";
-import RestaurantItem from "./component/reusable/RestaurantItem";
-import { Constants, OptionValue } from "./constant/Constants";
-import restaurantListHandler from "./domain/restaurantListHandler";
-import { Restaurant } from "./type/type";
+import Header from "@/component/disposable/Header";
+import Modal from "@/component/disposable/Modal";
+import RestaurantList from "@/component/disposable/RestaurantList";
+import SelectContainer from "@/component/disposable/SelectContainer";
+import RestaurantItem from "@/component/reusable/RestaurantItem";
+import { Constants, OptionValue } from "@/constant/Constants";
+import restaurantListHandler from "@/domain/restaurantListHandler";
+import { Restaurant } from "@/type/type";
 
 class App {
   restaurantList: Restaurant[];

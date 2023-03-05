@@ -1,4 +1,4 @@
-import { Object } from "../type/type";
+import { Object } from "@/type/type";
 
 export const CategoryImgPath: Readonly<Object> = {
   아시안: "category-asian.png",

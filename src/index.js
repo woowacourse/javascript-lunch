@@ -1,14 +1,14 @@
-import "../templates/style.css";
+import "../style.css";
 import { $ } from "./utils/Dom";
-import "../templates/add-button.png";
-import "../templates/category-asian.png";
-import "../templates/category-chinese.png";
-import "../templates/category-etc.png";
-import "../templates/category-japanese.png";
-import "../templates/category-korean.png";
-import "../templates/category-western.png";
-import "../templates/favorite-icon-filled.png";
-import "../templates/favorite-icon-lined.png";
-import App from "./App";
+import "@/assets/add-button.png";
+import "@/assets/category-asian.png";
+import "@/assets/category-chinese.png";
+import "@/assets/category-etc.png";
+import "@/assets/category-japanese.png";
+import "@/assets/category-korean.png";
+import "@/assets/category-western.png";
+import "@/assets/favorite-icon-filled.png";
+import "@/assets/favorite-icon-lined.png";
+import App from "@/App";
 
 new App($("body"));

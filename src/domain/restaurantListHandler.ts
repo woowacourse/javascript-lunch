@@ -1,7 +1,7 @@
-import { Constants, OptionValue } from "../constant/Constants";
-import { mockData } from "../data/mockData";
-import { Restaurant } from "../type/type";
-import { getSavedData, saveData } from "../utils/localStorage";
+import { Constants, OptionValue } from "@/constant/Constants";
+import { mockData } from "@/data/mockData";
+import { Restaurant } from "@/type/type";
+import { getSavedData, saveData } from "@/utils/localStorage";
 
 class RestaurantListHandler {
   restaurants: Restaurant[] = [];

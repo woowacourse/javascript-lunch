@@ -1,6 +1,6 @@
-import { Category, TakingTime, Restaurant } from "../../type/type";
-import { $ } from "../../utils/Dom";
-import Select from "../reusable/Select";
+import { Category, TakingTime, Restaurant } from "@/type/type";
+import { $ } from "@/utils/Dom";
+import Select from "@/component/reusable/Select";
 
 class Modal {
   categorySelect;
