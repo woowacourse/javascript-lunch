@@ -1,4 +1,4 @@
-import Restaurants from "../domain/Restaurants";
+import restaurantState from "../states/restaurant";
 import { CategoryOption, SortOption } from "../types/option";
 
 class RestaurantCardList extends HTMLUListElement {
@@ -19,6 +19,7 @@ class RestaurantCardList extends HTMLUListElement {
 
   connectedCallback() {
     this.setListOptionAttributes();
+    this.render();
   }
 
   setListOptionAttributes() {
@@ -26,10 +27,10 @@ class RestaurantCardList extends HTMLUListElement {
     this.setAttribute("data-sorting", this.#sorting);
   }
 
-  render(restaurants: Restaurants) {
+  render() {
     this.innerHTML = `
-      ${restaurants
-        .getListByOption({ filter: this.#category, sort: this.#sorting })
+      ${restaurantState
+        .getListByOption(this.#category, this.#sorting)
         .map(
           (restaurant) =>
             `<li is="restaurant-card" class="restaurant" data-restaurant=${JSON.stringify(
@@ -45,6 +46,9 @@ class RestaurantCardList extends HTMLUListElement {
     oldValue: string | null,
     newValue: string | null
   ) {
+    if (oldValue === null) return;
+    if (oldValue === newValue) return;
+
     if (attName === "data-category") {
       this.#category = newValue as any;
     }
@@ -53,7 +57,7 @@ class RestaurantCardList extends HTMLUListElement {
       this.#sorting = newValue as any;
     }
 
-    console.log("att change!", newValue);
+    this.render();
   }
 }
 

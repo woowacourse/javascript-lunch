@@ -1,32 +1,8 @@
-import Restaurants from "./domain/Restaurants";
 import RestaurantCardList from "./components/RestaurantCardList";
 
 class App {
-  #restaurants;
-
   constructor() {
-    const restaurants = JSON.parse(localStorage.getItem("restaurants") ?? "[]");
-
-    this.#restaurants = new Restaurants([
-      {
-        category: "일식",
-        name: "스시야좋아",
-        distance: 15,
-      },
-      {
-        category: "아시안",
-        name: "쌀국수맛있다",
-        distance: 20,
-      },
-      {
-        category: "한식",
-        name: "경주 은희네 해장국",
-        distance: 10,
-      },
-    ]);
-
     this.renderContainer();
-    this.renderRestaurantList();
     this.bindEvent();
   }
 
@@ -74,26 +50,6 @@ class App {
     const restaurantCardList =
       document.querySelector<RestaurantCardList>(".restaurant-list");
     restaurantCardList?.setAttribute("data-category", event.target.value);
-  }
-
-  onSubmitNewRestaurant(event: Event) {
-    event.preventDefault();
-
-    this.renderRestaurantList();
-
-    localStorage.setItem(
-      "restaurants",
-      JSON.stringify(
-        this.#restaurants.getListByOption({ filter: "전체", sort: "name" })
-      )
-    );
-  }
-
-  renderRestaurantList() {
-    const restaurantCardList =
-      document.querySelector<RestaurantCardList>(".restaurant-list");
-
-    restaurantCardList?.render(this.#restaurants);
   }
 }
 
