@@ -120,3 +120,13 @@ input[name='link'] {
 
   color: var(--grey-100);
 }
+
+.error {
+  display: none;
+  color: var(--primary-color);
+  font-size: 14px;
+}
+
+.error--show {
+  display: block;
+}
