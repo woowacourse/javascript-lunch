@@ -9,3 +9,11 @@ export const validateBlankString = (str: string): boolean => {
 
   return true;
 };
+
+export const deepFreeze = (target: any): any => {
+  if (target && typeof target === 'object') {
+    Object.freeze(target);
+    Object.keys(target).forEach(key => deepFreeze(target[key]));
+  }
+  return target;
+};
