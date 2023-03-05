@@ -78,6 +78,12 @@ class Modal {
     });
   }
 
+  changeRestaurantsState(restaurant, setStateCallback, addCallback) {
+    setStateCallback(addCallback(restaurant));
+
+    this.toggleModalOpen();
+  }
+
   makeNewRestaurant() {
     const category = document.querySelector('#category').value;
     const name = document.querySelector('#name').value;
@@ -86,12 +92,6 @@ class Modal {
     const link = document.querySelector('#link').value;
 
     return { category, name, distance, description, link };
-  }
-
-  changeRestaurantsState(restaurant, setStateCallback, addCallback) {
-    setStateCallback(addCallback(restaurant));
-
-    this.toggleModalOpen();
   }
 
   setModalCloseEvent() {
