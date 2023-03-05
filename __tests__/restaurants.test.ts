@@ -35,13 +35,13 @@ describe('Restaurants 도메인 테스트', () => {
   test('음식점 목록을 추가하는 기능 테스트', () => {
     restaurants.add(gongwonRestaurant);
 
-    expect(restaurants.restaurants.length).toBe(3);
-    expect(restaurants.restaurants[0].description).toBe('');
+    expect(restaurants.restaurantsList.length).toBe(3);
+    expect(restaurants.restaurantsList[0].description).toBe('');
   });
 
   test('음식점 목록을 타입에 따라 정렬하는 기능 테스트 ', () => {
-    const sortedByName = restaurants.sortByType('name', restaurants.restaurants);
-    const sortedByDistance = restaurants.sortByType('distance', restaurants.restaurants);
+    const sortedByName = restaurants.sortByType('name', restaurants.restaurantsList);
+    const sortedByDistance = restaurants.sortByType('distance', restaurants.restaurantsList);
 
     expect(sortedByName.map(restaurant => restaurant.name)).toStrictEqual([
       '공원네 초밥집',
@@ -57,6 +57,6 @@ describe('Restaurants 도메인 테스트', () => {
   });
 
   test('음식점을 분류 카테고리에 따라 필터링 하는 기능 테스트', () => {
-    expect(restaurants.filterByCategory('한식', restaurants.restaurants)[0].name).toBe('도리네 집밥');
+    expect(restaurants.filterByCategory('한식', restaurants.restaurantsList)[0].name).toBe('도리네 집밥');
   });
 });
