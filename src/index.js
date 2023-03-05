@@ -6,7 +6,7 @@ import AddModal from './components/AddModal.js';
 import { $ } from './utils/domHelpers';
 import '../templates/add-button.png';
 
-const restaurantManager = new RestaurantManager();
+const restaurantManager = new RestaurantManager(localStorage);
 const renderListData = restaurantManager.getRestaurantList();
 
 const header = new Header();

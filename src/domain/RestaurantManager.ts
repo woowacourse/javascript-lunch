@@ -1,15 +1,16 @@
-import RestaurantInfo from './RestaurantInfo';
-import { INIT_DATA } from '../constants/initData';
+import { INIT_RESTAURANT_DATA } from '../constants/initRestaurantData';
 import { Restaurant, SortBy, Category } from '../types/Restaurant.js';
 
 export default class RestaurantManager {
   private restaurantList: Restaurant[];
+  private store: Storage;
 
-  constructor() {
-    const restaurantData = localStorage.getItem('restaurantList');
+  constructor(store: Storage) {
+    this.store = store;
+    const restaurantData = this.store.getItem('restaurantList');
     if (restaurantData === null || restaurantData.length === 0) {
-      localStorage.setItem('restaurantList', JSON.stringify(INIT_DATA));
-      this.restaurantList = JSON.parse(JSON.stringify(INIT_DATA));
+      this.store.setItem('restaurantList', JSON.stringify(INIT_RESTAURANT_DATA));
+      this.restaurantList = JSON.parse(JSON.stringify(INIT_RESTAURANT_DATA));
     } else {
       this.restaurantList = JSON.parse(restaurantData);
     }
@@ -21,7 +22,7 @@ export default class RestaurantManager {
 
   addRestaurant(restaurant: Restaurant) {
     this.restaurantList.push(restaurant);
-    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+    this.store.setItem('restaurantList', JSON.stringify(this.restaurantList));
   }
 
   sortRestaurantList(standard: SortBy): Restaurant[] {
