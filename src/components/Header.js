@@ -1,6 +1,7 @@
 class Header {
   constructor($target) {
     this.$target = $target;
+    this.render();
   }
 
   template() {
@@ -12,18 +13,13 @@ class Header {
     `;
   }
 
-  render(modal) {
+  render() {
     this.$target.insertAdjacentHTML('afterbegin', this.template());
-    this.setEvent(modal);
   }
 
-  setEvent(modal) {
+  setEvent(callback) {
     const $addButton = document.querySelector('.gnb__button');
-
-    $addButton.addEventListener('click', e => {
-      e.preventDefault();
-      modal.render();
-    });
+    $addButton.addEventListener('click', callback);
   }
 }
 
