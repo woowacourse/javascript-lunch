@@ -138,14 +138,19 @@ export default class Modal {
 
   closeEscape() {
     window.addEventListener("keyup", (event) => {
-      if (event.key === "Escape") {
+      if (this.isVisibleModal() && event.key === "Escape") {
         this.closeModal();
       }
     });
   }
+
+  isVisibleModal() {
+    return $(".modal--open").style.display === "block";
+  }
+
   closeBackDrop() {
     $(".modal-backdrop").addEventListener("click", () => {
-      this.closeModal();
+      if (this.isVisibleModal()) this.closeModal();
     });
   }
 

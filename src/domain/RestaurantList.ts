@@ -13,13 +13,13 @@ export default class RestaurantList {
       });
   }
 
+  get listRestaurant(): RestaurantForm[] {
+    return this.formList;
+  }
+
   add(restaurantInfo: RestaurantForm) {
     this.formList = [...this.formList, restaurantInfo];
     this.filterAll();
-  }
-
-  get listRestaurant(): RestaurantForm[] {
-    return this.formList;
   }
 
   filterAll() {
