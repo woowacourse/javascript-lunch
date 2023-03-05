@@ -77,10 +77,12 @@ customElements.define(
 
     openModal() {
       $('.modal').showModal();
+      $('body').classList.add('no-scroll');
     }
 
     closeModal() {
       $('.modal').close();
+      $('body').classList.remove('no-scroll');
     }
 
     handleSubmit(e) {
