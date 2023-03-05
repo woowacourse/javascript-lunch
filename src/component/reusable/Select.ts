@@ -19,18 +19,22 @@ class Select {
     });
   }
 
-  template() {
-    return ` 
-    <select name=${this.attribute.name} id=${this.attribute.id} class=${
-      this.attribute.className
-    } required=${this.attribute.required}>
-    ${this.options
+  renderOption() {
+    return this.options
       .map((option: string, index: number) =>
         index
           ? `<option value='${option}'> ${option} </option>`
           : `<option value=''> ${option}</option>`
       )
-      .join("")}
+      .join("");
+  }
+
+  template() {
+    return ` 
+    <select name=${this.attribute.name} id=${this.attribute.id} class=${
+      this.attribute.className
+    } required=${this.attribute.required}>
+    ${this.renderOption()}
     </select>`;
   }
 }
