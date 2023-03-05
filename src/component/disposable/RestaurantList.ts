@@ -13,16 +13,14 @@ class RestaurantList {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  replaceTemplate(newTemplates: string) {
-    this.removeTemaplate();
-    $(".restaurant-list")?.insertAdjacentHTML("beforeend", newTemplates);
+  replaceTemplate(newTemplate: string) {
+    this.removeTemplate();
+    $(".restaurant-list")?.insertAdjacentHTML("beforeend", newTemplate);
   }
 
-  removeTemaplate() {
-    const list = $(".restaurant-list");
-    while (list?.firstChild) {
-      list.removeChild(list.firstChild);
-    }
+  removeTemplate() {
+    const list = $(".restaurant-list") as HTMLElement;
+    list.innerHTML = "";
   }
 }
 
