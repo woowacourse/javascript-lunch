@@ -32,7 +32,9 @@ class LunchHeader extends HTMLElement {
 
     if (!($lunchModal instanceof Modal)) return;
 
-    $lunchModal.open("add-form");
+    $lunchModal.open(
+      '<h2 class="modal-title text-title">새로운 음식점</h2><form is="restaurant-add-form"></form>'
+    );
   }
 }
 
