@@ -1,5 +1,5 @@
 import { Constants } from "@/constant/Constants";
-import { RerenderListType } from "@/type/type";
+import { SetSelectedValue } from "@/type/type";
 import Select from "@/component/reusable/Select";
 
 class SelectContainer {
@@ -44,9 +44,9 @@ class SelectContainer {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(rerenderList: RerenderListType) {
-    this.categorySelect.addEvent(Constants.CATEGORY_FILTER, rerenderList);
-    this.sortingSelect.addEvent(Constants.SORTING_FILTER, rerenderList);
+  addEvent(setSelectedValue: SetSelectedValue) {
+    this.categorySelect.addEvent(Constants.CATEGORY_FILTER, setSelectedValue);
+    this.sortingSelect.addEvent(Constants.SORTING_FILTER, setSelectedValue);
   }
 }
 

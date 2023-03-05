@@ -28,4 +28,7 @@ export interface Restaurant {
   link?: string;
 }
 
-export type RerenderListType = (id: string, value: string) => void;
+export type SetSelectedValue = (
+  sortId: string,
+  selectedValue: Category | Sort
+) => void;

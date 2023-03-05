@@ -5,13 +5,18 @@ import SelectContainer from "@/component/disposable/SelectContainer";
 import RestaurantItem from "@/component/reusable/RestaurantItem";
 import { Constants, OptionValue } from "@/constant/Constants";
 import restaurantListHandler from "@/domain/restaurantListHandler";
-import { Restaurant } from "@/type/type";
+import { Category, Restaurant, Sort } from "@/type/type";
 
 class App {
   restaurantList: Restaurant[];
+  category: Category;
+  sort: Sort;
 
   constructor(body: Element) {
     this.restaurantList = restaurantListHandler.getSortedByName();
+    this.category = OptionValue.TOTAL as Category;
+    this.sort = OptionValue.NAME_ORDER as Sort;
+
     this.renderComponents(body);
     this.addEvents();
     this.rerenderList();
@@ -26,29 +31,33 @@ class App {
 
   addEvents() {
     Header.addEvent();
-    SelectContainer.addEvent(this.sortList);
+    SelectContainer.addEvent(this.setSelectedValue);
     Modal.addEvent(this.makeRestaurantList);
+  }
+
+  setSelectedValue = (sortId: string, selectedValue: Category | Sort) => {
+    if (sortId === Constants.CATEGORY_FILTER) {
+      this.category = selectedValue as Category;
+    }
+
+    if (sortId === Constants.SORTING_FILTER) {
+      this.sort = selectedValue as Sort;
+    }
+
+    this.setRestaurantList();
+    this.rerenderList();
+  };
+
+  setRestaurantList() {
+    this.restaurantList = restaurantListHandler.getRestaurants(
+      this.category,
+      this.sort
+    );
   }
 
   makeRestaurantList = (restaurant: Restaurant): void => {
     restaurantListHandler.addRestaurant(restaurant);
-    this.restaurantList = restaurantListHandler.getRestaurants();
-
-    this.rerenderList();
-  };
-
-  sortList = (id: string, value: string) => {
-    if (id === Constants.CATEGORY_FILTER) {
-      this.restaurantList = restaurantListHandler.getFilteredByCategory(value);
-    }
-
-    if (id === Constants.SORTING_FILTER) {
-      this.restaurantList =
-        value === OptionValue.DISTANCE_ORDER
-          ? restaurantListHandler.getSortedByTakingTime(this.restaurantList)
-          : restaurantListHandler.getSortedByName(this.restaurantList);
-    }
-
+    this.setRestaurantList();
     this.rerenderList();
   };
 

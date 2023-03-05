@@ -1,4 +1,4 @@
-import { Attribute, RerenderListType } from "@/type/type";
+import { Attribute, Category, SetSelectedValue, Sort } from "@/type/type";
 import { $ } from "@/utils/Dom";
 
 class Select {
@@ -10,13 +10,12 @@ class Select {
     this.options = options;
   }
 
-  addEvent(id: string, rerenderList: RerenderListType) {
-    const selectEl = $(`#${id}`);
+  addEvent(sortId: string, setSelectedValue: SetSelectedValue) {
+    const selectEl = $(`#${sortId}`);
     selectEl?.addEventListener("change", (e) => {
       const select = e.target as HTMLSelectElement;
-      const selectedOption = select.value;
-
-      rerenderList(id, selectedOption);
+      const selectedOption = select.value as Category | Sort;
+      setSelectedValue(sortId, selectedOption);
     });
   }
 

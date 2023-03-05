@@ -1,6 +1,6 @@
 import { Constants, OptionValue } from "@/constant/Constants";
 import { mockData } from "@/data/mockData";
-import { Restaurant } from "@/type/type";
+import { Category, Restaurant, Sort } from "@/type/type";
 import { getSavedData, saveData } from "@/utils/localStorage";
 
 class RestaurantListHandler {
@@ -16,8 +16,12 @@ class RestaurantListHandler {
     saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
 
-  getRestaurants(): Restaurant[] {
-    return [...this.restaurants];
+  getRestaurants(category: Category, sort: Sort): Restaurant[] {
+    const restaurants = this.getFilteredByCategory(category);
+
+    return sort === OptionValue.NAME_ORDER
+      ? this.getSortedByName(restaurants)
+      : this.getSortedByTakingTime(restaurants);
   }
 
   getSortedByName(restaurants: Restaurant[] = this.restaurants): Restaurant[] {
@@ -32,9 +36,9 @@ class RestaurantListHandler {
     );
   }
 
-  getFilteredByCategory(category: string): Restaurant[] {
+  getFilteredByCategory(category: Category): Restaurant[] {
     return category === OptionValue.TOTAL
-      ? this.getRestaurants()
+      ? [...this.restaurants]
       : [...this.restaurants].filter(
           (restaurant) => restaurant.category === category
         );
