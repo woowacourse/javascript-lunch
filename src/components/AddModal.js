@@ -1,12 +1,12 @@
 const { $ } = require('../utils/domHelpers');
 
 export default class AddModal {
-  #RestaurantManager;
+  #restaurantManager;
   #main;
 
-  constructor(RestaurantManager, main) {
+  constructor(restaurantManager, main) {
     this.addEvent();
-    this.#RestaurantManager = RestaurantManager;
+    this.#restaurantManager = restaurantManager;
     this.#main = main;
   }
 
@@ -16,7 +16,7 @@ export default class AddModal {
       this.submitData(e);
     });
     modal.addEventListener('click', (e) => {
-      if (e.target.innerHTML === '취소하기') this.cancelInputData(e);
+      if (e.target.type === 'button') this.cancelInputData(e);
     });
   }
 
@@ -44,7 +44,7 @@ export default class AddModal {
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
               <label for="name text-caption">이름</label>
-              <input type="text" name="name" id="name" required>
+              <input type="text" name="storeName" id="name" required>
             </div>
   
             <!-- 거리 -->
@@ -91,23 +91,16 @@ export default class AddModal {
   submitData(e) {
     e.preventDefault();
 
-    const inputData = [...e.target].map((el) => {
-      return el.value;
+    const addData = {};
+    [...e.target].forEach((el) => {
+      if (el.name !== '') addData[el.name] = el.value;
     });
 
-    const addData = {
-      category: inputData[0],
-      storeName: inputData[1],
-      distance: inputData[2],
-      detail: inputData[3],
-      link: inputData[4],
-    };
-
-    this.#RestaurantManager.addRestaurant(addData);
+    this.#restaurantManager.addRestaurant(addData);
     e.currentTarget.classList.remove('modal--open');
 
     $('.restaurant-list-container').innerHTML = this.#main.reRender(
-      this.#RestaurantManager.getRestaurantList()
+      this.#restaurantManager.getRestaurantList()
     );
   }
 }
