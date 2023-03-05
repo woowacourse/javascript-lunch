@@ -115,7 +115,8 @@ class ModalView {
 
   removeErrors(element: HTMLSpanElement, message?: string) {
     element.classList.remove('error-text');
-    element.textContent = message ?? '';
+
+    if (message) element.textContent = message;
   }
 
   addCloseButtonClickEvent() {
