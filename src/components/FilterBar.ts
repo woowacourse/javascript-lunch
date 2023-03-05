@@ -1,7 +1,8 @@
 import { Category, Order } from '@res/constants/enum';
 import Component from '@res/core/Component';
+import { IComponentPropState } from '@res/interfaces/IComponent';
 
-class FilterBar extends Component {
+class FilterBar extends Component<IComponentPropState> {
   template() {
     const { category, order } = this.$props.filterOptions;
 
