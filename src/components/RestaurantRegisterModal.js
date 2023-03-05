@@ -70,13 +70,30 @@ customElements.define(
     }
 
     openModal() {
+      this.slideUpModal($('.modal-container'));
       $('.modal').showModal();
+
       $('body').classList.add('no-scroll');
     }
 
+    slideUpModal($modalContainer) {
+      $modalContainer.classList.add('slide-up');
+      $modalContainer.classList.remove('slide-down');
+    }
+
     closeModal() {
-      $('.modal').close();
+      this.slideDownModal($('.modal-container'));
+
       $('body').classList.remove('no-scroll');
+
+      setTimeout(() => {
+        $('.modal').close();
+      }, 300);
+    }
+
+    slideDownModal($modalContainer) {
+      $modalContainer.classList.add('slide-down');
+      $modalContainer.classList.remove('slide-up');
     }
 
     handleSubmit(e) {
