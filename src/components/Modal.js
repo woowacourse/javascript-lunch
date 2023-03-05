@@ -1,3 +1,5 @@
+import { validateBlankString } from '../utils/common';
+
 class Modal {
   constructor($target) {
     this.$target = $target;
@@ -26,6 +28,7 @@ class Modal {
           <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
             <input type="text" name="name" id="name" required>
+            <span class="error">입력에 공백만 있습니다.</span>
           </div>
           <div class="form-item form-item--required">
             <label for="distance text-caption">거리(도보 이동 시간) </label>
@@ -72,8 +75,15 @@ class Modal {
 
   setSubmitEvent(setStateCallback, addCallback) {
     const $modalForm = document.querySelector('.modal form');
+    const $error = document.querySelector('.error');
 
-    $modalForm.addEventListener('submit', () => {
+    $modalForm.addEventListener('submit', e => {
+      if (!validateBlankString(document.querySelector('#name').value)) {
+        $error.classList.add('error--show');
+        return e.preventDefault();
+      }
+
+      $error.classList.remove('error--show');
       this.changeRestaurantsState(this.makeNewRestaurant(), setStateCallback, addCallback);
     });
   }
