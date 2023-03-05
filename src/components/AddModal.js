@@ -99,7 +99,7 @@ export default class AddModal {
     this.#restaurantManager.addRestaurant(addData);
     e.currentTarget.classList.remove('modal--open');
 
-    $('.restaurant-list-container').innerHTML = this.#main.reRender(
+    $('.restaurant-list-container').innerHTML = this.#main.render(
       this.#restaurantManager.getRestaurantList()
     );
   }
