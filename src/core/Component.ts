@@ -1,47 +1,27 @@
-import IProps from '@res/interfaces/IProps';
-
 export default class Component {
   $target;
-  $props;
-  $state: any;
 
-  constructor(target: HTMLElement, props: IProps) {
+  constructor(target: Element) {
     this.$target = target;
-    this.$props = props;
-
-    this.setup();
-    this.setEvent();
-    this.render();
+  
+    return this;
   }
 
-  setup(): void {}
-
-  template(): string {
-    return '';
-  }
-
-  render(): void {
+  render() {
     this.$target.innerHTML = this.template();
-    this.mounted();
+    
+    return this;
   }
 
-  mounted(): void {}
+  hide() {
+    this.$target.innerHTML = '';
+
+    return this;
+  }
 
   setEvent() {}
 
-  setState(newState: any) {
-    this.$state = { ...this.$state, ...newState };
-    this.render();
-  }
-
-  addEvent(
-    eventType: string,
-    selector: string,
-    callback: (event: Event) => void
-  ) {
-    this.$target.addEventListener(eventType, (event: Event) => {
-      if (!(event.target as HTMLElement).closest(selector)) return false;
-      callback(event);
-    });
+  template(): string {
+    return '';
   }
 }
