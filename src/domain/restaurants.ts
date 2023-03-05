@@ -35,11 +35,9 @@ export const restaurants: Restaurants = {
   },
 
   filterByCategory(category, restaurants) {
-    const filteredRestaurants = restaurants.filter(
-      (restaurant) => restaurant.category === category
-    );
+    if (category === '전체') return restaurants;
 
-    return category === '전체' ? this.list : filteredRestaurants;
+    return restaurants.filter((restaurant) => restaurant.category === category);
   },
 
   sortByName(restaurants) {
