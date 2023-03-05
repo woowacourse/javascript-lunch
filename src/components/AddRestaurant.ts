@@ -65,14 +65,17 @@ class AddRestaurant extends HTMLElement {
       `;
   }
 
+  closeBottomSheet() {
+    const bottomSheet = document.getElementById("bottomSheet");
+    if (bottomSheet instanceof BottomSheet) {
+      bottomSheet.close();
+    }
+  }
+
   onClickCancelButton() {
     const cancelButton = document.getElementById("cancelButton");
     cancelButton?.addEventListener("click", () => {
-      // 모듈화 필요
-      const bottomSheet = document.getElementById("bottomSheet");
-      if (bottomSheet instanceof BottomSheet) {
-        bottomSheet.close();
-      }
+      this.closeBottomSheet();
     });
   }
 
@@ -87,11 +90,7 @@ class AddRestaurant extends HTMLElement {
         restaurantList.addRestaurant(newRestaurant);
       }
 
-      // 모듈화 필요
-      const bottomSheet = document.getElementById("bottomSheet");
-      if (bottomSheet instanceof BottomSheet) {
-        bottomSheet.close();
-      }
+      this.closeBottomSheet();
     });
   }
 
