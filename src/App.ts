@@ -1,4 +1,4 @@
-import { AllCategory, Category, SortingCriterion, Restaurant } from './types/types';
+import { CategoryOptions, SortingCriterion, Restaurant } from './types/types';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
 import { saveToLocalStorage, getLocalStorage } from './utils/localStorage';
 import RestaurantService from './domains/RestaurantService';
@@ -9,7 +9,7 @@ export class App {
   private restaurantService: RestaurantService;
   private mainView = new MainView();
   private modalView = new ModalView();
-  private currentCategory: AllCategory | Category = '전체';
+  private currentCategory: CategoryOptions = '전체';
   private currentSortingCriterion: SortingCriterion = 'name';
 
   constructor() {
@@ -37,7 +37,7 @@ export class App {
     this.mainView.renderRestaurantList(restaurantList);
   };
 
-  onChangeCategoryFilter = (category: Category) => {
+  onChangeCategoryFilter = (category: CategoryOptions) => {
     this.currentCategory = category;
     const filteredRestaurantList: Restaurant[] = this.restaurantService.filterAndSort(
       this.currentCategory,

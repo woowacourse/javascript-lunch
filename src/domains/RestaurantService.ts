@@ -1,4 +1,4 @@
-import { AllCategory, Category, SortingCriterion, Restaurant } from '../types/types';
+import { CategoryOptions, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
@@ -11,7 +11,7 @@ class RestaurantService {
     this.restaurantList.push(restaurant);
   }
 
-  filter(category: AllCategory | Category) {
+  filter(category: CategoryOptions) {
     if (category === '전체') return [...this.restaurantList];
 
     return this.restaurantList.filter((restaurant) => restaurant.category === category);
@@ -25,7 +25,7 @@ class RestaurantService {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort(category: AllCategory | Category, criterion: SortingCriterion) {
+  filterAndSort(category: CategoryOptions, criterion: SortingCriterion) {
     const filteredRestaurantList = this.filter(category);
 
     if (criterion === 'name') {
