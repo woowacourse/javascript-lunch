@@ -2,25 +2,11 @@ import { getCategoryImage } from "../constants/categoryImage";
 import type { Restaurant } from "../types/restaurant";
 
 class RestaurantCard extends HTMLLIElement {
-  static get observedAttributes() {
-    return ["data-restaurant"];
-  }
-
   constructor() {
     super();
   }
 
-  connectedCallback() {
-    const restaurantData = this.getAttribute("data-restaurant");
-
-    this.render(restaurantData);
-  }
-
-  render(restaurantData: string | null) {
-    if (restaurantData === null) return;
-
-    const restaurant: Restaurant = JSON.parse(restaurantData);
-
+  render(restaurant: Restaurant) {
     this.innerHTML = `
       <div class="restaurant__category">
         <img
@@ -39,17 +25,6 @@ class RestaurantCard extends HTMLLIElement {
         </p>
       </div>
     `;
-  }
-
-  attributeChangedCallback(
-    attName: string,
-    oldValue: string | null,
-    newValue: string | null
-  ) {
-    if (attName !== "data-restaurant") return;
-    if (oldValue === newValue) return;
-
-    this.render(newValue);
   }
 }
 

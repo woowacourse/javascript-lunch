@@ -1,5 +1,6 @@
 import restaurantState from "../states/restaurant";
 import { CategoryOption, SortOption } from "../types/option";
+import RestaurantCard from "./RestaurantCard";
 
 class RestaurantCardList extends HTMLUListElement {
   #category: CategoryOption;
@@ -32,17 +33,18 @@ class RestaurantCardList extends HTMLUListElement {
   }
 
   render() {
-    this.innerHTML = `
-      ${restaurantState
-        .getState()
-        .map(
-          (restaurant) =>
-            `<li is="restaurant-card" class="restaurant" data-restaurant=${JSON.stringify(
-              restaurant
-            )}></li>`
-        )
-        .join("")}
-    `;
+    this.innerHTML = `${restaurantState
+      .getState()
+      .map(
+        (restaurant) =>
+          `<li is="restaurant-card" class="restaurant" data-restaurant-name=${restaurant.name}></li>`
+      )
+      .join("")}`;
+
+    this.childNodes.forEach((restaurantCard, key) => {
+      if (restaurantCard instanceof RestaurantCard)
+        restaurantCard.render(restaurantState.getState()[key]);
+    });
   }
 
   attributeChangedCallback(
