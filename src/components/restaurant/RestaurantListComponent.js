@@ -1,7 +1,7 @@
 import CustomElement from "../../abstracts/CustomElement";
 import RestaurantInstance from "../../domain/RestaurantsStore";
 
-class RestaurantsComponent extends CustomElement {
+class RestaurantListComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     RestaurantInstance.subscribe(this);
@@ -35,6 +35,6 @@ class RestaurantsComponent extends CustomElement {
   }
 }
 
-customElements.define("restaurant-list", RestaurantsComponent);
+customElements.define("restaurant-list", RestaurantListComponent);
 
-export default RestaurantsComponent;
+export default RestaurantListComponent;
