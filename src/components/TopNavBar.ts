@@ -1,20 +1,30 @@
 import Component from '@res/core/Component';
+import { eventBus } from '@res/core/eventBus';
+import { $, on } from '@res/utils/domUtils';
 
 class TopNavBar extends Component {
-  template() {
-    return `<h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-    <button type="button" class="gnb__button nav-add-button" aria-label="음식점 추가">
-      <img src='./add-button.png' alt="음식점 추가" />
-    </button>
-    `;
+  constructor(element: Element) {
+    super(element);
+
+    this.render();
+    this.setEvent();
   }
 
   setEvent() {
-    const { toggleModal } = this.$props;
+    const btnElement = $('.add-button');
+    if (btnElement instanceof HTMLButtonElement) {
+      on(btnElement, 'click', () => {
+        eventBus.dispatch('@modal-click');
+      });
+    }
+  }
 
-    this.addEvent('click', '.nav-add-button', () => {
-      toggleModal();
-    });
+  template() {
+    return `<h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+    <button type="button" class="gnb__button add-button" aria-label="음식점 추가">
+      <img src='./add-button.png' alt="음식점 추가" />
+    </button>
+    `;
   }
 }
 
