@@ -12,6 +12,10 @@ class Header {
   }
 
   addEvent() {
+    $(".gnb")?.addEventListener("click", () => {
+      location.reload();
+    });
+
     $(".gnb__button")?.addEventListener("click", () => {
       $(".modal")?.classList.add("modal--open");
     });
