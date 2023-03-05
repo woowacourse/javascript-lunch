@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import Restaurants from '../src/domain/Restaurants';
 import { Restaurant } from '../src/types/Types';
 
