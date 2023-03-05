@@ -1,4 +1,4 @@
-import Restaurant from "../type/Restaurant";
+import IRestaurant from "../type/IRestaurant";
 
 const LocalStorage = {
   getLocalStorage(key: string) {
@@ -8,7 +8,7 @@ const LocalStorage = {
     }
     return JSON.parse(json) ?? [];
   },
-  setLocalStorage(key: string, value: Restaurant[]) {
+  setLocalStorage(key: string, value: IRestaurant[]) {
     const json = JSON.stringify(value);
     localStorage.setItem(key, json);
   },

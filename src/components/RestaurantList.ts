@@ -1,10 +1,10 @@
-import Restaurant from "../type/Restaurant";
+import IRestaurant from "../type/IRestaurant";
 import RestaurantItem from "./RestaurantItem";
 import LocalStorage from "../utils/LocalStorage";
 import defaultRestaurants from "../tools/defaultRestaurants";
 
 class RestaurantList extends HTMLElement {
-  state: { restaurants: Restaurant[]; filter: string; sort: string };
+  state: { restaurants: IRestaurant[]; filter: string; sort: string };
 
   constructor() {
     super();
@@ -46,7 +46,7 @@ class RestaurantList extends HTMLElement {
       .filter(
         (restaurant) => filter === "전체" || restaurant.category === filter
       )
-      .sort((a: Restaurant, b: Restaurant) => {
+      .sort((a: IRestaurant, b: IRestaurant) => {
         if (sort === "name" || sort === "distance") {
           return a[sort] > b[sort] ? 1 : -1;
         }
@@ -54,13 +54,13 @@ class RestaurantList extends HTMLElement {
       });
   }
 
-  restaurantItems(selectedRestaurants: Restaurant[]) {
+  restaurantItems(selectedRestaurants: IRestaurant[]) {
     return selectedRestaurants
       .map((restaurant) => RestaurantItem(restaurant))
       .join("");
   }
 
-  addRestaurant(newRestaurant: Restaurant) {
+  addRestaurant(newRestaurant: IRestaurant) {
     this.state.restaurants = [...this.state.restaurants, newRestaurant];
     LocalStorage.setLocalStorage("restaurants", this.state.restaurants);
   }

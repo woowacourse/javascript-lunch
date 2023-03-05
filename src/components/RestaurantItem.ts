@@ -1,7 +1,7 @@
 import findImage from "../tools/findImage";
-import Restaurant from "../type/Restaurant";
+import IRestaurant from "../type/IRestaurant";
 
-const RestaurantItem = (restaurant: Restaurant) => {
+const RestaurantItem = (restaurant: IRestaurant) => {
   return `
       <li class="restaurant">
         <div class="restaurant__category">

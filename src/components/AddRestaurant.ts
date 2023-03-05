@@ -1,4 +1,4 @@
-import Restaurant from "../type/Restaurant";
+import IRestaurant from "../type/IRestaurant";
 import BottomSheet from "./BottomSheet";
 import RestaurantList from "./RestaurantList";
 
@@ -91,7 +91,7 @@ class AddRestaurant extends HTMLElement {
     });
   }
 
-  addNewRestaurant(newRestaurant: Restaurant) {
+  addNewRestaurant(newRestaurant: IRestaurant) {
     const restaurantList = document.getElementById("restaurantList");
     if (restaurantList instanceof RestaurantList) {
       restaurantList.addRestaurant(newRestaurant);
@@ -100,7 +100,7 @@ class AddRestaurant extends HTMLElement {
 
   createNewRestaurant(event: SubmitEvent) {
     const formData = new FormData(event.target as HTMLFormElement);
-    const newRestaurant: Restaurant = {
+    const newRestaurant: IRestaurant = {
       category: formData.get("category") as string,
       name: formData.get("name") as string,
       distance: Number(formData.get("distance")),
