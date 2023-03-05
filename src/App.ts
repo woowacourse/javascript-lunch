@@ -1,3 +1,4 @@
+import "./types/restaurant";
 import Component from "./core/Component";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
@@ -9,6 +10,13 @@ import RestaurantFilter from "./domain/RestaurantFilter";
 import store from "./util/store";
 
 export default class App extends Component {
+  restaurantRepository: any;
+
+  constructor() {
+    super();
+    this.restaurantRepository;
+  }
+
   setup() {
     const localList = store.getLocalStorage();
     this.restaurantRepository = new RestaurantRepository(localList);
@@ -61,7 +69,7 @@ export default class App extends Component {
     this.setState({ modalOpen: !this.state.modalOpen });
   }
 
-  addRestaurant(newRestaurant) {
+  addRestaurant(newRestaurant: RestaurantInfo) {
     const { restaurantList, category, sortingWay } = this.state;
     const updatedRestaurantList = RestaurantFilter.sortRestaurants(
       sortingWay,
@@ -75,23 +83,29 @@ export default class App extends Component {
     this.toggleModal();
   }
 
-  setSortingWay(event) {
-    const sortingWay = event.target.value;
+  setSortingWay(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const sortingWay = target.value;
     const { restaurantList } = this.state;
 
-    const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, restaurantList);
-
-    this.setState({ restaurantList: updatedRestaurantList, sortingWay: sortingWay });
+    if (sortingWay === ("name" || "distance")) {
+      const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, restaurantList);
+      this.setState({ restaurantList: updatedRestaurantList, sortingWay: sortingWay });
+    }
   }
 
-  setCategory(event) {
-    const category = event.target.value;
+  setCategory(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const category = target.value;
     const { sortingWay } = this.state;
 
     const restaurantList = this.restaurantRepository.getRestaurantList();
-    const filteredRestaurantList = RestaurantFilter.categorizeRestaurants(category, restaurantList);
-    const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, filteredRestaurantList);
 
-    this.setState({ restaurantList: updatedRestaurantList, category: category });
+    if (category === ("전체" || "한식" || "중식" || "일식" || "아시안" || "양식" || "기타")) {
+      const filteredRestaurantList = RestaurantFilter.categorizeRestaurants(category, restaurantList);
+      const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, filteredRestaurantList);
+
+      this.setState({ restaurantList: updatedRestaurantList, category: category });
+    }
   }
 }
