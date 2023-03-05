@@ -5,8 +5,6 @@ import createRestaurantCardList from "./components/RestaurantCardList";
 import Restaurants from "./domain/Restaurants";
 
 class App {
-  #modal: HTMLElement | null;
-
   #restaurants;
 
   #showState: {
@@ -22,12 +20,7 @@ class App {
       filter: "전체",
       sort: "name",
     };
-    this.init();
 
-    this.#modal = document.querySelector(".modal");
-  }
-
-  init() {
     this.renderContainer();
   }
 
@@ -66,7 +59,6 @@ class App {
   onSubmitNewRestaurant(event: Event) {
     event.preventDefault();
 
-    this.addNewRestaurant();
     this.renderRestaurantList();
 
     localStorage.setItem(
@@ -75,17 +67,6 @@ class App {
         this.#restaurants.getListByOption({ filter: "전체", sort: "name" })
       )
     );
-
-    this.closeModal();
-    this.resetModalValue();
-  }
-
-  openModal() {
-    this.#modal?.classList.add("modal--open");
-  }
-
-  closeModal() {
-    this.#modal?.classList.remove("modal--open");
   }
 
   renderRestaurantList() {
@@ -98,35 +79,6 @@ class App {
     restaurantListContainer.innerHTML = createRestaurantCardList(
       this.#restaurants.getListByOption(this.#showState)
     );
-  }
-
-  addNewRestaurant() {
-    const category = (document.getElementById("category") as HTMLSelectElement)
-      .value as Category;
-    const name = (document.getElementById("name") as HTMLInputElement).value;
-    const distance = Number(
-      (document.getElementById("distance") as HTMLSelectElement).value
-    ) as Distance;
-    const description = (
-      document.getElementById("description") as HTMLTextAreaElement
-    ).value;
-    const link = (document.getElementById("link") as HTMLInputElement).value;
-
-    this.#restaurants.add({
-      category,
-      name,
-      distance,
-      description,
-      link,
-    });
-  }
-
-  resetModalValue() {
-    (document.getElementById("category") as HTMLSelectElement).value = "";
-    (document.getElementById("name") as HTMLInputElement).value = "";
-    (document.getElementById("distance") as HTMLSelectElement).value = "";
-    (document.getElementById("description") as HTMLTextAreaElement).value = "";
-    (document.getElementById("link") as HTMLInputElement).value = "";
   }
 }
 
