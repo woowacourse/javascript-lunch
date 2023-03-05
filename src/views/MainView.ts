@@ -1,12 +1,13 @@
 import { Restaurant } from '../types/types';
 import { $ } from '../utils/domSelectors';
-import renderList from '../components/RestaurantList';
+import createRestaurantList from '../components/RestaurantList';
 
 class MainView {
   private addButton = $('.gnb__button') as HTMLButtonElement;
   private modal = $('.modal') as HTMLDialogElement;
   private categoryFilter = $('#category-filter') as HTMLSelectElement;
   private sortingFilter = $('#sorting-filter') as HTMLSelectElement;
+  private restaurantList = $('.restaurant-list') as HTMLUListElement;
 
   constructor() {
     this.addRestaurantAddButtonClickEvent();
@@ -32,8 +33,10 @@ class MainView {
     });
   }
 
-  renderRestaurantList(restaurant: Restaurant[]) {
-    renderList(restaurant);
+  renderRestaurantList(restaurants: Restaurant[]) {
+    const restaurantItems = createRestaurantList(restaurants);
+    this.restaurantList.innerHTML = '';
+    this.restaurantList.insertAdjacentHTML('beforeend', restaurantItems.join(''));
   }
 }
 
