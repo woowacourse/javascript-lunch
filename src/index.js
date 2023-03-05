@@ -11,4 +11,4 @@ import "../templates/favorite-icon-filled.png";
 import "../templates/favorite-icon-lined.png";
 import App from "./App";
 
-new App($(".body"));
+new App($("body"));
