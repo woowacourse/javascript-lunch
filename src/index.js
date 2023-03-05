@@ -1,4 +1,4 @@
-import '../templates/style.css';
+import './css/index.css';
 
 import '../images/add-button.png';
 import '../images/category-asian.png';
