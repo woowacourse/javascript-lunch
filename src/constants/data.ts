@@ -1,4 +1,6 @@
-const INITIAL_RESTAURANT_DATA = [
+import { Restaurant } from '../types/types';
+
+const INITIAL_RESTAURANT_DATA: Restaurant[] = [
   {
     category: '중식',
     name: '찐친',
