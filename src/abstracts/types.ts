@@ -22,6 +22,8 @@ export interface Action {
   data?: Restaurant | Category | SortMethod | boolean;
 }
 
+export type LocalArrayData = Restaurant[];
+
 export interface RestaurantAction {
   ADD_RESTAURANT: string;
   FILTER_BY_CATEGORY: string;

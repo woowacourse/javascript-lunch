@@ -6,6 +6,10 @@ import {
   SORT_METHOD,
 } from "../abstracts/constants";
 import CustomElement from "../abstracts/CustomElement";
+import {
+  getArrayFromLocalStorage,
+  setArrayToLocalStorage,
+} from "../utils/localStorage";
 
 class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
@@ -16,11 +20,10 @@ class RestaurantsStore {
 
   constructor() {
     if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
-      localStorage.setItem(
-        RESTAURANTS_STORAGE,
-        JSON.stringify(this.#restaurantList)
-      );
+      setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
+      return;
     }
+    this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
   }
 
   subscribe(element: CustomElement) {
@@ -52,17 +55,11 @@ class RestaurantsStore {
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurantList.push(restaurant);
-    localStorage.setItem(
-      RESTAURANTS_STORAGE,
-      JSON.stringify(this.#restaurantList)
-    );
+    setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
   }
 
   filterByCategory(category: Category) {
     this.#category = category;
-    this.#restaurantList = JSON.parse(
-      localStorage.getItem(RESTAURANTS_STORAGE)!
-    );
     if (this.#category !== CATEGORY_DEFAULT) {
       this.#restaurantList = this.#restaurantList.filter(
         (restaurant) => restaurant.category === this.#category
