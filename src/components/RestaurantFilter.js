@@ -15,7 +15,6 @@ customElements.define(
           <option value="기타">기타</option>
         </select>
 
-        <!-- 정렬 셀렉트 박스 -->
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
           <option value="register">등록순</option>
           <option value="name">이름순</option>
