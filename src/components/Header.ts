@@ -1,16 +1,17 @@
-import HeaderImage from '../../templates/add-button.png';
+import ImagePath from '../../templates/add-button.png';
 
 class Header {
-  #template;
+  template = () => `
+    <header class="gnb">
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+      <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <img src= ${ImagePath} alt="음식점 추가">
+      </button>
+    </header>`;
 
-  constructor() {
-    this.#template = `<header class="gnb"><h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-    <button type="button" class="gnb__button" aria-label="음식점 추가">
-      <img src= ${HeaderImage} alt="음식점 추가">
-    </button></header>`;
-
-    document.body.insertAdjacentHTML('afterbegin', this.#template);
-  }
+  render = (target: HTMLElement) => {
+    target.insertAdjacentHTML('afterbegin', this.template());
+  };
 }
 
-export default Header;
+export default new Header();

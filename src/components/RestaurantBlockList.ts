@@ -1,25 +1,23 @@
-import Restaurant from '../domain/Restaurant';
-import $ from '../util/dom';
+import { $ } from '../util/dom';
 import RestaurantBlock from './RestaurantBlock';
 
 class RestaurantBlockList {
-  #template;
-
-  constructor() {
-    this.#template = `<section class="restaurant-list-container">
-    <ul class="restaurant-list"></ul>
+  template = () => `
+    <section class="restaurant-list-container">
+      <ul class="restaurant-list">
+      </ul>
     </section>`;
 
-    document.body.insertAdjacentHTML('beforeend', this.#template);
-  }
+  render = (target: HTMLElement) => {
+    target.insertAdjacentHTML('beforeend', this.template());
+  };
 
-  static render(list: Restaurant[]) {
-    $('.restaurant-list').replaceChildren();
-
-    list.forEach((restaurant) => {
-      new RestaurantBlock(restaurant);
+  replaceList(restaurantBlocks: RestaurantBlock[]) {
+    $('.restaurant-list')?.replaceChildren();
+    restaurantBlocks.forEach((block) => {
+      $('.restaurant-list')?.insertAdjacentHTML('beforeend', block.template());
     });
   }
 }
 
-export default RestaurantBlockList;
+export default new RestaurantBlockList();
