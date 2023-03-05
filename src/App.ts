@@ -12,13 +12,22 @@ class App {
 
   constructor(body: Element) {
     this.restaurantList = restaurantListHandler.getSortedByName();
-
-    Header.render(body);
-    SelectContainer.render(body, this.sortList);
-    RestaurantList.render(body);
-    Modal.render(body, this.makeRestaurantList);
-
+    this.renderComponents(body);
+    this.addEvents();
     this.rerenderList();
+  }
+
+  renderComponents(body: Element) {
+    Header.render(body);
+    SelectContainer.render(body);
+    RestaurantList.render(body);
+    Modal.render(body);
+  }
+
+  addEvents() {
+    Header.addEvent();
+    SelectContainer.addEvent(this.sortList);
+    Modal.addEvent(this.makeRestaurantList);
   }
 
   makeRestaurantList = (restaurant: Restaurant): void => {

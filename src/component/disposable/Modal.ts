@@ -70,9 +70,8 @@ class Modal {
   </div>`;
   }
 
-  render(target: Element, makeTicket: (restaurant: Restaurant) => void) {
+  render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
-    this.addEvent(makeTicket);
   }
 
   addEvent(makeTicket: (obj: Restaurant) => void) {

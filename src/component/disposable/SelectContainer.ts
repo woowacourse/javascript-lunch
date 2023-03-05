@@ -40,9 +40,11 @@ class SelectContainer {
     `;
   }
 
-  render(target: Element, rerenderList: RerenderListType) {
+  render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
+  }
 
+  addEvent(rerenderList: RerenderListType) {
     this.categorySelect.addEvent(Constants.CATEGORY_FILTER, rerenderList);
     this.sortingSelect.addEvent(Constants.SORTING_FILTER, rerenderList);
   }

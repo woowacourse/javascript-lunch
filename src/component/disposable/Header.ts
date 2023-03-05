@@ -19,7 +19,6 @@ class Header {
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
-    this.addEvent();
   }
 }
 
