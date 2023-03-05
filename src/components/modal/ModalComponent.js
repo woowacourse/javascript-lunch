@@ -6,7 +6,6 @@ class ModalComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     ModalInstance.subscribe(this);
-    ModalInstance.publish();
   }
 
   rerender(isModalOn) {

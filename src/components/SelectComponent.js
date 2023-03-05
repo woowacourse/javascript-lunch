@@ -7,6 +7,7 @@ class SelectComponent extends CustomElement {
     this.querySelector("#category-filter").addEventListener("change", (event) =>
       dispatcher(RESTAURANT_ACTION.FILTER_BY_CATEGORY, event.target.value)
     );
+
     this.querySelector("#sorting-filter").addEventListener("change", (event) =>
       dispatcher(RESTAURANT_ACTION.SORT_RESTAURANTS, event.target.value)
     );

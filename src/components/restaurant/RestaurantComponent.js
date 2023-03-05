@@ -7,6 +7,7 @@ class RestaurantComponent extends CustomElement {
     const category = this.getAttribute("category");
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
+
     return `
     <li class="restaurant">
     <div class="restaurant__category">
