@@ -70,30 +70,23 @@ customElements.define(
     }
 
     openModal() {
-      this.slideUpModal($('.modal-container'));
+      $('body').classList.add('no-scroll');
+      $('.modal-container').classList.add('slide-up');
       $('.modal').showModal();
 
-      $('body').classList.add('no-scroll');
-    }
-
-    slideUpModal($modalContainer) {
-      $modalContainer.classList.add('slide-up');
-      $modalContainer.classList.remove('slide-down');
-    }
-
-    closeModal() {
-      this.slideDownModal($('.modal-container'));
-
-      $('body').classList.remove('no-scroll');
-
       setTimeout(() => {
-        $('.modal').close();
+        $('.modal-container').classList.remove('slide-up');
       }, 300);
     }
 
-    slideDownModal($modalContainer) {
-      $modalContainer.classList.add('slide-down');
-      $modalContainer.classList.remove('slide-up');
+    closeModal() {
+      $('body').classList.remove('no-scroll');
+      $('.modal-container').classList.add('slide-down');
+
+      setTimeout(() => {
+        $('.modal').close();
+        $('.modal-container').classList.remove('slide-down');
+      }, 300);
     }
 
     handleSubmit(e) {

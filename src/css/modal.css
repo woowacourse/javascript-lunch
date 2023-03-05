@@ -19,6 +19,8 @@
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  will-change: transform;
 }
 
 .modal-title {
@@ -117,31 +119,29 @@ input[name='link'] {
 .slide-up {
   animation-name: slideUp;
   animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
 }
 
 .slide-down {
   animation-name: slideDown;
   animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
 }
 
 @keyframes slideUp {
   from {
-    bottom: -600px;
-    opacity: 0;
+    transform: translateY(100%);
   }
   to {
-    bottom: 0;
-    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes slideDown {
   from {
-    bottom: 0;
-    opacity: 1;
+    transform: translateY(0);
   }
   to {
-    bottom: -600px;
-    opacity: 0;
+    transform: translateY(100%);
   }
 }
