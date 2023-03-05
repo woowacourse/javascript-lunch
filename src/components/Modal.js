@@ -76,17 +76,21 @@ class Modal {
 
   setSubmitEvent(setStateCallback, addCallback) {
     const modalForm = $('.modal form');
-    const error = $('.error');
 
     modalForm.addEventListener('submit', e => {
       if (!validateBlankString($('#name').value)) {
-        error.classList.add('error--show');
-        return e.preventDefault();
+        return this.showError(e);
       }
 
-      error.classList.remove('error--show');
+      $('.error').classList.remove('error--show');
       this.changeRestaurantsState(this.makeNewRestaurant(), setStateCallback, addCallback);
     });
+  }
+
+  showError(e) {
+    $('.error').classList.add('error--show');    
+    
+    e.preventDefault();
   }
 
   changeRestaurantsState(restaurant, setStateCallback, addCallback) {
