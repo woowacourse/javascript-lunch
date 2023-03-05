@@ -1,10 +1,10 @@
-import RestaurantType from "../type/RestaurantType";
+import Restaurant from "../type/Restaurant";
 import RestaurantItem from "./RestaurantItem";
 import LocalStorage from "../tools/LocalStorage";
 import defaultRestaurants from "../tools/defaultRestaurants";
 
 class RestaurantList extends HTMLElement {
-  state: { restaurants: RestaurantType[]; filter: string; sort: string };
+  state: { restaurants: Restaurant[]; filter: string; sort: string };
 
   constructor() {
     super();
@@ -47,7 +47,7 @@ class RestaurantList extends HTMLElement {
     `;
   }
 
-  addRestaurant(newRestaurant: RestaurantType) {
+  addRestaurant(newRestaurant: Restaurant) {
     this.state.restaurants = [...this.state.restaurants, newRestaurant];
     LocalStorage.setLocalStorage("restaurants", this.state.restaurants);
   }

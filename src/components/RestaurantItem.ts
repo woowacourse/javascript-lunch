@@ -1,4 +1,4 @@
-import RestaurantType from "../type/RestaurantType";
+import Restaurant from "../type/Restaurant";
 import {
   categoryAsian,
   categoryChinese,
@@ -20,7 +20,7 @@ const findImage = (category: string) => {
   return imageSrc[category];
 };
 
-const RestaurantItem = (restaurant: RestaurantType) => {
+const RestaurantItem = (restaurant: Restaurant) => {
   return `
       <li class="restaurant">
         <div class="restaurant__category">
