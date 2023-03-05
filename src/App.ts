@@ -40,7 +40,7 @@ class App {
 
   renderContainer() {
     document.body.innerHTML = `
-      <custom-header></custom-header>
+    <custom-header></custom-header>
       <main>
         <section class="restaurant-filter-container">
           <select is="custom-select" name="category" id="category-filter" class="restaurant-filter"></select>
@@ -51,7 +51,7 @@ class App {
             this.#restaurants.getListByOption(this.#showState)
           )}
         </section>
-        <custom-modal></custom-modal>
+        <lunch-modal class="modal"></lunch-modal>
       </main>
     `;
   }

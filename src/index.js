@@ -1,16 +1,8 @@
 import "../templates/style.css";
 
+import Modal from "./components/Modal";
 import App from "./App";
-import {
-  setAddNewRestaurantHandler,
-  setFilteringSelectChangeHandler,
-  setModalToggleHandler,
-  setSortingSelectChangeHandler,
-} from "./EventHandler";
 
-const app = new App();
+customElements.define("lunch-modal", Modal);
 
-setModalToggleHandler(app.openModal.bind(app), app.closeModal.bind(app));
-setSortingSelectChangeHandler(app.onClickSortingOption.bind(app));
-setFilteringSelectChangeHandler(app.onClickFilteringOption.bind(app));
-setAddNewRestaurantHandler(app.onSubmitNewRestaurant.bind(app));
+new App();
