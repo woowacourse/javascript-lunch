@@ -6,6 +6,10 @@ class Modal extends HTMLElement {
   connectedCallback() {
     this.renderContainer();
     this.bindEvent();
+
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "Escape") this.close();
+    });
   }
 
   renderContainer() {

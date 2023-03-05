@@ -1,9 +1,3 @@
-export const setModalToggleHandler = (closeModal: () => void) => {
-  window.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") closeModal();
-  });
-};
-
 export const setSortingSelectChangeHandler = (
   sortRestaurantList: () => void
 ) => {
