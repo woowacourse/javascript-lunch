@@ -1,4 +1,4 @@
-import RestaurantType from "../type/Restaurant";
+import RestaurantType from "../type/RestaurantType";
 import {
   categoryAsian,
   categoryChinese,

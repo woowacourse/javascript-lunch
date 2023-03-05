@@ -1,4 +1,4 @@
-import RestaurantType from "../type/Restaurant";
+import RestaurantType from "../type/RestaurantType";
 import BottomSheet from "./BottomSheet";
 import RestaurantList from "./RestaurantList";
 

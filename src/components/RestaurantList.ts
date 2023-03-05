@@ -1,4 +1,4 @@
-import RestaurantType from "../type/Restaurant";
+import RestaurantType from "../type/RestaurantType";
 import RestaurantItem from "./RestaurantItem";
 import LocalStorage from "../tools/LocalStorage";
 import defaultRestaurants from "../tools/defaultRestaurants";
