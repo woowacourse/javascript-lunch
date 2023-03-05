@@ -7,6 +7,8 @@ class RestaurantState {
 
   #restaurants: Restaurants;
 
+  #state: Restaurant[];
+
   constructor() {
     this.#localStorageId = "lunch-restaurants";
 
@@ -14,18 +16,31 @@ class RestaurantState {
       localStorage.getItem(this.#localStorageId) ?? "[]"
     );
     this.#restaurants = new Restaurants(list);
+    this.#state = this.#restaurants.getListByOption({
+      filter: "전체",
+      sort: "name",
+    });
   }
 
-  getListByOption(filter: CategoryOption, sort: SortOption) {
-    return this.#restaurants.getListByOption({ filter, sort });
+  getState() {
+    return this.#state;
+  }
+
+  setState(filter: CategoryOption = "전체", sort: SortOption = "name") {
+    this.#state = this.#restaurants.getListByOption({ filter, sort });
   }
 
   update(restaurant: Restaurant) {
     this.#restaurants.add(restaurant);
+
     localStorage.setItem(
       this.#localStorageId,
-      JSON.stringify(this.getListByOption("전체", "name"))
+      JSON.stringify(
+        this.#restaurants.getListByOption({ filter: "전체", sort: "name" })
+      )
     );
+
+    this.setState();
   }
 }
 

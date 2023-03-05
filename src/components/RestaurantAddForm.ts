@@ -1,6 +1,7 @@
 import restaurantState from "../states/restaurant";
 import { Category, Distance, Restaurant } from "../types/restaurant";
 import CustomSelect from "./CustomSelect";
+import RestaurantCardList from "./RestaurantCardList";
 
 class RestaurantAddForm extends HTMLFormElement {
   constructor() {
@@ -72,8 +73,14 @@ class RestaurantAddForm extends HTMLFormElement {
     event.preventDefault();
 
     const newRestaurant = this.createRestaurant();
-
     restaurantState.update(newRestaurant);
+
+    const $restaurantCardList =
+      document.querySelector<RestaurantCardList>(".restaurant-list");
+    $restaurantCardList?.setAttribute(
+      "data-length",
+      restaurantState.getState().length.toString()
+    );
     // close modal
   }
 

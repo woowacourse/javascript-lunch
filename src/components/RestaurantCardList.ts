@@ -7,7 +7,7 @@ class RestaurantCardList extends HTMLUListElement {
   #sorting: SortOption;
 
   static get observedAttributes() {
-    return ["data-category", "data-sorting"];
+    return ["data-category", "data-sorting", "data-length"];
   }
 
   constructor() {
@@ -25,12 +25,16 @@ class RestaurantCardList extends HTMLUListElement {
   setListOptionAttributes() {
     this.setAttribute("data-category", this.#category);
     this.setAttribute("data-sorting", this.#sorting);
+    this.setAttribute(
+      "data-length",
+      restaurantState.getState().length.toString()
+    );
   }
 
   render() {
     this.innerHTML = `
       ${restaurantState
-        .getListByOption(this.#category, this.#sorting)
+        .getState()
         .map(
           (restaurant) =>
             `<li is="restaurant-card" class="restaurant" data-restaurant=${JSON.stringify(
@@ -57,6 +61,7 @@ class RestaurantCardList extends HTMLUListElement {
       this.#sorting = newValue as any;
     }
 
+    restaurantState.setState(this.#category, this.#sorting);
     this.render();
   }
 }
