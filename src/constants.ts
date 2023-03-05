@@ -19,3 +19,9 @@ export const CATEGORY = {
   아시안: "./category-asian.png",
   기타: "./category-etc.png",
 };
+
+export const ERROR_MESSAGE = {
+  NAME: "유효한 이름을 입력해주세요.(특수문자 제외)",
+  DUPLICATED: "중복된 가게 이름이 있습니다.",
+  URL: "유효한 주소를 입력해주세요.",
+};

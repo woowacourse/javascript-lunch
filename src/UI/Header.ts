@@ -12,11 +12,14 @@ export default class Header {
 
   constructor() {
     document.body.insertAdjacentHTML("afterbegin", this.#template);
-    $(".gnb__button").addEventListener("click", this.openModal);
+    const openModalButton = $(".gnb__button") as HTMLElement;
+    openModalButton.addEventListener("click", this.openModal);
   }
 
   openModal() {
-    $(".modal--open").style.display = "block";
-    $("#category").focus();
+    const modal = $(".modal--open") as HTMLElement;
+    const category = $("#category") as HTMLElement;
+    modal.style.display = "block";
+    category.focus();
   }
 }
