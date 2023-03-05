@@ -1,8 +1,7 @@
-import RestaurantsList from './RestaurantsList';
-
 class RestaurantFilter {
   constructor($target) {
     this.$target = $target;
+    this.render();
   }
 
   template() {
@@ -26,20 +25,14 @@ class RestaurantFilter {
       `;
   }
 
-  render(restaurantList) {
+  render() {
     this.$target.insertAdjacentHTML('afterbegin', this.template());
-    this.setEvent(restaurantList);
-
-    restaurantList.render();
   }
 
-  setEvent(restaurantList) {
+  setEvent(callback) {
     const $filters = document.querySelector('.restaurant-filter-container');
 
-    $filters.addEventListener('change', e => {
-      e.preventDefault();
-      restaurantList.render();
-    });
+    $filters.addEventListener('change', callback);
   }
 }
 
