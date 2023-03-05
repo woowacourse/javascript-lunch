@@ -1,4 +1,4 @@
-import { Attribute, RerenderListType } from "../../type/type";
+import { Attribute, RerenderListType } from "../../types/type";
 import { $ } from "../../utils/Dom";
 
 class Select {

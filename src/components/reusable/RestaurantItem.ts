@@ -1,7 +1,7 @@
-import { Category, Restaurant } from "../../type/type";
+import { Category, Restaurant } from "../../types/type";
 import { categoryToSrc } from "../../utils/convertor";
 
-class RestaurantTicket {
+class RestaurantItem {
   restaurant: Restaurant;
 
   constructor(restaurant: Restaurant) {
@@ -29,4 +29,4 @@ class RestaurantTicket {
   }
 }
 
-export default RestaurantTicket;
+export default RestaurantItem;

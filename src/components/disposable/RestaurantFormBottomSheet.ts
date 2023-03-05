@@ -1,6 +1,6 @@
 import { validateUrl } from "../../utils/validate";
-import { OptionValue, RestaurantSelect } from "../../constant/Constants";
-import { Category, TakingTime, Restaurant } from "../../type/type";
+import { OptionValue, RestaurantSelect } from "../../utils/Constants";
+import { Category, TakingTime, Restaurant } from "../../types/type";
 import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 

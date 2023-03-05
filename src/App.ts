@@ -2,10 +2,10 @@ import Header from "./component/disposable/Header";
 import RestaurantFormBottomSheet from "./component/disposable/RestaurantFormBottomSheet";
 import RestaurantList from "./component/disposable/RestaurantList";
 import SelectContainer from "./component/disposable/SelectContainer";
-import RestaurantTicket from "./component/reusable/RestaurantTicket";
-import { Constants, OptionValue } from "./constant/Constants";
+import RestaurantItem from "./component/reusable/RestaurantItem";
+import { Constants, OptionValue } from "./utils/Constants";
 import restaurantListHandler from "./domain/restaurantListHandler";
-import { Restaurant } from "./type/type";
+import { Restaurant } from "./types/type";
 
 class App {
   restaurantList: Restaurant[];
@@ -46,7 +46,7 @@ class App {
   renderRestaurants() {
     return this.restaurantList
       .map((restaurant: Restaurant) =>
-        new RestaurantTicket(restaurant).template()
+        new RestaurantItem(restaurant).template()
       )
       .join("");
   }
