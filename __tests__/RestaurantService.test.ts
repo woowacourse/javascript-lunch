@@ -5,7 +5,7 @@
 import RestaurantService from '../src/domains/RestaurantService';
 
 describe('RestaurantService 테스트', () => {
-  const restaurantService = new RestaurantService();
+  const restaurantService = new RestaurantService([]);
 
   beforeAll(() => {
     jest.spyOn(window.localStorage.__proto__, 'getItem');
@@ -35,7 +35,7 @@ describe('RestaurantService 테스트', () => {
   });
 
   test('전체 카테고리, 이름순 정렬된 음식점 목록을 반환한다.', () => {
-    expect(restaurantService.filterAndSort()).toEqual([
+    expect(restaurantService.filterAndSort('전체', 'name')).toEqual([
       {
         category: '중식',
         name: '딘타이펑',
@@ -60,9 +60,7 @@ describe('RestaurantService 테스트', () => {
   });
 
   test('전체 카테고리, 거리순 정렬된 음식점 목록을 반환한다.', () => {
-    restaurantService.setCurrentSortingCriterion('distance');
-
-    expect(restaurantService.filterAndSort()).toEqual([
+    expect(restaurantService.filterAndSort('전체', 'distance')).toEqual([
       {
         category: '한식',
         name: '평래옥',
@@ -88,9 +86,7 @@ describe('RestaurantService 테스트', () => {
   });
 
   test('중식 카테고리, 거리순 정렬된 음식점 목록을 반환한다.', () => {
-    restaurantService.setCurrentCategory('중식');
-
-    expect(restaurantService.filterAndSort()).toEqual([
+    expect(restaurantService.filterAndSort('중식', 'distance')).toEqual([
       {
         category: '중식',
         name: '명정루',
@@ -107,9 +103,7 @@ describe('RestaurantService 테스트', () => {
   });
 
   test('중식 카테고리, 이름순 정렬된 음식점 목록을 반환한다.', () => {
-    restaurantService.setCurrentSortingCriterion('name');
-
-    expect(restaurantService.filterAndSort()).toEqual([
+    expect(restaurantService.filterAndSort('중식', 'name')).toEqual([
       {
         category: '중식',
         name: '딘타이펑',
@@ -126,10 +120,7 @@ describe('RestaurantService 테스트', () => {
   });
 
   test('이름순 정렬 후 한식 카테고리인 음식점 목록을 반환한다.', () => {
-    restaurantService.setCurrentSortingCriterion('name');
-    restaurantService.setCurrentCategory('한식');
-
-    expect(restaurantService.filterAndSort()).toEqual([
+    expect(restaurantService.filterAndSort('한식', 'name')).toEqual([
       { category: '한식', name: '얌샘김밥', distance: 15 },
       {
         category: '한식',
@@ -141,9 +132,7 @@ describe('RestaurantService 테스트', () => {
   });
 
   test('거리순 정렬 후 한식 카테고리인 음식점 목록을 반환한다.', () => {
-    restaurantService.setCurrentSortingCriterion('distance');
-
-    expect(restaurantService.filterAndSort()).toEqual([
+    expect(restaurantService.filterAndSort('한식', 'distance')).toEqual([
       {
         category: '한식',
         name: '평래옥',
