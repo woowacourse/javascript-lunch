@@ -5,8 +5,17 @@ type SelectId = keyof typeof OPTIONS;
 class CustomSelect extends HTMLSelectElement {
   constructor() {
     super();
+  }
 
-    const id = (this.getAttribute("id") as SelectId) ?? "";
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    const id = this.getAttribute("id");
+
+    if (id === null) return;
+    if (!this.isSelectId(id)) return;
 
     this.innerHTML = `
       ${OPTIONS[id].text
@@ -17,10 +26,10 @@ class CustomSelect extends HTMLSelectElement {
         .join("")}
     `;
   }
+
+  isSelectId(id: string): id is SelectId {
+    return Object.keys(OPTIONS).includes(id);
+  }
 }
 
-const createCustomSelect = () => {
-  customElements.define("custom-select", CustomSelect, { extends: "select" });
-};
-
-export default createCustomSelect;
+export default CustomSelect;

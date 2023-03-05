@@ -1,8 +1,6 @@
 import type { Category, Distance } from "./types/restaurant";
 import type { CategoryOption, SortOption } from "./types/option";
 
-import createCustomSelect from "./components/CustomSelect";
-import createCustomModal from "./components/CustomModal";
 import createRestaurantCardList from "./components/RestaurantCardList";
 import Restaurants from "./domain/Restaurants";
 
@@ -30,15 +28,12 @@ class App {
   }
 
   init() {
-    createCustomSelect();
-    createCustomModal();
-
     this.renderContainer();
   }
 
   renderContainer() {
     document.body.innerHTML = `
-    <header is="lunch-header" class="gnb"></header>
+      <header is="lunch-header" class="gnb"></header>
       <main>
         <section class="restaurant-filter-container">
           <select is="custom-select" name="category" id="category-filter" class="restaurant-filter"></select>
