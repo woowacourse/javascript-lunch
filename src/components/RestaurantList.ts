@@ -34,23 +34,30 @@ class RestaurantList extends HTMLElement {
     this.innerHTML = `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
-        ${this.state.restaurants
-          .filter(
-            (restaurant) =>
-              this.state.filter === "전체" ||
-              restaurant.category === this.state.filter
-          )
-          .sort((a: Restaurant, b: Restaurant) => {
-            if (this.state.sort === "name" || this.state.sort === "distance") {
-              return a[this.state.sort] > b[this.state.sort] ? 1 : -1;
-            }
-            return 0;
-          })
-          .map((restaurant) => RestaurantItem(restaurant))
-          .join("")}
+        ${this.restaurantItems(this.selectRestaurants())}
         </ul>
       </section>
     `;
+  }
+
+  selectRestaurants() {
+    const { restaurants, filter, sort } = this.state;
+    return restaurants
+      .filter(
+        (restaurant) => filter === "전체" || restaurant.category === filter
+      )
+      .sort((a: Restaurant, b: Restaurant) => {
+        if (sort === "name" || sort === "distance") {
+          return a[sort] > b[sort] ? 1 : -1;
+        }
+        return 0;
+      });
+  }
+
+  restaurantItems(selectedRestaurants: Restaurant[]) {
+    return selectedRestaurants
+      .map((restaurant) => RestaurantItem(restaurant))
+      .join("");
   }
 
   addRestaurant(newRestaurant: Restaurant) {
