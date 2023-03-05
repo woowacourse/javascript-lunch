@@ -1,11 +1,11 @@
 import CustomElement from "../../abstracts/CustomElement";
-import RestaurantsStore from "../../domain/RestaurantsStore";
+import RestaurantInstance from "../../domain/RestaurantsStore";
 
 class RestaurantsComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    RestaurantsStore.subscribe(this);
-    RestaurantsStore.publish();
+    RestaurantInstance.subscribe(this);
+    RestaurantInstance.publish();
   }
 
   rerender(restaurantList) {
@@ -22,7 +22,8 @@ class RestaurantsComponent extends CustomElement {
       </restaurant-element>`;
       })
       .join("");
-    document.querySelector(".restaurant-list").innerHTML = restaurants;
+
+    this.querySelector(".restaurant-list").innerHTML = restaurants;
   }
 
   template() {
