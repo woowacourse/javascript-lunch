@@ -48,7 +48,7 @@ jobs:
         run: npm run build # package.josn에 빌드 스크립트 여기에 적기
 
       - name: Deploy
-      - uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist # build값의 output 경로에 들어있는 파일들을 gh-pages브랜치에 올려줌
