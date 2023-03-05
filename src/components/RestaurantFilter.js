@@ -1,5 +1,3 @@
-import { $, dispatchCustomEvent } from '../utils/dom';
-
 customElements.define(
   'restaurant-filter',
   class RestaurantFilter extends HTMLElement {
