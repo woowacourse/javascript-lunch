@@ -38,12 +38,14 @@ describe('컴포넌트 단위 테스트', () => {
   const $main = document.querySelector('main');
 
   const header = new Header($header);
+  const modal = new Modal($main);
   const restaurantFilter = new RestaurantFilter($main);
   const restaurantsList = new RestaurantsList($main, restaurants);
-  const modal = new Modal($main, restaurantsList);
 
-  header.render(modal);
-  restaurantFilter.render(restaurantsList);
+header.setEvent(modal.toggleModalOpen.bind(modal));
+modal.setSubmitEvent(restaurantsList.setState.bind(restaurantsList), restaurants.add.bind(restaurants));
+modal.setModalCloseEvent();
+restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
 
   test('음식점 리스트에 음식점들이 렌더링이 됐는지 확인한다.', () => {
     const yeopto = screen.getByText('엽토네 떡볶이');
@@ -54,15 +56,8 @@ describe('컴포넌트 단위 테스트', () => {
   });
 
   test('모달 창이 정상적으로 팝업되는 지 확인한다.', () => {
-    fireEvent(
-      screen.getByRole('button'),
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      })
-    );
-
-    const modalTitle = screen.getByText('새로운 음식점');
-    expect(modalTitle).toBeInTheDocument();
+    fireEvent.click(screen.getByAltText('음식점 추가'));
+    
+    expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
   });
 });
