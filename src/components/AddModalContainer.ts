@@ -2,9 +2,10 @@ import { Category } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
 import { validatorUtils } from '@res/validator/validatorUtils';
+import { IComponentPropState } from '@res/interfaces/IComponent';
 
 type InputElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-class AddModalContainer extends Component {
+class AddModalContainer extends Component<IComponentPropState> {
   #isInputValid = true;
 
   template() {
@@ -102,16 +103,23 @@ class AddModalContainer extends Component {
   }
 
   getInputs(): IRestaurantInput {
-    const inputList = this.$target.querySelectorAll<InputElement>(
-      'input, textarea, select'
-    );
+    const categoryInput =
+      this.$target.querySelector<HTMLInputElement>('#category-input');
+    const nameInput =
+      this.$target.querySelector<HTMLInputElement>('#name-input');
+    const distanceInput =
+      this.$target.querySelector<HTMLInputElement>('#distance-input');
+    const descriptionInput =
+      this.$target.querySelector<HTMLInputElement>('#description-input');
+    const linkInput =
+      this.$target.querySelector<HTMLInputElement>('#link-input');
 
     return {
-      category: inputList[0].value,
-      name: inputList[1].value,
-      distance: inputList[2].value || '0',
-      description: inputList[3].value,
-      link: inputList[4].value,
+      category: categoryInput?.value ?? '',
+      name: nameInput?.value ?? '',
+      distance: distanceInput?.value || '0',
+      description: descriptionInput?.value ?? '',
+      link: linkInput?.value ?? '',
     };
   }
 
@@ -125,7 +133,7 @@ class AddModalContainer extends Component {
       return;
     }
 
-    this.#isInputValid = validatorUtils[type](input) ? true : false;
+    this.#isInputValid = validatorUtils[type](input);
   }
 
   showErrorMessage(idName: string): void {
@@ -150,9 +158,6 @@ class AddModalContainer extends Component {
       event.preventDefault();
 
       const restaurantInput: IRestaurantInput = this.getInputs();
-      // Object.entries(restaurantInput).forEach((array) => {
-      //   this.inputErrorHandler(array, setIsAddFormState);
-      // });
 
       if (this.#isInputValid) {
         addRestaurant(restaurantInput);
