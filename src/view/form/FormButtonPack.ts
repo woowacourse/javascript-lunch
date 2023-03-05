@@ -2,29 +2,27 @@ import { $ } from '../../util/querySelector';
 
 type FormButtonPackType = {
   parentElement: HTMLElement;
-  event: {
-    onCancelEvent: () => void;
-    onAddEvent: () => void;
-  };
   info: {
     cancelButtonId: string;
     addButtonId: string;
     cancelButtonDisplayName: string;
     addButtonDisplayName: string;
   };
+  event: {
+    onCancel: () => void;
+    onAdd: () => void;
+  };
 };
 
 class FormButtonPack {
   #parentElement;
-  #onCancelEvent;
-  #onAddEvent;
   #info;
+  #event;
 
   constructor({ parentElement, event, info }: FormButtonPackType) {
     this.#parentElement = parentElement;
-    this.#onCancelEvent = event.onCancelEvent;
-    this.#onAddEvent = event.onAddEvent;
     this.#info = info;
+    this.#event = event;
     this.#render();
     this.#setEvent();
   }
@@ -54,16 +52,15 @@ class FormButtonPack {
   #setEvent() {
     if (this.#info.cancelButtonId) {
       $(`#${this.#info.cancelButtonId}`).addEventListener('click', () => {
-        // this.#onCancelEvent();
-        console.log('Cancel Event');
+        this.#event.onCancel();
       });
     }
 
     if (this.#info.addButtonId) {
       $(`#${this.#info.addButtonId}`).addEventListener('click', (event) => {
         event.preventDefault();
-        // this.#onAddEvent();
-        console.log('Add Event');
+        console.log('Add Clicked - PaCK');
+        this.#event.onAdd();
       });
     }
   }
