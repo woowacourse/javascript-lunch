@@ -11,9 +11,4 @@ export const LocalData = {
     const localList = localStorage.getItem(this.dataName);
     return localList && JSON.parse(localList);
   },
-
-  addData(data: RestaurantType[], newData: RestaurantType) {
-    const inputData = [newData, ...data];
-    this.setDate(inputData);
-  },
 };
