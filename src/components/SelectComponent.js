@@ -3,23 +3,13 @@ import dispatcher from "../domain/Dispatcher";
 import { RESTAURANT_ACTION } from "../abstracts/constants";
 
 class SelectComponent extends CustomElement {
-  changeCategory() {
-    const category = document.querySelector("#category-filter").value;
-    dispatcher(RESTAURANT_ACTION.FILTER_BY_CATEGORY, category);
-  }
-
-  changeSortMethod() {
-    const sortMethod = document.querySelector("#sorting-filter").value;
-    dispatcher(RESTAURANT_ACTION.SORT_RESTAURANTS, sortMethod);
-  }
-
-  setEvent() {
-    document
-      .querySelector("#category-filter")
-      .addEventListener("change", () => this.changeCategory());
-    document
-      .querySelector("#sorting-filter")
-      .addEventListener("change", () => this.changeSortMethod());
+  handleEvent() {
+    this.querySelector("#category-filter").addEventListener("change", (event) =>
+      dispatcher(RESTAURANT_ACTION.FILTER_BY_CATEGORY, event.target.value)
+    );
+    this.querySelector("#sorting-filter").addEventListener("change", (event) =>
+      dispatcher(RESTAURANT_ACTION.SORT_RESTAURANTS, event.target.value)
+    );
   }
 
   template() {
