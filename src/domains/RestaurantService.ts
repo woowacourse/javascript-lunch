@@ -2,8 +2,6 @@ import { AllCategory, Category, SortingCriterion, Restaurant } from '../types/ty
 
 class RestaurantService {
   private restaurantList: Restaurant[];
-  private currentCategory: AllCategory | Category = '전체';
-  private currentSortingCriterion: SortingCriterion = 'name';
 
   constructor(restaurantList: Restaurant[]) {
     this.restaurantList = restaurantList;
@@ -13,18 +11,10 @@ class RestaurantService {
     this.restaurantList.push(restaurant);
   }
 
-  setCurrentCategory(category: AllCategory | Category) {
-    this.currentCategory = category;
-  }
+  filter(category: AllCategory | Category) {
+    if (category === '전체') return [...this.restaurantList];
 
-  setCurrentSortingCriterion(criterion: SortingCriterion) {
-    this.currentSortingCriterion = criterion;
-  }
-
-  filter() {
-    if (this.currentCategory === '전체') return [...this.restaurantList];
-
-    return this.restaurantList.filter((restaurant) => restaurant.category === this.currentCategory);
+    return this.restaurantList.filter((restaurant) => restaurant.category === category);
   }
 
   sortByName(restaurantList: Restaurant[]) {
@@ -35,10 +25,10 @@ class RestaurantService {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort() {
-    const filteredRestaurantList = this.filter();
+  filterAndSort(category: AllCategory | Category, criterion: SortingCriterion) {
+    const filteredRestaurantList = this.filter(category);
 
-    if (this.currentSortingCriterion === 'name') {
+    if (criterion === 'name') {
       return this.sortByName(filteredRestaurantList);
     }
 

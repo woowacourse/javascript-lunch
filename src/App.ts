@@ -1,4 +1,4 @@
-import { Category, SortingCriterion, Restaurant } from './types/types';
+import { AllCategory, Category, SortingCriterion, Restaurant } from './types/types';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
 import { saveToLocalStorage, getLocalStorage } from './utils/localStorage';
 import RestaurantService from './domains/RestaurantService';
@@ -9,12 +9,16 @@ export class App {
   private restaurantService: RestaurantService;
   private mainView = new MainView();
   private modalView = new ModalView();
+  private currentCategory: AllCategory | Category = '전체';
+  private currentSortingCriterion: SortingCriterion = 'name';
 
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
     this.bindEventHandlers();
-    this.mainView.renderRestaurantList(this.restaurantService.filterAndSort());
+    this.mainView.renderRestaurantList(
+      this.restaurantService.filterAndSort(this.currentCategory, this.currentSortingCriterion)
+    );
   }
 
   bindEventHandlers() {
@@ -25,20 +29,29 @@ export class App {
 
   onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {
     this.restaurantService.add(restaurantItem);
-    const restaurantList = this.restaurantService.filterAndSort();
+    const restaurantList = this.restaurantService.filterAndSort(
+      this.currentCategory,
+      this.currentSortingCriterion
+    );
     saveToLocalStorage(restaurantList);
     this.mainView.renderRestaurantList(restaurantList);
   };
 
   onChangeCategoryFilter = (category: Category) => {
-    this.restaurantService.setCurrentCategory(category);
-    const filteredRestaurantList: Restaurant[] = this.restaurantService.filterAndSort();
+    this.currentCategory = category;
+    const filteredRestaurantList: Restaurant[] = this.restaurantService.filterAndSort(
+      this.currentCategory,
+      this.currentSortingCriterion
+    );
     this.mainView.renderRestaurantList(filteredRestaurantList);
   };
 
   onChangeSortingFilter = (criterion: SortingCriterion) => {
-    this.restaurantService.setCurrentSortingCriterion(criterion);
-    const sortedRestaurantList: Restaurant[] = this.restaurantService.filterAndSort();
+    this.currentSortingCriterion = criterion;
+    const sortedRestaurantList: Restaurant[] = this.restaurantService.filterAndSort(
+      this.currentCategory,
+      this.currentSortingCriterion
+    );
     this.mainView.renderRestaurantList(sortedRestaurantList);
   };
 }
