@@ -1,3 +1,4 @@
+import { validateUrl } from "../../utils/validate";
 import { OptionValue, RestaurantSelect } from "../../constant/Constants";
 import { Category, TakingTime, Restaurant } from "../../type/type";
 import { $ } from "../../utils/Dom";
@@ -48,7 +49,7 @@ class RestaurantFormBottomSheet {
         <div class="form-item">
           <label for="link text-caption">참고 링크</label>
           <input type="text" name="link" id="link">
-          <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+          <span class="help-text text-caption url-warning">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
         </div>
 
         <div class="button-container">
@@ -75,17 +76,23 @@ class RestaurantFormBottomSheet {
       e.preventDefault();
       const $modal = $(".modal-form") as HTMLFormElement;
       const formData = Object.fromEntries(new FormData($modal).entries());
-      const data = {
-        name: formData.name as string,
-        takingTime: formData.takingTime as TakingTime,
-        category: formData.category as Category,
-        link: formData.link as string,
-        description: formData.description as string,
-      };
 
-      makeTicket(data);
-      this.resetFormValues();
-      this.closeModal();
+      try {
+        const data = {
+          name: formData.name as string,
+          takingTime: formData.takingTime as TakingTime,
+          category: formData.category as Category,
+          link: validateUrl(formData.link as string),
+          description: formData.description as string,
+        };
+
+        makeTicket(data);
+        this.resetFormValues();
+        this.closeModal();
+      } catch (error: unknown) {
+        const warning = $(".url-warning") as HTMLElement;
+        warning.textContent = (error as Error).message;
+      }
     });
   }
 
