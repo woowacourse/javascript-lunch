@@ -1,5 +1,5 @@
 import AddButton from "./components/AddButton";
-import CategoryInput from "./components/CatgoryInput";
+import CategoryInput from "./components/CategoryInput";
 import DescriptionInput from "./components/DescriptionInput";
 import DistanceInput from "./components/DistanceInput";
 import FilterButton from "./components/FilterButton";
@@ -11,6 +11,7 @@ import NameInput from "./components/NameInput";
 import RestaurantList from "./components/RestaurantList";
 import SortButton from "./components/SortButton";
 import { mockList } from "./data/mockRestaurant";
+import { Template } from "./Template";
 
 class App {
   #app;
@@ -22,27 +23,27 @@ class App {
 
   render() {
     this.#app.innerHTML = `
-      ${Header.template()}
+      ${Template.mainHeader}
       <main>
         <section class="restaurant-filter-container">
-          ${FilterButton.template()}
-          ${SortButton.template()}
+          ${Template.filterButton}
+          ${Template.sortByButton}
         </section>
         <section class="restaurant-list-container">
-          ${RestaurantList.template(RestaurantList.originList)}
+          ${Template.restaurantList(RestaurantList.originList)}
         </section>
 
         <div class="modal">
           <div class="modal-backdrop"></div>
           <div class="modal-container">
-            ${ModalHeader.template()}
+            ${Template.modalHeader}
             <form>
-              ${CategoryInput.template()}
-              ${NameInput.template()}
-              ${DistanceInput.template()}
-              ${DescriptionInput.template()}
-              ${LinkInput.template()}
-              ${AddButton.template()}
+              ${Template.categoryInput}
+              ${Template.nameInput}
+              ${Template.takeTimeInput}
+              ${Template.descriptionInput}
+              ${Template.linkInput}
+              ${Template.addButton}
             </form>
           </div>
         </div>

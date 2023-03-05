@@ -5,7 +5,7 @@ interface listInterface {
   sortState: string;
   defaultList: (restaurantList: RestaurantType[]) => void;
   addRestaurant: (restaurant: RestaurantType) => void;
-  template(restaurantList: Restaurant[]): string;
+  // template(restaurantList: Restaurant[]): string;
   listUp(category: string, priority: string): Restaurant[];
   filter(category: string): Restaurant[];
   sort(restaurantList: Restaurant[], priority: string): Restaurant[];
@@ -33,6 +33,7 @@ const RestaurantList: listInterface = {
       this.originList = list;
     }
   },
+
   addRestaurant(restaurant: RestaurantType) {
     const newRestaurantList = [
       new Restaurant(restaurant),
@@ -41,11 +42,13 @@ const RestaurantList: listInterface = {
     localStorage.setItem("restaurantList", JSON.stringify(newRestaurantList));
     this.originList = [new Restaurant(restaurant), ...this.originList];
   },
-  template(restaurantList): string {
-    return `<ul class='restaurant-list'>
-    ${restaurantList.map((restaurant) => restaurant.template()).join("")}
-    </ul>`;
-  },
+
+  // template(restaurantList): string {
+  //   return `<ul class='restaurant-list'>
+  //   ${restaurantList.map((restaurant) => restaurant.template()).join("")}
+  //   </ul>`;
+  // },
+
   listUp(category, priority) {
     return this.sort(this.filter(category), priority);
   },
@@ -62,7 +65,7 @@ const RestaurantList: listInterface = {
     this.sortState = priority;
     if (priority === "distance") {
       const result = restaurantList.sort((current, next) => {
-        return current.getRestaurant().distance - next.getRestaurant().distance;
+        return current.getRestaurant().takeTime - next.getRestaurant().takeTime;
       });
 
       return result;
