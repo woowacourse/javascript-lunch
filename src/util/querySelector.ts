@@ -1,7 +1,7 @@
-export const $ = (className: string) => {
-  return document.querySelector(className);
+export const $ = (selectors: string) => {
+  return document.querySelector(selectors);
 };
 
-export const $$ = (className: string) => {
-  return document.querySelectorAll(className);
+export const $$ = (selectors: string) => {
+  return document.querySelectorAll(selectors);
 };
