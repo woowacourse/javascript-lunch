@@ -17,8 +17,15 @@ class ModalView {
   private linkInputCaption = $('#link-caption') as HTMLSpanElement;
 
   constructor() {
+    this.initInputCaptions();
     this.addCloseButtonClickEvent();
     this.addModalBackdropClickEvent();
+  }
+
+  initInputCaptions() {
+    this.categoryInputCaption.textContent = ERROR_MESSAGE.EMPTY_CATEGORY;
+    this.nameInputCaption.textContent = ERROR_MESSAGE.INVALID_NAME;
+    this.distanceInputCaption.textContent = ERROR_MESSAGE.EMPTY_DISTANCE;
   }
 
   addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {
@@ -46,24 +53,22 @@ class ModalView {
   showErrorMessages(errors: Errors) {
     if (errors.category) {
       this.categoryInputCaption.classList.add('error-text');
-      this.categoryInputCaption.textContent = ERROR_MESSAGE.EMPTY_CATEGORY;
+      this.categoryInputCaption.classList.remove('not-visible');
     }
 
     if (errors.name) {
       this.nameInputCaption.classList.add('error-text');
-      this.nameInputCaption.textContent = ERROR_MESSAGE.INVALID_NAME;
-      this.nameInput.value = '';
+      this.nameInputCaption.classList.remove('not-visible');
     }
 
     if (errors.distance) {
       this.distanceInputCaption.classList.add('error-text');
-      this.distanceInputCaption.textContent = ERROR_MESSAGE.EMPTY_DISTANCE;
+      this.distanceInputCaption.classList.remove('not-visible');
     }
 
     if (errors.link) {
       this.linkInputCaption.classList.add('error-text');
       this.linkInputCaption.textContent = ERROR_MESSAGE.INVALID_LINK;
-      this.linkInput.value = '';
     }
   }
 
@@ -72,7 +77,7 @@ class ModalView {
       'change',
       () => {
         this.categoryInputCaption.classList.remove('error-text');
-        this.categoryInputCaption.textContent = '';
+        this.categoryInputCaption.classList.add('not-visible');
       },
       { once: true },
     );
@@ -83,7 +88,7 @@ class ModalView {
       'input',
       () => {
         this.nameInputCaption.classList.remove('error-text');
-        this.nameInputCaption.textContent = '';
+        this.nameInputCaption.classList.add('not-visible');
       },
       { once: true },
     );
@@ -94,7 +99,7 @@ class ModalView {
       'change',
       () => {
         this.distanceInputCaption.classList.remove('error-text');
-        this.distanceInputCaption.textContent = '';
+        this.distanceInputCaption.classList.add('not-visible');
       },
       { once: true },
     );
