@@ -86,7 +86,7 @@ class Modal {
       const formData = Object.fromEntries(new FormData($modal).entries());
       const data = {
         name: formData.name as string,
-        takingTime: formData.distance as TakingTime,
+        takingTime: formData.takingTime as TakingTime,
         category: formData.category as Category,
         link: formData.link as string,
         description: formData.description as string,
