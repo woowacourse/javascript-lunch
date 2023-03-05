@@ -11,8 +11,8 @@ interface IComponent<P extends IComponentPropState> {
   render(): void;
   mounted(): void;
   setEvent(): void;
-  setState(newState: any): void;
-  addEvent(
+  setState(newState: P): void;
+  addEven?(
     eventType: string,
     selector: string,
     callback: (event: Event) => void

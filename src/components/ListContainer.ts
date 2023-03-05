@@ -1,5 +1,6 @@
 import Component from '@res/core/Component';
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { IComponentPropState } from '@res/interfaces/IComponent';
 
 interface ImageByCategory {
   [key: string]: string;
@@ -14,7 +15,7 @@ const ImageByCategory: ImageByCategory = {
   기타: './category-etc.png',
 };
 
-class ListContainer extends Component {
+class ListContainer extends Component<IComponentPropState> {
   template() {
     const { restaurantList } = this.$props;
 
