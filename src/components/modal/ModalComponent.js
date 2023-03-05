@@ -1,14 +1,26 @@
 import CustomElement from "../../abstracts/CustomElement";
+import ModalInstance from "../../domain/ModalStore";
+import dispatcher from "../../domain/Dispatcher";
 
 class ModalComponent extends CustomElement {
-  hide() {
-    document.querySelector(".modal").classList.remove("modal--open");
+  connectedCallback() {
+    super.connectedCallback();
+    ModalInstance.subscribe(this);
+    ModalInstance.publish();
   }
 
-  setEvent() {
-    document
-      .querySelector(".button--secondary")
-      .addEventListener("click", () => this.hide());
+  rerender(isModalOn) {
+    if (isModalOn) {
+      this.querySelector(".modal").classList.add("modal--open");
+      return;
+    }
+    this.querySelector(".modal").classList.remove("modal--open");
+  }
+
+  handleEvent() {
+    this.querySelector(".button--secondary").addEventListener("click", () =>
+      dispatcher("modal_off", false)
+    );
   }
 
   template() {

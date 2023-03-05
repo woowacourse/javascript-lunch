@@ -1,9 +1,14 @@
-import { RestaurantAction } from "./types";
+import { ModalAction, RestaurantAction } from "./types";
 
 export const RESTAURANT_ACTION: RestaurantAction = {
   ADD_RESTAURANT: "add_restaurant",
   FILTER_BY_CATEGORY: "filter_by_category",
   SORT_RESTAURANTS: "sort_restaurants",
+} as const;
+
+export const MODAL_ACTION: ModalAction = {
+  MODAL_ON: "modal_on",
+  MODAL_OFF: "modal_off",
 } as const;
 
 export const CATEGORY_IMG = {

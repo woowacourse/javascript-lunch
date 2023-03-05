@@ -19,11 +19,16 @@ export interface Restaurant {
 
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod;
+  data?: Restaurant | Category | SortMethod | boolean;
 }
 
 export interface RestaurantAction {
   ADD_RESTAURANT: string;
   FILTER_BY_CATEGORY: string;
   SORT_RESTAURANTS: string;
+}
+
+export interface ModalAction {
+  MODAL_ON: string;
+  MODAL_OFF: string;
 }

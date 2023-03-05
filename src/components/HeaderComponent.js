@@ -1,14 +1,11 @@
 import CustomElement from "../abstracts/CustomElement";
+import dispatcher from "../domain/Dispatcher";
 
 class HeaderComponent extends CustomElement {
-  show() {
-    document.querySelector(".modal").classList.add("modal--open");
-  }
-
-  setEvent() {
-    document
-      .querySelector(".gnb__button")
-      .addEventListener("click", () => this.show());
+  handleEvent() {
+    this.querySelector(".gnb__button").addEventListener("click", () =>
+      dispatcher("modal_on", true)
+    );
   }
 
   template() {

@@ -1,7 +1,7 @@
 class CustomElement extends HTMLElement {
   connectedCallback() {
     this.render();
-    this.setEvent();
+    this.handleEvent();
   }
 
   render() {
@@ -10,7 +10,7 @@ class CustomElement extends HTMLElement {
 
   template() {}
 
-  setEvent() {}
+  handleEvent() {}
 
   rerender(data, action) {}
 }
