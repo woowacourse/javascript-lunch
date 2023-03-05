@@ -19,6 +19,9 @@
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  animation-name: slideUp;
+  animation-duration: 0.3s;
 }
 
 .modal-title {
@@ -112,4 +115,15 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+@keyframes slideUp {
+  from {
+    bottom: -400px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
 }
