@@ -3,30 +3,32 @@ import { compareString } from '../utils/common';
 import { VALUE } from '../constants/constants';
 
 class Restaurants {
-  #restaurants: Restaurant[];
+  #restaurantsList: Restaurant[];
 
   constructor(restaurants: Restaurant[]) {
-    this.#restaurants = restaurants.map(restaurant => this.optionInfoCovertToEmptyString(restaurant));
+    this.#restaurantsList = restaurants.map(restaurant => this.getConvertedUndefinedToEmptyString(restaurant));
   }
 
-  get restaurants(): Restaurant[] {
-    return this.#restaurants;
+  get restaurantsList(): Restaurant[] {
+    return this.#restaurantsList;
   }
 
-  add(restaurant: Restaurant): void {
-    this.#restaurants.push(this.optionInfoCovertToEmptyString(restaurant));
-    window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+  add(restaurant: Restaurant): Restaurant[] {
+    this.#restaurantsList.push(this.getConvertedUndefinedToEmptyString(restaurant));
+    window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantsList));
+
+    return this.#restaurantsList;
   }
 
-  optionInfoCovertToEmptyString(restaurant: Restaurant): Restaurant {
+  getConvertedUndefinedToEmptyString(restaurant: Restaurant): Restaurant {
     if (restaurant.description === 'undefined') restaurant.description = '';
     if (restaurant.link === 'undefined') restaurant.link = '';
 
     return restaurant;
   }
 
-  getRestaurant(category: string, sortType: string) {
-    return this.sortByType(sortType, this.filterByCategory(category, this.#restaurants));
+  getSelectedRestaurantsList(category: string, sortType: string) {
+    return this.sortByType(sortType, this.filterByCategory(category, this.#restaurantsList));
   }
 
   filterByCategory(category: string, restaurants: Restaurant[]): Restaurant[] {
