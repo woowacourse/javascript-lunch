@@ -3,7 +3,6 @@ import type { CategoryOption, SortOption } from "./types/option";
 
 import createCustomSelect from "./components/CustomSelect";
 import createCustomModal from "./components/CustomModal";
-import createCustomHeader from "./components/CustomHeader";
 import createRestaurantCardList from "./components/RestaurantCardList";
 import Restaurants from "./domain/Restaurants";
 
@@ -33,14 +32,13 @@ class App {
   init() {
     createCustomSelect();
     createCustomModal();
-    createCustomHeader();
 
     this.renderContainer();
   }
 
   renderContainer() {
     document.body.innerHTML = `
-    <custom-header></custom-header>
+    <header is="lunch-header" class="gnb"></header>
       <main>
         <section class="restaurant-filter-container">
           <select is="custom-select" name="category" id="category-filter" class="restaurant-filter"></select>
