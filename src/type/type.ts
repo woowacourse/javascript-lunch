@@ -16,6 +16,10 @@ export type Category =
 export type TakingTime = "5" | "10" | "15" | "20" | "25" | "30";
 export type Sort = "이름순" | "거리순";
 
+export interface Object {
+  [key: string]: string;
+}
+
 export interface Restaurant {
   category: Category;
   name: string;
