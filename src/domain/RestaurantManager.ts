@@ -33,9 +33,7 @@ export default class RestaurantManager {
           sensitivity: 'base',
         });
       });
-    }
-
-    if (standard === 'distance') {
+    } else if (standard === 'distance') {
       this.restaurantList.sort(
         (data1: Restaurant, data2: Restaurant): number => data1.distance - data2.distance
       );
