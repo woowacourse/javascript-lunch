@@ -13,10 +13,10 @@ class App {
   constructor(body: Element) {
     this.restaurantList = restaurantListHandler.getSortedByName();
 
-    Header.render(body);
-    SelectContainer.render(body, this.sortList);
+    Header.initialize(body);
+    SelectContainer.initialize(body, this.sortList);
     RestaurantList.render(body);
-    RestaurantFormBottomSheet.render(body, this.makeRestaurantList);
+    RestaurantFormBottomSheet.initialize(body, this.makeRestaurantList);
 
     this.rerenderList();
   }

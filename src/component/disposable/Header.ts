@@ -11,6 +11,11 @@ class Header {
     </header>`;
   }
 
+  initialize(target: Element) {
+    this.render(target);
+    this.addEvent();
+  }
+
   addEvent() {
     $(".gnb__button")?.addEventListener("click", () => {
       $(".modal")?.classList.add("modal--open");
@@ -19,7 +24,6 @@ class Header {
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
-    this.addEvent();
   }
 }
 

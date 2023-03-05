@@ -61,9 +61,13 @@ class RestaurantFormBottomSheet {
   </div>`;
   }
 
-  render(target: Element, makeTicket: (restaurant: Restaurant) => void) {
-    target.insertAdjacentHTML("beforeend", this.template());
+  initialize(target: Element, makeTicket: (restaurant: Restaurant) => void) {
+    this.render(target);
     this.addEvent(makeTicket);
+  }
+
+  render(target: Element) {
+    target.insertAdjacentHTML("beforeend", this.template());
   }
 
   addEvent(makeTicket: (obj: Restaurant) => void) {

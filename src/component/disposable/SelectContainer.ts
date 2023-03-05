@@ -38,11 +38,14 @@ class SelectContainer {
     `;
   }
 
-  render(target: Element, rerenderList: RerenderListType) {
-    target.insertAdjacentHTML("beforeend", this.template());
-
+  initialize(target: Element, rerenderList: RerenderListType) {
+    this.render(target);
     this.categorySelect.addEvent(Constants.CATEGORY_FILTER, rerenderList);
     this.sortingSelect.addEvent(Constants.SORTING_FILTER, rerenderList);
+  }
+
+  render(target: Element) {
+    target.insertAdjacentHTML("beforeend", this.template());
   }
 }
 
