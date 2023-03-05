@@ -1,16 +1,11 @@
-import {
-  Category,
-  Restaurant,
-  CustomElement,
-  Action,
-  SortMethod,
-} from "../abstracts/types";
+import { Category, Restaurant, Action, SortMethod } from "../abstracts/types";
 import {
   CATEGORY_DEFAULT,
   RESTAURANTS_STORAGE,
   RESTAURANT_ACTION,
   SORT_METHOD,
 } from "../abstracts/constants";
+import CustomElement from "../abstracts/CustomElement";
 
 class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
@@ -32,26 +27,26 @@ class RestaurantsStore {
     this.#subscribers.push(element);
   }
 
-  publish() {
+  publish(action: Action) {
     this.filterByCategory(this.#category);
     this.sortRestaurants(this.#sortMethod);
     this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(this.#restaurantList);
+      subscriber.rerender(this.#restaurantList, action);
     });
   }
 
   reducer = {
     [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
       this.addRestaurant(action.data as Restaurant);
-      this.publish();
+      this.publish(action);
     },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
       this.filterByCategory(action.data as Category);
-      this.publish();
+      this.publish(action);
     },
     [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
       this.sortRestaurants(action.data as SortMethod);
-      this.publish();
+      this.publish(action);
     },
   };
 

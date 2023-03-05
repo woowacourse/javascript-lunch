@@ -17,15 +17,6 @@ export interface Restaurant {
   link?: string;
 }
 
-export interface CustomElement extends HTMLElement {
-  render: () => void;
-  template: () => string;
-  setEvent: () => void;
-  show: () => void;
-  hide: () => void;
-  rerender: (data: Restaurant[] | Category | SortMethod) => void;
-}
-
 export interface Action {
   type: string;
   data?: Restaurant | Category | SortMethod;

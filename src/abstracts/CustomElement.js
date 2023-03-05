@@ -11,6 +11,8 @@ class CustomElement extends HTMLElement {
   template() {}
 
   setEvent() {}
+
+  rerender(data, action) {}
 }
 
 export default CustomElement;
