@@ -1,6 +1,6 @@
 import Restaurant from "../type/Restaurant";
 import RestaurantItem from "./RestaurantItem";
-import LocalStorage from "../tools/LocalStorage";
+import LocalStorage from "../utils/LocalStorage";
 import defaultRestaurants from "../tools/defaultRestaurants";
 
 class RestaurantList extends HTMLElement {
