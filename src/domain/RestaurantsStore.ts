@@ -31,7 +31,7 @@ class RestaurantsStore {
     this.filterByCategory(this.#category);
     this.sortRestaurants(this.#sortMethod);
     this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(this.#restaurantList, action);
+      subscriber.rerender(this.#restaurantList);
     });
   }
 

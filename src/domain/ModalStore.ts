@@ -13,7 +13,7 @@ class ModalStore {
 
   publish(action: Action) {
     this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(this.#isModalOn, action);
+      subscriber.rerender(this.#isModalOn);
     });
   }
 
