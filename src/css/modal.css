@@ -117,13 +117,11 @@ input[name='link'] {
 .slide-up {
   animation-name: slideUp;
   animation-duration: 0.3s;
-  animation-timing-function: ease-out;
 }
 
 .slide-down {
   animation-name: slideDown;
   animation-duration: 0.3s;
-  animation-timing-function: ease-in;
 }
 
 @keyframes slideUp {
