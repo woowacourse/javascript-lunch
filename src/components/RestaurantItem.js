@@ -1,11 +1,7 @@
 import { CATEGORY_TO_FILENAME } from '../constants/constants';
 
 class RestaurantItem {
-  constructor(restaurants) {
-    this.restaurants = restaurants;
-  }
-
-  makeRestaurantInfoItem(restaurant) {
+  template(restaurant) {
     const imageFile = CATEGORY_TO_FILENAME[restaurant.category];
 
     return `
@@ -22,12 +18,8 @@ class RestaurantItem {
       `;
   }
 
-  template() {
-    return this.restaurants.reduce((result, restaurant) => result + this.makeRestaurantInfoItem(restaurant), '');
-  }
-
-  render($restaurantList) {
-    $restaurantList.insertAdjacentHTML('beforeend', this.template());
+  makeItemList(restaurantList) {
+    return restaurantList.reduce((result, restaurant) => result + this.template(restaurant), '');
   }
 }
 
