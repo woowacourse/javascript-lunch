@@ -40,8 +40,9 @@ export default class Component {
     callback: (event: Event) => void
   ) {
     this.$target.addEventListener(eventType, (event: Event) => {
-      if (!(event.target as HTMLElement).closest(selector)) return false;
-      callback(event);
+      if ((event.target as HTMLElement).closest(selector)) {
+        callback(event);
+      }
     });
   }
 }
