@@ -67,33 +67,51 @@ class RestaurantFormBottomSheet {
   }
 
   addEvent(makeTicket: (obj: Restaurant) => void) {
+    this.handleSheetClose();
+    this.handleFormSubmit(makeTicket);
+  }
+
+  handleSheetClose() {
     $(".modal--close")?.addEventListener("click", () => {
       this.resetFormValues();
       this.closeModal();
     });
+  }
 
+  handleFormSubmit(makeTicket: (obj: Restaurant) => void) {
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
-      const $modal = $(".modal-form") as HTMLFormElement;
-      const formData = Object.fromEntries(new FormData($modal).entries());
 
-      try {
-        const data = {
-          name: formData.name as string,
-          takingTime: formData.takingTime as TakingTime,
-          category: formData.category as Category,
-          link: validateUrl(formData.link as string),
-          description: formData.description as string,
-        };
-
-        makeTicket(data);
-        this.resetFormValues();
-        this.closeModal();
-      } catch (error: unknown) {
-        const warning = $(".url-warning") as HTMLElement;
-        warning.textContent = (error as Error).message;
-      }
+      const data = this.getFormData();
+      makeTicket(data);
+      this.resetFormValues();
+      this.closeModal();
     });
+  }
+
+  getFormData(): Restaurant {
+    const $modal = $(".modal-form") as HTMLFormElement;
+    const formData = Object.fromEntries(new FormData($modal).entries());
+
+    const data = {
+      name: formData.name as string,
+      takingTime: formData.takingTime as TakingTime,
+      category: formData.category as Category,
+      link: this.getValidateLink(formData.link as string),
+      description: formData.description as string,
+    };
+
+    return data;
+  }
+
+  getValidateLink(url: string) {
+    try {
+      return validateUrl(url);
+    } catch (error: unknown) {
+      const warning = $(".url-warning") as HTMLElement;
+      warning.textContent = (error as Error).message;
+      throw error;
+    }
   }
 
   resetFormValues() {
