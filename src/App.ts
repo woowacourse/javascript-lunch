@@ -43,14 +43,16 @@ class App {
     this.rerenderList();
   };
 
+  renderRestaurants() {
+    return this.restaurantList
+      .map((restaurant: Restaurant) =>
+        new RestaurantTicket(restaurant).template()
+      )
+      .join("");
+  }
+
   rerenderList() {
-    RestaurantList.replaceTemplate(
-      this.restaurantList
-        .map((restaurant: Restaurant) =>
-          new RestaurantTicket(restaurant).template()
-        )
-        .join("")
-    );
+    RestaurantList.replaceTemplate(this.renderRestaurants());
   }
 }
 
