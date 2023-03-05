@@ -4,7 +4,7 @@
 
 ---
 
-## [🎮 점심 뭐 먹지 페이지 링크](https://hyeryongchoi.github.io/javascript-lunch/dist/index.html)
+## [🎮 점심 뭐 먹지 페이지 링크](https://hyeryongchoi.github.io/javascript-lunch/)
 
 ---
 
@@ -14,12 +14,12 @@
 
 <table>
   <tr>
-    <td align="center" width="120px">
+    <td align="center" width="130px">
       <a href="https://github.com/HyeryongChoi" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/24777828?v=4" alt="첵스(최혜령) 프로필" />
       </a>
     </td>
-    <td align="center" width="120px">
+    <td align="center" width="130px">
       <a href="https://github.com/jeonjeunghoon" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/51967731?v=4" alt="애슐리(허서영) 프로필" />
       </a>
