@@ -1,3 +1,4 @@
+import restaurantState from "../states/restaurant";
 import { Category, Distance, Restaurant } from "../types/restaurant";
 import CustomSelect from "./CustomSelect";
 
@@ -71,8 +72,8 @@ class RestaurantAddForm extends HTMLFormElement {
     event.preventDefault();
 
     const newRestaurant = this.createRestaurant();
-    console.log(newRestaurant);
-    // add restaurant
+
+    restaurantState.update(newRestaurant);
     // close modal
   }
 

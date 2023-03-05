@@ -2,24 +2,6 @@ import Restaurants from "../domain/Restaurants";
 import { CategoryOption, SortOption } from "../types/option";
 import { Restaurant } from "../types/restaurant";
 
-const mockList: Restaurant[] = [
-  {
-    category: "아시안",
-    name: "쌀국수맛있다",
-    distance: 20,
-  },
-  {
-    category: "일식",
-    name: "스시야좋아",
-    distance: 30,
-  },
-  //  {
-  //    category: "한식",
-  //    name: "경주 은희네 해장국",
-  //    distance: 10,
-  //  },
-];
-
 class RestaurantState {
   #localStorageId: string;
 
@@ -28,10 +10,9 @@ class RestaurantState {
   constructor() {
     this.#localStorageId = "lunch-restaurants";
 
-    const list: Restaurant[] = mockList;
-    //JSON.parse(
-    //  localStorage.getItem(this.#localStorageId)
-    //) ?? mockList;
+    const list: Restaurant[] = JSON.parse(
+      localStorage.getItem(this.#localStorageId) ?? "[]"
+    );
     this.#restaurants = new Restaurants(list);
   }
 
