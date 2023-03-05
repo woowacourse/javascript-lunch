@@ -1,8 +1,8 @@
 export default class RestaurantItem {
   #restaurantImage;
 
-  constructor(restaurantItem) {
-    this.#restaurantImage = restaurantItem;
+  constructor(restaurantImage) {
+    this.#restaurantImage = restaurantImage;
   }
 
   render({ category, storeName, distance, detail }) {
