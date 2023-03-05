@@ -1,24 +1,17 @@
-import {
-  AllCategory,
-  Category,
-  SortingCriterion,
-  Restaurant,
-} from "../types/types";
+import { AllCategory, Category, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
-  private currentCategory: AllCategory | Category = "전체";
-  private currentSortingCriterion: SortingCriterion = "name";
+  private currentCategory: AllCategory | Category = '전체';
+  private currentSortingCriterion: SortingCriterion = 'name';
 
   constructor() {
-    this.restaurantList = JSON.parse(
-      localStorage.getItem("restaurants") ?? "[]"
-    );
+    this.restaurantList = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
   }
 
   add(restaurant: Restaurant) {
     this.restaurantList.push(restaurant);
-    localStorage.setItem("restaurants", JSON.stringify(this.restaurantList));
+    localStorage.setItem('restaurants', JSON.stringify(this.restaurantList));
   }
 
   setCurrentCategory(category: AllCategory | Category) {
@@ -30,11 +23,9 @@ class RestaurantService {
   }
 
   filter() {
-    if (this.currentCategory === "전체") return [...this.restaurantList];
+    if (this.currentCategory === '전체') return [...this.restaurantList];
 
-    return this.restaurantList.filter(
-      (restaurant) => restaurant.category === this.currentCategory
-    );
+    return this.restaurantList.filter(restaurant => restaurant.category === this.currentCategory);
   }
 
   sortByName(restaurantList: Restaurant[]) {
@@ -48,7 +39,7 @@ class RestaurantService {
   filterAndSort() {
     const filteredRestaurantList = this.filter();
 
-    if (this.currentSortingCriterion === "name") {
+    if (this.currentSortingCriterion === 'name') {
       return this.sortByName(filteredRestaurantList);
     }
 

@@ -1,5 +1,5 @@
-import { Restaurant } from "../types/types";
-import { RESTAURANT_IMAGE } from "../constants/images";
+import { Restaurant } from '../types/types';
+import { RESTAURANT_IMAGE } from '../constants/images';
 
 const createRestaurantItem = function (restaurant: Restaurant) {
   return `<li class="restaurant">
@@ -16,7 +16,7 @@ const createRestaurantItem = function (restaurant: Restaurant) {
       >캠퍼스부터 ${restaurant.distance}분 내</span
     >
     <p class="restaurant__description text-body">
-      ${restaurant.description ?? ""}
+      ${restaurant.description ?? ''}
     </p>
   </div>
   </li>`;

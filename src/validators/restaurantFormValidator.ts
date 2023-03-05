@@ -1,20 +1,20 @@
-import { REGEX } from "../constants/constants";
-import { Errors, Restaurant } from "../types/types";
+import { REGEX } from '../constants/constants';
+import { Errors, Restaurant } from '../types/types';
 
 const restaurantFormValidator = {
   verify(restaurantItem: Restaurant) {
     const errors: Errors = {};
 
-    errors["category"] = this.isEmptyCategory(restaurantItem.category);
-    errors["name"] = this.isInvalidName(restaurantItem.name);
-    errors["distance"] = this.isEmptyDistance(restaurantItem.distance);
-    errors["link"] = this.isInvalidLink(restaurantItem.link);
+    errors['category'] = this.isEmptyCategory(restaurantItem.category);
+    errors['name'] = this.isInvalidName(restaurantItem.name);
+    errors['distance'] = this.isEmptyDistance(restaurantItem.distance);
+    errors['link'] = this.isInvalidLink(restaurantItem.link);
 
     return errors;
   },
 
   isEmptyCategory(input: string) {
-    return input === "";
+    return input === '';
   },
 
   isEmptyDistance(input: number) {
