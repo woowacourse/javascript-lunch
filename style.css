@@ -174,7 +174,15 @@ body {
   -webkit-box-orient: vertical;
 }
 
-/* 음식점 추가 모달 *****************************************/
+.modal {
+  background: transparent;
+  border: none;
+}
+
+.modal::backdrop {
+  cursor: pointer;
+}
+
 .modal-container {
   position: fixed;
   left: 0;
