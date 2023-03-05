@@ -16,3 +16,8 @@ export type Restaurant = {
 export type Errors = {
   [key: string]: Boolean;
 };
+
+export type Option = {
+  text: string[];
+  value: string[];
+};

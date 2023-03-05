@@ -16,20 +16,9 @@
 
     <main>
       <section class="restaurant-filter-container">
-        <select name="category" id="category-filter" class="restaurant-filter">
-          <option value="전체">전체</option>
-          <option value="한식">한식</option>
-          <option value="중식">중식</option>
-          <option value="일식">일식</option>
-          <option value="양식">양식</option>
-          <option value="아시안">아시안</option>
-          <option value="기타">기타</option>
-        </select>
+        <select name="category" id="category-filter" class="restaurant-filter"></select>
 
-        <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          <option value="name">이름순</option>
-          <option value="distance">거리순</option>
-        </select>
+        <select name="sorting" id="sorting-filter" class="restaurant-filter"></select>
       </section>
 
       <section class="restaurant-list-container">
@@ -42,15 +31,7 @@
           <form id="restaurant-add-form" novalidate>
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
-              <select name="category" id="category" required>
-                <option value="">선택해 주세요</option>
-                <option value="한식">한식</option>
-                <option value="중식">중식</option>
-                <option value="일식">일식</option>
-                <option value="양식">양식</option>
-                <option value="아시안">아시안</option>
-                <option value="기타">기타</option>
-              </select>
+              <select name="category" id="category" required></select>
               <span class="text-caption info-text" id="category-caption"></span>
             </div>
 
@@ -62,14 +43,7 @@
 
             <div class="form-item form-item--required">
               <label for="distance text-caption">거리(도보 이동 시간) </label>
-              <select name="distance" id="distance" required>
-                <option value="">선택해 주세요</option>
-                <option value="5">5분 내</option>
-                <option value="10">10분 내</option>
-                <option value="15">15분 내</option>
-                <option value="20">20분 내</option>
-                <option value="30">30분 내</option>
-              </select>
+              <select name="distance" id="distance" required></select>
               <span class="text-caption info-text" id="distance-caption"></span>
             </div>
 

@@ -1,7 +1,8 @@
 import { Restaurant, Errors } from '../types/types';
-import { ERROR_MESSAGE, MESSAGE } from '../constants/constants';
+import { ERROR_MESSAGE, MESSAGE, SELECT_OPTIONS } from '../constants/constants';
 import { $ } from '../utils/domSelectors';
 import restaurantFormValidator from '../validators/restaurantFormValidator';
+import createSelectOptions from '../components/SelectOptions';
 
 class ModalView {
   private restaurantAddForm = $('#restaurant-add-form') as HTMLFormElement;
@@ -17,8 +18,21 @@ class ModalView {
   private linkInputCaption = $('#link-caption') as HTMLSpanElement;
 
   constructor() {
+    this.renderCategorySelectOptions();
+    this.renderSortingSelectOptions();
+
     this.addCloseButtonClickEvent();
     this.addModalBackdropClickEvent();
+  }
+
+  renderCategorySelectOptions() {
+    const options = createSelectOptions(SELECT_OPTIONS.CATEGORY);
+    this.categoryInput.insertAdjacentHTML('beforeend', options);
+  }
+
+  renderSortingSelectOptions() {
+    const options = createSelectOptions(SELECT_OPTIONS.DISTANCE);
+    this.distanceInput.insertAdjacentHTML('beforeend', options);
   }
 
   addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {

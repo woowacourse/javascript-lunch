@@ -1,6 +1,8 @@
 import { Restaurant } from '../types/types';
+import { SELECT_OPTIONS } from '../constants/constants';
 import { $ } from '../utils/domSelectors';
 import createRestaurantList from '../components/RestaurantList';
+import createSelectOptions from '../components/SelectOptions';
 
 class MainView {
   private addButton = $('.gnb__button') as HTMLButtonElement;
@@ -10,7 +12,26 @@ class MainView {
   private restaurantList = $('.restaurant-list') as HTMLUListElement;
 
   constructor() {
+    this.renderCategoryFilterSelectOptions();
+    this.renderSortingFilterSelectOptions();
+
     this.addRestaurantAddButtonClickEvent();
+  }
+
+  renderRestaurantList(restaurants: Restaurant[]) {
+    const restaurantItems = createRestaurantList(restaurants);
+    this.restaurantList.innerHTML = '';
+    this.restaurantList.insertAdjacentHTML('beforeend', restaurantItems.join(''));
+  }
+
+  renderCategoryFilterSelectOptions() {
+    const options = createSelectOptions(SELECT_OPTIONS.CATEGORY_FILTER);
+    this.categoryFilter.insertAdjacentHTML('beforeend', options);
+  }
+
+  renderSortingFilterSelectOptions() {
+    const options = createSelectOptions(SELECT_OPTIONS.SORTING_FILTER);
+    this.sortingFilter.insertAdjacentHTML('beforeend', options);
   }
 
   addRestaurantAddButtonClickEvent() {
@@ -31,12 +52,6 @@ class MainView {
       const target = event.target as HTMLSelectElement;
       onChangeSortingFilter(target.value);
     });
-  }
-
-  renderRestaurantList(restaurants: Restaurant[]) {
-    const restaurantItems = createRestaurantList(restaurants);
-    this.restaurantList.innerHTML = '';
-    this.restaurantList.insertAdjacentHTML('beforeend', restaurantItems.join(''));
   }
 }
 
