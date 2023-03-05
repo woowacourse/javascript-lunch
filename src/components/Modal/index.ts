@@ -1,6 +1,6 @@
-import $template from './index.html';
-import { Category, Distance } from '../../types';
 import store from '../../store';
+import { Category, Distance } from '../../types';
+import $template from './index.html';
 
 class Modal extends HTMLElement {
   constructor() {

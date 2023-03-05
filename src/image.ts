@@ -1,9 +1,9 @@
-import korean from '../assets/category-korean.png';
-import chinese from '../assets/category-chinese.png';
-import japanese from '../assets/category-japanese.png';
-import western from '../assets/category-western.png';
 import asian from '../assets/category-asian.png';
+import chinese from '../assets/category-chinese.png';
 import etc from '../assets/category-etc.png';
+import japanese from '../assets/category-japanese.png';
+import korean from '../assets/category-korean.png';
+import western from '../assets/category-western.png';
 
 export const imgSrc = {
   한식: korean,

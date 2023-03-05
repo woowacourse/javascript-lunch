@@ -1,6 +1,6 @@
-import $template from './index.html';
-import { store } from './../../store';
 import { Category, SortFilter } from '../../types';
+import { store } from './../../store';
+import $template from './index.html';
 
 class SelectBox extends HTMLElement {
   constructor() {

@@ -1,5 +1,5 @@
-import { Restaurant, CategoryFilter, SortFilter } from './types';
 import RestaurantItems from './components/RestaurantItems';
+import { Restaurant, CategoryFilter, SortFilter } from './types';
 
 interface Store {
   restaurants: Restaurant[];

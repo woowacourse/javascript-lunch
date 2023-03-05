@@ -1,6 +1,6 @@
-import $template from './index.html';
 import { store } from '../../store';
 import { Restaurant } from '../../types';
+import $template from './index.html';
 
 class RestaurantItems extends HTMLElement {
   constructor() {
