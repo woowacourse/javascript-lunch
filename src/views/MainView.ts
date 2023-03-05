@@ -21,7 +21,7 @@ class MainView {
   renderRestaurantList(restaurants: Restaurant[]) {
     const restaurantItems = createRestaurantList(restaurants);
     this.restaurantList.innerHTML = '';
-    this.restaurantList.insertAdjacentHTML('beforeend', restaurantItems.join(''));
+    this.restaurantList.insertAdjacentHTML('beforeend', restaurantItems);
   }
 
   renderCategoryFilterSelectOptions() {
