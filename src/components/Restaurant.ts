@@ -14,13 +14,13 @@
 //   기타: categoryEtc,
 // };
 
-export interface RestaurantType {
-  category: "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
-  name: string;
-  takeTime: 5 | 10 | 15 | 20 | 30;
-  description?: string;
-  link?: string;
-}
+// export interface RestaurantType {
+//   category: "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+//   name: string;
+//   takeTime: 5 | 10 | 15 | 20 | 30;
+//   description?: string;
+//   link?: string;
+// }
 
 // export class Restaurant {
 //   #restaurant;

@@ -5,7 +5,14 @@ import categoryChinese from "../../templates/category-chinese.png";
 import categoryEtc from "../../templates/category-etc.png";
 import categoryJapanese from "../../templates/category-japanese.png";
 import categoryWestern from "../../templates/category-western.png";
-import { RestaurantType } from "./components/Restaurant";
+
+export interface RestaurantType {
+  category: "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+  name: string;
+  takeTime: 5 | 10 | 15 | 20 | 30;
+  description?: string;
+  link?: string;
+}
 
 const categoryCountry = {
   한식: categoryKorean,
