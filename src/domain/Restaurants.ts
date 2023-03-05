@@ -17,7 +17,7 @@ class Restaurants {
 
   sortByDistance() {
     return [...this.#restaurants].sort(
-      (x, y) => Number(x.distance) - Number(y.distance)
+      (x, y) => Number(x.distanceInMinutes) - Number(y.distanceInMinutes)
     );
   }
 
