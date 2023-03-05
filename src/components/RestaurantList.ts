@@ -40,9 +40,12 @@ class RestaurantList extends HTMLElement {
               this.state.filter === "전체" ||
               restaurant.category === this.state.filter
           )
-          .sort((a: any, b: any) =>
-            a[this.state.sort] > b[this.state.sort] ? 1 : -1
-          )
+          .sort((a: Restaurant, b: Restaurant) => {
+            if (this.state.sort === "name" || this.state.sort === "distance") {
+              return a[this.state.sort] > b[this.state.sort] ? 1 : -1;
+            }
+            return 0;
+          })
           .map((restaurant) => RestaurantItem(restaurant))
           .join("")}
         </ul>
