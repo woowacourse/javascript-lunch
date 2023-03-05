@@ -5,6 +5,7 @@ import Modal from './components/Modal';
 import RestaurantFilter from './components/RestaurantFilter';
 import RestaurantsList from './components/RestaurantsList';
 import Restaurants from './domain/Restaurants';
+import { $ } from './utils/common';
 
 if (localStorage.getItem('restaurants') === null) {
   localStorage.setItem('restaurants', JSON.stringify([]));
@@ -12,8 +13,8 @@ if (localStorage.getItem('restaurants') === null) {
 
 const restaurants = new Restaurants(JSON.parse(localStorage.getItem('restaurants')));
 
-const $header = document.querySelector('.gnb');
-const $main = document.querySelector('main');
+const $header = $('.gnb');
+const $main = $('main');
 
 const header = new Header($header);
 const modal = new Modal($main);

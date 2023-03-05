@@ -1,3 +1,5 @@
+import { $ } from '../utils/common';
+
 class Header {
   constructor($target) {
     this.$target = $target;
@@ -18,8 +20,8 @@ class Header {
   }
 
   setEvent(callback) {
-    const $addButton = document.querySelector('.gnb__button');
-    $addButton.addEventListener('click', callback);
+    const addButton = $('.gnb__button');
+    addButton.addEventListener('click', callback);
   }
 }
 

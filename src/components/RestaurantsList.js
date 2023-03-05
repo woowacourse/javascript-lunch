@@ -1,4 +1,5 @@
 import RestaurantItem from './RestaurantItem';
+import { $ } from '../utils/common';
 
 class RestaurantsList {
   constructor($target, restaurants) {
@@ -21,15 +22,15 @@ class RestaurantsList {
   }
 
   render() {
-    if (!document.querySelector(`.restaurant-list-container`)) {
+    if (!$(`.restaurant-list-container`)) {
       this.$target.insertAdjacentHTML('beforeend', this.template());
     }
 
-    const $categoryFilter = document.querySelector('#category-filter');
-    const $sortTypeFilter = document.querySelector('#sorting-filter');
+    const categoryFilter = $('#category-filter');
+    const sortTypeFilter = $('#sorting-filter');
 
-    const category = $categoryFilter.options[$categoryFilter.selectedIndex].value;
-    const sortType = $sortTypeFilter.options[$sortTypeFilter.selectedIndex].value;
+    const category = categoryFilter.options[categoryFilter.selectedIndex].value;
+    const sortType = sortTypeFilter.options[sortTypeFilter.selectedIndex].value;
 
     const sortedRestaurantList = this.sortedCallback(category, sortType);
 
@@ -37,11 +38,11 @@ class RestaurantsList {
   }
 
   renderRestaurantItem(sortedRestaurantList) {
-    const $rastaurantList = document.querySelector('.restaurant-list');
-    $rastaurantList.replaceChildren();
+    const rastaurantList = $('.restaurant-list');
+    rastaurantList.replaceChildren();
 
     const restaurantItem = new RestaurantItem();
-    $rastaurantList.insertAdjacentHTML('beforeend', restaurantItem.makeItemList(sortedRestaurantList));
+    rastaurantList.insertAdjacentHTML('beforeend', restaurantItem.makeItemList(sortedRestaurantList));
   }
 }
 

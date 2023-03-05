@@ -17,3 +17,7 @@ export const deepFreeze = (target: any): any => {
   }
   return target;
 };
+
+export const $ = (selector: string) => {
+  return document.querySelector(selector);
+};

@@ -1,3 +1,5 @@
+import { $ } from '../utils/common';
+
 class RestaurantFilter {
   constructor($target) {
     this.$target = $target;
@@ -29,9 +31,9 @@ class RestaurantFilter {
   }
 
   setEvent(callback) {
-    const $filters = document.querySelector('.restaurant-filter-container');
+    const filters = $('.restaurant-filter-container');
 
-    $filters.addEventListener('change', callback);
+    filters.addEventListener('change', callback);
   }
 }
 

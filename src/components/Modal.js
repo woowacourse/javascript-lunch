@@ -1,4 +1,5 @@
 import { validateBlankString } from '../utils/common';
+import { $ } from '../utils/common';
 
 class Modal {
   constructor($target) {
@@ -62,9 +63,9 @@ class Modal {
   }
 
   toggleModalOpen() {
-    const $modal = document.querySelector('.modal');
+    const modal = $('.modal');
 
-    $modal.classList.toggle('modal--open');
+    modal.classList.toggle('modal--open');
   }
 
   render() {
@@ -74,16 +75,16 @@ class Modal {
   }
 
   setSubmitEvent(setStateCallback, addCallback) {
-    const $modalForm = document.querySelector('.modal form');
-    const $error = document.querySelector('.error');
+    const modalForm = $('.modal form');
+    const error = $('.error');
 
-    $modalForm.addEventListener('submit', e => {
-      if (!validateBlankString(document.querySelector('#name').value)) {
-        $error.classList.add('error--show');
+    modalForm.addEventListener('submit', e => {
+      if (!validateBlankString($('#name').value)) {
+        error.classList.add('error--show');
         return e.preventDefault();
       }
 
-      $error.classList.remove('error--show');
+      error.classList.remove('error--show');
       this.changeRestaurantsState(this.makeNewRestaurant(), setStateCallback, addCallback);
     });
   }
@@ -95,19 +96,19 @@ class Modal {
   }
 
   makeNewRestaurant() {
-    const category = document.querySelector('#category').value;
-    const name = document.querySelector('#name').value;
-    const distance = document.querySelector('#distance').value;
-    const description = document.querySelector('#description').value;
-    const link = document.querySelector('#link').value;
+    const category = $('#category').value;
+    const name = $('#name').value;
+    const distance = $('#distance').value;
+    const description = $('#description').value;
+    const link = $('#link').value;
 
     return { category, name, distance, description, link };
   }
 
   setModalCloseEvent() {
-    const $cancelButton = document.querySelector('.modal .button--secondary');
+    const cancelButton = $('.modal .button--secondary');
 
-    $cancelButton.addEventListener('click', this.toggleModalOpen);
+    cancelButton.addEventListener('click', this.toggleModalOpen);
   }
 }
 
