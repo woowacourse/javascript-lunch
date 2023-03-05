@@ -7,8 +7,9 @@ import Component from './core/Component';
 import IRestaurantInput from './interfaces/IRestaurantInput';
 import sortItemsByName from './utils/sortByName';
 import { restaurantInputValidator } from './validator/restaurantInputValidator';
+import { IComponentPropState } from '@res/interfaces/IComponent';
 
-class App extends Component {
+class App extends Component<IComponentPropState> {
   setup() {
     this.$state = {
       isModalOpened: false,
@@ -106,14 +107,15 @@ class App extends Component {
       category
     );
 
-    if (order === Order.Name) {
-      sortItemsByName(categoryFilteredList);
-    }
-
-    if (order === Order.Distance) {
-      categoryFilteredList.sort(
-        (first, second) => +first.distance - +second.distance
-      );
+    switch (order) {
+      case Order.Name:
+        sortItemsByName(categoryFilteredList);
+        break;
+      case Order.Distance:
+        categoryFilteredList.sort(
+          (first, second) => +first.distance - +second.distance
+        );
+        break;
     }
 
     this.setState({
