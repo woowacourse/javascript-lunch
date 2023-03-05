@@ -12,7 +12,7 @@ class Header {
   }
 
   addEvent() {
-    $(".gnb")?.addEventListener("click", () => {
+    $(".gnb__title")?.addEventListener("click", () => {
       location.reload();
     });
 
