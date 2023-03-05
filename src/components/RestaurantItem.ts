@@ -1,24 +1,5 @@
+import findImage from "../tools/findImage";
 import Restaurant from "../type/Restaurant";
-import {
-  categoryAsian,
-  categoryChinese,
-  categoryJapanese,
-  categoryKorean,
-  categoryWestern,
-  categoryEtc,
-} from "../assets/";
-
-const findImage = (category: string) => {
-  const imageSrc: { [key: string]: string } = {
-    ["한식"]: categoryKorean,
-    ["중식"]: categoryChinese,
-    ["일식"]: categoryJapanese,
-    ["양식"]: categoryWestern,
-    ["아시안"]: categoryAsian,
-    ["기타"]: categoryEtc,
-  };
-  return imageSrc[category];
-};
 
 const RestaurantItem = (restaurant: Restaurant) => {
   return `
