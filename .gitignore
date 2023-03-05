@@ -3,4 +3,3 @@ node_modules/
 *.tsbuildinfo
 .npm
 .eslintcache
-package-lock.json
