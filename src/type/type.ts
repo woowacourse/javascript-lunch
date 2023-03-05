@@ -5,13 +5,21 @@ export interface Attribute {
   required?: boolean;
 }
 
-export type Category = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
-export type Distance = "5" | "10" | "15" | "20" | "25" | "30";
+export type Category =
+  | "전체"
+  | "한식"
+  | "중식"
+  | "일식"
+  | "양식"
+  | "아시안"
+  | "기타";
+export type TakingTime = "5" | "10" | "15" | "20" | "25" | "30";
+export type Sort = "이름순" | "거리순";
 
 export interface Restaurant {
-  category: string;
+  category: Category;
   name: string;
-  distance: string;
+  takingTime: TakingTime;
   description?: string;
   link?: string;
 }

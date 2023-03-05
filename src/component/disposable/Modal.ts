@@ -1,4 +1,4 @@
-import { Category, Distance, Restaurant } from "../../type/type";
+import { Category, TakingTime, Restaurant } from "../../type/type";
 import { $ } from "../../utils/Dom";
 import Select from "../reusable/Select";
 
@@ -23,7 +23,7 @@ class Modal {
       category
     );
     this.distanceSelect = new Select(
-      { name: "distance", id: "distance", required: true },
+      { name: "takingTime", id: "takingTime", required: true },
       distance
     );
   }
@@ -45,7 +45,7 @@ class Modal {
         </div>
 
         <div class="form-item form-item--required">
-          <label for="distance text-caption">거리(도보 이동 시간) </label>
+          <label for="takingTime text-caption">거리(도보 이동 시간) </label>
          ${this.distanceSelect.template()}
         </div>
 
@@ -87,7 +87,7 @@ class Modal {
       const formData = Object.fromEntries(new FormData($modal).entries());
       const data = {
         name: formData.name as string,
-        distance: formData.distance as Distance,
+        takingTime: formData.distance as TakingTime,
         category: formData.category as Category,
         link: formData.link as string,
         description: formData.description as string,
