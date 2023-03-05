@@ -1,11 +1,12 @@
 export default class Component {
   $target;
   props;
-  state;
+  state: any;
 
-  constructor($target, props) {
+  constructor($target: Element, props: object) {
     this.$target = $target;
     this.props = props;
+    this.state;
     this.setup();
     this.render();
     this.setEvent();
@@ -26,14 +27,15 @@ export default class Component {
 
   setEvent() {}
 
-  setState(newState) {
+  setState(newState: Object) {
     this.state = { ...this.state, ...newState };
     this.render();
   }
 
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      if (!event.target.closest(selector)) return false;
+  addEvent(eventType: string, selector: string, callback: any) {
+    this.$target.addEventListener(eventType, (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      if (!target.closest(selector)) return false;
       callback(event);
     });
   }

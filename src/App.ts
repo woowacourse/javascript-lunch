@@ -12,11 +12,6 @@ import store from "./util/store";
 export default class App extends Component {
   restaurantRepository: any;
 
-  constructor() {
-    super();
-    this.restaurantRepository;
-  }
-
   setup() {
     const localList = store.getLocalStorage();
     this.restaurantRepository = new RestaurantRepository(localList);
@@ -51,18 +46,20 @@ export default class App extends Component {
     const $restaurantList = this.$target.querySelector(".restaurant-list-container");
     const $modal = this.$target.querySelector(".modal");
 
-    new Header($header, { toggleModal: toggleModal.bind(this) });
-    new Filter($restaurantFilter, {
-      sortingWay,
-      category,
-      setSortingWay: setSortingWay.bind(this),
-      setCategory: setCategory.bind(this),
-    });
-    new RestaurantList($restaurantList, { restaurantList });
-    new Modal($modal, {
-      toggleModal: toggleModal.bind(this),
-      addRestaurant: addRestaurant.bind(this),
-    });
+    if ($header && $restaurantFilter && $restaurantList && $modal) {
+      new Header($header, { toggleModal: toggleModal.bind(this) });
+      new Filter($restaurantFilter, {
+        sortingWay,
+        category,
+        setSortingWay: setSortingWay.bind(this),
+        setCategory: setCategory.bind(this),
+      });
+      new RestaurantList($restaurantList, { restaurantList });
+      new Modal($modal, {
+        toggleModal: toggleModal.bind(this),
+        addRestaurant: addRestaurant.bind(this),
+      });
+    }
   }
 
   toggleModal() {
@@ -88,9 +85,10 @@ export default class App extends Component {
     const sortingWay = target.value;
     const { restaurantList } = this.state;
 
-    if (sortingWay === ("name" || "distance")) {
+    if (sortingWay === "name" || sortingWay === "distance") {
       const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, restaurantList);
       this.setState({ restaurantList: updatedRestaurantList, sortingWay: sortingWay });
+      console.log(sortingWay);
     }
   }
 
@@ -101,7 +99,15 @@ export default class App extends Component {
 
     const restaurantList = this.restaurantRepository.getRestaurantList();
 
-    if (category === ("전체" || "한식" || "중식" || "일식" || "아시안" || "양식" || "기타")) {
+    if (
+      category === "전체" ||
+      category === "한식" ||
+      category === "중식" ||
+      category === "일식" ||
+      category === "아시안" ||
+      category === "양식" ||
+      category === "기타"
+    ) {
       const filteredRestaurantList = RestaurantFilter.categorizeRestaurants(category, restaurantList);
       const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, filteredRestaurantList);
 
