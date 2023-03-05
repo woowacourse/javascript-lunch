@@ -95,7 +95,6 @@ class Modal {
 
   changeRestaurantsState(restaurant) {
     this.restaurantsList.restaurants.add(restaurant);
-    localStorage.setItem('restaurants', JSON.stringify(this.restaurantsList.restaurants.restaurants));
 
     this.restaurantsList.setState(restaurant);
   }

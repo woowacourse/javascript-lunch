@@ -15,6 +15,7 @@ class Restaurants {
 
   add(restaurant: Restaurant): void {
     this.#restaurants.push(this.optionInfoCovertToEmptyString(restaurant));
+    window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
   }
 
   optionInfoCovertToEmptyString(restaurant: Restaurant): Restaurant {
