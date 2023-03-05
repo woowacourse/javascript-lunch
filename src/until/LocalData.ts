@@ -1,6 +1,6 @@
 import { RestaurantType } from "../Template";
 
-export const LocalStorage = {
+export const LocalData = {
   dataName: "restaurantList",
 
   setDate(data: RestaurantType[]) {
