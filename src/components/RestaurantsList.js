@@ -1,11 +1,10 @@
 import RestaurantItem from './RestaurantItem';
-class RestaurantsList {
-  restaurants;
 
+class RestaurantsList {
   constructor($target, restaurants) {
     this.$target = $target;
-    this.restaurants = restaurants;
-    this.state = restaurants.restaurants;
+    this.sortedCallback = restaurants.getSelectedRestaurantsList.bind(restaurants);
+    this.setState(restaurants.restaurantsList);
   }
 
   template() {
@@ -32,17 +31,17 @@ class RestaurantsList {
     const category = $categoryFilter.options[$categoryFilter.selectedIndex].value;
     const sortType = $sortTypeFilter.options[$sortTypeFilter.selectedIndex].value;
 
-    const restaurants = this.restaurants.getRestaurant(category, sortType);
+    const sortedRestaurantList = this.sortedCallback(category, sortType);
 
-    this.setRestaurantItem(restaurants);
+    this.renderRestaurantItem(sortedRestaurantList);
   }
 
-  setRestaurantItem(restaurants) {
+  renderRestaurantItem(sortedRestaurantList) {
     const $rastaurantList = document.querySelector('.restaurant-list');
     $rastaurantList.replaceChildren();
 
-    const restaurantItem = new RestaurantItem(restaurants);
-    restaurantItem.render($rastaurantList);
+    const restaurantItem = new RestaurantItem();
+    $rastaurantList.insertAdjacentHTML('beforeend', restaurantItem.makeItemList(sortedRestaurantList));
   }
 }
 
