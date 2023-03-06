@@ -29,20 +29,20 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
     $parent.append(this.$component);
   }
 
-  setState = (newState: RestaurantListPageState) => {
+  setState(newState: RestaurantListPageState) {
     this.state = newState;
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     this.$component.innerHTML = '';
 
     new RestaurantListHeader({
       $parent: this.$component,
       category: this.state.category,
       sortBy: this.state.sortBy,
-      onChangeCategory: this.onChangeCategory,
-      onChangeSortBy: this.onChangeSortBy,
+      onChangeCategory: this.onChangeCategory.bind(this),
+      onChangeSortBy: this.onChangeSortBy.bind(this),
     }).render();
 
     new RestaurantList({
@@ -51,13 +51,13 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       sortBy: this.state.sortBy,
       restaurants: this.state.restaurants,
     }).render();
-  };
+  }
 
-  getRestaurants = () => {
+  getRestaurants() {
     return JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
-  };
+  }
 
-  onChangeCategory = (e: Event) => {
+  onChangeCategory(e: Event) {
     const $select = e.target as HTMLSelectElement;
     const category = $select.value as Category;
 
@@ -65,9 +65,9 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       ...this.state,
       category,
     });
-  };
+  }
 
-  onChangeSortBy = (e: Event) => {
+  onChangeSortBy(e: Event) {
     const $select = e.target as HTMLSelectElement;
     const sortBy = $select.value as SortBy;
 
@@ -75,7 +75,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       ...this.state,
       sortBy,
     });
-  };
+  }
 }
 
 export default RestaurantListPage;

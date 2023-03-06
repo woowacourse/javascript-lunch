@@ -38,12 +38,12 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     $parent.append(this.$component);
   }
 
-  setState = (newState: RestaurantListHeaderState) => {
+  setState(newState: RestaurantListHeaderState) {
     this.state = newState;
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     this.$component.innerHTML = `
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
@@ -69,7 +69,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
 
     const sortSelect = this.$component.querySelector('#sorting-filter');
     sortSelect?.addEventListener('change', this.onChangeSortBy);
-  };
+  }
 }
 
 export default RestaurantListHeader;

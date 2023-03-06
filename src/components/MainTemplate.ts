@@ -27,17 +27,17 @@ class MainTemplate implements Component<MainTemplateState> {
     $parent.append(this.$component);
   }
 
-  setState = (newState: MainTemplateState) => {
+  setState(newState: MainTemplateState) {
     this.state = newState;
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     this.$component.innerHTML = ``;
 
     new Header({ $parent: this.$component, toggleModal: this.toggleModal }).render();
     new RestaurantListPage({ $parent: this.$component }).render();
-  };
+  }
 }
 
 export default MainTemplate;

@@ -37,22 +37,22 @@ class App implements Component<AppState> {
     new MainTemplate({
       $parent: this.$component,
       modalHide,
-      toggleModal: this.toggleModal,
+      toggleModal: this.toggleModal.bind(this),
     }).render();
 
     if (!modalHide) {
-      new Modal({ $parent: this.$component, toggleModal: this.toggleModal }).render();
+      new Modal({ $parent: this.$component, toggleModal: this.toggleModal.bind(this) }).render();
     }
   }
 
-  toggleModal = () => {
+  toggleModal() {
     const { modalHide } = this.state;
 
     this.setState({
       ...this.state,
       modalHide: !modalHide,
     });
-  };
+  }
 }
 
 export default App;

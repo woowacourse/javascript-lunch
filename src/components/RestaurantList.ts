@@ -30,12 +30,12 @@ class RestaurantList implements Component<RestaurantListState> {
     $parent.append(this.$component);
   }
 
-  setState = (newState: RestaurantListState) => {
+  setState(newState: RestaurantListState) {
     this.state = newState;
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     const fragment = document.createDocumentFragment();
 
     this.getShowRestaurants().forEach((restaurant) => {
@@ -43,9 +43,9 @@ class RestaurantList implements Component<RestaurantListState> {
     });
 
     this.$component.append(fragment);
-  };
+  }
 
-  getShowRestaurants = () => {
+  getShowRestaurants() {
     const { category, sortBy } = this.state;
     const filtered = this.state.restaurants.filter(
       (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category
@@ -59,7 +59,7 @@ class RestaurantList implements Component<RestaurantListState> {
       if (getPivot(a) < getPivot(b)) return -1;
       return 0;
     });
-  };
+  }
 }
 
 export default RestaurantList;

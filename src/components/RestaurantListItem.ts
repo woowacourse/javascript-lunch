@@ -23,12 +23,12 @@ class RestaurantListItem implements Component<RestaurantListItemState> {
     $parent.append(this.$component);
   }
 
-  setState = (newState: RestaurantListItemState) => {
+  setState(newState: RestaurantListItemState) {
     this.state = newState;
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     const { category, name, distance, description } = this.state.restaurant;
 
     this.$component.innerHTML = `
@@ -41,7 +41,7 @@ class RestaurantListItem implements Component<RestaurantListItemState> {
         <p class="restaurant__description text-body">${description}</p>
       </div>
     `;
-  };
+  }
 }
 
 export default RestaurantListItem;
