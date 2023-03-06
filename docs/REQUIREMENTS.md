@@ -52,6 +52,7 @@
 
 ## Controller.ts
 
+- 하나만 존재하는 controller 인스턴스를 생성한다.
 - restaurant 객체들을 반환한다.
 - 새로운 restaurant 객체를 추가한다.
 - restaurant 객체들을 localStorage에 저장한다.
