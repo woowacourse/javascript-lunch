@@ -1,12 +1,13 @@
+import { getLocalStorage, setLocalStorage } from "../utils/LocalStorage";
 import { RestaurantForm, Category } from "./Restaurant";
+import { KEY } from "../constants";
 
 export default class RestaurantList {
   private formList: RestaurantForm[] = [];
 
   constructor() {
-    const parsedRestaurants = JSON.parse(
-      localStorage.getItem("restaurants") || "[]"
-    );
+    const parsedRestaurants = getLocalStorage(KEY);
+
     if (parsedRestaurants.length !== 0)
       parsedRestaurants.forEach((restaurant: RestaurantForm) => {
         this.formList = [...this.formList, restaurant];
@@ -24,7 +25,7 @@ export default class RestaurantList {
 
   filterAll() {
     const restaurantString = JSON.stringify(this.formList.map((info) => info));
-    window.localStorage.setItem("restaurants", restaurantString);
+    setLocalStorage(KEY, restaurantString);
   }
 
   categoryFilter(category: Category) {
@@ -43,7 +44,7 @@ export default class RestaurantList {
       []
     );
 
-    window.localStorage.setItem("restaurants", JSON.stringify(filteredList));
+    setLocalStorage(KEY, JSON.stringify(filteredList));
     return filteredList;
   }
 }

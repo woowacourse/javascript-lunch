@@ -25,3 +25,5 @@ export const ERROR_MESSAGE = {
   DUPLICATED: "중복된 가게 이름이 있습니다.",
   URL: "유효한 주소를 입력해주세요.",
 };
+
+export const KEY = "restaurants";

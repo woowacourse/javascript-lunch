@@ -2,9 +2,11 @@ import Header from "./UI/Header";
 import Modal from "./UI/Modal";
 import FilterBar from "./UI/FilterBar";
 import RestaurantList from "./domain/RestaurantList";
-import RestaurantContainer from "./UI/RestaurantContainer.js";
+import RestaurantContainer from "./UI/RestaurantContainer";
 import RestaurantItem from "./UI/RestaurantItem";
 import { RestaurantForm } from "./domain/Restaurant.js";
+import { getLocalStorage } from "./utils/LocalStorage";
+import { KEY } from "./constants";
 
 export class App {
   private restaurantList = new RestaurantList();
@@ -16,12 +18,10 @@ export class App {
     new RestaurantContainer();
     new Modal(this.restaurantList, this.restaurantItem);
 
-    const restaurants = JSON.parse(localStorage.getItem("restaurants") || "[]");
+    const restaurants = getLocalStorage(KEY);
     if (restaurants !== null)
-      JSON.parse(localStorage.getItem("restaurants") || "[]").forEach(
-        (restaurant: RestaurantForm) => {
-          this.restaurantItem.render(restaurant);
-        }
-      );
+      restaurants.forEach((restaurant: RestaurantForm) => {
+        this.restaurantItem.render(restaurant);
+      });
   }
 }
