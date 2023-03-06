@@ -1,32 +1,50 @@
+import { LOCAL_STORAGE_KEY } from '../constant';
 import { Restaurant } from '../type';
+import storage from '../util/storage';
 
 class Restaurants {
-  #restaurants: Restaurant[] = [];
+  #restaurants: Restaurant[] = storage.getData(LOCAL_STORAGE_KEY) || [];
+  #filterBy: string = '전체';
+  #sortBy: string = '이름순';
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurants.push(restaurant);
   }
 
   getRestaurants() {
-    return this.#restaurants;
+    const filteredRestaurants = this.#getFilteredRestaurantsByCategory(
+      [...this.#restaurants],
+      this.#filterBy
+    );
+
+    const sortedRestaurants =
+      this.#sortBy === 'name'
+        ? this.#getSortedRestaurantsByName(filteredRestaurants)
+        : this.#getSortedRestaurantsByDistanceInMinutes(filteredRestaurants);
+
+    return sortedRestaurants;
+  }
   }
 
-  sortByName() {
-    return [...this.#restaurants].sort((x, y) => x.name.localeCompare(y.name));
+  #getSortedRestaurantsByName(restaurants: Restaurant[]) {
+    return [...restaurants].sort((x, y) => x.name.localeCompare(y.name));
   }
 
-  sortByDistance() {
-    return [...this.#restaurants].sort(
+  #getSortedRestaurantsByDistanceInMinutes(restaurants: Restaurant[]) {
+    return [...restaurants].sort(
       (x, y) => Number(x.distanceInMinutes) - Number(y.distanceInMinutes)
     );
   }
 
-  filterByCategory(category: string) {
+  #getFilteredRestaurantsByCategory(
+    restaurants: Restaurant[],
+    category: string
+  ) {
     if (category === '전체') {
-      return this.#restaurants;
+      return restaurants;
     }
 
-    return [...this.#restaurants].filter(
+    return [...restaurants].filter(
       (restaurant) => restaurant.category === category
     );
   }
