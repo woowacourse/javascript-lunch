@@ -1,4 +1,5 @@
 export const RESTAURANT_IMAGE = {
+  전체: '',
   한식: './category-korean.png',
   중식: './category-chinese.png',
   일식: './category-japanese.png',

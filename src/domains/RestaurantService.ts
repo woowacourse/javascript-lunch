@@ -1,9 +1,9 @@
 import { LOCAL_STORAGE_KEY } from '../constants/constants';
-import { AllCategory, Category, SortingCriterion, Restaurant } from '../types/types';
+import { Category, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
-  private currentCategory: AllCategory | Category = '전체';
+  private currentCategory: Category = '전체';
   private currentSortingCriterion: SortingCriterion = 'name';
 
   constructor() {
@@ -15,7 +15,7 @@ class RestaurantService {
     localStorage.setItem('restaurants', JSON.stringify(this.restaurantList));
   }
 
-  setCurrentCategory(category: AllCategory | Category) {
+  setCurrentCategory(category: Category) {
     this.currentCategory = category;
   }
 
