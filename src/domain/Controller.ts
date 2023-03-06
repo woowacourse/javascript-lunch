@@ -11,7 +11,9 @@ class Controller {
       { restaurants: [] },
       {
         set: (obj, prop, value) => {
-          if (prop === "restaurants") obj[prop] = value;
+          if (prop === "restaurants") {
+            obj[prop] = value;
+          }
           this.renderRestaurantList();
           return true;
         },
@@ -42,6 +44,7 @@ class Controller {
 
   addRestaurant(newRestaurant: RestaurantType) {
     this.state.restaurants = [...this.state.restaurants, newRestaurant];
+    this.sortRestaurants();
     this.setLocalStorage();
   }
 
@@ -58,21 +61,33 @@ class Controller {
     this.state.restaurants = this.getLocalStorage();
   }
 
-  sortRestaurants(key: string) {
+  sortRestaurants() {
+    const sortingFilter = document.getElementById("sorting-filter");
+    if (!(sortingFilter instanceof HTMLSelectElement)) {
+      return;
+    }
+    const sortingKey = sortingFilter.value;
+
     const sortedRestaurants = [...this.state.restaurants].sort(
       (a: RestaurantType, b: RestaurantType): number => {
-        if (key === "name" || key === "distance")
-          return a[key] > b[key] ? 1 : -1;
+        if (sortingKey === "name" || sortingKey === "distance")
+          return a[sortingKey] > b[sortingKey] ? 1 : -1;
         return SORT_FAILED_NUMBER;
       }
     );
     this.state.restaurants = sortedRestaurants;
   }
 
-  filterRestaurants(key: string) {
-    if (key !== ALL_CATEGORY) {
+  filterRestaurants() {
+    const categoryFilter = document.getElementById("category-filter");
+    if (!(categoryFilter instanceof HTMLSelectElement)) {
+      return;
+    }
+    const filteringKey = categoryFilter.value;
+
+    if (filteringKey !== ALL_CATEGORY) {
       this.state.restaurants = this.getLocalStorage().filter(
-        (restaurant: RestaurantType) => restaurant.category === key
+        (restaurant: RestaurantType) => restaurant.category === filteringKey
       );
       return;
     }

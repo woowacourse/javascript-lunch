@@ -30,7 +30,7 @@ class CategorySelectBox extends HTMLElement {
       return;
     }
     categoryFilter?.addEventListener("change", () => {
-      this.controller.filterRestaurants(categoryFilter.value);
+      this.controller.filterRestaurants();
     });
   }
 }

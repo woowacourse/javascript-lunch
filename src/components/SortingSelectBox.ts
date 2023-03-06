@@ -25,7 +25,7 @@ class SortingSelectBox extends HTMLElement {
       return;
     }
     sortingFilter?.addEventListener("change", () => {
-      this.controller.sortRestaurants(sortingFilter.value);
+      this.controller.sortRestaurants();
     });
   }
 }
