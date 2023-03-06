@@ -5,7 +5,7 @@ import RestaurantList from './components/RestaurantList';
 import { mockRestaurant } from './data';
 import { IRestaurant, Restaurant } from './domain/Restaurant';
 import RestaurantService from './domain/RestaurantService';
-import { Category, CategoryOptions, FilterOptions } from './types/type';
+import { CategoryOptions, FilterOptions } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 const getInitialRestaurantList = () => {
@@ -23,7 +23,7 @@ interface IAppState {
 }
 
 export default class App {
-  state!: IAppState;
+  state: IAppState;
 
   constructor($app: HTMLDivElement) {
     const $main = document.createElement('main');
@@ -34,8 +34,6 @@ export default class App {
 
     $app.appendChild($main);
     const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
-
-    console.log(initialResutaurantInfos);
 
     this.state = {
       restaurantService,

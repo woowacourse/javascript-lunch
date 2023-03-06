@@ -1,19 +1,18 @@
 import addButton from '../../templates/add-button.png';
 import { showModal } from '../modal';
-import RestaurantForm from './RestaurantForm';
 
-export default function Header($root) {
-  const $header = document.createElement('header');
-  $header.className = 'gnb';
+export default class Header {
+  $header = document.createElement('header');
 
-  this.init = () => {
+  constructor($root: HTMLDivElement) {
+    this.$header.className = 'gnb';
     this.render();
-    $header.addEventListener('click', showRestaurantAddUI);
-    $root.appendChild($header);
-  };
+    this.$header.addEventListener('click', this.showRestaurantAddUI);
+    $root.appendChild(this.$header);
+  }
 
-  this.render = () => {
-    $header.innerHTML = `
+  render = () => {
+    this.$header.innerHTML = `
     <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
      <button type="button" class="gnb__button" aria-label="음식점 추가">
        <img src="${addButton}" alt="음식점 추가">
@@ -21,12 +20,10 @@ export default function Header($root) {
    `;
   };
 
-  const showRestaurantAddUI = (event) => {
+  showRestaurantAddUI = (event: Event) => {
     const { target } = event;
 
     if (target instanceof HTMLImageElement !== true) return;
     showModal();
   };
-
-  this.init();
 }
