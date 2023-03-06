@@ -8,22 +8,16 @@ import {
 } from "../assets/";
 
 const findImage = (category: string) => {
-  switch (category) {
-    case "한식":
-      return categoryKorean;
-    case "중식":
-      return categoryChinese;
-    case "일식":
-      return categoryJapanese;
-    case "양식":
-      return categoryWestern;
-    case "아시안":
-      return categoryAsian;
-    case "기타":
-      return categoryEtc;
-    default:
-      return categoryEtc;
-  }
+  const imageSrc: { [key: string]: string } = {
+    all: categoryEtc,
+    korean: categoryKorean,
+    chinese: categoryChinese,
+    japanese: categoryJapanese,
+    western: categoryWestern,
+    asian: categoryAsian,
+    etc: categoryEtc,
+  };
+  return imageSrc[category];
 };
 
 export default findImage;

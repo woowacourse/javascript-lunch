@@ -9,7 +9,7 @@ class RestaurantList extends HTMLElement {
   constructor() {
     super();
     this.listState = new Proxy(
-      { restaurants: [], filter: "전체", sort: "name" },
+      { restaurants: [], filter: "all", sort: "name" },
       {
         set: (obj, prop, value) => {
           // type-guard
@@ -44,7 +44,7 @@ class RestaurantList extends HTMLElement {
     const { restaurants, filter, sort } = this.listState;
     return restaurants
       .filter(
-        (restaurant) => filter === "전체" || restaurant.category === filter
+        (restaurant) => filter === "all" || restaurant.category === filter
       )
       .sort((a: IRestaurant, b: IRestaurant) => {
         if (sort === "name" || sort === "distance") {

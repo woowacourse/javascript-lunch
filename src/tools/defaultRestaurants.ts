@@ -1,27 +1,27 @@
 const defaultRestaurants = [
   {
-    category: "중식",
+    category: "chinese",
     name: "찐친",
     distance: 5,
     description: "찐친들이랑 가는 중국집",
     link: "",
   },
   {
-    category: "기타",
+    category: "etc",
     name: "커피베네",
     distance: 5,
     description: "성담빌딩 건물에 있는 커피베네",
     link: "",
   },
   {
-    category: "기타",
+    category: "etc",
     name: "스타벅스 선릉역점",
     distance: 5,
     description: "면담하기 좋은 곳 스타벅스 시끌벅적함",
     link: "",
   },
   {
-    category: "한식",
+    category: "korean",
     name: "영동칼국수",
     distance: 15,
     description:
@@ -29,7 +29,7 @@ const defaultRestaurants = [
     link: "",
   },
   {
-    category: "한식",
+    category: "korean",
     name: "덮밥이맛있는집",
     distance: 15,
     description:
@@ -37,21 +37,21 @@ const defaultRestaurants = [
     link: "",
   },
   {
-    category: "일식",
+    category: "japanese",
     name: "돈카레",
     distance: 10,
     description: "도밥이 좋아하는 돈카레",
     link: "",
   },
   {
-    category: "중식",
+    category: "chinese",
     name: "우육면가",
     distance: 10,
     description: "크론이 한 번도 안 먹어 본 우육면가",
     link: "",
   },
   {
-    category: "한식",
+    category: "korean",
     name: "시골밥상머리",
     distance: 10,
     description: "시골에서 주는 밥처럼 나오는 상머리",
