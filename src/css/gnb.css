@@ -12,6 +12,9 @@
 
 .gnb__title {
   color: #fcfcfd;
+  background: transparent;
+  border: transparent;
+  cursor: pointer;
 }
 
 .gnb__button {

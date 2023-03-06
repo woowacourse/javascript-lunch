@@ -17,6 +17,6 @@ const restaurantFilter = new RestaurantFilter();
 const restaurantsList = new RestaurantsList(restaurants);
 const modal = new Modal(restaurants);
 
-header.setEvent(modal.render.bind(modal));
+header.setModalOpenEvent(modal.render.bind(modal));
 restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
 modal.setSubmitEvent(restaurantsList.render.bind(restaurantsList));
