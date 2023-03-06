@@ -88,13 +88,14 @@ export default class Modal {
     const restaurantInfo = this.setRestaurantInformation();
 
     this.restaurantList.add(restaurantInfo);
-    const foodCategory = localStorage.getItem("foodCategory")
-    const sortBy = localStorage.getItem("sort")
+    const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
+    const sortBy = localStorage.getItem("sort") ?? "name";
     this.restaurantRegistry.appendRestaurant(
       this.restaurantList.listRestaurant[this.getRestaurantLength()]
     );
-    this.restaurantList.filterCategory(foodCategory)
-    this.restaurantList.filterBySort(sortBy, foodCategory)
+    console.log(this.restaurantList.listRestaurant);
+    this.restaurantList.filterCategory(foodCategory);
+    this.restaurantList.filterBySort(sortBy, foodCategory);
     this.closeModal();
   }
 

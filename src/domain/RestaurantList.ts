@@ -9,11 +9,12 @@ export class RestaurantList {
 
   constructor() {
     const res = JSON.parse(localStorage.getItem("restaurants") || "[]");
-    if (res.length !== 0)
+    if (res.length !== 0) {
       res.forEach((val: RestaurantForm) => {
         this.list.push(val);
       });
-    this.restaurantRegistry= new RestaurantRegistry()
+    }
+    this.restaurantRegistry = new RestaurantRegistry();
   }
 
   add(restaurantInfo: RestaurantForm) {
@@ -46,10 +47,10 @@ export class RestaurantList {
       if (info.category === category) filteredList.push(info);
     });
 
-    return filteredList
+    return filteredList;
   }
 
-  filterCategory(selectedValue:Category) {
+  filterCategory(selectedValue: Category) {
     localStorage.setItem("foodCategory", selectedValue);
 
     $(".restaurant-list").replaceChildren();
@@ -57,22 +58,22 @@ export class RestaurantList {
     this.attachRestaurantToRegistry(restaurantParsedInfo);
   }
 
-  filterBySort(sortBy:string, foodCategory:Category) {
+  filterBySort(sortBy: string, foodCategory: Category) {
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = this.categoryFilter(foodCategory)
+    const restaurantParsedInfo = this.categoryFilter(foodCategory);
 
     if (sortBy === "name") sortByName(restaurantParsedInfo);
     if (sortBy === "distance") sortByDistance(restaurantParsedInfo);
-    
+
     localStorage.setItem("sort", sortBy);
     this.attachRestaurantToRegistry(restaurantParsedInfo);
   }
 
-  getRestaurantListFromLocalstorage():RestaurantForm[] {
+  getRestaurantListFromLocalstorage(): RestaurantForm[] {
     return JSON.parse(localStorage.getItem("restaurants") || "[]");
   }
 
-  attachRestaurantToRegistry(restaurantParsedInfo:RestaurantForm[]) {
+  attachRestaurantToRegistry(restaurantParsedInfo: RestaurantForm[]) {
     restaurantParsedInfo.forEach((value) => {
       this.restaurantRegistry.appendRestaurant(value);
     });
