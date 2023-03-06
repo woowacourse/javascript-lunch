@@ -94,7 +94,6 @@ export default class Modal {
     this.restaurantRegistry.appendRestaurant(
       this.restaurantList.listRestaurant[this.getRestaurantLength()]
     );
-    console.log(this.restaurantList.listRestaurant);
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
     this.closeModal();

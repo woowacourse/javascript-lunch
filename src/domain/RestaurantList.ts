@@ -2,7 +2,10 @@ import { RestaurantForm, Category } from "./Restaurant";
 import { sortByName, sortByDistance } from "../utils/Sort";
 import { $ } from "../utils/Dom";
 import RestaurantRegistry from "../UI/RestaurantRegistry";
-import { getRestaurantListFromLocalstorage, stringifyJson } from "../utils/LocalStorage";
+import {
+  getRestaurantListFromLocalstorage,
+  stringifyJson,
+} from "../utils/LocalStorage";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
   private restaurantRegistry;
@@ -36,11 +39,6 @@ export class RestaurantList {
     }
 
     return this.foodFilter(category, filteredList);
-  }
-
-  allFilter() {
-    const restaurantString = stringifyJson(this.list.map((info) => info));
-    window.localStorage.setItem("restaurants", restaurantString);
   }
 
   foodFilter(category: Category, filteredList: RestaurantForm[]) {
