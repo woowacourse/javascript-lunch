@@ -36,6 +36,7 @@
     "spaced-comment": ["error", "always", { "exceptions": ["-", "+"] }],
     "eol-last": ["error", "always"],
     "no-var": "error",
-    "jest/expect-expect": "off"
+    "jest/expect-expect": "off",
+    "max-lines-per-function": "off"
   }
 }
