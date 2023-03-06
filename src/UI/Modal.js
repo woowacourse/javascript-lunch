@@ -146,7 +146,9 @@ export default class Modal {
 
   renderRestaurant() {
     $(".restaurant-list").replaceChildren();
-    $("#category-filter").value = CATEGORY_NAME.total;
+    const categoryFilter = $("#category-filter");
+    categoryFilter.value = CATEGORY_NAME.total;
+    categoryFilter.dispatchEvent(new Event("change"));
     this.restaurantList.listRestaurant.forEach((restaurant) => {
       this.restaurantItem.render(restaurant);
     });

@@ -44,4 +44,4 @@ export const DISTANCE = {
   thirty: 30,
 };
 
-export const KEY = "restaurants";
+export const KEY = "전체";

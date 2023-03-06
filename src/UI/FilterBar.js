@@ -39,12 +39,12 @@ export default class FilterBar {
     });
   }
 
-  handleSortedValue() {
+  handleSortedValue(selectedValue) {
     const sorted = $("#sorting-filter");
     sorted.addEventListener("change", () => {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
-      if (sortedValue === "name") this.filterByName();
-      if (sortedValue === "distance") this.filterByDistance();
+      if (sortedValue === "name") this.filterByName(selectedValue);
+      if (sortedValue === "distance") this.filterByDistance(selectedValue);
     });
   }
 
@@ -52,19 +52,20 @@ export default class FilterBar {
     this.restaurantList.categoryFilter(selectedValue);
     $(".restaurant-list").replaceChildren();
     const restaurantParsedInfo = getLocalStorage(selectedValue);
+    this.handleSortedValue(selectedValue);
     this.render(restaurantParsedInfo);
   }
 
-  filterByName() {
+  filterByName(selectedValue) {
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = getLocalStorage(KEY);
+    const restaurantParsedInfo = getLocalStorage(selectedValue);
     sortByName(restaurantParsedInfo);
     this.render(restaurantParsedInfo);
   }
 
-  filterByDistance() {
+  filterByDistance(selectedValue) {
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = getLocalStorage(KEY);
+    const restaurantParsedInfo = getLocalStorage(selectedValue);
     sortByDistance(restaurantParsedInfo);
     this.render(restaurantParsedInfo);
   }

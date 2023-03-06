@@ -5,8 +5,10 @@ import RestaurantList from "./domain/RestaurantList";
 import RestaurantContainer from "./UI/RestaurantContainer";
 import RestaurantItem from "./UI/RestaurantItem";
 import { RestaurantForm } from "./types";
+import { sortByDistance, sortByName } from "./utils/Sort";
 import { getLocalStorage } from "./utils/LocalStorage";
 import { KEY } from "./constants";
+import { $ } from "./utils/Dom";
 
 export class App {
   private restaurantList = new RestaurantList();
@@ -23,9 +25,17 @@ export class App {
 
   init() {
     const restaurants = getLocalStorage(KEY);
+    this.sortRestaurants(restaurants);
     if (restaurants !== null)
       restaurants.forEach((restaurant: RestaurantForm) => {
         this.restaurantItem.render(restaurant);
       });
+  }
+
+  sortRestaurants(restaurants: RestaurantForm[]) {
+    const sorted = $("#sorting-filter") as HTMLSelectElement;
+    const sortedValue = sorted.options[sorted.selectedIndex].value;
+    if (sortedValue === "name") sortByName(restaurants);
+    if (sortedValue === "distance") sortByDistance(restaurants);
   }
 }
