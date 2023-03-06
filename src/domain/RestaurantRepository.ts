@@ -1,4 +1,4 @@
-import "../types/restaurant";
+import { RestaurantInfo } from "../types/restaurant";
 
 export default class RestaurantRepository {
   #restaurantList: RestaurantInfo[];
@@ -12,6 +12,6 @@ export default class RestaurantRepository {
   }
 
   getRestaurantList(): RestaurantInfo[] {
-    return [...this.#restaurantList];
+    return this.#restaurantList;
   }
 }

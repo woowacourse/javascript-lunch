@@ -1,13 +1,15 @@
-type Category = "전체" | "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
+import { CATEGORY, SORTINGWAY } from "../constant/variables";
 
-type Distance = 5 | 10 | 15 | 20 | 30;
+export type CategoryType = (typeof CATEGORY)[keyof typeof CATEGORY];
 
-type SortingWay = "name" | "distance";
+export type DistanceType = 5 | 10 | 15 | 20 | 30;
 
-interface RestaurantInfo {
+export type SortingWayType = (typeof SORTINGWAY)[keyof typeof SORTINGWAY];
+
+export interface RestaurantInfo {
   name: string;
-  category: Category;
-  distance: Distance;
+  category: CategoryType;
+  distance: DistanceType;
   description?: string;
   link?: string;
 }

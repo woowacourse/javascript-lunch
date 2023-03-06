@@ -1,19 +1,20 @@
-import "../types/restaurant";
+import { LIST } from "../constant/variables";
+import { RestaurantInfo } from "../types/restaurant";
 
 const store = {
   setLocalStorage(list: []): void {
-    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem(LIST, JSON.stringify(list));
   },
 
   getLocalStorage(): object[] {
-    const item = localStorage.getItem("list");
+    const item = localStorage.getItem(LIST);
     if (!item) return [];
     return JSON.parse(item);
   },
 
   addRestaurant(newRestaurant: RestaurantInfo): void {
     const list = this.getLocalStorage();
-    localStorage.setItem("list", JSON.stringify([...list, newRestaurant]));
+    localStorage.setItem(LIST, JSON.stringify([...list, newRestaurant]));
   },
 };
 

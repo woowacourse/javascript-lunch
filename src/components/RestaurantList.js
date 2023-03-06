@@ -29,7 +29,7 @@ export default class RestaurantList extends Component {
   }
 
   setEvent() {
-    this.addEvent("submit", "#add-restaurant-form", (event) => {
+    this.addEvent("submit", "#add-restaurant-form", () => {
       this.render();
     });
   }
