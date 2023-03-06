@@ -22,7 +22,7 @@ export default class Component {
 
   listenEvent() {}
 
-  setState(newState: any): void {
+  setState(newState: Partial<State>): void {
     this.$state = { ...this.$state, ...newState };
     this.render();
   }
