@@ -1,4 +1,4 @@
-import { $ } from '../util/querySelector';
+import { $, $$ } from '../util/querySelector';
 import { Restaurant } from '../type';
 import getFormData from '../util/getFormData';
 
@@ -22,6 +22,9 @@ class RestaurantAddModal {
     this.#setListeners();
   }
 
+  toggleModal() {
+    $(`#restaurant-add-modal`).classList.toggle('modal--open');
+  }
   #setListeners() {
     ($(`#modal-cancel-button`) as HTMLButtonElement).addEventListener(
       'click',
