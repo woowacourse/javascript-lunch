@@ -25,16 +25,16 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      // {
+      //   test: /\.(png|svg|jpg|jpeg|gif)$/i,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[name].[ext]',
+      //   },
+      // },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-        },
-      },
-      {
-        test: /\.png/,
-        type: '/templates',
+        test: /\.png$/i,
+        type: 'asset/resource',
       },
     ],
   },

@@ -1,9 +1,9 @@
-import korean from '../../templates/category-korean.png';
-import chinese from '../../templates/category-chinese.png';
-import japanese from '../../templates/category-japanese.png';
-import western from '../../templates/category-western.png';
-import asian from '../../templates/category-asian.png';
-import etc from '../../templates/category-etc.png';
+import korean from '../../assets/category-korean.png';
+import chinese from '../../assets/category-chinese.png';
+import japanese from '../../assets/category-japanese.png';
+import western from '../../assets/category-western.png';
+import asian from '../../assets/category-asian.png';
+import etc from '../../assets/category-etc.png';
 
 export default function RestaurantList($root, restaurants) {
   const $restaurantListSection = document.createElement('section');
