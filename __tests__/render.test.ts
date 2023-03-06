@@ -3,16 +3,23 @@ import { Category, Order } from '../src/constants/enum';
 import '@testing-library/jest-dom';
 import { JSDOM } from 'jsdom';
 
-describe('전체 app ui 테스트', () => {
-  let app: App;
-  let $target: HTMLDivElement;
-  let dom;
+interface ILocalStorageMock {
+  getItem: (key: string) => string | null;
+  setItem: (key: string, value: string) => void;
+  clear: () => void;
+  removeItem: (key: string) => void;
+}
 
-  const localStorageMock = (() => {
+describe('전체 app ui 테스트', () => {
+  let app: typeof App;
+  let $target: HTMLDivElement;
+  let dom: JSDOM;
+
+  const localStorageMock: ILocalStorageMock = (() => {
     let store = {};
 
     return {
-      getItem: (key) => {
+      getItem: (key: string) => {
         return store[key] || null;
       },
       setItem: (key, value) => {
@@ -51,7 +58,7 @@ describe('전체 app ui 테스트', () => {
     localStorageMock.clear();
   });
 
-  it('컴포넌트를 렌더해야한다.', () => {
+  it('초기 컴포넌트를 렌더해야한다.', () => {
     expect($target.querySelector('.gnb')).not.toBeNull();
     expect(
       $target.querySelector('.restaurant-filter-container')
@@ -60,6 +67,8 @@ describe('전체 app ui 테스트', () => {
     expect(
       $target.querySelector('.restaurant-add-modal-container')
     ).not.toBeNull();
+    // 초기 등록한 음식점이 없을 시 더미 데이터 (2개의 음식점) 을 보여준다.
+    expect($target.querySelectorAll('.restaurant')).toHaveLength(2);
   });
 
   it('form 을 submit 한 이후 음식점이 등록되어야한다.', () => {
@@ -69,12 +78,13 @@ describe('전체 app ui 테스트', () => {
     ) as HTMLButtonElement;
     $modalButton.click();
 
-    const $nameInput = $target.querySelector<HTMLInputElement>('#name');
+    const $nameInput = $target.querySelector<HTMLInputElement>('#name')!;
     const $categorySelect =
-      $target.querySelector<HTMLSelectElement>('#category');
-    const $distanceInput = $target.querySelector<HTMLInputElement>('#distance');
+      $target.querySelector<HTMLSelectElement>('#category')!;
+    const $distanceInput =
+      $target.querySelector<HTMLInputElement>('#distance')!;
     const $submitButton =
-      $target.querySelector<HTMLButtonElement>('.submit-restaurant');
+      $target.querySelector<HTMLButtonElement>('.submit-restaurant')!;
 
     $nameInput.value = 'New Restaurant';
     $categorySelect.value = Category.Korean;
@@ -82,18 +92,28 @@ describe('전체 app ui 테스트', () => {
 
     $submitButton.click();
 
-    expect(app.$state.restaurantList.length).toBe(initialLength + 1);
-    expect(localStorageMock.setItem).toHaveBeenCalledTimes(1);
+    // 처음 음식점을 등록 시 기존의 2개의 더미 데이터가 삭제되고 하나의 실제 음식점이 추가되므로 initialLength 보다 1이 작아야한다.
+    expect(app.$state.restaurantList.length).toBe(initialLength - 1);
     expect(localStorageMock.getItem('restaurantList')).toEqual(
       JSON.stringify(app.$state.restaurantList)
     );
   });
 
   it('레스토랑 리스트를 필터링해야한다.', () => {
+    const ExpectedFilteredDummyRestaurantData = [
+      {
+        name: '김돈이 본점',
+        category: Category.Korean,
+        distance: '5',
+        description: '점심 김치찌개 너무 맛있어용',
+        link: 'https://binaural.tistory.com/272',
+      },
+    ];
+
     const $categorySelect =
-      $target.querySelector<HTMLSelectElement>('#category-filter');
+      $target.querySelector<HTMLSelectElement>('#category-filter')!;
     const $orderSelect =
-      $target.querySelector<HTMLSelectElement>('#sorting-filter');
+      $target.querySelector<HTMLSelectElement>('#sorting-filter')!;
 
     $categorySelect.value = Category.Korean;
     $orderSelect.value = Order.Distance;
@@ -104,6 +124,6 @@ describe('전체 app ui 테스트', () => {
     );
     filteredList.sort((a, b) => Number(a.distance) - Number(b.distance));
 
-    expect(app.$state.restaurantList).toEqual(filteredList);
+    expect(filteredList).toStrictEqual(ExpectedFilteredDummyRestaurantData);
   });
 });
