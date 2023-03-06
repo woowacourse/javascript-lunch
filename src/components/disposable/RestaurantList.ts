@@ -1,4 +1,3 @@
-import restaurantListHandler from "../../domain/restaurantListHandler";
 import { Restaurant } from "../../types/type";
 import { $ } from "../../utils/Dom";
 import RestaurantItem from "../reusable/RestaurantItem";
