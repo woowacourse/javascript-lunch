@@ -1,4 +1,6 @@
+import CategorySelectBox from "../components/CategorySelectBox";
 import RestaurantList from "../components/RestaurantList";
+import SortingSelectBox from "../components/SortingSelectBox";
 import { ALL_CATEGORY, SORT_FAILED_NUMBER } from "../constants";
 import RestaurantType from "../type/Restaurant";
 
@@ -63,12 +65,7 @@ class Controller {
   }
 
   sortRestaurants() {
-    console.log(1);
-    const sortingFilter = document.getElementById("sorting-filter");
-    if (!(sortingFilter instanceof HTMLSelectElement)) {
-      return;
-    }
-    const sortingKey = sortingFilter.value;
+    const sortingKey = SortingSelectBox.getOption();
 
     const sortedRestaurants = [...this.state.restaurants].sort(
       (a: RestaurantType, b: RestaurantType): number => {
@@ -81,11 +78,7 @@ class Controller {
   }
 
   filterRestaurants() {
-    const categoryFilter = document.getElementById("category-filter");
-    if (!(categoryFilter instanceof HTMLSelectElement)) {
-      return;
-    }
-    const filteringKey = categoryFilter.value;
+    const filteringKey = CategorySelectBox.getOption();
 
     if (filteringKey !== ALL_CATEGORY) {
       this.state.restaurants = this.getLocalStorage().filter(

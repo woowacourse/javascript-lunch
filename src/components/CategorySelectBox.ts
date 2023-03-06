@@ -33,6 +33,15 @@ class CategorySelectBox extends HTMLElement {
       this.controller.filterRestaurants();
     });
   }
+
+  static getOption(): string | undefined {
+    const categoryFilter = document.getElementById("category-filter");
+    if (!(categoryFilter instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    return categoryFilter.value;
+  }
 }
 
 export default CategorySelectBox;

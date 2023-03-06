@@ -28,6 +28,14 @@ class SortingSelectBox extends HTMLElement {
       this.controller.sortRestaurants();
     });
   }
+
+  static getOption(): string | undefined {
+    const sortingFilter = document.getElementById("sorting-filter");
+    if (!(sortingFilter instanceof HTMLSelectElement)) {
+      return;
+    }
+    return sortingFilter.value;
+  }
 }
 
 export default SortingSelectBox;
