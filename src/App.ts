@@ -2,7 +2,6 @@ import Header from "./components/disposable/Header";
 import RestaurantFormBottomSheet from "./components/disposable/RestaurantFormBottomSheet";
 import RestaurantList from "./components/disposable/RestaurantList";
 import SelectContainer from "./components/disposable/SelectContainer";
-import RestaurantItem from "./components/reusable/RestaurantItem";
 import { Constants, OptionValue } from "./utils/Constants";
 import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./types/type";
@@ -16,17 +15,20 @@ class App {
     Header.initialize(body);
     SelectContainer.initialize(body, this.sortList);
     RestaurantList.render(body);
-    RestaurantFormBottomSheet.initialize(body, this.makeRestaurantList);
+    RestaurantFormBottomSheet.initialize(
+      body,
+      this.addRestaurantItemToList.bind(this)
+    );
 
-    this.rerenderList();
+    RestaurantList.updateRestaurantList(this.restaurantList);
   }
 
-  makeRestaurantList = (restaurant: Restaurant): void => {
-    restaurantListHandler.addRestaurant(restaurant);
+  addRestaurantItemToList(data: Restaurant) {
+    restaurantListHandler.addRestaurant(data);
     this.restaurantList = restaurantListHandler.getRestaurants();
 
-    this.rerenderList();
-  };
+    RestaurantList.updateRestaurantList(this.restaurantList);
+  }
 
   sortList = (id: string, value: string) => {
     if (id === Constants.CATEGORY_FILTER) {
@@ -40,20 +42,8 @@ class App {
           : restaurantListHandler.getSortedByName(this.restaurantList);
     }
 
-    this.rerenderList();
+    RestaurantList.updateRestaurantList(this.restaurantList);
   };
-
-  renderRestaurants() {
-    return this.restaurantList
-      .map((restaurant: Restaurant) =>
-        new RestaurantItem(restaurant).template()
-      )
-      .join("");
-  }
-
-  rerenderList() {
-    RestaurantList.replaceTemplate(this.renderRestaurants());
-  }
 }
 
 export default App;

@@ -1,4 +1,7 @@
+import restaurantListHandler from "../../domain/restaurantListHandler";
+import { Restaurant } from "../../types/type";
 import { $ } from "../../utils/Dom";
+import RestaurantItem from "../reusable/RestaurantItem";
 
 class RestaurantList {
   template() {
@@ -13,16 +16,19 @@ class RestaurantList {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  replaceTemplate(newTemplates: string) {
-    this.removeTemplate();
-    $(".restaurant-list")?.insertAdjacentHTML("beforeend", newTemplates);
+  renderRestaurantItem(data: Restaurant) {
+    const restaurantItem = new RestaurantItem(data).template();
+    const restaurantList = $(".restaurant-list") as HTMLElement;
+    restaurantList.insertAdjacentHTML("beforeend", restaurantItem);
   }
 
-  removeTemplate() {
-    const list = $(".restaurant-list");
-    while (list?.firstChild) {
-      list.removeChild(list.firstChild);
-    }
+  updateRestaurantList(newData: Restaurant[]) {
+    const restaurantList = $(".restaurant-list") as HTMLElement;
+    restaurantList.innerHTML = "";
+
+    newData.forEach((data) => {
+      this.renderRestaurantItem(data);
+    });
   }
 }
 

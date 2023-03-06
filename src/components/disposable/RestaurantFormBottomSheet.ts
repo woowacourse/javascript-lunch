@@ -61,18 +61,18 @@ class RestaurantFormBottomSheet {
   </div>`;
   }
 
-  initialize(target: Element, makeTicket: (restaurant: Restaurant) => void) {
+  initialize(target: Element, makeRestaurantItem: (data: Restaurant) => void) {
     this.render(target);
-    this.addEvent(makeTicket);
+    this.addEvent(makeRestaurantItem);
   }
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(makeTicket: (obj: Restaurant) => void) {
+  addEvent(makeRestaurantItem: (data: Restaurant) => void) {
     this.handleSheetClose();
-    this.handleFormSubmit(makeTicket);
+    this.handleFormSubmit(makeRestaurantItem);
   }
 
   handleSheetClose() {
@@ -82,12 +82,13 @@ class RestaurantFormBottomSheet {
     });
   }
 
-  handleFormSubmit(makeTicket: (obj: Restaurant) => void) {
+  handleFormSubmit(makeRestaurantItem: (data: Restaurant) => void) {
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
 
       const data = this.getFormData();
-      makeTicket(data);
+      makeRestaurantItem(data);
+
       this.resetFormValues();
       this.closeModal();
     });
