@@ -1,4 +1,5 @@
 import Controller from "../domain/Controller";
+import { inputValidator } from "../domain/inputValidator";
 import RestaurantType from "../type/Restaurant";
 import { closeBottomSheet } from "../utils";
 
@@ -87,22 +88,26 @@ class AddRestaurant extends HTMLElement {
     const restaurantForm = document.getElementById("restaurantForm");
     restaurantForm?.addEventListener("submit", (event) => {
       event.preventDefault();
-      const newRestaurant = this.createNewRestaurant(event);
+      const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
       this.controller.addRestaurant(newRestaurant);
       closeBottomSheet();
     });
   }
 
   createNewRestaurant(event: SubmitEvent) {
-    const formData = new FormData(event.target as HTMLFormElement);
-    const newRestaurant: RestaurantType = {
-      category: formData.get("category") as string,
-      name: formData.get("name") as string,
-      distance: Number(formData.get("distance")),
-      description: formData.get("description") as string,
-      link: formData.get("link") as string,
-    };
-    return newRestaurant;
+    try {
+      const formData = new FormData(event.target as HTMLFormElement);
+      const newRestaurant: RestaurantType = {
+        category: formData.get("category") as string,
+        name: inputValidator.validateName(formData.get("name") as string),
+        distance: Number(formData.get("distance")),
+        description: formData.get("description") as string,
+        link: formData.get("link") as string,
+      };
+      return newRestaurant;
+    } catch (error: any) {
+      alert(error.message);
+    }
   }
 }
 
