@@ -56,6 +56,9 @@ export default class App {
 
     this.toggleModal();
 
+    const curCategoryOption = $('#category-filter').value;
+    if (category !== curCategoryOption) return;
+
     this.renderRestaurantListByFilterOptions();
   }
 

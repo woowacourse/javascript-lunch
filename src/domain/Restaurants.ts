@@ -25,12 +25,12 @@ export default class Restaurants {
     });
   }
 
-  getSortedRestaurants(filterdRestaurants: Restaurant[], sortOption: RestaurantSortType) {
+  getSortedRestaurants(filteredRestaurants: Restaurant[], sortOption: RestaurantSortType) {
     if (sortOption === 'name') {
-      return this.getSortedRestaurantsByName(filterdRestaurants);
+      return this.getSortedRestaurantsByName(filteredRestaurants);
     }
 
-    return this.getSortedRestaurantsByDistance(filterdRestaurants);
+    return this.getSortedRestaurantsByDistance(filteredRestaurants);
   }
 
   getSortedRestaurantsByName(restaurants: Restaurant[]) {
