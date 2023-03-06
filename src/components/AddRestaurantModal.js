@@ -76,23 +76,21 @@ class AddRestaurantModal extends HTMLElement {
     this.shadowRoot.append(globalStyle, componentStyle);
   }
 
-  static get observedAttributes() {
-    return ['modal'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'modal') {
-      this.toggle();
-    }
-  }
-
-  toggle() {
-    const modal = this.getAttribute('modal');
-    if (modal === 'open') {
+  modalOpen(isOpen) {
+    if (isOpen) {
       this.shadowRoot.querySelector('#modal').classList.add('modal--open');
       return;
     }
     this.shadowRoot.querySelector('#modal').classList.remove('modal--open');
+  }
+
+  resetForm() {
+    this.shadowRoot
+      .querySelectorAll('filter-box')
+      .forEach((element) => element.reset());
+    this.shadowRoot
+      .querySelectorAll('add-select')
+      .forEach((element) => element.reset());
   }
 }
 

@@ -1,6 +1,5 @@
 import RestaurantList, { Restaurant } from '../model/RestaurantList';
 import { $, $$, $$$ } from '../../utils';
-import webView from '../../view/webView';
 import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../../constants';
 
 class LunchRecommendation {
@@ -33,25 +32,26 @@ class LunchRecommendation {
 
   modalEvent() {
     $$$('lunch-header', '#openModal').addEventListener('click', () => {
-      $('add-restaurant-modal').setAttribute('modal', 'open');
+      $('add-restaurant-modal').modalOpen(true);
     });
     $$$('add-restaurant-modal', '#cancleModal').addEventListener(
       'click',
       () => {
-        $('add-restaurant-modal').setAttribute('modal', 'close');
+        $('add-restaurant-modal').modalOpen(false);
       }
     );
 
     $$$('add-restaurant-modal', '#modalBackdrop').addEventListener(
       'click',
       () => {
-        $('add-restaurant-modal').setAttribute('modal', 'close');
+        $('add-restaurant-modal').modalOpen(false);
+        // $('add-restaurant-modal').setAttribute('modal', 'close');
       }
     );
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        $('add-restaurant-modal').setAttribute('modal', 'close');
+        $('add-restaurant-modal').modalOpen(false);
       }
     });
   }
@@ -82,7 +82,7 @@ class LunchRecommendation {
 
         const restaurantsString = JSON.stringify(restaurants);
         window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
-        webView.resetForm();
+        $('add-restaurant-modal').resetForm();
         this.drawRestuants();
       }
     );
