@@ -6,21 +6,25 @@ export default class RestaurantList {
   private formList: RestaurantForm[] = [];
 
   constructor() {
-    const parsedRestaurants = getLocalStorage(KEY);
-
-    if (parsedRestaurants.length !== 0)
-      parsedRestaurants.forEach((restaurant: RestaurantForm) => {
-        this.formList = [...this.formList, restaurant];
-      });
+    this.init();
   }
 
   get listRestaurant(): RestaurantForm[] {
     return this.formList;
   }
 
+  init() {
+    const parsedRestaurants = getLocalStorage(KEY);
+    if (parsedRestaurants.length !== 0)
+      parsedRestaurants.forEach((restaurant: RestaurantForm) => {
+        this.formList = [...this.formList, restaurant];
+      });
+  }
+
   add(restaurantInfo: RestaurantForm) {
     this.formList = [...this.formList, restaurantInfo];
     this.filterAll();
+    this.categoryFilter(restaurantInfo.category);
   }
 
   filterAll() {
@@ -44,7 +48,7 @@ export default class RestaurantList {
       []
     );
 
-    setLocalStorage(KEY, JSON.stringify(filteredList));
+    setLocalStorage(category, JSON.stringify(filteredList));
     return filteredList;
   }
 }

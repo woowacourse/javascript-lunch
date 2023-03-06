@@ -51,7 +51,7 @@ export default class FilterBar {
   filterCategory(selectedValue) {
     this.restaurantList.categoryFilter(selectedValue);
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = getLocalStorage(KEY);
+    const restaurantParsedInfo = getLocalStorage(selectedValue);
     this.render(restaurantParsedInfo);
   }
 

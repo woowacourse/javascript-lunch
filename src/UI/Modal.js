@@ -141,10 +141,11 @@ export default class Modal {
   }
 
   renderRestaurant() {
-    const restaurantLength = this.restaurantList.listRestaurant.length - 1;
-    this.restaurantItem.render(
-      this.restaurantList.listRestaurant[restaurantLength]
-    );
+    $(".restaurant-list").replaceChildren();
+    $("#category-filter").value = CATEGORY_NAME.total;
+    this.restaurantList.listRestaurant.forEach((restaurant) => {
+      this.restaurantItem.render(restaurant);
+    });
   }
 
   close() {
