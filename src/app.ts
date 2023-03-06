@@ -7,6 +7,8 @@ import Component from './core/Component';
 import IRestaurantInput from './interfaces/IRestaurantInput';
 import { $ } from './utils/domUtils';
 import sortItemsByName from './utils/sortByName';
+import { restaurantStore } from './model/restaurantStore';
+import { sampleData } from './model/storage';
 class App extends Component {
   readonly component: any;
   constructor() {
@@ -20,6 +22,8 @@ class App extends Component {
         $('.restaurant-add-modal-container')
       ),
     };
+
+    restaurantStore.setList(sampleData);
   }
 
   addRestaurant(restaurantInput: IRestaurantInput) {

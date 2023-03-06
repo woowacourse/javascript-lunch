@@ -1,0 +1,81 @@
+import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+
+export const sampleData: IRestaurantInput[] = [
+  {
+    category: '한식',
+    name: '얌샘김밥',
+    distance: '5',
+    description: '정말 마이따 마이따!',
+    link: 'https://naver.com',
+  },
+  {
+    category: '한식',
+    name: '고봉김밥',
+    distance: '15',
+    description: '정말 고봉이다.',
+    link: 'https://naver.com',
+  },
+  {
+    category: '한식',
+    name: '김치 맛 세상',
+    distance: '10',
+    description: '김치!',
+    link: 'https://naver.com',
+  },
+  {
+    category: '중식',
+    name: '중화반점',
+    distance: '20',
+    description: '정말!',
+    link: 'https://naver.com',
+  },
+  {
+    category: '중식',
+    name: '홍콩반점',
+    distance: '15',
+    description: '많이',
+    link: 'https://naver.com',
+  },
+  {
+    category: '중식',
+    name: '백종원의 짜장',
+    distance: '10',
+    description: '믿고 먹는 백종원',
+    link: 'https://naver.com',
+  },
+  {
+    category: '일식',
+    name: '초초초초밥',
+    distance: '15',
+    description: '와! 정말 신선해',
+    link: 'https://naver.com',
+  },
+  {
+    category: '일식',
+    name: '테레레레 텐동',
+    distance: '20',
+    description: '텐동이 눅눅해 ㅠㅠ',
+    link: 'https://naver.com',
+  },
+  {
+    category: '일식',
+    name: '마구로루로 동',
+    distance: '20',
+    description: '일본에서 먹던 맛',
+    link: 'https://naver.com',
+  },
+  {
+    category: '기타',
+    name: '팟따이이잇',
+    distance: '10',
+    description: '맛이 팟따팟따',
+    link: 'https://naver.com',
+  },
+  {
+    category: '아시안',
+    name: '베뜨남 딸국수',
+    distance: '10',
+    description: '쌀국수 맛있어요?',
+    link: 'https://naver.com',
+  },
+];
