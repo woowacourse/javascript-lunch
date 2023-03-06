@@ -1,10 +1,12 @@
+import ModalContent from "./ModalContent";
+
 class ModalRoot extends HTMLElement {
-  #contentId: string | null;
+  #contentName: string | null;
 
   constructor() {
     super();
 
-    this.#contentId = null;
+    this.#contentName = null;
     this.close = this.close.bind(this);
     this.onKeydownEscape = this.onKeydownEscape.bind(this);
   }
@@ -19,20 +21,26 @@ class ModalRoot extends HTMLElement {
     `;
   }
 
-  renderContent(content: string, contentId: string) {
-    this.insertAdjacentHTML("beforeend", content);
-    this.#contentId = contentId;
+  renderContent(contentName: string) {
+    const content = document.createElement(contentName);
+
+    if (!(content instanceof ModalContent)) return;
+
+    this.appendChild(content);
+    content.bindEvent(this.close);
+
+    this.#contentName = contentName;
   }
 
   removeContent() {
-    if (this.#contentId === null) return;
+    if (this.#contentName === null) return;
 
-    const content = this.querySelector(this.#contentId);
+    const content = this.querySelector(this.#contentName);
 
     if (content === null) return;
 
     this.removeChild(content);
-    this.#contentId = null;
+    this.#contentName = null;
   }
 
   bindEvent() {
@@ -53,8 +61,8 @@ class ModalRoot extends HTMLElement {
     );
   }
 
-  open(content: string, contentId: string) {
-    this.renderContent(content, contentId);
+  open(contentName: string) {
+    this.renderContent(contentName);
     this.classList.add("modal--open");
     this.bindEvent();
   }

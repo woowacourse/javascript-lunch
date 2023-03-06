@@ -30,10 +30,7 @@ class LunchHeader extends HTMLElement {
   onClickAddButton() {
     const modalRoot = document.querySelector<Modal>("modal-root");
 
-    modalRoot?.open(
-      '<restaurant-add-modal class="modal-container"></restaurant-add-modal>',
-      "restaurant-add-modal"
-    );
+    modalRoot?.open("restaurant-add-modal");
   }
 }
 

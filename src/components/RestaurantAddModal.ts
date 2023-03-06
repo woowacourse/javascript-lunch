@@ -1,17 +1,13 @@
 import restaurantState from "../states/restaurant";
 import { Category, Distance, Restaurant } from "../types/restaurant";
 import CustomSelect from "./CustomSelect";
-import Modal from "./ModalRoot";
+import ModalContent from "./ModalContent";
+
 import RestaurantCardList from "./RestaurantCardList";
 
-class RestaurantAddModal extends HTMLElement {
+class RestaurantAddModal extends ModalContent {
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    this.render();
-    this.bindEvent();
   }
 
   render() {
@@ -65,15 +61,16 @@ class RestaurantAddModal extends HTMLElement {
     `;
   }
 
-  bindEvent() {
-    this.querySelector("form")?.addEventListener(
-      "submit",
-      this.onSubmit.bind(this)
-    );
-    this.querySelector("#cancel-button")?.addEventListener(
-      "click",
-      this.onClickCancelButton.bind(this)
-    );
+  bindEvent(closeModal: () => void) {
+    this.querySelector("form")?.addEventListener("submit", (event) => {
+      this.onSubmit(event);
+      closeModal();
+    });
+
+    this.querySelector("#cancel-button")?.addEventListener("click", () => {
+      this.onClickCancelButton;
+      closeModal();
+    });
   }
 
   onSubmit(event: Event) {
