@@ -5,7 +5,7 @@ interface IselectProps {
   id?: string;
   options: ISelectOptionProps[];
   selected?: string;
-  required?: string;
+  required?: boolean;
   className?: string;
 }
 

@@ -1,65 +1,75 @@
 import { CATEGORY, SELECT_DISTANCE } from '../constants';
+import { IRestaurant } from '../domain/Restaurant';
 import { closeModal } from '../modal';
 import selectTemplate from '../template/selectTemplate';
+import { CategoryOptions, DistanceTime } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
 
-export default function RestaurantForm($root, addRestaurantInfo) {
-  const $form = document.createElement('form');
+export default class RestaurantForm {
+  $form = document.createElement('form');
 
-  this.render = () => {
-    $form.innerHTML = `
+  constructor(
+    $root: HTMLElement,
+    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
+  ) {
+    $root.innerHTML = '<h2 class="modal-title text-title">새로운 음식점</h2>';
+    this.render();
+
+    this.$form.addEventListener('submit', (e) =>
+      this.handleFormSubmit(e, addRestaurantInfo)
+    );
+    const $cancelButton = this.$form.querySelector(
+      '#cancel-button'
+    ) as HTMLButtonElement;
+    $cancelButton.addEventListener('click', this.handleFormCancel);
+
+    $root.appendChild(this.$form);
+  }
+
+  render = () => {
+    this.$form.innerHTML = `
       ${RestaurantFormTemplate()}
     `;
   };
 
-  this.init = () => {
-    $root.innerHTML = '<h2 class="modal-title text-title">새로운 음식점</h2>';
-    this.render();
-
-    $form.addEventListener('submit', handleFormSubmit);
-    const $cancelButton = $form.querySelector('#cancel-button');
-    $cancelButton.addEventListener('click', handleFormCancel);
-
-    $root.appendChild($form);
-  };
-
-  const handleFormSubmit = (event) => {
+  handleFormSubmit = (
+    event: SubmitEvent,
+    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
+  ) => {
     event.preventDefault();
     const { target } = event;
 
     if (!target) return null;
 
-    const category = target.querySelector('#category');
-    const name = target.querySelector('#name');
-    const distance = target.querySelector('#distance');
-    const description = target.querySelector('#description');
-    const link = target.querySelector('#link');
-
-    const restaurantInfo = {
-      category: category.value ?? '',
-      name: name.value ?? '',
-      distance: Number(distance.value),
-    };
-
-    if (description !== '') restaurantInfo.description = description.value;
-    if (link !== '') restaurantInfo.URLlink = link.value;
+    const restaurantInfo = this.getFormDatas();
 
     addRestaurantInfo(restaurantInfo);
 
-    category.value = '';
-    name.value = '';
-    distance.value = '';
-    description.value = '';
-    link.value = '';
-
+    this.$form.reset();
     closeModal();
   };
 
-  const handleFormCancel = () => {
+  getFormDatas(): IRestaurant {
+    const category = this.$form.querySelector('#category') as HTMLSelectElement;
+    const name = this.$form.querySelector('#name') as HTMLInputElement;
+    const distance = this.$form.querySelector('#distance') as HTMLSelectElement;
+    const description = this.$form.querySelector(
+      '#description'
+    ) as HTMLTextAreaElement;
+    const link = this.$form.querySelector('#link') as HTMLInputElement;
+
+    return {
+      category: category.value as CategoryOptions,
+      name: name.value ?? '',
+      distance: Number(distance.value) as DistanceTime,
+      description: description.value ?? '',
+      URLlink: link.value ?? '',
+    };
+  }
+
+  handleFormCancel = () => {
     closeModal();
   };
-
-  this.init();
 }
 
 function RestaurantFormTemplate() {
@@ -71,7 +81,7 @@ function RestaurantFormTemplate() {
         id: 'category',
         options: [
           { value: '', text: '선택해주세요' },
-          ...arrayElementToObject(CATEGORY),
+          ...arrayElementToObject([...CATEGORY]),
         ],
         required: true,
       })}

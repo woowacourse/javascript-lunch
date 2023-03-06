@@ -27,7 +27,9 @@ export default class App {
 
   constructor($app: HTMLDivElement) {
     const $main = document.createElement('main');
-    const $modalContainer = document.querySelector('.modal-container');
+    const $modalContainer = document.querySelector(
+      '.modal-container'
+    ) as HTMLDivElement;
     const restaurantService = new RestaurantService(getInitialRestaurantList());
 
     new Header($app);
