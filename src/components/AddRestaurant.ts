@@ -1,3 +1,4 @@
+import Validator from "../tools/Validator";
 import IRestaurant from "../type/IRestaurant";
 import BottomSheet from "./BottomSheet";
 import RestaurantList from "./RestaurantList";
@@ -83,11 +84,14 @@ class AddRestaurant extends HTMLElement {
     const restaurantForm = document.getElementById("restaurantForm");
     restaurantForm?.addEventListener("submit", (event) => {
       event.preventDefault();
-
-      const newRestaurant = this.createNewRestaurant(event);
-      this.addNewRestaurant(newRestaurant);
-
-      this.closeBottomSheet();
+      try {
+        const newRestaurant = this.createNewRestaurant(event);
+        Validator.checkRestaurant(newRestaurant);
+        this.addNewRestaurant(newRestaurant);
+        this.closeBottomSheet();
+      } catch (error: any) {
+        alert(error.message);
+      }
     });
   }
 
