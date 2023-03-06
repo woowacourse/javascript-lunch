@@ -3,14 +3,14 @@ import { Restaurant } from '../src/type/common';
 import { menu1, menu2, menu3, menu4 } from '../src/data/dummy';
 
 describe('Restaurants 클래스 테스트', () => {
-  test('addRestaurant 메서드 테스트', () => {
+  test('음식점 추가 기능 테스트', () => {
     const restaurants = new Restaurants();
     restaurants.addRestaurant(menu1);
 
     expect(restaurants.getRestaurants()).toEqual([menu1]);
   });
 
-  test('sortByName 메서드 테스트', () => {
+  test('음식점을 이름 별로 정렬하는 기능 테스트', () => {
     const restaurants = new Restaurants();
     restaurants.addRestaurant(menu1);
     restaurants.addRestaurant(menu2);
@@ -19,7 +19,7 @@ describe('Restaurants 클래스 테스트', () => {
     expect(restaurants.sortByName()).toEqual([menu3, menu2, menu1]);
   });
 
-  test('sortByDistance 메서드 테스트', () => {
+  test('음식점을 거리로 정렬하는 기능 테스트', () => {
     const restaurants = new Restaurants();
     restaurants.addRestaurant(menu2);
     restaurants.addRestaurant(menu1);
@@ -28,7 +28,7 @@ describe('Restaurants 클래스 테스트', () => {
     expect(restaurants.sortByDistance()).toEqual([menu1, menu2, menu3]);
   });
 
-  test('filterByCategory 메서드 테스트', () => {
+  test('음식점을 카테고리 별로 정렬하는 기능 테스트', () => {
     const restaurants = new Restaurants();
     restaurants.addRestaurant(menu2);
     restaurants.addRestaurant(menu1);
