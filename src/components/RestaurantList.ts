@@ -4,24 +4,28 @@ import japanese from '../../assets/category-japanese.png';
 import western from '../../assets/category-western.png';
 import asian from '../../assets/category-asian.png';
 import etc from '../../assets/category-etc.png';
+import { CategoryOptions } from '../types/type';
+import { IRestaurant, Restaurant } from '../domain/Restaurant';
 
-export default function RestaurantList($root, restaurants) {
-  const $restaurantListSection = document.createElement('section');
-  $restaurantListSection.className = 'restaurant-list-cotainer';
+interface IRestaurantList {
+  restaurantList: Restaurant[];
+}
 
-  this.state = {
-    restaurantList: [],
-  };
+export default class RestaurantList {
+  $restaurantListSection = document.createElement('section');
 
-  this.init = () => {
-    this.state.restaurantList = restaurants;
-    this.render();
+  state!: IRestaurantList;
 
-    $root.appendChild($restaurantListSection);
-  };
+  constructor($root: HTMLElement, restaurants: Restaurant[]) {
+    this.$restaurantListSection.className = 'restaurant-list-cotainer';
 
-  this.render = () => {
-    $restaurantListSection.innerHTML = `
+    this.setState({ restaurantList: restaurants });
+
+    $root.appendChild(this.$restaurantListSection);
+  }
+
+  render = () => {
+    this.$restaurantListSection.innerHTML = `
     <ul class="restaurant-list">
       ${this.state.restaurantList.reduce((html, restaurant) => {
         return html + RestaurantItemTemplate(restaurant.getRestaurantInfo());
@@ -30,15 +34,18 @@ export default function RestaurantList($root, restaurants) {
     `;
   };
 
-  this.setState = (state) => {
+  setState = (state: IRestaurantList) => {
     this.state = { ...this.state, ...state };
     this.render();
   };
-
-  this.init();
 }
 
-function RestaurantItemTemplate({ category, distance, name, description }) {
+function RestaurantItemTemplate({
+  category,
+  distance,
+  name,
+  description,
+}: IRestaurant) {
   return `
     <li class="restaurant">
       <div class="restaurant__category">
@@ -54,7 +61,7 @@ function RestaurantItemTemplate({ category, distance, name, description }) {
     </li>`;
 }
 
-function categoryImageSource(category) {
+function categoryImageSource(category: CategoryOptions) {
   switch (category) {
     case '한식':
       return korean;
