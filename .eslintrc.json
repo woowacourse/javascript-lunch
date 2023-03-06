@@ -20,7 +20,8 @@
         "quoteProps": "consistent",
         "bracketSpacing": true,
         "arrowParens": "always",
-        "endOfLine": "auto"
+        "endOfLine": "auto",
+        "useTabs": false
       }
     ],
     "no-console": "off",
