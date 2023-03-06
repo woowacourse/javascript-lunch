@@ -107,17 +107,17 @@ addButton.addEventListener("click", () => {
   Modal.open(restaurantInputModal);
 });
 
-window.onload = function () {
-  LocalStorage.getItem('restaurants').forEach(item => {
+window.onload = () => {
+  LocalStorage.getItem("restaurants").forEach((item) => {
     newRestaurant.add(item);
   });
   updateRestaurant();
 }
 
 categoryFilter.addEventListener("change", () => {
-  updateRestaurant()
+  updateRestaurant();
 });
 
 sortingFilter.addEventListener("change", () => {
-  updateRestaurant()
+  updateRestaurant();
 });

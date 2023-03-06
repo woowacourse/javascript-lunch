@@ -21,28 +21,4 @@ const Alert = {
   },
 };
 
-// class Alert2 {
-//   #isOpen;
-
-//   #targetElement;
-
-//   constructor(id) {
-//     this.#isOpen = false;
-//     this.#targetElement = $(`#${id}`);
-//   }
-
-//   show(message) {
-//     if (this.#isOpen) return;
-//     this.#targetElement.classList.remove("hidden");
-//     if (this.#targetElement) this.#targetElement.textContent = message;
-//     this.#isOpen = true;
-//   }
-
-//   hide() {
-//     if (!this.#isOpen) return;
-//     this.#targetElement.classList.add("hidden");
-//     this.#isOpen = false;
-//   }
-// };
-
 export default Alert;
