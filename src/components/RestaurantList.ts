@@ -17,18 +17,18 @@ type RestaurantListProps = {
 };
 
 class RestaurantList implements Component<RestaurantListState> {
-  $component: HTMLElement;
+  $parent: HTMLElement;
   state: RestaurantListState;
 
   constructor({ $parent, restaurants, category, sortBy }: RestaurantListProps) {
-    this.$component = document.createElement('div');
+    this.$parent = document.createElement('div');
     this.state = {
       restaurants,
       category,
       sortBy,
     };
 
-    $parent.append(this.$component);
+    $parent.append(this.$parent);
   }
 
   setState(newState: RestaurantListState) {
@@ -43,7 +43,7 @@ class RestaurantList implements Component<RestaurantListState> {
       new RestaurantListItem({ $parent: fragment, restaurant }).render();
     });
 
-    this.$component.append(fragment);
+    this.$parent.append(fragment);
   }
 
   categorizeRestaurantByOption() {

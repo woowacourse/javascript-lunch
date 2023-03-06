@@ -18,7 +18,7 @@ type RestaurantListHeaderProps = {
 };
 
 class RestaurantListHeader implements Component<RestaurantListHeaderState> {
-  $component: HTMLElement;
+  $parent: HTMLElement;
   state: RestaurantListHeaderState;
 
   constructor({
@@ -28,7 +28,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     onChangeCategory,
     onChangeSortBy,
   }: RestaurantListHeaderProps) {
-    this.$component = document.createElement('div');
+    this.$parent = document.createElement('div');
     this.state = {
       category,
       sortBy,
@@ -36,7 +36,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
       onChangeSortBy,
     };
 
-    $parent.append(this.$component);
+    $parent.append(this.$parent);
   }
 
   setState(newState: RestaurantListHeaderState) {
@@ -45,7 +45,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
   }
 
   render() {
-    this.$component.innerHTML = `
+    this.$parent.innerHTML = `
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
           ${CATEGORIES.map(
@@ -65,10 +65,10 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
       </section>
     `;
 
-    const categorySelect = this.$component.querySelector('#category-filter');
+    const categorySelect = this.$parent.querySelector('#category-filter');
     categorySelect?.addEventListener('change', this.state.onChangeCategory);
 
-    const sortSelect = this.$component.querySelector('#sorting-filter');
+    const sortSelect = this.$parent.querySelector('#sorting-filter');
     sortSelect?.addEventListener('change', this.state.onChangeSortBy);
   }
 }

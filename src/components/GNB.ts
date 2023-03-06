@@ -10,16 +10,16 @@ type MainTemplateProps = {
 };
 
 class GNB implements Component<GNBState> {
-  $component: HTMLElement;
+  $parent: HTMLElement;
   state: GNBState;
 
   constructor({ $parent, toggleAddRestaurantDrawer }: MainTemplateProps) {
-    this.$component = document.createElement('header');
-    this.$component.classList.add('gnb');
+    this.$parent = document.createElement('header');
+    this.$parent.classList.add('gnb');
 
     this.state = { toggleAddRestaurantDrawer };
 
-    $parent.append(this.$component);
+    $parent.append(this.$parent);
   }
 
   setState(newState: GNBState) {
@@ -28,14 +28,14 @@ class GNB implements Component<GNBState> {
   }
 
   render() {
-    this.$component.innerHTML = `
+    this.$parent.innerHTML = `
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">
           <img src="./add-button.png" alt="음식점 추가" />
       </button>
     `;
 
-    const button = this.$component.querySelector('button');
+    const button = this.$parent.querySelector('button');
     button?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
   }
 }

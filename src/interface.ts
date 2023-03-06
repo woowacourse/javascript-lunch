@@ -1,5 +1,5 @@
 export interface Component<T> {
-  $component: HTMLElement;
+  $parent: HTMLElement;
   state: T;
   setState: (state: T) => void;
   render: () => void;

@@ -11,18 +11,18 @@ type AppProps = {
 };
 
 class App implements Component<AppState> {
-  $component: HTMLElement;
+  $parent: HTMLElement;
   state: AppState;
 
   constructor({ $parent }: AppProps) {
-    this.$component = document.createElement('div');
-    this.$component.classList.add('app');
+    this.$parent = document.createElement('div');
+    this.$parent.classList.add('app');
 
     this.state = {
       addRestaurantDrawerHide: true,
     };
 
-    $parent.append(this.$component);
+    $parent.append(this.$parent);
   }
 
   setState(newState: AppState) {
@@ -32,16 +32,16 @@ class App implements Component<AppState> {
 
   render() {
     const { addRestaurantDrawerHide } = this.state;
-    this.$component.innerHTML = ``;
+    this.$parent.innerHTML = ``;
 
     new RestaurantListPage({
-      $parent: this.$component,
+      $parent: this.$parent,
       toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
     }).render();
 
     if (!addRestaurantDrawerHide) {
       new AddRestaurantDrawer({
-        $parent: this.$component,
+        $parent: this.$parent,
         toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
       }).render();
     }

@@ -18,11 +18,11 @@ type RestaurantListPageProps = {
 };
 
 class RestaurantListPage implements Component<RestaurantListPageState> {
-  $component: HTMLElement;
+  $parent: HTMLElement;
   state: RestaurantListPageState;
 
   constructor({ $parent, toggleAddRestaurantDrawer }: RestaurantListPageProps) {
-    this.$component = document.createElement('div');
+    this.$parent = document.createElement('div');
 
     this.state = {
       category: DEFAULT_CATEGORY,
@@ -31,7 +31,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       toggleAddRestaurantDrawer,
     };
 
-    $parent.append(this.$component);
+    $parent.append(this.$parent);
   }
 
   setState(newState: RestaurantListPageState) {
@@ -40,15 +40,15 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
   }
 
   render() {
-    this.$component.innerHTML = '';
+    this.$parent.innerHTML = '';
 
     new GNB({
-      $parent: this.$component,
+      $parent: this.$parent,
       toggleAddRestaurantDrawer: this.state.toggleAddRestaurantDrawer,
     }).render();
 
     new RestaurantListHeader({
-      $parent: this.$component,
+      $parent: this.$parent,
       category: this.state.category,
       sortBy: this.state.sortBy,
       onChangeCategory: this.onChangeCategory.bind(this),
@@ -56,7 +56,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
     }).render();
 
     new RestaurantList({
-      $parent: this.$component,
+      $parent: this.$parent,
       category: this.state.category,
       sortBy: this.state.sortBy,
       restaurants: this.state.restaurants,
