@@ -1,13 +1,10 @@
-import { CATEGORY } from "../constant/variables";
-import { CategoryType } from "../types/restaurant";
-
-const translateCategory = (category: CategoryType): string => {
-  if (category === CATEGORY.KOREAN) return "korean";
-  if (category === CATEGORY.JAPANESE) return "japanese";
-  if (category === CATEGORY.CHINESE) return "chinese";
-  if (category === CATEGORY.ASIAN) return "asian";
-  if (category === CATEGORY.AMERICAN) return "western";
-  return "etc";
+const translateCategory = {
+  한식: "korean",
+  중식: "chinese",
+  일식: "japanese",
+  아시안: "asian",
+  양식: "western",
+  기타: "etc",
 };
 
 export default translateCategory;

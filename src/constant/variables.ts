@@ -6,8 +6,17 @@ export const CATEGORY = {
   CHINESE: "중식",
   JAPANESE: "일식",
   ASIAN: "아시안",
-  AMERICAN: "양식",
+  WESTERN: "양식",
   ETC: "기타",
+} as const;
+
+export const CATEGORY_LOWER_CASE = {
+  KOREAN: "korean",
+  CHINESE: "chinese",
+  JAPANESE: "japanese",
+  ASIAN: "asian",
+  WESTERN: "western",
+  ETC: "etc",
 } as const;
 
 export const SORTINGWAY = {
