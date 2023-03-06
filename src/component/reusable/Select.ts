@@ -13,8 +13,9 @@ class Select {
   addEvent(sortId: string, setSelectedValue: SetSelectedValue) {
     const selectEl = $(`#${sortId}`);
     selectEl?.addEventListener("change", (e) => {
-      const select = e.target as HTMLSelectElement;
-      const selectedOption = select.value as Category | Sort;
+      const selectedOption = (e.target as HTMLSelectElement).value as
+        | Category
+        | Sort;
       setSelectedValue(sortId, selectedOption);
     });
   }
@@ -24,10 +25,14 @@ class Select {
     <select name=${this.attribute.name} id=${this.attribute.id} class=${
       this.attribute.className
     } required=${this.attribute.required}>
-    ${this.options
-      .map((option: string) => `<option value='${option}'> ${option} </option>`)
-      .join("")}
+    ${this.makeOptionTemplate()}
     </select>`;
+  }
+
+  makeOptionTemplate() {
+    return this.options
+      .map((option: string) => `<option value='${option}'> ${option} </option>`)
+      .join("");
   }
 }
 
