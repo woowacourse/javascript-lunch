@@ -71,6 +71,10 @@ class LunchRecommendation {
           'add-restaurant-modal'
         ).getFormValues();
 
+        if ($('add-restaurant-modal').isError()) {
+          return;
+        }
+
         const restaurant = {
           category,
           name,

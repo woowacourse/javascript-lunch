@@ -62,6 +62,11 @@ class AddSelect extends HTMLElement {
       
         color: var(--grey-300);
       }
+
+      .error{
+        color: red;
+        padding: 2px 6px;
+      }
 `;
 
     const name = this.getAttribute('name');
@@ -73,15 +78,17 @@ class AddSelect extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
     <div class="container">
-    <label for="${id} text-caption">${name}</label>
-    <select name="${id}" id="${id}" required>
-    <option value="">선택해 주세요</option>
-      ${options.join('\n')}
-    </select>
-  </div>
+      <label for="${id} text-caption">${name}</label>
+        <select name="${id}" id="${id}" required>
+          <option value="">선택해 주세요</option>
+            ${options.join('\n')}
+        </select>
+    </div>
     `;
 
     this.shadowRoot.append(componentStyle);
+
+    this.setEvent();
   }
 
   static get observedAttributes() {
@@ -102,6 +109,36 @@ class AddSelect extends HTMLElement {
   getSelectValue() {
     const id = this.getAttribute('id');
     return this.shadowRoot.querySelector(`#${id}`).value;
+  }
+
+  removeError() {
+    const errorMessage = this.shadowRoot.querySelector('.error');
+
+    if (errorMessage) {
+      this.shadowRoot.querySelector('.container').removeChild(errorMessage);
+    }
+  }
+
+  isError() {
+    this.removeError();
+
+    if (this.getSelectValue() === '') return true;
+    return false;
+  }
+
+  showErrorMessage() {
+    const errorMessage = document.createElement('div');
+    errorMessage.innerText = '이 값은 필수로 입력해야 합니다.';
+    errorMessage.className = 'error text-caption';
+    this.shadowRoot.querySelector('.container').append(errorMessage);
+  }
+
+  setEvent() {
+    this.shadowRoot.querySelector('select').addEventListener('change', () => {
+      if (this.getSelectValue()) {
+        this.removeError();
+      }
+    });
   }
 }
 

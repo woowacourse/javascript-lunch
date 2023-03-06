@@ -3,15 +3,15 @@ class AddRestaurantModal extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
-    .text-title {
-      font-size: 20px;
-      line-height: 24px;
-      font-weight: 600;
-    }
-
-    .modal {
-        display: none;
+      .text-title {
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 600;
       }
+
+      .modal {
+          display: none;
+        }
       
       .modal--open {
         display: block;
@@ -109,6 +109,44 @@ class AddRestaurantModal extends HTMLElement {
     const link = this.shadowRoot.querySelector('#link').getTextValue();
 
     return { category, name, distance, description, link };
+  }
+
+  isError() {
+    const categoryError = this.shadowRoot.querySelector('#category').isError();
+    if (categoryError) {
+      this.shadowRoot.querySelector('#category').showErrorMessage();
+      return true;
+    }
+
+    const nameError = this.shadowRoot.querySelector('#name').getErrorKind();
+    if (nameError) {
+      this.shadowRoot.querySelector('#name').showErrorMessage(nameError);
+      return true;
+    }
+
+    const distanceError = this.shadowRoot.querySelector('#distance').isError();
+    if (distanceError) {
+      this.shadowRoot.querySelector('#distance').showErrorMessage();
+      return true;
+    }
+
+    const descriptionError = this.shadowRoot
+      .querySelector('#description')
+      .getErrorKind();
+    if (descriptionError) {
+      this.shadowRoot
+        .querySelector('#description')
+        .showErrorMessage(descriptionError);
+      return true;
+    }
+
+    const linkError = this.shadowRoot.querySelector('#link').getErrorKind();
+    if (linkError) {
+      this.shadowRoot.querySelector('#link').showErrorMessage(linkError);
+      return true;
+    }
+
+    return false;
   }
 }
 

@@ -4,14 +4,14 @@ class AddTextInput extends HTMLElement {
     const id = this.getAttribute('id');
     const caption = this.getAttribute('caption') || '';
 
-    if (name === 'name') {
+    if (id === 'name') {
       return `<div class="container required">
       <label for="${id} text-caption">${name}</label>
       <input type="text" name="${id}" id="${id}" required>
     </div>`;
     }
 
-    if (name === 'description') {
+    if (id === 'description') {
       return `<div class="container">
       <label for="${id} text-caption">${name}</label>
       <textarea name="${id}" id="${id}" cols="30" rows="5"></textarea>
@@ -78,11 +78,18 @@ class AddTextInput extends HTMLElement {
       input {
         height: 44px;
       }
+
+      .error{
+        color: red;
+        padding: 2px 6px;
+      }
 `;
 
     this.shadowRoot.innerHTML = this.getTextInputTemplate();
 
     this.shadowRoot.append(componentStyle);
+
+    this.setEvent();
   }
 
   static get observedAttributes() {
@@ -103,6 +110,71 @@ class AddTextInput extends HTMLElement {
   getTextValue() {
     const id = this.getAttribute('id');
     return this.shadowRoot.querySelector(`#${id}`).value;
+  }
+
+  getErrorKind() {
+    this.removeError();
+
+    const id = this.getAttribute('id');
+    const textValue = this.getTextValue();
+
+    const nameError = this.getNameErrorMessage(id, textValue);
+    if (nameError) {
+      return nameError;
+    }
+
+    const textError = this.getTextErrorMessage(id, textValue);
+    if (textError) {
+      return textError;
+    }
+
+    return false;
+  }
+
+  getNameErrorMessage(kind, textValue) {
+    if (kind !== 'name') return null;
+    if (textValue === '') return '이 값은 필수로 입력해야 합니다.';
+    if (textValue.length > 30 || textValue < 2) {
+      return '이름은 2자 이상 30자 이하만 가능합니다.';
+    }
+    return null;
+  }
+
+  getTextErrorMessage(kind, textValue) {
+    if (textValue.length > 1000) {
+      return `${
+        kind === 'link' ? '링크' : '설명'
+      } 값은 1000자 이하로만 가능합니다.`;
+    }
+    return null;
+  }
+
+  removeError() {
+    const errorMessage = this.shadowRoot.querySelector('.error');
+
+    if (errorMessage) {
+      this.shadowRoot.querySelector('.container').removeChild(errorMessage);
+    }
+  }
+
+  showErrorMessage(message) {
+    const errorMessage = document.createElement('div');
+    errorMessage.innerText = message;
+    errorMessage.className = 'error text-caption';
+    this.shadowRoot.querySelector('.container').append(errorMessage);
+  }
+
+  setEvent() {
+    const id = this.getAttribute('id');
+
+    this.shadowRoot.querySelector(`#${id}`).addEventListener('input', () => {
+      const textValue = this.getTextValue();
+      const nameError = this.getNameErrorMessage(id, textValue);
+      const textError = this.getTextErrorMessage(id, textValue);
+      if (nameError === null && textError === null) {
+        this.removeError();
+      }
+    });
   }
 }
 
