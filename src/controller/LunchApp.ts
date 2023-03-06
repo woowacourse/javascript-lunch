@@ -18,6 +18,19 @@ class LunchApp {
     },
   });
 
+  #onModalCancelButtonClicked() {
+    this.#lunchAppView.toggleRestaurantAddModal();
+
+    this.#lunchAppView.clearAllModalInputs();
+  }
+
+  #onModalAddButtonClicked(restaurantData: Restaurant) {
+    this.#restaurants.addRestaurant(restaurantData);
+    this.#restaurants.saveRestaurantsToLocalStorage();
+
+    this.#lunchAppView.clearAllModalInputs();
+    this.#lunchAppView.toggleRestaurantAddModal();
+  }
   #onHeaderAddButtonClicked() {
     this.#lunchAppView.toggleRestaurantAddModal();
   }
