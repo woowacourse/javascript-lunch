@@ -1,7 +1,8 @@
 import addButton from '../../templates/add-button.png';
 import { showModal } from '../modal';
+import RestaurantForm from './RestaurantForm';
 
-export default function Header($root, eventListener) {
+export default function Header($root) {
   const $header = document.createElement('header');
   $header.className = 'gnb';
 
@@ -24,10 +25,7 @@ export default function Header($root, eventListener) {
     const { target } = event;
 
     if (target instanceof HTMLImageElement !== true) return;
-
     showModal();
-    const $modalContainer = document.querySelector('.modal-container');
-    new RestaurantForm($modalContainer, handleFormSubmit, handleFormCancel);
   };
 
   this.init();

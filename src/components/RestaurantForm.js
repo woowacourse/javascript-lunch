@@ -1,8 +1,9 @@
 import { CATEGORY, SELECT_DISTANCE } from '../constants';
+import { closeModal } from '../modal';
 import selectTemplate from '../template/selectTemplate';
 import { arrayElementToObject } from '../utils/util';
 
-export default function RestaurantForm($root, submitHandler, cancelHandler) {
+export default function RestaurantForm($root, addRestaurantInfo) {
   const $form = document.createElement('form');
 
   this.render = () => {
@@ -15,12 +16,47 @@ export default function RestaurantForm($root, submitHandler, cancelHandler) {
     $root.innerHTML = '<h2 class="modal-title text-title">새로운 음식점</h2>';
     this.render();
 
-    $form.addEventListener('submit', submitHandler);
-
+    $form.addEventListener('submit', handleFormSubmit);
     const $cancelButton = $form.querySelector('#cancel-button');
-    $cancelButton.addEventListener('click', cancelHandler);
+    $cancelButton.addEventListener('click', handleFormCancel);
 
     $root.appendChild($form);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const { target } = event;
+
+    if (!target) return null;
+
+    const category = target.querySelector('#category');
+    const name = target.querySelector('#name');
+    const distance = target.querySelector('#distance');
+    const description = target.querySelector('#description');
+    const link = target.querySelector('#link');
+
+    const restaurantInfo = {
+      category: category.value ?? '',
+      name: name.value ?? '',
+      distance: Number(distance.value),
+    };
+
+    if (description !== '') restaurantInfo.description = description.value;
+    if (link !== '') restaurantInfo.URLlink = link.value;
+
+    addRestaurantInfo(restaurantInfo);
+
+    category.value = '';
+    name.value = '';
+    distance.value = '';
+    description.value = '';
+    link.value = '';
+
+    closeModal();
+  };
+
+  const handleFormCancel = () => {
+    closeModal();
   };
 
   this.init();

@@ -3,10 +3,8 @@ import Header from './components/Header';
 import RestaurantForm from './components/RestaurantForm';
 import RestaurantList from './components/RestaurantList';
 import { mockRestaurant } from './data';
-import { IRestaurant, Restaurant } from './domain/Restaurant';
+import { Restaurant } from './domain/Restaurant';
 import RestaurantService from './domain/RestaurantService';
-import { closeModal, showModal } from './modal';
-import { Category, DistanceTime } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 const getInitialRestaurantList = () => {
@@ -18,71 +16,34 @@ const getInitialRestaurantList = () => {
 
 export default function App($app) {
   const $main = document.createElement('main');
+  const $modalContainer = document.querySelector('.modal-container');
 
   this.state = {
     filters: null,
     restaurantList: null,
+    restaurantForm: null,
     restaurantService: new RestaurantService(getInitialRestaurantList()),
   };
 
   this.init = () => {
-    new Header($app);
+    new Header($app, addRestaurantInfo);
 
     $app.appendChild($main);
 
     const { restaurantService } = this.state;
+    const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
 
     this.state.filters = new Filters($main, filterRestaurantList);
     this.state.restaurantList = new RestaurantList(
       $main,
-      restaurantService.getRestaurantsInfo()
+      initialResutaurantInfos
+    );
+    this.state.restaurantForm = new RestaurantForm(
+      $modalContainer,
+      addRestaurantInfo
     );
 
     filterRestaurantList('전체', '이름순');
-  };
-
-  this.render = () => {};
-
-  this.setState = (state) => {
-    this.state = { ...this.state, ...state };
-  };
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const { target } = event;
-
-    if (!target) return null;
-
-    const category = target.querySelector('#category').value;
-    const name = target.querySelector('#name').value;
-    const distance = target.querySelector('#distance').value;
-    const description = target.querySelector('#description').value;
-    const link = target.querySelector('#link').value;
-
-    const restaurantInfo = {
-      category,
-      name,
-      distance: Number(distance),
-    };
-
-    if (description !== '') restaurantInfo.description = description;
-    if (link !== '') restaurantInfo.URLlink = link;
-
-    this.state.restaurantService.addRestaurant(restaurantInfo);
-
-    const { filters } = this.state;
-    if (!filters) return;
-
-    filterRestaurantList(filters.state.category, filters.state.filter);
-
-    const localRestaurants = getLocalStorage('restaurants') ?? [];
-    setLocalStorage('restaurants', [...localRestaurants, restaurantInfo]);
-
-    closeModal();
-  };
-
-  const handleFormCancel = () => {
-    closeModal();
   };
 
   const filterRestaurantList = (category, filter) => {
@@ -105,6 +66,21 @@ export default function App($app) {
     restaurantList.setState({
       restaurantList: sorted,
     });
+  };
+
+  const addRestaurantInfo = (restaurantInfo) => {
+    this.state.restaurantService.addRestaurant(restaurantInfo);
+
+    const {
+      filters: {
+        state: { category: filterByCategory, filter },
+      },
+    } = this.state;
+
+    filterRestaurantList(filterByCategory, filter);
+
+    const localRestaurants = getLocalStorage('restaurants') ?? [];
+    setLocalStorage('restaurants', [...localRestaurants, restaurantInfo]);
   };
 
   this.init();
