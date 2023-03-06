@@ -1,12 +1,8 @@
 import { GLOBAL_CSS } from '../constants';
 
 class AddRestaurantModal extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-
   connectedCallback() {
+    this.attachShadow({ mode: 'open' });
     const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
     globalStyle.textContent = GLOBAL_CSS;
@@ -45,11 +41,11 @@ class AddRestaurantModal extends HTMLElement {
       .button-container {
         display: flex;
       }
+
+
 `;
 
-    const template = document.createElement('template');
-
-    template.innerHTML = `
+    this.shadowRoot.innerHTML = `
     <div id="modal" class="modal">
     <div id="modalBackdrop" class="modal-backdrop"></div>
     <div class="modal-container">
@@ -77,11 +73,26 @@ class AddRestaurantModal extends HTMLElement {
   </div>
     `;
 
-    const cloneNode = template.content.cloneNode(true);
+    this.shadowRoot.append(globalStyle, componentStyle);
+  }
 
-    this.shadowRoot.appendChild(globalStyle);
-    this.shadowRoot.appendChild(componentStyle);
-    this.shadowRoot.appendChild(cloneNode);
+  static get observedAttributes() {
+    return ['modal'];
+  }
+
+  attributeChangedCallback(name) {
+    if (name === 'modal') {
+      this.toggle();
+    }
+  }
+
+  toggle() {
+    const modal = this.getAttribute('modal');
+    if (modal === 'open') {
+      this.shadowRoot.querySelector('#modal').classList.add('modal--open');
+      return;
+    }
+    this.shadowRoot.querySelector('#modal').classList.remove('modal--open');
   }
 }
 

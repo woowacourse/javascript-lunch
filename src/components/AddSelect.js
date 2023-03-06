@@ -1,11 +1,6 @@
 import { GLOBAL_CSS } from '../constants';
 
 class AddSelect extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-
   createOption(title, kind) {
     if (kind === 'distance') {
       return `<option value="${title}">${title}분 내</option>`;
@@ -14,6 +9,7 @@ class AddSelect extends HTMLElement {
   }
 
   connectedCallback() {
+    this.attachShadow({ mode: 'open' });
     const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
     globalStyle.textContent = GLOBAL_CSS;

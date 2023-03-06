@@ -7,11 +7,6 @@ import asianImage from '../assets/category-asian.png';
 import etcImage from '../assets/category-etc.png';
 
 class RestaurantBox extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-
   getCategoryImage = (category) => {
     if (category === '한식') return koreanImage;
     if (category === '중식') return chineseImage;
@@ -22,6 +17,7 @@ class RestaurantBox extends HTMLElement {
   };
 
   connectedCallback() {
+    this.attachShadow({ mode: 'open' });
     const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
     globalStyle.textContent = GLOBAL_CSS;

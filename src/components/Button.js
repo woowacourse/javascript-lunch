@@ -1,11 +1,7 @@
 import { GLOBAL_CSS } from '../constants';
 class Button extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-
   connectedCallback() {
+    this.attachShadow({ mode: 'open' });
     const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
     globalStyle.textContent = GLOBAL_CSS;

@@ -1,16 +1,12 @@
 import { GLOBAL_CSS } from '../constants';
 
 class FilterBox extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-
   createOption(title) {
     return `<option value="${title}">${title}</option>`;
   }
 
   connectedCallback() {
+    this.attachShadow({ mode: 'open' });
     const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
     globalStyle.textContent = GLOBAL_CSS;

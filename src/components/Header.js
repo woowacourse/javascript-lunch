@@ -1,13 +1,10 @@
 import { GLOBAL_CSS } from '../constants';
 import logo from '../assets/add-button.png';
+import { $ } from '../utils';
 
 class Header extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-
   connectedCallback() {
+    this.attachShadow({ mode: 'open' });
     const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
     globalStyle.textContent = GLOBAL_CSS;

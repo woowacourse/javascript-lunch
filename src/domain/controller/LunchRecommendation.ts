@@ -1,5 +1,5 @@
 import RestaurantList, { Restaurant } from '../model/RestaurantList';
-import { $$$ } from '../../utils';
+import { $, $$$ } from '../../utils';
 import webView from '../../view/webView';
 import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../../constants';
 
@@ -32,24 +32,26 @@ class LunchRecommendation {
   }
 
   modalEvent() {
-    $$$('lunch-header', '#openModal').addEventListener(
-      'click',
-      webView.toggleModal
-    );
-
+    $$$('lunch-header', '#openModal').addEventListener('click', () => {
+      $('add-restaurant-modal').setAttribute('modal', 'open');
+    });
     $$$('add-restaurant-modal', '#cancleModal').addEventListener(
       'click',
-      webView.toggleModal
+      () => {
+        $('add-restaurant-modal').setAttribute('modal', 'close');
+      }
     );
 
     $$$('add-restaurant-modal', '#modalBackdrop').addEventListener(
       'click',
-      webView.toggleModal
+      () => {
+        $('add-restaurant-modal').setAttribute('modal', 'close');
+      }
     );
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        webView.toggleModal();
+        $('add-restaurant-modal').setAttribute('modal', 'close');
       }
     });
   }
