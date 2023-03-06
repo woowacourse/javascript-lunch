@@ -1,42 +1,36 @@
-import AddButton from "./components/AddButton";
-import CategoryInput from "./components/CategoryInput";
-import DescriptionInput from "./components/DescriptionInput";
-import DistanceInput from "./components/DistanceInput";
-import FilterButton from "./components/FilterButton";
-import Header from "./components/Header";
-import LinkInput from "./components/LinkInput";
-import ModalButton from "./components/ModalButton";
-import ModalHeader from "./components/ModalHeader";
-import NameInput from "./components/NameInput";
-import RestaurantList from "./components/RestaurantList";
-import SortButton from "./components/SortButton";
+import addEventBottomSheet from "./components/BottomSheet";
+import BottomSheetButton from "./components/BottomSheetButton";
+import addEventFilterSortButton from "./components/FilterSortButton";
+import { RestaurantList } from "./RestaurantList";
 import { mockList } from "./data/mockRestaurant";
 import { Template } from "./Template";
+import { BottomSheet } from "./until/ControlDom";
 
 class App {
   #app;
 
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
-    RestaurantList.defaultList(mockList);
+    RestaurantList.list = mockList;
+    RestaurantList.settingList();
   }
 
   render() {
     this.#app.innerHTML = `
-      ${Template.mainHeader}
+      ${Template.mainHeader()}
       <main>
         <section class="restaurant-filter-container">
           ${Template.filterButton}
           ${Template.sortByButton}
         </section>
         <section class="restaurant-list-container">
-          ${Template.restaurantList(RestaurantList.originList)}
+          ${Template.restaurantList(RestaurantList.list)}
         </section>
 
-        <div class="modal">
-          <div class="modal-backdrop"></div>
-          <div class="modal-container">
-            ${Template.modalHeader}
+        <div class="bottomSheet">
+          <div class="bottomSheet-backdrop"></div>
+          <div class="bottomSheet-container">
+            ${Template.bottomSheetHeader}
             <form>
               ${Template.categoryInput}
               ${Template.nameInput}
@@ -49,14 +43,13 @@ class App {
         </div>
       </main>
     `;
-    this.#setEvent();
+    this.setEvent();
   }
 
-  #setEvent() {
-    FilterButton.setEvent();
-    ModalButton.setEvent();
-    SortButton.setEvent();
-    AddButton.setEvent();
+  setEvent() {
+    BottomSheetButton.setEvent();
+    addEventBottomSheet.addRestaurant();
+    addEventFilterSortButton();
   }
 }
 

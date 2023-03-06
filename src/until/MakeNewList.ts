@@ -1,10 +1,10 @@
-import { RestaurantType } from "./Template";
+import { RestaurantType } from "../Template";
 
 export const MakeNewList = {
   filterState: "전체",
   sortState: "name",
 
-  listUp(restaurantList: RestaurantType[]): RestaurantType[] {
+  getNewList(restaurantList: RestaurantType[]): RestaurantType[] {
     return this.sort(this.filter(restaurantList));
   },
 
