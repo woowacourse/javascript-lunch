@@ -1,4 +1,5 @@
 import { $, $$ } from "../utils/Dom";
+import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT} from "../utils/Constant"
 
 export default class Modal {
   #template = `
@@ -121,12 +122,12 @@ export default class Modal {
 
   resetValue() {
     $$(".form-item").forEach((val, index) => {
-      if (index === 0 || index === 2) {
-        val.children[1].value = "";
+      if (index === CATEGORY || index === DISTANCE) {
+        val.children[INFORMATION_RESTAURANT].value = "";
         return;
       }
 
-      val.children[1].value = null;
+      val.children[INFORMATION_RESTAURANT].value = null;
     });
   }
 }
