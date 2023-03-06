@@ -14,8 +14,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+    }
   },
-  "include": ["src"],
+  "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["node_modules", "cypress", "dist"]
 }

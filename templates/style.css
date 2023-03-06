@@ -24,6 +24,7 @@ body {
   --grey-300: #667085;
   --grey-400: #344054;
   --grey-500: #000000;
+  --red: #ff0000;
 }
 
 /* Typography *************************************/
@@ -200,7 +201,7 @@ body {
 
   padding: 32px 16px;
 
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0 0;
   background: var(--grey-100);
 }
 
@@ -212,7 +213,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 36px;
+  margin-bottom: 20px;
 }
 
 .form-item label {
@@ -224,7 +225,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +259,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -295,4 +296,56 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.input-error-message {
+  color: var(--red);
+  height: 15px;
+}
+
+.form-item input,
+.form-item textarea,
+.form-item select {
+  padding: 12px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 14px;
+}
+
+.form-item textarea {
+  resize: none;
+}
+
+.form-item select {
+  height: 36px;
+
+  padding: 8px;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  color: var(--grey-300);
+}
+
+input[name='name'],
+input[name='link'] {
+  height: 36px;
+}
+
+.button {
+  width: 100%;
+  height: 36px;
+
+  margin-right: 16px;
+
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  font-size: 14px;
+  padding: 8px;
 }
