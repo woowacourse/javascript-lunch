@@ -3,14 +3,16 @@ import header from './index.html';
 class Header extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = header;
   }
 
   connectedCallback() {
+    this.innerHTML = header;
+  }
+
+  addModalHandler(openModalButtonHandler: CallableFunction) {
     const $button = this.querySelector('.gnb__button');
     $button?.addEventListener('click', () => {
-      const modal = document.querySelector('.modal');
-      modal?.classList.add('modal--open');
+      openModalButtonHandler();
     });
   }
 }

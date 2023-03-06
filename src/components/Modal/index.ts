@@ -11,11 +11,16 @@ class Modal extends HTMLElement {
     this.innerHTML = $template;
   }
 
+  toggleModal() {
+    const modal = this.querySelector('.modal');
+    modal?.classList.add('modal--open');
+  }
+
   connectedCallback() {
     this.render();
-    const $modal = document.querySelector('.modal');
+    const $modal = this.querySelector('.modal');
 
-    const $cancelButton = document.querySelector('#cancel-button');
+    const $cancelButton = this.querySelector('#cancel-button');
     $cancelButton?.addEventListener('click', () => {
       $modal?.classList.remove('modal--open');
     });
