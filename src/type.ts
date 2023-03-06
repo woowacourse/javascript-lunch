@@ -9,5 +9,3 @@ export interface RestaurantType {
   description: string;
   link: string;
 }
-
-export interface CustomError extends Error {}

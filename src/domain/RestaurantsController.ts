@@ -1,4 +1,4 @@
-import { CustomError, RestaurantType } from "../type";
+import { RestaurantType } from "../type";
 import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
@@ -42,10 +42,6 @@ export default class RestaurantsController {
     return RestaurantsController.instance;
   }
 
-  getRestaurantList(): RestaurantType[] {
-    return this.restaurantList;
-  }
-
   addNewRestaurant(event: Event) {
     const trimmedInfo = getFormData(event).map(([key, value]) => [
       key,
@@ -55,9 +51,8 @@ export default class RestaurantsController {
 
     try {
       validateName(restaurantInfo.name);
-    } catch (error: unknown) {
-      const customError = error as CustomError;
-      return alert(customError.message);
+    } catch (error) {
+      if (error instanceof Error) return alert(error.message);
     }
 
     handleModalCancelButtonClick(".modal");

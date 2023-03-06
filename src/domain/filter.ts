@@ -2,6 +2,7 @@ import { SELECTED_OPTION } from "../constant";
 import { RestaurantType } from "../type";
 import { renderRestaurantList } from "../ui/restaurantListRenderer";
 import { getAllDataOnLocalStorage } from "../util/localStorage";
+const { All_CATEGORIES } = SELECTED_OPTION;
 
 export const sortByName = (allRestaurants: RestaurantType[]) => {
   return allRestaurants.sort((a, b) => {
@@ -17,7 +18,7 @@ export const sortByDistance = (allRestaurants: RestaurantType[]) => {
 
 export const filterCategory = (selectedCategory: string) => {
   const restaurantList = getAllDataOnLocalStorage();
-  if (selectedCategory === SELECTED_OPTION.All_CATEGORIES)
+  if (selectedCategory === All_CATEGORIES)
     return renderRestaurantList(restaurantList);
 
   const filteredList = restaurantList.filter(
