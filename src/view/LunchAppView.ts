@@ -30,6 +30,9 @@ class LunchAppView {
     this.#renderChild(restaurants);
   }
 
+  updateRestaurants(restaurants: Restaurant[]) {
+    this.#renderRestaurants(restaurants);
+  }
 
   #render() {
     const template = `
