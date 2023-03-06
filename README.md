@@ -50,6 +50,8 @@
 
 ### 📝 실행 방법
 
+- <a href="https://feb-dain.github.io/javascript-lunch/">앱 바로 실행하기</a>
+
 - 터미널에서 npm 설치(`npm install`) 후 `npm run start` 커맨드로 앱을 실행할 수 있다.
 
 <br>
