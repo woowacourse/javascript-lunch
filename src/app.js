@@ -63,12 +63,16 @@ export default class App extends Component {
   }
 
   addRestaurant(newRestaurant) {
-    const { restaurantList, sortingWay } = this.state;
-    const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, [...restaurantList, newRestaurant]);
+    const { sortingWay, category } = this.state;
 
     this.RestaurantListManager.addRestaurant(newRestaurant);
-    this.setState({ restaurantList: updatedRestaurantList });
-    LocalStorage.setData("list", updatedRestaurantList);
+    const addedList = this.RestaurantListManager.getRestaurantList();
+
+    const sortedList = RestaurantFilter.sortRestaurants(sortingWay, addedList);
+    const updatedList = RestaurantFilter.categorizeRestaurants(category, sortedList);
+
+    LocalStorage.setData("list", addedList);
+    this.setState({ restaurantList: updatedList });
 
     this.toggleModal();
   }
