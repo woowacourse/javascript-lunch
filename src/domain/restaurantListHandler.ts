@@ -4,7 +4,7 @@ import { Category, Restaurant, Sort } from "@/type/type";
 import { getSavedData, saveData } from "@/utils/localStorage";
 
 class RestaurantListHandler {
-  restaurants: Restaurant[] = [];
+  private restaurants: Restaurant[] = [];
 
   constructor() {
     // this.restaurants = getSavedData(Constants.RESTAURANT_LIST);
@@ -24,19 +24,21 @@ class RestaurantListHandler {
       : this.getSortedByTakingTime(restaurants);
   }
 
-  getSortedByName(restaurants: Restaurant[] = this.restaurants): Restaurant[] {
+  private getSortedByName(
+    restaurants: Restaurant[] = this.restaurants
+  ): Restaurant[] {
     return [...restaurants].sort((resA, resB) =>
       resA.name.localeCompare(resB.name, Constants.KOREAN)
     );
   }
 
-  getSortedByTakingTime(restaurants: Restaurant[]): Restaurant[] {
+  private getSortedByTakingTime(restaurants: Restaurant[]): Restaurant[] {
     return [...restaurants].sort(
       (resA, resB) => Number(resA.takingTime) - Number(resB.takingTime)
     );
   }
 
-  getFilteredByCategory(category: Category): Restaurant[] {
+  private getFilteredByCategory(category: Category): Restaurant[] {
     return category === OptionValue.TOTAL
       ? [...this.restaurants]
       : [...this.restaurants].filter(
