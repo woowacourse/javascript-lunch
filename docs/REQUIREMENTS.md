@@ -57,7 +57,7 @@
 - [x] refactor: 사용되지 않는 메서드 제거
 - [x] refactor: 매직넘버 상수화
 - [x] refactor: 초기 데이터 분리
-- [ ] refactor: constructor 추가
+- [x] refactor: constructor 추가
 
 # 페어프로그래밍 회고
 

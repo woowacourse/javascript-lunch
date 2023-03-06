@@ -40,6 +40,18 @@ class App {
     '#restaurant-modal-distance',
   )!;
 
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.load();
+
+    this.initSelect();
+    this.initModalSelect();
+    this.initEventHandlers();
+  }
+
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
       Object.values(this.#filterPipes).reduce(
@@ -64,14 +76,6 @@ class App {
     }
 
     this.updateRestaurants();
-  }
-
-  init() {
-    this.load();
-
-    this.initSelect();
-    this.initModalSelect();
-    this.initEventHandlers();
   }
 
   changeRestaurantFilter = (event: Event) => {
