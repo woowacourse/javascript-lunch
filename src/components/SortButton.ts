@@ -1,6 +1,6 @@
-import RestaurantListItem from "../domain/RestaurantListItem";
-import RestaurantList from "./RestaurantList";
-import { TPriority } from "../domain/RestaurantListItem";
+import RestaurantListItem from '../domain/RestaurantListItem';
+import RestaurantList from './RestaurantList';
+import { TPriority } from '../domain/RestaurantListItem';
 
 const SortButton = {
   template() {
@@ -10,15 +10,10 @@ const SortButton = {
   </select>`;
   },
   setEvent(res: RestaurantListItem) {
-    const restaurantListContainer = document.querySelector(
-      ".restaurant-list-container"
-    ) as HTMLElement;
-    const sortingFilter = document.querySelector(
-      "#sorting-filter"
-    ) as HTMLSelectElement;
-    sortingFilter?.addEventListener("change", () => {
-      const select = sortingFilter.options[sortingFilter.selectedIndex]
-        .value as TPriority;
+    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
+    const sortingFilter = document.querySelector('#sorting-filter') as HTMLSelectElement;
+    sortingFilter?.addEventListener('change', () => {
+      const select = sortingFilter.options[sortingFilter.selectedIndex].value as TPriority;
       const result = res.sortFilter(select);
       restaurantListContainer.innerHTML = RestaurantList.template(result);
     });

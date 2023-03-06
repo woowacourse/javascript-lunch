@@ -1,8 +1,8 @@
-import RestaurantStorage from "./RestaurantStorage";
+import RestaurantStorage from './RestaurantStorage';
 
-export type TCategory = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+export type TCategory = '한식' | '중식' | '일식' | '양식' | '아시안' | '기타';
 
-export type TPriority = "distance" | "name";
+export type TPriority = 'distance' | 'name';
 
 export type TDistance = 5 | 10 | 15 | 20 | 30;
 
@@ -27,14 +27,14 @@ class RestaurantListItem {
     return this.#list;
   }
 
-  categoryFilter(category: TCategory | "전체") {
-    if (category === "전체") return this.#list;
+  categoryFilter(category: TCategory | '전체') {
+    if (category === '전체') return this.#list;
 
     return this.#list.filter((item) => item.category === category);
   }
 
   sortFilter(priority: TPriority) {
-    if (priority === "distance") {
+    if (priority === 'distance') {
       return this.#list.sort((current, next) => {
         return current.distance - next.distance;
       });

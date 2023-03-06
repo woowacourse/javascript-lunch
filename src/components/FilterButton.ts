@@ -1,5 +1,5 @@
-import RestaurantListItem, { TCategory } from "../domain/RestaurantListItem";
-import RestaurantList from "./RestaurantList";
+import RestaurantListItem, { TCategory } from '../domain/RestaurantListItem';
+import RestaurantList from './RestaurantList';
 
 const FilterButton = {
   template() {
@@ -15,15 +15,10 @@ const FilterButton = {
   </select>`;
   },
   setEvent(res: RestaurantListItem) {
-    const restaurantListContainer = document.querySelector(
-      ".restaurant-list-container"
-    ) as HTMLElement;
-    const categoryFilter = document.querySelector(
-      "#category-filter"
-    ) as HTMLSelectElement;
-    categoryFilter?.addEventListener("change", () => {
-      const select = categoryFilter.options[categoryFilter.selectedIndex]
-        .value as TCategory | "전체";
+    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
+    const categoryFilter = document.querySelector('#category-filter') as HTMLSelectElement;
+    categoryFilter?.addEventListener('change', () => {
+      const select = categoryFilter.options[categoryFilter.selectedIndex].value as TCategory | '전체';
       const result = res.categoryFilter(select);
       restaurantListContainer.innerHTML = RestaurantList.template(result);
     });

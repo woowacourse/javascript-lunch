@@ -1,7 +1,7 @@
-import mockList from "../data/mockRestaurant";
-import { IRestaurant } from "./RestaurantListItem";
+import mockList from '../data/mockRestaurant';
+import { IRestaurant } from './RestaurantListItem';
 
-const KEY = "restaurants";
+const KEY = 'restaurants';
 
 const RestaurantStorage = {
   get() {

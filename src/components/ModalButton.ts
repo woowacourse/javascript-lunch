@@ -1,4 +1,4 @@
-import { Button } from "../data/image";
+import { Button } from '../data/image';
 
 const ModalButton = {
   template() {
@@ -8,10 +8,10 @@ const ModalButton = {
 </button>`;
   },
   setEvent() {
-    const gnbButton = document.querySelector(".gnb__button");
-    gnbButton?.addEventListener("click", () => {
-      const modal = document.querySelector(".modal") as HTMLElement;
-      modal.className = "modal--open";
+    const gnbButton = document.querySelector('.gnb__button');
+    gnbButton?.addEventListener('click', () => {
+      const modal = document.querySelector('.modal') as HTMLElement;
+      modal.className = 'modal--open';
     });
   },
 };
