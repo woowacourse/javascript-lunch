@@ -32,7 +32,7 @@ class App {
   addEvents() {
     Header.addEvent();
     SelectContainer.addEvent(this.setSelectedValue);
-    Modal.addEvent(this.makeRestaurantList);
+    Modal.addEvent(this.addNewRestaurant);
   }
 
   setSelectedValue = (sortId: string, selectedValue: Category | Sort) => {
@@ -55,7 +55,7 @@ class App {
     );
   }
 
-  makeRestaurantList = (restaurant: Restaurant): void => {
+  addNewRestaurant = (restaurant: Restaurant): void => {
     restaurantListHandler.addRestaurant(restaurant);
     this.setRestaurantList();
     this.rerenderList();
