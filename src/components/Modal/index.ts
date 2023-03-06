@@ -1,6 +1,7 @@
 import $template from './index.html';
 import { Category, Distance } from '../../types';
 import store from '../../store';
+import { $, $$ } from '../../utils/dom';
 
 class Modal extends HTMLElement {
   constructor() {
@@ -12,27 +13,27 @@ class Modal extends HTMLElement {
   }
 
   toggleModal() {
-    const modal = this.querySelector('.modal');
-    modal?.classList.add('modal--open');
+    const modal = $<HTMLDivElement>('.modal');
+    modal.classList.add('modal--open');
   }
 
   connectedCallback() {
     this.render();
-    const $modal = this.querySelector('.modal');
+    const $modal = $<HTMLDivElement>('.modal');
 
-    const $cancelButton = this.querySelector('#cancel-button');
-    $cancelButton?.addEventListener('click', () => {
-      $modal?.classList.remove('modal--open');
+    const $cancelButton = $<HTMLButtonElement>('#cancel-button');
+    $cancelButton.addEventListener('click', () => {
+      $modal.classList.remove('modal--open');
     });
 
-    const $form = document.getElementById('add-restaurant');
-    $form?.addEventListener('submit', (e) => {
+    const $form = $$<HTMLFormElement>('add-restaurant');
+    $form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const $category = document.getElementById('category') as HTMLSelectElement;
-      const $name = document.getElementById('name') as HTMLInputElement;
-      const $distance = document.getElementById('distance') as HTMLSelectElement;
-      const $description = document.getElementById('description') as HTMLTextAreaElement;
-      const $link = document.getElementById('link') as HTMLInputElement;
+      const $category = $$<HTMLSelectElement>('category');
+      const $name = $$<HTMLInputElement>('name');
+      const $distance = $$<HTMLSelectElement>('distance');
+      const $description = $$<HTMLTextAreaElement>('description');
+      const $link = $$<HTMLInputElement>('link');
 
       store.addRestaurants({
         category: $category.value as Category,
@@ -42,7 +43,7 @@ class Modal extends HTMLElement {
         link: $link.value,
       });
 
-      $modal?.classList.remove('modal--open');
+      $modal.classList.remove('modal--open');
       $category.value = '';
       $name.value = '';
       $distance.value = '';

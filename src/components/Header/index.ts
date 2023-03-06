@@ -1,4 +1,5 @@
 import header from './index.html';
+import { $ } from '../../utils/dom';
 
 class Header extends HTMLElement {
   constructor() {
@@ -10,8 +11,8 @@ class Header extends HTMLElement {
   }
 
   addModalHandler(openModalButtonHandler: CallableFunction) {
-    const $button = this.querySelector('.gnb__button');
-    $button?.addEventListener('click', () => {
+    const $button = $<HTMLButtonElement>('.gnb__button');
+    $button.addEventListener('click', () => {
       openModalButtonHandler();
     });
   }

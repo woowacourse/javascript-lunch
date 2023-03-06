@@ -1,6 +1,7 @@
 import $template from './index.html';
 import { store } from './../../store';
 import { Category, SortFilter } from '../../types';
+import { $ } from '../../utils/dom';
 
 class SelectBox extends HTMLElement {
   constructor() {
@@ -9,9 +10,9 @@ class SelectBox extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    const $filterContainer = this.querySelector('.restaurant-filter-container') as HTMLElement;
-    const $categorySelectBox = this.querySelector('#category-filter') as HTMLSelectElement;
-    const $sortSelectBox = this.querySelector('#sorting-filter') as HTMLSelectElement;
+    const $filterContainer = $<HTMLElement>('.restaurant-filter-container');
+    const $categorySelectBox = $<HTMLSelectElement>('#category-filter');
+    const $sortSelectBox = $<HTMLSelectElement>('#sorting-filter');
 
     $filterContainer.addEventListener('change', () => {
       const categoryFilter = $categorySelectBox.value as Category;

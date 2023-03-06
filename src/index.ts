@@ -5,6 +5,7 @@ import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
 import store from './store';
 import './styles';
+import { $ } from './utils/dom';
 
 store.initRestaurants();
 
@@ -15,18 +16,18 @@ customElements.define('add-modal', Modal);
 customElements.define('select-box', SelectBox);
 
 class App {
-  header: Header | null;
-  modal: Modal | null;
+  header: Header;
+  modal: Modal;
 
   constructor() {
-    this.header = document.querySelector('lunch-header');
-    this.modal = document.querySelector('add-modal');
+    this.header = $<Header>('lunch-header');
+    this.modal = $<Modal>('add-modal');
 
-    this.header?.addModalHandler(this.openModalButtonHandler);
+    this.header.addModalHandler(this.openModalButtonHandler);
   }
 
   openModalButtonHandler = () => {
-    this.modal?.toggleModal();
+    this.modal.toggleModal();
   };
 }
 

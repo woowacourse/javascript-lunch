@@ -1,6 +1,7 @@
 import { Restaurant, CategoryFilter, SortFilter } from './types';
 import RestaurantItems from './components/RestaurantItems';
 import { restaurants } from './restaurants';
+import { $ } from './utils/dom';
 
 interface Store {
   restaurants: Restaurant[];
@@ -31,17 +32,18 @@ export const store: Store = {
   },
 
   addRestaurants(restaurant: Restaurant) {
+    const $restaurantItems = $<RestaurantItems>('restaurant-items');
     this.restaurants = [...this.restaurants, restaurant];
-    const $restaurantItems = document.querySelector<RestaurantItems>('restaurant-items');
-    $restaurantItems?.render(this.restaurants);
     localStorage.setItem('store', JSON.stringify([...this.getRestuarants(), restaurant]));
+
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
+    $restaurantItems.render(this.restaurants);
   },
 
   filterRestaurants(categoryFilter: CategoryFilter) {
     this.categoryFilter = categoryFilter;
-    const $restaurantItems = document.querySelector<RestaurantItems>('restaurant-items');
+    const $restaurantItems = $<RestaurantItems>('restaurant-items');
     this.restaurants = this.getRestuarants();
 
     if (categoryFilter === '전체') {
@@ -51,12 +53,12 @@ export const store: Store = {
       (restaurant) => restaurant.category === categoryFilter,
     );
     this.restaurants = filteredRestaurants;
-    $restaurantItems?.render(this.restaurants);
+    $restaurantItems.render(this.restaurants);
   },
 
   sortRestaurants(sortFilter: SortFilter) {
     this.sortFilter = sortFilter;
-    const $restaurantItems = document.querySelector<RestaurantItems>('restaurant-items');
+    const $restaurantItems = $<RestaurantItems>('restaurant-items');
     switch (sortFilter) {
       case 'name':
         this.restaurants.sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -65,7 +67,7 @@ export const store: Store = {
         this.restaurants.sort((a, b) => a.distance - b.distance);
         break;
     }
-    $restaurantItems?.render(this.restaurants);
+    $restaurantItems.render(this.restaurants);
   },
 };
 
