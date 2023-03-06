@@ -1,4 +1,5 @@
 import RestaurantList from './components/RestaurantList';
+import CategoryFilter from './components/CategoryFilter';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
@@ -12,6 +13,7 @@ export default class App {
   constructor() {
     const restaurantsData = store.getLocalStorage();
     this.#restaurants = new Restaurants(restaurantsData);
+    CategoryFilter.render();
     this.renderRestaurantListByFilterOptions();
     this.init();
   }
