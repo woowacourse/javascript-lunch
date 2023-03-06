@@ -16,7 +16,6 @@ const Validator = {
     }
   },
   checkRestaurant(restaurantForm: IRestaurant) {
-    console.log(restaurantForm);
     this.checkBlankWord(restaurantForm.name);
     this.checkBlankWord(restaurantForm.description as string);
     this.checkUrl(restaurantForm.link as string);
