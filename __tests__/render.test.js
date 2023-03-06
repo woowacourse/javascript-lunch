@@ -7,8 +7,8 @@ import { screen } from '@testing-library/dom';
 import RestaurantListItem from '../src/components/RestaurantListItem';
 import RestaurantList from '../src/components/RestaurantList';
 import RestaurantListHeader from '../src/components/RestaurantListHeader';
-import Header from '../src/components/Header';
-import AddRestaurantDrawer from '../src/components/AddRestaurantDrawer';
+import GNB from '../src/components/GNB';
+import AddRestaurantDrawer from '../src/pages/AddRestaurantDrawer';
 
 describe('컴포넌트 랜더링 테스트', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('컴포넌트 랜더링 테스트', () => {
   });
 
   describe('RestaurantListItem 랜더링 테스트', () => {
-    test('개별 요소 렌더링 테스트', () => {
+    test('RestaurantListItem 요소가 필요한 정보를 모두 갖추었는지 테스트', () => {
       const restaurant = {
         category: '한식',
         name: '농민백암순대',
@@ -33,7 +33,7 @@ describe('컴포넌트 랜더링 테스트', () => {
   });
 
   describe('RestaurantList 랜더링 테스트', () => {
-    test('필터링 테스트', () => {
+    test('음식 종류별 필터링한 결과가 잘 출력되는지 테스트', () => {
       const restaurants = [
         {
           category: '한식',
@@ -62,7 +62,7 @@ describe('컴포넌트 랜더링 테스트', () => {
   });
 
   describe('RestaurantListHeader 테스트', () => {
-    test('상태에 따른 selected 속성 테스트', () => {
+    test('선택된 카테고리를 화면에 잘 나타내는지 테스트', () => {
       const category = '한식';
       const sortBy = 'distance';
       new RestaurantListHeader({ $parent: document.body, category, sortBy }).render();
@@ -71,15 +71,15 @@ describe('컴포넌트 랜더링 테스트', () => {
     });
   });
 
-  describe('Header 테스트', () => {
-    test('개별 요소 랜더링 테스트', () => {
-      new Header({ $parent: document.body, toggleAddRestaurantDrawer: () => {} }).render();
+  describe('GNB 테스트', () => {
+    test('GNB를 화면에 잘 나타내는지 테스트', () => {
+      new GNB({ $parent: document.body, toggleAddRestaurantDrawer: () => {} }).render();
       expect(screen.getByText('점심 뭐 먹지')).toBeInTheDocument();
     });
   });
 
-  describe('Modal 테스트', () => {
-    test('개별 요소 렌더링 테스트: 카테고리', () => {
+  describe('AddRestaurantDrawer 테스트', () => {
+    test('select 태그 렌더링 테스트: 카테고리', () => {
       new AddRestaurantDrawer({
         $parent: document.body,
         toggleAddRestaurantDrawer: () => {},
@@ -91,7 +91,7 @@ describe('컴포넌트 랜더링 테스트', () => {
       });
     });
 
-    test('개별 요소 렌더링 테스트: 거리', () => {
+    test('select 태그 렌더링 테스트: 거리(도보 x분)', () => {
       new AddRestaurantDrawer({
         $parent: document.body,
         toggleAddRestaurantDrawer: () => {},
