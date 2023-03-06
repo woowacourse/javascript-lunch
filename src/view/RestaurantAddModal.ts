@@ -60,7 +60,7 @@ class RestaurantAddModal {
 
   #render() {
     const template = `
-      <div class="modal modal--open">
+      <div class="modal" id="restaurant-add-modal">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -78,12 +78,12 @@ class RestaurantAddModal {
             </select>
           </div>
           <div class="form-item form-item--required">
-            <label for="name text-caption">이름</label>
+            <label for="name">이름</label>
             <input type="text" name="name" id="name" required>
           </div>
           <div class="form-item form-item--required">
-            <label for="distance text-caption">거리(도보 이동 시간) </label>
-            <select name="distance" id="distance" required>
+            <label for="distance">거리(도보 이동 시간) </label>
+            <select name="distanceInMinutes" id="distance" required>
               <option value="">선택해 주세요</option>
               <option value="5">5분 내</option>
               <option value="10">10분 내</option>
@@ -93,12 +93,12 @@ class RestaurantAddModal {
             </select>
           </div>
           <div class="form-item">
-            <label for="description text-caption">설명</label>
+            <label for="description">설명</label>
             <textarea name="description" id="description" cols="30" rows="5"></textarea>
             <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
           </div>
           <div class="form-item">
-            <label for="link text-caption">참고 링크</label>
+            <label for="link">참고 링크</label>
             <input type="text" name="link" id="link">
             <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
           </div>
@@ -110,7 +110,7 @@ class RestaurantAddModal {
       </div>
     </div>`;
 
-    ($(`#${this.#parentElement}`) as HTMLElement).innerHTML = template;
+    this.#parentElement.innerHTML = template;
   }
 }
 
