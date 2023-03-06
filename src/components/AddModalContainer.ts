@@ -8,7 +8,6 @@ class AddModalContainer extends Component {
   constructor(element: HTMLElement | Element) {
     super(element);
     this.subscribe();
-    this.$target;
   }
 
   subscribe() {
@@ -20,19 +19,23 @@ class AddModalContainer extends Component {
   }
 
   setEvent() {
-    on($('.submit-restaurant'), 'click', (event) => {
-      event.preventDefault();
-
-      eventBus.dispatch(
-        '@add-restaurant',
-        this.getInput(),
-        this.updateRestaurant.bind(this)
-      );
-
-      this.hide();
-    });
+    on($('.submit-restaurant'), 'click', this.handleSubmit.bind(this));
+    on($('.modal-backdrop'), 'click', this.hide.bind(this));
+    on($('.cancel'), 'click', this.hide.bind(this));
 
     return this;
+  }
+
+  handleSubmit(event: Event) {
+    event.preventDefault();
+
+    eventBus.dispatch(
+      '@add-restaurant',
+      this.getInput(),
+      this.updateRestaurant.bind(this)
+    );
+
+    this.hide();
   }
 
   updateRestaurant(restaurantInput: IRestaurantInput) {
