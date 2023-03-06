@@ -1,4 +1,4 @@
-import { Category, Component, SortBy, Restaurant } from '../type';
+import type { Category, Component, SortBy, Restaurant } from '../type';
 import RestaurantList from './RestaurantList';
 import RestaurantListHeader from './RestaurantListHeader';
 import { DEFAULT_CATEGORY } from '../utils/constants';

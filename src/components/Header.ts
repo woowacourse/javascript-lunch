@@ -1,4 +1,4 @@
-import { Component } from '../type';
+import type { Component } from '../type';
 
 type HeaderState = {};
 

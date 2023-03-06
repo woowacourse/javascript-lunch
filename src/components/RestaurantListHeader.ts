@@ -1,4 +1,4 @@
-import { Component, Category, SortBy } from '../type';
+import type { Component, Category, SortBy } from '../type';
 import { CATEGORIES } from '../utils/constants';
 
 type RestaurantListHeaderState = {

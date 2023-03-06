@@ -1,6 +1,6 @@
+import type { Component } from './type';
 import MainTemplate from './components/MainTemplate';
 import Modal from './components/Modal';
-import { Component } from './type';
 
 type AppState = {
   modalHide: boolean;

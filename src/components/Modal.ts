@@ -1,4 +1,4 @@
-import { Component, Restaurant } from '../type';
+import type { Component, Restaurant } from '../type';
 import { CATEGORIES, DEFAULT_CATEGORY, DEFAULT_DISTANCE } from '../utils/constants';
 
 type ModalState = {
