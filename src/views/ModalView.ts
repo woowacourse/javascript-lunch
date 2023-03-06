@@ -29,7 +29,7 @@ class ModalView {
   }
 
   addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {
-    this.restaurantAddForm.addEventListener('submit', event => {
+    this.restaurantAddForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const formData: FormData = new FormData(this.restaurantAddForm);
       const restaurantItem = Object.fromEntries(
@@ -37,7 +37,7 @@ class ModalView {
       ) as Restaurant;
 
       const errors: Errors = restaurantFormValidator.verify(restaurantItem);
-      const hasError = Object.values(errors).some(error => error === true);
+      const hasError = Object.values(errors).some((error) => error === true);
 
       if (!hasError) {
         this.restaurantAddForm.reset();
@@ -124,7 +124,7 @@ class ModalView {
   }
 
   addModalBackdropClickEvent() {
-    this.modal.addEventListener('click', event => {
+    this.modal.addEventListener('click', (event) => {
       if (event.target instanceof HTMLDialogElement && event.target.nodeName === 'DIALOG') {
         event.target.close();
       }

@@ -26,7 +26,7 @@ class RestaurantService {
   filterBy(category: Category): Restaurant[] {
     if (category === CATEGORY.ALL) return [...this.restaurantList];
 
-    return this.restaurantList.filter(restaurant => restaurant.category === category);
+    return this.restaurantList.filter((restaurant) => restaurant.category === category);
   }
 
   sortBy(criterion: SortingCriterion, restaurantList: Restaurant[]): Restaurant[] {
