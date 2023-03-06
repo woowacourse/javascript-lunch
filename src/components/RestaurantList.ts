@@ -1,63 +1,42 @@
-import { Category, Component, Restaurant, SortBy } from '../type';
+import { Category, Restaurant, SortBy } from '../type';
+import Component from './Component';
 import RestaurantListItem from './RestaurantListItem';
 import { DEFAULT_CATEGORY } from '../utils/constants';
 
-type RestaurantListState = {
+interface RestaurantListProps {
+  currentCategory: Category;
+  currentSortBy: SortBy;
   restaurants: Restaurant[];
-  category: Category;
-  sortBy: SortBy;
-};
+}
 
-type RestaurantListProps = {
-  $parent: HTMLElement;
-  restaurants: Restaurant[];
-  category: Category;
-  sortBy: SortBy;
-};
+interface RestaurantListState {}
 
-class RestaurantList implements Component<RestaurantListState> {
-  $component: HTMLElement;
-  state: RestaurantListState;
-
-  constructor({ $parent, restaurants, category, sortBy }: RestaurantListProps) {
-    this.$component = document.createElement('div');
-    this.state = {
-      restaurants,
-      category,
-      sortBy,
-    };
-    $parent.append(this.$component);
+class RestaurantList extends Component<RestaurantListProps, RestaurantListState> {
+  constructor($parent: HTMLElement, props: RestaurantListProps) {
+    super({ $parent, props, tagName: 'ul', initialState: {} });
   }
 
-  setState = (newState: RestaurantListState) => {
-    this.state = newState;
-    this.render();
-  };
-
-  render = () => {
-    const fragment = document.createDocumentFragment();
-
+  appendChild() {
     this.getShowRestaurants().forEach((restaurant) => {
-      new RestaurantListItem({ $parent: fragment, restaurant }).render();
+      new RestaurantListItem(this.$wrapper, { restaurant });
     });
+  }
 
-    this.$component.append(fragment);
-  };
-
-  getShowRestaurants = () => {
-    const { category, sortBy } = this.state;
-    const filtered = this.state.restaurants.filter(
-      (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category
+  getShowRestaurants() {
+    const { currentCategory, currentSortBy, restaurants } = this.props;
+    const filtered = restaurants.filter(
+      (restaurant) =>
+        currentCategory === DEFAULT_CATEGORY || currentCategory === restaurant.category
     );
     const getPivot = (restaurant: Restaurant) =>
-      sortBy === 'name' ? restaurant.name : Number(restaurant.distance);
+      currentSortBy === 'name' ? restaurant.name : Number(restaurant.distance);
 
     return filtered.sort((a, b) => {
       if (getPivot(a) > getPivot(b)) return 1;
       if (getPivot(a) < getPivot(b)) return -1;
       return 0;
     });
-  };
+  }
 }
 
 export default RestaurantList;

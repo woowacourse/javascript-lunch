@@ -1,36 +1,27 @@
-import { Component, Restaurant } from '../type';
+import { Restaurant } from '../type';
+import Component from './Component';
 import { CATEGORY_IMAGE_URL } from '../utils/constants';
 
-type RestaurantListItemState = {
+interface RestaurantListItemProps {
   restaurant: Restaurant;
-};
+}
 
-type RestaurantListItemProps = {
-  $parent: DocumentFragment;
-  restaurant: Restaurant;
-};
+interface RestaurantListItemState {}
 
-class RestaurantListItem implements Component<RestaurantListItemState> {
-  $component: HTMLElement;
-  state: RestaurantListItemState;
-
-  constructor({ $parent, restaurant }: RestaurantListItemProps) {
-    this.$component = document.createElement('li');
-    this.$component.classList.add('restaurant');
-    this.state = {
-      restaurant,
-    };
-    $parent.append(this.$component);
+class RestaurantListItem extends Component<RestaurantListItemProps, RestaurantListItemState> {
+  constructor($parent: HTMLElement, props: RestaurantListItemProps) {
+    super({
+      $parent,
+      props,
+      tagName: 'li',
+      initialState: {},
+    });
+    this.$wrapper.className = 'restaurant';
   }
 
-  setState = (newState: RestaurantListItemState) => {
-    this.state = newState;
-    this.render();
-  };
-
-  render = () => {
-    const { category, name, distance, description } = this.state.restaurant;
-    this.$component.innerHTML = `
+  drawInnerHTML() {
+    const { category, name, distance, description } = this.props.restaurant;
+    return `
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE_URL[category]}"" alt="${category}" class="category-icon" />
       </div>
@@ -40,7 +31,7 @@ class RestaurantListItem implements Component<RestaurantListItemState> {
         <p class="restaurant__description text-body">${description}</p>
       </div>
     `;
-  };
+  }
 }
 
 export default RestaurantListItem;

@@ -1,41 +1,28 @@
-import { Component } from '../type';
+import Component from './Component';
 
-type HeaderState = {};
-
-type MainTemplateProps = {
-  $parent: HTMLElement;
+interface HeaderProps {
   toggleModal: () => void;
-};
+}
 
-class Header implements Component<HeaderState> {
-  $component: HTMLElement;
-  state: HeaderState;
-  toggleModal: () => void;
+interface HeaderState {}
 
-  constructor({ $parent, toggleModal }: MainTemplateProps) {
-    this.$component = document.createElement('header');
-    this.$component.classList.add('gnb');
-    this.state = {};
-    $parent.append(this.$component);
-
-    this.toggleModal = toggleModal;
+class Header extends Component<HeaderProps, HeaderState> {
+  constructor($parent: HTMLElement, props: HeaderProps) {
+    super({ $parent, props, tagName: 'header', initialState: {} });
+    this.$wrapper.className = 'gnb';
   }
 
-  setState(newState: HeaderState) {
-    this.state = newState;
-    this.render();
-  }
-
-  render() {
-    this.$component.innerHTML = `
+  drawInnerHTML() {
+    return `
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">
           <img src="./add-button.png" alt="음식점 추가" />
       </button>
     `;
+  }
 
-    const button = this.$component.querySelector('button');
-    button?.addEventListener('click', this.toggleModal);
+  addEvent() {
+    this.$('button')?.addEventListener('click', this.props.toggleModal);
   }
 }
 
