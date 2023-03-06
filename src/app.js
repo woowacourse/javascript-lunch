@@ -4,7 +4,7 @@ import Filter from "./components/Filter";
 import RestaurantList from "./components/RestaurantList";
 import Modal from "./components/Modal";
 
-import RestaurantRepository from "./domain/RestaurantRepository";
+import RestaurantListManager from "./domain/RestaurantListManager";
 import RestaurantFilter from "./domain/RestaurantFilter";
 import store from "./util/store";
 import { CATEGORY, SORT } from "./constants";
@@ -12,7 +12,7 @@ import { CATEGORY, SORT } from "./constants";
 export default class App extends Component {
   setup() {
     const localList = store.getLocalStorage();
-    this.restaurantRepository = new RestaurantRepository(localList);
+    this.RestaurantListManager = new RestaurantListManager(localList);
     const sortedList = RestaurantFilter.sortRestaurants("name", localList);
 
     this.state = {
@@ -66,7 +66,7 @@ export default class App extends Component {
     const { restaurantList, sortingWay } = this.state;
     const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, [...restaurantList, newRestaurant]);
 
-    this.restaurantRepository.addRestaurant(newRestaurant);
+    this.RestaurantListManager.addRestaurant(newRestaurant);
     this.setState({ restaurantList: updatedRestaurantList });
     store.setLocalStorage(updatedRestaurantList);
 
@@ -86,7 +86,7 @@ export default class App extends Component {
     const category = event.target.value;
     const { sortingWay } = this.state;
 
-    const restaurantList = this.restaurantRepository.getRestaurantList();
+    const restaurantList = this.RestaurantListManager.getRestaurantList();
     const filteredRestaurantList = RestaurantFilter.categorizeRestaurants(category, restaurantList);
     const updatedRestaurantList = RestaurantFilter.sortRestaurants(sortingWay, filteredRestaurantList);
 

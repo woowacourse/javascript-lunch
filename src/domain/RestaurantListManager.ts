@@ -1,6 +1,6 @@
 import "../types/restaurant";
 
-export default class RestaurantRepository {
+export default class RestaurantListManager {
   #restaurantList: RestaurantInfo[];
 
   constructor(restaurants: RestaurantInfo[]) {
