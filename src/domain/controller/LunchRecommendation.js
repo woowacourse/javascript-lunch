@@ -1,6 +1,6 @@
 import Restaurant from '../model/Restaurant';
 import RestaurantList from '../model/RestaurantList';
-import { $$$ } from '../../utils';
+import { $ } from '../../utils';
 import webView from '../../view/webView';
 
 class LunchRecommendation {
@@ -8,7 +8,6 @@ class LunchRecommendation {
 
   constructor() {
     const userList = JSON.parse(localStorage.getItem('userList'));
-    console.log(userList);
 
     if (userList) {
       userList.forEach((restaurant) => {
@@ -27,43 +26,20 @@ class LunchRecommendation {
     this.sortEvent();
   }
 
-  modalEvent() {
-    $$$('lunch-header', '#openModal').addEventListener(
-      'click',
-      webView.toggleModal
-    );
-
-    $$$('add-restaurant-modal', '#cancleModal').addEventListener(
-      'click',
-      webView.toggleModal
-    );
-
-    $$$('add-restaurant-modal', '#modalBackdrop').addEventListener(
-      'click',
-      webView.toggleModal
-    );
-
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Escape') {
-        webView.toggleModal();
-      }
-    });
-  }
-
   addRestaurantEvent() {
-    $$$('add-restaurant-modal', '#addRestraunt').addEventListener(
+    $('add-restaurant-modal', '#addRestraunt').addEventListener(
       'click',
       (event) => {
         event.preventDefault();
 
-        const category = $$$('add-restaurant-modal', '#categoryList').value;
-        const name = $$$('add-restaurant-modal', '#nameInput').value;
-        const distance = $$$('add-restaurant-modal', '#distanceList').value;
-        const description = $$$(
+        const category = $('add-restaurant-modal', '#categoryList').value;
+        const name = $('add-restaurant-modal', '#nameInput').value;
+        const distance = $('add-restaurant-modal', '#distanceList').value;
+        const description = $(
           'add-restaurant-modal',
           '#descriptionInput'
         ).value;
-        const link = $$$('add-restaurant-modal', '#linkInput').value;
+        const link = $('add-restaurant-modal', '#linkInput').value;
         const restaurant = new Restaurant({
           category,
           name,
@@ -91,18 +67,15 @@ class LunchRecommendation {
   }
 
   filterEvent() {
-    $$$('#sortingFilter', '#sortingFilterSelect').addEventListener(
+    $('#sortingFilter', '#sortingFilterSelect').addEventListener(
       'change',
       () => {
-        const categoryValue = $$$(
+        const categoryValue = $(
           '#categoryFilter',
           '#categoryFilterSelect'
         ).value;
 
-        const sortingValue = $$$(
-          '#sortingFilter',
-          '#sortingFilterSelect'
-        ).value;
+        const sortingValue = $('#sortingFilter', '#sortingFilterSelect').value;
 
         const englishSortingValue =
           sortingValue === '이름순' ? 'name' : 'distance';
@@ -117,18 +90,15 @@ class LunchRecommendation {
   }
 
   sortEvent() {
-    $$$('#categoryFilter', '#categoryFilterSelect').addEventListener(
+    $('#categoryFilter', '#categoryFilterSelect').addEventListener(
       'change',
       () => {
-        const categoryValue = $$$(
+        const categoryValue = $(
           '#categoryFilter',
           '#categoryFilterSelect'
         ).value;
 
-        const sortingValue = $$$(
-          '#sortingFilter',
-          '#sortingFilterSelect'
-        ).value;
+        const sortingValue = $('#sortingFilter', '#sortingFilterSelect').value;
 
         const filteredList = this.#restaurants.getList(
           categoryValue,
