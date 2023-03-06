@@ -1,14 +1,7 @@
-import {
-  Category,
-  Restaurant,
-  CustomElement,
-  Action,
-  SortMethod,
-} from "../abstracts/types";
+import { Category, Restaurant, SortMethod } from "../abstracts/types";
 import {
   CATEGORY_DEFAULT,
   RESTAURANTS_STORAGE,
-  RESTAURANT_ACTION,
   SORT_METHOD,
 } from "../abstracts/constants";
 
@@ -16,8 +9,6 @@ class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
   #category: Category = CATEGORY_DEFAULT;
   #sortMethod: SortMethod = SORT_METHOD.NAME;
-
-  #subscribers: CustomElement[] = [];
 
   constructor() {
     if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
@@ -28,32 +19,17 @@ class RestaurantsStore {
     }
   }
 
-  subscribe(element: CustomElement) {
-    this.#subscribers.push(element);
+  get restaurantList() {
+    return this.#restaurantList;
   }
 
-  publish() {
-    this.filterByCategory();
-    this.sortRestaurants();
-    this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(this.#restaurantList);
-    });
+  set category(category: Category) {
+    this.#category = category;
   }
 
-  reducer = {
-    [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
-      this.addRestaurant(action.data as Restaurant);
-      this.publish();
-    },
-    [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
-      this.#category = action.data as Category;
-      this.publish();
-    },
-    [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
-      this.#sortMethod = action.data as SortMethod;
-      this.publish();
-    },
-  };
+  set sortMethod(sortMethod: SortMethod) {
+    this.#sortMethod = sortMethod;
+  }
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurantList = JSON.parse(
@@ -92,11 +68,12 @@ class RestaurantsStore {
         );
         break;
       default:
-        this.#restaurantList = this.#restaurantList;
+        this.#restaurantList = this.#restaurantList.sort((prev, next) =>
+          prev.name > next.name ? 1 : -1
+        );
     }
   }
 }
 
-const RestaurantInstance = new RestaurantsStore();
-
-export default RestaurantInstance;
+const RestaurantsInstance = new RestaurantsStore();
+export default RestaurantsInstance;

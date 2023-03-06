@@ -1,11 +1,11 @@
 import CustomElement from "../../abstracts/CustomElement";
-import RestaurantsStore from "../../domain/RestaurantsStore";
+import StoreInstance from "../../domain/Store";
 
 class RestaurantsComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    RestaurantsStore.subscribe(this);
-    RestaurantsStore.publish();
+    StoreInstance.subscribe(this);
+    StoreInstance.publish();
   }
 
   rerender(restaurantList) {
