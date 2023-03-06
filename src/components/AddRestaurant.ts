@@ -75,7 +75,9 @@ class AddRestaurant extends HTMLElement {
   }
 
   onClickCancelButton() {
-    const cancelButton = document.getElementById("cancelButton");
+    const cancelButton = document.querySelector(
+      "#restaurantForm > div > #cancelButton"
+    );
     cancelButton?.addEventListener("click", () => {
       closeBottomSheet();
     });
