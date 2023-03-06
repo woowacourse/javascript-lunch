@@ -1,4 +1,4 @@
-import type { Component } from './type';
+import type { Component } from './interface';
 import AddRestaurantDrawer from './pages/AddRestaurantDrawer';
 import RestaurantListPage from './pages/RestaurantListPage';
 

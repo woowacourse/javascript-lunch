@@ -1,4 +1,5 @@
-import type { Category, Component, Restaurant, SortBy } from '../type';
+import type { Component } from '../interface';
+import type { Category, Restaurant, SortBy } from '../type';
 import RestaurantListItem from './RestaurantListItem';
 import { DEFAULT_CATEGORY } from '../utils/constants';
 

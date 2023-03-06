@@ -1,4 +1,4 @@
-import type { Component } from '../type';
+import type { Component } from '../interface';
 
 type GNBState = {
   toggleAddRestaurantDrawer: () => void;

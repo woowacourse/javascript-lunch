@@ -1,4 +1,5 @@
-import type { Component, Restaurant } from '../type';
+import type { Component } from '../interface';
+import type { Restaurant } from '../type';
 import { CATEGORY_IMAGE_URL } from '../utils/constants';
 
 type RestaurantListItemState = {
