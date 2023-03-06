@@ -5,11 +5,9 @@ import { initialRestaurantData } from "../constant/initialRestaurants";
 import {
   getAllRestaurantsInLocalStorage,
   saveRestaurantsInLocalStorage,
+  saveSelectedCategory,
 } from "./localStorageController";
-import {
-  renderNewRestaurant,
-  renderRestaurantList,
-} from "../ui/restaurantListRenderer";
+import { renderRestaurantList } from "../ui/restaurantListRenderer";
 import { filterCategory, sortByDistance, sortByName } from "./filter";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "../constant";
 import { handleModalCancelButtonClick } from "../ui/modal";
@@ -58,9 +56,7 @@ export default class RestaurantsController {
 
     handleModalCancelButtonClick(".modal");
     saveRestaurantsInLocalStorage(restaurantInfo);
-    renderNewRestaurant(restaurantInfo);
-
-    this.updateRestaurantList([...this.restaurantList, restaurantInfo]);
+    filterCategory(localStorage.getItem("category") as string);
   }
 
   saveRestaurantList() {
@@ -71,18 +67,14 @@ export default class RestaurantsController {
     }
   }
 
-  sortRestaurantList(selectedOption: string) {
-    if (selectedOption === NAME) {
+  sortRestaurantList(selectedSort: string) {
+    if (selectedSort === NAME) {
       this.updateRestaurantList(sortByName(this.restaurantList));
     }
 
-    if (selectedOption === DISTANCE) {
+    if (selectedSort === DISTANCE) {
       this.updateRestaurantList(sortByDistance(this.restaurantList));
     }
-  }
-
-  filterRestaurantList(selectedCategory: string) {
-    filterCategory(selectedCategory);
   }
 
   updateRestaurantList(restaurantList: RestaurantType[]) {

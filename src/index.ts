@@ -9,6 +9,7 @@ import "./assets/category-western.png";
 import "./assets/favorite-icon-filled.png";
 import "./assets/favorite-icon-lined.png";
 
+import { filterCategory } from "./domain/filter";
 import RestaurantsController from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
@@ -30,6 +31,9 @@ const App = {
   initEventListeners() {
     this.controlNewRestaurantModal();
     this.controlFilter();
+
+    const selectedCategory = localStorage.getItem("category") as string | null;
+    filterCategory(selectedCategory ?? "전체");
   },
 
   controlNewRestaurantModal() {
@@ -51,14 +55,14 @@ const App = {
   },
 
   controlFilter() {
-    executeChangeEventListener("#sorting-filter", (selectedOption: string) => {
-      this.restaurantsController.sortRestaurantList(selectedOption);
+    executeChangeEventListener("#sorting-filter", (selectedSort: string) => {
+      this.restaurantsController.sortRestaurantList(selectedSort);
     });
 
     executeChangeEventListener(
       "#category-filter",
       (selectedCategory: string) => {
-        this.restaurantsController.filterRestaurantList(selectedCategory);
+        filterCategory(selectedCategory);
       }
     );
   },

@@ -18,10 +18,3 @@ export const renderRestaurantList = (restaurantList: RestaurantType[]) => {
     .map((restaurant: RestaurantType) => renderRestaurant(restaurant))
     .join("");
 };
-
-export const renderNewRestaurant = (restaurant: RestaurantType) => {
-  restaurantListElement.insertAdjacentHTML(
-    "beforeend",
-    renderRestaurant(restaurant)
-  );
-};
