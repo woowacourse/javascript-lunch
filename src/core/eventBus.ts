@@ -4,15 +4,25 @@ interface EventList {
 
 interface EventBus {
   eventList: EventList;
-  dispatch(eventName: string, originData?: any, handler?: (val: any) => any): void;
+  dispatch(
+    eventName: string,
+    originData?: any,
+    handler?: (val: any) => any
+  ): void;
   subscribe(eventName: string, handler: (val: any) => void): void;
 }
 
 export const eventBus: EventBus = {
   eventList: {},
-  
-  dispatch(eventName: string, originData: any = {}, handler: (val: any) => any = (val) => val): void {
-    this.eventList[eventName] = new CustomEvent(eventName, { detail: handler(originData) });
+
+  dispatch(
+    eventName: string,
+    originData: any = {},
+    handler: (val: any) => any = (val) => val
+  ): void {
+    this.eventList[eventName] = new CustomEvent(eventName, {
+      detail: handler(originData),
+    });
     document.dispatchEvent(this.eventList[eventName]);
   },
 
