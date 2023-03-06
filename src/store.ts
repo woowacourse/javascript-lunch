@@ -1,64 +1,51 @@
 import { Restaurant, CategoryFilter, SortFilter } from './types';
-import RestaurantItems from './components/RestaurantItems';
 import { restaurants } from './restaurants';
-import { $ } from './utils/dom';
 
-interface Store {
+class Store {
   restaurants: Restaurant[];
   categoryFilter: CategoryFilter;
   sortFilter: SortFilter;
-  initRestaurants: () => void;
-  getRestuarants: () => Restaurant[];
-  addRestaurants: (restaurant: Restaurant) => void;
-  filterRestaurants: (categoryFilter: CategoryFilter) => void;
-  sortRestaurants: (sortFilter: SortFilter) => void;
-}
 
-export const store: Store = {
-  restaurants: [],
-  categoryFilter: '전체',
-  sortFilter: 'name',
+  constructor() {
+    this.restaurants = [];
+    this.categoryFilter = '전체';
+    this.sortFilter = 'name';
+  }
 
   initRestaurants() {
     if (!localStorage.getItem('store')) {
       localStorage.setItem('store', JSON.stringify(restaurants));
     }
     this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
-  },
+    this.sortRestaurants(this.sortFilter);
+  }
 
-  getRestuarants() {
-    store.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
-    return store.restaurants;
-  },
+  getAllRestuarants() {
+    this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
+    return this.restaurants;
+  }
 
   addRestaurants(restaurant: Restaurant) {
-    const $restaurantItems = $<RestaurantItems>('restaurant-items');
     this.restaurants = [...this.restaurants, restaurant];
-    localStorage.setItem('store', JSON.stringify([...this.getRestuarants(), restaurant]));
+    localStorage.setItem('store', JSON.stringify([...this.getAllRestuarants(), restaurant]));
 
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
-    $restaurantItems.render(this.restaurants);
-  },
+  }
 
   filterRestaurants(categoryFilter: CategoryFilter) {
     this.categoryFilter = categoryFilter;
-    const $restaurantItems = $<RestaurantItems>('restaurant-items');
-    this.restaurants = this.getRestuarants();
+    this.restaurants = this.getAllRestuarants();
 
-    if (categoryFilter === '전체') {
-      return $restaurantItems?.render(this.restaurants);
-    }
+    if (categoryFilter === '전체') return;
     const filteredRestaurants = this.restaurants.filter(
       (restaurant) => restaurant.category === categoryFilter,
     );
     this.restaurants = filteredRestaurants;
-    $restaurantItems.render(this.restaurants);
-  },
+  }
 
   sortRestaurants(sortFilter: SortFilter) {
     this.sortFilter = sortFilter;
-    const $restaurantItems = $<RestaurantItems>('restaurant-items');
     switch (sortFilter) {
       case 'name':
         this.restaurants.sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -67,8 +54,7 @@ export const store: Store = {
         this.restaurants.sort((a, b) => a.distance - b.distance);
         break;
     }
-    $restaurantItems.render(this.restaurants);
-  },
-};
+  }
+}
 
-export default store;
+export default Store;
