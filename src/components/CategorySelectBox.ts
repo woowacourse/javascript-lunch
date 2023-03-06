@@ -1,3 +1,4 @@
+import { TCategory } from "../type/TCategory";
 import RestaurantList from "./RestaurantList";
 
 class CategorySelectBox extends HTMLElement {
@@ -25,12 +26,12 @@ class CategorySelectBox extends HTMLElement {
     const categoryFilter = document.getElementById("category-filter");
     if (categoryFilter instanceof HTMLSelectElement) {
       categoryFilter.addEventListener("change", () => {
-        this.filterCategory(categoryFilter.value);
+        this.filterCategory(categoryFilter.value as TCategory);
       });
     }
   }
 
-  filterCategory(key: string) {
+  filterCategory(key: TCategory) {
     const restaurantList = document.getElementById("restaurantList");
     if (restaurantList instanceof RestaurantList) {
       restaurantList.filterBy(key);

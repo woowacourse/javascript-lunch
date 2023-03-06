@@ -1,5 +1,7 @@
+import { TCategory } from "./TCategory";
+
 export default interface IRestaurant {
-  category: string;
+  category: TCategory;
   name: string;
   distance: number;
   description?: string;

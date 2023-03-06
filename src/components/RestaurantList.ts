@@ -2,9 +2,10 @@ import IRestaurant from "../type/IRestaurant";
 import RestaurantItem from "./RestaurantItem";
 import LocalStorage from "../utils/LocalStorage";
 import defaultRestaurants from "../tools/defaultRestaurants";
+import { TCategory } from "../type/TCategory";
 
 class RestaurantList extends HTMLElement {
-  listState: { restaurants: IRestaurant[]; filter: string; sort: string };
+  listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
 
   constructor() {
     super();
@@ -65,7 +66,7 @@ class RestaurantList extends HTMLElement {
     LocalStorage.setLocalStorage("restaurants", this.listState.restaurants);
   }
 
-  filterBy(key: string) {
+  filterBy(key: TCategory) {
     this.listState.filter = key;
   }
 

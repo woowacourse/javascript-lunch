@@ -1,12 +1,13 @@
 import RestaurantList from "../components/RestaurantList";
 import Validator from "../tools/Validator";
 import IRestaurant from "../type/IRestaurant";
+import { TCategory } from "../type/TCategory";
 import { closeBottomSheet } from "./bottomSheet";
 
 export const createNewRestaurant = (event: SubmitEvent) => {
   const formData = new FormData(event.target as HTMLFormElement);
   const newRestaurant: IRestaurant = {
-    category: formData.get("category") as string,
+    category: formData.get("category") as TCategory,
     name: formData.get("name") as string,
     distance: Number(formData.get("distance")),
     description: formData.get("description") as string,
