@@ -1,3 +1,14 @@
+import { ISelectOptionProps } from '../utils/util';
+
+interface IselectProps {
+  name?: string;
+  id?: string;
+  options: ISelectOptionProps[];
+  selected?: string;
+  required?: string;
+  className?: string;
+}
+
 export default function selectTemplate({
   name,
   id,
@@ -5,7 +16,7 @@ export default function selectTemplate({
   selected,
   required,
   className,
-}) {
+}: IselectProps) {
   return `
     <select name="${name}" id="${id}" class="${className}" ${
     required ? 'required' : ''

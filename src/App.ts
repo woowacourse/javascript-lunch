@@ -61,7 +61,7 @@ export default class App {
     }
   }
 
-  filterRestaurantList(category: CategoryOptions, filter: FilterOptions) {
+  filterRestaurantList(category: CategoryOptions, filter: FilterOptions): void {
     const { restaurantService, restaurantList, filters } = this.state;
 
     if (!filters || !restaurantList) return;
