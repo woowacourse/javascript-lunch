@@ -89,8 +89,10 @@ class AddRestaurant extends HTMLElement {
         Validator.checkRestaurant(newRestaurant);
         this.addNewRestaurant(newRestaurant);
         this.closeBottomSheet();
-      } catch (error: any) {
-        alert(error.message);
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
       }
     });
   }
