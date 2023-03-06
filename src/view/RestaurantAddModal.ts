@@ -1,8 +1,8 @@
 import { $ } from '../util/querySelector';
-import FormInput from './form/FormInput';
-import FormSelect from './form/FormSelect';
-import FormTextArea from './form/FormTextArea';
-import FormButtonPack from './form/FormButtonPack';
+import FormInput from './components/FormInput';
+import FormSelect from './components/FormSelect';
+import FormTextArea from './components/FormTextArea';
+import FormButtonPack from './components/FormButtonPack';
 import getFormData from '../util/getFormData';
 import { Restaurant } from '../type';
 
