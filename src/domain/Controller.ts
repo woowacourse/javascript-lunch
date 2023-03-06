@@ -43,9 +43,10 @@ class Controller {
   }
 
   addRestaurant(newRestaurant: RestaurantType) {
-    this.state.restaurants = [...this.state.restaurants, newRestaurant];
-    this.sortRestaurants();
+    this.state.restaurants = [...this.getLocalStorage(), newRestaurant];
     this.setLocalStorage();
+    this.filterRestaurants();
+    this.sortRestaurants();
   }
 
   getLocalStorage() {
@@ -62,6 +63,7 @@ class Controller {
   }
 
   sortRestaurants() {
+    console.log(1);
     const sortingFilter = document.getElementById("sorting-filter");
     if (!(sortingFilter instanceof HTMLSelectElement)) {
       return;
@@ -89,8 +91,10 @@ class Controller {
       this.state.restaurants = this.getLocalStorage().filter(
         (restaurant: RestaurantType) => restaurant.category === filteringKey
       );
+      this.sortRestaurants();
       return;
     }
+
     this.loadLocalStorage();
   }
 }
