@@ -1,6 +1,6 @@
 import { Restaurant } from '../types/types';
 
-export const createRestaurantItem = (restaurant: Restaurant, categoryImageUrl: string) => {
+export const RestaurantItem = (restaurant: Restaurant, categoryImageUrl: string) => {
   return `<li class="restaurant">
   
   <div class="restaurant__category">

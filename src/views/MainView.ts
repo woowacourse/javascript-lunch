@@ -1,5 +1,5 @@
 import { $ } from '../utils/domSelectors';
-import { renderList } from '../components/RestaurantList';
+import { RestaurantItems } from '../components/RestaurantItems';
 import { Restaurant } from '../types/types';
 
 class MainView {
@@ -30,8 +30,12 @@ class MainView {
     });
   }
 
-  renderRestaurantList(restaurant: Restaurant[]) {
-    renderList(restaurant);
+  renderRestaurantList(restaurants: Restaurant[]) {
+    const restaurantList = $<HTMLUListElement>('.restaurant-list');
+    const restaurantItems = RestaurantItems(restaurants);
+
+    restaurantList.innerHTML = '';
+    restaurantList.insertAdjacentHTML('beforeend', restaurantItems);
   }
 }
 
