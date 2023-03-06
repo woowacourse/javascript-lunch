@@ -38,14 +38,14 @@ class RestaurantList implements Component<RestaurantListState> {
   render() {
     const fragment = document.createDocumentFragment();
 
-    this.getShowRestaurants().forEach((restaurant) => {
+    this.categorizeRestaurantByOption().forEach((restaurant) => {
       new RestaurantListItem({ $parent: fragment, restaurant }).render();
     });
 
     this.$component.append(fragment);
   }
 
-  getShowRestaurants() {
+  categorizeRestaurantByOption() {
     const { category, sortBy } = this.state;
     const filtered = this.state.restaurants.filter(
       (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category
