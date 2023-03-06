@@ -41,8 +41,6 @@ const updateRestaurant = () => {
     return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
 };
 
-const save = LocalStorage.setItem(localStorage.length);
-
 const resetRestaurantInput = () => {
     catgoryInput.value = "";
     nameInput.value = "";
@@ -71,8 +69,8 @@ submitButton.addEventListener("click", (event) => {
         Input.checkAll(restaurant);
         submitAlert.hide();
         newRestaurant.add(restaurant);
-        updateRestaurant()
-        save(restaurant)
+        updateRestaurant();
+        LocalStorage.setItem('restaurants', newRestaurant.getList());
         modal.close();
         resetRestaurantInput()
     } catch (e) {
@@ -124,10 +122,10 @@ linkInput.addEventListener("focusout", () => {
 });
 
 window.onload = function () {
-    LocalStorage.getItems().forEach(item => {
-        newRestaurant.add(item);
-    });
-    updateRestaurant();
+  LocalStorage.getItem('restaurants').forEach(item => {
+      newRestaurant.add(item);
+  });
+  updateRestaurant();
 }
 
 categoryFilter.addEventListener("change", () => {
