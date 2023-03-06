@@ -1,5 +1,5 @@
 import { Restaurant, CategoryFilter, SortFilter } from './types';
-import { restaurants } from './restaurants';
+import { initialRestaurants } from './restaurants';
 
 class Store {
   restaurants: Restaurant[];
@@ -14,10 +14,14 @@ class Store {
 
   initRestaurants() {
     if (!localStorage.getItem('store')) {
-      localStorage.setItem('store', JSON.stringify(restaurants));
+      this.setRestaurants(initialRestaurants);
     }
-    this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
+    this.restaurants = this.getAllRestuarants();
     this.sortRestaurants(this.sortFilter);
+  }
+
+  setRestaurants(restaurants: Restaurant[]) {
+    localStorage.setItem('store', JSON.stringify(restaurants));
   }
 
   getAllRestuarants() {
@@ -27,7 +31,7 @@ class Store {
 
   addRestaurants(restaurant: Restaurant) {
     this.restaurants = [...this.restaurants, restaurant];
-    localStorage.setItem('store', JSON.stringify([...this.getAllRestuarants(), restaurant]));
+    this.setRestaurants([...this.getAllRestuarants(), restaurant]);
 
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
