@@ -7,10 +7,11 @@ class LunchRecommendation {
   #restaurants = new RestaurantList();
 
   constructor() {
-    DEFAULT_RESTAURANTS.forEach((restaurant) => {
-      this.#restaurants.add(restaurant);
-    });
+    this.isFirstGuest();
+    this.drawRestaurants();
+  }
 
+  isFirstGuest() {
     const userList: Restaurant[] = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
     );
@@ -19,9 +20,12 @@ class LunchRecommendation {
       userList.forEach((restaurant) => {
         this.#restaurants.add(restaurant);
       });
+      return;
     }
 
-    this.drawRestaurants();
+    DEFAULT_RESTAURANTS.forEach((restaurant) => {
+      this.#restaurants.add(restaurant);
+    });
   }
 
   play() {
@@ -33,26 +37,26 @@ class LunchRecommendation {
 
   modalEvent() {
     $$$('lunch-header', '#openModal').addEventListener('click', () => {
-      this.modalOpen(true);
+      $('add-restaurant-modal').modalOpen(true);
     });
     $$$('add-restaurant-modal', '#cancleModal').addEventListener(
       'click',
       () => {
-        this.modalOpen(false);
+        $('add-restaurant-modal').modalOpen(false);
       }
     );
 
     $$$('add-restaurant-modal', '#modalBackdrop').addEventListener(
       'click',
       () => {
-        this.modalOpen(false);
+        $('add-restaurant-modal').modalOpen(false);
         // $('add-restaurant-modal').setAttribute('modal', 'close');
       }
     );
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        this.modalOpen(false);
+        $('add-restaurant-modal').modalOpen(false);
       }
     });
   }
@@ -68,11 +72,11 @@ class LunchRecommendation {
         ).getFormValues();
 
         const restaurant = {
-          category: category,
-          name: name,
-          distance: distance,
-          description: description,
-          link: link,
+          category,
+          name,
+          distance,
+          description,
+          link,
         };
         this.#restaurants.add(restaurant);
         const restaurants = this.#restaurants.getList('전체', 'name');
@@ -80,7 +84,7 @@ class LunchRecommendation {
         const restaurantsString = JSON.stringify(restaurants);
         window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
         $('add-restaurant-modal').resetForm();
-        this.modalOpen(false);
+        $('add-restaurant-modal').modalOpen(false);
         this.drawRestaurants();
       }
     );
@@ -110,10 +114,6 @@ class LunchRecommendation {
     );
 
     $('restaurant-boxes').restaurantListRender(filteredList);
-  }
-
-  modalOpen(isOpen: boolean) {
-    $('add-restaurant-modal').modalOpen(isOpen);
   }
 }
 
