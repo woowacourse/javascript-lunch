@@ -6,12 +6,12 @@ class TopNavBar extends Component {
   constructor(element: HTMLElement) {
     super(element);
 
-    this.render();
-    this.setEvent();
+    this.render().setEvent();
   }
 
   setEvent() {
     const btnElement = $('.add-button');
+
     if (btnElement instanceof HTMLButtonElement) {
       on(btnElement, 'click', () => {
         eventBus.dispatch('@modal-click');

@@ -4,11 +4,7 @@ interface EventList {
 
 interface EventBus {
   eventList: EventList;
-  dispatch(
-    eventName: string,
-    originData?: any,
-    handler?: (val: any) => any
-  ): void;
+  dispatch(eventName: string, originData?: any, handler?: (val: any) => any): void;
   subscribe(eventName: string, handler: (val: any) => void): void;
 }
 

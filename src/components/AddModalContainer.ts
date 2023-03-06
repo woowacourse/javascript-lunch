@@ -4,15 +4,12 @@ import { eventBus } from '@res/core/eventBus';
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
-import {
-  isValidCategory,
-  isValidDistance,
-  isValidName,
-} from '@res/validator/inputValidator';
+import { isValidCategory, isValidDistance, isValidName } from '@res/validator/inputValidator';
 
 class AddModalContainer extends Component {
   constructor(element: HTMLElement) {
     super(element);
+
     this.subscribe();
   }
 
@@ -47,25 +44,15 @@ class AddModalContainer extends Component {
   }
 
   validate({ category, name, distance }: IRestaurantInput) {
-    if (
-      isValidCategory(category) &&
-      isValidName(name) &&
-      isValidDistance(distance)
-    ) {
+    if (isValidCategory(category) && isValidName(name) && isValidDistance(distance)) {
       return true;
     }
 
-    $('#category-message').style.visibility = isValidCategory(category)
-      ? 'hidden'
-      : 'visible';
+    $('#category-message').style.visibility = isValidCategory(category) ? 'hidden' : 'visible';
 
-    $('#name-message').style.visibility = isValidName(name)
-      ? 'hidden'
-      : 'visible';
+    $('#name-message').style.visibility = isValidName(name) ? 'hidden' : 'visible';
 
-    $('#distance-message').style.visibility = isValidDistance(distance)
-      ? 'hidden'
-      : 'visible';
+    $('#distance-message').style.visibility = isValidDistance(distance) ? 'hidden' : 'visible';
 
     return false;
   }
@@ -98,13 +85,11 @@ class AddModalContainer extends Component {
 
   template(): string {
     return `
-      <!-- 음식점 추가 모달 -->
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
           <form class="restaurant-form" >
-            <!-- 카테고리 -->
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
               <select name="category" id="category-input" required>
@@ -118,15 +103,11 @@ class AddModalContainer extends Component {
               </select>
               <p id='category-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.category}<p/>
             </div>
-
-            <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
             <input type="text" name="name" id="name-input" required />
               <p id='name-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.name}<p/>
             </div>
-
-            <!-- 거리 -->
             <div class="form-item form-item--required">
               <label for="distance text-caption">거리(도보 이동 시간) </label>
               <select name="distance" id="distance-input" required>
@@ -139,8 +120,6 @@ class AddModalContainer extends Component {
               </select>
               <p id='distance-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.distance}<p/>
             </div>
-
-            <!-- 설명 -->
             <div class="form-item">
               <label for="description text-caption">설명</label>
               <textarea
@@ -153,8 +132,6 @@ class AddModalContainer extends Component {
                 >메뉴 등 추가 정보를 입력해 주세요.</span
               >
             </div>
-
-            <!-- 링크 -->
             <div class="form-item">
               <label for="link text-caption">참고 링크</label>
               <input type="text" name="link" id="link-input" />
@@ -162,8 +139,6 @@ class AddModalContainer extends Component {
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
             </div>
-
-            <!-- 취소/추가 버튼 -->
             <div class="button-container">
               <button
                 type="button"

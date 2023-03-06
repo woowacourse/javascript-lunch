@@ -10,12 +10,9 @@ class FilterBar extends Component {
   constructor(elem: HTMLElement) {
     super(elem);
 
-    this.#filterOption = newState(
-      { category: Category.All, order: Order.Name },
-      () => {
-        eventBus.dispatch('@change-filter', { ...this.#filterOption });
-      }
-    );
+    this.#filterOption = newState({ category: Category.All, order: Order.Name }, () => {
+      eventBus.dispatch('@change-filter', { ...this.#filterOption });
+    });
 
     this.render().setEvent();
   }
@@ -46,7 +43,6 @@ class FilterBar extends Component {
     <option value="${Category.Etc}">기타</option>
   </select>
 
-  <!-- 정렬 셀렉트 박스 -->
   <select name="sorting" id="sorting-filter"  class="restaurant-filter">
     <option value="${Order.Name}">이름순</option>
     <option value="${Order.Distance}">거리순</option>

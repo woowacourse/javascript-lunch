@@ -14,10 +14,7 @@ class ListContainer extends Component {
   constructor(elem: HTMLElement) {
     super(elem);
 
-    this.#state = newState(
-      { restaurantList: restaurantStore.getList() },
-      this.render.bind(this)
-    );
+    this.#state = newState({ restaurantList: restaurantStore.getList() }, this.render.bind(this));
 
     this.render().subscribe();
   }
@@ -30,21 +27,11 @@ class ListContainer extends Component {
   }
 
   handleAdd(restaurantInput: IRestaurantInput): void {
-    this.#state.restaurantList = [
-      ...this.#state.restaurantList,
-      restaurantInput,
-    ];
+    this.#state.restaurantList = [...this.#state.restaurantList, restaurantInput];
   }
 
   handleFilter({ category, order }: IFilterOption): void {
-    this.#state.restaurantList =
-      restaurantStore.getFiltered(category, order) || [];
-  }
-
-  render() {
-    this.$target.innerHTML = this.template();
-
-    return this;
+    this.#state.restaurantList = restaurantStore.getFiltered(category, order) || [];
   }
 
   template(): string {
@@ -57,22 +44,18 @@ class ListContainer extends Component {
     return restaurantList.map(this.handleCreateList.bind(this)).join('');
   }
 
-  handleCreateList({
-    category,
-    name,
-    distance,
-    description,
-  }: IRestaurantInput) {
-    return `<li class="restaurant">
-    <div class="restaurant__category">
-      ${this.imageTemplate(category)}
-    </div>
-    <div class="restaurant__info">
-      ${this.titleTemplate(name)}
-      ${this.distanceTemplate(Number(distance))}
-      ${this.descriptionTemplate(description)}
-    </div>
-  </li>`;
+  handleCreateList({ category, name, distance, description }: IRestaurantInput) {
+    return `
+    <li class="restaurant">
+      <div class="restaurant__category">
+        ${this.imageTemplate(category)}
+      </div>
+      <div class="restaurant__info">
+        ${this.titleTemplate(name)}
+        ${this.distanceTemplate(Number(distance))}
+        ${this.descriptionTemplate(description)}
+      </div>
+    </li>`;
   }
 
   imageTemplate(category: string): string {
