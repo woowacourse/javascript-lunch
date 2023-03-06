@@ -1,4 +1,4 @@
-import { Restaurant, Category, RestaurantSortType } from '../types';
+import { Restaurant, Category, SortType } from '../types';
 
 import deepCopy from '../utils/deepCopy';
 
@@ -25,7 +25,7 @@ export default class Restaurants {
     });
   }
 
-  getSortedRestaurants(filteredRestaurants: Restaurant[], sortOption: RestaurantSortType) {
+  getSortedRestaurants(filteredRestaurants: Restaurant[], sortOption: SortType) {
     if (sortOption === 'name') {
       return this.getSortedRestaurantsByName(filteredRestaurants);
     }
