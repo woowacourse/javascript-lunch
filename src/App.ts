@@ -9,7 +9,9 @@ import { CategoryOptions, FilterOptions } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 const getInitialRestaurantList = () => {
-  const localRestaurants = getLocalStorage('restaurants') ?? [];
+  const localRestaurants =
+    JSON.parse(getLocalStorage('restaurants') as string) || [];
+
   return [...mockRestaurant, ...localRestaurants].map(
     (restaurant) => new Restaurant(restaurant)
   );
@@ -90,12 +92,14 @@ export default class App {
       },
     } = this.state;
 
-    this.filterRestaurantList(
-      filterByCategory as CategoryOptions,
-      filter as FilterOptions
-    );
+    this.filterRestaurantList(filterByCategory, filter);
 
-    const localRestaurants = getLocalStorage('restaurants') ?? [];
-    setLocalStorage('restaurants', [...localRestaurants, restaurantInfo]);
+    const localRestaurants =
+      JSON.parse(getLocalStorage('restaurants') as string) || [];
+
+    setLocalStorage(
+      'restaurants',
+      JSON.stringify([...localRestaurants, restaurantInfo])
+    );
   }
 }
