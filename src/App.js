@@ -18,8 +18,8 @@ const getInitialRestaurantList = () => {
 
 export default function App($app) {
   const $main = document.createElement('main');
+
   this.state = {
-    header: null,
     filters: null,
     restaurantList: null,
     restaurantService: new RestaurantService(getInitialRestaurantList()),
@@ -28,11 +28,11 @@ export default function App($app) {
   this.init = () => {
     new Header($app);
 
-    appendMain();
+    $app.appendChild($main);
 
     const { restaurantService } = this.state;
 
-    this.state.filters = new Filters($main, handleFiltersChange);
+    this.state.filters = new Filters($main, filterRestaurantList);
     this.state.restaurantList = new RestaurantList(
       $main,
       restaurantService.getRestaurantsInfo()
@@ -83,29 +83,6 @@ export default function App($app) {
 
   const handleFormCancel = () => {
     closeModal();
-  };
-
-  const appendMain = () => {
-    const $main = document.createElement('main');
-    $app.appendChild($main);
-  };
-
-  const handleFiltersChange = (event) => {
-    const { filters } = this.state;
-    const { id, value } = event.target;
-    console.log(event, event instanceof Event);
-    if (!filters) return;
-
-    switch (id) {
-      case 'category-filter':
-        filterRestaurantList(value, filters.state.filter);
-        break;
-      case 'sorting-filter':
-        filterRestaurantList(filters.state.category, value);
-        break;
-      default:
-        return;
-    }
   };
 
   const filterRestaurantList = (category, filter) => {
