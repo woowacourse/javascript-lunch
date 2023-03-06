@@ -6,7 +6,6 @@ import { Category, Order } from './constants/enum';
 import Component from './core/Component';
 import IRestaurantInput from './interfaces/IRestaurantInput';
 import sortItemsByName from './utils/sortByName';
-import { restaurantInputValidator } from './validator/restaurantInputValidator';
 import { IComponentPropState } from '@res/interfaces/IComponent';
 
 class App extends Component<IComponentPropState> {
@@ -35,13 +34,7 @@ class App extends Component<IComponentPropState> {
   }
 
   mounted() {
-    const {
-      toggleModal,
-      addRestaurant,
-      filterList,
-      getRestaurants,
-      setIsAddFormState,
-    } = this;
+    const { toggleModal, addRestaurant, filterList } = this;
     const $topNavBar = this.$target.querySelector<HTMLHeadingElement>('.gnb');
     const $addModalContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-add-modal-container'
@@ -64,8 +57,6 @@ class App extends Component<IComponentPropState> {
         toggleModal: toggleModal.bind(this),
         isModalOpened: this.$state.isModalOpened,
         addRestaurant: addRestaurant.bind(this),
-        isAddFormValid: this.$state.isAddFormValid,
-        setIsAddFormState: setIsAddFormState.bind(this),
       });
     }
 
@@ -86,10 +77,6 @@ class App extends Component<IComponentPropState> {
   toggleModal(): void {
     const { isModalOpened } = this.$state;
     this.setState({ isModalOpened: !isModalOpened });
-  }
-
-  setIsAddFormState(state: boolean): void {
-    this.setState({ isAddFormValid: state });
   }
 
   addRestaurant(restaurantInput: IRestaurantInput) {
