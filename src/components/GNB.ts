@@ -1,15 +1,15 @@
 import type { Component } from '../type';
 
-type HeaderState = {};
+type GNBState = {};
 
 type MainTemplateProps = {
   $parent: HTMLElement;
   toggleAddRestaurantDrawer: () => void;
 };
 
-class Header implements Component<HeaderState> {
+class GNB implements Component<GNBState> {
   $component: HTMLElement;
-  state: HeaderState;
+  state: GNBState;
   toggleAddRestaurantDrawer: () => void;
 
   constructor({ $parent, toggleAddRestaurantDrawer }: MainTemplateProps) {
@@ -22,7 +22,7 @@ class Header implements Component<HeaderState> {
     $parent.append(this.$component);
   }
 
-  setState(newState: HeaderState) {
+  setState(newState: GNBState) {
     this.state = newState;
     this.render();
   }
@@ -40,4 +40,4 @@ class Header implements Component<HeaderState> {
   }
 }
 
-export default Header;
+export default GNB;
