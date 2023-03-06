@@ -25,6 +25,10 @@ const Modal = {
     element.querySelector(".modal-container").innerHTML = string;
   },
 
+  setChildElement(element, child) {
+    element.querySelector(".modal-container").appendChild(child);
+  },
+
   addBackdrop(modalRoot) {
     const backdrop = document.createElement("div");
     backdrop.setAttribute("class", "modal-backdrop");
