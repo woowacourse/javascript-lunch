@@ -2,7 +2,7 @@ import Component from "../core/Component";
 
 export default class Filter extends Component {
   template() {
-    const { sortingWay, category } = this.props;
+    const { category, sortingWay } = this.props;
     return `
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체" ${category === "전체" ? "selected" : ""}>전체</option>
@@ -22,9 +22,12 @@ export default class Filter extends Component {
   }
 
   setEvent() {
-    const { setSortingWay, setCategory } = this.props;
-
-    this.addEvent("change", "#sorting-filter", setSortingWay);
-    this.addEvent("change", "#category-filter", setCategory);
+    const { setState } = this.props;
+    this.addEvent("change", "#sorting-filter", (e) => {
+      setState({ sortingWay: e.target.value });
+    });
+    this.addEvent("change", "#category-filter", (e) => {
+      setState({ category: e.target.value });
+    });
   }
 }

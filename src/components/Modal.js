@@ -1,4 +1,5 @@
 import Component from "../core/Component";
+import store from "../util/store";
 
 export default class Modal extends Component {
   template() {
@@ -82,10 +83,13 @@ export default class Modal extends Component {
   }
 
   setEvent() {
-    const { toggleModal, addRestaurant } = this.props;
-
-    this.addEvent("click", "#cancel-button", toggleModal);
-    this.addEvent("click", ".modal-backdrop", toggleModal);
+    const { render } = this.props;
+    this.addEvent("click", "#cancel-button", () => {
+      this.$target.classList.toggle("modal--open");
+    });
+    this.addEvent("click", ".modal-backdrop", () => {
+      this.$target.classList.toggle("modal--open");
+    });
     this.addEvent("submit", "#add-restaurant-form", (event) => {
       event.preventDefault();
 
@@ -102,7 +106,10 @@ export default class Modal extends Component {
         description,
         link,
       };
-      addRestaurant(newRestaurant);
+
+      store.addRestaurant(newRestaurant);
+      this.$target.classList.toggle("modal--open");
+      render();
     });
   }
 }
