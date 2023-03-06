@@ -1,4 +1,5 @@
 import { GLOBAL_CSS } from '../constants';
+import { $ } from '../utils';
 
 class FilterBox extends HTMLElement {
   createOption(title) {
@@ -27,24 +28,18 @@ class FilterBox extends HTMLElement {
   }
 `;
 
-    const template = document.createElement('template');
-
     const name = this.getAttribute('name');
     const id = this.getAttribute('id');
     const optionsAttribute = this.getAttribute('options').split(',');
     const options = optionsAttribute.map((option) => this.createOption(option));
 
-    template.innerHTML = `
-    <select name="${name}" id="${id}Select" class="restaurant-filter">
+    this.shadowRoot.innerHTML = `
+    <select name="${name}" id="${id}" class="restaurant-filter">
         ${options.join('\n')}
       </select>
     `;
 
-    const cloneNode = template.content.cloneNode(true);
-
-    this.shadowRoot.appendChild(globalStyle);
-    this.shadowRoot.appendChild(componentStyle);
-    this.shadowRoot.appendChild(cloneNode);
+    this.shadowRoot.append(globalStyle, componentStyle);
   }
 
   static get observedAttributes() {
@@ -55,6 +50,11 @@ class FilterBox extends HTMLElement {
     if (name === 'name' && name === 'id' && name === 'options') {
       this.connectedCallback();
     }
+  }
+
+  getSelectValue() {
+    const id = this.getAttribute('id');
+    return this.shadowRoot.querySelector(`#${id}`).value;
   }
 }
 

@@ -100,6 +100,11 @@ class AddSelect extends HTMLElement {
     const id = this.getAttribute('id');
     this.shadowRoot.querySelector(`#${id}`).value = '';
   }
+
+  getSelectValue() {
+    const id = this.getAttribute('id');
+    return this.shadowRoot.querySelector(`#${id}`).value;
+  }
 }
 
 export default AddSelect;

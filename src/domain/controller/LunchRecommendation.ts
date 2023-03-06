@@ -1,5 +1,6 @@
-import RestaurantList, { Restaurant } from '../model/RestaurantList';
-import { $, $$, $$$ } from '../../utils';
+import { Restaurant } from '../model/RestaurantList';
+import RestaurantList from '../model/RestaurantList';
+import { $, $$$ } from '../../utils';
 import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../../constants';
 
 class LunchRecommendation {
@@ -20,7 +21,7 @@ class LunchRecommendation {
       });
     }
 
-    this.drawRestuants();
+    this.drawRestaurants();
   }
 
   play() {
@@ -32,26 +33,26 @@ class LunchRecommendation {
 
   modalEvent() {
     $$$('lunch-header', '#openModal').addEventListener('click', () => {
-      $('add-restaurant-modal').modalOpen(true);
+      this.modalOpen(true);
     });
     $$$('add-restaurant-modal', '#cancleModal').addEventListener(
       'click',
       () => {
-        $('add-restaurant-modal').modalOpen(false);
+        this.modalOpen(false);
       }
     );
 
     $$$('add-restaurant-modal', '#modalBackdrop').addEventListener(
       'click',
       () => {
-        $('add-restaurant-modal').modalOpen(false);
+        this.modalOpen(false);
         // $('add-restaurant-modal').setAttribute('modal', 'close');
       }
     );
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        $('add-restaurant-modal').modalOpen(false);
+        this.modalOpen(false);
       }
     });
   }
@@ -62,20 +63,16 @@ class LunchRecommendation {
       (event: SubmitEvent) => {
         event.preventDefault();
 
-        const category = $$$('add-restaurant-modal', '#categoryList').value;
-        const name = $$$('add-restaurant-modal', '#nameInput').value;
-        const distance = $$$('add-restaurant-modal', '#distanceList').value;
-        const description = $$$(
-          'add-restaurant-modal',
-          '#descriptionInput'
-        ).value;
-        const link = $$$('add-restaurant-modal', '#linkInput').value;
+        const { category, name, distance, description, link } = $(
+          'add-restaurant-modal'
+        ).getFormValues();
+
         const restaurant = {
-          category,
-          name,
-          distance,
-          description,
-          link,
+          category: category,
+          name: name,
+          distance: distance,
+          description: description,
+          link: link,
         };
         this.#restaurants.add(restaurant);
         const restaurants = this.#restaurants.getList('전체', 'name');
@@ -83,33 +80,27 @@ class LunchRecommendation {
         const restaurantsString = JSON.stringify(restaurants);
         window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
         $('add-restaurant-modal').resetForm();
-        this.drawRestuants();
+        this.modalOpen(false);
+        this.drawRestaurants();
       }
     );
   }
 
   filterEvent() {
-    $$$('#sortingFilter', '#sortingFilterSelect').addEventListener(
-      'change',
-      () => {
-        this.drawRestuants();
-      }
-    );
+    $$$('#categoryFilter', '#categoryFilter').addEventListener('change', () => {
+      this.drawRestaurants();
+    });
   }
 
   sortEvent() {
-    $$$('#categoryFilter', '#categoryFilterSelect').addEventListener(
-      'change',
-      () => {
-        this.drawRestuants();
-      }
-    );
+    $$$('#sortingFilter', '#sortingFilter').addEventListener('change', () => {
+      this.drawRestaurants();
+    });
   }
 
-  drawRestuants() {
-    const categoryValue = $$$('#categoryFilter', '#categoryFilterSelect').value;
-
-    const sortingValue = $$$('#sortingFilter', '#sortingFilterSelect').value;
+  drawRestaurants() {
+    const categoryValue = $('#categoryFilter').getSelectValue();
+    const sortingValue = $('#sortingFilter').getSelectValue();
 
     const englishSortingValue = sortingValue === '이름순' ? 'name' : 'distance';
 
@@ -119,6 +110,10 @@ class LunchRecommendation {
     );
 
     $('restaurant-boxes').restaurantListRender(filteredList);
+  }
+
+  modalOpen(isOpen: boolean) {
+    $('add-restaurant-modal').modalOpen(isOpen);
   }
 }
 

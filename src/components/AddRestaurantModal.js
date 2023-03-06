@@ -1,4 +1,5 @@
 import { GLOBAL_CSS } from '../constants';
+import { $, $$ } from '../utils';
 
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
@@ -86,11 +87,27 @@ class AddRestaurantModal extends HTMLElement {
 
   resetForm() {
     this.shadowRoot
-      .querySelectorAll('filter-box')
+      .querySelectorAll('add-text-input')
       .forEach((element) => element.reset());
     this.shadowRoot
       .querySelectorAll('add-select')
       .forEach((element) => element.reset());
+  }
+
+  getFormValues() {
+    const category = this.shadowRoot
+      .querySelector('#category')
+      .getSelectValue();
+    const name = this.shadowRoot.querySelector('#name').getTextValue();
+    const distance = this.shadowRoot
+      .querySelector('#distance')
+      .getSelectValue();
+    const description = this.shadowRoot
+      .querySelector('#description')
+      .getTextValue();
+    const link = this.shadowRoot.querySelector('#link').getTextValue();
+
+    return { category, name, distance, description, link };
   }
 }
 

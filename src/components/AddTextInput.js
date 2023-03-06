@@ -71,7 +71,7 @@ class AddTextInput extends HTMLElement {
       this.shadowRoot.innerHTML = `
         <div class="form-item form-item--required">
                 <label for="${id} text-caption">${name}</label>
-                <input type="text" name="${id}" id="${id}Input" required>
+                <input type="text" name="${id}" id="${id}" required>
               </div>
         `;
     }
@@ -80,7 +80,7 @@ class AddTextInput extends HTMLElement {
       this.shadowRoot.innerHTML = `
       <div class="form-item">
             <label for="${id} text-caption">${name}</label>
-            <textarea name="${id}" id="${id}Input" cols="30" rows="5"></textarea>
+            <textarea name="${id}" id="${id}" cols="30" rows="5"></textarea>
             <span class="help-text text-caption">${caption}</span>
           </div>
         `;
@@ -90,7 +90,7 @@ class AddTextInput extends HTMLElement {
       this.shadowRoot.innerHTML = `
         <div class="form-item">
                 <label for="${id} text-caption">${name}</label>
-                <input type="text" name="${id}" id="${id}Input">
+                <input type="text" name="${id}" id="${id}">
                 <span class="help-text text-caption">${caption}</span>
               </div>
         `;
@@ -112,6 +112,11 @@ class AddTextInput extends HTMLElement {
   reset() {
     const id = this.getAttribute('id');
     this.shadowRoot.querySelector(`#${id}`).value = '';
+  }
+
+  getTextValue() {
+    const id = this.getAttribute('id');
+    return this.shadowRoot.querySelector(`#${id}`).value;
   }
 }
 
