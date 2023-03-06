@@ -28,16 +28,16 @@ class Controller {
     return Controller.instance;
   }
 
+  getRestaurants() {
+    return this.state.restaurants;
+  }
+
   renderRestaurantList() {
     const restaurantList = document.getElementById("restaurantList");
     if (!(restaurantList instanceof RestaurantList)) {
       return;
     }
     restaurantList.render();
-  }
-
-  getRestaurants() {
-    return this.state.restaurants;
   }
 
   addRestaurant(newRestaurant: RestaurantType) {

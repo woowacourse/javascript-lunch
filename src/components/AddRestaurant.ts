@@ -1,5 +1,6 @@
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
+import { closeBottomSheet } from "../utils";
 import BottomSheet from "./BottomSheet";
 
 class AddRestaurant extends HTMLElement {
@@ -77,11 +78,7 @@ class AddRestaurant extends HTMLElement {
   onClickCancelButton() {
     const cancelButton = document.getElementById("cancelButton");
     cancelButton?.addEventListener("click", () => {
-      const bottomSheet = document.getElementById("bottomSheet");
-      if (!(bottomSheet instanceof BottomSheet)) {
-        return;
-      }
-      bottomSheet?.close();
+      closeBottomSheet();
     });
   }
 
@@ -91,12 +88,7 @@ class AddRestaurant extends HTMLElement {
       event.preventDefault();
       const newRestaurant = this.createNewRestaurant(event);
       this.controller.addRestaurant(newRestaurant);
-      this.controller.setLocalStorage();
-      const bottomSheet = document.getElementById("bottomSheet");
-      if (!(bottomSheet instanceof BottomSheet)) {
-        return;
-      }
-      bottomSheet?.close();
+      closeBottomSheet();
     });
   }
 
