@@ -5,7 +5,7 @@ import {
 } from "./errorThrower";
 
 export const validateName = (restaurantInfo: string) => {
-    checkRestaurantName(restaurantInfo);
-    checkInputLength(restaurantInfo);
-    checkDuplicate(restaurantInfo);
+  checkDuplicate(restaurantInfo);
+  checkInputLength(restaurantInfo);
+  checkRestaurantName(restaurantInfo);
 };
