@@ -47,7 +47,7 @@ class RestaurantList extends HTMLElement {
       .filter(
         (restaurant) => filter === "all" || restaurant.category === filter
       )
-      .sort((a: IRestaurant, b: IRestaurant) => {
+      .sort((a, b) => {
         if (sort === "name" || sort === "distance") {
           return a[sort] > b[sort] ? 1 : -1;
         }
