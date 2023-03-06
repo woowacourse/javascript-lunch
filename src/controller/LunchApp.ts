@@ -17,6 +17,10 @@ class LunchApp {
       onSortByChange: (sortBy: string) => this.#onSortByChange(sortBy),
     },
   });
+
+  #onHeaderAddButtonClicked() {
+    this.#lunchAppView.toggleRestaurantAddModal();
+  }
 }
 
 export default LunchApp;
