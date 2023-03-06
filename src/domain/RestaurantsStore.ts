@@ -91,6 +91,8 @@ class RestaurantsStore {
           (prev, next) => prev.distance - next.distance
         );
         break;
+      default:
+        this.#restaurantList = this.#restaurantList;
     }
   }
 }
