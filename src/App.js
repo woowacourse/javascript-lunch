@@ -24,6 +24,7 @@ export class App {
       }
     );
     localStorage.setItem("sort", "name");
+    this.restaurantList.filterBySort("name", "전체")
   }
 
   collectedRender() {

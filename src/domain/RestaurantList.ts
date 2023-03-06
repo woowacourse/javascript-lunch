@@ -5,6 +5,7 @@ import RestaurantRegistry from "../UI/RestaurantRegistry";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
   private restaurantRegistry;
+  private filteredList: RestaurantForm[] = [];
 
   constructor() {
     const res = JSON.parse(localStorage.getItem("restaurants") || "[]");
@@ -56,18 +57,18 @@ export class RestaurantList {
     this.attachRestaurantToRegistry(restaurantParsedInfo);
   }
 
-  filterBySort(sortBy:string) {
+  filterBySort(sortBy:string, foodCategory:Category) {
     $(".restaurant-list").replaceChildren();
+    const restaurantParsedInfo = this.categoryFilter(foodCategory)
 
-    const restaurantParsedInfo = this.getRestaurantListFromLocalstorage();
     if (sortBy === "name") sortByName(restaurantParsedInfo);
     if (sortBy === "distance") sortByDistance(restaurantParsedInfo);
-
+    
     localStorage.setItem("sort", sortBy);
     this.attachRestaurantToRegistry(restaurantParsedInfo);
   }
 
-  getRestaurantListFromLocalstorage() {
+  getRestaurantListFromLocalstorage():RestaurantForm[] {
     return JSON.parse(localStorage.getItem("restaurants") || "[]");
   }
 

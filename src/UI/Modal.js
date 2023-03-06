@@ -94,7 +94,7 @@ export default class Modal {
       this.restaurantList.listRestaurant[this.getRestaurantLength()]
     );
     this.restaurantList.filterCategory(foodCategory)
-    this.restaurantList.filterBySort(sortBy)
+    this.restaurantList.filterBySort(sortBy, foodCategory)
     this.closeModal();
   }
 
