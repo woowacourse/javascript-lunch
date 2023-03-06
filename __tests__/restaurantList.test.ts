@@ -1,8 +1,7 @@
-import Restaurant, { RestaurantInfo } from '../src/domain/model/Restaurant';
-import RestaurantList from '../src/domain/model/RestaurantList';
+import RestaurantList, { Restaurant } from '../src/domain/model/RestaurantList';
 
 describe('음식점 목록에 대한 테스트', () => {
-  const chinese: RestaurantInfo = {
+  const chinese: Restaurant = {
     name: '중화반점',
     category: '중식',
     distance: 5,
@@ -10,7 +9,7 @@ describe('음식점 목록에 대한 테스트', () => {
     link: 'www.naver.com',
   };
 
-  const korean: RestaurantInfo = {
+  const korean: Restaurant = {
     name: '시골밥상',
     category: '한식',
     distance: 30,
@@ -18,24 +17,20 @@ describe('음식점 목록에 대한 테스트', () => {
     link: 'www.yahoo.com',
   };
 
-  const japanese: RestaurantInfo = {
+  const japanese: Restaurant = {
     name: '스시천국',
     category: '일식',
     distance: 20,
   };
-
-  const chineseRestaurant = new Restaurant(chinese);
-  const koreanRestaurant = new Restaurant(korean);
-  const japaneseRestaurant = new Restaurant(japanese);
 
   test('음식점을 목록에 추가하는 테스트', () => {
     //given
     const restaurantList = new RestaurantList();
 
     //when
-    restaurantList.add(chineseRestaurant);
-    restaurantList.add(koreanRestaurant);
-    restaurantList.add(japaneseRestaurant);
+    restaurantList.add(chinese);
+    restaurantList.add(korean);
+    restaurantList.add(japanese);
     const result = restaurantList.getList('전체', 'name');
 
     //then
@@ -48,18 +43,18 @@ describe('음식점 목록에 대한 테스트', () => {
     const restaurantList = new RestaurantList();
 
     //when
-    restaurantList.add(chineseRestaurant);
-    restaurantList.add(koreanRestaurant);
-    restaurantList.add(japaneseRestaurant);
+    restaurantList.add(chinese);
+    restaurantList.add(korean);
+    restaurantList.add(japanese);
     const chineseResult = restaurantList.getList('중식', 'name');
     const japaneseResult = restaurantList.getList('일식', 'name');
     const koreanResult = restaurantList.getList('한식', 'name');
-    console.log(chineseResult, chineseRestaurant);
+    console.log(chineseResult, chinese);
     //then
 
-    expect(chineseResult).toEqual([chineseRestaurant]);
-    expect(japaneseResult).toEqual([japaneseRestaurant]);
-    expect(koreanResult).toEqual([koreanRestaurant]);
+    expect(chineseResult).toEqual([chinese]);
+    expect(japaneseResult).toEqual([japanese]);
+    expect(koreanResult).toEqual([korean]);
   });
 
   test('이름순으로 음식점이 불러와지는지 테스트', () => {
@@ -67,18 +62,14 @@ describe('음식점 목록에 대한 테스트', () => {
     const restaurantList = new RestaurantList();
 
     //when
-    restaurantList.add(chineseRestaurant);
-    restaurantList.add(koreanRestaurant);
-    restaurantList.add(japaneseRestaurant);
+    restaurantList.add(chinese);
+    restaurantList.add(korean);
+    restaurantList.add(japanese);
     const result = restaurantList.getList('전체', 'name');
 
     //then
 
-    expect(result).toEqual([
-      japaneseRestaurant,
-      koreanRestaurant,
-      chineseRestaurant,
-    ]);
+    expect(result).toEqual([japanese, korean, chinese]);
   });
 
   test('거리순으로 음식점이 불러와지는지 테스트', () => {
@@ -86,17 +77,13 @@ describe('음식점 목록에 대한 테스트', () => {
     const restaurantList = new RestaurantList();
 
     //when
-    restaurantList.add(chineseRestaurant);
-    restaurantList.add(koreanRestaurant);
-    restaurantList.add(japaneseRestaurant);
+    restaurantList.add(chinese);
+    restaurantList.add(korean);
+    restaurantList.add(japanese);
     const result = restaurantList.getList('전체', 'distance');
 
     //then
 
-    expect(result).toEqual([
-      chineseRestaurant,
-      japaneseRestaurant,
-      koreanRestaurant,
-    ]);
+    expect(result).toEqual([chinese, japanese, korean]);
   });
 });
