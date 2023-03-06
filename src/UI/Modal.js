@@ -71,13 +71,17 @@ export default class Modal {
     `;
 
   constructor(restaurantList, restaurantItem) {
+    this.restaurantList = restaurantList;
+    this.restaurantItem = restaurantItem;
+    this.init();
+  }
+
+  init() {
     this.modal = $(".modal");
     this.modal.insertAdjacentHTML("beforeend", this.#template);
     this.modalForm = $(".modal-form");
-    this.restaurantList = restaurantList;
-    this.restaurantItem = restaurantItem;
     this.addRestaurantHandler();
-    this.close();
+    this.closeModalHandler();
   }
 
   addRestaurantHandler() {
@@ -148,42 +152,34 @@ export default class Modal {
     });
   }
 
-  close() {
+  closeModalHandler() {
     $(".button--secondary").addEventListener("click", this.closeModal);
     this.closeEscape();
     this.closeBackDrop();
   }
 
-  closeModal = () => {
-    this.resetValue();
-    $(".modal--open").style.display = "none";
-  };
+  closeModal() {
+    this.modalForm.reset();
+    this.modal.style.display = "none";
+  }
 
   closeEscape() {
     window.addEventListener("keyup", (event) => {
-      if (this.isVisibleModal() && event.key === "Escape") {
-        this.closeModal();
-      }
+      if (!this.isVisibleModal()) return;
+      if (event.key !== "Escape") return;
+
+      this.closeModal();
     });
   }
 
   closeBackDrop() {
     $(".modal-backdrop").addEventListener("click", () => {
-      if (this.isVisibleModal()) this.closeModal();
+      if (!this.isVisibleModal()) return;
+      this.closeModal();
     });
   }
 
   isVisibleModal() {
     return this.modal.style.display === "block";
-  }
-
-  resetValue() {
-    $$(".form-item").forEach((formItem, index) => {
-      if (index === 0 || index === 2) {
-        formItem.children[1].value = "";
-        return;
-      }
-      formItem.children[1].value = null;
-    });
   }
 }
