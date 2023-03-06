@@ -6,12 +6,12 @@ import Modal from "./components/Modal";
 
 import RestaurantListManager from "./domain/RestaurantListManager";
 import RestaurantFilter from "./domain/RestaurantFilter";
-import store from "./util/store";
+import LocalStorage from "./util/LocalStorage";
 import { CATEGORY, SORT } from "./constants";
 
 export default class App extends Component {
   setup() {
-    const localList = store.getLocalStorage();
+    const localList = LocalStorage.getData("list");
     this.RestaurantListManager = new RestaurantListManager(localList);
     const sortedList = RestaurantFilter.sortRestaurants("name", localList);
 
@@ -68,7 +68,7 @@ export default class App extends Component {
 
     this.RestaurantListManager.addRestaurant(newRestaurant);
     this.setState({ restaurantList: updatedRestaurantList });
-    store.setLocalStorage(updatedRestaurantList);
+    LocalStorage.setData("list", updatedRestaurantList);
 
     this.toggleModal();
   }
