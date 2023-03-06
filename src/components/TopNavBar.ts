@@ -3,7 +3,7 @@ import { eventBus } from '@res/core/eventBus';
 import { $, on } from '@res/utils/domUtils';
 
 class TopNavBar extends Component {
-  constructor(element: Element) {
+  constructor(element: HTMLElement | Element) {
     super(element);
 
     this.render();
