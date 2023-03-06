@@ -1,7 +1,6 @@
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
 import { closeBottomSheet } from "../utils";
-import BottomSheet from "./BottomSheet";
 
 class AddRestaurant extends HTMLElement {
   private controller;
