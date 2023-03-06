@@ -4,8 +4,7 @@ class RestaurantList {
   template() {
     return `
     <section class="restaurant-list-container">
-      <ul class="restaurant-list">
-      </ul>
+      <ul class="restaurant-list" />
     </section>`;
   }
 
