@@ -4,7 +4,6 @@ const LocalStorage = {
   },
 
   getItem(key) {
-    console.log(JSON.parse(window.localStorage.getItem(key)));
     return JSON.parse(window.localStorage.getItem(key));
   },
 };
