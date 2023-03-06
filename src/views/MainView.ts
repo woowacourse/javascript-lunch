@@ -3,10 +3,10 @@ import renderList from '../components/RestaurantList';
 import { Restaurant } from '../types/types';
 
 class MainView {
-  private addButton = $('.gnb__button') as HTMLButtonElement;
-  private modal = $('.modal') as HTMLDialogElement;
-  private categoryFilter = $('#category-filter') as HTMLSelectElement;
-  private sortingFilter = $('#sorting-filter') as HTMLSelectElement;
+  private addButton = $<HTMLButtonElement>('.gnb__button');
+  private modal = $<HTMLDialogElement>('.modal');
+  private categoryFilter = $<HTMLSelectElement>('#category-filter');
+  private sortingFilter = $<HTMLSelectElement>('#sorting-filter');
 
   constructor() {
     this.addRestaurantAddButtonClickEvent();
@@ -20,15 +20,13 @@ class MainView {
 
   addCategoryChangeEventHandler(onChangeCategoryFilter: CallableFunction) {
     this.categoryFilter.addEventListener('change', (event: Event) => {
-      const target = event.target as HTMLSelectElement;
-      onChangeCategoryFilter(target.value);
+      if (event.target instanceof HTMLSelectElement) onChangeCategoryFilter(event.target.value);
     });
   }
 
   addSortingChangeEventHandler(onChangeSortingFilter: CallableFunction) {
     this.sortingFilter.addEventListener('change', (event: Event) => {
-      const target = event.target as HTMLSelectElement;
-      onChangeSortingFilter(target.value);
+      if (event.target instanceof HTMLSelectElement) onChangeSortingFilter(event.target.value);
     });
   }
 

@@ -4,17 +4,17 @@ import restaurantFormValidator from '../validators/restaurantFormValidator';
 import { ERROR_MESSAGE, MESSAGE } from '../constants/constants';
 
 class ModalView {
-  private restaurantAddForm = $('#restaurant-add-form') as HTMLFormElement;
-  private modal = $('.modal') as HTMLDialogElement;
-  private closeButton = $('#modal-close-button') as HTMLButtonElement;
-  private categoryInput = $('#category') as HTMLSelectElement;
-  private categoryInputCaption = $('#category-caption') as HTMLSpanElement;
-  private nameInput = $('#name') as HTMLInputElement;
-  private nameInputCaption = $('#name-caption') as HTMLSpanElement;
-  private distanceInput = $('#distance') as HTMLInputElement;
-  private distanceInputCaption = $('#distance-caption') as HTMLSpanElement;
-  private linkInput = $('#link') as HTMLInputElement;
-  private linkInputCaption = $('#link-caption') as HTMLSpanElement;
+  private restaurantAddForm = $<HTMLFormElement>('#restaurant-add-form')!;
+  private modal = $<HTMLDialogElement>('.modal');
+  private closeButton = $<HTMLButtonElement>('#modal-close-button');
+  private categoryInput = $<HTMLSelectElement>('#category');
+  private categoryInputCaption = $<HTMLSpanElement>('#category-caption');
+  private nameInput = $<HTMLInputElement>('#name');
+  private nameInputCaption = $<HTMLSpanElement>('#name-caption');
+  private distanceInput = $<HTMLInputElement>('#distance');
+  private distanceInputCaption = $<HTMLSpanElement>('#distance-caption');
+  private linkInput = $<HTMLInputElement>('#link');
+  private linkInputCaption = $<HTMLSpanElement>('#link-caption');
 
   constructor() {
     this.initInputCaptions();
@@ -132,9 +132,8 @@ class ModalView {
 
   addModalBackdropClickEvent() {
     this.modal.addEventListener('click', event => {
-      const target = event.target as HTMLDialogElement;
-      if (target === event.currentTarget) {
-        target.close();
+      if (event.target instanceof HTMLDialogElement && event.target.nodeName === 'DIALOG') {
+        event.target.close();
       }
     });
   }
