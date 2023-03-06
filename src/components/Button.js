@@ -34,21 +34,15 @@ class Button extends HTMLElement {
       
 `;
 
-    const template = document.createElement('template');
-
     const name = this.getAttribute('name');
     const id = this.getAttribute('id');
     const color = this.getAttribute('color');
 
-    template.innerHTML = `
+    this.shadowRoot.innerHTML = `
     <button type="button" id=${id} class="button button--${color} text-caption">${name}</button>
     `;
 
-    const cloneNode = template.content.cloneNode(true);
-
-    this.shadowRoot.appendChild(globalStyle);
-    this.shadowRoot.appendChild(componentStyle);
-    this.shadowRoot.appendChild(cloneNode);
+    this.shadowRoot.append(globalStyle, componentStyle);
   }
 
   static get observedAttributes() {

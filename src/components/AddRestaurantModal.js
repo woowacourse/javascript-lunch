@@ -1,5 +1,4 @@
 import { GLOBAL_CSS } from '../constants';
-import { $, $$ } from '../utils';
 
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {

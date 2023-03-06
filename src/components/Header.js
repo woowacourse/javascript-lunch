@@ -43,9 +43,7 @@ class Header extends HTMLElement {
     }
 `;
 
-    const template = document.createElement('template');
-
-    template.innerHTML = `
+    this.shadowRoot.innerHTML = `
     <header id="head" class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" id="openModal" class="gnb__button" aria-label="음식점 추가">
@@ -54,11 +52,7 @@ class Header extends HTMLElement {
     </header>
     `;
 
-    const cloneNode = template.content.cloneNode(true);
-
-    this.shadowRoot.appendChild(globalStyle);
-    this.shadowRoot.appendChild(componentStyle);
-    this.shadowRoot.appendChild(cloneNode);
+    this.shadowRoot.append(globalStyle, componentStyle);
   }
 }
 
