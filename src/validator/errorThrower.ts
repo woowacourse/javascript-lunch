@@ -3,7 +3,7 @@ import {
   NAME_LENGTH,
   REGEX_SPECIAL_CHARACTERS,
 } from "../constant";
-import { getAllDataOnLocalStorage } from "../util/localStorage";
+import { getAllDataOnLocalStorage } from "../domain/localStorageController";
 
 const { NO_SPECIAL_CHARACTERS, NAME_LENGTH_LIMIT, DUPLICATE_NAME } =
   ERROR_MESSAGE;

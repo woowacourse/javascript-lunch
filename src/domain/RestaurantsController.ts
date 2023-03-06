@@ -5,7 +5,7 @@ import { initialRestaurantData } from "../constant/initialRestaurants";
 import {
   getAllDataOnLocalStorage,
   saveOnLocalStorage,
-} from "../util/localStorage";
+} from "./localStorageController";
 import {
   renderNewRestaurant,
   renderRestaurantList,
