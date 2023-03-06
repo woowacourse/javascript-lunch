@@ -1,11 +1,10 @@
 import { Restaurant } from '../types/types';
-import { RESTAURANT_IMAGE } from '../constants/images';
 
-const createRestaurantItem = function (restaurant: Restaurant) {
+const createRestaurantItem = function (restaurant: Restaurant, categoryImageUrl: string) {
   return `<li class="restaurant">
   
   <div class="restaurant__category">
-    <img src="${RESTAURANT_IMAGE[restaurant.category]}" 
+    <img src="${categoryImageUrl}" 
     alt="${restaurant.category}" class="category-icon"/>
   </div>
 

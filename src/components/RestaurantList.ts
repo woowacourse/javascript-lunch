@@ -1,11 +1,18 @@
 import { $ } from '../utils/domSelectors';
-import createRestaurantItem from './RestaurantItem';
 import { Restaurant } from '../types/types';
+import { RESTAURANT_IMAGE } from '../constants/images';
+import createRestaurantItem from './RestaurantItem';
 
 function renderList(sortedRestaurants: Restaurant[]) {
-  const restaurantList = $('.restaurant-list') as HTMLUListElement;
+  const restaurantList = $<HTMLUListElement>('.restaurant-list');
+
   restaurantList.innerHTML = '';
-  const restaurantItems = sortedRestaurants.map(restaurant => createRestaurantItem(restaurant));
+  const restaurantItems = sortedRestaurants.map(restaurant => {
+    const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
+
+    return createRestaurantItem(restaurant, categoryImageUrl);
+  });
+
   restaurantList.insertAdjacentHTML('beforeend', restaurantItems.join(''));
 }
 
