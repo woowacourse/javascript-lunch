@@ -1,9 +1,9 @@
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
 
-const sortItemsByName = (items: IRestaurantInput[]) => {
+const sortItemsByName = (items: IRestaurantInput[]): IRestaurantInput[] => {
   const regex = /([a-zA-Z]+)?([^a-zA-Z]*)/;
 
-  items.sort((a, b) => {
+  return items.sort((a, b) => {
     const aMatches = a.name.match(regex);
     const bMatches = b.name.match(regex);
 
