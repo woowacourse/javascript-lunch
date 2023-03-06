@@ -24,6 +24,11 @@ class Restaurants {
 
     return sortedRestaurants;
   }
+
+  saveRestaurantsToLocalStorage() {
+    storage.setData(LOCAL_STORAGE_KEY, this.#restaurants);
+  }
+
   setFilterBy(filterBy: string) {
     this.#filterBy = filterBy;
   }
