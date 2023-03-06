@@ -71,8 +71,9 @@ class AddModal {
 
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
+      this.deleteErrorMessage();
+
       const restaurant = this.getRestaurantData();
-      $(".error--message")?.remove();
 
       try {
         addNewRestaurant(restaurant);
@@ -99,14 +100,14 @@ class AddModal {
     return restaurant;
   }
 
-  resetFormValues() {
+  resetForm() {
     const modalForm = $(".modal-form") as HTMLFormElement;
     modalForm.reset();
-    $(".error--message")?.remove();
+    this.deleteErrorMessage();
   }
 
   closeModal() {
-    this.resetFormValues();
+    this.resetForm();
     $(".modal")?.classList.remove("modal--open");
   }
 
@@ -115,6 +116,10 @@ class AddModal {
       "beforeend",
       `<div class='error--message'>${message}</div>`
     );
+  }
+
+  deleteErrorMessage() {
+    $(".error--message")?.remove();
   }
 }
 
