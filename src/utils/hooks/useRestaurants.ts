@@ -4,9 +4,11 @@ import {
   Restaurant,
   RestaurantInfo,
 } from '../../domain/model/LunchRecommendation';
+import { initMockData } from '../../mocks/restaurantsInfo';
 import { getData } from '../common/localStorage';
 import { useState } from '../core';
 
+initMockData();
 const lunchRecommendation = new LunchRecommendation(getData());
 
 function useRestaurants() {
