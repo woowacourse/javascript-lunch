@@ -1,4 +1,4 @@
-import { Restaurant } from '../types/Types';
+import { Restaurant, SortTypeFilter, CategoryFilter } from '../types/Types';
 import { compareString } from '../utils/common';
 import { VALUE } from '../constants/constants';
 
@@ -24,18 +24,18 @@ class Restaurants {
     return restaurant;
   }
 
-  getRestaurant(category: string, sortType: string) {
+  getRestaurant(category: CategoryFilter, sortType: SortTypeFilter) {
     return this.sortByType(sortType, this.filterByCategory(category, this.#restaurants));
   }
 
-  filterByCategory(category: string, restaurants: Restaurant[]): Restaurant[] {
-    if (category === VALUE.catgory.all) return restaurants;
+  filterByCategory(category: CategoryFilter, restaurants: Restaurant[]): Restaurant[] {
+    if (category.value === VALUE.catgory.all) return restaurants;
 
-    return restaurants.filter(restaurant => restaurant.category === category);
+    return restaurants.filter(restaurant => restaurant.category === category.value);
   }
 
-  sortByType(sortType: string, restaurants: Restaurant[]): Restaurant[] {
-    if (sortType === VALUE.sortType.nameOrder) {
+  sortByType(sortType: SortTypeFilter, restaurants: Restaurant[]): Restaurant[] {
+    if (sortType.value === VALUE.sortType.nameOrder) {
       return [...restaurants].sort((a, b) => compareString(a.name, b.name));
     }
 

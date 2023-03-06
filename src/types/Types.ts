@@ -5,3 +5,11 @@ export interface Restaurant {
   description?: string;
   link?: string;
 }
+
+export interface CategoryFilter {
+  value: '전체' | '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+}
+
+export interface SortTypeFilter {
+  value: 'name' | 'distance';
+}
