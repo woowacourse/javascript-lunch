@@ -3,9 +3,10 @@ import Header from './components/Header';
 import RestaurantForm from './components/RestaurantForm';
 import RestaurantList from './components/RestaurantList';
 import { mockRestaurant } from './data';
-import { Restaurant } from './domain/Restaurant';
+import { IRestaurant, Restaurant } from './domain/Restaurant';
 import RestaurantService from './domain/RestaurantService';
 import { closeModal, showModal } from './modal';
+import { Category, DistanceTime } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 const getInitialRestaurantList = () => {
@@ -16,8 +17,8 @@ const getInitialRestaurantList = () => {
 };
 
 export default function App($app) {
+  const $main = document.createElement('main');
   this.state = {
-    main: null,
     header: null,
     filters: null,
     restaurantList: null,
@@ -25,15 +26,15 @@ export default function App($app) {
   };
 
   this.init = () => {
-    this.state.header = new Header($app, showRestaurantAddUI);
+    new Header($app);
 
     appendMain();
 
-    const { main, restaurantService } = this.state;
+    const { restaurantService } = this.state;
 
-    this.state.filters = new Filters(main, handleFiltersChange);
+    this.state.filters = new Filters($main, handleFiltersChange);
     this.state.restaurantList = new RestaurantList(
-      main,
+      $main,
       restaurantService.getRestaurantsInfo()
     );
 
@@ -46,20 +47,17 @@ export default function App($app) {
     this.state = { ...this.state, ...state };
   };
 
-  const showRestaurantAddUI = () => {
-    showModal();
-    const $modalContainer = document.querySelector('.modal-container');
-    new RestaurantForm($modalContainer, handleFormSubmit, handleFormCancel);
-  };
-
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    const { target } = event;
 
-    const category = event.target.querySelector('#category').value;
-    const name = event.target.querySelector('#name').value;
-    const distance = event.target.querySelector('#distance').value;
-    const description = event.target.querySelector('#description').value;
-    const link = event.target.querySelector('#link').value;
+    if (!target) return null;
+
+    const category = target.querySelector('#category').value;
+    const name = target.querySelector('#name').value;
+    const distance = target.querySelector('#distance').value;
+    const description = target.querySelector('#description').value;
+    const link = target.querySelector('#link').value;
 
     const restaurantInfo = {
       category,
@@ -72,10 +70,10 @@ export default function App($app) {
 
     this.state.restaurantService.addRestaurant(restaurantInfo);
 
-    filterRestaurantList(
-      this.state.filters.state.category,
-      this.state.filters.state.filter
-    );
+    const { filters } = this.state;
+    if (!filters) return;
+
+    filterRestaurantList(filters.state.category, filters.state.filter);
 
     const localRestaurants = getLocalStorage('restaurants') ?? [];
     setLocalStorage('restaurants', [...localRestaurants, restaurantInfo]);
@@ -90,12 +88,13 @@ export default function App($app) {
   const appendMain = () => {
     const $main = document.createElement('main');
     $app.appendChild($main);
-    this.state.main = $main;
   };
 
   const handleFiltersChange = (event) => {
     const { filters } = this.state;
     const { id, value } = event.target;
+    console.log(event, event instanceof Event);
+    if (!filters) return;
 
     switch (id) {
       case 'category-filter':
@@ -112,6 +111,8 @@ export default function App($app) {
   const filterRestaurantList = (category, filter) => {
     const { restaurantService, restaurantList, filters } = this.state;
     const { sortByName, sortByDistance } = restaurantService;
+
+    if (!filters || !restaurantList) return;
 
     const filtered = restaurantService.filterByCategory(
       restaurantService.getRestaurantsInfo(),
