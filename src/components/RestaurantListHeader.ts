@@ -4,6 +4,8 @@ import { CATEGORIES } from '../utils/constants';
 type RestaurantListHeaderState = {
   category: Category;
   sortBy: SortBy;
+  onChangeCategory: (e: Event) => void;
+  onChangeSortBy: (e: Event) => void;
 };
 
 type RestaurantListHeaderProps = {
@@ -17,8 +19,6 @@ type RestaurantListHeaderProps = {
 class RestaurantListHeader implements Component<RestaurantListHeaderState> {
   $component: HTMLElement;
   state: RestaurantListHeaderState;
-  onChangeCategory: (e: Event) => void;
-  onChangeSortBy: (e: Event) => void;
 
   constructor({
     $parent,
@@ -31,9 +31,9 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     this.state = {
       category,
       sortBy,
+      onChangeCategory,
+      onChangeSortBy,
     };
-    this.onChangeCategory = onChangeCategory;
-    this.onChangeSortBy = onChangeSortBy;
 
     $parent.append(this.$component);
   }
@@ -65,10 +65,10 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     `;
 
     const categorySelect = this.$component.querySelector('#category-filter');
-    categorySelect?.addEventListener('change', this.onChangeCategory);
+    categorySelect?.addEventListener('change', this.state.onChangeCategory);
 
     const sortSelect = this.$component.querySelector('#sorting-filter');
-    sortSelect?.addEventListener('change', this.onChangeSortBy);
+    sortSelect?.addEventListener('change', this.state.onChangeSortBy);
   }
 }
 

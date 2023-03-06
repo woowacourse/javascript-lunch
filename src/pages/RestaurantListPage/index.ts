@@ -40,6 +40,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
 
   render() {
     this.$component.innerHTML = '';
+
     new GNB({
       $parent: this.$component,
       toggleAddRestaurantDrawer: this.state.toggleAddRestaurantDrawer,

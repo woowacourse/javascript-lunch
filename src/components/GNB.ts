@@ -1,6 +1,8 @@
 import type { Component } from '../type';
 
-type GNBState = {};
+type GNBState = {
+  toggleAddRestaurantDrawer: () => void;
+};
 
 type MainTemplateProps = {
   $parent: HTMLElement;
@@ -10,14 +12,12 @@ type MainTemplateProps = {
 class GNB implements Component<GNBState> {
   $component: HTMLElement;
   state: GNBState;
-  toggleAddRestaurantDrawer: () => void;
 
   constructor({ $parent, toggleAddRestaurantDrawer }: MainTemplateProps) {
     this.$component = document.createElement('header');
     this.$component.classList.add('gnb');
 
-    this.state = {};
-    this.toggleAddRestaurantDrawer = toggleAddRestaurantDrawer;
+    this.state = { toggleAddRestaurantDrawer };
 
     $parent.append(this.$component);
   }
@@ -36,7 +36,7 @@ class GNB implements Component<GNBState> {
     `;
 
     const button = this.$component.querySelector('button');
-    button?.addEventListener('click', this.toggleAddRestaurantDrawer);
+    button?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
   }
 }
 
