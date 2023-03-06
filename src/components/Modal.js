@@ -86,11 +86,12 @@ class Modal {
       e.preventDefault();
 
       const restaurant = this.getmodalFormValue();
-
       this.restaurants.add(restaurant);
       localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
+
       renderRestaurantList();
 
+      $modalForm.reset();
       this.toggleModal();
     });
   }
