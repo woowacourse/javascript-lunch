@@ -1,20 +1,12 @@
 type Restaurant = {
-  category: RestaurantCategoryType;
+  category: CategoryType;
   name: string;
-  distance: string;
+  distanceInMinutes: string;
   description: string;
   link: string;
 };
 
-type RestaurantCategoryType =
-  | '전체'
-  | '한식'
-  | '중식'
-  | '일식'
-  | '아시안'
-  | '양식'
-  | '기타';
+type CategoryType = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+type SelectCategoryType = CategoryType | '전체';
 
-type RestaurantSortingType = 'name' | 'distance';
-
-export { Restaurant, RestaurantCategoryType, RestaurantSortingType };
+export { Restaurant, CategoryType, SelectCategoryType };
