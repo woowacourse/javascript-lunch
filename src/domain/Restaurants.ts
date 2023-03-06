@@ -6,35 +6,28 @@ class Restaurants {
   #restaurants: Restaurant[];
 
   constructor(restaurants: Restaurant[]) {
-    this.#restaurants = restaurants.map(restaurant => this.optionInfoCovertToEmptyString(restaurant));
+    this.#restaurants = restaurants;
   }
 
   get restaurants(): Restaurant[] {
     return this.#restaurants;
   }
 
-  add(restaurant: Restaurant): void {
-    this.#restaurants.push(this.optionInfoCovertToEmptyString(restaurant));
-  }
-
-  optionInfoCovertToEmptyString(restaurant: Restaurant): Restaurant {
-    if (restaurant.description === 'undefined') restaurant.description = '';
-    if (restaurant.link === 'undefined') restaurant.link = '';
-
-    return restaurant;
+  add({ description = '', link = '', ...restaurantInfo }: Restaurant): void {
+    this.#restaurants.push({ description, link, ...restaurantInfo });
   }
 
   getRestaurant(category: CategoryFilter, sortType: SortTypeFilter) {
-    return this.sortByType(sortType, this.filterByCategory(category, this.#restaurants));
+    return Restaurants.sortByType(sortType, Restaurants.filterByCategory(category, this.#restaurants));
   }
 
-  filterByCategory(category: CategoryFilter, restaurants: Restaurant[]): Restaurant[] {
+  static filterByCategory(category: CategoryFilter, restaurants: Restaurant[]): Restaurant[] {
     if (category.value === VALUE.catgory.all) return restaurants;
 
     return restaurants.filter(restaurant => restaurant.category === category.value);
   }
 
-  sortByType(sortType: SortTypeFilter, restaurants: Restaurant[]): Restaurant[] {
+  static sortByType(sortType: SortTypeFilter, restaurants: Restaurant[]): Restaurant[] {
     if (sortType.value === VALUE.sortType.nameOrder) {
       return [...restaurants].sort((a, b) => compareString(a.name, b.name));
     }
