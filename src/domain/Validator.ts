@@ -1,7 +1,7 @@
 import {
   REGEX,
   RESTAURANT_CATEGORIES,
-  RESTAURANT_DISTANCES,
+  RESTAURANT_DISTANCES_IN_MINUTE,
   ERROR_MESSAGE,
 } from '../constant/';
 
@@ -33,7 +33,7 @@ const Validator = {
   },
 
   isRestaurantDistance: (distance: string) => {
-    return RESTAURANT_DISTANCES.includes(distance);
+    return RESTAURANT_DISTANCES_IN_MINUTE.includes(distance);
   },
 
   checkLink: (link: string) => {
