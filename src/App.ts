@@ -1,6 +1,6 @@
 import type { Component } from './type';
-import AddRestaurantDrawer from './components/AddRestaurantDrawer';
-import RestaurantListPage from './components/RestaurantListPage';
+import AddRestaurantDrawer from './pages/AddRestaurantDrawer';
+import RestaurantListPage from './pages/RestaurantListPage';
 
 type AppState = {
   addRestaurantDrawerHide: boolean;

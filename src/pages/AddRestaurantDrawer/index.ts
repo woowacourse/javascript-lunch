@@ -1,11 +1,11 @@
-import type { Component, Restaurant } from '../type';
+import type { Component, Restaurant } from '../../type';
 import {
   CATEGORIES,
   DEFAULT_CATEGORY,
   DEFAULT_DISTANCE,
   OPTION_START_INDEX,
   REQUEST_RASTAURANT_KEY,
-} from '../utils/constants';
+} from '../../utils/constants';
 
 type AddRestaurantDrawerState = {
   restaurantForm: Restaurant;

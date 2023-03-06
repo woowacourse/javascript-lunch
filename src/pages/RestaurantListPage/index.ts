@@ -1,8 +1,8 @@
-import type { Category, Component, SortBy, Restaurant } from '../type';
-import RestaurantList from './RestaurantList';
-import RestaurantListHeader from './RestaurantListHeader';
-import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../utils/constants';
-import Header from './Header';
+import type { Category, Component, SortBy, Restaurant } from '../../type';
+import RestaurantList from '../../components/RestaurantList';
+import RestaurantListHeader from '../../components/RestaurantListHeader';
+import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../../utils/constants';
+import GNB from '../../components/GNB';
 
 type RestaurantListPageState = {
   category: Category;
@@ -40,7 +40,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
 
   render() {
     this.$component.innerHTML = '';
-    new Header({
+    new GNB({
       $parent: this.$component,
       toggleAddRestaurantDrawer: this.state.toggleAddRestaurantDrawer,
     }).render();
