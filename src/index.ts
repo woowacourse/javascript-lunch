@@ -27,7 +27,7 @@ class App {
   }
 
   openModalButtonHandler = () => {
-    this.modal.toggleModal();
+    this.modal.openModal();
   };
 }
 
