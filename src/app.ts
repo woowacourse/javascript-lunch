@@ -2,11 +2,8 @@ import FilterBar from './components/FilterBar';
 import ListContainer from './components/ListContainer';
 import AddModalContainer from './components/AddModalContainer';
 import TopNavBar from './components/TopNavBar';
-import { Category, Order } from './constants/enum';
 import Component from './core/Component';
-import IRestaurantInput from './interfaces/IRestaurantInput';
 import { $ } from './utils/domUtils';
-
 import { restaurantStore } from './model/restaurantStore';
 import { sampleData } from './model/storage';
 class App extends Component {

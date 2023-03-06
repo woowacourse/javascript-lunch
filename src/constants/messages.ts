@@ -1,4 +1,5 @@
-export const errorMessage = {
-  nameInputLength: '이름은 1자 이상 20자 이하만 입력 가능해요.',
-  descriptionInputLength: '설명은 60자 이하만 입력 가능하요.',
+export const INPUT_MESSAGE = {
+  category: '카테고리를 선택해주세요.',
+  name: '이름은 1자 이상 20자 이하로 입력해주세요.',
+  distance: '거리를 선택해주세요.',
 };

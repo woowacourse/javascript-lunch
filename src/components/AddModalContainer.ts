@@ -1,8 +1,14 @@
+import { INPUT_MESSAGE } from '@res/constants/messages';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
+import {
+  isValidCategory,
+  isValidDistance,
+  isValidName,
+} from '@res/validator/inputValidator';
 
 class AddModalContainer extends Component {
   constructor(element: HTMLElement) {
@@ -29,6 +35,9 @@ class AddModalContainer extends Component {
   handleSubmit(event: Event) {
     event.preventDefault();
     const restaurantInput = this.getInput();
+    if (!this.validate(restaurantInput)) {
+      return;
+    }
 
     this.updateRestaurant(restaurantInput);
 
@@ -37,17 +46,41 @@ class AddModalContainer extends Component {
     this.hide();
   }
 
+  validate({ category, name, distance }: IRestaurantInput) {
+    if (
+      isValidCategory(category) &&
+      isValidName(name) &&
+      isValidDistance(distance)
+    ) {
+      return true;
+    }
+
+    $('#category-message').style.visibility = isValidCategory(category)
+      ? 'hidden'
+      : 'visible';
+
+    $('#name-message').style.visibility = isValidName(name)
+      ? 'hidden'
+      : 'visible';
+
+    $('#distance-message').style.visibility = isValidDistance(distance)
+      ? 'hidden'
+      : 'visible';
+
+    return false;
+  }
+
   updateRestaurant(restaurantInput: IRestaurantInput) {
     return restaurantStore.addList(restaurantInput).getList();
   }
 
   getInput(): IRestaurantInput {
     return {
-      category: this.getElementValue($('#category-input')),
-      name: this.getElementValue($('#name-input')),
-      distance: this.getElementValue($('#distance-input')),
-      description: this.getElementValue($('#description-input')),
-      link: this.getElementValue($('#link-input')),
+      category: this.getElementValue($('#category-input')).trim(),
+      name: this.getElementValue($('#name-input')).trim(),
+      distance: this.getElementValue($('#distance-input')).trim(),
+      description: this.getElementValue($('#description-input')).trim(),
+      link: this.getElementValue($('#link-input')).trim(),
     };
   }
 
@@ -83,14 +116,14 @@ class AddModalContainer extends Component {
                 <option value="아시안">아시안</option>
                 <option value="기타">기타</option>
               </select>
-              <p id='category-message' class='input-error-message'><p/>
+              <p id='category-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.category}<p/>
             </div>
 
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
             <input type="text" name="name" id="name-input" required />
-              <p id='name-message' class='input-error-message'><p/>
+              <p id='name-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.name}<p/>
             </div>
 
             <!-- 거리 -->
@@ -104,7 +137,7 @@ class AddModalContainer extends Component {
                 <option value="20">20분 내</option>
                 <option value="30">30분 내</option>
               </select>
-              <p id='distance-message' class='input-error-message'><p/>
+              <p id='distance-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.distance}<p/>
             </div>
 
             <!-- 설명 -->
@@ -119,7 +152,6 @@ class AddModalContainer extends Component {
               <span class="help-text text-caption"
                 >메뉴 등 추가 정보를 입력해 주세요.</span
               >
-              <p id='description-input' class='input-error-message'><p/>
             </div>
 
             <!-- 링크 -->
@@ -129,7 +161,6 @@ class AddModalContainer extends Component {
               <span class="help-text text-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
-              <p id='link-message' class='input-error-message'><p/>
             </div>
 
             <!-- 취소/추가 버튼 -->
