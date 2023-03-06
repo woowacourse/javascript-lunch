@@ -42,13 +42,16 @@ const App = {
   },
 
   controlFilter() {
-    executeChangeEventListener("#sorting-filter", (value: string) => {
-      this.restaurantsController.sortRestaurantList(value);
+    executeChangeEventListener("#sorting-filter", (selectedOption: string) => {
+      this.restaurantsController.sortRestaurantList(selectedOption);
     });
 
-    executeChangeEventListener("#category-filter", (value: string) => {
-      this.restaurantsController.filterRestaurantList(value);
-    });
+    executeChangeEventListener(
+      "#category-filter",
+      (selectedCategory: string) => {
+        this.restaurantsController.filterRestaurantList(selectedCategory);
+      }
+    );
   },
 };
 
