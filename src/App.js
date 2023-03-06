@@ -22,7 +22,10 @@ export default class App {
       'change',
       this.renderRestaurantListByFilterOptions.bind(this)
     );
-    $('.modal-open-button').addEventListener('click', this.toggleModal);
+    $('.modal-open-button').addEventListener(
+      'click',
+      this.onClickRestaurantFormModalOpenButton.bind(this)
+    );
     $('.modal-close-button').addEventListener('click', this.toggleModal);
   }
 
@@ -56,7 +59,6 @@ export default class App {
     this.#restaurants.addRestaurant(restaurant);
     store.setLocalStorage(this.#restaurants.getRestaurants());
 
-    e.target.reset();
     this.toggleModal();
 
     this.renderRestaurantListByFilterOptions();
@@ -74,6 +76,12 @@ export default class App {
     );
 
     RestaurantList.render(sortedRestaurants);
+  }
+
+  onClickRestaurantFormModalOpenButton() {
+    $('.add-restaurant-form').reset();
+
+    this.toggleModal();
   }
 
   toggleModal() {
