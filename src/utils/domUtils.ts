@@ -1,15 +1,15 @@
-export const $ = (
+export const $ = <T extends HTMLElement>(
   selector: string,
-  scope: Document | Element | HTMLElement = document
-): HTMLElement => {
+  scope: Document | HTMLElement = document
+): T => {
   if (!selector) throw new Error('no selector');
 
-  return scope.querySelector(selector)!;
+  return scope.querySelector<T>(selector)!;
 };
 
-export const all$ = <T>(
+export const all$ = (
   selector: string,
-  scope: Document | Element | HTMLElement = document
+  scope: Document | HTMLElement = document
 ): HTMLElement[] => {
   if (!selector) throw new Error('no selector');
 
@@ -26,7 +26,8 @@ export const on = (
 
 export const newState = (state: any, handler: any) => {
   return new Proxy(state, {
-    set(): boolean {
+    set(obj, prop, value): boolean {
+      obj[prop] = value;
       handler();
       return true;
     },
