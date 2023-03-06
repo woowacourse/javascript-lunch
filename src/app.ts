@@ -4,9 +4,9 @@ import ListContainer from './components/ListContainer';
 import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
+import { IComponentPropState } from './interfaces/IComponent';
 import IRestaurantInput from './interfaces/IRestaurantInput';
 import sortItemsByName from './utils/sortByName';
-import { IComponentPropState } from '@res/interfaces/IComponent';
 
 class App extends Component<IComponentPropState> {
   setup() {
