@@ -19,14 +19,10 @@ export const store: Store = {
   sortFilter: 'name',
 
   initRestaurants() {
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
     if (!localStorage.getItem('store')) {
       localStorage.setItem('store', JSON.stringify(restaurants));
     }
     this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
-    $restaurantItems.render(this.restaurants);
   },
 
   getRestuarants() {

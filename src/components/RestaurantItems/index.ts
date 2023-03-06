@@ -16,13 +16,13 @@ class RestaurantItems extends HTMLElement {
     const $restaurantList = this.querySelector('.restaurant-list') as HTMLElement;
 
     restaurants.forEach((restaurant) => {
-      const { category, name, distance, description } = restaurant;
-
-      $restaurantList.insertAdjacentHTML(
-        'beforeend',
-        `<restaurant-item category=${category} name=${name} distance=${distance} description=${description}></restaurant-item>`,
-      );
+      $restaurantList.insertAdjacentHTML('beforeend', this.createRestaurantItem(restaurant));
     });
+  }
+
+  createRestaurantItem(restaurant: Restaurant) {
+    const { category, name, distance, description } = restaurant;
+    return `<restaurant-item category=${category} name=${name} distance=${distance} description=${description}></restaurant-item>`;
   }
 }
 
