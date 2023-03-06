@@ -192,15 +192,15 @@ main {
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
+.bottomSheet {
   display: none;
 }
 
-.modal--open {
+.bottomSheet--open {
   display: block;
 }
 
-.modal-backdrop {
+.bottomSheet-backdrop {
   position: fixed;
   top: 0;
   right: 0;
@@ -210,7 +210,7 @@ main {
   background: rgba(0, 0, 0, 0.35);
 }
 
-.modal-container {
+.bottomSheet-container {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -221,7 +221,7 @@ main {
   background: var(--grey-100);
 }
 
-.modal-title {
+.bottomSheet-title {
   margin-bottom: 36px;
 }
 
