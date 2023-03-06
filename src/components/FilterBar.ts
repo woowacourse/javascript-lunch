@@ -1,6 +1,6 @@
-import { Category, Order } from '@res/constants/enum';
-import Component from '@res/core/Component';
-import { IComponentPropState } from '@res/interfaces/IComponent';
+import { Category, Order } from '../constants/enum';
+import Component from '../core/Component';
+import { IComponentPropState } from '../interfaces/IComponent';
 
 class FilterBar extends Component<IComponentPropState> {
   template() {

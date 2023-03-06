@@ -1,4 +1,4 @@
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import IRestaurantInput from '../interfaces/IRestaurantInput';
 
 const sortItemsByName = (items: IRestaurantInput[]) => {
   items.sort((a, b) => {

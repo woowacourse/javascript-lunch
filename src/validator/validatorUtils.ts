@@ -1,4 +1,4 @@
-import { regex } from '@res/constants/regex';
+import { regex } from '../constants/regex';
 
 interface IValidatorUtils {
   [key: string]: (input: string) => boolean;

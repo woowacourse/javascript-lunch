@@ -1,6 +1,6 @@
-import Component from '@res/core/Component';
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
-import { IComponentPropState } from '@res/interfaces/IComponent';
+import Component from '../core/Component';
+import IRestaurantInput from '../interfaces/IRestaurantInput';
+import { IComponentPropState } from '../interfaces/IComponent';
 
 interface ImageByCategory {
   [key: string]: string;
@@ -25,17 +25,11 @@ class ListContainer extends Component<IComponentPropState> {
         const { category, name, distance, description } = restaurant;
         return `<li class="restaurant">
       <div class="restaurant__category">
-        <img src=${
-          ImageByCategory[category]
-        } alt=${category} class="category-icon"/>
+        <img src=${ImageByCategory[category]} alt=${category} class="category-icon"/>
       </div>
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle">${name}</h3>
-        ${
-          +distance
-            ? `<span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>`
-            : ''
-        }
+            <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
         <p class="restaurant__description text-body">${description}</p>
       </div>
     </li>`;

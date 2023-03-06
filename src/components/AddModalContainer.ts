@@ -1,6 +1,7 @@
-import Component from '@res/core/Component';
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
-import { IComponentPropState } from '@res/interfaces/IComponent';
+import Component from '../core/Component';
+
+import IRestaurantInput from '../interfaces/IRestaurantInput';
+import { IComponentPropState } from '../interfaces/IComponent';
 
 class AddModalContainer extends Component<IComponentPropState> {
   template() {

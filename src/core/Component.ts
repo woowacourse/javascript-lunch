@@ -1,4 +1,4 @@
-import { IComponent, IComponentPropState } from '@res/interfaces/IComponent';
+import { IComponent, IComponentPropState } from '../interfaces/IComponent';
 
 export default class Component<P extends IComponentPropState>
   implements IComponent<P>

@@ -1,5 +1,3 @@
-import { Category } from '@res/constants/enum';
-
 export default interface IRestaurantInput {
   category: string;
   name: string;

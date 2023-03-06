@@ -1,4 +1,4 @@
-import Component from '@res/core/Component';
+import Component from '../core/Component';
 
 interface ITopNavBarProps {
   toggleModal: () => void;

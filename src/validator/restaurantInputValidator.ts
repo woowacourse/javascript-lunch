@@ -1,5 +1,5 @@
-import { errorMessage } from '@res/constants/messages';
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { errorMessage } from '../constants/messages';
+import IRestaurantInput from '../interfaces/IRestaurantInput';
 import { validatorUtils } from './validatorUtils';
 
 export const restaurantInputValidator = {
