@@ -37,12 +37,12 @@ class Modal implements Component<ModalState> {
     this.render();
   }
 
-  setState = (newState: ModalState) => {
+  setState(newState: ModalState) {
     this.state = newState;
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     this.$component.innerHTML = `
     <div class="modal modal--open">
       <div class="modal-backdrop"></div>
@@ -107,25 +107,25 @@ class Modal implements Component<ModalState> {
     $cancelButton?.addEventListener('click', this.toggleModal);
 
     const $modalForm = document.getElementById('modal-form');
-    $modalForm?.addEventListener('submit', this.submitForm);
-  };
+    $modalForm?.addEventListener('submit', this.submitForm.bind(this));
+  }
 
-  submitForm = (e: Event) => {
+  submitForm(e: SubmitEvent) {
     e.preventDefault();
 
     const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
-    restaurants.push(this.getFormValues());
+    restaurants.push(this.getFormValues(e.currentTarget as HTMLFormElement));
     localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
 
     this.toggleModal();
-  };
+  }
 
-  getFormValues = () => {
-    const $category = document.getElementById('category') as HTMLSelectElement;
-    const $name = document.getElementById('name') as HTMLInputElement;
-    const $distance = document.getElementById('distance') as HTMLSelectElement;
-    const $description = document.getElementById('description') as HTMLTextAreaElement;
-    const $link = document.getElementById('link') as HTMLInputElement;
+  getFormValues(form: HTMLFormElement) {
+    const $category = form.category;
+    const $name = form.querySelector('#name') as HTMLInputElement;
+    const $distance = form.distance;
+    const $description = form.description;
+    const $link = form.link;
 
     return {
       category: $category?.options[$category.selectedIndex].value,
@@ -134,7 +134,7 @@ class Modal implements Component<ModalState> {
       description: $description.value ?? '',
       link: $link.value ?? '',
     };
-  };
+  }
 }
 
 export default Modal;
