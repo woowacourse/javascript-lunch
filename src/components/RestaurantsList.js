@@ -1,9 +1,11 @@
 import RestaurantItem from './RestaurantItem';
 class RestaurantsList {
   restaurants;
+  restaurantItems;
 
   constructor(restaurants) {
     this.restaurants = restaurants;
+    this.restaurantItems = [];
     this.$target = document.querySelector('main');
     this.render();
   }
@@ -28,15 +30,18 @@ class RestaurantsList {
     const sortType = $sortTypeFilter.options[$sortTypeFilter.selectedIndex].value;
 
     const restaurants = this.restaurants.getRestaurant(category, sortType);
-    this.setRestaurantItem(restaurants);
+
+    this.makeRestaurantItems(restaurants);
   }
 
-  setRestaurantItem(restaurants) {
+  makeRestaurantItems(restaurants) {
     const $restaurantList = document.querySelector('.restaurant-list');
     $restaurantList.replaceChildren();
 
-    const restaurantItem = new RestaurantItem(restaurants);
-    restaurantItem.render($restaurantList);
+    restaurants.forEach(restaurant => {
+      const restaurantItem = new RestaurantItem(restaurant);
+      this.restaurantItems.push(restaurantItem);
+    });
   }
 }
 
