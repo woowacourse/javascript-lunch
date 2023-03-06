@@ -12,6 +12,7 @@ import {
 } from "../ui/restaurantListRenderer";
 import { filterCategory, sortByDistance, sortByName } from "./filter";
 import { SELECTED_OPTION } from "../constant";
+import { handleModalCancelButtonClick } from "../ui/modal";
 const { NAME, DISTANCE } = SELECTED_OPTION;
 
 export default class RestaurantsController {
@@ -59,6 +60,7 @@ export default class RestaurantsController {
       return alert(customError.message);
     }
 
+    handleModalCancelButtonClick(".modal");
     saveOnLocalStorage(restaurantInfo);
     renderNewRestaurant(restaurantInfo);
 

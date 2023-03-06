@@ -37,7 +37,6 @@ const App = {
 
     executeSubmitEventListener("#new-restaurant-form", (event: Event) => {
       this.restaurantsController.addNewRestaurant(event);
-      handleModalCancelButtonClick(".modal");
     });
   },
 
