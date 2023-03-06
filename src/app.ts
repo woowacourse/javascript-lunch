@@ -11,12 +11,15 @@ import {
   setLocalStorageItem,
 } from './utils/localStroageUtils';
 import sortItemsByName from './utils/sortByName';
+import defaultDummyRestaurantsData from './constants/defaultDummyRestaurantsData';
 
 class App extends Component<IComponentPropState> {
   setup() {
     this.$state = {
       isModalOpened: false,
-      restaurantList: this.getRestaurants(),
+      restaurantList: this.getRestaurants().length
+        ? this.getRestaurants()
+        : defaultDummyRestaurantsData,
       filterOptions: { category: '전체', order: '이름순' },
       isAddFormValid: true,
     };
