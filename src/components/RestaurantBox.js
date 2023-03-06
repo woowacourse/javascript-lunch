@@ -5,6 +5,7 @@ import japaneseImage from '../assets/category-japanese.png';
 import westernImage from '../assets/category-western.png';
 import asianImage from '../assets/category-asian.png';
 import etcImage from '../assets/category-etc.png';
+import { shortenString } from '../utils';
 
 class RestaurantBox extends HTMLElement {
   #categoryImage = {
@@ -98,9 +99,12 @@ class RestaurantBox extends HTMLElement {
             <img src=${this.#categoryImage[category]} alt=${category}>
           </div>
           <div class="info">
-            <h3 class="name text-subtitle">${name}</h3>
+            <h3 class="name text-subtitle">${shortenString(name, 18)}</h3>
             <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
-            <p class="description text-body">${description}</p>
+            <p class="description text-body">${shortenString(
+              description,
+              56
+            )}</p>
           </div>
         </li>
     `;

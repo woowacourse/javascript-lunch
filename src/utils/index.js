@@ -7,4 +7,11 @@ const $$$ = (parent, selector) => $(parent).shadowRoot.querySelector(selector);
 const $$$$ = (parent, selector) =>
   $(parent).shadowRoot.querySelectorAll(selector);
 
-export { $, $$, $$$, $$$$ };
+const shortenString = (word, range) => {
+  if (word.length > range) {
+    return `${word.slice(0, range)}···`;
+  }
+  return word;
+};
+
+export { $, $$, $$$, $$$$, shortenString };
