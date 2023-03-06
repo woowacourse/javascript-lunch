@@ -35,6 +35,7 @@
     ],
     "spaced-comment": ["error", "always", { "exceptions": ["-", "+"] }],
     "eol-last": ["error", "always"],
-    "no-var": "error"
+    "no-var": "error",
+    "jest/expect-expect": "off"
   }
 }
