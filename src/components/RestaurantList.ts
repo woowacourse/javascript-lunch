@@ -1,11 +1,12 @@
+import Controller from "../domain/Controller";
 import RestaurantItem from "./RestaurantItem";
 
 class RestaurantList extends HTMLElement {
-  controller;
+  private controller;
 
   constructor() {
     super();
-    this.controller = globalThis.controller;
+    this.controller = Controller.getInstance();
     this.render();
   }
 

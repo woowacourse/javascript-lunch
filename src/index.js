@@ -4,11 +4,7 @@ import CategorySelectBox from "./components/CategorySelectBox";
 import NavBar from "./components/NavBar";
 import RestaurantList from "./components/RestaurantList";
 import SortingSelectBox from "./components/SortingSelectBox";
-import Controller from "./domain/Controller";
 import "./css/style.css";
-
-const controller = new Controller();
-globalThis.controller = controller;
 
 customElements.define("nav-bar", NavBar);
 customElements.define("bottom-sheet", BottomSheet);

@@ -1,3 +1,4 @@
+import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
 import BottomSheet from "./BottomSheet";
 
@@ -6,7 +7,7 @@ class AddRestaurant extends HTMLElement {
 
   constructor() {
     super();
-    this.controller = globalThis.controller;
+    this.controller = Controller.getInstance();
     this.render();
     this.onClickCancelButton();
     this.onSubmitRestaurantForm();

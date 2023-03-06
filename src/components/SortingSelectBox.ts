@@ -1,9 +1,11 @@
+import Controller from "../domain/Controller";
+
 class SortingSelectBox extends HTMLElement {
-  controller;
+  private controller;
 
   constructor() {
     super();
-    this.controller = globalThis.controller;
+    this.controller = Controller.getInstance();
     this.render();
     this.onSelectOption();
   }

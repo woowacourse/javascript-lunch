@@ -3,6 +3,7 @@ import { ALL_CATEGORY } from "../constants";
 import RestaurantType from "../type/Restaurant";
 
 class Controller {
+  private static instance: Controller;
   state: { restaurants: RestaurantType[] };
 
   constructor() {
@@ -19,6 +20,14 @@ class Controller {
     this.loadLocalStorage();
   }
 
+  static getInstance() {
+    if (!Controller.instance) {
+      Controller.instance = new Controller();
+    }
+
+    return Controller.instance;
+  }
+
   renderRestaurantList() {
     const restaurantList = document.getElementById("restaurantList");
     if (!(restaurantList instanceof RestaurantList)) {
@@ -33,6 +42,7 @@ class Controller {
 
   addRestaurant(newRestaurant: RestaurantType) {
     this.state.restaurants = [...this.state.restaurants, newRestaurant];
+    this.setLocalStorage();
   }
 
   getLocalStorage() {
