@@ -9,6 +9,6 @@ export enum Category {
 }
 
 export enum Order {
-  Name = 'name',
-  Distance = 'distance',
+  Name = '이름순',
+  Distance = '거리순',
 }
