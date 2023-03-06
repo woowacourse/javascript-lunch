@@ -14,6 +14,7 @@ interface RestaurantListState {}
 class RestaurantList extends Component<RestaurantListProps, RestaurantListState> {
   constructor($parent: HTMLElement, props: RestaurantListProps) {
     super({ $parent, props, tagName: 'ul', initialState: {} });
+    this.$wrapper.className = 'restaurant-list';
   }
 
   appendChild() {
