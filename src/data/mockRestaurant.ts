@@ -1,4 +1,4 @@
-import { RestaurantType } from "../components/Restaurant";
+import { RestaurantType } from "../Template";
 
 export const mockKorea: RestaurantType = {
   category: "한식",
@@ -10,7 +10,7 @@ export const mockKorea: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-const mockJapen: RestaurantType = {
+const mockJapan: RestaurantType = {
   category: "일식",
   name: "일일일",
   takeTime: 15,
@@ -97,7 +97,7 @@ export const mockList: RestaurantType[] = [
   mockChina,
   mockKorea,
   mockChina,
-  mockJapen,
+  mockJapan,
   mockEtc,
   mockWestern,
   mockKorea,
