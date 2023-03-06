@@ -42,17 +42,19 @@ class RestaurantList extends HTMLElement {
   }
 
   selectRestaurants() {
-    const { restaurants, filter, sort } = this.listState;
-    return restaurants
-      .filter(
-        (restaurant) => filter === "all" || restaurant.category === filter
-      )
-      .sort((a, b) => {
-        if (sort === "name" || sort === "distance") {
-          return a[sort] > b[sort] ? 1 : -1;
-        }
-        return 0;
-      });
+    const { filter, sort } = this.listState;
+    const restaurants =
+      filter === "all"
+        ? this.listState.restaurants
+        : this.listState.restaurants.filter(
+            (restaurant) => restaurant.category === filter
+          );
+    return restaurants.sort((a, b) => {
+      if (sort === "name" || sort === "distance") {
+        return a[sort] > b[sort] ? 1 : -1;
+      }
+      return 0;
+    });
   }
 
   restaurantItems(selectedRestaurants: IRestaurant[]) {
