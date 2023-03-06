@@ -34,6 +34,14 @@ class LunchAppView {
     this.#renderRestaurants(restaurants);
   }
 
+  toggleRestaurantAddModal() {
+    this.#restaurantAddModal.toggleModal();
+  }
+
+  clearAllModalInputs() {
+    this.#restaurantAddModal.clearAllInputs();
+  }
+
   #render() {
     const template = `
       <div id="header-root"></div>
@@ -49,6 +57,7 @@ class LunchAppView {
 
     this.#parentElement.innerHTML = template;
   }
+
   #renderChild(restaurants: Restaurant[]) {
     this.#renderHeader();
     this.#renderFilter();
