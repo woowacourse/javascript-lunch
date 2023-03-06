@@ -16,3 +16,18 @@ export const MESSAGE = {
 } as const;
 
 export const LOCAL_STORAGE_KEY = { RESTAURANTS: 'restaurants' } as const;
+
+export const CATEGORY = {
+  ALL: '전체',
+  KOREAN: '한식',
+  CHINESE: '중식',
+  JAPANESE: '일식',
+  ASIAN: '아시안',
+  WESTERN: '양식',
+  ETC: '기타',
+} as const;
+
+export const SORTING_CRITERION = {
+  NAME: 'name',
+  DISTANCE: 'distance',
+} as const;
