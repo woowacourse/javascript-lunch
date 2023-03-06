@@ -16,7 +16,7 @@ class LunchRecommendation {
       localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
     );
 
-    if (userList) {
+    if (userList.length > 0) {
       userList.forEach((restaurant) => {
         this.#restaurants.add(restaurant);
       });
