@@ -23,28 +23,23 @@ class RestaurantService {
     this.currentSortingCriterion = criterion;
   }
 
-  filter() {
-    if (this.currentCategory === CATEGORY.ALL) return [...this.restaurantList];
+  filterBy(category: Category): Restaurant[] {
+    if (category === CATEGORY.ALL) return [...this.restaurantList];
 
-    return this.restaurantList.filter(restaurant => restaurant.category === this.currentCategory);
+    return this.restaurantList.filter(restaurant => restaurant.category === category);
   }
 
-  sortByName(restaurantList: Restaurant[]) {
-    return [...restaurantList].sort((a, b) => a.name.localeCompare(b.name));
-  }
+  sortBy(criterion: SortingCriterion, restaurantList: Restaurant[]): Restaurant[] {
+    if (criterion === SORTING_CRITERION.NAME) {
+      return [...restaurantList].sort((a, b) => a.name.localeCompare(b.name));
+    }
 
-  sortByDistance(restaurantList: Restaurant[]) {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort() {
-    const filteredRestaurantList = this.filter();
-
-    if (this.currentSortingCriterion === SORTING_CRITERION.NAME) {
-      return this.sortByName(filteredRestaurantList);
-    }
-
-    return this.sortByDistance(filteredRestaurantList);
+  filterAndSort(): Restaurant[] {
+    const filteredRestaurantList = this.filterBy(this.currentCategory);
+    return this.sortBy(this.currentSortingCriterion, filteredRestaurantList);
   }
 }
 
