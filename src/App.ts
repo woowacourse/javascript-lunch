@@ -17,7 +17,7 @@ class App {
         <section class="restaurant-list-container">
           <ul is="restaurant-card-list" class="restaurant-list"></ul>
         </section>
-        <lunch-modal class="modal"></lunch-modal>
+        <modal-root class="modal"></modal-root>
       </main>
     `;
   }

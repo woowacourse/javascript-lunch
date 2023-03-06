@@ -1,4 +1,4 @@
-import Modal from "./Modal";
+import Modal from "./ModalRoot";
 import addButtonImage from "../../templates/add-button.png";
 
 class LunchHeader extends HTMLElement {
@@ -28,12 +28,11 @@ class LunchHeader extends HTMLElement {
   }
 
   onClickAddButton() {
-    const $lunchModal = document.querySelector("lunch-modal");
+    const modalRoot = document.querySelector<Modal>("modal-root");
 
-    if (!($lunchModal instanceof Modal)) return;
-
-    $lunchModal.open(
-      '<h2 class="modal-title text-title">새로운 음식점</h2><form is="restaurant-add-form"></form>'
+    modalRoot?.open(
+      '<restaurant-add-modal class="modal-container"></restaurant-add-modal>',
+      "restaurant-add-modal"
     );
   }
 }
