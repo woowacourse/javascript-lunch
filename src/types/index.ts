@@ -1,8 +1,9 @@
-import { CATEGORIES, DISTANCES, SORT_TYPE } from '../constants';
+import { CATEGORIES, DISTANCES, FILTER_CATEGORIES, SORT_TYPE } from '../constants';
 
 type ArrayLiteral<T extends ReadonlyArray<any>> = T[number];
 
 export type Category = ArrayLiteral<typeof CATEGORIES>;
+export type FilterCategory = ArrayLiteral<typeof FILTER_CATEGORIES>;
 export type Distance = ArrayLiteral<typeof DISTANCES>;
 export type SortType = ArrayLiteral<typeof SORT_TYPE>;
 
