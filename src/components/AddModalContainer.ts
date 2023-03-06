@@ -28,6 +28,8 @@ class AddModalContainer extends Component {
         this.getInput(),
         this.updateRestaurant.bind(this)
       );
+
+      this.hide();
     });
 
     return this;
