@@ -3,7 +3,7 @@ import Modal from './components/Modal';
 import RestaurantItem from './components/RestaurantItem';
 import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
-import { initialRestaurants } from './restaurants';
+import { initialRestaurants } from './constants/restaurants';
 import store from './store';
 import './styles';
 

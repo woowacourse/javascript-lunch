@@ -1,4 +1,4 @@
-import { imgSrc } from '../../image';
+import { imgSrc } from '../../constants/image';
 import { Category } from '../../types';
 import $template from './index.html';
 
