@@ -1,5 +1,4 @@
-export const DISTANCE = '거리순' as const;
-export const NAME = '이름순' as const;
+import { Values } from '../types/common';
 
 export const CATEGORY = Object.freeze({
   ALL: '전체',
@@ -9,6 +8,11 @@ export const CATEGORY = Object.freeze({
   WESTERN: '양식',
   ASIAN: '아시안',
   ETC: '기타',
+});
+
+export const SORT_OPTIONS = Object.freeze({
+  DISTANCE: '거리순',
+  NAME: '이름순',
 });
 
 export const MAX_NAME_LENGTH = 20;
@@ -29,5 +33,5 @@ export const REGEX = Object.freeze({
   URL: /(((http(s)?:\/\/)\S+(\.[^(\n|\t|\s,)]+)+)|((http(s)?:\/\/)?(([a-zA-z\-_]+[0-9]*)|([0-9]*[a-zA-z\-_]+)){2,}(\.[^(\n|\t|\s,)]+)+))+/gi,
 });
 
-export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
-export type SortOption = typeof NAME | typeof DISTANCE;
+export type Category = Values<typeof CATEGORY>;
+export type SortOption = Values<typeof SORT_OPTIONS>;

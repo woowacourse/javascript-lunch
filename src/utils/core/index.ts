@@ -1,5 +1,6 @@
 import { debounce } from '../common/debounce';
 import { $, $$, isTarget } from '../../utils/common/domHelper';
+import { UnPack } from '../../types/common';
 
 interface Event {
   parentSelector: string;
@@ -16,7 +17,6 @@ interface Options<T = unknown> {
 }
 
 type Dispatch<T> = (value: T) => void;
-type UnPack<T> = T extends (infer U)[] ? U : T;
 
 function Core() {
   const options: Options<UnPack<Parameters<typeof useState>>> = {

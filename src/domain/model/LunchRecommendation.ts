@@ -1,4 +1,4 @@
-import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
+import { Category, CATEGORY, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
 import { errorHandler } from '../../utils/common/errorHandler';
 import { addData } from '../../utils/common/localStorage';
 import { validator } from '../../validation/validator';
@@ -76,7 +76,8 @@ export class LunchRecommendation implements ILunchRecommendation {
   renderBy({ sortOption, category }: FilterType) {
     const filtered =
       category === CATEGORY.ALL ? this.origin : this.filterByCategory(this.origin, category);
-    const sorted = sortOption === NAME ? this.sortByName(filtered) : this.sortByDistance(filtered);
+    const sorted =
+      sortOption === SORT_OPTIONS.NAME ? this.sortByName(filtered) : this.sortByDistance(filtered);
 
     return sorted;
   }

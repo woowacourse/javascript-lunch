@@ -1,8 +1,8 @@
-import { Category, SortOption } from '../../constants/lunchRecommendation';
+import { CATEGORY, Category, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
 import { useEvents } from '../../utils/core';
 
-const categoryOptions: Category[] = ['한식', '아시안', '양식', '일식', '전체', '중식', '기타'];
-const filterOptions: SortOption[] = ['이름순', '거리순'];
+const categoryOptions: Category[] = Object.values(CATEGORY);
+const filterOptions: SortOption[] = Object.values(SORT_OPTIONS);
 interface NavProps {
   category: Category;
   sortOption: SortOption;
