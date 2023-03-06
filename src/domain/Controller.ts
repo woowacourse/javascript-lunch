@@ -1,5 +1,5 @@
 import RestaurantList from "../components/RestaurantList";
-import { ALL_CATEGORY } from "../constants";
+import { ALL_CATEGORY, SORT_FAILED_NUMBER } from "../constants";
 import RestaurantType from "../type/Restaurant";
 
 class Controller {
@@ -60,7 +60,11 @@ class Controller {
 
   sortRestaurants(key: string) {
     const sortedRestaurants = [...this.state.restaurants].sort(
-      (a: any, b: any) => (a[key] > b[key] ? 1 : -1)
+      (a: RestaurantType, b: RestaurantType): number => {
+        if (key === "name" || key === "distance")
+          return a[key] > b[key] ? 1 : -1;
+        return SORT_FAILED_NUMBER;
+      }
     );
     this.state.restaurants = sortedRestaurants;
   }
