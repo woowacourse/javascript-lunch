@@ -65,8 +65,9 @@ customElements.define(
 
     connectedCallback() {
       $('.restaurant-register-form').addEventListener('submit', (e) => this.handleSubmit(e));
-      $('.cancel-button').addEventListener('click', () => this.closeModal());
-      $('.modal-backdrop').addEventListener('click', () => this.closeModal());
+      $('.cancel-button').addEventListener('click', this.closeModal);
+      $('.modal-backdrop').addEventListener('click', this.closeModal);
+      $('.modal-container').addEventListener('animationend', this.removeAnimation);
     }
 
     openModal() {
@@ -87,6 +88,20 @@ customElements.define(
         $('.modal').close();
         $('.modal-container').classList.remove('slide-down');
       }, 300);
+    }
+
+    removeAnimation() {
+      const { classList } = $('.modal-container');
+
+      if (classList.contains('slide-up')) {
+        classList.remove('slide-up');
+        return;
+      }
+
+      if (classList.contains('slide-down')) {
+        $('.modal').close();
+        classList.remove('slide-down');
+      }
     }
 
     handleSubmit(e) {
