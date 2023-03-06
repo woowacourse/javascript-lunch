@@ -56,7 +56,11 @@ class RestaurantsStore {
   };
 
   addRestaurant(restaurant: Restaurant) {
+    this.#restaurantList = JSON.parse(
+      localStorage.getItem(RESTAURANTS_STORAGE) as string
+    );
     this.#restaurantList.push(restaurant);
+
     localStorage.setItem(
       RESTAURANTS_STORAGE,
       JSON.stringify(this.#restaurantList)
