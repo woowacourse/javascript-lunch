@@ -1,7 +1,7 @@
 export default class Component {
-  $target: HTMLElement | Element;
+  $target: HTMLElement;
 
-  constructor(target: HTMLElement | Element) {
+  constructor(target: HTMLElement) {
     this.$target = target;
 
     return this;
@@ -23,7 +23,7 @@ export default class Component {
     return this;
   }
 
-  template(): string {
+  template() {
     return '';
   }
 }

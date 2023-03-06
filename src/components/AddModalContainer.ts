@@ -5,7 +5,7 @@ import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
 
 class AddModalContainer extends Component {
-  constructor(element: HTMLElement | Element) {
+  constructor(element: HTMLElement) {
     super(element);
     this.subscribe();
   }
@@ -28,18 +28,17 @@ class AddModalContainer extends Component {
 
   handleSubmit(event: Event) {
     event.preventDefault();
+    const restaurantInput = this.getInput();
 
-    eventBus.dispatch(
-      '@add-restaurant',
-      this.getInput(),
-      this.updateRestaurant.bind(this)
-    );
+    this.updateRestaurant(restaurantInput);
+
+    eventBus.dispatch('@add-restaurant', restaurantInput);
 
     this.hide();
   }
 
   updateRestaurant(restaurantInput: IRestaurantInput) {
-    return restaurantStore.add(restaurantInput).get();
+    return restaurantStore.addList(restaurantInput).getList();
   }
 
   getInput(): IRestaurantInput {
