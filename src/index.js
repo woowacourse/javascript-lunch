@@ -1,3 +1,4 @@
+import Button from './components/Button';
 import FilterList from './components/FilterList';
 import Header from './components/Header';
 import Modal from './components/Modal';
@@ -12,3 +13,4 @@ customElements.define('filter-list', FilterList);
 customElements.define('restaurant-box', RestaurantBox);
 customElements.define('select-list', SelectList);
 customElements.define('text-input', TextInput);
+customElements.define('lunch-button', Button);

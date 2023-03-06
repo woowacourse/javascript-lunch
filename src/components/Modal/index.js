@@ -28,6 +28,10 @@ class Modal extends HTMLElement {
         </select-list>
         <text-input name ="설명" id="description"></text-input>
         <text-input name ="링크" id="link"></text-input>
+        <div class="button-container">
+          <lunch-button name="취소하기" id="cancelModal" color="white"></lunch-button>
+          <lunch-button name="추가하기" id="addRestaurant" color="orange"></lunch-button>
+        </div>
       </div>
     </div>
     `;
