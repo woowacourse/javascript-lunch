@@ -1,6 +1,6 @@
 import IRestaurant from "../type/IRestaurant";
 import RestaurantItem from "./RestaurantItem";
-import LocalStorage from "../utils/LocalStorage";
+import Storage from "../tools/Storage";
 import defaultRestaurants from "../tools/defaultRestaurants";
 import { TCategory } from "../type/TCategory";
 
@@ -22,11 +22,11 @@ class RestaurantList extends HTMLElement {
         },
       }
     );
-    this.loadLocalStorage();
+    this.loadRestaurants();
   }
 
-  loadLocalStorage() {
-    const restaurants = LocalStorage.getLocalStorage("restaurants");
+  loadRestaurants() {
+    const restaurants = Storage.loadRestaurants();
     this.listState.restaurants =
       restaurants.length > 0 ? restaurants : defaultRestaurants;
   }
@@ -63,7 +63,7 @@ class RestaurantList extends HTMLElement {
 
   addRestaurant(newRestaurant: IRestaurant) {
     this.listState.restaurants = [...this.listState.restaurants, newRestaurant];
-    LocalStorage.setLocalStorage("restaurants", this.listState.restaurants);
+    Storage.saveRestaurants(this.listState.restaurants);
   }
 
   filterBy(key: TCategory) {

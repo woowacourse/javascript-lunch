@@ -12,17 +12,17 @@ const makeArray = (json: string) => {
   }
 };
 
-const LocalStorage = {
-  getLocalStorage(key: string) {
-    const json = localStorage.getItem(key);
+const Storage = {
+  loadRestaurants() {
+    const json = localStorage.getItem("restaurants");
     if (json === null) {
       return [];
     }
     return makeArray(json);
   },
-  setLocalStorage(key: string, value: IRestaurant[]) {
+  saveRestaurants(value: IRestaurant[]) {
     const json = JSON.stringify(value);
-    localStorage.setItem(key, json);
+    localStorage.setItem("restaurants", json);
   },
 };
-export default LocalStorage;
+export default Storage;
