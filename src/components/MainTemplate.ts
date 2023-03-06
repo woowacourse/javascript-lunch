@@ -34,6 +34,7 @@ class MainTemplate implements Component<MainTemplateState> {
 
   render = () => {
     this.$component.innerHTML = ``;
+
     new Header({ $parent: this.$component, toggleModal: this.toggleModal }).render();
     new RestaurantListPage({ $parent: this.$component }).render();
   };

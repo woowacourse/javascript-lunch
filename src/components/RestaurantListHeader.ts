@@ -34,6 +34,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     };
     this.onChangeCategory = onChangeCategory;
     this.onChangeSortBy = onChangeSortBy;
+
     $parent.append(this.$component);
   }
 

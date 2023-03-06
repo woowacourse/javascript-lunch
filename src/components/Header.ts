@@ -15,10 +15,11 @@ class Header implements Component<HeaderState> {
   constructor({ $parent, toggleModal }: MainTemplateProps) {
     this.$component = document.createElement('header');
     this.$component.classList.add('gnb');
-    this.state = {};
-    $parent.append(this.$component);
 
+    this.state = {};
     this.toggleModal = toggleModal;
+
+    $parent.append(this.$component);
   }
 
   setState(newState: HeaderState) {

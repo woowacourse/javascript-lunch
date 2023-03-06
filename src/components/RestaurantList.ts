@@ -26,6 +26,7 @@ class RestaurantList implements Component<RestaurantListState> {
       category,
       sortBy,
     };
+
     $parent.append(this.$component);
   }
 
@@ -49,6 +50,7 @@ class RestaurantList implements Component<RestaurantListState> {
     const filtered = this.state.restaurants.filter(
       (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category
     );
+
     const getPivot = (restaurant: Restaurant) =>
       sortBy === 'name' ? restaurant.name : Number(restaurant.distance);
 

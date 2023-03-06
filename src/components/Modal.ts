@@ -23,6 +23,7 @@ class Modal implements Component<ModalState> {
 
   constructor({ $parent, toggleModal }: ModalProps) {
     this.$component = document.createElement('div');
+
     this.state = {
       restaurantForm: {
         name: '',
@@ -31,8 +32,8 @@ class Modal implements Component<ModalState> {
       },
     };
     this.toggleModal = toggleModal;
-    $parent.append(this.$component);
 
+    $parent.append(this.$component);
     this.render();
   }
 
@@ -111,9 +112,11 @@ class Modal implements Component<ModalState> {
 
   submitForm = (e: Event) => {
     e.preventDefault();
+
     const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
     restaurants.push(this.getFormValues());
     localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
+
     this.toggleModal();
   };
 

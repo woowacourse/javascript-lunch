@@ -19,11 +19,13 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
 
   constructor({ $parent }: RestaurantListPageProps) {
     this.$component = document.createElement('div');
+
     this.state = {
       category: DEFAULT_CATEGORY,
       sortBy: 'name',
       restaurants: this.getRestaurants(),
     };
+
     $parent.append(this.$component);
   }
 
@@ -58,6 +60,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
   onChangeCategory = (e: Event) => {
     const $select = e.target as HTMLSelectElement;
     const category = $select.value as Category;
+
     this.setState({
       ...this.state,
       category,
@@ -67,6 +70,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
   onChangeSortBy = (e: Event) => {
     const $select = e.target as HTMLSelectElement;
     const sortBy = $select.value as SortBy;
+
     this.setState({
       ...this.state,
       sortBy,

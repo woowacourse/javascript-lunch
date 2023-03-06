@@ -17,9 +17,9 @@ class RestaurantListItem implements Component<RestaurantListItemState> {
   constructor({ $parent, restaurant }: RestaurantListItemProps) {
     this.$component = document.createElement('li');
     this.$component.classList.add('restaurant');
-    this.state = {
-      restaurant,
-    };
+
+    this.state = { restaurant };
+
     $parent.append(this.$component);
   }
 
@@ -30,6 +30,7 @@ class RestaurantListItem implements Component<RestaurantListItemState> {
 
   render = () => {
     const { category, name, distance, description } = this.state.restaurant;
+
     this.$component.innerHTML = `
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE_URL[category]}"" alt="${category}" class="category-icon" />

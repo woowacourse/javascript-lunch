@@ -17,11 +17,12 @@ class App implements Component<AppState> {
   constructor({ $parent }: AppProps) {
     this.$component = document.createElement('div');
     this.$component.classList.add('app');
-    $parent.append(this.$component);
 
     this.state = {
       modalHide: true,
     };
+
+    $parent.append(this.$component);
   }
 
   setState(newState: AppState) {
@@ -46,6 +47,7 @@ class App implements Component<AppState> {
 
   toggleModal = () => {
     const { modalHide } = this.state;
+
     this.setState({
       ...this.state,
       modalHide: !modalHide,
