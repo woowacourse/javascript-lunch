@@ -59,7 +59,7 @@
 - [x] refactor: 초기 데이터 분리
 - [x] refactor: constructor 추가
 - [x] refactor: 로컬스토리지에서 음식점 불러오기
-- [ ] refactor: querySelector 실패 시 분리하기
+- [x] refactor: querySelector 실패 시 분리하기
 
 # 페어프로그래밍 회고
 

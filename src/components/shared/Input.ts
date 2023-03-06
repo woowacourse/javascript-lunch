@@ -22,13 +22,17 @@ class Input extends CustomFormElement {
   render(): void {
     super.render();
 
-    this.shadowRoot
-      ?.querySelector<HTMLInputElement>('input')
-      ?.addEventListener('input', (event) => {
-        if (event.target instanceof HTMLInputElement) {
-          this.internals.setFormValue(event.target.value);
-        }
-      });
+    const $shadowRoot = this.shadowRoot;
+    if (!$shadowRoot) return;
+
+    const $input = $shadowRoot.querySelector<HTMLSelectElement>('input');
+    if (!$input) return;
+
+    $input.addEventListener('input', (event) => {
+      if (event.target instanceof HTMLInputElement) {
+        this.internals.setFormValue(event.target.value);
+      }
+    });
   }
 }
 

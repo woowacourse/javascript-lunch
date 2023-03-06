@@ -63,15 +63,19 @@ class Select extends CustomFormElement {
   render(): void {
     super.render();
 
-    this.shadowRoot
-      ?.querySelector<HTMLSelectElement>('#select')
-      ?.addEventListener('change', (event) => {
-        const $select = event?.target as HTMLSelectElement;
-        this.setSelectedOption({
-          value: $select.value,
-          label: this.#options.find((option) => option.value === $select.value)?.label as string,
-        });
+    const $shadowRoot = this.shadowRoot;
+    if (!$shadowRoot) return;
+
+    const $select = $shadowRoot.querySelector<HTMLSelectElement>('#select');
+    if (!$select) return;
+
+    $select.addEventListener('change', (event) => {
+      const { value } = event?.target as HTMLSelectElement;
+      this.setSelectedOption({
+        value,
+        label: this.#options.find((option) => option.value === value)?.label as string,
       });
+    });
   }
 }
 
