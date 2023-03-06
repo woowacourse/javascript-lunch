@@ -8,12 +8,14 @@ import FilterBar from "../src/UI/FilterBar";
 
 describe("렌더링 테스트", () => {
   beforeEach(() => {
-    document.body.innerHTML = `<section class="restaurant-list-container">
+    document.body.innerHTML = `
+    <section class="restaurant-filter-container"></section>
+    <section class="restaurant-list-container">
         <ul class="restaurant-list" data-testid="restaurant-list">
         </ul>
         </section>`;
   });
-  test("레스토랑 추가 시 컴포넌트 생성", () => {
+  test("레스토랑 추가 시 진대감이라는 텍스트가 document 하위에 존재하여야 한다.", () => {
     const restaurant = {
       category: "한식",
       name: "진대감",
@@ -24,7 +26,7 @@ describe("렌더링 테스트", () => {
 
     expect(screen.getByText("진대감")).toBeInTheDocument;
   });
-  test("레스토랑 목록 출력 정상 작동 확인", () => {
+  test("레스토랑 목록에 세 개의 음식점을 추가하였기 때문에, 레스토랑 목록의 child는 세 개여야 한다.", () => {
     const restaurantList = [
       {
         category: "일식",
@@ -46,7 +48,6 @@ describe("렌더링 테스트", () => {
     const restaurantItem = new RestaurantItem();
     const filterBar = new FilterBar(restaurantList, restaurantItem);
     filterBar.render(restaurantList);
-
     expect(screen.getByTestId("restaurant-list").childElementCount).toBe(3);
   });
 });
