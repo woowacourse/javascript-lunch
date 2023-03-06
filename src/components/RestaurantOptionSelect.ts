@@ -3,7 +3,7 @@ import RestaurantCardList from "./RestaurantCardList";
 
 type SelectId = keyof typeof OPTIONS;
 
-class CustomSelect extends HTMLSelectElement {
+class RestaurantOptionSelect extends HTMLSelectElement {
   static get observedAttributes() {
     return ["hasFilterEvent"];
   }
@@ -56,4 +56,4 @@ class CustomSelect extends HTMLSelectElement {
   }
 }
 
-export default CustomSelect;
+export default RestaurantOptionSelect;

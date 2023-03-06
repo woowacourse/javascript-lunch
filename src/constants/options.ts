@@ -1,9 +1,9 @@
 // TODO: 배열 중복되는 부분 어떻게 줄일지 생각해보기 (ex 함수로 묶기)
 
 import type { CategoryOption, SortOption } from "../types/option";
-import type { Distance } from "../types/restaurant";
+import type { Category, Distance } from "../types/restaurant";
 
-const CATEGORY_FILTER_OPTIONS: readonly CategoryOption[] = [
+export const CATEGORY_FILTER_OPTIONS: readonly CategoryOption[] = [
   "전체",
   "한식",
   "중식",
@@ -15,7 +15,10 @@ const CATEGORY_FILTER_OPTIONS: readonly CategoryOption[] = [
 
 const SORTING_FILTER_OPTIONS = ["이름순", "거리순"] as const;
 
-const SORTING_FILTER_VALUES: readonly SortOption[] = ["name", "distance"];
+export const SORTING_FILTER_VALUES: readonly SortOption[] = [
+  "name",
+  "distance",
+];
 
 const CATEGORY_OPTIONS = [
   "선택해 주세요",
@@ -27,7 +30,7 @@ const CATEGORY_OPTIONS = [
   "기타",
 ] as const;
 
-const CATEGORY_OPTION_VALUES = [
+const CATEGORY_OPTION_VALUES: readonly (Category | "")[] = [
   "",
   "한식",
   "중식",
@@ -35,7 +38,7 @@ const CATEGORY_OPTION_VALUES = [
   "양식",
   "아시안",
   "기타",
-] as const;
+];
 
 const DISTANCE_OPTIONS = [
   "선택해 주세요",

@@ -1,6 +1,6 @@
 import restaurantState from "../states/restaurant";
 import { Category, Distance, Restaurant } from "../types/restaurant";
-import CustomSelect from "./CustomSelect";
+import CustomSelect from "./RestaurantOptionSelect";
 import ModalContent from "./ModalContent";
 
 import RestaurantCardList from "./RestaurantCardList";
@@ -16,7 +16,7 @@ class RestaurantAddModal extends ModalContent {
       <form>
         <div class="form-item form-item--required">
           <label for="category text-caption">카테고리</label>
-          <select is="custom-select" name="category" id="category" required></select>
+          <select is="restaurant-option-select" name="category" id="category" required></select>
         </div>
         <div class="form-item form-item--required">
           <label for="name text-caption">이름</label>
@@ -24,7 +24,7 @@ class RestaurantAddModal extends ModalContent {
         </div>
         <div class="form-item form-item--required">
           <label for="distance text-caption">거리(도보 이동 시간)</label>
-          <select is="custom-select" name="distance" id="distance" required></select>
+          <select is="restaurant-option-select" name="distance" id="distance" required></select>
         </div>
         <div class="form-item">
           <label for="description text-caption">설명</label>

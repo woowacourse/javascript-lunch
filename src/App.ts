@@ -10,8 +10,8 @@ class App {
       <header is="lunch-header" class="gnb"></header>
       <main>
         <section class="restaurant-filter-container">
-          <select is="custom-select" name="category" id="category-filter" class="restaurant-filter" hasFilterEvent></select>
-          <select is="custom-select" name="sorting" id="sorting-filter" class="restaurant-filter" hasFilterEvent></select>
+          <select is="restaurant-option-select" name="category" id="category-filter" class="restaurant-filter" hasFilterEvent></select>
+          <select is="restaurant-option-select" name="sorting" id="sorting-filter" class="restaurant-filter" hasFilterEvent></select>
         </section>
         <section class="restaurant-list-container">
           <ul is="restaurant-card-list" class="restaurant-list"></ul>
