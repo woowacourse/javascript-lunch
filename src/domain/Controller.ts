@@ -10,8 +10,8 @@ class Controller {
     this.state = new Proxy(
       { restaurants: [] },
       {
-        set: (obj: any, prop, value) => {
-          obj[prop] = value;
+        set: (obj, prop, value) => {
+          if (prop === "restaurants") obj[prop] = value;
           this.renderRestaurantList();
           return true;
         },
