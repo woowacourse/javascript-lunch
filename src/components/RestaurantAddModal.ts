@@ -1,6 +1,7 @@
 import { CATEGORY, MINUTES_TO_CAMPUS } from '../data/Constants';
 import { Category, MinutesToCampus, Restaurant } from '../type/Restaurant';
 import { $ } from '../util/dom';
+import { Validator } from '../util/Validator';
 
 class RestaurantAddModal {
   template = () => `
@@ -22,7 +23,7 @@ class RestaurantAddModal {
           
           <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" required">
           </div>
           
           <div class="form-item form-item--required">
@@ -65,18 +66,24 @@ class RestaurantAddModal {
     $('.modal')?.classList.toggle('modal--open');
   };
 
-  get restaurant(): Restaurant {
+  makeRestaurant(target: HTMLFormElement): Restaurant {
+    const formData = new FormData(target);
     const restaurant: Restaurant = {
-      category: ($('#category') as HTMLInputElement).value as Category,
-      name: ($('#name') as HTMLInputElement).value,
-      distance: +($('#distance') as HTMLInputElement).value as MinutesToCampus,
-      description: ($('#description') as HTMLInputElement).value,
-      link: ($('#link') as HTMLInputElement).value,
+      category: formData.get('category') as Category,
+      name: formData.get('name') as string,
+      distance: Number(formData.get('distance')) as MinutesToCampus,
+      description: formData.get('description') as string,
+      link: formData.get('link') as string,
     };
-    !restaurant.distance && delete restaurant.description;
-    !restaurant.link && delete restaurant.link;
+    this.validate(restaurant);
 
     return restaurant;
+  }
+
+  validate(restaruant: Restaurant) {
+    if (Validator.isOnlyWhiteSpace(restaruant.name)) {
+      throw new Error('공백만 입력할 수 없습니다.');
+    }
   }
 
   setCloseModalHandler = () => {
@@ -92,9 +99,13 @@ class RestaurantAddModal {
 
   setAddbuttonHandler = (handler: (restaurant: Restaurant) => void) => {
     $('#form-add-restaurant')?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      handler(this.restaurant);
-      this.toggle();
+      try {
+        event.preventDefault();
+        handler(this.makeRestaurant(event.target as HTMLFormElement));
+        this.toggle();
+      } catch (error) {
+        alert(error);
+      }
     });
   };
 }
