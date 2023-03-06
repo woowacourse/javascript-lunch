@@ -1,5 +1,4 @@
 import $template from './index.html';
-import { store } from '../../store';
 import { Restaurant } from '../../types';
 import { $ } from '../../utils/dom';
 
@@ -9,7 +8,7 @@ class RestaurantItems extends HTMLElement {
   }
 
   connectedCallback() {
-    this.render(store.restaurants);
+    this.innerHTML = $template;
   }
 
   render(restaurants: Restaurant[]) {

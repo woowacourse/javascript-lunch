@@ -26,14 +26,15 @@ class Modal extends HTMLElement {
 
   connectedCallback() {
     this.render();
+  }
 
+  addRestaurantHandler(restaurantHandler: CallableFunction) {
     const $cancelButton = $<HTMLButtonElement>('#cancel-button');
-    const $form = $$<HTMLFormElement>('add-restaurant');
-
     $cancelButton.addEventListener('click', () => {
       this.closeModal($form);
     });
 
+    const $form = $$<HTMLFormElement>('add-restaurant');
     $form.addEventListener('submit', (e: SubmitEvent) => {
       e.preventDefault();
       const $category = $$<HTMLSelectElement>('category');
@@ -41,7 +42,6 @@ class Modal extends HTMLElement {
       const $distance = $$<HTMLSelectElement>('distance');
       const $description = $$<HTMLTextAreaElement>('description');
       const $link = $$<HTMLInputElement>('link');
-
       const restaurant = {
         category: $category.value as Category,
         name: $name.value,
@@ -49,7 +49,7 @@ class Modal extends HTMLElement {
         description: `"${$description.value}"`,
         link: $link.value,
       };
-      store.addRestaurants(restaurant);
+      restaurantHandler(restaurant);
       this.closeModal($form);
     });
   }
