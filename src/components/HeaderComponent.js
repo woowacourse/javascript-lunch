@@ -1,14 +1,14 @@
 import CustomElement from "../abstracts/CustomElement";
 
 class HeaderComponent extends CustomElement {
-  show() {
+  showModal() {
     document.querySelector(".modal").classList.add("modal--open");
   }
 
   setEvent() {
     document
       .querySelector(".gnb__button")
-      .addEventListener("click", () => this.show());
+      .addEventListener("click", this.showModal);
   }
 
   template() {

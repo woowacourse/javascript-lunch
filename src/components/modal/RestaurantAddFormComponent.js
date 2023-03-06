@@ -6,7 +6,7 @@ class RestaurantAddFormComponent extends CustomElement {
   setEvent() {
     document
       .querySelector("form")
-      .addEventListener("submit", (e) => this.addRestaurant(e));
+      .addEventListener("submit", this.addRestaurant);
   }
 
   addRestaurant(e) {

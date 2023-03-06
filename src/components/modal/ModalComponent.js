@@ -8,7 +8,7 @@ class ModalComponent extends CustomElement {
   setEvent() {
     document
       .querySelector(".button--secondary")
-      .addEventListener("click", () => this.hide());
+      .addEventListener("click", this.hide);
   }
 
   template() {

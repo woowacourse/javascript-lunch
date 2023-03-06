@@ -16,10 +16,10 @@ class SelectComponent extends CustomElement {
   setEvent() {
     document
       .querySelector("#category-filter")
-      .addEventListener("change", () => this.changeCategory());
+      .addEventListener("change", this.changeCategory);
     document
       .querySelector("#sorting-filter")
-      .addEventListener("change", () => this.changeSortMethod());
+      .addEventListener("change", this.changeSortMethod);
   }
 
   template() {
