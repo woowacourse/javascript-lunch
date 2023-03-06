@@ -1,6 +1,6 @@
 import './index.css';
 
-class SelectList extends HTMLElement {
+class FilterList extends HTMLElement {
   constructor() {
     super();
   }
@@ -35,4 +35,4 @@ class SelectList extends HTMLElement {
   }
 }
 
-export default SelectList;
+export default FilterList;
