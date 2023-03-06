@@ -1,4 +1,4 @@
-import { GLOBAL_CSS } from '../constants';
+import { COUNTRY_FOOD, GLOBAL_CSS } from '../constants';
 import koreanImage from '../assets/category-korean.png';
 import chineseImage from '../assets/category-chinese.png';
 import japaneseImage from '../assets/category-japanese.png';
@@ -7,14 +7,14 @@ import asianImage from '../assets/category-asian.png';
 import etcImage from '../assets/category-etc.png';
 
 class RestaurantBox extends HTMLElement {
-  getCategoryImage(category) {
-    if (category === '한식') return koreanImage;
-    if (category === '중식') return chineseImage;
-    if (category === '일식') return japaneseImage;
-    if (category === '양식') return westernImage;
-    if (category === '아시안') return asianImage;
-    if (category === '기타') return etcImage;
-  }
+  #categoryImage = {
+    [COUNTRY_FOOD.korean]: koreanImage,
+    [COUNTRY_FOOD.chinese]: chineseImage,
+    [COUNTRY_FOOD.japanese]: japaneseImage,
+    [COUNTRY_FOOD.western]: westernImage,
+    [COUNTRY_FOOD.asian]: asianImage,
+    [COUNTRY_FOOD.etc]: etcImage,
+  };
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
@@ -85,9 +85,9 @@ class RestaurantBox extends HTMLElement {
     this.shadowRoot.innerHTML = `
     <li class="restaurant">
           <div class="restaurant__category">
-            <img src=${this.getCategoryImage(
-              category
-            )} alt=${category} class="category-icon">
+            <img src=${
+              this.#categoryImage[category]
+            } alt=${category} class="category-icon">
           </div>
           <div class="restaurant__info">
             <h3 class="restaurant__name text-subtitle">${name}</h3>

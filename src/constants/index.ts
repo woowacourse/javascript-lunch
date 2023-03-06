@@ -2,6 +2,15 @@ import { Restaurant } from '../domain/model/RestaurantList';
 
 const LOCAL_STORAGE_KEY = 'userList';
 
+const COUNTRY_FOOD = Object.freeze({
+  korean: '한식',
+  japanese: '일식',
+  chinese: '중식',
+  western: '양식',
+  asian: '아시안',
+  etc: '기타',
+});
+
 const DEFAULT_RESTAURANTS: Restaurant[] = [
   {
     name: '이승재참치',
@@ -103,4 +112,4 @@ const GLOBAL_CSS = `
 }
   `;
 
-export { DEFAULT_RESTAURANTS, GLOBAL_CSS, LOCAL_STORAGE_KEY };
+export { COUNTRY_FOOD, DEFAULT_RESTAURANTS, GLOBAL_CSS, LOCAL_STORAGE_KEY };
