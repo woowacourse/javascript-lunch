@@ -51,25 +51,18 @@ class ModalView {
   }
 
   showErrorMessages(errors: Errors) {
-    if (errors.category) {
-      this.categoryInputCaption.classList.add('error-text');
-      this.categoryInputCaption.classList.remove('not-visible');
-    }
-
-    if (errors.name) {
-      this.nameInputCaption.classList.add('error-text');
-      this.nameInputCaption.classList.remove('not-visible');
-    }
-
-    if (errors.distance) {
-      this.distanceInputCaption.classList.add('error-text');
-      this.distanceInputCaption.classList.remove('not-visible');
-    }
-
+    if (errors.category) this.changeStyleForErrorMessage(this.categoryInputCaption);
+    if (errors.name) this.changeStyleForErrorMessage(this.nameInputCaption);
+    if (errors.distance) this.changeStyleForErrorMessage(this.distanceInputCaption);
     if (errors.link) {
-      this.linkInputCaption.classList.add('error-text');
+      this.changeStyleForErrorMessage(this.linkInputCaption);
       this.linkInputCaption.textContent = ERROR_MESSAGE.INVALID_LINK;
     }
+  }
+
+  changeStyleForErrorMessage<E extends Element>(element: E) {
+    element.classList.add('error-text');
+    element.classList.remove('not-visible');
   }
 
   addCategoryChangeEvent() {
