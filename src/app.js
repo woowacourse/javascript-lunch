@@ -7,6 +7,7 @@ import Modal from "./components/Modal";
 import RestaurantRepository from "./domain/RestaurantRepository";
 import RestaurantFilter from "./domain/RestaurantFilter";
 import store from "./util/store";
+import { CATEGORY } from "./constants";
 
 export default class App extends Component {
   setup() {
@@ -18,7 +19,7 @@ export default class App extends Component {
       restaurantList: sortedList,
       modalOpen: false,
       sortingWay: "name",
-      category: "전체",
+      category: CATEGORY.ALL,
     };
   }
 

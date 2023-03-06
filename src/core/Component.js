@@ -33,7 +33,7 @@ export default class Component {
 
   addEvent(eventType, selector, callback) {
     this.$target.addEventListener(eventType, (event) => {
-      if (!event.target.closest(selector)) return false;
+      if (!event.target.closest(selector)) return;
       callback(event);
     });
   }
