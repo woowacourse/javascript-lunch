@@ -8,7 +8,7 @@ describe('전체 app ui 테스트', () => {
   let $target: HTMLDivElement;
   let dom;
 
-  let localStorageMock = (() => {
+  const localStorageMock = (() => {
     let store = {};
 
     return {
