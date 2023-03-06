@@ -1,6 +1,5 @@
 import { Category, Order } from '@res/constants/enum';
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
-import sortItemsByName from '@res/utils/sortByName';
 
 export const restaurantStore = {
   addList(restaurantInput: IRestaurantInput) {
