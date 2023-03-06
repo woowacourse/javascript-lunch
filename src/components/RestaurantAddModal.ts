@@ -8,7 +8,7 @@ class RestaurantAddModal {
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form>
+        <form id="form-add-restaurant">
           <div class="form-item form-item--required">
           
             <label for="category text-caption">카테고리</label>
@@ -61,6 +61,7 @@ class RestaurantAddModal {
   };
 
   toggle = () => {
+    ($('#form-add-restaurant') as HTMLFormElement).reset();
     $('.modal')?.classList.toggle('modal--open');
   };
 
@@ -90,10 +91,10 @@ class RestaurantAddModal {
   };
 
   setAddbuttonHandler = (handler: (restaurant: Restaurant) => void) => {
-    $('.button--primary')?.addEventListener('click', (event) => {
+    $('#form-add-restaurant')?.addEventListener('submit', (event) => {
       event.preventDefault();
-      this.toggle();
       handler(this.restaurant);
+      this.toggle();
     });
   };
 }

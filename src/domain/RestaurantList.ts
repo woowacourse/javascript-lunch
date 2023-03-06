@@ -5,9 +5,7 @@ type SortCondition = '이름' | '거리';
 type FilterCategory = '전체' | Category;
 
 class RestaurantList {
-  private list: Restaurant[] = [];
-
-  constructor() {}
+  constructor(private list: Restaurant[] = []) {}
 
   add(restaurant: Restaurant) {
     this.list.push(restaurant);

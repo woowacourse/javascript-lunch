@@ -5,26 +5,20 @@ import RestaurantFilter from './components/RestaurantFilterBar';
 import { Restaurant } from './type/Restaurant';
 import { FilterCategory, RestaurantList, SortCondition } from './domain/RestaurantList';
 import RestaurantAddModal from './components/RestaurantAddModal';
+import { RestaurantLocalStorage } from './domain/RestaurantLocalStorage';
 
 class App {
   private restaurantsList: RestaurantList;
 
   constructor(target: HTMLElement) {
-    this.restaurantsList = new RestaurantList();
+    this.restaurantsList = new RestaurantList(RestaurantLocalStorage.loadList('default'));
     Header.render(target);
     RestaurantFilter.render(target);
     RestaurantBlockList.render(target);
     RestaurantAddModal.render(target);
-  }
-
-  init = (data: Restaurant[]) => {
-    data.forEach((restaurant) => {
-      this.restaurantsList.add(restaurant);
-    });
-
     this.renderList('전체', '이름');
     this.setEvent();
-  };
+  }
 
   setEvent = () => {
     RestaurantFilter.setSelectChangeHandler(this.renderList);
@@ -43,6 +37,7 @@ class App {
 
   addRestaurant = (restaruant: Restaurant) => {
     this.restaurantsList.add(restaruant);
+    RestaurantLocalStorage.saveList('default', this.restaurantsList.getList('전체', '이름'));
     this.renderList(RestaurantFilter.category, RestaurantFilter.sortCondition);
   };
 }
