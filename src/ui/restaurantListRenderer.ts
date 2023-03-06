@@ -1,16 +1,15 @@
+import "../assets/category-asian.png";
+import "../assets/category-chinese.png";
+import "../assets/category-etc.png";
+import "../assets/category-japanese.png";
+import "../assets/category-korean.png";
+import "../assets/category-western.png";
+import "../assets/favorite-icon-filled.png";
+import "../assets/favorite-icon-lined.png";
+
 import { RestaurantType } from "../type";
 import { renderRestaurant } from "../templates";
 import { $ } from "../util/selector";
-
-import "../img/add-button.png";
-import "../img/category-chinese.png";
-import "../img/category-asian.png";
-import "../img/category-etc.png";
-import "../img/category-japanese.png";
-import "../img/category-korean.png";
-import "../img/category-western.png";
-import "../img/favorite-icon-filled.png";
-import "../img/favorite-icon-lined.png";
 
 const restaurantListElement = $(".restaurant-list") as HTMLElement;
 
