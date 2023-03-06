@@ -1,4 +1,5 @@
 import ImagePath from '../../templates/add-button.png';
+import { $ } from '../util/dom';
 
 class Header {
   template = () => `
@@ -11,6 +12,12 @@ class Header {
 
   render = (target: HTMLElement) => {
     target.insertAdjacentHTML('afterbegin', this.template());
+  };
+
+  setButtonHandler = (handler: () => void) => {
+    $('.gnb__button')?.addEventListener('click', (event) => {
+      handler();
+    });
   };
 }
 

@@ -1,35 +1,49 @@
-import CategoryComboBox from './components/CategoryComboBox';
 import Header from './components/Header';
-import RestaurantAddModal from './components/RestaurantAddModal';
+import RestaurantBlock from './components/RestaurantBlock';
 import RestaurantBlockList from './components/RestaurantBlockList';
-import RestaurantFilter from './components/RestaurantFilter';
-import SortComboBox from './components/SortComboBox';
-import initialData from './data/initialData';
-import { Category, SortCondition } from './data/type';
-import RestaurantList from './domain/RestaurantList';
+import RestaurantFilter from './components/RestaurantFilterBar';
+import { Restaurant } from './type/Restaurant';
+import { FilterCategory, RestaurantList, SortCondition } from './domain/RestaurantList';
+import RestaurantAddModal from './components/RestaurantAddModal';
 
 class App {
-  #list;
+  private restaurantsList: RestaurantList;
 
-  constructor() {
-    this.#list = new RestaurantList(initialData);
+  constructor(target: HTMLElement) {
+    this.restaurantsList = new RestaurantList();
+    Header.render(target);
+    RestaurantFilter.render(target);
+    RestaurantBlockList.render(target);
+    RestaurantAddModal.render(target);
   }
 
-  init() {
-    new Header();
-    new RestaurantFilter();
-    new CategoryComboBox();
-    new SortComboBox();
-    new RestaurantBlockList();
-    new RestaurantAddModal();
+  init = (data: Restaurant[]) => {
+    data.forEach((restaurant) => {
+      this.restaurantsList.add(restaurant);
+    });
 
-    RestaurantBlockList.render(this.#list.getList('이름'));
+    this.renderList('전체', '이름');
+    this.setEvent();
+  };
 
-    RestaurantFilter.setEventHandler(this.renderList);
-  }
+  setEvent = () => {
+    RestaurantFilter.setSelectChangeHandler(this.renderList);
+    Header.setButtonHandler(RestaurantAddModal.toggle);
+    RestaurantAddModal.setCloseModalHandler();
+    RestaurantAddModal.setAddbuttonHandler(this.addRestaurant);
+  };
 
-  renderList = (condition: SortCondition, category?: Category) => {
-    RestaurantBlockList.render(this.#list.getList(condition, category));
+  renderList = (category: FilterCategory, sortCondition: SortCondition) => {
+    RestaurantBlockList.replaceList(
+      this.restaurantsList
+        .getList(category, sortCondition)
+        .map((restaurant) => new RestaurantBlock(restaurant)),
+    );
+  };
+
+  addRestaurant = (restaruant: Restaurant) => {
+    this.restaurantsList.add(restaruant);
+    this.renderList(RestaurantFilter.category, RestaurantFilter.sortCondition);
   };
 }
 
