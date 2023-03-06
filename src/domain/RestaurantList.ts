@@ -1,7 +1,10 @@
-import { Restaurant, RestaurantForm, Category } from "./Restaurant";
-
+import { RestaurantForm, Category } from "./Restaurant";
+import { sortByName, sortByDistance } from "../utils/Sort";
+import { $ } from "../utils/Dom";
+import RestaurantRegistry from "../UI/RestaurantRegistry";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
+  private restaurantRegistry;
 
   constructor() {
     const res = JSON.parse(localStorage.getItem("restaurants") || "[]");
@@ -9,36 +12,68 @@ export class RestaurantList {
       res.forEach((val: RestaurantForm) => {
         this.list.push(val);
       });
+    this.restaurantRegistry= new RestaurantRegistry()
   }
 
   add(restaurantInfo: RestaurantForm) {
     this.list = [...this.list, restaurantInfo];
 
-    this.filterAll();
+    const restaurantString = JSON.stringify(this.list);
+    localStorage.setItem("restaurants", restaurantString);
   }
 
   get listRestaurant(): RestaurantForm[] {
     return this.list;
   }
 
-  filterAll() {
+  categoryFilter(category: Category) {
+    const filteredList: RestaurantForm[] = [];
+    if (category === "전체") {
+      return this.list;
+    }
+
+    return this.foodFilter(category, filteredList);
+  }
+
+  allFilter() {
     const restaurantString = JSON.stringify(this.list.map((info) => info));
     window.localStorage.setItem("restaurants", restaurantString);
   }
 
-  categoryFilter(category: Category) {
-    const filteredList: RestaurantForm[] = [];
-    if (category === "전체") {
-      this.filterAll();
-      return;
-    }
-
+  foodFilter(category: Category, filteredList: RestaurantForm[]) {
     this.list.filter((info) => {
       if (info.category === category) filteredList.push(info);
     });
 
-    const restaurantString = JSON.stringify(filteredList);
-    window.localStorage.setItem("restaurants", restaurantString);
-    return filteredList;
+    return filteredList
+  }
+
+  filterCategory(selectedValue:Category) {
+    localStorage.setItem("foodCategory", selectedValue);
+
+    $(".restaurant-list").replaceChildren();
+    const restaurantParsedInfo = this.categoryFilter(selectedValue);
+    this.attachRestaurantToRegistry(restaurantParsedInfo);
+  }
+
+  filterBySort(sortBy:string) {
+    $(".restaurant-list").replaceChildren();
+
+    const restaurantParsedInfo = this.getRestaurantListFromLocalstorage();
+    if (sortBy === "name") sortByName(restaurantParsedInfo);
+    if (sortBy === "distance") sortByDistance(restaurantParsedInfo);
+
+    localStorage.setItem("sort", sortBy);
+    this.attachRestaurantToRegistry(restaurantParsedInfo);
+  }
+
+  getRestaurantListFromLocalstorage() {
+    return JSON.parse(localStorage.getItem("restaurants") || "[]");
+  }
+
+  attachRestaurantToRegistry(restaurantParsedInfo:RestaurantForm[]) {
+    restaurantParsedInfo.forEach((value) => {
+      this.restaurantRegistry.appendRestaurant(value);
+    });
   }
 }

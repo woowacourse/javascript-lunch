@@ -10,9 +10,14 @@ export default class Header {
     </header>
     `;
 
-  constructor() {
-    document.body.insertAdjacentHTML("afterbegin", this.#template);
+  constructor() {}
+
+  initializeButtonEvents() {
     $(".gnb__button").addEventListener("click", this.openModal);
+  }
+
+  render() {
+    document.body.insertAdjacentHTML("afterbegin", this.#template);
   }
 
   openModal() {

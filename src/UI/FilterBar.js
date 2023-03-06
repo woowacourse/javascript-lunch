@@ -27,50 +27,24 @@ export default class FilterBar {
   constructor(restaurantList, restaurantRegistry) {
     this.restaurantList = restaurantList;
     this.restaurantRegistry = restaurantRegistry;
+  }
+
+  render() {
     document.body.insertAdjacentHTML("beforeend", this.#template);
+  }
+
+  initializeButtonEvents() {
     const selected = $("#category-filter");
     selected.addEventListener("change", () => {
       const selectedValue = selected.options[selected.selectedIndex].value;
-      this.filterCategory(selectedValue);
+      this.restaurantList.filterCategory(selectedValue);
     });
+
     const sorted = $("#sorting-filter");
     sorted.addEventListener("change", () => {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
-      if (sortedValue === "name") this.filterByName();
-      if (sortedValue === "distance") this.filterByDistance();
+      this.restaurantList.filterBySort(sortedValue);
     });
   }
-
-  filterCategory(selectedValue) {
-    this.restaurantList.categoryFilter(selectedValue);
-    $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = JSON.parse(
-      localStorage.getItem("restaurants")
-    );
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
-    });
-  }
-
-  filterByName() {
-    $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = JSON.parse(
-      localStorage.getItem("restaurants")
-    );
-    sortByName(restaurantParsedInfo);
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
-    });
-  }
-
-  filterByDistance() {
-    $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = JSON.parse(
-      localStorage.getItem("restaurants")
-    );
-    sortByDistance(restaurantParsedInfo);
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
-    });
-  }
+  
 }

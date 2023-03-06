@@ -1,5 +1,3 @@
-import { RestaurantList } from "../domain/RestaurantList";
-import RestaurantRegistry from "./RestaurantRegistry";
 import { $, $$ } from "../utils/Dom";
 
 export default class Modal {
@@ -68,29 +66,51 @@ export default class Modal {
     `;
 
   constructor(restaurantList, restaurantRegistry) {
-    document.body.insertAdjacentHTML("beforeend", this.#template);
     this.restaurantList = restaurantList;
+    this.restaurantRegistry = restaurantRegistry;
+  }
+
+  render() {
+    document.body.insertAdjacentHTML("beforeend", this.#template);
+  }
+
+  initializeButtonEvents() {
     this.modalForm = $(".modal-form");
     this.modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
       this.addRestaurant();
     });
-    this.restaurantRegistry = restaurantRegistry;
+
     $(".button--secondary").addEventListener("click", this.closeModal);
   }
 
   addRestaurant() {
+    const restaurantInfo = this.setRestaurantInformation();
+
+    this.restaurantList.add(restaurantInfo);
+    const foodCategory = localStorage.getItem("foodCategory")
+    const sortBy = localStorage.getItem("sort")
+    this.restaurantRegistry.appendRestaurant(
+      this.restaurantList.listRestaurant[this.getRestaurantLength()]
+    );
+    this.restaurantList.filterCategory(foodCategory)
+    this.restaurantList.filterBySort(sortBy)
+    this.closeModal();
+  }
+
+  setRestaurantInformation() {
     const restaurantInfo = {};
     const array = ["category", "name", "distance", "description", "link"];
+
     $$(".form-item").forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
-    this.restaurantList.add(restaurantInfo);
-    const restaurantLength = this.restaurantList.listRestaurant.length - 1;
-    this.restaurantRegistry.appendRestaurant(
-      this.restaurantList.listRestaurant[restaurantLength]
-    );
-    this.closeModal();
+
+    return restaurantInfo;
+  }
+
+  getRestaurantLength() {
+    return this.restaurantList.listRestaurant.length - 1;
   }
 
   closeModal = () => {
@@ -104,6 +124,7 @@ export default class Modal {
         val.children[1].value = "";
         return;
       }
+
       val.children[1].value = null;
     });
   }

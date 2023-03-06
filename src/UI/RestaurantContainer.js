@@ -8,7 +8,7 @@ export default class RestaurantContainer {
         </section>
     `;
 
-  constructor() {
+  render() {
     $("main").insertAdjacentHTML("beforeend", this.#template);
   }
 }
