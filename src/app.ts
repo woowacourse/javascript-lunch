@@ -7,7 +7,7 @@ import Component from './core/Component';
 import { IComponentPropState } from './interfaces/IComponent';
 import IRestaurantInput from './interfaces/IRestaurantInput';
 import {
-  getLocalStorageItem,
+  getLocalStorageItems,
   setLocalStorageItem,
 } from './utils/localStroageUtils';
 import sortItemsByName from './utils/sortByName';
@@ -17,9 +17,7 @@ class App extends Component<IComponentPropState> {
   setup() {
     this.$state = {
       isModalOpened: false,
-      restaurantList: this.getRestaurants().length
-        ? this.getRestaurants()
-        : defaultDummyRestaurantsData,
+      restaurantList: this.getRestaurants(),
       filterOptions: { category: '전체', order: '이름순' },
       isAddFormValid: true,
     };
@@ -87,7 +85,11 @@ class App extends Component<IComponentPropState> {
   }
 
   addRestaurant(restaurantInput: IRestaurantInput) {
-    const restaurantList: IRestaurantInput[] = this.getRestaurants();
+    const restaurantList: IRestaurantInput[] =
+      this.getRestaurants() === defaultDummyRestaurantsData
+        ? []
+        : this.getRestaurants();
+
     restaurantList.push(restaurantInput);
 
     setLocalStorageItem('restaurantList', restaurantList);
@@ -132,7 +134,9 @@ class App extends Component<IComponentPropState> {
   }
 
   getRestaurants(): IRestaurantInput[] {
-    return getLocalStorageItem('restaurantList') || [];
+    return (
+      getLocalStorageItems('restaurantList') || defaultDummyRestaurantsData
+    );
   }
 }
 
