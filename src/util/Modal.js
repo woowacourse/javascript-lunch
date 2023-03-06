@@ -1,7 +1,8 @@
 const Modal = {
-  create() {
+  create(id) {
     const modalRoot = document.createElement("div");
     modalRoot.setAttribute("class", "modal");
+    if (id) modalRoot.setAttribute("id", id);
 
     Modal.addBackdrop(modalRoot);
     Modal.addContainer(modalRoot);
