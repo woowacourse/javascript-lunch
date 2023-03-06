@@ -12,6 +12,8 @@ import LocalStorage from "./util/LocalStorage";
 import Elements from "./Element";
 import createSelectInput from "./util/createSelectInput";
 
+const newRestaurant = new Restaurants();
+
 // 음식점 입력 모달 생성
 const restaurantInputModal = Modal.create();
 $("main").appendChild(restaurantInputModal);
@@ -42,23 +44,53 @@ addButton.addEventListener("click", () => {
 });
 
 // 음식점 입력
-const newRestaurant = new Restaurants();
-
-
 const cancelButton = $(".button--secondary");
-const modalBg = $(".modal-backdrop");
-
 const submitButton = $(".button--primary");
-const submitAlert = new Alert("#alert-submit");
+const submitAlert = $("#alert-submit");
 const linkInput = $("#link");
-const linkAlert = new Alert("#alert-link");
+const linkAlert = $("#alert-link");
 const catgoryInput = $("#category");
-const categoryAlert = new Alert("#alert-category");
+const categoryAlert = $("#alert-category");
 const nameInput = $("#name");
-const nameAlert = new Alert("#alert-name");
+const nameAlert = $("#alert-name");
 const distanceInput = $("#distance");
-const distanceAlert = new Alert("#alert-distance");
-const descriptionInput = $("#description");
+const distanceAlert = $("#alert-distance");
+
+catgoryInput.addEventListener("focusout", () => {
+  try {
+    Input.checkCategory(catgoryInput.value);
+    Alert.close(categoryAlert);
+  } catch (e) {
+    Alert.open(categoryAlert, e.message);
+  }
+});
+
+nameInput.addEventListener("focusout", () => {
+  try {
+    Input.checkName(nameInput.value);
+    Alert.close(nameAlert);
+  } catch (e) {
+    Alert.open(nameAlert, e.message);
+  }
+});
+
+distanceInput.addEventListener("focusout", () => {
+  try {
+    Input.checkDistance(distanceInput.value);
+    Alert.close(distanceAlert);
+  } catch (e) {
+    Alert.open(distanceAlert, e.message);
+  }
+});
+
+linkInput.addEventListener("focusout", () => {
+  try {
+    Input.checkLink(linkInput.value);
+    Alert.close(linkAlert);
+  } catch (e) {
+    Alert.open(linkAlert, e.message);
+  }
+});
 
 const categoryFilter = $("#category-filter");
 const sortingFilter = $("#sorting-filter");
@@ -70,85 +102,10 @@ const updateRestaurant = () => {
   return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
 };
 
-const resetRestaurantInput = () => {
-  catgoryInput.value = "";
-  nameInput.value = "";
-  distanceInput.value = "";
-  linkInput.value = "";
-  descriptionInput.value = "";
-};
-
 addButton.querySelector("img").src = IMAGE.ADD_BTN;
 addButton.addEventListener("click", () => {
   Modal.open(restaurantInputModal);
 });
-
-// modalBg.addEventListener("click", () => {
-//   restaurantInputModal.close();
-// });
-
-// document.addEventListener("keyup", (event) => {
-//   if (event.key === "Escape") restaurantInputModal.close();
-// });
-
-// submitButton.addEventListener("click", (event) => {
-//     event.preventDefault();
-//     try {
-//         const restaurant = RestaurantInfo.get();
-//         Input.checkAll(restaurant);
-//         submitAlert.hide();
-//         newRestaurant.add(restaurant);
-//         updateRestaurant();
-//         LocalStorage.setItem('restaurants', newRestaurant.getList());
-//         restaurantInputModal.close();
-//         resetRestaurantInput()
-//     } catch (e) {
-//         submitAlert.show(e.message);
-//     }
-// });
-
-// cancelButton.addEventListener("click", () => {
-//     resetRestaurantInput()
-//     restaurantInputModal.close();
-// })
-
-
-// catgoryInput.addEventListener("focusout", () => {
-//   try {
-//     Input.checkCategory(catgoryInput.value);
-//     categoryAlert.hide();
-//   } catch (e) {
-//     categoryAlert.show(e.message);
-//   }
-// });
-
-
-// nameInput.addEventListener("focusout", () => {
-//   try {
-//     Input.checkName(nameInput.value);
-//     nameAlert.hide();
-//   } catch (e) {
-//     nameAlert.show(e.message);
-//   }
-// });
-
-// distanceInput.addEventListener("focusout", () => {
-//   try {
-//     Input.checkDistance(distanceInput.value);
-//     distanceAlert.hide();
-//   } catch (e) {
-//     distanceAlert.show(e.message);
-//   }
-// });
-
-// linkInput.addEventListener("focusout", () => {
-//   try {
-//     Input.checkLink(linkInput.value);
-//     linkAlert.hide();
-//   } catch (e) {
-//     linkAlert.show(e.message);
-//   }
-// });
 
 window.onload = function () {
   LocalStorage.getItem('restaurants').forEach(item => {
