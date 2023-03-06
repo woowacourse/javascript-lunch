@@ -8,14 +8,17 @@ import restaurantListHandler from "@/domain/restaurantListHandler";
 import { Category, Restaurant, Sort } from "@/type/type";
 
 class App {
-  restaurantList: Restaurant[];
   category: Category;
   sort: Sort;
+  restaurantList: Restaurant[];
 
   constructor(body: Element) {
-    this.restaurantList = restaurantListHandler.getSortedByName();
     this.category = OptionValue.TOTAL as Category;
     this.sort = OptionValue.NAME_ORDER as Sort;
+    this.restaurantList = restaurantListHandler.getRestaurants(
+      this.category,
+      this.sort
+    );
 
     this.renderComponents(body);
     this.addEvents();
