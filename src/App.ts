@@ -18,6 +18,10 @@ export class App {
     new RestaurantContainer();
     new Modal(this.restaurantList, this.restaurantItem);
 
+    this.init();
+  }
+
+  init() {
     const restaurants = getLocalStorage(KEY);
     if (restaurants !== null)
       restaurants.forEach((restaurant: RestaurantForm) => {
