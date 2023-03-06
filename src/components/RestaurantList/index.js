@@ -1,5 +1,5 @@
 import Restaurant from './Restaurant';
-import { $ } from '../utils/dom';
+import { $ } from '../../utils/dom';
 
 const RestaurantList = {
   render(restaurants) {
