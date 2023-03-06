@@ -58,6 +58,8 @@ export const restaurants: Restaurants = {
   },
 
   compareByName(a: Restaurant, b: Restaurant) {
-    return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+    return 0;
   },
 };
