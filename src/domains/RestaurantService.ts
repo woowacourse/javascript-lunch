@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE_KEY } from '../constants/constants';
 import { AllCategory, Category, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
@@ -6,7 +7,7 @@ class RestaurantService {
   private currentSortingCriterion: SortingCriterion = 'name';
 
   constructor() {
-    this.restaurantList = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
+    this.restaurantList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.RESTAURANTS) ?? '[]');
   }
 
   add(restaurant: Restaurant) {
