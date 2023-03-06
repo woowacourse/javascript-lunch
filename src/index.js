@@ -1,4 +1,5 @@
 import App from './App';
 import CSS from '../templates/style.css';
 
-new App(document.querySelector('body'));
+const $target = document.querySelector('body');
+const app = new App($target);
