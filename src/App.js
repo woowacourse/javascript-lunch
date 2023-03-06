@@ -13,10 +13,10 @@ export default class App {
     const restaurantsData = store.getLocalStorage();
     this.#restaurants = new Restaurants(restaurantsData);
     this.renderRestaurantListByFilterOptions();
-    this.init();
+    this.registerEvents();
   }
 
-  init() {
+  registerEvents() {
     $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
     $('.restaurant-filter-container').addEventListener(
       'change',
