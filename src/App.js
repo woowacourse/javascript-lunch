@@ -1,12 +1,17 @@
 import RestaurantList from './components/RestaurantList';
-import CategoryFilter from './components/CategoryFilter';
-import CategorySelectbox from './components/CategorySelectbox';
+import Selectbox from './components/Selectbox';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
 
 import { $ } from './utils/dom';
 import store from './utils/store';
+
+import {
+  FILTER_CATEGORY_SELECTBOX_CONFIG,
+  FORM_CATEGORY_SELECTBOX_CONFIG,
+  FORM_DISTANCE_SELECTBOX_CONFIG,
+} from './constants/selectboxConfig';
 
 export default class App {
   #restaurants;
@@ -15,8 +20,13 @@ export default class App {
     const restaurantsData = store.getLocalStorage();
     this.#restaurants = new Restaurants(restaurantsData);
 
-    CategoryFilter.render();
-    CategorySelectbox.render();
+    Selectbox.render(
+      $('.restaurant-filter-container'),
+      'afterbegin',
+      FILTER_CATEGORY_SELECTBOX_CONFIG
+    );
+    Selectbox.render($('.form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
+    Selectbox.render($('.form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
     this.renderRestaurantListByFilterOptions();
 
     this.init();

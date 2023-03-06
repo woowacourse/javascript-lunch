@@ -9,3 +9,18 @@ export interface Restaurant {
   description: string;
   link: string;
 }
+
+export type SelectBoxConfig = {
+  attribute: {
+    name: string;
+    id: string;
+    class: string;
+    isRequired: boolean;
+  };
+  firstOption: {
+    value: string;
+    text: string;
+  };
+  options: readonly string[];
+  optionText: string;
+};
