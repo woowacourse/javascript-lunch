@@ -1,4 +1,4 @@
-import { CATEGORY } from "../constants";
+import { CATEGORY, SORT } from "../constants";
 import Component from "../core/Component";
 
 export default class Filter extends Component {
@@ -14,8 +14,10 @@ export default class Filter extends Component {
         </select>
 
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          <option value="name" ${sortingWay === "name" ? "selected" : ""}>이름순</option>
-          <option value="distance" ${sortingWay === "distance" ? "selected" : ""}>거리순</option>
+          ${Object.values(SORT).map(
+            (sortValue) =>
+              `<option value="${sortValue}" ${sortingWay === sortValue ? "selected" : ""}>${sortValue}</option>`
+          )}
         </select>
     `;
   }

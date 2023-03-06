@@ -22,3 +22,8 @@ export const SORT = {
   NAME: "이름순",
   DISTANCE: "거리순",
 };
+
+export const SORT_ENG = {
+  NAME: "name",
+  DISTANCE: "distance",
+};

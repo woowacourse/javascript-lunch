@@ -1,4 +1,4 @@
-import { CATEGORY } from "../constants";
+import { CATEGORY, SORT } from "../constants";
 import "../types/restaurant";
 
 const RestaurantFilter = {
@@ -8,9 +8,14 @@ const RestaurantFilter = {
   },
 
   sortRestaurants(sortingWay: SortingWay, restaurants: RestaurantInfo[]): RestaurantInfo[] {
-    if (sortingWay === "distance") return [...restaurants].sort((a, b) => a.distance - b.distance);
+    if (sortingWay === SORT.NAME) {
+      return [...restaurants].sort((a, b) => (a.name > b.name ? 1 : -1));
+    }
+    if (sortingWay === SORT.DISTANCE) {
+      return [...restaurants].sort((a, b) => a.distance - b.distance);
+    }
 
-    return [...restaurants].sort((a, b) => (a.name > b.name ? 1 : -1));
+    return restaurants;
   },
 };
 
