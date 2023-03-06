@@ -1,7 +1,7 @@
-import { restaurants } from '../src/domain/restaurants';
+import { restaurantManager } from '../src/domain/restaurants';
 import { sampleRestaurants } from '../src/domain/sampleRestaurants';
 
-describe('restaurants 도메인 기능 테스트', () => {
+describe('restaurantManager 도메인 기능 테스트', () => {
   test('새로운 음식점을 추가한다.', () => {
     const newRestaurant = {
       category: '일식',
@@ -11,21 +11,21 @@ describe('restaurants 도메인 기능 테스트', () => {
       link: 'link',
     };
 
-    restaurants.add(newRestaurant);
+    restaurantManager.add(newRestaurant);
 
-    expect(restaurants.list).toEqual([newRestaurant]);
+    expect(restaurantManager.list).toEqual([newRestaurant]);
   });
 
   test('음식점들을 카테고리별로 필터링한다.', () => {
     const category = '일식';
-    const filteredRestaurants = restaurants.filterByCategory(category, sampleRestaurants);
+    const filteredRestaurants = restaurantManager.filterByCategory(category, sampleRestaurants);
     const isFiltered = filteredRestaurants.every((restaurant) => restaurant.category === category);
 
     expect(isFiltered).toBe(true);
   });
 
   test('음식점을 이름순으로 정렬한다.', () => {
-    const sortedRestaurants = restaurants.sortByName(sampleRestaurants);
+    const sortedRestaurants = restaurantManager.sortByName(sampleRestaurants);
     const names = sortedRestaurants.map((restaurant) => restaurant.name);
 
     expect(names).toEqual([
@@ -39,7 +39,7 @@ describe('restaurants 도메인 기능 테스트', () => {
   });
 
   test('음식점을 거리순으로 정렬하고, 거리가 같은 경우 이름 순으로 정렬한다.', () => {
-    const sortedRestaurants = restaurants.sortByDistance(sampleRestaurants);
+    const sortedRestaurants = restaurantManager.sortByDistance(sampleRestaurants);
     const names = sortedRestaurants.map((restaurant) => restaurant.name);
 
     expect(names).toEqual([

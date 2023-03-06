@@ -13,7 +13,7 @@ type Restaurant = {
   link?: string;
 };
 
-interface Restaurants {
+interface RestaurantManager {
   list: Restaurant[];
   init(): void;
   add(restaurant: Restaurant): void;
@@ -23,7 +23,7 @@ interface Restaurants {
   compareByName(a: Restaurant, b: Restaurant): number;
 }
 
-export const restaurants: Restaurants = {
+export const restaurantManager: RestaurantManager = {
   list: [],
 
   init() {
