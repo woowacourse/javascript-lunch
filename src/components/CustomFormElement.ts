@@ -7,14 +7,6 @@ abstract class CustomFormElement extends CustomElement {
     return true;
   }
 
-  abstract get value(): string;
-
-  render(): void {
-    super.render();
-
-    this.internals.setFormValue(this.value);
-  }
-
   /**
    * Form Associated Element 에서 기본적으로 제공되어야 할 프로퍼티
    */

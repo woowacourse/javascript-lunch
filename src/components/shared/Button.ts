@@ -4,7 +4,7 @@ class Button extends CustomFormElement {
   constructor() {
     super();
 
-    this.addEventListener('click', (event) => {
+    this.addEventListener('click', () => {
       if (this.getAttribute('type') === 'submit') {
         if (this.form !== null) this.form.requestSubmit();
       }
