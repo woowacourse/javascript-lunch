@@ -1,6 +1,7 @@
 // import AddModalContainer from './components/AddModalContainer';
 // import FilterBar from './components/FilterBar';
 // import ListContainer from './components/ListContainer';
+import AddModalContainer from './components/AddModalContainer';
 import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
@@ -16,7 +17,7 @@ class App extends Component {
       topNavBar: new TopNavBar($('.gnb')),
       // listContainer: new ListContainer($('.list-container')),
       // filterBar: new FilterBar($('.filter-container')),
-      // AddModalContainer: new TopNavBar($('.add-modal-container')),
+      AddModalContainer: new AddModalContainer($('.add-modal-container')),
     };
   }
 
