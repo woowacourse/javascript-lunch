@@ -33,8 +33,8 @@ class RestaurantsStore {
   }
 
   publish() {
-    this.filterByCategory(this.#category);
-    this.sortRestaurants(this.#sortMethod);
+    this.filterByCategory();
+    this.sortRestaurants();
     this.#subscribers.forEach((subscriber) => {
       subscriber.rerender(this.#restaurantList);
     });
@@ -46,11 +46,11 @@ class RestaurantsStore {
       this.publish();
     },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
-      this.filterByCategory(action.data as Category);
+      this.#category = action.data as Category;
       this.publish();
     },
     [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
-      this.sortRestaurants(action.data as SortMethod);
+      this.#sortMethod = action.data as SortMethod;
       this.publish();
     },
   };
@@ -63,11 +63,11 @@ class RestaurantsStore {
     );
   }
 
-  filterByCategory(category: Category) {
-    this.#category = category;
+  filterByCategory() {
     this.#restaurantList = JSON.parse(
-      localStorage.getItem(RESTAURANTS_STORAGE)!
+      localStorage.getItem(RESTAURANTS_STORAGE) as string
     );
+
     if (this.#category !== CATEGORY_DEFAULT) {
       this.#restaurantList = this.#restaurantList.filter(
         (restaurant) => restaurant.category === this.#category
@@ -75,8 +75,7 @@ class RestaurantsStore {
     }
   }
 
-  sortRestaurants(sortMethod: SortMethod) {
-    this.#sortMethod = sortMethod;
+  sortRestaurants() {
     switch (this.#sortMethod) {
       case SORT_METHOD.NAME:
         this.#restaurantList = this.#restaurantList.sort((prev, next) =>
