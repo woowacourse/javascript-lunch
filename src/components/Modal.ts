@@ -1,5 +1,11 @@
 import type { Component, Restaurant } from '../type';
-import { CATEGORIES, DEFAULT_CATEGORY, DEFAULT_DISTANCE } from '../utils/constants';
+import {
+  CATEGORIES,
+  DEFAULT_CATEGORY,
+  DEFAULT_DISTANCE,
+  OPTION_START_INDEX,
+  REQUEST_RASTAURANT_KEY,
+} from '../utils/constants';
 
 type ModalState = {
   restaurantForm: Restaurant;
@@ -47,7 +53,7 @@ class Modal implements Component<ModalState> {
             <label for="category text-caption">카테고리</label>
             <select name="category" id="category" required>
               <option value="">선택해 주세요</option>
-              ${CATEGORIES.slice(1)
+              ${CATEGORIES.slice(OPTION_START_INDEX)
                 .map((category) => `<option value="${category}">${category}</option>`)
                 .join('')}
             </select>
@@ -105,9 +111,9 @@ class Modal implements Component<ModalState> {
 
   submitForm = (e: Event) => {
     e.preventDefault();
-    const restaurants = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
+    const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
     restaurants.push(this.getFormValues());
-    localStorage.setItem('restaurants', JSON.stringify(restaurants));
+    localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
     this.toggleModal();
   };
 

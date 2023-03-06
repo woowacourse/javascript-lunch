@@ -1,7 +1,7 @@
 import type { Category, Component, SortBy, Restaurant } from '../type';
 import RestaurantList from './RestaurantList';
 import RestaurantListHeader from './RestaurantListHeader';
-import { DEFAULT_CATEGORY } from '../utils/constants';
+import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../utils/constants';
 
 type RestaurantListPageState = {
   category: Category;
@@ -52,7 +52,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
   };
 
   getRestaurants = () => {
-    return JSON.parse(localStorage.getItem('restaurants') ?? '[]');
+    return JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
   };
 
   onChangeCategory = (e: Event) => {
