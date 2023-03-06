@@ -4,7 +4,7 @@ import restaurantFormValidator from '../validators/restaurantFormValidator';
 import { ERROR_MESSAGE, MESSAGE } from '../constants/constants';
 
 class ModalView {
-  private restaurantAddForm = $<HTMLFormElement>('#restaurant-add-form')!;
+  private restaurantAddForm = $<HTMLFormElement>('#restaurant-add-form');
   private modal = $<HTMLDialogElement>('.modal');
   private closeButton = $<HTMLButtonElement>('#modal-close-button');
   private categoryInput = $<HTMLSelectElement>('#category');
