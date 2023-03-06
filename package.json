@@ -7,7 +7,7 @@
     "watch": "webpack --watch",
     "start": "webpack serve",
     "build": "webpack --mode=production",
-    "test-unit": "jest --watch",
+    "test-unit": "jest --watch --env=jsdom",
     "test-e2e": "cypress open"
   },
   "repository": {
