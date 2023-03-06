@@ -65,7 +65,7 @@ class App {
   };
 
   rerenderList() {
-    RestaurantList.replaceTemplate(
+    RestaurantList.updateList(
       this.restaurantList
         .map((restaurant: Restaurant) =>
           new RestaurantItem(restaurant).template()
