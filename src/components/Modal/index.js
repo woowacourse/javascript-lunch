@@ -1,3 +1,4 @@
+import { $ } from '../../utils';
 import './index.css';
 
 class Modal extends HTMLElement {
@@ -7,6 +8,7 @@ class Modal extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    this.modalHandler();
   }
 
   render() {
@@ -35,6 +37,15 @@ class Modal extends HTMLElement {
       </div>
     </div>
     `;
+  }
+
+  modalHandler() {
+    $('#cancelModal').addEventListener('click', this.toggleModal);
+    $('#modalBackdrop').addEventListener('click', this.toggleModal);
+  }
+
+  toggleModal() {
+    $('.modal').classList.toggle('modal--open');
   }
 }
 
