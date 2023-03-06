@@ -1,5 +1,5 @@
-import { RestaurantType } from "../Template";
-import { LocalData } from "../until/LocalData";
+import { RestaurantType } from "./Template";
+import { LocalData } from "./until/LocalData";
 
 interface RestaurantListType {
   list: RestaurantType[];
