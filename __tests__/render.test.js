@@ -34,16 +34,14 @@ describe('컴포넌트 단위 테스트', () => {
     <main></main>
   `;
 
-  const $header = document.querySelector('.gnb');
-  const $main = document.querySelector('main');
+  const header = new Header();
+  const restaurantFilter = new RestaurantFilter();
+  const restaurantsList = new RestaurantsList(restaurants);
+  const modal = new Modal(restaurants);
 
-  const header = new Header($header);
-  const restaurantFilter = new RestaurantFilter($main);
-  const restaurantsList = new RestaurantsList($main, restaurants);
-  const modal = new Modal($main, restaurantsList);
-
-  header.render(modal);
-  restaurantFilter.render(restaurantsList);
+  header.setModalOpenEvent(modal.render.bind(modal));
+  restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
+  modal.setSubmitEvent(restaurantsList.render.bind(restaurantsList));
 
   test('음식점 리스트에 음식점들이 렌더링이 됐는지 확인한다.', () => {
     const yeopto = screen.getByText('엽토네 떡볶이');
@@ -55,7 +53,7 @@ describe('컴포넌트 단위 테스트', () => {
 
   test('모달 창이 정상적으로 팝업되는 지 확인한다.', () => {
     fireEvent(
-      screen.getByRole('button'),
+      screen.getByAltText('음식점 추가'),
       new MouseEvent('click', {
         bubbles: true,
         cancelable: true,
