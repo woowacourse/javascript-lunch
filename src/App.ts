@@ -17,8 +17,7 @@ import { $ } from './utils/querySelector';
 import cache from './data/cache';
 
 import RestaurantAddModal from './view/components/RestaurantAddModal';
-
-const LOCAL_STORAGE_KEY = 'RESTAURANT_APP';
+import { LOCAL_STORAGE_KEY } from './constant';
 
 type StateType = {
   restaurants?: Restaurant[];
@@ -79,7 +78,7 @@ class App {
         ],
         selected: this.#state.categorySelector as RestaurantCategoryType,
       },
-      onChangeEvent: this.onChangeEvent.bind(this),
+      onChangeEvent: this.onSortRestaurantsEvent.bind(this),
     });
 
     new Selector({
@@ -93,7 +92,7 @@ class App {
         ],
         selected: this.#state.sortedSelector as RestaurantSortingType,
       },
-      onChangeEvent: this.onChangeEvent.bind(this),
+      onChangeEvent: this.onSortRestaurantsEvent.bind(this),
     });
 
     new RestaurantList({
@@ -104,7 +103,7 @@ class App {
     new RestaurantAddModal({
       $target: $('.restaurant-modal-container') as HTMLElement,
       isModal: this.#state.isModal,
-      onClickEvent: this.onClickEvent.bind(this),
+      onClickEvent: this.onAddRestaurantFormEvent.bind(this),
     });
   }
 
@@ -138,7 +137,7 @@ class App {
     this.setState({ isModal: true });
   }
 
-  onChangeEvent(value: string) {
+  onSortRestaurantsEvent(value: string) {
     if (Validator.isRestaurantCategory(value)) {
       this.setState({
         restaurants: this.#restaurants.filterByCategory(value),
@@ -164,7 +163,7 @@ class App {
     }
   }
 
-  onClickEvent(type: string) {
+  onAddRestaurantFormEvent(type: string) {
     if (type === 'add') {
       const restaurant = getFormData(
         $('#modal-form') as HTMLFormElement
