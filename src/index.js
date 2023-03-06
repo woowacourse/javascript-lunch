@@ -30,14 +30,14 @@ addRestaurantForm.querySelector(".distance-input").innerHTML = createSelectInput
   ["", "5", "10", "15", "20", "30"],
   ["선택세 주세요", "5", "10", "15", "20", "30"],
 ).innerHTML;
-addRestaurantForm.querySelector("form").setAttribute("id", "test");
+addRestaurantForm.querySelector("form").setAttribute("id", "restaurant-input-form");
 
 Modal.setChildElement(restaurantInputModal, addRestaurantForm);
 
 const addButton = $(".gnb__button");
 addButton.querySelector("img").src = IMAGE.ADD_BTN;
 addButton.addEventListener("click", () => {
-  $("#test").reset();
+  $("#restaurant-input-form").reset();
   Modal.open(restaurantInputModal);
 });
 
