@@ -67,13 +67,12 @@ class AddTextInput extends HTMLElement {
       }
 `;
 
-    const template = document.createElement('template');
     const name = this.getAttribute('name');
     const id = this.getAttribute('id');
     const caption = this.getAttribute('caption') || '';
 
     if (id === 'name') {
-      template.innerHTML = `
+      this.shadowRoot.innerHTML = `
         <div class="form-item form-item--required">
                 <label for="${id} text-caption">${name}</label>
                 <input type="text" name="${id}" id="${id}Input" required>
@@ -82,7 +81,7 @@ class AddTextInput extends HTMLElement {
     }
 
     if (id === 'description') {
-      template.innerHTML = `
+      this.shadowRoot.innerHTML = `
       <div class="form-item">
             <label for="${id} text-caption">${name}</label>
             <textarea name="${id}" id="${id}Input" cols="30" rows="5"></textarea>
@@ -92,7 +91,7 @@ class AddTextInput extends HTMLElement {
     }
 
     if (id === 'link') {
-      template.innerHTML = `
+      this.shadowRoot.innerHTML = `
         <div class="form-item">
                 <label for="${id} text-caption">${name}</label>
                 <input type="text" name="${id}" id="${id}Input">
@@ -101,11 +100,7 @@ class AddTextInput extends HTMLElement {
         `;
     }
 
-    const cloneNode = template.content.cloneNode(true);
-
-    this.shadowRoot.appendChild(globalStyle);
-    this.shadowRoot.appendChild(componentStyle);
-    this.shadowRoot.appendChild(cloneNode);
+    this.shadowRoot.append(globalStyle, componentStyle);
   }
 
   static get observedAttributes() {
@@ -116,6 +111,11 @@ class AddTextInput extends HTMLElement {
     if (name === 'name' && name === 'id' && name === 'caption') {
       this.connectedCallback();
     }
+  }
+
+  reset() {
+    const id = this.getAttribute('id');
+    this.shadowRoot.querySelector(`#${id}`).value = '';
   }
 }
 

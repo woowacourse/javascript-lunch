@@ -70,7 +70,6 @@ class AddSelect extends HTMLElement {
       }
 `;
 
-    const template = document.createElement('template');
     const name = this.getAttribute('name');
     const id = this.getAttribute('id');
     const optionsAttribute = this.getAttribute('options').split(',');
@@ -78,21 +77,17 @@ class AddSelect extends HTMLElement {
       this.createOption(option, id)
     );
 
-    template.innerHTML = `
+    this.shadowRoot.innerHTML = `
     <div class="form-item form-item--required">
     <label for="${id} text-caption">${name}</label>
-    <select name="${id}" id="${id}List" required>
+    <select name="${id}" id="${id}" required>
     <option value="">선택해 주세요</option>
       ${options.join('\n')}
     </select>
   </div>
     `;
 
-    const cloneNode = template.content.cloneNode(true);
-
-    this.shadowRoot.appendChild(globalStyle);
-    this.shadowRoot.appendChild(componentStyle);
-    this.shadowRoot.appendChild(cloneNode);
+    this.shadowRoot.append(globalStyle, componentStyle);
   }
 
   static get observedAttributes() {
@@ -103,6 +98,11 @@ class AddSelect extends HTMLElement {
     if (name === 'name' && name === 'id' && name === 'options') {
       this.connectedCallback();
     }
+  }
+
+  reset() {
+    const id = this.getAttribute('id');
+    this.shadowRoot.querySelector(`#${id}`).value = '';
   }
 }
 

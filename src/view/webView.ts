@@ -1,5 +1,6 @@
+import AddSelect from '../components/AddSelect';
 import { Restaurant } from '../domain/model/RestaurantList';
-import { $, $$$ } from '../utils';
+import { $, $$, $$$, $$$$ } from '../utils';
 
 const webView = {
   toggleModal: () => {
@@ -7,11 +8,12 @@ const webView = {
   },
 
   resetForm: () => {
-    $$$('add-restaurant-modal', '#categoryList').value = '';
-    $$$('add-restaurant-modal', '#nameInput').value = '';
-    $$$('add-restaurant-modal', '#distanceList').value = '';
-    $$$('add-restaurant-modal', '#descriptionInput').value = '';
-    $$$('add-restaurant-modal', '#linkInput').value = '';
+    $$$$('add-restaurant-modal', 'filter-box').forEach((element: AddSelect) =>
+      element.reset()
+    );
+    $$$$('add-restaurant-modal', 'add-select').forEach((element: AddSelect) =>
+      element.reset()
+    );
   },
 
   renderRestaurantList: (list: Restaurant[]) => {
