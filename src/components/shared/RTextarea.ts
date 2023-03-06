@@ -1,4 +1,4 @@
-import RFormControl from './RFormControl';
+import RFormControl from '../RFormControl';
 
 class RTextarea extends RFormControl {
   renderTemplate(): string {

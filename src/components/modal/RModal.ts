@@ -1,5 +1,5 @@
-import RButton from './RButton';
-import RComponent from './RComponent';
+import RButton from '../shared/RButton';
+import RComponent from '../RComponent';
 
 class RModal extends RComponent {
   static get observedAttributes() {

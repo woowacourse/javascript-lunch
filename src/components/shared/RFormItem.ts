@@ -1,4 +1,4 @@
-import RComponent from './RComponent';
+import RComponent from '../RComponent';
 
 class RFormItem extends RComponent {
   static useShadowDom(): boolean {
