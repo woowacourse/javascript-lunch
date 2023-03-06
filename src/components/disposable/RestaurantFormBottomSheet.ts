@@ -114,7 +114,7 @@ class RestaurantFormBottomSheet {
       return validateUrl(url);
     } catch (error: unknown) {
       const warning = $(".url-warning") as HTMLElement;
-      warning.textContent = (error as Error).message;
+      if (error instanceof Error) warning.textContent = error.message;
       throw error;
     }
   }
