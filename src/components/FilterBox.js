@@ -1,6 +1,6 @@
 import { GLOBAL_CSS } from '../constants';
 
-class CategoryList extends HTMLElement {
+class FilterBox extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -62,4 +62,4 @@ class CategoryList extends HTMLElement {
   }
 }
 
-export default CategoryList;
+export default FilterBox;
