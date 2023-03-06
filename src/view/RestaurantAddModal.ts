@@ -44,9 +44,11 @@ class RestaurantAddModal {
       }
     );
 
-    ($(`#modal-add-button`) as HTMLButtonElement).addEventListener(
-      'click',
-      () => {
+    ($(`#modal-add-form`) as HTMLFormElement).addEventListener(
+      'submit',
+      (event) => {
+        event.preventDefault();
+
         const restaurantData = getFormData(
           $(`#modal-add-form`) as HTMLFormElement
         );
