@@ -12,6 +12,6 @@ export default class RestaurantListManager {
   }
 
   getRestaurantList(): RestaurantInfo[] {
-    return [...this.#restaurantList];
+    return this.#restaurantList;
   }
 }
