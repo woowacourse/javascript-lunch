@@ -8,7 +8,7 @@ class RestaurantCardList extends HTMLUListElement {
   #sorting: SortOption;
 
   static get observedAttributes() {
-    return ["data-category", "data-sorting", "data-length"];
+    return ["category-filter", "sorting-filter", "data-length"];
   }
 
   constructor() {
@@ -24,8 +24,8 @@ class RestaurantCardList extends HTMLUListElement {
   }
 
   setListOptionAttributes() {
-    this.setAttribute("data-category", this.#category);
-    this.setAttribute("data-sorting", this.#sorting);
+    this.setAttribute("category-filter", this.#category);
+    this.setAttribute("sorting-filter", this.#sorting);
     this.setAttribute(
       "data-length",
       restaurantState.getState().length.toString()
@@ -55,11 +55,11 @@ class RestaurantCardList extends HTMLUListElement {
     if (oldValue === null) return;
     if (oldValue === newValue) return;
 
-    if (attName === "data-category") {
+    if (attName === "category-filter") {
       this.#category = newValue as any;
     }
 
-    if (attName === "data-sorting") {
+    if (attName === "sorting-filter") {
       this.#sorting = newValue as any;
     }
 
