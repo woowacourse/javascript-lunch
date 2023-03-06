@@ -3,8 +3,6 @@ import { sortByName, sortByDistance } from "../utils/Sort";
 
 export default class FilterBar {
   #template = `
-    <main>
-        <section class="restaurant-filter-container">
             <select name="category" id="category-filter" class="restaurant-filter">
                 <option value="전체">전체</option>
                 <option value="한식">한식</option>
@@ -20,14 +18,13 @@ export default class FilterBar {
                 <option value="name">이름순</option>
                 <option value="distance">거리순</option>
             </select>
-        </section>
-    </main>
  `;
 
   constructor(restaurantList, restaurantItem) {
     this.restaurantList = restaurantList;
     this.restaurantItem = restaurantItem;
-    document.body.insertAdjacentHTML("beforeend", this.#template);
+    const filterBarContainer = $(".restaurant-filter-container");
+    filterBarContainer.insertAdjacentHTML("beforeend", this.#template);
     this.handleSelectedValue();
     this.handleSortedValue();
   }

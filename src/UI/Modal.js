@@ -4,7 +4,6 @@ import Validator from "../Validator";
 
 export default class Modal {
   #template = `
-    <div class="modal modal--open">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -64,13 +63,13 @@ export default class Modal {
           </div>
         </form>
       </div>
-    </div>
     `;
 
   constructor(restaurantList, restaurantItem) {
-    document.body.insertAdjacentHTML("beforeend", this.#template);
-    this.restaurantList = restaurantList;
+    this.modal = $(".modal");
+    this.modal.insertAdjacentHTML("beforeend", this.#template);
     this.modalForm = $(".modal-form");
+    this.restaurantList = restaurantList;
     this.restaurantItem = restaurantItem;
     this.addRestaurantHandler();
     this.close();
@@ -169,7 +168,7 @@ export default class Modal {
   }
 
   isVisibleModal() {
-    return $(".modal--open").style.display === "block";
+    return this.modal.style.display === "block";
   }
 
   resetValue() {
