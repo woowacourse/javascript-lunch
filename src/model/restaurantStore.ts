@@ -21,12 +21,26 @@ export const restaurantStore = {
   },
 
   getFiltered(category: Category, order: Order) {
-    const restaurantList = this.getList().filter(
+    const restaurantList = this.getList();
+    const filteredList = this.filterItems(restaurantList, category);
+    return this.sortItems(filteredList, order);
+  },
+
+  filterItems(restaurantList: IRestaurantInput[], category: Category) {
+    if (category === Category.All) {
+      return restaurantList;
+    }
+
+    return restaurantList.filter(
       (restaurant: IRestaurantInput) => restaurant.category === category
     );
+  },
 
+  sortItems(restaurantList: IRestaurantInput[], order: Order) {
     if (order === Order.Name) {
-      return sortItemsByName(restaurantList);
+      return restaurantList.sort((first, second) =>
+        first.name.localeCompare(second.name, 'ko')
+      );
     }
 
     if (order === Order.Distance) {
