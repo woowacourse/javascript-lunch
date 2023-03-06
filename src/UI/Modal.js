@@ -81,7 +81,7 @@ export default class Modal {
     this.modal.insertAdjacentHTML("beforeend", this.#template);
     this.modalForm = $(".modal-form");
     this.addRestaurantHandler();
-    this.closeModalHandler();
+    this.addEvent();
   }
 
   addRestaurantHandler() {
@@ -154,31 +154,26 @@ export default class Modal {
     });
   }
 
-  closeModalHandler() {
-    $(".button--secondary").addEventListener("click", this.closeModal);
-    this.closeEscape();
-    this.closeBackDrop();
-  }
-
-  closeModal() {
+  closeModal = () => {
     this.modalForm.reset();
     this.modal.style.display = "none";
-  }
+  };
 
-  closeEscape() {
-    window.addEventListener("keyup", (event) => {
-      if (!this.isVisibleModal()) return;
-      if (event.key !== "Escape") return;
+  closeEscape = (event) => {
+    if (!this.isVisibleModal()) return;
+    if (event.key !== "Escape") return;
+    this.closeModal();
+  };
 
-      this.closeModal();
-    });
-  }
+  closeBackDrop = () => {
+    if (!this.isVisibleModal()) return;
+    this.closeModal();
+  };
 
-  closeBackDrop() {
-    $(".modal-backdrop").addEventListener("click", () => {
-      if (!this.isVisibleModal()) return;
-      this.closeModal();
-    });
+  addEvent() {
+    window.addEventListener("keyup", this.closeEscape);
+    $(".modal-backdrop").addEventListener("click", this.closeBackDrop);
+    $(".button--secondary").addEventListener("click", this.closeModal);
   }
 
   isVisibleModal() {
