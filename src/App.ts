@@ -1,6 +1,6 @@
 import type { Component } from './type';
-import MainTemplate from './components/MainTemplate';
 import AddRestaurantDrawer from './components/AddRestaurantDrawer';
+import RestaurantListPage from './components/RestaurantListPage';
 
 type AppState = {
   addRestaurantDrawerHide: boolean;
@@ -34,9 +34,8 @@ class App implements Component<AppState> {
     const { addRestaurantDrawerHide } = this.state;
     this.$component.innerHTML = ``;
 
-    new MainTemplate({
+    new RestaurantListPage({
       $parent: this.$component,
-      addRestaurantDrawerHide,
       toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
     }).render();
 

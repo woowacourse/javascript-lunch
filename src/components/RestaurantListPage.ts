@@ -2,28 +2,32 @@ import type { Category, Component, SortBy, Restaurant } from '../type';
 import RestaurantList from './RestaurantList';
 import RestaurantListHeader from './RestaurantListHeader';
 import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../utils/constants';
+import Header from './Header';
 
 type RestaurantListPageState = {
   category: Category;
   sortBy: SortBy;
   restaurants: Restaurant[];
+  toggleAddRestaurantDrawer: () => void;
 };
 
 type RestaurantListPageProps = {
   $parent: HTMLElement;
+  toggleAddRestaurantDrawer: () => void;
 };
 
 class RestaurantListPage implements Component<RestaurantListPageState> {
   $component: HTMLElement;
   state: RestaurantListPageState;
 
-  constructor({ $parent }: RestaurantListPageProps) {
+  constructor({ $parent, toggleAddRestaurantDrawer }: RestaurantListPageProps) {
     this.$component = document.createElement('div');
 
     this.state = {
       category: DEFAULT_CATEGORY,
       sortBy: 'name',
       restaurants: this.getRestaurants(),
+      toggleAddRestaurantDrawer,
     };
 
     $parent.append(this.$component);
@@ -36,6 +40,10 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
 
   render() {
     this.$component.innerHTML = '';
+    new Header({
+      $parent: this.$component,
+      toggleAddRestaurantDrawer: this.state.toggleAddRestaurantDrawer,
+    }).render();
 
     new RestaurantListHeader({
       $parent: this.$component,
