@@ -3,10 +3,11 @@ import { ERROR_MESSAGE } from '../constants/message';
 import { Restaurant } from '../types';
 
 const Validator = {
-  validateFormData({ category, name, distance }: Restaurant) {
+  validateFormData({ category, name, distance, link }: Restaurant) {
     this.validateCategory(category);
     this.validateRestaurantName(name);
     this.validateDistance(distance);
+    this.validateLink(link);
   },
 
   validateCategory(selectedCategory: string) {
@@ -25,14 +26,6 @@ const Validator = {
     }
   },
 
-  isEmptyFormValue(formValue: string) {
-    return formValue === '';
-  },
-
-  isValidCategory(selectedCategory: string) {
-    return CATEGORIES.includes(selectedCategory);
-  },
-
   validateDistance(selectedDistance: string) {
     if (this.isEmptyFormValue(selectedDistance)) {
       throw new Error(ERROR_MESSAGE.emptyDistance);
@@ -43,8 +36,29 @@ const Validator = {
     }
   },
 
+  validateLink(link: string) {
+    if (link && !Validator.isValidLink(link)) {
+      throw new Error(ERROR_MESSAGE.invalidLink);
+    }
+  },
+
+  isEmptyFormValue(formValue: string) {
+    return formValue === '';
+  },
+
+  isValidCategory(selectedCategory: string) {
+    return CATEGORIES.includes(selectedCategory);
+  },
+
   isValidDistance(selectedDistance: string) {
     return DISTANCES.includes(selectedDistance);
+  },
+
+  isValidLink(link: string) {
+    const isHttpLink = link.startsWith('http://');
+    const isHttpsLink = link.startsWith('https://');
+
+    return isHttpLink || isHttpsLink;
   },
 };
 

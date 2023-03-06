@@ -41,7 +41,7 @@ export default class App {
     } = e.target.elements;
 
     try {
-      Validator.validateFormData({ category, name, distance });
+      Validator.validateFormData({ category, name, distance, link });
     } catch ({ message }) {
       alert(message);
 
