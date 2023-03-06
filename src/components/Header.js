@@ -1,6 +1,8 @@
+import Modal from './Modal';
+
 class Header {
-  constructor($target) {
-    this.$target = $target;
+  constructor() {
+    this.render();
   }
 
   template() {
@@ -12,17 +14,16 @@ class Header {
     `;
   }
 
-  render(modal) {
-    this.$target.insertAdjacentHTML('afterbegin', this.template());
-    this.setEvent(modal);
+  render() {
+    document.querySelector('header').insertAdjacentHTML('afterbegin', this.template());
   }
 
-  setEvent(modal) {
+  setEvent(renderModal) {
     const $addButton = document.querySelector('.gnb__button');
 
     $addButton.addEventListener('click', e => {
       e.preventDefault();
-      modal.render();
+      renderModal();
     });
   }
 }

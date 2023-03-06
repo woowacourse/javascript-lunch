@@ -6,19 +6,17 @@ import RestaurantFilter from './components/RestaurantFilter';
 import RestaurantsList from './components/RestaurantsList';
 import Restaurants from './domain/Restaurants';
 
-if (localStorage.getItem('restaurants') === null) {
+if (!localStorage.getItem('restaurants')) {
   localStorage.setItem('restaurants', JSON.stringify([]));
 }
 
 const restaurants = new Restaurants(JSON.parse(localStorage.getItem('restaurants')));
 
-const $header = document.querySelector('.gnb');
-const $main = document.querySelector('main');
+const header = new Header();
+const restaurantFilter = new RestaurantFilter();
+const restaurantsList = new RestaurantsList(restaurants);
+const modal = new Modal(restaurants);
 
-const header = new Header($header);
-const restaurantFilter = new RestaurantFilter($main);
-const restaurantsList = new RestaurantsList($main, restaurants);
-const modal = new Modal($main, restaurantsList);
-
-header.render(modal);
-restaurantFilter.render(restaurantsList);
+header.setEvent(modal.render.bind(modal));
+restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
+modal.setSubmitEvent(restaurantsList.render.bind(restaurantsList));

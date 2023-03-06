@@ -1,8 +1,8 @@
 import RestaurantsList from './RestaurantsList';
 
 class RestaurantFilter {
-  constructor($target) {
-    this.$target = $target;
+  constructor() {
+    this.render();
   }
 
   template() {
@@ -26,19 +26,17 @@ class RestaurantFilter {
       `;
   }
 
-  render(restaurantList) {
-    this.$target.insertAdjacentHTML('afterbegin', this.template());
-    this.setEvent(restaurantList);
-
-    restaurantList.render();
+  render() {
+    if (!document.querySelector('.restaurant-filter-containe'))
+      document.querySelector('main').insertAdjacentHTML('afterbegin', this.template());
   }
 
-  setEvent(restaurantList) {
+  setEvent(renderRestaurantsList) {
     const $filters = document.querySelector('.restaurant-filter-container');
 
     $filters.addEventListener('change', e => {
       e.preventDefault();
-      restaurantList.render();
+      renderRestaurantsList();
     });
   }
 }

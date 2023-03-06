@@ -1,7 +1,8 @@
 class Modal {
-  constructor($target, restaurantsList) {
-    this.$target = $target;
-    this.restaurantsList = restaurantsList;
+  constructor(restaurants) {
+    this.restaurants = restaurants;
+    this.render();
+    this.setModalCloseEvent();
   }
 
   template() {
@@ -64,40 +65,33 @@ class Modal {
     `;
   }
 
-  render() {
-    if (!document.querySelector(`.modal`)) {
-      this.$target.insertAdjacentHTML('beforeend', this.template());
-    }
-
-    this.setSubmitEvent();
-    this.setModalCloseEvent();
+  toggleModal() {
+    const $modal = document.querySelector(`.modal`);
+    $modal.classList.toggle('modal--open');
   }
 
-  setSubmitEvent() {
+  render() {
+    if (!document.querySelector(`.modal`)) {
+      document.querySelector('main').insertAdjacentHTML('beforeend', this.template());
+    }
+
+    this.toggleModal();
+  }
+
+  setSubmitEvent(renderRestaurantList) {
     const $modalForm = document.querySelector('.modal form');
 
     $modalForm.addEventListener('submit', e => {
       e.preventDefault();
 
-      const category = document.querySelector('#category').value;
-      const name = document.querySelector('#name').value;
-      const distance = document.querySelector('#distance').value;
-      const description = document.querySelector('#description').value;
-      const link = document.querySelector('#link');
+      const restaurant = this.getmodalFormValue();
 
-      const restaurant = this.makeRestaurant({ category, name, distance, description, link });
+      this.restaurants.add(restaurant);
+      localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
+      renderRestaurantList();
 
-      this.changeRestaurantsState(restaurant);
-
-      document.querySelector('.modal').remove();
+      this.toggleModal();
     });
-  }
-
-  changeRestaurantsState(restaurant) {
-    this.restaurantsList.restaurants.add(restaurant);
-    localStorage.setItem('restaurants', JSON.stringify(this.restaurantsList.restaurants.restaurants));
-
-    this.restaurantsList.setState(restaurant);
   }
 
   setModalCloseEvent() {
@@ -106,12 +100,16 @@ class Modal {
     $cancelButton.addEventListener('click', e => {
       e.preventDefault();
 
-      document.querySelector('.modal').remove();
+      this.toggleModal();
     });
   }
 
-  makeRestaurant(restaurant) {
-    const { category, name, distance, description, link } = restaurant;
+  getmodalFormValue() {
+    const category = document.querySelector('#category').value;
+    const name = document.querySelector('#name').value;
+    const distance = document.querySelector('#distance').value;
+    const description = document.querySelector('#description').value;
+    const link = document.querySelector('#link');
 
     return {
       category: category,

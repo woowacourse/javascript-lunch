@@ -26,8 +26,8 @@ class RestaurantItem {
     return this.restaurants.reduce((result, restaurant) => result + this.makeRestaurantInfoItem(restaurant), '');
   }
 
-  render($restaurantList) {
-    $restaurantList.insertAdjacentHTML('beforeend', this.template());
+  render() {
+    document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
   }
 }
 

@@ -2,10 +2,9 @@ import RestaurantItem from './RestaurantItem';
 class RestaurantsList {
   restaurants;
 
-  constructor($target, restaurants) {
-    this.$target = $target;
+  constructor(restaurants) {
     this.restaurants = restaurants;
-    this.state = restaurants.restaurants;
+    this.render();
   }
 
   template() {
@@ -16,14 +15,9 @@ class RestaurantsList {
     `;
   }
 
-  setState(newState) {
-    this.state = newState;
-    this.render();
-  }
-
   render() {
     if (!document.querySelector(`.restaurant-list-container`)) {
-      this.$target.insertAdjacentHTML('beforeend', this.template());
+      document.querySelector('main').insertAdjacentHTML('beforeend', this.template());
     }
 
     const $categoryFilter = document.querySelector('#category-filter');
@@ -33,16 +27,22 @@ class RestaurantsList {
     const sortType = $sortTypeFilter.options[$sortTypeFilter.selectedIndex].value;
 
     const restaurants = this.restaurants.getRestaurant(category, sortType);
-
     this.setRestaurantItem(restaurants);
   }
 
   setRestaurantItem(restaurants) {
-    const $rastaurantList = document.querySelector('.restaurant-list');
-    $rastaurantList.replaceChildren();
+    const $restaurantList = document.querySelector('.restaurant-list');
+    $restaurantList.replaceChildren();
 
     const restaurantItem = new RestaurantItem(restaurants);
-    restaurantItem.render($rastaurantList);
+    restaurantItem.render($restaurantList);
+  }
+
+  addRestaurant(restaurant) {
+    this.restaurants.add(restaurant);
+    localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
+
+    this.render();
   }
 }
 
