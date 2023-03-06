@@ -64,28 +64,31 @@ class Modal {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(makeTicket: (obj: Restaurant) => void) {
+  addEvent(addNewRestaurant: (obj: Restaurant) => void) {
     $(".modal--close")?.addEventListener("click", () => {
-      this.resetFormValues();
       this.closeModal();
     });
 
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
-      const $modal = $(".modal-form") as HTMLFormElement;
-      const formData = Object.fromEntries(new FormData($modal).entries());
-      const data = {
-        name: formData.name as string,
-        takingTime: formData.takingTime as TakingTime,
-        category: formData.category as Category,
-        link: formData.link as string,
-        description: formData.description as string,
-      };
-
-      makeTicket(data);
-      this.resetFormValues();
+      const restaurant = this.getRestaurantData();
+      addNewRestaurant(restaurant);
       this.closeModal();
     });
+  }
+
+  getRestaurantData() {
+    const $modal = $(".modal-form") as HTMLFormElement;
+    const formData = Object.fromEntries(new FormData($modal).entries());
+    const restaurant = {
+      name: formData.name as string,
+      takingTime: formData.takingTime as TakingTime,
+      category: formData.category as Category,
+      link: formData.link as string,
+      description: formData.description as string,
+    };
+
+    return restaurant;
   }
 
   resetFormValues() {
@@ -94,6 +97,7 @@ class Modal {
   }
 
   closeModal() {
+    this.resetFormValues();
     $(".modal")?.classList.remove("modal--open");
   }
 }
