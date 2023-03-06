@@ -1,15 +1,15 @@
 export default class Component {
-  $target;
+  $target: HTMLElement | Element;
 
-  constructor(target: Element) {
+  constructor(target: HTMLElement | Element) {
     this.$target = target;
-  
+
     return this;
   }
 
   render() {
     this.$target.innerHTML = this.template();
-    
+
     return this;
   }
 
