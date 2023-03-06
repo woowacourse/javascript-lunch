@@ -4,11 +4,11 @@ import LocalStorage from "../utils/LocalStorage";
 import defaultRestaurants from "../tools/defaultRestaurants";
 
 class RestaurantList extends HTMLElement {
-  state: { restaurants: IRestaurant[]; filter: string; sort: string };
+  listState: { restaurants: IRestaurant[]; filter: string; sort: string };
 
   constructor() {
     super();
-    this.state = new Proxy(
+    this.listState = new Proxy(
       { restaurants: [], filter: "전체", sort: "name" },
       {
         set: (obj, prop, value) => {
@@ -26,7 +26,7 @@ class RestaurantList extends HTMLElement {
 
   loadLocalStorage() {
     const restaurants = LocalStorage.getLocalStorage("restaurants");
-    this.state.restaurants =
+    this.listState.restaurants =
       restaurants.length > 0 ? restaurants : defaultRestaurants;
   }
 
@@ -41,7 +41,7 @@ class RestaurantList extends HTMLElement {
   }
 
   selectRestaurants() {
-    const { restaurants, filter, sort } = this.state;
+    const { restaurants, filter, sort } = this.listState;
     return restaurants
       .filter(
         (restaurant) => filter === "전체" || restaurant.category === filter
@@ -61,16 +61,16 @@ class RestaurantList extends HTMLElement {
   }
 
   addRestaurant(newRestaurant: IRestaurant) {
-    this.state.restaurants = [...this.state.restaurants, newRestaurant];
-    LocalStorage.setLocalStorage("restaurants", this.state.restaurants);
+    this.listState.restaurants = [...this.listState.restaurants, newRestaurant];
+    LocalStorage.setLocalStorage("restaurants", this.listState.restaurants);
   }
 
   filterBy(key: string) {
-    this.state.filter = key;
+    this.listState.filter = key;
   }
 
   sortBy(key: string) {
-    this.state.sort = key;
+    this.listState.sort = key;
   }
 }
 
