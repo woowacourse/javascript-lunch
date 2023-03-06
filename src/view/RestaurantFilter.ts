@@ -7,6 +7,7 @@ type RestaurantFilterType = {
     onFilterByChange: (category: string) => void;
   };
 };
+
 class RestaurantFilter {
   #parentElement;
   #parentEvent;
@@ -18,6 +19,21 @@ class RestaurantFilter {
     this.#render();
     this.#setListeners();
   }
+
+  #setListeners() {
+    $(`#category-filter`).addEventListener('change', (event) => {
+      const newChoice = (event.target as HTMLSelectElement).value;
+
+      this.#parentEvent.onFilterByChange(newChoice);
+    });
+
+    $(`#sorting-filter`).addEventListener('change', (event) => {
+      const newChoice = (event.target as HTMLSelectElement).value;
+
+      this.#parentEvent.onSortByChange(newChoice);
+    });
+  }
+
   #render() {
     const template = `
       <section class="restaurant-filter-container">
