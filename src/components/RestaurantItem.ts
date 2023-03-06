@@ -1,6 +1,6 @@
 import { Restaurant } from '../types/types';
 
-const createRestaurantItem = function (restaurant: Restaurant, categoryImageUrl: string) {
+export const createRestaurantItem = (restaurant: Restaurant, categoryImageUrl: string) => {
   return `<li class="restaurant">
   
   <div class="restaurant__category">
@@ -16,5 +16,3 @@ const createRestaurantItem = function (restaurant: Restaurant, categoryImageUrl:
 
   </li>`;
 };
-
-export default createRestaurantItem;

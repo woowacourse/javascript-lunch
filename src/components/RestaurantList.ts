@@ -1,9 +1,9 @@
 import { $ } from '../utils/domSelectors';
 import { Restaurant } from '../types/types';
 import { RESTAURANT_IMAGE } from '../constants/images';
-import createRestaurantItem from './RestaurantItem';
+import { createRestaurantItem } from './RestaurantItem';
 
-function renderList(sortedRestaurants: Restaurant[]) {
+export const renderList = (sortedRestaurants: Restaurant[]) => {
   const restaurantList = $<HTMLUListElement>('.restaurant-list');
 
   restaurantList.innerHTML = '';
@@ -14,6 +14,4 @@ function renderList(sortedRestaurants: Restaurant[]) {
   });
 
   restaurantList.insertAdjacentHTML('beforeend', restaurantItems.join(''));
-}
-
-export default renderList;
+};

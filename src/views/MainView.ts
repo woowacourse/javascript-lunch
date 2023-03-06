@@ -1,5 +1,5 @@
 import { $ } from '../utils/domSelectors';
-import renderList from '../components/RestaurantList';
+import { renderList } from '../components/RestaurantList';
 import { Restaurant } from '../types/types';
 
 class MainView {
