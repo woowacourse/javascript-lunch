@@ -13,7 +13,7 @@ class RestaurantItems extends HTMLElement {
 
   render(restaurants: Restaurant[]) {
     this.innerHTML = $template;
-    const $restaurantList = this.querySelector('.restaurant-list') as HTMLElement;
+    const $restaurantList = this.querySelector('.restaurant-list') as HTMLUListElement;
 
     restaurants.forEach((restaurant) => {
       const { category, name, distance, description } = restaurant;
