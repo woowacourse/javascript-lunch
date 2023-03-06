@@ -66,10 +66,10 @@ export default class App {
     const categoryOption = $('#category-filter').value;
     const sortOption = $('#sorting-filter').value;
 
-    const filterdRestaurants = this.#restaurants.getFilteredRestaurantsByCategory(categoryOption);
+    const filteredRestaurants = this.#restaurants.getFilteredRestaurantsByCategory(categoryOption);
 
     const sortedRestaurants = this.#restaurants.getSortedRestaurants(
-      filterdRestaurants,
+      filteredRestaurants,
       sortOption
     );
 
