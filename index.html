@@ -14,21 +14,18 @@
       <lunch-header></lunch-header>
       <!-- 카테고리/정렬 필터 -->
       <section class="restaurant-filter-container">
-        <category-list
+        <select-list
           name="category"
           id="categoryFilter"
           options="전체,한식,중식,일식,양식,아시안,기타"
-        ></category-list>
-        <!-- 정렬 셀렉트 박스 -->
-        <category-list
+        ></select-list>
+        <select-list
           name="sorting"
           id="sortingFilter"
           options="이름순,거리순"
-        >
-        </category-list>
+        ></select-list>
       </section>
-      <ul id="restaurantList" class="restaurant-list"></ul>
-      <add-restaurant-modal> </add-restaurant-modal>
+      <restaurant-modal></restaurant-modal>
     </div>
   </body>
 </html>
