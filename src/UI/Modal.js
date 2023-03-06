@@ -1,5 +1,10 @@
 import { $, $$ } from "../utils/Dom";
-import { FORM_ARRAY, ERROR_MESSAGE } from "../constants";
+import {
+  CATEGORY_NAME,
+  FORM_ARRAY,
+  ERROR_MESSAGE,
+  DISTANCE,
+} from "../constants";
 import Validator from "../Validator";
 
 export default class Modal {
@@ -14,12 +19,12 @@ export default class Modal {
             <label for="category text-caption">카테고리</label>
             <select name="category" id="category" required>
               <option value="">선택해 주세요</option>
-              <option value="한식">한식</option>
-              <option value="중식">중식</option>
-              <option value="일식">일식</option>
-              <option value="양식">양식</option>
-              <option value="아시안">아시안</option>
-              <option value="기타">기타</option>
+              <option value="${CATEGORY_NAME.korean}">${CATEGORY_NAME.korean}</option>
+              <option value="${CATEGORY_NAME.chinese}">${CATEGORY_NAME.chinese}</option>
+              <option value="${CATEGORY_NAME.japanese}">${CATEGORY_NAME.japanese}</option>
+              <option value="${CATEGORY_NAME.western}">${CATEGORY_NAME.western}</option>
+              <option value="${CATEGORY_NAME.asian}">${CATEGORY_NAME.asian}</option>
+              <option value="${CATEGORY_NAME.etc}">${CATEGORY_NAME.etc}</option>
             </select>
           </div>
 
@@ -34,11 +39,11 @@ export default class Modal {
             <label for="distance text-caption">거리(도보 이동 시간) </label>
             <select name="distance" id="distance" required>
               <option value="">선택해 주세요</option>
-              <option value="5">5분 내</option>
-              <option value="10">10분 내</option>
-              <option value="15">15분 내</option>
-              <option value="20">20분 내</option>
-              <option value="30">30분 내</option>
+              <option value="${DISTANCE.five}">${DISTANCE.five}분 내</option>
+              <option value="${DISTANCE.ten}">${DISTANCE.ten}분 내</option>
+              <option value="${DISTANCE.fifteen}">${DISTANCE.fifteen}분 내</option>
+              <option value="${DISTANCE.twenty}">${DISTANCE.twenty}분 내</option>
+              <option value="${DISTANCE.thirty}">${DISTANCE.thirty}분 내</option>
             </select>
           </div>
 

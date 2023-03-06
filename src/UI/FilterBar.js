@@ -1,16 +1,18 @@
 import { $ } from "../utils/Dom";
 import { sortByName, sortByDistance } from "../utils/Sort";
+import { CATEGORY_NAME, KEY } from "../constants";
+import { getLocalStorage } from "../utils/LocalStorage";
 
 export default class FilterBar {
   #template = `
             <select name="category" id="category-filter" class="restaurant-filter">
-                <option value="전체">전체</option>
-                <option value="한식">한식</option>
-                <option value="중식">중식</option>
-                <option value="일식">일식</option>
-                <option value="양식">양식</option>
-                <option value="아시안">아시안</option>
-                <option value="기타">기타</option>
+                <option value="${CATEGORY_NAME.total}">${CATEGORY_NAME.total}</option>
+                <option value="${CATEGORY_NAME.korean}">${CATEGORY_NAME.korean}</option>
+                <option value="${CATEGORY_NAME.chinese}">${CATEGORY_NAME.chinese}</option>
+                <option value="${CATEGORY_NAME.japanese}">${CATEGORY_NAME.japanese}</option>
+                <option value="${CATEGORY_NAME.western}">${CATEGORY_NAME.western}</option>
+                <option value="${CATEGORY_NAME.asian}">${CATEGORY_NAME.asian}</option>
+                <option value="${CATEGORY_NAME.etc}">${CATEGORY_NAME.etc}</option>
             </select>
 
             <!-- 정렬 셀렉트 박스 -->
@@ -49,26 +51,22 @@ export default class FilterBar {
   filterCategory(selectedValue) {
     this.restaurantList.categoryFilter(selectedValue);
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = this.parseInfo();
+    const restaurantParsedInfo = getLocalStorage(KEY);
     this.render(restaurantParsedInfo);
   }
 
   filterByName() {
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = this.parseInfo();
+    const restaurantParsedInfo = getLocalStorage(KEY);
     sortByName(restaurantParsedInfo);
     this.render(restaurantParsedInfo);
   }
 
   filterByDistance() {
     $(".restaurant-list").replaceChildren();
-    const restaurantParsedInfo = this.parseInfo();
+    const restaurantParsedInfo = getLocalStorage(KEY);
     sortByDistance(restaurantParsedInfo);
     this.render(restaurantParsedInfo);
-  }
-
-  parseInfo() {
-    return JSON.parse(localStorage.getItem("restaurants"));
   }
 
   render(restaurantParsedInfo) {

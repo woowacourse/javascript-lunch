@@ -26,4 +26,22 @@ export const ERROR_MESSAGE = {
   URL: "유효한 주소를 입력해주세요.",
 };
 
+export const CATEGORY_NAME = {
+  total: "전체",
+  korean: "한식",
+  japanese: "일식",
+  western: "양식",
+  chinese: "중식",
+  asian: "아시안",
+  etc: "기타",
+};
+
+export const DISTANCE = {
+  five: 5,
+  ten: 10,
+  fifteen: 15,
+  twenty: 20,
+  thirty: 30,
+};
+
 export const KEY = "restaurants";
