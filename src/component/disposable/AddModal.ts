@@ -29,7 +29,7 @@ class AddModal {
           ${this.categorySelect.template()}
         </div>
 
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required name--input">
           <label for="name">이름</label>
           <input type="text" name="name" id="name" required>
         </div>
@@ -72,8 +72,17 @@ class AddModal {
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       const restaurant = this.getRestaurantData();
-      addNewRestaurant(restaurant);
-      this.closeModal();
+
+      try {
+        addNewRestaurant(restaurant);
+        this.closeModal();
+      } catch (e) {
+        this.showErrorMessage(e as string);
+      }
+    });
+
+    $("#name")?.addEventListener("focus", () => {
+      $(".error--message")?.remove();
     });
   }
 
@@ -99,6 +108,13 @@ class AddModal {
   closeModal() {
     this.resetFormValues();
     $(".modal")?.classList.remove("modal--open");
+  }
+
+  showErrorMessage(message: string) {
+    $(".name--input")?.insertAdjacentHTML(
+      "beforeend",
+      `<div class='error--message'>${message}</div>`
+    );
   }
 }
 

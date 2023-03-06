@@ -59,6 +59,7 @@ class App {
   }
 
   addNewRestaurant = (restaurant: Restaurant): void => {
+    restaurantListHandler.validateRestaurant(restaurant);
     restaurantListHandler.addRestaurant(restaurant);
     this.setRestaurantList();
     this.rerenderList();
