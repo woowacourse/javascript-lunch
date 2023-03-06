@@ -4,7 +4,9 @@
 import '../src/constants/images';
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
+import { RestaurantItem } from '../src/components/RestaurantItem';
 import { RestaurantItems } from '../src/components/RestaurantItems';
+import { RESTAURANT_IMAGE } from '../src/constants/images';
 
 beforeEach(() => {
   document.body.innerHTML = `<ul class="restaurant-list" data-testid="restaurant-list"></ul>`;
@@ -34,5 +36,15 @@ describe('UI 테스트', () => {
     restaurantList.insertAdjacentHTML('beforeend', restaurantItems);
 
     expect(screen.getByTestId('restaurant-list').childElementCount).toBe(4);
+  });
+
+  test('RestaurantItem 테스트', () => {
+    const restaurant = { category: '한식', name: '우래옥', distance: 5 };
+    const restaurantItem = RestaurantItem(restaurant, RESTAURANT_IMAGE[restaurant.category]);
+    const restaurantList = document.querySelector('.restaurant-list');
+
+    restaurantList.insertAdjacentHTML('beforeend', restaurantItem);
+
+    expect(screen.getByText('우래옥')).toBeInTheDocument();
   });
 });
