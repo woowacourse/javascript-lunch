@@ -1,7 +1,7 @@
-import { Category, Restaurant, SortBy } from '../type';
-import Component from './Component';
+import { Category, Restaurant, SortBy } from '../../../type';
+import Component from '../../Component';
 import RestaurantListItem from './RestaurantListItem';
-import { DEFAULT_CATEGORY } from '../utils/constants';
+import { DEFAULT_CATEGORY } from '../../../utils/constants';
 
 interface RestaurantListProps {
   currentCategory: Category;

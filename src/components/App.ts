@@ -1,7 +1,7 @@
 import Component from './Component';
-import Modal from './Modal';
-import Main from './Main';
-import Header from './Header';
+import Header from './main/Header';
+import Main from './main/Main';
+import Modal from './main/Modal';
 
 interface AppProps {}
 

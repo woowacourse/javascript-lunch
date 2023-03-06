@@ -1,6 +1,6 @@
-import { Category, SortBy } from '../type';
-import Component from './Component';
-import { CATEGORIES } from '../utils/constants';
+import { Category, SortBy } from '../../../type';
+import Component from '../../Component';
+import { CATEGORIES } from '../../../utils/constants';
 
 interface RestaurantFilterContainerProps {
   currentCategory: Category;
