@@ -3,7 +3,7 @@ import {
   NAME_LENGTH,
   REGEX_SPECIAL_CHARACTERS,
 } from "../constant";
-import { getAllDataOnLocalStorage } from "../domain/localStorageController";
+import { getAllRestaurantsInLocalStorage } from "../domain/localStorageController";
 
 const { NO_SPECIAL_CHARACTERS, NAME_LENGTH_LIMIT, DUPLICATE_NAME } =
   ERROR_MESSAGE;
@@ -22,10 +22,13 @@ export const checkInputLength = (input: string) => {
 };
 
 export const checkDuplicate = (input: string) => {
-  if (
-    getAllDataOnLocalStorage().filter((restaurant) => restaurant.name === input)
-      .length
-  ) {
+  const isDuplicatedName = Boolean(
+    getAllRestaurantsInLocalStorage().filter(
+      (restaurant) => restaurant.name === input
+    ).length
+  );
+
+  if (isDuplicatedName) {
     throw new Error(DUPLICATE_NAME);
   }
 };
