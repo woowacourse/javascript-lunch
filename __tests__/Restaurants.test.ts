@@ -1,6 +1,5 @@
 import Restaurants from '../src/domain/Restaurants';
-import { Restaurant } from '../src/type/common';
-import { menu1, menu2, menu3, menu4 } from '../src/data/dummy';
+import { menu1, menu2, menu3, menu4 } from './dummy';
 
 describe('Restaurants 클래스 테스트', () => {
   test('음식점 추가 기능 테스트', () => {

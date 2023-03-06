@@ -1,5 +1,5 @@
-import Validator from '../src/domain/Validator';
 import { ERROR_MESSAGE } from '../src/constant';
+import Validator from '../src/domain/Validator';
 
 describe('카테고리 유효성 검사', () => {
   test.each([['몰?루'], [''], ['한식1'], [' 한식']])(

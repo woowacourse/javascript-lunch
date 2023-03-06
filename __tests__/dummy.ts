@@ -1,4 +1,4 @@
-import { Restaurant } from '../type/common';
+import { Restaurant } from '../src/type/common';
 
 const menu1: Restaurant = {
   category: '양식',
