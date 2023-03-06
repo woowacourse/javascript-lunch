@@ -6,10 +6,6 @@ export interface Restaurant {
   link?: string;
 }
 
-export interface CategoryFilter {
-  value: '전체' | '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
-}
+export type CategoryValue = '전체' | '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 
-export interface SortTypeFilter {
-  value: 'name' | 'distance';
-}
+export type SortTypeValue = 'name' | 'distance';

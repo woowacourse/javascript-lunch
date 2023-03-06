@@ -1,4 +1,4 @@
-import { Restaurant, SortTypeFilter, CategoryFilter } from '../types/Types';
+import { Restaurant, SortTypeValue, CategoryValue } from '../types/Types';
 import { compareString } from '../utils/common';
 import { VALUE } from '../constants/constants';
 
@@ -17,18 +17,18 @@ class Restaurants {
     this.#restaurants.push({ description, link, ...restaurantInfo });
   }
 
-  getRestaurant(category: CategoryFilter, sortType: SortTypeFilter) {
+  getRestaurant(category: CategoryValue, sortType: SortTypeValue) {
     return Restaurants.sortByType(sortType, Restaurants.filterByCategory(category, this.#restaurants));
   }
 
-  static filterByCategory(category: CategoryFilter, restaurants: Restaurant[]): Restaurant[] {
-    if (category.value === VALUE.catgory.all) return restaurants;
+  static filterByCategory(category: CategoryValue, restaurants: Restaurant[]): Restaurant[] {
+    if (category === VALUE.catgory.all) return restaurants;
 
-    return restaurants.filter(restaurant => restaurant.category === category.value);
+    return restaurants.filter(restaurant => restaurant.category === category);
   }
 
-  static sortByType(sortType: SortTypeFilter, restaurants: Restaurant[]): Restaurant[] {
-    if (sortType.value === VALUE.sortType.nameOrder) {
+  static sortByType(sortType: SortTypeValue, restaurants: Restaurant[]): Restaurant[] {
+    if (sortType === VALUE.sortType.nameOrder) {
       return [...restaurants].sort((a, b) => compareString(a.name, b.name));
     }
 

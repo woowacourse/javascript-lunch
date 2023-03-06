@@ -29,7 +29,7 @@ class RestaurantsList {
     const category = $categoryFilter.options[$categoryFilter.selectedIndex].value;
     const sortType = $sortTypeFilter.options[$sortTypeFilter.selectedIndex].value;
 
-    const restaurants = this.restaurants.getRestaurant({ value: category }, { value: sortType });
+    const restaurants = this.restaurants.getRestaurant(category, sortType);
 
     this.makeRestaurantItems(restaurants);
   }
