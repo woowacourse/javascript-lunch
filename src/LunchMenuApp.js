@@ -1,3 +1,4 @@
+import { RESTAURANTS_LOCAL_STORAGE_KEY } from './constants';
 import { restaurants } from './domain/restaurants';
 
 import { $ } from './utils/dom';
@@ -35,7 +36,7 @@ const LunchMenuApp = {
   },
 
   setRestaurantList() {
-    setLocalStorage('restaurants', restaurants.list);
+    setLocalStorage(RESTAURANTS_LOCAL_STORAGE_KEY, restaurants.list);
   },
 
   handleRestaurantFilter() {

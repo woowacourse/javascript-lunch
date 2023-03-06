@@ -1,6 +1,7 @@
 import { sampleRestaurants } from './sampleRestaurants';
 
 import { getLocalStorage } from '../utils/localStorage';
+import { RESTAURANTS_LOCAL_STORAGE_KEY } from '../constants';
 
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type Distance = 5 | 10 | 15 | 20 | 30;
@@ -27,7 +28,7 @@ export const restaurants: Restaurants = {
   list: [],
 
   init() {
-    this.list = getLocalStorage('restaurants') ?? sampleRestaurants;
+    this.list = getLocalStorage(RESTAURANTS_LOCAL_STORAGE_KEY) ?? sampleRestaurants;
   },
 
   add(restaurant) {
