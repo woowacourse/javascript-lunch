@@ -4,6 +4,7 @@ class RestaurantsList {
 
   constructor(restaurants) {
     this.restaurants = restaurants;
+    this.$target = document.querySelector('main');
     this.render();
   }
 
@@ -17,7 +18,7 @@ class RestaurantsList {
 
   render() {
     if (!document.querySelector(`.restaurant-list-container`)) {
-      document.querySelector('main').insertAdjacentHTML('beforeend', this.template());
+      this.$target.insertAdjacentHTML('beforeend', this.template());
     }
 
     const $categoryFilter = document.querySelector('#category-filter');
@@ -36,13 +37,6 @@ class RestaurantsList {
 
     const restaurantItem = new RestaurantItem(restaurants);
     restaurantItem.render($restaurantList);
-  }
-
-  addRestaurant(restaurant) {
-    this.restaurants.add(restaurant);
-    localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
-
-    this.render();
   }
 }
 

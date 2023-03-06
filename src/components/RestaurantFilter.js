@@ -2,6 +2,7 @@ import RestaurantsList from './RestaurantsList';
 
 class RestaurantFilter {
   constructor() {
+    this.$target = document.querySelector('main');
     this.render();
   }
 
@@ -27,8 +28,9 @@ class RestaurantFilter {
   }
 
   render() {
-    if (!document.querySelector('.restaurant-filter-containe'))
-      document.querySelector('main').insertAdjacentHTML('afterbegin', this.template());
+    if (!document.querySelector('.restaurant-filter-containe')) {
+      this.$target.insertAdjacentHTML('afterbegin', this.template());
+    }
   }
 
   setEvent(renderRestaurantsList) {

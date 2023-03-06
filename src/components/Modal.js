@@ -1,6 +1,7 @@
 class Modal {
   constructor(restaurants) {
     this.restaurants = restaurants;
+    this.$target = document.querySelector('main');
     this.render();
     this.setModalCloseEvent();
   }
@@ -72,7 +73,7 @@ class Modal {
 
   render() {
     if (!document.querySelector(`.modal`)) {
-      document.querySelector('main').insertAdjacentHTML('beforeend', this.template());
+      this.$target.insertAdjacentHTML('beforeend', this.template());
     }
 
     this.toggleModal();

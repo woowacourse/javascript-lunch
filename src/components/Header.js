@@ -2,6 +2,7 @@ import Modal from './Modal';
 
 class Header {
   constructor() {
+    this.$target = document.querySelector('header');
     this.render();
     this.setHeaderClickEvent();
   }
@@ -16,7 +17,7 @@ class Header {
   }
 
   render() {
-    document.querySelector('header').insertAdjacentHTML('afterbegin', this.template());
+    this.$target.insertAdjacentHTML('afterbegin', this.template());
   }
 
   setHeaderClickEvent() {
