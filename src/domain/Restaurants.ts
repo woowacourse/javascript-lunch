@@ -24,6 +24,12 @@ class Restaurants {
 
     return sortedRestaurants;
   }
+  setFilterBy(filterBy: string) {
+    this.#filterBy = filterBy;
+  }
+
+  setSortBy(sortBy: string) {
+    this.#sortBy = sortBy;
   }
 
   #getSortedRestaurantsByName(restaurants: Restaurant[]) {
