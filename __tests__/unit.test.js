@@ -6,10 +6,7 @@ import '@testing-library/jest-dom';
 import RestaurantList from '../src/components/RestaurantList';
 
 describe('RestaurantList 기능 테스트', () => {
-  beforeEach(() => {
-    document.body.innerHTML = '';
-  });
-  test('이름 순 정렬 테스트', () => {
+  test('이름 순 정렬 기능 테스트', () => {
     const restaurants = [
       {
         category: '한식',
@@ -36,15 +33,19 @@ describe('RestaurantList 기능 테스트', () => {
     const category = '전체';
     const sortBy = 'name';
 
-    new RestaurantList({ $parent: document.body, restaurants, category, sortBy }).render();
-    const restaurantList = document.querySelectorAll('.restaurant');
+    const restaurantList = new RestaurantList({
+      $parent: document.body,
+      restaurants,
+      category,
+      sortBy,
+    }).categorizeRestaurantByOption();
 
-    expect(restaurantList[0]).toHaveTextContent('농민백암순대');
-    expect(restaurantList[1]).toHaveTextContent('맥도날드');
-    expect(restaurantList[2]).toHaveTextContent('버거킹');
+    expect(restaurantList[0].name).toEqual('농민백암순대');
+    expect(restaurantList[1].name).toEqual('맥도날드');
+    expect(restaurantList[2].name).toEqual('버거킹');
   });
 
-  test('거리 순 정렬 테스트', () => {
+  test('거리 순 정렬 기능 테스트(거리 짧은 순)', () => {
     const restaurants = [
       {
         category: '한식',
@@ -71,11 +72,15 @@ describe('RestaurantList 기능 테스트', () => {
     const category = '전체';
     const sortBy = 'distance';
 
-    new RestaurantList({ $parent: document.body, restaurants, category, sortBy }).render();
-    const restaurantList = document.querySelectorAll('.restaurant');
+    const restaurantList = new RestaurantList({
+      $parent: document.body,
+      restaurants,
+      category,
+      sortBy,
+    }).categorizeRestaurantByOption();
 
-    expect(restaurantList[0]).toHaveTextContent('맥도날드');
-    expect(restaurantList[1]).toHaveTextContent('버거킹');
-    expect(restaurantList[2]).toHaveTextContent('농민백암순대');
+    expect(restaurantList[0].name).toEqual('맥도날드');
+    expect(restaurantList[1].name).toEqual('버거킹');
+    expect(restaurantList[2].name).toEqual('농민백암순대');
   });
 });
