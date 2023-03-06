@@ -1,4 +1,4 @@
-import { COUNTRY_FOOD, GLOBAL_CSS } from '../constants';
+import { COUNTRY_FOOD } from '../constants/index.ts';
 import koreanImage from '../assets/category-korean.png';
 import chineseImage from '../assets/category-chinese.png';
 import japaneseImage from '../assets/category-japanese.png';
@@ -18,11 +18,21 @@ class RestaurantBox extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
-    globalStyle.textContent = GLOBAL_CSS;
     componentStyle.textContent = `
-    .restaurant {
+      .text-subtitle {
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 600;
+      }
+      
+      .text-body {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+      }
+      
+      li {
         display: flex;
         align-items: flex-start;
       
@@ -31,7 +41,7 @@ class RestaurantBox extends HTMLElement {
         border-bottom: 1px solid #e9eaed;
       }
       
-      .restaurant__category {
+      .category {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -46,26 +56,26 @@ class RestaurantBox extends HTMLElement {
         background: var(--lighten-color);
       }
       
-      .category-icon {
+      img {
         width: 36px;
         height: 36px;
       }
       
-      .restaurant__info {
+      .info {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
       }
       
-      .restaurant__name {
+      .name {
         margin: 0;
       }
       
-      .restaurant__distance {
+      .distance {
         color: var(--primary-color);
       }
       
-      .restaurant__description {
+      .description {
         display: -webkit-box;
       
         padding-top: 8px;
@@ -83,21 +93,19 @@ class RestaurantBox extends HTMLElement {
     const description = this.getAttribute('description') || '';
 
     this.shadowRoot.innerHTML = `
-    <li class="restaurant">
-          <div class="restaurant__category">
-            <img src=${
-              this.#categoryImage[category]
-            } alt=${category} class="category-icon">
+        <li>
+          <div class="category">
+            <img src=${this.#categoryImage[category]} alt=${category}>
           </div>
-          <div class="restaurant__info">
-            <h3 class="restaurant__name text-subtitle">${name}</h3>
-            <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-            <p class="restaurant__description text-body">${description}</p>
+          <div class="info">
+            <h3 class="name text-subtitle">${name}</h3>
+            <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
+            <p class="description text-body">${description}</p>
           </div>
         </li>
     `;
 
-    this.shadowRoot.append(globalStyle, componentStyle);
+    this.shadowRoot.append(componentStyle);
   }
 
   static get observedAttributes() {

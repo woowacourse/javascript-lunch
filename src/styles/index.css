@@ -10,11 +10,6 @@ body {
   margin: 0 auto;
 }
 
-.app {
-  display: flex;
-  flex-direction: column;
-}
-
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;

@@ -1,12 +1,14 @@
-import { GLOBAL_CSS } from '../constants';
-
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
-    globalStyle.textContent = GLOBAL_CSS;
     componentStyle.textContent = `
+    .text-title {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 600;
+    }
+
     .modal {
         display: none;
       }
@@ -15,7 +17,7 @@ class AddRestaurantModal extends HTMLElement {
         display: block;
       }
       
-      .modal-backdrop {
+      .backdrop {
         position: fixed;
         top: 0;
         right: 0;
@@ -24,7 +26,7 @@ class AddRestaurantModal extends HTMLElement {
         background: rgba(0, 0, 0, 0.35);
       }
       
-      .modal-container {
+      .container {
         position: fixed;
         width: 100%;
         bottom: 0;
@@ -34,7 +36,7 @@ class AddRestaurantModal extends HTMLElement {
         background: var(--grey-100);
       }
       
-      .modal-title {
+      .title {
         margin-bottom: 36px;
       }
 
@@ -47,9 +49,9 @@ class AddRestaurantModal extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
     <div id="modal" class="modal">
-    <div id="modalBackdrop" class="modal-backdrop"></div>
-    <div class="modal-container">
-      <h2 class="modal-title text-title">새로운 음식점</h2>
+    <div id="modalBackdrop" class="backdrop"></div>
+    <div class="container">
+      <h2 class="title text-title">새로운 음식점</h2>
       <form id="restaurantForm">
       <add-select
       name="카테고리"
@@ -73,7 +75,7 @@ class AddRestaurantModal extends HTMLElement {
   </div>
     `;
 
-    this.shadowRoot.append(globalStyle, componentStyle);
+    this.shadowRoot.append(componentStyle);
   }
 
   modalOpen(isOpen) {

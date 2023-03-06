@@ -1,12 +1,15 @@
-import { GLOBAL_CSS } from '../constants';
 class Button extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
-    globalStyle.textContent = GLOBAL_CSS;
     componentStyle.textContent = `
-    .button {
+      .text-caption {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+      }
+
+      button {
         width: 171px;
         height: 44px;
       
@@ -39,10 +42,10 @@ class Button extends HTMLElement {
     const color = this.getAttribute('color');
 
     this.shadowRoot.innerHTML = `
-    <button type="button" id=${id} class="button button--${color} text-caption">${name}</button>
+    <button type="button" id=${id} class="button--${color} text-caption">${name}</button>
     `;
 
-    this.shadowRoot.append(globalStyle, componentStyle);
+    this.shadowRoot.append(componentStyle);
   }
 
   static get observedAttributes() {

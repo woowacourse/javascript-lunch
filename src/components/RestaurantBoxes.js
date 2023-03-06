@@ -1,5 +1,3 @@
-import { GLOBAL_CSS } from '../constants';
-
 class RestaurantBoxes extends HTMLElement {
   getRestaurant({ category, name, distance, description }) {
     return `<restaurant-box category="${category}" name="${name}" distance="${distance}" description="${description}"/>`;
@@ -7,23 +5,18 @@ class RestaurantBoxes extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
-    globalStyle.textContent = GLOBAL_CSS;
     componentStyle.textContent = `
-    .restaurant-list {
-        display: flex;
-        flex-direction: column;
-      
-        padding: 0 16px;
-        margin: 16px 0;
-      }
-      
-`;
+        ul {
+          display: flex;
+          flex-direction: column;
+        
+          padding: 0 16px;
+          margin: 16px 0;
+        }`;
 
-    this.shadowRoot.innerHTML =
-      '<ul id="restaurantList" class="restaurant-list"></ul>';
-    this.shadowRoot.append(globalStyle, componentStyle);
+    this.shadowRoot.innerHTML = '<ul id="restaurantList"></ul>';
+    this.shadowRoot.append(componentStyle);
   }
 
   restaurantListRender(restaurants) {

@@ -1,5 +1,3 @@
-import { GLOBAL_CSS } from '../constants';
-
 class AddSelect extends HTMLElement {
   createOption(title, kind) {
     if (kind === 'distance') {
@@ -10,11 +8,15 @@ class AddSelect extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    const globalStyle = document.createElement('style');
     const componentStyle = document.createElement('style');
-    globalStyle.textContent = GLOBAL_CSS;
     componentStyle.textContent = `
-    .form-item {
+      .text-caption {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+      }
+
+      .container {
         z-index:1;
         display: flex;
         flex-direction: column;
@@ -22,25 +24,23 @@ class AddSelect extends HTMLElement {
         margin-bottom: 36px;
       }
       
-      .form-item label {
+      label {
         color: var(--grey-400);
         font-size: 14px;
       }
       
-      .form-item--required label::after {
+      label::after {
         padding-left: 4px;
       
         color: var(--primary-color);
         content: "*";
       }
       
-      .form-item .help-text {
+      .container .help-text {
         color: var(--grey-300);
       }
       
-      .form-item input,
-      .form-item textarea,
-      .form-item select {
+      select {
         padding: 8px;
         margin: 6px 0;
       
@@ -50,11 +50,9 @@ class AddSelect extends HTMLElement {
         font-size: 16px;
       }
       
-      .form-item textarea {
-        resize: none;
-      }
+    
       
-      .form-item select {
+      select {
         height: 44px;
       
         padding: 8px;
@@ -74,7 +72,7 @@ class AddSelect extends HTMLElement {
     );
 
     this.shadowRoot.innerHTML = `
-    <div class="form-item form-item--required">
+    <div class="container">
     <label for="${id} text-caption">${name}</label>
     <select name="${id}" id="${id}" required>
     <option value="">선택해 주세요</option>
@@ -83,7 +81,7 @@ class AddSelect extends HTMLElement {
   </div>
     `;
 
-    this.shadowRoot.append(globalStyle, componentStyle);
+    this.shadowRoot.append(componentStyle);
   }
 
   static get observedAttributes() {
