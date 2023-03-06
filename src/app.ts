@@ -6,6 +6,10 @@ import { Category, Order } from './constants/enum';
 import Component from './core/Component';
 import { IComponentPropState } from './interfaces/IComponent';
 import IRestaurantInput from './interfaces/IRestaurantInput';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from './utils/localStroageUtils';
 import sortItemsByName from './utils/sortByName';
 
 class App extends Component<IComponentPropState> {
@@ -83,7 +87,7 @@ class App extends Component<IComponentPropState> {
     const restaurantList: IRestaurantInput[] = this.getRestaurants();
     restaurantList.push(restaurantInput);
 
-    localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
+    setLocalStorageItem('restaurantList', restaurantList);
 
     this.setState({ restaurantList });
   }
@@ -125,7 +129,7 @@ class App extends Component<IComponentPropState> {
   }
 
   getRestaurants(): IRestaurantInput[] {
-    return JSON.parse(localStorage.getItem('restaurantList') || '[]');
+    return getLocalStorageItem('restaurantList') || [];
   }
 }
 
