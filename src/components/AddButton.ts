@@ -1,8 +1,10 @@
-import { RestaurantType } from "./Restaurant";
+import RestaurantListItem from "../domain/RestaurantListItem";
+import {
+  IRestaurant,
+  TCategory,
+  TDistance,
+} from "../domain/RestaurantListItem";
 import RestaurantList from "./RestaurantList";
-
-type category = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
-type distance = 5 | 10 | 15 | 20 | 30;
 
 const AddButton = {
   template() {
@@ -11,7 +13,7 @@ const AddButton = {
     <button class="button button--primary text-caption">추가하기</button>
   </div>`;
   },
-  setEvent() {
+  setEvent(res: RestaurantListItem) {
     const cancelButton = document.querySelector(".button--secondary");
     cancelButton?.addEventListener("click", () => {
       const modal = document.querySelector(".modal--open") as HTMLElement;
@@ -26,10 +28,9 @@ const AddButton = {
     addButton?.addEventListener("click", (e) => {
       e.preventDefault();
 
-      const newRestaurant: RestaurantType = this.getModalInfo();
-      RestaurantList.addRestaurant(newRestaurant);
+      const newRestaurant: IRestaurant = this.getModalInfo();
       restaurantListContainer.innerHTML = RestaurantList.template(
-        RestaurantList.originList
+        res.add(newRestaurant)
       );
 
       const modal = document.querySelector(".modal--open") as HTMLElement;
@@ -59,13 +60,12 @@ const AddButton = {
     link.value = "";
 
     return {
-      category: selectedCategory as category,
+      category: selectedCategory as TCategory,
       name: inputName,
-      distance: Number(selectedDistance) as distance,
+      distance: Number(selectedDistance) as TDistance,
       description: inputDescription,
       link: inputLink,
     };
-    // return [selectedCategory, inputName, selectedDistance, inputDescription];
   },
 };
 

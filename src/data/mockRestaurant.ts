@@ -1,6 +1,6 @@
-import { RestaurantType } from "../components/Restaurant";
+import { IRestaurant } from "../domain/RestaurantListItem";
 
-export const mockKorea: RestaurantType = {
+const mockKorea: IRestaurant = {
   category: "한식",
   name: "피양콩할마니",
   distance: 10,
@@ -10,7 +10,7 @@ export const mockKorea: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-const mockJapen: RestaurantType = {
+const mockJapan: IRestaurant = {
   category: "일식",
   name: "일일일",
   distance: 15,
@@ -20,7 +20,7 @@ const mockJapen: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-const mockWestern: RestaurantType = {
+const mockWestern: IRestaurant = {
   category: "양식",
   name: "양양양",
   distance: 5,
@@ -30,7 +30,7 @@ const mockWestern: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-const mockAsian: RestaurantType = {
+const mockAsian: IRestaurant = {
   category: "아시안",
   name: "아시안",
   distance: 10,
@@ -40,7 +40,7 @@ const mockAsian: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-const mockEtc: RestaurantType = {
+const mockEtc: IRestaurant = {
   category: "기타",
   name: "딩가딩가",
   distance: 15,
@@ -50,7 +50,7 @@ const mockEtc: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-const mockChina: RestaurantType = {
+const mockChina: IRestaurant = {
   category: "중식",
   name: "중중중",
   distance: 20,
@@ -60,7 +60,7 @@ const mockChina: RestaurantType = {
   link: "https://naver.me/G6DyD9tg",
 };
 
-const mock1: RestaurantType = {
+const mock1: IRestaurant = {
   category: "중식",
   name: "친친",
   distance: 10,
@@ -68,7 +68,7 @@ const mock1: RestaurantType = {
   link: "",
 };
 
-const mock2: RestaurantType = {
+const mock2: IRestaurant = {
   category: "일식",
   name: "잇쇼우",
   distance: 5,
@@ -76,7 +76,7 @@ const mock2: RestaurantType = {
   link: "",
 };
 
-const mock3: RestaurantType = {
+const mock3: IRestaurant = {
   category: "양식",
   name: "이태리키친",
   distance: 20,
@@ -84,7 +84,7 @@ const mock3: RestaurantType = {
   link: "",
 };
 
-const mock4: RestaurantType = {
+const mock4: IRestaurant = {
   category: "아시안",
   name: "호아빈 삼성점",
   distance: 15,
@@ -92,12 +92,12 @@ const mock4: RestaurantType = {
   link: "",
 };
 
-export const mockList: RestaurantType[] = [
+const mockList: IRestaurant[] = [
   mockAsian,
   mockChina,
   mockKorea,
   mockChina,
-  mockJapen,
+  mockJapan,
   mockEtc,
   mockWestern,
   mockKorea,
@@ -107,3 +107,5 @@ export const mockList: RestaurantType[] = [
   mock3,
   mock4,
 ];
+
+export default mockList;

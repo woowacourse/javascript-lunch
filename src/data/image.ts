@@ -5,16 +5,17 @@ import categoryEtc from "./image/category-etc.png";
 import categoryJapanese from "./image/category-japanese.png";
 import categoryKorean from "./image/category-korean.png";
 import categoryWestern from "./image/category-western.png";
+import { TCategory } from "../domain/RestaurantListItem";
 
 export const Button = {
   add: addButton,
 };
 
-export const Category = {
-  asian: categoryAsian,
-  chinese: categoryChinese,
-  etc: categoryEtc,
-  japanese: categoryJapanese,
-  korean: categoryKorean,
-  western: categoryWestern,
+export const Category: Record<TCategory, string> = {
+  아시안: categoryAsian,
+  중식: categoryChinese,
+  기타: categoryEtc,
+  일식: categoryJapanese,
+  한식: categoryKorean,
+  양식: categoryWestern,
 };

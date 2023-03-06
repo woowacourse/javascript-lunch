@@ -1,4 +1,6 @@
+import RestaurantListItem from "../domain/RestaurantListItem";
 import RestaurantList from "./RestaurantList";
+import { TPriority } from "../domain/RestaurantListItem";
 
 const SortButton = {
   template() {
@@ -7,8 +9,7 @@ const SortButton = {
     <option value="distance">거리순</option>
   </select>`;
   },
-
-  setEvent() {
+  setEvent(res: RestaurantListItem) {
     const restaurantListContainer = document.querySelector(
       ".restaurant-list-container"
     ) as HTMLElement;
@@ -16,8 +17,9 @@ const SortButton = {
       "#sorting-filter"
     ) as HTMLSelectElement;
     sortingFilter?.addEventListener("change", () => {
-      const select = sortingFilter.options[sortingFilter.selectedIndex].value;
-      const result = RestaurantList.listUp(RestaurantList.filterState, select);
+      const select = sortingFilter.options[sortingFilter.selectedIndex]
+        .value as TPriority;
+      const result = res.sortFilter(select);
       restaurantListContainer.innerHTML = RestaurantList.template(result);
     });
   },
