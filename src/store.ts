@@ -32,10 +32,8 @@ export const store: Store = {
 
   addRestaurants(restaurant: Restaurant) {
     this.restaurants = [...this.restaurants, restaurant];
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
-    $restaurantItems.render(this.restaurants);
+    const $restaurantItems = document.querySelector<RestaurantItems>('restaurant-items');
+    $restaurantItems?.render(this.restaurants);
     localStorage.setItem('store', JSON.stringify([...this.getRestuarants(), restaurant]));
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
@@ -43,26 +41,22 @@ export const store: Store = {
 
   filterRestaurants(categoryFilter: CategoryFilter) {
     this.categoryFilter = categoryFilter;
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
+    const $restaurantItems = document.querySelector<RestaurantItems>('restaurant-items');
     this.restaurants = this.getRestuarants();
 
     if (categoryFilter === '전체') {
-      return $restaurantItems.render(this.restaurants);
+      return $restaurantItems?.render(this.restaurants);
     }
     const filteredRestaurants = this.restaurants.filter(
       (restaurant) => restaurant.category === categoryFilter,
     );
     this.restaurants = filteredRestaurants;
-    $restaurantItems.render(this.restaurants);
+    $restaurantItems?.render(this.restaurants);
   },
 
   sortRestaurants(sortFilter: SortFilter) {
     this.sortFilter = sortFilter;
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
+    const $restaurantItems = document.querySelector<RestaurantItems>('restaurant-items');
     switch (sortFilter) {
       case 'name':
         this.restaurants.sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -71,7 +65,7 @@ export const store: Store = {
         this.restaurants.sort((a, b) => a.distance - b.distance);
         break;
     }
-    $restaurantItems.render(this.restaurants);
+    $restaurantItems?.render(this.restaurants);
   },
 };
 
