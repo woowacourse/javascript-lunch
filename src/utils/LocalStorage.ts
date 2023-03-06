@@ -6,7 +6,16 @@ const LocalStorage = {
     if (json === null) {
       return [];
     }
-    return JSON.parse(json) ?? [];
+    try {
+      const arr = JSON.parse(json);
+      if (Array.isArray(arr)) {
+        return arr ?? [];
+      } else {
+        return [];
+      }
+    } catch (err) {
+      return [];
+    }
   },
   setLocalStorage(key: string, value: IRestaurant[]) {
     const json = JSON.stringify(value);
