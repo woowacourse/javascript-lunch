@@ -147,9 +147,7 @@ class AddModalContainer extends Component<IComponentPropState> {
       this.resetErrorMessage();
 
       const { category, name, distance } = restaurantInput;
-      console.log(category, name, distance);
       if (!category || !name || !distance) {
-        // Show error message for each missing required field
         if (!category) {
           this.showErrorMessage('category');
         }
@@ -159,7 +157,6 @@ class AddModalContainer extends Component<IComponentPropState> {
         if (!distance) {
           this.showErrorMessage('distance');
         }
-        // Stop further execution if any required field is missing
         return;
       }
 
