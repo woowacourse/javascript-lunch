@@ -55,7 +55,7 @@
 - [x] refactor: components/index 파일 역할 부여
 - [x] refactor: 이벤트 핸들러 콜백함수 분리
 - [x] refactor: 사용되지 않는 메서드 제거
-- [ ] refactor: 매직넘버 상수화
+- [x] refactor: 매직넘버 상수화
 - [ ] refactor: constructor 추가
 
 # 페어프로그래밍 회고
