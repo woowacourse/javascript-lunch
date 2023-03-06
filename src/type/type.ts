@@ -13,7 +13,7 @@ export type Category =
   | "양식"
   | "아시안"
   | "기타";
-export type TakingTime = "5" | "10" | "15" | "20" | "25" | "30";
+export type TakingTime = 5 | 10 | 15 | 20 | 25 | 30;
 export type Sort = "이름순" | "거리순";
 
 export interface Object {

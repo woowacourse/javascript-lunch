@@ -82,7 +82,7 @@ class Modal {
     const formData = Object.fromEntries(new FormData($modal).entries());
     const restaurant = {
       name: formData.name as string,
-      takingTime: formData.takingTime as TakingTime,
+      takingTime: Number(formData.takingTime) as TakingTime,
       category: formData.category as Category,
       link: formData.link as string,
       description: formData.description as string,
