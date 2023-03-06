@@ -25,6 +25,17 @@ class RestaurantAddModal {
   toggleModal() {
     $(`#restaurant-add-modal`).classList.toggle('modal--open');
   }
+
+  clearAllInputs() {
+    $$(
+      '#modal-add-form input, #modal-add-form textarea, #modal-add-form select'
+    ).forEach((input) => {
+      (
+        input as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      ).value = '';
+    });
+  }
+
   #setListeners() {
     ($(`#modal-cancel-button`) as HTMLButtonElement).addEventListener(
       'click',
