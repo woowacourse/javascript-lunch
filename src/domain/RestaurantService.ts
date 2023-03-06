@@ -1,4 +1,4 @@
-import { Category } from '../types/type';
+import { CategoryOptions } from '../types/type';
 import { IRestaurant, Restaurant } from './Restaurant';
 
 export default class RestaurantService {
@@ -12,7 +12,7 @@ export default class RestaurantService {
     return [...this.#restaurants];
   }
 
-  filterByCategory(restaurants: Restaurant[], category: Category | '전체') {
+  filterByCategory(restaurants: Restaurant[], category: CategoryOptions) {
     if (category === '전체') {
       return this.getRestaurantsInfo();
     }

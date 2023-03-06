@@ -1,7 +1,7 @@
-import { Category, DistanceTime } from '../types/type';
+import { CategoryOptions, DistanceTime } from '../types/type';
 
 export interface IRestaurant {
-  category: Category;
+  category: CategoryOptions;
   distance: DistanceTime;
   name: string;
   description?: string;
@@ -9,11 +9,7 @@ export interface IRestaurant {
 }
 
 export class Restaurant {
-  #state: IRestaurant = {
-    category: '한식',
-    distance: 5,
-    name: '',
-  };
+  #state: IRestaurant;
 
   constructor(restaurant: IRestaurant) {
     this.#state = { ...restaurant };
@@ -31,7 +27,7 @@ export class Restaurant {
     return this.#state.distance - otherRestaurant.#state.distance;
   }
 
-  isSameCategory(category: Category) {
+  isSameCategory(category: CategoryOptions) {
     return this.#state.category === category;
   }
 }
