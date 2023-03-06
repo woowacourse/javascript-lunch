@@ -1,5 +1,5 @@
 import RestaurantList, { Restaurant } from '../model/RestaurantList';
-import { $, $$$ } from '../../utils';
+import { $, $$, $$$ } from '../../utils';
 import webView from '../../view/webView';
 import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../../constants';
 
@@ -21,7 +21,7 @@ class LunchRecommendation {
       });
     }
 
-    webView.renderRestaurantList(this.#restaurants.getList('전체', 'name'));
+    this.drawRestuants();
   }
 
   play() {
@@ -82,9 +82,8 @@ class LunchRecommendation {
 
         const restaurantsString = JSON.stringify(restaurants);
         window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
-        webView.toggleModal();
         webView.resetForm();
-        webView.renderRestaurantList(restaurants);
+        this.drawRestuants();
       }
     );
   }
@@ -119,7 +118,7 @@ class LunchRecommendation {
       englishSortingValue
     );
 
-    webView.renderRestaurantList(filteredList);
+    $('restaurant-boxes').restaurantListRender(filteredList);
   }
 }
 

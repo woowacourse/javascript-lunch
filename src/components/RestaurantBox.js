@@ -7,14 +7,14 @@ import asianImage from '../assets/category-asian.png';
 import etcImage from '../assets/category-etc.png';
 
 class RestaurantBox extends HTMLElement {
-  getCategoryImage = (category) => {
+  getCategoryImage(category) {
     if (category === '한식') return koreanImage;
     if (category === '중식') return chineseImage;
     if (category === '일식') return japaneseImage;
     if (category === '양식') return westernImage;
     if (category === '아시안') return asianImage;
     if (category === '기타') return etcImage;
-  };
+  }
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
@@ -77,14 +77,12 @@ class RestaurantBox extends HTMLElement {
       }
 `;
 
-    const template = document.createElement('template');
-
     const name = this.getAttribute('name');
     const category = this.getAttribute('category');
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description') || '';
 
-    template.innerHTML = `
+    this.shadowRoot.innerHTML = `
     <li class="restaurant">
           <div class="restaurant__category">
             <img src=${this.getCategoryImage(
@@ -99,11 +97,7 @@ class RestaurantBox extends HTMLElement {
         </li>
     `;
 
-    const cloneNode = template.content.cloneNode(true);
-
-    this.shadowRoot.appendChild(globalStyle);
-    this.shadowRoot.appendChild(componentStyle);
-    this.shadowRoot.appendChild(cloneNode);
+    this.shadowRoot.append(globalStyle, componentStyle);
   }
 
   static get observedAttributes() {
