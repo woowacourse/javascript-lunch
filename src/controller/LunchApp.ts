@@ -31,8 +31,23 @@ class LunchApp {
     this.#lunchAppView.clearAllModalInputs();
     this.#lunchAppView.toggleRestaurantAddModal();
   }
+
   #onHeaderAddButtonClicked() {
     this.#lunchAppView.toggleRestaurantAddModal();
+  }
+
+  #onFilterByChange(filterBy: string) {
+    this.#restaurants.setFilterBy(filterBy);
+    console.log(this.#restaurants.getRestaurants());
+
+    this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
+  }
+
+  #onSortByChange(sortBy: string) {
+    this.#restaurants.setSortBy(sortBy);
+    console.log(this.#restaurants.getRestaurants());
+
+    this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
   }
 }
 
