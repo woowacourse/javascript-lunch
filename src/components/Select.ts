@@ -2,10 +2,14 @@ import OPTIONS from "../constants/options";
 
 type SelectId = keyof typeof OPTIONS | "";
 
-class CustomSelect extends HTMLSelectElement {
+export class CustomSelect extends HTMLSelectElement {
   constructor() {
     super();
 
+    this.render();
+  }
+
+  render() {
     const id = (this.getAttribute("id") as SelectId) ?? "";
 
     if (id !== "")
@@ -17,6 +21,12 @@ class CustomSelect extends HTMLSelectElement {
         )
         .join("")}
     `;
+  }
+
+  bindEvent(handleOptionSelect: (value: string) => void) {
+    this.addEventListener("change", () => {
+      handleOptionSelect(this.value);
+    });
   }
 }
 

@@ -1,11 +1,16 @@
 import type { Category, Distance } from "./types/restaurant";
 import type { CategoryOption, SortOption } from "./types/option";
 
-import createCustomSelect from "./components/CustomSelect";
-import createCustomModal from "./components/CustomModal";
-import createCustomHeader from "./components/CustomHeader";
-import createRestaurantCardList from "./components/RestaurantCardList";
+import createCustomSelect, { CustomSelect } from "./components/Select";
+import createCustomModal from "./components/modal/Modal";
+import createCustomHeader, { CustomHeader } from "./components/Header";
+import {
+  createRestaurantCardList,
+  RestaruantCardList,
+} from "./components/restaurant/RestaurantCardList";
 import Restaurants from "./domain/Restaurants";
+import { createRestaurantCard } from "./components/restaurant/RestaurantCard";
+import { createRestaurantAddForm } from "./components/modal/RestaurantAddForm";
 
 class App {
   #modal: HTMLElement | null;
@@ -25,6 +30,7 @@ class App {
       filter: "전체",
       sort: "name",
     };
+
     this.init();
 
     this.#modal = document.querySelector(".modal");
@@ -32,41 +38,55 @@ class App {
 
   init() {
     createCustomSelect();
+    createRestaurantAddForm();
     createCustomModal();
     createCustomHeader();
+    createRestaurantCard();
+    createRestaurantCardList();
 
     this.renderContainer();
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    document
+      .querySelector<CustomSelect>("#category-filter")
+      ?.bindEvent(this.onClickFilteringOption.bind(this));
+
+    document
+      .querySelector<CustomSelect>("#sorting-filter")
+      ?.bindEvent(this.onClickSortingOption.bind(this));
+
+    document
+      .querySelector<CustomHeader>(".gnb")
+      ?.bindEvent(this.openModal.bind(this));
   }
 
   renderContainer() {
     document.body.innerHTML = `
-      <custom-header></custom-header>
+      <header is="custom-header" class="gnb"></header>
       <main>
         <section class="restaurant-filter-container">
           <select is="custom-select" name="category" id="category-filter" class="restaurant-filter"></select>
           <select is="custom-select" name="sorting" id="sorting-filter" class="restaurant-filter"></select>
         </section>
         <section class="restaurant-list-container">
-          ${createRestaurantCardList(
-            this.#restaurants.getListByOption(this.#showState)
-          )}
+          <ul is="restaurant-card-list" class="restaurant-list"></ul>
         </section>
         <custom-modal></custom-modal>
       </main>
     `;
-  }
 
-  onClickSortingOption(event: Event) {
-    if (!(event.target instanceof HTMLSelectElement)) return;
-
-    this.#showState.sort = event.target.value as SortOption;
     this.renderRestaurantList();
   }
 
-  onClickFilteringOption(event: Event) {
-    if (!(event.target instanceof HTMLSelectElement)) return;
+  onClickSortingOption(selectedOption: string) {
+    this.#showState.sort = selectedOption as SortOption;
+    this.renderRestaurantList();
+  }
 
-    this.#showState.filter = event.target.value as CategoryOption;
+  onClickFilteringOption(selectedOption: string) {
+    this.#showState.filter = selectedOption as CategoryOption;
     this.renderRestaurantList();
   }
 
@@ -96,15 +116,9 @@ class App {
   }
 
   renderRestaurantList() {
-    const restaurantListContainer = document.querySelector(
-      ".restaurant-list-container"
-    );
-
-    if (restaurantListContainer === null) return;
-
-    restaurantListContainer.innerHTML = createRestaurantCardList(
-      this.#restaurants.getListByOption(this.#showState)
-    );
+    document
+      .querySelector<RestaruantCardList>(".restaurant-list")
+      ?.render(this.#restaurants.getListByOption(this.#showState));
   }
 
   addNewRestaurant() {
