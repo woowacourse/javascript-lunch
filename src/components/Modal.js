@@ -1,3 +1,4 @@
+import { CATEGORY } from "../constants";
 import Component from "../core/Component";
 
 export default class Modal extends Component {
@@ -91,19 +92,12 @@ export default class Modal extends Component {
     this.addEvent("submit", "#add-restaurant-form", (event) => {
       event.preventDefault();
 
-      const category = event.target[0].value;
-      const name = event.target[1].value;
-      const distance = event.target[2].value;
-      const description = event.target[3].value;
-      const link = event.target[4].value;
+      const newRestaurant = [...event.target].reduce((restaurantInfo, input) => {
+        if (input.nodeName === "BUTTON") return restaurantInfo;
 
-      const newRestaurant = {
-        name,
-        category,
-        distance,
-        description,
-        link,
-      };
+        return { ...restaurantInfo, [input.id]: input.value };
+      }, {});
+
       addRestaurant(newRestaurant);
     });
   }
