@@ -1,21 +1,24 @@
 import IRestaurant from "../type/IRestaurant";
 
+const makeArray = (json: string) => {
+  const arr = JSON.parse(json);
+  try {
+    if (Array.isArray(arr)) {
+      return arr ?? [];
+    }
+    return [];
+  } catch (err) {
+    return [];
+  }
+};
+
 const LocalStorage = {
   getLocalStorage(key: string) {
     const json = localStorage.getItem(key);
     if (json === null) {
       return [];
     }
-    try {
-      const arr = JSON.parse(json);
-      if (Array.isArray(arr)) {
-        return arr ?? [];
-      } else {
-        return [];
-      }
-    } catch (err) {
-      return [];
-    }
+    return makeArray(json);
   },
   setLocalStorage(key: string, value: IRestaurant[]) {
     const json = JSON.stringify(value);
