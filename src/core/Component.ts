@@ -7,19 +7,21 @@ export default class Component {
     return this;
   }
 
-  render() {
+  render(): this {
     this.$target.innerHTML = this.template();
 
     return this;
   }
 
-  hide() {
+  hide(): this {
     this.$target.innerHTML = '';
 
     return this;
   }
 
-  setEvent() {}
+  setEvent(): this {
+    return this;
+  }
 
   template(): string {
     return '';

@@ -17,6 +17,8 @@ class TopNavBar extends Component {
         eventBus.dispatch('@modal-click');
       });
     }
+
+    return this;
   }
 
   template() {
