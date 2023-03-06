@@ -1,16 +1,6 @@
 import CustomElement from "../../abstracts/CustomElement";
 
 class ModalComponent extends CustomElement {
-  hide() {
-    document.querySelector(".modal").classList.remove("modal--open");
-  }
-
-  setEvent() {
-    document
-      .querySelector(".button--secondary")
-      .addEventListener("click", this.hide);
-  }
-
   template() {
     return `
       <div class="modal">

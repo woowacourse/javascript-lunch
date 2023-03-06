@@ -4,9 +4,23 @@ import { RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class RestaurantAddFormComponent extends CustomElement {
   setEvent() {
+    document.querySelector("form").addEventListener("submit", (e) => {
+      this.addRestaurant(e);
+      this.hideModal();
+      this.cleanForm();
+    });
+
     document
-      .querySelector("form")
-      .addEventListener("submit", this.addRestaurant);
+      .querySelector(".button--secondary")
+      .addEventListener("click", this.hideModal);
+  }
+
+  hideModal() {
+    document.querySelector(".modal").classList.remove("modal--open");
+  }
+
+  cleanForm() {
+    document.querySelector("form").reset();
   }
 
   addRestaurant(e) {
@@ -26,9 +40,6 @@ class RestaurantAddFormComponent extends CustomElement {
     };
 
     dispatcher(RESTAURANT_ACTION.ADD_RESTAURANT, restaurant);
-
-    document.querySelector(".modal").classList.remove("modal--open");
-    document.querySelector("form").reset();
   }
 
   template() {
