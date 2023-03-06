@@ -13,6 +13,7 @@
     "rules": {
         "linebreak-style": ["error", "windows"],
         "quotes": ["error", "double"],
-        "import/extensions": ["never"]
+        "import/extensions": 0,
+        "no-param-reassign": ["error", { "props": false }]
     }
 }
