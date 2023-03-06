@@ -24,7 +24,7 @@ class AddModal {
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form class="modal-form">
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required category--input">
           <label for="category">카테고리</label>
           ${this.categorySelect.template()}
         </div>
@@ -34,7 +34,7 @@ class AddModal {
           <input type="text" name="name" id="name" required>
         </div>
 
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required taking_time--input">
           <label for="takingTime text-caption">거리(도보 이동 시간) </label>
          ${this.takingTimeSelect.template()}
         </div>
@@ -72,17 +72,16 @@ class AddModal {
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       const restaurant = this.getRestaurantData();
+      $(".error--message")?.remove();
 
       try {
         addNewRestaurant(restaurant);
         this.closeModal();
       } catch (e) {
-        this.showErrorMessage(e as string);
+        const error = (e as string).toString();
+        const [errorTarget, errorMessage] = error.split(":");
+        this.showErrorMessage(errorTarget, errorMessage);
       }
-    });
-
-    $("#name")?.addEventListener("focus", () => {
-      $(".error--message")?.remove();
     });
   }
 
@@ -103,6 +102,7 @@ class AddModal {
   resetFormValues() {
     const modalForm = $(".modal-form") as HTMLFormElement;
     modalForm.reset();
+    $(".error--message")?.remove();
   }
 
   closeModal() {
@@ -110,8 +110,8 @@ class AddModal {
     $(".modal")?.classList.remove("modal--open");
   }
 
-  showErrorMessage(message: string) {
-    $(".name--input")?.insertAdjacentHTML(
+  showErrorMessage(target: string, message: string) {
+    $(`.${target}--input`)?.insertAdjacentHTML(
       "beforeend",
       `<div class='error--message'>${message}</div>`
     );

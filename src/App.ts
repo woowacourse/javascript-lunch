@@ -6,6 +6,7 @@ import RestaurantItem from "@/component/reusable/RestaurantItem";
 import { Constants, OptionValue } from "@/constant/Constants";
 import restaurantListHandler from "@/domain/restaurantListHandler";
 import { Category, Restaurant, Sort } from "@/type/type";
+import restaurantValidator from "./domain/restaurantValidator";
 
 class App {
   category: Category;
@@ -59,7 +60,7 @@ class App {
   }
 
   addNewRestaurant = (restaurant: Restaurant): void => {
-    restaurantListHandler.validateRestaurant(restaurant);
+    restaurantValidator.validate(restaurant);
     restaurantListHandler.addRestaurant(restaurant);
     this.setRestaurantList();
     this.rerenderList();
