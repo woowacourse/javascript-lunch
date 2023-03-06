@@ -23,9 +23,9 @@ export default class Filter extends Component {
   }
 
   setEvent() {
-    const { setSortingWay, setCategory } = this.props;
+    const { onChangeSortingWay, onChangeCategory } = this.props;
 
-    this.addEvent("change", "#sorting-filter", setSortingWay);
-    this.addEvent("change", "#category-filter", setCategory);
+    this.addEvent("change", "#sorting-filter", onChangeSortingWay);
+    this.addEvent("change", "#category-filter", onChangeCategory);
   }
 }

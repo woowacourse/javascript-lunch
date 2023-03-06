@@ -36,7 +36,7 @@ export default class App extends Component {
   }
 
   mounted() {
-    const { toggleModal, addRestaurant, setSortingWay, setCategory } = this;
+    const { toggleModal, addRestaurant, onChangeSortingWay, onChangeCategory } = this;
     const { restaurantList, sortingWay, category } = this.state;
 
     const $header = this.$target.querySelector(".gnb");
@@ -48,8 +48,8 @@ export default class App extends Component {
     new Filter($restaurantFilter, {
       sortingWay,
       category,
-      setSortingWay: setSortingWay.bind(this),
-      setCategory: setCategory.bind(this),
+      onChangeSortingWay: onChangeSortingWay.bind(this),
+      onChangeCategory: onChangeCategory.bind(this),
     });
     new RestaurantList($restaurantList, { restaurantList });
     new Modal($modal, {
@@ -73,7 +73,7 @@ export default class App extends Component {
     this.toggleModal();
   }
 
-  setSortingWay(event) {
+  onChangeSortingWay(event) {
     const sortingWay = event.target.value;
     const { restaurantList } = this.state;
 
@@ -82,7 +82,7 @@ export default class App extends Component {
     this.setState({ restaurantList: updatedRestaurantList, sortingWay: sortingWay });
   }
 
-  setCategory(event) {
+  onChangeCategory(event) {
     const category = event.target.value;
     const { sortingWay } = this.state;
 
