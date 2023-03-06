@@ -50,7 +50,7 @@
 
 - [x] fix: 초기 로딩 시 이름순으로 정렬
 - [x] refactor: 컴포넌트 파일 구조 세분화
-- [ ] refactor: 컴포넌트 파일명 수정
+- [x] refactor: 컴포넌트 파일명 수정
 - [ ] refactor: 이벤트 핸들러 콜백함수 분리
 - [ ] refactor: 매직넘버 상수화
 - [ ] refactor: constructor 추가

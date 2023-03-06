@@ -1,6 +1,6 @@
-import RFormControl from '../RFormControl';
+import CustomFormElement from '../CustomFormElement';
 
-class RInput extends RFormControl {
+class Input extends CustomFormElement {
   override renderTemplate(): string {
     return `
       <style>
@@ -36,6 +36,6 @@ class RInput extends RFormControl {
   }
 }
 
-customElements.define('r-input', RInput);
+customElements.define('r-input', Input);
 
-export default RInput;
+export default Input;
