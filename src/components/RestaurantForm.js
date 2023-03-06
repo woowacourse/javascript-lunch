@@ -2,7 +2,7 @@ import { CATEGORY, SELECT_DISTANCE } from '../constants';
 import selectTemplate from '../template/selectTemplate';
 import { arrayElementToObject } from '../utils/util';
 
-export default function RestaurantForm($root, submitHandler, cancelHandler) {
+export default function RestaurantForm($root, handleFormSubmit, handleFormCancel) {
   const $form = document.createElement('form');
 
   this.render = () => {
@@ -15,10 +15,10 @@ export default function RestaurantForm($root, submitHandler, cancelHandler) {
     $root.innerHTML = '<h2 class="modal-title text-title">새로운 음식점</h2>';
     this.render();
 
-    $form.addEventListener('submit', submitHandler);
+    $form.addEventListener('submit', handleFormSubmit);
 
     const $cancelButton = $form.querySelector('#cancel-button');
-    $cancelButton.addEventListener('click', cancelHandler);
+    $cancelButton.addEventListener('click', handleFormCancel);
 
     $root.appendChild($form);
   };
@@ -33,10 +33,7 @@ function RestaurantFormTemplate() {
       ${selectTemplate({
         name: 'category',
         id: 'category',
-        options: [
-          { value: '', text: '선택해주세요' },
-          ...arrayElementToObject(CATEGORY),
-        ],
+        options: [{ value: '', text: '선택해주세요' }, ...arrayElementToObject(CATEGORY)],
         required: true,
       })}
     </div>

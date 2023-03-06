@@ -1,12 +1,12 @@
 import addButton from '../../templates/add-button.png';
 
-export default function Header($root, eventListener) {
+export default function Header($root, showRestaurantAddUI) {
   const $header = document.createElement('header');
   $header.className = 'gnb';
 
   this.init = () => {
     this.render();
-    $header.addEventListener('click', eventListener);
+    $header.addEventListener('click', showRestaurantAddUI);
     $root.appendChild($header);
   };
 
