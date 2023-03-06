@@ -1,5 +1,12 @@
-export const CATEGORY = ['한식', '중식', '일식', '양식', '아시안', '기타'];
-export const SORT = ['이름순', '거리순'];
+export const CATEGORY = [
+  '한식',
+  '중식',
+  '일식',
+  '아시안',
+  '양식',
+  '기타',
+] as const;
+export const FILTER = ['이름순', '거리순'] as const;
 
 export const SELECT_DISTANCE = [
   { value: '', text: '선택해 주세요' },
