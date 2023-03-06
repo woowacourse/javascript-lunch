@@ -5,7 +5,7 @@ import TopNavBar from './components/TopNavBar';
 import Component from './core/Component';
 import { $ } from './utils/domUtils';
 import { restaurantStore } from './model/restaurantStore';
-import { sampleData } from './model/storage';
+
 class App extends Component {
   readonly component: any;
   constructor() {
@@ -15,13 +15,11 @@ class App extends Component {
       topNavBar: new TopNavBar($('.gnb')),
       listContainer: new ListContainer($('.restaurant-list-container')),
       filterBar: new FilterBar($('.restaurant-filter-container')),
-      AddModalContainer: new AddModalContainer(
-        $('.restaurant-add-modal-container')
-      ),
+      AddModalContainer: new AddModalContainer($('.restaurant-add-modal-container')),
     };
 
     // localStorage에 샘플 데이터 입력
-    restaurantStore.setList(sampleData);
+    restaurantStore.init();
   }
 }
 

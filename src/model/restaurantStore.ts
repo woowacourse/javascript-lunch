@@ -1,7 +1,12 @@
 import { Category, Order } from '@res/constants/enum';
 import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { sampleData } from './storage';
 
 export const restaurantStore = {
+  init() {
+    this.setList(sampleData);
+  },
+
   addList(restaurantInput: IRestaurantInput) {
     const restaurantList = this.getList();
     this.setList([...restaurantList, restaurantInput]);
@@ -37,9 +42,7 @@ export const restaurantStore = {
 
   sortItems(restaurantList: IRestaurantInput[], order: Order) {
     if (order === Order.Name) {
-      return restaurantList.sort((first, second) =>
-        first.name.localeCompare(second.name, 'ko')
-      );
+      return restaurantList.sort((first, second) => first.name.localeCompare(second.name, 'ko'));
     }
 
     if (order === Order.Distance) {
