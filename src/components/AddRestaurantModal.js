@@ -11,6 +11,7 @@ class AddRestaurantModal extends HTMLElement {
 
       .modal {
           display: none;
+          
         }
       
       .modal--open {

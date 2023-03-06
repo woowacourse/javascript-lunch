@@ -38,6 +38,7 @@ class LunchRecommendation {
   modalEvent() {
     $$$('lunch-header', '#openModal').addEventListener('click', () => {
       $('add-restaurant-modal').modalOpen(true);
+      $('body').classList.add('scroll-hidden');
     });
     $$$('add-restaurant-modal', '#cancleModal').addEventListener(
       'click',
@@ -50,13 +51,14 @@ class LunchRecommendation {
       'click',
       () => {
         $('add-restaurant-modal').modalOpen(false);
-        // $('add-restaurant-modal').setAttribute('modal', 'close');
+        $('body').classList.remove('scroll-hidden');
       }
     );
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
         $('add-restaurant-modal').modalOpen(false);
+        $('body').classList.remove('scroll-hidden');
       }
     });
   }

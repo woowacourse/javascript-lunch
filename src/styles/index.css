@@ -27,3 +27,7 @@ body {
   padding: 0 16px;
   margin-top: 24px;
 }
+
+.scroll-hidden {
+  overflow: hidden;
+}
