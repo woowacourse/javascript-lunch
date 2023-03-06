@@ -28,14 +28,21 @@ export default class RestaurantList {
   }
 
   categoryFilter(category: Category) {
-    const filteredList: RestaurantForm[] = [];
     if (category === "전체") {
       this.filterAll();
       return;
     }
-    this.formList.filter((info) => {
-      if (info.category === category) filteredList.push(info);
-    });
+
+    const filteredList: RestaurantForm[] = this.formList.reduce(
+      (arr: RestaurantForm[], curInfo: RestaurantForm) => {
+        if (curInfo.category === category) {
+          arr.push(curInfo);
+        }
+        return arr;
+      },
+      []
+    );
+
     window.localStorage.setItem("restaurants", JSON.stringify(filteredList));
     return filteredList;
   }
