@@ -1,3 +1,4 @@
+import { Category, Sort } from "./../../types/type";
 import { Attribute, RerenderListType } from "../../types/type";
 import { $ } from "../../utils/Dom";
 
@@ -13,7 +14,9 @@ class Select {
   addEvent(id: string, rerenderList: RerenderListType) {
     const selectEl = $(`#${id}`);
     selectEl?.addEventListener("change", (event) => {
-      const selectedOption = (event.target as HTMLSelectElement).value;
+      const selectedOption = (event.target as HTMLSelectElement).value as
+        | Category
+        | Sort;
 
       rerenderList(id, selectedOption);
     });

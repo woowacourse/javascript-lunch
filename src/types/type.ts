@@ -7,6 +7,7 @@ export interface Attribute {
 
 export type Category = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
 export type TakingTime = "5" | "10" | "15" | "20" | "25" | "30";
+export type Sort = "이름순" | "거리순";
 
 export interface Restaurant {
   category: string;
@@ -16,4 +17,7 @@ export interface Restaurant {
   link?: string;
 }
 
-export type RerenderListType = (id: string, value: string) => void;
+export type RerenderListType = (
+  id: string,
+  selectedValue: Category | Sort
+) => void;
