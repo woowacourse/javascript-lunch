@@ -24,7 +24,7 @@ class Select {
     return ` 
     <select name=${this.attribute.name} id=${this.attribute.id} class=${
       this.attribute.className
-    } required=${this.attribute.required}>
+    } ${this.attribute.required ? "required" : ""}>
     ${this.makeOptionTemplate()}
     </select>`;
   }

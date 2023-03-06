@@ -1,4 +1,4 @@
-import { Constants, OptionValue } from "@/constant/Constants";
+import { Constants, OptionValue } from "@/constant/Restaurant";
 import { mockData } from "@/data/mockData";
 import { Category, Restaurant, Sort } from "@/type/type";
 import { getSavedData, saveData } from "@/utils/localStorage";

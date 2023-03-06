@@ -3,7 +3,7 @@ import {
   Constants,
   OptionValue,
   SORTING,
-} from "@/constant/Constants";
+} from "@/constant/Restaurant";
 import { SetSelectedValue } from "@/type/type";
 import Select from "@/component/reusable/Select";
 

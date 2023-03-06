@@ -3,7 +3,7 @@ import AddModal from "@/component/disposable/AddModal";
 import RestaurantList from "@/component/disposable/RestaurantList";
 import SelectContainer from "@/component/disposable/SelectContainer";
 import RestaurantItem from "@/component/reusable/RestaurantItem";
-import { Constants, OptionValue } from "@/constant/Constants";
+import { Constants, OptionValue } from "@/constant/Restaurant";
 import restaurantListHandler from "@/domain/restaurantListHandler";
 import { Category, Restaurant, Sort } from "@/type/type";
 import restaurantValidator from "./domain/restaurantValidator";

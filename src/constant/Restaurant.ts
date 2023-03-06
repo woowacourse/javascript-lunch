@@ -23,6 +23,12 @@ export const Constants: Readonly<Object> = {
   SORTING_FILTER: "sorting-filter",
 };
 
+export const ErrorName: Readonly<Object> = {
+  NAME: "name",
+  TAKING_TIME: "taking_time",
+  CATEGORY: "category",
+};
+
 export const CATEGORY: Category[] = [
   "한식",
   "중식",

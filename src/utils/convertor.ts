@@ -1,4 +1,4 @@
-import { CategoryImgPath } from "@/constant/Constants";
+import { CategoryImgPath } from "@/constant/Restaurant";
 import { Category } from "@/type/type";
 
 export const categoryToSrc = (category: Category) =>

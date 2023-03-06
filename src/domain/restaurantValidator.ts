@@ -1,4 +1,4 @@
-import { CATEGORY, TAKING_TIME } from "@/constant/Constants";
+import { CATEGORY, ErrorName } from "@/constant/Restaurant";
 import { ErrorMessage } from "@/constant/Message";
 import { Category, Restaurant, TakingTime } from "@/type/type";
 import restaurantListHandler from "./restaurantListHandler";
@@ -13,13 +13,13 @@ class RestaurantValidator {
   validateName(category: Category, name: string) {
     if (this.isNameEmpty(name)) {
       const nameError = new Error(ErrorMessage.NAME_EMPTY);
-      nameError.name = "name";
+      nameError.name = ErrorName.NAME;
       throw nameError;
     }
 
     if (this.isNameExist(category, name)) {
       const nameError = new Error(ErrorMessage.NAME_EXIST);
-      nameError.name = "name";
+      nameError.name = ErrorName.NAME;
       throw nameError;
     }
   }
@@ -27,7 +27,7 @@ class RestaurantValidator {
   validateTakingTime(takingTime: TakingTime) {
     if (!this.isTakingTimeEmpty(takingTime)) {
       const takingTimeError = new Error(ErrorMessage.TAKING_TIME_EMPTY);
-      takingTimeError.name = "taking_time";
+      takingTimeError.name = ErrorName.TAKING_TIME;
       throw takingTimeError;
     }
   }
@@ -35,7 +35,7 @@ class RestaurantValidator {
   validateCategory(category: Category) {
     if (!this.isCategoryEmpty(category)) {
       const categoryError = new Error(ErrorMessage.CATEGORY_EMPTY);
-      categoryError.name = "category";
+      categoryError.name = ErrorName.CATEGORY;
       throw categoryError;
     }
   }

@@ -1,7 +1,7 @@
 import { Category, TakingTime, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import Select from "@/component/reusable/Select";
-import { CATEGORY, TAKING_TIME, OptionValue } from "@/constant/Constants";
+import { CATEGORY, TAKING_TIME, OptionValue } from "@/constant/Restaurant";
 
 class AddModal {
   categorySelect;
@@ -31,7 +31,7 @@ class AddModal {
 
         <div class="form-item form-item--required name--input">
           <label for="name">이름</label>
-          <input type="text" name="name" id="name" required>
+          <input type="text" name="name" id="name">
         </div>
 
         <div class="form-item form-item--required taking_time--input">
