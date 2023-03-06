@@ -17,7 +17,6 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@res/*": ["./src/*"]
     }
   },
   "include": ["src/**/*", "__tests__/**/*"],
