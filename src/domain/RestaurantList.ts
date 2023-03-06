@@ -2,13 +2,14 @@ import { RestaurantForm, Category } from "./Restaurant";
 import { sortByName, sortByDistance } from "../utils/Sort";
 import { $ } from "../utils/Dom";
 import RestaurantRegistry from "../UI/RestaurantRegistry";
+import { getRestaurantListFromLocalstorage, stringifyJson } from "../utils/LocalStorage";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
   private restaurantRegistry;
   private filteredList: RestaurantForm[] = [];
 
   constructor() {
-    const res = JSON.parse(localStorage.getItem("restaurants") || "[]");
+    const res = getRestaurantListFromLocalstorage() ?? [];
     if (res.length !== 0) {
       res.forEach((val: RestaurantForm) => {
         this.list.push(val);
@@ -20,7 +21,7 @@ export class RestaurantList {
   add(restaurantInfo: RestaurantForm) {
     this.list = [...this.list, restaurantInfo];
 
-    const restaurantString = JSON.stringify(this.list);
+    const restaurantString = stringifyJson(this.list);
     localStorage.setItem("restaurants", restaurantString);
   }
 
@@ -38,7 +39,7 @@ export class RestaurantList {
   }
 
   allFilter() {
-    const restaurantString = JSON.stringify(this.list.map((info) => info));
+    const restaurantString = stringifyJson(this.list.map((info) => info));
     window.localStorage.setItem("restaurants", restaurantString);
   }
 
@@ -67,10 +68,6 @@ export class RestaurantList {
 
     localStorage.setItem("sort", sortBy);
     this.attachRestaurantToRegistry(restaurantParsedInfo);
-  }
-
-  getRestaurantListFromLocalstorage(): RestaurantForm[] {
-    return JSON.parse(localStorage.getItem("restaurants") || "[]");
   }
 
   attachRestaurantToRegistry(restaurantParsedInfo: RestaurantForm[]) {

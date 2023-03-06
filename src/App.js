@@ -4,7 +4,7 @@ import Modal from "./UI/Modal";
 import FilterBar from "./UI/FilterBar";
 import { RestaurantList } from "./domain/RestaurantList";
 import RestaurantRegistry from "./UI/RestaurantRegistry.js";
-import { sortByName, sortByDistance } from "../src/utils/Sort";
+import { getRestaurantListFromLocalstorage } from "./utils/LocalStorage.js";
 
 export class App {
   constructor() {
@@ -18,7 +18,7 @@ export class App {
     this.collectedRender();
     this.initializeButtonEvents();
 
-    JSON.parse(localStorage.getItem("restaurants")).forEach(
+    getRestaurantListFromLocalstorage().forEach(
       (restaurant) => {
         this.restaurantRegistry.appendRestaurant(restaurant);
       }
