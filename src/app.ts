@@ -68,8 +68,9 @@ class App {
   }
 
   load() {
-    const restaurants = JSON.parse(localStorage.getItem('restaurants') ?? 'null');
-    if (restaurants) {
+    const restaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') || '[]');
+
+    if (restaurants.length !== 0) {
       this.#restaurants = restaurants.map((restaurant: Restaurant) =>
         Object.setPrototypeOf(restaurant, Restaurant.prototype),
       );
