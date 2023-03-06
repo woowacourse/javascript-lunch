@@ -13,21 +13,21 @@ class Modal extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    const $modal = document.querySelector('.modal');
+    const $modal = this.querySelector('.modal');
 
-    const $cancelButton = document.querySelector('#cancel-button');
+    const $cancelButton = this.querySelector('#cancel-button');
     $cancelButton?.addEventListener('click', () => {
       $modal?.classList.remove('modal--open');
     });
 
-    const $form = document.getElementById('add-restaurant');
+    const $form = this.querySelector('#add-restaurant');
     $form?.addEventListener('submit', (e) => {
       e.preventDefault();
-      const $category = document.getElementById('category') as HTMLSelectElement;
-      const $name = document.getElementById('name') as HTMLInputElement;
-      const $distance = document.getElementById('distance') as HTMLSelectElement;
-      const $description = document.getElementById('description') as HTMLTextAreaElement;
-      const $link = document.getElementById('link') as HTMLInputElement;
+      const $category = this.querySelector('#category') as HTMLSelectElement;
+      const $name = this.querySelector('#name') as HTMLInputElement;
+      const $distance = this.querySelector('#distance') as HTMLSelectElement;
+      const $description = this.querySelector('#description') as HTMLTextAreaElement;
+      const $link = this.querySelector('#link') as HTMLInputElement;
 
       store.addRestaurants({
         category: $category.value as Category,

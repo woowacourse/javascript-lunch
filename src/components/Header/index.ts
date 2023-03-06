@@ -9,7 +9,7 @@ class Header extends HTMLElement {
   connectedCallback() {
     const $button = this.querySelector('.gnb__button');
     $button?.addEventListener('click', () => {
-      const modal = document.querySelector('.modal');
+      const modal = this.querySelector('.modal');
       modal?.classList.add('modal--open');
     });
   }
