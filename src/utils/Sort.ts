@@ -1,4 +1,4 @@
-import { RestaurantForm } from "../domain/Restaurant";
+import { RestaurantForm } from "../types";
 
 export const sortByName = (restaurant: RestaurantForm[]) => {
   return restaurant.sort((prev: RestaurantForm, next: RestaurantForm) => {

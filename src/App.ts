@@ -4,7 +4,7 @@ import FilterBar from "./UI/FilterBar";
 import RestaurantList from "./domain/RestaurantList";
 import RestaurantContainer from "./UI/RestaurantContainer";
 import RestaurantItem from "./UI/RestaurantItem";
-import { RestaurantForm } from "./domain/Restaurant.js";
+import { RestaurantForm } from "./types";
 import { getLocalStorage } from "./utils/LocalStorage";
 import { KEY } from "./constants";
 

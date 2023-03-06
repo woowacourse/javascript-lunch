@@ -1,5 +1,5 @@
 import { REGEX } from "./constants";
-import { RestaurantForm } from "./domain/Restaurant";
+import { RestaurantForm } from "./types";
 
 const Validator = {
   name(name: string) {

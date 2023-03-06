@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage } from "../utils/LocalStorage";
-import { RestaurantForm, Category } from "./Restaurant";
+
+import { RestaurantForm, Category } from "../types";
 import { KEY } from "../constants";
 
 export default class RestaurantList {
