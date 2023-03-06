@@ -11,7 +11,7 @@ interface Options<T = unknown> {
   currentStateKey: number;
   states: T[];
   events: Event[];
-  root: null | HTMLElement;
+  root: null | Element;
   rootComponent: null | (() => string);
 }
 
