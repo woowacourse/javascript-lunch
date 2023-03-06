@@ -1,5 +1,3 @@
-import { Restaurant } from '../../type/common';
-
 type HeaderProps = {
   $target: HTMLElement;
   addRestaurantButtonEvent: () => void;

@@ -1,23 +1,18 @@
-import Validator from './domain/Validator';
+import { LOCAL_STORAGE_KEY } from './constant';
+import cache from './data/cache';
 import Restaurants from './domain/Restaurants';
-
-import Header from './view/components/Header';
-import RestaurantList from './view/components/RestaurantList';
-import Selector from './view/components/Selector';
-
-import getFormData from './utils/getFormData';
-
+import Validator from './domain/Validator';
 import {
   Restaurant,
-  RestaurantSortingType,
   RestaurantCategoryType,
+  RestaurantSortingType,
 } from './type/common';
-
+import getFormData from './utils/getFormData';
 import { $ } from './utils/querySelector';
-import cache from './data/cache';
-
+import Header from './view/components/Header';
 import RestaurantAddModal from './view/components/RestaurantAddModal';
-import { LOCAL_STORAGE_KEY } from './constant';
+import RestaurantList from './view/components/RestaurantList';
+import Selector from './view/components/Selector';
 
 type StateType = {
   restaurants?: Restaurant[];

@@ -1,7 +1,3 @@
-import { Restaurant } from '../../type/common';
-import getFormData from '../../utils/getFormData';
-import { $ } from '../../utils/querySelector';
-
 type ButtonType = 'button' | 'submit';
 
 type ButtonProps = {
@@ -12,7 +8,7 @@ type ButtonProps = {
     buttonText: string;
   };
 
-  onClickEvent: (value: string) => void;
+  onClickEvent: (arg0: string) => void;
 };
 
 class Button {

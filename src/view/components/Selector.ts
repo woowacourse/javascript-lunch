@@ -3,8 +3,6 @@ import {
   RestaurantSortingType,
 } from '../../type/common';
 
-import { $ } from '../../utils/querySelector';
-
 type SelectorProps = {
   $target: HTMLElement;
   info: {

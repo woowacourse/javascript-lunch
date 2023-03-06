@@ -1,11 +1,10 @@
-import { Restaurant } from '../../type/common';
 import { $ } from '../../utils/querySelector';
 import Button from './Button';
 
 type RestaurantAddModalProps = {
   $target: HTMLElement;
   isModal?: boolean;
-  onClickEvent: (value: string) => void;
+  onClickEvent: (arg0: string) => void;
 };
 
 class RestaurantAddModal {
