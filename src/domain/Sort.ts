@@ -9,7 +9,7 @@ const sortByName = (list: Restaurant[]) => {
 
 const sortByDistance = (list: Restaurant[]) => {
   return list.sort((a, b) => {
-    if (Number(a.distance) <= Number(b.distance)) return -1;
+    if (Number(a.estimatedTime) <= Number(b.estimatedTime)) return -1;
     return 1;
   });
 };

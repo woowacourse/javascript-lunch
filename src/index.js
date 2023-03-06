@@ -13,14 +13,14 @@ import Elements from "./Element";
 
 
 const modal = new Modal();
-const newRestaurant = new Restaurants()
+const newRestaurant = new Restaurants();
 
 const addButton = $(".gnb__button");
-const cancelButton = $(".button--secondary")
+const cancelButton = $(".button--secondary");
 const modalBg = $(".modal-backdrop");
 
 const submitButton = $(".button--primary");
-const submitAlert = new Alert('#alert-submit');
+const submitAlert = new Alert("#alert-submit");
 const linkInput = $("#link");
 const linkAlert = new Alert("#alert-link");
 const catgoryInput = $("#category");
@@ -31,11 +31,11 @@ const distanceInput = $("#distance");
 const distanceAlert = new Alert("#alert-distance");
 const descriptionInput = $("#description");
 
-const categoryFilter = $('#category-filter');
-const sortingFilter = $('#sorting-filter'); 
+const categoryFilter = $("#category-filter");
+const sortingFilter = $("#sorting-filter"); 
 
 const updateRestaurant = () => {
-    $(".restaurant-list-container").innerHTML = '';
+    $(".restaurant-list-container").innerHTML = "";
     const sortResult = sort(sortingFilter.value, newRestaurant.getList());
     const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
     return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
@@ -130,10 +130,10 @@ window.onload = function () {
     updateRestaurant();
 }
 
-categoryFilter.addEventListener('change', () => {
+categoryFilter.addEventListener("change", () => {
     updateRestaurant()
 });
 
-sortingFilter.addEventListener('change', () => {
+sortingFilter.addEventListener("change", () => {
     updateRestaurant()
 });

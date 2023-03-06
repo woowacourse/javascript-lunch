@@ -2,10 +2,10 @@ import Validator from "./Validator";
 import { Restaurant } from "./type/restaurant";
 
 const Input = {
-  checkAll({ category, name, distance, link }: Restaurant) {
+  checkAll({ category, name, estimatedTime, link }: Restaurant) {
     this.checkCategory(category);
     this.checkName(name);
-    this.checkDistance(distance);
+    this.checkDistance(estimatedTime);
     this.checkLink(link);
   },
 
