@@ -8,7 +8,7 @@ import RestaurantListItem from '../src/components/RestaurantListItem';
 import RestaurantList from '../src/components/RestaurantList';
 import RestaurantListHeader from '../src/components/RestaurantListHeader';
 import Header from '../src/components/Header';
-import Modal from '../src/components/Modal';
+import AddRestaurantDrawer from '../src/components/AddRestaurantDrawer';
 
 describe('컴포넌트 랜더링 테스트', () => {
   beforeEach(() => {
@@ -73,14 +73,17 @@ describe('컴포넌트 랜더링 테스트', () => {
 
   describe('Header 테스트', () => {
     test('개별 요소 랜더링 테스트', () => {
-      new Header({ $parent: document.body, toggleModal: () => {} }).render();
+      new Header({ $parent: document.body, toggleAddRestaurantDrawer: () => {} }).render();
       expect(screen.getByText('점심 뭐 먹지')).toBeInTheDocument();
     });
   });
 
   describe('Modal 테스트', () => {
     test('개별 요소 렌더링 테스트: 카테고리', () => {
-      new Modal({ $parent: document.body, toggleModal: () => {} }).render();
+      new AddRestaurantDrawer({
+        $parent: document.body,
+        toggleAddRestaurantDrawer: () => {},
+      }).render();
       const categoryElement = document.getElementById('category');
       const categories = ['한식', '중식', '일식', '양식', '아시안', '기타'];
       categories.forEach((category) => {
@@ -89,7 +92,10 @@ describe('컴포넌트 랜더링 테스트', () => {
     });
 
     test('개별 요소 렌더링 테스트: 거리', () => {
-      new Modal({ $parent: document.body, toggleModal: () => {} }).render();
+      new AddRestaurantDrawer({
+        $parent: document.body,
+        toggleAddRestaurantDrawer: () => {},
+      }).render();
       const distanceElement = document.getElementById('distance');
       const distances = [5, 10, 15, 20, 30];
       distances.forEach((distance) => {

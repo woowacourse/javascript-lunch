@@ -4,20 +4,20 @@ type HeaderState = {};
 
 type MainTemplateProps = {
   $parent: HTMLElement;
-  toggleModal: () => void;
+  toggleAddRestaurantDrawer: () => void;
 };
 
 class Header implements Component<HeaderState> {
   $component: HTMLElement;
   state: HeaderState;
-  toggleModal: () => void;
+  toggleAddRestaurantDrawer: () => void;
 
-  constructor({ $parent, toggleModal }: MainTemplateProps) {
+  constructor({ $parent, toggleAddRestaurantDrawer }: MainTemplateProps) {
     this.$component = document.createElement('header');
     this.$component.classList.add('gnb');
 
     this.state = {};
-    this.toggleModal = toggleModal;
+    this.toggleAddRestaurantDrawer = toggleAddRestaurantDrawer;
 
     $parent.append(this.$component);
   }
@@ -36,7 +36,7 @@ class Header implements Component<HeaderState> {
     `;
 
     const button = this.$component.querySelector('button');
-    button?.addEventListener('click', this.toggleModal);
+    button?.addEventListener('click', this.toggleAddRestaurantDrawer);
   }
 }
 

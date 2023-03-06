@@ -7,21 +7,21 @@ import {
   REQUEST_RASTAURANT_KEY,
 } from '../utils/constants';
 
-type ModalState = {
+type AddRestaurantDrawerState = {
   restaurantForm: Restaurant;
 };
 
-type ModalProps = {
+type AddRestaurantDrawerProps = {
   $parent: HTMLElement;
-  toggleModal: () => void;
+  toggleAddRestaurantDrawer: () => void;
 };
 
-class Modal implements Component<ModalState> {
+class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
   $component: HTMLElement;
-  state: ModalState;
-  toggleModal: () => void;
+  state: AddRestaurantDrawerState;
+  toggleAddRestaurantDrawer: () => void;
 
-  constructor({ $parent, toggleModal }: ModalProps) {
+  constructor({ $parent, toggleAddRestaurantDrawer }: AddRestaurantDrawerProps) {
     this.$component = document.createElement('div');
 
     this.state = {
@@ -31,13 +31,13 @@ class Modal implements Component<ModalState> {
         distance: DEFAULT_DISTANCE,
       },
     };
-    this.toggleModal = toggleModal;
+    this.toggleAddRestaurantDrawer = toggleAddRestaurantDrawer;
 
     $parent.append(this.$component);
     this.render();
   }
 
-  setState(newState: ModalState) {
+  setState(newState: AddRestaurantDrawerState) {
     this.state = newState;
     this.render();
   }
@@ -104,7 +104,7 @@ class Modal implements Component<ModalState> {
     `;
 
     const $cancelButton = document.getElementById('modal-cancel');
-    $cancelButton?.addEventListener('click', this.toggleModal);
+    $cancelButton?.addEventListener('click', this.toggleAddRestaurantDrawer);
 
     const $modalForm = document.getElementById('modal-form');
     $modalForm?.addEventListener('submit', this.submitForm.bind(this));
@@ -117,7 +117,7 @@ class Modal implements Component<ModalState> {
     restaurants.push(this.getFormValues(e.currentTarget as HTMLFormElement));
     localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
 
-    this.toggleModal();
+    this.toggleAddRestaurantDrawer();
   }
 
   getFormValues(form: HTMLFormElement) {
@@ -137,4 +137,4 @@ class Modal implements Component<ModalState> {
   }
 }
 
-export default Modal;
+export default AddRestaurantDrawer;

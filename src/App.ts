@@ -1,9 +1,9 @@
 import type { Component } from './type';
 import MainTemplate from './components/MainTemplate';
-import Modal from './components/Modal';
+import AddRestaurantDrawer from './components/AddRestaurantDrawer';
 
 type AppState = {
-  modalHide: boolean;
+  addRestaurantDrawerHide: boolean;
 };
 
 type AppProps = {
@@ -19,7 +19,7 @@ class App implements Component<AppState> {
     this.$component.classList.add('app');
 
     this.state = {
-      modalHide: true,
+      addRestaurantDrawerHide: true,
     };
 
     $parent.append(this.$component);
@@ -31,26 +31,29 @@ class App implements Component<AppState> {
   }
 
   render() {
-    const { modalHide } = this.state;
+    const { addRestaurantDrawerHide } = this.state;
     this.$component.innerHTML = ``;
 
     new MainTemplate({
       $parent: this.$component,
-      modalHide,
-      toggleModal: this.toggleModal.bind(this),
+      addRestaurantDrawerHide,
+      toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
     }).render();
 
-    if (!modalHide) {
-      new Modal({ $parent: this.$component, toggleModal: this.toggleModal.bind(this) }).render();
+    if (!addRestaurantDrawerHide) {
+      new AddRestaurantDrawer({
+        $parent: this.$component,
+        toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
+      }).render();
     }
   }
 
-  toggleModal() {
-    const { modalHide } = this.state;
+  toggleAddRestaurantDrawer() {
+    const { addRestaurantDrawerHide } = this.state;
 
     this.setState({
       ...this.state,
-      modalHide: !modalHide,
+      addRestaurantDrawerHide: !addRestaurantDrawerHide,
     });
   }
 }

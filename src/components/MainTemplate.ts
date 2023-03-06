@@ -3,26 +3,26 @@ import Header from './Header';
 import RestaurantListPage from './RestaurantListPage';
 
 type MainTemplateState = {
-  modalHide: boolean;
+  addRestaurantDrawerHide: boolean;
 };
 
 type MainTemplateProps = {
   $parent: HTMLElement;
-  modalHide: boolean;
-  toggleModal: () => void;
+  addRestaurantDrawerHide: boolean;
+  toggleAddRestaurantDrawer: () => void;
 };
 
 class MainTemplate implements Component<MainTemplateState> {
   $component: HTMLElement;
   state: MainTemplateState;
-  toggleModal: () => void;
+  toggleAddRestaurantDrawer: () => void;
 
-  constructor({ $parent, modalHide, toggleModal }: MainTemplateProps) {
+  constructor({ $parent, addRestaurantDrawerHide, toggleAddRestaurantDrawer }: MainTemplateProps) {
     this.$component = document.createElement('div');
     this.state = {
-      modalHide,
+      addRestaurantDrawerHide,
     };
-    this.toggleModal = toggleModal;
+    this.toggleAddRestaurantDrawer = toggleAddRestaurantDrawer;
 
     $parent.append(this.$component);
   }
@@ -35,7 +35,10 @@ class MainTemplate implements Component<MainTemplateState> {
   render() {
     this.$component.innerHTML = ``;
 
-    new Header({ $parent: this.$component, toggleModal: this.toggleModal }).render();
+    new Header({
+      $parent: this.$component,
+      toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer,
+    }).render();
     new RestaurantListPage({ $parent: this.$component }).render();
   }
 }
