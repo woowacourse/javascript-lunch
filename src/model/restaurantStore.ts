@@ -3,27 +3,26 @@ import IRestaurantInput from '@res/interfaces/IRestaurantInput';
 import sortItemsByName from '@res/utils/sortByName';
 
 export const restaurantStore = {
-  add(restaurantInput: IRestaurantInput) {
-    const restaurantList = this.get();
-    this.set([...restaurantList, restaurantInput]);
+  addList(restaurantInput: IRestaurantInput) {
+    const restaurantList = this.getList();
+    this.setList([...restaurantList, restaurantInput]);
 
     return this;
   },
 
-  set(restaurantList: IRestaurantInput[]) {
-    console.log('set', restaurantList);
+  setList(restaurantList: IRestaurantInput[]) {
     localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
 
     return this;
   },
 
-  get(): IRestaurantInput[] {
+  getList(): IRestaurantInput[] {
     return [...JSON.parse(localStorage.getItem('restaurantList') || '[]')];
   },
 
-  filter(category: Category, order: Order) {
-    const restaurantList = this.get().filter(
-      (restaurant: IRestaurantInput) => restaurant.name === category
+  getFiltered(category: Category, order: Order) {
+    const restaurantList = this.getList().filter(
+      (restaurant: IRestaurantInput) => restaurant.category === category
     );
 
     if (order === Order.Name) {
