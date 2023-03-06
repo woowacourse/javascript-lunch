@@ -33,4 +33,4 @@ export const CATEGORY: Category[] = [
 ];
 
 export const SORTING = ["이름순", "거리순"];
-export const DISTANCE = ["5", "10", "15", "20", "30"];
+export const TAKING_TIME = ["5", "10", "15", "20", "30"];

@@ -1,20 +1,20 @@
 import { Category, TakingTime, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import Select from "@/component/reusable/Select";
-import { CATEGORY, DISTANCE, OptionValue } from "@/constant/Constants";
+import { CATEGORY, TAKING_TIME, OptionValue } from "@/constant/Constants";
 
-class Modal {
+class AddModal {
   categorySelect;
-  distanceSelect;
+  takingTimeSelect;
 
   constructor() {
     this.categorySelect = new Select(
       { name: "category", id: "category", required: true },
       [OptionValue.PLACE_HOLDER, ...CATEGORY]
     );
-    this.distanceSelect = new Select(
+    this.takingTimeSelect = new Select(
       { name: "takingTime", id: "takingTime", required: true },
-      [OptionValue.PLACE_HOLDER, ...DISTANCE]
+      [OptionValue.PLACE_HOLDER, ...TAKING_TIME]
     );
   }
 
@@ -36,7 +36,7 @@ class Modal {
 
         <div class="form-item form-item--required">
           <label for="takingTime text-caption">거리(도보 이동 시간) </label>
-         ${this.distanceSelect.template()}
+         ${this.takingTimeSelect.template()}
         </div>
 
         <div class="form-item">
@@ -102,4 +102,4 @@ class Modal {
   }
 }
 
-export default new Modal();
+export default new AddModal();

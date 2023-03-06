@@ -1,5 +1,5 @@
 import Header from "@/component/disposable/Header";
-import Modal from "@/component/disposable/Modal";
+import AddModal from "@/component/disposable/AddModal";
 import RestaurantList from "@/component/disposable/RestaurantList";
 import SelectContainer from "@/component/disposable/SelectContainer";
 import RestaurantItem from "@/component/reusable/RestaurantItem";
@@ -29,13 +29,13 @@ class App {
     Header.render(body);
     SelectContainer.render(body);
     RestaurantList.render(body);
-    Modal.render(body);
+    AddModal.render(body);
   }
 
   addEvents() {
     Header.addEvent();
     SelectContainer.addEvent(this.setSelectedValue);
-    Modal.addEvent(this.addNewRestaurant);
+    AddModal.addEvent(this.addNewRestaurant);
   }
 
   setSelectedValue = (sortId: string, selectedValue: Category | Sort) => {
