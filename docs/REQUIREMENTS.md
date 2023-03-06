@@ -72,17 +72,3 @@
 # index.js
 
 - customElement들을 정의한다.
-
-## 구현 순서
-
-[1]
-NavBar => BottomSheet => form => 음식점 추가하는 기능 완성
-
-[2]
-음식점 리스트를 영구저장 기능 + 복구하는 기능
-
-# 리팩토링 리스트
-
-// any 없애기
-// util함수
-// map 안의 new 없애기
