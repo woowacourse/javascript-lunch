@@ -5,8 +5,9 @@ const createLabel = (id, labelText) => {
   return label;
 };
 
-const addOptions = (valueList, textList) => {
+const addOptions = (id, valueList, textList) => {
   const select = document.createElement("select");
+  select.setAttribute("id", id);
   valueList.forEach((value, index) => {
     const option = document.createElement("option");
     option.setAttribute("value", value);
@@ -20,7 +21,7 @@ const createSelectInput = (id, labelText, valueList, textList) => {
   const root = document.createElement("div");
 
   root.appendChild(createLabel(id, labelText));
-  root.appendChild(addOptions(valueList, textList));
+  root.appendChild(addOptions(id, valueList, textList));
 
   return root;
 };
