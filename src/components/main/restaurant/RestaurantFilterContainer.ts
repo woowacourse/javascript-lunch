@@ -5,8 +5,7 @@ import { CATEGORIES } from '../../../utils/constants';
 interface RestaurantFilterContainerProps {
   currentCategory: Category;
   currentSortBy: SortBy;
-  onChangeCategory: (e: Event) => void;
-  onChangeSortBy: (e: Event) => void;
+  onChangeSelect: (e: Event) => void;
 }
 
 class RestaurantFilterContainer extends Component {
@@ -37,8 +36,8 @@ class RestaurantFilterContainer extends Component {
   }
 
   addEvent() {
-    this.$('#category-filter')?.addEventListener('change', this.props.onChangeCategory);
-    this.$('#sorting-filter')?.addEventListener('change', this.props.onChangeSortBy);
+    this.$('#category-filter')?.addEventListener('change', this.props.onChangeSelect);
+    this.$('#sorting-filter')?.addEventListener('change', this.props.onChangeSelect);
   }
 }
 

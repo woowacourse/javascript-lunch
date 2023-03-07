@@ -33,21 +33,17 @@ class Main extends Component {
     new RestaurantFilterContainer(this.$wrapper, {
       currentCategory,
       currentSortBy,
-      onChangeCategory: this.onChangeCategory.bind(this),
-      onChangeSortBy: this.onChangeSortBy.bind(this),
+      onChangeSelect: this.onChangeSelect.bind(this),
     }).render();
 
     new RestaurantList(this.$wrapper, { currentCategory, currentSortBy, restaurants }).render();
   }
 
-  onChangeCategory(e: Event) {
-    const $select = e.target as HTMLSelectElement;
-    this.state.currentCategory = $select.value as Category;
-  }
-
-  onChangeSortBy(e: Event) {
-    const $select = e.target as HTMLSelectElement;
-    this.state.currentSortBy = $select.value as SortBy;
+  onChangeSelect(e: Event) {
+    if (e.target instanceof HTMLSelectElement) {
+      if (e.target.name === 'category') this.state.currentCategory = e.target.value as Category;
+      if (e.target.name === 'sorting') this.state.currentSortBy = e.target.value as SortBy;
+    }
   }
 }
 
