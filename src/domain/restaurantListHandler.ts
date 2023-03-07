@@ -31,11 +31,9 @@ class RestaurantListHandler {
   }
 
   getFilteredByCategory(category: string): Restaurant[] {
-    return category === ""
-      ? this.getRestaurants()
-      : this.getRestaurants().filter(
-          (restaurant) => restaurant.category === category
-        );
+    return this.getRestaurants().filter(
+      (restaurant) => restaurant.category === category
+    );
   }
 }
 

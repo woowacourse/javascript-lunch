@@ -32,7 +32,10 @@ class App {
 
   sortList = (id: string, value: string) => {
     if (id === Constants.CATEGORY_FILTER) {
-      this.restaurantList = restaurantListHandler.getFilteredByCategory(value);
+      this.restaurantList =
+        value === ""
+          ? restaurantListHandler.getRestaurants()
+          : restaurantListHandler.getFilteredByCategory(value);
     }
 
     if (id === Constants.SORTING_FILTER) {
