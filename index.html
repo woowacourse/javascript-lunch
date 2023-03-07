@@ -1,15 +1,94 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>점심 뭐 먹지</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>점심 뭐 먹지</title>
-</head>
+  <body>
+    <!-- GNB -->
+    <header class="gnb">
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+      <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <img src="" alt="음식점 추가" />
+      </button>
+    </header>
 
-<body>
+    <main>
+      <!-- 카테고리/정렬 필터 -->
+      <section class="restaurant-filter-container"></section>
 
-</body>
+      <!-- 음식점 목록 -->
+      <section class="restaurant-list-container"></section>
 
+      <!-- 템플릿: 음식점 요약점보 -->
+      <template id="list-template">
+        <li class="restaurant">
+          <div class="restaurant__category">
+            <img src="" alt="" class="category-icon" />
+          </div>
+          <div class="restaurant__info">
+            <h3 class="restaurant__name text-subtitle"></h3>
+            <span class="restaurant__distance text-body"></span>
+            <p class="restaurant__description text-body"></p>
+          </div>
+        </li>
+      </template>
+
+      <!-- 템플릿: 음식점 추가 폼 -->
+      <template id="new-restaurant-form-template">
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <form>
+          <!-- 카테고리 -->
+          <div class="category-input form-item form-item--required"></div>
+          <div class="alert" id="alert-category"></div>
+
+          <!-- 음식점 이름 -->
+          <div class="form-item form-item--required">
+            <label for="name text-caption">이름</label>
+            <input type="text" name="name" id="name" required />
+          </div>
+          <div class="alert" id="alert-name"></div>
+
+          <!-- 거리(걸리는 시간) -->
+          <div class="distance-input form-item form-item--required"></div>
+          <div class="alert" id="alert-distance"></div>
+
+          <!-- 설명 -->
+          <div class="form-item">
+            <label for="description text-caption">설명</label>
+            <textarea
+              name="description"
+              id="description"
+              cols="30"
+              rows="5"
+            ></textarea>
+            <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+          </div>
+
+          <!-- 링크 -->
+          <div class="form-item">
+            <label for="link text-caption">참고 링크</label>
+            <input type="url" name="link" id="link" />
+            <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+          </div>
+          <div class="alert" id="alert-link"></div>
+
+          <!-- 취소/추가 버튼 -->
+          <div class="alert" id="alert-submit"></div>
+          <div class="button-container">
+            <button type="reset" class="button button--secondary text-caption">
+              취소하기
+            </button>
+            <button class="button button--primary text-caption">
+              추가하기
+            </button>
+          </div>
+        </form>
+      </template>
+
+    </main>
+  </body>
 </html>
