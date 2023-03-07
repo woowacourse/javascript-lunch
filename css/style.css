@@ -181,6 +181,7 @@ body {
 
 .modal--open {
   display: block;
+  height: 100%;
 }
 
 .modal-backdrop {
@@ -189,6 +190,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
+  height: 20%;
 
   background: rgba(0, 0, 0, 0.35);
 }
@@ -197,9 +199,11 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 80%;
 
   padding: 32px 16px;
 
+  overflow-y: auto;
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
 }
@@ -224,7 +228,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +262,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
