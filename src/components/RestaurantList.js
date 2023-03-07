@@ -2,7 +2,7 @@ import { RESTAURANT_IMAGE } from '../constants/images.ts';
 import RestaurantItem from './RestaurantItem.js';
 import Component from '../Component.js';
 
-export default class Main extends Component {
+export default class RestaurantList extends Component {
   constructor($target) {
     super($target);
   }

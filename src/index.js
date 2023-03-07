@@ -4,7 +4,7 @@ import { geid, qs } from './utils/domHelpers';
 
 import Component from './Component.js';
 import Header from './components/Header.js';
-import Main from './components/RestaurantList.js';
+import RestaurantList from './components/RestaurantList.js';
 import AddModal from './components/AddModal.js';
 import Selector from './components/Selector';
 
@@ -14,7 +14,7 @@ class App extends Component {
 
     new Header(qs('.gnb'));
     new Selector(qs('.restaurant-filter-container'));
-    new Main(qs('.restaurant-list'));
+    new RestaurantList(qs('.restaurant-list'));
     new AddModal(qs('.modal'));
   }
 
