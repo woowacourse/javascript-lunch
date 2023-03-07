@@ -93,15 +93,12 @@ const mock4: RestaurantType = {
 };
 
 export const mockList: RestaurantType[] = [
-  mockAsian,
-  mockChina,
   mockKorea,
-  mockChina,
   mockJapan,
-  mockEtc,
   mockWestern,
-  mockKorea,
   mockAsian,
+  mockEtc,
+  mockChina,
   mock1,
   mock2,
   mock3,
