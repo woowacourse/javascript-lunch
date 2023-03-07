@@ -55,11 +55,13 @@ const nameInput = $("#name");
 const nameAlert = $("#alert-name");
 const distanceInput = $("#distance");
 const distanceAlert = $("#alert-distance");
+const descriptionInput = $("#description");
 
 catgoryInput.addEventListener("focusout", () => {
   try {
     Input.checkCategory(catgoryInput.value);
     Alert.close(categoryAlert);
+    Alert.close(submitAlert);
   } catch (e) {
     Alert.open(categoryAlert, e.message);
   }
@@ -69,6 +71,7 @@ nameInput.addEventListener("focusout", () => {
   try {
     Input.checkName(nameInput.value);
     Alert.close(nameAlert);
+    Alert.close(submitAlert);
   } catch (e) {
     Alert.open(nameAlert, e.message);
   }
@@ -78,6 +81,7 @@ distanceInput.addEventListener("focusout", () => {
   try {
     Input.checkDistance(distanceInput.value);
     Alert.close(distanceAlert);
+    Alert.close(submitAlert);
   } catch (e) {
     Alert.open(distanceAlert, e.message);
   }
@@ -87,13 +91,27 @@ linkInput.addEventListener("focusout", () => {
   try {
     Input.checkLink(linkInput.value);
     Alert.close(linkAlert);
+    Alert.close(submitAlert);
   } catch (e) {
     Alert.open(linkAlert, e.message);
   }
 });
 
-const categoryFilter = $("#category-filter");
-const sortingFilter = $("#sorting-filter");
+cancelButton.addEventListener("click", () => {
+  Modal.close(restaurantInputModal);
+});
+
+const readRestaurantInput = () => {
+  const category = catgoryInput.value;
+  const name = nameInput.value;
+  const estimatedTime = distanceInput.value;
+  const description = descriptionInput.value;
+  const link = linkInput.value;
+
+  return {
+    category, name, estimatedTime, description, link,
+  };
+};
 
 const updateRestaurant = () => {
   $(".restaurant-list-container").innerHTML = "";
@@ -102,17 +120,33 @@ const updateRestaurant = () => {
   return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
 };
 
-addButton.querySelector("img").src = IMAGE.ADD_BTN;
-addButton.addEventListener("click", () => {
-  Modal.open(restaurantInputModal);
+submitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  const restaurant = readRestaurantInput();
+
+  try {
+    Input.checkAll(restaurant);
+  } catch (e) {
+    Alert.open(submitAlert, e.message);
+    return;
+  }
+
+  newRestaurant.add(restaurant);
+  updateRestaurant();
+  Modal.close(restaurantInputModal);
 });
+
+// 음식점 출력
+const categoryFilter = $("#category-filter");
+const sortingFilter = $("#sorting-filter");
 
 window.onload = () => {
   LocalStorage.getItem("restaurants").forEach((item) => {
     newRestaurant.add(item);
   });
   updateRestaurant();
-}
+};
 
 categoryFilter.addEventListener("change", () => {
   updateRestaurant();
