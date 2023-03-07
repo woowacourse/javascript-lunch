@@ -10,6 +10,7 @@ class CategoryFilter {
 
   template() {
     return `
+			<label for="category-filter" />
 			<select name="category" id="category-filter" class="restaurant-filter">
 				<option value="전체">전체</option>
 				<option value="한식">한식</option>
