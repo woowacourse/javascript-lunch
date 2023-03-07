@@ -7,31 +7,8 @@ class LunchRecommendation {
   #restaurants = new RestaurantList();
 
   constructor() {
-    this.isFirstGuest();
+    this.setRestaurantData();
     this.drawRestaurants();
-  }
-
-  isFirstGuest() {
-    const userList: Restaurant[] = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
-    );
-
-    if (userList.length > 0) {
-      userList.forEach((restaurant) => {
-        this.#restaurants.add(restaurant);
-      });
-      return;
-    }
-
-    DEFAULT_RESTAURANTS.forEach((restaurant) => {
-      this.#restaurants.add(restaurant);
-    });
-  }
-
-  play() {
-    this.addRestaurantEvent();
-    this.filterEvent();
-    this.sortEvent();
   }
 
   addRestaurantEvent() {
@@ -67,18 +44,6 @@ class LunchRecommendation {
     );
   }
 
-  filterEvent() {
-    $$$('#categoryFilter', '#categoryFilter').addEventListener('change', () => {
-      this.drawRestaurants();
-    });
-  }
-
-  sortEvent() {
-    $$$('#sortingFilter', '#sortingFilter').addEventListener('change', () => {
-      this.drawRestaurants();
-    });
-  }
-
   drawRestaurants() {
     const categoryValue = $('#categoryFilter').getSelectValue();
     const sortingValue = $('#sortingFilter').getSelectValue();
@@ -91,6 +56,41 @@ class LunchRecommendation {
     );
 
     $('restaurant-boxes').restaurantListRender(filteredList);
+  }
+
+  filterEvent() {
+    $$$('#categoryFilter', '#categoryFilter').addEventListener('change', () => {
+      this.drawRestaurants();
+    });
+  }
+
+  play() {
+    this.addRestaurantEvent();
+    this.filterEvent();
+    this.sortEvent();
+  }
+
+  setRestaurantData() {
+    const userList: Restaurant[] = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
+    );
+
+    if (userList.length > 0) {
+      userList.forEach((restaurant) => {
+        this.#restaurants.add(restaurant);
+      });
+      return;
+    }
+
+    DEFAULT_RESTAURANTS.forEach((restaurant) => {
+      this.#restaurants.add(restaurant);
+    });
+  }
+
+  sortEvent() {
+    $$$('#sortingFilter', '#sortingFilter').addEventListener('change', () => {
+      this.drawRestaurants();
+    });
   }
 }
 

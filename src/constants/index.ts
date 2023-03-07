@@ -1,7 +1,5 @@
 import { Restaurant } from '../domain/model/RestaurantList';
 
-const LOCAL_STORAGE_KEY = 'userList';
-
 const COUNTRY_FOOD = Object.freeze({
   korean: '한식',
   japanese: '일식',
@@ -83,5 +81,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     link: '',
   },
 ];
+
+const LOCAL_STORAGE_KEY = 'userList';
 
 export { COUNTRY_FOOD, DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY };

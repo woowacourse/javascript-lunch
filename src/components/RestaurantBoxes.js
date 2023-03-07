@@ -1,8 +1,4 @@
 class RestaurantBoxes extends HTMLElement {
-  getRestaurant({ category, name, distance, description }) {
-    return `<restaurant-box category="${category}" name="${name}" distance="${distance}" description="${description}"/>`;
-  }
-
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     const componentStyle = document.createElement('style');
@@ -17,6 +13,10 @@ class RestaurantBoxes extends HTMLElement {
 
     this.shadowRoot.innerHTML = '<ul id="restaurantList"></ul>';
     this.shadowRoot.append(componentStyle);
+  }
+
+  getRestaurant({ category, name, distance, description }) {
+    return `<restaurant-box category="${category}" name="${name}" distance="${distance}" description="${description}"/>`;
   }
 
   restaurantListRender(restaurants) {

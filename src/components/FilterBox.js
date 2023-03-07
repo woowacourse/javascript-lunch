@@ -1,4 +1,10 @@
 class FilterBox extends HTMLElement {
+  attributeChangedCallback(name) {
+    if (name === 'name' && name === 'id' && name === 'options') {
+      this.connectedCallback();
+    }
+  }
+
   createOption(title) {
     return `<option value="${title}">${title}</option>`;
   }
@@ -26,7 +32,7 @@ class FilterBox extends HTMLElement {
     const options = optionsAttribute.map((option) => this.createOption(option));
 
     this.shadowRoot.innerHTML = `
-    <select name="${name}" id="${id}">
+      <select name="${name}" id="${id}">
         ${options.join('\n')}
       </select>
     `;
@@ -34,19 +40,13 @@ class FilterBox extends HTMLElement {
     this.shadowRoot.append(componentStyle);
   }
 
-  static get observedAttributes() {
-    return ['name', 'id', 'options'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'options') {
-      this.connectedCallback();
-    }
-  }
-
   getSelectValue() {
     const id = this.getAttribute('id');
     return this.shadowRoot.querySelector(`#${id}`).value;
+  }
+
+  static get observedAttributes() {
+    return ['name', 'id', 'options'];
   }
 }
 

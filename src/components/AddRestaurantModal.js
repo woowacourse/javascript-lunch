@@ -81,31 +81,47 @@ class AddRestaurantModal extends HTMLElement {
 `;
 
     this.shadowRoot.innerHTML = `
-    <div id="modal" class="modal" alt="modal">
-    <div id="modalBackdrop" class="backdrop"></div>
-    <div class="container">
-      <h2 class="title text-title">새로운 음식점</h2>
-      <form id="restaurantForm">
-      <add-select
-      name="카테고리"
-      id="category"
-      options="한식,중식,일식,양식,아시안,기타"
-    ></add-select>
-    <add-text-input name="이름" id="name" ></add-text-input>
-    <add-select
-    name="거리(도보 이동 시간)"
-    id="distance"
-    options="5,10,15,20,30"
-    ></add-select>
-    <add-text-input name="설명" id="description" caption="메뉴 등 추가 정보를 입력해 주세요." ></add-text-input>
-    <add-text-input name="참고 링크" id="link" caption="매장 정보를 확인할 수 있는 링크를 입력해 주세요." ></add-text-input>
-        <div class="button-container">
-        <lunch-button name="취소하기" id="cancleModal" color="white"></lunch-button>
-        <lunch-button name="추가하기" id="addRestraunt" color="orange"></lunch-button>
-          </div>
-      </form>
-    </div>
-  </div>
+        <div id="modal" class="modal" alt="modal">
+        <div id="modalBackdrop" class="backdrop"></div>
+        <div class="container">
+          <h2 class="title text-title">새로운 음식점</h2>
+          <form id="restaurantForm">
+            <add-select
+              name="카테고리"
+              id="category"
+              options="한식,중식,일식,양식,아시안,기타"
+            ></add-select>
+            <add-text-input name="이름" id="name"></add-text-input>
+            <add-select
+              name="거리(도보 이동 시간)"
+              id="distance"
+              options="5,10,15,20,30"
+            ></add-select>
+            <add-text-input
+              name="설명"
+              id="description"
+              caption="메뉴 등 추가 정보를 입력해 주세요."
+            ></add-text-input>
+            <add-text-input
+              name="참고 링크"
+              id="link"
+              caption="매장 정보를 확인할 수 있는 링크를 입력해 주세요."
+            ></add-text-input>
+            <div class="button-container">
+              <lunch-button
+                name="취소하기"
+                id="cancleModal"
+                color="white"
+              ></lunch-button>
+              <lunch-button
+                name="추가하기"
+                id="addRestraunt"
+                color="orange"
+              ></lunch-button>
+            </div>
+          </form>
+        </div>
+      </div>
     `;
 
     this.shadowRoot.append(componentStyle);
@@ -113,21 +129,27 @@ class AddRestaurantModal extends HTMLElement {
     this.closeModalEvent();
   }
 
-  modalOpen(isOpen) {
-    if (isOpen) {
-      this.shadowRoot.querySelector('#modal').classList.add('modal--open');
-      return;
-    }
-    this.shadowRoot.querySelector('#modal').classList.remove('modal--open');
-  }
+  closeModalEvent() {
+    this.shadowRoot
+      .querySelector('#cancleModal')
+      .addEventListener('click', () => {
+        $('add-restaurant-modal').modalOpen(false);
+        $('body').classList.remove('scroll-hidden');
+      });
 
-  resetForm() {
     this.shadowRoot
-      .querySelectorAll('add-text-input')
-      .forEach((element) => element.reset());
-    this.shadowRoot
-      .querySelectorAll('add-select')
-      .forEach((element) => element.reset());
+      .querySelector('#modalBackdrop')
+      .addEventListener('click', () => {
+        $('add-restaurant-modal').modalOpen(false);
+        $('body').classList.remove('scroll-hidden');
+      });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Escape') {
+        $('add-restaurant-modal').modalOpen(false);
+        $('body').classList.remove('scroll-hidden');
+      }
+    });
   }
 
   getFormValues() {
@@ -184,27 +206,21 @@ class AddRestaurantModal extends HTMLElement {
     return false;
   }
 
-  closeModalEvent() {
-    this.shadowRoot
-      .querySelector('#cancleModal')
-      .addEventListener('click', () => {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
-      });
+  modalOpen(isOpen) {
+    if (isOpen) {
+      this.shadowRoot.querySelector('#modal').classList.add('modal--open');
+      return;
+    }
+    this.shadowRoot.querySelector('#modal').classList.remove('modal--open');
+  }
 
+  resetForm() {
     this.shadowRoot
-      .querySelector('#modalBackdrop')
-      .addEventListener('click', () => {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
-      });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Escape') {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
-      }
-    });
+      .querySelectorAll('add-text-input')
+      .forEach((element) => element.reset());
+    this.shadowRoot
+      .querySelectorAll('add-select')
+      .forEach((element) => element.reset());
   }
 }
 

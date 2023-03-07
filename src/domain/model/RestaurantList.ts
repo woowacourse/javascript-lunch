@@ -1,10 +1,10 @@
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 
+type Distance = 5 | 10 | 15 | 20 | 30;
+
 export type CategoryAll = '전체' | Category;
 
 export type SortTypeAll = 'name' | 'distance';
-
-type Distance = 5 | 10 | 15 | 20 | 30;
 
 export interface Restaurant {
   category: Category;
@@ -21,6 +21,12 @@ class RestaurantList {
     this.#list.push(restaurant);
   }
 
+  static filterByCategory(restaurantList: Restaurant[], category: CategoryAll) {
+    return restaurantList.filter(
+      (restaurant) => restaurant.category === category
+    );
+  }
+
   getList(category: CategoryAll, type: SortTypeAll): Restaurant[] {
     if (category === '전체') {
       return RestaurantList.sortByType(this.#list, type);
@@ -30,12 +36,6 @@ class RestaurantList {
       category
     );
     return RestaurantList.sortByType(filteredCategory, type);
-  }
-
-  static filterByCategory(restaurantList: Restaurant[], category: CategoryAll) {
-    return restaurantList.filter(
-      (restaurant) => restaurant.category === category
-    );
   }
 
   static sortByType(restaurantList: Restaurant[], type: SortTypeAll) {

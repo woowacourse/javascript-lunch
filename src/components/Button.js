@@ -1,4 +1,10 @@
 class Button extends HTMLElement {
+  attributeChangedCallback(name) {
+    if (name === 'name' && name === 'color' && name === 'id') {
+      this.connectedCallback();
+    }
+  }
+
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     const componentStyle = document.createElement('style');
@@ -67,12 +73,6 @@ class Button extends HTMLElement {
 
   static get observedAttributes() {
     return ['name', 'color', 'id'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'color' && name === 'id') {
-      this.connectedCallback();
-    }
   }
 }
 

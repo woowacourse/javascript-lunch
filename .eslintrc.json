@@ -10,9 +10,7 @@
   "extends": ["airbnb", "plugin:prettier/recommended"],
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
-    "indent": ["error", 2],
     "quotes": ["error", "single"],
-    "max-lines-per-function": ["error", 100],
     "max-depth": ["error", 2],
     "no-else-return": ["error", { "allowElseIf": false }],
     "max-params": ["error", 3],
@@ -31,6 +29,7 @@
       }
     ],
     "spaced-comment": ["error", "always", { "exceptions": ["-", "+"] }],
-    "eol-last": ["error", "always"]
+    "eol-last": ["error", "always"],
+    "class-methods-use-this": "off"
   }
 }

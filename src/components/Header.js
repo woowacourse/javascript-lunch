@@ -47,12 +47,12 @@ class Header extends HTMLElement {
 `;
 
     this.shadowRoot.innerHTML = `
-    <header id="head" >
-      <h1 class="text-title">점심 뭐 먹지</h1>
-      <button type="button" id="openModal" aria-label="음식점 추가">
-        <img src=${logo} alt="음식점 추가" />
-      </button>
-    </header>
+      <header id="head" >
+        <h1 class="text-title">점심 뭐 먹지</h1>
+        <button type="button" id="openModal" aria-label="음식점 추가">
+          <img src=${logo} alt="음식점 추가" />
+        </button>
+      </header>
     `;
 
     this.shadowRoot.append(componentStyle);

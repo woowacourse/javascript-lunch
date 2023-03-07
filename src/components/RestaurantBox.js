@@ -17,6 +17,12 @@ class RestaurantBox extends HTMLElement {
     [COUNTRY_FOOD.etc]: etcImage,
   };
 
+  attributeChangedCallback(name) {
+    if (name === 'category' && name === 'name' && name === 'distance') {
+      this.connectedCallback();
+    }
+  }
+
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     const componentStyle = document.createElement('style');
@@ -99,20 +105,26 @@ class RestaurantBox extends HTMLElement {
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description') || '';
 
+    const NAME_SLICE_NUMBER = 18;
+    const DESCRIPTION_SLICE_NUMBER = 56;
+
     this.shadowRoot.innerHTML = `
-        <li>
-          <div class="category">
-            <img src=${this.#categoryImage[category]} alt=${category}>
-          </div>
-          <div class="info">
-            <h3 class="name text-subtitle">${shortenString(name, 18)}</h3>
-            <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
-            <p class="description text-body">${shortenString(
-              description,
-              56
-            )}</p>
-          </div>
-        </li>
+    <li>
+    <div class="category">
+      <img src=${this.#categoryImage[category]} alt=${category}>
+    </div>
+    <div class="info">
+      <h3 class="name text-subtitle">${shortenString(
+        name,
+        NAME_SLICE_NUMBER
+      )}</h3>
+      <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
+      <p class="description text-body">${shortenString(
+        description,
+        DESCRIPTION_SLICE_NUMBER
+      )}</p>
+    </div>
+  </li>
     `;
 
     this.shadowRoot.append(componentStyle);
@@ -120,12 +132,6 @@ class RestaurantBox extends HTMLElement {
 
   static get observedAttributes() {
     return ['category', 'name', 'distance', 'description'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'category' && name === 'name' && name === 'distance') {
-      this.connectedCallback();
-    }
   }
 }
 

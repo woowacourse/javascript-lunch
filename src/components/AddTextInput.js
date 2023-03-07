@@ -1,29 +1,8 @@
 class AddTextInput extends HTMLElement {
-  getTextInputTemplate() {
-    const name = this.getAttribute('name');
-    const id = this.getAttribute('id');
-    const caption = this.getAttribute('caption') || '';
-
-    if (id === 'name') {
-      return `<div class="container required">
-      <label for="${id} text-caption">${name}</label>
-      <input type="text" name="${id}" id="${id}" required>
-    </div>`;
+  attributeChangedCallback(name) {
+    if (name === 'name' && name === 'id' && name === 'caption') {
+      this.connectedCallback();
     }
-
-    if (id === 'description') {
-      return `<div class="container">
-      <label for="${id} text-caption">${name}</label>
-      <textarea name="${id}" id="${id}" cols="30" rows="5"></textarea>
-      <span class="help-text text-caption">${caption}</span>
-    </div>`;
-    }
-
-    return `<div class="container">
-            <label for="${id} text-caption">${name}</label>
-            <input type="text" name="${id}" id="${id}">
-            <span class="help-text text-caption">${caption}</span>
-          </div>`;
   }
 
   connectedCallback() {
@@ -89,27 +68,7 @@ class AddTextInput extends HTMLElement {
 
     this.shadowRoot.append(componentStyle);
 
-    this.setEvent();
-  }
-
-  static get observedAttributes() {
-    return ['name', 'id', 'caption'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'caption') {
-      this.connectedCallback();
-    }
-  }
-
-  reset() {
-    const id = this.getAttribute('id');
-    this.shadowRoot.querySelector(`#${id}`).value = '';
-  }
-
-  getTextValue() {
-    const id = this.getAttribute('id');
-    return this.shadowRoot.querySelector(`#${id}`).value;
+    this.setErrorRemoveEvent();
   }
 
   getErrorKind() {
@@ -149,6 +108,42 @@ class AddTextInput extends HTMLElement {
     return null;
   }
 
+  getTextInputTemplate() {
+    const name = this.getAttribute('name');
+    const id = this.getAttribute('id');
+    const caption = this.getAttribute('caption') || '';
+
+    if (id === 'name') {
+      return `<div class="container required">
+              <label for="${id} text-caption">${name}</label>
+              <input type="text" name="${id}" id="${id}" required>
+            /div>`;
+    }
+
+    if (id === 'description') {
+      return `<div class="container">
+                <label for="${id} text-caption">${name}</label>
+                <textarea name="${id}" id="${id}" cols="30" rows="5"></textarea>
+                <span class="help-text text-caption">${caption}</span>
+              </div>`;
+    }
+
+    return `<div class="container">
+              <label for="${id} text-caption">${name}</label>
+              <input type="text" name="${id}" id="${id}">
+              <span class="help-text text-caption">${caption}</span>
+            </div>`;
+  }
+
+  getTextValue() {
+    const id = this.getAttribute('id');
+    return this.shadowRoot.querySelector(`#${id}`).value;
+  }
+
+  static get observedAttributes() {
+    return ['name', 'id', 'caption'];
+  }
+
   removeError() {
     const errorMessage = this.shadowRoot.querySelector('.error');
 
@@ -157,14 +152,12 @@ class AddTextInput extends HTMLElement {
     }
   }
 
-  showErrorMessage(message) {
-    const errorMessage = document.createElement('div');
-    errorMessage.innerText = message;
-    errorMessage.className = 'error text-caption';
-    this.shadowRoot.querySelector('.container').append(errorMessage);
+  reset() {
+    const id = this.getAttribute('id');
+    this.shadowRoot.querySelector(`#${id}`).value = '';
   }
 
-  setEvent() {
+  setErrorRemoveEvent() {
     const id = this.getAttribute('id');
 
     this.shadowRoot.querySelector(`#${id}`).addEventListener('input', () => {
@@ -175,6 +168,13 @@ class AddTextInput extends HTMLElement {
         this.removeError();
       }
     });
+  }
+
+  showErrorMessage(message) {
+    const errorMessage = document.createElement('div');
+    errorMessage.innerText = message;
+    errorMessage.className = 'error text-caption';
+    this.shadowRoot.querySelector('.container').append(errorMessage);
   }
 }
 

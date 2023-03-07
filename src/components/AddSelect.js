@@ -1,4 +1,10 @@
 class AddSelect extends HTMLElement {
+  attributeChangedCallback(name) {
+    if (name === 'name' && name === 'id' && name === 'options') {
+      this.connectedCallback();
+    }
+  }
+
   createOption(title, kind) {
     if (kind === 'distance') {
       return `<option value="${title}">${title}분 내</option>`;
@@ -88,27 +94,28 @@ class AddSelect extends HTMLElement {
 
     this.shadowRoot.append(componentStyle);
 
-    this.setEvent();
+    this.setRemoveErrorEvent();
+  }
+
+  getSelectValue() {
+    const id = this.getAttribute('id');
+    return this.shadowRoot.querySelector(`#${id}`).value;
+  }
+
+  isError() {
+    this.removeError();
+
+    if (this.getSelectValue() === '') return true;
+    return false;
   }
 
   static get observedAttributes() {
     return ['name', 'id', 'options'];
   }
 
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'options') {
-      this.connectedCallback();
-    }
-  }
-
   reset() {
     const id = this.getAttribute('id');
     this.shadowRoot.querySelector(`#${id}`).value = '';
-  }
-
-  getSelectValue() {
-    const id = this.getAttribute('id');
-    return this.shadowRoot.querySelector(`#${id}`).value;
   }
 
   removeError() {
@@ -119,11 +126,12 @@ class AddSelect extends HTMLElement {
     }
   }
 
-  isError() {
-    this.removeError();
-
-    if (this.getSelectValue() === '') return true;
-    return false;
+  setRemoveErrorEvent() {
+    this.shadowRoot.querySelector('select').addEventListener('change', () => {
+      if (this.getSelectValue()) {
+        this.removeError();
+      }
+    });
   }
 
   showErrorMessage() {
@@ -131,14 +139,6 @@ class AddSelect extends HTMLElement {
     errorMessage.innerText = '이 값은 필수로 입력해야 합니다.';
     errorMessage.className = 'error text-caption';
     this.shadowRoot.querySelector('.container').append(errorMessage);
-  }
-
-  setEvent() {
-    this.shadowRoot.querySelector('select').addEventListener('change', () => {
-      if (this.getSelectValue()) {
-        this.removeError();
-      }
-    });
   }
 }
 
