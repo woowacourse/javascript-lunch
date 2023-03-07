@@ -179,7 +179,11 @@ body {
 }
 
 .restaurant__link {
+  margin-top: 10px;
   display: none;
+  text-decoration-color: black;
+  color: black;
+  font-weight: 600;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -334,6 +338,19 @@ input[name='link'] {
 #restaurant-info-modal-contents .restaurant:hover {
   background-color: transparent;
   cursor: default;
+}
+
+#restaurant-info-modal-contents .restaurant__category {
+  margin-bottom: 10px;
+}
+
+#restaurant-info-modal-contents .restaurant__distance.text-body {
+  margin-bottom: 10px;
+}
+
+#restaurant-info-modal-contents .restaurant__name.text-subtitle {
+  font-size: 20px;
+  font-weight: 800;
 }
 
 #restaurant-info-modal-contents .restaurant .restaurant__description {
