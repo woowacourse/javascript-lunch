@@ -28,8 +28,9 @@ function Nav({ category, sortOption, handleCategory, handleSortOption }: NavProp
   });
 
   addEvent('change', '#sorting-filter', (e) => {
-    if (e.target instanceof HTMLSelectElement && isSortOption(e.target.value))
+    if (e.target instanceof HTMLSelectElement && isSortOption(e.target.value)) {
       handleSortOption(e.target.value);
+    }
   });
 
   return `
