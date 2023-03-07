@@ -4,7 +4,7 @@ type Distance = 5 | 10 | 15 | 20 | 30;
 
 type CategoryAll = '전체' | Category;
 
-type SortTypeAll = 'name' | 'distance';
+type SortTypeAll = '이름순' | '거리순';
 
 interface RestaurantInfo {
   category: Category;

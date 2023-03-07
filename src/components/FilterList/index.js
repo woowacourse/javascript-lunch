@@ -10,6 +10,7 @@ class FilterList extends HTMLElement {
   connectedCallback() {
     this.render();
     this.filterEvent();
+    this.sortEvent();
   }
 
   render() {
@@ -28,9 +29,16 @@ class FilterList extends HTMLElement {
   }
 
   filterEvent() {
-    $('#categoryFilter').addEventListener('change', () => {
-      const categoryValue = $('.restaurant-filter').value;
+    $('#categoryFilter').addEventListener('change', (e) => {
+      const categoryValue = e.target.value;
       restaurant.filterByCategory(categoryValue);
+    });
+  }
+
+  sortEvent() {
+    $('#sortingFilter').addEventListener('change', (e) => {
+      const sortingValue = e.target.value;
+      restaurant.sortByType(sortingValue);
     });
   }
 
