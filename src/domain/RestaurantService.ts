@@ -1,13 +1,13 @@
-import { RestaurantType } from "./Template";
-import { LocalData } from "./until/LocalData";
+import { RestaurantType } from "../Template";
+import { LocalData } from "../until/LocalData";
 
-interface RestaurantListType {
+interface RestaurantServiceType {
   list: RestaurantType[];
   settingList: () => void;
   addRestaurant: (restaurant: RestaurantType) => void;
 }
 
-export const RestaurantList: RestaurantListType = {
+export const RestaurantService: RestaurantServiceType = {
   list: [],
 
   settingList() {
