@@ -103,6 +103,7 @@ customElements.define(
         category,
         name,
         distance,
+        favorite: false,
         description,
         link,
       };

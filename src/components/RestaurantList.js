@@ -16,6 +16,7 @@ customElements.define(
             restaurantName="${restaurant.name}"
             distance="${restaurant.distance}"
             description="${restaurant.description}"
+            favorite=${restaurant.favorite}
           ></restaurant-list-item>
         `
         )
