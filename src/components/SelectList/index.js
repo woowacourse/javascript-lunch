@@ -26,7 +26,7 @@ class SelectList extends HTMLElement {
     this.innerHTML = `
     <div class="form-item form-item--required">
       <label for="${id} text-caption">${name}</label>
-      <select name="${id}" id="${id}" required>
+      <select name="${id}" id="${id}List" required>
       <option value="">선택해 주세요</option>
         ${options.join('\n')}
       </select>

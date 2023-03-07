@@ -18,7 +18,7 @@ class TextInput extends HTMLElement {
       this.innerHTML = `
         <div class="form-item form-item--required">
           <label for="${id} text-caption">${name}</label>
-          <input type="text" name="${id}" id="${id}" required>
+          <input type="text" name="${id}" id="${id}Input" required>
         </div>
         `;
     }
@@ -27,7 +27,7 @@ class TextInput extends HTMLElement {
       this.innerHTML = `
         <div class="form-item">
           <label for="${id} text-caption">${name}</label>
-          <textarea name="${id}" id="${id}" cols="30" rows="5"></textarea>
+          <textarea name="${id}" id="${id}Input" cols="30" rows="5"></textarea>
           <span class="help-text text-caption">${caption}</span>
         </div>
         `;
@@ -37,7 +37,7 @@ class TextInput extends HTMLElement {
       this.innerHTML = `
         <div class="form-item">
           <label for="${id} text-caption">${name}</label>
-          <input type="text" name="${id}" id="${id}">
+          <input type="text" name="${id}" id="${id}Input">
           <span class="help-text text-caption">${caption}</span>
         </div>
         `;
