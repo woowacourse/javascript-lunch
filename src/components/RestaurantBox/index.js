@@ -3,12 +3,9 @@ import { $ } from '../../utils';
 import './index.css';
 
 class RestaurantBox extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.render();
+    this.renderRestaurantList(restaurant.restaurants);
   }
 
   render() {

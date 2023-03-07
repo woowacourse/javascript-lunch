@@ -1,4 +1,3 @@
-import RestaurantBox from '../components/RestaurantBox';
 import { $ } from '../utils';
 import { CategoryAll, RestaurantInfo, SortTypeAll } from './RestaurantTypes';
 
@@ -17,7 +16,7 @@ export const restaurant: Restaurant = {
     $('restaurant-box').renderRestaurantList(this.restaurants);
 
     const restaurantsString = JSON.stringify(this.restaurants);
-    window.localStorage.setItem('restaurant', restaurantsString);
+    localStorage.setItem('restaurant', restaurantsString);
   },
 
   filterByCategory(category: CategoryAll) {
@@ -32,15 +31,14 @@ export const restaurant: Restaurant = {
 
   sortByType(type: SortTypeAll) {
     if (type === '거리순') {
-      const sortBydistance = [...this.restaurants].sort(
+      const sortBydistance = this.restaurants.sort(
         (aRestaurant, bRestaurant) =>
           aRestaurant.distance - bRestaurant.distance
       );
       $('restaurant-box').renderRestaurantList(sortBydistance);
     } else if (type === '이름순') {
-      const sortByName = [...this.restaurants].sort(
-        (aRestaurant, bRestaurant) =>
-          aRestaurant.name > bRestaurant.name ? 1 : -1
+      const sortByName = this.restaurants.sort((aRestaurant, bRestaurant) =>
+        aRestaurant.name > bRestaurant.name ? 1 : -1
       );
       $('restaurant-box').renderRestaurantList(sortByName);
     }
