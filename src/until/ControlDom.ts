@@ -1,15 +1,14 @@
 import { Template } from "../Template";
 import { RestaurantType, CategoryType, TakeTimeType } from "../Template";
-import { MakeNewList } from "./MakeNewList";
+import { MakeNewList } from "../domain/MakeNewList";
 
 export const $ = (element: string) => document.querySelector(element);
 
-export const BottomSheet = {
+export const BottomSheetForm = {
   getInfo() {
     const form = new FormData($("form") as HTMLFormElement);
     const restaurantValue: string[] = [];
     form.forEach((each) => restaurantValue.push(each.toString()));
-    $("form");
 
     return {
       category: restaurantValue[0] as CategoryType,
