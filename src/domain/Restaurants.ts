@@ -15,7 +15,6 @@ class Restaurants {
 
   add(restaurant: Restaurant): Restaurant[] {
     this.#restaurantsList.push(this.getConvertedUndefinedToEmptyString(restaurant));
-    window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantsList));
 
     return this.#restaurantsList;
   }

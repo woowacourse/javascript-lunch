@@ -13,6 +13,10 @@ if (localStorage.getItem('restaurants') === null) {
 
 const restaurants = new Restaurants(JSON.parse(localStorage.getItem('restaurants')));
 
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('restaurants', JSON.stringify(restaurants.restaurantsList));
+});
+
 const $header = $('.gnb');
 const $main = $('main');
 
