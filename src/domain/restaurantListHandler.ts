@@ -15,7 +15,7 @@ class RestaurantListHandler {
   }
 
   getRestaurants(): Restaurant[] {
-    return [...this.restaurants];
+    return this.restaurants;
   }
 
   getSortedByName(restaurants: Restaurant[] = this.restaurants): Restaurant[] {
