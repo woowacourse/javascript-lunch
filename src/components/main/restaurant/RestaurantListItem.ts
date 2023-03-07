@@ -1,6 +1,6 @@
 import type { Restaurant } from '../../../type';
 import Component from '../../Component';
-import { CATEGORY_IMAGE_URL } from '../../../utils/constants';
+import { CATEGORY_IMAGE_URL } from '../../../constants';
 
 interface RestaurantListItemProps {
   restaurant: Restaurant;

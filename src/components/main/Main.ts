@@ -4,7 +4,7 @@ import RestaurantFilterContainer from './restaurant/RestaurantFilterContainer';
 import RestaurantList from './restaurant/RestaurantList';
 import restaurantsStorage from '../../lib/restaurantsStorage';
 import makeProxyObject from '../../utils/makeProxyObject';
-import { DEFAULT_CATEGORY } from '../../utils/constants';
+import { DEFAULT_CATEGORY } from '../../constants';
 
 interface MainState {
   currentCategory: Category;

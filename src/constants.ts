@@ -1,4 +1,4 @@
-import type { Category, Distance } from '../type';
+import type { Category, Distance } from './type';
 
 export const CATEGORY_NAME: { [key: string]: Category } = {
   all: '전체',
