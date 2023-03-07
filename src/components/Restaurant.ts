@@ -17,9 +17,7 @@ const Restaurant = {
 
   setEvent() {
     const restaurant = document.querySelector('.restaurant');
-    restaurant?.addEventListener('click', () => {
-      //내용 채우기
-    });
+    restaurant?.addEventListener('click', () => {});
   },
 };
 

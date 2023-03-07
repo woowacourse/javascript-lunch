@@ -18,7 +18,7 @@ class App {
   #restaurantListItem;
 
   constructor() {
-    this.#app = document.querySelector('#app') as HTMLElement;
+    this.#app = document.querySelector('#app') as HTMLDivElement;
     const initialRestaurantList = RestaurantStorage.get();
     this.#restaurantListItem = new RestaurantListItem(initialRestaurantList);
   }
@@ -39,7 +39,7 @@ class App {
           <div class="modal-backdrop"></div>
           <div class="modal-container">
             ${ModalHeader.template()}
-            <form>
+            <form id="addForm">
               ${CategoryInput.template()}
               ${NameInput.template()}
               ${DistanceInput.template()}

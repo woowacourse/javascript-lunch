@@ -10,8 +10,9 @@ const SortButton = {
   </select>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
-    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
+    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLDivElement;
     const sortingFilter = document.querySelector('#sorting-filter') as HTMLSelectElement;
+
     sortingFilter?.addEventListener('change', () => {
       const select = sortingFilter.options[sortingFilter.selectedIndex].value as TPriority;
       RestaurantListItem.setSort(select);

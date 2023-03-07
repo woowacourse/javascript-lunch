@@ -15,7 +15,7 @@ const FilterButton = {
   </select>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
-    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
+    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLDivElement;
     const categoryFilter = document.querySelector('#category-filter') as HTMLSelectElement;
     categoryFilter?.addEventListener('change', () => {
       const select = categoryFilter.options[categoryFilter.selectedIndex].value as TCategory | '전체';
