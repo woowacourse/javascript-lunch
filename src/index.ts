@@ -46,12 +46,12 @@ class App {
   selectBoxHandler = (categoryFilter: CategoryFilter, sortFilter: SortFilter) => {
     this.store.filterRestaurants(categoryFilter);
     this.store.sortRestaurants(sortFilter);
-    this.restaurantItems.render(this.store.restaurants);
+    this.restaurantItems.render(this.store.renderedRestaurants);
   };
 
   restaurantHandler = (restaurant: Restaurant) => {
     this.store.addRestaurants(restaurant);
-    this.restaurantItems.render(this.store.restaurants);
+    this.restaurantItems.render(this.store.renderedRestaurants);
   };
 }
 

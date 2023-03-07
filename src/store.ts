@@ -3,11 +3,13 @@ import { initialRestaurants } from './restaurants';
 
 class Store {
   restaurants: Restaurant[];
+  renderedRestaurants: Restaurant[];
   categoryFilter: CategoryFilter;
   sortFilter: SortFilter;
 
   constructor() {
     this.restaurants = [];
+    this.renderedRestaurants = [];
     this.categoryFilter = '전체';
     this.sortFilter = 'name';
   }
@@ -16,7 +18,7 @@ class Store {
     if (!localStorage.getItem('store')) {
       this.setRestaurants(initialRestaurants);
     }
-    this.restaurants = this.getAllRestuarants();
+    this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
     this.sortRestaurants(this.sortFilter);
   }
 
@@ -24,14 +26,9 @@ class Store {
     localStorage.setItem('store', JSON.stringify(restaurants));
   }
 
-  getAllRestuarants() {
-    this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
-    return this.restaurants;
-  }
-
   addRestaurants(restaurant: Restaurant) {
     this.restaurants = [...this.restaurants, restaurant];
-    this.setRestaurants([...this.getAllRestuarants(), restaurant]);
+    this.setRestaurants(this.restaurants);
 
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
@@ -39,23 +36,25 @@ class Store {
 
   filterRestaurants(categoryFilter: CategoryFilter) {
     this.categoryFilter = categoryFilter;
-    this.restaurants = this.getAllRestuarants();
 
-    if (categoryFilter === '전체') return;
-    const filteredRestaurants = this.restaurants.filter(
+    if (categoryFilter === '전체') {
+      this.renderedRestaurants = this.restaurants;
+      return;
+    }
+    const renderedRestaurants = this.restaurants.filter(
       (restaurant) => restaurant.category === categoryFilter,
     );
-    this.restaurants = filteredRestaurants;
+    this.renderedRestaurants = renderedRestaurants;
   }
 
   sortRestaurants(sortFilter: SortFilter) {
     this.sortFilter = sortFilter;
     switch (sortFilter) {
       case 'name':
-        this.restaurants.sort((a, b) => (a.name > b.name ? 1 : -1));
+        this.renderedRestaurants.sort((a, b) => (a.name > b.name ? 1 : -1));
         break;
       case 'distance':
-        this.restaurants.sort((a, b) => a.distance - b.distance);
+        this.renderedRestaurants.sort((a, b) => a.distance - b.distance);
         break;
     }
   }
