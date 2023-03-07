@@ -19,7 +19,7 @@ describe('Modal', () => {
     target.innerHTML = '';
   });
 
-  test('모달이 HTML 정보를 잘 출력하나', () => {
+  test('모달이 출력되면 셀렉트 박스와 이름 라벨이 보여야 한다.', () => {
     modal.render();
 
     expect(target.innerHTML).toContain('<select name="category" id="category" required="">');
