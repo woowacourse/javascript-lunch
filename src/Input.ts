@@ -1,5 +1,5 @@
 import Validator from "./Validator";
-import { Restaurant, Category, Distance } from "./type/restaurant";
+import { Restaurant } from "./type/restaurant";
 
 const Input = {
   checkAll({ category, name, distance, link }: Restaurant) {

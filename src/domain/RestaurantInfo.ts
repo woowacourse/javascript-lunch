@@ -1,4 +1,3 @@
-import { Category } from "../type/restaurant";
 import { $ } from "../util/querySelector";
 
 const RestaurantInfo = {

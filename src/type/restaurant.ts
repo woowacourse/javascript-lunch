@@ -6,7 +6,6 @@ interface Restaurant {
   name: string;
   category: Category;
   distance: Distance;
-
   description: string;
   link: string;
 }

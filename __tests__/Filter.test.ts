@@ -1,5 +1,5 @@
 import Filter from "../src/domain/Filter";
-import { Category, Restaurant } from "../src/type/restaurant";
+import { Restaurant } from "../src/type/restaurant";
 
 describe("Filter 객체 테스트", () => {
   const restaurantList: Restaurant[] = [
