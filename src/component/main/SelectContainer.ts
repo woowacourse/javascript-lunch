@@ -1,9 +1,4 @@
-import {
-  CATEGORY,
-  Constants,
-  OptionValue,
-  SORTING,
-} from "@/constant/Restaurant";
+import { CATEGORY, OptionValue, SORTING } from "@/constant/Restaurant";
 import { SetSelectedValue } from "@/type/type";
 import Select from "@/component/common/Select";
 
@@ -14,7 +9,6 @@ class SelectContainer {
   constructor() {
     this.categorySelect = new Select(
       {
-        required: false,
         name: "category",
         id: "category-filter",
         className: "restaurant-filter",
@@ -24,7 +18,6 @@ class SelectContainer {
 
     this.sortingSelect = new Select(
       {
-        required: false,
         name: "sorting",
         id: "sorting-filter",
         className: "restaurant-filter",
@@ -47,8 +40,8 @@ class SelectContainer {
   }
 
   addEvent(setSelectedValue: SetSelectedValue) {
-    this.categorySelect.addEvent(Constants.CATEGORY_FILTER, setSelectedValue);
-    this.sortingSelect.addEvent(Constants.SORTING_FILTER, setSelectedValue);
+    this.categorySelect.addEvent(setSelectedValue);
+    this.sortingSelect.addEvent(setSelectedValue);
   }
 }
 

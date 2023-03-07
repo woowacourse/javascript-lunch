@@ -1,38 +1,34 @@
 import { Attribute, Category, SetSelectedValue, Sort } from "@/type/type";
-import { objectToAttributeString } from "@/utils/convertor";
+import { convertHtmlAttribute } from "@/utils/convertor";
 import { $ } from "@/utils/Dom";
 
 class Select {
-  attribute: string;
+  attribute: Attribute;
   options: string[];
 
   constructor(attribute: Attribute, options: string[]) {
-    this.attribute = objectToAttributeString(attribute);
+    this.attribute = attribute;
     this.options = options;
   }
 
-  addEvent(sortId: string, setSelectedValue: SetSelectedValue) {
-    const selectEl = $(`#${sortId}`);
+  addEvent(setSelectedValue: SetSelectedValue) {
+    const selectEl = $(`#${this.attribute.id}`);
     selectEl?.addEventListener("change", (e) => {
       const selectedOption = (e.target as HTMLSelectElement).value as
         | Category
         | Sort;
-      setSelectedValue(sortId, selectedOption);
+      setSelectedValue(this.attribute.id, selectedOption);
     });
   }
 
   template() {
     return ` 
-    <select ${this.attribute}>
-    ${this.makeOptionTemplate()}
+    <select ${convertHtmlAttribute(this.attribute)}>
+    ${this.OptionTemplate()}
     </select>`;
   }
 
-  render(target: Element) {
-    target.insertAdjacentHTML("beforeend", this.template());
-  }
-
-  makeOptionTemplate() {
+  OptionTemplate() {
     return this.options
       .map((option: string) => `<option value='${option}'> ${option} </option>`)
       .join("");
