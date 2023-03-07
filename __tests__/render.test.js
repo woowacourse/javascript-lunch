@@ -2,44 +2,17 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom';
-import { screen } from '@testing-library/dom';
+import { screen, fireEvent } from '@testing-library/dom';
 
 import Header from '../src/components/Header.js';
 import RestaurantItem from '../src/components/RestaurantItem.js';
 import AddModal from '../src/components/AddModal.js';
 
 describe('UI 테스트', () => {
-  beforeEach(() => {
-    document.body.innerHTML = `
-    <header class="gnb"></header>
-
-    <section class="restaurant-filter-container">
-      <select name="category" id="category-filter" class="restaurant-filter">
-        <option value="전체">전체</option>
-        <option value="한식">한식</option>
-        <option value="중식">중식</option>
-        <option value="일식">일식</option>
-        <option value="양식">양식</option>
-        <option value="아시안">아시안</option>
-        <option value="기타">기타</option>
-      </select>
-
-      <select name="sorting" id="sorting-filter" class="restaurant-filter">
-        <option value="name">이름순</option>
-        <option value="distance">거리순</option>
-      </select>
-    </section>
-
-    <section class="restaurant-list-container">
-      <ul class="restaurant-list"></ul>
-    </section>
-
-    <div class="modal"></div>`;
-  });
-
   test('header 렌더링 테스트', () => {
+    document.body.innerHTML = '<header></header>';
     const header = new Header();
-    document.querySelector('.gnb').innerHTML = header.render();
+    document.querySelector('body').innerHTML = header.render();
 
     expect(screen.getByText('점심 뭐 먹지')).toBeInTheDocument();
   });
@@ -53,7 +26,7 @@ describe('UI 테스트', () => {
       아시안: '',
       기타: '',
     });
-    document.querySelector('.restaurant-list').innerHTML = restaurantItem.render({
+    document.querySelector('body').innerHTML = restaurantItem.render({
       category: '양식',
       storeName: '크크루삥뽕',
       distance: 10,
@@ -64,9 +37,33 @@ describe('UI 테스트', () => {
   });
 
   test('addModal 렌더링 테스트', () => {
+    document.body.innerHTML = `<div class="modal"></div>`;
     const addModal = new AddModal();
-    document.querySelector('.modal').innerHTML = addModal.render();
+    document.querySelector('body').innerHTML = addModal.render();
 
+    expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
+  });
+
+  test('openAddDataModal 메서드 사용 테스트', () => {
+    document.body.innerHTML = '<header></header><div class="modal"></div>';
+
+    const header = new Header();
+    const addModal = new AddModal();
+
+    const newHeader = document.createElement('div');
+    newHeader.className = 'check';
+    const modal = document.createElement('div');
+    modal.className = 'modalcheck';
+
+    document.querySelector('header').appendChild(newHeader);
+    document.querySelector('.modal').appendChild(modal);
+
+    document.querySelector('.check').innerHTML = header.render();
+    document.querySelector('.modalcheck').innerHTML = addModal.render();
+
+    fireEvent.click(screen.getByLabelText('음식점 추가'));
+
+    header.openAddDataModal();
     expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
   });
 });
