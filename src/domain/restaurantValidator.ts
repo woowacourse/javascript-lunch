@@ -10,7 +10,7 @@ class RestaurantValidator {
     this.validateTakingTime(restaurant.takingTime);
   }
 
-  validateName(category: Category, name: string) {
+  private validateName(category: Category, name: string) {
     if (this.isNameEmpty(name)) {
       const nameError = new Error(ErrorMessage.NAME_EMPTY);
       nameError.name = ErrorName.NAME;
@@ -24,7 +24,7 @@ class RestaurantValidator {
     }
   }
 
-  validateTakingTime(takingTime: TakingTime) {
+  private validateTakingTime(takingTime: TakingTime) {
     if (!this.isTakingTimeEmpty(takingTime)) {
       const takingTimeError = new Error(ErrorMessage.TAKING_TIME_EMPTY);
       takingTimeError.name = ErrorName.TAKING_TIME;
@@ -32,7 +32,7 @@ class RestaurantValidator {
     }
   }
 
-  validateCategory(category: Category) {
+  private validateCategory(category: Category) {
     if (!this.isCategoryEmpty(category)) {
       const categoryError = new Error(ErrorMessage.CATEGORY_EMPTY);
       categoryError.name = ErrorName.CATEGORY;
@@ -40,21 +40,21 @@ class RestaurantValidator {
     }
   }
 
-  isNameEmpty(name: string): boolean {
+  private isNameEmpty(name: string): boolean {
     return !Boolean(name.trim());
   }
 
-  isNameExist(category: Category, name: string): boolean {
+  private isNameExist(category: Category, name: string): boolean {
     return restaurantListHandler
       .getFilteredByCategory(category)
       .some((restaurant) => restaurant.name === name);
   }
 
-  isTakingTimeEmpty(takingTime: TakingTime): boolean {
+  private isTakingTimeEmpty(takingTime: TakingTime): boolean {
     return Number.isInteger(takingTime);
   }
 
-  isCategoryEmpty(category: Category): boolean {
+  private isCategoryEmpty(category: Category): boolean {
     return CATEGORY.includes(category);
   }
 }
