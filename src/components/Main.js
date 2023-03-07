@@ -1,53 +1,23 @@
-import RestaurantItem from './RestaurantItem.js';
-import { qs } from '../utils/domHelpers.js';
 import { RESTAURANT_IMAGE } from '../constants/images.ts';
+import RestaurantItem from './RestaurantItem.js';
+import Component from './Component.js';
 
-class Main {
-  #restaurant;
-  #restaurantManager;
-  #renderListData;
-
-  constructor(RestaurantManager) {
-    this.#restaurant = new RestaurantItem(RESTAURANT_IMAGE);
-    this.#restaurantManager = RestaurantManager;
-    this.#renderListData = this.#restaurantManager.getRestaurantList();
-
-    this.addEvent();
+export default class Main extends Component {
+  constructor($target) {
+    super($target);
   }
 
-  addEvent() {
-    qs('#category-filter').addEventListener('change', (e) => {
-      if (e.target.value === '전체') {
-        const renderData = this.#restaurantManager.getRestaurantList();
-        return (qs('.restaurant-list-container').innerHTML = this.reRender(renderData));
-      }
-      const reRenderData = this.#restaurantManager.filterRestaurantList(e.target.value);
-      qs('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
-    });
-
-    qs('#sorting-filter').addEventListener('change', (e) => {
-      const reRenderData = this.#restaurantManager.sortRestaurantList(e.target.value);
-      qs('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
-    });
-  }
-
-  render() {
+  template() {
     return `
-    ${this.#renderListData.reduce((acc, element) => {
-      acc += this.#restaurant.render(element);
-      return acc;
-    }, '')}
+    ${this.restaurantItemTemplate()}
     `;
   }
 
-  reRender(data) {
+  restaurantItemTemplate() {
     return `
-    ${data.reduce((acc, element) => {
-      acc += this.#restaurant.render(element);
-      return acc;
-    }, '')}
+    ${this.restaurantManager
+      .getRestaurantList()
+      .map((restaurant) => new RestaurantItem(RESTAURANT_IMAGE).render(restaurant))}
     `;
   }
 }
-
-export default Main;
