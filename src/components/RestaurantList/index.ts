@@ -1,8 +1,8 @@
-import IRestaurant from "../type/IRestaurant";
-import RestaurantItem from "./RestaurantItem";
-import Storage from "../tools/Storage";
-import defaultRestaurants from "../tools/defaultRestaurants";
-import { TCategory } from "../type/TCategory";
+import IRestaurant from "../../type/IRestaurant";
+import RestaurantItem from "../RestaurantItem";
+import Storage from "../../tools/Storage";
+import defaultRestaurants from "../../tools/defaultRestaurants";
+import { TCategory } from "../../type/TCategory";
 
 class RestaurantList extends HTMLElement {
   listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
