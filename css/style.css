@@ -15,6 +15,10 @@ body {
   font-size: 16px;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -313,6 +317,42 @@ input[name="link"] {
   text-align: center;
 }
 
-hidden {
+#alert-category {
+  position: absolute;
+
+  top: 160px;
+  left: 20px;
+
+  z-index: 3;
+}
+
+#alert-name {
+  position: absolute;
+
+  top: 270px;
+  left: 20px;
+
+  z-index: 3;
+}
+
+#alert-distance {
+  position: absolute;
+
+  top: 380px;
+  left: 20px;
+
+  z-index: 3;
+}
+
+#alert-link {
+  position: absolute;
+
+  top: 700px;
+  left: 20px;
+
+  z-index: 3;
+}
+
+.hidden {
   display: none;
 }
