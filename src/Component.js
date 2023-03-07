@@ -1,4 +1,4 @@
-import restaurantManager from '../domain/RestaurantManager';
+import restaurantManager from './domain/RestaurantManager';
 
 export default class Component {
   $target;

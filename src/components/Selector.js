@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from '../Component';
 
 export default class Selector extends Component {
   constructor($target) {

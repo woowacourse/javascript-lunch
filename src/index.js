@@ -2,9 +2,9 @@ import '../style.css';
 import '../templates/add-button.png';
 import { geid, qs } from './utils/domHelpers';
 
-import Component from './components/Component.js';
+import Component from './Component.js';
 import Header from './components/Header.js';
-import Main from './components/Main.js';
+import Main from './components/RestaurantList.js';
 import AddModal from './components/AddModal.js';
 import Selector from './components/Selector';
 

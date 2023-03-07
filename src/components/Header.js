@@ -1,5 +1,5 @@
 import { qs } from '../utils/domHelpers';
-import Component from './Component';
+import Component from '../Component';
 
 class Header extends Component {
   constructor($target) {
