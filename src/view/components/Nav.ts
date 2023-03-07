@@ -1,8 +1,6 @@
 import { CATEGORY, Category, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
 import { useEvents } from '../../utils/core';
 
-const categoryOptions: Category[] = Object.values(CATEGORY);
-const filterOptions: SortOption[] = Object.values(SORT_OPTIONS);
 interface NavProps {
   category: Category;
   sortOption: SortOption;
@@ -10,21 +8,34 @@ interface NavProps {
   handleSortOption: (SortOption: SortOption) => void;
 }
 
+function isCategory(payload: unknown): payload is Category {
+  return Boolean(Object.values(CATEGORY).find((category) => category === payload));
+}
+
+function isSortOption(payload: unknown): payload is SortOption {
+  return Boolean(Object.values(SORT_OPTIONS).find((option) => option === payload));
+}
+
 function Nav({ category, sortOption, handleCategory, handleSortOption }: NavProps) {
   const [addEvent] = useEvents('.restaurant-filter-container');
+  const categoryList: Category[] = Object.values(CATEGORY);
+  const sortOptionList: SortOption[] = Object.values(SORT_OPTIONS);
 
   addEvent('change', '#category-filter', (e) => {
-    if (e.target instanceof HTMLSelectElement) handleCategory(e.target.value as Category);
+    if (e.target instanceof HTMLSelectElement && isCategory(e.target.value)) {
+      handleCategory(e.target.value);
+    }
   });
 
   addEvent('change', '#sorting-filter', (e) => {
-    if (e.target instanceof HTMLSelectElement) handleSortOption(e.target.value as SortOption);
+    if (e.target instanceof HTMLSelectElement && isSortOption(e.target.value))
+      handleSortOption(e.target.value);
   });
 
   return `
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
-          ${categoryOptions
+          ${categoryList
             .map(
               (option) =>
                 `<option value=${option} ${option === category && 'selected'}>${option}</option>`
@@ -34,7 +45,7 @@ function Nav({ category, sortOption, handleCategory, handleSortOption }: NavProp
           
         </select>
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          ${filterOptions
+          ${sortOptionList
             .map(
               (option) =>
                 `<option value=${option} ${option === sortOption && 'selected'}>${option}</option>`
