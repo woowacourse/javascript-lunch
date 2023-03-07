@@ -118,9 +118,10 @@ const readRestaurantInput = () => {
 
 const updateRestaurant = () => {
   $(".restaurant-list-container").innerHTML = "";
+  LocalStorage.setItem("restaurants", newRestaurant.getList());
   const sortResult = sort(sortingFilter.value, newRestaurant.getList());
   const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-  return filterResult.forEach((element) => Elements.appendNewRestaurant(element))
+  return filterResult.forEach((element) => Elements.appendNewRestaurant(element));
 };
 
 submitButton.addEventListener("click", (event) => {
