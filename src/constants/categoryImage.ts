@@ -1,4 +1,5 @@
 import type { Category } from "../types/restaurant";
+
 import categoryKoreanImage from "../images/category/category-korean.png";
 import categoryAsianImage from "../images/category/category-asian.png";
 import categoryChineseImage from "../images/category/category-chinese.png";

@@ -1,5 +1,5 @@
-import OPTIONS from "../constants/options";
 import RestaurantCardList from "./RestaurantCardList";
+import OPTIONS from "../constants/options";
 
 type SelectId = keyof typeof OPTIONS;
 

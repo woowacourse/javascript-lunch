@@ -1,9 +1,9 @@
-import restaurantState from "../../states/restaurants";
-import { Category, Distance, Restaurant } from "../../types/restaurant";
-import CustomSelect from "../RestaurantOptionSelect";
-import ModalContent from "./ModalContent";
+import type { Category, Distance, Restaurant } from "../../types/restaurant";
 
+import ModalContent from "./ModalContent";
 import RestaurantCardList from "../RestaurantCardList";
+import RestaurantOptionSelect from "../RestaurantOptionSelect";
+import restaurantState from "../../states/restaurants";
 
 class RestaurantAddModal extends ModalContent {
   constructor() {
@@ -89,11 +89,11 @@ class RestaurantAddModal extends ModalContent {
   }
 
   createRestaurant(): Restaurant {
-    const category = this.querySelector<CustomSelect>("#category")
+    const category = this.querySelector<RestaurantOptionSelect>("#category")
       ?.value as Category;
     const name = this.querySelector<HTMLInputElement>("#name")?.value || "";
     const distance = Number(
-      this.querySelector<CustomSelect>("#distance")?.value
+      this.querySelector<RestaurantOptionSelect>("#distance")?.value
     ) as Distance;
     const description =
       this.querySelector<HTMLTextAreaElement>("#description")?.value;

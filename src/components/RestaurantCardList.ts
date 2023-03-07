@@ -1,6 +1,7 @@
+import type { CategoryOption, SortOption } from "../types/option";
+import type { Restaurant } from "../types/restaurant";
+
 import restaurantState from "../states/restaurants";
-import { CategoryOption, SortOption } from "../types/option";
-import { Restaurant } from "../types/restaurant";
 import RestaurantCard from "./RestaurantCard";
 
 type CardListAttribute = CategoryOption | SortOption | string | null;

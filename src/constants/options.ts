@@ -1,5 +1,3 @@
-// TODO: 배열 중복되는 부분 어떻게 줄일지 생각해보기 (ex 함수로 묶기)
-
 import type { CategoryOption, SortOption } from "../types/option";
 import type { Category, Distance } from "../types/restaurant";
 

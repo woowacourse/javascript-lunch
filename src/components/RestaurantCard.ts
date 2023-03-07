@@ -1,5 +1,6 @@
-import categoryImages from "../constants/categoryImage";
 import type { Restaurant } from "../types/restaurant";
+
+import categoryImages from "../constants/categoryImage";
 
 class RestaurantCard extends HTMLLIElement {
   constructor() {

@@ -1,5 +1,5 @@
-import { LUNCH_STORAGE_ID } from "./constants/storageId";
 import restaurantState from "./states/restaurants";
+import { LUNCH_STORAGE_ID } from "./constants/storageId";
 
 class App {
   constructor() {

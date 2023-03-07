@@ -1,4 +1,3 @@
-import type { CategoryOption, SortOption } from "../types/option";
 import type { Restaurant } from "../types/restaurant";
 
 class Restaurants {
