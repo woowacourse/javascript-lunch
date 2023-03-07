@@ -5,7 +5,7 @@ import storage from '../util/storage';
 class Restaurants {
   #restaurants: Restaurant[] = storage.getData(LOCAL_STORAGE_KEY) || [];
   #filterBy: string = '전체';
-  #sortBy: string = '이름순';
+  #sortBy: string = 'name';
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurants.push(restaurant);
