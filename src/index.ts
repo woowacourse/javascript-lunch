@@ -11,6 +11,7 @@ import './components/header.js';
 import Header from './components/header.js';
 import CategoryFilter from './components/categoryFilter.js';
 import SortingFilter from './components/sortingFilter.js';
+import Modal from './components/modal.js';
 import RestaurantsController from './domain/RestaurantsController';
 import {
   handleModalCancelButtonClick,
@@ -38,6 +39,9 @@ const App = {
     const sortingFilter = new SortingFilter();
     categoryFilter.render();
     sortingFilter.render();
+
+    const modal = new Modal();
+    modal.render();
   },
 
   initEventListeners() {
