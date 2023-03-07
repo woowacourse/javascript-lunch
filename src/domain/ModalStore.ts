@@ -1,18 +1,13 @@
 import { MODAL_ACTION } from "../abstracts/constants";
 import CustomElement from "../abstracts/CustomElement";
 import { Action } from "../abstracts/types";
+import Store from "./Store";
 
-class ModalStore {
+class ModalStore extends Store {
   #isModalOn: boolean = false;
 
-  #subscribers: CustomElement[] = [];
-
-  subscribe(element: CustomElement) {
-    this.#subscribers.push(element);
-  }
-
   publish(action: Action) {
-    this.#subscribers.forEach((subscriber) => {
+    this.getSubscribers().forEach((subscriber) => {
       subscriber.rerender(this.#isModalOn);
     });
   }

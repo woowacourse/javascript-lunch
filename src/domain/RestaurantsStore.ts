@@ -6,19 +6,19 @@ import {
   SORT_METHOD,
 } from "../abstracts/constants";
 import CustomElement from "../abstracts/CustomElement";
+import Store from "./Store";
 import {
   getArrayFromLocalStorage,
   setArrayToLocalStorage,
 } from "../utils/localStorage";
 
-class RestaurantsStore {
+class RestaurantsStore extends Store {
   #restaurantList: Restaurant[] = [];
   #category: Category = CATEGORY_DEFAULT;
   #sortMethod: SortMethod = SORT_METHOD.NAME;
 
-  #subscribers: CustomElement[] = [];
-
   constructor() {
+    super();
     if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
       setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
       return;
@@ -26,14 +26,10 @@ class RestaurantsStore {
     this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
   }
 
-  subscribe(element: CustomElement) {
-    this.#subscribers.push(element);
-  }
-
   publish(action: Action) {
     this.filterByCategory(this.#category);
     this.sortRestaurants(this.#sortMethod);
-    this.#subscribers.forEach((subscriber) => {
+    this.getSubscribers().forEach((subscriber) => {
       subscriber.rerender(this.#restaurantList);
     });
   }
