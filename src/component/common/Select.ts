@@ -1,4 +1,5 @@
 import { Attribute, Category, SetSelectedValue, Sort } from "@/type/type";
+import { objectToAttributeString } from "@/utils/convertor";
 import { $ } from "@/utils/Dom";
 
 class Select {
@@ -6,9 +7,7 @@ class Select {
   options: string[];
 
   constructor(attribute: Attribute, options: string[]) {
-    this.attribute = Object.entries(attribute)
-      .map(([key, value]) => `${key}=${value}`)
-      .join(" ");
+    this.attribute = objectToAttributeString(attribute);
     this.options = options;
   }
 
