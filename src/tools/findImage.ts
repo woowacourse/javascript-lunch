@@ -5,6 +5,7 @@ import {
   categoryKorean,
   categoryWestern,
   categoryEtc,
+  favoriteLined,
 } from "../assets/";
 
 const findImage = (category: string) => {
@@ -16,6 +17,7 @@ const findImage = (category: string) => {
     western: categoryWestern,
     asian: categoryAsian,
     etc: categoryEtc,
+    favoriteLined: favoriteLined,
   };
   return imageSrc[category];
 };
