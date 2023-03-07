@@ -1,4 +1,4 @@
-import AddModalContainer from './components/AddModalContainer';
+import AddRestaurantBottomSheet from './components/AddRestaurantBottomSheet';
 import FilterBar from './components/FilterBar';
 import ListContainer from './components/ListContainer';
 import TopNavBar from './components/TopNavBar';
@@ -58,7 +58,7 @@ class App extends Component<IComponentPropState> {
     }
 
     if ($addModalContainer) {
-      new AddModalContainer($addModalContainer, {
+      new AddRestaurantBottomSheet($addModalContainer, {
         toggleModal: toggleModal.bind(this),
         isModalOpened: this.$state.isModalOpened,
         addRestaurant: addRestaurant.bind(this),

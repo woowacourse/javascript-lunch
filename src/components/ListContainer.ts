@@ -1,19 +1,7 @@
 import Component from '../core/Component';
 import IRestaurantInput from '../interfaces/IRestaurantInput';
 import { IComponentPropState } from '../interfaces/IComponent';
-
-interface ImageByCategory {
-  [key: string]: string;
-}
-
-const ImageByCategory: ImageByCategory = {
-  한식: './category-korean.png',
-  일식: './category-japanese.png',
-  중식: './category-chinese.png',
-  양식: './category-western.png',
-  아시안: './category-asian.png',
-  기타: './category-etc.png',
-};
+import imagePaths from '../constants/imagePaths';
 
 class ListContainer extends Component<IComponentPropState> {
   template() {
@@ -25,7 +13,7 @@ class ListContainer extends Component<IComponentPropState> {
         const { category, name, distance, description } = restaurant;
         return `<li class="restaurant">
       <div class="restaurant__category">
-        <img src=${ImageByCategory[category]} alt=${category} class="category-icon"/>
+        <img src=${imagePaths.mainListIconImage[category]} alt=${category} class="category-icon"/>
       </div>
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle">${name}</h3>
