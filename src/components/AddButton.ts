@@ -28,6 +28,7 @@ const AddButton = {
         })
       ) as unknown as IRestaurant;
       restaurantListContainer.innerHTML = RestaurantList.template(RestaurantListItem.add(newRestaurant));
+
       addForm.reset();
       AddButton.closeModal();
     });
