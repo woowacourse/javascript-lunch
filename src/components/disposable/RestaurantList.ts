@@ -11,27 +11,31 @@ class RestaurantList {
     </section>`;
   }
 
-  initialize(target: Element) {
-    this.render(target);
+  initialize(target: Element, restaurants: Restaurant[]) {
+    this.render(target, restaurants);
   }
 
-  render(target: Element) {
+  renderList(target: Element, restaurants: Restaurant[]) {
+    target.insertAdjacentHTML(
+      "beforeend",
+      restaurants
+        .map((restaurant) => new RestaurantItem(restaurant).template())
+        .join("")
+    );
+  }
+
+  render(target: Element, restaurants: Restaurant[]) {
     target.insertAdjacentHTML("beforeend", this.template());
+
+    const restaurantList = <HTMLElement>$(".restaurant-list");
+    this.renderList(restaurantList, restaurants);
   }
 
-  renderRestaurantItem(data: Restaurant) {
-    const restaurantItem = new RestaurantItem(data).template();
+  updateRestaurantList(restaurants: Restaurant[]) {
     const restaurantList = <HTMLElement>$(".restaurant-list");
-    restaurantList.insertAdjacentHTML("beforeend", restaurantItem);
-  }
 
-  updateRestaurantList(newData: Restaurant[]) {
-    const restaurantList = <HTMLElement>$(".restaurant-list");
     this.removeTemplate(restaurantList);
-
-    newData.forEach((data) => {
-      this.renderRestaurantItem(data);
-    });
+    this.renderList(restaurantList, restaurants);
   }
 
   removeTemplate(target: Element) {

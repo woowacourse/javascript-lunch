@@ -13,8 +13,8 @@ class App {
     this.restaurantList = restaurantListHandler.getSortedByName();
 
     Header.initialize(body);
-    SelectContainer.initialize(body, this.sortList);
-    RestaurantList.initialize(body);
+    SelectContainer.initialize(body, this.setSortListFilterById);
+    RestaurantList.initialize(body, this.restaurantList);
     RestaurantFormBottomSheet.initialize(
       body,
       this.addRestaurantItemToList.bind(this)
@@ -30,7 +30,7 @@ class App {
     RestaurantList.updateRestaurantList(this.restaurantList);
   }
 
-  sortList = (id: string, value: string) => {
+  setSortListFilterById = (id: string, value: string) => {
     if (id === Constants.CATEGORY_FILTER) {
       this.restaurantList =
         value === ""
