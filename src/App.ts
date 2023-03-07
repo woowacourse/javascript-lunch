@@ -14,7 +14,8 @@ import { createRestaurantCard } from "./components/restaurant/RestaurantCard";
 import {
   createRestaurantAddForm,
   RestaurantAddForm,
-} from "./components/modal/RestaurantAddForm";
+} from "./components/modal/form";
+import { createInputBox } from "./components/modal/form/InputBox";
 
 class App {
   #restaurants;
@@ -38,6 +39,7 @@ class App {
 
   init() {
     createSelect();
+    createInputBox();
     createRestaurantAddForm();
     createModal();
     createHeader();
