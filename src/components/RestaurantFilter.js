@@ -33,12 +33,12 @@ class RestaurantFilter {
     }
   }
 
-  setEvent(renderRestaurantsList) {
+  setEvent(onChangeFilterOption) {
     const $filters = document.querySelector('.restaurant-filter-container');
 
     $filters.addEventListener('change', e => {
       e.preventDefault();
-      renderRestaurantsList();
+      onChangeFilterOption();
     });
   }
 }

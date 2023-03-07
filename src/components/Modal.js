@@ -79,7 +79,7 @@ class Modal {
     this.toggleModal();
   }
 
-  setSubmitEvent(renderRestaurantList) {
+  setSubmitEvent(onSubmitModalForm) {
     const $modalForm = document.querySelector('.modal form');
 
     $modalForm.addEventListener('submit', e => {
@@ -89,7 +89,7 @@ class Modal {
       this.restaurants.add(restaurant);
       localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
 
-      renderRestaurantList();
+      onSubmitModalForm();
 
       $modalForm.reset();
       this.toggleModal();
