@@ -24,8 +24,8 @@ export const MakeNewList = {
       return result;
     }
 
-    const result = restaurantList.sort((current, next) => {
-      return current.name > next.name ? 1 : -1;
+    const result = restaurantList.sort((prev, next) => {
+      return prev.name > next.name ? 1 : -1;
     });
     return result;
   },
