@@ -9,21 +9,15 @@ const header = `
   </header>`;
 
 export default class Header {
-  constructor() {
+  onClickModalOpenButton;
+
+  constructor(onClickModalOpenButton) {
+    this.onClickModalOpenButton = onClickModalOpenButton;
     $('body').insertAdjacentHTML('beforebegin', header);
     this.registerEvent();
   }
 
   registerEvent() {
-    $('.modal-open-button').addEventListener('click', this.onClickModalOpen.bind(this));
-  }
-
-  onClickModalOpen() {
-    $('.add-restaurant-form').reset();
-    this.toggleModal();
-  }
-
-  toggleModal() {
-    $('.modal').classList.toggle('modal--open');
+    $('.modal-open-button').addEventListener('click', this.onClickModalOpenButton.bind(this));
   }
 }

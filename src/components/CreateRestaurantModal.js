@@ -73,14 +73,12 @@ const html = `
 `;
 
 export default class CreateRestaurantModal {
-  RestaurantFilterContainer;
-  restaurants;
-  RestaurantItems;
+  onSubmitAddRestaurantForm;
+  toggle;
 
-  constructor(RestaurantFilterContainer, RestaurantItems, restaurants) {
-    this.RestaurantFilterContainer = RestaurantFilterContainer;
-    this.restaurants = restaurants;
-    this.RestaurantItems = RestaurantItems;
+  constructor(onSubmitAddRestaurantForm, toggle) {
+    this.onSubmitAddRestaurantForm = onSubmitAddRestaurantForm;
+    this.toggle = toggle;
 
     $('.modal').innerHTML = html;
     this.registerEvent();
@@ -89,45 +87,5 @@ export default class CreateRestaurantModal {
   registerEvent() {
     $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
     $('.modal-close-button').addEventListener('click', this.toggleModal);
-  }
-
-  onSubmitAddRestaurantForm(e) {
-    e.preventDefault();
-
-    const {
-      category: { value: category },
-      name: { value: name },
-      distance: { value: distance },
-      description: { value: description },
-      link: { value: link },
-    } = e.target.elements;
-
-    try {
-      Validator.validateFormData({ category, name, distance });
-    } catch ({ message }) {
-      return alert(message);
-    }
-
-    const restaurant = {
-      category,
-      name,
-      distance,
-      description,
-      link,
-    };
-
-    this.restaurants.addRestaurant(restaurant);
-    store.setLocalStorage(this.restaurants.getRestaurants());
-
-    this.toggleModal();
-
-    const curCategoryOption = $('#category-filter').value;
-    if (category !== curCategoryOption) return;
-
-    new this.RestaurantFilterContainer(RestaurantItems, this.restaurants);
-  }
-
-  toggleModal() {
-    $('.modal').classList.toggle('modal--open');
   }
 }

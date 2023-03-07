@@ -1,29 +1,45 @@
-import RestaurantList from './components/RestaurantList';
+import CreateRestaurantModal from './components/CreateRestaurantModal';
+import Header from './components/Header';
+import RestaurantFilterContainer from './components/RestaurantFilterContainer';
+import RestaurantItems from './components/RestaurantItems';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
-
 import { $ } from './utils/dom';
+
 import store from './utils/store';
 
 export default class App {
-  #restaurants;
+  restaurants;
 
   constructor() {
     const restaurantsData = store.getLocalStorage();
-    this.#restaurants = new Restaurants(restaurantsData);
-    this.renderRestaurantListByFilterOptions();
-    this.registerEvents();
+    this.restaurants = new Restaurants(restaurantsData);
+
+    new Header(this.onClickModalOpenButton.bind(this));
+    new RestaurantFilterContainer(this.renderFilteredItems.bind(this));
+    this.renderFilteredItems();
+    // new RestaurantItems();
+    new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this), this.toggle);
   }
 
-  registerEvents() {
-    $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
-    $('.restaurant-filter-container').addEventListener(
-      'change',
-      this.renderRestaurantListByFilterOptions.bind(this)
+  onClickModalOpenButton() {
+    $('.add-restaurant-form').reset();
+    this.toggleModal();
+  }
+
+  renderFilteredItems() {
+    const categoryOption = $('#category-filter').value;
+    const sortOption = $('#sorting-filter').value;
+
+    const filteredRestaurants = this.restaurants.getFilteredRestaurantsByCategory(categoryOption);
+
+    const sortedRestaurants = this.restaurants.getSortedRestaurants(
+      filteredRestaurants,
+      sortOption
     );
-    $('.modal-open-button').addEventListener('click', this.onClickModalOpen.bind(this));
-    $('.modal-close-button').addEventListener('click', this.toggleModal);
+
+    new RestaurantItems(sortedRestaurants);
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -51,34 +67,15 @@ export default class App {
       link,
     };
 
-    this.#restaurants.addRestaurant(restaurant);
-    store.setLocalStorage(this.#restaurants.getRestaurants());
+    this.restaurants.addRestaurant(restaurant);
+    store.setLocalStorage(this.restaurants.getRestaurants());
 
     this.toggleModal();
 
     const curCategoryOption = $('#category-filter').value;
-    if (category !== curCategoryOption) return;
+    if (curCategoryOption !== '전체' && category !== curCategoryOption) return;
 
-    this.renderRestaurantListByFilterOptions();
-  }
-
-  renderRestaurantListByFilterOptions() {
-    const categoryOption = $('#category-filter').value;
-    const sortOption = $('#sorting-filter').value;
-
-    const filteredRestaurants = this.#restaurants.getFilteredRestaurantsByCategory(categoryOption);
-
-    const sortedRestaurants = this.#restaurants.getSortedRestaurants(
-      filteredRestaurants,
-      sortOption
-    );
-
-    RestaurantList.render(sortedRestaurants);
-  }
-
-  onClickModalOpen() {
-    $('.add-restaurant-form').reset();
-    this.toggleModal();
+    this.renderFilteredItems();
   }
 
   toggleModal() {
