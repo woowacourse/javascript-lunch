@@ -1,3 +1,4 @@
+import { OPTION_VALUES } from '../constant/optionValues';
 import Restaurants from '../model/Restaurants';
 import { RestaurantValues, Category, Distance, State } from '../types/restaurantTypes';
 import Component from './Component';
@@ -25,12 +26,12 @@ export default class Modal extends Component {
 	            <label for="category text-caption">카테고리</label>
 	            <select name="category" id="category" required>
 	              <option value="">선택해 주세요</option>
-	              <option value="한식">한식</option>
-	              <option value="중식">중식</option>
-	              <option value="일식">일식</option>
-	              <option value="양식">양식</option>
-	              <option value="아시안">아시안</option>
-	              <option value="기타">기타</option>
+	              <option value=${OPTION_VALUES.KOREAN}>한식</option>
+	              <option value=${OPTION_VALUES.CHINESE}>중식</option>
+	              <option value=${OPTION_VALUES.JAPANESE}>일식</option>
+	              <option value=${OPTION_VALUES.WESTERN}>양식</option>
+	              <option value=${OPTION_VALUES.ASIAN}>아시안</option>
+	              <option value=${OPTION_VALUES.ETC}>기타</option>
 	            </select>
 	          </div>
 	
