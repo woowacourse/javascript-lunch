@@ -1,8 +1,8 @@
-import Header from "@/component/disposable/Header";
-import AddModal from "@/component/disposable/AddModal";
-import RestaurantList from "@/component/disposable/RestaurantList";
-import SelectContainer from "@/component/disposable/SelectContainer";
-import RestaurantItem from "@/component/reusable/RestaurantItem";
+import Header from "@/component/main/Header";
+import AddModal from "@/component/main/AddModal";
+import RestaurantList from "@/component/main/RestaurantList";
+import SelectContainer from "@/component/main/SelectContainer";
+import RestaurantItem from "@/component/common/RestaurantItem";
 import { Constants, OptionValue } from "@/constant/Restaurant";
 import restaurantListHandler from "@/domain/restaurantListHandler";
 import { Category, Restaurant, Sort } from "@/type/type";

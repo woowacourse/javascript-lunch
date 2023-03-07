@@ -1,6 +1,6 @@
 import { Category, TakingTime, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
-import Select from "@/component/reusable/Select";
+import Select from "@/component/common/Select";
 import { CATEGORY, TAKING_TIME, OptionValue } from "@/constant/Restaurant";
 
 class AddModal {

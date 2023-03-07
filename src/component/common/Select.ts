@@ -2,11 +2,13 @@ import { Attribute, Category, SetSelectedValue, Sort } from "@/type/type";
 import { $ } from "@/utils/Dom";
 
 class Select {
-  attribute: Attribute;
+  attribute: string;
   options: string[];
 
   constructor(attribute: Attribute, options: string[]) {
-    this.attribute = attribute;
+    this.attribute = Object.entries(attribute)
+      .map(([key, value]) => `${key}=${value}`)
+      .join(" ");
     this.options = options;
   }
 
@@ -22,11 +24,13 @@ class Select {
 
   template() {
     return ` 
-    <select name=${this.attribute.name} id=${this.attribute.id} class=${
-      this.attribute.className
-    } ${this.attribute.required ? "required" : ""}>
+    <select ${this.attribute}>
     ${this.makeOptionTemplate()}
     </select>`;
+  }
+
+  render(target: Element) {
+    target.insertAdjacentHTML("beforeend", this.template());
   }
 
   makeOptionTemplate() {

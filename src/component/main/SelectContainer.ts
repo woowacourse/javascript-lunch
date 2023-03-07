@@ -5,7 +5,7 @@ import {
   SORTING,
 } from "@/constant/Restaurant";
 import { SetSelectedValue } from "@/type/type";
-import Select from "@/component/reusable/Select";
+import Select from "@/component/common/Select";
 
 class SelectContainer {
   categorySelect;
