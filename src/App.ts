@@ -2,8 +2,6 @@ import Header from "@/component/main/Header";
 import AddModal from "@/component/main/AddModal";
 import RestaurantList from "@/component/main/RestaurantList";
 import SelectContainer from "@/component/main/SelectContainer";
-import RestaurantItem from "@/component/common/RestaurantItem";
-import { Restaurant } from "@/type/type";
 import AppController from "./AppController";
 
 class App {
@@ -27,14 +25,8 @@ class App {
   }
 
   rerenderList = () => {
-    const newRestaurantList = AppController.getRestaurantList();
-    RestaurantList.updateList(
-      newRestaurantList
-        .map((restaurant: Restaurant) =>
-          new RestaurantItem(restaurant).template()
-        )
-        .join("")
-    );
+    const newRestaurants = AppController.getRestaurantList();
+    RestaurantList.updateList(newRestaurants);
   };
 }
 

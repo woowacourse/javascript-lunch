@@ -1,4 +1,6 @@
+import { Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
+import RestaurantItem from "../common/RestaurantItem";
 
 class RestaurantList {
   template() {
@@ -12,10 +14,20 @@ class RestaurantList {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  updateList(newTemplate: string) {
+  renderRestaurantItem(restaurant: Restaurant) {
+    const restaurantItem = new RestaurantItem(restaurant);
+
+    const list = $(".restaurant-list");
+    list?.insertAdjacentHTML("beforeend", restaurantItem.template());
+  }
+
+  updateList(restaurants: Restaurant[]) {
     const list = $(".restaurant-list");
     list?.replaceChildren();
-    list?.insertAdjacentHTML("beforeend", newTemplate);
+
+    restaurants.forEach((restaurant) => {
+      this.renderRestaurantItem(restaurant);
+    });
   }
 }
 
