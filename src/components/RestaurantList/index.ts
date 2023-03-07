@@ -4,6 +4,7 @@ import Storage from "../../tools/Storage";
 import defaultRestaurants from "../../tools/defaultRestaurants";
 import { TCategory } from "../../type/TCategory";
 import { restaurants } from "../../domain/restaurants";
+import { selectRestaurants } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
   listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
@@ -28,26 +29,10 @@ class RestaurantList extends HTMLElement {
     this.innerHTML = `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
-        ${this.restaurantItems(this.selectRestaurants())}
+        ${this.restaurantItems(selectRestaurants())}
         </ul>
       </section>
     `;
-  }
-
-  selectRestaurants() {
-    const { filter, sort } = this.listState;
-    const restaurants =
-      filter === "all"
-        ? this.listState.restaurants
-        : this.listState.restaurants.filter(
-            (restaurant) => restaurant.category === filter
-          );
-    return restaurants.sort((a, b) => {
-      if (sort === "name" || sort === "distance") {
-        return a[sort] > b[sort] ? 1 : -1;
-      }
-      return 0;
-    });
   }
 
   restaurantItems(selectedRestaurants: IRestaurant[]) {

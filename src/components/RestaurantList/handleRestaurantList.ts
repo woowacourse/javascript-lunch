@@ -19,3 +19,23 @@ export const addRestaurant = (newRestaurant: IRestaurant) => {
     Storage.saveRestaurants(restaurantList.listState.restaurants);
   }
 };
+
+export const selectRestaurants = (): IRestaurant[] => {
+  const restaurantList = document.getElementById("restaurantList");
+  if (restaurantList instanceof RestaurantList) {
+    const { filter, sort } = restaurantList.listState;
+    const restaurants =
+      filter === "all"
+        ? restaurantList.listState.restaurants
+        : restaurantList.listState.restaurants.filter(
+            (restaurant) => restaurant.category === filter
+          );
+    return restaurants.sort((a, b) => {
+      if (sort === "name" || sort === "distance") {
+        return a[sort] > b[sort] ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+  return [];
+};
