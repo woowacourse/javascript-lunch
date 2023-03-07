@@ -1,6 +1,5 @@
 import validator from '../src/validation/validator';
 
-// eslint-disable-next-line max-lines-per-function
 describe('음식점 추가 Form에서 입력값에 대한 유효성 검사', () => {
   test('유효한 음식점 이름은 20자 이하이며 특수기호는 제외한다.', () => {
     expect(validator.checkName('jero')).toBe(undefined);
