@@ -1,3 +1,4 @@
+import "../css/reset.css";
 import "../css/style.css";
 import "./assets/add-button.png";
 import "./assets/category-asian.png";

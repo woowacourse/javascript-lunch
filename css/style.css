@@ -1,12 +1,5 @@
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
-}
-
-ul,
-li {
-  list-style: none;
 }
 
 html,
@@ -197,11 +190,23 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: calc(100% - 154px);
 
   padding: 32px 16px;
 
+  overflow: auto;
+
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  /* hidden scroll */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.modal-container::-webkit-scrollbar {
+  /* hidden scroll */
+  display: none;
 }
 
 .modal-title {
