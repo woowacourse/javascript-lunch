@@ -1,8 +1,8 @@
-import { IRestaurant, Category, RestaurantSortType } from '../types';
+import { IRestaurant, RestaurantCategory, RestaurantSortType } from '../types';
 
 import deepCopy from '../utils/deepCopy';
 
-type FilterCategory = Category | '전체';
+type FilterCategory = RestaurantCategory | '전체';
 
 export default class Restaurants {
   #restaurants: IRestaurant[];

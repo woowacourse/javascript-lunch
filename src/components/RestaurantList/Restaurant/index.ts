@@ -1,7 +1,7 @@
-import { Category, IRestaurant } from '../../../types';
+import { RestaurantCategory, IRestaurant } from '../../../types';
 
 type ImgFileName = {
-  [key in Category]: string;
+  [key in RestaurantCategory]: string;
 };
 const imgFileName: ImgFileName = {
   한식: 'category-korean',
