@@ -2,6 +2,7 @@ import { Category, SortBy, Restaurant } from '../../type';
 import Component from '../Component';
 import RestaurantFilterContainer from './restaurant/RestaurantFilterContainer';
 import RestaurantList from './restaurant/RestaurantList';
+import store from '../../domain/restaurantsStorage';
 import { DEFAULT_CATEGORY } from '../../utils/constants';
 
 interface MainProps {}
@@ -14,6 +15,7 @@ interface MainState {
 
 class Main extends Component<MainProps, MainState> {
   constructor($parent: HTMLElement, props: MainProps) {
+    const restaurants = store.getRestaurants();
     super({
       $parent,
       props,
@@ -21,12 +23,8 @@ class Main extends Component<MainProps, MainState> {
       initialState: {
         currentCategory: DEFAULT_CATEGORY,
         currentSortBy: 'name',
-        restaurants: [],
+        restaurants,
       },
-    });
-    this.setState({
-      ...this.state,
-      restaurants: this.getRestaurants(),
     });
   }
 
@@ -41,10 +39,6 @@ class Main extends Component<MainProps, MainState> {
     });
 
     new RestaurantList(this.$wrapper, { currentCategory, currentSortBy, restaurants });
-  }
-
-  getRestaurants() {
-    return JSON.parse(localStorage.getItem('restaurants') ?? '[]');
   }
 
   onChangeCategory(e: Event) {

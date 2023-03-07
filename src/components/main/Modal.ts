@@ -1,6 +1,7 @@
 import { Restaurant } from '../../type';
 import Component from '../Component';
 import { CATEGORIES, DEFAULT_CATEGORY, DEFAULT_DISTANCE } from '../../utils/constants';
+import store from '../../domain/restaurantsStorage';
 
 interface ModalProps {
   toggleModal: () => void;
@@ -93,31 +94,25 @@ class Modal extends Component<ModalProps, ModalState> {
 
   addEvent() {
     this.$('#modal-cancel')?.addEventListener('click', this.props.toggleModal);
-    this.$('modal-form')?.addEventListener('click', this.submitForm.bind(this));
+    this.$('#modal-form')?.addEventListener('submit', this.submitForm.bind(this));
   }
 
   submitForm(e: Event) {
     e.preventDefault();
-    const restaurants = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
-    restaurants.push(this.getFormValues());
-    localStorage.setItem('restaurants', JSON.stringify(restaurants));
+    if (e.target instanceof HTMLFormElement) {
+      const { $category, $name, $distance, $description, $link } = e.target;
+      const restaurant: Restaurant = {
+        category: $category.options[$category.selectedIndex].value,
+        name: $name.value,
+        distance: $distance.options[$distance.selectedIndex].value,
+        description: $description.value ?? '',
+        link: $link.value ?? '',
+      };
+
+      store.setRestaurants([...store.getRestaurants(), restaurant]);
+    }
+
     this.props.toggleModal();
-  }
-
-  getFormValues() {
-    const $category = document.getElementById('category') as HTMLSelectElement;
-    const $name = document.getElementById('name') as HTMLInputElement;
-    const $distance = document.getElementById('distance') as HTMLSelectElement;
-    const $description = document.getElementById('description') as HTMLTextAreaElement;
-    const $link = document.getElementById('link') as HTMLInputElement;
-
-    return {
-      category: $category.options[$category.selectedIndex].value,
-      name: $name.value,
-      distance: $distance.options[$distance.selectedIndex].value,
-      description: $description.value ?? '',
-      link: $link.value ?? '',
-    };
   }
 }
 
