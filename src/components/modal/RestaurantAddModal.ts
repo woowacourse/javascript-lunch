@@ -1,4 +1,4 @@
-import restaurantState from "../../states/restaurant";
+import restaurantState from "../../states/restaurants";
 import { Category, Distance, Restaurant } from "../../types/restaurant";
 import CustomSelect from "../RestaurantOptionSelect";
 import ModalContent from "./ModalContent";
@@ -77,14 +77,11 @@ class RestaurantAddModal extends ModalContent {
     event.preventDefault();
 
     const newRestaurant = this.createRestaurant();
-    restaurantState.update(newRestaurant);
+    restaurantState.add(newRestaurant);
 
     const $restaurantCardList =
       document.querySelector<RestaurantCardList>(".restaurant-list");
-    $restaurantCardList?.setAttribute(
-      "data-length",
-      restaurantState.getState().length.toString()
-    );
+    $restaurantCardList?.setAttribute("data-length", restaurantState.length());
   }
 
   onClickCancelButton() {

@@ -1,10 +1,23 @@
+import { LUNCH_STORAGE_ID } from "./constants/storageId";
+import restaurantState from "./states/restaurants";
+
 class App {
   constructor() {
     this.render();
+    this.bindEvent();
   }
 
   render() {
     document.body.insertAdjacentHTML("afterbegin", this.mainPage());
+  }
+
+  bindEvent() {
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem(
+        LUNCH_STORAGE_ID,
+        JSON.stringify(restaurantState.getList())
+      );
+    });
   }
 
   mainPage() {

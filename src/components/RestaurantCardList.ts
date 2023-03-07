@@ -1,5 +1,6 @@
-import restaurantState from "../states/restaurant";
+import restaurantState from "../states/restaurants";
 import { CategoryOption, SortOption } from "../types/option";
+import { Restaurant } from "../types/restaurant";
 import RestaurantCard from "./RestaurantCard";
 
 type CardListAttribute = CategoryOption | SortOption | string | null;
@@ -28,15 +29,13 @@ class RestaurantCardList extends HTMLUListElement {
   setListOptionAttributes() {
     this.setAttribute("category-filter", this.#category);
     this.setAttribute("sorting-filter", this.#sorting);
-    this.setAttribute(
-      "data-length",
-      restaurantState.getState().length.toString()
-    );
+    this.setAttribute("data-length", restaurantState.length());
   }
 
   render() {
-    this.innerHTML = `${restaurantState
-      .getState()
+    const restaurants = this.getListByOption(restaurantState.getList());
+
+    this.innerHTML = `${restaurants
       .map(
         (restaurant) =>
           `<li is="restaurant-card" class="restaurant" data-restaurant-name=${restaurant.name}></li>`
@@ -45,7 +44,7 @@ class RestaurantCardList extends HTMLUListElement {
 
     this.childNodes.forEach((restaurantCard, key) => {
       if (restaurantCard instanceof RestaurantCard)
-        restaurantCard.render(restaurantState.getState()[key]);
+        restaurantCard.render(restaurants[key]);
     });
   }
 
@@ -65,7 +64,6 @@ class RestaurantCardList extends HTMLUListElement {
       this.#sorting = newValue;
     }
 
-    restaurantState.setState(this.#category, this.#sorting);
     this.render();
   }
 
@@ -81,6 +79,27 @@ class RestaurantCardList extends HTMLUListElement {
     newValue: CardListAttribute
   ): newValue is SortOption {
     return attName === "sorting-filter";
+  }
+
+  getListByOption(restaurants: Restaurant[]) {
+    const filteredList = this.filterByCategory(restaurants);
+    const sortedList = this.sortBySortOption(filteredList);
+
+    return sortedList;
+  }
+
+  sortBySortOption(restaurants: Restaurant[]) {
+    return [...restaurants].sort((first, second) =>
+      first[this.#sorting] > second[this.#sorting] ? 1 : -1
+    );
+  }
+
+  filterByCategory(restaurants: Restaurant[]) {
+    if (this.#category === "전체") return restaurants;
+
+    return restaurants.filter(
+      (restaurant) => restaurant.category === this.#category
+    );
   }
 }
 
