@@ -1,5 +1,5 @@
 import { RestaurantType } from '../type';
-import { $ } from '../util/selector';
+import { $ } from '../utils/selector';
 import '../assets/category-asian.png';
 import '../assets/category-chinese.png';
 import '../assets/category-etc.png';

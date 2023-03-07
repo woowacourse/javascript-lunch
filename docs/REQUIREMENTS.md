@@ -50,7 +50,7 @@
 - [ ] `validator/index.ts` 에서 `validateName` 이름을 수정하거나 인자의 네이밍을 수정하기
 - [ ] 맵같은 iterable한 메서드들의 인자는 컴파일러가 타입 추론하게 수정하기
 - [ ] template literal 포맷 맞추기
-- [ ] constant/index.ts 타입스크립트스럽게 수정하기
+- [ ] constants/index.ts 타입스크립트스럽게 수정하기
 - [ ] as 말고 ! assertion 사용해보기
 
 ## TEST

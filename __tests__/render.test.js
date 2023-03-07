@@ -5,12 +5,12 @@
 import { screen, fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 
-import { $inBody } from '../src/util/selector';
+import { $inBody } from '../src/utils/selector';
 import Header from '../src/components/header.js';
 import CategoryFilter from '../src/components/categoryFilter.js';
 import SortingFilter from '../src/components/sortingFilter.js';
 import RestaurantList from '../src/components/restaurantList.js';
-import { initialRestaurantData } from '../src/constant/initialRestaurants';
+import { initialRestaurantData } from '../src/constants/initialRestaurants';
 import Modal from '../src/components/modal.js';
 
 describe('렌더링 테스트', () => {

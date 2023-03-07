@@ -2,8 +2,8 @@ import {
   ERROR_MESSAGE,
   NAME_LENGTH,
   REGEX_SPECIAL_CHARACTERS,
-} from '../constant';
-import { getAllDataOnLocalStorage } from '../util/localStorage';
+} from '../constants';
+import { getAllDataOnLocalStorage } from '../utils/localStorage';
 
 const { NO_SPECIAL_CHARACTERS, NAME_LENGTH_LIMIT, DUPLICATE_NAME } =
   ERROR_MESSAGE;

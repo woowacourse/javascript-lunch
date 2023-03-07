@@ -1,5 +1,5 @@
-import { $ } from '../util/selector';
-import { SELECTOR } from '../constant/selector';
+import { $ } from '../utils/selector';
+import { SELECTOR } from '../constants/selector';
 
 export const handleModalCancelButtonClick = () => {
   $(SELECTOR.MODAL)?.classList.remove('modal--open');

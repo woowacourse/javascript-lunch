@@ -6,9 +6,9 @@ import '../assets/category-asian.png';
 import '../assets/category-etc.png';
 import '../assets/favorite-icon-filled.png';
 import '../assets/favorite-icon-lined.png';
-import { initialRestaurantData } from '../constant/initialRestaurants';
-import { CATEGORY_IMAGE } from '../constant/imageConstant.js';
-import { $inBody } from '../util/selector';
+import { initialRestaurantData } from '../constants/initialRestaurants';
+import { CATEGORY_IMAGE } from '../constants/imageConstant.js';
+import { $inBody } from '../utils/selector';
 
 class RestaurantList {
   infos = [];

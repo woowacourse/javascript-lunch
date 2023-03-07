@@ -1,4 +1,4 @@
-import { $inBody } from '../util/selector';
+import { $inBody } from '../utils/selector';
 
 class Modal {
   render() {

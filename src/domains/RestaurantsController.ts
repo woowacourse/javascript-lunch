@@ -1,17 +1,17 @@
 import { CustomError, RestaurantType } from '../type';
-import { getFormData } from '../util/form';
+import { getFormData } from '../utils/form';
 import { validateName } from '../validator';
-import { initialRestaurantData } from '../constant/initialRestaurants';
+import { initialRestaurantData } from '../constants/initialRestaurants';
 import {
   getAllDataOnLocalStorage,
   saveOnLocalStorage,
-} from '../util/localStorage';
+} from '../utils/localStorage';
 // import {
 //   renderNewRestaurant,
 //   renderRestaurantList,
 // } from '../ui/restaurantListRenderer';
 import { filterCategory, sortByDistance, sortByName } from './filter';
-import { SELECTED_OPTION } from '../constant';
+import { SELECTED_OPTION } from '../constants';
 
 export default class RestaurantsController {
   private static instance: RestaurantsController;

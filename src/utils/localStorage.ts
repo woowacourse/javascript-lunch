@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from '../constant';
+import { LOCAL_STORAGE_KEY } from '../constants';
 import { RestaurantType } from '../type';
 
 export const saveOnLocalStorage = (restaurant: RestaurantType) => {

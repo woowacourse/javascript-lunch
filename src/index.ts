@@ -4,7 +4,7 @@ import CategoryFilter from './components/categoryFilter.js';
 import SortingFilter from './components/sortingFilter.js';
 import RestaurantList from './components/restaurantList.js';
 import Modal from './components/modal.js';
-import RestaurantsController from './domain/RestaurantsController';
+import RestaurantsController from './domains/RestaurantsController';
 import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
@@ -13,7 +13,7 @@ import {
   executeChangeEventListener,
   executeClickEventListener,
   executeSubmitEventListener,
-} from './util/eventListener';
+} from './utils/eventListener';
 
 const App = {
   restaurantsController: RestaurantsController.getInstance(),
