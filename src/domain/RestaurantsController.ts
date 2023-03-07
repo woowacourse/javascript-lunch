@@ -2,17 +2,13 @@ import { RestaurantType } from "../type";
 import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
-import {
-  getAllRestaurantsInLocalStorage,
-  saveRestaurantsInLocalStorage,
-  saveSelectedCategory,
-} from "./localStorageController";
+import { saveRestaurantsInLocalStorage } from "./localStorageController";
 import { renderRestaurantList } from "../ui/restaurantListRenderer";
-import { filterCategory, sortByDistance, sortByName } from "./filter";
-import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "../constant";
+import { updateRestaurantList } from "./filter";
 import { handleModalCancelButtonClick } from "../ui/modal";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
-const { NAME, DISTANCE } = SELECTED_OPTION;
+import { LOCAL_STORAGE_KEY } from "../constant";
+const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
 export default class RestaurantsController {
   private static instance: RestaurantsController;
@@ -22,15 +18,7 @@ export default class RestaurantsController {
     if (!RestaurantsController.instance) {
       RestaurantsController.instance = this;
     }
-    this.initRestaurantsInfos();
-  }
-
-  private initRestaurantsInfos() {
-    findLocalStorageKeys(LOCAL_STORAGE_KEY).length
-      ? this.updateRestaurantList(getAllRestaurantsInLocalStorage())
-      : this.updateRestaurantList(initialRestaurantData);
-
-    this.saveRestaurantList();
+    this.initRestaurantsInfo();
   }
 
   public static getInstance() {
@@ -39,6 +27,25 @@ export default class RestaurantsController {
     }
 
     return RestaurantsController.instance;
+  }
+
+  private initRestaurantsInfo() {
+    if (findLocalStorageKeys(RESTAURANT).length) {
+      updateRestaurantList();
+    } else {
+      this.restaurantList = initialRestaurantData;
+      renderRestaurantList(initialRestaurantData);
+    }
+
+    this.saveRestaurantList();
+  }
+
+  saveRestaurantList() {
+    if (!localStorage.length) {
+      this.restaurantList.forEach((restaurant: RestaurantType) =>
+        saveRestaurantsInLocalStorage(restaurant)
+      );
+    }
   }
 
   addNewRestaurant(event: Event) {
@@ -56,29 +63,7 @@ export default class RestaurantsController {
 
     handleModalCancelButtonClick(".modal");
     saveRestaurantsInLocalStorage(restaurantInfo);
-    filterCategory(localStorage.getItem("category") as string);
-  }
 
-  saveRestaurantList() {
-    if (!localStorage.length) {
-      this.restaurantList.forEach((restaurant: RestaurantType) =>
-        saveRestaurantsInLocalStorage(restaurant)
-      );
-    }
-  }
-
-  sortRestaurantList(selectedSort: string) {
-    if (selectedSort === NAME) {
-      this.updateRestaurantList(sortByName(this.restaurantList));
-    }
-
-    if (selectedSort === DISTANCE) {
-      this.updateRestaurantList(sortByDistance(this.restaurantList));
-    }
-  }
-
-  updateRestaurantList(restaurantList: RestaurantType[]) {
-    this.restaurantList = restaurantList;
-    renderRestaurantList(this.restaurantList);
+    updateRestaurantList();
   }
 }

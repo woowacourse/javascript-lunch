@@ -9,7 +9,8 @@ import "./assets/category-western.png";
 import "./assets/favorite-icon-filled.png";
 import "./assets/favorite-icon-lined.png";
 
-import { filterCategory } from "./domain/filter";
+import { updateRestaurantList } from "./domain/filter";
+import { saveSelectedOption } from "./domain/localStorageController";
 import RestaurantsController from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
@@ -20,20 +21,29 @@ import {
   executeClickEventListener,
   executeSubmitEventListener,
 } from "./util/eventListener";
+import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
+const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
+const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 
 const App = {
   restaurantsController: RestaurantsController.getInstance(),
 
   init() {
     this.initEventListeners();
+    this.initLocalStorage();
   },
 
   initEventListeners() {
     this.controlNewRestaurantModal();
     this.controlFilter();
+  },
 
-    const selectedCategory = localStorage.getItem("category") as string | null;
-    filterCategory(selectedCategory ?? "전체");
+  initLocalStorage() {
+    const selectedCategory = localStorage.getItem(CATEGORY) as string | null;
+    saveSelectedOption(CATEGORY, selectedCategory ?? All_CATEGORIES);
+
+    const selectedSort = localStorage.getItem(SORT) as string | null;
+    saveSelectedOption(SORT, selectedSort ?? NAME);
   },
 
   controlNewRestaurantModal() {
@@ -56,13 +66,15 @@ const App = {
 
   controlFilter() {
     executeChangeEventListener("#sorting-filter", (selectedSort: string) => {
-      this.restaurantsController.sortRestaurantList(selectedSort);
+      saveSelectedOption(SORT, selectedSort);
+      updateRestaurantList();
     });
 
     executeChangeEventListener(
       "#category-filter",
       (selectedCategory: string) => {
-        filterCategory(selectedCategory);
+        saveSelectedOption(CATEGORY, selectedCategory);
+        updateRestaurantList();
       }
     );
   },

@@ -15,6 +15,10 @@ export const SELECTED_OPTION = {
   All_CATEGORIES: "전체",
 };
 
-export const LOCAL_STORAGE_KEY = "restaurant";
+export const LOCAL_STORAGE_KEY = {
+  RESTAURANT: "restaurant",
+  CATEGORY: "category",
+  SORT: "sort-by",
+};
 
 export const REGEX_SPECIAL_CHARACTERS = /[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/;
