@@ -1,7 +1,7 @@
 import type { Component } from '../../interface';
 import type { Category, SortBy, Restaurant } from '../../type';
 import RestaurantList from '../../components/RestaurantList';
-import RestaurantListHeader from '../../components/RestaurantListHeader';
+import RestaurantFilterContainer from './RestaurantFilterContainer';
 import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../../utils/constants';
 import GNB from '../../components/GNB';
 
@@ -47,7 +47,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       toggleAddRestaurantDrawer: this.state.toggleAddRestaurantDrawer,
     }).render();
 
-    new RestaurantListHeader({
+    new RestaurantFilterContainer({
       $parent: this.$parent,
       category: this.state.category,
       sortBy: this.state.sortBy,

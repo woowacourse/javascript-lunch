@@ -1,15 +1,15 @@
-import type { Component } from '../interface';
-import type { Category, SortBy } from '../type';
-import { CATEGORIES } from '../utils/constants';
+import type { Component } from '../../interface';
+import type { Category, SortBy } from '../../type';
+import { CATEGORIES } from '../../utils/constants';
 
-type RestaurantListHeaderState = {
+type RestaurantFilterContainerState = {
   category: Category;
   sortBy: SortBy;
   onChangeCategory: (e: Event) => void;
   onChangeSortBy: (e: Event) => void;
 };
 
-type RestaurantListHeaderProps = {
+type RestaurantFilterContainerProps = {
   $parent: HTMLElement;
   category: Category;
   sortBy: SortBy;
@@ -17,9 +17,9 @@ type RestaurantListHeaderProps = {
   onChangeSortBy: (e: Event) => void;
 };
 
-class RestaurantListHeader implements Component<RestaurantListHeaderState> {
+class RestaurantFilterContainer implements Component<RestaurantFilterContainerState> {
   $parent: HTMLElement;
-  state: RestaurantListHeaderState;
+  state: RestaurantFilterContainerState;
 
   constructor({
     $parent,
@@ -27,7 +27,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     sortBy,
     onChangeCategory,
     onChangeSortBy,
-  }: RestaurantListHeaderProps) {
+  }: RestaurantFilterContainerProps) {
     this.$parent = document.createElement('div');
     this.state = {
       category,
@@ -39,7 +39,7 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
     $parent.append(this.$parent);
   }
 
-  setState(newState: RestaurantListHeaderState) {
+  setState(newState: RestaurantFilterContainerState) {
     this.state = newState;
     this.render();
   }
@@ -73,4 +73,4 @@ class RestaurantListHeader implements Component<RestaurantListHeaderState> {
   }
 }
 
-export default RestaurantListHeader;
+export default RestaurantFilterContainer;
