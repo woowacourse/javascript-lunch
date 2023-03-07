@@ -2,7 +2,7 @@ import Validator from "../tools/Validator";
 import IRestaurant from "../type/IRestaurant";
 import { TCategory } from "../type/TCategory";
 import { closeBottomSheet } from "../components/BottomSheet/handleBottomSheet";
-import { addNewRestaurant } from "../components/AddRestaurant/handleAddRestaurant";
+import { addRestaurant } from "../components/RestaurantList/handleRestaurantList";
 
 export const createNewRestaurant = (event: SubmitEvent) => {
   const formData = new FormData(event.target as HTMLFormElement);
@@ -19,7 +19,7 @@ export const createNewRestaurant = (event: SubmitEvent) => {
 export const tryAddNewRestaurant = (newRestaurant: IRestaurant) => {
   try {
     Validator.checkRestaurant(newRestaurant);
-    addNewRestaurant(newRestaurant);
+    addRestaurant(newRestaurant);
     closeBottomSheet();
   } catch (error) {
     if (error instanceof Error) {

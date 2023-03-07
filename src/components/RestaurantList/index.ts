@@ -56,11 +56,6 @@ class RestaurantList extends HTMLElement {
       .join("");
   }
 
-  addRestaurant(newRestaurant: IRestaurant) {
-    this.listState.restaurants = [...this.listState.restaurants, newRestaurant];
-    Storage.saveRestaurants(this.listState.restaurants);
-  }
-
   filterBy(key: TCategory) {
     this.listState.filter = key;
   }
