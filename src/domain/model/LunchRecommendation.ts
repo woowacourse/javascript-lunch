@@ -1,7 +1,8 @@
-import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
-import { errorHandler } from '../../utils/common/errorHandler';
 import { addData } from '../../utils/common/localStorage';
-import { validator } from '../../validation/validator';
+
+import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
+import errorHandler from '../../utils/common/errorHandler';
+import validator from '../../validation/validator';
 
 export interface FilterType {
   sortOption: SortOption;

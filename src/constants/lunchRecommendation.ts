@@ -26,7 +26,7 @@ export const ERROR_MESSAGE = Object.freeze({
 export const REGEX = Object.freeze({
   BLANK: /\s/,
   NAME: /^[a-zA-Z가-힣0-9]*$/,
-  URL: /(((http(s)?:\/\/)\S+(\.[^(\n|\t|\s,)]+)+)|((http(s)?:\/\/)?(([a-zA-z\-_]+[0-9]*)|([0-9]*[a-zA-z\-_]+)){2,}(\.[^(\n|\t|\s,)]+)+))+/gi,
+  URL: /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/,
 });
 
 export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
