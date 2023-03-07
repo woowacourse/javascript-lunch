@@ -16,18 +16,23 @@ class HeaderComponent extends CustomElement {
         margin: 0;
         box-sizing: border-box;
       }
+
+      :host {
+        position: fixed;
+        width: 100vw;
+        height: 64px;
+        top: 0;
+        z-index: 10;
+      }
+
       .gnb {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        height: 64px;
-      
+        align-items: center; 
         padding: 0 16px;
-      
         background-color: var(--primary-color);
-        position: fixed;
+        height: 100%;
         width: 100%;
-        top: 0;
       }
       
       .gnb__title {

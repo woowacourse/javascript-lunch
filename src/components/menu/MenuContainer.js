@@ -11,18 +11,22 @@ class MenuContainer extends CustomElement {
                     margin: 0;
                     box-sizing: border-box;
                 }
+                :host {
+                    width: 100vw;
+                    height: 72px;
+                    position: fixed;
+                    top: 64px;
+                    z-index: 1;
+                }
                 .restaurant-menu-container {
                     width: 100%;
-                    height: 42px;
+                    height: 100%;
                     padding: 0 16px;
                     display: flex;
                     flex-direction: row;
-                    align-items: center;
+                    align-items: flex-end;
                     justify-content: center;
-                    position: fixed;
-                    top: 95px;
                     background: #fff;
-                    z-index: 1;
                 }
             </style>
             <section class="restaurant-menu-container">

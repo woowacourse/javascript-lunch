@@ -24,5 +24,6 @@ body {
 /* 음식점 목록 *****************************************/
 
 main {
-  margin-top: 244px;
+  margin-top: 220px;
+  overflow: hidden;
 }

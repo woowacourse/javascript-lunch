@@ -6,16 +6,11 @@ class MenuComponent extends CustomElement {
   borderColor = "var(--grey-200)";
 
   rerender() {
-    const style = document.createElement("style");
+    const style = this.shadowRoot.querySelector("style");
     style.innerHTML = `
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
         :host {
             width: 50%;
-            height: 100%;
+            height: 33px;
             border-bottom: 2px solid ${this.borderColor};
             display: flex;
             align-items: center;
@@ -32,11 +27,17 @@ class MenuComponent extends CustomElement {
             color: ${this.textColor};
         }
     `;
-    this.shadowRoot.appendChild(style);
   }
 
   template() {
     return `
+            <style>
+                * {
+                    padding: 0;
+                    margin: 0;
+                    box-sizing: border-box;
+                }
+            </style>
             <div id="menu-box">
                 <h3>${this.menuTitle}</h3>
             </div>

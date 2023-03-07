@@ -34,6 +34,10 @@ class RestaurantListComponent extends CustomElement {
         margin: 0;
         box-sizing: border-box;
       }
+      :host {
+        width: 50%;
+        height: 100%;
+      }
       .restaurant-list-container {
         display: flex;
         flex-direction: column;
