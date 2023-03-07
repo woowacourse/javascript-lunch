@@ -72,7 +72,7 @@ class App {
     this.$restaurantFilterSelect.setOptions([
       { value: null, label: '전체' },
       ...Restaurant.CATEGORIES.map((category) => ({
-        value: filterBy((restaurant) => restaurant.getCategory(), category),
+        value: filterBy((restaurant) => restaurant.getCategory() === category),
         label: category,
       })),
     ]);
