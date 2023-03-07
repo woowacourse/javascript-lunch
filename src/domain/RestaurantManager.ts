@@ -55,6 +55,8 @@ class RestaurantManager extends Observable {
   }
 
   filterRestaurantList(category: Category) {
+    if (category === '전체') return this.notify();
+
     this.filteredRestaurantLitst = this.restaurantList.filter((data) => data.category === category);
 
     this.notify();
