@@ -38,7 +38,7 @@ class LunchRecommendation {
         const restaurantsString = JSON.stringify(restaurants);
         window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
         $('add-restaurant-modal').resetForm();
-        $('add-restaurant-modal').modalOpen(false);
+        $('add-restaurant-modal').closeModal();
         this.drawRestaurants();
       }
     );

@@ -118,7 +118,6 @@ class AddRestaurantModal extends HTMLElement {
                 id="addRestraunt"
                 color="orange"
               ></lunch-button>
-            </div>
           </form>
         </div>
       </div>
@@ -129,25 +128,27 @@ class AddRestaurantModal extends HTMLElement {
     this.closeModalEvent();
   }
 
+  closeModal() {
+    $('add-restaurant-modal').modalOpen(false);
+    $('body').classList.remove('scroll-hidden');
+  }
+
   closeModalEvent() {
     this.shadowRoot
       .querySelector('#cancleModal')
       .addEventListener('click', () => {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
+        this.closeModal();
       });
 
     this.shadowRoot
       .querySelector('#modalBackdrop')
       .addEventListener('click', () => {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
+        this.closeModal();
       });
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
+        this.closeModal();
       }
     });
   }

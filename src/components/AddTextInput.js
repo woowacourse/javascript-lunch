@@ -117,7 +117,7 @@ class AddTextInput extends HTMLElement {
       return `<div class="container required">
               <label for="${id} text-caption">${name}</label>
               <input type="text" name="${id}" id="${id}" required>
-            /div>`;
+            </div>`;
     }
 
     if (id === 'description') {
