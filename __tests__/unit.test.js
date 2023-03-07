@@ -3,7 +3,7 @@
  */
 
 import '@testing-library/jest-dom';
-import RestaurantList from '../src/components/RestaurantList';
+import RestaurantList from '../src/pages/RestaurantListPage/RestaurantList';
 
 describe('RestaurantList 기능 테스트', () => {
   test('이름 순 정렬 기능 테스트', () => {

@@ -5,8 +5,8 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import RestaurantListItem from '../src/components/RestaurantListItem';
-import RestaurantList from '../src/components/RestaurantList';
-import RestaurantListHeader from '../src/components/RestaurantListHeader';
+import RestaurantList from '../src/pages/RestaurantListPage/RestaurantList';
+import RestaurantFilterContainer from '../src/pages/RestaurantListPage/RestaurantFilterContainer';
 import GNB from '../src/components/GNB';
 import AddRestaurantDrawer from '../src/pages/AddRestaurantDrawer';
 
@@ -65,7 +65,7 @@ describe('컴포넌트 랜더링 테스트', () => {
     test('선택된 카테고리를 화면에 잘 나타내는지 테스트', () => {
       const category = '한식';
       const sortBy = 'distance';
-      new RestaurantListHeader({ $parent: document.body, category, sortBy }).render();
+      new RestaurantFilterContainer({ $parent: document.body, category, sortBy }).render();
       expect(document.querySelector(`option[value="${category}"]`)).toHaveAttribute('selected');
       expect(document.querySelector(`option[value="${sortBy}"]`)).toHaveAttribute('selected');
     });
