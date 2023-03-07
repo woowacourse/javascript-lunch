@@ -12,7 +12,7 @@ const AddButton = {
   setEvent(RestaurantListItem: RestaurantListItem) {
     const cancelButton = document.querySelector('.button--secondary');
     const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLDivElement;
-    const addForm = document.querySelector('#addForm');
+    const addForm = document.querySelector('#addForm') as HTMLFormElement;
 
     cancelButton?.addEventListener('click', (e) => {
       e.preventDefault();
@@ -28,7 +28,7 @@ const AddButton = {
         })
       ) as unknown as IRestaurant;
       restaurantListContainer.innerHTML = RestaurantList.template(RestaurantListItem.add(newRestaurant));
-
+      addForm.reset();
       AddButton.closeModal();
     });
   },
