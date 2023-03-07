@@ -1,6 +1,6 @@
-import RComponent from './RComponent';
+import Component from './Component';
 
-class RRestaurant extends RComponent {
+class RestaurantListItem extends Component {
   renderTemplate(): string {
     return `
       <style>
@@ -81,6 +81,6 @@ class RRestaurant extends RComponent {
   }
 }
 
-customElements.define('r-restaurant', RRestaurant);
+customElements.define('r-restaurant-list-item', RestaurantListItem);
 
-export default RRestaurant;
+export default RestaurantListItem;

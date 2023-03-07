@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import RModal from './components/RModal';
-import RRestaurantList from './components/RRestaurantList';
-import RSelect from './components/RSelect';
+import Modal from './components/Modal';
+import RestaurantList from './components/RestaurantList';
+import Select from './components/Select';
 import Restaurant from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
 import { DEFAULT_RESTAURANTS } from './fixtures';
@@ -12,21 +12,21 @@ class App {
   #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> =
     {};
 
-  $restaurantList = document.querySelector<RRestaurantList>('#restaurant-list')!;
+  $restaurantList = document.querySelector<RestaurantList>('#restaurant-list')!;
 
-  $restaurantFilterSelect = document.querySelector<RSelect>('#restaurant-filter-select')!;
+  $restaurantFilterSelect = document.querySelector<Select>('#restaurant-filter-select')!;
 
-  $restaurantSortSelect = document.querySelector<RSelect>('#restaurant-sort-select')!;
+  $restaurantSortSelect = document.querySelector<Select>('#restaurant-sort-select')!;
 
   $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
 
   $modalForm = document.querySelector<HTMLFormElement>('#modal-form')!;
 
-  $modal = document.querySelector<RModal>('r-modal')!;
+  $modal = document.querySelector<Modal>('r-modal')!;
 
-  $restaurantModalCategory = document.querySelector<RSelect>('#restaurant-modal-category')!;
+  $restaurantModalCategory = document.querySelector<Select>('#restaurant-modal-category')!;
 
-  $restaurantModalDistance = document.querySelector<RSelect>('#restaurant-modal-distance')!;
+  $restaurantModalDistance = document.querySelector<Select>('#restaurant-modal-distance')!;
 
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
@@ -97,7 +97,7 @@ class App {
 
   initEventHandlers() {
     this.$restaurantFilterSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as RSelect;
+      const $rSelect = event?.target as Select;
       const value = $rSelect.getSelectedOption()?.value;
 
       if (value === '전체') {
@@ -112,7 +112,7 @@ class App {
     });
 
     this.$restaurantSortSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as RSelect;
+      const $rSelect = event?.target as Select;
 
       const sortFilter = (_restaurants: Restaurant[]) =>
         Restaurants.getSorted(

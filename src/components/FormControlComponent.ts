@@ -1,6 +1,6 @@
-import RComponent from './RComponent';
+import Component from './Component';
 
-abstract class RFormControl extends RComponent {
+abstract class FormControlComponent extends Component {
   protected internals = this.attachInternals();
 
   static get formAssociated() {
@@ -72,4 +72,4 @@ abstract class RFormControl extends RComponent {
   }
 }
 
-export default RFormControl;
+export default FormControlComponent;

@@ -1,7 +1,7 @@
-import RButton from './RButton';
-import RComponent from './RComponent';
+import Button from './Button';
+import Component from './Component';
 
-class RModal extends RComponent {
+class Modal extends Component {
   static get observedAttributes() {
     return ['open'];
   }
@@ -65,7 +65,7 @@ class RModal extends RComponent {
     super.render();
 
     this.shadowRoot?.querySelector<HTMLDivElement>('.modal')?.addEventListener('click', (event) => {
-      if (!(event.target instanceof RButton)) {
+      if (!(event.target instanceof Button)) {
         return;
       }
 
@@ -85,6 +85,6 @@ class RModal extends RComponent {
   }
 }
 
-customElements.define('r-modal', RModal);
+customElements.define('r-modal', Modal);
 
-export default RModal;
+export default Modal;

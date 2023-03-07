@@ -1,10 +1,10 @@
 import style from '../style/style';
 
-abstract class RComponent extends HTMLElement {
+abstract class Component extends HTMLElement {
   constructor() {
     super();
 
-    if ((this.constructor as typeof RComponent).useShadowDom()) {
+    if ((this.constructor as typeof Component).useShadowDom()) {
       this.attachShadow({ mode: 'open' });
       this.shadowRoot!.adoptedStyleSheets = [style];
     }
@@ -21,7 +21,7 @@ abstract class RComponent extends HTMLElement {
   abstract renderTemplate(): string;
 
   render() {
-    if ((this.constructor as typeof RComponent).useShadowDom()) {
+    if ((this.constructor as typeof Component).useShadowDom()) {
       this.shadowRoot!.innerHTML = this.renderTemplate();
       return;
     }
@@ -33,4 +33,4 @@ abstract class RComponent extends HTMLElement {
   }
 }
 
-export default RComponent;
+export default Component;

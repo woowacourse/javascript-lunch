@@ -1,6 +1,6 @@
-import RFormControl from './RFormControl';
+import FormControlComponent from './FormControlComponent';
 
-class RButton extends RFormControl {
+class Button extends FormControlComponent {
   constructor() {
     super();
 
@@ -51,6 +51,6 @@ class RButton extends RFormControl {
   }
 }
 
-customElements.define('r-button', RButton);
+customElements.define('r-button', Button);
 
-export default RButton;
+export default Button;

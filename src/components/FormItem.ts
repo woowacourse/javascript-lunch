@@ -1,6 +1,6 @@
-import RComponent from './RComponent';
+import Component from './Component';
 
-class RFormItem extends RComponent {
+class FormItem extends Component {
   static useShadowDom(): boolean {
     return false;
   }
@@ -41,6 +41,6 @@ class RFormItem extends RComponent {
   }
 }
 
-customElements.define('r-form-item', RFormItem);
+customElements.define('r-form-item', FormItem);
 
-export default RFormItem;
+export default FormItem;
