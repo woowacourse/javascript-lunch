@@ -11,13 +11,14 @@ class Select {
     this.options = options;
   }
 
-  addEvent(setSelectedValue: SetSelectedValue) {
+  addEvent(setSelectedValue: SetSelectedValue, rerenderList: () => void) {
     const selectEl = $(`#${this.attribute.id}`);
     selectEl?.addEventListener("change", (e) => {
       const selectedOption = (e.target as HTMLSelectElement).value as
         | Category
         | Sort;
       setSelectedValue(this.attribute.id, selectedOption);
+      rerenderList();
     });
   }
 

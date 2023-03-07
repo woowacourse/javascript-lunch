@@ -3,24 +3,11 @@ import AddModal from "@/component/main/AddModal";
 import RestaurantList from "@/component/main/RestaurantList";
 import SelectContainer from "@/component/main/SelectContainer";
 import RestaurantItem from "@/component/common/RestaurantItem";
-import { Constants, OptionValue } from "@/constant/Restaurant";
-import restaurantListHandler from "@/domain/restaurantListHandler";
-import { Category, Restaurant, Sort } from "@/type/type";
-import restaurantValidator from "./domain/restaurantValidator";
+import { Restaurant } from "@/type/type";
+import AppController from "./AppController";
 
 class App {
-  category: Category;
-  sort: Sort;
-  restaurantList: Restaurant[];
-
   constructor(body: Element) {
-    this.category = OptionValue.TOTAL as Category;
-    this.sort = OptionValue.NAME_ORDER as Sort;
-    this.restaurantList = restaurantListHandler.getRestaurants(
-      this.category,
-      this.sort
-    );
-
     this.renderComponents(body);
     this.addEvents();
     this.rerenderList();
@@ -35,46 +22,20 @@ class App {
 
   addEvents() {
     Header.addEvent();
-    SelectContainer.addEvent(this.setSelectedValue);
-    AddModal.addEvent(this.addNewRestaurant);
+    SelectContainer.addEvent(AppController.setSelectedValue, this.rerenderList);
+    AddModal.addEvent(AppController.addNewRestaurant, this.rerenderList);
   }
 
-  setSelectedValue = (sortId: string, selectedValue: Category | Sort) => {
-    if (sortId === Constants.CATEGORY_FILTER) {
-      this.category = selectedValue as Category;
-    }
-
-    if (sortId === Constants.SORTING_FILTER) {
-      this.sort = selectedValue as Sort;
-    }
-
-    this.setRestaurantList();
-    this.rerenderList();
-  };
-
-  setRestaurantList() {
-    this.restaurantList = restaurantListHandler.getRestaurants(
-      this.category,
-      this.sort
-    );
-  }
-
-  addNewRestaurant = (restaurant: Restaurant): void => {
-    restaurantValidator.validate(restaurant);
-    restaurantListHandler.addRestaurant(restaurant);
-    this.setRestaurantList();
-    this.rerenderList();
-  };
-
-  rerenderList() {
+  rerenderList = () => {
+    const newRestaurantList = AppController.getRestaurantList();
     RestaurantList.updateList(
-      this.restaurantList
+      newRestaurantList
         .map((restaurant: Restaurant) =>
           new RestaurantItem(restaurant).template()
         )
         .join("")
     );
-  }
+  };
 }
 
 export default App;

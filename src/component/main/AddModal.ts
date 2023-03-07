@@ -64,7 +64,10 @@ class AddModal {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(addNewRestaurant: (obj: Restaurant) => void) {
+  addEvent(
+    addNewRestaurant: (obj: Restaurant) => void,
+    rerenderList: () => void
+  ) {
     $(".modal--close")?.addEventListener("click", () => {
       this.closeModal();
     });
@@ -77,6 +80,7 @@ class AddModal {
 
       try {
         addNewRestaurant(restaurant);
+        rerenderList();
         this.closeModal();
       } catch (e) {
         const error = (e as string).toString();

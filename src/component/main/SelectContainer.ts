@@ -39,9 +39,9 @@ class SelectContainer {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(setSelectedValue: SetSelectedValue) {
-    this.categorySelect.addEvent(setSelectedValue);
-    this.sortingSelect.addEvent(setSelectedValue);
+  addEvent(setSelectedValue: SetSelectedValue, rerenderList: () => void) {
+    this.categorySelect.addEvent(setSelectedValue, rerenderList);
+    this.sortingSelect.addEvent(setSelectedValue, rerenderList);
   }
 }
 
