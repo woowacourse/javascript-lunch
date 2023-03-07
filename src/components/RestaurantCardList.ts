@@ -2,6 +2,8 @@ import restaurantState from "../states/restaurant";
 import { CategoryOption, SortOption } from "../types/option";
 import RestaurantCard from "./RestaurantCard";
 
+type CardListAttribute = CategoryOption | SortOption | string | null;
+
 class RestaurantCardList extends HTMLUListElement {
   #category: CategoryOption;
 
@@ -49,22 +51,36 @@ class RestaurantCardList extends HTMLUListElement {
 
   attributeChangedCallback(
     attName: string,
-    oldValue: string | null,
-    newValue: string | null
+    oldValue: CardListAttribute,
+    newValue: CardListAttribute
   ) {
     if (oldValue === null) return;
     if (oldValue === newValue) return;
 
-    if (attName === "category-filter") {
-      this.#category = newValue as any;
+    if (this.isCategoryFilterAttribute(attName, newValue)) {
+      this.#category = newValue;
     }
 
-    if (attName === "sorting-filter") {
-      this.#sorting = newValue as any;
+    if (this.isSortingFilterAttribute(attName, newValue)) {
+      this.#sorting = newValue;
     }
 
     restaurantState.setState(this.#category, this.#sorting);
     this.render();
+  }
+
+  isCategoryFilterAttribute(
+    attName: string,
+    newValue: CardListAttribute
+  ): newValue is CategoryOption {
+    return attName === "category-filter";
+  }
+
+  isSortingFilterAttribute(
+    attName: string,
+    newValue: CardListAttribute
+  ): newValue is SortOption {
+    return attName === "sorting-filter";
   }
 }
 
