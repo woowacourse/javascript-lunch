@@ -34,9 +34,9 @@ class RestaurantList {
 
   render() {
     const listSection = $(".restaurant-list-container") as HTMLElement;
-    const listContainer = document.createElement("div");
-    listContainer.innerHTML = this.create();
-    listSection.appendChild(listContainer);
+    const listWrapper = document.createElement("div");
+    listWrapper.innerHTML = this.create();
+    listSection.appendChild(listWrapper);
   }
 }
 
