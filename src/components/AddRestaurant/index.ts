@@ -1,3 +1,4 @@
+import { CATEGORY_NAME } from "../../constants/CATEGORY_NAME";
 import {
   onClickCancelButton,
   onSubmitRestaurantForm,
@@ -20,12 +21,11 @@ class AddRestaurant extends HTMLElement {
             <label for="category text-caption">카테고리</label>
             <select name="category" id="category" required>
               <option value="">선택해 주세요</option>
-              <option value="korean">한식</option>
-              <option value="chinese">중식</option>
-              <option value="japanese">일식</option>
-              <option value="western">양식</option>
-              <option value="asian">아시안</option>
-              <option value="etc">기타</option>
+              ${Object.entries(CATEGORY_NAME)
+                .map(
+                  (value) => `<option value="${value[0]}">${value[1]}</option>`
+                )
+                .join("")}
             </select>
           </div>
 

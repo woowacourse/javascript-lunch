@@ -1,5 +1,4 @@
 export const CATEGORY_NAME: { [key: string]: string } = {
-  all: "전체",
   korean: "한식",
   chinese: "중식",
   japanese: "일식",
