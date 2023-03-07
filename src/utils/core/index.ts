@@ -1,12 +1,12 @@
 import { debounce } from '../common/debounce';
-import { $, $$, isTarget } from '../../utils/common/domHelper';
+import { $, isTarget } from '../../utils/common/domHelper';
 import { UnPack } from '../../types/common';
 
 interface Event {
   parentSelector: string;
   targetSelector: string;
   event: keyof HTMLElementEventMap;
-  callback: (this: Element, e: HTMLElementEventMap[Event['event']]) => void;
+  callback: (e: HTMLElementEventMap[Event['event']]) => void;
 }
 interface Options<T = unknown> {
   currentStateKey: number;
@@ -82,8 +82,7 @@ function Core() {
       $(parentSelector)?.addEventListener(event, (e) => {
         const $parent = $(parentSelector);
 
-        if (isTarget(e.target, { targetSelector, parentSelector }) && $parent)
-          callback.call($parent, e);
+        if (isTarget(e.target, { targetSelector, parentSelector }) && $parent) callback(e);
       });
     });
   }
