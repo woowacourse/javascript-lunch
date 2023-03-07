@@ -27,6 +27,7 @@ class LunchApp {
   #onModalAddButtonClicked(restaurantData: Restaurant) {
     this.#restaurants.addRestaurant(restaurantData);
     this.#restaurants.saveRestaurantsToLocalStorage();
+    this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
 
     this.#lunchAppView.clearAllModalInputs();
     this.#lunchAppView.toggleRestaurantAddModal();
