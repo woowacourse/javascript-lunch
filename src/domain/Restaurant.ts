@@ -5,7 +5,7 @@ export interface IRestaurant {
   distance: DistanceTime;
   name: string;
   description?: string;
-  URLlink?: string;
+  link?: string;
 }
 
 export class Restaurant {

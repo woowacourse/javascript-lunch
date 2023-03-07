@@ -63,7 +63,7 @@ export default class RestaurantForm {
       name: name.value ?? '',
       distance: Number(distance.value) as DistanceTime,
       description: description.value ?? '',
-      URLlink: link.value ?? '',
+      link: link.value ?? '',
     };
   }
 

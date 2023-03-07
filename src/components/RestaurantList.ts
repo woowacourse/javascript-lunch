@@ -27,9 +27,11 @@ export default class RestaurantList {
   render = () => {
     this.$restaurantListSection.innerHTML = `
     <ul class="restaurant-list">
-      ${this.state.restaurantList.reduce((html, restaurant) => {
-        return html + RestaurantItemTemplate(restaurant.getRestaurantInfo());
-      }, '')}
+      ${this.state.restaurantList.reduce(
+        (html, restaurant) =>
+          html + RestaurantItemTemplate(restaurant.getRestaurantInfo()),
+        ''
+      )}
     </ul>
     `;
   };
@@ -46,6 +48,7 @@ function RestaurantItemTemplate({
   name,
   description,
 }: IRestaurant) {
+  /* HTML */
   return `
     <li class="restaurant">
       <div class="restaurant__category">
