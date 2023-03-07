@@ -16,7 +16,8 @@ class Textarea extends FormControlComponent {
           resize: none;
         }
       </style>
-      <textarea rows="4"></textarea>
+
+      <textarea rows="${this.getAttribute('rows') ?? 4}"></textarea>
     `;
   }
 
