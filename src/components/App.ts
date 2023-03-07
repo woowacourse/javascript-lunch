@@ -2,7 +2,7 @@ import Component from './Component';
 import Header from './main/Header';
 import Main from './main/Main';
 import Modal from './main/Modal';
-import makeState from '../utils/makeProxyObject';
+import makeProxyObject from '../utils/makeProxyObject';
 
 interface AppState {
   modalShow: boolean;
@@ -13,7 +13,7 @@ class App extends Component {
 
   constructor($parent: DocumentFragment) {
     super({ $parent, tagName: 'div', className: 'app' });
-    this.state = makeState({ modalShow: false }, this.render.bind(this));
+    this.state = makeProxyObject({ modalShow: false }, this.render.bind(this));
   }
 
   appendChild() {

@@ -2,8 +2,8 @@ import { Category, SortBy, Restaurant } from '../../type';
 import Component from '../Component';
 import RestaurantFilterContainer from './restaurant/RestaurantFilterContainer';
 import RestaurantList from './restaurant/RestaurantList';
-import store from '../../lib/restaurantsStorage';
-import makeState from '../../utils/makeProxyObject';
+import restaurantsStorage from '../../lib/restaurantsStorage';
+import makeProxyObject from '../../utils/makeProxyObject';
 import { DEFAULT_CATEGORY } from '../../utils/constants';
 
 interface MainState {
@@ -17,11 +17,11 @@ class Main extends Component {
 
   constructor($parent: HTMLElement) {
     super({ $parent, tagName: 'main', className: '' });
-    this.state = makeState(
+    this.state = makeProxyObject(
       {
         currentCategory: DEFAULT_CATEGORY,
         currentSortBy: 'name',
-        restaurants: store.getRestaurants(),
+        restaurants: restaurantsStorage.getRestaurants(),
       },
       this.render.bind(this)
     );

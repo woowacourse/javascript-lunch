@@ -1,6 +1,6 @@
 import { Restaurant } from '../../type';
 import Component from '../Component';
-import store from '../../lib/restaurantsStorage';
+import restaurantsStorage from '../../lib/restaurantsStorage';
 import { CATEGORIES } from '../../utils/constants';
 
 interface ModalProps {
@@ -92,7 +92,7 @@ class Modal extends Component {
         link: link.value ?? '',
       };
 
-      store.setRestaurants([...store.getRestaurants(), restaurant]);
+      restaurantsStorage.setRestaurants([...restaurantsStorage.getRestaurants(), restaurant]);
     }
 
     this.props.toggleModal();
