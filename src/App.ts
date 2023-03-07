@@ -1,17 +1,10 @@
-import AddButton from './components/AddButton';
-import CategoryInput from './components/CatgoryInput';
-import DescriptionInput from './components/DescriptionInput';
-import DistanceInput from './components/DistanceInput';
-import FilterButton from './components/FilterButton';
 import Header from './components/Header';
-import LinkInput from './components/LinkInput';
-import ModalButton from './components/ModalButton';
-import ModalHeader from './components/ModalHeader';
-import NameInput from './components/NameInput';
+import FilterButton from './components/FilterButton';
 import RestaurantList from './components/RestaurantList';
 import SortButton from './components/SortButton';
 import RestaurantListItem from './domain/RestaurantListItem';
 import RestaurantStorage from './domain/RestaurantStorage';
+import Modal from './components/Modal';
 
 class App {
   #app;
@@ -36,29 +29,18 @@ class App {
         </section>
 
         <div class="modal">
-          <div class="modal-backdrop"></div>
-          <div class="modal-container">
-            ${ModalHeader.template()}
-            <form id="addForm">
-              ${CategoryInput.template()}
-              ${NameInput.template()}
-              ${DistanceInput.template()}
-              ${DescriptionInput.template()}
-              ${LinkInput.template()}
-              ${AddButton.template()}
-            </form>
-          </div>
+          ${Modal.template()}
         </div>
-      </main>
-    `;
+      </main>`;
+
     this.#setEvent();
   }
 
   #setEvent() {
+    Header.setEvent();
     FilterButton.setEvent(this.#restaurantListItem);
-    ModalButton.setEvent();
     SortButton.setEvent(this.#restaurantListItem);
-    AddButton.setEvent(this.#restaurantListItem);
+    Modal.setEvent(this.#restaurantListItem);
   }
 }
 

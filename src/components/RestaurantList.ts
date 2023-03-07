@@ -3,9 +3,10 @@ import Restaurant from './Restaurant';
 
 const RestaurantList = {
   template(restaurantList: IRestaurant[]) {
-    return `<ul class='restaurant-list'>
-    ${restaurantList.map((restaurant) => Restaurant.template(restaurant)).join('')}
-    </ul>`;
+    return `
+      <ul class='restaurant-list'>
+        ${restaurantList.map((restaurant) => Restaurant.template(restaurant)).join('')}
+      </ul>`;
   },
 };
 

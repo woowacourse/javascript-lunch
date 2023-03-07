@@ -1,13 +1,14 @@
-import RestaurantListItem from '../domain/RestaurantListItem';
-import { IRestaurant } from '../domain/RestaurantListItem';
-import RestaurantList from './RestaurantList';
+import RestaurantListItem from '../../domain/RestaurantListItem';
+import { IRestaurant } from '../../domain/RestaurantListItem';
+import RestaurantList from '../RestaurantList';
 
 const AddButton = {
   template() {
-    return `<div class="button-container">
-    <button type="button" class="button button--secondary text-caption">취소하기</button>
-    <button class="button button--primary text-caption">추가하기</button>
-  </div>`;
+    return `
+      <div class="button-container">
+        <button type="button" class="button button--secondary text-caption">취소하기</button>
+        <button class="button button--primary text-caption">추가하기</button>
+      </div>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
     const cancelButton = document.querySelector('.button--secondary');
