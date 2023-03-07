@@ -65,10 +65,10 @@ class Modal {
 
 						<!-- 취소/추가 버튼 -->
 						<div class="button-container">
-							<button type="button" class="button button--secondary text-caption">
+							<button type="button" class="button button--secondary text-caption" aria-label="cancel">
 								취소하기
 							</button>
-							<button class="button button--primary text-caption">
+							<button class="button button--primary text-caption" aria-label="register">
 								추가하기
 							</button>
 						</div>

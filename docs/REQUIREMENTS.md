@@ -32,6 +32,7 @@
 - [x] select에 label 명시하기
 - [x] link input 타입 수정 및 placeholder 부여하기
 - [x] 이름에 제약사항 설명 추가하기
+- [x] 새로운 음식점 추가/삭제하기 버튼에 aria-label 부여하기
 
 ## 기능
 
