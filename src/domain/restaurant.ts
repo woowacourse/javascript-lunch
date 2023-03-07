@@ -27,3 +27,21 @@ export const tryAddNewRestaurant = (newRestaurant: IRestaurant) => {
     }
   }
 };
+
+export const filterRestaurants = (
+  restaurants: IRestaurant[],
+  filter: string
+) => {
+  return filter === "all"
+    ? restaurants
+    : restaurants.filter((restaurant) => restaurant.category === filter);
+};
+
+export const sortRestaurants = (restaurants: IRestaurant[], sort: string) => {
+  return restaurants.sort((a, b) => {
+    if (sort === "name" || sort === "distance") {
+      return a[sort] > b[sort] ? 1 : -1;
+    }
+    return 0;
+  });
+};

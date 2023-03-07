@@ -1,4 +1,5 @@
 import RestaurantList from ".";
+import { filterRestaurants, sortRestaurants } from "../../domain/restaurant";
 import Storage from "../../tools/Storage";
 import IRestaurant from "../../type/IRestaurant";
 
@@ -24,18 +25,11 @@ export const selectRestaurants = (): IRestaurant[] => {
   const restaurantList = document.getElementById("restaurantList");
   if (restaurantList instanceof RestaurantList) {
     const { filter, sort } = restaurantList.listState;
-    const restaurants =
-      filter === "all"
-        ? restaurantList.listState.restaurants
-        : restaurantList.listState.restaurants.filter(
-            (restaurant) => restaurant.category === filter
-          );
-    return restaurants.sort((a, b) => {
-      if (sort === "name" || sort === "distance") {
-        return a[sort] > b[sort] ? 1 : -1;
-      }
-      return 0;
-    });
+    const restaurants = filterRestaurants(
+      restaurantList.listState.restaurants,
+      filter
+    );
+    return sortRestaurants(restaurants, sort);
   }
   return [];
 };
