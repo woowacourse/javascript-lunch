@@ -2,6 +2,8 @@ import Controller from "../domain/Controller";
 import { inputValidator } from "../domain/inputValidator";
 import RestaurantType from "../type/Restaurant";
 import { closeBottomSheet } from "../utils";
+import CategorySelectBox from "./CategorySelectBox";
+import SortingSelectBox from "./SortingSelectBox";
 
 class AddRestaurant extends HTMLElement {
   private controller;
@@ -88,6 +90,8 @@ class AddRestaurant extends HTMLElement {
       event.preventDefault();
       const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
       this.controller.addRestaurant(newRestaurant);
+      this.controller.filterRestaurants(CategorySelectBox.getOption());
+      this.controller.sortRestaurants(SortingSelectBox.getOption());
       closeBottomSheet();
     });
   }

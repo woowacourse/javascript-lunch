@@ -5,4 +5,5 @@ export const inputValidator = {
     }
     return nameInput;
   },
+  validateLink: (linkInput: string) => {},
 };

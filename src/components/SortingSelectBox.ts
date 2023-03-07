@@ -1,3 +1,4 @@
+import { NO_ELEMENT } from "../constants";
 import Controller from "../domain/Controller";
 
 class SortingSelectBox extends HTMLElement {
@@ -25,14 +26,14 @@ class SortingSelectBox extends HTMLElement {
       return;
     }
     sortingFilter?.addEventListener("change", () => {
-      this.controller.sortRestaurants();
+      this.controller.sortRestaurants(sortingFilter.value);
     });
   }
 
-  static getOption(): string | undefined {
+  static getOption(): string {
     const sortingFilter = document.getElementById("sorting-filter");
     if (!(sortingFilter instanceof HTMLSelectElement)) {
-      return;
+      return NO_ELEMENT;
     }
     return sortingFilter.value;
   }

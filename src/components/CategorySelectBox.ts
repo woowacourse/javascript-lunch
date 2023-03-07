@@ -1,4 +1,6 @@
+import { NO_ELEMENT } from "../constants";
 import Controller from "../domain/Controller";
+import SortingSelectBox from "./SortingSelectBox";
 
 class CategorySelectBox extends HTMLElement {
   private controller;
@@ -30,14 +32,15 @@ class CategorySelectBox extends HTMLElement {
       return;
     }
     categoryFilter?.addEventListener("change", () => {
-      this.controller.filterRestaurants();
+      this.controller.filterRestaurants(categoryFilter.value);
+      this.controller.sortRestaurants(SortingSelectBox.getOption());
     });
   }
 
-  static getOption(): string | undefined {
+  static getOption(): string {
     const categoryFilter = document.getElementById("category-filter");
     if (!(categoryFilter instanceof HTMLSelectElement)) {
-      return;
+      return NO_ELEMENT;
     }
 
     return categoryFilter.value;

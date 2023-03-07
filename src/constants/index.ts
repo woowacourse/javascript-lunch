@@ -1,4 +1,5 @@
 const ALL_CATEGORY = "전체";
 const SORT_FAILED_NUMBER = 0;
+const NO_ELEMENT = "none";
 
-export { ALL_CATEGORY, SORT_FAILED_NUMBER };
+export { ALL_CATEGORY, SORT_FAILED_NUMBER, NO_ELEMENT };
