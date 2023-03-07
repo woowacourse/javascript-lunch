@@ -37,7 +37,7 @@
 ## 기능
 
 - [x] 모달 오픈/클로즈 이벤트 콜백 함수 재사용성 높이기
-- [ ] 새로운 음식점 등록 중 예외가 발생했을 때 모달을 닫지 않고, 인풋 값을 초기화하기
+- [x] 새로운 음식점 등록 중 예외가 발생했을 때 모달을 닫지 않고, 인풋 값을 초기화하기
 - [ ] `updateRestaurantList()` 는 `render` 로 분리하기
 - [ ] `updateRestaurantList()` 에서 local storage 저장 함께 하기
 - [ ] `getAllDataOnLocalStorage()` 안전하게 수정하기

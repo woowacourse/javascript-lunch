@@ -19,17 +19,8 @@ class RestaurantsController {
     if (!RestaurantsController.instance) {
       RestaurantsController.instance = this;
     }
-    this.initRestaurantsInfos();
-  }
 
-  private initRestaurantsInfos() {
-    if (window.localStorage.length) {
-      this.updateRestaurantList(getAllDataOnLocalStorage());
-    } else {
-      this.updateRestaurantList(initialRestaurantList);
-    }
-
-    this.saveRestaurantList();
+    this.updateRestaurantList(getAllDataOnLocalStorage());
   }
 
   public static getInstance() {
@@ -52,19 +43,14 @@ class RestaurantsController {
       validateName(restaurantInfo.name);
     } catch (error: unknown) {
       const customError = error as CustomError;
-      return alert(customError.message);
+      alert(customError.message);
+
+      return false;
     }
 
-    saveOnLocalStorage(restaurantInfo);
     this.updateRestaurantList([...this.restaurantList, restaurantInfo]);
-  }
 
-  saveRestaurantList() {
-    if (!window.localStorage.length) {
-      this.restaurantList.forEach((restaurant: RestaurantType) =>
-        saveOnLocalStorage(restaurant)
-      );
-    }
+    return true;
   }
 
   sortRestaurantList(value: string) {
@@ -84,6 +70,7 @@ class RestaurantsController {
   updateRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
     this.restaurantListComponent.render(this.restaurantList);
+    saveOnLocalStorage(this.restaurantList);
   }
 }
 

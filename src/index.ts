@@ -2,7 +2,6 @@ import '../css/style.css';
 import Header from './components/header.js';
 import CategoryFilter from './components/categoryFilter.js';
 import SortingFilter from './components/sortingFilter.js';
-import RestaurantList from './components/restaurantList.js';
 import Modal from './components/modal.js';
 import RestaurantsController from './domains/RestaurantsController';
 import {
@@ -14,6 +13,7 @@ import {
   executeClickEventListener,
   executeSubmitEventListener,
 } from './utils/eventListener';
+import { resetForm } from './ui/form';
 
 const App = {
   restaurantsController: RestaurantsController.getInstance(),
@@ -55,8 +55,11 @@ const App = {
     );
 
     executeSubmitEventListener('#new-restaurant-form', (event: Event) => {
-      this.restaurantsController.addNewRestaurant(event);
-      handleModalCancelButtonClick();
+      if (this.restaurantsController.addNewRestaurant(event)) {
+        handleModalCancelButtonClick();
+      }
+
+      resetForm('#new-restaurant-form', '.modal-container');
     });
   },
 

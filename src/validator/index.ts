@@ -2,10 +2,12 @@ import {
   checkRestaurantName,
   checkInputLength,
   checkDuplicate,
-} from './errorThrower';
+} from './errorChecker';
 
 export const validateName = (restaurantInfo: string) => {
   checkRestaurantName(restaurantInfo);
   checkInputLength(restaurantInfo);
   checkDuplicate(restaurantInfo);
+
+  return true;
 };
