@@ -16,7 +16,6 @@ export default class App extends Component {
     this.$state = this.getStateFromLocalStorage() || {
       filter: '전체',
       sort: 'name',
-      isModal: false,
       restaurants: [
         {
           name: '피양콩할마니',
@@ -155,8 +154,7 @@ export default class App extends Component {
 
   listenEvent() {
     this.$target.querySelector('.gnb__button')!.addEventListener('click', (event: Event) => {
-      const onCloseModal = this.onCloseModal.bind(this);
-      new Modal(this.$target, this.restuarants, this.$state, onCloseModal);
+      new Modal(this.$target, this.restuarants, this.$state);
     });
 
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
@@ -183,9 +181,5 @@ export default class App extends Component {
         return;
       }
     });
-  }
-
-  onCloseModal() {
-    this.setState({ isModal: !this.$state.isModal });
   }
 }

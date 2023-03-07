@@ -2,7 +2,7 @@ export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' |
 
 export type Distance = 5 | 10 | 15 | 20 | 30;
 
-export type State = { filter: string; isModal: boolean; sort: string; restaurants: RestaurantValues[] };
+export type State = { filter: string; sort: string; restaurants: RestaurantValues[] };
 
 export interface RestaurantValues {
   category: Category;

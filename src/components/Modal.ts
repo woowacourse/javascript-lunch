@@ -4,13 +4,11 @@ import Component from './Component';
 
 export default class Modal extends Component {
   restaurants: Restaurants;
-  onCloseModal;
 
-  constructor($target: HTMLElement, restaurants: Restaurants, state: State, onCloseModal: Function) {
+  constructor($target: HTMLElement, restaurants: Restaurants, state: State) {
     super($target);
     this.restaurants = restaurants;
     this.$state = state;
-    this.onCloseModal = onCloseModal;
   }
 
   template() {
@@ -113,7 +111,7 @@ export default class Modal extends Component {
 
       localStorage.setItem('state', JSON.stringify(this.$state));
 
-      this.closeModal();
+      window.location.reload();
     });
 
     this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
@@ -127,7 +125,5 @@ export default class Modal extends Component {
     if (elementToRemove) {
       elementToRemove.remove();
     }
-
-    this.onCloseModal();
   }
 }
