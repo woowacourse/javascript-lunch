@@ -1,28 +1,18 @@
-import { $ } from './selector';
+import { $inBody } from './selector';
 
-export const executeClickEventListener = (
+export const executeEventListener = (
   selector: string,
-  callback: () => void
+  type: string,
+  callback: (value: Event) => void
 ) => {
-  $(selector)?.addEventListener('click', callback);
-};
-
-export const executeSubmitEventListener = (
-  selector: string,
-  callback: (event: Event) => void
-) => {
-  $(selector)?.addEventListener('submit', (event: Event) => {
-    event.preventDefault();
-
-    callback(event);
-  });
+  $inBody(selector)?.addEventListener(type, callback);
 };
 
 export const executeOptionChangeEventListener = (
   selector: string,
   callback: (value: string) => void
 ) => {
-  $(selector)?.addEventListener('change', (event: Event) => {
+  $inBody(selector)?.addEventListener('change', (event: Event) => {
     const element = event.target as HTMLOptionElement;
 
     callback(element.value);

@@ -6,8 +6,14 @@ import { LOCAL_STORAGE_KEY } from '../constants/values';
 
 export const sortByName = (allRestaurants: RestaurantType[]) => {
   return allRestaurants.sort((a, b) => {
-    if (a.name > b.name) return 1;
-    if (a.name < b.name) return -1;
+    if (a.name > b.name) {
+      return 1;
+    }
+
+    if (a.name < b.name) {
+      return -1;
+    }
+
     return 0;
   });
 };

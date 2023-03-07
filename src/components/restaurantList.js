@@ -12,7 +12,7 @@ import { $inBody } from '../utils/selector';
 class RestaurantList {
   render(restaurantList) {
     const restaurantListHTML = restaurantList
-      .map(info => this.template(info))
+      .map(info => this.#template(info))
       .join('');
 
     $inBody('.restaurant-list').innerHTML = restaurantListHTML;
@@ -21,11 +21,11 @@ class RestaurantList {
   renderAdditionRestaurant(restaurant) {
     $inBody('.restaurant').insertAdjacentHTML(
       'beforeend',
-      this.template(restaurant)
+      this.#template(restaurant)
     );
   }
 
-  template({ category, name, distance, description }) {
+  #template({ category, name, distance, description }) {
     return `
 			<li class="restaurant">
     		<div class="restaurant__category">

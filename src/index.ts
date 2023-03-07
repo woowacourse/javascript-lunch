@@ -1,19 +1,24 @@
 import '../css/style.css';
 import Header from './components/header.js';
-import CategoryFilter from './components/categoryFilter.js';
-import SortingFilter from './components/sortingFilter.js';
+import Select from './components/select.js';
 import Modal from './components/modal.js';
+import NewRestaurantModalContent from './components/newRestaurantModalContent.js';
 import RestaurantsController from './domains/RestaurantsController';
 import {
-  handleModalCancelButtonClick,
+  handleModalCloseButtonClick,
   handleModalOpenButtonClick,
 } from './ui/modal';
 import {
   executeOptionChangeEventListener,
-  executeClickEventListener,
-  executeSubmitEventListener,
+  executeEventListener,
 } from './utils/eventListener';
 import { scrollToTopForm } from './ui/form';
+import {
+  FILTER_CLASS,
+  FILTER_ID,
+  FILTER_NAME,
+  SELECT_OPTION_LIST,
+} from './constants/filter';
 
 const App = {
   restaurantsController: RestaurantsController.getInstance(),
@@ -24,16 +29,31 @@ const App = {
   },
 
   initRender() {
-    const header = new Header();
+    const header = new Header({ title: '점심 뭐 먹지' });
     header.render();
 
-    const categoryFilter = new CategoryFilter();
-    const sortingFilter = new SortingFilter();
-    categoryFilter.render();
-    sortingFilter.render();
+    const categoryFilter = new Select({
+      id: FILTER_ID.CATEGORY,
+      name: FILTER_NAME.CATEGORY,
+      class: FILTER_CLASS,
+      optionList: SELECT_OPTION_LIST.CATEGORY,
+    });
+
+    const sortingFilter = new Select({
+      id: FILTER_ID.SORTING,
+      name: FILTER_NAME.SORTING,
+      class: FILTER_CLASS,
+      optionList: SELECT_OPTION_LIST.SORTING,
+    });
+
+    categoryFilter.render('.restaurant-filter-container');
+    sortingFilter.render('.restaurant-filter-container');
 
     const modal = new Modal();
     modal.render();
+
+    const newRestaurantModalContent = new NewRestaurantModalContent();
+    newRestaurantModalContent.render('.modal-container');
   },
 
   initEventListeners() {
@@ -42,21 +62,25 @@ const App = {
   },
 
   controlNewRestaurantModal() {
-    executeClickEventListener('.gnb__button', () =>
-      handleModalOpenButtonClick()
+    executeEventListener('.gnb__button', 'click', handleModalOpenButtonClick);
+
+    executeEventListener(
+      '.button--secondary',
+      'click',
+      handleModalCloseButtonClick
     );
 
-    executeClickEventListener('.button--secondary', () =>
-      handleModalCancelButtonClick()
+    executeEventListener(
+      '.modal-backdrop',
+      'click',
+      handleModalCloseButtonClick
     );
 
-    executeClickEventListener('.modal-backdrop', () =>
-      handleModalCancelButtonClick()
-    );
+    executeEventListener('#new-restaurant-form', 'submit', (event: Event) => {
+      event.preventDefault();
 
-    executeSubmitEventListener('#new-restaurant-form', (event: Event) => {
       if (this.restaurantsController.addNewRestaurant(event)) {
-        handleModalCancelButtonClick();
+        handleModalCloseButtonClick();
       }
 
       scrollToTopForm('.modal-container');

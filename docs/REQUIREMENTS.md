@@ -43,7 +43,7 @@
 - [x] template literal 포맷 맞추기
 - [x] `getListOnLocalStorage()` 빈 값이 리턴되었을 때 처리
 - [x] `getListOnLocalStorage()` 추상화하기
-- [ ] 이벤트 핸들러 유틸 추상화 심화하기
+- [x] 이벤트 핸들러 유틸 추상화 심화하기
 - [x] `executeChangeEventListener()` 네이밍 수정하기
 - [x] `export interface CustomError extends Error {}` 제거하기
 - [x] `errorChecker` 의 if 조건문 수정하기

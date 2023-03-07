@@ -43,15 +43,14 @@ class RestaurantsController {
 
     try {
       isValidName(newRestaurant.name);
+      this.renderRestaurantList([...this.restaurantList, newRestaurant]);
+
+      return true;
     } catch (error: !unknown) {
       alert(error.message);
 
       return false;
     }
-
-    this.renderRestaurantList([...this.restaurantList, newRestaurant]);
-
-    return true;
   }
 
   getNewRestaurant(event: Event) {

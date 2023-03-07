@@ -6,12 +6,19 @@ import { screen, fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 
 import Header from '../src/components/header.js';
-import CategoryFilter from '../src/components/categoryFilter.js';
-import SortingFilter from '../src/components/sortingFilter.js';
+import Select from '../src/components/select';
 import RestaurantList from '../src/components/restaurantList.js';
 import Modal from '../src/components/modal.js';
+import NewRestaurantModalContent from '../src/components/newRestaurantModalContent.js';
+
 import { $inBody } from '../src/utils/selector';
-import { initialRestaurantData } from '../src/constants/initialRestaurants';
+import { initialRestaurantList } from '../src/constants/initialRestaurantList';
+import {
+  FILTER_ID,
+  FILTER_NAME,
+  FILTER_CLASS,
+  SELECT_OPTION_LIST,
+} from '../src/constants/filter';
 
 describe('렌더링 테스트', () => {
   beforeEach(() => {
@@ -43,7 +50,7 @@ describe('렌더링 테스트', () => {
 
   test('header에는 "점심 뭐 먹지" text가 존재한다.', () => {
     // given
-    const header = new Header();
+    const header = new Header({ title: '점심 뭐 먹지' });
 
     // when
     header.render();
@@ -54,7 +61,12 @@ describe('렌더링 테스트', () => {
 
   test('category filter 요소 테스트', () => {
     // given
-    const categoryFilter = new CategoryFilter();
+    const categoryFilter = new Select({
+      id: FILTER_ID.CATEGORY,
+      name: FILTER_NAME.CATEGORY,
+      class: FILTER_CLASS,
+      optionList: SELECT_OPTION_LIST.CATEGORY,
+    });
     const categoryList = [
       '전체',
       '한식',
@@ -66,7 +78,7 @@ describe('렌더링 테스트', () => {
     ];
 
     // when
-    categoryFilter.render();
+    categoryFilter.render('.restaurant-filter-container');
 
     // then
     fireEvent.click($inBody('#category-filter'));
@@ -77,11 +89,16 @@ describe('렌더링 테스트', () => {
 
   test('sorting filter 요소 테스트', () => {
     // given
-    const sortingFilter = new SortingFilter();
+    const sortingFilter = new Select({
+      id: FILTER_ID.SORTING,
+      name: FILTER_NAME.SORTING,
+      class: FILTER_CLASS,
+      optionList: SELECT_OPTION_LIST.SORTING,
+    });
     const sortingList = ['이름순', '거리순'];
 
     // when
-    sortingFilter.render();
+    sortingFilter.render('.restaurant-filter-container');
 
     // then
     fireEvent.click($inBody('#sorting-filter'));
@@ -93,10 +110,10 @@ describe('렌더링 테스트', () => {
   test('restaurant List 테스트', () => {
     // given
     const restaurantList = new RestaurantList();
-    const restaurantInfoList = initialRestaurantData;
+    const restaurantInfoList = initialRestaurantList;
 
     // when
-    restaurantList.render();
+    restaurantList.render(restaurantInfoList);
 
     // then
     restaurantInfoList.forEach(({ category, name, distance, description }) => {
@@ -112,6 +129,7 @@ describe('렌더링 테스트', () => {
   test('modal 요소 테스트', () => {
     // given
     const modal = new Modal();
+    const newRestaurantModalContent = new NewRestaurantModalContent();
     const modalTextList = [
       '카테고리',
       '한식',
@@ -137,6 +155,7 @@ describe('렌더링 테스트', () => {
 
     // when
     modal.render();
+    newRestaurantModalContent.render('.modal-container');
 
     // then
     modalTextList.forEach(text =>
