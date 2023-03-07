@@ -118,6 +118,7 @@ class AddRestaurantModal extends HTMLElement {
                 id="addRestraunt"
                 color="orange"
               ></lunch-button>
+              </div>
           </form>
         </div>
       </div>
