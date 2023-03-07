@@ -1,3 +1,7 @@
+import type { Category, Distance, Restaurant } from "../../types/restaurant";
+
+import { Modal } from "./Modal";
+
 export class RestaurantAddForm extends HTMLFormElement {
   constructor() {
     super();
@@ -50,6 +54,42 @@ export class RestaurantAddForm extends HTMLFormElement {
             </button>
         </div>
     `;
+  }
+
+  bindEvent(handleSubmit: (restaurant: Restaurant) => void) {
+    this.querySelector(".button--secondary")?.addEventListener("click", () => {
+      document.querySelector<Modal>(".modal")?.closeModal();
+    });
+
+    this.addEventListener("submit", (event: Event) => {
+      event.preventDefault();
+
+      handleSubmit(this.getSubmitData());
+      this.resetFormValues();
+    });
+  }
+
+  getSubmitData(): Restaurant {
+    const category = (this.querySelector("#category") as HTMLSelectElement)
+      .value as Category;
+    const name = (this.querySelector("#name") as HTMLInputElement).value;
+    const distance = Number(
+      (this.querySelector("#distance") as HTMLSelectElement).value
+    ) as Distance;
+    const description = (
+      this.querySelector("#description") as HTMLTextAreaElement
+    ).value;
+    const link = (this.querySelector("#link") as HTMLInputElement).value;
+
+    return { category, name, distance, description, link };
+  }
+
+  resetFormValues() {
+    (this.querySelector("#category") as HTMLSelectElement).value = "";
+    (this.querySelector("#name") as HTMLInputElement).value = "";
+    (this.querySelector("#distance") as HTMLSelectElement).value = "";
+    (this.querySelector("#description") as HTMLTextAreaElement).value = "";
+    (this.querySelector("#link") as HTMLInputElement).value = "";
   }
 }
 

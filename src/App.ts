@@ -1,20 +1,21 @@
-import type { Category, Distance } from "./types/restaurant";
+import type { Restaurant } from "./types/restaurant";
 import type { CategoryOption, SortOption } from "./types/option";
 
-import createCustomSelect, { CustomSelect } from "./components/Select";
-import createCustomModal from "./components/modal/Modal";
-import createCustomHeader, { CustomHeader } from "./components/Header";
+import { createCustomSelect, CustomSelect } from "./components/Select";
+import { createCustomModal, Modal } from "./components/modal/Modal";
+import { createCustomHeader } from "./components/Header";
 import {
   createRestaurantCardList,
-  RestaruantCardList,
+  RestaurantCardList,
 } from "./components/restaurant/RestaurantCardList";
 import Restaurants from "./domain/Restaurants";
 import { createRestaurantCard } from "./components/restaurant/RestaurantCard";
-import { createRestaurantAddForm } from "./components/modal/RestaurantAddForm";
+import {
+  createRestaurantAddForm,
+  RestaurantAddForm,
+} from "./components/modal/RestaurantAddForm";
 
 class App {
-  #modal: HTMLElement | null;
-
   #restaurants;
 
   #showState: {
@@ -25,15 +26,13 @@ class App {
   constructor() {
     const restaurants = JSON.parse(localStorage.getItem("restaurants") ?? "[]");
 
-    this.#restaurants = new Restaurants(restaurants);
     this.#showState = {
       filter: "전체",
       sort: "name",
     };
+    this.#restaurants = new Restaurants(restaurants);
 
     this.init();
-
-    this.#modal = document.querySelector(".modal");
   }
 
   init() {
@@ -58,8 +57,8 @@ class App {
       ?.bindEvent(this.onClickSortingOption.bind(this));
 
     document
-      .querySelector<CustomHeader>(".gnb")
-      ?.bindEvent(this.openModal.bind(this));
+      .querySelector<RestaurantAddForm>("form")
+      ?.bindEvent(this.addNewRestaurant.bind(this));
   }
 
   renderContainer() {
@@ -73,11 +72,17 @@ class App {
         <section class="restaurant-list-container">
           <ul is="restaurant-card-list" class="restaurant-list"></ul>
         </section>
-        <custom-modal></custom-modal>
+        <div is="custom-modal" class="modal"></div>
       </main>
     `;
 
     this.renderRestaurantList();
+  }
+
+  renderRestaurantList() {
+    document
+      .querySelector<RestaurantCardList>(".restaurant-list")
+      ?.render(this.#restaurants.getListByOption(this.#showState));
   }
 
   onClickSortingOption(selectedOption: string) {
@@ -90,12 +95,8 @@ class App {
     this.renderRestaurantList();
   }
 
-  onSubmitNewRestaurant(event: Event) {
-    event.preventDefault();
-
-    this.addNewRestaurant();
-    this.renderRestaurantList();
-
+  addNewRestaurant(restaurant: Restaurant) {
+    this.#restaurants.add(restaurant);
     localStorage.setItem(
       "restaurants",
       JSON.stringify(
@@ -103,51 +104,9 @@ class App {
       )
     );
 
-    this.closeModal();
-    this.resetModalValue();
-  }
+    this.renderRestaurantList();
 
-  openModal() {
-    this.#modal?.classList.add("modal--open");
-  }
-
-  closeModal() {
-    this.#modal?.classList.remove("modal--open");
-  }
-
-  renderRestaurantList() {
-    document
-      .querySelector<RestaruantCardList>(".restaurant-list")
-      ?.render(this.#restaurants.getListByOption(this.#showState));
-  }
-
-  addNewRestaurant() {
-    const category = (document.getElementById("category") as HTMLSelectElement)
-      .value as Category;
-    const name = (document.getElementById("name") as HTMLInputElement).value;
-    const distance = Number(
-      (document.getElementById("distance") as HTMLSelectElement).value
-    ) as Distance;
-    const description = (
-      document.getElementById("description") as HTMLTextAreaElement
-    ).value;
-    const link = (document.getElementById("link") as HTMLInputElement).value;
-
-    this.#restaurants.add({
-      category,
-      name,
-      distance,
-      description,
-      link,
-    });
-  }
-
-  resetModalValue() {
-    (document.getElementById("category") as HTMLSelectElement).value = "";
-    (document.getElementById("name") as HTMLInputElement).value = "";
-    (document.getElementById("distance") as HTMLSelectElement).value = "";
-    (document.getElementById("description") as HTMLTextAreaElement).value = "";
-    (document.getElementById("link") as HTMLInputElement).value = "";
+    document.querySelector<Modal>(".modal")?.closeModal();
   }
 }
 

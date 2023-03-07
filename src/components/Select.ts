@@ -30,8 +30,6 @@ export class CustomSelect extends HTMLSelectElement {
   }
 }
 
-const createCustomSelect = () => {
+export const createCustomSelect = () => {
   customElements.define("custom-select", CustomSelect, { extends: "select" });
 };
-
-export default createCustomSelect;

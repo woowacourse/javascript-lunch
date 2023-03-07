@@ -1,10 +1,14 @@
 import addButtonImage from "../../templates/add-button.png";
+import { Modal } from "./modal/Modal";
 
 export class CustomHeader extends HTMLElement {
   constructor() {
     super();
+  }
 
+  connectedCallback() {
     this.render();
+    this.bindEvent();
   }
 
   render() {
@@ -16,15 +20,13 @@ export class CustomHeader extends HTMLElement {
     `;
   }
 
-  bindEvent(handleClickAddButton: () => void) {
-    this.querySelector(".gnb_button")?.addEventListener("click", () => {
-      handleClickAddButton();
+  bindEvent() {
+    this.querySelector(".gnb__button")?.addEventListener("click", () => {
+      document.querySelector<Modal>(".modal")?.openFormModal();
     });
   }
 }
 
-const createCustomHeader = () => {
+export const createCustomHeader = () => {
   customElements.define("custom-header", CustomHeader, { extends: "header" });
 };
-
-export default createCustomHeader;

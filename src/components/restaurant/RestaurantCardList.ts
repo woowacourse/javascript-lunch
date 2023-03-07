@@ -1,6 +1,6 @@
 import type { Restaurant } from "../../types/restaurant";
 
-export class RestaruantCardList extends HTMLUListElement {
+export class RestaurantCardList extends HTMLUListElement {
   constructor() {
     super();
   }
@@ -27,7 +27,7 @@ export class RestaruantCardList extends HTMLUListElement {
 }
 
 export const createRestaurantCardList = () => {
-  customElements.define("restaurant-card-list", RestaruantCardList, {
+  customElements.define("restaurant-card-list", RestaurantCardList, {
     extends: "ul",
   });
 };
