@@ -3,6 +3,7 @@
  */
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
+import { qs } from '../src/utils/domHelpers.js';
 
 import Header from '../src/components/Header.js';
 import RestaurantItem from '../src/components/RestaurantItem.js';
@@ -38,8 +39,7 @@ describe('UI 테스트', () => {
   });
 
   test('header 렌더링 테스트', () => {
-    const header = new Header();
-    document.querySelector('.gnb').innerHTML = header.render();
+    const header = new Header(qs('.gnb'));
 
     expect(screen.getByText('점심 뭐 먹지')).toBeInTheDocument();
   });
@@ -64,8 +64,7 @@ describe('UI 테스트', () => {
   });
 
   test('addModal 렌더링 테스트', () => {
-    const addModal = new AddModal();
-    document.querySelector('.modal').innerHTML = addModal.render();
+    const addModal = new AddModal(qs('.modal'));
 
     expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
   });
