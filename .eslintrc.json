@@ -14,6 +14,7 @@
         "linebreak-style": ["error", "windows"],
         "quotes": ["error", "double"],
         "import/extensions": 0,
-        "no-param-reassign": ["error", { "props": false }]
+        "no-param-reassign": ["error", { "props": false }],
+        "import/no-unresolved": 0
     }
 }
