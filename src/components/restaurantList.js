@@ -6,25 +6,22 @@ import '../assets/category-asian.png';
 import '../assets/category-etc.png';
 import '../assets/favorite-icon-filled.png';
 import '../assets/favorite-icon-lined.png';
-import { initialRestaurantData } from '../constants/initialRestaurants';
 import { CATEGORY_IMAGE } from '../constants/imageConstant.js';
 import { $inBody } from '../utils/selector';
 
 class RestaurantList {
-  infos = [];
-
-  constructor() {
-    this.infos = initialRestaurantData;
-  }
-
-  render() {
-    const restaurantListHTML = this.infos
+  render(restaurantList) {
+    const restaurantListHTML = restaurantList
       .map(info => this.template(info))
       .join('');
 
-    $inBody('.restaurant-list').insertAdjacentHTML(
+    $inBody('.restaurant-list').innerHTML = restaurantListHTML;
+  }
+
+  renderAdditionRestaurant(restaurant) {
+    $inBody('.restaurant').insertAdjacentHTML(
       'beforeend',
-      restaurantListHTML
+      this.template(restaurant)
     );
   }
 

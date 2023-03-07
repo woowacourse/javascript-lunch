@@ -1,20 +1,18 @@
+import RestaurantList from '../components/restaurantList.js';
+import { filterCategory, sortByDistance, sortByName } from './filter';
 import { CustomError, RestaurantType } from '../type';
-import { getFormData } from '../utils/form';
 import { validateName } from '../validator';
-import { initialRestaurantData } from '../constants/initialRestaurants';
+import { initialRestaurantList } from '../constants/initialRestaurantList';
+import { SELECTED_OPTION } from '../constants';
+import { getFormData } from '../utils/form';
 import {
   getAllDataOnLocalStorage,
   saveOnLocalStorage,
 } from '../utils/localStorage';
-// import {
-//   renderNewRestaurant,
-//   renderRestaurantList,
-// } from '../ui/restaurantListRenderer';
-import { filterCategory, sortByDistance, sortByName } from './filter';
-import { SELECTED_OPTION } from '../constants';
 
-export default class RestaurantsController {
+class RestaurantsController {
   private static instance: RestaurantsController;
+  private restaurantListComponent: RestaurantList = new RestaurantList();
   private restaurantList: RestaurantType[] = [];
 
   private constructor() {
@@ -25,9 +23,11 @@ export default class RestaurantsController {
   }
 
   private initRestaurantsInfos() {
-    window.localStorage.length
-      ? this.updateRestaurantList(getAllDataOnLocalStorage())
-      : this.updateRestaurantList(initialRestaurantData);
+    if (window.localStorage.length) {
+      this.updateRestaurantList(getAllDataOnLocalStorage());
+    } else {
+      this.updateRestaurantList(initialRestaurantList);
+    }
 
     this.saveRestaurantList();
   }
@@ -56,8 +56,6 @@ export default class RestaurantsController {
     }
 
     saveOnLocalStorage(restaurantInfo);
-    // renderNewRestaurant(restaurantInfo);
-
     this.updateRestaurantList([...this.restaurantList, restaurantInfo]);
   }
 
@@ -85,6 +83,8 @@ export default class RestaurantsController {
 
   updateRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
-    // renderRestaurantList(this.restaurantList);
+    this.restaurantListComponent.render(this.restaurantList);
   }
 }
+
+export default RestaurantsController;

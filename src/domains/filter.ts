@@ -1,7 +1,7 @@
-// import { SELECTED_OPTION } from '../constants';
+import { SELECTED_OPTION } from '../constants';
 import { RestaurantType } from '../type';
-// import { renderRestaurantList } from '../ui/restaurantListRenderer';
 import { getAllDataOnLocalStorage } from '../utils/localStorage';
+import RestaurantList from '../components/restaurantList.js';
 
 export const sortByName = (allRestaurants: RestaurantType[]) => {
   return allRestaurants.sort((a, b) => {
@@ -17,12 +17,15 @@ export const sortByDistance = (allRestaurants: RestaurantType[]) => {
 
 export const filterCategory = (selectedCategory: string) => {
   const restaurantList = getAllDataOnLocalStorage();
-  // if (selectedCategory === SELECTED_OPTION.All_CATEGORIES)
-  // return renderRestaurantList(restaurantList);
+  const restaurantListComponent = new RestaurantList();
 
-  // const filteredList = restaurantList.filter(
-  //   restaurant => restaurant.category === selectedCategory
-  // );
+  if (selectedCategory === SELECTED_OPTION.All_CATEGORIES) {
+    return restaurantListComponent.render(restaurantList);
+  }
 
-  // renderRestaurantList(filteredList);
+  const filteredList = restaurantList.filter(
+    restaurant => restaurant.category === selectedCategory
+  );
+
+  restaurantListComponent.render(filteredList);
 };

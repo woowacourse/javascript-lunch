@@ -32,9 +32,6 @@ const App = {
     categoryFilter.render();
     sortingFilter.render();
 
-    const restaurantList = new RestaurantList();
-    restaurantList.render();
-
     const modal = new Modal();
     modal.render();
   },

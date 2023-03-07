@@ -1,6 +1,6 @@
 import { RestaurantType } from '../type';
 
-export const initialRestaurantData: RestaurantType[] = [
+export const initialRestaurantList: RestaurantType[] = [
   {
     category: '한식',
     name: '피양콩할마니',

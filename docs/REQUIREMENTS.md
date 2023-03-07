@@ -42,7 +42,6 @@
 - [ ] `updateRestaurantList()` 에서 local storage 저장 함께 하기
 - [ ] `getAllDataOnLocalStorage()` 안전하게 수정하기
 - [ ] `getAllDataOnLocalStorage()` 추상화하거나 domain으로 변경하기
-- [ ] `this.restaurantList` 를 외부에서도 쉽게 건드릴 수 있으니 방어하기
 - [ ] 이벤트 핸들러 유틸 추상화 심화하기
 - [ ] `executeChangeEventListener()` 네이밍 수정하기
 - [ ] `export interface CustomError extends Error {}` 수정하기
