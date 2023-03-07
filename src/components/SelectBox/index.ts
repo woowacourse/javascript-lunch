@@ -12,9 +12,9 @@ class SelectBox extends HTMLElement {
   }
 
   addSelectBoxHandler(selectBoxHandler: CallableFunction) {
-    const $filterContainer = $<HTMLElement>('.restaurant-filter-container');
-    const $categorySelectBox = $<HTMLSelectElement>('#category-filter');
-    const $sortSelectBox = $<HTMLSelectElement>('#sorting-filter');
+    const $filterContainer = $<HTMLElement>('.restaurant-filter-container', this);
+    const $categorySelectBox = $<HTMLSelectElement>('#category-filter', this);
+    const $sortSelectBox = $<HTMLSelectElement>('#sorting-filter', this);
 
     $filterContainer.addEventListener('change', () => {
       const categoryFilter = $categorySelectBox.value as Category;

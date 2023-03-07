@@ -11,7 +11,7 @@ class Header extends HTMLElement {
   }
 
   addModalHandler(openModalButtonHandler: CallableFunction) {
-    const $button = $<HTMLButtonElement>('.gnb__button');
+    const $button = $<HTMLButtonElement>('.gnb__button', this);
     $button.addEventListener('click', () => {
       openModalButtonHandler();
     });

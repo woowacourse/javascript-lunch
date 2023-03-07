@@ -13,7 +13,7 @@ class RestaurantItems extends HTMLElement {
 
   render(restaurants: Restaurant[]) {
     this.innerHTML = $template;
-    const $restaurantList = $<HTMLElement>('.restaurant-list');
+    const $restaurantList = $<HTMLElement>('.restaurant-list', this);
 
     restaurants.forEach((restaurant) => {
       $restaurantList.insertAdjacentHTML('beforeend', this.createRestaurantItem(restaurant));
