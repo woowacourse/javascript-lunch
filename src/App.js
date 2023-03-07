@@ -35,19 +35,19 @@ export default class App {
   }
 
   mounted() {
-    const { setState, render } = this;
+    const { setState } = this;
     const { sortingWay, category } = this.state;
 
     const $header = this.$target.querySelector(".gnb");
     const $restaurantFilter = this.$target.querySelector(".restaurant-filter-container");
     const $restaurantList = this.$target.querySelector(".restaurant-list-container");
 
-    new Header($header, { render: render.bind(this) });
+    const res = new RestaurantList($restaurantList, { category, sortingWay });
+    new Header($header, { render: res.render.bind(res) });
     new Filter($restaurantFilter, {
       sortingWay,
       category,
       setState: setState.bind(this),
     });
-    new RestaurantList($restaurantList, { category, sortingWay });
   }
 }

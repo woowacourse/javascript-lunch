@@ -32,6 +32,7 @@ export default class Filter {
 
   setEvent() {
     const { setState } = this.props;
+
     this.addEvent("change", "#sorting-filter", (e) => {
       setState({ sortingWay: e.target.value });
     });

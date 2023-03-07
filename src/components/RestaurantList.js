@@ -35,11 +35,7 @@ export default class RestaurantList {
     });
   }
 
-  setEvent() {
-    this.addEvent("submit", "#add-restaurant-form", () => {
-      this.render();
-    });
-  }
+  setEvent() {}
 
   addEvent(eventType, selector, callback) {
     this.$target.addEventListener(eventType, (event) => {
