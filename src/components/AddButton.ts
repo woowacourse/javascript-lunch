@@ -9,53 +9,29 @@ const AddButton = {
     <button class="button button--primary text-caption">추가하기</button>
   </div>`;
   },
-  setEvent(res: RestaurantListItem) {
+  setEvent(RestaurantListItem: RestaurantListItem) {
     const cancelButton = document.querySelector('.button--secondary');
-    cancelButton?.addEventListener('click', () => {
+    cancelButton?.addEventListener('click', (e) => {
+      e.preventDefault();
       const modal = document.querySelector('.modal--open') as HTMLElement;
       modal.className = 'modal';
     });
 
     const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
 
-    const addButton = document.querySelector('.button--primary');
-    addButton?.addEventListener('click', (e) => {
+    const addForm = document.querySelector('#addForm');
+    addForm?.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      const newRestaurant: IRestaurant = this.getModalInfo();
-      restaurantListContainer.innerHTML = RestaurantList.template(res.add(newRestaurant));
+      const newRestaurant = Object.fromEntries(
+        [...new FormData(e.target as HTMLFormElement)].map(([key, value]) => {
+          return [key, key === 'distance' ? Number(value) : value];
+        })
+      );
+      restaurantListContainer.innerHTML = RestaurantList.template(RestaurantListItem.add(newRestaurant as unknown as IRestaurant));
 
       const modal = document.querySelector('.modal--open') as HTMLElement;
       modal.className = 'modal';
     });
-  },
-
-  getModalInfo() {
-    const category = document.querySelector('#category') as HTMLSelectElement;
-    const name = document.querySelector('#name') as HTMLInputElement;
-    const distance = document.querySelector('#distance') as HTMLSelectElement;
-    const description = document.querySelector('#description') as HTMLInputElement;
-    const link = document.querySelector('#link') as HTMLInputElement;
-
-    const selectedCategory = category.options[category.selectedIndex].value;
-    const inputName = name.value;
-    const selectedDistance = distance.options[distance.selectedIndex].value;
-    const inputDescription = description.value;
-    const inputLink = link.value;
-
-    category.innerText = '';
-    name.value = '';
-    distance.innerText = '';
-    description.value = '';
-    link.value = '';
-
-    return {
-      category: selectedCategory as TCategory,
-      name: inputName,
-      distance: Number(selectedDistance) as TDistance,
-      description: inputDescription,
-      link: inputLink,
-    };
   },
 };
 
