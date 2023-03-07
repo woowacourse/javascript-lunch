@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from '../Component';
 
 class FormItem extends Component {
   static useShadowDom(): boolean {

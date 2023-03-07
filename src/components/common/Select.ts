@@ -1,4 +1,4 @@
-import FormControlComponent from './FormControlComponent';
+import FormControlComponent from '../FormControlComponent';
 
 interface SelectOption {
   value: number | string | boolean;

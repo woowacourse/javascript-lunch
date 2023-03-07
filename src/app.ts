@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Modal from './components/Modal';
-import RestaurantList from './components/RestaurantList';
-import Select from './components/Select';
+import Modal from './components/common/Modal';
+import Select from './components/common/Select';
+import RestaurantList from './components/restaurant/RestaurantList';
 import Restaurant from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
 import { DEFAULT_RESTAURANTS } from './fixtures';

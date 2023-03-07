@@ -1,5 +1,5 @@
+import Component from '../Component';
 import Button from './Button';
-import Component from './Component';
 
 class Modal extends Component {
   static get observedAttributes() {

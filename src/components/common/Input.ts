@@ -1,4 +1,4 @@
-import FormControlComponent from './FormControlComponent';
+import FormControlComponent from '../FormControlComponent';
 
 class Input extends FormControlComponent {
   override renderTemplate(): string {

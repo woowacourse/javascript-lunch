@@ -1,4 +1,4 @@
-import FormControlComponent from './FormControlComponent';
+import FormControlComponent from '../FormControlComponent';
 
 class Button extends FormControlComponent {
   constructor() {
