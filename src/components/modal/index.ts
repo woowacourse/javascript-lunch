@@ -1,3 +1,5 @@
+import { RestaurantAddForm } from "./form";
+
 export class Modal extends HTMLDivElement {
   constructor() {
     super();
@@ -22,6 +24,10 @@ export class Modal extends HTMLDivElement {
     this.querySelector(".modal-backdrop")?.addEventListener("click", () => {
       this.closeModal();
     });
+
+    window.addEventListener("keydown", (event: KeyboardEvent) => {
+      if (event.code === "Escape") this.closeModal();
+    });
   }
 
   openFormModal() {
@@ -32,6 +38,7 @@ export class Modal extends HTMLDivElement {
   closeModal() {
     this.classList.remove("modal--open");
     this.querySelector("form")?.setAttribute("hidden", "true");
+    this.querySelector<RestaurantAddForm>("form")?.resetFormValues();
   }
 }
 
