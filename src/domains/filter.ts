@@ -1,4 +1,4 @@
-import { SELECTED_OPTION } from '../constants';
+import { FILTER_OPTION } from '../constants/filter';
 import { RestaurantType } from '../type';
 import { getAllDataOnLocalStorage } from '../utils/localStorage';
 import RestaurantList from '../components/restaurantList.js';
@@ -19,7 +19,7 @@ export const filterCategory = (selectedCategory: string) => {
   const restaurantList = getAllDataOnLocalStorage();
   const restaurantListComponent = new RestaurantList();
 
-  if (selectedCategory === SELECTED_OPTION.All_CATEGORIES) {
+  if (selectedCategory === FILTER_OPTION.ALL_CATEGORIES) {
     return restaurantListComponent.render(restaurantList);
   }
 

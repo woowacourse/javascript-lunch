@@ -40,6 +40,7 @@
 - [x] 새로운 음식점 등록 중 예외가 발생했을 때 모달을 닫지 않고, 인풋 값을 초기화하기
 - [x] `updateRestaurantList()` 는 `render` 로 분리하기
 - [x] `updateRestaurantList()` 에서 local storage 저장 함께 하기
+- [x] template literal 포맷 맞추기
 - [ ] `getAllDataOnLocalStorage()` 안전하게 수정하기
 - [ ] `getAllDataOnLocalStorage()` 추상화하거나 domain으로 변경하기
 - [ ] 이벤트 핸들러 유틸 추상화 심화하기
@@ -48,8 +49,7 @@
 - [ ] `errorThrower` 의 if 조건문 분리하기
 - [ ] `validator/index.ts` 에서 `validateName` 이름을 수정하거나 인자의 네이밍을 수정하기
 - [ ] 맵같은 iterable한 메서드들의 인자는 컴파일러가 타입 추론하게 수정하기
-- [ ] template literal 포맷 맞추기
-- [ ] constants/index.ts 타입스크립트스럽게 수정하기
+- [x] constants/index.ts 타입스크립트스럽게 수정하기
 - [ ] as 말고 ! assertion 사용해보기
 
 ## TEST

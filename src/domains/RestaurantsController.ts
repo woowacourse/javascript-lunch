@@ -3,7 +3,7 @@ import { filterCategory, sortByDistance, sortByName } from './filter';
 import { CustomError, RestaurantType } from '../type';
 import { validateName } from '../validator';
 import { initialRestaurantList } from '../constants/initialRestaurantList';
-import { SELECTED_OPTION } from '../constants';
+import { FILTER_OPTION } from '../constants/filter';
 import { getFormData } from '../utils/form';
 import {
   getAllDataOnLocalStorage,
@@ -60,11 +60,11 @@ class RestaurantsController {
   }
 
   sortRestaurantList(value: string) {
-    if (value === SELECTED_OPTION.NAME) {
+    if (value === FILTER_OPTION.NAME) {
       this.renderRestaurantList(sortByName(this.restaurantList));
     }
 
-    if (value === SELECTED_OPTION.DISTANCE) {
+    if (value === FILTER_OPTION.DISTANCE) {
       this.renderRestaurantList(sortByDistance(this.restaurantList));
     }
   }

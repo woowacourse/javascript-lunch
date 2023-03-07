@@ -6,7 +6,7 @@ import '../assets/category-asian.png';
 import '../assets/category-etc.png';
 import '../assets/favorite-icon-filled.png';
 import '../assets/favorite-icon-lined.png';
-import { CATEGORY_IMAGE } from '../constants/imageConstant.js';
+import { CATEGORY_IMAGES } from '../constants/images';
 import { $inBody } from '../utils/selector';
 
 class RestaurantList {
@@ -30,7 +30,7 @@ class RestaurantList {
 			<li class="restaurant">
     		<div class="restaurant__category">
     			<img
-    				src="./category-${CATEGORY_IMAGE[category]}.png"
+    				src="./category-${CATEGORY_IMAGES[category]}.png"
     				alt="${category}"
     				class="category-icon"
     			/>
