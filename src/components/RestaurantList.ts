@@ -6,14 +6,19 @@ class RestaurantList {
   templateList: Element | null;
   name: string;
   distance: string;
-  category: Category;
+  description: string;
   img: string;
 
-  constructor(name: string, distance: string, category: Category, img: string) {
+  constructor(
+    name: string,
+    distance: string,
+    description: Category,
+    img: string
+  ) {
     this.templateList = $("#list-template");
     this.name = name;
     this.distance = distance;
-    this.category = category;
+    this.description = description;
     this.img = img;
   }
 
@@ -26,14 +31,14 @@ class RestaurantList {
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${this.name}</h3>
           <span class="restaurant__distance text-body">${this.distance}</span>
-          <p class="restaurant__description text-body"></p>
+          <p class="restaurant__description text-body">${this.description}</p>
         </div>
       </li>
         `;
   }
 
   render() {
-    const listSection = $(".restaurant-list-container") as HTMLElement;
+    const listSection = $(".restaurant-list-container")!;
     const listWrapper = document.createElement("div");
 
     listWrapper.innerHTML = this.create();

@@ -86,7 +86,7 @@ const updateRestaurant = () => {
     const restaurantList = new RestaurantList(
       element.name,
       element.distance,
-      element.category,
+      element.description,
       getMatchImage(element.category)
     );
     restaurantList.render();
