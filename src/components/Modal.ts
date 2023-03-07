@@ -11,6 +11,7 @@ class Modal {
 
   open() {
     if (this.#isOpen) return;
+
     $(".modal")?.classList.add("modal--open");
     this.#isOpen = true;
     $("body")?.classList.add("no-scroll");
@@ -18,6 +19,7 @@ class Modal {
 
   close() {
     if (!this.#isOpen) return;
+
     $(".modal")?.classList.remove("modal--open");
     this.#isOpen = false;
     $("body")?.classList.remove("no-scroll");
@@ -25,6 +27,7 @@ class Modal {
 
   handleCloseEvent() {
     const modalBg = $(".modal-backdrop");
+
     modalBg?.addEventListener("click", () => {
       this.close();
     });
@@ -50,6 +53,7 @@ class Modal {
   render() {
     const mainSection = $("main");
     const modalContainer = document.createElement("div");
+
     modalContainer.innerHTML = this.create();
     mainSection?.appendChild(modalContainer);
     this.open();

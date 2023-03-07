@@ -1,6 +1,7 @@
+import "../../css/style.css";
 import { Category } from "../type/restaurant";
 import { $ } from "../util/querySelector";
-import "../../css/style.css";
+
 class RestaurantList {
   templateList: Element | null;
   name: string;
@@ -34,6 +35,7 @@ class RestaurantList {
   render() {
     const listSection = $(".restaurant-list-container") as HTMLElement;
     const listWrapper = document.createElement("div");
+
     listWrapper.innerHTML = this.create();
     listSection.appendChild(listWrapper);
   }

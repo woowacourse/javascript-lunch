@@ -1,12 +1,13 @@
 import "../css/style.css";
-import RestaurantInfo from "./domain/RestaurantInfo";
+import { $ } from "./util/querySelector";
+import { sortRestaurant } from "./domain/Sort";
+import { checkSelected } from "./InputCheck";
+import RestaurantInfo from "./RestaurantInfo";
 import Restaurants from "./domain/Restaurants";
 import Input from "./Input";
 import Alert from "./util/Alert";
-import { $ } from "./util/querySelector";
 import Filter from "./domain/Filter";
-import { IMAGE } from "./util/ImageLoader";
-import { sort } from "./domain/Sort";
+import Modal from "./components/Modal";
 import LocalStorage from "./util/LocalStorage";
 import Element from "./Element";
 import RestaurantList from "./components/RestaurantList";
@@ -16,8 +17,7 @@ import 한식 from "../templates/category-korean.png";
 import 양식 from "../templates/category-western.png";
 import 아시안 from "../templates/category-asian.png";
 import 기타 from "../templates/category-etc.png";
-import Modal from "./components/Modal";
-import { checkSelected } from "./InputCheck";
+import addButtonImg from "../templates/add-button.png";
 
 const newRestaurant = new Restaurants();
 const addButton = $(".gnb__button");
@@ -25,7 +25,7 @@ const categoryFilter = $("#category-filter");
 const sortingFilter = $("#sorting-filter");
 const save = LocalStorage.setItem(localStorage.length);
 
-addButton.querySelector("img").src = IMAGE.ADD_BTN;
+addButton.querySelector("img").src = addButtonImg;
 
 categoryFilter.addEventListener("change", () => {
   updateRestaurant();
@@ -38,25 +38,25 @@ sortingFilter.addEventListener("change", () => {
 addButton.addEventListener("click", () => {
   const modal = new Modal(Element.addListContents);
   const submitButton = $(".button--primary");
-  const cancelButton = $(".button--secondary")
+  const cancelButton = $(".button--secondary");
 
   modal.render();
 
   submitButton?.addEventListener("click", (event) => {
     const submitAlert = new Alert("#alert-submit");
-    
+
     event.preventDefault();
-    submitNewRestaurant(modal,submitAlert)
+    submitNewRestaurant(modal, submitAlert);
   });
 
   cancelButton?.addEventListener("click", () => {
-    cancelAddRestaurant(modal)
+    cancelAddRestaurant(modal);
   });
 
   checkSelected();
 });
 
-const submitNewRestaurant = (modal,submitAlert) => {
+const submitNewRestaurant = (modal, submitAlert) => {
   try {
     const restaurant = RestaurantInfo.get();
 
@@ -70,16 +70,19 @@ const submitNewRestaurant = (modal,submitAlert) => {
   } catch (e) {
     submitAlert.show(e.message);
   }
-}
+};
 
 const cancelAddRestaurant = (modal) => {
   resetRestaurantInput();
   modal.close();
-}
+};
 
 const updateRestaurant = () => {
   $(".restaurant-list-container").innerHTML = "";
-  const sortResult = sort(sortingFilter.value, newRestaurant.getList());
+  const sortResult = sortRestaurant(
+    sortingFilter.value,
+    newRestaurant.getList()
+  );
   const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
   return filterResult.forEach((element) => {
     const restaurantList = new RestaurantList(

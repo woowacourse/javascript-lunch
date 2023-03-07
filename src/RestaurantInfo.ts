@@ -1,4 +1,4 @@
-import { $ } from "../util/querySelector";
+import { $ } from "./util/querySelector";
 
 const RestaurantInfo = {
   get() {

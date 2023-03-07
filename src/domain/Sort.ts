@@ -14,7 +14,7 @@ const sortByDistance = (list: Restaurant[]) => {
   });
 };
 
-export const sort = (attribute: string, list: Restaurant[]) => {
+export const sortRestaurant = (attribute: string, list: Restaurant[]) => {
   if (attribute === "name") return sortByName(list);
   if (attribute === "distance") return sortByDistance(list);
 };
