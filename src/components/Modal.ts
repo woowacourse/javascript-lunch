@@ -1,16 +1,17 @@
 import Restaurants from '../model/Restaurants';
 import { Restaurant, Category, Distance, State } from '../types/restaurantTypes';
-import Component from './Component';
 
-export default class Modal extends Component {
+export default class Modal {
+  $target: HTMLElement;
   restaurants: Restaurants;
-  onCloseModal;
+  $state!: State;
 
-  constructor($target: HTMLElement, restaurants: Restaurants, state: State, onCloseModal: Function) {
-    super($target);
+  constructor($target: HTMLElement, restaurants: Restaurants, state: State) {
+    this.$target = $target;
     this.restaurants = restaurants;
     this.$state = state;
-    this.onCloseModal = onCloseModal;
+
+    this.render();
   }
 
   template() {
@@ -116,18 +117,31 @@ export default class Modal extends Component {
       this.closeModal();
     });
 
-    this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
+    this.$target.querySelector('.button--secondary')!.addEventListener('click', () => {
       this.closeModal();
     });
+
+    this.listenCloseEvent();
   }
 
   closeModal() {
-    const elementToRemove = this.$target.querySelector('.modal--open');
-
-    if (elementToRemove) {
-      elementToRemove.remove();
+    const modal = this.$target.querySelector('.modal--open');
+    if (modal) {
+      modal.classList.add('hidden');
     }
+    const event = new CustomEvent('closeModal');
+    document.dispatchEvent(event);
+  }
 
-    this.onCloseModal();
+  listenCloseEvent() {
+    document.querySelector('.modal-backdrop')?.addEventListener('click', () => {
+      this.closeModal();
+    });
+
+    document.addEventListener('keyup', e => {
+      if (e.key === 'Escape') {
+        this.closeModal();
+      }
+    });
   }
 }
