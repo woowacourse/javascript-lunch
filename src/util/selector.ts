@@ -5,3 +5,7 @@ export const $ = (selector: string): HTMLElement | null => {
 export const $$ = (selector: string): NodeListOf<Element> => {
   return document.querySelectorAll(selector);
 };
+
+export const $inBody = (selector: string): HTMLElement | null => {
+  return $('body')!.querySelector(selector);
+};
