@@ -15,6 +15,7 @@ class LunchApp {
       onHeaderAddButtonClicked: () => this.#onHeaderAddButtonClicked(),
       onFilterByChange: (filterBy: string) => this.#onFilterByChange(filterBy),
       onSortByChange: (sortBy: string) => this.#onSortByChange(sortBy),
+      onRestaurantItemClicked: (index) => this.#onRestaurantItemClicked(index),
     },
   });
 
@@ -49,6 +50,13 @@ class LunchApp {
     console.log(this.#restaurants.getRestaurants());
 
     this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
+  }
+
+  #onRestaurantItemClicked(index: number) {
+    const restaurant = this.#restaurants.getRestaurantByIndex(index);
+    console.log('OK index is', index);
+
+    this.#lunchAppView.openInfoModal(restaurant);
   }
 }
 

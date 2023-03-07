@@ -5,15 +5,20 @@ import RestaurantItem from './components/RestaurantItem';
 type RestaurantListType = {
   parentElement: HTMLElement;
   restaurants: Restaurant[];
+  parentEvent: {
+    onRestaurantItemClicked: (index: number) => void;
+  };
 };
 
 class RestaurantList {
   #parentElement;
   #restaurants;
+  #parentEvent;
 
-  constructor({ parentElement, restaurants }: RestaurantListType) {
+  constructor({ parentElement, restaurants, parentEvent }: RestaurantListType) {
     this.#parentElement = parentElement;
     this.#restaurants = restaurants;
+    this.#parentEvent = parentEvent;
 
     this.#render();
     this.#renderRestaurantItems();
@@ -28,10 +33,15 @@ class RestaurantList {
   }
 
   #renderRestaurantItems() {
-    this.#restaurants.forEach((restaurant: Restaurant) => {
+    this.#restaurants.forEach((restaurant: Restaurant, index: number) => {
       new RestaurantItem({
         parentElement: $(`#restaurant-list`),
         restaurant: restaurant,
+        index: index,
+        parentEvent: {
+          onItemClicked: (index: number) =>
+            this.#parentEvent.onRestaurantItemClicked(index),
+        },
       });
     });
   }

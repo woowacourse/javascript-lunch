@@ -4,6 +4,7 @@ import Header from './Header';
 import RestaurantFilter from './RestaurantFilter';
 import RestaurantList from './RestaurantList';
 import RestaurantAddModal from './RestaurantAddModal';
+import RestaurantInfoModal from './RestaurantInfoModal';
 
 type LunchAppViewType = {
   parentElement: HTMLElement;
@@ -14,6 +15,7 @@ type LunchAppViewType = {
     onHeaderAddButtonClicked: () => void;
     onFilterByChange: (filterBy: string) => void;
     onSortByChange: (sortBy: string) => void;
+    onRestaurantItemClicked: (index: number) => void;
   };
 };
 
@@ -21,6 +23,7 @@ class LunchAppView {
   #parentElement;
   #parentEvent;
   #restaurantAddModal!: RestaurantAddModal;
+  #restaurantInfoModal!: RestaurantInfoModal;
 
   constructor({ parentElement, restaurants, parentEvent }: LunchAppViewType) {
     this.#parentElement = parentElement;
@@ -42,6 +45,10 @@ class LunchAppView {
     this.#restaurantAddModal.clearAllInputs();
   }
 
+  openInfoModal(restaurant: Restaurant) {
+    this.#restaurantInfoModal.openInfoModal(restaurant);
+  }
+
   #render() {
     const template = `
       <div id="header-root"></div>
@@ -51,7 +58,8 @@ class LunchAppView {
           class="restaurant-list-container"
           id="restaurant-list-root"
         ></section>
-        <div id="modal-root"></div>
+        <div id="restaurant-add-modal-root"></div>
+        <div id="restaurant-info-modal-root"></div>
       </main>
     `;
 
@@ -62,7 +70,8 @@ class LunchAppView {
     this.#renderHeader();
     this.#renderFilter();
     this.#renderRestaurants(restaurants);
-    this.#renderModal();
+    this.#renderAddModal();
+    this.#renderInfoModal();
   }
 
   #renderHeader() {
@@ -91,18 +100,28 @@ class LunchAppView {
     new RestaurantList({
       parentElement: $('#restaurant-list-root'),
       restaurants: restaurants,
+      parentEvent: {
+        onRestaurantItemClicked: (index) =>
+          this.#parentEvent.onRestaurantItemClicked(index),
+      },
     });
   }
 
-  #renderModal() {
+  #renderAddModal() {
     this.#restaurantAddModal = new RestaurantAddModal({
-      parentElement: $('#modal-root'),
+      parentElement: $('#restaurant-add-modal-root'),
       parentEvent: {
         onModalCancelButtonClicked: () =>
           this.#parentEvent.onModalCancelButtonClicked(),
         onModalAddButtonClicked: (restaurantData) =>
           this.#parentEvent.onModalAddButtonClicked(restaurantData),
       },
+    });
+  }
+
+  #renderInfoModal() {
+    this.#restaurantInfoModal = new RestaurantInfoModal({
+      parentElement: $('#restaurant-info-modal-root'),
     });
   }
 }

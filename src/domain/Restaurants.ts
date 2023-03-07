@@ -37,6 +37,10 @@ class Restaurants {
     this.#sortBy = sortBy;
   }
 
+  getRestaurantByIndex(index: number) {
+    return this.getRestaurants()[index];
+  }
+
   #getSortedRestaurantsByName(restaurants: Restaurant[]) {
     return [...restaurants].sort((x, y) => x.name.localeCompare(y.name));
   }
