@@ -9,7 +9,7 @@ interface ISelectProps {
   className?: string;
 }
 
-export default function selectTemplate({
+export default function Select({
   name,
   id,
   options,

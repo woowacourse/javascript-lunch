@@ -1,7 +1,7 @@
 import { CATEGORY, SELECT_DISTANCE } from '../constants';
 import { IRestaurant } from '../domain/Restaurant';
 import { closeModal } from '../modal';
-import selectTemplate from '../template/selectTemplate';
+import Select from './Select';
 import { CategoryOptions, DistanceTime } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
 
@@ -76,7 +76,7 @@ function RestaurantFormTemplate() {
   return `
     <div class="form-item form-item--required">
       <label for="category text-caption">카테고리</label>
-      ${selectTemplate({
+      ${Select({
         name: 'category',
         id: 'category',
         options: [
@@ -96,7 +96,7 @@ function RestaurantFormTemplate() {
     <!-- 거리 -->
     <div class="form-item form-item--required">
       <label for="distance text-caption">거리(도보 이동 시간) </label>
-      ${selectTemplate({
+      ${Select({
         name: 'distance',
         id: 'distance',
         options: SELECT_DISTANCE,

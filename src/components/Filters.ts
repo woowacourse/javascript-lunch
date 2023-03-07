@@ -1,5 +1,5 @@
 import { CATEGORY, FILTER } from '../constants';
-import selectTemplate from '../template/selectTemplate';
+import Select from './Select';
 import { CategoryOptions, FilterOptions } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
 
@@ -34,14 +34,14 @@ export default class Filters {
 
   render = () => {
     this.$filterSection.innerHTML = `
-    ${selectTemplate({
+    ${Select({
       name: 'category',
       id: 'category-filter',
       options: arrayElementToObject(['전체', ...CATEGORY]),
       selected: this.state.category,
       className: 'restaurant-filter',
     })}
-    ${selectTemplate({
+    ${Select({
       name: 'sorting',
       id: 'sorting-filter',
       options: arrayElementToObject([...FILTER]),
