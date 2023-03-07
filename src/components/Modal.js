@@ -5,6 +5,7 @@ export default class Modal {
     this.$target = $target;
     this.props = props;
     this.render();
+    this.setEvent();
   }
 
   template() {

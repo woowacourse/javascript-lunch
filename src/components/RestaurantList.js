@@ -8,6 +8,7 @@ export default class RestaurantList {
     this.$target = $target;
     this.props = props;
     this.render();
+    this.setEvent();
   }
 
   template() {
@@ -26,7 +27,6 @@ export default class RestaurantList {
     const { category, sortingWay } = this.props;
 
     const localList = store.getLocalStorage();
-    this.restaurantRepository = new RestaurantRepository(localList);
     const sortedRestaurants = RestaurantFilter.sortRestaurants(sortingWay, localList);
     const categorizedRestaurants = RestaurantFilter.categorizeRestaurants(category, sortedRestaurants);
 

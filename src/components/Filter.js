@@ -3,6 +3,7 @@ export default class Filter {
     this.$target = $target;
     this.props = props;
     this.render();
+    this.setEvent();
   }
 
   template() {
@@ -36,6 +37,14 @@ export default class Filter {
     });
     this.addEvent("change", "#category-filter", (e) => {
       setState({ category: e.target.value });
+    });
+  }
+
+  addEvent(eventType, selector, callback) {
+    this.$target.addEventListener(eventType, (event) => {
+      const target = event.target;
+      if (!target.closest(selector)) return false;
+      callback(event);
     });
   }
 }
