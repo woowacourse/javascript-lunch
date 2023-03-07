@@ -49,7 +49,6 @@ describe('음식점 목록에 대한 테스트', () => {
     const chineseResult = restaurantList.getList('중식', 'name');
     const japaneseResult = restaurantList.getList('일식', 'name');
     const koreanResult = restaurantList.getList('한식', 'name');
-    console.log(chineseResult, chinese);
     //then
 
     expect(chineseResult).toEqual([chinese]);
