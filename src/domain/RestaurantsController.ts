@@ -6,10 +6,10 @@ import {
   getAllDataOnLocalStorage,
   saveOnLocalStorage,
 } from '../util/localStorage';
-import {
-  renderNewRestaurant,
-  renderRestaurantList,
-} from '../ui/restaurantListRenderer';
+// import {
+//   renderNewRestaurant,
+//   renderRestaurantList,
+// } from '../ui/restaurantListRenderer';
 import { filterCategory, sortByDistance, sortByName } from './filter';
 import { SELECTED_OPTION } from '../constant';
 
@@ -40,10 +40,6 @@ export default class RestaurantsController {
     return RestaurantsController.instance;
   }
 
-  getRestaurantList(): RestaurantType[] {
-    return this.restaurantList;
-  }
-
   addNewRestaurant(event: Event) {
     const trimmedInfo = getFormData(event).map(([key, value]) => [
       key,
@@ -60,7 +56,7 @@ export default class RestaurantsController {
     }
 
     saveOnLocalStorage(restaurantInfo);
-    renderNewRestaurant(restaurantInfo);
+    // renderNewRestaurant(restaurantInfo);
 
     this.updateRestaurantList([...this.restaurantList, restaurantInfo]);
   }
@@ -89,6 +85,6 @@ export default class RestaurantsController {
 
   updateRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
-    renderRestaurantList(this.restaurantList);
+    // renderRestaurantList(this.restaurantList);
   }
 }

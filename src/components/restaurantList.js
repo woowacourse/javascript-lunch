@@ -1,0 +1,57 @@
+import '../assets/category-korean.png';
+import '../assets/category-chinese.png';
+import '../assets/category-japanese.png';
+import '../assets/category-western.png';
+import '../assets/category-asian.png';
+import '../assets/category-etc.png';
+import '../assets/favorite-icon-filled.png';
+import '../assets/favorite-icon-lined.png';
+import { initialRestaurantData } from '../constant/initialRestaurants';
+import { CATEGORY_IMAGE } from '../constant/imageConstant.js';
+import { $inBody } from '../util/selector';
+
+class RestaurantList {
+  infos = [];
+
+  constructor() {
+    this.infos = initialRestaurantData;
+  }
+
+  render() {
+    const restaurantListHTML = this.infos
+      .map(info => this.template(info))
+      .join('');
+
+    $inBody('.restaurant-list').insertAdjacentHTML(
+      'beforeend',
+      restaurantListHTML
+    );
+  }
+
+  template({ category, name, distance, description }) {
+    return `
+			<li class="restaurant">
+    		<div class="restaurant__category">
+    			<img
+    				src="./category-${CATEGORY_IMAGE[category]}.png"
+    				alt="${category}"
+    				class="category-icon"
+    			/>
+    		</div>
+    		<div class="restaurant__info">
+    			<h3 class="restaurant__name text-subtitle">
+						${name}
+					</h3>
+    			<span class="restaurant__distance text-body">
+						캠퍼스부터 ${distance}분 내
+					</span>
+    			<p class="restaurant__description text-body">
+    				${description}
+    			</p>
+    		</div>
+    	</li>
+		`;
+  }
+}
+
+export default RestaurantList;

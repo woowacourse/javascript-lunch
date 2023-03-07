@@ -1,6 +1,6 @@
-import { SELECTED_OPTION } from '../constant';
+// import { SELECTED_OPTION } from '../constant';
 import { RestaurantType } from '../type';
-import { renderRestaurantList } from '../ui/restaurantListRenderer';
+// import { renderRestaurantList } from '../ui/restaurantListRenderer';
 import { getAllDataOnLocalStorage } from '../util/localStorage';
 
 export const sortByName = (allRestaurants: RestaurantType[]) => {
@@ -17,12 +17,12 @@ export const sortByDistance = (allRestaurants: RestaurantType[]) => {
 
 export const filterCategory = (selectedCategory: string) => {
   const restaurantList = getAllDataOnLocalStorage();
-  if (selectedCategory === SELECTED_OPTION.All_CATEGORIES)
-    return renderRestaurantList(restaurantList);
+  // if (selectedCategory === SELECTED_OPTION.All_CATEGORIES)
+  // return renderRestaurantList(restaurantList);
 
-  const filteredList = restaurantList.filter(
-    restaurant => restaurant.category === selectedCategory
-  );
+  // const filteredList = restaurantList.filter(
+  //   restaurant => restaurant.category === selectedCategory
+  // );
 
-  renderRestaurantList(filteredList);
+  // renderRestaurantList(filteredList);
 };

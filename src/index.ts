@@ -1,15 +1,8 @@
 import '../css/style.css';
-import './assets/category-asian.png';
-import './assets/category-chinese.png';
-import './assets/category-etc.png';
-import './assets/category-japanese.png';
-import './assets/category-korean.png';
-import './assets/category-western.png';
-import './assets/favorite-icon-filled.png';
-import './assets/favorite-icon-lined.png';
 import Header from './components/header.js';
 import CategoryFilter from './components/categoryFilter.js';
 import SortingFilter from './components/sortingFilter.js';
+import RestaurantList from './components/restaurantList.js';
 import Modal from './components/modal.js';
 import RestaurantsController from './domain/RestaurantsController';
 import {
@@ -38,6 +31,9 @@ const App = {
     const sortingFilter = new SortingFilter();
     categoryFilter.render();
     sortingFilter.render();
+
+    const restaurantList = new RestaurantList();
+    restaurantList.render();
 
     const modal = new Modal();
     modal.render();
