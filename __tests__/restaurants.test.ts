@@ -35,6 +35,7 @@ describe('Restaurants 도메인 테스트', () => {
     const sortedByName = Restaurants.sortByType('name', restaurants.restaurants);
     const sortedByDistance = Restaurants.sortByType('distance', restaurants.restaurants);
 
+    console.log(sortedByName);
     expect(sortedByName.map(restaurant => restaurant.name)).toStrictEqual([
       '공원네 초밥집',
       '도리네 집밥',

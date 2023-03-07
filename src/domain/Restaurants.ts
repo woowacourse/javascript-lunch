@@ -1,6 +1,6 @@
 import { Restaurant, SortTypeValue, CategoryValue } from '../types/Types';
 import { compareString } from '../utils/common';
-import { VALUE } from '../constants/constants';
+import { SORT_BY_NAMEORDER, CATEGORY_ALL } from '../constants/constants';
 
 class Restaurants {
   #restaurants: Restaurant[];
@@ -22,13 +22,13 @@ class Restaurants {
   }
 
   static filterByCategory(category: CategoryValue, restaurants: Restaurant[]): Restaurant[] {
-    if (category === VALUE.catgory.all) return restaurants;
+    if (category === CATEGORY_ALL) return restaurants;
 
     return restaurants.filter(restaurant => restaurant.category === category);
   }
 
   static sortByType(sortType: SortTypeValue, restaurants: Restaurant[]): Restaurant[] {
-    if (sortType === VALUE.sortType.nameOrder) {
+    if (sortType === SORT_BY_NAMEORDER) {
       return [...restaurants].sort((a, b) => compareString(a.name, b.name));
     }
 
