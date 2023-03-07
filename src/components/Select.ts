@@ -5,7 +5,9 @@ type SelectId = keyof typeof OPTIONS | "";
 export class CustomSelect extends HTMLSelectElement {
   constructor() {
     super();
+  }
 
+  connectedCallback() {
     this.render();
   }
 

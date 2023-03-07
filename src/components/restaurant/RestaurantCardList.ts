@@ -10,16 +10,14 @@ export class RestaurantCardList extends HTMLUListElement {
       ${restaurants
         .map(
           (restaurant) =>
-            `
-              <li 
-                is="restaurant-card" 
-                class="restaurant" 
-                category=${restaurant.category} 
-                name=${restaurant.name} 
-                distance=${restaurant.distance} 
-                description=${restaurant.description}>
-              </li>
-            `
+            `<li 
+              is="restaurant-card" 
+              class="restaurant" 
+              category=${restaurant.category} 
+              name=${restaurant.name} 
+              distance=${restaurant.distance} 
+              description=${restaurant.description}
+            ></li>`
         )
         .join("")}
     `;

@@ -1,7 +1,9 @@
 export class Modal extends HTMLDivElement {
   constructor() {
     super();
+  }
 
+  connectedCallback() {
     this.render();
     this.bindEvent();
   }

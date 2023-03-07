@@ -4,7 +4,9 @@ import type { Category } from "../../types/restaurant";
 class RestaurantCard extends HTMLLIElement {
   constructor() {
     super();
+  }
 
+  connectedCallback() {
     this.render();
   }
 
