@@ -7,7 +7,6 @@ import './assets/category-korean.png';
 import './assets/category-western.png';
 import './assets/favorite-icon-filled.png';
 import './assets/favorite-icon-lined.png';
-import './components/header.js';
 import Header from './components/header.js';
 import CategoryFilter from './components/categoryFilter.js';
 import SortingFilter from './components/sortingFilter.js';

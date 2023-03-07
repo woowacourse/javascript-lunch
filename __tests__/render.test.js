@@ -4,10 +4,12 @@
 
 import { screen, fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
+
+import { $inBody } from '../src/util/selector';
 import Header from '../src/components/header.js';
 import CategoryFilter from '../src/components/categoryFilter.js';
 import SortingFilter from '../src/components/sortingFilter.js';
-import { $inBody } from '../src/util/selector';
+import Modal from '../src/components/modal.js';
 
 describe('렌더링 테스트', () => {
   beforeEach(() => {
@@ -41,14 +43,13 @@ describe('렌더링 테스트', () => {
 
   test('header에는 "점심 뭐 먹지" text가 존재한다.', () => {
     // given
-    const headerTitle = '점심 뭐 먹지';
-    const headerComponent = new Header();
+    const header = new Header();
 
     // when
-    headerComponent.render();
+    header.render();
 
     // then
-    expect(screen.getByText(headerTitle)).toBeInTheDocument();
+    expect(screen.getByText('점심 뭐 먹지')).toBeInTheDocument();
   });
 
   test('category filter 요소 테스트', () => {
@@ -86,6 +87,41 @@ describe('렌더링 테스트', () => {
     fireEvent.click($inBody('#sorting-filter'));
     sortingList.forEach(sortBy =>
       expect(screen.getByText(sortBy)).toBeInTheDocument()
+    );
+  });
+
+  test('modal 요소 테스트', () => {
+    // given
+    const modal = new Modal();
+    const modalTextList = [
+      '카테고리',
+      '한식',
+      '중식',
+      '일식',
+      '양식',
+      '아시안',
+      '기타',
+      '이름',
+      '거리(도보 이동 시간)',
+      '5분 내',
+      '10분 내',
+      '15분 내',
+      '20분 내',
+      '30분 내',
+      '설명',
+      '메뉴 등 추가 정보를 입력해 주세요.',
+      '참고 링크',
+      '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
+      '취소하기',
+      '추가하기',
+    ];
+
+    // when
+    modal.render();
+
+    // then
+    modalTextList.forEach(text =>
+      expect(screen.getByText(text)).toBeInTheDocument()
     );
   });
 });
