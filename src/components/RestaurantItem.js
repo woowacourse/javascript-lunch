@@ -7,7 +7,7 @@ export default class RestaurantItem {
 
   render({ category, storeName, distance, detail }) {
     return `
-        <li class="restaurant">
+      <li class="restaurant">
         <div class="restaurant__category">
           <img src="${this.#restaurantImage[category]}" alt="${category}" class="category-icon">
         </div>
