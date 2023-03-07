@@ -88,11 +88,20 @@ export default class Modal extends Component {
     this.$target.querySelector('.button--primary')?.addEventListener('click', (event: Event) => {
       event.preventDefault();
 
-      const category: Category = this.$target.querySelector<HTMLSelectElement>('#category')!.value as Category;
-      const name: string = this.$target.querySelector<HTMLInputElement>('#name')!.value;
-      const distance: Distance = Number(this.$target.querySelector<HTMLSelectElement>('#distance')!.value) as Distance;
-      const description = this.$target.querySelector<HTMLTextAreaElement>('#description')!.value;
-      const link = this.$target.querySelector<HTMLInputElement>('#link')!.value;
+      const categoryElement = this.$target.querySelector<HTMLSelectElement>('#category');
+      const category: Category | undefined = categoryElement ? (categoryElement.value as Category) : undefined;
+
+      const nameElement = this.$target.querySelector<HTMLInputElement>('#name');
+      const name: string = nameElement ? nameElement.value : '';
+
+      const distanceElement = this.$target.querySelector<HTMLSelectElement>('#distance');
+      const distance: Distance | undefined = distanceElement ? (Number(distanceElement.value) as Distance) : undefined;
+
+      const descriptionElement = this.$target.querySelector<HTMLTextAreaElement>('#description');
+      const description = descriptionElement ? descriptionElement.value : '';
+
+      const linkElement = this.$target.querySelector<HTMLInputElement>('#link');
+      const link = linkElement ? linkElement.value : '';
 
       if (!category || !name || !distance) {
         alert('카테고리, 이름, 거리는 필수 입력 정보 입니다!');
