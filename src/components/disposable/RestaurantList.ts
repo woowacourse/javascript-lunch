@@ -11,6 +11,10 @@ class RestaurantList {
     </section>`;
   }
 
+  initialize(target: Element) {
+    this.render(target);
+  }
+
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
   }

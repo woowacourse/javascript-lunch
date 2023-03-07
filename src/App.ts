@@ -14,7 +14,7 @@ class App {
 
     Header.initialize(body);
     SelectContainer.initialize(body, this.sortList);
-    RestaurantList.render(body);
+    RestaurantList.initialize(body);
     RestaurantFormBottomSheet.initialize(
       body,
       this.addRestaurantItemToList.bind(this)
