@@ -12,12 +12,13 @@ import {
   FORM_CATEGORY_SELECTBOX_CONFIG,
   FORM_DISTANCE_SELECTBOX_CONFIG,
 } from './constants/selectboxConfig';
+import { RESTAURANTS_KEY } from './constants/storeKey';
 
 export default class App {
   #restaurants;
 
   constructor() {
-    const restaurantsData = store.getLocalStorage();
+    const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
 
     Selectbox.render(
@@ -73,7 +74,7 @@ export default class App {
     };
 
     this.#restaurants.addRestaurant(restaurant);
-    store.setLocalStorage(this.#restaurants.getRestaurants());
+    store.setLocalStorage(RESTAURANTS_KEY, this.#restaurants.getRestaurants());
 
     this.toggleModal();
 
