@@ -22,6 +22,7 @@ body {
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
+  --restaurant-item-hover-color: #ec4a0a20;
   --grey-100: #ffffff;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
@@ -177,28 +178,43 @@ body {
   -webkit-box-orient: vertical;
 }
 
-/* 음식점 추가 모달 *****************************************/
-.modal {
+.restaurant__link {
   display: none;
 }
 
-.modal--open {
-  display: block;
+/* 음식점 추가 모달 *****************************************/
+.modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column-reverse;
+  bottom: 0;
+  transition: 0.2s;
+
+  bottom: -800px;
 }
 
 .modal-backdrop {
   position: fixed;
+  display: none;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 
   background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.modal--open {
+  bottom: 0px;
+}
+
+.modal--open .modal-backdrop {
+  display: block;
 }
 
 .modal-container {
   position: fixed;
-  bottom: 0;
   width: 100%;
 
   padding: 32px 16px;
@@ -227,7 +243,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -261,8 +277,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -298,4 +314,32 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 2단계 이후 신규 속성 정의 *****************************************/
+.restaurant {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.restaurant:hover {
+  background-color: var(--restaurant-item-hover-color);
+}
+
+#restaurant-info-modal-contents .restaurant {
+  flex-direction: column;
+  border-bottom: none;
+}
+
+#restaurant-info-modal-contents .restaurant:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+#restaurant-info-modal-contents .restaurant .restaurant__description {
+  -webkit-line-clamp: 15;
+}
+
+#restaurant-info-modal-contents .restaurant .restaurant__link {
+  display: block;
 }
