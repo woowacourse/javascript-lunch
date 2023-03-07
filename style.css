@@ -64,6 +64,8 @@ body {
 
 .gnb__title {
   color: var(--gnb-color);
+
+  cursor: pointer;
 }
 
 .gnb__button {

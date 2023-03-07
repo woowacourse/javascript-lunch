@@ -6,7 +6,8 @@ class Header extends Component {
     super($target);
 
     this.addEvent('click', (event) => {
-      this.activateModal(event);
+      if (event.target.parentNode.type === 'button') this.activateModal();
+      if (event.target.className.includes('gnb__title')) this.disActivateModal();
     });
   }
 
@@ -19,11 +20,12 @@ class Header extends Component {
       `;
   }
 
-  activateModal(event) {
-    if (event.target.parentNode.type === 'button') {
-      const modal = qs('.modal');
-      modal.classList.add('modal--open');
-    }
+  activateModal() {
+    qs('.modal').classList.add('modal--open');
+  }
+
+  disActivateModal() {
+    qs('.modal').classList.remove('modal--open');
   }
 }
 
