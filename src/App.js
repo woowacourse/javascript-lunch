@@ -90,10 +90,11 @@ export default class App {
       restaurants,
       categoryOption
     );
-
     const sortedRestaurants = RestaurantList.getSortedRestaurants(filteredRestaurants, sortOption);
 
-    RestaurantList.render($('.restaurant-list-container'), sortedRestaurants);
+    const template = RestaurantList.getTemplate(sortedRestaurants);
+
+    RestaurantList.render($('.restaurant-list-container'), template);
   }
 
   onClickRestaurantFormModalOpenButton() {

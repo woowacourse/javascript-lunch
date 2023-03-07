@@ -5,9 +5,7 @@ import { IRestaurant, RestaurantCategory, RestaurantSortType } from '../../types
 type FilterCategory = RestaurantCategory | '전체';
 
 const RestaurantList = {
-  render(targetElement: Element, restaurants: IRestaurant[]) {
-    const template = this.getTemplate(restaurants);
-
+  render(targetElement: Element, template: string) {
     targetElement.innerHTML = template;
   },
 
