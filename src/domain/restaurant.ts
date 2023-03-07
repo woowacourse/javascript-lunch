@@ -3,6 +3,20 @@ import IRestaurant from "../type/IRestaurant";
 import { TCategory } from "../type/TCategory";
 import { closeBottomSheet } from "../components/BottomSheet/handleBottomSheet";
 import { addRestaurant } from "../components/RestaurantList/handleRestaurantList";
+import { CATEGORY_NAME } from "../constants/CATEGORY_NAME";
+import { DISTANCE } from "../constants/DISTANCE";
+
+export const categoryOptions = () => {
+  return Object.entries(CATEGORY_NAME)
+    .map((value) => `<option value="${value[0]}">${value[1]}</option>`)
+    .join("");
+};
+
+export const distanceOptions = () => {
+  return Object.values(DISTANCE)
+    .map((value) => `<option value="${value}">${value}분 내</option>`)
+    .join("");
+};
 
 export const createNewRestaurant = (event: SubmitEvent) => {
   const formData = new FormData(event.target as HTMLFormElement);

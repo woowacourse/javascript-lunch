@@ -1,4 +1,4 @@
-import { CATEGORY_NAME } from "../constants/CATEGORY_NAME";
+import { categoryOptions } from "../domain/restaurant";
 import { TCategory } from "../type/TCategory";
 import RestaurantList from "./RestaurantList";
 
@@ -13,9 +13,7 @@ class CategorySelectBox extends HTMLElement {
     this.innerHTML = `
     <select name="category" id="category-filter" class="restaurant-filter">
       <option value="all">전체</option>
-      ${Object.entries(CATEGORY_NAME)
-        .map((value) => `<option value="${value[0]}">${value[1]}</option>`)
-        .join("")}
+      ${categoryOptions()}
     </select>
       `;
   }
