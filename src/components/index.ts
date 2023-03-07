@@ -1,9 +1,10 @@
 import LunchHeader from "./LunchHeader";
-import ModalRoot from "./ModalRoot";
-import RestaurantAddModal from "./RestaurantAddModal";
 import RestaurantOptionSelect from "./RestaurantOptionSelect";
 import RestaurantCardList from "./RestaurantCardList";
 import RestaurantCard from "./RestaurantCard";
+
+import ModalRoot from "./modal/ModalRoot";
+import RestaurantAddModal from "./modal/RestaurantAddModal";
 
 customElements.define("lunch-header", LunchHeader, { extends: "header" });
 customElements.define("modal-root", ModalRoot);

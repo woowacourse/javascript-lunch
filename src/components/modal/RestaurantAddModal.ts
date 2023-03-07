@@ -1,9 +1,9 @@
-import restaurantState from "../states/restaurant";
-import { Category, Distance, Restaurant } from "../types/restaurant";
-import CustomSelect from "./RestaurantOptionSelect";
+import restaurantState from "../../states/restaurant";
+import { Category, Distance, Restaurant } from "../../types/restaurant";
+import CustomSelect from "../RestaurantOptionSelect";
 import ModalContent from "./ModalContent";
 
-import RestaurantCardList from "./RestaurantCardList";
+import RestaurantCardList from "../RestaurantCardList";
 
 class RestaurantAddModal extends ModalContent {
   constructor() {
