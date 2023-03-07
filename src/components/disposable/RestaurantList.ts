@@ -23,11 +23,17 @@ class RestaurantList {
 
   updateRestaurantList(newData: Restaurant[]) {
     const restaurantList = $(".restaurant-list") as HTMLElement;
-    restaurantList.innerHTML = "";
+    this.removeTemplate(restaurantList);
 
     newData.forEach((data) => {
       this.renderRestaurantItem(data);
     });
+  }
+
+  removeTemplate(target: Element) {
+    while (target?.firstChild) {
+      target.removeChild(target.firstChild);
+    }
   }
 }
 
