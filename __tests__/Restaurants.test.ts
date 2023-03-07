@@ -1,11 +1,11 @@
 import Restaurants from '../src/domain/Restaurants';
-import { Restaurant } from '../src/types';
+import { IRestaurant } from '../src/types';
 
 describe('Restaurants.addRestaurant', () => {
   test('음식점을 추가하면, 음식점 리스트에 맨 뒤에 추가된다.', () => {
     const restaurants = new Restaurants();
 
-    const restaurant: Restaurant = {
+    const restaurant: IRestaurant = {
       category: '한식',
       name: '돈카라',
       distance: '10',
@@ -22,7 +22,7 @@ describe('Restaurants.addRestaurant', () => {
 
 describe('Restaurants.getFilteredRestaurantsByCategory', () => {
   test('선택된 카테고리와 일치하는 음식점의 목록을 반환한다.', () => {
-    const dummyRestaurants: Restaurant[] = [
+    const dummyRestaurants: IRestaurant[] = [
       {
         category: '한식',
         name: '맛이쪙 돈까스',
@@ -44,7 +44,7 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
     const restaurants = new Restaurants(dummyRestaurants);
 
     const filterdRestaurants = restaurants.getFilteredRestaurantsByCategory('한식');
-    const expected: Restaurant[] = [
+    const expected: IRestaurant[] = [
       {
         category: '한식',
         name: '맛이쪙 돈까스',
@@ -63,7 +63,7 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
   });
 
   test(`선택된 카테고리가 '전체'라면 모든 음식점의 목록을 반환한다.`, () => {
-    const dummyRestaurants: Restaurant[] = [
+    const dummyRestaurants: IRestaurant[] = [
       {
         category: '한식',
         name: '맛이쪙 돈까스',
@@ -93,7 +93,7 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
 describe('Restaurants.getSortedRestaurantsByName', () => {
   test('음식점 리스트를 받아, 이름순으로 정렬된 리스트를 반환한다.', () => {
     const restaurants = new Restaurants();
-    const dummyRestaurants: Restaurant[] = [
+    const dummyRestaurants: IRestaurant[] = [
       {
         category: '한식',
         name: '맛이쪙 돈까스',
@@ -114,7 +114,7 @@ describe('Restaurants.getSortedRestaurantsByName', () => {
     ];
 
     const sortedRestaurants = restaurants.getSortedRestaurantsByName(dummyRestaurants);
-    const expected: Restaurant[] = [
+    const expected: IRestaurant[] = [
       {
         category: '한식',
         name: '김치찌개 장인',
@@ -141,7 +141,7 @@ describe('Restaurants.getSortedRestaurantsByName', () => {
 describe('Restaurants.getSortedRestaurantsByDistance', () => {
   test('음식점 리스트를 받아, 거리순으로 정렬된 리스트를 반환한다.', () => {
     const restaurants = new Restaurants();
-    const dummyRestaurants: Restaurant[] = [
+    const dummyRestaurants: IRestaurant[] = [
       {
         category: '한식',
         name: '맛이쪙 돈까스',
@@ -162,7 +162,7 @@ describe('Restaurants.getSortedRestaurantsByDistance', () => {
     ];
 
     const sortedRestaurants = restaurants.getSortedRestaurantsByDistance(dummyRestaurants);
-    const expected: Restaurant[] = [
+    const expected: IRestaurant[] = [
       {
         category: '한식',
         name: '김치찌개 장인',

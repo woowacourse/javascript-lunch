@@ -2,6 +2,8 @@ import { Restaurant, Category, RestaurantSortType } from '../types';
 
 import deepCopy from '../utils/deepCopy';
 
+type FilterCategory = Category | '전체';
+
 export default class Restaurants {
   #restaurants: Restaurant[];
 
@@ -13,7 +15,7 @@ export default class Restaurants {
     this.#restaurants.push(restaurant);
   }
 
-  getFilteredRestaurantsByCategory(category: Category) {
+  getFilteredRestaurantsByCategory(category: FilterCategory) {
     const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
 
     if (category === '전체') {
