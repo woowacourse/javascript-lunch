@@ -10,12 +10,12 @@ import { $ } from '../src/util/querySelector';
 
 describe('레스토랑 항목(RestaurantItem) 컴포넌트 랜더링 테스트', () => {
   beforeEach(() => {
-    document.body.innerHTML = '<div id="restaurant-list"></div>';
+    document.body.innerHTML = '<div id="test-root"></div>';
   });
 
   test('한식 음식점에 해당하는 컴포넌트가 랜더링되었을 때, 예상했던 랜더링 내용이 포함되어 있어야 한다.', () => {
     new RestaurantItem({
-      parentElement: $('#restaurant-list'),
+      parentElement: $('#test-root'),
       restaurant: dummyRestaurants[0],
     });
 
@@ -29,7 +29,7 @@ describe('레스토랑 항목(RestaurantItem) 컴포넌트 랜더링 테스트',
 
   test('일식 음식점에 해당하는 컴포넌트가 랜더링되었을 때, 예상했던 랜더링 내용이 포함되어 있어야 한다.', () => {
     new RestaurantItem({
-      parentElement: $('#restaurant-list'),
+      parentElement: $('#test-root'),
       restaurant: dummyRestaurants[1],
     });
 
