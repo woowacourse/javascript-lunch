@@ -3,10 +3,18 @@ import { $ } from "@/utils/Dom";
 import RestaurantItem from "../common/RestaurantItem";
 
 class RestaurantList {
+  restaurantItems: RestaurantItem[];
+
+  constructor() {
+    this.restaurantItems = [];
+  }
+
   template() {
     return `
     <section class="restaurant-list-container">
-      <ul class="restaurant-list" />
+      <ul class="restaurant-list">
+      ${this.restaurantItems.map((item) => item.template()).join("")}
+      </ul>
     </section>`;
   }
 
@@ -14,20 +22,14 @@ class RestaurantList {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  renderRestaurantItem(restaurant: Restaurant) {
-    const restaurantItem = new RestaurantItem(restaurant);
-
-    const list = $(".restaurant-list");
-    list?.insertAdjacentHTML("beforeend", restaurantItem.template());
-  }
-
   updateList(restaurants: Restaurant[]) {
-    const list = $(".restaurant-list");
-    list?.replaceChildren();
+    $(".restaurant-list-container")?.remove();
 
-    restaurants.forEach((restaurant) => {
-      this.renderRestaurantItem(restaurant);
-    });
+    this.restaurantItems = restaurants.map(
+      (restaurant) => new RestaurantItem(restaurant)
+    );
+
+    this.render($("body") as Element);
   }
 }
 
