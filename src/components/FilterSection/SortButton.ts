@@ -1,6 +1,6 @@
-import RestaurantListItem from '../domain/RestaurantListItem';
-import RestaurantList from './RestaurantList';
-import { TPriority } from '../domain/RestaurantListItem';
+import RestaurantListItem from '../../domain/RestaurantListItem';
+import RestaurantList from '../RestaurantList';
+import { TPriority } from '../../domain/RestaurantListItem';
 
 const SortButton = {
   template() {

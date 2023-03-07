@@ -1,10 +1,9 @@
 import Header from './components/Header';
-import FilterButton from './components/FilterButton';
+import Modal from './components/Modal';
+import FilterSection from './components/FilterSection';
 import RestaurantList from './components/RestaurantList';
-import SortButton from './components/SortButton';
 import RestaurantListItem from './domain/RestaurantListItem';
 import RestaurantStorage from './domain/RestaurantStorage';
-import Modal from './components/Modal';
 
 class App {
   #app;
@@ -21,8 +20,7 @@ class App {
       ${Header.template()}
       <main>
         <section class="restaurant-filter-container">
-          ${FilterButton.template()}
-          ${SortButton.template()}
+          ${FilterSection.template()}
         </section>
         <section class="restaurant-list-container">
           ${RestaurantList.template(this.#restaurantListItem.getListItem())}
@@ -38,8 +36,7 @@ class App {
 
   #setEvent() {
     Header.setEvent();
-    FilterButton.setEvent(this.#restaurantListItem);
-    SortButton.setEvent(this.#restaurantListItem);
+    FilterSection.setEvent(this.#restaurantListItem);
     Modal.setEvent(this.#restaurantListItem);
   }
 }

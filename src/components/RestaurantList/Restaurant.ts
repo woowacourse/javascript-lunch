@@ -1,5 +1,5 @@
-import { Category } from '../data/image';
-import { IRestaurant } from '../domain/RestaurantListItem';
+import { Category } from '../../data/image';
+import { IRestaurant } from '../../domain/RestaurantListItem';
 
 const Restaurant = {
   template(restaurant: IRestaurant) {

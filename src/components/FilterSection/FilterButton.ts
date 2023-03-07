@@ -1,5 +1,5 @@
-import RestaurantListItem, { TCategory } from '../domain/RestaurantListItem';
-import RestaurantList from './RestaurantList';
+import RestaurantListItem, { TCategory } from '../../domain/RestaurantListItem';
+import RestaurantList from '../RestaurantList';
 
 const FilterButton = {
   template() {

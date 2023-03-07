@@ -1,4 +1,4 @@
-import { IRestaurant } from '../domain/RestaurantListItem';
+import { IRestaurant } from '../../domain/RestaurantListItem';
 import Restaurant from './Restaurant';
 
 const RestaurantList = {
