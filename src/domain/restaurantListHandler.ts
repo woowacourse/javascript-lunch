@@ -24,9 +24,7 @@ class RestaurantListHandler {
       : this.getSortedByTakingTime(restaurants);
   }
 
-  private getSortedByName(
-    restaurants: Restaurant[] = this.restaurants
-  ): Restaurant[] {
+  private getSortedByName(restaurants: Restaurant[]): Restaurant[] {
     return [...restaurants].sort((resA, resB) =>
       resA.name.localeCompare(resB.name, Constants.KOREAN)
     );
