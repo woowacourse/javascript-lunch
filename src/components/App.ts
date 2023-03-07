@@ -2,38 +2,32 @@ import Component from './Component';
 import Header from './main/Header';
 import Main from './main/Main';
 import Modal from './main/Modal';
-
-interface AppProps {}
+import makeState from '../utils/makeProxyObject';
 
 interface AppState {
   modalShow: boolean;
 }
 
-class App extends Component<AppProps, AppState> {
-  constructor($parent: DocumentFragment, props: AppProps) {
-    super({
-      $parent,
-      props,
-      tagName: 'div',
-      initialState: { modalShow: false },
-    });
+class App extends Component {
+  state: AppState;
+
+  constructor($parent: DocumentFragment) {
+    super({ $parent, tagName: 'div', className: 'app' });
+    this.state = makeState({ modalShow: false }, this.render.bind(this));
   }
 
   appendChild() {
     const toggleModal = this.toggleModal.bind(this);
 
-    new Header(this.$wrapper, { toggleModal });
-    new Main(this.$wrapper, {});
+    new Header(this.$wrapper, { toggleModal }).render();
+    new Main(this.$wrapper).render();
     if (this.state.modalShow === true) {
-      new Modal(this.$wrapper, { toggleModal });
+      new Modal(this.$wrapper, { toggleModal }).render();
     }
   }
 
   toggleModal() {
-    this.setState({
-      ...this.state,
-      modalShow: !this.state.modalShow,
-    });
+    this.state.modalShow = !this.state.modalShow;
   }
 }
 

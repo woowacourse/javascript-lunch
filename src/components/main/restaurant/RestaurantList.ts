@@ -9,17 +9,17 @@ interface RestaurantListProps {
   restaurants: Restaurant[];
 }
 
-interface RestaurantListState {}
+class RestaurantList extends Component {
+  props: RestaurantListProps;
 
-class RestaurantList extends Component<RestaurantListProps, RestaurantListState> {
   constructor($parent: HTMLElement, props: RestaurantListProps) {
-    super({ $parent, props, tagName: 'ul', initialState: {} });
-    this.$wrapper.className = 'restaurant-list';
+    super({ $parent, tagName: 'ul', className: 'restaurant-list' });
+    this.props = props;
   }
 
   appendChild() {
     this.getShowRestaurants().forEach((restaurant) => {
-      new RestaurantListItem(this.$wrapper, { restaurant });
+      new RestaurantListItem(this.$wrapper, { restaurant }).render();
     });
   }
 

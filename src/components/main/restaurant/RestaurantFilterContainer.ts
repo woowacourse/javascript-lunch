@@ -9,15 +9,12 @@ interface RestaurantFilterContainerProps {
   onChangeSortBy: (e: Event) => void;
 }
 
-interface RestaurantFilterContainerState {}
+class RestaurantFilterContainer extends Component {
+  props: RestaurantFilterContainerProps;
 
-class RestaurantFilterContainer extends Component<
-  RestaurantFilterContainerProps,
-  RestaurantFilterContainerState
-> {
   constructor($parent: HTMLElement, props: RestaurantFilterContainerProps) {
-    super({ $parent, props, tagName: 'section', initialState: {} });
-    this.$wrapper.className = 'restaurant-filter-container';
+    super({ $parent, tagName: 'section', className: 'restaurant-filter-container' });
+    this.props = props;
   }
 
   drawInnerHTML() {

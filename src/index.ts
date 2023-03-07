@@ -10,5 +10,5 @@ import App from './components/App';
 
 const fragment = document.createDocumentFragment();
 
-new App(fragment, {});
+new App(fragment).render();
 document.getElementById('root')?.append(fragment);

@@ -6,17 +6,12 @@ interface RestaurantListItemProps {
   restaurant: Restaurant;
 }
 
-interface RestaurantListItemState {}
+class RestaurantListItem extends Component {
+  props: RestaurantListItemProps;
 
-class RestaurantListItem extends Component<RestaurantListItemProps, RestaurantListItemState> {
   constructor($parent: HTMLElement, props: RestaurantListItemProps) {
-    super({
-      $parent,
-      props,
-      tagName: 'li',
-      initialState: {},
-    });
-    this.$wrapper.className = 'restaurant';
+    super({ $parent, tagName: 'li', className: 'restaurant' });
+    this.props = props;
   }
 
   drawInnerHTML() {

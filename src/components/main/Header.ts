@@ -4,12 +4,12 @@ interface HeaderProps {
   toggleModal: () => void;
 }
 
-interface HeaderState {}
+class Header extends Component {
+  props: HeaderProps;
 
-class Header extends Component<HeaderProps, HeaderState> {
   constructor($parent: HTMLElement, props: HeaderProps) {
-    super({ $parent, props, tagName: 'header', initialState: {} });
-    this.$wrapper.className = 'gnb';
+    super({ $parent, tagName: 'header', className: 'gnb' });
+    this.props = props;
   }
 
   drawInnerHTML() {
