@@ -27,6 +27,7 @@ class RestaurantsStore extends Store {
   }
 
   publish(action: Action) {
+    this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
     this.filterByCategory(this.#category);
     this.sortRestaurants(this.#sortMethod);
     this.getSubscribers().forEach((subscriber) => {

@@ -6,7 +6,7 @@ import "./components/restaurant/RestaurantListComponent";
 import "./components/restaurant/RestaurantComponent";
 import "./components/modal/RestaurantAddFormComponent";
 import "./components/HeaderComponent";
-import "./components/SelectComponent";
+import "./components/filter/SelectContainer";
 import "./components/modal/ModalComponent";
 
 // images
