@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_KEY } from './constant';
-import cache from './data/cache';
+import cache from './data/localMemory';
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
 import {
@@ -113,7 +113,7 @@ class App {
   }
 
   loadLocalStorage() {
-    const data = cache.getCache(LOCAL_STORAGE_KEY);
+    const data = cache.getData(LOCAL_STORAGE_KEY);
     if (!data) return;
 
     data.restaurants?.forEach((restaurant: Restaurant) => {
@@ -124,7 +124,7 @@ class App {
   }
 
   saveLocalStorage() {
-    cache.setCache(LOCAL_STORAGE_KEY, this.#state);
+    cache.setData(LOCAL_STORAGE_KEY, this.#state);
     this.loadLocalStorage();
   }
 

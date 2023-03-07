@@ -1,5 +1,5 @@
-const cache = {
-  getCache(id: string) {
+const localMemory = {
+  getData(id: string) {
     const data = localStorage.getItem(id);
 
     if (!data) return null;
@@ -7,9 +7,9 @@ const cache = {
     return JSON.parse(data);
   },
 
-  setCache(id: string, newData: object) {
+  setData(id: string, newData: object) {
     localStorage.setItem(id, JSON.stringify(newData));
   },
 };
 
-export default cache;
+export default localMemory;
