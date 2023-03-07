@@ -10,9 +10,11 @@ const ButtonContainer = {
   },
   setEvent() {
     const cancelButton = document.querySelector('.button--secondary');
+    const addForm = document.querySelector('#addForm') as HTMLFormElement;
 
     cancelButton?.addEventListener('click', (e) => {
       e.preventDefault();
+      addForm.reset();
       Modal.closeModal();
     });
   },
