@@ -1,5 +1,8 @@
-import { closeBottomSheet } from "../domain/bottomSheet";
-import { createNewRestaurant, tryAddNewRestaurant } from "../domain/restaurant";
+import { closeBottomSheet } from "../BottomSheet/handleBottomSheet";
+import {
+  createNewRestaurant,
+  tryAddNewRestaurant,
+} from "../../domain/restaurant";
 
 class AddRestaurant extends HTMLElement {
   constructor() {

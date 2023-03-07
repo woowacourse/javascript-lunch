@@ -1,8 +1,8 @@
-import RestaurantList from "../components/RestaurantList";
 import Validator from "../tools/Validator";
 import IRestaurant from "../type/IRestaurant";
 import { TCategory } from "../type/TCategory";
-import { closeBottomSheet } from "./bottomSheet";
+import { closeBottomSheet } from "../components/BottomSheet/handleBottomSheet";
+import { addNewRestaurant } from "../components/AddRestaurant/handleAddRestaurant";
 
 export const createNewRestaurant = (event: SubmitEvent) => {
   const formData = new FormData(event.target as HTMLFormElement);
@@ -14,13 +14,6 @@ export const createNewRestaurant = (event: SubmitEvent) => {
     link: formData.get("link") as string,
   };
   return newRestaurant;
-};
-
-export const addNewRestaurant = (newRestaurant: IRestaurant) => {
-  const restaurantList = document.getElementById("restaurantList");
-  if (restaurantList instanceof RestaurantList) {
-    restaurantList.addRestaurant(newRestaurant);
-  }
 };
 
 export const tryAddNewRestaurant = (newRestaurant: IRestaurant) => {

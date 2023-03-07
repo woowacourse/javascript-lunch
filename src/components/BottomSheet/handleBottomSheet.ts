@@ -1,4 +1,4 @@
-import BottomSheet from "../components/BottomSheet";
+import BottomSheet from ".";
 
 export const closeBottomSheet = () => {
   const bottomSheet = document.getElementById("bottomSheet");
