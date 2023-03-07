@@ -8,6 +8,7 @@ import "./components/modal/RestaurantAddFormComponent";
 import "./components/HeaderComponent";
 import "./components/filter/SelectContainer";
 import "./components/modal/ModalComponent";
+import "./components/menu/MenuContainer";
 
 // images
 import "../img/add-button.png";

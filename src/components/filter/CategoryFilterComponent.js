@@ -16,9 +16,11 @@ class CategoryFilterComponent extends SelectComponent {
     ],
   };
   handleEvent() {
-    this.querySelector("#category-filter").addEventListener("change", (event) =>
-      dispatcher(RESTAURANT_ACTION.FILTER_BY_CATEGORY, event.target.value)
-    );
+    this.shadowRoot
+      .querySelector("#category-filter")
+      .addEventListener("change", (event) =>
+        dispatcher(RESTAURANT_ACTION.FILTER_BY_CATEGORY, event.target.value)
+      );
   }
 }
 customElements.define("category-filter-element", CategoryFilterComponent);

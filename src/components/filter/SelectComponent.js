@@ -7,6 +7,27 @@ class SelectComponent extends CustomElement {
   };
   template() {
     return `
+            <style>
+                * {
+                    padding: 0;
+                    margin: 0;
+                    box-sizing: border-box;
+                }
+                select {
+                    height: 44px;
+                    min-width: 125px;
+                
+                    border: 1px solid #d0d5dd;
+                    border-radius: 8px;
+                    background: transparent;
+                
+                    font-size: 16px;
+                }
+                
+                .restaurant-filter {
+                    padding: 8px;
+                }
+            </style>
             <select name="${this.data.filterName}" id="${
       this.data.filterName
     }-filter" class="restaurant-filter">

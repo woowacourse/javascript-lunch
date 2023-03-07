@@ -23,11 +23,28 @@ class RestaurantListComponent extends CustomElement {
       })
       .join("");
 
-    this.querySelector(".restaurant-list").innerHTML = restaurants;
+    this.shadowRoot.querySelector(".restaurant-list").innerHTML = restaurants;
   }
 
   template() {
     return `
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .restaurant-list-container {
+        display: flex;
+        flex-direction: column;
+      
+        padding: 0 16px;
+        margin: 16px 0;
+      }
+      ul {
+        list-style: none;
+      }
+    </style>
     <section class="restaurant-list-container">
       <ul class="restaurant-list"></ul>
     </section>

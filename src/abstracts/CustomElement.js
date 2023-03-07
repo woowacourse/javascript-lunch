@@ -5,7 +5,8 @@ class CustomElement extends HTMLElement {
   }
 
   render() {
-    this.insertAdjacentHTML("beforeend", this.template());
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = this.template();
   }
 
   template() {}

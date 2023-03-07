@@ -3,13 +3,61 @@ import dispatcher from "../domain/Dispatcher";
 
 class HeaderComponent extends CustomElement {
   handleEvent() {
-    this.querySelector(".gnb__button").addEventListener("click", () =>
-      dispatcher("modal_on")
-    );
+    this.shadowRoot
+      .querySelector(".gnb__button")
+      .addEventListener("click", () => dispatcher("modal_on"));
   }
 
   template() {
     return `
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .gnb {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 64px;
+      
+        padding: 0 16px;
+      
+        background-color: var(--primary-color);
+        position: fixed;
+        width: 100%;
+        top: 0;
+      }
+      
+      .gnb__title {
+        color: #fcfcfd;
+      }
+      
+      .gnb__button {
+        height: 40px;
+      
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+      
+        font-size: 24px;
+        cursor: pointer;
+      }
+      
+      .gnb__button img {
+        display: block;
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .text-title {
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 600;
+      }
+    </style>
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">
