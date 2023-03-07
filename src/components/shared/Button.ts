@@ -1,22 +1,18 @@
 import CustomFormElement from '../CustomFormElement';
 
 class Button extends CustomFormElement {
-  constructor() {
-    super();
-  }
-
-  get variant() {
+  private get variant() {
     return this.getAttribute('variant');
   }
 
-  get action() {
+  private get action() {
     return this.getAttribute('action');
   }
 
   renderTemplate() {
     return `
       <style>
-        button {
+        .modal-button {
           width: 100%;
           height: 44px;
 
@@ -43,25 +39,14 @@ class Button extends CustomFormElement {
       </style>
 
       <button 
-        ${this.action ? `action=${this.action}` : ''} 
+        type=${this.type}
+        action=${this.action}
         variant=${this.variant} 
-        class="text-caption"
+        class="text-caption modal-button"
       >
         ${this.name}
       </button>
     `;
-  }
-
-  render() {
-    super.render();
-
-    this.addEventListener('click', (event: Event) => {
-      event.preventDefault();
-
-      if (!this.action) return;
-
-      this.dispatchEvent(new CustomEvent(this.action, { bubbles: true }));
-    });
   }
 }
 

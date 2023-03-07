@@ -27,12 +27,7 @@ class Select extends CustomFormElement {
 
   setSelectedOption(selectedOption: SelectOption) {
     this.#selectedOption = selectedOption;
-    this.internals.setFormValue(String(selectedOption.value));
     this.dispatchEvent(new CustomEvent('change'));
-  }
-
-  get value() {
-    return String(this.#selectedOption?.value ?? '');
   }
 
   renderTemplate(): string {

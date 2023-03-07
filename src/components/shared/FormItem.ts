@@ -1,14 +1,26 @@
 import CustomFormElement from '../CustomElement';
 
 class FormItem extends CustomFormElement {
+  private get label() {
+    return this.getAttribute('label');
+  }
+
+  private get helperText() {
+    return this.getAttribute('helper-text');
+  }
+
+  private get required() {
+    return this.hasAttribute('required');
+  }
+
   renderTemplate(): string {
     return `
       <style>
-        r-form-item > label {
+        .label-main-text {
           color: var(--grey-400);
         }
 
-        r-form-item > span {
+        .label-helper-text {
           color: var(--grey-300);
         }
 
@@ -25,12 +37,12 @@ class FormItem extends CustomFormElement {
       </style>
 
       <div>
-        <label class="text-caption ${this.querySelector('[required]') ? 'required' : ''}">
-          ${this.getAttribute('label') ?? ''}
+        <label class="text-caption ${this.required ? 'required' : ''} label-main-text">
+          ${this.label ?? ''}
         </label>
         ${this.innerHTML}
-        <span class="text-caption">
-          ${this.getAttribute('helper-text') ?? ''}
+        <span class="text-caption label-helper-text">
+          ${this.helperText ?? ''}
         </span>
       </div>
     `;

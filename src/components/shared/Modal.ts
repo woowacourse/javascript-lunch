@@ -1,31 +1,9 @@
 import CustomElement from '../CustomElement';
-import Button from '../shared/Button';
-import RButton from '../shared/Button';
 
 class Modal extends CustomElement {
-  static get observedAttributes() {
-    return ['open'];
-  }
-
-  open() {
-    this.querySelector('.modal')?.setAttribute('open', '');
-  }
-
-  close() {
-    this.querySelector('.modal')?.removeAttribute('open');
-  }
-
   renderTemplate(): string {
     return `
       <style>
-      .modal {
-        display: none;
-      }
-
-      .modal[open] {
-        display: block;
-      }
-
       .modal-backdrop {
         position: fixed;
         top: 0;
@@ -51,28 +29,39 @@ class Modal extends CustomElement {
         margin-bottom: 36px;
       }
       </style>
-
       <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
-          <h2 class="modal-title text-title">새로운 음식점</h2>
           ${this.innerHTML}
         </div>
       </div>
     `;
   }
 
-  render(): void {
+  render = () => {
     super.render();
 
-    this.addEventListener('submitForm', () => {
-      this.dispatchEvent(new CustomEvent('createRestaurant', { bubbles: true }));
-    });
+    this.initEventHandlers();
+  };
 
-    this.addEventListener('cancel', this.close);
+  close = () => {
+    if (!this.parentElement) return;
 
-    this.querySelector<HTMLDivElement>('.modal-backdrop')?.addEventListener('click', this.close);
-  }
+    this.parentElement.remove();
+  };
+
+  initEventHandlers = () => {
+    const $modalBackdrop = this.querySelector<HTMLDivElement>('.modal-backdrop');
+    const $closeModalButton = this.querySelector<HTMLButtonElement>('button[action="closeModal"]');
+
+    if (!$modalBackdrop) return;
+
+    $modalBackdrop.addEventListener('click', this.close);
+
+    if (!$closeModalButton) return;
+
+    $closeModalButton.addEventListener('click', this.close);
+  };
 }
 
 customElements.define('r-modal', Modal);
