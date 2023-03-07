@@ -4,7 +4,7 @@ import Storage from "../../tools/Storage";
 import defaultRestaurants from "../../tools/defaultRestaurants";
 import { TCategory } from "../../type/TCategory";
 import { restaurants } from "../../domain/restaurants";
-import { selectRestaurants } from "./handleRestaurantList";
+import { restoreRestaurants, selectRestaurants } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
   listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
@@ -16,13 +16,7 @@ class RestaurantList extends HTMLElement {
       filter: "all",
       sort: "name",
     });
-    this.loadRestaurants();
-  }
-
-  loadRestaurants() {
-    const restaurants = Storage.loadRestaurants();
-    this.listState.restaurants =
-      restaurants.length > 0 ? restaurants : defaultRestaurants;
+    restoreRestaurants();
   }
 
   render() {

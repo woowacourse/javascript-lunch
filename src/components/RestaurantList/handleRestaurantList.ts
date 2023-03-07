@@ -1,5 +1,6 @@
 import RestaurantList from ".";
 import { filterRestaurants, sortRestaurants } from "../../domain/restaurant";
+import defaultRestaurants from "../../tools/defaultRestaurants";
 import Storage from "../../tools/Storage";
 import IRestaurant from "../../type/IRestaurant";
 
@@ -32,4 +33,13 @@ export const selectRestaurants = (): IRestaurant[] => {
     return sortRestaurants(restaurants, sort);
   }
   return [];
+};
+
+export const restoreRestaurants = () => {
+  const restaurants = Storage.loadRestaurants();
+  const restaurantList = document.getElementById("restaurantList");
+  if (restaurantList instanceof RestaurantList) {
+    restaurantList.listState.restaurants =
+      restaurants.length > 0 ? restaurants : defaultRestaurants;
+  }
 };
