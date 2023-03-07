@@ -93,7 +93,7 @@ class AddTextInput extends HTMLElement {
   getNameErrorMessage(kind, textValue) {
     if (kind !== 'name') return null;
     if (textValue === '') return '이 값은 필수로 입력해야 합니다.';
-    if (textValue.length > 30 || textValue < 2) {
+    if (textValue.length > 30 || textValue.length < 2) {
       return '이름은 2자 이상 30자 이하만 가능합니다.';
     }
     return null;
