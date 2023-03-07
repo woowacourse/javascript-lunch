@@ -11,13 +11,13 @@ class Header {
     </header>`;
   }
 
-  addEvent() {
+  addEvent(openModal: () => void) {
     $(".gnb__title")?.addEventListener("click", () => {
       location.reload();
     });
 
     $(".gnb__button")?.addEventListener("click", () => {
-      $(".modal")?.classList.add("modal--open");
+      openModal();
     });
   }
 

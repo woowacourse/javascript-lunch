@@ -111,6 +111,10 @@ class AddModal {
     this.deleteErrorMessage();
   }
 
+  openModal() {
+    $(".modal")?.classList.add("modal--open");
+  }
+
   closeModal() {
     this.resetForm();
     $(".modal")?.classList.remove("modal--open");
