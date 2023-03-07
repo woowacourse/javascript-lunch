@@ -1,26 +1,17 @@
-const { qs } = require('../utils/domHelpers');
+import Component from '../Component';
 
-export default class AddModal {
-  #RestaurantManager;
-  #main;
+export default class AddModal extends Component {
+  constructor($target) {
+    super($target);
 
-  constructor(RestaurantManager, main) {
-    this.addEvent();
-    this.#RestaurantManager = RestaurantManager;
-    this.#main = main;
-  }
-
-  addEvent() {
-    const modal = qs('.modal');
-    modal.addEventListener('submit', (e) => {
-      this.submitData(e);
-    });
-    modal.addEventListener('click', (e) => {
-      if (e.target.innerHTML === '취소하기') this.cancelInputData(e);
+    this.addEvent('click', (event) => {
+      this.cancelInputData(event);
+    }).addEvent('submit', (event) => {
+      this.submitInputData(event);
     });
   }
 
-  render() {
+  template() {
     return `
         <div class="modal-backdrop"></div>
         <div class="modal-container">
@@ -76,7 +67,7 @@ export default class AddModal {
   
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-              <button type="button" class="button button--secondary text-caption">취소하기</button>
+              <button type="button" id="cancel-modal-button" class="button button--secondary text-caption">취소하기</button>
               <button class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
@@ -84,14 +75,16 @@ export default class AddModal {
       `;
   }
 
-  cancelInputData(e) {
-    e.currentTarget.classList.remove('modal--open');
+  cancelInputData(event) {
+    if (event.target.id === 'cancel-modal-button') {
+      event.currentTarget.classList.remove('modal--open');
+    }
   }
 
-  submitData(e) {
-    e.preventDefault();
+  submitInputData(event) {
+    event.preventDefault();
 
-    const inputData = [...e.target].map((el) => {
+    const inputData = [...event.target].map((el) => {
       return el.value;
     });
 
@@ -103,11 +96,7 @@ export default class AddModal {
       link: inputData[4],
     };
 
-    this.#RestaurantManager.addRestaurant(addData);
-    e.currentTarget.classList.remove('modal--open');
-
-    qs('.restaurant-list-container').innerHTML = this.#main.reRender(
-      this.#RestaurantManager.getRestaurantList()
-    );
+    this.restaurantManager.addRestaurant(addData);
+    event.currentTarget.classList.remove('modal--open');
   }
 }
