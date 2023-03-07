@@ -4,8 +4,8 @@ export interface RestaurantProps {
   category: string;
   name: string;
   distance: number;
-  description?: string;
-  referenceUrl?: string;
+  description?: string | null;
+  referenceUrl?: string | null;
 }
 
 export type RestaurantCategory = (typeof Restaurant.CATEGORIES)[number];
