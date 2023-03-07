@@ -5,7 +5,7 @@ import { initialRestaurantData } from "../constant/initialRestaurants";
 import { saveRestaurantsInLocalStorage } from "./localStorageController";
 import { renderRestaurantList } from "../component/restaurantList";
 import { updateRestaurantList } from "./filter";
-import { handleModalCancelButtonClick } from "../ui/modal";
+import { handleModalCancelButtonClick } from "../modal";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
 import { LOCAL_STORAGE_KEY } from "../constant";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;

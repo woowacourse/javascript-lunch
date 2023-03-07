@@ -15,7 +15,7 @@ import RestaurantsController from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
-} from "./ui/modal";
+} from "./modal";
 import {
   executeChangeEventListener,
   executeClickEventListener,
