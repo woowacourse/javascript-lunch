@@ -1,7 +1,7 @@
 import "../css/style.css";
 import Modal from "../src/util/Modal";
 import Restaurants from "./domain/Restaurants";
-import Input from "./Input";
+import Input from "./domain/RestaurantValidator";
 import Alert from "./util/Alert";
 import { $ } from "./util/querySelector";
 import Filter from "./domain/Filter";
@@ -11,7 +11,31 @@ import LocalStorage from "./util/LocalStorage";
 import Elements from "./Element";
 import createSelectInput from "./util/createSelectInput";
 
+const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+const ESTIMATEDTIME = ["5", "10", "15", "20", "30"];
+
 const newRestaurant = new Restaurants();
+
+// 카테고리, 정렬 필터 생성
+const filterContainer = $(".restaurant-filter-container");
+
+const categoryFilterElement = createSelectInput(
+  "category-filter",
+  "",
+  ["전체", ...CATEGORY],
+  ["전체", ...CATEGORY],
+);
+categoryFilterElement.setAttribute("class", "restaurant-filter");
+filterContainer.appendChild(categoryFilterElement);
+
+const sortingFilterElement = createSelectInput(
+  "sorting-filter",
+  "",
+  ["name", "distance"],
+  ["이름순", "거리순"],
+);
+sortingFilterElement.setAttribute("class", "restaurant-filter");
+filterContainer.appendChild(sortingFilterElement);
 
 // 음식점 입력 모달 생성
 const restaurantInputModal = Modal.create();
@@ -22,14 +46,14 @@ const addRestaurantForm = document.importNode(addRestaurantFormTemplate.content,
 addRestaurantForm.querySelector(".category-input").innerHTML = createSelectInput(
   "category",
   "카테고리",
-  ["", "한식", "중식", "일식", "양식", "아시안", "기타"],
-  ["선택해 주세요", "한식", "중식", "일식", "양식", "아시안", "기타"],
+  ["", ...CATEGORY],
+  ["선택해 주세요", ...CATEGORY],
 ).innerHTML;
 addRestaurantForm.querySelector(".distance-input").innerHTML = createSelectInput(
   "distance",
   "거리(걸리는 시간)",
-  ["", "5", "10", "15", "20", "30"],
-  ["선택세 주세요", "5", "10", "15", "20", "30"],
+  ["", ...ESTIMATEDTIME],
+  ["선택해 주세요", ...ESTIMATEDTIME],
 ).innerHTML;
 addRestaurantForm.querySelector("form").setAttribute("id", "restaurant-input-form");
 
