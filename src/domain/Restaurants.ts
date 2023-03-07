@@ -26,7 +26,7 @@ class Restaurants {
       return this.#restaurants;
     }
 
-    return [...this.#restaurants].filter(
+    return this.#restaurants.filter(
       (restaurant) => restaurant.category === category
     );
   }
