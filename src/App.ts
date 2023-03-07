@@ -1,12 +1,14 @@
-import RestaurantCardList from "./components/RestaurantCardList";
-
 class App {
   constructor() {
-    this.renderContainer();
+    this.render();
   }
 
-  renderContainer() {
-    document.body.innerHTML = `
+  render() {
+    document.body.insertAdjacentHTML("afterbegin", this.mainPage());
+  }
+
+  mainPage() {
+    return `
       <header is="lunch-header" class="gnb"></header>
       <main>
         <section class="restaurant-filter-container">
