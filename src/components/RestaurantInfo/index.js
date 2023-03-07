@@ -1,5 +1,19 @@
-import { $ } from '../../utils';
 import './index.css';
+import categoryKorean from '../../assets/category-korean.png';
+import categoryChinese from '../../assets/category-chinese.png';
+import categoryJapanese from '../../assets/category-japanese.png';
+import categoryWestern from '../../assets/category-western.png';
+import categoryAsian from '../../assets/category-asian.png';
+import categoryEtc from '../../assets/category-etc.png';
+
+const CATEGORY_IMAGES = {
+  한식: categoryKorean,
+  중식: categoryChinese,
+  일식: categoryJapanese,
+  양식: categoryWestern,
+  아시안: categoryAsian,
+  기타: categoryEtc,
+};
 
 class RestaurantInfo extends HTMLElement {
   constructor() {
@@ -19,7 +33,7 @@ class RestaurantInfo extends HTMLElement {
     this.innerHTML = `
     <li class="restaurant">
         <div class="restaurant__category">
-          <img src="../../assets/category-${category}.png';" alt=${category} class="category-icon">
+          <img src="${CATEGORY_IMAGES[category]}" alt=${category} class="category-icon">
         </div>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${name}</h3>
