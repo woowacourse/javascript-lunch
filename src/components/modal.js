@@ -33,6 +33,7 @@ class Modal {
 						<div class="form-item form-item--required">
 							<label for="name">이름</label>
 							<input type="text" name="name" id="name" required />
+							<span class="help-text text-caption">1~15자 사이의 이름을 입력해 주세요.</span>
 						</div>
 
 						<!-- 거리 -->
