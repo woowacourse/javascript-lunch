@@ -11,7 +11,7 @@ export const mockData: RestaurantInfo[] = [
     category: '한식',
     distance: 10,
     description: '2005년 장모님에게 전수받은 설렁탕 조리법을 개선하여 시작했다는 외고...',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 1,
@@ -19,7 +19,7 @@ export const mockData: RestaurantInfo[] = [
     category: '중식',
     distance: 10,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ export const mockData: RestaurantInfo[] = [
     category: '일식',
     distance: 10,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const mockData: RestaurantInfo[] = [
     category: '양식',
     distance: 10,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 4,
@@ -43,7 +43,7 @@ export const mockData: RestaurantInfo[] = [
     category: '아시안',
     distance: 10,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 5,
@@ -51,7 +51,7 @@ export const mockData: RestaurantInfo[] = [
     category: '한식',
     distance: 20,
     description: '2005년 장모님에게 전수받은 설렁탕 조리법을 개선하여 시작했다는 외고...',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 6,
@@ -59,7 +59,7 @@ export const mockData: RestaurantInfo[] = [
     category: '중식',
     distance: 20,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 6,
@@ -67,7 +67,7 @@ export const mockData: RestaurantInfo[] = [
     category: '일식',
     distance: 20,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 7,
@@ -75,7 +75,7 @@ export const mockData: RestaurantInfo[] = [
     category: '양식',
     distance: 30,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
   },
   {
     id: 8,
@@ -83,9 +83,17 @@ export const mockData: RestaurantInfo[] = [
     category: '아시안',
     distance: 10,
     description: 'desc',
-    link: 'www.www',
+    link: 'https://www.naver.com',
+  },
+  {
+    id: 9,
+    name: '국밥',
+    category: '한식',
+    distance: 30,
+    description: '최고의 국밥',
+    link: 'https://www.naver.com',
   },
 ];
 
-localStorage.setItem('mock', JSON.stringify(mockData));
+// localStorage.setItem('mock', JSON.stringify(mockData));
 render(App, document.querySelector('#app'));

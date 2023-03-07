@@ -11,7 +11,7 @@ function Restaurants({ restaurants }: RestaurantProps) {
   return `
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-        ${restaurants.map(({ info }) => Restaurant({ info })).join('')}
+        ${restaurants && restaurants.map(({ info }) => Restaurant({ info })).join('')}
       </ul>
     </section>
   `;
