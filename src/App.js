@@ -84,13 +84,14 @@ export default class App {
   renderRestaurantListByFilterOptions() {
     const categoryOption = $('#category-filter').value;
     const sortOption = $('#sorting-filter').value;
+    const restaurants = this.#restaurants.getRestaurants();
 
-    const filteredRestaurants = this.#restaurants.getFilteredRestaurantsByCategory(categoryOption);
-
-    const sortedRestaurants = this.#restaurants.getSortedRestaurants(
-      filteredRestaurants,
-      sortOption
+    const filteredRestaurants = RestaurantList.getFilteredRestaurantsByCategory(
+      restaurants,
+      categoryOption
     );
+
+    const sortedRestaurants = RestaurantList.getSortedRestaurants(filteredRestaurants, sortOption);
 
     RestaurantList.render($('.restaurant-list-container'), sortedRestaurants);
   }
