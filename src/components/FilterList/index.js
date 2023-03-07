@@ -1,3 +1,5 @@
+import { restaurant } from '../../domain/restaurant';
+import { $ } from '../../utils';
 import './index.css';
 
 class FilterList extends HTMLElement {
@@ -7,6 +9,7 @@ class FilterList extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    this.filterEvent();
   }
 
   render() {
@@ -22,6 +25,13 @@ class FilterList extends HTMLElement {
 
   createOption(title) {
     return `<option value="${title}">${title}</option>`;
+  }
+
+  filterEvent() {
+    $('#categoryFilter').addEventListener('change', () => {
+      const categoryValue = $('.restaurant-filter').value;
+      restaurant.filterByCategory(categoryValue);
+    });
   }
 
   static get observedAttributes() {

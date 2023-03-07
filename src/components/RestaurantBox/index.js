@@ -1,3 +1,4 @@
+import { restaurant } from '../../domain/restaurant';
 import { $ } from '../../utils';
 import './index.css';
 
@@ -19,11 +20,11 @@ class RestaurantBox extends HTMLElement {
     `;
   }
 
-  renderRestaurantList(restaurants) {
+  renderRestaurantList(restaurantList) {
     $('#restaurantList').innerHTML = '';
 
-    restaurants.forEach((restaurant) => {
-      const { category, name, distance, description, link } = restaurant;
+    restaurantList.forEach((restaurantInfo) => {
+      const { category, name, distance, description, link } = restaurantInfo;
       const tagContent = `<restaurant-info
           category="${category}"
           name="${name}"

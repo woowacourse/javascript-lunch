@@ -1,6 +1,5 @@
 import { restaurant } from '../../domain/restaurant';
 import { $ } from '../../utils';
-import RestaurantBox from '../RestaurantBox';
 import './index.css';
 
 class Modal extends HTMLElement {
@@ -63,12 +62,6 @@ class Modal extends HTMLElement {
       });
       this.resetValue();
       this.toggleModal();
-      //   this.restaurants.push(restaurant);
-      //   const restaurants = this.#restaurants.getList('전체', 'name');
-
-      //   window.localStorage.setItem('userList', restaurantsString);
-
-      //   webView.resetForm();
     });
   }
 
