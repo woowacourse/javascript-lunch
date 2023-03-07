@@ -34,7 +34,7 @@ export default class Selector extends Component {
     }
 
     if (event.target.id === 'sorting-filter') {
-      this.restaurantManager.sortRestaurantList(event.target.value);
+      this.restaurantManager.checkRestaurantListFiltered(event.target.value);
     }
   }
 }

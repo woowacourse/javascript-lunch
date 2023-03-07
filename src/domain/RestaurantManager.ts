@@ -4,11 +4,13 @@ import Observable from '../Observable';
 
 class RestaurantManager extends Observable {
   private restaurantList: Restaurant[];
-  private filteredRestaurantLitst: Restaurant[];
+  private filteredRestaurantList: Restaurant[];
+  private isFiltered: boolean;
 
   constructor() {
     super();
-    this.filteredRestaurantLitst = [];
+    this.filteredRestaurantList = [];
+    this.isFiltered = false;
 
     const restaurantData = localStorage.getItem('restaurantList');
 
@@ -20,12 +22,16 @@ class RestaurantManager extends Observable {
     }
   }
 
+  getIsFiltered(): boolean {
+    return this.isFiltered;
+  }
+
   getRestaurantList(): Restaurant[] {
     return this.restaurantList;
   }
 
   getFilterRestaurantList(): Restaurant[] {
-    return this.filteredRestaurantLitst;
+    return this.filteredRestaurantList;
   }
 
   addRestaurant(restaurant: Restaurant) {
@@ -35,9 +41,14 @@ class RestaurantManager extends Observable {
     this.notify();
   }
 
-  sortRestaurantList(standard: SortBy) {
+  checkRestaurantListFiltered(standard: SortBy) {
+    if (this.isFiltered) this.sortRestaurantList(standard, this.filteredRestaurantList);
+    else this.sortRestaurantList(standard, this.restaurantList);
+  }
+
+  sortRestaurantList(standard: SortBy, restaurantList: Restaurant[]) {
     if (standard === 'name') {
-      this.restaurantList.sort((data1: Restaurant, data2: Restaurant): number => {
+      restaurantList.sort((data1: Restaurant, data2: Restaurant): number => {
         return data1.storeName.localeCompare(data2.storeName, undefined, {
           numeric: true,
           sensitivity: 'base',
@@ -46,7 +57,7 @@ class RestaurantManager extends Observable {
     }
 
     if (standard === 'distance') {
-      this.restaurantList.sort(
+      restaurantList.sort(
         (data1: Restaurant, data2: Restaurant): number => data1.distance - data2.distance
       );
     }
@@ -55,9 +66,13 @@ class RestaurantManager extends Observable {
   }
 
   filterRestaurantList(category: Category) {
-    if (category === '전체') return this.notify();
+    if (category === '전체') {
+      this.isFiltered = false;
+      return this.notify();
+    }
 
-    this.filteredRestaurantLitst = this.restaurantList.filter((data) => data.category === category);
+    this.isFiltered = true;
+    this.filteredRestaurantList = this.restaurantList.filter((data) => data.category === category);
 
     this.notify();
   }
