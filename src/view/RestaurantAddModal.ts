@@ -30,32 +30,33 @@ class RestaurantAddModal {
     $$(
       '#modal-add-form input, #modal-add-form textarea, #modal-add-form select'
     ).forEach((input) => {
-      (
-        input as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      ).value = '';
+      if (
+        input instanceof HTMLInputElement ||
+        input instanceof HTMLTextAreaElement ||
+        input instanceof HTMLSelectElement
+      ) {
+        input.value = '';
+      }
     });
   }
 
   #setListeners() {
-    ($(`#modal-cancel-button`) as HTMLButtonElement).addEventListener(
-      'click',
-      () => {
-        this.#parentEvent.onModalCancelButtonClicked();
-      }
-    );
+    const $modalCancelButton = $(`#modal-cancel-button`);
+    const $modalAddForm = $(`#modal-add-form`);
 
-    ($(`#modal-add-form`) as HTMLFormElement).addEventListener(
-      'submit',
-      (event) => {
-        event.preventDefault();
+    $modalCancelButton.addEventListener('click', () => {
+      this.#parentEvent.onModalCancelButtonClicked();
+    });
 
-        const restaurantData = getFormData(
-          $(`#modal-add-form`) as HTMLFormElement
-        );
+    $modalAddForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if ($modalAddForm instanceof HTMLFormElement) {
+        const restaurantData = getFormData($modalAddForm);
 
         this.#parentEvent.onModalAddButtonClicked(restaurantData as Restaurant);
       }
-    );
+    });
   }
 
   #render() {

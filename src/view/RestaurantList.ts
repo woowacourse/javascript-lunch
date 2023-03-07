@@ -30,7 +30,7 @@ class RestaurantList {
   #renderRestaurantItems() {
     this.#restaurants.forEach((restaurant: Restaurant) => {
       new RestaurantItem({
-        parentElement: $(`#restaurant-list`) as HTMLElement,
+        parentElement: $(`#restaurant-list`),
         restaurant: restaurant,
       });
     });

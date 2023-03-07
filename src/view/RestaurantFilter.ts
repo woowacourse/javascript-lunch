@@ -22,15 +22,19 @@ class RestaurantFilter {
 
   #setListeners() {
     $(`#category-filter`).addEventListener('change', (event) => {
-      const newChoice = (event.target as HTMLSelectElement).value;
+      if (event.target instanceof HTMLSelectElement) {
+        const newChoice = event.target.value;
 
-      this.#parentEvent.onFilterByChange(newChoice);
+        this.#parentEvent.onFilterByChange(newChoice);
+      }
     });
 
     $(`#sorting-filter`).addEventListener('change', (event) => {
-      const newChoice = (event.target as HTMLSelectElement).value;
+      if (event.target instanceof HTMLSelectElement) {
+        const newChoice = event.target.value;
 
-      this.#parentEvent.onSortByChange(newChoice);
+        this.#parentEvent.onSortByChange(newChoice);
+      }
     });
   }
 
