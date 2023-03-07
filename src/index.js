@@ -8,7 +8,7 @@ import Filter from "./domain/Filter";
 import { IMAGE } from "./util/ImageLoader";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
-import Elements from "./Element";
+import appendNewRestaurant from "./util/appendNewRestaurant";
 import createSelectInput from "./util/createSelectInput";
 
 const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
@@ -144,7 +144,7 @@ const updateRestaurant = () => {
   LocalStorage.setItem("restaurants", newRestaurant.getList());
   const sortResult = sort(sortingFilter.value, newRestaurant.getList());
   const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-  return filterResult.forEach((element) => Elements.appendNewRestaurant(element));
+  return filterResult.forEach((element) => appendNewRestaurant(element));
 };
 
 submitButton.addEventListener("click", (event) => {
