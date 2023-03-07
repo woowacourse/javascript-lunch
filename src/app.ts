@@ -39,7 +39,7 @@ class App extends Component<IComponentPropState> {
   }
 
   mounted() {
-    const { toggleModal, addRestaurant, filterList } = this;
+    const { toggleModal, filterList, updateRestaurantList } = this;
     const $topNavBar = this.$target.querySelector<HTMLHeadingElement>('.gnb');
     const $addModalContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-add-modal-container'
@@ -61,7 +61,8 @@ class App extends Component<IComponentPropState> {
       new AddRestaurantBottomSheet($addModalContainer, {
         toggleModal: toggleModal.bind(this),
         isModalOpened: this.$state.isModalOpened,
-        addRestaurant: addRestaurant.bind(this),
+        restaurantsList: this.$state.restaurantList,
+        updateRestaurantList: updateRestaurantList.bind(this),
       });
     }
 
@@ -84,16 +85,7 @@ class App extends Component<IComponentPropState> {
     this.setState({ isModalOpened: !isModalOpened });
   }
 
-  addRestaurant(restaurantInput: IRestaurantInput) {
-    const restaurantList: IRestaurantInput[] =
-      this.getRestaurants() === defaultDummyRestaurantsData
-        ? []
-        : this.getRestaurants();
-
-    restaurantList.push(restaurantInput);
-
-    setLocalStorageItem('restaurantList', restaurantList);
-
+  updateRestaurantList(restaurantList: IRestaurantInput[]): void {
     this.setState({ restaurantList });
   }
 
