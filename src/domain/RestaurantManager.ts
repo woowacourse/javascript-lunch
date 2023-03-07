@@ -22,15 +22,15 @@ class RestaurantManager extends Observable {
     }
   }
 
-  getIsFiltered(): boolean {
+  getIsFiltered() {
     return this.isFiltered;
   }
 
-  getRestaurantList(): Restaurant[] {
+  getRestaurantList() {
     return this.restaurantList;
   }
 
-  getFilterRestaurantList(): Restaurant[] {
+  getFilterRestaurantList() {
     return this.filteredRestaurantList;
   }
 
