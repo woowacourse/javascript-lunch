@@ -88,10 +88,12 @@ class AddRestaurant extends HTMLElement {
     const restaurantForm = document.getElementById("restaurantForm");
     restaurantForm?.addEventListener("submit", (event) => {
       event.preventDefault();
+
       const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
       this.controller.addRestaurant(newRestaurant);
       this.controller.filterRestaurants(CategorySelectBox.getOption());
       this.controller.sortRestaurants(SortingSelectBox.getOption());
+
       closeBottomSheet();
     });
   }
@@ -104,7 +106,7 @@ class AddRestaurant extends HTMLElement {
         name: inputValidator.validateName(formData.get("name") as string),
         distance: Number(formData.get("distance")),
         description: formData.get("description") as string,
-        link: formData.get("link") as string,
+        link: inputValidator.validateLink(formData.get("link") as string),
       };
       return newRestaurant;
     } catch (error: any) {
