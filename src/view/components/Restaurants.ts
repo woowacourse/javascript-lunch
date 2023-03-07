@@ -1,15 +1,15 @@
-import { Restaurant as IRestaurant, RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { Restaurant } from './Restaurant';
+import { Restaurant } from '../../domain/model/LunchRecommendation';
+import { Restaurant as RestaurantItem } from './Restaurant';
 
 interface RestaurantProps {
-  restaurants: IRestaurant[];
+  restaurants: Restaurant[];
 }
 
 function Restaurants({ restaurants }: RestaurantProps) {
   return `
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-        ${restaurants.map(({ info }) => Restaurant({ info })).join('')}
+        ${restaurants.map(({ info }) => RestaurantItem({ info })).join('')}
       </ul>
     </section>
   `;
