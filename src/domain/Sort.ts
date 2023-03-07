@@ -1,4 +1,4 @@
-import { Restaurant } from "../type/restaurant";
+import Restaurant from "../type/restaurant";
 
 const sortByName = (list: Restaurant[]) => {
   return list.sort((a, b) => {

@@ -1,5 +1,5 @@
 import { isValidFoodCategory } from "../type/FoodCategory";
-import { Restaurant } from "../type/restaurant";
+import Restaurant from "../type/restaurant";
 
 const Filter = {
   byCategory(targetCategory: string, restaurantList: Restaurant[]) {

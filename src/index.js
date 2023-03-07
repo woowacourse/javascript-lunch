@@ -1,5 +1,6 @@
 import "../css/style.css";
 import { getFoodCategoryMemberList } from "./type/FoodCategory";
+import { getEstimatedTimeMemberList } from "./type/EstimatedTime";
 import Modal from "./component/Modal";
 import Restaurants from "./domain/Restaurants";
 import RestaurantValidator from "./domain/RestaurantValidator";
@@ -13,9 +14,9 @@ import appendNewRestaurant from "./component/appendNewRestaurant";
 import createSelectInput from "./component/createSelectInput";
 
 const CATEGORY = getFoodCategoryMemberList();
-const ESTIMATEDTIME = ["5", "10", "15", "20", "30"];
+const ESTIMATEDTIME = getEstimatedTimeMemberList();
 
-const newRestaurant = new Restaurants();
+const restaurantList = new Restaurants();
 
 // 카테고리, 정렬 필터 생성
 const filterContainer = $(".restaurant-filter-container");
@@ -142,8 +143,8 @@ const readRestaurantInput = () => {
 
 const updateRestaurant = () => {
   $(".restaurant-list-container").innerHTML = "";
-  LocalStorage.setItem("restaurants", newRestaurant.getList());
-  const sortResult = sort(sortingFilter.value, newRestaurant.getList());
+  LocalStorage.setItem("restaurants", restaurantList.getList());
+  const sortResult = sort(sortingFilter.value, restaurantList.getList());
   const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
   return filterResult.forEach((element) => appendNewRestaurant(element));
 };
@@ -160,14 +161,14 @@ submitButton.addEventListener("click", (event) => {
     return;
   }
 
-  newRestaurant.add(restaurant);
+  restaurantList.add(restaurant);
   updateRestaurant();
   Modal.close(restaurantInputModal);
 });
 
 window.onload = () => {
   LocalStorage.getItem("restaurants").forEach((item) => {
-    newRestaurant.add(item);
+    restaurantList.add(item);
   });
   updateRestaurant();
 };

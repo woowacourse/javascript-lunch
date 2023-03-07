@@ -1,4 +1,4 @@
-import { Restaurant } from "../type/restaurant";
+import Restaurant from "../type/restaurant";
 
 class Restaurants {
   #list: Restaurant[] = [];

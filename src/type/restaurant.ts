@@ -1,6 +1,5 @@
 import { FoodCategory } from "./FoodCategory"
-
-type EstimatedTime = "5" | "10" | "15" | "20" | "30";
+import { EstimatedTime } from "./EstimatedTime";
 
 interface Restaurant {
   name: string;
@@ -11,4 +10,4 @@ interface Restaurant {
   link: string;
 }
 
-export { Restaurant, EstimatedTime };
+export default Restaurant;
