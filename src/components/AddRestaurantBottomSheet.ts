@@ -117,10 +117,7 @@ class AddRestaurantBottomSheet extends Component<IComponentPropState> {
     };
   }
 
-  addRestaurant(
-    restaurantInput: IRestaurantInput,
-    updateRestaurantListFunction: Function
-  ) {
+  addRestaurant(restaurantInput: IRestaurantInput, updateRootState: Function) {
     const restaurantList: IRestaurantInput[] =
       this.$props.restaurantsList === defaultDummyRestaurantsData
         ? []
@@ -130,7 +127,7 @@ class AddRestaurantBottomSheet extends Component<IComponentPropState> {
 
     setLocalStorageItem('restaurantList', restaurantList);
 
-    updateRestaurantListFunction(restaurantList);
+    updateRootState(restaurantList);
   }
 
   showErrorMessage(idName: string): void {
@@ -149,7 +146,7 @@ class AddRestaurantBottomSheet extends Component<IComponentPropState> {
   }
 
   setEvent(): void {
-    const { toggleModal, updateRestaurantList } = this.$props;
+    const { toggleModal, updateRootState } = this.$props;
 
     this.addEvent('click', '.cancel', () => {
       toggleModal();
@@ -179,7 +176,7 @@ class AddRestaurantBottomSheet extends Component<IComponentPropState> {
         return;
       }
 
-      this.addRestaurant(restaurantInput, updateRestaurantList);
+      this.addRestaurant(restaurantInput, updateRootState);
       toggleModal();
     });
   }

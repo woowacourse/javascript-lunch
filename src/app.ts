@@ -39,7 +39,7 @@ class App extends Component<IComponentPropState> {
   }
 
   mounted() {
-    const { toggleModal, filterList, updateRestaurantList } = this;
+    const { toggleModal, updateRootState } = this;
     const $topNavBar = this.$target.querySelector<HTMLHeadingElement>('.gnb');
     const $addModalContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-add-modal-container'
@@ -62,7 +62,7 @@ class App extends Component<IComponentPropState> {
         toggleModal: toggleModal.bind(this),
         isModalOpened: this.$state.isModalOpened,
         restaurantsList: this.$state.restaurantList,
-        updateRestaurantList: updateRestaurantList.bind(this),
+        updateRootState: updateRootState.bind(this),
       });
     }
 
