@@ -91,7 +91,7 @@ export default class App {
       sortOption
     );
 
-    RestaurantList.render(sortedRestaurants);
+    RestaurantList.render($('.restaurant-list-container'), sortedRestaurants);
   }
 
   onClickRestaurantFormModalOpenButton() {

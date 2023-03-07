@@ -1,14 +1,15 @@
 import Restaurant from './Restaurant';
-import { $ } from '../../utils/dom';
+
+import { IRestaurant } from '../../types';
 
 const RestaurantList = {
-  render(restaurants) {
+  render(targetElement: Element, restaurants: IRestaurant[]) {
     const template = this.getTemplate(restaurants);
 
-    $('.restaurant-list-container').innerHTML = template;
+    targetElement.innerHTML = template;
   },
 
-  getTemplate(restaurants) {
+  getTemplate(restaurants: IRestaurant[]) {
     return `
       <ul class="restaurant-list">
         ${restaurants.reduce((html, restaurant) => html + Restaurant.getTemplate(restaurant), '')}
