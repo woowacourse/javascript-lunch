@@ -1,5 +1,4 @@
 import RestaurantFilter from "../domain/RestaurantFilter";
-import RestaurantRepository from "../domain/RestaurantRepository";
 import store from "../util/store";
 import Restaurant from "./Restaurant";
 

@@ -1,3 +1,4 @@
+import AddForm from "./AddForm";
 import Modal from "./Modal";
 
 export default class Header {
@@ -19,7 +20,7 @@ export default class Header {
   }
 
   mounted() {
-    new Modal(this.$modal, this.props);
+    new Modal(this.$modal, { ...this.props, content: "addForm" });
   }
 
   render() {

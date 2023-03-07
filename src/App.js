@@ -35,7 +35,7 @@ export default class App {
   }
 
   mounted() {
-    const { render, setState } = this;
+    const { setState, render } = this;
     const { sortingWay, category } = this.state;
 
     const $header = this.$target.querySelector(".gnb");
