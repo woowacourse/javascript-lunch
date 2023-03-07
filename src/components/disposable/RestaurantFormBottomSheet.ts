@@ -95,15 +95,15 @@ class RestaurantFormBottomSheet {
   }
 
   getFormData(): Restaurant {
-    const $modal = $(".modal-form") as HTMLFormElement;
+    const $modal = <HTMLFormElement>$(".modal-form");
     const formData = Object.fromEntries(new FormData($modal).entries());
 
     const data = {
-      name: formData.name as string,
-      takingTime: formData.takingTime as TakingTime,
-      category: formData.category as Category,
-      link: this.getValidateLink(formData.link as string),
-      description: formData.description as string,
+      name: <string>formData.name,
+      takingTime: <TakingTime>formData.takingTime,
+      category: <Category>formData.category,
+      link: this.getValidateLink(<string>formData.link),
+      description: <string>formData.description,
     };
 
     return data;
@@ -113,14 +113,14 @@ class RestaurantFormBottomSheet {
     try {
       return validateUrl(url);
     } catch (error: unknown) {
-      const warning = $(".url-warning") as HTMLElement;
+      const warning = <HTMLElement>$(".url-warning");
       if (error instanceof Error) warning.textContent = error.message;
       throw error;
     }
   }
 
   resetFormValues() {
-    const modalForm = $(".modal-form") as HTMLFormElement;
+    const modalForm = <HTMLFormElement>$(".modal-form");
     modalForm.reset();
   }
 

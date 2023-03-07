@@ -14,7 +14,7 @@ class Select {
   addEvent(id: string, rerenderList: RerenderListType) {
     const selectEl = $(`#${id}`);
     selectEl?.addEventListener("change", (event) => {
-      const selectedOption = (event.target as HTMLSelectElement).value as
+      const selectedOption = (<HTMLSelectElement>event.target).value as
         | Category
         | Sort;
 

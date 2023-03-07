@@ -12,7 +12,7 @@ class RestaurantItem {
     return `
     <li class="restaurant">
       <div class="restaurant__category">
-        <img src=${categoryToSrc(this.restaurant.category as Category)} alt=${
+        <img src=${categoryToSrc(<Category>this.restaurant.category)} alt=${
       this.restaurant.category
     } class="category-icon">
       </div>

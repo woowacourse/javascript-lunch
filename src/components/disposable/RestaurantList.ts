@@ -17,12 +17,12 @@ class RestaurantList {
 
   renderRestaurantItem(data: Restaurant) {
     const restaurantItem = new RestaurantItem(data).template();
-    const restaurantList = $(".restaurant-list") as HTMLElement;
+    const restaurantList = <HTMLElement>$(".restaurant-list");
     restaurantList.insertAdjacentHTML("beforeend", restaurantItem);
   }
 
   updateRestaurantList(newData: Restaurant[]) {
-    const restaurantList = $(".restaurant-list") as HTMLElement;
+    const restaurantList = <HTMLElement>$(".restaurant-list");
     this.removeTemplate(restaurantList);
 
     newData.forEach((data) => {
