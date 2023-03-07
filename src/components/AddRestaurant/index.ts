@@ -1,15 +1,14 @@
-import { closeBottomSheet } from "../BottomSheet/handleBottomSheet";
 import {
-  createNewRestaurant,
-  tryAddNewRestaurant,
-} from "../../domain/restaurant";
+  onClickCancelButton,
+  onSubmitRestaurantForm,
+} from "./handleAddRestaurant";
 
 class AddRestaurant extends HTMLElement {
   constructor() {
     super();
     this.render();
-    this.onClickCancelButton();
-    this.onSubmitRestaurantForm();
+    onClickCancelButton();
+    onSubmitRestaurantForm();
   }
 
   render() {
@@ -65,21 +64,6 @@ class AddRestaurant extends HTMLElement {
           </div>
         </form>
       `;
-  }
-
-  onClickCancelButton() {
-    const cancelButton = document.getElementById("cancelButton");
-    cancelButton?.addEventListener("click", () => {
-      closeBottomSheet();
-    });
-  }
-
-  onSubmitRestaurantForm() {
-    const restaurantForm = document.getElementById("restaurantForm");
-    restaurantForm?.addEventListener("submit", (event) => {
-      event.preventDefault();
-      tryAddNewRestaurant(createNewRestaurant(event));
-    });
   }
 }
 
