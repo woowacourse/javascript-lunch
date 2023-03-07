@@ -1,5 +1,5 @@
 import addButtonImage from "../../templates/add-button.png";
-import { Modal } from "./modal/Modal";
+import { Modal } from "./modal";
 
 export class Header extends HTMLElement {
   constructor() {

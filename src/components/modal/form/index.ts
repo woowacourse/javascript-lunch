@@ -1,6 +1,6 @@
 import type { Category, Distance, Restaurant } from "../../../types/restaurant";
 
-import { Modal } from "../Modal";
+import { Modal } from "..";
 import { InputBox } from "./InputBox";
 
 export class RestaurantAddForm extends HTMLFormElement {

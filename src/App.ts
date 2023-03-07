@@ -4,7 +4,7 @@ import type { CategoryOption, SortOption } from "./types/option";
 import Restaurants from "./domain/Restaurants";
 
 import { createSelect, Select } from "./components/Select";
-import { createModal, Modal } from "./components/modal/Modal";
+import { createModal, Modal } from "./components/modal";
 import { createHeader } from "./components/Header";
 import {
   createRestaurantCardList,
@@ -47,6 +47,7 @@ class App {
     createRestaurantCardList();
 
     this.renderContainer();
+    this.renderRestaurantList();
     this.bindEvents();
   }
 
@@ -78,8 +79,6 @@ class App {
         <div is="custom-modal" class="modal"></div>
       </main>
     `;
-
-    this.renderRestaurantList();
   }
 
   renderRestaurantList() {
