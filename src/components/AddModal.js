@@ -88,6 +88,11 @@ export default class AddModal extends Component {
       return el.value;
     });
 
+    if (inputData[2] === '' || inputData[2].match(/^[a-zA-Z0-9]*$/)) {
+      alert('음식점 이름은 적어도 하나의 문자를 입력해야 합니다.');
+      return;
+    }
+
     const addData = {
       category: inputData[0],
       storeName: inputData[1],
