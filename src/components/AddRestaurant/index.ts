@@ -1,4 +1,5 @@
 import { CATEGORY_NAME } from "../../constants/CATEGORY_NAME";
+import { DISTANCE } from "../../constants/DISTANCE";
 import {
   onClickCancelButton,
   onSubmitRestaurantForm,
@@ -38,11 +39,11 @@ class AddRestaurant extends HTMLElement {
             <label for="distance text-caption">거리(도보 이동 시간) </label>
             <select name="distance" id="distance" required>
               <option value="">선택해 주세요</option>
-              <option value="5">5분 내</option>
-              <option value="10">10분 내</option>
-              <option value="15">15분 내</option>
-              <option value="20">20분 내</option>
-              <option value="30">30분 내</option>
+                ${Object.values(DISTANCE)
+                  .map(
+                    (value) => `<option value="${value}">${value}분 내</option>`
+                  )
+                  .join("")}
             </select>
           </div>
 
