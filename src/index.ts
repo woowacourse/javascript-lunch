@@ -46,20 +46,20 @@ const App = {
 
   controlNewRestaurantModal() {
     executeClickEventListener('.gnb__button', () =>
-      handleModalOpenButtonClick('.modal')
+      handleModalOpenButtonClick()
     );
 
     executeClickEventListener('.button--secondary', () =>
-      handleModalCancelButtonClick('.modal')
+      handleModalCancelButtonClick()
     );
 
     executeClickEventListener('.modal-backdrop', () =>
-      handleModalCancelButtonClick('.modal')
+      handleModalCancelButtonClick()
     );
 
     executeSubmitEventListener('#new-restaurant-form', (event: Event) => {
       this.restaurantsController.addNewRestaurant(event);
-      handleModalCancelButtonClick('.modal');
+      handleModalCancelButtonClick();
     });
   },
 

@@ -27,7 +27,7 @@
 
 ## HTML CSS
 
-- [ ] html 더 나은 구조로 수정하기
+- [x] html 더 나은 구조로 수정하기
 - [ ] 모달을 열면 너무 크게 나오는 버그 (PC 버전에서 backdrop 영역도 너무 적다)
 - [ ] select에 label 명시하기
 
