@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
   Restaurant,
   RestaurantInfo,
@@ -55,7 +59,7 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
     expect(restaurant.info).toEqual(correctInfo);
   });
 
-  test.skip('음식점 목록에 음식점 추가를 할 수 있다', () => {
+  test('음식점 목록에 음식점 추가를 할 수 있다', () => {
     lunchRecommendation.add(correctInfo);
 
     expect(lunchRecommendation.getList().length).toBe(6);
