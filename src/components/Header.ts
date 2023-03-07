@@ -1,7 +1,7 @@
 import addButtonImage from "../../templates/add-button.png";
 import { Modal } from "./modal/Modal";
 
-export class CustomHeader extends HTMLElement {
+export class Header extends HTMLElement {
   constructor() {
     super();
   }
@@ -27,6 +27,6 @@ export class CustomHeader extends HTMLElement {
   }
 }
 
-export const createCustomHeader = () => {
-  customElements.define("custom-header", CustomHeader, { extends: "header" });
+export const createHeader = () => {
+  customElements.define("custom-header", Header, { extends: "header" });
 };

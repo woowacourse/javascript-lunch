@@ -1,14 +1,15 @@
 import type { Restaurant } from "./types/restaurant";
 import type { CategoryOption, SortOption } from "./types/option";
 
-import { createCustomSelect, CustomSelect } from "./components/Select";
-import { createCustomModal, Modal } from "./components/modal/Modal";
-import { createCustomHeader } from "./components/Header";
+import Restaurants from "./domain/Restaurants";
+
+import { createSelect, Select } from "./components/Select";
+import { createModal, Modal } from "./components/modal/Modal";
+import { createHeader } from "./components/Header";
 import {
   createRestaurantCardList,
   RestaurantCardList,
 } from "./components/restaurant/RestaurantCardList";
-import Restaurants from "./domain/Restaurants";
 import { createRestaurantCard } from "./components/restaurant/RestaurantCard";
 import {
   createRestaurantAddForm,
@@ -36,10 +37,10 @@ class App {
   }
 
   init() {
-    createCustomSelect();
+    createSelect();
     createRestaurantAddForm();
-    createCustomModal();
-    createCustomHeader();
+    createModal();
+    createHeader();
     createRestaurantCard();
     createRestaurantCardList();
 
@@ -49,11 +50,11 @@ class App {
 
   bindEvents() {
     document
-      .querySelector<CustomSelect>("#category-filter")
+      .querySelector<Select>("#category-filter")
       ?.bindEvent(this.onClickFilteringOption.bind(this));
 
     document
-      .querySelector<CustomSelect>("#sorting-filter")
+      .querySelector<Select>("#sorting-filter")
       ?.bindEvent(this.onClickSortingOption.bind(this));
 
     document

@@ -35,6 +35,6 @@ export class Modal extends HTMLDivElement {
   }
 }
 
-export const createCustomModal = () => {
+export const createModal = () => {
   customElements.define("custom-modal", Modal, { extends: "div" });
 };

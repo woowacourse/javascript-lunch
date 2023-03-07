@@ -2,7 +2,7 @@ import OPTIONS from "../constants/options";
 
 type SelectId = keyof typeof OPTIONS | "";
 
-export class CustomSelect extends HTMLSelectElement {
+export class Select extends HTMLSelectElement {
   constructor() {
     super();
   }
@@ -32,6 +32,6 @@ export class CustomSelect extends HTMLSelectElement {
   }
 }
 
-export const createCustomSelect = () => {
-  customElements.define("custom-select", CustomSelect, { extends: "select" });
+export const createSelect = () => {
+  customElements.define("custom-select", Select, { extends: "select" });
 };
