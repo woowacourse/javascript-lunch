@@ -1,8 +1,12 @@
-import "../types/restaurant";
-import Component from "../core/Component";
 import Modal from "./Modal";
 
-export default class Header extends Component {
+export default class Header {
+  constructor($target, props) {
+    this.$target = $target;
+    this.props = props;
+    this.render();
+  }
+
   template() {
     this.$modal = document.querySelector(".modal");
 
@@ -16,6 +20,11 @@ export default class Header extends Component {
 
   mounted() {
     new Modal(this.$modal, this.props);
+  }
+
+  render() {
+    this.$target.innerHTML = this.template();
+    this.mounted();
   }
 
   setEvent() {

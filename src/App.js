@@ -1,17 +1,16 @@
 import "./types/restaurant";
-import Component from "./core/Component";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import RestaurantList from "./components/RestaurantList";
 
-export default class App extends Component {
-  restaurantRepository: any;
-
-  setup() {
+export default class App {
+  constructor($target) {
+    this.$target = $target;
     this.state = {
       sortingWay: "name",
       category: "전체",
     };
+    this.render();
   }
 
   template() {
@@ -25,13 +24,23 @@ export default class App extends Component {
     `;
   }
 
+  render() {
+    this.$target.innerHTML = this.template();
+    this.mounted();
+  }
+
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.render();
+  }
+
   mounted() {
     const { render, setState } = this;
     const { sortingWay, category } = this.state;
 
-    const $header = this.$target.querySelector(".gnb") as HTMLElement;
-    const $restaurantFilter = this.$target.querySelector(".restaurant-filter-container") as HTMLElement;
-    const $restaurantList = this.$target.querySelector(".restaurant-list-container") as HTMLElement;
+    const $header = this.$target.querySelector(".gnb");
+    const $restaurantFilter = this.$target.querySelector(".restaurant-filter-container");
+    const $restaurantList = this.$target.querySelector(".restaurant-list-container");
 
     new Header($header, { render: render.bind(this) });
     new Filter($restaurantFilter, {

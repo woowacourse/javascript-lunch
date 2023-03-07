@@ -1,7 +1,12 @@
-import Component from "../core/Component";
 import store from "../util/store";
 
-export default class Modal extends Component {
+export default class Modal {
+  constructor($target, props) {
+    this.$target = $target;
+    this.props = props;
+    this.render();
+  }
+
   template() {
     return `
         <div class="modal-backdrop"></div>
@@ -82,6 +87,10 @@ export default class Modal extends Component {
         `;
   }
 
+  render() {
+    this.$target.innerHTML = this.template();
+  }
+
   setEvent() {
     const { render } = this.props;
     this.addEvent("click", "#cancel-button", () => {
@@ -110,6 +119,14 @@ export default class Modal extends Component {
       store.addRestaurant(newRestaurant);
       this.$target.classList.toggle("modal--open");
       render();
+    });
+  }
+
+  addEvent(eventType, selector, callback) {
+    this.$target.addEventListener(eventType, (event) => {
+      const target = event.target;
+      if (!target.closest(selector)) return false;
+      callback(event);
     });
   }
 }

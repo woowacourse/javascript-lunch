@@ -1,7 +1,12 @@
-import Component from "../core/Component";
 import translateCategory from "../util/translateCategory";
 
-export default class Restaurant extends Component {
+export default class Restaurant {
+  constructor($target, props) {
+    this.$target = $target;
+    this.props = props;
+    this.render();
+  }
+
   template() {
     const { name, category, distance, description } = this.props;
 
@@ -29,6 +34,5 @@ export default class Restaurant extends Component {
 
   render() {
     this.$target.insertAdjacentHTML("beforeend", this.template());
-    this.mounted();
   }
 }
