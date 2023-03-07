@@ -28,7 +28,7 @@ class RestaurantFilter {
   }
 
   render() {
-    if (!document.querySelector('.restaurant-filter-containe')) {
+    if (!document.querySelector('.restaurant-filter-container')) {
       this.$target.insertAdjacentHTML('afterbegin', this.template());
     }
   }
