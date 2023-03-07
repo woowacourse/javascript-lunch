@@ -20,7 +20,13 @@ class RestaurantsController {
       RestaurantsController.instance = this;
     }
 
-    this.updateRestaurantList(getAllDataOnLocalStorage());
+    this.renderRestaurantList(this.initLocalStorageItems());
+  }
+
+  private initLocalStorageItems() {
+    return window.localStorage.length
+      ? getAllDataOnLocalStorage()
+      : initialRestaurantList;
   }
 
   public static getInstance() {
@@ -48,18 +54,18 @@ class RestaurantsController {
       return false;
     }
 
-    this.updateRestaurantList([...this.restaurantList, restaurantInfo]);
+    this.renderRestaurantList([...this.restaurantList, restaurantInfo]);
 
     return true;
   }
 
   sortRestaurantList(value: string) {
     if (value === SELECTED_OPTION.NAME) {
-      this.updateRestaurantList(sortByName(this.restaurantList));
+      this.renderRestaurantList(sortByName(this.restaurantList));
     }
 
     if (value === SELECTED_OPTION.DISTANCE) {
-      this.updateRestaurantList(sortByDistance(this.restaurantList));
+      this.renderRestaurantList(sortByDistance(this.restaurantList));
     }
   }
 
@@ -67,7 +73,7 @@ class RestaurantsController {
     filterCategory(value);
   }
 
-  updateRestaurantList(restaurantList: RestaurantType[]) {
+  renderRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
     this.restaurantListComponent.render(this.restaurantList);
     saveOnLocalStorage(this.restaurantList);
