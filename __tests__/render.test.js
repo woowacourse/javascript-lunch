@@ -9,6 +9,8 @@ import { $inBody } from '../src/util/selector';
 import Header from '../src/components/header.js';
 import CategoryFilter from '../src/components/categoryFilter.js';
 import SortingFilter from '../src/components/sortingFilter.js';
+import RestaurantList from '../src/components/restaurantList.js';
+import { initialRestaurantData } from '../src/constant/initialRestaurants';
 import Modal from '../src/components/modal.js';
 
 describe('렌더링 테스트', () => {
@@ -38,8 +40,6 @@ describe('렌더링 테스트', () => {
 		</html>
 		`;
   });
-
-  const $container = document.querySelector('body');
 
   test('header에는 "점심 뭐 먹지" text가 존재한다.', () => {
     // given
@@ -88,6 +88,25 @@ describe('렌더링 테스트', () => {
     sortingList.forEach(sortBy =>
       expect(screen.getByText(sortBy)).toBeInTheDocument()
     );
+  });
+
+  test('restaurant List 테스트', () => {
+    // given
+    const restaurantList = new RestaurantList();
+    const restaurantInfoList = initialRestaurantData;
+
+    // when
+    restaurantList.render();
+
+    // then
+    restaurantInfoList.forEach(({ category, name, distance, description }) => {
+      expect(screen.getByAltText(category)).toBeInTheDocument();
+      expect(screen.getByText(name)).toBeInTheDocument();
+      // expect(
+      //   screen.getByText(`캠퍼스부터 ${distance}분 내`)
+      // ).toBeInTheDocument();
+      // expect(screen.getByText(description)).toBeInTheDocument();
+    });
   });
 
   test('modal 요소 테스트', () => {
