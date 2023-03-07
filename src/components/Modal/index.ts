@@ -1,3 +1,4 @@
+import { CLASS, ID } from '../../constants';
 import RestaurantListItem, { IRestaurant } from '../../domain/RestaurantListItem';
 import RestaurantList from '../RestaurantList';
 import ButtonContainer from './ButtonContainer';
@@ -11,17 +12,19 @@ import NameInput from './NameInput';
 const Modal = {
   template() {
     return `
-      <div class="modal-backdrop"></div>
-      <div class="modal-container">
-        ${ModalHeader.template()}
-        <form id="addForm">
-          ${CategoryInput.template()}
-          ${NameInput.template()}
-          ${DistanceInput.template()}
-          ${DescriptionInput.template()}
-          ${LinkInput.template()}
-          ${ButtonContainer.template()}
-        </form>
+      <div class="${CLASS.MODAL}">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+          ${ModalHeader.template()}
+          <form id="${ID.ADD_FORM}">
+            ${CategoryInput.template()}
+            ${NameInput.template()}
+            ${DistanceInput.template()}
+            ${DescriptionInput.template()}
+            ${LinkInput.template()}
+            ${ButtonContainer.template()}
+          </form>
+        </div>
       </div>`;
   },
   setEvent(restaurantListItem: RestaurantListItem) {
@@ -29,8 +32,7 @@ const Modal = {
     this.restaurantEvent(restaurantListItem);
   },
   restaurantEvent(RestaurantListItem: RestaurantListItem) {
-    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLDivElement;
-    const addForm = document.querySelector('#addForm') as HTMLFormElement;
+    const addForm = document.querySelector(`#${ID.ADD_FORM}`) as HTMLFormElement;
 
     addForm?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -40,15 +42,23 @@ const Modal = {
           return [key, key === 'distance' ? Number(value) : value];
         })
       ) as unknown as IRestaurant;
-      restaurantListContainer.innerHTML = RestaurantList.template(RestaurantListItem.add(newRestaurant));
+      RestaurantList.update(RestaurantList.template(RestaurantListItem.add(newRestaurant)));
 
-      addForm.reset();
+      this.formReset();
       this.closeModal();
     });
   },
+  openModal() {
+    const modal = document.querySelector(`.${CLASS.MODAL}`) as HTMLElement;
+    modal.className = CLASS.MODAL_OPEN;
+  },
   closeModal() {
-    const modal = document.querySelector('.modal--open') as HTMLElement;
-    modal.className = 'modal';
+    const modal = document.querySelector(`.${CLASS.MODAL_OPEN}`) as HTMLElement;
+    modal.className = CLASS.MODAL;
+  },
+  formReset() {
+    const addForm = document.querySelector(`#${ID.ADD_FORM}`) as HTMLFormElement;
+    addForm.reset();
   },
 };
 

@@ -4,13 +4,14 @@ import FilterSection from './components/FilterSection';
 import RestaurantList from './components/RestaurantList';
 import RestaurantListItem from './domain/RestaurantListItem';
 import RestaurantStorage from './domain/RestaurantStorage';
+import { ID } from './constants';
 
 class App {
   #app;
   #restaurantListItem;
 
   constructor() {
-    this.#app = document.querySelector('#app') as HTMLDivElement;
+    this.#app = document.querySelector(`#${ID.APP}`) as HTMLDivElement;
     const initialRestaurantList = RestaurantStorage.get();
     this.#restaurantListItem = new RestaurantListItem(initialRestaurantList);
   }
@@ -19,16 +20,10 @@ class App {
     this.#app.innerHTML = `
       ${Header.template()}
       <main>
-        <section class="restaurant-filter-container">
-          ${FilterSection.template()}
-        </section>
-        <section class="restaurant-list-container">
-          ${RestaurantList.template(this.#restaurantListItem.getListItem())}
-        </section>
+        ${FilterSection.template()}
+        ${RestaurantList.template(this.#restaurantListItem.getListItem())}
 
-        <div class="modal">
-          ${Modal.template()}
-        </div>
+        ${Modal.template()}
       </main>`;
 
     this.#setEvent();

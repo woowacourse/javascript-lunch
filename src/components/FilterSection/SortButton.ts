@@ -1,24 +1,25 @@
 import RestaurantListItem from '../../domain/RestaurantListItem';
 import RestaurantList from '../RestaurantList';
 import { TPriority } from '../../domain/RestaurantListItem';
+import { ID } from '../../constants';
 
 const SortButton = {
   template() {
     return `
-      <select name="sorting" id="sorting-filter" class="restaurant-filter">
+      <select name="sorting" id="${ID.SORTING_FILTER}" class="restaurant-filter">
         <option value="name">이름순</option>
         <option value="distance">거리순</option>
       </select>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
-    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLDivElement;
-    const sortingFilter = document.querySelector('#sorting-filter') as HTMLSelectElement;
+    const sortingFilter = document.querySelector(`#${ID.SORTING_FILTER}`) as HTMLSelectElement;
 
     sortingFilter?.addEventListener('change', () => {
       const select = sortingFilter.options[sortingFilter.selectedIndex].value as TPriority;
       RestaurantListItem.setSort(select);
       const result = RestaurantListItem.filterAndSort();
-      restaurantListContainer.innerHTML = RestaurantList.template(result);
+
+      RestaurantList.update(RestaurantList.template(result));
     });
   },
 };

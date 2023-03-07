@@ -4,11 +4,15 @@ import SortButton from './SortButton';
 
 const FilterSection = {
   template() {
-    return `${FilterButton.template()}${SortButton.template()}`;
+    return `
+      <section class="restaurant-filter-container">
+        ${FilterButton.template()}
+        ${SortButton.template()}
+      </section>`;
   },
-  setEvent(restaurantListItem: RestaurantListItem) {
-    FilterButton.setEvent(restaurantListItem);
-    SortButton.setEvent(restaurantListItem);
+  setEvent(RestaurantListItem: RestaurantListItem) {
+    FilterButton.setEvent(RestaurantListItem);
+    SortButton.setEvent(RestaurantListItem);
   },
 };
 
