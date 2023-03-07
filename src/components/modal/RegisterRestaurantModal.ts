@@ -82,8 +82,8 @@ class RegisterRestaurantModal extends CustomElement {
 
     if (!$category || !$distance) return;
 
-    $category.setOptions(DEFAULT_MODAL_CATEGORY_OPTIONS);
-    $distance.setOptions(DEFAULT_MODAL_DISTANCE_OPTIONS);
+    $category.setInitialOptions(DEFAULT_MODAL_CATEGORY_OPTIONS);
+    $distance.setInitialOptions(DEFAULT_MODAL_DISTANCE_OPTIONS);
   };
 }
 

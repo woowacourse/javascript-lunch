@@ -8,32 +8,16 @@ interface SelectOption {
 class Select extends CustomFormElement {
   #options: SelectOption[] = [];
 
-  #selectedOption: SelectOption | null = null;
-
-  setOptions(options: SelectOption[]) {
+  setInitialOptions(options: SelectOption[]) {
     this.#options = options;
-    this.#selectedOption = null;
 
     this.render();
   }
 
-  getOptions() {
-    return this.#options;
-  }
-
-  getSelectedOption() {
-    return this.#selectedOption;
-  }
-
-  setSelectedOption(selectedOption: SelectOption) {
-    this.#selectedOption = selectedOption;
-    this.dispatchEvent(new CustomEvent('change'));
-  }
-
-  renderTemplate(): string {
+  renderTemplate() {
     return `
       <style>
-        select {
+        .r-select {
           padding: 8px;
           margin: 6px 0;
 
@@ -45,7 +29,7 @@ class Select extends CustomFormElement {
         }
       </style>
 
-      <select id="select">
+      <select id="select" class="r-select" ${this.name && `name=${this.name}`}>
         ${this.#options
           .map(({ value, label }) => {
             return `<option value="${value}">${label}</option>`;
@@ -53,21 +37,6 @@ class Select extends CustomFormElement {
           .join('')}
       </select>
     `;
-  }
-
-  render(): void {
-    super.render();
-
-    const $select = this.querySelector<HTMLSelectElement>('#select');
-    if (!$select) return;
-
-    $select.addEventListener('change', (event) => {
-      const { value } = event?.target as HTMLSelectElement;
-      this.setSelectedOption({
-        value,
-        label: this.#options.find((option) => option.value === value)?.label as string,
-      });
-    });
   }
 }
 

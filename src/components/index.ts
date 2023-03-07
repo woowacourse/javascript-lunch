@@ -1,6 +1,7 @@
 import RegisterRestaurantModal from './modal/RegisterRestaurantModal';
 import Restaurant from './restaurant/Restaurant';
 import RestaurantList from './restaurant/RestaurantList';
+import SearchRestaurantSection from './section/SearchRestaurantSection';
 import Modal from './shared/Modal';
 import Button from './shared/Button';
 import FormItem from './shared/FormItem';
@@ -18,6 +19,7 @@ export default {
   RegisterRestaurantModal,
   Restaurant,
   RestaurantList,
+  SearchRestaurantSection,
   Modal,
   Button,
   FormItem,

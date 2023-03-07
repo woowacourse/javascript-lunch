@@ -65,6 +65,7 @@
 
 - [x] refactor: 쉐도우 돔 제거
 - [x] refactor: RegisterRestaurantModal 추가
+- [x] refactor: SearchRestaurantSection 추가
 - [ ] fix: 모바일 환경에서 모달 스크롤 오류 현상 해결
 - [ ] fix: 텍스트 칼라 오류 해결
 - [ ] feat: 음식점 상세 정보 확인
