@@ -1,4 +1,4 @@
-import { getCategoryImage } from "../constants/categoryImage";
+import categoryImages from "../constants/categoryImage";
 import type { Restaurant } from "../types/restaurant";
 
 class RestaurantCard extends HTMLLIElement {
@@ -10,7 +10,7 @@ class RestaurantCard extends HTMLLIElement {
     this.innerHTML = `
       <div class="restaurant__category">
         <img
-          src=${getCategoryImage(restaurant.category)}
+          src=${categoryImages[restaurant.category]}
           alt=${restaurant.category}
           class="category-icon"
         />

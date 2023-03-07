@@ -6,7 +6,7 @@ import categoryJapaneseImage from "../../templates/category-japanese.png";
 import categoryWesternImage from "../../templates/category-western.png";
 import categoryEtcImage from "../../templates/category-etc.png";
 
-const categoryImages = {
+const categoryImages: Record<Category, string> = {
   한식: categoryKoreanImage,
   중식: categoryChineseImage,
   일식: categoryJapaneseImage,
@@ -15,5 +15,4 @@ const categoryImages = {
   기타: categoryEtcImage,
 };
 
-export const getCategoryImage = (category: Category) =>
-  categoryImages[category] ?? categoryImages["기타"];
+export default categoryImages;
