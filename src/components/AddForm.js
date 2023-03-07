@@ -106,19 +106,25 @@ export default class AddForm {
       const description = event.target[3].value;
       const link = event.target[4].value;
       const newRestaurant = { name, category, distance, description, link };
-      const localList = store.getLocalStorage();
-      const RestaurantNames = localList.map(({ name }) => name);
 
-      try {
-        Validator.isValidName(name, RestaurantNames);
-        store.addRestaurant(newRestaurant);
-        $modal.classList.toggle("modal--open");
-        this.render();
-        render();
-      } catch (error) {
-        alert(error.message);
-      }
+      this.addRestaurant(newRestaurant, render);
     });
+  }
+
+  addRestaurant(newRestaurant, render) {
+    const $modal = document.querySelector(".modal");
+    const localList = store.getLocalStorage();
+    const RestaurantNames = localList.map(({ name }) => name);
+
+    try {
+      Validator.isValidName(newRestaurant.name, RestaurantNames);
+      store.addRestaurant(newRestaurant);
+      $modal.classList.toggle("modal--open");
+      this.render();
+      render();
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   addEvent(eventType, selector, callback) {
