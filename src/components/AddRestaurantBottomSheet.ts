@@ -3,7 +3,7 @@ import Component from '../core/Component';
 import IRestaurantInput from '../interfaces/IRestaurantInput';
 import { IComponentPropState } from '../interfaces/IComponent';
 
-class AddModalContainer extends Component<IComponentPropState> {
+class AddRestaurantBottomSheet extends Component<IComponentPropState> {
   template() {
     const { isModalOpened } = this.$props;
 
@@ -167,4 +167,4 @@ class AddModalContainer extends Component<IComponentPropState> {
   }
 }
 
-export default AddModalContainer;
+export default AddRestaurantBottomSheet;
