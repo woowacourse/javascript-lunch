@@ -13,21 +13,25 @@ class Modal {
     if (this.#isOpen) return;
     $(".modal")?.classList.add("modal--open");
     this.#isOpen = true;
+    $("body")?.classList.add("no-scroll");
   }
 
   close() {
+    if (!this.#isOpen) return;
+    $(".modal")?.classList.remove("modal--open");
+    this.#isOpen = false;
+    $("body")?.classList.remove("no-scroll");
+  }
+
+  handleCloseEvent() {
     const modalBg = $(".modal-backdrop");
     modalBg?.addEventListener("click", () => {
-      if (!this.#isOpen) return;
-      $(".modal")?.classList.remove("modal--open");
-      this.#isOpen = false;
+      this.close();
     });
 
     document.addEventListener("keyup", (event) => {
       if (event.key === "Escape") {
-        if (!this.#isOpen) return;
-        $(".modal")?.classList.remove("modal--open");
-        this.#isOpen = false;
+        this.close();
       }
     });
   }
@@ -49,7 +53,7 @@ class Modal {
     modalContainer.innerHTML = this.create();
     mainSection?.appendChild(modalContainer);
     this.open();
-    this.close();
+    this.handleCloseEvent();
   }
 }
 
