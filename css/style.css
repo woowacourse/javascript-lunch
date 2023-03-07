@@ -201,7 +201,7 @@ body {
 
   padding: 32px 16px;
 
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0 0;
   background: var(--grey-100);
 }
 
@@ -282,7 +282,6 @@ input[name="link"] {
 }
 
 #alert-submit {
-  /* float: right; */
   margin-left: 68%;
 }
 
@@ -314,6 +313,6 @@ input[name="link"] {
   text-align: center;
 }
 
-.hidden {
+hidden {
   display: none;
 }
