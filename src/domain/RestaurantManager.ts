@@ -1,12 +1,17 @@
-import RestaurantInfo from './RestaurantInfo';
 import { INIT_DATA } from '../constants/initData';
 import { Restaurant, SortBy, Category } from '../types/Restaurant.js';
+import Observable from '../Observable';
 
-export default class RestaurantManager {
+class RestaurantManager extends Observable {
   private restaurantList: Restaurant[];
+  private filteredRestaurantLitst: Restaurant[];
 
   constructor() {
+    super();
+    this.filteredRestaurantLitst = [];
+
     const restaurantData = localStorage.getItem('restaurantList');
+
     if (restaurantData === null || restaurantData.length === 0) {
       localStorage.setItem('restaurantList', JSON.stringify(INIT_DATA));
       this.restaurantList = JSON.parse(JSON.stringify(INIT_DATA));
@@ -16,15 +21,21 @@ export default class RestaurantManager {
   }
 
   getRestaurantList(): Restaurant[] {
-    return [...this.restaurantList];
+    return this.restaurantList;
+  }
+
+  getFilterRestaurantList(): Restaurant[] {
+    return this.filteredRestaurantLitst;
   }
 
   addRestaurant(restaurant: Restaurant) {
     this.restaurantList.push(restaurant);
     localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+
+    this.notify();
   }
 
-  sortRestaurantList(standard: SortBy): Restaurant[] {
+  sortRestaurantList(standard: SortBy) {
     if (standard === 'name') {
       this.restaurantList.sort((data1: Restaurant, data2: Restaurant): number => {
         return data1.storeName.localeCompare(data2.storeName, undefined, {
@@ -39,10 +50,16 @@ export default class RestaurantManager {
         (data1: Restaurant, data2: Restaurant): number => data1.distance - data2.distance
       );
     }
-    return this.restaurantList;
+
+    this.notify();
   }
 
-  filterRestaurantList(category: Category): Restaurant[] {
-    return this.restaurantList.filter((data) => data.category === category);
+  filterRestaurantList(category: Category) {
+    this.filteredRestaurantLitst = this.restaurantList.filter((data) => data.category === category);
+
+    this.notify();
   }
 }
+
+const restaurantManager = new RestaurantManager();
+export default restaurantManager;
