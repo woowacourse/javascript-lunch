@@ -115,9 +115,13 @@ export default class Modal extends Component {
       window.location.reload();
     });
 
-    this.$target.querySelector('.button--secondary')?.addEventListener('click', () => {
-      this.closeModal();
-    });
+    const button = this.$target.querySelector('.button--secondary') as HTMLElement | null;
+
+    if (button) {
+      button.addEventListener('click', () => {
+        this.closeModal();
+      });
+    }
   }
 
   closeModal() {
