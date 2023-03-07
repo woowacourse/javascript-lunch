@@ -14,11 +14,6 @@ const Restaurant = {
     </div>
   </li>`;
   },
-
-  setEvent() {
-    const restaurant = document.querySelector('.restaurant');
-    restaurant?.addEventListener('click', () => {});
-  },
 };
 
 export default Restaurant;
