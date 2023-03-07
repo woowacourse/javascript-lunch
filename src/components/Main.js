@@ -1,5 +1,5 @@
 import RestaurantItem from './RestaurantItem.js';
-import { $ } from '../utils/domHelpers.js';
+import { qs } from '../utils/domHelpers.js';
 import { RESTAURANT_IMAGE } from '../constants/images.ts';
 
 class Main {
@@ -16,18 +16,18 @@ class Main {
   }
 
   addEvent() {
-    $('#category-filter').addEventListener('change', (e) => {
+    qs('#category-filter').addEventListener('change', (e) => {
       if (e.target.value === '전체') {
         const renderData = this.#restaurantManager.getRestaurantList();
-        return ($('.restaurant-list-container').innerHTML = this.reRender(renderData));
+        return (qs('.restaurant-list-container').innerHTML = this.reRender(renderData));
       }
       const reRenderData = this.#restaurantManager.filterRestaurantList(e.target.value);
-      $('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
+      qs('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
     });
 
-    $('#sorting-filter').addEventListener('change', (e) => {
+    qs('#sorting-filter').addEventListener('change', (e) => {
       const reRenderData = this.#restaurantManager.sortRestaurantList(e.target.value);
-      $('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
+      qs('.restaurant-list-container').innerHTML = this.reRender(reRenderData);
     });
   }
 

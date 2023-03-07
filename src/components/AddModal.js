@@ -1,4 +1,4 @@
-const { $ } = require('../utils/domHelpers');
+const { qs } = require('../utils/domHelpers');
 
 export default class AddModal {
   #RestaurantManager;
@@ -11,7 +11,7 @@ export default class AddModal {
   }
 
   addEvent() {
-    const modal = $('.modal');
+    const modal = qs('.modal');
     modal.addEventListener('submit', (e) => {
       this.submitData(e);
     });
@@ -106,7 +106,7 @@ export default class AddModal {
     this.#RestaurantManager.addRestaurant(addData);
     e.currentTarget.classList.remove('modal--open');
 
-    $('.restaurant-list-container').innerHTML = this.#main.reRender(
+    qs('.restaurant-list-container').innerHTML = this.#main.reRender(
       this.#RestaurantManager.getRestaurantList()
     );
   }

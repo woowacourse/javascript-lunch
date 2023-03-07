@@ -1,4 +1,5 @@
-import { $ } from '../utils/domHelpers';
+import { qs } from '../utils/domHelpers';
+// import Component from './Component';
 
 class Header {
   constructor() {
@@ -6,7 +7,7 @@ class Header {
   }
 
   addEvent() {
-    $('.gnb').addEventListener('click', (e) => {
+    qs('.gnb').addEventListener('click', (e) => {
       this.test(e);
     });
   }
@@ -22,7 +23,7 @@ class Header {
 
   test(e) {
     if (e.target.parentNode.type === 'button') {
-      const modal = $('.modal');
+      const modal = qs('.modal');
       modal.classList.add('modal--open');
     }
   }
