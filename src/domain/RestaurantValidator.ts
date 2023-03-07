@@ -1,7 +1,7 @@
-import Validator from "./Validator";
-import { Restaurant } from "./type/restaurant";
+import Validator from "../Validator";
+import { Restaurant } from "../type/restaurant";
 
-const Input = {
+const RestaurantValidator = {
   checkAll({ category, name, estimatedTime, link }: Restaurant) {
     this.checkCategory(category);
     this.checkName(name);
@@ -31,4 +31,4 @@ const Input = {
   },
 };
 
-export default Input;
+export default RestaurantValidator;

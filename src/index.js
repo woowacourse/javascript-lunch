@@ -1,7 +1,7 @@
 import "../css/style.css";
 import Modal from "../src/util/Modal";
 import Restaurants from "./domain/Restaurants";
-import Input from "./domain/RestaurantValidator";
+import RestaurantValidator from "./domain/RestaurantValidator";
 import Alert from "./util/Alert";
 import { $ } from "./util/querySelector";
 import Filter from "./domain/Filter";
@@ -85,7 +85,7 @@ const sortingFilter = $("#sorting-filter");
 
 catgoryInput.addEventListener("focusout", () => {
   try {
-    Input.checkCategory(catgoryInput.value);
+    RestaurantValidator.checkCategory(catgoryInput.value);
     Alert.close(categoryAlert);
     Alert.close(submitAlert);
   } catch (e) {
@@ -95,7 +95,7 @@ catgoryInput.addEventListener("focusout", () => {
 
 nameInput.addEventListener("focusout", () => {
   try {
-    Input.checkName(nameInput.value);
+    RestaurantValidator.checkName(nameInput.value);
     Alert.close(nameAlert);
     Alert.close(submitAlert);
   } catch (e) {
@@ -105,7 +105,7 @@ nameInput.addEventListener("focusout", () => {
 
 distanceInput.addEventListener("focusout", () => {
   try {
-    Input.checkDistance(distanceInput.value);
+    RestaurantValidator.checkDistance(distanceInput.value);
     Alert.close(distanceAlert);
     Alert.close(submitAlert);
   } catch (e) {
@@ -115,7 +115,7 @@ distanceInput.addEventListener("focusout", () => {
 
 linkInput.addEventListener("focusout", () => {
   try {
-    Input.checkLink(linkInput.value);
+    RestaurantValidator.checkLink(linkInput.value);
     Alert.close(linkAlert);
     Alert.close(submitAlert);
   } catch (e) {
@@ -153,7 +153,7 @@ submitButton.addEventListener("click", (event) => {
   const restaurant = readRestaurantInput();
 
   try {
-    Input.checkAll(restaurant);
+    RestaurantValidator.checkAll(restaurant);
   } catch (e) {
     Alert.open(submitAlert, e.message);
     return;
