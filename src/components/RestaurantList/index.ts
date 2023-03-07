@@ -11,9 +11,9 @@ const RestaurantList = {
       </ul>
     </section>`;
   },
-  update(template: string) {
+  update(restaurantList: IRestaurant[]) {
     const restaurantListContainer = document.querySelector(`.${CLASS.RESTAURANT_LIST_CONTAINER}`) as HTMLDivElement;
-    restaurantListContainer.innerHTML = template;
+    restaurantListContainer.innerHTML = this.template(restaurantList);
   },
 };
 

@@ -23,7 +23,7 @@ const FilterButton = {
       RestaurantListItem.setFilter(select);
       const result = RestaurantListItem.filterAndSort();
 
-      RestaurantList.update(RestaurantList.template(result));
+      RestaurantList.update(result);
     });
   },
 };

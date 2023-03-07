@@ -42,7 +42,7 @@ const Modal = {
           return [key, key === 'distance' ? Number(value) : value];
         })
       ) as unknown as IRestaurant;
-      RestaurantList.update(RestaurantList.template(RestaurantListItem.add(newRestaurant)));
+      RestaurantList.update(RestaurantListItem.add(newRestaurant));
 
       this.formReset();
       this.closeModal();
