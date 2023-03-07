@@ -114,6 +114,7 @@ class AddRestaurantBottomSheet extends Component<IComponentPropState> {
       distance: distanceInput?.value || '',
       description: descriptionInput?.value ?? '',
       link: linkInput?.value ?? '',
+      isFavorite: false,
     };
   }
 
