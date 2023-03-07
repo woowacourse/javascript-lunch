@@ -18,7 +18,7 @@ export const executeSubmitEventListener = (
   });
 };
 
-export const executeChangeEventListener = (
+export const executeOptionChangeEventListener = (
   selector: string,
   callback: (value: string) => void
 ) => {

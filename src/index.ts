@@ -9,11 +9,11 @@ import {
   handleModalOpenButtonClick,
 } from './ui/modal';
 import {
-  executeChangeEventListener,
+  executeOptionChangeEventListener,
   executeClickEventListener,
   executeSubmitEventListener,
 } from './utils/eventListener';
-import { resetForm, scrollToTopForm } from './ui/form';
+import { scrollToTopForm } from './ui/form';
 
 const App = {
   restaurantsController: RestaurantsController.getInstance(),
@@ -64,11 +64,11 @@ const App = {
   },
 
   controlFilter() {
-    executeChangeEventListener('#sorting-filter', (value: string) => {
+    executeOptionChangeEventListener('#sorting-filter', (value: string) => {
       this.restaurantsController.sortRestaurantList(value);
     });
 
-    executeChangeEventListener('#category-filter', (value: string) => {
+    executeOptionChangeEventListener('#category-filter', (value: string) => {
       this.restaurantsController.filterRestaurantList(value);
     });
   },
