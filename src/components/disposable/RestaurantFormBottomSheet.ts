@@ -112,7 +112,7 @@ class RestaurantFormBottomSheet {
   getValidateLink(url: string) {
     try {
       return validateUrl(url);
-    } catch (error: unknown) {
+    } catch (error) {
       const warning = <HTMLElement>$(".url-warning");
       if (error instanceof Error) warning.textContent = error.message;
       throw error;
