@@ -1,5 +1,7 @@
 import Validator from "../util/Validator";
 import Restaurant from "../type/restaurant";
+import { isValidFoodCategory } from "../type/FoodCategory";
+import { isValidEstimatedTime } from "../type/EstimatedTime";
 
 const RestaurantValidator = {
   checkAll({ category, name, estimatedTime, link }: Restaurant) {
@@ -10,7 +12,7 @@ const RestaurantValidator = {
   },
 
   checkCategory(category: string) {
-    if (Validator.isEmptyInput(category))
+    if (!isValidFoodCategory(category))
       throw new Error("카테고리를 선택해 주세요!!");
   },
 
@@ -20,7 +22,7 @@ const RestaurantValidator = {
   },
 
   checkDistance(distance: string) {
-    if (Validator.isEmptyInput(distance))
+    if (!isValidEstimatedTime(distance))
       throw new Error("거리를 입력해 주세요!!");
   },
 
