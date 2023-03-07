@@ -8,6 +8,7 @@ const defaultDummyRestaurantsData: IRestaurantInput[] = [
     distance: '10',
     description: '스시 너무 맛있어요',
     link: 'https://www.siksinhot.com/P/408170',
+    isFavorite: true,
   },
   {
     name: '김돈이 본점',
@@ -15,6 +16,7 @@ const defaultDummyRestaurantsData: IRestaurantInput[] = [
     distance: '5',
     description: '점심 김치찌개 너무 맛있어용',
     link: 'https://binaural.tistory.com/272',
+    isFavorite: false,
   },
 ];
 
