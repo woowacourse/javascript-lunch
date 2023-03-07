@@ -30,7 +30,8 @@
 - [x] html 더 나은 구조로 수정하기
 - [x] 모달을 열면 너무 크게 나오는 버그 (PC 버전에서 backdrop 영역도 너무 적다)
 - [x] select에 label 명시하기
-- [ ] link input 타입 수정 및 placeholder 부여하기
+- [x] link input 타입 수정 및 placeholder 부여하기
+- [ ] 이름에 제약사항 설명 추가하기
 
 ## 기능
 
