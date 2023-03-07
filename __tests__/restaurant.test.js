@@ -1,4 +1,4 @@
-import { restaurantManager } from '../src/domain/restaurants';
+import { restaurantManager } from '../src/domain/restaurantManager';
 import { sampleRestaurants } from '../src/domain/sampleRestaurants';
 
 describe('restaurantManager 도메인 기능 테스트', () => {

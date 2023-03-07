@@ -1,4 +1,4 @@
-import { restaurantManager } from './domain/restaurants';
+import { restaurantManager } from './domain/restaurantManager';
 
 import { $ } from './utils/dom';
 import { setLocalStorage } from './utils/localStorage';
