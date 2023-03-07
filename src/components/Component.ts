@@ -1,31 +1,20 @@
-interface InitParams<Props, State> {
+interface InitParams {
   $parent: DocumentFragment | HTMLElement;
   tagName: string;
-  props: Props;
-  initialState: State;
+  className: string;
 }
 
-class Component<Props extends Object, State extends Object> {
+class Component {
   $wrapper: HTMLElement;
-  props: Props;
-  state: State;
 
-  constructor({ $parent, props, tagName, initialState }: InitParams<Props, State>) {
+  constructor({ $parent, tagName, className }: InitParams) {
     this.$wrapper = document.createElement(tagName);
-    this.props = props;
-    this.state = initialState;
-    this.render();
+    this.$wrapper.className = className;
     $parent.append(this.$wrapper);
   }
 
   $(selectors: string) {
     return this.$wrapper.querySelector(selectors);
-  }
-
-  setState(newState: State) {
-    if (JSON.stringify(this.state) === JSON.stringify(newState)) return;
-    this.state = newState;
-    this.render();
   }
 
   render() {
