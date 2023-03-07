@@ -18,7 +18,9 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-use-before-define": "off",
+    "no-shadow": "off"
   },
   "overrides": [
     {
