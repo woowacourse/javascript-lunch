@@ -1,6 +1,6 @@
 import RestaurantList from '../components/restaurantList.js';
 import { filterCategory, sortByDistance, sortByName } from './filter';
-import { CustomError, RestaurantType } from '../type';
+import { RestaurantType } from '../type';
 import { validateName } from '../validator';
 import { initialRestaurantList } from '../constants/initialRestaurantList';
 import { FILTER_OPTION } from '../constants/filter';
@@ -47,9 +47,8 @@ class RestaurantsController {
 
     try {
       validateName(restaurantInfo.name);
-    } catch (error: unknown) {
-      const customError = error as CustomError;
-      alert(customError.message);
+    } catch (error: !unknown) {
+      alert(error.message);
 
       return false;
     }

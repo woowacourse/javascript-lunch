@@ -34,5 +34,3 @@ export interface CATEGORY_IMAGES_INTERFACE {
   아시안: string;
   기타: string;
 }
-
-export interface CustomError extends Error {}
