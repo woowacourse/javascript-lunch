@@ -5,10 +5,10 @@ class BottomSheet extends HTMLElement {
 
   render(children: string) {
     this.innerHTML = `
-    <div id="modalBackdrop" class="modal-backdrop"></div>
-    <div id="foo" class="modal-container">
-    ${children}
-    </div>
+      <div id="modalBackdrop" class="modal-backdrop"></div>
+      <div id="foo" class="modal-container">
+        ${children}
+      </div>
     `;
     this.onClickBackdrop();
   }
