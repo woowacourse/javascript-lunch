@@ -1,4 +1,4 @@
-import Validator from "../Validator";
+import Validator from "../util/Validator";
 import { Restaurant } from "../type/restaurant";
 
 const RestaurantValidator = {

@@ -1,5 +1,5 @@
-import { IMAGE } from "./ImageLoader";
-import { $ } from "./querySelector";
+import { IMAGE } from "../util/ImageLoader";
+import { $ } from "../util/querySelector";
 
 const appendNewRestaurant = ({ category, name, estimatedTime, description }) => {
   const listTemplate = $("#list-template");

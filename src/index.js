@@ -1,15 +1,15 @@
 import "../css/style.css";
-import Modal from "../src/util/Modal";
+import Modal from "./component/Modal";
 import Restaurants from "./domain/Restaurants";
 import RestaurantValidator from "./domain/RestaurantValidator";
-import Alert from "./util/Alert";
+import Alert from "./component/Alert";
 import { $ } from "./util/querySelector";
 import Filter from "./domain/Filter";
 import { IMAGE } from "./util/ImageLoader";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
-import appendNewRestaurant from "./util/appendNewRestaurant";
-import createSelectInput from "./util/createSelectInput";
+import appendNewRestaurant from "./component/appendNewRestaurant";
+import createSelectInput from "./component/createSelectInput";
 
 const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
 const ESTIMATEDTIME = ["5", "10", "15", "20", "30"];
