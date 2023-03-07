@@ -1,13 +1,13 @@
 import {
   checkRestaurantName,
   checkInputLength,
-  checkDuplicate,
+  checkDuplicateNameInRestaurantList,
 } from './errorChecker';
 
 export const isValidName = (restaurantName: string) => {
   checkRestaurantName(restaurantName);
   checkInputLength(restaurantName);
-  checkDuplicate(restaurantName);
+  checkDuplicateNameInRestaurantList(restaurantName);
 
   return true;
 };

@@ -6,9 +6,10 @@ import { initialRestaurantList } from '../constants/initialRestaurantList';
 import { FILTER_OPTION } from '../constants/filter';
 import { getFormData } from '../utils/form';
 import {
-  getAllDataOnLocalStorage,
-  saveOnLocalStorage,
+  getListOnLocalStorage,
+  saveListOnLocalStorage,
 } from '../utils/localStorage';
+import { LOCAL_STORAGE_KEY } from '../constants/values';
 
 class RestaurantsController {
   private static instance: RestaurantsController;
@@ -25,7 +26,7 @@ class RestaurantsController {
 
   private initLocalStorageItems() {
     return window.localStorage.length
-      ? getAllDataOnLocalStorage()
+      ? (getListOnLocalStorage(LOCAL_STORAGE_KEY) as RestaurantType[])
       : initialRestaurantList;
   }
 
@@ -79,7 +80,7 @@ class RestaurantsController {
   renderRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
     this.restaurantListComponent.render(this.restaurantList);
-    saveOnLocalStorage(this.restaurantList);
+    saveListOnLocalStorage(LOCAL_STORAGE_KEY, this.restaurantList);
   }
 }
 

@@ -1,15 +1,15 @@
-import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-import { RestaurantType } from '../type';
+const localStorage = window.localStorage;
 
-export const saveOnLocalStorage = (restaurantList: RestaurantType[]) => {
-  window.localStorage.setItem(
-    LOCAL_STORAGE_KEY,
-    JSON.stringify(restaurantList)
-  );
-};
+export function saveListOnLocalStorage<T>(key: string, list: T[]) {
+  localStorage.setItem(key, JSON.stringify(list));
+}
 
-export const getAllDataOnLocalStorage = (): RestaurantType[] => {
-  return Object.values(
-    JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '')
-  );
-};
+export function getListOnLocalStorage<T>(key: string): T[] {
+  const list = Object.values(JSON.parse(localStorage.getItem(key)!));
+
+  if (!Array.isArray(list)) {
+    return [];
+  }
+
+  return list as [];
+}

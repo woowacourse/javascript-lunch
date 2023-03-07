@@ -1,7 +1,9 @@
 import { NAME_LENGTH } from '../constants/values';
 import { ERROR_MESSAGE } from '../constants/error';
 import { REGEX_SPECIAL_CHARACTERS } from '../constants/regexp';
-import { getAllDataOnLocalStorage } from '../utils/localStorage';
+import { getListOnLocalStorage } from '../utils/localStorage';
+import { LOCAL_STORAGE_KEY } from '../constants/values';
+import { RestaurantType } from '../type';
 
 const { MIN, MAX } = NAME_LENGTH;
 
@@ -17,10 +19,12 @@ export const checkInputLength = (input: string) => {
   }
 };
 
-export const checkDuplicate = (input: string) => {
-  if (
-    getAllDataOnLocalStorage().find(restaurant => restaurant.name === input)
-  ) {
+export const checkDuplicateNameInRestaurantList = (input: string) => {
+  const restaurantList = getListOnLocalStorage(
+    LOCAL_STORAGE_KEY
+  ) as RestaurantType[];
+
+  if (restaurantList.find(restaurant => restaurant.name === input)) {
     throw new Error(ERROR_MESSAGE.DUPLICATE_NAME);
   }
 };

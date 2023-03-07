@@ -6,7 +6,7 @@ import '../assets/category-asian.png';
 import '../assets/category-etc.png';
 import '../assets/favorite-icon-filled.png';
 import '../assets/favorite-icon-lined.png';
-import { CATEGORY_IMAGES } from '../constants/images';
+import { CATEGORY_IMAGES } from '../constants/asset';
 import { $inBody } from '../utils/selector';
 
 class RestaurantList {
