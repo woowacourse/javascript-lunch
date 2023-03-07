@@ -15,6 +15,7 @@ class MenuComponent extends CustomElement {
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
         h3 {
             font-family: 'Roboto';
