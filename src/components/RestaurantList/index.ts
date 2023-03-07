@@ -1,7 +1,5 @@
 import IRestaurant from "../../type/IRestaurant";
 import RestaurantItem from "../RestaurantItem";
-import Storage from "../../tools/Storage";
-import defaultRestaurants from "../../tools/defaultRestaurants";
 import { TCategory } from "../../type/TCategory";
 import { restaurants } from "../../domain/restaurants";
 import { restoreRestaurants, selectRestaurants } from "./handleRestaurantList";
