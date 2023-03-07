@@ -18,12 +18,12 @@ type AddRestaurantDrawerProps = {
 };
 
 class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
-  $parent: HTMLElement;
+  $target: HTMLElement;
   state: AddRestaurantDrawerState;
   toggleAddRestaurantDrawer: () => void;
 
   constructor({ $parent, toggleAddRestaurantDrawer }: AddRestaurantDrawerProps) {
-    this.$parent = document.createElement('div');
+    this.$target = document.createElement('div');
 
     this.state = {
       restaurantForm: {
@@ -34,7 +34,7 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
     };
     this.toggleAddRestaurantDrawer = toggleAddRestaurantDrawer;
 
-    $parent.append(this.$parent);
+    $parent.append(this.$target);
     this.render();
   }
 
@@ -44,7 +44,7 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
   }
 
   render() {
-    this.$parent.innerHTML = `
+    this.$target.innerHTML = `
     <div class="modal modal--open">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
