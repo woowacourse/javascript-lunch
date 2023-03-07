@@ -14,6 +14,7 @@ class Restaurants {
   }
 
   add(restaurant: Restaurant): Restaurant[] {
+    restaurant.favorites = false;
     this.#restaurantsList.push(this.getConvertedUndefinedToEmptyString(restaurant));
 
     return this.#restaurantsList;

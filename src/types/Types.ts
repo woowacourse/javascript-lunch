@@ -4,4 +4,5 @@ export interface Restaurant {
   distance: 5 | 10 | 15 | 20 | 30;
   description?: string;
   link?: string;
+  favorites?: boolean;
 }
