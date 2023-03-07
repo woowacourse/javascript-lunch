@@ -1,3 +1,5 @@
+import './Modal.css';
+
 import { useEvents } from '../../utils/core';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';

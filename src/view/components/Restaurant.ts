@@ -1,3 +1,5 @@
+import './Restaurant.css';
+
 import { getImageSrc } from '../../utils/common/getImageSrc';
 import '../../assets/category-korean.png';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';

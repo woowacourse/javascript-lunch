@@ -1,3 +1,5 @@
+import './Nav.css';
+
 import { Category, SortOption } from '../../constants/lunchRecommendation';
 import { useEvents } from '../../utils/core';
 
