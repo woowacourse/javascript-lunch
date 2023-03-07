@@ -41,6 +41,12 @@ class RestaurantBox extends HTMLElement {
       
         border-bottom: 1px solid #e9eaed;
       }
+
+      @media (max-width: 400px) {
+        li {
+          padding: 8px 4px;
+        }
+      }
       
       .category {
         display: flex;

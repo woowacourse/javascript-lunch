@@ -13,11 +13,12 @@ class AddRestaurantModal extends HTMLElement {
 
       .modal {
           display: none;
-          
+          overflow-x:hidden;
         }
       
       .modal--open {
         display: block;
+        overflow-x:hidden;
       }
       
       .backdrop {
@@ -45,7 +46,36 @@ class AddRestaurantModal extends HTMLElement {
 
       .button-container {
         display: flex;
+        justify-content:space-between;
+        align-items:center;
       }
+
+      @media (max-width: 500px) {
+        .container {
+          position: fixed;
+          top:100px;
+          width:90vw;
+          overflow-x:hidden;
+          bottom: 0;
+          border-radius: 8px 8px 0px 0px;
+          background: var(--grey-100);
+          overflow-y:scroll;
+        }
+      }
+
+      @media (max-height: 800px) {
+        .container {
+          position: fixed;
+          top:100px;
+          width:90vw;
+          overflow-x:hidden;
+          bottom: 0;
+          border-radius: 8px 8px 0px 0px;
+          background: var(--grey-100);
+          overflow-y:scroll;
+        }
+      }
+
 
 
 `;

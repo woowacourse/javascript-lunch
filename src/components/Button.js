@@ -34,6 +34,23 @@ class Button extends HTMLElement {
       
         color: var(--grey-100);
       }
+
+      @media (max-width: 500px) {
+        button {
+          width: 150px;
+          height: 44px;
+        
+          margin-right: 16px;
+        
+          border: none;
+          border-radius: 8px;
+        
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+
+    
       
 `;
 
