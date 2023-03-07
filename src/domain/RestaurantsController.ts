@@ -3,7 +3,7 @@ import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
 import { saveRestaurantsInLocalStorage } from "./localStorageController";
-import { renderRestaurantList } from "../ui/restaurantListRenderer";
+import { renderRestaurantList } from "../component/restaurantList";
 import { updateRestaurantList } from "./filter";
 import { handleModalCancelButtonClick } from "../ui/modal";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
