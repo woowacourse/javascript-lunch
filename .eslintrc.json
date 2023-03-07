@@ -15,7 +15,8 @@
   },
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "parserOptions": {
     "ecmaVersion": "latest",
