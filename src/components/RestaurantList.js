@@ -5,6 +5,8 @@ import Component from '../Component.js';
 export default class RestaurantList extends Component {
   constructor($target) {
     super($target);
+
+    this.restaurantManager.subscribe(this.render.bind(this));
   }
 
   template() {
@@ -14,6 +16,19 @@ export default class RestaurantList extends Component {
   }
 
   restaurantItemTemplate() {
+    return this.filterOrSort();
+  }
+
+  filterOrSort() {
+    if (this.restaurantManager.getIsFiltered()) {
+      return `
+      ${this.restaurantManager
+        .getFilterRestaurantList()
+        .map((restaurant) => new RestaurantItem(RESTAURANT_IMAGE).render(restaurant))}
+      
+      `;
+    }
+
     return `
     ${this.restaurantManager
       .getRestaurantList()
