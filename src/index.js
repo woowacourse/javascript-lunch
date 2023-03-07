@@ -1,6 +1,5 @@
 import "../css/style.css";
 import Modal from "../src/util/Modal";
-import RestaurantInfo from "./domain/RestaurantInfo";
 import Restaurants from "./domain/Restaurants";
 import Input from "./Input";
 import Alert from "./util/Alert";
