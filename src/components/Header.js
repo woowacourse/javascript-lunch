@@ -1,14 +1,12 @@
 import { qs } from '../utils/domHelpers';
-// import Component from './Component';
+import Component from './Component';
 
-class Header {
-  constructor() {
-    this.addEvent();
-  }
+class Header extends Component {
+  constructor($target) {
+    super($target);
 
-  addEvent() {
-    qs('.gnb').addEventListener('click', (e) => {
-      this.test(e);
+    this.addEvent('click', (event) => {
+      this.activateModal(event);
     });
   }
 
@@ -21,8 +19,8 @@ class Header {
       `;
   }
 
-  test(e) {
-    if (e.target.parentNode.type === 'button') {
+  activateModal(event) {
+    if (event.target.parentNode.type === 'button') {
       const modal = qs('.modal');
       modal.classList.add('modal--open');
     }
