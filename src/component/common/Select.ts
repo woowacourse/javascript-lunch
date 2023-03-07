@@ -1,4 +1,10 @@
-import { Attribute, Category, SetSelectedValue, Sort } from "@/type/type";
+import {
+  Attribute,
+  Category,
+  Rerender,
+  SetSelectedValue,
+  Sort,
+} from "@/type/type";
 import { convertHtmlAttribute } from "@/utils/convertor";
 import { $ } from "@/utils/Dom";
 
@@ -11,7 +17,7 @@ class Select {
     this.options = options;
   }
 
-  addEvent(setSelectedValue: SetSelectedValue, rerenderList: () => void) {
+  addEvent(setSelectedValue: SetSelectedValue, rerenderList: Rerender) {
     const selectEl = $(`#${this.attribute.id}`);
     selectEl?.addEventListener("change", (e) => {
       const selectedOption = (e.target as HTMLSelectElement).value as

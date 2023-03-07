@@ -32,3 +32,6 @@ export type SetSelectedValue = (
   sortId: string,
   selectedValue: Category | Sort
 ) => void;
+
+export type AddRestaurant = (restaurant: Restaurant) => void;
+export type Rerender = () => void;

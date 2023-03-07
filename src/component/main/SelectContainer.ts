@@ -1,5 +1,5 @@
 import { CATEGORY, OptionValue, SORTING } from "@/constant/Restaurant";
-import { SetSelectedValue } from "@/type/type";
+import { Rerender, SetSelectedValue } from "@/type/type";
 import Select from "@/component/common/Select";
 
 class SelectContainer {
@@ -39,7 +39,7 @@ class SelectContainer {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(setSelectedValue: SetSelectedValue, rerenderList: () => void) {
+  addEvent(setSelectedValue: SetSelectedValue, rerenderList: Rerender) {
     this.categorySelect.addEvent(setSelectedValue, rerenderList);
     this.sortingSelect.addEvent(setSelectedValue, rerenderList);
   }
