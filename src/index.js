@@ -2,11 +2,10 @@ import '../style.css';
 import '../templates/add-button.png';
 import { geid, qs } from './utils/domHelpers';
 
-import RestaurantManager from './domain/RestaurantManager';
+import Component from './components/Component.js';
 import Header from './components/Header.js';
 import Main from './components/Main.js';
 import AddModal from './components/AddModal.js';
-import Component from './components/Component.js';
 
 class App extends Component {
   constructor() {

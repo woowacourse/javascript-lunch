@@ -1,8 +1,12 @@
+import restaurantManager from '../domain/RestaurantManager';
+
 export default class Component {
   $target;
+  restaurantManager;
 
   constructor($target) {
     this.$target = $target;
+    this.restaurantManager = restaurantManager;
 
     this.render();
   }
