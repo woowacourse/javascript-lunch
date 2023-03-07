@@ -29,10 +29,10 @@ export default class App {
     Selectbox.render($('.form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
     this.renderRestaurantListByFilterOptions();
 
-    this.init();
+    this.bindEvents();
   }
 
-  init() {
+  bindEvents() {
     $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
     $('.restaurant-filter-container').addEventListener(
       'change',
