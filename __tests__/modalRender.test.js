@@ -4,7 +4,7 @@
 
 import { screen, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
-import Modal from "../src/util/Modal";
+import Modal from "../src/components/Modal";
 
 document.body.innerHTML = `
 <button type="button" class="gnb__button" aria-label="음식점 추가"></button>

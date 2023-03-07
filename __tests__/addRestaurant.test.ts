@@ -4,7 +4,7 @@
 
 import { screen, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
-import RestaurantInfo from "../src/domain/RestaurantInfo";
+import RestaurantInfo from "../src/RestaurantInfo";
 
 document.body.innerHTML = `
 <form>

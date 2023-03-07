@@ -1,4 +1,4 @@
-import { sort } from "../src/domain/Sort";
+import { sortRestaurant } from "../src/domain/Sort";
 import { Category, Restaurant } from "../src/type/restaurant";
 
 const category: Category = "양식";
@@ -41,7 +41,7 @@ const restaurantList: Restaurant[] = [
 ];
 
 test("음식점 목록 이름순 정렬 테스트", () => {
-  expect(sort("name", restaurantList)).toEqual([
+  expect(sortRestaurant("name", restaurantList)).toEqual([
     {
       name: "KFC",
       category: category,
@@ -81,7 +81,7 @@ test("음식점 목록 이름순 정렬 테스트", () => {
 });
 
 test("음식점 목록 거리순 정렬 테스트", () => {
-  expect(sort("distance", restaurantList)).toEqual([
+  expect(sortRestaurant("distance", restaurantList)).toEqual([
     {
       name: "맥도날드",
       category: category,
