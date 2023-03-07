@@ -1,11 +1,35 @@
 {
-  "rules": {},
   "env": {
+    "browser": true,
     "es6": true,
     "node": true
   },
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "quotes": ["error", "single"],
+    "max-depth": ["error", 2],
+    "no-else-return": ["error", { "allowElseIf": false }],
+    "max-params": ["error", 3],
+    "no-confusing-arrow": [
+      "error",
+      { "allowParens": true, "onlyOneSimpleParam": false }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": true,
+        "object": true
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
+    ],
+    "spaced-comment": ["error", "always", { "exceptions": ["-", "+"] }],
+    "eol-last": ["error", "always"],
+    "class-methods-use-this": "off"
+  }
 }
