@@ -3,10 +3,6 @@ import { Restaurant } from '../../types';
 import { $ } from '../../utils/dom';
 
 class RestaurantItems extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.innerHTML = $template;
   }

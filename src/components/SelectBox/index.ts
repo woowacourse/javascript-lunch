@@ -3,10 +3,6 @@ import { Category, SortFilter } from '../../types';
 import { $ } from '../../utils/dom';
 
 class SelectBox extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.innerHTML = $template;
   }

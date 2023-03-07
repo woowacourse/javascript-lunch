@@ -2,10 +2,6 @@ import { Category } from '../../types';
 import $template from './index.html';
 import { imgSrc } from '../../image';
 class RestaurantItem extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.render();
   }
