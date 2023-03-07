@@ -1,7 +1,6 @@
 import { Category } from "../type/restaurant";
 import { $ } from "../util/querySelector";
 import "../../css/style.css";
-
 class RestaurantList {
   templateList: Element | null;
   name: string;

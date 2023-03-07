@@ -1,5 +1,4 @@
 import { Restaurant } from "../type/restaurant";
-
 class Restaurants {
   #list: Restaurant[] = [];
 
