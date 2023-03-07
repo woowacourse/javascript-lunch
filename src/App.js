@@ -46,41 +46,6 @@ export default function App($app) {
     this.state = { ...this.state, ...state };
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-
-    const category = event.target.querySelector('#category').value;
-    const name = event.target.querySelector('#name').value;
-    const distance = event.target.querySelector('#distance').value;
-    const description = event.target.querySelector('#description').value;
-    const link = event.target.querySelector('#link').value;
-
-    const restaurantInfo = {
-      category,
-      name,
-      distance: Number(distance),
-    };
-
-    if (description !== '') restaurantInfo.description = description;
-    if (link !== '') restaurantInfo.URLlink = link;
-
-    this.state.restaurantService.addRestaurant(restaurantInfo);
-
-    filterRestaurantList(
-      this.state.filters.state.category,
-      this.state.filters.state.filter
-    );
-
-    const localRestaurants = getLocalStorage('restaurants') ?? [];
-    setLocalStorage('restaurants', [...localRestaurants, restaurantInfo]);
-
-    closeModal();
-  };
-
-  const handleFormCancel = () => {
-    closeModal();
-  };
-
   const appendMain = () => {
     const $main = document.createElement('main');
     $app.appendChild($main);

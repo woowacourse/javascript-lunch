@@ -1,8 +1,10 @@
-import { CATEGORY, SELECT_DISTANCE } from '../constants';
+import { CATEGORY_OPTIONS, SELECT_DISTANCE } from '../constants';
+import { closeModal } from '../modal';
 import selectTemplate from '../template/selectTemplate';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import { arrayElementToObject } from '../utils/util';
 
-export default function RestaurantForm($root, handleFormSubmit, handleFormCancel) {
+export default function RestaurantForm($root) {
   const $form = document.createElement('form');
 
   this.render = () => {
@@ -26,6 +28,38 @@ export default function RestaurantForm($root, handleFormSubmit, handleFormCancel
   this.init();
 }
 
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+
+  const category = event.target.querySelector('#category').value;
+  const name = event.target.querySelector('#name').value;
+  const distance = event.target.querySelector('#distance').value;
+  const description = event.target.querySelector('#description').value;
+  const link = event.target.querySelector('#link').value;
+
+  const restaurantInfo = {
+    category,
+    name,
+    distance: Number(distance),
+  };
+
+  if (description !== '') restaurantInfo.description = description;
+  if (link !== '') restaurantInfo.URLlink = link;
+
+  this.state.restaurantService.addRestaurant(restaurantInfo);
+
+  filterRestaurantList(this.state.filters.state.category, this.state.filters.state.filter);
+
+  const localRestaurants = getLocalStorage('restaurants') ?? [];
+  setLocalStorage('restaurants', [...localRestaurants, restaurantInfo]);
+
+  closeModal();
+};
+
+const handleFormCancel = () => {
+  closeModal();
+};
+
 function RestaurantFormTemplate() {
   return `
     <div class="form-item form-item--required">
@@ -33,7 +67,7 @@ function RestaurantFormTemplate() {
       ${selectTemplate({
         name: 'category',
         id: 'category',
-        options: [{ value: '', text: '선택해주세요' }, ...arrayElementToObject(CATEGORY)],
+        options: [{ value: '', text: '선택해주세요' }, ...arrayElementToObject(CATEGORY_OPTIONS)],
         required: true,
       })}
     </div>
