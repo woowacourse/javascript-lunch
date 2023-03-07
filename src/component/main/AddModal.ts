@@ -69,6 +69,10 @@ class AddModal {
       this.closeModal();
     });
 
+    $(".modal-backdrop")?.addEventListener("click", () => {
+      this.closeModal();
+    });
+
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       this.deleteErrorMessage();
