@@ -1,4 +1,4 @@
-import { Restaurant } from '../../../type';
+import type { Restaurant } from '../../../type';
 import Component from '../../Component';
 import { CATEGORY_IMAGE_URL } from '../../../utils/constants';
 

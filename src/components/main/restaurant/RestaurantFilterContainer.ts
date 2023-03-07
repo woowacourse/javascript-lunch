@@ -1,4 +1,4 @@
-import { Category, SortBy } from '../../../type';
+import type { Category, SortBy } from '../../../type';
 import Component from '../../Component';
 import { CATEGORIES } from '../../../utils/constants';
 

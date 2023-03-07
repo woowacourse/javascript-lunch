@@ -1,4 +1,4 @@
-import { Category, SortBy, Restaurant } from '../../type';
+import type { Category, SortBy, Restaurant } from '../../type';
 import Component from '../Component';
 import RestaurantFilterContainer from './restaurant/RestaurantFilterContainer';
 import RestaurantList from './restaurant/RestaurantList';
