@@ -1,3 +1,4 @@
+import Validator from "../domain/Validator";
 import store from "../util/store";
 
 export default class AddForm {
@@ -106,9 +107,15 @@ export default class AddForm {
       const link = event.target[4].value;
       const newRestaurant = { name, category, distance, description, link };
 
-      store.addRestaurant(newRestaurant);
-      $modal.classList.toggle("modal--open");
-      render();
+      try {
+        Validator.filledWithBlank(name);
+        store.addRestaurant(newRestaurant);
+        $modal.classList.toggle("modal--open");
+        this.render();
+        render();
+      } catch (error) {
+        alert(error.message);
+      }
     });
   }
 
