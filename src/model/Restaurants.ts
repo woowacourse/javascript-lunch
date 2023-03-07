@@ -7,7 +7,7 @@ export default class Restaurants {
     this.restaurants = restaurants;
   }
 
-  getRestaurants() {
+  get restaurantsList() {
     return this.restaurants;
   }
 

@@ -109,7 +109,7 @@ export default class Modal extends Component {
       };
 
       this.restaurants.add(restaurant);
-      this.$state.restaurants = this.restaurants.getRestaurants();
+      this.$state.restaurants = this.restaurants.restaurantsList;
 
       localStorage.setItem('state', JSON.stringify(this.$state));
 
