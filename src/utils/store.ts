@@ -1,7 +1,7 @@
-import { Restaurant } from '../types';
+import { IRestaurant } from '../types';
 
 const store = {
-  setLocalStorage(restaurants: Restaurant[]) {
+  setLocalStorage(restaurants: IRestaurant[]) {
     localStorage.setItem('lunch_app_restaurants', JSON.stringify(restaurants));
   },
 
