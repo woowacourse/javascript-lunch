@@ -1,6 +1,6 @@
 import type { Category, RestaurantValues } from '../types/restaurantTypes';
 
-export default class Restaurants {
+export default class Restaurant {
   private restaurants;
 
   constructor(restaurants: RestaurantValues[]) {
