@@ -31,11 +31,11 @@ class Select extends FormControlComponent {
     this.dispatchEvent(new CustomEvent('change'));
   }
 
-  get value() {
+  override get value() {
     return String(this.#selectedOption?.value ?? '');
   }
 
-  renderTemplate(): string {
+  override renderTemplate() {
     return `
       <style>
         select {
@@ -60,7 +60,7 @@ class Select extends FormControlComponent {
     `;
   }
 
-  render(): void {
+  override render() {
     super.render();
 
     this.shadowRoot

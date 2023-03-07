@@ -1,7 +1,7 @@
 import FormControlComponent from '../FormControlComponent';
 
 class Input extends FormControlComponent {
-  override renderTemplate(): string {
+  override renderTemplate() {
     return `
       <style>
         input {
@@ -19,7 +19,7 @@ class Input extends FormControlComponent {
     `;
   }
 
-  render(): void {
+  render() {
     super.render();
 
     this.shadowRoot
@@ -31,7 +31,7 @@ class Input extends FormControlComponent {
       });
   }
 
-  get value() {
+  override get value() {
     return document.querySelector<HTMLInputElement>('input')?.value ?? '';
   }
 }

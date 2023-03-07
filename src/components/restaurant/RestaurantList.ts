@@ -13,7 +13,7 @@ class RestaurantList extends Component {
     return this.#restaurants;
   }
 
-  renderTemplate(): string {
+  override renderTemplate() {
     return `
       <ul>
         ${this.#restaurants

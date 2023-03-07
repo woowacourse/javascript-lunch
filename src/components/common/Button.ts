@@ -11,11 +11,11 @@ class Button extends FormControlComponent {
     });
   }
 
-  get value() {
+  override get value() {
     return this.getAttribute('type') ?? '';
   }
 
-  renderTemplate(): string {
+  override renderTemplate() {
     return `
       <style>
         button {

@@ -14,7 +14,7 @@ class Modal extends Component {
     this.removeAttribute('open');
   }
 
-  renderTemplate(): string {
+  override renderTemplate() {
     return `
       <style>
       .modal {
@@ -61,7 +61,7 @@ class Modal extends Component {
     `;
   }
 
-  render(): void {
+  override render() {
     super.render();
 
     this.shadowRoot?.querySelector<HTMLDivElement>('.modal')?.addEventListener('click', (event) => {

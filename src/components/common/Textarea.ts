@@ -1,7 +1,7 @@
 import FormControlComponent from '../FormControlComponent';
 
 class Textarea extends FormControlComponent {
-  renderTemplate(): string {
+  override renderTemplate() {
     return `
       <style>
         textarea {
@@ -20,7 +20,7 @@ class Textarea extends FormControlComponent {
     `;
   }
 
-  render(): void {
+  override render() {
     super.render();
 
     this.shadowRoot
@@ -32,7 +32,7 @@ class Textarea extends FormControlComponent {
       });
   }
 
-  get value() {
+  override get value() {
     return document.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
   }
 }

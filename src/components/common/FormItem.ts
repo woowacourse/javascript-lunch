@@ -1,11 +1,11 @@
 import Component from '../Component';
 
 class FormItem extends Component {
-  static useShadowDom(): boolean {
+  static override useShadowDom() {
     return false;
   }
 
-  renderTemplate(): string {
+  override renderTemplate() {
     return `
       <style>
         r-form-item > label {

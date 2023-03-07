@@ -1,7 +1,7 @@
 import Component from '../Component';
 
 class RestaurantListItem extends Component {
-  renderTemplate(): string {
+  override renderTemplate() {
     return `
       <style>
         .restaurant {
