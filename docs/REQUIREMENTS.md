@@ -60,4 +60,4 @@
 
 ## 개발 환경
 
-- [ ] prettier default 속성 지우기
+- [x] prettier default 속성 지우기
