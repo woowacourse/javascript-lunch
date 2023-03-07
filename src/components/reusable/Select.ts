@@ -11,15 +11,13 @@ class Select {
     this.options = options;
   }
 
-  addEvent(id: string, rerenderList: RerenderListType) {
-    const selectEl = $(`#${id}`);
-    selectEl?.addEventListener("change", (event) => {
-      const selectedOption = (<HTMLSelectElement>event.target).value as
-        | Category
-        | Sort;
-
-      rerenderList(id, selectedOption);
-    });
+  template() {
+    return ` 
+    <select name=${this.attribute.name} id=${this.attribute.id} class=${
+      this.attribute.className
+    } required=${this.attribute.required}>
+    ${this.renderOption()}
+    </select>`;
   }
 
   renderOption() {
@@ -32,13 +30,15 @@ class Select {
       .join("");
   }
 
-  template() {
-    return ` 
-    <select name=${this.attribute.name} id=${this.attribute.id} class=${
-      this.attribute.className
-    } required=${this.attribute.required}>
-    ${this.renderOption()}
-    </select>`;
+  addEvent(id: string, rerenderList: RerenderListType) {
+    const selectEl = $(`#${id}`);
+    selectEl?.addEventListener("change", (event) => {
+      const selectedOption = (<HTMLSelectElement>event.target).value as
+        | Category
+        | Sort;
+
+      rerenderList(id, selectedOption);
+    });
   }
 }
 
