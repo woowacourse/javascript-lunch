@@ -25,7 +25,7 @@ export default function App($app) {
   };
 
   this.init = () => {
-    this.state.header = new Header($app, showRestaurantAddUI);
+    this.state.header = new Header($app);
 
     appendMain();
 
@@ -44,12 +44,6 @@ export default function App($app) {
 
   this.setState = (state) => {
     this.state = { ...this.state, ...state };
-  };
-
-  const showRestaurantAddUI = () => {
-    showModal();
-    const $modalContainer = document.querySelector('.modal-container');
-    new RestaurantForm($modalContainer, handleFormSubmit, handleFormCancel);
   };
 
   const handleFormSubmit = (event) => {

@@ -1,6 +1,8 @@
+import RestaurantForm from './RestaurantForm';
+import { showModal } from '../modal';
 import addButton from '../../templates/add-button.png';
 
-export default function Header($root, showRestaurantAddUI) {
+export default function Header($root) {
   const $header = document.createElement('header');
   $header.className = 'gnb';
 
@@ -12,12 +14,18 @@ export default function Header($root, showRestaurantAddUI) {
 
   this.render = () => {
     $header.innerHTML = `
-    <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-     <button type="button" class="gnb__button" aria-label="음식점 추가">
-       <img src="${addButton}" alt="음식점 추가">
-     </button>
-   `;
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+      <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <img src="${addButton}" alt="음식점 추가">
+      </button>
+    `;
   };
 
   this.init();
 }
+
+const showRestaurantAddUI = () => {
+  showModal();
+  const $modalContainer = document.querySelector('.modal-container');
+  new RestaurantForm($modalContainer);
+};
