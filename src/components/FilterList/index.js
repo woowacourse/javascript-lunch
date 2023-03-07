@@ -3,10 +3,6 @@ import { $ } from '../../utils';
 import './index.css';
 
 class FilterList extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.render();
     this.filterEvent();

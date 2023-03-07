@@ -13,10 +13,11 @@ export const restaurant: Restaurant = {
 
   addRestaurant(restaurant: RestaurantInfo) {
     this.restaurants = [...this.restaurants, restaurant];
-    $('restaurant-box').renderRestaurantList(this.restaurants);
 
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
+
+    $('restaurant-box').renderRestaurantList(this.restaurants);
   },
 
   filterByCategory(category: CategoryAll) {

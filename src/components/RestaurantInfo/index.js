@@ -16,10 +16,6 @@ const CATEGORY_IMAGES = {
 };
 
 class RestaurantInfo extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.render();
   }

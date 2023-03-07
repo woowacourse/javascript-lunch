@@ -3,10 +3,6 @@ import buttonImg from '../../assets/add-button.png';
 import { $ } from '../../utils';
 
 class Header extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.render();
     this.modalHandler();

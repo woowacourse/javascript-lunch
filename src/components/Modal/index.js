@@ -3,10 +3,6 @@ import { $ } from '../../utils';
 import './index.css';
 
 class Modal extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.render();
     this.modalHandler();
@@ -19,7 +15,7 @@ class Modal extends HTMLElement {
       <div id="modalBackdrop" class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form>
+        <form id="addRestaurant">
           <select-list
           name="카테고리"
           id="category"
@@ -34,8 +30,8 @@ class Modal extends HTMLElement {
           <text-input name ="설명" id="description"></text-input>
           <text-input name ="링크" id="link"></text-input>
           <div class="button-container">
-            <lunch-button name="취소하기" id="cancelModal" color="white"></lunch-button>
-            <lunch-button name="추가하기" id="addRestaurant" color="orange"></lunch-button>
+            <lunch-button type="click" name="취소하기" id="cancelModal" color="white"></lunch-button>
+            <lunch-button type="submit" name="추가하기" color="orange"></lunch-button>
           </div>
         </form>
       </div>
@@ -44,7 +40,7 @@ class Modal extends HTMLElement {
   }
 
   addRestaurantEvent() {
-    $('#addRestaurant').addEventListener('click', (e) => {
+    $('#addRestaurant').addEventListener('submit', (e) => {
       e.preventDefault();
 
       const categoryValue = $('#categoryList').value;

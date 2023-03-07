@@ -1,10 +1,6 @@
 import './index.css';
 
 class SelectList extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   createOption(title, kind) {
     return `<option value="${title}">${title}${
       kind === 'distance' ? '분 내' : ''

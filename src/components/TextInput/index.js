@@ -1,10 +1,6 @@
 import './index.css';
 
 class TextInput extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.render();
   }
