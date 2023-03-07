@@ -3,7 +3,7 @@ import '../assets/add-button.png';
 
 class Header {
   render() {
-    $inBody('header').innerHTML = this.template();
+    $inBody('header').insertAdjacentHTML('beforeend', this.template());
   }
 
   template() {

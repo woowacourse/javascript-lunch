@@ -9,6 +9,8 @@ import './assets/favorite-icon-filled.png';
 import './assets/favorite-icon-lined.png';
 import './components/header.js';
 import Header from './components/header.js';
+import CategoryFilter from './components/categoryFilter.js';
+import SortingFilter from './components/sortingFilter.js';
 import RestaurantsController from './domain/RestaurantsController';
 import {
   handleModalCancelButtonClick,
@@ -31,6 +33,11 @@ const App = {
   initRender() {
     const header = new Header();
     header.render();
+
+    const categoryFilter = new CategoryFilter();
+    const sortingFilter = new SortingFilter();
+    categoryFilter.render();
+    sortingFilter.render();
   },
 
   initEventListeners() {
