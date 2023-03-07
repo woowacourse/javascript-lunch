@@ -20,7 +20,7 @@ export const executeSubmitEventListener = (
 
 export const executeChangeEventListener = (
   selector: string,
-  callback: (value: string) => void
+  callback: (value: string | number) => void
 ) => {
   $(selector)?.addEventListener("change", (event: Event) => {
     const element = event.target as HTMLOptionElement;

@@ -66,15 +66,18 @@ const App = {
   },
 
   controlFilter() {
-    executeChangeEventListener("#sorting-filter", (selectedSort: string) => {
-      saveSelectedOption(SORT, selectedSort);
-      updateRestaurantList();
-    });
+    executeChangeEventListener(
+      "#sorting-filter",
+      (selectedSort: string | number) => {
+        saveSelectedOption(SORT, selectedSort as string);
+        updateRestaurantList();
+      }
+    );
 
     executeChangeEventListener(
       "#category-filter",
-      (selectedCategory: string) => {
-        saveSelectedOption(CATEGORY, selectedCategory);
+      (selectedCategory: string | number) => {
+        saveSelectedOption(CATEGORY, selectedCategory as string);
         updateRestaurantList();
       }
     );
