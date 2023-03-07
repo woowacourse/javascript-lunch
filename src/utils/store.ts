@@ -1,12 +1,10 @@
-import { IRestaurant } from '../types';
-
 const store = {
-  setLocalStorage(restaurants: IRestaurant[]) {
-    localStorage.setItem('lunch_app_restaurants', JSON.stringify(restaurants));
+  setLocalStorage<T>(key: string, data: T) {
+    localStorage.setItem(key, JSON.stringify(data));
   },
 
-  getLocalStorage() {
-    const data = localStorage.getItem('lunch_app_restaurants');
+  getLocalStorage(key: string) {
+    const data = localStorage.getItem(key);
 
     if (data) {
       return JSON.parse(data);
