@@ -1,4 +1,4 @@
-import { IMAGE } from "../util/ImageLoader";
+import IMAGE from "../IMAGE";
 import { $ } from "../util/querySelector";
 
 const appendNewRestaurant = ({ category, name, estimatedTime, description }) => {

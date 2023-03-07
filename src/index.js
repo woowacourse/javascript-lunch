@@ -7,7 +7,7 @@ import RestaurantValidator from "./domain/RestaurantValidator";
 import Alert from "./component/Alert";
 import { $ } from "./util/querySelector";
 import Filter from "./domain/Filter";
-import { IMAGE } from "./util/ImageLoader";
+import IMAGE from "./IMAGE";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
 import appendNewRestaurant from "./component/appendNewRestaurant";
