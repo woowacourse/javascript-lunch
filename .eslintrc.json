@@ -1,11 +1,34 @@
 {
-  "rules": {},
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "browser": true,
+    "jest": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "plugins": ["functional", "@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "functional/no-let": "error",
+    "max-depth": ["error", 1],
+    "max-params": ["error", 2],
+    "class-methods-use-this": "off"
+  },
+  "overrides": [
+    {
+      "files": ["__tests__/**/*.ts"],
+      "rules": {
+        "max-lines-per-function": "off",
+        "no-new": "off"
+      }
+    }
+  ]
 }
