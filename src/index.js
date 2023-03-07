@@ -39,8 +39,11 @@ const sortingFilterElement = createSelectInput(
 sortingFilterElement.setAttribute("class", "restaurant-filter");
 filterContainer.appendChild(sortingFilterElement);
 
+const categoryFilter = $("#category-filter");
+const sortingFilter = $("#sorting-filter");
+
 // 음식점 입력 모달 생성
-const restaurantInputModal = Modal.create();
+const restaurantInputModal = Modal.create("new-restaurant-input");
 $("main").appendChild(restaurantInputModal);
 
 const addRestaurantFormTemplate = $("#new-restaurant-form-template");
@@ -68,9 +71,24 @@ addButton.addEventListener("click", () => {
   Modal.open(restaurantInputModal);
 });
 
+// 음식점 입력 성공 모달 생성
+const restaurantInputSuccessModal = Modal.create("input-success-modal");
+Modal.setInnerHTML(restaurantInputSuccessModal, `
+<h1>음식점 입력 성공!</h1>
+<h3>전체 보기에서 확인하시겠습니까?</h3><div class="button-container">
+<button type="button" id="change-category-to-all" class="button button--primary text-caption">
+  네
+</button>
+<button type="button" id="no-change-category" class="button button--secondary text-caption">
+  아니오
+</button>
+</div>
+`);
+$("main").appendChild(restaurantInputSuccessModal);
+
 // 음식점 입력
-const cancelButton = $(".button--secondary");
-const submitButton = $(".button--primary");
+const cancelButton = $("#new-restaurant-input .button--secondary");
+const submitButton = $("#new-restaurant-input .button--primary");
 const submitAlert = $("#alert-submit");
 const linkInput = $("#link");
 const linkAlert = $("#alert-link");
@@ -81,9 +99,6 @@ const nameAlert = $("#alert-name");
 const distanceInput = $("#distance");
 const distanceAlert = $("#alert-distance");
 const descriptionInput = $("#description");
-
-const categoryFilter = $("#category-filter");
-const sortingFilter = $("#sorting-filter");
 
 catgoryInput.addEventListener("focusout", () => {
   try {
@@ -149,6 +164,16 @@ const updateRestaurant = () => {
   return filterResult.forEach((element) => appendNewRestaurant(element));
 };
 
+$("#change-category-to-all").addEventListener("click", () => {
+  categoryFilter.value = "전체";
+  updateRestaurant();
+  Modal.close(restaurantInputSuccessModal);
+});
+
+$("#no-change-category").addEventListener("click", () => {
+  Modal.close(restaurantInputSuccessModal);
+});
+
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -163,9 +188,15 @@ submitButton.addEventListener("click", (event) => {
 
   restaurantList.add(restaurant);
   updateRestaurant();
+
   Modal.close(restaurantInputModal);
+
+  if (categoryFilter.value !== "전체" && restaurant.value !== categoryFilter.value) {
+    Modal.open(restaurantInputSuccessModal);
+  }
 });
 
+// 새로고침
 window.onload = () => {
   LocalStorage.getItem("restaurants").forEach((item) => {
     restaurantList.add(item);
@@ -173,6 +204,7 @@ window.onload = () => {
   updateRestaurant();
 };
 
+// 필터
 categoryFilter.addEventListener("change", () => {
   updateRestaurant();
 });
