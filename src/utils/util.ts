@@ -3,9 +3,7 @@ export interface ISelectOptionProps {
   text: string;
 }
 
-export const arrayElementToObject = function arrayElementToValueTextObject(
-  array: string[]
-): ISelectOptionProps[] {
+export const arrayElementToObject = (array: string[]): ISelectOptionProps[] => {
   return array.map((element) => {
     return { value: element, text: element };
   });

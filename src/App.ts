@@ -29,9 +29,7 @@ export default class App {
 
   constructor($app: HTMLDivElement) {
     const $main = document.createElement('main');
-    const $modalContainer = document.querySelector(
-      '.modal-container'
-    ) as HTMLDivElement;
+    const $modalContainer = document.querySelector('.modal-container');
     const restaurantService = new RestaurantService(getInitialRestaurantList());
 
     new Header($app);
@@ -44,7 +42,7 @@ export default class App {
       filters: new Filters($main, this.filterRestaurantList.bind(this)),
       restaurantList: new RestaurantList($main, initialResutaurantInfos),
       restaurantForm: new RestaurantForm(
-        $modalContainer,
+        $modalContainer as HTMLDivElement,
         this.addRestaurantInfo.bind(this)
       ),
     };
@@ -87,12 +85,10 @@ export default class App {
     this.state.restaurantService.addRestaurant(restaurantInfo);
 
     const {
-      filters: {
-        state: { category: filterByCategory, filter },
-      },
-    } = this.state;
+      state: { category, filter },
+    } = this.state.filters;
 
-    this.filterRestaurantList(filterByCategory, filter);
+    this.filterRestaurantList(category, filter);
 
     const localRestaurants =
       JSON.parse(getLocalStorage('restaurants') as string) || [];
