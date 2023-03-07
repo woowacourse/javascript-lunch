@@ -57,6 +57,9 @@ const distanceInput = $("#distance");
 const distanceAlert = $("#alert-distance");
 const descriptionInput = $("#description");
 
+const categoryFilter = $("#category-filter");
+const sortingFilter = $("#sorting-filter");
+
 catgoryInput.addEventListener("focusout", () => {
   try {
     Input.checkCategory(catgoryInput.value);
@@ -136,10 +139,6 @@ submitButton.addEventListener("click", (event) => {
   updateRestaurant();
   Modal.close(restaurantInputModal);
 });
-
-// 음식점 출력
-const categoryFilter = $("#category-filter");
-const sortingFilter = $("#sorting-filter");
 
 window.onload = () => {
   LocalStorage.getItem("restaurants").forEach((item) => {
