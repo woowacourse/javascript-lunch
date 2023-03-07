@@ -13,8 +13,13 @@ class Restaurants {
     return this.#restaurants;
   }
 
-  add({ description = '', link = '', ...restaurantInfo }: Restaurant): void {
-    this.#restaurants.push({ description, link, ...restaurantInfo });
+  makeUniqueID(): number {
+    if (this.#restaurants.length === 0) return 0;
+    return this.#restaurants[this.#restaurants.length - 1].ID + 1;
+  }
+
+  add({ ID = this.makeUniqueID(), favorites = false, description = '', link = '', ...info }: Restaurant): void {
+    this.#restaurants.push({ ID, favorites, description, link, ...info });
   }
 
   getRestaurant(category: CategoryValue, sortType: SortTypeValue) {
