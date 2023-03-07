@@ -1,7 +1,7 @@
 import { Restaurant } from '../../type';
 import Component from '../Component';
 import { CATEGORIES, DEFAULT_CATEGORY, DEFAULT_DISTANCE } from '../../utils/constants';
-import store from '../../domain/restaurantsStorage';
+import store from '../../lib/restaurantsStorage';
 
 interface ModalProps {
   toggleModal: () => void;
