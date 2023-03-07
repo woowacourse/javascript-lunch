@@ -1,5 +1,4 @@
 import "../css/style.css";
-import Modal from "../src/util/Modal";
 import RestaurantInfo from "./domain/RestaurantInfo";
 import Restaurants from "./domain/Restaurants";
 import Input from "./Input";
@@ -9,131 +8,24 @@ import Filter from "./domain/Filter";
 import { IMAGE } from "./util/ImageLoader";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
-import Elements from "./Element";
-import RestaurantList from "./domain/Render";
-import 일식 from "../templates/category-japanese.png"
+import Element from "./Element";
+import RestaurantList from "./components/RestaurantList";
+import 일식 from "../templates/category-japanese.png";
+import 중식 from "../templates/category-chinese.png";
+import 한식 from "../templates/category-korean.png";
+import 양식 from "../templates/category-western.png";
+import 아시안 from "../templates/category-asian.png";
+import 기타 from "../templates/category-etc.png";
+import Modal from "./components/Modal";
+import { checkSelected } from "./InputCheck";
 
-const modal = new Modal();
 const newRestaurant = new Restaurants();
-
 const addButton = $(".gnb__button");
-const cancelButton = $(".button--secondary");
-const modalBg = $(".modal-backdrop");
-
-const submitButton = $(".button--primary");
-const submitAlert = new Alert("#alert-submit");
-const linkInput = $("#link");
-const linkAlert = new Alert("#alert-link");
-const catgoryInput = $("#category");
-const categoryAlert = new Alert("#alert-category");
-const nameInput = $("#name");
-const nameAlert = new Alert("#alert-name");
-const distanceInput = $("#distance");
-const distanceAlert = new Alert("#alert-distance");
-const descriptionInput = $("#description");
-
 const categoryFilter = $("#category-filter");
 const sortingFilter = $("#sorting-filter");
-
-const updateRestaurant = () => {
-  // $(".restaurant-list-container").innerHTML = "";
-  const sortResult = sort(sortingFilter.value, newRestaurant.getList());
-  const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-  return filterResult.forEach((element) =>
-    // Elements.appendNewRestaurant(element)
-  {
-    const restaurantList = new RestaurantList(element.name, element.distance, element.category, 일식)
-    restaurantList.render()
-    }
-  );
-};
-
 const save = LocalStorage.setItem(localStorage.length);
 
-const resetRestaurantInput = () => {
-  catgoryInput.value = "";
-  nameInput.value = "";
-  distanceInput.value = "";
-  linkInput.value = "";
-  descriptionInput.value = "";
-};
-
 addButton.querySelector("img").src = IMAGE.ADD_BTN;
-addButton.addEventListener("click", () => {
-  modal.open();
-});
-
-modalBg.addEventListener("click", () => {
-  modal.close();
-});
-
-document.addEventListener("keyup", (event) => {
-  if (event.key === "Escape") modal.close();
-});
-
-submitButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  try {
-    const restaurant = RestaurantInfo.get();
-    Input.checkAll(restaurant);
-    submitAlert.hide();
-    newRestaurant.add(restaurant);
-    updateRestaurant();
-    save(restaurant);
-    modal.close();
-    resetRestaurantInput();
-  } catch (e) {
-    submitAlert.show(e.message);
-  }
-});
-
-cancelButton.addEventListener("click", () => {
-  resetRestaurantInput();
-  modal.close();
-});
-
-catgoryInput.addEventListener("focusout", () => {
-  try {
-    Input.checkCategory(catgoryInput.value);
-    categoryAlert.hide();
-  } catch (e) {
-    categoryAlert.show(e.message);
-  }
-});
-
-nameInput.addEventListener("focusout", () => {
-  try {
-    Input.checkName(nameInput.value);
-    nameAlert.hide();
-  } catch (e) {
-    nameAlert.show(e.message);
-  }
-});
-
-distanceInput.addEventListener("focusout", () => {
-  try {
-    Input.checkDistance(distanceInput.value);
-    distanceAlert.hide();
-  } catch (e) {
-    distanceAlert.show(e.message);
-  }
-});
-
-linkInput.addEventListener("focusout", () => {
-  try {
-    Input.checkLink(linkInput.value);
-    linkAlert.hide();
-  } catch (e) {
-    linkAlert.show(e.message);
-  }
-});
-
-window.onload = function () {
-  LocalStorage.getItems().forEach((item) => {
-    newRestaurant.add(item);
-  });
-  updateRestaurant();
-};
 
 categoryFilter.addEventListener("change", () => {
   updateRestaurant();
@@ -142,3 +34,92 @@ categoryFilter.addEventListener("change", () => {
 sortingFilter.addEventListener("change", () => {
   updateRestaurant();
 });
+
+addButton.addEventListener("click", () => {
+  const modal = new Modal(Element.addListContents);
+  const submitButton = $(".button--primary");
+  const cancelButton = $(".button--secondary")
+
+  modal.render();
+
+  submitButton?.addEventListener("click", (event) => {
+    const submitAlert = new Alert("#alert-submit");
+    
+    event.preventDefault();
+    submitNewRestaurant(modal,submitAlert)
+  });
+
+  cancelButton?.addEventListener("click", () => {
+    cancelAddRestaurant(modal)
+  });
+
+  checkSelected();
+});
+
+const submitNewRestaurant = (modal,submitAlert) => {
+  try {
+    const restaurant = RestaurantInfo.get();
+
+    Input.checkAll(restaurant);
+    submitAlert.hide();
+    newRestaurant.add(restaurant);
+    updateRestaurant();
+    save(restaurant);
+    resetRestaurantInput();
+    modal.close();
+  } catch (e) {
+    submitAlert.show(e.message);
+  }
+}
+
+const cancelAddRestaurant = (modal) => {
+  resetRestaurantInput();
+  modal.close();
+}
+
+const updateRestaurant = () => {
+  $(".restaurant-list-container").innerHTML = "";
+  const sortResult = sort(sortingFilter.value, newRestaurant.getList());
+  const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
+  return filterResult.forEach((element) => {
+    const restaurantList = new RestaurantList(
+      element.name,
+      element.distance,
+      element.category,
+      getMatchImage(element.category)
+    );
+    restaurantList.render();
+  });
+};
+
+const getMatchImage = (category) => {
+  switch (category) {
+    case "일식":
+      return 일식;
+    case "중식":
+      return 중식;
+    case "한식":
+      return 한식;
+    case "양식":
+      return 양식;
+    case "아시안":
+      return 아시안;
+    case "기타":
+      return 기타;
+  }
+};
+
+const resetRestaurantInput = () => {
+  $("#category").value = "";
+  $("#name").value = "";
+  $("#distance").value = "";
+  $("#link").value = "";
+  $("#description").value = "";
+};
+
+window.onload = function () {
+  LocalStorage.getItems().forEach((item) => {
+    newRestaurant.add(item);
+  });
+  updateRestaurant();
+};
