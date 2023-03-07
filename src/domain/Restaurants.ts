@@ -18,6 +18,12 @@ class Restaurants {
     return this.#restaurants[this.#restaurants.length - 1].ID + 1;
   }
 
+  deleteByID(ID: number) {
+    const index = this.#restaurants.findIndex(restaurant => restaurant.ID === ID);
+
+    this.#restaurants.splice(index, 1);
+  }
+
   add({ ID = this.makeUniqueID(), favorites = false, description = '', link = '', ...info }: Restaurant): void {
     this.#restaurants.push({ ID, favorites, description, link, ...info });
   }
