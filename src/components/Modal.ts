@@ -1,5 +1,5 @@
 import Restaurants from '../model/Restaurants';
-import { Restaurant, Category, Distance, State } from '../types/restaurantTypes';
+import { RestaurantValues, Category, Distance, State } from '../types/restaurantTypes';
 import Component from './Component';
 
 export default class Modal extends Component {
@@ -100,7 +100,7 @@ export default class Modal extends Component {
         return;
       }
 
-      const restaurant: Restaurant = {
+      const restaurant: RestaurantValues = {
         name,
         category,
         distance,

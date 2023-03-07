@@ -1,9 +1,9 @@
-import type { Category, Restaurant } from '../types/restaurantTypes';
+import type { Category, RestaurantValues } from '../types/restaurantTypes';
 
 export default class Restaurants {
   private restaurants;
 
-  constructor(restaurants: Restaurant[]) {
+  constructor(restaurants: RestaurantValues[]) {
     this.restaurants = restaurants;
   }
 
@@ -11,16 +11,16 @@ export default class Restaurants {
     return this.restaurants;
   }
 
-  add(restaurant: Restaurant) {
+  add(restaurant: RestaurantValues) {
     this.restaurants = [...this.restaurants, restaurant];
   }
 
-  filterByCategory(category: Category | '전체'): Restaurant[] {
+  filterByCategory(category: Category | '전체'): RestaurantValues[] {
     if (category === '전체') return this.restaurants;
     return this.restaurants.filter(restaurant => restaurant.category === category);
   }
 
-  sortByDistance(category: Category): Restaurant[] {
+  sortByDistance(category: Category): RestaurantValues[] {
     return this.filterByCategory(category).sort(
       (firstElement, secondElement) => firstElement.distance - secondElement.distance
     );
