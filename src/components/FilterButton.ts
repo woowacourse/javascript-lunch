@@ -14,12 +14,13 @@ const FilterButton = {
     <option value="기타">기타</option>
   </select>`;
   },
-  setEvent(res: RestaurantListItem) {
+  setEvent(RestaurantListItem: RestaurantListItem) {
     const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
     const categoryFilter = document.querySelector('#category-filter') as HTMLSelectElement;
     categoryFilter?.addEventListener('change', () => {
       const select = categoryFilter.options[categoryFilter.selectedIndex].value as TCategory | '전체';
-      const result = res.categoryFilter(select);
+      RestaurantListItem.setFilter(select);
+      const result = RestaurantListItem.filterAndSort();
       restaurantListContainer.innerHTML = RestaurantList.template(result);
     });
   },

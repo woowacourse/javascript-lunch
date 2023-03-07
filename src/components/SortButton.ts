@@ -9,12 +9,13 @@ const SortButton = {
     <option value="distance">거리순</option>
   </select>`;
   },
-  setEvent(res: RestaurantListItem) {
+  setEvent(RestaurantListItem: RestaurantListItem) {
     const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
     const sortingFilter = document.querySelector('#sorting-filter') as HTMLSelectElement;
     sortingFilter?.addEventListener('change', () => {
       const select = sortingFilter.options[sortingFilter.selectedIndex].value as TPriority;
-      const result = res.sortFilter(select);
+      RestaurantListItem.setSort(select);
+      const result = RestaurantListItem.filterAndSort();
       restaurantListContainer.innerHTML = RestaurantList.template(result);
     });
   },

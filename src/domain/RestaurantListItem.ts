@@ -17,6 +17,8 @@ export interface IRestaurant {
 class RestaurantListItem {
   #list: IRestaurant[] = [];
 
+  #filter = { category: '전체', sort: 'name' };
+
   constructor(restaurantList: IRestaurant[]) {
     this.#list = restaurantList;
   }
@@ -27,22 +29,34 @@ class RestaurantListItem {
     return this.#list;
   }
 
-  categoryFilter(category: TCategory | '전체') {
-    if (category === '전체') return this.#list;
-
-    return this.#list.filter((item) => item.category === category);
+  setFilter(category: TCategory | '전체') {
+    this.#filter.category = category;
   }
 
-  sortFilter(priority: TPriority) {
-    if (priority === 'distance') {
-      return this.#list.sort((current, next) => {
+  setSort(sort: TPriority) {
+    this.#filter.sort = sort;
+  }
+
+  categoryFilter() {
+    if (this.#filter.category === '전체') return this.#list;
+
+    return this.#list.filter((item) => item.category === this.#filter.category);
+  }
+
+  sortFilter(list: IRestaurant[]) {
+    if (this.#filter.sort === 'distance') {
+      return list.sort((current, next) => {
         return current.distance - next.distance;
       });
     }
 
-    return this.#list.sort((current, next) => {
+    return list.sort((current, next) => {
       return current.name > next.name ? 1 : -1;
     });
+  }
+
+  filterAndSort() {
+    return this.sortFilter(this.categoryFilter());
   }
 
   getListItem() {
