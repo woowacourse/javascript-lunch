@@ -8,21 +8,23 @@ import RestaurantAddModal from './components/RestaurantAddModal';
 import { RestaurantLocalStorage } from './domain/RestaurantLocalStorage';
 
 class App {
-  private restaurantsList: RestaurantList;
+  private restaurantsList: RestaurantList = new RestaurantList(
+    RestaurantLocalStorage.loadList('restaurantList'),
+  );
 
   constructor(target: HTMLElement) {
-    this.restaurantsList = new RestaurantList(RestaurantLocalStorage.loadList('default'));
     Header.render(target);
     RestaurantFilter.render(target);
     RestaurantBlockList.render(target);
     RestaurantAddModal.render(target);
-    this.renderList('전체', '이름');
+
     this.setEvent();
+    this.renderList('전체', '이름');
   }
 
   setEvent = () => {
-    RestaurantFilter.setSelectChangeHandler(this.renderList);
     Header.setButtonHandler(RestaurantAddModal.toggle);
+    RestaurantFilter.setSelectChangeHandler(this.renderList);
     RestaurantAddModal.setCloseModalHandler();
     RestaurantAddModal.setAddbuttonHandler(this.addRestaurant);
   };
@@ -37,7 +39,8 @@ class App {
 
   addRestaurant = (restaruant: Restaurant) => {
     this.restaurantsList.add(restaruant);
-    RestaurantLocalStorage.saveList('default', this.restaurantsList.getList('전체', '이름'));
+    RestaurantLocalStorage.saveList('restaurantList', this.restaurantsList.getList('전체', '이름'));
+
     this.renderList(RestaurantFilter.category, RestaurantFilter.sortCondition);
   };
 }
