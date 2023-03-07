@@ -1,7 +1,7 @@
 import RestaurantList from '../components/restaurantList.js';
 import { filterCategory, sortByDistance, sortByName } from './filter';
 import { RestaurantType } from '../type';
-import { validateName } from '../validator';
+import { isValidName } from '../validator';
 import { initialRestaurantList } from '../constants/initialRestaurantList';
 import { FILTER_OPTION } from '../constants/filter';
 import { getFormData } from '../utils/form';
@@ -38,24 +38,28 @@ class RestaurantsController {
   }
 
   addNewRestaurant(event: Event) {
-    const trimmedInfo = getFormData(event).map(([key, value]) => [
-      key,
-      String(value).trim(),
-    ]);
-
-    const restaurantInfo = Object.fromEntries(trimmedInfo);
+    const newRestaurant = this.getNewRestaurant(event);
 
     try {
-      validateName(restaurantInfo.name);
+      isValidName(newRestaurant.name);
     } catch (error: !unknown) {
       alert(error.message);
 
       return false;
     }
 
-    this.renderRestaurantList([...this.restaurantList, restaurantInfo]);
+    this.renderRestaurantList([...this.restaurantList, newRestaurant]);
 
     return true;
+  }
+
+  getNewRestaurant(event: Event) {
+    const trimmedNewRestaurant = getFormData(event).map(([key, value]) => [
+      key,
+      String(value).trim(),
+    ]);
+
+    return Object.fromEntries(trimmedNewRestaurant);
   }
 
   sortRestaurantList(value: string) {

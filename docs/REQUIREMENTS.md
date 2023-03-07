@@ -46,9 +46,9 @@
 - [ ] 이벤트 핸들러 유틸 추상화 심화하기
 - [ ] `executeChangeEventListener()` 네이밍 수정하기
 - [x] `export interface CustomError extends Error {}` 제거하기
-- [ ] `errorThrower` 의 if 조건문 분리하기
-- [ ] `validator/index.ts` 에서 `validateName` 이름을 수정하거나 인자의 네이밍을 수정하기
-- [ ] 맵같은 iterable한 메서드들의 인자는 컴파일러가 타입 추론하게 수정하기
+- [x] `errorChecker` 의 if 조건문 수정하기
+- [x] `validator/index.ts` 에서 `validateName` 인자 네이밍을 수정하기
+- [x] 타입이 확실한 인자는 컴파일러가 타입 추론하게 수정하기
 - [x] constants/index.ts 타입스크립트스럽게 수정하기
 - [x] as 말고 ! assertion 사용해보기
 

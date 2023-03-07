@@ -4,10 +4,10 @@ import {
   checkDuplicate,
 } from './errorChecker';
 
-export const validateName = (restaurantInfo: string) => {
-  checkRestaurantName(restaurantInfo);
-  checkInputLength(restaurantInfo);
-  checkDuplicate(restaurantInfo);
+export const isValidName = (restaurantName: string) => {
+  checkRestaurantName(restaurantName);
+  checkInputLength(restaurantName);
+  checkDuplicate(restaurantName);
 
   return true;
 };

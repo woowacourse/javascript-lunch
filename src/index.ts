@@ -13,7 +13,7 @@ import {
   executeClickEventListener,
   executeSubmitEventListener,
 } from './utils/eventListener';
-import { resetForm } from './ui/form';
+import { resetForm, scrollToTopForm } from './ui/form';
 
 const App = {
   restaurantsController: RestaurantsController.getInstance(),
@@ -59,7 +59,7 @@ const App = {
         handleModalCancelButtonClick();
       }
 
-      resetForm('#new-restaurant-form', '.modal-container');
+      scrollToTopForm('.modal-container');
     });
   },
 

@@ -1,9 +1,13 @@
 import { $inBody } from '../utils/selector';
 
-export const resetForm = (formSelector: string, containerSelector: string) => {
-  const $form = <HTMLFormElement>$inBody(formSelector);
-  const $formContainer = <HTMLDivElement>$inBody(containerSelector);
+export const resetForm = (formSelector: string) => {
+  const $form = $inBody(formSelector) as HTMLFormElement;
 
   $form.reset();
-  $formContainer.scrollTo(0, 0);
+};
+
+export const scrollToTopForm = (target: string) => {
+  const $target = $inBody(target) as HTMLFormElement;
+
+  $target.scrollTo(0, 0);
 };

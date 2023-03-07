@@ -19,8 +19,7 @@ export const checkInputLength = (input: string) => {
 
 export const checkDuplicate = (input: string) => {
   if (
-    getAllDataOnLocalStorage().filter(restaurant => restaurant.name === input)
-      .length
+    getAllDataOnLocalStorage().find(restaurant => restaurant.name === input)
   ) {
     throw new Error(ERROR_MESSAGE.DUPLICATE_NAME);
   }
