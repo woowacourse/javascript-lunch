@@ -29,38 +29,9 @@ class LunchRecommendation {
   }
 
   play() {
-    this.modalEvent();
     this.addRestaurantEvent();
     this.filterEvent();
     this.sortEvent();
-  }
-
-  modalEvent() {
-    $$$('lunch-header', '#openModal').addEventListener('click', () => {
-      $('add-restaurant-modal').modalOpen(true);
-      $('body').classList.add('scroll-hidden');
-    });
-    $$$('add-restaurant-modal', '#cancleModal').addEventListener(
-      'click',
-      () => {
-        $('add-restaurant-modal').modalOpen(false);
-      }
-    );
-
-    $$$('add-restaurant-modal', '#modalBackdrop').addEventListener(
-      'click',
-      () => {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
-      }
-    );
-
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Escape') {
-        $('add-restaurant-modal').modalOpen(false);
-        $('body').classList.remove('scroll-hidden');
-      }
-    });
   }
 
   addRestaurantEvent() {

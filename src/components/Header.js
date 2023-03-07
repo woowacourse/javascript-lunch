@@ -1,4 +1,5 @@
 import logo from '../assets/add-button.png';
+import { $ } from '../utils';
 
 class Header extends HTMLElement {
   connectedCallback() {
@@ -55,6 +56,17 @@ class Header extends HTMLElement {
     `;
 
     this.shadowRoot.append(componentStyle);
+
+    this.openModalEvent();
+  }
+
+  openModalEvent() {
+    this.shadowRoot
+      .querySelector('#openModal')
+      .addEventListener('click', () => {
+        $('add-restaurant-modal').modalOpen(true);
+        $('body').classList.add('scroll-hidden');
+      });
   }
 }
 

@@ -1,3 +1,5 @@
+import { $ } from '../utils';
+
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
@@ -49,7 +51,7 @@ class AddRestaurantModal extends HTMLElement {
 `;
 
     this.shadowRoot.innerHTML = `
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" alt="modal">
     <div id="modalBackdrop" class="backdrop"></div>
     <div class="container">
       <h2 class="title text-title">새로운 음식점</h2>
@@ -77,6 +79,8 @@ class AddRestaurantModal extends HTMLElement {
     `;
 
     this.shadowRoot.append(componentStyle);
+
+    this.closeModalEvent();
   }
 
   modalOpen(isOpen) {
@@ -148,6 +152,29 @@ class AddRestaurantModal extends HTMLElement {
     }
 
     return false;
+  }
+
+  closeModalEvent() {
+    this.shadowRoot
+      .querySelector('#cancleModal')
+      .addEventListener('click', () => {
+        $('add-restaurant-modal').modalOpen(false);
+        $('body').classList.remove('scroll-hidden');
+      });
+
+    this.shadowRoot
+      .querySelector('#modalBackdrop')
+      .addEventListener('click', () => {
+        $('add-restaurant-modal').modalOpen(false);
+        $('body').classList.remove('scroll-hidden');
+      });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Escape') {
+        $('add-restaurant-modal').modalOpen(false);
+        $('body').classList.remove('scroll-hidden');
+      }
+    });
   }
 }
 

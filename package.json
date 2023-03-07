@@ -54,19 +54,7 @@
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "bower_components",
-      "shared"
-    ],
-    "moduleNameMapper": {
-      "\\.(css|less|scss)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|svg)$": "<rootDir>/__mocks__/fileMock.js"
-    }
+  "dependencies": {
+    "shadow-dom-testing-library": "^1.10.0"
   }
 }
