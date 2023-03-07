@@ -1,14 +1,14 @@
-type Category = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타" | "전체";
+import { FoodCategory } from "./FoodCategory"
 
 type EstimatedTime = "5" | "10" | "15" | "20" | "30";
 
 interface Restaurant {
   name: string;
-  category: Category;
+  category: FoodCategory;
   estimatedTime: EstimatedTime;
 
   description: string;
   link: string;
 }
 
-export { Restaurant, Category, EstimatedTime };
+export { Restaurant, EstimatedTime };

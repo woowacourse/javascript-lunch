@@ -1,8 +1,12 @@
-import { Category, Restaurant } from "../type/restaurant";
+import { isValidFoodCategory } from "../type/FoodCategory";
+import { Restaurant } from "../type/restaurant";
 
 const Filter = {
-  byCategory(targetCategory: Category, restaurantList: Restaurant[]) {
+  byCategory(targetCategory: string, restaurantList: Restaurant[]) {
     if (targetCategory === "전체") return restaurantList;
+
+    if (!isValidFoodCategory(targetCategory)) return [];
+
     return restaurantList.filter(
       (restaurant) => restaurant.category === targetCategory
     );
