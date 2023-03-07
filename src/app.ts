@@ -110,22 +110,23 @@ class App {
     this.updateRestaurants();
   };
 
-  openModal = () => this.$modal.open();
+  openModal = () => {
+    this.$modal.open();
+  };
 
   addRestaurant = (event: Event) => {
-    event.preventDefault();
-
-    try {
-      const restaurant = this.createRestaurant(event);
-      this.#restaurants.push(restaurant);
-    } catch (e) {
-      const error = e as Error;
-      alert(error.message);
-      return;
-    }
-
-    this.$modal.close();
-    this.updateRestaurants();
+    console.log('식당 생성');
+    // event.preventDefault();
+    // try {
+    //   const restaurant = this.createRestaurant(event);
+    //   this.#restaurants.push(restaurant);
+    // } catch (e) {
+    //   const error = e as Error;
+    //   alert(error.message);
+    //   return;
+    // }
+    // this.$modal.close();
+    // this.updateRestaurants();
   };
 
   createRestaurant = (event: Event) => {
@@ -156,7 +157,7 @@ class App {
     this.$restaurantFilterSelect.addEventListener('change', this.changeRestaurantFilter);
     this.$restaurantSortSelect.addEventListener('change', this.changeRestaurantSort);
     this.$modalOpenButton.addEventListener('click', this.openModal);
-    this.$modalForm.addEventListener('submit', this.addRestaurant);
+    document.addEventListener('createRestaurant', this.addRestaurant);
   }
 }
 

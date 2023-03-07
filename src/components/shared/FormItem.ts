@@ -1,10 +1,6 @@
 import CustomFormElement from '../CustomElement';
 
 class FormItem extends CustomFormElement {
-  static useShadowDom(): boolean {
-    return false;
-  }
-
   renderTemplate(): string {
     return `
       <style>

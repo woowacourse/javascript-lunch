@@ -23,10 +23,7 @@ class Textarea extends CustomFormElement {
   render(): void {
     super.render();
 
-    const $shadowRoot = this.shadowRoot;
-    if (!$shadowRoot) return;
-
-    const $textarea = $shadowRoot.querySelector<HTMLTextAreaElement>('textarea');
+    const $textarea = this.querySelector<HTMLTextAreaElement>('textarea');
     if (!$textarea) return;
 
     $textarea.addEventListener('input', (event) => {

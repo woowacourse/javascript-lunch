@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>점심 뭐 먹지</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>점심 뭐 먹지</title>
-</head>
+  <body>
+    <header class="gnb">
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+      <button id="modal-open-button" type="button" class="gnb__button" aria-label="음식점 추가">
+        <img src="assets/add-button.png" alt="음식점 추가" />
+      </button>
+    </header>
 
-<body>
-  <header class="gnb">
-    <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-    <button id="modal-open-button" type="button" class="gnb__button" aria-label="음식점 추가">
-      <img src="assets/add-button.png" alt="음식점 추가" />
-    </button>
-  </header>
+    <main>
+      <section class="restaurant-filter-container">
+        <r-select id="restaurant-filter-select"></r-select>
+        <r-select id="restaurant-sort-select"></r-select>
+      </section>
 
-  <main>
-    <section class="restaurant-filter-container">
-      <r-select id="restaurant-filter-select"></r-select>
-      <r-select id="restaurant-sort-select"></r-select>
-    </section>
+      <r-restaurant-list id="restaurant-list"></r-restaurant-list>
 
-    <r-restaurant-list id="restaurant-list"></r-restaurant-list>
+      <r-modal>
+        <form id="modal-form">
+          <r-form-item label="카테고리">
+            <r-select name="category" id="restaurant-modal-category" required></r-select>
+          </r-form-item>
 
-    <r-modal>
-      <form id="modal-form">
-        <r-form-item label="카테고리">
-          <r-select name="category" id="restaurant-modal-category" required></r-select>
-        </r-form-item>
+          <r-form-item label="이름">
+            <r-input name="name" required></r-input>
+          </r-form-item>
 
-        <r-form-item label="이름">
-          <r-input name="name" required></r-input>
-        </r-form-item>
+          <r-form-item label="거리(도보 이동 시간)">
+            <r-select name="distanceByMinutes" id="restaurant-modal-distance" required></r-select>
+          </r-form-item>
 
-        <r-form-item label="거리(도보 이동 시간)">
-          <r-select name="distanceByMinutes" id="restaurant-modal-distance" required></r-select>
-        </r-form-item>
+          <r-form-item label="설명" helper-text="메뉴 등 추가 정보를 입력해 주세요.">
+            <r-textarea name="description"></r-textarea>
+          </r-form-item>
 
-        <r-form-item label="설명" helper-text="메뉴 등 추가 정보를 입력해 주세요.">
-          <r-textarea name="description"></r-textarea>
-        </r-form-item>
+          <r-form-item
+            label="참고 링크"
+            helper-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요.">
+            <r-input name="referenceUrl"></r-input>
+          </r-form-item>
 
-        <r-form-item label="참고 링크" helper-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요.">
-          <r-input name="referenceUrl"></r-input>
-        </r-form-item>
-
-        <div class="button-container">
-          <r-button action="cancel" variant="secondary">취소하기</r-button>
-          <r-button type="submit" variant="primary">추가하기</r-button>
-        </div>
-      </form>
-    </r-modal>
-  </main>
-</body>
-
+          <div class="button-container">
+            <r-button action="cancel" variant="secondary" name="취소하기"></r-button>
+            <r-button action="submitForm" variant="primary" name="추가하기"></r-button>
+          </div>
+        </form>
+      </r-modal>
+    </main>
+  </body>
 </html>

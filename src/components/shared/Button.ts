@@ -3,19 +3,17 @@ import CustomFormElement from '../CustomFormElement';
 class Button extends CustomFormElement {
   constructor() {
     super();
-
-    this.addEventListener('click', () => {
-      if (this.getAttribute('type') === 'submit') {
-        if (this.form !== null) this.form.requestSubmit();
-      }
-    });
   }
 
-  get value() {
-    return this.getAttribute('type') ?? '';
+  get variant() {
+    return this.getAttribute('variant');
   }
 
-  renderTemplate(): string {
+  get action() {
+    return this.getAttribute('action');
+  }
+
+  renderTemplate() {
     return `
       <style>
         button {
@@ -31,12 +29,12 @@ class Button extends CustomFormElement {
           cursor: pointer;    
         }
 
-        :host([variant="primary"]) > button {
+        button[variant="primary"] {
           background: var(--primary-color);
           color: var(--grey-100);
         }
         
-        :host([variant="secondary"]) > button {
+        button[variant="secondary"] {
           border: 1px solid var(--grey-300);
           background: transparent;
 
@@ -44,10 +42,26 @@ class Button extends CustomFormElement {
         }
       </style>
 
-      <button type="button" class="text-caption">
-        <slot></slot>
+      <button 
+        ${this.action ? `action=${this.action}` : ''} 
+        variant=${this.variant} 
+        class="text-caption"
+      >
+        ${this.name}
       </button>
     `;
+  }
+
+  render() {
+    super.render();
+
+    this.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+
+      if (!this.action) return;
+
+      this.dispatchEvent(new CustomEvent(this.action, { bubbles: true }));
+    });
   }
 }
 

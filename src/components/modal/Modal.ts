@@ -1,4 +1,5 @@
 import CustomElement from '../CustomElement';
+import Button from '../shared/Button';
 import RButton from '../shared/Button';
 
 class Modal extends CustomElement {
@@ -7,11 +8,11 @@ class Modal extends CustomElement {
   }
 
   open() {
-    this.setAttribute('open', '');
+    this.querySelector('.modal')?.setAttribute('open', '');
   }
 
   close() {
-    this.removeAttribute('open');
+    this.querySelector('.modal')?.removeAttribute('open');
   }
 
   renderTemplate(): string {
@@ -21,7 +22,7 @@ class Modal extends CustomElement {
         display: none;
       }
 
-      :host([open]) .modal {
+      .modal[open] {
         display: block;
       }
 
@@ -55,7 +56,7 @@ class Modal extends CustomElement {
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
-          <slot></slot>
+          ${this.innerHTML}
         </div>
       </div>
     `;
@@ -64,24 +65,13 @@ class Modal extends CustomElement {
   render(): void {
     super.render();
 
-    this.shadowRoot?.querySelector<HTMLDivElement>('.modal')?.addEventListener('click', (event) => {
-      if (!(event.target instanceof RButton)) {
-        return;
-      }
-
-      const $button = event.target;
-      const action = $button.getAttribute('action');
-
-      if (action === 'cancel') {
-        this.close();
-      }
+    this.addEventListener('submitForm', () => {
+      this.dispatchEvent(new CustomEvent('createRestaurant', { bubbles: true }));
     });
 
-    this.shadowRoot
-      ?.querySelector<HTMLDivElement>('.modal-backdrop')
-      ?.addEventListener('click', () => {
-        this.close();
-      });
+    this.addEventListener('cancel', this.close);
+
+    this.querySelector<HTMLDivElement>('.modal-backdrop')?.addEventListener('click', this.close);
   }
 }
 
