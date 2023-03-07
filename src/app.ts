@@ -3,14 +3,13 @@ import Modal from './components/common/Modal';
 import Select from './components/common/Select';
 import RestaurantList from './components/restaurant/RestaurantList';
 import Restaurant from './domain/Restaurant';
-import Restaurants from './domain/Restaurants';
+import { filterBy, RestaurantFilter, sortByDistance, sortByName } from './domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from './fixtures';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
-  #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> =
-    {};
+  #filters: Partial<Record<'filter' | 'sort', RestaurantFilter | null>> = {};
 
   $restaurantList = document.querySelector<RestaurantList>('#restaurant-list')!;
 
@@ -30,7 +29,7 @@ class App {
 
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
-      Object.values(this.#filterPipes).reduce(
+      Object.values(this.#filters).reduce(
         (filteredRestaurants, filter) => filter(filteredRestaurants),
         this.#restaurants,
       ),
@@ -64,7 +63,7 @@ class App {
 
   initSelect() {
     this.$restaurantFilterSelect.setOptions([
-      { value: '전체', label: '전체' },
+      { value: null, label: '전체' },
       ...Restaurant.CATEGORIES.map((category) => ({
         value: category,
         label: category,
@@ -100,29 +99,19 @@ class App {
       const $rSelect = event?.target as Select;
       const value = $rSelect.getSelectedOption()?.value;
 
-      if (value === '전체') {
-        this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-          Restaurants.getSorted(_restaurants, Restaurants.byName);
+      if (value === null) {
+        this.#filters.filter = null;
       } else {
-        this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-          Restaurants.filterByCategory(_restaurants, String(value));
+        this.#filters.filter = filterBy((restaurant) => restaurant.getCategory(), String(value));
       }
-
       this.updateRestaurants();
     });
 
     this.$restaurantSortSelect.addEventListener('change', (event) => {
       const $rSelect = event?.target as Select;
 
-      const sortFilter = (_restaurants: Restaurant[]) =>
-        Restaurants.getSorted(
-          _restaurants,
-          $rSelect.getSelectedOption()?.value === 'name'
-            ? Restaurants.byName
-            : Restaurants.byDistance,
-        );
-
-      this.#filterPipes.sort = sortFilter;
+      const sortFn = $rSelect.getSelectedOption()?.value === 'name' ? sortByName : sortByDistance;
+      this.#filters.sort = sortFn;
 
       this.updateRestaurants();
     });
