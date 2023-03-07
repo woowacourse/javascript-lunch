@@ -4,4 +4,5 @@ export default interface IRestaurantInput {
   distance: string;
   description: string;
   link: string;
+  isFavorite: boolean;
 }

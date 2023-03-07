@@ -1,8 +1,11 @@
+// @ts-nocheck
+
 import App from '../src/app';
 import { Category, Order } from '../src/constants/enum';
 import '@testing-library/jest-dom';
 import { JSDOM } from 'jsdom';
 
+// @ts-nocheck
 interface ILocalStorageMock {
   getItem: (key: string) => string | null;
   setItem: (key: string, value: string) => void;
