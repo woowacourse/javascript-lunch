@@ -28,7 +28,9 @@ class RestaurantFilterContainer implements Component<RestaurantFilterContainerSt
     onChangeCategory,
     onChangeSortBy,
   }: RestaurantFilterContainerProps) {
-    this.$target = document.createElement('div');
+    this.$target = document.createElement('section');
+    this.$target.classList.add('restaurant-filter-container');
+
     this.state = {
       category,
       sortBy,
@@ -46,7 +48,6 @@ class RestaurantFilterContainer implements Component<RestaurantFilterContainerSt
 
   render() {
     this.$target.innerHTML = `
-      <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
           ${CATEGORIES.map(
             (category) => `
@@ -62,7 +63,6 @@ class RestaurantFilterContainer implements Component<RestaurantFilterContainerSt
             this.state.sortBy === 'distance' ? 'selected' : ''
           }>거리순</option>
         </select>
-      </section>
     `;
 
     const categorySelect = this.$target.querySelector('#category-filter');
