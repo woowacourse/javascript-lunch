@@ -1,6 +1,7 @@
+import DropDown from '../../components/DropDown';
 import type { Component } from '../../interface';
 import type { Category, SortBy } from '../../type';
-import { CATEGORIES } from '../../utils/constants';
+import { FILTER_CATEGORY_OPTIONS, FILTER_SORT_BY_OPTIONS } from '../../utils/constants';
 
 type RestaurantFilterContainerState = {
   category: Category;
@@ -47,29 +48,25 @@ class RestaurantFilterContainer implements Component<RestaurantFilterContainerSt
   }
 
   render() {
-    this.$target.innerHTML = `
-        <select name="category" id="category-filter" class="restaurant-filter">
-          ${CATEGORIES.map(
-            (category) => `
-              <option value="${category}" ${
-              this.state.category === category ? 'selected' : ''
-            }>${category}</option>
-            `
-          ).join('')}
-        </select>
-        <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          <option value="name" ${this.state.sortBy === 'name' ? 'selected' : ''}>이름순</option>
-          <option value="distance" ${
-            this.state.sortBy === 'distance' ? 'selected' : ''
-          }>거리순</option>
-        </select>
-    `;
-
-    const categorySelect = this.$target.querySelector('#category-filter');
-    categorySelect?.addEventListener('change', this.state.onChangeCategory);
-
-    const sortSelect = this.$target.querySelector('#sorting-filter');
-    sortSelect?.addEventListener('change', this.state.onChangeSortBy);
+    this.$target.innerHTML = ``;
+    new DropDown({
+      $parent: this.$target,
+      name: 'category',
+      id: 'category-filter',
+      classNames: 'restaurant-filter',
+      selectedOption: this.state.category,
+      options: FILTER_CATEGORY_OPTIONS,
+      onChangeHandler: this.state.onChangeCategory,
+    }).render();
+    new DropDown({
+      $parent: this.$target,
+      name: 'sorting',
+      id: 'sorting-filter',
+      classNames: 'restaurant-filter',
+      options: FILTER_SORT_BY_OPTIONS,
+      selectedOption: this.state.sortBy,
+      onChangeHandler: this.state.onChangeSortBy,
+    }).render();
   }
 }
 

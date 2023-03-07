@@ -1,4 +1,4 @@
-import { Category, Distance } from '../type';
+import { Category, Distance, SelectOption } from '../type';
 
 export const CATEGORY_NAME: { [key: string]: Category } = {
   all: '전체',
@@ -18,6 +18,48 @@ export const CATEGORIES: Category[] = [
   CATEGORY_NAME.western,
   CATEGORY_NAME.asian,
   CATEGORY_NAME.etc,
+];
+
+export const FILTER_CATEGORY_OPTIONS: SelectOption[] = [
+  {
+    value: CATEGORY_NAME.all,
+    textContent: CATEGORY_NAME.all,
+  },
+  {
+    value: CATEGORY_NAME.korean,
+    textContent: CATEGORY_NAME.korean,
+  },
+  {
+    value: CATEGORY_NAME.chinese,
+    textContent: CATEGORY_NAME.chinese,
+  },
+  {
+    value: CATEGORY_NAME.japanese,
+    textContent: CATEGORY_NAME.japanese,
+  },
+  {
+    value: CATEGORY_NAME.western,
+    textContent: CATEGORY_NAME.western,
+  },
+  {
+    value: CATEGORY_NAME.asian,
+    textContent: CATEGORY_NAME.asian,
+  },
+  {
+    value: CATEGORY_NAME.etc,
+    textContent: CATEGORY_NAME.etc,
+  },
+];
+
+export const FILTER_SORT_BY_OPTIONS: SelectOption[] = [
+  {
+    value: 'name',
+    textContent: '이름 순',
+  },
+  {
+    value: 'distance',
+    textContent: '거리 순',
+  },
 ];
 
 export const CATEGORY_IMAGE_URL: { [key: string]: string } = {
