@@ -5,13 +5,13 @@ import { getLocalStorage } from '../utils/localStorage';
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type Distance = 5 | 10 | 15 | 20 | 30;
 
-type Restaurant = {
+interface Restaurant {
   category: Category;
   name: string;
   distance: Distance;
   description?: string;
   link?: string;
-};
+}
 
 interface RestaurantManager {
   list: Restaurant[];
