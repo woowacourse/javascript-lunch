@@ -1,32 +1,50 @@
-import type { Category } from './types/restaurantTypes';
+import type { Category, State } from './types/restaurantTypes';
 import image from './img/images';
 import Restaurants from './model/Restaurants';
-import Component from './components/Component';
 import Modal from './components/Modal';
 import LOCAL_STORAGE_KEY from './constant/constant';
 import DEFAULT_RESTAURANT_DATA from './constant/defaultRestaurantData';
 import { getDataFromLocalStorage } from './utils/localStorage';
+import Header from './components/Header';
 
-export default class App extends Component {
+export default class App {
+  $target: HTMLElement;
+  $state!: State;
+
   restuarants: Restaurants;
+  header: Header;
 
   constructor($target: HTMLElement) {
-    super($target);
+    this.$target = $target;
+    this.setup();
     this.restuarants = new Restaurants(this.$state.restaurants);
+    this.header = new Header();
+
+    this.render();
+
+    this.header.bindAddRestaurantButton();
+    document.addEventListener('addRestaurantClicked', this.handleAddRestaurantClicked.bind(this));
+    document.addEventListener('closeModal', this.onCloseModal.bind(this));
+  }
+
+  handleAddRestaurantClicked() {
+    const target = document.querySelector('body') as HTMLElement;
+
+    new Modal(target, this.restuarants, this.$state);
   }
 
   setup() {
     this.$state = getDataFromLocalStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
   }
 
+  setState(newState: Partial<State>): void {
+    this.$state = { ...this.$state, ...newState };
+    this.render();
+  }
+
   template() {
     return `
-    <header class="gnb">
-      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-      <button type="button" class="gnb__button" aria-label="음식점 추가">
-      <img src="${image.추가버튼}" alt="음식점 추가">
-      </button>
-    </header>
+    ${this.header.template()}
     <main>
     <!-- 카테고리/정렬 필터 -->
     <section class="restaurant-filter-container">
@@ -87,10 +105,7 @@ export default class App extends Component {
   }
 
   listenEvent() {
-    this.$target.querySelector('.gnb__button')!.addEventListener('click', (event: Event) => {
-      const onCloseModal = this.onCloseModal.bind(this);
-      new Modal(this.$target, this.restuarants, this.$state, onCloseModal);
-    });
+    this.header.bindAddRestaurantButton();
 
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLInputElement;
@@ -119,6 +134,10 @@ export default class App extends Component {
   }
 
   onCloseModal() {
-    this.setState({ sort: 'name', filter: '전체', isModal: !this.$state.isModal });
+    this.setState({
+      sort: 'name',
+      filter: '전체',
+      isModal: !this.$state.isModal,
+    });
   }
 }
