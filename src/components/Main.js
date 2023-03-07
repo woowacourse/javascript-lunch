@@ -6,9 +6,9 @@ class Main {
   #restaurant;
   #restaurantManager;
 
-  constructor(RestaurantManager) {
+  constructor(restaurantManager) {
     this.#restaurant = new RestaurantItem(RESTAURANT_IMAGE);
-    this.#restaurantManager = RestaurantManager;
+    this.#restaurantManager = restaurantManager;
 
     this.addEvent();
   }
