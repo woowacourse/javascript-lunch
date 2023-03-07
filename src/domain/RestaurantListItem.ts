@@ -37,26 +37,34 @@ class RestaurantListItem {
     this.#filter.sort = sort;
   }
 
-  categoryFilter() {
+  #categoryFilter() {
     if (this.#filter.category === '전체') return this.#list;
 
     return this.#list.filter((item) => item.category === this.#filter.category);
   }
 
-  sortFilter(list: IRestaurant[]) {
+  #sortFilter(list: IRestaurant[]) {
     if (this.#filter.sort === 'distance') {
-      return list.sort((current, next) => {
-        return current.distance - next.distance;
-      });
+      return this.#sortByDistance(list);
     }
 
+    return this.#sortByName(list);
+  }
+
+  #sortByDistance(list: IRestaurant[]) {
+    return list.sort((current, next) => {
+      return current.distance - next.distance;
+    });
+  }
+
+  #sortByName(list: IRestaurant[]) {
     return list.sort((current, next) => {
       return current.name > next.name ? 1 : -1;
     });
   }
 
   filterAndSort() {
-    return this.sortFilter(this.categoryFilter());
+    return this.#sortFilter(this.#categoryFilter());
   }
 
   getListItem() {

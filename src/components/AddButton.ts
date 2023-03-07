@@ -1,5 +1,5 @@
 import RestaurantListItem from '../domain/RestaurantListItem';
-import { IRestaurant, TCategory, TDistance } from '../domain/RestaurantListItem';
+import { IRestaurant } from '../domain/RestaurantListItem';
 import RestaurantList from './RestaurantList';
 
 const AddButton = {
@@ -11,27 +11,30 @@ const AddButton = {
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
     const cancelButton = document.querySelector('.button--secondary');
+    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLDivElement;
+    const addForm = document.querySelector('#addForm');
+
     cancelButton?.addEventListener('click', (e) => {
       e.preventDefault();
-      const modal = document.querySelector('.modal--open') as HTMLElement;
-      modal.className = 'modal';
+      AddButton.closeModal();
     });
 
-    const restaurantListContainer = document.querySelector('.restaurant-list-container') as HTMLElement;
-
-    const addForm = document.querySelector('#addForm');
     addForm?.addEventListener('submit', (e) => {
       e.preventDefault();
+
       const newRestaurant = Object.fromEntries(
         [...new FormData(e.target as HTMLFormElement)].map(([key, value]) => {
           return [key, key === 'distance' ? Number(value) : value];
         })
-      );
-      restaurantListContainer.innerHTML = RestaurantList.template(RestaurantListItem.add(newRestaurant as unknown as IRestaurant));
+      ) as unknown as IRestaurant;
+      restaurantListContainer.innerHTML = RestaurantList.template(RestaurantListItem.add(newRestaurant));
 
-      const modal = document.querySelector('.modal--open') as HTMLElement;
-      modal.className = 'modal';
+      AddButton.closeModal();
     });
+  },
+  closeModal() {
+    const modal = document.querySelector('.modal--open') as HTMLElement;
+    modal.className = 'modal';
   },
 };
 

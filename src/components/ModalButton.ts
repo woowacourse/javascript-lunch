@@ -9,10 +9,11 @@ const ModalButton = {
   },
   setEvent() {
     const gnbButton = document.querySelector('.gnb__button');
-    gnbButton?.addEventListener('click', () => {
-      const modal = document.querySelector('.modal') as HTMLElement;
-      modal.className = 'modal--open';
-    });
+    gnbButton?.addEventListener('click', () => this.openModal());
+  },
+  openModal() {
+    const modal = document.querySelector('.modal') as HTMLElement;
+    modal.className = 'modal--open';
   },
 };
 
