@@ -3,26 +3,18 @@ import RestaurantItem from "../RestaurantItem";
 import Storage from "../../tools/Storage";
 import defaultRestaurants from "../../tools/defaultRestaurants";
 import { TCategory } from "../../type/TCategory";
-import { renderRestaurantList } from "./handleRestaurantList";
+import { restaurants } from "../../domain/restaurants";
 
 class RestaurantList extends HTMLElement {
   listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
 
   constructor() {
     super();
-    this.listState = new Proxy(
-      { restaurants: [], filter: "all", sort: "name" },
-      {
-        set: (obj, prop, value) => {
-          // type-guard
-          if (prop === "restaurants" || prop === "filter" || prop === "sort") {
-            obj[prop] = value;
-          }
-          renderRestaurantList();
-          return true;
-        },
-      }
-    );
+    this.listState = restaurants.create({
+      restaurants: [],
+      filter: "all",
+      sort: "name",
+    });
     this.loadRestaurants();
   }
 
