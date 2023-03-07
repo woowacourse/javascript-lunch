@@ -20,7 +20,7 @@ class RestaurantList extends Component {
           .map((restaurant) => {
             return `<r-restaurant
               name="${restaurant.getName()}"
-              distance="${restaurant.getDistanceByMinutes()}"
+              distance="${restaurant.getDistance()}"
               description="${restaurant.getDescription() ?? ''}"
               category="${restaurant.getCategory() ?? ''}"
             ></r-restaurant>`;

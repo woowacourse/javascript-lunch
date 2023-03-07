@@ -14,4 +14,4 @@ export const sortBy: (compareFn: (a: Restaurant, b: Restaurant) => number) => Re
 
 export const sortByName = sortBy((a, b) => a.getName().localeCompare(b.getName()));
 
-export const sortByDistance = sortBy((a, b) => a.getDistanceByMinutes() - b.getDistanceByMinutes());
+export const sortByDistance = sortBy((a, b) => a.getDistance() - b.getDistance());

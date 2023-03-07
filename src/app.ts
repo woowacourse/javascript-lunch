@@ -87,7 +87,7 @@ class App {
 
     this.$restaurantModalDistance.setOptions([
       { value: '', label: '선택해주세요' },
-      ...Restaurant.DISTANCE_BY_MINUTES.map((distance) => ({
+      ...Restaurant.DISTANCES.map((distance) => ({
         value: distance,
         label: `${distance}분 내`,
       })),
@@ -131,7 +131,7 @@ class App {
         const restaurant = new Restaurant({
           category: String(restaurantProps.category),
           name: String(restaurantProps.name),
-          distanceByMinutes: Number(restaurantProps.distanceByMinutes),
+          distance: Number(restaurantProps.distance),
           description: String(restaurantProps.description),
           referenceUrl: String(restaurantProps.referenceUrl),
         });

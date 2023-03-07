@@ -10,7 +10,7 @@ describe('Validation', () => {
           const restaurant = new Restaurant({
             category: '기타',
             name: restaurantName,
-            distanceByMinutes: 5,
+            distance: 5,
           });
 
           // then
@@ -27,7 +27,7 @@ describe('Validation', () => {
             new Restaurant({
               category: '기타',
               name: restaurantName,
-              distanceByMinutes: 5,
+              distance: 5,
             });
 
           expect(createRestaurant).toThrowError();

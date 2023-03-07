@@ -6,7 +6,7 @@ describe('Restaurant', () => {
       // given
       const category = '한식';
       const name = '한식당';
-      const distanceByMinutes = 5;
+      const distance = 5;
       const description = '맛있는 한식당입니다.';
       const referenceUrl = 'https://example.com/korean-restaurant';
 
@@ -14,7 +14,7 @@ describe('Restaurant', () => {
       const restaurant = new Restaurant({
         category,
         name,
-        distanceByMinutes,
+        distance,
         description,
         referenceUrl,
       });
@@ -30,11 +30,11 @@ describe('Restaurant', () => {
       const serachCategory = '한식';
       const category = '한식';
       const name = '한식당';
-      const distanceByMinutes = 5;
+      const distance = 5;
       const restaurant = new Restaurant({
         category,
         name,
-        distanceByMinutes,
+        distance,
       });
 
       // when
