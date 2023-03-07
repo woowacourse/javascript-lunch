@@ -1,5 +1,5 @@
 import Modal from "./modal/ModalRoot";
-import addButtonImage from "../../templates/add-button.png";
+import addButtonImage from "../images/add-button.png";
 
 class LunchHeader extends HTMLElement {
   constructor() {
