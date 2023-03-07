@@ -5,13 +5,13 @@
 import { screen, fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 
-import { $inBody } from '../src/utils/selector';
 import Header from '../src/components/header.js';
 import CategoryFilter from '../src/components/categoryFilter.js';
 import SortingFilter from '../src/components/sortingFilter.js';
 import RestaurantList from '../src/components/restaurantList.js';
-import { initialRestaurantData } from '../src/constants/initialRestaurants';
 import Modal from '../src/components/modal.js';
+import { $inBody } from '../src/utils/selector';
+import { initialRestaurantData } from '../src/constants/initialRestaurants';
 
 describe('렌더링 테스트', () => {
   beforeEach(() => {
@@ -130,7 +130,7 @@ describe('렌더링 테스트', () => {
       '설명',
       '메뉴 등 추가 정보를 입력해 주세요.',
       '참고 링크',
-      '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
+      '매장 정보를 확인할 수 있는 링크를 https:// 형식으로 입력해 주세요.',
       '취소하기',
       '추가하기',
     ];
