@@ -1,16 +1,16 @@
 import FormControlComponent from '../FormControlComponent';
 
-interface SelectOption {
-  value: number | string | boolean;
+interface SelectOption<Value> {
+  value: Value;
   label: string;
 }
 
-class Select extends FormControlComponent {
-  #options: SelectOption[] = [];
+class Select<OptionValue> extends FormControlComponent {
+  #options: SelectOption<OptionValue>[] = [];
 
-  #selectedOption: SelectOption | null = null;
+  #selectedOption: SelectOption<OptionValue> | null = null;
 
-  setOptions(options: SelectOption[]) {
+  setOptions(options: SelectOption<OptionValue>[]) {
     this.#options = options;
     this.#selectedOption = null;
 
@@ -25,7 +25,7 @@ class Select extends FormControlComponent {
     return this.#selectedOption;
   }
 
-  setSelectedOption(selectedOption: SelectOption) {
+  setSelectedOption(selectedOption: SelectOption<OptionValue>) {
     this.#selectedOption = selectedOption;
     this.internals.setFormValue(String(selectedOption.value));
     this.dispatchEvent(new CustomEvent('change'));
@@ -52,8 +52,8 @@ class Select extends FormControlComponent {
 
       <select id="select">
         ${this.#options
-          .map(({ value, label }) => {
-            return `<option value="${value}">${label}</option>`;
+          .map(({ value, label }, index) => {
+            return `<option data-index="${index}" value="${value}">${label}</option>`;
           })
           .join('')}
       </select>
@@ -67,10 +67,7 @@ class Select extends FormControlComponent {
       ?.querySelector<HTMLSelectElement>('#select')
       ?.addEventListener('change', (event) => {
         const $select = event?.target as HTMLSelectElement;
-        this.setSelectedOption({
-          value: $select.value,
-          label: this.#options.find((option) => option.value === $select.value)?.label as string,
-        });
+        this.setSelectedOption(this.#options[Number($select.dataset.index)]);
       });
   }
 }

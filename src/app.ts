@@ -2,8 +2,9 @@
 import Modal from './components/common/Modal';
 import Select from './components/common/Select';
 import RestaurantList from './components/restaurant/RestaurantList';
-import Restaurant from './domain/Restaurant';
-import { filterBy, RestaurantFilter, sortByDistance, sortByName } from './domain/RestaurantFilter';
+import Restaurant, { RestaurantCategory, RestaurantDistance } from './domain/Restaurant';
+import type { RestaurantFilter } from './domain/RestaurantFilter';
+import { filterBy, sortByDistance, sortByName } from './domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from './fixtures';
 
 class App {
@@ -13,9 +14,12 @@ class App {
 
   $restaurantList = document.querySelector<RestaurantList>('#restaurant-list')!;
 
-  $restaurantFilterSelect = document.querySelector<Select>('#restaurant-filter-select')!;
+  $restaurantFilterSelect = document.querySelector<Select<RestaurantFilter | null>>(
+    '#restaurant-filter-select',
+  )!;
 
-  $restaurantSortSelect = document.querySelector<Select>('#restaurant-sort-select')!;
+  $restaurantSortSelect =
+    document.querySelector<Select<RestaurantFilter | null>>('#restaurant-sort-select')!;
 
   $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
 
@@ -23,16 +27,19 @@ class App {
 
   $modal = document.querySelector<Modal>('r-modal')!;
 
-  $restaurantModalCategory = document.querySelector<Select>('#restaurant-modal-category')!;
+  $restaurantModalCategory = document.querySelector<Select<RestaurantCategory | null>>(
+    '#restaurant-modal-category',
+  )!;
 
-  $restaurantModalDistance = document.querySelector<Select>('#restaurant-modal-distance')!;
+  $restaurantModalDistance = document.querySelector<Select<RestaurantDistance | null>>(
+    '#restaurant-modal-distance',
+  )!;
 
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
-      Object.values(this.#filters).reduce(
-        (filteredRestaurants, filter) => filter(filteredRestaurants),
-        this.#restaurants,
-      ),
+      Object.values(this.#filters)
+        .filter((filter): filter is RestaurantFilter => filter !== null)
+        .reduce((filteredRestaurants, filter) => filter(filteredRestaurants), this.#restaurants),
     );
 
     this.save();
@@ -65,20 +72,20 @@ class App {
     this.$restaurantFilterSelect.setOptions([
       { value: null, label: '전체' },
       ...Restaurant.CATEGORIES.map((category) => ({
-        value: category,
+        value: filterBy((restaurant) => restaurant.getCategory(), category),
         label: category,
       })),
     ]);
 
     this.$restaurantSortSelect.setOptions([
-      { value: 'name', label: '이름순' },
-      { value: 'distance', label: '거리순' },
+      { value: sortByName, label: '이름순' },
+      { value: sortByDistance, label: '거리순' },
     ]);
   }
 
   initModalSelect() {
     this.$restaurantModalCategory.setOptions([
-      { value: '', label: '선택해주세요' },
+      { value: null, label: '선택해주세요' },
       ...Restaurant.CATEGORIES.map((category) => ({
         value: category,
         label: category,
@@ -86,7 +93,7 @@ class App {
     ]);
 
     this.$restaurantModalDistance.setOptions([
-      { value: '', label: '선택해주세요' },
+      { value: null, label: '선택해주세요' },
       ...Restaurant.DISTANCES.map((distance) => ({
         value: distance,
         label: `${distance}분 내`,
@@ -96,22 +103,15 @@ class App {
 
   initEventHandlers() {
     this.$restaurantFilterSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as Select;
-      const value = $rSelect.getSelectedOption()?.value;
+      if (event?.target !== this.$restaurantFilterSelect) return;
+      this.#filters.filter = this.$restaurantFilterSelect.getSelectedOption()?.value;
 
-      if (value === null) {
-        this.#filters.filter = null;
-      } else {
-        this.#filters.filter = filterBy((restaurant) => restaurant.getCategory(), String(value));
-      }
       this.updateRestaurants();
     });
 
     this.$restaurantSortSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as Select;
-
-      const sortFn = $rSelect.getSelectedOption()?.value === 'name' ? sortByName : sortByDistance;
-      this.#filters.sort = sortFn;
+      if (event?.target !== this.$restaurantSortSelect) return;
+      this.#filters.sort = this.$restaurantSortSelect.getSelectedOption()?.value;
 
       this.updateRestaurants();
     });
