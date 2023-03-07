@@ -10,4 +10,8 @@ export interface RestaurantType {
   link: string;
 }
 
+export interface SELECTOR_INTERFACE {
+  MODAL: string;
+}
+
 export interface CustomError extends Error {}
