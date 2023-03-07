@@ -19,7 +19,6 @@ export const checkSelected = () => {
 
   $("#name")?.addEventListener("focusout", () => {
     try {
-      console.log("asdffadsfadsfads");
       Input.checkName($("#name").value);
       nameAlert.hide();
     } catch (e) {

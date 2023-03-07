@@ -37,19 +37,17 @@ sortingFilter.addEventListener("change", () => {
 
 addButton.addEventListener("click", () => {
   const modal = new Modal(Element.addListContents);
-  const submitButton = $(".button--primary");
-  const cancelButton = $(".button--secondary");
 
   modal.render();
 
-  submitButton?.addEventListener("click", (event) => {
+  $(".button--primary")?.addEventListener("click", (event) => {
     const submitAlert = new Alert("#alert-submit");
 
     event.preventDefault();
     submitNewRestaurant(modal, submitAlert);
   });
 
-  cancelButton?.addEventListener("click", () => {
+  $(".button--secondary")?.addEventListener("click", () => {
     cancelAddRestaurant(modal);
   });
 
