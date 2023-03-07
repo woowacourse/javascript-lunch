@@ -1,4 +1,4 @@
-import { ModalAction, RestaurantAction } from "./types";
+import { MenuAction, ModalAction, RestaurantAction } from "./types";
 
 export const RESTAURANT_ACTION: RestaurantAction = {
   ADD_RESTAURANT: "add_restaurant",
@@ -10,6 +10,11 @@ export const MODAL_ACTION: ModalAction = {
   MODAL_ON: "modal_on",
   MODAL_OFF: "modal_off",
 } as const;
+
+export const MENU_ACTION: MenuAction = {
+  MENU_ALL: "menu_all",
+  MENU_FAVORITE: "menu_favorite",
+};
 
 export const CATEGORY_IMG = {
   한식: "./category-korean.png",

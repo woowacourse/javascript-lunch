@@ -26,7 +26,7 @@ class RestaurantsStore extends Store {
     this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
   }
 
-  publish(action: Action) {
+  publish() {
     this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
     this.filterByCategory(this.#category);
     this.sortRestaurants(this.#sortMethod);
@@ -38,15 +38,15 @@ class RestaurantsStore extends Store {
   reducer = {
     [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
       this.addRestaurant(action.data as Restaurant);
-      this.publish(action);
+      this.publish();
     },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
       this.filterByCategory(action.data as Category);
-      this.publish(action);
+      this.publish();
     },
     [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
       this.sortRestaurants(action.data as SortMethod);
-      this.publish(action);
+      this.publish();
     },
   };
 

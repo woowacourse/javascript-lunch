@@ -1,12 +1,11 @@
 import { MODAL_ACTION } from "../abstracts/constants";
-import CustomElement from "../abstracts/CustomElement";
 import { Action } from "../abstracts/types";
 import Store from "./Store";
 
 class ModalStore extends Store {
   #isModalOn: boolean = false;
 
-  publish(action: Action) {
+  publish() {
     this.getSubscribers().forEach((subscriber) => {
       subscriber.rerender(this.#isModalOn);
     });
@@ -15,11 +14,11 @@ class ModalStore extends Store {
   reducer = {
     [MODAL_ACTION.MODAL_ON]: (action: Action) => {
       this.#isModalOn = true;
-      this.publish(action);
+      this.publish();
     },
     [MODAL_ACTION.MODAL_OFF]: (action: Action) => {
       this.#isModalOn = false;
-      this.publish(action);
+      this.publish();
     },
   };
 }

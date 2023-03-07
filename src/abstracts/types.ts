@@ -34,3 +34,8 @@ export interface ModalAction {
   MODAL_ON: string;
   MODAL_OFF: string;
 }
+
+export interface MenuAction {
+  MENU_ALL: string;
+  MENU_FAVORITE: string;
+}
