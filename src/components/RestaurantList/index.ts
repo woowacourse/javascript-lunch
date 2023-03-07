@@ -3,6 +3,7 @@ import RestaurantItem from "../RestaurantItem";
 import Storage from "../../tools/Storage";
 import defaultRestaurants from "../../tools/defaultRestaurants";
 import { TCategory } from "../../type/TCategory";
+import { renderRestaurantList } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
   listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
@@ -17,7 +18,7 @@ class RestaurantList extends HTMLElement {
           if (prop === "restaurants" || prop === "filter" || prop === "sort") {
             obj[prop] = value;
           }
-          this.render();
+          renderRestaurantList();
           return true;
         },
       }
