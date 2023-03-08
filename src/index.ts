@@ -4,6 +4,7 @@ import RestaurantItem from './components/RestaurantItem';
 import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
 import NavBar from './components/NavBar';
+import DetailBottomSheet from './components/DetailBottomSheet';
 import Store from './store';
 import { $ } from './utils/dom';
 import { CategoryFilter, Restaurant, SortFilter } from './types';
@@ -15,6 +16,7 @@ customElements.define('restaurant-items', RestaurantItems);
 customElements.define('add-modal', Modal);
 customElements.define('select-box', SelectBox);
 customElements.define('nav-bar', NavBar);
+customElements.define('detail-bottom-sheet', DetailBottomSheet);
 
 class App {
   header: Header;

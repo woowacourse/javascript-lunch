@@ -1,0 +1,62 @@
+<style>
+  .bottom-sheet {
+    display: none;
+  }
+
+  .bottom-sheet--open {
+    display: block;
+  }
+
+  .bottom-sheet-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  .bottom-sheet-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    padding: 32px 16px;
+
+    border-radius: 8px 8px 0px 0px;
+    background: var(--grey-100);
+  }
+
+  .bottom-sheet-title {
+    margin-bottom: 36px;
+  }
+
+  .button-container {
+    display: flex;
+  }
+
+  .button:last-child {
+    margin-right: 0;
+  }
+
+</style>
+
+<div class="bottom-sheet">
+  <div class="bottom-sheet-backdrop"></div>
+  <div class="bottom-sheet-container">
+    <div class="restaurant__category">
+    <img src="{src}" alt="{category}" class="category-icon" />
+    </div>
+    <h3 class="restaurant__name text-subtitle">{name}</h3>
+    <span class="restaurant__distance text-body">캠퍼스로부터 {distance}분 내</span>
+    <p class="restaurant__description text-body">{description}</p>
+      <div class="button-container">
+        <button type="button" class="button button--secondary text-caption" id="cancel-button">
+          삭제하기
+        </button>
+        <button class="button button--primary text-caption" id="add-button">닫기</button>
+      </div>
+    </form>
+  </div>
+</div>
