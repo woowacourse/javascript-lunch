@@ -2,7 +2,7 @@ const localMemory = {
   getData(id: string) {
     const data = localStorage.getItem(id);
 
-    if (!data) return null;
+    if (!data) return [];
 
     return JSON.parse(data);
   },
