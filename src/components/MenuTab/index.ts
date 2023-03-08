@@ -1,14 +1,17 @@
+import { onChangeMenuTabs } from "./handleMenuTab";
+
 class MenuTab extends HTMLElement {
   constructor() {
     super();
     this.render();
+    onChangeMenuTabs.call(this);
   }
   render() {
     this.innerHTML = `
-    <div>
-      <input type="radio" name="tabmenu" checked>
-      <input type="radio" name="tabmenu">
-    </div>
+      <form id="menuTabForm">
+        <input type="radio" name="tab-menu" value="tab-all" checked>
+        <input type="radio" name="tab-menu" value="tab-favorites">
+      </form>
     `;
   }
 }
