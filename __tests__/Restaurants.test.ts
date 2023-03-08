@@ -27,6 +27,30 @@ describe('Restaurants.addRestaurant', () => {
   });
 });
 
+describe('Restaurants.toggleFavoriteRestaurant', () => {
+  test('메서드가 실행되면, id값에 해당하는 음식점 객체의 isFavorite(Boolean) 값이 반대가 된다.', () => {
+    const restaurants = new Restaurants();
+
+    const restaurant: IRestaurant = {
+      id: 1,
+      category: '한식',
+      name: '돈카라',
+      distance: '10',
+      isFavorite: false,
+    };
+
+    restaurants.addRestaurant(restaurant);
+
+    const restaurantId = 1;
+    restaurants.toggleFavoriteRestaurant(restaurantId);
+
+    const expected = true;
+    const afterFavorite = restaurants.getRestaurants()[0].isFavorite;
+
+    expect(expected).toEqual(afterFavorite);
+  });
+});
+
 describe('Restaurants.getFilteredRestaurantsByCategory', () => {
   test('선택된 카테고리와 일치하는 음식점의 목록을 반환한다.', () => {
     const dummyRestaurants: IRestaurant[] = [
