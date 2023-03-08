@@ -11,7 +11,7 @@ export class App {
   constructor() {
     this.bindEventHandlers();
     this.mainView.renderRestaurantList(this.restaurantService.filterAndSort());
-    this.mainView.addFavoriteButtonClickEventHandler(); // 첫 렌더링 후 실행
+    this.mainView.addFavoriteButtonClickEventHandler();
   }
 
   bindEventHandlers() {

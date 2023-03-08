@@ -1,6 +1,6 @@
 import { $, $$ } from '../utils/domSelectors';
-import { RestaurantItems } from '../components/RestaurantItems';
 import { Restaurant } from '../types/types';
+import { RestaurantList } from '../components/RestaurantList';
 import { FAVORITE_ICON_IMAGE } from '../constants/images';
 
 class MainView {
@@ -32,11 +32,11 @@ class MainView {
   }
 
   renderRestaurantList(restaurants: Restaurant[]) {
-    const restaurantList = $<HTMLUListElement>('.restaurant-list');
-    const restaurantItems = RestaurantItems(restaurants);
+    const restaurantListContainer = $<HTMLTableSectionElement>('.restaurant-list-container');
+    const restaurantItems = RestaurantList(restaurants);
 
-    restaurantList.innerHTML = '';
-    restaurantList.insertAdjacentHTML('beforeend', restaurantItems);
+    restaurantListContainer.innerHTML = '';
+    restaurantListContainer.insertAdjacentHTML('beforeend', restaurantItems);
   }
 
   addFavoriteButtonClickEventHandler() {

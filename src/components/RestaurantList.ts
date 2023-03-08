@@ -1,13 +1,14 @@
 import { Restaurant } from '../types/types';
-import { RESTAURANT_IMAGE } from '../constants/images';
 import { RestaurantItem } from './RestaurantItem';
+import { RESTAURANT_IMAGE } from '../constants/images';
+import './RestaurantList.css';
 
-export const RestaurantItems = (sortedRestaurants: Restaurant[]) => {
+export const RestaurantList = (sortedRestaurants: Restaurant[]) => {
   const restaurantItems = sortedRestaurants.map((restaurant) => {
     const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
 
     return RestaurantItem(restaurant, categoryImageUrl);
   });
 
-  return restaurantItems.join('');
+  return `<ul class="restaurant-list">${restaurantItems.join('')}</ul>`;
 };
