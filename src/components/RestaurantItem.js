@@ -10,7 +10,7 @@ class RestaurantItem {
     const imageFile = CATEGORY_TO_FILENAME[this.restaurant.category];
 
     return `
-      <li class="restaurant">
+      <li id="restaurant${this.restaurant.ID}" class="restaurant">
         <div class="restaurant__category">
             <img src="./${imageFile}.png" alt="${this.restaurant.category}" class="category-icon">
         </div>
@@ -24,7 +24,18 @@ class RestaurantItem {
   }
 
   render() {
-    document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
+    if (!document.querySelector(`#restaurant${this.restaurant.ID}`)) {
+      document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
+    }
+  }
+
+  setEvent(onClickRestaurantItem) {
+    const $item = document.querySelector(`#restaurant${this.restaurant.ID}`);
+
+    $item.addEventListener('click', e => {
+      e.preventDefault();
+      onClickRestaurantItem(this.restaurant);
+    });
   }
 }
 
