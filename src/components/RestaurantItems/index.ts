@@ -16,11 +16,11 @@ class RestaurantItems extends HTMLElement {
     const $restaurantList = this.querySelector('.restaurant-list') as HTMLUListElement;
 
     restaurants.forEach((restaurant) => {
-      const { category, name, distance, description } = restaurant;
+      const { category, name, distance, description, link } = restaurant;
 
       $restaurantList.insertAdjacentHTML(
         'beforeend',
-        `<restaurant-item category=${category} name=${name} distance=${distance} description=${description}></restaurant-item>`,
+        `<restaurant-item category=${category} name=${name} distance=${distance} description=${description} link=${link}></restaurant-item>`,
       );
     });
   }

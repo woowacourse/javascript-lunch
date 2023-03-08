@@ -9,6 +9,19 @@ class RestaurantItem extends HTMLElement {
 
   connectedCallback() {
     this.render();
+
+    // detail-modal 열기
+    this.addEventListener('click', (e) => {
+      const $detailModal = document.createElement('detail-modal');
+
+      $detailModal?.setAttribute('src', imgSrc[this.getAttribute('category') as Category]);
+      $detailModal?.setAttribute('category', this.getAttribute('category')!);
+      $detailModal?.setAttribute('name', this.getAttribute('name')!);
+      $detailModal?.setAttribute('distance', this.getAttribute('distance')!);
+      $detailModal?.setAttribute('description', this.getAttribute('description')!);
+      $detailModal?.setAttribute('link', this.getAttribute('link')!);
+      document.body.insertAdjacentElement('beforeend', $detailModal);
+    });
   }
 
   render() {

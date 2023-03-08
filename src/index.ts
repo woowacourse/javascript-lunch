@@ -1,3 +1,4 @@
+import DetailModal from './components/DetailModal';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import RestaurantItem from './components/RestaurantItem';
@@ -17,3 +18,4 @@ customElements.define('restaurant-item', RestaurantItem);
 customElements.define('restaurant-items', RestaurantItems);
 customElements.define('add-modal', Modal);
 customElements.define('select-box', SelectBox);
+customElements.define('detail-modal', DetailModal);
