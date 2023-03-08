@@ -23,7 +23,11 @@ class Select {
   addSelectChangeEvent(changeFilter: CallableFunction) {
     const element = $(`#${this.attributes.id}`) as HTMLSelectElement;
 
-    // change filters to select value when filter select change
+    element.addEventListener('change', (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      const selectedOption = target.value;
+      changeFilter({ [target.name]: selectedOption });
+    });
   }
 
   create() {
