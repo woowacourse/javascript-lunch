@@ -1,4 +1,4 @@
-import { CategoryOptions, SortingCriterion, Restaurant } from '../types/types';
+import { CategoryOptions, Restaurant, RestaurantFilter } from '../types/types';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
@@ -25,10 +25,10 @@ class RestaurantService {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort(category: CategoryOptions, criterion: SortingCriterion) {
-    const filteredRestaurantList = this.filter(category);
+  filterAndSort(displayStatus: RestaurantFilter) {
+    const filteredRestaurantList = this.filter(displayStatus.category);
 
-    if (criterion === 'name') {
+    if (displayStatus.sorting === 'name') {
       return this.sortByName(filteredRestaurantList);
     }
 
