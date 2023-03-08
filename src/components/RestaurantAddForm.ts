@@ -46,7 +46,7 @@ class RestaurantAddForm {
 
       const restaurantItem = Object.fromEntries(
         [...formData].map(([key, value]) => [key, key === 'distance' ? Number(value) : value])
-      ) as Omit<Restaurant, 'favorite'>;
+      ) as Restaurant;
 
       const formErrors: Errors = restaurantFormValidator.verify(restaurantItem);
       const hasError = Object.values(formErrors).some(Boolean);
@@ -61,7 +61,7 @@ class RestaurantAddForm {
     });
   }
 
-  addEvent(closeModal: CallableFunction, addRestaurant: CallableFunction) {
+  addEvents(closeModal: CallableFunction, addRestaurant: CallableFunction) {
     const closeButton = $('#modal-close-button') as HTMLButtonElement;
 
     closeButton.addEventListener('click', () => {
@@ -123,4 +123,4 @@ class RestaurantAddForm {
   }
 }
 
-export default RestaurantAddForm;
+export default new RestaurantAddForm();

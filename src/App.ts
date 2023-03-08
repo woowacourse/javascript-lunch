@@ -50,10 +50,26 @@ class App {
     );
   };
 
+  addRestaurant = (restaurantItem: Restaurant) => {
+    this.restaurantService.add(restaurantItem);
+    const restaurantList = this.restaurantService.filterAndSort(this.currentDisplayStatus);
+    saveToLocalStorage(restaurantList);
+
+    if (
+      restaurantItem.category === this.currentDisplayStatus.category ||
+      this.currentDisplayStatus.category === '전체'
+    ) {
+      RestaurantListContainer.renderRestaurantItems(
+        $('.restaurant-list') as HTMLUListElement,
+        restaurantList
+      );
+    }
+  };
+
   addEvents() {
     Header.addEvent(this.formModal.openModal);
     RestaurantFilters.addEvent(this.changeFilter);
-    this.formModal.addEvent();
+    this.formModal.addEvents(this.addRestaurant);
   }
 }
 

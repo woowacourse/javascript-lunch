@@ -20,7 +20,7 @@ class Modal {
     modal.showModal();
   }
 
-  addEvent() {
+  addEvents(onSubmit: CallableFunction) {
     const backdrop = $('.modal') as HTMLDialogElement;
 
     backdrop.addEventListener('click', (event: Event) => {
@@ -30,6 +30,8 @@ class Modal {
         this.closeModal();
       }
     });
+
+    this.content.addEvents(this.closeModal, onSubmit);
   }
 
   create() {
