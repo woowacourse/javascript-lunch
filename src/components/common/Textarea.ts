@@ -64,7 +64,7 @@ class Textarea extends FormControlComponent {
     super.render();
 
     this.shadowRoot
-      ?.querySelector<HTMLTextAreaElement>('textarea')
+      .querySelector<HTMLTextAreaElement>('textarea')
       ?.addEventListener('input', (event) => {
         if (event.target instanceof HTMLTextAreaElement) {
           this.internals.setFormValue(event.target.value.trim());
@@ -77,7 +77,7 @@ class Textarea extends FormControlComponent {
       this.internals.setValidity(
         { valueMissing: true },
         '값을 입력해야 합니다.',
-        this.shadowRoot?.querySelector('textarea') ?? undefined,
+        this.shadowRoot.querySelector('textarea') ?? undefined,
       );
       return;
     }
@@ -85,11 +85,11 @@ class Textarea extends FormControlComponent {
   }
 
   override get value() {
-    return this.shadowRoot?.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
+    return this.shadowRoot.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
   }
 
   formResetCallback() {
-    this.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!.innerText = '';
+    this.shadowRoot.querySelector<HTMLTextAreaElement>('textarea')!.innerText = '';
     this.internals.setValidity({});
   }
 }

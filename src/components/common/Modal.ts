@@ -6,11 +6,11 @@ class Modal extends Component {
   }
 
   open() {
-    this.shadowRoot?.querySelector('dialog')?.showModal();
+    this.shadowRoot.querySelector('dialog')?.showModal();
   }
 
   close() {
-    this.shadowRoot?.querySelector('dialog')?.close();
+    this.shadowRoot.querySelector('dialog')?.close();
   }
 
   override renderTemplate() {

@@ -29,7 +29,7 @@ class Select<OptionValue> extends FormControlComponent {
     this.internals.setFormValue(String(selectedOption?.value ?? ''));
 
     const optionIndex = this.#options.findIndex((option) => option.value === selectedOption?.value);
-    this.shadowRoot!.querySelector<HTMLSelectElement>('select')!.value = String(
+    this.shadowRoot.querySelector<HTMLSelectElement>('select')!.value = String(
       optionIndex === -1 ? 0 : optionIndex,
     );
 
@@ -116,7 +116,7 @@ class Select<OptionValue> extends FormControlComponent {
       this.internals.setValidity(
         { valueMissing: true },
         '옵션을 선택하여야 합니다.',
-        this.shadowRoot?.querySelector('select') ?? undefined,
+        this.shadowRoot.querySelector('select') ?? undefined,
       );
       return;
     }
