@@ -9,18 +9,19 @@ import favorite from '../../assets/favorite-icon-filled.png';
 import notFavorite from '../../assets/favorite-icon-lined.png';
 
 import { CategoryOptions } from '../types/type';
-import { IRestaurant } from '../domain/Restaurant';
+import { Restaurant } from '../domain/Restaurant';
 
-export default function RestaurantItemTemplate({
-  category,
-  distance,
-  name,
-  description,
-  isFavorite,
-}: IRestaurant) {
-  return `
-    <li class="restaurant">
-      <button class="favorite-button"> 
+export default function RestaurantItemTemplate(restaurant: Restaurant) {
+  const { category, distance, name, description, isFavorite } =
+    restaurant.getRestaurantInfo();
+
+  const $li = document.createElement('li');
+  $li.className = 'restaurant';
+
+  const listClickHandler = (e: Event) => {};
+
+  const template = `
+    <button class="favorite-button"> 
         <img src="${isFavorite ? favorite : notFavorite}"/>
       </button>
       <div class="restaurant__category">
@@ -33,7 +34,11 @@ export default function RestaurantItemTemplate({
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
         <p class="restaurant__description text-body">${description ?? ''}</p>
       </div>
-    </li>`;
+      `;
+  $li.innerHTML = template;
+
+  $li.addEventListener('click', listClickHandler);
+  return $li;
 }
 
 function categoryImageSource(category: CategoryOptions) {

@@ -7,31 +7,32 @@ interface IRestaurantList {
 
 export default class RestaurantList {
   $restaurantListSection = document.createElement('section');
-
+  $ul = document.createElement('section');
   state!: IRestaurantList;
 
   constructor($root: HTMLElement, restaurants: Restaurant[]) {
     this.$restaurantListSection.className = 'restaurant-list-cotainer';
+    this.$ul.className = 'restaurant-list';
 
     this.setState({ restaurantList: restaurants });
-
-    $root.appendChild(this.$restaurantListSection);
+    this.render($root);
   }
 
   template() {
-    return `
-    <ul class="restaurant-list">
-      ${this.state.restaurantList.reduce(
-        (html, restaurant) =>
-          html + RestaurantItemTemplate(restaurant.getRestaurantInfo()),
-        ''
-      )}
-    </ul>
-    `;
+    this.$ul.innerHTML = '';
+    for (const restaurant of this.state.restaurantList) {
+      this.$ul.insertAdjacentElement(
+        'beforeend',
+        RestaurantItemTemplate(restaurant)
+      );
+    }
   }
 
   render = ($targetElement: HTMLElement) => {
-    this.$restaurantListSection.innerHTML = this.template();
+    this.$restaurantListSection.innerHTML = '';
+    this.template();
+    this.$restaurantListSection.appendChild(this.$ul);
+
     $targetElement.insertAdjacentElement(
       'beforeend',
       this.$restaurantListSection
