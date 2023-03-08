@@ -10,12 +10,15 @@ class RestaurantListContainer {
   }
 
   renderRestaurantItems(target: Element, restaurantList: Restaurant[], onClick: CallableFunction) {
-    const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
-      new RestaurantItem(restaurant).create()
-    );
+    const fragment = document.createDocumentFragment();
+    const parser = new DOMParser();
+
+    restaurantList.forEach((restaurant: Restaurant) => {
+      fragment.append(new RestaurantItem(restaurant).render(parser, onClick));
+    });
 
     target.innerHTML = '';
-    target.insertAdjacentHTML('beforeend', restaurantItems.join(''));
+    target.append(fragment);
   }
 }
 

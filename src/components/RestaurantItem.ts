@@ -1,5 +1,5 @@
 import { Restaurant } from '../types/types';
-import { RESTAURANT_IMAGE } from '../constants/images';
+import { RESTAURANT_IMAGE, getFavoriteIcon } from '../constants/images';
 
 class RestaurantItem {
   private restaurant: Restaurant;
@@ -37,6 +37,21 @@ class RestaurantItem {
             </div>
         </div>
       </li>`;
+  }
+
+  render(parser: DOMParser, onClick: CallableFunction) {
+    const document = parser.parseFromString(this.create(), 'text/html');
+    const restaurantElement = document.querySelector('.restaurant') as HTMLLIElement;
+    const favoriteIcon = document.querySelector('.restaurant__star') as HTMLDivElement;
+
+    favoriteIcon.addEventListener('click', () => {
+      const icon = favoriteIcon.firstElementChild as HTMLImageElement;
+      icon.src = getFavoriteIcon(!this.restaurant.favorite);
+
+      onClick({ ...this.restaurant });
+    });
+
+    return restaurantElement;
   }
 }
 
