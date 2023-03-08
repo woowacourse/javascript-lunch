@@ -5,6 +5,7 @@ export default class RestaurantDetail {
     this.$target = $target;
     this.props = props;
     this.render();
+    this.setEvent();
   }
 
   render() {
@@ -33,5 +34,19 @@ export default class RestaurantDetail {
     </div>
   </div>
   `;
+  }
+
+  setEvent() {
+    const $modal = document.querySelector(".modal");
+    this.addEvent("click", "#quit-button", () => {
+      $modal.classList.toggle("modal--open");
+    });
+  }
+
+  addEvent(eventType, selector, callback) {
+    this.$target.addEventListener(eventType, (event) => {
+      if (!event.target.closest(selector)) return false;
+      callback(event);
+    });
   }
 }
