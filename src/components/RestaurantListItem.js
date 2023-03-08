@@ -1,3 +1,5 @@
+import { $, dispatchCustomEvent } from '../utils/dom';
+
 customElements.define(
   'restaurant-list-item',
   class RestaurantListItem extends HTMLElement {
@@ -12,7 +14,11 @@ customElements.define(
 
     constructor() {
       super();
+      this.render();
+      this.bindEvent();
+    }
 
+    render() {
       const category = this.getAttribute('category');
       const restaurantName = this.getAttribute('restaurantName');
       const distance = this.getAttribute('distance');
@@ -43,6 +49,22 @@ customElements.define(
           <p class="restaurant__description text-body">${description}</p>
         </div>
       </li>`;
+    }
+
+    bindEvent() {
+      this.querySelector('.favorite__button').addEventListener('click', () =>
+        this.handleFavoriteClick()
+      );
+    }
+
+    handleFavoriteClick() {
+      this.setAttribute('favorite', this.getAttribute('favorite') === 'true' ? 'false' : 'true');
+      dispatchCustomEvent($('.restaurant-list-container'), {
+        eventType: 'changeRestaurantFavorite',
+        data: this.getAttribute('restaurantID'),
+      });
+      this.render();
+      this.bindEvent();
     }
   }
 );

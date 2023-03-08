@@ -30,6 +30,10 @@ const LunchMenuApp = {
     $('restaurant-tab').addEventListener('changeRestaurantTab', ({ detail: tabType }) =>
       this.handleRestaurantTabChange(tabType)
     );
+    $('.restaurant-list-container').addEventListener(
+      'changeRestaurantFavorite',
+      ({ detail: restaurantID }) => this.handleRestaurantFavoriteChange(restaurantID)
+    );
   },
 
   handleRestaurantRegister(restaurant) {
@@ -60,6 +64,10 @@ const LunchMenuApp = {
     if (tabType === 'favorite') $('restaurant-filter').hide();
     else $('restaurant-filter').show();
     this.render(filteredRestaurants);
+  },
+
+  handleRestaurantFavoriteChange(restaurantID) {
+    restaurants.changeFavorite(Number(restaurantID));
   },
 };
 
