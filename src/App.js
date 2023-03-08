@@ -48,6 +48,11 @@ export default class App {
       this.onClickRestaurantFormModalOpenButton.bind(this)
     );
     $('.modal-close-button').addEventListener('click', this.toggleModal);
+
+    $('.restaurant-list-container').addEventListener(
+      'click',
+      this.onClickRestaurantList.bind(this)
+    );
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -110,5 +115,16 @@ export default class App {
 
   toggleModal() {
     $('.modal').classList.toggle('modal--open');
+  }
+
+  onClickRestaurantList(e) {
+    if (e.target.id === 'favorite-icon') {
+      const restaurantId = e.target.closest('li').dataset.listid;
+
+      this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
+      store.setLocalStorage(RESTAURANTS_KEY, this.#restaurants.getRestaurants());
+
+      this.renderRestaurantListByFilterOptions();
+    }
   }
 }

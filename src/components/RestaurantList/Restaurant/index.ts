@@ -19,7 +19,7 @@ const Restaurant = {
     const favoriteIconAlt = isFavorite ? 'favorite-icon-filled' : 'favorite-icon-lined';
 
     return `  
-    <li class="restaurant" data-listid=${id} >
+    <li id="restaurant" class="restaurant" data-listid=${id} >
       <div class="restaurant__category">
         <img src="./${imgFileName[category]}" alt="${category}"
         class="category-icon" />
@@ -30,7 +30,7 @@ const Restaurant = {
         <p class="restaurant__description text-body">${description}</p>
       </div>
       <div class="restaurant__favorite">
-        <img src="./${favoriteIconSrc}" alt="${favoriteIconAlt}" class="favorite-icon"/>
+        <img src="./${favoriteIconSrc}" alt="${favoriteIconAlt}" id="favorite-icon" class="favorite-icon"/>
       </div>
     </li>`;
   },

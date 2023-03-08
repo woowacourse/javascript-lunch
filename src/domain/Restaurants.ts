@@ -13,6 +13,13 @@ export default class Restaurants {
     this.#restaurants.push(restaurant);
   }
 
+  toggleFavoriteRestaurant(restaurantId: number) {
+    const targetIndex = this.#restaurants.findIndex((restaurant) => restaurant.id === restaurantId);
+
+    this.#restaurants[targetIndex].isFavorite = !this.#restaurants[targetIndex].isFavorite;
+    console.log(this.#restaurants[targetIndex].isFavorite);
+  }
+
   getRestaurants() {
     return deepCopy(this.#restaurants);
   }
