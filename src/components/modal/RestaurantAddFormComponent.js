@@ -14,7 +14,6 @@ class RestaurantAddFormComponent extends CustomElement {
   }
 
   addRestaurant(event) {
-    console.log("?");
     event.preventDefault();
     const category = this.shadowRoot.querySelector("#category").value;
     const name = this.shadowRoot.querySelector("#name").value;
@@ -51,7 +50,7 @@ class RestaurantAddFormComponent extends CustomElement {
             display: block;
             height: 90vh;
             width: 100%;
-            overflow: scroll;
+            overflow-y: scroll;
             padding: 32px 16px !important;
           }
 

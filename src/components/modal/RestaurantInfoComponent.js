@@ -30,6 +30,13 @@ class RestaurantInfoComponent extends CustomElement {
       .querySelector(".button--primary")
       .addEventListener("click", () => dispatcher("modal_off"));
 
+    this.shadowRoot
+      .querySelector(".button--secondary")
+      .addEventListener("click", () => {
+        dispatcher("modal_off");
+        dispatcher("delete_restaurant", this.getAttribute("id"));
+      });
+
     if (this.shadowRoot.querySelector(".favorite-icon")) {
       this.shadowRoot
         .querySelector(".favorite-icon")
@@ -44,25 +51,27 @@ class RestaurantInfoComponent extends CustomElement {
     const restaurant = restaurantList.find(
       (restaurant) => restaurant.id === Number(this.getAttribute("id"))
     );
-    const isFavorite = restaurant.isFavorite === false ? "EMPTY" : "FILLED";
+    if (restaurant) {
+      const isFavorite = restaurant.isFavorite === false ? "EMPTY" : "FILLED";
 
-    this.state.restaurant = restaurant;
-    this.state.isFavorite = isFavorite;
+      this.state.restaurant = restaurant;
+      this.state.isFavorite = isFavorite;
 
-    this.shadowRoot
-      .querySelector(".category-icon")
-      .setAttribute("src", CATEGORY_IMG[this.state.restaurant.category]);
-    this.shadowRoot
-      .querySelector(".favorite-icon")
-      .setAttribute("src", FAVORITE_IMG[this.state.isFavorite]);
-    this.shadowRoot.querySelector("#title").innerHTML =
-      this.state.restaurant.name;
-    this.shadowRoot.querySelector("#distance").innerHTML =
-      "캠퍼스로부터 " + this.state.restaurant.distance + "분 내";
-    this.shadowRoot.querySelector("#description").innerHTML =
-      this.state.restaurant.description;
-    this.shadowRoot.querySelector("#link").innerHTML =
-      this.state.restaurant.link;
+      this.shadowRoot
+        .querySelector(".category-icon")
+        .setAttribute("src", CATEGORY_IMG[this.state.restaurant.category]);
+      this.shadowRoot
+        .querySelector(".favorite-icon")
+        .setAttribute("src", FAVORITE_IMG[this.state.isFavorite]);
+      this.shadowRoot.querySelector("#title").innerHTML =
+        this.state.restaurant.name;
+      this.shadowRoot.querySelector("#distance").innerHTML =
+        "캠퍼스로부터 " + this.state.restaurant.distance + "분 내";
+      this.shadowRoot.querySelector("#description").innerHTML =
+        this.state.restaurant.description;
+      this.shadowRoot.querySelector("#link").innerHTML =
+        this.state.restaurant.link;
+    }
   }
 
   template() {
@@ -78,7 +87,7 @@ class RestaurantInfoComponent extends CustomElement {
                     display: block;
                     max-height: 50vh;
                     width: 100%;
-                    overflow: scroll;
+                    overflow-y: scroll;
                     padding: 32px 16px !important;
                 }
 
@@ -197,7 +206,7 @@ class RestaurantInfoComponent extends CustomElement {
                 <a id="link" class="text-body">${this.state.restaurant.link}</a>
                 <div class="button-container">
                     <button type="button" class="button button--secondary text-caption">삭제하기</button>
-                    <button type="submit" class="button button--primary text-caption">닫기</button>
+                    <button type="button" class="button button--primary text-caption">닫기</button>
                 </div>
             </div>
         `;

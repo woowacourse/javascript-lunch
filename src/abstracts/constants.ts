@@ -3,6 +3,7 @@ import { MenuAction, ModalAction, RestaurantAction } from "./types";
 export const RESTAURANT_ACTION: RestaurantAction = {
   ADD_RESTAURANT: "add_restaurant",
   HANDLE_FAVORITE: "handle_favorite",
+  DELETE_RESTAURANT: "delete_restaurant",
   FILTER_BY_CATEGORY: "filter_by_category",
   SORT_RESTAURANTS: "sort_restaurants",
 } as const;

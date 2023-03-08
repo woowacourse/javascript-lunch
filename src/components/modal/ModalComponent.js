@@ -23,7 +23,6 @@ class ModalComponent extends CustomElement {
     this.modalOnOff(isModalOn);
     const modalType = action.type;
     const modalContainer = this.shadowRoot.querySelector(".modal-container");
-    console.log(modalContainer.children.length);
     if (
       modalType === "modal_add_restaurant" &&
       modalContainer.children.length === 0

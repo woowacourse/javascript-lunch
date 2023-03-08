@@ -50,6 +50,10 @@ class RestaurantsStore extends Store {
       this.handleFavoriteRestaurant(action.data as number);
       this.publish();
     },
+    [RESTAURANT_ACTION.DELETE_RESTAURANT]: (action: Action) => {
+      this.deleteRestaurant(action.data as number);
+      this.publish();
+    },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
       this.filterByCategory(action.data as Category);
       this.publish();
@@ -65,6 +69,15 @@ class RestaurantsStore extends Store {
     restaurant.id = this.#restaurantList.length;
 
     this.#restaurantList.push(restaurant);
+    setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
+  }
+
+  deleteRestaurant(restaurantId: number) {
+    const restaurantIndex = this.#restaurantList.findIndex(
+      (restaurant) => restaurant.id === Number(restaurantId)
+    );
+
+    this.#restaurantList.splice(restaurantIndex, 1);
     setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
   }
 
