@@ -45,6 +45,10 @@ class RestaurantService {
 
     return [...this.restaurantList];
   }
+
+  getFavoriteRestaurantList() {
+    return this.restaurantList.filter((restaurant) => restaurant.favorite);
+  }
 }
 
 export default RestaurantService;
