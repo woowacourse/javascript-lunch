@@ -16,9 +16,12 @@ body {
 }
 
 :root {
+  --darken-color-1: #d44208;
+  --darken-color-2: #de4509;
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
   --grey-100: #ffffff;
+  --grey-150: #ebeef2;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
   --grey-400: #344054;
