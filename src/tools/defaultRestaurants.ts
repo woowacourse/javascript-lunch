@@ -1,4 +1,6 @@
-const defaultRestaurants = [
+import IRestaurant from "../type/IRestaurant";
+
+const defaultRestaurants: IRestaurant[] = [
   {
     category: "chinese",
     name: "찐친",

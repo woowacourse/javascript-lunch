@@ -2,20 +2,14 @@ import IRestaurant from "../../type/IRestaurant";
 import RestaurantItem from "../RestaurantItem";
 import { TCategory } from "../../type/TCategory";
 import { restaurants } from "../../domain/restaurants";
-import { restoreRestaurants, selectRestaurants } from "./handleRestaurantList";
-import IListState from "../../type/IListState";
+import { selectRestaurants } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
-  listState: IListState;
-
   constructor() {
     super();
-    this.listState = restaurants.create({
-      restaurants: [],
-      filter: "all",
-      sort: "name",
-    });
-    restoreRestaurants();
+  }
+  ping() {
+    return "hi";
   }
 
   render() {
@@ -35,11 +29,11 @@ class RestaurantList extends HTMLElement {
   }
 
   filterBy(key: TCategory) {
-    this.listState.filter = key;
+    restaurants.state.filter = key;
   }
 
   sortBy(key: string) {
-    this.listState.sort = key;
+    restaurants.state.sort = key;
   }
 }
 
