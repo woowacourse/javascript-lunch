@@ -5,6 +5,7 @@ import SelectContainer from "./components/SelectContainer";
 import { Constants, OptionValue } from "./utils/Constants";
 import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./types/type";
+import RestaurantItemBottomSheet from "./components/RestaurantItemBottomSheet";
 
 class App {
   restaurantList: Restaurant[];
@@ -14,7 +15,11 @@ class App {
 
     Header.initialize(body);
     SelectContainer.initialize(body, this.setSortListFilterById);
-    RestaurantList.initialize(body, this.restaurantList);
+    RestaurantList.initialize(
+      body,
+      this.restaurantList,
+      this.createItemBottomSheet
+    );
     RestaurantFormBottomSheet.initialize(
       body,
       this.addRestaurantItemToList.bind(this)
@@ -28,6 +33,16 @@ class App {
     this.restaurantList = restaurantListHandler.getRestaurants();
 
     RestaurantList.updateRestaurantList(this.restaurantList);
+  }
+
+  createItemBottomSheet = (id: string) => {
+    const restaurant = <Restaurant>this.getSelectedItem(id);
+    const itemSheet = new RestaurantItemBottomSheet(restaurant);
+    itemSheet.initialize();
+  };
+
+  getSelectedItem(id: string) {
+    return this.restaurantList.find((restaurant) => restaurant.id === id);
   }
 
   setSortListFilterById = (id: string, value: string) => {

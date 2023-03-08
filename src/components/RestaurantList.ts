@@ -11,8 +11,24 @@ class RestaurantList {
     </section>`;
   }
 
-  initialize(target: Element, restaurants: Restaurant[]) {
+  initialize(
+    target: Element,
+    restaurants: Restaurant[],
+    onSelectRestaurantID: (id: string) => void
+  ) {
     this.render(target, restaurants);
+    this.addEvent(onSelectRestaurantID);
+  }
+
+  addEvent(onSelectRestaurantID: (id: string) => void) {
+    const restaurantListContainer = $(".restaurant-list") as HTMLElement;
+    restaurantListContainer?.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+      const id = <string>target.closest("li")?.dataset.id;
+
+      onSelectRestaurantID(id);
+      $(".item-sheet")?.classList.add("modal--open");
+    });
   }
 
   renderList(target: Element, restaurants: Restaurant[]) {
