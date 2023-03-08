@@ -1,4 +1,5 @@
 import RestaurantListManager from "../../domain/RestaurantListManager";
+import { $ } from "../../util/dom";
 import RestaurantItem from "./RestaurantItem";
 
 const dummyData = [
@@ -58,6 +59,15 @@ class RestaurantList {
     const filteredList = this.restaurantListManager.getRestaurantList(category, sortingWay);
 
     this.render(filteredList);
+  }
+
+  addRestaurant(newRestaurant) {
+    this.restaurantListManager.addRestaurant(newRestaurant);
+
+    const selectedCategory = $("#category-filter").value;
+    const selectedSortingWay = $("#sorting-filter").value;
+
+    this.renderFilteredList(selectedCategory, selectedSortingWay);
   }
 }
 

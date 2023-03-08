@@ -28,7 +28,7 @@ class ModalContainer {
     const $modalContainer = this.$target.querySelector(".modal-container");
     const formModal = new AddRestaurantFormModal($modalContainer);
 
-    formModal.setSubmitEvent(restaurantList);
+    formModal.setSubmitEvent(restaurantList, this.toggle.bind(this));
     formModal.setCancelEvent(this.toggle.bind(this));
   }
 

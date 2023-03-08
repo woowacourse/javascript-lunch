@@ -87,7 +87,7 @@ class AddRestaurantFormModal {
     this.$target.innerHTML = this.template();
   }
 
-  setSubmitEvent(restaurantList) {
+  setSubmitEvent(restaurantList, toggleModal) {
     this.$target.querySelector("#add-restaurant-form").addEventListener("submit", (event) => {
       event.preventDefault();
 
@@ -97,6 +97,7 @@ class AddRestaurantFormModal {
       }, {});
 
       restaurantList.addRestaurant(newRestaurant);
+      toggleModal();
     });
   }
 
