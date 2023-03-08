@@ -15,9 +15,12 @@ class LunchApp {
       onHeaderAddButtonClicked: () => this.#onHeaderAddButtonClicked(),
       onFilterByChange: (filterBy: string) => this.#onFilterByChange(filterBy),
       onSortByChange: (sortBy: string) => this.#onSortByChange(sortBy),
-      onRestaurantItemClicked: (index) => this.#onRestaurantItemClicked(index),
-      onFavoriteButtonClicked: (index: number) =>
-        this.#onFavoriteButtonClicked(index),
+      onRestaurantItemClicked: (itemId) =>
+        this.#onRestaurantItemClicked(itemId),
+      onFavoriteButtonClicked: (itemId: number) =>
+        this.#onFavoriteButtonClicked(itemId),
+      onDeleteButtonClicked: (itemId: number) =>
+        this.#onDeleteButtonClicked(itemId),
     },
   });
 
@@ -68,6 +71,14 @@ class LunchApp {
     this.#lunchAppView.updateRestaurantInfo(
       this.#restaurants.getRestaurantById(itemId)
     );
+    this.#restaurants.saveRestaurantsToLocalStorage();
+  }
+
+  #onDeleteButtonClicked(itemId: number) {
+    this.#lunchAppView.closeOrOpenRestaurantInfoModal('close');
+
+    this.#restaurants.deleteRestaurantById(itemId);
+    this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
     this.#restaurants.saveRestaurantsToLocalStorage();
   }
 }

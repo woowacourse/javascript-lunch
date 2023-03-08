@@ -70,6 +70,14 @@ class Restaurants {
     return this.#restaurants[searchedIndex];
   }
 
+  deleteRestaurantById(itemId: number) {
+    const searchedIndex = this.#getRestaurantIndexById(itemId);
+
+    if (searchedIndex !== -1) {
+      this.#restaurants.splice(searchedIndex, 1);
+    }
+  }
+
   #getSortedRestaurantsByName(restaurants: Restaurant[]) {
     return [...restaurants].sort((x, y) => x.name.localeCompare(y.name));
   }

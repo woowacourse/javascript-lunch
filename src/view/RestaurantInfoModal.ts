@@ -2,11 +2,13 @@ import { $ } from '../util/querySelector';
 import { Restaurant } from '../type';
 import Modal from './components/Modal';
 import RestaurantItem from './components/RestaurantItem';
+import TwinButtons from './components/TwinButtons';
 
 type RestaurantInfoModalType = {
   parentElement: HTMLElement;
   parentEvent: {
     onFavoriteButtonClicked: (itemId: number) => void;
+    onDeleteButtonClicked: (itemId: number) => void;
   };
 };
 
@@ -41,6 +43,21 @@ class RestaurantInfoModal {
       parentEvent: {
         onFavoriteButtonClicked: (itemId: number) =>
           this.#parentEvent.onFavoriteButtonClicked(itemId),
+      },
+    });
+
+    new TwinButtons({
+      parentElement: $('#restaurant-info-modal-contents'),
+      info: {
+        leftButtonId: 'info-modal-delete',
+        rightButtonId: 'info-modal-close',
+        leftButtonName: '삭제하기',
+        rightButtonName: '닫기',
+      },
+      parentEvent: {
+        onLeftButtonClicked: () =>
+          this.#parentEvent.onDeleteButtonClicked(restaurant.itemId),
+        onRightButtonClicked: () => this.closeOrOpenModal('close'),
       },
     });
   }

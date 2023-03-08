@@ -15,8 +15,9 @@ type LunchAppViewType = {
     onHeaderAddButtonClicked: () => void;
     onFilterByChange: (filterBy: string) => void;
     onSortByChange: (sortBy: string) => void;
-    onRestaurantItemClicked: (index: number) => void;
-    onFavoriteButtonClicked: (index: number) => void;
+    onRestaurantItemClicked: (itemId: number) => void;
+    onFavoriteButtonClicked: (itemId: number) => void;
+    onDeleteButtonClicked: (itemId: number) => void;
   };
 };
 
@@ -130,8 +131,10 @@ class LunchAppView {
     this.#restaurantInfoModal = new RestaurantInfoModal({
       parentElement: $('#restaurant-info-modal-root'),
       parentEvent: {
-        onFavoriteButtonClicked: (index: number) =>
-          this.#parentEvent.onFavoriteButtonClicked(index),
+        onFavoriteButtonClicked: (itemId: number) =>
+          this.#parentEvent.onFavoriteButtonClicked(itemId),
+        onDeleteButtonClicked: (itemId: number) =>
+          this.#parentEvent.onDeleteButtonClicked(itemId),
       },
     });
   }

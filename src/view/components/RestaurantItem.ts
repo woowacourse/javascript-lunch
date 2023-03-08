@@ -27,7 +27,7 @@ class RestaurantItem {
   }
 
   #render() {
-    const element = `
+    const template = `
       <li class="restaurant" ${
         typeof this.#restaurant.itemId === 'number'
           ? `id="restaurant-${this.#restaurant.itemId}"`
@@ -74,7 +74,7 @@ class RestaurantItem {
     if (this.#parentElement) {
       this.#parentElement.insertAdjacentHTML(
         'beforeEnd' as InsertPosition,
-        element
+        template
       );
     }
   }
