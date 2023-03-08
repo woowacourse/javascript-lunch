@@ -20,7 +20,7 @@ class RestaurantFormBottomSheet {
   }
 
   template() {
-    return `<div class="modal">
+    return `<div class="form-sheet">
     <div class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -127,7 +127,7 @@ class RestaurantFormBottomSheet {
   }
 
   closeModal() {
-    $(".modal")?.classList.remove("modal--open");
+    $(".form-sheet")?.classList.remove("modal--open");
   }
 }
 
