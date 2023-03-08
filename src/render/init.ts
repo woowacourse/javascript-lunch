@@ -7,6 +7,7 @@ export default () => {
     'afterbegin',
     ` <r-header></r-header>
         <main>
+          <r-restaurant-type-section></r-restaurant-type-section>
           <r-search-restaurant-section></r-search-restaurant-section>
           <r-restaurant-list id="restaurant-list"></r-restaurant-list>
         </main>
