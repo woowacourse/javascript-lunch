@@ -21,9 +21,11 @@ export interface Object {
 }
 
 export interface Restaurant {
+  id: string;
   category: Category;
   name: string;
   takingTime: TakingTime;
+  bookmarked: boolean;
   description?: string;
   link?: string;
 }
