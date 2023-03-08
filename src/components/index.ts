@@ -17,6 +17,10 @@ export type CustomRestaurantListElement = RestaurantList;
 
 export type CustomSelectElement = Select;
 
+export type CustomSearchRestaurantSection = SearchRestaurantSection;
+
+export type CustomRestaurantTypeSection = RestaurantTypeSection;
+
 export type CustomRegisterRestaurantModalElement = RegisterRestaurantModal;
 
 export type CustomRestaurantDetailModalElement = RestaurantDetailModal;

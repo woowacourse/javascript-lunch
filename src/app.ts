@@ -13,17 +13,22 @@ class App {
 
   #filterPipes: Partial<
     Record<'filter' | 'sort' | 'type', (restaurants: Restaurant[]) => Restaurant[]>
-  > = {
-    sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
-    type: (_restaurants: Restaurant[]) => _restaurants,
-  };
+  > = {};
 
   constructor() {
     this.init();
   }
 
   init = () => {
+    this.initFilterPipes();
     this.initEventHandlers();
+  };
+
+  initFilterPipes = () => {
+    this.#filterPipes = {
+      sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
+      type: (_restaurants: Restaurant[]) => Restaurants.getAll(_restaurants),
+    };
   };
 
   updateRestaurantsList = () => {
@@ -138,6 +143,13 @@ class App {
     const { type } = detail;
 
     this.#filterPipes.type = type === 'all' ? Restaurants.getAll : Restaurants.getFavorite;
+
+    if (type === 'all') {
+      render.openSearchRestaurantSection();
+      this.initFilterPipes();
+    } else {
+      render.closeSearchRestaurantSection();
+    }
 
     this.#restaurantListType = type;
     this.updateRestaurantsList();

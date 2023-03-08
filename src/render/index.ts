@@ -2,6 +2,7 @@ import init from './init';
 import restaurantList from './restaurantList';
 import registerRestaurantModal from './registerRestaurantModal';
 import restaurantDetailModal from './restaurantDetailModal';
+import searchRestaurantSection from './searchRestaurantSection';
 
 export default {
   init,
@@ -15,4 +16,7 @@ export default {
 
   openRestaurantDetailModal: restaurantDetailModal.open,
   closeRestaurantDetailModal: restaurantDetailModal.close,
+
+  openSearchRestaurantSection: searchRestaurantSection.open,
+  closeSearchRestaurantSection: searchRestaurantSection.close,
 };
