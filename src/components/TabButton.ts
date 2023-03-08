@@ -19,7 +19,7 @@ class TabButton {
       </button>`;
   }
 
-  addEvent() {
+  addEvent(onClick: CallableFunction) {
     const tabButton = $(`#${this.attributes.id}`) as HTMLButtonElement;
 
     tabButton.addEventListener('click', (event: Event) => {
@@ -31,6 +31,7 @@ class TabButton {
       });
 
       target.classList.add('tab-button--active');
+      onClick(this.attributes.id);
     });
   }
 }

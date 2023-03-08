@@ -18,8 +18,8 @@ class RestaurantTabMenu {
   }
 
   addEvent(onClick: CallableFunction) {
-    this.allTab.addEvent();
-    this.favoriteTab.addEvent();
+    this.allTab.addEvent(onClick);
+    this.favoriteTab.addEvent(onClick);
 
     /**
      * 탭 변경시
