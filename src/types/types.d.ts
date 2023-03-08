@@ -13,6 +13,11 @@ export type Restaurant = {
   link?: string;
 };
 
+export type RestaurantFilter = {
+  category?: CategoryFilterOption;
+  sorting?: SortingOption;
+};
+
 export type Errors = {
   [key: string]: Boolean;
 };
