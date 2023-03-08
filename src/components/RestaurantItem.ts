@@ -23,7 +23,9 @@ const RestaurantItem = (restaurant: IRestaurant) => {
             </div>
             <div>
               <img
-                src="${findImage("favoriteLined")}" 
+                src="${findImage(
+                  restaurant.favorite ? "favoriteFilled" : "favoriteLined"
+                )}" 
                 alt="${restaurant.category}" 
                 class="category-icon"
               >
