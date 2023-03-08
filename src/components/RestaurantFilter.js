@@ -28,17 +28,29 @@ class RestaurantFilter {
   }
 
   render() {
+<<<<<<< HEAD
     if (!document.querySelector('.restaurant-filter-containe')) {
+=======
+    if (!document.querySelector('.restaurant-filter-container')) {
+>>>>>>> step2-test
       this.$target.insertAdjacentHTML('afterbegin', this.template());
     }
   }
 
+<<<<<<< HEAD
   setEvent(renderRestaurantsList) {
+=======
+  setEvent(onChangeFilterOption) {
+>>>>>>> step2-test
     const $filters = document.querySelector('.restaurant-filter-container');
 
     $filters.addEventListener('change', e => {
       e.preventDefault();
+<<<<<<< HEAD
       renderRestaurantsList();
+=======
+      onChangeFilterOption();
+>>>>>>> step2-test
     });
   }
 }

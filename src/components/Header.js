@@ -28,12 +28,20 @@ class Header {
     });
   }
 
+<<<<<<< HEAD
   setModalOpenEvent(renderModal) {
+=======
+  setModalOpenEvent(onclickAddRestaurant) {
+>>>>>>> step2-test
     const $addButton = document.querySelector('.gnb__button');
 
     $addButton.addEventListener('click', e => {
       e.preventDefault();
+<<<<<<< HEAD
       renderModal();
+=======
+      onclickAddRestaurant();
+>>>>>>> step2-test
     });
   }
 }

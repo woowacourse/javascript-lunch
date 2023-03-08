@@ -79,7 +79,11 @@ class Modal {
     this.toggleModal();
   }
 
+<<<<<<< HEAD
   setSubmitEvent(renderRestaurantList) {
+=======
+  setSubmitEvent(onSubmitModalForm) {
+>>>>>>> step2-test
     const $modalForm = document.querySelector('.modal form');
 
     $modalForm.addEventListener('submit', e => {
@@ -89,7 +93,11 @@ class Modal {
       this.restaurants.add(restaurant);
       localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
 
+<<<<<<< HEAD
       renderRestaurantList();
+=======
+      onSubmitModalForm();
+>>>>>>> step2-test
 
       $modalForm.reset();
       this.toggleModal();
@@ -111,7 +119,11 @@ class Modal {
     const name = document.querySelector('#name').value;
     const distance = document.querySelector('#distance').value;
     const description = document.querySelector('#description').value;
+<<<<<<< HEAD
     const link = document.querySelector('#link');
+=======
+    const link = document.querySelector('#link').value;
+>>>>>>> step2-test
 
     return {
       category: category,

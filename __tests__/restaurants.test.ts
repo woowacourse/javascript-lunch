@@ -3,6 +3,7 @@ import { Restaurant } from '../src/types/Types';
 
 describe('Restaurants 도메인 테스트', () => {
   const yeoptoRestaurant: Restaurant = {
+<<<<<<< HEAD
     category: '기타',
     name: '엽토네 떡볶이',
     distance: 5,
@@ -12,14 +13,37 @@ describe('Restaurants 도메인 테스트', () => {
     category: '한식',
     name: '도리네 집밥',
     distance: 15,
+=======
+    ID: 0,
+    category: '기타',
+    name: '엽토네 떡볶이',
+    distance: 5,
+    favorites: false,
+  };
+
+  const doriRestaurant: Restaurant = {
+    ID: 1,
+    category: '한식',
+    name: '도리네 집밥',
+    distance: 15,
+    favorites: false,
+>>>>>>> step2-test
   };
 
   const restaurants = new Restaurants([]);
 
   const gongwonRestaurant: Restaurant = {
+<<<<<<< HEAD
     category: '일식',
     name: '공원네 초밥집',
     distance: 10,
+=======
+    ID: 2,
+    category: '일식',
+    name: '공원네 초밥집',
+    distance: 10,
+    favorites: false,
+>>>>>>> step2-test
   };
 
   test('음식점 목록을 추가하는 기능 테스트', () => {
@@ -35,6 +59,10 @@ describe('Restaurants 도메인 테스트', () => {
     const sortedByName = Restaurants.sortByType('name', restaurants.restaurants);
     const sortedByDistance = Restaurants.sortByType('distance', restaurants.restaurants);
 
+<<<<<<< HEAD
+=======
+    console.log(sortedByName);
+>>>>>>> step2-test
     expect(sortedByName.map(restaurant => restaurant.name)).toStrictEqual([
       '공원네 초밥집',
       '도리네 집밥',
@@ -51,4 +79,13 @@ describe('Restaurants 도메인 테스트', () => {
   test('음식점을 분류 카테고리에 따라 필터링 하는 기능 테스트', () => {
     expect(Restaurants.filterByCategory('한식', restaurants.restaurants)[0].name).toBe('도리네 집밥');
   });
+<<<<<<< HEAD
+=======
+
+  test('음식점 목록을 삭제하는 기능 테스트', () => {
+    restaurants.deleteByID(0);
+
+    expect(restaurants.restaurants.map(restaurant => restaurant.name)).toStrictEqual(['공원네 초밥집', '도리네 집밥']);
+  });
+>>>>>>> step2-test
 });
