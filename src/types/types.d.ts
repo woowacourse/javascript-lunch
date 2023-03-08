@@ -11,6 +11,7 @@ export type Restaurant = {
   distance: Distance;
   description?: string;
   link?: string;
+  favorite: boolean;
 };
 
 export type RestaurantFilter = {
