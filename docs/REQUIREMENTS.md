@@ -68,6 +68,7 @@
 - [x] refactor: SearchRestaurantSection 추가
 - [x] refactor: 검색창 윈도우 로드 후 삽입하기
 - [x] refactor: 음식점 목록 윈도우 로드 후 삽입하기
+- [x] refactor: Header 웹 컴포넌트 추가 및 윈도우 로드 후 삽입하기
 - [ ] fix: 모바일 환경에서 모달 스크롤 오류 현상 해결
 - [ ] fix: 텍스트 칼라 오류 해결
 - [ ] feat: 음식점 상세 정보 확인

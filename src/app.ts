@@ -14,8 +14,6 @@ class App {
     sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
   };
 
-  $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button');
-
   constructor() {
     this.init();
   }
@@ -129,22 +127,24 @@ class App {
   };
 
   initEventHandlers() {
-    if (!this.$modalOpenButton) return;
-
-    this.$modalOpenButton.addEventListener('click', this.openRegisterRestaurantModal);
+    document.addEventListener('openModal', this.openRegisterRestaurantModal);
     document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
     document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
     document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
 
     window.addEventListener('load', () => {
-      const $main = document.querySelector<HTMLElement>('main');
+      const $lunchApp = document.querySelector<HTMLDivElement>('#lunch-app');
 
-      if (!$main) return;
+      if (!$lunchApp) return;
 
-      $main.insertAdjacentHTML(
-        'beforebegin',
-        `<r-search-restaurant-section></r-search-restaurant-section>
-        <r-restaurant-list id="restaurant-list"></r-restaurant-list>`,
+      $lunchApp.insertAdjacentHTML(
+        'afterbegin',
+        ` <r-header></r-header>
+          <main>
+            <r-search-restaurant-section></r-search-restaurant-section>
+            <r-restaurant-list id="restaurant-list"></r-restaurant-list>,
+          </main>
+        `,
       );
 
       this.load();
