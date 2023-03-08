@@ -25,6 +25,7 @@ interface Restaurants {
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
   compareByName(a: Restaurant, b: Restaurant): number;
+  changeFavorite(restaurantID: number): void;
 }
 
 export const restaurants: Restaurants = {
@@ -71,5 +72,9 @@ export const restaurants: Restaurants = {
     if (a.name > b.name) return 1;
     if (a.name < b.name) return -1;
     return 0;
+  },
+
+  changeFavorite(restaurantID) {
+    this.list[restaurantID].favorite = !this.list[restaurantID].favorite;
   },
 };
