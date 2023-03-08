@@ -1,7 +1,5 @@
 import { Category, CATEGORY, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
-import { errorHandler } from '../../utils/common/errorHandler';
 import { addData } from '../../utils/common/localStorage';
-import { validator } from '../../validation/validator';
 
 export interface FilterType {
   sortOption: SortOption;
@@ -56,8 +54,6 @@ export class LunchRecommendation implements ILunchRecommendation {
   }
 
   add(restaurantInfo: Omit<RestaurantInfo, 'id'>): void {
-    errorHandler(validator, restaurantInfo);
-
     const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
     this.origin.push(new Restaurant({ ...restaurantInfo, id }));
     addData(this.origin.map(({ info }) => info));
