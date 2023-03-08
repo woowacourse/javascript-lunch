@@ -1,16 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
-
-import { CustomRestaurantListElement } from './components';
+import render from './render';
 import { DEFAULT_RESTAURANTS } from './fixtures';
 import { FILTER, SORT } from './utils/constants';
-import render from './render';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
-
-  $restaurantList: CustomRestaurantListElement | null = null;
 
   #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> = {
     sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
@@ -25,17 +21,12 @@ class App {
   }
 
   updateRestaurantsList() {
-    if (!this.$restaurantList)
-      this.$restaurantList =
-        document.querySelector<CustomRestaurantListElement>('#restaurant-list')!;
-
-    this.$restaurantList.setRestaurants(
-      Object.values(this.#filterPipes).reduce(
-        (filteredRestaurants, filter) => filter(filteredRestaurants),
-        this.#restaurants,
-      ),
+    const updatedRestaurantsList = Object.values(this.#filterPipes).reduce(
+      (filteredRestaurants, filter) => filter(filteredRestaurants),
+      this.#restaurants,
     );
 
+    render.restaurantList(updatedRestaurantsList);
     this.save();
   }
 
@@ -56,14 +47,13 @@ class App {
   };
 
   changeRestaurantSort = ({ detail }: CustomEvent) => {
+    const compareFn =
+      detail.value === SORT.value.name ? Restaurants.byName : Restaurants.byDistance;
+
     const sortFilter = (_restaurants: Restaurant[]) =>
-      Restaurants.getSorted(
-        _restaurants,
-        detail.value === SORT.value.name ? Restaurants.byName : Restaurants.byDistance,
-      );
+      Restaurants.getSorted(_restaurants, compareFn);
 
     this.#filterPipes.sort = sortFilter;
-
     this.updateRestaurantsList();
   };
 
