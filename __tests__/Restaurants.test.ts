@@ -14,7 +14,7 @@ describe('Restaurants.addRestaurant', () => {
       category: '한식',
       name: '돈카라',
       distance: '10',
-      favorite: false,
+      isFavorite: false,
     };
 
     restaurants.addRestaurant(restaurant);
@@ -35,19 +35,19 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
         distance: '10',
         description: '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점',
         link: 'www.naver.com',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '한식',
         name: '김치찌개 장인',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '일식',
         name: '돈카라',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
     ];
     const restaurants = new Restaurants(dummyRestaurants);
@@ -63,13 +63,13 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
         distance: '10',
         description: '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점',
         link: 'www.naver.com',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '한식',
         name: '김치찌개 장인',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
     ];
 
@@ -84,19 +84,19 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
         distance: '10',
         description: '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점',
         link: 'www.naver.com',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '한식',
         name: '김치찌개 장인',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '일식',
         name: '돈카라',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
     ];
     const restaurants = new Restaurants(dummyRestaurants);
@@ -120,19 +120,19 @@ describe('Restaurants.getSortedRestaurantsByName', () => {
         distance: '10',
         description: '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점',
         link: 'www.naver.com',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '한식',
         name: '김치찌개 장인',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '일식',
         name: '돈카라',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
     ];
 
@@ -142,13 +142,13 @@ describe('Restaurants.getSortedRestaurantsByName', () => {
         category: '한식',
         name: '김치찌개 장인',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '일식',
         name: '돈카라',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '한식',
@@ -156,7 +156,7 @@ describe('Restaurants.getSortedRestaurantsByName', () => {
         distance: '10',
         description: '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점',
         link: 'www.naver.com',
-        favorite: false,
+        isFavorite: false,
       },
     ];
 
@@ -174,19 +174,19 @@ describe('Restaurants.getSortedRestaurantsByDistance', () => {
         distance: '10',
         description: '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점',
         link: 'www.naver.com',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '한식',
         name: '김치찌개 장인',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '일식',
         name: '돈카라',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
     ];
 
@@ -196,13 +196,13 @@ describe('Restaurants.getSortedRestaurantsByDistance', () => {
         category: '한식',
         name: '김치찌개 장인',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '일식',
         name: '돈카라',
         distance: '5',
-        favorite: false,
+        isFavorite: false,
       },
       {
         category: '한식',
@@ -210,7 +210,7 @@ describe('Restaurants.getSortedRestaurantsByDistance', () => {
         distance: '10',
         description: '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점',
         link: 'www.naver.com',
-        favorite: false,
+        isFavorite: false,
       },
     ];
 
