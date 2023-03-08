@@ -18,6 +18,7 @@ import 양식 from "../templates/category-western.png";
 import 아시안 from "../templates/category-asian.png";
 import 기타 from "../templates/category-etc.png";
 import addButtonImg from "../templates/add-button.png";
+import starFilled from "../templates/favorite-icon-filled.png";
 
 const newRestaurant = new Restaurants();
 const addButton = $(".gnb__button");
@@ -25,34 +26,23 @@ const categoryFilter = $("#category-filter");
 const sortingFilter = $("#sorting-filter");
 const save = LocalStorage.setItem(localStorage.length);
 
-addButton.querySelector("img").src = addButtonImg;
-
-categoryFilter.addEventListener("change", () => {
-  updateRestaurant();
-});
-
-sortingFilter.addEventListener("change", () => {
-  updateRestaurant();
-});
-
-addButton.addEventListener("click", () => {
-  const modal = new Modal(Element.addListContents);
-
-  modal.render();
-
-  $(".button--primary")?.addEventListener("click", (event) => {
-    const submitAlert = new Alert("#alert-submit");
-
-    event.preventDefault();
-    submitNewRestaurant(modal, submitAlert);
+const updateRestaurant = () => {
+  $(".restaurant-list-container").innerHTML = "";
+  const sortResult = sortRestaurant(
+    sortingFilter.value,
+    newRestaurant.getList()
+  );
+  const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
+  return filterResult.forEach((element) => {
+    const restaurantList = new RestaurantList(
+      element.name,
+      element.distance,
+      element.description,
+      getMatchImage(element.category)
+    );
+    restaurantList.render();
   });
-
-  $(".button--secondary")?.addEventListener("click", () => {
-    cancelAddRestaurant(modal);
-  });
-
-  checkSelected();
-});
+};
 
 const submitNewRestaurant = (modal, submitAlert) => {
   try {
@@ -73,24 +63,6 @@ const submitNewRestaurant = (modal, submitAlert) => {
 const cancelAddRestaurant = (modal) => {
   resetRestaurantInput();
   modal.close();
-};
-
-const updateRestaurant = () => {
-  $(".restaurant-list-container").innerHTML = "";
-  const sortResult = sortRestaurant(
-    sortingFilter.value,
-    newRestaurant.getList()
-  );
-  const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-  return filterResult.forEach((element) => {
-    const restaurantList = new RestaurantList(
-      element.name,
-      element.distance,
-      element.description,
-      getMatchImage(element.category)
-    );
-    restaurantList.render();
-  });
 };
 
 const getMatchImage = (category) => {
@@ -117,6 +89,29 @@ const resetRestaurantInput = () => {
   $("#link").value = "";
   $("#description").value = "";
 };
+
+addButton.querySelector("img").src = addButtonImg;
+categoryFilter.addEventListener("change", updateRestaurant);
+
+sortingFilter.addEventListener("change", updateRestaurant);
+
+addButton.addEventListener("click", () => {
+  const modal = new Modal(Element.addListContents);
+
+  modal.render();
+  $(".button--primary")?.addEventListener("click", (event) => {
+    const submitAlert = new Alert("#alert-submit");
+
+    event.preventDefault();
+    submitNewRestaurant(modal, submitAlert);
+  });
+
+  $(".button--secondary")?.addEventListener("click", () => {
+    cancelAddRestaurant(modal);
+  });
+
+  checkSelected();
+});
 
 window.onload = function () {
   LocalStorage.getItems().forEach((item) => {
