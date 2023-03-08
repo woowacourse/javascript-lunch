@@ -5,6 +5,7 @@ import { closeBottomSheet } from "../components/BottomSheet/handleBottomSheet";
 import { addRestaurant } from "../components/RestaurantList/handleRestaurantList";
 import { CATEGORY_NAME } from "../constants/CATEGORY_NAME";
 import { DISTANCE } from "../constants/DISTANCE";
+import { v4 as uuidv4 } from "uuid";
 
 export const categoryOptions = () => {
   return Object.entries(CATEGORY_NAME)
@@ -21,6 +22,7 @@ export const distanceOptions = () => {
 export const createNewRestaurant = (event: SubmitEvent) => {
   const formData = new FormData(event.target as HTMLFormElement);
   const newRestaurant: IRestaurant = {
+    id: uuidv4(),
     category: formData.get("category") as TCategory,
     name: formData.get("name") as string,
     distance: Number(formData.get("distance")),
