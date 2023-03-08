@@ -17,6 +17,7 @@ class Modal {
     this.#info = info;
 
     this.#render();
+    this.#addListeners();
   }
 
   closeOrOpenModal(command: string) {
@@ -44,6 +45,18 @@ class Modal {
       </dialog>`;
 
     this.#parentElement.innerHTML = template;
+  }
+
+  #addListeners() {
+    $(`#${this.#info.id} .modal-backdrop`).addEventListener('click', () => {
+      this.closeOrOpenModal('close');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        this.closeOrOpenModal('close');
+      }
+    });
   }
 }
 
