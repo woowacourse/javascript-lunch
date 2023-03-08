@@ -23,10 +23,21 @@ const RESTAURANT_DISTANCES = ['5', '10', '15', '20', '25', '30'];
 
 const LOCAL_STORAGE_KEY = 'RESTAURANT_APP';
 
+const CATEGORY_IMG_PATH = {
+  전체: null,
+  한식: './category-korean.png',
+  중식: './category-chinese.png',
+  양식: './category-western.png',
+  일식: './category-japanese.png',
+  아시안: './category-asian.png',
+  기타: './category-etc.png',
+};
+
 export {
   REGEX,
   ERROR_MESSAGE,
   RESTAURANT_CATEGORIES,
   RESTAURANT_DISTANCES,
   LOCAL_STORAGE_KEY,
+  CATEGORY_IMG_PATH,
 };
