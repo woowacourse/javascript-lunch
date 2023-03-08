@@ -86,6 +86,18 @@ Modal.setInnerHTML(restaurantInputSuccessModal, `
 `);
 $("main").appendChild(restaurantInputSuccessModal);
 
+// 음식점 세부 정보 모달 생성
+const restaurantDetailedModal = Modal.create("restaurant-detailed-modal");
+$("main").appendChild(restaurantDetailedModal);
+
+const makeOpenDetailedModalCallback = (restaurant) => () => {
+  Modal.setChildElement(
+    restaurantDetailedModal,
+    RestaurantInfo.createDetailedElement(restaurant),
+  );
+  Modal.open(restaurantDetailedModal);
+};
+
 // 음식점 입력
 const cancelButton = $("#new-restaurant-input .button--secondary");
 const submitButton = $("#new-restaurant-input .button--primary");
@@ -168,6 +180,8 @@ const updateRestaurant = () => {
   filterResult.forEach((element) => {
     const summary = RestaurantInfo.createSummaryElement(element);
     restaurantListContainer.appendChild(summary);
+    $(".restaurant-list-container").lastElementChild
+      .addEventListener("click", makeOpenDetailedModalCallback(element));
   });
 };
 

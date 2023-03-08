@@ -27,6 +27,7 @@ const Modal = {
   },
 
   setChildElement(element, child) {
+    element.querySelector(".modal-container").innerHTML = "";
     element.querySelector(".modal-container").appendChild(child);
   },
 
