@@ -1,13 +1,11 @@
 import style from '../style/style';
 
 abstract class Component extends HTMLElement {
-  override readonly shadowRoot: ShadowRoot;
-
   constructor() {
     super();
 
-    this.shadowRoot = this.attachShadow({ mode: 'open' });
-    this.shadowRoot.adoptedStyleSheets = [style];
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot!.adoptedStyleSheets = [style];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -17,7 +15,7 @@ abstract class Component extends HTMLElement {
   abstract renderTemplate(): string;
 
   render() {
-    this.shadowRoot.innerHTML = this.renderTemplate();
+    this.shadowRoot!.innerHTML = this.renderTemplate();
   }
 
   connectedCallback() {

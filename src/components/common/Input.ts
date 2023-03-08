@@ -76,7 +76,7 @@ class Input extends FormControlComponent {
       this.internals.setValidity(
         { valueMissing: true },
         '값을 입력해야 합니다.',
-        this.shadowRoot.querySelector('input') ?? undefined,
+        this.shadowRoot?.querySelector('input') ?? undefined,
       );
       return;
     }
@@ -84,11 +84,11 @@ class Input extends FormControlComponent {
   }
 
   override get value() {
-    return this.shadowRoot.querySelector<HTMLInputElement>('input')?.value ?? '';
+    return this.shadowRoot?.querySelector<HTMLInputElement>('input')?.value ?? '';
   }
 
   formResetCallback() {
-    this.shadowRoot.querySelector<HTMLInputElement>('input')!.value = '';
+    this.shadowRoot!.querySelector<HTMLInputElement>('input')!.value = '';
     this.internals.setValidity({});
   }
 }

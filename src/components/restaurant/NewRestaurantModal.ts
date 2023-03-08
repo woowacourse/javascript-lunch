@@ -7,12 +7,12 @@ export type NewRestaurantSubmitEvent = CustomEvent<Restaurant>;
 
 class NewRestaurantModal extends Component {
   open() {
-    this.shadowRoot.querySelector<Modal>('r-modal')?.open();
+    this.shadowRoot?.querySelector<Modal>('r-modal')?.open();
   }
 
   close() {
-    this.shadowRoot.querySelector('form')?.reset();
-    this.shadowRoot.querySelector<Modal>('r-modal')?.close();
+    this.shadowRoot?.querySelector('form')?.reset();
+    this.shadowRoot?.querySelector<Modal>('r-modal')?.close();
   }
 
   onClickCancel() {
@@ -27,7 +27,7 @@ class NewRestaurantModal extends Component {
     event?.preventDefault();
 
     const restaurantProps = Object.fromEntries([
-      ...new FormData(this.shadowRoot.querySelector('form') ?? undefined).entries(),
+      ...new FormData(this.shadowRoot?.querySelector('form') ?? undefined).entries(),
     ]);
 
     const restaurant = new Restaurant({
