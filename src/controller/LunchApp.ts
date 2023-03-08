@@ -16,6 +16,8 @@ class LunchApp {
       onFilterByChange: (filterBy: string) => this.#onFilterByChange(filterBy),
       onSortByChange: (sortBy: string) => this.#onSortByChange(sortBy),
       onRestaurantItemClicked: (index) => this.#onRestaurantItemClicked(index),
+      onFavoriteButtonClicked: (index: number) =>
+        this.#onFavoriteButtonClicked(index),
     },
   });
 
@@ -52,10 +54,21 @@ class LunchApp {
     this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
   }
 
-  #onRestaurantItemClicked(index: number) {
-    const restaurant = this.#restaurants.getRestaurantByIndex(index);
+  #onRestaurantItemClicked(itemId: number) {
+    const restaurant = this.#restaurants.getRestaurantById(itemId);
 
-    this.#lunchAppView.openInfoModal(restaurant);
+    this.#lunchAppView.updateRestaurantInfo(restaurant);
+    this.#lunchAppView.closeOrOpenRestaurantInfoModal('open');
+  }
+
+  #onFavoriteButtonClicked(itemId: number) {
+    this.#restaurants.toggleFavorite(itemId);
+
+    this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
+    this.#lunchAppView.updateRestaurantInfo(
+      this.#restaurants.getRestaurantById(itemId)
+    );
+    this.#restaurants.saveRestaurantsToLocalStorage();
   }
 }
 

@@ -120,6 +120,8 @@ class RestaurantAddModal {
         );
       }
     });
+
+    console.log($modalAddForm);
   }
 }
 

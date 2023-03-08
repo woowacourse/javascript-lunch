@@ -7,6 +7,7 @@ type RestaurantListType = {
   restaurants: Restaurant[];
   parentEvent: {
     onRestaurantItemClicked: (index: number) => void;
+    onFavoriteButtonClicked: (index: number) => void;
   };
 };
 
@@ -20,6 +21,7 @@ class RestaurantList {
     this.#restaurants = restaurants;
     this.#parentEvent = parentEvent;
 
+    console.log(restaurants);
     this.#render();
     this.#renderRestaurantItems();
   }
@@ -33,14 +35,16 @@ class RestaurantList {
   }
 
   #renderRestaurantItems() {
-    this.#restaurants.forEach((restaurant: Restaurant, index: number) => {
+    this.#restaurants.forEach((restaurant: Restaurant) => {
+      console.log(restaurant, restaurant.itemId);
       new RestaurantItem({
         parentElement: $(`#restaurant-list`),
         restaurant: restaurant,
-        index: index,
         parentEvent: {
-          onItemClicked: (index: number) =>
-            this.#parentEvent.onRestaurantItemClicked(index),
+          onItemClicked: (itemId: number) =>
+            this.#parentEvent.onRestaurantItemClicked(itemId),
+          onFavoriteButtonClicked: (itemId: number) =>
+            this.#parentEvent.onFavoriteButtonClicked(itemId),
         },
       });
     });

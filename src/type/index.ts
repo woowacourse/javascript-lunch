@@ -8,6 +8,7 @@ type UserRestaurantInput = {
 
 type Restaurant = UserRestaurantInput & {
   isFavorite: boolean;
+  itemId: number;
 };
 
 type CategoryType = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';

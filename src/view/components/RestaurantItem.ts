@@ -1,40 +1,38 @@
-import { CATEGORY_IMAGE_PATH } from '../../constant';
+import { CATEGORY_IMAGE_PATH, FAVORITE_IMAGE_PATH } from '../../constant';
 import { Restaurant } from '../../type';
 import { $ } from '../../util/querySelector';
 
 type RestaurantItemType = {
   parentElement: HTMLElement;
   restaurant: Restaurant;
-  index?: number;
   parentEvent?: {
-    onItemClicked: (index: number) => void;
+    onItemClicked?: (itemId: number) => void;
+    onFavoriteButtonClicked?: (itemId: number) => void;
   };
 };
 
 class RestaurantItem {
   #parentElement;
   #restaurant;
-  #index;
   #parentEvent;
 
-  constructor({
-    parentElement,
-    restaurant,
-    index,
-    parentEvent,
-  }: RestaurantItemType) {
+  constructor({ parentElement, restaurant, parentEvent }: RestaurantItemType) {
     this.#parentElement = parentElement;
     this.#restaurant = restaurant;
-    this.#index = index;
     this.#parentEvent = parentEvent;
 
     this.#render();
     this.#setListeners();
+    this.#removeTemporaryIds();
   }
 
   #render() {
     const element = `
-      <li class="restaurant" id="restaurant-${this.#index}">
+      <li class="restaurant" ${
+        typeof this.#restaurant.itemId === 'number'
+          ? `id="restaurant-${this.#restaurant.itemId}"`
+          : ''
+      }>
         <div class="restaurant__category">
           <img
             src="${
@@ -45,7 +43,17 @@ class RestaurantItem {
             class="category-icon"
           />
         </div>
-        <img src="./favorite-icon-lined.png" class="favorite-icon" />
+        <button class="favorite-icon" ${
+          typeof this.#restaurant.itemId === 'number'
+            ? `id="favorite-${this.#restaurant.itemId}"`
+            : ''
+        }>
+          <img src="${
+            this.#restaurant.isFavorite
+              ? FAVORITE_IMAGE_PATH.starred
+              : FAVORITE_IMAGE_PATH.unstarred
+          }" class="favorite-icon" />
+        </button>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${
             this.#restaurant.name
@@ -72,12 +80,38 @@ class RestaurantItem {
   }
 
   #setListeners() {
-    // MEMO: 타입가드 안 먹힘
-    if (typeof this.#index === 'number' && this.#parentEvent) {
-      $(`#restaurant-${this.#index}`).addEventListener('click', () => {
-        this.#parentEvent?.onItemClicked(this.#index as number);
-      });
+    if (typeof this.#restaurant.itemId === 'number') {
+      $(`#restaurant-${this.#restaurant.itemId}`).addEventListener(
+        'click',
+        () => {
+          if (
+            this.#parentEvent !== undefined &&
+            this.#parentEvent.onItemClicked !== undefined
+          ) {
+            this.#parentEvent.onItemClicked(this.#restaurant.itemId);
+          }
+        }
+      );
+
+      $(`#favorite-${this.#restaurant.itemId}`).addEventListener(
+        'click',
+        (event) => {
+          event.stopPropagation();
+
+          if (
+            this.#parentEvent !== undefined &&
+            this.#parentEvent.onFavoriteButtonClicked !== undefined
+          ) {
+            this.#parentEvent.onFavoriteButtonClicked(this.#restaurant.itemId);
+          }
+        }
+      );
     }
+  }
+
+  #removeTemporaryIds() {
+    $(`#restaurant-${this.#restaurant.itemId}`).removeAttribute('id');
+    $(`#favorite-${this.#restaurant.itemId}`).removeAttribute('id');
   }
 }
 

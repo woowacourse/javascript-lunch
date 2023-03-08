@@ -11,6 +11,11 @@ const CATEGORY_IMAGE_PATH = Object.freeze({
   기타: './category-etc.png',
 });
 
+const FAVORITE_IMAGE_PATH = Object.freeze({
+  starred: './favorite-icon-filled.png',
+  unstarred: './favorite-icon-lined.png',
+});
+
 const ERROR_MESSAGE = {
   category: '카테고리를 선택해 주세요!',
   name: '이름을 입력해 주세요!',
@@ -35,6 +40,7 @@ export {
   REGEX,
   ERROR_MESSAGE,
   CATEGORY_IMAGE_PATH,
+  FAVORITE_IMAGE_PATH,
   RESTAURANT_DISTANCES_IN_MINUTE,
   RESTAURANT_CATEGORIES,
   LOCAL_STORAGE_KEY,

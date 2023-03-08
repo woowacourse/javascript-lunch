@@ -1,18 +1,23 @@
-import { $, $$ } from '../util/querySelector';
+import { $ } from '../util/querySelector';
 import { Restaurant } from '../type';
 import Modal from './components/Modal';
 import RestaurantItem from './components/RestaurantItem';
 
 type RestaurantInfoModalType = {
   parentElement: HTMLElement;
+  parentEvent: {
+    onFavoriteButtonClicked: (itemId: number) => void;
+  };
 };
 
 class RestaurantInfoModal {
   #parentElement;
+  #parentEvent;
   #modal;
 
-  constructor({ parentElement }: RestaurantInfoModalType) {
+  constructor({ parentElement, parentEvent }: RestaurantInfoModalType) {
     this.#parentElement = parentElement;
+    this.#parentEvent = parentEvent;
 
     this.#modal = new Modal({
       parentElement: this.#parentElement,
@@ -33,6 +38,10 @@ class RestaurantInfoModal {
     new RestaurantItem({
       parentElement: $('#restaurant-info-modal-contents'),
       restaurant: restaurant,
+      parentEvent: {
+        onFavoriteButtonClicked: (itemId: number) =>
+          this.#parentEvent.onFavoriteButtonClicked(itemId),
+      },
     });
   }
 

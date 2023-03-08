@@ -16,6 +16,7 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+  height: 100%;
 }
 
 /* Colors *****************************************/
@@ -125,6 +126,7 @@ body {
 }
 
 .restaurant {
+  position: relative;
   display: flex;
   align-items: flex-start;
 
@@ -191,7 +193,6 @@ body {
   position: fixed;
   display: flex;
   flex-direction: column-reverse;
-  bottom: 0;
   transition: 0.2s;
 
   bottom: -800px;
@@ -209,8 +210,8 @@ body {
   backdrop-filter: blur(8px);
 }
 
-.modal--open {
-  bottom: 0px;
+.modal.modal--open {
+  bottom: 0;
 }
 
 .modal--open .modal-backdrop {
@@ -359,4 +360,11 @@ input[name='link'] {
 
 #restaurant-info-modal-contents .restaurant .restaurant__link {
   display: block;
+}
+
+.favorite-icon {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  cursor: pointer;
 }
