@@ -1,3 +1,4 @@
+import { CustomRestaurantDetailModalElement } from '../components';
 import { RestaurantProps } from '../domain/Restaurant';
 
 const restaurantDetailModal = {
@@ -17,6 +18,16 @@ const restaurantDetailModal = {
     if (!$main) return;
 
     $main.insertAdjacentHTML('beforeend', $restaurantDetailModal);
+  },
+
+  close: () => {
+    const $restaurantDetailtModal = document.querySelector<CustomRestaurantDetailModalElement>(
+      'r-restaurant-detail-modal',
+    );
+
+    if (!$restaurantDetailtModal) return;
+
+    $restaurantDetailtModal.remove();
   },
 };
 

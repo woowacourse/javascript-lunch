@@ -17,6 +17,8 @@ export type CustomSelectElement = Select;
 
 export type CustomRegisterRestaurantModalElement = RegisterRestaurantModal;
 
+export type CustomRestaurantDetailModalElement = RestaurantDetailModal;
+
 export default {
   RegisterRestaurantModal,
   RestaurantDetailModal,

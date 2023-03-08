@@ -70,12 +70,37 @@ class RestaurantDetailModal extends CustomElement {
               `<a class="restaurnat-detail-contents restaurnat-detail-link" href=${this.referenceUrl} target="_blank">${this.referenceUrl}</a>`
             }
             <div class="restaurant-deatil-button-container button-container">
-              <r-button type="button" action="delectRestaurant" variant="secondary" name="삭제하기"></r-button>
+              <r-button type="button" action="deleteRestaurant" variant="secondary" name="삭제하기"></r-button>
               <r-button type="button" action="closeModal" variant="primary" name="닫기"></r-button>
             </div>
           </div>
         </r-modal>
     `;
+  };
+
+  render = () => {
+    super.render();
+
+    this.initEventHandlers();
+  };
+
+  clickDeleteButton = () => {
+    this.dispatchEvent(
+      new CustomEvent('deleteRestaurant', {
+        bubbles: true,
+        detail: {
+          name: this.name,
+        },
+      }),
+    );
+  };
+
+  initEventHandlers = () => {
+    const $deleteButton = this.querySelector('button[action="deleteRestaurant"]');
+
+    if (!$deleteButton) return;
+
+    $deleteButton.addEventListener('click', this.clickDeleteButton);
   };
 }
 

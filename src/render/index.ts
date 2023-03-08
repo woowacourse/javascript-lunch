@@ -12,4 +12,5 @@ export default {
   closeRegisterRestaurantModal: registerRestaurantModal.close,
 
   openRestaurantDetailModal: restaurantDetailModal.open,
+  closeRestaurantDetailModal: restaurantDetailModal.close,
 };
