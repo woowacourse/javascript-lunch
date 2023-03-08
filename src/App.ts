@@ -76,6 +76,22 @@ class App {
     saveToLocalStorage(updatedRestaurantList);
   };
 
+  updateRestaurantList = (currentTab: string) => {
+    const restaurantList =
+      currentTab === 'all-restaurants'
+        ? this.restaurantService.filterAndSort(this.currentDisplayStatus)
+        : this.restaurantService.filterAndSort(
+            this.currentDisplayStatus,
+            this.restaurantService.getFavoriteRestaurantList()
+          );
+
+    RestaurantListContainer.renderRestaurantItems(
+      $('.restaurant-list') as HTMLUListElement,
+      restaurantList,
+      this.updateFavoriteRestaurant
+    );
+  };
+
   addEvents() {
     Header.addEvent(this.formModal.openModal);
     RestaurantFilters.addEvent(this.changeFilter);
