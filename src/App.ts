@@ -1,15 +1,17 @@
-import { RestaurantFilter } from './types/types';
+import { Restaurant, RestaurantFilter } from './types/types';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
 import { $ } from './utils/domSelectors';
-import { getLocalStorage } from './utils/localStorage';
+import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
 import Header from './components/Header';
 import RestaurantFilters from './components/RestaurantFilters';
-import RestaurantService from './domains/RestaurantService';
 import RestaurantListContainer from './components/RestaurantListContainer';
 import Modal from './components/Modal';
+import RestaurantAddForm from './components/RestaurantAddForm';
+import RestaurantService from './domains/RestaurantService';
 
 class App {
   private restaurantService: RestaurantService;
+  private formModal: Modal = new Modal(RestaurantAddForm);
   private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: 'name' };
   private body = $('body') as HTMLBodyElement;
 
@@ -30,7 +32,7 @@ class App {
       <main>
         ${RestaurantFilters.create()}
         ${RestaurantListContainer.create()}
-        ${Modal.create()}
+        ${this.formModal.create()}
       </main>
     `;
   }
@@ -50,6 +52,7 @@ class App {
 
   addEvents() {
     RestaurantFilters.addEvent(this.changeFilter);
+    this.formModal.addEvent();
   }
 }
 

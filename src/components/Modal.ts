@@ -1,11 +1,11 @@
 import { $ } from '../utils/domSelectors';
+import RestaurantAddForm from './RestaurantAddForm';
 
 class Modal {
-  // private content;
+  private content: typeof RestaurantAddForm;
 
-  constructor() {
-    // modal 안에 보여줄 내용
-    // this.content = content;
+  constructor(content: typeof RestaurantAddForm) {
+    this.content = content;
   }
 
   closeModal() {
@@ -36,10 +36,11 @@ class Modal {
     return `
       <dialog class="modal">
         <div class="modal-container">
+        ${this.content.create()}
         </div>
       </dialog>
     `;
   }
 }
 
-export default new Modal();
+export default Modal;
