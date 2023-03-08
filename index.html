@@ -39,15 +39,17 @@
 
       <!-- 템플릿: 음식점 세부정보 -->
       <template id="detailed-info-template">
-        <div class="restaurant__category">
-          <img src="" alt="" class="category-icon" />
+        <div class="detailed-info">
+          <div class="restaurant__category">
+            <img src="" alt="" class="category-icon" />
+          </div>
+          <div class="detailed-restaurant__info">
+            <h1 class="restaurant__name"></h1>
+            <h3 class="restaurant__distance"></h3>
+            <p class="restaurant__description"></p>
+            <a target="_blank" class="restaurant__link"></a>
+          </div>
         </div>
-        <div class="restaurant__info">
-          <h3 class="restaurant__name text-subtitle"></h3>
-          <span class="restaurant__distance text-body"></span>
-          <p class="restaurant__description text-body"></p>
-        </div>
-        <a target="_blank" class="restaurant__link"></a>
       </template>
 
       <!-- 템플릿: 음식점 추가 폼 -->
