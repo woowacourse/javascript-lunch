@@ -8,6 +8,7 @@ import RestaurantListContainer from './components/RestaurantListContainer';
 import Modal from './components/Modal';
 import RestaurantAddForm from './components/RestaurantAddForm';
 import RestaurantService from './domains/RestaurantService';
+import RestaurantTabMenu from './components/RestaurantTabMenu';
 
 class App {
   private restaurantService: RestaurantService;
@@ -31,6 +32,7 @@ class App {
     return `
       ${Header.create()}
       <main>
+        ${RestaurantTabMenu.create()}
         ${RestaurantFilters.create()}
         ${RestaurantListContainer.create()}
         ${this.formModal.create()}

@@ -85,6 +85,33 @@ body {
   object-fit: contain;
 }
 
+.restaurant-navigation {
+  display: flex;
+}
+
+.restaurant-menu {
+  width: 50%;
+  padding-top: 32px;
+  padding-bottom: 16px;
+
+  background-color: transparent;
+
+  color: var(--grey-300);
+  font-weight: bold;
+  text-align: center;
+
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+
+  cursor: pointer;
+}
+
+.restaurant-menu--active {
+  color: var(--primary-color);
+
+  border-color: var(--primary-color);
+}
+
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
@@ -108,7 +135,6 @@ body {
   padding: 8px;
 }
 
-/* 음식점 목록 */
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
