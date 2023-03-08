@@ -7,13 +7,39 @@ abstract class FormControlComponent extends Component {
     return true;
   }
 
+  constructor() {
+    super();
+
+    this.addEventListener('blur', () => {
+      this.onBlur();
+    });
+  }
+
   abstract get value(): string;
 
-  render(): void {
+  override render(): void {
     super.render();
 
     this.internals.setFormValue(this.value);
   }
+
+  /**
+   * form과 연관될 때 해당 form에 event listener를 등록한다.
+   */
+  formAssociatedCallback() {
+    this.form?.addEventListener('submit', () => {
+      this.validate();
+    });
+  }
+
+  onBlur() {
+    this.validate();
+  }
+
+  /**
+   * form이 제출되거나 focus가 다른 곳으로 이동할 때 validation이 수행된다.
+   */
+  validate(): void {}
 
   /**
    * Form Associated Element 에서 기본적으로 제공되어야 할 프로퍼티

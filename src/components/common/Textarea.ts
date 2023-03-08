@@ -28,9 +28,21 @@ class Textarea extends FormControlComponent {
       ?.querySelector<HTMLTextAreaElement>('textarea')
       ?.addEventListener('input', (event) => {
         if (event.target instanceof HTMLTextAreaElement) {
-          this.internals.setFormValue(event.target.value);
+          this.internals.setFormValue(event.target.value.trim());
         }
       });
+  }
+
+  override validate() {
+    if (this.hasAttribute('required') && !this.value) {
+      this.internals.setValidity(
+        { valueMissing: true },
+        '값을 입력해야 합니다.',
+        this.shadowRoot?.querySelector('textarea') ?? undefined,
+      );
+      return;
+    }
+    this.internals.setValidity({});
   }
 
   override get value() {

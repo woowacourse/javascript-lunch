@@ -19,16 +19,28 @@ class Input extends FormControlComponent {
     `;
   }
 
-  render() {
+  override render() {
     super.render();
 
     this.shadowRoot
       ?.querySelector<HTMLInputElement>('input')
       ?.addEventListener('input', (event) => {
         if (event.target instanceof HTMLInputElement) {
-          this.internals.setFormValue(event.target.value);
+          this.internals.setFormValue(event.target.value.trim());
         }
       });
+  }
+
+  override validate() {
+    if (this.hasAttribute('required') && !this.value) {
+      this.internals.setValidity(
+        { valueMissing: true },
+        '값을 입력해야 합니다.',
+        this.shadowRoot?.querySelector('input') ?? undefined,
+      );
+      return;
+    }
+    this.internals.setValidity({});
   }
 
   override get value() {

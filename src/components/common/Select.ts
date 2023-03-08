@@ -31,6 +31,18 @@ class Select<OptionValue> extends FormControlComponent {
     this.dispatchEvent(new CustomEvent('change'));
   }
 
+  override validate() {
+    if (this.hasAttribute('required') && !this.getSelectedOption()?.value) {
+      this.internals.setValidity(
+        { valueMissing: true },
+        '옵션을 선택하여야 합니다.',
+        this.shadowRoot?.querySelector('select') ?? undefined,
+      );
+      return;
+    }
+    this.internals.setValidity({});
+  }
+
   override get value() {
     return String(this.#selectedOption?.value ?? '');
   }
