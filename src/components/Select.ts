@@ -2,8 +2,8 @@ import { Attribute, Option } from '../types/types';
 import { $ } from '../utils/domSelectors';
 
 class Select {
-  attributes: Attribute;
-  options: Option;
+  private attributes: Attribute;
+  private options: Option;
 
   constructor(attributes: Attribute, options: Option) {
     this.attributes = attributes;
