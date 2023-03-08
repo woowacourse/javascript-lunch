@@ -73,6 +73,7 @@ class RestaurantAddForm {
 
   create() {
     return `
+      <h2 class="modal-title text-title">새로운 음식점</h2>
       <form id="restaurant-add-form" novalidate>
         <div class="form-item form-item--required">
           <label for="category text-caption">카테고리</label>
