@@ -54,10 +54,9 @@ body {
 }
 
 r-select {
-  height: 44px;
   min-width: 125px;
 }
 
-r-form-item {
+form > * {
   margin-bottom: 36px;
 }

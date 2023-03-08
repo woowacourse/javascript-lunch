@@ -28,12 +28,17 @@ abstract class FormControlComponent extends Component {
    */
   formAssociatedCallback() {
     this.form?.addEventListener('submit', () => {
-      this.validate();
+      this.doValidate();
     });
   }
 
   onBlur() {
+    this.doValidate();
+  }
+
+  private doValidate() {
     this.validate();
+    this.setAttribute('validation-message', this.validationMessage);
   }
 
   /**

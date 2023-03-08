@@ -1,5 +1,4 @@
 import './common/Button';
-import './common/FormItem';
 import './common/Input';
 import './common/Modal';
 import './common/Select';

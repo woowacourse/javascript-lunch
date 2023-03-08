@@ -4,7 +4,13 @@ class Textarea extends FormControlComponent {
   override renderTemplate() {
     return `
       <style>
+        :host {
+          display: block;
+          position: relative;
+        }
+
         textarea {
+          display: block;
           padding: 8px;
           margin: 6px 0;
 
@@ -15,8 +21,41 @@ class Textarea extends FormControlComponent {
           width: 100%;
           resize: none;
         }
+
+        label {
+          font-size: 14px;
+          color: var(--grey-400);
+        }
+
+        :host([required]) label::after {
+          padding-left: 4px;
+          content: '*';
+          color: var(--primary-color);
+        }
+
+        :host::after {
+          position: absolute;
+          top: 100%;
+          font-size: 0.8rem;
+        }
+
+        :host(:valid)::after {
+          content: attr(helper-text);
+          color: var(--grey-300);
+        }
+
+        :host(:invalid) textarea {
+          border-color: red;
+          box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        :host(:invalid)::after {
+          content: attr(validation-message);
+          color: red;
+        }
       </style>
 
+      <label>${this.getAttribute('title') ?? ''}</label>
       <textarea rows="${this.getAttribute('rows') ?? 4}"></textarea>
     `;
   }
@@ -46,7 +85,12 @@ class Textarea extends FormControlComponent {
   }
 
   override get value() {
-    return document.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
+    return this.shadowRoot?.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
+  }
+
+  formResetCallback() {
+    this.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!.innerText = '';
+    this.internals.setValidity({});
   }
 }
 
