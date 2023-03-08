@@ -1,5 +1,5 @@
 import { $ } from '../util/querySelector';
-import { Restaurant } from '../type';
+import { Restaurant, UserRestaurantInput } from '../type';
 import Header from './Header';
 import RestaurantFilter from './RestaurantFilter';
 import RestaurantList from './RestaurantList';
@@ -11,7 +11,7 @@ type LunchAppViewType = {
   restaurants: Restaurant[];
   parentEvent: {
     onModalCancelButtonClicked: () => void;
-    onModalAddButtonClicked: (restaurantData: Restaurant) => void;
+    onModalAddButtonClicked: (restaurantData: UserRestaurantInput) => void;
     onHeaderAddButtonClicked: () => void;
     onFilterByChange: (filterBy: string) => void;
     onSortByChange: (sortBy: string) => void;

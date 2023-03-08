@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_KEY } from '../constant';
-import { Restaurant } from '../type';
+import { Restaurant, UserRestaurantInput } from '../type';
 import storage from '../util/storage';
 
 class Restaurants {
@@ -7,8 +7,8 @@ class Restaurants {
   #filterBy: string = '전체';
   #sortBy: string = 'name';
 
-  addRestaurant(restaurant: Restaurant) {
-    this.#restaurants.push(restaurant);
+  addRestaurant(restaurantInput: UserRestaurantInput) {
+    this.#restaurants.push({ ...restaurantInput, isFavorite: false });
   }
 
   getRestaurants() {

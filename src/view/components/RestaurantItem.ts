@@ -45,6 +45,7 @@ class RestaurantItem {
             class="category-icon"
           />
         </div>
+        <img src="./favorite-icon-lined.png" class="favorite-icon" />
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${
             this.#restaurant.name

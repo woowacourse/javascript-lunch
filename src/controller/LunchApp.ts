@@ -1,7 +1,7 @@
 import LunchAppView from '../view/LunchAppView';
 import Restaurants from '../domain/Restaurants';
 import { $ } from '../util/querySelector';
-import { Restaurant } from '../type';
+import { UserRestaurantInput } from '../type';
 
 class LunchApp {
   #restaurants = new Restaurants();
@@ -10,7 +10,7 @@ class LunchApp {
     restaurants: this.#restaurants.getRestaurants(),
     parentEvent: {
       onModalCancelButtonClicked: () => this.#onModalCancelButtonClicked(),
-      onModalAddButtonClicked: (restaurantData: Restaurant) =>
+      onModalAddButtonClicked: (restaurantData: UserRestaurantInput) =>
         this.#onModalAddButtonClicked(restaurantData),
       onHeaderAddButtonClicked: () => this.#onHeaderAddButtonClicked(),
       onFilterByChange: (filterBy: string) => this.#onFilterByChange(filterBy),
@@ -25,13 +25,13 @@ class LunchApp {
     this.#lunchAppView.clearAllModalInputs();
   }
 
-  #onModalAddButtonClicked(restaurantData: Restaurant) {
+  #onModalAddButtonClicked(restaurantData: UserRestaurantInput) {
     this.#restaurants.addRestaurant(restaurantData);
     this.#restaurants.saveRestaurantsToLocalStorage();
     this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
 
     this.#lunchAppView.clearAllModalInputs();
-    this.#lunchAppView.closeOrOpenRestaurantAddModal('open');
+    this.#lunchAppView.closeOrOpenRestaurantAddModal('close');
   }
 
   #onHeaderAddButtonClicked() {

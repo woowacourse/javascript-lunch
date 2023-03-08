@@ -1,5 +1,5 @@
 import { $, $$ } from '../util/querySelector';
-import { Restaurant } from '../type';
+import { UserRestaurantInput } from '../type';
 import Modal from './components/Modal';
 import getFormData from '../util/getFormData';
 
@@ -7,7 +7,7 @@ type RestaurantAddModalType = {
   parentElement: HTMLElement;
   parentEvent: {
     onModalCancelButtonClicked: () => void;
-    onModalAddButtonClicked: (restaurantData: Restaurant) => void;
+    onModalAddButtonClicked: (restaurantData: UserRestaurantInput) => void;
   };
 };
 
@@ -115,7 +115,9 @@ class RestaurantAddModal {
       if ($modalAddForm instanceof HTMLFormElement) {
         const restaurantData = getFormData($modalAddForm);
 
-        this.#parentEvent.onModalAddButtonClicked(restaurantData as Restaurant);
+        this.#parentEvent.onModalAddButtonClicked(
+          restaurantData as UserRestaurantInput
+        );
       }
     });
   }
