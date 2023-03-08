@@ -42,8 +42,8 @@ export default class App {
     const $restaurantFilter = this.$target.querySelector(".restaurant-filter-container");
     const $restaurantList = this.$target.querySelector(".restaurant-list-container");
 
-    const res = new RestaurantList($restaurantList, { category, sortingWay });
-    new Header($header, { render: res.render.bind(res) });
+    const restaurant = new RestaurantList($restaurantList, { category, sortingWay });
+    new Header($header, { render: restaurant.render.bind(restaurant) });
     new Filter($restaurantFilter, {
       sortingWay,
       category,
