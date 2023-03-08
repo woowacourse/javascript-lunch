@@ -198,7 +198,7 @@ body {
   bottom: 0;
   width: 100%;
 
-  padding: 32px 16px;
+  padding: 16px;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
@@ -212,7 +212,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 36px;
+  margin-bottom: 8px;
 }
 
 .form-item label {
