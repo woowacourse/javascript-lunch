@@ -21,7 +21,7 @@ class App {
       $('.restaurant-list') as HTMLUListElement,
       restaurantList
     );
-    // this.addEvents();
+    this.addEvents();
   }
 
   create() {
@@ -39,9 +39,18 @@ class App {
     this.body.insertAdjacentHTML('beforeend', this.create());
   }
 
-  // addEvents() {
-  //   RestaurantFilters.addEvent();
-  // }
+  changeFilter = (filter: RestaurantFilter) => {
+    this.currentDisplayStatus = { ...this.currentDisplayStatus, ...filter };
+    const restaurantList = this.restaurantService.filterAndSort(this.currentDisplayStatus);
+    RestaurantListContainer.renderRestaurantItems(
+      $('.restaurant-list') as HTMLUListElement,
+      restaurantList
+    );
+  };
+
+  addEvents() {
+    RestaurantFilters.addEvent(this.changeFilter);
+  }
 }
 
 export default new App();
