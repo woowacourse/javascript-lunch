@@ -8,6 +8,7 @@ import { getFilteredRestaurantsByCategory, getSortedRestaurants } from './domain
 
 import { $ } from './utils/dom';
 import store from './utils/store';
+import primaryKeyGenerator from './utils/primaryKeyGenerator';
 
 import {
   FILTER_CATEGORY_SELECTBOX_CONFIG,
@@ -68,7 +69,10 @@ export default class App {
       return;
     }
 
+    const uniqueId = primaryKeyGenerator();
+
     const restaurant = {
+      id: uniqueId,
       category,
       name,
       distance,
