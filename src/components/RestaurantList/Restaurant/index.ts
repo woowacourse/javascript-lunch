@@ -14,12 +14,12 @@ const imgFileName: ImgFileName = {
 
 const Restaurant = {
   getTemplate(restaurant: IRestaurant) {
-    const { category, name, distance, description, isFavorite } = restaurant;
+    const { id, category, name, distance, description, isFavorite } = restaurant;
     const favoriteIconSrc = isFavorite ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png';
     const favoriteIconAlt = isFavorite ? 'favorite-icon-filled' : 'favorite-icon-lined';
 
-    return `
-    <li class="restaurant">
+    return `  
+    <li class="restaurant" data-listid=${id} >
       <div class="restaurant__category">
         <img src="./${imgFileName[category]}" alt="${category}"
         class="category-icon" />

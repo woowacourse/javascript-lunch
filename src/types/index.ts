@@ -3,6 +3,7 @@ export type RestaurantDistance = '5' | '10' | '15' | '20' | '30';
 export type RestaurantSortType = 'name' | 'distance';
 
 export interface IRestaurant {
+  id: number;
   category: RestaurantCategory;
   name: string;
   distance: RestaurantDistance;
