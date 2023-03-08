@@ -10,17 +10,28 @@ class RestaurantItem {
 
   template() {
     return `
-    <li class="restaurant">
+    <li class="restaurant" id=${this.restaurant.id}>
       <div class="restaurant__category">
         <img src=${categoryToSrc(this.restaurant.category as Category)} alt=${
       this.restaurant.category
     } class="category-icon">
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${this.restaurant.name}</h3>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${
-          this.restaurant.takingTime
-        }분 내</span>
+        <div class="flex-row">
+        <div>
+            <h3 class="restaurant__name text-subtitle">${
+              this.restaurant.name
+            }</h3>
+            <span class="restaurant__distance text-body">캠퍼스부터 ${
+              this.restaurant.takingTime
+            }분 내</span>
+            </div>
+            <img src=${
+              this.restaurant.bookmarked
+                ? "./favorite-icon-filled.png"
+                : "./favorite-icon-lined.png"
+            } alt="bookmarked" class="bookmark"/>
+        </div>
         <p class="restaurant__description text-body">${
           this.restaurant.description
         }</p>
