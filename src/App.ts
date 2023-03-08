@@ -21,6 +21,7 @@ class App {
   addEvents() {
     Header.addEvent(AddModal.openModal);
     SelectContainer.addEvent(AppController.setSelectedValue, this.rerenderList);
+    RestaurantList.addEvent();
     AddModal.addEvent(AppController.addNewRestaurant, this.rerenderList);
   }
 

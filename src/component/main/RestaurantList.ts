@@ -3,33 +3,43 @@ import { $ } from "@/utils/Dom";
 import RestaurantItem from "../common/RestaurantItem";
 
 class RestaurantList {
-  restaurantItems: RestaurantItem[];
-
-  constructor() {
-    this.restaurantItems = [];
-  }
+  listEl!: HTMLElement;
 
   template() {
     return `
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-      ${this.restaurantItems.map((item) => item.template()).join("")}
       </ul>
     </section>`;
   }
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
+    this.listEl = <HTMLElement>$(".restaurant-list");
   }
 
   updateList(restaurants: Restaurant[]) {
-    $(".restaurant-list-container")?.remove();
+    this.emptyList();
 
-    this.restaurantItems = restaurants.map(
-      (restaurant) => new RestaurantItem(restaurant)
-    );
+    const restaurantItemTemplate = restaurants
+      .map((restaurant) => new RestaurantItem(restaurant).template())
+      .join("");
 
-    this.render($("body") as Element);
+    this.listEl.insertAdjacentHTML("beforeend", restaurantItemTemplate);
+  }
+
+  emptyList() {
+    while (this.listEl.firstChild) {
+      this.listEl.firstChild?.remove();
+    }
+  }
+
+  addEvent() {
+    this.listEl.addEventListener("click", (e) => {
+      const target = <HTMLElement>e.target;
+      const restaurantId = target.closest("li")?.id;
+      console.log(restaurantId);
+    });
   }
 }
 
