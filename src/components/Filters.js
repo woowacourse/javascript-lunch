@@ -1,61 +1,58 @@
-import { CATEGORY_OPTIONS, SORT_OPTIONS } from '../constants';
+import { restaurantService } from '..';
+import { CATEGORIES, SORTS } from '../constants';
 import selectTemplate from '../template/selectTemplate';
 import { arrayElementToObject } from '../utils/util';
 
-export default function Filters($root) {
-  const $filterSection = document.createElement('section');
-  $filterSection.className = 'restaurant-filter-container';
+export default class Filters {
+  constructor(rootElement, restaurantList) {
+    this.$root = rootElement;
+    this.$restaurantList = restaurantList;
+  }
 
-  this.state = {
-    category: '전체',
-    filter: '이름순',
-  };
+  render() {
+    this.$root.insertAdjacentHTML('beforeend', this.template());
+  }
 
-  this.init = () => {
-    this.render();
-    $filterSection.addEventListener('change', handleFiltersChange);
-    $root.appendChild($filterSection);
-  };
-
-  this.render = () => {
-    $filterSection.innerHTML = `
+  template() {
+    return `
       ${selectTemplate({
         name: 'category',
         id: 'category-filter',
-        options: arrayElementToObject(['전체', ...CATEGORY_OPTIONS]),
-        selected: this.state.category,
+        options: arrayElementToObject(['전체', ...CATEGORIES]),
+        selected: this.category,
         className: 'restaurant-filter',
       })}
       ${selectTemplate({
         name: 'sorting',
         id: 'sorting-filter',
-        options: arrayElementToObject(SORT_OPTIONS),
-        selected: this.state.filter,
+        options: arrayElementToObject(SORTS),
+        selected: this.filter,
         className: 'restaurant-filter',
       })}
     `;
-  };
-
-  this.setState = (state) => {
-    this.state = { ...this.state, ...state };
-    this.render();
-  };
-
-  this.init();
-}
-
-const handleFiltersChange = (event) => {
-  const { filters } = this.state;
-  const { id, value } = event.target;
-
-  switch (id) {
-    case 'category-filter':
-      filterRestaurantList(value, filters.state.filter);
-      break;
-    case 'sorting-filter':
-      filterRestaurantList(filters.state.category, value);
-      break;
-    default:
-      return;
   }
-};
+
+  bindEvents() {
+    this.$root.addEventListener('change', this.handleFiltersChange.bind(this));
+  }
+
+  handleFiltersChange(event) {
+    const { id, value } = event.target;
+
+    switch (id) {
+      case 'category-filter':
+        restaurantService.category = value;
+        break;
+      case 'sorting-filter':
+        restaurantService.sort = value;
+        break;
+      default:
+        return;
+    }
+
+    restaurantService.filterRestaurantList();
+    this.$restaurantList.restaurants = restaurantService.getFilteredRestaurant();
+    this.$restaurantList.remove();
+    this.$restaurantList.render();
+  }
+}
