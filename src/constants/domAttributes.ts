@@ -22,4 +22,9 @@ const FORM_ATTRIBUTE: Record<string, Attribute> = {
   LINK_INPUT: { id: 'link', name: 'link', required: false, type: 'text' },
 };
 
-export { FILTER_ATTRIBUTE, FORM_ATTRIBUTE };
+const TAB_BUTTON_ATTRIBUTE: Record<string, Attribute> = {
+  ALL_RESTAURANTS: { id: 'all-restaurants', className: 'tab-button--active' },
+  FAVORITE_RESTAURANTS: { id: 'favorite-restaurants' },
+};
+
+export { FILTER_ATTRIBUTE, FORM_ATTRIBUTE, TAB_BUTTON_ATTRIBUTE };
