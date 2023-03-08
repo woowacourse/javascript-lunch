@@ -4,6 +4,7 @@ import { useEvents } from '../../utils/core';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { getFormFields } from '../../utils/common/formData';
+import validator from '../../validation/validator';
 
 interface ModalProps {
   close: VoidFunction;
@@ -13,13 +14,14 @@ function Modal({ close }: ModalProps) {
   const {
     handlers: { handleClickAddBtn },
   } = useRestaurants();
+
   const [addEvent] = useEvents('.modal');
 
   addEvent('click', '.modal-backdrop', (e) => {
     close();
   });
 
-  addEvent('click', '.button-container', (e) => {
+  addEvent('click', '#cancel', (e) => {
     close();
   });
 
@@ -28,12 +30,20 @@ function Modal({ close }: ModalProps) {
       e.preventDefault();
       const fields = getFormFields(e.target);
 
-      handleClickAddBtn({
-        ...fields,
-        distance: Number(fields.distance),
-      } as unknown as RestaurantInfo);
+      try {
+        validator.checkName(fields.name);
+        if (fields.description) validator.checkDescription(fields.description);
+        if (fields.link) validator.checkLinkFormat(fields.link);
 
-      close();
+        handleClickAddBtn({
+          ...fields,
+          distance: Number(fields.distance),
+        } as unknown as RestaurantInfo);
+
+        close();
+      } catch (err) {
+        alert(err);
+      }
     }
   });
 
@@ -92,7 +102,7 @@ function Modal({ close }: ModalProps) {
 
                 <!-- 취소/추가 버튼 -->
                 <div class="button-container">
-                    <button type="reset" class="button button--secondary text-caption">취소하기</button>
+                    <button type="reset" class="button button--secondary text-caption" id="cancel">취소하기</button>
                     <button class="button button--primary text-caption">추가하기</button>
                 </div>
             </form>

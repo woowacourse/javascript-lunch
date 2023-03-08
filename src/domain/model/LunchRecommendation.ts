@@ -1,8 +1,6 @@
 import { addData } from '../../utils/common/localStorage';
 
 import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
-import errorHandler from '../../utils/common/errorHandler';
-import validator from '../../validation/validator';
 
 export interface FilterType {
   sortOption: SortOption;
@@ -16,6 +14,7 @@ export interface RestaurantInfo {
   distance: number;
   description?: string;
   link?: string;
+  isOften?: boolean;
 }
 
 export interface IRestaurant {
@@ -47,6 +46,10 @@ export class Restaurant implements IRestaurant {
   getSomeInfo<T extends keyof RestaurantInfo>(type: T) {
     return this.info[type];
   }
+
+  setOften() {
+    this.info.isOften = true;
+  }
 }
 
 export class LunchRecommendation implements ILunchRecommendation {
@@ -56,11 +59,11 @@ export class LunchRecommendation implements ILunchRecommendation {
     this.origin = infoList.map((info) => new Restaurant(info));
   }
 
-  add(restaurantInfo: Omit<RestaurantInfo, 'id'>): void {
-    errorHandler(validator, restaurantInfo);
-
+  add(restaurantInfo: Omit<RestaurantInfo, 'id' | 'isOften'>): void {
     const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
-    this.origin.push(new Restaurant({ ...restaurantInfo, id }));
+    const isOften = false;
+
+    this.origin.push(new Restaurant({ ...restaurantInfo, id, isOften }));
     addData(this.origin.map(({ info }) => info));
   }
 
