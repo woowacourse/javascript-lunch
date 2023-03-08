@@ -19,6 +19,11 @@ class RestaurantAddForm {
     this.linkInput = new Input(FORM_ATTRIBUTE.LINK_INPUT);
   }
 
+  resetForm() {
+    const restaurantAddForm = $('#restaurant-add-form') as HTMLFormElement;
+    restaurantAddForm.reset();
+  }
+
   showFormErrors(errors: Errors) {
     if (errors.category) this.categorySelect.showErrorMessage(ERROR_MESSAGE.EMPTY_CATEGORY);
 

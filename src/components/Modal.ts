@@ -8,12 +8,14 @@ class Modal {
     this.content = content;
   }
 
-  closeModal() {
-    // 안에 폼이 있을 경우에는 폼 초기화!
-
+  closeModal = () => {
     const modal = $('.modal') as HTMLDialogElement;
     modal.close();
-  }
+
+    if (typeof this.content === typeof RestaurantAddForm) {
+      this.content.resetForm();
+    }
+  };
 
   openModal() {
     const modal = $('.modal') as HTMLDialogElement;
