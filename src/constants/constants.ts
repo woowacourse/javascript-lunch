@@ -17,36 +17,35 @@ const MESSAGE = {
 
 const LOCAL_STORAGE_KEY = 'restaurants';
 
-const CATEGORY_FILTER_OPTIONS = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
+const OPTION_NAMES = {
+  PLACEHOLDER: '선택해 주세요',
+  ALL: '전체',
+  CATEGORY: ['한식', '중식', '일식', '양식', '아시안', '기타'],
+  SORTING: ['이름순', '거리순'],
+  DISTANCE: ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'],
+};
 
-const SORTING_FILTER_OPTIONS = ['이름순', '거리순'];
-
-const SORTING_FILTER_VALUES = ['name', 'distance'];
-
-const CATEGORY_OPTIONS = ['선택해 주세요', '한식', '중식', '일식', '양식', '아시안', '기타'];
-
-const CATEGORY_OPTION_VALUES = ['', '한식', '중식', '일식', '양식', '아시안', '기타'];
-
-const DISTANCE_OPTIONS = ['선택해 주세요', '5분 내', '10분 내', '15분 내', '20분 내', '30분 내'];
-
-const DISTANCE_OPTION_VALUES = ['', '5', '10', '15', '20', '30'];
+const OPTION_VALUES = {
+  PLACEHOLDER: '',
+  DISTANCE: ['5', '10', '15', '20', '30'],
+};
 
 const SELECT_OPTIONS = {
   CATEGORY_FILTER: {
-    text: CATEGORY_FILTER_OPTIONS,
-    value: CATEGORY_FILTER_OPTIONS,
+    text: [OPTION_NAMES.ALL, ...OPTION_NAMES.CATEGORY],
+    value: [OPTION_NAMES.ALL, ...OPTION_NAMES.CATEGORY],
   },
   SORTING_FILTER: {
-    text: SORTING_FILTER_OPTIONS,
-    value: SORTING_FILTER_VALUES,
+    text: OPTION_NAMES.SORTING,
+    value: OPTION_NAMES.SORTING,
   },
   CATEGORY: {
-    text: CATEGORY_OPTIONS,
-    value: CATEGORY_OPTION_VALUES,
+    text: [OPTION_NAMES.PLACEHOLDER, ...OPTION_NAMES.CATEGORY],
+    value: [OPTION_VALUES.PLACEHOLDER, ...OPTION_NAMES.CATEGORY],
   },
   DISTANCE: {
-    text: DISTANCE_OPTIONS,
-    value: DISTANCE_OPTION_VALUES,
+    text: [OPTION_NAMES.PLACEHOLDER, ...OPTION_NAMES.DISTANCE],
+    value: [OPTION_VALUES.PLACEHOLDER, ...OPTION_VALUES.DISTANCE],
   },
 };
 
