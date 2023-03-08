@@ -1,4 +1,4 @@
-import { CategoryOptions } from '../types/type';
+import { CategoryOptions, FilterOptions } from '../types/type';
 import { IRestaurant, Restaurant } from './Restaurant';
 
 export default class RestaurantService {
@@ -49,5 +49,28 @@ export default class RestaurantService {
       ...this.#restaurants,
       new Restaurant({ ...restaurant }),
     ];
+  }
+
+  getSortedList(filter: FilterOptions, filteredList: Restaurant[]) {
+    const { sortByName, sortByDistance } = this;
+
+    switch (filter) {
+      case '이름순':
+        return sortByName(filteredList);
+      case '거리순':
+        return sortByDistance(filteredList);
+      default:
+        return [];
+    }
+  }
+
+  getFilteredAndSortedList(category: CategoryOptions, filter: FilterOptions) {
+    const wholeList = this.getRestaurantsInfo();
+
+    const filteredList = this.filterByCategory(wholeList, category);
+
+    const filteredAndSortedList = this.getSortedList(filter, filteredList);
+
+    return filteredAndSortedList;
   }
 }

@@ -15,7 +15,7 @@ export default class Filters {
 
   constructor(
     $root: HTMLElement,
-    filterRestaurantList: (
+    updateRestaurantList: (
       category: CategoryOptions,
       filter: FilterOptions
     ) => void
@@ -27,7 +27,7 @@ export default class Filters {
     };
     this.render();
     this.$filterSection.addEventListener('change', (e) =>
-      this.handleFiltersChange(e, filterRestaurantList)
+      this.handleFiltersChange(e, updateRestaurantList)
     );
     $root.appendChild(this.$filterSection);
   }
@@ -58,7 +58,7 @@ export default class Filters {
 
   handleFiltersChange = (
     event: Event,
-    filterRestaurantList: (
+    updateRestaurantList: (
       category: CategoryOptions,
       filter: FilterOptions
     ) => void
@@ -68,10 +68,10 @@ export default class Filters {
 
     switch (id) {
       case 'category-filter':
-        filterRestaurantList(value as CategoryOptions, filter);
+        updateRestaurantList(value as CategoryOptions, filter);
         break;
       case 'sorting-filter':
-        filterRestaurantList(category, value as FilterOptions);
+        updateRestaurantList(category, value as FilterOptions);
         break;
       default:
         return;

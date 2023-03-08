@@ -39,7 +39,7 @@ export default class App {
 
     this.state = {
       restaurantService,
-      filters: new Filters($main, this.filterRestaurantList.bind(this)),
+      filters: new Filters($main, this.updateRestaurantList.bind(this)),
       restaurantList: new RestaurantList($main, initialResutaurantInfos),
       restaurantForm: new RestaurantForm(
         $modalContainer as HTMLDivElement,
@@ -47,37 +47,23 @@ export default class App {
       ),
     };
 
-    this.filterRestaurantList.bind(this)('전체', '이름순');
+    this.updateRestaurantList.bind(this)('전체', '이름순');
   }
 
-  getSortedList(filter: FilterOptions, filterdList: Restaurant[]) {
-    const { sortByName, sortByDistance } = this.state.restaurantService;
-
-    switch (filter) {
-      case '이름순':
-        return sortByName(filterdList);
-      case '거리순':
-        return sortByDistance(filterdList);
-      default:
-        return [];
-    }
-  }
-
-  filterRestaurantList(category: CategoryOptions, filter: FilterOptions): void {
+  updateRestaurantList(category: CategoryOptions, filter: FilterOptions) {
     const { restaurantService, restaurantList, filters } = this.state;
 
     if (!filters || !restaurantList) return;
 
-    const wholeList = restaurantService.getRestaurantsInfo();
-
-    const filtered = restaurantService.filterByCategory(wholeList, category);
-
-    const sortedList = this.getSortedList(filter, filtered);
+    const filteredAndSortedList = restaurantService.getFilteredAndSortedList(
+      category,
+      filter
+    );
 
     filters.setState({ filter, category });
 
     restaurantList.setState({
-      restaurantList: sortedList,
+      restaurantList: filteredAndSortedList,
     });
   }
 
@@ -88,7 +74,7 @@ export default class App {
       state: { category, filter },
     } = this.state.filters;
 
-    this.filterRestaurantList(category, filter);
+    this.updateRestaurantList(category, filter);
 
     const localRestaurants =
       JSON.parse(getLocalStorage('restaurants') as string) || [];
