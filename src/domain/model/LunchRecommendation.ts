@@ -19,6 +19,7 @@ export interface RestaurantInfo {
 
 export interface IRestaurant {
   getSomeInfo<T extends keyof RestaurantInfo>(type: T): RestaurantInfo[T];
+  toggleOften(): void;
 }
 
 interface ILunchRecommendation {
@@ -28,8 +29,8 @@ interface ILunchRecommendation {
   sortByName(list: Restaurant[]): Restaurant[];
   sortByDistance(list: Restaurant[]): Restaurant[];
   getList(): Restaurant[];
+  addOften(restaurantId: RestaurantInfo['id']): void;
 }
-
 export class Restaurant implements IRestaurant {
   info: RestaurantInfo;
 
@@ -47,8 +48,8 @@ export class Restaurant implements IRestaurant {
     return this.info[type];
   }
 
-  setOften() {
-    this.info.isOften = true;
+  toggleOften() {
+    this.info.isOften = this.info.isOften ? false : true;
   }
 }
 
@@ -60,10 +61,18 @@ export class LunchRecommendation implements ILunchRecommendation {
   }
 
   add(restaurantInfo: Omit<RestaurantInfo, 'id' | 'isOften'>): void {
-    const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
+    const isEmptyList = this.origin.length === 0;
+
+    const id = isEmptyList ? 0 : Math.max(...this.origin.map(({ info }) => info.id)) + 1;
     const isOften = false;
 
     this.origin.push(new Restaurant({ ...restaurantInfo, id, isOften }));
+    addData(this.origin.map(({ info }) => info));
+  }
+
+  addOften(restaurantId: RestaurantInfo['id']): void {
+    const selectedRestaurant = this.origin[restaurantId];
+    selectedRestaurant.toggleOften();
     addData(this.origin.map(({ info }) => info));
   }
 
