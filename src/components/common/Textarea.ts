@@ -55,8 +55,8 @@ class Textarea extends FormControlComponent {
         }
       </style>
 
-      <label>${this.getAttribute('title') ?? ''}</label>
-      <textarea rows="${this.getAttribute('rows') ?? 4}"></textarea>
+      <label for="form-control">${this.getAttribute('title') ?? ''}</label>
+      <textarea id="form-control" rows="${this.getAttribute('rows') ?? 4}"></textarea>
     `;
   }
 

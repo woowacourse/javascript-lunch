@@ -89,8 +89,8 @@ class Select<OptionValue> extends FormControlComponent {
         }
       </style>
 
-      <label>${this.getAttribute('title') ?? ''}</label>
-      <select>
+      <label for="form-control">${this.getAttribute('title') ?? ''}</label>
+      <select id="form-control">
         ${this.#options
           .map(({ label }, index) => {
             return `<option value="${index}">${label}</option>`;

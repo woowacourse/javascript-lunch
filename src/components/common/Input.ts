@@ -54,8 +54,8 @@ class Input extends FormControlComponent {
         }
       </style>
 
-      <label>${this.getAttribute('title') ?? ''}</label>
-      <input>
+      <label for="form-control">${this.getAttribute('title') ?? ''}</label>
+      <input id="form-control">
     `;
   }
 
