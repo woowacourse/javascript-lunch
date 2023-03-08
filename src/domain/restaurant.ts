@@ -3,6 +3,7 @@ import { CategoryAll, RestaurantInfo, SortTypeAll } from './RestaurantTypes';
 
 interface Restaurant {
   restaurants: RestaurantInfo[];
+  filteredRestaurants: RestaurantInfo[];
   addRestaurant: (restaurant: RestaurantInfo) => void;
   filterByCategory: (category: CategoryAll) => void;
   sortByType: (type: SortTypeAll) => void;
@@ -10,6 +11,7 @@ interface Restaurant {
 
 export const restaurant: Restaurant = {
   restaurants: [],
+  filteredRestaurants: [],
 
   addRestaurant(restaurant: RestaurantInfo) {
     this.restaurants = [...this.restaurants, restaurant];
@@ -22,24 +24,26 @@ export const restaurant: Restaurant = {
 
   filterByCategory(category: CategoryAll) {
     if (category === '전체') {
-      return $('restaurant-box').renderRestaurantList(this.restaurants);
+      return (this.filteredRestaurants = [...this.restaurants]);
     }
-    const filteredCategory = this.restaurants.filter(
+    this.filteredRestaurants = this.restaurants.filter(
       (list) => list.category === category
     );
-    $('restaurant-box').renderRestaurantList(filteredCategory);
+
+    $('restaurant-box').renderRestaurantList(this.filteredRestaurants);
   },
 
   sortByType(type: SortTypeAll) {
     if (type === '거리순') {
-      const sortBydistance = this.restaurants.sort(
+      const sortBydistance = this.filteredRestaurants.sort(
         (aRestaurant, bRestaurant) =>
           aRestaurant.distance - bRestaurant.distance
       );
       $('restaurant-box').renderRestaurantList(sortBydistance);
     } else if (type === '이름순') {
-      const sortByName = this.restaurants.sort((aRestaurant, bRestaurant) =>
-        aRestaurant.name > bRestaurant.name ? 1 : -1
+      const sortByName = this.filteredRestaurants.sort(
+        (aRestaurant, bRestaurant) =>
+          aRestaurant.name > bRestaurant.name ? 1 : -1
       );
       $('restaurant-box').renderRestaurantList(sortByName);
     }
