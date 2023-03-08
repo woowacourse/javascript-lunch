@@ -15,4 +15,11 @@ const FILTER_ATTRIBUTE: Record<string, Attribute> = {
   },
 };
 
-export { FILTER_ATTRIBUTE };
+const FORM_ATTRIBUTE: Record<string, Attribute> = {
+  CATEGORY_SELECT: { id: 'category', name: 'category', required: true },
+  DISTANCE_SELECT: { id: 'distance', name: 'distance', required: true },
+  NAME_INPUT: { id: 'name', name: 'name', required: true, type: 'text' },
+  LINK_INPUT: { id: 'link', name: 'link', required: false, type: 'text' },
+};
+
+export { FILTER_ATTRIBUTE, FORM_ATTRIBUTE };
