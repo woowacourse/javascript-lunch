@@ -234,6 +234,32 @@ body {
   margin-bottom: 36px;
 }
 
+.restaurant-detail__info-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant-detail__info-container .left-section {
+  display: flex;
+
+  align-items: center;
+}
+
+.restaurant-detail__description {
+  margin-top: 32px;
+}
+
+.restaurant__link {
+  display: block;
+  margin-top: 24px;
+  color: var(--darken-color-2);
+  cursor: pointer;
+}
+
+.restaurant-detail .button-container {
+  margin-top: 24px;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
@@ -293,6 +319,11 @@ body {
   border-radius: 8px;
 
   color: var(--grey-300);
+}
+
+.icon-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 input[name='name'],
