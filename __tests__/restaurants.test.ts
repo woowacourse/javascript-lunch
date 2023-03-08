@@ -75,4 +75,9 @@ describe('Restaurants 도메인 테스트', () => {
     expect(favoriteRestaurantList[0].name).toBe('엽토네 떡볶이');
   });
 
+  test('음식점을 삭제하는지 확인한다', () => {
+    restaurants.remove('도리네 집밥');
+
+    expect(restaurants.restaurantsList.length).toBe(2);
+  });
 });
