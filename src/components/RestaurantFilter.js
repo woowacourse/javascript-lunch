@@ -25,5 +25,13 @@ customElements.define(
         </select>
       `;
     }
+
+    hide() {
+      this.classList.add('hidden');
+    }
+
+    show() {
+      this.classList.remove('hidden');
+    }
   }
 );

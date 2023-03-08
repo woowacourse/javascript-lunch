@@ -27,6 +27,9 @@ const LunchMenuApp = {
     );
     $('restaurant-filter').addEventListener('change', () => this.handleRestaurantFilter());
     $('.gnb__button').addEventListener('click', () => $('restaurant-register-modal').openModal());
+    $('restaurant-tab').addEventListener('changeRestaurantTab', ({ detail: tabType }) =>
+      this.handleRestaurantTabChange(tabType)
+    );
   },
 
   handleRestaurantRegister(restaurant) {
@@ -50,6 +53,13 @@ const LunchMenuApp = {
     };
 
     this.render(sortByType[sortingType]());
+  },
+
+  handleRestaurantTabChange(tabType) {
+    const filteredRestaurants = restaurants.filterByFavorite(tabType, restaurants.list);
+    if (tabType === 'favorite') $('restaurant-filter').hide();
+    else $('restaurant-filter').show();
+    this.render(filteredRestaurants);
   },
 };
 

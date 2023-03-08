@@ -5,6 +5,7 @@ import { RESTAURANTS_LOCAL_STORAGE_KEY } from '../constants';
 
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type Distance = 5 | 10 | 15 | 20 | 30;
+type TabType = 'all' | 'favorite';
 
 interface Restaurant {
   category: Category;
@@ -20,6 +21,7 @@ interface Restaurants {
   init(): void;
   add(restaurant: Restaurant): void;
   filterByCategory(category: Category | '전체', restaurants: Restaurant[]): Restaurant[];
+  filterByFavorite(tabType: TabType, restaurants: Restaurant[]): Restaurant[];
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
   compareByName(a: Restaurant, b: Restaurant): number;
@@ -42,6 +44,12 @@ export const restaurants: Restaurants = {
     );
 
     return category === '전체' ? this.list : filteredRestaurants;
+  },
+
+  filterByFavorite(tabType, restaurants) {
+    if (tabType === 'favorite')
+      return [...restaurants].filter((restaurant) => restaurant.favorite === true);
+    return this.list;
   },
 
   sortByName(restaurants) {
