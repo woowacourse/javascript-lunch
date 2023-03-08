@@ -122,11 +122,13 @@ body {
 
 .restaurant {
   display: flex;
-  align-items: flex-start;
-
+  justify-content: space-between;
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
+}
+
+.restaurant__content {
+  display: flex;
 }
 
 .restaurant__category {
@@ -165,13 +167,16 @@ body {
 
 .restaurant__description {
   display: -webkit-box;
-
   padding-top: 8px;
-
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__bookmark {
+  font-size: 35px;
+  color: var(--lighten-color);
 }
 
 /* 음식점 추가 모달 *****************************************/

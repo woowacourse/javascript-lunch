@@ -10,11 +10,13 @@ export type TakingTime = "5" | "10" | "15" | "20" | "25" | "30";
 export type Sort = "이름순" | "거리순";
 
 export interface Restaurant {
-  category: string;
+  id: string;
   name: string;
   takingTime: string;
-  description?: string;
+  category: string;
+  bookMark: boolean;
   link?: string;
+  description?: string;
 }
 
 export type RerenderListType = (

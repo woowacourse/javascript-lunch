@@ -99,9 +99,11 @@ class RestaurantFormBottomSheet {
     const formData = Object.fromEntries(new FormData($modal).entries());
 
     const data = {
+      id: Date.now().toString(),
       name: <string>formData.name,
       takingTime: <TakingTime>formData.takingTime,
       category: <Category>formData.category,
+      bookMark: <boolean>false,
       link: this.getValidateLink(<string>formData.link),
       description: <string>formData.description,
     };
