@@ -1,4 +1,4 @@
-import LOCAL_STORAGE_KEY from '../constant/constant';
+import { LOCAL_STORAGE_KEY } from '../constant/constant';
 import { State } from '../types/restaurantTypes';
 
 const getDataFromLocalStorage = (key: string): State | null => {

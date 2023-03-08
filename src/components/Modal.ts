@@ -1,10 +1,11 @@
+import { LOCAL_STORAGE_KEY } from '../constant/constant';
 import Restaurants from '../model/Restaurants';
 import { Restaurant, Category, Distance, State } from '../types/restaurantTypes';
 
 export default class Modal {
-  $target: HTMLElement;
-  restaurants: Restaurants;
-  $state!: State;
+  private $target: HTMLElement;
+  private restaurants: Restaurants;
+  private $state!: State;
 
   constructor($target: HTMLElement, restaurants: Restaurants, state: State) {
     this.$target = $target;
@@ -14,7 +15,7 @@ export default class Modal {
     this.render();
   }
 
-  template() {
+  private template() {
     return `
       <!-- 음식점 추가 모달 -->
 	    <div class="modal modal--open">
@@ -81,12 +82,12 @@ export default class Modal {
 	    `;
   }
 
-  render(): void {
+  private render(): void {
     this.$target.insertAdjacentHTML('beforeend', this.template());
     this.listenEvent();
   }
 
-  listenEvent() {
+  private listenEvent() {
     this.$target.querySelector('.button--primary')?.addEventListener('click', (event: Event) => {
       event.preventDefault();
 
@@ -112,7 +113,7 @@ export default class Modal {
       this.restaurants.add(restaurant);
       this.$state.restaurants = this.restaurants.getRestaurants();
 
-      localStorage.setItem('state', JSON.stringify(this.$state));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.$state));
 
       this.closeModal();
     });
@@ -124,7 +125,7 @@ export default class Modal {
     this.listenCloseEvent();
   }
 
-  closeModal() {
+  private closeModal() {
     const modal = this.$target.querySelector('.modal--open');
     if (modal) {
       modal.classList.add('hidden');
@@ -133,7 +134,7 @@ export default class Modal {
     document.dispatchEvent(event);
   }
 
-  listenCloseEvent() {
+  private listenCloseEvent() {
     document.querySelector('.modal-backdrop')?.addEventListener('click', () => {
       this.closeModal();
     });

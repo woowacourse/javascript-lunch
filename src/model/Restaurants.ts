@@ -1,23 +1,24 @@
 import type { Category, Restaurant } from '../types/restaurantTypes';
+import { DEFAULT_CATEGORY } from '../constant/constant';
 
 class Restaurants {
-  #restaurants;
+  private restaurants;
 
   constructor(restaurants: Restaurant[]) {
-    this.#restaurants = restaurants;
+    this.restaurants = restaurants;
   }
 
   getRestaurants() {
-    return this.#restaurants;
+    return this.restaurants;
   }
 
   add(restaurant: Restaurant) {
-    this.#restaurants = [...this.#restaurants, restaurant];
+    this.restaurants = [...this.restaurants, restaurant];
   }
 
-  filterByCategory(category: Category | '전체'): Restaurant[] {
-    if (category === '전체') return this.#restaurants;
-    return this.#restaurants.filter(restaurant => restaurant.category === category);
+  filterByCategory(category: Category | typeof DEFAULT_CATEGORY): Restaurant[] {
+    if (category === DEFAULT_CATEGORY) return this.restaurants;
+    return this.restaurants.filter(restaurant => restaurant.category === category);
   }
 
   sortByDistance(category: Category): Restaurant[] {

@@ -1,9 +1,10 @@
 import type { State } from '../types/restaurantTypes';
+import { DEFAULT_CATEGORY, SORTING_OPTION } from './constant';
 
 const DEFAULT_RESTAURANT_DATA: State = {
-  filter: '전체',
-  sort: 'name',
-  isModal: false,
+  filter: DEFAULT_CATEGORY,
+  sortingOption: SORTING_OPTION.NAME,
+  isModalOpen: false,
   restaurants: [
     {
       name: '피양콩할마니',

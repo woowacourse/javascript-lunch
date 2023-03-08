@@ -2,7 +2,7 @@ import type { Category, State } from './types/restaurantTypes';
 import image from './img/images';
 import Restaurants from './model/Restaurants';
 import Modal from './components/Modal';
-import LOCAL_STORAGE_KEY from './constant/constant';
+import { DEFAULT_CATEGORY, LOCAL_STORAGE_KEY, SORTING_OPTION } from './constant/constant';
 import DEFAULT_RESTAURANT_DATA from './constant/defaultRestaurantData';
 import { getDataFromLocalStorage } from './utils/localStorage';
 import Header from './components/Header';
@@ -98,7 +98,7 @@ export default class App {
 
     const sortFilter = this.$target.querySelector('#sorting-filter');
     if (sortFilter instanceof HTMLSelectElement) {
-      sortFilter.value = this.$state!.sort;
+      sortFilter.value = this.$state!.sortingOption;
     }
 
     this.listenEvent();
@@ -119,15 +119,15 @@ export default class App {
       const target = event.target as HTMLInputElement;
       const value = target.value;
 
-      if (value === 'name') {
+      if (value === SORTING_OPTION.NAME) {
         const sortedByName = this.restuarants!.sortByName(this.$state!.filter as Category);
-        this.setState({ sort: value, restaurants: sortedByName });
+        this.setState({ sortingOption: value, restaurants: sortedByName });
         return;
       }
 
-      if (value === 'distance') {
+      if (value === SORTING_OPTION.DISTANCE) {
         const sortedByDistance = this.restuarants!.sortByDistance(this.$state!.filter as Category);
-        this.setState({ sort: value, restaurants: sortedByDistance });
+        this.setState({ sortingOption: value, restaurants: sortedByDistance });
         return;
       }
     });
@@ -135,9 +135,9 @@ export default class App {
 
   onCloseModal() {
     this.setState({
-      sort: 'name',
-      filter: '전체',
-      isModal: !this.$state.isModal,
+      sortingOption: SORTING_OPTION.NAME,
+      filter: DEFAULT_CATEGORY,
+      isModalOpen: !this.$state.isModalOpen,
     });
   }
 }
