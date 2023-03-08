@@ -12,7 +12,6 @@ class Select<OptionValue> extends FormControlComponent {
 
   setOptions(options: SelectOption<OptionValue>[]) {
     this.#options = options;
-    this.#selectedOption = null;
 
     this.render();
   }
@@ -25,9 +24,9 @@ class Select<OptionValue> extends FormControlComponent {
     return this.#selectedOption;
   }
 
-  setSelectedOption(selectedOption: SelectOption<OptionValue>) {
-    this.#selectedOption = selectedOption;
-    this.internals.setFormValue(String(selectedOption.value));
+  setSelectedOption(selectedOption?: SelectOption<OptionValue>) {
+    this.#selectedOption = selectedOption ?? null;
+    this.internals.setFormValue(String(selectedOption?.value ?? ''));
     this.dispatchEvent(new CustomEvent('change'));
   }
 
@@ -64,8 +63,8 @@ class Select<OptionValue> extends FormControlComponent {
 
       <select id="select">
         ${this.#options
-          .map(({ value, label }, index) => {
-            return `<option data-index="${index}" value="${value}">${label}</option>`;
+          .map(({ label }, index) => {
+            return `<option value="${index}">${label}</option>`;
           })
           .join('')}
       </select>
@@ -79,7 +78,7 @@ class Select<OptionValue> extends FormControlComponent {
       ?.querySelector<HTMLSelectElement>('#select')
       ?.addEventListener('change', (event) => {
         const $select = event?.target as HTMLSelectElement;
-        this.setSelectedOption(this.#options[Number($select.dataset.index)]);
+        this.setSelectedOption(this.#options[Number($select.value)]);
       });
   }
 }
