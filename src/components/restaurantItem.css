@@ -1,0 +1,11 @@
+.favorite-button {
+  position: absolute;
+  right: 26.67px;
+  top: 16.67px;
+
+  width: 32px;
+  height: 32px;
+
+  background: none;
+  border: none;
+}

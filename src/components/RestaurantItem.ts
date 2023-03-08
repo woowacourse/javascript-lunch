@@ -1,3 +1,4 @@
+import './restaurantItem.css';
 import korean from '../../assets/category-korean.png';
 import chinese from '../../assets/category-chinese.png';
 import japanese from '../../assets/category-japanese.png';
@@ -19,7 +20,7 @@ export default function RestaurantItemTemplate({
 }: IRestaurant) {
   return `
     <li class="restaurant">
-      <button>
+      <button class="favorite-button"> 
         <img src="${isFavorite ? favorite : notFavorite}"/>
       </button>
       <div class="restaurant__category">
