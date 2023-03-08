@@ -10,7 +10,8 @@ class Input {
 
   showErrorMessage(message: string) {
     const caption = $(`#${this.attributes.id}-caption`) as HTMLSpanElement;
-    // show error message for form selects
+    caption.classList.add('error-text');
+    caption.textContent = message;
   }
 
   addRemoveErrorMessageEvent(message?: string) {
