@@ -15,16 +15,12 @@ describe('컴포넌트 단위 테스트', () => {
     category: '기타',
     name: '엽토네 떡볶이',
     distance: 5,
-    description: 'undefined',
-    link: 'undefined',
   };
 
   const doriRestaurant = {
     category: '한식',
     name: '도리네 집밥',
     distance: 15,
-    description: 'undefined',
-    link: 'undefined',
   };
 
   const restaurants = new Restaurants([yeoptoRestaurant, doriRestaurant]);
