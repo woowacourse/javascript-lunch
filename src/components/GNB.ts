@@ -9,7 +9,7 @@ type MainTemplateProps = {
   toggleAddRestaurantDrawer: () => void;
 };
 
-class GNB implements Component<GNBState> {
+export default class GNB implements Component<GNBState> {
   $target: HTMLElement;
   state: GNBState;
 
@@ -43,5 +43,3 @@ class GNB implements Component<GNBState> {
     this.addEvent();
   }
 }
-
-export default GNB;

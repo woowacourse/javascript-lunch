@@ -17,7 +17,7 @@ type DropDownProps = {
   onChangeHandler: (e: Event) => void;
 };
 
-class DropDown implements Component<DropDownState> {
+export default class DropDown implements Component<DropDownState> {
   $target: HTMLSelectElement;
   state: DropDownState;
 
@@ -70,5 +70,3 @@ class DropDown implements Component<DropDownState> {
         `;
   }
 }
-
-export default DropDown;

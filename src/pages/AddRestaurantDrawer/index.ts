@@ -18,7 +18,7 @@ type AddRestaurantDrawerProps = {
   toggleAddRestaurantDrawer: () => void;
 };
 
-class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
+export default class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
   $target: HTMLElement;
   state: AddRestaurantDrawerState;
 
@@ -146,5 +146,3 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
     };
   }
 }
-
-export default AddRestaurantDrawer;

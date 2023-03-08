@@ -18,7 +18,9 @@ type RestaurantFilterContainerProps = {
   onChangeSortBy: (e: Event) => void;
 };
 
-class RestaurantFilterContainer implements Component<RestaurantFilterContainerState> {
+export default class RestaurantFilterContainer
+  implements Component<RestaurantFilterContainerState>
+{
   $target: HTMLElement;
   state: RestaurantFilterContainerState;
 
@@ -69,5 +71,3 @@ class RestaurantFilterContainer implements Component<RestaurantFilterContainerSt
     }).render();
   }
 }
-
-export default RestaurantFilterContainer;

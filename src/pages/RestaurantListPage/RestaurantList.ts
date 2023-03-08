@@ -22,7 +22,7 @@ type RestaurantListProps = {
   onOpenInfoDrawer: (e: Event) => void;
 };
 
-class RestaurantList implements Component<RestaurantListState> {
+export default class RestaurantList implements Component<RestaurantListState> {
   $target: HTMLElement;
   state: RestaurantListState;
 
@@ -88,5 +88,3 @@ class RestaurantList implements Component<RestaurantListState> {
     });
   }
 }
-
-export default RestaurantList;

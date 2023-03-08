@@ -22,7 +22,7 @@ type RestaurantListPageProps = {
   toggleAddRestaurantDrawer: () => void;
 };
 
-class RestaurantListPage implements Component<RestaurantListPageState> {
+export default class RestaurantListPage implements Component<RestaurantListPageState> {
   $target: HTMLElement;
   state: RestaurantListPageState;
 
@@ -145,5 +145,3 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
     });
   }
 }
-
-export default RestaurantListPage;

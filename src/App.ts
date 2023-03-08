@@ -10,7 +10,7 @@ type AppProps = {
   $parent: HTMLElement;
 };
 
-class App implements Component<AppState> {
+export default class App implements Component<AppState> {
   $target: HTMLElement;
   state: AppState;
 
@@ -56,5 +56,3 @@ class App implements Component<AppState> {
     });
   }
 }
-
-export default App;
