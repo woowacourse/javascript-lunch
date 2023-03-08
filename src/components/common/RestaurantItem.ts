@@ -27,9 +27,9 @@ class RestaurantItem {
         }</p>
       </div>
       </div>
-      <div class="restaurant__bookmark">${
+      <button class="restaurant__bookmark">${
         this.restaurant.bookMark ? "★" : "✩"
-      }</div>
+      }</button>
     </li>`;
   }
 }
