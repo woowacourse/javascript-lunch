@@ -18,7 +18,6 @@ body {
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
-
   padding: 0 16px;
   margin-top: 24px;
 }
@@ -52,7 +51,6 @@ body {
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
-
   padding: 0 16px;
   margin: 16px 0;
 }

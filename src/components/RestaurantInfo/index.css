@@ -1,9 +1,7 @@
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
 }
 
@@ -15,9 +13,7 @@
   height: 64px;
   min-width: 64px;
   min-height: 64px;
-
   margin-right: 16px;
-
   border-radius: 50%;
   background: var(--lighten-color);
 }
@@ -43,9 +39,7 @@
 
 .restaurant__description {
   display: -webkit-box;
-
   padding-top: 8px;
-
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
