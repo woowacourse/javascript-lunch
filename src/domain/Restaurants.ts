@@ -54,6 +54,10 @@ class Restaurants {
       return restaurant; 
     });
   }
+
+  getFavoriteRestaurantList() {
+    return this.#restaurantsList.filter(restaurant => restaurant.favorites);
+  }
 }
 
 export default Restaurants;
