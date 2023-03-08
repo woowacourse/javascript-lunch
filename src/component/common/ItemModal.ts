@@ -1,4 +1,4 @@
-import { DeleteRestaurant, Rerender, Restaurant } from "@/type/type";
+import { HandleWithId, Rerender, Restaurant } from "@/type/type";
 import { categoryToSrc } from "@/utils/convertor";
 import { $ } from "@/utils/Dom";
 
@@ -23,7 +23,7 @@ class ItemModal {
             this.restaurant.bookmarked
               ? "./favorite-icon-filled.png"
               : "./favorite-icon-lined.png"
-          } alt="bookmarked" class="bookmark"/>
+          } alt="bookmarked" class="item-bookmark bookmark"/>
         </div>
         <div class="item-information">
           <h3 class="item__name text-subtitle">${this.restaurant.name}</h3>
@@ -51,12 +51,27 @@ class ItemModal {
     $("body")?.insertAdjacentHTML("beforeend", this.template());
   }
 
+  rerender(
+    deleteRestaurant: HandleWithId,
+    toggleBookmark: HandleWithId,
+    rerenderList: Rerender
+  ) {
+    this.close();
+    this.render();
+    this.addEvent(deleteRestaurant, toggleBookmark, rerenderList);
+  }
+
   close() {
     $(".item-modal")?.remove();
   }
 
-  addEvent(deleteRestaurant: DeleteRestaurant, rerenderList: Rerender) {
+  addEvent(
+    deleteRestaurant: HandleWithId,
+    toggleBookmark: HandleWithId,
+    rerenderList: Rerender
+  ) {
     $(".item-modal--close")?.addEventListener("click", () => {
+      rerenderList();
       this.close();
     });
 
@@ -64,6 +79,12 @@ class ItemModal {
       deleteRestaurant(this.restaurant.id);
       rerenderList();
       this.close();
+    });
+
+    $(".item-bookmark")?.addEventListener("click", () => {
+      toggleBookmark(this.restaurant.id);
+      this.restaurant.bookmarked = !this.restaurant.bookmarked;
+      this.rerender(deleteRestaurant, toggleBookmark, rerenderList);
     });
   }
 }

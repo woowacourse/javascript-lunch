@@ -40,7 +40,11 @@ class App {
     const restaurant = <Restaurant>AppController.getRestaurant(id);
     const itemModal = new ItemModal(restaurant);
     itemModal.render();
-    itemModal.addEvent(AppController.deleteRestaurant, this.rerenderList);
+    itemModal.addEvent(
+      AppController.deleteRestaurant,
+      AppController.toggleBookmark,
+      this.rerenderList
+    );
   };
 }
 
