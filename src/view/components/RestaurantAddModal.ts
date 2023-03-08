@@ -1,33 +1,22 @@
 import { $ } from '../../utils/querySelector';
 import Button from './Button';
 
-type RestaurantAddModalProps = {
-  $target: HTMLElement;
-  isModal?: boolean;
-  onClickEvent: (arg0: string) => void;
-};
-
 class RestaurantAddModal {
   #target;
-  #isModal;
-  onClickEvent;
 
-  constructor({ $target, isModal, onClickEvent }: RestaurantAddModalProps) {
+  constructor($target: Element) {
     this.#target = $target;
-    this.#isModal = isModal;
-    this.onClickEvent = onClickEvent;
-
-    this.render();
   }
 
   #template() {
-    return this.#isModal
-      ? `
-      <div class="modal modal--open">
+    return `
+      <!-- 음식점 추가 모달 -->
+      <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form id="modal-form">
+          <form>
+
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
@@ -44,8 +33,8 @@ class RestaurantAddModal {
 
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
-              <label for="name text-caption">이름</label>
-              <input type="text" name="name" id="name" required />
+              <label for="restaurantName text-caption">이름</label>
+              <input type="text" name="name" id="restaurantName" required>
             </div>
 
             <!-- 거리 -->
@@ -64,63 +53,48 @@ class RestaurantAddModal {
             <!-- 설명 -->
             <div class="form-item">
               <label for="description text-caption">설명</label>
-              <textarea
-                name="description"
-                id="description"
-                cols="30"
-                rows="5"
-              ></textarea>
-              <span class="help-text text-caption"
-                >메뉴 등 추가 정보를 입력해 주세요.</span
-              >
+              <textarea name="description" id="description" cols="30" rows="5"></textarea>
+              <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
             </div>
 
             <!-- 링크 -->
             <div class="form-item">
               <label for="link text-caption">참고 링크</label>
-              <input type="text" name="link" id="link" />
-              <span class="help-text text-caption"
-                >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
-              >
+              <input type="text" name="link" id="link">
+              <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
             </div>
 
             <!-- 취소/추가 버튼 -->
-            <div class="button-container">
-            </div>
+            <div class="button-container"></div>
           </form>
         </div>
       </div>
-      `
-      : '';
-  }
-
-  render() {
-    this.#target.innerHTML = this.#template();
-    this.#mounted();
+    `;
   }
 
   #mounted() {
-    if (!this.#isModal) return;
-
     new Button({
-      $target: $('.button-container') as HTMLElement,
+      $target: $('.button-container'),
       info: {
         buttonType: 'button',
         buttonStyle: 'button--secondary',
         buttonText: '취소하기',
       },
-      onClickEvent: this.onClickEvent.bind(this),
     });
 
     new Button({
-      $target: $('.button-container') as HTMLElement,
+      $target: $('.button-container'),
       info: {
         buttonType: 'submit',
         buttonStyle: 'button--primary',
         buttonText: '추가하기',
       },
-      onClickEvent: this.onClickEvent.bind(this),
     });
+  }
+
+  render() {
+    this.#target.innerHTML = this.#template();
+    this.#mounted();
   }
 }
 
