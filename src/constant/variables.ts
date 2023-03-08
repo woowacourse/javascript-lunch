@@ -10,14 +10,13 @@ export const CATEGORY = {
   ETC: "기타",
 } as const;
 
-export const CATEGORY_LOWER_CASE = {
-  KOREAN: "korean",
-  CHINESE: "chinese",
-  JAPANESE: "japanese",
-  ASIAN: "asian",
-  WESTERN: "western",
-  ETC: "etc",
-} as const;
+export const CATEGORY_LOWER_CASE = Object.fromEntries(
+  Object.entries(CATEGORY).map(([key, value]) => [key, key.toLowerCase()])
+);
+
+export const translateCategory = Object.fromEntries(
+  Object.entries(CATEGORY).map(([key, value]) => [value, key.toLowerCase()])
+);
 
 export const SORTINGWAY = {
   NAME: "name",
