@@ -19,8 +19,11 @@ class Header {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  setAddButtonEventListner(callback) {
-    this.$target.querySelector(".gnb__button").addEventListener("click", callback);
+  setAddButtonEventListner(modal, restaurantList) {
+    this.$target.querySelector(".gnb__button").addEventListener("click", () => {
+      modal.setAddRestaurantForm(restaurantList);
+      modal.toggle();
+    });
   }
 }
 

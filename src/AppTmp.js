@@ -41,7 +41,4 @@ const restaurantList = new RestaurantList($restaurantList);
 const modal = new ModalContainer($modal);
 
 restaurantList.renderList(dummyData);
-header.setAddButtonEventListner(() => {
-  modal.setAddRestaurantForm(restaurantList);
-  modal.toggle();
-});
+header.setAddButtonEventListner(modal, restaurantList);
