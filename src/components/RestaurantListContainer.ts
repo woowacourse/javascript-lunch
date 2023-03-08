@@ -9,7 +9,7 @@ class RestaurantListContainer {
       </section>`;
   }
 
-  renderRestaurantItems(target: Element, restaurantList: Restaurant[]) {
+  renderRestaurantItems(target: Element, restaurantList: Restaurant[], onClick: CallableFunction) {
     const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
       new RestaurantItem(restaurant).create()
     );

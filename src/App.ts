@@ -21,7 +21,8 @@ class App {
     this.render();
     RestaurantListContainer.renderRestaurantItems(
       $('.restaurant-list') as HTMLUListElement,
-      this.restaurantService.filterAndSort(this.currentDisplayStatus)
+      this.restaurantService.filterAndSort(this.currentDisplayStatus),
+      this.updateFavoriteRestaurant
     );
     this.addEvents();
   }
@@ -46,7 +47,8 @@ class App {
     const restaurantList = this.restaurantService.filterAndSort(this.currentDisplayStatus);
     RestaurantListContainer.renderRestaurantItems(
       $('.restaurant-list') as HTMLUListElement,
-      restaurantList
+      restaurantList,
+      this.updateFavoriteRestaurant
     );
   };
 
@@ -61,9 +63,15 @@ class App {
     ) {
       RestaurantListContainer.renderRestaurantItems(
         $('.restaurant-list') as HTMLUListElement,
-        restaurantList
+        restaurantList,
+        this.updateFavoriteRestaurant
       );
     }
+  };
+
+  updateFavoriteRestaurant = (restaurantItem: Restaurant) => {
+    const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantItem);
+    saveToLocalStorage(updatedRestaurantList);
   };
 
   addEvents() {
