@@ -1,6 +1,6 @@
 import { Restaurant, SortTypeValue, CategoryValue } from '../types/Types';
 import { compareString } from '../utils/common';
-import { VALUE } from '../constants/constants';
+import { SORT_BY_NAMEORDER, CATEGORY_ALL } from '../constants/constants';
 
 class Restaurants {
   #restaurants: Restaurant[];
@@ -13,8 +13,19 @@ class Restaurants {
     return this.#restaurants;
   }
 
-  add({ description = '', link = '', ...restaurantInfo }: Restaurant): void {
-    this.#restaurants.push({ description, link, ...restaurantInfo });
+  makeUniqueID(): number {
+    if (this.#restaurants.length === 0) return 0;
+    return this.#restaurants[this.#restaurants.length - 1].ID + 1;
+  }
+
+  deleteByID(ID: number) {
+    const index = this.#restaurants.findIndex(restaurant => restaurant.ID === ID);
+
+    this.#restaurants.splice(index, 1);
+  }
+
+  add({ ID = this.makeUniqueID(), favorites = false, description = '', link = '', ...info }: Restaurant): void {
+    this.#restaurants.push({ ID, favorites, description, link, ...info });
   }
 
   getRestaurant(category: CategoryValue, sortType: SortTypeValue) {
@@ -22,13 +33,13 @@ class Restaurants {
   }
 
   static filterByCategory(category: CategoryValue, restaurants: Restaurant[]): Restaurant[] {
-    if (category === VALUE.catgory.all) return restaurants;
+    if (category === CATEGORY_ALL) return restaurants;
 
     return restaurants.filter(restaurant => restaurant.category === category);
   }
 
   static sortByType(sortType: SortTypeValue, restaurants: Restaurant[]): Restaurant[] {
-    if (sortType === VALUE.sortType.nameOrder) {
+    if (sortType === SORT_BY_NAMEORDER) {
       return [...restaurants].sort((a, b) => compareString(a.name, b.name));
     }
 
