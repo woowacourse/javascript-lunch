@@ -39,6 +39,23 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
     this.state = newState;
     this.render();
   }
+
+  addEvent() {
+    this.$target.addEventListener('click', this.state.onOpenInfoDrawer);
+    this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
+      e.stopPropagation();
+      fetchFavoriteId(this.state.restaurant.id);
+      this.state.handleByClickFavorite();
+      this.setState({
+        ...this.state,
+        restaurant: {
+          ...this.state.restaurant,
+          isFavorite: !this.state.restaurant.isFavorite,
+        },
+      });
+    });
+  }
+
   // TODO: 이미지 소스 상수화!
   render() {
     const { id, category, name, distance, description, isFavorite } = this.state.restaurant;
@@ -60,18 +77,6 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
         </button>
       </div>
     `;
-    this.$target.addEventListener('click', this.state.onOpenInfoDrawer);
-    this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
-      e.stopPropagation();
-      fetchFavoriteId(id);
-      this.state.handleByClickFavorite();
-      this.setState({
-        ...this.state,
-        restaurant: {
-          ...this.state.restaurant,
-          isFavorite: !this.state.restaurant.isFavorite,
-        },
-      });
-    });
+    this.addEvent();
   }
 }

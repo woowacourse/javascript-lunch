@@ -24,7 +24,13 @@ export default class TabBar implements Component<TabBarState> {
     $parent.appendChild(this.$target);
   }
 
-  // TODO: 선택 상태별로 data-select 속성 변경
+  addEvent() {
+    const buttons = this.$target.querySelectorAll('.tab-bar-select');
+    for (const button of buttons) {
+      button.addEventListener('click', this.state.onClickTabBar);
+    }
+  }
+
   render() {
     this.$target.innerHTML = `
             <button class='tab-bar-select' data-select='${
@@ -38,9 +44,6 @@ export default class TabBar implements Component<TabBarState> {
                 자주 가는 음식점 
             </button>
         `;
-    const buttons = this.$target.querySelectorAll('.tab-bar-select');
-    for (const button of buttons) {
-      button.addEventListener('click', this.state.onClickTabBar);
-    }
+    this.addEvent();
   }
 }

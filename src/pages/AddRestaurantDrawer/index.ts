@@ -47,6 +47,14 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
     this.render();
   }
 
+  addEvent() {
+    const $cancelButton = this.$target.querySelector('#modal-cancel');
+    const $modalForm = this.$target.querySelector('#modal-form') as HTMLElement;
+
+    $cancelButton?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
+    $modalForm?.addEventListener('submit', this.submitForm.bind(this));
+  }
+
   render() {
     this.$target.innerHTML = `
       <div class="modal-backdrop"></div>
@@ -106,11 +114,7 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
       </div>
     `;
 
-    const $cancelButton = document.getElementById('modal-cancel');
-    $cancelButton?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
-
-    const $modalForm = document.getElementById('modal-form');
-    $modalForm?.addEventListener('submit', this.submitForm.bind(this));
+    this.addEvent();
   }
 
   submitForm(e: SubmitEvent) {

@@ -40,7 +40,7 @@ class DropDown implements Component<DropDownState> {
       onChangeHandler,
     };
     $parent.append(this.$target);
-    this.$target?.addEventListener('change', this.state.onChangeHandler);
+    this.addEvent();
   }
 
   setState(newState: DropDownState) {
@@ -50,6 +50,10 @@ class DropDown implements Component<DropDownState> {
 
   setSelectAttribute(selectedOption: string, target: string) {
     return selectedOption === target ? 'selected' : '';
+  }
+
+  addEvent() {
+    this.$target?.addEventListener('change', this.state.onChangeHandler);
   }
 
   render() {

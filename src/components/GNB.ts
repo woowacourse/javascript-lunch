@@ -27,6 +27,12 @@ class GNB implements Component<GNBState> {
     this.render();
   }
 
+  addEvent() {
+    this.$target
+      .querySelector('button')
+      ?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
+  }
+
   render() {
     this.$target.innerHTML = `
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -34,9 +40,7 @@ class GNB implements Component<GNBState> {
           <img src="./add-button.png" alt="음식점 추가" />
       </button>
     `;
-
-    const button = this.$target.querySelector('button');
-    button?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
+    this.addEvent();
   }
 }
 

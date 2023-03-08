@@ -5,6 +5,7 @@ import { CATEGORY_IMAGE_URL } from '../utils/constants';
 
 type RestaurantInfoDrawerState = {
   restaurant: Restaurant;
+  selectId: number;
   toggleOpenDrawer: () => void;
   handleByClickFavorite: () => void;
 };
@@ -29,7 +30,7 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
     this.$target.classList.add('modal');
     this.$target.classList.add('modal--open');
     const restaurant = getRestaurantById(selectId);
-    this.state = { restaurant, toggleOpenDrawer, handleByClickFavorite };
+    this.state = { restaurant, toggleOpenDrawer, selectId, handleByClickFavorite };
 
     $parent.append(this.$target);
   }
@@ -37,6 +38,33 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
   setState(newState: RestaurantInfoDrawerState) {
     this.state = newState;
     this.render();
+  }
+
+  addEvent() {
+    this.$target.querySelector('#restaurant-delete__button')?.addEventListener('click', () => {
+      console.log(this.state.restaurant.id);
+      deleteById(this.state.restaurant.id);
+      this.state.handleByClickFavorite();
+      this.state.toggleOpenDrawer();
+    });
+
+    this.$target.querySelector('#drawer-close__button')?.addEventListener('click', (e: Event) => {
+      e.stopPropagation();
+      this.state.toggleOpenDrawer();
+    });
+
+    this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
+      e.stopPropagation();
+      fetchFavoriteId(this.state.selectId);
+      this.state.handleByClickFavorite();
+      this.setState({
+        ...this.state,
+        restaurant: {
+          ...this.state.restaurant,
+          isFavorite: !this.state.restaurant.isFavorite,
+        },
+      });
+    });
   }
 
   render() {
@@ -65,30 +93,6 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
         </div>
         <div>
         `;
-
-    this.$target.querySelector('#restaurant-delete__button')?.addEventListener('click', () => {
-      console.log(this.state.restaurant.id);
-      deleteById(this.state.restaurant.id);
-      this.state.handleByClickFavorite();
-      this.state.toggleOpenDrawer();
-    });
-
-    this.$target.querySelector('#drawer-close__button')?.addEventListener('click', (e: Event) => {
-      e.stopPropagation();
-      this.state.toggleOpenDrawer();
-    });
-
-    this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
-      e.stopPropagation();
-      fetchFavoriteId(id);
-      this.state.handleByClickFavorite();
-      this.setState({
-        ...this.state,
-        restaurant: {
-          ...this.state.restaurant,
-          isFavorite: !this.state.restaurant.isFavorite,
-        },
-      });
-    });
+    this.addEvent();
   }
 }
