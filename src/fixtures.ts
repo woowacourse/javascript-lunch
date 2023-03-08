@@ -1,5 +1,5 @@
 import Restaurant from './domain/Restaurant';
-import { DEFAULT_OPTION, FILTER, SORT } from './constants';
+import { DEFAULT_OPTION, FILTER, SORT } from './utils/constants';
 
 export const DEFAULT_RESTAURANTS = [
   {
