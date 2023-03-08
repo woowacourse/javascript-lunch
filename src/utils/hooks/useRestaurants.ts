@@ -26,7 +26,7 @@ function useRestaurants() {
     setRestaurants(lunchRecommendation.renderBy({ category, sortOption }));
   }
 
-  function handleClickAddBtn(restaurantInfo: RestaurantInfo) {
+  function handleClickAddBtn(restaurantInfo: Omit<RestaurantInfo, 'id'>) {
     lunchRecommendation.add(restaurantInfo);
     setRestaurants(lunchRecommendation.getList());
   }

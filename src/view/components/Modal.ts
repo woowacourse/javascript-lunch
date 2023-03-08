@@ -1,7 +1,9 @@
-import { useEvents } from '../../utils/core';
+import { EventCallback, useEvents } from '../../utils/core';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { getFormFields } from '../../utils/common/formData';
+import { useForm } from '../../utils/hooks/useForm';
+import Validator from '../../validation';
 
 interface ModalProps {
   close: VoidFunction;
@@ -11,29 +13,37 @@ function Modal({ close }: ModalProps) {
   const {
     handlers: { handleClickAddBtn },
   } = useRestaurants();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    resetErrors,
+  } = useForm();
   const [addEvent] = useEvents('.modal');
 
-  addEvent('click', '.modal-backdrop', (e) => {
+  const closeModal = () => {
+    resetErrors();
     close();
-  });
+  };
 
-  addEvent('click', '.button-container', (e) => {
-    close();
-  });
-
-  addEvent('submit', 'form', (e) => {
+  const onSubmit: EventCallback = (e) => {
     if (e.target instanceof HTMLFormElement) {
-      e.preventDefault();
       const fields = getFormFields(e.target);
 
       handleClickAddBtn({
         ...fields,
         distance: Number(fields.distance),
-      } as unknown as RestaurantInfo);
+      } as Omit<RestaurantInfo, 'id'>);
 
       close();
     }
-  });
+  };
+
+  addEvent('click', '.modal-backdrop', closeModal);
+
+  addEvent('click', '.button--secondary', closeModal);
+
+  addEvent('submit', 'form', handleSubmit(onSubmit));
 
   return `
     <div class="modal modal--open">
@@ -58,6 +68,7 @@ function Modal({ close }: ModalProps) {
                 <!-- 음식점 이름 -->
                 <div class="form-item form-item--required">
                     <label for="name text-caption">이름</label>
+                    ${register('name', Validator.Restaurant.checkName)}
                     <input type="text" name="name" id="name" required>
                 </div>
 

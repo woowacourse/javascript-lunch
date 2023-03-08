@@ -2,11 +2,14 @@ import { debounce } from '../common/debounce';
 import { $, isTarget } from '../../utils/common/domHelper';
 import { UnPack } from '../../types/common';
 
-interface Event {
+export interface EventCallback {
+  (e: HTMLElementEventMap[keyof HTMLElementEventMap]): void;
+}
+export interface Event {
   parentSelector: string;
   targetSelector: string;
   event: keyof HTMLElementEventMap;
-  callback: (e: HTMLElementEventMap[Event['event']]) => void;
+  callback: EventCallback;
 }
 interface Options<T = unknown> {
   currentStateKey: number;
