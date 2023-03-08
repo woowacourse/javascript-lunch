@@ -1,7 +1,7 @@
 export type AllCategory = '전체';
 export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 export type Distance = 5 | 10 | 15 | 20 | 30;
-export type SortingCriterion = 'name' | 'distance';
+export type SortingOptions = '이름순' | '거리순';
 
 export type CategoryOptions = AllCategory | Category;
 
@@ -15,8 +15,8 @@ export type Restaurant = {
 };
 
 export type RestaurantFilter = {
-  category?: CategoryFilterOption;
-  sorting?: SortingOption;
+  category: CategoryOptions;
+  sorting: SortingOptions;
 };
 
 export type Errors = {
