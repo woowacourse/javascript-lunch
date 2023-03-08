@@ -2,6 +2,7 @@ import Filters from './components/Filters';
 import Header from './components/Header';
 import RestaurantForm from './components/RestaurantForm';
 import RestaurantList from './components/RestaurantList';
+import Tabs from './components/Tabs';
 import { mockRestaurant } from './data';
 import { IRestaurant, Restaurant } from './domain/Restaurant';
 import RestaurantService from './domain/RestaurantService';
@@ -18,6 +19,7 @@ const getInitialRestaurantList = () => {
 };
 
 interface IAppState {
+  tabs: Tabs;
   filters: Filters;
   restaurantList: RestaurantList;
   restaurantForm: RestaurantForm;
@@ -25,6 +27,7 @@ interface IAppState {
 }
 
 export default class App {
+  $listArticle = document.createElement('article');
   state: IAppState;
 
   constructor($app: HTMLDivElement) {
@@ -35,12 +38,20 @@ export default class App {
     new Header($app);
 
     $app.appendChild($main);
+    $main.appendChild(this.$listArticle);
     const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
 
     this.state = {
       restaurantService,
-      filters: new Filters($main, this.updateRestaurantList.bind(this)),
-      restaurantList: new RestaurantList($main, initialResutaurantInfos),
+      tabs: new Tabs($main),
+      filters: new Filters(
+        this.$listArticle,
+        this.updateRestaurantList.bind(this)
+      ),
+      restaurantList: new RestaurantList(
+        this.$listArticle,
+        initialResutaurantInfos
+      ),
       restaurantForm: new RestaurantForm(
         $modalContainer as HTMLDivElement,
         this.addRestaurantInfo.bind(this)

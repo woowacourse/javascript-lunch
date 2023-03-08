@@ -1,0 +1,7 @@
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+
+  margin: 32px 0 0 0;
+  padding: 0 16px;
+}

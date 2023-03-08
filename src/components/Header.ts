@@ -8,7 +8,7 @@ export default class Header {
     this.$header.className = 'gnb';
     this.render();
     this.$header.addEventListener('click', this.showRestaurantAddUI);
-    $root.appendChild(this.$header);
+    $root.insertAdjacentElement('afterbegin', this.$header);
   }
 
   render = () => {
