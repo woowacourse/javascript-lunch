@@ -14,17 +14,14 @@ class App {
   private restaurantService: RestaurantService;
   private formModal: Modal = new Modal(RestaurantAddForm);
   private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
+  private currentTab: string = 'all-restaurants';
   private body = $('body') as HTMLBodyElement;
 
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
     this.render();
-    RestaurantListContainer.renderRestaurantItems(
-      $('.restaurant-list') as HTMLUListElement,
-      this.restaurantService.filterAndSort(this.currentDisplayStatus),
-      this.updateFavoriteRestaurant
-    );
+    this.updateRestaurantList();
     this.addEvents();
   }
 
@@ -46,12 +43,7 @@ class App {
 
   changeFilter = (filter: RestaurantFilter) => {
     this.currentDisplayStatus = { ...this.currentDisplayStatus, ...filter };
-    const restaurantList = this.restaurantService.filterAndSort(this.currentDisplayStatus);
-    RestaurantListContainer.renderRestaurantItems(
-      $('.restaurant-list') as HTMLUListElement,
-      restaurantList,
-      this.updateFavoriteRestaurant
-    );
+    this.updateRestaurantList();
   };
 
   addRestaurant = (restaurantItem: Restaurant) => {
@@ -63,11 +55,7 @@ class App {
       restaurantItem.category === this.currentDisplayStatus.category ||
       this.currentDisplayStatus.category === '전체'
     ) {
-      RestaurantListContainer.renderRestaurantItems(
-        $('.restaurant-list') as HTMLUListElement,
-        restaurantList,
-        this.updateFavoriteRestaurant
-      );
+      this.updateRestaurantList();
     }
   };
 
@@ -76,9 +64,14 @@ class App {
     saveToLocalStorage(updatedRestaurantList);
   };
 
-  updateRestaurantList = (currentTab: string) => {
+  changeRestaurantMenuTab = (tab: string) => {
+    this.currentTab = tab;
+    this.updateRestaurantList();
+  };
+
+  updateRestaurantList() {
     const restaurantList =
-      currentTab === 'all-restaurants'
+      this.currentTab === 'all-restaurants'
         ? this.restaurantService.filterAndSort(this.currentDisplayStatus)
         : this.restaurantService.filterAndSort(
             this.currentDisplayStatus,
@@ -90,11 +83,11 @@ class App {
       restaurantList,
       this.updateFavoriteRestaurant
     );
-  };
+  }
 
   addEvents() {
     Header.addEvent(this.formModal.openModal);
-    RestaurantTabMenu.addEvent(this.updateRestaurantList);
+    RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvent(this.changeFilter);
     this.formModal.addEvents(this.addRestaurant);
   }
