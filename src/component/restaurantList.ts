@@ -1,6 +1,7 @@
 import { RestaurantType } from "../type";
 import { $ } from "../util/selector";
-import { CATEGORY_IMAGE } from "../constant/imageConstant";
+import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
+import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
 
 export const renderRestaurant = (info: RestaurantType) => {
   return `<li class="restaurant">
@@ -15,6 +16,9 @@ export const renderRestaurant = (info: RestaurantType) => {
       <span class="restaurant__distance text-body">
         캠퍼스부터 ${info.distance}분 내
       </span>
+      <img src="./favorite-icon-${
+        FAVORITE_IMAGE[info.favorite]
+      }.png" alt="not-favorite" class="favorite-icon" />
       <p class="restaurant__description text-body">${info.description}</p>
     </div>
   </li>`;
@@ -32,4 +36,36 @@ export const renderRestaurantList = (restaurantList: RestaurantType[]) => {
   restaurantListElement.innerHTML = `
   <ul class="restaurant-list">${combineAllRestaurants(restaurantList)}</ul>
   `;
+};
+
+export const toggleFavoriteIcon = (img: HTMLImageElement) => {
+  const keyName = img.previousElementSibling?.previousElementSibling
+    ?.textContent as string;
+  const clickedRestaurantKey = findLocalStorageKeys(keyName)[0];
+  const clickedRestaurantInfo = JSON.parse(
+    String(localStorage.getItem(clickedRestaurantKey))
+  );
+
+  const isNotFavorite =
+    img.src === `${location.href}favorite-icon-${FAVORITE_IMAGE["none"]}.png`;
+
+  if (isNotFavorite) {
+    changeFavoriteImage(img, "favorite");
+    clickedRestaurantInfo.favorite = "favorite";
+  } else {
+    changeFavoriteImage(img, "none");
+    clickedRestaurantInfo.favorite = "none";
+  }
+  changeFavoriteInLocalStorage(clickedRestaurantKey, clickedRestaurantInfo);
+};
+
+export const changeFavoriteImage = (
+  img: HTMLImageElement,
+  state: "none" | "favorite"
+) => {
+  img.src = `${location.href}favorite-icon-${FAVORITE_IMAGE[state]}.png`;
+};
+
+export const changeFavoriteInLocalStorage = (key: string, info: string) => {
+  localStorage.setItem(key, JSON.stringify(info));
 };

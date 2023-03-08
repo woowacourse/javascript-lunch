@@ -54,6 +54,7 @@ export default class RestaurantsController {
       String(value).trim(),
     ]);
     const restaurantInfo = Object.fromEntries(trimmedInfo);
+    restaurantInfo.favorite = "none";
 
     try {
       validateName(restaurantInfo.name);

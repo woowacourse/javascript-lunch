@@ -175,15 +175,12 @@ body::-webkit-scrollbar {
   background: var(--lighten-color);
 }
 
-.category-icon {
-  width: 36px;
-  height: 36px;
-}
-
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+  position: relative;
 }
 
 .restaurant__name {
@@ -192,6 +189,13 @@ body::-webkit-scrollbar {
 
 .restaurant__distance {
   color: var(--primary-color);
+}
+
+.favorite-icon {
+  position: absolute;
+  right: 0;
+  width: 26.66px;
+  height: 25.33px;
 }
 
 .restaurant__description {

@@ -23,6 +23,8 @@ import {
   executeSubmitEventListener,
 } from "./util/eventListener";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
+import { toggleFavoriteIcon } from "./component/restaurantList";
+import { $$ } from "./util/selector";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 
@@ -37,6 +39,7 @@ const App = {
   initEventListeners() {
     this.controlNewRestaurantModal();
     this.controlFilter();
+    this.controlRestaurants();
   },
 
   initLocalStorage() {
@@ -82,6 +85,14 @@ const App = {
       }
     );
   },
+
+  controlRestaurants() {
+    $$(".favorite-icon").forEach((icon) => icon.addEventListener("click", (event:Event) => {
+      const target = event.target as HTMLImageElement
+      
+      toggleFavoriteIcon(target)
+    }))
+  }
 };
 
 App.init();
