@@ -10,8 +10,8 @@ import Filter from "./domain/Filter";
 import IMAGE from "./IMAGE";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
-import appendNewRestaurant from "./component/appendNewRestaurant";
 import createSelectInput from "./component/createSelectInput";
+import RestaurantInfo from "./component/RestaurantInfo";
 
 const CATEGORY = getFoodCategoryMemberList();
 const ESTIMATEDTIME = getEstimatedTimeMemberList();
@@ -99,6 +99,7 @@ const nameAlert = $("#alert-name");
 const distanceInput = $("#distance");
 const distanceAlert = $("#alert-distance");
 const descriptionInput = $("#description");
+const restaurantListContainer = $(".restaurant-list-container");
 
 catgoryInput.addEventListener("focusout", () => {
   try {
@@ -158,10 +159,16 @@ const readRestaurantInput = () => {
 
 const updateRestaurant = () => {
   $(".restaurant-list-container").innerHTML = "";
+
   LocalStorage.setItem("restaurants", restaurantList.getList());
+
   const sortResult = sort(sortingFilter.value, restaurantList.getList());
   const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-  return filterResult.forEach((element) => appendNewRestaurant(element));
+
+  filterResult.forEach((element) => {
+    const summary = RestaurantInfo.createSummaryElement(element);
+    restaurantListContainer.appendChild(summary);
+  });
 };
 
 $("#change-category-to-all").addEventListener("click", () => {
