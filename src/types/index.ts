@@ -8,6 +8,7 @@ export type Distance = ArrayLiteral<typeof DISTANCES>;
 export type SortType = ArrayLiteral<typeof SORT_TYPE>;
 
 export interface Restaurant {
+  id: String;
   category: Category;
   name: string;
   distance: Distance;

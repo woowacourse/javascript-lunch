@@ -94,6 +94,7 @@ export default class App {
     }
 
     const restaurant = {
+      id: String(new Date().getTime() + Math.random()),
       category,
       name,
       distance,
