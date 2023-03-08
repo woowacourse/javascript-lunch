@@ -19,7 +19,7 @@ class Header extends CustomElement {
   };
 
   clickOpenModalButton = () => {
-    this.dispatchEvent(new CustomEvent('openModal', { bubbles: true }));
+    this.dispatchEvent(new CustomEvent('openRegisterRestauranModal', { bubbles: true }));
   };
 
   initEventHandlers = () => {

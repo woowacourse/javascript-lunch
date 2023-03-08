@@ -8,7 +8,7 @@ export default () => {
     ` <r-header></r-header>
         <main>
           <r-search-restaurant-section></r-search-restaurant-section>
-          <r-restaurant-list id="restaurant-list"></r-restaurant-list>,
+          <r-restaurant-list id="restaurant-list"></r-restaurant-list>
         </main>
       `,
   );

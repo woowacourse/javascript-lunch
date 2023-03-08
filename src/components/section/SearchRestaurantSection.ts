@@ -12,7 +12,7 @@ class SearchRestaurantSection extends CustomElement {
 
           padding: 0 16px;
           margin-top: 24px;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
         }
       </style>
       <section class="restaurant-search-container">
