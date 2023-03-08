@@ -1,31 +1,32 @@
+import actions from '../../hooks/actions';
+import getFormData from '../../utils/getFormData';
+import { $ } from '../../utils/querySelector';
+import RestaurantList from './RestaurantList';
+
 type ButtonType = 'button' | 'submit';
 
 type ButtonProps = {
-  $target: HTMLElement;
+  $target: Element;
   info: {
     buttonType: ButtonType;
     buttonStyle: string;
     buttonText: string;
   };
-
-  onClickEvent: (arg0: string) => void;
 };
 
 class Button {
   #target;
   #info;
-  onClickEvent;
 
-  constructor({ $target, info, onClickEvent }: ButtonProps) {
+  constructor({ $target, info }: ButtonProps) {
     this.#target = $target;
     this.#info = info;
-    this.onClickEvent = onClickEvent;
 
     this.render();
     this.setEvent();
   }
 
-  template() {
+  #template() {
     return `
       <button
         type="${this.#info.buttonType}"
@@ -37,28 +38,30 @@ class Button {
   }
 
   render() {
-    this.#target.innerHTML += this.template();
-  }
-
-  modalButtonEvent(type: string) {
-    if (type === 'submit') {
-      this.onClickEvent('add');
-    }
-
-    if (type === 'button') {
-      this.onClickEvent('cancel');
-    }
+    this.#target.innerHTML += this.#template();
   }
 
   setEvent() {
-    this.#target.addEventListener('click', (e) => {
+    this.#target?.addEventListener('click', (e) => {
       e.preventDefault();
 
       if (
         e.target instanceof HTMLButtonElement &&
         e.target.closest(`.${this.#info.buttonStyle}`)
       ) {
-        this.modalButtonEvent(e.target.type);
+        if (e.target.type === 'submit') {
+          const dom = $('form');
+
+          if (dom instanceof HTMLFormElement) {
+            const restaurant = getFormData(dom);
+            if (!restaurant) return;
+            actions.addRestaurant(restaurant);
+
+            new RestaurantList($('.restaurant-list-wrapper')).render();
+          }
+        }
+
+        $('.modal')?.classList.remove('modal--open');
       }
     });
   }
