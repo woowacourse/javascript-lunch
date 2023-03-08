@@ -21,3 +21,11 @@ export type Option = {
   text: string[];
   value: string[];
 };
+
+export type Attribute = {
+  name: string;
+  id: string;
+  className?: string;
+  type?: string;
+  required?: boolean;
+};
