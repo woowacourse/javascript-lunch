@@ -6,6 +6,7 @@ export interface RestaurantProps {
   distanceByMinutes: number;
   description?: string;
   referenceUrl?: string;
+  isFavorite?: boolean;
 }
 
 class Restaurant {
@@ -22,6 +23,8 @@ class Restaurant {
   private description?: string;
 
   private referenceUrl?: string;
+
+  private isFavorite = false;
 
   constructor({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) {
     this.validateCategory(category);
@@ -57,6 +60,14 @@ class Restaurant {
 
   getReferenceUrl() {
     return this.referenceUrl;
+  }
+
+  getIsFavorite() {
+    return this.isFavorite;
+  }
+
+  toggleFavorite() {
+    this.isFavorite = !this.isFavorite;
   }
 
   private validateCategory(category: string) {

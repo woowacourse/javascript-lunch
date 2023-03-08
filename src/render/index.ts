@@ -6,7 +6,8 @@ import restaurantDetailModal from './restaurantDetailModal';
 export default {
   init,
 
-  restaurantList,
+  restaurantList: restaurantList.render,
+  toggleRestaurantFavorite: restaurantList.toggleRestaurantFavorite,
 
   openRegisterRestaurantModal: registerRestaurantModal.open,
   closeRegisterRestaurantModal: registerRestaurantModal.close,

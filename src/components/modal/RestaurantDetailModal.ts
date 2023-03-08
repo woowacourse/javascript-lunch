@@ -21,6 +21,10 @@ class RestaurantDetailModal extends CustomElement {
     return this.getAttribute('referenceUrl');
   }
 
+  private get isFavorite() {
+    return this.hasAttribute('favorite');
+  }
+
   renderTemplate = () => {
     return `
         <style>
@@ -57,7 +61,9 @@ class RestaurantDetailModal extends CustomElement {
                   class="category-icon"
                 >
               </div>
-              <div class="not-favorites-icon">☆</div>
+              <r-favorite-icon 
+                ${this.isFavorite ? 'favorite' : ''} 
+                restaurantName="${this.name}"></r-favorite-icon>
             </div>
             <h2 class="text-title">${this.name}</h2>
             <p class="restaurant__distance text-body">캠퍼스부터 ${this.distanceByMinutes}분 내</p>

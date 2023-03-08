@@ -1,11 +1,17 @@
-.favorites-icon {
+.favorite-icon {
   font-size: 36px;
   color: var(--primary-color);
   cursor: pointer;
 }
 
-.not-favorites-icon {
+.not-favorite-icon {
   font-size: 36px;
   color: var(--lighten-color);
   cursor: pointer;
+}
+
+.absolute-position {
+  position: absolute;
+  right: 16px;
+  top: 16px;
 }

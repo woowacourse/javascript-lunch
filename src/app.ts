@@ -84,7 +84,13 @@ class App {
     });
   };
 
-  openRestaurantDetailModal = ({ detail }: CustomEvent) => render.openRestaurantDetailModal(detail);
+  openRestaurantDetailModal = ({ detail }: CustomEvent) => {
+    const { name } = detail;
+
+    const restaurant = this.#restaurants.filter((_restaurant) => _restaurant.getName() === name)[0];
+
+    render.openRestaurantDetailModal(restaurant);
+  };
 
   initLoad = () => {
     render.init();
@@ -109,6 +115,17 @@ class App {
     render.closeRestaurantDetailModal();
   };
 
+  toggleRestaurantFavorite = ({ detail }: CustomEvent) => {
+    const { restaurantName } = detail;
+
+    this.#restaurants.forEach((restaurant) => {
+      if (restaurant.getName() === restaurantName) restaurant.toggleFavorite();
+    });
+
+    render.toggleRestaurantFavorite(restaurantName);
+    saveRestaurants(this.#restaurants);
+  };
+
   initEventHandlers() {
     window.addEventListener('load', this.initLoad);
     document.addEventListener('openRegisterRestauranModal', render.openRegisterRestaurantModal);
@@ -120,6 +137,7 @@ class App {
       this.openRestaurantDetailModal as EventListener,
     );
     document.addEventListener('deleteRestaurant', this.deleteRestaurant as EventListener);
+    document.addEventListener('toggleFavorite', this.toggleRestaurantFavorite as EventListener);
   }
 }
 
