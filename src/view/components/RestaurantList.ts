@@ -1,41 +1,66 @@
-import RestaurantItem from './RestaurantItem';
+import actions from '../../hooks/actions';
+import state from '../../hooks/store';
 import { Restaurant } from '../../type/common';
 import { $ } from '../../utils/querySelector';
-
-type RestaurantListProps = {
-  $target: HTMLElement;
-  restaurants: Restaurant[];
-};
+import RestaurantItem from './RestaurantItem';
+import Selector from './Selector';
 
 class RestaurantList {
-  #target;
-  #restaurants;
+  #root;
 
-  constructor({ $target, restaurants }: RestaurantListProps) {
-    this.#target = $target;
-    this.#restaurants = restaurants;
-
-    this.#render();
+  constructor($root: Element) {
+    this.#root = $root;
   }
 
   #template() {
     return `
-        <ul class="restaurant-list"></ul>
-      `;
-  }
-
-  #render() {
-    this.#target.innerHTML = this.#template();
-    this.#mounted();
+        <section class="restaurant-filter-container"></section>
+        <!-- 음식점 목록 -->
+        <section class="restaurant-list-container">
+          <ul class="restaurant-list"></ul>
+        </section>
+    `;
   }
 
   #mounted() {
-    this.#restaurants.forEach((restaurant: Restaurant) => {
-      new RestaurantItem({
-        $target: $('.restaurant-list') as HTMLElement,
-        restaurant: restaurant,
-      });
+    new Selector({
+      $target: $('.restaurant-filter-container'),
+      info: {
+        name: 'category',
+        id: 'category-filter',
+        options: [
+          { value: '전체', name: '전체' },
+          { value: '한식', name: '한식' },
+          { value: '중식', name: '중식' },
+          { value: '일식', name: '일식' },
+          { value: '양식', name: '양식' },
+          { value: '아시안', name: '아시안' },
+          { value: '기타', name: '기타' },
+        ],
+      },
+    }).render(state.categorySelector);
+
+    new Selector({
+      $target: $('.restaurant-filter-container'),
+      info: {
+        name: 'sorting',
+        id: 'sorting-filter',
+        options: [
+          { value: 'name', name: '이름순' },
+          { value: 'distance', name: '거리순' },
+        ],
+      },
+    }).render(state.sortSelector);
+
+    actions.getValue('restaurants')?.forEach((restaurant: Restaurant) => {
+      console.log(restaurant);
+      new RestaurantItem($('.restaurant-list')).render(restaurant);
     });
+  }
+
+  render() {
+    this.#root.innerHTML = this.#template();
+    this.#mounted();
   }
 }
 
