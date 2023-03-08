@@ -1,53 +1,70 @@
-import { Category } from '../types/type';
-import { IRestaurant, Restaurant } from './Restaurant';
+import { Category, DistanceTime, Sort } from '../constants';
+
+export interface Restaurant {
+  category: Category;
+  distance: DistanceTime;
+  name: string;
+  description?: string;
+  url?: string;
+}
 
 export default class RestaurantService {
   #restaurants: Restaurant[];
+  #filtered: Restaurant[];
+  category: Category | '전체';
+  sort: Sort;
 
   constructor(restaurants: Restaurant[] = []) {
     this.#restaurants = restaurants;
+    this.#filtered = restaurants;
+    this.category = '전체';
+    this.sort = '이름순';
   }
 
-  getRestaurantsInfo() {
+  getRestaurant() {
     return [...this.#restaurants];
   }
 
-  filterByCategory(restaurants: Restaurant[], category: Category | '전체') {
-    if (category === '전체') {
-      return this.getRestaurantsInfo();
-    }
-
-    const filteredByCategory = restaurants.filter((restaurant) =>
-      restaurant.isSameCategory(category)
-    );
-
-    return filteredByCategory;
+  getFilteredRestaurant() {
+    return [...this.#filtered];
   }
 
-  sortByName(restaurants: Restaurant[]) {
-    const nameSortedRestaurants = [...restaurants].sort((a, b) => {
-      if (a.compareName(b) === 0) return a.compareDistance(b);
+  filterByCategory(restaurants: Restaurant[], category: Category | '전체'): Restaurant[] {
+    if (category === '전체') {
+      return this.#restaurants;
+    }
 
-      return a.compareName(b);
+    return restaurants.filter((restaurant) => restaurant.category === category);
+  }
+
+  sortByName(restaurants: Restaurant[]): Restaurant[] {
+    const nameSortedRestaurants = [...restaurants].sort((a, b) => {
+      if (a.name.localeCompare(b.name) === 0) return a.distance - b.distance;
+
+      return a.name.localeCompare(b.name);
     });
 
     return nameSortedRestaurants;
   }
 
-  sortByDistance(restaurants: Restaurant[]) {
+  sortByDistance(restaurants: Restaurant[]): Restaurant[] {
     const distanceSortedRestaurants = [...restaurants].sort((a, b) => {
-      if (a.compareDistance(b) === 0) return a.compareName(b);
+      if (a.distance - b.distance === 0) return a.name.localeCompare(b.name);
 
-      return a.compareDistance(b);
+      return a.distance - b.distance;
     });
 
     return distanceSortedRestaurants;
   }
 
-  addRestaurant(restaurant: IRestaurant) {
-    this.#restaurants = [
-      ...this.#restaurants,
-      new Restaurant({ ...restaurant }),
-    ];
+  addRestaurant({ category, distance, name, description, url }: Restaurant) {
+    this.#restaurants = [...this.#restaurants, { category, distance, name, description, url }];
+  }
+
+  filterRestaurantList() {
+    const filtered = this.filterByCategory(this.#restaurants, this.category);
+
+    if (this.sort === '이름순') this.#filtered = this.sortByName(filtered);
+    if (this.sort === '거리순') this.#filtered = this.sortByDistance(filtered);
   }
 }
