@@ -74,6 +74,7 @@ export default class App {
       distance,
       description,
       link,
+      favorite: false,
     };
 
     this.#restaurants.addRestaurant(restaurant);

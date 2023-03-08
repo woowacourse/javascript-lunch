@@ -8,6 +8,7 @@ export interface IRestaurant {
   distance: RestaurantDistance;
   description?: string;
   link?: string;
+  favorite: boolean;
 }
 
 export type SelectBoxConfig = {
