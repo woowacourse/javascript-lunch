@@ -1,4 +1,4 @@
-import { Category, Sort } from "./../../types/type";
+import { Category, Sort } from "../../types/type";
 import { Attribute, RerenderListType } from "../../types/type";
 import { $ } from "../../utils/Dom";
 

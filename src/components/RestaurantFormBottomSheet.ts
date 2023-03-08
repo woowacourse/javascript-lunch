@@ -1,8 +1,8 @@
-import { validateUrl } from "../../utils/validate";
-import { OptionValue, RestaurantSelect } from "../../utils/Constants";
-import { Category, TakingTime, Restaurant } from "../../types/type";
-import { $ } from "../../utils/Dom";
-import Select from "../reusable/Select";
+import { validateUrl } from "../utils/validate";
+import { OptionValue, RestaurantSelect } from "../utils/Constants";
+import { Category, TakingTime, Restaurant } from "../types/type";
+import { $ } from "../utils/Dom";
+import Select from "../components/common/Select";
 
 class RestaurantFormBottomSheet {
   categorySelect;

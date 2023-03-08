@@ -1,7 +1,7 @@
-import { OptionValue, RestaurantSelect } from "../../utils/Constants";
-import { Constants } from "../../utils/Constants";
-import { RerenderListType } from "../../types/type";
-import Select from "../reusable/Select";
+import { OptionValue, RestaurantSelect } from "../utils/Constants";
+import { Constants } from "../utils/Constants";
+import { RerenderListType } from "../types/type";
+import Select from "../components/common/Select";
 
 class SelectContainer {
   categorySelect;

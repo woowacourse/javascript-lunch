@@ -1,7 +1,7 @@
-import Header from "./components/disposable/Header";
-import RestaurantFormBottomSheet from "./components/disposable/RestaurantFormBottomSheet";
-import RestaurantList from "./components/disposable/RestaurantList";
-import SelectContainer from "./components/disposable/SelectContainer";
+import Header from "./components/Header";
+import RestaurantFormBottomSheet from "./components/RestaurantFormBottomSheet";
+import RestaurantList from "./components/RestaurantList";
+import SelectContainer from "./components/SelectContainer";
 import { Constants, OptionValue } from "./utils/Constants";
 import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./types/type";

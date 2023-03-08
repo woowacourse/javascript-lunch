@@ -1,6 +1,6 @@
-import { Restaurant } from "../../types/type";
-import { $ } from "../../utils/Dom";
-import RestaurantItem from "../reusable/RestaurantItem";
+import { Restaurant } from "../types/type";
+import { $ } from "../utils/Dom";
+import RestaurantItem from "../components/common/RestaurantItem";
 
 class RestaurantList {
   template() {

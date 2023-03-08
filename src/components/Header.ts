@@ -1,4 +1,4 @@
-import { $ } from "../../utils/Dom";
+import { $ } from "../utils/Dom";
 
 class Header {
   template() {
