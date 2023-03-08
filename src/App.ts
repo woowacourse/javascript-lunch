@@ -6,7 +6,7 @@ import Tabs from './components/Tabs';
 import { mockRestaurant } from './data';
 import { IRestaurant, Restaurant } from './domain/Restaurant';
 import RestaurantService from './domain/RestaurantService';
-import { CategoryOptions, FilterOptions } from './types/type';
+import { CategoryOptions, FilterOptions, TabType } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 const getInitialRestaurantList = () => {
@@ -39,11 +39,12 @@ export default class App {
 
     $app.appendChild($main);
     $main.appendChild(this.$listArticle);
+
     const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
 
     this.state = {
       restaurantService,
-      tabs: new Tabs($main),
+      tabs: new Tabs($main, this.renderListArticle.bind(this)),
       filters: new Filters(
         this.$listArticle,
         this.updateRestaurantList.bind(this)
@@ -61,6 +62,21 @@ export default class App {
     this.updateRestaurantList.bind(this)('전체', '이름순');
   }
 
+  renderListArticle(currentTab: TabType) {
+    this.$listArticle.innerHTML = '';
+    console.log(currentTab);
+    switch (currentTab) {
+      case 'all':
+        this.state.filters.render(this.$listArticle);
+        this.state.restaurantList.render(this.$listArticle);
+        break;
+      case 'favorite':
+        break;
+      default:
+        return;
+    }
+  }
+
   updateRestaurantList(category: CategoryOptions, filter: FilterOptions) {
     const { restaurantService, restaurantList, filters } = this.state;
 
@@ -76,6 +92,8 @@ export default class App {
     restaurantList.setState({
       restaurantList: filteredAndSortedList,
     });
+    filters.render(this.$listArticle);
+    restaurantList.render(this.$listArticle);
   }
 
   addRestaurantInfo(restaurantInfo: IRestaurant) {

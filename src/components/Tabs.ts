@@ -6,11 +6,19 @@ export default class Tabs {
 
   currentTab: TabType;
 
-  constructor($root: HTMLElement) {
+  constructor(
+    $root: HTMLElement,
+    renderListArticle: (currentTab: TabType) => void
+  ) {
     this.$tab.className = 'tab-container';
     this.currentTab = 'favorite';
     this.render();
-    this.$tab.addEventListener('click', this.tabClickHandler);
+    this.$tab.addEventListener('click', (event) => {
+      const { dataset } = event.target as HTMLButtonElement;
+      const { category } = dataset;
+
+      renderListArticle(category as TabType);
+    });
 
     $root.insertAdjacentElement('afterbegin', this.$tab);
   }
@@ -26,17 +34,5 @@ export default class Tabs {
     `;
   }
 
-  tabClickHandler(event: Event) {
-    const { dataset } = event.target as HTMLButtonElement;
-    const { category } = dataset;
-
-    switch (category) {
-      case 'all':
-        break;
-      case 'favorite':
-        break;
-      default:
-        return;
-    }
-  }
+  tabClickHandler(event: Event) {}
 }

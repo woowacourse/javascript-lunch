@@ -18,8 +18,8 @@ export default class RestaurantList {
     $root.appendChild(this.$restaurantListSection);
   }
 
-  render = () => {
-    this.$restaurantListSection.innerHTML = `
+  template() {
+    return `
     <ul class="restaurant-list">
       ${this.state.restaurantList.reduce(
         (html, restaurant) =>
@@ -28,10 +28,17 @@ export default class RestaurantList {
       )}
     </ul>
     `;
+  }
+
+  render = ($targetElement: HTMLElement) => {
+    this.$restaurantListSection.innerHTML = this.template();
+    $targetElement.insertAdjacentElement(
+      'beforeend',
+      this.$restaurantListSection
+    );
   };
 
   setState = (state: IRestaurantList) => {
     this.state = { ...this.state, ...state };
-    this.render();
   };
 }

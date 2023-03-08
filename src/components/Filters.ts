@@ -25,15 +25,20 @@ export default class Filters {
       category: '전체',
       filter: '이름순',
     };
-    this.render();
+    this.render($root);
     this.$filterSection.addEventListener('change', (e) =>
       this.handleFiltersChange(e, updateRestaurantList)
     );
     $root.appendChild(this.$filterSection);
   }
 
-  render = () => {
-    this.$filterSection.innerHTML = `
+  render = ($targetElement: HTMLElement) => {
+    this.$filterSection.innerHTML = this.template();
+    $targetElement.insertAdjacentElement('beforeend', this.$filterSection);
+  };
+
+  template() {
+    return `
     ${Select({
       name: 'category',
       id: 'category-filter',
@@ -49,11 +54,10 @@ export default class Filters {
       className: 'restaurant-filter',
     })}
   `;
-  };
+  }
 
   setState = (state: IFilterState) => {
     this.state = { ...this.state, ...state };
-    this.render();
   };
 
   handleFiltersChange = (
