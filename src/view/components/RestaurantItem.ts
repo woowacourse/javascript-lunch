@@ -1,56 +1,36 @@
+import { CATEGORY_IMG_PATH } from '../../constant';
 import { Restaurant } from '../../type/common';
-
-type RestaurantItemProps = {
-  $target: HTMLElement;
-  restaurant: Restaurant;
-};
-
-const categoryImgPath = {
-  전체: null,
-  한식: './category-korean.png',
-  중식: './category-chinese.png',
-  양식: './category-western.png',
-  일식: './category-japanese.png',
-  아시안: './category-asian.png',
-  기타: './category-etc.png',
-};
 
 class RestaurantItem {
   #target;
-  #restaurant;
 
-  constructor({ $target, restaurant }: RestaurantItemProps) {
+  constructor($target: Element) {
     this.#target = $target;
-    this.#restaurant = restaurant;
-
-    this.#render();
   }
 
-  #template() {
+  #template(restaurant: Restaurant) {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
-        <img
-          src="${categoryImgPath[this.#restaurant.category]}"
-          alt="${this.#restaurant.category}"
-          class="category-icon"
-        />
+          <img src="${
+            CATEGORY_IMG_PATH[restaurant.category]
+          }" alt="한식" class="category-icon">
         </div>
         <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${this.#restaurant.name}</h3>
-        <span class="restaurant__distance text-body"
-          >캠퍼스부터 ${this.#restaurant.distance}분 내</span
-        >
-        <p class="restaurant__description text-body">
-          ${this.#restaurant.description}
-        </p>
+          <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
+          <span class="restaurant__distance text-body">캠퍼스부터 ${
+            restaurant.distance
+          }분 내</span>
+          <p class="restaurant__description text-body">${
+            restaurant.description
+          }</p>
         </div>
       </li>
     `;
   }
 
-  #render() {
-    this.#target.innerHTML += this.#template();
+  render(restaurant: Restaurant) {
+    this.#target.innerHTML += this.#template(restaurant);
   }
 }
 
