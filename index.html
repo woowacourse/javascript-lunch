@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/styles/index.css" />
+    <title>점심 뭐 먹지</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>점심 뭐 먹지</title>
-</head>
-
-<body>
-
-</body>
-
+  <body>
+    <!-- GNB -->
+    <lunch-header></lunch-header>
+    <!-- 카테고리/정렬 필터 -->
+    <section class="restaurant-filter-container">
+      <filter-list
+        name="category"
+        id="categoryFilter"
+        options="전체,한식,중식,일식,양식,아시안,기타"
+      ></filter-list>
+      <filter-list
+        name="sorting"
+        id="sortingFilter"
+        options="이름순,거리순"
+      ></filter-list>
+    </section>
+    <restaurant-box></restaurant-box>
+    <restaurant-modal></restaurant-modal>
+  </body>
 </html>

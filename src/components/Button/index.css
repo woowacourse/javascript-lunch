@@ -1,0 +1,20 @@
+.button {
+  width: 240px;
+  height: 44px;
+  margin-right: 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button--white {
+  border: 1px solid var(--grey-300);
+  background: transparent;
+  color: var(--grey-300);
+}
+
+.button--orange {
+  background: var(--primary-color);
+  color: var(--grey-100);
+}
