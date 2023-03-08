@@ -27,7 +27,7 @@ class RestaurantFilter {
   }
 
   render() {
-    this.$target.insertAdjacentHTML('afterbegin', this.template());
+    this.$target.insertAdjacentHTML('beforeend', this.template());
   }
 
   setEvent(callback) {
