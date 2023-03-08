@@ -1,7 +1,7 @@
 import RestaurantListComponent from "./RestaurantListComponent";
 import RestaurantInstance from "../../domain/RestaurantsStore";
 
-class FavoriteRestaurantListComponent extends RestaurantListComponent {
+class FavoriteRestaurantListComponent {
   connectedCallback() {
     super.connectedCallback();
     RestaurantInstance.subscribe(this);
@@ -24,6 +24,35 @@ class FavoriteRestaurantListComponent extends RestaurantListComponent {
       .join("");
 
     this.shadowRoot.querySelector(".restaurant-list").innerHTML = restaurants;
+  }
+
+  template() {
+    return `
+        <style>
+            * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            }
+            :host {
+            width: 50%;
+            height: 100%;
+            }
+            .restaurant-list-container {
+            display: flex;
+            flex-direction: column;
+            
+            padding: 0 16px;
+            margin: 16px 0;
+            }
+            ul {
+            list-style: none;
+            }
+        </style>
+        <section class="restaurant-list-container">
+            <ul class="restaurant-list"></ul>
+        </section>
+    `;
   }
 }
 

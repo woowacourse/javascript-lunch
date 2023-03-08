@@ -12,19 +12,11 @@ class SelectContainer extends CustomElement {
         box-sizing: border-box;
       }
 
-      :host {
-        width: 100vw;
-        position: fixed;
-        top: 136px;
-        left: 0;
-        z-index: 2
-      }
-
       .restaurant-filter-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 32px 16px 38px 16px;
+        padding: 32px 16px;
         background-color: #fff;
       }
     </style>

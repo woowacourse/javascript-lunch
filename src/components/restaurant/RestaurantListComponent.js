@@ -43,12 +43,12 @@ class RestaurantListComponent extends CustomElement {
         flex-direction: column;
       
         padding: 0 16px;
-        margin: 16px 0;
       }
       ul {
         list-style: none;
       }
     </style>
+    <select-container></select-container>
     <section class="restaurant-list-container">
       <ul class="restaurant-list"></ul>
     </section>
