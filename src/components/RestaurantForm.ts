@@ -59,11 +59,13 @@ export default class RestaurantForm {
     const link = this.$form.querySelector('#link') as HTMLInputElement;
 
     return {
+      id: Date.now(),
       category: category.value as CategoryOptions,
       name: name.value ?? '',
       distance: Number(distance.value) as DistanceTime,
       description: description.value ?? '',
       link: link.value ?? '',
+      isFavorite: false,
     };
   }
 

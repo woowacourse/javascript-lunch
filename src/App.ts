@@ -88,10 +88,10 @@ export default class App {
     );
 
     filters.setState({ filter, category });
-
     restaurantList.setState({
       restaurantList: filteredAndSortedList,
     });
+
     filters.render(this.$listArticle);
     restaurantList.render(this.$listArticle);
   }

@@ -4,6 +4,9 @@ import japanese from '../../assets/category-japanese.png';
 import western from '../../assets/category-western.png';
 import asian from '../../assets/category-asian.png';
 import etc from '../../assets/category-etc.png';
+import favorite from '../../assets/favorite-icon-filled.png';
+import notFavorite from '../../assets/favorite-icon-lined.png';
+
 import { CategoryOptions } from '../types/type';
 import { IRestaurant } from '../domain/Restaurant';
 
@@ -12,9 +15,13 @@ export default function RestaurantItemTemplate({
   distance,
   name,
   description,
+  isFavorite,
 }: IRestaurant) {
   return `
     <li class="restaurant">
+      <button>
+        <img src="${isFavorite ? favorite : notFavorite}"/>
+      </button>
       <div class="restaurant__category">
         <img src="${categoryImageSource(
           category
