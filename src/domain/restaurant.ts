@@ -18,6 +18,7 @@ export const restaurant: Restaurant = {
 
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
+    this.filterByCategory('전체');
 
     $('restaurant-box').renderRestaurantList(this.restaurants);
   },
@@ -30,10 +31,12 @@ export const restaurant: Restaurant = {
         (list) => list.category === category
       );
     }
+
     $('restaurant-box').renderRestaurantList(this.filteredRestaurants);
   },
 
   sortByType(type: SortTypeAll) {
+    this.filterByCategory('전체');
     if (type === '거리순') {
       const sortBydistance = this.filteredRestaurants.sort(
         (aRestaurant, bRestaurant) =>
