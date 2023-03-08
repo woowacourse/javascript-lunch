@@ -50,7 +50,7 @@ class NewRestaurantModal extends Component {
     return `
       <style>
         form > * {
-          margin-bottom: 36px;
+          margin-bottom: 42px;
         }
 
         div[slot="actions"] {
