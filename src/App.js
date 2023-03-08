@@ -1,5 +1,6 @@
 import RestaurantList from './components/RestaurantList';
 import Selectbox from './components/Selectbox';
+import Modal from './components/Modal';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
@@ -22,6 +23,7 @@ export default class App {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
 
+    Modal.render($('.modal'), 'addForm');
     Selectbox.render(
       $('.restaurant-filter-container'),
       'afterbegin',
