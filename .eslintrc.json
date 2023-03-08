@@ -2,10 +2,16 @@
   "rules": {},
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "globals": {
+    "window": true,
+    "document": true
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"]
 }
