@@ -220,6 +220,8 @@ submitButton.addEventListener("click", (event) => {
 });
 
 // 새로고침
+window.addEventListener("beforeunload", () => LocalStorage.setItem("restaurants", restaurantList.getList()));
+
 window.onload = () => {
   LocalStorage.getItem("restaurants").forEach((item) => {
     restaurantList.add(item);
