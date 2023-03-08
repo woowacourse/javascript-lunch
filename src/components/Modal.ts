@@ -42,4 +42,4 @@ class Modal {
   }
 }
 
-export default Modal;
+export default new Modal();
