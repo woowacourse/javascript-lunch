@@ -1,7 +1,8 @@
 import RestaurantListComponent from "./RestaurantListComponent";
 import RestaurantInstance from "../../domain/RestaurantsStore";
+import CustomElement from "../../abstracts/CustomElement";
 
-class FavoriteRestaurantListComponent {
+class FavoriteRestaurantListComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     RestaurantInstance.subscribe(this);
@@ -10,6 +11,7 @@ class FavoriteRestaurantListComponent {
 
   rerender(restaurantList) {
     const restaurants = restaurantList
+      .filter((restaurant) => restaurant.isFavorite)
       .map((restaurant) => {
         return `
           <restaurant-element 

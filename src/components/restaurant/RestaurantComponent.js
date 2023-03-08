@@ -1,13 +1,23 @@
-import { CATEGORY_IMG } from "../../abstracts/constants";
+import { CATEGORY_IMG, FAVORITE_IMG } from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
+import dispatcher from "../../domain/Dispatcher";
 
 class RestaurantComponent extends CustomElement {
+  handleEvent() {
+    this.shadowRoot
+      .querySelector(".favorite-icon")
+      .addEventListener("click", () =>
+        dispatcher("handle_favorite", this.getAttribute("id"))
+      );
+  }
+
   template() {
     const name = this.getAttribute("name");
     const category = this.getAttribute("category");
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
-
+    const isFavorite =
+      this.getAttribute("isFavorite") === "false" ? "EMPTY" : "FILLED";
     return `
     <style>
       * {
@@ -35,9 +45,8 @@ class RestaurantComponent extends CustomElement {
       .restaurant {
         display: flex;
         align-items: flex-start;
-      
+        justify-content: space-between;
         padding: 16px 8px;
-      
         border-bottom: 1px solid #e9eaed;
       }
       
@@ -85,21 +94,35 @@ class RestaurantComponent extends CustomElement {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
+
+      .restaurant__information {
+        display: flex;
+        align-items: flex-start;
+      }
     </style>
     <li class="restaurant">
-      <div class="restaurant__category">
+      <div class="restaurant__information">
+        <div class="restaurant__category">
           <img
               src="${CATEGORY_IMG[category]}"             
               alt=${category}
               class="category-icon"
           />
+        </div>
+        <div class="restaurant__info">
+            <h3 class="restaurant__name text-subtitle">${name}</h3>
+            <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
+            <p class="restaurant__description text-body">
+              ${description}
+            </p>
+        </div>
       </div>
-      <div class="restaurant__info">
-          <h3 class="restaurant__name text-subtitle">${name}</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
-          <p class="restaurant__description text-body">
-            ${description}
-          </p>
+      <div>
+        <img 
+          src="${FAVORITE_IMG[isFavorite]}" 
+          alt=${isFavorite} 
+          class="favorite-icon"
+        />
       </div>
     </li>
         `;

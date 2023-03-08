@@ -2,6 +2,7 @@ import { MenuAction, ModalAction, RestaurantAction } from "./types";
 
 export const RESTAURANT_ACTION: RestaurantAction = {
   ADD_RESTAURANT: "add_restaurant",
+  HANDLE_FAVORITE: "handle_favorite",
   FILTER_BY_CATEGORY: "filter_by_category",
   SORT_RESTAURANTS: "sort_restaurants",
 } as const;
@@ -23,6 +24,11 @@ export const CATEGORY_IMG = {
   아시안: "./category-asian.png",
   양식: "./category-western.png",
   기타: "./category-etc.png",
+} as const;
+
+export const FAVORITE_IMG = {
+  EMPTY: "./favorite-icon-lined.png",
+  FILLED: "./favorite-icon-filled.png",
 } as const;
 
 export const RESTAURANTS_STORAGE = "restaurantList";

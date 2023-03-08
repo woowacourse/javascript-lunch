@@ -9,23 +9,29 @@ export type Category =
 
 export type SortMethod = "name" | "distance";
 
-export interface Restaurant {
+export interface AddRestaurant {
   category: Category;
   name: string;
   distance: number;
   description?: string;
   link?: string;
+  isFavorite: boolean;
+}
+
+export interface Restaurant extends AddRestaurant {
+  id: number;
 }
 
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod | boolean;
+  data?: Restaurant | Category | SortMethod | boolean | number;
 }
 
 export type LocalArrayData = Restaurant[];
 
 export interface RestaurantAction {
   ADD_RESTAURANT: string;
+  HANDLE_FAVORITE: string;
   FILTER_BY_CATEGORY: string;
   SORT_RESTAURANTS: string;
 }

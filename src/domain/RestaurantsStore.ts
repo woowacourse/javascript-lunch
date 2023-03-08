@@ -1,4 +1,10 @@
-import { Category, Restaurant, Action, SortMethod } from "../abstracts/types";
+import {
+  Category,
+  Restaurant,
+  Action,
+  SortMethod,
+  AddRestaurant,
+} from "../abstracts/types";
 import {
   CATEGORY_DEFAULT,
   RESTAURANTS_STORAGE,
@@ -40,6 +46,10 @@ class RestaurantsStore extends Store {
       this.addRestaurant(action.data as Restaurant);
       this.publish();
     },
+    [RESTAURANT_ACTION.HANDLE_FAVORITE]: (action: Action) => {
+      this.handleFavoriteRestaurant(action.data as number);
+      this.publish();
+    },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
       this.filterByCategory(action.data as Category);
       this.publish();
@@ -50,8 +60,17 @@ class RestaurantsStore extends Store {
     },
   };
 
-  addRestaurant(restaurant: Restaurant) {
+  addRestaurant(addedRestaurantData: AddRestaurant) {
+    const restaurant = addedRestaurantData as Restaurant;
+    restaurant.id = this.#restaurantList.length;
+
     this.#restaurantList.push(restaurant);
+    setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
+  }
+
+  handleFavoriteRestaurant(restaurantId: number) {
+    this.#restaurantList[restaurantId].isFavorite =
+      !this.#restaurantList[restaurantId].isFavorite;
     setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
   }
 

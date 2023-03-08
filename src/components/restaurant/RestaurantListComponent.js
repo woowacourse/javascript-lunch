@@ -12,14 +12,17 @@ class RestaurantListComponent extends CustomElement {
     const restaurants = restaurantList
       .map((restaurant) => {
         return `
-      <restaurant-element 
-      category="${restaurant.category}" 
-      name="${restaurant.name}" 
-      distance="${restaurant.distance}" 
-      description="${restaurant.description}" 
-      link="${restaurant.link}"
-      >
-      </restaurant-element>`;
+          <restaurant-element 
+          id="${restaurant.id}" 
+          category="${restaurant.category}" 
+          name="${restaurant.name}" 
+          distance="${restaurant.distance}" 
+          description="${restaurant.description}" 
+          link="${restaurant.link}" 
+          isFavorite="${restaurant.isFavorite}"
+          >
+          </restaurant-element>
+        `;
       })
       .join("");
 
