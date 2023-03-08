@@ -1,43 +1,37 @@
-import {
-  RestaurantCategoryType,
-  RestaurantSortingType,
-} from '../../type/common';
+import actions from '../../hooks/actions';
+import { $ } from '../../utils/querySelector';
+import RestaurantList from './RestaurantList';
 
 type SelectorProps = {
-  $target: HTMLElement;
+  $target: Element;
   info: {
     name: 'category' | 'sorting';
     id: 'category-filter' | 'sorting-filter';
     options: { value: string; name: string }[];
-    selected: RestaurantCategoryType | RestaurantSortingType;
   };
-  onChangeEvent: (value: string) => void;
 };
 
 class Selector {
   #target;
   #info;
-  #onChangeEvent;
 
-  constructor({ $target, info, onChangeEvent }: SelectorProps) {
+  constructor({ $target, info }: SelectorProps) {
     this.#target = $target;
     this.#info = info;
-    this.#onChangeEvent = onChangeEvent;
 
-    this.render();
-    this.#setEvent();
+    this.setEvent();
   }
 
-  #template() {
+  #template(selector: string) {
     return `
-      <select name="${this.#info.name}" id="${
+    <select name="${this.#info.name}" id="${
       this.#info.id
     }" class="restaurant-filter">
         ${this.#info.options
           .map(
             (option) =>
               `<option value="${option.value}" ${
-                this.#info.selected === option.value ? 'selected' : ''
+                selector === option.value ? 'selected' : ''
               }>${option.name}</option>`
           )
           .join('')}
@@ -45,17 +39,29 @@ class Selector {
     `;
   }
 
-  render() {
-    this.#target.innerHTML += this.#template();
+  render(selector: string) {
+    this.#target.innerHTML += this.#template(selector);
   }
 
-  #setEvent() {
-    this.#target.addEventListener('change', (e: Event) => {
+  setEvent() {
+    this.#target.addEventListener('change', (e) => {
       if (
         e.target instanceof HTMLSelectElement &&
         e.target.closest(`#${this.#info.id}`)
       ) {
-        this.#onChangeEvent(e.target.value);
+        if (this.#info.name === 'category') {
+          actions.filterRestaurantsCategory(e.target.value);
+        }
+
+        if (this.#info.name === 'sorting' && e.target.value === 'name') {
+          actions.sortRestaurantsName();
+        }
+
+        if (this.#info.name === 'sorting' && e.target.value === 'distance') {
+          actions.sortRestaurantsDistance();
+        }
+
+        new RestaurantList($('.restaurant-list-wrapper')).render();
       }
     });
   }
