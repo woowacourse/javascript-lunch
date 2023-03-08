@@ -1,4 +1,4 @@
-import './Restaurant.css';
+import '../css/Restaurant.css';
 
 import { Restaurant as IRestaurant, RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { Restaurant } from './Restaurant';

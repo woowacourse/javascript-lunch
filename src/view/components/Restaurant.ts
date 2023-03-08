@@ -1,4 +1,4 @@
-import './Restaurant.css';
+import '../css/Restaurant.css';
 
 import { getCategoryImageSrc, getFavoriteIconSrc } from '../../utils/common/getImageSrc';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';

@@ -1,5 +1,5 @@
-import './Tab.css';
-import { $ } from '../../utils/common/domHelper';
+import '../css/Tab.css';
+
 import { useEvents } from '../../utils/core';
 import updateActiveTab from '../../utils/common/tabStyleHandler';
 

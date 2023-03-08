@@ -1,4 +1,4 @@
-import './Modal.css';
+import '../css/Modal.css';
 
 import { useEvents } from '../../utils/core';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
