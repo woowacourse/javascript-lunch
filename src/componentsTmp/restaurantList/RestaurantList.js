@@ -1,33 +1,7 @@
 import RestaurantListManager from "../../domain/RestaurantListManager";
 import { $ } from "../../util/dom";
+import LocalStorage from "../../util/LocalStorage";
 import RestaurantItem from "./RestaurantItem";
-
-const dummyData = [
-  {
-    name: "라식당",
-    category: "한식",
-    distance: 5,
-    description: "라식당입니다.",
-  },
-  {
-    name: "다식당",
-    category: "일식",
-    distance: 10,
-    description: "다식당입니다.",
-  },
-  {
-    name: "나식당",
-    category: "아시안",
-    distance: 20,
-    description: "나식당입니다.",
-  },
-  {
-    name: "가식당",
-    category: "아시안",
-    distance: 20,
-    description: "가식당입니다.",
-  },
-];
 
 class RestaurantList {
   $target;
@@ -35,7 +9,9 @@ class RestaurantList {
 
   constructor($target) {
     this.$target = $target;
-    this.restaurantListManager = new RestaurantListManager(dummyData);
+
+    const localData = LocalStorage.getData("list");
+    this.restaurantListManager = new RestaurantListManager(localData);
     this.render(this.restaurantListManager.getRestaurantList());
   }
 
@@ -63,6 +39,7 @@ class RestaurantList {
 
   addRestaurant(newRestaurant) {
     this.restaurantListManager.addRestaurant(newRestaurant);
+    LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
     const selectedCategory = $("#category-filter").value;
     const selectedSortingWay = $("#sorting-filter").value;
