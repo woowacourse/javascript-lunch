@@ -9,4 +9,15 @@ const RESTAURANT_IMAGE: Record<Category, string> = {
   기타: './category-etc.png',
 };
 
-export { RESTAURANT_IMAGE };
+const FAVORITE_ICON: Record<string, string> = {
+  FAVORED: './favorite-icon-filled.png',
+  UNFAVORED: './favorite-icon-lined.png',
+};
+
+function getFavoriteIcon(like: boolean) {
+  if (like) return FAVORITE_ICON.FAVORED;
+
+  return FAVORITE_ICON.UNFAVORED;
+}
+
+export { RESTAURANT_IMAGE, getFavoriteIcon };
