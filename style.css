@@ -123,6 +123,7 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
+  position: relative;
 
   padding: 16px 8px;
 
@@ -172,6 +173,16 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__favorite {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+
+.favorite-icon {
+  cursor: pointer;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -224,7 +235,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +269,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
