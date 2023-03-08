@@ -44,19 +44,23 @@ class Restaurants {
 
     return [...restaurants].sort((a, b) => a.distance - b.distance);
   }
-  
+
   setFavoriteState(name: string) {
     this.#restaurantsList = this.#restaurantsList.map(restaurant => {
       if (restaurant.name === name) {
-        restaurant.favorites = !restaurant.favorites 
+        restaurant.favorites = !restaurant.favorites;
         return restaurant;
       }
-      return restaurant; 
+      return restaurant;
     });
   }
 
   getFavoriteRestaurantList() {
     return this.#restaurantsList.filter(restaurant => restaurant.favorites);
+  }
+
+  remove(name: string) {
+    this.#restaurantsList = this.#restaurantsList.filter(restaurant => restaurant.name !== name);
   }
 }
 
