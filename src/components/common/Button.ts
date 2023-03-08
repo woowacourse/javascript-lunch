@@ -7,13 +7,6 @@ class Button extends FormControlComponent {
     this.addEventListener('click', () => this.onClick());
   }
 
-  onClick() {
-    // type이 submit일 때 폼이 제출되도록 구현
-    if (this.getAttribute('type') === 'submit' && this.form instanceof HTMLFormElement) {
-      this.form.requestSubmit();
-    }
-  }
-
   override get value() {
     return this.getAttribute('type') ?? '';
   }
