@@ -21,6 +21,10 @@ class AppController {
     return this.restaurantList;
   }
 
+  getRestaurant(id: string) {
+    return this.restaurantList.find((restaurant) => restaurant.id === id);
+  }
+
   setRestaurantList() {
     this.restaurantList = restaurantListHandler.getRestaurants(
       this.category,

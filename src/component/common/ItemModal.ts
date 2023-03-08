@@ -47,4 +47,28 @@ class ItemModal {
     </div>
     `;
   }
+
+  render() {
+    $("body")?.insertAdjacentHTML("beforeend", this.template());
+  }
+
+  close() {
+    $(".item-modal")?.remove();
+  }
+
+  addEvent() {
+    $(".item-modal--close")?.addEventListener("click", () => {
+      this.close();
+    });
+
+    $(".item-modal--delete")?.addEventListener("click", () => {
+      const deleteWill = confirm("정말 삭제하시겠습니까?");
+      if (deleteWill) {
+        //배열에서 삭제
+        this.close();
+      }
+    });
+  }
 }
+
+export default ItemModal;

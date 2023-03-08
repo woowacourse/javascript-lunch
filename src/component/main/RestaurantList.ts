@@ -34,11 +34,11 @@ class RestaurantList {
     }
   }
 
-  addEvent() {
+  addEvent(openItemModal: (id: string) => void) {
     this.listEl.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
-      const restaurantId = target.closest("li")?.id;
-      console.log(restaurantId);
+      const restaurantId = <string>target.closest("li")?.id;
+      openItemModal(restaurantId);
     });
   }
 }
