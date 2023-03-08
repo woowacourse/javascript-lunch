@@ -2,11 +2,12 @@ import Filter from "./componentsTmp/Filter";
 import Header from "./componentsTmp/Header";
 import ModalContainer from "./componentsTmp/modal/ModalContainer";
 import RestaurantList from "./componentsTmp/restaurantList/RestaurantList";
+import { $ } from "./util/dom";
 
-const $header = document.querySelector(".gnb");
-const $filter = document.querySelector(".restaurant-filter-container");
-const $restaurantList = document.querySelector(".restaurant-list-container");
-const $modal = document.querySelector(".modal");
+const $header = $(".gnb");
+const $filter = $(".restaurant-filter-container");
+const $restaurantList = $(".restaurant-list-container");
+const $modal = $(".modal");
 
 const header = new Header($header);
 const filter = new Filter($filter);
