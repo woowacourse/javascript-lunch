@@ -13,7 +13,7 @@ class CustomElement extends HTMLElement {
 
   handleEvent() {}
 
-  rerender(data) {}
+  rerender(data, action) {}
 }
 
 export default CustomElement;

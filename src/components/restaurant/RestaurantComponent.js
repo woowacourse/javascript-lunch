@@ -4,11 +4,17 @@ import dispatcher from "../../domain/Dispatcher";
 
 class RestaurantComponent extends CustomElement {
   handleEvent() {
+    const id = this.getAttribute("id");
     this.shadowRoot
       .querySelector(".favorite-icon")
-      .addEventListener("click", () =>
-        dispatcher("handle_favorite", this.getAttribute("id"))
-      );
+      .addEventListener("click", () => dispatcher("handle_favorite", id));
+
+    this.shadowRoot
+      .querySelector(".restaurant__information")
+      .addEventListener("click", () => {
+        console.log("clickId: " + id);
+        dispatcher("modal_restaurant_info", id);
+      });
   }
 
   template() {

@@ -1,6 +1,7 @@
 import CustomElement from "../../abstracts/CustomElement";
 import ModalInstance from "../../domain/ModalStore";
 import dispatcher from "../../domain/Dispatcher";
+import RestaurantInfoComponent from "./RestaurantInfoComponent";
 
 class ModalComponent extends CustomElement {
   connectedCallback() {
@@ -8,12 +9,27 @@ class ModalComponent extends CustomElement {
     ModalInstance.subscribe(this);
   }
 
-  rerender(isModalOn) {
+  modalOnOff(isModalOn) {
     if (isModalOn) {
       this.shadowRoot.querySelector(".modal").classList.add("modal--open");
       return;
     }
     this.shadowRoot.querySelector(".modal").classList.remove("modal--open");
+    const modalContainer = this.shadowRoot.querySelector(".modal-container");
+    modalContainer.innerHTML = ``;
+  }
+
+  rerender(isModalOn, action) {
+    this.modalOnOff(isModalOn);
+    const modalType = action.type;
+    const modalContainer = this.shadowRoot.querySelector(".modal-container");
+
+    if (modalType === "modal_add_restaurant") {
+      modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
+    }
+    if (modalType === "modal_restaurant_info" && action.data) {
+      modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
+    }
   }
 
   template() {
@@ -56,7 +72,6 @@ class ModalComponent extends CustomElement {
       <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
-          <restaurant-add-form></restaurant-add-form>
         </div>
       </div>
     `;

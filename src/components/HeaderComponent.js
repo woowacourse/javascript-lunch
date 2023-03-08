@@ -5,7 +5,7 @@ class HeaderComponent extends CustomElement {
   handleEvent() {
     this.shadowRoot
       .querySelector(".gnb__button")
-      .addEventListener("click", () => dispatcher("modal_on"));
+      .addEventListener("click", () => dispatcher("modal_add_restaurant"));
   }
 
   template() {

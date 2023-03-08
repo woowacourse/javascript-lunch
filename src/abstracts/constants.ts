@@ -8,7 +8,8 @@ export const RESTAURANT_ACTION: RestaurantAction = {
 } as const;
 
 export const MODAL_ACTION: ModalAction = {
-  MODAL_ON: "modal_on",
+  MODAL_ADD_RESTAURANT: "modal_add_restaurant",
+  MODAL_RESTAURANT_INFO: "modal_restaurant_info",
   MODAL_OFF: "modal_off",
 } as const;
 

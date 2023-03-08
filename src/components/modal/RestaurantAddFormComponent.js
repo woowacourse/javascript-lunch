@@ -58,6 +58,12 @@ class RestaurantAddFormComponent extends CustomElement {
           .modal-title {
             margin-bottom: 36px;
           }
+
+          .text-title {
+            font-size: 20px;
+            line-height: 24px;
+            font-weight: 600;
+          }
           
           .form-item {
             display: flex;

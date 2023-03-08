@@ -37,7 +37,8 @@ export interface RestaurantAction {
 }
 
 export interface ModalAction {
-  MODAL_ON: string;
+  MODAL_ADD_RESTAURANT: string;
+  MODAL_RESTAURANT_INFO: string;
   MODAL_OFF: string;
 }
 

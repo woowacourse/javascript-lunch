@@ -69,9 +69,15 @@ class RestaurantsStore extends Store {
   }
 
   handleFavoriteRestaurant(restaurantId: number) {
-    this.#restaurantList[restaurantId].isFavorite =
-      !this.#restaurantList[restaurantId].isFavorite;
-    setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
+    const index = this.#restaurantList.findIndex(
+      (restaurant) => restaurant.id === Number(restaurantId)
+    );
+    const restaurant = this.#restaurantList[index];
+
+    if (restaurant) {
+      this.#restaurantList[index].isFavorite = !restaurant.isFavorite;
+      setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
+    }
   }
 
   filterByCategory(category: Category) {
