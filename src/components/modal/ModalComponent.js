@@ -25,14 +25,14 @@ class ModalComponent extends CustomElement {
     const modalContainer = this.shadowRoot.querySelector(".modal-container");
     if (
       modalType === "modal_add_restaurant" &&
-      modalContainer.children.length === 0
+      modalContainer.childElementCount === 0
     ) {
       modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
     }
     if (
       modalType === "modal_restaurant_info" &&
       action.data &&
-      modalContainer.children.length === 0
+      modalContainer.childElementCount === 0
     ) {
       modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
     }
