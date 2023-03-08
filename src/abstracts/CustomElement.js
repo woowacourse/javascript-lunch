@@ -1,4 +1,6 @@
 class CustomElement extends HTMLElement {
+  state = {};
+
   connectedCallback() {
     this.render();
     this.handleEvent();

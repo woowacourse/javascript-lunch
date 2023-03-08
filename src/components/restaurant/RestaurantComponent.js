@@ -12,7 +12,6 @@ class RestaurantComponent extends CustomElement {
     this.shadowRoot
       .querySelector(".restaurant__information")
       .addEventListener("click", () => {
-        console.log("clickId: " + id);
         dispatcher("modal_restaurant_info", id);
       });
   }

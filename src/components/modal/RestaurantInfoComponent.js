@@ -10,12 +10,32 @@ class RestaurantInfoComponent extends CustomElement {
     RestaurantInstance.publish();
   }
 
+  constructor() {
+    super();
+    this.state = {
+      restaurant: {
+        category: "",
+        name: "",
+        distance: 0,
+        description: "",
+        link: "",
+        isFavorite: false,
+      },
+      isFavorite: "EMPTY",
+    };
+  }
+
   handleEvent() {
-    if (this.shadowRoot.querySelector(".button--primary")) {
+    this.shadowRoot
+      .querySelector(".button--primary")
+      .addEventListener("click", () => dispatcher("modal_off"));
+
+    if (this.shadowRoot.querySelector(".favorite-icon")) {
       this.shadowRoot
-        .querySelector(".button--primary")
+        .querySelector(".favorite-icon")
         .addEventListener("click", () => {
-          dispatcher("modal_off");
+          dispatcher("handle_favorite", this.getAttribute("id"));
+          RestaurantInstance.publish();
         });
     }
   }
@@ -26,34 +46,23 @@ class RestaurantInfoComponent extends CustomElement {
     );
     const isFavorite = restaurant.isFavorite === false ? "EMPTY" : "FILLED";
 
-    const modalInner = `
-        <div class="modal-info-head">
-            <div class="restaurant__category">
-                <img
-                    src="${CATEGORY_IMG[restaurant.category]}"             
-                    alt=${restaurant.category}
-                    class="category-icon"
-                />
-            </div>
-            <div>
-                <img 
-                    src="${FAVORITE_IMG[isFavorite]}" 
-                    alt=${isFavorite} 
-                    class="favorite-icon"
-                />
-            </div>
-        </div>
-        <h2 id="title" class="modal-title text-title">${restaurant.name}</h2>
-        <p id="distance" class="text-body">캠퍼스부터 ${
-          restaurant.distance
-        }분 내</p>
-        <p id="description" class="text-body">${restaurant.description}</p>
-        <a id="link" class="text-body">${restaurant.link}</a>
-    `;
+    this.state.restaurant = restaurant;
+    this.state.isFavorite = isFavorite;
 
     this.shadowRoot
-      .querySelector(".info-modal")
-      .insertAdjacentHTML("afterbegin", modalInner);
+      .querySelector(".category-icon")
+      .setAttribute("src", CATEGORY_IMG[this.state.restaurant.category]);
+    this.shadowRoot
+      .querySelector(".favorite-icon")
+      .setAttribute("src", FAVORITE_IMG[this.state.isFavorite]);
+    this.shadowRoot.querySelector("#title").innerHTML =
+      this.state.restaurant.name;
+    this.shadowRoot.querySelector("#distance").innerHTML =
+      "캠퍼스로부터 " + this.state.restaurant.distance + "분 내";
+    this.shadowRoot.querySelector("#description").innerHTML =
+      this.state.restaurant.description;
+    this.shadowRoot.querySelector("#link").innerHTML =
+      this.state.restaurant.link;
   }
 
   template() {
@@ -158,6 +167,34 @@ class RestaurantInfoComponent extends CustomElement {
                 }
             </style>
             <div class="info-modal">
+                <div class="modal-info-head">
+                    <div class="restaurant__category">
+                        <img
+                            src="${
+                              CATEGORY_IMG[this.state.restaurant.category]
+                            }"             
+                            alt="category icon"
+                            class="category-icon"
+                        />
+                    </div>
+                    <div>
+                        <img 
+                            src="${FAVORITE_IMG[this.state.isFavorite]}" 
+                            alt="favorite icon"
+                            class="favorite-icon"
+                        />
+                    </div>
+                </div>
+                <h2 id="title" class="modal-title text-title">${
+                  this.state.restaurant.name
+                }</h2>
+                <p id="distance" class="text-body">캠퍼스부터 ${
+                  this.state.restaurant.distance
+                }분 내</p>
+                <p id="description" class="text-body">${
+                  this.state.restaurant.description
+                }</p>
+                <a id="link" class="text-body">${this.state.restaurant.link}</a>
                 <div class="button-container">
                     <button type="button" class="button button--secondary text-caption">삭제하기</button>
                     <button type="submit" class="button button--primary text-caption">닫기</button>
