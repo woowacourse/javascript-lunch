@@ -66,6 +66,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       $parent: this.$target,
       category: this.state.category,
       sortBy: this.state.sortBy,
+      tabBarSelect: this.state.tabBarSelect,
       restaurants: this.state.restaurants,
     }).render();
   }
