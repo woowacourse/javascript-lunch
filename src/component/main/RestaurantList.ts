@@ -1,4 +1,4 @@
-import { OpenItemModal, Rerender, Restaurant } from "@/type/type";
+import { HandleWithId, Rerender, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import RestaurantItem from "../common/RestaurantItem";
 
@@ -35,8 +35,8 @@ class RestaurantList {
   }
 
   addEvent(
-    openItemModal: OpenItemModal,
-    toggleBookmark: (id: string) => void,
+    openItemModal: HandleWithId,
+    toggleBookmark: HandleWithId,
     rerenderList: Rerender
   ) {
     this.listEl.addEventListener("click", (e) => {
