@@ -3,9 +3,10 @@ import RestaurantItem from "../RestaurantItem";
 import { TCategory } from "../../type/TCategory";
 import { restaurants } from "../../domain/restaurants";
 import { restoreRestaurants, selectRestaurants } from "./handleRestaurantList";
+import IListState from "../../type/IListState";
 
 class RestaurantList extends HTMLElement {
-  listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
+  listState: IListState;
 
   constructor() {
     super();
