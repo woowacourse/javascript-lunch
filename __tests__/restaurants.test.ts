@@ -68,4 +68,11 @@ describe('Restaurants 도메인 테스트', () => {
 
     expect(yeoptoRestaurant.favorites).toBe(true);
   });
+
+  test('즐겨찾기 된 음식점만 가져오는지 확인한다', () => {
+    const favoriteRestaurantList = restaurants.getFavoriteRestaurantList();
+
+    expect(favoriteRestaurantList[0].name).toBe('엽토네 떡볶이');
+  });
+
 });
