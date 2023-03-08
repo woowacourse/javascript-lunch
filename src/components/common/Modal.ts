@@ -33,14 +33,13 @@ class Modal extends Component {
           background: rgba(0, 0, 0, 0.35);
         }
 
-
         h2 {
           margin-bottom: 36px;
         }
       </style>
 
       <dialog>
-        <h2 class="text-title">${this.getAttribute('title')}</h2>
+        <h2 class="text-title">${this.getAttribute('title') ?? ''}</h2>
         <slot name="content"></slot>
         <slot name="actions"></slot>
       </dialog>
