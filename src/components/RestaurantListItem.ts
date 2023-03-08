@@ -6,23 +6,31 @@ import { CATEGORY_IMAGE_URL } from '../utils/constants';
 type RestaurantListItemState = {
   restaurant: Restaurant;
   handleByClickFavorite: () => void;
+  onOpenInfoDrawer: (e: Event) => void;
 };
 
 type RestaurantListItemProps = {
   $parent: DocumentFragment;
   restaurant: Restaurant;
   handleByClickFavorite: () => void;
+  onOpenInfoDrawer: (e: Event) => void;
 };
 
 export default class RestaurantListItem implements Component<RestaurantListItemState> {
   $target: HTMLElement;
   state: RestaurantListItemState;
 
-  constructor({ $parent, restaurant, handleByClickFavorite }: RestaurantListItemProps) {
+  constructor({
+    $parent,
+    restaurant,
+    handleByClickFavorite,
+    onOpenInfoDrawer,
+  }: RestaurantListItemProps) {
     this.$target = document.createElement('li');
     this.$target.classList.add('restaurant');
+    this.$target.dataset.restaurantId = `${restaurant.id}`;
 
-    this.state = { restaurant, handleByClickFavorite };
+    this.state = { restaurant, handleByClickFavorite, onOpenInfoDrawer };
 
     $parent.append(this.$target);
   }
@@ -31,9 +39,6 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
     this.state = newState;
     this.render();
   }
-
-  toggleModalHide() {}
-
   // TODO: 이미지 소스 상수화!
   render() {
     const { id, category, name, distance, description, isFavorite } = this.state.restaurant;
@@ -55,11 +60,11 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
         </button>
       </div>
     `;
-
+    this.$target.addEventListener('click', this.state.onOpenInfoDrawer);
     this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
       e.stopPropagation();
-      fetchFavoriteId(id); // 서버 fetch
-      this.state.handleByClickFavorite(); // fetch 후 리렌더링
+      fetchFavoriteId(id);
+      this.state.handleByClickFavorite();
       this.setState({
         ...this.state,
         restaurant: {

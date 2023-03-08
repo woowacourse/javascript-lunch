@@ -5,6 +5,7 @@ import RestaurantFilterContainer from './RestaurantFilterContainer';
 import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../../utils/constants';
 import GNB from '../../components/GNB';
 import TabBar from '../../components/TabBar';
+import RestaurantInfoDrawer from '../../components/RestaurantInfoDrawer';
 
 type RestaurantListPageState = {
   category: Category;
@@ -12,6 +13,8 @@ type RestaurantListPageState = {
   tabBarSelect: TabBarSelect;
   restaurants: Restaurant[];
   toggleAddRestaurantDrawer: () => void;
+  isOpenDrawer: boolean;
+  selectId: number;
 };
 
 type RestaurantListPageProps = {
@@ -27,11 +30,13 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
     this.$target = document.createElement('div');
 
     this.state = {
+      isOpenDrawer: false,
       category: DEFAULT_CATEGORY,
       sortBy: 'name',
       tabBarSelect: 'all',
       restaurants: this.getRestaurants(),
       toggleAddRestaurantDrawer,
+      selectId: 0,
     };
 
     $parent.append(this.$target);
@@ -69,7 +74,17 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       tabBarSelect: this.state.tabBarSelect,
       restaurants: this.state.restaurants,
       handleByClickFavorite: this.handleByClickFavorite.bind(this),
+      onOpenInfoDrawer: this.onOpenInfoDrawer.bind(this),
     }).render();
+
+    if (this.state.isOpenDrawer) {
+      new RestaurantInfoDrawer({
+        $parent: this.$target,
+        selectId: this.state.selectId,
+        toggleOpenDrawer: this.toggleOpenDrawer.bind(this),
+        handleByClickFavorite: this.handleByClickFavorite.bind(this),
+      }).render();
+    }
   }
 
   getRestaurants() {
@@ -108,6 +123,26 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
   handleByClickFavorite() {
     const restaurants = this.getRestaurants();
     this.setState({ ...this.state, restaurants });
+  }
+
+  onOpenInfoDrawer(e: Event) {
+    const currentTarget = e.currentTarget as HTMLElement;
+
+    const rid = currentTarget.dataset.restaurantId ?? '0';
+    const ridIndex = Number(rid);
+
+    this.setState({
+      ...this.state,
+      isOpenDrawer: true,
+      selectId: ridIndex,
+    });
+  }
+
+  toggleOpenDrawer() {
+    this.setState({
+      ...this.state,
+      isOpenDrawer: !this.state.isOpenDrawer,
+    });
   }
 }
 

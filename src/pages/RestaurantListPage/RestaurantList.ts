@@ -9,6 +9,7 @@ type RestaurantListState = {
   sortBy: SortBy;
   tabBarSelect: TabBarSelect;
   handleByClickFavorite: () => void;
+  onOpenInfoDrawer: (e: Event) => void;
 };
 
 type RestaurantListProps = {
@@ -18,6 +19,7 @@ type RestaurantListProps = {
   sortBy: SortBy;
   tabBarSelect: TabBarSelect;
   handleByClickFavorite: () => void;
+  onOpenInfoDrawer: (e: Event) => void;
 };
 
 class RestaurantList implements Component<RestaurantListState> {
@@ -31,6 +33,7 @@ class RestaurantList implements Component<RestaurantListState> {
     sortBy,
     tabBarSelect,
     handleByClickFavorite,
+    onOpenInfoDrawer,
   }: RestaurantListProps) {
     this.$target = document.createElement('div');
     this.state = {
@@ -39,6 +42,7 @@ class RestaurantList implements Component<RestaurantListState> {
       sortBy,
       tabBarSelect,
       handleByClickFavorite,
+      onOpenInfoDrawer,
     };
 
     $parent.append(this.$target);
@@ -57,6 +61,7 @@ class RestaurantList implements Component<RestaurantListState> {
         $parent: fragment,
         restaurant,
         handleByClickFavorite: this.state.handleByClickFavorite,
+        onOpenInfoDrawer: this.state.onOpenInfoDrawer,
       }).render();
     });
 
@@ -67,7 +72,7 @@ class RestaurantList implements Component<RestaurantListState> {
   categorizeRestaurantByOption() {
     const { category, sortBy } = this.state;
     const filteredByTabBarSelect = this.state.restaurants.filter((restaurant) =>
-      this.state.tabBarSelect === 'favorite' ? restaurant.isFavorite : !restaurant.isFavorite
+      this.state.tabBarSelect === 'favorite' ? restaurant.isFavorite : restaurant
     );
     const filteredByCategory = filteredByTabBarSelect.filter(
       (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category

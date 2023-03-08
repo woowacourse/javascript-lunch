@@ -9,5 +9,20 @@ export const fetchFavoriteId = (id) => {
     }
     return restaurant;
   });
-  localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
+
+  localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(newRestaurants));
+};
+
+export const deleteById = (id) => {
+  const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
+
+  const newRestaurants = restaurants.filter((restaurant) => restaurant.id !== id);
+
+  localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(newRestaurants));
+};
+
+export const getRestaurantById = (id) => {
+  const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
+
+  return restaurants.filter((restaurant) => restaurant.id === id)[0];
 };
