@@ -1,14 +1,14 @@
 import { isValidFoodCategory } from "../type/FoodCategory";
-import Restaurant from "../type/restaurant";
+import PersonalRestaurant from "../type/PersonalRestaurant";
 
 const Filter = {
-  byCategory(targetCategory: string, restaurantList: Restaurant[]) {
-    if (targetCategory === "전체") return restaurantList;
+  byCategory(targetCategory: string, personalRestaurantList: PersonalRestaurant[]) {
+    if (targetCategory === "전체") return personalRestaurantList;
 
     if (!isValidFoodCategory(targetCategory)) return [];
 
-    return restaurantList.filter(
-      (restaurant) => restaurant.category === targetCategory
+    return personalRestaurantList.filter(
+      (personalRestaurant) => personalRestaurant.restaurant.category === targetCategory
     );
   },
 };

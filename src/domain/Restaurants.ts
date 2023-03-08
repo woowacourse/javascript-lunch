@@ -1,14 +1,14 @@
-import Restaurant from "../type/restaurant";
+import PersonalRestaurant from "../type/PersonalRestaurant";
 
 class Restaurants {
-  #list: Restaurant[] = [];
+  #list: PersonalRestaurant[] = [];
 
-  add(restaurant: Restaurant) {
-    this.#list.push(restaurant);
+  add(personalRestaurant: PersonalRestaurant) {
+    this.#list.push(personalRestaurant);
   }
 
   getList() {
-    return this.#list.map((restaurant: Restaurant) => ({ ...restaurant }));
+    return [... this.#list];
   }
 }
 

@@ -5,6 +5,8 @@ import japaneseImg from "../templates/category-japanese.png";
 import koreanImg from "../templates/category-korean.png";
 import westernImg from "../templates/category-western.png";
 import addButton from "../templates/add-button.png";
+import emptyStar from "../templates/favorite-icon-lined.png";
+import filledStar from "../templates/favorite-icon-filled.png";
 
 const IMAGE = {
   아시안: asianImg,
@@ -15,6 +17,8 @@ const IMAGE = {
   기타: etcImg,
   전체: etcImg,
   ADD_BTN: addButton,
+  EMPTY_STAR_BTN: emptyStar,
+  FILLED_STAR_BTN: filledStar,
 };
 
 export default IMAGE;

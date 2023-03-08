@@ -12,6 +12,8 @@ import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
 import createSelectInput from "./component/createSelectInput";
 import RestaurantInfo from "./component/RestaurantInfo";
+import PersonalRestaurant from "./type/PersonalRestaurant";
+import PersonalRestaurantInfo from "./component/PersonalRestaurantInfo";
 
 const CATEGORY = getFoodCategoryMemberList();
 const ESTIMATEDTIME = getEstimatedTimeMemberList();
@@ -93,7 +95,7 @@ $("main").appendChild(restaurantDetailedModal);
 const makeOpenDetailedModalCallback = (restaurant) => () => {
   Modal.setChildElement(
     restaurantDetailedModal,
-    RestaurantInfo.createDetailedElement(restaurant),
+    PersonalRestaurantInfo.createDetailedElement(restaurant),
   );
   Modal.open(restaurantDetailedModal);
 };
@@ -178,7 +180,7 @@ const updateRestaurant = () => {
   const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
 
   filterResult.forEach((element) => {
-    const summary = RestaurantInfo.createSummaryElement(element);
+    const summary = PersonalRestaurantInfo.createSummaryElement(element);
     restaurantListContainer.appendChild(summary);
     $(".restaurant-list-container").lastElementChild
       .addEventListener("click", makeOpenDetailedModalCallback(element));
@@ -207,12 +209,12 @@ submitButton.addEventListener("click", (event) => {
     return;
   }
 
-  restaurantList.add(restaurant);
+  restaurantList.add({ restaurant, favorite: false });
   updateRestaurant();
 
   Modal.close(restaurantInputModal);
 
-  if (categoryFilter.value !== "전체" && restaurant.value !== categoryFilter.value) {
+  if (categoryFilter.value !== "전체" && restaurant.category !== categoryFilter.value) {
     Modal.open(restaurantInputSuccessModal);
   }
 });
