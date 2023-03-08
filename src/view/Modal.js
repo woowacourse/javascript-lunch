@@ -17,7 +17,7 @@ export const Modal = () => {
               <option value="아시안">아시안</option>
               <option value="기타">기타</option>
             </select>
-      </div>
+          </div>
 
             <!-- 음식점 이름 -->
           <div class="form-item form-item--required">
