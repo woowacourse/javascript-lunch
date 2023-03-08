@@ -1,3 +1,5 @@
+import { $, $$ } from './utils/dom';
+
 import CreateRestaurantModal from './components/CreateRestaurantModal';
 import Header from './components/Header';
 import RestaurantFilterContainer from './components/RestaurantFilterContainer';
@@ -5,9 +7,9 @@ import RestaurantItems from './components/RestaurantItems';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
-import { $ } from './utils/dom';
 
 import store from './utils/store';
+import UpperTap from './components/UpperTap';
 
 export default class App {
   restaurants;
@@ -17,15 +19,26 @@ export default class App {
     this.restaurants = new Restaurants(restaurantsData);
 
     new Header(this.onClickModalOpenButton.bind(this));
+    new UpperTap(this.onClickNavTap.bind(this));
     new RestaurantFilterContainer(this.renderFilteredItems.bind(this));
     this.renderFilteredItems();
-    // new RestaurantItems();
     new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this), this.toggle);
   }
 
   onClickModalOpenButton() {
     $('.add-restaurant-form').reset();
     this.toggleModal();
+  }
+
+  onClickNavTap(e) {
+    const navElements = $$('.upper-tap > div');
+    const clickedElement = e.target;
+    navElements.forEach((navElement) => {
+      if (navElement !== clickedElement) {
+        navElement.classList.remove('selected');
+      }
+    });
+    clickedElement.classList.add('selected');
   }
 
   renderFilteredItems() {
