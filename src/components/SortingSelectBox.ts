@@ -1,3 +1,4 @@
+import { restaurants } from "../domain/restaurants";
 import RestaurantList from "./RestaurantList";
 
 class SortingSelectBox extends HTMLElement {
@@ -26,10 +27,7 @@ class SortingSelectBox extends HTMLElement {
   }
 
   sortRestaurant(key: string) {
-    const restaurantList = document.getElementById("restaurantList");
-    if (restaurantList instanceof RestaurantList) {
-      restaurantList.sortBy(key);
-    }
+    restaurants.state.sort = key;
   }
 }
 

@@ -5,13 +5,6 @@ import { restaurants } from "../../domain/restaurants";
 import { selectRestaurants } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
-  constructor() {
-    super();
-  }
-  ping() {
-    return "hi";
-  }
-
   render() {
     this.innerHTML = `
       <section class="restaurant-list-container">
@@ -26,14 +19,6 @@ class RestaurantList extends HTMLElement {
     return selectedRestaurants
       .map((restaurant) => RestaurantItem(restaurant))
       .join("");
-  }
-
-  filterBy(key: TCategory) {
-    restaurants.state.filter = key;
-  }
-
-  sortBy(key: string) {
-    restaurants.state.sort = key;
   }
 }
 
