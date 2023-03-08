@@ -1,6 +1,4 @@
-import { IRestaurant } from './domain/Restaurant';
-
-export const mockRestaurant: IRestaurant[] = [
+export const mockRestaurant = [
   {
     category: '한식',
     distance: 10,
