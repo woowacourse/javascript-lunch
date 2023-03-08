@@ -7,3 +7,8 @@ export const RESTAURANT_IMAGE = {
   양식: './category-western.png',
   기타: './category-etc.png',
 } as const;
+
+export const FAVORITE_ICON_IMAGE = {
+  LINED: './favorite-icon-lined.png',
+  FILLED: './favorite-icon-filled.png',
+} as const;

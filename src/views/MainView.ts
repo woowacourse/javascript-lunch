@@ -1,6 +1,7 @@
-import { $ } from '../utils/domSelectors';
+import { $, $$ } from '../utils/domSelectors';
 import { RestaurantItems } from '../components/RestaurantItems';
 import { Restaurant } from '../types/types';
+import { FAVORITE_ICON_IMAGE } from '../constants/images';
 
 class MainView {
   private addButton = $<HTMLButtonElement>('.gnb__button');
@@ -36,6 +37,28 @@ class MainView {
 
     restaurantList.innerHTML = '';
     restaurantList.insertAdjacentHTML('beforeend', restaurantItems);
+  }
+
+  addFavoriteButtonClickEventHandler() {
+    const favoriteButtons = $$('.favorite-button');
+
+    favoriteButtons.forEach((favoriteButton) => {
+      favoriteButton.addEventListener('click', (event) => {
+        if (event.target instanceof HTMLButtonElement) {
+          const currentUrl = event.target.style.backgroundImage;
+
+          event.target.style.backgroundImage = this.getButtonBackgroundImage(currentUrl);
+        }
+      });
+    });
+  }
+
+  getButtonBackgroundImage(currentUrl: string) {
+    const filledImageUrl = `url("${FAVORITE_ICON_IMAGE.FILLED}")`;
+    const linedImageUrl = `url("${FAVORITE_ICON_IMAGE.LINED}")`;
+
+    if (currentUrl === linedImageUrl) return filledImageUrl;
+    return linedImageUrl;
   }
 }
 
