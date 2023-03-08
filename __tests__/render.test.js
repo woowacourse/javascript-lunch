@@ -7,6 +7,10 @@ import { screen } from '@testing-library/dom';
 import { ListItem } from '../src/view/ListItem';
 import { List } from '../src/view/List';
 
+beforeEach(() => {
+  document.body.innerHTML = '';
+});
+
 test('화면에 ListItem을 렌더링한다.', () => {
   const listItem = ListItem({
     category: '일식',
