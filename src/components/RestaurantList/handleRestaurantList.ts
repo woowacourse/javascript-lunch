@@ -21,10 +21,11 @@ export const addRestaurant = (newRestaurant: IRestaurant) => {
 };
 
 export const selectRestaurants = (): IRestaurant[] => {
-  const { filter, sort } = restaurants.state;
+  const { filter, sort, menuTab } = restaurants.state;
   const filteredRestaurants = filterRestaurants(
     restaurants.state.restaurants,
-    filter
+    filter,
+    menuTab
   );
   return sortRestaurants(filteredRestaurants, sort);
 };

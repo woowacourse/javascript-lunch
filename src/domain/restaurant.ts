@@ -26,6 +26,7 @@ export const createNewRestaurant = (event: SubmitEvent) => {
     distance: Number(formData.get("distance")),
     description: formData.get("description") as string,
     link: formData.get("link") as string,
+    favorite: false,
   };
   return newRestaurant;
 };
@@ -44,11 +45,18 @@ export const tryAddNewRestaurant = (newRestaurant: IRestaurant) => {
 
 export const filterRestaurants = (
   restaurants: IRestaurant[],
-  filter: string
+  filter: string,
+  menuTab: string
 ) => {
+  const filteredRestaurantList =
+    menuTab === "tab-all"
+      ? restaurants
+      : restaurants.filter((restaurant) => restaurant.favorite);
   return filter === "all"
-    ? restaurants
-    : restaurants.filter((restaurant) => restaurant.category === filter);
+    ? filteredRestaurantList
+    : filteredRestaurantList.filter(
+        (restaurant) => restaurant.category === filter
+      );
 };
 
 export const sortRestaurants = (restaurants: IRestaurant[], sort: string) => {

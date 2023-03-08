@@ -6,6 +6,7 @@ const restaurants = {
     restaurants: [] as IRestaurant[],
     filter: "all",
     sort: "name",
+    menuTab: "tab-all",
   },
   create() {
     this.state = new Proxy(
@@ -13,11 +14,17 @@ const restaurants = {
         restaurants: [],
         filter: "all",
         sort: "name",
+        menuTab: "tab-all",
       },
       {
         set: (obj, prop, value) => {
-          // type-guard
-          if (prop === "restaurants" || prop === "filter" || prop === "sort") {
+          // type-guard (최적화 필요)
+          if (
+            prop === "restaurants" ||
+            prop === "filter" ||
+            prop === "sort" ||
+            prop === "menuTab"
+          ) {
             obj[prop] = value;
           }
           renderRestaurantList();

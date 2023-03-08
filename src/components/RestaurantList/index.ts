@@ -1,3 +1,4 @@
+import { restaurants } from "../../domain/restaurants";
 import IRestaurant from "../../type/IRestaurant";
 import RestaurantItem from "../RestaurantItem";
 import { selectRestaurants } from "./handleRestaurantList";

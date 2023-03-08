@@ -6,4 +6,5 @@ export default interface IRestaurant {
   distance: number;
   description?: string;
   link?: string;
+  favorite: boolean;
 }
