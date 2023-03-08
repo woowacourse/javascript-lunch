@@ -53,6 +53,6 @@
     }
   },
   "dependencies": {
-    "uuid": "^9.0.0"
+    "@types/uuid": "^9.0.1"
   }
 }
