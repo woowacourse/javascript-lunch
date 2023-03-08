@@ -53,7 +53,7 @@ class RestaurantFormBottomSheet {
         </div>
 
         <div class="button-container">
-          <button type="button" class="button button--secondary text-caption modal--close">취소하기</button>
+          <button type="button" class="button button--secondary text-caption form-sheet--close">취소하기</button>
           <button type="submit" class="button button--primary text-caption modal--submit">추가하기</button>
         </div>
       </form>
@@ -76,7 +76,7 @@ class RestaurantFormBottomSheet {
   }
 
   handleSheetClose() {
-    $(".modal--close")?.addEventListener("click", () => {
+    $(".form-sheet--close")?.addEventListener("click", () => {
       this.resetFormValues();
       this.closeModal();
     });
