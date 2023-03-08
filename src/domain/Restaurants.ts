@@ -17,7 +17,6 @@ export default class Restaurants {
     const targetIndex = this.#restaurants.findIndex((restaurant) => restaurant.id === restaurantId);
 
     this.#restaurants[targetIndex].isFavorite = !this.#restaurants[targetIndex].isFavorite;
-    console.log(this.#restaurants[targetIndex].isFavorite);
   }
 
   getRestaurants() {
