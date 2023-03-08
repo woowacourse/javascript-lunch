@@ -60,7 +60,7 @@ class Restaurant {
   }
 
   private validateCategory(category: string): asserts category is RestaurantCategory {
-    if (!Restaurant.CATEGORIES.every((_category) => _category !== category)) {
+    if (Restaurant.CATEGORIES.every((_category) => _category !== category)) {
       throw new Error(`카테고리는 ${Restaurant.CATEGORIES.join(', ')} 중 하나여야 합니다.`);
     }
   }
@@ -70,7 +70,7 @@ class Restaurant {
   }
 
   private validateDistance(distance: number): asserts distance is RestaurantDistance {
-    if (!Restaurant.DISTANCES.every((_distance) => _distance !== distance)) {
+    if (Restaurant.DISTANCES.every((_distance) => _distance !== distance)) {
       throw new Error(`거리는 ${Restaurant.DISTANCES.join('분, ')}분 중 하나여야 합니다.`);
     }
   }
