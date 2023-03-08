@@ -12,7 +12,7 @@ class ItemModal {
   template() {
     return `
     <div class="item-modal modal--open">
-      <div class="modal-backdrop"></div>
+      <div class="modal-backdrop item-modal-backdrop"></div>
       <div class="modal-container item-modal-container">
         <div class="images flex-row">
           <div class="restaurant__category">
@@ -71,6 +71,10 @@ class ItemModal {
     rerenderList: Rerender
   ) {
     $(".item-modal--close")?.addEventListener("click", () => {
+      this.close();
+    });
+
+    $(".item-modal-backdrop")?.addEventListener("click", () => {
       this.close();
     });
 
