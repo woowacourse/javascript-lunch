@@ -19,13 +19,8 @@ export default class Header {
         `;
   }
 
-  mounted() {
-    new Modal(this.$modal, { ...this.props, content: "addForm" });
-  }
-
   render() {
     this.$target.innerHTML = this.template();
-    this.mounted();
   }
 
   setEvent() {
@@ -33,6 +28,7 @@ export default class Header {
   }
 
   toggleModal() {
+    new Modal(this.$modal, { ...this.props, content: "addForm" });
     this.$modal.classList.toggle("modal--open");
   }
 

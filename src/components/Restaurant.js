@@ -1,17 +1,20 @@
 import translateCategory from "../util/translateCategory";
+import Modal from "./Modal";
 
 export default class Restaurant {
   constructor($target, props) {
     this.$target = $target;
     this.props = props;
     this.render();
+    this.setEvent();
+    this.$modal = document.querySelector(".modal");
   }
 
   template() {
     const { name, category, distance, description } = this.props;
 
     return `
-        <li class="restaurant">
+        <li class="restaurant" id=${name}>
         <div class="restaurant__category">
           <img
             src="./category-${translateCategory[category]}.png"
@@ -33,6 +36,26 @@ export default class Restaurant {
   }
 
   render() {
-    this.$target.insertAdjacentHTML("beforeend", this.template());
+    this.$target.innerHTML = this.template();
+  }
+
+  setEvent() {
+    const { name } = this.props;
+    this.$restaurantItem = this.$target.querySelector("#" + name);
+    this.$restaurantItem.addEventListener("click", () => {
+      new Modal(this.$modal, { ...this.props, content: "restaurantDetail" });
+      this.$modal.classList.toggle("modal--open");
+    });
+    // this.addEvent('click',"#" + name,()=>{
+    //   new Modal(this.$modal, { ...this.props, content: "restaurantDetail" });
+    //   this.$modal.classList.toggle("modal--open");
+    // })
+  }
+
+  addEvent(eventType, selector, callback) {
+    this.$target.addEventListener(eventType, (event) => {
+      if (!event.target.closest(selector)) return false;
+      callback(event);
+    });
   }
 }

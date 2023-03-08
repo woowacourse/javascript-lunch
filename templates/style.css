@@ -296,3 +296,28 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+.star-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
