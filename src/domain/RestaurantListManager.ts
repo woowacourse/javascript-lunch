@@ -1,3 +1,4 @@
+import { CATEGORY, SORT } from "../constants";
 import "../types/restaurant";
 
 export default class RestaurantListManager {
@@ -7,11 +8,30 @@ export default class RestaurantListManager {
     this.#restaurantList = restaurants;
   }
 
-  addRestaurant(info: RestaurantInfo): void {
+  addRestaurant(info: RestaurantInfo) {
     this.#restaurantList.push(info);
   }
 
-  getRestaurantList(): RestaurantInfo[] {
-    return this.#restaurantList;
+  getRestaurantList(sortingWay: SortingWay = "name", category: Category = "전체") {
+    const categorizedList = this.#categorizeRestaurants(category, this.#restaurantList);
+    const sortedList = this.#sortRestaurants(sortingWay, categorizedList);
+
+    return sortedList;
+  }
+
+  #categorizeRestaurants(category: Category, restaurants: RestaurantInfo[]) {
+    if (category === CATEGORY.ALL) return restaurants;
+    return restaurants.filter((restaurant) => restaurant.category === category);
+  }
+
+  #sortRestaurants(sortingWay: SortingWay, restaurants: RestaurantInfo[]) {
+    if (sortingWay === SORT.NAME) {
+      return [...restaurants].sort((a, b) => (a.name > b.name ? 1 : -1));
+    }
+    if (sortingWay === SORT.DISTANCE) {
+      return [...restaurants].sort((a, b) => a.distance - b.distance);
+    }
+
+    return restaurants;
   }
 }
