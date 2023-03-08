@@ -1,9 +1,5 @@
 import { $ } from '../utils/dom';
 
-import Validator from '../domain/Validator';
-
-import store from '../utils/store';
-
 const html = `
 <div class="modal-backdrop"></div>
 <div class="modal-container">
