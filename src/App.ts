@@ -1,3 +1,4 @@
+import { saveData } from "./utils/localStorage";
 import Header from "./components/Header";
 import RestaurantFormBottomSheet from "./components/RestaurantFormBottomSheet";
 import RestaurantList from "./components/RestaurantList";
@@ -43,16 +44,18 @@ class App {
     );
     const itemSheet = new RestaurantItemBottomSheet(
       restaurant,
-      this.deleteItem
+      this.deleteRestaurantItem
     );
     itemSheet.initialize();
   };
 
-  deleteItem = (id: string) => {
+  deleteRestaurantItem = (id: string) => {
     this.restaurantList = restaurantListHandler.getDeleteItem(
       id,
       this.restaurantList
     );
+
+    saveData(Constants.RESTAURANT_LIST, this.restaurantList);
 
     RestaurantList.updateRestaurantList(this.restaurantList);
   };
