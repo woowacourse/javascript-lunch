@@ -2,7 +2,7 @@ import { Errors, Restaurant } from '../types/types';
 import { REGEX } from '../constants/constants';
 
 const restaurantFormValidator = {
-  verify(restaurantItem: Omit<Restaurant, 'favorite'>) {
+  verify(restaurantItem: Omit<Restaurant, 'favorite' | 'id'>) {
     const errors: Errors = {};
 
     errors['category'] = this.isEmptyCategory(restaurantItem.category);

@@ -12,6 +12,7 @@ export type Restaurant = {
   description?: string;
   link?: string;
   favorite: boolean;
+  id: number;
 };
 
 export type RestaurantFilter = {

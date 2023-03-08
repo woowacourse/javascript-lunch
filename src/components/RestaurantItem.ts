@@ -32,27 +32,12 @@ class RestaurantItem {
             <img 
               src="${getFavoriteIcon(this.restaurant.favorite)}"
               alt=""
-              class="restaurant-star"
+              class="restaurant-star-icon ${this.restaurant.favorite && 'favorite'}"
+              data-id="${this.restaurant.id}"
             />
             </div>
         </div>
       </li>`;
-  }
-
-  render(parser: DOMParser, onClick: CallableFunction) {
-    const document = parser.parseFromString(this.create(), 'text/html');
-    const restaurantElement = document.querySelector('.restaurant') as HTMLLIElement;
-    const favoriteIcon = document.querySelector('.restaurant__star') as HTMLDivElement;
-
-    favoriteIcon.addEventListener('click', () => {
-      onClick({ ...this.restaurant });
-
-      const icon = favoriteIcon.firstElementChild as HTMLImageElement;
-      this.restaurant.favorite = !this.restaurant.favorite;
-      icon.src = getFavoriteIcon(this.restaurant.favorite);
-    });
-
-    return restaurantElement;
   }
 }
 

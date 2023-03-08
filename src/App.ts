@@ -61,8 +61,8 @@ class App {
     }
   };
 
-  updateFavoriteRestaurant = (restaurantItem: Restaurant) => {
-    const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantItem);
+  updateFavoriteRestaurant = (restaurantId: number) => {
+    const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantId);
     saveToLocalStorage(updatedRestaurantList);
   };
 
@@ -80,17 +80,14 @@ class App {
             this.restaurantService.getFavoriteRestaurantList()
           );
 
-    RestaurantListContainer.renderRestaurantItems(
-      this.restaurantListElement,
-      restaurantList,
-      this.updateFavoriteRestaurant
-    );
+    RestaurantListContainer.renderRestaurantItems(this.restaurantListElement, restaurantList);
   }
 
   addEvents() {
     Header.addEvent(this.formModal.openModal);
     RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvent(this.changeFilter);
+    RestaurantListContainer.addEvent(this.updateFavoriteRestaurant);
     this.formModal.addEvents(this.addRestaurant);
   }
 }

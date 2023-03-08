@@ -1,5 +1,4 @@
 import { CategoryOptions, Restaurant, RestaurantFilter } from '../types/types';
-import { checkObjectsAreEqual } from '../utils/compareObjectValues';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
@@ -9,7 +8,8 @@ class RestaurantService {
   }
 
   add(restaurant: Restaurant) {
-    this.restaurantList.push(restaurant);
+    restaurant.id = this.restaurantList.length;
+    this.restaurantList.push({ ...restaurant });
   }
 
   filter(category: CategoryOptions, restaurantList: Restaurant[]) {
@@ -39,12 +39,15 @@ class RestaurantService {
     return this.sortByDistance(filteredRestaurantList);
   }
 
-  updateFavorite(restaurantItem: Restaurant) {
-    const index = this.restaurantList.findIndex((restaurant) =>
-      checkObjectsAreEqual(restaurant, restaurantItem)
-    );
+  updateFavorite(restaurantId: number) {
+    const restaurantItem = this.restaurantList.find(
+      (restaurant) => restaurant.id === restaurantId
+    ) as Restaurant;
 
-    this.restaurantList.splice(index, 1, { ...restaurantItem, favorite: !restaurantItem.favorite });
+    this.restaurantList.splice(restaurantItem.id - 1, 1, {
+      ...restaurantItem,
+      favorite: !restaurantItem.favorite,
+    });
 
     return [...this.restaurantList];
   }

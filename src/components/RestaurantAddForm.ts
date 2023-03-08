@@ -51,14 +51,14 @@ class RestaurantAddForm {
 
       const restaurantItem = Object.fromEntries(
         [...formData].map(([key, value]) => [key, key === 'distance' ? Number(value) : value])
-      ) as Omit<Restaurant, 'favorite'>;
+      ) as Omit<Restaurant, 'favorite' | 'id'>;
 
       const formErrors: Errors = restaurantFormValidator.verify(restaurantItem);
       const hasError = Object.values(formErrors).some(Boolean);
 
       if (!hasError) {
         closeModal();
-        return addRestaurant(restaurantItem);
+        return addRestaurant({ ...restaurantItem });
       }
 
       this.showFormErrors(formErrors);
