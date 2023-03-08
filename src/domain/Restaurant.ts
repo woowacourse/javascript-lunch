@@ -21,4 +21,8 @@ export const restaurants: Restaurants = {
   add(restaurant) {
     this.list = [...this.list, restaurant];
   },
+
+  filterByCategory(category) {
+    return this.list.filter((restaurant) => restaurant.category === category);
+  },
 };
