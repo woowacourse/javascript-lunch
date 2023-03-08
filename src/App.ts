@@ -16,11 +16,13 @@ class App {
   private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
   private currentTab: string = 'all-restaurants';
   private body = $('body') as HTMLBodyElement;
+  private restaurantListElement: Element;
 
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
     this.render();
+    this.restaurantListElement = $('.restaurant-list') as HTMLButtonElement;
     this.updateRestaurantList();
     this.addEvents();
   }
@@ -79,7 +81,7 @@ class App {
           );
 
     RestaurantListContainer.renderRestaurantItems(
-      $('.restaurant-list') as HTMLUListElement,
+      this.restaurantListElement,
       restaurantList,
       this.updateFavoriteRestaurant
     );
