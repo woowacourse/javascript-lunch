@@ -175,12 +175,15 @@ body {
 }
 
 .restaurant__bookmark {
+  background-color: transparent;
+  border: none;
   font-size: 35px;
   color: var(--lighten-color);
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
+.form-sheet,
+.item-sheet {
   display: none;
 }
 
