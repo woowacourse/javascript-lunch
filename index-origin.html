@@ -4,11 +4,10 @@
 <head>
   <meta charset="utf-8">
   <title>점심 뭐 먹지</title>
-  <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
+<body class="body">
   <!-- GNB -->
   <header class="gnb">
     <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -32,8 +31,8 @@
 
       <!-- 정렬 셀렉트 박스 -->
       <select name="sorting" id="sorting-filter" class="restaurant-filter">
-        <option value="name">이름순</option>
-        <option value="distance">거리순</option>
+        <option value="이름순">이름순</option>
+        <option value="거리순">거리순</option>
       </select>
     </section>
 
@@ -115,7 +114,7 @@
     </section>
 
     <!-- 음식점 추가 모달 -->
-    <div class="modal modal--open">
+    <div class="modal">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>

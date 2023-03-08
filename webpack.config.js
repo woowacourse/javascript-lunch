@@ -10,6 +10,9 @@ module.exports = {
     clean: true,
   },
   resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src/"),
+    },
     extensions: [".ts", ".js", ".mjs"],
   },
   module: {
