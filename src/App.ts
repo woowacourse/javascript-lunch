@@ -51,6 +51,7 @@ class App {
   };
 
   addEvents() {
+    Header.addEvent(this.formModal.openModal);
     RestaurantFilters.addEvent(this.changeFilter);
     this.formModal.addEvent();
   }
