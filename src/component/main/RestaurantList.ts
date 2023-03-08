@@ -41,7 +41,7 @@ class RestaurantList {
   ) {
     this.listEl.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
-      const restaurantId = <string>target.closest("li")?.id;
+      const restaurantId = <string>target.closest("li")?.dataset.id;
 
       if (target.className === "bookmark") {
         toggleBookmark(restaurantId);

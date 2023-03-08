@@ -10,7 +10,7 @@ class RestaurantItem {
 
   template() {
     return `
-    <li class="restaurant" id=${this.restaurant.id}>
+    <li class="restaurant" data-id=${this.restaurant.id}>
       <div class="restaurant__category">
         <img src=${categoryToSrc(this.restaurant.category as Category)} alt=${
       this.restaurant.category
