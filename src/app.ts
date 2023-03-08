@@ -38,7 +38,7 @@ class App {
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
       Object.values(this.#filters)
-        .filter((filter): filter is RestaurantFilter => filter !== null)
+        .filter((filter): filter is RestaurantFilter => !!filter)
         .reduce((filteredRestaurants, filter) => filter(filteredRestaurants), this.#restaurants),
     );
 
