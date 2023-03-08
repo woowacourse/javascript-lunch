@@ -45,10 +45,11 @@ class RestaurantItem {
     const favoriteIcon = document.querySelector('.restaurant__star') as HTMLDivElement;
 
     favoriteIcon.addEventListener('click', () => {
-      const icon = favoriteIcon.firstElementChild as HTMLImageElement;
-      icon.src = getFavoriteIcon(!this.restaurant.favorite);
-
       onClick({ ...this.restaurant });
+
+      const icon = favoriteIcon.firstElementChild as HTMLImageElement;
+      this.restaurant.favorite = !this.restaurant.favorite;
+      icon.src = getFavoriteIcon(this.restaurant.favorite);
     });
 
     return restaurantElement;
