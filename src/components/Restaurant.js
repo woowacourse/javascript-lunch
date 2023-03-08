@@ -1,5 +1,6 @@
-import translateCategory from "../util/translateCategory";
+import { translateCategory } from "../constant/variables";
 import Modal from "./Modal";
+import Star from "./Star";
 
 export default class Restaurant {
   constructor($target, props) {
@@ -14,6 +15,10 @@ export default class Restaurant {
     const { name, category, distance, description } = this.props;
 
     return `
+    <div>
+        <div class="relative">
+         <div id='item-star' class="star-container absolute right-0"></div>
+        </div>
         <li class="restaurant" id=${name}>
         <div class="restaurant__category">
           <img
@@ -32,24 +37,28 @@ export default class Restaurant {
           </p>
         </div>
       </li>
+    </div>
         `;
   }
 
   render() {
-    this.$target.innerHTML = this.template();
+    this.$target.insertAdjacentHTML("beforeend", this.template());
+    this.mounted();
+  }
+
+  mounted() {
+    const { index } = this.props;
+    const $starContainer = document.querySelectorAll("#item-star");
+    new Star($starContainer[index], this.props);
   }
 
   setEvent() {
-    const { name } = this.props;
+    const { name, render } = this.props;
     this.$restaurantItem = this.$target.querySelector("#" + name);
     this.$restaurantItem.addEventListener("click", () => {
-      new Modal(this.$modal, { ...this.props, content: "restaurantDetail" });
+      new Modal(this.$modal, { ...this.props, content: "restaurantDetail", render });
       this.$modal.classList.toggle("modal--open");
     });
-    // this.addEvent('click',"#" + name,()=>{
-    //   new Modal(this.$modal, { ...this.props, content: "restaurantDetail" });
-    //   this.$modal.classList.toggle("modal--open");
-    // })
   }
 
   addEvent(eventType, selector, callback) {

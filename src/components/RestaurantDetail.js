@@ -1,4 +1,5 @@
-import translateCategory from "../util/translateCategory";
+import { translateCategory } from "../constant/variables";
+import Star from "./Star";
 
 export default class RestaurantDetail {
   constructor($target, props) {
@@ -16,7 +17,8 @@ export default class RestaurantDetail {
       <div class="restaurant__category">
         <img src="./category-${translateCategory[category]}.png" alt="${category}" class="category-icon" />
       </div>
-      <img src="./favorite-icon-filled.png" class="star-icon" />
+      <div class="star-container">
+      </div>
     </div>
   </div>
   <h2 class="mt-16">${name}</h1>
@@ -34,6 +36,14 @@ export default class RestaurantDetail {
     </div>
   </div>
   `;
+
+    this.mounted();
+  }
+
+  mounted() {
+    const $starContainer = this.$target.querySelector(".star-container");
+
+    new Star($starContainer, { ...this.props });
   }
 
   setEvent() {

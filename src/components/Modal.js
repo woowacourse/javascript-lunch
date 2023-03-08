@@ -26,7 +26,7 @@ export default class Modal {
     const $modalContainer = document.querySelector(".modal-container");
 
     if (content === "addForm") new AddForm($modalContainer, { render });
-    if (content === "restaurantDetail") new RestaurantDetail($modalContainer, { ...this.props, render });
+    if (content === "restaurantDetail") new RestaurantDetail($modalContainer, { ...this.props });
   }
 
   setEvent() {

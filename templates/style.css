@@ -321,3 +321,15 @@ input[name="link"] {
 .mb-16 {
   margin-bottom: 16px;
 }
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.right-0 {
+  right: 0;
+}

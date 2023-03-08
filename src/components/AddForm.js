@@ -105,7 +105,7 @@ export default class AddForm {
       const distance = event.target[2].value;
       const description = event.target[3].value;
       const link = event.target[4].value;
-      const newRestaurant = { name, category, distance, description, link };
+      const newRestaurant = { name, category, distance, description, link, stared: false };
 
       this.addRestaurant(newRestaurant, render);
     });
