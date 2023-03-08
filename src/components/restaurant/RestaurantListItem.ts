@@ -4,7 +4,7 @@ class RestaurantListItem extends Component {
   override renderTemplate() {
     return `
       <style>
-        .restaurant {
+        li {
           display: flex;
           align-items: flex-start;
 
@@ -13,7 +13,7 @@ class RestaurantListItem extends Component {
           border-bottom: 1px solid #e9eaed;
         }
         
-        .restaurant__category {
+        .category {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -33,21 +33,21 @@ class RestaurantListItem extends Component {
           height: 36px;
         }
 
-        .restaurant__info {
+        .info {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
         }
 
-        .restaurant__name {
+        .name {
           margin: 0;
         }
 
-        .restaurant__distance {
+        .distance {
           color: var(--primary-color);
         }
 
-        .restaurant__description {
+        .description {
           display: -webkit-box;
 
           padding-top: 8px;
@@ -59,22 +59,22 @@ class RestaurantListItem extends Component {
         }
       </style>
 
-      <li class="restaurant">
-        <div class="restaurant__category">
+      <li>
+        <div class="category">
           <img
             src="assets/categories/${this.getAttribute('category')}.png"
             alt="${this.getAttribute('category')}"
             class="category-icon"
           >
         </div>
-        <div class="restaurant__info">
-          <h3 class="restaurant__name text-subtitle">
+        <div class="info">
+          <h3 class="name text-subtitle">
             ${this.getAttribute('name') ?? ''}
           </h3>
-          <span class="restaurant__distance text-body">
+          <span class="distance text-body">
             캠퍼스부터 ${this.getAttribute('distance' ?? '')}분 내
           </span>
-          <p class="restaurant__description text-body">${this.getAttribute('description') ?? ''}</p>
+          <p class="description text-body">${this.getAttribute('description') ?? ''}</p>
         </div>
       </li>
     `;
