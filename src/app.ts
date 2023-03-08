@@ -9,8 +9,11 @@ import { getRestaurants, saveRestaurants } from './utils/localStorage';
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
-  #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> = {
+  #filterPipes: Partial<
+    Record<'filter' | 'sort' | 'type', (restaurants: Restaurant[]) => Restaurant[]>
+  > = {
     sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
+    type: (_restaurants: Restaurant[]) => _restaurants,
   };
 
   constructor() {
@@ -126,6 +129,14 @@ class App {
     saveRestaurants(this.#restaurants);
   };
 
+  chagneRestaurantType = ({ detail }: CustomEvent) => {
+    const { type } = detail;
+
+    this.#filterPipes.type = type === 'all' ? Restaurants.getAll : Restaurants.getFavorite;
+
+    this.updateRestaurantsList();
+  };
+
   initEventHandlers() {
     window.addEventListener('load', this.initLoad);
     document.addEventListener('openRegisterRestauranModal', render.openRegisterRestaurantModal);
@@ -138,6 +149,7 @@ class App {
     );
     document.addEventListener('deleteRestaurant', this.deleteRestaurant as EventListener);
     document.addEventListener('toggleFavorite', this.toggleRestaurantFavorite as EventListener);
+    document.addEventListener('chagneRestaurantType', this.chagneRestaurantType as EventListener);
   }
 }
 
