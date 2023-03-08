@@ -9,7 +9,7 @@ class RestaurantListContainer {
       </section>`;
   }
 
-  render(target: Element, restaurantList: Restaurant[]) {
+  renderRestaurantItems(target: Element, restaurantList: Restaurant[]) {
     const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
       new RestaurantItem(restaurant).create()
     );

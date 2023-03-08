@@ -17,6 +17,10 @@ class App {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
     this.render();
+    RestaurantListContainer.renderRestaurantItems(
+      $('.restaurant-list') as HTMLUListElement,
+      restaurantList
+    );
     // this.addEvents();
   }
 
