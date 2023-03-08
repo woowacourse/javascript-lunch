@@ -29,9 +29,11 @@ export type Option = {
 };
 
 export type Attribute = {
-  name: string;
-  id: string;
-  className?: string;
   type?: string;
+  name?: string;
+  id?: string;
+  className?: string;
   required?: boolean;
 };
+
+export type ButtonContent = string;
