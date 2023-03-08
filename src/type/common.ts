@@ -1,3 +1,5 @@
+import Restaurants from '../domain/Restaurants';
+
 type Restaurant = {
   category: RestaurantCategoryType;
   name: string;
@@ -17,4 +19,11 @@ type RestaurantCategoryType =
 
 type RestaurantSortingType = 'name' | 'distance';
 
-export { Restaurant, RestaurantCategoryType, RestaurantSortingType };
+type StoreType = {
+  domain: Restaurants | null;
+  restaurants: Restaurant[];
+  categorySelector: RestaurantCategoryType;
+  sortSelector: RestaurantSortingType;
+};
+
+export { Restaurant, RestaurantCategoryType, RestaurantSortingType, StoreType };
