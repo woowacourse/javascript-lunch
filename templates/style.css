@@ -197,8 +197,11 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 85vh;
 
   padding: 32px 16px;
+
+  overflow: auto;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
@@ -224,7 +227,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +261,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
