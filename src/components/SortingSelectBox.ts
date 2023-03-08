@@ -1,5 +1,4 @@
 import { restaurants } from "../domain/restaurants";
-import RestaurantList from "./RestaurantList";
 
 class SortingSelectBox extends HTMLElement {
   constructor() {

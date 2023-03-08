@@ -1,7 +1,5 @@
 import IRestaurant from "../../type/IRestaurant";
 import RestaurantItem from "../RestaurantItem";
-import { TCategory } from "../../type/TCategory";
-import { restaurants } from "../../domain/restaurants";
 import { selectRestaurants } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
