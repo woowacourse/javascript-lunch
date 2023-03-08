@@ -27,8 +27,8 @@ export default class App {
 
     new Header(this.onClickModalOpenButton.bind(this));
     new UpperTab(this.onClickNavTab.bind(this));
-    new RestaurantFilterContainer(this.renderFilteredItems.bind(this));
-    this.renderFilteredItems();
+    new RestaurantFilterContainer(this.setState.bind(this));
+    this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
     new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this), this.toggle);
   }
 
@@ -50,13 +50,23 @@ export default class App {
       if (navElement !== clickedElement) navElement.classList.remove('selected');
     });
     clickedElement.classList.add('selected');
+
+    this.setState({ navTab: clickedElement.innerText });
   }
 
-  renderFilteredItems() {
-    const categoryOption = $('#category-filter').value;
-    const sortOption = $('#sorting-filter').value;
+  setState(obj) {
+    this.state = { ...this.state, ...obj };
+    const key = Object.keys(obj)[0];
 
-    const filteredRestaurants = this.restaurants.getFilteredRestaurantsByCategory(categoryOption);
+    if (key === 'navTab' && obj[key] === '자주 가는 음식점') {
+      return this.renderLikedItems();
+    }
+
+    this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
+  }
+
+  renderFilteredItems(filterCategory, sortOption) {
+    const filteredRestaurants = this.restaurants.getFilteredRestaurantsByCategory(filterCategory);
 
     const sortedRestaurants = this.restaurants.getSortedRestaurants(
       filteredRestaurants,
@@ -100,7 +110,7 @@ export default class App {
     const curCategoryOption = $('#category-filter').value;
     if (curCategoryOption !== '전체' && category !== curCategoryOption) return;
 
-    this.renderFilteredItems();
+    this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
   }
 
   toggleModal() {
