@@ -37,8 +37,12 @@ class LunchAppView {
     this.#renderRestaurants(restaurants);
   }
 
-  toggleRestaurantAddModal() {
-    this.#restaurantAddModal.toggleModal();
+  closeOrOpenRestaurantAddModal(command: string) {
+    this.#restaurantAddModal.closeOrOpenModal(command);
+  }
+
+  closeOrOpenRestaurantInfoModal(command: string) {
+    this.#restaurantInfoModal.closeOrOpenModal(command);
   }
 
   clearAllModalInputs() {

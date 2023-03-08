@@ -19,8 +19,14 @@ class Modal {
     this.#render();
   }
 
-  toggleModal() {
-    $(`#${this.#info.id}`).classList.toggle('modal--open');
+  closeOrOpenModal(command: string) {
+    const modalElement = $(`#${this.#info.id}`);
+
+    if (modalElement instanceof HTMLDialogElement) {
+      command === 'open'
+        ? modalElement.classList.add('modal--open')
+        : modalElement.classList.remove('modal--open');
+    }
   }
 
   fillContents(template: string) {
@@ -29,13 +35,13 @@ class Modal {
 
   #render() {
     const template = `
-      <div class="modal" id="${this.#info.id}">
+      <dialog class="modal" id="${this.#info.id}">
         <div class="modal-backdrop"></div>
           <div class="modal-container">
             <div id="${this.#info.innerId}"></div>
           </div>
         </div>
-      </div>`;
+      </dialog>`;
 
     this.#parentElement.innerHTML = template;
   }

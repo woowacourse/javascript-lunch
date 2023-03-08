@@ -20,7 +20,7 @@ class LunchApp {
   });
 
   #onModalCancelButtonClicked() {
-    this.#lunchAppView.toggleRestaurantAddModal();
+    this.#lunchAppView.closeOrOpenRestaurantAddModal('close');
 
     this.#lunchAppView.clearAllModalInputs();
   }
@@ -31,11 +31,11 @@ class LunchApp {
     this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
 
     this.#lunchAppView.clearAllModalInputs();
-    this.#lunchAppView.toggleRestaurantAddModal();
+    this.#lunchAppView.closeOrOpenRestaurantAddModal('open');
   }
 
   #onHeaderAddButtonClicked() {
-    this.#lunchAppView.toggleRestaurantAddModal();
+    this.#lunchAppView.closeOrOpenRestaurantAddModal('open');
   }
 
   #onFilterByChange(filterBy: string) {
@@ -54,7 +54,6 @@ class LunchApp {
 
   #onRestaurantItemClicked(index: number) {
     const restaurant = this.#restaurants.getRestaurantByIndex(index);
-    console.log('OK index is', index);
 
     this.#lunchAppView.openInfoModal(restaurant);
   }

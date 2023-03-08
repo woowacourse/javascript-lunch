@@ -32,8 +32,8 @@ class RestaurantAddModal {
     this.#setListeners();
   }
 
-  toggleModal() {
-    this.#modal.toggleModal();
+  closeOrOpenModal(command: string) {
+    this.#modal.closeOrOpenModal(command);
   }
 
   clearAllInputs() {

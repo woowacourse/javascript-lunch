@@ -2,7 +2,6 @@ import { $, $$ } from '../util/querySelector';
 import { Restaurant } from '../type';
 import Modal from './components/Modal';
 import RestaurantItem from './components/RestaurantItem';
-import dummyRestaurants from '../../__tests__/dummyRestaurants';
 
 type RestaurantInfoModalType = {
   parentElement: HTMLElement;
@@ -10,7 +9,6 @@ type RestaurantInfoModalType = {
 
 class RestaurantInfoModal {
   #parentElement;
-  // #parentEvent;
   #modal;
 
   constructor({ parentElement }: RestaurantInfoModalType) {
@@ -25,8 +23,8 @@ class RestaurantInfoModal {
     });
   }
 
-  toggleModal() {
-    this.#modal.toggleModal();
+  closeOrOpenModal(command: string) {
+    this.#modal.closeOrOpenModal(command);
   }
 
   updateRestaurantInfo(restaurant: Restaurant) {
@@ -40,7 +38,7 @@ class RestaurantInfoModal {
 
   openInfoModal(restaurant: Restaurant) {
     this.updateRestaurantInfo(restaurant);
-    this.toggleModal();
+    this.closeOrOpenModal('open');
   }
 }
 
