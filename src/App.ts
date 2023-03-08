@@ -23,7 +23,11 @@ class App {
   addEvents() {
     Header.addEvent(AddModal.openModal);
     SelectContainer.addEvent(AppController.setSelectedValue, this.rerenderList);
-    RestaurantList.addEvent(this.openItemModal);
+    RestaurantList.addEvent(
+      this.openItemModal,
+      AppController.toggleBookmark,
+      this.rerenderList
+    );
     AddModal.addEvent(AppController.addNewRestaurant, this.rerenderList);
   }
 

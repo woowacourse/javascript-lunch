@@ -30,6 +30,15 @@ class RestaurantListHandler {
     );
   }
 
+  toggleBookmark(id: string) {
+    this.restaurants = this.restaurants.map((restaurant) => {
+      if (restaurant.id === id) {
+        return { ...restaurant, bookmarked: !restaurant.bookmarked };
+      }
+      return restaurant;
+    });
+  }
+
   private getSortedByName(restaurants: Restaurant[]): Restaurant[] {
     return [...restaurants].sort((resA, resB) =>
       resA.name.localeCompare(resB.name, Constants.KOREAN)

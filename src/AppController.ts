@@ -54,6 +54,11 @@ class AppController {
     restaurantListHandler.deleteRestaurant(id);
     this.setRestaurantList();
   };
+
+  toggleBookmark = (id: string) => {
+    restaurantListHandler.toggleBookmark(id);
+    this.setRestaurantList();
+  };
 }
 
 export default new AppController();

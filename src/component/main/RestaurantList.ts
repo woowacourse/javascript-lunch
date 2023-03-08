@@ -1,4 +1,4 @@
-import { Restaurant } from "@/type/type";
+import { OpenItemModal, Rerender, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import RestaurantItem from "../common/RestaurantItem";
 
@@ -34,10 +34,21 @@ class RestaurantList {
     }
   }
 
-  addEvent(openItemModal: (id: string) => void) {
+  addEvent(
+    openItemModal: OpenItemModal,
+    toggleBookmark: (id: string) => void,
+    rerenderList: Rerender
+  ) {
     this.listEl.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
       const restaurantId = <string>target.closest("li")?.id;
+
+      if (target.className === "bookmark") {
+        toggleBookmark(restaurantId);
+        rerenderList();
+        return;
+      }
+
       openItemModal(restaurantId);
     });
   }
