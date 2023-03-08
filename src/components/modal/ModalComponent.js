@@ -47,9 +47,7 @@ class ModalComponent extends CustomElement {
           position: fixed;
           bottom: 0;
           width: 100%;
-        
-          padding: 32px 16px;
-        
+          height: auto;
           border-radius: 8px 8px 0px 0px;
           background: var(--grey-100);
           z-index: 100;
