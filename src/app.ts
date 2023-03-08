@@ -27,14 +27,8 @@ class App extends Component<IComponentPropState> {
     return `<header class="gnb">
   </header>
   <main>
-    <section class="restaurant-filter-container"></section>
     <section class="restaurant-list-container"></section>
-    
-
     <section class="restaurant-add-modal-container"></section>
-
-
-    
   </main>`;
   }
 
@@ -43,9 +37,6 @@ class App extends Component<IComponentPropState> {
     const $topNavBar = this.$target.querySelector<HTMLHeadingElement>('.gnb');
     const $addModalContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-add-modal-container'
-    );
-    const $filterBar = this.$target.querySelector<HTMLElement>(
-      '.restaurant-filter-container'
     );
     const $listContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-list-container'
@@ -66,16 +57,11 @@ class App extends Component<IComponentPropState> {
       });
     }
 
-    if ($filterBar) {
-      new FilterBar($filterBar, {
-        filterList: filterList.bind(this),
-        filterOptions: this.$state.filterOptions,
-      });
-    }
-
     if ($listContainer) {
       new ListContainer($listContainer, {
         restaurantList: this.$state.restaurantList,
+        filterList: this.filterList.bind(this),
+        filterOptions: this.$state.filterOptions,
       });
     }
   }
