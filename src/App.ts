@@ -5,6 +5,7 @@ import RestaurantList from './components/RestaurantList';
 import RestaurantListItem from './domain/RestaurantListItem';
 import RestaurantStorage from './domain/RestaurantStorage';
 import { ID } from './constants';
+import Menu from './components/Menu';
 
 class App {
   #app;
@@ -20,6 +21,7 @@ class App {
     this.#app.innerHTML = `
       ${Header.template()}
       <main>
+        ${Menu.template()}
         ${FilterSection.template()}
         ${RestaurantList.template(this.#restaurantListItem.getListItem())}
 

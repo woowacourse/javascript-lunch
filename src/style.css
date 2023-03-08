@@ -100,6 +100,30 @@ select option[value=''][disabled] {
 
 /* 음식점 목록 *****************************************/
 
+/* 음식점 선택 메뉴 */
+.menu-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 32px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.menu-item {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+  cursor: pointer;
+}
+
+.menu-item-clicked {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
