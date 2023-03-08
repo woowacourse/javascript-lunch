@@ -95,7 +95,7 @@ class AddModal {
     const $modal = $(".modal-form") as HTMLFormElement;
     const formData = Object.fromEntries(new FormData($modal).entries());
     const restaurant = {
-      name: formData.name as string,
+      name: (formData.name as string).trim(),
       takingTime: Number(formData.takingTime) as TakingTime,
       category: formData.category as Category,
       link: formData.link as string,
