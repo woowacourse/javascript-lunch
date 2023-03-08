@@ -19,14 +19,12 @@ export default class Filters {
         name: 'category',
         id: 'category-filter',
         options: arrayElementToObject(['전체', ...CATEGORIES]),
-        selected: this.category,
         className: 'restaurant-filter',
       })}
       ${selectTemplate({
         name: 'sorting',
         id: 'sorting-filter',
         options: arrayElementToObject(SORTS),
-        selected: this.filter,
         className: 'restaurant-filter',
       })}
     `;
