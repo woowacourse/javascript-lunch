@@ -11,7 +11,6 @@ class NewRestaurantModal extends Component {
   }
 
   close() {
-    this.shadowRoot?.querySelector('form')?.reset();
     this.shadowRoot?.querySelector<Modal>('r-modal')?.close();
   }
 
@@ -46,6 +45,10 @@ class NewRestaurantModal extends Component {
     this.close();
   }
 
+  onPostClose() {
+    this.shadowRoot?.querySelector('form')?.reset();
+  }
+
   override renderTemplate() {
     return `
       <style>
@@ -63,7 +66,7 @@ class NewRestaurantModal extends Component {
         }
       </style>
 
-      <r-modal title="새로운 음식점">
+      <r-modal title="새로운 음식점" onclose="this.host.onPostClose()">
         <form slot="content" id="modal-form" onsubmit="this.host.onSubmit(event)">
           <r-select
             name="category"

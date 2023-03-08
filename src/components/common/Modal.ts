@@ -13,6 +13,10 @@ class Modal extends Component {
     this.shadowRoot?.querySelector('dialog')?.close();
   }
 
+  onClose(event: CloseEvent) {
+    this.dispatchEvent(new CloseEvent('close'));
+  }
+
   override renderTemplate() {
     return `
       <style>
@@ -38,7 +42,7 @@ class Modal extends Component {
         }
       </style>
 
-      <dialog>
+      <dialog onclose="this.host.onClose(event)">
         <h2 class="text-title">${this.getAttribute('title') ?? ''}</h2>
         <slot name="content"></slot>
         <slot name="actions"></slot>
