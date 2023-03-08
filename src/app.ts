@@ -8,25 +8,27 @@ import { FILTER, SORT } from './utils/constants';
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
+  $restaurantList: CustomRestaurantListElement | null = null;
+
   #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> = {
     sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
   };
 
-  $restaurantList = document.querySelector<CustomRestaurantListElement>('#restaurant-list')!;
-
-  $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
+  $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button');
 
   constructor() {
     this.init();
   }
 
   init() {
-    this.load();
-
     this.initEventHandlers();
   }
 
-  updateRestaurants() {
+  updateRestaurantsList() {
+    if (!this.$restaurantList)
+      this.$restaurantList =
+        document.querySelector<CustomRestaurantListElement>('#restaurant-list')!;
+
     this.$restaurantList.setRestaurants(
       Object.values(this.#filterPipes).reduce(
         (filteredRestaurants, filter) => filter(filteredRestaurants),
@@ -50,7 +52,7 @@ class App {
       );
     }
 
-    this.updateRestaurants();
+    this.updateRestaurantsList();
   }
 
   changeRestaurantFilter = ({ detail }: CustomEvent) => {
@@ -62,7 +64,7 @@ class App {
         Restaurants.filterByCategory(_restaurants, String(detail.value));
     }
 
-    this.updateRestaurants();
+    this.updateRestaurantsList();
   };
 
   changeRestaurantSort = ({ detail }: CustomEvent) => {
@@ -74,7 +76,7 @@ class App {
 
     this.#filterPipes.sort = sortFilter;
 
-    this.updateRestaurants();
+    this.updateRestaurantsList();
   };
 
   openRegisterRestaurantModal = () => {
@@ -107,7 +109,7 @@ class App {
     }
 
     this.closeRegisterRestaurantModal();
-    this.updateRestaurants();
+    this.updateRestaurantsList();
   };
 
   createRestaurant = ({
@@ -127,6 +129,8 @@ class App {
   };
 
   initEventHandlers() {
+    if (!this.$modalOpenButton) return;
+
     this.$modalOpenButton.addEventListener('click', this.openRegisterRestaurantModal);
     document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
     document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
@@ -139,8 +143,11 @@ class App {
 
       $main.insertAdjacentHTML(
         'beforebegin',
-        `<r-search-restaurant-section></r-search-restaurant-section>`,
+        `<r-search-restaurant-section></r-search-restaurant-section>
+        <r-restaurant-list id="restaurant-list"></r-restaurant-list>`,
       );
+
+      this.load();
     });
   }
 }
