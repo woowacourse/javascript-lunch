@@ -11,8 +11,6 @@ import IMAGE from "./IMAGE";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
 import createSelectInput from "./component/createSelectInput";
-import RestaurantInfo from "./component/RestaurantInfo";
-import PersonalRestaurant from "./type/PersonalRestaurant";
 import PersonalRestaurantInfo from "./component/PersonalRestaurantInfo";
 
 const CATEGORY = getFoodCategoryMemberList();
@@ -171,12 +169,21 @@ const readRestaurantInput = () => {
   };
 };
 
+const getGlobalFilterResult = () => {
+  const globalFilterValue = $("nav input[name='global-filter']:checked").value;
+
+  if (globalFilterValue === "all") return restaurantList.getList();
+  if (globalFilterValue === "favorite") return Filter.byFavorite(restaurantList.getList());
+  return [];
+};
+
 const updateRestaurant = () => {
   $(".restaurant-list-container").innerHTML = "";
 
   LocalStorage.setItem("restaurants", restaurantList.getList());
 
-  const sortResult = sort(sortingFilter.value, restaurantList.getList());
+  const globalFilteredList = getGlobalFilterResult();
+  const sortResult = sort(sortingFilter.value, globalFilteredList);
   const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
 
   filterResult.forEach((element) => {
@@ -235,5 +242,9 @@ categoryFilter.addEventListener("change", () => {
 });
 
 sortingFilter.addEventListener("change", () => {
+  updateRestaurant();
+});
+
+$("#gloabl-filter-radio").addEventListener("change", () => {
   updateRestaurant();
 });

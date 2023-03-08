@@ -11,6 +11,12 @@ const Filter = {
       (personalRestaurant) => personalRestaurant.restaurant.category === targetCategory
     );
   },
+
+  byFavorite(personalRestaurantList: PersonalRestaurant[]) {
+    return personalRestaurantList.filter(
+      (personalRestaurant) => personalRestaurant.favorite
+    );
+  }
 };
 
 export default Filter;
