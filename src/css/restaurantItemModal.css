@@ -1,0 +1,12 @@
+.restaurant-item-modal .text-body,
+.restaurant-item-modal .text-subtitle {
+  margin-top: 16px;
+}
+
+.restaurant__link {
+  display: block;
+
+  margin: 32px 0;
+
+  color: var(--grey-500);
+}
