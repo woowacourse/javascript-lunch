@@ -90,7 +90,7 @@ class Select<OptionValue> extends FormControlComponent {
       </style>
 
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
-      <select id="form-control">
+      <select id="form-control" onchange="this.host.onChange(event)">
         ${this.#options
           .map(({ label }, index) => {
             return `<option value="${index}">${label}</option>`;
@@ -100,15 +100,10 @@ class Select<OptionValue> extends FormControlComponent {
     `;
   }
 
-  override render() {
-    super.render();
-
-    this.shadowRoot
-      ?.querySelector<HTMLSelectElement>('select')
-      ?.addEventListener('change', (event) => {
-        const $select = event?.target as HTMLSelectElement;
-        this.setSelectedOption(this.#options[Number($select.value)]);
-      });
+  onChange(event: Event) {
+    if (event.target instanceof HTMLSelectElement) {
+      this.setSelectedOption(this.#options[Number(event.target.value)]);
+    }
   }
 
   override validate() {

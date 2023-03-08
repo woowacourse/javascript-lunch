@@ -55,20 +55,14 @@ class Input extends FormControlComponent {
       </style>
 
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
-      <input id="form-control">
+      <input id="form-control" oninput="this.host.onInput(event)">
     `;
   }
 
-  override render() {
-    super.render();
-
-    this.shadowRoot
-      ?.querySelector<HTMLInputElement>('input')
-      ?.addEventListener('input', (event) => {
-        if (event.target instanceof HTMLInputElement) {
-          this.internals.setFormValue(event.target.value.trim());
-        }
-      });
+  onInput(event: InputEvent) {
+    if (event.target instanceof HTMLInputElement) {
+      this.internals.setFormValue(event.target.value);
+    }
   }
 
   override validate() {

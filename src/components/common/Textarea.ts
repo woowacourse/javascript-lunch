@@ -56,20 +56,16 @@ class Textarea extends FormControlComponent {
       </style>
 
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
-      <textarea id="form-control" rows="${this.getAttribute('rows') ?? 4}"></textarea>
+      <textarea id="form-control" oninput="this.host.onInput(event)" rows="${
+        this.getAttribute('rows') ?? 4
+      }"></textarea>
     `;
   }
 
-  override render() {
-    super.render();
-
-    this.shadowRoot
-      ?.querySelector<HTMLTextAreaElement>('textarea')
-      ?.addEventListener('input', (event) => {
-        if (event.target instanceof HTMLTextAreaElement) {
-          this.internals.setFormValue(event.target.value.trim());
-        }
-      });
+  onInput(event: InputEvent) {
+    if (event.target instanceof HTMLTextAreaElement) {
+      this.internals.setFormValue(event.target.value);
+    }
   }
 
   override validate() {
