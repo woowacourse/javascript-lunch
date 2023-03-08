@@ -20,9 +20,9 @@ class AddModal {
   }
 
   template() {
-    return `<div class="modal">
+    return `<div class="modal add-modal">
     <div class="modal-backdrop"></div>
-    <div class="modal-container">
+    <div class="modal-container add-modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form class="modal-form">
         <div class="form-item form-item--required category--input">
@@ -115,12 +115,12 @@ class AddModal {
   }
 
   openModal() {
-    $(".modal")?.classList.add("modal--open");
+    $(".add-modal")?.classList.add("modal--open");
   }
 
   closeModal() {
     this.resetForm();
-    $(".modal")?.classList.remove("modal--open");
+    $(".add-modal")?.classList.remove("modal--open");
   }
 
   showErrorMessage(target: string, message: string) {

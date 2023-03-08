@@ -276,6 +276,7 @@ input[name="link"] {
 
 .button-container {
   display: flex;
+  margin-top: 40px;
 }
 
 .button {
@@ -310,4 +311,31 @@ input[name="link"] {
 
 .error--message {
   color: red;
+}
+
+/* 음식점 아이템 모달 *****************************************/
+.item-modal-container {
+  height: 70%;
+}
+
+.item-information {
+  height: 70%;
+}
+
+.item__name {
+  margin: 20px 0 16px 0;
+}
+
+.item__takingTime {
+  color: var(--primary-color);
+  margin: 16px 0;
+}
+
+.item__description {
+  height: 75%;
+  overflow: scroll;
+}
+
+a {
+  color: inherit;
 }
