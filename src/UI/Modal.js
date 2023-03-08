@@ -1,5 +1,5 @@
 import { $, $$ } from "../utils/Dom";
-import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT} from "../utils/Constant"
+import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT } from "../utils/Constant";
 
 export default class Modal {
   #template = `
