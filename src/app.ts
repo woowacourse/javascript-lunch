@@ -1,15 +1,11 @@
 import AddRestaurantBottomSheet from './components/AddRestaurantBottomSheet';
-import FilterBar from './components/FilterBar';
 import ListContainer from './components/ListContainer';
 import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
 import { IComponentPropState } from './interfaces/IComponent';
 import IRestaurantInput from './interfaces/IRestaurantInput';
-import {
-  getLocalStorageItems,
-  setLocalStorageItem,
-} from './utils/localStroageUtils';
+import { getLocalStorageItems } from './utils/localStroageUtils';
 import sortItemsByName from './utils/sortByName';
 import defaultDummyRestaurantsData from './constants/defaultDummyRestaurantsData';
 
@@ -33,7 +29,7 @@ class App extends Component<IComponentPropState> {
   }
 
   mounted() {
-    const { toggleModal, updateRootState, filterList } = this;
+    const { toggleModal, updateRootState } = this;
     const $topNavBar = this.$target.querySelector<HTMLHeadingElement>('.gnb');
     const $addModalContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-add-modal-container'
