@@ -28,6 +28,13 @@ class RestaurantItem {
               ${this.restaurant.description ?? ''}
             </p>
           </div>
+          <div class="restaurant__star">
+            <img 
+              src="${getFavoriteIcon(this.restaurant.favorite)}"
+              alt=""
+              class="restaurant-star"
+            />
+            </div>
         </div>
       </li>`;
   }

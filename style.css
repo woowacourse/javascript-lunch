@@ -143,10 +143,22 @@ body {
   height: 36px;
 }
 
+.restaurant__info-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.restaurant-star {
+  position: relative;
+  right: 0;
 }
 
 .restaurant__name {
@@ -287,8 +299,24 @@ input[name='link'] {
   color: var(--grey-300);
 }
 
+.button--secondary:hover {
+  background: var(--grey-150);
+}
+
+.button--secondary:active {
+  background: #dce1e8;
+}
+
 .button--primary {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.button--primary:hover {
+  background: var(--darken-color-2);
+}
+
+.button--primary:active {
+  background: var(--darken-color-1);
 }
