@@ -71,7 +71,6 @@ class ItemModal {
     rerenderList: Rerender
   ) {
     $(".item-modal--close")?.addEventListener("click", () => {
-      rerenderList();
       this.close();
     });
 
@@ -85,6 +84,7 @@ class ItemModal {
       toggleBookmark(this.restaurant.id);
       this.restaurant.bookmarked = !this.restaurant.bookmarked;
       this.rerender(deleteRestaurant, toggleBookmark, rerenderList);
+      rerenderList();
     });
   }
 }
