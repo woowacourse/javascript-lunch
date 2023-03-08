@@ -3,6 +3,7 @@ import Selectbox from './components/Selectbox';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
+import { getFilteredRestaurantsByCategory, getSortedRestaurants } from './domain/utils';
 
 import { $ } from './utils/dom';
 import store from './utils/store';
@@ -86,11 +87,8 @@ export default class App {
     const sortOption = $('#sorting-filter').value;
     const restaurants = this.#restaurants.getRestaurants();
 
-    const filteredRestaurants = RestaurantList.getFilteredRestaurantsByCategory(
-      restaurants,
-      categoryOption
-    );
-    const sortedRestaurants = RestaurantList.getSortedRestaurants(filteredRestaurants, sortOption);
+    const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
+    const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
 
     const template = RestaurantList.getTemplate(sortedRestaurants);
 
