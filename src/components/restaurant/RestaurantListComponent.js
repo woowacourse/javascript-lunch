@@ -1,5 +1,5 @@
 import CustomElement from "../../abstracts/CustomElement";
-import RestaurantInstance from "../../domain/RestaurantsStore";
+import RestaurantInstance from "../../domain/store/RestaurantsStore";
 
 class RestaurantListComponent extends CustomElement {
   connectedCallback() {

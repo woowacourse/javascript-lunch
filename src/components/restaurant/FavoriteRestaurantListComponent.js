@@ -1,5 +1,5 @@
 import RestaurantListComponent from "./RestaurantListComponent";
-import RestaurantInstance from "../../domain/RestaurantsStore";
+import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import CustomElement from "../../abstracts/CustomElement";
 
 class FavoriteRestaurantListComponent extends CustomElement {

@@ -1,5 +1,5 @@
-import { MODAL_ACTION } from "../abstracts/constants";
-import { Action } from "../abstracts/types";
+import { MODAL_ACTION } from "../../abstracts/constants";
+import { Action } from "../../abstracts/types";
 import Store from "./Store";
 
 class ModalStore extends Store {

@@ -1,7 +1,7 @@
 import CustomElement from "../../abstracts/CustomElement";
 import FavoriteRestaurantListComponent from "./FavoriteRestaurantListComponent";
 import RestaurantListComponent from "./RestaurantListComponent";
-import MenuInstance from "../../domain/MenuStore";
+import MenuInstance from "../../domain/store/MenuStore";
 
 class RestaurantsContainer extends CustomElement {
   connectedCallback() {

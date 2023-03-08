@@ -1,6 +1,6 @@
 import { CATEGORY_IMG, FAVORITE_IMG } from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
-import RestaurantInstance from "../../domain/RestaurantsStore";
+import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import dispatcher from "../../domain/Dispatcher";
 
 class RestaurantInfoComponent extends CustomElement {

@@ -1,7 +1,7 @@
 import { Action, Restaurant, Category, SortMethod } from "../abstracts/types";
-import ModalInstance from "./ModalStore";
-import RestaurantInstance from "./RestaurantsStore";
-import MenuInstance from "./MenuStore";
+import ModalInstance from "./store/ModalStore";
+import RestaurantInstance from "./store/RestaurantsStore";
+import MenuInstance from "./store/MenuStore";
 
 const reducer = {
   ...RestaurantInstance.reducer,

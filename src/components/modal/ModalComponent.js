@@ -1,5 +1,5 @@
 import CustomElement from "../../abstracts/CustomElement";
-import ModalInstance from "../../domain/ModalStore";
+import ModalInstance from "../../domain/store/ModalStore";
 import dispatcher from "../../domain/Dispatcher";
 import RestaurantInfoComponent from "./RestaurantInfoComponent";
 

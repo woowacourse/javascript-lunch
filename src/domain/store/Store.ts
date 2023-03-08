@@ -1,4 +1,4 @@
-import CustomElement from "../abstracts/CustomElement";
+import CustomElement from "../../abstracts/CustomElement";
 
 class Store {
   #subscribers: CustomElement[] = [];
@@ -7,7 +7,7 @@ class Store {
     this.#subscribers.push(element);
   }
 
-  getSubscribers() {
+  getSubscribers(): CustomElement[] {
     return this.#subscribers;
   }
 

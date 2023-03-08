@@ -1,6 +1,6 @@
 import MenuComponent from "./MenuComponent";
 import dispatcher from "../../domain/Dispatcher";
-import MenuInstance from "../../domain/MenuStore";
+import MenuInstance from "../../domain/store/MenuStore";
 
 class FavoriteMenuComponent extends MenuComponent {
   menuTitle = "자주 가는 음식점";

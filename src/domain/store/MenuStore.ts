@@ -1,5 +1,5 @@
-import { MENU_ACTION } from "../abstracts/constants";
-import { Action } from "../abstracts/types";
+import { MENU_ACTION } from "../../abstracts/constants";
+import { Action } from "../../abstracts/types";
 import Store from "./Store";
 
 class MenuStore extends Store {

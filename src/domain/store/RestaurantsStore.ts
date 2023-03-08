@@ -1,22 +1,22 @@
+import Store from "./Store";
 import {
   Category,
   Restaurant,
   Action,
   SortMethod,
   AddRestaurant,
-} from "../abstracts/types";
+} from "../../abstracts/types";
 import {
   CATEGORY_DEFAULT,
   RESTAURANTS_STORAGE,
   RESTAURANT_ACTION,
   SORT_METHOD,
-} from "../abstracts/constants";
-import CustomElement from "../abstracts/CustomElement";
-import Store from "./Store";
+} from "../../abstracts/constants";
 import {
   getArrayFromLocalStorage,
   setArrayToLocalStorage,
-} from "../utils/localStorage";
+} from "../../utils/localStorage";
+import CustomElement from "../../abstracts/CustomElement";
 
 class RestaurantsStore extends Store {
   #restaurantList: Restaurant[] = [];
@@ -36,7 +36,7 @@ class RestaurantsStore extends Store {
     this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
     this.filterByCategory(this.#category);
     this.sortRestaurants(this.#sortMethod);
-    this.getSubscribers().forEach((subscriber) => {
+    this.getSubscribers().forEach((subscriber: CustomElement) => {
       subscriber.rerender(this.#restaurantList);
     });
   }
@@ -97,7 +97,7 @@ class RestaurantsStore extends Store {
     this.#category = category;
     if (this.#category !== CATEGORY_DEFAULT) {
       this.#restaurantList = this.#restaurantList.filter(
-        (restaurant) => restaurant.category === this.#category
+        (restaurant: Restaurant) => restaurant.category === this.#category
       );
     }
   }
@@ -106,13 +106,14 @@ class RestaurantsStore extends Store {
     this.#sortMethod = sortMethod;
     switch (this.#sortMethod) {
       case SORT_METHOD.NAME:
-        this.#restaurantList = this.#restaurantList.sort((prev, next) =>
-          prev.name > next.name ? 1 : -1
+        this.#restaurantList = this.#restaurantList.sort(
+          (prev: Restaurant, next: Restaurant) =>
+            prev.name > next.name ? 1 : -1
         );
         break;
       case SORT_METHOD.DISTANCE:
         this.#restaurantList = this.#restaurantList.sort(
-          (prev, next) => prev.distance - next.distance
+          (prev: Restaurant, next: Restaurant) => prev.distance - next.distance
         );
         break;
     }
