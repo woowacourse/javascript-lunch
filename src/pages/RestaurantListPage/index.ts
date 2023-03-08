@@ -68,6 +68,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       sortBy: this.state.sortBy,
       tabBarSelect: this.state.tabBarSelect,
       restaurants: this.state.restaurants,
+      handleByClickFavorite: this.handleByClickFavorite.bind(this),
     }).render();
   }
 
@@ -102,6 +103,11 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       ...this.state,
       tabBarSelect,
     });
+  }
+
+  handleByClickFavorite() {
+    const restaurants = this.getRestaurants();
+    this.setState({ ...this.state, restaurants });
   }
 }
 

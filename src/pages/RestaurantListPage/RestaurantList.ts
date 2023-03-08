@@ -8,6 +8,7 @@ type RestaurantListState = {
   category: Category;
   sortBy: SortBy;
   tabBarSelect: TabBarSelect;
+  handleByClickFavorite: () => void;
 };
 
 type RestaurantListProps = {
@@ -16,19 +17,28 @@ type RestaurantListProps = {
   category: Category;
   sortBy: SortBy;
   tabBarSelect: TabBarSelect;
+  handleByClickFavorite: () => void;
 };
 
 class RestaurantList implements Component<RestaurantListState> {
   $target: HTMLElement;
   state: RestaurantListState;
 
-  constructor({ $parent, restaurants, category, sortBy, tabBarSelect }: RestaurantListProps) {
+  constructor({
+    $parent,
+    restaurants,
+    category,
+    sortBy,
+    tabBarSelect,
+    handleByClickFavorite,
+  }: RestaurantListProps) {
     this.$target = document.createElement('div');
     this.state = {
       restaurants,
       category,
       sortBy,
       tabBarSelect,
+      handleByClickFavorite,
     };
 
     $parent.append(this.$target);
@@ -43,7 +53,11 @@ class RestaurantList implements Component<RestaurantListState> {
     const fragment = document.createDocumentFragment();
 
     this.categorizeRestaurantByOption().forEach((restaurant) => {
-      new RestaurantListItem({ $parent: fragment, restaurant }).render();
+      new RestaurantListItem({
+        $parent: fragment,
+        restaurant,
+        handleByClickFavorite: this.state.handleByClickFavorite,
+      }).render();
     });
 
     this.$target.append(fragment);
