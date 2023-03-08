@@ -13,4 +13,5 @@ export interface Restaurant {
   distance: Distance;
   description: string;
   link: string;
+  liked: boolean;
 }

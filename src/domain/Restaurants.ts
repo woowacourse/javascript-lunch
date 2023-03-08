@@ -25,6 +25,12 @@ export default class Restaurants {
     });
   }
 
+  getLikedRestaurant() {
+    const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
+
+    return copiedRestaurants.filter((restaurant: Restaurant) => restaurant.liked);
+  }
+
   getSortedRestaurants(filteredRestaurants: Restaurant[], sortOption: SortType) {
     if (sortOption === 'name') {
       return this.getSortedRestaurantsByName(filteredRestaurants);
