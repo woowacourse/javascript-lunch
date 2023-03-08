@@ -1,13 +1,15 @@
 import type { Component } from '../../interface';
-import type { Category, SortBy, Restaurant } from '../../type';
+import type { Category, SortBy, Restaurant, TabBarSelect } from '../../type';
 import RestaurantList from './RestaurantList';
 import RestaurantFilterContainer from './RestaurantFilterContainer';
 import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../../utils/constants';
 import GNB from '../../components/GNB';
+import TabBar from '../../components/TabBar';
 
 type RestaurantListPageState = {
   category: Category;
   sortBy: SortBy;
+  tabBarSelect: TabBarSelect;
   restaurants: Restaurant[];
   toggleAddRestaurantDrawer: () => void;
 };
@@ -27,6 +29,7 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
     this.state = {
       category: DEFAULT_CATEGORY,
       sortBy: 'name',
+      tabBarSelect: 'all',
       restaurants: this.getRestaurants(),
       toggleAddRestaurantDrawer,
     };
@@ -46,7 +49,11 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
       $parent: this.$target,
       toggleAddRestaurantDrawer: this.state.toggleAddRestaurantDrawer,
     }).render();
-
+    new TabBar({
+      $parent: this.$target,
+      tabBarSelect: this.state.tabBarSelect,
+      onClickTabBar: this.onClickTabBar.bind(this),
+    }).render();
     new RestaurantFilterContainer({
       $parent: this.$target,
       category: this.state.category,
@@ -84,6 +91,15 @@ class RestaurantListPage implements Component<RestaurantListPageState> {
     this.setState({
       ...this.state,
       sortBy,
+    });
+  }
+
+  onClickTabBar(e: Event) {
+    const target = e.target as HTMLButtonElement;
+    const tabBarSelect = target.dataset.type as TabBarSelect;
+    this.setState({
+      ...this.state,
+      tabBarSelect,
     });
   }
 }
