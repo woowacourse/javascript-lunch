@@ -2,6 +2,7 @@ import Filter from "./componentsTmp/Filter";
 import Header from "./componentsTmp/Header";
 import ModalContainer from "./componentsTmp/modal/ModalContainer";
 import RestaurantList from "./componentsTmp/restaurantList/RestaurantList";
+import RestaurantListManager from "./domain/RestaurantListManager";
 
 const dummyData = [
   {
@@ -30,6 +31,8 @@ const dummyData = [
   },
 ];
 
+const restaurantListManager = new RestaurantListManager(dummyData);
+
 const $header = document.querySelector(".gnb");
 const $filter = document.querySelector(".restaurant-filter-container");
 const $restaurantList = document.querySelector(".restaurant-list-container");
@@ -40,5 +43,8 @@ const filter = new Filter($filter);
 const restaurantList = new RestaurantList($restaurantList);
 const modal = new ModalContainer($modal);
 
-restaurantList.renderList(dummyData);
+const restaurants = restaurantListManager.getRestaurantList();
+restaurantList.renderList(restaurants);
+
 header.setAddButtonEventListner(modal, restaurantList);
+filter.onChangeSelectBox(restaurantList, restaurantListManager);

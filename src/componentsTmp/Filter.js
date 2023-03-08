@@ -24,7 +24,23 @@ class Filter {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  setEvent() {}
+  onChangeSelectBox(restaurantList, restaurantListManager) {
+    this.$target.querySelector("#category-filter").addEventListener("change", (event) => {
+      const selectedCategory = event.target.value;
+      const selectedSortingWay = this.$target.querySelector("#sorting-filter").value;
+
+      const filteredList = restaurantListManager.getRestaurantList(selectedSortingWay, selectedCategory);
+      restaurantList.renderList(filteredList);
+    });
+
+    this.$target.querySelector("#sorting-filter").addEventListener("change", (event) => {
+      const selectedSortingWay = event.target.value;
+      const selectedCategory = this.$target.querySelector("#category-filter").value;
+
+      const filteredList = restaurantListManager.getRestaurantList(selectedSortingWay, selectedCategory);
+      restaurantList.renderList(filteredList);
+    });
+  }
 }
 
 export default Filter;
