@@ -36,4 +36,8 @@ export class Restaurant {
   setFavoriteState(favorite: boolean) {
     this.#state.isFavorite = favorite;
   }
+
+  getFavoriteState() {
+    return this.#state.isFavorite;
+  }
 }

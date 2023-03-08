@@ -10,19 +10,32 @@ import notFavorite from '../../assets/favorite-icon-lined.png';
 
 import { CategoryOptions } from '../types/type';
 import { Restaurant } from '../domain/Restaurant';
+import { showModal } from '../modal';
 
 export default function RestaurantItemTemplate(restaurant: Restaurant) {
-  const { category, distance, name, description, isFavorite } =
+  const { id, category, distance, name, description } =
     restaurant.getRestaurantInfo();
 
   const $li = document.createElement('li');
   $li.className = 'restaurant';
+  $li.dataset['type'] = 'restaurantItem';
 
-  const listClickHandler = (e: Event) => {};
+  const listClickHandler = (e: Event) => {
+    const target = e.target as HTMLElement;
+
+    if (!target.dataset['type']) {
+      return;
+    }
+
+    restaurant.setFavoriteState(!restaurant.getFavoriteState());
+
+    if (restaurant.getFavoriteState()) target.classList.add('favorite-filled');
+    if (!restaurant.getFavoriteState())
+      target.classList.remove('favorite-filled');
+  };
 
   const template = `
-    <button class="favorite-button"> 
-        <img src="${isFavorite ? favorite : notFavorite}"/>
+    <button id=${id} class="favorite-button" data-type="favoriteButton" > 
       </button>
       <div class="restaurant__category">
         <img src="${categoryImageSource(
@@ -56,4 +69,10 @@ function categoryImageSource(category: CategoryOptions) {
     case '기타':
       return etc;
   }
+}
+
+function favoriteImageSource(isFavorite: boolean) {
+  if (isFavorite) return favorite;
+
+  return notFavorite;
 }
