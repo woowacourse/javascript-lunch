@@ -17,9 +17,9 @@ class ItemModal {
       <div class="modal-container item-modal-container">
         <div class="images flex-row">
           <div class="restaurant__category">
-            <img src="./category-korean.png" alt=${
-              this.restaurant.category
-            }/></div>
+            <img src=${categoryToSrc(this.restaurant.category)} alt=${
+      this.restaurant.category
+    }/></div>
           <img src=${
             this.restaurant.bookmarked
               ? "./favorite-icon-filled.png"
