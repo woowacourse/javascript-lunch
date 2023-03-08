@@ -4,9 +4,11 @@ import { Category, Restaurant } from "./../types/type";
 
 class RestaurantItemBottomSheet {
   restaurant: Restaurant;
+  deleteItem: (id: string) => void;
 
-  constructor(restaurant: Restaurant) {
+  constructor(restaurant: Restaurant, deleteItem: (id: string) => void) {
     this.restaurant = restaurant;
+    this.deleteItem = deleteItem;
   }
 
   template() {
@@ -34,7 +36,7 @@ class RestaurantItemBottomSheet {
           <p>${this.restaurant.link}</p>
         </div>
           <div class="button-container">
-          <button type="submit" class="button button--secondary text-caption modal--delete">삭제하기</button>
+          <button type="submit" class="button button--secondary text-caption item-sheet--delete">삭제하기</button>
           <button type="button" class="button button--primary text-caption item-sheet--close">닫기</button>
           </div>
         </div>
@@ -51,7 +53,15 @@ class RestaurantItemBottomSheet {
   }
 
   addEvent() {
+    this.handleSheetDelete();
     this.handleSheetClose();
+  }
+
+  handleSheetDelete() {
+    $(".item-sheet--delete")?.addEventListener("click", () => {
+      this.deleteItem(this.restaurant.id);
+      this.closeSheet();
+    });
   }
 
   handleSheetClose() {

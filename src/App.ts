@@ -36,14 +36,26 @@ class App {
   }
 
   createItemBottomSheet = (id: string) => {
-    const restaurant = <Restaurant>this.getSelectedItem(id);
-    const itemSheet = new RestaurantItemBottomSheet(restaurant);
+    this.restaurantList = restaurantListHandler.getRestaurants();
+
+    const restaurant = <Restaurant>(
+      restaurantListHandler.getSelectedItem(id, this.restaurantList)
+    );
+    const itemSheet = new RestaurantItemBottomSheet(
+      restaurant,
+      this.deleteItem
+    );
     itemSheet.initialize();
   };
 
-  getSelectedItem(id: string) {
-    return this.restaurantList.find((restaurant) => restaurant.id === id);
-  }
+  deleteItem = (id: string) => {
+    this.restaurantList = restaurantListHandler.getDeleteItem(
+      id,
+      this.restaurantList
+    );
+
+    RestaurantList.updateRestaurantList(this.restaurantList);
+  };
 
   setSortListFilterById = (id: string, value: string) => {
     if (id === Constants.CATEGORY_FILTER) {

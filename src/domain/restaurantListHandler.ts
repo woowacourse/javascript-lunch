@@ -35,6 +35,14 @@ class RestaurantListHandler {
       (restaurant) => restaurant.category === category
     );
   }
+
+  getSelectedItem(id: string, restaurantList: Restaurant[]) {
+    return restaurantList.find((restaurant) => restaurant.id === id);
+  }
+
+  getDeleteItem(id: string, restaurantList: Restaurant[]) {
+    return restaurantList.filter((restaurant) => restaurant.id !== id);
+  }
 }
 
 export default new RestaurantListHandler();
