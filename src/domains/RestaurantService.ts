@@ -12,10 +12,10 @@ class RestaurantService {
     this.restaurantList.push(restaurant);
   }
 
-  filter(category: CategoryOptions) {
-    if (category === '전체') return [...this.restaurantList];
+  filter(category: CategoryOptions, restaurantList: Restaurant[]) {
+    if (category === '전체') return [...restaurantList];
 
-    return this.restaurantList.filter((restaurant) => restaurant.category === category);
+    return restaurantList.filter((restaurant) => restaurant.category === category);
   }
 
   sortByName(restaurantList: Restaurant[]) {
@@ -26,8 +26,11 @@ class RestaurantService {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort(displayStatus: RestaurantFilter) {
-    const filteredRestaurantList = this.filter(displayStatus.category);
+  filterAndSort(
+    displayStatus: RestaurantFilter,
+    restaurantList: Restaurant[] = this.restaurantList
+  ) {
+    const filteredRestaurantList = this.filter(displayStatus.category, restaurantList);
 
     if (displayStatus.sorting === '이름순') {
       return this.sortByName(filteredRestaurantList);
