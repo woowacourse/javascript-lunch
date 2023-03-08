@@ -4,14 +4,8 @@ abstract class Component extends HTMLElement {
   constructor() {
     super();
 
-    if ((this.constructor as typeof Component).useShadowDom()) {
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot!.adoptedStyleSheets = [style];
-    }
-  }
-
-  static useShadowDom() {
-    return true;
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot!.adoptedStyleSheets = [style];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -21,11 +15,7 @@ abstract class Component extends HTMLElement {
   abstract renderTemplate(): string;
 
   render() {
-    if ((this.constructor as typeof Component).useShadowDom()) {
-      this.shadowRoot!.innerHTML = this.renderTemplate();
-      return;
-    }
-    this.innerHTML = this.renderTemplate();
+    this.shadowRoot!.innerHTML = this.renderTemplate();
   }
 
   connectedCallback() {
