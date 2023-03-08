@@ -1,5 +1,4 @@
 @import url('./header.css');
-@import url('./button.css');
 @import url('./filterContainer.css');
 
 :root {
@@ -55,8 +54,4 @@ body {
 
 r-select {
   min-width: 125px;
-}
-
-form > * {
-  margin-bottom: 36px;
 }

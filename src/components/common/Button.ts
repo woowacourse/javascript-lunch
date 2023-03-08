@@ -1,12 +1,6 @@
 import FormControlComponent from '../FormControlComponent';
 
 class Button extends FormControlComponent {
-  constructor() {
-    super();
-
-    this.addEventListener('click', () => this.onClick());
-  }
-
   override get value() {
     return this.getAttribute('type') ?? '';
   }

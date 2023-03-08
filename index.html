@@ -24,24 +24,7 @@
 
     <r-restaurant-list id="restaurant-list"></r-restaurant-list>
 
-    <r-modal title="새로운 음식점">
-      <form id="modal-form">
-        <r-select name="category" required id="restaurant-modal-category" title="카테고리"></r-select>
-
-        <r-input name="name" required title="이름"></r-input>
-
-        <r-select name="distance" required id="restaurant-modal-distance" title="거리(도보 이동 시간)"></r-select>
-
-        <r-textarea name="description" title="설명" helper-text="메뉴 등 추가 정보를 입력해 주세요."></r-textarea>
-
-        <r-input name="referenceUrl" title="참고 링크" helper-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요."></r-input>
-
-        <div class="button-container">
-          <r-button action="cancel" variant="secondary">취소하기</r-button>
-          <r-button type="submit" variant="primary">추가하기</r-button>
-        </div>
-      </form>
-    </r-modal>
+    <r-new-restaurant-modal></r-new-restaurant-modal>
   </main>
 </body>
 

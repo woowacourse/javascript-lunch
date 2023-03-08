@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Modal from './components/common/Modal';
 import Select from './components/common/Select';
+import NewRestaurantModal, {
+  NewRestaurantSubmitEvent,
+} from './components/restaurant/NewRestaurantModal';
 import RestaurantList from './components/restaurant/RestaurantList';
-import Restaurant, { RestaurantCategory, RestaurantDistance } from './domain/Restaurant';
+import Restaurant from './domain/Restaurant';
 import type { RestaurantFilter } from './domain/RestaurantFilter';
 import { filterBy, sortByDistance, sortByName } from './domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from './fixtures';
@@ -26,14 +29,6 @@ class App {
   $modalForm = document.querySelector<HTMLFormElement>('#modal-form')!;
 
   $modal = document.querySelector<Modal>('r-modal')!;
-
-  $restaurantModalCategory = document.querySelector<Select<RestaurantCategory | null>>(
-    '#restaurant-modal-category',
-  )!;
-
-  $restaurantModalDistance = document.querySelector<Select<RestaurantDistance | null>>(
-    '#restaurant-modal-distance',
-  )!;
 
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
@@ -64,7 +59,6 @@ class App {
     this.load();
 
     this.initSelect();
-    this.initModalSelect();
     this.initEventHandlers();
   }
 
@@ -80,24 +74,6 @@ class App {
     this.$restaurantSortSelect.setOptions([
       { value: sortByName, label: '이름순' },
       { value: sortByDistance, label: '거리순' },
-    ]);
-  }
-
-  initModalSelect() {
-    this.$restaurantModalCategory.setOptions([
-      { value: null, label: '선택해주세요' },
-      ...Restaurant.CATEGORIES.map((category) => ({
-        value: category,
-        label: category,
-      })),
-    ]);
-
-    this.$restaurantModalDistance.setOptions([
-      { value: null, label: '선택해주세요' },
-      ...Restaurant.DISTANCES.map((distance) => ({
-        value: distance,
-        label: `${distance}분 내`,
-      })),
     ]);
   }
 
@@ -117,35 +93,18 @@ class App {
     });
 
     this.$modalOpenButton.addEventListener('click', () => {
-      this.$modal.open();
+      document.querySelector<NewRestaurantModal>('r-new-restaurant-modal')?.open();
     });
 
-    this.$modalForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const restaurantProps = Object.fromEntries([
-        ...new FormData(event.target as HTMLFormElement).entries(),
-      ]);
-
-      try {
-        const restaurant = new Restaurant({
-          category: String(restaurantProps.category),
-          name: String(restaurantProps.name),
-          distance: Number(restaurantProps.distance),
-          description: String(restaurantProps.description),
-          referenceUrl: String(restaurantProps.referenceUrl),
-        });
+    document
+      .querySelector<NewRestaurantModal>('r-new-restaurant-modal')
+      ?.addEventListener('restaurantcreate', (e) => {
+        const event = e as NewRestaurantSubmitEvent;
+        const restaurant = event.detail;
 
         this.#restaurants.push(restaurant);
-      } catch (e) {
-        const error = e as Error;
-        alert(error.message);
-        return;
-      }
-
-      this.$modal.close();
-      this.updateRestaurants();
-    });
+        this.updateRestaurants();
+      });
   }
 }
 

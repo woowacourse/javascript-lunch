@@ -1,5 +1,4 @@
 import Component from '../Component';
-import Button from './Button';
 
 class Modal extends Component {
   static get observedAttributes() {
@@ -7,81 +6,45 @@ class Modal extends Component {
   }
 
   open() {
-    this.setAttribute('open', '');
+    this.shadowRoot?.querySelector('dialog')?.showModal();
   }
 
   close() {
-    this.removeAttribute('open');
+    this.shadowRoot?.querySelector('dialog')?.close();
   }
 
   override renderTemplate() {
     return `
       <style>
-      .modal {
-        display: none;
-      }
+        dialog {
+          position: fixed;
+          margin-top: auto;
+          width: 100vw;
+          max-width: 100%;
+          max-height: 100vh;
+          padding: 32px 16px;
 
-      :host([open]) .modal {
-        display: block;
-      }
+          border: none;
+          border-radius: 8px 8px 0px 0px;
+          background: var(--grey-100);
+        }
 
-      .modal-backdrop {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        dialog::backdrop {
+          background: rgba(0, 0, 0, 0.35);
+        }
 
-        background: rgba(0, 0, 0, 0.35);
-      }
 
-      .modal-container {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-
-        padding: 32px 16px;
-
-        border-radius: 8px 8px 0px 0px;
-        background: var(--grey-100);
-      }
-
-      .modal-title {
-        margin-bottom: 36px;
-      }
+        h2 {
+          margin-bottom: 36px;
+        }
       </style>
 
-      <div class="modal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-          <h2 class="modal-title text-title">${this.getAttribute('title')}</h2>
-          <slot></slot>
-        </div>
-      </div>
+      <dialog>
+        <h2 class="text-title">${this.getAttribute('title')}</h2>
+        <slot name="content"></slot>
+        <slot name="actions"></slot>
+      </dialog>
     `;
-  }
-
-  override render() {
-    super.render();
-
-    this.shadowRoot?.querySelector<HTMLDivElement>('.modal')?.addEventListener('click', (event) => {
-      if (!(event.target instanceof Button)) {
-        return;
-      }
-
-      const $button = event.target;
-      const action = $button.getAttribute('action');
-
-      if (action === 'cancel') {
-        this.close();
-      }
-    });
-
-    this.shadowRoot
-      ?.querySelector<HTMLDivElement>('.modal-backdrop')
-      ?.addEventListener('click', () => {
-        this.close();
-      });
   }
 }
 
