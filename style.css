@@ -89,7 +89,7 @@ body {
   display: flex;
 }
 
-.restaurant-menu {
+.tab-button {
   width: 50%;
   padding-top: 32px;
   padding-bottom: 16px;
@@ -106,7 +106,7 @@ body {
   cursor: pointer;
 }
 
-.restaurant-menu--active {
+.tab-button--active {
   color: var(--primary-color);
 
   border-color: var(--primary-color);
