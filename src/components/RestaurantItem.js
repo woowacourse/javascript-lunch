@@ -7,11 +7,9 @@ const imgFileName = {
   아시안: 'category-asian',
   양식: 'category-western',
   기타: 'category-etc',
-  true: 'favorite-icon-filled',
-  false: 'favorite-icon-lined',
 };
 
-const html = ({ id, category, name, distance, description }) => `
+const html = ({ id, category, name, distance, description, liked }) => `
   <li class="restaurant ${id}">
     <div class="restaurant__category">
       <img src="./${imgFileName[`${category}`]}.png" alt="${category}" class="category-icon" />
@@ -22,7 +20,9 @@ const html = ({ id, category, name, distance, description }) => `
       <p class="restaurant__description text-body">${description}</p>
     </div>
     <img src="./favorite-icon-lined.png" alt="favorite-icon-lined" class="favorite-icon unlike-star" />
-    <img src="./favorite-icon-filled.png" alt="favorite-icon-filled" class="favorite-icon like-star hidden" />
+    <img src="./favorite-icon-filled.png" alt="favorite-icon-filled" class="favorite-icon like-star ${
+      liked ? '' : 'hidden'
+    }" />
   </li>`;
 
 export default class RestaurantItem {
