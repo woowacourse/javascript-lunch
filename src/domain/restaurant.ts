@@ -24,12 +24,12 @@ export const restaurant: Restaurant = {
 
   filterByCategory(category: CategoryAll) {
     if (category === '전체') {
-      return (this.filteredRestaurants = [...this.restaurants]);
+      this.filteredRestaurants = [...this.restaurants];
+    } else {
+      this.filteredRestaurants = this.restaurants.filter(
+        (list) => list.category === category
+      );
     }
-    this.filteredRestaurants = this.restaurants.filter(
-      (list) => list.category === category
-    );
-
     $('restaurant-box').renderRestaurantList(this.filteredRestaurants);
   },
 
