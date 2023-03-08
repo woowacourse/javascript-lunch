@@ -18,12 +18,12 @@ class RestaurantList extends Component {
       <ul>
         ${this.#restaurants
           .map((restaurant) => {
-            return `<r-restaurant
+            return `<r-restaurant-list-item
               name="${restaurant.getName()}"
               distance="${restaurant.getDistance()}"
               description="${restaurant.getDescription() ?? ''}"
               category="${restaurant.getCategory() ?? ''}"
-            ></r-restaurant>`;
+            ></r-restaurant-list-item>`;
           })
           .join('')}
       </ul>
