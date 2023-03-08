@@ -12,6 +12,7 @@ describe('Restaurants 도메인 테스트', () => {
     distance: 5,
     description: 'undefined',
     link: 'undefined',
+    favorites: false,
   };
 
   const doriRestaurant: Restaurant = {
@@ -20,6 +21,7 @@ describe('Restaurants 도메인 테스트', () => {
     distance: 15,
     description: 'undefined',
     link: 'undefined',
+    favorites: false,
   };
 
   const restaurants = new Restaurants([yeoptoRestaurant, doriRestaurant]);
@@ -30,6 +32,7 @@ describe('Restaurants 도메인 테스트', () => {
     distance: 10,
     description: 'undefined',
     link: 'undefined',
+    favorites: false,
   };
 
   test('음식점 목록을 추가하는 기능 테스트', () => {
@@ -58,5 +61,11 @@ describe('Restaurants 도메인 테스트', () => {
 
   test('음식점을 분류 카테고리에 따라 필터링 하는 기능 테스트', () => {
     expect(restaurants.filterByCategory('한식', restaurants.restaurantsList)[0].name).toBe('도리네 집밥');
+  });
+
+  test('음식점이 즐겨찾기 되어있는지 확인한다', () => {
+    restaurants.setFavoriteState(yeoptoRestaurant.name);
+
+    expect(yeoptoRestaurant.favorites).toBe(true);
   });
 });
