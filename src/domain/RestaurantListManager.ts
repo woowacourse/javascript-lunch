@@ -12,7 +12,7 @@ export default class RestaurantListManager {
     this.#restaurantList.push(info);
   }
 
-  getRestaurantList(sortingWay: SortingWay = "name", category: Category = "전체") {
+  getRestaurantList(sortingWay: SortingWay = "이름순", category: Category = "전체") {
     const categorizedList = this.#categorizeRestaurants(category, this.#restaurantList);
     const sortedList = this.#sortRestaurants(sortingWay, categorizedList);
 
