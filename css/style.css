@@ -85,6 +85,11 @@ body {
   object-fit: contain;
 }
 
+#global-filter-radio input {
+  border: 5px solid black;
+  display: none;
+}
+
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */

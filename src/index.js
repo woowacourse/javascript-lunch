@@ -245,6 +245,10 @@ sortingFilter.addEventListener("change", () => {
   updateRestaurant();
 });
 
-$("#gloabl-filter-radio").addEventListener("change", () => {
+$("#global-filter-radio").addEventListener("change", () => {
+  updateRestaurant();
+});
+
+window.addEventListener("favoriteChange", () => {
   updateRestaurant();
 });

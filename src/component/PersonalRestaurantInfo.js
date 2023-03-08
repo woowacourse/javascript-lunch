@@ -12,6 +12,8 @@ const createFavoriteButton = (isFilled) => {
   return button;
 };
 
+const favoriteChangeEvent = new CustomEvent("favoriteChange", { bubbles: true });
+
 const PersonalRestaurantInfo = {
   createSummaryElement(personalRestaurant) {
     const summary = RestaurantInfo.createSummaryElement(personalRestaurant.restaurant);
@@ -20,9 +22,12 @@ const PersonalRestaurantInfo = {
 
     button.addEventListener("click", () => {
       personalRestaurant.favorite = !personalRestaurant.favorite;
+
       button.firstElementChild.src = (
         personalRestaurant.favorite ? IMAGE.FILLED_STAR_BTN : IMAGE.EMPTY_STAR_BTN
       );
+
+      button.dispatchEvent(favoriteChangeEvent);
     });
     return summary;
   },
@@ -34,9 +39,12 @@ const PersonalRestaurantInfo = {
 
     button.addEventListener("click", () => {
       personalRestaurant.favorite = !personalRestaurant.favorite;
+
       button.firstElementChild.src = (
         personalRestaurant.favorite ? IMAGE.FILLED_STAR_BTN : IMAGE.EMPTY_STAR_BTN
       );
+
+      button.dispatchEvent(favoriteChangeEvent);
     });
     return detailed;
   },
