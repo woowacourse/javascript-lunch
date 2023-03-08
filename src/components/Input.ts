@@ -16,7 +16,18 @@ class Input {
 
   addRemoveErrorMessageEvent(message?: string) {
     const element = $(`#${this.attributes.id}`) as HTMLSelectElement;
-    // remove error message for form selects on change
+
+    element.addEventListener(
+      'input',
+      (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        const caption = $(`#${target.id}-caption`) as HTMLSpanElement;
+        caption.classList.remove('error-text');
+
+        if (message) caption.textContent = message;
+      },
+      { once: true }
+    );
   }
 
   create() {

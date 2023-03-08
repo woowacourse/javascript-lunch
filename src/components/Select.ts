@@ -18,7 +18,18 @@ class Select {
 
   addRemoveErrorMessageEvent(message?: string) {
     const element = $(`#${this.attributes.id}`) as HTMLSelectElement;
-    // remove error message for form selects on change
+
+    element.addEventListener(
+      'change',
+      (event: Event) => {
+        const target = event.target as HTMLSelectElement;
+        const caption = $(`#${target.id}-caption`) as HTMLSpanElement;
+        caption.classList.remove('error-text');
+
+        if (message) element.textContent = message;
+      },
+      { once: true }
+    );
   }
 
   addSelectChangeEvent(changeFilter: CallableFunction) {
