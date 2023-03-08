@@ -1,200 +1,33 @@
-import { LOCAL_STORAGE_KEY } from './constant';
-import cache from './data/localMemory';
-import Restaurants from './domain/Restaurants';
-import Validator from './domain/Validator';
-import {
-  Restaurant,
-  RestaurantCategoryType,
-  RestaurantSortingType,
-} from './type/common';
-import getFormData from './utils/getFormData';
+import actions from './hooks/actions';
 import { $ } from './utils/querySelector';
 import Header from './view/components/Header';
 import RestaurantAddModal from './view/components/RestaurantAddModal';
 import RestaurantList from './view/components/RestaurantList';
-import Selector from './view/components/Selector';
-
-type StateType = {
-  restaurants?: Restaurant[];
-  categorySelector?: RestaurantCategoryType;
-  sortedSelector?: RestaurantSortingType;
-  isModal?: boolean;
-};
 
 class App {
   #root;
-  #state: StateType;
-  #restaurants = new Restaurants();
 
   constructor($target: HTMLElement) {
     this.#root = $target;
 
-    this.#state = {
-      restaurants: [],
-      categorySelector: '전체',
-      sortedSelector: 'name',
-      isModal: false,
-    };
-
+    actions.reset();
     this.render();
-    this.loadLocalStorage();
   }
 
   #template() {
     return `
-      <header class="gnb"></header>
-      <main>
-        <section class="restaurant-filter-container"></section>
-        <section class="restaurant-list-container"></section>
-        <section class="restaurant-modal-container"></section>
-      </main>
+      <div class="restaurant-list-wrapper"></div>
+      <div class="modal-wrapper"></div>
     `;
   }
 
-  #mounted() {
-    new Header({
-      $target: $('.gnb') as HTMLElement,
-      addRestaurantButtonEvent: this.addRestaurantButtonEvent.bind(this),
-    });
-
-    new Selector({
-      $target: $('.restaurant-filter-container') as HTMLElement,
-      info: {
-        name: 'category',
-        id: 'category-filter',
-        options: [
-          { value: '전체', name: '전체' },
-          { value: '한식', name: '한식' },
-          { value: '중식', name: '중식' },
-          { value: '일식', name: '일식' },
-          { value: '양식', name: '양식' },
-          { value: '아시안', name: '아시안' },
-          { value: '기타', name: '기타' },
-        ],
-        selected: this.#state.categorySelector as RestaurantCategoryType,
-      },
-      onChangeEvent: this.onSortRestaurantsEvent.bind(this),
-    });
-
-    new Selector({
-      $target: $('.restaurant-filter-container') as HTMLElement,
-      info: {
-        name: 'sorting',
-        id: 'sorting-filter',
-        options: [
-          { value: 'name', name: '이름순' },
-          { value: 'distance', name: '거리순' },
-        ],
-        selected: this.#state.sortedSelector as RestaurantSortingType,
-      },
-      onChangeEvent: this.onSortRestaurantsEvent.bind(this),
-    });
-
-    new RestaurantList({
-      $target: $('.restaurant-list-container') as HTMLElement,
-      restaurants: this.#state.restaurants as Restaurant[],
-    });
-
-    new RestaurantAddModal({
-      $target: $('.restaurant-modal-container') as HTMLElement,
-      isModal: this.#state.isModal,
-      onClickEvent: this.onAddRestaurantFormEvent.bind(this),
-    });
-  }
-
   render() {
-    this.#root.innerHTML = this.#template();
-    this.#mounted();
-  }
+    new Header(this.#root).render();
 
-  setState(newData: StateType) {
-    this.#state = { ...this.#state, ...newData };
-    this.render();
-  }
+    this.#root.insertAdjacentHTML('beforeend', this.#template());
 
-  loadLocalStorage() {
-    const data = cache.getData(LOCAL_STORAGE_KEY);
-    if (!data) return;
-
-    data.restaurants?.forEach((restaurant: Restaurant) => {
-      this.#restaurants.addRestaurant(restaurant);
-    });
-
-    this.setState(data);
-  }
-
-  saveLocalStorage() {
-    cache.setData(LOCAL_STORAGE_KEY, this.#state);
-    this.loadLocalStorage();
-  }
-
-  addRestaurantButtonEvent() {
-    this.setState({ isModal: true });
-  }
-
-  onSortRestaurantsEvent(value: string) {
-    if (Validator.isRestaurantCategory(value)) {
-      this.setState({
-        restaurants: this.#restaurants.filterByCategory(value),
-        categorySelector: value as RestaurantCategoryType,
-        sortedSelector: this.#state.sortedSelector,
-      });
-    }
-
-    if (value === 'name') {
-      this.setState({
-        restaurants: this.#restaurants.sortByName(),
-        categorySelector: this.#state.categorySelector,
-        sortedSelector: value,
-      });
-    }
-
-    if (value === 'distance') {
-      this.setState({
-        restaurants: this.#restaurants.sortByDistance(),
-        categorySelector: this.#state.categorySelector,
-        sortedSelector: value,
-      });
-    }
-  }
-
-  onAddRestaurantFormEvent(type: string) {
-    if (type === 'add') {
-      const restaurant = getFormData(
-        $('#modal-form') as HTMLFormElement
-      ) as Restaurant;
-
-      if (!this.validateInputData(restaurant)) return;
-
-      this.#restaurants.addRestaurant(restaurant);
-
-      this.setState({
-        isModal: false,
-        restaurants: this.#restaurants.getRestaurants(),
-      });
-
-      this.saveLocalStorage();
-    }
-
-    if (type === 'cancel') {
-      this.setState({ isModal: false });
-    }
-  }
-
-  validateInputData(restaurant: Restaurant) {
-    const { category, distance, link, name } = restaurant;
-    try {
-      Validator.checkCategory(category);
-      Validator.checkName(name);
-      Validator.checkDistance(distance);
-      Validator.checkLink(link);
-      return true;
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        alert(error.message);
-        return false;
-      }
-    }
+    new RestaurantList($('.restaurant-list-wrapper')).render();
+    new RestaurantAddModal($('.modal-wrapper')).render();
   }
 }
 
