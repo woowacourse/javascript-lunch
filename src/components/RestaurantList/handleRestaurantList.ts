@@ -1,5 +1,4 @@
 import RestaurantList from ".";
-import { filterRestaurants, sortRestaurants } from "../../domain/restaurant";
 import { restaurants } from "../../domain/restaurants";
 import defaultRestaurants from "../../tools/defaultRestaurants";
 import Storage from "../../tools/Storage";
@@ -12,6 +11,7 @@ export const renderRestaurantList = () => {
   }
 };
 
+// 다른 폴더로 이동 예정
 export const addRestaurant = (newRestaurant: IRestaurant) => {
   restaurants.state.restaurants = [
     ...restaurants.state.restaurants,
@@ -20,16 +20,7 @@ export const addRestaurant = (newRestaurant: IRestaurant) => {
   Storage.saveRestaurants(restaurants.state.restaurants);
 };
 
-export const selectRestaurants = (): IRestaurant[] => {
-  const { filter, sort, menuTab } = restaurants.state;
-  const filteredRestaurants = filterRestaurants(
-    restaurants.state.restaurants,
-    filter,
-    menuTab
-  );
-  return sortRestaurants(filteredRestaurants, sort);
-};
-
+// 다른 폴더로 이동 예정
 export const restoreRestaurants = () => {
   const restoredRestaurants = Storage.loadRestaurants();
   restaurants.state.restaurants =

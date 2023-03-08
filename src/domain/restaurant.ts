@@ -6,6 +6,7 @@ import { addRestaurant } from "../components/RestaurantList/handleRestaurantList
 import { CATEGORY_NAME } from "../constants/CATEGORY_NAME";
 import { DISTANCE } from "../constants/DISTANCE";
 import { v4 as uuidv4 } from "uuid";
+import { restaurants } from "./restaurants";
 
 export const categoryOptions = () => {
   return Object.entries(CATEGORY_NAME)
@@ -43,6 +44,16 @@ export const tryAddNewRestaurant = (newRestaurant: IRestaurant) => {
       alert(error.message);
     }
   }
+};
+
+export const selectRestaurants = (): IRestaurant[] => {
+  const { filter, sort, menuTab } = restaurants.state;
+  const filteredRestaurants = filterRestaurants(
+    restaurants.state.restaurants,
+    filter,
+    menuTab
+  );
+  return sortRestaurants(filteredRestaurants, sort);
 };
 
 export const filterRestaurants = (

@@ -1,7 +1,6 @@
-import { restaurants } from "../../domain/restaurants";
+import { selectRestaurants } from "../../domain/restaurant";
 import IRestaurant from "../../type/IRestaurant";
 import RestaurantItem from "../RestaurantItem";
-import { selectRestaurants } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
   render() {
