@@ -28,7 +28,7 @@ class RestaurantService {
   filterAndSort(displayStatus: RestaurantFilter) {
     const filteredRestaurantList = this.filter(displayStatus.category);
 
-    if (displayStatus.sorting === 'name') {
+    if (displayStatus.sorting === '이름순') {
       return this.sortByName(filteredRestaurantList);
     }
 

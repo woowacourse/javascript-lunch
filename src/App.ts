@@ -12,7 +12,7 @@ import RestaurantService from './domains/RestaurantService';
 class App {
   private restaurantService: RestaurantService;
   private formModal: Modal = new Modal(RestaurantAddForm);
-  private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: 'name' };
+  private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
   private body = $('body') as HTMLBodyElement;
 
   constructor() {
@@ -21,7 +21,7 @@ class App {
     this.render();
     RestaurantListContainer.renderRestaurantItems(
       $('.restaurant-list') as HTMLUListElement,
-      restaurantList
+      this.restaurantService.filterAndSort(this.currentDisplayStatus)
     );
     this.addEvents();
   }
