@@ -4,7 +4,7 @@ class MenuTab extends HTMLElement {
   constructor() {
     super();
     this.render();
-    onChangeMenuTabs.call(this);
+    onChangeMenuTabs();
   }
   render() {
     this.innerHTML = `
