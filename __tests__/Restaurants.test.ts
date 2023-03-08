@@ -1,5 +1,10 @@
 import Restaurants from '../src/domain/Restaurants';
 import { IRestaurant } from '../src/types';
+import {
+  getFilteredRestaurantsByCategory,
+  getSortedRestaurantsByDistance,
+  getSortedRestaurantsByName,
+} from '../src/domain/utils';
 
 describe('Restaurants.addRestaurant', () => {
   test('음식점을 추가하면, 음식점 리스트에 맨 뒤에 추가된다.', () => {
@@ -47,7 +52,10 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
     ];
     const restaurants = new Restaurants(dummyRestaurants);
 
-    const filterdRestaurants = restaurants.getFilteredRestaurantsByCategory('한식');
+    const filterdRestaurants = getFilteredRestaurantsByCategory(
+      restaurants.getRestaurants(),
+      '한식'
+    );
     const expected: IRestaurant[] = [
       {
         category: '한식',
@@ -93,7 +101,10 @@ describe('Restaurants.getFilteredRestaurantsByCategory', () => {
     ];
     const restaurants = new Restaurants(dummyRestaurants);
 
-    const filterdRestaurants = restaurants.getFilteredRestaurantsByCategory('전체');
+    const filterdRestaurants = getFilteredRestaurantsByCategory(
+      restaurants.getRestaurants(),
+      '전체'
+    );
 
     expect(filterdRestaurants).toEqual(dummyRestaurants);
   });
@@ -125,7 +136,7 @@ describe('Restaurants.getSortedRestaurantsByName', () => {
       },
     ];
 
-    const sortedRestaurants = restaurants.getSortedRestaurantsByName(dummyRestaurants);
+    const sortedRestaurants = getSortedRestaurantsByName(dummyRestaurants);
     const expected: IRestaurant[] = [
       {
         category: '한식',
@@ -179,7 +190,7 @@ describe('Restaurants.getSortedRestaurantsByDistance', () => {
       },
     ];
 
-    const sortedRestaurants = restaurants.getSortedRestaurantsByDistance(dummyRestaurants);
+    const sortedRestaurants = getSortedRestaurantsByDistance(dummyRestaurants);
     const expected: IRestaurant[] = [
       {
         category: '한식',
