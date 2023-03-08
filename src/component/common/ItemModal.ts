@@ -1,7 +1,6 @@
-import { Restaurant } from "@/type/type";
+import { DeleteRestaurant, Rerender, Restaurant } from "@/type/type";
+import { categoryToSrc } from "@/utils/convertor";
 import { $ } from "@/utils/Dom";
-import { generateId } from "@/utils/generateId";
-import "@/assets/category-korean.png";
 
 class ItemModal {
   restaurant: Restaurant;
@@ -56,17 +55,15 @@ class ItemModal {
     $(".item-modal")?.remove();
   }
 
-  addEvent() {
+  addEvent(deleteRestaurant: DeleteRestaurant, rerenderList: Rerender) {
     $(".item-modal--close")?.addEventListener("click", () => {
       this.close();
     });
 
     $(".item-modal--delete")?.addEventListener("click", () => {
-      const deleteWill = confirm("정말 삭제하시겠습니까?");
-      if (deleteWill) {
-        //배열에서 삭제
-        this.close();
-      }
+      deleteRestaurant(this.restaurant.id);
+      rerenderList();
+      this.close();
     });
   }
 }

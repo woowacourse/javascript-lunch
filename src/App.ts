@@ -36,7 +36,7 @@ class App {
     const restaurant = <Restaurant>AppController.getRestaurant(id);
     const itemModal = new ItemModal(restaurant);
     itemModal.render();
-    itemModal.addEvent();
+    itemModal.addEvent(AppController.deleteRestaurant, this.rerenderList);
   };
 }
 

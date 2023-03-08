@@ -36,4 +36,5 @@ export type SetSelectedValue = (
 ) => void;
 
 export type AddRestaurant = (restaurant: Restaurant) => void;
+export type DeleteRestaurant = (id: string) => void;
 export type Rerender = () => void;

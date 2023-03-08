@@ -24,6 +24,12 @@ class RestaurantListHandler {
       : this.getSortedByTakingTime(restaurants);
   }
 
+  deleteRestaurant(id: string) {
+    this.restaurants = this.restaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
+  }
+
   private getSortedByName(restaurants: Restaurant[]): Restaurant[] {
     return [...restaurants].sort((resA, resB) =>
       resA.name.localeCompare(resB.name, Constants.KOREAN)

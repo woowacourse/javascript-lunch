@@ -49,6 +49,11 @@ class AppController {
     restaurantListHandler.addRestaurant(restaurant);
     this.setRestaurantList();
   };
+
+  deleteRestaurant = (id: string) => {
+    restaurantListHandler.deleteRestaurant(id);
+    this.setRestaurantList();
+  };
 }
 
 export default new AppController();
