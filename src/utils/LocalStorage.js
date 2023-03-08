@@ -1,9 +1,7 @@
-import { RESTAURANT } from "./Constant";
-
-export function getRestaurantListFromLocalstorage() {
-  return JSON.parse(localStorage.getItem(RESTAURANT));
+export function getRestaurantListFromLocalstorage(value) {
+  return JSON.parse(localStorage.getItem(value));
 }
 
-export function stringifyJson(restaurant) {
-  return JSON.stringify(restaurant);
+export function stringifyJson(value) {
+  return JSON.stringify(value);
 }

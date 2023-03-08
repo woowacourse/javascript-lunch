@@ -6,13 +6,14 @@ import {
   getRestaurantListFromLocalstorage,
   stringifyJson,
 } from "../utils/LocalStorage";
+import { RESTAURANT } from "../utils/Constant";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
   private restaurantRegistry;
   private filteredList: RestaurantForm[] = [];
 
   constructor() {
-    const res = getRestaurantListFromLocalstorage() ?? [];
+    const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
     if (res.length !== 0) {
       res.forEach((val: RestaurantForm) => {
         this.list.push(val);

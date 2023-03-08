@@ -5,6 +5,7 @@ import FilterBar from "./UI/FilterBar";
 import { RestaurantList } from "./domain/RestaurantList";
 import RestaurantRegistry from "./UI/RestaurantRegistry.js";
 import { getRestaurantListFromLocalstorage } from "./utils/LocalStorage.js";
+import { RESTAURANT } from "./utils/Constant";
 
 export class App {
   constructor() {
@@ -18,7 +19,7 @@ export class App {
     this.collectedRender();
     this.initializeButtonEvents();
 
-    getRestaurantListFromLocalstorage().forEach(
+    getRestaurantListFromLocalstorage(RESTAURANT).forEach(
       (restaurant) => {
         this.restaurantRegistry.appendRestaurant(restaurant);
       }
