@@ -9,6 +9,7 @@ export type SelectOption = {
 };
 
 export type Restaurant = {
+  id: number;
   name: string;
   category: Category;
   distance: Distance;

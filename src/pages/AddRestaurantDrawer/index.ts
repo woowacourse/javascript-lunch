@@ -29,9 +29,11 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
 
     this.state = {
       restaurantForm: {
+        id: 0,
         name: '',
         category: DEFAULT_CATEGORY,
         distance: DEFAULT_DISTANCE,
+        isFavorite: false,
       },
       toggleAddRestaurantDrawer,
     };
@@ -113,15 +115,16 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
 
   submitForm(e: SubmitEvent) {
     e.preventDefault();
-
     const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
-    restaurants.push(this.getFormValues(e.currentTarget as HTMLFormElement));
+    const id = restaurants.length;
+    const newRestauant = this.getFormValues(e.currentTarget as HTMLFormElement, id);
+    restaurants.push(newRestauant);
     localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
 
     this.state.toggleAddRestaurantDrawer();
   }
 
-  getFormValues(form: HTMLFormElement) {
+  getFormValues(form: HTMLFormElement, id: number) {
     const $category = form.category;
     const $name = form.querySelector('#name') as HTMLInputElement;
     const $distance = form.distance;
@@ -129,11 +132,13 @@ class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
     const $link = form.link;
 
     return {
+      id,
       category: $category?.options[$category.selectedIndex].value,
       name: $name.value,
       distance: $distance.options[$distance.selectedIndex].value,
       description: $description.value ?? '',
       link: $link.value ?? '',
+      isFavorite: false,
     };
   }
 }

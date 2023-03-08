@@ -123,7 +123,6 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
@@ -319,4 +318,10 @@ input[name='link'] {
 .tab-bar-select[data-select='true'] {
   border-bottom: 2px solid var(--primary-color);
   color: var(--primary-color);
+}
+
+.favorite__button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
 }
