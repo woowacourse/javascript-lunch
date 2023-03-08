@@ -39,6 +39,12 @@ body {
   font-weight: 600;
 }
 
+.text-page {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
 .text-body {
   font-size: 16px;
   line-height: 24px;
@@ -86,6 +92,29 @@ body {
 }
 
 /* 음식점 목록 *****************************************/
+
+/* 리스트 선택 */
+
+.page-choice-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 30px;
+  padding: 0 15px;
+}
+
+.choice {
+  text-align: center;
+  width: 50%;
+  color: var(--grey-300);
+  padding-bottom: 10px;
+  border-bottom: var(--grey-300) solid 2px;
+}
+
+.page-chosen {
+  color: var(--primary-color);
+  border-bottom: var(--primary-color) solid 2px;
+}
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {

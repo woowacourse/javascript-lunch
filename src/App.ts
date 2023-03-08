@@ -5,6 +5,7 @@ import SelectContainer from "@/component/main/SelectContainer";
 import AppController from "./AppController";
 import ItemModal from "./component/common/ItemModal";
 import { Restaurant } from "./type/type";
+import PageChoice from "./component/main/PageChoice";
 
 class App {
   constructor(body: Element) {
@@ -15,6 +16,7 @@ class App {
 
   renderComponents(body: Element) {
     Header.render(body);
+    PageChoice.render(body);
     SelectContainer.render(body);
     RestaurantList.render(body);
     AddModal.render(body);
