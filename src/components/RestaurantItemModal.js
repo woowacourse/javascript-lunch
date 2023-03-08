@@ -2,10 +2,10 @@ import { CATEGORY_TO_FILENAME } from '../constants/constants';
 
 class RestaurantItemModal {
   constructor(restaurants) {
-    this.$target = document.querySelector('main');
-
     this.restaurants = restaurants;
     this.restaurantInfo = null;
+
+    this.$target = document.querySelector('main');
 
     this.render();
     this.setModalCloseEvent();

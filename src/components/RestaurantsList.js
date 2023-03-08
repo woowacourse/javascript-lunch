@@ -3,9 +3,11 @@ class RestaurantsList {
   restaurants;
   restaurantItems;
 
-  constructor(restaurants) {
+  constructor(restaurants, onClickRestaurantItem) {
+    this.onClickRestaurantItem = onClickRestaurantItem;
     this.restaurants = restaurants;
     this.restaurantItems = [];
+
     this.$target = document.querySelector('main');
     this.render();
   }
@@ -39,6 +41,7 @@ class RestaurantsList {
 
     restaurants.forEach(restaurant => {
       const restaurantItem = new RestaurantItem(restaurant);
+      restaurantItem.setEvent(this.onClickRestaurantItem);
       this.restaurantItems.push(restaurantItem);
     });
   }

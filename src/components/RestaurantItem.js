@@ -10,11 +10,7 @@ class RestaurantItem {
     const imageFile = CATEGORY_TO_FILENAME[this.restaurant.category];
 
     return `
-<<<<<<< HEAD
-      <li class="restaurant">
-=======
       <li id="restaurant${this.restaurant.ID}" class="restaurant">
->>>>>>> step2-test
         <div class="restaurant__category">
             <img src="./${imageFile}.png" alt="${this.restaurant.category}" class="category-icon">
         </div>
@@ -28,9 +24,6 @@ class RestaurantItem {
   }
 
   render() {
-<<<<<<< HEAD
-    document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
-=======
     if (!document.querySelector(`#restaurant${this.restaurant.ID}`)) {
       document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
     }
@@ -43,7 +36,6 @@ class RestaurantItem {
       e.preventDefault();
       onClickRestaurantItem(this.restaurant);
     });
->>>>>>> step2-test
   }
 }
 
