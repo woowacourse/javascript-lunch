@@ -10,15 +10,6 @@ class TabButton {
     this.content = content;
   }
 
-  create() {
-    return `
-      <button 
-        id=${this.attributes.id}
-        class="tab-button text-body ${this.attributes.className ?? ''}">
-        ${this.content}
-      </button>`;
-  }
-
   addEvent(onClick: CallableFunction) {
     const tabButton = $<HTMLButtonElement>(`#${this.attributes.id}`);
 
@@ -33,6 +24,15 @@ class TabButton {
       target.classList.add('tab-button--active');
       onClick(this.attributes.id);
     });
+  }
+
+  create() {
+    return `
+      <button 
+        id=${this.attributes.id}
+        class="tab-button text-body ${this.attributes.className ?? ''}">
+        ${this.content}
+      </button>`;
   }
 }
 
