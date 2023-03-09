@@ -24,6 +24,7 @@ export default class Tabbar {
     const { tab } = this.props;
     const $targetId = this.$target.querySelector("#" + tab);
     $targetId.style.color = "var(--primary-color)";
+    $targetId.style.borderColor = "var(--primary-color)";
   }
 
   setEvent() {

@@ -354,6 +354,7 @@ input[name="link"] {
 
 .underline {
   border-bottom: 2px solid;
+  border-color: var(--grey-200);
   width: 50%;
   color: var(--grey-300);
 }

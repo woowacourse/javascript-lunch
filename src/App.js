@@ -46,13 +46,23 @@ export default class App {
     const $restaurantFilter = this.$target.querySelector(".restaurant-filter-container");
     const $restaurantList = this.$target.querySelector(".restaurant-list-container");
 
-    const restaurant = new RestaurantList($restaurantList, { category, sortingWay });
-    new Header($header, { render: restaurant.render.bind(restaurant) });
-    new Tabbar($tabBar, { tab, setState: this.setState.bind(this) });
-    new Filter($restaurantFilter, {
-      sortingWay,
-      category,
-      setState: setState.bind(this),
-    });
+    if (this.state.tab === "all-restaurants") {
+      const restaurant = new RestaurantList($restaurantList, { category, sortingWay, tab });
+      new Header($header, { render: restaurant.render.bind(restaurant) });
+      new Tabbar($tabBar, { tab, setState: this.setState.bind(this) });
+      $restaurantFilter.style.display = "flex";
+      new Filter($restaurantFilter, {
+        sortingWay,
+        category,
+        setState: setState.bind(this),
+      });
+    }
+
+    if (this.state.tab === "favorite-restaurants") {
+      const restaurant = new RestaurantList($restaurantList, { category, sortingWay, tab });
+      new Header($header, { render: restaurant.render.bind(restaurant) });
+      new Tabbar($tabBar, { tab, setState: this.setState.bind(this) });
+      $restaurantFilter.style.display = "none";
+    }
   }
 }

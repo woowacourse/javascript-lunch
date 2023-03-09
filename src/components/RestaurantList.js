@@ -18,25 +18,31 @@ export default class RestaurantList {
     `;
   }
 
-  setup() {
-    const { category, sortingWay } = this.props;
-
-    const localList = store.getLocalStorage();
-    const sortedRestaurants = RestaurantFilter.sortRestaurants(sortingWay, localList);
-    this.#restaurantList = RestaurantFilter.categorizeRestaurants(category, sortedRestaurants);
-  }
-
   render() {
     this.$target.innerHTML = this.template();
     this.mounted();
   }
 
   mounted() {
-    this.setup();
+    const { category, sortingWay } = this.props;
+
+    const localList = store.getLocalStorage();
+    const sortedRestaurants = RestaurantFilter.sortRestaurants(sortingWay, localList);
+    this.#restaurantList = RestaurantFilter.categorizeRestaurants(category, sortedRestaurants);
     const $restaurantList = this.$target.querySelector(".restaurant-list");
-    this.#restaurantList.forEach((restaurant, index) => {
-      new Restaurant($restaurantList, { ...restaurant, render: this.render.bind(this), index });
-    });
+
+    const { tab } = this.props;
+    if (tab === "all-restaurants") {
+      this.#restaurantList.forEach((restaurant, index) => {
+        new Restaurant($restaurantList, { ...restaurant, render: this.render.bind(this), index });
+      });
+    }
+    if (tab === "favorite-restaurants") {
+      const favoriteRestaurants = [...localList].filter(({ stared }) => stared);
+      favoriteRestaurants.forEach((restaurant, index) => {
+        new Restaurant($restaurantList, { ...restaurant, render: this.render.bind(this), index });
+      });
+    }
   }
 
   setState(newState) {
