@@ -65,12 +65,7 @@ export class RestaurantAddForm extends HTMLFormElement {
   }
 
   resetFormValues() {
-    this.querySelector<InputBox>("[inputid='category']")?.resetValue();
-    (this.querySelector("#category") as HTMLSelectElement).value = "";
-    (this.querySelector("#name") as HTMLInputElement).value = "";
-    (this.querySelector("#distance") as HTMLSelectElement).value = "";
-    (this.querySelector("#description") as HTMLTextAreaElement).value = "";
-    (this.querySelector("#link") as HTMLInputElement).value = "";
+    this.reset();
   }
 }
 
