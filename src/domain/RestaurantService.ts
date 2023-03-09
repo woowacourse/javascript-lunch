@@ -2,26 +2,65 @@ import { RestaurantType } from "../Template";
 import { LocalData } from "../until/LocalData";
 
 interface RestaurantServiceType {
-  list: RestaurantType[];
+  allList: RestaurantType[];
+  likeList: RestaurantType[];
+
   settingList: () => void;
   addRestaurant: (restaurant: RestaurantType) => void;
+  filteringLikeRestaurant: () => void;
+  turnLikeUnlike: (id: number) => void;
+  deleteLikeRestaurant: (id: number) => void;
+  addLikeRestaurant: (id: number) => void;
 }
 
 export const RestaurantService: RestaurantServiceType = {
-  list: [],
+  allList: [],
+  likeList: [],
 
   settingList() {
     const isLocalData = LocalData.getData();
     if (isLocalData) {
-      this.list = isLocalData;
-      return;
+      this.allList = isLocalData;
+      this.likeList = this.allList.filter((res) => res.like);
     }
-    LocalData.setDate(this.list);
+    LocalData.setDate(this.allList);
     return;
   },
 
   addRestaurant(restaurant) {
-    this.list = [restaurant, ...this.list];
-    LocalData.setDate(this.list);
+    this.allList = [restaurant, ...this.allList];
+    LocalData.setDate(this.allList);
+  },
+
+  filteringLikeRestaurant() {
+    return this.allList.filter((res) => res.like);
+  },
+
+  turnLikeUnlike(id) {
+    this.allList.forEach((elem) => {
+      if (elem.id !== id) return;
+      if (elem.like) {
+        elem.like = false;
+        this.deleteLikeRestaurant(id);
+      } else {
+        elem.like = true;
+        this.addLikeRestaurant(id);
+      }
+    });
+  },
+
+  deleteLikeRestaurant(id) {
+    this.likeList = this.likeList.filter((res) => {
+      return res.id !== id && res;
+    });
+    LocalData.setDate(this.allList);
+  },
+
+  addLikeRestaurant(id) {
+    const likeRestaurant = this.allList.filter((res) => {
+      return res.id === id && res;
+    });
+    this.likeList = [...this.likeList, ...likeRestaurant];
+    LocalData.setDate(this.allList);
   },
 };
