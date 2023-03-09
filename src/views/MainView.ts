@@ -1,8 +1,8 @@
 import { $, $$ } from '../utils/domSelectors';
 import { Restaurant } from '../types/types';
-import { FAVORITE_ICON_IMAGE, RESTAURANT_IMAGE } from '../constants/images';
 import { RestaurantList } from '../components/RestaurantList';
-import { RestaurantDetailModal } from '../components/RestaurantDetailModal';
+import { FAVORITE_ICON_IMAGE } from '../constants/images';
+import { renderRestaurantDetailModal } from '../components/RestaurantDetailModal';
 
 class MainView {
   private addButton = $<HTMLButtonElement>('.gnb__button');
@@ -13,7 +13,6 @@ class MainView {
 
   constructor() {
     this.addRestaurantAddButtonClickEvent();
-    this.addRestaurantDetailModalBackdropClickEvent();
   }
 
   addRestaurantAddButtonClickEvent() {
@@ -40,7 +39,13 @@ class MainView {
 
     restaurantListContainer.innerHTML = '';
     restaurantListContainer.insertAdjacentHTML('beforeend', restaurantItems);
+
     this.addEventHandlersAfterRenderRestaurant();
+  }
+
+  addEventHandlersAfterRenderRestaurant() {
+    this.addFavoriteButtonClickEventHandler();
+    this.addRestaurantListClickEventHandler();
   }
 
   addFavoriteButtonClickEventHandler() {
@@ -83,31 +88,10 @@ class MainView {
         const name = event.currentTarget.querySelector('.restaurant__name')?.textContent;
         const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
 
-        this.renderRestaurantDetailModal(restaurant);
+        renderRestaurantDetailModal(restaurant);
         this.restaurantDetailModal.showModal();
       });
     });
-  }
-
-  renderRestaurantDetailModal(restaurant: Restaurant) {
-    const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
-    const restaurantDetailModalTemplate = RestaurantDetailModal(restaurant, categoryImageUrl);
-
-    this.restaurantDetailModal.innerHTML = '';
-    this.restaurantDetailModal.insertAdjacentHTML('beforeend', restaurantDetailModalTemplate);
-  }
-
-  addRestaurantDetailModalBackdropClickEvent() {
-    this.restaurantDetailModal.addEventListener('click', (event) => {
-      if (event.target instanceof HTMLDialogElement && event.target.nodeName === 'DIALOG') {
-        event.target.close();
-      }
-    });
-  }
-
-  addEventHandlersAfterRenderRestaurant() {
-    this.addFavoriteButtonClickEventHandler();
-    this.addRestaurantListClickEventHandler();
   }
 }
 

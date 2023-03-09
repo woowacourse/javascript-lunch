@@ -1,6 +1,8 @@
-import { Restaurant } from '../types/types';
 import './RestaurantList.css';
 import './RestaurantDetailModal.css';
+import { $ } from '../utils/domSelectors';
+import { Restaurant } from '../types/types';
+import { RESTAURANT_IMAGE } from '../constants/images';
 
 export const RestaurantDetailModal = (restaurant: Restaurant, categoryImageUrl: string) => {
   const { category, name, distance, description, link, favoriteImageUrl } = restaurant;
@@ -25,7 +27,42 @@ export const RestaurantDetailModal = (restaurant: Restaurant, categoryImageUrl: 
         <button type="button" id="modal-remove-button" class="button button--secondary text-caption">
           삭제하기
         </button>
-        <button class="button button--primary text-caption">닫기</button>
+        <button class="button button--primary text-caption" id="restaurant-detail-modal-close-button">닫기</button>
       </div>
     </div>`;
+};
+
+export const renderRestaurantDetailModal = (restaurant: Restaurant) => {
+  const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
+  const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
+  const restaurantDetailModalTemplate = RestaurantDetailModal(restaurant, categoryImageUrl);
+
+  modal.innerHTML = '';
+  modal.insertAdjacentHTML('beforeend', restaurantDetailModalTemplate);
+
+  addRestaurantDetailModalEventHandlers();
+};
+
+export const addRestaurantDetailModalEventHandlers = () => {
+  addRestaurantDetailModalCloseButtonClickEventHandler();
+  addRestaurantDetailModalBackdropClickEventHandler();
+};
+
+export const addRestaurantDetailModalCloseButtonClickEventHandler = () => {
+  const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
+
+  modal.addEventListener('click', (event) => {
+    if (!(event.target instanceof HTMLButtonElement)) return false;
+    if (event.target.id === 'restaurant-detail-modal-close-button') modal.close();
+  });
+};
+
+export const addRestaurantDetailModalBackdropClickEventHandler = () => {
+  const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
+
+  modal.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLDialogElement && event.target.nodeName === 'DIALOG') {
+      event.target.close();
+    }
+  });
 };

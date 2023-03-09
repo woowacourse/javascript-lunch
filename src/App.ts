@@ -1,7 +1,7 @@
-import RestaurantService from './domains/RestaurantService';
 import { Category, SortingCriterion, Restaurant } from './types/types';
 import MainView from './views/MainView';
 import ModalView from './views/ModalView';
+import RestaurantService from './domains/RestaurantService';
 
 export class App {
   private restaurantService = new RestaurantService();
@@ -11,10 +11,6 @@ export class App {
   constructor() {
     this.bindEventHandlers();
     this.mainView.renderRestaurantList(this.restaurantService.filterAndSort());
-
-    // 음식점 정보 렌더링 후 실행
-    this.mainView.addFavoriteButtonClickEventHandler();
-    this.mainView.addRestaurantListClickEventHandler();
   }
 
   bindEventHandlers() {
