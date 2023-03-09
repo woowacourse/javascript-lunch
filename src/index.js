@@ -87,6 +87,10 @@ Modal.setInnerHTML(restaurantInputSuccessModal, `
 `);
 $("main").appendChild(restaurantInputSuccessModal);
 
+// 음식점 삭제 확인 모달
+const confirmDeleteModal = Modal.create("confirm-delete-modal");
+$("main").appendChild(confirmDeleteModal);
+
 // 음식점 세부 정보 모달 생성
 const restaurantDetailedModal = Modal.create("restaurant-detailed-modal");
 $("main").appendChild(restaurantDetailedModal);
@@ -101,9 +105,33 @@ const makeOpenDetailedModalCallback = (restaurant) => () => {
   detailedElement
     .querySelector(".button--secondary")
     .addEventListener("click", () => {
-      restaurantList.remove(restaurant);
       Modal.close(restaurantDetailedModal);
-      updateRestaurant();
+
+      Modal.open(confirmDeleteModal);
+      Modal.setInnerHTML(confirmDeleteModal, `
+      <h1>${restaurant.restaurant.name}</h1>
+      <h3>정말로 삭제하실 건가요?</h3>
+      <div class="button-container">
+        <button type="button" id="delete-no" class="button button--secondary text-caption">
+          아니오
+        </button>
+        <button type="button" id="delete-yes" class="button button--primary text-caption">
+          네
+        </button>
+      </div>
+      `);
+
+      confirmDeleteModal
+        .querySelector("#delete-no")
+        .addEventListener("click", () => Modal.close(confirmDeleteModal));
+
+      confirmDeleteModal
+        .querySelector("#delete-yes")
+        .addEventListener("click", () => {
+          restaurantList.remove(restaurant);
+          Modal.close(confirmDeleteModal);
+          updateRestaurant();
+        });
     });
 
   Modal.setChildElement(restaurantDetailedModal, detailedElement);
