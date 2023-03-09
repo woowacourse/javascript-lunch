@@ -1,4 +1,5 @@
 import { translateCategory } from "../constant/variables";
+import store from "../util/store";
 import Star from "./Star";
 
 export default class RestaurantDetail {
@@ -47,9 +48,18 @@ export default class RestaurantDetail {
   }
 
   setEvent() {
+    const { name, render } = this.props;
     const $modal = document.querySelector(".modal");
+
     this.addEvent("click", "#quit-button", () => {
       $modal.classList.toggle("modal--open");
+    });
+    this.addEvent("click", "#remove-button", () => {
+      const list = store.getLocalStorage();
+      const updatedList = list.filter((obj) => obj.name !== name);
+      store.setLocalStorage(updatedList);
+      $modal.classList.toggle("modal--open");
+      render();
     });
   }
 

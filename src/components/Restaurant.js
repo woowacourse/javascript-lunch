@@ -15,11 +15,11 @@ export default class Restaurant {
     const { name, category, distance, description } = this.props;
 
     return `
-    <div>
+    <li>
         <div class="relative">
          <div id='item-star' class="star-container absolute right-0"></div>
         </div>
-        <li class="restaurant" id=${name}>
+        <div class="restaurant" id=${name}>
         <div class="restaurant__category">
           <img
             src="./category-${translateCategory[category]}.png"
@@ -36,8 +36,8 @@ export default class Restaurant {
             ${description}
           </p>
         </div>
-      </li>
-    </div>
+      </div>
+    </li>
         `;
   }
 
