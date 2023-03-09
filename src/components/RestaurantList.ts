@@ -1,4 +1,4 @@
-import { IHandlers } from '../App';
+import { IMethods } from '../App';
 import { Restaurant } from '../domain/Restaurant';
 import { appendModal, showModal } from '../modal';
 import RestaurantInfo from './RestaurantInfo';
@@ -6,7 +6,7 @@ import RestaurantItem, { toggleFavoriteFilled } from './RestaurantItem';
 
 interface IRestaurantList {
   restaurantList: Restaurant[];
-  handlers: IHandlers;
+  methods: IMethods;
 }
 
 export default class RestaurantList {
@@ -18,13 +18,13 @@ export default class RestaurantList {
   constructor(
     $root: HTMLElement,
     restaurantList: Restaurant[],
-    handlers: IHandlers
+    methods: IMethods
   ) {
     this.$restaurantListSection.className = 'restaurant-list-cotainer';
     this.$ul.className = 'restaurant-list';
     this.state = {
       restaurantList,
-      handlers,
+      methods,
     };
 
     this.render($root);
@@ -35,7 +35,7 @@ export default class RestaurantList {
     for (const restaurant of this.state.restaurantList) {
       this.$ul.insertAdjacentElement(
         'beforeend',
-        RestaurantItem(restaurant, this.state.handlers)
+        RestaurantItem(restaurant, this.state.methods)
       );
     }
   }

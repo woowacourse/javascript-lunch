@@ -3,12 +3,12 @@ import { Restaurant } from '../domain/Restaurant';
 import { appendModal, showModal } from '../modal';
 import { categoryImageSource } from '../utils/imageSource';
 import RestaurantInfo from './RestaurantInfo';
-import { IHandlers } from '../App';
+import { IMethods } from '../App';
 import { store } from '../store';
 
 export default function RestaurantItem(
   restaurant: Restaurant,
-  handlers: IHandlers
+  methods: IMethods
 ) {
   const { category, distance, name, description, isFavorite } =
     restaurant.getRestaurantInfo();
@@ -23,13 +23,14 @@ export default function RestaurantItem(
 
     if (type === undefined) {
       showModal();
-      appendModal(RestaurantInfo(restaurant, handlers));
+      appendModal(RestaurantInfo(restaurant, methods));
       return;
     }
 
     if (type === 'favoriteButton') {
       toggleFavoriteFilled(e.target, restaurant);
-      handlers.renderListArticle(store.currentTab);
+      methods.updateLocalStorage();
+      methods.renderListArticle(store.currentTab);
     }
   };
 

@@ -24,9 +24,10 @@ interface IAppState {
   restaurantService: RestaurantService;
 }
 
-export interface IHandlers {
+export interface IMethods {
   renderListArticle: ($currentTarget: TabType) => void;
   deleteHandler: (id: number) => void;
+  updateLocalStorage: () => void;
 }
 
 export default class App {
@@ -54,6 +55,7 @@ export default class App {
       {
         renderListArticle: this.renderListArticle.bind(this),
         deleteHandler: this.deleteRestaurantInfo.bind(this),
+        updateLocalStorage: () => this.updateLocalStorage(),
       }
     );
 
@@ -115,13 +117,7 @@ export default class App {
 
     this.renderListArticle(store.currentTab);
 
-    const localRestaurants =
-      JSON.parse(getLocalStorage('restaurants') as string) || [];
-
-    setLocalStorage(
-      'restaurants',
-      JSON.stringify([...localRestaurants, restaurantInfo])
-    );
+    this.updateLocalStorage();
   }
 
   deleteRestaurantInfo(id: number) {
@@ -129,9 +125,11 @@ export default class App {
 
     this.renderListArticle(store.currentTab);
 
-    const currentList = [
-      ...this.state.restaurantService.getRestaurantsInfo(),
-    ].map((restaurant) => restaurant.getRestaurantInfo());
+    this.updateLocalStorage();
+  }
+
+  updateLocalStorage() {
+    const currentList = this.state.restaurantService.getWholeRestaurantList();
 
     setLocalStorage('restaurants', JSON.stringify(currentList));
   }

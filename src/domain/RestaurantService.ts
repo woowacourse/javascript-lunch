@@ -85,4 +85,10 @@ export default class RestaurantService {
       restaurant.getFavoriteState()
     );
   }
+
+  getWholeRestaurantList() {
+    return [...this.getRestaurantsInfo()].map((restaurant) =>
+      restaurant.getRestaurantInfo()
+    );
+  }
 }
