@@ -1,9 +1,7 @@
-import Restaurant from '../../../../domain/Restaurant';
+import restaurants from '../../../../states/restaurants';
 import Modal from '../../../common/Modal';
 import Component from '../../../Component';
 import style from './index.css';
-
-export type NewRestaurantSubmitEvent = CustomEvent<Restaurant>;
 
 class NewRestaurantModal extends Component {
   override getCSSStyleSheets() {
@@ -33,19 +31,13 @@ class NewRestaurantModal extends Component {
       ...new FormData(this.shadowRoot?.querySelector('form') ?? undefined).entries(),
     ]);
 
-    const restaurant = new Restaurant({
+    restaurants.create({
       category: String(restaurantProps.category),
       name: String(restaurantProps.name),
       distance: Number(restaurantProps.distance),
       description: String(restaurantProps.description),
       referenceUrl: String(restaurantProps.referenceUrl),
     });
-
-    const restaurantCreateEvent: NewRestaurantSubmitEvent = new CustomEvent('restaurantcreate', {
-      bubbles: true,
-      detail: restaurant,
-    });
-    this.dispatchEvent(restaurantCreateEvent);
     this.close();
   }
 

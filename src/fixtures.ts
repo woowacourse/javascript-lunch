@@ -1,4 +1,4 @@
-import Restaurant from './domain/Restaurant';
+import Restaurant, { RestaurantProps } from './domain/Restaurant';
 
 export const DEFAULT_RESTAURANTS = [
   {
@@ -40,4 +40,7 @@ export const DEFAULT_RESTAURANTS = [
     distance: 5,
     description: '멕시칸 캐주얼 그릴',
   },
-].map((restaurantProps) => new Restaurant(restaurantProps));
+].map(
+  (partialRestaurantProps) => (id: RestaurantProps['id']) =>
+    new Restaurant({ id, ...partialRestaurantProps }),
+);

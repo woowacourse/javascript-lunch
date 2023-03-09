@@ -1,5 +1,6 @@
 import { RestaurantCategory } from '../../../domain/Restaurant';
 import { filterBy, RestaurantFilter, sortByName } from '../../../domain/RestaurantFilter';
+import restaurants from '../../../states/restaurants';
 import Component from '../../Component';
 import style from './index.css';
 
@@ -20,19 +21,16 @@ class RestaurantFilterPanel extends Component {
       return;
     }
     this.filterFn = filterBy((restaurant) => restaurant.getCategory() === category);
-    this.dispatchChangeEvent();
+    this.onChange();
   }
 
   onSortChange(sortFn: RestaurantFilter) {
     this.sortFn = sortFn;
-    this.dispatchChangeEvent();
+    this.onChange();
   }
 
-  dispatchChangeEvent() {
-    const event = new CustomEvent('change', {
-      detail: this.getFilters(),
-    });
-    this.dispatchEvent(event);
+  onChange() {
+    restaurants.setFilters(this.getFilters());
   }
 
   override renderTemplate() {
