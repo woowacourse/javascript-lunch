@@ -30,6 +30,16 @@ class Restaurants {
       (restaurant) => restaurant.category === category
     );
   }
+
+  filterByFavorite() {
+    return this.#restaurants.filter((restaurant) => !!restaurant.favorite);
+  }
+
+  removeRestaurant(id: number) {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
+  }
 }
 
 export default Restaurants;
