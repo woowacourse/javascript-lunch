@@ -62,7 +62,7 @@ class Modal {
     if (this.content === RestaurantInformation) {
       element.replaceChildren();
       element.insertAdjacentHTML('beforeend', this.content.create(information as Restaurant));
-      return this.content.addEvents(this.closeModal, deleteRestaurant as CallableFunction);
+      this.content.addEvents(this.closeModal, deleteRestaurant as CallableFunction);
     }
 
     if (this.content === RestaurantAddForm) {
