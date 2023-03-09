@@ -1,3 +1,5 @@
+import "./ModalContent.style.css";
+
 class ModalContent extends HTMLElement {
   constructor() {
     super();

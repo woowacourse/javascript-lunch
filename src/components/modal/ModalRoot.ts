@@ -1,3 +1,5 @@
+import "./ModalRoot.style.css";
+
 import ModalContent from "./ModalContent";
 
 class ModalRoot extends HTMLElement {

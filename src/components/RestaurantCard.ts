@@ -1,3 +1,5 @@
+import "./RestaurantCard.style.css";
+
 import type { Restaurant } from "../types/restaurant";
 
 import categoryImages from "../constants/categoryImage";

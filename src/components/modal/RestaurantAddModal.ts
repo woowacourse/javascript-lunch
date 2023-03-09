@@ -1,3 +1,5 @@
+import "./RestaurantAddModal.style.css";
+
 import type { Category, Distance, Restaurant } from "../../types/restaurant";
 
 import ModalContent from "./ModalContent";

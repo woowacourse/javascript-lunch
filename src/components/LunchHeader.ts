@@ -1,3 +1,5 @@
+import "./LunchHeader.style.css";
+
 import Modal from "./modal/ModalRoot";
 import addButtonImage from "../images/add-button.png";
 
