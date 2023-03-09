@@ -1,6 +1,7 @@
 import RestaurantFilter from './components/RestaurantFilter';
 import Header from './components/Header';
 import ModalButton from './components/ModalButton';
+import SortButton from './components/SortButton';
 
 class App {
   #app;
@@ -12,7 +13,10 @@ class App {
   render() {
     this.#app.innerHTML = `
       ${Header.template()}
-      ${RestaurantFilter.template()}
+      <section class="restaurant-filter-container">
+        ${RestaurantFilter.template()}
+        ${SortButton.template()}
+      </section>
     `;
 
     this.#setEvent();
@@ -21,6 +25,7 @@ class App {
   #setEvent() {
     RestaurantFilter.setEvent();
     ModalButton.setEvent();
+    SortButton.setEvent();
   }
 }
 
