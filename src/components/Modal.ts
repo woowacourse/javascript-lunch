@@ -52,13 +52,13 @@ class Modal {
     `;
   }
 
-  renderContent(information?: Restaurant) {
+  renderContent(information?: Restaurant, deleteRestaurant?: CallableFunction) {
     const element = $(`#${this.attributes.id}`) as HTMLDivElement;
 
     if (this.content === RestaurantInformation) {
       element.replaceChildren();
       element.insertAdjacentHTML('beforeend', this.content.create(information as Restaurant));
-      return this.content.addEvent(this.closeModal);
+      return this.content.addEvent(this.closeModal, deleteRestaurant as CallableFunction);
     }
 
     if (this.content === RestaurantAddForm) {

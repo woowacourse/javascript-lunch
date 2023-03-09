@@ -39,7 +39,9 @@ class RestaurantInformation {
       <div class="button-container">
       <button
         type="button"
+        id="restaurant-information-delete-button"
         class="button button--secondary text-caption"
+        data-id="${restaurant.id}"
       >
         삭제하기
       </button>
@@ -53,10 +55,18 @@ class RestaurantInformation {
     `;
   }
 
-  addEvent(closeModal: CallableFunction) {
+  addEvent(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
     const closeButton = $('#restaurant-information-close-button') as HTMLButtonElement;
 
     closeButton.addEventListener('click', () => {
+      closeModal();
+    });
+
+    const deleteButton = $('#restaurant-information-delete-button') as HTMLButtonElement;
+
+    deleteButton.addEventListener('click', (event: Event) => {
+      const target = event.target as HTMLButtonElement;
+      deleteRestaurant(Number(target.dataset.id));
       closeModal();
     });
   }

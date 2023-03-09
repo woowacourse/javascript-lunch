@@ -12,6 +12,16 @@ class RestaurantService {
     this.restaurantList.push({ ...restaurant });
   }
 
+  delete(restaurantId: number) {
+    const restaurantIndex = this.restaurantList.findIndex(
+      (restaurant) => restaurant.id === restaurantId
+    );
+
+    this.restaurantList.splice(restaurantIndex, 1);
+
+    return [...this.restaurantList];
+  }
+
   getFavoriteRestaurantList() {
     return this.restaurantList.filter((restaurant) => restaurant.favorite);
   }

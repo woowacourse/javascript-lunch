@@ -1,5 +1,6 @@
 import { Restaurant, RestaurantFilter } from './types/types';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
+import { MODAL_ATTRIBUTE } from './constants/domAttributes';
 import { $ } from './utils/domSelectors';
 import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
 import Header from './components/Header';
@@ -10,7 +11,6 @@ import RestaurantAddForm from './components/RestaurantAddForm';
 import RestaurantTabMenu from './components/RestaurantTabMenu';
 import RestaurantInformation from './components/RestaurantInformation';
 import RestaurantService from './domains/RestaurantService';
-import { MODAL_ATTRIBUTE } from './constants/domAttributes';
 
 class App {
   private restaurantService: RestaurantService;
@@ -92,7 +92,13 @@ class App {
 
   showRestaurantInformation = (restaurantId: number) => {
     const restaurant = this.restaurantService.getRestaurant(restaurantId);
-    this.informationModal.renderContent(restaurant);
+    this.informationModal.renderContent(restaurant, this.deleteRestaurant);
+  };
+
+  deleteRestaurant = (restaurantId: number) => {
+    const updatedRestaurantList = this.restaurantService.delete(restaurantId);
+    this.updateRestaurantList();
+    saveToLocalStorage(updatedRestaurantList);
   };
 
   addEvents() {
