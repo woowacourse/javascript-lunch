@@ -30,6 +30,14 @@ class RestaurantFilter {
           (restaurant) => restaurant.category === category
         );
   }
+
+  #getSortedRestaurants(restaurants: Restaurant[], sortBy: string) {
+    return sortBy === 'name'
+      ? [...restaurants].sort((x, y) => x.name.localeCompare(y.name))
+      : [...restaurants].sort(
+          (x, y) => Number(x.distanceInMinutes) - Number(y.distanceInMinutes)
+        );
+  }
 }
 
 export default RestaurantFilter;
