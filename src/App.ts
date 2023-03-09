@@ -9,6 +9,8 @@ import { sortByDistance, sortByName } from "./utils/Sort";
 import { getLocalStorage } from "./utils/LocalStorage";
 import { KEY } from "./constants";
 import { $ } from "./utils/Dom";
+import Tab from "./UI/Tab";
+import RestaurantModal from "./UI/RestaurantModal";
 
 export class App {
   private restaurantList = new RestaurantList();
@@ -18,8 +20,8 @@ export class App {
     new Header();
     new FilterBar(this.restaurantList, this.restaurantItem);
     new RestaurantContainer();
-    new Modal(this.restaurantList, this.restaurantItem);
-
+    new Modal(this.restaurantList);
+    Tab();
     this.init();
   }
 
@@ -30,6 +32,7 @@ export class App {
       restaurants.forEach((restaurant: RestaurantForm) => {
         this.restaurantItem.render(restaurant);
       });
+    this.clickItem();
   }
 
   sortRestaurants(restaurants: RestaurantForm[]) {
@@ -37,5 +40,17 @@ export class App {
     const sortedValue = sorted.options[sorted.selectedIndex].value;
     if (sortedValue === "name") sortByName(restaurants);
     if (sortedValue === "distance") sortByDistance(restaurants);
+  }
+
+  clickItem() {
+    $(".restaurant-list-container")?.addEventListener("click", (e) => {
+      const id = (e.target as HTMLLIElement).closest(".restaurant__info")?.id;
+      const restaurants = getLocalStorage(KEY);
+      restaurants.forEach((restaurant: RestaurantForm) => {
+        if (restaurant.id === Number(id)) {
+          new RestaurantModal(restaurant);
+        }
+      });
+    });
   }
 }

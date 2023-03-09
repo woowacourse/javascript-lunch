@@ -7,8 +7,17 @@
   <body>
     <header class="gnb"></header>
     <main>
-      <section class="restaurant-filter-container"></section>
-      <section class="restaurant-list-container"></section>
+      <section class="restaurant-tab-container">
+        <ul class="tab-menu-list">
+          <li class="tab-menu active">모든 음식점</li>
+          <li class="tab-menu">자주 가는 음식점</li>
+        </ul>
+      </section>
+      <section class="restaurant-filter-container tab-filter"></section>
+      <div class="restaurant-wrapper">
+        <section class="restaurant-list-container tab-item active"></section>
+        <section class="restaurant-favorite-container tab-item"></section>
+      </div>
       <div class="modal modal--open"></div>
     </main>
   </body>
