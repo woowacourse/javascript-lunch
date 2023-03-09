@@ -6,3 +6,10 @@ export const onClickCancelButton = () => {
     closeBottomSheet();
   });
 };
+
+export const onClickDeleteButton = (id: string) => {
+  const deleteButton = document.getElementById("deleteButton");
+  deleteButton?.addEventListener("click", () => {
+    console.log(id + "삭제를 시도합니다.");
+  });
+};

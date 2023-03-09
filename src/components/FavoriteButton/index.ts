@@ -34,7 +34,6 @@ class FavoriteButton extends HTMLElement {
 
   // 리팩토링 필요
   onClickFavoriteButton(id: string) {
-    console.log("onClickFavoriteButton : " + id);
     this.addEventListener("click", (event) => {
       event.stopPropagation();
       updateFavorite(id);

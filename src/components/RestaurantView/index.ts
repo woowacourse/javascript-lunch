@@ -2,7 +2,10 @@ import { findRestaurantById } from "../../domain/restaurant";
 import findImage from "../../tools/findImage";
 import IRestaurant from "../../type/IRestaurant";
 import { CategoryImage } from "../CategoryImage";
-import { onClickCancelButton } from "./handleRestaurantView";
+import {
+  onClickCancelButton,
+  onClickDeleteButton,
+} from "./handleRestaurantView";
 
 class RestaurantView extends HTMLElement {
   restaurant: IRestaurant | undefined;
@@ -13,6 +16,7 @@ class RestaurantView extends HTMLElement {
     this.restaurant = findRestaurantById(restaurantId as string);
     this.render();
     onClickCancelButton();
+    onClickDeleteButton(this.restaurant?.id as string);
   }
   render() {
     this.innerHTML = `
@@ -47,7 +51,7 @@ class RestaurantView extends HTMLElement {
         </a>
       </div>
       <div class="button-container">
-        <button type="button" class="button button--secondary text-caption">삭제하기</button>
+        <button id="deleteButton" type="button" class="button button--secondary text-caption">삭제하기</button>
         <button id="cancelButton" type="button" class="button button--primary text-caption">닫기</button>
       </div>
     </div>
