@@ -1,5 +1,7 @@
 import { findRestaurantById } from "../../domain/restaurant";
+import findImage from "../../tools/findImage";
 import IRestaurant from "../../type/IRestaurant";
+import { CategoryImage } from "../CategoryImage";
 
 class RestaurantView extends HTMLElement {
   restaurant: IRestaurant | undefined;
@@ -12,12 +14,17 @@ class RestaurantView extends HTMLElement {
   }
   render() {
     this.innerHTML = `
-    ${this.restaurant?.category}
-    ${this.restaurant?.name}
-    ${this.restaurant?.favorite}
-    ${this.restaurant?.distance}
-    ${this.restaurant?.description}
-    ${this.restaurant?.link}
+    <div>
+      <div class="restaurant__category">
+        <img
+        ${CategoryImage(this.restaurant?.category as string)}
+      </div>
+      ${this.restaurant?.name}
+      ${this.restaurant?.favorite}
+      ${this.restaurant?.distance}
+      ${this.restaurant?.description}
+      ${this.restaurant?.link}
+    </div>
     `;
   }
 }

@@ -4,6 +4,7 @@ import Storage from "../../tools/Storage";
 import IRestaurant from "../../type/IRestaurant";
 import BottomSheet from "../../components/BottomSheet";
 import { findRestaurantById } from "../../domain/restaurant";
+import { CategoryImage } from "../CategoryImage";
 class RestaurantItem extends HTMLElement {
   restaurant: IRestaurant | undefined;
 
@@ -21,11 +22,7 @@ class RestaurantItem extends HTMLElement {
     this.innerHTML = `
     <li class="restaurant">
       <div class="restaurant__category">
-        <img
-          src="${findImage(restaurant.category)}" 
-          alt="${restaurant.category}" 
-          class="category-icon"
-        >
+        ${CategoryImage(restaurant.category)}
       </div>
       <div class="restaurant__info w-100">
         <div class="d-flex justify-content-between">
