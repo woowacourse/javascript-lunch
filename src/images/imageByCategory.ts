@@ -1,8 +1,8 @@
-interface ImageByCategory {
+interface ImageMap {
   [key: string]: string;
 }
 
-const ImageByCategory: ImageByCategory = {
+export const ImageByCategory: ImageMap = {
   한식: './category-korean.png',
   일식: './category-japanese.png',
   중식: './category-chinese.png',
@@ -11,4 +11,7 @@ const ImageByCategory: ImageByCategory = {
   기타: './category-etc.png',
 };
 
-export default ImageByCategory;
+export const FavoriteImage: ImageMap = {
+  favoriteOn: './favorite-icon-filled.png',
+  favoriteOff: './favorite-icon-lined.png',
+};
