@@ -22,7 +22,7 @@ class PageTap {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(switchPage: HandleWithId, rerenderList: Rerender) {
+  addEvent(setPageState: HandleWithId, rerenderList: Rerender) {
     $(".page-choice-container")?.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
       const targetPage = <string>target.closest("div")?.dataset.id;
@@ -31,7 +31,7 @@ class PageTap {
         this.currentChoice = targetPage;
 
         this.toggleFocus();
-        switchPage(targetPage);
+        setPageState(targetPage);
         rerenderList();
       }
     });

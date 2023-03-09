@@ -28,7 +28,7 @@ class App {
 
   addEvents() {
     Header.addEvent(AddModal.openModal);
-    PageTap.addEvent(this.switchPage, this.rerenderList);
+    PageTap.addEvent(this.setPageState, this.rerenderList);
     SelectContainer.addEvent(AppController.setSelectedValue, this.rerenderList);
     RestaurantList.addEvent(
       this.openItemModal,
@@ -38,18 +38,15 @@ class App {
     AddModal.addEvent(AppController.addNewRestaurant, this.rerenderList);
   }
 
-  switchPage = (page: string) => {
+  setPageState = (page: string) => {
     this.pageState = page;
 
-    switch (page) {
-      case Constants.EVERY_PAGE:
-        SelectContainer.show();
-        break;
-
-      case Constants.BOOKMARKED_PAGE:
-        SelectContainer.hide();
-        break;
+    if (page === Constants.EVERY_PAGE) {
+      SelectContainer.show();
+      return;
     }
+
+    SelectContainer.hide();
   };
 
   rerenderList = () => {
