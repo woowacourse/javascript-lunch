@@ -88,7 +88,7 @@ body {
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */
-.restaurant-filter-container {
+restaurant-filter {
   display: flex;
   justify-content: space-between;
 
@@ -175,14 +175,6 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
-  display: none;
-}
-
-.modal--open {
-  display: block;
-}
-
 .modal-backdrop {
   position: fixed;
   top: 0;
