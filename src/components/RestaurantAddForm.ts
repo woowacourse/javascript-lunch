@@ -125,7 +125,7 @@ class RestaurantAddForm {
           >
             취소하기
           </button>
-          <button class="button button--primary text-caption">추가하기</button>
+          <button type="submit" class="button button--primary text-caption">추가하기</button>
         </div>
       </form>`;
   }
