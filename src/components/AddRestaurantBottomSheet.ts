@@ -127,8 +127,7 @@ class AddRestaurantBottomSheet extends Component<IComponentPropState> {
     restaurantList.push(restaurantInput);
 
     setLocalStorageItem('restaurantList', restaurantList);
-
-    updateRootState(restaurantList);
+    updateRootState({ restaurantList });
   }
 
   showErrorMessage(idName: string): void {
