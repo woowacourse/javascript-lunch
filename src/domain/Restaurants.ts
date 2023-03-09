@@ -13,6 +13,14 @@ export default class Restaurants {
     this.#restaurants.push(restaurant);
   }
 
+  updateRestaurant(id: string, liked: boolean) {
+    const targetRestaurantIndex = this.#restaurants.findIndex((restaurant) => restaurant.id === id);
+
+    this.#restaurants[targetRestaurantIndex].liked = liked;
+
+    return deepCopy(this.#restaurants);
+  }
+
   getFilteredRestaurantsByCategory(category: FilterCategory) {
     const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
 
@@ -25,7 +33,7 @@ export default class Restaurants {
     });
   }
 
-  getLikedRestaurant() {
+  getLikedRestaurants() {
     const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
 
     return copiedRestaurants.filter((restaurant: Restaurant) => restaurant.liked);

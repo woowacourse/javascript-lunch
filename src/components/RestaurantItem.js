@@ -1,5 +1,7 @@
 import { $, $$ } from '../utils/dom';
 
+import store from '../utils/store';
+
 const imgFileName = {
   한식: 'category-korean',
   중식: 'category-chinese',
@@ -26,32 +28,34 @@ const html = ({ id, category, name, distance, description, liked }) => `
   </li>`;
 
 export default class RestaurantItem {
-  state;
   restaurant;
+  liked;
 
-  constructor(restaurant) {
+  constructor(restaurant, updateRestaurant) {
     this.restaurant = restaurant;
-
-    this.state = {
-      liked: restaurant.liked,
-    };
+    this.liked = restaurant.liked;
 
     this.renderItem(restaurant);
 
-    this.registerEvent();
+    this.registerEvent(updateRestaurant);
   }
 
-  registerEvent() {
+  registerEvent(updateRestaurant) {
     const imgs = $$(`.${this.restaurant.id} > img`);
-    imgs.forEach((img) => img.addEventListener('click', this.onClickStarIcon.bind(this)));
+    imgs.forEach((img) =>
+      img.addEventListener('click', this.onClickStarIcon.bind(this, updateRestaurant))
+    );
   }
 
-  onClickStarIcon() {
-    const isLiked = this.state.liked;
-    this.state.liked = !isLiked;
+  onClickStarIcon(updateRestaurant) {
+    const isLiked = this.liked;
+    this.liked = !isLiked;
 
     const likeStar = $(`.${this.restaurant.id} .like-star`);
     isLiked ? likeStar.classList.add('hidden') : likeStar.classList.remove('hidden');
+
+    const updatedRestaurants = updateRestaurant(this.restaurant.id, this.liked);
+    store.setLocalStorage(updatedRestaurants);
   }
 
   renderItem(restaurant) {

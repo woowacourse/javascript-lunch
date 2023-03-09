@@ -7,12 +7,13 @@ const html = `
   </ul>`;
 
 export default class RestaurantItems {
-  constructor(restaurants) {
+  constructor(restaurants, updateRestaurant) {
     $('.restaurant-list-container').innerHTML = html;
-    this.renderItems(restaurants);
+
+    this.renderItems(restaurants, updateRestaurant);
   }
 
-  renderItems(restaurants) {
-    restaurants.forEach((restaurant) => new RestaurantItem(restaurant));
+  renderItems(restaurants, updateRestaurant) {
+    restaurants.forEach((restaurant) => new RestaurantItem(restaurant, updateRestaurant));
   }
 }

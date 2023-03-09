@@ -69,19 +69,10 @@ const html = `
 `;
 
 export default class CreateRestaurantModal {
-  onSubmitAddRestaurantForm;
-  toggle;
-
-  constructor(onSubmitAddRestaurantForm, toggle) {
-    this.onSubmitAddRestaurantForm = onSubmitAddRestaurantForm;
-    this.toggle = toggle;
-
+  constructor(onSubmitAddRestaurantForm, toggleModal) {
     $('.modal').innerHTML = html;
-    this.registerEvent();
-  }
 
-  registerEvent() {
-    $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
-    $('.modal-close-button').addEventListener('click', this.toggleModal);
+    $('.add-restaurant-form').addEventListener('submit', onSubmitAddRestaurantForm.bind(this));
+    $('.modal-close-button').addEventListener('click', toggleModal);
   }
 }

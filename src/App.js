@@ -29,7 +29,7 @@ export default class App {
     new UpperTab(this.onClickNavTab.bind(this));
     new RestaurantFilterContainer(this.setState.bind(this));
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
-    new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this), this.toggle);
+    new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this), this.toggleModal);
   }
 
   renderLikedItems() {
@@ -53,7 +53,7 @@ export default class App {
     clickedElement.classList.add('selected');
 
     if (clickedElement.innerText === '자주 가는 음식점') {
-      $('.restaurant-filter-container').classList.add('hidden');
+      $('.restaurant-filter-container').classList.toggle('hidden');
     } else {
       $('.restaurant-filter-container').classList.remove('hidden');
     }
@@ -80,7 +80,10 @@ export default class App {
       sortOption
     );
 
-    new RestaurantItems(sortedRestaurants);
+    new RestaurantItems(
+      sortedRestaurants,
+      this.restaurants.updateRestaurant.bind(this.restaurants)
+    );
   }
 
   onSubmitAddRestaurantForm(e) {

@@ -1,4 +1,5 @@
-export const CATEGORIES = ['전체', '한식', '중식', '일식', '아시안', '양식', '기타'] as const;
+export const CATEGORIES = ['한식', '중식', '일식', '양식', '아시안', '기타'] as const;
+export const FILTER_CATEGORIES = ['전체', ...CATEGORIES];
 export const DISTANCES = ['5', '10', '15', '20', '30'] as const;
 export const SORT_TYPE = ['name', 'distance'] as const;
 
