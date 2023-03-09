@@ -16,6 +16,7 @@
     "strict": true,
     "skipLibCheck": true
   },
+  "typeRoots": ["./node_modules/@types", "types"],
   "include": ["src"],
   "exclude": ["node_modules", "cypress", "dist"]
 }
