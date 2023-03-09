@@ -1,4 +1,4 @@
-import { initialList } from '../data';
+import { CATEGORY_TEST_CASE, SORTING_TEST_CASE } from '../data';
 
 const TEST_URL = 'http://localhost:8080/';
 
@@ -35,7 +35,7 @@ describe('음식점 목록, 드롭다운 메뉴/탭바', () => {
   it('드롭다운 메뉴를 통해 음식점 목록을 음식 종류 별로 정렬할 수 있다.', () => {
     cy.visit(TEST_URL, {
       onBeforeLoad(win) {
-        win.localStorage.setItem('restaurants', JSON.stringify(initialList));
+        win.localStorage.setItem('restaurants', JSON.stringify(CATEGORY_TEST_CASE));
       },
     });
     cy.get('#category-filter').select('한식');
@@ -47,7 +47,38 @@ describe('음식점 목록, 드롭다운 메뉴/탭바', () => {
     cy.get('.app').contains('하_오분거리 아시안').should('not.exist');
   });
 
-  it('드롭다운 메뉴를 통해 음식점 목록을 이름/거리 순으로 정렬할 수 있다.', () => {});
+  it('드롭다운 메뉴를 통해 음식점 목록을 이름/거리 순으로 정렬할 수 있다.', () => {
+    cy.visit(TEST_URL, {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('restaurants', JSON.stringify(SORTING_TEST_CASE));
+      },
+    });
+    cy.get('#sorting-filter').select('distance');
+    cy.get('.restaurant-list li.restaurant')
+      .first()
+      .should('contain', '첫번째 거리')
+      .next()
+      .should('contain', '두번째 거리')
+      .next()
+      .should('contain', '세번째 거리')
+      .next()
+      .should('contain', '네번째 거리')
+      .next()
+      .should('contain', '다섯번째 거리');
+
+    cy.get('#sorting-filter').select('name');
+    cy.get('.restaurant-list li.restaurant')
+      .first()
+      .should('contain', '네번째 거리')
+      .next()
+      .should('contain', '다섯번째 거리')
+      .next()
+      .should('contain', '두번째 거리')
+      .next()
+      .should('contain', '세번째 거리')
+      .next()
+      .should('contain', '첫번째 거리');
+  });
 
   it('탭바를 통해 음식점 목록을 모든 음식점/자주 가는 음식점 으로 분류하여 볼 수 있다.', () => {});
 

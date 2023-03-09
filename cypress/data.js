@@ -1,4 +1,4 @@
-export const initialList = [
+export const CATEGORY_TEST_CASE = [
   {
     id: 0,
     category: '한식',
@@ -51,6 +51,54 @@ export const initialList = [
     distance: '5',
     description: '5분거리',
     link: '',
+    isFavorite: false,
+  },
+];
+
+export const SORTING_TEST_CASE = [
+  {
+    id: 0,
+    category: '한식',
+    name: '다섯번째 거리',
+    distance: '30',
+    description: '한식입니다.',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+  {
+    id: 1,
+    category: '한식',
+    name: '세번째 거리',
+    distance: '15',
+    description: '한식입니다.',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+  {
+    id: 2,
+    category: '한식',
+    name: '두번째 거리',
+    distance: '10',
+    description: '한식입니다.',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+  {
+    id: 3,
+    category: '한식',
+    name: '네번째 거리',
+    distance: '20',
+    description: '한식입니다.',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+  {
+    id: 4,
+    category: '한식',
+    name: '첫번째 거리',
+    distance: '5',
+    description: '한식입니다.',
+    link: 'http://www.naver.com',
     isFavorite: false,
   },
 ];
