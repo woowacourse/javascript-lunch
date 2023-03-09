@@ -7,6 +7,7 @@ import { CATEGORY_NAME } from "../constants/CATEGORY_NAME";
 import { DISTANCE } from "../constants/DISTANCE";
 import { v4 as uuidv4 } from "uuid";
 import { restaurants } from "./restaurants";
+import Storage from "../tools/Storage";
 
 export const findRestaurantById = (id: string) => {
   return restaurants.state.restaurants.find((r) => r.id === id);
@@ -83,4 +84,13 @@ export const sortRestaurants = (restaurants: IRestaurant[], sort: string) => {
     }
     return 0;
   });
+};
+
+export const updateFavorite = (id: string) => {
+  const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
+  const originalFovrite = restaurants.state.restaurants[index].favorite;
+  const temp = [...restaurants.state.restaurants];
+  temp[index].favorite = !originalFovrite;
+  restaurants.state.restaurants = temp;
+  Storage.saveRestaurants(restaurants.state.restaurants);
 };

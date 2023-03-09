@@ -20,7 +20,10 @@ class RestaurantView extends HTMLElement {
         ${CategoryImage(this.restaurant?.category as string)}
       </div>
       ${this.restaurant?.name}
-      ${this.restaurant?.favorite}
+      <favorite-button
+        restaurant-id="${this.restaurant?.id}" 
+        favorite="${this.restaurant?.favorite}">
+      </favorite-button>
       ${this.restaurant?.distance}
       ${this.restaurant?.description}
       ${this.restaurant?.link}

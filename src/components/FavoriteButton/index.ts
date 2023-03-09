@@ -1,3 +1,4 @@
+import { updateFavorite } from "../../domain/restaurant";
 import { restaurants } from "../../domain/restaurants";
 import findImage from "../../tools/findImage";
 import Storage from "../../tools/Storage";
@@ -29,12 +30,7 @@ class FavoriteButton extends HTMLElement {
     favoriteButton?.addEventListener("click", (event) => {
       event.stopPropagation();
       console.log("button : " + id);
-      const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
-      const originalFovrite = restaurants.state.restaurants[index].favorite;
-      const temp = [...restaurants.state.restaurants];
-      temp[index].favorite = !originalFovrite;
-      restaurants.state.restaurants = temp;
-      Storage.saveRestaurants(restaurants.state.restaurants);
+      updateFavorite(id);
     });
   }
 }
