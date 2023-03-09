@@ -1,13 +1,14 @@
 import { LOCAL_STORAGE_KEY } from '../constant';
 import { Restaurant, UserRestaurantInput } from '../type';
+import RestaurantSearcher from './RestaurantSearcher';
 import storage from '../util/storage';
 
 class Restaurants {
   #restaurants: Restaurant[] =
     (storage.getData(LOCAL_STORAGE_KEY) || []).restaurants || [];
   #id: number = (storage.getData(LOCAL_STORAGE_KEY) || []).id || 0;
-  #filterBy: string = '전체';
-  #sortBy: string = 'name';
+  #restaurantSearcher = new RestaurantSearcher();
+  #filterProperties = { filterBy: '전체', sortBy: 'name', favoriteBy: 'all' };
 
   addRestaurant(restaurantInput: UserRestaurantInput) {
     this.#restaurants.push({
@@ -20,17 +21,10 @@ class Restaurants {
   }
 
   getRestaurants() {
-    const filteredRestaurants = this.#getFilteredRestaurantsByCategory(
-      [...this.#restaurants],
-      this.#filterBy
+    return this.#restaurantSearcher.search(
+      this.#restaurants,
+      this.#filterProperties
     );
-
-    const sortedRestaurants =
-      this.#sortBy === 'name'
-        ? this.#getSortedRestaurantsByName(filteredRestaurants)
-        : this.#getSortedRestaurantsByDistanceInMinutes(filteredRestaurants);
-
-    return sortedRestaurants;
   }
 
   saveRestaurantsToLocalStorage() {
@@ -41,11 +35,11 @@ class Restaurants {
   }
 
   setFilterBy(filterBy: string) {
-    this.#filterBy = filterBy;
+    this.#filterProperties.filterBy = filterBy;
   }
 
   setSortBy(sortBy: string) {
-    this.#sortBy = sortBy;
+    this.#filterProperties.sortBy = sortBy;
   }
 
   toggleFavorite(itemId: number) {
@@ -76,29 +70,6 @@ class Restaurants {
     if (searchedIndex !== -1) {
       this.#restaurants.splice(searchedIndex, 1);
     }
-  }
-
-  #getSortedRestaurantsByName(restaurants: Restaurant[]) {
-    return [...restaurants].sort((x, y) => x.name.localeCompare(y.name));
-  }
-
-  #getSortedRestaurantsByDistanceInMinutes(restaurants: Restaurant[]) {
-    return [...restaurants].sort(
-      (x, y) => Number(x.distanceInMinutes) - Number(y.distanceInMinutes)
-    );
-  }
-
-  #getFilteredRestaurantsByCategory(
-    restaurants: Restaurant[],
-    category: string
-  ) {
-    if (category === '전체') {
-      return restaurants;
-    }
-
-    return [...restaurants].filter(
-      (restaurant) => restaurant.category === category
-    );
   }
 
   #getRestaurantIndexById(itemId: number) {
