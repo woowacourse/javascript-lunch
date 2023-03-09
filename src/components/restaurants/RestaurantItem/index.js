@@ -2,13 +2,10 @@ import "./index.css";
 import translateCategory from "../../../util/translateCategory";
 
 class RestaurantItem {
-  $target;
   restaurantInfo;
 
-  constructor($target, restaurantInfo) {
-    this.$target = $target;
+  constructor(restaurantInfo) {
     this.restaurantInfo = restaurantInfo;
-    this.render();
   }
 
   template() {
@@ -30,12 +27,14 @@ class RestaurantItem {
             ${this.restaurantInfo.description}
           </p>
         </div>
+        <div class="favorite_restaurant">
+          <img
+            src="./favorite-icon-lined.png"
+            alt="즐겨찾기"
+          />
+        </div>
       </li>
         `;
-  }
-
-  render() {
-    this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 }
 

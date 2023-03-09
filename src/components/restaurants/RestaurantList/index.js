@@ -16,20 +16,16 @@ class RestaurantList {
     this.render(this.restaurantListManager.getRestaurantList());
   }
 
-  template() {
+  template(restaurantList) {
     return `
       <ul class="restaurant-list">
+        ${restaurantList.map((restaurantInfo) => new RestaurantItem(restaurantInfo).template()).join("")}
       </ul>
     `;
   }
 
   render(restaurantList) {
-    this.$target.innerHTML = this.template();
-    const $restaurantList = this.$target.querySelector(".restaurant-list");
-
-    restaurantList.forEach((restaurantInfo) => {
-      new RestaurantItem($restaurantList, restaurantInfo);
-    });
+    this.$target.innerHTML = this.template(restaurantList);
   }
 
   renderFilteredList(category, sortingWay) {
