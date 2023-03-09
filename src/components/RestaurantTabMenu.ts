@@ -20,12 +20,6 @@ class RestaurantTabMenu {
   addEvent(onClick: CallableFunction) {
     this.allTab.addEvent(onClick);
     this.favoriteTab.addEvent(onClick);
-
-    /**
-     * 탭 변경시
-     * 1. .restaurant-menu--active 클래스 추가 및 제거
-     * 2. 음식점 목록 리렌더링 -> 1. 좋아요 있는 것들만 아니면 전체, 2. 필터/정렬대로 다시 목록 재가공
-     */
   }
 }
 
