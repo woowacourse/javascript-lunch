@@ -13,6 +13,10 @@ export const getFilteredRestaurantsByCategory = (
   return restaurants.filter((restaurant) => restaurant.category === category);
 };
 
+export const getFavoriteRestaurants = (restaurants: IRestaurant[]) => {
+  return restaurants.filter((restaurant) => restaurant.isFavorite);
+};
+
 export const getSortedRestaurants = (
   filterdRestaurants: IRestaurant[],
   sortOption: RestaurantSortType

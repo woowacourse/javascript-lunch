@@ -4,7 +4,11 @@ import Modal from './components/Modal';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
-import { getFilteredRestaurantsByCategory, getSortedRestaurants } from './domain/utils';
+import {
+  getFilteredRestaurantsByCategory,
+  getSortedRestaurants,
+  getFavoriteRestaurants,
+} from './domain/utils';
 
 import { $ } from './utils/dom';
 import store from './utils/store';
@@ -53,6 +57,8 @@ export default class App {
       'click',
       this.onClickRestaurantList.bind(this)
     );
+
+    $('.restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -124,5 +130,20 @@ export default class App {
 
       this.renderRestaurantListByFilterOptions();
     }
+  }
+
+  onChangeFavoriteTab(e) {
+    if (e.target.value === 'favorite') {
+      const restaurants = this.#restaurants.getRestaurants();
+      const favoriteRestaurants = getFavoriteRestaurants(restaurants);
+
+      RestaurantList.render($('.restaurant-list-container'), favoriteRestaurants);
+      $('.restaurant-filter-container').classList.add('hide');
+
+      return;
+    }
+
+    this.renderRestaurantListByFilterOptions();
+    $('.restaurant-filter-container').classList.remove('hide');
   }
 }
