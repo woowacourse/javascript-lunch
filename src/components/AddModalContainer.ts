@@ -21,10 +21,18 @@ class AddModalContainer extends Component {
     return this;
   }
 
+  publish() {}
+
   setEvent() {
     on($('.submit-restaurant'), 'click', this.handleSubmit.bind(this));
-    on($('.modal-backdrop'), 'click', this.hide.bind(this));
-    on($('.cancel'), 'click', this.hide.bind(this));
+
+    on($('.modal-backdrop'), 'click', () => {
+      this.hide();
+    });
+
+    on($('.cancel'), 'click', () => {
+      this.hide();
+    });
 
     return this;
   }
