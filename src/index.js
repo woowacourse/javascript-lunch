@@ -2,13 +2,10 @@
 import "../style.css";
 
 // components
-import "./components/restaurant/RestaurantsContainer";
-import "./components/restaurant/RestaurantComponent";
-import "./components/modal/RestaurantAddFormComponent";
 import "./components/HeaderComponent";
-import "./components/filter/SelectContainer";
-import "./components/modal/ModalComponent";
 import "./components/menu/MenuContainer";
+import "./components/restaurant/RestaurantsContainer";
+import "./components/modal/ModalComponent";
 
 // images
 import "../img/add-button.png";

@@ -1,4 +1,5 @@
 import CustomElement from "../../abstracts/CustomElement";
+import RestaurantComponent from "./RestaurantComponent";
 import dispatcher from "../../domain/Dispatcher";
 import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import {
