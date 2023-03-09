@@ -6,9 +6,10 @@ describe("template spec", () => {
     cy.get("#name").type("홍콩반점");
     cy.get("#distance").select("10");
     cy.get("#add-button").click();
+    cy.get("#홍콩반점").should("be.visible");
   });
 
-  it("음식점 삭제기능 구햔 테스트", () => {
+  it("음식점 삭제기능 구현 테스트", () => {
     cy.visit("http://localhost:8080/");
 
     cy.visit("http://localhost:8080/");
@@ -20,5 +21,6 @@ describe("template spec", () => {
 
     cy.get("#홍콩반점").click();
     cy.get("#remove-button").click();
+    cy.get("#홍콩반점").should("not.exist");
   });
 });
