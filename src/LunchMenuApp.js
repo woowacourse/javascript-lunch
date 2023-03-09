@@ -20,12 +20,20 @@ const LunchMenuApp = {
   },
 
   bindEvents() {
-    $('restaurant-register-modal').addEventListener(
-      'registerRestaurant',
-      ({ detail: restaurant }) => this.handleRestaurantRegister(restaurant)
+    $('.gnb__button').addEventListener('click', () => this.handleGnbButtonClick());
+    $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
+      this.handleRestaurantRegister(restaurant)
     );
     $('restaurant-filter').addEventListener('change', () => this.handleRestaurantFilter());
-    $('.gnb__button').addEventListener('click', () => $('restaurant-register-modal').openModal());
+  },
+
+  handleGnbButtonClick() {
+    $('.modal-container').replaceChildren();
+    $('.modal-container').insertAdjacentHTML(
+      'beforeend',
+      `<restaurant-register-modal></restaurant-register-modal>`
+    );
+    $('custom-modal').openModal();
   },
 
   handleRestaurantRegister(restaurant) {

@@ -7,101 +7,61 @@ customElements.define(
       super();
 
       this.innerHTML = /* html */ `
-      <dialog class="modal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-          <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form class="restaurant-register-form">
-            <div class="form-item form-item--required">
-              <label for="category" class="text-caption">카테고리</label>
-              <select name="category" id="category" required>
-                <option value="">선택해 주세요</option>
-                <option value="한식">한식</option>
-                <option value="중식">중식</option>
-                <option value="일식">일식</option>
-                <option value="양식">양식</option>
-                <option value="아시안">아시안</option>
-                <option value="기타">기타</option>
-              </select>
-            </div>
-
-            <div class="form-item form-item--required">
-              <label for="name" class="text-caption">이름</label>
-              <input type="text" name="name" id="name" required>
-            </div>
-
-            <div class="form-item form-item--required">
-              <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
-              <select name="distance" id="distance" required>
-                <option value="">선택해 주세요</option>
-                <option value="5">5분 내</option>
-                <option value="10">10분 내</option>
-                <option value="15">15분 내</option>
-                <option value="20">20분 내</option>
-                <option value="30">30분 내</option>
-              </select>
-            </div>
-
-            <div class="form-item">
-              <label for="description" class="text-caption">설명</label>
-              <textarea name="description" id="description" cols="30" rows="5"></textarea>
-              <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-            </div>
-
-            <div class="form-item">
-              <label for="link" class="text-caption">참고 링크</label>
-              <input type="url" placeholder="https://www.google.com" name="link" id="link">
-              <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
-            </div>
-
-            <div class="button-container">
-              <button type="button" class="button button--secondary text-caption cancel-button">취소하기</button>
-              <button class="button button--primary text-caption">추가하기</button>
-            </div>
-          </form>
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+      <form class="restaurant-register-form">
+        <div class="form-item form-item--required">
+          <label for="category" class="text-caption">카테고리</label>
+          <select name="category" id="category" required>
+            <option value="">선택해 주세요</option>
+            <option value="한식">한식</option>
+            <option value="중식">중식</option>
+            <option value="일식">일식</option>
+            <option value="양식">양식</option>
+            <option value="아시안">아시안</option>
+            <option value="기타">기타</option>
+          </select>
         </div>
-      </dialog>`;
+
+        <div class="form-item form-item--required">
+          <label for="name" class="text-caption">이름</label>
+          <input type="text" name="name" id="name" required>
+        </div>
+
+        <div class="form-item form-item--required">
+          <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
+          <select name="distance" id="distance" required>
+            <option value="">선택해 주세요</option>
+            <option value="5">5분 내</option>
+            <option value="10">10분 내</option>
+            <option value="15">15분 내</option>
+            <option value="20">20분 내</option>
+            <option value="30">30분 내</option>
+          </select>
+        </div>
+
+        <div class="form-item">
+          <label for="description" class="text-caption">설명</label>
+          <textarea name="description" id="description" cols="30" rows="5"></textarea>
+          <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+        </div>
+
+        <div class="form-item">
+          <label for="link" class="text-caption">참고 링크</label>
+          <input type="url" placeholder="https://www.google.com" name="link" id="link">
+          <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+        </div>
+
+        <div class="button-container">
+          <button type="button" class="button button--secondary text-caption cancel-button">취소하기</button>
+          <button class="button button--primary text-caption">추가하기</button>
+        </div>
+      </form>
+      `;
     }
 
     connectedCallback() {
       $('.restaurant-register-form').addEventListener('submit', (e) => this.handleSubmit(e));
       $('.cancel-button').addEventListener('click', this.closeModal);
-      $('.modal-backdrop').addEventListener('click', this.closeModal);
-      $('.modal-container').addEventListener('animationend', this.removeAnimation);
-    }
-
-    openModal() {
-      $('body').classList.add('no-scroll');
-      $('.modal-container').classList.add('slide-up');
-      $('.modal').showModal();
-
-      setTimeout(() => {
-        $('.modal-container').classList.remove('slide-up');
-      }, 300);
-    }
-
-    closeModal() {
-      $('body').classList.remove('no-scroll');
-      $('.modal-container').classList.add('slide-down');
-
-      setTimeout(() => {
-        $('.modal').close();
-        $('.modal-container').classList.remove('slide-down');
-      }, 300);
-    }
-
-    removeAnimation() {
-      const { classList } = $('.modal-container');
-
-      if (classList.contains('slide-up')) {
-        classList.remove('slide-up');
-        return;
-      }
-
-      if (classList.contains('slide-down')) {
-        $('.modal').close();
-        classList.remove('slide-down');
-      }
     }
 
     handleSubmit(e) {
@@ -110,7 +70,8 @@ customElements.define(
       const restaurant = this.createRestaurantInfo([...e.target.elements].slice(0, 5));
       this.dispatch(restaurant);
       this.resetForm(e.target);
-      this.closeModal();
+
+      $('custom-modal').closeModal();
     }
 
     createRestaurantInfo(formElements) {
@@ -130,7 +91,7 @@ customElements.define(
     }
 
     dispatch(data) {
-      dispatchCustomEvent(this, {
+      dispatchCustomEvent($('custom-modal'), {
         eventType: 'registerRestaurant',
         data,
       });
