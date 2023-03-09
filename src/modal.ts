@@ -15,3 +15,13 @@ export const closeModal = () => {
   document.body.style.overflow = 'visible';
   $modal.classList.remove('modal--open');
 };
+
+export const appendModal = ($content: HTMLElement) => {
+  const $modalContainer = document.querySelector('.modal-container');
+
+  if (!$modalContainer) return;
+
+  $modalContainer.innerHTML = '';
+
+  $modalContainer.insertAdjacentElement('beforeend', $content);
+};
