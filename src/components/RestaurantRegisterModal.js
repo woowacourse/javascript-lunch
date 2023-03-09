@@ -62,7 +62,7 @@ customElements.define(
 
     connectedCallback() {
       $('.restaurant-register-form').addEventListener('submit', (e) => this.handleSubmit(e));
-      $('.cancel-button').addEventListener('click', this.closeModal);
+      $('.cancel-button').addEventListener('click', $('custom-modal').closeModal);
     }
 
     handleSubmit(e) {
