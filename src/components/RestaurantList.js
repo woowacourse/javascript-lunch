@@ -10,9 +10,9 @@ customElements.define(
       <ul class="restaurant-list">
       ${restaurants
         .map(
-          (restaurant, index) => /* html */ `
+          (restaurant) => /* html */ `
           <restaurant-list-item
-            restaurantID="${index}"
+            restaurantID="${restaurant.restaurantID}"
             category="${restaurant.category}"
             restaurantName="${restaurant.name}"
             distance="${restaurant.distance}"

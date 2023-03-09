@@ -1,4 +1,5 @@
 import { $, dispatchCustomEvent } from '../utils/dom';
+import { getUniqueID } from '../utils/key';
 
 customElements.define(
   'restaurant-register-modal',
@@ -100,6 +101,7 @@ customElements.define(
       });
 
       return {
+        restaurantID: getUniqueID(),
         category,
         name,
         distance,

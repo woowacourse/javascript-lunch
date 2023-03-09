@@ -8,6 +8,7 @@ type Distance = 5 | 10 | 15 | 20 | 30;
 type TabType = 'all' | 'favorite';
 
 interface Restaurant {
+  restaurantID: string;
   category: Category;
   name: string;
   distance: Distance;
@@ -25,7 +26,7 @@ interface Restaurants {
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
   compareByName(a: Restaurant, b: Restaurant): number;
-  changeFavorite(restaurantID: number): void;
+  changeFavorite(restaurantID: string): void;
 }
 
 export const restaurants: Restaurants = {
@@ -75,6 +76,9 @@ export const restaurants: Restaurants = {
   },
 
   changeFavorite(restaurantID) {
-    this.list[restaurantID].favorite = !this.list[restaurantID].favorite;
+    const targetRestaurant = this.list.find(
+      (restaurant) => restaurant.restaurantID === restaurantID
+    );
+    if (targetRestaurant) targetRestaurant.favorite = !targetRestaurant.favorite;
   },
 };

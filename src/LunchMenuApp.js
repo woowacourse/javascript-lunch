@@ -61,13 +61,20 @@ const LunchMenuApp = {
 
   handleRestaurantTabChange(tabType) {
     const filteredRestaurants = restaurants.filterByFavorite(tabType, restaurants.list);
-    if (tabType === 'favorite') $('restaurant-filter').hide();
-    else $('restaurant-filter').show();
-    this.render(filteredRestaurants);
+    if (tabType === 'favorite') {
+      $('restaurant-filter').hide();
+      this.render(filteredRestaurants);
+    } else {
+      $('restaurant-filter').show();
+      this.handleRestaurantFilter();
+    }
   },
 
   handleRestaurantFavoriteChange(restaurantID) {
-    restaurants.changeFavorite(Number(restaurantID));
+    restaurants.changeFavorite(restaurantID);
+    if ($('input[name="tab"]:checked').value === 'favorite') {
+      this.handleRestaurantTabChange('favorite');
+    }
   },
 };
 
