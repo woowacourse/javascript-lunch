@@ -10,7 +10,7 @@ class ListContainer extends Component<IComponentPropState> {
   setup() {
     this.$state = {
       activeTab: 'all',
-      restaurantListToShow: [...this.$props.restaurantList],
+      restaurantListToShow: this.$props.restaurantList,
     };
   }
 
@@ -39,7 +39,7 @@ class ListContainer extends Component<IComponentPropState> {
     ${
       this.$state.activeTab === 'all'
         ? `<section class="restaurant-filter-container"></section>`
-        : ''
+        : `<section class="restaurant-filter-container">{filteredRestaurants}</section>`
     }
     </div>
       <div class="tabview__content">
@@ -56,6 +56,15 @@ class ListContainer extends Component<IComponentPropState> {
     const $tabViewContent =
       this.$target.querySelector<HTMLElement>('.tabview__content')!;
 
+    const { restaurantListToShow } = this.$state;
+
+    const filteredRestaurants =
+      this.$state.activeTab === 'all'
+        ? restaurantListToShow
+        : restaurantListToShow.filter(
+            (restaurant: IRestaurantInput) => restaurant.isFavorite
+          );
+
     if ($filterBar) {
       new FilterBar($filterBar, {
         filterList: this.$props.filterList,
@@ -66,11 +75,11 @@ class ListContainer extends Component<IComponentPropState> {
     if ($tabViewContent) {
       createWrappersForTarget(
         $tabViewContent,
-        this.$props.restaurantList.length,
+        filteredRestaurants.length,
         'restaurant'
       );
 
-      this.$props.restaurantList.forEach(
+      filteredRestaurants.forEach(
         (restaurant: IRestaurantInput, index: number) => {
           const target = this.$target.querySelector<HTMLElement>(
             `#restaurant-${index + 1}`
