@@ -1,6 +1,7 @@
 import { Restaurant } from "../types/type";
 import { $ } from "../utils/Dom";
 import RestaurantItem from "../components/common/RestaurantItem";
+import restaurantListHandler from "../domain/restaurantListHandler";
 
 class RestaurantList {
   template() {
@@ -27,6 +28,18 @@ class RestaurantList {
       const id = <string>target.closest("li")?.dataset.id;
 
       onSelectRestaurantID(id);
+
+      const bookmarkButton = <HTMLElement>(
+        target.closest(".restaurant__bookmark")
+      );
+
+      if (bookmarkButton) {
+        restaurantListHandler.toggleBookMark(id);
+        const updatedRestaurants = restaurantListHandler.getRestaurants();
+        this.updateRestaurantList(updatedRestaurants);
+        return;
+      }
+
       $(".item-sheet")?.classList.add("modal--open");
     });
   }

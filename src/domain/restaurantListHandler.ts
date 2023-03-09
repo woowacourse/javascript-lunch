@@ -49,6 +49,17 @@ class RestaurantListHandler {
 
     return this.restaurants;
   }
+
+  toggleBookMark(id: string) {
+    this.restaurants = this.restaurants.map((restaurant) => {
+      if (restaurant.id === id) {
+        return { ...restaurant, bookMark: !restaurant.bookMark };
+      }
+      return restaurant;
+    });
+
+    saveData(Constants.RESTAURANT_LIST, this.restaurants);
+  }
 }
 
 export default new RestaurantListHandler();
