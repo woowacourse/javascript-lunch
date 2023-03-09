@@ -3,6 +3,7 @@ import "./RestaurantDetailModal.style.css";
 import ModalContent from "./ModalContent";
 import restaurantState from "../../states/restaurants";
 import categoryImages from "../../constants/categoryImage";
+import RestaurantCardList from "../RestaurantCardList";
 
 class RestaurantDetailModal extends ModalContent {
   #name: string | null;
@@ -79,6 +80,14 @@ class RestaurantDetailModal extends ModalContent {
   }
 
   onClickDeleteButton() {
+    if (this.#name === null) return;
+
+    restaurantState.deleteTargetRestaurant(this.#name);
+
+    const $restaurantCardList =
+      document.querySelector<RestaurantCardList>(".restaurant-list");
+    $restaurantCardList?.setAttribute("data-length", restaurantState.length());
+
     if (!this.closeModal) return;
 
     this.closeModal();

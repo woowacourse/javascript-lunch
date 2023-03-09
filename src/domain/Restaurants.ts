@@ -20,7 +20,13 @@ class Restaurants {
   }
 
   getTargetRestaurant(targetName: string) {
-    return this.#list.find((restaurant) => restaurant.name === targetName)
+    return this.#list.find((restaurant) => restaurant.name === targetName);
+  }
+
+  deleteTargetRestaurant(targetName: string) {
+    this.#list = this.#list.filter(
+      (restaurant) => restaurant.name !== targetName
+    );
   }
 }
 
