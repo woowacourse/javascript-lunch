@@ -53,9 +53,9 @@ export default class App {
     clickedElement.classList.add('selected');
 
     if (clickedElement.innerText === '자주 가는 음식점') {
-      $('.restaurant-filter-container').classList.toggle('hidden');
+      $('.restaurant-filter-container').classList.add('none');
     } else {
-      $('.restaurant-filter-container').classList.remove('hidden');
+      $('.restaurant-filter-container').classList.remove('none');
     }
 
     this.setState({ navTab: clickedElement.innerText });

@@ -121,6 +121,8 @@ body {
 }
 
 .restaurant {
+  position: relative;
+
   display: flex;
   align-items: flex-start;
 
@@ -299,7 +301,7 @@ input[name='link'] {
   color: var(--grey-100);
 }
 
-.upper-tap {
+.upper-Tab {
   display: flex;
   margin: 32px 16px;
   font-weight: 700;
@@ -328,4 +330,15 @@ input[name='link'] {
   color: #ec4a0a;
 
   border-color: #ec4a0a;
+}
+
+.hidden {
+  display: none;
+}
+
+.favorite-icon {
+  position: absolute;
+  right: 15px;
+
+  cursor: pointer;
 }
