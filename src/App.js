@@ -42,7 +42,7 @@ export default class App {
   }
 
   bindEvents() {
-    $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
+    $('.modal').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
     $('.restaurant-filter-container').addEventListener(
       'change',
       this.renderRestaurantListByFilterOptions.bind(this)
