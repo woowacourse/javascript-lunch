@@ -6,8 +6,5 @@ import "./images/category-japanese.png";
 import "./images/category-korean.png";
 import "./images/category-western.png";
 
-// import App from "./App.js";
 import "../templates/style.css";
-import "./AppTmp";
-
-// new App(document.querySelector("#app"));
+import "./App";
