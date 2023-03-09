@@ -1,4 +1,4 @@
-import IMAGE from "../IMAGE";
+import IMAGE from "../../IMAGE";
 import RestaurantInfo from "./RestaurantInfo";
 
 const createFavoriteButton = (isFilled) => {

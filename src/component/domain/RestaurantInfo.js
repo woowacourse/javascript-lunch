@@ -1,5 +1,5 @@
-import IMAGE from "../IMAGE";
-import { $ } from "../util/querySelector";
+import IMAGE from "../../IMAGE";
+import { $ } from "../../util/querySelector";
 
 const createBasicElementFromTemplate = (selectors, restaurant) => {
   const template = $(selectors);

@@ -1,17 +1,17 @@
 import "../css/style.css";
 import { getFoodCategoryMemberList } from "./type/FoodCategory";
 import { getEstimatedTimeMemberList } from "./type/EstimatedTime";
-import Modal from "./component/Modal";
+import Modal from "./component/common/Modal";
 import Restaurants from "./domain/Restaurants";
 import RestaurantValidator from "./domain/RestaurantValidator";
-import Alert from "./component/Alert";
+import Alert from "./component/common/Alert";
 import { $, $$ } from "./util/querySelector";
 import Filter from "./domain/Filter";
 import IMAGE from "./IMAGE";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
-import SelectInput from "./component/SelectInput";
-import PersonalRestaurantInfo from "./component/PersonalRestaurantInfo";
+import SelectInput from "./component/common/SelectInput";
+import PersonalRestaurantInfo from "./component/domain/PersonalRestaurantInfo";
 
 const CATEGORY = getFoodCategoryMemberList();
 const ESTIMATEDTIME = getEstimatedTimeMemberList();
