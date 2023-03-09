@@ -16,7 +16,6 @@ class FavoriteButton extends HTMLElement {
   render() {
     this.innerHTML = `
     <img
-      id="favorite-button-${this.restaurantId}"
       src="${findImage(this.favorite ? "favoriteFilled" : "favoriteLined")}" 
       alt="즐겨찾기 버튼" 
       class="category-icon"
@@ -24,13 +23,27 @@ class FavoriteButton extends HTMLElement {
     `;
   }
 
+  static get observedAttributes() {
+    return ["favorite"];
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    this.favorite = JSON.parse(newValue);
+    this.render();
+  }
+
   // 리팩토링 필요
   onClickFavoriteButton(id: string) {
-    const favoriteButton = document.getElementById(`favorite-button-${id}`);
-    favoriteButton?.addEventListener("click", (event) => {
+    console.log("onClickFavoriteButton : " + id);
+    this.addEventListener("click", (event) => {
       event.stopPropagation();
-      console.log("button : " + id);
       updateFavorite(id);
+      const buttons = document.querySelectorAll(
+        `.favorite-button-${this.restaurantId}`
+      );
+      buttons.forEach((button) => {
+        button.setAttribute("favorite", `${!this.favorite}`);
+      });
     });
   }
 }

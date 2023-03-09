@@ -32,6 +32,7 @@ class RestaurantItem extends HTMLElement {
           </div>
           <div>
             <favorite-button
+              class="favorite-button-${restaurant.id}"
               restaurant-id="${restaurant.id}" 
               favorite="${restaurant.favorite}">
             </favorite-button>
