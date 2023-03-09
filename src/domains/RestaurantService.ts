@@ -8,7 +8,7 @@ class RestaurantService {
   }
 
   add(restaurant: Restaurant) {
-    restaurant.id = this.restaurantList.length;
+    restaurant.id = this.restaurantList[this.restaurantList.length - 1].id + 1;
     this.restaurantList.push({ ...restaurant });
   }
 
