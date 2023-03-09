@@ -1,4 +1,4 @@
-import { Category, Object } from "@/type/type";
+import { Category, Object, SelectAttribute } from "@/type/type";
 
 export const CategoryImgPath: Readonly<Object> = {
   아시안: "category-asian.png",
@@ -47,3 +47,27 @@ export const CATEGORY: Category[] = [
 
 export const SORTING = ["이름순", "거리순"];
 export const TAKING_TIME = ["5", "10", "15", "20", "30"];
+
+export const CategoryFilterAttribute: SelectAttribute = {
+  name: "category",
+  id: "category-filter",
+  className: "restaurant-filter",
+};
+
+export const SortingFilterAttribute: SelectAttribute = {
+  name: "sorting",
+  id: "sorting-filter",
+  className: "restaurant-filter",
+};
+
+export const CategorySelectAttribute: SelectAttribute = {
+  name: "category",
+  id: "category",
+  required: true,
+};
+
+export const TakingTimeSelectAttribute: SelectAttribute = {
+  name: "takingTime",
+  id: "takingTime",
+  required: true,
+};

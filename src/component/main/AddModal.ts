@@ -1,7 +1,13 @@
 import { AddRestaurant, Rerender, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import Select from "@/component/common/Select";
-import { CATEGORY, TAKING_TIME, OptionValue } from "@/constant/Restaurant";
+import {
+  CATEGORY,
+  TAKING_TIME,
+  OptionValue,
+  CategorySelectAttribute,
+  TakingTimeSelectAttribute,
+} from "@/constant/Restaurant";
 import { generateId } from "@/utils/generateId";
 
 class AddModal {
@@ -9,14 +15,14 @@ class AddModal {
   takingTimeSelect;
 
   constructor() {
-    this.categorySelect = new Select(
-      { name: "category", id: "category", required: true },
-      [OptionValue.PLACE_HOLDER, ...CATEGORY]
-    );
-    this.takingTimeSelect = new Select(
-      { name: "takingTime", id: "takingTime", required: true },
-      [OptionValue.PLACE_HOLDER, ...TAKING_TIME]
-    );
+    this.categorySelect = new Select(CategorySelectAttribute, [
+      OptionValue.PLACE_HOLDER,
+      ...CATEGORY,
+    ]);
+    this.takingTimeSelect = new Select(TakingTimeSelectAttribute, [
+      OptionValue.PLACE_HOLDER,
+      ...TAKING_TIME,
+    ]);
   }
 
   template() {

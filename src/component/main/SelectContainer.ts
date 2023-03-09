@@ -1,4 +1,10 @@
-import { CATEGORY, OptionValue, SORTING } from "@/constant/Restaurant";
+import {
+  CATEGORY,
+  CategoryFilterAttribute,
+  OptionValue,
+  SORTING,
+  SortingFilterAttribute,
+} from "@/constant/Restaurant";
 import { Rerender, SetSelectedValue } from "@/type/type";
 import Select from "@/component/common/Select";
 import { $ } from "@/utils/Dom";
@@ -8,23 +14,12 @@ class SelectContainer {
   sortingSelect;
 
   constructor() {
-    this.categorySelect = new Select(
-      {
-        name: "category",
-        id: "category-filter",
-        className: "restaurant-filter",
-      },
-      [OptionValue.TOTAL, ...CATEGORY]
-    );
+    this.categorySelect = new Select(CategoryFilterAttribute, [
+      OptionValue.TOTAL,
+      ...CATEGORY,
+    ]);
 
-    this.sortingSelect = new Select(
-      {
-        name: "sorting",
-        id: "sorting-filter",
-        className: "restaurant-filter",
-      },
-      SORTING
-    );
+    this.sortingSelect = new Select(SortingFilterAttribute, SORTING);
   }
 
   template() {
