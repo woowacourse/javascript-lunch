@@ -40,6 +40,7 @@ class App {
     this.header.addModalHandler(this.openModalButtonHandler);
     this.selectBox.addSelectBoxHandler(this.selectBoxHandler);
     this.modal.addRestaurantHandler(this.restaurantHandler);
+    this.restaurantItems.addBottomSheetHandler(this.openDetailBottomSheetHandler);
     this.store.initRestaurants();
   }
 
@@ -56,6 +57,11 @@ class App {
   restaurantHandler = (restaurant: Restaurant) => {
     this.store.addRestaurants(restaurant);
     this.restaurantItems.render(this.store.renderedRestaurants);
+  };
+
+  openDetailBottomSheetHandler = (restaurant: Restaurant) => {
+    this.detailBottomSheet.render(restaurant);
+    this.detailBottomSheet.toggle();
   };
 }
 
