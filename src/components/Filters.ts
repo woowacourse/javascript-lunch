@@ -1,6 +1,6 @@
 import { CATEGORY, FILTER } from '../constants';
 import Select from './Select';
-import { CategoryOptions, FilterOptions } from '../types/type';
+import { CategoryOptions, FilterOptions, TabType } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
 
 interface IFilterState {
@@ -10,25 +10,35 @@ interface IFilterState {
 
 export default class Filters {
   $filterSection = document.createElement('section');
-
-  state: IFilterState;
+  state!: IFilterState;
 
   constructor(
     $root: HTMLElement,
-    updateRestaurantList: (
-      category: CategoryOptions,
-      filter: FilterOptions
-    ) => void
+    renderAllList: ($targetElement: HTMLElement) => void
   ) {
     this.$filterSection.className = 'restaurant-filter-container';
-    this.state = {
-      category: '전체',
-      filter: '이름순',
-    };
+    this.setState({ category: '전체', filter: '이름순' });
+
     this.render($root);
-    this.$filterSection.addEventListener('change', (e) =>
-      this.handleFiltersChange(e, updateRestaurantList)
-    );
+    this.$filterSection.addEventListener('change', (e: Event) => {
+      if (!(e.target instanceof HTMLSelectElement)) return;
+
+      const { category, filter } = this.state;
+      const { id, value } = e.target;
+
+      switch (id) {
+        case 'category-filter':
+          this.setState({ category: value as CategoryOptions, filter });
+          break;
+        case 'sorting-filter':
+          this.setState({ category, filter: value as FilterOptions });
+          break;
+        default:
+          return;
+      }
+
+      renderAllList($root);
+    });
     $root.appendChild(this.$filterSection);
   }
 
@@ -58,28 +68,5 @@ export default class Filters {
 
   setState = (state: IFilterState) => {
     this.state = { ...this.state, ...state };
-  };
-
-  handleFiltersChange = (
-    e: Event,
-    updateRestaurantList: (
-      category: CategoryOptions,
-      filter: FilterOptions
-    ) => void
-  ) => {
-    if (!(e.target instanceof HTMLSelectElement)) return;
-    const { category, filter } = this.state;
-    const { id, value } = e.target;
-
-    switch (id) {
-      case 'category-filter':
-        updateRestaurantList(value as CategoryOptions, filter);
-        break;
-      case 'sorting-filter':
-        updateRestaurantList(category, value as FilterOptions);
-        break;
-      default:
-        return;
-    }
   };
 }

@@ -11,7 +11,7 @@ export default class Tabs {
     renderListArticle: (currentTab: TabType) => void
   ) {
     this.$tab.className = 'tab-container';
-    this.currentTab = 'favorite';
+    this.currentTab = 'all';
 
     this.render();
 
@@ -28,7 +28,9 @@ export default class Tabs {
           $button.classList.add('selected');
       });
 
-      renderListArticle(category as TabType);
+      this.currentTab = category as TabType;
+
+      renderListArticle(this.currentTab);
     });
 
     $root.insertAdjacentElement('afterbegin', this.$tab);

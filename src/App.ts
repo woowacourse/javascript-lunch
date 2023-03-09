@@ -41,10 +41,7 @@ export default class App {
     this.state = {
       restaurantService,
       tabs: new Tabs($main, this.renderListArticle.bind(this)),
-      filters: new Filters(
-        this.$listArticle,
-        this.updateRestaurantList.bind(this)
-      ),
+      filters: new Filters(this.$listArticle, this.renderAllList.bind(this)),
       restaurantList: new RestaurantList(
         this.$listArticle,
         initialResutaurantInfos,
@@ -52,56 +49,52 @@ export default class App {
       ),
     };
 
-    this.updateRestaurantList.bind(this)('전체', '이름순');
+    this.renderListArticle(this.state.tabs.currentTab);
   }
 
-  renderListArticle(currentTab: TabType) {
+  renderListArticle(currentTab?: TabType) {
     this.$listArticle.innerHTML = '';
+    if (!currentTab) currentTab = 'all';
 
     switch (currentTab) {
       case 'all':
-        const {
-          state: { category, filter },
-        } = this.state.filters;
-        this.updateRestaurantList(category, filter);
+        this.renderAllList(this.$listArticle);
         break;
       case 'favorite':
-        const favorites = this.state.restaurantService.getFilterdFavoriteList();
-        this.state.restaurantList.setState({ restaurantList: favorites });
-        this.state.restaurantList.render(this.$listArticle);
+        this.renderFavoriteList(this.$listArticle);
         break;
       default:
         return;
     }
   }
 
-  updateRestaurantList(category: CategoryOptions, filter: FilterOptions) {
-    const { restaurantService, restaurantList, filters } = this.state;
-
-    if (!filters || !restaurantList) return;
+  renderAllList($targetElement: HTMLElement) {
+    const { filters, restaurantList, restaurantService } = this.state;
+    const { category, filter } = filters.state;
 
     const filteredAndSortedList = restaurantService.getFilteredAndSortedList(
       category,
       filter
     );
 
-    filters.setState({ filter, category });
     restaurantList.setState({
       restaurantList: filteredAndSortedList,
     });
 
-    filters.render(this.$listArticle);
-    restaurantList.render(this.$listArticle);
+    filters.render($targetElement);
+    restaurantList.render($targetElement);
+  }
+
+  renderFavoriteList($targetElement: HTMLElement) {
+    const favorites = this.state.restaurantService.getFilterdFavoriteList();
+    this.state.restaurantList.setState({ restaurantList: favorites });
+    this.state.restaurantList.render($targetElement);
   }
 
   addRestaurantInfo(restaurantInfo: IRestaurant) {
     this.state.restaurantService.addRestaurant(restaurantInfo);
 
-    const {
-      state: { category, filter },
-    } = this.state.filters;
-
-    this.updateRestaurantList(category, filter);
+    this.renderListArticle(this.state.tabs.currentTab);
 
     const localRestaurants =
       JSON.parse(getLocalStorage('restaurants') as string) || [];
@@ -115,11 +108,7 @@ export default class App {
   deleteRestaurantInfo(id: number) {
     this.state.restaurantService.deleteRerstaurant(id);
 
-    const {
-      state: { category, filter },
-    } = this.state.filters;
-
-    this.updateRestaurantList(category, filter);
+    this.renderListArticle(this.state.tabs.currentTab);
 
     const currentList = [
       ...this.state.restaurantService.getRestaurantsInfo(),
