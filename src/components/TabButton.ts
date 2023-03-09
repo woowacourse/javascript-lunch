@@ -14,7 +14,7 @@ class TabButton {
     return `
       <button 
         id=${this.attributes.id}
-        class="tab-button text-body ${this.attributes.className}">
+        class="tab-button text-body ${this.attributes.className ?? ''}">
         ${this.content}
       </button>`;
   }
