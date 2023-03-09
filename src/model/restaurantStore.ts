@@ -41,6 +41,11 @@ export const restaurantStore = {
     return [...JSON.parse(localStorage.getItem('restaurantList') || '[]')];
   },
 
+  getFavoriteList(): IRestaurant[] {
+    const restaurantList = this.getList();
+    return restaurantList.filter((restaurant) => restaurant.favorite === true);
+  },
+
   getFiltered(category: Category, order: Order) {
     const restaurantList = this.getList();
     const filteredList = this.filterItems(restaurantList, category);
@@ -52,9 +57,7 @@ export const restaurantStore = {
       return restaurantList;
     }
 
-    return restaurantList.filter(
-      (restaurant: IRestaurantInput) => restaurant.category === category
-    );
+    return restaurantList.filter((restaurant: IRestaurant) => restaurant.category === category);
   },
 
   sortItems(restaurantList: IRestaurant[], order: Order): IRestaurant[] {
