@@ -34,6 +34,10 @@ class Restaurants {
     this.#restaurants.push({ ID, favorites, description, link, ...info });
   }
 
+  getFavoritesRestaurant() {
+    return this.#restaurants.filter(restaurant => restaurant.favorites);
+  }
+
   getRestaurant(category: CategoryValue, sortType: SortTypeValue) {
     return Restaurants.sortByType(sortType, Restaurants.filterByCategory(category, this.#restaurants));
   }
