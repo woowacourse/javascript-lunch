@@ -6,7 +6,6 @@ import {
   DEFAULT_CATEGORY,
   DEFAULT_DISTANCE,
   OPTION_START_INDEX,
-  REQUEST_RASTAURANT_KEY,
 } from '../../utils/constants';
 
 type AddRestaurantDrawerState = {
