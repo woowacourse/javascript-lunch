@@ -95,6 +95,10 @@ class Controller {
       !this.state.restaurants[index].isFavorite;
     this.setLocalStorage();
   }
+
+  setSelectedRestaurantIndex(index: number) {
+    this.selectedRestaurantIndex = index;
+  }
 }
 
 export default Controller;
