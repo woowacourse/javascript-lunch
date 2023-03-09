@@ -33,6 +33,7 @@ property {
   distance: string;
   description: string;
   link: string;
+  favorite: boolean;
 }
 ```
 
