@@ -42,6 +42,10 @@ class Restaurants {
     this.#filterProperties.sortBy = sortBy;
   }
 
+  setFavoriteBy(favoriteBy: string) {
+    this.#filterProperties.favoriteBy = favoriteBy;
+  }
+
   toggleFavorite(itemId: number) {
     const searchedIndex = this.#getRestaurantIndexById(itemId);
 

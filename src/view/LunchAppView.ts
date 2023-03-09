@@ -18,6 +18,7 @@ type LunchAppViewType = {
     onRestaurantItemClicked: (itemId: number) => void;
     onFavoriteButtonClicked: (itemId: number) => void;
     onDeleteButtonClicked: (itemId: number) => void;
+    onFavoriteByChange: (favoriteMode: string) => void;
   };
 };
 
@@ -98,6 +99,9 @@ class LunchAppView {
           this.#parentEvent.onFilterByChange(filterBy),
         onSortByChange: (sortBy: string) =>
           this.#parentEvent.onSortByChange(sortBy),
+        onFavoriteByChange: (favoriteMode: string) => {
+          this.#parentEvent.onFavoriteByChange(favoriteMode);
+        },
       },
     });
   }

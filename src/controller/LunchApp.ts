@@ -21,6 +21,8 @@ class LunchApp {
         this.#onFavoriteButtonClicked(itemId),
       onDeleteButtonClicked: (itemId: number) =>
         this.#onDeleteButtonClicked(itemId),
+      onFavoriteByChange: (favoriteMode: string) =>
+        this.#onFavoriteByChange(favoriteMode),
     },
   });
 
@@ -45,14 +47,18 @@ class LunchApp {
 
   #onFilterByChange(filterBy: string) {
     this.#restaurants.setFilterBy(filterBy);
-    console.log(this.#restaurants.getRestaurants());
 
     this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
   }
 
   #onSortByChange(sortBy: string) {
     this.#restaurants.setSortBy(sortBy);
-    console.log(this.#restaurants.getRestaurants());
+
+    this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
+  }
+
+  #onFavoriteByChange(favoriteBy: string) {
+    this.#restaurants.setFavoriteBy(favoriteBy);
 
     this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
   }

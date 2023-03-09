@@ -5,6 +5,7 @@ type RestaurantFilterType = {
   parentEvent: {
     onSortByChange: (sortBy: string) => void;
     onFilterByChange: (category: string) => void;
+    onFavoriteByChange: (favoriteMode: string) => void;
   };
 };
 
@@ -36,11 +37,41 @@ class RestaurantFilter {
         this.#parentEvent.onSortByChange(newChoice);
       }
     });
+
+    $(`#favorite-filter-all`).addEventListener('click', (event) => {
+      if (event.target instanceof HTMLInputElement) {
+        this.#parentEvent.onFavoriteByChange('all');
+
+        this.#closeOrOpenSelectFilter('open');
+      }
+    });
+
+    $(`#favorite-filter-favorite`).addEventListener('click', (event) => {
+      if (event.target instanceof HTMLInputElement) {
+        this.#parentEvent.onFavoriteByChange('favorite');
+
+        this.#closeOrOpenSelectFilter('close');
+      }
+    });
+  }
+
+  #closeOrOpenSelectFilter(command: string) {
+    command === 'open'
+      ? ($(`#restaurant-filter-container`).style.display = 'flex')
+      : ($(`#restaurant-filter-container`).style.display = 'none');
   }
 
   #render() {
     const template = `
-      <section class="restaurant-filter-container">
+      <section class="restaurant-favorite-container">
+        <div class="favorite-menu">
+          <input type="radio" id="favorite-filter-all" name="favorite" value="all" checked hidden />
+          <label class="favorite-radio" for="favorite-filter-all">모든 음식점</label>
+          <input type="radio" id="favorite-filter-favorite" name="favorite" value="favorite" hidden />
+          <label class="favorite-radio" for="favorite-filter-favorite">자주 가는 음식점</label>
+        </div>
+      </section>
+      <section class="restaurant-filter-container" id="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
           <option value="한식">한식</option>
@@ -50,7 +81,6 @@ class RestaurantFilter {
           <option value="아시안">아시안</option>
           <option value="기타">기타</option>
         </select>
-
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
           <option value="name">이름순</option>
           <option value="distance">거리순</option>
