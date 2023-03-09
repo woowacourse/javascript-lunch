@@ -220,11 +220,15 @@ body {
   font-size: 14px;
 }
 
-.form-item--required label::after {
+.form-label-text--required::after {
   padding-left: 4px;
 
   color: var(--primary-color);
   content: '*';
+}
+
+.form-label-error {
+  color: var(--primary-color);
 }
 
 .form-item .help-text {

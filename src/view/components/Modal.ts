@@ -4,6 +4,7 @@ import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { getFormFields } from '../../utils/common/formData';
 import { useForm } from '../../utils/hooks/useForm';
 import Validator from '../../validation';
+import { META_CATEGORY, META_DISTANCE } from '../../constants/restaurants';
 
 interface ModalProps {
   close: VoidFunction;
@@ -53,35 +54,51 @@ function Modal({ close }: ModalProps) {
             <form>
                 <!-- 카테고리 -->
                 <div class="form-item form-item--required">
-                    <label for="category text-caption">카테고리</label>
+                    <label for="category text-caption">
+                      <span class="form-label-text--required">카테고리</span>
+                      <span class="form-label-error">${errors['category'] ?? ''}</span>
+                    </label>
                     <select name="category" id="category" required>
-                        <option value="">선택해 주세요</option>/option>
-                        <option value="양식">양식
-                        <option value="한식">한식</option>
-                        <option value="중식">중식</option>
-                        <option value="일식">일식</option>
-                        <option value="아시안">아시안</option>
-                        <option value="기타">기타</option>
+                    <option value="">선택해 주세요</option>/option>
+                    ${Object.values(META_CATEGORY).map(
+                      (value) => `<option value=${value}
+                      ${
+                        value === register('category', Validator.Restaurant.checkCategory)
+                          ? 'selected'
+                          : ''
+                      }
+                      >${value}</option>`
+                    )}
                     </select>
                 </div>
 
                 <!-- 음식점 이름 -->
                 <div class="form-item form-item--required">
-                    <label for="name text-caption">이름</label>
+                    <label for="name text-caption">
+                      <span class="form-label-text--required">이름</span>
+                      <span class="form-label-error">${errors['name'] ?? ''}</span>
+                    </label>
                     <input type="text" name="name" id="name" required
                     value=${register('name', Validator.Restaurant.checkName)}>
                 </div>
 
                 <!-- 거리 -->
                 <div class="form-item form-item--required">
-                    <label for="distance text-caption">거리(도보 이동 시간) </label>
-                    <select name="distance" id="distance" required>
+                    <label for="distance text-caption">
+                      <span class="form-label-text--required">거리(도보 이동 시간) </span>
+                      <span class="form-label-error">${errors['distance'] ?? ''}</span>
+                    </label>
+                    <select name="distance" id="distance" >
                         <option value="">선택해 주세요</option>
-                        <option value="5">5분 내</option>
-                        <option value="10">10분 내</option>
-                        <option value="15">15분 내</option>
-                        <option value="20">20분 내</option>
-                        <option value="30">30분 내</option>
+                        ${Object.entries(META_DISTANCE).map(
+                          ([key, value]) => `<option value=${key}
+                          ${
+                            key === register('distance', Validator.Restaurant.checkDistance)
+                              ? 'selected'
+                              : ''
+                          }
+                          >${value}</option>`
+                        )}
                     </select>
                 </div>
 
