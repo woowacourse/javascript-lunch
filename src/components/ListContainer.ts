@@ -2,13 +2,13 @@ import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
 import ImageByCategory from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { newState } from '@res/utils/domUtils';
 
 class ListContainer extends Component {
   #state: {
-    restaurantList: IRestaurantInput[];
+    restaurantList: IRestaurant[];
   };
 
   constructor(elem: HTMLElement) {
@@ -26,8 +26,8 @@ class ListContainer extends Component {
     return this;
   }
 
-  handleAdd(restaurantInput: IRestaurantInput): void {
-    this.#state.restaurantList = [...this.#state.restaurantList, restaurantInput];
+  handleAdd(restaurant: IRestaurant): void {
+    this.#state.restaurantList = [...this.#state.restaurantList, restaurant];
   }
 
   handleFilter({ category, order }: IFilterOption): void {
@@ -40,13 +40,13 @@ class ListContainer extends Component {
     </ul>`;
   }
 
-  listTemplate(restaurantList: IRestaurantInput[]): string {
+  listTemplate(restaurantList: IRestaurant[]): string {
     return restaurantList.map(this.handleCreateList.bind(this)).join('');
   }
 
-  handleCreateList({ category, name, distance, description }: IRestaurantInput) {
+  handleCreateList({ id, category, name, distance, description }: IRestaurant) {
     return `
-    <li class="restaurant">
+    <li data-id = ${id} class="restaurant">
       <div class="restaurant__category">
         ${this.imageTemplate(category)}
       </div>

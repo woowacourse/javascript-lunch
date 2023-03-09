@@ -1,7 +1,7 @@
 import { INPUT_MESSAGE } from '@res/constants/messages';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { IRestaurantInput } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
 import { isValidCategory, isValidDistance, isValidName } from '@res/validator/inputValidator';

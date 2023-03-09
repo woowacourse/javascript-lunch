@@ -1,6 +1,8 @@
 import { Category, Order } from '@res/constants/enum';
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { IRestaurantInput, IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { sampleData } from './storage';
+
+const FAVORITE_DEFAULT = false;
 
 export const restaurantStore = {
   init() {
@@ -9,7 +11,14 @@ export const restaurantStore = {
 
   addList(restaurantInput: IRestaurantInput) {
     const restaurantList = this.getList();
-    this.setList([...restaurantList, restaurantInput]);
+
+    const restaurantToAdd: IRestaurant = {
+      id: this.getNewID(restaurantList),
+      favorite: FAVORITE_DEFAULT,
+      ...restaurantInput,
+    };
+
+    this.setList([...restaurantList, restaurantToAdd]);
 
     return this;
   },
@@ -20,7 +29,15 @@ export const restaurantStore = {
     return this;
   },
 
-  getList(): IRestaurantInput[] {
+  getNewID(restaurantList: IRestaurant[]): number {
+    return (
+      restaurantList.reduce((acc, { id }) => {
+        return id > acc ? id : acc;
+      }, 1) + 1
+    );
+  },
+
+  getList(): IRestaurant[] {
     return [...JSON.parse(localStorage.getItem('restaurantList') || '[]')];
   },
 
@@ -30,7 +47,7 @@ export const restaurantStore = {
     return this.sortItems(filteredList, order);
   },
 
-  filterItems(restaurantList: IRestaurantInput[], category: Category) {
+  filterItems(restaurantList: IRestaurant[], category: Category): IRestaurant[] {
     if (category === Category.All) {
       return restaurantList;
     }
@@ -40,15 +57,32 @@ export const restaurantStore = {
     );
   },
 
-  sortItems(restaurantList: IRestaurantInput[], order: Order) {
+  sortItems(restaurantList: IRestaurant[], order: Order): IRestaurant[] {
     if (order === Order.Name) {
       return restaurantList.sort((first, second) => first.name.localeCompare(second.name, 'ko'));
     }
 
-    if (order === Order.Distance) {
-      return restaurantList.sort(
-        (first, second) => Number(first.distance) - Number(second.distance)
-      );
-    }
+    return restaurantList.sort((first, second) => Number(first.distance) - Number(second.distance));
   },
 };
+
+restaurantStore.getNewID([
+  {
+    id: 1,
+    favorite: false,
+    category: '한식',
+    name: '얌샘김밥',
+    distance: '5',
+    description: '정말 마이따 마이따!',
+    link: 'https://naver.com',
+  },
+  {
+    id: 10,
+    favorite: true,
+    category: '한식',
+    name: '고봉김밥',
+    distance: '15',
+    description: '정말 고봉이다.',
+    link: 'https://naver.com',
+  },
+]);
