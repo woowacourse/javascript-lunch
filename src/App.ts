@@ -12,7 +12,7 @@ class App {
 
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
-    RestaurantService.list = mockList;
+    RestaurantService.allList = mockList;
     RestaurantService.settingList();
     localStorage.clear();
   }
@@ -26,7 +26,7 @@ class App {
           ${FilterSortButton.template()}
         </section>
         <section class="restaurant-list-container">
-          ${RestaurantList.template(RestaurantService.list)}
+          ${RestaurantList.template(RestaurantService.allList)}
         </section>
       </main>
       ${InputForm.template()}`;
@@ -37,6 +37,8 @@ class App {
     InputFormOpenButton.openBottomSheet();
     InputForm.addRestaurant();
     FilterSortButton.FilterSort();
+    RestaurantList.setEvent();
+    ListChooseSection.setEvent();
   }
 }
 
