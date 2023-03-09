@@ -19,15 +19,23 @@ class RestaurantView extends HTMLElement {
         <img
         ${CategoryImage(this.restaurant?.category as string)}
       </div>
-      ${this.restaurant?.name}
-      <div>
-        <favorite-button
-          class="favorite-button-${this.restaurant?.id}"
-          restaurant-id="${this.restaurant?.id}" 
-          favorite="${this.restaurant?.favorite}">
-        </favorite-button>
+      <div class="d-flex justify-content-between">
+        <div>
+          <h3 class="restaurant__name text-subtitle">
+            ${this.restaurant?.name}
+          </h3>
+          <span class="restaurant__distance text-body" >
+            캠퍼스부터 ${this.restaurant?.distance}분 내
+          </span>
+        </div>
+        <div>
+          <favorite-button
+            class="favorite-button-${this.restaurant?.id}"
+            restaurant-id="${this.restaurant?.id}" 
+            favorite="${this.restaurant?.favorite}">
+          </favorite-button>
+        </div>
       </div>
-      ${this.restaurant?.distance}
       ${this.restaurant?.description}
       ${this.restaurant?.link}
     </div>
