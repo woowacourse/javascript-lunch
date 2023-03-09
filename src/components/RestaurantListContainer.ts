@@ -30,6 +30,11 @@ class RestaurantListContainer {
     }
   }
 
+  removeRestaurantItem(target: Element, restaurantId: number) {
+    const restaurantItem = $(`.restaurant[data-id="${restaurantId}"]`) as HTMLUListElement;
+    target.removeChild(restaurantItem);
+  }
+
   addEvent(
     onFavoriteIconClick: CallableFunction,
     getRestaurantInformation: CallableFunction,

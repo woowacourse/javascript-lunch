@@ -97,7 +97,7 @@ class App {
 
   deleteRestaurant = (restaurantId: number) => {
     const updatedRestaurantList = this.restaurantService.delete(restaurantId);
-    this.updateRestaurantList();
+    RestaurantListContainer.removeRestaurantItem(this.restaurantListElement, restaurantId);
     saveToLocalStorage(updatedRestaurantList);
   };
 
