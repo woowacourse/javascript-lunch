@@ -60,8 +60,9 @@ export class RestaurantAddForm extends HTMLFormElement {
       "[inputid='description']"
     )?.getValue();
     const link = this.querySelector<InputBox>("[inputid='link']")?.getValue();
+    const like = false;
 
-    return { category, name, distance, description, link };
+    return { category, name, distance, description, link, like };
   }
 
   resetFormValues() {

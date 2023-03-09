@@ -1,4 +1,4 @@
-import type { CategoryOption, SortOption } from "../types/option";
+import type { CategoryOption, LikeOption, SortOption } from "../types/option";
 import type { Restaurant } from "../types/restaurant";
 
 class Restaurants {
@@ -8,9 +8,20 @@ class Restaurants {
     this.#list = list;
   }
 
-  getListByOption(showState: { filter: CategoryOption; sort: SortOption }) {
-    const filteredList = this.filterByCategory(showState.filter);
-    const sortedList = this.sortBySortOption(filteredList, showState.sort);
+  getListByOption(showState: {
+    filter: CategoryOption;
+    sort: SortOption;
+    like: boolean;
+  }) {
+    const likeFilteredList = this.filterByLike(showState.like);
+    const categoryFilteredList = this.filterByCategory(
+      likeFilteredList,
+      showState.filter
+    );
+    const sortedList = this.sortBySortOption(
+      categoryFilteredList,
+      showState.sort
+    );
 
     return sortedList;
   }
@@ -25,10 +36,18 @@ class Restaurants {
     );
   }
 
-  filterByCategory(category: CategoryOption) {
+  filterByCategory(restaurantList: Restaurant[], category: CategoryOption) {
     if (category === "전체") return [...this.#list];
 
-    return this.#list.filter((restaurant) => restaurant.category === category);
+    return [...restaurantList].filter(
+      (restaurant) => restaurant.category === category
+    );
+  }
+
+  filterByLike(likeOption: boolean) {
+    return likeOption
+      ? this.#list.filter((restaurant) => restaurant.like)
+      : this.#list;
   }
 }
 

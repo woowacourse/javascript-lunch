@@ -16,6 +16,7 @@ class RestaurantCard extends HTMLLIElement {
     const name = this.getAttribute("name");
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
+    const like = this.getAttribute("like");
 
     this.innerHTML = `
       <div class="restaurant__category">

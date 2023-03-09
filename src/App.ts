@@ -1,5 +1,5 @@
 import type { Restaurant } from "./types/restaurant";
-import type { CategoryOption, SortOption } from "./types/option";
+import type { CategoryOption, LikeOption, SortOption } from "./types/option";
 
 import Restaurants from "./domain/Restaurants";
 
@@ -23,6 +23,7 @@ class App {
   #showState: {
     filter: CategoryOption;
     sort: SortOption;
+    like: boolean;
   };
 
   constructor() {
@@ -31,6 +32,7 @@ class App {
     this.#showState = {
       filter: "전체",
       sort: "name",
+      like: false,
     };
     this.#restaurants = new Restaurants(restaurants);
 
@@ -99,10 +101,15 @@ class App {
 
   addNewRestaurant(restaurant: Restaurant) {
     this.#restaurants.add(restaurant);
+
     localStorage.setItem(
       "restaurants",
       JSON.stringify(
-        this.#restaurants.getListByOption({ filter: "전체", sort: "name" })
+        this.#restaurants.getListByOption({
+          filter: "전체",
+          sort: "name",
+          like: false,
+        })
       )
     );
 

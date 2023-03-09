@@ -17,7 +17,7 @@ export class RestaurantCardList extends HTMLUListElement {
               name=${restaurant.name} 
               distance=${restaurant.distance} 
               description=${restaurant.description}
-            ></li>`
+              like=${restaurant.like} 
         )
         .join("")}
     `;
