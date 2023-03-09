@@ -15,10 +15,9 @@ const createFavoriteButton = (isFilled) => {
 
 const favoriteChangeEvent = new CustomEvent("favoriteChange", { bubbles: true });
 
-const createElement = (personalRestaurant, createFn) => {
+const createElementAndButton = (personalRestaurant, createFn) => {
   const element = createFn(personalRestaurant.restaurant);
   const button = createFavoriteButton(personalRestaurant.favorite);
-  element.prepend(button);
 
   button.addEventListener("click", () => {
     personalRestaurant.favorite = !personalRestaurant.favorite;
@@ -30,16 +29,30 @@ const createElement = (personalRestaurant, createFn) => {
     button.dispatchEvent(favoriteChangeEvent);
   });
 
-  return element;
+  return { element, button };
 };
 
 const PersonalRestaurantInfo = {
   createSummaryElement(personalRestaurant) {
-    return createElement(personalRestaurant, RestaurantInfo.createSummaryElement);
+    const { element, button } = createElementAndButton(
+      personalRestaurant,
+      RestaurantInfo.createSummaryElement,
+    );
+
+    element.querySelector(".restaurant").appendChild(button);
+
+    return element;
   },
 
   createDetailedElement(personalRestaurant) {
-    return createElement(personalRestaurant, RestaurantInfo.createDetailedElement);
+    const { element, button } = createElementAndButton(
+      personalRestaurant,
+      RestaurantInfo.createDetailedElement,
+    );
+
+    element.prepend(button);
+
+    return element;
   },
 };
 

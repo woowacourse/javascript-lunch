@@ -189,7 +189,9 @@ const updateRestaurant = () => {
   filterResult.forEach((element) => {
     const summary = PersonalRestaurantInfo.createSummaryElement(element);
     restaurantListContainer.appendChild(summary);
-    $(".restaurant-list-container").lastElementChild
+    $(".restaurant-list-container")
+      .lastElementChild
+      .querySelector(".restaurant__info")
       .addEventListener("click", makeOpenDetailedModalCallback(element));
   });
 };
