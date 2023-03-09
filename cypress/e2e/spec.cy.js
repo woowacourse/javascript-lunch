@@ -6,4 +6,12 @@ describe('음식점 추가 창', () => {
     cy.get('.gnb__button').click();
     cy.contains('새로운 음식점');
   });
+
+  it('음식점 추가 창에서 취소하기 버튼을 클릭하면 이전 화면으로 돌아간다.', () => {
+    cy.visit(TEST_URL);
+    cy.get('.gnb__button').click();
+    cy.contains('새로운 음식점');
+    cy.get('#modal-cancel').click();
+    cy.get('.modal').should('not.exist');
+  });
 });
