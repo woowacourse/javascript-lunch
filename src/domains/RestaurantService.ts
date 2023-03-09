@@ -12,6 +12,14 @@ class RestaurantService {
     this.restaurantList.push({ ...restaurant });
   }
 
+  getFavoriteRestaurantList() {
+    return this.restaurantList.filter((restaurant) => restaurant.favorite);
+  }
+
+  getRestaurant(restaurantId: number) {
+    return this.restaurantList.find((restaurant) => restaurant.id === restaurantId) as Restaurant;
+  }
+
   filter(category: CategoryOptions, restaurantList: Restaurant[]) {
     if (category === '전체') return [...restaurantList];
 
@@ -40,9 +48,7 @@ class RestaurantService {
   }
 
   updateFavorite(restaurantId: number) {
-    const restaurantItem = this.restaurantList.find(
-      (restaurant) => restaurant.id === restaurantId
-    ) as Restaurant;
+    const restaurantItem = this.getRestaurant(restaurantId);
 
     this.restaurantList.splice(restaurantItem.id - 1, 1, {
       ...restaurantItem,
@@ -50,10 +56,6 @@ class RestaurantService {
     });
 
     return [...this.restaurantList];
-  }
-
-  getFavoriteRestaurantList() {
-    return this.restaurantList.filter((restaurant) => restaurant.favorite);
   }
 }
 
