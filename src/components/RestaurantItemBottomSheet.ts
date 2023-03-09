@@ -13,7 +13,7 @@ class RestaurantItemBottomSheet {
 
   template() {
     return `<div class="item-sheet">
-      <div class="modal-backdrop"></div>
+      <div class="modal-backdrop item-sheet-backdrop"></div>
       <div class="modal-container">
         <div class="restaurant__category">
           <img src=${categoryToSrc(<Category>this.restaurant.category)} alt=${
@@ -66,6 +66,10 @@ class RestaurantItemBottomSheet {
 
   handleSheetClose() {
     $(".item-sheet--close")?.addEventListener("click", () => {
+      this.closeSheet();
+    });
+
+    $(".item-sheet-backdrop")?.addEventListener("click", () => {
       this.closeSheet();
     });
   }
