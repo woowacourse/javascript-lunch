@@ -21,12 +21,13 @@ class AppController {
     if (page === Constants.EVERY_PAGE) {
       return this.restaurantList;
     }
-
     return restaurantListHandler.getBookmarkedRestaurants();
   }
 
   getRestaurant(id: string) {
-    return this.restaurantList.find((restaurant) => restaurant.id === id);
+    return restaurantListHandler
+      .getTotalRestaurants()
+      .find((restaurant) => restaurant.id === id);
   }
 
   setRestaurantList() {

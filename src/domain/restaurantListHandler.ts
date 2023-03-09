@@ -14,6 +14,10 @@ class RestaurantListHandler {
     saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
 
+  getTotalRestaurants() {
+    return this.restaurants;
+  }
+
   getRestaurants(category: Category, sort: Sort): Restaurant[] {
     const restaurants = this.getFilteredByCategory(category);
 
@@ -30,6 +34,7 @@ class RestaurantListHandler {
     this.restaurants = this.restaurants.filter(
       (restaurant) => restaurant.id !== id
     );
+
     saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
 
@@ -40,6 +45,7 @@ class RestaurantListHandler {
       }
       return restaurant;
     });
+
     saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
 
