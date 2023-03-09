@@ -1,7 +1,7 @@
 import { qs } from '../utils/domHelpers';
 import Component from '../Component';
 
-class Header extends Component {
+export default class Header extends Component {
   constructor($target) {
     super($target);
 
@@ -28,5 +28,3 @@ class Header extends Component {
     qs('.modal').classList.remove('modal--open');
   }
 }
-
-export default Header;
