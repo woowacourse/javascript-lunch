@@ -1,7 +1,7 @@
 import { RestaurantService } from "../../domain/RestaurantService";
 import { RestaurantType } from "../../Template";
 import { $, Render } from "../../until/ControlDom";
-import { Restaurant } from "./Restarant";
+import { Restaurant } from "./Restaurant";
 
 export const RestaurantList = {
   template(restaurantList: RestaurantType[]): string {
