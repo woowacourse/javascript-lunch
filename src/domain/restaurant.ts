@@ -2,12 +2,12 @@ import Validator from "../tools/Validator";
 import IRestaurant from "../type/IRestaurant";
 import { TCategory } from "../type/TCategory";
 import { closeBottomSheet } from "../components/BottomSheet/handleBottomSheet";
-import { addRestaurant } from "../components/RestaurantList/handleRestaurantList";
 import { CATEGORY_NAME } from "../constants/CATEGORY_NAME";
 import { DISTANCE } from "../constants/DISTANCE";
 import { v4 as uuidv4 } from "uuid";
 import { restaurants } from "./restaurants";
 import Storage from "../tools/Storage";
+import defaultRestaurants from "../tools/defaultRestaurants";
 
 export const findRestaurantById = (id: string) => {
   return restaurants.state.restaurants.find((r) => r.id === id);
@@ -91,4 +91,18 @@ export const updateFavorite = (id: string) => {
   const originalFovrite = restaurants.state.restaurants[index].favorite;
   restaurants.state.restaurants[index].favorite = !originalFovrite;
   Storage.saveRestaurants(restaurants.state.restaurants);
+};
+
+export const addRestaurant = (newRestaurant: IRestaurant) => {
+  restaurants.state.restaurants = [
+    ...restaurants.state.restaurants,
+    newRestaurant,
+  ];
+  Storage.saveRestaurants(restaurants.state.restaurants);
+};
+
+export const restoreRestaurants = () => {
+  const restoredRestaurants = Storage.loadRestaurants();
+  restaurants.state.restaurants =
+    restoredRestaurants.length > 0 ? restoredRestaurants : defaultRestaurants;
 };

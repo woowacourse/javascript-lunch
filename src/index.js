@@ -6,10 +6,10 @@ import MenuTab from "./components/MenuTab";
 import NavBar from "./components/NavBar";
 import RestaurantItem from "./components/RestaurantItem";
 import RestaurantList from "./components/RestaurantList";
-import { restoreRestaurants } from "./components/RestaurantList/handleRestaurantList";
 import RestaurantView from "./components/RestaurantView";
 import SortingSelectBox from "./components/SortingSelectBox";
 import "./css/style.css";
+import { restoreRestaurants } from "./domain/restaurant";
 import { restaurants } from "./domain/restaurants";
 
 restaurants.create();
