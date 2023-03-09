@@ -21,7 +21,11 @@ class AddModalContainer extends Component {
     return this;
   }
 
-  publish() {}
+  hide(toggle: boolean = true) {
+    if (toggle) this.$target.innerHTML = '';
+
+    return this;
+  }
 
   setEvent() {
     on($('.submit-restaurant'), 'click', this.handleSubmit.bind(this));
