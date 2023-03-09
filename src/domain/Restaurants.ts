@@ -24,6 +24,12 @@ class Restaurants {
     this.#restaurants.splice(index, 1);
   }
 
+  swapFavoritesByID(ID: number) {
+    const index = this.#restaurants.findIndex(restaurant => restaurant.ID === ID);
+
+    this.#restaurants[index].favorites = !this.#restaurants[index].favorites;
+  }
+
   add({ ID = this.makeUniqueID(), favorites = false, description = '', link = '', ...info }: Restaurant): void {
     this.#restaurants.push({ ID, favorites, description, link, ...info });
   }
