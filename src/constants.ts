@@ -44,4 +44,6 @@ export const DISTANCE = {
   thirty: 30,
 };
 
+export const FAVORITE = "자주 가는 음식점";
+
 export const KEY = "전체";

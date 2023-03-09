@@ -1,6 +1,6 @@
 import { $ } from "../utils/Dom";
 import { sortByName, sortByDistance } from "../utils/Sort";
-import { CATEGORY_NAME, KEY } from "../constants";
+import { CATEGORY_NAME } from "../constants";
 import { getLocalStorage } from "../utils/LocalStorage";
 
 export default class FilterBar {

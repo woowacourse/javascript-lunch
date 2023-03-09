@@ -70,9 +70,9 @@ export default class Modal {
       </div>
     `;
 
-  constructor(restaurantList, restaurantItem) {
+  constructor(restaurantList) {
     this.restaurantList = restaurantList;
-    this.restaurantItem = restaurantItem;
+
     this.init();
   }
 
@@ -140,7 +140,7 @@ export default class Modal {
     $$(".form-item").forEach((inputValue, index) => {
       restaurantInfo[FORM_ARRAY[index]] = inputValue.children[1].value;
     });
-
+    restaurantInfo["id"] = Date.now();
     return restaurantInfo;
   }
 
