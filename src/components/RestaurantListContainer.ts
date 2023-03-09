@@ -30,15 +30,23 @@ class RestaurantListContainer {
     }
   }
 
-  addEvent(onFavoriteIconClick: CallableFunction) {
+  addEvent(
+    onFavoriteIconClick: CallableFunction,
+    getRestaurantInformation: CallableFunction,
+    onItemClick: CallableFunction
+  ) {
     const restaurantList = $('.restaurant-list') as HTMLUListElement;
 
     restaurantList.addEventListener('click', (event: Event) => {
       const target = event.target as HTMLElement;
+      const itemElement = target.closest('.restaurant[data-id]') as HTMLElement;
 
       if (target.classList.contains('restaurant-star-icon') && target instanceof HTMLImageElement) {
-        onFavoriteIconClick(Number(target.dataset.id));
+        onFavoriteIconClick(Number(itemElement.dataset.id));
         this.changeRestaurantFavoriteIcon(target);
+      } else {
+        onItemClick();
+        getRestaurantInformation(Number(itemElement.dataset.id));
       }
     });
   }

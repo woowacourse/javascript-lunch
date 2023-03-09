@@ -7,12 +7,18 @@ import RestaurantFilters from './components/RestaurantFilters';
 import RestaurantListContainer from './components/RestaurantListContainer';
 import Modal from './components/Modal';
 import RestaurantAddForm from './components/RestaurantAddForm';
-import RestaurantService from './domains/RestaurantService';
 import RestaurantTabMenu from './components/RestaurantTabMenu';
+import RestaurantInformation from './components/RestaurantInformation';
+import RestaurantService from './domains/RestaurantService';
+import { MODAL_ATTRIBUTE } from './constants/domAttributes';
 
 class App {
   private restaurantService: RestaurantService;
-  private formModal: Modal = new Modal(RestaurantAddForm);
+  private formModal: Modal = new Modal(MODAL_ATTRIBUTE.FORM, RestaurantAddForm);
+  private informationModal: Modal = new Modal(
+    MODAL_ATTRIBUTE.RESTAURANT_INFORMATION,
+    RestaurantInformation
+  );
   private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
   private currentTab: string = 'all-restaurants';
   private body = $('body') as HTMLBodyElement;
@@ -35,6 +41,7 @@ class App {
         ${RestaurantFilters.create()}
         ${RestaurantListContainer.create()}
         ${this.formModal.create()}
+        ${this.informationModal.create()}
       </main>
     `;
   }
@@ -83,12 +90,22 @@ class App {
     RestaurantListContainer.renderRestaurantItems(this.restaurantListElement, restaurantList);
   }
 
+  showRestaurantInformation = (restaurantId: number) => {
+    const restaurant = this.restaurantService.getRestaurant(restaurantId);
+    this.informationModal.renderContent(restaurant);
+  };
+
   addEvents() {
     Header.addEvent(this.formModal.openModal);
     RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvent(this.changeFilter);
-    RestaurantListContainer.addEvent(this.updateFavoriteRestaurant);
+    RestaurantListContainer.addEvent(
+      this.updateFavoriteRestaurant,
+      this.showRestaurantInformation,
+      this.informationModal.openModal
+    );
     this.formModal.addEvents(this.addRestaurant);
+    this.informationModal.addEvents();
   }
 }
 
