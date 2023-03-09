@@ -59,12 +59,8 @@ class RestaurantService {
   }
 
   updateFavorite(restaurantId: number) {
-    const restaurantItem = this.getRestaurant(restaurantId);
-
-    this.restaurantList.splice(restaurantItem.id - 1, 1, {
-      ...restaurantItem,
-      favorite: !restaurantItem.favorite,
-    });
+    const restaurantIndex = this.findRestaurantIndex(restaurantId);
+    this.restaurantList[restaurantIndex].favorite = !this.restaurantList[restaurantIndex].favorite;
 
     return [...this.restaurantList];
   }
