@@ -66,7 +66,7 @@ class RestaurantAddForm {
     });
   }
 
-  addCloseFormClickEvent(closeModal: CallableFunction) {
+  addCloseButtonClickEvent(closeModal: CallableFunction) {
     const closeButton = $<HTMLButtonElement>('#form-close-button');
 
     closeButton.addEventListener('click', () => {
@@ -75,7 +75,7 @@ class RestaurantAddForm {
   }
 
   addEvents(closeModal: CallableFunction, addRestaurant: CallableFunction) {
-    this.addCloseFormClickEvent(closeModal);
+    this.addCloseButtonClickEvent(closeModal);
     this.addSubmitEvent(closeModal, addRestaurant);
   }
 
