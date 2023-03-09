@@ -1,5 +1,6 @@
 import { Restaurant } from '../types/types';
 import { RESTAURANT_IMAGE, getFavoriteIcon } from '../constants/images';
+import { $ } from '../utils/domSelectors';
 
 class RestaurantInformation {
   create(restaurant: Restaurant) {
@@ -50,6 +51,14 @@ class RestaurantInformation {
       </button>
     </div>
     `;
+  }
+
+  addEvent(closeModal: CallableFunction) {
+    const closeButton = $('#restaurant-information-close-button') as HTMLButtonElement;
+
+    closeButton.addEventListener('click', () => {
+      closeModal();
+    });
   }
 }
 
