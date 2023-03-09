@@ -1,11 +1,16 @@
 import "./index.css";
 import translateCategory from "../../../util/translateCategory";
+import LocalStorage from "../../../util/LocalStorage";
 
 class RestaurantItem {
+  $target;
   restaurantInfo;
 
-  constructor(restaurantInfo) {
+  constructor($target, restaurantInfo) {
+    this.$target = $target;
     this.restaurantInfo = restaurantInfo;
+
+    this.render();
   }
 
   template() {
@@ -27,9 +32,9 @@ class RestaurantItem {
             ${this.restaurantInfo.description}
           </p>
         </div>
-        <div class="favorite_restaurant">
+        <div class="favorite">
           <img
-            src="./favorite-icon-lined.png"
+            src="./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png"
             alt="즐겨찾기"
           />
         </div>
@@ -37,7 +42,21 @@ class RestaurantItem {
         `;
   }
 
-  onClickFavoriteButton() {}
+  render() {
+    this.$target.insertAdjacentHTML("beforeend", this.template());
+  }
+
+  setFavoriteClickEvent(restaurantListManager) {
+    this.$target.querySelector(".favorite").addEventListener("click", (event) => {
+      const id = event.target.closest("li").id;
+
+      restaurantListManager.toggleFavoriteState(Number(id));
+      LocalStorage.setData("list", restaurantListManager.getRestaurantList());
+
+      this.restaurantInfo = { ...this.restaurantInfo, favorite: !this.restaurantInfo.favorite };
+      event.target.src = `./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
+    });
+  }
 }
 
 export default RestaurantItem;

@@ -11,5 +11,5 @@ interface RestaurantInfo {
   distance: Distance;
   description?: string;
   link?: string;
-  liked: boolean;
+  favorite: boolean;
 }

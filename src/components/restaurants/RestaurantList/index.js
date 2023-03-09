@@ -13,19 +13,31 @@ class RestaurantList {
 
     const localData = LocalStorage.getData("list");
     this.restaurantListManager = new RestaurantListManager(localData);
-    this.render(this.restaurantListManager.getRestaurantList());
+
+    this.renderAllList();
   }
 
-  template(restaurantList) {
+  template() {
     return `
       <ul class="restaurant-list">
-        ${restaurantList.map((restaurantInfo) => new RestaurantItem(restaurantInfo).template()).join("")}
       </ul>
     `;
   }
 
   render(restaurantList) {
-    this.$target.innerHTML = this.template(restaurantList);
+    this.$target.innerHTML = this.template();
+    const $restaurantList = this.$target.querySelector(".restaurant-list");
+
+    restaurantList.forEach((restaurantInfo) => {
+      const restaurantItem = new RestaurantItem($restaurantList, restaurantInfo);
+      restaurantItem.setFavoriteClickEvent(this.restaurantListManager);
+    });
+  }
+
+  renderAllList() {
+    const allList = this.restaurantListManager.getRestaurantList();
+
+    this.render(allList);
   }
 
   renderFilteredList(category, sortingWay) {
@@ -35,7 +47,7 @@ class RestaurantList {
   }
 
   addRestaurant(newRestaurant) {
-    this.restaurantListManager.addRestaurant({ id: Date.now(), ...newRestaurant });
+    this.restaurantListManager.addRestaurant({ ...newRestaurant, id: Date.now(), favorite: false });
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
     const selectedCategory = $("#category-filter").value;

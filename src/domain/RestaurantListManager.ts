@@ -19,6 +19,13 @@ export default class RestaurantListManager {
     return sortedList;
   }
 
+  toggleFavoriteState(id: number) {
+    this.#restaurantList = this.#restaurantList.map((restaurant) => {
+      if (restaurant.id !== id) return restaurant;
+      return { ...restaurant, favorite: !restaurant.favorite };
+    });
+  }
+
   #categorizeRestaurants(category: Category, restaurants: RestaurantInfo[]) {
     if (category === CATEGORY.ALL) return restaurants;
     return restaurants.filter((restaurant) => restaurant.category === category);
