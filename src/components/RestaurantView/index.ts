@@ -1,13 +1,23 @@
+import { findRestaurantById } from "../../domain/restaurant";
+import IRestaurant from "../../type/IRestaurant";
+
 class RestaurantView extends HTMLElement {
-  restaurantID: string | null;
+  restaurant: IRestaurant | undefined;
+
   constructor() {
     super();
-    this.restaurantID = this.getAttribute("restaurant-id");
+    const restaurantId = this.getAttribute("restaurant-id");
+    this.restaurant = findRestaurantById(restaurantId as string);
     this.render();
   }
   render() {
     this.innerHTML = `
-      id : r${this.restaurantID}
+    ${this.restaurant?.category}
+    ${this.restaurant?.name}
+    ${this.restaurant?.favorite}
+    ${this.restaurant?.distance}
+    ${this.restaurant?.description}
+    ${this.restaurant?.link}
     `;
   }
 }
