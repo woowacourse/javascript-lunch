@@ -97,6 +97,7 @@ export default class App {
 
     this.toggleModal();
 
+    $('.tab-all').checked = true;
     this.renderRestaurantListByFilterOptions();
   }
 
