@@ -8,7 +8,7 @@ import { useBoolean } from '../../utils/hooks/useBoolean';
 function LandingMain() {
   const {
     values: { restaurants, category, sortOption },
-    handlers: { handleCategory, handleSortOption },
+    handlers: { handleCategory, handleSortOption, handleClickName },
   } = useRestaurants();
 
   const [isOften, often, all] = useBoolean(false);

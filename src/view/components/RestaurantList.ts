@@ -2,10 +2,9 @@ import '../css/Restaurant.css';
 
 import { Restaurant as IRestaurant, RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { RestaurantItem } from './RestaurantItem';
-import { useEvents } from '../../utils/core';
+import { useEvents, useState } from '../../utils/core';
 import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
-
 interface RestaurantProps {
   restaurants: IRestaurant[];
 }

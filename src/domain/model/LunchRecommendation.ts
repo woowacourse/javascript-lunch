@@ -76,8 +76,8 @@ export class LunchRecommendation implements ILunchRecommendation {
   }
 
   addOften(restaurantId: RestaurantInfo['id']): void {
-    const selectedRestaurant = this.origin[restaurantId];
-    selectedRestaurant.toggleOften();
+    const selectedRestaurant = this.origin.find((e) => e.info.id === restaurantId);
+    selectedRestaurant!.toggleOften();
     updateData(this.origin.map(({ info }) => info));
   }
 

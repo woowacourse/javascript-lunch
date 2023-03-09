@@ -38,9 +38,27 @@ function useRestaurants() {
     setOftenRestaurants(lunchRecommendation.getOftenList());
   }
 
+  function handleClickName(restaurantId: RestaurantInfo['id']) {
+    const restaurantList = lunchRecommendation.getList();
+
+    const clickedRestaurant = restaurantList.find((e) => e.info.id === restaurantId);
+    return clickedRestaurant!.getAllInfo();
+  }
+
+  function handleClickDeleteBtn(restaurantId: RestaurantInfo['id']) {
+    setRestaurants(lunchRecommendation.delete(restaurantId));
+  }
+
   return {
     values: { restaurants, oftenRestaurants, category, sortOption },
-    handlers: { handleCategory, handleSortOption, handleClickAddBtn, handleClickOftenBtn },
+    handlers: {
+      handleCategory,
+      handleSortOption,
+      handleClickAddBtn,
+      handleClickOftenBtn,
+      handleClickName,
+      handleClickDeleteBtn,
+    },
   };
 }
 
