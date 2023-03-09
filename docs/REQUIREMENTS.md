@@ -67,6 +67,9 @@
 - localSorage에 있는 정보를 불러온다.
 - restaurant 객체들을 이름순 및 거리순으로 정렬한다.
 - restaurant 객체들을 카테고리별로 필터링한다.
+- 선택된 restaurant 객체의 즐겨찾기 속성을 변경한다.
+- 선택된 restaurant 객체의 index를 저장한다.
+- 선택된 restaurant 객체를 반환한다.
 
 ## model
 
