@@ -1,3 +1,5 @@
+import { STAR_FILL_IMAGE_URL, STAR_LINE_IMAGE_URL } from './constants';
+
 export const getImgSrcByFavorite = (isFavorite) => {
-  return isFavorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
+  return isFavorite ? STAR_FILL_IMAGE_URL : STAR_LINE_IMAGE_URL;
 };

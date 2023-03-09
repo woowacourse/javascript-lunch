@@ -57,7 +57,6 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
     });
   }
 
-  // TODO: 이미지 소스 상수화!
   render() {
     const { id, category, name, distance, description, isFavorite } = this.state.restaurant;
 
