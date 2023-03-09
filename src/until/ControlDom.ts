@@ -29,9 +29,8 @@ export const BottomSheetForm = {
     form.reset();
   },
 
-  toggle() {
-    const bottomSheetElem = $(".bottomSheet");
-    bottomSheetElem?.classList.toggle("bottomSheet--open");
+  showClose(elem: HTMLElement, message: string) {
+    elem?.classList.toggle(message);
   },
 };
 
