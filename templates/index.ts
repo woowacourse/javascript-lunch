@@ -7,3 +7,4 @@ import '../templates/category-korean.png';
 import '../templates/category-western.png';
 import '../templates/favorite-icon-filled.png';
 import '../templates/favorite-icon-lined.png';
+import '../templates/error-icon.png';

@@ -129,9 +129,7 @@ body {
   position: relative;
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
 }
 
@@ -195,7 +193,7 @@ body {
   flex-direction: column-reverse;
   transition: 0.2s;
 
-  bottom: -800px;
+  bottom: -1000px;
 }
 
 .modal-backdrop {
@@ -392,4 +390,23 @@ input[type='radio']:checked + .favorite-radio,
 .favorite-radio:hover {
   border-bottom-color: var(--primary-color);
   color: var(--primary-color);
+}
+
+.error-item {
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+}
+
+.error-image {
+  width: 20px;
+  height: 17px;
+  margin-top: 1.5px;
+}
+
+.error-text {
+  display: inline-block;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 10px;
 }

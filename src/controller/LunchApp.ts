@@ -1,10 +1,12 @@
 import LunchAppView from '../view/LunchAppView';
 import Restaurants from '../domain/Restaurants';
+import Validator from '../domain/Validator';
 import { $ } from '../util/querySelector';
 import { UserRestaurantInput } from '../type';
 
 class LunchApp {
   #restaurants = new Restaurants();
+  #validator = new Validator();
   #lunchAppView = new LunchAppView({
     parentElement: $('#root'),
     restaurants: this.#restaurants.getRestaurants(),
@@ -33,12 +35,21 @@ class LunchApp {
   }
 
   #onModalAddButtonClicked(restaurantData: UserRestaurantInput) {
-    this.#restaurants.addRestaurant(restaurantData);
-    this.#restaurants.saveRestaurantsToLocalStorage();
-    this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
+    try {
+      this.#validator.errorIfInvalidRestaurant(restaurantData);
 
-    this.#lunchAppView.clearAllModalInputs();
-    this.#lunchAppView.closeOrOpenRestaurantAddModal('close');
+      this.#restaurants.addRestaurant(restaurantData);
+      this.#restaurants.saveRestaurantsToLocalStorage();
+      this.#lunchAppView.updateRestaurants(this.#restaurants.getRestaurants());
+
+      this.#lunchAppView.clearAllModalInputs();
+      this.#lunchAppView.closeOrOpenRestaurantAddModal('close');
+      this.#lunchAppView.hideRestaurantAddModalErrorMessage();
+    } catch ({ message }) {
+      if (typeof message === 'string') {
+        this.#lunchAppView.showRestaurantAddModalErrorMessage(message);
+      }
+    }
   }
 
   #onHeaderAddButtonClicked() {

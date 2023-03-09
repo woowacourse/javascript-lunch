@@ -64,9 +64,9 @@ class RestaurantItem {
           <p class="restaurant__description text-body">
             ${this.#restaurant.description}
           </p>
-          <a class="restaurant__link" href="${this.#restaurant.link}">${
-      this.#restaurant.link
-    }</a>
+          <a class="restaurant__link" href="${
+            this.#restaurant.link
+          }" target="__blank">${this.#restaurant.link}</a>
         </div>
       </li>
     `;

@@ -56,6 +56,14 @@ class LunchAppView {
     this.#restaurantInfoModal.updateRestaurantInfo(restaurant);
   }
 
+  showRestaurantAddModalErrorMessage(message: string) {
+    this.#restaurantAddModal.showErrorMessage(message);
+  }
+
+  hideRestaurantAddModalErrorMessage() {
+    this.#restaurantAddModal.hideErrorMessage();
+  }
+
   #render() {
     const template = `
       <div id="header-root"></div>

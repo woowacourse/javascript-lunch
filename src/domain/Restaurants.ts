@@ -15,6 +15,7 @@ class Restaurants {
       ...restaurantInput,
       isFavorite: false,
       itemId: this.#id,
+      link: this.#trimLink(restaurantInput.link),
     });
 
     this.#id += 1;
@@ -74,6 +75,14 @@ class Restaurants {
     if (searchedIndex !== -1) {
       this.#restaurants.splice(searchedIndex, 1);
     }
+  }
+
+  #trimLink(link: string) {
+    return `${
+      link.startsWith('https://') || link.startsWith('http://')
+        ? ''
+        : 'https://'
+    }${link}`;
   }
 
   #getRestaurantIndexById(itemId: number) {

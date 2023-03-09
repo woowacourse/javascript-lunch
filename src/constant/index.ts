@@ -17,10 +17,10 @@ const FAVORITE_IMAGE_PATH = Object.freeze({
 });
 
 const ERROR_MESSAGE = {
-  category: '카테고리를 선택해 주세요!',
-  name: '이름을 입력해 주세요!',
-  distance: '거리를 선택해 주세요!',
-  link: '올바른 주소를 입력해 주세요!',
+  categoryIsEmpty: '카테고리를 선택해 주세요!',
+  nameIsEmpty: '음식점 이름을 입력해 주세요!',
+  distanceInMinutesIsEmpty: '거리를 선택해 주세요!',
+  linkIsInvalid: '올바른 주소를 입력해 주세요!',
 };
 
 const RESTAURANT_DISTANCES_IN_MINUTE = ['5', '10', '15', '20', '25', '30'];

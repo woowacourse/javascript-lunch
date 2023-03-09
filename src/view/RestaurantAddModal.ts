@@ -37,6 +37,15 @@ class RestaurantAddModal {
     this.#modal.closeOrOpenModal(command);
   }
 
+  showErrorMessage(message: string) {
+    $(`#error-item`).style.opacity = '1';
+    $(`#error-text`).innerText = message;
+  }
+
+  hideErrorMessage() {
+    $(`#error-item`).style.opacity = '0';
+  }
+
   clearAllInputs() {
     $$(
       '#modal-add-form input, #modal-add-form textarea, #modal-add-form select'
@@ -91,6 +100,10 @@ class RestaurantAddModal {
           <label for="link">참고 링크</label>
           <input type="text" name="link" id="link">
           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+        </div>
+        <div class="error-item" id="error-item">
+          <img class="error-image" src="./error-icon.png" />
+          <div class="error-text text-caption" id="error-text"></span>
         </div>
       </form>
     `;
