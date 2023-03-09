@@ -30,6 +30,7 @@ export class InputBox extends HTMLDivElement {
                   name=${name} 
                   id=${inputId} 
                   ${caption === null && "required"} 
+                  ${name === "name" && 'maxlength="15"'}
                 />
               `
             : isSelect === null

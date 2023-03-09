@@ -1,5 +1,6 @@
 import type { Restaurant } from "../../types/restaurant";
 import { DetailModal } from "./detail";
+import { Info } from "./detail/info";
 
 import { RestaurantAddForm } from "./form";
 
@@ -44,7 +45,9 @@ export class Modal extends HTMLDivElement {
     this.classList.add("modal--open");
     this.querySelector(".modal-detail")?.removeAttribute("hidden");
 
-    this.querySelector<DetailModal>(".modal-detail")?.render(restaurantInfo);
+    this.querySelector<Info>(".restaurant-detail-container")?.render(
+      restaurantInfo
+    );
   }
 
   closeModal() {

@@ -16,7 +16,11 @@ import {
   RestaurantAddForm,
 } from "./components/modal/form";
 import { createInputBox } from "./components/modal/form/InputBox";
-import { createModalDetailContent } from "./components/modal/detail";
+import {
+  createModalDetailContent,
+  DetailModal,
+} from "./components/modal/detail";
+import { createDetailInfo } from "./components/modal/detail/info";
 
 class App {
   #restaurants;
@@ -49,6 +53,7 @@ class App {
     createRestaurantCard();
     createRestaurantCardList();
     createModalDetailContent();
+    createDetailInfo();
 
     this.renderContainer();
     this.renderRestaurantList();
@@ -67,6 +72,10 @@ class App {
     document
       .querySelector<RestaurantAddForm>("form")
       ?.bindEvent(this.addNewRestaurant.bind(this));
+
+    document
+      .querySelector<DetailModal>(".modal-detail")
+      ?.bindEvent(this.onClickRestaurantRemove.bind(this));
 
     document
       .querySelector<RestaurantCardList>(".restaurant-list")
@@ -145,6 +154,18 @@ class App {
     );
 
     this.renderRestaurantList();
+  }
+
+  onClickRestaurantRemove(restaurantName: string) {
+    this.#restaurants.removeByName(restaurantName);
+
+    localStorage.setItem(
+      "restaurants",
+      JSON.stringify(this.#restaurants.getList())
+    );
+
+    this.renderRestaurantList();
+    document.querySelector<Modal>(".modal")?.closeModal();
   }
 
   toggleLikeButtonStyle() {

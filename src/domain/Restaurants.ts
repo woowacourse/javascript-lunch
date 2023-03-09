@@ -66,6 +66,12 @@ class Restaurants {
       return restaurant;
     });
   }
+
+  removeByName(restaurantName: string) {
+    this.#list = this.#list.filter(
+      (restaurant) => restaurant.name !== restaurantName
+    );
+  }
 }
 
 export default Restaurants;

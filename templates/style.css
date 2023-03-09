@@ -2,6 +2,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 ul,
@@ -13,6 +15,10 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+}
+
+h1 {
+  overflow: hidden;
 }
 
 /* Colors *****************************************/
@@ -344,13 +350,22 @@ input[name="link"] {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: calc(100vw - 32px);
 }
 
 .image-container {
-  postion: relative;
+  position: relative;
+  width: calc(100% - 16px);
+}
+
+.detail-like-image {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .detail-text {
   overflow: scroll;
+  overflow-x: hidden;
   max-height: 50vh;
 }
