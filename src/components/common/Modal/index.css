@@ -16,5 +16,11 @@ dialog::backdrop {
 }
 
 h2 {
-  margin-bottom: 36px;
+  margin-bottom: 16px;
+}
+
+::slotted([slot='actions']) {
+  display: flex;
+  justify-content: stretch;
+  gap: 16px;
 }
