@@ -1,3 +1,5 @@
+import { Modal } from "..";
+
 export class DetailModal extends HTMLDivElement {
   constructor() {
     super();
@@ -20,6 +22,10 @@ export class DetailModal extends HTMLDivElement {
   bindEvent(handleClickRemove: (restaurantName: string) => void) {
     this.querySelector(".button--secondary")?.addEventListener("click", () => {
       handleClickRemove(`${this.querySelector("h3")?.innerText}`);
+    });
+
+    this.querySelector(".button--primary")?.addEventListener("click", () => {
+      document.querySelector<Modal>(".modal")?.closeModal();
     });
   }
 }

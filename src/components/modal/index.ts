@@ -1,6 +1,5 @@
 import type { Restaurant } from "../../types/restaurant";
-import { DetailModal } from "./detail";
-import { Info } from "./detail/info";
+import { Info } from "./detail/Info";
 
 import { RestaurantAddForm } from "./form";
 
