@@ -1,5 +1,5 @@
-import { RestaurantFilter, sortByDistance, sortByName } from '../../../domain/RestaurantFilter';
-import Select from '../../common/form/Select';
+import { RestaurantFilter, sortByDistance, sortByName } from '../../../../domain/RestaurantFilter';
+import Select from '../../../common/form/Select';
 
 class RestaurantSortSelect extends Select<RestaurantFilter> {
   constructor() {
