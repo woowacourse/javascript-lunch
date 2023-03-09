@@ -160,4 +160,29 @@ describe("My First Test", () => {
     cy.get(".item-bookmark").click();
     cy.get(".item-modal--delete").click();
   });
+
+  it("새로고침해도 식당리스트가 남아있다.", () => {
+    cy.viewport(390, 880);
+
+    cy.visit("http://localhost:8080/");
+
+    window.localStorage.setItem(
+      "restuarantList",
+      JSON.stringify([
+        {
+          category: "한식",
+          name: "피양콩할마니",
+          takingTime: 10,
+          description: `할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
+          link: "https://naver.me/G6DyD9tg",
+          id: "123",
+          bookmarked: false,
+        },
+      ])
+    );
+
+    cy.reload();
+
+    cy.contains("피양콩");
+  });
 });
