@@ -13,12 +13,9 @@ import {
 } from '../constants/restaurants';
 
 const Restaurant = {
-  info(
-    { name, description, distance, category, link }: RestaurantInfo,
-    options?: ValidatorOptions
-  ) {
+  info(info: RestaurantInfo, options?: ValidatorOptions) {
     try {
-      const isValid = this.checkName(name);
+      const isValid = this.checkInfo(info);
 
       return { isValid };
     } catch (error) {
@@ -28,11 +25,18 @@ const Restaurant = {
     }
   },
 
+  checkInfo({ name, distance, category }: RestaurantInfo) {
+    this.checkName(name);
+    this.checkCategory(category);
+    this.checkDistance(distance);
+
+    return true;
+  },
+
   checkDistance(distance: unknown) {
-    if (typeof distance !== 'string') throw new CustomError(ERROR_CODE.NOT_STRING, distance);
-    if (distance.length < MIN_REQUIRED_LENGTH)
-      throw new CustomError(ERROR_CODE.EMPTY_VALUE, distance);
-    if (!Object.keys(META_DISTANCE).includes(distance as MetaDistance))
+    if (typeof distance !== 'string' && typeof distance !== 'number')
+      throw new CustomError(ERROR_CODE.INVALID_CATEGORY, distance);
+    if (!Object.keys(META_DISTANCE).includes(String(distance)))
       throw new CustomError(ERROR_CODE.INVALID_CATEGORY, distance);
 
     return true;
