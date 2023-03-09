@@ -19,6 +19,17 @@ class RestaurantFilter {
 
     return favoritedRestaurants;
   }
+
+  #getFilteredRestaurantsByCategory(
+    restaurants: Restaurant[],
+    category: string
+  ) {
+    return category === '전체'
+      ? restaurants
+      : [...restaurants].filter(
+          (restaurant) => restaurant.category === category
+        );
+  }
 }
 
 export default RestaurantFilter;
