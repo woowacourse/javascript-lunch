@@ -98,6 +98,7 @@ export default class App {
     this.toggleModal();
 
     $('.tab-all').checked = true;
+    $('.restaurant-filter-container').classList.remove('hide');
     this.renderRestaurantListByFilterOptions();
   }
 
