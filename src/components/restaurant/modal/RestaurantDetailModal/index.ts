@@ -41,7 +41,7 @@ class RestaurantDetailModal extends Component {
             <r-category-icon category="${this.getAttribute('category')}"></r-category-icon>
 
             <r-button variant="transparent">
-              <img src="assets/favorite-icon.svg">
+              <img src="assets/favorite-icon-lined.png">
             </r-button>
           </section>
 
