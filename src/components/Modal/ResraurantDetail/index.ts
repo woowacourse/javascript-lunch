@@ -19,7 +19,7 @@ const RestaurantDetail = {
     const favoriteIconAlt = isFavorite ? 'favorite-icon-filled' : 'favorite-icon-lined';
 
     return `
-    <div class='modal-detail-view'>
+    <div id='modal-detail-view' class='modal-detail-view' data-listid='${id}'>
       <div class="restaurant__category">
         <img src="./${imgFileName[category]}" alt="${category}" class="category-icon" />
       </div>
@@ -36,7 +36,7 @@ const RestaurantDetail = {
         <button id="modal-close-button" class="button button--primary text-caption">닫기</button>
       </div>
       <div class="restaurant__favorite">
-        <img src="./${favoriteIconSrc}" alt="${favoriteIconAlt}" id="favorite-icon" class="favorite-icon"/>
+        <img src="./${favoriteIconSrc}" alt="${favoriteIconAlt}" id="detail-favorite-icon" class="favorite-icon"/>
       </div>
     </div>    
     `;
