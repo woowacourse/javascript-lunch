@@ -31,6 +31,30 @@
   object-fit: contain;
 }
 
+restaurant-tab {
+  display: flex;
+  justify-content: center;
+}
+
+restaurant-tab input[type='radio'] {
+  display: none;
+}
+
+restaurant-tab label {
+  width: calc(50% - 16px);
+  height: 36px;
+  margin-top: 30px;
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+  text-align: center;
+  cursor: pointer;
+}
+
+restaurant-tab input[type='radio']:checked + label {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
 restaurant-filter {
   display: flex;
   justify-content: space-between;

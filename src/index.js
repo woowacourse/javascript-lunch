@@ -16,5 +16,6 @@ import RestaurantList from './components/RestaurantList';
 import RestaurantListItem from './components/RestaurantListItem';
 import RestaurantRegisterModal from './components/RestaurantRegisterModal';
 import RestaurantFilter from './components/RestaurantFilter';
+import RestaurantTab from './components/RestaurantTab';
 
 LunchMenuApp.init();
