@@ -26,7 +26,7 @@ export default function RestaurantItemTemplate(restaurant: Restaurant) {
   };
 
   const template = `
-  <button class="favorite-button" data-type="favoriteButton" > 
+    <button class="favorite-button" data-type="favoriteButton" > 
     </button>
     <div class="restaurant__category">
       <img src="${categoryImageSource(
@@ -46,7 +46,10 @@ export default function RestaurantItemTemplate(restaurant: Restaurant) {
   return $li;
 }
 
-function toggleFavoriteFilled($target: HTMLElement, restaurant: Restaurant) {
+export function toggleFavoriteFilled(
+  $target: HTMLElement,
+  restaurant: Restaurant
+) {
   restaurant.setFavoriteState(!restaurant.getFavoriteState());
 
   if (restaurant.getFavoriteState()) $target.classList.add('favorite-filled');
