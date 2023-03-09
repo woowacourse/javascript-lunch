@@ -9,13 +9,8 @@ class RestaurantListItem extends Component {
   override renderTemplate() {
     return `
       <li>
-        <div class="category">
-          <img
-            src="assets/categories/${this.getAttribute('category')}.png"
-            alt="${this.getAttribute('category')}"
-            class="category-icon"
-          >
-        </div>
+        <r-category-icon category="${this.getAttribute('category')}"></r-category-icon>
+
         <div class="info">
           <h3 class="name text-subtitle">
             ${this.getAttribute('name') ?? ''}

@@ -4,6 +4,7 @@ import './common/form/Select';
 import './common/form/Textarea';
 import './common/Header';
 import './common/Modal';
+import './restaurant/CategoryIcon';
 import './restaurant/form/RestaurantCategorySelect';
 import './restaurant/form/RestaurantDistanceSelect';
 import './restaurant/modal/NewRestaurantModal';
