@@ -29,8 +29,11 @@ const RestaurantDetail = {
       </div>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
+    this.handleDeleteButton(RestaurantListItem);
+    this.handleCloseButton();
+  },
+  handleDeleteButton(RestaurantListItem: RestaurantListItem) {
     const deleteButton = document.querySelector(`#${ID.DELETE_BUTTON}`) as HTMLButtonElement;
-    const closeButton = document.querySelector(`#${ID.CLOSE_BUTTON}`) as HTMLButtonElement;
     const shopDetail = document.querySelector(`#${ID.SHOP_DETAIL}`) as HTMLDivElement;
 
     deleteButton?.addEventListener('click', () => {
@@ -43,6 +46,9 @@ const RestaurantDetail = {
 
       DetailModal.closeModal();
     });
+  },
+  handleCloseButton() {
+    const closeButton = document.querySelector(`#${ID.CLOSE_BUTTON}`) as HTMLButtonElement;
 
     closeButton?.addEventListener('click', () => {
       DetailModal.closeModal();

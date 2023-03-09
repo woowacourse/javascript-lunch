@@ -29,9 +29,9 @@ const AddModal = {
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
     ButtonContainer.setEvent();
-    this.restaurantEvent(RestaurantListItem);
+    this.handleAddFormEvent(RestaurantListItem);
   },
-  restaurantEvent(RestaurantListItem: RestaurantListItem) {
+  handleAddFormEvent(RestaurantListItem: RestaurantListItem) {
     const addForm = document.querySelector(`#${ID.ADD_FORM}`) as HTMLFormElement;
 
     addForm?.addEventListener('submit', (e) => {
@@ -42,6 +42,7 @@ const AddModal = {
       });
       const id = RestaurantListItem.getListItem().length;
       const newRestaurant: IRestaurant = Object.fromEntries([...restaurantForm, ['favorite', false], ['id', String(id)]]);
+
       RestaurantListItem.add(newRestaurant);
       RestaurantList.append(RestaurantListItem, newRestaurant);
 

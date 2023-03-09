@@ -12,6 +12,9 @@ const SortButton = {
       </select>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
+    this.handleSortingFilter(RestaurantListItem);
+  },
+  handleSortingFilter(RestaurantListItem: RestaurantListItem) {
     const sortingFilter = document.querySelector(`#${ID.SORTING_FILTER}`) as HTMLSelectElement;
 
     sortingFilter?.addEventListener('change', () => {

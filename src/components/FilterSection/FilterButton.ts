@@ -16,6 +16,9 @@ const FilterButton = {
       </select>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
+    this.handleCategoryFilter(RestaurantListItem);
+  },
+  handleCategoryFilter(RestaurantListItem: RestaurantListItem) {
     const categoryFilter = document.querySelector(`#${ID.CATEGORY_FILTER}`) as HTMLSelectElement;
 
     categoryFilter?.addEventListener('change', () => {

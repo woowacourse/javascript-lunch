@@ -22,7 +22,9 @@ const Restaurant = {
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
     FavoriteIcon.setEvent(RestaurantListItem);
-
+    this.handleRestaurants(RestaurantListItem);
+  },
+  handleRestaurants(RestaurantListItem: RestaurantListItem) {
     const restaurants = document.querySelectorAll(`.${CLASS.RESTAURANT}`) as NodeListOf<HTMLElement>;
 
     restaurants.forEach((item) => {

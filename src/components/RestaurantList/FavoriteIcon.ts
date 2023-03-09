@@ -9,10 +9,10 @@ const FavoriteIcon = {
       <img src="${favorite ? Favorite.filled : Favorite.lined}" alt="자주 가는 음식점 버튼" id="favorite-lined"/>
     </div>`;
   },
-  icon(src: string) {
-    return `<img src="${src}" alt="자주 가는 음식점 버튼" id="favorite-lined"/>`;
-  },
   setEvent(RestaurantListItem: RestaurantListItem) {
+    this.handleFavorite(RestaurantListItem);
+  },
+  handleFavorite(RestaurantListItem: RestaurantListItem) {
     const favorite = document.querySelectorAll(`.${CLASS.FAVORITE}`) as NodeListOf<HTMLDivElement>;
 
     favorite.forEach((item: HTMLDivElement) => {
@@ -33,6 +33,9 @@ const FavoriteIcon = {
         }
       });
     });
+  },
+  icon(src: string) {
+    return `<img src="${src}" alt="자주 가는 음식점 버튼" id="favorite-lined"/>`;
   },
 };
 

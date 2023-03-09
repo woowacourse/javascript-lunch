@@ -10,6 +10,9 @@ const ButtonContainer = {
       </div>`;
   },
   setEvent() {
+    this.handleCancelButton();
+  },
+  handleCancelButton() {
     const cancelButton = document.querySelector(`#${ID.CANCEL_BUTTON}`);
 
     cancelButton?.addEventListener('click', (e) => {

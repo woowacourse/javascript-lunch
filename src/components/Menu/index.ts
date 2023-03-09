@@ -12,8 +12,11 @@ const Menu = {
       </section>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
+    this.handleAllRestaurant(RestaurantListItem);
+    this.handleFavoriteRestaurant(RestaurantListItem);
+  },
+  handleAllRestaurant(RestaurantListItem: RestaurantListItem) {
     const allRestaurant = document.querySelector(`#${ID.ALL_RESTAURANT}`) as HTMLDivElement;
-    const favoriteRestaurant = document.querySelector(`#${ID.FAVORITE_RESTAURANT}`) as HTMLDivElement;
 
     allRestaurant?.addEventListener('click', () => {
       FilterSection.show();
@@ -21,6 +24,10 @@ const Menu = {
 
       RestaurantList.update(RestaurantListItem, RestaurantListItem.filterAndSort());
     });
+  },
+  handleFavoriteRestaurant(RestaurantListItem: RestaurantListItem) {
+    const favoriteRestaurant = document.querySelector(`#${ID.FAVORITE_RESTAURANT}`) as HTMLDivElement;
+
     favoriteRestaurant?.addEventListener('click', () => {
       FilterSection.hide();
       this.addClassBy(favoriteRestaurant);

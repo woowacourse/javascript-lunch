@@ -10,6 +10,9 @@ const HeaderButton = {
       </button>`;
   },
   setEvent() {
+    this.handleGnbButton();
+  },
+  handleGnbButton() {
     const gnbButton = document.querySelector(`.${CLASS.GNB_BUTTON}`);
     gnbButton?.addEventListener('click', () => Modal.openModal());
   },
