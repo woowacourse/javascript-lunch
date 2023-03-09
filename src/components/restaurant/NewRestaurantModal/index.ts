@@ -1,6 +1,5 @@
-import Restaurant, { RestaurantDistance } from '../../../domain/Restaurant';
+import Restaurant from '../../../domain/Restaurant';
 import Modal from '../../common/Modal';
-import Select from '../../common/Select';
 import Component from '../../Component';
 import style from './index.css';
 
@@ -71,11 +70,12 @@ class NewRestaurantModal extends Component {
             title="이름"
           ></r-input>
 
-          <r-select
+          <r-restaurant-distance-select
             name="distance"
             required
             title="거리(도보 이동 시간)"
-          ></r-select>
+            default-option-label="선택해주세요"
+          ></r-restaurant-distance-select>
 
           <r-textarea
             name="description"
@@ -96,20 +96,6 @@ class NewRestaurantModal extends Component {
         </div>
       </r-modal>
     `;
-  }
-
-  override render() {
-    super.render();
-
-    this.shadowRoot
-      ?.querySelector<Select<RestaurantDistance | null>>('r-select[name="distance"]')
-      ?.setOptions([
-        { value: null, label: '선택해주세요' },
-        ...Restaurant.DISTANCES.map((distance) => ({
-          value: distance,
-          label: `${distance}분 내`,
-        })),
-      ]);
   }
 }
 
