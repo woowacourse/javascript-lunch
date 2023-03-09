@@ -3,7 +3,7 @@ import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
 import render from './render';
 import { DEFAULT_RESTAURANTS } from './fixtures';
-import { FILTER, SORT } from './utils/constants';
+import { ALERT_MESSAGE, FILTER, SORT } from './utils/constants';
 import { getRestaurants, saveRestaurants } from './utils/localStorage';
 
 class App {
@@ -20,7 +20,6 @@ class App {
   }
 
   init = () => {
-    // render.message('error', 'top', '에러!!!');
     this.initFilterPipes();
     this.initEventHandlers();
   };
@@ -75,7 +74,7 @@ class App {
       return;
     }
 
-    render.message('success', 'bottom', '음식점이 생성되었습니다.');
+    render.message('success', 'bottom', ALERT_MESSAGE.createRestaurant);
     render.closeRegisterRestaurantModal();
     this.updateRestaurantsList();
   };
@@ -124,7 +123,7 @@ class App {
       (restaurant) => restaurant.getName() !== detail.name,
     );
 
-    render.message('success', 'bottom', '음식점이 삭제되었습니다.');
+    render.message('success', 'bottom', ALERT_MESSAGE.removeFavorite);
     this.updateRestaurantsList();
     render.closeRestaurantDetailModal();
   };

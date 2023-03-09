@@ -1,6 +1,7 @@
 import render from '.';
 import { CustomRestaurantListElement } from '../components';
 import Restaurant from '../domain/Restaurant';
+import { ALERT_MESSAGE } from '../utils/constants';
 
 export default {
   render: (restaurants: Restaurant[]) => {
@@ -19,10 +20,10 @@ export default {
 
     if ($targetRestaurant.hasAttribute('favorite')) {
       $targetRestaurant.removeAttribute('favorite');
-      render.message('success', 'bottom', '자주 가는 음식점에서 제거되었습니다.');
+      render.message('success', 'bottom', ALERT_MESSAGE.removeFavorite);
     } else {
       $targetRestaurant.setAttribute('favorite', '');
-      render.message('success', $modal ? 'top' : 'bottom', '자주 가는 음식점에 추가되었습니다.');
+      render.message('success', $modal ? 'top' : 'bottom', ALERT_MESSAGE.addFavorite);
     }
   },
 

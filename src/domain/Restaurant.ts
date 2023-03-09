@@ -79,9 +79,7 @@ class Restaurant {
   }
 
   private validateCategory(category: string) {
-    if (!(Restaurant.CATEGORIES as readonly string[]).includes(category)) {
-      throw new Error(`카테고리는 ${Restaurant.CATEGORIES.join(', ')} 중 하나여야 합니다.`);
-    }
+    Validation.validateRestaurantCategory(category);
   }
 
   private validateName(name: string, existRestaurantsName?: string[]) {
@@ -90,11 +88,7 @@ class Restaurant {
   }
 
   private validateDistanceByMinutes(distanceByMinutes: number) {
-    if (!(Restaurant.DISTANCE_BY_MINUTES as readonly number[]).includes(distanceByMinutes)) {
-      throw new Error(
-        `거리는 ${Restaurant.DISTANCE_BY_MINUTES.join('분, ')}분 중 하나여야 합니다.`,
-      );
-    }
+    Validation.validateRestaurantDistanceByMinutes(distanceByMinutes);
   }
 }
 

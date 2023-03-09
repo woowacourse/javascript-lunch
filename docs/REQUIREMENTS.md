@@ -76,6 +76,7 @@
 - [x] refactor: 초기 화면 랜더링 함수 분리
 - [x] refactor: 로컬스토리지 관련 함수 분리
 - [x] refactor: css 분리
+- [x] refactor: 상수화
 
 ### 기능 목록
 
