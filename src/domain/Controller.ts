@@ -93,7 +93,7 @@ class Controller {
   toggleFavorite(index: number) {
     this.state.restaurants[index].isFavorite =
       !this.state.restaurants[index].isFavorite;
-    this.setLocalStorage();
+    this.setFavoriteRestaurantList();
   }
 
   setSelectedRestaurantIndex(index: number) {
