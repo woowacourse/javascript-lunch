@@ -1,5 +1,5 @@
 import './styles/index.css';
 import './components';
-import LunchRecommendation from './domain/controller/LunchRecommendation.ts';
+import App from './domain/App.ts';
 
-new LunchRecommendation().play();
+new App().play();

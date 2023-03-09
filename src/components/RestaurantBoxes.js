@@ -1,3 +1,6 @@
+import RestaurantList from '../domain/RestaurantList.ts';
+import { $ } from '../utils';
+
 class RestaurantBoxes extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
@@ -13,6 +16,20 @@ class RestaurantBoxes extends HTMLElement {
 
     this.shadowRoot.innerHTML = '<ul id="restaurantList"></ul>';
     this.shadowRoot.append(componentStyle);
+  }
+
+  drawRestaurants() {
+    const categoryValue = $('#categoryFilter').getSelectValue();
+    const sortingValue = $('#sortingFilter').getSelectValue();
+
+    const englishSortingValue = sortingValue === '이름순' ? 'name' : 'distance';
+
+    const filteredList = RestaurantList.getList(
+      categoryValue,
+      englishSortingValue
+    );
+
+    this.restaurantListRender(filteredList);
   }
 
   getRestaurant({ category, name, distance, description }) {
