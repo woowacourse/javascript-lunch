@@ -1,3 +1,4 @@
+import { favoriteIconFilled, favoriteIconLined } from "../assets";
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
 import { findImage } from "../utils";
@@ -10,13 +11,19 @@ class RestaurantDetail extends HTMLElement {
   }
   render(restaurant: RestaurantType) {
     this.innerHTML = `
-      <div class="detail-container">
-        <div class="restaurant__category">
-          <img src="${findImage(restaurant.category)}" alt="${
+      <div>
+      <div class="icon-container">
+      
+      <div class="restaurant__category">
+        <img src="${findImage(restaurant.category)}" alt="${
       restaurant.category
     }" class="category-icon">
-        </div>
-        <div id="restaurantInfo" class="restaurant__detail__info">
+  </div>
+  <img id="favorite" src="${
+    restaurant.isFavorite ? favoriteIconFilled : favoriteIconLined
+  }" alt="favorite">
+      </div>
+        <div id="restaurantInfo" class="info-container">
           <h3 class="restaurant__detail__name text-subtitle">${
             restaurant.name
           }</h3>
@@ -26,7 +33,9 @@ class RestaurantDetail extends HTMLElement {
           <p class="restaurant__detail__description text-body">${
             restaurant.description
           }</p>
-          <a href="${restaurant.link}" class="text-body">${restaurant.link}</a>
+          <a href="${restaurant.link}" class="restaurant__link text-body">${
+      restaurant.link
+    }</a>
         </div>
         <div class="button-container">
           <button id="cancelButton" type="button" class="button button--secondary text-caption">삭제하기</button>
