@@ -1,3 +1,6 @@
+import type { Restaurant } from "../../types/restaurant";
+import { DetailModal } from "./detail";
+
 import { RestaurantAddForm } from "./form";
 
 export class Modal extends HTMLDivElement {
@@ -14,8 +17,9 @@ export class Modal extends HTMLDivElement {
     this.innerHTML = `
       <div class="modal-backdrop"></div>
       <div class="modal-container">
-        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <h2 class="modal-title text-title" hidden>새로운 음식점</h2>
         <form is="restaurant-add-form" hidden></form>
+        <div is="modal-detail" class="modal-detail" hidden></div>
       </div>
     `;
   }
@@ -33,11 +37,21 @@ export class Modal extends HTMLDivElement {
   openFormModal() {
     this.classList.add("modal--open");
     this.querySelector("form")?.removeAttribute("hidden");
+    this.querySelector("h2")?.removeAttribute("hidden");
+  }
+
+  openDetailModal(restaurantInfo: Restaurant) {
+    this.classList.add("modal--open");
+    this.querySelector(".modal-detail")?.removeAttribute("hidden");
+
+    this.querySelector<DetailModal>(".modal-detail")?.render(restaurantInfo);
   }
 
   closeModal() {
     this.classList.remove("modal--open");
     this.querySelector("form")?.setAttribute("hidden", "true");
+    this.querySelector("h2")?.setAttribute("hidden", "true");
+    this.querySelector(".modal-detail")?.setAttribute("hidden", "true");
     this.querySelector<RestaurantAddForm>("form")?.resetFormValues();
   }
 }

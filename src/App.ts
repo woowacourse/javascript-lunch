@@ -16,6 +16,7 @@ import {
   RestaurantAddForm,
 } from "./components/modal/form";
 import { createInputBox } from "./components/modal/form/InputBox";
+import { createModalDetailContent } from "./components/modal/detail";
 
 class App {
   #restaurants;
@@ -47,6 +48,7 @@ class App {
     createHeader();
     createRestaurantCard();
     createRestaurantCardList();
+    createModalDetailContent();
 
     this.renderContainer();
     this.renderRestaurantList();
@@ -68,7 +70,10 @@ class App {
 
     document
       .querySelector<RestaurantCardList>(".restaurant-list")
-      ?.bindEvent(this.onClickRestaurantLikeButton.bind(this));
+      ?.bindEvent(
+        this.onClickRestaurantLikeButton.bind(this),
+        this.onClickRestaurantCard.bind(this)
+      );
 
     document
       .querySelector<HTMLElement>(".like-filter-container")
@@ -122,6 +127,13 @@ class App {
 
   onClickLikeFilteringOption() {
     console.log(document.querySelector(".like-filter-container"));
+  }
+
+  onClickRestaurantCard(restaurantName: string) {
+    const restaurantInfo =
+      this.#restaurants.getRestaurantByName(restaurantName);
+
+    document.querySelector<Modal>(".modal")?.openDetailModal(restaurantInfo);
   }
 
   onClickRestaurantLikeButton(restaurantName: string) {

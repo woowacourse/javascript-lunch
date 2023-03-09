@@ -30,6 +30,12 @@ class Restaurants {
     return sortedList;
   }
 
+  getRestaurantByName(restaurantName: string) {
+    return this.#list.filter(
+      (restaurant) => restaurant.name === restaurantName
+    )[0];
+  }
+
   add(restaurant: Restaurant) {
     this.#list = [...this.#list, restaurant];
   }

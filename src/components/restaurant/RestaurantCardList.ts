@@ -17,20 +17,29 @@ export class RestaurantCardList extends HTMLUListElement {
               name="${restaurant.name}" 
               distance="${restaurant.distance}" 
               description="${restaurant.description}"
-              like="${restaurant.like}"
+              like="${restaurant.like}" 
+              like="${restaurant.link}" 
             ></li>`
         )
         .join("")}
     `;
   }
 
-  bindEvent(handleClickLikeIcon: (restaurantName: string) => void) {
+  bindEvent(
+    handleClickLikeIcon: (restaurantName: string) => void,
+    handleClickCard: (restaurantName: string) => void
+  ) {
     this.addEventListener("click", (event: MouseEvent) => {
+      const restaurantName = (event.target as HTMLElement)
+        .closest("li")
+        ?.getAttribute("name") as string;
+
       if ((event.target as HTMLElement).className === "like-icon") {
-        handleClickLikeIcon(
-          (event.target as HTMLElement).getAttribute("name") as string
-        );
+        handleClickLikeIcon(restaurantName);
+        return;
       }
+
+      handleClickCard(restaurantName);
     });
   }
 }

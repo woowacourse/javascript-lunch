@@ -157,6 +157,8 @@ body {
   border-bottom: 1px solid #e9eaed;
 
   position: relative;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -334,4 +336,21 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 세부정보 모달 *****************************************/
+
+.restaurant-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-container {
+  postion: relative;
+}
+
+.detail-text {
+  overflow: scroll;
+  max-height: 50vh;
 }
