@@ -1,6 +1,5 @@
 import { selectRestaurants } from "../../domain/restaurant";
 import IRestaurant from "../../type/IRestaurant";
-import RestaurantItem from "../RestaurantItem";
 
 class RestaurantList extends HTMLElement {
   render() {
@@ -15,7 +14,10 @@ class RestaurantList extends HTMLElement {
 
   restaurantItems(selectedRestaurants: IRestaurant[]) {
     return selectedRestaurants
-      .map((restaurant) => RestaurantItem(restaurant))
+      .map(
+        (restaurant) =>
+          `<restaurant-item id="${restaurant.id}"></restaurant-item>`
+      )
       .join("");
   }
 }
