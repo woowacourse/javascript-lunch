@@ -2,9 +2,9 @@ const RestaurantAddForm = {
   getTemplate() {
     return `
       <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form class="add-restaurant-form">
+      <form id="add-restaurant-form">
         <!-- 카테고리 -->
-        <div class="form-category-container form-item form-item--required">
+        <div id="form-category-container" class="form-category-container form-item form-item--required">
           <label for="category text-caption">카테고리</label>
         </div>
 
@@ -15,7 +15,7 @@ const RestaurantAddForm = {
         </div>
 
         <!-- 거리 -->
-        <div class="form-distance-container form-item form-item--required">
+        <div id="form-distance-container" class="form-distance-container form-item form-item--required">
           <label for="distance text-caption">거리(도보 이동 시간) </label>
         </div>
 
@@ -39,7 +39,8 @@ const RestaurantAddForm = {
         <div class="button-container">
           <button
             type="button"
-            class="modal-close-button button button--secondary text-caption"
+            id="form-modal-close-button"
+            class="button button--secondary text-caption"
           >
             취소하기
           </button>

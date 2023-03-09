@@ -28,37 +28,37 @@ export default class App {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
 
-    Modal.render($('.modal'));
+    Modal.render($('#modal'));
     Selectbox.render(
-      $('.restaurant-filter-container'),
+      $('#restaurant-filter-container'),
       'afterbegin',
       FILTER_CATEGORY_SELECTBOX_CONFIG
     );
-    Selectbox.render($('.form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
-    Selectbox.render($('.form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
+    Selectbox.render($('#form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
+    Selectbox.render($('#form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
     this.renderRestaurantListByFilterOptions();
 
     this.bindEvents();
   }
 
   bindEvents() {
-    $('.modal').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
-    $('.restaurant-filter-container').addEventListener(
+    $('#modal').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
+    $('#restaurant-filter-container').addEventListener(
       'change',
       this.renderRestaurantListByFilterOptions.bind(this)
     );
-    $('.modal-open-button').addEventListener(
+    $('#modal-open-button').addEventListener(
       'click',
       this.onClickRestaurantFormModalOpenButton.bind(this)
     );
-    $('.modal-close-button').addEventListener('click', this.toggleModal);
+    $('#form-modal-close-button').addEventListener('click', this.toggleModal);
 
-    $('.restaurant-list-container').addEventListener(
+    $('#restaurant-list-container').addEventListener(
       'click',
       this.onClickRestaurantList.bind(this)
     );
 
-    $('.restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
+    $('#restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -97,8 +97,8 @@ export default class App {
 
     this.toggleModal();
 
-    $('.tab-all').checked = true;
-    $('.restaurant-filter-container').classList.remove('hide');
+    $('#tab-all').checked = true;
+    $('#restaurant-filter-container').classList.remove('hide');
     this.renderRestaurantListByFilterOptions();
   }
 
@@ -110,22 +110,22 @@ export default class App {
     const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
     const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
 
-    RestaurantList.render($('.restaurant-list-container'), sortedRestaurants);
+    RestaurantList.render($('#restaurant-list-container'), sortedRestaurants);
   }
 
   onClickRestaurantFormModalOpenButton() {
-    Modal.render($('.modal'));
-    Selectbox.render($('.form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
-    Selectbox.render($('.form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
-    $('.modal-close-button').addEventListener('click', this.toggleModal);
+    Modal.render($('#modal'));
+    Selectbox.render($('#form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
+    Selectbox.render($('#form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
+    $('#form-modal-close-button').addEventListener('click', this.toggleModal);
 
-    $('.add-restaurant-form').reset();
+    $('#add-restaurant-form').reset();
 
     this.toggleModal();
   }
 
   toggleModal() {
-    $('.modal').classList.toggle('modal--open');
+    $('#modal').classList.toggle('hide');
   }
 
   onClickRestaurantList(e) {
@@ -137,13 +137,13 @@ export default class App {
       const restaurants = this.#restaurants.getRestaurants();
       store.setLocalStorage(RESTAURANTS_KEY, restaurants);
 
-      if ($('.tab-all').checked) {
+      if ($('#tab-all').checked) {
         this.renderRestaurantListByFilterOptions();
         return;
       }
 
       const favoriteRestaurants = getFavoriteRestaurants(restaurants);
-      RestaurantList.render($('.restaurant-list-container'), favoriteRestaurants);
+      RestaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
 
       return;
     }
@@ -151,7 +151,7 @@ export default class App {
     const restaurantId = e.target.closest('li').dataset.listid;
     const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
 
-    Modal.render($('.modal'), targetRestaurant);
+    Modal.render($('#modal'), targetRestaurant);
     this.toggleModal();
   }
 
@@ -160,13 +160,13 @@ export default class App {
       const restaurants = this.#restaurants.getRestaurants();
       const favoriteRestaurants = getFavoriteRestaurants(restaurants);
 
-      RestaurantList.render($('.restaurant-list-container'), favoriteRestaurants);
-      $('.restaurant-filter-container').classList.add('hide');
+      RestaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+      $('#restaurant-filter-container').classList.add('hide');
 
       return;
     }
 
     this.renderRestaurantListByFilterOptions();
-    $('.restaurant-filter-container').classList.remove('hide');
+    $('#restaurant-filter-container').classList.remove('hide');
   }
 }
