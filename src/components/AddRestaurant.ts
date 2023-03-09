@@ -86,6 +86,12 @@ class AddRestaurant extends HTMLElement {
       event.preventDefault();
 
       const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
+      const tab = document.getElementById("all");
+      if (!(tab instanceof HTMLInputElement)) {
+        return;
+      }
+      tab.checked = true;
+
       this.controller.addRestaurant(newRestaurant);
       this.controller.filterRestaurants(CategorySelectBox.getOption());
       this.controller.sortRestaurants(SortingSelectBox.getOption());

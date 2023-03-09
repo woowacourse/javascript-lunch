@@ -51,7 +51,6 @@ class RestaurantList extends HTMLElement {
 
     favorites.forEach((favorite: any) => {
       favorite.addEventListener("click", () => {
-        console.log(1);
         const input = document.querySelector('input[name="tab"]:checked');
         if (!(input instanceof HTMLInputElement)) {
           return;
