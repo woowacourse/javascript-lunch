@@ -3,8 +3,10 @@ import { Restaurant } from '../type/common';
 class Restaurants {
   #restaurants: Restaurant[] = [];
 
+  #id = 0;
+
   addRestaurant(restaurant: Restaurant) {
-    this.#restaurants.push(restaurant);
+    this.#restaurants.push({ id: this.#id++, ...restaurant });
   }
 
   getRestaurants() {

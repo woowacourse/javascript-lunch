@@ -1,7 +1,7 @@
 import Restaurants from '../domain/Restaurants';
 
 type Restaurant = {
-  id: number;
+  id?: number;
   category: RestaurantCategoryType;
   name: string;
   distance: string;
