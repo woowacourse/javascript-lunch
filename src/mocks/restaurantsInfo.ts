@@ -9,6 +9,7 @@ const mockData: RestaurantInfo[] = [
     distance: 10,
     description: '2005년 장모님에게 전수받은 설렁탕 조리법을 개선하여 시작했다는 외고...',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 1,
@@ -17,6 +18,7 @@ const mockData: RestaurantInfo[] = [
     distance: 10,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 2,
@@ -25,6 +27,7 @@ const mockData: RestaurantInfo[] = [
     distance: 10,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 3,
@@ -33,6 +36,7 @@ const mockData: RestaurantInfo[] = [
     distance: 10,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 4,
@@ -41,6 +45,7 @@ const mockData: RestaurantInfo[] = [
     distance: 10,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 5,
@@ -49,6 +54,7 @@ const mockData: RestaurantInfo[] = [
     distance: 20,
     description: '2005년 장모님에게 전수받은 설렁탕 조리법을 개선하여 시작했다는 외고...',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 6,
@@ -57,6 +63,7 @@ const mockData: RestaurantInfo[] = [
     distance: 20,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 6,
@@ -65,6 +72,7 @@ const mockData: RestaurantInfo[] = [
     distance: 20,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 7,
@@ -73,6 +81,7 @@ const mockData: RestaurantInfo[] = [
     distance: 30,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
   {
     id: 8,
@@ -81,6 +90,7 @@ const mockData: RestaurantInfo[] = [
     distance: 10,
     description: 'desc',
     link: 'www.www',
+    favorite: false,
   },
 ];
 

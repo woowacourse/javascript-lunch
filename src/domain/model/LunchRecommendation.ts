@@ -14,6 +14,7 @@ export interface RestaurantInfo {
   distance: number;
   description?: string;
   link?: string;
+  favorite: boolean;
 }
 
 export interface IRestaurant {
