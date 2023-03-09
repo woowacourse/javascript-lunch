@@ -15,8 +15,5 @@ export const SORT_OPTIONS = Object.freeze({
   NAME: '이름순',
 });
 
-export const MAX_NAME_LENGTH = 20;
-export const MAX_DESCRIPTION_LENGTH = 50;
-
 export type Category = Values<typeof CATEGORY>;
 export type SortOption = Values<typeof SORT_OPTIONS>;
