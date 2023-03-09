@@ -9,8 +9,8 @@ type TwinButtonsType = {
     rightButtonName: string;
   };
   parentEvent: {
-    onLeftButtonClicked: () => void;
-    onRightButtonClicked: () => void;
+    onLeftButtonClicked?: () => void;
+    onRightButtonClicked?: () => void;
   };
 };
 
@@ -50,11 +50,15 @@ class TwinButtons {
 
   #addListeners() {
     $(`#${this.#info.leftButtonId}`).addEventListener('click', () => {
-      this.#parentEvent.onLeftButtonClicked();
+      if (this.#parentEvent.onLeftButtonClicked !== undefined) {
+        this.#parentEvent.onLeftButtonClicked();
+      }
     });
 
     $(`#${this.#info.rightButtonId}`).addEventListener('click', () => {
-      this.#parentEvent.onRightButtonClicked();
+      if (this.#parentEvent.onRightButtonClicked !== undefined) {
+        this.#parentEvent.onRightButtonClicked();
+      }
     });
   }
 }
