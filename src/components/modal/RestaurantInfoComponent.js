@@ -86,6 +86,9 @@ class RestaurantInfoComponent extends CustomElement {
         this.state.restaurant.description;
       this.shadowRoot.querySelector("#link").innerHTML =
         this.state.restaurant.link;
+      this.shadowRoot
+        .querySelector("#link")
+        .setAttribute("href", this.state.restaurant.link);
     }
   }
 
@@ -220,7 +223,9 @@ class RestaurantInfoComponent extends CustomElement {
                 <p id="description" class="text-body">${
                   this.state.restaurant.description
                 }</p>
-                <a id="link" class="text-body">${this.state.restaurant.link}</a>
+                <a href="${
+                  this.state.restaurant.link
+                }" id="link" class="text-body">${this.state.restaurant.link}</a>
                 <div class="button-container">
                     <button type="button" class="button button--secondary text-caption">삭제하기</button>
                     <button type="button" class="button button--primary text-caption">닫기</button>
