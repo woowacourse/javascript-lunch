@@ -4,7 +4,6 @@ import type { CategoryOption, SortOption } from "../types/option";
 import type { Restaurant } from "../types/restaurant";
 
 import restaurantState from "../states/restaurants";
-import RestaurantCard from "./RestaurantCard";
 
 type CardListAttribute = CategoryOption | SortOption | string | null;
 
@@ -41,14 +40,9 @@ class RestaurantCardList extends HTMLUListElement {
     this.innerHTML = `${restaurants
       .map(
         (restaurant) =>
-          `<li is="restaurant-card" class="restaurant" data-restaurant-name=${restaurant.name}></li>`
+          `<li is="restaurant-card" class="restaurant" name=${restaurant.name}></li>`
       )
       .join("")}`;
-
-    this.childNodes.forEach((restaurantCard, key) => {
-      if (restaurantCard instanceof RestaurantCard)
-        restaurantCard.render(restaurants[key]);
-    });
   }
 
   attributeChangedCallback(

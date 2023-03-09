@@ -18,6 +18,10 @@ class Restaurants {
   add(restaurant: Restaurant) {
     this.#list = [...this.#list, restaurant];
   }
+
+  getTargetRestaurant(targetName: string) {
+    return this.#list.find((restaurant) => restaurant.name === targetName)
+  }
 }
 
 export default Restaurants;

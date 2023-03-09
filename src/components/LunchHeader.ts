@@ -1,6 +1,6 @@
 import "./LunchHeader.style.css";
 
-import Modal from "./modal/ModalRoot";
+import ModalRoot from "./modal/ModalRoot";
 import addButtonImage from "../images/add-button.png";
 
 class LunchHeader extends HTMLElement {
@@ -30,7 +30,7 @@ class LunchHeader extends HTMLElement {
   }
 
   onClickAddButton() {
-    const modalRoot = document.querySelector<Modal>("modal-root");
+    const modalRoot = document.querySelector<ModalRoot>("modal-root");
 
     modalRoot?.open("restaurant-add-modal");
   }

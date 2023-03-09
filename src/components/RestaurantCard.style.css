@@ -1,3 +1,12 @@
+.restaurant-detail-button {
+  padding: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
 .restaurant__category {
   display: flex;
   justify-content: center;
