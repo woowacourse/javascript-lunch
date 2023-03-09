@@ -5,6 +5,7 @@ import Header from './components/Header';
 import RestaurantFilterContainer from './components/RestaurantFilterContainer';
 import RestaurantItems from './components/RestaurantItems';
 import UpperTab from './components/UpperTab';
+import RestaurantDetailModal from './components/RestaurantDetailModal';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
@@ -29,13 +30,10 @@ export default class App {
     new UpperTab(this.onClickNavTab.bind(this));
     new RestaurantFilterContainer(this.setState.bind(this));
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
-    new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this));
-  }
-
-  renderLikedItems() {
-    const likedRestaurants = this.restaurants.getLikedRestaurants();
-
-    new RestaurantItems(likedRestaurants);
+    new CreateRestaurantModal(
+      this.onSubmitAddRestaurantForm.bind(this),
+      this.toggleAddRestaurantModal
+    );
   }
 
   onClickAddRestaurantButton() {
@@ -61,6 +59,12 @@ export default class App {
     this.setState({ navTab: clickedElement.innerText });
   }
 
+  renderLikedItems() {
+    const likedRestaurants = this.restaurants.getLikedRestaurants();
+
+    new RestaurantItems(likedRestaurants, this.onClickRestaurant.bind(this));
+  }
+
   setState(obj) {
     this.state = { ...this.state, ...obj };
     const key = Object.keys(obj)[0];
@@ -80,11 +84,37 @@ export default class App {
       sortOption
     );
 
-    new RestaurantItems(
-      sortedRestaurants,
-      this.restaurants.updateRestaurant.bind(this.restaurants),
-      this.restaurants.deleteRestaurant.bind(this.restaurants)
+    new RestaurantItems(sortedRestaurants, this.onClickRestaurant.bind(this));
+  }
+
+  onClickRestaurant(e) {
+    const restaurantId = e.target.closest('li').id;
+    const restaurants = this.restaurants.getRestaurants();
+    const restaurantIndex = restaurants.findIndex((restaurant) => {
+      return restaurant.id === restaurantId;
+    });
+
+    if ([...e.target.classList].includes('favorite-icon')) {
+      return this.onClickStarIcon(restaurants, restaurantId, restaurantIndex);
+    }
+
+    new RestaurantDetailModal(
+      restaurants[restaurantIndex],
+      this.onClickDeleteButton.bind(this),
+      this.toggleRestaurantDetailModal
     );
+  }
+
+  onClickStarIcon(restaurants, restaurantId, restaurantIndex) {
+    const isLiked = !restaurants[restaurantIndex].liked;
+    restaurants[restaurantIndex].liked = isLiked;
+
+    const likeStar = $(`#${restaurantId} .like-star`);
+    isLiked ? likeStar.classList.remove('hidden') : likeStar.classList.add('hidden');
+
+    const updatedRestaurants = this.restaurants.updateRestaurant(restaurantId, isLiked);
+
+    store.setLocalStorage(updatedRestaurants);
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -125,7 +155,20 @@ export default class App {
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
   }
 
+  onClickDeleteButton(restaurantId) {
+    const restaurants = this.restaurants.deleteRestaurant(restaurantId);
+
+    $(`#${restaurantId}`).remove();
+    this.toggleRestaurantDetailModal();
+
+    store.setLocalStorage(restaurants);
+  }
+
   toggleAddRestaurantModal() {
     $('.add-restaurant-modal').classList.toggle('modal--open');
+  }
+
+  toggleRestaurantDetailModal() {
+    $('.restaurant-detail-modal').classList.toggle('modal--open');
   }
 }
