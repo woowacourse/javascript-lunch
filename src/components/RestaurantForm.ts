@@ -41,7 +41,7 @@ export default function RestaurantForm(
       '#description'
     ) as HTMLTextAreaElement;
     const link = $form.querySelector('#link') as HTMLInputElement;
-    console.log(category, name, distance, description, link);
+
     return {
       id: Date.now(),
       category: category.value as CategoryOptions,

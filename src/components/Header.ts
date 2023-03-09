@@ -12,7 +12,7 @@ export default class Header {
   ) {
     this.$header.className = 'gnb';
     this.render();
-    console.log(this.$header);
+
     this.$header.addEventListener('click', (event) => {
       const { target } = event;
 
