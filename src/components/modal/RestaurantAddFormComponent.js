@@ -1,6 +1,6 @@
 import CustomElement from "../../abstracts/CustomElement";
 import dispatcher from "../../domain/Dispatcher";
-import { RESTAURANT_ACTION } from "../../abstracts/constants";
+import { CUSTOM_ELEMENT, RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class RestaurantAddFormComponent extends CustomElement {
   handleEvent() {
@@ -227,6 +227,9 @@ class RestaurantAddFormComponent extends CustomElement {
   }
 }
 
-customElements.define("restaurant-add-form", RestaurantAddFormComponent);
+customElements.define(
+  CUSTOM_ELEMENT.RESTAURANT_ADD_FORM,
+  RestaurantAddFormComponent
+);
 
 export default RestaurantAddFormComponent;

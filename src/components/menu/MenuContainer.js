@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENT } from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
 import AllMenuComponent from "./AllMenuComponent";
 import FavoriteMenuComponent from "./FavoriteMenuComponent";
@@ -37,5 +38,5 @@ class MenuContainer extends CustomElement {
   }
 }
 
-customElements.define("menu-container", MenuContainer);
+customElements.define(CUSTOM_ELEMENT.MENU_CONTAINER, MenuContainer);
 export default MenuContainer;

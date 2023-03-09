@@ -2,6 +2,7 @@ import CustomElement from "../../abstracts/CustomElement";
 import ModalInstance from "../../domain/store/ModalStore";
 import dispatcher from "../../domain/Dispatcher";
 import RestaurantInfoComponent from "./RestaurantInfoComponent";
+import { CUSTOM_ELEMENT } from "../../abstracts/constants";
 
 class ModalComponent extends CustomElement {
   connectedCallback() {
@@ -84,6 +85,6 @@ class ModalComponent extends CustomElement {
   }
 }
 
-customElements.define("modal-element", ModalComponent);
+customElements.define(CUSTOM_ELEMENT.MODAL_ELEMENT, ModalComponent);
 
 export default ModalComponent;

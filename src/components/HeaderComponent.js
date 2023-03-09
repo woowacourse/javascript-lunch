@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENT } from "../abstracts/constants";
 import CustomElement from "../abstracts/CustomElement";
 import dispatcher from "../domain/Dispatcher";
 
@@ -73,6 +74,6 @@ class HeaderComponent extends CustomElement {
   }
 }
 
-customElements.define("header-element", HeaderComponent);
+customElements.define(CUSTOM_ELEMENT.HEADER_ELEMENT, HeaderComponent);
 
 export default HeaderComponent;

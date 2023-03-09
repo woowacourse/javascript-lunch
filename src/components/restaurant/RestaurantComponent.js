@@ -1,4 +1,8 @@
-import { CATEGORY_IMG, FAVORITE_IMG } from "../../abstracts/constants";
+import {
+  CATEGORY_IMG,
+  CUSTOM_ELEMENT,
+  FAVORITE_IMG,
+} from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
 import dispatcher from "../../domain/Dispatcher";
 
@@ -134,6 +138,6 @@ class RestaurantComponent extends CustomElement {
   }
 }
 
-customElements.define("restaurant-element", RestaurantComponent);
+customElements.define(CUSTOM_ELEMENT.RESTAURANT_ELEMENT, RestaurantComponent);
 
 export default RestaurantComponent;

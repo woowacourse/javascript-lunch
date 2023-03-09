@@ -2,6 +2,7 @@ import CustomElement from "../../abstracts/CustomElement";
 import FavoriteRestaurantListComponent from "./FavoriteRestaurantListComponent";
 import RestaurantListComponent from "./RestaurantListComponent";
 import MenuInstance from "../../domain/store/MenuStore";
+import { CUSTOM_ELEMENT } from "../../abstracts/constants";
 
 class RestaurantsContainer extends CustomElement {
   connectedCallback() {
@@ -49,5 +50,8 @@ class RestaurantsContainer extends CustomElement {
   }
 }
 
-customElements.define("restaurants-container", RestaurantsContainer);
+customElements.define(
+  CUSTOM_ELEMENT.RESTAURANT_CONTAINER,
+  RestaurantsContainer
+);
 export default RestaurantsContainer;

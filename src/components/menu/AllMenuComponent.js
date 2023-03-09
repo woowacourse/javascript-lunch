@@ -1,6 +1,7 @@
 import MenuComponent from "./MenuComponent";
 import dispatcher from "../../domain/Dispatcher";
 import MenuInstance from "../../domain/store/MenuStore";
+import { CUSTOM_ELEMENT } from "../../abstracts/constants";
 
 class AllMenuComponent extends MenuComponent {
   menuTitle = "모든 음식점";
@@ -30,5 +31,5 @@ class AllMenuComponent extends MenuComponent {
   }
 }
 
-customElements.define("all-restaurants-menu", AllMenuComponent);
+customElements.define(CUSTOM_ELEMENT.ALL_RESTAURANTS_MENU, AllMenuComponent);
 export default AllMenuComponent;

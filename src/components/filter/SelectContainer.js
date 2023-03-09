@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENT } from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
 import CategoryFilterComponent from "./CategoryFilterComponent";
 import SortFilterComponent from "./SortFilterComponent";
@@ -29,6 +30,6 @@ class SelectContainer extends CustomElement {
   }
 }
 
-customElements.define("select-container", SelectContainer);
+customElements.define(CUSTOM_ELEMENT.SELECT_CONTAINER, SelectContainer);
 
 export default SelectContainer;

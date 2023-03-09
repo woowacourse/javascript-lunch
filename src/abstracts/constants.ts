@@ -42,3 +42,20 @@ export const SORT_METHOD = {
   NAME: "name",
   DISTANCE: "distance",
 } as const;
+
+export const CUSTOM_ELEMENT = {
+  CATEGORY_FILTER_ELEMENT: "category-filter-element",
+  SELECT_CONTAINER: "select-container",
+  SORT_FILTER_ELEMENT: "sort-filter-element",
+  ALL_RESTAURANTS_MENU: "all-restaurants-menu",
+  FAVORITE_RESTAURANTS_MENU: "favorite-restaurants-menu",
+  MENU_CONTAINER: "menu-container",
+  MODAL_ELEMENT: "modal-element",
+  RESTAURANT_ADD_FORM: "restaurant-add-form",
+  RESTAURANT_INFO: "restaurant-info",
+  FAVORITE_RESTAURANT_LIST: "favorite-restaurant-list",
+  RESTAURANT_ELEMENT: "restaurant-element",
+  RESTAURANT_LIST: "restaurant-list",
+  RESTAURANT_CONTAINER: "restaurant-container",
+  HEADER_ELEMENT: "header-element",
+} as const;

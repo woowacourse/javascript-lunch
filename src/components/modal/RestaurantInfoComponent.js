@@ -1,4 +1,8 @@
-import { CATEGORY_IMG, FAVORITE_IMG } from "../../abstracts/constants";
+import {
+  CATEGORY_IMG,
+  CUSTOM_ELEMENT,
+  FAVORITE_IMG,
+} from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
 import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import dispatcher from "../../domain/Dispatcher";
@@ -213,5 +217,5 @@ class RestaurantInfoComponent extends CustomElement {
   }
 }
 
-customElements.define("restaurant-info", RestaurantInfoComponent);
+customElements.define(CUSTOM_ELEMENT.RESTAURANT_INFO, RestaurantInfoComponent);
 export default RestaurantInfoComponent;
