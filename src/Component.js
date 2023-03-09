@@ -17,11 +17,12 @@ export default class Component {
     return this;
   }
 
-  template() {
-    return '';
+  template(restaurantData) {
+    return restaurantData;
   }
 
-  render() {
-    this.template() !== '' && (this.$target.innerHTML = this.template());
+  render(restaurantData = '') {
+    this.template(restaurantData) !== '' &&
+      (this.$target.innerHTML = this.template(restaurantData));
   }
 }

@@ -11,7 +11,6 @@ class RestaurantManager extends Observable {
     super();
     this.filteredRestaurantList = [];
     this.isFiltered = false;
-
     const restaurantData = localStorage.getItem('restaurantList');
 
     if (restaurantData === null || restaurantData.length === 0) {
@@ -22,23 +21,15 @@ class RestaurantManager extends Observable {
     }
   }
 
-  getIsFiltered() {
-    return this.isFiltered;
-  }
-
   getRestaurantList() {
     return this.restaurantList;
-  }
-
-  getFilterRestaurantList() {
-    return this.filteredRestaurantList;
   }
 
   addRestaurant(restaurant: Restaurant) {
     this.restaurantList.push(restaurant);
     localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
 
-    this.notify();
+    this.notify(this.restaurantList);
   }
 
   checkRestaurantListFiltered(standard: SortBy) {
@@ -62,19 +53,19 @@ class RestaurantManager extends Observable {
       );
     }
 
-    this.notify();
+    this.notify(restaurantList);
   }
 
   filterRestaurantList(category: Category) {
     if (category === '전체') {
       this.isFiltered = false;
-      return this.notify();
+      return this.notify(this.restaurantList);
     }
 
     this.isFiltered = true;
     this.filteredRestaurantList = this.restaurantList.filter((data) => data.category === category);
 
-    this.notify();
+    this.notify(this.filteredRestaurantList);
   }
 }
 
