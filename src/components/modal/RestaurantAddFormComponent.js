@@ -28,7 +28,7 @@ class RestaurantAddFormComponent extends CustomElement {
     const distance = document.querySelector("#distance").value;
     const description = document.querySelector("#description").value;
     const link = document.querySelector("#link").value;
-    const favorite = "0";
+    const favorite = 0;
 
     const restaurant = {
       category,

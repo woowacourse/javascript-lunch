@@ -4,6 +4,7 @@ import {
   CustomElement,
   Action,
   SortMethod,
+  Index,
 } from "../abstracts/types";
 import { RESTAURANT_ACTION } from "../abstracts/constants";
 import RestaurantsInstance from "./RestaurantsStore";
@@ -36,6 +37,9 @@ class Store {
     [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
       RestaurantsInstance.sortMethod = action.data as SortMethod;
       this.publish();
+    },
+    ["updateFavorite"]: (action: Action) => {
+      RestaurantsInstance.updateFavorite(action.data as Index);
     },
   };
 }

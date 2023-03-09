@@ -1,9 +1,17 @@
-import { CATEGORY_IMG } from "../../abstracts/constants";
+import {
+  CATEGORY_IMG,
+  FAVORITE_IMG,
+  RESTAURANT_ACTION,
+} from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
+import dispatcher from "../../domain/Dispatcher";
 
 class RestaurantComponent extends CustomElement {
   setEvent() {
-    document.querySelector(".star").addEventListener("click", (e) => {
+    const listKey = this.getAttribute("listKey");
+    const findKey = document.getElementById(listKey);
+
+    findKey.querySelector(".star").addEventListener("click", (e) => {
       this.changeFavorite(e);
     });
   }
@@ -12,13 +20,13 @@ class RestaurantComponent extends CustomElement {
     const favorite = this.getAttribute("favorite") === "0" ? "1" : "0";
     this.setAttribute("favorite", favorite);
 
-    const a = this.getAttribute("favorite");
-    console.log(a);
+    const listKey = this.getAttribute("listKey");
 
-    document.querySelector(".star").src =
+    this.querySelector(".star").src =
       favorite === "0"
         ? "./favorite-icon-lined.png"
         : "./favorite-icon-filled.png";
+    dispatcher(RESTAURANT_ACTION.UPDATE_FAVORITE, parseInt(listKey));
   }
 
   template() {
@@ -26,8 +34,11 @@ class RestaurantComponent extends CustomElement {
     const category = this.getAttribute("category");
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
+    const listKey = this.getAttribute("listKey");
+    const favorite = this.getAttribute("favorite");
+
     return `
-    <li class="restaurant">
+    <li id="${listKey}" class="restaurant">
     <div class="restaurant__category">
         <img
             src="${CATEGORY_IMG[category]}"             
@@ -38,7 +49,7 @@ class RestaurantComponent extends CustomElement {
     <div class="restaurant__info">
         <div class="restaurant__name">
         <h3 class="text-subtitle">${name}</h3>
-        <img src="./favorite-icon-lined.png" alt="즐겨찾기" class="restaurant_star star" />
+        <img src="${FAVORITE_IMG[favorite]}" alt="즐겨찾기" class="restaurant_star star" />
         </div>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
         <p class="restaurant__description text-body">

@@ -1,4 +1,4 @@
-import { Category, Restaurant, SortMethod } from "../abstracts/types";
+import { Category, Index, Restaurant, SortMethod } from "../abstracts/types";
 import {
   CATEGORY_DEFAULT,
   RESTAURANTS_STORAGE,
@@ -26,6 +26,13 @@ class RestaurantsStore {
     this.#sortMethod = sortMethod;
   }
 
+  updateFavorite(index: Index) {
+    this.#restaurantList[index].favorite =
+      this.#restaurantList[index].favorite === 0 ? 1 : 0;
+
+    this.updateLocalStorage();
+  }
+
   refreshRestaurantList() {
     if (!localStorage.getItem(RESTAURANTS_STORAGE))
       throw new Error("[ERROR] localStorage에 값이 없습니다.");
@@ -37,11 +44,15 @@ class RestaurantsStore {
 
   hasNoneRestaurantList() {
     if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
-      localStorage.setItem(
-        RESTAURANTS_STORAGE,
-        JSON.stringify(this.#restaurantList)
-      );
+      this.updateLocalStorage();
     }
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem(
+      RESTAURANTS_STORAGE,
+      JSON.stringify(this.#restaurantList)
+    );
   }
 
   addRestaurant(restaurant: Restaurant) {
@@ -49,10 +60,7 @@ class RestaurantsStore {
       this.refreshRestaurantList();
       this.#restaurantList.push(restaurant);
 
-      localStorage.setItem(
-        RESTAURANTS_STORAGE,
-        JSON.stringify(this.#restaurantList)
-      );
+      this.updateLocalStorage();
     } catch (e) {
       this.hasNoneRestaurantList();
     }

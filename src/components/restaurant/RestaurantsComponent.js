@@ -10,7 +10,7 @@ class RestaurantsComponent extends CustomElement {
 
   rerender(restaurantList) {
     const restaurants = restaurantList
-      .map((restaurant) => {
+      .map((restaurant, index) => {
         return `
       <restaurant-element 
       category="${restaurant.category}" 
@@ -19,6 +19,7 @@ class RestaurantsComponent extends CustomElement {
       description="${restaurant.description}" 
       link="${restaurant.link}"
       favorite="${restaurant.favorite}"
+      listKey="${index}"
       >
       </restaurant-element>`;
       })

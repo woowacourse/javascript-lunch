@@ -15,7 +15,7 @@ export interface Restaurant {
   distance: number;
   description?: string;
   link?: string;
-  favorite: "0" | "1";
+  favorite: 0 | 1;
 }
 
 export interface CustomElement extends HTMLElement {
@@ -27,13 +27,15 @@ export interface CustomElement extends HTMLElement {
   rerender: (data: Restaurant[] | Category | SortMethod) => void;
 }
 
+export type Index = number;
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod;
+  data?: Restaurant | Category | SortMethod | Index;
 }
 
 export interface RestaurantAction {
   ADD_RESTAURANT: string;
   FILTER_BY_CATEGORY: string;
   SORT_RESTAURANTS: string;
+  UPDATE_FAVORITE: string;
 }
