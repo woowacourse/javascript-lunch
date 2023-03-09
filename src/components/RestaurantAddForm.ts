@@ -67,7 +67,7 @@ class RestaurantAddForm {
   }
 
   addEvents(closeModal: CallableFunction, addRestaurant: CallableFunction) {
-    const closeButton = $('#modal-close-button') as HTMLButtonElement;
+    const closeButton = $('#form-close-button') as HTMLButtonElement;
 
     closeButton.addEventListener('click', () => {
       closeModal();
@@ -117,8 +117,8 @@ class RestaurantAddForm {
         <div class="button-container">
           <button
             type="button"
-            id="modal-close-button"
-            class="button button--secondary text-caption"
+            id="form-close-button"
+            class="button button--secondary text-caption modal-close-button"
           >
             취소하기
           </button>
