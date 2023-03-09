@@ -13,15 +13,25 @@ export class RestaurantCardList extends HTMLUListElement {
             `<li 
               is="restaurant-card" 
               class="restaurant" 
-              category=${restaurant.category} 
-              name=${restaurant.name} 
-              distance=${restaurant.distance} 
-              description=${restaurant.description}
-              like=${restaurant.like}
+              category="${restaurant.category}" 
+              name="${restaurant.name}" 
+              distance="${restaurant.distance}" 
+              description="${restaurant.description}"
+              like="${restaurant.like}"
             ></li>`
         )
         .join("")}
     `;
+  }
+
+  bindEvent(handleClickLikeIcon: (restaurantName: string) => void) {
+    this.addEventListener("click", (event: MouseEvent) => {
+      if ((event.target as HTMLElement).className === "like-icon") {
+        handleClickLikeIcon(
+          (event.target as HTMLElement).getAttribute("name") as string
+        );
+      }
+    });
   }
 }
 

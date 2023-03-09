@@ -87,6 +87,34 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+.like-filter-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.like-filter-button {
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+
+  flex: 1;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.like-filter-button--activated {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -127,6 +155,8 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  position: relative;
 }
 
 .restaurant__category {
@@ -147,6 +177,15 @@ body {
 .category-icon {
   width: 36px;
   height: 36px;
+}
+
+.like-icon {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
 }
 
 .restaurant__info {

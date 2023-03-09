@@ -1,5 +1,5 @@
 import type { Restaurant } from "./types/restaurant";
-import type { CategoryOption, LikeOption, SortOption } from "./types/option";
+import type { CategoryOption, SortOption } from "./types/option";
 
 import Restaurants from "./domain/Restaurants";
 
@@ -65,12 +65,33 @@ class App {
     document
       .querySelector<RestaurantAddForm>("form")
       ?.bindEvent(this.addNewRestaurant.bind(this));
+
+    document
+      .querySelector<RestaurantCardList>(".restaurant-list")
+      ?.bindEvent(this.onClickRestaurantLikeButton.bind(this));
+
+    document
+      .querySelector<HTMLElement>(".like-filter-container")
+      ?.addEventListener("click", (event: MouseEvent) => {
+        const likeState = JSON.parse(
+          `${(event.target as HTMLElement).getAttribute("like")}`
+        );
+
+        this.#showState = { ...this.#showState, like: likeState };
+
+        this.toggleLikeButtonStyle();
+        this.renderRestaurantList();
+      });
   }
 
   renderContainer() {
     document.body.innerHTML = `
       <header is="custom-header" class="gnb"></header>
       <main>
+        <section class="like-filter-container">
+          <div id="all-like-button" class="like-filter-button like-filter-button--activated" like="false">모든 음식점</div>
+          <div id="like-button" class="like-filter-button" like="true">자주 가는 음식점</div>
+        </section>
         <section class="restaurant-filter-container">
           <select is="custom-select" name="category" id="category-filter" class="restaurant-filter"></select>
           <select is="custom-select" name="sorting" id="sorting-filter" class="restaurant-filter"></select>
@@ -99,18 +120,41 @@ class App {
     this.renderRestaurantList();
   }
 
+  onClickLikeFilteringOption() {
+    console.log(document.querySelector(".like-filter-container"));
+  }
+
+  onClickRestaurantLikeButton(restaurantName: string) {
+    this.#restaurants.toggleLike(restaurantName);
+
+    localStorage.setItem(
+      "restaurants",
+      JSON.stringify(this.#restaurants.getList())
+    );
+
+    this.renderRestaurantList();
+  }
+
+  toggleLikeButtonStyle() {
+    const likeState = this.#showState.like;
+    const allLikeButton = document.querySelector("#all-like-button");
+    const likeButton = document.querySelector("#like-button");
+
+    if (likeState) {
+      allLikeButton?.classList.remove("like-filter-button--activated");
+      likeButton?.classList.add("like-filter-button--activated");
+      return;
+    }
+    allLikeButton?.classList.add("like-filter-button--activated");
+    likeButton?.classList.remove("like-filter-button--activated");
+  }
+
   addNewRestaurant(restaurant: Restaurant) {
     this.#restaurants.add(restaurant);
 
     localStorage.setItem(
       "restaurants",
-      JSON.stringify(
-        this.#restaurants.getListByOption({
-          filter: "전체",
-          sort: "name",
-          like: false,
-        })
-      )
+      JSON.stringify(this.#restaurants.getList())
     );
 
     this.renderRestaurantList();

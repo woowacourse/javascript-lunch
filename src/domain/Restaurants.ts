@@ -1,4 +1,4 @@
-import type { CategoryOption, LikeOption, SortOption } from "../types/option";
+import type { CategoryOption, SortOption } from "../types/option";
 import type { Restaurant } from "../types/restaurant";
 
 class Restaurants {
@@ -6,6 +6,10 @@ class Restaurants {
 
   constructor(list: Restaurant[]) {
     this.#list = list;
+  }
+
+  getList() {
+    return this.#list;
   }
 
   getListByOption(showState: {
@@ -37,7 +41,7 @@ class Restaurants {
   }
 
   filterByCategory(restaurantList: Restaurant[], category: CategoryOption) {
-    if (category === "전체") return [...this.#list];
+    if (category === "전체") return [...restaurantList];
 
     return [...restaurantList].filter(
       (restaurant) => restaurant.category === category
@@ -45,9 +49,16 @@ class Restaurants {
   }
 
   filterByLike(likeOption: boolean) {
-    return likeOption
-      ? this.#list.filter((restaurant) => restaurant.like)
-      : this.#list;
+    if (likeOption) return this.#list.filter((restaurant) => restaurant.like);
+    return this.#list;
+  }
+
+  toggleLike(restaurantName: string) {
+    this.#list = this.#list.map((restaurant) => {
+      if (restaurant.name === restaurantName)
+        return { ...restaurant, like: !restaurant.like };
+      return restaurant;
+    });
   }
 }
 
