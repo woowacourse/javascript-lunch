@@ -36,8 +36,18 @@ class RestaurantView extends HTMLElement {
           </favorite-button>
         </div>
       </div>
-      ${this.restaurant?.description}
-      ${this.restaurant?.link}
+      <p>
+        ${this.restaurant?.description}
+      </p>
+      <div>
+        <a href="${this.restaurant?.link}" target="_blank">
+        ${this.restaurant?.link ?? ""}
+        </a>
+      </div>
+      <div class="button-container">
+        <button type="button" class="button button--secondary text-caption">삭제하기</button>
+        <button type="button" class="button button--primary text-caption">닫기</button>
+      </div>
     </div>
     `;
   }
