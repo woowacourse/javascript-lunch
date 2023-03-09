@@ -32,6 +32,7 @@ class RestaurantListHandler {
     this.restaurants = this.restaurants.filter(
       (restaurant) => restaurant.id !== id
     );
+    saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
 
   toggleBookmark(id: string) {
@@ -41,6 +42,7 @@ class RestaurantListHandler {
       }
       return restaurant;
     });
+    saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
 
   private getSortedByName(restaurants: Restaurant[]): Restaurant[] {
