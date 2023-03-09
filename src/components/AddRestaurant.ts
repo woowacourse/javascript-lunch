@@ -103,6 +103,7 @@ class AddRestaurant extends HTMLElement {
         distance: Number(formData.get("distance")),
         description: formData.get("description") as string,
         link: inputValidator.validateLink(formData.get("link") as string),
+        isFavorite: false,
       };
       return newRestaurant;
     } catch (error: any) {
