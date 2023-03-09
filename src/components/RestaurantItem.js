@@ -7,12 +7,17 @@ class RestaurantItem {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
-            <img src="./${imageFile}.png" alt="${restaurant.category}" class="category-icon">
+          <img src="./${imageFile}.png" alt="${restaurant.category}" class="category-icon">
         </div>
         <div class="restaurant__info">
-            <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-            <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
-            <p class="restaurant__description text-body">${restaurant.description}</p>
+          <div class="restaurant__info__header">
+            <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>            
+            <img class="favorite-icon" src="./${
+              restaurant.favorites ? 'favorite-icon-filled' : 'favorite-icon-lined'
+            }.png" alt="${restaurant.name}">
+          </div>
+          <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>  
+          <p class="restaurant__description text-body">${restaurant.description}</p>
         </div>
       </li>
       `;

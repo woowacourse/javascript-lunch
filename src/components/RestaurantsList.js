@@ -52,6 +52,18 @@ class RestaurantsList {
 
     restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(this.getFavoriteCallback()));
   }
+
+  setEvent(callback) {
+    $('.restaurant-list').addEventListener('click', e => {
+      callback(e.target.alt);
+      if ($('ul.tabbar-selector li.current').innerText === '자주 가는 음식점') {
+        this.renderFavoriteRestaurant();
+        return;
+      }
+
+      this.render();
+    });
+  }
 }
 
 export default RestaurantsList;
