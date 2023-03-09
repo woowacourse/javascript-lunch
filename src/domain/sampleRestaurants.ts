@@ -1,5 +1,6 @@
 export const sampleRestaurants = [
   {
+    id: '61aa0b38-8afa-47ec-8b24-326811667941',
     category: '한식',
     name: '피양콩할머니',
     distance: 10,
@@ -11,6 +12,7 @@ export const sampleRestaurants = [
     먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
   },
   {
+    id: '72450846-e579-4cd4-8169-4726e243dc52',
     category: '중식',
     name: '친친',
     distance: 5,
@@ -18,6 +20,7 @@ export const sampleRestaurants = [
     펼쳐갑니다.`,
   },
   {
+    id: 'c655a6bc-ee61-4e98-b8a1-860be3a88126',
     category: '일식',
     name: '잇쇼우',
     distance: 10,
@@ -25,18 +28,21 @@ export const sampleRestaurants = [
     신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다`,
   },
   {
+    id: '5651a460-54a1-49c8-8c02-de98c5082c04',
     category: '양식',
     name: '이태리키친',
     distance: 20,
     description: `늘 변화를 추구하는 이태리키친입니다.`,
   },
   {
+    id: 'f63e7177-3224-49b6-ad25-cadd6bbf489c',
     category: '아시안',
     name: '호아빈 삼성점',
     distance: 15,
     description: `푸짐한 양에 국물이 일품인 쌀국수`,
   },
   {
+    id: '40ce4535-8f85-4701-a6a4-e259b3036573',
     category: '기타',
     name: '도스타코스 선릉점',
     distance: 5,
