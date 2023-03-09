@@ -3,6 +3,7 @@ import findImage from "../../tools/findImage";
 import Storage from "../../tools/Storage";
 import IRestaurant from "../../type/IRestaurant";
 import BottomSheet from "../../components/BottomSheet";
+import { findRestaurantById } from "../../domain/restaurant";
 class RestaurantItem extends HTMLElement {
   restaurant: IRestaurant | undefined;
 
@@ -10,7 +11,7 @@ class RestaurantItem extends HTMLElement {
     super();
     const id = this.getAttribute("id");
     if (id) {
-      this.findRestaurant(id);
+      this.restaurant = findRestaurantById(id);
       this.restaurant && this.render(this.restaurant);
       this.onClickFavoriteButton(id);
     }
@@ -68,10 +69,6 @@ class RestaurantItem extends HTMLElement {
       restaurants.state.restaurants = temp;
       Storage.saveRestaurants(restaurants.state.restaurants);
     });
-  }
-
-  findRestaurant(id: string) {
-    this.restaurant = restaurants.state.restaurants.find((r) => r.id === id);
   }
 }
 export default RestaurantItem;

@@ -8,6 +8,10 @@ import { DISTANCE } from "../constants/DISTANCE";
 import { v4 as uuidv4 } from "uuid";
 import { restaurants } from "./restaurants";
 
+export const findRestaurantById = (id: string) => {
+  return restaurants.state.restaurants.find((r) => r.id === id);
+};
+
 export const categoryOptions = () => {
   return Object.entries(CATEGORY_NAME)
     .map((value) => `<option value="${value[0]}">${value[1]}</option>`)
