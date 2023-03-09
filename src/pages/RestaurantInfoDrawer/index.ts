@@ -1,6 +1,6 @@
-import type { Component } from '../interface';
-import { deleteById, fetchFavoriteId, getRestaurantById } from '../utils/api';
-import { CATEGORY_IMAGE_URL } from '../utils/constants';
+import type { Component } from '../../interface';
+import { deleteById, fetchFavoriteId, getRestaurantById } from '../../utils/api';
+import { CATEGORY_IMAGE_URL } from '../../utils/constants';
 
 type RestaurantInfoDrawerState = {
   selectId: number;

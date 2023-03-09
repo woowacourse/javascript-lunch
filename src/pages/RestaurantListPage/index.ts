@@ -5,7 +5,7 @@ import RestaurantFilterContainer from './RestaurantFilterContainer';
 import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../../utils/constants';
 import GNB from '../../components/GNB';
 import TabBar from '../../components/TabBar';
-import RestaurantInfoDrawer from '../../components/RestaurantInfoDrawer';
+import RestaurantInfoDrawer from '../RestaurantInfoDrawer';
 import { getRestaurants } from '../../utils/api';
 
 type RestaurantListPageState = {
