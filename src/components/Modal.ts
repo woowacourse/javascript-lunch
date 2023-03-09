@@ -1,4 +1,4 @@
-import { Attribute, ModalContent, Restaurant } from '../types/types';
+import { Restaurant, Attribute, ModalContent } from '../types/types';
 import { $ } from '../utils/domSelectors';
 import RestaurantAddForm from './RestaurantAddForm';
 import RestaurantInformation from './RestaurantInformation';

@@ -1,10 +1,10 @@
-import { Errors, Restaurant } from '../types/types';
+import { Restaurant, Errors } from '../types/types';
 import { ERROR_MESSAGE, MESSAGE, SELECT_OPTIONS } from '../constants/constants';
+import { FORM_ATTRIBUTE } from '../constants/domAttributes';
 import { $ } from '../utils/domSelectors';
-import restaurantFormValidator from '../validators/restaurantFormValidator';
 import Select from './Select';
 import Input from './Input';
-import { FORM_ATTRIBUTE } from '../constants/domAttributes';
+import restaurantFormValidator from '../validators/restaurantFormValidator';
 
 class RestaurantAddForm {
   private categorySelect: Select;

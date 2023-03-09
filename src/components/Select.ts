@@ -1,4 +1,4 @@
-import { Attribute, Option } from '../types/types';
+import { Option, Attribute } from '../types/types';
 import { $ } from '../utils/domSelectors';
 
 class Select {

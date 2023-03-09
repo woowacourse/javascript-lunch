@@ -1,5 +1,5 @@
-import { getFavoriteIcon } from '../constants/images';
 import { Restaurant } from '../types/types';
+import { getFavoriteIcon } from '../constants/images';
 import { $ } from '../utils/domSelectors';
 import RestaurantItem from './RestaurantItem';
 

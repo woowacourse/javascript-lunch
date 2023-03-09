@@ -1,4 +1,4 @@
-import { CategoryOptions, Restaurant, RestaurantFilter } from '../types/types';
+import { Restaurant, RestaurantFilter, CategoryOptions } from '../types/types';
 
 function filter(category: CategoryOptions, restaurantList: Restaurant[]) {
   if (category === '전체') return [...restaurantList];
