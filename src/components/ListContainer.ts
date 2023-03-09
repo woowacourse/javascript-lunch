@@ -20,10 +20,23 @@ class ListContainer extends Component {
   }
 
   subscribe(): this {
-    eventBus.subscribe('@add-restaurant', this.handleAdd.bind(this));
-    eventBus.subscribe('@change-filter', this.handleFilter.bind(this));
+    eventBus
+      .subscribe('@add-restaurant', this.handleAdd.bind(this))
+      .subscribe('@change-filter', this.handleFilter.bind(this))
+      .subscribe('@reload-filter', this.handleTabChange.bind(this));
 
     return this;
+  }
+
+  handleTabChange(detail: any): void {
+    const { category, order, tab } = detail;
+
+    if (tab === 'all') {
+      this.handleFilter({ category, order });
+      return;
+    }
+
+    this.#state.restaurantList = restaurantStore.getFavoriteList();
   }
 
   handleAdd(restaurant: IRestaurant): void {
@@ -35,6 +48,7 @@ class ListContainer extends Component {
   }
 
   template(): string {
+    console.log('렌더링 되었어요.');
     return `<ul class="restaurant-list">
       ${this.listTemplate([...this.#state.restaurantList])}
     </ul>`;

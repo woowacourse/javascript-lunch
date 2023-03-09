@@ -5,6 +5,7 @@ import TopNavBar from './components/TopNavBar';
 import Component from './core/Component';
 import { $ } from './utils/domUtils';
 import { restaurantStore } from './model/restaurantStore';
+import MenuTabBar from './components/MenuTabBar';
 
 class App extends Component {
   readonly component: any;
@@ -15,7 +16,8 @@ class App extends Component {
       topNavBar: new TopNavBar($('.gnb')),
       listContainer: new ListContainer($('.restaurant-list-container')),
       filterBar: new FilterBar($('.restaurant-filter-container')),
-      AddModalContainer: new AddModalContainer($('.restaurant-add-modal-container')),
+      addModalContainer: new AddModalContainer($('.restaurant-add-modal-container')),
+      menuTabBar: new MenuTabBar($('.menu-tab-bar')),
     };
 
     // localStorage에 샘플 데이터 입력

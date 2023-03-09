@@ -2,7 +2,8 @@ import { Category, Order } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
 import IFilterOption from '@res/interfaces/IFilterOption';
-import { $, newState, on } from '@res/utils/domUtils';
+import { TabToggle } from '@res/interfaces/types';
+import { $, all$, newState, on } from '@res/utils/domUtils';
 
 class FilterBar extends Component {
   #filterOption: IFilterOption;
@@ -14,7 +15,21 @@ class FilterBar extends Component {
       eventBus.dispatch('@change-filter', { ...this.#filterOption });
     });
 
-    this.render().setEvent();
+    this.render().setEvent().subscribe();
+  }
+
+  subscribe() {
+    eventBus.subscribe('@click-tab', (tab: TabToggle) => {
+      if (tab === 'all') {
+        this.hide(false);
+      } else {
+        this.hide(true);
+      }
+
+      eventBus.dispatch('@reload-filter', { ...this.#filterOption, tab });
+    });
+
+    return this;
   }
 
   setEvent() {
@@ -32,6 +47,18 @@ class FilterBar extends Component {
     return this;
   }
 
+  selectFilterOption({ category, order }: IFilterOption): this {
+    all$<HTMLOptionElement>('#category-filter > option').forEach(($option) => {
+      if ($option.innerText === category) $option.selected = true;
+    });
+
+    all$<HTMLOptionElement>('#sorting-filter > option').forEach(($option) => {
+      if ($option.innerText === order) $option.selected = true;
+    });
+
+    return this;
+  }
+
   template() {
     return `<select name="category" id="category-filter" class="restaurant-filter">
     <option value="${Category.All}">전체</option>
@@ -43,7 +70,7 @@ class FilterBar extends Component {
     <option value="${Category.Etc}">기타</option>
   </select>
 
-  <select name="sorting" id="sorting-filter"  class="restaurant-filter">
+  <select name="sorting" id="sorting-filter" class="restaurant-filter">
     <option value="${Order.Name}">이름순</option>
     <option value="${Order.Distance}">거리순</option>
   </select>`;
