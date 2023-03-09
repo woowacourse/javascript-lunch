@@ -256,7 +256,7 @@ body {
   cursor: pointer;
 }
 
-.restaurant-detail .button-container {
+#restaurant-information .button-container {
   margin-top: 24px;
 }
 
