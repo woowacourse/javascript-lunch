@@ -26,3 +26,8 @@ button {
 
   color: var(--grey-300);
 }
+
+:host([variant='transparent']) > button {
+  border: none;
+  background: transparent;
+}
