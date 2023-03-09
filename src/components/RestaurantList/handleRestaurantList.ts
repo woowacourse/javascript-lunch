@@ -26,7 +26,7 @@ export const onclickRestaurantList = () => {
 export const onClickRestaurantItem = (id: string) => {
   const bottomSheet = document.getElementById("bottomSheet");
   if (bottomSheet instanceof BottomSheet) {
-    bottomSheet.open(id);
+    bottomSheet.open(`<restaurant-view restaurant-id=${id}></restaurant-view>`);
   }
 };
 
