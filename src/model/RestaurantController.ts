@@ -3,9 +3,11 @@ import { DEFAULT_CATEGORY } from '../constant/constant';
 
 class RestaurantController {
   private _restaurantList: Restaurant[];
+  private _nextId: number;
 
   constructor(restaurants: Restaurant[]) {
     this._restaurantList = restaurants;
+    this._nextId = restaurants.length + 1;
   }
 
   getRestaurants() {
@@ -13,7 +15,12 @@ class RestaurantController {
   }
 
   add(restaurant: Restaurant) {
-    this._restaurantList = [...this._restaurantList, restaurant];
+    const newRestaurant = { ...restaurant, id: this._nextId++ };
+    this._restaurantList = [...this._restaurantList, newRestaurant];
+  }
+
+  deleteById(id: number) {
+    this._restaurantList = this._restaurantList.filter(restaurant => restaurant.id !== id);
   }
 
   filterByCategory(category: Category | typeof DEFAULT_CATEGORY): Restaurant[] {
