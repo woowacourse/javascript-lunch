@@ -64,17 +64,19 @@ const InputForm = {
 
       const newRestaurant = BottomSheetForm.getInfo();
       BottomSheetForm.reset();
-      BottomSheetForm.toggle();
+      const bottomSheet = $(".bottomSheet") as HTMLElement;
+      BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
       RestaurantService.addRestaurant(newRestaurant);
-      Render.restaurantList(RestaurantService.list);
+      Render.restaurantList(RestaurantService.allList);
     });
     this.cancelAddRestaurant();
   },
 
   cancelAddRestaurant() {
     const buttonSecondary = $(".button--secondary");
+    const bottomSheet = $(".bottomSheet") as HTMLElement;
     buttonSecondary?.addEventListener("click", () => {
-      BottomSheetForm.toggle();
+      BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
     });
   },
 };

@@ -13,7 +13,8 @@ const InputFormOpenButton = {
     const gnbButton = $(".gnb__button");
 
     gnbButton?.addEventListener("click", () => {
-      BottomSheetForm.toggle();
+      const bottomSheet = $(".bottomSheet") as HTMLElement;
+      BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
     });
   },
 };
