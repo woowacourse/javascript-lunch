@@ -38,6 +38,12 @@ class RestaurantFilter {
           (x, y) => Number(x.distanceInMinutes) - Number(y.distanceInMinutes)
         );
   }
+
+  #getFavoritedRestaurants(restaurants: Restaurant[], favoriteBy: string) {
+    return favoriteBy === 'all'
+      ? restaurants
+      : [...restaurants].filter((restaurant) => restaurant.isFavorite === true);
+  }
 }
 
 export default RestaurantFilter;
