@@ -99,7 +99,6 @@ body {
   line-height: 35px;
 
   text-align: center;
-  letter-spacing: 0.5px;
 
   color: #667085;
   border-bottom: 2px solid #d0d5dd;
@@ -111,7 +110,7 @@ body {
 }
 
 .radio {
-  opacity: 0;
+  appearance: none;
 }
 
 /* 음식점 목록 *****************************************/
