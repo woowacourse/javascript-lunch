@@ -1,4 +1,9 @@
-import { CATEGORY_TEST_CASE, FAVORITES_TEST_CASE, SORTING_TEST_CASE } from '../data';
+import {
+  CATEGORY_TEST_CASE,
+  FAVORITES_TEST_CASE,
+  SORTING_TEST_CASE,
+  RESTAURANT_INPUT_CASE,
+} from '../data';
 
 const TEST_URL = 'http://localhost:8080/';
 
@@ -21,11 +26,11 @@ describe('음식점 추가 창', () => {
     cy.visit(TEST_URL);
     cy.get('.gnb__button').click();
     cy.contains('새로운 음식점');
-    cy.get('#category').select('한식');
-    cy.get('#name').type('얌샘김밥');
-    cy.get('#distance').select('5');
-    cy.get('#description').type('아직 한번도 안가봄');
-    cy.get('#link').type('http://www.naver.com');
+    cy.get('#category').select(RESTAURANT_INPUT_CASE.category);
+    cy.get('#name').type(RESTAURANT_INPUT_CASE.name);
+    cy.get('#distance').select(RESTAURANT_INPUT_CASE.distance);
+    cy.get('#description').type(RESTAURANT_INPUT_CASE.description);
+    cy.get('#link').type(RESTAURANT_INPUT_CASE.link);
     cy.get('.button-container').contains('추가하기').click();
     cy.get('.app').contains('5분 내');
   });
@@ -39,8 +44,8 @@ describe('음식점 목록, 드롭다운 메뉴/탭바', () => {
       },
     });
     cy.get('#category-filter').select('한식');
-    cy.get('.app').contains('가_한식');
-    cy.get('.app').contains('나_한식');
+    cy.get('.app').should('contain.text', '가_한식');
+    cy.get('.app').should('contain.text', '가_한식');
     cy.get('.app').contains('다_중식').should('not.exist');
     cy.get('.app').contains('라_일식').should('not.exist');
     cy.get('.app').contains('하_오분거리 양식').should('not.exist');
@@ -92,7 +97,17 @@ describe('음식점 목록, 드롭다운 메뉴/탭바', () => {
     cy.get('.app').contains('안좋아요').should('not.exist');
   });
 
-  it('음식점 목록에서 `별표 버튼`을 `클릭`해 자주 가는 음식점으로 `등록/해제` 할 수 있다.', () => {});
+  it('음식점 목록에서 `별표 버튼`을 `클릭`해 자주 가는 음식점으로 `등록/해제` 할 수 있다.', () => {
+    cy.visit(TEST_URL, {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('restaurants', JSON.stringify(FAVORITES_TEST_CASE));
+      },
+    });
+    cy.get('.restaurant-list li.restaurant .favorite__button').first().click();
+    cy.get('.favorite__button>img')
+      .first()
+      .should('have.attr', 'src', `./favorite-icon-filled.png`);
+  });
 });
 
 describe('음식점 상세 정보 창', () => {
@@ -140,14 +155,16 @@ describe('음식점 상세 정보 창', () => {
     // 음식점 추가
     cy.get('.gnb__button').click();
     cy.contains('새로운 음식점');
-    cy.get('#category').select('한식');
-    cy.get('#name').type('얌샘김밥');
-    cy.get('#distance').select('5');
-    cy.get('#description').type('아직 한번도 안가봄');
-    cy.get('#link').type('http://www.naver.com');
+    cy.get('#category').select(RESTAURANT_INPUT_CASE.category);
+    cy.get('#name').type(RESTAURANT_INPUT_CASE.name);
+    cy.get('#distance').select(RESTAURANT_INPUT_CASE.distance);
+    cy.get('#description').type(RESTAURANT_INPUT_CASE.description);
+    cy.get('#link').type(RESTAURANT_INPUT_CASE.link);
     cy.get('.button-container').contains('추가하기').click();
 
+    // 삭제 버튼
     cy.get('.restaurant-list li.restaurant').first().click();
     cy.get('#restaurant-delete__button').click();
+    cy.get('.app').contains(RESTAURANT_INPUT_CASE.name).should('not.exist');
   });
 });

@@ -141,3 +141,11 @@ export const FAVORITES_TEST_CASE = [
     isFavorite: false,
   },
 ];
+
+export const RESTAURANT_INPUT_CASE = {
+  category: '한식',
+  name: '얌샘김밥',
+  distance: '5',
+  description: 'good',
+  link: 'http://www.naver.com',
+};
