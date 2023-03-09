@@ -9,6 +9,8 @@ export const NAME_LENGTH = {
   MAX: 15,
 };
 
+export const REGEX_SPECIAL_CHARACTERS = /[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/;
+
 export const SELECTED_OPTION = {
   NAME: "name",
   DISTANCE: "distance",
@@ -21,4 +23,7 @@ export const LOCAL_STORAGE_KEY = {
   SORT: "sort-by",
 };
 
-export const REGEX_SPECIAL_CHARACTERS = /[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/;
+export const FAVORITE_ALT = {
+  none: "not-favorite",
+  favorite: "favorite",
+};

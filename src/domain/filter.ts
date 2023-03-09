@@ -2,6 +2,7 @@ import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "../constant";
 import { RestaurantType } from "../type";
 import { renderRestaurantList } from "../component/restaurantList";
 import { getAllRestaurantsInLocalStorage } from "./localStorageController";
+import { controlRestaurants } from "./RestaurantsController";
 const { All_CATEGORIES, NAME, DISTANCE } = SELECTED_OPTION;
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 
@@ -48,4 +49,6 @@ export const updateRestaurantList = () => {
     localStorage.getItem(SORT) as string,
     filteredRestaurantList
   );
+
+  controlRestaurants();
 };

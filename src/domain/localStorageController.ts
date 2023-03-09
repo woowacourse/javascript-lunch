@@ -5,9 +5,7 @@ import { $ } from "../util/selector";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
 export const saveRestaurantsInLocalStorage = (restaurant: RestaurantType) => {
-  const key = `${RESTAURANT}${restaurant.name}${
-    findLocalStorageKeys(RESTAURANT).length + 1
-  }`;
+  const key = `${RESTAURANT}${restaurant.name}`;
   const value = JSON.stringify(restaurant);
 
   localStorage.setItem(key, value);

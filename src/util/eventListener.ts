@@ -1,10 +1,10 @@
 import { $ } from "./selector";
 
 export const executeClickEventListener = (
-  selector: string,
-  callback: () => void
+  selector: HTMLElement | Element | null,
+  callback: (event: Event) => void
 ) => {
-  $(selector)?.addEventListener("click", callback);
+  selector?.addEventListener("click", (event) => callback(event));
 };
 
 export const executeSubmitEventListener = (

@@ -1,7 +1,8 @@
 import { RestaurantType } from "../type";
-import { $ } from "../util/selector";
+import { $, $$ } from "../util/selector";
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
-import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
+import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
+const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
 export const renderRestaurant = (info: RestaurantType) => {
   return `<li class="restaurant">
@@ -16,9 +17,9 @@ export const renderRestaurant = (info: RestaurantType) => {
       <span class="restaurant__distance text-body">
         캠퍼스부터 ${info.distance}분 내
       </span>
-      <img src="./favorite-icon-${
-        FAVORITE_IMAGE[info.favorite]
-      }.png" alt="not-favorite" class="favorite-icon" />
+      <img src="./favorite-icon-${FAVORITE_IMAGE[info.favorite]}.png" alt="${
+    FAVORITE_ALT[info.favorite]
+  }" class="favorite-icon" />
       <p class="restaurant__description text-body">${info.description}</p>
     </div>
   </li>`;
@@ -41,7 +42,7 @@ export const renderRestaurantList = (restaurantList: RestaurantType[]) => {
 export const toggleFavoriteIcon = (img: HTMLImageElement) => {
   const keyName = img.previousElementSibling?.previousElementSibling
     ?.textContent as string;
-  const clickedRestaurantKey = findLocalStorageKeys(keyName)[0];
+  const clickedRestaurantKey = `${RESTAURANT}${keyName}`;
   const clickedRestaurantInfo = JSON.parse(
     String(localStorage.getItem(clickedRestaurantKey))
   );
@@ -68,4 +69,14 @@ export const changeFavoriteImage = (
 
 export const changeFavoriteInLocalStorage = (key: string, info: string) => {
   localStorage.setItem(key, JSON.stringify(info));
+};
+
+export const controlFavoriteIcon = () => {
+  $$(".favorite-icon").forEach((icon) => {
+    icon.addEventListener("click", (event: Event) => {
+      const target = event.target as HTMLImageElement;
+
+      toggleFavoriteIcon(target);
+    });
+  });
 };

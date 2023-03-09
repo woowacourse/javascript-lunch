@@ -6,7 +6,7 @@ export const initialRestaurantData: RestaurantType[] = [
     name: "도스타코스 선릉점",
     distance: "5",
     description: `멕시칸 캐주얼 그릴`,
-    link: "",
+    link: "https://naver.me/5xlLtY0m",
     favorite: "none",
   },
   {
@@ -48,7 +48,7 @@ export const initialRestaurantData: RestaurantType[] = [
     할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의
     역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은
     만큼 덜어 먹을 수 있게 준비돼 있다.`,
-    link: "",
+    link: "https://naver.me/G6DyD9tg",
     favorite: "none",
   },
   {

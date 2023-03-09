@@ -12,19 +12,20 @@ import "./assets/favorite-icon-lined.png";
 
 import { updateRestaurantList } from "./domain/filter";
 import { saveSelectedOption } from "./domain/localStorageController";
-import RestaurantsController from "./domain/RestaurantsController";
+import RestaurantsController, {
+  controlRestaurants,
+} from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
-} from "./modal";
+} from "./modal/newRestaurantModalHandler";
 import {
   executeChangeEventListener,
   executeClickEventListener,
   executeSubmitEventListener,
 } from "./util/eventListener";
+import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
-import { toggleFavoriteIcon } from "./component/restaurantList";
-import { $$ } from "./util/selector";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 
@@ -39,7 +40,7 @@ const App = {
   initEventListeners() {
     this.controlNewRestaurantModal();
     this.controlFilter();
-    this.controlRestaurants();
+    controlRestaurants();
   },
 
   initLocalStorage() {
@@ -51,15 +52,15 @@ const App = {
   },
 
   controlNewRestaurantModal() {
-    executeClickEventListener(".gnb__button", () =>
+    executeClickEventListener($(".gnb__button"), () =>
       handleModalOpenButtonClick(".modal")
     );
 
-    executeClickEventListener(".button--secondary", () =>
+    executeClickEventListener($(".button--secondary"), () =>
       handleModalCancelButtonClick(".modal")
     );
 
-    executeClickEventListener(".modal-backdrop", () =>
+    executeClickEventListener($(".modal-backdrop"), () =>
       handleModalCancelButtonClick(".modal")
     );
 
@@ -85,14 +86,6 @@ const App = {
       }
     );
   },
-
-  controlRestaurants() {
-    $$(".favorite-icon").forEach((icon) => icon.addEventListener("click", (event:Event) => {
-      const target = event.target as HTMLImageElement
-      
-      toggleFavoriteIcon(target)
-    }))
-  }
 };
 
 App.init();

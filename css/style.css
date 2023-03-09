@@ -158,6 +158,7 @@ body::-webkit-scrollbar {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -342,4 +343,38 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 정보 모달 */
+#restaurant-info-modal .modal-container {
+  height: 556px;
+}
+#restaurant-info-modal .favorite-icon {
+  top: -62px;
+}
+
+#restaurant-info-modal .restaurant__name {
+  margin: 16px 0;
+}
+
+#restaurant-info-modal .restaurant__distance {
+  margin-bottom: 8px;
+}
+
+#restaurant-info-modal .restaurant__description {
+  margin-bottom: 16px;
+
+  -webkit-line-clamp: 9;
+}
+
+.restaurant-info-modal-button {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  padding: 32px 16px;
+}
+
+.restaurant-info-modal-button button {
+  width: 50%;
 }
