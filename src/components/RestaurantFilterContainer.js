@@ -23,10 +23,7 @@ export default class RestaurantFilterContainer {
   constructor(setState) {
     this.setState = setState;
     $('.restaurant-filter-container').innerHTML = html;
-    this.registerEvent();
-  }
 
-  registerEvent() {
     $('#category-filter').addEventListener('change', this.onChangeCategory.bind(this));
     $('#sorting-filter').addEventListener('change', this.onChangeSortOption.bind(this));
   }

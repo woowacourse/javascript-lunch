@@ -10,6 +10,7 @@ import Validator from './domain/Validator';
 
 import store from './utils/store';
 import UpperTab from './components/UpperTab';
+import RestaurantDetailModal from './components/RestaurantDetailModal';
 
 export default class App {
   restaurants;
@@ -53,9 +54,9 @@ export default class App {
     clickedElement.classList.add('selected');
 
     if (clickedElement.innerText === '자주 가는 음식점') {
-      $('.restaurant-filter-container').classList.add('none');
+      $('.restaurant-filter-container').classList.add('hidden');
     } else {
-      $('.restaurant-filter-container').classList.remove('none');
+      $('.restaurant-filter-container').classList.remove('hidden');
     }
 
     this.setState({ navTab: clickedElement.innerText });

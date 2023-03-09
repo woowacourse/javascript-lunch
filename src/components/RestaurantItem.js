@@ -1,6 +1,7 @@
 import { $, $$ } from '../utils/dom';
 
 import store from '../utils/store';
+import RestaurantDetailModal from './RestaurantDetailModal';
 
 const imgFileName = {
   한식: 'category-korean',
@@ -30,32 +31,35 @@ const html = ({ id, category, name, distance, description, liked }) => `
 export default class RestaurantItem {
   restaurant;
   liked;
+  updateRestaurant;
 
   constructor(restaurant, updateRestaurant) {
     this.restaurant = restaurant;
     this.liked = restaurant.liked;
 
+    this.updateRestaurant = updateRestaurant;
+
     this.renderItem(restaurant);
 
-    this.registerEvent(updateRestaurant);
+    $(`.${restaurant.id}`).addEventListener('click', this.onClickRestaurant.bind(this));
   }
 
-  registerEvent(updateRestaurant) {
-    const imgs = $$(`.${this.restaurant.id} > img`);
-    imgs.forEach((img) =>
-      img.addEventListener('click', this.onClickStarIcon.bind(this, updateRestaurant))
-    );
-  }
-
-  onClickStarIcon(updateRestaurant) {
-    const isLiked = this.liked;
-    this.liked = !isLiked;
+  onClickStarIcon() {
+    this.restaurant.liked = !this.restaurant.liked;
 
     const likeStar = $(`.${this.restaurant.id} .like-star`);
-    isLiked ? likeStar.classList.add('hidden') : likeStar.classList.remove('hidden');
+    this.restaurant.liked ? likeStar.classList.add('hidden') : likeStar.classList.remove('hidden');
 
-    const updatedRestaurants = updateRestaurant(this.restaurant.id, this.liked);
+    const updatedRestaurants = this.updateRestaurant(this.restaurant.id, this.liked);
     store.setLocalStorage(updatedRestaurants);
+  }
+
+  onClickRestaurant(e) {
+    if ([...e.target.classList].includes('favorite-icon')) {
+      return this.onClickStarIcon();
+    }
+
+    new RestaurantDetailModal(this.restaurant.liked);
   }
 
   renderItem(restaurant) {
