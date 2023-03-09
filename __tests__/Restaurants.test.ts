@@ -36,4 +36,26 @@ describe('Restaurants 클래스 테스트', () => {
 
     expect(restaurants.filterByCategory('양식')).toEqual([menu1, menu4]);
   });
+
+  test('여러 음식점들 중 자주 가는 음식점을 필터링하는 기능 테스트', () => {
+    const restaurants = new Restaurants();
+    restaurants.addRestaurant(menu1);
+    restaurants.addRestaurant(menu2);
+    restaurants.addRestaurant(menu3);
+    restaurants.addRestaurant(menu4);
+
+    expect(restaurants.filterByFavorite()).toEqual([menu1, menu2, menu4]);
+  });
+
+  test('여러 음식점들 중 클릭한 특정 음식점을 제거하는 기능 테스트', () => {
+    const restaurants = new Restaurants();
+    restaurants.addRestaurant(menu1);
+    restaurants.addRestaurant(menu2);
+    restaurants.addRestaurant(menu3);
+    restaurants.addRestaurant(menu4);
+
+    restaurants.removeRestaurant(1);
+
+    expect(restaurants.getRestaurants()).toEqual([menu2, menu3, menu4]);
+  });
 });
