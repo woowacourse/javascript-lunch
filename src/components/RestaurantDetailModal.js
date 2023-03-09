@@ -13,13 +13,21 @@ const html = ({ id, category, name, distance, description, link, liked }) => `
 <div class="modal-backdrop"></div>
 <div class="modal-container">
   <div class="restaurant-top-info">
-  <img src="./${imgFileName[`${category}`]}.png" alt="${category}" class="category-icon" />
+    <div class="restaurant__category">
+      <img src="./${imgFileName[`${category}`]}.png" alt="${category}" class="category-icon" />
+    </div>
     <div class="restaurant-detail-name">${name}</div>
+
+    <img src="./favorite-icon-lined.png" alt="favorite-icon-lined" class="favorite-icon unlike-star" />
+    <img src="./favorite-icon-filled.png" alt="favorite-icon-filled" class="favorite-icon like-star ${
+      liked ? '' : 'hidden'
+    }" />
   </div>
-  <div class="restaurant-top-info">
+  
+  <div class="restaurant-detail-info">
     <div class="restaurant-detail-distance">캠퍼스로부터 ${distance}분 내</div>
     ${description ? '<div class="restaurant-detail-description">설명 솰랴솰랴</div>' : ''}
-    ${link ? '<a href="https://naver.me/G6DyD9tg">https://naver.me/G6DyD9tg</a>' : ''}
+    ${link ? `<a href="${link}">${link}</a>` : ''}
   </div>
 
   <!-- 취소/추가 버튼 -->
@@ -41,7 +49,9 @@ const html = ({ id, category, name, distance, description, link, liked }) => `
 
 export default class RestaurantDetailModal {
   constructor(restaurant) {
-    $('.restaurant-detail-modal').innerHTML = html(restaurant);
+    const modal = $('.restaurant-detail-modal');
+    modal.innerHTML = html(restaurant);
+    modal.classList.add('modal--open');
 
     $('.restaurant-detail-modal-close-button').addEventListener('click', this.onClickCloseButton);
   }

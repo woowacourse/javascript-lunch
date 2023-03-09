@@ -344,10 +344,22 @@ input[name='link'] {
 }
 
 .restaurant-top-info {
-  margin: 30px 0;
+  position: relative;
+}
+
+.restaurant-detail-modal .favorite-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.restaurant-detail-info {
+  margin-bottom: 32px;
 }
 
 .restaurant-detail-name {
+  margin: 20px 0;
+
   font-weight: 600;
   font-size: 20px;
 
