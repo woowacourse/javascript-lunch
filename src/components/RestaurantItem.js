@@ -1,9 +1,15 @@
 import { CATEGORY_TO_FILENAME } from '../constants/constants';
+const FOVORITES_TO_FILENAME = {
+  true: 'favorite-icon-filled',
+  false: 'favorite-icon-lined',
+};
 
 class RestaurantItem {
-  constructor(restaurant) {
+  constructor(restaurant, restaurants) {
     this.restaurant = restaurant;
+    this.restaurants = restaurants;
     this.render();
+    this.setFavoriteButtonEvent();
   }
 
   template() {
@@ -30,17 +36,39 @@ class RestaurantItem {
   }
 
   render() {
-    if (!document.querySelector(`#restaurant${this.restaurant.ID}`)) {
-      document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
-    }
+    document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
+  }
+
+  updateIcon() {
+    const iconName = FOVORITES_TO_FILENAME[this.restaurant.favorites];
+
+    const $favoriteIcon = document.querySelector(`#restaurant${this.restaurant.ID} .favorite-icon`);
+    $favoriteIcon.setAttribute('src', `./${iconName}.png`);
   }
 
   setEvent(onClickRestaurantItem) {
-    const $item = document.querySelector(`#restaurant${this.restaurant.ID}`);
-
-    $item.addEventListener('click', e => {
+    const $info = document.querySelector(`#restaurant${this.restaurant.ID} .restaurant__info`);
+    $info.addEventListener('click', e => {
       e.preventDefault();
       onClickRestaurantItem(this.restaurant);
+    });
+
+    const $category = document.querySelector(`#restaurant${this.restaurant.ID} .restaurant__category`);
+    $category.addEventListener('click', e => {
+      e.preventDefault();
+      onClickRestaurantItem(this.restaurant);
+    });
+  }
+
+  setFavoriteButtonEvent() {
+    const $favoriteIcon = document.querySelector(`#restaurant${this.restaurant.ID} .favorite-icon`);
+
+    $favoriteIcon.addEventListener('click', e => {
+      e.preventDefault();
+
+      this.restaurants.swapFavoritesByID(this.restaurant.ID);
+      this.updateIcon();
+      localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
     });
   }
 }
