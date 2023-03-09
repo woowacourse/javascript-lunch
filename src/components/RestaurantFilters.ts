@@ -11,7 +11,7 @@ class RestaurantFilters {
     this.sortingFilter = new Select(FILTER_ATTRIBUTE.SORTING, SELECT_OPTIONS.SORTING_FILTER);
   }
 
-  addEvent(changeFilter: CallableFunction) {
+  addEvents(changeFilter: CallableFunction) {
     this.categoryFilter.addSelectChangeEvent(changeFilter);
     this.sortingFilter.addSelectChangeEvent(changeFilter);
   }
