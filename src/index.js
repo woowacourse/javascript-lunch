@@ -5,7 +5,7 @@ import Modal from "./component/Modal";
 import Restaurants from "./domain/Restaurants";
 import RestaurantValidator from "./domain/RestaurantValidator";
 import Alert from "./component/Alert";
-import { $ } from "./util/querySelector";
+import { $, $$ } from "./util/querySelector";
 import Filter from "./domain/Filter";
 import IMAGE from "./IMAGE";
 import { sort } from "./domain/Sort";
@@ -68,6 +68,7 @@ const addButton = $(".gnb__button");
 addButton.querySelector("img").src = IMAGE.ADD_BTN;
 addButton.addEventListener("click", () => {
   $("#restaurant-input-form").reset();
+  $$("#restaurant-input-form .alert").forEach((alert) => Alert.close(alert));
   Modal.open(restaurantInputModal);
 });
 
