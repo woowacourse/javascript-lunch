@@ -1,3 +1,5 @@
+import { waitForCustomElementsDefined as whenCustomElementsDefined } from '../components/lifecycle';
+import RestaurantList from '../components/restaurant/RestaurantList';
 import Restaurant, { RestaurantProps } from '../domain/Restaurant';
 import { RestaurantFilter } from '../domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from '../fixtures';
@@ -50,8 +52,8 @@ class Restaurants {
     this.save();
   }
 
-  favorite(restaurant: Restaurant, favorite: Restaurant['favorite']) {
-    restaurant.setFavorite(favorite);
+  toggleFavorite(restaurant: Restaurant) {
+    restaurant.setFavorite(!restaurant.isFavorite());
     this.updateComponents();
     this.save();
   }
@@ -82,7 +84,13 @@ class Restaurants {
     return this.restaurants.filter((restaurant) => restaurant.isFavorite());
   }
 
-  updateComponents() {}
+  async updateComponents() {
+    await whenCustomElementsDefined();
+
+    document
+      .querySelector<RestaurantList>('r-restaurant-list')
+      ?.setRestaurants(this.getFilteredRestaurants());
+  }
 }
 
 export default new Restaurants();
