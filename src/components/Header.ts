@@ -2,7 +2,7 @@ import { $ } from '../utils/domSelectors';
 
 class Header {
   addEvent(openModal: CallableFunction) {
-    const addButton = $('.gnb__button') as HTMLButtonElement;
+    const addButton = $<HTMLButtonElement>('.gnb__button');
 
     addButton.addEventListener('click', () => {
       openModal();

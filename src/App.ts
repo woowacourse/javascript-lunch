@@ -21,14 +21,14 @@ class App {
   );
   private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
   private currentTab: string = 'all-restaurants';
-  private body = $('body') as HTMLBodyElement;
+  private body = $<HTMLBodyElement>('body');
   private restaurantListElement: Element;
 
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
     this.render();
-    this.restaurantListElement = $('.restaurant-list') as HTMLButtonElement;
+    this.restaurantListElement = $<HTMLButtonElement>('.restaurant-list');
     this.updateRestaurantList();
     this.addEvents();
   }
@@ -72,7 +72,7 @@ class App {
     const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantId);
     saveToLocalStorage(updatedRestaurantList);
 
-    if (($('.tab-button--active') as HTMLButtonElement).id === 'favorite-restaurants') {
+    if ($<HTMLButtonElement>('.tab-button--active').id === 'favorite-restaurants') {
       RestaurantListContainer.removeRestaurantItem(this.restaurantListElement, restaurantId);
     }
   };

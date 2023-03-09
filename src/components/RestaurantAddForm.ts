@@ -42,7 +42,7 @@ class RestaurantAddForm {
   }
 
   addSubmitEvent(closeModal: CallableFunction, addRestaurant: CallableFunction) {
-    const restaurantAddForm = $('#restaurant-add-form') as HTMLFormElement;
+    const restaurantAddForm = $<HTMLFormElement>('#restaurant-add-form');
 
     restaurantAddForm.addEventListener('submit', (event: Event) => {
       event.preventDefault();
@@ -67,7 +67,7 @@ class RestaurantAddForm {
   }
 
   addEvents(closeModal: CallableFunction, addRestaurant: CallableFunction) {
-    const closeButton = $('#form-close-button') as HTMLButtonElement;
+    const closeButton = $<HTMLButtonElement>('#form-close-button');
 
     closeButton.addEventListener('click', () => {
       closeModal();

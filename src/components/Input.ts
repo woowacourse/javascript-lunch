@@ -9,19 +9,19 @@ class Input {
   }
 
   showErrorMessage(message: string) {
-    const caption = $(`#${this.attributes.id}-caption`) as HTMLSpanElement;
+    const caption = $<HTMLSpanElement>(`#${this.attributes.id}-caption`);
     caption.classList.add('error-text');
     caption.textContent = message;
   }
 
   addRemoveErrorMessageEvent(message?: string) {
-    const element = $(`#${this.attributes.id}`) as HTMLSelectElement;
+    const element = $<HTMLSelectElement>(`#${this.attributes.id}`);
 
     element.addEventListener(
       'input',
       (event: Event) => {
         const target = event.target as HTMLInputElement;
-        const caption = $(`#${target.id}-caption`) as HTMLSpanElement;
+        const caption = $<HTMLSpanElement>(`#${target.id}-caption`);
         caption.classList.remove('error-text');
 
         if (message) caption.textContent = message;

@@ -31,7 +31,7 @@ class RestaurantListContainer {
   }
 
   removeRestaurantItem(target: Element, restaurantId: number) {
-    const restaurantItem = $(`.restaurant[data-id="${restaurantId}"]`) as HTMLUListElement;
+    const restaurantItem = $<HTMLUListElement>(`.restaurant[data-id="${restaurantId}"]`);
     target.removeChild(restaurantItem);
   }
 
@@ -40,7 +40,7 @@ class RestaurantListContainer {
     getRestaurantInformation: CallableFunction,
     onItemClick: CallableFunction
   ) {
-    const restaurantList = $('.restaurant-list') as HTMLUListElement;
+    const restaurantList = $<HTMLUListElement>('.restaurant-list');
 
     restaurantList.addEventListener('click', (event: Event) => {
       const target = event.target as HTMLElement;

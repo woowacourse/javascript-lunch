@@ -56,13 +56,13 @@ class RestaurantInformation {
   }
 
   addEvent(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
-    const closeButton = $('#restaurant-information-close-button') as HTMLButtonElement;
+    const closeButton = $<HTMLButtonElement>('#restaurant-information-close-button');
 
     closeButton.addEventListener('click', () => {
       closeModal();
     });
 
-    const deleteButton = $('#restaurant-information-delete-button') as HTMLButtonElement;
+    const deleteButton = $<HTMLButtonElement>('#restaurant-information-delete-button');
 
     deleteButton.addEventListener('click', (event: Event) => {
       const target = event.target as HTMLButtonElement;

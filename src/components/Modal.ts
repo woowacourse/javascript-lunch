@@ -13,7 +13,7 @@ class Modal {
   }
 
   closeModal = () => {
-    const modal = $(`#${this.attributes.id}-modal`) as HTMLDialogElement;
+    const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.close();
 
     if (this.content === RestaurantAddForm) {
@@ -22,12 +22,12 @@ class Modal {
   };
 
   openModal = () => {
-    const modal = $(`#${this.attributes.id}-modal`) as HTMLDialogElement;
+    const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.showModal();
   };
 
   addEvents(onSubmit?: CallableFunction) {
-    const backdrop = $(`#${this.attributes.id}-modal`) as HTMLDialogElement;
+    const backdrop = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
 
     backdrop.addEventListener('click', (event: Event) => {
       const target = event.target as HTMLDialogElement;
@@ -53,7 +53,7 @@ class Modal {
   }
 
   renderContent(information?: Restaurant, deleteRestaurant?: CallableFunction) {
-    const element = $(`#${this.attributes.id}`) as HTMLDivElement;
+    const element = $<HTMLDivElement>(`#${this.attributes.id}`);
 
     if (this.content === RestaurantInformation) {
       element.replaceChildren();
