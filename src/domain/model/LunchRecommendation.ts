@@ -27,6 +27,7 @@ interface ILunchRecommendation {
   renderBy(filterType: FilterType): Restaurant[];
   sortByName(list: Restaurant[]): Restaurant[];
   sortByDistance(list: Restaurant[]): Restaurant[];
+  toggleFavorite(id: RestaurantInfo['id']): void;
   getList(): Restaurant[];
 }
 
@@ -113,6 +114,15 @@ export class LunchRecommendation implements ILunchRecommendation {
         return distanceA - distanceB;
       }
     );
+  }
+
+  toggleFavorite(id: RestaurantInfo['id']) {
+    this.origin = this.origin.map((restaurant) => {
+      if (restaurant.info.id === id) restaurant.info.favorite = !restaurant.info.favorite;
+
+      return restaurant;
+    });
+    addData(this.origin.map(({ info }) => info));
   }
 
   getList() {
