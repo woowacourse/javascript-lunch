@@ -70,7 +70,7 @@ function Modal({ close }: ModalProps) {
                 <!-- 음식점 이름 -->
                 <div class="form-item form-item--required">
                     <label for="name text-caption">이름</label>
-                    <input type="text" name="name" id="name" required>
+                    <input type="text" name="name" id="name" placeholder="20자 이내로 공백 없이 입력해주세요" required>
                 </div>
 
                 <!-- 거리 -->
@@ -89,14 +89,14 @@ function Modal({ close }: ModalProps) {
                 <!-- 설명 -->
                 <div class="form-item">
                 <label for="description text-caption">설명</label>
-                <textarea name="description" id="description" cols="30" rows="5"></textarea>
+                <textarea name="description" id="description" cols="30" rows="5" placeholder="50자 이하로 입력해주세요"></textarea>
                 <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
                 </div>
 
                 <!-- 링크 -->
                 <div class="form-item">
                     <label for="link text-caption">참고 링크</label>
-                    <input type="text" name="link" id="link">
+                    <input type="text" name="link" id="link" placeholder="https://">
                     <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
                 </div>
 

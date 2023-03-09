@@ -1,7 +1,8 @@
 import '../css/Restaurant.css';
+import '../../assets/baemin-empty.png';
 
-import { Restaurant } from '../../domain/model/LunchRecommendation';
 import updateActiveTab from '../../utils/common/tabStyleHandler';
+
 import { useEvents } from '../../utils/core';
 import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
@@ -37,6 +38,11 @@ function OftenRestaurants({ all }: OftenProps) {
     <section class="restaurant-list-container">
       <ul class="often-restaurant-list">
         ${oftenRestaurants && oftenRestaurants.map(({ info }) => RestaurantItem({ info })).join('')}
+        ${
+          oftenRestaurants.length === 0
+            ? `<div class="empty-list"><img src='./baemin-empty.png'><p>자주 가는 음식점이 있다면 추가해주세요!</p></div>`
+            : ''
+        }
       </ul>
     </section>
     `;
