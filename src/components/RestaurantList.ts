@@ -16,11 +16,27 @@ class RestaurantList extends HTMLElement {
         <ul class="restaurant-list">
         ${this.controller
           .getRestaurants()
-          .map((restaurant) => new RestaurantItem().render(restaurant))
+          .map((restaurant, index) =>
+            new RestaurantItem().render(restaurant, index)
+          )
           .join("")}
         </ul>
       </section>
     `;
+    this.onClickRestaurantItem();
+    this.onToggleFavorite();
+  }
+
+  onClickRestaurantItem() {
+    const restaurantItems = this.querySelectorAll("#restaurantItem");
+
+    restaurantItems.forEach((restaurantItem) => {
+      restaurantItem.addEventListener("click", () => {
+        this.controller.setSelectedRestaurantIndex(
+          Number(restaurantItem.getAttribute("key"))
+        );
+      });
+    });
   }
 }
 
