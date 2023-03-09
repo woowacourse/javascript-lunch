@@ -22,6 +22,6 @@ export default class Component {
   }
 
   render() {
-    this.template() && (this.$target.innerHTML = this.template());
+    this.template() !== '' && (this.$target.innerHTML = this.template());
   }
 }
