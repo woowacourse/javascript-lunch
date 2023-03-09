@@ -48,15 +48,3 @@ body {
   line-height: 20px;
   font-weight: 400;
 }
-
-r-select {
-  min-width: 125px;
-}
-
-.restaurant-filter-container {
-  display: flex;
-  justify-content: space-between;
-
-  padding: 0 16px;
-  margin-top: 24px;
-}

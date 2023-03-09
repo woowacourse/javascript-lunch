@@ -1,40 +1,38 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Modal from './components/common/Modal';
-import Select from './components/common/Select';
 import NewRestaurantModal, {
   NewRestaurantSubmitEvent,
 } from './components/restaurant/NewRestaurantModal';
+import RestaurantFilterPanel, {
+  RestaurantFilterChangeEvent,
+} from './components/restaurant/RestaurantFilterPanel';
 import RestaurantList from './components/restaurant/RestaurantList';
 import Restaurant from './domain/Restaurant';
 import type { RestaurantFilter } from './domain/RestaurantFilter';
-import { filterBy, sortByDistance, sortByName } from './domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from './fixtures';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
-  #filters: Partial<Record<'filter' | 'sort', RestaurantFilter | null>> = {};
+  #filters: RestaurantFilter[] = [];
 
   $restaurantList = document.querySelector<RestaurantList>('#restaurant-list')!;
 
-  $restaurantFilterSelect = document.querySelector<Select<RestaurantFilter | null>>(
-    '#restaurant-filter-select',
-  )!;
-
-  $restaurantSortSelect =
-    document.querySelector<Select<RestaurantFilter | null>>('#restaurant-sort-select')!;
-
   $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
-
-  $modalForm = document.querySelector<HTMLFormElement>('#modal-form')!;
 
   $modal = document.querySelector<Modal>('r-modal')!;
 
+  init() {
+    this.load();
+    this.initEventHandlers();
+  }
+
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
-      Object.values(this.#filters)
-        .filter((filter): filter is RestaurantFilter => !!filter)
-        .reduce((filteredRestaurants, filter) => filter(filteredRestaurants), this.#restaurants),
+      this.#filters.reduce(
+        (filteredRestaurants, filter) => filter(filteredRestaurants),
+        this.#restaurants,
+      ),
     );
 
     this.save();
@@ -55,42 +53,15 @@ class App {
     this.updateRestaurants();
   }
 
-  init() {
-    this.load();
-
-    this.initSelect();
-    this.initEventHandlers();
-  }
-
-  initSelect() {
-    this.$restaurantFilterSelect.setOptions([
-      { value: null, label: '전체' },
-      ...Restaurant.CATEGORIES.map((category) => ({
-        value: filterBy((restaurant) => restaurant.getCategory() === category),
-        label: category,
-      })),
-    ]);
-
-    this.$restaurantSortSelect.setOptions([
-      { value: sortByName, label: '이름순' },
-      { value: sortByDistance, label: '거리순' },
-    ]);
-  }
-
   initEventHandlers() {
-    this.$restaurantFilterSelect.addEventListener('change', (event) => {
-      if (event?.target !== this.$restaurantFilterSelect) return;
-      this.#filters.filter = this.$restaurantFilterSelect.getSelectedOption()?.value;
+    document
+      .querySelector<RestaurantFilterPanel>('r-restaurant-filter-panel')
+      ?.addEventListener('change', (e) => {
+        const event = e as RestaurantFilterChangeEvent;
 
-      this.updateRestaurants();
-    });
-
-    this.$restaurantSortSelect.addEventListener('change', (event) => {
-      if (event?.target !== this.$restaurantSortSelect) return;
-      this.#filters.sort = this.$restaurantSortSelect.getSelectedOption()?.value;
-
-      this.updateRestaurants();
-    });
+        this.#filters = event.detail;
+        this.updateRestaurants();
+      });
 
     this.$modalOpenButton.addEventListener('click', () => {
       document.querySelector<NewRestaurantModal>('r-new-restaurant-modal')?.open();
