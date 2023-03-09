@@ -1,5 +1,6 @@
 import { CATEGORY, Category, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
 import { useEvents } from '../../utils/core';
+import { NavTab } from './NavTab';
 
 interface NavProps {
   category: Category;
@@ -34,6 +35,7 @@ function Nav({ category, sortOption, handleCategory, handleSortOption }: NavProp
   });
 
   return `
+      ${NavTab()}
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
           ${categoryList
