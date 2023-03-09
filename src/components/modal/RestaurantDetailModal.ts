@@ -54,11 +54,40 @@ class RestaurantDetailModal extends ModalContent {
         >
           삭제하기
         </button>
-        <button class="button button--primary text-caption">
+        <button
+          type="button"
+          id="close-button"
+          class="button button--primary text-caption">
           닫기
         </button>
       </div>
     `;
+  }
+
+  bindEvent() {
+    if (!this.hasChildNodes()) return;
+
+    this.querySelector<HTMLButtonElement>("#delete-button")?.addEventListener(
+      "click",
+      this.onClickDeleteButton.bind(this)
+    );
+
+    this.querySelector<HTMLButtonElement>("#close-button")?.addEventListener(
+      "click",
+      this.onClickCloseButton.bind(this)
+    );
+  }
+
+  onClickDeleteButton() {
+    if (!this.closeModal) return;
+
+    this.closeModal();
+  }
+
+  onClickCloseButton() {
+    if (!this.closeModal) return;
+
+    this.closeModal();
   }
 
   attributeChangedCallback(
@@ -71,6 +100,7 @@ class RestaurantDetailModal extends ModalContent {
 
     this.#name = newValue;
     this.render();
+    this.bindEvent();
   }
 
   setNameAttribute(name: string) {

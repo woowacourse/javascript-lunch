@@ -1,6 +1,11 @@
 import "./ModalContent.style.css";
+import ModalRoot from "./ModalRoot";
+
+type CloseModal = () => void;
 
 class ModalContent extends HTMLElement {
+  closeModal: CloseModal | undefined;
+
   constructor() {
     super();
   }
@@ -12,10 +17,14 @@ class ModalContent extends HTMLElement {
 
   render() {}
 
-  bindEvent(closeModal: () => void) {}
+  bindEvent() {}
 
   setClassName() {
     this.setAttribute("class", "modal-container");
+  }
+
+  setCloseModal(closeModal: CloseModal) {
+    this.closeModal = closeModal;
   }
 }
 
