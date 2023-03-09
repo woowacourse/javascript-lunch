@@ -9,8 +9,11 @@ const ModalButton = {
   },
 
   setEvent() {
-    document.querySelector('.gnb__button').addEventListener('click', () => {
-      // 이벤트 추가
+    const gnbButton = document.querySelector('.gnb__button');
+
+    gnbButton?.addEventListener('click', () => {
+      const modal = document.querySelector('.modal') as HTMLElement;
+      modal.className = 'modal--open';
     });
   },
 };
