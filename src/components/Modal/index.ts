@@ -1,25 +1,33 @@
+import { IRestaurant } from '../../types';
 import RestaurantDetail from './ResraurantDetail';
 import RestaurantAddForm from './RestaurantAddForm';
 
-type ModalContentType = 'detail' | 'addForm';
-
 const Modal = {
-  render(targetElement: Element, content: ModalContentType) {
-    targetElement.innerHTML = this.getTemplate(content);
+  render(targetElement: Element, restaurant?: IRestaurant) {
+    if (restaurant) {
+      targetElement.innerHTML = this.getTemplate(restaurant);
+
+      return;
+    }
+
+    targetElement.innerHTML = this.getTemplate();
   },
 
-  getTemplate(content: ModalContentType) {
+  getTemplate(restaurant?: IRestaurant) {
     return `
     <div class="modal-backdrop"></div>
     <div class="modal-container">
-      ${this.getModalContent(content)}
+      ${this.getModalContent(restaurant)}
     </div>
     `;
   },
 
-  getModalContent(contentType: ModalContentType) {
-    if (contentType === 'detail') return RestaurantDetail.getTemplate();
-    if (contentType === 'addForm') return RestaurantAddForm.getTemplate();
+  getModalContent(restaurant?: IRestaurant) {
+    if (restaurant) {
+      return RestaurantDetail.getTemplate(restaurant);
+    }
+
+    return RestaurantAddForm.getTemplate();
   },
 };
 

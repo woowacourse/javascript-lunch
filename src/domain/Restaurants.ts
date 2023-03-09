@@ -22,4 +22,8 @@ export default class Restaurants {
   getRestaurants() {
     return deepCopy(this.#restaurants);
   }
+
+  getRestaurantById(restaurantId: number) {
+    return this.#restaurants.find((restaurant) => restaurant.id === restaurantId);
+  }
 }

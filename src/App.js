@@ -28,7 +28,7 @@ export default class App {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
 
-    Modal.render($('.modal'), 'addForm');
+    Modal.render($('.modal'));
     Selectbox.render(
       $('.restaurant-filter-container'),
       'afterbegin',
@@ -113,6 +113,11 @@ export default class App {
   }
 
   onClickRestaurantFormModalOpenButton() {
+    Modal.render($('.modal'));
+    Selectbox.render($('.form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
+    Selectbox.render($('.form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
+    $('.modal-close-button').addEventListener('click', this.toggleModal);
+
     $('.add-restaurant-form').reset();
 
     this.toggleModal();
@@ -141,6 +146,12 @@ export default class App {
 
       return;
     }
+
+    const restaurantId = e.target.closest('li').dataset.listid;
+    const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
+
+    Modal.render($('.modal'), targetRestaurant);
+    this.toggleModal();
   }
 
   onChangeFavoriteTab(e) {
