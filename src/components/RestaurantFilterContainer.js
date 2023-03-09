@@ -39,12 +39,4 @@ export default class RestaurantFilterContainer {
 
     this.setState({ sortOption: sortOption });
   }
-
-  hidden() {
-    $('.restaurant-filter-container').classList.add('hidden');
-  }
-
-  visible() {
-    $('.restaurant-filter-container').classList.remove('hidden');
-  }
 }

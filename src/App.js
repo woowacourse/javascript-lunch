@@ -40,7 +40,7 @@ export default class App {
 
   onClickAddRestaurantButton() {
     $('.add-restaurant-form').reset();
-    this.toggleModal();
+    this.toggleAddRestaurantModal();
   }
 
   onClickNavTab(e) {
@@ -117,7 +117,7 @@ export default class App {
     this.restaurants.addRestaurant(restaurant);
     store.setLocalStorage(this.restaurants.getRestaurants());
 
-    this.toggleModal();
+    this.toggleAddRestaurantModal();
 
     const curCategoryOption = $('#category-filter').value;
     if (curCategoryOption !== '전체' && category !== curCategoryOption) return;
@@ -125,7 +125,7 @@ export default class App {
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
   }
 
-  toggleModal() {
-    $('.modal').classList.toggle('modal--open');
+  toggleAddRestaurantModal() {
+    $('.add-restaurant-modal').classList.toggle('modal--open');
   }
 }
