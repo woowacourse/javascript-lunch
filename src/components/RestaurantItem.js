@@ -30,16 +30,13 @@ const html = ({ id, category, name, distance, description, liked }) => `
 
 export default class RestaurantItem {
   restaurant;
-  liked;
   updateRestaurant;
 
   constructor(restaurant, updateRestaurant) {
     this.restaurant = restaurant;
-    this.liked = restaurant.liked;
-
     this.updateRestaurant = updateRestaurant;
 
-    this.renderItem(restaurant);
+    $('.restaurant-list').insertAdjacentHTML('beforeend', html(restaurant));
 
     $(`.${restaurant.id}`).addEventListener('click', this.onClickRestaurant.bind(this));
   }
@@ -48,9 +45,9 @@ export default class RestaurantItem {
     this.restaurant.liked = !this.restaurant.liked;
 
     const likeStar = $(`.${this.restaurant.id} .like-star`);
-    this.restaurant.liked ? likeStar.classList.add('hidden') : likeStar.classList.remove('hidden');
+    this.restaurant.liked ? likeStar.classList.remove('hidden') : likeStar.classList.add('hidden');
 
-    const updatedRestaurants = this.updateRestaurant(this.restaurant.id, this.liked);
+    const updatedRestaurants = this.updateRestaurant(this.restaurant.id, this.restaurant.liked);
     store.setLocalStorage(updatedRestaurants);
   }
 
@@ -59,10 +56,6 @@ export default class RestaurantItem {
       return this.onClickStarIcon();
     }
 
-    new RestaurantDetailModal(this.restaurant.liked);
-  }
-
-  renderItem(restaurant) {
-    $('.restaurant-list').insertAdjacentHTML('beforeend', html(restaurant));
+    new RestaurantDetailModal(this.restaurant);
   }
 }

@@ -8,17 +8,9 @@ const html = `
   </ul>`;
 
 export default class RestaurantItems {
-  updateRestaurant;
-
   constructor(restaurants, updateRestaurant) {
-    this.updateRestaurant = updateRestaurant;
-
     $('.restaurant-list-container').innerHTML = html;
 
-    restaurants.forEach((restaurant) => new RestaurantItem(restaurant, updateRestaurant));
-  }
-
-  renderItems(restaurants, updateRestaurant) {
     restaurants.forEach((restaurant) => new RestaurantItem(restaurant, updateRestaurant));
   }
 }
