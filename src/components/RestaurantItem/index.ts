@@ -1,5 +1,6 @@
 import { restaurants } from "../../domain/restaurants";
 import findImage from "../../tools/findImage";
+import Storage from "../../tools/Storage";
 import IRestaurant from "../../type/IRestaurant";
 class RestaurantItem extends HTMLElement {
   restaurant: IRestaurant | undefined;
@@ -10,6 +11,7 @@ class RestaurantItem extends HTMLElement {
     if (id) {
       this.findRestaurant(id);
       this.restaurant && this.render(this.restaurant);
+      this.onClickFavoriteButton(id);
     }
   }
 
@@ -33,7 +35,7 @@ class RestaurantItem extends HTMLElement {
               캠퍼스부터 ${restaurant.distance}분 내
             </span>
           </div>
-          <div>
+          <div id="favorite-button-${restaurant.id}">
             <img
               src="${findImage(
                 restaurant.favorite ? "favoriteFilled" : "favoriteLined"
@@ -49,6 +51,19 @@ class RestaurantItem extends HTMLElement {
       </div>
     </li>
   `;
+  }
+
+  // 리팩토링 필요
+  onClickFavoriteButton(id: string) {
+    const favoriteButton = document.getElementById(`favorite-button-${id}`);
+    favoriteButton?.addEventListener("click", () => {
+      const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
+      const originalFovrite = restaurants.state.restaurants[index].favorite;
+      const temp = [...restaurants.state.restaurants];
+      temp[index].favorite = !originalFovrite;
+      restaurants.state.restaurants = temp;
+      Storage.saveRestaurants(restaurants.state.restaurants);
+    });
   }
 
   findRestaurant(id: string) {
