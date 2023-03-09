@@ -99,6 +99,10 @@ class Controller {
   setSelectedRestaurantIndex(index: number) {
     this.selectedRestaurantIndex = index;
   }
+
+  getSelectedRestaurant() {
+    return this.state.restaurants[this.selectedRestaurantIndex];
+  }
 }
 
 export default Controller;
