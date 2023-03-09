@@ -1,3 +1,4 @@
+import { CLASS } from '../../constants';
 import { Category } from '../../data/image';
 import RestaurantListItem, { IRestaurant } from '../../domain/RestaurantListItem';
 import DetailModal from './DetailModal';
@@ -6,7 +7,7 @@ import FavoriteIcon from './FavoriteIcon';
 const Restaurant = {
   template(restaurant: IRestaurant) {
     return `
-      <li class="restaurant" data-id="${restaurant.id}">
+      <li class="${CLASS.RESTAURANT}" data-id="${restaurant.id}">
         <div class="restaurant__category">
           <img src="${Category[restaurant.category]}" alt="${restaurant.category}" class="category-icon">
         </div>
@@ -22,7 +23,7 @@ const Restaurant = {
   setEvent(RestaurantListItem: RestaurantListItem) {
     FavoriteIcon.setEvent(RestaurantListItem);
 
-    const restaurants = document.querySelectorAll('.restaurant') as NodeListOf<HTMLElement>;
+    const restaurants = document.querySelectorAll(`.${CLASS.RESTAURANT}`) as NodeListOf<HTMLElement>;
 
     restaurants.forEach((item) => {
       item?.addEventListener('click', (e) => {
@@ -34,7 +35,7 @@ const Restaurant = {
     });
   },
   remove(id: string) {
-    const restaurants = document.querySelectorAll('.restaurant') as NodeListOf<HTMLElement>;
+    const restaurants = document.querySelectorAll(`.${CLASS.RESTAURANT}`) as NodeListOf<HTMLElement>;
 
     restaurants.forEach((item) => {
       if (item.dataset.id === id) {

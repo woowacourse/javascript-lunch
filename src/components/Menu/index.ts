@@ -1,3 +1,4 @@
+import { CLASS, ID } from '../../constants';
 import RestaurantListItem from '../../domain/RestaurantListItem';
 import FilterSection from '../FilterSection';
 import RestaurantList from '../RestaurantList';
@@ -6,13 +7,14 @@ const Menu = {
   template() {
     return `
       <section class="menu-container">
-        <div id="all-restaurant" class="menu-item menu-item-clicked">모든 음식점</div>
-        <div id="favorite-restaurant" class="menu-item">자주 가는 음식점</div>
+        <div id="${ID.ALL_RESTAURANT}" class="${CLASS.MENU_ITEM} ${CLASS.MENU_ITEM_CLICKED}">모든 음식점</div>
+        <div id="${ID.FAVORITE_RESTAURANT}" class="menu-item">자주 가는 음식점</div>
       </section>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
-    const allRestaurant = document.querySelector('#all-restaurant') as HTMLDivElement;
-    const favoriteRestaurant = document.querySelector('#favorite-restaurant') as HTMLDivElement;
+    const allRestaurant = document.querySelector(`#${ID.ALL_RESTAURANT}`) as HTMLDivElement;
+    const favoriteRestaurant = document.querySelector(`#${ID.FAVORITE_RESTAURANT}`) as HTMLDivElement;
+
     allRestaurant?.addEventListener('click', () => {
       FilterSection.show();
       this.addClassBy(allRestaurant);
@@ -27,13 +29,13 @@ const Menu = {
     });
   },
   addClassBy(clickedElement: HTMLElement) {
-    const menuItems = document.querySelectorAll('.menu-item');
+    const menuItems = document.querySelectorAll(`.${CLASS.MENU_ITEM}`);
 
     menuItems?.forEach((item) => {
       if (item === clickedElement) {
-        item.classList.add('menu-item-clicked');
+        item.classList.add(CLASS.MENU_ITEM_CLICKED);
       } else {
-        item.classList.remove('menu-item-clicked');
+        item.classList.remove(CLASS.MENU_ITEM_CLICKED);
       }
     });
   },
