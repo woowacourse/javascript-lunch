@@ -1,4 +1,3 @@
-import { useBoolean } from '../../utils/hooks/useBoolean';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { Nav } from './Nav';
 import { NavFilter } from './NavFilter';
@@ -7,15 +6,14 @@ import { Restaurants } from './Restaurants';
 
 function LandingMain() {
   const {
-    values: { restaurants, category, sortOption },
-    handlers: { handleCategory, handleSortOption, handleFavoriteBtn },
+    values: { restaurants, category, sortOption, tab },
+    handlers: { handleCategory, handleSortOption, handleFavoriteBtn, tabAll, tabFavorite },
   } = useRestaurants();
-  const [tab, tabRight, tabLeft] = useBoolean(false);
 
   return `
     <main>
       ${Nav({
-        NavTab: NavTab({ tab, tabRight, tabLeft }),
+        NavTab: NavTab({ tab, tabAll, tabFavorite }),
         NavFilter: NavFilter({ category, sortOption, handleCategory, handleSortOption }),
       })}
       ${Restaurants({ restaurants, handleFavoriteBtn })}

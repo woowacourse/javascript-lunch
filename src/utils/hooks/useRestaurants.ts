@@ -6,13 +6,17 @@ import {
 } from '../../domain/model/LunchRecommendation';
 import { getData } from '../common/localStorage';
 import { useState } from '../core';
+import { useBoolean } from './useBoolean';
 
 const lunchRecommendation = new LunchRecommendation(getData());
+const initialCategory = '전체';
+const initialSortOption = '거리순';
 
 function useRestaurants() {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>(lunchRecommendation.getList());
-  const [category, setCategory] = useState<Category>('전체');
-  const [sortOption, setSortOption] = useState<SortOption>('거리순');
+  const [tab, tabRight, tabLeft] = useBoolean(false);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>(lunchRecommendation.getAllList());
+  const [category, setCategory] = useState<Category>(initialCategory);
+  const [sortOption, setSortOption] = useState<SortOption>(initialSortOption);
 
   function handleCategory(category: Category) {
     setCategory(category);
@@ -27,19 +31,43 @@ function useRestaurants() {
   function handleClickAddBtn(restaurantInfo: Omit<RestaurantInfo, 'id'>) {
     const isSuccess = lunchRecommendation.add(restaurantInfo);
 
-    if (isSuccess) setRestaurants(lunchRecommendation.getList());
+    if (isSuccess) setRestaurants(lunchRecommendation.getAllList());
 
     return isSuccess;
   }
 
   function handleFavoriteBtn(id: RestaurantInfo['id']) {
     lunchRecommendation.toggleFavorite(id);
-    setRestaurants(lunchRecommendation.getList());
+    setRestaurants(lunchRecommendation.getAllList());
+  }
+
+  function tabAll() {
+    tabLeft();
+    setRestaurants(lunchRecommendation.getAllList());
+    resetFilter();
+  }
+
+  function tabFavorite() {
+    tabRight();
+    setRestaurants(lunchRecommendation.getFavoriteList());
+    resetFilter();
+  }
+
+  function resetFilter() {
+    setCategory(initialCategory);
+    setSortOption(initialSortOption);
   }
 
   return {
-    values: { restaurants, category, sortOption },
-    handlers: { handleCategory, handleSortOption, handleClickAddBtn, handleFavoriteBtn },
+    values: { restaurants, category, sortOption, tab },
+    handlers: {
+      handleCategory,
+      handleSortOption,
+      handleClickAddBtn,
+      handleFavoriteBtn,
+      tabAll,
+      tabFavorite,
+    },
   };
 }
 

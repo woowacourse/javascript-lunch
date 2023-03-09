@@ -3,16 +3,16 @@ import { useBoolean } from '../../utils/hooks/useBoolean';
 
 interface NavTabProps {
   tab: boolean;
-  tabRight: VoidFunction;
-  tabLeft: VoidFunction;
+  tabAll: VoidFunction;
+  tabFavorite: VoidFunction;
 }
 
 function NavTab(props: NavTabProps) {
-  const { tab, tabRight, tabLeft } = props;
+  const { tab, tabAll, tabFavorite } = props;
   const [addEvent] = useEvents('.nav-tab');
 
-  addEvent('click', '#nav-tab-1', tabLeft);
-  addEvent('click', '#nav-tab-2', tabRight);
+  addEvent('click', '#nav-tab-1', tabAll);
+  addEvent('click', '#nav-tab-2', tabFavorite);
 
   return `
   <nav class="nav-tab">
