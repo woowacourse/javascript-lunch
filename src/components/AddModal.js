@@ -88,8 +88,8 @@ export default class AddModal extends Component {
       return el.value;
     });
 
-    if (!inputData[1].match(/^[a-zA-Z0-9가-힣]*$/)) {
-      alert('음식점 이름은 적어도 하나의 문자를 입력해야 합니다.');
+    if (inputData[1].trim() === '' || !inputData[1].match(/^[a-zA-Z0-9가-힣ㄱ-ㅎ\s]*$/)) {
+      alert('음식점 이름은 적어도 하나의 문자를 입력해야 하며 특수기호는 포함할 수 없습니다.');
       return;
     }
 
