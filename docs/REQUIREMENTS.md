@@ -48,6 +48,14 @@
 
 - 정렬순서를 선택한다.
 
+8. TabBar
+
+- 탭 메뉴를 선택한다.
+
+9. RestaurantDetail
+
+- 음식점 상세정보를 담는다.
+
 # domain
 
 ## Controller.ts
