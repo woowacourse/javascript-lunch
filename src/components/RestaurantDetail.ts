@@ -12,17 +12,16 @@ class RestaurantDetail extends HTMLElement {
   render(restaurant: RestaurantType) {
     this.innerHTML = `
       <div>
-      <div class="icon-container">
-      
-      <div class="restaurant__category">
-        <img src="${findImage(restaurant.category)}" alt="${
+        <div class="icon-container">
+          <div class="restaurant__category">
+            <img src="${findImage(restaurant.category)}" alt="${
       restaurant.category
     }" class="category-icon">
-  </div>
-  <img id="favorite" src="${
-    restaurant.isFavorite ? favoriteIconFilled : favoriteIconLined
-  }" alt="favorite">
-      </div>
+          </div>
+          <img id="favorite" src="${
+            restaurant.isFavorite ? favoriteIconFilled : favoriteIconLined
+          }" alt="favorite">
+        </div>
         <div id="restaurantInfo" class="info-container">
           <h3 class="restaurant__detail__name text-subtitle">${
             restaurant.name
