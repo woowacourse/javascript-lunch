@@ -1,5 +1,5 @@
-import Restaurant, { RestaurantCategory } from '../../../domain/Restaurant';
-import Select from '../../common/Select';
+import Restaurant, { RestaurantCategory } from '../../../../domain/Restaurant';
+import Select from '../../../common/form/Select';
 
 class RestaurantCategorySelect extends Select<RestaurantCategory | string | null> {
   constructor() {

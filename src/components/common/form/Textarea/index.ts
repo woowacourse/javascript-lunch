@@ -1,9 +1,10 @@
-import FormControlComponent from '../../FormControlComponent';
+import FormControlComponent from '../../../FormControlComponent';
+import formControlStyle from '../index.css';
 import style from './index.css';
 
 class Textarea extends FormControlComponent {
   override getCSSStyleSheets() {
-    return [...super.getCSSStyleSheets(), style];
+    return [...super.getCSSStyleSheets(), formControlStyle, style];
   }
 
   override renderTemplate() {

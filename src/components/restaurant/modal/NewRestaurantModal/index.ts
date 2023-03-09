@@ -1,6 +1,6 @@
-import Restaurant from '../../../domain/Restaurant';
-import Modal from '../../common/Modal';
-import Component from '../../Component';
+import Restaurant from '../../../../domain/Restaurant';
+import Modal from '../../../common/Modal';
+import Component from '../../../Component';
 import style from './index.css';
 
 export type NewRestaurantSubmitEvent = CustomEvent<Restaurant>;

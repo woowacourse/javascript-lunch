@@ -1,4 +1,5 @@
-import FormControlComponent from '../../FormControlComponent';
+import FormControlComponent from '../../../FormControlComponent';
+import formControlStyle from '../index.css';
 import style from './index.css';
 
 interface SelectOption<Value> {
@@ -12,7 +13,7 @@ class Select<OptionValue> extends FormControlComponent {
   #selectedOption: SelectOption<OptionValue> | null = null;
 
   override getCSSStyleSheets() {
-    return [...super.getCSSStyleSheets(), style];
+    return [...super.getCSSStyleSheets(), formControlStyle, style];
   }
 
   setOptions(options: SelectOption<OptionValue>[]) {

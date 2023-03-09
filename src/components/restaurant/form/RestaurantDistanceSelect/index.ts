@@ -1,5 +1,5 @@
-import Restaurant, { RestaurantDistance } from '../../../domain/Restaurant';
-import Select from '../../common/Select';
+import Restaurant, { RestaurantDistance } from '../../../../domain/Restaurant';
+import Select from '../../../common/form/Select';
 
 class RestaurantDistanceSelect extends Select<RestaurantDistance | string | null> {
   constructor() {

@@ -2,7 +2,7 @@
 import Modal from './components/common/Modal';
 import NewRestaurantModal, {
   NewRestaurantSubmitEvent,
-} from './components/restaurant/NewRestaurantModal';
+} from './components/restaurant/modal/NewRestaurantModal';
 import RestaurantFilterPanel, {
   RestaurantFilterChangeEvent,
 } from './components/restaurant/RestaurantFilterPanel';

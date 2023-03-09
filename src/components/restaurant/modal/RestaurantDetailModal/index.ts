@@ -1,5 +1,5 @@
-import Modal from '../../common/Modal';
-import Component from '../../Component';
+import Modal from '../../../common/Modal';
+import Component from '../../../Component';
 import style from './index.css';
 
 export type RestaurantDeleteEvent = CustomEvent<void>;
