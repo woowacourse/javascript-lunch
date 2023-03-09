@@ -1,3 +1,4 @@
+import { deleteRestaurant } from "../../domain/restaurant";
 import { closeBottomSheet } from "../BottomSheet/handleBottomSheet";
 
 export const onClickCancelButton = () => {
@@ -10,6 +11,6 @@ export const onClickCancelButton = () => {
 export const onClickDeleteButton = (id: string) => {
   const deleteButton = document.getElementById("deleteButton");
   deleteButton?.addEventListener("click", () => {
-    console.log(id + "삭제를 시도합니다.");
+    deleteRestaurant(id);
   });
 };

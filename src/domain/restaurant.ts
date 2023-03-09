@@ -106,3 +106,11 @@ export const restoreRestaurants = () => {
   restaurants.state.restaurants =
     restoredRestaurants.length > 0 ? restoredRestaurants : defaultRestaurants;
 };
+
+export const deleteRestaurant = (id: string) => {
+  restaurants.state.restaurants = restaurants.state.restaurants.filter(
+    (r) => r.id !== id
+  );
+  closeBottomSheet();
+  Storage.saveRestaurants(restaurants.state.restaurants);
+};
