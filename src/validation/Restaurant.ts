@@ -21,6 +21,7 @@ const Restaurant = {
 
   checkName(name: unknown) {
     if (typeof name !== 'string') throw new CustomError(ERROR_CODE.NOT_STRING, name);
+    if (name.length === 0) throw new CustomError(ERROR_CODE.EMPTY_VALUE, name);
     if (name.length > 10) throw new CustomError(ERROR_CODE.EXCEED_MAXIMUM_NAME_LENGTH, name);
 
     return true;
