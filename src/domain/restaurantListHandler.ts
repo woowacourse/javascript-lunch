@@ -24,6 +24,10 @@ class RestaurantListHandler {
       : this.getSortedByTakingTime(restaurants);
   }
 
+  getBookmarkedRestaurants() {
+    return this.restaurants.filter((restaurant) => restaurant.bookmarked);
+  }
+
   deleteRestaurant(id: string) {
     this.restaurants = this.restaurants.filter(
       (restaurant) => restaurant.id !== id
