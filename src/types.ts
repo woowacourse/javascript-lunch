@@ -5,6 +5,7 @@ export interface Restaurant {
   category: Category;
   name: string;
   distance: Distance;
+  favorite: boolean;
   description?: string;
   link?: string;
 }

@@ -47,6 +47,7 @@ class Modal extends HTMLElement {
         distance: Number($distance.value) as Distance,
         description: `"${$description.value}"`,
         link: $link.value,
+        favorite: false,
       };
       restaurantHandler(restaurant);
       this.closeModal($form);
