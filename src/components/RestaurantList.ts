@@ -51,11 +51,11 @@ class RestaurantList extends HTMLElement {
 
     favorites.forEach((favorite: any) => {
       favorite.addEventListener("click", () => {
-        const input = document.querySelector('input[name="tab"]:checked');
-        if (!(input instanceof HTMLInputElement)) {
+        const currentTab = document.querySelector('input[name="tab"]:checked');
+        if (!(currentTab instanceof HTMLInputElement)) {
           return;
         }
-        if (input.value === "favorite") {
+        if (currentTab.value === "favorite") {
           this.controller.toggleFavorite(
             Number(favorite.parentElement.getAttribute("key"))
           );
