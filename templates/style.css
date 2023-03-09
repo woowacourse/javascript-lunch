@@ -88,6 +88,15 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+.restaurant__favorite__icon {
+  position: absolute;
+  top:10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -155,9 +164,11 @@ body {
 }
 
 .restaurant__info {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .restaurant__name {
