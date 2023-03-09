@@ -386,3 +386,9 @@ input[name="link"] {
   border: none;
   background: none;
 }
+
+#confirm-delete-modal .modal-container {
+  display:flex;
+  flex-direction:column;
+  justify-content: space-evenly;
+}
