@@ -38,6 +38,10 @@ const LunchMenuApp = {
       'clickRestaurantDetail',
       ({ detail: restaurantID }) => this.handleRestaurantDetailClick(restaurantID)
     );
+    $('.restaurant-list-container').addEventListener(
+      'deleteRestaurant',
+      ({ detail: restaurantID }) => this.handleRestaurantDelete(restaurantID)
+    );
   },
 
   handleRestaurantRegister(restaurant) {
@@ -86,6 +90,11 @@ const LunchMenuApp = {
       restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID)
     );
     $('restaurant-detail-modal').openModal();
+  },
+
+  handleRestaurantDelete(restaurantID) {
+    restaurants.delete(restaurantID);
+    this.render(restaurants.list);
   },
 };
 

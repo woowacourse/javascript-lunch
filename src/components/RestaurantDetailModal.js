@@ -41,7 +41,7 @@ customElements.define(
             <a href="${restaurant.link}">${restaurant.link ?? ''}</a>
           </div>
             <div class="button-container">
-              <button type="button" class="button button--secondary text-caption">삭제하기</button>
+              <button id="delete-button" type="button" class="button button--secondary text-caption">삭제하기</button>
               <button class="button button--primary text-caption cancel-button">닫기</button>
             </div>
         </div>
@@ -54,6 +54,9 @@ customElements.define(
       this.querySelector('.modal-backdrop').addEventListener('click', () => this.closeModal());
       this.querySelector('.favorite__button').addEventListener('click', () =>
         this.handleFavoriteClick()
+      );
+      this.querySelector('#delete-button').addEventListener('click', () =>
+        this.handleRestaurantDelete()
       );
     }
 
@@ -73,6 +76,14 @@ customElements.define(
       this.restaurant.favorite = this.restaurant.favorite ? false : true;
       this.render(this.restaurant);
       this.openModal();
+    }
+
+    handleRestaurantDelete() {
+      dispatchCustomEvent($('.restaurant-list-container'), {
+        eventType: 'deleteRestaurant',
+        data: this.restaurant.restaurantID,
+      });
+      this.closeModal();
     }
   }
 );

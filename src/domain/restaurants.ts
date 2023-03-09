@@ -21,6 +21,7 @@ interface Restaurants {
   list: Restaurant[];
   init(): void;
   add(restaurant: Restaurant): void;
+  delete(restaurantID: string): void;
   filterByCategory(category: Category | '전체', restaurants: Restaurant[]): Restaurant[];
   filterByFavorite(tabType: TabType, restaurants: Restaurant[]): Restaurant[];
   sortByName(restaurants: Restaurant[]): Restaurant[];
@@ -38,6 +39,15 @@ export const restaurants: Restaurants = {
 
   add(restaurant) {
     this.list = [restaurant, ...this.list];
+  },
+
+  delete(restaurantID) {
+    console.log(restaurantID);
+    const deleteRestaurantIndex = this.list.findIndex(
+      (restaurant) => restaurant.restaurantID === restaurantID
+    );
+    console.log(deleteRestaurantIndex);
+    this.list.splice(deleteRestaurantIndex, 1);
   },
 
   filterByCategory(category, restaurants) {
