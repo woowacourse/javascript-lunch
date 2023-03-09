@@ -2,6 +2,7 @@ import type { Component } from '../interface';
 import type { Restaurant } from '../type';
 import { fetchFavoriteId } from '../utils/api';
 import { CATEGORY_IMAGE_URL } from '../utils/constants';
+import { getImgSrcByFavorite } from '../utils/util';
 
 type RestaurantListItemState = {
   restaurant: Restaurant;
@@ -59,9 +60,7 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
   // TODO: 이미지 소스 상수화!
   render() {
     const { id, category, name, distance, description, isFavorite } = this.state.restaurant;
-    const FavoriteButtonImgSrc = isFavorite
-      ? './favorite-icon-filled.png'
-      : './favorite-icon-lined.png';
+
     this.$target.innerHTML = `
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE_URL[category]}"" alt="${category}" class="category-icon" />
@@ -73,10 +72,11 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
       </div>
       <div class='restaurant-option'>
         <button class="favorite__button" data-favorite-btn-id="${id}">
-          <img src="${FavoriteButtonImgSrc}"/>
+          <img src="${getImgSrcByFavorite(isFavorite)}"/>
         </button>
       </div>
     `;
+
     this.addEvent();
   }
 }

@@ -1,6 +1,7 @@
 import type { Component } from '../../interface';
 import { deleteById, fetchFavoriteId, getRestaurantById } from '../../utils/api';
 import { CATEGORY_IMAGE_URL } from '../../utils/constants';
+import { getImgSrcByFavorite } from '../../utils/util';
 
 type RestaurantInfoDrawerState = {
   selectId: number;
@@ -30,6 +31,7 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
     this.$target = document.createElement('div');
     this.$target.classList.add('modal');
     this.$target.classList.add('modal--open');
+
     this.state = { onToggleOpenDrawer, selectId, fetchNewRestaurants, onDeleteRestaurant };
 
     $parent.append(this.$target);
@@ -58,9 +60,7 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
     const { category, name, distance, description, link, id, isFavorite } = getRestaurantById(
       this.state.selectId
     );
-    const FavoriteButtonImgSrc = isFavorite
-      ? './favorite-icon-filled.png'
-      : './favorite-icon-lined.png';
+
     this.$target.innerHTML = `
         <div class="modal-backdrop"></div>
         <div class="modal-container restaurant-info-drawer">
@@ -69,7 +69,7 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
             <img src="${CATEGORY_IMAGE_URL[category]}" alt="${category}" class="category-icon" />
           </div>
           <button class="favorite__button" data-favorite-btn-id="${id}">
-            <img src="${FavoriteButtonImgSrc}"/>
+            <img src="${getImgSrcByFavorite(isFavorite)}"/>
           </button>
           </div>
         <div class="restaurant-info__drawer">
@@ -84,6 +84,7 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
         </div>
         <div>
         `;
+
     this.addEvent();
   }
 }
