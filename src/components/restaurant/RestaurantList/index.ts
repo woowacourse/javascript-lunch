@@ -1,6 +1,8 @@
 import Restaurant from '../../../domain/Restaurant';
 import Component from '../../Component';
+import { define } from '../../decorators';
 
+@define('r-restaurant-list')
 class RestaurantList extends Component {
   #restaurants: Restaurant[] = [];
 
@@ -30,7 +32,5 @@ class RestaurantList extends Component {
     `;
   }
 }
-
-customElements.define('r-restaurant-list', RestaurantList);
 
 export default RestaurantList;

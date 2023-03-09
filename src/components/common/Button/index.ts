@@ -1,6 +1,8 @@
+import { define } from '../../decorators';
 import FormControlComponent from '../../FormControlComponent';
 import style from './index.css';
 
+@define('r-button')
 class Button extends FormControlComponent {
   override get value() {
     return this.getAttribute('type') ?? '';
@@ -18,7 +20,5 @@ class Button extends FormControlComponent {
     `;
   }
 }
-
-customElements.define('r-button', Button);
 
 export default Button;

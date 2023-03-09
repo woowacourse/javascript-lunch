@@ -1,6 +1,8 @@
 import Restaurant, { RestaurantDistance } from '../../../../domain/Restaurant';
 import Select from '../../../common/form/Select';
+import { define } from '../../../decorators';
 
+@define('r-restaurant-distance-select')
 class RestaurantDistanceSelect extends Select<RestaurantDistance | string | null> {
   constructor() {
     super();
@@ -17,7 +19,5 @@ class RestaurantDistanceSelect extends Select<RestaurantDistance | string | null
     ]);
   }
 }
-
-customElements.define('r-restaurant-distance-select', RestaurantDistanceSelect);
 
 export default RestaurantDistanceSelect;

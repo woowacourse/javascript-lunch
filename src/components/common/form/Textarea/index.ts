@@ -1,7 +1,9 @@
+import { define } from '../../../decorators';
 import FormControlComponent from '../../../FormControlComponent';
 import formControlStyle from '../index.css';
 import style from './index.css';
 
+@define('r-textarea')
 class Textarea extends FormControlComponent {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), formControlStyle, style];
@@ -43,7 +45,5 @@ class Textarea extends FormControlComponent {
     this.internals.setValidity({});
   }
 }
-
-customElements.define('r-textarea', Textarea);
 
 export default Textarea;

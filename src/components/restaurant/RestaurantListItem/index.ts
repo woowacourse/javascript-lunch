@@ -1,6 +1,8 @@
 import Component from '../../Component';
+import { define } from '../../decorators';
 import style from './index.css';
 
+@define('r-restaurant-list-item')
 class RestaurantListItem extends Component {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
@@ -24,7 +26,5 @@ class RestaurantListItem extends Component {
     `;
   }
 }
-
-customElements.define('r-restaurant-list-item', RestaurantListItem);
 
 export default RestaurantListItem;

@@ -1,9 +1,11 @@
 import Modal from '../../../common/Modal';
 import Component from '../../../Component';
+import { define } from '../../../decorators';
 import style from './index.css';
 
 export type RestaurantDeleteEvent = CustomEvent<void>;
 
+@define('r-restaurant-detail-modal')
 class RestaurantDetailModal extends Component {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
@@ -71,7 +73,5 @@ class RestaurantDetailModal extends Component {
     `;
   }
 }
-
-customElements.define('r-restaurant-detail-modal', RestaurantDetailModal);
 
 export default RestaurantDetailModal;

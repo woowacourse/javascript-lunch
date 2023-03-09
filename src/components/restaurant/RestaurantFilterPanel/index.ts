@@ -2,10 +2,12 @@ import { RestaurantCategory } from '../../../domain/Restaurant';
 import { filterBy, RestaurantFilter, sortByName } from '../../../domain/RestaurantFilter';
 import restaurants from '../../../states/restaurants';
 import Component from '../../Component';
+import { define } from '../../decorators';
 import style from './index.css';
 
 export type RestaurantFilterChangeEvent = CustomEvent<RestaurantFilter[]>;
 
+@define('r-restaurant-filter-panel')
 class RestaurantFilterPanel extends Component {
   private filterFn: RestaurantFilter | null = null;
 
@@ -54,7 +56,5 @@ class RestaurantFilterPanel extends Component {
     return [this.filterFn, this.sortFn].filter((fn): fn is RestaurantFilter => !!fn);
   }
 }
-
-customElements.define('r-restaurant-filter-panel', RestaurantFilterPanel);
 
 export default RestaurantFilterPanel;

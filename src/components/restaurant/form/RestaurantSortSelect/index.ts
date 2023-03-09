@@ -1,6 +1,8 @@
 import { RestaurantFilter, sortByDistance, sortByName } from '../../../../domain/RestaurantFilter';
 import Select from '../../../common/form/Select';
+import { define } from '../../../decorators';
 
+@define('r-restaurant-sort-select')
 class RestaurantSortSelect extends Select<RestaurantFilter> {
   constructor() {
     super();
@@ -11,7 +13,5 @@ class RestaurantSortSelect extends Select<RestaurantFilter> {
     ]);
   }
 }
-
-customElements.define('r-restaurant-sort-select', RestaurantSortSelect);
 
 export default RestaurantSortSelect;

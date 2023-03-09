@@ -1,6 +1,8 @@
 import Component from '../../Component';
+import { define } from '../../decorators';
 import style from './index.css';
 
+@define('r-header')
 class Header extends Component {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
@@ -16,7 +18,5 @@ class Header extends Component {
     `;
   }
 }
-
-customElements.define('r-header', Header);
 
 export default Header;

@@ -1,3 +1,4 @@
+import { define } from '../../../decorators';
 import FormControlComponent from '../../../FormControlComponent';
 import formControlStyle from '../index.css';
 import style from './index.css';
@@ -7,6 +8,7 @@ interface SelectOption<Value> {
   label: string;
 }
 
+@define('r-select')
 class Select<OptionValue> extends FormControlComponent {
   #options: SelectOption<OptionValue>[] = [];
 
@@ -82,7 +84,5 @@ class Select<OptionValue> extends FormControlComponent {
     this.internals.setValidity({});
   }
 }
-
-customElements.define('r-select', Select);
 
 export default Select;

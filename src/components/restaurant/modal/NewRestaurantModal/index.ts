@@ -1,8 +1,10 @@
 import restaurants from '../../../../states/restaurants';
 import Modal from '../../../common/Modal';
 import Component from '../../../Component';
+import { define } from '../../../decorators';
 import style from './index.css';
 
+@define('r-new-restaurant-modal')
 class NewRestaurantModal extends Component {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
@@ -90,7 +92,5 @@ class NewRestaurantModal extends Component {
     `;
   }
 }
-
-customElements.define('r-new-restaurant-modal', NewRestaurantModal);
 
 export default NewRestaurantModal;

@@ -1,7 +1,9 @@
+import { define } from '../../../decorators';
 import FormControlComponent from '../../../FormControlComponent';
 import formControlStyle from '../index.css';
 import style from './index.css';
 
+@define('r-input')
 class Input extends FormControlComponent {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), formControlStyle, style];
@@ -41,7 +43,5 @@ class Input extends FormControlComponent {
     this.internals.setValidity({});
   }
 }
-
-customElements.define('r-input', Input);
 
 export default Input;

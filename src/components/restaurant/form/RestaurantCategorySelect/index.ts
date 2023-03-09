@@ -1,6 +1,8 @@
 import Restaurant, { RestaurantCategory } from '../../../../domain/Restaurant';
 import Select from '../../../common/form/Select';
+import { define } from '../../../decorators';
 
+@define('r-restaurant-category-select')
 class RestaurantCategorySelect extends Select<RestaurantCategory | string | null> {
   constructor() {
     super();
@@ -17,7 +19,5 @@ class RestaurantCategorySelect extends Select<RestaurantCategory | string | null
     ]);
   }
 }
-
-customElements.define('r-restaurant-category-select', RestaurantCategorySelect);
 
 export default RestaurantCategorySelect;

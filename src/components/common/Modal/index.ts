@@ -1,6 +1,8 @@
 import Component from '../../Component';
+import { define } from '../../decorators';
 import style from './index.css';
 
+@define('r-modal')
 class Modal extends Component {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
@@ -35,7 +37,5 @@ class Modal extends Component {
     `;
   }
 }
-
-customElements.define('r-modal', Modal);
 
 export default Modal;

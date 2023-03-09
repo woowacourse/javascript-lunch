@@ -1,6 +1,8 @@
 import Component from '../../Component';
+import { define } from '../../decorators';
 import style from './index.css';
 
+@define('r-category-icon')
 class CategoryIcon extends Component {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
@@ -17,7 +19,5 @@ class CategoryIcon extends Component {
     `;
   }
 }
-
-customElements.define('r-category-icon', CategoryIcon);
 
 export default CategoryIcon;
