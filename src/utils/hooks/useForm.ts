@@ -19,7 +19,6 @@ interface Errors {
 }
 
 interface FormState {
-  conditions: Conditions;
   errors: Errors;
 }
 
@@ -30,54 +29,60 @@ interface Validate {
   onError?(error: CustomError): void;
 }
 
-function useForm() {
-  const [formState, setFormState] = useState<FormState>({ conditions: {}, errors: {} });
+const conditions: Conditions = {};
 
-  const reset = () => setFormState({ conditions: {}, errors: {} });
+function useForm() {
+  const [formState, setFormState] = useState<FormState>({ errors: {} });
+
+  const reset = () => setFormState({ errors: {} });
   const resetErrors = () => setFormState({ ...formState, errors: {} });
 
   const register = (name: string, validator: Validator) => {
-    if (!formState.conditions[name]) {
-      formState.conditions[name] = {
+    if (!conditions[name]) {
+      conditions[name] = {
         value: '',
         validator,
       };
     }
 
-    return formState.conditions[name].value;
+    return conditions[name].value;
   };
 
   const handleSubmit = (onSubmit: EventCallback): EventCallback => {
     return (e) => {
       if (e.target instanceof HTMLFormElement) {
         e.preventDefault();
+        const errors: Errors = {};
         const fields = getFormFields(e.target);
 
-        Object.entries(formState.conditions).forEach(([name, { validator }]) => {
-          formState.conditions[name].value = fields[name];
+        Object.entries(conditions).forEach(([name, { validator }]) => {
+          conditions[name].value = fields[name];
 
-          validate({
+          return validate({
             data: fields[name],
             validator,
-            onSuccess() {
-              onSubmit(e);
-            },
             onError(error) {
-              setFormState({ ...formState, errors: { [name]: error.message } });
+              errors[name] = error.message;
             },
           });
         });
+
+        if (Object.keys(errors).length === 0) {
+          onSubmit(e);
+          resetErrors();
+        } else setFormState({ ...formState, errors });
       }
     };
   };
 
-  const validate = ({ data, validator, onSuccess, onError }: Validate) => {
+  const validate = ({ data, validator, onError }: Validate) => {
     try {
       validator(data);
-      onSuccess?.();
-      resetErrors();
+      return true;
     } catch (error) {
       handleError(error, { onError });
+
+      return false;
     }
   };
 
