@@ -1,6 +1,6 @@
 import SelectComponent from "./SelectComponent";
 import dispatcher from "../../domain/Dispatcher";
-import { CUSTOM_ELEMENT, RESTAURANT_ACTION } from "../../abstracts/constants";
+import { RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class CategoryFilterComponent extends SelectComponent {
   data = {
@@ -23,8 +23,5 @@ class CategoryFilterComponent extends SelectComponent {
       );
   }
 }
-customElements.define(
-  CUSTOM_ELEMENT.CATEGORY_FILTER_ELEMENT,
-  CategoryFilterComponent
-);
+customElements.define("category-filter-element", CategoryFilterComponent);
 export default CategoryFilterComponent;

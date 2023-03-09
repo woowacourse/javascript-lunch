@@ -3,7 +3,6 @@ import dispatcher from "../../domain/Dispatcher";
 import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import {
   CATEGORY_DEFAULT,
-  CUSTOM_ELEMENT,
   RESTAURANTS_STORAGE,
   RESTAURANT_ACTION,
 } from "../../abstracts/constants";
@@ -87,6 +86,6 @@ class RestaurantListComponent extends CustomElement {
   }
 }
 
-customElements.define(CUSTOM_ELEMENT.RESTAURANT_LIST, RestaurantListComponent);
+customElements.define("restaurant-list", RestaurantListComponent);
 
 export default RestaurantListComponent;

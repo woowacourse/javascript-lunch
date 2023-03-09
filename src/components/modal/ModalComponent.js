@@ -1,8 +1,7 @@
 import CustomElement from "../../abstracts/CustomElement";
 import ModalInstance from "../../domain/store/ModalStore";
-import dispatcher from "../../domain/Dispatcher";
 import RestaurantInfoComponent from "./RestaurantInfoComponent";
-import { CUSTOM_ELEMENT } from "../../abstracts/constants";
+import RestaurantAddFormComponent from "./RestaurantAddFormComponent";
 
 class ModalComponent extends CustomElement {
   connectedCallback() {
@@ -22,8 +21,10 @@ class ModalComponent extends CustomElement {
 
   rerender(isModalOn, action) {
     this.modalOnOff(isModalOn);
+
     const modalType = action.type;
     const modalContainer = this.shadowRoot.querySelector(".modal-container");
+
     if (
       modalType === "modal_add_restaurant" &&
       modalContainer.childElementCount === 0
@@ -85,6 +86,6 @@ class ModalComponent extends CustomElement {
   }
 }
 
-customElements.define(CUSTOM_ELEMENT.MODAL_ELEMENT, ModalComponent);
+customElements.define("modal-element", ModalComponent);
 
 export default ModalComponent;

@@ -1,22 +1,26 @@
-import {
-  CATEGORY_IMG,
-  CUSTOM_ELEMENT,
-  FAVORITE_IMG,
-} from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
 import dispatcher from "../../domain/Dispatcher";
+import {
+  CATEGORY_IMG,
+  FAVORITE_IMG,
+  FAVORITE_TYPE,
+  MODAL_ACTION,
+  RESTAURANT_ACTION,
+} from "../../abstracts/constants";
 
 class RestaurantComponent extends CustomElement {
   handleEvent() {
     const id = this.getAttribute("id");
     this.shadowRoot
       .querySelector(".favorite-icon")
-      .addEventListener("click", () => dispatcher("handle_favorite", id));
+      .addEventListener("click", () =>
+        dispatcher(RESTAURANT_ACTION.HANDLE_FAVORITE, id)
+      );
 
     this.shadowRoot
       .querySelector(".restaurant__information")
       .addEventListener("click", () => {
-        dispatcher("modal_restaurant_info", id);
+        dispatcher(MODAL_ACTION.MODAL_RESTAURANT_INFO, id);
       });
   }
 
@@ -26,7 +30,9 @@ class RestaurantComponent extends CustomElement {
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
     const isFavorite =
-      this.getAttribute("isFavorite") === "false" ? "EMPTY" : "FILLED";
+      this.getAttribute("isFavorite") === "false"
+        ? FAVORITE_TYPE.NOT_FAVORITE
+        : FAVORITE_TYPE.FAVORITE;
     return `
     <style>
       * {
@@ -138,6 +144,6 @@ class RestaurantComponent extends CustomElement {
   }
 }
 
-customElements.define(CUSTOM_ELEMENT.RESTAURANT_ELEMENT, RestaurantComponent);
+customElements.define("restaurant-element", RestaurantComponent);
 
 export default RestaurantComponent;

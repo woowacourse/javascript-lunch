@@ -1,7 +1,5 @@
-import RestaurantListComponent from "./RestaurantListComponent";
-import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import CustomElement from "../../abstracts/CustomElement";
-import { CUSTOM_ELEMENT } from "../../abstracts/constants";
+import RestaurantInstance from "../../domain/store/RestaurantsStore";
 
 class FavoriteRestaurantListComponent extends CustomElement {
   connectedCallback() {
@@ -62,7 +60,7 @@ class FavoriteRestaurantListComponent extends CustomElement {
 }
 
 customElements.define(
-  CUSTOM_ELEMENT.FAVORITE_RESTAURANT_LIST,
+  "favorite-restaurant-list",
   FavoriteRestaurantListComponent
 );
 export default FavoriteRestaurantListComponent;

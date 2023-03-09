@@ -1,6 +1,6 @@
 import CustomElement from "../../abstracts/CustomElement";
 import dispatcher from "../../domain/Dispatcher";
-import { CUSTOM_ELEMENT, RESTAURANT_ACTION } from "../../abstracts/constants";
+import { MODAL_ACTION, RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class RestaurantAddFormComponent extends CustomElement {
   handleEvent() {
@@ -10,7 +10,7 @@ class RestaurantAddFormComponent extends CustomElement {
 
     this.shadowRoot
       .querySelector(".button--secondary")
-      .addEventListener("click", () => dispatcher("modal_off"));
+      .addEventListener("click", () => dispatcher(MODAL_ACTION.MODAL_OFF));
   }
 
   addRestaurant(event) {
@@ -32,7 +32,7 @@ class RestaurantAddFormComponent extends CustomElement {
     };
 
     dispatcher(RESTAURANT_ACTION.ADD_RESTAURANT, restaurant);
-    dispatcher("modal_off");
+    dispatcher(MODAL_ACTION.MODAL_OFF);
 
     this.shadowRoot.querySelector("form").reset();
   }
@@ -227,9 +227,6 @@ class RestaurantAddFormComponent extends CustomElement {
   }
 }
 
-customElements.define(
-  CUSTOM_ELEMENT.RESTAURANT_ADD_FORM,
-  RestaurantAddFormComponent
-);
+customElements.define("restaurant-add-form", RestaurantAddFormComponent);
 
 export default RestaurantAddFormComponent;

@@ -34,6 +34,11 @@ export const FAVORITE_IMG = {
   FILLED: "./favorite-icon-filled.png",
 } as const;
 
+export const FAVORITE_TYPE = {
+  NOT_FAVORITE: "EMPTY",
+  FAVORITE: "FILLED",
+} as const;
+
 export const RESTAURANTS_STORAGE = "restaurantList";
 
 export const CATEGORY_DEFAULT = "전체";
@@ -43,19 +48,7 @@ export const SORT_METHOD = {
   DISTANCE: "distance",
 } as const;
 
-export const CUSTOM_ELEMENT = {
-  CATEGORY_FILTER_ELEMENT: "category-filter-element",
-  SELECT_CONTAINER: "select-container",
-  SORT_FILTER_ELEMENT: "sort-filter-element",
-  ALL_RESTAURANTS_MENU: "all-restaurants-menu",
-  FAVORITE_RESTAURANTS_MENU: "favorite-restaurants-menu",
-  MENU_CONTAINER: "menu-container",
-  MODAL_ELEMENT: "modal-element",
-  RESTAURANT_ADD_FORM: "restaurant-add-form",
-  RESTAURANT_INFO: "restaurant-info",
-  FAVORITE_RESTAURANT_LIST: "favorite-restaurant-list",
-  RESTAURANT_ELEMENT: "restaurant-element",
-  RESTAURANT_LIST: "restaurant-list",
-  RESTAURANT_CONTAINER: "restaurant-container",
-  HEADER_ELEMENT: "header-element",
+export const MENU_TITLE = {
+  ALL: "모든 음식점",
+  FAVORITE: "자주 가는 음식점",
 } as const;

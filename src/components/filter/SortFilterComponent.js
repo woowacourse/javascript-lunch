@@ -1,10 +1,6 @@
 import SelectComponent from "./SelectComponent";
 import dispatcher from "../../domain/Dispatcher";
-import {
-  CUSTOM_ELEMENT,
-  RESTAURANT_ACTION,
-  SORT_METHOD,
-} from "../../abstracts/constants";
+import { RESTAURANT_ACTION, SORT_METHOD } from "../../abstracts/constants";
 
 class SortFilterComponent extends SelectComponent {
   data = {
@@ -24,5 +20,5 @@ class SortFilterComponent extends SelectComponent {
   }
 }
 
-customElements.define(CUSTOM_ELEMENT.SORT_FILTER_ELEMENT, SortFilterComponent);
+customElements.define("sort-filter-element", SortFilterComponent);
 export default SortFilterComponent;

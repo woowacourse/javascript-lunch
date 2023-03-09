@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENT } from "../abstracts/constants";
+import { MODAL_ACTION } from "../abstracts/constants";
 import CustomElement from "../abstracts/CustomElement";
 import dispatcher from "../domain/Dispatcher";
 
@@ -6,7 +6,9 @@ class HeaderComponent extends CustomElement {
   handleEvent() {
     this.shadowRoot
       .querySelector(".gnb__button")
-      .addEventListener("click", () => dispatcher("modal_add_restaurant"));
+      .addEventListener("click", () =>
+        dispatcher(MODAL_ACTION.MODAL_ADD_RESTAURANT)
+      );
   }
 
   template() {
@@ -74,6 +76,6 @@ class HeaderComponent extends CustomElement {
   }
 }
 
-customElements.define(CUSTOM_ELEMENT.HEADER_ELEMENT, HeaderComponent);
+customElements.define("header-element", HeaderComponent);
 
 export default HeaderComponent;

@@ -1,11 +1,13 @@
-import {
-  CATEGORY_IMG,
-  CUSTOM_ELEMENT,
-  FAVORITE_IMG,
-} from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
 import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import dispatcher from "../../domain/Dispatcher";
+import {
+  CATEGORY_IMG,
+  FAVORITE_IMG,
+  FAVORITE_TYPE,
+  MODAL_ACTION,
+  RESTAURANT_ACTION,
+} from "../../abstracts/constants";
 
 class RestaurantInfoComponent extends CustomElement {
   connectedCallback() {
@@ -32,20 +34,26 @@ class RestaurantInfoComponent extends CustomElement {
   handleEvent() {
     this.shadowRoot
       .querySelector(".button--primary")
-      .addEventListener("click", () => dispatcher("modal_off"));
+      .addEventListener("click", () => dispatcher(MODAL_ACTION.MODAL_OFF));
 
     this.shadowRoot
       .querySelector(".button--secondary")
       .addEventListener("click", () => {
-        dispatcher("modal_off");
-        dispatcher("delete_restaurant", this.getAttribute("id"));
+        dispatcher(MODAL_ACTION.MODAL_OFF);
+        dispatcher(
+          RESTAURANT_ACTION.DELETE_RESTAURANT,
+          this.getAttribute("id")
+        );
       });
 
     if (this.shadowRoot.querySelector(".favorite-icon")) {
       this.shadowRoot
         .querySelector(".favorite-icon")
         .addEventListener("click", () => {
-          dispatcher("handle_favorite", this.getAttribute("id"));
+          dispatcher(
+            RESTAURANT_ACTION.HANDLE_FAVORITE,
+            this.getAttribute("id")
+          );
           RestaurantInstance.publish();
         });
     }
@@ -56,7 +64,10 @@ class RestaurantInfoComponent extends CustomElement {
       (restaurant) => restaurant.id === Number(this.getAttribute("id"))
     );
     if (restaurant) {
-      const isFavorite = restaurant.isFavorite === false ? "EMPTY" : "FILLED";
+      const isFavorite =
+        restaurant.isFavorite === false
+          ? FAVORITE_TYPE.NOT_FAVORITE
+          : FAVORITE_TYPE.FAVORITE;
 
       this.state.restaurant = restaurant;
       this.state.isFavorite = isFavorite;
@@ -217,5 +228,5 @@ class RestaurantInfoComponent extends CustomElement {
   }
 }
 
-customElements.define(CUSTOM_ELEMENT.RESTAURANT_INFO, RestaurantInfoComponent);
+customElements.define("restaurant-info", RestaurantInfoComponent);
 export default RestaurantInfoComponent;
