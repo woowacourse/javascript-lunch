@@ -47,6 +47,11 @@ abstract class FormControlComponent extends Component {
   validate(): void {}
 
   /**
+   * form이 reset될 때 호출되는 콜백
+   */
+  formResetCallback(): void {}
+
+  /**
    * Form Associated Element 에서 기본적으로 제공되어야 할 프로퍼티
    */
   get form() {

@@ -81,7 +81,7 @@ class Input extends FormControlComponent {
     return this.shadowRoot?.querySelector<HTMLInputElement>('input')?.value ?? '';
   }
 
-  formResetCallback() {
+  override formResetCallback() {
     this.shadowRoot!.querySelector<HTMLInputElement>('input')!.value = '';
     this.internals.setValidity({});
   }

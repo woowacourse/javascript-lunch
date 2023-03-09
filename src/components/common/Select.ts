@@ -122,7 +122,7 @@ class Select<OptionValue> extends FormControlComponent {
     return String(this.#selectedOption?.value ?? '');
   }
 
-  formResetCallback() {
+  override formResetCallback() {
     this.setSelectedOption();
     this.internals.setValidity({});
   }

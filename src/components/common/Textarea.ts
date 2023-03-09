@@ -84,7 +84,7 @@ class Textarea extends FormControlComponent {
     return this.shadowRoot?.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
   }
 
-  formResetCallback() {
+  override formResetCallback() {
     this.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!.innerText = '';
     this.internals.setValidity({});
   }
