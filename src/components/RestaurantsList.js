@@ -5,6 +5,8 @@ class RestaurantsList {
   constructor($target, restaurants) {
     this.$target = $target;
     this.sortedCallback = restaurants.getSelectedRestaurantsList.bind(restaurants);
+    this.getFavoriteCallback = restaurants.getFavoriteRestaurantList.bind(restaurants);
+    this.restaurantItem = new RestaurantItem();
     this.setState(restaurants.restaurantsList);
   }
 
@@ -38,11 +40,17 @@ class RestaurantsList {
   }
 
   renderRestaurantItem(sortedRestaurantList) {
-    const rastaurantList = $('.restaurant-list');
-    rastaurantList.replaceChildren();
+    const restaurantList = $('.restaurant-list');
+    restaurantList.replaceChildren();
 
-    const restaurantItem = new RestaurantItem();
-    rastaurantList.insertAdjacentHTML('beforeend', restaurantItem.makeItemList(sortedRestaurantList));
+    restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(sortedRestaurantList));
+  }
+
+  renderFavoriteRestaurant() {
+    const restaurantList = $('.restaurant-list');
+    restaurantList.replaceChildren();
+
+    restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(this.getFavoriteCallback()));
   }
 }
 
