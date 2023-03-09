@@ -12,7 +12,6 @@ class RestaurantItem extends HTMLElement {
     if (id) {
       this.findRestaurant(id);
       this.restaurant && this.render(this.restaurant);
-      this.onClickRestaurantItem(id);
       this.onClickFavoriteButton(id);
     }
   }
@@ -37,8 +36,9 @@ class RestaurantItem extends HTMLElement {
               캠퍼스부터 ${restaurant.distance}분 내
             </span>
           </div>
-          <div id="favorite-button-${restaurant.id}">
+          <div>
             <img
+              id="favorite-button-${restaurant.id}"
               src="${findImage(
                 restaurant.favorite ? "favoriteFilled" : "favoriteLined"
               )}" 
@@ -56,21 +56,11 @@ class RestaurantItem extends HTMLElement {
   }
 
   // 리팩토링 필요
-  onClickRestaurantItem(id: string) {
-    const restaurantItem = document.getElementById(id);
-    restaurantItem?.addEventListener("click", () => {
-      console.log(id);
-      const bottomSheet = document.getElementById("bottomSheet");
-      if (bottomSheet instanceof BottomSheet) {
-        bottomSheet.open(id);
-      }
-    });
-  }
-
-  // 리팩토링 필요
   onClickFavoriteButton(id: string) {
     const favoriteButton = document.getElementById(`favorite-button-${id}`);
-    favoriteButton?.addEventListener("click", () => {
+    favoriteButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      console.log("button : " + id);
       const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
       const originalFovrite = restaurants.state.restaurants[index].favorite;
       const temp = [...restaurants.state.restaurants];

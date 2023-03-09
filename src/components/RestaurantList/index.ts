@@ -1,7 +1,13 @@
 import { selectRestaurants } from "../../domain/restaurant";
 import IRestaurant from "../../type/IRestaurant";
+import { onclickRestaurantList } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
+  constructor() {
+    super();
+    onclickRestaurantList();
+  }
+
   render() {
     this.innerHTML = `
       <section class="restaurant-list-container">
