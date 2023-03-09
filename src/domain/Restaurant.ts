@@ -7,6 +7,7 @@ export interface RestaurantProps {
   description?: string;
   referenceUrl?: string;
   isFavorite?: boolean;
+  existRestaurantsName?: string[];
 }
 
 class Restaurant {
@@ -26,9 +27,16 @@ class Restaurant {
 
   private isFavorite = false;
 
-  constructor({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) {
+  constructor({
+    category,
+    name,
+    distanceByMinutes,
+    description,
+    referenceUrl,
+    existRestaurantsName,
+  }: RestaurantProps) {
     this.validateCategory(category);
-    this.validateName(name);
+    this.validateName(name, existRestaurantsName);
     this.validateDistanceByMinutes(distanceByMinutes);
 
     this.category = category;
@@ -76,8 +84,9 @@ class Restaurant {
     }
   }
 
-  private validateName(name: string) {
+  private validateName(name: string, existRestaurantsName?: string[]) {
     Validation.validateRestaurantNameLength(name);
+    Validation.validateRestaurantNameDuplication(name, existRestaurantsName);
   }
 
   private validateDistanceByMinutes(distanceByMinutes: number) {

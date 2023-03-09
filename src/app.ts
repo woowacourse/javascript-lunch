@@ -91,6 +91,7 @@ class App {
       distanceByMinutes,
       description,
       referenceUrl,
+      existRestaurantsName: this.#restaurants.map((restaurant) => restaurant.getName()),
     });
   };
 
