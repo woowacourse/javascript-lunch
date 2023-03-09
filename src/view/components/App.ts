@@ -1,7 +1,7 @@
 import { useBoolean } from '../../utils/hooks/useBoolean';
 import { Header } from './Header';
 import { LandingMain } from './LandingMain';
-import { Modal } from './Modal';
+import { AddFormModal } from './AddFormModal';
 
 function App() {
   const [isOpen, open, close] = useBoolean(false);
@@ -9,7 +9,7 @@ function App() {
   return `
     ${Header({ open })}
     ${LandingMain()}
-    ${isOpen ? Modal({ close }) : ''}
+    ${isOpen ? AddFormModal({ close }) : ''}
   `;
 }
 

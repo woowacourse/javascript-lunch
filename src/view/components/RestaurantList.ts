@@ -10,7 +10,7 @@ interface RestaurantProps {
   restaurants: IRestaurant[];
 }
 
-function Restaurants({ restaurants }: RestaurantProps) {
+function RestaurantList({ restaurants }: RestaurantProps) {
   const {
     handlers: { handleClickOftenBtn },
   } = useRestaurants();
@@ -34,4 +34,4 @@ function Restaurants({ restaurants }: RestaurantProps) {
   `;
 }
 
-export { Restaurants };
+export { RestaurantList };

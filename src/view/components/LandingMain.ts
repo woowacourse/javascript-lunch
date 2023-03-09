@@ -1,7 +1,7 @@
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { Tab } from './Tab';
 import { Nav } from './Nav';
-import { Restaurants } from './Restaurants';
+import { RestaurantList } from './RestaurantList';
 import { OftenRestaurants } from './OftenRestaurants';
 import { useBoolean } from '../../utils/hooks/useBoolean';
 
@@ -17,7 +17,7 @@ function LandingMain() {
     <main>
       ${Tab({ often })}
       ${Nav({ category, sortOption, handleCategory, handleSortOption })}
-      ${isOften ? OftenRestaurants({ all }) : Restaurants({ restaurants })}
+      ${isOften ? OftenRestaurants({ all }) : RestaurantList({ restaurants })}
     </main>
   `;
 }
