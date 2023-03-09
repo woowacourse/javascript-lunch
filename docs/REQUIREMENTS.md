@@ -17,9 +17,26 @@
   - [x] 거리 필수 입력 + [5, 10, 15, 20, 25, 30] 중 하나가 아닐 경우 에러 - html select로 에러 검정
   - [x] 참고 링크에 대한 입력 데이터 검증: 올바른 형식의 url이거나, 값이 비어있어야 한다.
 
+- [ ] 음식점 삭제하는 기능
+
+- [ ] 자주 가는 음식점을 정렬하는 기능
+
 ### Domain 설계
 
-**Stores**
+**Restaurant**
+
+```
+property {
+  id: number
+  category: RestaurantCategoryType;
+  name: string;
+  distance: string;
+  description: string;
+  link: string;
+}
+```
+
+**Restaurants**
 property: list: store []
 
 method:
@@ -51,7 +68,7 @@ method:
 
   - Header
 
-  - RestaurantList
+  - RestaurantList -> 즐겨찾기 기능 추가
 
     - RestaurantItem
 
@@ -60,3 +77,9 @@ method:
   - RestaurantAddModal
 
     - Button
+
+  - RestaurantDetail (Modal 기능)
+
+  - Tabs
+
+    - Tab
