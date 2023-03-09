@@ -58,12 +58,6 @@ class AddModal extends Modal {
     `;
   }
 
-  toggleModalOpen() {
-    const modal = $('.modal');
-
-    modal.classList.toggle('modal--open');
-  }
-
   render() {
     this.container.insertAdjacentHTML('beforeend', this.template());
 
