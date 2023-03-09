@@ -11,33 +11,6 @@ class Button extends CustomFormElement {
 
   renderTemplate() {
     return `
-      <style>
-        .modal-button {
-          width: 100%;
-          height: 44px;
-
-          margin-right: 16px;
-
-          border: none;
-          border-radius: 8px;
-
-          font-weight: 600;
-          cursor: pointer;    
-        }
-
-        button[variant="primary"] {
-          background: var(--primary-color);
-          color: var(--grey-100);
-        }
-        
-        button[variant="secondary"] {
-          border: 1px solid var(--grey-300);
-          background: transparent;
-
-          color: var(--grey-300);
-        }
-      </style>
-
       <button 
         type=${this.type}
         action=${this.action}

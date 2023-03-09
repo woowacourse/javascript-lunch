@@ -16,19 +16,6 @@ class Select extends CustomFormElement {
 
   renderTemplate() {
     return `
-      <style>
-        .r-select {
-          padding: 8px;
-          margin: 6px 0;
-
-          border: 1px solid var(--grey-200);
-          border-radius: 8px;
-
-          font-size: 16px;
-          width: 100%
-        }
-      </style>
-
       <select id="select" class="r-select" ${this.name && `name=${this.name}`}>
         ${this.#options
           .map(({ value, label }) => {

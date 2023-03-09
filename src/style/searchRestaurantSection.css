@@ -1,0 +1,7 @@
+.restaurant-search-container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 16px;
+  margin-bottom: 24px;
+}

@@ -1,0 +1,22 @@
+.restaurant-detail-container {
+  display: grid;
+  row-gap: 16px;
+}
+
+.detail-top-contents {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.restaurnat-detail-contents {
+  word-break: break-all;
+}
+
+.restaurnat-detail-link {
+  color: var(--grey-500);
+}
+
+.restaurant-deatil-button-container {
+  margin-top: 16px;
+}

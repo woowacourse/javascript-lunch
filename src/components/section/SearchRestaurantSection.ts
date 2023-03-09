@@ -4,16 +4,7 @@ import CustomElement from '../CustomElement';
 
 class SearchRestaurantSection extends CustomElement {
   renderTemplate = () => {
-    return `     
-      <style>
-        .restaurant-search-container {
-          display: flex;
-          justify-content: space-between;
-
-          padding: 0 16px;
-          margin-bottom: 24px;
-        }
-      </style>
+    return `
       <section class="restaurant-search-container">
         <r-select id="restaurant-filter-select" name="filterRestaurant"></r-select>
         <r-select id="restaurant-sort-select" name="sortRestaurant"></r-select>

@@ -1,6 +1,12 @@
 @import url('./header.css');
 @import url('./button.css');
+@import url('./modal.css');
 @import url('./favoriteIcon.css');
+@import url('./restaurantItem.css');
+@import url('./formItem.css');
+@import url('./restaurantDetailModal.css');
+@import url('./restaurantTypeSection.css');
+@import url('./searchRestaurantSection.css');
 
 :root {
   --primary-color: #ec4a0a;

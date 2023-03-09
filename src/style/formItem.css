@@ -1,0 +1,58 @@
+.label-main-text {
+  color: var(--grey-400);
+}
+
+.label-helper-text {
+  color: var(--grey-300);
+}
+
+r-form-item label.required::after {
+  padding-left: 4px;
+
+  color: var(--primary-color);
+  content: '*';
+}
+
+r-form-item > div {
+  margin-bottom: 36px;
+}
+
+/* input 태그 css */
+
+input {
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 16px;
+  width: 100%;
+}
+
+/* select 태그 css */
+
+select {
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 16px;
+  width: 100%;
+}
+
+/* textarea 태그 css */
+
+textarea {
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 16px;
+  width: 100%;
+  resize: none;
+}

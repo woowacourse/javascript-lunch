@@ -15,27 +15,6 @@ class FormItem extends CustomFormElement {
 
   renderTemplate(): string {
     return `
-      <style>
-        .label-main-text {
-          color: var(--grey-400);
-        }
-
-        .label-helper-text {
-          color: var(--grey-300);
-        }
-
-        r-form-item label.required::after {
-          padding-left: 4px;
-
-          color: var(--primary-color);
-          content: '*';
-        }
-
-        r-form-item > div {
-          margin-bottom: 36px;
-        }
-      </style>
-
       <div>
         <label class="text-caption ${this.required ? 'required' : ''} label-main-text">
           ${this.label ?? ''}
