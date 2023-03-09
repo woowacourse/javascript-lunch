@@ -366,7 +366,7 @@ input[name="link"] {
 
 .detailed-restaurant__info > *{
   display: block;
-  margin-top: 20px;
+  margin: 10px 0 10px 0;
 }
 
 .detailed-restaurant__info .restaurant__description{
