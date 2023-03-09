@@ -13,13 +13,14 @@ class RestaurantService {
   }
 
   delete(restaurantId: number) {
-    const restaurantIndex = this.restaurantList.findIndex(
-      (restaurant) => restaurant.id === restaurantId
-    );
-
+    const restaurantIndex = this.findRestaurantIndex(restaurantId);
     this.restaurantList.splice(restaurantIndex, 1);
 
     return [...this.restaurantList];
+  }
+
+  findRestaurantIndex(restaurantId: number) {
+    return this.restaurantList.findIndex((restaurant) => restaurant.id === restaurantId);
   }
 
   getFavoriteRestaurantList() {
