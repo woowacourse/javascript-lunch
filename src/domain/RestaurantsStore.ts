@@ -27,6 +27,8 @@ class RestaurantsStore {
   }
 
   updateFavorite(index: Index) {
+    this.refreshRestaurantList();
+
     this.#restaurantList[index].favorite =
       this.#restaurantList[index].favorite === 0 ? 1 : 0;
 
@@ -58,6 +60,7 @@ class RestaurantsStore {
   addRestaurant(restaurant: Restaurant) {
     try {
       this.refreshRestaurantList();
+      restaurant.key = this.#restaurantList.length;
       this.#restaurantList.push(restaurant);
 
       this.updateLocalStorage();
