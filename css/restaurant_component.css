@@ -31,10 +31,18 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .restaurant__name {
+  display: flex;
+  justify-content: space-between;
   margin: 0;
+}
+
+.restaurant_star {
+  width: 30px;
+  height: 30px;
 }
 
 .restaurant__distance {

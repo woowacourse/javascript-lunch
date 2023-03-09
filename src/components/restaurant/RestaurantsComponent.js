@@ -18,6 +18,7 @@ class RestaurantsComponent extends CustomElement {
       distance="${restaurant.distance}" 
       description="${restaurant.description}" 
       link="${restaurant.link}"
+      favorite="${restaurant.favorite}"
       >
       </restaurant-element>`;
       })

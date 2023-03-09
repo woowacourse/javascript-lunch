@@ -15,6 +15,7 @@ export interface Restaurant {
   distance: number;
   description?: string;
   link?: string;
+  favorite: "0" | "1";
 }
 
 export interface CustomElement extends HTMLElement {
