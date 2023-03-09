@@ -22,7 +22,6 @@ interface IAppState {
   tabs: Tabs;
   filters: Filters;
   restaurantList: RestaurantList;
-  restaurantForm: RestaurantForm;
   restaurantService: RestaurantService;
 }
 
@@ -32,10 +31,9 @@ export default class App {
 
   constructor($app: HTMLDivElement) {
     const $main = document.createElement('main');
-    const $modalContainer = document.querySelector('.modal-container');
     const restaurantService = new RestaurantService(getInitialRestaurantList());
 
-    new Header($app);
+    new Header($app, this.addRestaurantInfo.bind(this));
 
     $app.appendChild($main);
     $main.appendChild(this.$listArticle);
@@ -52,10 +50,6 @@ export default class App {
       restaurantList: new RestaurantList(
         this.$listArticle,
         initialResutaurantInfos
-      ),
-      restaurantForm: new RestaurantForm(
-        $modalContainer as HTMLDivElement,
-        this.addRestaurantInfo.bind(this)
       ),
     };
 

@@ -1,13 +1,27 @@
 import addButton from '../../assets/add-button.png';
-import { showModal } from '../modal';
+import { IRestaurant } from '../domain/Restaurant';
+import { appendModal, showModal } from '../modal';
+import RestaurantForm from './RestaurantForm';
 
 export default class Header {
   $header = document.createElement('header');
 
-  constructor($root: HTMLDivElement) {
+  constructor(
+    $root: HTMLDivElement,
+    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
+  ) {
     this.$header.className = 'gnb';
     this.render();
-    this.$header.addEventListener('click', this.showRestaurantAddUI);
+    console.log(this.$header);
+    this.$header.addEventListener('click', (event) => {
+      const { target } = event;
+
+      if (target instanceof HTMLImageElement !== true) return;
+
+      showModal();
+      appendModal(RestaurantForm(addRestaurantInfo));
+    });
+
     $root.insertAdjacentElement('afterbegin', this.$header);
   }
 
@@ -18,12 +32,5 @@ export default class Header {
        <img src="${addButton}" alt="음식점 추가">
      </button>
    `;
-  };
-
-  showRestaurantAddUI = (event: Event) => {
-    const { target } = event;
-
-    if (target instanceof HTMLImageElement !== true) return;
-    showModal();
   };
 }

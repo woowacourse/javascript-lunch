@@ -4,36 +4,20 @@ import { closeModal } from '../modal';
 import Select from './Select';
 import { CategoryOptions, DistanceTime } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
+import { template } from '@babel/core';
 
-export default class RestaurantForm {
-  $form = document.createElement('form');
+export default function RestaurantForm(
+  addRestaurantInfo: (restaurantInfo: IRestaurant) => void
+) {
+  const $formContainer = document.createElement('div');
+  const $form = document.createElement('form');
 
-  constructor(
-    $root: HTMLElement,
-    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
-  ) {
-    $root.innerHTML = '<h2 class="modal-title text-title">새로운 음식점</h2>';
-    this.render();
-
-    this.$form.addEventListener('submit', (e) =>
-      this.handleFormSubmit(e, addRestaurantInfo)
-    );
-    const $cancelButton = this.$form.querySelector(
-      '#cancel-button'
-    ) as HTMLButtonElement;
-    $cancelButton.addEventListener('click', this.handleFormCancel);
-
-    $root.appendChild(this.$form);
-  }
-
-  render = () => {
-    this.$form.innerHTML = `
-      ${RestaurantFormTemplate()}
-    `;
+  const handleFormCancel = () => {
+    closeModal();
   };
 
-  handleFormSubmit = (
-    event: SubmitEvent,
+  const handleFormSubmit = (
+    event: Event,
     addRestaurantInfo: (restaurantInfo: IRestaurant) => void
   ) => {
     event.preventDefault();
@@ -41,23 +25,23 @@ export default class RestaurantForm {
 
     if (!target) return null;
 
-    const restaurantInfo = this.getFormDatas();
+    const restaurantInfo = getFormDatas();
 
     addRestaurantInfo(restaurantInfo);
 
-    this.$form.reset();
+    $form.reset();
     closeModal();
   };
 
-  getFormDatas(): IRestaurant {
-    const category = this.$form.querySelector('#category') as HTMLSelectElement;
-    const name = this.$form.querySelector('#name') as HTMLInputElement;
-    const distance = this.$form.querySelector('#distance') as HTMLSelectElement;
-    const description = this.$form.querySelector(
+  const getFormDatas = (): IRestaurant => {
+    const category = $form.querySelector('#category') as HTMLSelectElement;
+    const name = $form.querySelector('#name') as HTMLInputElement;
+    const distance = $form.querySelector('#distance') as HTMLSelectElement;
+    const description = $form.querySelector(
       '#description'
     ) as HTMLTextAreaElement;
-    const link = this.$form.querySelector('#link') as HTMLInputElement;
-
+    const link = $form.querySelector('#link') as HTMLInputElement;
+    console.log(category, name, distance, description, link);
     return {
       id: Date.now(),
       category: category.value as CategoryOptions,
@@ -67,11 +51,21 @@ export default class RestaurantForm {
       link: link.value ?? '',
       isFavorite: false,
     };
-  }
-
-  handleFormCancel = () => {
-    closeModal();
   };
+
+  $formContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
+  $form.innerHTML = RestaurantFormTemplate();
+  $formContainer.appendChild($form);
+
+  $formContainer.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const { type } = target.dataset;
+
+    if (type === 'submit') handleFormSubmit(e, addRestaurantInfo);
+    if (type === 'cancel') handleFormCancel();
+  });
+
+  return $formContainer;
 }
 
 function RestaurantFormTemplate() {
@@ -122,8 +116,8 @@ function RestaurantFormTemplate() {
 
     <!-- 취소/추가 버튼 -->
     <div class="button-container">
-      <button id="cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
-      <button class="button button--primary text-caption">추가하기</button>
+      <button data-type="cancel" type="button" class="button button--secondary text-caption">취소하기</button>
+      <button data-type="submit" class="button button--primary text-caption">추가하기</button>
     </div>
   `;
 }
