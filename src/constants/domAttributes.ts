@@ -27,4 +27,9 @@ const TAB_BUTTON_ATTRIBUTE: Record<string, Attribute> = {
   FAVORITE_RESTAURANTS: { id: 'favorite-restaurants' },
 };
 
-export { FILTER_ATTRIBUTE, FORM_ATTRIBUTE, TAB_BUTTON_ATTRIBUTE };
+const MODAL_ATTRIBUTE: Record<string, Attribute> = {
+  FORM: { id: 'form' },
+  RESTAURANT_INFORMATION: { id: 'restaurant-information' },
+};
+
+export { FILTER_ATTRIBUTE, FORM_ATTRIBUTE, TAB_BUTTON_ATTRIBUTE, MODAL_ATTRIBUTE };
