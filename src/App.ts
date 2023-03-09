@@ -71,6 +71,10 @@ class App {
   updateFavoriteRestaurant = (restaurantId: number) => {
     const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantId);
     saveToLocalStorage(updatedRestaurantList);
+
+    if (($('.tab-button--active') as HTMLButtonElement).id === 'favorite-restaurants') {
+      RestaurantListContainer.removeRestaurantItem(this.restaurantListElement, restaurantId);
+    }
   };
 
   changeRestaurantMenuTab = (tab: string) => {
