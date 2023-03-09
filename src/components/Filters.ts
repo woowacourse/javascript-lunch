@@ -61,14 +61,15 @@ export default class Filters {
   };
 
   handleFiltersChange = (
-    event: Event,
+    e: Event,
     updateRestaurantList: (
       category: CategoryOptions,
       filter: FilterOptions
     ) => void
   ) => {
+    if (!(e.target instanceof HTMLSelectElement)) return;
     const { category, filter } = this.state;
-    const { id, value } = event.target as HTMLSelectElement;
+    const { id, value } = e.target;
 
     switch (id) {
       case 'category-filter':

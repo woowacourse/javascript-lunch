@@ -4,7 +4,7 @@ import { appendModal, showModal } from '../modal';
 import RestaurantInfo from './RestaurantInfo';
 import { categoryImageSource } from '../utils/imageSource';
 
-export default function RestaurantItemTemplate(restaurant: Restaurant) {
+export default function RestaurantItem(restaurant: Restaurant) {
   const { category, distance, name, description, isFavorite } =
     restaurant.getRestaurantInfo();
 
@@ -13,16 +13,16 @@ export default function RestaurantItemTemplate(restaurant: Restaurant) {
   $li.dataset['type'] = 'restaurantItem';
 
   const listClickHandler = (e: Event) => {
-    const target = e.target as HTMLElement;
+    if (!(e.target instanceof HTMLElement)) return;
 
-    const type = target.dataset['type'];
+    const type = e.target.dataset['type'];
     if (type === undefined) {
       showModal();
       appendModal(RestaurantInfo(restaurant));
       return;
     }
 
-    if (type === 'favoriteButton') toggleFavoriteFilled(target, restaurant);
+    if (type === 'favoriteButton') toggleFavoriteFilled(e.target, restaurant);
   };
 
   const template = `

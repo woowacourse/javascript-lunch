@@ -1,5 +1,5 @@
 import { Restaurant } from '../domain/Restaurant';
-import RestaurantItemTemplate from './RestaurantItem';
+import RestaurantItem from './RestaurantItem';
 
 interface IRestaurantList {
   restaurantList: Restaurant[];
@@ -21,10 +21,7 @@ export default class RestaurantList {
   template() {
     this.$ul.innerHTML = '';
     for (const restaurant of this.state.restaurantList) {
-      this.$ul.insertAdjacentElement(
-        'beforeend',
-        RestaurantItemTemplate(restaurant)
-      );
+      this.$ul.insertAdjacentElement('beforeend', RestaurantItem(restaurant));
     }
   }
 

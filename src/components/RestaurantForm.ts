@@ -58,8 +58,8 @@ export default function RestaurantForm(
   $formContainer.appendChild($form);
 
   $formContainer.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    const { type } = target.dataset;
+    if (!(e.target instanceof HTMLElement)) return;
+    const { type } = e.target.dataset;
 
     if (type === 'submit') handleFormSubmit(e, addRestaurantInfo);
     if (type === 'cancel') handleFormCancel();
