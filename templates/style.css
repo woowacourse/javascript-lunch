@@ -344,6 +344,7 @@ input[name="link"] {
   color: var(--primary-color);
 }
 
-.selectList:hover {
+.selectList:hover,
+.likeList:hover {
   cursor: pointer;
 }
