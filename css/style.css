@@ -162,7 +162,7 @@ nav {
 
   padding: 16px 8px;
 
-  border-bottom: 1px solid #e9eaed;
+  border-bottom: 1px solid var(--grey-200);
 }
 
 .restaurant__category {
@@ -187,9 +187,11 @@ nav {
 
 .restaurant__info {
   display: flex;
+  flex: 5;
   flex-direction: column;
-  overflow: hidden;
   justify-content: flex-start;
+
+  overflow: hidden;
 }
 
 .restaurant__name {
@@ -379,8 +381,7 @@ input[name="link"] {
 
 .favorite-button {
   float: right;
-
-  margin: auto 15px auto auto;
+  margin-left: auto;
 
   border: none;
   background: none;
