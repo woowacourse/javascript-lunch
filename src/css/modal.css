@@ -23,8 +23,19 @@
   will-change: transform;
 }
 
-.modal-title {
+restaurant-register-modal .modal-title {
   margin-bottom: 36px;
+}
+
+restaurant-detail-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.icon-container {
+  display: flex;
+  width: 100%;
 }
 
 .form-item {
