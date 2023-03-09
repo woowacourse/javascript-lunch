@@ -10,7 +10,7 @@ class RestaurantItem {
 
   create() {
     return `
-      <li class="restaurant">
+      <li class="restaurant" data-id="${this.restaurant.id}">
         <div class="restaurant__category">
           <img
             src="${RESTAURANT_IMAGE[this.restaurant.category]}"
@@ -33,7 +33,6 @@ class RestaurantItem {
               src="${getFavoriteIcon(this.restaurant.favorite)}"
               alt=""
               class="restaurant-star-icon ${this.restaurant.favorite && 'favorite'}"
-              data-id="${this.restaurant.id}"
             />
             </div>
         </div>
