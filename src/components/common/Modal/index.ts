@@ -1,6 +1,11 @@
-import Component from '../Component';
+import Component from '../../Component';
+import style from './index.css';
 
 class Modal extends Component {
+  override getCSSStyleSheets() {
+    return [...super.getCSSStyleSheets(), style];
+  }
+
   static get observedAttributes() {
     return ['open'];
   }
@@ -19,29 +24,6 @@ class Modal extends Component {
 
   override renderTemplate() {
     return `
-      <style>
-        dialog {
-          position: fixed;
-          margin-top: auto;
-          width: 100vw;
-          max-width: 100%;
-          max-height: 100vh;
-          padding: 32px 16px;
-
-          border: none;
-          border-radius: 8px 8px 0px 0px;
-          background: var(--grey-100);
-        }
-
-        dialog::backdrop {
-          background: rgba(0, 0, 0, 0.35);
-        }
-
-        h2 {
-          margin-bottom: 36px;
-        }
-      </style>
-
       <dialog onclose="this.host.onClose(event)">
         <h2 class="text-title">${this.getAttribute('title') ?? ''}</h2>
         <slot name="content"></slot>

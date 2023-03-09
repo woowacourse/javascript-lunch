@@ -1,5 +1,5 @@
-import Restaurant from '../../domain/Restaurant';
-import Component from '../Component';
+import Restaurant from '../../../domain/Restaurant';
+import Component from '../../Component';
 
 class RestaurantList extends Component {
   #restaurants: Restaurant[] = [];

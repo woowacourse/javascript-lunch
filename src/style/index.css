@@ -1,5 +1,3 @@
-@import url('./filterContainer.css');
-
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
@@ -53,4 +51,12 @@ body {
 
 r-select {
   min-width: 125px;
+}
+
+.restaurant-filter-container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 16px;
+  margin-top: 24px;
 }

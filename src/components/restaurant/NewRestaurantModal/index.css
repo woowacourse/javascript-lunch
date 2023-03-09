@@ -1,0 +1,12 @@
+form > * {
+  margin-bottom: 42px;
+}
+
+div[slot='actions'] {
+  display: flex;
+  gap: 16px;
+}
+
+div[slot='actions'] > * {
+  flex: 1;
+}

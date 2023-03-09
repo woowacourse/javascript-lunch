@@ -1,11 +1,16 @@
-import Restaurant, { RestaurantCategory, RestaurantDistance } from '../../domain/Restaurant';
-import Modal from '../common/Modal';
-import Select from '../common/Select';
-import Component from '../Component';
+import Restaurant, { RestaurantCategory, RestaurantDistance } from '../../../domain/Restaurant';
+import Modal from '../../common/Modal';
+import Select from '../../common/Select';
+import Component from '../../Component';
+import style from './index.css';
 
 export type NewRestaurantSubmitEvent = CustomEvent<Restaurant>;
 
 class NewRestaurantModal extends Component {
+  override getCSSStyleSheets() {
+    return [...super.getCSSStyleSheets(), style];
+  }
+
   open() {
     this.shadowRoot?.querySelector<Modal>('r-modal')?.open();
   }
@@ -51,21 +56,6 @@ class NewRestaurantModal extends Component {
 
   override renderTemplate() {
     return `
-      <style>
-        form > * {
-          margin-bottom: 42px;
-        }
-
-        div[slot="actions"] {
-          display: flex;
-          gap: 16px;
-        }
-
-        div[slot="actions"] > * {
-          flex: 1;
-        }
-      </style>
-
       <r-modal title="새로운 음식점" onclose="this.host.onPostClose()">
         <form slot="content" id="modal-form" onsubmit="this.host.onSubmit(event)">
           <r-select

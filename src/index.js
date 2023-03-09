@@ -1,6 +1,8 @@
 import App from './app';
 import './components';
-import './style/index.css';
+import style from './style/index.css';
+
+document.adoptedStyleSheets = [style];
 
 async function waitForCustomElementsDefined() {
   await Promise.all(
