@@ -1,4 +1,4 @@
-import Restaurant, { RestaurantCategory, RestaurantDistance } from '../../../domain/Restaurant';
+import Restaurant, { RestaurantDistance } from '../../../domain/Restaurant';
 import Modal from '../../common/Modal';
 import Select from '../../common/Select';
 import Component from '../../Component';
@@ -58,11 +58,12 @@ class NewRestaurantModal extends Component {
     return `
       <r-modal title="새로운 음식점" onclose="this.host.onPostClose()">
         <form slot="content" id="modal-form" onsubmit="this.host.onSubmit(event)">
-          <r-select
+          <r-restaurant-category-select
             name="category"
             required
             title="카테고리"
-          ></r-select>
+            default-option-label="선택해주세요"
+          ></r-restaurant-category-select>
 
           <r-input
             name="name"
@@ -99,16 +100,6 @@ class NewRestaurantModal extends Component {
 
   override render() {
     super.render();
-
-    this.shadowRoot
-      ?.querySelector<Select<RestaurantCategory | null>>('r-select[name="category"]')
-      ?.setOptions([
-        { value: null, label: '선택해주세요' },
-        ...Restaurant.CATEGORIES.map((category) => ({
-          value: category,
-          label: category,
-        })),
-      ]);
 
     this.shadowRoot
       ?.querySelector<Select<RestaurantDistance | null>>('r-select[name="distance"]')
