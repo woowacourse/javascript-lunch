@@ -89,7 +89,7 @@ function AddFormModal({ close }: AddFormModalProps) {
                 <!-- 설명 -->
                 <div class="form-item">
                 <label for="description text-caption">설명</label>
-                <textarea name="description" id="description" cols="30" rows="5" placeholder="50자 이하로 입력해주세요"></textarea>
+                <textarea name="description" id="description" cols="30" rows="5" placeholder="300자 이내로 입력해주세요"></textarea>
                 <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
                 </div>
 
