@@ -8,7 +8,7 @@ type RestaurantListState = {
   category: Category;
   sortBy: SortBy;
   tabBarSelect: TabBarSelect;
-  handleByClickFavorite: () => void;
+  fetchNewRestaurants: () => void;
   onOpenInfoDrawer: (e: Event) => void;
 };
 
@@ -18,7 +18,7 @@ type RestaurantListProps = {
   category: Category;
   sortBy: SortBy;
   tabBarSelect: TabBarSelect;
-  handleByClickFavorite: () => void;
+  fetchNewRestaurants: () => void;
   onOpenInfoDrawer: (e: Event) => void;
 };
 
@@ -32,7 +32,7 @@ export default class RestaurantList implements Component<RestaurantListState> {
     category,
     sortBy,
     tabBarSelect,
-    handleByClickFavorite,
+    fetchNewRestaurants,
     onOpenInfoDrawer,
   }: RestaurantListProps) {
     this.$target = document.createElement('ul');
@@ -42,7 +42,7 @@ export default class RestaurantList implements Component<RestaurantListState> {
       category,
       sortBy,
       tabBarSelect,
-      handleByClickFavorite,
+      fetchNewRestaurants,
       onOpenInfoDrawer,
     };
 
@@ -61,7 +61,7 @@ export default class RestaurantList implements Component<RestaurantListState> {
       new RestaurantListItem({
         $parent: fragment,
         restaurant,
-        handleByClickFavorite: this.state.handleByClickFavorite,
+        fetchNewRestaurants: this.state.fetchNewRestaurants,
         onOpenInfoDrawer: this.state.onOpenInfoDrawer,
       }).render();
     });

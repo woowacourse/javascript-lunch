@@ -10,19 +10,19 @@ import {
 
 type AddRestaurantDrawerState = {
   restaurantForm: Restaurant;
-  toggleAddRestaurantDrawer: () => void;
+  onToggleAddRestaurantDrawer: () => void;
 };
 
 type AddRestaurantDrawerProps = {
   $parent: HTMLElement;
-  toggleAddRestaurantDrawer: () => void;
+  onToggleAddRestaurantDrawer: () => void;
 };
 
 export default class AddRestaurantDrawer implements Component<AddRestaurantDrawerState> {
   $target: HTMLElement;
   state: AddRestaurantDrawerState;
 
-  constructor({ $parent, toggleAddRestaurantDrawer }: AddRestaurantDrawerProps) {
+  constructor({ $parent, onToggleAddRestaurantDrawer }: AddRestaurantDrawerProps) {
     this.$target = document.createElement('div');
     this.$target.classList.add('modal');
     this.$target.classList.add('modal--open');
@@ -35,15 +35,10 @@ export default class AddRestaurantDrawer implements Component<AddRestaurantDrawe
         distance: DEFAULT_DISTANCE,
         isFavorite: false,
       },
-      toggleAddRestaurantDrawer,
+      onToggleAddRestaurantDrawer,
     };
 
     $parent.append(this.$target);
-    this.render();
-  }
-
-  setState(newState: AddRestaurantDrawerState) {
-    this.state = newState;
     this.render();
   }
 
@@ -51,8 +46,8 @@ export default class AddRestaurantDrawer implements Component<AddRestaurantDrawe
     const $cancelButton = this.$target.querySelector('#modal-cancel');
     const $modalForm = this.$target.querySelector('#modal-form') as HTMLElement;
 
-    $cancelButton?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
-    $modalForm?.addEventListener('submit', this.submitForm.bind(this));
+    $cancelButton?.addEventListener('click', this.state.onToggleAddRestaurantDrawer);
+    $modalForm?.addEventListener('submit', this.onSubmitForm.bind(this));
   }
 
   render() {
@@ -117,15 +112,16 @@ export default class AddRestaurantDrawer implements Component<AddRestaurantDrawe
     this.addEvent();
   }
 
-  submitForm(e: SubmitEvent) {
+  onSubmitForm(e: SubmitEvent) {
     e.preventDefault();
     const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
+    // TODO: id 고유값 사용
     const id = restaurants.length;
     const newRestauant = this.getFormValues(e.currentTarget as HTMLFormElement, id);
     restaurants.push(newRestauant);
     localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
 
-    this.state.toggleAddRestaurantDrawer();
+    this.state.onToggleAddRestaurantDrawer();
   }
 
   getFormValues(form: HTMLFormElement, id: number) {

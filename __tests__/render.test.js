@@ -73,7 +73,7 @@ describe('컴포넌트 랜더링 테스트', () => {
 
   describe('GNB 테스트', () => {
     test('GNB를 화면에 잘 나타내는지 테스트', () => {
-      new GNB({ $parent: document.body, toggleAddRestaurantDrawer: () => {} }).render();
+      new GNB({ $parent: document.body, onToggleAddRestaurantDrawer: () => {} }).render();
       expect(screen.getByText('점심 뭐 먹지')).toBeInTheDocument();
     });
   });
@@ -82,7 +82,7 @@ describe('컴포넌트 랜더링 테스트', () => {
     test('select 태그 렌더링 테스트: 카테고리', () => {
       new AddRestaurantDrawer({
         $parent: document.body,
-        toggleAddRestaurantDrawer: () => {},
+        onToggleAddRestaurantDrawer: () => {},
       }).render();
       const categoryElement = document.getElementById('category');
       const categories = ['한식', '중식', '일식', '양식', '아시안', '기타'];
@@ -94,7 +94,7 @@ describe('컴포넌트 랜더링 테스트', () => {
     test('select 태그 렌더링 테스트: 거리(도보 x분)', () => {
       new AddRestaurantDrawer({
         $parent: document.body,
-        toggleAddRestaurantDrawer: () => {},
+        onToggleAddRestaurantDrawer: () => {},
       }).render();
       const distanceElement = document.getElementById('distance');
       const distances = [5, 10, 15, 20, 30];

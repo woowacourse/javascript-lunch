@@ -12,21 +12,21 @@ type RestaurantListPageState = {
   sortBy: SortBy;
   tabBarSelect: TabBarSelect;
   restaurants: Restaurant[];
-  toggleAddRestaurantDrawer: () => void;
   isOpenDrawer: boolean;
   selectId: number;
+  onToggleAddRestaurantDrawer: () => void;
 };
 
 type RestaurantListPageProps = {
   $parent: HTMLElement;
-  toggleAddRestaurantDrawer: () => void;
+  onToggleAddRestaurantDrawer: () => void;
 };
 
 export default class RestaurantListPage implements Component<RestaurantListPageState> {
   $target: HTMLElement;
   state: RestaurantListPageState;
 
-  constructor({ $parent, toggleAddRestaurantDrawer }: RestaurantListPageProps) {
+  constructor({ $parent, onToggleAddRestaurantDrawer }: RestaurantListPageProps) {
     this.$target = document.createElement('div');
 
     this.state = {
@@ -35,7 +35,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
       sortBy: 'name',
       tabBarSelect: 'all',
       restaurants: this.getRestaurants(),
-      toggleAddRestaurantDrawer,
+      onToggleAddRestaurantDrawer,
       selectId: 0,
     };
 
@@ -52,7 +52,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
 
     new GNB({
       $parent: this.$target,
-      toggleAddRestaurantDrawer: this.state.toggleAddRestaurantDrawer,
+      onToggleAddRestaurantDrawer: this.state.onToggleAddRestaurantDrawer,
     }).render();
     new TabBar({
       $parent: this.$target,
@@ -73,7 +73,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
       sortBy: this.state.sortBy,
       tabBarSelect: this.state.tabBarSelect,
       restaurants: this.state.restaurants,
-      handleByClickFavorite: this.handleByClickFavorite.bind(this),
+      fetchNewRestaurants: this.fetchNewRestaurants.bind(this),
       onOpenInfoDrawer: this.onOpenInfoDrawer.bind(this),
     }).render();
 
@@ -81,14 +81,20 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
       new RestaurantInfoDrawer({
         $parent: this.$target,
         selectId: this.state.selectId,
-        toggleOpenDrawer: this.toggleOpenDrawer.bind(this),
-        handleByClickFavorite: this.handleByClickFavorite.bind(this),
+        onToggleOpenDrawer: this.onToggleOpenDrawer.bind(this),
+        fetchNewRestaurants: this.fetchNewRestaurants.bind(this),
+        onDeleteRestaurant: this.onDeleteRestaurant.bind(this),
       }).render();
     }
   }
 
   getRestaurants() {
     return JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
+  }
+
+  fetchNewRestaurants() {
+    const restaurants = this.getRestaurants();
+    this.setState({ ...this.state, restaurants });
   }
 
   onChangeCategory(e: Event) {
@@ -114,34 +120,38 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
   onClickTabBar(e: Event) {
     const target = e.target as HTMLButtonElement;
     const tabBarSelect = target.dataset.type as TabBarSelect;
+
     this.setState({
       ...this.state,
       tabBarSelect,
     });
   }
 
-  handleByClickFavorite() {
-    const restaurants = this.getRestaurants();
-    this.setState({ ...this.state, restaurants });
-  }
-
   onOpenInfoDrawer(e: Event) {
     const currentTarget = e.currentTarget as HTMLElement;
-
-    const rid = currentTarget.dataset.restaurantId ?? '0';
-    const ridIndex = Number(rid);
+    const rid = Number(currentTarget.dataset.restaurantId ?? '0');
 
     this.setState({
       ...this.state,
       isOpenDrawer: true,
-      selectId: ridIndex,
+      selectId: rid,
     });
   }
 
-  toggleOpenDrawer() {
+  onToggleOpenDrawer() {
     this.setState({
       ...this.state,
       isOpenDrawer: !this.state.isOpenDrawer,
+    });
+  }
+
+  onDeleteRestaurant() {
+    const restaurants = this.getRestaurants();
+
+    this.setState({
+      ...this.state,
+      isOpenDrawer: !this.state.isOpenDrawer,
+      restaurants,
     });
   }
 }

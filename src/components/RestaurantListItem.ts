@@ -5,14 +5,14 @@ import { CATEGORY_IMAGE_URL } from '../utils/constants';
 
 type RestaurantListItemState = {
   restaurant: Restaurant;
-  handleByClickFavorite: () => void;
+  fetchNewRestaurants: () => void;
   onOpenInfoDrawer: (e: Event) => void;
 };
 
 type RestaurantListItemProps = {
   $parent: DocumentFragment;
   restaurant: Restaurant;
-  handleByClickFavorite: () => void;
+  fetchNewRestaurants: () => void;
   onOpenInfoDrawer: (e: Event) => void;
 };
 
@@ -23,14 +23,14 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
   constructor({
     $parent,
     restaurant,
-    handleByClickFavorite,
+    fetchNewRestaurants,
     onOpenInfoDrawer,
   }: RestaurantListItemProps) {
     this.$target = document.createElement('li');
     this.$target.classList.add('restaurant');
     this.$target.dataset.restaurantId = `${restaurant.id}`;
 
-    this.state = { restaurant, handleByClickFavorite, onOpenInfoDrawer };
+    this.state = { restaurant, fetchNewRestaurants, onOpenInfoDrawer };
 
     $parent.append(this.$target);
   }
@@ -45,7 +45,7 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
     this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
       e.stopPropagation();
       fetchFavoriteId(this.state.restaurant.id);
-      this.state.handleByClickFavorite();
+      this.state.fetchNewRestaurants();
       this.setState({
         ...this.state,
         restaurant: {

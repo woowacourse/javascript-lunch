@@ -3,7 +3,7 @@ import AddRestaurantDrawer from './pages/AddRestaurantDrawer';
 import RestaurantListPage from './pages/RestaurantListPage';
 
 type AppState = {
-  addRestaurantDrawerHide: boolean;
+  isDrawerHide: boolean;
 };
 
 type AppProps = {
@@ -19,7 +19,7 @@ export default class App implements Component<AppState> {
     this.$target.classList.add('app');
 
     this.state = {
-      addRestaurantDrawerHide: true,
+      isDrawerHide: true,
     };
 
     $parent.append(this.$target);
@@ -31,28 +31,26 @@ export default class App implements Component<AppState> {
   }
 
   render() {
-    const { addRestaurantDrawerHide } = this.state;
+    const { isDrawerHide } = this.state;
     this.$target.innerHTML = ``;
 
     new RestaurantListPage({
       $parent: this.$target,
-      toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
+      onToggleAddRestaurantDrawer: this.onToggleAddRestaurantDrawer.bind(this),
     }).render();
 
-    if (!addRestaurantDrawerHide) {
+    if (!isDrawerHide) {
       new AddRestaurantDrawer({
         $parent: this.$target,
-        toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
+        onToggleAddRestaurantDrawer: this.onToggleAddRestaurantDrawer.bind(this),
       }).render();
     }
   }
 
-  toggleAddRestaurantDrawer() {
-    const { addRestaurantDrawerHide } = this.state;
-
+  onToggleAddRestaurantDrawer() {
     this.setState({
       ...this.state,
-      addRestaurantDrawerHide: !addRestaurantDrawerHide,
+      isDrawerHide: !this.state.isDrawerHide,
     });
   }
 }

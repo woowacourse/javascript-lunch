@@ -1,23 +1,23 @@
 import type { Component } from '../interface';
 
 type GNBState = {
-  toggleAddRestaurantDrawer: () => void;
+  onToggleAddRestaurantDrawer: () => void;
 };
 
 type MainTemplateProps = {
   $parent: HTMLElement;
-  toggleAddRestaurantDrawer: () => void;
+  onToggleAddRestaurantDrawer: () => void;
 };
 
 export default class GNB implements Component<GNBState> {
   $target: HTMLElement;
   state: GNBState;
 
-  constructor({ $parent, toggleAddRestaurantDrawer }: MainTemplateProps) {
+  constructor({ $parent, onToggleAddRestaurantDrawer }: MainTemplateProps) {
     this.$target = document.createElement('header');
     this.$target.classList.add('gnb');
 
-    this.state = { toggleAddRestaurantDrawer };
+    this.state = { onToggleAddRestaurantDrawer };
 
     $parent.append(this.$target);
   }
@@ -30,7 +30,7 @@ export default class GNB implements Component<GNBState> {
   addEvent() {
     this.$target
       .querySelector('button')
-      ?.addEventListener('click', this.state.toggleAddRestaurantDrawer);
+      ?.addEventListener('click', this.state.onToggleAddRestaurantDrawer);
   }
 
   render() {
