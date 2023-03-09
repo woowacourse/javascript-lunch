@@ -1,8 +1,4 @@
-import { CATEGORY_TO_FILENAME } from '../constants/constants';
-const FOVORITES_TO_FILENAME = {
-  true: 'favorite-icon-filled',
-  false: 'favorite-icon-lined',
-};
+import { CATEGORY_TO_FILENAME, FOVORITES_TO_FILENAME } from '../constants/constants';
 
 class RestaurantItemModal {
   constructor(restaurants) {

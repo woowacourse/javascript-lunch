@@ -1,8 +1,4 @@
-import { CATEGORY_TO_FILENAME } from '../constants/constants';
-const FOVORITES_TO_FILENAME = {
-  true: 'favorite-icon-filled',
-  false: 'favorite-icon-lined',
-};
+import { CATEGORY_TO_FILENAME, FOVORITES_TO_FILENAME } from '../constants/constants';
 
 class RestaurantItem {
   constructor(restaurant, restaurants) {
@@ -49,14 +45,8 @@ class RestaurantItem {
   }
 
   setEvent(onClickRestaurantItem) {
-    const $info = document.querySelector(`#restaurant${this.restaurant.ID} .restaurant__info`);
+    const $info = document.querySelector(`#restaurant${this.restaurant.ID} .restaurant__category__info`);
     $info.addEventListener('click', e => {
-      e.preventDefault();
-      onClickRestaurantItem(this.restaurant);
-    });
-
-    const $category = document.querySelector(`#restaurant${this.restaurant.ID} .restaurant__category`);
-    $category.addEventListener('click', e => {
       e.preventDefault();
       onClickRestaurantItem(this.restaurant);
     });

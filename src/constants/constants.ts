@@ -12,3 +12,8 @@ export const CATEGORY_TO_FILENAME: Readonly<Record<CategoryValue, string>> = {
   아시안: 'category-asian',
   기타: 'category-etc',
 };
+
+export const FOVORITES_TO_FILENAME: Readonly<Record<'true' | 'false', string>> = {
+  true: 'favorite-icon-filled',
+  false: 'favorite-icon-lined',
+};
