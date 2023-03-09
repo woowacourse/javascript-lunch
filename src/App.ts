@@ -12,9 +12,7 @@ class App {
 
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
-    RestaurantData.allList = mockList;
-    RestaurantData.settingList();
-    localStorage.clear();
+    RestaurantData.settingList(mockList);
   }
 
   render() {

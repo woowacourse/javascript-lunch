@@ -5,7 +5,7 @@ interface RestaurantDataType {
   allList: RestaurantType[];
   likeList: RestaurantType[];
 
-  settingList: () => void;
+  settingList: (restaurantList: RestaurantType[]) => void;
   addRestaurant: (restaurant: RestaurantType) => void;
   turnLikeUnlike: (id: number) => void;
   deleteLikeRestaurant: (id: number) => void;
@@ -16,14 +16,15 @@ export const RestaurantData: RestaurantDataType = {
   allList: [],
   likeList: [],
 
-  settingList() {
+  settingList(restaurantList: RestaurantType[]) {
+    this.allList = restaurantList;
     const isLocalData = LocalData.getData();
+
     if (isLocalData) {
       this.allList = isLocalData;
       this.likeList = this.allList.filter((res) => res.like);
     }
     LocalData.setDate(this.allList);
-    return;
   },
 
   addRestaurant(restaurant) {
@@ -42,6 +43,7 @@ export const RestaurantData: RestaurantDataType = {
         this.addLikeRestaurant(id);
       }
     });
+    LocalData.setDate(this.allList);
   },
 
   deleteLikeRestaurant(id) {
