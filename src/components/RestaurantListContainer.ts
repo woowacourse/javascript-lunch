@@ -16,7 +16,7 @@ class RestaurantListContainer {
       new RestaurantItem(restaurant).create()
     );
 
-    target.innerHTML = '';
+    target.replaceChildren();
     target.insertAdjacentHTML('beforeend', restaurantItems.join(''));
   }
 
