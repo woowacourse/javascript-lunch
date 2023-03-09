@@ -18,6 +18,10 @@ customElements.define(
       this.bindEvent();
     }
 
+    connectedCallback() {
+      this.addEventListener('click', () => this.handleDetailClick());
+    }
+
     render() {
       const category = this.getAttribute('category');
       const restaurantName = this.getAttribute('restaurantName');
@@ -52,12 +56,13 @@ customElements.define(
     }
 
     bindEvent() {
-      this.querySelector('.favorite__button').addEventListener('click', () =>
-        this.handleFavoriteClick()
+      this.querySelector('.favorite__button').addEventListener('click', (e) =>
+        this.handleFavoriteClick(e)
       );
     }
 
-    handleFavoriteClick() {
+    handleFavoriteClick(e) {
+      e.stopPropagation();
       this.setAttribute('favorite', this.getAttribute('favorite') === 'true' ? 'false' : 'true');
       dispatchCustomEvent($('.restaurant-list-container'), {
         eventType: 'changeRestaurantFavorite',
@@ -65,6 +70,13 @@ customElements.define(
       });
       this.render();
       this.bindEvent();
+    }
+
+    handleDetailClick() {
+      dispatchCustomEvent($('.restaurant-list-container'), {
+        eventType: 'clickRestaurantDetail',
+        data: this.getAttribute('restaurantID'),
+      });
     }
   }
 );

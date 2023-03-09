@@ -9,8 +9,6 @@ const LunchMenuApp = {
     restaurants.init();
     this.render(restaurants.list);
     this.bindEvents();
-    $('restaurant-detail-modal').render(restaurants.list[0]); // TODO: 수정
-    $('restaurant-detail-modal > dialog').showModal(); // TODO: 수정
   },
 
   render(restaurants) {
@@ -35,6 +33,10 @@ const LunchMenuApp = {
     $('.restaurant-list-container').addEventListener(
       'changeRestaurantFavorite',
       ({ detail: restaurantID }) => this.handleRestaurantFavoriteChange(restaurantID)
+    );
+    $('.restaurant-list-container').addEventListener(
+      'clickRestaurantDetail',
+      ({ detail: restaurantID }) => this.handleRestaurantDetailClick(restaurantID)
     );
   },
 
@@ -77,6 +79,13 @@ const LunchMenuApp = {
     if ($('input[name="tab"]:checked').value === 'favorite') {
       this.handleRestaurantTabChange('favorite');
     }
+  },
+
+  handleRestaurantDetailClick(restaurantID) {
+    $('restaurant-detail-modal').render(
+      restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID)
+    );
+    $('restaurant-detail-modal').openModal();
   },
 };
 

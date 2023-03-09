@@ -43,5 +43,13 @@ customElements.define(
         </div>
       </dialog>`;
     }
+
+    openModal() {
+      this.querySelector('.modal').showModal();
+    }
+
+    closeModal() {
+      this.querySelector('.modal').close();
+    }
   }
 );

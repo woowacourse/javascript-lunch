@@ -77,11 +77,11 @@ customElements.define(
     }
 
     openModal() {
-      $('.modal').showModal();
+      this.querySelector('.modal').showModal();
     }
 
     closeModal() {
-      $('.modal').close();
+      this.querySelector('.modal').close();
     }
 
     handleSubmit(e) {
