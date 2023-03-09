@@ -1,31 +1,44 @@
 import { CATEGORY, SORT } from "../constants";
-import Component from "../core/Component";
 
-export default class Filter extends Component {
+class Filter {
+  $target;
+
+  constructor($target) {
+    this.$target = $target;
+    this.render();
+  }
+
   template() {
-    const { sortingWay, category } = this.props;
-
     return `
         <select name="category" id="category-filter" class="restaurant-filter">
-          ${Object.values(CATEGORY).map(
-            (categoryValue) =>
-              `<option value=${categoryValue} ${category === categoryValue ? "selected" : ""}>${categoryValue}</option>`
-          )}
+          ${Object.values(CATEGORY).map((categoryValue) => `<option value=${categoryValue}>${categoryValue}</option>`)}
         </select>
 
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          ${Object.values(SORT).map(
-            (sortValue) =>
-              `<option value="${sortValue}" ${sortingWay === sortValue ? "selected" : ""}>${sortValue}</option>`
-          )}
+          ${Object.values(SORT).map((sortValue) => `<option value="${sortValue}"}>${sortValue}</option>`)}
         </select>
     `;
   }
 
-  setEvent() {
-    const { onChangeSortingWay, onChangeCategory } = this.props;
+  render() {
+    this.$target.insertAdjacentHTML("beforeend", this.template());
+  }
 
-    this.addEvent("change", "#sorting-filter", onChangeSortingWay);
-    this.addEvent("change", "#category-filter", onChangeCategory);
+  onChangeSelectBox(restaurantList) {
+    this.$target.querySelector("#category-filter").addEventListener("change", (event) => {
+      const selectedCategory = event.target.value;
+      const selectedSortingWay = this.$target.querySelector("#sorting-filter").value;
+
+      restaurantList.renderFilteredList(selectedCategory, selectedSortingWay);
+    });
+
+    this.$target.querySelector("#sorting-filter").addEventListener("change", (event) => {
+      const selectedSortingWay = event.target.value;
+      const selectedCategory = this.$target.querySelector("#category-filter").value;
+
+      restaurantList.renderFilteredList(selectedCategory, selectedSortingWay);
+    });
   }
 }
+
+export default Filter;

@@ -1,6 +1,12 @@
-import Component from "../core/Component";
+// import "../../templates/style.css";
+class Header {
+  $target;
 
-export default class Header extends Component {
+  constructor($target) {
+    this.$target = $target;
+    this.render();
+  }
+
   template() {
     return `
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -10,10 +16,16 @@ export default class Header extends Component {
         `;
   }
 
-  setEvent() {
-    this.addEvent("click", ".gnb__button", () => {
-      const { toggleModal } = this.props;
-      toggleModal();
+  render() {
+    this.$target.insertAdjacentHTML("beforeend", this.template());
+  }
+
+  setAddButtonEventListner(modal, restaurantList) {
+    this.$target.querySelector(".gnb__button").addEventListener("click", () => {
+      modal.setAddRestaurantForm(restaurantList);
+      modal.toggle();
     });
   }
 }
+
+export default Header;
