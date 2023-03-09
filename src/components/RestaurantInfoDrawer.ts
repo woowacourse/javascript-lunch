@@ -74,18 +74,20 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
       : './favorite-icon-lined.png';
     this.$target.innerHTML = `
         <div class="modal-backdrop"></div>
-        <div class="modal-container">
-        <div class="restaurant__category">
-            <img src="${CATEGORY_IMAGE_URL[category]}"" alt="${category}" class="category-icon" />
-        </div>
-        <button class="favorite__button" data-favorite-btn-id="${id}">
-        <img src="${FavoriteButtonImgSrc}"/>
-      </button>
-        <div class="restaurant__info">
-            <h3 class="restaurant__name text-subtitle">${name}</h3>
+        <div class="modal-container restaurant-info-drawer">
+          <div class="modal-header">
+          <div class="restaurant__category">
+            <img src="${CATEGORY_IMAGE_URL[category]}" alt="${category}" class="category-icon" />
+          </div>
+          <button class="favorite__button" data-favorite-btn-id="${id}">
+            <img src="${FavoriteButtonImgSrc}"/>
+          </button>
+          </div>
+        <div class="restaurant-info__drawer">
+            <h1 class="restaurant__name text-subtitle">${name}</h1>
             <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-            <p class="restaurant__description text-body">${description}</p>
-            <p>${link}</p>
+            <p class="text-body">${description}</p>
+            <a href="${link}">${link}</a>
         </div>
         <div class="button-container">
             <button id="restaurant-delete__button" type="button" class="button button--secondary text-caption">삭제하기</button>
