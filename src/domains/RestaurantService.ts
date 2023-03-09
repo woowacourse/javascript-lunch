@@ -1,4 +1,4 @@
-import { CategoryOptions, Restaurant, RestaurantFilter } from '../types/types';
+import { Restaurant } from '../types/types';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
@@ -29,33 +29,6 @@ class RestaurantService {
 
   getRestaurant(restaurantId: number) {
     return this.restaurantList.find((restaurant) => restaurant.id === restaurantId) as Restaurant;
-  }
-
-  filter(category: CategoryOptions, restaurantList: Restaurant[]) {
-    if (category === '전체') return [...restaurantList];
-
-    return restaurantList.filter((restaurant) => restaurant.category === category);
-  }
-
-  sortByName(restaurantList: Restaurant[]) {
-    return [...restaurantList].sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  sortByDistance(restaurantList: Restaurant[]) {
-    return [...restaurantList].sort((a, b) => a.distance - b.distance);
-  }
-
-  filterAndSort(
-    displayStatus: RestaurantFilter,
-    restaurantList: Restaurant[] = this.restaurantList
-  ) {
-    const filteredRestaurantList = this.filter(displayStatus.category, restaurantList);
-
-    if (displayStatus.sorting === '이름순') {
-      return this.sortByName(filteredRestaurantList);
-    }
-
-    return this.sortByDistance(filteredRestaurantList);
   }
 
   updateFavorite(restaurantId: number) {
