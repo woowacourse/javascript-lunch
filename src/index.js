@@ -5,9 +5,10 @@ import "../style.css";
 import "./components/restaurant/RestaurantsComponent";
 import "./components/restaurant/RestaurantComponent";
 import "./components/modal/RestaurantAddFormComponent";
+import "./components/modal/ModalComponent";
 import "./components/HeaderComponent";
 import "./components/SelectComponent";
-import "./components/modal/ModalComponent";
+import "./components/ButtonComponent";
 
 // images
 import "../img/add-button.png";

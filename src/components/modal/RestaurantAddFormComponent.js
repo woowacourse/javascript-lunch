@@ -10,9 +10,7 @@ class RestaurantAddFormComponent extends CustomElement {
       this.cleanForm();
     });
 
-    document
-      .querySelector(".button--secondary")
-      .addEventListener("click", this.hideModal);
+    document.getElementById("cancel").addEventListener("click", this.hideModal);
   }
 
   hideModal() {
@@ -104,8 +102,8 @@ class RestaurantAddFormComponent extends CustomElement {
 
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-              <button type="button" class="button button--secondary text-caption">취소하기</button>
-              <button type="submit" class="button button--primary text-caption">추가하기</button>
+              <button-element id="cancel" btnType="button" btnClass="button--secondary" btnText="취소하기"></button-element>
+              <button-element btnType="submit" btnClass="button--primary" btnText="추가하기"></button-element>
             </div>
           </form>
         `;
