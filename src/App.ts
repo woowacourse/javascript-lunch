@@ -50,12 +50,10 @@ class App {
   };
 
   deleteRestaurantItem = (id: string) => {
-    this.restaurantList = restaurantListHandler.getDeleteItem(
+    this.restaurantList = restaurantListHandler.setDeleteItem(
       id,
       this.restaurantList
     );
-
-    saveData(Constants.RESTAURANT_LIST, this.restaurantList);
 
     RestaurantList.updateRestaurantList(this.restaurantList);
   };

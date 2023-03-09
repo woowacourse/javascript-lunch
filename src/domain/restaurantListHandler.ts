@@ -40,8 +40,14 @@ class RestaurantListHandler {
     return restaurantList.find((restaurant) => restaurant.id === id);
   }
 
-  getDeleteItem(id: string, restaurantList: Restaurant[]) {
-    return restaurantList.filter((restaurant) => restaurant.id !== id);
+  setDeleteItem(id: string, restaurantList: Restaurant[]) {
+    this.restaurants = restaurantList.filter(
+      (restaurant) => restaurant.id !== id
+    );
+
+    saveData(Constants.RESTAURANT_LIST, this.restaurants);
+
+    return this.restaurants;
   }
 }
 
