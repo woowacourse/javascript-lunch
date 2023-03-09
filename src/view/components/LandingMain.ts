@@ -8,7 +8,7 @@ import { Restaurants } from './Restaurants';
 function LandingMain() {
   const {
     values: { restaurants, category, sortOption },
-    handlers: { handleCategory, handleSortOption },
+    handlers: { handleCategory, handleSortOption, handleFavoriteBtn },
   } = useRestaurants();
   const [tab, tabRight, tabLeft] = useBoolean(false);
 
@@ -18,7 +18,7 @@ function LandingMain() {
         NavTab: NavTab({ tab, tabRight, tabLeft }),
         NavFilter: NavFilter({ category, sortOption, handleCategory, handleSortOption }),
       })}
-      ${Restaurants({ restaurants })}
+      ${Restaurants({ restaurants, handleFavoriteBtn })}
     </main>
   `;
 }
