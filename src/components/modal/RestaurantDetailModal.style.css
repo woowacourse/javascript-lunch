@@ -1,0 +1,24 @@
+.restaurant-detail-category {
+  margin: 16px 0;
+}
+
+.restaurant-detail-info {
+  margin: 0 0 42px 0;
+}
+
+.restaurant-detail-name {
+  margin: 0 0 16px 0;
+}
+
+.restaurant-detail-distance {
+  color: var(--primary-color);
+}
+
+.restaurant-detail-description {
+  margin: 16px 0;
+}
+
+.restaurant-detail-link {
+  color: var(--grey-500);
+  text-decoration-line: underline;
+}

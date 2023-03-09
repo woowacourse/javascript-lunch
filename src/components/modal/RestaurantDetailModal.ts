@@ -1,5 +1,8 @@
+import "./RestaurantDetailModal.style.css";
+
 import ModalContent from "./ModalContent";
 import restaurantState from "../../states/restaurants";
+import categoryImages from "../../constants/categoryImage";
 
 class RestaurantDetailModal extends ModalContent {
   #name: string | null;
@@ -22,7 +25,39 @@ class RestaurantDetailModal extends ModalContent {
     if (!restaurant) return;
 
     this.innerHTML = `
-      <h2 class="modal-title text-title">${restaurant.name}</h2>
+      <div class="restaurant__category restaurant-detail-category">
+        <img
+          src=${categoryImages[restaurant.category]}
+          alt=${restaurant.category}
+          class="category-icon"
+        />
+      </div>
+      <div class="restaurant-detail-info">
+        <h2 class="restaurant-detail-name text-title">${restaurant.name}</h2>
+        <span class="restaurant-detail-distance text-body">
+          캠퍼스부터 ${restaurant.distance}분 내
+        </span>
+        <p class="restaurant-detail-description text-body">
+          ${restaurant.description ?? ""}
+        </p>
+        ${
+          restaurant.link
+            ? `<a href=${restaurant.link} class="restaurant-detail-link" target="_blank">${restaurant.link}</a>`
+            : ""
+        }
+      </div>
+      <div class="button-container">
+        <button
+          type="button"
+          id="delete-button"
+          class="button button--secondary text-caption"
+        >
+          삭제하기
+        </button>
+        <button class="button button--primary text-caption">
+          닫기
+        </button>
+      </div>
     `;
   }
 
