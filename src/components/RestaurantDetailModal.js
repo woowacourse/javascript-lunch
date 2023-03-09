@@ -39,7 +39,7 @@ customElements.define(
       <div class="description">
         ${description}
       </div>
-      ${link ? `<a href="${link}" class="link">${link}</a>` : ''}
+      ${link ? `<a href="${link}" target="_blank" class="text-body link">${link}</a>` : ''}
       <div class="button-container detail-button-container">
         <button type="button" class="button button--secondary text-caption cancel-button">
           닫기

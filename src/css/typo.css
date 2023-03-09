@@ -33,3 +33,7 @@ body {
   line-height: 20px;
   font-weight: 400;
 }
+
+.link {
+  color: var(--grey-500);
+}
