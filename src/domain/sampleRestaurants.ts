@@ -4,7 +4,7 @@ export const sampleRestaurants = [
   {
     restaurantID: getUniqueID(),
     category: '한식',
-    name: '피양콩할머니',
+    name: '피양콩할마니',
     distance: 10,
     favorite: false,
     description: `평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은

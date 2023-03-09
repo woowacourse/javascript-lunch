@@ -9,6 +9,8 @@ const LunchMenuApp = {
     restaurants.init();
     this.render(restaurants.list);
     this.bindEvents();
+    $('restaurant-detail-modal').render(restaurants.list[0]); // TODO: 수정
+    $('restaurant-detail-modal > dialog').showModal(); // TODO: 수정
   },
 
   render(restaurants) {

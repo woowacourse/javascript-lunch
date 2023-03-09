@@ -158,6 +158,8 @@ restaurant-filter {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -242,6 +244,8 @@ restaurant-filter {
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 80vh;
+  overflow: auto;
 
   padding: 32px 16px;
 
@@ -340,6 +344,29 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세정보 모달 *****************************************/
+
+#restaurant__image__area {
+  display: flex;
+  justify-content: space-between;
+}
+
+restaurant-detail-modal h2 {
+  padding: 16px 0;
+}
+
+restaurant-detail-modal p {
+  margin-top: 16px;
+}
+
+restaurant-detail-modal a {
+  color: black;
+}
+
+#link-container {
+  margin: 16px 0 32px;
 }
 
 .hidden {
