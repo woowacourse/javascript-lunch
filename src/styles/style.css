@@ -188,6 +188,8 @@ body {
 }
 
 .restaurant {
+  position: relative;
+
   display: flex;
   align-items: flex-start;
 
@@ -209,6 +211,13 @@ body {
 
   border-radius: 50%;
   background: var(--lighten-color);
+}
+
+.favorite-icon {
+  position: absolute;
+  right: 0;
+  width: 36px;
+  height: 36px;
 }
 
 .category-icon {

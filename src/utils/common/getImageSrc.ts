@@ -1,4 +1,10 @@
 import { Category } from '../../constants/lunchRecommendation';
+import '../../assets/category-korean.png';
+import '../../assets/category-chinese.png';
+import '../../assets/category-japanese.png';
+import '../../assets/category-western.png';
+import '../../assets/category-asian.png';
+import '../../assets/category-etc.png';
 
 const src: Record<Category, `./category-${string}.png`> = {
   전체: './category-all.png',

@@ -1,4 +1,5 @@
 import { useEvents } from '../../utils/core';
+import '../../assets/add-button.png';
 
 interface HeaderProps {
   open: VoidFunction;
