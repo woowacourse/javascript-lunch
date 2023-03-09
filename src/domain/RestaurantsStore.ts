@@ -11,12 +11,7 @@ class RestaurantsStore {
   #sortMethod: SortMethod = SORT_METHOD.NAME;
 
   constructor() {
-    if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
-      localStorage.setItem(
-        RESTAURANTS_STORAGE,
-        JSON.stringify(this.#restaurantList)
-      );
-    }
+    this.hasNoneRestaurantList();
   }
 
   get restaurantList() {
@@ -31,27 +26,49 @@ class RestaurantsStore {
     this.#sortMethod = sortMethod;
   }
 
-  addRestaurant(restaurant: Restaurant) {
+  refreshRestaurantList() {
+    if (!localStorage.getItem(RESTAURANTS_STORAGE))
+      throw new Error("[ERROR] localStorage에 값이 없습니다.");
+
     this.#restaurantList = JSON.parse(
       localStorage.getItem(RESTAURANTS_STORAGE) as string
-    );
-    this.#restaurantList.push(restaurant);
-
-    localStorage.setItem(
-      RESTAURANTS_STORAGE,
-      JSON.stringify(this.#restaurantList)
     );
   }
 
-  filterByCategory() {
-    this.#restaurantList = JSON.parse(
-      localStorage.getItem(RESTAURANTS_STORAGE) as string
-    );
-
-    if (this.#category !== CATEGORY_DEFAULT) {
-      this.#restaurantList = this.#restaurantList.filter(
-        (restaurant) => restaurant.category === this.#category
+  hasNoneRestaurantList() {
+    if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
+      localStorage.setItem(
+        RESTAURANTS_STORAGE,
+        JSON.stringify(this.#restaurantList)
       );
+    }
+  }
+
+  addRestaurant(restaurant: Restaurant) {
+    try {
+      this.refreshRestaurantList();
+      this.#restaurantList.push(restaurant);
+
+      localStorage.setItem(
+        RESTAURANTS_STORAGE,
+        JSON.stringify(this.#restaurantList)
+      );
+    } catch (e) {
+      this.hasNoneRestaurantList();
+    }
+  }
+
+  filterByCategory() {
+    try {
+      this.refreshRestaurantList();
+
+      if (this.#category !== CATEGORY_DEFAULT) {
+        this.#restaurantList = this.#restaurantList.filter(
+          (restaurant) => restaurant.category === this.#category
+        );
+      }
+    } catch (e) {
+      this.hasNoneRestaurantList();
     }
   }
 
