@@ -3,10 +3,6 @@
   display: none;
 }
 
-.modal--open {
-  display: none;
-}
-
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -117,4 +113,22 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 디테일 모달 *****************************************/
+.modal--detail {
+  display: none;
+}
+
+.detail-item {
+  margin-bottom: 16px;
+}
+
+.modal-detail-restaurant__link {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.detail-button-container {
+  margin-top: 30px;
 }

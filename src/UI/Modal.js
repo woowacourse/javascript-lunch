@@ -1,5 +1,6 @@
 import { $, $$ } from "../utils/Dom";
 import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT } from "../utils/Constant";
+import { getRestaurantListFromLocalstorage } from "../utils/LocalStorage";
 
 export default class Modal {
   #template = `
@@ -101,12 +102,15 @@ export default class Modal {
 
   setRestaurantInformation() {
     const restaurantInfo = {};
+    const idNumber = getRestaurantListFromLocalstorage("number");
     const array = ["category", "name", "distance", "description", "link"];
 
     $$(".form-item").forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
 
+    restaurantInfo["id"] = idNumber;
+    localStorage.setItem("number", idNumber + 1);
     return restaurantInfo;
   }
 
@@ -116,7 +120,7 @@ export default class Modal {
 
   closeModal = () => {
     this.resetValue();
-    $(".modal--open").style.display = "none";
+    $(".modal").style.display = "none";
   };
 
   resetValue() {

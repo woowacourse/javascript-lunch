@@ -21,6 +21,6 @@ export default class Header {
   }
 
   openModal() {
-    $(".modal--open").style.display = "block";
+    $(".modal").style.display = "block";
   }
 }

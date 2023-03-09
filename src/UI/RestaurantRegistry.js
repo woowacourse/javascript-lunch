@@ -1,4 +1,5 @@
 import { $ } from "../utils/Dom";
+import ModalRestaurantDetail from "./ModalRestaurantDetail";
 
 export default class RestaurantRegistry {
   appendRestaurant(restaurantInfo) {
@@ -11,7 +12,7 @@ export default class RestaurantRegistry {
       기타: "./category-etc.png",
     };
     const template = `
-    <li class="restaurant">
+    <li class="restaurant" id="restaurant${restaurantInfo.id}">
           <div class="restaurant__category">
             <img src="${category[restaurantInfo.category]}" alt="${
       restaurantInfo.category
@@ -30,7 +31,11 @@ export default class RestaurantRegistry {
           </div>
     </li>
     `;
-
+    
     $(".restaurant-list").insertAdjacentHTML("beforeend", template);
+    $(`#restaurant${restaurantInfo.id}`).addEventListener("click", (e)=>{
+      const modalRestaurantDetail = new ModalRestaurantDetail()
+      modalRestaurantDetail.changeRestaurantInformation(restaurantInfo)
+    })
   }
 }
