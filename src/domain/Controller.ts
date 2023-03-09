@@ -43,7 +43,7 @@ class Controller {
     restaurantList.render();
   }
 
-  renderFavoriteRestaurantList() {
+  setFavoriteRestaurantList() {
     this.state.restaurants = [...this.state.restaurants].filter(
       (restaurant) => {
         if (restaurant.isFavorite) return restaurant;
