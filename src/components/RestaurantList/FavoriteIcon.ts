@@ -9,23 +9,24 @@ const FavoriteIcon = {
     </div>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
-    const favorite = document.querySelector('.favorite') as HTMLImageElement;
+    const favorite = document.querySelectorAll('.favorite') as NodeListOf<HTMLDivElement>;
 
-    favorite?.addEventListener('click', () => {
-      const id = favorite.dataset.id;
-      const isActive = favorite.dataset.active;
+    favorite.forEach((item: HTMLDivElement) => {
+      item?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = item.dataset.id;
+        const isActive = item.dataset.active;
 
-      if (id) {
-        RestaurantListItem.toggleFavorite(id);
+        if (id) RestaurantListItem.toggleFavorite(id);
 
         if (isActive === 'false') {
-          favorite.innerHTML = FavoriteIcon.template(true, id);
-          favorite.dataset.active = 'true';
+          item.innerHTML = `<img src="${Favorite.filled}" alt="자주 가는 음식점 버튼" id="favorite-lined"/>`;
+          item.dataset.active = 'true';
         } else {
-          favorite.innerHTML = FavoriteIcon.template(false, id);
-          favorite.dataset.active = 'false';
+          item.innerHTML = `<img src="${Favorite.lined}" alt="자주 가는 음식점 버튼" id="favorite-lined"/>`;
+          item.dataset.active = 'false';
         }
-      }
+      });
     });
   },
 };

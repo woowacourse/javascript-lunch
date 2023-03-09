@@ -20,14 +20,16 @@ const Restaurant = {
       ${DetailModal.template(restaurant)}`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
-    DetailModal.setEvent(RestaurantListItem);
     FavoriteIcon.setEvent(RestaurantListItem);
 
     const restaurants = document.querySelectorAll('.restaurant') as NodeListOf<HTMLElement>;
 
     restaurants.forEach((item) => {
-      item?.addEventListener('click', () => {
-        DetailModal.openModal();
+      item?.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const restaurant = RestaurantListItem.getItemByDataId(target.dataset.id as string) as IRestaurant;
+        DetailModal.openModal(restaurant);
+        DetailModal.setEvent(RestaurantListItem);
       });
     });
   },

@@ -19,7 +19,7 @@ const SortButton = {
       RestaurantListItem.setSort(select);
       const result = RestaurantListItem.filterAndSort();
 
-      RestaurantList.update(result);
+      RestaurantList.update(RestaurantListItem, result);
     });
   },
 };

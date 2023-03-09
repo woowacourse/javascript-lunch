@@ -41,6 +41,7 @@ class RestaurantListItem {
     });
 
     RestaurantStorage.set(list);
+    this.#list = RestaurantStorage.get();
   }
 
   setFilter(category: TCategory | '전체') {
@@ -83,6 +84,14 @@ class RestaurantListItem {
 
   getListItem() {
     return this.#list;
+  }
+
+  getItemByDataId(id: string) {
+    return this.#list.find((item) => item.id === id);
+  }
+
+  getFavoriteListItem() {
+    return this.#list.filter((item) => item.favorite);
   }
 }
 

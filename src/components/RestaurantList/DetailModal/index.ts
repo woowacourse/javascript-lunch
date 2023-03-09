@@ -1,4 +1,3 @@
-import RestaurantList from '..';
 import { CLASS } from '../../../constants';
 import { Category } from '../../../data/image';
 import RestaurantListItem, { IRestaurant } from '../../../domain/RestaurantListItem';
@@ -12,7 +11,7 @@ const DetailModal = {
         <div class="modal-backdrop"></div>
           <div class="modal-container">
             <div id="shop-detail" data-id="${restaurant.id}">
-              <div class="favorite favorite-detail">
+              <div class="favorite-detail">
                 ${FavoriteIcon.template(restaurant.favorite, restaurant.id)}
               </div>
               <div class="restaurant__category">
@@ -57,9 +56,35 @@ const DetailModal = {
       DetailModal.closeModal();
     });
   },
-  openModal() {
+  openModal(restaurant: IRestaurant) {
     const modal = document.querySelector(`.${CLASS.DETAIL_MODAL}`) as HTMLElement;
+    const modalContainer = document.querySelector('.modal-container') as HTMLElement;
     modal.className = CLASS.MODAL_OPEN;
+    modalContainer.innerHTML = this.templateShop(restaurant);
+  },
+  templateShop(restaurant: IRestaurant) {
+    return `<div id="shop-detail" data-id="${restaurant.id}">
+    <div class="favorite-detail">
+      ${FavoriteIcon.template(restaurant.favorite, restaurant.id)}
+    </div>
+    <div class="restaurant__category">
+      <img src="${Category[restaurant.category]}" alt="${restaurant.category}" class="category-icon">
+    </div>
+    <div class="restaurant__info">
+      <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
+      <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
+      <p class="restaurant__description text-body">${restaurant?.description}</p>
+    </div>
+    <div class="button-container">
+      <button
+        type="button"
+        id="delete-${restaurant.id}"
+        class="button button--secondary text-caption delete-button"
+      >
+        삭제하기
+      </button>
+      <button type="button" id="close-button" class="button button--primary text-caption">닫기</button>
+    </div>`;
   },
   closeModal() {
     const modal = document.querySelector(`.${CLASS.MODAL_OPEN}`) as HTMLElement;

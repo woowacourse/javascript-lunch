@@ -33,7 +33,7 @@ class App {
 
   #setEvent() {
     Header.setEvent();
-    Menu.setEvent();
+    Menu.setEvent(this.#restaurantListItem);
     FilterSection.setEvent(this.#restaurantListItem);
     RestaurantList.setEvent(this.#restaurantListItem);
     AddModal.setEvent(this.#restaurantListItem);

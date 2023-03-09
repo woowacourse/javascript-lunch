@@ -14,14 +14,16 @@ const RestaurantList = {
   setEvent(RestaurantListItem: RestaurantListItem) {
     Restaurant.setEvent(RestaurantListItem);
   },
-  update(restaurantList: IRestaurant[]) {
+  update(RestaurantListItem: RestaurantListItem, restaurantList: IRestaurant[]) {
     const restaurantListContainer = document.querySelector(`.${CLASS.RESTAURANT_LIST_CONTAINER}`) as HTMLDivElement;
     restaurantListContainer.innerHTML = this.template(restaurantList);
+    Restaurant.setEvent(RestaurantListItem);
   },
-  append(restaurant: IRestaurant) {
+  append(RestaurantListItem: RestaurantListItem, restaurant: IRestaurant) {
     const restaurantListContainer = document.querySelector(`.${CLASS.RESTAURANT_LIST_CONTAINER}`) as HTMLDivElement;
     const template = Restaurant.template(restaurant);
     restaurantListContainer.insertAdjacentHTML('afterbegin', template);
+    Restaurant.setEvent(RestaurantListItem);
   },
 };
 
