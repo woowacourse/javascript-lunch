@@ -7,6 +7,22 @@ class RestaurantService {
     this.restaurantList = restaurantList;
   }
 
+  getRestaurant(restaurantId: number) {
+    return this.restaurantList.find((restaurant) => restaurant.id === restaurantId) as Restaurant;
+  }
+
+  getRestaurantList() {
+    return [...this.restaurantList];
+  }
+
+  getFavoriteRestaurantList() {
+    return this.restaurantList.filter((restaurant) => restaurant.favorite);
+  }
+
+  findRestaurantIndex(restaurantId: number) {
+    return this.restaurantList.findIndex((restaurant) => restaurant.id === restaurantId);
+  }
+
   add(restaurant: Restaurant) {
     restaurant.id = this.restaurantList[this.restaurantList.length - 1].id + 1;
     this.restaurantList.push({ ...restaurant });
@@ -16,22 +32,6 @@ class RestaurantService {
     const restaurantIndex = this.findRestaurantIndex(restaurantId);
     this.restaurantList.splice(restaurantIndex, 1);
 
-    return [...this.restaurantList];
-  }
-
-  findRestaurantIndex(restaurantId: number) {
-    return this.restaurantList.findIndex((restaurant) => restaurant.id === restaurantId);
-  }
-
-  getFavoriteRestaurantList() {
-    return this.restaurantList.filter((restaurant) => restaurant.favorite);
-  }
-
-  getRestaurant(restaurantId: number) {
-    return this.restaurantList.find((restaurant) => restaurant.id === restaurantId) as Restaurant;
-  }
-
-  getRestaurantList() {
     return [...this.restaurantList];
   }
 
