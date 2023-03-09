@@ -1,4 +1,5 @@
-import { CATEGORY, LOCAL_STORAGE_KEY, SORTING_CRITERION } from '../constants/constants';
+import { CATEGORY, SORTING_CRITERION } from '../constants/constants';
+import { FAVORITE_ICON_IMAGE } from '../constants/images';
 import { Category, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
@@ -7,12 +8,23 @@ class RestaurantService {
   private currentSortingCriterion: SortingCriterion = SORTING_CRITERION.NAME;
 
   constructor() {
-    this.restaurantList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.RESTAURANTS) ?? '[]');
+    this.restaurantList = this.getRestaurantList();
+  }
+
+  getRestaurantList() {
+    const restaurantList = Object.keys(localStorage).map((key) => {
+      const restaurantItem = localStorage.getItem(key);
+      if (restaurantItem) return JSON.parse(restaurantItem);
+    });
+
+    if (restaurantList.length > 0) return restaurantList;
+    return [];
   }
 
   add(restaurant: Restaurant) {
+    restaurant.favoriteImageUrl = FAVORITE_ICON_IMAGE.LINED; // 즐겨찾기 아이콘 기본 경로 설정
     this.restaurantList.push(restaurant);
-    localStorage.setItem(LOCAL_STORAGE_KEY.RESTAURANTS, JSON.stringify(this.restaurantList));
+    localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
   }
 
   setCurrentCategory(category: Category) {

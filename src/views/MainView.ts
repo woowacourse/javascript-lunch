@@ -1,21 +1,24 @@
 import { $, $$ } from '../utils/domSelectors';
 import { Restaurant } from '../types/types';
+import { FAVORITE_ICON_IMAGE, RESTAURANT_IMAGE } from '../constants/images';
 import { RestaurantList } from '../components/RestaurantList';
-import { FAVORITE_ICON_IMAGE } from '../constants/images';
+import { RestaurantDetailModal } from '../components/RestaurantDetailModal';
 
 class MainView {
   private addButton = $<HTMLButtonElement>('.gnb__button');
-  private modal = $<HTMLDialogElement>('.modal');
+  private addRestaurantModal = $<HTMLDialogElement>('#add-restaurant-modal');
+  private restaurantDetailModal = $<HTMLDialogElement>('#restaurant-detail-modal');
   private categoryFilter = $<HTMLSelectElement>('#category-filter');
   private sortingFilter = $<HTMLSelectElement>('#sorting-filter');
 
   constructor() {
     this.addRestaurantAddButtonClickEvent();
+    this.addRestaurantDetailModalBackdropClickEvent();
   }
 
   addRestaurantAddButtonClickEvent() {
     this.addButton.addEventListener('click', () => {
-      this.modal.showModal();
+      this.addRestaurantModal.showModal();
     });
   }
 
@@ -45,20 +48,59 @@ class MainView {
     favoriteButtons.forEach((favoriteButton) => {
       favoriteButton.addEventListener('click', (event) => {
         if (event.target instanceof HTMLButtonElement) {
-          const currentUrl = event.target.style.backgroundImage;
+          const currentImage = event.target.style.backgroundImage;
+          const toggledImageUrl = this.toggleButtonBackgroundImageUrl(currentImage);
 
-          event.target.style.backgroundImage = this.getButtonBackgroundImage(currentUrl);
+          event.target.style.backgroundImage = `url("${toggledImageUrl}")`;
+
+          const name = event.target.parentNode?.querySelector('.restaurant__name')?.textContent;
+          const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
+
+          restaurant.favoriteImageUrl = toggledImageUrl;
+          localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
         }
       });
     });
   }
 
-  getButtonBackgroundImage(currentUrl: string) {
-    const filledImageUrl = `url("${FAVORITE_ICON_IMAGE.FILLED}")`;
-    const linedImageUrl = `url("${FAVORITE_ICON_IMAGE.LINED}")`;
+  toggleButtonBackgroundImageUrl(currentImage: string) {
+    const linedImage = `url("${FAVORITE_ICON_IMAGE.LINED}")`;
 
-    if (currentUrl === linedImageUrl) return filledImageUrl;
-    return linedImageUrl;
+    if (currentImage === linedImage) return FAVORITE_ICON_IMAGE.FILLED;
+    return FAVORITE_ICON_IMAGE.LINED;
+  }
+
+  addRestaurantListClickEventHandler() {
+    const restaurantList = $$('.restaurant');
+
+    restaurantList.forEach((restaurantItem) => {
+      restaurantItem.addEventListener('click', (event) => {
+        if (!(event.currentTarget instanceof HTMLLIElement)) return false;
+        if (event.target instanceof HTMLButtonElement) return false;
+
+        const name = event.currentTarget.querySelector('.restaurant__name')?.textContent;
+        const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
+
+        this.renderRestaurantDetailModal(restaurant);
+        this.restaurantDetailModal.showModal();
+      });
+    });
+  }
+
+  renderRestaurantDetailModal(restaurant: Restaurant) {
+    const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
+    const restaurantDetailModalTemplate = RestaurantDetailModal(restaurant, categoryImageUrl);
+
+    this.restaurantDetailModal.innerHTML = '';
+    this.restaurantDetailModal.insertAdjacentHTML('beforeend', restaurantDetailModalTemplate);
+  }
+
+  addRestaurantDetailModalBackdropClickEvent() {
+    this.restaurantDetailModal.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLDialogElement && event.target.nodeName === 'DIALOG') {
+        event.target.close();
+      }
+    });
   }
 }
 

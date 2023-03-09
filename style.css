@@ -240,3 +240,18 @@ input[name='link'] {
 .not-visible {
   visibility: hidden;
 }
+
+/* 음식점 상세정보 모달 *****************************************/
+/* .favorite-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.category-favorite-icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant__link {
+  color: #000000;
+} */

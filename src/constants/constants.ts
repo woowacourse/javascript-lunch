@@ -15,8 +15,6 @@ export const MESSAGE = {
   LINK_DEFAULT_CAPTION: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
 } as const;
 
-export const LOCAL_STORAGE_KEY = { RESTAURANTS: 'restaurants' } as const;
-
 export const CATEGORY = {
   ALL: '전체',
   KOREAN: '한식',

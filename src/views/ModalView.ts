@@ -5,7 +5,7 @@ import { ERROR_MESSAGE, MESSAGE } from '../constants/constants';
 
 class ModalView {
   private restaurantAddForm = $<HTMLFormElement>('#restaurant-add-form');
-  private modal = $<HTMLDialogElement>('.modal');
+  private modal = $<HTMLDialogElement>('#add-restaurant-modal');
   private closeButton = $<HTMLButtonElement>('#modal-close-button');
   private categoryInput = $<HTMLSelectElement>('#category');
   private categoryInputCaption = $<HTMLSpanElement>('#category-caption');
@@ -32,17 +32,20 @@ class ModalView {
     this.restaurantAddForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const formData: FormData = new FormData(this.restaurantAddForm);
-      const restaurantItem = Object.fromEntries(
-        [...formData].map(([key, value]) => [key, key === 'distance' ? Number(value) : value]),
+      const restaurant = Object.fromEntries(
+        [...formData].map(([key, value]) => [
+          key,
+          key === 'distance' ? Number(value) : String(value),
+        ]),
       ) as Restaurant;
 
-      const errors: Errors = restaurantFormValidator.verify(restaurantItem);
+      const errors: Errors = restaurantFormValidator.verify(restaurant);
       const hasError = Object.values(errors).some((error) => error === true);
 
       if (!hasError) {
         this.restaurantAddForm.reset();
         this.modal.close();
-        return onSubmitRestaurantAddForm(restaurantItem);
+        return onSubmitRestaurantAddForm(restaurant);
       }
 
       this.showErrorMessages(errors);
