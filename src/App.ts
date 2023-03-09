@@ -1,7 +1,7 @@
 import InputForm from "./components/InputSheet/InputForm";
 import InputFormOpenButton from "./components/MainPage/InputFormOpenButton";
 import FilterSortButton from "./components/MainPage/FilterSortButton";
-import { RestaurantService } from "./domain/RestaurantService";
+import { RestaurantData } from "./domain/RestaurantData";
 import { mockList } from "./data/mockRestaurant";
 import { MainHeader } from "./components/MainPage/MainHeader";
 import { RestaurantList } from "./components/MainPage/RestaurantList";
@@ -12,8 +12,8 @@ class App {
 
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
-    RestaurantService.allList = mockList;
-    RestaurantService.settingList();
+    RestaurantData.allList = mockList;
+    RestaurantData.settingList();
     localStorage.clear();
   }
 
@@ -26,7 +26,7 @@ class App {
           ${FilterSortButton.template()}
         </section>
         <section class="restaurant-list-container">
-          ${RestaurantList.template(RestaurantService.allList)}
+          ${RestaurantList.template(RestaurantData.allList)}
         </section>
       </main>
       ${InputForm.template()}`;
@@ -34,9 +34,9 @@ class App {
   }
 
   setEvent() {
-    InputFormOpenButton.openBottomSheet();
+    InputFormOpenButton.setEvent();
     InputForm.addRestaurant();
-    FilterSortButton.filterSort();
+    FilterSortButton.setEvent();
     RestaurantList.setEvent();
     ListChooseSection.setEvent();
   }

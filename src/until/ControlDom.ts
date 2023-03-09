@@ -1,6 +1,6 @@
 // import { Template } from "../Template";
 import { RestaurantType, CategoryType, TakeTimeType } from "../Template";
-import { MakeNewList } from "../domain/MakeNewList";
+import { FilterSort } from "../domain/FilterSort";
 import { RestaurantList } from "../components/MainPage/RestaurantList";
 
 export const $ = (element: string) => document.querySelector(element);
@@ -31,24 +31,5 @@ export const BottomSheetForm = {
 
   showClose(elem: HTMLElement, message: string) {
     elem?.classList.toggle(message);
-  },
-};
-
-export const Render = {
-  restaurantList(restaurantList: RestaurantType[]): void {
-    const restaurantListContainer = $(
-      ".restaurant-list-container"
-    ) as HTMLDataListElement;
-    restaurantListContainer.innerHTML = RestaurantList.template(restaurantList);
-  },
-};
-
-export const FilterSort = {
-  setState() {
-    const filter = $("#category-filter") as HTMLSelectElement;
-    const sortBy = $("#sorting-filter") as HTMLSelectElement;
-
-    MakeNewList.filterState = filter.options[filter.selectedIndex].value;
-    MakeNewList.sortState = sortBy.options[sortBy.selectedIndex].value;
   },
 };

@@ -1,5 +1,6 @@
-import { $, BottomSheetForm, Render } from "../../until/ControlDom";
-import { RestaurantService } from "../../domain/RestaurantService";
+import { $, BottomSheetForm } from "../../until/ControlDom";
+import { RestaurantData } from "../../domain/RestaurantData";
+import { RestaurantList } from "../MainPage/RestaurantList";
 
 const InputForm = {
   template() {
@@ -66,8 +67,8 @@ const InputForm = {
       BottomSheetForm.reset();
       const bottomSheet = $(".bottomSheet") as HTMLElement;
       BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
-      RestaurantService.addRestaurant(newRestaurant);
-      Render.restaurantList(RestaurantService.allList);
+      RestaurantData.addRestaurant(newRestaurant);
+      RestaurantList.renderRestaurantList(RestaurantData.allList);
     });
     this.cancelAddRestaurant();
   },

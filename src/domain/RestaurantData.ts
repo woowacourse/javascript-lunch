@@ -1,7 +1,7 @@
 import { RestaurantType } from "../Template";
 import { LocalData } from "../until/LocalData";
 
-interface RestaurantServiceType {
+interface RestaurantDataType {
   allList: RestaurantType[];
   likeList: RestaurantType[];
 
@@ -12,7 +12,7 @@ interface RestaurantServiceType {
   addLikeRestaurant: (id: number) => void;
 }
 
-export const RestaurantService: RestaurantServiceType = {
+export const RestaurantData: RestaurantDataType = {
   allList: [],
   likeList: [],
 

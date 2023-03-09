@@ -9,7 +9,7 @@ const InputFormOpenButton = {
       </button>`;
   },
 
-  openBottomSheet() {
+  setEvent() {
     const gnbButton = $(".gnb__button");
 
     gnbButton?.addEventListener("click", () => {

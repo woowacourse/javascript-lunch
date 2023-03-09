@@ -1,6 +1,6 @@
-import { RestaurantService } from "../../domain/RestaurantService";
+import { RestaurantData } from "../../domain/RestaurantData";
 import { RestaurantType } from "../../Template";
-import { $, Render } from "../../until/ControlDom";
+import { $ } from "../../until/ControlDom";
 import { Restaurant } from "./Restaurant";
 
 export const RestaurantList = {
@@ -22,7 +22,7 @@ export const RestaurantList = {
       //click star
 
       if (target.className === "likeImg") {
-        RestaurantService.turnLikeUnlike(+targetId!);
+        RestaurantData.turnLikeUnlike(+targetId!);
 
         const restaurantListContainer = $(
           ".restaurant-list-container"
@@ -30,14 +30,21 @@ export const RestaurantList = {
 
         const showSection =
           restaurantListContainer.classList.length === 1
-            ? RestaurantService.allList
-            : RestaurantService.likeList;
+            ? RestaurantData.allList
+            : RestaurantData.likeList;
 
-        Render.restaurantList(showSection);
+        this.renderRestaurantList(showSection);
 
-        console.log(RestaurantService.likeList);
+        console.log(RestaurantData.likeList);
       }
       //click restaurant
     });
+  },
+
+  renderRestaurantList(restaurantList: RestaurantType[]): void {
+    const restaurantListContainer = $(
+      ".restaurant-list-container"
+    ) as HTMLDataListElement;
+    restaurantListContainer.innerHTML = RestaurantList.template(restaurantList);
   },
 };

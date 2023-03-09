@@ -1,6 +1,7 @@
 import { RestaurantType } from "../Template";
+import { $ } from "../until/ControlDom";
 
-export const MakeNewList = {
+export const FilterSort = {
   filterState: "전체",
   sortState: "name",
 
@@ -28,5 +29,13 @@ export const MakeNewList = {
       return prev.name > next.name ? 1 : -1;
     });
     return result;
+  },
+
+  setFilterSortState() {
+    const filter = $("#category-filter") as HTMLSelectElement;
+    const sortBy = $("#sorting-filter") as HTMLSelectElement;
+
+    FilterSort.filterState = filter.options[filter.selectedIndex].value;
+    FilterSort.sortState = sortBy.options[sortBy.selectedIndex].value;
   },
 };

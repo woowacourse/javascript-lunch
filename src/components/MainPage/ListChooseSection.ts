@@ -1,5 +1,6 @@
-import { RestaurantService } from "../../domain/RestaurantService";
-import { $, BottomSheetForm, Render } from "../../until/ControlDom";
+import { RestaurantData } from "../../domain/RestaurantData";
+import { $, BottomSheetForm } from "../../until/ControlDom";
+import { RestaurantList } from "./RestaurantList";
 
 export const ListChooseSection = {
   template() {
@@ -38,10 +39,9 @@ export const ListChooseSection = {
         filterSection.style.display = "flex";
 
         //모든 레스토랑 보이기
-        Render.restaurantList(RestaurantService.allList);
+        RestaurantList.renderRestaurantList(RestaurantData.allList);
         return;
       }
-
       //선호음식점 클릭
       if (target.classList[0] === "likeList") {
         //list like로 토글
@@ -60,7 +60,7 @@ export const ListChooseSection = {
         const filterSection = $(".restaurant-filter-container") as HTMLElement;
         filterSection.style.display = "none";
         // 선호 레스토랑 보이기
-        Render.restaurantList(RestaurantService.likeList);
+        RestaurantList.renderRestaurantList(RestaurantData.likeList);
       }
     });
   },
