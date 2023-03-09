@@ -1,6 +1,7 @@
 import './index.css';
 import buttonImg from '../../assets/add-button.png';
 import { $ } from '../../utils';
+import Modal from '../Modal';
 
 class Header extends HTMLElement {
   connectedCallback() {
@@ -26,17 +27,6 @@ class Header extends HTMLElement {
 
   modalHandler() {
     $('#openModal').addEventListener('click', this.showAddretaurant);
-
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Escape') {
-        this.closeModal();
-      }
-    });
-  }
-
-  closeModal() {
-    $('#modalContainer').classList.remove('modal--open');
-    $('add-restaurant').remove();
   }
 
   showAddretaurant() {

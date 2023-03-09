@@ -1,5 +1,6 @@
 import { restaurant } from '../../../domain/restaurant';
 import { $ } from '../../../utils';
+import Modal from '../../Modal';
 import './index.css';
 
 class AddRestaurant extends HTMLElement {
@@ -76,8 +77,7 @@ class AddRestaurant extends HTMLElement {
   }
 
   closeModal() {
-    $('#modalContainer').classList.remove('modal--open');
-    $('add-restaurant').remove();
+    new Modal().closeModal();
   }
 }
 

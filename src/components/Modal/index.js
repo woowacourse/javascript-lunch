@@ -17,11 +17,23 @@ class Modal extends HTMLElement {
 
   modalHandler() {
     $('#modalBackdrop').addEventListener('click', this.closeModal);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Escape') {
+        this.closeModal();
+      }
+    });
   }
 
   closeModal() {
-    $('#modalContainer').classList.remove('modal--open');
-    $('add-restaurant').remove();
+    const modalContainer = $('#modalContainer');
+    modalContainer.classList.remove('modal--open');
+    ['restaurant-details', 'add-restaurant'].forEach((elementName) => {
+      const element = modalContainer.querySelector(elementName);
+      if (element) {
+        modalContainer.removeChild(element);
+      }
+    });
   }
 }
 

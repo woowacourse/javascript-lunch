@@ -5,6 +5,7 @@ import categoryJapanese from '../../assets/category-japanese.png';
 import categoryWestern from '../../assets/category-western.png';
 import categoryAsian from '../../assets/category-asian.png';
 import categoryEtc from '../../assets/category-etc.png';
+import { $ } from '../../utils';
 
 const CATEGORY_IMAGES = {
   한식: categoryKorean,
@@ -18,6 +19,7 @@ const CATEGORY_IMAGES = {
 class RestaurantInfo extends HTMLElement {
   connectedCallback() {
     this.render();
+    this.modalHandler();
   }
 
   render() {
@@ -39,6 +41,16 @@ class RestaurantInfo extends HTMLElement {
         </div>
     </li>
     `;
+  }
+
+  modalHandler() {
+    $('.restaurant').addEventListener('click', this.showRestaurantDetails);
+  }
+
+  showRestaurantDetails() {
+    $('#modalContainer').classList.add('modal--open');
+    const restaurantDetails = document.createElement('restaurant-details');
+    $('#modalContainer').appendChild(restaurantDetails);
   }
 
   static get observedAttributes() {

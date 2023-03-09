@@ -1,9 +1,11 @@
 import { $ } from '../../../utils';
+import Modal from '../../Modal';
 import './index.css';
 
 class RestaurantDetails extends HTMLElement {
   connectedCallback() {
     this.render();
+    this.modalHandler();
   }
 
   render() {
@@ -15,6 +17,14 @@ class RestaurantDetails extends HTMLElement {
         </div>
       </div>
     `;
+  }
+
+  modalHandler() {
+    $('#cancelModal').addEventListener('click', this.closeModal);
+  }
+
+  closeModal() {
+    new Modal().closeModal();
   }
 }
 
