@@ -2,13 +2,16 @@ import { favoriteIconFilled, favoriteIconLined } from "../assets";
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
 import { findImage } from "../utils";
+
 class RestaurantDetail extends HTMLElement {
   private controller;
+
   constructor() {
     super();
     this.controller = Controller.getInstance();
     this.render(this.controller.getSelectedRestaurant());
   }
+
   render(restaurant: RestaurantType) {
     this.innerHTML = `
       <div>
