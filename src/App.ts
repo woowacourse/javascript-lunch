@@ -9,14 +9,16 @@ class App {
     this.#app = document.querySelector('#app') as HTMLElement;
   }
 
-  paint() {
+  render() {
     this.#app.innerHTML = `
       ${Header.template()}
       ${RestaurantFilter.template()}
     `;
+
+    this.#setEvent();
   }
 
-  setEvent() {
+  #setEvent() {
     RestaurantFilter.setEvent();
     ModalButton.setEvent();
   }
