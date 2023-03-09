@@ -3,9 +3,9 @@ import { favoriteIconFilled, favoriteIconLined } from "../assets/";
 import { findImage } from "../utils";
 
 class RestaurantItem {
-  render(restaurant: RestaurantType) {
+  render(restaurant: RestaurantType, index: number) {
     return `
-      <li class="restaurant">
+      <li id="restaurantItem" class="restaurant" key="${index}">
         <div class="restaurant__category">
           <img src="${findImage(restaurant.category)}" alt="${
       restaurant.category
@@ -20,7 +20,7 @@ class RestaurantItem {
             restaurant.description
           }</p>
         </div>
-        <img src="${
+        <img id="favorite" src="${
           restaurant.isFavorite ? favoriteIconFilled : favoriteIconLined
         }" alt="favorite">
       </li>
