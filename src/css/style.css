@@ -227,8 +227,6 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 50rem;
-  overflow-y: scroll;
 
   padding: 32px 16px;
 
@@ -327,4 +325,29 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세 모달 *****************************************/
+.icon-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.info-container {
+  margin-bottom: 30px;
+}
+
+.restaurant__detail__name {
+  margin: 15px 0 10px 0;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.restaurant__detail__distance {
+  color: var(--primary-color);
+}
+
+.restaurant__detail__description {
+  margin: 15px 0 10px 0;
 }
