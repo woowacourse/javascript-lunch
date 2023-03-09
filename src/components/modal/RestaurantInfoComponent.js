@@ -127,6 +127,7 @@ class RestaurantInfoComponent extends CustomElement {
 
                 .button-container {
                     display: flex;
+                    margin-top: 32px;
                   }
                   
                 .button {
@@ -182,7 +183,8 @@ class RestaurantInfoComponent extends CustomElement {
 
                 #link {
                     color: var(--grey-500);
-                    margin-bottom: 32px;
+                    text-decoration-line: underline;
+                    font-family: 'Inter';
                 }
 
                 #description {
