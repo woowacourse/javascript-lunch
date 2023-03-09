@@ -1,6 +1,8 @@
 import { $, BottomSheetForm } from "../../until/ControlDom";
 import { RestaurantData } from "../../domain/RestaurantData";
 import { RestaurantList } from "../MainPage/RestaurantList";
+import { CategoryType, TakeTimeType } from "../../Template";
+let id = RestaurantData.allList.length;
 
 const InputForm = {
   template() {
@@ -63,8 +65,8 @@ const InputForm = {
     formElem?.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      const newRestaurant = BottomSheetForm.getInfo();
-      BottomSheetForm.reset();
+      const newRestaurant = this.getInfo();
+      this.reset();
       const bottomSheet = $(".bottomSheet") as HTMLElement;
       BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
       RestaurantData.addRestaurant(newRestaurant);
@@ -79,6 +81,28 @@ const InputForm = {
     buttonSecondary?.addEventListener("click", () => {
       BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
     });
+  },
+
+  getInfo() {
+    id++;
+    const form = new FormData($("form") as HTMLFormElement);
+    const restaurantValue: string[] = [];
+    form.forEach((each) => restaurantValue.push(each.toString()));
+
+    return {
+      id: id,
+      category: restaurantValue[0] as CategoryType,
+      name: restaurantValue[1],
+      takeTime: Number(restaurantValue[2]) as TakeTimeType,
+      like: false,
+      description: restaurantValue[3],
+      link: restaurantValue[4],
+    };
+  },
+
+  reset() {
+    const form = $("form") as HTMLFormElement;
+    form.reset();
   },
 };
 export default InputForm;
