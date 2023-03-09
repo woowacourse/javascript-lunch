@@ -19,6 +19,7 @@
 .modal-container {
   position: fixed;
   bottom: 0;
+  max-height: 90%;
   width: 100%;
 
   padding: 32px 16px;

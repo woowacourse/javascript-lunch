@@ -2,6 +2,19 @@
   margin-bottom: 36px;
 }
 
+#add-restaurant-form {
+  display: flex;
+  flex-direction: column;
+
+  height: 70vh;
+
+  gap: 10px;
+}
+
+.form-item-container {
+  overflow: scroll;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
