@@ -21,6 +21,12 @@ export default class Restaurants {
     return deepCopy(this.#restaurants);
   }
 
+  deleteRestaurant(id: string) {
+    this.#restaurants.filter((restaurant) => restaurant.id !== id);
+
+    return deepCopy(this.#restaurants);
+  }
+
   getFilteredRestaurantsByCategory(category: FilterCategory) {
     const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
 

@@ -4,13 +4,12 @@ import CreateRestaurantModal from './components/CreateRestaurantModal';
 import Header from './components/Header';
 import RestaurantFilterContainer from './components/RestaurantFilterContainer';
 import RestaurantItems from './components/RestaurantItems';
+import UpperTab from './components/UpperTab';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
 
 import store from './utils/store';
-import UpperTab from './components/UpperTab';
-import RestaurantDetailModal from './components/RestaurantDetailModal';
 
 export default class App {
   restaurants;

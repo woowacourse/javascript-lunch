@@ -9,7 +9,7 @@ const imgFileName = {
   기타: 'category-etc',
 };
 
-const html = ({ id, category, name, distance, description, link, liked }) => `
+const html = ({ category, name, distance, description, link, liked }) => `
 <div class="modal-backdrop"></div>
 <div class="modal-container">
   <div class="restaurant-top-info">
@@ -23,7 +23,7 @@ const html = ({ id, category, name, distance, description, link, liked }) => `
       liked ? '' : 'hidden'
     }" />
   </div>
-  
+
   <div class="restaurant-detail-info">
     <div class="restaurant-detail-distance">캠퍼스로부터 ${distance}분 내</div>
     ${description ? '<div class="restaurant-detail-description">설명 솰랴솰랴</div>' : ''}
