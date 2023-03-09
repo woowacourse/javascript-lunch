@@ -5,7 +5,7 @@ import RestaurantInfo from './RestaurantInfo';
 import { categoryImageSource } from '../utils/imageSource';
 
 export default function RestaurantItemTemplate(restaurant: Restaurant) {
-  const { category, distance, name, description } =
+  const { category, distance, name, description, isFavorite } =
     restaurant.getRestaurantInfo();
 
   const $li = document.createElement('li');
@@ -26,7 +26,9 @@ export default function RestaurantItemTemplate(restaurant: Restaurant) {
   };
 
   const template = `
-    <button class="favorite-button" data-type="favoriteButton" > 
+    <button class="favorite-button ${
+      isFavorite ? 'favorite-filled' : ''
+    }" data-type="favoriteButton" > 
     </button>
     <div class="restaurant__category">
       <img src="${categoryImageSource(

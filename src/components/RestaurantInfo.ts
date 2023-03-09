@@ -7,7 +7,7 @@ import { toggleFavoriteFilled } from './RestaurantItem';
 export default function RestaurantInfo(restaurant: Restaurant) {
   const $infoContainer = document.createElement('div');
   $infoContainer.className = 'info-container';
-  const { category, distance, name, description, link } =
+  const { category, distance, name, description, link, isFavorite } =
     restaurant.getRestaurantInfo();
 
   const clickHandler = (e: Event) => {
@@ -21,7 +21,9 @@ export default function RestaurantInfo(restaurant: Restaurant) {
   };
 
   const template = `
-  <button class="info-favorite-button" data-type="favoriteButton"></button>
+  <button class="info-favorite-button ${
+    isFavorite ? 'favorite-filled' : ''
+  }" data-type="favoriteButton"></button>
     <div class="restaurant__category">
       <img src="${categoryImageSource(
         category
@@ -29,7 +31,7 @@ export default function RestaurantInfo(restaurant: Restaurant) {
     </div>
     <h3 class="detail__name text-subtitle">${name}</h3>
     <span class="detail__distance text-body">캠퍼스부터 ${distance}분 내</span>
-    <p class="detail__description text-body">${description ?? ''}</p>
+    ${descripttionTag(description)}
     ${linkTag(link)}
     <div class="button-container">
       <button data-type="delete" type="button" class="button button--secondary text-caption">삭제하기</button>
@@ -43,7 +45,12 @@ export default function RestaurantInfo(restaurant: Restaurant) {
   return $infoContainer;
 }
 
-const linkTag = ($link: string | undefined) =>
-  $link === undefined || $link === ''
+const linkTag = (link: string | undefined) =>
+  link === undefined || link === ''
     ? ''
-    : `<a class="restaurant__description text-body" href="${$link}>${$link}</a>`;
+    : `<a class="restaurant__description text-body" href="${link}>${link}</a>`;
+
+const descripttionTag = (description: string | undefined) =>
+  description === undefined || description === ''
+    ? ''
+    : `<p class="detail__description text-body">${description}</p>`;
