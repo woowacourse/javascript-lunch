@@ -18,24 +18,11 @@ export const RestaurantList = {
       const target = event.target as HTMLElement;
       const targetId = target?.closest("li")?.id;
 
+      // 잘못된 영역 클릭 시 방지
       if (!targetId) return;
-      //click star
 
       if (target.className === "likeImg") {
-        RestaurantData.turnLikeUnlike(+targetId!);
-
-        const restaurantListContainer = $(
-          ".restaurant-list-container"
-        ) as HTMLElement;
-
-        const showSection =
-          restaurantListContainer.classList.length === 1
-            ? RestaurantData.allList
-            : RestaurantData.likeList;
-
-        this.renderRestaurantList(showSection);
-
-        console.log(RestaurantData.likeList);
+        this.clickStarImg(+targetId!);
       }
       //click restaurant
     });
@@ -46,5 +33,20 @@ export const RestaurantList = {
       ".restaurant-list-container"
     ) as HTMLDataListElement;
     restaurantListContainer.innerHTML = RestaurantList.template(restaurantList);
+  },
+
+  clickStarImg(targetId: number) {
+    RestaurantData.turnLikeUnlike(targetId);
+
+    const restaurantListContainer = $(
+      ".restaurant-list-container"
+    ) as HTMLElement;
+
+    const showSection =
+      restaurantListContainer.classList.length === 1
+        ? RestaurantData.allList
+        : RestaurantData.likeList;
+
+    this.renderRestaurantList(showSection);
   },
 };
