@@ -13,7 +13,7 @@ const DetailModal = {
           <div class="modal-container">
             <div id="shop-detail" data-id="${restaurant.id}">
               <div class="favorite favorite-detail">
-                ${FavoriteIcon.template(restaurant.favorite)}
+                ${FavoriteIcon.template(restaurant.favorite, restaurant.id)}
               </div>
               <div class="restaurant__category">
                 <img src="${Category[restaurant.category]}" alt="${restaurant.category}" class="category-icon">

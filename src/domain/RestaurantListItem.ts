@@ -35,6 +35,14 @@ class RestaurantListItem {
     this.#list = RestaurantStorage.get();
   }
 
+  toggleFavorite(id: string) {
+    const list = this.#list.map((item) => {
+      return item.id === id ? { ...item, favorite: !item.favorite } : item;
+    });
+
+    RestaurantStorage.set(list);
+  }
+
   setFilter(category: TCategory | '전체') {
     this.#filter.category = category;
   }
