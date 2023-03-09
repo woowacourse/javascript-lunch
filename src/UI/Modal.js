@@ -70,9 +70,9 @@ export default class Modal {
       </div>
     `;
 
-  constructor(restaurantList) {
+  constructor(restaurantList, store) {
     this.restaurantList = restaurantList;
-
+    this.store = store;
     this.init();
   }
 
@@ -99,9 +99,8 @@ export default class Modal {
 
   validateRestaurantInfo(restaurantInfo) {
     if (this.isInvalidName(restaurantInfo.name)) return true;
-    if (
-      this.isDuplicated(this.restaurantList.listRestaurant, restaurantInfo.name)
-    )
+
+    if (this.isDuplicated(this.store.getRestaurantList(), restaurantInfo.name))
       return true;
     if (this.isInvalidURL(restaurantInfo.link)) return true;
     return false;
@@ -141,6 +140,7 @@ export default class Modal {
       restaurantInfo[FORM_ARRAY[index]] = inputValue.children[1].value;
     });
     restaurantInfo["id"] = Date.now();
+    restaurantInfo["favorite"] = false;
     return restaurantInfo;
   }
 

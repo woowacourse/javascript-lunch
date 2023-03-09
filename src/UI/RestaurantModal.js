@@ -1,5 +1,5 @@
 import { CATEGORY } from "../constants";
-import { $, $$ } from "../utils/Dom";
+import { $ } from "../utils/Dom";
 
 class RestaurantModal {
   #template = ({
@@ -41,7 +41,7 @@ class RestaurantModal {
     this.addEvent();
   }
 
-  render(restaurantInfo) {
+  render() {
     document.body.insertAdjacentHTML(
       "beforeend",
       this.#template(this.restaurantInfo)
