@@ -5,7 +5,7 @@ type FoodCategory = typeof FOOD_CATEGORY_LIST[number];
 const getFoodCategoryMemberList = () => [...FOOD_CATEGORY_LIST];
 
 const isValidFoodCategory = (category: string): category is FoodCategory => (
-  FOOD_CATEGORY_LIST.includes(<FoodCategory>category)
+  FOOD_CATEGORY_LIST.includes(category as FoodCategory)
 );
 
 export { FoodCategory, getFoodCategoryMemberList, isValidFoodCategory };

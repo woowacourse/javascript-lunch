@@ -5,7 +5,7 @@ type EstimatedTime = typeof ESTIMATED_TIME_LIST[number];
 const getEstimatedTimeMemberList = () => [...ESTIMATED_TIME_LIST];
 
 const isValidEstimatedTime = (estimtedTime: string): estimtedTime is EstimatedTime => (
-  ESTIMATED_TIME_LIST.includes(<EstimatedTime>estimtedTime)
+  ESTIMATED_TIME_LIST.includes(estimtedTime as EstimatedTime)
 );
 
 export { EstimatedTime, getEstimatedTimeMemberList, isValidEstimatedTime };
