@@ -119,6 +119,7 @@ restaurant-filter {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .restaurant__name {
@@ -127,6 +128,16 @@ restaurant-filter {
 
 .restaurant__distance {
   color: var(--primary-color);
+}
+
+.favorite {
+  width: 27px;
+  height: 27px;
+  border: 0;
+  background: transparent;
+  margin-left: auto;
+  padding-bottom: 12px;
+  cursor: pointer;
 }
 
 .restaurant__description {
