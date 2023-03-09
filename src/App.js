@@ -46,10 +46,17 @@ export default class App {
   onClickNavTab(e) {
     const navElements = $$('.upper-Tab > div');
     const clickedElement = e.target;
+
     navElements.forEach((navElement) => {
       if (navElement !== clickedElement) navElement.classList.remove('selected');
     });
     clickedElement.classList.add('selected');
+
+    if (clickedElement.innerText === '자주 가는 음식점') {
+      $('.restaurant-filter-container').classList.add('hidden');
+    } else {
+      $('.restaurant-filter-container').classList.remove('hidden');
+    }
 
     this.setState({ navTab: clickedElement.innerText });
   }
@@ -94,7 +101,7 @@ export default class App {
     }
 
     const restaurant = {
-      id: String(new Date().getTime() + Math.random()),
+      id: String('음식점' + new Date().getTime() + name.replaceAll(' ', '')),
       category,
       name,
       distance,
