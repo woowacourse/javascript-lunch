@@ -1,3 +1,5 @@
+import { LOCAL_STORAGE_KEY } from '../constants';
+
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 
 type Distance = 5 | 10 | 15 | 20 | 30;
@@ -15,10 +17,14 @@ export interface Restaurant {
 }
 
 class RestaurantList {
-  #list: Restaurant[] = [];
+  static add(restaurant: Restaurant): void {
+    const restaurants = JSON.parse(
+      window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
+    );
 
-  add(restaurant: Restaurant): void {
-    this.#list.push(restaurant);
+    const updatedRestaurants = [...restaurants, restaurant];
+    const restaurantsString = JSON.stringify(updatedRestaurants);
+    window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
   }
 
   static filterByCategory(restaurantList: Restaurant[], category: CategoryAll) {
@@ -27,12 +33,16 @@ class RestaurantList {
     );
   }
 
-  getList(category: CategoryAll, type: SortTypeAll): Restaurant[] {
+  static getList(category: CategoryAll, type: SortTypeAll): Restaurant[] {
+    const restaurants = JSON.parse(
+      window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
+    );
+
     if (category === '전체') {
-      return RestaurantList.sortByType(this.#list, type);
+      return RestaurantList.sortByType(restaurants, type);
     }
     const filteredCategory = RestaurantList.filterByCategory(
-      this.#list,
+      restaurants,
       category
     );
     return RestaurantList.sortByType(filteredCategory, type);
