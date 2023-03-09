@@ -13,6 +13,7 @@ function Tab({ often }: TabProps) {
   addEvent('click', '.often-tab', (e) => {
     updateActiveTab('.often-tab');
     often();
+    console.log('자주 가는 음식점으로');
   });
 
   return `

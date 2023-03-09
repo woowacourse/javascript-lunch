@@ -29,6 +29,7 @@ interface ILunchRecommendation {
   sortByName(list: Restaurant[]): Restaurant[];
   sortByDistance(list: Restaurant[]): Restaurant[];
   getList(): Restaurant[];
+  getOftenList(): Restaurant[];
   addOften(restaurantId: RestaurantInfo['id']): void;
 }
 export class Restaurant implements IRestaurant {
@@ -121,5 +122,9 @@ export class LunchRecommendation implements ILunchRecommendation {
 
   getList() {
     return this.origin;
+  }
+
+  getOftenList() {
+    return this.origin.filter((restaurant) => restaurant.info.isOften);
   }
 }

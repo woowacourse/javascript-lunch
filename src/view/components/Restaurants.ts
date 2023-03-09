@@ -1,7 +1,7 @@
 import '../css/Restaurant.css';
 
 import { Restaurant as IRestaurant, RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { Restaurant } from './Restaurant';
+import { RestaurantItem } from './RestaurantItem';
 import { useEvents } from '../../utils/core';
 import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
@@ -28,7 +28,7 @@ function Restaurants({ restaurants }: RestaurantProps) {
   return `
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-        ${restaurants && restaurants.map(({ info }) => Restaurant({ info })).join('')}
+        ${restaurants && restaurants.map(({ info }) => RestaurantItem({ info })).join('')}
       </ul>
     </section>
   `;

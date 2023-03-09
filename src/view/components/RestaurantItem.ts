@@ -2,14 +2,12 @@ import '../css/Restaurant.css';
 
 import { getCategoryImageSrc, getFavoriteIconSrc } from '../../utils/common/getImageSrc';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { useEvents } from '../../utils/core';
-import { $, $$ } from '../../utils/common/domHelper';
 
 interface RestaurantProps {
   info: RestaurantInfo;
 }
 
-function Restaurant(props: RestaurantProps) {
+function RestaurantItem(props: RestaurantProps) {
   const {
     info: { id, category, name, isOften, distance, description },
   } = props;
@@ -33,4 +31,4 @@ function Restaurant(props: RestaurantProps) {
     `;
 }
 
-export { Restaurant };
+export { RestaurantItem };
