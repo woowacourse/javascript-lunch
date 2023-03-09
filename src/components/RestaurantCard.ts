@@ -5,14 +5,15 @@ import type { Restaurant } from "../types/restaurant";
 import categoryImages from "../constants/categoryImage";
 import ModalRoot from "./modal/ModalRoot";
 import restaurantState from "../states/restaurants";
+import RestaurantDetailModal from "./modal/RestaurantDetailModal";
 
 class RestaurantCard extends HTMLLIElement {
-  static get observedAttributes() {
-    return ["name"];
-  }
+  #name: string | null;
 
   constructor() {
     super();
+
+    this.#name = this.getAttribute("name");
   }
 
   connectedCallback() {
@@ -55,17 +56,20 @@ class RestaurantCard extends HTMLLIElement {
   }
 
   onClickRestaurantDetail() {
-    const modalRoot = document.querySelector<ModalRoot>("modal-root");
+    if (this.#name === null) return;
 
-    modalRoot?.open("restaurant-detail-modal");
+    const $modalRoot = document.querySelector<ModalRoot>("modal-root");
+    $modalRoot?.open("restaurant-detail-modal");
+
+    const $restaurantDetailModal =
+      document.querySelector<RestaurantDetailModal>("restaurant-detail-modal");
+    $restaurantDetailModal?.setNameAttribute(this.#name);
   }
 
   getRestaurant() {
-    const name = this.getAttribute("name");
+    if (this.#name === null) return;
 
-    if (name === null) return;
-
-    return restaurantState.getTargetRestaurant(name);
+    return restaurantState.getTargetRestaurant(this.#name);
   }
 }
 
