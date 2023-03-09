@@ -11,6 +11,7 @@ import RestaurantAddForm from './components/RestaurantAddForm';
 import RestaurantTabMenu from './components/RestaurantTabMenu';
 import RestaurantInformation from './components/RestaurantInformation';
 import RestaurantService from './domains/RestaurantService';
+import { filterAndSort } from './domains/utils';
 
 class App {
   private restaurantService: RestaurantService;
@@ -57,7 +58,7 @@ class App {
 
   addRestaurant = (restaurantItem: Restaurant) => {
     this.restaurantService.add(restaurantItem);
-    const restaurantList = this.restaurantService.filterAndSort(this.currentDisplayStatus);
+    const restaurantList = this.restaurantService.getRestaurantList();
     saveToLocalStorage(restaurantList);
 
     if (
@@ -85,8 +86,8 @@ class App {
   updateRestaurantList() {
     const restaurantList =
       this.currentTab === 'all-restaurants'
-        ? this.restaurantService.filterAndSort(this.currentDisplayStatus)
-        : this.restaurantService.filterAndSort(
+        ? filterAndSort(this.currentDisplayStatus, this.restaurantService.getRestaurantList())
+        : filterAndSort(
             this.currentDisplayStatus,
             this.restaurantService.getFavoriteRestaurantList()
           );
