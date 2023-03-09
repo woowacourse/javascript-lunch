@@ -36,12 +36,17 @@ customElements.define(
             <a href="${restaurant.link}">${restaurant.link ?? ''}</a>
           </div>
             <div class="button-container">
-              <button type="button" class="button button--secondary text-caption cancel-button">삭제하기</button>
-              <button class="button button--primary text-caption">닫기</button>
+              <button type="button" class="button button--secondary text-caption">삭제하기</button>
+              <button class="button button--primary text-caption cancel-button">닫기</button>
             </div>
-          </form>
         </div>
       </dialog>`;
+      this.bindEvent();
+    }
+
+    bindEvent() {
+      this.querySelector('.cancel-button').addEventListener('click', () => this.closeModal());
+      this.querySelector('.modal-backdrop').addEventListener('click', () => this.closeModal());
     }
 
     openModal() {
