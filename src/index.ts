@@ -24,12 +24,14 @@ class App {
   selectBox: SelectBox;
   restaurantItems: RestaurantItems;
   store: Store;
+  detailBottomSheet: DetailBottomSheet;
 
   constructor() {
     this.header = $<Header>('lunch-header');
     this.modal = $<Modal>('add-modal');
     this.selectBox = $<SelectBox>('select-box');
     this.restaurantItems = $<RestaurantItems>('restaurant-items');
+    this.detailBottomSheet = $<DetailBottomSheet>('detail-bottom-sheet');
     this.store = new Store();
 
     this.initHandler();
@@ -41,6 +43,7 @@ class App {
     this.selectBox.addSelectBoxHandler(this.selectBoxHandler);
     this.modal.addRestaurantHandler(this.restaurantHandler);
     this.restaurantItems.addBottomSheetHandler(this.openDetailBottomSheetHandler);
+    this.detailBottomSheet.addDeleteHandler(this.deleteRestaurantHandler);
     this.store.initRestaurants();
   }
 
@@ -62,6 +65,11 @@ class App {
   openDetailBottomSheetHandler = (restaurant: Restaurant) => {
     this.detailBottomSheet.render(restaurant);
     this.detailBottomSheet.toggle();
+  };
+
+  deleteRestaurantHandler = (name: string) => {
+    this.store.deleteRestaurant(name);
+    this.restaurantItems.render(this.store.renderedRestaurants);
   };
 }
 

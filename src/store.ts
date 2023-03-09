@@ -58,6 +58,13 @@ class Store {
         break;
     }
   }
+
+  deleteRestaurant(name: string) {
+    this.restaurants = this.restaurants.filter((restaurant) => restaurant.name !== name);
+    this.setRestaurants(this.restaurants);
+    this.filterRestaurants(this.categoryFilter);
+    this.sortRestaurants(this.sortFilter);
+  }
 }
 
 export default Store;
