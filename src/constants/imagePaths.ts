@@ -9,6 +9,11 @@ interface IImagePaths {
     readonly 기타: string;
   };
 
+  isFavoriteIconImage: {
+    readonly isFavorite: string;
+    readonly notFavorite: string;
+  };
+
   generalIconImage: {
     readonly addListIcon: string;
   };
@@ -22,6 +27,11 @@ const imagePaths: IImagePaths = {
     양식: './category-western.png',
     아시안: './category-asian.png',
     기타: './category-etc.png',
+  },
+
+  isFavoriteIconImage: {
+    isFavorite: './favorite-icon-filled.png',
+    notFavorite: './favorite-icon-lined.png',
   },
 
   generalIconImage: {
