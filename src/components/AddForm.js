@@ -1,3 +1,4 @@
+import { CLASS } from "../constant/variables";
 import Validator from "../domain/Validator";
 import store from "../util/store";
 
@@ -95,7 +96,7 @@ export default class AddForm {
     const $modal = document.querySelector(".modal");
 
     this.addEvent("click", "#cancel-button", () => {
-      $modal.classList.toggle("modal--open");
+      $modal.classList.toggle(CLASS.MODAL_OPEN);
     });
     this.addEvent("submit", "#add-restaurant-form", (event) => {
       event.preventDefault();
@@ -119,7 +120,7 @@ export default class AddForm {
     try {
       Validator.isValidName(newRestaurant.name, RestaurantNames);
       store.addRestaurant(newRestaurant);
-      $modal.classList.toggle("modal--open");
+      $modal.classList.toggle(CLASS.MODAL_OPEN);
       this.render();
       render();
     } catch (error) {

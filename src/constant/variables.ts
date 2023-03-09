@@ -22,3 +22,17 @@ export const SORTINGWAY = {
   NAME: "name",
   DISTANCE: "distance",
 };
+
+export const CLASS = {
+  MODAL_OPEN: "modal--open",
+};
+
+export const CONTENT = {
+  ADD_FORM: "addForm",
+  RESTAURANT_DETAIL: "restaurantDetail",
+};
+
+export const TAB = {
+  ALL: "all-restaurants",
+  FAVORITE: "favorite-restaurants",
+};

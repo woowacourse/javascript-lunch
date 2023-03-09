@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Filter from "./components/Filter";
 import RestaurantList from "./components/RestaurantList";
 import Tabbar from "./components/Tabbar";
+import { TAB } from "./constant/variables";
 
 export default class App {
   constructor($target) {
@@ -10,7 +11,7 @@ export default class App {
     this.state = {
       sortingWay: "name",
       category: "전체",
-      tab: "all-restaurants",
+      tab: TAB.ALL,
     };
     this.render();
   }
@@ -46,7 +47,7 @@ export default class App {
     const $restaurantFilter = this.$target.querySelector(".restaurant-filter-container");
     const $restaurantList = this.$target.querySelector(".restaurant-list-container");
 
-    if (this.state.tab === "all-restaurants") {
+    if (this.state.tab === TAB.ALL) {
       const restaurant = new RestaurantList($restaurantList, { category, sortingWay, tab });
       new Header($header, { render: restaurant.render.bind(restaurant) });
       new Tabbar($tabBar, { tab, setState: this.setState.bind(this) });
@@ -58,7 +59,7 @@ export default class App {
       });
     }
 
-    if (this.state.tab === "favorite-restaurants") {
+    if (this.state.tab === TAB.FAVORITE) {
       const restaurant = new RestaurantList($restaurantList, { category, sortingWay, tab });
       new Header($header, { render: restaurant.render.bind(restaurant) });
       new Tabbar($tabBar, { tab, setState: this.setState.bind(this) });

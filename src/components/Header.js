@@ -1,4 +1,4 @@
-import AddForm from "./AddForm";
+import { CLASS } from "../constant/variables";
 import Modal from "./Modal";
 
 export default class Header {
@@ -29,7 +29,7 @@ export default class Header {
 
   toggleModal() {
     new Modal(this.$modal, { ...this.props, content: "addForm" });
-    this.$modal.classList.toggle("modal--open");
+    this.$modal.classList.toggle(CLASS.MODAL_OPEN);
   }
 
   addEvent(eventType, selector, callback) {

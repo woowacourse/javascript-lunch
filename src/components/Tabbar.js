@@ -1,3 +1,5 @@
+import { TAB } from "../constant/variables";
+
 export default class Tabbar {
   constructor($target, props) {
     this.$target = $target;
@@ -32,12 +34,12 @@ export default class Tabbar {
 
     this.addEvent("click", "#all-restaurants", () => {
       if (tab === "favorite-restaurants") {
-        setState({ tab: "all-restaurants" });
+        setState({ tab: TAB.ALL });
       }
     });
     this.addEvent("click", "#favorite-restaurants", () => {
       if (tab === "all-restaurants") {
-        setState({ tab: "favorite-restaurants" });
+        setState({ tab: TAB.FAVORITE });
       }
     });
   }
