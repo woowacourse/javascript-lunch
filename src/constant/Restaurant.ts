@@ -21,6 +21,8 @@ export const Constants: Readonly<Object> = {
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",
+  EVERY_PAGE: "every",
+  BOOKMARKED_PAGE: "bookmarked",
 };
 
 export const ErrorName: Readonly<Object> = {

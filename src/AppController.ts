@@ -17,8 +17,12 @@ class AppController {
     );
   }
 
-  getRestaurantList() {
-    return this.restaurantList;
+  getRestaurantList(page: string) {
+    if (page === Constants.EVERY_PAGE) {
+      return this.restaurantList;
+    }
+
+    return restaurantListHandler.getBookmarkedRestaurants();
   }
 
   getRestaurant(id: string) {
