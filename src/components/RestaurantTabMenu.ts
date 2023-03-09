@@ -8,6 +8,11 @@ class RestaurantTabMenu {
     '자주 가는 음식점'
   );
 
+  addEvents(onClick: CallableFunction) {
+    this.allTab.addEvent(onClick);
+    this.favoriteTab.addEvent(onClick);
+  }
+
   create() {
     return `
       <nav class="restaurant-navigation">
@@ -15,11 +20,6 @@ class RestaurantTabMenu {
         ${this.favoriteTab.create()}
       </nav>
     `;
-  }
-
-  addEvent(onClick: CallableFunction) {
-    this.allTab.addEvent(onClick);
-    this.favoriteTab.addEvent(onClick);
   }
 }
 

@@ -108,7 +108,7 @@ class App {
 
   addEvents() {
     Header.addEvent(this.formModal.openModal);
-    RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
+    RestaurantTabMenu.addEvents(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
     RestaurantListContainer.addEvent(
       this.updateFavoriteRestaurant,
