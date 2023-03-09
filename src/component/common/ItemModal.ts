@@ -52,16 +52,6 @@ class ItemModal {
     $("body")?.insertAdjacentHTML("beforeend", this.template());
   }
 
-  rerender(
-    deleteRestaurant: HandleWithId,
-    toggleBookmark: HandleWithId,
-    rerenderList: Rerender
-  ) {
-    this.close();
-    this.render();
-    this.addEvent(deleteRestaurant, toggleBookmark, rerenderList);
-  }
-
   close() {
     $(".item-modal")?.remove();
   }
