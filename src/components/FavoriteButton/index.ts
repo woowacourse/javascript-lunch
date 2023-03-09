@@ -2,6 +2,7 @@ import { updateFavorite } from "../../domain/restaurant";
 import { restaurants } from "../../domain/restaurants";
 import findImage from "../../tools/findImage";
 import Storage from "../../tools/Storage";
+import { renderRestaurantList } from "../RestaurantList/handleRestaurantList";
 
 class FavoriteButton extends HTMLElement {
   restaurantId: string | null;
@@ -42,6 +43,7 @@ class FavoriteButton extends HTMLElement {
       );
       buttons.forEach((button) => {
         button.setAttribute("favorite", `${!this.favorite}`);
+        renderRestaurantList();
       });
     });
   }
