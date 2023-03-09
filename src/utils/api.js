@@ -41,3 +41,9 @@ export const getNewId = () => {
 
   return currentId + 1;
 };
+
+export const postRestaurant = (restaurant) => {
+  const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
+  restaurants.push(restaurant);
+  localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
+};

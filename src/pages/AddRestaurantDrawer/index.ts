@@ -1,6 +1,6 @@
 import type { Component } from '../../interface';
 import type { Restaurant } from '../../type';
-import { getNewId } from '../../utils/api';
+import { getNewId, postRestaurant } from '../../utils/api';
 import {
   CATEGORIES,
   DEFAULT_CATEGORY,
@@ -116,10 +116,7 @@ export default class AddRestaurantDrawer implements Component<AddRestaurantDrawe
   onSubmitForm(e: SubmitEvent) {
     e.preventDefault();
 
-    const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
-    const newRestauant = this.getFormValues(e.currentTarget as HTMLFormElement);
-    restaurants.push(newRestauant);
-    localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
+    postRestaurant(this.getFormValues(e.currentTarget as HTMLFormElement));
 
     this.state.onToggleAddRestaurantDrawer();
   }
