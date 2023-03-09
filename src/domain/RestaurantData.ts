@@ -10,6 +10,8 @@ interface RestaurantDataType {
   turnLikeUnlike: (id: number) => void;
   deleteLikeRestaurant: (id: number) => void;
   addLikeRestaurant: (id: number) => void;
+  getRestaurant: (id: number) => RestaurantType;
+  deleteRestaurant: (id: number) => void;
 }
 
 export const RestaurantData: RestaurantDataType = {
@@ -59,5 +61,18 @@ export const RestaurantData: RestaurantDataType = {
     });
     this.likeList = [...this.likeList, ...likeRestaurant];
     LocalData.setDate(this.allList);
+  },
+
+  getRestaurant(id) {
+    return this.allList.filter((res) => {
+      return res.id === id && res;
+    })[0];
+  },
+
+  deleteRestaurant(id) {
+    this.allList = this.allList.filter((res) => {
+      return res.id !== id && res;
+    });
+    this.deleteLikeRestaurant(id);
   },
 };
