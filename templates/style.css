@@ -368,3 +368,28 @@ input[name='link'] {
   top: 20px;
   cursor: pointer;
 }
+
+.favorite-menu {
+  display: flex;
+  padding: 0 16px 0 16px;
+}
+
+.favorite-radio {
+  display: block;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  font-weight: 600;
+  height: 70px;
+  padding: 32px 0 16px 0;
+  border-bottom: 3px solid var(--grey-200);
+  color: var(--grey-400);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+input[type='radio']:checked + .favorite-radio,
+.favorite-radio:hover {
+  border-bottom-color: var(--primary-color);
+  color: var(--primary-color);
+}
