@@ -14,6 +14,7 @@ class RestaurantItem extends HTMLElement {
     this.addEventListener('click', (e) => {
       const $detailModal = document.createElement('detail-modal');
 
+      $detailModal?.setAttribute('id', this.getAttribute('id')!);
       $detailModal?.setAttribute('src', imgSrc[this.getAttribute('category') as Category]);
       $detailModal?.setAttribute('category', this.getAttribute('category')!);
       $detailModal?.setAttribute('name', this.getAttribute('name')!);

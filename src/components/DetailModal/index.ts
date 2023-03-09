@@ -10,6 +10,12 @@ class DetailModal extends HTMLElement {
     const $removeButton = this.querySelector<HTMLButtonElement>('#remove-button')!;
     const $closeButton = this.querySelector<HTMLButtonElement>('#close-button')!;
 
+    // 삭제하기
+    $removeButton.addEventListener('click', () => {
+      store.removeRestaurant(this.getAttribute('id')!);
+      this.remove();
+    });
+
     // 닫기
     $closeButton.addEventListener('click', () => {
       this.remove();
@@ -18,6 +24,7 @@ class DetailModal extends HTMLElement {
 
   render() {
     this.innerHTML = $template
+      .replaceAll('{id}', this.getAttribute('id')!)
       .replaceAll('{src}', imgSrc[this.getAttribute('category') as Category])
       .replaceAll('{category}', this.getAttribute('category')!)
       .replaceAll('{name}', this.getAttribute('name')!)
