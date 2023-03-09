@@ -1,6 +1,7 @@
 import Validation from './Validation';
 
 export interface RestaurantProps {
+  id: string;
   category: string;
   name: string;
   distance: number;
@@ -17,6 +18,8 @@ class Restaurant {
 
   static readonly DISTANCES = [5, 10, 15, 20, 30] as const;
 
+  private readonly id: string;
+
   private readonly category: RestaurantCategory;
 
   private readonly name: string;
@@ -27,11 +30,14 @@ class Restaurant {
 
   private readonly referenceUrl: string | null;
 
-  constructor({ category, name, distance, description, referenceUrl }: RestaurantProps) {
+  private favorite = false;
+
+  constructor({ id, category, name, distance, description, referenceUrl }: RestaurantProps) {
     this.validateCategory(category);
     this.validateName(name);
     this.validateDistance(distance);
 
+    this.id = id;
     this.category = category;
     this.name = name;
     this.distance = distance;
@@ -39,8 +45,8 @@ class Restaurant {
     this.referenceUrl = referenceUrl?.trim() || null;
   }
 
-  isMatchCategory(searchCategory: string) {
-    return this.category === searchCategory;
+  getId() {
+    return this.id;
   }
 
   getName() {
@@ -57,6 +63,18 @@ class Restaurant {
 
   getCategory() {
     return this.category;
+  }
+
+  getReferenceUrl() {
+    return this.referenceUrl;
+  }
+
+  isFavorite() {
+    return this.favorite;
+  }
+
+  setFavorite(favorite = true) {
+    this.favorite = favorite;
   }
 
   private validateCategory(category: string): asserts category is RestaurantCategory {
