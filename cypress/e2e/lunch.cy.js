@@ -105,4 +105,31 @@ describe("My First Test", () => {
     cy.get("#sorting-filter").select("거리순");
     cy.get(".restaurant-list").first().contains("잇쇼우");
   });
+
+  it("즐겨찾기 누르면 즐겨찾기에 등록된다.", () => {
+    cy.viewport(390, 880);
+
+    cy.visit("http://localhost:8080/");
+
+    window.localStorage.setItem(
+      "restuarantList",
+      JSON.stringify([
+        {
+          category: "한식",
+          name: "피양콩할마니",
+          takingTime: 10,
+          description: `할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
+          link: "https://naver.me/G6DyD9tg",
+          id: "123",
+          bookmarked: false,
+        },
+      ])
+    );
+
+    cy.get(".bookmark").click();
+
+    cy.get(".bookmarked-page").click();
+
+    cy.contains("피양콩");
+  });
 });
