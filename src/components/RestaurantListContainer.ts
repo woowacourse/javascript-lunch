@@ -4,22 +4,6 @@ import { $ } from '../utils/domSelectors';
 import RestaurantItem from './RestaurantItem';
 
 class RestaurantListContainer {
-  create() {
-    return `
-      <section class="restaurant-list-container">
-        <ul class="restaurant-list"></ul>
-      </section>`;
-  }
-
-  renderRestaurantItems(target: Element, restaurantList: Restaurant[]) {
-    const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
-      new RestaurantItem(restaurant).create()
-    );
-
-    target.replaceChildren();
-    target.insertAdjacentHTML('beforeend', restaurantItems.join(''));
-  }
-
   changeRestaurantFavoriteIcon(element: HTMLImageElement) {
     if (element.classList.contains('favorite')) {
       element.classList.remove('favorite');
@@ -54,6 +38,22 @@ class RestaurantListContainer {
         getRestaurantInformation(Number(itemElement.dataset.id));
       }
     });
+  }
+
+  create() {
+    return `
+      <section class="restaurant-list-container">
+        <ul class="restaurant-list"></ul>
+      </section>`;
+  }
+
+  renderRestaurantItems(target: Element, restaurantList: Restaurant[]) {
+    const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
+      new RestaurantItem(restaurant).create()
+    );
+
+    target.replaceChildren();
+    target.insertAdjacentHTML('beforeend', restaurantItems.join(''));
   }
 }
 
