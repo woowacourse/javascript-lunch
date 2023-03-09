@@ -8,7 +8,7 @@ class RestaurantFilter {
 
   template() {
     return `
-      <section class="restaurant-filter-container">
+      <section class="restaurant-filter-container restaurant-filter-open">
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
           <option value="한식">한식</option>
@@ -34,6 +34,14 @@ class RestaurantFilter {
     const filters = $('.restaurant-filter-container');
 
     filters.addEventListener('change', callback);
+  }
+
+  closeFilter() {
+    return $('.restaurant-filter-container').classList.remove('restaurant-filter-open');
+  }
+
+  openFilter() {
+    return $('.restaurant-filter-container').classList.add('restaurant-filter-open');
   }
 }
 
