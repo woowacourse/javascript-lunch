@@ -1,6 +1,7 @@
 import './index.css';
 import buttonImg from '../../assets/add-button.png';
 import { $ } from '../../utils';
+import AddRestaurant from '../ModalContents/AddRestaurant';
 
 class Header extends HTMLElement {
   connectedCallback() {
@@ -34,8 +35,11 @@ class Header extends HTMLElement {
     });
   }
 
+  renderAddrestaurantContent() {}
+
   toggleModal() {
-    $('.modal').classList.toggle('modal--open');
+    $('#modalContainer').appendChild(new AddRestaurant());
+    $('#modalContainer').classList.toggle('modal--open');
   }
 }
 
