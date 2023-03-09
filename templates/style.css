@@ -372,3 +372,7 @@ restaurant-detail-modal a {
 .hidden {
   display: none;
 }
+
+button:focus {
+  outline: none;
+}
