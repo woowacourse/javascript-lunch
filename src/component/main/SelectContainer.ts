@@ -1,6 +1,7 @@
 import { CATEGORY, OptionValue, SORTING } from "@/constant/Restaurant";
 import { Rerender, SetSelectedValue } from "@/type/type";
 import Select from "@/component/common/Select";
+import { $ } from "@/utils/Dom";
 
 class SelectContainer {
   categorySelect;
@@ -42,6 +43,14 @@ class SelectContainer {
   addEvent(setSelectedValue: SetSelectedValue, rerenderList: Rerender) {
     this.categorySelect.addEvent(setSelectedValue, rerenderList);
     this.sortingSelect.addEvent(setSelectedValue, rerenderList);
+  }
+
+  hide() {
+    $(".restaurant-filter-container")?.classList.add("hide");
+  }
+
+  show() {
+    $(".restaurant-filter-container")?.classList.remove("hide");
   }
 }
 

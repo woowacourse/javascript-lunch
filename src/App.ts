@@ -1,49 +1,71 @@
 import Header from "@/component/main/Header";
 import AddModal from "@/component/main/AddModal";
-import EveryItemPage from "./component/page/EveryItemPage";
-import BookmarkedPage from "./component/page/BookmarkedPage";
 import { Constants } from "./constant/Restaurant";
-import { $$ } from "./utils/Dom";
-import PageChoice from "./component/main/PageChoice";
+import PageTap from "./component/main/PageTap";
+import SelectContainer from "./component/main/SelectContainer";
+import AppController from "./AppController";
+import RestaurantList from "./component/main/RestaurantList";
+import { Restaurant } from "./type/type";
+import ItemModal from "./component/common/ItemModal";
 
 class App {
-  target: HTMLElement;
+  pageState: string;
 
   constructor(body: HTMLElement) {
-    this.target = body;
-    this.renderComponents(this.target);
+    this.pageState = "every";
+    this.renderComponents(body);
     this.addEvents();
+    this.rerenderList();
   }
 
   renderComponents(target: HTMLElement) {
     Header.render(target);
-    PageChoice.render(target);
-    new EveryItemPage(target);
+    PageTap.render(target);
+    SelectContainer.render(target);
+    RestaurantList.render(target);
+    AddModal.render(target);
   }
 
   addEvents() {
     Header.addEvent(AddModal.openModal);
-    PageChoice.addEvent(this.switchPage);
+    PageTap.addEvent(this.switchPage, this.rerenderList);
+    SelectContainer.addEvent(AppController.setSelectedValue, this.rerenderList);
+    RestaurantList.addEvent(
+      this.openItemModal,
+      AppController.toggleBookmark,
+      this.rerenderList
+    );
+    AddModal.addEvent(AppController.addNewRestaurant, this.rerenderList);
   }
 
   switchPage = (page: string) => {
-    this.deletePage();
+    this.pageState = page;
 
     switch (page) {
       case Constants.EVERY_PAGE:
-        new EveryItemPage(this.target);
+        SelectContainer.show();
         break;
 
       case Constants.BOOKMARKED_PAGE:
-        new BookmarkedPage(this.target);
+        SelectContainer.hide();
         break;
     }
   };
 
-  deletePage = () => {
-    $$("section")?.forEach((section) => {
-      section.remove();
-    });
+  rerenderList = () => {
+    const newRestaurants = AppController.getRestaurantList(this.pageState);
+    RestaurantList.updateList(newRestaurants);
+  };
+
+  openItemModal = (id: string) => {
+    const restaurant = <Restaurant>AppController.getRestaurant(id);
+    const itemModal = new ItemModal(restaurant);
+    itemModal.render();
+    itemModal.addEvent(
+      AppController.deleteRestaurant,
+      AppController.toggleBookmark,
+      this.rerenderList
+    );
   };
 }
 

@@ -1,11 +1,12 @@
-import { HandleWithId } from "@/type/type";
+import { Constants } from "@/constant/Restaurant";
+import { HandleWithId, Rerender } from "@/type/type";
 import { $, $$ } from "@/utils/Dom";
 
 class PageTap {
   currentChoice: string;
 
   constructor() {
-    this.currentChoice = "every";
+    this.currentChoice = Constants.EVERY_PAGE;
   }
 
   template() {
@@ -21,15 +22,17 @@ class PageTap {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(switchPage: HandleWithId) {
+  addEvent(switchPage: HandleWithId, rerenderList: Rerender) {
     $(".page-choice-container")?.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
       const targetPage = <string>target.closest("div")?.dataset.id;
 
       if (this.currentChoice !== targetPage) {
         this.currentChoice = targetPage;
+
         this.toggleFocus();
         switchPage(targetPage);
+        rerenderList();
       }
     });
   }

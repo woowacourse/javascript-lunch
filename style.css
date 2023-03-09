@@ -369,3 +369,7 @@ input[name="link"] {
 a {
   color: inherit;
 }
+
+.hide {
+  display: none;
+}

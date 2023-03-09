@@ -1,5 +1,4 @@
 import { Constants, OptionValue } from "@/constant/Restaurant";
-import { mockData } from "@/data/mockData";
 import { Category, Restaurant, Sort } from "@/type/type";
 import { getSavedData, saveData } from "@/utils/localStorage";
 
@@ -7,8 +6,7 @@ class RestaurantListHandler {
   private restaurants: Restaurant[] = [];
 
   constructor() {
-    // this.restaurants = getSavedData(Constants.RESTAURANT_LIST);
-    this.restaurants = mockData;
+    this.restaurants = getSavedData(Constants.RESTAURANT_LIST);
   }
 
   addRestaurant(restaurant: Restaurant) {
