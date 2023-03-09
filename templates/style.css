@@ -348,3 +348,7 @@ input[name="link"] {
 .likeList:hover {
   cursor: pointer;
 }
+
+.show-filter {
+  display: none;
+}
