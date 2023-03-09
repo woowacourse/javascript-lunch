@@ -58,6 +58,7 @@ class App extends Component<IComponentPropState> {
         restaurantList: this.$state.restaurantList,
         filterList: this.filterList.bind(this),
         filterOptions: this.$state.filterOptions,
+        updateRootState: this.updateRootState.bind(this),
       });
     }
   }
