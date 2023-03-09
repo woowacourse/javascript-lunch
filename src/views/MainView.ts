@@ -78,6 +78,7 @@ class MainView {
       restaurantItem.addEventListener('click', (event) => {
         if (!(event.currentTarget instanceof HTMLLIElement)) return false;
         if (event.target instanceof HTMLButtonElement) return false;
+        if (this.restaurantDetailModal.open) return false;
 
         const name = event.currentTarget.querySelector('.restaurant__name')?.textContent;
         const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
