@@ -319,3 +319,27 @@ input[name="link"] {
   justify-content: space-between;
   align-items: flex-start;
 }
+
+.list-choose-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 80px;
+}
+
+.allList,
+.likeList {
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+  width: 48%;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  height: 50%;
+}
+
+.selectList {
+  font-weight: bolder;
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}

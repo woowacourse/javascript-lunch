@@ -5,6 +5,7 @@ import { RestaurantService } from "./domain/RestaurantService";
 import { mockList } from "./data/mockRestaurant";
 import { MainHeader } from "./components/MainPage/MainHeader";
 import { RestaurantList } from "./components/MainPage/RestaurantList";
+import { ListChooseSection } from "./components/MainPage/ListChooseSection";
 
 class App {
   #app;
@@ -20,6 +21,7 @@ class App {
     this.#app.innerHTML = `
       ${MainHeader.template(InputFormOpenButton.template())}
       <main>
+        ${ListChooseSection.template()}
         <section class="restaurant-filter-container">
           ${FilterSortButton.template()}
         </section>
