@@ -20,7 +20,8 @@ class FavoriteIcon extends CustomElement {
   renderTemplate = () => {
     return `
       <div 
-        id="favorite-icon" 
+        id="favorite-icon"
+        name="${this.restaurantName}"
         class="${this.isFavorite ? 'favorite-icon' : 'not-favorite-icon'}
         ${this.isAbsolute && 'absolute-position'}">${this.isFavorite ? '★' : '☆'}</div>
       `;
