@@ -1,5 +1,7 @@
+type ERROR_MESSAGE_FORMAT = `[ERROR] ${string}.`;
+
 type CodeToMessage<T> = {
-  [key in keyof T]: `[ERROR] ${string}.`;
+  [key in keyof T]: ERROR_MESSAGE_FORMAT;
 };
 
 const UNEXPECTED_ERROR = `[ERROR] Unexpected Error.`;
