@@ -11,8 +11,7 @@ class RestaurantInformation {
     });
   }
 
-  addEvent(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
-    this.addCloseButtonClickEvent(closeModal);
+  addDeleteButtonClickEvent(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
     const deleteButton = $<HTMLButtonElement>('#restaurant-information-delete-button');
 
     deleteButton.addEventListener('click', (event: Event) => {
@@ -20,6 +19,11 @@ class RestaurantInformation {
       deleteRestaurant(Number(target.dataset.id));
       closeModal();
     });
+  }
+
+  addEvents(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
+    this.addCloseButtonClickEvent(closeModal);
+    this.addDeleteButtonClickEvent(closeModal, deleteRestaurant);
   }
 
   create(restaurant: Restaurant) {
