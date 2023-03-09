@@ -20,7 +20,7 @@ class AddModal {
   }
 
   template() {
-    return `<div class="modal add-modal">
+    return `<section class="modal add-modal">
     <div class="modal-backdrop"></div>
     <div class="modal-container add-modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -58,7 +58,7 @@ class AddModal {
         </div>
       </form>
     </div>
-  </div>`;
+  </section>`;
   }
 
   render(target: Element) {

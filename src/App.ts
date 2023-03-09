@@ -1,32 +1,50 @@
 import Header from "@/component/main/Header";
 import AddModal from "@/component/main/AddModal";
-import { Page } from "./type/type";
 import EveryItemPage from "./component/page/EveryItemPage";
 import BookmarkedPage from "./component/page/BookmarkedPage";
 import { Constants } from "./constant/Restaurant";
+import { $$ } from "./utils/Dom";
+import PageChoice from "./component/main/PageChoice";
 
 class App {
-  currentPage: Page;
+  target: HTMLElement;
 
-  constructor(body: Element) {
-    this.currentPage = "every";
-    this.renderComponents(body);
+  constructor(body: HTMLElement) {
+    this.target = body;
+    this.renderComponents(this.target);
     this.addEvents();
   }
 
-  renderComponents(body: Element) {
-    Header.render(body);
-
-    if (this.currentPage === "every") {
-      new EveryItemPage(body);
-      return;
-    }
-    new BookmarkedPage(body);
+  renderComponents(target: HTMLElement) {
+    Header.render(target);
+    PageChoice.render(target);
+    new EveryItemPage(target);
   }
 
   addEvents() {
     Header.addEvent(AddModal.openModal);
+    PageChoice.addEvent(this.switchPage);
   }
+
+  switchPage = (page: string) => {
+    this.deletePage();
+
+    switch (page) {
+      case Constants.EVERY_PAGE:
+        new EveryItemPage(this.target);
+        break;
+
+      case Constants.BOOKMARKED_PAGE:
+        new BookmarkedPage(this.target);
+        break;
+    }
+  };
+
+  deletePage = () => {
+    $$("section")?.forEach((section) => {
+      section.remove();
+    });
+  };
 }
 
 export default App;

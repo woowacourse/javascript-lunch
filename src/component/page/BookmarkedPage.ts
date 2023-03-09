@@ -1,5 +1,5 @@
 import { Constants } from "@/constant/Restaurant";
-import Page from "../common/Page";
+import Page from "./Page";
 
 class BookmarkedPage extends Page {
   constructor(body: Element) {

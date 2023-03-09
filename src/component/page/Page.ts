@@ -1,9 +1,8 @@
 import AppController from "@/AppController";
 import { Restaurant } from "@/type/type";
 import AddModal from "../main/AddModal";
-import PageChoice from "../main/PageChoice";
 import RestaurantList from "../main/RestaurantList";
-import ItemModal from "./ItemModal";
+import ItemModal from "../common/ItemModal";
 
 class Page {
   page: string;
@@ -16,7 +15,6 @@ class Page {
   }
 
   renderComponents(body: Element) {
-    PageChoice.render(body);
     RestaurantList.render(body);
     AddModal.render(body);
   }

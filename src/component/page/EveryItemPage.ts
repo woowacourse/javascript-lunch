@@ -2,8 +2,7 @@ import AddModal from "@/component/main/AddModal";
 import RestaurantList from "@/component/main/RestaurantList";
 import SelectContainer from "@/component/main/SelectContainer";
 import AppController from "@/AppController";
-import PageChoice from "@/component/main/PageChoice";
-import Page from "../common/Page";
+import Page from "./Page";
 import { Constants } from "@/constant/Restaurant";
 
 class EveryItemPage extends Page {
@@ -12,10 +11,8 @@ class EveryItemPage extends Page {
   }
 
   renderComponents(body: Element) {
-    PageChoice.render(body);
     SelectContainer.render(body);
-    RestaurantList.render(body);
-    AddModal.render(body);
+    super.renderComponents(body);
   }
 
   addEvents() {
