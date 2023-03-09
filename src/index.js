@@ -93,9 +93,18 @@ $("main").appendChild(restaurantDetailedModal);
 
 const makeOpenDetailedModalCallback = (restaurant) => () => {
   const detailedElement = PersonalRestaurantInfo.createDetailedElement(restaurant);
+
   detailedElement
     .querySelector(".button--primary")
     .addEventListener("click", () => Modal.close(restaurantDetailedModal));
+
+  detailedElement
+    .querySelector(".button--secondary")
+    .addEventListener("click", () => {
+      restaurantList.remove(restaurant);
+      Modal.close(restaurantDetailedModal);
+      updateRestaurant();
+    });
 
   Modal.setChildElement(restaurantDetailedModal, detailedElement);
   Modal.open(restaurantDetailedModal);
