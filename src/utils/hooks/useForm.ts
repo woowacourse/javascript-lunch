@@ -1,38 +1,51 @@
-import { FormFields, getFormFields } from '../common/formData';
+import { getFormFields } from '../common/formData';
 import { EventCallback, useState } from '../core';
 import { handleError } from '../../validation';
+import { CustomError } from '../../validation/error';
 
 interface Validator {
   (value: FormDataEntryValue): boolean;
 }
 
 interface Conditions {
-  [name: string]: Validator;
+  [name: string]: {
+    value: FormDataEntryValue;
+    validator: Validator;
+  };
+}
+
+interface Errors {
+  [name: string]: string;
 }
 
 interface FormState {
-  errors: {};
+  conditions: Conditions;
+  errors: Errors;
 }
 
 interface Validate {
   data: FormDataEntryValue;
   validator: Validator;
-  onSuccess?(): void;
-  onError?(error: Error): void;
+  onSuccess?<T>(data?: T): void;
+  onError?(error: CustomError): void;
 }
 
-const conditions: Conditions = {};
-
 function useForm() {
-  const [formState, setFormState] = useState<FormState>({ errors: {} });
+  const [formState, setFormState] = useState<FormState>({ conditions: {}, errors: {} });
+
+  const reset = () => setFormState({ conditions: {}, errors: {} });
+  const resetErrors = () => setFormState({ ...formState, errors: {} });
 
   const register = (name: string, validator: Validator) => {
-    !conditions[name] && (conditions[name] = validator);
+    if (!formState.conditions[name]) {
+      formState.conditions[name] = {
+        value: '',
+        validator,
+      };
+    }
 
-    return ``;
+    return formState.conditions[name].value;
   };
-
-  const resetErrors = () => setFormState({ ...formState, errors: {} });
 
   const handleSubmit = (onSubmit: EventCallback): EventCallback => {
     return (e) => {
@@ -40,7 +53,9 @@ function useForm() {
         e.preventDefault();
         const fields = getFormFields(e.target);
 
-        Object.entries(conditions).forEach(([name, validator]) => {
+        Object.entries(formState.conditions).forEach(([name, { validator }]) => {
+          formState.conditions[name].value = fields[name];
+
           validate({
             data: fields[name],
             validator,
@@ -66,7 +81,7 @@ function useForm() {
     }
   };
 
-  return { formState, register, handleSubmit, resetErrors };
+  return { formState, register, handleSubmit, resetErrors, reset };
 }
 
 export { useForm };

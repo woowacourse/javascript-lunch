@@ -17,12 +17,12 @@ function Modal({ close }: ModalProps) {
     register,
     formState: { errors },
     handleSubmit,
-    resetErrors,
+    reset,
   } = useForm();
   const [addEvent] = useEvents('.modal');
 
   const closeModal = () => {
-    resetErrors();
+    reset();
     close();
   };
 
@@ -68,8 +68,8 @@ function Modal({ close }: ModalProps) {
                 <!-- 음식점 이름 -->
                 <div class="form-item form-item--required">
                     <label for="name text-caption">이름</label>
-                    ${register('name', Validator.Restaurant.checkName)}
-                    <input type="text" name="name" id="name" required>
+                    <input type="text" name="name" id="name" required
+                    value=${register('name', Validator.Restaurant.checkName)}>
                 </div>
 
                 <!-- 거리 -->
