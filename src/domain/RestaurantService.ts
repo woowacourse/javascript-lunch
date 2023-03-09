@@ -7,7 +7,6 @@ interface RestaurantServiceType {
 
   settingList: () => void;
   addRestaurant: (restaurant: RestaurantType) => void;
-  filteringLikeRestaurant: () => void;
   turnLikeUnlike: (id: number) => void;
   deleteLikeRestaurant: (id: number) => void;
   addLikeRestaurant: (id: number) => void;
@@ -30,10 +29,6 @@ export const RestaurantService: RestaurantServiceType = {
   addRestaurant(restaurant) {
     this.allList = [restaurant, ...this.allList];
     LocalData.setDate(this.allList);
-  },
-
-  filteringLikeRestaurant() {
-    return this.allList.filter((res) => res.like);
   },
 
   turnLikeUnlike(id) {

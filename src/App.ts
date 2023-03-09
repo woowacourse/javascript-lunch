@@ -36,7 +36,7 @@ class App {
   setEvent() {
     InputFormOpenButton.openBottomSheet();
     InputForm.addRestaurant();
-    FilterSortButton.FilterSort();
+    FilterSortButton.filterSort();
     RestaurantList.setEvent();
     ListChooseSection.setEvent();
   }

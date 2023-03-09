@@ -20,7 +20,7 @@ const FilterSortButton = {
       </select>`;
   },
 
-  FilterSort() {
+  filterSort() {
     const restaurantFilterContainer = $(".restaurant-filter-container");
     restaurantFilterContainer?.addEventListener("change", () => {
       FilterSort.setState();
