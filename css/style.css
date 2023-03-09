@@ -11,6 +11,10 @@ li {
 
 html,
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
   font-family: sans-serif;
   font-size: 16px;
 }
@@ -85,10 +89,42 @@ body {
   object-fit: contain;
 }
 
+/* 모든 음식점/자주 가는 음식점 */
+nav {
+  margin: 10px auto auto auto;
+}
+
+#global-filter-radio label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 45vh;
+  height: 64px;
+}
+
+#global-filter-radio label{
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+}
+
+#global-filter-radio label:has(input:checked){
+  border-bottom: 4px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
 #global-filter-radio input {
-  border: 5px solid black;
   display: none;
 }
+
+#global-filter-radio {
+  display: flex;
+}
+
+
+
+
+
 
 /* 음식점 목록 *****************************************/
 
