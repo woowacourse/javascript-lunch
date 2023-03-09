@@ -40,6 +40,7 @@ class MainView {
 
     restaurantListContainer.innerHTML = '';
     restaurantListContainer.insertAdjacentHTML('beforeend', restaurantItems);
+    this.addEventHandlersAfterRenderRestaurant();
   }
 
   addFavoriteButtonClickEventHandler() {
@@ -101,6 +102,11 @@ class MainView {
         event.target.close();
       }
     });
+  }
+
+  addEventHandlersAfterRenderRestaurant() {
+    this.addFavoriteButtonClickEventHandler();
+    this.addRestaurantListClickEventHandler();
   }
 }
 
