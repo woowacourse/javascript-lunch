@@ -1,8 +1,7 @@
-import { $, BottomSheetForm, Render } from "../until/ControlDom";
-import { RestaurantService } from "../domain/RestaurantService";
-import { Template } from "../Template";
+import { $, BottomSheetForm, Render } from "../../until/ControlDom";
+import { RestaurantService } from "../../domain/RestaurantService";
 
-const BottomSheet = {
+const InputForm = {
   template() {
     return `
     <div class="bottomSheet">
@@ -79,4 +78,4 @@ const BottomSheet = {
     });
   },
 };
-export default BottomSheet;
+export default InputForm;

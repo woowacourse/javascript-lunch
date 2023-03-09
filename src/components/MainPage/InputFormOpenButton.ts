@@ -1,7 +1,7 @@
-import { $, BottomSheetForm } from "../until/ControlDom";
-import addButtonImg from "../../templates/add-button.png";
+import { $, BottomSheetForm } from "../../until/ControlDom";
+import addButtonImg from "../../../templates/add-button.png";
 
-const BottomSheetOpenButton = {
+const InputFormOpenButton = {
   template() {
     return `
       <button type="button" class="gnb__button" aria-label="음식점 추가">
@@ -18,4 +18,4 @@ const BottomSheetOpenButton = {
   },
 };
 
-export default BottomSheetOpenButton;
+export default InputFormOpenButton;

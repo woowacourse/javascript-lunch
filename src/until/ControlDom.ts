@@ -1,6 +1,7 @@
-import { Template } from "../Template";
+// import { Template } from "../Template";
 import { RestaurantType, CategoryType, TakeTimeType } from "../Template";
 import { MakeNewList } from "../domain/MakeNewList";
+import { RestaurantList } from "../components/MainPage/RestaurantList";
 
 export const $ = (element: string) => document.querySelector(element);
 
@@ -35,7 +36,7 @@ export const Render = {
     const restaurantListContainer = $(
       ".restaurant-list-container"
     ) as HTMLDataListElement;
-    restaurantListContainer.innerHTML = Template.restaurantList(restaurantList);
+    restaurantListContainer.innerHTML = RestaurantList.template(restaurantList);
   },
 };
 

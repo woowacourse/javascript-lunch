@@ -1,6 +1,6 @@
-import { $, FilterSort, Render } from "../until/ControlDom";
-import { MakeNewList } from "../domain/MakeNewList";
-import { RestaurantService } from "../domain/RestaurantService";
+import { $, FilterSort, Render } from "../../until/ControlDom";
+import { MakeNewList } from "../../domain/MakeNewList";
+import { RestaurantService } from "../../domain/RestaurantService";
 
 const FilterSortButton = {
   template() {

@@ -1,9 +1,10 @@
-import BottomSheet from "./components/BottomSheet";
-import BottomSheetOpenButton from "./components/BottomSheetOpenButton";
-import FilterSortButton from "./components/FilterSortButton";
+import InputForm from "./components/InputSheet/InputForm";
+import InputFormOpenButton from "./components/MainPage/InputFormOpenButton";
+import FilterSortButton from "./components/MainPage/FilterSortButton";
 import { RestaurantService } from "./domain/RestaurantService";
 import { mockList } from "./data/mockRestaurant";
-import { Template } from "./Template";
+import { MainHeader } from "./components/MainPage/MainHeader";
+import { RestaurantList } from "./components/MainPage/RestaurantList";
 
 class App {
   #app;
@@ -17,22 +18,22 @@ class App {
 
   render() {
     this.#app.innerHTML = `
-      ${Template.mainHeader(BottomSheetOpenButton.template())}
+      ${MainHeader.template(InputFormOpenButton.template())}
       <main>
         <section class="restaurant-filter-container">
           ${FilterSortButton.template()}
         </section>
         <section class="restaurant-list-container">
-          ${Template.restaurantList(RestaurantService.list)}
+          ${RestaurantList.template(RestaurantService.list)}
         </section>
       </main>
-      ${BottomSheet.template()}`;
+      ${InputForm.template()}`;
     this.setEvent();
   }
 
   setEvent() {
-    BottomSheetOpenButton.openBottomSheet();
-    BottomSheet.addRestaurant();
+    InputFormOpenButton.openBottomSheet();
+    InputForm.addRestaurant();
     FilterSortButton.FilterSort();
   }
 }
