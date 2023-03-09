@@ -35,7 +35,8 @@ export default class RestaurantList implements Component<RestaurantListState> {
     handleByClickFavorite,
     onOpenInfoDrawer,
   }: RestaurantListProps) {
-    this.$target = document.createElement('div');
+    this.$target = document.createElement('ul');
+    this.$target.classList.add('restaurant-list');
     this.state = {
       restaurants,
       category,
