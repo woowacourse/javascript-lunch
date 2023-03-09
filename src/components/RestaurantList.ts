@@ -1,4 +1,5 @@
 import Controller from "../domain/Controller";
+import RestaurantType from "../type/Restaurant";
 import BottomSheet from "./BottomSheet";
 import RestaurantItem from "./RestaurantItem";
 
@@ -17,7 +18,7 @@ class RestaurantList extends HTMLElement {
         <ul class="restaurant-list">
         ${this.controller
           .getRestaurants()
-          .map((restaurant, index) =>
+          .map((restaurant: RestaurantType, index: number) =>
             new RestaurantItem().render(restaurant, index)
           )
           .join("")}
@@ -50,6 +51,18 @@ class RestaurantList extends HTMLElement {
 
     favorites.forEach((favorite: any) => {
       favorite.addEventListener("click", () => {
+        console.log(1);
+        const input = document.querySelector('input[name="tab"]:checked');
+        if (!(input instanceof HTMLInputElement)) {
+          return;
+        }
+        if (input.value === "favorite") {
+          this.controller.toggleFavorite(
+            Number(favorite.parentElement.getAttribute("key"))
+          );
+          this.controller.setFavoriteRestaurantList();
+          return;
+        }
         this.controller.toggleFavorite(
           Number(favorite.parentElement.getAttribute("key"))
         );

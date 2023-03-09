@@ -8,6 +8,7 @@ class TabBar extends HTMLElement {
     this.render();
     this.onClickTab();
   }
+
   render() {
     this.innerHTML = `
       <form id="tabContainer" class="tab-container">
@@ -18,6 +19,7 @@ class TabBar extends HTMLElement {
       </form>
     `;
   }
+
   onClickTab() {
     const tabContainer = document.getElementById("tabContainer");
     tabContainer?.addEventListener("change", (event: any) => {
@@ -29,7 +31,6 @@ class TabBar extends HTMLElement {
       }
       if (event.target.value == "favorite") {
         restaurantFilterContainer.style.display = "none";
-
         this.controller.setFavoriteRestaurantList();
         return;
       }
