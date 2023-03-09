@@ -22,7 +22,7 @@ class TabBar extends HTMLElement {
     const tabContainer = document.getElementById("tabContainer");
     tabContainer?.addEventListener("change", (event: any) => {
       if (event.target.value == "favorite") {
-        this.controller.renderFavoriteRestaurantList();
+        this.controller.setFavoriteRestaurantList();
       }
     });
   }
