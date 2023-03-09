@@ -343,3 +343,7 @@ input[name="link"] {
   border-bottom: 2px solid var(--primary-color);
   color: var(--primary-color);
 }
+
+.selectList:hover {
+  cursor: pointer;
+}
