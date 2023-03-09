@@ -1,5 +1,6 @@
 import { HandleWithId, Rerender, Restaurant } from "@/type/type";
 import { categoryToSrc } from "@/utils/convertor";
+import { StarImgPath } from "@/constant/Restaurant";
 import { $ } from "@/utils/Dom";
 
 class ItemModal {
@@ -21,8 +22,8 @@ class ItemModal {
     }/></div>
           <img src=${
             this.restaurant.bookmarked
-              ? "./favorite-icon-filled.png"
-              : "./favorite-icon-lined.png"
+              ? `./${StarImgPath.FILLED_STAR}`
+              : `./${StarImgPath.EMPTY_STAR}`
           } alt="bookmarked" class="item-bookmark bookmark"/>
         </div>
         <div class="item-information">

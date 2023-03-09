@@ -1,3 +1,4 @@
+import { StarImgPath } from "@/constant/Restaurant";
 import { Category, Restaurant } from "@/type/type";
 import { categoryToSrc } from "@/utils/convertor";
 
@@ -28,8 +29,8 @@ class RestaurantItem {
             </div>
             <img src=${
               this.restaurant.bookmarked
-                ? "./favorite-icon-filled.png"
-                : "./favorite-icon-lined.png"
+                ? `./${StarImgPath.FILLED_STAR}`
+                : `./${StarImgPath.EMPTY_STAR}`
             } alt="bookmarked" class="bookmark"/>
         </div>
         <p class="restaurant__description text-body">${

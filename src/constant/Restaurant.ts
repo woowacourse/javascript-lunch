@@ -9,6 +9,11 @@ export const CategoryImgPath: Readonly<Object> = {
   기타: "category-etc.png",
 };
 
+export const StarImgPath: Readonly<Object> = {
+  FILLED_STAR: "favorite-icon-filled.png",
+  EMPTY_STAR: "favorite-icon-lined.png",
+};
+
 export const OptionValue: Readonly<Object> = {
   TOTAL: "전체",
   PLACE_HOLDER: "선택해 주세요.",
