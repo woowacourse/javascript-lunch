@@ -9,15 +9,9 @@ const header = `
   </header>`;
 
 export default class Header {
-  onClickModalOpenButton;
-
-  constructor(onClickModalOpenButton) {
-    this.onClickModalOpenButton = onClickModalOpenButton;
+  constructor(onClickAddRestaurantButton) {
     $('body').insertAdjacentHTML('beforebegin', header);
-    this.registerEvent();
-  }
 
-  registerEvent() {
-    $('.modal-open-button').addEventListener('click', this.onClickModalOpenButton.bind(this));
+    $('.modal-open-button').addEventListener('click', onClickAddRestaurantButton.bind(this));
   }
 }

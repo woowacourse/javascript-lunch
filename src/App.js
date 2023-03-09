@@ -25,11 +25,11 @@ export default class App {
     const restaurantsData = store.getLocalStorage();
     this.restaurants = new Restaurants(restaurantsData);
 
-    new Header(this.onClickModalOpenButton.bind(this));
+    new Header(this.onClickAddRestaurantButton.bind(this));
     new UpperTab(this.onClickNavTab.bind(this));
     new RestaurantFilterContainer(this.setState.bind(this));
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
-    new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this), this.toggleModal);
+    new CreateRestaurantModal(this.onSubmitAddRestaurantForm.bind(this));
   }
 
   renderLikedItems() {
@@ -38,13 +38,13 @@ export default class App {
     new RestaurantItems(likedRestaurants);
   }
 
-  onClickModalOpenButton() {
+  onClickAddRestaurantButton() {
     $('.add-restaurant-form').reset();
     this.toggleModal();
   }
 
   onClickNavTab(e) {
-    const navElements = $$('.upper-Tab > div');
+    const navElements = $$('.upper-tab > div');
     const clickedElement = e.target;
 
     navElements.forEach((navElement) => {

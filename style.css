@@ -301,7 +301,7 @@ input[name='link'] {
   color: var(--grey-100);
 }
 
-.upper-Tab {
+.upper-tab {
   display: flex;
   margin: 32px 16px;
   font-weight: 700;
@@ -341,4 +341,23 @@ input[name='link'] {
   right: 15px;
 
   cursor: pointer;
+}
+
+.restaurant-top-info {
+  margin: 30px 0;
+}
+
+.restaurant-detail-name {
+  font-weight: 600;
+  font-size: 20px;
+
+  letter-spacing: 0.15px;
+}
+
+.restaurant-detail-description {
+  margin: 30px 0;
+}
+
+.restaurant-detail-distance {
+  color: #ec4a0a;
 }

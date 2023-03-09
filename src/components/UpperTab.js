@@ -6,11 +6,8 @@ const html = `
 
 export default class UpperTab {
   constructor(onClickNavTab) {
-    $('.upper-Tab').innerHTML = html;
-    this.registerEvent(onClickNavTab);
-  }
+    $('.upper-tab').innerHTML = html;
 
-  registerEvent(onClickNavTab) {
-    $('.upper-Tab').addEventListener('click', onClickNavTab);
+    $('.upper-tab').addEventListener('click', onClickNavTab.bind(this));
   }
 }
