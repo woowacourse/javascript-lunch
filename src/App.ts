@@ -1,5 +1,5 @@
 import Header from './components/Header';
-import Modal from './components/Modal';
+import AddModal from './components/AddModal';
 import FilterSection from './components/FilterSection';
 import RestaurantList from './components/RestaurantList';
 import RestaurantListItem from './domain/RestaurantListItem';
@@ -25,7 +25,7 @@ class App {
         ${FilterSection.template()}
         ${RestaurantList.template(this.#restaurantListItem.getListItem())}
 
-        ${Modal.template()}
+        ${AddModal.template()}
       </main>`;
 
     this.#setEvent();
@@ -33,8 +33,10 @@ class App {
 
   #setEvent() {
     Header.setEvent();
+    Menu.setEvent();
     FilterSection.setEvent(this.#restaurantListItem);
-    Modal.setEvent(this.#restaurantListItem);
+    RestaurantList.setEvent(this.#restaurantListItem);
+    AddModal.setEvent(this.#restaurantListItem);
   }
 }
 

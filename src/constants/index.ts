@@ -8,7 +8,8 @@ export const ID = {
 
 export const CLASS = {
   GNB_BUTTON: 'gnb__button',
-  MODAL: 'modal',
   MODAL_OPEN: 'modal--open',
   RESTAURANT_LIST_CONTAINER: 'restaurant-list-container',
+  ADD_MODAL: 'add-modal',
+  DETAIL_MODAL: 'detail-modal',
 };

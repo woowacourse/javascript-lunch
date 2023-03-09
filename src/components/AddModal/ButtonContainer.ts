@@ -1,4 +1,4 @@
-import Modal from '.';
+import AddModal from '.';
 import { ID } from '../../constants';
 
 const ButtonContainer = {
@@ -14,8 +14,8 @@ const ButtonContainer = {
 
     cancelButton?.addEventListener('click', (e) => {
       e.preventDefault();
-      Modal.formReset();
-      Modal.closeModal();
+      AddModal.formReset();
+      AddModal.closeModal();
     });
   },
 };

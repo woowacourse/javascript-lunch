@@ -7,9 +7,11 @@ export type TPriority = 'distance' | 'name';
 export type TDistance = 5 | 10 | 15 | 20 | 30;
 
 export interface IRestaurant {
+  id: string;
   category: TCategory;
   name: string;
   distance: TDistance;
+  favorite: boolean;
   description?: string;
   link?: string;
 }
@@ -26,7 +28,11 @@ class RestaurantListItem {
   add(restaurant: IRestaurant) {
     RestaurantStorage.set([restaurant, ...this.#list]);
     this.#list = RestaurantStorage.get();
-    return this.#list;
+  }
+
+  remove(id: string) {
+    RestaurantStorage.set(this.#list.filter((item) => item.id !== id));
+    this.#list = RestaurantStorage.get();
   }
 
   setFilter(category: TCategory | '전체') {

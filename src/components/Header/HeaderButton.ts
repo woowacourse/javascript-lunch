@@ -1,6 +1,6 @@
 import { CLASS } from '../../constants';
 import { Button } from '../../data/image';
-import Modal from '../Modal';
+import Modal from '../AddModal';
 
 const HeaderButton = {
   template() {
