@@ -1,3 +1,14 @@
+header > *:not(:first-child) {
+  margin-top: 16px;
+}
+
+header > section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+article,
 article > * {
   margin: 16px 0;
 }

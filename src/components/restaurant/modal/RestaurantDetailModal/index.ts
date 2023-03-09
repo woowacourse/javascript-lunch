@@ -36,6 +36,18 @@ class RestaurantDetailModal extends Component {
   override renderTemplate() {
     return `
       <r-modal title="${this.getAttribute('title')}">
+        <header slot="header">
+          <section>
+            <r-category-icon category="${this.getAttribute('category')}"></r-category-icon>
+
+            <r-button variant="transparent">
+              <img src="assets/favorite-icon.svg">
+            </r-button>
+          </section>
+
+          <h2 class="text-header">${this.getAttribute('title') ?? ''}</h2>
+        </header>
+
         <article slot="content">
           <h3 class="text-body">캠퍼스부터 ${this.getAttribute('distance')}분 내</h3>
 
