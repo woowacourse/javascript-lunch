@@ -36,7 +36,9 @@ export const restaurant: Restaurant = {
   },
 
   sortByType(type: SortTypeAll) {
-    this.filterByCategory('전체');
+    if (this.filteredRestaurants.length === 0) {
+      this.filteredRestaurants = [...this.restaurants];
+    }
     if (type === '거리순') {
       const sortBydistance = this.filteredRestaurants.sort(
         (aRestaurant, bRestaurant) =>
