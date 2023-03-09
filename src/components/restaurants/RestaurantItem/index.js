@@ -10,7 +10,7 @@ class RestaurantItem {
 
   template() {
     return `
-        <li class="restaurant">
+        <li id=${this.restaurantInfo.id} class="restaurant">
         <div class="restaurant__category">
           <img
             src="./category-${translateCategory(this.restaurantInfo.category)}.png"
@@ -36,6 +36,8 @@ class RestaurantItem {
       </li>
         `;
   }
+
+  onClickFavoriteButton() {}
 }
 
 export default RestaurantItem;

@@ -35,7 +35,7 @@ class RestaurantList {
   }
 
   addRestaurant(newRestaurant) {
-    this.restaurantListManager.addRestaurant(newRestaurant);
+    this.restaurantListManager.addRestaurant({ id: Date.now(), ...newRestaurant });
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
     const selectedCategory = $("#category-filter").value;
