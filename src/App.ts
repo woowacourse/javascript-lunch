@@ -1,11 +1,11 @@
 import type { Category, State } from './types/restaurantTypes';
-import image from './img/images';
 import RestaurantController from './model/RestaurantController';
 import Modal from './components/Modal';
 import { DEFAULT_CATEGORY, LOCAL_STORAGE_KEY, SORTING_OPTION } from './constant/constant';
 import DEFAULT_RESTAURANT_DATA from './constant/defaultRestaurantData';
 import { getDataFromLocalStorage } from './utils/localStorage';
 import Header from './components/Header';
+import RestaurantItem from './components/RestaurantItem';
 
 export default class App {
   $target: HTMLElement;
@@ -68,20 +68,6 @@ export default class App {
     <!-- 음식점 목록 -->
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-        ${this._state!.restaurants.map(
-          ({ name, category, distance, description }) => `
-          <li class="restaurant">
-            <div class="restaurant__category">
-              <img src="${image[category]}" alt="${category}" class="category-icon">
-            </div>
-            <div class="restaurant__info">
-              <h3 class="restaurant__name text-subtitle">${name}</h3>
-              <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-              <p class="restaurant__description text-body">${description}</p>
-            </div>
-          </li>
-        `
-        ).join('')}
       </ul>        
     </section>
     </main>
@@ -90,6 +76,12 @@ export default class App {
 
   render(): void {
     this.$target.innerHTML = this.template();
+
+    const $restaurantList = this.$target.querySelector('.restaurant-list') as HTMLElement;
+    $restaurantList.innerHTML = '';
+    this._state.restaurants.forEach(restaurant => {
+      new RestaurantItem($restaurantList, restaurant);
+    });
 
     const categoryFilter = this.$target.querySelector('#category-filter');
     if (categoryFilter instanceof HTMLSelectElement) {
