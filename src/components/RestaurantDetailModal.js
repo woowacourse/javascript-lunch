@@ -67,7 +67,10 @@ export default class RestaurantDetailModal {
   onClickDeleteButton() {
     const restaurants = this.deleteRestaurant(this.restaurant.id);
 
-    // store.setLocalStorage(restaurants);
+    $(`.${this.restaurant.id}`).remove();
+    this.closeModal();
+
+    store.setLocalStorage(restaurants);
   }
 
   closeModal() {
