@@ -6,6 +6,7 @@ import { DEFAULT_CATEGORY, REQUEST_RASTAURANT_KEY } from '../../utils/constants'
 import GNB from '../../components/GNB';
 import TabBar from '../../components/TabBar';
 import RestaurantInfoDrawer from '../../components/RestaurantInfoDrawer';
+import { getRestaurants } from '../../utils/api';
 
 type RestaurantListPageState = {
   category: Category;
@@ -34,7 +35,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
       category: DEFAULT_CATEGORY,
       sortBy: 'name',
       tabBarSelect: 'all',
-      restaurants: this.getRestaurants(),
+      restaurants: getRestaurants(),
       onToggleAddRestaurantDrawer,
       selectId: 0,
     };
@@ -88,12 +89,8 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
     }
   }
 
-  getRestaurants() {
-    return JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
-  }
-
   fetchNewRestaurants() {
-    const restaurants = this.getRestaurants();
+    const restaurants = getRestaurants();
     this.setState({ ...this.state, restaurants });
   }
 
@@ -146,7 +143,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
   }
 
   onDeleteRestaurant() {
-    const restaurants = this.getRestaurants();
+    const restaurants = getRestaurants();
 
     this.setState({
       ...this.state,

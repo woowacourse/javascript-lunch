@@ -22,11 +22,6 @@ export default class GNB implements Component<GNBState> {
     $parent.append(this.$target);
   }
 
-  setState(newState: GNBState) {
-    this.state = newState;
-    this.render();
-  }
-
   addEvent() {
     this.$target
       .querySelector('button')

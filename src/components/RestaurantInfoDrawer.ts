@@ -35,11 +35,6 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
     $parent.append(this.$target);
   }
 
-  setState(newState: RestaurantInfoDrawerState) {
-    this.state = newState;
-    this.render();
-  }
-
   addEvent() {
     this.$target.querySelector('#restaurant-delete__button')?.addEventListener('click', () => {
       deleteById(this.state.selectId);

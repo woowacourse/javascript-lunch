@@ -44,11 +44,6 @@ export default class RestaurantFilterContainer
     $parent.append(this.$target);
   }
 
-  setState(newState: RestaurantFilterContainerState) {
-    this.state = newState;
-    this.render();
-  }
-
   render() {
     this.$target.innerHTML = ``;
     new DropDown({

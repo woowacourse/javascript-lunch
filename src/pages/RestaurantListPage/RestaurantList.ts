@@ -49,11 +49,6 @@ export default class RestaurantList implements Component<RestaurantListState> {
     $parent.append(this.$target);
   }
 
-  setState(newState: RestaurantListState) {
-    this.state = newState;
-    this.render();
-  }
-
   render() {
     const fragment = document.createDocumentFragment();
 

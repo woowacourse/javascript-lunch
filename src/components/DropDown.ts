@@ -43,11 +43,6 @@ export default class DropDown implements Component<DropDownState> {
     this.addEvent();
   }
 
-  setState(newState: DropDownState) {
-    this.state = newState;
-    this.render();
-  }
-
   setSelectAttribute(selectedOption: string, target: string) {
     return selectedOption === target ? 'selected' : '';
   }
