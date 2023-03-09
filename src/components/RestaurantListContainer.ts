@@ -47,13 +47,13 @@ class RestaurantListContainer {
       </section>`;
   }
 
-  renderRestaurantItems(target: Element, restaurantList: Restaurant[]) {
+  renderRestaurantItems(parent: Element, restaurantList: Restaurant[]) {
     const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
       new RestaurantItem(restaurant).create()
     );
 
-    target.replaceChildren();
-    target.insertAdjacentHTML('beforeend', restaurantItems.join(''));
+    parent.replaceChildren();
+    parent.insertAdjacentHTML('beforeend', restaurantItems.join(''));
   }
 }
 
