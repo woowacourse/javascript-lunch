@@ -126,9 +126,19 @@ export default class App {
       const restaurantId = e.target.closest('li').dataset.listid;
 
       this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
-      store.setLocalStorage(RESTAURANTS_KEY, this.#restaurants.getRestaurants());
 
-      this.renderRestaurantListByFilterOptions();
+      const restaurants = this.#restaurants.getRestaurants();
+      store.setLocalStorage(RESTAURANTS_KEY, restaurants);
+
+      if ($('.tab-all').checked) {
+        this.renderRestaurantListByFilterOptions();
+        return;
+      }
+
+      const favoriteRestaurants = getFavoriteRestaurants(restaurants);
+      RestaurantList.render($('.restaurant-list-container'), favoriteRestaurants);
+
+      return;
     }
   }
 
