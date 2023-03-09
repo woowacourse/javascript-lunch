@@ -1,6 +1,6 @@
-import { MODAL_ACTION } from "../abstracts/constants";
-import CustomElement from "../abstracts/CustomElement";
-import dispatcher from "../domain/Dispatcher";
+import { MODAL_ACTION } from "../../abstracts/constants";
+import CustomElement from "../../abstracts/CustomElement";
+import dispatcher from "../../domain/Dispatcher";
 
 class HeaderComponent extends CustomElement {
   handleEvent() {
