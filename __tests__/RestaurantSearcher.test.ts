@@ -58,7 +58,7 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
     ).toEqual(expectedResult);
   });
 
-  test('즐겨찾기 필터가 켜져 있으면, 즐겨찾기를 한 음식점만 필터링 된 결과를 반환해야 한다.', () => {
+  test('즐겨찾기 필터가 켜져 있으면, 다른 필터를 무시하고 즐겨찾기 필터만 적용하여 이름순으로 반환하여야 한다.', () => {
     const filterProperties = {
       filterBy: '전체',
       sortBy: 'name',
@@ -84,20 +84,6 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
     };
 
     const expectedResult = [];
-
-    expect(
-      restaurantSearcher.search(dummyRestaurants, filterProperties)
-    ).toEqual(expectedResult);
-  });
-
-  test('중식/거리순/즐겨찾기 의 조건대로 검색했을 때, 조건에 해당하는 올바른 필터의 레스토랑만을 반환해야 한다.', () => {
-    const filterProperties = {
-      filterBy: '중식',
-      sortBy: 'distance',
-      favoriteBy: 'favorite',
-    };
-
-    const expectedResult = [dummyRestaurants[2]];
 
     expect(
       restaurantSearcher.search(dummyRestaurants, filterProperties)
