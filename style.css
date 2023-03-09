@@ -5,6 +5,7 @@
 @import url("./css/restaurant_component.css");
 @import url("./css/restaurants_component.css");
 @import url("./css/button_component.css");
+@import url("./css/restaurant_detail_component.css");
 
 * {
   padding: 0;

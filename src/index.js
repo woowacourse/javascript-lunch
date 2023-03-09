@@ -4,8 +4,11 @@ import "../style.css";
 // components
 import "./components/restaurant/RestaurantsComponent";
 import "./components/restaurant/RestaurantComponent";
+
 import "./components/modal/RestaurantAddFormComponent";
 import "./components/modal/ModalComponent";
+import "./components/modal/RestaurantDetailComponent";
+
 import "./components/HeaderComponent";
 import "./components/SelectComponent";
 import "./components/ButtonComponent";

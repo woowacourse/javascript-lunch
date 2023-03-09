@@ -38,7 +38,7 @@ class Store {
       RestaurantsInstance.sortMethod = action.data as SortMethod;
       this.publish();
     },
-    ["updateFavorite"]: (action: Action) => {
+    [RESTAURANT_ACTION.UPDATE_FAVORITE]: (action: Action) => {
       RestaurantsInstance.updateFavorite(action.data as Index);
     },
   };

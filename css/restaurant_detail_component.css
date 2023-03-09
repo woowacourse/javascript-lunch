@@ -1,0 +1,55 @@
+.detail {
+  display: flex;
+  align-items: flex-start;
+
+  padding: 8px 8px;
+
+  border-bottom: 1px solid #e9eaed;
+}
+
+.detail__icon {
+  width: 80px;
+  height: 80px;
+}
+
+.detail__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.detail__name {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.detail__star {
+  width: 30px;
+  height: 30px;
+}
+
+.detail__distance {
+  padding: 16px 0 8px;
+  color: var(--primary-color);
+}
+
+.detail__description {
+  display: -webkit-box;
+  padding-top: 8px;
+
+  overflow: auto;
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+}
+
+.detail__link {
+  padding: 8px 0 16px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

@@ -14,7 +14,7 @@ class RestaurantAddFormComponent extends CustomElement {
   }
 
   hideModal() {
-    document.querySelector(".modal").classList.remove("modal--open");
+    document.getElementById("add_modal").classList.remove("modal--open");
   }
 
   cleanForm() {
