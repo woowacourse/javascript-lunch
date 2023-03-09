@@ -88,6 +88,7 @@ class ItemModal {
     $(".item-bookmark")?.addEventListener("click", () => {
       toggleBookmark(this.restaurant.id);
       this.restaurant.bookmarked = !this.restaurant.bookmarked;
+      //별만 다시 넣는 작업으로 변경
       this.rerender(deleteRestaurant, toggleBookmark, rerenderList);
       rerenderList();
     });

@@ -1,10 +1,10 @@
 import { CategoryImgPath } from "@/constant/Restaurant";
-import { Attribute, Category } from "@/type/type";
+import { SelectAttribute, Category } from "@/type/type";
 
 export const categoryToSrc = (category: Category) =>
   `./${CategoryImgPath[category]}`;
 
-export const convertHtmlAttribute = (attribute: Attribute) =>
+export const convertSelectAttribute = (attribute: SelectAttribute) =>
   Object.entries(attribute)
     .map(([key, value]) => `${key}=${value}`)
     .join(" ");

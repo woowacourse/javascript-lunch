@@ -1,4 +1,4 @@
-export interface Attribute {
+export interface SelectAttribute {
   id: string;
   className?: string;
   name: string;
@@ -15,7 +15,7 @@ export type Category =
   | "기타";
 export type TakingTime = 5 | 10 | 15 | 20 | 25 | 30;
 export type Sort = "이름순" | "거리순";
-export type Page = "every" | "bookmarked";
+export type PageTabOption = "every" | "bookmarked";
 
 export interface Object {
   [key: string]: string;
@@ -38,4 +38,5 @@ export type SetSelectedValue = (
 
 export type AddRestaurant = (restaurant: Restaurant) => void;
 export type HandleWithId = (id: string) => void;
+export type HandleWithPage = (page: PageTabOption) => void;
 export type Rerender = () => void;

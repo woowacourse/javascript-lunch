@@ -1,12 +1,12 @@
 import { Constants } from "@/constant/Restaurant";
-import { HandleWithId, Rerender } from "@/type/type";
+import { HandleWithPage, PageTabOption, Rerender } from "@/type/type";
 import { $, $$ } from "@/utils/Dom";
 
-class PageTap {
-  currentChoice: string;
+class PageTab {
+  currentTab: string;
 
   constructor() {
-    this.currentChoice = Constants.EVERY_PAGE;
+    this.currentTab = Constants.EVERY_PAGE;
   }
 
   template() {
@@ -22,13 +22,13 @@ class PageTap {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(setPageState: HandleWithId, rerenderList: Rerender) {
+  addEvent(setPageState: HandleWithPage, rerenderList: Rerender) {
     $(".page-choice-container")?.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
-      const targetPage = <string>target.closest("div")?.dataset.id;
+      const targetPage = <PageTabOption>target.closest("div")?.dataset.id;
 
-      if (this.currentChoice !== targetPage) {
-        this.currentChoice = targetPage;
+      if (this.currentTab !== targetPage) {
+        this.currentTab = targetPage;
 
         this.toggleFocus();
         setPageState(targetPage);
@@ -44,4 +44,4 @@ class PageTap {
   }
 }
 
-export default new PageTap();
+export default new PageTab();

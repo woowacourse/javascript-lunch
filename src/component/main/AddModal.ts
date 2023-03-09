@@ -1,4 +1,4 @@
-import { Category, TakingTime, AddRestaurant, Rerender } from "@/type/type";
+import { AddRestaurant, Rerender, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import Select from "@/component/common/Select";
 import { CATEGORY, TAKING_TIME, OptionValue } from "@/constant/Restaurant";
@@ -97,13 +97,13 @@ class AddModal {
     const formData = Object.fromEntries(new FormData($modal).entries());
     const restaurant = {
       id: generateId(),
-      name: (formData.name as string).trim(),
-      takingTime: Number(formData.takingTime) as TakingTime,
-      category: formData.category as Category,
-      link: formData.link as string,
-      description: formData.description as string,
+      name: (<string>formData.name).trim(),
+      takingTime: Number(formData.takingTime),
+      category: formData.category,
+      link: formData.link,
+      description: formData.description,
       bookmarked: false,
-    };
+    } as Restaurant;
 
     return restaurant;
   }
