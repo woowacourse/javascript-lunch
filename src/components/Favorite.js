@@ -1,8 +1,28 @@
-import Component from '../Component';
+import Component from '../Component.js';
+import { qs } from '../utils/domHelpers.js';
 
 export default class Favorite extends Component {
+  #allRestaurant;
+  #favoriteRestaurant;
+
   constructor($target) {
     super($target);
+    this.#allRestaurant = qs('#all__restaurant__radio + label');
+    this.#favoriteRestaurant = qs('#favorite__restaurant__radio + label');
+
+    this.addEvent(
+      'click',
+      () => {
+        this.switchToAllRestaurantList();
+      },
+      this.#allRestaurant
+    ).addEvent(
+      'click',
+      () => {
+        this.switchToFavoriteRestaurantList();
+      },
+      this.#favoriteRestaurant
+    );
   }
 
   template() {
@@ -18,5 +38,13 @@ export default class Favorite extends Component {
       <div></div>
     </div>
       `;
+  }
+
+  switchToAllRestaurantList() {
+    console.log('all');
+  }
+
+  switchToFavoriteRestaurantList() {
+    console.log('favorite');
   }
 }
