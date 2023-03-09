@@ -31,6 +31,10 @@ class RestaurantService {
     return this.restaurantList.find((restaurant) => restaurant.id === restaurantId) as Restaurant;
   }
 
+  getRestaurantList() {
+    return [...this.restaurantList];
+  }
+
   updateFavorite(restaurantId: number) {
     const restaurantIndex = this.findRestaurantIndex(restaurantId);
     this.restaurantList[restaurantIndex].favorite = !this.restaurantList[restaurantIndex].favorite;
