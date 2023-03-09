@@ -1,6 +1,22 @@
+import { COUNTRY_FOOD } from '../constants/index.ts';
+import koreanImage from '../assets/category-korean.png';
+import chineseImage from '../assets/category-chinese.png';
+import japaneseImage from '../assets/category-japanese.png';
+import westernImage from '../assets/category-western.png';
+import asianImage from '../assets/category-asian.png';
+import etcImage from '../assets/category-etc.png';
 import { shortenString } from '../utils';
 
 class RestaurantBox extends HTMLElement {
+  #categoryImage = {
+    [COUNTRY_FOOD.korean]: koreanImage,
+    [COUNTRY_FOOD.chinese]: chineseImage,
+    [COUNTRY_FOOD.japanese]: japaneseImage,
+    [COUNTRY_FOOD.western]: westernImage,
+    [COUNTRY_FOOD.asian]: asianImage,
+    [COUNTRY_FOOD.etc]: etcImage,
+  };
+
   attributeChangedCallback(name) {
     if (name === 'category' && name === 'name' && name === 'distance') {
       this.connectedCallback();
@@ -37,7 +53,27 @@ class RestaurantBox extends HTMLElement {
           padding: 8px 4px;
         }
       }
-
+      
+      .category {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+        min-height: 64px;
+      
+        margin-right: 16px;
+      
+        border-radius: 50%;
+        background: var(--lighten-color);
+      }
+      
+      img {
+        width: 36px;
+        height: 36px;
+      }
+      
       .info {
         display: flex;
         flex-direction: column;
@@ -68,13 +104,13 @@ class RestaurantBox extends HTMLElement {
     const category = this.getAttribute('category');
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description') || '';
-
-    const NAME_SLICE_NUMBER = 18;
-    const DESCRIPTION_SLICE_NUMBER = 56;
+    const link = this.getAttribute('link') || '';
 
     this.shadowRoot.innerHTML = `
     <li>
-    <category-image category=${category}></category-image>
+    <div class="category">
+      <img src=${this.#categoryImage[category]} alt=${category}>
+    </div>
     <div class="info">
       <h3 class="name text-subtitle">${shortenString(
         name,
@@ -93,7 +129,7 @@ class RestaurantBox extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['category', 'name', 'distance', 'description'];
+    return ['category', 'name', 'distance', 'description', 'link'];
   }
 }
 
