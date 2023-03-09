@@ -1,4 +1,5 @@
 import Controller from "../domain/Controller";
+import BottomSheet from "./BottomSheet";
 import RestaurantItem from "./RestaurantItem";
 
 class RestaurantList extends HTMLElement {
@@ -35,6 +36,11 @@ class RestaurantList extends HTMLElement {
         this.controller.setSelectedRestaurantIndex(
           Number(restaurantItem.getAttribute("key"))
         );
+        const bottomSheet = document.getElementById("bottomSheet");
+        if (!(bottomSheet instanceof BottomSheet)) {
+          return;
+        }
+        bottomSheet.open("<restaurant-detail />");
       });
     });
   }
