@@ -69,8 +69,9 @@ class App {
     saveToLocalStorage(restaurantList);
 
     if (
-      restaurantItem.category === this.currentDisplayStatus.category ||
-      this.currentDisplayStatus.category === '전체'
+      (restaurantItem.category === this.currentDisplayStatus.category ||
+        this.currentDisplayStatus.category === '전체') &&
+      this.currentTab === 'all-restaurants'
     ) {
       this.updateRestaurantList();
     }
