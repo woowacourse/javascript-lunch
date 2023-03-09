@@ -1,7 +1,6 @@
 import './index.css';
 import buttonImg from '../../assets/add-button.png';
 import { $ } from '../../utils';
-import AddRestaurant from '../ModalContents/AddRestaurant';
 
 class Header extends HTMLElement {
   connectedCallback() {
@@ -26,20 +25,24 @@ class Header extends HTMLElement {
   }
 
   modalHandler() {
-    $('#openModal').addEventListener('click', this.toggleModal);
+    $('#openModal').addEventListener('click', this.showAddretaurant);
 
     document.addEventListener('keydown', (event) => {
       if (event.code === 'Escape') {
-        this.toggleModal();
+        this.closeModal();
       }
     });
   }
 
-  renderAddrestaurantContent() {}
+  closeModal() {
+    $('#modalContainer').classList.remove('modal--open');
+    $('add-restaurant').remove();
+  }
 
-  toggleModal() {
-    $('#modalContainer').appendChild(new AddRestaurant());
-    $('#modalContainer').classList.toggle('modal--open');
+  showAddretaurant() {
+    $('#modalContainer').classList.add('modal--open');
+    const addRestaurant = document.createElement('add-restaurant');
+    $('#modalContainer').appendChild(addRestaurant);
   }
 }
 

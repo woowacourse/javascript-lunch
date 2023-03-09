@@ -21,8 +21,10 @@ class RestaurantBox extends HTMLElement {
     $('#restaurantList').innerHTML = '';
 
     restaurantList.forEach((restaurantInfo) => {
-      const { category, name, distance, description, link } = restaurantInfo;
+      const { id, category, name, distance, description, link } =
+        restaurantInfo;
       const tagContent = `<restaurant-info
+          id = "${id}"
           category="${category}"
           name="${name}"
           distance="${distance}"

@@ -28,7 +28,7 @@ class AddRestaurant extends HTMLElement {
           <text-input name ="설명" id="description"></text-input>
           <text-input name ="링크" id="link"></text-input>
           <div class="button-container">
-            <lunch-button type="click" name="취소하기" id="cancelModal" color="white"></lunch-button>
+            <lunch-button type="click" name="취소하기" id="closeModal" color="white"></lunch-button>
             <lunch-button type="submit" name="추가하기" color="orange"></lunch-button>
           </div>
         </form>
@@ -36,10 +36,14 @@ class AddRestaurant extends HTMLElement {
     `;
   }
 
+  generateId() {
+    return Date.now();
+  }
+
   addRestaurantEvent() {
     $('#addRestaurant').addEventListener('submit', (e) => {
       e.preventDefault();
-
+      const idValue = this.generateId();
       const categoryValue = $('#categoryList').value;
       const nameValue = $('#nameInput').value;
       const distanceValue = $('#distanceList').value;
@@ -47,6 +51,7 @@ class AddRestaurant extends HTMLElement {
       const linkValue = $('#linkInput').value;
 
       restaurant.addRestaurant({
+        id: idValue,
         category: categoryValue,
         name: nameValue,
         distance: distanceValue,
@@ -54,7 +59,7 @@ class AddRestaurant extends HTMLElement {
         link: linkValue,
       });
       this.resetValue();
-      this.toggleModal();
+      this.closeModal();
     });
   }
 
@@ -67,11 +72,12 @@ class AddRestaurant extends HTMLElement {
   }
 
   modalHandler() {
-    $('#cancelModal').addEventListener('click', this.toggleModal);
+    $('#closeModal').addEventListener('click', this.closeModal);
   }
 
-  toggleModal() {
-    $('#modalContainer').classList.toggle('modal--open');
+  closeModal() {
+    $('#modalContainer').classList.remove('modal--open');
+    $('add-restaurant').remove();
   }
 }
 

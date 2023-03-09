@@ -21,13 +21,14 @@ class RestaurantInfo extends HTMLElement {
   }
 
   render() {
+    const id = this.getAttribute('id');
     const name = this.getAttribute('name');
     const category = this.getAttribute('category');
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description') || '';
 
     this.innerHTML = `
-    <li class="restaurant">
+    <li id=${id} class="restaurant">
         <div class="restaurant__category">
           <img src="${CATEGORY_IMAGES[category]}" alt=${category} class="category-icon">
         </div>
