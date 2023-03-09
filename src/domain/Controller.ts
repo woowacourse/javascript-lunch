@@ -4,6 +4,7 @@ import RestaurantType from "../type/Restaurant";
 
 class Controller {
   private static instance: Controller;
+  private selectedRestaurantIndex = -1;
   state: { restaurants: RestaurantType[] };
 
   constructor() {
@@ -40,6 +41,14 @@ class Controller {
       return;
     }
     restaurantList.render();
+  }
+
+  renderFavoriteRestaurantList() {
+    this.state.restaurants = [...this.state.restaurants].filter(
+      (restaurant) => {
+        if (restaurant.isFavorite) return restaurant;
+      }
+    );
   }
 
   addRestaurant(newRestaurant: RestaurantType) {
@@ -79,6 +88,12 @@ class Controller {
     }
 
     this.loadLocalStorage();
+  }
+
+  toggleFavorite(index: number) {
+    this.state.restaurants[index].isFavorite =
+      !this.state.restaurants[index].isFavorite;
+    this.setLocalStorage();
   }
 }
 
