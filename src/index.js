@@ -4,6 +4,7 @@ import CategorySelectBox from "./components/CategorySelectBox";
 import NavBar from "./components/NavBar";
 import RestaurantList from "./components/RestaurantList";
 import SortingSelectBox from "./components/SortingSelectBox";
+import TabBar from "./components/TabBar";
 import "./css/style.css";
 
 customElements.define("nav-bar", NavBar);
@@ -12,3 +13,4 @@ customElements.define("category-select-box", CategorySelectBox);
 customElements.define("sorting-select-box", SortingSelectBox);
 customElements.define("add-restaurant", AddRestaurant);
 customElements.define("restaurant-list", RestaurantList);
+customElements.define("tab-bar", TabBar);
