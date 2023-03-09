@@ -96,11 +96,58 @@ describe('음식점 목록, 드롭다운 메뉴/탭바', () => {
 });
 
 describe('음식점 상세 정보 창', () => {
-  it('음식점 목록을 클릭해 음식점 상세 정보창을 열 수 있다.', () => {});
+  it('음식점 목록을 클릭해 음식점 상세 정보창을 열 수 있다.', () => {
+    cy.visit(TEST_URL, {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('restaurants', JSON.stringify(FAVORITES_TEST_CASE));
+      },
+    });
+    cy.get('.restaurant-list li.restaurant').first().click();
+    cy.get('.modal').contains(FAVORITES_TEST_CASE[0].name);
+    cy.get('.modal').contains(FAVORITES_TEST_CASE[0].description);
+    cy.get('.modal').contains(FAVORITES_TEST_CASE[0].link);
+  });
 
-  it('음식점 상세 정보창에서 `별표 버튼`을 `클릭`해 자주 가는 음식점으로 `등록/해제` 할 수 있다.', () => {});
+  it('음식점 상세 정보창에서 `별표 버튼`을 `클릭`해 자주 가는 음식점으로 `등록/해제` 할 수 있다.', () => {
+    cy.visit(TEST_URL, {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('restaurants', JSON.stringify(FAVORITES_TEST_CASE));
+      },
+    });
 
-  it('음식점 상세 정보창에서 `닫기 버튼`을 `클릭`해 음식점 상세 정보 창을 닫을 수 있다.', () => {});
+    cy.get('.restaurant-list li.restaurant').first().click();
+    cy.get('.modal .favorite__button').click();
+    cy.get('.modal #drawer-close__button').click();
 
-  it('음식점 상세 정보창에서 `삭제 버튼`을 `클릭`해 음식점을 목록에서 삭제할 수 있다.', () => {});
+    cy.get('.tab-bar-select[data-type="favorite"]').click();
+    cy.get('.app').contains('매우_좋아요');
+  });
+
+  it('음식점 상세 정보창에서 `닫기 버튼`을 `클릭`해 음식점 상세 정보 창을 닫을 수 있다.', () => {
+    cy.visit(TEST_URL, {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('restaurants', JSON.stringify(FAVORITES_TEST_CASE));
+      },
+    });
+
+    cy.get('.restaurant-list li.restaurant').first().click();
+    cy.get('.modal #drawer-close__button').click();
+    cy.get('.modal').should('not.exist');
+  });
+
+  it('음식점 상세 정보창에서 `삭제 버튼`을 `클릭`해 음식점을 목록에서 삭제할 수 있다.', () => {
+    cy.visit(TEST_URL);
+    // 음식점 추가
+    cy.get('.gnb__button').click();
+    cy.contains('새로운 음식점');
+    cy.get('#category').select('한식');
+    cy.get('#name').type('얌샘김밥');
+    cy.get('#distance').select('5');
+    cy.get('#description').type('아직 한번도 안가봄');
+    cy.get('#link').type('http://www.naver.com');
+    cy.get('.button-container').contains('추가하기').click();
+
+    cy.get('.restaurant-list li.restaurant').first().click();
+    cy.get('#restaurant-delete__button').click();
+  });
 });
