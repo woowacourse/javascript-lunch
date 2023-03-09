@@ -4,11 +4,9 @@ import {
   Restaurant,
   RestaurantInfo,
 } from '../../domain/model/LunchRecommendation';
-import { initMockData } from '../../mocks/restaurantsInfo';
 import { getData } from '../common/localStorage';
 import { useState } from '../core';
 
-initMockData();
 const lunchRecommendation = new LunchRecommendation(getData());
 
 function useRestaurants() {
@@ -34,9 +32,14 @@ function useRestaurants() {
     return isSuccess;
   }
 
+  function handleFavoriteBtn(id: RestaurantInfo['id']) {
+    lunchRecommendation.toggleFavorite(id);
+    setRestaurants(lunchRecommendation.getList());
+  }
+
   return {
     values: { restaurants, category, sortOption },
-    handlers: { handleCategory, handleSortOption, handleClickAddBtn },
+    handlers: { handleCategory, handleSortOption, handleClickAddBtn, handleFavoriteBtn },
   };
 }
 
