@@ -5,6 +5,7 @@ import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
 import NavBar from './components/NavBar';
 import DetailBottomSheet from './components/DetailBottomSheet';
+import FavoriteIcon from './components/FavoriteIcon';
 import Store from './store';
 import { $ } from './utils/dom';
 import { CategoryFilter, Restaurant, SortFilter } from './types';
@@ -17,6 +18,7 @@ customElements.define('add-modal', Modal);
 customElements.define('select-box', SelectBox);
 customElements.define('nav-bar', NavBar);
 customElements.define('detail-bottom-sheet', DetailBottomSheet);
+customElements.define('favorite-icon', FavoriteIcon);
 
 class App {
   header: Header;
@@ -43,6 +45,7 @@ class App {
     this.selectBox.addSelectBoxHandler(this.selectBoxHandler);
     this.modal.addRestaurantHandler(this.restaurantHandler);
     this.restaurantItems.addBottomSheetHandler(this.openDetailBottomSheetHandler);
+    this.restaurantItems.addFavoriteButtonHandler(this.favoriteButtonHandler);
     this.detailBottomSheet.addDeleteHandler(this.deleteRestaurantHandler);
     this.store.initRestaurants();
   }
@@ -69,6 +72,11 @@ class App {
 
   deleteRestaurantHandler = (name: string) => {
     this.store.deleteRestaurant(name);
+    this.restaurantItems.render(this.store.renderedRestaurants);
+  };
+
+  favoriteButtonHandler = (name: string) => {
+    this.store.toggleFavoriteRestaurant(name);
     this.restaurantItems.render(this.store.renderedRestaurants);
   };
 }
