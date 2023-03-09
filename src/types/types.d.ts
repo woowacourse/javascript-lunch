@@ -1,3 +1,6 @@
+import RestaurantAddForm from '../components/RestaurantAddForm';
+import RestaurantInformation from '../components/RestaurantInformation';
+
 export type AllCategory = '전체';
 export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 export type Distance = 5 | 10 | 15 | 20 | 30;
@@ -38,3 +41,5 @@ export type Attribute = {
 };
 
 export type ButtonContent = string;
+
+export type ModalContent = typeof RestaurantAddForm | typeof RestaurantInformation;
