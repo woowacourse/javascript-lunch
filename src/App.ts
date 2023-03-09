@@ -57,7 +57,7 @@ export default class App {
 
   renderListArticle(currentTab: TabType) {
     this.$listArticle.innerHTML = '';
-    console.log(currentTab);
+
     switch (currentTab) {
       case 'all':
         this.state.filters.render(this.$listArticle);
@@ -84,8 +84,6 @@ export default class App {
     restaurantList.setState({
       restaurantList: filteredAndSortedList,
     });
-
-    console.log(filters.state, restaurantList.state.restaurantList, '상태');
 
     filters.render(this.$listArticle);
     restaurantList.render(this.$listArticle);

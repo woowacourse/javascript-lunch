@@ -12,10 +12,21 @@ export default class Tabs {
   ) {
     this.$tab.className = 'tab-container';
     this.currentTab = 'favorite';
+
     this.render();
+
     this.$tab.addEventListener('click', (event) => {
-      const { dataset } = event.target as HTMLButtonElement;
+      if (!(event.target instanceof HTMLButtonElement)) return;
+      const { dataset } = event.target;
       const { category } = dataset;
+
+      const $buttons = this.$tab.querySelectorAll('button');
+      $buttons.forEach(($button) => {
+        $button.classList.remove('selected');
+
+        if (category === $button.dataset.category)
+          $button.classList.add('selected');
+      });
 
       renderListArticle(category as TabType);
     });
@@ -24,13 +35,19 @@ export default class Tabs {
   }
 
   render() {
-    this.$tab.innerHTML = `
-      <button data-category="all">
-        모든 음식점
-      </button>
-      <button data-category="favorite">
-        자주가는 음식점
-      </button>
+    this.$tab.innerHTML = '';
+    this.$tab.insertAdjacentHTML('beforeend', this.template());
+  }
+
+  template() {
+    return `
+    <button class="tab-button text-body selected" data-category="all">
+      모든 음식점
+    </button>
+    <button class="tab-button text-body" data-category="favorite">
+      자주가는 음식점
+    </button>
+    
     `;
   }
 
