@@ -1,4 +1,4 @@
-import { Restaurant } from '../domain/model/RestaurantList';
+import { Restaurant } from '../domain/RestaurantList';
 
 const COUNTRY_FOOD = Object.freeze({
   korean: '한식',

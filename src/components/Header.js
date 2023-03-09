@@ -64,7 +64,7 @@ class Header extends HTMLElement {
     this.shadowRoot
       .querySelector('#openModal')
       .addEventListener('click', () => {
-        $('add-restaurant-modal').modalOpen(true);
+        $('#addRestaurantModal').modalOpen(true);
         $('body').classList.add('scroll-hidden');
       });
   }
