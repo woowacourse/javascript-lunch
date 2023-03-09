@@ -1,16 +1,16 @@
 import { LOCAL_STORAGE_KEY } from '../constant/constant';
-import Restaurants from '../model/Restaurants';
+import RestaurantController from '../model/RestaurantController';
 import { Restaurant, Category, Distance, State } from '../types/restaurantTypes';
 
 export default class Modal {
   private $target: HTMLElement;
-  private restaurants: Restaurants;
-  private $state!: State;
+  private _restaurantController: RestaurantController;
+  private _state!: State;
 
-  constructor($target: HTMLElement, restaurants: Restaurants, state: State) {
-    this.$target = $target;
-    this.restaurants = restaurants;
-    this.$state = state;
+  constructor($target: HTMLElement, restaurantController: RestaurantController, state: State) {
+    this.$target = document.querySelector('body') as HTMLElement;
+    this._restaurantController = restaurantController;
+    this._state = state;
 
     this.render();
   }
@@ -110,10 +110,10 @@ export default class Modal {
         link,
       };
 
-      this.restaurants.add(restaurant);
-      this.$state.restaurants = this.restaurants.getRestaurants();
+      this._restaurantController.add(restaurant);
+      this._state.restaurants = this._restaurantController.getRestaurants();
 
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.$state));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this._state));
 
       this.closeModal();
     });

@@ -1,6 +1,6 @@
 import type { Category, State } from './types/restaurantTypes';
 import image from './img/images';
-import Restaurants from './model/Restaurants';
+import RestaurantController from './model/RestaurantController';
 import Modal from './components/Modal';
 import { DEFAULT_CATEGORY, LOCAL_STORAGE_KEY, SORTING_OPTION } from './constant/constant';
 import DEFAULT_RESTAURANT_DATA from './constant/defaultRestaurantData';
@@ -9,20 +9,20 @@ import Header from './components/Header';
 
 export default class App {
   $target: HTMLElement;
-  $state!: State;
+  _state!: State;
 
-  restuarants: Restaurants;
-  header: Header;
+  _restaurantController: RestaurantController;
+  _header: Header;
 
   constructor($target: HTMLElement) {
     this.$target = $target;
     this.setup();
-    this.restuarants = new Restaurants(this.$state.restaurants);
-    this.header = new Header();
+    this._restaurantController = new RestaurantController(this._state.restaurants);
+    this._header = new Header();
 
     this.render();
 
-    this.header.bindAddRestaurantButton();
+    this._header.bindAddRestaurantButton();
     document.addEventListener('addRestaurantClicked', this.handleAddRestaurantClicked.bind(this));
     document.addEventListener('closeModal', this.onCloseModal.bind(this));
   }
@@ -30,21 +30,21 @@ export default class App {
   handleAddRestaurantClicked() {
     const target = document.querySelector('body') as HTMLElement;
 
-    new Modal(target, this.restuarants, this.$state);
+    new Modal(target, this._restaurantController, this._state);
   }
 
   setup() {
-    this.$state = getDataFromLocalStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
+    this._state = getDataFromLocalStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
   }
 
   setState(newState: Partial<State>): void {
-    this.$state = { ...this.$state, ...newState };
+    this._state = { ...this._state, ...newState };
     this.render();
   }
 
   template() {
     return `
-    ${this.header.template()}
+    ${this._header.template()}
     <main>
     <!-- 카테고리/정렬 필터 -->
     <section class="restaurant-filter-container">
@@ -68,7 +68,7 @@ export default class App {
     <!-- 음식점 목록 -->
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
-        ${this.$state!.restaurants.map(
+        ${this._state!.restaurants.map(
           ({ name, category, distance, description }) => `
           <li class="restaurant">
             <div class="restaurant__category">
@@ -93,24 +93,24 @@ export default class App {
 
     const categoryFilter = this.$target.querySelector('#category-filter');
     if (categoryFilter instanceof HTMLSelectElement) {
-      categoryFilter.value = this.$state!.filter;
+      categoryFilter.value = this._state!.filter;
     }
 
     const sortFilter = this.$target.querySelector('#sorting-filter');
     if (sortFilter instanceof HTMLSelectElement) {
-      sortFilter.value = this.$state!.sortingOption;
+      sortFilter.value = this._state!.sortingOption;
     }
 
     this.listenEvent();
   }
 
   listenEvent() {
-    this.header.bindAddRestaurantButton();
+    this._header.bindAddRestaurantButton();
 
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLInputElement;
       const value = target.value;
-      const filteredRestuarant = this.restuarants!.filterByCategory(value as Category);
+      const filteredRestuarant = this._restaurantController!.filterByCategory(value as Category);
 
       this.setState({ filter: value, restaurants: filteredRestuarant });
     });
@@ -120,13 +120,13 @@ export default class App {
       const value = target.value;
 
       if (value === SORTING_OPTION.NAME) {
-        const sortedByName = this.restuarants!.sortByName(this.$state!.filter as Category);
+        const sortedByName = this._restaurantController!.sortByName(this._state!.filter as Category);
         this.setState({ sortingOption: value, restaurants: sortedByName });
         return;
       }
 
       if (value === SORTING_OPTION.DISTANCE) {
-        const sortedByDistance = this.restuarants!.sortByDistance(this.$state!.filter as Category);
+        const sortedByDistance = this._restaurantController!.sortByDistance(this._state!.filter as Category);
         this.setState({ sortingOption: value, restaurants: sortedByDistance });
         return;
       }
@@ -137,7 +137,7 @@ export default class App {
     this.setState({
       sortingOption: SORTING_OPTION.NAME,
       filter: DEFAULT_CATEGORY,
-      isModalOpen: !this.$state.isModalOpen,
+      isModalOpen: !this._state.isModalOpen,
     });
   }
 }
