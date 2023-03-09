@@ -1,6 +1,7 @@
 import AddRestaurant from "./components/AddRestaurant";
 import BottomSheet from "./components/BottomSheet";
 import CategorySelectBox from "./components/CategorySelectBox";
+import FavoriteButton from "./components/FavoriteButton";
 import MenuTab from "./components/MenuTab";
 import NavBar from "./components/NavBar";
 import RestaurantItem from "./components/RestaurantItem";
@@ -22,5 +23,6 @@ customElements.define("add-restaurant", AddRestaurant);
 customElements.define("restaurant-view", RestaurantView);
 customElements.define("restaurant-list", RestaurantList);
 customElements.define("restaurant-item", RestaurantItem);
+customElements.define("favorite-button", FavoriteButton);
 
 restoreRestaurants();

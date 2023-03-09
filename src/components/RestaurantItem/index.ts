@@ -14,7 +14,7 @@ class RestaurantItem extends HTMLElement {
     if (id) {
       this.restaurant = findRestaurantById(id);
       this.restaurant && this.render(this.restaurant);
-      this.onClickFavoriteButton(id);
+      // this.onClickFavoriteButton(id);
     }
   }
 
@@ -35,14 +35,10 @@ class RestaurantItem extends HTMLElement {
             </span>
           </div>
           <div>
-            <img
-              id="favorite-button-${restaurant.id}"
-              src="${findImage(
-                restaurant.favorite ? "favoriteFilled" : "favoriteLined"
-              )}" 
-              alt="${restaurant.category}" 
-              class="category-icon"
-            >
+            <favorite-button
+              restaurant-id="${restaurant.id}" 
+              favorite="${restaurant.favorite}">
+            </favorite-button>
           </div>
         </div>
         <p class="restaurant__description text-body">
@@ -53,19 +49,19 @@ class RestaurantItem extends HTMLElement {
   `;
   }
 
-  // 리팩토링 필요
-  onClickFavoriteButton(id: string) {
-    const favoriteButton = document.getElementById(`favorite-button-${id}`);
-    favoriteButton?.addEventListener("click", (event) => {
-      event.stopPropagation();
-      console.log("button : " + id);
-      const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
-      const originalFovrite = restaurants.state.restaurants[index].favorite;
-      const temp = [...restaurants.state.restaurants];
-      temp[index].favorite = !originalFovrite;
-      restaurants.state.restaurants = temp;
-      Storage.saveRestaurants(restaurants.state.restaurants);
-    });
-  }
+  // // 리팩토링 필요
+  // onClickFavoriteButton(id: string) {
+  //   const favoriteButton = document.getElementById(`favorite-button-${id}`);
+  //   favoriteButton?.addEventListener("click", (event) => {
+  //     event.stopPropagation();
+  //     console.log("button : " + id);
+  //     const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
+  //     const originalFovrite = restaurants.state.restaurants[index].favorite;
+  //     const temp = [...restaurants.state.restaurants];
+  //     temp[index].favorite = !originalFovrite;
+  //     restaurants.state.restaurants = temp;
+  //     Storage.saveRestaurants(restaurants.state.restaurants);
+  //   });
+  // }
 }
 export default RestaurantItem;
