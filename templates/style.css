@@ -144,6 +144,10 @@ body {
   background: var(--lighten-color);
 }
 
+a {
+  color: var(--grey-500);
+}
+
 .category-icon {
   width: 36px;
   height: 36px;
