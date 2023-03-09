@@ -27,6 +27,11 @@ class RestaurantService {
     localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
   }
 
+  remove(restaurantName: string) {
+    localStorage.removeItem(restaurantName);
+    this.restaurantList = this.getRestaurantList();
+  }
+
   setCurrentCategory(category: Category) {
     this.currentCategory = category;
   }

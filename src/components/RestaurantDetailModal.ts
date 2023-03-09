@@ -24,7 +24,7 @@ export const RestaurantDetailModal = (restaurant: Restaurant, categoryImageUrl: 
         </div>
 
         <div class="button-container">
-        <button type="button" id="modal-remove-button" class="button button--secondary text-caption">
+        <button type="button" id="restaurant-detail-modal-remove-button" class="button button--secondary text-caption">
           삭제하기
         </button>
         <button class="button button--primary text-caption" id="restaurant-detail-modal-close-button">닫기</button>
@@ -65,4 +65,26 @@ export const addRestaurantDetailModalBackdropClickEventHandler = () => {
       event.target.close();
     }
   });
+};
+
+export const addRestaurantRemoveButtonClickEventHandler = (
+  onClickRestaurantRemoveButton: CallableFunction,
+) => {
+  const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
+
+  modal.addEventListener('click', (event) => {
+    if (!(event.currentTarget instanceof HTMLDialogElement)) return false;
+    if (!(event.target instanceof HTMLButtonElement)) return false;
+
+    if (event.target.id === 'restaurant-detail-modal-remove-button') {
+      const restaurantName = event.currentTarget.querySelector('.restaurant__name')?.textContent;
+      onClickRestaurantRemoveButton(restaurantName);
+    }
+  });
+};
+
+export const closeRestaurantDetailModal = () => {
+  const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
+
+  modal.close();
 };

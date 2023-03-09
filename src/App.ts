@@ -1,7 +1,11 @@
-import { Category, SortingCriterion, Restaurant } from './types/types';
 import MainView from './views/MainView';
 import ModalView from './views/ModalView';
 import RestaurantService from './domains/RestaurantService';
+import { Category, SortingCriterion, Restaurant } from './types/types';
+import {
+  closeRestaurantDetailModal,
+  addRestaurantRemoveButtonClickEventHandler,
+} from './components/RestaurantDetailModal';
 
 export class App {
   private restaurantService = new RestaurantService();
@@ -17,6 +21,7 @@ export class App {
     this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm);
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
     this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
+    addRestaurantRemoveButtonClickEventHandler(this.onClickRestaurantRemoveButton);
   }
 
   onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {
@@ -35,6 +40,12 @@ export class App {
     this.restaurantService.setCurrentSortingCriterion(criterion);
     const sortedRestaurantList: Restaurant[] = this.restaurantService.filterAndSort();
     this.mainView.renderRestaurantList(sortedRestaurantList);
+  };
+
+  onClickRestaurantRemoveButton = (restaurantName: string) => {
+    this.restaurantService.remove(restaurantName);
+    closeRestaurantDetailModal();
+    this.mainView.renderRestaurantList(this.restaurantService.filterAndSort());
   };
 }
 
