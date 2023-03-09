@@ -3,6 +3,7 @@ import restaurantList from './restaurantList';
 import registerRestaurantModal from './registerRestaurantModal';
 import restaurantDetailModal from './restaurantDetailModal';
 import searchRestaurantSection from './searchRestaurantSection';
+import message from './message';
 
 export default {
   init,
@@ -19,4 +20,6 @@ export default {
 
   openSearchRestaurantSection: searchRestaurantSection.open,
   closeSearchRestaurantSection: searchRestaurantSection.close,
+
+  message: message.render,
 };

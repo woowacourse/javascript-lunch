@@ -4,6 +4,7 @@ import RestaurantList from './restaurant/RestaurantList';
 import SearchRestaurantSection from './section/SearchRestaurantSection';
 import RestaurantTypeSection from './section/RestaurantTypeSection';
 import Header from './header/Header';
+import Message from './message/Message';
 import RestaurantItem from './shared/RestaurantItem';
 import Modal from './shared/Modal';
 import Button from './shared/Button';
@@ -40,4 +41,5 @@ export default {
   Select,
   Textarea,
   FavoriteIcon,
+  Message,
 };

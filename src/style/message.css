@@ -1,0 +1,26 @@
+.alert-message {
+  position: fixed;
+  color: var(--grey-100);
+  text-align: center;
+  right: 5%;
+  left: 5%;
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.message-error {
+  background-color: #fa4d2f;
+}
+
+.message-success {
+  background-color: #4164ff;
+}
+
+.message-top {
+  top: 40px;
+}
+
+.message-bottom {
+  bottom: 40px;
+}

@@ -20,6 +20,7 @@ class App {
   }
 
   init = () => {
+    // render.message('error', 'top', '에러!!!');
     this.initFilterPipes();
     this.initEventHandlers();
   };
@@ -70,10 +71,11 @@ class App {
       this.#restaurants.push(restaurant);
     } catch (e) {
       const error = e as Error;
-      alert(error.message);
+      render.message('error', 'top', error.message);
       return;
     }
 
+    render.message('success', 'bottom', '음식점이 생성되었습니다.');
     render.closeRegisterRestaurantModal();
     this.updateRestaurantsList();
   };
@@ -122,6 +124,7 @@ class App {
       (restaurant) => restaurant.getName() !== detail.name,
     );
 
+    render.message('success', 'bottom', '음식점이 삭제되었습니다.');
     this.updateRestaurantsList();
     render.closeRestaurantDetailModal();
   };
