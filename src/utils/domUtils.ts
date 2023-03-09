@@ -2,18 +2,24 @@ export const $ = <T extends HTMLElement>(
   selector: string,
   scope: Document | HTMLElement = document
 ): T => {
-  if (!selector) throw new Error('no selector');
+  if (!selector) throw new Error('no selector. (function: $)');
 
-  return scope.querySelector<T>(selector)!;
+  const element = scope.querySelector<T>(selector);
+
+  if (element !== null) {
+    return element;
+  }
+
+  throw new Error('no element by select. (function: $)');
 };
 
-export const all$ = (
+export const all$ = <T extends HTMLElement>(
   selector: string,
   scope: Document | HTMLElement = document
-): HTMLElement[] => {
+): T[] => {
   if (!selector) throw new Error('no selector');
 
-  return Array.from(scope.querySelectorAll(selector));
+  return Array.from(scope.querySelectorAll<T>(selector));
 };
 
 export const on = (
