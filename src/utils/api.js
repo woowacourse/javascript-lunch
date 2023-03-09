@@ -30,3 +30,14 @@ export const getRestaurantById = (id) => {
 export const getRestaurants = () => {
   return JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
 };
+
+export const getNewId = () => {
+  if (!localStorage.getItem('rid')) {
+    localStorage.setItem('rid', '0');
+  }
+
+  const currentId = Number(localStorage.getItem('rid'));
+  localStorage.setItem('rid', `${currentId + 1}`);
+
+  return currentId + 1;
+};

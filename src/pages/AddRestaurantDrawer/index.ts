@@ -1,5 +1,6 @@
 import type { Component } from '../../interface';
 import type { Restaurant } from '../../type';
+import { getNewId } from '../../utils/api';
 import {
   CATEGORIES,
   DEFAULT_CATEGORY,
@@ -114,17 +115,17 @@ export default class AddRestaurantDrawer implements Component<AddRestaurantDrawe
 
   onSubmitForm(e: SubmitEvent) {
     e.preventDefault();
+
     const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
-    // TODO: id 고유값 사용
-    const id = restaurants.length;
-    const newRestauant = this.getFormValues(e.currentTarget as HTMLFormElement, id);
+    const newRestauant = this.getFormValues(e.currentTarget as HTMLFormElement);
     restaurants.push(newRestauant);
     localStorage.setItem(REQUEST_RASTAURANT_KEY, JSON.stringify(restaurants));
 
     this.state.onToggleAddRestaurantDrawer();
   }
 
-  getFormValues(form: HTMLFormElement, id: number) {
+  getFormValues(form: HTMLFormElement) {
+    const id = getNewId();
     const $category = form.category;
     const $name = form.querySelector('#name') as HTMLInputElement;
     const $distance = form.distance;
