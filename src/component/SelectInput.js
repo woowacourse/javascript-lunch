@@ -17,13 +17,15 @@ const addOptions = (id, valueList, textList) => {
   return select;
 };
 
-const createSelectInput = (id, labelText, valueList, textList) => {
-  const root = document.createElement("div");
+const SelectInput = {
+  create(id, labelText, valueList, textList) {
+    const root = document.createElement("div");
 
-  root.appendChild(createLabel(id, labelText));
-  root.appendChild(addOptions(id, valueList, textList));
+    root.appendChild(createLabel(id, labelText));
+    root.appendChild(addOptions(id, valueList, textList));
 
-  return root;
+    return root;
+  },
 };
 
-export default createSelectInput;
+export default SelectInput;

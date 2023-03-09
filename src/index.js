@@ -10,7 +10,7 @@ import Filter from "./domain/Filter";
 import IMAGE from "./IMAGE";
 import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
-import createSelectInput from "./component/createSelectInput";
+import SelectInput from "./component/SelectInput";
 import PersonalRestaurantInfo from "./component/PersonalRestaurantInfo";
 
 const CATEGORY = getFoodCategoryMemberList();
@@ -21,7 +21,7 @@ const restaurantList = new Restaurants();
 // 카테고리, 정렬 필터 생성
 const filterContainer = $(".restaurant-filter-container");
 
-const categoryFilterElement = createSelectInput(
+const categoryFilterElement = SelectInput.create(
   "category-filter",
   "",
   ["전체", ...CATEGORY],
@@ -30,7 +30,7 @@ const categoryFilterElement = createSelectInput(
 categoryFilterElement.setAttribute("class", "restaurant-filter");
 filterContainer.appendChild(categoryFilterElement);
 
-const sortingFilterElement = createSelectInput(
+const sortingFilterElement = SelectInput.create(
   "sorting-filter",
   "",
   ["name", "distance"],
@@ -48,13 +48,13 @@ $("main").appendChild(restaurantInputModal);
 
 const addRestaurantFormTemplate = $("#new-restaurant-form-template");
 const addRestaurantForm = document.importNode(addRestaurantFormTemplate.content, true);
-addRestaurantForm.querySelector(".category-input").innerHTML = createSelectInput(
+addRestaurantForm.querySelector(".category-input").innerHTML = SelectInput.create(
   "category",
   "카테고리",
   ["", ...CATEGORY],
   ["선택해 주세요", ...CATEGORY],
 ).innerHTML;
-addRestaurantForm.querySelector(".distance-input").innerHTML = createSelectInput(
+addRestaurantForm.querySelector(".distance-input").innerHTML = SelectInput.create(
   "distance",
   "거리(걸리는 시간)",
   ["", ...ESTIMATEDTIME],
