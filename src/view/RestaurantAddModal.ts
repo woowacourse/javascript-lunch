@@ -2,6 +2,7 @@ import { $, $$ } from '../util/querySelector';
 import { UserRestaurantInput } from '../type';
 import Modal from './components/Modal';
 import getFormData from '../util/getFormData';
+import TwinButtons from './components/TwinButtons';
 
 type RestaurantAddModalType = {
   parentElement: HTMLElement;
@@ -91,23 +92,28 @@ class RestaurantAddModal {
           <input type="text" name="link" id="link">
           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
         </div>
-        <div class="button-container">
-          <button type="button" class="button button--secondary text-caption" id="modal-cancel-button">취소하기</button>
-          <button class="button button--primary text-caption" id="modal-add-button">추가하기</button>
-        </div>
       </form>
     `;
 
     $('#restaurant-add-modal-contents').innerHTML = template;
+
+    new TwinButtons({
+      parentElement: $('#modal-add-form'),
+      info: {
+        leftButtonId: 'add-modal-cancel',
+        rightButtonId: 'add-modal-submit',
+        leftButtonName: '취소하기',
+        rightButtonName: '추가하기',
+      },
+      parentEvent: {
+        onLeftButtonClicked: () =>
+          this.#parentEvent.onModalCancelButtonClicked(),
+      },
+    });
   }
 
   #setListeners() {
-    const $modalCancelButton = $(`#modal-cancel-button`);
     const $modalAddForm = $(`#modal-add-form`);
-
-    $modalCancelButton.addEventListener('click', () => {
-      this.#parentEvent.onModalCancelButtonClicked();
-    });
 
     $modalAddForm.addEventListener('submit', (event) => {
       event.preventDefault();
