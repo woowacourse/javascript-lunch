@@ -102,9 +102,7 @@ export default class App {
     const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
     const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
 
-    const template = RestaurantList.getTemplate(sortedRestaurants);
-
-    RestaurantList.render($('.restaurant-list-container'), template);
+    RestaurantList.render($('.restaurant-list-container'), sortedRestaurants);
   }
 
   onClickRestaurantFormModalOpenButton() {

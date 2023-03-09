@@ -3,8 +3,8 @@ import Restaurant from './Restaurant';
 import { IRestaurant } from '../../types';
 
 const RestaurantList = {
-  render(targetElement: Element, template: string) {
-    targetElement.innerHTML = template;
+  render(targetElement: Element, restaurants: IRestaurant[]) {
+    targetElement.innerHTML = this.getTemplate(restaurants);
   },
 
   getTemplate(restaurants: IRestaurant[]) {
