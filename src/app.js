@@ -1,7 +1,8 @@
+import "./global.css";
 import Filter from "./components/Filter";
 import Header from "./components/Header";
 import ModalContainer from "./components/modal/ModalContainer";
-import RestaurantList from "./components/restaurantList/RestaurantList";
+import RestaurantList from "./components/restaurants/RestaurantList";
 import { $ } from "./util/dom";
 
 const header = new Header($(".gnb"));

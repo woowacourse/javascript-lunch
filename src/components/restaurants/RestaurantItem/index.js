@@ -1,4 +1,5 @@
-import translateCategory from "../../util/translateCategory";
+import "./index.css";
+import translateCategory from "../../../util/translateCategory";
 
 class RestaurantItem {
   $target;

@@ -1,7 +1,8 @@
-import RestaurantListManager from "../../domain/RestaurantListManager";
-import { $ } from "../../util/dom";
-import LocalStorage from "../../util/LocalStorage";
-import RestaurantItem from "./RestaurantItem";
+import "./index.css";
+import RestaurantListManager from "../../../domain/RestaurantListManager";
+import { $ } from "../../../util/dom";
+import LocalStorage from "../../../util/LocalStorage";
+import RestaurantItem from "../RestaurantItem";
 
 class RestaurantList {
   $target;

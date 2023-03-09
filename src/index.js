@@ -6,5 +6,4 @@ import "./images/category-japanese.png";
 import "./images/category-korean.png";
 import "./images/category-western.png";
 
-import "./global.css";
 import "./App";

@@ -1,4 +1,5 @@
-// import "../../templates/style.css";
+import "./index.css";
+
 class Header {
   $target;
 

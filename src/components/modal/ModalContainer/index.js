@@ -1,4 +1,5 @@
-import AddRestaurantFormModal from "./AddRestaurantFormModal";
+import "./index.css";
+import AddRestaurantFormModal from "../AddRestaurantFormModal";
 
 class ModalContainer {
   $target;

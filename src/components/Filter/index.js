@@ -1,4 +1,5 @@
-import { CATEGORY, SORT } from "../constants";
+import "./index.css";
+import { CATEGORY, SORT } from "../../constants";
 
 class Filter {
   $target;

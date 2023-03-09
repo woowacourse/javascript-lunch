@@ -1,3 +1,4 @@
+import "./index.css";
 class AddRestaurantFormModal {
   $target;
 
