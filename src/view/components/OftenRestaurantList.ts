@@ -1,7 +1,7 @@
 import '../css/Restaurant.css';
 import '../../assets/baemin-empty.png';
 
-import updateActiveTab from '../../utils/common/tabStyleHandler';
+// import updateActiveTab from '../../utils/common/tabStyleHandler';
 
 import { useEvents } from '../../utils/core';
 import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
@@ -12,7 +12,7 @@ interface OftenProps {
   all: VoidFunction;
 }
 
-function OftenRestaurants({ all }: OftenProps) {
+function OftenRestaurantList({ all }: OftenProps) {
   const {
     values: { oftenRestaurants },
     handlers: { handleClickOftenBtn },
@@ -21,7 +21,7 @@ function OftenRestaurants({ all }: OftenProps) {
   const [addEvent] = useEvents('main');
 
   addEvent('click', '.all-tab', (e) => {
-    updateActiveTab('.all-tab');
+    // updateActiveTab('.all-tab');
     console.log('모든 음식점으로');
     all();
   });
@@ -48,4 +48,4 @@ function OftenRestaurants({ all }: OftenProps) {
     `;
 }
 
-export { OftenRestaurants };
+export { OftenRestaurantList };
