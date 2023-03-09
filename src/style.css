@@ -304,3 +304,29 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+/* navigator */
+.navigator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  width: 100%;
+  padding: 0 30px;
+}
+
+.total-page,
+.bookmark-page {
+  width: 50%;
+  margin: 10px 0;
+  padding-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--grey-300);
+  border-bottom: var(--grey-200) solid 2px;
+}
+
+.active {
+  color: var(--primary-color);
+  border-bottom: var(--primary-color) solid 2px;
+}
