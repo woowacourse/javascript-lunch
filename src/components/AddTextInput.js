@@ -1,10 +1,4 @@
 class AddTextInput extends HTMLElement {
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'caption') {
-      this.connectedCallback();
-    }
-  }
-
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     const componentStyle = document.createElement('style');

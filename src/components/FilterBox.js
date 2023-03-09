@@ -1,12 +1,6 @@
 import { $ } from '../utils';
 
 class FilterBox extends HTMLElement {
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'options') {
-      this.connectedCallback();
-    }
-  }
-
   changeValueEvent() {
     this.shadowRoot.querySelector('select').addEventListener('change', () => {
       $('restaurant-boxes').drawRestaurants();

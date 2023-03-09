@@ -1,12 +1,6 @@
 import { shortenString } from '../utils';
 
 class RestaurantBox extends HTMLElement {
-  attributeChangedCallback(name) {
-    if (name === 'category' && name === 'name' && name === 'distance') {
-      this.connectedCallback();
-    }
-  }
-
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     const componentStyle = document.createElement('style');

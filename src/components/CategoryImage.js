@@ -16,12 +16,6 @@ class CategoryImage extends HTMLElement {
     [COUNTRY_FOOD.etc]: etcImage,
   };
 
-  attributeChangedCallback(name) {
-    if (name === 'category') {
-      this.connectedCallback();
-    }
-  }
-
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     const componentStyle = document.createElement('style');

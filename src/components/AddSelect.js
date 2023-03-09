@@ -1,10 +1,4 @@
 class AddSelect extends HTMLElement {
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'options') {
-      this.connectedCallback();
-    }
-  }
-
   createOption(title, kind) {
     if (kind === 'distance') {
       return `<option value="${title}">${title}분 내</option>`;
