@@ -11,8 +11,8 @@ export default class Component {
     this.render();
   }
 
-  addEvent(eventType, callback) {
-    this.$target.addEventListener(eventType, callback);
+  addEvent(eventType, callback, target = this.$target) {
+    target.addEventListener(eventType, callback);
 
     return this;
   }
