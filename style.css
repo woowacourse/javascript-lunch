@@ -88,6 +88,48 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 즐겨찾기 필터 */
+.restaurant-favorite-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.favorite-item {
+  width: 50%;
+  height: 60px;
+
+  text-align: center;
+
+  margin-top: 24px;
+
+  font-weight: 600;
+}
+
+.favorite-item input {
+  display: none;
+}
+
+.favorite-item label {
+  cursor: pointer;
+}
+
+.favorite-item > div {
+  width: 100%;
+  height: 2px;
+
+  margin-top: 24px;
+
+  background-color: var(--grey-200);
+}
+
+.favorite-item input:checked + label {
+  color: var(--primary-color);
+}
+
+.favorite-item input:checked ~ div {
+  background-color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;

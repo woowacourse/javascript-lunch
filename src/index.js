@@ -7,12 +7,14 @@ import Header from './components/Header.js';
 import RestaurantList from './components/RestaurantList.js';
 import AddModal from './components/AddModal.js';
 import Selector from './components/Selector';
+import Favorite from './components/Favorite';
 
 class App extends Component {
   constructor() {
     super(geid('app'));
 
     new Header(qs('.gnb'));
+    new Favorite(qs('.restaurant-favorite-container'));
     new Selector(qs('.restaurant-filter-container'));
     new RestaurantList(qs('.restaurant-list'));
     new AddModal(qs('.modal'));
@@ -21,6 +23,8 @@ class App extends Component {
   template() {
     return `
     <header class="gnb"></header>
+
+    <section class="restaurant-favorite-container"></section>
 
     <section class="restaurant-filter-container"></section>
 
