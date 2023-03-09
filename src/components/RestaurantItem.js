@@ -13,7 +13,7 @@ const imgFileName = {
 };
 
 const html = ({ id, category, name, distance, description, liked }) => `
-  <li class="restaurant ${id}">
+  <li id="${id}" class="restaurant">
     <div class="restaurant__category">
       <img src="./${imgFileName[`${category}`]}.png" alt="${category}" class="category-icon" />
     </div>
@@ -40,7 +40,7 @@ export default class RestaurantItem {
 
     $('.restaurant-list').insertAdjacentHTML('beforeend', html(restaurant));
 
-    $(`.${restaurant.id}`).addEventListener('click', this.onClickRestaurant.bind(this));
+    $(`#${restaurant.id}`).addEventListener('click', this.onClickRestaurant.bind(this));
   }
 
   onClickStarIcon() {
