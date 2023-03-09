@@ -47,5 +47,6 @@ export class App {
     this.header.initializeButtonEvents();
     this.modal.initializeButtonEvents();
     this.filter.initializeButtonEvents();
+    this.modalRestaurantDetail.initializeButtonEvents();
   }
 }

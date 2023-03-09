@@ -46,6 +46,10 @@ export default class ModalRestaurantDetail {
     document.body.insertAdjacentHTML("beforeend", this.#template);
   }
 
+  initializeButtonEvents() {
+    $(".button--close").addEventListener("click", this.closeModalDetail);
+  }
+
   changeRestaurantInformation(restaurantInfo) {
     const category = {
       한식: "./category-korean.png",
@@ -83,5 +87,9 @@ export default class ModalRestaurantDetail {
 
   openModalDetail() {
     $(".modal--detail").style.display = "block";
+  }
+
+  closeModalDetail() {
+    $(".modal--detail").style.display = "none";
   }
 }
