@@ -7,7 +7,7 @@ class RegisterRestaurantModal extends CustomElement {
     return `
       <r-modal>
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form id="modal-form">
+        <form id="modal-form" data-testid="register-restaurant-form">
           <r-form-item label="카테고리" required>
             <r-select name="category" id="restaurant-modal-category"></r-select>
           </r-form-item>
@@ -24,8 +24,8 @@ class RegisterRestaurantModal extends CustomElement {
             <r-input name="referenceUrl"></r-input>
           </r-form-item>
           <div class="button-container">
-            <r-button type="button" action="closeModal" variant="secondary" name="취소하기"></r-button>
-            <r-button type="submit" action="submitForm" variant="primary" name="추가하기"></r-button>
+            <r-button type="button" action="closeModal" variant="secondary" name="취소하기" data-testid="cancel-button"></r-button>
+            <r-button type="submit" action="submitForm" variant="primary" name="추가하기" data-testid="add-button"></r-button>
           </div>
         </form>
       </r-modal>

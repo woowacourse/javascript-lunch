@@ -28,7 +28,7 @@ class RestaurantDetailModal extends CustomElement {
   renderTemplate = () => {
     return `
       <r-modal>
-        <div class="restaurant-detail-container">
+        <div class="restaurant-detail-container" data-testid="restaurant-detail">
           <div class="detail-top-contents">
             <div class="restaurant__category">
               <img
@@ -52,8 +52,8 @@ class RestaurantDetailModal extends CustomElement {
             `<a class="restaurnat-detail-contents restaurnat-detail-link" href=${this.referenceUrl} target="_blank">${this.referenceUrl}</a>`
           }
           <div class="restaurant-deatil-button-container button-container">
-            <r-button type="button" action="deleteRestaurant" variant="secondary" name="삭제하기"></r-button>
-            <r-button type="button" action="closeModal" variant="primary" name="닫기"></r-button>
+            <r-button type="button" action="deleteRestaurant" variant="secondary" name="삭제하기" data-testid="delete-button"></r-button>
+            <r-button type="button" action="closeModal" variant="primary" name="닫기" data-testid="cancel-button"></r-button>
           </div>
         </div>
      </r-modal>

@@ -15,6 +15,7 @@ class RestaurantList extends CustomElement {
         ${this.#restaurants
           .map((restaurant) => {
             return `<r-restaurant
+              data-testid="${restaurant.getName()}"
               name="${restaurant.getName()}"
               distanceByMinutes="${restaurant.getDistanceByMinutes()}"
               description="${restaurant.getDescription() ?? ''}"
