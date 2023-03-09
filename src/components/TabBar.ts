@@ -23,7 +23,9 @@ class TabBar extends HTMLElement {
     tabContainer?.addEventListener("change", (event: any) => {
       if (event.target.value == "favorite") {
         this.controller.setFavoriteRestaurantList();
+        return;
       }
+      this.controller.loadLocalStorage();
     });
   }
 }
