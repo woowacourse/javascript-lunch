@@ -1,6 +1,6 @@
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
-import ImageByCategory from '@res/images/imageByCategory';
+import { ImageByCategory, FavoriteImage } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
@@ -58,21 +58,29 @@ class ListContainer extends Component {
     return restaurantList.map(this.handleCreateList.bind(this)).join('');
   }
 
-  handleCreateList({ id, category, name, distance, description }: IRestaurant) {
+  handleCreateList({ id, category, name, distance, description, favorite }: IRestaurant) {
     return `
     <li data-id = ${id} class="restaurant">
       <div class="restaurant__category">
-        ${this.imageTemplate(category)}
+        ${this.categoryImageTemplate(category)}
       </div>
       <div class="restaurant__info">
         ${this.titleTemplate(name)}
         ${this.distanceTemplate(Number(distance))}
         ${this.descriptionTemplate(description)}
       </div>
+      <div class="favorite"> 
+        ${this.favoriteImageTemplate(favorite)}
+      </div>
     </li>`;
   }
 
-  imageTemplate(category: string): string {
+  favoriteImageTemplate(favorite: boolean) {
+    const isFavorite = favorite ? 'favoriteOn' : 'favoriteOff';
+    return `<img src=${FavoriteImage[isFavorite]} alt=${isFavorite} class="category-icon"/>`;
+  }
+
+  categoryImageTemplate(category: string): string {
     return `<img src=${ImageByCategory[category]} alt=${category} class="category-icon"/>`;
   }
 
