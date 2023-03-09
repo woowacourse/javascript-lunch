@@ -13,9 +13,7 @@ const getInitialRestaurantList = () => {
   const localRestaurants =
     JSON.parse(getLocalStorage('restaurants') as string) || [];
 
-  return [...mockRestaurant, ...localRestaurants].map(
-    (restaurant) => new Restaurant(restaurant)
-  );
+  return [...localRestaurants].map((restaurant) => new Restaurant(restaurant));
 };
 
 interface IAppState {
@@ -49,7 +47,8 @@ export default class App {
       ),
       restaurantList: new RestaurantList(
         this.$listArticle,
-        initialResutaurantInfos
+        initialResutaurantInfos,
+        this.deleteRestaurantInfo.bind(this)
       ),
     };
 
@@ -86,6 +85,8 @@ export default class App {
       restaurantList: filteredAndSortedList,
     });
 
+    console.log(filters.state, restaurantList.state.restaurantList, '상태');
+
     filters.render(this.$listArticle);
     restaurantList.render(this.$listArticle);
   }
@@ -106,5 +107,21 @@ export default class App {
       'restaurants',
       JSON.stringify([...localRestaurants, restaurantInfo])
     );
+  }
+
+  deleteRestaurantInfo(id: number) {
+    this.state.restaurantService.deleteRerstaurant(id);
+
+    const {
+      state: { category, filter },
+    } = this.state.filters;
+
+    this.updateRestaurantList(category, filter);
+
+    const currentList = [
+      ...this.state.restaurantService.getRestaurantsInfo(),
+    ].map((restaurant) => restaurant.getRestaurantInfo());
+
+    setLocalStorage('restaurants', JSON.stringify(currentList));
   }
 }

@@ -4,20 +4,26 @@ import { closeModal } from '../modal';
 import { categoryImageSource } from '../utils/imageSource';
 import { toggleFavoriteFilled } from './RestaurantItem';
 
-export default function RestaurantInfo(restaurant: Restaurant) {
+export default function RestaurantInfo(
+  restaurant: Restaurant,
+  deleteHandler?: (id: number) => void
+) {
   const $infoContainer = document.createElement('div');
   $infoContainer.className = 'info-container';
-  const { category, distance, name, description, link, isFavorite } =
+  const { id, category, distance, name, description, link, isFavorite } =
     restaurant.getRestaurantInfo();
 
   const clickHandler = (e: Event) => {
-    const target = e.target as HTMLElement;
-
-    const type = target.dataset['type'];
+    if (!(e.target instanceof HTMLElement)) return;
+    const type = e.target.dataset['type'];
 
     if (type === 'close') closeModal();
-    if (type === 'delete') return;
-    if (type === 'favoriteButton') toggleFavoriteFilled(target, restaurant);
+    if (type === 'delete') {
+      if (!deleteHandler) return;
+      deleteHandler(id);
+      closeModal();
+    }
+    if (type === 'favoriteButton') toggleFavoriteFilled(e.target, restaurant);
   };
 
   const template = `
@@ -33,6 +39,7 @@ export default function RestaurantInfo(restaurant: Restaurant) {
     <span class="detail__distance text-body">캠퍼스부터 ${distance}분 내</span>
     ${descripttionTag(description)}
     ${linkTag(link)}
+
     <div class="button-container">
       <button data-type="delete" type="button" class="button button--secondary text-caption">삭제하기</button>
       <button data-type="close"class="button button--primary text-caption">닫기</button>
@@ -48,7 +55,7 @@ export default function RestaurantInfo(restaurant: Restaurant) {
 const linkTag = (link: string | undefined) =>
   link === undefined || link === ''
     ? ''
-    : `<a class="restaurant__description text-body" href="${link}>${link}</a>`;
+    : `<a class="restaurant__description text-body" href="${link}">${link}</a>`;
 
 const descripttionTag = (description: string | undefined) =>
   description === undefined || description === ''

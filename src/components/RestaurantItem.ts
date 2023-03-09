@@ -1,24 +1,27 @@
 import './restaurantItem.css';
 import { Restaurant } from '../domain/Restaurant';
 import { appendModal, showModal } from '../modal';
-import RestaurantInfo from './RestaurantInfo';
 import { categoryImageSource } from '../utils/imageSource';
+import RestaurantInfo from './RestaurantInfo';
 
-export default function RestaurantItem(restaurant: Restaurant) {
+export default function RestaurantItem(
+  restaurant: Restaurant,
+  deleteHandler?: (id: number) => void
+) {
   const { category, distance, name, description, isFavorite } =
     restaurant.getRestaurantInfo();
 
   const $li = document.createElement('li');
   $li.className = 'restaurant';
-  $li.dataset['type'] = 'restaurantItem';
 
   const listClickHandler = (e: Event) => {
     if (!(e.target instanceof HTMLElement)) return;
 
     const type = e.target.dataset['type'];
+
     if (type === undefined) {
       showModal();
-      appendModal(RestaurantInfo(restaurant));
+      appendModal(RestaurantInfo(restaurant, deleteHandler));
       return;
     }
 

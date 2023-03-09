@@ -1,8 +1,11 @@
 import { Restaurant } from '../domain/Restaurant';
-import RestaurantItem from './RestaurantItem';
+import { appendModal, showModal } from '../modal';
+import RestaurantInfo from './RestaurantInfo';
+import RestaurantItem, { toggleFavoriteFilled } from './RestaurantItem';
 
 interface IRestaurantList {
   restaurantList: Restaurant[];
+  deleteHandler?: (id: number) => void;
 }
 
 export default class RestaurantList {
@@ -10,18 +13,25 @@ export default class RestaurantList {
   $ul = document.createElement('section');
   state!: IRestaurantList;
 
-  constructor($root: HTMLElement, restaurants: Restaurant[]) {
+  constructor(
+    $root: HTMLElement,
+    restaurants: Restaurant[],
+    deleteHandler: (id: number) => void
+  ) {
     this.$restaurantListSection.className = 'restaurant-list-cotainer';
     this.$ul.className = 'restaurant-list';
 
-    this.setState({ restaurantList: restaurants });
+    this.setState({ restaurantList: restaurants, deleteHandler });
     this.render($root);
   }
 
   template() {
     this.$ul.innerHTML = '';
     for (const restaurant of this.state.restaurantList) {
-      this.$ul.insertAdjacentElement('beforeend', RestaurantItem(restaurant));
+      this.$ul.insertAdjacentElement(
+        'beforeend',
+        RestaurantItem(restaurant, this.state.deleteHandler)
+      );
     }
   }
 
