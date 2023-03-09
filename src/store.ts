@@ -65,6 +65,14 @@ class Store {
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   }
+
+  toggleFavoriteRestaurant(name: string) {
+    const restaurant = this.restaurants.find((restaurant) => restaurant.name === name);
+    restaurant!.favorite = !restaurant?.favorite;
+    this.setRestaurants(this.restaurants);
+    this.filterRestaurants(this.categoryFilter);
+    this.sortRestaurants(this.sortFilter);
+  }
 }
 
 export default Store;

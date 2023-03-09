@@ -17,12 +17,13 @@ class RestaurantItems extends HTMLElement {
   }
 
   createRestaurantItem(restaurant: Restaurant) {
-    const { category, name, distance, description } = restaurant;
-    return `<restaurant-item category=${category} name=${name} distance=${distance} description=${description}></restaurant-item>`;
+    const { category, name, distance, description, favorite } = restaurant;
+    return `<restaurant-item category=${category} name=${name} distance=${distance} description=${description} favorite=${favorite}></restaurant-item>`;
   }
 
   addBottomSheetHandler(handler: CallableFunction) {
     this.addEventListener('click', (e: any) => {
+      if (e.target.className === 'favorite-icon') return;
       const target = e.target.closest('li');
       const category = target.querySelector('.category-icon').alt;
       const name = target.querySelector('.restaurant__name').textContent;
@@ -35,6 +36,14 @@ class RestaurantItems extends HTMLElement {
         description: description,
       };
       handler(restaurant);
+    });
+  }
+
+  addFavoriteButtonHandler(handler: CallableFunction) {
+    this.addEventListener('click', (e: any) => {
+      if (e.target.className !== 'favorite-icon') return;
+      const name = e.target.closest('restaurant-item').getAttribute('name');
+      handler(name);
     });
   }
 }
