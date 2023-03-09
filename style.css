@@ -355,6 +355,37 @@ input[name='link'] {
   color: var(--grey-100);
 }
 
+/* 음식점 상세 정보 모달 */
+.modal-detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-detail-view .modal-title {
+  margin: 0;
+}
+
+.modal-detail-view .text-body {
+  -webkit-box-orient: initial;
+}
+
+.modal-detail-view .restaurant__link {
+  color: var(--grey-500);
+}
+
+.modal-detail-view .restaurant__favorite {
+  position: inherit;
+}
+
+.modal-detail-view .favorite-icon {
+  position: absolute;
+  top: 32px;
+  right: 16px;
+
+  cursor: pointer;
+}
+
 /* global */
 .hide {
   display: none;
