@@ -22,7 +22,7 @@ export const OptionValue: Readonly<Object> = {
 };
 
 export const Constants: Readonly<Object> = {
-  RESTAURANT_LIST: "restuarantList",
+  RESTAURANT_LIST: "restaurantList",
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",

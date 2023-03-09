@@ -1,11 +1,12 @@
 import { Constants, OptionValue } from "@/constant/Restaurant";
 import { Category, Restaurant, Sort } from "@/type/type";
-import { getSavedData, saveData } from "@/utils/localStorage";
+import { getSavedData, saveData, saveMockData } from "@/utils/localStorage";
 
 class RestaurantListHandler {
   private restaurants: Restaurant[] = [];
 
   constructor() {
+    saveMockData();
     this.restaurants = getSavedData(Constants.RESTAURANT_LIST);
   }
 
