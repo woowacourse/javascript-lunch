@@ -3,6 +3,25 @@ import { RESTAURANT_IMAGE, getFavoriteIcon } from '../constants/images';
 import { $ } from '../utils/domSelectors';
 
 class RestaurantInformation {
+  addCloseButtonClickEvent(closeModal: CallableFunction) {
+    const closeButton = $<HTMLButtonElement>('#restaurant-information-close-button');
+
+    closeButton.addEventListener('click', () => {
+      closeModal();
+    });
+  }
+
+  addEvent(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
+    this.addCloseButtonClickEvent(closeModal);
+    const deleteButton = $<HTMLButtonElement>('#restaurant-information-delete-button');
+
+    deleteButton.addEventListener('click', (event: Event) => {
+      const target = event.target as HTMLButtonElement;
+      deleteRestaurant(Number(target.dataset.id));
+      closeModal();
+    });
+  }
+
   create(restaurant: Restaurant) {
     return `
       <div class="restaurant-detail__info-container">
@@ -53,22 +72,6 @@ class RestaurantInformation {
       </button>
     </div>
     `;
-  }
-
-  addEvent(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
-    const closeButton = $<HTMLButtonElement>('#restaurant-information-close-button');
-
-    closeButton.addEventListener('click', () => {
-      closeModal();
-    });
-
-    const deleteButton = $<HTMLButtonElement>('#restaurant-information-delete-button');
-
-    deleteButton.addEventListener('click', (event: Event) => {
-      const target = event.target as HTMLButtonElement;
-      deleteRestaurant(Number(target.dataset.id));
-      closeModal();
-    });
   }
 }
 
