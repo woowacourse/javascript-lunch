@@ -313,3 +313,9 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+.restaurant__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}

@@ -1,6 +1,8 @@
 import { RestaurantType } from "../Template";
 
 export const mockKorea: RestaurantType = {
+  id: 0,
+  like: false,
   category: "한식",
   name: "피양콩할마니",
   takeTime: 10,
@@ -11,6 +13,8 @@ export const mockKorea: RestaurantType = {
 };
 
 const mockJapan: RestaurantType = {
+  id: 1,
+  like: false,
   category: "일식",
   name: "일일일",
   takeTime: 15,
@@ -21,6 +25,8 @@ const mockJapan: RestaurantType = {
 };
 
 const mockWestern: RestaurantType = {
+  id: 2,
+  like: false,
   category: "양식",
   name: "양양양",
   takeTime: 5,
@@ -31,6 +37,8 @@ const mockWestern: RestaurantType = {
 };
 
 const mockAsian: RestaurantType = {
+  id: 3,
+  like: false,
   category: "아시안",
   name: "아시안",
   takeTime: 10,
@@ -41,6 +49,8 @@ const mockAsian: RestaurantType = {
 };
 
 const mockEtc: RestaurantType = {
+  id: 4,
+  like: false,
   category: "기타",
   name: "딩가딩가",
   takeTime: 15,
@@ -51,6 +61,8 @@ const mockEtc: RestaurantType = {
 };
 
 const mockChina: RestaurantType = {
+  id: 5,
+  like: false,
   category: "중식",
   name: "중중중",
   takeTime: 20,
@@ -61,6 +73,8 @@ const mockChina: RestaurantType = {
 };
 
 const mock1: RestaurantType = {
+  id: 6,
+  like: false,
   category: "중식",
   name: "친친",
   takeTime: 10,
@@ -69,6 +83,8 @@ const mock1: RestaurantType = {
 };
 
 const mock2: RestaurantType = {
+  id: 7,
+  like: false,
   category: "일식",
   name: "잇쇼우",
   takeTime: 5,
@@ -77,6 +93,8 @@ const mock2: RestaurantType = {
 };
 
 const mock3: RestaurantType = {
+  id: 8,
+  like: false,
   category: "양식",
   name: "이태리키친",
   takeTime: 20,
@@ -85,6 +103,8 @@ const mock3: RestaurantType = {
 };
 
 const mock4: RestaurantType = {
+  id: 9,
+  like: false,
   category: "아시안",
   name: "호아빈 삼성점",
   takeTime: 15,
