@@ -57,7 +57,11 @@ class RestaurantInformation {
         <p class="restaurant-detail__description text-body">
           ${restaurant.description ?? ''}
         </p>
-        ${`<a ${restaurant.description} class="restaurant__link">웹사이트 방문하기</a>` ?? ''}
+        ${
+          restaurant.link
+            ? `<a ${restaurant.link} class="restaurant__link">웹사이트 방문하기</a>`
+            : ''
+        }
       </div>
       <div class="button-container">
       <button
