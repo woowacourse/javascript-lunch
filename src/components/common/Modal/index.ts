@@ -25,8 +25,11 @@ class Modal extends Component {
   override renderTemplate() {
     return `
       <dialog onclose="this.host.onClose(event)">
-        <h2 class="text-title">${this.getAttribute('title') ?? ''}</h2>
+        <slot name="header">
+          <h2 class="text-title">${this.getAttribute('title') ?? ''}</h2>
+        </slot>
         <slot name="content"></slot>
+        <hr>
         <slot name="actions"></slot>
       </dialog>
     `;
