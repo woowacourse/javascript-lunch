@@ -8,14 +8,9 @@ import {
 } from "../../abstracts/types";
 import {
   CATEGORY_DEFAULT,
-  RESTAURANTS_STORAGE,
   RESTAURANT_ACTION,
   SORT_METHOD,
 } from "../../abstracts/constants";
-import {
-  getArrayFromLocalStorage,
-  setArrayToLocalStorage,
-} from "../../utils/localStorage";
 import CustomElement from "../../abstracts/CustomElement";
 
 class RestaurantsStore extends Store {
@@ -23,25 +18,21 @@ class RestaurantsStore extends Store {
   #category: Category = CATEGORY_DEFAULT;
   #sortMethod: SortMethod = SORT_METHOD.NAME;
 
-  constructor() {
-    super();
-    if (!localStorage.getItem(RESTAURANTS_STORAGE)) {
-      setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
-      return;
-    }
-    this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
-  }
-
   publish() {
-    this.#restaurantList = getArrayFromLocalStorage(RESTAURANTS_STORAGE);
-    this.filterByCategory(this.#category);
     this.sortRestaurants(this.#sortMethod);
     this.getSubscribers().forEach((subscriber: CustomElement) => {
-      subscriber.rerender(this.#restaurantList);
+      subscriber.rerender({
+        restaurantList: this.#restaurantList,
+        category: this.#category,
+      });
     });
   }
 
   reducer = {
+    [RESTAURANT_ACTION.SET_RESTAURANT_LIST]: (action: Action) => {
+      this.#restaurantList = action.data as Restaurant[];
+      this.publish();
+    },
     [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
       this.addRestaurant(action.data as Restaurant);
       this.publish();
@@ -55,7 +46,7 @@ class RestaurantsStore extends Store {
       this.publish();
     },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
-      this.filterByCategory(action.data as Category);
+      this.#category = action.data as Category;
       this.publish();
     },
     [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
@@ -69,7 +60,6 @@ class RestaurantsStore extends Store {
     restaurant.id = this.#restaurantList.length;
 
     this.#restaurantList.push(restaurant);
-    setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
   }
 
   deleteRestaurant(restaurantId: number) {
@@ -78,7 +68,6 @@ class RestaurantsStore extends Store {
     );
 
     this.#restaurantList.splice(restaurantIndex, 1);
-    setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
   }
 
   handleFavoriteRestaurant(restaurantId: number) {
@@ -89,16 +78,6 @@ class RestaurantsStore extends Store {
 
     if (restaurant) {
       this.#restaurantList[index].isFavorite = !restaurant.isFavorite;
-      setArrayToLocalStorage(RESTAURANTS_STORAGE, this.#restaurantList);
-    }
-  }
-
-  filterByCategory(category: Category) {
-    this.#category = category;
-    if (this.#category !== CATEGORY_DEFAULT) {
-      this.#restaurantList = this.#restaurantList.filter(
-        (restaurant: Restaurant) => restaurant.category === this.#category
-      );
     }
   }
 

@@ -1,6 +1,7 @@
 import { MenuAction, ModalAction, RestaurantAction } from "./types";
 
 export const RESTAURANT_ACTION: RestaurantAction = {
+  SET_RESTAURANT_LIST: "set_restaurant_list",
   ADD_RESTAURANT: "add_restaurant",
   HANDLE_FAVORITE: "handle_favorite",
   DELETE_RESTAURANT: "delete_restaurant",

@@ -5,7 +5,7 @@ import Store from "./Store";
 class MenuStore extends Store {
   #menu: string = "all";
 
-  public() {
+  publish() {
     this.getSubscribers().forEach((subscriber) => {
       subscriber.rerender(this.#menu);
     });
@@ -14,11 +14,11 @@ class MenuStore extends Store {
   reducer = {
     [MENU_ACTION.MENU_ALL]: (action: Action) => {
       this.#menu = "all";
-      this.public();
+      this.publish();
     },
     [MENU_ACTION.MENU_FAVORITE]: (action: Action) => {
       this.#menu = "favorite";
-      this.public();
+      this.publish();
     },
   };
 }

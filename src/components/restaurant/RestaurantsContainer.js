@@ -7,7 +7,7 @@ class RestaurantsContainer extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     MenuInstance.subscribe(this);
-    MenuInstance.public();
+    MenuInstance.publish();
   }
 
   rerender(menu) {

@@ -1,15 +1,42 @@
 import CustomElement from "../../abstracts/CustomElement";
+import dispatcher from "../../domain/Dispatcher";
 import RestaurantInstance from "../../domain/store/RestaurantsStore";
+import {
+  CATEGORY_DEFAULT,
+  RESTAURANTS_STORAGE,
+  RESTAURANT_ACTION,
+} from "../../abstracts/constants";
+import {
+  getArrayFromLocalStorage,
+  setArrayToLocalStorage,
+} from "../../utils/localStorage";
 
 class RestaurantListComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     RestaurantInstance.subscribe(this);
-    RestaurantInstance.publish();
+
+    if (!getArrayFromLocalStorage(RESTAURANTS_STORAGE)) {
+      setArrayToLocalStorage(RESTAURANTS_STORAGE, []);
+      return;
+    }
+    dispatcher(
+      RESTAURANT_ACTION.SET_RESTAURANT_LIST,
+      getArrayFromLocalStorage(RESTAURANTS_STORAGE)
+    );
   }
 
-  rerender(restaurantList) {
-    const restaurants = restaurantList
+  rerender({ restaurantList, category }) {
+    setArrayToLocalStorage(RESTAURANTS_STORAGE, restaurantList);
+
+    const filteredRestaurants =
+      category === CATEGORY_DEFAULT
+        ? restaurantList
+        : restaurantList.filter(
+            (restaurant) => restaurant.category === category
+          );
+
+    const restaurants = filteredRestaurants
       .map((restaurant) => {
         return `
           <restaurant-element 

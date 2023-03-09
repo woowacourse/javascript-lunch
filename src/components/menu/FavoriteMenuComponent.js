@@ -8,7 +8,7 @@ class FavoriteMenuComponent extends MenuComponent {
   connectedCallback() {
     super.connectedCallback();
     MenuInstance.subscribe(this);
-    MenuInstance.public();
+    MenuInstance.publish();
   }
 
   handleEvent() {

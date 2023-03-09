@@ -24,12 +24,13 @@ export interface Restaurant extends AddRestaurant {
 
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod | boolean | number;
+  data?: Restaurant | Category | SortMethod | boolean | number | Restaurant[];
 }
 
 export type LocalArrayData = Restaurant[];
 
 export interface RestaurantAction {
+  SET_RESTAURANT_LIST: string;
   ADD_RESTAURANT: string;
   HANDLE_FAVORITE: string;
   DELETE_RESTAURANT: string;

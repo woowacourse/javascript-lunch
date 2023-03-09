@@ -9,7 +9,7 @@ class FavoriteRestaurantListComponent extends CustomElement {
     RestaurantInstance.publish();
   }
 
-  rerender(restaurantList) {
+  rerender({ restaurantList }) {
     const restaurants = restaurantList
       .filter((restaurant) => restaurant.isFavorite)
       .map((restaurant) => {

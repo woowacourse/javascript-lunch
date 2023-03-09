@@ -47,7 +47,7 @@ class RestaurantInfoComponent extends CustomElement {
     }
   }
 
-  rerender(restaurantList) {
+  rerender({ restaurantList }) {
     const restaurant = restaurantList.find(
       (restaurant) => restaurant.id === Number(this.getAttribute("id"))
     );

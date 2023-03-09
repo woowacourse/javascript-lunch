@@ -2,11 +2,11 @@ class CustomElement extends HTMLElement {
   state = {};
 
   connectedCallback() {
-    this.render();
+    this.initRender();
     this.handleEvent();
   }
 
-  render() {
+  initRender() {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = this.template();
   }
