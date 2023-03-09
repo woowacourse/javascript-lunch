@@ -1,8 +1,4 @@
-import { restaurants } from "../../domain/restaurants";
-import findImage from "../../tools/findImage";
-import Storage from "../../tools/Storage";
 import IRestaurant from "../../type/IRestaurant";
-import BottomSheet from "../../components/BottomSheet";
 import { findRestaurantById } from "../../domain/restaurant";
 import { CategoryImage } from "../CategoryImage";
 class RestaurantItem extends HTMLElement {
@@ -48,20 +44,5 @@ class RestaurantItem extends HTMLElement {
     </li>
   `;
   }
-
-  // // 리팩토링 필요
-  // onClickFavoriteButton(id: string) {
-  //   const favoriteButton = document.getElementById(`favorite-button-${id}`);
-  //   favoriteButton?.addEventListener("click", (event) => {
-  //     event.stopPropagation();
-  //     console.log("button : " + id);
-  //     const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
-  //     const originalFovrite = restaurants.state.restaurants[index].favorite;
-  //     const temp = [...restaurants.state.restaurants];
-  //     temp[index].favorite = !originalFovrite;
-  //     restaurants.state.restaurants = temp;
-  //     Storage.saveRestaurants(restaurants.state.restaurants);
-  //   });
-  // }
 }
 export default RestaurantItem;
