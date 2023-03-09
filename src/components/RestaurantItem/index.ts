@@ -2,6 +2,7 @@ import { restaurants } from "../../domain/restaurants";
 import findImage from "../../tools/findImage";
 import Storage from "../../tools/Storage";
 import IRestaurant from "../../type/IRestaurant";
+import BottomSheet from "../../components/BottomSheet";
 class RestaurantItem extends HTMLElement {
   restaurant: IRestaurant | undefined;
 
@@ -11,6 +12,7 @@ class RestaurantItem extends HTMLElement {
     if (id) {
       this.findRestaurant(id);
       this.restaurant && this.render(this.restaurant);
+      this.onClickRestaurantItem(id);
       this.onClickFavoriteButton(id);
     }
   }
@@ -51,6 +53,18 @@ class RestaurantItem extends HTMLElement {
       </div>
     </li>
   `;
+  }
+
+  // 리팩토링 필요
+  onClickRestaurantItem(id: string) {
+    const restaurantItem = document.getElementById(id);
+    restaurantItem?.addEventListener("click", () => {
+      console.log(id);
+      const bottomSheet = document.getElementById("bottomSheet");
+      if (bottomSheet instanceof BottomSheet) {
+        bottomSheet.open(id);
+      }
+    });
   }
 
   // 리팩토링 필요
