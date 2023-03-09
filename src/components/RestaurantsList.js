@@ -25,6 +25,17 @@ class RestaurantsList {
       this.$target.insertAdjacentHTML('beforeend', this.template());
     }
 
+    let restaurants;
+    if (document.querySelector('.favorites-filter').getAttribute('value') === 'all') {
+      restaurants = this.getRestaurantsByCategoryAndSort();
+    } else {
+      restaurants = this.restaurants.getFavoritesRestaurant();
+    }
+
+    this.makeRestaurantItems(restaurants);
+  }
+
+  getRestaurantsByCategoryAndSort() {
     const $categoryFilter = document.querySelector('#category-filter');
     const $sortTypeFilter = document.querySelector('#sorting-filter');
     const category = $categoryFilter.options[$categoryFilter.selectedIndex].value;
@@ -32,7 +43,7 @@ class RestaurantsList {
 
     const restaurants = this.restaurants.getRestaurant(category, sortType);
 
-    this.makeRestaurantItems(restaurants);
+    return restaurants;
   }
 
   makeRestaurantItems(restaurants) {
@@ -40,7 +51,7 @@ class RestaurantsList {
     $restaurantList.replaceChildren();
 
     restaurants.forEach(restaurant => {
-      const restaurantItem = new RestaurantItem(restaurant);
+      const restaurantItem = new RestaurantItem(restaurant, this.restaurants);
       restaurantItem.setEvent(this.onClickRestaurantItem);
       this.restaurantItems.push(restaurantItem);
     });

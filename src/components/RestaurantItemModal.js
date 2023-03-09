@@ -1,4 +1,8 @@
 import { CATEGORY_TO_FILENAME } from '../constants/constants';
+const FOVORITES_TO_FILENAME = {
+  true: 'favorite-icon-filled',
+  false: 'favorite-icon-lined',
+};
 
 class RestaurantItemModal {
   constructor(restaurants) {
@@ -8,7 +12,6 @@ class RestaurantItemModal {
     this.$target = document.querySelector('main');
 
     this.render();
-    this.setModalCloseEvent();
   }
 
   template() {
@@ -31,8 +34,11 @@ class RestaurantItemModal {
 
   templateRestaurantsContents() {
     const imageFile = CATEGORY_TO_FILENAME[this.restaurantInfo.category];
+    const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
 
     return `
+    <img src="./${iconName}.png" class="favorite-icon">
+
     <div class="restaurant__category">
       <img src="./${imageFile}.png" alt="${this.restaurantInfo.category}" class="category-icon">
     </div>
@@ -49,6 +55,8 @@ class RestaurantItemModal {
     this.restaurantInfo = restaurantInfo;
     this.updateContents();
     this.render();
+
+    this.setFavoritesIconEvent();
   }
 
   render() {
@@ -68,11 +76,32 @@ class RestaurantItemModal {
     document.querySelector(`.restaurant-item-modal .modal-contents`).innerHTML = this.templateRestaurantsContents();
   }
 
-  setModalCloseEvent() {
+  updateIcon() {
+    const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
+
+    const $favoriteIcon = document.querySelector(`.restaurant-item-modal .favorite-icon`);
+    $favoriteIcon.setAttribute('src', `./${iconName}.png`);
+  }
+
+  setFavoritesIconEvent() {
+    const $favoriteIcon = document.querySelector(`.restaurant-item-modal .favorite-icon`);
+
+    $favoriteIcon.addEventListener('click', e => {
+      e.preventDefault();
+
+      this.restaurants.swapFavoritesByID(this.restaurantInfo.ID);
+      this.updateIcon();
+      localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
+    });
+  }
+
+  setModalCloseEvent(onCloseButtonClick) {
     const $cancelButton = document.querySelector('.restaurant-item-modal .button--primary');
 
     $cancelButton.addEventListener('click', e => {
       e.preventDefault();
+
+      onCloseButtonClick();
 
       this.toggleModal();
     });
