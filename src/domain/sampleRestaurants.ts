@@ -1,5 +1,8 @@
+import { getUniqueID } from '../utils/key';
+
 export const sampleRestaurants = [
   {
+    restaurantID: getUniqueID(),
     category: '한식',
     name: '피양콩할머니',
     distance: 10,
@@ -12,6 +15,7 @@ export const sampleRestaurants = [
     먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
   },
   {
+    restaurantID: getUniqueID(),
     category: '중식',
     name: '친친',
     distance: 5,
@@ -20,6 +24,7 @@ export const sampleRestaurants = [
     펼쳐갑니다.`,
   },
   {
+    restaurantID: getUniqueID(),
     category: '일식',
     name: '잇쇼우',
     distance: 10,
@@ -28,6 +33,7 @@ export const sampleRestaurants = [
     신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다`,
   },
   {
+    restaurantID: getUniqueID(),
     category: '양식',
     name: '이태리키친',
     distance: 20,
@@ -35,6 +41,7 @@ export const sampleRestaurants = [
     description: `늘 변화를 추구하는 이태리키친입니다.`,
   },
   {
+    restaurantID: getUniqueID(),
     category: '아시안',
     name: '호아빈 삼성점',
     distance: 15,
@@ -42,6 +49,7 @@ export const sampleRestaurants = [
     description: `푸짐한 양에 국물이 일품인 쌀국수`,
   },
   {
+    restaurantID: getUniqueID(),
     category: '기타',
     name: '도스타코스 선릉점',
     distance: 5,
