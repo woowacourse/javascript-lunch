@@ -29,13 +29,16 @@ interface Validate {
   onError?(error: CustomError): void;
 }
 
-const conditions: Conditions = {};
+let conditions: Conditions = {};
 
 function useForm() {
   const [formState, setFormState] = useState<FormState>({ errors: {} });
 
-  const reset = () => setFormState({ errors: {} });
-  const resetErrors = () => setFormState({ ...formState, errors: {} });
+  const resetErrors = () => setFormState({ errors: {} });
+  const reset = () => {
+    conditions = {};
+    setFormState({ errors: {} });
+  };
 
   const register = (name: string, validator: Validator) => {
     if (!conditions[name]) {
@@ -69,7 +72,6 @@ function useForm() {
 
         if (Object.keys(errors).length === 0) {
           onSubmit(e);
-          resetErrors();
         } else setFormState({ ...formState, errors });
       }
     };
