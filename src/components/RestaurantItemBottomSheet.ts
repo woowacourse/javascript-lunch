@@ -71,7 +71,7 @@ class RestaurantItemBottomSheet {
   }
 
   closeSheet() {
-    $(".item-sheet")?.classList.remove("modal--open");
+    $(".item-sheet")?.remove();
   }
 }
 

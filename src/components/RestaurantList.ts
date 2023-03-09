@@ -26,9 +26,6 @@ class RestaurantList {
     restaurantListContainer?.addEventListener("click", (event) => {
       const target = event.target as HTMLElement;
       const id = <string>target.closest("li")?.dataset.id;
-
-      onSelectRestaurantID(id);
-
       const bookmarkButton = <HTMLElement>(
         target.closest(".restaurant__bookmark")
       );
@@ -40,6 +37,7 @@ class RestaurantList {
         return;
       }
 
+      onSelectRestaurantID(id);
       $(".item-sheet")?.classList.add("modal--open");
     });
   }
