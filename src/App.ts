@@ -51,10 +51,17 @@ class App {
     this.body.insertAdjacentHTML('beforeend', this.create());
   }
 
-  changeFilter = (filter: RestaurantFilter) => {
-    this.currentDisplayStatus = { ...this.currentDisplayStatus, ...filter };
-    this.updateRestaurantList();
-  };
+  updateRestaurantList() {
+    const restaurantList =
+      this.currentTab === 'all-restaurants'
+        ? filterAndSort(this.currentDisplayStatus, this.restaurantService.getRestaurantList())
+        : filterAndSort(
+            this.currentDisplayStatus,
+            this.restaurantService.getFavoriteRestaurantList()
+          );
+
+    RestaurantListContainer.renderRestaurantItems(this.restaurantListElement, restaurantList);
+  }
 
   addRestaurant = (restaurantItem: Restaurant) => {
     this.restaurantService.add(restaurantItem);
@@ -69,6 +76,16 @@ class App {
     }
   };
 
+  changeRestaurantMenuTab = (tab: string) => {
+    this.currentTab = tab;
+    this.updateRestaurantList();
+  };
+
+  changeFilter = (filter: RestaurantFilter) => {
+    this.currentDisplayStatus = { ...this.currentDisplayStatus, ...filter };
+    this.updateRestaurantList();
+  };
+
   updateFavoriteRestaurant = (restaurantId: number) => {
     const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantId);
     saveToLocalStorage(updatedRestaurantList);
@@ -77,23 +94,6 @@ class App {
       RestaurantListContainer.removeRestaurantItem(this.restaurantListElement, restaurantId);
     }
   };
-
-  changeRestaurantMenuTab = (tab: string) => {
-    this.currentTab = tab;
-    this.updateRestaurantList();
-  };
-
-  updateRestaurantList() {
-    const restaurantList =
-      this.currentTab === 'all-restaurants'
-        ? filterAndSort(this.currentDisplayStatus, this.restaurantService.getRestaurantList())
-        : filterAndSort(
-            this.currentDisplayStatus,
-            this.restaurantService.getFavoriteRestaurantList()
-          );
-
-    RestaurantListContainer.renderRestaurantItems(this.restaurantListElement, restaurantList);
-  }
 
   showRestaurantInformation = (restaurantId: number) => {
     const restaurant = this.restaurantService.getRestaurant(restaurantId);
