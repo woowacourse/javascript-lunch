@@ -1,5 +1,6 @@
 import CustomElement from "../../abstracts/CustomElement";
 import RestaurantComponent from "./RestaurantComponent";
+import SelectContainer from "../filter/SelectContainer";
 import dispatcher from "../../domain/Dispatcher";
 import RestaurantInstance from "../../domain/store/RestaurantsStore";
 import {
