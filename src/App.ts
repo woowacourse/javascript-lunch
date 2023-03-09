@@ -31,7 +31,6 @@ export default class App implements Component<AppState> {
   }
 
   render() {
-    const { isDrawerHide } = this.state;
     this.$target.innerHTML = ``;
 
     new RestaurantListPage({
@@ -39,7 +38,7 @@ export default class App implements Component<AppState> {
       onToggleAddRestaurantDrawer: this.onToggleAddRestaurantDrawer.bind(this),
     }).render();
 
-    if (!isDrawerHide) {
+    if (!this.state.isDrawerHide) {
       new AddRestaurantDrawer({
         $parent: this.$target,
         onToggleAddRestaurantDrawer: this.onToggleAddRestaurantDrawer.bind(this),
