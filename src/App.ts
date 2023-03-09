@@ -60,10 +60,15 @@ export default class App {
 
     switch (currentTab) {
       case 'all':
-        this.state.filters.render(this.$listArticle);
-        this.state.restaurantList.render(this.$listArticle);
+        const {
+          state: { category, filter },
+        } = this.state.filters;
+        this.updateRestaurantList(category, filter);
         break;
       case 'favorite':
+        const favorites = this.state.restaurantService.getFilterdFavoriteList();
+        this.state.restaurantList.setState({ restaurantList: favorites });
+        this.state.restaurantList.render(this.$listArticle);
         break;
       default:
         return;

@@ -79,4 +79,10 @@ export default class RestaurantService {
       (restaurant) => restaurant.getRestaurantInfo()['id'] !== id
     );
   }
+
+  getFilterdFavoriteList() {
+    return [...this.#restaurants].filter((restaurant) =>
+      restaurant.getFavoriteState()
+    );
+  }
 }
