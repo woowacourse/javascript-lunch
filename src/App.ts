@@ -6,6 +6,7 @@ import Tabs from './components/Tabs';
 import { mockRestaurant } from './data';
 import { IRestaurant, Restaurant } from './domain/Restaurant';
 import RestaurantService from './domain/RestaurantService';
+import { store } from './store';
 import { CategoryOptions, FilterOptions, TabType } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
@@ -23,6 +24,11 @@ interface IAppState {
   restaurantService: RestaurantService;
 }
 
+export interface IHandlers {
+  renderListArticle: ($currentTarget: TabType) => void;
+  deleteHandler: (id: number) => void;
+}
+
 export default class App {
   $listArticle = document.createElement('article');
   state: IAppState;
@@ -37,19 +43,28 @@ export default class App {
     $main.appendChild(this.$listArticle);
 
     const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
+    const tabs = new Tabs($main, this.renderListArticle.bind(this));
+    const filters = new Filters(
+      this.$listArticle,
+      this.renderAllList.bind(this)
+    );
+    const restaurantList = new RestaurantList(
+      this.$listArticle,
+      initialResutaurantInfos,
+      {
+        renderListArticle: this.renderListArticle.bind(this),
+        deleteHandler: this.deleteRestaurantInfo.bind(this),
+      }
+    );
 
     this.state = {
       restaurantService,
-      tabs: new Tabs($main, this.renderListArticle.bind(this)),
-      filters: new Filters(this.$listArticle, this.renderAllList.bind(this)),
-      restaurantList: new RestaurantList(
-        this.$listArticle,
-        initialResutaurantInfos,
-        this.deleteRestaurantInfo.bind(this)
-      ),
+      tabs,
+      filters,
+      restaurantList,
     };
 
-    this.renderListArticle(this.state.tabs.currentTab);
+    this.renderListArticle(store.currentTab);
   }
 
   renderListArticle(currentTab?: TabType) {
@@ -78,6 +93,7 @@ export default class App {
     );
 
     restaurantList.setState({
+      ...restaurantList.state,
       restaurantList: filteredAndSortedList,
     });
 
@@ -87,14 +103,17 @@ export default class App {
 
   renderFavoriteList($targetElement: HTMLElement) {
     const favorites = this.state.restaurantService.getFilterdFavoriteList();
-    this.state.restaurantList.setState({ restaurantList: favorites });
+    this.state.restaurantList.setState({
+      ...this.state.restaurantList.state,
+      restaurantList: favorites,
+    });
     this.state.restaurantList.render($targetElement);
   }
 
   addRestaurantInfo(restaurantInfo: IRestaurant) {
     this.state.restaurantService.addRestaurant(restaurantInfo);
 
-    this.renderListArticle(this.state.tabs.currentTab);
+    this.renderListArticle(store.currentTab);
 
     const localRestaurants =
       JSON.parse(getLocalStorage('restaurants') as string) || [];
@@ -108,7 +127,7 @@ export default class App {
   deleteRestaurantInfo(id: number) {
     this.state.restaurantService.deleteRerstaurant(id);
 
-    this.renderListArticle(this.state.tabs.currentTab);
+    this.renderListArticle(store.currentTab);
 
     const currentList = [
       ...this.state.restaurantService.getRestaurantsInfo(),

@@ -3,10 +3,12 @@ import { Restaurant } from '../domain/Restaurant';
 import { closeModal } from '../modal';
 import { categoryImageSource } from '../utils/imageSource';
 import { toggleFavoriteFilled } from './RestaurantItem';
+import { IHandlers } from '../App';
+import { store } from '../store';
 
 export default function RestaurantInfo(
   restaurant: Restaurant,
-  deleteHandler?: (id: number) => void
+  handlers: IHandlers
 ) {
   const $infoContainer = document.createElement('div');
   $infoContainer.className = 'info-container';
@@ -17,10 +19,13 @@ export default function RestaurantInfo(
     if (!(e.target instanceof HTMLElement)) return;
     const type = e.target.dataset['type'];
 
-    if (type === 'close') closeModal();
+    if (type === 'close') {
+      handlers.renderListArticle(store.currentTab);
+      closeModal();
+    }
+
     if (type === 'delete') {
-      if (!deleteHandler) return;
-      deleteHandler(id);
+      handlers.deleteHandler(id);
       closeModal();
     }
     if (type === 'favoriteButton') toggleFavoriteFilled(e.target, restaurant);

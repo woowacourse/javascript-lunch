@@ -1,17 +1,15 @@
 import './tabs.css';
 import { TabType } from '../types/type';
+import { store } from '../store';
 
 export default class Tabs {
   $tab = document.createElement('div');
-
-  currentTab: TabType;
 
   constructor(
     $root: HTMLElement,
     renderListArticle: (currentTab: TabType) => void
   ) {
     this.$tab.className = 'tab-container';
-    this.currentTab = 'all';
 
     this.render();
 
@@ -28,9 +26,9 @@ export default class Tabs {
           $button.classList.add('selected');
       });
 
-      this.currentTab = category as TabType;
+      store.currentTab = category as TabType;
 
-      renderListArticle(this.currentTab);
+      renderListArticle(store.currentTab);
     });
 
     $root.insertAdjacentElement('afterbegin', this.$tab);
