@@ -2,11 +2,15 @@
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
-  display: flex;
+  display: none;
   justify-content: space-between;
 
   padding: 0 16px;
   margin-top: 24px;
+}
+
+.filter--open {
+  display: flex;
 }
 
 .restaurant-filter-container select {
@@ -18,10 +22,6 @@
   background: transparent;
 
   font-size: 16px;
-}
-
-.restaurant-filter {
-  padding: 8px;
 }
 
 /* 음식점 목록 */
@@ -57,6 +57,9 @@
   background: var(--lighten-color);
 }
 
+.favorite-icon {
+}
+
 .category-icon {
   width: 36px;
   height: 36px;
@@ -66,6 +69,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  width: calc(100% - 112px);
 }
 
 .restaurant__name {
@@ -78,9 +83,9 @@
 
 .restaurant__description {
   display: -webkit-box;
-
   padding-top: 8px;
 
+  word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;

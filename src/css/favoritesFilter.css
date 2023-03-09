@@ -1,0 +1,31 @@
+.favorites-filter {
+  display: flex;
+
+  margin: 16px 0;
+  padding: 0 16px;
+}
+
+.favorites-filter .filter {
+  width: 100%;
+  height: 44px;
+
+  border: none;
+
+  color: var(--grey-300);
+
+  background-color: transparent;
+  border-bottom: 2px solid var(--grey-200);
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.favorites-filter .clicked {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.favorites-filter .filter:hover {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
