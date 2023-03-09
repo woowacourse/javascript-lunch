@@ -1,5 +1,6 @@
 import { Category, CATEGORY, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
 import { addData } from '../../utils/common/localStorage';
+import Validator from '../../validation';
 
 export interface FilterType {
   sortOption: SortOption;
@@ -20,7 +21,7 @@ export interface IRestaurant {
 }
 
 interface ILunchRecommendation {
-  add(restaurant: Omit<RestaurantInfo, 'id'>): void;
+  add(restaurant: Omit<RestaurantInfo, 'id'>): boolean;
   delete(restaurantId: RestaurantInfo['id']): Restaurant[];
   renderBy(filterType: FilterType): Restaurant[];
   sortByName(list: Restaurant[]): Restaurant[];
@@ -53,10 +54,20 @@ export class LunchRecommendation implements ILunchRecommendation {
     this.origin = infoList.map((info) => new Restaurant(info));
   }
 
-  add(restaurantInfo: Omit<RestaurantInfo, 'id'>): void {
+  add(restaurantInfo: Omit<RestaurantInfo, 'id'>): boolean {
     const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
-    this.origin.push(new Restaurant({ ...restaurantInfo, id }));
-    addData(this.origin.map(({ info }) => info));
+    const newRestaurant = { ...restaurantInfo, id };
+
+    const { isValid } = Validator.Restaurant.info(newRestaurant, {
+      onError: (error) => alert(error.message),
+    });
+
+    if (isValid) {
+      this.origin.push(new Restaurant(newRestaurant));
+      addData(this.origin.map(({ info }) => info));
+    }
+
+    return isValid;
   }
 
   delete(restaurantId: RestaurantInfo['id']): Restaurant[] {

@@ -31,12 +31,12 @@ function Modal({ close }: ModalProps) {
     if (e.target instanceof HTMLFormElement) {
       const fields = getFormFields(e.target);
 
-      handleClickAddBtn({
+      const isSuccess = handleClickAddBtn({
         ...fields,
         distance: Number(fields.distance),
       } as Omit<RestaurantInfo, 'id'>);
 
-      close();
+      isSuccess && closeModal();
     }
   };
 

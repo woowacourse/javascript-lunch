@@ -27,8 +27,11 @@ function useRestaurants() {
   }
 
   function handleClickAddBtn(restaurantInfo: Omit<RestaurantInfo, 'id'>) {
-    lunchRecommendation.add(restaurantInfo);
-    setRestaurants(lunchRecommendation.getList());
+    const isSuccess = lunchRecommendation.add(restaurantInfo);
+
+    if (isSuccess) setRestaurants(lunchRecommendation.getList());
+
+    return isSuccess;
   }
 
   return {
