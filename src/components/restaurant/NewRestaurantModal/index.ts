@@ -56,7 +56,7 @@ class NewRestaurantModal extends Component {
   override renderTemplate() {
     return `
       <r-modal title="새로운 음식점" onclose="this.host.onPostClose()">
-        <form slot="content" id="modal-form" onsubmit="this.host.onSubmit(event)">
+        <form slot="content" onsubmit="this.host.onSubmit(event)">
           <r-restaurant-category-select
             name="category"
             required
