@@ -86,12 +86,33 @@ class ItemModal {
     });
 
     $(".item-bookmark")?.addEventListener("click", () => {
-      toggleBookmark(this.restaurant.id);
-      this.restaurant.bookmarked = !this.restaurant.bookmarked;
-      //별만 다시 넣는 작업으로 변경
-      this.rerender(deleteRestaurant, toggleBookmark, rerenderList);
-      rerenderList();
+      this.onClickBookmark(toggleBookmark, rerenderList);
     });
+  }
+
+  bookMarkTemplate() {
+    return `<img src=${
+      this.restaurant.bookmarked
+        ? `./${StarImgPath.FILLED_STAR}`
+        : `./${StarImgPath.EMPTY_STAR}`
+    } alt="bookmarked" class="item-bookmark bookmark"/>`;
+  }
+
+  renderBookmark(toggleBookmark: HandleWithId, rerenderList: Rerender) {
+    $(".item-bookmark")?.remove();
+
+    $(".images")?.insertAdjacentHTML("beforeend", this.bookMarkTemplate());
+
+    $(".item-bookmark")?.addEventListener("click", () => {
+      this.onClickBookmark(toggleBookmark, rerenderList);
+    });
+  }
+
+  onClickBookmark(toggleBookmark: HandleWithId, rerenderList: Rerender) {
+    toggleBookmark(this.restaurant.id);
+    this.restaurant.bookmarked = !this.restaurant.bookmarked;
+    this.renderBookmark(toggleBookmark, rerenderList);
+    rerenderList();
   }
 }
 
