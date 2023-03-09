@@ -1,7 +1,7 @@
 import { Restaurant, FilterProperties } from '../type';
 
-class RestaurantFilter {
-  filter(restaurants: Restaurant[], filterProperties: FilterProperties) {
+class RestaurantSearcher {
+  search(restaurants: Restaurant[], filterProperties: FilterProperties) {
     const filteredRestaurants = this.#getFilteredRestaurantsByCategory(
       restaurants,
       filterProperties.filterBy
@@ -46,4 +46,4 @@ class RestaurantFilter {
   }
 }
 
-export default RestaurantFilter;
+export default RestaurantSearcher;

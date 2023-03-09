@@ -1,7 +1,7 @@
-import RestaurantFilter from '../src/domain/RestaurantFilter';
+import RestaurantSearcher from '../src/domain/RestaurantSearcher';
 import dummyRestaurants from '../src/dummy/dummyRestaurants';
 
-const restaurantFilter = new RestaurantFilter();
+const restaurantSearcher = new RestaurantSearcher();
 
 describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
   test('기본 필터링 조건일 때, 올바른 필터링 결과를 반환해야 한다.', () => {
@@ -19,9 +19,9 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
       dummyRestaurants[0],
     ];
 
-    expect(restaurantFilter.filter(dummyRestaurants, filterProperties)).toEqual(
-      expectedResult
-    );
+    expect(
+      restaurantSearcher.search(dummyRestaurants, filterProperties)
+    ).toEqual(expectedResult);
   });
 
   test('정렬이 거리 순일 경우, 거리가 가까운 순으로 정렬된 결과를 반환해야 한다.', () => {
@@ -39,9 +39,9 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
       dummyRestaurants[3],
     ];
 
-    expect(restaurantFilter.filter(dummyRestaurants, filterProperties)).toEqual(
-      expectedResult
-    );
+    expect(
+      restaurantSearcher.search(dummyRestaurants, filterProperties)
+    ).toEqual(expectedResult);
   });
 
   test('필터링이 중식이고, 정렬 조건이 거리순일 경우, 거리가 가까운 순서대로, 중식 음식점만 반환해야 한다.', () => {
@@ -53,9 +53,9 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
 
     const expectedResult = [dummyRestaurants[2], dummyRestaurants[4]];
 
-    expect(restaurantFilter.filter(dummyRestaurants, filterProperties)).toEqual(
-      expectedResult
-    );
+    expect(
+      restaurantSearcher.search(dummyRestaurants, filterProperties)
+    ).toEqual(expectedResult);
   });
 
   test('즐겨찾기 필터가 켜져 있으면, 즐겨찾기를 한 음식점만 필터링 된 결과를 반환해야 한다.', () => {
@@ -71,9 +71,9 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
       dummyRestaurants[2],
     ];
 
-    expect(restaurantFilter.filter(dummyRestaurants, filterProperties)).toEqual(
-      expectedResult
-    );
+    expect(
+      restaurantSearcher.search(dummyRestaurants, filterProperties)
+    ).toEqual(expectedResult);
   });
 
   test('조건을 만족하는 음식점이 없다면 빈 검색 결과를 반환해야 한다.', () => {
@@ -85,9 +85,9 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
 
     const expectedResult = [];
 
-    expect(restaurantFilter.filter(dummyRestaurants, filterProperties)).toEqual(
-      expectedResult
-    );
+    expect(
+      restaurantSearcher.search(dummyRestaurants, filterProperties)
+    ).toEqual(expectedResult);
   });
 
   test('중식/거리순/즐겨찾기 의 조건대로 검색했을 때, 조건에 해당하는 올바른 필터의 레스토랑만을 반환해야 한다.', () => {
@@ -99,8 +99,8 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
 
     const expectedResult = [dummyRestaurants[2]];
 
-    expect(restaurantFilter.filter(dummyRestaurants, filterProperties)).toEqual(
-      expectedResult
-    );
+    expect(
+      restaurantSearcher.search(dummyRestaurants, filterProperties)
+    ).toEqual(expectedResult);
   });
 });
