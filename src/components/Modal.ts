@@ -26,7 +26,7 @@ class Modal {
     modal.showModal();
   };
 
-  addEvents(onSubmit?: CallableFunction) {
+  addBackdropClickEvent() {
     const backdrop = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
 
     backdrop.addEventListener('click', (event: Event) => {
@@ -36,6 +36,10 @@ class Modal {
         this.closeModal();
       }
     });
+  }
+
+  addEvents(onSubmit?: CallableFunction) {
+    this.addBackdropClickEvent();
 
     if (this.content === RestaurantAddForm) {
       this.content.addEvents(this.closeModal, onSubmit as CallableFunction);
