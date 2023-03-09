@@ -31,10 +31,12 @@ const html = ({ id, category, name, distance, description, liked }) => `
 export default class RestaurantItem {
   restaurant;
   updateRestaurant;
+  deleteRestaurant;
 
-  constructor(restaurant, updateRestaurant) {
+  constructor(restaurant, updateRestaurant, deleteRestaurant) {
     this.restaurant = restaurant;
     this.updateRestaurant = updateRestaurant;
+    this.deleteRestaurant = deleteRestaurant;
 
     $('.restaurant-list').insertAdjacentHTML('beforeend', html(restaurant));
 
@@ -56,6 +58,6 @@ export default class RestaurantItem {
       return this.onClickStarIcon();
     }
 
-    new RestaurantDetailModal(this.restaurant);
+    new RestaurantDetailModal(this.restaurant, this.deleteRestaurant);
   }
 }

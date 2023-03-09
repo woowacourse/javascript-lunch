@@ -22,7 +22,7 @@ export default class Restaurants {
   }
 
   deleteRestaurant(id: string) {
-    this.#restaurants.filter((restaurant) => restaurant.id !== id);
+    this.#restaurants = this.#restaurants.filter((restaurant) => restaurant.id !== id);
 
     return deepCopy(this.#restaurants);
   }

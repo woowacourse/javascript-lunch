@@ -1,4 +1,5 @@
 import { $ } from '../utils/dom';
+import store from '../utils/store';
 
 const imgFileName = {
   한식: 'category-korean',
@@ -48,15 +49,28 @@ const html = ({ category, name, distance, description, link, liked }) => `
 `;
 
 export default class RestaurantDetailModal {
-  constructor(restaurant) {
+  restaurant;
+  deleteRestaurant;
+
+  constructor(restaurant, deleteRestaurant) {
+    this.restaurant = restaurant;
+    this.deleteRestaurant = deleteRestaurant;
+
     const modal = $('.restaurant-detail-modal');
     modal.innerHTML = html(restaurant);
     modal.classList.add('modal--open');
 
-    $('.restaurant-detail-modal-close-button').addEventListener('click', this.onClickCloseButton);
+    $('.restaurant-detail-modal-close-button').addEventListener('click', this.closeModal);
+    $('.delete-restaurant-button').addEventListener('click', this.onClickDeleteButton.bind(this));
   }
 
-  onClickCloseButton() {
+  onClickDeleteButton() {
+    const restaurants = this.deleteRestaurant(this.restaurant.id);
+
+    // store.setLocalStorage(restaurants);
+  }
+
+  closeModal() {
     $('.restaurant-detail-modal').classList.remove('modal--open');
   }
 }

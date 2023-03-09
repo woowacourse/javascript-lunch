@@ -82,7 +82,8 @@ export default class App {
 
     new RestaurantItems(
       sortedRestaurants,
-      this.restaurants.updateRestaurant.bind(this.restaurants)
+      this.restaurants.updateRestaurant.bind(this.restaurants),
+      this.restaurants.deleteRestaurant.bind(this.restaurants)
     );
   }
 
