@@ -1,5 +1,5 @@
 import { store } from '../../store';
-import { Restaurant } from '../../types';
+import { Restaurant, Restaurants } from '../../types';
 import $template from './index.html';
 
 class RestaurantItems extends HTMLElement {
@@ -11,16 +11,16 @@ class RestaurantItems extends HTMLElement {
     this.render(store.restaurants);
   }
 
-  render(restaurants: Restaurant[]) {
+  render(restaurants: Restaurants) {
     this.innerHTML = $template;
     const $restaurantList = this.querySelector('.restaurant-list') as HTMLUListElement;
 
-    restaurants.forEach((restaurant) => {
+    Object.entries(restaurants).forEach(([id, restaurant]) => {
       const { category, name, distance, description, link } = restaurant;
 
       $restaurantList.insertAdjacentHTML(
         'beforeend',
-        `<restaurant-item category=${category} name=${name} distance=${distance} description=${description} link=${link}></restaurant-item>`,
+        `<restaurant-item id=${id} category=${category} name=${name} distance=${distance} description=${description} link=${link}></restaurant-item>`,
       );
     });
   }

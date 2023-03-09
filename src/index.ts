@@ -11,7 +11,7 @@ import './styles';
 if (!localStorage.getItem('store')) {
   localStorage.setItem('store', JSON.stringify(initialRestaurants));
 }
-store.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
+store.restaurants = JSON.parse(localStorage.getItem('store') || '{}');
 
 customElements.define('lunch-header', Header);
 customElements.define('restaurant-item', RestaurantItem);

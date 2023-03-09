@@ -1,29 +1,45 @@
 import RestaurantItems from './components/RestaurantItems';
-import { Restaurant, CategoryFilter, SortFilter } from './types';
+import { Restaurant, CategoryFilter, SortFilter, Restaurants } from './types';
+import { v4 as uuid } from 'uuid';
 
 interface Store {
-  restaurants: Restaurant[];
+  restaurants: Restaurants;
   categoryFilter: CategoryFilter;
   sortFilter: SortFilter;
+  removeRestaurant: (restaurant: Restaurant) => void;
   addRestaurants: (restaurant: Restaurant) => void;
   filterRestaurants: (categoryFilter: CategoryFilter) => void;
   sortRestaurants: (sortFilter: SortFilter) => void;
 }
 
 export const store: Store = {
-  restaurants: [],
+  restaurants: {},
   categoryFilter: '전체',
   sortFilter: 'name',
 
+  removeRestaurant(target: Restaurant) {
+    // this.restaurants = this.restaurants.filter((restaurant) => !_.isEqual(restaurant, target));
+    // const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
+    //   typeof RestaurantItems
+    // >;
+    // $restaurantItems.render(this.restaurants);
+    // localStorage.setItem('store', JSON.stringify(this.restaurants));
+    // this.filterRestaurants(this.categoryFilter);
+    // this.sortRestaurants(this.sortFilter);
+  },
+
   addRestaurants(restaurant: Restaurant) {
-    this.restaurants = [...this.restaurants, restaurant];
+    this.restaurants = { [uuid()]: restaurant, ...this.restaurants };
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
     $restaurantItems.render(this.restaurants);
     localStorage.setItem(
       'store',
-      JSON.stringify([...JSON.parse(localStorage.getItem('store') || '[]'), restaurant]),
+      JSON.stringify({
+        [uuid()]: restaurant,
+        ...JSON.parse(localStorage.getItem('store') || '{}'),
+      }),
     );
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
@@ -34,12 +50,14 @@ export const store: Store = {
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
-    this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
+    this.restaurants = JSON.parse(localStorage.getItem('store') || '{}');
     if (categoryFilter === '전체') {
       return $restaurantItems.render(this.restaurants);
     }
-    const filteredRestaurants = this.restaurants.filter(
-      (restaurant) => restaurant.category === categoryFilter,
+    const filteredRestaurants = Object.fromEntries(
+      Object.entries(this.restaurants).filter(
+        ([_, restaurant]) => restaurant.category === categoryFilter,
+      ),
     );
     this.restaurants = filteredRestaurants;
     $restaurantItems.render(this.restaurants);
@@ -50,15 +68,26 @@ export const store: Store = {
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
+    let filteredRestaurants;
+
     switch (sortFilter) {
       case 'name':
-        this.restaurants.sort((a, b) => (a.name > b.name ? 1 : -1));
+        filteredRestaurants = Object.fromEntries(
+          Object.entries(this.restaurants).sort(([a_, a_restaurant], [b_, b_restaurant]) =>
+            a_restaurant.name > b_restaurant.name ? 1 : -1,
+          ),
+        );
         break;
       case 'distance':
-        this.restaurants.sort((a, b) => a.distance - b.distance);
+        filteredRestaurants = Object.fromEntries(
+          Object.entries(this.restaurants).sort(
+            ([a_, a_restaurant], [b_, b_restaurant]) =>
+              a_restaurant.distance - b_restaurant.distance,
+          ),
+        );
         break;
     }
-    $restaurantItems.render(this.restaurants);
+    $restaurantItems.render(filteredRestaurants);
   },
 };
 
