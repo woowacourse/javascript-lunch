@@ -38,6 +38,19 @@ class RestaurantList extends HTMLElement {
       });
     });
   }
+
+  onToggleFavorite() {
+    const favorites = this.querySelectorAll("#favorite");
+
+    favorites.forEach((favorite: any) => {
+      favorite.addEventListener("click", () => {
+        this.controller.toggleFavorite(
+          Number(favorite.parentElement.getAttribute("key"))
+        );
+        this.render();
+      });
+    });
+  }
 }
 
 export default RestaurantList;
