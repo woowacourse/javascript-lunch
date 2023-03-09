@@ -102,3 +102,42 @@ export const SORTING_TEST_CASE = [
     isFavorite: false,
   },
 ];
+
+export const FAVORITES_TEST_CASE = [
+  {
+    id: 0,
+    category: '한식',
+    name: '매우_좋아요',
+    distance: '5',
+    description: 'good',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+  {
+    id: 1,
+    category: '한식',
+    name: '안좋아요',
+    distance: '5',
+    description: 'good',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+  {
+    id: 2,
+    category: '한식',
+    name: '안좋아요',
+    distance: '5',
+    description: 'good',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+  {
+    id: 3,
+    category: '한식',
+    name: '안좋아요',
+    distance: '5',
+    description: 'good',
+    link: 'http://www.naver.com',
+    isFavorite: false,
+  },
+];

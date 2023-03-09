@@ -1,4 +1,4 @@
-import { CATEGORY_TEST_CASE, SORTING_TEST_CASE } from '../data';
+import { CATEGORY_TEST_CASE, FAVORITES_TEST_CASE, SORTING_TEST_CASE } from '../data';
 
 const TEST_URL = 'http://localhost:8080/';
 
@@ -80,7 +80,17 @@ describe('음식점 목록, 드롭다운 메뉴/탭바', () => {
       .should('contain', '첫번째 거리');
   });
 
-  it('탭바를 통해 음식점 목록을 모든 음식점/자주 가는 음식점 으로 분류하여 볼 수 있다.', () => {});
+  it('탭바를 통해 음식점 목록을 모든 음식점/자주 가는 음식점 으로 분류하여 볼 수 있다.', () => {
+    cy.visit(TEST_URL, {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('restaurants', JSON.stringify(FAVORITES_TEST_CASE));
+      },
+    });
+    cy.get('.restaurant-list li.restaurant .favorite__button').first().click();
+    cy.get('.tab-bar-select[data-type="favorite"]').click();
+    cy.get('.app').contains('매우_좋아요');
+    cy.get('.app').contains('안좋아요').should('not.exist');
+  });
 
   it('음식점 목록에서 `별표 버튼`을 `클릭`해 자주 가는 음식점으로 `등록/해제` 할 수 있다.', () => {});
 });
