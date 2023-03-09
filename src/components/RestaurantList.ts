@@ -29,7 +29,7 @@ class RestaurantList extends HTMLElement {
   }
 
   onClickRestaurantItem() {
-    const restaurantItems = this.querySelectorAll("#restaurantItem");
+    const restaurantItems = this.querySelectorAll("#restaurantInfo");
 
     restaurantItems.forEach((restaurantItem) => {
       restaurantItem.addEventListener("click", () => {
