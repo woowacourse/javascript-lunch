@@ -26,3 +26,7 @@ export const getRestaurantById = (id) => {
 
   return restaurants.filter((restaurant) => restaurant.id === id)[0];
 };
+
+export const getRestaurants = () => {
+  return JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
+};
