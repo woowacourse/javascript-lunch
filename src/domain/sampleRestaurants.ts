@@ -4,7 +4,7 @@ export const sampleRestaurants: Restaurant[] = [
   {
     id: '61aa0b38-8afa-47ec-8b24-326811667941',
     category: '한식',
-    name: '피양콩할머니',
+    name: '피양콩할마니',
     distance: 10,
     description: `평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은
     되비지를 맛볼 수 있는 곳으로, ‘피양’은 평안도 사투리로 ‘평양’을 의미한다. 딸과 함께
