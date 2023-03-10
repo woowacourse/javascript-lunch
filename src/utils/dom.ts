@@ -3,6 +3,12 @@ export const $ = <E extends HTMLElement>(selector: string): E | null =>
 
 export const isChecked = ($target: HTMLInputElement) => $target.checked;
 
+export const isModalOpened = ($target: HTMLDialogElement) => $target.open;
+
+export const resetSelect = ($target: HTMLSelectElement) => {
+  $target.selectedIndex = 0;
+};
+
 export const dispatchCustomEvent = (
   $target: HTMLElement,
   {

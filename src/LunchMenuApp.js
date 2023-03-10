@@ -1,7 +1,7 @@
-import { restaurantManager } from './domain/restaurantManager';
 import { LOCAL_STORAGE_KEY } from './domain/constants';
+import { restaurantManager } from './domain/restaurantManager';
 
-import { $, isChecked } from './utils/dom';
+import { $, isChecked, resetSelect, isModalOpened } from './utils/dom';
 import { setLocalStorage } from './utils/localStorage';
 
 const LunchMenuApp = {
@@ -74,13 +74,8 @@ const LunchMenuApp = {
   },
 
   resetFilter() {
-    const $categoryFilter = $('#category-filter');
-    const $sortingFilter = $('#sorting-filter');
-    const initialCategory = $categoryFilter.options[0].value;
-    const initialSorting = $sortingFilter.options[0].value;
-
-    $categoryFilter.value = initialCategory;
-    $sortingFilter.value = initialSorting;
+    resetSelect($('#category-filter'));
+    resetSelect($('#sorting-filter'));
   },
 
   isFavoriteTabChecked() {
@@ -100,17 +95,13 @@ const LunchMenuApp = {
   handleFavoriteToggle(restaurantId) {
     restaurantManager.toggleFavorite(restaurantId);
 
-    if (this.isDetailModalOpened()) {
+    if (isModalOpened($('.modal'))) {
       this.updateDetailModal(
         restaurantManager.list.find((restaurant) => restaurant.id === restaurantId)
       );
     }
 
     this.updateRestaurantList();
-  },
-
-  isDetailModalOpened() {
-    return $('.modal').open;
   },
 
   updateDetailModal(updatedRestaurant) {
