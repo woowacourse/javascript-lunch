@@ -23,9 +23,9 @@ export class App {
   private currentTab = TAB_ID.ALL;
 
   constructor() {
+    this.renderTabs();
     renderRestaurantList(this.restaurantService.filterAndSort());
     this.bindEventHandlers();
-    this.renderTabs();
   }
 
   bindEventHandlers() {
