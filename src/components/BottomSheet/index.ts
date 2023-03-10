@@ -1,3 +1,5 @@
+import { onClickBackdrop } from "./handleBottomSheet";
+
 class BottomSheet extends HTMLElement {
   constructor() {
     super();
@@ -10,26 +12,7 @@ class BottomSheet extends HTMLElement {
     ${children}
     </div>
     `;
-    this.onClickBackdrop();
-  }
-
-  onClickBackdrop() {
-    const modalBackdrop = document.getElementById("modalBackdrop");
-    modalBackdrop?.addEventListener("click", () => {
-      this.close();
-    });
-  }
-
-  open(children: string) {
-    const bottomSheet = document.getElementById("bottomSheet");
-    bottomSheet?.classList.add("modal--open");
-    this.render(children);
-  }
-
-  close() {
-    const bottomSheet = document.getElementById("bottomSheet");
-    bottomSheet?.classList.remove("modal--open");
-    this.render("");
+    onClickBackdrop();
   }
 }
 

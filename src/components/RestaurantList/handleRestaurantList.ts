@@ -1,5 +1,6 @@
 import RestaurantList from ".";
 import BottomSheet from "../BottomSheet";
+import { openBottomSheet } from "../BottomSheet/handleBottomSheet";
 
 export const renderRestaurantList = () => {
   const restaurantList = document.getElementById("restaurantList");
@@ -19,8 +20,5 @@ export const onclickRestaurantList = () => {
 
 // 리팩토링 필요
 export const onClickRestaurantItem = (id: string) => {
-  const bottomSheet = document.getElementById("bottomSheet");
-  if (bottomSheet instanceof BottomSheet) {
-    bottomSheet.open(`<restaurant-view restaurant-id=${id}></restaurant-view>`);
-  }
+  openBottomSheet(`<restaurant-view restaurant-id=${id}></restaurant-view>`);
 };
