@@ -1,8 +1,15 @@
 import { FILTER_CATEGORY, SORT_CONDITION } from '../data/Constants';
 import { FilterCategory, SortCondition } from '../domain/RestaurantList';
-import { $ } from '../util/dom';
+import { Component } from '../type/Component';
 
-class RestaurantFilterBar {
+class RestaurantFilterBar implements Component {
+  $target: Element;
+
+  constructor(parent: Element) {
+    parent.insertAdjacentHTML('beforeend', this.template());
+    this.$target = parent.lastElementChild!;
+  }
+
   template = () => `
     <section class="restaurant-filter-container">
       <select name="category" id="category-filter" class="restaurant-filter">${FILTER_CATEGORY.map(
@@ -15,29 +22,31 @@ class RestaurantFilterBar {
       </select>
     </section>`;
 
-  render = (target: HTMLElement) => {
-    target.insertAdjacentHTML('beforeend', this.template());
+  render = () => {
+    this.$target.innerHTML = this.template();
   };
 
-  get category() {
-    return ($('#category-filter') as HTMLInputElement).value as FilterCategory;
-  }
+  remove = () => {
+    this.$target.replaceChildren();
+  };
 
-  get sortCondition() {
-    return ($('#sorting-filter') as HTMLInputElement).value as SortCondition;
-  }
+  getCategory = () =>
+    (this.$target.querySelector('#category-filter') as HTMLInputElement).value as FilterCategory;
+
+  getSortCondition = () =>
+    (this.$target.querySelector('#sorting-filter') as HTMLInputElement).value as SortCondition;
 
   setSelectChangeHandler = (
     handler: (category: FilterCategory, sortCondition: SortCondition) => void,
   ) => {
     ['#category-filter', '#sorting-filter'].forEach((id) => {
-      $(id)?.addEventListener('change', (event) => {
+      this.$target.querySelector(id)?.addEventListener('change', (event) => {
         event.preventDefault();
 
-        handler(this.category, this.sortCondition);
+        handler(this.getCategory(), this.getSortCondition());
       });
     });
   };
 }
 
-export default new RestaurantFilterBar();
+export default RestaurantFilterBar;

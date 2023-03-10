@@ -1,9 +1,16 @@
 import { CATEGORY, MINUTES_TO_CAMPUS } from '../data/Constants';
+import { Component } from '../type/Component';
 import { Category, MinutesToCampus, Restaurant } from '../type/Restaurant';
-import { $ } from '../util/dom';
 import { Validator } from '../util/Validator';
 
-class RestaurantAddModal {
+class RestaurantAddModal implements Component {
+  $target: Element;
+
+  constructor(parent: Element) {
+    parent.insertAdjacentHTML('beforeend', this.template());
+    this.$target = parent.lastElementChild!;
+  }
+
   template = () => `
     <div class="modal">
       <div class="modal-backdrop"></div>
@@ -57,23 +64,22 @@ class RestaurantAddModal {
       </div>
   `;
 
-  render = (target: HTMLElement) => {
-    target.insertAdjacentHTML('beforeend', this.template());
-  };
-
   toggle = () => {
-    ($('#form-add-restaurant') as HTMLFormElement).reset();
-    $('.modal')?.classList.toggle('modal--open');
+    (this.$target.querySelector('#form-add-restaurant') as HTMLFormElement).reset();
+    this.$target.querySelector('.modal')?.classList.toggle('modal--open');
   };
 
-  makeRestaurant(target: HTMLFormElement): Restaurant {
-    const formData = new FormData(target);
+  makeRestaurant(): Restaurant {
+    const formData = new FormData(
+      this.$target.querySelector('#form-add-restaurant') as HTMLFormElement,
+    );
     const restaurant: Restaurant = {
       category: formData.get('category') as Category,
       name: formData.get('name') as string,
       distance: Number(formData.get('distance')) as MinutesToCampus,
       description: formData.get('description') as string,
       link: formData.get('link') as string,
+      isFavorite: false,
     };
     this.validate(restaurant);
 
@@ -87,9 +93,8 @@ class RestaurantAddModal {
   }
 
   setCloseModalHandler = () => {
-    $('.button--secondary')?.addEventListener('click', this.toggle);
-
-    $('.modal-backdrop')?.addEventListener('click', this.toggle);
+    this.$target.querySelector('.button--secondary')?.addEventListener('click', this.toggle);
+    this.$target.querySelector('.modal-backdrop')?.addEventListener('click', this.toggle);
 
     document.addEventListener(
       'keydown',
@@ -98,10 +103,10 @@ class RestaurantAddModal {
   };
 
   setAddbuttonHandler = (handler: (restaurant: Restaurant) => void) => {
-    $('#form-add-restaurant')?.addEventListener('submit', (event) => {
+    this.$target.querySelector('#form-add-restaurant')?.addEventListener('submit', (event) => {
       try {
         event.preventDefault();
-        handler(this.makeRestaurant(event.target as HTMLFormElement));
+        handler(this.makeRestaurant());
         this.toggle();
       } catch (error) {
         alert(error);
@@ -110,4 +115,4 @@ class RestaurantAddModal {
   };
 }
 
-export default new RestaurantAddModal();
+export default RestaurantAddModal;

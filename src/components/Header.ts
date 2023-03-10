@@ -1,7 +1,14 @@
 import ImagePath from '../../templates/add-button.png';
-import { $ } from '../util/dom';
+import { Component } from '../type/Component';
 
-class Header {
+class Header implements Component {
+  $target: Element;
+
+  constructor(parent: Element) {
+    parent.insertAdjacentHTML('afterbegin', this.template());
+    this.$target = parent.firstElementChild!;
+  }
+
   template = () => `
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -10,15 +17,11 @@ class Header {
       </button>
     </header>`;
 
-  render = (target: HTMLElement) => {
-    target.insertAdjacentHTML('afterbegin', this.template());
-  };
-
   setButtonHandler = (handler: () => void) => {
-    $('.gnb__button')?.addEventListener('click', (event) => {
+    this.$target.querySelector('.gnb__button')?.addEventListener('click', (event) => {
       handler();
     });
   };
 }
 
-export default new Header();
+export default Header;
