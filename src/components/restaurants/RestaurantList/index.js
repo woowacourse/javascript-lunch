@@ -55,24 +55,34 @@ class RestaurantList {
     this.render(favoriteList);
   }
 
+  renderAfterDataChange() {
+    const selectedTab = $('input[name="tab"]:checked').value;
+
+    if (selectedTab === "favorite") {
+      this.renderFavoriteList();
+      return;
+    }
+
+    if (selectedTab === "all") {
+      const selectedCategory = $("#category-filter").value;
+      const selectedSortingWay = $("#sorting-filter").value;
+
+      this.renderFilteredList(selectedCategory, selectedSortingWay);
+    }
+  }
+
   addRestaurant(newRestaurant) {
     this.restaurantListManager.addRestaurant({ ...newRestaurant, id: Date.now(), favorite: false });
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
-    const selectedCategory = $("#category-filter").value;
-    const selectedSortingWay = $("#sorting-filter").value;
-
-    this.renderFilteredList(selectedCategory, selectedSortingWay);
+    this.renderAfterDataChange();
   }
 
   removeRestaurant(restaurantId) {
     this.restaurantListManager.removeRestaurant(restaurantId);
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
-    const selectedCategory = $("#category-filter").value;
-    const selectedSortingWay = $("#sorting-filter").value;
-
-    this.renderFilteredList(selectedCategory, selectedSortingWay);
+    this.renderAfterDataChange();
   }
 }
 
