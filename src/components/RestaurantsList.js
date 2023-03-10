@@ -6,8 +6,8 @@ class RestaurantsList {
     this.$target = $target;
     this.sortedCallback = restaurants.getSelectedRestaurantsList.bind(restaurants);
     this.getFavoriteCallback = restaurants.getFavoriteRestaurantList.bind(restaurants);
-    this.restaurantItem = new RestaurantItem();
     this.infoRenderCallback = infoModal.render.bind(infoModal);
+    this.restaurantItem = new RestaurantItem();
     this.setState(restaurants.restaurantsList);
   }
 
@@ -37,23 +37,23 @@ class RestaurantsList {
 
     const sortedRestaurantList = this.sortedCallback(category, sortType);
 
-    this.renderRestaurantItem(sortedRestaurantList, this.infoRenderCallback);
+    this.renderRestaurantItem(sortedRestaurantList);
   }
 
-  renderRestaurantItem(sortedRestaurantList, infoCallback) {
+  renderRestaurantItem(sortedRestaurantList) {
     const restaurantList = $('.restaurant-list');
     restaurantList.replaceChildren();
 
     restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(sortedRestaurantList));
-    this.setItemEvent(sortedRestaurantList, infoCallback);
+    this.setItemEvent(sortedRestaurantList);
   }
 
-  renderFavoriteRestaurant(infoCallback) {
+  renderFavoriteRestaurant() {
     const restaurantList = $('.restaurant-list');
     restaurantList.replaceChildren();
 
     restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(this.getFavoriteCallback()));
-    this.setItemEvent(this.getFavoriteCallback(), infoCallback);
+    this.setItemEvent(this.getFavoriteCallback());
   }
 
   setEvent(callback) {
@@ -68,11 +68,11 @@ class RestaurantsList {
     });
   }
 
-  setItemEvent(restaurantList, openInfoModal) {
+  setItemEvent(restaurantList) {
     restaurantList.forEach(restaurant => {
       $(`#${restaurant.id}`).addEventListener('click', e => {
         if (e.target.id === '') {
-          openInfoModal(restaurant);
+          this.infoRenderCallback(restaurant);
         }
       });
     });
