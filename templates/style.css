@@ -19,6 +19,7 @@ body {
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
+  --list-hover-color: #f5e3de;
   --grey-100: #ffffff;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
@@ -97,6 +98,11 @@ body {
   cursor: pointer;
 }
 
+.restaurant__favorite__icon:hover {
+  animation: shake 1.7s;
+  animation-iteration-count: infinite;
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -141,6 +147,11 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+  cursor: pointer;
+}
+
+.restaurant:hover {
+  background: var(--list-hover-color)
 }
 
 .restaurant__category {
@@ -415,4 +426,20 @@ input[name='link'] {
 .tabview__content h4 {
   margin: 0;
   padding: 0.5rem 0;
+}
+
+/* keyframes *****************************************/
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
