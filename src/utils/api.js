@@ -1,4 +1,4 @@
-import { REQUEST_RASTAURANT_KEY } from './constants';
+import { REQUEST_RASTAURANT_KEY, REQUEST_RESTAURANT_ID_KEY } from './constants';
 
 export const fetchFavoriteId = (id) => {
   const restaurants = JSON.parse(localStorage.getItem(REQUEST_RASTAURANT_KEY) ?? '[]');
@@ -32,12 +32,12 @@ export const getRestaurants = () => {
 };
 
 export const getNewId = () => {
-  if (!localStorage.getItem('rid')) {
-    localStorage.setItem('rid', '0');
+  if (!localStorage.getItem(REQUEST_RESTAURANT_ID_KEY)) {
+    localStorage.setItem(REQUEST_RESTAURANT_ID_KEY, '0');
   }
 
-  const currentId = Number(localStorage.getItem('rid'));
-  localStorage.setItem('rid', `${currentId + 1}`);
+  const currentId = Number(localStorage.getItem(REQUEST_RESTAURANT_ID_KEY));
+  localStorage.setItem(REQUEST_RESTAURANT_ID_KEY, `${currentId + 1}`);
 
   return currentId + 1;
 };

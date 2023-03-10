@@ -126,12 +126,12 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
 
   onOpenInfoDrawer(e: Event) {
     const currentTarget = e.currentTarget as HTMLElement;
-    const rid = Number(currentTarget.dataset.restaurantId ?? '0');
+    const restaurantId = Number(currentTarget.dataset.restaurantId ?? '0');
 
     this.setState({
       ...this.state,
       isOpenDrawer: true,
-      selectId: rid,
+      selectId: restaurantId,
     });
   }
 
