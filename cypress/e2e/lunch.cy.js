@@ -60,5 +60,11 @@ describe('자주 가는 음식점 e2e 테스트', () => {
     cy.get('.restaurant-detail__info-container').should('contain.text', '덮밥이맛있는집');
   });
 
+  it('음식점 상세 정보 모달에서 삭제 버튼을 누르면 음식점 목록에서 해당 음식점이 사라진다.', () => {
+    cy.get('.restaurant[data-id="4"]').click();
+    cy.get('#restaurant-information-delete-button').click();
+    cy.get('.restaurant-list').find('.restaurant').should('not.have.attr', 'data-id', '4');
+  });
+
   // 상세페이지에서 웹사이트 방문하기를 누르면 다른 탭에 음식점 웹사이트가 열린다
 });
