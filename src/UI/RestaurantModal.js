@@ -45,9 +45,10 @@ class RestaurantModal {
         </div>
     </div>
     `;
-  constructor(restaurantInfo) {
+  constructor(restaurantInfo, rerender) {
     this.restaurantInfo = restaurantInfo;
     this.render(this.restaurantInfo);
+    this.rerender = rerender;
     this.showModal();
     this.modal = $(".restaurant-detail.modal-container");
     this.modalBackdrop = $(".restaurant-detail.modal-backdrop");
@@ -87,16 +88,10 @@ class RestaurantModal {
   };
 
   addEvent() {
-    $(".remove-button").addEventListener("click", (event) => {
-      $(".remove-button");
-      this.closeModal();
-    });
     $(".close-button").addEventListener("click", this.closeModal);
     this.modalBackdrop.addEventListener("click", this.closeBackDrop);
     window.addEventListener("keyup", this.closeEscape);
   }
-
-  removeRestaurant() {}
 }
 
 export default RestaurantModal;

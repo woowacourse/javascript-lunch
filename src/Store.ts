@@ -1,42 +1,49 @@
 import { RestaurantForm } from "./types";
 
 class Store {
-  private restaurantItemList: RestaurantForm[] = [];
-  private favoriteItemList: RestaurantForm[] = [];
-  private filteredItemList: RestaurantForm[] = [];
+  static restaurantItemList: RestaurantForm[] = [];
+  static favoriteItemList: RestaurantForm[] = [];
+  static filteredItemList: RestaurantForm[] = [];
 
-  setRestaurantList(inputList: RestaurantForm[]) {
+  static setRestaurantList(inputList: RestaurantForm[]) {
     this.restaurantItemList = [...this.restaurantItemList, ...inputList];
   }
 
-  appendRestaurant(input: RestaurantForm) {
+  static appendRestaurant(input: RestaurantForm) {
     this.restaurantItemList = [...this.restaurantItemList, input];
   }
 
-  getFavoriteList() {
+  static setFilteredList(selectedValue: string) {
+    this.filteredItemList = this.restaurantItemList.filter(
+      (restaurant) => restaurant.category === selectedValue
+    );
+  }
+
+  static getFavoriteList() {
     return this.restaurantItemList.filter(
       (restaurant) => restaurant.favorite === true
     );
   }
 
-  getFilteredList(selectedValue: string) {
-    return this.restaurantItemList.filter(
-      (restaurant) => restaurant.category === selectedValue
-    );
+  static getFilteredList() {
+    return this.filteredItemList;
   }
 
-  getRestaurantList() {
+  static getRestaurantList() {
     return this.restaurantItemList;
   }
 
-  deleteFavoriteItem(item: RestaurantForm) {
+  static deleteFavoriteItem(item: RestaurantForm) {
     this.favoriteItemList = this.favoriteItemList.filter(
       (favorite) => favorite.id !== item.id
     );
   }
 
-  deleteRestaurantItem(item: RestaurantForm) {
+  static deleteRestaurantItem(item: RestaurantForm) {
     this.restaurantItemList = this.restaurantItemList.filter(
+      (restaurant) => restaurant.id !== item.id
+    );
+    this.filteredItemList = this.filteredItemList.filter(
       (restaurant) => restaurant.id !== item.id
     );
   }
