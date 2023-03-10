@@ -36,4 +36,12 @@ describe('자주 가는 음식점 e2e 테스트', () => {
       cy.get('.restaurant__description').should('contain.text', '대만이 원조인 딤섬 전문점.');
     });
   });
+
+  it('모든 음식점 탭에서 자주 가는 음식점 목록에 포함되지 않은 음식점의 즐겨찾기 아이콘을 누르면 아이콘이 변한다.', () => {
+    cy.get('.restaurant[data-id="8"]').find('.restaurant-star-icon').click();
+  });
+
+  // 모든 음식점 페이지에서 음식점 즐겨 찾기 버튼을 누르면 아이콘이 변한다.
+
+  // 상세페이지에서 웹사이트 방문하기를 누르면 다른 탭에 음식점 웹사이트가 열린다
 });
