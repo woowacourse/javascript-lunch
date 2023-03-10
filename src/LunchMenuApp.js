@@ -1,4 +1,5 @@
 import { restaurantManager } from './domain/restaurantManager';
+import { LOCAL_STORAGE_KEY } from './domain/constants';
 
 import { $, isChecked } from './utils/dom';
 import { setLocalStorage } from './utils/localStorage';
@@ -81,7 +82,7 @@ const LunchMenuApp = {
   },
 
   setRestaurantList() {
-    setLocalStorage('restaurants', restaurantManager.list);
+    setLocalStorage(LOCAL_STORAGE_KEY, restaurantManager.list);
   },
 
   handleFavoriteToggle(restaurantId) {

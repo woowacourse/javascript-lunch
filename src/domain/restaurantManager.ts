@@ -1,5 +1,7 @@
 import { sampleRestaurants } from './sampleRestaurants';
 
+import { LOCAL_STORAGE_KEY } from './constants';
+
 import { getLocalStorage } from '../utils/localStorage';
 
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
@@ -32,7 +34,7 @@ export const restaurantManager: RestaurantManager = {
   list: [],
 
   init() {
-    this.list = getLocalStorage('restaurants') ?? sampleRestaurants;
+    this.list = getLocalStorage(LOCAL_STORAGE_KEY) ?? sampleRestaurants;
   },
 
   add(restaurant) {

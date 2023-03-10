@@ -1,17 +1,10 @@
+import { RestaurantIconCategory } from '../domain/constants';
+
 import { $, dispatchCustomEvent } from '../utils/dom';
 
 customElements.define(
   'restaurant-detail-modal',
   class RestaurantDetailModal extends HTMLElement {
-    categories = {
-      한식: 'korean',
-      중식: 'chinese',
-      일식: 'japanese',
-      아시안: 'asian',
-      양식: 'western',
-      기타: 'etc',
-    };
-
     constructor() {
       super();
 
@@ -26,7 +19,7 @@ customElements.define(
       <div class="icon-container">
         <div class="restaurant__category">
           <img src="./category-${
-            this.categories[category]
+            RestaurantIconCategory[category]
           }.png" alt="${category}" class="category-icon" />
         </div>
         <button class="favorite">

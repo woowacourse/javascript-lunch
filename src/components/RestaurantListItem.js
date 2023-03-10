@@ -1,15 +1,8 @@
+import { RestaurantIconCategory } from '../domain/constants';
+
 customElements.define(
   'restaurant-list-item',
   class RestaurantListItem extends HTMLElement {
-    categories = {
-      한식: 'korean',
-      중식: 'chinese',
-      일식: 'japanese',
-      아시안: 'asian',
-      양식: 'western',
-      기타: 'etc',
-    };
-
     constructor() {
       super();
 
@@ -23,7 +16,7 @@ customElements.define(
       <li class="restaurant">
         <div class="restaurant__category">
           <img src="./category-${
-            this.categories[category]
+            RestaurantIconCategory[category]
           }.png" alt="${category}" class="category-icon" />
         </div>
         <div class="restaurant__info">
