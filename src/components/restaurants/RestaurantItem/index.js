@@ -1,20 +1,16 @@
 import "./index.css";
 import translateCategory from "../../../util/translateCategory";
 import LocalStorage from "../../../util/LocalStorage";
-import { $ } from "../../../util/dom";
 
 class RestaurantItem {
   $target;
   restaurantInfo;
-  restaurantListManager;
 
-  constructor($target, restaurantInfo, restaurantListManager) {
+  constructor($target, restaurantInfo) {
     this.$target = $target;
     this.restaurantInfo = restaurantInfo;
-    this.restaurantListManager = restaurantListManager;
 
     this.render();
-    this.setEvent();
   }
 
   template() {
@@ -50,21 +46,24 @@ class RestaurantItem {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  onClickFavoriteIcon(event) {
-    if (!event.target.closest(".favorite")) return;
+  setFavoriteClickEvent(restaurantListManager) {
+    this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
+      if (!event.target.closest(".favorite")) return;
 
-    this.restaurantListManager.toggleFavoriteState(Number(this.restaurantInfo.id));
-    LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
+      restaurantListManager.toggleFavoriteState(Number(this.restaurantInfo.id));
+      LocalStorage.setData("list", restaurantListManager.getRestaurantList());
 
-    this.restaurantInfo = { ...this.restaurantInfo, favorite: !this.restaurantInfo.favorite };
-    event.target.src = `./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
+      this.restaurantInfo = { ...this.restaurantInfo, favorite: !this.restaurantInfo.favorite };
+      event.target.src = `./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
+    });
   }
 
-  setEvent() {
-    const id = this.restaurantInfo.id;
+  setRestaurantInfoEvent(modal) {
+    this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
+      if (event.target.closest(".favorite")) return;
 
-    this.$target.querySelector(`#restaurant${id}`).addEventListener("click", (event) => {
-      this.onClickFavoriteIcon(event);
+      modal.setRestaurantDetail(this.restaurantInfo);
+      modal.toggle();
     });
   }
 }

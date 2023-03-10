@@ -6,10 +6,12 @@ import RestaurantItem from "../RestaurantItem";
 
 class RestaurantList {
   $target;
+  modal;
   restaurantListManager;
 
-  constructor($target) {
+  constructor($target, modal) {
     this.$target = $target;
+    this.modal = modal;
 
     const localData = LocalStorage.getData("list");
     this.restaurantListManager = new RestaurantListManager(localData);
@@ -29,7 +31,9 @@ class RestaurantList {
     const $restaurantList = this.$target.querySelector(".restaurant-list");
 
     restaurantList.forEach((restaurantInfo) => {
-      new RestaurantItem($restaurantList, restaurantInfo, this.restaurantListManager);
+      const item = new RestaurantItem($restaurantList, restaurantInfo);
+      item.setFavoriteClickEvent(this.restaurantListManager);
+      item.setRestaurantInfoEvent(this.modal);
     });
   }
 

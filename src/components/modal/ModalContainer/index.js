@@ -1,5 +1,6 @@
 import "./index.css";
 import AddRestaurantFormModal from "../AddRestaurantFormModal";
+import RestaurantDetailModal from "../RestaurantDetailModal";
 
 class ModalContainer {
   $target;
@@ -31,6 +32,11 @@ class ModalContainer {
 
     formModal.setSubmitEvent(restaurantList, this.toggle.bind(this));
     formModal.setCancelEvent(this.toggle.bind(this));
+  }
+
+  setRestaurantDetail(restaurantInfo) {
+    const $modalContainer = this.$target.querySelector(".modal-container");
+    const detailModal = new RestaurantDetailModal($modalContainer, restaurantInfo);
   }
 
   setEvent() {
