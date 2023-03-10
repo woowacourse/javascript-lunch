@@ -29,10 +29,7 @@ class RestaurantService {
   }
 
   delete(restaurantId: number) {
-    const restaurantIndex = this.findRestaurantIndex(restaurantId);
-    this.restaurantList.splice(restaurantIndex, 1);
-
-    return [...this.restaurantList];
+    return this.restaurantList.filter((restaurant) => restaurant.id !== restaurantId);
   }
 
   updateFavorite(restaurantId: number) {
