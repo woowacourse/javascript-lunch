@@ -30,7 +30,7 @@ const RestaurantDetail = {
       </div>
       <a href="${link}" target="_blank" class="restaurant__link">${link}</a>         
       <div class="button-container">
-        <button type="button" id="restaurant-remove-button" class="button button--secondary text-caption">
+        <button type="button" id="restaurant-delete-button" class="button button--secondary text-caption">
           삭제하기
         </button>
         <button id="modal-close-button" class="button button--primary text-caption">닫기</button>

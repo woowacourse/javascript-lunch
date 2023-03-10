@@ -50,6 +50,7 @@ export default class App {
 
     $('#restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
     $('#modal').addEventListener('click', this.onClickDetailFavoriteIcon.bind(this));
+    $('#modal').addEventListener('click', this.onClickRestaurantDeleteButton.bind(this));
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -170,5 +171,19 @@ export default class App {
     const favoriteRestaurants = getFavoriteRestaurants(restaurant);
 
     RestaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+  }
+
+  onClickRestaurantDeleteButton(e) {
+    if (e.target.id !== 'restaurant-delete-button') return;
+
+    const restaurantId = $('#modal-detail-view').dataset.listid;
+    this.#restaurants.deleteRestaurant(Number(restaurantId));
+
+    const updatedRestaurants = this.#restaurants.getRestaurants();
+    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+    this.renderRestaurantListByFavoriteTab();
+
+    Modal.toggleModal();
   }
 }

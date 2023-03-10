@@ -19,6 +19,12 @@ export default class Restaurants {
     this.#restaurants[targetIndex].isFavorite = !this.#restaurants[targetIndex].isFavorite;
   }
 
+  deleteRestaurant(restaurantId: number) {
+    const targetIndex = this.#restaurants.findIndex((restaurant) => restaurant.id === restaurantId);
+
+    this.#restaurants.splice(targetIndex, 1);
+  }
+
   getRestaurants() {
     return deepCopy(this.#restaurants);
   }
