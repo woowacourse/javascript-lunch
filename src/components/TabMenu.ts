@@ -38,12 +38,32 @@ class TabMenu extends HTMLUListElement {
 
     event.currentTarget.classList.add("active-tab-menu");
 
+    const { value } = event.currentTarget;
+
+    this.toggleFilterContainer(value);
+    this.setRestaurantListViewData(value);
+  }
+
+  toggleFilterContainer(tabMenu: string) {
+    const $restaurantFilterContainer = document.querySelector(
+      ".restaurant-filter-container"
+    );
+
+    if (tabMenu === "all") {
+      $restaurantFilterContainer?.classList.remove("hide");
+      return;
+    }
+
+    $restaurantFilterContainer?.classList.add("hide");
+  }
+
+  setRestaurantListViewData(tabMenu: string) {
     const $restaurantList =
       document.querySelector<RestaurantCardList>(".restaurant-list");
 
     if (!$restaurantList?.dataset.view) return;
 
-    $restaurantList.dataset.view = event.currentTarget.value;
+    $restaurantList.dataset.view = tabMenu;
   }
 }
 
