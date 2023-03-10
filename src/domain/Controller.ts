@@ -1,10 +1,10 @@
-import RestaurantList from "../components/RestaurantList";
+import RestaurantType from "../type/Restaurant";
+import { restaurants } from "./restaurants";
 import {
   ALL_CATEGORY,
   NOT_SELECTED_INDEX,
   SORT_FAILED_NUMBER,
 } from "../constants";
-import RestaurantType from "../type/Restaurant";
 
 class Controller {
   private static instance: Controller;
@@ -12,18 +12,7 @@ class Controller {
   state: { restaurants: RestaurantType[] };
 
   constructor() {
-    this.state = new Proxy(
-      { restaurants: [] },
-      {
-        set: (obj, prop, value) => {
-          if (prop === "restaurants") {
-            obj[prop] = value;
-          }
-          this.renderRestaurantList();
-          return true;
-        },
-      }
-    );
+    this.state = restaurants.state;
     this.loadLocalStorage();
   }
 
@@ -33,14 +22,6 @@ class Controller {
     }
 
     return Controller.instance;
-  }
-
-  renderRestaurantList() {
-    const restaurantList = document.getElementById("restaurantList");
-    if (!(restaurantList instanceof RestaurantList)) {
-      return;
-    }
-    restaurantList.render();
   }
 
   getRestaurants() {
