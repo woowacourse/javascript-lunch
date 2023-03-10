@@ -16,7 +16,7 @@
 
 ---
 
-## 점심 뭐먹지 src 폴더 구조 및 역할 목록
+## 점심 뭐먹지 미션 기능 목록
 
 # components
 
@@ -61,13 +61,10 @@
 
 ## Controller
 
-### field
+// state: list 화면에 보여지는 음식점 배열만을 가리킨다.
+// localStorage: 화면에 상관없이 음식점 배열에 대한 모든 정보를 가리킨다.
 
-- list 화면에 render되는 음식점 배열을 관리한다. (state)
-
-### method
-
-// state 및 도메인 관련 로직
+1. state 관련 로직
 
 - 하나만 존재하는 controller 인스턴스를 생성한다. (getInstance)
 - 음식점 객체 배열을 반환한다. (getRestaurants)
@@ -80,11 +77,11 @@
 - 선택된 음식점 객체의 즐겨찾기 속성을 변경한다. (toggleFavorite)
 - 선택된 음식점 객체를 삭제한다. (deleteRestaurant)
 
-// localStorage 관련 로직
+2. localStorage 관련 로직
 
-- 새로운 음식점 객체를 localStorage에 추가한다. (addRestaurant)
-- 음식점 객체 배열을 localStorage에 저장한다. (setLocalStorage)
 - localSorage에 있는 음식점 객체 배열을 반환한다. (getLocalStorage)
+- 음식점 객체 배열을 localStorage에 저장한다. (setLocalStorage)
+- 새로운 음식점 객체를 localStorage에 추가한다. (addRestaurant)
 
 ## restaurants
 
