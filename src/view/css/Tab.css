@@ -9,7 +9,8 @@
 }
 
 .restaurant-tab button {
-  padding: 20px;
+  padding: 0px;
+  padding-bottom: 15px;
   letter-spacing: 0.5px;
   width: 40%;
   background-color: var(--grey-100);
@@ -18,7 +19,16 @@
   border-bottom: 3px solid var(--grey-200);
 }
 
-#active {
+.tab-button.active {
   color: var(--primary-color);
   border-bottom: 3px solid var(--primary-color);
+}
+
+.content {
+  display: none;
+  padding: 10px 20px;
+}
+
+.content.active {
+  display: block;
 }

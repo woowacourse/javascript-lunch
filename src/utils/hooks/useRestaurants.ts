@@ -11,11 +11,9 @@ const lunchRecommendation = new LunchRecommendation(getData());
 
 function useRestaurants() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>(lunchRecommendation.getList());
-  const [oftenRestaurants, setOftenRestaurants] = useState<Restaurant[]>(
-    lunchRecommendation.getOftenList()
-  );
   const [category, setCategory] = useState<Category>('전체');
   const [sortOption, setSortOption] = useState<SortOption>('거리순');
+  const [oftenOption, setOftenOption] = useState(false);
 
   function handleCategory(category: Category) {
     setCategory(category);
@@ -27,6 +25,14 @@ function useRestaurants() {
     setRestaurants(lunchRecommendation.renderBy({ category, sortOption }));
   }
 
+  function handleOftenTab(isOften: boolean) {
+    setOftenOption(isOften);
+    const restaurantList = isOften
+      ? lunchRecommendation.getOftenList()
+      : lunchRecommendation.getList();
+    setRestaurants(restaurantList);
+  }
+
   function handleClickAddBtn(restaurantInfo: RestaurantInfo) {
     lunchRecommendation.add(restaurantInfo);
     setRestaurants(lunchRecommendation.getList());
@@ -35,7 +41,6 @@ function useRestaurants() {
   function handleClickOftenBtn(restaurantId: RestaurantInfo['id']) {
     lunchRecommendation.addOften(restaurantId);
     setRestaurants(lunchRecommendation.getList());
-    setOftenRestaurants(lunchRecommendation.getOftenList());
   }
 
   function handleClickName(restaurantId: RestaurantInfo['id']) {
@@ -50,10 +55,11 @@ function useRestaurants() {
   }
 
   return {
-    values: { restaurants, oftenRestaurants, category, sortOption },
+    values: { restaurants, category, sortOption, oftenOption },
     handlers: {
       handleCategory,
       handleSortOption,
+      handleOftenTab,
       handleClickAddBtn,
       handleClickOftenBtn,
       handleClickName,

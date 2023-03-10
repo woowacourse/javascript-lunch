@@ -1,6 +1,7 @@
 import '../css/Restaurant.css';
+import '../../assets/baemin-empty.png';
 
-import { Restaurant as IRestaurant, RestaurantInfo } from '../../domain/model/LunchRecommendation';
+import { Restaurant as IRestaurant } from '../../domain/model/LunchRecommendation';
 import { RestaurantItem } from './RestaurantItem';
 import { useEvents, useState } from '../../utils/core';
 import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
@@ -10,23 +11,14 @@ interface RestaurantProps {
 }
 
 function RestaurantList({ restaurants }: RestaurantProps) {
-  const {
-    handlers: { handleClickOftenBtn },
-  } = useRestaurants();
-
-  const [addEvent] = useEvents('.restaurant-list');
-
-  addEvent('click', '.favorite-icon', (e) => {
-    if (e.target instanceof HTMLImageElement) {
-      e.target.src = getFavoriteIconSrc(e.target.src);
-      console.log(e.target.id);
-      handleClickOftenBtn(Number(e.target.id));
-    }
-  });
-
   return `
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
+        ${
+          restaurants.length === 0
+            ? `<div class="empty-list"><img src='./baemin-empty.png'><p>여기에 음식점을 추가해주세요!</p></div>`
+            : ''
+        }
         ${restaurants && restaurants.map(({ info }) => RestaurantItem({ info })).join('')}
       </ul>
     </section>
