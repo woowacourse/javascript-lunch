@@ -1,5 +1,9 @@
 <style>
   .restaurant-filter-container {
+    display: none;
+  }
+
+  .filter--open {
     display: flex;
     justify-content: space-between;
 
@@ -22,7 +26,7 @@
     padding: 8px;
   }
 </style>
-<section class="restaurant-filter-container">
+<section class="restaurant-filter-container filter--open">
   <select name="category" id="category-filter" class="restaurant-filter">
     <option value="전체">전체</option>
     <option value="한식">한식</option>

@@ -56,6 +56,12 @@ class App {
   routeHandler = (tab: string) => {
     this.store.favoriteRestaurants(tab);
     this.restaurantItems.render(this.store.renderedRestaurants);
+
+    if (tab === 'all') {
+      this.selectBox.open();
+      return;
+    }
+    this.selectBox.hide();
   };
 
   openModalButtonHandler = () => {
