@@ -32,3 +32,9 @@ body {
 .scroll-hidden {
   overflow: hidden;
 }
+
+.categorySection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 31px 16px 0 16px;
+}

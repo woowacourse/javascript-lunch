@@ -12,6 +12,7 @@ import RestaurantBox from './RestaurantBox';
 import RestaurantBoxes from './RestaurantBoxes';
 import RestaurantDetail from './RestaurantDetail';
 import RestaurantDetailModal from './RestaurantDetailModal';
+import RestaurantTab from './RestaurantTab';
 
 customElements.define('add-select', AddSelect);
 customElements.define('add-text-input', AddTextInput);
@@ -27,3 +28,4 @@ customElements.define('restaurant-box', RestaurantBox);
 customElements.define('restaurant-boxes', RestaurantBoxes);
 customElements.define('restaurant-detail', RestaurantDetail);
 customElements.define('restaurant-detail-modal', RestaurantDetailModal);
+customElements.define('restaurant-tab', RestaurantTab);

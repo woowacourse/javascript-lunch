@@ -2,7 +2,10 @@ import { Restaurant } from './RestaurantList';
 import { $ } from '../utils';
 import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../constants';
 
+const ALL_RESTAURANT = 'all';
+const FAVORITE_RESTAURANT = 'favorite';
 class App {
+  #curTab = ALL_RESTAURANT;
   play() {
     this.setRestaurantData();
     $('restaurant-boxes').drawRestaurants();
