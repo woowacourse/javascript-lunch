@@ -56,7 +56,7 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
       .should('have.length', listLength + 1);
   });
 
-  it.only('즐겨찾기 추가 및 즐겨찾기 탭에서 해당 음식 확인 및 새로고침 시에 favorite 적용 테스트', () => {
+  it('즐겨찾기 추가 및 즐겨찾기 탭에서 해당 음식 확인 및 새로고침 시에 favorite 적용 테스트', () => {
     // 자주가는 음식점 목록 이동
     cy.get('.tab-container').each((ele) => {
       cy.wrap(ele).contains('자주가는 음식점').click();
