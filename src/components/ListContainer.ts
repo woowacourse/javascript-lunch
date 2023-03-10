@@ -4,7 +4,7 @@ import { ImageByCategory, FavoriteImage } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
-import { newState } from '@res/utils/domUtils';
+import { $, newState, on } from '@res/utils/domUtils';
 
 class ListContainer extends Component {
   #state: {
@@ -16,7 +16,7 @@ class ListContainer extends Component {
 
     this.#state = newState({ restaurantList: restaurantStore.getList() }, this.render.bind(this));
 
-    this.render().subscribe();
+    this.render().subscribe().setEvent();
   }
 
   subscribe(): this {
@@ -24,6 +24,30 @@ class ListContainer extends Component {
       .subscribe('@add-restaurant', this.handleAdd.bind(this))
       .subscribe('@change-filter', this.handleFilter.bind(this))
       .subscribe('@reload-filter', this.handleTabChange.bind(this));
+
+    return this;
+  }
+
+  setEvent() {
+    on(this.$target, 'click', (event) => {
+      const $eventTarget = event.target as HTMLElement;
+      const $closestDiv = $eventTarget.closest('div')!;
+
+      if ($closestDiv.className === 'favorite') {
+        const id = Number($closestDiv.closest('li')!.dataset.id);
+        const $image = $<HTMLImageElement>('img', $closestDiv);
+
+        if ($image.dataset.isFavorite === 'favoriteOn') {
+          $image.src = FavoriteImage.favoriteOn;
+          $image.dataset.isFavorite = 'favoriteOff';
+          restaurantStore.toggleFavorite(id);
+        } else {
+          $image.src = FavoriteImage.favoriteOff;
+          $image.dataset.isFavorite = 'favoriteOn';
+          restaurantStore.toggleFavorite(id);
+        }
+      }
+    });
 
     return this;
   }
@@ -47,8 +71,13 @@ class ListContainer extends Component {
     this.#state.restaurantList = restaurantStore.getFiltered(category, order) || [];
   }
 
+  render() {
+    this.$target.innerHTML = this.template();
+
+    return this;
+  }
+
   template(): string {
-    console.log('렌더링 되었어요.');
     return `<ul class="restaurant-list">
       ${this.listTemplate([...this.#state.restaurantList])}
     </ul>`;
@@ -77,7 +106,7 @@ class ListContainer extends Component {
 
   favoriteImageTemplate(favorite: boolean) {
     const isFavorite = favorite ? 'favoriteOn' : 'favoriteOff';
-    return `<img src=${FavoriteImage[isFavorite]} alt=${isFavorite} class="category-icon"/>`;
+    return `<img src=${FavoriteImage[isFavorite]} data-is-favorite=${isFavorite} alt='즐겨찾기' class="category-icon"/>`;
   }
 
   categoryImageTemplate(category: string): string {

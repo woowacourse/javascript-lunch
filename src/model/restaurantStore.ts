@@ -67,6 +67,17 @@ export const restaurantStore = {
 
     return restaurantList.sort((first, second) => Number(first.distance) - Number(second.distance));
   },
+
+  toggleFavorite(targetId: number) {
+    const restaurantList = this.getList().map((restaurant) => {
+      if (restaurant.id === targetId) {
+        restaurant.favorite = !restaurant.favorite;
+      }
+      return restaurant;
+    });
+
+    this.setList(restaurantList);
+  },
 };
 
 restaurantStore.getNewID([
