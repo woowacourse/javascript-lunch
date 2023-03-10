@@ -47,5 +47,13 @@ describe('자주 가는 음식점 e2e 테스트', () => {
     cy.get('.restaurant-list').find('.restaurant').should('have.attr', 'data-id', '7');
   });
 
+  it('자주 가는 음식점 탭에서 즐겨찾기 아이콘을 누르면 목록에서 음식점이 사라진다.', () => {
+    cy.get('.restaurant[data-id="6"]').find('.restaurant-star-icon').click();
+    cy.get('.restaurant[data-id="7"]').find('.restaurant-star-icon').click();
+    cy.get('#favorite-restaurants').click();
+    cy.get('.restaurant[data-id="6"]').find('.restaurant-star-icon').click();
+    cy.get('.restaurant-list').find('.restaurant').should('not.have.attr', 'data-id', '6');
+  });
+
   // 상세페이지에서 웹사이트 방문하기를 누르면 다른 탭에 음식점 웹사이트가 열린다
 });
