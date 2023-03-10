@@ -85,8 +85,17 @@ class NewRestaurantModal extends Component {
         </form>
 
         <div slot="actions">
-          <r-button variant="secondary" onclick="this.host.onClickCancel()">취소하기</r-button>
-          <r-button variant="primary" onclick="this.host.onClickSubmit()">추가하기</r-button>
+          <r-button
+            variant="secondary"
+            full
+            onclick="this.host.onClickCancel()"
+          >취소하기</r-button>
+
+          <r-button
+            variant="primary"
+            full
+            onclick="this.host.onClickSubmit()"
+          >추가하기</r-button>
         </div>
       </r-modal>
     `;
