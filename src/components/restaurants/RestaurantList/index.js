@@ -29,8 +29,7 @@ class RestaurantList {
     const $restaurantList = this.$target.querySelector(".restaurant-list");
 
     restaurantList.forEach((restaurantInfo) => {
-      const restaurantItem = new RestaurantItem($restaurantList, restaurantInfo);
-      restaurantItem.setFavoriteClickEvent(this.restaurantListManager);
+      new RestaurantItem($restaurantList, restaurantInfo, this.restaurantListManager);
     });
   }
 

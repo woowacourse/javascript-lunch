@@ -1,21 +1,25 @@
 import "./index.css";
 import translateCategory from "../../../util/translateCategory";
 import LocalStorage from "../../../util/LocalStorage";
+import { $ } from "../../../util/dom";
 
 class RestaurantItem {
   $target;
   restaurantInfo;
+  restaurantListManager;
 
-  constructor($target, restaurantInfo) {
+  constructor($target, restaurantInfo, restaurantListManager) {
     this.$target = $target;
     this.restaurantInfo = restaurantInfo;
+    this.restaurantListManager = restaurantListManager;
 
     this.render();
+    this.setEvent();
   }
 
   template() {
     return `
-        <li id=${this.restaurantInfo.id} class="restaurant">
+        <li id="restaurant${this.restaurantInfo.id}" class="restaurant">
         <div class="restaurant__category">
           <img
             src="./category-${translateCategory(this.restaurantInfo.category)}.png"
@@ -46,12 +50,14 @@ class RestaurantItem {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  setFavoriteClickEvent(restaurantListManager) {
-    this.$target.querySelector(".favorite").addEventListener("click", (event) => {
-      const id = event.target.closest("li").id;
+  setEvent() {
+    const id = this.restaurantInfo.id;
 
-      restaurantListManager.toggleFavoriteState(Number(id));
-      LocalStorage.setData("list", restaurantListManager.getRestaurantList());
+    this.$target.querySelector(`#restaurant${id}`).addEventListener("click", (event) => {
+      if (!event.target.closest(".favorite")) return;
+
+      this.restaurantListManager.toggleFavoriteState(Number(id));
+      LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
       this.restaurantInfo = { ...this.restaurantInfo, favorite: !this.restaurantInfo.favorite };
       event.target.src = `./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
