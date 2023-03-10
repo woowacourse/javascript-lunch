@@ -12,6 +12,7 @@ interface Store {
   filterRestaurants: (categoryFilter: CategoryFilter) => void;
   sortRestaurants: (sortFilter: SortFilter) => void;
   toggleFavoriteRestaurant: (id: string) => void;
+  getFavoriteRestaurants: () => Restaurants;
 }
 
 export const store: Store = {
@@ -96,6 +97,12 @@ export const store: Store = {
   toggleFavoriteRestaurant(id: string) {
     this.restaurants[id].isFavorite = !this.restaurants[id].isFavorite;
     localStorage.setItem('store', JSON.stringify(this.restaurants));
+  },
+
+  getFavoriteRestaurants() {
+    return Object.fromEntries(
+      Object.entries(this.restaurants).filter(([id, restaurant]) => restaurant.isFavorite),
+    );
   },
 };
 
