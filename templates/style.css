@@ -201,6 +201,10 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.default-link {
+  color: inherit
+}
+
 /* 음식점 추가 모달 *****************************************/
 .modal {
   display: none;
