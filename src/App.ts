@@ -12,7 +12,7 @@ class App {
   // currentPage: Page;
 
   constructor(body: Element) {
-    this.target = body as HTMLElement;
+    this.target = <HTMLElement>body;
     this.restaurantList = restaurantListHandler.getRestaurants();
     // this.currentPage = "total";
 

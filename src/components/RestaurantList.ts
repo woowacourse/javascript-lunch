@@ -22,9 +22,9 @@ class RestaurantList {
   }
 
   addEvent(onSelectRestaurantID: (id: string) => void) {
-    const restaurantListContainer = $(".restaurant-list") as HTMLElement;
+    const restaurantListContainer = <HTMLElement>$(".restaurant-list");
     restaurantListContainer?.addEventListener("click", (event) => {
-      const target = event.target as HTMLElement;
+      const target = <HTMLElement>event.target;
       const id = <string>target.closest("li")?.dataset.id;
       const bookmarkButton = <HTMLElement>(
         target.closest(".restaurant__bookmark")
