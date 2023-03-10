@@ -14,7 +14,7 @@ export interface Restaurant {
   name: string;
   takingTime: string;
   category: string;
-  bookMark: boolean;
+  bookmark: boolean;
   link?: string;
   description?: string;
 }
