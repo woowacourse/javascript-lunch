@@ -1,4 +1,4 @@
-import { $ } from '../utils/dom';
+import { $ } from '../../utils/dom';
 
 customElements.define(
   'custom-modal',

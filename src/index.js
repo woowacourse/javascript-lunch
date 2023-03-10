@@ -16,7 +16,7 @@ import RestaurantList from './components/RestaurantList';
 import RestaurantListItem from './components/RestaurantListItem';
 import RestaurantFilter from './components/RestaurantFilter';
 import RestaurantTab from './components/RestaurantTab';
-import CustomModal from './components/CustomModal';
+import CustomModal from './components/common/CustomModal';
 import RestaurantDetail from './components/RestaurantDetail';
 import RestaurantRegisterForm from './components/RestaurantRegisterForm';
 

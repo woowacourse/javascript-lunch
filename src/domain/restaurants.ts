@@ -43,11 +43,9 @@ export const restaurants: Restaurants = {
   },
 
   delete(restaurantID) {
-    console.log(restaurantID);
     const deleteRestaurantIndex = this.list.findIndex(
       (restaurant) => restaurant.restaurantID === restaurantID
     );
-    console.log(deleteRestaurantIndex);
     this.list.splice(deleteRestaurantIndex, 1);
   },
 

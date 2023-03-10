@@ -7,7 +7,6 @@ customElements.define(
       super();
 
       this.innerHTML = /* html */ `
-      
         <input type="radio" id="tab-all"name="tab" value="all" class="restaurant-tab" checked>
         <label for="tab-all">모든 음식점</label>
         <input type="radio" id="tab-favorite" name="tab" value="favorite" class="restaurant-tab">

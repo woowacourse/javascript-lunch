@@ -52,7 +52,6 @@ const LunchMenuApp = {
   },
 
   handleRestaurantRegister(restaurant) {
-    console.log('a');
     restaurants.add(restaurant);
     this.setRestaurantList();
     $('#tab-all').checked = true;
