@@ -4,16 +4,20 @@
 import '../src/constants/images';
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
-import createRestaurantList from '../src/components/RestaurantList';
+import RestaurantListContainer from '../src/components/RestaurantListContainer';
 
 describe('UI 테스트', () => {
   beforeEach(() => {
-    document.body.innerHTML = `<ul class="restaurant-list" data-testid="restaurant-list"></ul>`;
+    document.body.innerHTML = RestaurantListContainer.create();
+    document.querySelector('.restaurant-list').setAttribute('data-testid', 'restaurant-list');
   });
 
   test('음식점 추가 시 목록에 추가된다.', () => {
     const restaurants = [{ category: '한식', name: '평래옥', distance: 5 }];
-    screen.getByTestId('restaurant-list').innerHTML = createRestaurantList(restaurants);
+    RestaurantListContainer.renderRestaurantItems(
+      screen.getByTestId('restaurant-list'),
+      restaurants
+    );
 
     expect(screen.getByText('평래옥')).toBeInTheDocument();
   });
@@ -35,7 +39,10 @@ describe('UI 테스트', () => {
       },
       { category: '양식', name: '애슐리', distance: 10 },
     ];
-    screen.getByTestId('restaurant-list').innerHTML = createRestaurantList(restaurants);
+    RestaurantListContainer.renderRestaurantItems(
+      screen.getByTestId('restaurant-list'),
+      restaurants
+    );
 
     expect(screen.getByTestId('restaurant-list').childElementCount).toBe(4);
   });
