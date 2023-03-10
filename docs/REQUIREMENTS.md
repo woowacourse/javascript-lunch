@@ -21,41 +21,25 @@
 # components
 
 - 독립적이고 재사용가능한 ui 단위들을 분리하고 정의한다.
-- 각 component가 맡는 역할, 이벤트를 처리한다.
+- 각 component는 자신이 맡는 역할, 이벤트를 처리한다.
 
 1. NavBar
 
-2. AddRestaurant
+2. AddRestaurant: 레스토랑 추가를 위한 ui와 인풋 태그들을 가진다.
 
-- 레스토랑 추가를 위한 ui와 인풋 태그들을 가진다.
+3. BottomSheet: 위로 올라갔다가 내려가는 애니메이션 효과를 가진다.
 
-3. BottomSheet
+4. RestaurantItem: 레스토랑 이름, 거리, 설명, 카테고리 정보를 담는다.
 
-- 위로 올라갔다가 내려가는 애니메이션 효과를 가진다.
+5. RestaurantList: RestaurantItem을 리스트로 나열한다.
 
-4. RestaurantItem
+6. CategorySelectBox: 카테고리를 선택한다.
 
-- 레스토랑 이름, 거리, 설명, 카테고리 정보를 담는다.
+7. SortingSelectBox: 정렬순서를 선택한다.
 
-5. RestaurantList
+8. TabBar: 탭 메뉴를 선택한다.
 
-- RestaurantItem을 리스트로 나열한다.
-
-6. CategorySelectBox
-
-- 카테고리를 선택한다.
-
-7. SortingSelectBox
-
-- 정렬순서를 선택한다.
-
-8. TabBar
-
-- 탭 메뉴를 선택한다.
-
-9. RestaurantDetail
-
-- 음식점 상세정보를 담는다.
+9. RestaurantDetail: 음식점 상세정보를 담는다.
 
 # domain
 
