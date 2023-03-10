@@ -10,7 +10,6 @@ export default {
 
   restaurantList: restaurantList.render,
   toggleRestaurantFavorite: restaurantList.toggleRestaurantFavorite,
-  deleteRestaurantInFavoriteList: restaurantList.deleteRestaurantInFavoriteList,
 
   openRegisterRestaurantModal: registerRestaurantModal.open,
   closeRegisterRestaurantModal: registerRestaurantModal.close,

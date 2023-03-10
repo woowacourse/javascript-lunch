@@ -41,4 +41,5 @@ export const ALERT_MESSAGE = {
   removeFavorite: '자주 가는 음식점에서 제거되었습니다.',
   addFavorite: '자주 가는 음식점에 추가되었습니다.',
   createRestaurant: '음식점이 생성되었습니다.',
+  removeRestaurant: '음식점이 삭제되었습니다.',
 };

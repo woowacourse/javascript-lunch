@@ -123,7 +123,7 @@ class App {
       (restaurant) => restaurant.getName() !== detail.name,
     );
 
-    render.message('success', 'bottom', ALERT_MESSAGE.removeFavorite);
+    render.message('success', 'bottom', ALERT_MESSAGE.removeRestaurant);
     this.updateRestaurantsList();
     render.closeRestaurantDetailModal();
   };
@@ -131,15 +131,17 @@ class App {
   toggleRestaurantFavorite = ({ detail }: CustomEvent) => {
     const { restaurantName } = detail;
 
+    const targetRestaurant = this.#restaurants.filter(
+      (restaurant) => restaurant.getName() === restaurantName,
+    )[0];
+
     this.#restaurants.forEach((restaurant) => {
       if (restaurant.getName() === restaurantName) restaurant.toggleFavorite();
     });
 
-    render.toggleRestaurantFavorite(restaurantName);
-    saveRestaurants(this.#restaurants);
+    render.toggleRestaurantFavorite(this.#restaurantListType, targetRestaurant);
 
-    if (this.#restaurantListType === 'favorite')
-      render.deleteRestaurantInFavoriteList(restaurantName);
+    saveRestaurants(this.#restaurants);
   };
 
   chagneRestaurantType = ({ detail }: CustomEvent) => {

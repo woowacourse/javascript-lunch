@@ -26,6 +26,8 @@ export type CustomRegisterRestaurantModalElement = RegisterRestaurantModal;
 
 export type CustomRestaurantDetailModalElement = RestaurantDetailModal;
 
+export type CustomRestaurantItem = RestaurantItem;
+
 export default {
   RegisterRestaurantModal,
   RestaurantDetailModal,

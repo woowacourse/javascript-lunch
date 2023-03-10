@@ -78,6 +78,7 @@
 - [x] refactor: css 분리
 - [x] refactor: 상수화
 - [x] refactor: querySelector 실패 시 에러처리
+- [x] refactor: 음식점 즐겨찾기 추가, 제거 로직 정리
 
 ### 기능 목록
 

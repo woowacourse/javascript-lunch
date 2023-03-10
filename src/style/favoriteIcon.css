@@ -9,9 +9,3 @@
   color: var(--lighten-color);
   cursor: pointer;
 }
-
-.absolute-position {
-  position: absolute;
-  right: 16px;
-  top: 16px;
-}

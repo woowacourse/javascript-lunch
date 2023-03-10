@@ -23,8 +23,9 @@ class FavoriteIcon extends CustomElement {
       <div 
         id="favorite-icon"
         name="${this.restaurantName}"
-        class="${this.isFavorite ? 'favorite-icon' : 'not-favorite-icon'}
-        ${this.isAbsolute && 'absolute-position'}">${this.isFavorite ? '★' : '☆'}</div>
+        class="favorite-restaurant-icon ${
+          this.isFavorite ? 'favorite-icon' : 'not-favorite-icon'
+        }">${this.isFavorite ? '★' : '☆'}</div>
       `;
   };
 
@@ -52,7 +53,7 @@ class FavoriteIcon extends CustomElement {
   };
 
   initEventHandlers = () => {
-    const $favoriteIcon = this.querySelector('#favorite-icon');
+    const $favoriteIcon = this.querySelector('.favorite-restaurant-icon');
 
     if (!$favoriteIcon) return errorHandler.doesNotExistElement();
 

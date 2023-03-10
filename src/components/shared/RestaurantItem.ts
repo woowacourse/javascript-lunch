@@ -45,9 +45,9 @@ class RestaurantItem extends CustomElement {
           </span>
           <p class="restaurant__description text-body">${this.description ?? ''}</p>
         </div>
-        <r-favorite-icon absolute ${this.isFavorite ? 'favorite' : ''} restaurantName="${
-      this.name
-    }"></r-favorite-icon>
+        <r-favorite-icon class="restaurant-item-favorite-icon" ${
+          this.isFavorite ? 'favorite' : ''
+        } restaurantName="${this.name}"></r-favorite-icon>
       </li>
     `;
   };

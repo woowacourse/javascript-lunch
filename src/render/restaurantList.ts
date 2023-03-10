@@ -1,5 +1,5 @@
 import render from '.';
-import { CustomRestaurantListElement } from '../components';
+import { CustomRestaurantItem, CustomRestaurantListElement } from '../components';
 import Restaurant from '../domain/Restaurant';
 import { ALERT_MESSAGE } from '../utils/constants';
 import errorHandler from '../utils/errorHandler';
@@ -13,27 +13,51 @@ export default {
     $restaurantList.setRestaurants(restaurants);
   },
 
-  toggleRestaurantFavorite: (restaurantName: string) => {
-    const $targetRestaurant = document.querySelector(`r-restaurant[name="${restaurantName}"]`);
+  toggleRestaurantFavorite: (restaurantListType: 'all' | 'favorite', restaurant: Restaurant) => {
+    const $targetRestaurant = document.querySelector<CustomRestaurantItem>(
+      `r-restaurant[name="${restaurant.getName()}"]`,
+    );
     const $modal = document.querySelector('.modal-container');
+    const isFavorite = restaurant.getIsFavorite();
 
-    if (!$targetRestaurant) return errorHandler.doesNotExistElement();
+    if (isFavorite) render.message('success', $modal ? 'top' : 'bottom', ALERT_MESSAGE.addFavorite);
+    else render.message('success', $modal ? 'top' : 'bottom', ALERT_MESSAGE.removeFavorite);
 
-    if ($targetRestaurant.hasAttribute('favorite')) {
-      $targetRestaurant.removeAttribute('favorite');
-      render.message('success', 'bottom', ALERT_MESSAGE.removeFavorite);
-    } else {
-      $targetRestaurant.setAttribute('favorite', '');
-      render.message('success', $modal ? 'top' : 'bottom', ALERT_MESSAGE.addFavorite);
-    }
+    if (restaurantListType === 'all') reRenderAllRestaurntList($targetRestaurant);
+    else reRenderFavoriteRestaurntList($targetRestaurant, restaurant);
   },
+};
 
-  deleteRestaurantInFavoriteList: (restaurantName: string) => {
-    const $targetRestaurant = document.querySelector(`r-restaurant[name="${restaurantName}"]`);
+const reRenderAllRestaurntList = ($targetRestaurant: CustomRestaurantItem | null) => {
+  if (!$targetRestaurant) return errorHandler.doesNotExistElement();
 
-    if (!$targetRestaurant) return errorHandler.doesNotExistElement();
+  if ($targetRestaurant.hasAttribute('favorite')) $targetRestaurant.removeAttribute('favorite');
+  else $targetRestaurant.setAttribute('favorite', '');
+};
 
-    render.closeRestaurantDetailModal();
-    $targetRestaurant.remove();
-  },
+const reRenderFavoriteRestaurntList = (
+  $targetRestaurant: CustomRestaurantItem | null,
+  restaurant: Restaurant,
+) => {
+  if (!$targetRestaurant) insertNewRestaurntList(restaurant);
+  else $targetRestaurant.remove();
+};
+
+const insertNewRestaurntList = (targetRestaurant: Restaurant) => {
+  const $restaurantList =
+    document.querySelector<CustomRestaurantListElement>('#restaurant-list ul');
+
+  if (!$restaurantList) return errorHandler.doesNotExistElement();
+
+  $restaurantList.insertAdjacentHTML(
+    'afterbegin',
+    `<r-restaurant
+        data-testid="${targetRestaurant.getName()}"
+        name="${targetRestaurant.getName()}"
+        distanceByMinutes="${targetRestaurant.getDistanceByMinutes()}"
+        description="${targetRestaurant.getDescription() ?? ''}"
+        category="${targetRestaurant.getCategory() ?? ''}"
+        favorite
+      ></r-restaurant>`,
+  );
 };
