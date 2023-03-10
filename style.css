@@ -214,6 +214,10 @@ body {
   border: none;
 }
 
+.hide-overflow {
+  overflow: hidden;
+}
+
 .modal::backdrop {
   cursor: pointer;
 }

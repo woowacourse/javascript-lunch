@@ -16,6 +16,9 @@ class Modal {
     const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.close();
 
+    const body = $<HTMLBodyElement>('body');
+    body.classList.remove('hide-overflow');
+
     if (this.content === RestaurantAddForm) {
       this.content.resetForm();
     }
@@ -24,6 +27,9 @@ class Modal {
   openModal = () => {
     const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.showModal();
+
+    const body = $<HTMLBodyElement>('body');
+    body.classList.add('hide-overflow');
   };
 
   addBackdropClickEvent() {
