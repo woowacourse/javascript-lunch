@@ -22,6 +22,7 @@ customElements.define('favorite-icon', FavoriteIcon);
 
 class App {
   header: Header;
+  navBar: NavBar;
   modal: Modal;
   selectBox: SelectBox;
   restaurantItems: RestaurantItems;
@@ -30,6 +31,7 @@ class App {
 
   constructor() {
     this.header = $<Header>('lunch-header');
+    this.navBar = $<NavBar>('nav-bar');
     this.modal = $<Modal>('add-modal');
     this.selectBox = $<SelectBox>('select-box');
     this.restaurantItems = $<RestaurantItems>('restaurant-items');
@@ -42,6 +44,7 @@ class App {
 
   initHandler() {
     this.header.addModalHandler(this.openModalButtonHandler);
+    this.navBar.addRouteHandler(this.routeHandler);
     this.selectBox.addSelectBoxHandler(this.selectBoxHandler);
     this.modal.addRestaurantHandler(this.restaurantHandler);
     this.restaurantItems.addBottomSheetHandler(this.openDetailBottomSheetHandler);
@@ -49,6 +52,11 @@ class App {
     this.detailBottomSheet.addDeleteHandler(this.deleteRestaurantHandler);
     this.store.initRestaurants();
   }
+
+  routeHandler = (tab: string) => {
+    this.store.favoriteRestaurants(tab);
+    this.restaurantItems.render(this.store.renderedRestaurants);
+  };
 
   openModalButtonHandler = () => {
     this.modal.openModal();

@@ -73,6 +73,17 @@ class Store {
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   }
+
+  favoriteRestaurants(tab: string) {
+    if (tab === 'all') {
+      this.renderedRestaurants = this.restaurants;
+      this.filterRestaurants(this.categoryFilter);
+      this.sortRestaurants(this.sortFilter);
+      return;
+    }
+    const favoriteRestaurants = this.restaurants.filter((restaurant) => restaurant.favorite);
+    this.renderedRestaurants = favoriteRestaurants;
+  }
 }
 
 export default Store;

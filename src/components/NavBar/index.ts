@@ -16,6 +16,21 @@ class NavBar extends HTMLElement {
   render() {
     this.shadowRoot!.innerHTML = $template;
   }
+
+  toggleTabColor($targetButton: HTMLButtonElement) {
+    const $buttons = this.shadowRoot?.querySelectorAll('button');
+    $buttons?.forEach(($button) => $button.classList.remove('button--selected'));
+    $targetButton.classList.add('button--selected');
+  }
+
+  addRouteHandler(handler: CallableFunction) {
+    this.shadowRoot?.addEventListener('click', (e: any) => {
+      const $targetButton = e.target.closest('button');
+      const tab = $targetButton.getAttribute('id');
+      this.toggleTabColor($targetButton);
+      handler(tab);
+    });
+  }
 }
 
 export default NavBar;
