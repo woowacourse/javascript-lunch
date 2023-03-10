@@ -1,5 +1,5 @@
-import { $, dispatchCustomEvent } from '../utils/dom';
-import { getUniqueID } from '../utils/key';
+import { $, dispatchCustomEvent } from '../../utils/dom';
+import { getUniqueID } from '../../utils/key';
 
 customElements.define(
   'restaurant-register-form',

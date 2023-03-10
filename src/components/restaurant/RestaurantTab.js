@@ -1,4 +1,4 @@
-import { dispatchCustomEvent } from '../utils/dom';
+import { dispatchCustomEvent } from '../../utils/dom';
 
 customElements.define(
   'restaurant-tab',

@@ -12,12 +12,12 @@ import '../images/favorite-icon-lined.png';
 
 import LunchMenuApp from './LunchMenuApp';
 
-import RestaurantList from './components/RestaurantList';
-import RestaurantListItem from './components/RestaurantListItem';
-import RestaurantFilter from './components/RestaurantFilter';
-import RestaurantTab from './components/RestaurantTab';
+import RestaurantList from './components/restaurant/RestaurantList';
+import RestaurantListItem from './components/restaurant/RestaurantListItem';
+import RestaurantFilter from './components/restaurant/RestaurantFilter';
+import RestaurantTab from './components/restaurant/RestaurantTab';
 import CustomModal from './components/common/CustomModal';
-import RestaurantDetail from './components/RestaurantDetail';
-import RestaurantRegisterForm from './components/RestaurantRegisterForm';
+import RestaurantDetail from './components/restaurant/RestaurantDetail';
+import RestaurantRegisterForm from './components/restaurant/RestaurantRegisterForm';
 
 LunchMenuApp.init();
