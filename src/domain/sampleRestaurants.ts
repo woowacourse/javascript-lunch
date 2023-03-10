@@ -13,7 +13,7 @@ export const sampleRestaurants: Restaurant[] = [
     만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이
     먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
     link: 'https://naver.me/GWr9PPyQ',
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     id: '72450846-e579-4cd4-8169-4726e243dc52',
@@ -23,7 +23,7 @@ export const sampleRestaurants: Restaurant[] = [
     description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를
     펼쳐갑니다.`,
     link: 'https://naver.me/535UmYXk',
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     id: 'c655a6bc-ee61-4e98-b8a1-860be3a88126',

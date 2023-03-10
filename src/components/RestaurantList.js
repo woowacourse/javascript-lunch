@@ -20,6 +20,7 @@ customElements.define(
             distance="${restaurant.distance}"
             description="${restaurant.description}"
             link="${restaurant.link}"
+            isFavorite="${restaurant.isFavorite}"
           ></restaurant-list-item>
         `
         )
@@ -43,11 +44,12 @@ customElements.define(
         distance: item.getAttribute('distance'),
         description: item.getAttribute('description'),
         link: item.getAttribute('link'),
+        isFavorite: item.getAttribute('isFavorite'),
       });
     }
 
     openRestaurantDetailModal(restaurant) {
-      const { id, category, restaurantName, distance, description, link } = restaurant;
+      const { id, category, restaurantName, distance, description, link, isFavorite } = restaurant;
 
       $('.modal-container').replaceChildren();
       $('.modal-container').insertAdjacentHTML(
@@ -60,6 +62,7 @@ customElements.define(
         distance="${distance}"
         description="${description ? description : ''}"
         link="${link ? link : ''}"
+        isFavorite="${isFavorite}"
       ></restaurant-detail-modal>`
       );
       $('custom-modal').openModal();

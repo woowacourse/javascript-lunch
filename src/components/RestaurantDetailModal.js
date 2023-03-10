@@ -20,7 +20,7 @@ customElements.define(
       const distance = this.getAttribute('distance');
       const description = this.getAttribute('description');
       const link = this.getAttribute('link');
-      // const isFavorite = this.getAttribute('isFavorite');
+      const isFavorite = JSON.parse(this.getAttribute('isFavorite'));
 
       this.innerHTML = /* html */ `
       <div class="icon-container">
@@ -30,7 +30,9 @@ customElements.define(
           }.png" alt="${category}" class="category-icon" />
         </div>
         <button class="favorite">
-          <img src="./favorite-icon-lined.png" alt="favorite" class="favorite-icon" />
+          <img src="./favorite-icon-${
+            isFavorite ? 'filled' : 'lined'
+          }.png" alt="favorite" class="favorite-icon" />
         </button>
       </div>
       <h2 class="modal-title text-title detail-title">${restaurantName}</h2>
@@ -54,7 +56,7 @@ customElements.define(
     }
 
     handleDeleteButtonClick() {
-      if (confirm('정말 삭제하시겠습니까?')) {
+      if (confirm('정말 삭제하시겠어요?')) {
         dispatchCustomEvent($('custom-modal'), {
           eventType: 'removeRestaurant',
           data: this.dataset.id,

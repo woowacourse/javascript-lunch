@@ -17,12 +17,14 @@ customElements.define(
       const restaurantName = this.getAttribute('restaurantName');
       const distance = this.getAttribute('distance');
       const description = this.getAttribute('description');
-      // const isFavorite = this.getAttribute('isFavorite');
+      const isFavorite = JSON.parse(this.getAttribute('isFavorite'));
 
       this.innerHTML = /* html */ `
       <li class="restaurant">
         <div class="restaurant__category">
-          <img src="./category-${this.categories[category]}.png" alt="${category}" class="category-icon" />
+          <img src="./category-${
+            this.categories[category]
+          }.png" alt="${category}" class="category-icon" />
         </div>
         <div class="restaurant__info">
           <div class="flex">
@@ -31,7 +33,9 @@ customElements.define(
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
             </div>
             <button class="favorite">
-              <img src="./favorite-icon-lined.png" alt="favorite" class="favorite-icon" />
+              <img src="./favorite-icon-${
+                isFavorite ? 'filled' : 'lined'
+              }.png" alt="favorite" class="favorite-icon" />
             </button>
           </div>
           <p class="restaurant__description text-body">${description}</p>
