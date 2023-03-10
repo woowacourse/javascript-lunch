@@ -1,3 +1,4 @@
+import RestaurantItem from './components/RestaurantItem';
 import RestaurantItems from './components/RestaurantItems';
 import { Restaurant, CategoryFilter, SortFilter, Restaurants } from './types';
 import { v4 as uuid } from 'uuid';
