@@ -1,4 +1,4 @@
-import { $ } from '../utils/dom';
+import { $, dispatchCustomEvent } from '../utils/dom';
 
 customElements.define(
   'restaurant-detail-modal',
@@ -15,7 +15,6 @@ customElements.define(
     constructor() {
       super();
 
-      // const id = this.dataset.id;
       const category = this.getAttribute('category');
       const restaurantName = this.getAttribute('restaurantName');
       const distance = this.getAttribute('distance');
@@ -50,12 +49,18 @@ customElements.define(
     }
 
     connectedCallback() {
-      $('.delete-button').addEventListener('submit', (e) => this.handleDeleteButtonClick(e));
+      $('.delete-button').addEventListener('click', () => this.handleDeleteButtonClick());
       $('.cancel-button').addEventListener('click', $('custom-modal').closeModal);
     }
 
-    handleDeleteButtonClick(e) {
-      console.log(e);
+    handleDeleteButtonClick() {
+      if (confirm('정말 삭제하시겠습니까?')) {
+        dispatchCustomEvent($('custom-modal'), {
+          eventType: 'removeRestaurant',
+          data: this.dataset.id,
+        });
+        $('custom-modal').closeModal();
+      }
     }
   }
 );

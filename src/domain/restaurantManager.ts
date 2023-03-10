@@ -18,6 +18,7 @@ interface RestaurantManager {
   list: Restaurant[];
   init(): void;
   add(restaurant: Restaurant): void;
+  remove(restaurantId: string): void;
   filterByCategory(category: Category | '전체', restaurants: Restaurant[]): Restaurant[];
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
@@ -33,6 +34,10 @@ export const restaurantManager: RestaurantManager = {
 
   add(restaurant) {
     this.list = [restaurant, ...this.list];
+  },
+
+  remove(restaurantId) {
+    this.list = this.list.filter((restaurant) => restaurant.id !== restaurantId);
   },
 
   filterByCategory(category, restaurants) {

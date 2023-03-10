@@ -24,6 +24,9 @@ const LunchMenuApp = {
     $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
       this.handleRestaurantRegister(restaurant)
     );
+    $('custom-modal').addEventListener('removeRestaurant', ({ detail: restaurantId }) =>
+      this.handleRestaurantRemove(restaurantId)
+    );
     $('restaurant-filter').addEventListener('change', () => this.handleRestaurantFilter());
   },
 
@@ -38,6 +41,15 @@ const LunchMenuApp = {
 
   handleRestaurantRegister(restaurant) {
     restaurantManager.add(restaurant);
+    this.updateRestaurantList();
+  },
+
+  handleRestaurantRemove(restaurantId) {
+    restaurantManager.remove(restaurantId);
+    this.updateRestaurantList();
+  },
+
+  updateRestaurantList() {
     this.setRestaurantList();
     this.handleRestaurantFilter();
   },
