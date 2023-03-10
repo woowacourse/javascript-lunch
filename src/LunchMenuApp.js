@@ -67,6 +67,10 @@ const LunchMenuApp = {
     this.updateRestaurantList();
   },
 
+  isFavoriteTabChecked() {
+    return isChecked($('#favorite-restaurants'));
+  },
+
   moveToAllRestaurantsTab() {
     $('#all-restaurants').checked = true;
     $('restaurant-tab').handleTabChange();
@@ -75,14 +79,6 @@ const LunchMenuApp = {
   handleRestaurantRemove(restaurantId) {
     restaurantManager.remove(restaurantId);
     this.updateRestaurantList();
-  },
-
-  isFavoriteTabChecked() {
-    return isChecked($('#favorite-restaurants'));
-  },
-
-  setRestaurantList() {
-    setLocalStorage(LOCAL_STORAGE_KEY, restaurantManager.list);
   },
 
   handleFavoriteToggle(restaurantId) {
@@ -99,6 +95,10 @@ const LunchMenuApp = {
     }
 
     this.renderUpdatedRestaurantList();
+  },
+
+  setRestaurantList() {
+    setLocalStorage(LOCAL_STORAGE_KEY, restaurantManager.list);
   },
 
   renderUpdatedRestaurantList() {
