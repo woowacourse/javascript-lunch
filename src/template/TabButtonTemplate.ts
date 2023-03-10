@@ -11,10 +11,10 @@ function createTabButton(
       name="${inputAttributes.name}"
       class="${inputAttributes.className}" 
       id="${inputAttributes.id}"
-      checked="${inputAttributes.checked}" 
+      ${inputAttributes.checked ? `checked="${inputAttributes.checked}"` : ''}
     />
     <label 
-      for="${labelAttributes.id}"
+      for="${labelAttributes.for}"
       class="${labelAttributes.className}"
     >
       ${content}
