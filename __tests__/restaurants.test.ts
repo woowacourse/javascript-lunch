@@ -51,4 +51,8 @@ describe('Restaurants 도메인 테스트', () => {
   test('음식점을 분류 카테고리에 따라 필터링 하는 기능 테스트', () => {
     expect(Restaurants.filterByCategory('한식', restaurants.restaurants)[0].name).toBe('도리네 집밥');
   });
+
+  test('즐겨찾는 음식점을 필터링 하는 기능 테스트', () => {
+    expect(restaurants.getFavoritesRestaurant()[0].name).toBe('공원네 초밥집');
+  });
 });
