@@ -56,16 +56,6 @@ customElements.define(
         eventType: 'toggleFavorite',
         data: this.dataset.id,
       });
-
-      $('restaurant-list').renderRestaurantDetailModal({
-        id: this.dataset.id,
-        category: this.getAttribute('category'),
-        restaurantName: this.getAttribute('restaurantName'),
-        distance: this.getAttribute('distance'),
-        description: this.getAttribute('description'),
-        link: this.getAttribute('link'),
-        isFavorite: !JSON.parse(this.getAttribute('isFavorite')),
-      });
     }
 
     handleDeleteButtonClick() {

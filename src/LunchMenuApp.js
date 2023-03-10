@@ -83,7 +83,25 @@ const LunchMenuApp = {
 
   handleFavoriteToggle(restaurantId) {
     restaurantManager.toggleFavorite(restaurantId);
+
+    if (this.isDetailModalOpened()) {
+      this.updateDetailModal(
+        restaurantManager.list.find((restaurant) => restaurant.id === restaurantId)
+      );
+    }
+
     this.updateRestaurantList();
+  },
+
+  isDetailModalOpened() {
+    return $('.modal').open;
+  },
+
+  updateDetailModal(updatedRestaurant) {
+    $('restaurant-list').renderRestaurantDetailModal({
+      ...updatedRestaurant,
+      restaurantName: updatedRestaurant.name,
+    });
   },
 
   updateRestaurantList() {
