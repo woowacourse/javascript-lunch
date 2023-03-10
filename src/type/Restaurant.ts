@@ -8,4 +8,5 @@ export interface Restaurant {
   distance: MinutesToCampus;
   description?: string;
   link?: string;
+  isFavorite: boolean;
 }
