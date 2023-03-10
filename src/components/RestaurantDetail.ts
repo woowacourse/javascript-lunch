@@ -2,6 +2,8 @@ import { favoriteIconFilled, favoriteIconLined } from "../assets";
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
 import { closeBottomSheet, findImage } from "../utils";
+import CategorySelectBox from "./CategorySelectBox";
+import SortingSelectBox from "./SortingSelectBox";
 import TabBar from "./TabBar";
 
 class RestaurantDetail extends HTMLElement {
@@ -56,6 +58,7 @@ class RestaurantDetail extends HTMLElement {
     if (closeButton instanceof HTMLElement) {
       closeButton.addEventListener("click", () => {
         this.#updateRestaurantsState();
+        this.controller.loadLocalStorage();
         closeBottomSheet();
       });
     }
@@ -66,6 +69,9 @@ class RestaurantDetail extends HTMLElement {
     if (deleteButton instanceof HTMLElement) {
       deleteButton.addEventListener("click", () => {
         this.controller.deleteRestaurant();
+        this.controller.sortRestaurants(SortingSelectBox.getOption());
+        this.controller.filterRestaurants(CategorySelectBox.getOption());
+
         this.#updateRestaurantsState();
         closeBottomSheet();
       });
@@ -87,7 +93,6 @@ class RestaurantDetail extends HTMLElement {
       this.controller.setFavoriteRestaurantList();
       return;
     }
-    this.controller.loadLocalStorage();
   }
 }
 export default RestaurantDetail;
