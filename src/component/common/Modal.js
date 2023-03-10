@@ -11,22 +11,38 @@ const Modal = {
   },
 
   open(element) {
+    if (!element.classList.contains("modal")) {
+      throw new Error("[ERROR] 주어진 요소가 Modal이 아닙니다.");
+    }
+
     if (!element.classList.contains("modal--open")) {
       element.classList.add("modal--open");
     }
   },
 
   close(element) {
+    if (!element.classList.contains("modal")) {
+      throw new Error("[ERROR] 주어진 요소가 Modal이 아닙니다.");
+    }
+
     if (element.classList.contains("modal--open")) {
       element.classList.remove("modal--open");
     }
   },
 
   setInnerHTML(element, string) {
+    if (!element.classList.contains("modal")) {
+      throw new Error("[ERROR] 주어진 요소가 Modal이 아닙니다.");
+    }
+
     element.querySelector(".modal-container").innerHTML = string;
   },
 
   setChildElement(element, child) {
+    if (!element.classList.contains("modal")) {
+      throw new Error("[ERROR] 주어진 요소가 Modal이 아닙니다.");
+    }
+
     element.querySelector(".modal-container").innerHTML = "";
     element.querySelector(".modal-container").appendChild(child);
   },
