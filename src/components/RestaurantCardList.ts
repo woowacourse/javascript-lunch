@@ -54,10 +54,7 @@ class RestaurantCardList extends HTMLUListElement {
     if (oldValue === null) return;
     if (newValue === null) return;
     if (oldValue === newValue) return;
-
-    if (attName === "data-view") {
-      this.setRestaurants(newValue);
-    }
+    if (!this.dataset.view) return;
 
     if (this.isCategoryFilterAttribute(attName, newValue)) {
       this.#category = newValue;
@@ -67,6 +64,7 @@ class RestaurantCardList extends HTMLUListElement {
       this.#sorting = newValue;
     }
 
+    this.setRestaurants(this.dataset.view);
     this.render();
   }
 
@@ -84,11 +82,26 @@ class RestaurantCardList extends HTMLUListElement {
     return attName === "sorting-filter";
   }
 
+  setRestaurants(viewOption: string) {
+    if (viewOption !== "all" && viewOption !== "favorite") return;
+
+    if (viewOption === "favorite") {
+      this.#restaurants = this.getFavoriteList(restaurantState.getList());
+      return;
+    }
+
+    this.#restaurants = this.getListByOption(restaurantState.getList());
+  }
+
   getListByOption(restaurants: Restaurant[]) {
     const filteredList = this.filterByCategory(restaurants);
     const sortedList = this.sortBySortOption(filteredList);
 
     return sortedList;
+  }
+
+  getFavoriteList(restaurants: Restaurant[]) {
+    return restaurants.filter((restaurant) => restaurant.isFavorite);
   }
 
   sortBySortOption(restaurants: Restaurant[]) {
@@ -103,21 +116,6 @@ class RestaurantCardList extends HTMLUListElement {
     return restaurants.filter(
       (restaurant) => restaurant.category === this.#category
     );
-  }
-
-  getFavoriteList(restaurants: Restaurant[]) {
-    return restaurants.filter((restaurant) => restaurant.isFavorite);
-  }
-
-  setRestaurants(viewOption: string) {
-    if (viewOption !== "all" && viewOption !== "favorite") return;
-
-    if (viewOption === "all") {
-      this.#restaurants = this.getListByOption(restaurantState.getList());
-      return;
-    }
-
-    this.#restaurants = this.getFavoriteList(restaurantState.getList());
   }
 }
 
