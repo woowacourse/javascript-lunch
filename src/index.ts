@@ -1,3 +1,4 @@
+import FavoriteIcon from './components/\bIcon/FavoriteIcon';
 import DetailModal from './components/DetailModal';
 import Header from './components/Header';
 import Modal from './components/Modal';
@@ -19,3 +20,4 @@ customElements.define('restaurant-items', RestaurantItems);
 customElements.define('add-modal', Modal);
 customElements.define('select-box', SelectBox);
 customElements.define('detail-modal', DetailModal);
+customElements.define('favorite-icon', FavoriteIcon);

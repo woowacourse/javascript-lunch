@@ -10,6 +10,7 @@ interface Store {
   addRestaurants: (restaurant: Restaurant) => void;
   filterRestaurants: (categoryFilter: CategoryFilter) => void;
   sortRestaurants: (sortFilter: SortFilter) => void;
+  toggleFavoriteRestaurant: (id: string) => void;
 }
 
 export const store: Store = {
@@ -89,6 +90,11 @@ export const store: Store = {
         break;
     }
     $restaurantItems.render(filteredRestaurants);
+  },
+
+  toggleFavoriteRestaurant(id: string) {
+    this.restaurants[id].isFavorite = !this.restaurants[id].isFavorite;
+    localStorage.setItem('store', JSON.stringify(this.restaurants));
   },
 };
 

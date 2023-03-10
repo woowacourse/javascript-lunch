@@ -33,6 +33,7 @@ class Modal extends HTMLElement {
         category: $category.value as Category,
         name: $name.value,
         distance: Number($distance.value) as Distance,
+        isFavorite: false,
         description: `"${$description.value}"`,
         link: $link.value,
       });
