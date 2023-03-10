@@ -3,7 +3,9 @@ class RestaurantsList {
   constructor(restaurants, onClickRestaurantItem) {
     this.onClickRestaurantItem = onClickRestaurantItem;
     this.restaurants = restaurants;
+
     this.$target = document.querySelector('main');
+
     this.render();
   }
 

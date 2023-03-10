@@ -4,6 +4,7 @@ class RestaurantItem {
   constructor(restaurantInfo, restaurants) {
     this.restaurantInfo = restaurantInfo;
     this.restaurants = restaurants;
+
     this.render();
     this.setClickFavoritesIconEvent();
   }
@@ -37,13 +38,6 @@ class RestaurantItem {
     document.querySelector('.restaurant-list').insertAdjacentHTML('beforeend', this.template());
   }
 
-  updateIcon() {
-    const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
-
-    const $favoriteIcon = document.querySelector(`#restaurant${this.restaurantInfo.ID} .favorite-icon`);
-    $favoriteIcon.setAttribute('src', `./${iconName}.png`);
-  }
-
   setClickItemEvent(onClickRestaurantItem) {
     const $info = document.querySelector(`#restaurant${this.restaurantInfo.ID} .restaurant__category__info`);
     $info.addEventListener('click', e => {
@@ -62,6 +56,13 @@ class RestaurantItem {
       this.updateIcon();
       localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
     });
+  }
+
+  updateIcon() {
+    const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
+
+    const $favoriteIcon = document.querySelector(`#restaurant${this.restaurantInfo.ID} .favorite-icon`);
+    $favoriteIcon.setAttribute('src', `./${iconName}.png`);
   }
 }
 

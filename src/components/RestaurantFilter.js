@@ -1,6 +1,7 @@
 class RestaurantFilter {
   constructor() {
     this.$target = document.querySelector('main');
+
     this.render();
   }
 

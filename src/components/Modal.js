@@ -1,7 +1,9 @@
 class Modal {
   constructor(restaurants) {
     this.restaurants = restaurants;
+
     this.$target = document.querySelector('main');
+
     this.render();
     this.setCloseEvent();
   }

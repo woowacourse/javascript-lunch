@@ -3,6 +3,7 @@ import Modal from './Modal';
 class Header {
   constructor() {
     this.$target = document.querySelector('header');
+
     this.render();
     this.setClickTitleEvent();
   }

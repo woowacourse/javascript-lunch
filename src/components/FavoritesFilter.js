@@ -1,6 +1,7 @@
 class FavoritesFilter {
   constructor() {
     this.$target = document.querySelector('main');
+
     this.render();
   }
 
@@ -30,7 +31,7 @@ class FavoritesFilter {
     });
   }
 
-  setClickAllButtonEvent(OnClickButton, OnClickButton2) {
+  setClickAllButtonEvent(OnClickButtonFirst, OnClickButtonSecond) {
     const $allButton = document.querySelector('.favorites-filter .all-restaurants');
 
     $allButton.addEventListener('click', e => {
@@ -41,12 +42,12 @@ class FavoritesFilter {
       const $favoritesButton = document.querySelector('.favorites-filter .favorites-restaurants');
       $favoritesButton.classList.remove('clicked');
 
-      OnClickButton();
-      OnClickButton2();
+      OnClickButtonFirst();
+      OnClickButtonSecond();
     });
   }
 
-  setClickFavoritesButtonEvent(OnClickButton, OnClickButton2) {
+  setClickFavoritesButtonEvent(OnClickButtonFirst, OnClickButtonSecond) {
     const $favoritesButton = document.querySelector('.favorites-filter .favorites-restaurants');
 
     $favoritesButton.addEventListener('click', e => {
@@ -57,8 +58,8 @@ class FavoritesFilter {
       const $allButton = document.querySelector('.favorites-filter .all-restaurants');
       $allButton.classList.remove('clicked');
 
-      OnClickButton();
-      OnClickButton2();
+      OnClickButtonFirst();
+      OnClickButtonSecond();
     });
   }
 }

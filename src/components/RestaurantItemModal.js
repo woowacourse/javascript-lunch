@@ -47,14 +47,6 @@ class RestaurantItemModal {
     `;
   }
 
-  openModal(restaurantInfo) {
-    this.restaurantInfo = restaurantInfo;
-    this.updateContents();
-    this.render();
-
-    this.setFavoritesIconEvent();
-  }
-
   render() {
     if (!document.querySelector(`.restaurant-item-modal`)) {
       this.$target.insertAdjacentHTML('beforeend', this.template());
@@ -68,15 +60,16 @@ class RestaurantItemModal {
     $modal.classList.toggle('modal--open');
   }
 
-  updateContents() {
-    document.querySelector(`.restaurant-item-modal .modal-contents`).innerHTML = this.templateRestaurantsContents();
+  openModal(restaurantInfo) {
+    this.restaurantInfo = restaurantInfo;
+    this.updateContents();
+    this.render();
+
+    this.setFavoritesIconEvent();
   }
 
-  updateIcon() {
-    const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
-
-    const $favoriteIcon = document.querySelector(`.restaurant-item-modal .favorite-icon`);
-    $favoriteIcon.setAttribute('src', `./${iconName}.png`);
+  updateContents() {
+    document.querySelector(`.restaurant-item-modal .modal-contents`).innerHTML = this.templateRestaurantsContents();
   }
 
   setFavoritesIconEvent() {
@@ -89,6 +82,13 @@ class RestaurantItemModal {
       this.updateIcon();
       localStorage.setItem('restaurants', JSON.stringify(this.restaurants.restaurants));
     });
+  }
+
+  updateIcon() {
+    const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
+
+    const $favoriteIcon = document.querySelector(`.restaurant-item-modal .favorite-icon`);
+    $favoriteIcon.setAttribute('src', `./${iconName}.png`);
   }
 
   setCloseEvent(onCloseButtonClick) {
