@@ -1,0 +1,39 @@
+<style>
+  #tab-container {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-top: 15px;
+    padding: 0px 20px;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    border-bottom: 1px solid var(--grey-200);
+    color: var(--grey-300);
+    padding: 15px;
+    font-weight: bold;
+  }
+
+  .tab[clicked] {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+
+  .tab:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+
+  .tab:active {
+    color: var(--lighten-color);
+    border-bottom-color: var(--lighten-color);
+  }
+</style>
+
+<div id="tab-container">
+  <span class="tab tab-all">모든 음식점</span>
+  <span class="tab tab-favorite">자주 가는 음식점</span>
+</div>
