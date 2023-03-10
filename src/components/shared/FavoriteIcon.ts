@@ -6,15 +6,11 @@ class FavoriteIcon extends CustomElement {
     return ['favorite'];
   }
 
-  get isAbsolute() {
-    return this.hasAttribute('absolute');
-  }
-
-  get isFavorite() {
+  private get isFavorite() {
     return this.hasAttribute('favorite');
   }
 
-  get restaurantName() {
+  private get restaurantName() {
     return this.getAttribute('restaurantName');
   }
 

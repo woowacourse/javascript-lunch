@@ -1,5 +1,5 @@
 import { CustomRestaurantDetailModalElement } from '../components';
-import Restaurant, { RestaurantProps } from '../domain/Restaurant';
+import Restaurant from '../domain/Restaurant';
 import errorHandler from '../utils/errorHandler';
 
 const restaurantDetailModal = {
