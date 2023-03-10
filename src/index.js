@@ -1,4 +1,5 @@
 import Button from './components/Button';
+import ConvertList from './components/ConvertList';
 import FilterList from './components/FilterList';
 import Header from './components/Header';
 import Modal from './components/Modal';
@@ -13,6 +14,7 @@ import './styles/index.css';
 
 restaurant.restaurants = JSON.parse(localStorage.getItem('restaurant') || '[]');
 customElements.define('lunch-header', Header);
+customElements.define('convert-list', ConvertList);
 customElements.define('restaurant-modal', Modal);
 customElements.define('add-restaurant', AddRestaurant);
 customElements.define('restaurant-details', RestaurantDetails);

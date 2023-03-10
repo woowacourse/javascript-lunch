@@ -1,0 +1,27 @@
+.convert-list-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.convert-list {
+  text-align: center;
+  width: 50%;
+  height: 40px;
+  line-height: 40px;
+  padding: 16px 12px;
+  border-bottom: 3px solid #d0d5dd;
+  margin-left: 6px;
+  margin-right: 6px;
+  color: #667085;
+  cursor: pointer;
+}
+
+.clicked {
+  border-bottom: 3px solid #ec4a0a;
+  color: #ec4a0a;
+}
