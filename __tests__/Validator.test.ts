@@ -1,12 +1,12 @@
 // @ts-nocheck
 
 import Validator from '../src/domain/Validator';
-import dummyRestaurants from '../src/dummy/dummyRestaurants';
+import { correctUserInputs } from '../testcase/unit-testcase';
 import { ERROR_MESSAGE } from '../src/constant';
 
 describe('레스토랑 유효성 검사 테스트 (Validator)', () => {
   const validator = new Validator();
-  test.each([dummyRestaurants])(
+  test.each([correctUserInputs])(
     '정상적인 레스토랑의 정보가 주어졌다면 오류가 발생하지 않아야 한다.',
     (testcase) => {
       expect(() => validator.errorIfInvalidRestaurant(testcase)).not.toThrow();
