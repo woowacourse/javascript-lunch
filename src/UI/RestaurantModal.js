@@ -1,5 +1,7 @@
 import { CATEGORY } from "../constants";
 import { $ } from "../utils/Dom";
+import favoriteFilled from "../assets/favorite-icon-filled.png";
+import favoriteLined from "../assets/favorite-icon-lined.png";
 
 class RestaurantModal {
   #template = ({
@@ -9,21 +11,32 @@ class RestaurantModal {
     description,
     link,
     id,
+    favorite,
   } = restaurantInfo) => `
     <div class="restaurant-detail modal-backdrop"></div>
     <div class="restaurant-detail modal-container">
         <!-- 카테고리 -->
         <div class="restaurant__category">
-            <img src="${CATEGORY[category]}" alt="${category}" class="category-icon">
+            <img src="${
+              CATEGORY[category]
+            }" alt="${category}" class="category-icon">
         </div>
         <!-- 음식점 정보 -->
         <div class="name">
             <h3 class="restaurant__name text-subtitle">${name}</h3>
             <span class="restaurant__distance text-body">캠퍼스로부터 ${distance}분 내</span>
         </div>
+        ${
+          favorite
+            ? `<img src="${favoriteFilled}" alt="">`
+            : `<img src="${favoriteLined}" alt="">`
+        }
         <!-- 설명 -->
         <div class="description">
             <p class="restaurant__description text-body">${description}</p>
+        </div>
+        <div class="link">
+          <a href="https://${link}">링크</a>
         </div>
         <!-- 삭제/닫기 버튼 -->
         <div class="button-container">
@@ -74,7 +87,8 @@ class RestaurantModal {
   };
 
   addEvent() {
-    $(".remove-button").addEventListener("click", () => {
+    $(".remove-button").addEventListener("click", (event) => {
+      $(".remove-button");
       this.closeModal();
     });
     $(".close-button").addEventListener("click", this.closeModal);

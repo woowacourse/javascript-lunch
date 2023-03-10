@@ -154,6 +154,7 @@ body {
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .restaurant__text {
@@ -189,6 +190,14 @@ body {
   flex: none;
   order: 1;
   flex-grow: 0;
+}
+
+.favorite-list {
+  width: 100%;
+}
+
+button.favorite {
+  cursor: pointer;
 }
 
 /* 음식점 추가 모달 *****************************************/

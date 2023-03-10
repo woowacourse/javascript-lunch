@@ -13,13 +13,10 @@ class Store {
     this.restaurantItemList = [...this.restaurantItemList, input];
   }
 
-  setFavoriteList(input: RestaurantForm) {
-    this.favoriteItemList = [...this.favoriteItemList, input];
-  }
-
-  setFilteredList(inputList: RestaurantForm[]) {
-    this.filteredItemList = [];
-    this.filteredItemList = [...inputList];
+  getFavoriteList() {
+    return this.restaurantItemList.filter(
+      (restaurant) => restaurant.favorite === true
+    );
   }
 
   getFilteredList(selectedValue: string) {
@@ -32,17 +29,17 @@ class Store {
     return this.restaurantItemList;
   }
 
-  getFavoriteList() {
-    return this.favoriteItemList;
-  }
-
   deleteFavoriteItem(item: RestaurantForm) {
     this.favoriteItemList = this.favoriteItemList.filter(
       (favorite) => favorite.id !== item.id
     );
   }
 
-  deleteRestaurantItem(item: RestaurantForm) {}
+  deleteRestaurantItem(item: RestaurantForm) {
+    this.restaurantItemList = this.restaurantItemList.filter(
+      (restaurant) => restaurant.id !== item.id
+    );
+  }
 }
 
 export default Store;

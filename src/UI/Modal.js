@@ -99,7 +99,6 @@ export default class Modal {
 
   validateRestaurantInfo(restaurantInfo) {
     if (this.isInvalidName(restaurantInfo.name)) return true;
-
     if (this.isDuplicated(this.store.getRestaurantList(), restaurantInfo.name))
       return true;
     if (this.isInvalidURL(restaurantInfo.link)) return true;

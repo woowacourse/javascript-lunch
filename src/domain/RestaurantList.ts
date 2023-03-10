@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "../utils/LocalStorage";
+import { setLocalStorage } from "../utils/LocalStorage";
 import Store from "../Store";
 import { RestaurantForm, Category } from "../types";
 import { KEY } from "../constants";
@@ -26,7 +26,6 @@ export default class RestaurantList {
 
   categoryFilter(category: Category) {
     if (category === "전체") {
-      this.store.setFilteredList(this.store.getRestaurantList());
       return this.store.getRestaurantList();
     }
 
@@ -39,7 +38,6 @@ export default class RestaurantList {
         return arr;
       }, []);
 
-    this.store.setFilteredList(filteredList);
     return filteredList;
   }
 }
