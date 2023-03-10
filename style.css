@@ -1,11 +1,13 @@
-@import url("./css/header_component.css");
-@import url("./css/select_component.css");
-@import url("./css/modal_component.css");
-@import url("./css/restaurant_add_form_component.css");
-@import url("./css/restaurant_component.css");
-@import url("./css/restaurants_component.css");
-@import url("./css/button_component.css");
-@import url("./css/restaurant_detail_component.css");
+@import url("./css/common/button_component.css");
+@import url("./css/common/header_component.css");
+@import url("./css/common/select_component.css");
+
+@import url("./css/modal/modal_component.css");
+@import url("./css/modal/restaurant_add_form_component.css");
+@import url("./css/modal/restaurant_detail_component.css");
+
+@import url("./css/restaurant/restaurant_component.css");
+@import url("./css/restaurant/restaurants_component.css");
 
 * {
   padding: 0;
