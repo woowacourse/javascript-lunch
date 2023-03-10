@@ -3,51 +3,53 @@ import { RESTAURANT_IMAGE, getFavoriteIcon } from '../constants/images';
 import { $ } from '../utils/domSelectors';
 import { changeRestaurantFavoriteIcon } from './utils';
 
-class RestaurantInformation {
-  addCloseButtonClickEvent(closeModal: CallableFunction) {
-    const closeButton = $<HTMLButtonElement>('#restaurant-information-close-button');
+function addCloseButtonClickEvent(closeModal: CallableFunction) {
+  const closeButton = $<HTMLButtonElement>('#restaurant-information-close-button');
 
-    closeButton.addEventListener('click', () => {
-      closeModal();
-    });
-  }
+  closeButton.addEventListener('click', () => {
+    closeModal();
+  });
+}
 
-  addDeleteButtonClickEvent(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
-    const deleteButton = $<HTMLButtonElement>('#restaurant-information-delete-button');
+function addDeleteButtonClickEvent(
+  closeModal: CallableFunction,
+  deleteRestaurant: CallableFunction
+) {
+  const deleteButton = $<HTMLButtonElement>('#restaurant-information-delete-button');
 
-    deleteButton.addEventListener('click', (event: Event) => {
-      const target = event.target as HTMLButtonElement;
-      deleteRestaurant(Number(target.dataset.id));
-      closeModal();
-    });
-  }
+  deleteButton.addEventListener('click', (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    deleteRestaurant(Number(target.dataset.id));
+    closeModal();
+  });
+}
 
-  addFavoriteIconClickEvent(onFavoriteIconClick: CallableFunction) {
-    const favoriteIcon = $<HTMLImageElement>('#restaurant-information-star');
+function addFavoriteIconClickEvent(onFavoriteIconClick: CallableFunction) {
+  const favoriteIcon = $<HTMLImageElement>('#restaurant-information-star');
 
-    favoriteIcon.addEventListener('click', (event: Event) => {
-      const target = event.target as HTMLImageElement;
-      const restaurantListItemFavoriteIcon = $<HTMLImageElement>(
-        `.restaurant[data-id="${target.dataset.id}"] img.restaurant-star-icon`
-      );
-      changeRestaurantFavoriteIcon(target);
-      changeRestaurantFavoriteIcon(restaurantListItemFavoriteIcon);
-      onFavoriteIconClick(Number(target.dataset.id));
-    });
-  }
+  favoriteIcon.addEventListener('click', (event: Event) => {
+    const target = event.target as HTMLImageElement;
+    const restaurantListItemFavoriteIcon = $<HTMLImageElement>(
+      `.restaurant[data-id="${target.dataset.id}"] img.restaurant-star-icon`
+    );
+    changeRestaurantFavoriteIcon(target);
+    changeRestaurantFavoriteIcon(restaurantListItemFavoriteIcon);
+    onFavoriteIconClick(Number(target.dataset.id));
+  });
+}
 
-  addEvents(
-    closeModal: CallableFunction,
-    deleteRestaurant: CallableFunction,
-    onFavoriteIconClick: CallableFunction
-  ) {
-    this.addCloseButtonClickEvent(closeModal);
-    this.addDeleteButtonClickEvent(closeModal, deleteRestaurant);
-    this.addFavoriteIconClickEvent(onFavoriteIconClick);
-  }
+function addRestaurantInformationEvents(
+  closeModal: CallableFunction,
+  deleteRestaurant: CallableFunction,
+  onFavoriteIconClick: CallableFunction
+) {
+  addCloseButtonClickEvent(closeModal);
+  addDeleteButtonClickEvent(closeModal, deleteRestaurant);
+  addFavoriteIconClickEvent(onFavoriteIconClick);
+}
 
-  create(restaurant: Restaurant) {
-    return `
+function createRestaurantInformationContent(restaurant: Restaurant) {
+  return `
       <div class="restaurant-detail__info-container">
         <div class="left-section">
           <div class="restaurant__category">
@@ -102,7 +104,6 @@ class RestaurantInformation {
         </button>
       </div>
     `;
-  }
 }
 
-export default new RestaurantInformation();
+export { addRestaurantInformationEvents, createRestaurantInformationContent };
