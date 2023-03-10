@@ -9,7 +9,7 @@ class RestaurantItem {
   }
 
   template() {
-    const imageFile = CATEGORY_TO_FILENAME[this.restaurantInfo.category];
+    const imageName = CATEGORY_TO_FILENAME[this.restaurantInfo.category];
     const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
 
     return `
@@ -17,7 +17,7 @@ class RestaurantItem {
 
         <div class="restaurant__category__info">
           <div class="restaurant__category">
-              <img src="./${imageFile}.png" alt="${this.restaurantInfo.category}" class="category-icon">
+              <img src="./${imageName}.png" alt="${this.restaurantInfo.category}" class="category-icon">
           </div>
 
           <div class="restaurant__info">
@@ -48,7 +48,7 @@ class RestaurantItem {
     const $info = document.querySelector(`#restaurant${this.restaurantInfo.ID} .restaurant__category__info`);
     $info.addEventListener('click', e => {
       e.preventDefault();
-      onClickRestaurantItem(this.restaurant);
+      onClickRestaurantItem(this.restaurantInfo);
     });
   }
 

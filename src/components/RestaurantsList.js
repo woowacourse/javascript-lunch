@@ -1,13 +1,8 @@
 import RestaurantItem from './RestaurantItem';
 class RestaurantsList {
-  restaurants;
-  restaurantItems;
-
   constructor(restaurants, onClickRestaurantItem) {
     this.onClickRestaurantItem = onClickRestaurantItem;
     this.restaurants = restaurants;
-    this.restaurantItems = [];
-
     this.$target = document.querySelector('main');
     this.render();
   }
@@ -25,14 +20,16 @@ class RestaurantsList {
       this.$target.insertAdjacentHTML('beforeend', this.template());
     }
 
-    let restaurants;
+    const restaurantList = this.getRestaurantbyFilterValue();
+    this.makeRestaurantItems(restaurantList);
+  }
+
+  getRestaurantbyFilterValue() {
     if (document.querySelector('.favorites-filter').getAttribute('value') === 'all') {
-      restaurants = this.getRestaurantsByCategoryAndSort();
-    } else {
-      restaurants = this.restaurants.getFavoritesRestaurant();
+      return this.getRestaurantsByCategoryAndSort();
     }
 
-    this.makeRestaurantItems(restaurants);
+    return this.restaurants.getFavoritesRestaurant();
   }
 
   getRestaurantsByCategoryAndSort() {
@@ -53,7 +50,6 @@ class RestaurantsList {
     restaurants.forEach(restaurant => {
       const restaurantItem = new RestaurantItem(restaurant, this.restaurants);
       restaurantItem.setClickItemEvent(this.onClickRestaurantItem);
-      this.restaurantItems.push(restaurantItem);
     });
   }
 }

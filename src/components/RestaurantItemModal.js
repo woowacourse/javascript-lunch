@@ -29,14 +29,14 @@ class RestaurantItemModal {
   }
 
   templateRestaurantsContents() {
-    const imageName = CATEGORY_TO_FILENAME[this.restaurantInfo.category];
+    const imageFile = CATEGORY_TO_FILENAME[this.restaurantInfo.category];
     const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
 
     return `
     <img src="./${iconName}.png" class="favorite-icon">
 
     <div class="restaurant__category">
-      <img src="./${imageName}.png" alt="${this.restaurantInfo.category}" class="category-icon">
+      <img src="./${imageFile}.png" alt="${this.restaurantInfo.category}" class="category-icon">
     </div>
 
     <h3 class="restaurant__name text-subtitle">${this.restaurantInfo.name}</h3>
