@@ -1,11 +1,9 @@
 import "./RestaurantCard.style.css";
 
-import type { Restaurant } from "../types/restaurant";
-
-import categoryImages from "../constants/categoryImage";
 import ModalRoot from "./modal/ModalRoot";
-import restaurantState from "../states/restaurants";
 import RestaurantDetailModal from "./modal/RestaurantDetailModal";
+import categoryImages from "../constants/categoryImage";
+import restaurantState from "../states/restaurants";
 
 class RestaurantCard extends HTMLLIElement {
   #name: string | null;
@@ -45,6 +43,9 @@ class RestaurantCard extends HTMLLIElement {
           </p>
         </div>
       </button>
+      <div class="favorite__button">
+        <button is="favorite-button" type="button" value=${this.#name}></button>
+      </div>
     `;
   }
 

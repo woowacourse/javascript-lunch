@@ -2,10 +2,16 @@ import "./FavoriteButton.style.css";
 
 import favoriteFilledImage from "../images/favorite-icon-filled.png";
 import favoriteLinedImage from "../images/favorite-icon-lined.png";
+import restaurantState from "../states/restaurants";
 
 class FavoriteButton extends HTMLButtonElement {
+  #isFavorite: Boolean;
+
   constructor() {
     super();
+
+    this.#isFavorite =
+      restaurantState.getTargetRestaurant(this.value)?.isFavorite || false;
   }
 
   connectedCallback() {
@@ -17,7 +23,7 @@ class FavoriteButton extends HTMLButtonElement {
   render() {
     this.innerHTML = `
       <img
-        src=${false ? favoriteFilledImage : favoriteLinedImage}
+        src=${this.#isFavorite ? favoriteFilledImage : favoriteLinedImage}
         alt="즐겨찾기 버튼"
         class="favorite-icon"
       />
@@ -31,7 +37,9 @@ class FavoriteButton extends HTMLButtonElement {
   onClick(event: Event) {
     if (!(event.currentTarget instanceof HTMLButtonElement)) return;
 
-    console.log(event.currentTarget.value);
+    this.#isFavorite = !this.#isFavorite;
+    restaurantState.toggleTargetRestaurantFavorite(this.value);
+    this.render();
   }
 }
 

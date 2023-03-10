@@ -109,7 +109,7 @@ class RestaurantAddModal extends ModalContent {
       this.querySelector<HTMLTextAreaElement>("#description")?.value;
     const link = this.querySelector<HTMLInputElement>("#link")?.value;
 
-    return { category, name, distance, description, link };
+    return { category, name, distance, description, link, isFavorite: false };
   }
 }
 

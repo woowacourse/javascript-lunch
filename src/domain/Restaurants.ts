@@ -28,6 +28,14 @@ class Restaurants {
       (restaurant) => restaurant.name !== targetName
     );
   }
+
+  toggleTargetRestaurantFavorite(targetName: string) {
+    this.#list = this.#list.map((restaurant) =>
+      restaurant.name === targetName
+        ? { ...restaurant, isFavorite: !restaurant.isFavorite }
+        : restaurant
+    );
+  }
 }
 
 export default Restaurants;
