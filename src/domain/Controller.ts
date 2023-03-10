@@ -105,29 +105,29 @@ class Controller {
     this.loadLocalStorage();
   }
 
-  toggleFavorite(index: number) {
+  toggleFavorite() {
     const restaurants = this.getLocalStorage();
     restaurants.forEach((restaurant: RestaurantType, targetIndex: number) => {
       if (
         JSON.stringify(restaurant) ==
-        JSON.stringify(this.state.restaurants[index])
+        JSON.stringify(this.getSelectedRestaurant())
       )
         restaurants[targetIndex].isFavorite =
           !restaurants[targetIndex].isFavorite;
     });
+
     this.setLocalStorage(restaurants);
 
-    this.state.restaurants[index].isFavorite =
-      !this.state.restaurants[index].isFavorite;
+    this.getSelectedRestaurant().isFavorite =
+      !this.getSelectedRestaurant().isFavorite;
   }
 
   deleteRestaurant() {
     const restaurants = this.getLocalStorage();
-
     const newRestaurants = restaurants.filter(
       (restaurant: RestaurantType) =>
         JSON.stringify(restaurant) !=
-        JSON.stringify(this.state.restaurants[this.selectedRestaurantIndex])
+        JSON.stringify(this.getSelectedRestaurant())
     );
 
     this.setLocalStorage(newRestaurants);

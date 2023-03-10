@@ -1,4 +1,6 @@
+import { NO_ELEMENT } from "../constants";
 import Controller from "../domain/Controller";
+
 class TabBar extends HTMLElement {
   private controller;
 
@@ -37,6 +39,14 @@ class TabBar extends HTMLElement {
       restaurantFilter.style.display = "";
       this.controller.loadLocalStorage();
     });
+  }
+
+  static getCurrentTab(): string {
+    const currentTab = document.querySelector('input[name="tab"]:checked');
+    if (!(currentTab instanceof HTMLInputElement)) {
+      return NO_ELEMENT;
+    }
+    return currentTab.value;
   }
 }
 export default TabBar;

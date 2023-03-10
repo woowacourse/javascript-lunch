@@ -2,6 +2,7 @@ import { favoriteIconFilled, favoriteIconLined } from "../assets";
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
 import { closeBottomSheet, findImage } from "../utils";
+import TabBar from "./TabBar";
 
 class RestaurantDetail extends HTMLElement {
   private controller;
@@ -52,13 +53,13 @@ class RestaurantDetail extends HTMLElement {
 
   onClickCloseButton() {
     const closeButton = this.querySelector("#closeButton");
-    closeButton?.addEventListener("click", () => {
+    if (!(closeButton instanceof HTMLElement)) {
+      return;
+    }
+
+    closeButton.addEventListener("click", () => {
       closeBottomSheet();
-      const currentTab = document.querySelector('input[name="tab"]:checked');
-      if (!(currentTab instanceof HTMLInputElement)) {
-        return;
-      }
-      if (currentTab.value === "favorite") {
+      if (TabBar.getCurrentTab() === "favorite") {
         this.controller.setFavoriteRestaurantList();
         return;
       }
@@ -68,14 +69,14 @@ class RestaurantDetail extends HTMLElement {
 
   onClickDeleteButton() {
     const deleteButton = this.querySelector("#deleteButton");
+    if (!(deleteButton instanceof HTMLElement)) {
+      return;
+    }
+
     deleteButton?.addEventListener("click", () => {
       this.controller.deleteRestaurant();
       closeBottomSheet();
-      const currentTab = document.querySelector('input[name="tab"]:checked');
-      if (!(currentTab instanceof HTMLInputElement)) {
-        return;
-      }
-      if (currentTab.value === "favorite") {
+      if (TabBar.getCurrentTab() === "favorite") {
         this.controller.setFavoriteRestaurantList();
         return;
       }
@@ -91,20 +92,12 @@ class RestaurantDetail extends HTMLElement {
     }
 
     favorite.addEventListener("click", () => {
-      const currentTab = document.querySelector('input[name="tab"]:checked');
-      if (!(currentTab instanceof HTMLInputElement)) {
-        return;
-      }
-      if (currentTab.value === "favorite") {
-        this.controller.toggleFavorite(
-          this.controller.getSelectedRestaurantIndex()
-        );
+      if (TabBar.getCurrentTab() === "favorite") {
+        this.controller.toggleFavorite();
         this.render(this.controller.getSelectedRestaurant());
         return;
       }
-      this.controller.toggleFavorite(
-        this.controller.getSelectedRestaurantIndex()
-      );
+      this.controller.toggleFavorite();
       this.render(this.controller.getSelectedRestaurant());
     });
   }

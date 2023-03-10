@@ -51,20 +51,18 @@ class RestaurantList extends HTMLElement {
 
     favorites.forEach((favorite: any) => {
       favorite.addEventListener("click", () => {
+        this.controller.setSelectedRestaurantIndex(
+          Number(favorite.parentElement.getAttribute("key"))
+        );
+        this.controller.toggleFavorite();
         const currentTab = document.querySelector('input[name="tab"]:checked');
         if (!(currentTab instanceof HTMLInputElement)) {
           return;
         }
         if (currentTab.value === "favorite") {
-          this.controller.toggleFavorite(
-            Number(favorite.parentElement.getAttribute("key"))
-          );
           this.controller.setFavoriteRestaurantList();
           return;
         }
-        this.controller.toggleFavorite(
-          Number(favorite.parentElement.getAttribute("key"))
-        );
         this.render();
       });
     });
