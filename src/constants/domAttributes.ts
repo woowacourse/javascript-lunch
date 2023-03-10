@@ -51,10 +51,10 @@ const MODAL_ATTRIBUTE: Record<string, Attribute> = {
 };
 
 const CAPTION_ATTRIBUTE: Record<string, Attribute> = {
-  CATEGORY_SELECT: { id: 'category-caption' },
-  DISTANCE_SELECT: { id: 'distance-caption' },
-  NAME_INPUT: { id: 'name-caption' },
-  LINK_INPUT: { id: 'link-caption', className: 'help-text' },
+  CATEGORY_SELECT: { id: 'category' },
+  DISTANCE_SELECT: { id: 'distance' },
+  NAME_INPUT: { id: 'name' },
+  LINK_INPUT: { id: 'link', className: 'help-text' },
 };
 
 export {
