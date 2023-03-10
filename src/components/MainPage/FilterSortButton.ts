@@ -1,7 +1,6 @@
 import { $ } from "../../until/ControlDom";
 import { FilterSort } from "../../domain/FilterSort";
-import { RestaurantData } from "../../domain/RestaurantData";
-import { RestaurantList } from "./RestaurantList";
+import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
 
 const FilterSortButton = {
   template() {
@@ -25,7 +24,7 @@ const FilterSortButton = {
     const restaurantFilterContainer = $(".restaurant-filter-container");
     restaurantFilterContainer?.addEventListener("change", () => {
       FilterSort.setFilterSortState();
-      RestaurantList.renderRestaurantList();
+      RenderRestaurantList.render();
     });
   },
 };

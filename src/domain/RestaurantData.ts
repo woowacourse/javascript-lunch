@@ -11,7 +11,7 @@ interface RestaurantDataType {
   deleteLikeRestaurant: (id: number) => void;
   addLikeRestaurant: (id: number) => void;
   getRestaurant: (id: number) => RestaurantType;
-  deleteRestaurant: (id: number) => void;
+  deleteOneRestaurant: (id: number) => void;
 }
 
 export const RestaurantData: RestaurantDataType = {
@@ -69,7 +69,7 @@ export const RestaurantData: RestaurantDataType = {
     })[0];
   },
 
-  deleteRestaurant(id) {
+  deleteOneRestaurant(id) {
     this.allList = this.allList.filter((res) => {
       return res.id !== id && res;
     });

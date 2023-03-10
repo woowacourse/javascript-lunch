@@ -7,6 +7,7 @@ import { MainHeader } from "./components/MainPage/MainHeader";
 import { RestaurantList } from "./components/MainPage/RestaurantList";
 import { ListChooseSection } from "./components/MainPage/ListChooseSection";
 import { InfoPage } from "./components/RestaurantInfoSheet/InfoPage";
+import { RenderRestaurantList } from "./domain/RenderRestaurantList";
 
 class App {
   #app;
@@ -16,7 +17,7 @@ class App {
     RestaurantData.settingList(mockList);
     localStorage.clear();
     this.render();
-    RestaurantList.renderRestaurantList();
+    RenderRestaurantList.render();
     localStorage.clear();
   }
 
@@ -32,13 +33,13 @@ class App {
         </section>
       </main>
       ${InputForm.template()}
-      ${InfoPage.template()}`;
+      ${InfoPage.infoPageTemplate()}`;
     this.setEvent();
   }
 
   setEvent() {
     InputFormOpenButton.setEvent();
-    InputForm.addRestaurant();
+    InputForm.setEvent();
     FilterSortButton.setEvent();
     RestaurantList.setEvent();
     ListChooseSection.setEvent();

@@ -1,4 +1,4 @@
-import { $, BottomSheetForm } from "../../until/ControlDom";
+import { $, ControlDom } from "../../until/ControlDom";
 import addButtonImg from "../../../templates/add-button.png";
 
 const InputFormOpenButton = {
@@ -14,7 +14,7 @@ const InputFormOpenButton = {
 
     gnbButton?.addEventListener("click", () => {
       const bottomSheet = $(".bottomSheet") as HTMLElement;
-      BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
+      ControlDom.showClose(bottomSheet, "bottomSheet--open");
     });
   },
 };

@@ -1,7 +1,8 @@
-import { $, BottomSheetForm } from "../../until/ControlDom";
+import { $, ControlDom } from "../../until/ControlDom";
 import { RestaurantData } from "../../domain/RestaurantData";
-import { RestaurantList } from "../MainPage/RestaurantList";
 import { CategoryType, TakeTimeType } from "../../Template";
+import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
+
 let id = RestaurantData.allList.length;
 
 const InputForm = {
@@ -60,26 +61,30 @@ const InputForm = {
   `;
   },
 
-  addRestaurant() {
+  setEvent() {
     const formElem = $("form");
     formElem?.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      const newRestaurant = this.getInfo();
-      this.reset();
       const bottomSheet = $(".bottomSheet") as HTMLElement;
-      BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
-      RestaurantData.addRestaurant(newRestaurant);
-      RestaurantList.renderRestaurantList();
+      this.addRestaurant(bottomSheet);
+      this.cancelAddRestaurant(bottomSheet);
     });
-    this.cancelAddRestaurant();
   },
 
-  cancelAddRestaurant() {
+  addRestaurant(elem: HTMLElement) {
+    const newRestaurant = this.getInfo();
+    RestaurantData.addRestaurant(newRestaurant);
+    RenderRestaurantList.render();
+
+    ControlDom.showClose(elem, "bottomSheet--open");
+    this.reset();
+  },
+
+  cancelAddRestaurant(elem: HTMLElement) {
     const buttonSecondary = $(".button--secondary");
-    const bottomSheet = $(".bottomSheet") as HTMLElement;
     buttonSecondary?.addEventListener("click", () => {
-      BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
+      ControlDom.showClose(elem, "bottomSheet--open");
     });
   },
 

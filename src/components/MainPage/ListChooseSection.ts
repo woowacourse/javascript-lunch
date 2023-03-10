@@ -1,6 +1,5 @@
-import { RestaurantData } from "../../domain/RestaurantData";
-import { $, BottomSheetForm } from "../../until/ControlDom";
-import { RestaurantList } from "./RestaurantList";
+import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
+import { $, ControlDom } from "../../until/ControlDom";
 
 export const ListChooseSection = {
   template() {
@@ -16,22 +15,24 @@ export const ListChooseSection = {
     listChooseSection?.addEventListener("click", (event) => {
       const target = event.target as HTMLElement;
 
-      //무의미한 클릭 이벤트 제거
-      if (target.className === "list-choose-section") return;
-      if (target.classList.length === 2) return;
-
-      this.transSection(target, target.classList[0]);
+      this.targetValidation(target) &&
+        this.transSection(target, target.classList[0]);
     });
   },
 
-  transSection(target: HTMLElement, ListClass: string) {
-    const oppositeList = ListClass === "likeList" ? "allList" : "likeList";
+  targetValidation(elem: HTMLElement) {
+    return elem.className !== "list-choose-section";
+  },
 
-    BottomSheetForm.showClose(
+  transSection(target: HTMLElement, selectListClass: string) {
+    const oppositeList =
+      selectListClass === "likeList" ? "allList" : "likeList";
+
+    ControlDom.showClose(
       $(".restaurant-list-container") as HTMLElement,
       "show-Like-List"
     );
-    BottomSheetForm.showClose(
+    ControlDom.showClose(
       $(".restaurant-filter-container") as HTMLElement,
       "show-filter"
     );
@@ -40,6 +41,6 @@ export const ListChooseSection = {
     const oppositeSection = $(`.${oppositeList}`) as HTMLElement;
     oppositeSection.className = oppositeList;
 
-    RestaurantList.renderRestaurantList();
+    RenderRestaurantList.render();
   },
 };
