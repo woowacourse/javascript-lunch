@@ -10,7 +10,7 @@
 
 ## 유틸
 
-- 로컬 스토리지
+- 로컬 스토리지 활용
 
 ## UI
 
@@ -32,14 +32,10 @@ DOM 구조
             ├─ *버튼 2개*
 ```
 
-### 나의 컴포넌트
+### 내 컴포넌트의 역할, 정의
 
-레고처럼 쓸 수 있는 HTML 뭉치들
-
-### 내 컴포넌트의 역할
-
-1. 반복되는 HTML 태그 구조를 재사용한다.
-2. 해당 태그 안에서만 일어나는 일들을 한다.
+거대한 HTML 덩어리를 보기 쉽고 수정하기 쉽게 도와줘야 한다.
+원하는 모습을 추상화하고 이벤트에서 재활용한다.
 
 ```javascript
 body = `
@@ -55,11 +51,8 @@ ${header()}
   <modal>
     <h2></h2>
     <form>
-      ${formItem(select())}
-      ${formItem()}
-      ${formItem(select())}
-      ${formItem()}
-      ${formItem()}
+      ${select()}
+      ${select()}
       <div class="button-container">
         ${button()}
         ${button()}
@@ -67,17 +60,5 @@ ${header()}
     </form>
   </modal>
 </main>
-`;
-```
-
-```javascript
-list = `
-  <ul>
-    ${restaurants
-      .map(() => {
-        listItem();
-      })
-      .join()}
-  </ul>
 `;
 ```
