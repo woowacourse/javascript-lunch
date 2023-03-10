@@ -1,30 +1,60 @@
 import { Restaurant, RestaurantType } from './Restaurant';
+interface ListInterface {
+  filterState: string;
+  sortState: string;
+  originList: Restaurant[];
+  valList: Restaurant[];
 
-class RestaurantList {
-  #restaurantList: Restaurant[];
+  defaultList: (restaurantList: RestaurantType[]) => Restaurant[];
+  addRestaurant: (
+    restaurantList: Restaurant[],
+    restaurant: RestaurantType,
+  ) => Restaurant[];
+  template(restaurantList: Restaurant[]): string;
+  filter(restaurantList: Restaurant[], category: string): Restaurant[];
+  sort(restaurantList: Restaurant[], Priority: string): Restaurant[];
+}
 
-  constructor(restaurantList: RestaurantType[]) {
-    this.#restaurantList = restaurantList.map((item) => {
+const RestaurantList: ListInterface = {
+  filterState: '전체',
+  sortState: '이름순',
+  originList: [],
+  valList: [],
+  defaultList(restaurantList: RestaurantType[]) {
+    return restaurantList.map((item) => {
       const restaurant = new Restaurant(item);
       return restaurant;
     });
-  }
+  },
 
-  addRestaurant(restaurant: RestaurantType) {
-    this.#restaurantList.push(new Restaurant(restaurant));
-  }
+  addRestaurant(restaurantList: Restaurant[], restaurant: RestaurantType) {
+    return [...restaurantList, new Restaurant(restaurant)];
+  },
 
-  template() {
-    return `<ul class="restaurant-list">
-    ${this.#restaurantList.map((restaurant) => restaurant.template()).join('')}
+  template(restaurantList): string {
+    return `<ul class='restaurant-list'>
+    ${restaurantList.map((restaurant) => restaurant.template()).join('')}
     </ul>`;
-  }
+  },
 
-  setEvent() {
-    this.#restaurantList.forEach((restaurant) => {
-      restaurant.setEvent();
+  filter(restaurantList, category) {
+    if (category === '전체') {
+      this.valList = this.originList;
+      return restaurantList;
+    }
+    const result = restaurantList.filter((restaurant) => {
+      if (restaurant.getRestaurant().category === category) return restaurant;
     });
-  }
-}
 
+    this.valList = result;
+    return result;
+  },
+
+  sort(restaurantList) {
+    const result = restaurantList.sort((a, b) => {
+      return a.getRestaurant().distance - b.getRestaurant().distance;
+    });
+    return result;
+  },
+};
 export default RestaurantList;
