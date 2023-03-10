@@ -14,16 +14,17 @@ export default class App {
 
   _restaurantController: RestaurantController;
   _header: Header;
+  _tabMenu: TabMenu;
 
   constructor($target: HTMLElement) {
     this.$target = $target;
     this.setup();
     this._restaurantController = new RestaurantController(this._state.restaurants);
     this._header = new Header();
+    this._tabMenu = new TabMenu();
 
     this.render();
 
-    this._header.bindAddRestaurantButton();
     document.addEventListener('addRestaurantClicked', this.handleAddRestaurantClicked.bind(this));
     document.addEventListener('closeModal', this.onCloseModal.bind(this));
     document.addEventListener('allRestaurantClicked', this.handleAllRestaurantClicked.bind(this));
@@ -36,9 +37,43 @@ export default class App {
     new Modal(target, this._restaurantController, this._state);
   }
 
-  handleAllRestaurantClicked() {}
+  handleAllRestaurantClicked() {
+    const allRestuarant = this._restaurantController!.getRestaurants();
+    const allButton = this.$target.querySelector('#allRestaurantButton');
+    const likedButton = this.$target.querySelector('#likedRestaurantButton');
 
-  handleLikedRestaurantClicked() {}
+    allButton?.classList.add('selected');
+    likedButton?.classList.remove('selected');
+
+    const categoryFilter = this.$target.querySelector('#restaurant-filter');
+    const sortingFilter = this.$target.querySelector('#sorting-filter');
+
+    categoryFilter?.classList.remove('hidden');
+    sortingFilter?.classList.remove('hidden');
+
+    this.setState({ restaurants: allRestuarant });
+    this._tabMenu.update(allButton as Element, likedButton as Element, 'all');
+  }
+
+  handleLikedRestaurantClicked() {
+    const likedRestaurant = this._restaurantController!.filterByLiked();
+    const allButton = this.$target.querySelector('#allRestaurantButton');
+    const likedButton = this.$target.querySelector('#likedRestaurantButton');
+
+    allButton?.classList.remove('selected');
+    likedButton?.classList.add('selected');
+
+    //category, selectoption selectBox 삭제
+    const categoryFilter = this.$target.querySelector('#restaurant-filter');
+    const sortingFilter = this.$target.querySelector('#sorting-filter');
+
+    categoryFilter?.classList.add('hidden');
+    sortingFilter?.classList.add('hidden');
+    //자주가는 레스토랑 계산 결과 출력
+    this.setState({ restaurants: likedRestaurant });
+    //선택 탭 빨간 줄 표시 출력 업데이트
+    this._tabMenu.update(allButton as Element, likedButton as Element, 'liked');
+  }
 
   setup() {
     this._state = getDataFromLocalStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
@@ -54,7 +89,8 @@ export default class App {
     ${this._header.template()}
     <main>
       <section class="tabMenu-container">
-
+      ${this._tabMenu.template()}
+    </section>
       </section>
       <!-- 카테고리/정렬 필터 -->
       <section class="restaurant-filter-container">
@@ -93,10 +129,6 @@ export default class App {
       new RestaurantItem($restaurantList, restaurant);
     });
 
-    const $tabMenuContainer = this.$target.querySelector('.tabMenu-container') as HTMLElement;
-    $tabMenuContainer.innerHTML = '';
-    new TabMenu($tabMenuContainer);
-
     const categoryFilter = this.$target.querySelector('#category-filter');
     if (categoryFilter instanceof HTMLSelectElement) {
       categoryFilter.value = this._state!.filter;
@@ -112,12 +144,12 @@ export default class App {
 
   listenEvent() {
     this._header.bindAddRestaurantButton();
+    this._tabMenu.bindTabButton();
 
     this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLInputElement;
       const value = target.value;
       const filteredRestuarant = this._restaurantController!.filterByCategory(value as Category);
-
       this.setState({ filter: value, restaurants: filteredRestuarant });
     });
 
