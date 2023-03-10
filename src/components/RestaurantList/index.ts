@@ -1,11 +1,11 @@
 import { selectRestaurants } from "../../domain/restaurant";
 import IRestaurant from "../../type/IRestaurant";
-import { onclickRestaurantList } from "./handleRestaurantList";
+import { onClickRestaurantList } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
   constructor() {
     super();
-    onclickRestaurantList();
+    onClickRestaurantList();
   }
 
   render() {

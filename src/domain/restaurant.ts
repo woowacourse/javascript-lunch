@@ -87,9 +87,11 @@ export const sortRestaurants = (restaurants: IRestaurant[], sort: string) => {
 };
 
 export const updateFavorite = (id: string) => {
-  const index = restaurants.state.restaurants.findIndex((r) => r.id === id);
-  const originalFovrite = restaurants.state.restaurants[index].favorite;
-  restaurants.state.restaurants[index].favorite = !originalFovrite;
+  const oldRestaurants = [...restaurants.state.restaurants];
+  const index = oldRestaurants.findIndex((r) => r.id === id);
+  const originalFovrite = oldRestaurants[index].favorite;
+  oldRestaurants[index].favorite = !originalFovrite;
+  restaurants.state.restaurants = [...oldRestaurants];
   Storage.saveRestaurants(restaurants.state.restaurants);
 };
 

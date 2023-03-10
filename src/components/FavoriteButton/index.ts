@@ -33,7 +33,6 @@ class FavoriteButton extends HTMLElement {
     this.render();
   }
 
-  // 리팩토링 필요
   onClickFavoriteButton(id: string) {
     this.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -43,7 +42,6 @@ class FavoriteButton extends HTMLElement {
       );
       buttons.forEach((button) => {
         button.setAttribute("favorite", `${!this.favorite}`);
-        renderRestaurantList();
       });
     });
   }
