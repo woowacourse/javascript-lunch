@@ -64,11 +64,18 @@ const LunchMenuApp = {
   handleRestaurantRegister(restaurant) {
     restaurantManager.add(restaurant);
 
+    this.resetFilter();
+
     if (this.isFavoriteTabChecked()) {
       this.moveToAllRestaurantsTab();
     }
 
     this.updateRestaurantList();
+  },
+
+  resetFilter() {
+    $('#category-filter').value = '전체';
+    $('#sorting-filter').value = 'register';
   },
 
   isFavoriteTabChecked() {
@@ -77,8 +84,6 @@ const LunchMenuApp = {
 
   moveToAllRestaurantsTab() {
     $('#all-restaurants').checked = true;
-    $('#category-filter').value = '전체';
-    $('#sorting-filter').value = 'register';
     $('restaurant-tab').handleTabChange();
   },
 
