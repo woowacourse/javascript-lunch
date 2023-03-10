@@ -2,19 +2,15 @@ import '../css/AddFormModal.css';
 
 import { useEvents } from '../../utils/core';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { getFormFields } from '../../utils/common/formData';
 import validator from '../../validation/validator';
 
 interface AddFormModalProps {
   close: VoidFunction;
+  handleClickAddBtn: (restaurantInfo: RestaurantInfo) => void;
 }
 
-function AddFormModal({ close }: AddFormModalProps) {
-  const {
-    handlers: { handleClickAddBtn },
-  } = useRestaurants();
-
+function AddFormModal({ close, handleClickAddBtn }: AddFormModalProps) {
   const [addEvent] = useEvents('.modal');
 
   addEvent('click', '.modal-backdrop', (e) => {

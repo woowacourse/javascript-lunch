@@ -8,7 +8,7 @@ interface TabOption {
 
 function Tab({ oftenOption, handleOftenTab }: TabOption) {
   const [addEvent] = useEvents('.restaurant-tab-container');
-  console.log(oftenOption);
+
   addEvent('click', '.restaurant-tab', (e) => {
     if (e.target instanceof HTMLButtonElement) {
       const id = e.target.dataset.id;

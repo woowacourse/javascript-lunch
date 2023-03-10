@@ -4,20 +4,17 @@ import '../../assets/add-button.png';
 import { useEvents } from '../../utils/core';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { getCategoryImageSrc, getFavoriteIconSrc } from '../../utils/common/getImageSrc';
+import { getCategoryImageSrc } from '../../utils/common/getImageSrc';
 
 interface DetailProps {
   info: RestaurantInfo;
   closeDetail: VoidFunction;
+  handleClickDeleteBtn: (restaurantId: RestaurantInfo['id']) => void;
 }
 
-function RestaurantDetail({ info, closeDetail }: DetailProps) {
+function RestaurantDetail({ info, closeDetail, handleClickDeleteBtn }: DetailProps) {
   const { id, category, name, isOften, distance, description, link } = info;
   const iconStyle = isOften === false ? 'lined' : 'filled';
-
-  const {
-    handlers: { handleClickOftenBtn, handleClickDeleteBtn },
-  } = useRestaurants();
 
   const [addEvent] = useEvents('.modal-container');
 
