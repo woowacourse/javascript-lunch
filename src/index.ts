@@ -94,6 +94,5 @@ export const mockData: RestaurantInfo[] = [
     link: 'https://www.naver.com',
   },
 ];
-localStorage.setItem('tab-style', 'all');
-// localStorage.setItem('mock', JSON.stringify(mockData));
+
 render(App, document.querySelector('#app'));

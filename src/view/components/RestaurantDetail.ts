@@ -2,9 +2,9 @@ import '../css/RestaurantDetail.css';
 import '../../assets/add-button.png';
 
 import { useEvents } from '../../utils/core';
-import { useRestaurants } from '../../utils/hooks/useRestaurants';
-import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { getCategoryImageSrc, getFavoriteIconSrc } from '../../utils/common/getImageSrc';
+
+import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 
 interface DetailProps {
   info: RestaurantInfo;

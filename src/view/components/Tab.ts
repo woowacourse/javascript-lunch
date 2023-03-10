@@ -1,5 +1,6 @@
-import { useEvents } from '../../utils/core';
 import '../css/Tab.css';
+
+import { useEvents } from '../../utils/core';
 
 interface TabOption {
   oftenOption: boolean;
@@ -13,7 +14,6 @@ function Tab({ oftenOption, handleOftenTab }: TabOption) {
     if (e.target instanceof HTMLButtonElement) {
       const id = e.target.dataset.id;
       const isOften = id === 'often';
-      // console.log(id, isOften);
       handleOftenTab(isOften);
     }
   });

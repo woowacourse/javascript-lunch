@@ -1,10 +1,10 @@
 import '../css/AddFormModal.css';
 
 import { useEvents } from '../../utils/core';
-import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { getFormFields } from '../../utils/common/formData';
 import validator from '../../validation/validator';
 
+import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 interface AddFormModalProps {
   close: VoidFunction;
   handleClickAddBtn: (restaurantInfo: RestaurantInfo) => void;

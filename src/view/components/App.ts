@@ -1,14 +1,16 @@
 import { useBoolean } from '../../utils/hooks/useBoolean';
+import { useEvents, useState } from '../../utils/core';
+import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
+import { useRestaurants } from '../../utils/hooks/useRestaurants';
+
 import { Header } from './Header';
 import { AddFormModal } from './AddFormModal';
-import { useEvents, useState } from '../../utils/core';
 import { RestaurantDetail } from './RestaurantDetail';
-import { useRestaurants } from '../../utils/hooks/useRestaurants';
-import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
 import { RestaurantList } from './RestaurantList';
 import { Nav } from './Nav';
 import { Tab } from './Tab';
+
+import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 
 function App() {
   const [info, setInfo] = useState<RestaurantInfo>({

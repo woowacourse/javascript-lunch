@@ -1,11 +1,8 @@
 import '../css/Restaurant.css';
 import '../../assets/baemin-empty.png';
+import { RestaurantItem } from './RestaurantItem';
 
 import { Restaurant as IRestaurant } from '../../domain/model/LunchRecommendation';
-import { RestaurantItem } from './RestaurantItem';
-import { useEvents, useState } from '../../utils/core';
-import { getFavoriteIconSrc } from '../../utils/common/getImageSrc';
-import { useRestaurants } from '../../utils/hooks/useRestaurants';
 interface RestaurantProps {
   restaurants: IRestaurant[];
 }

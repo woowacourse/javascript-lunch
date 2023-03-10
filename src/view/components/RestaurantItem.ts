@@ -1,6 +1,7 @@
 import '../css/Restaurant.css';
 
 import { getCategoryImageSrc } from '../../utils/common/getImageSrc';
+
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 
 interface RestaurantProps {

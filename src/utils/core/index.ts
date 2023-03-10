@@ -36,7 +36,6 @@ function Core() {
 
     const setState = (newState: S) => {
       if (newState === state) return;
-      // if (JSON.stringify(newState) === JSON.stringify(state)) return;
 
       states[key] = newState;
       _render();
