@@ -55,5 +55,10 @@ describe('자주 가는 음식점 e2e 테스트', () => {
     cy.get('.restaurant-list').find('.restaurant').should('not.have.attr', 'data-id', '6');
   });
 
+  it('음식점 아이템을 클릭하면 음식점 상세 페이지를 볼 수 있다.', () => {
+    cy.get('.restaurant[data-id="5"]').click();
+    cy.get('.restaurant-detail__info-container').should('contain.text', '덮밥이맛있는집');
+  });
+
   // 상세페이지에서 웹사이트 방문하기를 누르면 다른 탭에 음식점 웹사이트가 열린다
 });
