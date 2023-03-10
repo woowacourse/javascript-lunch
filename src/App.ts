@@ -44,6 +44,7 @@ export default class App {
     $main.appendChild(this.$listArticle);
 
     const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
+
     const tabs = new Tabs($main, this.renderListArticle.bind(this));
     const filters = new Filters(
       this.$listArticle,
@@ -105,9 +106,12 @@ export default class App {
 
   renderFavoriteList($targetElement: HTMLElement) {
     const favorites = this.state.restaurantService.getFilterdFavoriteList();
+    const favoriteNameSorted =
+      this.state.restaurantService.sortByName(favorites);
+
     this.state.restaurantList.setState({
       ...this.state.restaurantList.state,
-      restaurantList: favorites,
+      restaurantList: favoriteNameSorted,
     });
     this.state.restaurantList.render($targetElement);
   }
