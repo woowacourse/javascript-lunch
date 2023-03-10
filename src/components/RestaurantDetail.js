@@ -1,6 +1,3 @@
-import empty from '../assets/favorite-icon-lined.png';
-import full from '../assets/favorite-icon-filled.png';
-
 class RestaurantDetail extends HTMLElement {
   attributeChangedCallback(name) {
     if (
@@ -21,12 +18,11 @@ class RestaurantDetail extends HTMLElement {
     const { name, category, distance, description, link, isFavorite } =
       restaurant;
 
-    console.log(isFavorite);
     this.shadowRoot.innerHTML = `
     <div class="container">
       <div class="image-container">
         <category-image category="${category}"></category-image>
-        <img src="${isFavorite === true ? full : empty}" alt="isFavorite">
+        <favorite-image isFavorite="${isFavorite}"></favorite-image>
       </div>
       <div>
        <h3 class="m-4 text-title-2">${name}</h3>
@@ -87,11 +83,6 @@ class RestaurantDetail extends HTMLElement {
     .image-container{
       display:flex;
       justify-content:space-between;
-    }
-
-    img{
-      width:26.67px;
-      height:25.33px;
     }
     
     .distance {
