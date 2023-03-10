@@ -75,5 +75,21 @@ describe('자주 가는 음식점 e2e 테스트', () => {
       .should('have.class', 'favorite');
   });
 
-  // 상세페이지에서 웹사이트 방문하기를 누르면 다른 탭에 음식점 웹사이트가 열린다
+  it('음시점 상세 정보 모달에서 웹사이트 방문하기를 누르면 음식점 웹사이트가 열린다.', () => {
+    cy.get('.gnb__button').click();
+
+    cy.get('#category').select('중식');
+    cy.get('#name').type('딘타이펑');
+    cy.get('#distance').select('30분 내', { force: true });
+    cy.get('#description').type('대만이 원조인 딤섬 전문점.');
+    cy.get('#link').type('http://www.dintaifung.co.kr/');
+    cy.get("button[type='submit']").click();
+
+    cy.get('.restaurant[data-id="9"]').click();
+    cy.get('.restaurant__link').invoke('removeAttr', 'target').click({ force: true });
+
+    cy.origin('http://www.dintaifung.co.kr', () => {
+      cy.get('body').should('contain.text', '2013 DINTAIFUNG KOREA.co. LTD.');
+    });
+  });
 });
