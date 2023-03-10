@@ -108,6 +108,7 @@ export default class Modal {
         distance,
         description,
         link,
+        isLike: false,
       };
 
       this._restaurantController.add(restaurant);
