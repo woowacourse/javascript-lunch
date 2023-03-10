@@ -10,35 +10,13 @@ class Select {
     this.options = options;
   }
 
-  showErrorMessage(message: string) {
-    const caption = $<HTMLSpanElement>(`#${this.attributes.id}-caption`);
-    caption.classList.add('error-text');
-    caption.textContent = message;
-  }
-
-  addRemoveErrorMessageEvent(message?: string) {
-    const element = $<HTMLSelectElement>(`#${this.attributes.id}`);
-
-    element.addEventListener(
-      'change',
-      (event: Event) => {
-        const target = event.target as HTMLSelectElement;
-        const caption = $<HTMLSpanElement>(`#${target.id}-caption`);
-        caption.classList.remove('error-text');
-
-        if (message) element.textContent = message;
-      },
-      { once: true }
-    );
-  }
-
-  addSelectChangeEvent(changeFilter: CallableFunction) {
+  addSelectChangeEvent(onChange: CallableFunction) {
     const element = $<HTMLSelectElement>(`#${this.attributes.id}`);
 
     element.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLSelectElement;
       const selectedOption = target.value;
-      changeFilter({ [target.name]: selectedOption });
+      onChange({ [target.name]: selectedOption });
     });
   }
 

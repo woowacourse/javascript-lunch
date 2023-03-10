@@ -50,4 +50,17 @@ const MODAL_ATTRIBUTE: Record<string, Attribute> = {
   RESTAURANT_INFORMATION: { id: 'restaurant-information' },
 };
 
-export { FILTER_ATTRIBUTE, FORM_ATTRIBUTE, TAB_BUTTON_ATTRIBUTE, MODAL_ATTRIBUTE };
+const CAPTION_ATTRIBUTE: Record<string, Attribute> = {
+  CATEGORY_SELECT: { id: 'category-caption' },
+  DISTANCE_SELECT: { id: 'distance-caption' },
+  NAME_INPUT: { id: 'name-caption' },
+  LINK_INPUT: { id: 'link-caption', className: 'help-text' },
+};
+
+export {
+  FILTER_ATTRIBUTE,
+  FORM_ATTRIBUTE,
+  TAB_BUTTON_ATTRIBUTE,
+  MODAL_ATTRIBUTE,
+  CAPTION_ATTRIBUTE,
+};

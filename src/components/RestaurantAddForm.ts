@@ -1,10 +1,11 @@
 import { FormValue, Errors } from '../types';
 import { ERROR_MESSAGE, MESSAGE, SELECT_OPTIONS } from '../constants/constants';
-import { FORM_ATTRIBUTE } from '../constants/domAttributes';
+import { CAPTION_ATTRIBUTE, FORM_ATTRIBUTE } from '../constants/domAttributes';
 import { $ } from '../utils/domSelectors';
 import Select from './Select';
 import Input from './Input';
 import restaurantFormValidator from '../validators/restaurantFormValidator';
+import Caption from './FormCaption';
 
 class RestaurantAddForm {
   private categorySelect: Select;
@@ -12,11 +13,25 @@ class RestaurantAddForm {
   private nameInput: Input;
   private linkInput: Input;
 
+  private categorySelectCaption: Caption;
+  private distanceSelectCaption: Caption;
+  private nameInputCaption: Caption;
+  private linkInputCaption: Caption;
+
   constructor() {
     this.categorySelect = new Select(FORM_ATTRIBUTE.CATEGORY_SELECT, SELECT_OPTIONS.CATEGORY);
     this.distanceSelect = new Select(FORM_ATTRIBUTE.DISTANCE_SELECT, SELECT_OPTIONS.DISTANCE);
     this.nameInput = new Input(FORM_ATTRIBUTE.NAME_INPUT);
     this.linkInput = new Input(FORM_ATTRIBUTE.LINK_INPUT);
+
+    this.categorySelectCaption = new Caption(CAPTION_ATTRIBUTE.CATEGORY_SELECT, 'change');
+    this.distanceSelectCaption = new Caption(CAPTION_ATTRIBUTE.DISTANCE_SELECT, 'change');
+    this.nameInputCaption = new Caption(CAPTION_ATTRIBUTE.NAME_INPUT, 'input');
+    this.linkInputCaption = new Caption(
+      CAPTION_ATTRIBUTE.LINK_INPUT,
+      'input',
+      MESSAGE.LINK_DEFAULT_CAPTION
+    );
   }
 
   resetForm() {
@@ -25,20 +40,20 @@ class RestaurantAddForm {
   }
 
   showFormErrors(errors: Errors) {
-    if (errors.category) this.categorySelect.showErrorMessage(ERROR_MESSAGE.EMPTY_CATEGORY);
+    if (errors.category) this.categorySelectCaption.showErrorMessage(ERROR_MESSAGE.EMPTY_CATEGORY);
 
-    if (errors.name) this.nameInput.showErrorMessage(ERROR_MESSAGE.INVALID_NAME);
+    if (errors.name) this.nameInputCaption.showErrorMessage(ERROR_MESSAGE.INVALID_NAME);
 
-    if (errors.distance) this.distanceSelect.showErrorMessage(ERROR_MESSAGE.EMPTY_DISTANCE);
+    if (errors.distance) this.distanceSelectCaption.showErrorMessage(ERROR_MESSAGE.EMPTY_DISTANCE);
 
-    if (errors.link) this.linkInput.showErrorMessage(ERROR_MESSAGE.INVALID_LINK);
+    if (errors.link) this.linkInputCaption.showErrorMessage(ERROR_MESSAGE.INVALID_LINK);
   }
 
   removeErrorMessages() {
-    this.categorySelect.addRemoveErrorMessageEvent();
-    this.distanceSelect.addRemoveErrorMessageEvent();
-    this.nameInput.addRemoveErrorMessageEvent();
-    this.linkInput.addRemoveErrorMessageEvent(MESSAGE.LINK_DEFAULT_CAPTION);
+    this.categorySelectCaption.addRemoveErrorMessageEvent();
+    this.distanceSelectCaption.addRemoveErrorMessageEvent();
+    this.nameInputCaption.addRemoveErrorMessageEvent();
+    this.linkInputCaption.addRemoveErrorMessageEvent();
   }
 
   addSubmitEvent(closeModal: CallableFunction, addRestaurant: CallableFunction) {
