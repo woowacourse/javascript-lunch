@@ -53,4 +53,12 @@ describe('restaurantManager 도메인 기능 테스트', () => {
       '이태리키친',
     ]);
   });
+
+  test('음식점들 중에서 자주 가는 음식점만 필터링한다.', () => {
+    const filteredRestaurants = restaurantManager.filterByFavorite(sampleRestaurants);
+    const isFiltered = filteredRestaurants.every((restaurant) => restaurant.isFavorite);
+
+    expect(isFiltered).toBe(true);
+  });
+
 });
