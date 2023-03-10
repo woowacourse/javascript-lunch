@@ -1,5 +1,4 @@
 import $template from './index.html';
-import FavoriteIcon from '../FavoriteIcon';
 import { Category } from '../../types';
 import { imgSrc } from '../../image';
 
@@ -16,9 +15,12 @@ class RestaurantItem extends HTMLElement {
       .replace('{distance}', this.getAttribute('distance')!)
       .replace('{description}', this.getAttribute('description')!);
 
-    const isFavorite = this.getAttribute('favorite') === 'true';
+    const favorite = this.getAttribute('favorite');
     const $wrapper = this.querySelector('.description__wrapper');
-    $wrapper?.insertAdjacentHTML('beforeend', new FavoriteIcon().render(isFavorite));
+    $wrapper?.insertAdjacentHTML(
+      'beforeend',
+      `<favorite-icon favorite=${favorite}></favorite-icon>`,
+    );
   }
 }
 

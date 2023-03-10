@@ -1,3 +1,4 @@
+import $template from './index.html';
 import { iconSrc } from '../../image';
 
 class FavoriteIcon extends HTMLElement {
@@ -5,9 +6,14 @@ class FavoriteIcon extends HTMLElement {
     super();
   }
 
-  render(isFavorite: boolean) {
-    const imgSrc = isFavorite ? iconSrc.filled : iconSrc.lined;
-    return `<img src="${imgSrc}" class="favorite-icon" />`;
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    const favorite = this.getAttribute('favorite');
+    const imgSrc = favorite === 'true' ? iconSrc.filled : iconSrc.lined;
+    this.innerHTML = $template.replace('{src}', imgSrc);
   }
 }
 

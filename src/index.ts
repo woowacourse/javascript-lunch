@@ -50,6 +50,7 @@ class App {
     this.restaurantItems.addBottomSheetHandler(this.openDetailBottomSheetHandler);
     this.restaurantItems.addFavoriteButtonHandler(this.favoriteButtonHandler);
     this.detailBottomSheet.addDeleteHandler(this.deleteRestaurantHandler);
+    this.detailBottomSheet.addFavoriteButtonHandler(this.favoriteButtonHandler);
     this.store.initRestaurants();
   }
 

@@ -2,9 +2,15 @@ import $template from './index.html';
 import { imgSrc } from '../../image';
 import { Restaurant } from '../../types';
 import { $ } from '../../utils/dom';
-import FavoriteIcon from '../FavoriteIcon';
 
 class DetailBottomSheet extends HTMLElement {
+  isFavorite: boolean;
+
+  constructor() {
+    super();
+    this.isFavorite = false;
+  }
+
   connectedCallback() {
     this.innerHTML = $template;
   }
@@ -25,9 +31,8 @@ class DetailBottomSheet extends HTMLElement {
 
     const $cancelButton = $<HTMLButtonElement>('#cancel-button', this);
     $cancelButton.addEventListener('click', () => this.toggle());
-    const $wrapper = this.querySelector('.img__wrapper');
-    const isFavorite = String(favorite) === 'true';
-    $wrapper?.insertAdjacentHTML('beforeend', new FavoriteIcon().render(isFavorite));
+    this.isFavorite = String(favorite) === 'true';
+    this.toggleFavoriteAttribute();
   }
 
   addDeleteHandler(handler: CallableFunction) {
@@ -37,6 +42,26 @@ class DetailBottomSheet extends HTMLElement {
       handler(target?.textContent);
       this.toggle();
     });
+  }
+
+  addFavoriteButtonHandler(handler: CallableFunction) {
+    this.addEventListener('click', (e: any) => {
+      if (e.target.className !== 'favorite-icon') return;
+      const target = this.querySelector('.restaurant__name');
+      const name = target?.textContent;
+      this.isFavorite = !this.isFavorite;
+      this.toggleFavoriteAttribute();
+      handler(name);
+    });
+  }
+
+  toggleFavoriteAttribute() {
+    const $wrapper = this.querySelector('.img__wrapper');
+    $wrapper!.lastChild?.remove();
+    $wrapper!.insertAdjacentHTML(
+      'beforeend',
+      `<favorite-icon favorite=${this.isFavorite}></favorite-icon>`,
+    );
   }
 }
 
