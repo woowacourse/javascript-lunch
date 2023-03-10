@@ -3,12 +3,14 @@ import restaurantManager from './domain/RestaurantManager';
 export default class Component {
   $target;
   restaurantManager;
+  props;
 
-  constructor($target) {
+  constructor($target, props = {}) {
     this.$target = $target;
     this.restaurantManager = restaurantManager;
+    this.props = props;
 
-    this.render();
+    this.render({ ...props });
   }
 
   addEvent(eventType, callback, target = this.$target) {
@@ -21,8 +23,8 @@ export default class Component {
     return restaurantData;
   }
 
-  render(restaurantData = '') {
-    this.template(restaurantData) !== '' &&
-      (this.$target.innerHTML = this.template(restaurantData));
+  render(restaurantData) {
+    if (Object.keys(restaurantData).length === 0) this.$target.innerHTML = this.template();
+    else this.$target.innerHTML = this.template(restaurantData);
   }
 }
