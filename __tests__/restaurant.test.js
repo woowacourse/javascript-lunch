@@ -61,4 +61,12 @@ describe('restaurantManager 도메인 기능 테스트', () => {
     expect(isFiltered).toBe(true);
   });
 
+  test('자주 가는 음식점 여부를 변경한다.', () => {
+    const [restaurant] = sampleRestaurants;
+
+    restaurantManager.add(restaurant);
+    restaurantManager.toggleFavorite(restaurant.id);
+
+    expect(restaurant.isFavorite).toBe(false);
+  });
 });
