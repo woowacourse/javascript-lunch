@@ -58,6 +58,7 @@ class App {
 
   renderComponents() {
     renderRestaurantTabMenus();
+    RestaurantFilters.render();
   }
 
   updateRestaurantList() {

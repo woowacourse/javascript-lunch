@@ -1,5 +1,6 @@
 import { SELECT_OPTIONS } from '../constants/constants';
 import { FILTER_ATTRIBUTE } from '../constants/domAttributes';
+import { $ } from '../utils/domSelectors';
 import Select from './Select';
 
 class RestaurantFilters {
@@ -16,13 +17,16 @@ class RestaurantFilters {
     this.sortingFilter.addSelectChangeEvent(changeFilter);
   }
 
-  create() {
-    return `
-      <section class="restaurant-filter-container">
-        ${this.categoryFilter.create()}
-        ${this.sortingFilter.create()}
-      </section>  
-    `;
+  render() {
+    const filterContainer = $<HTMLElement>('.restaurant-filter-container');
+
+    filterContainer.insertAdjacentHTML(
+      'beforeend',
+      `
+      ${this.categoryFilter.create()}
+      ${this.sortingFilter.create()}
+      `
+    );
   }
 }
 
