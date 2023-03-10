@@ -1,5 +1,5 @@
 import RestaurantListItem, { TCategory } from '../../domain/RestaurantListItem';
-import RestaurantList from '../RestaurantList';
+import RestaurantList from '../RestaurantListSection';
 import { ID } from '../../constants';
 
 const FilterButton = {

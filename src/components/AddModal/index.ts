@@ -1,6 +1,6 @@
 import { CLASS, ID } from '../../constants';
 import RestaurantListItem, { IRestaurant } from '../../domain/RestaurantListItem';
-import RestaurantList from '../RestaurantList';
+import RestaurantList from '../RestaurantListSection';
 import ButtonContainer from './ButtonContainer';
 import CategoryInput from './CategoryInput';
 import DescriptionInput from './DescriptionInput';

@@ -1,7 +1,7 @@
 import { CLASS, ID } from '../../constants';
 import RestaurantListItem from '../../domain/RestaurantListItem';
 import FilterSection from '../FilterSection';
-import RestaurantList from '../RestaurantList';
+import RestaurantList from '../RestaurantListSection';
 
 const Menu = {
   template() {

@@ -1,5 +1,5 @@
 import RestaurantListItem from '../../domain/RestaurantListItem';
-import RestaurantList from '../RestaurantList';
+import RestaurantList from '../RestaurantListSection';
 import { TPriority } from '../../domain/RestaurantListItem';
 import { ID } from '../../constants';
 
