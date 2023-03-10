@@ -109,8 +109,6 @@ export default class App {
 
     $('#form-modal-close-button').addEventListener('click', this.toggleModal);
 
-    $('#add-restaurant-form').reset();
-
     this.toggleModal();
   }
 
