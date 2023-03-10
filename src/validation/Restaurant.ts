@@ -36,7 +36,10 @@ const Restaurant = {
   checkDistance(distance: unknown) {
     if (typeof distance !== 'string' && typeof distance !== 'number')
       throw new CustomError(ERROR_CODE.INVALID_CATEGORY, distance);
-    if (!Object.keys(META_DISTANCE).includes(String(distance)))
+    if (
+      !Object.values(META_DISTANCE).includes(distance as MetaDistance) &&
+      !Object.keys(META_DISTANCE).includes(String(distance))
+    )
       throw new CustomError(ERROR_CODE.INVALID_CATEGORY, distance);
 
     return true;
