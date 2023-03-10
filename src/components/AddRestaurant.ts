@@ -91,7 +91,13 @@ class AddRestaurant extends HTMLElement {
         return;
       }
       tab.checked = true;
-
+      const restaurantFilter = document.getElementById(
+        "restaurantFilterContainer"
+      );
+      if (!(restaurantFilter instanceof HTMLElement)) {
+        return;
+      }
+      restaurantFilter.style.display = "";
       this.controller.addRestaurant(newRestaurant);
       this.controller.filterRestaurants(CategorySelectBox.getOption());
       this.controller.sortRestaurants(SortingSelectBox.getOption());
