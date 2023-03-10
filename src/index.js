@@ -8,7 +8,6 @@ import Restaurants from './domain/Restaurants';
 import Tabbar from './components/Tabbar';
 import { $ } from './utils/common';
 import InfoModal from './components/modal/InfoModal';
-import RestaurantItem from './components/RestaurantItem';
 
 if (localStorage.getItem('restaurants') === null) {
   localStorage.setItem('restaurants', JSON.stringify([]));
@@ -28,8 +27,7 @@ const addModal = new AddModal($main);
 const infoModal = new InfoModal();
 const tabbar = new Tabbar($main);
 const restaurantFilter = new RestaurantFilter($main);
-const restaurantsList = new RestaurantsList($main, restaurants);
-const restaurantItem = new RestaurantItem();
+const restaurantsList = new RestaurantsList($main, restaurants, infoModal);
 
 header.setEvent(
   addModal.render.bind(addModal),
@@ -47,5 +45,3 @@ tabbar.setEvent(
 restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
 
 restaurantsList.setEvent(restaurants.setFavoriteState.bind(restaurants));
-
-restaurantItem.setEvent(restaurants.restaurantsList, infoModal.render.bind(infoModal));
