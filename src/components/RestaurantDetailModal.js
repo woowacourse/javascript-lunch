@@ -1,4 +1,4 @@
-import { RestaurantIconCategory } from '../domain/constants';
+import { RESTAURANT_ICON_CATEGORY } from '../domain/constants';
 
 import { $, dispatchCustomEvent } from '../utils/dom';
 
@@ -19,7 +19,7 @@ customElements.define(
       <div class="icon-container">
         <div class="restaurant__category">
           <img src="./category-${
-            RestaurantIconCategory[category]
+            RESTAURANT_ICON_CATEGORY[category]
           }.png" alt="${category}" class="category-icon" />
         </div>
         <button class="favorite">

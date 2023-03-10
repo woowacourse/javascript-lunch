@@ -1,4 +1,4 @@
-import { RestaurantIconCategory } from '../domain/constants';
+import { RESTAURANT_ICON_CATEGORY } from '../domain/constants';
 
 customElements.define(
   'restaurant-list-item',
@@ -16,7 +16,7 @@ customElements.define(
       <li class="restaurant">
         <div class="restaurant__category">
           <img src="./category-${
-            RestaurantIconCategory[category]
+            RESTAURANT_ICON_CATEGORY[category]
           }.png" alt="${category}" class="category-icon" />
         </div>
         <div class="restaurant__info">
