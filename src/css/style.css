@@ -20,6 +20,11 @@
   margin-right: 16px;
 }
 
+.my-1 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 .py-1 {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -32,8 +37,8 @@
 }
 
 .tab-menu {
-  color: #ec4a0a;
-  border-bottom: 2px solid #ec4a0a;
+  color: #667085;
+  border-bottom: 2px solid #667085;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -41,13 +46,10 @@
   line-height: 24px;
 }
 
-/* .tab-menu-open {
+.tab-menu-open {
+  color: #ec4a0a;
   border-bottom: 2px solid #ec4a0a;
 }
-
-.tab-menu-close {
-  border-bottom: 2px solid #667085;
-} */
 
 /* Template */
 * {
