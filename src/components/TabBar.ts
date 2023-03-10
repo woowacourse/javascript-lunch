@@ -23,18 +23,18 @@ class TabBar extends HTMLElement {
   onClickTab() {
     const tabContainer = document.getElementById("tabContainer");
     tabContainer?.addEventListener("change", (event: any) => {
-      const restaurantFilterContainer = document.getElementById(
+      const restaurantFilter = document.getElementById(
         "restaurantFilterContainer"
       );
-      if (!(restaurantFilterContainer instanceof HTMLElement)) {
+      if (!(restaurantFilter instanceof HTMLElement)) {
         return;
       }
       if (event.target.value == "favorite") {
-        restaurantFilterContainer.style.display = "none";
+        restaurantFilter.style.display = "none";
         this.controller.setFavoriteRestaurantList();
         return;
       }
-      restaurantFilterContainer.style.display = "";
+      restaurantFilter.style.display = "";
       this.controller.loadLocalStorage();
     });
   }
