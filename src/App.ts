@@ -6,6 +6,7 @@ import DEFAULT_RESTAURANT_DATA from './constant/defaultRestaurantData';
 import { getDataFromLocalStorage } from './utils/localStorage';
 import Header from './components/Header';
 import RestaurantItem from './components/RestaurantItem';
+import TabMenu from './components/TabMenu';
 
 export default class App {
   $target: HTMLElement;
@@ -25,6 +26,8 @@ export default class App {
     this._header.bindAddRestaurantButton();
     document.addEventListener('addRestaurantClicked', this.handleAddRestaurantClicked.bind(this));
     document.addEventListener('closeModal', this.onCloseModal.bind(this));
+    document.addEventListener('allRestaurantClicked', this.handleAllRestaurantClicked.bind(this));
+    document.addEventListener('likedRestaurantClicked', this.handleLikedRestaurantClicked.bind(this));
   }
 
   handleAddRestaurantClicked() {
@@ -32,6 +35,10 @@ export default class App {
 
     new Modal(target, this._restaurantController, this._state);
   }
+
+  handleAllRestaurantClicked() {}
+
+  handleLikedRestaurantClicked() {}
 
   setup() {
     this._state = getDataFromLocalStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
@@ -46,30 +53,33 @@ export default class App {
     return `
     ${this._header.template()}
     <main>
-    <!-- 카테고리/정렬 필터 -->
-    <section class="restaurant-filter-container">
-      <select name="category" id="category-filter" class="restaurant-filter">
-        <option value="전체">전체</option>
-        <option value="한식">한식</option>
-        <option value="중식">중식</option>
-        <option value="일식">일식</option>
-        <option value="양식">양식</option>
-        <option value="아시안">아시안</option>
-        <option value="기타">기타</option>
-      </select>
+      <section class="tabMenu-container">
 
-      <!-- 정렬 셀렉트 박스 -->
-      <select name="sorting" id="sorting-filter" class="restaurant-filter" >
-        <option value="name">이름순</option>
-        <option value="distance">거리순</option>
-      </select>
-    </section>
+      </section>
+      <!-- 카테고리/정렬 필터 -->
+      <section class="restaurant-filter-container">
+        <select name="category" id="category-filter" class="restaurant-filter">
+          <option value="전체">전체</option>
+          <option value="한식">한식</option>
+          <option value="중식">중식</option>
+          <option value="일식">일식</option>
+          <option value="양식">양식</option>
+          <option value="아시안">아시안</option>
+          <option value="기타">기타</option>
+        </select>
 
-    <!-- 음식점 목록 -->
-    <section class="restaurant-list-container">
-      <ul class="restaurant-list">
-      </ul>        
-    </section>
+        <!-- 정렬 셀렉트 박스 -->
+        <select name="sorting" id="sorting-filter" class="restaurant-filter" >
+          <option value="name">이름순</option>
+          <option value="distance">거리순</option>
+        </select>
+      </section>
+
+      <!-- 음식점 목록 -->
+      <section class="restaurant-list-container">
+        <ul class="restaurant-list">
+        </ul>        
+      </section>
     </main>
     `;
   }
@@ -82,6 +92,10 @@ export default class App {
     this._state.restaurants.forEach(restaurant => {
       new RestaurantItem($restaurantList, restaurant);
     });
+
+    const $tabMenuContainer = this.$target.querySelector('.tabMenu-container') as HTMLElement;
+    $tabMenuContainer.innerHTML = '';
+    new TabMenu($tabMenuContainer);
 
     const categoryFilter = this.$target.querySelector('#category-filter');
     if (categoryFilter instanceof HTMLSelectElement) {
