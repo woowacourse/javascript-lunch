@@ -26,12 +26,16 @@ class Store {
     localStorage.setItem('store', JSON.stringify(restaurants));
   }
 
+  setSelectedRestaurants() {
+    this.filterRestaurants(this.categoryFilter);
+    this.sortRestaurants(this.sortFilter);
+  }
+
   addRestaurants(restaurant: Restaurant) {
     this.restaurants = [...this.restaurants, restaurant];
     this.setRestaurants(this.restaurants);
 
-    this.filterRestaurants(this.categoryFilter);
-    this.sortRestaurants(this.sortFilter);
+    this.setSelectedRestaurants();
   }
 
   filterRestaurants(categoryFilter: CategoryFilter) {
@@ -62,23 +66,20 @@ class Store {
   deleteRestaurant(name: string) {
     this.restaurants = this.restaurants.filter((restaurant) => restaurant.name !== name);
     this.setRestaurants(this.restaurants);
-    this.filterRestaurants(this.categoryFilter);
-    this.sortRestaurants(this.sortFilter);
+    this.setSelectedRestaurants();
   }
 
   toggleFavoriteRestaurant(name: string) {
     const restaurant = this.restaurants.find((restaurant) => restaurant.name === name);
     restaurant!.favorite = !restaurant?.favorite;
     this.setRestaurants(this.restaurants);
-    this.filterRestaurants(this.categoryFilter);
-    this.sortRestaurants(this.sortFilter);
+    this.setSelectedRestaurants();
   }
 
   favoriteRestaurants(tab: string) {
     if (tab === 'all') {
       this.renderedRestaurants = this.restaurants;
-      this.filterRestaurants(this.categoryFilter);
-      this.sortRestaurants(this.sortFilter);
+      this.setSelectedRestaurants();
       return;
     }
     const favoriteRestaurants = this.restaurants.filter((restaurant) => restaurant.favorite);
