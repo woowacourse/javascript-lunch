@@ -42,6 +42,14 @@ class Restaurants {
       (restaurant) => restaurant.id !== id
     );
   }
+
+  checkFavorite(id: number) {
+    return this.#restaurants.map((restaurant) => {
+      if (restaurant.id === id) restaurant.favorite = !restaurant.favorite;
+
+      return restaurant;
+    });
+  }
 }
 
 export default Restaurants;
