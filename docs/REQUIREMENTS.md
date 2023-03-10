@@ -61,8 +61,8 @@
 
 ## Controller
 
-// state: list 화면에 보여지는 음식점 배열만을 가리킨다.
-// localStorage: 화면에 상관없이 음식점 배열에 대한 모든 정보를 가리킨다.
+- state: list 화면에 보여지는 음식점 배열만을 가리킨다.
+- localStorage: 화면에 상관없이 음식점 배열에 대한 모든 정보를 가리킨다.
 
 1. state 관련 로직
 
