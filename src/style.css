@@ -161,7 +161,8 @@ body {
   margin: 0;
 }
 
-.restaurant__distance {
+.restaurant__distance,
+.item__distance {
   color: var(--primary-color);
 }
 
@@ -179,6 +180,17 @@ body {
   border: none;
   font-size: 35px;
   color: var(--lighten-color);
+}
+
+/* 아이템 모달 */
+.item__header {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.item__description {
+  margin: 20px 0;
 }
 
 /* 음식점 추가 모달 *****************************************/
