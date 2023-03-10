@@ -19,6 +19,10 @@ export default class RestaurantListManager {
     return sortedList;
   }
 
+  getFavoriteList() {
+    return this.#restaurantList.filter((restaurant) => restaurant.favorite === true);
+  }
+
   toggleFavoriteState(id: number) {
     this.#restaurantList = this.#restaurantList.map((restaurant) => {
       if (restaurant.id !== id) return restaurant;
