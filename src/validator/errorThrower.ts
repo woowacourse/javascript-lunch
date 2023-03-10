@@ -22,10 +22,8 @@ export const checkInputLength = (input: string) => {
 };
 
 export const checkDuplicate = (input: string) => {
-  const isDuplicatedName = Boolean(
-    getAllRestaurantsInLocalStorage().filter(
-      (restaurant) => restaurant.name === input
-    ).length
+  const isDuplicatedName = getAllRestaurantsInLocalStorage().find(
+    (restaurant) => restaurant.name === input
   );
 
   if (isDuplicatedName) {
