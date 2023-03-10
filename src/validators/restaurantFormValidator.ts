@@ -1,4 +1,4 @@
-import { REGEX } from '../constants/constants';
+import { REGEX, RESTAURANT_NAME_LIMIT } from '../constants/constants';
 import { Errors, Restaurant } from '../types/types';
 
 const restaurantFormValidator = {
@@ -22,6 +22,7 @@ const restaurantFormValidator = {
   },
 
   isInvalidName(input: string) {
+    if (input.length > RESTAURANT_NAME_LIMIT) return true;
     return !REGEX.VALID_NAME.test(input);
   },
 
