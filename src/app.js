@@ -13,6 +13,6 @@ const tab = new Tab($(".restaurant-tab-container"));
 const filter = new Filter($(".restaurant-filter-container"));
 const restaurantList = new RestaurantList($(".restaurant-list-container"), modal);
 
-header.setAddButtonEventListner(modal, restaurantList);
+header.setAddButtonEventListner(restaurantList);
 filter.onChangeSelectBox(restaurantList);
 tab.setOnSelectEvent(restaurantList);

@@ -71,7 +71,7 @@ class AddRestaurantFormModal {
       <!-- 취소/추가 버튼 -->
       <div class="button-container">
         <button
-          id="cancel-button"
+          id="form-cancel-button"
           type="button"
           class="button button--secondary text-caption"
         >
@@ -104,7 +104,7 @@ class AddRestaurantFormModal {
   }
 
   setCancelEvent(toggleModal) {
-    this.$target.querySelector("#cancel-button").addEventListener("click", toggleModal);
+    this.$target.querySelector("#form-cancel-button").addEventListener("click", toggleModal);
   }
 }
 
