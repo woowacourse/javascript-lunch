@@ -7,6 +7,7 @@ import "./components/restaurant/RestaurantComponent";
 
 import "./components/modal/RestaurantAddFormComponent";
 import "./components/modal/ModalComponent";
+import "./components/modal/ModalDetailComponent";
 import "./components/modal/RestaurantDetailComponent";
 
 import "./components/HeaderComponent";

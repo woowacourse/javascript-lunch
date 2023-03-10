@@ -9,12 +9,7 @@ class ModalComponent extends CustomElement {
           <restaurant-add-form></restaurant-add-form>
         </div>
       </div>
-      <div id="detail_modal" class="modal modal--open">
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-          <restaurant-detail></restaurant-detail>
-        </div>
-      </div>
+      
     `;
   }
 }

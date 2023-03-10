@@ -36,7 +36,6 @@
 
 .restaurant__name {
   display: flex;
-  justify-content: space-between;
   margin: 0;
 }
 

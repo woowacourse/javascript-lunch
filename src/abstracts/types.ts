@@ -25,7 +25,7 @@ export interface CustomElement extends HTMLElement {
   setEvent: () => void;
   show: () => void;
   hide: () => void;
-  rerender: (data: Restaurant[] | Category | SortMethod) => void;
+  rerender: (data: Restaurant[] | Restaurant | Category | SortMethod) => void;
 }
 
 export type Index = number;
