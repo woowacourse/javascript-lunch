@@ -1,6 +1,6 @@
 import { restaurantManager } from './domain/restaurantManager';
 
-import { $ } from './utils/dom';
+import { $, isChecked } from './utils/dom';
 import { setLocalStorage } from './utils/localStorage';
 
 const LunchMenuApp = {
@@ -42,7 +42,17 @@ const LunchMenuApp = {
 
   handleRestaurantRegister(restaurant) {
     restaurantManager.add(restaurant);
+
+    if (this.isFavoriteTabChecked()) {
+      this.moveToAllRestaurantsTab();
+    }
+
     this.updateRestaurantList();
+  },
+
+  moveToAllRestaurantsTab() {
+    $('#all-restaurants').checked = true;
+    $('restaurant-tab').handleTabChange();
   },
 
   handleRestaurantRemove(restaurantId) {
@@ -52,7 +62,17 @@ const LunchMenuApp = {
 
   updateRestaurantList() {
     this.setRestaurantList();
+
+    if (this.isFavoriteTabChecked()) {
+      this.render(restaurantManager.filterByFavorite(restaurantManager.list));
+      return;
+    }
+
     this.renderUpdatedRestaurantList();
+  },
+
+  isFavoriteTabChecked() {
+    return isChecked($('#favorite-restaurants'));
   },
 
   setRestaurantList() {
