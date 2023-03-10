@@ -10,9 +10,9 @@ import "./components/modal/ModalComponent";
 import "./components/modal/ModalDetailComponent";
 import "./components/modal/RestaurantDetailComponent";
 
-import "./components/HeaderComponent";
-import "./components/SelectComponent";
-import "./components/ButtonComponent";
+import "./components/common/HeaderComponent";
+import "./components/common/SelectComponent";
+import "./components/common/ButtonComponent";
 
 // images
 import "../img/add-button.png";
