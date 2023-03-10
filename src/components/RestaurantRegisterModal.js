@@ -89,6 +89,7 @@ customElements.define(
         distance,
         description,
         link,
+        isFavorite: false,
       };
     }
 
