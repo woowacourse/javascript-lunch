@@ -1,4 +1,6 @@
-import { Restaurant, Attribute, ModalContent } from '../types/types';
+import { Restaurant } from '../types/index';
+import { Attribute } from '../types/ui';
+import { ModalContent } from '../types/modal';
 import { $ } from '../utils/domSelectors';
 import RestaurantAddForm from './RestaurantAddForm';
 import RestaurantInformation from './RestaurantInformation';

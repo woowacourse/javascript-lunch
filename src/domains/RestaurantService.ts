@@ -1,4 +1,4 @@
-import { Restaurant } from '../types/types';
+import { Restaurant } from '../types/index';
 
 class RestaurantService {
   private restaurantList: Restaurant[];

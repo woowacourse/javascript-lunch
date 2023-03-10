@@ -1,4 +1,4 @@
-import { Attribute } from '../types/types';
+import { Attribute } from '../types/ui';
 
 const FILTER_ATTRIBUTE: Record<string, Attribute> = {
   CATEGORY: {

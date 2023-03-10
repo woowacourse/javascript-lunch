@@ -1,4 +1,4 @@
-import { Attribute, ButtonContent } from '../types/types';
+import { Attribute, ButtonContent } from '../types/ui';
 
 function createTabButton(
   inputAttributes: Attribute,

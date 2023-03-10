@@ -1,4 +1,4 @@
-import { Restaurant, RestaurantFilter } from './types/types';
+import { Restaurant, RestaurantFilter } from './types/index';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
 import { MODAL_ATTRIBUTE } from './constants/domAttributes';
 import { $ } from './utils/domSelectors';

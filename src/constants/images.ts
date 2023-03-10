@@ -1,4 +1,4 @@
-import { Category } from '../types/types';
+import { Category } from '../types/index';
 
 const RESTAURANT_IMAGE: Record<Category, string> = {
   한식: './category-korean.png',

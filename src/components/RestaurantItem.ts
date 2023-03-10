@@ -1,4 +1,4 @@
-import { Restaurant } from '../types/types';
+import { Restaurant } from '../types/index';
 import { RESTAURANT_IMAGE, getFavoriteIcon } from '../constants/images';
 
 class RestaurantItem {
