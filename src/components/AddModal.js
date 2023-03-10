@@ -99,6 +99,7 @@ export default class AddModal extends Component {
       distance: inputData[2],
       detail: inputData[3],
       link: inputData[4],
+      starShape: 'lined',
     };
 
     this.restaurantManager.addRestaurant(addData);

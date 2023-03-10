@@ -10,7 +10,7 @@ export default class RestaurantItem extends Component {
     return this.template(this.props);
   }
 
-  template({ category, storeName, distance, detail }, shape) {
+  template({ category, storeName, distance, detail, link, starShape }) {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
@@ -23,7 +23,7 @@ export default class RestaurantItem extends Component {
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
             </div>
             <div class="favorite__shape">
-              <img src="${FAVORITE[shape]}" alt="${shape}" class="category-icon">
+              <img src="${FAVORITE[starShape]}" alt="${starShape}" class="category-icon">
             </div>
           </div>
           <p class="restaurant__description text-body">${detail}</p>
