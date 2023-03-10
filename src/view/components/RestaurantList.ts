@@ -53,7 +53,6 @@ class RestaurantList {
     }).render(state.sortSelector);
 
     actions.getValue('restaurants')?.forEach((restaurant: Restaurant) => {
-      console.log(restaurant);
       new RestaurantItem($('.restaurant-list')).render(restaurant);
     });
   }
