@@ -6,6 +6,7 @@ import { mockList } from "./data/mockRestaurant";
 import { MainHeader } from "./components/MainPage/MainHeader";
 import { RestaurantList } from "./components/MainPage/RestaurantList";
 import { ListChooseSection } from "./components/MainPage/ListChooseSection";
+import { InfoPage } from "./components/RestaurantInfoSheet/InfoPage";
 
 class App {
   #app;
@@ -13,6 +14,10 @@ class App {
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
     RestaurantData.settingList(mockList);
+    localStorage.clear();
+    this.render();
+    RestaurantList.renderRestaurantList();
+    localStorage.clear();
   }
 
   render() {
@@ -24,10 +29,10 @@ class App {
           ${FilterSortButton.template()}
         </section>
         <section class="restaurant-list-container">
-          ${RestaurantList.template(RestaurantData.allList)}
         </section>
       </main>
-      ${InputForm.template()}`;
+      ${InputForm.template()}
+      ${InfoPage.template()}`;
     this.setEvent();
   }
 
@@ -37,6 +42,7 @@ class App {
     FilterSortButton.setEvent();
     RestaurantList.setEvent();
     ListChooseSection.setEvent();
+    InfoPage.setEvent();
   }
 }
 

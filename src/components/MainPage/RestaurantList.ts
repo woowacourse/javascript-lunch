@@ -1,6 +1,8 @@
+import { FilterSort } from "../../domain/FilterSort";
 import { RestaurantData } from "../../domain/RestaurantData";
 import { RestaurantType } from "../../Template";
 import { $ } from "../../until/ControlDom";
+import { InfoPage } from "../RestaurantInfoSheet/InfoPage";
 import { Restaurant } from "./Restaurant";
 
 export const RestaurantList = {
@@ -23,30 +25,42 @@ export const RestaurantList = {
 
       if (target.className === "likeImg") {
         this.clickStarImg(+targetId!);
+        return;
       }
-      //click restaurant
+      InfoPage.showBottomSheet(+targetId!);
     });
   },
 
-  renderRestaurantList(restaurantList: RestaurantType[]): void {
+  renderRestaurantList() {
     const restaurantListContainer = $(
       ".restaurant-list-container"
     ) as HTMLDataListElement;
-    restaurantListContainer.innerHTML = RestaurantList.template(restaurantList);
+    restaurantListContainer.innerHTML = this.getRestaurantForShow(
+      this.nowListSection()
+    );
   },
 
-  clickStarImg(targetId: number) {
-    RestaurantData.turnLikeUnlike(targetId);
-
+  nowListSection() {
     const restaurantListContainer = $(
       ".restaurant-list-container"
     ) as HTMLElement;
 
-    const showSection =
-      restaurantListContainer.classList.length === 1
-        ? RestaurantData.allList
-        : RestaurantData.likeList;
+    return restaurantListContainer.classList.length === 1
+      ? "allList"
+      : "likeList";
+  },
 
-    this.renderRestaurantList(showSection);
+  getRestaurantForShow(listSection: string) {
+    if (listSection === "allList") {
+      return RestaurantList.template(
+        FilterSort.getNewList(RestaurantData.allList)
+      );
+    }
+    return RestaurantList.template(RestaurantData.likeList);
+  },
+
+  clickStarImg(targetId: number) {
+    RestaurantData.turnLikeUnlike(targetId);
+    this.renderRestaurantList();
   },
 };

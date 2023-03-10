@@ -40,10 +40,6 @@ export const ListChooseSection = {
     const oppositeSection = $(`.${oppositeList}`) as HTMLElement;
     oppositeSection.className = oppositeList;
 
-    RestaurantList.renderRestaurantList(
-      oppositeList === "likeList"
-        ? RestaurantData.allList
-        : RestaurantData.likeList
-    );
+    RestaurantList.renderRestaurantList();
   },
 };

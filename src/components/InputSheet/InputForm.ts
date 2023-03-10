@@ -70,7 +70,7 @@ const InputForm = {
       const bottomSheet = $(".bottomSheet") as HTMLElement;
       BottomSheetForm.showClose(bottomSheet, "bottomSheet--open");
       RestaurantData.addRestaurant(newRestaurant);
-      RestaurantList.renderRestaurantList(RestaurantData.allList);
+      RestaurantList.renderRestaurantList();
     });
     this.cancelAddRestaurant();
   },

@@ -25,9 +25,7 @@ const FilterSortButton = {
     const restaurantFilterContainer = $(".restaurant-filter-container");
     restaurantFilterContainer?.addEventListener("change", () => {
       FilterSort.setFilterSortState();
-      RestaurantList.renderRestaurantList(
-        FilterSort.getNewList(RestaurantData.allList)
-      );
+      RestaurantList.renderRestaurantList();
     });
   },
 };
