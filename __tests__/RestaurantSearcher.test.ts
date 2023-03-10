@@ -1,5 +1,5 @@
 import RestaurantSearcher from '../src/domain/RestaurantSearcher';
-import dummyRestaurants from '../src/dummy/dummyRestaurants';
+import { restaurantsSample } from '../testcase/unit-testcase';
 
 const restaurantSearcher = new RestaurantSearcher();
 
@@ -12,15 +12,15 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
     };
 
     const expectedResult = [
-      dummyRestaurants[3],
-      dummyRestaurants[4],
-      dummyRestaurants[1],
-      dummyRestaurants[2],
-      dummyRestaurants[0],
+      restaurantsSample[3],
+      restaurantsSample[4],
+      restaurantsSample[1],
+      restaurantsSample[2],
+      restaurantsSample[0],
     ];
 
     expect(
-      restaurantSearcher.search(dummyRestaurants, filterProperties)
+      restaurantSearcher.search(restaurantsSample, filterProperties)
     ).toEqual(expectedResult);
   });
 
@@ -32,15 +32,15 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
     };
 
     const expectedResult = [
-      dummyRestaurants[2],
-      dummyRestaurants[1],
-      dummyRestaurants[4],
-      dummyRestaurants[0],
-      dummyRestaurants[3],
+      restaurantsSample[2],
+      restaurantsSample[1],
+      restaurantsSample[4],
+      restaurantsSample[0],
+      restaurantsSample[3],
     ];
 
     expect(
-      restaurantSearcher.search(dummyRestaurants, filterProperties)
+      restaurantSearcher.search(restaurantsSample, filterProperties)
     ).toEqual(expectedResult);
   });
 
@@ -51,10 +51,10 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
       favoriteBy: 'all',
     };
 
-    const expectedResult = [dummyRestaurants[2], dummyRestaurants[4]];
+    const expectedResult = [restaurantsSample[2], restaurantsSample[4]];
 
     expect(
-      restaurantSearcher.search(dummyRestaurants, filterProperties)
+      restaurantSearcher.search(restaurantsSample, filterProperties)
     ).toEqual(expectedResult);
   });
 
@@ -66,13 +66,13 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
     };
 
     const expectedResult = [
-      dummyRestaurants[3],
-      dummyRestaurants[1],
-      dummyRestaurants[2],
+      restaurantsSample[3],
+      restaurantsSample[1],
+      restaurantsSample[2],
     ];
 
     expect(
-      restaurantSearcher.search(dummyRestaurants, filterProperties)
+      restaurantSearcher.search(restaurantsSample, filterProperties)
     ).toEqual(expectedResult);
   });
 
@@ -86,7 +86,7 @@ describe('레스토랑 필터링 테스트 (RestaurantFilter)', () => {
     const expectedResult = [];
 
     expect(
-      restaurantSearcher.search(dummyRestaurants, filterProperties)
+      restaurantSearcher.search(restaurantsSample, filterProperties)
     ).toEqual(expectedResult);
   });
 });
