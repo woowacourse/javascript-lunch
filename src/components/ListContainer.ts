@@ -70,6 +70,7 @@ class ListContainer extends Component<IComponentPropState> {
       new FilterBar($filterBar, {
         filterList: this.$props.filterList,
         filterOptions: this.$props.filterOptions,
+        activeTab: this.$state.activeTab,
       });
     }
 
@@ -98,6 +99,7 @@ class ListContainer extends Component<IComponentPropState> {
   setEvent(): void {
     this.addEvent('click', '.tabview__nav__button', (event: Event) => {
       const tabId = (event.target as HTMLElement).dataset.tab;
+      console.log(tabId, 'tabId');
       if (tabId) {
         this.setState({ activeTab: tabId });
       }
