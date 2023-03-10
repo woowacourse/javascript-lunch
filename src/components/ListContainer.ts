@@ -90,6 +90,7 @@ class ListContainer extends Component<IComponentPropState> {
             restaurant,
             originalRestaurantList: this.$props.restaurantList,
             updateRootState: this.$props.updateRootState,
+            toggleModal: this.$props.toggleModal,
           });
         }
       );

@@ -61,6 +61,7 @@ class App extends Component<IComponentPropState> {
         filterList: this.filterList.bind(this),
         filterOptions: this.$state.filterOptions,
         updateRootState: this.updateRootState.bind(this),
+        toggleModal: this.toggleModal.bind(this),
       });
     }
   }

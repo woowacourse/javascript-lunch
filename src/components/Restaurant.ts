@@ -44,13 +44,21 @@ class Restaurant extends Component<IComponentPropState> {
   setEvent(): void {
     const { originalRestaurantList, updateRootState, restaurant } = this.$props;
 
-    this.addEvent('click', '.restaurant__favorite__icon', (event: Event) => {
-      event.preventDefault();
+    this.addEvent('click', '.restaurant__favorite__icon', () => {
       this.updateRestaurantIsFavorite(
         restaurant,
         originalRestaurantList,
         updateRootState
       );
+    });
+
+    this.addEvent('click', '.restaurant', (event: Event) => {
+      if (
+        event.target instanceof HTMLElement &&
+        event.target.classList[0] !== 'restaurant__favorite_icon'
+      ) {
+        this.$props.toggleModal('restaurantDetail');
+      }
     });
   }
 }
