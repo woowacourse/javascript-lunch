@@ -14,9 +14,10 @@ import LunchMenuApp from './LunchMenuApp';
 
 import RestaurantList from './components/RestaurantList';
 import RestaurantListItem from './components/RestaurantListItem';
-import RestaurantRegisterModal from './components/RestaurantRegisterModal';
-import RestaurantDetailModal from './components/RestaurantDetailModal';
 import RestaurantFilter from './components/RestaurantFilter';
 import RestaurantTab from './components/RestaurantTab';
+import CustomModal from './components/CustomModal';
+import RestaurantDetail from './components/RestaurantDetail';
+import RestaurantRegisterForm from './components/RestaurantRegisterForm';
 
 LunchMenuApp.init();

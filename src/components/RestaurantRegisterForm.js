@@ -2,16 +2,13 @@ import { $, dispatchCustomEvent } from '../utils/dom';
 import { getUniqueID } from '../utils/key';
 
 customElements.define(
-  'restaurant-register-modal',
-  class RestaurantRegisterModal extends HTMLElement {
+  'restaurant-register-form',
+  class RestaurantRegisterForm extends HTMLElement {
     constructor() {
       super();
 
       this.innerHTML = /* html */ `
-      <dialog class="modal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-          <h2 class="modal-title text-title">새로운 음식점</h2>
+      <h2 class="modal-title text-title">새로운 음식점</h2>
           <form class="restaurant-register-form">
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
@@ -66,22 +63,16 @@ customElements.define(
               <button class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
-        </div>
-      </dialog>`;
+          `;
     }
 
     connectedCallback() {
-      $('.modal').addEventListener('submit', (e) => this.handleSubmit(e));
+      $('.restaurant-register-form').addEventListener('submit', (e) => this.handleSubmit(e));
       $('.cancel-button').addEventListener('click', () => this.closeModal());
-      $('.modal-backdrop').addEventListener('click', () => this.closeModal());
-    }
-
-    openModal() {
-      this.querySelector('.modal').showModal();
     }
 
     closeModal() {
-      this.querySelector('.modal').close();
+      $('.modal').close();
     }
 
     handleSubmit(e) {
@@ -112,7 +103,7 @@ customElements.define(
     }
 
     dispatch(data) {
-      dispatchCustomEvent(this, {
+      dispatchCustomEvent($('custom-modal'), {
         eventType: 'registerRestaurant',
         data,
       });

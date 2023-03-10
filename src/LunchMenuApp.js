@@ -22,12 +22,14 @@ const LunchMenuApp = {
   },
 
   bindEvents() {
-    $('restaurant-register-modal').addEventListener(
-      'registerRestaurant',
-      ({ detail: restaurant }) => this.handleRestaurantRegister(restaurant)
+    $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
+      this.handleRestaurantRegister(restaurant)
     );
     $('restaurant-filter').addEventListener('change', () => this.handleRestaurantFilter());
-    $('.gnb__button').addEventListener('click', () => $('restaurant-register-modal').openModal());
+    $('.gnb__button').addEventListener('click', () =>
+      $('custom-modal').openModal('<restaurant-register-form />')
+    );
+
     $('restaurant-tab').addEventListener('changeRestaurantTab', ({ detail: tabType }) =>
       this.handleRestaurantTabChange(tabType)
     );
@@ -50,6 +52,7 @@ const LunchMenuApp = {
   },
 
   handleRestaurantRegister(restaurant) {
+    console.log('a');
     restaurants.add(restaurant);
     this.setRestaurantList();
     $('#tab-all').checked = true;
@@ -96,16 +99,16 @@ const LunchMenuApp = {
     restaurants.changeFavorite(restaurantID);
     this.setRestaurantList();
     this.handleRestaurantTabChange($('input[name="tab"]:checked').value);
-    $('restaurant-detail-modal').render(
+    $('restaurant-detail').render(
       restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID)
     );
   },
 
   handleRestaurantDetailClick(restaurantID) {
-    $('restaurant-detail-modal').render(
-      restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID)
-    );
-    $('restaurant-detail-modal').openModal();
+    $('custom-modal').openModal('<restaurant-detail/>');
+    const find = restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID);
+    console.log(find);
+    $('restaurant-detail').render(find);
   },
 
   handleRestaurantDelete(restaurantID) {

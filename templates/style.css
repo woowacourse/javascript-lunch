@@ -353,15 +353,15 @@ input[name='link'] {
   justify-content: space-between;
 }
 
-restaurant-detail-modal h2 {
+restaurant-detail h2 {
   padding: 16px 0;
 }
 
-restaurant-detail-modal p {
+restaurant-detail p {
   margin-top: 16px;
 }
 
-restaurant-detail-modal a {
+restaurant-detail a {
   color: black;
 }
 
