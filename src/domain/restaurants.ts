@@ -28,6 +28,7 @@ interface Restaurants {
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
   compareByName(a: Restaurant, b: Restaurant): number;
   changeFavorite(restaurantID: string): void;
+  getRestaurant(restaurantID: string): Restaurant | undefined;
 }
 
 export const restaurants: Restaurants = {
@@ -86,9 +87,12 @@ export const restaurants: Restaurants = {
   },
 
   changeFavorite(restaurantID) {
-    const targetRestaurant = this.list.find(
-      (restaurant) => restaurant.restaurantID === restaurantID
-    );
+    const targetRestaurant = this.getRestaurant(restaurantID);
+
     if (targetRestaurant) targetRestaurant.favorite = !targetRestaurant.favorite;
+  },
+
+  getRestaurant(restaurantID) {
+    return this.list.find((restaurant) => restaurant.restaurantID === restaurantID);
   },
 };

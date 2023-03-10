@@ -99,16 +99,12 @@ const LunchMenuApp = {
     restaurants.changeFavorite(restaurantID);
     this.setRestaurantList();
     this.handleRestaurantTabChange($('input[name="tab"]:checked').value);
-    $('restaurant-detail').render(
-      restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID)
-    );
+    $('restaurant-detail').render(restaurants.getRestaurant(restaurantID));
   },
 
   handleRestaurantDetailClick(restaurantID) {
     $('custom-modal').openModal('<restaurant-detail/>');
-    const find = restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID);
-    console.log(find);
-    $('restaurant-detail').render(find);
+    $('restaurant-detail').render(restaurants.getRestaurant(restaurantID));
   },
 
   handleRestaurantDelete(restaurantID) {
