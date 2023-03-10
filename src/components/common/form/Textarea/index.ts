@@ -37,11 +37,11 @@ class Textarea extends FormControlComponent {
   }
 
   override get value() {
-    return this.shadowRoot?.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
+    return this.shadowRoot?.querySelector<HTMLTextAreaElement>('textarea')?.value ?? '';
   }
 
   override formResetCallback() {
-    this.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!.innerText = '';
+    this.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!.value = '';
     this.internals.setValidity({});
   }
 }
