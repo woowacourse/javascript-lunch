@@ -3,9 +3,10 @@ import { $ } from '../utils/domSelectors';
 import { createRestaurantItem } from '../template/RestaurantItemTemplate';
 import { changeRestaurantFavoriteIcon } from './utils';
 
-function removeRestaurantItem(target: Element, restaurantId: number) {
+function removeRestaurantItem(restaurantId: number) {
+  const restaurantListElement = $<HTMLUListElement>('.restaurant-list');
   const restaurantItem = $<HTMLUListElement>(`.restaurant[data-id="${restaurantId}"]`);
-  target.removeChild(restaurantItem);
+  restaurantListElement.removeChild(restaurantItem);
 }
 
 function addRestaurantClickEvent(

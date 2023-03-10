@@ -102,7 +102,7 @@ class App {
     saveToLocalStorage(updatedRestaurantList);
 
     if (this.currentTab === 'favorite-restaurants') {
-      removeRestaurantItem(this.restaurantListElement, restaurantId);
+      removeRestaurantItem(restaurantId);
     }
   };
 
@@ -117,8 +117,8 @@ class App {
 
   deleteRestaurant = (restaurantId: number) => {
     const updatedRestaurantList = this.restaurantService.delete(restaurantId);
-    removeRestaurantItem(this.restaurantListElement, restaurantId);
     saveToLocalStorage(updatedRestaurantList);
+    removeRestaurantItem(restaurantId);
   };
 
   addEvents() {
