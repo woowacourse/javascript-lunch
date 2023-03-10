@@ -30,32 +30,32 @@ class FavoritesFilter {
     });
   }
 
-  setAllRestaurantsButtonClickEvent(OnClickButton, OnClickButton2) {
-    const $allRestaurantsButton = document.querySelector('.favorites-filter .all-restaurants');
+  setClickAllButtonEvent(OnClickButton, OnClickButton2) {
+    const $allButton = document.querySelector('.favorites-filter .all-restaurants');
 
-    $allRestaurantsButton.addEventListener('click', e => {
+    $allButton.addEventListener('click', e => {
       e.preventDefault();
 
       document.querySelector('.favorites-filter').setAttribute('value', 'all');
-      $allRestaurantsButton.classList.add('clicked');
-      const $favoritesRestaurantsButton = document.querySelector('.favorites-filter .favorites-restaurants');
-      $favoritesRestaurantsButton.classList.remove('clicked');
+      $allButton.classList.add('clicked');
+      const $favoritesButton = document.querySelector('.favorites-filter .favorites-restaurants');
+      $favoritesButton.classList.remove('clicked');
 
       OnClickButton();
       OnClickButton2();
     });
   }
 
-  setFavoritesRestaurantsButtonClickEvent(OnClickButton, OnClickButton2) {
-    const $favoritesRestaurantsButton = document.querySelector('.favorites-filter .favorites-restaurants');
+  setClickFavoritesButtonEvent(OnClickButton, OnClickButton2) {
+    const $favoritesButton = document.querySelector('.favorites-filter .favorites-restaurants');
 
-    $favoritesRestaurantsButton.addEventListener('click', e => {
+    $favoritesButton.addEventListener('click', e => {
       e.preventDefault();
 
       document.querySelector('.favorites-filter').setAttribute('value', 'favorites');
-      $favoritesRestaurantsButton.classList.add('clicked');
-      const $allRestaurantsButton = document.querySelector('.favorites-filter .all-restaurants');
-      $allRestaurantsButton.classList.remove('clicked');
+      $favoritesButton.classList.add('clicked');
+      const $allButton = document.querySelector('.favorites-filter .all-restaurants');
+      $allButton.classList.remove('clicked');
 
       OnClickButton();
       OnClickButton2();

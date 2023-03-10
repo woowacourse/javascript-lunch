@@ -5,7 +5,7 @@ class RestaurantItem {
     this.restaurant = restaurant;
     this.restaurants = restaurants;
     this.render();
-    this.setFavoriteButtonEvent();
+    this.setClickFavoritesIconEvent();
   }
 
   template() {
@@ -44,7 +44,7 @@ class RestaurantItem {
     $favoriteIcon.setAttribute('src', `./${iconName}.png`);
   }
 
-  setEvent(onClickRestaurantItem) {
+  setClickItemEvent(onClickRestaurantItem) {
     const $info = document.querySelector(`#restaurant${this.restaurant.ID} .restaurant__category__info`);
     $info.addEventListener('click', e => {
       e.preventDefault();
@@ -52,7 +52,7 @@ class RestaurantItem {
     });
   }
 
-  setFavoriteButtonEvent() {
+  setClickFavoritesIconEvent() {
     const $favoriteIcon = document.querySelector(`#restaurant${this.restaurant.ID} .favorite-icon`);
 
     $favoriteIcon.addEventListener('click', e => {

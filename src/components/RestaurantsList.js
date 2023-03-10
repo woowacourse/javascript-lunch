@@ -52,7 +52,7 @@ class RestaurantsList {
 
     restaurants.forEach(restaurant => {
       const restaurantItem = new RestaurantItem(restaurant, this.restaurants);
-      restaurantItem.setEvent(this.onClickRestaurantItem);
+      restaurantItem.setClickItemEvent(this.onClickRestaurantItem);
       this.restaurantItems.push(restaurantItem);
     });
   }

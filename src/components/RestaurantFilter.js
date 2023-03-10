@@ -39,7 +39,7 @@ class RestaurantFilter {
     document.querySelector('.restaurant-filter-container').classList.remove('filter--open');
   }
 
-  setEvent(renderRestaurantsList) {
+  setChangeEvent(renderRestaurantsList) {
     const $filters = document.querySelector('.restaurant-filter-container');
 
     $filters.addEventListener('change', e => {

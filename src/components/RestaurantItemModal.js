@@ -91,7 +91,7 @@ class RestaurantItemModal {
     });
   }
 
-  setModalCloseEvent(onCloseButtonClick) {
+  setCloseEvent(onCloseButtonClick) {
     const $cancelButton = document.querySelector('.restaurant-item-modal .button--primary');
 
     $cancelButton.addEventListener('click', e => {

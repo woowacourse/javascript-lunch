@@ -4,7 +4,7 @@ class Header {
   constructor() {
     this.$target = document.querySelector('header');
     this.render();
-    this.setHeaderClickEvent();
+    this.setClickTitleEvent();
   }
 
   template() {
@@ -20,7 +20,7 @@ class Header {
     this.$target.insertAdjacentHTML('afterbegin', this.template());
   }
 
-  setHeaderClickEvent() {
+  setClickTitleEvent() {
     const $headerTitle = document.querySelector('.gnb__title');
     $headerTitle.addEventListener('click', e => {
       e.preventDefault();
@@ -28,7 +28,7 @@ class Header {
     });
   }
 
-  setModalOpenEvent(renderModal) {
+  setOpenModalEvent(renderModal) {
     const $addButton = document.querySelector('.gnb__button');
 
     $addButton.addEventListener('click', e => {

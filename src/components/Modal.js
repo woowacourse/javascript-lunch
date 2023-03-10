@@ -3,7 +3,7 @@ class Modal {
     this.restaurants = restaurants;
     this.$target = document.querySelector('main');
     this.render();
-    this.setModalCloseEvent();
+    this.setCloseEvent();
   }
 
   template() {
@@ -96,7 +96,7 @@ class Modal {
     });
   }
 
-  setModalCloseEvent() {
+  setCloseEvent() {
     const $cancelButton = document.querySelector('.modal .button--secondary');
 
     $cancelButton.addEventListener('click', e => {
