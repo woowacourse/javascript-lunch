@@ -5,6 +5,7 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 
+// NOTE: Custom Element를 사용하기 위해 import 필요
 import RestaurantList from '../src/components/RestaurantList';
 import RestaurantListItem from '../src/components/RestaurantListItem';
 import RestaurantRegisterModal from '../src/components/RestaurantRegisterModal';

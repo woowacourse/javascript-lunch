@@ -12,6 +12,7 @@ import '../images/favorite-icon-lined.png';
 
 import LunchMenuApp from './LunchMenuApp';
 
+// NOTE: Custom Element를 사용하기 위해 import 필요
 import CustomModal from './components/common/CustomModal';
 
 import RestaurantList from './components/RestaurantList';
