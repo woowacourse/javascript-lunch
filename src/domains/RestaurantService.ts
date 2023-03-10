@@ -7,8 +7,8 @@ class RestaurantService {
     this.restaurantList = restaurantList;
   }
 
-  getRestaurant(restaurantId: number) {
-    return this.restaurantList.find((restaurant) => restaurant.id === restaurantId) as Restaurant;
+  getRestaurant(restaurantId: number): Restaurant {
+    return this.restaurantList.find((restaurant) => restaurant.id === restaurantId)!;
   }
 
   getRestaurantList() {
