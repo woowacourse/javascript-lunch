@@ -29,44 +29,48 @@ export const addRestaurantListClickEventHandler = (onClickRestaurantList: Callab
   restaurantList.addEventListener('click', (event) => {
     if (event.target instanceof HTMLButtonElement) return false;
     if (restaurantDetailModal.open) return false;
-    let name;
 
-    // 음식점 li요소 클릭
-    if (event.target instanceof HTMLLIElement) {
-      name = event.target.querySelector('.restaurant__name')?.textContent;
-      console.log('음식점 <li>요소 클릭 시 name: ', name);
-    }
-
-    // 음식점 카테고리 클릭
-    if (event.target instanceof HTMLImageElement) {
-      name =
-        event.target.parentElement?.nextElementSibling?.querySelector(
-          '.restaurant__name',
-        )?.textContent;
-      console.log('음식점 카테고리 이미지 클릭 시 name: ', name);
-    }
-
-    // 음식점 이름 클릭
-    if (event.target instanceof HTMLHeadingElement) {
-      name = event.target.textContent;
-      console.log('음식점 이름 클릭 시 name: ', name);
-    }
-
-    // 음식점까지의 거리 클릭
-    if (event.target instanceof HTMLSpanElement) {
-      name = event.target.previousElementSibling?.textContent;
-      console.log('음식점까지의 거리 클릭 시 name: ', name);
-    }
-
-    // 음식점 설명 클릭
-    if (event.target instanceof HTMLParagraphElement) {
-      name = event.target.previousElementSibling?.previousElementSibling?.textContent;
-      console.log('음식점까지의 설명 클릭 시 name: ', name);
-    }
+    const name = getRestaurantNameFromEventTarget(event);
 
     const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
     onClickRestaurantList(restaurant);
   });
+};
+
+export const getRestaurantNameFromEventTarget = (event: Event) => {
+  // 음식점 li요소 클릭
+  if (event.target instanceof HTMLLIElement) {
+    return event.target.querySelector('.restaurant__name')?.textContent;
+  }
+
+  // 음식점 카테고리 div요소 클릭
+  if (event.target instanceof HTMLDivElement) {
+    return event.target.nextElementSibling?.querySelector('.restaurant__name')?.textContent;
+  }
+
+  // 음식점 카테고리 이미지 클릭
+  if (event.target instanceof HTMLImageElement) {
+    const name =
+      event.target.parentElement?.nextElementSibling?.querySelector(
+        '.restaurant__name',
+      )?.textContent;
+    return name;
+  }
+
+  // 음식점 이름 클릭
+  if (event.target instanceof HTMLHeadingElement) {
+    return event.target.textContent;
+  }
+
+  // 음식점까지의 거리 클릭
+  if (event.target instanceof HTMLSpanElement) {
+    return event.target.previousElementSibling?.textContent;
+  }
+
+  // 음식점 설명 클릭
+  if (event.target instanceof HTMLParagraphElement) {
+    return event.target.previousElementSibling?.previousElementSibling?.textContent;
+  }
 };
 
 export const addFavoriteButtonClickEventHandler = (onClickFavoriteButton: CallableFunction) => {
