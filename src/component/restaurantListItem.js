@@ -1,9 +1,10 @@
+import favoriteIcon from './favoriteIcon';
 import { CATEGORY_IMAGE_URL } from '../constants';
 
 const restaurantListItem = ({ restaurant }) => {
-  const { category, name, takeMinute, description } = restaurant;
+  const { id, category, name, takeMinute, description, favorite } = restaurant;
   return `
-    <li class="restaurant">
+    <li id="${id} "class="restaurant">
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE_URL[category]}" alt="${category}" class="category-icon">
       </div>
@@ -12,6 +13,7 @@ const restaurantListItem = ({ restaurant }) => {
         <span class="restaurant__distance text-body">캠퍼스부터 ${takeMinute}분 내</span>
         <p class="restaurant__description text-body">${description}</p>
       </div>
+      ${favoriteIcon({ id, favorite })}
     </li>
   `;
 };
