@@ -3,10 +3,10 @@ import { $ } from "../utils/Dom";
 class NavigatorContainer {
   template() {
     return `
-    <section class="navigator-container">
+    <div class="navigator-container">
     <div class="total-page" data-id="total">모든 음식점</div>
     <div class="bookmark-page" data-id="bookmark">자주 가는 음식점</div>
-    </section>
+    </div>
     `;
   }
 

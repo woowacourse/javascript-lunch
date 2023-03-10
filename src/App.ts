@@ -5,6 +5,7 @@ import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./types/type";
 import NavigatorContainer from "./components/NavigatorContainer";
 import Page from "./components/pages/Page";
+import { $$ } from "./utils/Dom";
 
 class App {
   restaurantList: Restaurant[];
@@ -34,6 +35,7 @@ class App {
   }
 
   navigateToPage = (pageName: string) => {
+    this.deletePageSection();
     if (pageName === "total") {
       new Page(this.target, this.restaurantList, pageName);
       return;
@@ -44,6 +46,12 @@ class App {
       pageName
     );
   };
+
+  deletePageSection() {
+    $$("section")?.forEach((section) => {
+      section.remove();
+    });
+  }
 }
 
 export default App;
