@@ -1,9 +1,11 @@
 import "./index.css";
 class AddRestaurantFormModal {
   $target;
+  restaurantList;
 
-  constructor($target) {
+  constructor($target, restaurantList) {
     this.$target = $target;
+    this.restaurantList = restaurantList;
     this.render();
   }
 
@@ -89,7 +91,7 @@ class AddRestaurantFormModal {
     this.$target.innerHTML = this.template();
   }
 
-  setSubmitEvent(restaurantList, toggleModal) {
+  setSubmitEvent() {
     this.$target.querySelector("#add-restaurant-form").addEventListener("submit", (event) => {
       event.preventDefault();
 
@@ -98,13 +100,17 @@ class AddRestaurantFormModal {
         return { ...restaurantInfo, [input.id]: input.value };
       }, {});
 
-      restaurantList.addRestaurant(newRestaurant);
-      toggleModal();
+      this.restaurantList.addRestaurant(newRestaurant);
+      this.toggleModal();
     });
   }
 
-  setCancelEvent(toggleModal) {
-    this.$target.querySelector("#form-cancel-button").addEventListener("click", toggleModal);
+  setCancelEvent() {
+    this.$target.querySelector("#form-cancel-button").addEventListener("click", this.toggleModal.bind(this));
+  }
+
+  toggleModal() {
+    this.$target.closest(".modal").classList.toggle("modal--open");
   }
 }
 

@@ -4,10 +4,12 @@ import "./index.css";
 class RestaurantDetailModal {
   $target;
   restaurantInfo;
+  restaurantList;
 
-  constructor($target, restaurantInfo) {
+  constructor($target, restaurantInfo, restaurantList) {
     this.$target = $target;
     this.restaurantInfo = restaurantInfo;
+    this.restaurantList = restaurantList;
 
     this.render();
   }
@@ -60,15 +62,19 @@ class RestaurantDetailModal {
 
   setFavoriteToggleEvent() {}
 
-  setRemoveEvent(removeRestaurant, toggleModal) {
+  setRemoveEvent() {
     this.$target.querySelector("#detail-remove-button").addEventListener("click", () => {
-      removeRestaurant(this.restaurantInfo.id);
-      toggleModal();
+      this.restaurantList.removeRestaurant(this.restaurantInfo.id);
+      this.toggleModal();
     });
   }
 
-  setCloseEvent(toggleModal) {
-    this.$target.querySelector("#detail-cancel-button").addEventListener("click", toggleModal);
+  setCloseEvent() {
+    this.$target.querySelector("#detail-cancel-button").addEventListener("click", this.toggleModal.bind(this));
+  }
+
+  toggleModal() {
+    this.$target.closest(".modal").classList.toggle("modal--open");
   }
 }
 

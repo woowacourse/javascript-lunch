@@ -5,12 +5,15 @@ import LocalStorage from "../../../util/LocalStorage";
 class RestaurantItem {
   $target;
   restaurantInfo;
+  restaurantList;
 
-  constructor($target, restaurantInfo) {
+  constructor($target, restaurantInfo, restaurantList) {
     this.$target = $target;
     this.restaurantInfo = restaurantInfo;
+    this.restaurantList = restaurantList;
 
     this.render();
+    this.setEvent();
   }
 
   template() {
@@ -46,25 +49,26 @@ class RestaurantItem {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  setFavoriteClickEvent(restaurantListManager) {
+  setFavoriteClickEvent() {
     this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
       if (!event.target.closest(".favorite")) return;
 
-      restaurantListManager.toggleFavoriteState(Number(this.restaurantInfo.id));
-      LocalStorage.setData("list", restaurantListManager.getRestaurantList());
-
-      this.restaurantInfo = { ...this.restaurantInfo, favorite: !this.restaurantInfo.favorite };
-      event.target.src = `./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
+      this.restaurantList.changeFavoriteState(this.restaurantInfo.id);
     });
   }
 
-  setRestaurantInfoEvent(removeRestaurant, modal) {
+  setRestaurantInfoEvent() {
     this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
       if (event.target.closest(".favorite")) return;
 
-      modal.setRestaurantDetail(this.restaurantInfo, removeRestaurant);
-      modal.toggle();
+      this.restaurantList.modal.setRestaurantDetail(this.restaurantInfo, this.restaurantList);
+      this.restaurantList.modal.toggle();
     });
+  }
+
+  setEvent() {
+    this.setFavoriteClickEvent();
+    this.setRestaurantInfoEvent();
   }
 }
 

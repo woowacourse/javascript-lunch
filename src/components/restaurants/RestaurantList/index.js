@@ -31,9 +31,7 @@ class RestaurantList {
     const $restaurantList = this.$target.querySelector(".restaurant-list");
 
     restaurantList.forEach((restaurantInfo) => {
-      const item = new RestaurantItem($restaurantList, restaurantInfo);
-      item.setFavoriteClickEvent(this.restaurantListManager);
-      item.setRestaurantInfoEvent(this.removeRestaurant.bind(this), this.modal);
+      new RestaurantItem($restaurantList, restaurantInfo, this);
     });
   }
 
@@ -69,6 +67,13 @@ class RestaurantList {
 
       this.renderFilteredList(selectedCategory, selectedSortingWay);
     }
+  }
+
+  changeFavoriteState(restaurantId) {
+    this.restaurantListManager.toggleFavoriteState(Number(restaurantId));
+    LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
+
+    this.renderAfterDataChange();
   }
 
   addRestaurant(newRestaurant) {
