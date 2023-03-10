@@ -19,7 +19,7 @@ class FavoriteIcon extends HTMLElement {
     </style> 
 
     <img src='${
-      this.hasAttribute('isfavorite') ? favoriteIconLined : favoriteIconFilled
+      this.hasAttribute('isfavorite') ? favoriteIconFilled : favoriteIconLined
     }' class='favorite-icon'>`;
   }
 
@@ -29,8 +29,8 @@ class FavoriteIcon extends HTMLElement {
 
   attributeChangedCallback() {
     this.querySelector('img')!.src = this.hasAttribute('isfavorite')
-      ? favoriteIconLined
-      : favoriteIconFilled;
+      ? favoriteIconFilled
+      : favoriteIconLined;
   }
 }
 
