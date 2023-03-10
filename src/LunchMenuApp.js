@@ -1,5 +1,7 @@
-import { restaurantManager } from './domain/restaurantManager';
+import { eventHandlers } from './eventHandlers';
+
 import { LOCAL_STORAGE_KEY } from './domain/constants';
+import { restaurantManager } from './domain/restaurantManager';
 
 import { $, isChecked } from './utils/dom';
 import { setLocalStorage } from './utils/localStorage';
@@ -22,49 +24,21 @@ const LunchMenuApp = {
   },
 
   bindEvents() {
-    $('.gnb__button').addEventListener('click', () => this.handleGnbButtonClick());
-    $('restaurant-tab').addEventListener('change', (e) => this.handleTabChange(e));
+    $('.gnb__button').addEventListener('click', () => eventHandlers.handleGnbButtonClick());
+    $('restaurant-tab').addEventListener('change', (e) => eventHandlers.handleTabChange(e));
     $('restaurant-filter').addEventListener('change', () => this.renderUpdatedRestaurantList());
   },
 
   bindCustomEvents() {
     $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
-      this.handleRestaurantRegister(restaurant)
+      eventHandlers.handleRestaurantRegister(restaurant)
     );
     $('custom-modal').addEventListener('removeRestaurant', ({ detail: restaurantId }) =>
-      this.handleRestaurantRemove(restaurantId)
+      eventHandlers.handleRestaurantRemove(restaurantId)
     );
     $('body').addEventListener('toggleFavorite', ({ detail: restaurantId }) =>
-      this.handleFavoriteToggle(restaurantId)
+      eventHandlers.handleFavoriteToggle(restaurantId)
     );
-  },
-
-  handleGnbButtonClick() {
-    $('.modal-container').replaceChildren();
-    $('.modal-container').insertAdjacentHTML(
-      'beforeend',
-      `<restaurant-register-modal></restaurant-register-modal>`
-    );
-    $('custom-modal').openModal();
-  },
-
-  handleTabChange(e) {
-    if (e.target.id === 'all-restaurants') {
-      this.renderUpdatedRestaurantList();
-      return;
-    }
-
-    this.render(restaurantManager.filterByFavorite(restaurantManager.list));
-  },
-
-  handleRestaurantRegister(restaurant) {
-    restaurantManager.add(restaurant);
-
-    if (this.isFavoriteTabChecked()) {
-      this.moveToAllRestaurantsTab();
-    }
-
-    this.updateRestaurantList();
   },
 
   isFavoriteTabChecked() {
@@ -74,23 +48,6 @@ const LunchMenuApp = {
   moveToAllRestaurantsTab() {
     $('#all-restaurants').checked = true;
     $('restaurant-tab').handleTabChange();
-  },
-
-  handleRestaurantRemove(restaurantId) {
-    restaurantManager.remove(restaurantId);
-    this.updateRestaurantList();
-  },
-
-  handleFavoriteToggle(restaurantId) {
-    restaurantManager.toggleFavorite(restaurantId);
-
-    if (this.isDetailModalOpened()) {
-      this.updateDetailModal(
-        restaurantManager.list.find((restaurant) => restaurant.id === restaurantId)
-      );
-    }
-
-    this.updateRestaurantList();
   },
 
   isDetailModalOpened() {
