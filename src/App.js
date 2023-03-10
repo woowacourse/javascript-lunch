@@ -29,13 +29,6 @@ export default class App {
     this.#restaurants = new Restaurants(restaurantsData);
 
     Modal.render($('#modal'));
-    Selectbox.render(
-      $('#restaurant-filter-container'),
-      'afterbegin',
-      FILTER_CATEGORY_SELECTBOX_CONFIG
-    );
-    Selectbox.render($('#form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
-    Selectbox.render($('#form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
     this.renderRestaurantListByFilterOptions();
 
     this.bindEvents();
@@ -115,8 +108,7 @@ export default class App {
 
   onClickRestaurantFormModalOpenButton() {
     Modal.render($('#modal'));
-    Selectbox.render($('#form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
-    Selectbox.render($('#form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
+
     $('#form-modal-close-button').addEventListener('click', this.toggleModal);
 
     $('#add-restaurant-form').reset();
