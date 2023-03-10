@@ -32,8 +32,8 @@ class RestaurantBoxes extends HTMLElement {
     this.restaurantListRender(filteredList);
   }
 
-  getRestaurant({ category, name, distance, description }) {
-    return `<restaurant-box category="${category}" name="${name}" distance="${distance}" description="${description}"/>`;
+  getRestaurant({ category, name, distance, description, link, isFavorite }) {
+    return `<restaurant-box category="${category}" name="${name}" distance="${distance}" description="${description}" link="${link}" isFavorite="${isFavorite}"/>`;
   }
 
   restaurantListRender(restaurants) {

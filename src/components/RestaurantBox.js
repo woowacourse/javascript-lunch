@@ -1,4 +1,4 @@
-import { shortenString } from '../utils';
+import { $, shortenString } from '../utils';
 
 class RestaurantBox extends HTMLElement {
   connectedCallback() {
@@ -84,10 +84,39 @@ class RestaurantBox extends HTMLElement {
     `;
 
     this.shadowRoot.append(componentStyle);
+    this.showDetailEvent();
+  }
+
+  showDetailEvent() {
+    const name = this.getAttribute('name');
+    const category = this.getAttribute('category');
+    const distance = this.getAttribute('distance');
+    const description = this.getAttribute('description') || '';
+    const link = this.getAttribute('link') || '';
+    const isFavorite = this.getAttribute('isFavorite');
+
+    this.shadowRoot.querySelector('li').addEventListener('click', () => {
+      $('restaurant-detail-modal').openModal();
+      $('restaurant-detail-modal').renderDetailRestaurant({
+        name,
+        category,
+        distance,
+        description,
+        link,
+        isFavorite,
+      });
+    });
   }
 
   static get observedAttributes() {
-    return ['category', 'name', 'distance', 'description'];
+    return [
+      'category',
+      'name',
+      'distance',
+      'description',
+      'link',
+      'isFavorite',
+    ];
   }
 }
 
