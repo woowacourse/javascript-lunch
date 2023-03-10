@@ -28,12 +28,12 @@ class Controller {
     return this.state.restaurants;
   }
 
-  getSelectedRestaurant() {
-    return this.state.restaurants[this.selectedRestaurantIndex];
-  }
-
   getSelectedRestaurantIndex() {
     return this.selectedRestaurantIndex;
+  }
+
+  getSelectedRestaurant() {
+    return this.state.restaurants[this.selectedRestaurantIndex];
   }
 
   setSelectedRestaurantIndex(index: number) {
@@ -49,8 +49,7 @@ class Controller {
   }
 
   addRestaurant(newRestaurant: RestaurantType) {
-    this.state.restaurants = [...this.getLocalStorage(), newRestaurant];
-    this.setLocalStorage(this.state.restaurants);
+    this.setLocalStorage([...this.getLocalStorage(), newRestaurant]);
   }
 
   loadLocalStorage() {

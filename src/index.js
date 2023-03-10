@@ -7,6 +7,9 @@ import RestaurantList from "./components/RestaurantList";
 import SortingSelectBox from "./components/SortingSelectBox";
 import TabBar from "./components/TabBar";
 import "./css/style.css";
+import { restaurants } from "./domain/restaurants";
+
+restaurants.create();
 
 customElements.define("nav-bar", NavBar);
 customElements.define("bottom-sheet", BottomSheet);
