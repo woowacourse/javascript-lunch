@@ -21,6 +21,12 @@ class RestaurantService {
     return [];
   }
 
+  getFavoriteRestaurantList() {
+    return this.restaurantList.filter(
+      (restaurant) => restaurant.favoriteImageUrl === FAVORITE_ICON_IMAGE.FILLED,
+    );
+  }
+
   add(restaurant: Restaurant) {
     restaurant.favoriteImageUrl = FAVORITE_ICON_IMAGE.LINED; // 즐겨찾기 아이콘 기본 경로 설정
     this.restaurantList.push(restaurant);
@@ -40,10 +46,10 @@ class RestaurantService {
     this.currentSortingCriterion = criterion;
   }
 
-  filterBy(category: Category): Restaurant[] {
-    if (category === CATEGORY.ALL) return [...this.restaurantList];
+  filterBy(category: Category, restaurantList: Restaurant[]): Restaurant[] {
+    if (category === CATEGORY.ALL) return [...restaurantList];
 
-    return this.restaurantList.filter((restaurant) => restaurant.category === category);
+    return restaurantList.filter((restaurant) => restaurant.category === category);
   }
 
   sortBy(criterion: SortingCriterion, restaurantList: Restaurant[]): Restaurant[] {
@@ -54,8 +60,8 @@ class RestaurantService {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort(): Restaurant[] {
-    const filteredRestaurantList = this.filterBy(this.currentCategory);
+  filterAndSort(restaurantList: Restaurant[] = this.restaurantList): Restaurant[] {
+    const filteredRestaurantList = this.filterBy(this.currentCategory, restaurantList);
     return this.sortBy(this.currentSortingCriterion, filteredRestaurantList);
   }
 }

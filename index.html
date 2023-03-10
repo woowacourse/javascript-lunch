@@ -17,6 +17,20 @@
     </header>
 
     <main>
+      <!-- 탭 메뉴 -->
+      <div class="tabs">
+        <input
+          type="radio"
+          name="tab"
+          class="tab-link"
+          id="all-restaurants-tab"
+          checked="checked" />
+        <label for="all-restaurants-tab" class="text-subtitle">모든 음식점</label>
+
+        <input type="radio" name="tab" class="tab-link" id="favorite-restaurants-tab" />
+        <label for="favorite-restaurants-tab" class="text-subtitle">자주 가는 음식점</label>
+      </div>
+
       <!-- 카테고리/정렬 필터 -->
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">

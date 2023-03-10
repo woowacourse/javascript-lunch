@@ -85,6 +85,46 @@ body {
   object-fit: contain;
 }
 
+/* tabs *****************************************/
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+
+  margin: 9px 16px;
+  padding: 0px;
+  list-style: none;
+}
+
+.tabs label {
+  display: inline-block;
+  width: 100%;
+  padding: 9px;
+
+  text-align: center;
+  color: var(--grey-300);
+  border-bottom: 2px solid var(--grey-300);
+  cursor: pointer;
+}
+
+input[type='radio'],
+input[type='radio']:checked {
+  appearance: none;
+}
+
+input[type='radio']:checked + label {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.current {
+  display: inherit;
+}
+
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */
@@ -240,18 +280,3 @@ input[name='link'] {
 .not-visible {
   visibility: hidden;
 }
-
-/* 음식점 상세정보 모달 *****************************************/
-/* .favorite-icon {
-  width: 32px;
-  height: 32px;
-}
-
-.category-favorite-icon-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.restaurant__link {
-  color: #000000;
-} */

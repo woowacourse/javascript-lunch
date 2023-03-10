@@ -29,3 +29,8 @@ export const SORTING_CRITERION = {
   NAME: 'name',
   DISTANCE: 'distance',
 } as const;
+
+export const TAB_ID = {
+  ALL: 'all-restaurants-tab',
+  FAVORITE: 'favorite-restaurants-tab',
+};
