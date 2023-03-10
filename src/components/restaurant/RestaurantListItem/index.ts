@@ -1,3 +1,4 @@
+import restaurants from '../../../states/restaurants';
 import Component from '../../Component';
 import { define } from '../../decorators';
 import style from './index.css';
@@ -6,6 +7,18 @@ import style from './index.css';
 class RestaurantListItem extends Component {
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
+  }
+
+  onClickFavorite(event: MouseEvent) {
+    event.stopPropagation();
+
+    const restaurantId = this.getAttribute('restaurant-id');
+    if (!restaurantId) return;
+
+    const restaurant = restaurants.getRestaurant(restaurantId);
+    if (!restaurant) return;
+
+    restaurants.toggleFavorite(restaurant);
   }
 
   override renderTemplate() {
@@ -24,6 +37,7 @@ class RestaurantListItem extends Component {
 
         <r-button
           variant="transparent"
+          onclick="this.host.onClickFavorite(event)"
         >
           <r-favorite-icon ${this.hasAttribute('favorite') ? 'active' : ''}></r-favorite-icon>
         </r-button>
