@@ -36,7 +36,6 @@ class App {
 
   create() {
     return `
-      ${Header.create()}
       <main>
         ${RestaurantTabMenu.create()}
         ${RestaurantFilters.create()}
