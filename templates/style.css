@@ -86,6 +86,19 @@ body {
 }
 
 /* 음식점 목록 *****************************************/
+/* 음식점이 없을 때 메세지*/
+
+.no-list-message {
+  position: absolute;
+  top: 400px;
+
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+
+  color: var(--grey-300);
+}
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {

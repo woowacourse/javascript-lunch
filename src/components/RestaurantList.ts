@@ -30,6 +30,12 @@ export default class RestaurantList {
 
   template() {
     this.$ul.innerHTML = '';
+    if (!this.state.restaurantList.length) {
+      this.$ul.innerHTML =
+        '<p class="no-list-message text-body">조회 가능한 식당이 없습니다.</p>';
+
+      return;
+    }
     for (const restaurant of this.state.restaurantList) {
       this.$ul.insertAdjacentElement(
         'beforeend',
