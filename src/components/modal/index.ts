@@ -1,5 +1,5 @@
 import type { Restaurant } from "../../types/restaurant";
-import { Info } from "./detail/Info";
+import { Info } from "./detail/info";
 
 import { RestaurantAddForm } from "./form";
 

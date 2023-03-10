@@ -41,6 +41,10 @@ class Restaurants {
   }
 
   sortBySortOption(restaurantList: Restaurant[], sortOption: SortOption) {
+    if (sortOption === "distance")
+      return [...restaurantList].sort((first, second) =>
+        Number(first[sortOption]) > Number(second[sortOption]) ? 1 : -1
+      );
     return [...restaurantList].sort((first, second) =>
       first[sortOption] > second[sortOption] ? 1 : -1
     );
@@ -55,7 +59,8 @@ class Restaurants {
   }
 
   filterByLike(likeOption: boolean) {
-    if (likeOption) return this.#list.filter((restaurant) => restaurant.like);
+    if (likeOption)
+      return this.#list.filter((restaurant) => `${restaurant.like}` === "true");
     return this.#list;
   }
 

@@ -20,7 +20,7 @@ import {
   createModalDetailContent,
   DetailModal,
 } from "./components/modal/detail";
-import { createDetailInfo } from "./components/modal/detail/Info";
+import { createDetailInfo } from "./components/modal/detail/info";
 
 class App {
   #restaurants;
