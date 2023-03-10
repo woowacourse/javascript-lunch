@@ -35,10 +35,14 @@ const Modal = {
   },
 
   bindEvents() {
-    const modalCloseButton = $('#form-modal-close-button');
+    this.bindFormModalCloseButtonEvent();
+  },
 
-    if (modalCloseButton instanceof HTMLButtonElement) {
-      modalCloseButton.addEventListener('click', this.toggleModal);
+  bindFormModalCloseButtonEvent() {
+    const addFormModalCloseButton = $('#form-modal-close-button');
+
+    if (addFormModalCloseButton instanceof HTMLButtonElement) {
+      addFormModalCloseButton.addEventListener('click', this.toggleModal);
     }
   },
 
