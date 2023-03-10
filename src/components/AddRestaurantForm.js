@@ -143,15 +143,11 @@ class AddRestaurantForm extends HTMLElement {
     this.closeModalEvent();
   }
 
-  closeModal() {
-    $('add-restaurant-modal').closeModal();
-  }
-
   closeModalEvent() {
     this.shadowRoot
       .querySelector('#cancelModal')
       .addEventListener('click', () => {
-        this.closeModal();
+        $('add-restaurant-modal').closeModal();
       });
   }
 

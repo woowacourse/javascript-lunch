@@ -13,6 +13,14 @@ class RestaurantDetail extends HTMLElement {
     }
   }
 
+  closeModalEvent() {
+    this.shadowRoot
+      .querySelector('#cancelModal')
+      .addEventListener('click', () => {
+        $('restaurant-detail-modal').closeModal();
+      });
+  }
+
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
   }
@@ -98,6 +106,7 @@ class RestaurantDetail extends HTMLElement {
 
     this.shadowRoot.append(componentStyle);
     this.favoriteClickEvent();
+    this.closeModalEvent();
   }
 
   favoriteClickEvent() {
