@@ -21,9 +21,38 @@ class RestaurantInformation {
     });
   }
 
-  addEvents(closeModal: CallableFunction, deleteRestaurant: CallableFunction) {
+  changeRestaurantFavoriteIcon(element: HTMLImageElement) {
+    if (element.classList.contains('favorite')) {
+      element.classList.remove('favorite');
+      element.src = getFavoriteIcon(false);
+    } else {
+      element.classList.add('favorite');
+      element.src = getFavoriteIcon(true);
+    }
+  }
+
+  addFavoriteIconClickEvent(onFavoriteIconClick: CallableFunction) {
+    const favoriteIcon = $<HTMLImageElement>('#restaurant-information-star');
+
+    favoriteIcon.addEventListener('click', (event: Event) => {
+      const target = event.target as HTMLImageElement;
+      const restaurantListItemFavoriteIcon = $<HTMLImageElement>(
+        `.restaurant[data-id="${target.dataset.id}"] img.restaurant-star-icon`
+      );
+      this.changeRestaurantFavoriteIcon(target);
+      this.changeRestaurantFavoriteIcon(restaurantListItemFavoriteIcon);
+      onFavoriteIconClick(Number(target.dataset.id));
+    });
+  }
+
+  addEvents(
+    closeModal: CallableFunction,
+    deleteRestaurant: CallableFunction,
+    onFavoriteIconClick: CallableFunction
+  ) {
     this.addCloseButtonClickEvent(closeModal);
     this.addDeleteButtonClickEvent(closeModal, deleteRestaurant);
+    this.addFavoriteIconClickEvent(onFavoriteIconClick);
   }
 
   create(restaurant: Restaurant) {
@@ -49,7 +78,9 @@ class RestaurantInformation {
             <img 
               src="${getFavoriteIcon(restaurant.favorite)}"
               alt=""
-              class="restaurant-star"
+              id="restaurant-information-star"
+              class="restaurant-star ${restaurant.favorite && 'favorite'}"
+              data-id="${restaurant.id}"
             />
             </div>
           </div>
@@ -64,21 +95,21 @@ class RestaurantInformation {
         }
       </div>
       <div class="button-container">
-      <button
-        type="button"
-        id="restaurant-information-delete-button"
-        class="button button--secondary text-caption"
-        data-id="${restaurant.id}"
-      >
-        삭제하기
-      </button>
-      <button
-        id="restaurant-information-close-button"
-        class="button button--primary text-caption modal-close-button"
-      >
-        닫기
-      </button>
-    </div>
+        <button
+          type="button"
+          id="restaurant-information-delete-button"
+          class="button button--secondary text-caption"
+          data-id="${restaurant.id}"
+        >
+          삭제하기
+        </button>
+        <button
+          id="restaurant-information-close-button"
+          class="button button--primary text-caption modal-close-button"
+        >
+          닫기
+        </button>
+      </div>
     `;
   }
 }

@@ -98,7 +98,11 @@ class App {
 
   showRestaurantInformation = (restaurantId: number) => {
     const restaurant = this.restaurantService.getRestaurant(restaurantId);
-    this.informationModal.renderContent(restaurant, this.deleteRestaurant);
+    this.informationModal.renderContent(
+      restaurant,
+      this.deleteRestaurant,
+      this.updateFavoriteRestaurant
+    );
   };
 
   deleteRestaurant = (restaurantId: number) => {

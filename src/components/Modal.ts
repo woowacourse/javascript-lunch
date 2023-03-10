@@ -56,13 +56,21 @@ class Modal {
     `;
   }
 
-  renderContent(information?: Restaurant, deleteRestaurant?: CallableFunction) {
+  renderContent(
+    information?: Restaurant,
+    deleteRestaurant?: CallableFunction,
+    onFavoriteIconClick?: CallableFunction
+  ) {
     const element = $<HTMLDivElement>(`#${this.attributes.id}`);
 
     if (this.content === RestaurantInformation) {
       element.replaceChildren();
       element.insertAdjacentHTML('beforeend', this.content.create(information as Restaurant));
-      this.content.addEvents(this.closeModal, deleteRestaurant as CallableFunction);
+      this.content.addEvents(
+        this.closeModal,
+        deleteRestaurant as CallableFunction,
+        onFavoriteIconClick as CallableFunction
+      );
     }
 
     if (this.content === RestaurantAddForm) {
