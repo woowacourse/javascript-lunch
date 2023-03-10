@@ -4,7 +4,7 @@ import {
   LOCAL_STORAGE_KEY,
 } from '../../src/constant';
 import { writeRestaurantAddForm, checkRestaurantItem } from '../testfunctions';
-import TEST_CASES from '../../testcase/e2e-testcase';
+import testcases from '../../testcase/e2e-testcase';
 
 describe('레스토랑 추가 테스트', () => {
   it('레스토랑 정보를 입력하면, 레스토랑이 추가되어야 한다.', () => {
@@ -108,7 +108,7 @@ describe('레스토랑 추가 테스트', () => {
 describe('레스토랑 팝업 테스트', () => {
   beforeEach(() => {
     cy.window().then((win) => {
-      win.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(TEST_CASES));
+      win.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(testcases));
     });
   });
 
@@ -171,7 +171,7 @@ describe('레스토랑 팝업 테스트', () => {
 describe('레스토랑 필터링 테스트', () => {
   beforeEach(() => {
     cy.window().then((win) => {
-      win.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(TEST_CASES));
+      win.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(testcases));
     });
   });
 
