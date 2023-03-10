@@ -11,6 +11,11 @@ button {
   cursor: pointer;
 }
 
+:host([full]) {
+  width: 100%;
+  flex: 1;
+}
+
 :host([variant='primary']) > button {
   background: var(--primary-color);
   color: var(--grey-100);
