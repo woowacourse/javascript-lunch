@@ -28,13 +28,12 @@ class CategorySelectBox extends HTMLElement {
 
   onSelectOption() {
     const categoryFilter = document.getElementById("category-filter");
-    if (!(categoryFilter instanceof HTMLSelectElement)) {
-      return;
+    if (categoryFilter instanceof HTMLSelectElement) {
+      categoryFilter.addEventListener("change", () => {
+        this.controller.filterRestaurants(categoryFilter.value);
+        this.controller.sortRestaurants(SortingSelectBox.getOption());
+      });
     }
-    categoryFilter.addEventListener("change", () => {
-      this.controller.filterRestaurants(categoryFilter.value);
-      this.controller.sortRestaurants(SortingSelectBox.getOption());
-    });
   }
 
   static getOption(): string {
@@ -42,7 +41,6 @@ class CategorySelectBox extends HTMLElement {
     if (!(categoryFilter instanceof HTMLSelectElement)) {
       return NO_ELEMENT;
     }
-
     return categoryFilter.value;
   }
 }

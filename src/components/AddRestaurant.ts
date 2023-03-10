@@ -75,39 +75,35 @@ class AddRestaurant extends HTMLElement {
 
   onClickCancelButton() {
     const cancelButton = this.querySelector("#cancelButton");
-    if (!(cancelButton instanceof HTMLElement)) {
-      return;
+    if (cancelButton instanceof HTMLElement) {
+      cancelButton.addEventListener("click", () => {
+        closeBottomSheet();
+      });
     }
-
-    cancelButton.addEventListener("click", () => {
-      closeBottomSheet();
-    });
   }
 
   onSubmitRestaurantForm() {
     const restaurantForm = document.getElementById("restaurantForm");
-    if (!(restaurantForm instanceof HTMLElement)) {
-      return;
+    if (restaurantForm instanceof HTMLElement) {
+      restaurantForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
+
+        const tab = document.getElementById("all");
+        if (!(tab instanceof HTMLInputElement)) {
+          return;
+        }
+        tab.checked = true;
+
+        this.controller.addRestaurant(newRestaurant);
+        this.controller.filterRestaurants(CategorySelectBox.getOption());
+        this.controller.sortRestaurants(SortingSelectBox.getOption());
+
+        showRestaurantFilter();
+        closeBottomSheet();
+      });
     }
-
-    restaurantForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
-
-      const tab = document.getElementById("all");
-      if (!(tab instanceof HTMLInputElement)) {
-        return;
-      }
-      tab.checked = true;
-
-      this.controller.addRestaurant(newRestaurant);
-      this.controller.filterRestaurants(CategorySelectBox.getOption());
-      this.controller.sortRestaurants(SortingSelectBox.getOption());
-
-      showRestaurantFilter();
-      closeBottomSheet();
-    });
   }
 
   createNewRestaurant(event: SubmitEvent) {

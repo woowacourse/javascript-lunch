@@ -1,7 +1,6 @@
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
 import { openBottomSheet } from "../utils";
-import BottomSheet from "./BottomSheet";
 import RestaurantItem from "./RestaurantItem";
 import TabBar from "./TabBar";
 
@@ -58,7 +57,7 @@ class RestaurantList extends HTMLElement {
           this.controller.setFavoriteRestaurantList();
           return;
         }
-        this.render();
+        this.controller.loadLocalStorage();
       });
     });
   }

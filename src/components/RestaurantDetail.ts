@@ -53,47 +53,41 @@ class RestaurantDetail extends HTMLElement {
 
   onClickCloseButton() {
     const closeButton = this.querySelector("#closeButton");
-    if (!(closeButton instanceof HTMLElement)) {
-      return;
+    if (closeButton instanceof HTMLElement) {
+      closeButton.addEventListener("click", () => {
+        this.#updateRestaurantsState();
+        closeBottomSheet();
+      });
     }
-
-    closeButton.addEventListener("click", () => {
-      closeBottomSheet();
-      if (TabBar.getCurrentTab() === "favorite") {
-        this.controller.setFavoriteRestaurantList();
-        return;
-      }
-      this.controller.renderRestaurantList();
-    });
   }
 
   onClickDeleteButton() {
     const deleteButton = this.querySelector("#deleteButton");
-    if (!(deleteButton instanceof HTMLElement)) {
-      return;
+    if (deleteButton instanceof HTMLElement) {
+      deleteButton.addEventListener("click", () => {
+        this.controller.deleteRestaurant();
+        this.#updateRestaurantsState();
+        closeBottomSheet();
+      });
     }
-
-    deleteButton.addEventListener("click", () => {
-      this.controller.deleteRestaurant();
-      closeBottomSheet();
-      if (TabBar.getCurrentTab() === "favorite") {
-        this.controller.setFavoriteRestaurantList();
-        return;
-      }
-      this.controller.loadLocalStorage();
-    });
   }
 
   onToggleFavorite() {
     const favorite = this.querySelector("#favorite");
-    if (!(favorite instanceof HTMLElement)) {
+    if (favorite instanceof HTMLElement) {
+      favorite.addEventListener("click", () => {
+        this.controller.toggleFavorite();
+        this.render(this.controller.getSelectedRestaurant());
+      });
+    }
+  }
+
+  #updateRestaurantsState() {
+    if (TabBar.getCurrentTab() === "favorite") {
+      this.controller.setFavoriteRestaurantList();
       return;
     }
-
-    favorite.addEventListener("click", () => {
-      this.controller.toggleFavorite();
-      this.render(this.controller.getSelectedRestaurant());
-    });
+    this.controller.loadLocalStorage();
   }
 }
 export default RestaurantDetail;

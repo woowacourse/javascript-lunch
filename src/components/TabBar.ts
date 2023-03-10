@@ -25,15 +25,17 @@ class TabBar extends HTMLElement {
 
   onClickTab() {
     const tabContainer = document.getElementById("tabContainer");
-    tabContainer?.addEventListener("change", (event: any) => {
-      if (event.target.value == "favorite") {
-        hideRestaurantFilter();
-        this.controller.setFavoriteRestaurantList();
-        return;
-      }
-      showRestaurantFilter();
-      this.controller.loadLocalStorage();
-    });
+    if (tabContainer instanceof HTMLFormElement) {
+      tabContainer.addEventListener("change", () => {
+        if (TabBar.getCurrentTab() == "favorite") {
+          hideRestaurantFilter();
+          this.controller.setFavoriteRestaurantList();
+          return;
+        }
+        showRestaurantFilter();
+        this.controller.loadLocalStorage();
+      });
+    }
   }
 
   static getCurrentTab(): string {
