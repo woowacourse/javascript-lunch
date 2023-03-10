@@ -131,4 +131,14 @@ describe('자주 가는 음식점 e2e 테스트', () => {
 
     cy.get('.restaurant-list').find('.restaurant').should('contain.text', '딘타이펑');
   });
+
+  it('자주 가는 음식점 목록에 추가 후 새로고침 했을 때 즐겨찾기 아이콘이 그대로 클릭되어 있다.', () => {
+    cy.get('.restaurant[data-id="7"]').find('.restaurant-star-icon').click();
+
+    cy.reload();
+
+    cy.get('.restaurant[data-id="7"]')
+      .find('.restaurant-star-icon')
+      .should('have.class', 'favorite');
+  });
 });
