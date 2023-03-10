@@ -7,14 +7,12 @@ customElements.define(
   class RestaurantDetailModal extends HTMLElement {
     constructor() {
       super();
+    }
 
-      const category = this.getAttribute('category');
-      const restaurantName = this.getAttribute('restaurantName');
-      const distance = this.getAttribute('distance');
-      const description = this.getAttribute('description');
-      const link = this.getAttribute('link');
-      const isFavorite = JSON.parse(this.getAttribute('isFavorite'));
+    render(restaurant) {
+      const { id, category, name, distance, description, link, isFavorite } = restaurant;
 
+      this.dataset.id = id;
       this.innerHTML = /* html */ `
       <div class="icon-container">
         <div class="restaurant__category">
@@ -28,7 +26,7 @@ customElements.define(
           }.png" alt="favorite" class="favorite-icon" />
         </button>
       </div>
-      <h2 class="modal-title text-title detail-title">${restaurantName}</h2>
+      <h2 class="modal-title text-title detail-title">${name}</h2>
       <span class="restaurant__distance text-body detail-distance">캠퍼스부터 ${distance}분 내</span>
       <div class="description">
         ${description}
@@ -41,9 +39,11 @@ customElements.define(
         <button class="button button--primary text-caption delete-button">삭제하기</button>
       </div>
       `;
+
+      this.bindEvents();
     }
 
-    connectedCallback() {
+    bindEvents() {
       $('.icon-container').addEventListener('click', (e) => this.handleFavoriteButtonClick(e));
       $('.delete-button').addEventListener('click', () => this.handleDeleteButtonClick());
       $('.cancel-button').addEventListener('click', $('custom-modal').closeModal);

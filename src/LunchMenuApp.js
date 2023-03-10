@@ -13,21 +13,21 @@ const LunchMenuApp = {
   },
 
   render(restaurants) {
-    $('.restaurant-list-container').replaceChildren();
-    $('.restaurant-list-container').insertAdjacentHTML(
-      'beforeend',
-      `<restaurant-list></restaurant-list>`
-    );
+    $('.restaurant-list-container').innerHTML = `<restaurant-list></restaurant-list>`;
     $('restaurant-list').render(restaurants);
   },
 
   bindEvents() {
-    $('.gnb__button').addEventListener('click', () => this.handleGnbButtonClick());
+    $('.gnb__button').addEventListener('click', () => this.openRestaurantRegisterModal());
     $('restaurant-tab').addEventListener('change', (e) => this.handleTabChange(e));
     $('restaurant-filter').addEventListener('change', () => this.renderUpdatedRestaurantList());
   },
 
   bindCustomEvents() {
+    $('.restaurant-list-container').addEventListener(
+      'openRestaurantDetailModal',
+      ({ detail: restaurantId }) => this.openRestaurantDetailModal(restaurantId)
+    );
     $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
       this.handleRestaurantRegister(restaurant)
     );
@@ -39,11 +39,15 @@ const LunchMenuApp = {
     );
   },
 
-  handleGnbButtonClick() {
-    $('.modal-container').replaceChildren();
-    $('.modal-container').insertAdjacentHTML(
-      'beforeend',
-      `<restaurant-register-modal></restaurant-register-modal>`
+  openRestaurantRegisterModal() {
+    $('.modal-container').innerHTML = `<restaurant-register-modal></restaurant-register-modal>`;
+    $('custom-modal').openModal();
+  },
+
+  openRestaurantDetailModal(restaurantId) {
+    $('.modal-container').innerHTML = `<restaurant-detail-modal></restaurant-detail-modal>`;
+    $('restaurant-detail-modal').render(
+      restaurantManager.list.find((restaurant) => restaurant.id === restaurantId)
     );
     $('custom-modal').openModal();
   },
@@ -98,7 +102,7 @@ const LunchMenuApp = {
   },
 
   updateDetailModal(updatedRestaurant) {
-    $('restaurant-list').renderRestaurantDetailModal({
+    $('restaurant-detail-modal').render({
       ...updatedRestaurant,
       restaurantName: updatedRestaurant.name,
     });

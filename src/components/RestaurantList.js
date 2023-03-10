@@ -40,40 +40,10 @@ customElements.define(
 
       if (!item) return;
 
-      this.openRestaurantDetailModal({
-        id: item.dataset.id,
-        category: item.getAttribute('category'),
-        restaurantName: item.getAttribute('restaurantName'),
-        distance: item.getAttribute('distance'),
-        description: item.getAttribute('description'),
-        link: item.getAttribute('link'),
-        isFavorite: item.getAttribute('isFavorite'),
+      dispatchCustomEvent($('.restaurant-list-container'), {
+        eventType: 'openRestaurantDetailModal',
+        data: item.dataset.id,
       });
-    }
-
-    openRestaurantDetailModal(restaurant) {
-      this.renderRestaurantDetailModal(restaurant);
-
-      $('custom-modal').openModal();
-    }
-
-    renderRestaurantDetailModal(restaurant) {
-      const { id, category, restaurantName, distance, description, link, isFavorite } = restaurant;
-
-      $('.modal-container').replaceChildren();
-      $('.modal-container').insertAdjacentHTML(
-        'beforeend',
-        /* html */ `
-      <restaurant-detail-modal
-        data-id="${id}"
-        category="${category}"
-        restaurantName="${restaurantName}"
-        distance="${distance}"
-        description="${description ? description : ''}"
-        link="${link ? link : ''}"
-        isFavorite="${isFavorite}"
-      ></restaurant-detail-modal>`
-      );
     }
 
     handleFavoriteButtonClick(e) {
