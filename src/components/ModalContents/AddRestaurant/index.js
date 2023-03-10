@@ -15,6 +15,7 @@ class AddRestaurant extends HTMLElement {
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id="addRestaurant">
+          <div class="overflow">
           <select-list
           name="카테고리"
           id="category"
@@ -28,6 +29,7 @@ class AddRestaurant extends HTMLElement {
           </select-list>
           <text-input name ="설명" id="description"></text-input>
           <text-input name ="링크" id="link"></text-input>
+          </div>
           <div class="button-container">
             <lunch-button type="click" name="취소하기" id="closeModal" color="white"></lunch-button>
             <lunch-button type="submit" name="추가하기" color="orange"></lunch-button>

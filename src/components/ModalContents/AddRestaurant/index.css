@@ -19,8 +19,3 @@
 .modal-title {
   margin-bottom: 36px;
 }
-
-.button-container {
-  display: flex;
-  justify-content: space-between;
-}
