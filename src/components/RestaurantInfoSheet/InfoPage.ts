@@ -9,6 +9,7 @@ import lineStar from "../../../templates/favorite-icon-lined.png";
 import { RestaurantData } from "../../domain/RestaurantData";
 import { RestaurantType } from "../../Template";
 import { $ } from "../../until/ControlDom";
+import { RestaurantList } from "../MainPage/RestaurantList";
 
 const categoryCountry = {
   한식: categoryKorean,
@@ -28,26 +29,34 @@ export const InfoPage = {
   },
 
   infoTemplate(restaurant: RestaurantType) {
-    console.log(restaurant);
     return `
-            <div class="info restaurant__category">
-            <img
-                src="${categoryCountry[restaurant.category]}"
-                alt="${restaurant.category}"
-                class="category-icon"
-            />
-            </div>
-            <div class="info restaurant-info-name" id=${restaurant.id}><h2>${
-      restaurant.name
-    }</h2></div>
-            <div class="info restaurant-info-takeTime">
-                캠퍼스로부터 ${restaurant.takeTime}분 내
-            </div>
-            <div class="info restaurant-info-description">
-                <p>${restaurant.description}</p>
-            </div>
-            <div class="info restaurant-info-link">
-                <a href="${restaurant.link}">${restaurant.link}</a>
+            <div>
+                
+                <div class="info restaurant__category">
+                <img
+                    src="${categoryCountry[restaurant.category]}"
+                    alt="${restaurant.category}"
+                    class="category-icon"
+                />
+                </div>
+                <img class="info-likeImg" src="${
+                  restaurant.like ? star : lineStar
+                }" alt="선호되는 가게 여부"/>
+                
+                <div class="info restaurant-info-name" id=${
+                  restaurant.id
+                }><h2>${restaurant.name}</h2></div>
+                <div class="info restaurant-info-takeTime">
+                    캠퍼스로부터 ${restaurant.takeTime}분 내
+                </div>
+                <div class="info restaurant-info-description">
+                    <p>${restaurant.description}</p>
+                </div>
+                <div class="info restaurant-info-link">
+                    <a href="${restaurant.link}" target="blank">${
+      restaurant.link
+    }</a>
+                </div>
             </div>
         `;
   },
@@ -61,7 +70,6 @@ export const InfoPage = {
   },
 
   showBottomSheet(id: number) {
-    console.log("??", id, RestaurantData.getRestaurant(id));
     const infoBottomSheet = $("dialog") as HTMLDialogElement;
     const restaurantInfoButton = $(".restaurant-info-button") as HTMLElement;
 
@@ -70,7 +78,7 @@ export const InfoPage = {
     restaurantInfoNode.innerHTML = this.infoTemplate(
       RestaurantData.getRestaurant(id)
     );
-    // console.log("??", restaurantInfoNode);
+
     infoBottomSheet.insertBefore(restaurantInfoNode, restaurantInfoButton);
 
     infoBottomSheet.showModal();
@@ -87,15 +95,14 @@ export const InfoPage = {
   },
   closeInfoPage() {
     const infoBottomSheet = $("dialog") as HTMLDialogElement;
-    infoBottomSheet.innerHTML = this.buttonTemplate();
+    infoBottomSheet.childNodes[1].remove();
     infoBottomSheet.close();
   },
 
   deleteInfoRestaurant() {
-    const restaurantId = $(".restaurant-info-name");
-    const infoBottomSheet = $("dialog") as HTMLDialogElement;
-    RestaurantData.deleteRestaurant(+restaurantId?.id!);
-    infoBottomSheet.close();
-    // RestaurantList.renderRestaurantList(RestaurantData.allList);
+    const restaurant = $(".restaurant-info-name");
+    RestaurantData.deleteRestaurant(+restaurant?.id!);
+    this.closeInfoPage();
+    RestaurantList.renderRestaurantList();
   },
 };
