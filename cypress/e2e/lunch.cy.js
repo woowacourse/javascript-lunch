@@ -92,4 +92,9 @@ describe('자주 가는 음식점 e2e 테스트', () => {
       cy.get('body').should('contain.text', '2013 DINTAIFUNG KOREA.co. LTD.');
     });
   });
+
+  it('모든 음식점 탭에서 전체가 아닌 카테고리를 선택하면 해당 카테고리 음식점들만 볼 수 있다.', () => {
+    cy.get('#category-filter').select('한식');
+    cy.get('.category-icon').should('have.attr', 'src', './category-korean.png');
+  });
 });
