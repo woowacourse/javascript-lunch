@@ -110,6 +110,8 @@ body::-webkit-scrollbar {
 
   font-weight: 700;
   color: var(--grey-200);
+
+  cursor: pointer;
 }
 
 .clicked-viewer-button {

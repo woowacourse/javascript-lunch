@@ -26,6 +26,7 @@ import {
 } from "./util/eventListener";
 import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
+import { renderTabButtons } from "./component/restaurantTabButton";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 
@@ -40,6 +41,7 @@ const App = {
   initEventListeners() {
     this.controlNewRestaurantModal();
     this.controlFilter();
+    renderTabButtons();
     controlRestaurants();
   },
 

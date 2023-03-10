@@ -1,10 +1,9 @@
-import { controlFavoriteIcon } from "../component/restaurantList";
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
 import { RestaurantType } from "../type";
 import { $ } from "../util/selector";
-import { preventScroll } from "./newRestaurantModalHandler";
 import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
 import { updateRestaurantList } from "../domain/filter";
+import { preventScroll } from "./newRestaurantModalHandler";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
 export const renderTemplate = (info: RestaurantType) => {
@@ -45,7 +44,6 @@ export const renderRestaurantInfoModal = (info: RestaurantType) => {
   const restaurantInfoModalElement = $("#restaurant-info-modal") as HTMLElement;
 
   restaurantInfoModalElement.innerHTML = renderTemplate(info);
-  controlFavoriteIcon();
 };
 
 export const closeRestaurantInfoModal = () => {

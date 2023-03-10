@@ -10,11 +10,10 @@ import {
 import { updateRestaurantList } from "./filter";
 import {
   handleModalCancelButtonClick,
-  handleModalOpenButtonClick,
 } from "../modal/newRestaurantModalHandler";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
 import { LOCAL_STORAGE_KEY } from "../constant";
-import { $$ } from "../util/selector";
+import { $, $$ } from "../util/selector";
 import { executeClickEventListener } from "../util/eventListener";
 import {
   closeRestaurantInfoModal,
@@ -95,7 +94,10 @@ export const controlRestaurants = () => {
       const target = event.target as HTMLImageElement;
 
       if (target.classList.value !== "favorite-icon") {
-        handleModalOpenButtonClick("#restaurant-info-modal");
+        const body = $("body") as HTMLBodyElement;
+        body.style.overflow = "hidden";
+
+        $("#restaurant-info-modal")?.classList.add("modal--open");
         renderRestaurantInfoModal(JSON.parse(String(clickedRestaurantInfo)));
       }
 
