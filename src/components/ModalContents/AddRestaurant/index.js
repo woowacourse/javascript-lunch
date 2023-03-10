@@ -52,6 +52,7 @@ class AddRestaurant extends HTMLElement {
       const distanceValue = $('#distanceList').value;
       const descriptionValue = $('#descriptionInput').value;
       const linkValue = $('#linkInput').value;
+      const favoriteDefault = false;
 
       restaurant.addRestaurant({
         id: idValue,
@@ -60,6 +61,7 @@ class AddRestaurant extends HTMLElement {
         distance: distanceValue,
         description: descriptionValue,
         link: linkValue,
+        isFavorite: favoriteDefault,
       });
       this.resetValue();
       this.closeModal();

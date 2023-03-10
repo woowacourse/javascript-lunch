@@ -7,6 +7,8 @@ import categoryJapanese from '../../../assets/category-japanese.png';
 import categoryWestern from '../../../assets/category-western.png';
 import categoryAsian from '../../../assets/category-asian.png';
 import categoryEtc from '../../../assets/category-etc.png';
+import favoriteIcon from '../../../assets/favorite-icon-filled.png';
+import notFavoriteIcon from '../../../assets/favorite-icon-lined.png';
 
 const CATEGORY_IMAGES = {
   한식: categoryKorean,
@@ -17,17 +19,24 @@ const CATEGORY_IMAGES = {
   기타: categoryEtc,
 };
 
+const FAVORITE_IMAGES = {
+  true: favoriteIcon,
+  false: notFavoriteIcon,
+};
+
 class RestaurantDetails extends HTMLElement {
   connectedCallback() {}
 
   render(restaurantInfo) {
-    const { id, category, name, distance, description, link } = restaurantInfo;
+    const { id, category, name, distance, description, link, isFavorite } =
+      restaurantInfo;
     this.innerHTML = `
-      <div id="restaurantDetails" class="modal-container">
+      <div id="restaurantDetails" class="modal-container-info">
         <div id=${id} class="restaurant-info">
           <div class="restaurant__category-info">
             <img src="${CATEGORY_IMAGES[category]}" alt=${category} class="category-icon-info">
           </div>
+          <img src="${FAVORITE_IMAGES[isFavorite]}" alt=${isFavorite} class="favorite-icon-info">
           <div class="restaurant__info-info">
           <h3 class="restaurant__name-info text-subtitle">${name}</h3>
           <span class="restaurant__distance-info text-body">캠퍼스부터 ${distance}분 내</span>

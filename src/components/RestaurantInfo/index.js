@@ -5,6 +5,8 @@ import categoryJapanese from '../../assets/category-japanese.png';
 import categoryWestern from '../../assets/category-western.png';
 import categoryAsian from '../../assets/category-asian.png';
 import categoryEtc from '../../assets/category-etc.png';
+import favoriteIcon from '../../assets/favorite-icon-filled.png';
+import notFavoriteIcon from '../../assets/favorite-icon-lined.png';
 import { restaurant } from '../../domain/restaurant';
 import RestaurantDetails from '../ModalContents/RestaurantDetails';
 import { $ } from '../../utils';
@@ -16,6 +18,11 @@ const CATEGORY_IMAGES = {
   양식: categoryWestern,
   아시안: categoryAsian,
   기타: categoryEtc,
+};
+
+const FAVORITE_IMAGES = {
+  true: favoriteIcon,
+  false: notFavoriteIcon,
 };
 
 class RestaurantInfo extends HTMLElement {
@@ -31,12 +38,14 @@ class RestaurantInfo extends HTMLElement {
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description') || '';
     const link = this.getAttribute('link') || '';
+    const isFavorite = this.getAttribute('isFavorite');
 
     this.innerHTML = `
     <li id=${id} class="restaurant pointer">
         <div class="restaurant__category">
           <img src="${CATEGORY_IMAGES[category]}" alt=${category} class="category-icon">
         </div>
+        <img src="${FAVORITE_IMAGES[isFavorite]}" alt=${isFavorite} class="favorite-icon">
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>

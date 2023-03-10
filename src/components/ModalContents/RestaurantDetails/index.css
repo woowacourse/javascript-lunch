@@ -7,7 +7,18 @@
 }
 
 .restaurant-info {
-  padding: 16px 12px;
+  padding: 6px 12px;
+}
+
+.modal-container-info {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-height: 80%;
+  padding: 24px 16px;
+  border-radius: 8px 8px 0px 0px;
+  background: var(--grey-100);
 }
 
 .restaurant__category-info {
@@ -60,4 +71,12 @@
 .button-container {
   display: flex;
   justify-content: space-between;
+}
+
+.favorite-icon-info {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: 4vw;
+  top: 4vh;
 }

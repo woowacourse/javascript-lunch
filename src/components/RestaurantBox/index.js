@@ -21,7 +21,7 @@ class RestaurantBox extends HTMLElement {
     $('#restaurantList').innerHTML = '';
 
     restaurantList.forEach((restaurantInfo) => {
-      const { id, category, name, distance, description, link } =
+      const { id, category, name, distance, description, link, isFavorite } =
         restaurantInfo;
       const tagContent = `<restaurant-info
           id = "${id}"
@@ -30,6 +30,7 @@ class RestaurantBox extends HTMLElement {
           distance="${distance}"
           description="${description}"
           link="${link}"
+          isFavorite="${isFavorite}"
         ></restaurant-info>`;
 
       $('#restaurantList').insertAdjacentHTML('beforeend', tagContent);

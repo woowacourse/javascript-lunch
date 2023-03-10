@@ -52,3 +52,10 @@
 .restaurant__link {
   display: none;
 }
+
+.favorite-icon {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: 3vw;
+}
