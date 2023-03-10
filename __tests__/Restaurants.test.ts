@@ -1,6 +1,8 @@
 import Restaurants from '../src/domain/Restaurants';
-import dummyRestaurants from './dummyRestaurants';
-import { Restaurant } from '../src/type';
+import {
+  correctUserInputs,
+  restaurantsNoFavoriteSample,
+} from '../testcase/unit-testcase';
 
 interface MockStorage {
   getItem(key: string): string | null;
@@ -15,75 +17,145 @@ class LocalStorageMock implements MockStorage {
 const mockStorage: MockStorage = new LocalStorageMock();
 (global as { localStorage: MockStorage }).localStorage = mockStorage;
 
-describe('레스토랑 목록(Restaurants) 테스트', () => {
-  let restaurants: Restaurants;
+describe('레스토랑 저장소 테스트 (Restaurant)', () => {
+  describe('1. 데이터 관리 테스트', () => {
+    test('새로운 레스토랑을 추가한 후 목록을 요청하면, 레스토랑의 목록이 사전순으로 반환되어야 한다.', () => {
+      const restaurants = new Restaurants();
 
-  beforeEach(() => {
-    restaurants = new Restaurants();
+      restaurants.addRestaurant(correctUserInputs[0]);
 
-    dummyRestaurants.forEach((restaurant: Restaurant) => {
-      restaurants.addRestaurant(restaurant);
+      expect(restaurants.getRestaurants()).toEqual([
+        restaurantsNoFavoriteSample[0],
+      ]);
+
+      restaurants.addRestaurant(correctUserInputs[1]);
+      restaurants.addRestaurant(correctUserInputs[2]);
+
+      expect(restaurants.getRestaurants()).toEqual([
+        restaurantsNoFavoriteSample[1],
+        restaurantsNoFavoriteSample[2],
+        restaurantsNoFavoriteSample[0],
+      ]);
+    });
+
+    test('레스토랑을 삭제한 후 목록을 요청하면, 레스토랑의 목록이 사전순으로 반환되어야 한다.', () => {
+      const restaurants = new Restaurants();
+
+      restaurants.addRestaurant(correctUserInputs[0]);
+      restaurants.addRestaurant(correctUserInputs[1]);
+      restaurants.addRestaurant(correctUserInputs[2]);
+
+      restaurants.deleteRestaurantById(2);
+
+      expect(restaurants.getRestaurants()).toEqual([
+        restaurantsNoFavoriteSample[1],
+        restaurantsNoFavoriteSample[0],
+      ]);
     });
   });
 
-  test('레스토랑이 추가되고 별다른 필터/정렬 방식 변경 없이 목록을 요청할 경우, 전체/이름순 조건이 적용된 레스토랑을 반환해야 한다.', () => {
-    expect(restaurants.getRestaurants()).toEqual([
-      dummyRestaurants[3],
-      dummyRestaurants[4],
-      dummyRestaurants[1],
-      dummyRestaurants[2],
-      dummyRestaurants[0],
-    ]);
+  describe('2. 아이디를 이용한 레스토랑 불러오기 테스트', () => {
+    test('아이디가 주어지면, 올바른 레스토랑을 불러와야 한다.', () => {
+      const restaurants = new Restaurants();
+
+      restaurants.addRestaurant(correctUserInputs[3]);
+      restaurants.addRestaurant(correctUserInputs[4]);
+      restaurants.addRestaurant(correctUserInputs[1]);
+
+      expect(restaurants.getRestaurantById(0)).toEqual({
+        category: '양식',
+        name: '더 그릴',
+        distanceInMinutes: '30',
+        description: '',
+        link: '',
+        isFavorite: false,
+        itemId: 0,
+      });
+
+      expect(restaurants.getRestaurantById(1)).toEqual({
+        category: '중식',
+        name: '루왕탕수육',
+        distanceInMinutes: '15',
+        description:
+          '육즙이 풍부한 탕수육과 함께 고추가루를 올린 루왕탕수육을 맛볼 수 있는 중식당',
+        link: 'https://www.luwangtangsuik.com/',
+        isFavorite: false,
+        itemId: 1,
+      });
+
+      expect(restaurants.getRestaurantById(2)).toEqual({
+        category: '일식',
+        name: '삼베스시',
+        distanceInMinutes: '10',
+        description:
+          '신선한 재료와 정교한 손질법으로 만든 최상의 회와 일본식 요리를 즐길 수 있는 일식 전문점',
+        link: 'https://sambesushi.com/main.html',
+        isFavorite: false,
+        itemId: 2,
+      });
+    });
   });
 
-  test('레스토랑이 추가되고 정렬 방식을 거리순으로 나열할 경우, 전체/거리순 조건이 적용된 레스토랑을 반환해야 한다.', () => {
-    restaurants.setSortBy('distance');
+  describe('3. 즐겨찾기 토글 테스트', () => {
+    test('즐겨찾기를 토글할 때마다 즐겨찾기 여부가 설정/해제 되어야 한다.', () => {
+      const restaurants = new Restaurants();
 
-    expect(restaurants.getRestaurants()).toEqual([
-      dummyRestaurants[2],
-      dummyRestaurants[1],
-      dummyRestaurants[4],
-      dummyRestaurants[0],
-      dummyRestaurants[3],
-    ]);
+      restaurants.addRestaurant(correctUserInputs[0]);
+      restaurants.addRestaurant(correctUserInputs[1]);
+
+      restaurants.toggleFavorite(0);
+      expect(restaurants.getRestaurantById(0).isFavorite).toBe(true);
+      expect(restaurants.getRestaurantById(1).isFavorite).toBe(false);
+
+      restaurants.toggleFavorite(0);
+      expect(restaurants.getRestaurantById(0).isFavorite).toBe(false);
+      expect(restaurants.getRestaurantById(1).isFavorite).toBe(false);
+    });
   });
 
-  test('레스토랑이 추가되고 정렬 방식을 이름순으로 나열할 경우, 전체/이름순 조건이 적용된 레스토랑을 반환해야 한다.', () => {
-    restaurants.setSortBy('name');
+  describe('4. 링크 변환 테스트', () => {
+    test('http:// 또는 https:// 로 시작하지 않지만 유효한 주소인 경우, 앞에 https:// 를 붙여야 한다.', () => {
+      const restaurants = new Restaurants();
 
-    expect(restaurants.getRestaurants()).toEqual([
-      dummyRestaurants[3],
-      dummyRestaurants[4],
-      dummyRestaurants[1],
-      dummyRestaurants[2],
-      dummyRestaurants[0],
-    ]);
-  });
+      restaurants.addRestaurant({
+        category: '기타',
+        name: '링크 변환 테스트',
+        distanceInMinutes: '5',
+        description: '이 레스토랑은 https:// 를 앞에 붙여야 합니다.',
+        link: 'nohttpsite.net',
+      });
 
-  test('레스토랑이 추가되고 정렬 방식을 이름순, 필터를 중식으로 결정할 경우, 중식/이름순 조건이 적용된 레스토랑을 반환해야 한다.', () => {
-    restaurants.setSortBy('name');
-    restaurants.setFilterBy('중식');
+      expect(restaurants.getRestaurantById(0).link).toBe(
+        'https://nohttpsite.net'
+      );
+    });
 
-    expect(restaurants.getRestaurants()).toEqual([
-      dummyRestaurants[4],
-      dummyRestaurants[2],
-    ]);
-  });
+    test('http:// 또는 https:// 로 시작하는 경우에는, 주소를 변경하지 않아야 한다.', () => {
+      const restaurants = new Restaurants();
 
-  test('레스토랑이 추가되고 정렬 방식을 거리순, 필터를 중식으로 결정할 경우, 중식/거리순 조건이 적용된 레스토랑을 반환해야 한다.', () => {
-    restaurants.setSortBy('distance');
-    restaurants.setFilterBy('중식');
+      restaurants.addRestaurant({
+        category: '한식',
+        name: '링크 변환 테스트',
+        distanceInMinutes: '5',
+        description: '',
+        link: 'https://testsite.com/',
+      });
 
-    expect(restaurants.getRestaurants()).toEqual([
-      dummyRestaurants[2],
-      dummyRestaurants[4],
-    ]);
-  });
+      restaurants.addRestaurant({
+        category: '아시안',
+        name: '링크 변환 테스트',
+        distanceInMinutes: '5',
+        description: '',
+        link: 'http://testsite.com/',
+      });
 
-  test('레스토랑이 추가되고 정렬 방식을 거리순, 필터를 양식으로 결정할 경우, 양식/거리순 조건이 적용된 레스토랑을 반환해야 한다.', () => {
-    restaurants.setSortBy('distance');
-    restaurants.setFilterBy('양식');
+      expect(restaurants.getRestaurantById(0).link).toBe(
+        'https://testsite.com/'
+      );
 
-    expect(restaurants.getRestaurants()).toEqual([dummyRestaurants[3]]);
+      expect(restaurants.getRestaurantById(1).link).toBe(
+        'http://testsite.com/'
+      );
+    });
   });
 });
