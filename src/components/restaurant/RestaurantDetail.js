@@ -1,17 +1,9 @@
+import { CATEGORY } from '../../constants';
 import { $, dispatchCustomEvent } from '../../utils/dom';
 
 customElements.define(
   'restaurant-detail',
   class RestaurantDetail extends HTMLElement {
-    categories = {
-      한식: 'korean',
-      중식: 'chinese',
-      일식: 'japanese',
-      아시안: 'asian',
-      양식: 'western',
-      기타: 'etc',
-    };
-
     constructor() {
       super();
       this.innerHTML = '';
@@ -23,7 +15,7 @@ customElements.define(
       this.innerHTML = /* html */ `
         <div id="restaurant__image__area">
           <div class="restaurant__category">
-            <img src="./category-${this.categories[restaurant.category]}.png">
+            <img src="./category-${CATEGORY[restaurant.category]}.png">
           </div>
           <button type="button" class="favorite__button" aria-label="${
             restaurant.favorite ? '삭제' : '추가'
