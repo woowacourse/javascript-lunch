@@ -59,6 +59,10 @@ class Store {
     [RESTAURANT_ACTION.UPDATE_MODAL_FAVORITE]: (action: Action) => {
       this.publish();
     },
+    [RESTAURANT_ACTION.DELETE_RESTAURANT]: (action: Action) => {
+      RestaurantsInstance.deleteRestaurant(action.data as Index);
+      this.publish();
+    },
   };
 }
 

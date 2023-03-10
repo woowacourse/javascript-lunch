@@ -15,6 +15,9 @@ class RestaurantDetailComponent extends CustomElement {
     });
 
     document.getElementById("close").addEventListener("click", this.hideModal);
+    document.getElementById("delete").addEventListener("click", () => {
+      this.deleteRestaurant();
+    });
   }
 
   changeFavorite(e) {
@@ -33,6 +36,13 @@ class RestaurantDetailComponent extends CustomElement {
 
     document.getElementById("detail_modal").classList.remove("modal--open");
     dispatcher(RESTAURANT_ACTION.UPDATE_MODAL_FAVORITE, parseInt(listKey));
+  }
+
+  deleteRestaurant() {
+    const listKey = this.getAttribute("listKey");
+
+    document.getElementById("detail_modal").classList.remove("modal--open");
+    dispatcher("deleteRestaurant", parseInt(listKey));
   }
 
   template() {
@@ -63,7 +73,7 @@ class RestaurantDetailComponent extends CustomElement {
       </p>
       <a href="${link}" class="detail__link text-body"> ${link} </a>
       <div class="button-container">
-        <button-element btnType="button" btnClass="button--secondary" btnText="삭제하기"></button-element>
+        <button-element id="delete" btnType="button" btnClass="button--secondary" btnText="삭제하기"></button-element>
         <button-element id="close" btnType="button" btnClass="button--primary" btnText="닫기"></button-element>
       </div>
     </div>

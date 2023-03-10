@@ -41,4 +41,5 @@ export interface RestaurantAction {
   UPDATE_FAVORITE: string;
   SHOW_DETAIL: string;
   UPDATE_MODAL_FAVORITE: string;
+  DELETE_RESTAURANT: string;
 }

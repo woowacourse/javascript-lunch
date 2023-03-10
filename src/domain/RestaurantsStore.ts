@@ -62,6 +62,19 @@ class RestaurantsStore {
     );
   }
 
+  deleteRestaurant(index: Index) {
+    this.refreshRestaurantList();
+    this.#restaurantList = this.#restaurantList.filter((restaurant, i) => {
+      if (restaurant.key && i > index) {
+        restaurant.key = restaurant.key - 1;
+      }
+      return restaurant;
+    });
+    this.#restaurantList.splice(index, 1);
+
+    this.updateLocalStorage();
+  }
+
   addRestaurant(restaurant: Restaurant) {
     try {
       this.refreshRestaurantList();
