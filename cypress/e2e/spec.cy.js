@@ -8,14 +8,16 @@ import {
 const TEST_URL = 'http://localhost:8080/';
 
 describe('음식점 추가 창', () => {
-  it('음식점 추가버튼(우측 상단)을 클릭하면 음식점 추가창을 볼 수 있다.', () => {
+  beforeEach('beforeEach', () => {
     cy.visit(TEST_URL);
+  });
+
+  it('음식점 추가버튼(우측 상단)을 클릭하면 음식점 추가창을 볼 수 있다.', () => {
     cy.get('.gnb__button').click();
     cy.contains('새로운 음식점');
   });
 
   it('음식점 추가 창에서 취소하기 버튼을 클릭하면 이전 화면으로 돌아간다.', () => {
-    cy.visit(TEST_URL);
     cy.get('.gnb__button').click();
     cy.contains('새로운 음식점');
     cy.get('#modal-cancel').click();
@@ -23,7 +25,6 @@ describe('음식점 추가 창', () => {
   });
 
   it('카테고리, 이름, 거리, 설명, 링크 `입력창`을 작성하고 `추가하기 버튼`을 `클릭`하면 음식점이 목록에 추가된다. (음식점 목록 추가)', () => {
-    cy.visit(TEST_URL);
     cy.get('.gnb__button').click();
     cy.contains('새로운 음식점');
     cy.get('#category').select(RESTAURANT_INPUT_CASE.category);
