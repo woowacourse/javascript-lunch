@@ -1,26 +1,35 @@
 import { TAB_BUTTON_ATTRIBUTE } from '../constants/domAttributes';
-import TabButton from './TabButton';
+import { createTabButton } from '../template/TabButtonTemplate';
+import { $ } from '../utils/domSelectors';
 
-class RestaurantTabMenu {
-  private allTab: TabButton = new TabButton(TAB_BUTTON_ATTRIBUTE.ALL_RESTAURANTS, '모든 음식점');
-  private favoriteTab: TabButton = new TabButton(
-    TAB_BUTTON_ATTRIBUTE.FAVORITE_RESTAURANTS,
-    '자주 가는 음식점'
-  );
+function addRestaurantTabMenuEvent(onChangeTab: CallableFunction) {
+  const tabs = $<HTMLElement>('.restaurant-navigation');
 
-  addEvents(onClick: CallableFunction) {
-    this.allTab.addEvent(onClick);
-    this.favoriteTab.addEvent(onClick);
-  }
-
-  create() {
-    return `
-      <nav class="restaurant-navigation">
-        ${this.allTab.create()}
-        ${this.favoriteTab.create()}
-      </nav>
-    `;
-  }
+  tabs.addEventListener('change', (event: Event) => {
+    if (event.target instanceof HTMLInputElement) {
+      onChangeTab(event.target.id);
+    }
+  });
 }
 
-export default new RestaurantTabMenu();
+function renderRestaurantTabMenus() {
+  const tabs = $<HTMLElement>('.restaurant-navigation');
+
+  tabs.insertAdjacentHTML(
+    'beforeend',
+    `
+    ${createTabButton(
+      TAB_BUTTON_ATTRIBUTE.ALL_RESTAURANTS_INPUT,
+      TAB_BUTTON_ATTRIBUTE.ALL_RESTAURANTS_LABEL,
+      '모든 음식점'
+    )}
+    ${createTabButton(
+      TAB_BUTTON_ATTRIBUTE.FAVORITE_RESTAURANTS_INPUT,
+      TAB_BUTTON_ATTRIBUTE.FAVORITE_RESTAURANTS_LABEL,
+      '자주 가는 음식점'
+    )}
+    `
+  );
+}
+
+export { addRestaurantTabMenuEvent, renderRestaurantTabMenus };

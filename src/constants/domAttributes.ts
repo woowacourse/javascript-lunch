@@ -23,8 +23,26 @@ const FORM_ATTRIBUTE: Record<string, Attribute> = {
 };
 
 const TAB_BUTTON_ATTRIBUTE: Record<string, Attribute> = {
-  ALL_RESTAURANTS: { id: 'all-restaurants', className: 'tab-button--active' },
-  FAVORITE_RESTAURANTS: { id: 'favorite-restaurants' },
+  ALL_RESTAURANTS_INPUT: {
+    id: 'all-restaurants',
+    name: 'tab',
+    className: 'tab-item',
+    checked: true,
+  },
+  ALL_RESTAURANTS_LABEL: {
+    for: 'all-restaurants',
+    className: 'tab-name',
+  },
+  FAVORITE_RESTAURANTS_INPUT: {
+    id: 'favorite-restaurants',
+    name: 'tab',
+    className: 'tab-item',
+    checked: false,
+  },
+  FAVORITE_RESTAURANTS_LABEL: {
+    for: 'favorite-restaurants',
+    className: 'tab-name',
+  },
 };
 
 const MODAL_ATTRIBUTE: Record<string, Attribute> = {

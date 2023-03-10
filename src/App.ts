@@ -50,6 +50,10 @@ class App {
     this.body.insertAdjacentHTML('beforeend', this.create());
   }
 
+  renderComponents() {
+    renderRestaurantTabMenus();
+  }
+
   updateRestaurantList() {
     const restaurantList =
       this.currentTab === 'all-restaurants'
@@ -112,7 +116,7 @@ class App {
 
   addEvents() {
     addHeaderEvent(this.formModal.openModal);
-    RestaurantTabMenu.addEvents(this.changeRestaurantMenuTab);
+    addRestaurantTabMenuEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
     RestaurantListContainer.addEvent(
       this.updateFavoriteRestaurant,

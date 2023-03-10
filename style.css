@@ -93,6 +93,33 @@ select {
   display: flex;
 }
 
+input[type='radio'],
+input[type='radio']:checked {
+  appearance: none;
+}
+
+input[type='radio']:checked + label {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-name {
+  width: 50%;
+  padding-top: 32px;
+  padding-bottom: 16px;
+
+  background-color: transparent;
+
+  color: var(--grey-300);
+  font-weight: bold;
+  text-align: center;
+
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+
+  cursor: pointer;
+}
+
 .tab-button {
   width: 50%;
   padding-top: 32px;
@@ -213,6 +240,10 @@ select {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant-star-icon {
+  cursor: pointer;
 }
 
 .modal {

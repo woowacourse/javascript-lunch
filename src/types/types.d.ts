@@ -38,6 +38,8 @@ export type Attribute = {
   id?: string;
   className?: string;
   required?: boolean;
+  checked?: boolean;
+  for?: string;
 };
 
 export type ButtonContent = string;
