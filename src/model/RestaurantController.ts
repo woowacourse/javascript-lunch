@@ -23,6 +23,10 @@ class RestaurantController {
     this._restaurantList = this._restaurantList.filter(restaurant => restaurant.id !== id);
   }
 
+  filterByLiked() {
+    return this._restaurantList.filter(restaurant => restaurant.isLike);
+  }
+
   filterByCategory(category: Category | typeof DEFAULT_CATEGORY): Restaurant[] {
     if (category === DEFAULT_CATEGORY) return this._restaurantList;
     return this._restaurantList.filter(restaurant => restaurant.category === category);
