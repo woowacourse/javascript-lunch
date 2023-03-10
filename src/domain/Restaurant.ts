@@ -11,7 +11,7 @@ export interface RestaurantProps {
 }
 
 class Restaurant {
-  static readonly = ['한식', '중식', '일식', '양식', '아시안', '기타'] as const;
+  static readonly CATEGORIES = ['한식', '중식', '일식', '양식', '아시안', '기타'] as const;
 
   static readonly DISTANCE_BY_MINUTES = [5, 10, 15, 20, 30] as const;
 
