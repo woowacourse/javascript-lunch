@@ -46,6 +46,12 @@ class RestaurantList {
     this.render(filteredList);
   }
 
+  renderFavoriteList() {
+    const favoriteList = this.restaurantListManager.getFavoriteList();
+
+    this.render(favoriteList);
+  }
+
   addRestaurant(newRestaurant) {
     this.restaurantListManager.addRestaurant({ ...newRestaurant, id: Date.now(), favorite: false });
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());

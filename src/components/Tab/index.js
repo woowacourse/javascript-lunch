@@ -25,6 +25,18 @@ class Tab {
   render() {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
+
+  setOnSelectEvent(restaurantList) {
+    this.$target.addEventListener("change", (event) => {
+      const selectedTab = event.target.value;
+      if (selectedTab === "all") {
+        restaurantList.renderAllList();
+      }
+      if (selectedTab === "favorite") {
+        restaurantList.renderFavoriteList();
+      }
+    });
+  }
 }
 
 export default Tab;

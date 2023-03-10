@@ -14,3 +14,4 @@ const modal = new ModalContainer($(".modal"));
 
 header.setAddButtonEventListner(modal, restaurantList);
 filter.onChangeSelectBox(restaurantList);
+tab.setOnSelectEvent(restaurantList);

@@ -21,6 +21,10 @@ class Filter {
     `;
   }
 
+  toggle() {
+    this.$target.classList.toggle("filter--visible");
+  }
+
   render() {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
