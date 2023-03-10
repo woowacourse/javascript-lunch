@@ -23,7 +23,8 @@ class Restaurants {
 
     const serializedRestaurantObjects = localStorage.getItem('restaurants');
     if (serializedRestaurantObjects) {
-      this.restaurants = JSON.parse(serializedRestaurantObjects, (index, restaurantObject) => {
+      const restaurantObjects: unknown[] = JSON.parse(serializedRestaurantObjects);
+      this.restaurants = restaurantObjects.map((restaurantObject) => {
         return Object.setPrototypeOf(restaurantObject, Restaurant.prototype);
       });
     }
