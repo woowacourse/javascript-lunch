@@ -1,6 +1,7 @@
 import { Restaurant } from '../types/index';
 import { RESTAURANT_IMAGE, getFavoriteIcon } from '../constants/images';
 import { $ } from '../utils/domSelectors';
+import { changeRestaurantFavoriteIcon } from './utils';
 
 class RestaurantInformation {
   addCloseButtonClickEvent(closeModal: CallableFunction) {
@@ -21,16 +22,6 @@ class RestaurantInformation {
     });
   }
 
-  changeRestaurantFavoriteIcon(element: HTMLImageElement) {
-    if (element.classList.contains('favorite')) {
-      element.classList.remove('favorite');
-      element.src = getFavoriteIcon(false);
-    } else {
-      element.classList.add('favorite');
-      element.src = getFavoriteIcon(true);
-    }
-  }
-
   addFavoriteIconClickEvent(onFavoriteIconClick: CallableFunction) {
     const favoriteIcon = $<HTMLImageElement>('#restaurant-information-star');
 
@@ -39,8 +30,8 @@ class RestaurantInformation {
       const restaurantListItemFavoriteIcon = $<HTMLImageElement>(
         `.restaurant[data-id="${target.dataset.id}"] img.restaurant-star-icon`
       );
-      this.changeRestaurantFavoriteIcon(target);
-      this.changeRestaurantFavoriteIcon(restaurantListItemFavoriteIcon);
+      changeRestaurantFavoriteIcon(target);
+      changeRestaurantFavoriteIcon(restaurantListItemFavoriteIcon);
       onFavoriteIconClick(Number(target.dataset.id));
     });
   }
