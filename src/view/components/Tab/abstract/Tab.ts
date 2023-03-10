@@ -1,3 +1,5 @@
+import { $$ } from '../../../../utils/querySelector';
+
 class Tab {
   #target;
 
@@ -13,6 +15,12 @@ class Tab {
     this.#target.innerHTML += this.template(className, tabName);
 
     return this;
+  }
+
+  tabEvent() {
+    $$('.tab').forEach((tab) => {
+      tab.classList.remove('tab--open');
+    });
   }
 
   addEvent(eventTarget: Element) {

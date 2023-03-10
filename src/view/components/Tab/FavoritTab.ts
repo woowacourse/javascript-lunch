@@ -11,7 +11,9 @@ class FavoriteTab extends Tab {
   addEvent(eventTarget: Element) {
     if (eventTarget.closest('.tab--favorite-restaurant')) {
       actions.filterFavoriteRestaurnats();
+      this.tabEvent();
 
+      eventTarget.classList.add('tab--open');
       new RestaurantList($('.restaurant-list-wrapper')).render();
     }
 

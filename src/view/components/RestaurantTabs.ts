@@ -17,7 +17,7 @@ class RestaurantTabs {
 
   #mounted() {
     new AllRestaurantTab($('.tabs'))
-      .render('tab--all-restaurant', '모든 음식점')
+      .render('tab--all-restaurant tab--open', '모든 음식점')
       .setEvent();
 
     new FavoriteTab($('.tabs'))

@@ -11,7 +11,9 @@ class AllRestaurantTab extends Tab {
   addEvent(eventTarget: Element) {
     if (eventTarget.closest('.tab--all-restaurant')) {
       actions.filterRestaurantsCategory('전체');
+      this.tabEvent();
 
+      eventTarget.classList.add('tab--open');
       new RestaurantList($('.restaurant-list-wrapper')).render();
     }
 
