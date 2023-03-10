@@ -7,6 +7,7 @@ class AddRestaurantFormModal {
     this.$target = $target;
     this.restaurantList = restaurantList;
     this.render();
+    this.setEvent();
   }
 
   template() {
@@ -111,6 +112,11 @@ class AddRestaurantFormModal {
 
   toggleModal() {
     this.$target.closest(".modal").classList.toggle("modal--open");
+  }
+
+  setEvent() {
+    this.setSubmitEvent();
+    this.setCancelEvent();
   }
 }
 

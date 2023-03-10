@@ -12,6 +12,7 @@ class RestaurantDetailModal {
     this.restaurantList = restaurantList;
 
     this.render();
+    this.setEvent();
   }
 
   template() {
@@ -25,7 +26,7 @@ class RestaurantDetailModal {
             class="category-icon"
           />
         </div>
-        <div class="favorite">
+        <div class="detail-favorite">
           <img
             src="./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png"
             alt="즐겨찾기"
@@ -60,7 +61,14 @@ class RestaurantDetailModal {
     this.$target.innerHTML = this.template();
   }
 
-  setFavoriteToggleEvent() {}
+  setFavoriteToggleEvent() {
+    this.$target.querySelector(".detail-favorite").addEventListener("click", (event) => {
+      this.restaurantList.changeFavoriteState(this.restaurantInfo.id);
+
+      event.target.src = `./favorite-icon-${!this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
+      this.restaurantInfo.favorite = !this.restaurantInfo.favorite;
+    });
+  }
 
   setRemoveEvent() {
     this.$target.querySelector("#detail-remove-button").addEventListener("click", () => {
@@ -75,6 +83,12 @@ class RestaurantDetailModal {
 
   toggleModal() {
     this.$target.closest(".modal").classList.toggle("modal--open");
+  }
+
+  setEvent() {
+    this.setFavoriteToggleEvent();
+    this.setRemoveEvent();
+    this.setCloseEvent();
   }
 }
 

@@ -28,18 +28,13 @@ class ModalContainer {
 
   setAddRestaurantForm(restaurantList) {
     const $modalContainer = this.$target.querySelector(".modal-container");
-    const formModal = new AddRestaurantFormModal($modalContainer, restaurantList);
 
-    formModal.setSubmitEvent();
-    formModal.setCancelEvent();
+    new AddRestaurantFormModal($modalContainer, restaurantList);
   }
 
   setRestaurantDetail(restaurantInfo, restaurantList) {
     const $modalContainer = this.$target.querySelector(".modal-container");
-    const detailModal = new RestaurantDetailModal($modalContainer, restaurantInfo, restaurantList);
-
-    detailModal.setRemoveEvent();
-    detailModal.setCloseEvent();
+    new RestaurantDetailModal($modalContainer, restaurantInfo, restaurantList);
   }
 
   setEvent() {
