@@ -1,20 +1,13 @@
 import { $ } from '../utils/dom';
 
-const imgFileName = {
-  한식: 'category-korean',
-  중식: 'category-chinese',
-  일식: 'category-japanese',
-  아시안: 'category-asian',
-  양식: 'category-western',
-  기타: 'category-etc',
-};
+import { IMG_FILENAME } from '../constants';
 
 const html = ({ category, name, distance, description, link, liked }) => `
 <div class="modal-backdrop"></div>
 <div class="modal-container">
   <div class="restaurant-top-info">
     <div class="restaurant__category">
-      <img src="./${imgFileName[`${category}`]}.png" alt="${category}" class="category-icon" />
+      <img src="./${IMG_FILENAME[`${category}`]}.png" alt="${category}" class="category-icon" />
     </div>
     <div class="restaurant-detail-name">${name}</div>
 

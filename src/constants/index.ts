@@ -10,3 +10,12 @@ export const ERROR_MESSAGE = Object.freeze({
   emptyDistance: '[ERROR] 거리 옵션이 선택되지 않았습니다.',
   invalidDistance: '[ERROR] 알 수 없는 거리 옵션입니다',
 });
+
+export const IMG_FILENAME = Object.freeze({
+  한식: 'category-korean',
+  중식: 'category-chinese',
+  일식: 'category-japanese',
+  아시안: 'category-asian',
+  양식: 'category-western',
+  기타: 'category-etc',
+});
