@@ -14,6 +14,7 @@ import PersonalRestaurantInfo from "./component/domain/PersonalRestaurantInfo";
 import RestaurantInputModal from "./component/domain/RestaurantInputModal";
 import RestaurantInputSuccessModal from "./component/domain/RestaurantInputSuccessModal";
 import ConfirmDeleteModal from "./component/domain/ConfirmDeleteModal";
+import setRestaurantsTemplateToLocalStorage from "./setRestaurantsTemplateToLocalStorage";
 
 const restaurantList = new Restaurants();
 const renderRestaurants = new CustomEvent("renderRestaurants", { bubbles: true });
@@ -237,6 +238,8 @@ submitButton.addEventListener("click", (event) => {
 window.addEventListener("beforeunload", () => LocalStorage.setItem("restaurants", restaurantList.getList()));
 
 window.onload = () => {
+  setRestaurantsTemplateToLocalStorage();
+
   LocalStorage.getItem("restaurants").forEach((item) => {
     restaurantList.add(item);
   });
