@@ -1,3 +1,8 @@
+export interface Attribute {
+  class: string;
+  [key: string]: string;
+}
+
 export const $ = (selector: string, parentNode: ParentNode | null = document) =>
   parentNode && parentNode.querySelector(selector);
 export const $$ = (selector: string, parentNode: ParentNode | null = document) =>
@@ -19,4 +24,10 @@ export const getClosest = (target: EventTarget | null, selector: string) => {
   if (!(target.closest(selector) instanceof HTMLElement)) return null;
 
   return target.closest(selector) as HTMLElement;
+};
+
+export const parseAttribute = (attribute: Attribute) => {
+  return Object.entries(attribute)
+    .map(([key, value]) => `${key}="${value}"`)
+    .join(' ');
 };

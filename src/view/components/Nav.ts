@@ -1,5 +1,3 @@
-import { CATEGORY, Category, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
-import { useEvents } from '../../utils/core';
 import { NavFilter } from './NavFilter';
 import { NavTab } from './NavTab';
 
