@@ -5,6 +5,9 @@ import categoryJapanese from '../../assets/category-japanese.png';
 import categoryWestern from '../../assets/category-western.png';
 import categoryAsian from '../../assets/category-asian.png';
 import categoryEtc from '../../assets/category-etc.png';
+import { restaurant } from '../../domain/restaurant';
+import RestaurantDetails from '../ModalContents/RestaurantDetails';
+import { $ } from '../../utils';
 
 const CATEGORY_IMAGES = {
   한식: categoryKorean,
@@ -27,6 +30,7 @@ class RestaurantInfo extends HTMLElement {
     const category = this.getAttribute('category');
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description') || '';
+    const link = this.getAttribute('link') || '';
 
     this.innerHTML = `
     <li id=${id} class="restaurant">
@@ -37,28 +41,33 @@ class RestaurantInfo extends HTMLElement {
           <h3 class="restaurant__name text-subtitle">${name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description text-body">${description}</p>
+          <p class="restaurant__link">${link}</p>
         </div>
     </li>
     `;
   }
 
   getId() {
-    this.addEventListener('click', (event) => {
-      const clickedLi = event.target.closest('li');
+    this.addEventListener('click', (e) => {
+      const clickedLi = e.target.closest('li');
       if (clickedLi) {
-        return clickedLi.getAttribute('id');
+        const restaurantId = parseInt(clickedLi.getAttribute('id'));
+        const restaurantInfo = restaurant.restaurants.find((info) => {
+          if (info.id === restaurantId) {
+            return info;
+          }
+        });
+
+        const restaurantDetails = new RestaurantDetails();
+        $('#modalContainer').appendChild(restaurantDetails);
+        restaurantDetails.render(restaurantInfo);
       }
+      this.showRestaurantDetails();
     });
   }
 
-  static get observedAttributes() {
-    return ['category', 'name', 'distance', 'description'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'category' && name === 'name' && name === 'distance') {
-      this.connectedCallback();
-    }
+  showRestaurantDetails() {
+    $('#modalContainer').classList.add('modal--open');
   }
 }
 
