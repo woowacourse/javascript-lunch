@@ -18,10 +18,12 @@ const mockStorage: MockStorage = new LocalStorageMock();
 (global as { localStorage: MockStorage }).localStorage = mockStorage;
 
 describe('레스토랑 저장소 테스트 (Restaurant)', () => {
+  let restaurants = new Restaurants();
+  beforeEach(() => {
+    restaurants = new Restaurants();
+  });
   describe('1. 데이터 관리 테스트', () => {
     test('새로운 레스토랑을 추가한 후 목록을 요청하면, 레스토랑의 목록이 사전순으로 반환되어야 한다.', () => {
-      const restaurants = new Restaurants();
-
       restaurants.addRestaurant(correctUserInputs[0]);
 
       expect(restaurants.getRestaurants()).toEqual([
@@ -39,8 +41,6 @@ describe('레스토랑 저장소 테스트 (Restaurant)', () => {
     });
 
     test('레스토랑을 삭제한 후 목록을 요청하면, 레스토랑의 목록이 사전순으로 반환되어야 한다.', () => {
-      const restaurants = new Restaurants();
-
       restaurants.addRestaurant(correctUserInputs[0]);
       restaurants.addRestaurant(correctUserInputs[1]);
       restaurants.addRestaurant(correctUserInputs[2]);
@@ -56,8 +56,6 @@ describe('레스토랑 저장소 테스트 (Restaurant)', () => {
 
   describe('2. 아이디를 이용한 레스토랑 불러오기 테스트', () => {
     test('아이디가 주어지면, 올바른 레스토랑을 불러와야 한다.', () => {
-      const restaurants = new Restaurants();
-
       restaurants.addRestaurant(correctUserInputs[3]);
       restaurants.addRestaurant(correctUserInputs[4]);
       restaurants.addRestaurant(correctUserInputs[1]);
@@ -98,8 +96,6 @@ describe('레스토랑 저장소 테스트 (Restaurant)', () => {
 
   describe('3. 즐겨찾기 토글 테스트', () => {
     test('즐겨찾기를 토글할 때마다 즐겨찾기 여부가 설정/해제 되어야 한다.', () => {
-      const restaurants = new Restaurants();
-
       restaurants.addRestaurant(correctUserInputs[0]);
       restaurants.addRestaurant(correctUserInputs[1]);
 
@@ -115,8 +111,6 @@ describe('레스토랑 저장소 테스트 (Restaurant)', () => {
 
   describe('4. 링크 변환 테스트', () => {
     test('http:// 또는 https:// 로 시작하지 않지만 유효한 주소인 경우, 앞에 https:// 를 붙여야 한다.', () => {
-      const restaurants = new Restaurants();
-
       restaurants.addRestaurant({
         category: '기타',
         name: '링크 변환 테스트',
@@ -131,8 +125,6 @@ describe('레스토랑 저장소 테스트 (Restaurant)', () => {
     });
 
     test('http:// 또는 https:// 로 시작하는 경우에는, 주소를 변경하지 않아야 한다.', () => {
-      const restaurants = new Restaurants();
-
       restaurants.addRestaurant({
         category: '한식',
         name: '링크 변환 테스트',
