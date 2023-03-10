@@ -1,5 +1,4 @@
 import RestaurantList from './components/RestaurantList';
-import Selectbox from './components/Selectbox';
 import Modal from './components/Modal';
 
 import Restaurants from './domain/Restaurants';
@@ -14,11 +13,6 @@ import { $ } from './utils/dom';
 import store from './utils/store';
 import primaryKeyGenerator from './utils/primaryKeyGenerator';
 
-import {
-  FILTER_CATEGORY_SELECTBOX_CONFIG,
-  FORM_CATEGORY_SELECTBOX_CONFIG,
-  FORM_DISTANCE_SELECTBOX_CONFIG,
-} from './constants/selectboxConfig';
 import { RESTAURANTS_KEY } from './constants/storeKey';
 
 export default class App {
