@@ -1,5 +1,7 @@
 import RestaurantList from './components/RestaurantList';
 import Modal from './components/Modal';
+import CategorySelectBox from './components/CategorySelectBox';
+import SortSelectBox from './components/SortSelectBox';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
@@ -23,6 +25,8 @@ export default class App {
     this.#restaurants = new Restaurants(restaurantsData);
 
     Modal.render($('#modal'));
+    new CategorySelectBox().render($('#restaurant-filter-container'));
+    new SortSelectBox().render($('#restaurant-filter-container'));
     this.renderRestaurantListByFilterOptions();
 
     this.bindEvents();
