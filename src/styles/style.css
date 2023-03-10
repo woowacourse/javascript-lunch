@@ -296,7 +296,7 @@ body {
   font-size: 14px;
 }
 
-.form-label-text--required::after {
+.form-label-text.required::after {
   padding-left: 4px;
 
   color: var(--primary-color);
