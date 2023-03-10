@@ -32,7 +32,7 @@ class RestaurantDetails extends HTMLElement {
           <h3 class="restaurant__name-info text-subtitle">${name}</h3>
           <span class="restaurant__distance-info text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description-info text-body">${description}</p>
-          <a href="${link}" class="restaurant__link-info text-body">${link}</a>
+          <a href="${link}" target="_blank" class="restaurant__link-info text-body">${link}</a>
           </div>
         </div>
         <div class="button-container">

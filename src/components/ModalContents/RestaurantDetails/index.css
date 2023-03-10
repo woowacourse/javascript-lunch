@@ -7,7 +7,7 @@
 }
 
 .restaurant-info {
-  padding: 16px 8px;
+  padding: 16px 12px;
 }
 
 .restaurant__category-info {
@@ -51,6 +51,7 @@
 }
 
 .restaurant__link-info {
+  width: max-content;
   color: #000000;
   padding-bottom: 18px;
 }

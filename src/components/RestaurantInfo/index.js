@@ -33,7 +33,7 @@ class RestaurantInfo extends HTMLElement {
     const link = this.getAttribute('link') || '';
 
     this.innerHTML = `
-    <li id=${id} class="restaurant">
+    <li id=${id} class="restaurant pointer">
         <div class="restaurant__category">
           <img src="${CATEGORY_IMAGES[category]}" alt=${category} class="category-icon">
         </div>
