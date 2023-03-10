@@ -1,4 +1,5 @@
 import { waitForCustomElementsDefined as whenCustomElementsDefined } from '../components/lifecycle';
+import RestaurantDetailModal from '../components/restaurant/modal/RestaurantDetailModal';
 import RestaurantList from '../components/restaurant/RestaurantList';
 import Restaurant, { RestaurantProps } from '../domain/Restaurant';
 import { RestaurantFilter } from '../domain/RestaurantFilter';
@@ -94,6 +95,8 @@ class Restaurants {
     document
       .querySelector<RestaurantList>('r-restaurant-list')
       ?.setRestaurants(this.getFilteredRestaurants());
+
+    document.querySelector<RestaurantDetailModal>('r-restaurant-detail-modal')?.renderContent();
   }
 }
 
