@@ -47,8 +47,7 @@ class Restaurants {
   }
 
   delete(restaurant: Restaurant) {
-    const foundIndex = this.restaurants.findIndex((_restaurant) => _restaurant === restaurant);
-    delete this.restaurants[foundIndex];
+    this.restaurants = this.restaurants.filter((_restaurant) => _restaurant !== restaurant);
     this.updateComponents();
     this.save();
   }
