@@ -1,7 +1,7 @@
 import { favoriteIconFilled, favoriteIconLined } from "../assets";
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
-import { findImage } from "../utils";
+import { closeBottomSheet, findImage } from "../utils";
 
 class RestaurantDetail extends HTMLElement {
   private controller;
@@ -40,11 +40,73 @@ class RestaurantDetail extends HTMLElement {
     }</a>
         </div>
         <div class="button-container">
-          <button id="cancelButton" type="button" class="button button--secondary text-caption">삭제하기</button>
-          <button type="submit" class="button button--primary text-caption">닫기</button>
+          <button id="deleteButton" type="button" class="button button--secondary text-caption">삭제하기</button>
+          <button id="closeButton" type="submit" class="button button--primary text-caption">닫기</button>
         </div>
       </div>
     `;
+    this.onClickCloseButton();
+    this.onClickDeleteButton();
+    this.onToggleFavorite();
+  }
+
+  onClickCloseButton() {
+    const closeButton = this.querySelector("#closeButton");
+    closeButton?.addEventListener("click", () => {
+      closeBottomSheet();
+      const currentTab = document.querySelector('input[name="tab"]:checked');
+      if (!(currentTab instanceof HTMLInputElement)) {
+        return;
+      }
+      if (currentTab.value === "favorite") {
+        this.controller.setFavoriteRestaurantList();
+        return;
+      }
+      this.controller.renderRestaurantList();
+    });
+  }
+
+  onClickDeleteButton() {
+    const deleteButton = this.querySelector("#deleteButton");
+    deleteButton?.addEventListener("click", () => {
+      this.controller.deleteRestaurant();
+      closeBottomSheet();
+      const currentTab = document.querySelector('input[name="tab"]:checked');
+      if (!(currentTab instanceof HTMLInputElement)) {
+        return;
+      }
+      if (currentTab.value === "favorite") {
+        this.controller.setFavoriteRestaurantList();
+        return;
+      }
+      this.controller.loadLocalStorage();
+      this.controller.renderRestaurantList();
+    });
+  }
+
+  onToggleFavorite() {
+    const favorite = this.querySelector("#favorite");
+    if (!(favorite instanceof HTMLElement)) {
+      return;
+    }
+
+    favorite.addEventListener("click", () => {
+      const currentTab = document.querySelector('input[name="tab"]:checked');
+      if (!(currentTab instanceof HTMLInputElement)) {
+        return;
+      }
+      if (currentTab.value === "favorite") {
+        this.controller.toggleFavorite(
+          this.controller.getSelectedRestaurantIndex()
+        );
+        this.render(this.controller.getSelectedRestaurant());
+        return;
+      }
+      this.controller.toggleFavorite(
+        this.controller.getSelectedRestaurantIndex()
+      );
+      this.render(this.controller.getSelectedRestaurant());
+    });
   }
 }
 export default RestaurantDetail;
