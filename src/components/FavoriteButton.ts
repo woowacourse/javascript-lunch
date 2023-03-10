@@ -18,7 +18,6 @@ class FavoriteButton extends HTMLButtonElement {
   connectedCallback() {
     this.setAttribute("class", "favorite-button");
     this.render();
-    this.bindEvent();
   }
 
   render() {
@@ -31,12 +30,11 @@ class FavoriteButton extends HTMLButtonElement {
     `;
   }
 
-  bindEvent() {
-    this.addEventListener("click", this.onClick);
-  }
-
-  removeEvent() {
-    this.removeEventListener("click", this.onClick);
+  bindEvent(listener: () => void) {
+    this.addEventListener("click", () => {
+      this.onClick();
+      listener();
+    });
   }
 
   onClick() {

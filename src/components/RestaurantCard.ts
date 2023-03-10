@@ -57,27 +57,9 @@ class RestaurantCard extends HTMLLIElement {
       this.onClickRestaurantDetail.bind(this)
     );
 
-    this.bindFavoriteButtonEvent();
-  }
-
-  bindFavoriteButtonEvent() {
-    const $favoriteButton = this.querySelector<FavoriteButton>(
-      ".favorite__button button"
+    this.querySelector<FavoriteButton>(".favorite__button button")?.bindEvent(
+      this.onClickFavoriteButton.bind(this)
     );
-
-    $favoriteButton?.removeEvent();
-
-    $favoriteButton?.addEventListener("click", () => {
-      $favoriteButton.onClick();
-
-      const $restaurantCardList =
-        document.querySelector<RestaurantCardList>(".restaurant-list");
-
-      if ($restaurantCardList?.dataset.view === "favorite") {
-        $restaurantCardList?.setRestaurants("favorite");
-        $restaurantCardList?.render();
-      }
-    });
   }
 
   onClickRestaurantDetail() {
@@ -89,6 +71,16 @@ class RestaurantCard extends HTMLLIElement {
     const $restaurantDetailModal =
       document.querySelector<RestaurantDetailModal>("restaurant-detail-modal");
     $restaurantDetailModal?.setNameAttribute(this.#name);
+  }
+
+  onClickFavoriteButton() {
+    const $restaurantCardList =
+      document.querySelector<RestaurantCardList>(".restaurant-list");
+
+    if ($restaurantCardList?.dataset.view === "favorite") {
+      $restaurantCardList?.setRestaurants("favorite");
+      $restaurantCardList?.render();
+    }
   }
 
   getRestaurant() {

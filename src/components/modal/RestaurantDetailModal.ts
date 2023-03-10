@@ -82,23 +82,9 @@ class RestaurantDetailModal extends ModalContent {
       this.onClickCloseButton.bind(this)
     );
 
-    this.bindFavoriteButtonEvent();
-  }
-
-  bindFavoriteButtonEvent() {
-    const $favoriteButton = this.querySelector<FavoriteButton>(
+    this.querySelector<FavoriteButton>(
       ".restaurant-detail-favorite button"
-    );
-
-    $favoriteButton?.removeEvent();
-
-    $favoriteButton?.addEventListener("click", () => {
-      $favoriteButton.onClick();
-      const $restaurantCard = document.querySelector<FavoriteButton>(
-        `.favorite__button button[value=${this.#name}]`
-      );
-      $restaurantCard?.toggleIsFavorite();
-    });
+    )?.bindEvent(this.onClickFavoriteButton.bind(this));
   }
 
   onClickDeleteButton() {
@@ -119,6 +105,13 @@ class RestaurantDetailModal extends ModalContent {
     if (!this.closeModal) return;
 
     this.closeModal();
+  }
+
+  onClickFavoriteButton() {
+    const $restaurantCardFavorite = document.querySelector<FavoriteButton>(
+      `.favorite__button button[value=${this.#name}]`
+    );
+    $restaurantCardFavorite?.toggleIsFavorite();
   }
 
   attributeChangedCallback(
