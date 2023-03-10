@@ -1,6 +1,6 @@
 import { RestaurantType } from '../components/Restaurant';
 
-export const mock: RestaurantType = {
+const mockKorean: RestaurantType = {
   category: '한식',
   name: '피양콩할마니',
   distance: 10,
@@ -10,5 +10,54 @@ export const mock: RestaurantType = {
   link: 'https://naver.me/G6DyD9tg',
 };
 
-export const mockList: RestaurantType[] = Array(7).fill(mock);
-export const mockList: RestaurantType[] = Array(7).fill(mock);
+const mockJapan: RestaurantType = {
+  category: '일식',
+  name: '일일일',
+  distance: 15,
+  description: `ㅇㅇ`,
+  link: 'https://naver.me/G6DyD9tg',
+};
+
+const mockWestern: RestaurantType = {
+  category: '양식',
+  name: '양양양',
+  distance: 5,
+  description: `ㅇㅇ`,
+  link: 'https://naver.me/G6DyD9tg',
+};
+
+const mockAsian: RestaurantType = {
+  category: '아시안',
+  name: '피앤창',
+  distance: 20,
+  description: `ㅇㅇ`,
+  link: 'https://naver.me/G6DyD9tg',
+};
+
+const mockChina: RestaurantType = {
+  category: '중식',
+  name: '용용선생',
+  distance: 30,
+  description: `ㅇㅇ`,
+  link: 'https://naver.me/G6DyD9tg',
+};
+
+const mockEtc: RestaurantType = {
+  category: '기타',
+  name: '타코',
+  distance: 15,
+  description: `ㅇㅇ`,
+  link: 'https://naver.me/G6DyD9tg',
+};
+
+export const mockList: RestaurantType[] = [
+  mockKorean,
+  mockAsian,
+  mockChina,
+  mockChina,
+  mockJapan,
+  mockEtc,
+  mockWestern,
+  mockKorean,
+  mockAsian,
+];
