@@ -15,7 +15,7 @@ export default class Header {
 
     this.$header.addEventListener('click', (event) => {
       const { target } = event;
-      if (!(target instanceof HTMLImageElement)) return;
+      if (!(target instanceof HTMLImageElement || HTMLButtonElement)) return;
 
       showModal();
       appendModal(RestaurantForm(addRestaurantInfo));

@@ -28,7 +28,7 @@ describe('dom 테스트를 시작합니다.', () => {
 
     fireEvent.click(button);
 
-    const addButton = screen.getByText('추가하기');
+    const addButton = screen.getByLabelText('submit-form');
 
     expect(addButton).toBeInTheDocument();
   });
