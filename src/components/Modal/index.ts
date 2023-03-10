@@ -2,15 +2,19 @@ import { IRestaurant } from '../../types';
 import RestaurantDetail from './ResraurantDetail';
 import RestaurantAddForm from './RestaurantAddForm';
 
+import { $ } from '../../utils/dom';
+
 const Modal = {
   render(targetElement: Element, restaurant?: IRestaurant) {
     if (restaurant) {
       targetElement.innerHTML = this.getTemplate(restaurant);
 
-      return;
+      return this;
     }
 
     targetElement.innerHTML = this.getTemplate();
+
+    return this;
   },
 
   getTemplate(restaurant?: IRestaurant) {
@@ -28,6 +32,24 @@ const Modal = {
     }
 
     return RestaurantAddForm.getTemplate();
+  },
+
+  bindEvents() {
+    const modalCloseButton = $('#form-modal-close-button');
+
+    if (modalCloseButton instanceof HTMLButtonElement) {
+      modalCloseButton.addEventListener('click', this.toggleModal);
+    }
+  },
+
+  toggleModal() {
+    const modal = $('#modal');
+
+    if (modal instanceof Element) {
+      modal.classList.toggle('hide');
+
+      return;
+    }
   },
 };
 
