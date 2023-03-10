@@ -30,29 +30,32 @@ customElements.define(
       const favorite = this.getAttribute('favorite');
 
       this.innerHTML = /* html */ `
-      <li class="restaurant">
-        <div class="restaurant__category">
-          <img src="./category-${
-            this.categories[category]
-          }.png" alt="${category}" class="category-icon" />
-        </div>
-        <div class="restaurant__info">
-          <div>
-            <div>
-              <h3 class="restaurant__name text-subtitle">${restaurantName}</h3>
-              <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-            </div>
-            <button type="button" class="favorite__button" aria-label="${
-              favorite === 'true' ? '삭제' : '추가'
-            }">
-              <img src="./favorite-icon-${
-                favorite === 'true' ? 'filled' : 'lined'
-              }.png" alt="즐겨찾기 ${favorite === 'true' ? '삭제' : '추가'}" class="favorite-icon">
-            </button>
+        <li class="restaurant">
+          <div class="restaurant__category">
+            <img src="./category-${
+              this.categories[category]
+            }.png" alt="${category}" class="category-icon" />
           </div>
-          <p class="restaurant__description text-body">${description}</p>
-        </div>
-      </li>`;
+          <div class="restaurant__info">
+            <div>
+              <div>
+                <h3 class="restaurant__name text-subtitle">${restaurantName}</h3>
+                <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+              </div>
+              <button type="button" class="favorite__button" aria-label="${
+                favorite === 'true' ? '삭제' : '추가'
+              }">
+                <img src="./favorite-icon-${
+                  favorite === 'true' ? 'filled' : 'lined'
+                }.png" alt="즐겨찾기 ${
+        favorite === 'true' ? '삭제' : '추가'
+      }" class="favorite-icon">
+              </button>
+            </div>
+            <p class="restaurant__description text-body">${description}</p>
+          </div>
+        </li>
+        `;
     }
 
     bindEvent() {

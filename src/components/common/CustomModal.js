@@ -11,12 +11,12 @@ customElements.define(
 
     render(children) {
       this.innerHTML = /* html */ `
-    <dialog class="modal">
-      <div class="modal-backdrop"></div>
-      <div class="modal-container">
-          ${children}
-      </div>
-    </dialog>`;
+        <dialog class="modal">
+          <div class="modal-backdrop"></div>
+          <div class="modal-container">
+            ${children}
+          </div>
+        </dialog>`;
       $('.modal-backdrop').addEventListener('click', () => this.closeModal());
     }
 

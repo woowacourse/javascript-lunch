@@ -63,7 +63,7 @@ customElements.define(
               <button class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
-          `;
+      `;
     }
 
     connectedCallback() {

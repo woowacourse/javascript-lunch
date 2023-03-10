@@ -45,10 +45,6 @@ const LunchMenuApp = {
       'deleteRestaurant',
       ({ detail: restaurantID }) => this.handleRestaurantDelete(restaurantID)
     );
-    $('.restaurant-list-container').addEventListener(
-      'changeDetailRestaurantFavorite',
-      ({ detail: restaurantID }) => this.handleDetailRestaurantFavoriteChange(restaurantID)
-    );
   },
 
   handleRestaurantRegister(restaurant) {
@@ -77,28 +73,20 @@ const LunchMenuApp = {
 
   handleRestaurantTabChange(tabType) {
     const filteredRestaurants = restaurants.filterByFavorite(tabType, restaurants.list);
+
     if (tabType === 'favorite') {
       $('restaurant-filter').hide();
       this.render(filteredRestaurants);
-    } else {
-      $('restaurant-filter').show();
-      this.handleRestaurantFilter();
+      return;
     }
+    $('restaurant-filter').show();
+    this.handleRestaurantFilter();
   },
 
   handleRestaurantFavoriteChange(restaurantID) {
     restaurants.changeFavorite(restaurantID);
     this.setRestaurantList();
-    if ($('input[name="tab"]:checked').value === 'favorite') {
-      this.handleRestaurantTabChange('favorite');
-    }
-  },
-
-  handleDetailRestaurantFavoriteChange(restaurantID) {
-    restaurants.changeFavorite(restaurantID);
-    this.setRestaurantList();
     this.handleRestaurantTabChange($('input[name="tab"]:checked').value);
-    $('restaurant-detail').render(restaurants.getRestaurant(restaurantID));
   },
 
   handleRestaurantDetailClick(restaurantID) {
