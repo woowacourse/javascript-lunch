@@ -52,7 +52,7 @@ class RestaurantTab extends HTMLElement {
     $('#favoriteTab').addEventListener('click', () => {
       $('#allTab').notSelect();
       $('#favoriteTab').select();
-      $('restaurant-boxes').drawRestaurants('favorite');
+      $('restaurant-boxes').drawRestaurants();
     });
   }
 

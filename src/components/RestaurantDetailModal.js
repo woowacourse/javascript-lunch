@@ -1,4 +1,3 @@
-import { $ } from '../utils';
 import Modal from './Modal';
 
 class RestaurantDetailModal extends Modal {

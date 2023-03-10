@@ -27,6 +27,21 @@ class RestaurantList {
     RestaurantList.updateRestaurants(updatedRestaurants);
   }
 
+  static delete(name: string) {
+    const restaurants = RestaurantList.getList();
+    const findIndex = restaurants.findIndex(
+      (restaurant) => restaurant.name === name
+    );
+    if (findIndex === -1) return;
+
+    const updatedRestaurat = [
+      ...restaurants.slice(0, findIndex),
+      ...restaurants.slice(findIndex + 1),
+    ];
+
+    this.updateRestaurants(updatedRestaurat);
+  }
+
   static filterByCategory(restaurantList: Restaurant[], category: CategoryAll) {
     return restaurantList.filter(
       (restaurant) => restaurant.category === category

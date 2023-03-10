@@ -25,6 +25,17 @@ class RestaurantDetail extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
+  deleteClickEvent() {
+    this.shadowRoot
+      .querySelector('#deleteRestaurant')
+      .addEventListener('click', () => {
+        const { name } = this.getInformation();
+        RestaurantList.delete(name);
+        $('restaurant-detail-modal').closeModal();
+        $('restaurant-boxes').drawRestaurants();
+      });
+  }
+
   update(restaurant) {
     const { name, category, distance, description, link, isFavorite } =
       restaurant;
@@ -107,6 +118,7 @@ class RestaurantDetail extends HTMLElement {
     this.shadowRoot.append(componentStyle);
     this.favoriteClickEvent();
     this.closeModalEvent();
+    this.deleteClickEvent();
   }
 
   favoriteClickEvent() {
