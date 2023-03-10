@@ -1,0 +1,37 @@
+/* 음식점 탭 창 *****************************************/
+.restaurant-tab {
+  display: flex;
+  margin-top: 20px;
+}
+
+.all-restaurant {
+    width: 50%;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+
+  text-align: center;
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
+  padding: 9px;
+  margin-left: 16px;
+}
+
+.favorite-restaurant {
+    width: 50%;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+
+  text-align: center;
+  color: #667085;
+  border-bottom: 2px solid #667085;
+  padding: 9px;
+  margin-right: 16px;
+}
+
+
