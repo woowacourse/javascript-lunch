@@ -1,16 +1,23 @@
-import { CATEGORY_IMG_PATH } from '../../constant';
+import { CATEGORY_IMG_PATH, STAR_IMG_PATH } from '../../constant';
+import actions from '../../hooks/actions';
 import { Restaurant } from '../../type/common';
+import { $ } from '../../utils/querySelector';
+import RestaurantList from './RestaurantList';
 
 class RestaurantItem {
   #target;
+
+  #id: number | undefined;
 
   constructor($target: Element) {
     this.#target = $target;
   }
 
   #template(restaurant: Restaurant) {
+    this.#id = Number(restaurant.id);
+
     return `
-      <li class="restaurant">
+      <li id="${restaurant.id}" class="restaurant">
         <div class="restaurant__category">
           <img src="${
             CATEGORY_IMG_PATH[restaurant.category]
@@ -25,12 +32,35 @@ class RestaurantItem {
             restaurant.description
           }</p>
         </div>
+      
+        <img class="star" src="${
+          restaurant.favorite ? STAR_IMG_PATH['fill'] : STAR_IMG_PATH['line']
+        }" />
+        
       </li>
     `;
   }
 
   render(restaurant: Restaurant) {
     this.#target.innerHTML += this.#template(restaurant);
+
+    return this;
+  }
+
+  addEvent(eventTarget: Element) {
+    if (this.#id === Number(eventTarget.parentElement?.id)) {
+      actions.checkFavoritRestaurant(this.#id);
+    }
+  }
+
+  setEvent() {
+    this.#target.addEventListener('click', (e) => {
+      if (e.target instanceof HTMLImageElement) {
+        this.addEvent(e.target);
+
+        new RestaurantList($('.restaurant-list-wrapper')).render();
+      }
+    });
   }
 }
 

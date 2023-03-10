@@ -33,6 +33,11 @@ const CATEGORY_IMG_PATH = {
   기타: './category-etc.png',
 };
 
+const STAR_IMG_PATH = {
+  fill: './favorite-icon-filled.png',
+  line: './favorite-icon-lined.png',
+};
+
 export {
   REGEX,
   ERROR_MESSAGE,
@@ -40,4 +45,5 @@ export {
   RESTAURANT_DISTANCES,
   LOCAL_STORAGE_KEY,
   CATEGORY_IMG_PATH,
+  STAR_IMG_PATH,
 };
