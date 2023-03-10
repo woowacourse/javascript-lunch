@@ -36,7 +36,7 @@ customElements.define(
     handleListItemClick(e) {
       if (this.isFavoriteButtonClicked(e.target)) return;
 
-      const item = e.target.closest('restaurant-list-item');
+      const item = this.getListItem(e.target);
 
       if (!item) return;
 
@@ -49,7 +49,7 @@ customElements.define(
     handleFavoriteButtonClick(e) {
       if (!this.isFavoriteButtonClicked(e.target)) return;
 
-      const item = e.target.closest('restaurant-list-item');
+      const item = this.getListItem(e.target);
 
       if (!item) return;
 
@@ -61,6 +61,10 @@ customElements.define(
 
     isFavoriteButtonClicked($target) {
       return !!$target.closest('.favorite');
+    }
+
+    getListItem($target) {
+      return $target.closest('restaurant-list-item');
     }
   }
 );
