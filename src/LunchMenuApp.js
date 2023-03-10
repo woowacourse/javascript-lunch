@@ -7,6 +7,7 @@ import { setLocalStorage } from './utils/localStorage';
 const LunchMenuApp = {
   init() {
     restaurants.init();
+    this.setRestaurantList();
     this.render(restaurants.list);
     this.bindEvents();
   },
@@ -42,12 +43,17 @@ const LunchMenuApp = {
       'deleteRestaurant',
       ({ detail: restaurantID }) => this.handleRestaurantDelete(restaurantID)
     );
+    $('.restaurant-list-container').addEventListener(
+      'changeDetailRestaurantFavorite',
+      ({ detail: restaurantID }) => this.handleDetailRestaurantFavoriteChange(restaurantID)
+    );
   },
 
   handleRestaurantRegister(restaurant) {
     restaurants.add(restaurant);
     this.setRestaurantList();
-    this.handleRestaurantFilter();
+    $('#tab-all').checked = true;
+    this.handleRestaurantTabChange('all');
   },
 
   setRestaurantList() {
@@ -80,9 +86,19 @@ const LunchMenuApp = {
 
   handleRestaurantFavoriteChange(restaurantID) {
     restaurants.changeFavorite(restaurantID);
+    this.setRestaurantList();
     if ($('input[name="tab"]:checked').value === 'favorite') {
       this.handleRestaurantTabChange('favorite');
     }
+  },
+
+  handleDetailRestaurantFavoriteChange(restaurantID) {
+    restaurants.changeFavorite(restaurantID);
+    this.setRestaurantList();
+    this.handleRestaurantTabChange($('input[name="tab"]:checked').value);
+    $('restaurant-detail-modal').render(
+      restaurants.list.find((restaurant) => restaurant.restaurantID === restaurantID)
+    );
   },
 
   handleRestaurantDetailClick(restaurantID) {
@@ -94,7 +110,8 @@ const LunchMenuApp = {
 
   handleRestaurantDelete(restaurantID) {
     restaurants.delete(restaurantID);
-    this.render(restaurants.list);
+    this.setRestaurantList();
+    this.handleRestaurantTabChange($('input[name="tab"]:checked').value);
   },
 };
 

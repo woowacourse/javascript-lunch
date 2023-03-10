@@ -70,11 +70,9 @@ customElements.define(
 
     handleFavoriteClick() {
       dispatchCustomEvent($('.restaurant-list-container'), {
-        eventType: 'changeRestaurantFavorite',
-        data: this.getAttribute('restaurantID'),
+        eventType: 'changeDetailRestaurantFavorite',
+        data: this.restaurant.restaurantID,
       });
-      this.restaurant.favorite = this.restaurant.favorite ? false : true;
-      this.render(this.restaurant);
       this.openModal();
     }
 
