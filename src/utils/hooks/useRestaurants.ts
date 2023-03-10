@@ -1,5 +1,6 @@
 import { Category, SortOption } from '../../constants/lunchRecommendation';
 import {
+  lunchRecommendation,
   LunchRecommendation,
   Restaurant,
   RestaurantInfo,
@@ -8,7 +9,6 @@ import { getData } from '../common/localStorage';
 import { useState } from '../core';
 import { useBoolean } from './useBoolean';
 
-const lunchRecommendation = new LunchRecommendation(getData());
 const initialCategory = '전체';
 const initialSortOption = '거리순';
 

@@ -1,5 +1,5 @@
 import { Category, CATEGORY, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
-import { addData } from '../../utils/common/localStorage';
+import { addData, getData } from '../../utils/common/localStorage';
 import Validator from '../../validation';
 
 export interface FilterType {
@@ -132,4 +132,10 @@ export class LunchRecommendation implements ILunchRecommendation {
   getFavoriteList() {
     return this.origin.filter((restaurant) => restaurant.info.favorite);
   }
+
+  getRestaurant(id: RestaurantInfo['id']) {
+    return this.origin.find((restaurant) => restaurant.info.id === id);
+  }
 }
+
+export const lunchRecommendation = new LunchRecommendation(getData());
