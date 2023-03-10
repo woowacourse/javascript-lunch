@@ -2,11 +2,12 @@ import RestaurantItem from './RestaurantItem';
 import { $ } from '../utils/common';
 
 class RestaurantsList {
-  constructor($target, restaurants) {
+  constructor($target, restaurants, infoModal) {
     this.$target = $target;
     this.sortedCallback = restaurants.getSelectedRestaurantsList.bind(restaurants);
     this.getFavoriteCallback = restaurants.getFavoriteRestaurantList.bind(restaurants);
     this.restaurantItem = new RestaurantItem();
+    this.infoRenderCallback = infoModal.render.bind(infoModal);
     this.setState(restaurants.restaurantsList);
   }
 
@@ -36,21 +37,23 @@ class RestaurantsList {
 
     const sortedRestaurantList = this.sortedCallback(category, sortType);
 
-    this.renderRestaurantItem(sortedRestaurantList);
+    this.renderRestaurantItem(sortedRestaurantList, this.infoRenderCallback);
   }
 
-  renderRestaurantItem(sortedRestaurantList) {
+  renderRestaurantItem(sortedRestaurantList, infoCallback) {
     const restaurantList = $('.restaurant-list');
     restaurantList.replaceChildren();
 
     restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(sortedRestaurantList));
+    this.setItemEvent(sortedRestaurantList, infoCallback);
   }
 
-  renderFavoriteRestaurant() {
+  renderFavoriteRestaurant(infoCallback) {
     const restaurantList = $('.restaurant-list');
     restaurantList.replaceChildren();
 
     restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(this.getFavoriteCallback()));
+    this.setItemEvent(this.getFavoriteCallback(), infoCallback);
   }
 
   setEvent(callback) {
@@ -62,6 +65,16 @@ class RestaurantsList {
       }
 
       this.render();
+    });
+  }
+
+  setItemEvent(restaurantList, openInfoModal) {
+    restaurantList.forEach(restaurant => {
+      $(`#${restaurant.id}`).addEventListener('click', e => {
+        if (e.target.id === '') {
+          openInfoModal(restaurant);
+        }
+      });
     });
   }
 }
