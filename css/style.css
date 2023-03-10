@@ -462,7 +462,7 @@ input[name="link"] {
   padding: 0 16px;
 }
 
-.category-nav {
+.category-label {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -479,5 +479,7 @@ input[name="link"] {
 }
 
 .selected {
+  border-bottom: 2px solid #ec4a0a;
+
   color: #ec4a0a;
 }
