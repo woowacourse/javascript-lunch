@@ -73,6 +73,7 @@ class AddModalContainer extends Component {
     return restaurantStore.addList(restaurantInput).getList();
   }
 
+  // ! submit 이벤트 => event 에서 값을 추출할 수 있다. (click이벤트에서 submit이벤트로 변경)
   getInput(): IRestaurantInput {
     return {
       category: this.getElementValue($('#category-input')).trim(),
@@ -96,6 +97,8 @@ class AddModalContainer extends Component {
   }
 
   template(): string {
+    // ! submit 이벤트 => event 에서 값을 추출할 수 있다. (click이벤트에서 submit이벤트로 변경)
+    // ! template 구조별로 나누어서 볼것
     return `
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>
@@ -150,8 +153,7 @@ class AddModalContainer extends Component {
               <span class="help-text text-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
-            </div>
-            <div class="button-container">
+            </div>            <div class="button-container">
               <button
                 type="button"
                 class="button button--secondary text-caption cancel"
