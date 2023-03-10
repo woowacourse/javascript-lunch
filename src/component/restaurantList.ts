@@ -7,7 +7,7 @@ import { updateRestaurantList } from "../domain/filter";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
 // UI
-export const renderRestaurant = (info: RestaurantType) => {
+const renderRestaurant = (info: RestaurantType) => {
   return `<li class="restaurant">
     <div class="restaurant__category">
       <img
@@ -28,7 +28,7 @@ export const renderRestaurant = (info: RestaurantType) => {
   </li>`;
 };
 
-export const combineAllRestaurants = (restaurantList: RestaurantType[]) => {
+const combineAllRestaurants = (restaurantList: RestaurantType[]) => {
   return restaurantList
     .map((restaurant: RestaurantType) => renderRestaurant(restaurant))
     .join("");
@@ -52,7 +52,7 @@ export const controlFavoriteIcon = () => {
   );
 };
 
-export const toggleFavoriteIcon = (event: Event) => {
+const toggleFavoriteIcon = (event: Event) => {
   const img = event.target as HTMLImageElement;
   const keyName = img.closest("div")?.children[0].textContent as string;
   const clickedRestaurantKey = `${RESTAURANT}${keyName}`;
@@ -73,13 +73,13 @@ export const toggleFavoriteIcon = (event: Event) => {
   changeFavoriteInLocalStorage(clickedRestaurantKey, clickedRestaurantInfo);
 };
 
-export const changeFavoriteImage = (
+const changeFavoriteImage = (
   img: HTMLImageElement,
   state: "none" | "favorite"
 ) => {
   img.src = `${location.href}favorite-icon-${FAVORITE_IMAGE[state]}.png`;
 };
 
-export const changeFavoriteInLocalStorage = (key: string, info: string) => {
+const changeFavoriteInLocalStorage = (key: string, info: string) => {
   localStorage.setItem(key, JSON.stringify(info));
 };

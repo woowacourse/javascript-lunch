@@ -12,9 +12,7 @@ import "./assets/favorite-icon-lined.png";
 
 import { updateRestaurantList } from "./domain/filter";
 import { saveSelectedOption } from "./domain/localStorageController";
-import RestaurantsController, {
-  controlRestaurants,
-} from "./domain/RestaurantsController";
+import RestaurantsController from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
@@ -27,6 +25,7 @@ import {
 import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
 import { renderTabButtons } from "./component/restaurantTabButton";
+import { controlRestaurants } from "./domain/restaurantInfoModalController";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 

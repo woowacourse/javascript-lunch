@@ -1,3 +1,4 @@
+// Validator
 export const ERROR_MESSAGE = {
   NO_SPECIAL_CHARACTERS: "이름에 특수문자는 입력할 수 없습니다.",
   NAME_LENGTH_LIMIT: "1 ~ 15자 사이의 이름을 입력해 주세요.",
@@ -11,18 +12,21 @@ export const NAME_LENGTH = {
 
 export const REGEX_SPECIAL_CHARACTERS = /[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/;
 
+// Option
 export const SELECTED_OPTION = {
   NAME: "name",
   DISTANCE: "distance",
   All_CATEGORIES: "전체",
 };
 
+// Local Storage Key
 export const LOCAL_STORAGE_KEY = {
   RESTAURANT: "restaurant",
   CATEGORY: "category",
   SORT: "sort-by",
 };
 
+// Favorite
 export const FAVORITE_ALT = {
   none: "not-favorite",
   favorite: "favorite",
