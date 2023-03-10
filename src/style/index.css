@@ -48,3 +48,11 @@ body {
   line-height: 20px;
   font-weight: 400;
 }
+
+main {
+  padding: 24px 16px;
+}
+
+r-tabs > section {
+  margin-top: 8px;
+}

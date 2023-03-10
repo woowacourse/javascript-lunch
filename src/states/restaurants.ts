@@ -93,8 +93,12 @@ class Restaurants {
     await whenCustomElementsDefined();
 
     document
-      .querySelector<RestaurantList>('r-restaurant-list')
+      .querySelector<RestaurantList>('[slot="all"] r-restaurant-list')
       ?.setRestaurants(this.getFilteredRestaurants());
+
+    document
+      .querySelector<RestaurantList>('[slot="favorite"] r-restaurant-list')
+      ?.setRestaurants(this.getFavoritedRestaurants());
 
     document.querySelector<RestaurantDetailModal>('r-restaurant-detail-modal')?.renderContent();
   }
