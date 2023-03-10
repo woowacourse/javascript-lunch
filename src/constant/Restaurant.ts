@@ -46,7 +46,13 @@ export const CATEGORY: Category[] = [
 ];
 
 export const SORTING = ["이름순", "거리순"];
-export const TAKING_TIME = ["5", "10", "15", "20", "30"];
+export const TAKING_TIME = [
+  "5분 이내",
+  "10분 이내",
+  "15분 이내",
+  "20분 이내",
+  "30분 이내",
+];
 
 export const CategoryFilterAttribute: SelectAttribute = {
   name: "category",

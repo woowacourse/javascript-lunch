@@ -9,6 +9,7 @@ import {
   TakingTimeSelectAttribute,
 } from "@/constant/Restaurant";
 import { generateId } from "@/utils/generateId";
+import { convertStringToNumber } from "@/utils/convertor";
 
 class AddModal {
   categorySelect;
@@ -104,7 +105,7 @@ class AddModal {
     const restaurant = {
       id: generateId(),
       name: (<string>formData.name).trim(),
-      takingTime: Number(formData.takingTime),
+      takingTime: convertStringToNumber(<string>formData.takingTime),
       category: formData.category,
       link: formData.link,
       description: formData.description,
