@@ -1,4 +1,5 @@
 import './common/Button';
+import './common/FavoriteIcon';
 import './common/form/Input';
 import './common/form/Select';
 import './common/form/Textarea';
