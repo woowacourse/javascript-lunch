@@ -1,6 +1,8 @@
 import { IComponentPropState } from '../interfaces/IComponent';
 import Component from '../core/Component';
 import imagePaths from '../constants/imagePaths';
+import IRestaurantInput from '../interfaces/IRestaurantInput';
+import { setLocalStorageItem } from '../utils/localStroageUtils';
 
 class Restaurant extends Component<IComponentPropState> {
   template() {
@@ -24,6 +26,32 @@ class Restaurant extends Component<IComponentPropState> {
           } alt="자주 가는 음식점" />
         </div>
       </li>`;
+  }
+
+  updateRestaurantIsFavorite(
+    restaurant: IRestaurantInput,
+    originalRestaurantList: IRestaurantInput[],
+    updateRootState: Function
+  ) {
+    const restaurantList = originalRestaurantList.map((r: IRestaurantInput) =>
+      r.name === restaurant.name ? { ...r, isFavorite: !r.isFavorite } : r
+    );
+
+    setLocalStorageItem('restaurantList', restaurantList);
+    updateRootState({ restaurantList });
+  }
+
+  setEvent(): void {
+    const { originalRestaurantList, updateRootState, restaurant } = this.$props;
+
+    this.addEvent('click', '.restaurant__favorite__icon', (event: Event) => {
+      event.preventDefault();
+      this.updateRestaurantIsFavorite(
+        restaurant,
+        originalRestaurantList,
+        updateRootState
+      );
+    });
   }
 }
 

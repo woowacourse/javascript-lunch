@@ -5,6 +5,7 @@ import preferenceTabs from '../constants/preferenceTabs';
 import FilterBar from './FilterBar';
 import Restaurant from './Restaurant';
 import createWrappersForTarget from '../utils/createWrappersForTarget';
+import restaurant from './Restaurant';
 
 class ListContainer extends Component<IComponentPropState> {
   setup() {
@@ -86,6 +87,7 @@ class ListContainer extends Component<IComponentPropState> {
           )!;
           new Restaurant(target, {
             restaurant,
+            originalRestaurantList: this.$props.restaurantList,
             updateRootState: this.$props.updateRootState,
           });
         }

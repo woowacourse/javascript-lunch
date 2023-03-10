@@ -94,7 +94,7 @@ class App extends Component<IComponentPropState> {
   }
 
   updateRootState(newState: IComponentPropState) {
-    this.setState({ newState });
+    this.setState(newState);
   }
 
   getFilteredListByCategory(
