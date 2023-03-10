@@ -40,7 +40,7 @@ const AddModal = {
       const restaurantForm = [...new FormData(e.target as HTMLFormElement)].map(([key, value]) => {
         return [key, key === 'distance' ? Number(value) : value];
       });
-      const id = RestaurantListItem.getListItem().length;
+      const id = Math.random().toString(36);
       const newRestaurant: IRestaurant = Object.fromEntries([...restaurantForm, ['favorite', false], ['id', String(id)]]);
 
       RestaurantListItem.add(newRestaurant);
