@@ -3,7 +3,7 @@
  */
 import { screen, fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
-import { ID, CLASS } from '../src/constants';
+import { ID } from '../src/constants';
 import Header from '../src/components/Header';
 import Menu from '../src/components/Menu';
 import ModalHeader from '../src/components/AddModal/ModalHeader';
