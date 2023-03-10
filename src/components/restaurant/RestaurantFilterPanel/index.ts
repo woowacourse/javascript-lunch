@@ -18,11 +18,10 @@ class RestaurantFilterPanel extends Component {
   }
 
   onCategoryChange(category: RestaurantCategory | null) {
-    if (!category) {
-      this.filterFn = null;
-      return;
-    }
-    this.filterFn = filterBy((restaurant) => restaurant.getCategory() === category);
+    this.filterFn = category
+      ? filterBy((restaurant) => restaurant.getCategory() === category)
+      : null;
+
     this.onChange();
   }
 
