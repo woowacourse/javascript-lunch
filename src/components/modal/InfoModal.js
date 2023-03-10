@@ -17,9 +17,9 @@ class InfoModal extends Modal {
         <img src="./${imageFile}.png" alt="${restaurant.category}" class="category-icon" />
       </div>
       <div>
-        <img class="favorite-icon" src="./${
-          restaurant.favorites ? 'favorite-icon-filled' : 'favorite-icon-lined'
-        }.png" alt="${restaurant.name}" />
+        <img id="${restaurant.id}" class="favorite-icon" src="./${
+      restaurant.favorites ? 'favorite-icon-filled' : 'favorite-icon-lined'
+    }.png" alt="${restaurant.name}" />
       </div>
     </div>
     <div class="info-modal-content">
