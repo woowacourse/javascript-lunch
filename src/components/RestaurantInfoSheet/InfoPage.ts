@@ -9,7 +9,7 @@ import lineStar from "../../../templates/favorite-icon-lined.png";
 import { RestaurantData } from "../../domain/RestaurantData";
 import { RestaurantType } from "../../Template";
 import { $ } from "../../until/ControlDom";
-import { RestaurantList } from "../MainPage/RestaurantList";
+import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
 
 const categoryCountry = {
   한식: categoryKorean,
@@ -21,7 +21,7 @@ const categoryCountry = {
 };
 
 export const InfoPage = {
-  template() {
+  infoPageTemplate() {
     return `
         <dialog class="info-BottomSheet info-BottomSheet--open">
             ${this.buttonTemplate()}
@@ -31,7 +31,6 @@ export const InfoPage = {
   infoTemplate(restaurant: RestaurantType) {
     return `
             <div>
-                
                 <div class="info restaurant__category">
                 <img
                     src="${categoryCountry[restaurant.category]}"
@@ -93,6 +92,7 @@ export const InfoPage = {
       this.deleteInfoRestaurant()
     );
   },
+
   closeInfoPage() {
     const infoBottomSheet = $("dialog") as HTMLDialogElement;
     infoBottomSheet.childNodes[1].remove();
@@ -101,8 +101,8 @@ export const InfoPage = {
 
   deleteInfoRestaurant() {
     const restaurant = $(".restaurant-info-name");
-    RestaurantData.deleteRestaurant(+restaurant?.id!);
+    RestaurantData.deleteOneRestaurant(+restaurant?.id!);
     this.closeInfoPage();
-    RestaurantList.renderRestaurantList();
+    RenderRestaurantList.render();
   },
 };

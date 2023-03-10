@@ -1,4 +1,4 @@
-import { FilterSort } from "../../domain/FilterSort";
+import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
 import { RestaurantData } from "../../domain/RestaurantData";
 import { RestaurantType } from "../../Template";
 import { $ } from "../../until/ControlDom";
@@ -31,36 +31,8 @@ export const RestaurantList = {
     });
   },
 
-  renderRestaurantList() {
-    const restaurantListContainer = $(
-      ".restaurant-list-container"
-    ) as HTMLDataListElement;
-    restaurantListContainer.innerHTML = this.getRestaurantForShow(
-      this.nowListSection()
-    );
-  },
-
-  nowListSection() {
-    const restaurantListContainer = $(
-      ".restaurant-list-container"
-    ) as HTMLElement;
-
-    return restaurantListContainer.classList.length === 1
-      ? "allList"
-      : "likeList";
-  },
-
-  getRestaurantForShow(listSection: string) {
-    if (listSection === "allList") {
-      return RestaurantList.template(
-        FilterSort.getNewList(RestaurantData.allList)
-      );
-    }
-    return RestaurantList.template(RestaurantData.likeList);
-  },
-
   clickStarImg(targetId: number) {
     RestaurantData.turnLikeUnlike(targetId);
-    this.renderRestaurantList();
+    RenderRestaurantList.render();
   },
 };
