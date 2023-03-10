@@ -76,4 +76,8 @@ export class App {
   }
 }
 
-const app = new App();
+try {
+  const app = new App();
+} catch (error) {
+  if (error instanceof Error) console.log(error.message);
+}
