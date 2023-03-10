@@ -196,7 +196,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
 
-  flex: 0 1 60%;
+  margin-right: 26px;
 }
 
 .restaurant__name {
