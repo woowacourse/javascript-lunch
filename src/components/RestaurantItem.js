@@ -15,7 +15,7 @@ class RestaurantItem {
             <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>            
             <img id="${restaurant.id}" class="favorite-icon" src="./${
       restaurant.favorites ? 'favorite-icon-filled' : 'favorite-icon-lined'
-    }.png" alt="${restaurant.name}">
+    }.png" alt="${restaurant.id}">
           </div>
           <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>  
           <p class="restaurant__description text-body">${restaurant.description}</p>
