@@ -78,6 +78,10 @@ class Restaurants {
   }
 
   #trimLink(link: string) {
+    if (link.trim() === '') {
+      return '';
+    }
+
     return `${
       link.startsWith('https://') || link.startsWith('http://')
         ? ''
