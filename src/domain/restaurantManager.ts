@@ -12,6 +12,7 @@ export interface Restaurant {
   distance: Distance;
   description?: string;
   link?: string;
+  isFavorite: boolean;
 }
 
 interface RestaurantManager {
@@ -20,6 +21,7 @@ interface RestaurantManager {
   add(restaurant: Restaurant): void;
   remove(restaurantId: string): void;
   filterByCategory(category: Category | '전체', restaurants: Restaurant[]): Restaurant[];
+  filterByFavorite(restaurants: Restaurant[]): Restaurant[];
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
   compareByName(a: Restaurant, b: Restaurant): number;
@@ -44,6 +46,10 @@ export const restaurantManager: RestaurantManager = {
     if (category === '전체') return restaurants;
 
     return restaurants.filter((restaurant) => restaurant.category === category);
+  },
+
+  filterByFavorite(restaurants) {
+    return restaurants.filter((restaurant) => restaurant.isFavorite);
   },
 
   sortByName(restaurants) {

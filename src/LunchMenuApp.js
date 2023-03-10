@@ -27,7 +27,8 @@ const LunchMenuApp = {
     $('custom-modal').addEventListener('removeRestaurant', ({ detail: restaurantId }) =>
       this.handleRestaurantRemove(restaurantId)
     );
-    $('restaurant-filter').addEventListener('change', () => this.handleRestaurantFilter());
+    $('restaurant-tab').addEventListener('change', (e) => this.handleTabChange(e));
+    $('restaurant-filter').addEventListener('change', () => this.renderUpdatedRestaurantList());
   },
 
   handleGnbButtonClick() {
@@ -51,14 +52,23 @@ const LunchMenuApp = {
 
   updateRestaurantList() {
     this.setRestaurantList();
-    this.handleRestaurantFilter();
+    this.renderUpdatedRestaurantList();
   },
 
   setRestaurantList() {
     setLocalStorage('restaurants', restaurantManager.list);
   },
 
-  handleRestaurantFilter() {
+  handleTabChange(e) {
+    if (e.target.id === 'all-restaurants') {
+      this.render(restaurantManager.list);
+      return;
+    }
+
+    this.render(restaurantManager.filterByFavorite(restaurantManager.list));
+  },
+
+  renderUpdatedRestaurantList() {
     const category = $('#category-filter').value;
     const sortingType = $('#sorting-filter').value;
     const filteredRestaurants = restaurantManager.filterByCategory(
