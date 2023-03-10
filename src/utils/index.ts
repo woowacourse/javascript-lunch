@@ -13,7 +13,31 @@ export const closeBottomSheet = () => {
   if (!(bottomSheet instanceof BottomSheet)) {
     return;
   }
-  bottomSheet?.close();
+  bottomSheet.close();
+};
+
+export const openBottomSheet = (children: string) => {
+  const bottomSheet = document.getElementById("bottomSheet");
+  if (!(bottomSheet instanceof BottomSheet)) {
+    return;
+  }
+  bottomSheet.open(children);
+};
+
+export const hideRestaurantFilter = () => {
+  const restaurantFilter = document.getElementById("restaurantFilterContainer");
+  if (!(restaurantFilter instanceof HTMLElement)) {
+    return;
+  }
+  restaurantFilter.style.display = "none";
+};
+
+export const showRestaurantFilter = () => {
+  const restaurantFilter = document.getElementById("restaurantFilterContainer");
+  if (!(restaurantFilter instanceof HTMLElement)) {
+    return;
+  }
+  restaurantFilter.style.display = "";
 };
 
 export const findImage = (category: string) => {

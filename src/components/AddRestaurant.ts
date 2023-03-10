@@ -1,7 +1,7 @@
 import Controller from "../domain/Controller";
 import { inputValidator } from "../domain/inputValidator";
 import RestaurantType from "../type/Restaurant";
-import { closeBottomSheet } from "../utils";
+import { closeBottomSheet, showRestaurantFilter } from "../utils";
 import CategorySelectBox from "./CategorySelectBox";
 import SortingSelectBox from "./SortingSelectBox";
 
@@ -75,33 +75,37 @@ class AddRestaurant extends HTMLElement {
 
   onClickCancelButton() {
     const cancelButton = this.querySelector("#cancelButton");
-    cancelButton?.addEventListener("click", () => {
+    if (!(cancelButton instanceof HTMLElement)) {
+      return;
+    }
+
+    cancelButton.addEventListener("click", () => {
       closeBottomSheet();
     });
   }
 
   onSubmitRestaurantForm() {
     const restaurantForm = document.getElementById("restaurantForm");
-    restaurantForm?.addEventListener("submit", (event) => {
+    if (!(restaurantForm instanceof HTMLElement)) {
+      return;
+    }
+
+    restaurantForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
       const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
+
       const tab = document.getElementById("all");
       if (!(tab instanceof HTMLInputElement)) {
         return;
       }
       tab.checked = true;
-      const restaurantFilter = document.getElementById(
-        "restaurantFilterContainer"
-      );
-      if (!(restaurantFilter instanceof HTMLElement)) {
-        return;
-      }
-      restaurantFilter.style.display = "";
+
       this.controller.addRestaurant(newRestaurant);
       this.controller.filterRestaurants(CategorySelectBox.getOption());
       this.controller.sortRestaurants(SortingSelectBox.getOption());
 
+      showRestaurantFilter();
       closeBottomSheet();
     });
   }

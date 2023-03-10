@@ -1,7 +1,9 @@
 import Controller from "../domain/Controller";
 import RestaurantType from "../type/Restaurant";
+import { openBottomSheet } from "../utils";
 import BottomSheet from "./BottomSheet";
 import RestaurantItem from "./RestaurantItem";
+import TabBar from "./TabBar";
 
 class RestaurantList extends HTMLElement {
   private controller;
@@ -37,11 +39,7 @@ class RestaurantList extends HTMLElement {
         this.controller.setSelectedRestaurantIndex(
           Number(restaurantItem.getAttribute("key"))
         );
-        const bottomSheet = document.getElementById("bottomSheet");
-        if (!(bottomSheet instanceof BottomSheet)) {
-          return;
-        }
-        bottomSheet.open("<restaurant-detail />");
+        openBottomSheet("<restaurant-detail />");
       });
     });
   }
@@ -55,11 +53,8 @@ class RestaurantList extends HTMLElement {
           Number(favorite.parentElement.getAttribute("key"))
         );
         this.controller.toggleFavorite();
-        const currentTab = document.querySelector('input[name="tab"]:checked');
-        if (!(currentTab instanceof HTMLInputElement)) {
-          return;
-        }
-        if (currentTab.value === "favorite") {
+
+        if (TabBar.getCurrentTab() === "favorite") {
           this.controller.setFavoriteRestaurantList();
           return;
         }

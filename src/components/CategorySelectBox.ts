@@ -31,7 +31,7 @@ class CategorySelectBox extends HTMLElement {
     if (!(categoryFilter instanceof HTMLSelectElement)) {
       return;
     }
-    categoryFilter?.addEventListener("change", () => {
+    categoryFilter.addEventListener("change", () => {
       this.controller.filterRestaurants(categoryFilter.value);
       this.controller.sortRestaurants(SortingSelectBox.getOption());
     });

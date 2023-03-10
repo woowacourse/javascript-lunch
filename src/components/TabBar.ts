@@ -1,5 +1,6 @@
 import { NO_ELEMENT } from "../constants";
 import Controller from "../domain/Controller";
+import { hideRestaurantFilter, showRestaurantFilter } from "../utils";
 
 class TabBar extends HTMLElement {
   private controller;
@@ -25,18 +26,12 @@ class TabBar extends HTMLElement {
   onClickTab() {
     const tabContainer = document.getElementById("tabContainer");
     tabContainer?.addEventListener("change", (event: any) => {
-      const restaurantFilter = document.getElementById(
-        "restaurantFilterContainer"
-      );
-      if (!(restaurantFilter instanceof HTMLElement)) {
-        return;
-      }
       if (event.target.value == "favorite") {
-        restaurantFilter.style.display = "none";
+        hideRestaurantFilter();
         this.controller.setFavoriteRestaurantList();
         return;
       }
-      restaurantFilter.style.display = "";
+      showRestaurantFilter();
       this.controller.loadLocalStorage();
     });
   }
@@ -46,6 +41,7 @@ class TabBar extends HTMLElement {
     if (!(currentTab instanceof HTMLInputElement)) {
       return NO_ELEMENT;
     }
+
     return currentTab.value;
   }
 }

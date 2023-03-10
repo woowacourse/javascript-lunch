@@ -25,7 +25,8 @@ class SortingSelectBox extends HTMLElement {
     if (!(sortingFilter instanceof HTMLSelectElement)) {
       return;
     }
-    sortingFilter?.addEventListener("change", () => {
+
+    sortingFilter.addEventListener("change", () => {
       this.controller.sortRestaurants(sortingFilter.value);
     });
   }
@@ -35,6 +36,7 @@ class SortingSelectBox extends HTMLElement {
     if (!(sortingFilter instanceof HTMLSelectElement)) {
       return NO_ELEMENT;
     }
+
     return sortingFilter.value;
   }
 }
