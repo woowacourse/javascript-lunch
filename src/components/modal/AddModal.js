@@ -5,6 +5,8 @@ import { $ } from '../../utils/common';
 class AddModal extends Modal {
   constructor($target) {
     super($target);
+    this.$target.insertAdjacentHTML('beforeend', this.setContainer());
+    this.container = $('.modal-container');
     this.render();
   }
 
@@ -58,8 +60,12 @@ class AddModal extends Modal {
     `;
   }
 
-  render() {
+  render(setStateCallback, addCallback) {
+    this.container.replaceChildren();
     this.container.insertAdjacentHTML('beforeend', this.template());
+
+    this.setSubmitEvent(setStateCallback, addCallback);
+    this.setModalCloseEvent();
 
     this.toggleModalOpen();
   }
