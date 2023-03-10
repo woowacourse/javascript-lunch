@@ -39,8 +39,8 @@ class DetailBottomSheet extends HTMLElement {
   addDeleteHandler(handler: CallableFunction) {
     this.addEventListener('click', (e: any) => {
       if (e.target.id !== 'delete-button') return;
-      const target = this.querySelector('.restaurant__name');
-      handler(target?.textContent);
+      const id = $<HTMLDivElement>('.bottom-sheet-container', this)?.id;
+      handler(id);
       this.toggle();
     });
   }
@@ -48,7 +48,7 @@ class DetailBottomSheet extends HTMLElement {
   addFavoriteButtonHandler(handler: CallableFunction) {
     this.addEventListener('click', (e: any) => {
       if (e.target.className !== 'favorite-icon') return;
-      const id = this.querySelector('.bottom-sheet-container')?.getAttribute('id');
+      const id = $<HTMLDivElement>('.bottom-sheet-container', this)?.getAttribute('id');
       this.isFavorite = !this.isFavorite;
       this.toggleFavoriteAttribute();
       handler(id);
@@ -56,7 +56,7 @@ class DetailBottomSheet extends HTMLElement {
   }
 
   toggleFavoriteAttribute() {
-    const $wrapper = this.querySelector('.img__wrapper');
+    const $wrapper = $<HTMLDivElement>('.img__wrapper', this);
     $wrapper!.lastChild?.remove();
     $wrapper!.insertAdjacentHTML(
       'beforeend',

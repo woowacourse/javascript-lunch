@@ -1,6 +1,7 @@
 import $template from './index.html';
 import { Category } from '../../types';
 import { imgSrc } from '../../image';
+import { $ } from '../../utils/dom';
 
 class RestaurantItem extends HTMLElement {
   connectedCallback() {
@@ -16,7 +17,7 @@ class RestaurantItem extends HTMLElement {
       .replace('{description}', this.getAttribute('description')!);
 
     const favorite = this.getAttribute('favorite');
-    const $wrapper = this.querySelector('.description__wrapper');
+    const $wrapper = $<HTMLDivElement>('.description__wrapper', this);
     $wrapper?.insertAdjacentHTML(
       'beforeend',
       `<favorite-icon favorite=${favorite}></favorite-icon>`,
