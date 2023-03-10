@@ -18,7 +18,7 @@ export default class RestaurantList {
     restaurantList: Restaurant[],
     methods: IMethods
   ) {
-    this.$restaurantListSection.className = 'restaurant-list-cotainer';
+    this.$restaurantListSection.className = 'restaurant-list-container';
     this.$ul.className = 'restaurant-list';
     this.state = {
       restaurantList,
