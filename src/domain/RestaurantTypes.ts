@@ -13,6 +13,7 @@ interface RestaurantInfo {
   distance: Distance;
   description?: string;
   link?: string;
+  isFavorite: boolean;
 }
 
 export { CategoryAll, SortTypeAll, RestaurantInfo };
