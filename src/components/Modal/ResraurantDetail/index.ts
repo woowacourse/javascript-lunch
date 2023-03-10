@@ -33,7 +33,7 @@ const RestaurantDetail = {
         <button type="button" id="restaurant-delete-button" class="button button--secondary text-caption">
           삭제하기
         </button>
-        <button id="modal-close-button" class="button button--primary text-caption">닫기</button>
+        <button id="detail-modal-close-button" class="button button--primary text-caption">닫기</button>
       </div>
       <div class="restaurant__favorite">
         <img src="./${favoriteIconSrc}" alt="${favoriteIconAlt}" id="detail-favorite-icon" class="favorite-icon"/>

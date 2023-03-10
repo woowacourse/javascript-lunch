@@ -51,6 +51,7 @@ export default class App {
     $('#restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
     $('#modal').addEventListener('click', this.onClickDetailFavoriteIcon.bind(this));
     $('#modal').addEventListener('click', this.onClickRestaurantDeleteButton.bind(this));
+    $('#modal').addEventListener('click', this.onClickDetailModalCloseButton.bind(this));
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -164,6 +165,7 @@ export default class App {
   renderRestaurantListByFavoriteTab() {
     if ($('#tab-all').checked) {
       this.renderRestaurantListByFilterOptions();
+
       return;
     }
 
@@ -181,6 +183,14 @@ export default class App {
 
     const updatedRestaurants = this.#restaurants.getRestaurants();
     store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+    this.renderRestaurantListByFavoriteTab();
+
+    Modal.toggleModal();
+  }
+
+  onClickDetailModalCloseButton(e) {
+    if (e.target.id !== 'detail-modal-close-button') return;
 
     this.renderRestaurantListByFavoriteTab();
 
