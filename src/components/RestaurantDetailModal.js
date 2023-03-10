@@ -51,8 +51,28 @@ customElements.define(
     }
 
     connectedCallback() {
+      $('.icon-container').addEventListener('click', (e) => this.handleFavoriteButtonClick(e));
       $('.delete-button').addEventListener('click', () => this.handleDeleteButtonClick());
       $('.cancel-button').addEventListener('click', $('custom-modal').closeModal);
+    }
+
+    handleFavoriteButtonClick(e) {
+      if (!e.target.closest('.favorite')) return;
+
+      dispatchCustomEvent($('body'), {
+        eventType: 'toggleFavorite',
+        data: this.dataset.id,
+      });
+
+      $('restaurant-list').renderRestaurantDetailModal({
+        id: this.dataset.id,
+        category: this.getAttribute('category'),
+        restaurantName: this.getAttribute('restaurantName'),
+        distance: this.getAttribute('distance'),
+        description: this.getAttribute('description'),
+        link: this.getAttribute('link'),
+        isFavorite: !JSON.parse(this.getAttribute('isFavorite')),
+      });
     }
 
     handleDeleteButtonClick() {
