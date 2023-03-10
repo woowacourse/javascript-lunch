@@ -43,7 +43,7 @@ class Modal extends HTMLElement {
       const $link = $<HTMLInputElement>('#link', this);
       const restaurant = {
         category: $category.value as Category,
-        name: $name.value,
+        name: `"${$name.value}"`,
         distance: Number($distance.value) as Distance,
         description: `"${$description.value}"`,
         link: $link.value,
