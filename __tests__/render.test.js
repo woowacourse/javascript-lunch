@@ -9,6 +9,7 @@ import RestaurantList from '../src/components/RestaurantList';
 import RestaurantListItem from '../src/components/RestaurantListItem';
 import RestaurantRegisterModal from '../src/components/RestaurantRegisterModal';
 import RestaurantFilter from '../src/components/RestaurantFilter';
+import { sampleRestaurants } from '../src/domain/sampleRestaurants';
 
 describe('컴포넌트 렌더링 테스트', () => {
   beforeEach(() => {
@@ -38,34 +39,10 @@ describe('컴포넌트 렌더링 테스트', () => {
   });
 
   test('화면에 RestaurantList를 렌더링한다.', () => {
-    const restaurantList = [
-      {
-        category: '일식',
-        name: '돈카라',
-        distance: 5,
-        description: '상세 설명',
-        link: 'link',
-      },
-      {
-        category: '한식',
-        name: '김돈이',
-        distance: 5,
-        description: '상세 설명',
-        link: 'link',
-      },
-      {
-        category: '일식',
-        name: '지구당',
-        distance: 5,
-        description: '상세 설명',
-        link: 'link',
-      },
-    ];
-
     document.body.insertAdjacentHTML('beforeend', '<restaurant-list></restaurant-list>');
-    document.querySelector('restaurant-list').render(restaurantList);
+    document.querySelector('restaurant-list').render(sampleRestaurants);
 
-    const isRendered = restaurantList.every((restaurant) => screen.getByText(restaurant.name));
+    const isRendered = sampleRestaurants.every((restaurant) => screen.getByText(restaurant.name));
 
     expect(isRendered).toBe(true);
   });
@@ -73,7 +50,7 @@ describe('컴포넌트 렌더링 테스트', () => {
   test('화면에 RestaurantRegisterModal을 렌더링한다.', () => {
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<restaurant-register-modal></restaurant-register-modal>`
+      `<custom-modal><restaurant-register-modal></restaurant-register-modal></custom-modal>`
     );
 
     expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
