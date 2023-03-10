@@ -1,9 +1,4 @@
-import {
-  REGEX,
-  RESTAURANT_CATEGORIES,
-  RESTAURANT_DISTANCES_IN_MINUTE,
-  ERROR_MESSAGE,
-} from '../constant/';
+import { REGEX, RESTAURANT_CATEGORIES, ERROR_MESSAGE } from '../constant/';
 import { UserRestaurantInput } from '../type';
 
 class Validator {
