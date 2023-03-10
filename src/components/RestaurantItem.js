@@ -1,11 +1,12 @@
 import { CATEGORY_TO_FILENAME } from '../constants/constants';
+import { $ } from '../utils/common';
 
 class RestaurantItem {
   template(restaurant) {
     const imageFile = CATEGORY_TO_FILENAME[restaurant.category];
 
     return `
-      <li class="restaurant">
+      <li id="${restaurant.id}" class="restaurant">
         <div class="restaurant__category">
           <img src="./${imageFile}.png" alt="${restaurant.category}" class="category-icon">
         </div>
@@ -25,6 +26,14 @@ class RestaurantItem {
 
   makeItemList(restaurantList) {
     return restaurantList.reduce((result, restaurant) => result + this.template(restaurant), '');
+  }
+
+  setEvent(restaurantList, openInfoModal) {
+    restaurantList.forEach(restaurant => {
+      $(`#${restaurant.id}`).addEventListener('click', () => {
+        openInfoModal(restaurant);
+      });
+    });
   }
 }
 
