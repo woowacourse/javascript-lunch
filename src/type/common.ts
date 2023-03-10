@@ -26,6 +26,7 @@ type StoreType = {
   restaurants: Restaurant[];
   categorySelector: RestaurantCategoryType;
   sortSelector: RestaurantSortingType;
+  isFavorite: boolean;
 };
 
 export { Restaurant, RestaurantCategoryType, RestaurantSortingType, StoreType };

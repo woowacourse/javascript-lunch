@@ -5,6 +5,7 @@ const store: StoreType = {
   restaurants: [],
   categorySelector: '전체',
   sortSelector: 'name',
+  isFavorite: false,
 };
 
 export default store;
