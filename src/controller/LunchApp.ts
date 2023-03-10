@@ -32,6 +32,7 @@ class LunchApp {
     this.#lunchAppView.closeOrOpenRestaurantAddModal('close');
 
     this.#lunchAppView.clearAllModalInputs();
+    this.#lunchAppView.hideRestaurantAddModalErrorMessage();
   }
 
   #onModalAddButtonClicked(restaurantData: UserRestaurantInput) {
