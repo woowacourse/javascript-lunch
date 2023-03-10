@@ -40,6 +40,15 @@ const LunchMenuApp = {
     $('custom-modal').openModal();
   },
 
+  handleTabChange(e) {
+    if (e.target.id === 'all-restaurants') {
+      this.renderUpdatedRestaurantList();
+      return;
+    }
+
+    this.render(restaurantManager.filterByFavorite(restaurantManager.list));
+  },
+
   handleRestaurantRegister(restaurant) {
     restaurantManager.add(restaurant);
 
