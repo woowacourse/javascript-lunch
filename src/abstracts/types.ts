@@ -39,4 +39,5 @@ export interface RestaurantAction {
   FILTER_BY_CATEGORY: string;
   SORT_RESTAURANTS: string;
   UPDATE_FAVORITE: string;
+  SHOW_DETAIL: string;
 }

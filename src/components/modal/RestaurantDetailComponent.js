@@ -1,9 +1,30 @@
 import CustomElement from "../../abstracts/CustomElement";
-import { CATEGORY_IMG, FAVORITE_IMG } from "../../abstracts/constants";
+import {
+  CATEGORY_IMG,
+  FAVORITE_IMG,
+  RESTAURANT_ACTION,
+} from "../../abstracts/constants";
+import dispatcher from "../../domain/Dispatcher";
 
 class RestaurantDetailComponent extends CustomElement {
   setEvent() {
+    const modal = document.querySelector(".detail__name");
+
+    modal.querySelector(".star").addEventListener("click", (e) => {
+      this.changeFavorite(e);
+    });
+
     document.getElementById("close").addEventListener("click", this.hideModal);
+  }
+
+  changeFavorite(e) {
+    e.preventDefault();
+    const favorite = this.getAttribute("favorite") === "0" ? "1" : "0";
+    const listKey = this.getAttribute("listKey");
+    this.setAttribute("favorite", favorite);
+
+    this.querySelector(".star").src = FAVORITE_IMG[favorite];
+    dispatcher(RESTAURANT_ACTION.UPDATE_FAVORITE, parseInt(listKey));
   }
 
   hideModal() {

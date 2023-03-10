@@ -5,6 +5,7 @@ export const RESTAURANT_ACTION: RestaurantAction = {
   FILTER_BY_CATEGORY: "filter_by_category",
   SORT_RESTAURANTS: "sort_restaurants",
   UPDATE_FAVORITE: "updateFavorite",
+  SHOW_DETAIL: "showDetail",
 } as const;
 
 export const CATEGORY_IMG = {

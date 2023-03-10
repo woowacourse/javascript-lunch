@@ -24,20 +24,16 @@ class RestaurantComponent extends CustomElement {
     document.getElementById("detail_modal").classList.add("modal--open");
     const listKey = this.getAttribute("listKey");
 
-    dispatcher("showDetail", parseInt(listKey));
+    dispatcher(RESTAURANT_ACTION.SHOW_DETAIL, parseInt(listKey));
   }
 
   changeFavorite(e) {
     e.preventDefault();
     const favorite = this.getAttribute("favorite") === "0" ? "1" : "0";
+    const listKey = this.getAttribute("listKey");
     this.setAttribute("favorite", favorite);
 
-    const listKey = this.getAttribute("listKey");
-
-    this.querySelector(".star").src =
-      favorite === "0"
-        ? "./favorite-icon-lined.png"
-        : "./favorite-icon-filled.png";
+    this.querySelector(".star").src = FAVORITE_IMG[favorite];
 
     dispatcher(RESTAURANT_ACTION.UPDATE_FAVORITE, parseInt(listKey));
   }
