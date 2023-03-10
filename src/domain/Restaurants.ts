@@ -15,6 +15,7 @@ class Restaurants {
 
   add(restaurant: Restaurant): Restaurant[] {
     restaurant.favorites = false;
+    restaurant.id = `a${Date.now().toString()}`;
     this.#restaurantsList.push(this.getConvertedUndefinedToEmptyString(restaurant));
 
     return this.#restaurantsList;
