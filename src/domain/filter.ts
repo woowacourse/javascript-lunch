@@ -1,9 +1,9 @@
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "../constant";
-import { RestaurantType } from "../type";
+import { RestaurantType, SortType } from "../type";
 import { renderRestaurantList } from "../component/restaurantList";
 import { getAllRestaurantsInLocalStorage } from "./localStorageController";
-import { controlRestaurants } from "./RestaurantsController";
 import { $ } from "../util/selector";
+import { controlRestaurants } from "../domain/restaurantInfoModalController";
 const { All_CATEGORIES, NAME, DISTANCE } = SELECTED_OPTION;
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 
@@ -41,7 +41,7 @@ const filterFavoriteRestaurant = () => {
 };
 
 const sortRestaurantList = (
-  selectedSort: string,
+  selectedSort: SortType,
   filteredRestaurantList: RestaurantType[]
 ) => {
   if (selectedSort === NAME) {
@@ -59,7 +59,7 @@ export const updateRestaurantList = () => {
   );
 
   sortRestaurantList(
-    localStorage.getItem(SORT) as string,
+    localStorage.getItem(SORT) as SortType,
     filteredRestaurantList
   );
 

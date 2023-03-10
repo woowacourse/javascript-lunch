@@ -12,3 +12,5 @@ export interface RestaurantType {
   link: string;
   favorite: Favorite;
 }
+
+export type SortType = "name" | "distance";
