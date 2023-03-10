@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
-import HeaderComponent from "../src/components/HeaderComponent";
+import HeaderComponent from "../src/components/common/HeaderComponent";
 import ModalComponent from "../src/components/modal/ModalComponent";
 
 /**
