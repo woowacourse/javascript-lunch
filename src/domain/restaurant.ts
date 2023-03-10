@@ -86,33 +86,31 @@ export const sortRestaurants = (restaurants: IRestaurant[], sort: string) => {
   });
 };
 
-export const updateFavorite = (id: string) => {
-  const oldRestaurants = [...restaurants.state.restaurants];
-  const index = oldRestaurants.findIndex((r) => r.id === id);
-  const originalFovrite = oldRestaurants[index].favorite;
-  oldRestaurants[index].favorite = !originalFovrite;
-  restaurants.state.restaurants = [...oldRestaurants];
+export const updateRestaurants = (newRestaurants: IRestaurant[]) => {
+  restaurants.state.restaurants = [...newRestaurants];
   Storage.saveRestaurants(restaurants.state.restaurants);
 };
 
-export const addRestaurant = (newRestaurant: IRestaurant) => {
-  restaurants.state.restaurants = [
-    ...restaurants.state.restaurants,
-    newRestaurant,
-  ];
-  Storage.saveRestaurants(restaurants.state.restaurants);
+export const updateFavorite = (id: string) => {
+  const copiedRestaurants = [...restaurants.state.restaurants];
+  const index = copiedRestaurants.findIndex((r) => r.id === id);
+  const originalFovrite = copiedRestaurants[index].favorite;
+  copiedRestaurants[index].favorite = !originalFovrite;
+  updateRestaurants(copiedRestaurants);
 };
 
 export const restoreRestaurants = () => {
   const restoredRestaurants = Storage.loadRestaurants();
-  restaurants.state.restaurants =
-    restoredRestaurants.length > 0 ? restoredRestaurants : defaultRestaurants;
+  updateRestaurants(
+    restoredRestaurants.length > 0 ? restoredRestaurants : defaultRestaurants
+  );
+};
+
+export const addRestaurant = (newRestaurant: IRestaurant) => {
+  updateRestaurants([...restaurants.state.restaurants, newRestaurant]);
 };
 
 export const deleteRestaurant = (id: string) => {
-  restaurants.state.restaurants = restaurants.state.restaurants.filter(
-    (r) => r.id !== id
-  );
+  updateRestaurants(restaurants.state.restaurants.filter((r) => r.id !== id));
   closeBottomSheet();
-  Storage.saveRestaurants(restaurants.state.restaurants);
 };
