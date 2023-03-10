@@ -112,6 +112,14 @@ class RestaurantDetailModal extends ModalContent {
       `.favorite__button button[value=${this.#name}]`
     );
     $restaurantCardFavorite?.toggleIsFavorite();
+
+    const $restaurantCardList =
+      document.querySelector<RestaurantCardList>(".restaurant-list");
+
+    if ($restaurantCardList?.dataset.view === "favorite") {
+      $restaurantCardList?.setRestaurants("favorite");
+      $restaurantCardList?.render();
+    }
   }
 
   attributeChangedCallback(
