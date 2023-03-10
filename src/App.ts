@@ -3,7 +3,6 @@ import { INITIAL_RESTAURANT_DATA } from './constants/data';
 import { MODAL_ATTRIBUTE } from './constants/domAttributes';
 import { $ } from './utils/domSelectors';
 import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
-import Header from './components/Header';
 import RestaurantFilters from './components/RestaurantFilters';
 import RestaurantTabMenu from './components/RestaurantTabMenu';
 import RestaurantListContainer from './components/RestaurantListContainer';
@@ -12,6 +11,7 @@ import RestaurantAddForm from './components/RestaurantAddForm';
 import RestaurantInformation from './components/RestaurantInformation';
 import RestaurantService from './domains/RestaurantService';
 import { filterAndSort } from './domains/utils';
+import { addHeaderEvent } from './events/headerEvents';
 
 class App {
   private restaurantService: RestaurantService;
@@ -111,7 +111,7 @@ class App {
   };
 
   addEvents() {
-    Header.addEvent(this.formModal.openModal);
+    addHeaderEvent(this.formModal.openModal);
     RestaurantTabMenu.addEvents(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
     RestaurantListContainer.addEvent(
