@@ -6,7 +6,8 @@ import {
   closeRestaurantDetailModal,
   addRestaurantRemoveButtonClickEventHandler,
 } from './components/RestaurantDetailModal';
-import { TAB_ID } from './constants/constants';
+import { TAB_ID, TAB_TITLE } from './constants/constants';
+import { addTabClickEventHandler, renderTabItem } from './components/TabItem';
 
 export class App {
   private restaurantService = new RestaurantService();
@@ -17,14 +18,20 @@ export class App {
   constructor() {
     this.bindEventHandlers();
     this.mainView.renderRestaurantList(this.restaurantService.filterAndSort());
+    this.renderTabs();
   }
 
   bindEventHandlers() {
     this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm);
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
     this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
-    this.mainView.addTabClickEventListener(this.onChangeTab);
+    addTabClickEventHandler(this.onChangeTab);
     addRestaurantRemoveButtonClickEventHandler(this.onClickRestaurantRemoveButton);
+  }
+
+  renderTabs() {
+    renderTabItem({ tabId: TAB_ID.ALL, tabTitle: TAB_TITLE.ALL, isChecked: true });
+    renderTabItem({ tabId: TAB_ID.FAVORITE, tabTitle: TAB_TITLE.FAVORITE, isChecked: false });
   }
 
   onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {

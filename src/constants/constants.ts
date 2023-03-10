@@ -34,3 +34,8 @@ export const TAB_ID = {
   ALL: 'all-restaurants-tab',
   FAVORITE: 'favorite-restaurants-tab',
 };
+
+export const TAB_TITLE = {
+  ALL: '모든 음식점',
+  FAVORITE: '자주 가는 음식점',
+};

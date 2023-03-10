@@ -85,8 +85,6 @@ body {
   object-fit: contain;
 }
 
-/* tabs *****************************************/
-
 .tabs {
   display: flex;
   justify-content: space-around;
@@ -94,35 +92,6 @@ body {
   margin: 9px 16px;
   padding: 0px;
   list-style: none;
-}
-
-.tabs label {
-  display: inline-block;
-  width: 100%;
-  padding: 9px;
-
-  text-align: center;
-  color: var(--grey-300);
-  border-bottom: 2px solid var(--grey-300);
-  cursor: pointer;
-}
-
-input[type='radio'],
-input[type='radio']:checked {
-  appearance: none;
-}
-
-input[type='radio']:checked + label {
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
-}
-
-.tab-content {
-  display: none;
-}
-
-.tab-content.current {
-  display: inherit;
 }
 
 /* 음식점 목록 *****************************************/

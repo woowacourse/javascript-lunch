@@ -93,16 +93,6 @@ class MainView {
       });
     });
   }
-
-  addTabClickEventListener(onChangeTab: CallableFunction) {
-    const tabs = $$("input[name='tab']");
-
-    tabs.forEach((tab) => {
-      tab.addEventListener('change', (event) => {
-        if (event.target instanceof HTMLInputElement) onChangeTab(event.target.id);
-      });
-    });
-  }
 }
 
 export default MainView;
