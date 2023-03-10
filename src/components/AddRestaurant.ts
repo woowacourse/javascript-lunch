@@ -4,6 +4,7 @@ import RestaurantType from "../type/Restaurant";
 import { closeBottomSheet, showRestaurantFilter } from "../utils";
 import CategorySelectBox from "./CategorySelectBox";
 import SortingSelectBox from "./SortingSelectBox";
+import TabBar from "./TabBar";
 
 class AddRestaurant extends HTMLElement {
   private controller;
@@ -84,23 +85,20 @@ class AddRestaurant extends HTMLElement {
 
   onSubmitRestaurantForm() {
     const restaurantForm = document.getElementById("restaurantForm");
+
     if (restaurantForm instanceof HTMLElement) {
       restaurantForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
         const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
-
-        const tab = document.getElementById("all");
-        if (!(tab instanceof HTMLInputElement)) {
-          return;
-        }
-        tab.checked = true;
-
         this.controller.addRestaurant(newRestaurant);
-        this.controller.filterRestaurants(CategorySelectBox.getOption());
         this.controller.sortRestaurants(SortingSelectBox.getOption());
+        this.controller.filterRestaurants(CategorySelectBox.getOption());
 
-        showRestaurantFilter();
+        if (TabBar.getCurrentTab() == "favorite") {
+          TabBar.setCurrentTab("all");
+          showRestaurantFilter();
+        }
         closeBottomSheet();
       });
     }

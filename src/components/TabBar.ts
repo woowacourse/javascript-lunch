@@ -46,5 +46,13 @@ class TabBar extends HTMLElement {
 
     return currentTab.value;
   }
+
+  static setCurrentTab(currentTab: string) {
+    const tab = document.getElementById(currentTab);
+    if (tab instanceof HTMLInputElement) {
+      tab.checked = true;
+    }
+  }
 }
+
 export default TabBar;
