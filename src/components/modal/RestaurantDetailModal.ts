@@ -4,6 +4,7 @@ import ModalContent from "./ModalContent";
 import restaurantState from "../../states/restaurants";
 import categoryImages from "../../constants/categoryImage";
 import RestaurantCardList from "../RestaurantCardList";
+import FavoriteButton from "../FavoriteButton";
 
 class RestaurantDetailModal extends ModalContent {
   #name: string | null;
@@ -26,6 +27,9 @@ class RestaurantDetailModal extends ModalContent {
     if (!restaurant) return;
 
     this.innerHTML = `
+      <div class="restaurant-detail-favorite">
+        <button is="favorite-button" type="button" value=${this.#name}></button>
+      </div>
       <div class="restaurant__category restaurant-detail-category">
         <img
           src=${categoryImages[restaurant.category]}
@@ -77,6 +81,24 @@ class RestaurantDetailModal extends ModalContent {
       "click",
       this.onClickCloseButton.bind(this)
     );
+
+    this.bindFavoriteButtonEvent();
+  }
+
+  bindFavoriteButtonEvent() {
+    const $favoriteButton = this.querySelector<FavoriteButton>(
+      ".restaurant-detail-favorite button"
+    );
+
+    $favoriteButton?.removeEvent();
+
+    $favoriteButton?.addEventListener("click", () => {
+      $favoriteButton.onClick();
+      const $restaurantCard = document.querySelector<FavoriteButton>(
+        `.favorite__button button[value=${this.#name}]`
+      );
+      $restaurantCard?.toggleIsFavorite();
+    });
   }
 
   onClickDeleteButton() {

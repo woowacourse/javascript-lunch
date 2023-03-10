@@ -11,17 +11,13 @@ class ModalContent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.render();
     this.setAttribute("class", "modal-container");
+    this.render();
   }
 
   render() {}
 
   bindEvent() {}
-
-  setClassName() {
-    this.setAttribute("class", "modal-container");
-  }
 
   setCloseModal(closeModal: CloseModal) {
     this.closeModal = closeModal;

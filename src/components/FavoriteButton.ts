@@ -12,6 +12,7 @@ class FavoriteButton extends HTMLButtonElement {
 
     this.#isFavorite =
       restaurantState.getTargetRestaurant(this.value)?.isFavorite || false;
+    this.onClick = this.onClick.bind(this);
   }
 
   connectedCallback() {
@@ -31,14 +32,20 @@ class FavoriteButton extends HTMLButtonElement {
   }
 
   bindEvent() {
-    this.addEventListener("click", this.onClick.bind(this));
+    this.addEventListener("click", this.onClick);
   }
 
-  onClick(event: Event) {
-    if (!(event.currentTarget instanceof HTMLButtonElement)) return;
+  removeEvent() {
+    this.removeEventListener("click", this.onClick);
+  }
 
-    this.#isFavorite = !this.#isFavorite;
+  onClick() {
     restaurantState.toggleTargetRestaurantFavorite(this.value);
+    this.toggleIsFavorite();
+  }
+
+  toggleIsFavorite() {
+    this.#isFavorite = !this.#isFavorite;
     this.render();
   }
 }
