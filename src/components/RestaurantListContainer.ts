@@ -1,60 +1,42 @@
 import { Restaurant } from '../types/index';
-import { getFavoriteIcon } from '../constants/images';
 import { $ } from '../utils/domSelectors';
-import RestaurantItem from './RestaurantItem';
+import { createRestaurantItem } from '../template/RestaurantItemTemplate';
+import { changeRestaurantFavoriteIcon } from './utils';
 
-class RestaurantListContainer {
-  changeRestaurantFavoriteIcon(element: HTMLImageElement) {
-    if (element.classList.contains('favorite')) {
-      element.classList.remove('favorite');
-      element.src = getFavoriteIcon(false);
-    } else {
-      element.classList.add('favorite');
-      element.src = getFavoriteIcon(true);
-    }
-  }
-
-  removeRestaurantItem(target: Element, restaurantId: number) {
-    const restaurantItem = $<HTMLUListElement>(`.restaurant[data-id="${restaurantId}"]`);
-    target.removeChild(restaurantItem);
-  }
-
-  addEvent(
-    onFavoriteIconClick: CallableFunction,
-    getRestaurantInformation: CallableFunction,
-    onItemClick: CallableFunction
-  ) {
-    const restaurantList = $<HTMLUListElement>('.restaurant-list');
-
-    restaurantList.addEventListener('click', (event: Event) => {
-      const target = event.target as HTMLElement;
-      const itemElement = target.closest('.restaurant[data-id]') as HTMLElement;
-
-      if (target.classList.contains('restaurant-star-icon') && target instanceof HTMLImageElement) {
-        onFavoriteIconClick(Number(itemElement.dataset.id));
-        this.changeRestaurantFavoriteIcon(target);
-      } else {
-        onItemClick();
-        getRestaurantInformation(Number(itemElement.dataset.id));
-      }
-    });
-  }
-
-  create() {
-    return `
-      <section class="restaurant-list-container">
-        <ul class="restaurant-list"></ul>
-      </section>`;
-  }
-
-  renderRestaurantItems(parent: Element, restaurantList: Restaurant[]) {
-    const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
-      new RestaurantItem(restaurant).create()
-    );
-
-    parent.replaceChildren();
-    parent.insertAdjacentHTML('beforeend', restaurantItems.join(''));
-  }
+function removeRestaurantItem(target: Element, restaurantId: number) {
+  const restaurantItem = $<HTMLUListElement>(`.restaurant[data-id="${restaurantId}"]`);
+  target.removeChild(restaurantItem);
 }
 
-export default new RestaurantListContainer();
+function addRestaurantClickEvent(
+  onFavoriteIconClick: CallableFunction,
+  onItemClick: CallableFunction,
+  getRestaurantInformation: CallableFunction
+) {
+  const restaurantList = $<HTMLUListElement>('.restaurant-list');
+
+  restaurantList.addEventListener('click', (event: Event) => {
+    const target = event.target as HTMLElement;
+    const itemElement = target.closest('.restaurant[data-id]') as HTMLElement;
+
+    if (target.classList.contains('restaurant-star-icon') && target instanceof HTMLImageElement) {
+      onFavoriteIconClick(Number(itemElement.dataset.id));
+      changeRestaurantFavoriteIcon(target);
+    } else {
+      onItemClick();
+      getRestaurantInformation(Number(itemElement.dataset.id));
+    }
+  });
+}
+
+function renderRestaurantItems(restaurantList: Restaurant[]) {
+  const restaurantItems = restaurantList.map((restaurant: Restaurant) =>
+    createRestaurantItem(restaurant)
+  );
+
+  const restaurantListElement = $<HTMLUListElement>('.restaurant-list');
+  restaurantListElement.replaceChildren();
+  restaurantListElement.insertAdjacentHTML('beforeend', restaurantItems.join(''));
+}
+
+export { removeRestaurantItem, addRestaurantClickEvent, renderRestaurantItems };

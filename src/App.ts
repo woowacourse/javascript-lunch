@@ -4,14 +4,21 @@ import { MODAL_ATTRIBUTE } from './constants/domAttributes';
 import { $ } from './utils/domSelectors';
 import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
 import RestaurantFilters from './components/RestaurantFilters';
-import RestaurantTabMenu from './components/RestaurantTabMenu';
-import RestaurantListContainer from './components/RestaurantListContainer';
+import {
+  addRestaurantTabMenuEvent,
+  renderRestaurantTabMenus,
+} from './components/RestaurantTabMenu';
+import {
+  addRestaurantClickEvent,
+  removeRestaurantItem,
+  renderRestaurantItems,
+} from './components/RestaurantListContainer';
 import Modal from './components/Modal';
 import RestaurantAddForm from './components/RestaurantAddForm';
 import RestaurantInformation from './components/RestaurantInformation';
+import { addHeaderEvent } from './events/headerEvents';
 import RestaurantService from './domains/RestaurantService';
 import { filterAndSort } from './domains/utils';
-import { addHeaderEvent } from './events/headerEvents';
 
 class App {
   private restaurantService: RestaurantService;
@@ -29,6 +36,7 @@ class App {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
     this.render();
+    this.renderComponents();
     this.restaurantListElement = $<HTMLButtonElement>('.restaurant-list');
     this.updateRestaurantList();
     this.addEvents();
@@ -37,9 +45,7 @@ class App {
   create() {
     return `
       <main>
-        ${RestaurantTabMenu.create()}
         ${RestaurantFilters.create()}
-        ${RestaurantListContainer.create()}
         ${this.formModal.create()}
         ${this.informationModal.create()}
       </main>
@@ -63,7 +69,7 @@ class App {
             this.restaurantService.getFavoriteRestaurantList()
           );
 
-    RestaurantListContainer.renderRestaurantItems(this.restaurantListElement, restaurantList);
+    renderRestaurantItems(restaurantList);
   }
 
   addRestaurant = (restaurantItem: Restaurant) => {
@@ -95,7 +101,7 @@ class App {
     saveToLocalStorage(updatedRestaurantList);
 
     if (this.currentTab === 'favorite-restaurants') {
-      RestaurantListContainer.removeRestaurantItem(this.restaurantListElement, restaurantId);
+      removeRestaurantItem(this.restaurantListElement, restaurantId);
     }
   };
 
@@ -110,7 +116,7 @@ class App {
 
   deleteRestaurant = (restaurantId: number) => {
     const updatedRestaurantList = this.restaurantService.delete(restaurantId);
-    RestaurantListContainer.removeRestaurantItem(this.restaurantListElement, restaurantId);
+    removeRestaurantItem(this.restaurantListElement, restaurantId);
     saveToLocalStorage(updatedRestaurantList);
   };
 
@@ -118,7 +124,7 @@ class App {
     addHeaderEvent(this.formModal.openModal);
     addRestaurantTabMenuEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
-    RestaurantListContainer.addEvent(
+    addRestaurantClickEvent(
       this.updateFavoriteRestaurant,
       this.showRestaurantInformation,
       this.informationModal.openModal
