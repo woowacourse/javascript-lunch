@@ -1,4 +1,4 @@
-import { RESTAURANT_IMAGE, FAVORITE } from '../constants/images.ts';
+import { qs } from '../utils/domHelpers.js';
 import RestaurantItem from './RestaurantItem.js';
 import Component from '../Component.js';
 
@@ -9,16 +9,16 @@ export default class RestaurantList extends Component {
     this.restaurantManager.subscribe(this.render.bind(this));
   }
 
-  template(restaurantData) {
-    if (restaurantData === '') {
+  template(restaurantData = null) {
+    if (!restaurantData) {
       return `${this.restaurantManager
         .getRestaurantList()
-        .map((restaurant) => new RestaurantItem(RESTAURANT_IMAGE, FAVORITE).render(restaurant))
+        .map((restaurant) => new RestaurantItem(qs('.restaurant-list'), restaurant).render())
         .join('')}`;
     }
-    if (restaurantData !== '') {
+    if (restaurantData) {
       return `${restaurantData
-        .map((restaurant) => new RestaurantItem(RESTAURANT_IMAGE, FAVORITE).render(restaurant))
+        .map((restaurant) => new RestaurantItem(qs('.restaurant-list'), restaurant).render())
         .join('')}`;
     }
   }
