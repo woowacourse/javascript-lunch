@@ -17,7 +17,7 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
     cy.viewport(375, 667);
   });
 
-  it.only('음식 추가 테스트', () => {
+  it('음식 추가 테스트 및 새로고침 시에 데이터 유지 확인', () => {
     // 기존 음식 리스트 길이
     const listLength = mockRestaurant.length;
 
@@ -49,9 +49,14 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
         .find('.restaurant__description')
         .should('contain.text', '서서먹는 갈비입니다~');
     });
+
+    cy.reload();
+    cy.get('.restaurant-list')
+      .children()
+      .should('have.length', listLength + 1);
   });
 
-  it('즐겨찾기 추가 및 즐겨찾기 탭에서 해당 음식 확인 테스트', () => {
+  it.only('즐겨찾기 추가 및 즐겨찾기 탭에서 해당 음식 확인 및 새로고침 시에 favorite 적용 테스트', () => {
     // 자주가는 음식점 목록 이동
     cy.get('.tab-container').each((ele) => {
       cy.wrap(ele).contains('자주가는 음식점').click();
@@ -89,8 +94,18 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
         .find('.restaurant__name')
         .should('contain.text', '피양콩할마니');
     });
+
+    cy.reload();
+
+    cy.get('.restaurant-list').each((list) => {
+      cy.wrap(list)
+        .contains('피양콩할마니')
+        .parentsUntil(list)
+        .children()
+        .should('have.class', 'favorite-filled');
+    });
   });
-  it('상세보기 구현 및 삭제 테스트', () => {
+  it('상세보기 구현 및 삭제 그리고 reload 시에 삭제 정보 적용 테스트', () => {
     // 테스트 전 현재 list
     const listLength = mockRestaurant.length;
 
@@ -125,6 +140,19 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
     });
 
     // 전체 목록에 피양콩 할마니 있는지 확인
+    cy.get('.restaurant-list').each((ele) => {
+      cy.wrap(ele)
+        .find('.restaurant__name')
+        .should('not.contain.text', '피양콩할마니');
+    });
+
+    // 전체 리스트 개수 줄었는지 확인
+    cy.get('.restaurant-list')
+      .children()
+      .should('have.length', listLength - 1);
+
+    cy.reload();
+
     cy.get('.restaurant-list').each((ele) => {
       cy.wrap(ele)
         .find('.restaurant__name')
