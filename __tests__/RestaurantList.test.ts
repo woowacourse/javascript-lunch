@@ -4,7 +4,7 @@
 
 import '@testing-library/jest-dom';
 import RestaurantList from '../src/view/RestaurantList';
-import dummyRestaurants from '../src/dummy/dummyRestaurants';
+import { restaurantsSample } from '../testcase/unit-testcase';
 import { screen } from '@testing-library/dom';
 import { $ } from '../src/util/querySelector';
 
@@ -17,9 +17,9 @@ describe('레스토랑 리스트(RestaurantList) 컴포넌트 랜더링 테스�
     new RestaurantList({
       parentElement: $('#test-root'),
       restaurants: [
-        dummyRestaurants[0],
-        dummyRestaurants[2],
-        dummyRestaurants[4],
+        restaurantsSample[0],
+        restaurantsSample[2],
+        restaurantsSample[4],
       ],
       parentEvent: {
         onRestaurantItemClicked: () => {},
