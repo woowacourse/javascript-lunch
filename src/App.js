@@ -49,6 +49,7 @@ export default class App {
     );
 
     $('#restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
+    $('#modal').addEventListener('click', this.onClickDetailFavoriteIcon.bind(this));
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -114,16 +115,10 @@ export default class App {
 
       this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
 
-      const restaurants = this.#restaurants.getRestaurants();
-      store.setLocalStorage(RESTAURANTS_KEY, restaurants);
+      const updatedRestaurants = this.#restaurants.getRestaurants();
+      store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
 
-      if ($('#tab-all').checked) {
-        this.renderRestaurantListByFilterOptions();
-        return;
-      }
-
-      const favoriteRestaurants = getFavoriteRestaurants(restaurants);
-      RestaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+      this.renderRestaurantListByFavoriteTab();
 
       return;
     }
@@ -148,5 +143,32 @@ export default class App {
 
     this.renderRestaurantListByFilterOptions();
     $('#restaurant-filter-container').classList.remove('hide');
+  }
+
+  onClickDetailFavoriteIcon(e) {
+    if (e.target.id !== 'detail-favorite-icon') return;
+
+    const restaurantId = $('#modal-detail-view').dataset.listid;
+    this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
+
+    const updatedRestaurants = this.#restaurants.getRestaurants();
+    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+    const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
+    Modal.render($('#modal'), targetRestaurant);
+
+    this.renderRestaurantListByFavoriteTab();
+  }
+
+  renderRestaurantListByFavoriteTab() {
+    if ($('#tab-all').checked) {
+      this.renderRestaurantListByFilterOptions();
+      return;
+    }
+
+    const restaurant = this.#restaurants.getRestaurants();
+    const favoriteRestaurants = getFavoriteRestaurants(restaurant);
+
+    RestaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
   }
 }
