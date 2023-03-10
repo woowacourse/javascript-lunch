@@ -73,7 +73,7 @@ class RestaurantDetail extends HTMLElement {
       return;
     }
 
-    deleteButton?.addEventListener("click", () => {
+    deleteButton.addEventListener("click", () => {
       this.controller.deleteRestaurant();
       closeBottomSheet();
       if (TabBar.getCurrentTab() === "favorite") {
@@ -81,7 +81,6 @@ class RestaurantDetail extends HTMLElement {
         return;
       }
       this.controller.loadLocalStorage();
-      this.controller.renderRestaurantList();
     });
   }
 
@@ -92,11 +91,6 @@ class RestaurantDetail extends HTMLElement {
     }
 
     favorite.addEventListener("click", () => {
-      if (TabBar.getCurrentTab() === "favorite") {
-        this.controller.toggleFavorite();
-        this.render(this.controller.getSelectedRestaurant());
-        return;
-      }
       this.controller.toggleFavorite();
       this.render(this.controller.getSelectedRestaurant());
     });
