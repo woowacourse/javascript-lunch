@@ -27,6 +27,7 @@
   width: 36px;
   height: 36px;
 }
+
 .restaurant__info-info {
   display: flex;
   flex-direction: column;
@@ -59,6 +60,4 @@
 .button-container {
   display: flex;
   justify-content: space-between;
-
-  z-index: 99;
 }
