@@ -45,7 +45,7 @@ class RestaurantAddForm {
     if (errors.link) this.linkInputCaption.showErrorMessage(ERROR_MESSAGE.INVALID_LINK);
   }
 
-  removeErrorMessages() {
+  removeFormErrors() {
     this.categorySelectCaption.addRemoveErrorMessageEvent();
     this.distanceSelectCaption.addRemoveErrorMessageEvent();
     this.nameInputCaption.addRemoveErrorMessageEvent();
@@ -73,7 +73,7 @@ class RestaurantAddForm {
       }
 
       this.showFormErrors(formErrors);
-      this.removeErrorMessages();
+      this.removeFormErrors();
     });
   }
 
