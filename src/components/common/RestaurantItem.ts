@@ -1,15 +1,15 @@
 import { Category, Restaurant } from "../../types/type";
 import { categoryToSrc } from "../../utils/convertor";
-import BookMark from "./BookMark";
+import Bookmark from "./Bookmark";
 
 class RestaurantItem {
   restaurant: Restaurant;
-  bookMark: BookMark;
+  bookmark: Bookmark;
 
   constructor(restaurant: Restaurant) {
     this.restaurant = restaurant;
-    const bookMark = new BookMark(this.restaurant);
-    this.bookMark = bookMark;
+    const bookmark = new Bookmark(this.restaurant);
+    this.bookmark = bookmark;
   }
 
   template() {
@@ -31,7 +31,7 @@ class RestaurantItem {
         }</p>
       </div>
       </div>
-      ${this.bookMark.template()}
+      ${this.bookmark.template()}
     </li>`;
   }
 }

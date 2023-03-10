@@ -31,7 +31,7 @@ class RestaurantList {
       );
 
       if (bookmarkButton) {
-        restaurantListHandler.toggleBookMark(id);
+        restaurantListHandler.toggleBookmark(id);
         const updatedRestaurants = restaurantListHandler.getRestaurants();
         this.updateRestaurantList(updatedRestaurants);
         return;

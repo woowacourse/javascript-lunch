@@ -103,7 +103,7 @@ class RestaurantFormBottomSheet {
       name: formData.name,
       takingTime: formData.takingTime,
       category: formData.category,
-      bookMark: false,
+      bookmark: false,
       link: this.getValidateLink(<string>formData.link),
       description: formData.description,
     };

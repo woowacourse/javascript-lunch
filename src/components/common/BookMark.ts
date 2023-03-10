@@ -1,6 +1,6 @@
 import { Restaurant } from "../../types/type";
 
-class BookMark {
+class Bookmark {
   restaurant: Restaurant;
 
   constructor(restaurant: Restaurant) {
@@ -10,7 +10,7 @@ class BookMark {
   template() {
     return `
     <button class="restaurant__bookmark">${
-      this.restaurant.bookMark
+      this.restaurant.bookmark
         ? "<img src='./favorite-icon-filled.png'>"
         : "<img src='./favorite-icon-lined.png'>"
     }</button>
@@ -18,4 +18,4 @@ class BookMark {
   }
 }
 
-export default BookMark;
+export default Bookmark;

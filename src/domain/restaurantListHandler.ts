@@ -50,10 +50,10 @@ class RestaurantListHandler {
     return this.restaurants;
   }
 
-  toggleBookMark(id: string) {
+  toggleBookmark(id: string) {
     this.restaurants = this.restaurants.map((restaurant) => {
       if (restaurant.id === id) {
-        return { ...restaurant, bookMark: !restaurant.bookMark };
+        return { ...restaurant, bookmark: !restaurant.bookmark };
       }
       return restaurant;
     });
@@ -62,7 +62,7 @@ class RestaurantListHandler {
   }
 
   getBookmarkRestaurants() {
-    return this.restaurants.filter((restaurant) => restaurant.bookMark);
+    return this.restaurants.filter((restaurant) => restaurant.bookmark);
   }
 }
 
