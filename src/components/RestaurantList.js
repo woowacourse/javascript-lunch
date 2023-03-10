@@ -1,4 +1,4 @@
-import { $ } from '../utils/dom';
+import { $, dispatchCustomEvent } from '../utils/dom';
 
 customElements.define(
   'restaurant-list',
@@ -30,9 +30,12 @@ customElements.define(
 
     connectedCallback() {
       this.addEventListener('click', (e) => this.handleListItemClick(e));
+      this.addEventListener('click', (e) => this.handleFavoriteButtonClick(e));
     }
 
     handleListItemClick(e) {
+      if (e.target.closest('.favorite')) return;
+
       const item = e.target.closest('restaurant-list-item');
 
       if (!item) return;
@@ -49,6 +52,12 @@ customElements.define(
     }
 
     openRestaurantDetailModal(restaurant) {
+      this.renderRestaurantDetailModal(restaurant);
+
+      $('custom-modal').openModal();
+    }
+
+    renderRestaurantDetailModal(restaurant) {
       const { id, category, restaurantName, distance, description, link, isFavorite } = restaurant;
 
       $('.modal-container').replaceChildren();
@@ -65,7 +74,19 @@ customElements.define(
         isFavorite="${isFavorite}"
       ></restaurant-detail-modal>`
       );
-      $('custom-modal').openModal();
+    }
+
+    handleFavoriteButtonClick(e) {
+      if (!e.target.closest('.favorite')) return;
+
+      const item = e.target.closest('restaurant-list-item');
+
+      if (!item) return;
+
+      dispatchCustomEvent($('body'), {
+        eventType: 'toggleFavorite',
+        data: item.dataset.id,
+      });
     }
   }
 );

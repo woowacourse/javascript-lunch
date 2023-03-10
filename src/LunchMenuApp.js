@@ -8,6 +8,7 @@ const LunchMenuApp = {
     restaurantManager.init();
     this.render(restaurantManager.list);
     this.bindEvents();
+    this.bindCustomEvents();
   },
 
   render(restaurants) {
@@ -21,14 +22,20 @@ const LunchMenuApp = {
 
   bindEvents() {
     $('.gnb__button').addEventListener('click', () => this.handleGnbButtonClick());
+    $('restaurant-tab').addEventListener('change', (e) => this.handleTabChange(e));
+    $('restaurant-filter').addEventListener('change', () => this.renderUpdatedRestaurantList());
+  },
+
+  bindCustomEvents() {
     $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
       this.handleRestaurantRegister(restaurant)
     );
     $('custom-modal').addEventListener('removeRestaurant', ({ detail: restaurantId }) =>
       this.handleRestaurantRemove(restaurantId)
     );
-    $('restaurant-tab').addEventListener('change', (e) => this.handleTabChange(e));
-    $('restaurant-filter').addEventListener('change', () => this.renderUpdatedRestaurantList());
+    $('body').addEventListener('toggleFavorite', ({ detail: restaurantId }) =>
+      this.handleFavoriteToggle(restaurantId)
+    );
   },
 
   handleGnbButtonClick() {
@@ -69,6 +76,19 @@ const LunchMenuApp = {
     this.updateRestaurantList();
   },
 
+  isFavoriteTabChecked() {
+    return isChecked($('#favorite-restaurants'));
+  },
+
+  setRestaurantList() {
+    setLocalStorage('restaurants', restaurantManager.list);
+  },
+
+  handleFavoriteToggle(restaurantId) {
+    restaurantManager.toggleFavorite(restaurantId);
+    this.updateRestaurantList();
+  },
+
   updateRestaurantList() {
     this.setRestaurantList();
 
@@ -78,23 +98,6 @@ const LunchMenuApp = {
     }
 
     this.renderUpdatedRestaurantList();
-  },
-
-  isFavoriteTabChecked() {
-    return isChecked($('#favorite-restaurants'));
-  },
-
-  setRestaurantList() {
-    setLocalStorage('restaurants', restaurantManager.list);
-  },
-
-  handleTabChange(e) {
-    if (e.target.id === 'all-restaurants') {
-      this.render(restaurantManager.list);
-      return;
-    }
-
-    this.render(restaurantManager.filterByFavorite(restaurantManager.list));
   },
 
   renderUpdatedRestaurantList() {
