@@ -1,7 +1,7 @@
 import actions from './hooks/actions';
 import { $ } from './utils/querySelector';
 import Header from './view/components/Header';
-import RestaurantAddModal from './view/components/RestaurantAddModal';
+import RestaurantAddModal from './view/components/Modal/RetaurantAddModal';
 import RestaurantList from './view/components/RestaurantList';
 import RestaurantTabs from './view/components/RestaurantTabs';
 
