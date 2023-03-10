@@ -3,23 +3,29 @@ import { Restaurant } from '../src/types/Types';
 
 describe('Restaurants 도메인 테스트', () => {
   const yeoptoRestaurant: Restaurant = {
+    ID: 0,
     category: '기타',
     name: '엽토네 떡볶이',
     distance: 5,
+    favorites: false,
   };
 
   const doriRestaurant: Restaurant = {
+    ID: 1,
     category: '한식',
     name: '도리네 집밥',
     distance: 15,
+    favorites: false,
   };
 
   const restaurants = new Restaurants([]);
 
   const gongwonRestaurant: Restaurant = {
+    ID: 2,
     category: '일식',
     name: '공원네 초밥집',
     distance: 10,
+    favorites: true,
   };
 
   test('음식점 목록을 추가하는 기능 테스트', () => {
