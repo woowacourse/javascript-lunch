@@ -112,6 +112,6 @@ const mock4: IRestaurant = {
   favorite: false,
 };
 
-const mockList: IRestaurant[] = [mockAsian, mockChina, mockKorea, mockChina, mockJapan, mockEtc, mockWestern, mock1, mock2, mock3, mock4];
+const mockList: IRestaurant[] = [mockAsian, mockChina, mockKorea, mockJapan, mockEtc, mockWestern, mock1, mock2, mock3, mock4];
 
 export default mockList;
