@@ -17,10 +17,12 @@ class Tab {
     return this;
   }
 
-  tabEvent() {
+  tabEvent(eventTarget: Element) {
     $$('.tab').forEach((tab) => {
       tab.classList.remove('tab--open');
     });
+
+    eventTarget.classList.add('tab--open');
   }
 
   addEvent(eventTarget: Element) {
