@@ -2,6 +2,14 @@ import CustomElement from "../../abstracts/CustomElement";
 import { CATEGORY_IMG, FAVORITE_IMG } from "../../abstracts/constants";
 
 class RestaurantDetailComponent extends CustomElement {
+  setEvent() {
+    document.getElementById("close").addEventListener("click", this.hideModal);
+  }
+
+  hideModal() {
+    document.getElementById("detail_modal").classList.remove("modal--open");
+  }
+
   template() {
     const name = this.getAttribute("name");
     const category = this.getAttribute("category");
@@ -12,11 +20,13 @@ class RestaurantDetailComponent extends CustomElement {
 
     return `
     <div class="detail__name">
-      <img
-        src="${CATEGORY_IMG[category]}"             
-        alt="${category}"
-        class="detail__icon"
-      />
+      <div class="detail__background">
+        <img
+          src="${CATEGORY_IMG[category]}"             
+          alt="${category}"
+          class="detail__icon"
+        />
+      </div>
       <img src="${FAVORITE_IMG[favorite]}" alt="즐겨찾기" class="restaurant_star star" />
     </div>
     <div class="detail">

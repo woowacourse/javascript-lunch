@@ -8,16 +8,10 @@ class ModalDetailComponent extends CustomElement {
     StoreInstance.publishDetail();
   }
 
-  setEvent() {
-    document.getElementById("close").addEventListener("click", this.hideModal);
-  }
-
-  hideModal() {
-    document.getElementById("detail_modal").classList.remove("modal--open");
-  }
-
   rerender(restaurant) {
-    const detail = `
+    const detail =
+      restaurant &&
+      `
     <restaurant-detail
       category="${restaurant.category}" 
       name="${restaurant.name}" 
@@ -25,6 +19,7 @@ class ModalDetailComponent extends CustomElement {
       description="${restaurant.description}" 
       link="${restaurant.link}"
       favorite="${restaurant.favorite}"
+      listKey="${restaurant.key}"
     >
     </restaurant-detail>
     `;
