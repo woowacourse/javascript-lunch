@@ -4,6 +4,8 @@ import ModalRoot from "./modal/ModalRoot";
 import RestaurantDetailModal from "./modal/RestaurantDetailModal";
 import categoryImages from "../constants/categoryImage";
 import restaurantState from "../states/restaurants";
+import FavoriteButton from "./FavoriteButton";
+import RestaurantCardList from "./RestaurantCardList";
 
 class RestaurantCard extends HTMLLIElement {
   #name: string | null;
@@ -54,6 +56,28 @@ class RestaurantCard extends HTMLLIElement {
       "click",
       this.onClickRestaurantDetail.bind(this)
     );
+
+    this.bindFavoriteButtonEvent();
+  }
+
+  bindFavoriteButtonEvent() {
+    const $favoriteButton = this.querySelector<FavoriteButton>(
+      ".favorite__button button"
+    );
+
+    $favoriteButton?.removeEvent();
+
+    $favoriteButton?.addEventListener("click", () => {
+      $favoriteButton.onClick();
+
+      const $restaurantCardList =
+        document.querySelector<RestaurantCardList>(".restaurant-list");
+
+      if ($restaurantCardList?.dataset.view === "favorite") {
+        $restaurantCardList?.setRestaurants("favorite");
+        $restaurantCardList?.render();
+      }
+    });
   }
 
   onClickRestaurantDetail() {
