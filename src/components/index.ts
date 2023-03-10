@@ -7,6 +7,7 @@ import ModalRoot from "./modal/ModalRoot";
 import RestaurantAddModal from "./modal/RestaurantAddModal";
 import RestaurantDetailModal from "./modal/RestaurantDetailModal";
 import FavoriteButton from "./FavoriteButton";
+import TabMenu from "./TabMenu";
 
 customElements.define("lunch-header", LunchHeader, { extends: "header" });
 customElements.define("modal-root", ModalRoot);
@@ -20,3 +21,4 @@ customElements.define("restaurant-card-list", RestaurantCardList, {
 customElements.define("restaurant-card", RestaurantCard, { extends: "li" });
 customElements.define("restaurant-detail-modal", RestaurantDetailModal);
 customElements.define("favorite-button", FavoriteButton, { extends: "button" });
+customElements.define("tab-menu", TabMenu, { extends: "ul" });
