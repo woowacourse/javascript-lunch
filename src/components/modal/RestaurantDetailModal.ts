@@ -1,3 +1,4 @@
+import errorHandler from '../../utils/errorHandler';
 import CustomElement from '../CustomElement';
 
 class RestaurantDetailModal extends CustomElement {
@@ -80,7 +81,7 @@ class RestaurantDetailModal extends CustomElement {
   initEventHandlers = () => {
     const $deleteButton = this.querySelector('button[action="deleteRestaurant"]');
 
-    if (!$deleteButton) return;
+    if (!$deleteButton) return errorHandler.doesNotExistElement();
 
     $deleteButton.addEventListener('click', this.clickDeleteButton);
   };

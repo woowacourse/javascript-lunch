@@ -1,6 +1,7 @@
 import CustomElement from '../CustomElement';
 import { CustomSelectElement } from '..';
 import { DEFAULT_MODAL_CATEGORY_OPTIONS, DEFAULT_MODAL_DISTANCE_OPTIONS } from '../../fixtures';
+import errorHandler from '../../utils/errorHandler';
 
 class RegisterRestaurantModal extends CustomElement {
   renderTemplate() {
@@ -52,7 +53,8 @@ class RegisterRestaurantModal extends CustomElement {
       'r-input[name="referenceUrl"] input',
     );
 
-    if (!$category || !$name || !$distance || !$description || !$referenceUrl) return;
+    if (!$category || !$name || !$distance || !$description || !$referenceUrl)
+      return errorHandler.doesNotExistElement();
 
     this.dispatchEvent(
       new CustomEvent('createRestaurant', {
@@ -71,7 +73,7 @@ class RegisterRestaurantModal extends CustomElement {
   initEventHandlers = () => {
     const $registerRestaurantFrom = this.querySelector('form');
 
-    if (!$registerRestaurantFrom) return;
+    if (!$registerRestaurantFrom) return errorHandler.doesNotExistElement();
 
     $registerRestaurantFrom.addEventListener('submit', this.generateCreateRestaurantEvent);
   };
@@ -80,7 +82,7 @@ class RegisterRestaurantModal extends CustomElement {
     const $category = this.querySelector<CustomSelectElement>('#restaurant-modal-category');
     const $distance = this.querySelector<CustomSelectElement>('#restaurant-modal-distance');
 
-    if (!$category || !$distance) return;
+    if (!$category || !$distance) return errorHandler.doesNotExistElement();
 
     $category.setInitialOptions(DEFAULT_MODAL_CATEGORY_OPTIONS);
     $distance.setInitialOptions(DEFAULT_MODAL_DISTANCE_OPTIONS);

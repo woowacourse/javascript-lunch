@@ -1,3 +1,4 @@
+import errorHandler from '../../utils/errorHandler';
 import CustomElement from '../CustomElement';
 
 class RestaurantTypeSection extends CustomElement {
@@ -26,12 +27,12 @@ class RestaurantTypeSection extends CustomElement {
     const $allType = this.querySelector('#all-type');
     const $favorite = this.querySelector('#favorite-type');
 
-    if (!$allType || !$favorite) return;
+    if (!$allType || !$favorite) return errorHandler.doesNotExistElement();
 
     const $allTypeDivideLine = $allType.querySelector('.divide-line');
     const $favoriteDivideLine = $favorite.querySelector('.divide-line');
 
-    if (!$allTypeDivideLine || !$favoriteDivideLine) return;
+    if (!$allTypeDivideLine || !$favoriteDivideLine) return errorHandler.doesNotExistElement();
 
     if (type === 'all') {
       $allType.classList.add('selected-type');
@@ -63,7 +64,7 @@ class RestaurantTypeSection extends CustomElement {
     const $allTypeButton = this.querySelector('.restaurant-type-item');
     const $favoriteTypeButton = this.querySelector('#favorite-type');
 
-    if (!$allTypeButton || !$favoriteTypeButton) return;
+    if (!$allTypeButton || !$favoriteTypeButton) return errorHandler.doesNotExistElement();
 
     $allTypeButton.addEventListener('click', () => this.clickTypeButton('all'));
     $favoriteTypeButton.addEventListener('click', () => this.clickTypeButton('favorite'));

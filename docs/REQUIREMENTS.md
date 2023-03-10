@@ -77,6 +77,7 @@
 - [x] refactor: 로컬스토리지 관련 함수 분리
 - [x] refactor: css 분리
 - [x] refactor: 상수화
+- [x] refactor: querySelector 실패 시 에러처리
 
 ### 기능 목록
 

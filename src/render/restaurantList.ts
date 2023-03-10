@@ -2,12 +2,13 @@ import render from '.';
 import { CustomRestaurantListElement } from '../components';
 import Restaurant from '../domain/Restaurant';
 import { ALERT_MESSAGE } from '../utils/constants';
+import errorHandler from '../utils/errorHandler';
 
 export default {
   render: (restaurants: Restaurant[]) => {
     const $restaurantList = document.querySelector<CustomRestaurantListElement>('#restaurant-list');
 
-    if (!$restaurantList) return;
+    if (!$restaurantList) return errorHandler.doesNotExistElement();
 
     $restaurantList.setRestaurants(restaurants);
   },
@@ -16,7 +17,7 @@ export default {
     const $targetRestaurant = document.querySelector(`r-restaurant[name="${restaurantName}"]`);
     const $modal = document.querySelector('.modal-container');
 
-    if (!$targetRestaurant) return;
+    if (!$targetRestaurant) return errorHandler.doesNotExistElement();
 
     if ($targetRestaurant.hasAttribute('favorite')) {
       $targetRestaurant.removeAttribute('favorite');
@@ -30,7 +31,7 @@ export default {
   deleteRestaurantInFavoriteList: (restaurantName: string) => {
     const $targetRestaurant = document.querySelector(`r-restaurant[name="${restaurantName}"]`);
 
-    if (!$targetRestaurant) return;
+    if (!$targetRestaurant) return errorHandler.doesNotExistElement();
 
     render.closeRestaurantDetailModal();
     $targetRestaurant.remove();

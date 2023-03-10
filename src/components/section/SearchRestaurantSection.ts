@@ -1,5 +1,6 @@
 import { CustomSelectElement } from '..';
 import { DEFAULT_FILTER_OPTIONS, DEFAULT_SORT_OPTIONS } from '../../fixtures';
+import errorHandler from '../../utils/errorHandler';
 import CustomElement from '../CustomElement';
 
 class SearchRestaurantSection extends CustomElement {
@@ -18,7 +19,7 @@ class SearchRestaurantSection extends CustomElement {
     const $filterSelect = this.querySelector<CustomSelectElement>('#restaurant-filter-select');
     const $sortSelect = this.querySelector<CustomSelectElement>('#restaurant-sort-select');
 
-    if (!$filterSelect || !$sortSelect) return;
+    if (!$filterSelect || !$sortSelect) return errorHandler.doesNotExistElement();
 
     this.initSelect($filterSelect, $sortSelect);
     this.initEventHandlers($filterSelect, $sortSelect);

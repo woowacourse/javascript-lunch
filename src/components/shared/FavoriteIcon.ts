@@ -1,3 +1,4 @@
+import errorHandler from '../../utils/errorHandler';
 import CustomElement from '../CustomElement';
 
 class FavoriteIcon extends CustomElement {
@@ -53,7 +54,7 @@ class FavoriteIcon extends CustomElement {
   initEventHandlers = () => {
     const $favoriteIcon = this.querySelector('#favorite-icon');
 
-    if (!$favoriteIcon) return;
+    if (!$favoriteIcon) return errorHandler.doesNotExistElement();
 
     $favoriteIcon.addEventListener('click', this.clickFavoriteIcon);
   };

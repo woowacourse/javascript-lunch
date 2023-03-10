@@ -1,4 +1,5 @@
 import { CustomRestaurantTypeSection, CustomSearchRestaurantSection } from '../components';
+import errorHandler from '../utils/errorHandler';
 
 const searchRestaurantSection = {
   open: () => {
@@ -9,7 +10,8 @@ const searchRestaurantSection = {
       'r-restaurant-type-section',
     );
 
-    if ($searchRestaurantSection || !$restaurantTypeSection) return;
+    if ($searchRestaurantSection || !$restaurantTypeSection)
+      return errorHandler.doesNotExistElement();
 
     $restaurantTypeSection.insertAdjacentHTML(
       'afterend',
@@ -22,7 +24,7 @@ const searchRestaurantSection = {
       'r-search-restaurant-section',
     );
 
-    if (!$searchRestaurantSection) return;
+    if (!$searchRestaurantSection) return errorHandler.doesNotExistElement();
 
     $searchRestaurantSection.remove();
   },

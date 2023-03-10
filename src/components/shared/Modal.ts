@@ -1,3 +1,4 @@
+import errorHandler from '../../utils/errorHandler';
 import CustomElement from '../CustomElement';
 
 class Modal extends CustomElement {
@@ -19,7 +20,7 @@ class Modal extends CustomElement {
   };
 
   close = () => {
-    if (!this.parentElement) return;
+    if (!this.parentElement) return errorHandler.doesNotExistElement();
 
     this.parentElement.remove();
   };
@@ -28,12 +29,10 @@ class Modal extends CustomElement {
     const $modalBackdrop = this.querySelector<HTMLDivElement>('.modal-backdrop');
     const $closeModalButton = this.querySelector<HTMLButtonElement>('button[action="closeModal"]');
 
-    if (!$modalBackdrop) return;
+    if (!$modalBackdrop) return errorHandler.doesNotExistElement();
+    if (!$closeModalButton) return errorHandler.doesNotExistElement();
 
     $modalBackdrop.addEventListener('click', this.close);
-
-    if (!$closeModalButton) return;
-
     $closeModalButton.addEventListener('click', this.close);
   };
 }

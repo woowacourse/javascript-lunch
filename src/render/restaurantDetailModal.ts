@@ -1,5 +1,6 @@
 import { CustomRestaurantDetailModalElement } from '../components';
 import Restaurant, { RestaurantProps } from '../domain/Restaurant';
+import errorHandler from '../utils/errorHandler';
 
 const restaurantDetailModal = {
   open: (restaurant: Restaurant) => {
@@ -16,7 +17,7 @@ const restaurantDetailModal = {
 
     const $main = document.querySelector<HTMLElement>('main');
 
-    if (!$main) return;
+    if (!$main) return errorHandler.doesNotExistElement();
 
     $main.insertAdjacentHTML('beforeend', $restaurantDetailModal);
   },
@@ -26,7 +27,7 @@ const restaurantDetailModal = {
       'r-restaurant-detail-modal',
     );
 
-    if (!$restaurantDetailtModal) return;
+    if (!$restaurantDetailtModal) return errorHandler.doesNotExistElement();
 
     $restaurantDetailtModal.remove();
   },

@@ -1,3 +1,4 @@
+import errorHandler from '../../utils/errorHandler';
 import CustomElement from '../CustomElement';
 
 class RestaurantItem extends CustomElement {
@@ -75,7 +76,7 @@ class RestaurantItem extends CustomElement {
   initEventHandlers = () => {
     const $restaurant = this.querySelector('#restaurant-item');
 
-    if (!$restaurant) return;
+    if (!$restaurant) return errorHandler.doesNotExistElement();
 
     $restaurant.addEventListener('click', this.clickRestaurant);
   };
