@@ -60,11 +60,4 @@ export default class Restaurant {
       this.$modal.classList.toggle("modal--open");
     });
   }
-
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      if (!event.target.closest(selector)) return false;
-      callback(event);
-    });
-  }
 }

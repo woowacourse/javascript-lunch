@@ -1,5 +1,6 @@
 import { CLASS } from "../constant/variables";
 import Validator from "../domain/Validator";
+import { addEvent } from "../util/addEvent";
 import store from "../util/store";
 
 export default class AddForm {
@@ -95,10 +96,10 @@ export default class AddForm {
     const { render } = this.props;
     const $modal = document.querySelector(".modal");
 
-    this.addEvent("click", "#cancel-button", () => {
+    addEvent(this.$target, "click", "#cancel-button", () => {
       $modal.classList.toggle(CLASS.MODAL_OPEN);
     });
-    this.addEvent("submit", "#add-restaurant-form", (event) => {
+    addEvent(this.$target, "submit", "#add-restaurant-form", (event) => {
       event.preventDefault();
 
       const category = event.target[0].value;
@@ -126,13 +127,5 @@ export default class AddForm {
     } catch (error) {
       alert(error.message);
     }
-  }
-
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      const target = event.target;
-      if (!target.closest(selector)) return false;
-      callback(event);
-    });
   }
 }

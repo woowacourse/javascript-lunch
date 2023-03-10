@@ -1,4 +1,5 @@
 import { translateCategory } from "../constant/variables";
+import { addEvent } from "../util/addEvent";
 import store from "../util/store";
 import Star from "./Star";
 
@@ -50,22 +51,15 @@ export default class RestaurantDetail {
     const { name, render } = this.props;
     const $modal = document.querySelector(".modal");
 
-    this.addEvent("click", "#quit-button", () => {
+    addEvent(this.$target, "click", "#quit-button", () => {
       $modal.classList.toggle("modal--open");
     });
-    this.addEvent("click", "#remove-button", () => {
+    addEvent(this.$target, "click", "#remove-button", () => {
       const list = store.getLocalStorage();
       const updatedList = list.filter((obj) => obj.name !== name);
       store.setLocalStorage(updatedList);
       $modal.classList.toggle("modal--open");
       render();
-    });
-  }
-
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      if (!event.target.closest(selector)) return false;
-      callback(event);
     });
   }
 }

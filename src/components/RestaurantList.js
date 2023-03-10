@@ -50,12 +50,4 @@ export default class RestaurantList {
     this.#restaurantList = store.getLocalStorage();
     this.render();
   }
-
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      const target = event.target;
-      if (!target.closest(selector)) return false;
-      callback(event);
-    });
-  }
 }
