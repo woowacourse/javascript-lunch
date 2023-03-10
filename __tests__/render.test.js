@@ -9,11 +9,12 @@ import { LunchRecommendation } from '../src/domain/model/LunchRecommendation';
 import { mockData } from '../src/index';
 import { getData } from '../src/utils/common/localStorage';
 import { useBoolean } from '../src/utils/hooks/useBoolean';
+import { $, $$ } from '../src/utils/common/domHelper';
 
 import { Header } from '../src/view/components/Header';
 import { Nav } from '../src/view/components/Nav';
-import { Restaurants } from '../src/view/components/Restaurants';
-import { Modal } from '../src/view/components/Modal';
+import { RestaurantList } from '../src/view/components/RestaurantList';
+import { AddFormModal } from '../src/view/components/AddFormModal';
 
 const insertToDocument = (element) => {
   document.body.insertAdjacentHTML('beforeend', element);
@@ -26,14 +27,14 @@ describe('컴포넌트 단위로 UI 테스트', () => {
     document.body.innerHTML = '';
   });
 
-  test('Restaurants 컴포넌트 에서 음식점 목록이 렌더링된다', () => {
+  test('RestaurantList 컴포넌트 에서 음식점 목록이 렌더링된다', () => {
     localStorage.setItem('mock', JSON.stringify(mockData));
     const lunchRecommendation = new LunchRecommendation(getData());
     const restaurants = lunchRecommendation.getList();
 
-    const restaurantListSection = Restaurants({ restaurants });
+    const restaurantListSection = RestaurantList({ restaurants });
     insertToDocument(restaurantListSection);
-    const restaurantLi = document.querySelectorAll('.restaurant');
+    const restaurantLi = $$('.restaurant');
 
     expect(restaurantLi.length).toBe(mockData.length);
   });
@@ -60,8 +61,8 @@ describe('컴포넌트 단위로 UI 테스트', () => {
     expect(screen.getByText(distanceSortOption)).toBeInTheDocument();
   });
 
-  test('Modal 렌더링 테스트', () => {
-    insertToDocument(Modal({ close }));
+  test('AddFormModal 렌더링 테스트', () => {
+    insertToDocument(AddFormModal({ close }));
 
     expect(screen.getByText('추가하기')).toBeInTheDocument();
   });
