@@ -12,7 +12,7 @@ export default class RestaurantItem {
   }
 
   render(): void {
-    const { name, category, distance, description } = this.restaurant;
+    const { name, category, distance, description, isLike } = this.restaurant;
     const $restaurantItem = document.createElement('li');
     $restaurantItem.classList.add('restaurant');
     $restaurantItem.innerHTML = `
@@ -22,6 +22,13 @@ export default class RestaurantItem {
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle">${name}</h3>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+        <div class="favorite-icon-container">
+        ${
+          isLike
+            ? `<img src="${images['색칠별']}" alt="${'색첼아이콘'}" class="favorite-icon"`
+            : `<img src="${images['빈별']}" alt="${'빈아이콘'}" class="favorite-icon"`
+        }
+        </div>
         <p class="restaurant__description text-body">${description}</p>
       </div>
     `;

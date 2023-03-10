@@ -5,6 +5,8 @@ import categoryJapanese from './category-japanese.png';
 import categoryKorean from './category-korean.png';
 import categoryWestern from './category-western.png';
 import categoryEtc from './category-etc.png';
+import filledStar from './favorite-icon-filled.png';
+import emptyStar from './favorite-icon-lined.png';
 
 const images = {
   추가버튼: plusImage,
@@ -14,6 +16,8 @@ const images = {
   한식: categoryKorean,
   양식: categoryWestern,
   기타: categoryEtc,
+  색칠별: filledStar,
+  빈별: emptyStar,
 };
 
 export default images;
