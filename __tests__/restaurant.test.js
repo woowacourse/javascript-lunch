@@ -4,11 +4,13 @@ import { sampleRestaurants } from '../src/domain/sampleRestaurants';
 describe('restaurantManager 도메인 기능 테스트', () => {
   test('새로운 음식점을 추가한다.', () => {
     const newRestaurant = {
+      id: '6c2af284-103e-4a8e-9873-53dde60e1f78',
       category: '일식',
       name: '돈카라',
       distance: 5,
       description: '상세 설명',
       link: 'link',
+      isFavorite: false,
     };
 
     restaurantManager.add(newRestaurant);
@@ -33,7 +35,7 @@ describe('restaurantManager 도메인 기능 테스트', () => {
       '이태리키친',
       '잇쇼우',
       '친친',
-      '피양콩할머니',
+      '피양콩할마니',
       '호아빈 삼성점',
     ]);
   });
@@ -46,7 +48,7 @@ describe('restaurantManager 도메인 기능 테스트', () => {
       '도스타코스 선릉점',
       '친친',
       '잇쇼우',
-      '피양콩할머니',
+      '피양콩할마니',
       '호아빈 삼성점',
       '이태리키친',
     ]);
