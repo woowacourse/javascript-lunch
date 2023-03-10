@@ -1,18 +1,22 @@
+import { parseAttribute } from './../../utils/common/domHelper';
 import { getImageSrc } from '../../utils/common/getImageSrc';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
+import { Attribute } from '../../utils/common/domHelper';
 import '../../assets/favorite-icon-filled.png';
 import '../../assets/favorite-icon-lined.png';
 interface RestaurantProps {
   info: RestaurantInfo;
+  attribute: Attribute;
 }
 
 function Restaurant(props: RestaurantProps) {
   const {
-    info: { id, category, name, distance, description, favorite },
+    info: { category, name, distance, description, favorite },
+    attribute,
   } = props;
 
   return `
-        <li class="restaurant" data-id=${id}>
+        <li ${attribute ? parseAttribute(attribute) : ''} >
             <div class="restaurant__category">
                 <img src=${getImageSrc(category)} alt=${category} class="category-icon">
             </div>
