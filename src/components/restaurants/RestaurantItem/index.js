@@ -58,11 +58,11 @@ class RestaurantItem {
     });
   }
 
-  setRestaurantInfoEvent(modal) {
+  setRestaurantInfoEvent(removeRestaurant, modal) {
     this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
       if (event.target.closest(".favorite")) return;
 
-      modal.setRestaurantDetail(this.restaurantInfo);
+      modal.setRestaurantDetail(this.restaurantInfo, removeRestaurant);
       modal.toggle();
     });
   }

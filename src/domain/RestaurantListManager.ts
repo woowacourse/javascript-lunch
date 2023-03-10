@@ -12,6 +12,10 @@ export default class RestaurantListManager {
     this.#restaurantList.push(info);
   }
 
+  removeRestaurant(id: number) {
+    this.#restaurantList = this.#restaurantList.filter((restaurant) => restaurant.id !== id);
+  }
+
   getRestaurantList(category: Category = "전체", sortingWay: SortingWay = "이름순") {
     const categorizedList = this.#categorizeRestaurants(category, this.#restaurantList);
     const sortedList = this.#sortRestaurants(sortingWay, categorizedList);

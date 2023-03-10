@@ -40,7 +40,7 @@ class RestaurantDetailModal {
       <a href="${this.restaurantInfo.link}" target="_blank">${this.restaurantInfo.link}</a>
       <div class="button-container">
         <button
-          id="detail-delete-button"
+          id="detail-remove-button"
           type="button"
           class="button button--primary text-caption"
         >
@@ -60,10 +60,15 @@ class RestaurantDetailModal {
 
   setFavoriteToggleEvent() {}
 
-  setDeleteEvent(restaurantList, toggleModal) {}
+  setRemoveEvent(removeRestaurant, toggleModal) {
+    this.$target.querySelector("#detail-remove-button").addEventListener("click", () => {
+      removeRestaurant(this.restaurantInfo.id);
+      toggleModal();
+    });
+  }
 
   setCloseEvent(toggleModal) {
-    this.$target.querySelector("#cancel-button").addEventListener("click", toggleModal);
+    this.$target.querySelector("#detail-cancel-button").addEventListener("click", toggleModal);
   }
 }
 

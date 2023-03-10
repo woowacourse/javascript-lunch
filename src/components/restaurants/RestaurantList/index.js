@@ -33,7 +33,7 @@ class RestaurantList {
     restaurantList.forEach((restaurantInfo) => {
       const item = new RestaurantItem($restaurantList, restaurantInfo);
       item.setFavoriteClickEvent(this.restaurantListManager);
-      item.setRestaurantInfoEvent(this.modal);
+      item.setRestaurantInfoEvent(this.removeRestaurant.bind(this), this.modal);
     });
   }
 
@@ -57,6 +57,16 @@ class RestaurantList {
 
   addRestaurant(newRestaurant) {
     this.restaurantListManager.addRestaurant({ ...newRestaurant, id: Date.now(), favorite: false });
+    LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
+
+    const selectedCategory = $("#category-filter").value;
+    const selectedSortingWay = $("#sorting-filter").value;
+
+    this.renderFilteredList(selectedCategory, selectedSortingWay);
+  }
+
+  removeRestaurant(restaurantId) {
+    this.restaurantListManager.removeRestaurant(restaurantId);
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
     const selectedCategory = $("#category-filter").value;

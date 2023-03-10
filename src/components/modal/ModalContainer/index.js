@@ -34,9 +34,12 @@ class ModalContainer {
     formModal.setCancelEvent(this.toggle.bind(this));
   }
 
-  setRestaurantDetail(restaurantInfo) {
+  setRestaurantDetail(restaurantInfo, removeRestaurant) {
     const $modalContainer = this.$target.querySelector(".modal-container");
     const detailModal = new RestaurantDetailModal($modalContainer, restaurantInfo);
+
+    detailModal.setRemoveEvent(removeRestaurant, this.toggle.bind(this));
+    detailModal.setCloseEvent(this.toggle.bind(this));
   }
 
   setEvent() {
