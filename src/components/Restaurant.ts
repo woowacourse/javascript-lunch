@@ -55,9 +55,9 @@ class Restaurant extends Component<IComponentPropState> {
     this.addEvent('click', '.restaurant', (event: Event) => {
       if (
         event.target instanceof HTMLElement &&
-        event.target.classList[0] !== 'restaurant__favorite_icon'
+        !event.target.classList.contains('restaurant__favorite__icon')
       ) {
-        this.$props.toggleModal('restaurantDetail');
+        this.$props.toggleModal('restaurantDetail', this.$props.restaurant);
       }
     });
   }
