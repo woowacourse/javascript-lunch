@@ -5,6 +5,7 @@ import { getFormFields } from '../../utils/common/formData';
 import { useForm } from '../../utils/hooks/useForm';
 import Validator from '../../validation';
 import { META_CATEGORY, META_DISTANCE } from '../../constants/restaurants';
+import { Button } from './Button';
 
 interface ModalProps {
   close: VoidFunction;
@@ -41,8 +42,6 @@ function Modal({ close }: ModalProps) {
   };
 
   addEvent('click', '.modal-backdrop', closeModal);
-
-  addEvent('click', '.button--secondary', closeModal);
 
   addEvent('submit', 'form', handleSubmit(onSubmit));
 
@@ -118,8 +117,20 @@ function Modal({ close }: ModalProps) {
 
                 <!-- 취소/추가 버튼 -->
                 <div class="button-container">
-                    <button type="reset" class="button button--secondary text-caption">취소하기</button>
-                    <button class="button button--primary text-caption">추가하기</button>
+                    ${Button({
+                      children: '취소하기',
+                      attribute: {
+                        type: 'reset',
+                        class: 'button button--secondary text-caption',
+                      },
+                      onClick: closeModal,
+                    })}
+                    ${Button({
+                      children: '추가하기',
+                      attribute: {
+                        class: 'button button--primary text-caption',
+                      },
+                    })}
                 </div>
             </form>
         </div>
