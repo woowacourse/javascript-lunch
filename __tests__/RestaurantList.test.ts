@@ -4,7 +4,7 @@
 
 import '@testing-library/jest-dom';
 import RestaurantList from '../src/view/RestaurantList';
-import dummyRestaurants from './dummyRestaurants';
+import dummyRestaurants from '../src/dummy/dummyRestaurants';
 import { screen } from '@testing-library/dom';
 import { $ } from '../src/util/querySelector';
 
@@ -21,6 +21,10 @@ describe('레스토랑 리스트(RestaurantList) 컴포넌트 랜더링 테스�
         dummyRestaurants[2],
         dummyRestaurants[4],
       ],
+      parentEvent: {
+        onRestaurantItemClicked: () => {},
+        onFavoriteButtonClicked: () => {},
+      },
     });
 
     expect(screen.queryByText('한옥식당')).toBeInTheDocument();
