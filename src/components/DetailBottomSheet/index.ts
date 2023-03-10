@@ -2,6 +2,7 @@ import $template from './index.html';
 import { imgSrc } from '../../image';
 import { Restaurant } from '../../types';
 import { $ } from '../../utils/dom';
+import FavoriteIcon from '../FavoriteIcon';
 
 class DetailBottomSheet extends HTMLElement {
   connectedCallback() {
@@ -14,7 +15,7 @@ class DetailBottomSheet extends HTMLElement {
   }
 
   render(restaurant: Restaurant) {
-    const { category, name, distance, description, link } = restaurant;
+    const { category, name, distance, description, link, favorite } = restaurant;
     this.innerHTML = $template
       .replace('{src}', imgSrc[category])
       .replace('{name}', name)
@@ -24,6 +25,9 @@ class DetailBottomSheet extends HTMLElement {
 
     const $cancelButton = $<HTMLButtonElement>('#cancel-button', this);
     $cancelButton.addEventListener('click', () => this.toggle());
+    const $wrapper = this.querySelector('.img__wrapper');
+    const isFavorite = String(favorite) === 'true';
+    $wrapper?.insertAdjacentHTML('beforeend', new FavoriteIcon().render(isFavorite));
   }
 
   addDeleteHandler(handler: CallableFunction) {

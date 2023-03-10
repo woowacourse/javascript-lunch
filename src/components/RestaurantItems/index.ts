@@ -25,7 +25,7 @@ class RestaurantItems extends HTMLElement {
     this.addEventListener('click', (e: any) => {
       if (e.target.className === 'favorite-icon') return;
       const target = e.target.closest('restaurant-item');
-      const restaurant = ['category', 'name', 'distance', 'description', 'link'].reduce(
+      const restaurant = ['category', 'name', 'distance', 'description', 'link', 'favorite'].reduce(
         (acc, cur) => {
           acc[cur] = target.getAttribute(cur);
           return acc;

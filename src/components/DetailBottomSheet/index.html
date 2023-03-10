@@ -28,6 +28,12 @@
     background: var(--grey-100);
   }
 
+  .img__wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
   .bottom-sheet-title {
     margin-bottom: 36px;
   }
@@ -49,8 +55,10 @@
 <div class="bottom-sheet">
   <div class="bottom-sheet-backdrop"></div>
   <div class="bottom-sheet-container">
-    <div class="restaurant__category">
-    <img src="{src}" alt="{category}" class="category-icon" />
+    <div class="img__wrapper">
+      <div class="restaurant__category">
+        <img src="{src}" alt="{category}" class="category-icon" />
+      </div>
     </div>
     <h3 class="restaurant__name text-subtitle">{name}</h3>
     <span class="restaurant__distance text-body">캠퍼스로부터 {distance}분 내</span>
