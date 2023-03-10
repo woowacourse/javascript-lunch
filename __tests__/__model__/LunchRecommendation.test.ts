@@ -55,13 +55,22 @@ describe('주어진 정보로 생성된 음식점 모델 테스트', () => {
     expect(restaurant.getSomeInfo('category')).toBe(correctInfo.category);
   });
 
+  test('자주 가는 음식점을 지정할 수 있다.', () => {
+    restaurant.toggleOften();
+    expect(restaurant.getSomeInfo('isOften')).toBe(true);
+  });
+
+  test('자주 가는 음식점 리스트를 조회할 수 있다.', () => {
+    lunchRecommendation.addOften(3);
+    expect(lunchRecommendation.getOftenList().length).toBe(1);
+  });
+
   test('음식점은 설명, 참고 링크 정보를 옵션으로 가질 수 있다', () => {
     expect(restaurant.info).toEqual(correctInfo);
   });
 
   test('음식점 목록에 음식점 추가를 할 수 있다', () => {
     lunchRecommendation.add(correctInfo);
-
     expect(lunchRecommendation.getList().length).toBe(6);
   });
 
