@@ -1,8 +1,9 @@
 import { App } from "./App";
-import styleCss from "./css/style.css";
-import gnbCss from "./css/gnb.css";
-import modalCss from "./css/modal.css";
-import restaurantListCss from "./css/restaurantList.css";
+import "./css/style.css";
+import "./css/gnb.css";
+import "./css/modal.css";
+import "./css/restaurantList.css";
+import "./css/inventory.css"
 import "./assets/add-button.png";
 import "./assets/category-asian.png";
 import "./assets/category-korean.png";

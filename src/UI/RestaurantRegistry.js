@@ -1,7 +1,12 @@
 import { $ } from "../utils/Dom";
 import ModalRestaurantDetail from "./ModalRestaurantDetail";
+import {
+  stringifyJson,
+  getRestaurantListFromLocalstorage,
+} from "../utils/LocalStorage";
 
 export default class RestaurantRegistry {
+
   appendRestaurant(restaurantInfo) {
     const category = {
       한식: "./category-korean.png",
@@ -31,8 +36,10 @@ export default class RestaurantRegistry {
             }</p>
           </div>
         </div>  
-          <div class="restaurant_favorite" onclick="event.stopPropagation()">
-            <img src="./favorite-icon-filled.png">
+          <div class="restaurant_favorite${
+            restaurantInfo.id
+          }" onclick="event.stopPropagation()">
+            <img src="./favorite-icon-lined.png">
           </div>
     </li>
     `;
@@ -42,9 +49,28 @@ export default class RestaurantRegistry {
       const modalRestaurantDetail = new ModalRestaurantDetail();
       modalRestaurantDetail.changeRestaurantInformation(restaurantInfo);
     });
-    $(".restaurant_favorite").addEventListener("click", (e) => {
-      e.stopPropagation()
-      console.log(e.target);
-    });
+    $(`.restaurant_favorite${restaurantInfo.id}`).addEventListener(
+      "click",
+      (e) => {
+        e.stopPropagation();
+        if (e.target.getAttribute("src") === "./favorite-icon-filled.png") {
+          // this.restaurantList.deleteRestaurantFromFavorite(restaurantInfo.id);
+          const res = getRestaurantListFromLocalstorage("favorite") ?? [];
+          const deletedRestaurantElementArray = res.filter((val) =>  {
+            return val.id !== restaurantInfo.id});
+          localStorage.setItem("favorite", stringifyJson(deletedRestaurantElementArray))
+          return e.target.setAttribute("src", "./favorite-icon-lined.png");
+        }
+        if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
+          const favorite = []
+          const favoriteList = getRestaurantListFromLocalstorage("favorite")
+          if(favoriteList !== null) 
+          favoriteList.forEach((val)=>favorite.push(val))
+          favorite.push(restaurantInfo);
+          localStorage.setItem("favorite", stringifyJson(favorite));
+          return e.target.setAttribute("src", "./favorite-icon-filled.png");
+        }
+      }
+    );
   }
 }
