@@ -48,7 +48,7 @@ function useForm() {
       };
     }
 
-    return conditions[name].value;
+    return String(conditions[name].value);
   };
 
   const handleSubmit = (onSubmit: EventCallback): EventCallback => {
