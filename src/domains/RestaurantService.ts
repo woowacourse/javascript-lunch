@@ -33,10 +33,16 @@ class RestaurantService {
   }
 
   updateFavorite(restaurantId: number) {
-    const restaurantIndex = this.findRestaurantIndex(restaurantId);
-    this.restaurantList[restaurantIndex].favorite = !this.restaurantList[restaurantIndex].favorite;
+    return this.restaurantList.map((restaurant) => {
+      if (restaurant.id === restaurantId) {
+        return {
+          ...restaurant,
+          favorite: !restaurant.favorite,
+        };
+      }
 
-    return [...this.restaurantList];
+      return restaurant;
+    });
   }
 }
 
