@@ -65,6 +65,14 @@ const actions = {
 
     localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
   },
+
+  checkFavoritRestaurant(id: number) {
+    if (!store.domain) return;
+
+    actions.setValue('restaurants', store.domain.checkFavorite(id));
+
+    localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
+  },
 };
 
 export default actions;
