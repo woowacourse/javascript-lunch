@@ -67,6 +67,22 @@ class RestaurantManager extends Observable {
 
     this.notify(this.filteredRestaurantList);
   }
+
+  fillRestaurantStarShape(storeName: string) {
+    this.restaurantList.forEach((restaurant: Restaurant) => {
+      if (restaurant.storeName === storeName) restaurant.starShape = 'filled';
+    });
+
+    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+  }
+
+  unfillRestaurantStarShape(storeName: string) {
+    this.restaurantList.forEach((restaurant: Restaurant) => {
+      if (restaurant.storeName === storeName) restaurant.starShape = 'lined';
+    });
+
+    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+  }
 }
 
 const restaurantManager = new RestaurantManager();

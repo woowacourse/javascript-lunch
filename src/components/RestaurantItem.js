@@ -39,27 +39,44 @@ export default class RestaurantItem extends Component {
       this.starShape = 'filled';
       event.target.src = FAVORITE[this.starShape];
 
-      this.parseRestaurantList(event);
+      this.addRestaurantList(event);
     } else if (event.target.nodeName === 'IMG' && this.starShape === 'filled') {
       this.starShape = 'lined';
       event.target.src = FAVORITE[this.starShape];
+
+      this.removeRestaurantList(event);
     }
   }
 
-  parseRestaurantList(event) {
+  addRestaurantList(event) {
     const favoriteTexts = event.currentTarget.textContent
       .split('\n')
       .filter((text) => text.trim().length !== 0)
       .map((restaurantText) => restaurantText.trim());
 
+    const category = event.currentTarget.children[0].children[0].alt;
+
     const addFavoriteData = {
-      category: favoriteTexts[0],
-      storeName: favoriteTexts[1],
-      distance: favoriteTexts[2],
-      detail: favoriteTexts[3],
-      link: favoriteTexts[4] || '',
+      category: category,
+      storeName: favoriteTexts[0],
+      distance: favoriteTexts[1],
+      detail: favoriteTexts[2],
+      link: favoriteTexts[3] || '',
     };
 
+    this.restaurantManager.fillRestaurantStarShape(favoriteTexts[0]);
     this.favoriteRestaurant.addRestaurant(addFavoriteData);
+  }
+
+  removeRestaurantList(event) {
+    const favoriteTexts = event.currentTarget.textContent
+      .split('\n')
+      .filter((text) => text.trim().length !== 0)
+      .map((restaurantText) => restaurantText.trim());
+
+    const storeName = favoriteTexts[0];
+
+    this.restaurantManager.unfillRestaurantStarShape(storeName);
+    this.favoriteRestaurant.removeRestaurant(storeName);
   }
 }

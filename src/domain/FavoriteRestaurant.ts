@@ -17,7 +17,7 @@ class FavoriteRestaurant extends Observable {
 
   addRestaurant(restaurant: Restaurant) {
     this.favoriteList.push(restaurant);
-    localStorage.setItem('favortieList', JSON.stringify(this.favoriteList));
+    localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
 
     this.notify(this.favoriteList);
   }
@@ -32,7 +32,7 @@ class FavoriteRestaurant extends Observable {
         (favorite: Restaurant) => favorite.storeName !== restaurantStoreName
       );
 
-      localStorage.setItem('favortieList', JSON.stringify(this.favoriteList));
+      localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
 
       this.notify(this.favoriteList);
     }
