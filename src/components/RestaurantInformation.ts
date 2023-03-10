@@ -90,7 +90,7 @@ class RestaurantInformation {
         </p>
         ${
           restaurant.link
-            ? `<a ${restaurant.link} class="restaurant__link">웹사이트 방문하기</a>`
+            ? `<a href="${restaurant.link}" class="restaurant__link" target="_blank">웹사이트 방문하기</a>`
             : ''
         }
       </div>
