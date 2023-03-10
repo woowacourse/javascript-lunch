@@ -13,7 +13,7 @@ class Caption {
   }
 
   showErrorMessage(message: string) {
-    const caption = $<HTMLSpanElement>(`#${this.attributes.id}-caption`);
+    const caption = $<HTMLSpanElement>(`#${this.attributes.id}`);
     caption.classList.add('error-text');
     caption.textContent = message;
   }
@@ -25,7 +25,7 @@ class Caption {
       this.eventType,
       (event: Event) => {
         const target = event.target as HTMLElement;
-        const caption = $<HTMLSpanElement>(`#${target.id}-caption`);
+        const caption = $<HTMLSpanElement>(`#${target.id}`);
         caption.classList.remove('error-text');
 
         if (this.defaultMessage) caption.textContent = this.defaultMessage;
