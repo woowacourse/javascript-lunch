@@ -14,7 +14,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["cypress"]
   },
   "typeRoots": ["src/types"],
   "include": ["src"],
