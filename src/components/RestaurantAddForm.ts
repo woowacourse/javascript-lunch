@@ -1,4 +1,4 @@
-import { Restaurant, Errors } from '../types/types';
+import { FormValue, Errors } from '../types';
 import { ERROR_MESSAGE, MESSAGE, SELECT_OPTIONS } from '../constants/constants';
 import { FORM_ATTRIBUTE } from '../constants/domAttributes';
 import { $ } from '../utils/domSelectors';
@@ -51,7 +51,7 @@ class RestaurantAddForm {
 
       const restaurantItem = Object.fromEntries(
         [...formData].map(([key, value]) => [key, key === 'distance' ? Number(value) : value])
-      ) as Omit<Restaurant, 'favorite' | 'id'>;
+      ) as FormValue;
 
       const formErrors: Errors = restaurantFormValidator.verify(restaurantItem);
       const hasError = Object.values(formErrors).some(Boolean);

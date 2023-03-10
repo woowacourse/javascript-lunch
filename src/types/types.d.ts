@@ -18,6 +18,8 @@ export type Restaurant = {
   id: number;
 };
 
+export type FormValue = Pick<Restaurant, 'category' | 'name' | 'distance' | 'description' | 'link'>;
+
 export type RestaurantFilter = {
   category: CategoryOptions;
   sorting: SortingOptions;
