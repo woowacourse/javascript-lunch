@@ -1,4 +1,8 @@
 import { $ } from "../utils/Dom";
+import {
+  stringifyJson,
+  getRestaurantListFromLocalstorage,
+} from "../utils/LocalStorage";
 
 export default class ModalRestaurantDetail {
   #template = `
@@ -12,8 +16,7 @@ export default class ModalRestaurantDetail {
           </div>
 
           <!-- 즐겨찾기 -->
-          <div class="">
-            <img src="./favorite-icon-filled.png">
+          <div class="modla--restaurant_favorite">
           </div>
         </div>
 
@@ -48,6 +51,7 @@ export default class ModalRestaurantDetail {
 
   constructor(restaurantList) {
     this.restaurantList = restaurantList;
+    this.restaurantInfo;
   }
   render() {
     document.body.insertAdjacentHTML("beforeend", this.#template);
@@ -57,7 +61,6 @@ export default class ModalRestaurantDetail {
     $(".button--close").addEventListener("click", this.closeModalDetail);
     $(".button--delete").addEventListener(
       "click",()=>{
-        console.log("sadfsdfadsadsf")
         this.restaurantList.deleteRestaurantElement();
         const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
         const sortBy = localStorage.getItem("sort") ?? "name";
@@ -65,11 +68,11 @@ export default class ModalRestaurantDetail {
         this.restaurantList.filterBySort(sortBy, foodCategory);
         this.closeModalDetail();
       }
-        
     );
   }
 
-  changeRestaurantInformation(restaurantInfo) {
+  changeRestaurantInformation(event, restaurantInfo) {
+    this.restaurantInfo = restaurantInfo
     const category = {
       한식: "./category-korean.png",
       일식: "./category-japanese.png",
@@ -103,14 +106,47 @@ export default class ModalRestaurantDetail {
     );
     $(".modal-detail-restaurant__link").textContent = restaurantInfo.link;
 
+    $(`.modla--restaurant_favorite`).replaceChildren()
+    $(`.modla--restaurant_favorite`).innerHTML += '<img src="./favorite-icon-lined.png"></img>'
     this.openModalDetail();
+
+    const clickListImage = event.target.children[1].children[0].getAttribute("src")
+    if(clickListImage === "./favorite-icon-filled.png") $(".modla--restaurant_favorite").children[0].setAttribute("src", "./favorite-icon-filled.png");
+    if(clickListImage === "./favorite-icon-lined.png") $(".modla--restaurant_favorite").children[0].setAttribute("src", "./favorite-icon-lined.png");
+
+    $(`.modla--restaurant_favorite`).children[0].addEventListener(
+      "click", this.favoriteEvent
+    );
   }
+
+ clickModalFavorite(e, restaurantInfo){
+    e.stopPropagation();
+    if (e.target.getAttribute("src") === "./favorite-icon-filled.png") {
+      const res = getRestaurantListFromLocalstorage("favorite") ?? [];
+      const deletedRestaurantElementArray = res.filter((val) =>  {
+        return val.id !== restaurantInfo.id});
+      localStorage.setItem("favorite", stringifyJson(deletedRestaurantElementArray))
+      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute("src", "./favorite-icon-lined.png");
+      e.target.setAttribute("src", "./favorite-icon-lined.png");
+    }
+    else if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
+      const favorite = []
+      const favoriteList = getRestaurantListFromLocalstorage("favorite")
+      if(favoriteList !== null) favoriteList.forEach((val)=>favorite.push(val))
+      favorite.push(restaurantInfo);
+      localStorage.setItem("favorite", stringifyJson(favorite));
+      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute("src", "./favorite-icon-filled.png");
+      e.target.setAttribute("src", "./favorite-icon-filled.png");
+    }
+  }
+
+  favoriteEvent=(e)=>this.clickModalFavorite(e, this.restaurantInfo)
 
   openModalDetail() {
     $(".modal--detail").style.display = "block";
   }
 
-  closeModalDetail() {
+  closeModalDetail=()=> {
     $(".modal--detail").style.display = "none";
     $(".modal--detail").removeAttribute('id');
   }

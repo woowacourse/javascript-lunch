@@ -21,7 +21,7 @@ export class App {
     this.collectedRender();
     this.initializeButtonEvents();
 
-    if(getRestaurantListFromLocalstorage(RESTAURANT).length !== 0 ) localStorage.setItem("number", getRestaurantListFromLocalstorage(RESTAURANT).at(-1).id-getRestaurantListFromLocalstorage(RESTAURANT).length+1);
+    if(getRestaurantListFromLocalstorage(RESTAURANT)) localStorage.setItem("number", getRestaurantListFromLocalstorage(RESTAURANT).at(-1).id-getRestaurantListFromLocalstorage(RESTAURANT).length+1);
     else localStorage.setItem("number", 0); 
 
     getRestaurantListFromLocalstorage(RESTAURANT).forEach(

@@ -6,7 +6,6 @@ import {
 } from "../utils/LocalStorage";
 
 export default class RestaurantRegistry {
-
   appendRestaurant(restaurantInfo) {
     const category = {
       한식: "./category-korean.png",
@@ -36,18 +35,16 @@ export default class RestaurantRegistry {
             }</p>
           </div>
         </div>  
-          <div class="restaurant_favorite${
-            restaurantInfo.id
-          }" onclick="event.stopPropagation()">
+          <div class="restaurant_favorite${restaurantInfo.id}">
             <img src="./favorite-icon-lined.png">
           </div>
     </li>
     `;
 
     $(".restaurant-list").insertAdjacentHTML("beforeend", template);
-    $(`#restaurant${restaurantInfo.id}`).addEventListener("click", (e) => {
+    $(`#restaurant${restaurantInfo.id}`).addEventListener("click", (event) => {
       const modalRestaurantDetail = new ModalRestaurantDetail();
-      modalRestaurantDetail.changeRestaurantInformation(restaurantInfo);
+      modalRestaurantDetail.changeRestaurantInformation(event, restaurantInfo);
     });
     $(`.restaurant_favorite${restaurantInfo.id}`).addEventListener(
       "click",
@@ -56,16 +53,20 @@ export default class RestaurantRegistry {
         if (e.target.getAttribute("src") === "./favorite-icon-filled.png") {
           // this.restaurantList.deleteRestaurantFromFavorite(restaurantInfo.id);
           const res = getRestaurantListFromLocalstorage("favorite") ?? [];
-          const deletedRestaurantElementArray = res.filter((val) =>  {
-            return val.id !== restaurantInfo.id});
-          localStorage.setItem("favorite", stringifyJson(deletedRestaurantElementArray))
+          const deletedRestaurantElementArray = res.filter((val) => {
+            return val.id !== restaurantInfo.id;
+          });
+          localStorage.setItem(
+            "favorite",
+            stringifyJson(deletedRestaurantElementArray)
+          );
           return e.target.setAttribute("src", "./favorite-icon-lined.png");
         }
         if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
-          const favorite = []
-          const favoriteList = getRestaurantListFromLocalstorage("favorite")
-          if(favoriteList !== null) 
-          favoriteList.forEach((val)=>favorite.push(val))
+          const favorite = [];
+          const favoriteList = getRestaurantListFromLocalstorage("favorite");
+          if (favoriteList !== null)
+            favoriteList.forEach((val) => favorite.push(val));
           favorite.push(restaurantInfo);
           localStorage.setItem("favorite", stringifyJson(favorite));
           return e.target.setAttribute("src", "./favorite-icon-filled.png");
