@@ -1,3 +1,4 @@
+/* Layout */
 .d-flex {
   display: flex;
 }
@@ -10,6 +11,45 @@
   width: 100%;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.mx-2 {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.py-1 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Tabs */
+
+.tab-menu input[type="radio"] {
+  display: none;
+}
+
+.tab-menu {
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* .tab-menu-open {
+  border-bottom: 2px solid #ec4a0a;
+}
+
+.tab-menu-close {
+  border-bottom: 2px solid #667085;
+} */
+
+/* Template */
 * {
   padding: 0;
   margin: 0;
