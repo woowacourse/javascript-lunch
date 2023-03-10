@@ -11,6 +11,10 @@ class RestaurantService {
     this.restaurantList = this.getRestaurantList();
   }
 
+  getRestaurantNames() {
+    return this.restaurantList.map((restaurant) => restaurant.name);
+  }
+
   getRestaurantList() {
     const restaurantList = Object.keys(localStorage).map((key) => {
       const restaurantItem = localStorage.getItem(key);

@@ -10,6 +10,7 @@ export const ERROR_MESSAGE = {
   EMPTY_CATEGORY: '카테고리를 선택해 주세요.',
   EMPTY_DISTANCE: '거리를 선택해 주세요.',
   INVALID_NAME: `음식점 이름은 한글, 영어, 숫자, !@#$%^&*?'",.만 포함하는 ${RESTAURANT_NAME_LIMIT}글자 이하의 문자열로 입력해 주세요.`,
+  OVERLAP_NAME: `이미 존재하는 음식점 이름입니다. 다시 입력해 주세요.`,
   INVALID_LINK: '유효한 링크를 입력해 주세요.',
 } as const;
 
