@@ -8,7 +8,10 @@ import { screen } from '@testing-library/dom';
 import RestaurantList from '../src/components/RestaurantList';
 import RestaurantListItem from '../src/components/RestaurantListItem';
 import RestaurantRegisterModal from '../src/components/RestaurantRegisterModal';
+import RestaurantDetailModal from '../src/components/RestaurantDetailModal';
 import RestaurantFilter from '../src/components/RestaurantFilter';
+import RestaurantTab from '../src/components/RestaurantTab';
+
 import { sampleRestaurants } from '../src/domain/sampleRestaurants';
 
 describe('컴포넌트 렌더링 테스트', () => {
@@ -56,6 +59,15 @@ describe('컴포넌트 렌더링 테스트', () => {
     expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
   });
 
+  test('화면에 RestaurantDetailModal을 렌더링한다.', () => {
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      `<custom-modal><restaurant-detail-modal></restaurant-detail-modal></custom-modal>`
+    );
+
+    expect(screen.getByText('삭제하기')).toBeInTheDocument();
+  });
+
   test('화면에 RestaurantFilter를 렌더링한다.', () => {
     document.body.insertAdjacentHTML('beforeend', `<restaurant-filter></restaurant-filter>`);
 
@@ -64,5 +76,15 @@ describe('컴포넌트 렌더링 테스트', () => {
 
     expect(categoryFilter).toBeInTheDocument();
     expect(sortingFilter).toBeInTheDocument();
+  });
+
+  test('화면에 RestaurantTab을 렌더링한다.', () => {
+    document.body.insertAdjacentHTML('beforeend', `<restaurant-tab></restaurant-tab>`);
+
+    const allRestaurantTab = screen.getByText('모든 음식점');
+    const favoriteRestaurantTab = screen.getByText('자주 가는 음식점');
+
+    expect(allRestaurantTab).toBeInTheDocument();
+    expect(favoriteRestaurantTab).toBeInTheDocument();
   });
 });
