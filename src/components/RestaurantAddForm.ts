@@ -3,15 +3,13 @@ import { ERROR_MESSAGE, MESSAGE, SELECT_OPTIONS } from '../constants/constants';
 import { CAPTION_ATTRIBUTE, FORM_ATTRIBUTE } from '../constants/domAttributes';
 import { $ } from '../utils/domSelectors';
 import Select from './Select';
-import Input from './Input';
 import restaurantFormValidator from '../validators/restaurantFormValidator';
 import Caption from './FormCaption';
+import { createInput } from '../template/InputTemplate';
 
 class RestaurantAddForm {
   private categorySelect: Select;
   private distanceSelect: Select;
-  private nameInput: Input;
-  private linkInput: Input;
 
   private categorySelectCaption: Caption;
   private distanceSelectCaption: Caption;
@@ -21,8 +19,6 @@ class RestaurantAddForm {
   constructor() {
     this.categorySelect = new Select(FORM_ATTRIBUTE.CATEGORY_SELECT, SELECT_OPTIONS.CATEGORY);
     this.distanceSelect = new Select(FORM_ATTRIBUTE.DISTANCE_SELECT, SELECT_OPTIONS.DISTANCE);
-    this.nameInput = new Input(FORM_ATTRIBUTE.NAME_INPUT);
-    this.linkInput = new Input(FORM_ATTRIBUTE.LINK_INPUT);
 
     this.categorySelectCaption = new Caption(CAPTION_ATTRIBUTE.CATEGORY_SELECT, 'change');
     this.distanceSelectCaption = new Caption(CAPTION_ATTRIBUTE.DISTANCE_SELECT, 'change');
@@ -106,7 +102,7 @@ class RestaurantAddForm {
 
         <div class="form-item form-item--required">
           <label for="name text-caption">이름</label>
-          ${this.nameInput.create()}
+          ${createInput(FORM_ATTRIBUTE.NAME_INPUT)}
           <span class="text-caption info-text" id="name-caption"></span>
         </div>
 
@@ -126,7 +122,7 @@ class RestaurantAddForm {
 
         <div class="form-item">
           <label for="link text-caption">참고 링크</label>
-          ${this.linkInput.create()}
+          ${createInput(FORM_ATTRIBUTE.LINK_INPUT)}
           <span class="help-text text-caption info-text" id="link-caption"
             >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
           >
