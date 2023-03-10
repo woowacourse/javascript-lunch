@@ -125,7 +125,7 @@ class AddRestaurantForm extends HTMLElement {
             <div class="button-container">
               <lunch-button
                 name="취소하기"
-                id="cancleModal"
+                id="cancelModal"
                 color="white"
               ></lunch-button>
               <lunch-button
@@ -140,15 +140,16 @@ class AddRestaurantForm extends HTMLElement {
 
     this.shadowRoot.append(componentStyle);
     this.addRestaurantEvent();
+    this.closeModalEvent();
   }
 
   closeModal() {
-    $('#addRestaurantModal').closeModal();
+    $('add-restaurant-modal').closeModal();
   }
 
   closeModalEvent() {
     this.shadowRoot
-      .querySelector('#cancleModal')
+      .querySelector('#cancelModal')
       .addEventListener('click', () => {
         this.closeModal();
       });
@@ -167,7 +168,7 @@ class AddRestaurantForm extends HTMLElement {
       .getTextValue();
     const link = this.shadowRoot.querySelector('#link').getTextValue();
 
-    return { category, name, distance, description, link };
+    return { category, name, distance, description, link, isFavorite: false };
   }
 
   isError() {

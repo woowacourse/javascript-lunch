@@ -3,6 +3,9 @@ import { $ } from '../utils';
 class Modal extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
+
+    const kind = this.getAttribute('kind');
+
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .modal {
@@ -28,7 +31,11 @@ class Modal extends HTMLElement {
     this.shadowRoot.innerHTML = `
         <div id="modal" class="modal" alt="modal">
             <div id="modalBackdrop" class="backdrop"></div>
-            <add-restaurant-form></add-restaurant-form>
+            ${kind === 'add' && '<add-restaurant-form></add-restaurant-form>'}
+            ${
+              kind === 'detail' &&
+              '<restaurant-detail >안녕</restaurant-detail>'
+            }
         </div>
     `;
 
@@ -38,7 +45,7 @@ class Modal extends HTMLElement {
   }
 
   closeModal() {
-    this.modalOpen(false);
+    this.modalToggle(false);
     $('body').classList.remove('scroll-hidden');
   }
 
@@ -56,12 +63,17 @@ class Modal extends HTMLElement {
     });
   }
 
-  modalOpen(isOpen) {
+  modalToggle(isOpen) {
     if (isOpen) {
       this.shadowRoot.querySelector('#modal').classList.add('modal-open');
       return;
     }
     this.shadowRoot.querySelector('#modal').classList.remove('modal-open');
+  }
+
+  openModal() {
+    this.modalToggle(true);
+    $('body').classList.add('scroll-hidden');
   }
 }
 
