@@ -64,13 +64,13 @@
   10% {
     transform: translate(0, -10px);
   }
-  20% {
+  16% {
     transform: translate(0, 0);
   }
-  30% {
+  25% {
     transform: translate(0, 0);
   }
-  40% {
+  31% {
     transform: translate(0, -10px);
   }
   50% {
