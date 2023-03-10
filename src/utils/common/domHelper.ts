@@ -1,6 +1,6 @@
 export interface Attribute {
   class: string;
-  [key: string]: string;
+  [key: string]: string | boolean;
 }
 
 export const $ = (selector: string, parentNode: ParentNode | null = document) =>
@@ -28,6 +28,8 @@ export const getClosest = (target: EventTarget | null, selector: string) => {
 
 export const parseAttribute = (attribute: Attribute) => {
   return Object.entries(attribute)
-    .map(([key, value]) => `${key}="${value}"`)
+    .map(([key, value]) =>
+      typeof value === 'boolean' ? (value === true ? `${key}` : '') : `${key}="${value}"`
+    )
     .join(' ');
 };
