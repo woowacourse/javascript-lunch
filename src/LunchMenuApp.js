@@ -74,8 +74,13 @@ const LunchMenuApp = {
   },
 
   resetFilter() {
-    $('#category-filter').value = '전체';
-    $('#sorting-filter').value = 'register';
+    const $categoryFilter = $('#category-filter');
+    const $sortingFilter = $('#sorting-filter');
+    const initialCategory = $categoryFilter.options[0].value;
+    const initialSorting = $sortingFilter.options[0].value;
+
+    $categoryFilter.value = initialCategory;
+    $sortingFilter.value = initialSorting;
   },
 
   isFavoriteTabChecked() {
