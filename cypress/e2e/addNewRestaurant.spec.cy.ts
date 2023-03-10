@@ -1,5 +1,3 @@
-import { createYield } from "typescript";
-
 const fillForm = ({ category, name, estimatedTime, description, link }) => {
   cy.get('#category')
     .select(category);
