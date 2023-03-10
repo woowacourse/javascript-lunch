@@ -32,7 +32,7 @@ class RestaurantItem {
             <img 
               src="${getFavoriteIcon(this.restaurant.favorite)}"
               alt=""
-              class="restaurant-star-icon ${this.restaurant.favorite && 'favorite'}"
+              class="restaurant-star-icon ${this.restaurant.favorite ? 'favorite' : ''}"
             />
             </div>
         </div>
