@@ -9,6 +9,7 @@ class FavoriteImage extends HTMLElement {
         img{
           width:26.67px;
           height:25.33px;
+          cursor:pointer;
         }
     `;
 

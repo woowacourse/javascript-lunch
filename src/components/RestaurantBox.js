@@ -1,4 +1,5 @@
 import { $, shortenString } from '../utils';
+import RestaurantList from '../domain/RestaurantList.ts';
 
 class RestaurantBox extends HTMLElement {
   connectedCallback() {
@@ -22,8 +23,10 @@ class RestaurantBox extends HTMLElement {
         align-items: flex-start;
       
         padding: 16px 8px;
+        width:100%;
       
         border-bottom: 1px solid #e9eaed;
+        cursor:pointer;
       }
 
       @media (max-width: 400px) {
@@ -36,6 +39,7 @@ class RestaurantBox extends HTMLElement {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        width:100%;
       }
       
       .name {
@@ -56,12 +60,18 @@ class RestaurantBox extends HTMLElement {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
+
+      .item-wrapper{
+        display:flex;
+        justify-content:space-between;
+      }
 `;
 
     const name = this.getAttribute('name');
     const category = this.getAttribute('category');
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description') || '';
+    const isFavorite = this.getAttribute('isFavorite');
 
     const NAME_SLICE_NUMBER = 18;
     const DESCRIPTION_SLICE_NUMBER = 56;
@@ -70,21 +80,38 @@ class RestaurantBox extends HTMLElement {
     <li>
     <category-image category=${category}></category-image>
     <div class="info">
-      <h3 class="name text-subtitle">${shortenString(
-        name,
-        NAME_SLICE_NUMBER
-      )}</h3>
-      <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
-      <p class="description text-body">${shortenString(
+      <div class="item-wrapper">
+        <div class="name-container">
+          <h3 class="name text-subtitle">${shortenString(
+            name,
+            NAME_SLICE_NUMBER
+          )}</h3>
+          <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
+        </div>
+        <favorite-image isFavorite="${isFavorite}"></favorite-image>
+      </div>
+      <span class="description text-body">${shortenString(
         description,
         DESCRIPTION_SLICE_NUMBER
-      )}</p>
+      )}</span>
     </div>
   </li>
     `;
 
     this.shadowRoot.append(componentStyle);
     this.showDetailEvent();
+    this.favoriteClickEvent();
+  }
+
+  favoriteClickEvent() {
+    this.shadowRoot
+      .querySelector('favorite-image')
+      .addEventListener('click', (event) => {
+        event.stopPropagation();
+        const name = this.getAttribute('name');
+        RestaurantList.updateFavorite(name);
+        $('restaurant-boxes').drawRestaurants();
+      });
   }
 
   showDetailEvent() {

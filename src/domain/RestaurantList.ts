@@ -24,8 +24,7 @@ class RestaurantList {
     );
 
     const updatedRestaurants = [...restaurants, restaurant];
-    const restaurantsString = JSON.stringify(updatedRestaurants);
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
+    RestaurantList.updateRestaurants(updatedRestaurants);
   }
 
   static filterByCategory(restaurantList: Restaurant[], category: CategoryAll) {
@@ -34,7 +33,10 @@ class RestaurantList {
     );
   }
 
-  static getList(category: CategoryAll, type: SortTypeAll): Restaurant[] {
+  static getList(
+    category: CategoryAll = '전체',
+    type: SortTypeAll = 'name'
+  ): Restaurant[] {
     const restaurants = JSON.parse(
       window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
     );
@@ -60,6 +62,29 @@ class RestaurantList {
     return [...restaurantList].sort((aRestaurant, bRestaurant) => {
       return aRestaurant.name.localeCompare(bRestaurant.name);
     });
+  }
+
+  static updateRestaurants(restaurants: Restaurant[]) {
+    const restaurantsString = JSON.stringify(restaurants);
+    window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
+  }
+
+  static updateFavorite(name: string) {
+    const restaurants = RestaurantList.getList();
+    const findIndex = restaurants.findIndex(
+      (restaurant) => restaurant.name === name
+    );
+    const curIsFavorite = restaurants[findIndex].isFavorite;
+    const updatedRestaurants = [
+      ...restaurants.slice(0, findIndex),
+      {
+        ...restaurants[findIndex],
+        isFavorite: !curIsFavorite,
+      },
+      ...restaurants.slice(findIndex + 1),
+    ];
+
+    RestaurantList.updateRestaurants(updatedRestaurants);
   }
 }
 
