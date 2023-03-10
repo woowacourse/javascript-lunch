@@ -1,17 +1,20 @@
-export default class RestaurantItem {
-  #restaurantImage;
-  #favoriteImage;
+import Component from '../Component';
+import { RESTAURANT_IMAGE, FAVORITE } from '../constants/images.ts';
 
-  constructor(restaurantImage, favoriteImage) {
-    this.#restaurantImage = restaurantImage;
-    this.#favoriteImage = favoriteImage;
+export default class RestaurantItem extends Component {
+  constructor($target, restaurant) {
+    super($target, restaurant);
   }
 
-  render({ category, storeName, distance, detail, shape }) {
+  render() {
+    return this.template(this.props);
+  }
+
+  template({ category, storeName, distance, detail }, shape) {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
-          <img src="${this.#restaurantImage[category]}" alt="${category}" class="category-icon">
+          <img src="${RESTAURANT_IMAGE[category]}" alt="${category}" class="category-icon">
         </div>
         <div class="restaurant__detail">
           <div class="restaurant__header">
@@ -20,7 +23,7 @@ export default class RestaurantItem {
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
             </div>
             <div class="favorite__shape">
-              <img src="${this.#favoriteImage[shape]}" alt="${shape}" class="category-icon">
+              <img src="${FAVORITE[shape]}" alt="${shape}" class="category-icon">
             </div>
           </div>
           <p class="restaurant__description text-body">${detail}</p>
