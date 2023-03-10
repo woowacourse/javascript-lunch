@@ -35,6 +35,11 @@ class RestaurantAddForm {
     restaurantAddForm.reset();
   }
 
+  closeForm(closeModal: CallableFunction) {
+    this.resetForm();
+    closeModal();
+  }
+
   showFormErrors(errors: Errors) {
     if (errors.category) this.categorySelectCaption.showErrorMessage(ERROR_MESSAGE.EMPTY_CATEGORY);
 
@@ -68,7 +73,7 @@ class RestaurantAddForm {
       const hasError = Object.values(formErrors).some(Boolean);
 
       if (!hasError) {
-        closeModal();
+        this.closeForm(closeModal);
         return addRestaurant({ ...restaurantItem });
       }
 
@@ -81,7 +86,7 @@ class RestaurantAddForm {
     const closeButton = $<HTMLButtonElement>('#form-close-button');
 
     closeButton.addEventListener('click', () => {
-      closeModal();
+      this.closeForm(closeModal);
     });
   }
 
