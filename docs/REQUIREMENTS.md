@@ -20,7 +20,8 @@
 
 # components
 
-: 독립적이고 재사용가능한 ui요소들을 분리하고 정의한다.
+- 독립적이고 재사용가능한 ui 단위들을 분리하고 정의한다.
+- 각 component가 맡는 역할, 이벤트를 처리한다.
 
 1. NavBar
 
@@ -58,29 +59,37 @@
 
 # domain
 
-## Controller.ts
+## Controller
 
-- 하나만 존재하는 controller 인스턴스를 생성한다.
-- restaurant 객체들을 반환한다.
-- 새로운 restaurant 객체를 추가한다.
-- restaurant 객체들을 localStorage에 저장한다.
-- localSorage에 있는 정보를 불러온다.
-- restaurant 객체들을 이름순 및 거리순으로 정렬한다.
-- restaurant 객체들을 카테고리별로 필터링한다.
-- 선택된 restaurant 객체의 즐겨찾기 속성을 변경한다.
-- 선택된 restaurant 객체의 index를 저장한다.
-- 선택된 restaurant 객체를 반환한다.
+### field
 
-## model
+- list 화면에 render되는 음식점 배열을 관리한다. (state)
 
-1. Restaurant
+### method
 
-- restaurant 객체를 올바르게 생성한다.(inputValidator를 호출하며)
+// state 및 도메인 관련 로직
+
+- 하나만 존재하는 controller 인스턴스를 생성한다. (getInstance)
+- 음식점 객체 배열을 반환한다. (getRestaurants)
+- 선택된 음식점 객체의 index를 반환한다. (getSelectedRestaurantIndex)
+- 선택된 음식점 객체를 반환한다. (getSelectedRestaurant)
+- 선택된 음식점 객체의 index를 설정한다. (setSelectedRestaurantIndex)
+- 즐겨찾기된 음식점 객체 배열을 설정한다. (setFavoriteRestaurantList)
+- 음식점 객체들을 이름순 및 거리순으로 정렬한다. (sortRestaurants)
+- 음식점 객체들을 카테고리별로 필터링한다. (filterRestaurants)
+- 선택된 음식점 객체의 즐겨찾기 속성을 변경한다. (toggleFavorite)
+- 선택된 음식점 객체를 삭제한다. (deleteRestaurant)
+
+// localStorage 관련 로직
+
+- 새로운 음식점 객체를 localStorage에 추가한다. (addRestaurant)
+- 음식점 객체 배열을 localStorage에 저장한다. (setLocalStorage)
+- localSorage에 있는 음식점 객체 배열을 반환한다. (getLocalStorage)
+
+## restaurants
+
+- restaurants state가 변경될때마다 RestaurantList 컴포넌트를 자동으로 재렌더링한다.
 
 ## inputValidator
 
-- 카테고리, 이름, 거리(도보 이동 시간), 설명, 참고 링크에 대한 유효성을 검사한다.
-
-# index.js
-
-- customElement들을 정의한다.
+- 이름, 참고 링크에 대한 유효성을 검사한다.
