@@ -219,9 +219,10 @@ body {
 .modal-container {
   position: fixed;
   width: 100%;
+  max-height: 100vh;
 
   padding: 32px 16px;
-
+  overflow: hidden;
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
 }
@@ -360,10 +361,15 @@ input[name='link'] {
   display: block;
 }
 
-.favorite-icon {
+.favorite-button {
   position: absolute;
   right: 10px;
   top: 20px;
+  border: none;
+  background: none;
+}
+
+.favorite-icon {
   cursor: pointer;
 }
 
@@ -409,4 +415,14 @@ input[type='radio']:checked + .favorite-radio,
   color: var(--primary-color);
   font-weight: 600;
   margin-bottom: 10px;
+}
+
+.modal-add-main-menu {
+  max-height: calc(100vh - 180px);
+  overflow: auto;
+}
+
+#restaurant-info-modal p.restaurant__description.text-body {
+  max-height: calc(100vh - 300px);
+  overflow: auto;
 }
