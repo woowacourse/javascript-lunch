@@ -9,14 +9,14 @@ import { RestaurantList } from '../src/components/RestaurantList';
 import { RESTAURANT_IMAGE } from '../src/constants/images';
 
 beforeEach(() => {
-  document.body.innerHTML = `<ul class="restaurant-list-container" data-testid="restaurant-list-container"></ul>`;
+  document.body.innerHTML = `<ul class="restaurant-list" data-testid="restaurant-list"></ul>`;
 });
 
 describe('UI 테스트', () => {
   test('한 개의 음식점 추가 시 목록에 추가된다.', () => {
     const restaurants = [{ category: '한식', name: '필동면옥', distance: 5 }];
     const restaurantList = RestaurantList(restaurants);
-    const restaurantListContainer = document.querySelector('.restaurant-list-container');
+    const restaurantListContainer = document.querySelector('.restaurant-list');
 
     restaurantListContainer.insertAdjacentHTML('beforeend', restaurantList);
 
@@ -31,17 +31,17 @@ describe('UI 테스트', () => {
       { category: '양식', name: '애슐리', distance: 10 },
     ];
     const restaurantList = RestaurantList(restaurants);
-    const restaurantListContainer = document.querySelector('.restaurant-list-container');
+    const restaurantListContainer = document.querySelector('.restaurant-list');
 
     restaurantListContainer.insertAdjacentHTML('beforeend', restaurantList);
 
-    expect(screen.getByTestId('restaurant-list-container').firstChild.childElementCount).toBe(4);
+    expect(screen.getByTestId('restaurant-list').childElementCount).toBe(4);
   });
 
   test('RestaurantItem 테스트', () => {
     const restaurant = { category: '한식', name: '우래옥', distance: 5 };
     const restaurantItem = RestaurantItem(restaurant, RESTAURANT_IMAGE[restaurant.category]);
-    const restaurantListContainer = document.querySelector('.restaurant-list-container');
+    const restaurantListContainer = document.querySelector('.restaurant-list');
 
     restaurantListContainer.insertAdjacentHTML('beforeend', restaurantItem);
 

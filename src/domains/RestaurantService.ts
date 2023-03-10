@@ -3,16 +3,12 @@ import { FAVORITE_ICON_IMAGE } from '../constants/images';
 import { Category, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
-  private restaurantList: Restaurant[];
   private currentCategory: Category = CATEGORY.ALL;
   private currentSortingCriterion: SortingCriterion = SORTING_CRITERION.NAME;
 
-  constructor() {
-    this.restaurantList = this.getRestaurantList();
-  }
-
   getRestaurantNames() {
-    return this.restaurantList.map((restaurant) => restaurant.name);
+    const restaurantList = this.getRestaurantList();
+    return restaurantList.map((restaurant) => restaurant.name);
   }
 
   getRestaurantList() {
@@ -26,20 +22,20 @@ class RestaurantService {
   }
 
   getFavoriteRestaurantList() {
-    return this.restaurantList.filter(
+    const currentRestaurantList = this.getRestaurantList();
+
+    return currentRestaurantList.filter(
       (restaurant) => restaurant.favoriteImageUrl === FAVORITE_ICON_IMAGE.FILLED,
     );
   }
 
   add(restaurant: Restaurant) {
     restaurant.favoriteImageUrl = FAVORITE_ICON_IMAGE.LINED; // 즐겨찾기 아이콘 기본 경로 설정
-    this.restaurantList.push(restaurant);
     localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
   }
 
   remove(restaurantName: string) {
     localStorage.removeItem(restaurantName);
-    this.restaurantList = this.getRestaurantList();
   }
 
   setCurrentCategory(category: Category) {
@@ -64,7 +60,7 @@ class RestaurantService {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort(restaurantList: Restaurant[] = this.restaurantList): Restaurant[] {
+  filterAndSort(restaurantList: Restaurant[] = this.getRestaurantList()): Restaurant[] {
     const filteredRestaurantList = this.filterBy(this.currentCategory, restaurantList);
     return this.sortBy(this.currentSortingCriterion, filteredRestaurantList);
   }

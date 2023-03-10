@@ -83,6 +83,12 @@ export const addRestaurantRemoveButtonClickEventHandler = (
   });
 };
 
+export const openRestaurantDetailModal = () => {
+  const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
+
+  modal.showModal();
+};
+
 export const closeRestaurantDetailModal = () => {
   const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
 

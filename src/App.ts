@@ -5,9 +5,16 @@ import { Category, SortingCriterion, Restaurant } from './types/types';
 import {
   closeRestaurantDetailModal,
   addRestaurantRemoveButtonClickEventHandler,
+  openRestaurantDetailModal,
+  renderRestaurantDetailModal,
 } from './components/RestaurantDetailModal';
 import { TAB_ID, TAB_TITLE } from './constants/constants';
 import { addTabClickEventHandler, renderTabItem } from './components/TabItem';
+import {
+  addFavoriteButtonClickEventHandler,
+  addRestaurantListClickEventHandler,
+  renderRestaurantList,
+} from './components/RestaurantList';
 
 export class App {
   private restaurantService = new RestaurantService();
@@ -16,8 +23,8 @@ export class App {
   private currentTab = TAB_ID.ALL;
 
   constructor() {
+    renderRestaurantList(this.restaurantService.filterAndSort());
     this.bindEventHandlers();
-    this.mainView.renderRestaurantList(this.restaurantService.filterAndSort());
     this.renderTabs();
   }
 
@@ -27,6 +34,8 @@ export class App {
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
     this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
     addTabClickEventHandler(this.onChangeTab);
+    addRestaurantListClickEventHandler(this.onClickRestaurantList);
+    addFavoriteButtonClickEventHandler(this.onClickFavoriteButton);
     addRestaurantRemoveButtonClickEventHandler(this.onClickRestaurantRemoveButton);
   }
 
@@ -38,32 +47,39 @@ export class App {
   onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {
     this.restaurantService.add(restaurantItem);
     const restaurantList = this.getCurrentTabRestaurantList();
-    this.mainView.renderRestaurantList(restaurantList);
+    renderRestaurantList(restaurantList);
   };
 
   onChangeCategoryFilter = (category: Category) => {
     this.restaurantService.setCurrentCategory(category);
     const filteredRestaurantList: Restaurant[] = this.getCurrentTabRestaurantList();
-
-    this.mainView.renderRestaurantList(filteredRestaurantList);
+    renderRestaurantList(filteredRestaurantList);
   };
 
   onChangeSortingFilter = (criterion: SortingCriterion) => {
     this.restaurantService.setCurrentSortingCriterion(criterion);
     const sortedRestaurantList: Restaurant[] = this.getCurrentTabRestaurantList();
+    renderRestaurantList(sortedRestaurantList);
+  };
 
-    this.mainView.renderRestaurantList(sortedRestaurantList);
+  onClickRestaurantList = (restaurant: Restaurant) => {
+    renderRestaurantDetailModal(restaurant);
+    openRestaurantDetailModal();
+  };
+
+  onClickFavoriteButton = () => {
+    renderRestaurantList(this.getCurrentTabRestaurantList());
   };
 
   onClickRestaurantRemoveButton = (restaurantName: string) => {
     this.restaurantService.remove(restaurantName);
     closeRestaurantDetailModal();
-    this.mainView.renderRestaurantList(this.getCurrentTabRestaurantList());
+    renderRestaurantList(this.getCurrentTabRestaurantList());
   };
 
   onChangeTab = (tabId: string) => {
     this.currentTab = tabId;
-    this.mainView.renderRestaurantList(this.getCurrentTabRestaurantList());
+    renderRestaurantList(this.getCurrentTabRestaurantList());
   };
 
   getCurrentTabRestaurantList() {
