@@ -120,6 +120,11 @@ input[name="link"] {
   display: none;
 }
 
+.modal-picture-favorite{
+  display: flex;
+  justify-content: space-between;
+}
+
 .detail-item {
   margin-bottom: 16px;
 }

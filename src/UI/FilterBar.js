@@ -1,6 +1,4 @@
 import { $ } from "../utils/Dom";
-import { sortByName, sortByDistance } from "../utils/Sort";
-
 export default class FilterBar {
   #template = `
     <main>

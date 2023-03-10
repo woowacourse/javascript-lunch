@@ -10,7 +10,6 @@ import { RESTAURANT } from "../utils/Constant";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
   private restaurantRegistry;
-  private filteredList: RestaurantForm[] = [];
 
   constructor() {
     const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
@@ -73,5 +72,14 @@ export class RestaurantList {
     restaurantParsedInfo.forEach((value) => {
       this.restaurantRegistry.appendRestaurant(value);
     });
+  }
+
+  deleteRestaurantElement(){
+    const restaurantId = $(".modal--detail").id
+    const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
+    
+    const deletedRestaurantElementArray = res.filter((val: RestaurantForm) =>  val.id !== Number(restaurantId));
+    localStorage.setItem("restaurants", stringifyJson(deletedRestaurantElementArray))
+    this.list = getRestaurantListFromLocalstorage(RESTAURANT) ?? []
   }
 }

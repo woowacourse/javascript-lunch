@@ -20,8 +20,10 @@ export class App {
 
     this.collectedRender();
     this.initializeButtonEvents();
-    
-    localStorage.setItem("number", 0);
+
+    if(getRestaurantListFromLocalstorage(RESTAURANT).length !== 0 ) localStorage.setItem("number", getRestaurantListFromLocalstorage(RESTAURANT).at(-1).id-getRestaurantListFromLocalstorage(RESTAURANT).length+1);
+    else localStorage.setItem("number", 0); 
+
     getRestaurantListFromLocalstorage(RESTAURANT).forEach(
       (restaurant) => {
         const idNumber = getRestaurantListFromLocalstorage("number");

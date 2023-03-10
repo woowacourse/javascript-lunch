@@ -5,10 +5,17 @@ export default class ModalRestaurantDetail {
     <div class="modal--detail">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
+        <div class="modal-picture-favorite">
           <!-- 카테고리 사진 -->
           <div class="detail-item restaurant__category">
             <img class="category-icon modal-detail-restaurant__image">
           </div>
+
+          <!-- 즐겨찾기 -->
+          <div class="">
+            <img src="./favorite-icon-filled.png">
+          </div>
+        </div>
 
           <!-- 음식점 이름 -->
           <div class="detail-item">
@@ -48,6 +55,18 @@ export default class ModalRestaurantDetail {
 
   initializeButtonEvents() {
     $(".button--close").addEventListener("click", this.closeModalDetail);
+    $(".button--delete").addEventListener(
+      "click",()=>{
+        console.log("sadfsdfadsadsf")
+        this.restaurantList.deleteRestaurantElement();
+        const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
+        const sortBy = localStorage.getItem("sort") ?? "name";
+        this.restaurantList.filterCategory(foodCategory);
+        this.restaurantList.filterBySort(sortBy, foodCategory);
+        this.closeModalDetail();
+      }
+        
+    );
   }
 
   changeRestaurantInformation(restaurantInfo) {
@@ -59,6 +78,8 @@ export default class ModalRestaurantDetail {
       아시안: "./category-asian.png",
       기타: "./category-etc.png",
     };
+
+    $(".modal--detail").id = restaurantInfo.id;
 
     $(".modal-detail-restaurant__image").setAttribute(
       "src",
@@ -91,5 +112,6 @@ export default class ModalRestaurantDetail {
 
   closeModalDetail() {
     $(".modal--detail").style.display = "none";
+    $(".modal--detail").removeAttribute('id');
   }
 }
