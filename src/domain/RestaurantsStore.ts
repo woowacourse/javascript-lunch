@@ -26,6 +26,11 @@ class RestaurantsStore {
     this.#sortMethod = sortMethod;
   }
 
+  show(index: Index) {
+    this.refreshRestaurantList();
+    return this.#restaurantList[index];
+  }
+
   updateFavorite(index: Index) {
     this.refreshRestaurantList();
 
@@ -60,8 +65,8 @@ class RestaurantsStore {
   addRestaurant(restaurant: Restaurant) {
     try {
       this.refreshRestaurantList();
-      restaurant.key = this.#restaurantList.length;
       this.#restaurantList.push(restaurant);
+      restaurant.key = this.#restaurantList.length - 1;
 
       this.updateLocalStorage();
     } catch (e) {

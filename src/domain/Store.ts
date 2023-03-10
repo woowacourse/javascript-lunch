@@ -11,9 +11,14 @@ import RestaurantsInstance from "./RestaurantsStore";
 
 class Store {
   #subscribers: CustomElement[] = [];
+  #modal_subscribers: CustomElement[] = [];
 
   subscribe(element: CustomElement) {
     this.#subscribers.push(element);
+  }
+
+  modalSubscribe(element: CustomElement) {
+    this.#modal_subscribers.push(element);
   }
 
   publish() {
@@ -22,6 +27,13 @@ class Store {
 
     this.#subscribers.forEach((subscriber) => {
       subscriber.rerender(RestaurantsInstance.restaurantList);
+    });
+  }
+
+  publishDetail(index: Index) {
+    const restaurant = RestaurantsInstance.show(index);
+    this.#modal_subscribers.forEach((modal_subscribers) => {
+      modal_subscribers.rerender(restaurant);
     });
   }
 
@@ -40,6 +52,9 @@ class Store {
     },
     [RESTAURANT_ACTION.UPDATE_FAVORITE]: (action: Action) => {
       RestaurantsInstance.updateFavorite(action.data as Index);
+    },
+    ["showDetail"]: (action: Action) => {
+      this.publishDetail(action.data as Index);
     },
   };
 }

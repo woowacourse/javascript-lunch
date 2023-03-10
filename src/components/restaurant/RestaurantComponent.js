@@ -14,7 +14,19 @@ class RestaurantComponent extends CustomElement {
     findKey.querySelector(".star").addEventListener("click", (e) => {
       this.changeFavorite(e);
     });
+
+    findKey.querySelector(".restaurant__info").addEventListener("click", () => {
+      this.showDetail();
+    });
   }
+
+  showDetail() {
+    document.getElementById("detail_modal").classList.add("modal--open");
+    const listKey = this.getAttribute("listKey");
+
+    dispatcher("showDetail", parseInt(listKey));
+  }
+
   changeFavorite(e) {
     e.preventDefault();
     const favorite = this.getAttribute("favorite") === "0" ? "1" : "0";
@@ -26,6 +38,7 @@ class RestaurantComponent extends CustomElement {
       favorite === "0"
         ? "./favorite-icon-lined.png"
         : "./favorite-icon-filled.png";
+
     dispatcher(RESTAURANT_ACTION.UPDATE_FAVORITE, parseInt(listKey));
   }
 
@@ -47,14 +60,14 @@ class RestaurantComponent extends CustomElement {
         />
     </div>
     <div class="restaurant__info">
-        <div class="restaurant__name">
-        <h3 class="text-subtitle">${name}</h3>
-        <img src="${FAVORITE_IMG[favorite]}" alt="즐겨찾기" class="restaurant_star star" />
-        </div>
+        <h3 class="text-subtitle restaurant__name">${name}</h3>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
         <p class="restaurant__description text-body">
           ${description}
         </p>
+    </div>
+    <div>
+      <img src="${FAVORITE_IMG[favorite]}" alt="즐겨찾기" class="restaurant_star star" />
     </div>
   </li>
         `;
