@@ -18,7 +18,7 @@ class RestaurantBoxes extends HTMLElement {
     this.shadowRoot.append(componentStyle);
   }
 
-  drawRestaurants() {
+  drawRestaurants(kind = 'all') {
     const categoryValue = $('#categoryFilter').getSelectValue();
     const sortingValue = $('#sortingFilter').getSelectValue();
 
@@ -28,6 +28,14 @@ class RestaurantBoxes extends HTMLElement {
       categoryValue,
       englishSortingValue
     );
+
+    if (kind === 'favorite') {
+      const favoriteRestaurant = filteredList.filter(
+        (restaurant) => restaurant.isFavorite === true
+      );
+      this.restaurantListRender(favoriteRestaurant);
+      return;
+    }
 
     this.restaurantListRender(filteredList);
   }

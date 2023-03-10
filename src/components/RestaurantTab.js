@@ -46,11 +46,13 @@ class RestaurantTab extends HTMLElement {
     $('#allTab').addEventListener('click', () => {
       $('#allTab').select();
       $('#favoriteTab').notSelect();
+      $('restaurant-boxes').drawRestaurants();
     });
 
     $('#favoriteTab').addEventListener('click', () => {
       $('#allTab').notSelect();
       $('#favoriteTab').select();
+      $('restaurant-boxes').drawRestaurants('favorite');
     });
   }
 
@@ -60,6 +62,12 @@ class RestaurantTab extends HTMLElement {
 
   notSelect() {
     this.shadowRoot.querySelector('div').classList.add('not-select');
+  }
+
+  isSelect() {
+    return !this.shadowRoot
+      .querySelector('div')
+      .classList.contains('not-select');
   }
 
   static get observedAttributes() {

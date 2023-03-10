@@ -3,6 +3,11 @@ import { $ } from '../utils';
 class FilterBox extends HTMLElement {
   changeValueEvent() {
     this.shadowRoot.querySelector('select').addEventListener('change', () => {
+      if ($('#favoriteTab').isSelect()) {
+        $('restaurant-boxes').drawRestaurants('favorite');
+        return;
+      }
+
       $('restaurant-boxes').drawRestaurants();
     });
   }
