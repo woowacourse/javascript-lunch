@@ -1,7 +1,9 @@
 import { Restaurant } from './types';
+import { v4 as uuidv4 } from 'uuid';
 
 export const initialRestaurants: Restaurant[] = [
   {
+    id: uuidv4(),
     category: '한식',
     name: '피양콩할머니',
     distance: 10,
@@ -11,6 +13,7 @@ export const initialRestaurants: Restaurant[] = [
     favorite: false,
   },
   {
+    id: uuidv4(),
     category: '중식',
     name: '친친',
     distance: 10,

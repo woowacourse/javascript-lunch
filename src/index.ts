@@ -85,13 +85,13 @@ class App {
     this.detailBottomSheet.toggle();
   };
 
-  deleteRestaurantHandler = (name: string) => {
-    this.store.deleteRestaurant(name);
+  deleteRestaurantHandler = (id: string) => {
+    this.store.deleteRestaurant(id);
     this.restaurantItems.render(this.store.renderedRestaurants);
   };
 
-  favoriteButtonHandler = (name: string) => {
-    this.store.toggleFavoriteRestaurant(name);
+  favoriteButtonHandler = (id: string) => {
+    this.store.toggleFavoriteRestaurant(id);
     this.restaurantItems.render(this.store.renderedRestaurants);
   };
 }

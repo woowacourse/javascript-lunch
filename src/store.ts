@@ -67,14 +67,14 @@ class Store {
     }
   }
 
-  deleteRestaurant(name: string) {
-    this.restaurants = this.restaurants.filter((restaurant) => restaurant.name !== name);
+  deleteRestaurant(id: string) {
+    this.restaurants = this.restaurants.filter((restaurant) => restaurant.id !== id);
     this.setRestaurants(this.restaurants);
     this.setSelectedRestaurants();
   }
 
-  toggleFavoriteRestaurant(name: string) {
-    const restaurant = this.restaurants.find((restaurant) => restaurant.name === name);
+  toggleFavoriteRestaurant(id: string) {
+    const restaurant = this.restaurants.find((restaurant) => restaurant.id === id);
     restaurant!.favorite = !restaurant?.favorite;
     this.setRestaurants(this.restaurants);
     this.setFavoriteRestaurants(this.currentTab);

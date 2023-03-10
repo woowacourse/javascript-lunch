@@ -21,13 +21,14 @@ class DetailBottomSheet extends HTMLElement {
   }
 
   render(restaurant: Restaurant) {
-    const { category, name, distance, description, link, favorite } = restaurant;
+    const { category, name, distance, description, link, favorite, id } = restaurant;
     this.innerHTML = $template
       .replace('{src}', imgSrc[category])
       .replace('{name}', name)
       .replace('{distance}', String(distance))
       .replace('{description}', String(description))
-      .replaceAll('{link}', link || '');
+      .replaceAll('{link}', link || '')
+      .replace('{id}', id);
 
     const $cancelButton = $<HTMLButtonElement>('#cancel-button', this);
     $cancelButton.addEventListener('click', () => this.toggle());
@@ -47,11 +48,10 @@ class DetailBottomSheet extends HTMLElement {
   addFavoriteButtonHandler(handler: CallableFunction) {
     this.addEventListener('click', (e: any) => {
       if (e.target.className !== 'favorite-icon') return;
-      const target = this.querySelector('.restaurant__name');
-      const name = target?.textContent;
+      const id = this.querySelector('.bottom-sheet-container')?.getAttribute('id');
       this.isFavorite = !this.isFavorite;
       this.toggleFavoriteAttribute();
-      handler(name);
+      handler(id);
     });
   }
 

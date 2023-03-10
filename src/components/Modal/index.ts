@@ -1,6 +1,7 @@
 import $template from './index.html';
 import { Category, Distance } from '../../types';
 import { $ } from '../../utils/dom';
+import { v4 as uuidv4 } from 'uuid';
 
 class Modal extends HTMLElement {
   $modal: HTMLDivElement | null;
@@ -42,6 +43,7 @@ class Modal extends HTMLElement {
       const $description = $<HTMLTextAreaElement>('#description', this);
       const $link = $<HTMLInputElement>('#link', this);
       const restaurant = {
+        id: uuidv4(),
         category: $category.value as Category,
         name: `"${$name.value}"`,
         distance: Number($distance.value) as Distance,

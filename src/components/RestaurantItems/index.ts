@@ -17,21 +17,26 @@ class RestaurantItems extends HTMLElement {
   }
 
   createRestaurantItem(restaurant: Restaurant) {
-    const { category, name, distance, description, link, favorite } = restaurant;
-    return `<restaurant-item category=${category} name=${name} distance=${distance} description=${description} favorite=${favorite} link=${link}></restaurant-item>`;
+    const { category, name, distance, description, link, favorite, id } = restaurant;
+    return `<restaurant-item category=${category} name=${name} distance=${distance} description=${description} favorite=${favorite} id=${id} link=${link} ></restaurant-item>`;
   }
 
   addBottomSheetHandler(handler: CallableFunction) {
     this.addEventListener('click', (e: any) => {
       if (e.target.className === 'favorite-icon') return;
       const target = e.target.closest('restaurant-item');
-      const restaurant = ['category', 'name', 'distance', 'description', 'link', 'favorite'].reduce(
-        (acc, cur) => {
-          acc[cur] = target.getAttribute(cur);
-          return acc;
-        },
-        {} as Record<string, string>,
-      );
+      const restaurant = [
+        'category',
+        'name',
+        'distance',
+        'description',
+        'link',
+        'favorite',
+        'id',
+      ].reduce((acc, cur) => {
+        acc[cur] = target.getAttribute(cur);
+        return acc;
+      }, {} as Record<string, string>);
       handler(restaurant);
     });
   }
@@ -39,8 +44,8 @@ class RestaurantItems extends HTMLElement {
   addFavoriteButtonHandler(handler: CallableFunction) {
     this.addEventListener('click', (e: any) => {
       if (e.target.className !== 'favorite-icon') return;
-      const name = e.target.closest('restaurant-item').getAttribute('name');
-      handler(name);
+      const id = e.target.closest('restaurant-item').getAttribute('id');
+      handler(id);
     });
   }
 }
