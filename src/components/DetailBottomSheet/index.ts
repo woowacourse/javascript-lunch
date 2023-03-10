@@ -14,12 +14,13 @@ class DetailBottomSheet extends HTMLElement {
   }
 
   render(restaurant: Restaurant) {
-    const { category, name, distance, description } = restaurant;
+    const { category, name, distance, description, link } = restaurant;
     this.innerHTML = $template
       .replace('{src}', imgSrc[category])
       .replace('{name}', name)
       .replace('{distance}', String(distance))
-      .replace('{description}', String(description));
+      .replace('{description}', String(description))
+      .replaceAll('{link}', link || '');
 
     const $cancelButton = $<HTMLButtonElement>('#cancel-button', this);
     $cancelButton.addEventListener('click', () => this.toggle());

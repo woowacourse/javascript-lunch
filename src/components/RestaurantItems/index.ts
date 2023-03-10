@@ -17,24 +17,21 @@ class RestaurantItems extends HTMLElement {
   }
 
   createRestaurantItem(restaurant: Restaurant) {
-    const { category, name, distance, description, favorite } = restaurant;
-    return `<restaurant-item category=${category} name=${name} distance=${distance} description=${description} favorite=${favorite}></restaurant-item>`;
+    const { category, name, distance, description, link, favorite } = restaurant;
+    return `<restaurant-item category=${category} name=${name} distance=${distance} description=${description} favorite=${favorite} link=${link}></restaurant-item>`;
   }
 
   addBottomSheetHandler(handler: CallableFunction) {
     this.addEventListener('click', (e: any) => {
       if (e.target.className === 'favorite-icon') return;
-      const target = e.target.closest('li');
-      const category = target.querySelector('.category-icon').alt;
-      const name = target.querySelector('.restaurant__name').textContent;
-      const distance = target.querySelector('.restaurant__distance').textContent;
-      const description = target.querySelector('.restaurant__description').textContent;
-      const restaurant = {
-        category: category,
-        name: name,
-        distance: distance,
-        description: description,
-      };
+      const target = e.target.closest('restaurant-item');
+      const restaurant = ['category', 'name', 'distance', 'description', 'link'].reduce(
+        (acc, cur) => {
+          acc[cur] = target.getAttribute(cur);
+          return acc;
+        },
+        {} as Record<string, string>,
+      );
       handler(restaurant);
     });
   }

@@ -12,7 +12,6 @@ class SelectBox extends HTMLElement {
   connectedCallback() {
     this.innerHTML = $template;
     this.$section = $<HTMLElement>('.restaurant-filter-container', this);
-    console.log(this.$section);
   }
 
   open() {
