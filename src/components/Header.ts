@@ -3,33 +3,28 @@ import { IRestaurant } from '../domain/Restaurant';
 import { appendModal, showModal } from '../modal';
 import RestaurantForm from './RestaurantForm';
 
-export default class Header {
-  $header = document.createElement('header');
+export default function Header(
+  addRestaurantInfo: (restaurantInfo: IRestaurant) => void
+) {
+  const $header = document.createElement('header');
+  $header.className = 'gnb';
 
-  constructor(
-    $root: HTMLDivElement,
-    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
-  ) {
-    this.$header.className = 'gnb';
-    this.render();
-
-    this.$header.addEventListener('click', (event) => {
-      const { target } = event;
-      if (!(target instanceof HTMLImageElement || HTMLButtonElement)) return;
-
-      showModal();
-      appendModal(RestaurantForm(addRestaurantInfo));
-    });
-
-    $root.insertAdjacentElement('afterbegin', this.$header);
-  }
-
-  render = () => {
-    this.$header.innerHTML = `
+  const template = `
     <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-     <button type="button" class="gnb__button" aria-label="음식점 추가">
-       <img src="${addButton}" alt="음식점 추가">
+     <button type="button" class="gnb__button" >
+       <img src="${addButton}" alt="음식점 추가" aria-label="음식점 추가">
      </button>
    `;
-  };
+
+  $header.innerHTML = template;
+
+  $header.addEventListener('click', (event) => {
+    const { target } = event;
+    if (!(target instanceof HTMLImageElement)) return;
+
+    showModal();
+    appendModal(RestaurantForm(addRestaurantInfo));
+  });
+
+  return $header;
 }

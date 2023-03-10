@@ -36,8 +36,7 @@ export default class App {
     const $main = document.createElement('main');
     const restaurantService = new RestaurantService(getInitialRestaurantList());
 
-    new Header($app, this.addRestaurantInfo.bind(this));
-
+    $app.appendChild(Header(this.addRestaurantInfo.bind(this)));
     $app.appendChild($main);
     $main.appendChild(this.$listArticle);
 
