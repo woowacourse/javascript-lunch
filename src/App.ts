@@ -1,30 +1,27 @@
-import { saveData } from "./utils/localStorage";
 import Header from "./components/Header";
 import RestaurantFormBottomSheet from "./components/RestaurantFormBottomSheet";
 import RestaurantList from "./components/RestaurantList";
-import SelectContainer from "./components/SelectContainer";
-import { Constants, OptionValue } from "./utils/Constants";
 import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./types/type";
-import RestaurantItemBottomSheet from "./components/RestaurantItemBottomSheet";
+import NavigatorContainer from "./components/NavigatorContainer";
+import Page from "./components/pages/Page";
 
 class App {
   restaurantList: Restaurant[];
+  target: HTMLElement;
+  // currentPage: Page;
 
   constructor(body: Element) {
-    this.restaurantList = restaurantListHandler.getSortedByName();
+    this.target = body as HTMLElement;
+    this.restaurantList = restaurantListHandler.getRestaurants();
+    // this.currentPage = "total";
 
-    Header.initialize(body);
-    SelectContainer.initialize(body, this.setSortListFilterById);
-    RestaurantList.initialize(
-      body,
-      this.restaurantList,
-      this.createItemBottomSheet
-    );
+    Header.initialize(this.target);
     RestaurantFormBottomSheet.initialize(
-      body,
+      this.target,
       this.addRestaurantItemToList.bind(this)
     );
+    NavigatorContainer.initialize(this.target, this.navigateToPage);
 
     RestaurantList.updateRestaurantList(this.restaurantList);
   }
@@ -36,44 +33,16 @@ class App {
     RestaurantList.updateRestaurantList(this.restaurantList);
   }
 
-  createItemBottomSheet = (id: string) => {
-    this.restaurantList = restaurantListHandler.getRestaurants();
-
-    const restaurant = <Restaurant>(
-      restaurantListHandler.getSelectedItem(id, this.restaurantList)
-    );
-    const itemSheet = new RestaurantItemBottomSheet(
-      restaurant,
-      this.deleteRestaurantItem
-    );
-    itemSheet.initialize();
-  };
-
-  deleteRestaurantItem = (id: string) => {
-    this.restaurantList = restaurantListHandler.setDeleteItem(
-      id,
-      this.restaurantList
-    );
-
-    RestaurantList.updateRestaurantList(this.restaurantList);
-  };
-
-  setSortListFilterById = (id: string, value: string) => {
-    if (id === Constants.CATEGORY_FILTER) {
-      this.restaurantList =
-        value === ""
-          ? restaurantListHandler.getRestaurants()
-          : restaurantListHandler.getFilteredByCategory(value);
+  navigateToPage = (pageName: string) => {
+    if (pageName === "total") {
+      new Page(this.target, this.restaurantList, pageName);
+      return;
     }
-
-    if (id === Constants.SORTING_FILTER) {
-      this.restaurantList =
-        value === OptionValue.TAKING_TIME_ORDER
-          ? restaurantListHandler.getSortedByTakingTime(this.restaurantList)
-          : restaurantListHandler.getSortedByName(this.restaurantList);
-    }
-
-    RestaurantList.updateRestaurantList(this.restaurantList);
+    new Page(
+      this.target,
+      restaurantListHandler.getBookmarkRestaurants(),
+      pageName
+    );
   };
 }
 

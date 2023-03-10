@@ -1,8 +1,6 @@
 import { $ } from "../utils/Dom";
 
 class NavigatorContainer {
-  constructor() {}
-
   template() {
     return `
     <section class="navigator-container">
@@ -29,7 +27,21 @@ class NavigatorContainer {
       if (id) {
         navigateToPage(id);
       }
+
+      if (id === "total") {
+        target.classList.add("active");
+        const bookmark = $('[data-id="bookmark"]');
+        bookmark?.classList.remove("active");
+      } else if (id === "bookmark") {
+        target.classList.add("active");
+        const total = $('[data-id="total"]');
+        total?.classList.remove("active");
+      }
     });
+  }
+
+  closeNavigator(target: HTMLElement) {
+    target.remove();
   }
 }
 

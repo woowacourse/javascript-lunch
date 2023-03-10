@@ -60,6 +60,10 @@ class RestaurantListHandler {
 
     saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }
+
+  getBookmarkRestaurants() {
+    return this.restaurants.filter((restaurant) => restaurant.bookMark);
+  }
 }
 
 export default new RestaurantListHandler();
