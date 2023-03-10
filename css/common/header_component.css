@@ -1,3 +1,8 @@
+.head {
+  display: flex;
+  flex-direction: column;
+}
+
 .gnb {
   display: flex;
   justify-content: space-between;

@@ -1,5 +1,5 @@
 // style
-import "../style.css";
+import "../css/style.css";
 
 // components
 import "./components/restaurant/RestaurantsComponent";
