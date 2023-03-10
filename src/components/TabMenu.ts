@@ -1,33 +1,46 @@
 class TabMenu {
-  $target: HTMLElement;
-  private allRestaurantButton: HTMLDivElement;
-  private likedRestaurantButton: HTMLDivElement;
-
-  constructor($target: HTMLElement) {
-    this.$target = $target;
-    this.allRestaurantButton = document.querySelector<HTMLDivElement>('#allRestaurantButton')!;
-    this.likedRestaurantButton = document.querySelector<HTMLDivElement>('#likedRestaurantButton')!;
-    this.render();
+  template() {
+    return `
+      <div id="allRestaurantButton" class="all-restaurant selected" >모든 음식점</div> 
+      <div id="likedRestaurantButton" class="liked-restaurant" >자주 가는 음식점</div>
+    `;
   }
 
-  private render() {
-    const $fragment = document.createDocumentFragment();
+  allRestuarantClicked() {
+    const event = new CustomEvent('allRestaurantClicked');
+    document.dispatchEvent(event);
+  }
 
-    const $allRestaurantButton = document.createElement('div');
-    $allRestaurantButton.innerHTML = `모든 음식점`;
-    $allRestaurantButton.id = 'allRestaurantButton';
-    $allRestaurantButton.classList.add('all-restaurant');
-    $allRestaurantButton.classList.add('selected');
-    $fragment.appendChild($allRestaurantButton);
+  likedRestaurantClicked() {
+    const event = new CustomEvent('likedRestaurantClicked');
+    document.dispatchEvent(event);
+  }
 
-    const $likedRestaurantButton = document.createElement('div');
-    $likedRestaurantButton.innerHTML = `자주 가는 음식점`;
-    $likedRestaurantButton.id = 'likedRestaurantButton';
-    $likedRestaurantButton.classList.add('all-restaurant');
-    $fragment.appendChild($likedRestaurantButton);
+  bindTabButton(): void {
+    const allRestaurantButton = document.querySelector('#allRestaurantButton');
+    if (allRestaurantButton) {
+      allRestaurantButton.addEventListener('click', this.allRestuarantClicked);
+    }
 
-    this.$target.appendChild($fragment);
+    const likedRestaurantButton = document.querySelector('#likedRestaurantButton');
+    if (likedRestaurantButton) {
+      likedRestaurantButton.addEventListener('click', this.likedRestaurantClicked);
+    }
+  }
+
+  update(allButton: Element, likedButton: Element, navTab: string) {
+    const navigationElement = document.querySelector('.tabMenu-container');
+    const filterContainer = document.querySelector('.restaurant-filter-container') as HTMLElement;
+    //선택된 탭 빨간 줄 표시 기능
+    if (navigationElement) {
+      navigationElement.innerHTML = '';
+      navigationElement.appendChild(allButton);
+      navigationElement.appendChild(likedButton);
+    }
+    //자주가는 식당 선택 시 셀렉트 박스 삭제
+    if (navTab === 'liked') {
+      filterContainer!.style.display = 'none';
+    }
   }
 }
-
 export default TabMenu;
