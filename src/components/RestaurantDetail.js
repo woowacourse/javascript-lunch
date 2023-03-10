@@ -1,3 +1,6 @@
+import RestaurantList from '../domain/RestaurantList.ts';
+import { $ } from '../utils';
+
 class RestaurantDetail extends HTMLElement {
   attributeChangedCallback(name) {
     if (
@@ -17,6 +20,8 @@ class RestaurantDetail extends HTMLElement {
   update(restaurant) {
     const { name, category, distance, description, link, isFavorite } =
       restaurant;
+
+    this.setInformation(restaurant);
 
     this.shadowRoot.innerHTML = `
     <div class="container">
@@ -92,6 +97,49 @@ class RestaurantDetail extends HTMLElement {
 `;
 
     this.shadowRoot.append(componentStyle);
+    this.favoriteClickEvent();
+  }
+
+  favoriteClickEvent() {
+    this.shadowRoot
+      .querySelector('favorite-image')
+      .addEventListener('click', (event) => {
+        event.stopPropagation();
+        const restaurant = this.getInformation();
+        RestaurantList.updateFavorite(restaurant.name);
+        $('restaurant-boxes').drawRestaurants();
+        this.update({ ...restaurant, isFavorite: !restaurant.isFavorite });
+      });
+  }
+
+  setInformation(restaurant) {
+    const { name, category, distance, description, link, isFavorite } =
+      restaurant;
+
+    this.setAttribute('name', name);
+    this.setAttribute('category', category);
+    this.setAttribute('distance', distance);
+    this.setAttribute('description', description);
+    this.setAttribute('link', link);
+    this.setAttribute('isFavorite', isFavorite);
+  }
+
+  getInformation() {
+    const name = this.getAttribute('name');
+    const category = this.getAttribute('category');
+    const distance = this.getAttribute('distance');
+    const description = this.getAttribute('description');
+    const link = this.getAttribute('link');
+    const isFavorite = this.getAttribute('isFavorite');
+
+    return {
+      name,
+      category,
+      distance,
+      description,
+      link,
+      isFavorite: isFavorite === 'true',
+    };
   }
 
   static get observedAttributes() {

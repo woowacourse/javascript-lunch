@@ -74,6 +74,7 @@ class RestaurantList {
     const findIndex = restaurants.findIndex(
       (restaurant) => restaurant.name === name
     );
+    if (findIndex === -1) return;
     const curIsFavorite = restaurants[findIndex].isFavorite;
     const updatedRestaurants = [
       ...restaurants.slice(0, findIndex),
