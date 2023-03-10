@@ -121,7 +121,7 @@ body {
 }
 
 /* 음식점 목록 */
-.restaurant-list-container {
+.restaurant-list {
   display: flex;
   flex-direction: column;
 
