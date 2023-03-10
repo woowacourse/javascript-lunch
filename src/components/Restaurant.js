@@ -17,7 +17,7 @@ export default class Restaurant {
     return `
     <li>
         <div class="relative">
-         <div id='item-star' class="star-container absolute right-0"></div>
+         <div class="item-star star-container absolute right-0"></div>
         </div>
         <div class="restaurant" id=${name}>
         <div class="restaurant__category">
@@ -48,7 +48,7 @@ export default class Restaurant {
 
   mounted() {
     const { index } = this.props;
-    const $starContainer = document.querySelectorAll("#item-star");
+    const $starContainer = document.querySelectorAll(".item-star");
     new Star($starContainer[index], this.props);
   }
 
