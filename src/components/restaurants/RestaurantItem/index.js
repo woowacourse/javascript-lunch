@@ -50,17 +50,21 @@ class RestaurantItem {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
+  onClickFavoriteIcon(event) {
+    if (!event.target.closest(".favorite")) return;
+
+    this.restaurantListManager.toggleFavoriteState(Number(this.restaurantInfo.id));
+    LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
+
+    this.restaurantInfo = { ...this.restaurantInfo, favorite: !this.restaurantInfo.favorite };
+    event.target.src = `./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
+  }
+
   setEvent() {
     const id = this.restaurantInfo.id;
 
     this.$target.querySelector(`#restaurant${id}`).addEventListener("click", (event) => {
-      if (!event.target.closest(".favorite")) return;
-
-      this.restaurantListManager.toggleFavoriteState(Number(id));
-      LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
-
-      this.restaurantInfo = { ...this.restaurantInfo, favorite: !this.restaurantInfo.favorite };
-      event.target.src = `./favorite-icon-${this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
+      this.onClickFavoriteIcon(event);
     });
   }
 }
