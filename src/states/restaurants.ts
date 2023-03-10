@@ -73,6 +73,10 @@ class Restaurants {
     return this.restaurants;
   }
 
+  getRestaurant(id: Restaurant['id']) {
+    return this.restaurants.find((restaurant) => restaurant.getId() === id) ?? null;
+  }
+
   getFilteredRestaurants() {
     return this.filters.reduce(
       (filteredRestaurants, filter) => filter(filteredRestaurants),
