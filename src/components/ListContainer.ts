@@ -95,7 +95,7 @@ class ListContainer extends Component {
       </div>
       <div class="restaurant__info">
         ${this.titleTemplate(name)}
-        ${this.distanceTemplate(Number(distance))}
+        ${Number(distance) !== 0 ? this.distanceTemplate(distance) : ''}
         ${this.descriptionTemplate(description)}
       </div>
       <div class="favorite"> 
@@ -117,8 +117,7 @@ class ListContainer extends Component {
     return `<h3 class="restaurant__name text-subtitle">${name}</h3>`;
   }
 
-  distanceTemplate(distance: number): string {
-    if (distance === 0) return '';
+  distanceTemplate(distance: string): string {
     return `<span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>`;
   }
 
