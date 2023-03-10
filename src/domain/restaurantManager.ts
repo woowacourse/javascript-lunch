@@ -25,6 +25,7 @@ interface RestaurantManager {
   sortByName(restaurants: Restaurant[]): Restaurant[];
   sortByDistance(restaurants: Restaurant[]): Restaurant[];
   compareByName(a: Restaurant, b: Restaurant): number;
+  toggleFavorite(restaurantId: string): void;
 }
 
 export const restaurantManager: RestaurantManager = {
@@ -69,5 +70,13 @@ export const restaurantManager: RestaurantManager = {
 
   compareByName(a: Restaurant, b: Restaurant) {
     return a.name.localeCompare(b.name);
+  },
+
+  toggleFavorite(restaurantId) {
+    const restaurant = this.list.find((restaurant) => restaurant.id === restaurantId);
+
+    if (!restaurant) return;
+
+    restaurant.isFavorite = !restaurant.isFavorite;
   },
 };
