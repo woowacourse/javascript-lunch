@@ -4,14 +4,18 @@ import { initialRestaurants } from './restaurants';
 class Store {
   restaurants: Restaurant[];
   renderedRestaurants: Restaurant[];
+  favoriteRestaurants: Restaurant[];
   categoryFilter: CategoryFilter;
   sortFilter: SortFilter;
+  currentTab: string;
 
   constructor() {
     this.restaurants = [];
     this.renderedRestaurants = [];
+    this.favoriteRestaurants = [];
     this.categoryFilter = '전체';
     this.sortFilter = 'name';
+    this.currentTab = '전체';
   }
 
   initRestaurants() {
@@ -19,7 +23,7 @@ class Store {
       this.setRestaurants(initialRestaurants);
     }
     this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
-    this.sortRestaurants(this.sortFilter);
+    this.setSelectedRestaurants();
   }
 
   setRestaurants(restaurants: Restaurant[]) {
@@ -73,11 +77,12 @@ class Store {
     const restaurant = this.restaurants.find((restaurant) => restaurant.name === name);
     restaurant!.favorite = !restaurant?.favorite;
     this.setRestaurants(this.restaurants);
-    this.setSelectedRestaurants();
+    this.setFavoriteRestaurants(this.currentTab);
   }
 
-  favoriteRestaurants(tab: string) {
-    if (tab === 'all') {
+  setFavoriteRestaurants(tab: string) {
+    this.currentTab = tab;
+    if (this.currentTab === '전체') {
       this.renderedRestaurants = this.restaurants;
       this.setSelectedRestaurants();
       return;

@@ -54,10 +54,10 @@ class App {
   }
 
   routeHandler = (tab: string) => {
-    this.store.favoriteRestaurants(tab);
+    this.store.setFavoriteRestaurants(tab);
     this.restaurantItems.render(this.store.renderedRestaurants);
 
-    if (tab === 'all') {
+    if (tab === '전체') {
       this.selectBox.open();
       return;
     }
