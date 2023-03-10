@@ -1,13 +1,11 @@
 import Filters from './components/Filters';
 import Header from './components/Header';
-import RestaurantForm from './components/RestaurantForm';
 import RestaurantList from './components/RestaurantList';
 import Tabs from './components/Tabs';
-import { mockRestaurant } from './data';
 import { IRestaurant, Restaurant } from './domain/Restaurant';
 import RestaurantService from './domain/RestaurantService';
 import { store } from './store';
-import { CategoryOptions, FilterOptions, TabType } from './types/type';
+import { TabType } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 const getInitialRestaurantList = () => {

@@ -1,8 +1,6 @@
 import { IMethods } from '../App';
 import { Restaurant } from '../domain/Restaurant';
-import { appendModal, showModal } from '../modal';
-import RestaurantInfo from './RestaurantInfo';
-import RestaurantItem, { toggleFavoriteFilled } from './RestaurantItem';
+import RestaurantItem from './RestaurantItem';
 
 interface IRestaurantList {
   restaurantList: Restaurant[];

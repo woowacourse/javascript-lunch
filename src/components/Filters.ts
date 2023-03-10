@@ -1,6 +1,6 @@
 import { CATEGORY, FILTER } from '../constants';
 import Select from './Select';
-import { CategoryOptions, FilterOptions, TabType } from '../types/type';
+import { CategoryOptions, FilterOptions } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
 
 interface IFilterState {
