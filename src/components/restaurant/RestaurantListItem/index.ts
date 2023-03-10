@@ -10,19 +10,26 @@ class RestaurantListItem extends Component {
 
   override renderTemplate() {
     return `
-      <li>
+      <section>
         <r-category-icon category="${this.getAttribute('category')}"></r-category-icon>
 
-        <div class="info">
-          <h3 class="name text-subtitle">
+        <header>
+          <h3 class="text-subtitle">
             ${this.getAttribute('name') ?? ''}
           </h3>
           <span class="distance text-body">
             캠퍼스부터 ${this.getAttribute('distance' ?? '')}분 내
           </span>
-          <p class="description text-body">${this.getAttribute('description') ?? ''}</p>
-        </div>
-      </li>
+        </header>
+
+        <r-button
+          variant="transparent"
+        >
+          <r-favorite-icon ${this.hasAttribute('favorite') ? 'active' : ''}></r-favorite-icon>
+        </r-button>
+
+        <p class="description text-body">${this.getAttribute('description') ?? ''}</p>
+      </section>
     `;
   }
 }

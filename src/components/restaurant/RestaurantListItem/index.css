@@ -1,31 +1,31 @@
-li {
-  display: flex;
-  align-items: flex-start;
+section {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 16px;
+  row-gap: 8px;
 
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
 }
 
-r-category-icon {
-  margin-right: 16px;
+section > r-category-icon {
+  grid-row: span 2;
 }
 
-.info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+section > p {
+  padding: 0;
+  grid-column: span 2;
 }
 
-.name {
+header > h3 {
   margin: 0;
 }
 
-.distance {
+header > .distance {
   color: var(--primary-color);
 }
 
-.description {
+p {
   display: -webkit-box;
 
   padding-top: 8px;
