@@ -19,10 +19,6 @@ class RestaurantService {
     return this.restaurantList.filter((restaurant) => restaurant.favorite);
   }
 
-  findRestaurantIndex(restaurantId: number) {
-    return this.restaurantList.findIndex((restaurant) => restaurant.id === restaurantId);
-  }
-
   add(restaurant: Restaurant) {
     restaurant.id = this.restaurantList[this.restaurantList.length - 1].id + 1;
     this.restaurantList.push({ ...restaurant });
