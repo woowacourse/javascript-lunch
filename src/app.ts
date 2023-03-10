@@ -17,6 +17,7 @@ class App extends Component<IComponentPropState> {
       filterOptions: { category: '전체', order: '이름순' },
       isAddFormValid: true,
       bottomSheetType: '',
+      bottomSheetData: null,
     };
   }
 
@@ -52,6 +53,7 @@ class App extends Component<IComponentPropState> {
         restaurantList: this.$state.restaurantList,
         updateRootState: updateRootState.bind(this),
         bottomSheetType: this.$state.bottomSheetType,
+        bottomSheetData: this.$state.bottomSheetData,
       });
     }
 
@@ -66,9 +68,13 @@ class App extends Component<IComponentPropState> {
     }
   }
 
-  toggleModal(type: string) {
+  toggleModal(type: string, data?: IRestaurantInput) {
     const { isModalOpened } = this.$state;
-    this.setState({ isModalOpened: !isModalOpened, bottomSheetType: type });
+    this.setState({
+      isModalOpened: !isModalOpened,
+      bottomSheetType: type,
+      bottomSheetData: data,
+    });
   }
 
   filterList(category: Category, order: Order) {

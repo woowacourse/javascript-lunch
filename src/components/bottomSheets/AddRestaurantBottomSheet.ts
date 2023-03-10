@@ -1,9 +1,9 @@
-import Component from '../core/Component';
+import Component from '../../core/Component';
 
-import IRestaurantInput from '../interfaces/IRestaurantInput';
-import { IComponentPropState } from '../interfaces/IComponent';
-import defaultDummyRestaurantsData from '../constants/defaultDummyRestaurantsData';
-import { setLocalStorageItem } from '../utils/localStroageUtils';
+import IRestaurantInput from '../../interfaces/IRestaurantInput';
+import { IComponentPropState } from '../../interfaces/IComponent';
+import defaultDummyRestaurantsData from '../../constants/defaultDummyRestaurantsData';
+import { setLocalStorageItem } from '../../utils/localStroageUtils';
 
 class AddRestaurantBottomSheet extends Component<IComponentPropState> {
   template() {

@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { IComponentPropState } from '../../interfaces/IComponent';
-import AddRestaurantBottomSheet from '../AddRestaurantBottomSheet';
+import AddRestaurantBottomSheet from '../bottomSheets/AddRestaurantBottomSheet';
+import RestaurantDetailBottomSheet from '../bottomSheets/RestaurantDetailBottomSheet';
 
 class BottomSheet extends Component<IComponentPropState> {
   template(): string {
@@ -31,6 +32,16 @@ class BottomSheet extends Component<IComponentPropState> {
           toggleModal: this.$props.toggleModal,
           updateRootState: this.$props.updateRootState,
           restaurantList: this.$props.restaurantList,
+        });
+      }
+
+      if (bottomSheetType === 'restaurantDetail') {
+        new RestaurantDetailBottomSheet($target, {
+          toggleModal: this.$props.toggleModal,
+          updateRootState: this.$props.updateRootState,
+          restaurantList: this.$props.restaurantList,
+          restaurantData: this.$props.bottomSheetData,
+          updateBottomSheetData: this.$props.updateBottomSheetData,
         });
       }
     }
