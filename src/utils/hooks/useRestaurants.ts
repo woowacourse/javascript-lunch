@@ -38,7 +38,7 @@ function useRestaurants() {
     setRestaurants(lunchRecommendation.getList());
   }
 
-  function handleClickOftenBtn(restaurantId: RestaurantInfo['id']) {
+  function handleClickIcon(restaurantId: RestaurantInfo['id']) {
     lunchRecommendation.addOften(restaurantId);
     setRestaurants(lunchRecommendation.getList());
   }
@@ -61,7 +61,7 @@ function useRestaurants() {
       handleSortOption,
       handleOftenTab,
       handleClickAddBtn,
-      handleClickOftenBtn,
+      handleClickIcon,
       handleClickName,
       handleClickDeleteBtn,
     },
