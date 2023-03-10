@@ -4,6 +4,11 @@ import style from './index.css';
 
 @define('r-modal')
 class Modal extends Component {
+  constructor() {
+    super();
+    this.addEventListener('click', (event) => this.onClick(event));
+  }
+
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
   }
@@ -18,6 +23,10 @@ class Modal extends Component {
 
   close() {
     this.shadowRoot?.querySelector('dialog')?.close();
+  }
+
+  onClick(event: MouseEvent) {
+    event.stopPropagation();
   }
 
   onClose(event: CloseEvent) {
