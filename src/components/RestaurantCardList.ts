@@ -5,15 +5,15 @@ import type { Restaurant } from "../types/restaurant";
 
 import restaurantState from "../states/restaurants";
 
-type CardListAttribute = CategoryOption | SortOption | string | null;
-
 class RestaurantCardList extends HTMLUListElement {
   #category: CategoryOption;
 
   #sorting: SortOption;
 
+  #restaurants: Restaurant[] | undefined;
+
   static get observedAttributes() {
-    return ["category-filter", "sorting-filter", "data-length"];
+    return ["category-filter", "sorting-filter", "data-length", "data-view"];
   }
 
   constructor() {
@@ -21,6 +21,7 @@ class RestaurantCardList extends HTMLUListElement {
 
     this.#category = "전체";
     this.#sorting = "name";
+    this.setRestaurants(this.dataset.view || "all");
   }
 
   connectedCallback() {
@@ -35,9 +36,9 @@ class RestaurantCardList extends HTMLUListElement {
   }
 
   render() {
-    const restaurants = this.getListByOption(restaurantState.getList());
+    if (!this.#restaurants) return;
 
-    this.innerHTML = `${restaurants
+    this.innerHTML = `${this.#restaurants
       .map(
         (restaurant) =>
           `<li is="restaurant-card" class="restaurant" name=${restaurant.name}></li>`
@@ -47,11 +48,16 @@ class RestaurantCardList extends HTMLUListElement {
 
   attributeChangedCallback(
     attName: string,
-    oldValue: CardListAttribute,
-    newValue: CardListAttribute
+    oldValue: string | null,
+    newValue: string | null
   ) {
     if (oldValue === null) return;
+    if (newValue === null) return;
     if (oldValue === newValue) return;
+
+    if (attName === "data-view") {
+      this.setRestaurants(newValue);
+    }
 
     if (this.isCategoryFilterAttribute(attName, newValue)) {
       this.#category = newValue;
@@ -66,14 +72,14 @@ class RestaurantCardList extends HTMLUListElement {
 
   isCategoryFilterAttribute(
     attName: string,
-    newValue: CardListAttribute
+    newValue: string
   ): newValue is CategoryOption {
     return attName === "category-filter";
   }
 
   isSortingFilterAttribute(
     attName: string,
-    newValue: CardListAttribute
+    newValue: string
   ): newValue is SortOption {
     return attName === "sorting-filter";
   }
@@ -97,6 +103,21 @@ class RestaurantCardList extends HTMLUListElement {
     return restaurants.filter(
       (restaurant) => restaurant.category === this.#category
     );
+  }
+
+  getFavoriteList(restaurants: Restaurant[]) {
+    return restaurants.filter((restaurant) => restaurant.isFavorite);
+  }
+
+  setRestaurants(viewOption: string) {
+    if (viewOption !== "all" && viewOption !== "favorite") return;
+
+    if (viewOption === "all") {
+      this.#restaurants = this.getListByOption(restaurantState.getList());
+      return;
+    }
+
+    this.#restaurants = this.getFavoriteList(restaurantState.getList());
   }
 }
 

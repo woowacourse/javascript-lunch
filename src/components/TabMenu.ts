@@ -1,3 +1,4 @@
+import RestaurantCardList from "./RestaurantCardList";
 import "./TabMenu.style.css";
 
 class TabMenu extends HTMLUListElement {
@@ -36,6 +37,13 @@ class TabMenu extends HTMLUListElement {
     });
 
     event.currentTarget.classList.add("active-tab-menu");
+
+    const $restaurantList =
+      document.querySelector<RestaurantCardList>(".restaurant-list");
+
+    if (!$restaurantList?.dataset.view) return;
+
+    $restaurantList.dataset.view = event.currentTarget.value;
   }
 }
 
