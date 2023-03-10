@@ -32,20 +32,22 @@ class ListContainer extends Component {
     on(this.$target, 'click', (event) => {
       const $eventTarget = event.target as HTMLElement;
       const $closestDiv = $eventTarget.closest('div')!;
+      const $restaurantItem = $closestDiv.closest('li')!;
+      const id = Number($closestDiv.closest('li')!.dataset.id);
 
       if ($closestDiv.className === 'favorite') {
-        const id = Number($closestDiv.closest('li')!.dataset.id);
         const $image = $<HTMLImageElement>('img', $closestDiv);
 
-        if ($image.dataset.isFavorite === 'favoriteOn') {
-          $image.src = FavoriteImage.favoriteOn;
-          $image.dataset.isFavorite = 'favoriteOff';
-          restaurantStore.toggleFavorite(id);
-        } else {
+        if ($image.classList.contains('favorite')) {
           $image.src = FavoriteImage.favoriteOff;
-          $image.dataset.isFavorite = 'favoriteOn';
-          restaurantStore.toggleFavorite(id);
+          $image.classList.remove('favorite');
+        } else {
+          $image.src = FavoriteImage.favoriteOn;
+          $image.classList.add('favorite');
         }
+        restaurantStore.toggleFavorite(id);
+      } else {
+        console.log(restaurantStore.getItemById(id));
       }
     });
 
@@ -105,8 +107,9 @@ class ListContainer extends Component {
   }
 
   favoriteImageTemplate(favorite: boolean) {
-    const isFavorite = favorite ? 'favoriteOn' : 'favoriteOff';
-    return `<img src=${FavoriteImage[isFavorite]} data-is-favorite=${isFavorite} alt='즐겨찾기' class="category-icon"/>`;
+    return `<img src=${
+      favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff
+    } alt='즐겨찾기' class="category-icon ${favorite ? 'favorite' : ''}"/>`;
   }
 
   categoryImageTemplate(category: string): string {

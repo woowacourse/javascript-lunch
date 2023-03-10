@@ -1,3 +1,4 @@
+import RestaurantItem from '@res/components/RestaurantItem';
 import { Category, Order } from '@res/constants/enum';
 import { IRestaurantInput, IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { sampleData } from './storage';
@@ -7,6 +8,14 @@ const FAVORITE_DEFAULT = false;
 export const restaurantStore = {
   init() {
     this.setList(sampleData);
+  },
+
+  getItemById(id: number): IRestaurant {
+    for (const restaurantItem of this.getList()) {
+      if (restaurantItem.id === id) return restaurantItem;
+    }
+
+    throw new Error('restaurantStore.getItemById() id값이 존재하지 않습니다.');
   },
 
   addList(restaurantInput: IRestaurantInput) {
