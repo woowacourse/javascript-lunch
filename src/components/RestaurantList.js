@@ -34,7 +34,7 @@ customElements.define(
     }
 
     handleListItemClick(e) {
-      if (e.target.closest('.favorite')) return;
+      if (this.isFavoriteButtonClicked(e.target)) return;
 
       const item = e.target.closest('restaurant-list-item');
 
@@ -47,7 +47,7 @@ customElements.define(
     }
 
     handleFavoriteButtonClick(e) {
-      if (!e.target.closest('.favorite')) return;
+      if (!this.isFavoriteButtonClicked(e.target)) return;
 
       const item = e.target.closest('restaurant-list-item');
 
@@ -57,6 +57,10 @@ customElements.define(
         eventType: 'toggleFavorite',
         data: item.dataset.id,
       });
+    }
+
+    isFavoriteButtonClicked($target) {
+      return !!$target.closest('.favorite');
     }
   }
 );

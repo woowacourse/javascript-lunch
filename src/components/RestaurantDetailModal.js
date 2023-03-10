@@ -50,12 +50,16 @@ customElements.define(
     }
 
     handleFavoriteButtonClick(e) {
-      if (!e.target.closest('.favorite')) return;
+      if (!this.isFavoriteButtonClicked(e.target)) return;
 
       dispatchCustomEvent($('body'), {
         eventType: 'toggleFavorite',
         data: this.dataset.id,
       });
+    }
+
+    isFavoriteButtonClicked($target) {
+      return !!$target.closest('.favorite');
     }
 
     handleDeleteButtonClick() {
