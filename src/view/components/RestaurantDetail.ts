@@ -4,19 +4,33 @@ import '../../assets/add-button.png';
 import { useEvents } from '../../utils/core';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { getCategoryImageSrc } from '../../utils/common/getImageSrc';
+import { getCategoryImageSrc, getFavoriteIconSrc } from '../../utils/common/getImageSrc';
 
 interface DetailProps {
   info: RestaurantInfo;
   closeDetail: VoidFunction;
+  handleClickIcon: (restaurantId: RestaurantInfo['id']) => void;
   handleClickDeleteBtn: (restaurantId: RestaurantInfo['id']) => void;
 }
 
-function RestaurantDetail({ info, closeDetail, handleClickDeleteBtn }: DetailProps) {
+function RestaurantDetail({
+  info,
+  closeDetail,
+  handleClickIcon,
+  handleClickDeleteBtn,
+}: DetailProps) {
   const { id, category, name, isOften, distance, description, link } = info;
   const iconStyle = isOften === false ? 'lined' : 'filled';
 
   const [addEvent] = useEvents('.modal-container');
+
+  addEvent('click', '.favorite-icon', (e) => {
+    if (e.target instanceof HTMLImageElement) {
+      e.target.src = getFavoriteIconSrc(e.target.src);
+      console.log(e.target.id);
+      handleClickIcon(Number(e.target.id));
+    }
+  });
 
   addEvent('click', '#delete', (e) => {
     if (window.confirm('정말 삭제하시겠습니가?')) {

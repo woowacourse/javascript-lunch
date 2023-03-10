@@ -70,7 +70,11 @@ function App() {
     </main>
 
     ${isOpen ? AddFormModal({ close, handleClickAddBtn }) : ''}
-    ${isOpenDetail ? RestaurantDetail({ info, closeDetail, handleClickDeleteBtn }) : ''};
+    ${
+      isOpenDetail
+        ? RestaurantDetail({ info, closeDetail, handleClickIcon, handleClickDeleteBtn })
+        : ''
+    };
   `;
 }
 
