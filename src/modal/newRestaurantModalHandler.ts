@@ -16,7 +16,9 @@ export const handleModalOpenButtonClick = (selector: string) => {
 
 export const preventScroll = () => {
   const body = $("body") as HTMLBodyElement;
-  body.style.overflow === "hidden"
-    ? (body.style.overflow = "visible")
-    : (body.style.overflow = "hidden");
+  if (body.style.overflow === "hidden") {
+    body.style.overflow = "visible";
+  } else {
+    body.style.overflow = "hidden";
+  }
 };

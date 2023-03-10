@@ -2,8 +2,11 @@ import { RestaurantType } from "../type";
 import { $, $$ } from "../util/selector";
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
 import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
+import { executeClickEventListener } from "../util/eventListener";
+import { updateRestaurantList } from "../domain/filter";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
+// UI
 export const renderRestaurant = (info: RestaurantType) => {
   return `<li class="restaurant">
     <div class="restaurant__category">
@@ -39,9 +42,19 @@ export const renderRestaurantList = (restaurantList: RestaurantType[]) => {
   `;
 };
 
-export const toggleFavoriteIcon = (img: HTMLImageElement) => {
-  const keyName = img.previousElementSibling?.previousElementSibling
-    ?.textContent as string;
+// Domain
+export const controlFavoriteIcon = () => {
+  $$(".favorite-icon").forEach((icon) =>
+    executeClickEventListener(icon, (event) => {
+      toggleFavoriteIcon(event);
+      updateRestaurantList();
+    })
+  );
+};
+
+export const toggleFavoriteIcon = (event: Event) => {
+  const img = event.target as HTMLImageElement;
+  const keyName = img.closest("div")?.children[0].textContent as string;
   const clickedRestaurantKey = `${RESTAURANT}${keyName}`;
   const clickedRestaurantInfo = JSON.parse(
     String(localStorage.getItem(clickedRestaurantKey))
@@ -69,14 +82,4 @@ export const changeFavoriteImage = (
 
 export const changeFavoriteInLocalStorage = (key: string, info: string) => {
   localStorage.setItem(key, JSON.stringify(info));
-};
-
-export const controlFavoriteIcon = () => {
-  $$(".favorite-icon").forEach((icon) => {
-    icon.addEventListener("click", (event: Event) => {
-      const target = event.target as HTMLImageElement;
-
-      toggleFavoriteIcon(target);
-    });
-  });
 };
