@@ -21,7 +21,6 @@ class RestaurantList {
     this.#restaurants = restaurants;
     this.#parentEvent = parentEvent;
 
-    console.log(restaurants);
     this.#render();
     this.#renderRestaurantItems();
   }
@@ -36,7 +35,6 @@ class RestaurantList {
 
   #renderRestaurantItems() {
     this.#restaurants.forEach((restaurant: Restaurant) => {
-      console.log(restaurant, restaurant.itemId);
       new RestaurantItem({
         parentElement: $(`#restaurant-list`),
         restaurant: restaurant,
