@@ -7,6 +7,7 @@ interface Restaurant {
   addRestaurant: (restaurant: RestaurantInfo) => void;
   filterByCategory: (category: CategoryAll) => void;
   sortByType: (type: SortTypeAll) => void;
+  addFavorite: (restaurant: RestaurantInfo) => boolean;
 }
 
 export const restaurant: Restaurant = {
@@ -52,5 +53,10 @@ export const restaurant: Restaurant = {
       );
       $('restaurant-box').renderRestaurantList(sortByName);
     }
+  },
+
+  addFavorite(restaurant: RestaurantInfo) {
+    restaurant.isFavorite = !restaurant.isFavorite;
+    return restaurant.isFavorite;
   },
 };
