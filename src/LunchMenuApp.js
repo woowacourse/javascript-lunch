@@ -77,6 +77,8 @@ const LunchMenuApp = {
 
   moveToAllRestaurantsTab() {
     $('#all-restaurants').checked = true;
+    $('#category-filter').value = '전체';
+    $('#sorting-filter').value = 'register';
     $('restaurant-tab').handleTabChange();
   },
 
