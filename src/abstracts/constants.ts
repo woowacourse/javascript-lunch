@@ -6,6 +6,7 @@ export const RESTAURANT_ACTION: RestaurantAction = {
   SORT_RESTAURANTS: "sort_restaurants",
   UPDATE_FAVORITE: "updateFavorite",
   SHOW_DETAIL: "showDetail",
+  UPDATE_MODAL_FAVORITE: "updateModalFavorite",
 } as const;
 
 export const CATEGORY_IMG = {

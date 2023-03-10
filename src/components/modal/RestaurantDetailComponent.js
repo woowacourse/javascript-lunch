@@ -24,11 +24,15 @@ class RestaurantDetailComponent extends CustomElement {
     this.setAttribute("favorite", favorite);
 
     this.querySelector(".star").src = FAVORITE_IMG[favorite];
+
     dispatcher(RESTAURANT_ACTION.UPDATE_FAVORITE, parseInt(listKey));
   }
 
   hideModal() {
+    const listKey = this.getAttribute("listKey");
+
     document.getElementById("detail_modal").classList.remove("modal--open");
+    dispatcher(RESTAURANT_ACTION.UPDATE_MODAL_FAVORITE, parseInt(listKey));
   }
 
   template() {

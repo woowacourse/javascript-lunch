@@ -56,6 +56,9 @@ class Store {
     [RESTAURANT_ACTION.SHOW_DETAIL]: (action: Action) => {
       this.publishDetail(action.data as Index);
     },
+    [RESTAURANT_ACTION.UPDATE_MODAL_FAVORITE]: (action: Action) => {
+      this.publish();
+    },
   };
 }
 

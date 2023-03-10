@@ -40,4 +40,5 @@ export interface RestaurantAction {
   SORT_RESTAURANTS: string;
   UPDATE_FAVORITE: string;
   SHOW_DETAIL: string;
+  UPDATE_MODAL_FAVORITE: string;
 }
