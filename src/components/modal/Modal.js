@@ -3,8 +3,6 @@ import { $ } from '../../utils/common';
 class Modal {
   constructor($target) {
     this.$target = $target;
-    this.$target.insertAdjacentHTML('beforeend', this.setContainer());
-    this.container = $('.modal-container');
   }
 
   setContainer() {
