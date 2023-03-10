@@ -97,4 +97,9 @@ describe('자주 가는 음식점 e2e 테스트', () => {
     cy.get('#category-filter').select('한식');
     cy.get('.category-icon').should('have.attr', 'src', './category-korean.png');
   });
+
+  it('모든 음식점 탭에서 정렬 방법으로 거리순을 선택하면 음식점 목록이 거리순으로 정렬된다.', () => {
+    cy.get('#sorting-filter').select('거리순');
+    cy.get('.restaurant').first().should('contain.text', '찐친');
+  });
 });
