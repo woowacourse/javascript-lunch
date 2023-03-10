@@ -38,16 +38,6 @@ const RESTAURANTS_TEMPLATE = [
   {
     restaurant: {
       category: "한식",
-      name: "천국김밥",
-      estimatedTime: "5",
-      description: "모두가 원조인 집",
-      link: "https://www.naver.com",
-    },
-    favorite: false,
-  },
-  {
-    restaurant: {
-      category: "한식",
       name: "김밥지옥",
       estimatedTime: "15",
       description: new Array(7).fill(GIMBAP_SONG_LYRICS).join("\n\n"),
