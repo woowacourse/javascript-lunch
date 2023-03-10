@@ -3,6 +3,7 @@ import { $ } from './utils/querySelector';
 import Header from './view/components/Header';
 import RestaurantAddModal from './view/components/RestaurantAddModal';
 import RestaurantList from './view/components/RestaurantList';
+import RestaurantTabs from './view/components/RestaurantTabs';
 
 class App {
   #root;
@@ -23,6 +24,7 @@ class App {
 
   render() {
     new Header(this.#root).render();
+    new RestaurantTabs(this.#root).render();
 
     this.#root.insertAdjacentHTML('beforeend', this.#template());
 
