@@ -11,6 +11,11 @@ type Restaurant = UserRestaurantInput & {
   itemId: number;
 };
 
+type LocalStorageRestaurantData = {
+  restaurants: Restaurant[];
+  id: number;
+};
+
 type FilterProperties = {
   filterBy: string;
   sortBy: string;
@@ -23,6 +28,7 @@ type SelectCategoryType = CategoryType | '전체';
 export {
   UserRestaurantInput,
   Restaurant,
+  LocalStorageRestaurantData,
   FilterProperties,
   CategoryType,
   SelectCategoryType,
