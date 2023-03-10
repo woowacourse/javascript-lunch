@@ -1,3 +1,4 @@
+import { $ } from "../../util/dom";
 import "./index.css";
 
 class Tab {
@@ -26,15 +27,28 @@ class Tab {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
+  onChangeAllTab(restaurantList) {
+    const $filter = $(".restaurant-filter-container");
+    $filter.classList.add("filter--visible");
+
+    const selectedCategory = $filter.querySelector("#category-filter").value;
+    const selectedSortingWay = $filter.querySelector("#category-filter").value;
+    restaurantList.renderFilteredList(selectedCategory, selectedSortingWay);
+  }
+
+  onChangeFavoriteTab(restaurantList) {
+    const $filter = $(".restaurant-filter-container");
+    $filter.classList.remove("filter--visible");
+
+    restaurantList.renderFavoriteList();
+  }
+
   setOnSelectEvent(restaurantList) {
     this.$target.addEventListener("change", (event) => {
       const selectedTab = event.target.value;
-      if (selectedTab === "all") {
-        restaurantList.renderAllList();
-      }
-      if (selectedTab === "favorite") {
-        restaurantList.renderFavoriteList();
-      }
+
+      if (selectedTab === "all") this.onChangeAllTab(restaurantList);
+      if (selectedTab === "favorite") this.onChangeFavoriteTab(restaurantList);
     });
   }
 }

@@ -1,9 +1,13 @@
 .restaurant-filter-container {
-  display: flex;
+  display: none;
   justify-content: space-between;
 
   padding: 0 16px;
   margin-top: 24px;
+}
+
+.filter--visible {
+  display: flex;
 }
 
 .restaurant-filter-container select {
