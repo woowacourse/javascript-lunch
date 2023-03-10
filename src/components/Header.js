@@ -19,9 +19,11 @@ class Header {
     this.$target.insertAdjacentHTML('afterbegin', this.template());
   }
 
-  setEvent(callback) {
+  setEvent(addModalRender, setState, add) {
     const addButton = $('.gnb__button');
-    addButton.addEventListener('click', callback);
+    addButton.addEventListener('click', () => {
+      addModalRender(setState, add);
+    });
   }
 }
 
