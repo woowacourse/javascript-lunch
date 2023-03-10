@@ -43,7 +43,7 @@ class RestaurantItem {
             class="category-icon"
           />
         </div>
-        <button class="favorite-icon" ${
+        <button class="favorite-button" ${
           typeof this.#restaurant.itemId === 'number'
             ? `id="favorite-${this.#restaurant.itemId}"`
             : ''
@@ -61,9 +61,9 @@ class RestaurantItem {
           <span class="restaurant__distance text-body"
             >캠퍼스부터 ${this.#restaurant.distanceInMinutes}분 내</span
           >
-          <p class="restaurant__description text-body">
-            ${this.#restaurant.description}
-          </p>
+          <p class="restaurant__description text-body">${
+            this.#restaurant.description
+          }</p>
           <a class="restaurant__link" href="${
             this.#restaurant.link
           }" target="__blank">${this.#restaurant.link}</a>
