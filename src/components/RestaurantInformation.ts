@@ -79,7 +79,7 @@ class RestaurantInformation {
               src="${getFavoriteIcon(restaurant.favorite)}"
               alt=""
               id="restaurant-information-star"
-              class="restaurant-star ${restaurant.favorite && 'favorite'}"
+              class="restaurant-star-icon ${restaurant.favorite && 'favorite'}"
               data-id="${restaurant.id}"
             />
             </div>
