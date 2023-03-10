@@ -15,5 +15,4 @@ export const onClickRestaurantList = () => {
     const id = (event.target as HTMLElement).closest("restaurant-item")?.id;
     onClickRestaurantItem(id as string);
   });
-
 };

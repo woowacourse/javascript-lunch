@@ -3,7 +3,6 @@ import IRestaurant from "../type/IRestaurant";
 const defaultRestaurants: IRestaurant[] = [
   {
     id: "dad24efa-8d45-4020-bfc6-e8dde59934ea",
-
     category: "chinese",
     name: "찐친",
     distance: 5,
@@ -13,7 +12,6 @@ const defaultRestaurants: IRestaurant[] = [
   },
   {
     id: "32810bb1-659f-4550-88fe-d9968db9f433",
-
     category: "etc",
     name: "커피베네",
     distance: 5,
