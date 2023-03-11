@@ -1,11 +1,11 @@
 import Restaurants from './domain/models/Restaurants';
 import header from './component/header';
-import modal from './component/modal';
-import restaurantList from './component/restaurantList';
+import modal from './component/bottomSheet/modal';
+import restaurantList from './component/restaurantListPage/restaurantList';
 import restaurantFilterContainer from './component/restaurantFilterContainer';
 import tabBar from './component/tabBar';
-import form from './component/form';
-import detail from './component/detail';
+import form from './component/bottomSheet/form';
+import detail from './component/bottomSheet/detail';
 import { $ } from './utils/dom';
 import CustomStorage from './utils/CustomStorage';
 import { DEFAULT_CATEGORY } from './constants';

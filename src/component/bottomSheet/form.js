@@ -1,5 +1,5 @@
-import select from './select';
-import button from './button';
+import select from '../common/select';
+import button from '../common/button';
 
 const form = () => {
   const categoryOptions = [

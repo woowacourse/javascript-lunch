@@ -1,6 +1,6 @@
-import { CATEGORY_IMAGE_URL } from '../constants';
-import button from './button';
-import favoriteIcon from './favoriteIcon';
+import { CATEGORY_IMAGE_URL } from '../../constants';
+import button from '../common/button';
+import favoriteIcon from '../common/favoriteIcon';
 
 const detail = ({ restaurant }) => {
   const { id, category, name, takeMinute, description, link, favorite } = restaurant;
