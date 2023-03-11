@@ -6,11 +6,14 @@ import Component from './core/Component';
 import { $ } from './utils/domUtils';
 import { restaurantStore } from './model/restaurantStore';
 import MenuTabBar from './components/MenuTabBar';
+import DetailModal from './components/DetailModal';
 
 class App extends Component {
   readonly component: any;
   constructor() {
     super($('#app'));
+    // localStorage에 샘플 데이터 입력
+    restaurantStore.init();
 
     this.component = {
       topNavBar: new TopNavBar($('.gnb')),
@@ -18,10 +21,8 @@ class App extends Component {
       filterBar: new FilterBar($('.restaurant-filter-container')),
       addModalContainer: new AddModalContainer($('.restaurant-add-modal-container')),
       menuTabBar: new MenuTabBar($('.menu-tab-bar')),
+      detailModal: new DetailModal($('.detail-modal-container')),
     };
-
-    // localStorage에 샘플 데이터 입력
-    restaurantStore.init();
   }
 }
 
