@@ -65,4 +65,13 @@ describe('점심 뭐 먹지 E2E test', () => {
     cy.get('.button').contains('삭제하기').click();
     cy.get('.restaurant').should('have.length', 9);
   });
+
+  it('음식점 상세정보 모달에서 즐겨찾기에 추가할 수 있다', () => {
+    cy.get('.restaurant').first().click();
+    cy.get('.modal-container').find('img.favorite-icon').click();
+    cy.get('.button').contains('닫기').click();
+
+    cy.get('#nav-tab-2').click();
+    cy.get('.restaurant').should('have.length', 1).last().should('contain', '피양콩할머니');
+  });
 });
