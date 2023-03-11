@@ -97,7 +97,6 @@ export default class AddModal {
     [...e.target].forEach((el) => {
       if (el.name !== '') addData[el.name] = el.value;
     });
-    console.log(addData);
 
     this.#restaurantManager.addRestaurant(addData);
     e.currentTarget.classList.remove('modal--open');
