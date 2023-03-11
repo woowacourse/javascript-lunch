@@ -33,12 +33,12 @@ class NavigatorContainer {
   addEvent(navigateToPage: (page: string) => void, rerenderList: () => void) {
     $(".navigator-container")?.addEventListener("click", (event) => {
       const target = <HTMLElement>event.target;
-      const id = <string>target.closest("div")?.dataset.id;
+      const clickMenu = <string>target.closest("div")?.dataset.id;
 
-      if (this.currentMenu !== id) {
-        this.currentMenu = id;
+      if (this.currentMenu !== clickMenu) {
+        this.currentMenu = clickMenu;
 
-        navigateToPage(id);
+        navigateToPage(clickMenu);
         this.changeActiveMenuStyle();
         rerenderList();
       }
