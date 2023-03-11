@@ -1,10 +1,11 @@
 import $template from './app.html';
 import LunchHeader from './components/Header';
+import AddModal from './components/Modal';
 import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
 import LunchTab from './components/Tab';
 import store from './store';
-import { CategoryFilter, SortFilter } from './types';
+import { CategoryFilter, Restaurant, SortFilter } from './types';
 
 class App extends HTMLElement {
   constructor() {
@@ -21,6 +22,8 @@ class App extends HTMLElement {
     this.setLunchTabProps();
     this.setCategoryFilterBoxProps();
     this.setSortingFilterBoxProps();
+
+    this.setAddModalProps();
   }
 
   private setLunchHeaderProps() {
@@ -94,6 +97,28 @@ class App extends HTMLElement {
         store.sortRestaurants(option);
       },
     });
+  }
+
+  private setAddModalProps() {
+    const $addModal = this.querySelector('add-modal') as AddModal;
+    const onAddButtonClick = ({
+      category,
+      name,
+      distance,
+      isFavorite,
+      description,
+      link,
+    }: Restaurant) => {
+      store.addRestaurants({
+        category,
+        name,
+        distance,
+        isFavorite,
+        description,
+        link,
+      });
+    };
+    $addModal.setProps({ onAddButtonClick });
   }
 }
 

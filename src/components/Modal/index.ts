@@ -1,25 +1,31 @@
-import store from '../../store';
 import { Category, Distance } from '../../types';
+import { Restaurant } from './../../types';
 import $template from './index.html';
 
-class Modal extends HTMLElement {
+interface Props {
+  onAddButtonClick: (restaurant: Restaurant) => void;
+}
+
+class AddModal extends HTMLElement {
   constructor() {
     super();
-  }
-
-  render() {
     this.innerHTML = $template;
   }
 
   connectedCallback() {
-    this.render();
     const $modal = this.querySelector('.modal');
-
     const $cancelButton = this.querySelector('#cancel-button');
     $cancelButton?.addEventListener('click', () => {
       $modal?.classList.remove('modal--open');
     });
+  }
 
+  setProps({ onAddButtonClick }: Props) {
+    this.setHandleAddButtonClick(onAddButtonClick);
+  }
+
+  private setHandleAddButtonClick(onAddButtonClick: Props['onAddButtonClick']) {
+    const $modal = this.querySelector('.modal');
     const $form = this.querySelector('#add-restaurant');
     $form?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -29,7 +35,7 @@ class Modal extends HTMLElement {
       const $description = this.querySelector('#description') as HTMLTextAreaElement;
       const $link = this.querySelector('#link') as HTMLInputElement;
 
-      store.addRestaurants({
+      onAddButtonClick({
         category: $category.value as Category,
         name: $name.value,
         distance: Number($distance.value) as Distance,
@@ -48,4 +54,4 @@ class Modal extends HTMLElement {
   }
 }
 
-export default Modal;
+export default AddModal;
