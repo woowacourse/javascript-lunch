@@ -1,14 +1,15 @@
 import { CATEGORY, MINUTES_TO_CAMPUS } from '../data/Constants';
 import { Component } from '../type/Component';
 import { Category, MinutesToCampus, Restaurant } from '../type/Restaurant';
-import { Validator } from '../util/Validator';
 
 class RestaurantAddModal implements Component {
   $target: Element;
+  #validator: (restaurant: Restaurant) => void;
 
-  constructor(parent: Element) {
+  constructor(parent: Element, validator: (restaurant: Restaurant) => void) {
     parent.insertAdjacentHTML('beforeend', this.template());
     this.$target = parent.lastElementChild!;
+    this.#validator = validator;
   }
 
   template = () => `
@@ -81,15 +82,9 @@ class RestaurantAddModal implements Component {
       link: formData.get('link') as string,
       isFavorite: false,
     };
-    this.validate(restaurant);
+    this.#validator(restaurant);
 
     return restaurant;
-  }
-
-  validate(restaruant: Restaurant) {
-    if (Validator.isOnlyWhiteSpace(restaruant.name)) {
-      throw new Error('공백만 입력할 수 없습니다.');
-    }
   }
 
   setCloseModalHandler = () => {
@@ -109,7 +104,7 @@ class RestaurantAddModal implements Component {
         handler(this.makeRestaurant());
         this.toggle();
       } catch (error) {
-        alert(error);
+        alert((error as Error).message);
       }
     });
   };

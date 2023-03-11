@@ -1,4 +1,5 @@
 import { Restaurant, Category } from '../type/Restaurant';
+import { Validator } from '../util/Validator';
 
 type SortCondition = '이름' | '거리';
 
@@ -21,6 +22,15 @@ class RestaurantList {
   sortByName = (list: Restaurant[]) => [...list].sort((a, b) => a.name.localeCompare(b.name));
 
   sortByDistance = (list: Restaurant[]) => [...list].sort((a, b) => a.distance - b.distance);
+
+  validateRestaurant = (restaurant: Restaurant) => {
+    if (Validator.isOnlyWhiteSpace(restaurant.name)) {
+      throw new Error('공백만 입력할 수 없습니다.');
+    }
+    if (this.list.map((element) => element.name).includes(restaurant.name)) {
+      throw new Error('이미 존재하는 이름입니다.');
+    }
+  };
 }
 
 export { SortCondition, FilterCategory, RestaurantList };

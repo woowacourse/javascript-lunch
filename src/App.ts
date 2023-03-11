@@ -21,7 +21,7 @@ class App {
       header: new Header(target),
       filterBar: new RestaurantFilterBar(target),
       listSection: new RestaurantListSection(target, this.getRestaurantsList('전체', '이름')),
-      addModal: new RestaurantAddModal(target),
+      addModal: new RestaurantAddModal(target, this.restaurantsList.validateRestaurant),
     };
 
     this.setEventHandler();
