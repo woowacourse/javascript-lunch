@@ -57,6 +57,8 @@ export const restaurant: Restaurant = {
 
   addFavorite(restaurant: RestaurantInfo) {
     restaurant.isFavorite = !restaurant.isFavorite;
+    const restaurantsString = JSON.stringify(this.restaurants);
+    localStorage.setItem('restaurant', restaurantsString);
     return restaurant.isFavorite;
   },
 };
