@@ -1,5 +1,5 @@
 import { eventBus } from '@res/core/eventBus';
-import { FavoriteImage, ImageByCategory } from '@res/images/imageByCategory';
+import { FavoriteImage, ImageByCategory, toggleFavoriteIcon } from '@res/images/imageByCategory';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
@@ -28,28 +28,17 @@ export default class DetailModal extends Component {
   }
 
   setEvent() {
-    on($('.favorite-icon', this.$target), 'click', (event) => {
-      const $eventTarget = event.target as HTMLElement;
-      const $closestDiv = $eventTarget.closest('div')!;
-      const $image = $<HTMLImageElement>('.favorite-icon', $closestDiv);
-      // Favorite 버튼 클릭 시
-      // FIXME: classlist toggle 로 변경
-      // FIXME: 핸들러 분리
-      // FIXME: 핸들러 안에서 세부적으로 분리.
-
-      if ($image.classList.contains('favorite')) {
-        $image.src = FavoriteImage.favoriteOff;
-        $image.classList.remove('favorite');
-      } else {
-        $image.src = FavoriteImage.favoriteOn;
-        $image.classList.add('favorite');
-      }
-
-      restaurantStore.toggleFavorite(this.#id);
-      eventBus.dispatch('@toggle-favorite', this.#id);
-    });
-
+    on($('.favorite-icon', this.$target), 'click', this.handleClickFavorite.bind(this));
     return this;
+  }
+
+  handleClickFavorite(event: Event) {
+    const $image = event.target as HTMLImageElement;
+
+    $image.classList.toggle('favorite');
+    toggleFavoriteIcon($image);
+    restaurantStore.toggleFavorite(this.#id);
+    eventBus.dispatch('@toggle-favorite', this.#id);
   }
 
   template({ id, favorite, category, description, name, link, distance }: IRestaurant) {
