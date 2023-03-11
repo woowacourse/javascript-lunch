@@ -5,7 +5,6 @@ import './index.css';
 class RestaurantBox extends HTMLElement {
   connectedCallback() {
     this.render();
-    this.renderRestaurantList(restaurant.restaurants);
   }
 
   render() {

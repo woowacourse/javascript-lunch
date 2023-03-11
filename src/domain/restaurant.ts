@@ -61,7 +61,11 @@ export const restaurant: Restaurant = {
     restaurant.isFavorite = !restaurant.isFavorite;
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
-    $('restaurant-box').renderRestaurantList(this.restaurants);
+    if (this.filteredRestaurants.length === 0) {
+      return $('restaurant-box').renderRestaurantList(this.restaurants);
+    }
+    $('restaurant-box').renderRestaurantList(this.filteredRestaurants);
+
     return restaurant.isFavorite;
   },
 };

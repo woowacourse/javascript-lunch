@@ -32,11 +32,12 @@ class ConvertList extends HTMLElement {
     const allRestaurants = new RestaurantBox();
     allRestaurants.renderRestaurantList(restaurant.restaurants);
   }
+
   showFavoriteRestaurants() {
     $('#allRestaurant').classList.remove('clicked');
     $('#favoriteRestaurant').classList.add('clicked');
-    const allRestaurants = new RestaurantBox();
-    allRestaurants.renderRestaurantList([]);
+    const favoriteRestaurant = new RestaurantBox();
+    favoriteRestaurant.renderRestaurantList(restaurant.favoriteRestaurants);
   }
 }
 

@@ -11,6 +11,7 @@ import SelectList from './components/SelectList';
 import TextInput from './components/TextInput';
 import { restaurant } from './domain/restaurant';
 import './styles/index.css';
+import { $ } from './utils';
 
 restaurant.restaurants = JSON.parse(localStorage.getItem('restaurant') || '[]');
 customElements.define('lunch-header', Header);
@@ -24,3 +25,5 @@ customElements.define('restaurant-info', RestaurantInfo);
 customElements.define('select-list', SelectList);
 customElements.define('text-input', TextInput);
 customElements.define('lunch-button', Button);
+
+$('restaurant-box').renderRestaurantList(restaurant.restaurants);
