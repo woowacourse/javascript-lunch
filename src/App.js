@@ -52,22 +52,20 @@ export default class App {
       new Header($header, { render: () => restaurant.render() });
       new Tabbar($tabBar, {
         tab,
-        setState: () => {
-          this.setState();
-        },
+        setState: (state) => this.setState(state),
       });
       $restaurantFilter.style.display = "flex";
       new Filter($restaurantFilter, {
         sortingWay,
         category,
-        setState: () => this.setState(),
+        setState: (state) => this.setState(state),
       });
     }
 
     if (this.state.tab === TAB.FAVORITE) {
       const restaurant = new RestaurantList($restaurantList, { category, sortingWay, tab });
       new Header($header, { render: () => restaurant.render() });
-      new Tabbar($tabBar, { tab, setState: () => this.setState() });
+      new Tabbar($tabBar, { tab, setState: (state) => this.setState(state) });
       $restaurantFilter.style.display = "none";
     }
   }
