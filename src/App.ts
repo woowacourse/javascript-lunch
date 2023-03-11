@@ -11,14 +11,12 @@ import DistanceInput from './components/DistanceInput';
 import DescriptionInput from './components/DescriptionInput';
 import LinkInput from './components/LinkInput';
 import { mockList } from '../src/data/mockData';
-
 class App {
   #app;
 
   constructor() {
     this.#app = document.querySelector('#app') as HTMLElement;
-    RestaurantList.originList = RestaurantList.defaultList(mockList);
-    RestaurantList.valList = RestaurantList.defaultList(mockList);
+    RestaurantList.defaultList(mockList);
   }
 
   render() {
@@ -49,10 +47,10 @@ class App {
         </div>
       </main>
     `;
-    this.setEvent();
+    this.#setEvent();
   }
 
-  setEvent() {
+  #setEvent() {
     RestaurantFilter.setEvent();
     ModalButton.setEvent();
     SortButton.setEvent();

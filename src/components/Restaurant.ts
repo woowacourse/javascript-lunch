@@ -2,13 +2,13 @@ import categoryKoreanImg from '../../templates/category-korean.png';
 import categoryAsianImg from '../../templates/category-asian.png';
 import categoryChineseImg from '../../templates/category-chinese.png';
 import categoryEtcImg from '../../templates/category-etc.png';
-import categoryJapeneseImg from '../../templates/category-japenese.png';
+import categoryJapaneseImg from '../../templates/category-japanese.png';
 import categoryWesternImg from '../../templates/category-western.png';
 
 const category = {
   한식: categoryKoreanImg,
   중식: categoryChineseImg,
-  일식: categoryJapeneseImg,
+  일식: categoryJapaneseImg,
   양식: categoryWesternImg,
   아시안: categoryAsianImg,
   기타: categoryEtcImg,
@@ -41,7 +41,9 @@ export class Restaurant {
       <span class="restaurant__distance text-body">캠퍼스부터 ${
         this.#restaurant.distance
       }분 내</span>
-      <p class="restaurant__description text-body">${this.#restaurant?.description}</p>
+      <p class="restaurant__description text-body">${
+        this.#restaurant?.description
+      }</p>
     </div>
   </li>`;
   }
@@ -53,5 +55,8 @@ export class Restaurant {
         location.href = this.#restaurant.link;
       }
     });
+  }
+  getRestaurant() {
+    return this.#restaurant;
   }
 }
