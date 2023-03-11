@@ -18,7 +18,8 @@ class App {
   #template() {
     return `
       <div class="restaurant-list-wrapper"></div>
-      <div class="modal-wrapper"></div>
+      <div class="modal-add-wrapper"></div>
+      <div class="modal-item-wrapper"></div>
     `;
   }
 
@@ -29,7 +30,7 @@ class App {
     this.#root.insertAdjacentHTML('beforeend', this.#template());
 
     new RestaurantList($('.restaurant-list-wrapper')).render();
-    new RestaurantAddModal($('.modal-wrapper')).render();
+    new RestaurantAddModal($('.modal-add-wrapper')).render();
   }
 }
 
