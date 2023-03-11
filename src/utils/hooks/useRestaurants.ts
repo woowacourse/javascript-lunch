@@ -5,7 +5,6 @@ import {
   Restaurant,
   RestaurantInfo,
 } from '../../domain/model/LunchRecommendation';
-import { getData } from '../common/localStorage';
 import { useState } from '../core';
 import { useBoolean } from './useBoolean';
 

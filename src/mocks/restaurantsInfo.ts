@@ -1,7 +1,7 @@
 import { RestaurantInfo } from '../domain/model/LunchRecommendation';
 import { addData } from '../utils/common/localStorage';
 
-const mockData: RestaurantInfo[] = [
+export const mockData: RestaurantInfo[] = [
   {
     id: 0,
     name: '피양콩할머니',
