@@ -35,7 +35,10 @@ export default class RestaurantItem {
     `;
 
     const $favoriteIcon = $restaurantItem.querySelector('.favorite-icon') as HTMLImageElement;
-    $favoriteIcon.addEventListener('click', this.toggleLike.bind(this));
+    $favoriteIcon.addEventListener('click', e => {
+      e.stopPropagation();
+      this.toggleLike.call(this, e);
+    });
     $restaurantItem.addEventListener('click', this.handleClick.bind(this));
 
     return $restaurantItem;
@@ -66,7 +69,9 @@ export default class RestaurantItem {
   }
 
   handleClick(): void {
-    const event = new CustomEvent('restaurantClicked');
+    const event = new CustomEvent('restaurantItemClicked', {
+      detail: this.restaurant,
+    });
     document.dispatchEvent(event);
   }
 
