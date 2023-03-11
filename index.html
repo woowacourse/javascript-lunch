@@ -16,14 +16,21 @@
   </r-header>
 
   <main>
-    <r-restaurant-filter-panel></r-restaurant-filter-panel>
+    <r-tabs>
+      <section slot="all">
+        <r-restaurant-filter-panel></r-restaurant-filter-panel>
 
-    <r-restaurant-list id="restaurant-list"></r-restaurant-list>
-
-    <r-new-restaurant-modal></r-new-restaurant-modal>
-
-    <r-restaurant-detail-modal></r-restaurant-detail-modal>
+        <r-restaurant-list></r-restaurant-list>
+      </section>
+      <section slot="favorite">
+        <r-restaurant-list></r-restaurant-list>
+      </section>
+    </r-tabs>
   </main>
+
+  <r-new-restaurant-modal></r-new-restaurant-modal>
+
+  <r-restaurant-detail-modal></r-restaurant-detail-modal>
 </body>
 
 </html>
