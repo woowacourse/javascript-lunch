@@ -20,8 +20,8 @@ export interface Restaurant {
 const RestaurantList = {
   add: (restaurant: Restaurant): void => {
     const restaurants = RestaurantList.getLocalStorage();
-
     const updatedRestaurants = [...restaurants, restaurant];
+
     RestaurantList.updateRestaurants(updatedRestaurants);
   },
 
@@ -34,7 +34,6 @@ const RestaurantList = {
     if (findIndex === -1) return;
 
     const updatedRestaurat = restaurants;
-
     updatedRestaurat.splice(findIndex, 1);
 
     RestaurantList.updateRestaurants(updatedRestaurat);
@@ -59,10 +58,12 @@ const RestaurantList = {
     if (category === '전체') {
       return RestaurantList.sortByType(restaurants, type);
     }
+
     const filteredCategory = RestaurantList.filterByCategory(
       restaurants,
       category
     );
+
     return RestaurantList.sortByType(filteredCategory, type);
   },
 
