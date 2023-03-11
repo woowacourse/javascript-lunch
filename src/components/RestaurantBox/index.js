@@ -23,6 +23,7 @@ class RestaurantBox extends HTMLElement {
     restaurantList.forEach((restaurantInfo) => {
       const { id, category, name, distance, description, link, isFavorite } =
         restaurantInfo;
+
       const tagContent = `<restaurant-info
           id = "${id}"
           category="${category}"

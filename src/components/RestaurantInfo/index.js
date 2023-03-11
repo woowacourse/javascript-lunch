@@ -29,6 +29,7 @@ class RestaurantInfo extends HTMLElement {
   connectedCallback() {
     this.render();
     this.getId();
+    this.handleFavorite();
   }
 
   render() {
@@ -45,7 +46,7 @@ class RestaurantInfo extends HTMLElement {
         <div class="restaurant__category">
           <img src="${CATEGORY_IMAGES[category]}" alt=${category} class="category-icon">
         </div>
-        <img src="${FAVORITE_IMAGES[isFavorite]}" alt=${isFavorite} class="favorite-icon">
+        <img id ="handleFavorite" src="${FAVORITE_IMAGES[isFavorite]}" alt=${isFavorite} class="favorite-icon">
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
@@ -66,17 +67,36 @@ class RestaurantInfo extends HTMLElement {
             return info;
           }
         });
-
-        const restaurantDetails = new RestaurantDetails();
-        $('#modalContainer').appendChild(restaurantDetails);
-        restaurantDetails.render(restaurantInfo);
+        this.showRestaurantDetails(restaurantInfo);
       }
-      this.showRestaurantDetails();
     });
   }
 
-  showRestaurantDetails() {
+  showRestaurantDetails(restaurantInfo) {
+    const restaurantDetails = new RestaurantDetails();
+
+    $('#modalContainer').appendChild(restaurantDetails);
+    restaurantDetails.render(restaurantInfo);
     $('#modalContainer').classList.add('modal--open');
+  }
+
+  handleFavorite() {
+    const handleFavoriteImg = this.querySelector('#handleFavorite');
+    handleFavoriteImg.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const clickedLi = e.target.closest('li');
+      if (clickedLi) {
+        const restaurantId = parseInt(clickedLi.getAttribute('id'));
+        restaurant.restaurants.find((info) => {
+          if (info.id === restaurantId) {
+            return restaurant.addFavorite(info);
+          }
+        });
+        const isFavorite = handleFavoriteImg.getAttribute('alt') === 'true';
+        handleFavoriteImg.setAttribute('src', FAVORITE_IMAGES[!isFavorite]);
+        handleFavoriteImg.setAttribute('alt', !isFavorite);
+      }
+    });
   }
 }
 

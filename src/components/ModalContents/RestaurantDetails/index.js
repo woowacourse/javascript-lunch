@@ -9,6 +9,7 @@ import categoryAsian from '../../../assets/category-asian.png';
 import categoryEtc from '../../../assets/category-etc.png';
 import favoriteIcon from '../../../assets/favorite-icon-filled.png';
 import notFavoriteIcon from '../../../assets/favorite-icon-lined.png';
+import { restaurant } from '../../../domain/restaurant';
 
 const CATEGORY_IMAGES = {
   한식: categoryKorean,
@@ -36,7 +37,7 @@ class RestaurantDetails extends HTMLElement {
           <div class="restaurant__category-info">
             <img src="${CATEGORY_IMAGES[category]}" alt=${category} class="category-icon-info">
           </div>
-          <img src="${FAVORITE_IMAGES[isFavorite]}" alt=${isFavorite} class="favorite-icon-info">
+          <img id ="handleFavorite" src="${FAVORITE_IMAGES[isFavorite]}" alt=${isFavorite} class="favorite-icon-info">
           <div class="restaurant__info-info">
           <h3 class="restaurant__name-info text-subtitle">${name}</h3>
           <span class="restaurant__distance-info text-body">캠퍼스부터 ${distance}분 내</span>
@@ -52,6 +53,7 @@ class RestaurantDetails extends HTMLElement {
     `;
 
     this.modalHandler();
+    this.handleFavorite();
   }
 
   modalHandler() {
@@ -60,6 +62,25 @@ class RestaurantDetails extends HTMLElement {
 
   closeModal() {
     new Modal().closeModal();
+  }
+
+  handleFavorite() {
+    const handleFavoriteImg = this.querySelector('#handleFavorite');
+    handleFavoriteImg.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const clickedDiv = e.target.closest('div');
+      if (clickedDiv) {
+        const restaurantId = parseInt(clickedDiv.getAttribute('id'));
+        restaurant.restaurants.find((info) => {
+          if (info.id === restaurantId) {
+            return restaurant.addFavorite(info);
+          }
+        });
+        const isFavorite = handleFavoriteImg.getAttribute('alt') === 'true';
+        handleFavoriteImg.setAttribute('src', FAVORITE_IMAGES[!isFavorite]);
+        handleFavoriteImg.setAttribute('alt', !isFavorite);
+      }
+    });
   }
 }
 
