@@ -48,7 +48,7 @@ class RestaurantAddForm {
     this.linkInputCaption.addRemoveErrorMessageEvent();
   }
 
-  addSubmitEvent(closeModal: CallableFunction, addRestaurant: CallableFunction) {
+  addSubmitEvent(handleCloseModal: CallableFunction, handleAddRestaurant: CallableFunction) {
     const restaurantAddForm = $<HTMLFormElement>('#restaurant-add-form');
 
     restaurantAddForm.addEventListener('submit', (event: Event) => {
@@ -64,9 +64,9 @@ class RestaurantAddForm {
       const hasError = Object.values(formErrors).some(Boolean);
 
       if (!hasError) {
+        handleCloseModal();
         this.resetForm();
-        closeModal();
-        return addRestaurant({ ...restaurantItem });
+        return handleAddRestaurant({ ...restaurantItem });
       }
 
       this.showFormErrors(formErrors);
@@ -74,18 +74,18 @@ class RestaurantAddForm {
     });
   }
 
-  addCloseButtonClickEvent(closeModal: CallableFunction) {
+  addCloseButtonClickEvent(handleCloseModal: CallableFunction) {
     const closeButton = $<HTMLButtonElement>('#form-close-button');
 
     closeButton.addEventListener('click', () => {
       this.resetForm();
-      closeModal();
+      handleCloseModal();
     });
   }
 
-  addEvents(closeModal: CallableFunction, addRestaurant: CallableFunction) {
-    this.addCloseButtonClickEvent(closeModal);
-    this.addSubmitEvent(closeModal, addRestaurant);
+  addEvents(handleCloseModal: CallableFunction, handleAddRestaurant: CallableFunction) {
+    this.addCloseButtonClickEvent(handleCloseModal);
+    this.addSubmitEvent(handleCloseModal, handleAddRestaurant);
   }
 
   create() {
