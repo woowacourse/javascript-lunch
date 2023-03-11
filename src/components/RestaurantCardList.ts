@@ -1,15 +1,18 @@
 import "./RestaurantCardList.style.css";
 
-import type { CategoryOption, SortOption } from "../types/option";
+import type {
+  CategoryFilterOption,
+  SortingFilterOption,
+} from "../types/option";
 import type { Restaurant } from "../types/restaurant";
 
 import restaurantState from "../states/restaurants";
 import RestaurantCard from "./RestaurantCard";
 
 class RestaurantCardList extends HTMLUListElement {
-  #category: CategoryOption;
+  #category: CategoryFilterOption;
 
-  #sorting: SortOption;
+  #sorting: SortingFilterOption;
 
   #restaurants: Restaurant[] | undefined;
 
@@ -72,14 +75,14 @@ class RestaurantCardList extends HTMLUListElement {
   isCategoryFilterAttribute(
     attName: string,
     newValue: string
-  ): newValue is CategoryOption {
+  ): newValue is CategoryFilterOption {
     return attName === "category-filter";
   }
 
   isSortingFilterAttribute(
     attName: string,
     newValue: string
-  ): newValue is SortOption {
+  ): newValue is SortingFilterOption {
     return attName === "sorting-filter";
   }
 

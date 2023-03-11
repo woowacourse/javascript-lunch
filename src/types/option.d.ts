@@ -1,5 +1,5 @@
 import type { Category } from "./restaurant";
 
-export type CategoryOption = Category | "전체";
+export type CategoryFilterOption = Category | "전체";
 
-export type SortOption = "name" | "distance";
+export type SortingFilterOption = "name" | "distance";
