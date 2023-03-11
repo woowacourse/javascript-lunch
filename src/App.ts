@@ -24,16 +24,17 @@ class App {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
     this.restaurantListContainer = new RestaurantListContainer(this.restaurantService);
+
     this.renderComponents();
     this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
     this.addEvents();
   }
 
   renderComponents() {
-    RestaurantTabMenu.render();
-    RestaurantFilters.render();
-    this.formModal.render();
-    this.informationModal.render();
+    RestaurantTabMenu.render(this.changeRestaurantMenuTab);
+    RestaurantFilters.render(this.changeFilter);
+    this.formModal.render(this.addRestaurant);
+    this.informationModal.render(this.deleteRestaurant);
   }
 
   addRestaurant = (restaurantItem: Restaurant) => {
@@ -83,17 +84,11 @@ class App {
 
   addEvents() {
     addHeaderEvent(this.formModal.open);
-    RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
-    RestaurantFilters.addEvents(this.changeFilter);
     this.restaurantListContainer.addEvent(
       this.updateFavoriteRestaurant,
       this.informationModal.open,
       this.showRestaurantInformation
     );
-    this.formModal.addEvent();
-    RestaurantForm.addEvents(this.formModal.close, this.addRestaurant);
-    this.informationModal.addEvent();
-    RestaurantInformation.addButtonEvents(this.informationModal.close, this.deleteRestaurant);
   }
 }
 

@@ -17,7 +17,7 @@ class RestaurantFilters {
     this.sortingFilter.addSelectChangeEvent(handleFilterChange);
   }
 
-  render() {
+  render(handleFilterChange: CallableFunction) {
     const filterContainer = $<HTMLElement>('.restaurant-filter-container');
 
     filterContainer.insertAdjacentHTML(
@@ -27,6 +27,8 @@ class RestaurantFilters {
       ${this.sortingFilter.create()}
       `
     );
+
+    this.addEvents(handleFilterChange);
   }
 }
 

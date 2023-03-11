@@ -36,7 +36,7 @@ class RestaurantInformation {
     });
   }
 
-  addButtonEvents(handleCloseModal: CallableFunction, handleDeleteRestaurant: CallableFunction) {
+  addEvents(handleCloseModal: CallableFunction, handleDeleteRestaurant: CallableFunction) {
     this.addCloseButtonClickEvent(handleCloseModal);
     this.addDeleteButtonClickEvent(handleCloseModal, handleDeleteRestaurant);
   }

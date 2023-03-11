@@ -55,9 +55,11 @@ class Modal {
     `;
   }
 
-  render() {
+  render(handleClick: CallableFunction) {
     const main = $<HTMLElement>('main');
     main.insertAdjacentHTML('beforeend', this.create());
+    this.addEvent();
+    this.content.addEvents(this.close, handleClick);
   }
 }
 

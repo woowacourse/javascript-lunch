@@ -14,7 +14,7 @@ class RestaurantTabMenu {
     });
   }
 
-  render() {
+  render(handleTabChange: CallableFunction) {
     this.tabMenu.insertAdjacentHTML(
       'beforeend',
       `
@@ -30,6 +30,8 @@ class RestaurantTabMenu {
       )}
       `
     );
+
+    this.addEvent(handleTabChange);
   }
 }
 
