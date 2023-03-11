@@ -70,6 +70,26 @@ class App {
         event: 'change',
         actions: [this.toggleFilterContainer, this.renderList],
       },
+      {
+        selectors: '#detail-modal .favorite-icon',
+        event: 'click',
+        actions: [this.updateFavorite, this.initRestaurants, this.updateDetail, this.renderList],
+      },
+      {
+        selectors: '#detail-modal #close',
+        event: 'click',
+        actions: [this.toggleDetailModal],
+      },
+      {
+        selectors: '#detail-modal #remove',
+        event: 'click',
+        actions: [
+          this.removeRestaurant,
+          this.initRestaurants,
+          this.renderList,
+          this.toggleDetailModal,
+        ],
+      },
     ].forEach((manual) => {
       this.addEvent(manual);
     });
@@ -128,6 +148,28 @@ class App {
 
   toggleFilterContainer = () => {
     $('.restaurant-filter-container').classList.toggle('restaurant-filter-container--close');
+  };
+
+  updateFavorite = (e) => {
+    const id = e.target.dataset.id;
+    const newRestaurants = this.#model
+      .getAll()
+      .map((restaurant) =>
+        restaurant.id === id ? { ...restaurant, favorite: !restaurant.favorite } : restaurant
+      );
+    this.#storage.setValue(newRestaurants);
+  };
+
+  updateDetail = (e) => {
+    const $parent = e.target.closest('.restaurant') || e.target.closest('.detail');
+    const restaurant = this.#model.findRestaurant($parent.dataset.id);
+    $('#detail-modal .modal-container').innerHTML = detail({ restaurant });
+  };
+
+  removeRestaurant = (e) => {
+    const id = e.target.closest('.detail').dataset.id;
+    const newRestaurants = this.#model.getAll().filter((restaurant) => restaurant.id !== id);
+    this.#storage.setValue(newRestaurants);
   };
 }
 
