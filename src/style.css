@@ -342,3 +342,7 @@ input[name="link"] {
   color: var(--primary-color);
   border-bottom: var(--primary-color) solid 2px;
 }
+
+.hide {
+  display: none;
+}

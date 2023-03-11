@@ -7,6 +7,7 @@ import { Restaurant } from "./types/type";
 import NavigatorContainer from "./components/NavigatorContainer";
 import { $$ } from "./utils/Dom";
 import RestaurantItemBottomSheet from "./components/RestaurantItemBottomSheet";
+import SelectContainer from "./components/SelectContainer";
 
 class App {
   restaurantList: Restaurant[];
@@ -28,6 +29,7 @@ class App {
       this.navigateToPage,
       this.rerenderList
     );
+    SelectContainer.initialize(body, this.setSortListFilterById);
     RestaurantList.initialize(
       body,
       this.restaurantList,
@@ -46,6 +48,13 @@ class App {
 
   navigateToPage = (pageName: string) => {
     this.currentPage = pageName;
+
+    if (pageName === Constants.TOTAL) {
+      SelectContainer.show();
+      return;
+    }
+    SelectContainer.hide();
+
     this.rerenderList();
   };
 
@@ -70,7 +79,7 @@ class App {
           : restaurantListHandler.getSortedByName(this.restaurantList);
     }
 
-    this.rerenderList();
+    RestaurantList.updateRestaurantList(this.restaurantList);
   };
 
   createItemBottomSheet = (id: string) => {
@@ -106,6 +115,7 @@ class App {
     const newRestaurants = this.getFilteredRestaurantListByPage(
       this.currentPage
     );
+
     RestaurantList.updateRestaurantList(newRestaurants);
   };
 }
