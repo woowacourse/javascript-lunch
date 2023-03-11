@@ -6,16 +6,14 @@ import { FILTER_CATEGORY_OPTIONS, FILTER_SORT_BY_OPTIONS } from '../../utils/con
 type RestaurantFilterContainerState = {
   category: Category;
   sortBy: SortBy;
-  onChangeCategory: (e: Event) => void;
-  onChangeSortBy: (e: Event) => void;
+  onChangeDropDown: (e: Event) => void;
 };
 
 type RestaurantFilterContainerProps = {
   $parent: HTMLElement;
   category: Category;
   sortBy: SortBy;
-  onChangeCategory: (e: Event) => void;
-  onChangeSortBy: (e: Event) => void;
+  onChangeDropDown: (e: Event) => void;
 };
 
 export default class RestaurantFilterContainer
@@ -24,21 +22,14 @@ export default class RestaurantFilterContainer
   $target: HTMLElement;
   state: RestaurantFilterContainerState;
 
-  constructor({
-    $parent,
-    category,
-    sortBy,
-    onChangeCategory,
-    onChangeSortBy,
-  }: RestaurantFilterContainerProps) {
+  constructor({ $parent, category, sortBy, onChangeDropDown }: RestaurantFilterContainerProps) {
     this.$target = document.createElement('section');
     this.$target.classList.add('restaurant-filter-container');
 
     this.state = {
       category,
       sortBy,
-      onChangeCategory,
-      onChangeSortBy,
+      onChangeDropDown,
     };
 
     $parent.append(this.$target);
@@ -53,7 +44,8 @@ export default class RestaurantFilterContainer
       classNames: 'restaurant-filter',
       selectedOption: this.state.category,
       options: FILTER_CATEGORY_OPTIONS,
-      onChangeHandler: this.state.onChangeCategory,
+      onChangeHandler: this.state.onChangeDropDown,
+      key: 'category',
     }).render();
     new DropDown({
       $parent: this.$target,
@@ -62,7 +54,8 @@ export default class RestaurantFilterContainer
       classNames: 'restaurant-filter',
       options: FILTER_SORT_BY_OPTIONS,
       selectedOption: this.state.sortBy,
-      onChangeHandler: this.state.onChangeSortBy,
+      onChangeHandler: this.state.onChangeDropDown,
+      key: 'sortBy',
     }).render();
   }
 }

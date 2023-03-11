@@ -15,6 +15,7 @@ type DropDownProps = {
   options: SelectOption[];
   selectedOption: Category | SortBy;
   onChangeHandler: (e: Event) => void;
+  key: string;
 };
 
 export default class DropDown implements Component<DropDownState> {
@@ -29,11 +30,13 @@ export default class DropDown implements Component<DropDownState> {
     options,
     selectedOption,
     onChangeHandler,
+    key,
   }: DropDownProps) {
     this.$target = document.createElement('select');
     this.$target.classList.add(classNames ?? '');
     this.$target.id = id ?? '';
     this.$target.name = name ?? '';
+    this.$target.dataset.key = key;
     this.state = {
       options,
       selectedOption,

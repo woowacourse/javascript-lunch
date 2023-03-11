@@ -56,8 +56,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
       $parent: this.$target,
       category: this.state.category,
       sortBy: this.state.sortBy,
-      onChangeCategory: this.onChangeCategory.bind(this),
-      onChangeSortBy: this.onChangeSortBy.bind(this),
+      onChangeDropDown: this.onChangeDropDown.bind(this),
     }).render();
 
     new RestaurantList({
@@ -86,23 +85,12 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
     this.setState({ ...this.state, restaurants });
   }
 
-  onChangeCategory(e: Event) {
+  onChangeDropDown(e: Event) {
     const $select = e.target as HTMLSelectElement;
-    const category = $select.value as Category;
-
+    const key = $select.dataset.key as 'category' | 'sortBy';
     this.setState({
       ...this.state,
-      category,
-    });
-  }
-
-  onChangeSortBy(e: Event) {
-    const $select = e.target as HTMLSelectElement;
-    const sortBy = $select.value as SortBy;
-
-    this.setState({
-      ...this.state,
-      sortBy,
+      [key]: $select.value,
     });
   }
 
