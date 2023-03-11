@@ -9,7 +9,7 @@ export default class Component {
     return this;
   }
 
-  render(): this {
+  render(detail?: any): this {
     this.$target.innerHTML = this.template();
 
     return this;
@@ -25,7 +25,7 @@ export default class Component {
     return this;
   }
 
-  template() {
+  template(detail?: any) {
     return '';
   }
 }
