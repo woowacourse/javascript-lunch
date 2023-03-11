@@ -7,7 +7,7 @@ import Select from './Select';
 import Caption from './FormCaption';
 import { createInput } from '../template/InputTemplate';
 
-class RestaurantAddForm {
+class RestaurantForm {
   private categorySelect: Select;
   private distanceSelect: Select;
 
@@ -140,4 +140,4 @@ class RestaurantAddForm {
   }
 }
 
-export default new RestaurantAddForm();
+export default new RestaurantForm();

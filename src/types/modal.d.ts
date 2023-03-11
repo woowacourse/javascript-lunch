@@ -1,4 +1,4 @@
-import RestaurantAddForm from '../components/RestaurantAddForm';
+import RestaurantForm from '../components/RestaurantForm';
 import RestaurantInformation from '../components/RestaurantInformation';
 
-export type ModalContent = typeof RestaurantAddForm | typeof RestaurantInformation;
+export type ModalContent = typeof RestaurantForm | typeof RestaurantInformation;
