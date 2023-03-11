@@ -72,6 +72,7 @@ class Modal extends HTMLElement {
         bottom: 0;
         left: 0;
         background: rgba(0, 0, 0, 0.35);
+        z-index:2;
       }
 `;
 

@@ -4,6 +4,7 @@ class FilterBox extends HTMLElement {
   changeValueEvent() {
     this.shadowRoot.querySelector('select').addEventListener('change', () => {
       $('restaurant-boxes').drawRestaurants();
+      window.scrollTo(0, 0);
     });
   }
 

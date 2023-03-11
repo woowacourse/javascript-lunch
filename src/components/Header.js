@@ -7,10 +7,13 @@ class Header extends HTMLElement {
     this.render();
     this.setComponentStyle();
     this.openModalEvent();
+    this.titleClickEvent();
   }
 
   titleClickEvent() {
-    this.shadowRoot.querySelector('#title').addEventListener('click', () => {});
+    this.shadowRoot.querySelector('#title').addEventListener('click', () => {
+      window.scrollTo(0, 0);
+    });
   }
 
   openModalEvent() {
@@ -54,6 +57,7 @@ class Header extends HTMLElement {
     
     h1 {
       color: #fcfcfd;
+      cursor:pointer;
     }
     
     button {
