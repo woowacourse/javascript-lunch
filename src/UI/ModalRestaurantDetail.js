@@ -3,7 +3,7 @@ import {
   stringifyJson,
   getRestaurantListFromLocalstorage,
 } from "../utils/LocalStorage";
-import { RESTAURANT } from "../utils/Constant"
+import { RESTAURANT } from "../utils/Constant";
 
 export default class ModalRestaurantDetail {
   #template = `
@@ -23,7 +23,7 @@ export default class ModalRestaurantDetail {
 
           <!-- 음식점 이름 -->
           <div class="detail-item">
-            <h3 class="restaurant__name  modal-detail-restaurant__name ntext-subtitle"></h3>
+            <h3 class="restaurant__name  modal-detail-restaurant__name text-subtitle"></h3>
           </div>
 
           <!-- 거리 -->
@@ -52,7 +52,7 @@ export default class ModalRestaurantDetail {
 
   constructor(restaurantList, restaurantRegistry) {
     this.restaurantList = restaurantList;
-    this.restaurantRegistry = restaurantRegistry
+    this.restaurantRegistry = restaurantRegistry;
   }
   render() {
     document.body.insertAdjacentHTML("beforeend", this.#template);
@@ -60,24 +60,23 @@ export default class ModalRestaurantDetail {
 
   initializeButtonEvents() {
     $(".button--close").addEventListener("click", this.closeModalDetail);
-    $(".button--delete").addEventListener(
-      "click",()=>{
-        this.restaurantList.deleteRestaurantElement();
-        if ($(".favorite-restaurant").style.color === "rgb(236, 74, 10)") {
-          const restaurantAll = getRestaurantListFromLocalstorage("favorite") || []
-          console.log(restaurantAll)
-          this.closeModalDetail();
-          $(".restaurant-list").replaceChildren();
-          this.attachRestaurantToRegistry(restaurantAll);
-          return;
-        }
-        const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
-        const sortBy = localStorage.getItem("sort") ?? "name";
-        this.restaurantList.filterCategory(foodCategory);
-        this.restaurantList.filterBySort(sortBy, foodCategory);
+    $(".button--delete").addEventListener("click", () => {
+      this.restaurantList.deleteRestaurantElement();
+      if ($(".favorite-restaurant").style.color === "rgb(236, 74, 10)") {
+        const restaurantAll =
+          getRestaurantListFromLocalstorage("favorite") || [];
+        console.log(restaurantAll);
         this.closeModalDetail();
+        $(".restaurant-list").replaceChildren();
+        this.attachRestaurantToRegistry(restaurantAll);
+        return;
       }
-    );
+      const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
+      const sortBy = localStorage.getItem("sort") ?? "name";
+      this.restaurantList.filterCategory(foodCategory);
+      this.restaurantList.filterBySort(sortBy, foodCategory);
+      this.closeModalDetail();
+    });
   }
 
   attachRestaurantToRegistry(restaurantParsedInfo) {
@@ -87,7 +86,7 @@ export default class ModalRestaurantDetail {
   }
 
   changeRestaurantInformation(event, restaurantInfo) {
-    this.restaurantInfo = restaurantInfo
+    this.restaurantInfo = restaurantInfo;
     const category = {
       한식: "./category-korean.png",
       일식: "./category-japanese.png",
@@ -121,58 +120,85 @@ export default class ModalRestaurantDetail {
     );
     $(".modal-detail-restaurant__link").textContent = restaurantInfo.link;
 
-    $(`.modla--restaurant_favorite`).replaceChildren()
-    $(`.modla--restaurant_favorite`).innerHTML += '<img src="./favorite-icon-lined.png"></img>'
+    $(`.modla--restaurant_favorite`).replaceChildren();
+    $(
+      `.modla--restaurant_favorite`
+    ).innerHTML += `<img class="modla--restaurant_image" src="./favorite-icon-lined.png">`;
     this.openModalDetail();
 
-    const clickListImage = event.target.children[1].children[0].getAttribute("src")
-    if(clickListImage === "./favorite-icon-filled.png") $(".modla--restaurant_favorite").children[0].setAttribute("src", "./favorite-icon-filled.png");
-    if(clickListImage === "./favorite-icon-lined.png") $(".modla--restaurant_favorite").children[0].setAttribute("src", "./favorite-icon-lined.png");
+    (getRestaurantListFromLocalstorage("favorite")??[]).forEach((val) => {
+      if (val.id === restaurantInfo.id) {
+        $(`.modla--restaurant_favorite`).replaceChildren();
+        $(
+          `.modla--restaurant_favorite`
+        ).innerHTML += `<img class="modla--restaurant_image" src="./favorite-icon-filled.png">`;
+      }
+    });
 
-    $(`.modla--restaurant_favorite`).children[0].addEventListener(
-      "click", this.favoriteEvent
-    );
+    $(`.modla--restaurant_image`).addEventListener("click", this.favoriteEvent);
   }
 
- clickModalFavorite(e, restaurantInfo){
+  clickModalFavorite(e, restaurantInfo) {
     e.stopPropagation();
     if (e.target.getAttribute("src") === "./favorite-icon-filled.png") {
-      const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant)=>{
-        if(restaurant.id === restaurantInfo.id) restaurant["favorite"]= "./favorite-icon-lined.png"
-        return restaurant
-      })
-      localStorage.setItem("restaurants", stringifyJson(restaurantFavoriteList));
+      const restaurantFavoriteList = getRestaurantListFromLocalstorage(
+        RESTAURANT
+      ).map((restaurant) => {
+        if (restaurant.id === restaurantInfo.id)
+          restaurant["favorite"] = "./favorite-icon-lined.png";
+        return restaurant;
+      });
+      localStorage.setItem(
+        "restaurants",
+        stringifyJson(restaurantFavoriteList)
+      );
       const res = getRestaurantListFromLocalstorage("favorite") ?? [];
-      const deletedRestaurantElementArray = res.filter((val) =>  {
-        return val.id !== restaurantInfo.id});
-      localStorage.setItem("favorite", stringifyJson(deletedRestaurantElementArray))
-      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute("src", "./favorite-icon-lined.png");
+      const deletedRestaurantElementArray = res.filter((val) => {
+        return val.id !== restaurantInfo.id;
+      });
+      localStorage.setItem(
+        "favorite",
+        stringifyJson(deletedRestaurantElementArray)
+      );
+      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute(
+        "src",
+        "./favorite-icon-lined.png"
+      );
       e.target.setAttribute("src", "./favorite-icon-lined.png");
-    }
-    else if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
-      const favorite = []
-      const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant)=>{
-        if(restaurant.id === restaurantInfo.id) restaurant["favorite"]= "./favorite-icon-filled.png"
-        return restaurant
-      })
-      localStorage.setItem("restaurants", stringifyJson(restaurantFavoriteList));
-      const favoriteList = getRestaurantListFromLocalstorage("favorite")
-      if(favoriteList !== null) favoriteList.forEach((val)=>favorite.push(val))
+    } else if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
+      const favorite = [];
+      const restaurantFavoriteList = getRestaurantListFromLocalstorage(
+        RESTAURANT
+      ).map((restaurant) => {
+        if (restaurant.id === restaurantInfo.id)
+          restaurant["favorite"] = "./favorite-icon-filled.png";
+        return restaurant;
+      });
+      localStorage.setItem(
+        "restaurants",
+        stringifyJson(restaurantFavoriteList)
+      );
+      const favoriteList = getRestaurantListFromLocalstorage("favorite");
+      if (favoriteList !== null)
+        favoriteList.forEach((val) => favorite.push(val));
       favorite.push(restaurantInfo);
       localStorage.setItem("favorite", stringifyJson(favorite));
-      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute("src", "./favorite-icon-filled.png");
+      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute(
+        "src",
+        "./favorite-icon-filled.png"
+      );
       e.target.setAttribute("src", "./favorite-icon-filled.png");
     }
   }
 
-  favoriteEvent=(e)=>this.clickModalFavorite(e, this.restaurantInfo)
+  favoriteEvent = (e) => this.clickModalFavorite(e, this.restaurantInfo);
 
   openModalDetail() {
     $(".modal--detail").style.display = "block";
   }
 
-  closeModalDetail=()=> {
+  closeModalDetail = () => {
     $(".modal--detail").style.display = "none";
-    $(".modal--detail").removeAttribute('id');
-  }
+    $(".modal--detail").removeAttribute("id");
+  };
 }

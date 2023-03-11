@@ -40,7 +40,7 @@ export default class RestaurantInventory {
             $(".all-restaurant").style.borderBottom="2px solid #667085";
             $(".restaurant-filter-container").className = "restaurant-filter-container filter-container-close"
             $(".restaurant-list").replaceChildren();
-            const restaurantFavorite = getRestaurantListFromLocalstorage("favorite")
+            const restaurantFavorite = getRestaurantListFromLocalstorage("favorite")??[]
             restaurantFavorite.forEach((restaurant)=>restaurant["favorite"] = "./favorite-icon-filled.png")
             this.attachRestaurantToRegistry(restaurantFavorite)
         })
