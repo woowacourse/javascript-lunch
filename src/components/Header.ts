@@ -14,6 +14,8 @@ const Header = {
     $app.innerHTML = template;
 
     ModalButton.setEvent();
+
+    return template;
   },
 };
 
