@@ -122,7 +122,7 @@ export default class App {
   }
 
   deleteRestaurantInfo(id: number) {
-    this.state.restaurantService.deleteRerstaurant(id);
+    this.state.restaurantService.deleteRestaurant(id);
 
     this.renderListArticle(store.currentTab);
 

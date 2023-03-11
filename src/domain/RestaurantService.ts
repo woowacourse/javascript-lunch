@@ -74,7 +74,7 @@ export default class RestaurantService {
     return filteredAndSortedList;
   }
 
-  deleteRerstaurant(id: number) {
+  deleteRestaurant(id: number) {
     this.#restaurants = [...this.#restaurants].filter(
       (restaurant) => restaurant.getRestaurantInfo()['id'] !== id
     );
