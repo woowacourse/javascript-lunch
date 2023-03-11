@@ -20,7 +20,7 @@ class Modal {
     document.body.classList.remove('hide-overflow');
   };
 
-  model = () => {
+  open = () => {
     const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.showModal();
 

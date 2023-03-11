@@ -81,12 +81,12 @@ class App {
   };
 
   addEvents() {
-    addHeaderEvent(this.formModal.model);
+    addHeaderEvent(this.formModal.open);
     RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
     this.restaurantListContainer.addEvent(
       this.updateFavoriteRestaurant,
-      this.informationModal.model,
+      this.informationModal.open,
       this.showRestaurantInformation
     );
     this.formModal.addEvent();
