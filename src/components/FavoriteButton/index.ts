@@ -28,8 +28,10 @@ class FavoriteButton extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    this.favorite = JSON.parse(newValue);
-    this.render();
+    if (newValue === "true" || newValue === "false") {
+      this.favorite = JSON.parse(newValue);
+      this.render();
+    }
   }
 
   onClickFavoriteButton(id: string) {
