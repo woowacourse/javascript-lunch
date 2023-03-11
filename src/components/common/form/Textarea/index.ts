@@ -12,9 +12,11 @@ class Textarea extends FormControlComponent {
   override renderTemplate() {
     return `
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
-      <textarea id="form-control" oninput="this.host.onInput(event)" rows="${
-        this.getAttribute('rows') ?? 4
-      }"></textarea>
+      <textarea
+        id="form-control"
+        oninput="this.host.onInput(event)"
+        rows="${this.getAttribute('rows') ?? 4}"
+      ></textarea>
     `;
   }
 
