@@ -76,7 +76,7 @@ class RestaurantDetailModal extends Component {
 
         <p class="text-body">{description}</p>
 
-        <a>{referenceUrl}</a>
+        <a href="{referenceUrl}" target="_blank" class="text-body">{referenceUrl}</a>
       </article>
 
       <div slot="actions">
