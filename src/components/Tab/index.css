@@ -1,0 +1,30 @@
+.restaurant-tab-container {
+  display: flex;
+
+  margin-top: 22px;
+  padding: 0 16px;
+
+  text-align: center;
+}
+
+.tab-item {
+  width: 50%;
+
+  padding: 9px 0;
+
+  border-bottom: 2px solid #d0d5dd;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #667085;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + .tab-item {
+  border-color: #ec4a0a;
+  color: #ec4a0a;
+}
