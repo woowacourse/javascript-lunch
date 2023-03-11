@@ -11,7 +11,7 @@ const renderListData = restaurantManager.getRestaurantList();
 
 const header = new Header();
 const main = new Main(restaurantManager, addEvent);
-const addModal = new AddModal(restaurantManager, main);
+const addModal = new AddModal(restaurantManager, main, addEvent);
 
 $('.gnb').innerHTML = header.render();
 $('.restaurant-list').innerHTML = main.render(renderListData, '전체', '이름순', false);

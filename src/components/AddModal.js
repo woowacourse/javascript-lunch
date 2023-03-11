@@ -3,8 +3,10 @@ const { $ } = require('../utils/domHelpers');
 export default class AddModal {
   #restaurantManager;
   #main;
+  #renderEvent;
 
-  constructor(restaurantManager, main) {
+  constructor(restaurantManager, main, renderEvent) {
+    this.#renderEvent = renderEvent;
     this.addEvent();
     this.#restaurantManager = restaurantManager;
     this.#main = main;
@@ -63,7 +65,7 @@ export default class AddModal {
             <!-- 설명 -->
             <div class="form-item">
               <label for="description text-caption">설명</label>
-              <textarea name="description" id="description" cols="30" rows="5"></textarea>
+              <textarea name="detail" id="description" cols="30" rows="5"></textarea>
               <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
             </div>
   
@@ -95,12 +97,19 @@ export default class AddModal {
     [...e.target].forEach((el) => {
       if (el.name !== '') addData[el.name] = el.value;
     });
+    console.log(addData);
 
     this.#restaurantManager.addRestaurant(addData);
     e.currentTarget.classList.remove('modal--open');
 
+    const category = $('select#category-filter option:checked').value;
+    const sorts = $('select#sorting-filter option:checked').textContent;
     $('.restaurant-list-container').innerHTML = this.#main.render(
-      this.#restaurantManager.getRestaurantList()
+      this.#restaurantManager.getRestaurantList(),
+      category,
+      sorts,
+      $('.render-selected').textContent === '자주 가는 음식점'
     );
+    this.#renderEvent();
   }
 }
