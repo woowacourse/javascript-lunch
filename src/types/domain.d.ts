@@ -1,5 +1,5 @@
 import { Category } from './index';
-import { CATEGORY_ALL } from '../constants/constants';
+import { CATEGORY_ALL } from '../constants/restaurant';
 
 type AllCategory = typeof CATEGORY_ALL;
 

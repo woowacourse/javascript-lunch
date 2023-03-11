@@ -1,4 +1,4 @@
-import { SELECT_OPTIONS } from '../constants/constants';
+import { SELECT_OPTIONS } from '../constants/restaurant';
 import { FILTER_ATTRIBUTE } from '../constants/domAttributes';
 import { $ } from '../utils/domSelectors';
 import Select from './Select';

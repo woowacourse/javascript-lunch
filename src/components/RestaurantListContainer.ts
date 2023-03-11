@@ -1,5 +1,5 @@
 import { Restaurant, RestaurantFilter } from '../types/index';
-import { DEFAULT_TAB } from '../constants/constants';
+import { DEFAULT_TAB } from '../constants/restaurant';
 import { $ } from '../utils/domSelectors';
 import { changeRestaurantFavoriteIcon } from './utils';
 import { createRestaurantItem } from '../template/RestaurantItemTemplate';

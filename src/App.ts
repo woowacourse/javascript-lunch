@@ -1,5 +1,6 @@
 import { Restaurant, RestaurantFilter } from './types/index';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
+import { CATEGORY_ALL, DEFAULT_TAB, SORT_BY_NAME } from './constants/restaurant';
 import { MODAL_ATTRIBUTE } from './constants/domAttributes';
 import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
 import RestaurantTabMenu from './components/RestaurantTabMenu';
@@ -10,7 +11,6 @@ import RestaurantForm from './components/RestaurantForm';
 import RestaurantInformation from './components/RestaurantInformation';
 import { addHeaderEvent } from './events/headerEvents';
 import RestaurantService from './domains/RestaurantService';
-import { CATEGORY_ALL, DEFAULT_TAB, SORT_BY_NAME } from './constants/constants';
 
 class App {
   private restaurantService: RestaurantService;

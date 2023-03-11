@@ -1,6 +1,6 @@
 import { Restaurant, RestaurantFilter } from '../types/index';
 import { CategoryOptions } from '../types/domain';
-import { CATEGORY_ALL, SORT_BY_NAME } from '../constants/constants';
+import { CATEGORY_ALL, SORT_BY_NAME } from '../constants/restaurant';
 
 function filterByCategory(category: CategoryOptions, restaurantList: Restaurant[]) {
   if (category === CATEGORY_ALL) return [...restaurantList];

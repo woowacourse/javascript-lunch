@@ -1,4 +1,4 @@
-import { TAB_ALL_NAME, TAB_FAVORITE_NAME } from '../constants/constants';
+import { TAB_ALL_NAME, TAB_FAVORITE_NAME } from '../constants/restaurant';
 import { TAB_BUTTON_ATTRIBUTE } from '../constants/domAttributes';
 import { createTabButton } from '../template/TabButtonTemplate';
 import { $ } from '../utils/domSelectors';

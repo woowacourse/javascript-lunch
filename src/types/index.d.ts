@@ -1,4 +1,4 @@
-import { RESTAURANT_DISTANCE, OPTION_NAMES } from '../constants/constants';
+import { RESTAURANT_DISTANCE, OPTION_NAMES } from '../constants/restaurant';
 
 export type Category = (typeof OPTION_NAMES.CATEGORY)[number];
 
