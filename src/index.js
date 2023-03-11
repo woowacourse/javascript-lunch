@@ -9,6 +9,8 @@ import RestaurantList from "./components/RestaurantList";
 import RestaurantView from "./components/RestaurantView";
 import SortingSelectBox from "./components/SortingSelectBox";
 import "./css/style.css";
+import "./css/layout.css";
+import "./css/tab-menu.css";
 import { restoreRestaurants } from "./domain/restaurant";
 import { restaurants } from "./domain/restaurants";
 
