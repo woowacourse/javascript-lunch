@@ -65,9 +65,13 @@ class RestaurantAddModal implements Component {
       </div>
   `;
 
-  toggle = () => {
+  show = () => {
+    this.$target.classList.add('modal--open');
+  };
+
+  hide = () => {
     (this.$target.querySelector('#form-add-restaurant') as HTMLFormElement).reset();
-    this.$target.classList.toggle('modal--open');
+    this.$target.classList.remove('modal--open');
   };
 
   makeRestaurant(): Restaurant {
@@ -88,12 +92,12 @@ class RestaurantAddModal implements Component {
   }
 
   setCloseModalHandler = () => {
-    this.$target.querySelector('.button--secondary')?.addEventListener('click', this.toggle);
-    this.$target.querySelector('.modal-backdrop')?.addEventListener('click', this.toggle);
+    this.$target.querySelector('.button--secondary')?.addEventListener('click', this.hide);
+    this.$target.querySelector('.modal-backdrop')?.addEventListener('click', this.hide);
 
     document.addEventListener(
       'keydown',
-      (event) => (event.key === 'Escape' || event.key === 'Esc') && this.toggle(),
+      (event) => (event.key === 'Escape' || event.key === 'Esc') && this.hide(),
     );
   };
 
@@ -102,7 +106,7 @@ class RestaurantAddModal implements Component {
       try {
         event.preventDefault();
         handler(this.makeRestaurant());
-        this.toggle();
+        this.hide();
       } catch (error) {
         alert((error as Error).message);
       }
