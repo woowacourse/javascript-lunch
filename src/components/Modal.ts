@@ -13,14 +13,14 @@ class Modal {
     this.onClose = onClose;
   }
 
-  closeModal = () => {
+  close = () => {
     const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.close();
 
     document.body.classList.remove('hide-overflow');
   };
 
-  openModal = () => {
+  model = () => {
     const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.showModal();
 
@@ -33,7 +33,7 @@ class Modal {
     backdrop.addEventListener('click', (event: Event) => {
       const target = event.target as HTMLDialogElement;
 
-      if (target === event.currentTarget) this.closeModal();
+      if (target === event.currentTarget) this.close();
 
       if (this.onClose) this.onClose();
     });
