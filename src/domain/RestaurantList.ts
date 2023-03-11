@@ -22,7 +22,8 @@ export class RestaurantList {
   }
 
   add(restaurantInfo: RestaurantForm) {
-    this.list = [...this.list, restaurantInfo];
+    const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
+    this.list = [...res, restaurantInfo];
 
     const restaurantString = stringifyJson(this.list);
     localStorage.setItem("restaurants", restaurantString);
@@ -74,12 +75,26 @@ export class RestaurantList {
     });
   }
 
-  deleteRestaurantElement(){
-    const restaurantId = $(".modal--detail").id
+  deleteRestaurantElement() {
+    const restaurantId = $(".modal--detail").id;
     const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
-    
-    const deletedRestaurantElementArray = res.filter((val: RestaurantForm) =>  val.id !== Number(restaurantId));
-    localStorage.setItem("restaurants", stringifyJson(deletedRestaurantElementArray))
+
+    const deletedRestaurantElementArray = res.filter(
+      (val: RestaurantForm) => val.id !== Number(restaurantId)
+    );
+    localStorage.setItem(
+      "restaurants",
+      stringifyJson(deletedRestaurantElementArray)
+    );
     this.list = getRestaurantListFromLocalstorage(RESTAURANT) ?? []
+
+    const restaruantFavorite = getRestaurantListFromLocalstorage("favorite") ?? [];
+    const deletedRestaurantElementList = restaruantFavorite.filter((val: RestaurantForm) => {
+      return val.id !== Number(restaurantId)
+    });
+    localStorage.setItem(
+      "favorite",
+      stringifyJson(deletedRestaurantElementList)
+    );
   }
 }

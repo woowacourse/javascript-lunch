@@ -4,7 +4,7 @@ import {
   stringifyJson,
   getRestaurantListFromLocalstorage,
 } from "../utils/LocalStorage";
-
+import { RESTAURANT } from "../utils/Constant"
 export default class RestaurantRegistry {
   appendRestaurant(restaurantInfo) {
     const category = {
@@ -36,7 +36,7 @@ export default class RestaurantRegistry {
           </div>
         </div>  
           <div class="restaurant_favorite${restaurantInfo.id}">
-            <img src="./favorite-icon-lined.png">
+            <img src=${restaurantInfo.favorite}>
           </div>
     </li>
     `;
@@ -51,7 +51,12 @@ export default class RestaurantRegistry {
       (e) => {
         e.stopPropagation();
         if (e.target.getAttribute("src") === "./favorite-icon-filled.png") {
-          // this.restaurantList.deleteRestaurantFromFavorite(restaurantInfo.id);
+          console.log("SAdsad")
+          const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant)=>{
+            if(restaurant.id === restaurantInfo.id) restaurant["favorite"]= "./favorite-icon-lined.png"
+            return restaurant
+          })
+          localStorage.setItem("restaurants", stringifyJson(restaurantFavoriteList));
           const res = getRestaurantListFromLocalstorage("favorite") ?? [];
           const deletedRestaurantElementArray = res.filter((val) => {
             return val.id !== restaurantInfo.id;
@@ -64,6 +69,12 @@ export default class RestaurantRegistry {
         }
         if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
           const favorite = [];
+          const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant)=>{
+            if(restaurant.id === restaurantInfo.id) restaurant["favorite"]= "./favorite-icon-filled.png"
+
+            return restaurant
+          })
+          localStorage.setItem("restaurants", stringifyJson(restaurantFavoriteList));
           const favoriteList = getRestaurantListFromLocalstorage("favorite");
           if (favoriteList !== null)
             favoriteList.forEach((val) => favorite.push(val));

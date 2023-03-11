@@ -15,6 +15,7 @@ export interface RestaurantForm {
   description?: string;
   link?: string;
   id?: number;
+  favorite?: string;
 }
 
 export class Restaurant {

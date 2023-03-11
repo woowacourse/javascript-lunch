@@ -27,6 +27,7 @@ export default class RestaurantInventory {
             $(".all-restaurant").style.borderBottom="2px solid #ec4a0a";
             $(".favorite-restaurant").style.color="#667085";
             $(".favorite-restaurant").style.borderBottom = "2px solid #667085";
+            $(".restaurant-filter-container").className = "restaurant-filter-container";
             $(".restaurant-list").replaceChildren();
             const restaurantAll = getRestaurantListFromLocalstorage(RESTAURANT)
             this.attachRestaurantToRegistry(restaurantAll)
@@ -37,8 +38,10 @@ export default class RestaurantInventory {
             $(".favorite-restaurant").style.borderBottom = "2px solid #ec4a0a";
             $(".all-restaurant").style.color="#667085";
             $(".all-restaurant").style.borderBottom="2px solid #667085";
+            $(".restaurant-filter-container").className = "restaurant-filter-container filter-container-close"
             $(".restaurant-list").replaceChildren();
             const restaurantFavorite = getRestaurantListFromLocalstorage("favorite")
+            restaurantFavorite.forEach((restaurant)=>restaurant["favorite"] = "./favorite-icon-filled.png")
             this.attachRestaurantToRegistry(restaurantFavorite)
         })
     }

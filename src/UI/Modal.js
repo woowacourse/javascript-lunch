@@ -95,6 +95,11 @@ export default class Modal {
     this.restaurantRegistry.appendRestaurant(
       this.restaurantList.listRestaurant[this.getRestaurantLength()]
     );
+    $(".all-restaurant").style.color = "#ec4a0a";
+    $(".all-restaurant").style.borderBottom = "2px solid #ec4a0a";
+    $(".favorite-restaurant").style.color = "#667085";
+    $(".favorite-restaurant").style.borderBottom = "2px solid #667085";
+    $(".restaurant-filter-container").className = "restaurant-filter-container";
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
     this.closeModal();
@@ -103,13 +108,21 @@ export default class Modal {
   setRestaurantInformation() {
     const restaurantInfo = {};
     const idNumber = getRestaurantListFromLocalstorage("number");
-    const array = ["category", "name", "distance", "description", "link"];
+    const array = [
+      "category",
+      "name",
+      "distance",
+      "description",
+      "link",
+      "favorite",
+    ];
 
     $$(".form-item").forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
 
     restaurantInfo["id"] = idNumber;
+    restaurantInfo["favorite"] = "./favorite-icon-lined.png";
     localStorage.setItem("number", idNumber + 1);
     return restaurantInfo;
   }

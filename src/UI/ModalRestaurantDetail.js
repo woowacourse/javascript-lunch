@@ -3,6 +3,7 @@ import {
   stringifyJson,
   getRestaurantListFromLocalstorage,
 } from "../utils/LocalStorage";
+import { RESTAURANT } from "../utils/Constant"
 
 export default class ModalRestaurantDetail {
   #template = `
@@ -49,9 +50,9 @@ export default class ModalRestaurantDetail {
     </div>
     `;
 
-  constructor(restaurantList) {
+  constructor(restaurantList, restaurantRegistry) {
     this.restaurantList = restaurantList;
-    this.restaurantInfo;
+    this.restaurantRegistry = restaurantRegistry
   }
   render() {
     document.body.insertAdjacentHTML("beforeend", this.#template);
@@ -62,6 +63,14 @@ export default class ModalRestaurantDetail {
     $(".button--delete").addEventListener(
       "click",()=>{
         this.restaurantList.deleteRestaurantElement();
+        if ($(".favorite-restaurant").style.color === "rgb(236, 74, 10)") {
+          const restaurantAll = getRestaurantListFromLocalstorage("favorite") || []
+          console.log(restaurantAll)
+          this.closeModalDetail();
+          $(".restaurant-list").replaceChildren();
+          this.attachRestaurantToRegistry(restaurantAll);
+          return;
+        }
         const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
         const sortBy = localStorage.getItem("sort") ?? "name";
         this.restaurantList.filterCategory(foodCategory);
@@ -69,6 +78,12 @@ export default class ModalRestaurantDetail {
         this.closeModalDetail();
       }
     );
+  }
+
+  attachRestaurantToRegistry(restaurantParsedInfo) {
+    restaurantParsedInfo.forEach((value) => {
+      this.restaurantRegistry.appendRestaurant(value);
+    });
   }
 
   changeRestaurantInformation(event, restaurantInfo) {
@@ -122,6 +137,11 @@ export default class ModalRestaurantDetail {
  clickModalFavorite(e, restaurantInfo){
     e.stopPropagation();
     if (e.target.getAttribute("src") === "./favorite-icon-filled.png") {
+      const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant)=>{
+        if(restaurant.id === restaurantInfo.id) restaurant["favorite"]= "./favorite-icon-lined.png"
+        return restaurant
+      })
+      localStorage.setItem("restaurants", stringifyJson(restaurantFavoriteList));
       const res = getRestaurantListFromLocalstorage("favorite") ?? [];
       const deletedRestaurantElementArray = res.filter((val) =>  {
         return val.id !== restaurantInfo.id});
@@ -131,6 +151,11 @@ export default class ModalRestaurantDetail {
     }
     else if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
       const favorite = []
+      const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant)=>{
+        if(restaurant.id === restaurantInfo.id) restaurant["favorite"]= "./favorite-icon-filled.png"
+        return restaurant
+      })
+      localStorage.setItem("restaurants", stringifyJson(restaurantFavoriteList));
       const favoriteList = getRestaurantListFromLocalstorage("favorite")
       if(favoriteList !== null) favoriteList.forEach((val)=>favorite.push(val))
       favorite.push(restaurantInfo);
