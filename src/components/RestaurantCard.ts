@@ -6,14 +6,15 @@ import categoryImages from "../constants/categoryImage";
 import restaurantState from "../states/restaurants";
 import FavoriteButton from "./FavoriteButton";
 import RestaurantCardList from "./RestaurantCardList";
+import { Restaurant } from "../types/restaurant";
 
 class RestaurantCard extends HTMLLIElement {
-  #name: string | null;
+  #restaurantId: string | undefined;
 
   constructor() {
     super();
 
-    this.#name = this.getAttribute("name");
+    this.#restaurantId = this.dataset.restaurantId;
   }
 
   connectedCallback() {
@@ -46,7 +47,9 @@ class RestaurantCard extends HTMLLIElement {
         </div>
       </button>
       <div class="favorite__button">
-        <button is="favorite-button" type="button" value=${this.#name}></button>
+        <button is="favorite-button" type="button" value=${
+          this.#restaurantId
+        }></button>
       </div>
     `;
   }
@@ -54,7 +57,7 @@ class RestaurantCard extends HTMLLIElement {
   bindEvent() {
     this.querySelector(".restaurant-detail-button")?.addEventListener(
       "click",
-      this.onClickRestaurantDetail.bind(this)
+      this.onClickRestaurantCard.bind(this)
     );
 
     this.querySelector<FavoriteButton>(".favorite__button button")?.bindEvent(
@@ -62,15 +65,15 @@ class RestaurantCard extends HTMLLIElement {
     );
   }
 
-  onClickRestaurantDetail() {
-    if (this.#name === null) return;
+  onClickRestaurantCard() {
+    if (!this.#restaurantId) return;
 
     const $modalRoot = document.querySelector<ModalRoot>("modal-root");
     $modalRoot?.open("restaurant-detail-modal");
 
     const $restaurantDetailModal =
       document.querySelector<RestaurantDetailModal>("restaurant-detail-modal");
-    $restaurantDetailModal?.setNameAttribute(this.#name);
+    $restaurantDetailModal?.setRestaurantId(this.#restaurantId);
   }
 
   onClickFavoriteButton() {
@@ -84,9 +87,9 @@ class RestaurantCard extends HTMLLIElement {
   }
 
   getRestaurant() {
-    if (this.#name === null) return;
+    if (!this.#restaurantId) return;
 
-    return restaurantState.getTargetRestaurant(this.#name);
+    return restaurantState.getTargetRestaurant(this.#restaurantId);
   }
 }
 

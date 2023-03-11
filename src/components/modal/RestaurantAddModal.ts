@@ -87,6 +87,8 @@ class RestaurantAddModal extends ModalContent {
 
     if (!this.closeModal) return;
 
+    console.log(restaurantState.getList());
+
     this.closeModal();
   }
 
@@ -109,7 +111,15 @@ class RestaurantAddModal extends ModalContent {
       this.querySelector<HTMLTextAreaElement>("#description")?.value;
     const link = this.querySelector<HTMLInputElement>("#link")?.value;
 
-    return { category, name, distance, description, link, isFavorite: false };
+    return {
+      id: `${Date.now()}`,
+      category,
+      name,
+      distance,
+      description,
+      link,
+      isFavorite: false,
+    };
   }
 }
 

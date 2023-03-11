@@ -7,28 +7,30 @@ import RestaurantCardList from "../RestaurantCardList";
 import FavoriteButton from "../FavoriteButton";
 
 class RestaurantDetailModal extends ModalContent {
-  #name: string | null;
+  #restaurantId: string | undefined;
 
   static get observedAttributes() {
-    return ["name"];
+    return ["data-restaurant-id"];
   }
 
   constructor() {
     super();
 
-    this.#name = this.getAttribute("name");
+    this.#restaurantId = this.dataset.restaurantId;
   }
 
   render() {
-    if (this.#name === null) return;
+    if (!this.#restaurantId) return;
 
-    const restaurant = restaurantState.getTargetRestaurant(this.#name);
+    const restaurant = restaurantState.getTargetRestaurant(this.#restaurantId);
 
     if (!restaurant) return;
 
     this.innerHTML = `
       <div class="restaurant-detail-favorite">
-        <button is="favorite-button" type="button" value=${this.#name}></button>
+        <button is="favorite-button" type="button" value=${
+          this.#restaurantId
+        }></button>
       </div>
       <div class="restaurant__category restaurant-detail-category">
         <img
@@ -88,9 +90,9 @@ class RestaurantDetailModal extends ModalContent {
   }
 
   onClickDeleteButton() {
-    if (this.#name === null) return;
+    if (!this.#restaurantId) return;
 
-    restaurantState.deleteTargetRestaurant(this.#name);
+    restaurantState.deleteTargetRestaurant(this.#restaurantId);
 
     const $restaurantCardList =
       document.querySelector<RestaurantCardList>(".restaurant-list");
@@ -109,7 +111,7 @@ class RestaurantDetailModal extends ModalContent {
 
   onClickFavoriteButton() {
     const $restaurantCardFavorite = document.querySelector<FavoriteButton>(
-      `.favorite__button button[value=${this.#name}]`
+      `.favorite__button button[value="${this.#restaurantId}"]`
     );
     $restaurantCardFavorite?.toggleIsFavorite();
 
@@ -127,16 +129,17 @@ class RestaurantDetailModal extends ModalContent {
     oldValue: string | null,
     newValue: string | null
   ) {
+    if (newValue === null) return;
     if (oldValue === newValue) return;
-    if (attName !== "name") return;
+    if (attName !== "data-restaurant-id") return;
 
-    this.#name = newValue;
+    this.#restaurantId = newValue;
     this.render();
     this.bindEvent();
   }
 
-  setNameAttribute(name: string) {
-    this.setAttribute("name", name);
+  setRestaurantId(restaurantId: string) {
+    this.setAttribute("data-restaurant-id", restaurantId);
   }
 }
 

@@ -19,19 +19,17 @@ class Restaurants {
     this.#list = [...this.#list, restaurant];
   }
 
-  getTargetRestaurant(targetName: string) {
-    return this.#list.find((restaurant) => restaurant.name === targetName);
+  getTargetRestaurant(targetId: string) {
+    return this.#list.find((restaurant) => restaurant.id === targetId);
   }
 
-  deleteTargetRestaurant(targetName: string) {
-    this.#list = this.#list.filter(
-      (restaurant) => restaurant.name !== targetName
-    );
+  deleteTargetRestaurant(targetId: string) {
+    this.#list = this.#list.filter((restaurant) => restaurant.id !== targetId);
   }
 
-  toggleTargetRestaurantFavorite(targetName: string) {
+  toggleTargetRestaurantFavorite(targetId: string) {
     this.#list = this.#list.map((restaurant) =>
-      restaurant.name === targetName
+      restaurant.id === targetId
         ? { ...restaurant, isFavorite: !restaurant.isFavorite }
         : restaurant
     );

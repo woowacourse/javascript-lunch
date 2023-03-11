@@ -4,6 +4,7 @@ import type { CategoryOption, SortOption } from "../types/option";
 import type { Restaurant } from "../types/restaurant";
 
 import restaurantState from "../states/restaurants";
+import RestaurantCard from "./RestaurantCard";
 
 class RestaurantCardList extends HTMLUListElement {
   #category: CategoryOption;
@@ -41,7 +42,7 @@ class RestaurantCardList extends HTMLUListElement {
     this.innerHTML = `${this.#restaurants
       .map(
         (restaurant) =>
-          `<li is="restaurant-card" class="restaurant" name=${restaurant.name}></li>`
+          `<li is="restaurant-card" class="restaurant" name=${restaurant.name} data-restaurant-id=${restaurant.id}></li>`
       )
       .join("")}`;
   }
