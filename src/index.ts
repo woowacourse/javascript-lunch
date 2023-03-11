@@ -22,6 +22,7 @@ import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
 import { renderTabButtons } from "./component/restaurantTabButton";
 import { controlRestaurants } from "./domain/restaurantInfoModalController";
+import { CategoryOptionType, SortType } from "./type";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 
@@ -41,10 +42,12 @@ const App = {
   },
 
   initLocalStorage() {
-    const selectedCategory = localStorage.getItem(CATEGORY) as string | null;
+    const selectedCategory = localStorage.getItem(
+      CATEGORY
+    ) as CategoryOptionType;
     saveSelectedOption(CATEGORY, selectedCategory ?? All_CATEGORIES);
 
-    const selectedSort = localStorage.getItem(SORT) as string | null;
+    const selectedSort = localStorage.getItem(SORT) as SortType;
     saveSelectedOption(SORT, selectedSort ?? NAME);
   },
 

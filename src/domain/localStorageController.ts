@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_KEY } from "../constant";
-import { RestaurantType } from "../type";
+import { CategoryOptionType, RestaurantType, SortType } from "../type";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
 import { $ } from "../util/selector";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
@@ -19,12 +19,10 @@ export const getAllRestaurantsInLocalStorage = () => {
 
 export const saveSelectedOption = (
   optionKey: string,
-  selectedCategory: string
+  selectedOption: string
 ) => {
-  localStorage.setItem(optionKey, selectedCategory);
+  localStorage.setItem(optionKey, selectedOption);
 
-  const selectedOption = $(
-    `option[value=${selectedCategory}]`
-  ) as HTMLOptionElement;
-  selectedOption.selected = true;
+  const option = $(`option[value=${selectedOption}]`) as HTMLOptionElement;
+  option.selected = true;
 };

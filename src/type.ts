@@ -13,6 +13,8 @@ export interface RestaurantType {
   favorite: Favorite;
 }
 
+export type CategoryOptionType = Category | "전체";
+
 export type SortType = "name" | "distance";
 
 export interface EventListenerType {

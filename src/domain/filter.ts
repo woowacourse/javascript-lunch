@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "../constant";
-import { RestaurantType, SortType } from "../type";
+import { CategoryOptionType, RestaurantType, SortType } from "../type";
 import { renderRestaurantList } from "../component/restaurantList";
 import { getAllRestaurantsInLocalStorage } from "./localStorageController";
 import { $ } from "../util/selector";
@@ -19,7 +19,7 @@ const sortByDistance = (allRestaurants: RestaurantType[]) => {
   return allRestaurants.sort((a, b) => Number(a.distance) - Number(b.distance));
 };
 
-const filterCategory = (selectedCategory: string) => {
+const filterCategory = (selectedCategory: CategoryOptionType) => {
   const restaurantList = $("#favorite-restaurant")?.classList.contains(
     "clicked-viewer-button"
   )
@@ -55,7 +55,7 @@ const sortRestaurantList = (
 
 export const updateRestaurantList = () => {
   const filteredRestaurantList = filterCategory(
-    localStorage.getItem(CATEGORY) as string
+    localStorage.getItem(CATEGORY) as CategoryOptionType
   );
 
   sortRestaurantList(
