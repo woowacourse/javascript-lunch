@@ -1,26 +1,33 @@
+import { DEFAULT_SORTING } from '../../constants';
+
 class Restaurants {
   #restaurants;
 
-  constructor(restaurants = []) {
+  constructor(restaurants) {
     this.#restaurants = restaurants;
   }
 
   getFiltered(category, sorting) {
     this.sort(sorting);
-    return category === '전체'
-      ? this.#restaurants
-      : this.#restaurants.filter((restaurant) => restaurant.category === category);
+    return this.#restaurants.filter(
+      (restaurant) => category === '전체' || restaurant.category === category
+    );
+  }
+
+  getFavorite() {
+    this.sort(DEFAULT_SORTING);
+    return this.#restaurants.filter((restaurant) => restaurant.favorite === true);
   }
 
   sort(sorting) {
-    const getPivot = (restaurant) => {
+    const sortPivot = (restaurant) => {
       if (sorting === 'name') return restaurant.name;
       if (sorting === 'distance') return Number(restaurant.takeMinute);
     };
 
     this.#restaurants.sort((a, b) => {
-      if (getPivot(a) > getPivot(b)) return 1;
-      if (getPivot(a) < getPivot(b)) return -1;
+      if (sortPivot(a) > sortPivot(b)) return 1;
+      if (sortPivot(a) < sortPivot(b)) return -1;
       return 0;
     });
   }
