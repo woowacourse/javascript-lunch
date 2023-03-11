@@ -33,7 +33,7 @@ class ListContainer extends Component {
 
   handleToggleFavorite(id: number) {
     all$('li', this.$target).forEach((elem) => {
-      if (this.isTarget(elem, id)) return;
+      if (!this.isTarget(elem, id)) return;
 
       this.toggleFavorite($<HTMLImageElement>('.favorite-icon', elem));
     });
