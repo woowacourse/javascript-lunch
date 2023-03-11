@@ -39,6 +39,11 @@ class RestaurantBoxes extends HTMLElement {
   restaurantListRender(restaurants) {
     this.shadowRoot.querySelector('#restaurantList').innerHTML = '';
 
+    if (restaurants.length === 0) {
+      this.shadowRoot.querySelector('#restaurantList').innerHTML =
+        '<div class="empty">음식점 목록이 비었습니다</div>';
+      return;
+    }
     restaurants.forEach((restaurant) => {
       const restaurantTemplate = this.getRestaurant(restaurant);
       this.shadowRoot
@@ -62,7 +67,19 @@ class RestaurantBoxes extends HTMLElement {
         
           padding: 0 16px;
           margin: 16px 0;
-        }`;
+        }
+        
+        .empty{
+          height:400px;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 24px;
+        }
+      
+        `;
 
     this.shadowRoot.append(componentStyle);
   }
