@@ -4,7 +4,7 @@ import { CATEGORY_IMAGE_URL } from '../constants';
 const restaurantListItem = ({ restaurant }) => {
   const { id, category, name, takeMinute, description, favorite } = restaurant;
   return `
-    <li id="${id} "class="restaurant">
+    <li data-id="${id}" class="restaurant">
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE_URL[category]}" alt="${category}" class="category-icon">
       </div>
