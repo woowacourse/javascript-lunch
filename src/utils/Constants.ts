@@ -19,6 +19,9 @@ export const Constants: Readonly<{ [key: string]: string }> = {
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",
+  TOTAL: "total",
+  SELECT_FILTER_CONTAINER: ".restaurant-filter-container",
+  SECTION: "section",
 };
 
 export const RestaurantSelect: Readonly<{ [key: string]: string[] }> = {

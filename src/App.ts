@@ -5,7 +5,7 @@ import RestaurantList from "./components/RestaurantList";
 import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./types/type";
 import NavigatorContainer from "./components/NavigatorContainer";
-import { $$ } from "./utils/Dom";
+import { $$, hide, show } from "./utils/Dom";
 import RestaurantItemBottomSheet from "./components/RestaurantItemBottomSheet";
 import SelectContainer from "./components/SelectContainer";
 
@@ -26,7 +26,7 @@ class App {
     );
     NavigatorContainer.initialize(
       this.target,
-      this.navigateToPage,
+      this.setPageAndRerender,
       this.rerenderList
     );
     SelectContainer.initialize(body, this.setSortListFilterById);
@@ -46,20 +46,20 @@ class App {
     this.rerenderList();
   }
 
-  navigateToPage = (pageName: string) => {
+  setPageAndRerender = (pageName: string) => {
     this.currentPage = pageName;
 
     if (pageName === Constants.TOTAL) {
-      SelectContainer.show();
+      show(Constants.SELECT_FILTER_CONTAINER);
       return;
     }
-    SelectContainer.hide();
+    hide(Constants.SELECT_FILTER_CONTAINER);
 
     this.rerenderList();
   };
 
   deletePageSection() {
-    $$("section")?.forEach((section) => {
+    $$(Constants.SECTION)?.forEach((section) => {
       section.remove();
     });
   }
@@ -92,7 +92,7 @@ class App {
       restaurant,
       this.deleteRestaurantItem
     );
-    itemSheet.initialize();
+    itemSheet.initialize(this.rerenderList);
   };
 
   deleteRestaurantItem = (id: string) => {
