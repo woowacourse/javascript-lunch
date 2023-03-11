@@ -1,6 +1,6 @@
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
-import { ImageByCategory, FavoriteImage } from '@res/images/imageByCategory';
+import { ImageByCategory, FavoriteImage, toggleFavoriteImageIn } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
@@ -37,17 +37,14 @@ class ListContainer extends Component {
     // FIXME: 핸들러 안에서 세부적으로 분리.
 
     all$('li', this.$target).forEach((elem) => {
-      if (Number(elem.dataset.id) === id) {
-        const $image = $<HTMLImageElement>('.favorite-icon', elem);
-        if ($image.classList.contains('favorite')) {
-          $image.src = FavoriteImage.favoriteOff;
-          $image.classList.remove('favorite');
-        } else {
-          $image.src = FavoriteImage.favoriteOn;
-          $image.classList.add('favorite');
-        }
-      }
+      if (Number(elem.dataset.id) !== id) return;
+      this.toggleFavorite($<HTMLImageElement>('.favorite-icon', elem));
     });
+  }
+
+  toggleFavorite(imageElement: HTMLImageElement) {
+    imageElement.classList.toggle('favorite');
+    toggleFavoriteImageIn(imageElement);
   }
 
   setEvent() {
@@ -55,27 +52,20 @@ class ListContainer extends Component {
     // event 클릭
     on(this.$target, 'click', (event) => {
       const $eventTarget = event.target as HTMLElement;
-      const $closestDiv = $eventTarget.closest('div')!;
-      const id = Number($closestDiv.closest('li')!.dataset.id);
+
+      if ($eventTarget.closest('li') === null) return;
+      const id = Number($eventTarget.closest('li')!.dataset.id);
 
       // event 클릭 - favorite
       // FIXME: classlist toggle 로 변경
       // FIXME: 핸들러 분리
       // FIXME: 핸들러 안에서 세부적으로 분리.
-      if ($closestDiv.className === 'favorite') {
-        const $image = $<HTMLImageElement>('img', $closestDiv);
-
-        if ($image.classList.contains('favorite')) {
-          $image.src = FavoriteImage.favoriteOff;
-          $image.classList.remove('favorite');
-        } else {
-          $image.src = FavoriteImage.favoriteOn;
-          $image.classList.add('favorite');
-        }
+      if ($eventTarget.classList.contains('favorite-icon')) {
+        this.toggleFavorite($eventTarget as HTMLImageElement);
         restaurantStore.toggleFavorite(id);
         // event 클릭 - item
       } else {
-        eventBus.dispatch('@click-detail', id, restaurantStore.getItemById.bind(restaurantStore));
+        eventBus.dispatch('@click-detail', id, restaurantStore.getItemById);
       }
     });
 
@@ -129,7 +119,7 @@ class ListContainer extends Component {
         ${Number(distance) !== 0 ? this.distanceTemplate(distance) : ''}
         ${this.descriptionTemplate(description)}
       </div>
-      <div class="favorite"> 
+      <div class="restaurant__favorite"> 
         ${this.favoriteImageTemplate(favorite)}
       </div>
     </li>`;
