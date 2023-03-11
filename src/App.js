@@ -9,7 +9,7 @@ import {
   getFilteredRestaurantsByCategory,
   getSortedRestaurants,
   getFavoriteRestaurants,
-} from './domain/utils';
+} from './domain/restaurantsUtils';
 
 import { $ } from './utils/dom';
 import store from './utils/store';
