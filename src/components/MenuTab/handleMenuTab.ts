@@ -6,8 +6,7 @@ export const onChangeMenuTabs = () => {
   form?.addEventListener("change", (event) => {
     if (event.target instanceof HTMLInputElement) {
       changeTabColor();
-      const newMenu = event.target.value;
-      restaurants.state.menuTab = newMenu;
+      restaurants.state.menuTab = event.target.value;
     }
   });
 };
