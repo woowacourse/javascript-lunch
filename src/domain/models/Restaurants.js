@@ -7,6 +7,14 @@ class Restaurants {
     this.#restaurants = restaurants;
   }
 
+  getAll() {
+    return this.#restaurants;
+  }
+
+  findRestaurant(id) {
+    return this.#restaurants.find((restaurant) => restaurant.id === id);
+  }
+
   getFiltered(category, sorting) {
     this.sort(sorting);
     return this.#restaurants.filter(
