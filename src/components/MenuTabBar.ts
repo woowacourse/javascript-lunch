@@ -1,15 +1,15 @@
+import { Tab } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
-import { TabToggle } from '@res/interfaces/types';
 import { $, on } from '@res/utils/domUtils';
 
 class MenuTabBar extends Component {
-  tabToggle: TabToggle;
+  tabToggle: Tab;
 
   constructor(element: HTMLElement) {
     super(element);
 
-    this.tabToggle = 'all';
+    this.tabToggle = Tab.All;
     this.render().subscribe().setEvent();
   }
 
@@ -30,12 +30,12 @@ class MenuTabBar extends Component {
 
   setEvent() {
     on($('.all-restaurant-button'), 'click', () => {
-      this.tabToggle = 'all';
+      this.tabToggle = Tab.All;
       eventBus.dispatch('@click-tab', this.tabToggle);
     });
 
     on($('.favorite-restaurant-button'), 'click', () => {
-      this.tabToggle = 'favorite';
+      this.tabToggle = Tab.Favorite;
       eventBus.dispatch('@click-tab', this.tabToggle);
     });
 

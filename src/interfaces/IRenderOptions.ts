@@ -1,10 +1,9 @@
-import { Category, Order } from '@res/constants/enum';
-import { TabToggle } from './types';
+import { Category, Order, Tab } from '@res/constants/enum';
 
 interface IRenderOptions {
   category: Category;
   order: Order;
-  tab: TabToggle;
+  tab: Tab;
 }
 
 export default IRenderOptions;

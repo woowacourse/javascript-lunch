@@ -1,8 +1,7 @@
-import { Category, Order } from '@res/constants/enum';
+import { Category, Order, Tab } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
 import IFilterOption from '@res/interfaces/IFilterOption';
-import { TabToggle } from '@res/interfaces/types';
 import { $, all$, newState, on } from '@res/utils/domUtils';
 
 class FilterBar extends Component {
@@ -19,7 +18,7 @@ class FilterBar extends Component {
   }
 
   subscribe() {
-    eventBus.subscribe('@click-tab', (tab: TabToggle) => {
+    eventBus.subscribe('@click-tab', (tab: Tab) => {
       this.hide(tab === 'favorite');
 
       eventBus.dispatch('@reload-filter', { ...this.#filterOption, tab });

@@ -1,11 +1,10 @@
-import { Category, Order } from '@res/constants/enum';
+import { Category, Order, Tab } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
 import { ImageByCategory, FavoriteImage, toggleFavoriteIcon } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import IRenderOptions from '@res/interfaces/IRenderOptions';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
-import { TabToggle } from '@res/interfaces/types';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { all$, $, newState, on } from '@res/utils/domUtils';
 
@@ -22,7 +21,7 @@ class ListContainer extends Component {
         renderOptions: {
           category: Category.All,
           order: Order.Name,
-          tab: 'all',
+          tab: Tab.All,
         },
       },
       this.render.bind(this)
@@ -86,7 +85,7 @@ class ListContainer extends Component {
     return element.classList.contains('favorite-icon');
   }
 
-  handleTabChange(tab: TabToggle): void {
+  handleTabChange(tab: Tab): void {
     console.log(tab);
     this.#state.renderOptions = { ...this.#state.renderOptions, tab };
   }
