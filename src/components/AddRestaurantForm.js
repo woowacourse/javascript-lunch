@@ -160,9 +160,9 @@ class AddRestaurantForm extends HTMLElement {
   }
 
   resetForm() {
-    this.shadowRoot
-      .querySelectorAll('add-text-input')
-      .forEach((element) => element.reset());
+    this.shadowRoot.querySelector('#name').reset();
+    this.shadowRoot.querySelector('#description').reset();
+    this.shadowRoot.querySelector('#link').reset();
     this.shadowRoot
       .querySelectorAll('add-select')
       .forEach((element) => element.reset());

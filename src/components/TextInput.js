@@ -19,6 +19,7 @@ class TextInput extends HTMLElement {
   reset() {
     const id = this.getAttribute('id');
     this.shadowRoot.querySelector(`#${id}`).value = '';
+    this.shadowRoot.querySelector('#length').innerText = '0';
   }
 
   setComponentStyle() {
