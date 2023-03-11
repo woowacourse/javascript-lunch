@@ -275,12 +275,12 @@ input[type='radio']:checked + label {
   margin-bottom: 36px;
 }
 
-.restaurant-detail__info-container {
+.information {
   display: flex;
   justify-content: space-between;
 }
 
-.restaurant-detail__info-container .left-section {
+.information .left-section {
   display: flex;
 
   align-items: center;
