@@ -132,7 +132,7 @@ body {
 }
 
 .render-selected {
-  width: 179px;
+  width: 100%;
   font-weight: 700;
   padding: 9px;
   color: #ec4a0a;
@@ -142,7 +142,7 @@ body {
 }
 
 .render-unselected {
-  width: 179px;
+  width: 100%;
   font-weight: 700;
   padding: 9px;
   color: #667085;
