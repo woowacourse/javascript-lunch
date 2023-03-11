@@ -34,8 +34,8 @@ export const Restaurant = {
         <li class="restaurant" id=${id}>
           <div class="restaurant__category">
             <img src="${
-              categoryCountry[category]
-            }" alt="${category}" class="category-icon">
+              categoryCountry[category] ?? categoryCountry["기타"]
+            }" alt="${category ?? "기타"}" class="category-icon">
           </div>
           <div class="restaurant__info">
             <div class="restaurant__main">
@@ -47,7 +47,7 @@ export const Restaurant = {
                 like ? star : lineStar
               }" alt="선호되는 가게 여부"/>
             </div>
-            ${descriptionTemplate ? descriptionTemplate : ""}
+            ${descriptionTemplate ?? ""}
           </div>
         </li>`;
   },
