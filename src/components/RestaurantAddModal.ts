@@ -66,7 +66,7 @@ class RestaurantAddModal implements Component {
 
   toggle = () => {
     (this.$target.querySelector('#form-add-restaurant') as HTMLFormElement).reset();
-    this.$target.querySelector('.modal')?.classList.toggle('modal--open');
+    this.$target.classList.toggle('modal--open');
   };
 
   makeRestaurant(): Restaurant {

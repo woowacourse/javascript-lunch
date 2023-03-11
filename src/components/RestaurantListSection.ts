@@ -18,14 +18,16 @@ const restaurantTemplate = (restaurant: Restaurant) => `
 
 class RestaurantListSection implements Component {
   $target: Element;
+  #restaurants: Restaurant[];
 
-  constructor(parent: Element) {
+  constructor(parent: Element, restaurants: Restaurant[]) {
     parent.insertAdjacentHTML('beforeend', this.template());
     this.$target = parent.lastElementChild!;
+    this.#restaurants = restaurants;
   }
 
   set restaurants(restaurants: Restaurant[]) {
-    this.restaurants = restaurants;
+    this.#restaurants = restaurants;
   }
 
   template = () => `
@@ -40,7 +42,7 @@ class RestaurantListSection implements Component {
       .querySelector('.restaurant-list')
       ?.insertAdjacentHTML(
         'beforeend',
-        this.restaurants.map((restaurant) => restaurantTemplate(restaurant)).join(''),
+        this.#restaurants.map((restaurant) => restaurantTemplate(restaurant)).join(''),
       );
   };
 }
