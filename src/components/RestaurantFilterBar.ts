@@ -22,12 +22,15 @@ class RestaurantFilterBar implements Component {
       </select>
     </section>`;
 
-  render = () => {
-    this.$target.innerHTML = this.template();
+  show = () => {
+    this.$target.classList.remove('hide');
   };
 
-  remove = () => {
-    this.$target.replaceChildren();
+  hide = () => {
+    this.$target.querySelectorAll('select').forEach((select) => {
+      select.selectedIndex = 0;
+    });
+    this.$target.classList.add('hide');
   };
 
   getCategory = () =>

@@ -25,18 +25,32 @@ class App {
     };
 
     this.setEventHandler();
-    this.renderList('전체', '이름');
+    this.renderAllList();
   }
 
   setEventHandler = () => {
     this.components.header.setButtonHandler(this.components.addModal.toggle);
-    this.components.filterBar.setSelectChangeHandler(this.renderList);
+    this.components.header.setTabHandler(this.renderAllList, this.renderFavoriteList);
+    this.components.filterBar.setSelectChangeHandler(this.renderFilteredList);
     this.components.addModal.setAddbuttonHandler(this.addRestaurant);
     this.components.addModal.setCloseModalHandler();
   };
 
-  renderList = (category: FilterCategory, sortCondition: SortCondition) => {
+  renderAllList = () => {
+    this.components.filterBar.show();
+    this.components.listSection.restaurants = this.getRestaurantsList('전체', '이름');
+    this.components.listSection.render();
+  };
+
+  renderFilteredList = (category: FilterCategory, sortCondition: SortCondition) => {
+    this.components.filterBar.show();
     this.components.listSection.restaurants = this.getRestaurantsList(category, sortCondition);
+    this.components.listSection.render();
+  };
+
+  renderFavoriteList = () => {
+    this.components.filterBar.hide();
+    this.components.listSection.restaurants = this.getFavoriteList();
     this.components.listSection.render();
   };
 
@@ -55,7 +69,7 @@ class App {
     this.restaurantsList.add(restaruant);
     RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantsList('전체', '이름'));
 
-    this.renderList(
+    this.renderFilteredList(
       this.components.filterBar.getCategory(),
       this.components.filterBar.getSortCondition(),
     );

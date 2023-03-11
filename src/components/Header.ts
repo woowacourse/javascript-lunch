@@ -30,6 +30,11 @@ class Header implements Component {
       handler();
     });
   };
+
+  setTabHandler = (allTab: () => void, favoriteTab: () => void) => {
+    this.$target.querySelector('#all-restaurant')?.addEventListener('change', allTab);
+    this.$target.querySelector('#favorite-restaurant')?.addEventListener('change', favoriteTab);
+  };
 }
 
 export default Header;

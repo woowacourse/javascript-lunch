@@ -141,6 +141,10 @@ body {
   padding: 8px;
 }
 
+.hide {
+  display: none;
+}
+
 /* 음식점 목록 */
 .restaurant-list-container {
   display: flex;
