@@ -166,8 +166,10 @@ const App = {
           favoriteList[favoriteList.length - 1].isFavorite = true;
         } else {
           restaurantList[parsedNumber].isFavorite = false;
-          favoriteList[favoriteList.length - 1].isFavorite = false;
-          favoriteList.splice(parsedNumber, 1);
+          const index = favoriteList.findIndex(
+            favorite => favorite.name === restaurantList[parsedNumber].name
+          );
+          favoriteList.splice(index, 1);
         }
 
         saveListOnLocalStorage(
