@@ -21,17 +21,16 @@ class RestaurantList extends HTMLElement {
   restaurantItems(selectedRestaurants: IRestaurant[]) {
     return selectedRestaurants.length > 0
       ? (
-        selectedRestaurants.map((restaurant) =>
-          `<restaurant-item id="${restaurant.id}"></restaurant-item>`
-        ).join("")
+        selectedRestaurants.map((restaurant) => `
+          <restaurant-item id="${restaurant.id}"></restaurant-item>
+        `).join("")
       )
-      : (
-        `
+      : (`
         <div class="center super-big-font text-center">
           <div><h1>텅</h1></div>
           <div>음식점이 없습니다.</div>
-        <div>`
-      )
+        <div>
+      `)
   }
 }
 
