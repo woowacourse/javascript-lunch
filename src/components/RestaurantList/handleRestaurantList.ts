@@ -11,7 +11,6 @@ export const renderRestaurantList = () => {
 export const onClickRestaurantList = () => {
   const restaurantList = document.getElementById("restaurantList");
   restaurantList?.addEventListener("click", (event) => {
-    event.stopPropagation();
     const id = (event.target as HTMLElement).closest("restaurant-item")?.id;
     id && onClickRestaurantItem(id as string);
   });
