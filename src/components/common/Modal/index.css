@@ -1,8 +1,10 @@
 dialog {
-  position: fixed;
   margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+
   width: 100vw;
-  max-width: 100%;
+  max-width: 720px;
   max-height: 100vh;
 
   border: none;
