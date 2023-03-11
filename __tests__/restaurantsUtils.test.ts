@@ -1,4 +1,4 @@
-import { IRestaurant } from '../src/types';
+import { Restaurant } from '../src/types';
 
 import {
   getFilteredRestaurantsByCategory,
@@ -8,7 +8,7 @@ import {
 
 describe('getFilteredRestaurantsByCategory', () => {
   test('선택된 카테고리와 일치하는 음식점의 목록을 반환한다.', () => {
-    const dummyRestaurants: IRestaurant[] = [
+    const dummyRestaurants: Restaurant[] = [
       {
         id: 1,
         category: '한식',
@@ -35,7 +35,7 @@ describe('getFilteredRestaurantsByCategory', () => {
     ];
 
     const filterdRestaurants = getFilteredRestaurantsByCategory(dummyRestaurants, '한식');
-    const expected: IRestaurant[] = [
+    const expected: Restaurant[] = [
       {
         id: 1,
         category: '한식',
@@ -58,7 +58,7 @@ describe('getFilteredRestaurantsByCategory', () => {
   });
 
   test(`선택된 카테고리가 '전체'라면 모든 음식점의 목록을 반환한다.`, () => {
-    const dummyRestaurants: IRestaurant[] = [
+    const dummyRestaurants: Restaurant[] = [
       {
         id: 1,
         category: '한식',
@@ -92,7 +92,7 @@ describe('getFilteredRestaurantsByCategory', () => {
 
 describe('getSortedRestaurantsByName', () => {
   test('음식점 리스트를 받아, 이름순으로 정렬된 리스트를 반환한다.', () => {
-    const dummyRestaurants: IRestaurant[] = [
+    const dummyRestaurants: Restaurant[] = [
       {
         id: 1,
         category: '한식',
@@ -119,7 +119,7 @@ describe('getSortedRestaurantsByName', () => {
     ];
 
     const sortedRestaurants = getSortedRestaurantsByName(dummyRestaurants);
-    const expected: IRestaurant[] = [
+    const expected: Restaurant[] = [
       {
         id: 2,
         category: '한식',
@@ -151,7 +151,7 @@ describe('getSortedRestaurantsByName', () => {
 
 describe('getSortedRestaurantsByDistance', () => {
   test('음식점 리스트를 받아, 거리순으로 정렬된 리스트를 반환한다.', () => {
-    const dummyRestaurants: IRestaurant[] = [
+    const dummyRestaurants: Restaurant[] = [
       {
         id: 1,
         category: '한식',
@@ -178,7 +178,7 @@ describe('getSortedRestaurantsByDistance', () => {
     ];
 
     const sortedRestaurants = getSortedRestaurantsByDistance(dummyRestaurants);
-    const expected: IRestaurant[] = [
+    const expected: Restaurant[] = [
       {
         id: 2,
         category: '한식',

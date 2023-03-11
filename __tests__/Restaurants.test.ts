@@ -1,11 +1,11 @@
 import Restaurants from '../src/domain/Restaurants';
-import { IRestaurant } from '../src/types';
+import { Restaurant } from '../src/types';
 
 describe('Restaurants.addRestaurant', () => {
   test('음식점을 추가하면, 음식점 리스트에 맨 뒤에 추가된다.', () => {
     const restaurants = new Restaurants([]);
 
-    const restaurant: IRestaurant = {
+    const restaurant: Restaurant = {
       id: 1,
       category: '한식',
       name: '돈카라',
@@ -26,7 +26,7 @@ describe('Restaurants.toggleFavoriteRestaurant', () => {
   test('메서드가 실행되면, id값에 해당하는 음식점 객체의 isFavorite(Boolean) 값이 반대가 된다.', () => {
     const restaurants = new Restaurants([]);
 
-    const restaurant: IRestaurant = {
+    const restaurant: Restaurant = {
       id: 1,
       category: '한식',
       name: '돈카라',
