@@ -8,6 +8,60 @@ class AddSelect extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
+    this.render();
+    this.setComponentStyle();
+    this.setRemoveErrorEvent();
+  }
+
+  getSelectValue() {
+    const id = this.getAttribute('id');
+    return this.shadowRoot.querySelector(`#${id}`).value;
+  }
+
+  isError() {
+    this.removeError();
+
+    if (this.getSelectValue() === '') return true;
+    return false;
+  }
+
+  static get observedAttributes() {
+    return ['name', 'id', 'options'];
+  }
+
+  reset() {
+    const id = this.getAttribute('id');
+    this.shadowRoot.querySelector(`#${id}`).value = '';
+  }
+
+  removeError() {
+    const errorMessage = this.shadowRoot.querySelector('.error');
+
+    if (errorMessage) {
+      this.shadowRoot.querySelector('.container').removeChild(errorMessage);
+    }
+  }
+
+  render() {
+    const name = this.getAttribute('name');
+    const id = this.getAttribute('id');
+    const optionsAttribute = this.getAttribute('options').split(',');
+    const options = optionsAttribute.map((option) =>
+      this.createOption(option, id)
+    );
+
+    this.shadowRoot.innerHTML = `
+    <div class="container">
+      <label for="${id} text-caption">${name}</label>
+        <select name="${id}" id="${id}" required>
+          <option value="">선택해 주세요</option>
+            ${options.join('\n')}
+        </select>
+    </div>
+    `;
+  }
+
+  setComponentStyle() {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .text-caption {
@@ -69,55 +123,7 @@ class AddSelect extends HTMLElement {
       }
 `;
 
-    const name = this.getAttribute('name');
-    const id = this.getAttribute('id');
-    const optionsAttribute = this.getAttribute('options').split(',');
-    const options = optionsAttribute.map((option) =>
-      this.createOption(option, id)
-    );
-
-    this.shadowRoot.innerHTML = `
-    <div class="container">
-      <label for="${id} text-caption">${name}</label>
-        <select name="${id}" id="${id}" required>
-          <option value="">선택해 주세요</option>
-            ${options.join('\n')}
-        </select>
-    </div>
-    `;
-
     this.shadowRoot.append(componentStyle);
-
-    this.setRemoveErrorEvent();
-  }
-
-  getSelectValue() {
-    const id = this.getAttribute('id');
-    return this.shadowRoot.querySelector(`#${id}`).value;
-  }
-
-  isError() {
-    this.removeError();
-
-    if (this.getSelectValue() === '') return true;
-    return false;
-  }
-
-  static get observedAttributes() {
-    return ['name', 'id', 'options'];
-  }
-
-  reset() {
-    const id = this.getAttribute('id');
-    this.shadowRoot.querySelector(`#${id}`).value = '';
-  }
-
-  removeError() {
-    const errorMessage = this.shadowRoot.querySelector('.error');
-
-    if (errorMessage) {
-      this.shadowRoot.querySelector('.container').removeChild(errorMessage);
-    }
   }
 
   setRemoveErrorEvent() {

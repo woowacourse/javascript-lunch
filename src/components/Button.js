@@ -1,6 +1,25 @@
 class Button extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
+    this.render();
+    this.setComponentStyle();
+  }
+
+  static get observedAttributes() {
+    return ['name', 'color', 'id'];
+  }
+
+  render() {
+    const name = this.getAttribute('name');
+    const id = this.getAttribute('id');
+    const color = this.getAttribute('color');
+
+    this.shadowRoot.innerHTML = `
+    <button type="button" id=${id} class="button--${color} text-caption">${name}</button>
+    `;
+  }
+
+  setComponentStyle() {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .text-caption {
@@ -48,25 +67,9 @@ class Button extends HTMLElement {
           font-weight: 600;
           cursor: pointer;
         }
-      }
-
-    
-      
-`;
-
-    const name = this.getAttribute('name');
-    const id = this.getAttribute('id');
-    const color = this.getAttribute('color');
-
-    this.shadowRoot.innerHTML = `
-    <button type="button" id=${id} class="button--${color} text-caption">${name}</button>
-    `;
+      }`;
 
     this.shadowRoot.append(componentStyle);
-  }
-
-  static get observedAttributes() {
-    return ['name', 'color', 'id'];
   }
 }
 

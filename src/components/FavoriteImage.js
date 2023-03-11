@@ -4,6 +4,23 @@ import filled from '../assets/favorite-icon-filled.png';
 class FavoriteImage extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
+    this.render();
+    this.setComponentStyle();
+  }
+
+  static get observedAttributes() {
+    return ['isFavorite'];
+  }
+
+  render() {
+    const isFavorite = this.getAttribute('isFavorite');
+
+    this.shadowRoot.innerHTML = `
+    <img src="${isFavorite === 'true' ? filled : lined}" alt="isFavorite">
+    `;
+  }
+
+  setComponentStyle() {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
         img{
@@ -13,17 +30,7 @@ class FavoriteImage extends HTMLElement {
         }
     `;
 
-    const isFavorite = this.getAttribute('isFavorite');
-
-    this.shadowRoot.innerHTML = `
-    <img src="${isFavorite === 'true' ? filled : lined}" alt="isFavorite">
-    `;
-
     this.shadowRoot.append(componentStyle);
-  }
-
-  static get observedAttributes() {
-    return ['isFavorite'];
   }
 }
 

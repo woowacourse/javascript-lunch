@@ -3,34 +3,8 @@ import { $ } from '../utils';
 class RestaurantTab extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-
-    const componentStyle = document.createElement('style');
-    componentStyle.textContent = `
-      .select {
-        text-align: center;
-        padding-bottom: 9px;
-        color: var(--primary-color);
-        border-bottom: 2px solid var(--primary-color);
-        cursor: pointer;
-
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 24px;
-      }
-
-      .not-select{
-        color: var(--grey-300);
-        border-bottom: 2px solid var(--grey-300);
-      }
-    `;
-
-    const name = this.getAttribute('name');
-
-    this.shadowRoot.innerHTML = `
-    <div class="select">${name}</div>
-    `;
-
-    this.shadowRoot.append(componentStyle);
+    this.render();
+    this.setComponentStyle();
     this.initSetting();
     this.selectEvent();
   }
@@ -72,6 +46,38 @@ class RestaurantTab extends HTMLElement {
 
   static get observedAttributes() {
     return ['name'];
+  }
+
+  render() {
+    const name = this.getAttribute('name');
+
+    this.shadowRoot.innerHTML = `
+    <div class="select">${name}</div>
+    `;
+  }
+
+  setComponentStyle() {
+    const componentStyle = document.createElement('style');
+    componentStyle.textContent = `
+      .select {
+        text-align: center;
+        padding-bottom: 9px;
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color);
+        cursor: pointer;
+
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      .not-select{
+        color: var(--grey-300);
+        border-bottom: 2px solid var(--grey-300);
+      }
+    `;
+
+    this.shadowRoot.append(componentStyle);
   }
 }
 

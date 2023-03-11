@@ -4,6 +4,31 @@ import { $ } from '../utils';
 class Header extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
+    this.render();
+    this.setComponentStyle();
+    this.openModalEvent();
+  }
+
+  openModalEvent() {
+    this.shadowRoot
+      .querySelector('#openModal')
+      .addEventListener('click', () => {
+        $('add-restaurant-modal').openModal();
+      });
+  }
+
+  render() {
+    this.shadowRoot.innerHTML = `
+    <header id="head" >
+      <h1 class="text-title">점심 뭐 먹지</h1>
+      <button type="button" id="openModal" aria-label="음식점 추가">
+        <img src=${logo} alt="음식점 추가" />
+      </button>
+    </header>
+  `;
+  }
+
+  setComponentStyle() {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
     .text-title {
@@ -46,26 +71,7 @@ class Header extends HTMLElement {
     }
 `;
 
-    this.shadowRoot.innerHTML = `
-      <header id="head" >
-        <h1 class="text-title">점심 뭐 먹지</h1>
-        <button type="button" id="openModal" aria-label="음식점 추가">
-          <img src=${logo} alt="음식점 추가" />
-        </button>
-      </header>
-    `;
-
     this.shadowRoot.append(componentStyle);
-
-    this.openModalEvent();
-  }
-
-  openModalEvent() {
-    this.shadowRoot
-      .querySelector('#openModal')
-      .addEventListener('click', () => {
-        $('add-restaurant-modal').openModal();
-      });
   }
 }
 

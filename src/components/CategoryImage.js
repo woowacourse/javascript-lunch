@@ -18,6 +18,25 @@ class CategoryImage extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
+    this.render();
+    this.setComponentStyle();
+  }
+
+  static get observedAttributes() {
+    return ['category'];
+  }
+
+  render() {
+    const category = this.getAttribute('category');
+
+    this.shadowRoot.innerHTML = `
+    <div class="category">
+      <img src=${this.#categoryImage[category]} alt=${category}>
+    </div>
+    `;
+  }
+
+  setComponentStyle() {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .category {
@@ -41,19 +60,7 @@ class CategoryImage extends HTMLElement {
       }
 `;
 
-    const category = this.getAttribute('category');
-
-    this.shadowRoot.innerHTML = `
-    <div class="category">
-      <img src=${this.#categoryImage[category]} alt=${category}>
-    </div>
-    `;
-
     this.shadowRoot.append(componentStyle);
-  }
-
-  static get observedAttributes() {
-    return ['category'];
   }
 }
 

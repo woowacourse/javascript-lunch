@@ -13,6 +13,34 @@ class FilterBox extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
+    this.render();
+    this.setComponentStyle();
+    this.changeValueEvent();
+  }
+
+  getSelectValue() {
+    const id = this.getAttribute('id');
+    return this.shadowRoot.querySelector(`#${id}`).value;
+  }
+
+  static get observedAttributes() {
+    return ['name', 'id', 'options'];
+  }
+
+  render() {
+    const name = this.getAttribute('name');
+    const id = this.getAttribute('id');
+    const optionsAttribute = this.getAttribute('options').split(',');
+    const options = optionsAttribute.map((option) => this.createOption(option));
+
+    this.shadowRoot.innerHTML = `
+      <select name="${name}" id="${id}">
+        ${options.join('\n')}
+      </select>
+    `;
+  }
+
+  setComponentStyle() {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
         select {
@@ -28,28 +56,7 @@ class FilterBox extends HTMLElement {
         }
 `;
 
-    const name = this.getAttribute('name');
-    const id = this.getAttribute('id');
-    const optionsAttribute = this.getAttribute('options').split(',');
-    const options = optionsAttribute.map((option) => this.createOption(option));
-
-    this.shadowRoot.innerHTML = `
-      <select name="${name}" id="${id}">
-        ${options.join('\n')}
-      </select>
-    `;
-
     this.shadowRoot.append(componentStyle);
-    this.changeValueEvent();
-  }
-
-  getSelectValue() {
-    const id = this.getAttribute('id');
-    return this.shadowRoot.querySelector(`#${id}`).value;
-  }
-
-  static get observedAttributes() {
-    return ['name', 'id', 'options'];
   }
 }
 

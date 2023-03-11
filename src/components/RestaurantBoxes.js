@@ -4,18 +4,8 @@ import { $ } from '../utils';
 class RestaurantBoxes extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    const componentStyle = document.createElement('style');
-    componentStyle.textContent = `
-        ul {
-          display: flex;
-          flex-direction: column;
-        
-          padding: 0 16px;
-          margin: 16px 0;
-        }`;
-
-    this.shadowRoot.innerHTML = '<ul id="restaurantList"></ul>';
-    this.shadowRoot.append(componentStyle);
+    this.render();
+    this.setComponentStyle();
   }
 
   drawRestaurants() {
@@ -53,6 +43,24 @@ class RestaurantBoxes extends HTMLElement {
         .querySelector('#restaurantList')
         .insertAdjacentHTML('beforeend', restaurantTemplate);
     });
+  }
+
+  render() {
+    this.shadowRoot.innerHTML = '<ul id="restaurantList"></ul>';
+  }
+
+  setComponentStyle() {
+    const componentStyle = document.createElement('style');
+    componentStyle.textContent = `
+        ul {
+          display: flex;
+          flex-direction: column;
+        
+          padding: 0 16px;
+          margin: 16px 0;
+        }`;
+
+    this.shadowRoot.append(componentStyle);
   }
 }
 
