@@ -38,21 +38,27 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
   }
 
   addEvent() {
-    this.$target.querySelector('#restaurant-delete__button')?.addEventListener('click', () => {
-      deleteById(this.state.selectId);
-      this.state.onDeleteRestaurant();
-    });
+    this.$target.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
 
-    this.$target.querySelector('#drawer-close__button')?.addEventListener('click', (e: Event) => {
-      e.stopPropagation();
-      this.state.onToggleOpenDrawer();
-    });
-
-    this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
-      e.stopPropagation();
-      fetchFavoriteId(this.state.selectId);
-      this.state.fetchNewRestaurants();
-      this.render();
+      switch (target.id) {
+        case 'restaurant-delete__button':
+          deleteById(this.state.selectId);
+          this.state.onDeleteRestaurant();
+          break;
+        case 'drawer-close__button':
+          e.stopPropagation();
+          this.state.onToggleOpenDrawer();
+          break;
+        case 'favorite__button':
+          e.stopPropagation();
+          fetchFavoriteId(this.state.selectId);
+          this.state.fetchNewRestaurants();
+          this.render();
+          break;
+        default:
+          return;
+      }
     });
   }
 
@@ -68,8 +74,8 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
           <div class="restaurant__category">
             <img src="${CATEGORY_IMAGE_URL[category]}" alt="${category}" class="category-icon" />
           </div>
-          <button class="favorite__button" data-favorite-btn-id="${id}">
-            <img src="${getImgSrcByFavorite(isFavorite)}"/>
+          <button id="favorite__button" class="favorite__button" data-favorite-btn-id="${id}">
+            <img class="favorite__button-img" src="${getImgSrcByFavorite(isFavorite)}"/>
           </button>
           </div>
         <div class="restaurant-info__drawer">
