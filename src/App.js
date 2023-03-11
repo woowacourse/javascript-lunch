@@ -3,6 +3,7 @@ import header from './component/header';
 import modal from './component/modal';
 import restaurantList from './component/restaurantList';
 import restaurantFilterContainer from './component/restaurantFilterContainer';
+import form from './component/form';
 import { $ } from './utils/dom';
 import CustomStorage from './utils/CustomStorage';
 import { DEFAULT_CATEGORY } from './constants';
@@ -28,7 +29,8 @@ class App {
             restaurants: this.#model.getFiltered(DEFAULT_CATEGORY, 'name'),
           })}
         </section>
-        ${modal()}
+        ${modal({ id: 'form-modal', content: form() })}
+        ${modal({ id: 'detail-modal', content: '' })}
       </main>
     `;
   }
@@ -38,27 +40,27 @@ class App {
       {
         selectors: 'header button',
         event: 'click',
-        actions: [this.#toggleModal],
+        actions: [this.toggleFormModal],
       },
       {
-        selectors: '.modal #cancel',
+        selectors: '#form-modal #cancel',
         event: 'click',
-        actions: [this.#toggleModal],
+        actions: [this.toggleFormModal],
       },
       {
-        selectors: 'form',
+        selectors: '#form-modal form',
         event: 'submit',
-        actions: [this.#submitForm, this.#toggleModal, this.#initRestaurants, this.#renderList],
+        actions: [this.submitForm, this.toggleFormModal, this.initRestaurants, this.renderList],
       },
       {
         selectors: '#category-filter',
         event: 'change',
-        actions: [this.#renderList],
+        actions: [this.renderList],
       },
       {
         selectors: '#sorting-filter',
         event: 'change',
-        actions: [this.#renderList],
+        actions: [this.renderList],
       },
     ].forEach(({ selectors, event, actions }) => {
       this.addEvent({ selectors, event, actions });
