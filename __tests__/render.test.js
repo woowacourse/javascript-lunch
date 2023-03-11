@@ -65,8 +65,9 @@ describe('컴포넌트 렌더링 테스트', () => {
       'beforeend',
       `<custom-modal><restaurant-detail-modal></restaurant-detail-modal></custom-modal>`
     );
+    document.body.querySelector('restaurant-detail-modal').render(sampleRestaurants[0]);
 
-    expect(screen.getByText('삭제하기')).toBeInTheDocument();
+    expect(screen.getByText('피양콩할마니')).toBeInTheDocument();
   });
 
   test('화면에 RestaurantFilter를 렌더링한다.', () => {
