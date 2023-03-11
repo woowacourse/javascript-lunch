@@ -2,7 +2,7 @@ import type { Category, Distance, Restaurant } from "../../../types/restaurant";
 
 import { Modal } from "..";
 import { InputBox } from "./InputBox";
-import Random from "../../../utils/random";
+import Random from "../../../utils/Random";
 
 export class RestaurantAddForm extends HTMLFormElement {
   constructor() {
