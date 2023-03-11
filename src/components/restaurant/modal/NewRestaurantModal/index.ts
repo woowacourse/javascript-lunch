@@ -23,15 +23,16 @@ class NewRestaurantModal extends Component {
   }
 
   private onClickSubmit() {
-    this.onSubmit();
+    this.shadowRoot?.querySelector('button')?.click();
   }
 
-  private onSubmit(event?: SubmitEvent) {
-    event?.preventDefault();
+  private onSubmit(event: SubmitEvent) {
+    event.preventDefault();
 
-    const restaurantProps = Object.fromEntries([
-      ...new FormData(this.shadowRoot?.querySelector('form') ?? undefined).entries(),
-    ]);
+    const $form = this.shadowRoot?.querySelector('form');
+    if (!($form instanceof HTMLFormElement)) return;
+
+    const restaurantProps = Object.fromEntries([...new FormData($form).entries()]);
 
     restaurants.create({
       category: String(restaurantProps.category),
@@ -82,6 +83,8 @@ class NewRestaurantModal extends Component {
             title="참고 링크"
             helper-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요."
           ></r-input>
+
+          <button></button>
         </form>
 
         <div slot="actions">
