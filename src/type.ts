@@ -3,9 +3,11 @@ export type Sorting = 'name' | 'distance';
 export type TakeMinute = 5 | 10 | 15 | 20 | 30;
 
 export type Restaurant = {
+  id: string;
   name: string;
   category: Category;
   takeMinute: TakeMinute;
+  favorite: boolean;
   description?: string;
   link?: string;
 };
