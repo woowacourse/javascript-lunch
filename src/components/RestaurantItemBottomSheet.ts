@@ -1,3 +1,4 @@
+import restaurantListHandler from "../domain/restaurantListHandler";
 import { categoryToSrc } from "../utils/convertor";
 import { $ } from "../utils/Dom";
 import { Category, Restaurant } from "./../types/type";
@@ -25,9 +26,7 @@ class RestaurantItemBottomSheet {
       this.restaurant.category
     } class="category-icon">
             </div>
-            <div class="item__bookmark">
             ${this.bookmark.template()}
-            </div>
         </div>
             <div class="item__info">
           <h3 class="item__name text-subtitle">${this.restaurant.name}</h3>
@@ -47,38 +46,41 @@ class RestaurantItemBottomSheet {
     </div>`;
   }
 
-  initialize() {
+  initialize(rerenderList: () => void) {
     this.render();
-    this.addEvent();
+    this.addEvent(rerenderList);
   }
 
   render() {
     $("body")?.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent() {
-    this.handleBookmark();
+  addEvent(rerenderList: () => void) {
+    this.handleBookmark(rerenderList);
     this.handleSheetDelete();
     this.handleSheetClose();
   }
 
-  handleBookmark() {
-    const restaurantListContainer = <HTMLElement>$(".sheet-bookmark");
-    restaurantListContainer?.addEventListener("click", (event) => {
-      const target = <HTMLElement>event.target;
-      const id = <string>target.closest("div")?.dataset.id;
+  handleBookmark(rerenderList: () => void) {
+    const bottomSheetHeader = <HTMLElement>$(".item__header");
+    bottomSheetHeader?.addEventListener("click", (event) => {
+      const bookmarkButton = <HTMLElement>event.target;
+      const id = this.restaurant.id;
 
-      console.log(id);
+      if (bookmarkButton) {
+        restaurantListHandler.toggleBookmark(id);
+
+        bookmarkButton.remove();
+        this.restaurant.bookmark = !this.restaurant.bookmark;
+        bottomSheetHeader.insertAdjacentHTML(
+          "beforeend",
+          this.bookmark.template()
+        );
+
+        rerenderList();
+        return;
+      }
     });
-
-    // if (bookmarkButton) {
-    //   restaurantListHandler.toggleBookmark(id);
-    //   const updatedRestaurants = restaurantListHandler.getRestaurants();
-    //   this.updateRestaurantList(updatedRestaurants);
-    //   return;
-    // }
-
-    // onSelectRestaurantID(id);
   }
 
   handleSheetDelete() {
