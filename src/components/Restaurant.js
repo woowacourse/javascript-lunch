@@ -54,7 +54,7 @@ export default class Restaurant {
 
   setEvent() {
     const { name, render } = this.props;
-    this.$restaurantItem = this.$target.querySelector("#" + name);
+    this.$restaurantItem = this.$target.querySelector(`#${name}`);
     this.$restaurantItem.addEventListener("click", () => {
       new Modal(this.$modal, { ...this.props, content: "restaurantDetail", render });
       this.$modal.classList.toggle("modal--open");
