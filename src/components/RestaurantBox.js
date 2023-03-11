@@ -1,5 +1,5 @@
-import { $, shortenString } from '../utils';
 import RestaurantList from '../domain/RestaurantList.ts';
+import { $, shortenString } from '../utils';
 
 class RestaurantBox extends HTMLElement {
   favoriteClickEvent({ name }) {
@@ -26,7 +26,7 @@ class RestaurantBox extends HTMLElement {
     });
   }
 
-  render({ name, category, distance, description, isFavorite }) {
+  render({ name, category, distance, description = '', isFavorite = '' }) {
     const NAME_SLICE_NUMBER = 15;
     const DESCRIPTION_SLICE_NUMBER = 30;
 

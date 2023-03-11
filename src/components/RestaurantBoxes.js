@@ -44,6 +44,7 @@ class RestaurantBoxes extends HTMLElement {
         '<div class="empty">음식점 목록이 비었습니다</div>';
       return;
     }
+
     restaurants.forEach((restaurant) => {
       const restaurantTemplate = this.getRestaurant(restaurant);
       this.shadowRoot
