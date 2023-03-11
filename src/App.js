@@ -3,7 +3,9 @@ import header from './component/header';
 import modal from './component/modal';
 import restaurantList from './component/restaurantList';
 import restaurantFilterContainer from './component/restaurantFilterContainer';
+import tabBar from './component/tabBar';
 import form from './component/form';
+import detail from './component/detail';
 import { $ } from './utils/dom';
 import CustomStorage from './utils/CustomStorage';
 import { DEFAULT_CATEGORY } from './constants';
@@ -16,13 +18,14 @@ class App {
   constructor(root) {
     this.#root = root;
     this.#storage = new CustomStorage('restaurants', []);
-    this.#initRestaurants();
+    this.initRestaurants();
   }
 
   initRender() {
     this.#root.innerHTML = `
       ${header()}
       <main>
+        ${tabBar({ checkedType: 'all' })}
         ${restaurantFilterContainer()}
         <section class="restaurant-list-container">
           ${restaurantList({
@@ -62,14 +65,20 @@ class App {
         event: 'change',
         actions: [this.renderList],
       },
-    ].forEach(({ selectors, event, actions }) => {
-      this.addEvent({ selectors, event, actions });
+      {
+        selectors: '.tab-bar',
+        event: 'change',
+        actions: [this.toggleFilterContainer, this.renderList],
+      },
+    ].forEach((manual) => {
+      this.addEvent(manual);
     });
   }
 
   addEvent({ selectors, event, actions }) {
     this.#root.addEventListener(event, (e) => {
-      if (!$(selectors).contains(e.target)) return;
+      const $target = $(selectors);
+      if ($target === null || !$target.contains(e.target)) return;
       actions.forEach((action) => {
         action(e);
       });
@@ -77,7 +86,7 @@ class App {
   }
 
   initRestaurants = () => {
-    this.#model = new Restaurants(this.#storage.getList());
+    this.#model = new Restaurants(this.#storage.getValue());
   };
 
   toggleFormModal = () => {
@@ -107,13 +116,18 @@ class App {
   renderList = () => {
     const $categoryFilter = $('#category-filter');
     const $sortingFilter = $('#sorting-filter');
-
     const category = $categoryFilter.options[$categoryFilter.selectedIndex].value;
     const sorting = $sortingFilter.options[$sortingFilter.selectedIndex].value;
 
-    $('.restaurant-list').outerHTML = restaurantList({
-      restaurants: this.#model.getFiltered(category, sorting),
-    });
+    const restaurants =
+      $('input[name=listType]:checked').id === 'favorite'
+        ? this.#model.getFavorite()
+        : this.#model.getFiltered(category, sorting);
+    $('.restaurant-list').outerHTML = restaurantList({ restaurants });
+  };
+
+  toggleFilterContainer = () => {
+    $('.restaurant-filter-container').classList.toggle('restaurant-filter-container--close');
   };
 }
 
