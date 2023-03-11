@@ -1,4 +1,4 @@
-import { allCustomElementsDefined } from '../components/lifecycle';
+import { allCustomElementsDefined } from '../components/lifecycles';
 import RestaurantDetailModal from '../components/restaurant/modal/RestaurantDetailModal';
 import RestaurantList from '../components/restaurant/RestaurantList';
 import Restaurant, { RestaurantProps } from '../domain/Restaurant';
