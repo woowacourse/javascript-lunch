@@ -50,6 +50,20 @@ describe('App component', () => {
       });
   });
 
+  it('자주 가는 음식점 테스트.', () => {
+    cy.get('.tabview__content [id^="restaurant-"]').should('have.length', 3);
+
+    cy.get('#restaurant-2 .restaurant__favorite__icon').click();
+
+    cy.get('.tabview__nav__button[data-tab="favorites"]').click();
+
+    cy.get('.tabview__content [id^="restaurant-"]').should('have.length', 1);
+
+    cy.get('#restaurant-1 .restaurant__favorite__icon')
+      .should('have.attr', 'src')
+      .should('include', 'favorite-icon-filled.png');
+  });
+
   // it('opens and closes the bottom sheet', () => {
   //   cy.get('.restaurant-item .restaurant__name').first().click();
   //   cy.get('.bottom-sheet-container').should('be.visible');
