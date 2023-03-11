@@ -11,7 +11,6 @@ export const controlFavoriteIcon = () => {
     executeEventListener(icon, {
       type: "click",
       listener: (event) => {
-        console.log("click");
         toggleFavoriteIcon(event);
         updateAndInitRestaurants();
       },
@@ -23,7 +22,6 @@ export const controlModalFavoriteIcon = () => {
   executeEventListener($("#restaurant-info-modal .favorite-icon")!, {
     type: "click",
     listener: (event: Event) => {
-      console.log("modal fav icon click");
       toggleFavoriteIcon(event);
       updateRestaurants();
     },
