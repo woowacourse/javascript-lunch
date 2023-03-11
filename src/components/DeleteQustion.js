@@ -1,8 +1,31 @@
+import RestaurantList from '../domain/RestaurantList.ts';
+import { $ } from '../utils';
+
 class DeleteQustion extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.render();
     this.setComponentStyle();
+    this.cancleClickEvent();
+    this.deleteClickEvent();
+  }
+
+  deleteClickEvent() {
+    this.shadowRoot
+      .querySelector('#deleteRestaurant')
+      .addEventListener('click', () => {
+        const name = this.getAttribute('name');
+        RestaurantList.delete(name);
+        $('#deleteQuestionModal').closeModal();
+        $('#openDetail').closeModal();
+        $('restaurant-boxes').drawRestaurants();
+      });
+  }
+
+  cancleClickEvent() {
+    this.shadowRoot.querySelector('#cancel').addEventListener('click', () => {
+      $('#deleteQuestionModal').closeModal();
+    });
   }
 
   render() {
@@ -72,6 +95,10 @@ class DeleteQustion extends HTMLElement {
     `;
 
     this.shadowRoot.append(componentStyle);
+  }
+
+  setDeleteName(name) {
+    this.setAttribute('name', name);
   }
 }
 

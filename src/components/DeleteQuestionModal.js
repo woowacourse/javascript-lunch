@@ -4,7 +4,7 @@ class DeleteQustionModal extends Modal {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.render();
-    this.setComponentStyle();
+    this.setComponentStyle(3);
     this.closeModalEvent();
   }
 
@@ -27,6 +27,10 @@ class DeleteQustionModal extends Modal {
         <delete-question></delete-question>
     </div>
 `;
+  }
+
+  setDeleteName(name) {
+    this.shadowRoot.querySelector('delete-question').setDeleteName(name);
   }
 }
 

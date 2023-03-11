@@ -4,7 +4,7 @@ class RestaurantDetailModal extends Modal {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.render();
-    this.setComponentStyle();
+    this.setComponentStyle(2);
     this.closeModalEvent();
   }
 

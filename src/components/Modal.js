@@ -52,7 +52,7 @@ class Modal extends HTMLElement {
 `;
   }
 
-  setComponentStyle() {
+  setComponentStyle(zIndex) {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .modal {
@@ -72,7 +72,7 @@ class Modal extends HTMLElement {
         bottom: 0;
         left: 0;
         background: rgba(0, 0, 0, 0.35);
-        z-index:2;
+        z-index:${zIndex};
       }
 `;
 
