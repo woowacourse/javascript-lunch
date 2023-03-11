@@ -29,7 +29,7 @@ class RestaurantService {
   }
 
   updateFavorite(restaurantId: number) {
-    return this.restaurantList.map((restaurant) => {
+    this.restaurantList = this.restaurantList.map((restaurant) => {
       if (restaurant.id === restaurantId) {
         return {
           ...restaurant,
@@ -39,6 +39,8 @@ class RestaurantService {
 
       return restaurant;
     });
+
+    return [...this.restaurantList];
   }
 }
 
