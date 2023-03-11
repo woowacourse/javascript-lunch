@@ -5,8 +5,8 @@ import { $ } from './utils/domSelectors';
 import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
 import RestaurantFilters from './components/RestaurantFilters';
 import {
-  addRestaurantTabMenuEvent,
-  renderRestaurantTabMenus,
+  addRestaurantTabChangeEvent,
+  renderRestaurantTabMenu,
 } from './components/RestaurantTabMenu';
 import {
   addRestaurantClickEvent,
@@ -57,7 +57,7 @@ class App {
   }
 
   renderComponents() {
-    renderRestaurantTabMenus();
+    renderRestaurantTabMenu();
     RestaurantFilters.render();
   }
 
@@ -123,7 +123,7 @@ class App {
 
   addEvents() {
     addHeaderEvent(this.formModal.openModal);
-    addRestaurantTabMenuEvent(this.changeRestaurantMenuTab);
+    addRestaurantTabChangeEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
     addRestaurantClickEvent(
       this.updateFavoriteRestaurant,

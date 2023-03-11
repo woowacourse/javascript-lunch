@@ -2,7 +2,7 @@ import { TAB_BUTTON_ATTRIBUTE } from '../constants/domAttributes';
 import { createTabButton } from '../template/TabButtonTemplate';
 import { $ } from '../utils/domSelectors';
 
-function addRestaurantTabMenuEvent(onChangeTab: CallableFunction) {
+function addRestaurantTabChangeEvent(onChangeTab: CallableFunction) {
   const tabs = $<HTMLElement>('.restaurant-navigation');
 
   tabs.addEventListener('change', (event: Event) => {
@@ -12,7 +12,7 @@ function addRestaurantTabMenuEvent(onChangeTab: CallableFunction) {
   });
 }
 
-function renderRestaurantTabMenus() {
+function renderRestaurantTabMenu() {
   const tabs = $<HTMLElement>('.restaurant-navigation');
 
   tabs.insertAdjacentHTML(
@@ -32,4 +32,4 @@ function renderRestaurantTabMenus() {
   );
 }
 
-export { addRestaurantTabMenuEvent, renderRestaurantTabMenus };
+export { addRestaurantTabChangeEvent, renderRestaurantTabMenu };
