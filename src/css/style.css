@@ -327,21 +327,26 @@ input[name="link"] {
 .tab-menu-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-top: 30px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
   letter-spacing: 0.5px;
 }
 
 .tab-menu {
+  width: 45%;
+  padding: 10px;
+  text-align: center;
   color: var(--grey-300);
   cursor: pointer;
+  border-bottom: var(--grey-200) solid 2px;
 }
 
 .tab-menu.active {
   color: var(--primary-color);
+  border-bottom: var(--primary-color) solid 2px;
 }
 
 .tab-filter.active {
@@ -359,4 +364,26 @@ input[name="link"] {
 /* 음식점 정보 모달 *****************************************/
 .restaurant-detail {
   display: none;
+}
+
+.detail-modal__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.detail-modal__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.detail-modal__text div:nth-child(n) {
+  margin-bottom: 16px;
+}
+
+.detail-modal__info img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
 }
