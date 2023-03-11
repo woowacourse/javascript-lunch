@@ -13,3 +13,7 @@
 .detail-subtitle {
   font-size: 20px;
 }
+
+.detail-favorite {
+  cursor: pointer;
+}
