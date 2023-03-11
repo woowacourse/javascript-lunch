@@ -41,7 +41,13 @@ describe('App component', () => {
     cy.get('#category-filter').select('일식');
     cy.get('#sorting-filter').select('name');
 
-    cy.get('.tabview__content [id^="restaurant-"]').should('have.length', 2);
+    cy.get('.tabview__content [id^="restaurant-"]')
+      .should('have.length', 2)
+      .each(($el) => {
+        cy.wrap($el)
+          .find('.restaurant__category img')
+          .should('have.attr', 'alt', '일식');
+      });
   });
 
   // it('opens and closes the bottom sheet', () => {
