@@ -1,4 +1,4 @@
-import { CATEGORY } from "../constants";
+import { CATEGORY_IMG } from "../constants";
 import { $ } from "../utils/Dom";
 import favoriteFilled from "../assets/favorite-icon-filled.png";
 import favoriteLined from "../assets/favorite-icon-lined.png";
@@ -15,40 +15,45 @@ class RestaurantModal {
   } = restaurantInfo) => `
     <div class="restaurant-detail modal-backdrop"></div>
     <div class="restaurant-detail modal-container">
+      <section class="detail-modal__info">
+        <div class="detail-modal__text"> 
         <!-- 카테고리 -->
-        <div class="restaurant__category">
-            <img src="${
-              CATEGORY[category]
-            }" alt="${category}" class="category-icon">
-        </div>
-        <!-- 음식점 정보 -->
-        <div class="name">
-            <h3 class="restaurant__name text-subtitle">${name}</h3>
-            <span class="restaurant__distance text-body">캠퍼스로부터 ${distance}분 내</span>
-        </div>
+          <div class="restaurant__category detail-category">
+              <img src="${
+                CATEGORY_IMG[category]
+              }" alt="${category}" class="category-icon">
+          </div>
+          <!-- 음식점 정보 -->
+          <div class="name">
+            <h3 class="restaurant__name text-subtitle detail-name">${name}</h3>
+          </div>
+          <div class="distance">
+            <span class="restaurant__distance text-body detail-distance">캠퍼스로부터 ${distance}분 내</span>
+          </div>
+          <!-- 설명 -->
+          <div class="description detail-description">
+              <p class="restaurant__description text-body">${description}</p>
+          </div>
+          <div class="link detail-link">
+            <a href="https://${link}">${link}</a>
+          </div>
+        </div>        
         ${
           favorite
-            ? `<img src="${favoriteFilled}" alt="">`
-            : `<img src="${favoriteLined}" alt="">`
+            ? `<img class="modal-favorite" id="${id}" src="${favoriteFilled}" alt="favorite active">`
+            : `<img class="modal-favorite" id="${id}" src="${favoriteLined}" alt="favorite">`
         }
-        <!-- 설명 -->
-        <div class="description">
-            <p class="restaurant__description text-body">${description}</p>
-        </div>
-        <div class="link">
-          <a href="https://${link}">링크</a>
-        </div>
-        <!-- 삭제/닫기 버튼 -->
-        <div class="button-container">
-            <button type="button" class="button remove-button button--secondary text-caption">삭제하기</button>
-            <button class="button close-button button--primary text-caption">닫기</button>
-        </div>
-    </div>
+      </section>
+      <!-- 삭제/닫기 버튼 -->
+      <div class="button-container">
+          <button type="button" class="button remove-button button--secondary text-caption">삭제하기</button>
+          <button class="button close-button button--primary text-caption">닫기</button>
+      </div>
+  </div>
     `;
-  constructor(restaurantInfo, rerender) {
+  constructor(restaurantInfo) {
     this.restaurantInfo = restaurantInfo;
     this.render(this.restaurantInfo);
-    this.rerender = rerender;
     this.showModal();
     this.modal = $(".restaurant-detail.modal-container");
     this.modalBackdrop = $(".restaurant-detail.modal-backdrop");

@@ -1,4 +1,4 @@
-import { CATEGORY } from "../constants";
+import { CATEGORY_IMG } from "../constants";
 import favoriteFilled from "../assets/favorite-icon-filled.png";
 import favoriteLined from "../assets/favorite-icon-lined.png";
 
@@ -14,7 +14,9 @@ export default class RestaurantItem {
   } = restaurantInfo) => `
     <li class="restaurant">
       <div class="restaurant__category">
-      <img src="${CATEGORY[category]}" alt="${category}" class="category-icon">
+      <img src="${
+        CATEGORY_IMG[category]
+      }" alt="${category}" class="category-icon">
       </div>
       </div>
         <div class="restaurant__info" id="${id}">

@@ -1,4 +1,5 @@
 import { RestaurantForm } from "./types";
+import { CATEGORY_NAME } from "./constants";
 
 class Store {
   static restaurantItemList: RestaurantForm[] = [];
@@ -14,9 +15,11 @@ class Store {
   }
 
   static setFilteredList(selectedValue: string) {
-    this.filteredItemList = this.restaurantItemList.filter(
-      (restaurant) => restaurant.category === selectedValue
-    );
+    selectedValue === "" || selectedValue === CATEGORY_NAME.total
+      ? (this.filteredItemList = this.restaurantItemList)
+      : (this.filteredItemList = this.restaurantItemList.filter(
+          (restaurant) => restaurant.category === selectedValue
+        ));
   }
 
   static getFavoriteList() {
