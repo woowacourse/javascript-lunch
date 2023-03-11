@@ -32,6 +32,10 @@ export default class DetailModal extends Component {
       const $eventTarget = event.target as HTMLElement;
       const $closestDiv = $eventTarget.closest('div')!;
       const $image = $<HTMLImageElement>('.favorite-icon', $closestDiv);
+      // Favorite 버튼 클릭 시
+      // FIXME: classlist toggle 로 변경
+      // FIXME: 핸들러 분리
+      // FIXME: 핸들러 안에서 세부적으로 분리.
 
       if ($image.classList.contains('favorite')) {
         $image.src = FavoriteImage.favoriteOff;
@@ -49,7 +53,12 @@ export default class DetailModal extends Component {
   }
 
   template({ id, favorite, category, description, name, link, distance }: IRestaurant) {
-    return `
+    // FIXME: component 만들기
+    // FIXME: img (음식사진, 즐겨찾기)
+    // FIXME: modal 프레임
+    // FIXME: button (취소, 삭제)
+
+    return `  
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>
         <div class="modal-container">

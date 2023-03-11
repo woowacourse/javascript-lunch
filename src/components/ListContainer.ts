@@ -29,7 +29,13 @@ class ListContainer extends Component {
     return this;
   }
 
+  // 모달에서 즐겨찾기 버튼 추가시 변경사항 적용
+
   handleToggleFavorite(id: number) {
+    // FIXME: classlist toggle 로 변경
+    // FIXME: 핸들러 분리
+    // FIXME: 핸들러 안에서 세부적으로 분리.
+
     all$('li', this.$target).forEach((elem) => {
       if (Number(elem.dataset.id) === id) {
         const $image = $<HTMLImageElement>('.favorite-icon', elem);
@@ -45,6 +51,7 @@ class ListContainer extends Component {
   }
 
   setEvent() {
+    // 해당 뷰에서 즐겨찾기 버튼 클릭 시
     // event 클릭
     on(this.$target, 'click', (event) => {
       const $eventTarget = event.target as HTMLElement;
@@ -52,6 +59,9 @@ class ListContainer extends Component {
       const id = Number($closestDiv.closest('li')!.dataset.id);
 
       // event 클릭 - favorite
+      // FIXME: classlist toggle 로 변경
+      // FIXME: 핸들러 분리
+      // FIXME: 핸들러 안에서 세부적으로 분리.
       if ($closestDiv.className === 'favorite') {
         const $image = $<HTMLImageElement>('img', $closestDiv);
 
@@ -108,6 +118,7 @@ class ListContainer extends Component {
   }
 
   handleCreateList({ id, category, name, distance, description, favorite }: IRestaurant) {
+    // FIXME: component 만들기 img (음식 사진, 즐겨찾기 )
     return `
     <li data-id = ${id} class="restaurant">
       <div class="restaurant__category">
