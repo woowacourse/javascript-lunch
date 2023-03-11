@@ -1,5 +1,5 @@
 import RestaurantList from '../domain/RestaurantList.ts';
-import { $ } from '../utils';
+import { $, shortenString } from '../utils';
 
 class RestaurantDetail extends HTMLElement {
   attributeChangedCallback(name) {
@@ -104,15 +104,19 @@ class RestaurantDetail extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
     <div class="container">
+      <div class="wrapper">
       <div class="image-container">
         <category-image category="${category}"></category-image>
         <favorite-image isFavorite="${isFavorite}"></favorite-image>
       </div>
-      <div>
+      <div class="">
        <h3 class="m-4 text-title-2">${name}</h3>
        <span class="m-4 distance text-body">캠퍼스부터 ${distance}분 내</span>
-       <p class="m-4 text-body">${description}</p>
-       <a class="m-4 text-body" href="${link}" target="_blank">${link}</a>
+       <p class="m-4 text-body description scrollbar-hide">${description}</p>
+       <a class="m-4 text-body link" title="${link}" href="${link}" target="_blank">${shortenString(
+      link,
+      25
+    )}</a>
       </div>
       <div class="button-container">
         <lunch-button
@@ -125,6 +129,7 @@ class RestaurantDetail extends HTMLElement {
           id="cancelModal"
           color="orange"
         ></lunch-button>
+      </div>
       </div>
     </div>
     `;
@@ -152,14 +157,18 @@ class RestaurantDetail extends HTMLElement {
     .container{
       position: fixed;
       width: 100%;
+      height:700px;
       bottom: 0;
       max-width: 360px;
       padding: 32px 16px;
       border-radius: 8px 8px 0px 0px;
       background: var(--grey-100);
+      
     }
 
     .button-container {
+      position:absolute;
+      bottom:32px;
       display: flex;
       justify-content:space-between;
       align-items:center;
@@ -173,6 +182,37 @@ class RestaurantDetail extends HTMLElement {
     
     .distance {
       color: var(--primary-color);
+    }
+    
+    .wrapper{
+      position:relative;
+      height:100%;
+    }
+
+    .description{
+      height:350px;
+      overflow-y:scroll;
+      overflow-wrap: break-word;
+    }
+
+    .scrollbar-hide{
+      -ms-overflow-style: none; 
+      scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .link{
+      color:var(--grey-500);
+      overflow-wrap: break-word;
+    }
+
+    @media (max-height: 900px) {
+      .container {
+        height:500px;
+      }
     }
   `;
 

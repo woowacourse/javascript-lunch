@@ -16,32 +16,6 @@ class AddRestaurantModal extends Modal {
     </div>
 `;
   }
-
-  setComponentStyle() {
-    const componentStyle = document.createElement('style');
-    componentStyle.textContent = `
-      .modal {
-          display: none;
-          overflow-x:hidden;
-        }
-      
-      .modal-open {
-        display: block;
-        overflow-x:hidden;
-      }
-      
-      .backdrop {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.35);
-      }
-`;
-
-    this.shadowRoot.append(componentStyle);
-  }
 }
 
 export default AddRestaurantModal;

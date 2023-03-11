@@ -60,8 +60,8 @@ class RestaurantBox extends HTMLElement {
     const description = this.getAttribute('description') || '';
     const isFavorite = this.getAttribute('isFavorite');
 
-    const NAME_SLICE_NUMBER = 18;
-    const DESCRIPTION_SLICE_NUMBER = 56;
+    const NAME_SLICE_NUMBER = 15;
+    const DESCRIPTION_SLICE_NUMBER = 30;
 
     this.shadowRoot.innerHTML = `
     <li>
@@ -111,12 +111,7 @@ class RestaurantBox extends HTMLElement {
         border-bottom: 1px solid #e9eaed;
         cursor:pointer;
       }
-
-      @media (max-width: 400px) {
-        li {
-          padding: 8px 4px;
-        }
-      }
+      
 
       .info {
         display: flex;
@@ -135,6 +130,7 @@ class RestaurantBox extends HTMLElement {
       
       .description {
         display: -webkit-box;
+
       
         padding-top: 8px;
       
@@ -142,11 +138,18 @@ class RestaurantBox extends HTMLElement {
         text-overflow: ellipsis;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
+        overflow-wrap: break-word;
       }
 
       .item-wrapper{
         display:flex;
         justify-content:space-between;
+      }
+
+      @media (max-height: 900px) {
+        li {
+          padding: 8px 4px;
+        }
       }
 `;
 

@@ -95,6 +95,7 @@ class AddSelect extends HTMLElement {
       }
       
       select {
+        height:44px;
         padding: 8px;
         margin: 6px 0;
       
@@ -102,19 +103,6 @@ class AddSelect extends HTMLElement {
         border-radius: 8px;
       
         font-size: 16px;
-      }
-      
-    
-      
-      select {
-        height: 44px;
-      
-        padding: 8px;
-      
-        border: 1px solid var(--grey-200);
-        border-radius: 8px;
-      
-        color: var(--grey-300);
       }
 
       .error{

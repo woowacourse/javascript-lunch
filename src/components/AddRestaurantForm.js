@@ -111,7 +111,7 @@ class AddRestaurantForm extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-        <div class="container">
+        <div class="container scrollbar-hide fixed-size">
           <h2 class="title text-title">새로운 음식점</h2>
           <form id="restaurantForm">
             <add-select
@@ -136,18 +136,18 @@ class AddRestaurantForm extends HTMLElement {
               caption="매장 정보를 확인할 수 있는 링크를 입력해 주세요."
             ></link-input>
             <div class="button-container">
-              <lunch-button
-                name="취소하기"
-                id="cancelModal"
-                color="white"
-              ></lunch-button>
-              <lunch-button
-                name="추가하기"
-                id="addRestraunt"
-                color="orange"
-              ></lunch-button>
-              </div>
-          </form>
+            <lunch-button
+            name="취소하기"
+            id="cancelModal"
+            color="white"
+            ></lunch-button>
+            <lunch-button
+            name="추가하기"
+            id="addRestraunt"
+            color="orange"
+            ></lunch-button>
+            </div>
+            </form>
         </div>
     `;
   }
@@ -172,12 +172,18 @@ class AddRestaurantForm extends HTMLElement {
 
       .container {
         position: fixed;
-        width: 100%;
+        max-width:390px;
+        width:100%;
         bottom: 0;
-        max-width: 360px;
         padding: 32px 16px;
         border-radius: 8px 8px 0px 0px;
         background: var(--grey-100);
+      }
+
+      .fixed-size{
+        -webkit-box-sizing: border-box; 
+        -moz-box-sizing: border-box;    
+        box-sizing: border-box;    
       }
       
       .title {
@@ -190,28 +196,19 @@ class AddRestaurantForm extends HTMLElement {
         align-items:center;
       }
 
-      @media (max-width: 500px) {
-        .container {
-          position: fixed;
-          top:100px;
-          width:90vw;
-          overflow-x:hidden;
-          bottom: 0;
-          border-radius: 8px 8px 0px 0px;
-          background: var(--grey-100);
-          overflow-y:scroll;
-        }
+      .scrollbar-hide{
+        -ms-overflow-style: none; 
+        scrollbar-width: none;
+      }
+  
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
       }
 
       @media (max-height: 900px) {
         .container {
-          position: fixed;
           top:100px;
-          width:90vw;
           overflow-x:hidden;
-          bottom: 0;
-          border-radius: 8px 8px 0px 0px;
-          background: var(--grey-100);
           overflow-y:scroll;
         }
       }
