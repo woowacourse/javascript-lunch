@@ -20,7 +20,7 @@ class FilterBar extends Component {
 
   subscribe() {
     eventBus.subscribe('@click-tab', (tab: TabToggle) => {
-      this.hide(tab === 'all');
+      this.hide(tab === 'favorite');
 
       eventBus.dispatch('@reload-filter', { ...this.#filterOption, tab });
     });
