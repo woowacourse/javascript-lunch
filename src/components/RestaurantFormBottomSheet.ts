@@ -1,6 +1,6 @@
 import { validateUrl } from "../utils/validate";
 import { OptionValue, RestaurantSelect } from "../utils/Constants";
-import { Category, TakingTime, Restaurant } from "../types/type";
+import { Restaurant } from "../types/type";
 import { $ } from "../utils/Dom";
 import Select from "../components/common/Select";
 
@@ -20,7 +20,7 @@ class RestaurantFormBottomSheet {
   }
 
   template() {
-    return `<div class="form-sheet">
+    return `< class="form-sheet">
     <div class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -58,7 +58,7 @@ class RestaurantFormBottomSheet {
         </div>
       </form>
     </div>
-  </div>`;
+  </>`;
   }
 
   initialize(target: Element, makeRestaurantItem: (data: Restaurant) => void) {
