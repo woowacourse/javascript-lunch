@@ -1,3 +1,4 @@
+import { event } from 'cypress/types/jquery';
 import addButton from '../../assets/add-button.png';
 import { IRestaurant } from '../domain/Restaurant';
 import { appendModal, showModal } from '../modal';
@@ -11,16 +12,17 @@ export default function Header(
 
   const template = `
     <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-     <button type="button" class="gnb__button" >
-       <img src="${addButton}" alt="음식점 추가" aria-label="음식점 추가">
+     <button type="button" class="gnb__button"  aria-label="음식점 추가">
+       <img src="${addButton}" alt="음식점 추가">
      </button>
    `;
 
   $header.innerHTML = template;
 
-  $header.addEventListener('click', (event) => {
-    const { target } = event;
-    if (!(target instanceof HTMLImageElement)) return;
+  const $button = $header.querySelector('.gnb__button');
+  $button?.addEventListener('click', (event) => {
+    const { currentTarget } = event;
+    if (!(currentTarget instanceof HTMLButtonElement)) return;
 
     showModal();
     appendModal(RestaurantForm(addRestaurantInfo));
