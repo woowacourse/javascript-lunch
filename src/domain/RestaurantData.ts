@@ -21,7 +21,7 @@ export const RestaurantData: RestaurantDataInterFace = {
   id: 0,
 
   settingList(restaurantList) {
-    const isLocalData = LocalData.getData();
+    const isLocalData = LocalData.getData("restaurantList");
 
     if (isLocalData) {
       this.allList = isLocalData;
@@ -32,12 +32,12 @@ export const RestaurantData: RestaurantDataInterFace = {
 
     this.allList = restaurantList;
     this.id = this.allList.length - 1;
-    LocalData.setDate(this.allList);
+    LocalData.setDate("restaurantList", this.allList);
   },
 
   addRestaurant(restaurant) {
     this.allList = [restaurant, ...this.allList];
-    LocalData.setDate(this.allList);
+    LocalData.setDate("restaurantList", this.allList);
   },
 
   turnLikeUnlike(id) {
@@ -51,7 +51,7 @@ export const RestaurantData: RestaurantDataInterFace = {
         this.addLikeRestaurant(id);
       }
     });
-    LocalData.setDate(this.allList);
+    LocalData.setDate("restaurantList", this.allList);
   },
 
   deleteLikeRestaurant(id) {
