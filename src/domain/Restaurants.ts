@@ -44,7 +44,7 @@ class Restaurants {
   }
 
   checkFavorite(id: number) {
-    return this.#restaurants.map((restaurant) => {
+    this.#restaurants = this.#restaurants.map((restaurant) => {
       if (restaurant.id === id) restaurant.favorite = !restaurant.favorite;
 
       return restaurant;
