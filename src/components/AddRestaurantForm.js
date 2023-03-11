@@ -106,22 +106,22 @@ class AddRestaurantForm extends HTMLElement {
               id="category"
               options="한식,중식,일식,양식,아시안,기타"
             ></add-select>
-            <add-text-input name="이름" id="name"></add-text-input>
+            <name-input name="이름" id="name"></name-input>
             <add-select
               name="거리(도보 이동 시간)"
               id="distance"
               options="5,10,15,20,30"
             ></add-select>
-            <add-text-input
+            <description-input
               name="설명"
               id="description"
               caption="메뉴 등 추가 정보를 입력해 주세요."
-            ></add-text-input>
-            <add-text-input
+            ></description-input>
+            <link-input
               name="참고 링크"
               id="link"
               caption="매장 정보를 확인할 수 있는 링크를 입력해 주세요."
-            ></add-text-input>
+            ></link-input>
             <div class="button-container">
               <lunch-button
                 name="취소하기"

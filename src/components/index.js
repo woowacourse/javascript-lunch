@@ -1,7 +1,6 @@
 import AddRestaurantForm from './AddRestaurantForm';
 import AddRestaurantModal from './AddRestuarntModal';
 import AddSelect from './AddSelect';
-import AddTextInput from './AddTextInput';
 import Button from './Button';
 import CategoryImage from './CategoryImage';
 import FavoriteImage from './FavoriteImage';
@@ -13,9 +12,14 @@ import RestaurantBoxes from './RestaurantBoxes';
 import RestaurantDetail from './RestaurantDetail';
 import RestaurantDetailModal from './RestaurantDetailModal';
 import RestaurantTab from './RestaurantTab';
+import NameInput from './NameInput';
+import DescriptionInput from './DescriptionInput';
+import LinkInput from './LinkInput';
 
 customElements.define('add-select', AddSelect);
-customElements.define('add-text-input', AddTextInput);
+customElements.define('name-input', NameInput);
+customElements.define('description-input', DescriptionInput);
+customElements.define('link-input', LinkInput);
 customElements.define('add-restaurant-form', AddRestaurantForm);
 customElements.define('add-restaurant-modal', AddRestaurantModal);
 customElements.define('lunch-button', Button);
