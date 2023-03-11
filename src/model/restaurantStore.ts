@@ -85,6 +85,8 @@ export const restaurantStore = {
       return restaurant;
     });
 
+    console.log(restaurantList);
+
     this.setList(restaurantList);
   },
 };
