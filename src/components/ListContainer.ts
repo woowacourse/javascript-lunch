@@ -1,6 +1,6 @@
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
-import { ImageByCategory, FavoriteImage, toggleFavoriteImageIn } from '@res/images/imageByCategory';
+import { ImageByCategory, FavoriteImage, toggleFavoriteIcon } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
@@ -32,44 +32,48 @@ class ListContainer extends Component {
   // 모달에서 즐겨찾기 버튼 추가시 변경사항 적용
 
   handleToggleFavorite(id: number) {
-    // FIXME: classlist toggle 로 변경
-    // FIXME: 핸들러 분리
-    // FIXME: 핸들러 안에서 세부적으로 분리.
-
     all$('li', this.$target).forEach((elem) => {
-      if (Number(elem.dataset.id) !== id) return;
+      if (this.isTarget(elem, id)) return;
+
       this.toggleFavorite($<HTMLImageElement>('.favorite-icon', elem));
     });
   }
 
+  isTarget(elem: HTMLElement, id: number): boolean {
+    return Number(elem.dataset.id) === id;
+  }
+
   toggleFavorite(imageElement: HTMLImageElement) {
     imageElement.classList.toggle('favorite');
-    toggleFavoriteImageIn(imageElement);
+    toggleFavoriteIcon(imageElement);
   }
 
   setEvent() {
-    // 해당 뷰에서 즐겨찾기 버튼 클릭 시
-    // event 클릭
-    on(this.$target, 'click', (event) => {
-      const $eventTarget = event.target as HTMLElement;
-
-      if ($eventTarget.closest('li') === null) return;
-      const id = Number($eventTarget.closest('li')!.dataset.id);
-
-      // event 클릭 - favorite
-      // FIXME: classlist toggle 로 변경
-      // FIXME: 핸들러 분리
-      // FIXME: 핸들러 안에서 세부적으로 분리.
-      if ($eventTarget.classList.contains('favorite-icon')) {
-        this.toggleFavorite($eventTarget as HTMLImageElement);
-        restaurantStore.toggleFavorite(id);
-        // event 클릭 - item
-      } else {
-        eventBus.dispatch('@click-detail', id, restaurantStore.getItemById);
-      }
-    });
+    on(this.$target, 'click', this.handleClickRestaurant.bind(this));
 
     return this;
+  }
+
+  handleClickRestaurant(event: Event): void {
+    const $eventTarget = event.target as HTMLElement;
+    const id = Number($eventTarget.closest('li')!.dataset.id);
+
+    this.isClickFavorite($eventTarget)
+      ? this.handleClickFavorite($eventTarget, id)
+      : this.handleClickBody(id);
+  }
+
+  handleClickFavorite(element: HTMLElement, id: number): void {
+    this.toggleFavorite(element as HTMLImageElement);
+    restaurantStore.toggleFavorite(id);
+  }
+
+  handleClickBody(id: number): void {
+    eventBus.dispatch('@click-detail', id, restaurantStore.getItemById);
+  }
+
+  isClickFavorite(element: HTMLElement): boolean {
+    return element.classList.contains('favorite-icon');
   }
 
   handleTabChange(detail: any): void {
