@@ -1,4 +1,4 @@
-import { IRestaurant } from '../../types';
+import { Restaurant } from '../../types';
 import RestaurantDetail from './ResraurantDetail';
 import RestaurantAddForm from './RestaurantAddForm';
 
@@ -11,7 +11,7 @@ export default class Modal {
     this.#targetElement = targetElement;
   }
 
-  render(restaurant?: IRestaurant) {
+  render(restaurant?: Restaurant) {
     if (restaurant) {
       this.#targetElement.innerHTML = this.getTemplate(restaurant);
 
@@ -23,7 +23,7 @@ export default class Modal {
     return this;
   }
 
-  getTemplate(restaurant?: IRestaurant) {
+  getTemplate(restaurant?: Restaurant) {
     return `
     <div class="modal-backdrop"></div>
     <div class="modal-container">
@@ -32,7 +32,7 @@ export default class Modal {
     `;
   }
 
-  getModalContent(restaurant?: IRestaurant) {
+  getModalContent(restaurant?: Restaurant) {
     if (restaurant) {
       return RestaurantDetail.getTemplate(restaurant);
     }

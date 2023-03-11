@@ -1,9 +1,9 @@
-import { IRestaurant, RestaurantSortType, RestaurantCategory } from '../types';
+import { Restaurant, RestaurantSortType, RestaurantCategory } from '../types';
 
 type FilterCategory = RestaurantCategory | '전체';
 
 export const getFilteredRestaurantsByCategory = (
-  restaurants: IRestaurant[],
+  restaurants: Restaurant[],
   category: FilterCategory
 ) => {
   if (category === '전체') {
@@ -13,12 +13,12 @@ export const getFilteredRestaurantsByCategory = (
   return restaurants.filter((restaurant) => restaurant.category === category);
 };
 
-export const getFavoriteRestaurants = (restaurants: IRestaurant[]) => {
+export const getFavoriteRestaurants = (restaurants: Restaurant[]) => {
   return restaurants.filter((restaurant) => restaurant.isFavorite);
 };
 
 export const getSortedRestaurants = (
-  filterdRestaurants: IRestaurant[],
+  filterdRestaurants: Restaurant[],
   sortOption: RestaurantSortType
 ) => {
   if (sortOption === 'name') {
@@ -28,7 +28,7 @@ export const getSortedRestaurants = (
   return getSortedRestaurantsByDistance(filterdRestaurants);
 };
 
-export const getSortedRestaurantsByName = (restaurants: IRestaurant[]) => {
+export const getSortedRestaurantsByName = (restaurants: Restaurant[]) => {
   const sortedRestaurants = restaurants.sort((restaurant1, restaurant2) => {
     return restaurant1.name.localeCompare(restaurant2.name);
   });
@@ -36,7 +36,7 @@ export const getSortedRestaurantsByName = (restaurants: IRestaurant[]) => {
   return sortedRestaurants;
 };
 
-export const getSortedRestaurantsByDistance = (restaurants: IRestaurant[]) => {
+export const getSortedRestaurantsByDistance = (restaurants: Restaurant[]) => {
   const sortedRestaurants = restaurants.sort((restaurant1, restaurant2) => {
     return Number(restaurant1.distance) - Number(restaurant2.distance);
   });

@@ -1,6 +1,6 @@
-import { IRestaurant } from '../types';
+import { Restaurant } from '../types';
 
-const dummyRestaurants: IRestaurant[] = [
+const dummyRestaurants: Restaurant[] = [
   {
     id: 1,
     category: '한식',

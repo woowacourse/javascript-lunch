@@ -1,5 +1,5 @@
-import { IRestaurant } from '../types';
+import { Restaurant } from '../types';
 
-const deepCopy = (value: Array<IRestaurant>) => JSON.parse(JSON.stringify(value));
+const deepCopy = (value: Array<Restaurant>) => JSON.parse(JSON.stringify(value));
 
 export default deepCopy;

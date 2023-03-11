@@ -1,4 +1,4 @@
-import { RestaurantCategory, IRestaurant } from '../../../types';
+import { RestaurantCategory, Restaurant } from '../../../types';
 
 type ImgFileName = {
   [key in RestaurantCategory]: string;
@@ -13,7 +13,7 @@ const imgFileName: ImgFileName = {
 };
 
 const Restaurant = {
-  getTemplate(restaurant: IRestaurant) {
+  getTemplate(restaurant: Restaurant) {
     const { id, category, name, distance, description, isFavorite } = restaurant;
     const favoriteIconSrc = isFavorite ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png';
     const favoriteIconAlt = isFavorite ? 'favorite-icon-filled' : 'favorite-icon-lined';

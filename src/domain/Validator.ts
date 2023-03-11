@@ -1,9 +1,9 @@
 import { CATEGORIES, DISTANCES } from '../constants/formCondition';
 import { ERROR_MESSAGE } from '../constants/message';
-import { IRestaurant } from '../types';
+import { Restaurant } from '../types';
 
 const Validator = {
-  validateFormData({ category, name, distance, link = '' }: IRestaurant) {
+  validateFormData({ category, name, distance, link = '' }: Restaurant) {
     this.validateCategory(category);
     this.validateRestaurantName(name);
     this.validateDistance(distance);
