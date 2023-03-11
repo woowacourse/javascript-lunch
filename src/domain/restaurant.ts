@@ -4,6 +4,7 @@ import { CategoryAll, RestaurantInfo, SortTypeAll } from './RestaurantTypes';
 interface Restaurant {
   restaurants: RestaurantInfo[];
   filteredRestaurants: RestaurantInfo[];
+  favoriteRestaurants: RestaurantInfo[];
   addRestaurant: (restaurant: RestaurantInfo) => void;
   filterByCategory: (category: CategoryAll) => void;
   sortByType: (type: SortTypeAll) => void;
@@ -13,6 +14,7 @@ interface Restaurant {
 export const restaurant: Restaurant = {
   restaurants: [],
   filteredRestaurants: [],
+  favoriteRestaurants: [],
 
   addRestaurant(restaurant: RestaurantInfo) {
     this.restaurants = [...this.restaurants, restaurant];
@@ -59,6 +61,7 @@ export const restaurant: Restaurant = {
     restaurant.isFavorite = !restaurant.isFavorite;
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
+    $('restaurant-box').renderRestaurantList(this.restaurants);
     return restaurant.isFavorite;
   },
 };
