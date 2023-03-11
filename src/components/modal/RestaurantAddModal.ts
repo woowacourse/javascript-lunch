@@ -87,8 +87,6 @@ class RestaurantAddModal extends ModalContent {
 
     if (!this.closeModal) return;
 
-    console.log(restaurantState.getList());
-
     this.closeModal();
   }
 

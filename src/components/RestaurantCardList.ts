@@ -109,8 +109,14 @@ class RestaurantCardList extends HTMLUListElement {
   }
 
   sortBySortOption(restaurants: Restaurant[]) {
-    return [...restaurants].sort((first, second) =>
-      first[this.#sorting] > second[this.#sorting] ? 1 : -1
+    if (this.#sorting === "name") {
+      return [...restaurants].sort((first, second) =>
+        first.name.localeCompare(second.name)
+      );
+    }
+
+    return [...restaurants].sort(
+      (first, second) => first.distance - second.distance
     );
   }
 
