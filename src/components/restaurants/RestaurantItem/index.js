@@ -5,15 +5,12 @@ import LocalStorage from "../../../util/LocalStorage";
 class RestaurantItem {
   $target;
   restaurantInfo;
-  restaurantList;
 
-  constructor($target, restaurantInfo, restaurantList) {
+  constructor($target, restaurantInfo) {
     this.$target = $target;
     this.restaurantInfo = restaurantInfo;
-    this.restaurantList = restaurantList;
 
     this.render();
-    this.setEvent();
   }
 
   template() {
@@ -49,26 +46,26 @@ class RestaurantItem {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  setFavoriteClickEvent() {
+  setOnClickFavoriteEvent(restaurantList) {
     this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
       if (!event.target.closest(".favorite")) return;
 
-      this.restaurantList.changeFavoriteState(this.restaurantInfo.id);
+      restaurantList.changeFavoriteState(this.restaurantInfo.id);
     });
   }
 
-  setRestaurantInfoEvent() {
+  setOnClickItemEvent(restaurantList) {
     this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
       if (event.target.closest(".favorite")) return;
 
-      this.restaurantList.modal.setRestaurantDetail(this.restaurantInfo, this.restaurantList);
-      this.restaurantList.modal.toggle();
+      restaurantList.modal.renderRestaurantDetail(this.restaurantInfo, restaurantList);
+      restaurantList.modal.toggle();
     });
   }
 
-  setEvent() {
-    this.setFavoriteClickEvent();
-    this.setRestaurantInfoEvent();
+  setEvent(restaurantList) {
+    this.setOnClickFavoriteEvent(restaurantList);
+    this.setOnClickItemEvent(restaurantList);
   }
 }
 

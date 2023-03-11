@@ -8,7 +8,6 @@ class ModalContainer {
   constructor($target) {
     this.$target = $target;
     this.render();
-    this.setEvent();
   }
 
   template() {
@@ -26,19 +25,26 @@ class ModalContainer {
     this.$target.classList.toggle("modal--open");
   }
 
-  setAddRestaurantForm(restaurantList) {
+  renderAddRestaurantForm(restaurantList) {
     const $modalContainer = this.$target.querySelector(".modal-container");
 
-    new AddRestaurantFormModal($modalContainer, restaurantList);
+    const formModal = new AddRestaurantFormModal($modalContainer);
+    formModal.setEvent(restaurantList);
   }
 
-  setRestaurantDetail(restaurantInfo, restaurantList) {
+  renderRestaurantDetail(restaurantInfo, restaurantList) {
     const $modalContainer = this.$target.querySelector(".modal-container");
-    new RestaurantDetailModal($modalContainer, restaurantInfo, restaurantList);
+
+    const detailModal = new RestaurantDetailModal($modalContainer, restaurantInfo);
+    detailModal.setEvent(restaurantList);
+  }
+
+  setOnClickBackDropEvent() {
+    this.$target.querySelector(".modal-backdrop").addEventListener("click", this.toggle.bind(this));
   }
 
   setEvent() {
-    this.$target.querySelector(".modal-backdrop").addEventListener("click", this.toggle.bind(this));
+    this.setOnClickBackDropEvent();
   }
 }
 

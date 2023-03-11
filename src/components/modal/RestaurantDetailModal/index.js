@@ -4,15 +4,12 @@ import "./index.css";
 class RestaurantDetailModal {
   $target;
   restaurantInfo;
-  restaurantList;
 
-  constructor($target, restaurantInfo, restaurantList) {
+  constructor($target, restaurantInfo) {
     this.$target = $target;
     this.restaurantInfo = restaurantInfo;
-    this.restaurantList = restaurantList;
 
     this.render();
-    this.setEvent();
   }
 
   template() {
@@ -61,34 +58,34 @@ class RestaurantDetailModal {
     this.$target.innerHTML = this.template();
   }
 
-  setFavoriteToggleEvent() {
+  toggleModal() {
+    this.$target.closest(".modal").classList.toggle("modal--open");
+  }
+
+  setOnClickFavoriteEvent(restaurantList) {
     this.$target.querySelector(".detail-favorite").addEventListener("click", (event) => {
-      this.restaurantList.changeFavoriteState(this.restaurantInfo.id);
+      restaurantList.changeFavoriteState(this.restaurantInfo.id);
 
       event.target.src = `./favorite-icon-${!this.restaurantInfo.favorite ? "filled" : "lined"}.png`;
       this.restaurantInfo.favorite = !this.restaurantInfo.favorite;
     });
   }
 
-  setRemoveEvent() {
+  setOnClickRemoveEvent(restaurantList) {
     this.$target.querySelector("#detail-remove-button").addEventListener("click", () => {
-      this.restaurantList.removeRestaurant(this.restaurantInfo.id);
+      restaurantList.removeRestaurant(this.restaurantInfo.id);
       this.toggleModal();
     });
   }
 
-  setCloseEvent() {
+  setOnClickCloseEvent() {
     this.$target.querySelector("#detail-cancel-button").addEventListener("click", this.toggleModal.bind(this));
   }
 
-  toggleModal() {
-    this.$target.closest(".modal").classList.toggle("modal--open");
-  }
-
-  setEvent() {
-    this.setFavoriteToggleEvent();
-    this.setRemoveEvent();
-    this.setCloseEvent();
+  setEvent(restaurantList) {
+    this.setOnClickFavoriteToggleEvent(restaurantList);
+    this.setOnClickRemoveEvent(restaurantList);
+    this.setOnClickCloseEvent();
   }
 }
 

@@ -16,6 +16,7 @@ class RestaurantList {
     const localData = LocalStorage.getData("list");
     this.restaurantListManager = new RestaurantListManager(localData);
 
+    this.render();
     this.renderAllList();
   }
 
@@ -26,34 +27,39 @@ class RestaurantList {
     `;
   }
 
-  render(restaurantList) {
+  render() {
     this.$target.innerHTML = this.template();
+  }
+
+  renderList(restaurants) {
     const $restaurantList = this.$target.querySelector(".restaurant-list");
 
-    restaurantList.forEach((restaurantInfo) => {
-      new RestaurantItem($restaurantList, restaurantInfo, this);
+    $restaurantList.innerHTML = "";
+    restaurants.forEach((restaurantInfo) => {
+      const item = new RestaurantItem($restaurantList, restaurantInfo, this);
+      item.setEvent(this);
     });
   }
 
   renderAllList() {
     const allList = this.restaurantListManager.getRestaurantList();
 
-    this.render(allList);
+    this.renderList(allList);
   }
 
   renderFilteredList(category, sortingWay) {
     const filteredList = this.restaurantListManager.getRestaurantList(category, sortingWay);
 
-    this.render(filteredList);
+    this.renderList(filteredList);
   }
 
   renderFavoriteList() {
     const favoriteList = this.restaurantListManager.getFavoriteList();
 
-    this.render(favoriteList);
+    this.renderList(favoriteList);
   }
 
-  renderAfterDataChange() {
+  renderListAfterDataChange() {
     const selectedTab = $('input[name="tab"]:checked').value;
 
     if (selectedTab === "favorite") {
@@ -73,21 +79,21 @@ class RestaurantList {
     this.restaurantListManager.toggleFavoriteState(Number(restaurantId));
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
-    this.renderAfterDataChange();
+    this.renderListAfterDataChange();
   }
 
   addRestaurant(newRestaurant) {
     this.restaurantListManager.addRestaurant({ ...newRestaurant, id: Date.now(), favorite: false });
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
-    this.renderAfterDataChange();
+    this.renderListAfterDataChange();
   }
 
   removeRestaurant(restaurantId) {
     this.restaurantListManager.removeRestaurant(restaurantId);
     LocalStorage.setData("list", this.restaurantListManager.getRestaurantList());
 
-    this.renderAfterDataChange();
+    this.renderListAfterDataChange();
   }
 }
 

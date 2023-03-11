@@ -2,11 +2,9 @@ import "./index.css";
 
 class Header {
   $target;
-  modal;
 
-  constructor($target, modal) {
+  constructor($target) {
     this.$target = $target;
-    this.modal = modal;
 
     this.render();
   }
@@ -24,11 +22,15 @@ class Header {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  setAddButtonEventListner(restaurantList) {
+  setAddButtonClickEvent(modal, restaurantList) {
     this.$target.querySelector(".gnb__button").addEventListener("click", () => {
-      this.modal.setAddRestaurantForm(restaurantList);
-      this.modal.toggle();
+      modal.renderAddRestaurantForm(restaurantList);
+      modal.toggle();
     });
+  }
+
+  setEvent(modal, restaurantList) {
+    this.setAddButtonClickEvent(modal, restaurantList);
   }
 }
 

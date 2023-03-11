@@ -43,13 +43,17 @@ class Tab {
     restaurantList.renderFavoriteList();
   }
 
-  setOnSelectEvent(restaurantList) {
+  setOnChangeTabEvent(restaurantList) {
     this.$target.addEventListener("change", (event) => {
       const selectedTab = event.target.value;
 
       if (selectedTab === "all") this.onChangeAllTab(restaurantList);
       if (selectedTab === "favorite") this.onChangeFavoriteTab(restaurantList);
     });
+  }
+
+  setEvent(restaurantList) {
+    this.setOnChangeTabEvent(restaurantList);
   }
 }
 

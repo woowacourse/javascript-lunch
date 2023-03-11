@@ -7,7 +7,6 @@ class AddRestaurantFormModal {
     this.$target = $target;
     this.restaurantList = restaurantList;
     this.render();
-    this.setEvent();
   }
 
   template() {
@@ -92,7 +91,7 @@ class AddRestaurantFormModal {
     this.$target.innerHTML = this.template();
   }
 
-  setSubmitEvent() {
+  setSubmitEvent(restaurantList) {
     this.$target.querySelector("#add-restaurant-form").addEventListener("submit", (event) => {
       event.preventDefault();
 
@@ -101,12 +100,12 @@ class AddRestaurantFormModal {
         return { ...restaurantInfo, [input.id]: input.value };
       }, {});
 
-      this.restaurantList.addRestaurant(newRestaurant);
+      restaurantList.addRestaurant(newRestaurant);
       this.toggleModal();
     });
   }
 
-  setCancelEvent() {
+  setOnClickCancelEvent() {
     this.$target.querySelector("#form-cancel-button").addEventListener("click", this.toggleModal.bind(this));
   }
 
@@ -114,9 +113,9 @@ class AddRestaurantFormModal {
     this.$target.closest(".modal").classList.toggle("modal--open");
   }
 
-  setEvent() {
-    this.setSubmitEvent();
-    this.setCancelEvent();
+  setEvent(restaurantList) {
+    this.setSubmitEvent(restaurantList);
+    this.setOnClickCancelEvent();
   }
 }
 
