@@ -13,6 +13,8 @@ header {
 
   background-color: var(--primary-color);
   color: #fcfcfd;
+
+  user-select: none;
 }
 
 ::slotted(button) {
