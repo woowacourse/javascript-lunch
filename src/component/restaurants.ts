@@ -3,7 +3,7 @@ import { $ } from "../util/selector";
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
 import { FAVORITE_ALT } from "../constant";
 import { updateRestaurants } from "../domain/filter";
-import { initRestaurantInfoModal } from "../modal/restaurantInfoModal";
+import { initRestaurantInfoModal } from "./restaurantInfoModal";
 
 // UI
 const renderTemplate = (info: RestaurantType) => {

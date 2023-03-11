@@ -16,12 +16,12 @@ import RestaurantsController from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
-} from "./modal/newRestaurantModalHandler";
+} from "./domain/newRestaurantModalController";
 import { executeEventListener } from "./util/eventListener";
 import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
 import { renderTabButtons } from "./component/restaurantTabButton";
-import { initRestaurantInfoModal } from "./modal/restaurantInfoModal";
+import { initRestaurantInfoModal } from "./component/restaurantInfoModal";
 import { CategoryOptionType, SortType } from "./type";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;

@@ -3,7 +3,7 @@ import { RestaurantType } from "../type";
 import { $, $$ } from "../util/selector";
 import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
 import { updateRestaurants } from "../domain/filter";
-import { preventScroll } from "./newRestaurantModalHandler";
+import { preventScroll } from "../domain/newRestaurantModalController";
 import { executeEventListener } from "../util/eventListener";
 import {
   controlFavoriteIcon,
