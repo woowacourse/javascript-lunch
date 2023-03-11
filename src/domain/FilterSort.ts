@@ -29,16 +29,12 @@ export const FilterSort: FilterSortInterFace = {
 
   sort(restaurantList) {
     if (this.sortState === "distance") {
-      const result = restaurantList.sort((current, next) => {
-        return current.takeTime - next.takeTime;
-      });
-      return result;
+      return restaurantList.sort((prev, next) => prev.takeTime - next.takeTime);
     }
 
-    const result = restaurantList.sort((prev, next) => {
-      return prev.name > next.name ? 1 : -1;
-    });
-    return result;
+    return restaurantList.sort((prev, next) =>
+      prev.name > next.name ? 1 : -1
+    );
   },
 
   setFilterSortState() {
