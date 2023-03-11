@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
+import RestaurantList from '../domain/RestaurantList.ts';
 import { $ } from '../utils';
 
 class AddRestaurantForm extends HTMLElement {
@@ -23,9 +24,15 @@ class AddRestaurantForm extends HTMLElement {
           link,
         };
 
-        const restaurants = JSON.parse(
-          localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
-        );
+        const restaurants = RestaurantList.getList();
+        const isDuplicate = restaurants.find((res) => res.name === name);
+
+        if (isDuplicate) {
+          this.shadowRoot
+            .querySelector('#name')
+            .showErrorMessage('음식점 목록에 이미 존재하는 식당입니다.');
+          return;
+        }
 
         const updatedRestaurants = [...restaurants, restaurant];
 
