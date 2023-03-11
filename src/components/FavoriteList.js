@@ -20,7 +20,7 @@ export default class FavoriteList extends Component {
     if (!restaurantList) {
       [...this.$target.children].forEach((_, idx) => {
         new RestaurantItem(
-          geid(`restaurant__${idx}`),
+          geid(`restaurant__favorite__${idx}`),
           this.favoriteRestaurant.getRestaurantList()[idx]
         );
       });
@@ -28,7 +28,7 @@ export default class FavoriteList extends Component {
 
     if (restaurantList) {
       restaurantList.forEach((restaurant, idx) => {
-        new RestaurantItem(geid(`restaurant__${idx}`), restaurant);
+        new RestaurantItem(geid(`restaurant__favorite__${idx}`), restaurant);
       });
     }
   }
@@ -37,13 +37,13 @@ export default class FavoriteList extends Component {
     if (!restaurantList) {
       return `${this.favoriteRestaurant
         .getRestaurantList()
-        .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+        .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
         .join('')}`;
     }
 
     if (restaurantList) {
       return `${restaurantList
-        .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+        .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
         .join('')}`;
     }
   }

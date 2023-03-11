@@ -74,6 +74,8 @@ class RestaurantManager extends Observable {
     });
 
     localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+
+    this.notify(this.restaurantList);
   }
 
   unfillRestaurantStarShape(storeName: string) {
@@ -82,6 +84,8 @@ class RestaurantManager extends Observable {
     });
 
     localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+
+    this.notify(this.restaurantList);
   }
 }
 

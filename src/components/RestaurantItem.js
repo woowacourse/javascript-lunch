@@ -37,12 +37,10 @@ export default class RestaurantItem extends Component {
   switchFavorite(event) {
     if (event.target.nodeName === 'IMG' && this.starShape === 'lined') {
       this.starShape = 'filled';
-      event.target.src = FAVORITE[this.starShape];
 
       this.addRestaurantList(event);
     } else if (event.target.nodeName === 'IMG' && this.starShape === 'filled') {
       this.starShape = 'lined';
-      event.target.src = FAVORITE[this.starShape];
 
       this.removeRestaurantList(event);
     }
@@ -59,9 +57,10 @@ export default class RestaurantItem extends Component {
     const addFavoriteData = {
       category: category,
       storeName: favoriteTexts[0],
-      distance: favoriteTexts[1],
-      detail: favoriteTexts[2],
+      distance: favoriteTexts[1].match(/\d+/).join(''),
+      detail: favoriteTexts[2] || '',
       link: favoriteTexts[3] || '',
+      starShape: 'filled',
     };
 
     this.restaurantManager.fillRestaurantStarShape(favoriteTexts[0]);

@@ -36,7 +36,6 @@ class FavoriteRestaurant extends Observable {
         (favorite: Restaurant) => favorite.storeName !== restaurantStoreName
       );
 
-      console.log(this.favoriteList);
       localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
 
       this.notify(this.favoriteList);
