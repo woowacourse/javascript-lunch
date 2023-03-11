@@ -8,6 +8,19 @@ class DeleteQustionModal extends Modal {
     this.modalEvent();
   }
 
+  closeModal() {
+    this.modalToggle(false);
+  }
+
+  render() {
+    this.shadowRoot.innerHTML = `
+    <div id="modal" class="modal" alt="modal">
+        <div id="modalBackdrop" class="backdrop"></div>
+        <delete-question></delete-question>
+    </div>
+    `;
+  }
+
   modalEvent() {
     this.shadowRoot
       .querySelector('#modalBackdrop')
@@ -20,19 +33,6 @@ class DeleteQustionModal extends Modal {
         this.closeModal();
       }
     });
-  }
-
-  closeModal() {
-    this.modalToggle(false);
-  }
-
-  render() {
-    this.shadowRoot.innerHTML = `
-    <div id="modal" class="modal" alt="modal">
-        <div id="modalBackdrop" class="backdrop"></div>
-        <delete-question></delete-question>
-    </div>
-`;
   }
 
   setDeleteName(name) {

@@ -1,19 +1,19 @@
 import { COUNTRY_FOOD } from '../constants/index.ts';
-import koreanImage from '../assets/category-korean.png';
-import chineseImage from '../assets/category-chinese.png';
-import japaneseImage from '../assets/category-japanese.png';
-import westernImage from '../assets/category-western.png';
 import asianImage from '../assets/category-asian.png';
+import chineseImage from '../assets/category-chinese.png';
 import etcImage from '../assets/category-etc.png';
+import japaneseImage from '../assets/category-japanese.png';
+import koreanImage from '../assets/category-korean.png';
+import westernImage from '../assets/category-western.png';
 
 class CategoryImage extends HTMLElement {
   #categoryImage = {
-    [COUNTRY_FOOD.korean]: koreanImage,
+    [COUNTRY_FOOD.asian]: asianImage,
     [COUNTRY_FOOD.chinese]: chineseImage,
+    [COUNTRY_FOOD.etc]: etcImage,
+    [COUNTRY_FOOD.korean]: koreanImage,
     [COUNTRY_FOOD.japanese]: japaneseImage,
     [COUNTRY_FOOD.western]: westernImage,
-    [COUNTRY_FOOD.asian]: asianImage,
-    [COUNTRY_FOOD.etc]: etcImage,
   };
 
   connectedCallback() {

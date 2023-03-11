@@ -9,15 +9,6 @@ class App {
     $('restaurant-boxes').drawRestaurants();
   }
 
-  setRestaurantData() {
-    const userList: Restaurant[] = RestaurantList.getLocalStorage();
-
-    if (userList.length > 0) return;
-
-    const restaurants = JSON.stringify(DEFAULT_RESTAURANTS);
-    localStorage.setItem(LOCAL_STORAGE_KEY, restaurants);
-  }
-
   selectEvent() {
     $('#favoriteTab').notSelect();
 
@@ -32,6 +23,15 @@ class App {
       $('#favoriteTab').select();
       $('restaurant-boxes').drawRestaurants();
     });
+  }
+
+  setRestaurantData() {
+    const userList: Restaurant[] = RestaurantList.getLocalStorage();
+
+    if (userList.length > 0) return;
+
+    const restaurants = JSON.stringify(DEFAULT_RESTAURANTS);
+    localStorage.setItem(LOCAL_STORAGE_KEY, restaurants);
   }
 }
 

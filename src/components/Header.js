@@ -10,12 +10,6 @@ class Header extends HTMLElement {
     this.titleClickEvent();
   }
 
-  titleClickEvent() {
-    this.shadowRoot.querySelector('#title').addEventListener('click', () => {
-      window.scrollTo(0, 0);
-    });
-  }
-
   openModalEvent() {
     this.shadowRoot
       .querySelector('#openModal')
@@ -74,9 +68,15 @@ class Header extends HTMLElement {
       height: 40px;
       object-fit: contain;
     }
-`;
+  `;
 
     this.shadowRoot.append(componentStyle);
+  }
+
+  titleClickEvent() {
+    this.shadowRoot.querySelector('#title').addEventListener('click', () => {
+      window.scrollTo(0, 0);
+    });
   }
 }
 

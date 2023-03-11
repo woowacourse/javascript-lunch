@@ -1,5 +1,5 @@
-import lined from '../assets/favorite-icon-lined.png';
 import filled from '../assets/favorite-icon-filled.png';
+import lined from '../assets/favorite-icon-lined.png';
 
 class FavoriteImage extends HTMLElement {
   connectedCallback() {

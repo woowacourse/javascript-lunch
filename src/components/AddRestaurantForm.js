@@ -1,5 +1,5 @@
-import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
 import RestaurantList from '../domain/RestaurantList.ts';
+import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
 import { $ } from '../utils';
 
 class AddRestaurantForm extends HTMLElement {
