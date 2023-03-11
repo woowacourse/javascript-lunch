@@ -32,10 +32,9 @@ const RestaurantList = {
     );
     if (findIndex === -1) return;
 
-    const updatedRestaurat = [
-      ...restaurants.slice(0, findIndex),
-      ...restaurants.slice(findIndex + 1),
-    ];
+    const updatedRestaurat = restaurants;
+
+    updatedRestaurat.splice(findIndex, 1);
 
     RestaurantList.updateRestaurants(updatedRestaurat);
   },
@@ -91,14 +90,12 @@ const RestaurantList = {
     );
     if (findIndex === -1) return;
     const curIsFavorite = restaurants[findIndex].isFavorite;
-    const updatedRestaurants = [
-      ...restaurants.slice(0, findIndex),
-      {
-        ...restaurants[findIndex],
-        isFavorite: !curIsFavorite,
-      },
-      ...restaurants.slice(findIndex + 1),
-    ];
+    const updatedRestaurants = restaurants;
+
+    updatedRestaurants.splice(findIndex, 1, {
+      ...restaurants[findIndex],
+      isFavorite: !curIsFavorite,
+    });
 
     RestaurantList.updateRestaurants(updatedRestaurants);
   },
