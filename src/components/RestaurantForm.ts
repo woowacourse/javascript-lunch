@@ -33,21 +33,20 @@ export default function RestaurantForm(
   };
 
   const getFormDatas = (): IRestaurant => {
-    const category = $form.querySelector('#category') as HTMLSelectElement;
-    const name = $form.querySelector('#name') as HTMLInputElement;
-    const distance = $form.querySelector('#distance') as HTMLSelectElement;
-    const description = $form.querySelector(
-      '#description'
-    ) as HTMLTextAreaElement;
-    const link = $form.querySelector('#link') as HTMLInputElement;
+    const category = $form.querySelector<HTMLSelectElement>('#category');
+    const name = $form.querySelector<HTMLInputElement>('#name');
+    const distance = $form.querySelector<HTMLSelectElement>('#distance');
+    const description =
+      $form.querySelector<HTMLTextAreaElement>('#description');
+    const link = $form.querySelector<HTMLInputElement>('#link');
 
     return {
       id: Date.now(),
-      category: category.value as CategoryOptions,
-      name: name.value ?? '',
-      distance: Number(distance.value) as DistanceTime,
-      description: description.value ?? '',
-      link: link.value ?? '',
+      category: category ? (category.value as CategoryOptions) : '한식',
+      name: name ? name.value : '',
+      distance: distance ? (Number(distance.value) as DistanceTime) : 5,
+      description: description ? description.value : '',
+      link: link ? link.value : '',
       isFavorite: false,
     };
   };

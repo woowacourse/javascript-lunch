@@ -9,10 +9,13 @@ import { TabType } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 const getInitialRestaurantList = () => {
-  const localRestaurants =
-    JSON.parse(getLocalStorage('restaurants') as string) || [];
+  const localRestaurants = getLocalStorage('restaurants');
 
-  return [...localRestaurants].map((restaurant) => new Restaurant(restaurant));
+  if (typeof localRestaurants !== 'string') return [];
+
+  return [...JSON.parse(localRestaurants)].map(
+    (restaurant) => new Restaurant(restaurant)
+  );
 };
 
 interface IAppState {

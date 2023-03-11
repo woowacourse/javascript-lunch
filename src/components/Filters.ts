@@ -28,7 +28,8 @@ export default class Filters {
 
       switch (id) {
         case 'category-filter':
-          this.setState({ category: value as CategoryOptions, filter });
+          if (value)
+            this.setState({ category: value as CategoryOptions, filter });
           break;
         case 'sorting-filter':
           this.setState({ category, filter: value as FilterOptions });
@@ -39,6 +40,7 @@ export default class Filters {
 
       renderAllList($root);
     });
+
     $root.appendChild(this.$filterSection);
   }
 

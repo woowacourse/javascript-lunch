@@ -18,6 +18,8 @@ export default class Tabs {
       const { dataset } = event.target;
       const { category } = dataset;
 
+      if (category !== 'all' && category !== 'favorite') return;
+
       const $buttons = this.$tab.querySelectorAll('button');
       $buttons.forEach(($button) => {
         $button.classList.remove('selected');
@@ -26,7 +28,7 @@ export default class Tabs {
           $button.classList.add('selected');
       });
 
-      store.currentTab = category as TabType;
+      store.currentTab = category;
 
       renderListArticle(store.currentTab);
     });
