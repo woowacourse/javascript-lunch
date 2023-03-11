@@ -7,11 +7,11 @@ const FAVORITE_DEFAULT = false;
 
 export const restaurantStore = {
   init() {
-    this.setList(sampleData);
+    restaurantStore.setList(sampleData);
   },
 
   getItemById(id: number): IRestaurant {
-    for (const restaurantItem of this.getList()) {
+    for (const restaurantItem of restaurantStore.getList()) {
       if (restaurantItem.id === id) return restaurantItem;
     }
 
@@ -19,15 +19,15 @@ export const restaurantStore = {
   },
 
   addList(restaurantInput: IRestaurantInput) {
-    const restaurantList = this.getList();
+    const restaurantList = restaurantStore.getList();
 
     const restaurantToAdd: IRestaurant = {
-      id: this.getNewID(restaurantList),
+      id: restaurantStore.getNewID(restaurantList),
       favorite: FAVORITE_DEFAULT,
       ...restaurantInput,
     };
 
-    this.setList([...restaurantList, restaurantToAdd]);
+    restaurantStore.setList([...restaurantList, restaurantToAdd]);
 
     return this;
   },
@@ -35,7 +35,7 @@ export const restaurantStore = {
   setList(restaurantList: IRestaurantInput[]) {
     localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
 
-    return this;
+    return restaurantStore;
   },
 
   getNewID(restaurantList: IRestaurant[]): number {
@@ -51,14 +51,14 @@ export const restaurantStore = {
   },
 
   getFavoriteList(): IRestaurant[] {
-    const restaurantList = this.getList();
+    const restaurantList = restaurantStore.getList();
     return restaurantList.filter((restaurant) => restaurant.favorite === true);
   },
 
   getFiltered(category: Category, order: Order) {
-    const restaurantList = this.getList();
-    const filteredList = this.filterItems(restaurantList, category);
-    return this.sortItems(filteredList, order);
+    const restaurantList = restaurantStore.getList();
+    const filteredList = restaurantStore.filterItems(restaurantList, category);
+    return restaurantStore.sortItems(filteredList, order);
   },
 
   filterItems(restaurantList: IRestaurant[], category: Category): IRestaurant[] {
@@ -78,7 +78,7 @@ export const restaurantStore = {
   },
 
   toggleFavorite(targetId: number) {
-    const restaurantList = this.getList().map((restaurant) => {
+    const restaurantList = restaurantStore.getList().map((restaurant) => {
       if (restaurant.id === targetId) {
         restaurant.favorite = !restaurant.favorite;
       }
@@ -87,7 +87,7 @@ export const restaurantStore = {
 
     console.log(restaurantList);
 
-    this.setList(restaurantList);
+    restaurantStore.setList(restaurantList);
   },
 };
 
