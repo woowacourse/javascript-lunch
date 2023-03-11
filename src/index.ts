@@ -10,6 +10,7 @@ import Tab from './components/Tab';
 import { initialRestaurants } from './constants/restaurants';
 import store from './store';
 import './styles';
+import { CategoryFilter, SortFilter } from './types';
 
 if (!localStorage.getItem('store')) {
   localStorage.setItem('store', JSON.stringify(initialRestaurants));
@@ -20,7 +21,8 @@ customElements.define('lunch-header', Header);
 customElements.define('restaurant-item', RestaurantItem);
 customElements.define('restaurant-items', RestaurantItems);
 customElements.define('add-modal', Modal);
-customElements.define('select-box', SelectBox);
+customElements.define('category-filter-box', class extends SelectBox<CategoryFilter> {});
+customElements.define('sorting-filter-box', class extends SelectBox<SortFilter> {});
 customElements.define('detail-modal', DetailModal);
 customElements.define('favorite-icon', FavoriteIcon);
 customElements.define('lunch-tab', Tab);

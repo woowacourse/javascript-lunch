@@ -1,7 +1,10 @@
+import $template from './app.html';
 import LunchHeader from './components/Header';
 import RestaurantItems from './components/RestaurantItems';
+import SelectBox from './components/SelectBox';
 import LunchTab from './components/Tab';
 import store from './store';
+import { CategoryFilter, SortFilter } from './types';
 
 class App extends HTMLElement {
   constructor() {
@@ -10,18 +13,14 @@ class App extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = `
-      <lunch-header></lunch-header>
-      <lunch-tab></lunch-tab>
-      <select-box></select-box>
-      <restaurant-items></restaurant-items>
-      <add-modal></add-modal>
-    `;
+    this.innerHTML = $template;
   }
 
   connectedCallback() {
     this.setLunchHeaderProps();
     this.setLunchTabProps();
+    this.setCategoryFilterBoxProps();
+    this.setSortingFilterBoxProps();
   }
 
   private setLunchHeaderProps() {
@@ -71,6 +70,30 @@ class App extends HTMLElement {
     };
 
     $lunchTab.setProps(props);
+  }
+
+  private setCategoryFilterBoxProps() {
+    const $categoryFilterBox = this.querySelector(
+      'category-filter-box',
+    ) as SelectBox<CategoryFilter>;
+
+    $categoryFilterBox.setProps({
+      options: ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'],
+      onChange: (option) => {
+        store.filterRestaurants(option);
+      },
+    });
+  }
+
+  private setSortingFilterBoxProps() {
+    const $categoryFilterBox = this.querySelector('sorting-filter-box') as SelectBox<SortFilter>;
+
+    $categoryFilterBox.setProps({
+      options: ['distance', 'name'],
+      onChange: (option) => {
+        store.sortRestaurants(option);
+      },
+    });
   }
 }
 
