@@ -29,6 +29,20 @@ describe("lunch e2e test", () => {
     cy.get(".item-sheet--delete").click();
     cy.contains("피양콩할마니").should("not.exist");
   });
+
+  it("북마크 버튼을 누르면 북마크 페이지로 식당을 확인할 수 있다.", () => {
+    restaurantList(
+      "한식",
+      "피양콩할마니",
+      "10",
+      "맛집입니다.",
+      "https://naver.me/G6DyD9tg"
+    );
+
+    cy.get(".restaurant__bookmark").click();
+    cy.get(".bookmark-page").click();
+    cy.contains("피양콩할마니");
+  });
 });
 
 function restaurantList(category, name, distance, description, link) {
