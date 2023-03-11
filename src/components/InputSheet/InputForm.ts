@@ -3,8 +3,6 @@ import { RestaurantData } from "../../domain/RestaurantData";
 import { CategoryType, TakeTimeType } from "../../Template";
 import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
 
-let id = RestaurantData.allList.length;
-
 const InputForm = {
   template() {
     return `
@@ -89,13 +87,13 @@ const InputForm = {
   },
 
   getInfo() {
-    id++;
+    RestaurantData.id++;
     const form = new FormData($("form") as HTMLFormElement);
-    const restaurantValue: string[] = [];
-    form.forEach((each) => restaurantValue.push(each.toString()));
+    const restaurantValue: string[] = Array.from(form.values()).map(String);
+    // form.forEach((each) => restaurantValue.push(each.toString()));
 
     return {
-      id: id,
+      id: RestaurantData.id,
       category: restaurantValue[0] as CategoryType,
       name: restaurantValue[1],
       takeTime: Number(restaurantValue[2]) as TakeTimeType,

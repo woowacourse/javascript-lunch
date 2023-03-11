@@ -1,9 +1,10 @@
 import { RestaurantType } from "../Template";
 import { LocalData } from "../until/LocalData";
 
-interface RestaurantDataType {
+interface RestaurantDataInterFace {
   allList: RestaurantType[];
   likeList: RestaurantType[];
+  id: number;
 
   settingList: (restaurantList: RestaurantType[]) => void;
   addRestaurant: (restaurant: RestaurantType) => void;
@@ -14,18 +15,23 @@ interface RestaurantDataType {
   deleteOneRestaurant: (id: number) => void;
 }
 
-export const RestaurantData: RestaurantDataType = {
+export const RestaurantData: RestaurantDataInterFace = {
   allList: [],
   likeList: [],
+  id: 0,
 
-  settingList(restaurantList: RestaurantType[]) {
-    this.allList = restaurantList;
+  settingList(restaurantList) {
     const isLocalData = LocalData.getData();
 
     if (isLocalData) {
       this.allList = isLocalData;
       this.likeList = this.allList.filter((res) => res.like);
+      this.id = this.allList.length - 1;
+      return;
     }
+
+    this.allList = restaurantList;
+    this.id = this.allList.length - 1;
     LocalData.setDate(this.allList);
   },
 
