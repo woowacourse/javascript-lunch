@@ -20,15 +20,17 @@ import { RESTAURANTS_KEY } from './constants/storeKey';
 export default class App {
   #restaurants;
 
+  #modal;
   #restaurantList;
 
   constructor() {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
 
+    this.#modal = new Modal($('#modal'));
     this.#restaurantList = new RestaurantList($('#restaurant-list-container'));
 
-    Modal.render($('#modal'));
+    this.#modal.render();
     new CategorySelectBox().render($('#restaurant-filter-container'));
     new SortSelectBox().render($('#restaurant-filter-container'));
     this.renderRestaurantListByFilterOptions();
@@ -92,7 +94,7 @@ export default class App {
     this.#restaurants.addRestaurant(restaurant);
     store.setLocalStorage(RESTAURANTS_KEY, this.#restaurants.getRestaurants());
 
-    Modal.toggleModal();
+    this.#modal.toggleModal();
 
     $('#tab-all').checked = true;
     $('#restaurant-filter-container').classList.remove('hide');
@@ -111,8 +113,8 @@ export default class App {
   }
 
   onClickRestaurantFormModalOpenButton() {
-    Modal.render($('#modal')).bindEvents();
-    Modal.toggleModal();
+    this.#modal.render().bindEvents();
+    this.#modal.toggleModal();
   }
 
   onClickRestaurantList(e) {
@@ -132,8 +134,8 @@ export default class App {
     const restaurantId = e.target.closest('li').dataset.listid;
     const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
 
-    Modal.render($('#modal'), targetRestaurant);
-    Modal.toggleModal();
+    this.#modal.render(targetRestaurant);
+    this.#modal.toggleModal();
   }
 
   onChangeFavoriteTab(e) {
@@ -161,7 +163,7 @@ export default class App {
     store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
 
     const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
-    Modal.render($('#modal'), targetRestaurant);
+    this.#modal.render(targetRestaurant);
 
     this.renderRestaurantListByFavoriteTab();
   }
@@ -190,13 +192,13 @@ export default class App {
 
     this.renderRestaurantListByFavoriteTab();
 
-    Modal.toggleModal();
+    this.#modal.toggleModal();
   }
 
   onClickDetailModalCloseButton(e) {
     if (e.target.id !== 'detail-modal-close-button') return;
 
-    Modal.toggleModal();
+    this.#modal.toggleModal();
   }
 
   renderRestaurantListByFilterOptions() {

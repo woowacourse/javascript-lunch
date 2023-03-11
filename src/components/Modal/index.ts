@@ -4,18 +4,24 @@ import RestaurantAddForm from './RestaurantAddForm';
 
 import { $ } from '../../utils/dom';
 
-const Modal = {
-  render(targetElement: Element, restaurant?: IRestaurant) {
+export default class Modal {
+  #targetElement: Element;
+
+  constructor(targetElement: Element) {
+    this.#targetElement = targetElement;
+  }
+
+  render(restaurant?: IRestaurant) {
     if (restaurant) {
-      targetElement.innerHTML = this.getTemplate(restaurant);
+      this.#targetElement.innerHTML = this.getTemplate(restaurant);
 
       return this;
     }
 
-    targetElement.innerHTML = this.getTemplate();
+    this.#targetElement.innerHTML = this.getTemplate();
 
     return this;
-  },
+  }
 
   getTemplate(restaurant?: IRestaurant) {
     return `
@@ -24,7 +30,7 @@ const Modal = {
       ${this.getModalContent(restaurant)}
     </div>
     `;
-  },
+  }
 
   getModalContent(restaurant?: IRestaurant) {
     if (restaurant) {
@@ -32,19 +38,19 @@ const Modal = {
     }
 
     return RestaurantAddForm.getTemplate();
-  },
+  }
 
   bindEvents() {
-    this.bindFormModalCloseButtonEvent();
-  },
+    this.bindFormModalCloseButtonClickEvent();
+  }
 
-  bindFormModalCloseButtonEvent() {
+  bindFormModalCloseButtonClickEvent() {
     const addFormModalCloseButton = $('#form-modal-close-button');
 
     if (addFormModalCloseButton instanceof HTMLButtonElement) {
       addFormModalCloseButton.addEventListener('click', this.toggleModal);
     }
-  },
+  }
 
   toggleModal() {
     const modal = $('#modal');
@@ -54,7 +60,5 @@ const Modal = {
 
       return;
     }
-  },
-};
-
-export default Modal;
+  }
+}
