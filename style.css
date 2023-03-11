@@ -120,13 +120,48 @@ body {
   margin: 16px 0;
 }
 
+.render-filter {
+  display: flex;
+  justify-content: space-around;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.render-selected {
+  width: 179px;
+  font-weight: 700;
+  padding: 9px;
+  color: #ec4a0a;
+  border: 0;
+  border-bottom: 2px solid #ec4a0a;
+  background-color: #ffffff;
+}
+
+.render-unselected {
+  width: 179px;
+  font-weight: 700;
+  padding: 9px;
+  color: #667085;
+  border: 0;
+  border-bottom: 1px solid #667085;
+  background-color: #ffffff;
+}
+
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
+}
+
+.information-modal-favorite {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
 }
 
 .restaurant__category {
@@ -142,6 +177,14 @@ body {
 
   border-radius: 50%;
   background: var(--lighten-color);
+}
+
+.category-filled {
+  margin-left: auto;
+}
+
+.category-lined {
+  margin-left: auto;
 }
 
 .category-icon {
@@ -161,10 +204,16 @@ body {
 
 .restaurant__distance {
   color: var(--primary-color);
+  margin-bottom: 16px;
+}
+
+.restaurant-link {
+  color: #000000;
 }
 
 .restaurant__description {
   display: -webkit-box;
+  margin-bottom: 16px;
 
   padding-top: 8px;
 
@@ -176,6 +225,22 @@ body {
 
 /* 음식점 추가 모달 *****************************************/
 .modal {
+  display: none;
+}
+
+.display-modal {
+  display: none;
+}
+
+#modal-information-none {
+  display: none;
+}
+
+#modal-information-view {
+  display: block;
+}
+
+.display-modal--open {
   display: none;
 }
 
@@ -199,13 +264,17 @@ body {
   width: 100%;
 
   padding: 32px 16px;
-
+  overflow: scroll;
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
 }
 
 .modal-title {
   margin-bottom: 36px;
+}
+
+.information-modal--close {
+  display: none;
 }
 
 .form-item {
@@ -224,7 +293,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,13 +327,14 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
 .button-container {
   display: flex;
+  margin-top: 42px;
 }
 
 .button {
