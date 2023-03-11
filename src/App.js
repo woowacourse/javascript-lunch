@@ -20,9 +20,13 @@ import { RESTAURANTS_KEY } from './constants/storeKey';
 export default class App {
   #restaurants;
 
+  #restaurantList;
+
   constructor() {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
+
+    this.#restaurantList = new RestaurantList();
 
     Modal.render($('#modal'));
     new CategorySelectBox().render($('#restaurant-filter-container'));
@@ -103,7 +107,7 @@ export default class App {
     const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
     const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
 
-    RestaurantList.render($('#restaurant-list-container'), sortedRestaurants);
+    this.#restaurantList.render($('#restaurant-list-container'), sortedRestaurants);
   }
 
   onClickRestaurantFormModalOpenButton() {
@@ -137,7 +141,7 @@ export default class App {
       const restaurants = this.#restaurants.getRestaurants();
       const favoriteRestaurants = getFavoriteRestaurants(restaurants);
 
-      RestaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+      this.#restaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
       $('#restaurant-filter-container').classList.add('hide');
 
       return;
@@ -172,7 +176,7 @@ export default class App {
     const restaurant = this.#restaurants.getRestaurants();
     const favoriteRestaurants = getFavoriteRestaurants(restaurant);
 
-    RestaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+    this.#restaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
   }
 
   onClickRestaurantDeleteButton(e) {
@@ -195,5 +199,29 @@ export default class App {
     this.renderRestaurantListByFavoriteTab();
 
     Modal.toggleModal();
+  }
+
+  renderRestaurantListByFilterOptions() {
+    const categoryOption = $('#category-filter').value;
+    const sortOption = $('#sorting-filter').value;
+    const restaurants = this.#restaurants.getRestaurants();
+
+    const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
+    const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
+
+    this.#restaurantList.render($('#restaurant-list-container'), sortedRestaurants);
+  }
+
+  renderRestaurantListByFavoriteTab() {
+    if ($('#tab-all').checked) {
+      this.renderRestaurantListByFilterOptions();
+
+      return;
+    }
+
+    const restaurant = this.#restaurants.getRestaurants();
+    const favoriteRestaurants = getFavoriteRestaurants(restaurant);
+
+    this.#restaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
   }
 }
