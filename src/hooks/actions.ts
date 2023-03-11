@@ -73,6 +73,15 @@ const actions = {
 
     localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
   },
+
+  removeRestaurant(id: number) {
+    if (!store.domain) return;
+
+    store.domain.removeRestaurant(id);
+
+    actions.setValue('restaurants', store.domain.getRestaurants());
+    localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
+  },
 };
 
 export default actions;
