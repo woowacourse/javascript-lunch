@@ -10,6 +10,7 @@ interface Restaurant {
   sortByType: (type: SortTypeAll) => void;
   toggleFavorite: (restaurant: RestaurantInfo) => boolean;
   addFavorite: () => void;
+  deleteRestaurant: (restaurant: RestaurantInfo) => void;
 }
 
 export const restaurant: Restaurant = {
@@ -71,5 +72,15 @@ export const restaurant: Restaurant = {
     return (this.favoriteRestaurants = this.restaurants.filter(
       (restaurant) => restaurant.isFavorite
     ));
+  },
+
+  deleteRestaurant(restaurant: RestaurantInfo) {
+    this.restaurants = this.restaurants.filter((a) => a !== restaurant);
+    this.filteredRestaurants = this.filteredRestaurants.filter(
+      (a) => a !== restaurant
+    );
+    this.addFavorite();
+    const restaurantsString = JSON.stringify(this.restaurants);
+    localStorage.setItem('restaurant', restaurantsString);
   },
 };

@@ -54,6 +54,7 @@ class RestaurantDetails extends HTMLElement {
 
     this.modalHandler();
     this.handleFavorite();
+    this.handleDelete();
   }
 
   modalHandler() {
@@ -92,6 +93,24 @@ class RestaurantDetails extends HTMLElement {
     } else {
       $('restaurant-box').renderRestaurantList(restaurant.filteredRestaurants);
     }
+  }
+
+  handleDelete() {
+    const handleDelete = this.querySelector('#deleteContent');
+    handleDelete.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const clickedDiv = $('.restaurant-info').closest('div');
+      if (clickedDiv) {
+        const restaurantId = parseInt(clickedDiv.getAttribute('id'));
+        restaurant.restaurants.find((info) => {
+          if (info.id === restaurantId) {
+            restaurant.deleteRestaurant(info);
+          }
+        });
+      }
+      this.renderRestaurantList();
+      this.closeModal();
+    });
   }
 }
 
