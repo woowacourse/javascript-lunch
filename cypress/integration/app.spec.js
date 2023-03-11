@@ -37,20 +37,13 @@ describe('App component', () => {
       });
   });
 
-  // it('filters restaurants by category and order', () => {
-  //   cy.get('.filter-form').within(() => {
-  //     cy.get('.filter-category').select('한식');
-  //     cy.get('.filter-order').select('거리순');
-  //     cy.get('.filter-submit').click();
-  //   });
-  //
-  //   cy.get('.restaurant-list-container .restaurant-item')
-  //     .first()
-  //     .within(() => {
-  //       cy.get('.restaurant__category img').should('have.attr', 'alt', '한식');
-  //     });
-  // });
-  //
+  it('필터바에 따라 해당 카테고리의 음식점만 보여야 한다.', () => {
+    cy.get('#category-filter').select('일식');
+    cy.get('#sorting-filter').select('name');
+
+    cy.get('.tabview__content [id^="restaurant-"]').should('have.length', 2);
+  });
+
   // it('opens and closes the bottom sheet', () => {
   //   cy.get('.restaurant-item .restaurant__name').first().click();
   //   cy.get('.bottom-sheet-container').should('be.visible');
