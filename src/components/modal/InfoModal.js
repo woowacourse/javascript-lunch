@@ -7,6 +7,7 @@ class InfoModal extends Modal {
     super();
     this.container = $('.modal-container');
     this.setFavoriteState = restaurants.setFavoriteState.bind(restaurants);
+    this.removeRestaurant = restaurants.remove.bind(restaurants);
     this.restaurants = restaurants;
   }
 
@@ -32,7 +33,7 @@ class InfoModal extends Modal {
           ${restaurant.description}
         </div>
         <div class="link-container">
-          <a href="${restaurant.link}">${restaurant.link}</a>
+          <a href="https://${restaurant.link}">${restaurant.link}</a>
         </div>
       </div>
       <div class="button-container">
@@ -49,6 +50,7 @@ class InfoModal extends Modal {
 
     this.cancelModal(listRender, favoriteRender);
     this.setFavoriteEvent(restaurant, listRender, favoriteRender);
+    this.setRemoveEvent(listRender, favoriteRender);
     this.toggleModalOpen();
   }
 
@@ -67,7 +69,22 @@ class InfoModal extends Modal {
     });
   }
 
-  setRemoveEvent() {}
+  setRemoveEvent(listRender, favoriteRender) {
+    const removeButton = $('.button--secondary');
+
+    removeButton.addEventListener('click', () => {
+      this.removeRestaurant($('.favorite-icon').alt);
+
+      if ($('.current').innerText === '모든 음식점') {
+        this.toggleModalOpen();
+        listRender();
+        return;
+      }
+
+      this.toggleModalOpen();
+      favoriteRender();
+    });
+  }
 
   setFavoriteEvent(restaurant, listRender, favoriteRender) {
     $('.info-form').addEventListener('click', e => {

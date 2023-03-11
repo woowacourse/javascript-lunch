@@ -60,8 +60,8 @@ class Restaurants {
     return this.#restaurantsList.filter(restaurant => restaurant.favorites);
   }
 
-  remove(name: string) {
-    this.#restaurantsList = this.#restaurantsList.filter(restaurant => restaurant.name !== name);
+  remove(id: string) {
+    this.#restaurantsList = this.#restaurantsList.filter(restaurant => restaurant.id !== id);
   }
 }
 
