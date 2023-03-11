@@ -24,9 +24,16 @@ class FavoriteImage extends HTMLElement {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
         img{
+          padding:4px;
+          border-radius:8px;
           width:26.67px;
           height:25.33px;
           cursor:pointer;
+          transition: background-color 0.3s;
+        }
+
+        img:hover{
+          background-color: var(--grey-100);
         }
     `;
 

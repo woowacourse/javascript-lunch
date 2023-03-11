@@ -36,7 +36,7 @@ class RestaurantTab extends HTMLElement {
     componentStyle.textContent = `
       .select {
         text-align: center;
-        padding-bottom: 9px;
+        padding: 9px 0;
         color: var(--primary-color);
         border-bottom: 2px solid var(--primary-color);
         cursor: pointer;
@@ -47,6 +47,14 @@ class RestaurantTab extends HTMLElement {
       }
 
       .not-select{
+        color: var(--grey-300);
+        border-bottom: 2px solid var(--grey-300);
+        transition: background-color 0.3s;
+        border-radius:4px 4px 0 0;
+      }
+
+      .not-select:hover {
+        background-color: var(--lighten-30-color);
         color: var(--grey-300);
         border-bottom: 2px solid var(--grey-300);
       }

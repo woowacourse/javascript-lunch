@@ -110,6 +110,11 @@ class RestaurantBox extends HTMLElement {
       
         border-bottom: 1px solid #e9eaed;
         cursor:pointer;
+        transition: background-color 0.3s;
+      }
+
+      li:hover {
+        background-color: var(--lighten-30-color);
       }
       
 

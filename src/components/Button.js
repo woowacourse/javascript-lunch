@@ -38,6 +38,7 @@ class Button extends HTMLElement {
       
         font-weight: 600;
         cursor: pointer;
+        transition: background-color 0.3s;
       }
       
       .button--white {
@@ -46,11 +47,20 @@ class Button extends HTMLElement {
       
         color: var(--grey-300);
       }
+
+      .button--white:hover{
+        background: var(--grey-400);
+        color: var(--grey-100);
+      }
       
       .button--orange {
         background: var(--primary-color);
-      
         color: var(--grey-100);
+      }
+      
+      .button--orange:hover{
+        background: var(--yellow-color);
+        color: var(--grey-400);
       }
 
       @media (max-width: 500px) {

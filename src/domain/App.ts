@@ -1,4 +1,4 @@
-import { Restaurant } from './RestaurantList';
+import RestaurantList, { Restaurant } from './RestaurantList';
 import { $ } from '../utils';
 import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../constants';
 
@@ -10,9 +10,7 @@ class App {
   }
 
   setRestaurantData() {
-    const userList: Restaurant[] = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
-    );
+    const userList: Restaurant[] = RestaurantList.getLocalStorage();
 
     if (userList.length > 0) return;
 

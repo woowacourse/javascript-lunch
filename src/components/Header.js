@@ -69,8 +69,9 @@ class Header extends HTMLElement {
     
       font-size: 24px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
-    
+
     img {
       display: block;
       width: 40px;

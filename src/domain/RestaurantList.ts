@@ -19,9 +19,7 @@ export interface Restaurant {
 
 const RestaurantList = {
   add: (restaurant: Restaurant): void => {
-    const restaurants = JSON.parse(
-      window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
-    );
+    const restaurants = RestaurantList.getLocalStorage();
 
     const updatedRestaurants = [...restaurants, restaurant];
     RestaurantList.updateRestaurants(updatedRestaurants);
@@ -48,13 +46,15 @@ const RestaurantList = {
     );
   },
 
+  getLocalStorage() {
+    return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+  },
+
   getList: (
     category: CategoryAll = '전체',
     type: SortTypeAll = 'name'
   ): Restaurant[] => {
-    const restaurants = JSON.parse(
-      window.localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
-    );
+    const restaurants = RestaurantList.getLocalStorage();
 
     if (category === '전체') {
       return RestaurantList.sortByType(restaurants, type);
