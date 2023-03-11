@@ -3,8 +3,14 @@ import Restaurant from './Restaurant';
 import { IRestaurant } from '../../types';
 
 export default class RestaurantList {
-  render(targetElement: Element, restaurants: IRestaurant[]) {
-    targetElement.innerHTML = this.getTemplate(restaurants);
+  #targetElement: Element;
+
+  constructor(targetElement: Element) {
+    this.#targetElement = targetElement;
+  }
+
+  render(restaurants: IRestaurant[]) {
+    this.#targetElement.innerHTML = this.getTemplate(restaurants);
   }
 
   getTemplate(restaurants: IRestaurant[]) {

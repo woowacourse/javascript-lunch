@@ -26,7 +26,7 @@ export default class App {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
 
-    this.#restaurantList = new RestaurantList();
+    this.#restaurantList = new RestaurantList($('#restaurant-list-container'));
 
     Modal.render($('#modal'));
     new CategorySelectBox().render($('#restaurant-filter-container'));
@@ -107,7 +107,7 @@ export default class App {
     const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
     const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
 
-    this.#restaurantList.render($('#restaurant-list-container'), sortedRestaurants);
+    this.#restaurantList.render(sortedRestaurants);
   }
 
   onClickRestaurantFormModalOpenButton() {
@@ -141,7 +141,7 @@ export default class App {
       const restaurants = this.#restaurants.getRestaurants();
       const favoriteRestaurants = getFavoriteRestaurants(restaurants);
 
-      this.#restaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+      this.#restaurantList.render(favoriteRestaurants);
       $('#restaurant-filter-container').classList.add('hide');
 
       return;
@@ -176,7 +176,7 @@ export default class App {
     const restaurant = this.#restaurants.getRestaurants();
     const favoriteRestaurants = getFavoriteRestaurants(restaurant);
 
-    this.#restaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+    this.#restaurantList.render(favoriteRestaurants);
   }
 
   onClickRestaurantDeleteButton(e) {
@@ -196,8 +196,6 @@ export default class App {
   onClickDetailModalCloseButton(e) {
     if (e.target.id !== 'detail-modal-close-button') return;
 
-    this.renderRestaurantListByFavoriteTab();
-
     Modal.toggleModal();
   }
 
@@ -209,7 +207,7 @@ export default class App {
     const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
     const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
 
-    this.#restaurantList.render($('#restaurant-list-container'), sortedRestaurants);
+    this.#restaurantList.render(sortedRestaurants);
   }
 
   renderRestaurantListByFavoriteTab() {
@@ -222,6 +220,6 @@ export default class App {
     const restaurant = this.#restaurants.getRestaurants();
     const favoriteRestaurants = getFavoriteRestaurants(restaurant);
 
-    this.#restaurantList.render($('#restaurant-list-container'), favoriteRestaurants);
+    this.#restaurantList.render(favoriteRestaurants);
   }
 }
