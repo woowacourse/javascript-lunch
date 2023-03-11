@@ -11,7 +11,7 @@ import { $, $$ } from "./utils/Dom";
 import Tab from "./UI/Tab";
 import RestaurantModal from "./UI/RestaurantModal";
 import Store from "./Store";
-import { Category, RestaurantForm } from "./types.d";
+import { Category, RestaurantForm } from "./types/types";
 
 export class App {
   private restaurantList = new RestaurantList();
@@ -19,7 +19,7 @@ export class App {
 
   constructor() {
     new Header();
-    new FilterBar(this.restaurantList, this.restaurantItem);
+    new FilterBar();
     new RestaurantContainer();
     new Modal(this.restaurantList);
     new Tab();
@@ -34,13 +34,17 @@ export class App {
     const localStorageData = getLocalStorage(KEY);
     Store.setRestaurantList(localStorageData);
     const initialData = Store.getRestaurantList();
-    this.sortRestaurants(initialData);
-    Store.setFilteredList("");
+    Store.setFilteredList(CATEGORY_NAME.total);
     if (initialData !== null)
       initialData.forEach((restaurant: RestaurantForm) => {
         this.restaurantItem.render(restaurant, $(".restaurant-list"));
       });
-    this.clickItem();
+    this.sortRestaurants(initialData);
+    this.addEvent();
+  }
+
+  addEvent() {
+    this.openDetailModal();
     const restaurantList = $(".restaurant-list") as HTMLLIElement;
     const favoriteList = $(".favorite-list") as HTMLLIElement;
     this.toggleFavorite(restaurantList);
@@ -54,19 +58,21 @@ export class App {
     if (sortedValue === "distance") sortByDistance(restaurants);
   }
 
-  clickItem() {
+  openDetailModal() {
     $$(".list-container")?.forEach((container) =>
-      container.addEventListener("click", (e) => {
-        const id = (e.target as HTMLLIElement).closest(".restaurant__info")?.id;
-        const restaurants = Store.getRestaurantList();
-        restaurants.forEach((restaurant: RestaurantForm) => {
-          if (restaurant.id !== Number(id)) return;
-          const modal = new RestaurantModal(restaurant);
-          this.removeItem(modal, restaurant);
-          this.toggleModalFavorite(restaurant);
-        });
-      })
+      container.addEventListener("click", this.initDetailModal)
     );
+  }
+
+  initDetailModal(event: Event) {
+    const id = (event.target as HTMLLIElement).closest(".restaurant__info")?.id;
+    const restaurants = Store.getRestaurantList();
+    restaurants.forEach((restaurant: RestaurantForm) => {
+      if (restaurant.id !== Number(id)) return;
+      const modal = new RestaurantModal(restaurant);
+      this.removeItem(modal, restaurant);
+      this.toggleModalFavorite(restaurant);
+    });
   }
 
   toggleFavorite(list: HTMLLIElement) {
@@ -79,11 +85,10 @@ export class App {
   setFavorite(id: string | undefined, event: Event) {
     const restaurants = Store.getRestaurantList();
     restaurants.forEach((restaurant: RestaurantForm) => {
-      if (id && restaurant.id === Number(id)) {
-        restaurant.favorite = !restaurant.favorite;
-        this.handleFavorite();
-        this.toggleFavoriteButton(restaurant.favorite, event);
-      }
+      if (id && restaurant.id !== Number(id)) return;
+      restaurant.favorite = !restaurant.favorite;
+      this.handleFavorite();
+      this.toggleFavoriteButton(restaurant.favorite, event);
     });
   }
 
@@ -123,9 +128,9 @@ export class App {
   }
 
   handleSelectedValue() {
-    const selected = $("#category-filter") as HTMLSelectElement;
-    selected.addEventListener("change", () => {
-      const selectedValue = selected.options[selected.selectedIndex]
+    const selectCategory = $("#category-filter") as HTMLSelectElement;
+    selectCategory.addEventListener("change", () => {
+      const selectedValue = selectCategory.options[selectCategory.selectedIndex]
         .value as Category;
       this.filterCategory(selectedValue);
     });
@@ -135,33 +140,22 @@ export class App {
     const sorted = $("#sorting-filter") as HTMLSelectElement;
     sorted.addEventListener("change", () => {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
-      if (sortedValue === "name") this.filterByName(selectedValue || "");
+      if (sortedValue === "name")
+        this.filterHandler(selectedValue || "", sortByName);
       if (sortedValue === "distance")
-        this.filterByDistance(selectedValue || "");
+        this.filterHandler(selectedValue || "", sortByDistance);
     });
   }
 
   filterCategory(selectedValue: Category) {
-    const restaurantItems = $(".restaurant-list") as HTMLLIElement;
-    restaurantItems.replaceChildren();
-    const selectedList = this.getSelectedList(selectedValue);
+    const { restaurantItems, selectedList } = this.getItemsList(selectedValue);
     this.handleSortedValue(selectedValue);
     this.render(selectedList, restaurantItems);
   }
 
-  filterByName(selectedValue: string) {
-    const restaurantItems = $(".restaurant-list") as HTMLLIElement;
-    restaurantItems.replaceChildren();
-    const selectedList = this.getSelectedList(selectedValue);
-    sortByName(selectedList);
-    this.render(selectedList, restaurantItems);
-  }
-
-  filterByDistance(selectedValue: string) {
-    const restaurantItems = $(".restaurant-list") as HTMLLIElement;
-    restaurantItems.replaceChildren();
-    const selectedList = this.getSelectedList(selectedValue);
-    sortByDistance(selectedList);
+  filterHandler(selectedValue: string | Category, filter: CallableFunction) {
+    const { restaurantItems, selectedList } = this.getItemsList(selectedValue);
+    filter(selectedList);
     this.render(selectedList, restaurantItems);
   }
 
@@ -169,6 +163,13 @@ export class App {
     return selectedValue === CATEGORY_NAME.total || selectedValue === ""
       ? this.setTotalList()
       : this.setSelectedList(selectedValue);
+  }
+
+  getItemsList(selectedValue: string) {
+    const restaurantItems = $(".restaurant-list") as HTMLLIElement;
+    restaurantItems.replaceChildren();
+    const selectedList = this.getSelectedList(selectedValue);
+    return { restaurantItems, selectedList };
   }
 
   setTotalList() {

@@ -1,4 +1,4 @@
-import { RestaurantForm } from "../types";
+import { RestaurantForm } from "../types/types";
 
 export class Restaurant {
   #information: RestaurantForm;

@@ -1,4 +1,4 @@
-import { RestaurantForm } from "./types";
+import { RestaurantForm } from "./types/types";
 import { CATEGORY_NAME } from "./constants";
 
 class Store {
@@ -15,7 +15,7 @@ class Store {
   }
 
   static setFilteredList(selectedValue: string) {
-    selectedValue === "" || selectedValue === CATEGORY_NAME.total
+    selectedValue === CATEGORY_NAME.total
       ? (this.filteredItemList = this.restaurantItemList)
       : (this.filteredItemList = this.restaurantItemList.filter(
           (restaurant) => restaurant.category === selectedValue

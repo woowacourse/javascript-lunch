@@ -1,6 +1,6 @@
 import { setLocalStorage } from "../utils/LocalStorage";
 import Store from "../Store";
-import { RestaurantForm, Category } from "../types";
+import { RestaurantForm, Category } from "../types/types";
 import { KEY } from "../constants";
 
 export default class RestaurantList {
@@ -19,7 +19,7 @@ export default class RestaurantList {
     }
 
     const filteredList: RestaurantForm[] = Store.getRestaurantList().reduce(
-      (arr: RestaurantForm[], curInfo: RestaurantForm) => {
+      (arr: RestaurantForm[], curInfo) => {
         if (curInfo.category === category) {
           arr.push(curInfo);
         }
