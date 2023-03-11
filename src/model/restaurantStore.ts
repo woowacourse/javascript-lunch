@@ -1,5 +1,6 @@
 import RestaurantItem from '@res/components/RestaurantItem';
 import { Category, Order } from '@res/constants/enum';
+import IRenderOptions from '@res/interfaces/IRenderOptions';
 import { IRestaurantInput, IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { sampleData } from './storage';
 
@@ -10,8 +11,16 @@ export const restaurantStore = {
     restaurantStore.setList(sampleData);
   },
 
+  getList({ category, order, tab }: IRenderOptions) {
+    if (tab === 'favorite') {
+      return restaurantStore.getFavoriteList();
+    }
+
+    return restaurantStore.getFilteredList(category, order);
+  },
+
   getItemById(id: number): IRestaurant {
-    for (const restaurantItem of restaurantStore.getList()) {
+    for (const restaurantItem of restaurantStore.fetchList()) {
       if (restaurantItem.id === id) return restaurantItem;
     }
 
@@ -19,7 +28,7 @@ export const restaurantStore = {
   },
 
   addList(restaurantInput: IRestaurantInput) {
-    const restaurantList = restaurantStore.getList();
+    const restaurantList = restaurantStore.fetchList();
 
     const restaurantToAdd: IRestaurant = {
       id: restaurantStore.getNewID(restaurantList),
@@ -33,7 +42,7 @@ export const restaurantStore = {
   },
 
   deleteById(id: number) {
-    const restaurantList = restaurantStore.getList().filter((restaurant) => restaurant.id !== id);
+    const restaurantList = restaurantStore.fetchList().filter((restaurant) => restaurant.id !== id);
 
     restaurantStore.setList(restaurantList);
   },
@@ -52,17 +61,17 @@ export const restaurantStore = {
     );
   },
 
-  getList(): IRestaurant[] {
+  fetchList(): IRestaurant[] {
     return [...JSON.parse(localStorage.getItem('restaurantList') || '[]')];
   },
 
   getFavoriteList(): IRestaurant[] {
-    const restaurantList = restaurantStore.getList();
+    const restaurantList = restaurantStore.fetchList();
     return restaurantList.filter((restaurant) => restaurant.favorite === true);
   },
 
   getFilteredList(category: Category = Category.All, order: Order = Order.Name) {
-    const restaurantList = restaurantStore.getList();
+    const restaurantList = restaurantStore.fetchList();
     const filteredList = restaurantStore.filterItems(restaurantList, category);
     return restaurantStore.sortItems(filteredList, order);
   },
@@ -84,7 +93,7 @@ export const restaurantStore = {
   },
 
   toggleFavorite(targetId: number) {
-    const restaurantList = restaurantStore.getList().map((restaurant) => {
+    const restaurantList = restaurantStore.fetchList().map((restaurant) => {
       if (restaurant.id === targetId) {
         restaurant.favorite = !restaurant.favorite;
       }
