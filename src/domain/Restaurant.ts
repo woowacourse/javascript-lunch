@@ -1,13 +1,13 @@
 import Validation from './Validation';
 
-export interface RestaurantProps {
+export type RestaurantProps = {
   id: string;
   category: string;
   name: string;
   distance: number;
   description?: string | null;
   referenceUrl?: string | null;
-}
+};
 
 export type RestaurantCategory = (typeof Restaurant.CATEGORIES)[number];
 
