@@ -1,34 +1,31 @@
 import { Restaurant, RestaurantType } from './Restaurant';
 interface ListInterface {
+  originList: Restaurant[];
   filterState: string;
   sortState: string;
-  originList: Restaurant[];
-  valList: Restaurant[];
-
-  defaultList: (restaurantList: RestaurantType[]) => Restaurant[];
-  addRestaurant: (
-    restaurantList: Restaurant[],
-    restaurant: RestaurantType,
-  ) => Restaurant[];
+  defaultList: (restaurantList: RestaurantType[]) => void;
+  addRestaurant: (restaurant: RestaurantType) => void;
   template(restaurantList: Restaurant[]): string;
-  filter(restaurantList: Restaurant[], category: string): Restaurant[];
-  sort(restaurantList: Restaurant[], Priority: string): Restaurant[];
+  listUp(category: string, priority: string): Restaurant[];
+  filter(category: string): Restaurant[];
+  sort(restaurantList: Restaurant[], priority: string): Restaurant[];
 }
 
 const RestaurantList: ListInterface = {
-  filterState: '전체',
-  sortState: '이름순',
   originList: [],
-  valList: [],
+  filterState: '전체',
+  sortState: 'name',
+
   defaultList(restaurantList: RestaurantType[]) {
-    return restaurantList.map((item) => {
+    const list = restaurantList.map((item) => {
       const restaurant = new Restaurant(item);
       return restaurant;
     });
+    this.originList = this.sort(list, this.sortState);
   },
 
-  addRestaurant(restaurantList: Restaurant[], restaurant: RestaurantType) {
-    return [...restaurantList, new Restaurant(restaurant)];
+  addRestaurant(restaurant: RestaurantType) {
+    this.originList = [new Restaurant(restaurant), ...this.originList];
   },
 
   template(restaurantList): string {
@@ -37,22 +34,28 @@ const RestaurantList: ListInterface = {
     </ul>`;
   },
 
-  filter(restaurantList, category) {
-    if (category === '전체') {
-      this.valList = this.originList;
-      return restaurantList;
-    }
-    const result = restaurantList.filter((restaurant) => {
-      if (restaurant.getRestaurant().category === category) return restaurant;
-    });
-
-    this.valList = result;
-    return result;
+  listUp(category, priority: string) {
+    return this.sort(this.filter(category), priority);
   },
 
-  sort(restaurantList) {
-    const result = restaurantList.sort((a, b) => {
-      return a.getRestaurant().distance - b.getRestaurant().distance;
+  filter(category) {
+    this.filterState = category;
+    if (category === '전체') return this.originList;
+    return this.originList.filter(
+      (item) => item.getRestaurant().category === category && item,
+    );
+  },
+
+  sort(restaurantList, priority) {
+    this.sortState = priority;
+    if (priority === 'distance') {
+      const result = restaurantList.sort((current, next) => {
+        return current.getRestaurant().distance - next.getRestaurant().distance;
+      });
+      return result;
+    }
+    const result = restaurantList.sort((current, next) => {
+      return current.getRestaurant().name > next.getRestaurant().name ? 1 : -1;
     });
     return result;
   },
