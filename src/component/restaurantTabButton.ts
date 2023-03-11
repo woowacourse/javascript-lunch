@@ -1,4 +1,4 @@
-import { updateRestaurantList } from "../domain/filter";
+import { updateRestaurants } from "../domain/filter";
 import { executeEventListener } from "../util/eventListener";
 import { $, $$ } from "../util/selector";
 
@@ -52,5 +52,5 @@ const changeButtonColor = (event: Event) => {
     target.classList.toggle(CLICKED_BUTTON);
   }
 
-  updateRestaurantList();
+  updateRestaurants();
 };

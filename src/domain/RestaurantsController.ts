@@ -3,8 +3,8 @@ import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
 import { saveRestaurantsInLocalStorage } from "./localStorageController";
-import { renderRestaurantList } from "../component/restaurantList";
-import { updateRestaurantList } from "./filter";
+import { renderRestaurants } from "../component/restaurants";
+import { updateRestaurants } from "./filter";
 import { handleModalCancelButtonClick } from "../modal/newRestaurantModalHandler";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
 import { LOCAL_STORAGE_KEY } from "../constant";
@@ -31,16 +31,16 @@ export default class RestaurantsController {
 
   private initRestaurantsInfo() {
     if (findLocalStorageKeys(RESTAURANT).length) {
-      updateRestaurantList();
+      updateRestaurants();
     } else {
       this.restaurantList = initialRestaurantData;
-      renderRestaurantList(initialRestaurantData);
+      renderRestaurants(initialRestaurantData);
     }
 
-    this.saveRestaurantList();
+    this.saveRestaurants();
   }
 
-  saveRestaurantList() {
+  saveRestaurants() {
     if (!localStorage.length) {
       this.restaurantList.forEach((restaurant: RestaurantType) =>
         saveRestaurantsInLocalStorage(restaurant)
@@ -65,6 +65,6 @@ export default class RestaurantsController {
     handleModalCancelButtonClick(".modal");
     saveRestaurantsInLocalStorage(restaurantInfo);
 
-    updateRestaurantList();
+    updateRestaurants();
   }
 }

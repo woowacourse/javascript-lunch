@@ -1,13 +1,18 @@
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
 import { RestaurantType } from "../type";
-import { $ } from "../util/selector";
+import { $, $$ } from "../util/selector";
 import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
-import { updateRestaurantList } from "../domain/filter";
+import { updateRestaurants } from "../domain/filter";
 import { preventScroll } from "./newRestaurantModalHandler";
 import { executeEventListener } from "../util/eventListener";
+import {
+  controlFavoriteIcon,
+  controlModalFavoriteIcon,
+} from "../domain/favoriteIconController";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
-export const renderTemplate = (info: RestaurantType) => {
+// UI
+const renderTemplate = (info: RestaurantType) => {
   return `<div class="modal-backdrop"></div>
   <div class="modal-container">
     <div class="restaurant__category">
@@ -47,7 +52,42 @@ export const renderRestaurantInfoModal = (info: RestaurantType) => {
   restaurantInfoModalElement.innerHTML = renderTemplate(info);
 };
 
-export const closeRestaurantInfoModal = () => {
+// Domain
+export const initRestaurantInfoModal = () => {
+  controlFavoriteIcon();
+
+  $$(".restaurant").forEach((restaurant) =>
+    executeEventListener(restaurant, {
+      type: "click",
+      listener: (event) => {
+        controlRestaurantInfoModal(event);
+        controlModalFavoriteIcon();
+      },
+    })
+  );
+};
+
+export const controlRestaurantInfoModal = (event: Event) => {
+  const clickedElement = event.currentTarget as HTMLElement;
+  const clickedRestaurantKey = `${RESTAURANT}${
+    clickedElement.children[1].children[0].textContent as string
+  }`;
+  const clickedRestaurantInfo = localStorage.getItem(clickedRestaurantKey);
+  const target = event.target as HTMLImageElement;
+
+  if (target.classList.value !== "favorite-icon") {
+    const body = $("body") as HTMLBodyElement;
+    body.style.overflow = "hidden";
+
+    $("#restaurant-info-modal")?.classList.add("modal--open");
+    renderRestaurantInfoModal(JSON.parse(String(clickedRestaurantInfo)));
+  }
+
+  closeRestaurantInfoModal();
+  deleteRestaurant();
+};
+
+const closeRestaurantInfoModal = () => {
   const closeButton = [
     $("#restaurant-info-modal > .modal-backdrop"),
     $("#restaurant-info-modal .button--secondary"),
@@ -60,12 +100,13 @@ export const closeRestaurantInfoModal = () => {
       listener: () => {
         $("#restaurant-info-modal")?.classList.remove("modal--open");
         preventScroll();
+        initRestaurantInfoModal();
       },
     });
   });
 };
 
-export const deleteRestaurant = () => {
+const deleteRestaurant = () => {
   executeEventListener($("#restaurant-info-modal .button--secondary")!, {
     type: "click",
     listener: (event) => {
@@ -75,7 +116,8 @@ export const deleteRestaurant = () => {
         ?.children[1].children[0].textContent as string;
 
       localStorage.removeItem(`${RESTAURANT}${restaurantKey}`);
-      updateRestaurantList();
+      updateRestaurants();
+      initRestaurantInfoModal();
     },
   });
 };
