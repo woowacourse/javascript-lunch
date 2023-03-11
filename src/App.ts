@@ -4,8 +4,9 @@ import AddModal from './components/Modal';
 import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
 import LunchTab from './components/Tab';
+import { imgSrc } from './constants/image';
 import store from './store';
-import { CategoryFilter, Restaurant, SortFilter } from './types';
+import { CategoryFilter, Restaurant, Restaurants, SortFilter } from './types';
 
 class App extends HTMLElement {
   constructor() {
@@ -22,7 +23,7 @@ class App extends HTMLElement {
     this.setLunchTabProps();
     this.setCategoryFilterBoxProps();
     this.setSortingFilterBoxProps();
-
+    this.setRestaurantItemsProps(store.restaurants);
     this.setAddModalProps();
   }
 
@@ -57,17 +58,17 @@ class App extends HTMLElement {
         const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
           typeof RestaurantItems
         >;
-        const $selectBox = document.querySelector('select-box') as HTMLElement;
+        const $filterBoxes = document.querySelector('#filter') as HTMLDivElement;
 
         // 모든 음식점
         if (key === '1') {
-          $restaurantItems.render(store.restaurants);
-          $selectBox.style.display = '';
+          this.setRestaurantItemsProps(store.restaurants);
+          $filterBoxes.style.display = '';
         }
 
         if (key === '2') {
-          $restaurantItems.render(store.getFavoriteRestaurants());
-          $selectBox.style.display = 'none';
+          this.setRestaurantItemsProps(store.getFavoriteRestaurants());
+          $filterBoxes.style.display = 'none';
         }
       },
     };
@@ -95,6 +96,33 @@ class App extends HTMLElement {
       options: ['distance', 'name'],
       onChange: (option) => {
         store.sortRestaurants(option);
+      },
+    });
+  }
+
+  private setRestaurantItemsProps(restaurants: Restaurants) {
+    const $restaurantItems = this.querySelector('restaurant-items') as RestaurantItems;
+    $restaurantItems.setProps({
+      restaurants: restaurants,
+      onRestaurantItemClick: (restaurantId: string) => {
+        // detail-modal 열기
+        const $detailModal = document.createElement('detail-modal');
+        const { category, name, distance, isFavorite, description, link } =
+          restaurants[restaurantId];
+
+        $detailModal?.setAttribute('id', restaurantId);
+        $detailModal?.setAttribute('src', imgSrc[category]);
+        $detailModal?.setAttribute('category', category);
+        $detailModal?.setAttribute('name', name);
+        $detailModal?.setAttribute('distance', distance + '');
+        $detailModal?.setAttribute('description', description || '');
+        $detailModal?.setAttribute('link', link || '');
+
+        document.body.insertAdjacentElement('beforeend', $detailModal);
+      },
+      onFavoriteButtonClick(restaurantId: string) {
+        store.toggleFavoriteRestaurant(restaurantId);
+        return;
       },
     });
   }

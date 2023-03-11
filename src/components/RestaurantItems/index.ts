@@ -1,26 +1,40 @@
 import { store } from '../../store';
 import { Restaurant, Restaurants } from '../../types';
+import RestaurantItem from '../RestaurantItem';
 import $template from './index.html';
 
+interface Props {
+  restaurants: Restaurants;
+  onRestaurantItemClick: (restaurantId: string) => void;
+  onFavoriteButtonClick: (restaurantId: string) => void;
+}
 class RestaurantItems extends HTMLElement {
   constructor() {
     super();
+    this.innerHTML = $template;
   }
 
-  connectedCallback() {
-    this.render(store.restaurants);
+  setProps({ restaurants, onRestaurantItemClick, onFavoriteButtonClick }: Props) {
+    this.render(restaurants);
+    const $restaurantItems = this.querySelectorAll<RestaurantItem>('restaurant-item');
+
+    $restaurantItems.forEach(($restaurantItem) => {
+      const id = $restaurantItem.getAttribute('id') as string;
+      $restaurantItem.setProps({
+        restaurant: restaurants[id],
+        onRestaurantItemClick,
+        onFavoriteButtonClick,
+      });
+    });
   }
 
   render(restaurants: Restaurants) {
-    this.innerHTML = $template;
     const $restaurantList = this.querySelector('.restaurant-list') as HTMLUListElement;
-
+    $restaurantList.innerHTML = '';
     Object.entries(restaurants).forEach(([id, restaurant]) => {
-      const { category, name, distance, description, link } = restaurant;
-
       $restaurantList.insertAdjacentHTML(
         'beforeend',
-        `<restaurant-item id=${id} category=${category} name=${name} distance=${distance} description=${description} link=${link}></restaurant-item>`,
+        `<restaurant-item id=${id}></restaurant-item>`,
       );
     });
   }
