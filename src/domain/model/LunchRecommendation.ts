@@ -25,10 +25,13 @@ interface ILunchRecommendation {
   add(restaurant: Omit<RestaurantInfo, 'id'>): boolean;
   delete(restaurantId: RestaurantInfo['id']): Restaurant[];
   renderBy(filterType: FilterType): Restaurant[];
+  filterByCategory(list: Restaurant[], category: string): Restaurant[];
   sortByName(list: Restaurant[]): Restaurant[];
   sortByDistance(list: Restaurant[]): Restaurant[];
   toggleFavorite(id: RestaurantInfo['id']): void;
   getAllList(): Restaurant[];
+  getFavoriteList(): Restaurant[];
+  getRestaurant(id: RestaurantInfo['id']): Restaurant | undefined;
 }
 
 export class Restaurant implements IRestaurant {
@@ -56,8 +59,14 @@ export class LunchRecommendation implements ILunchRecommendation {
     this.origin = infoList.map((info) => new Restaurant(info));
   }
 
+  private generateId() {
+    if (!this.origin.length) return 1;
+
+    return Math.max(...this.origin.map(({ info }) => info.id)) + 1;
+  }
+
   add(restaurantInfo: Omit<RestaurantInfo, 'id'>): boolean {
-    const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
+    const id = this.generateId();
     const newRestaurant = { ...restaurantInfo, id };
 
     const { isValid } = Validator.Restaurant.info(newRestaurant, {
@@ -74,6 +83,7 @@ export class LunchRecommendation implements ILunchRecommendation {
 
   delete(restaurantId: RestaurantInfo['id']): Restaurant[] {
     this.origin = this.origin.filter((restaurant) => restaurant.info.id !== restaurantId);
+    addData(this.origin.map(({ info }) => info));
 
     return this.origin;
   }
@@ -134,7 +144,11 @@ export class LunchRecommendation implements ILunchRecommendation {
   }
 
   getRestaurant(id: RestaurantInfo['id']) {
-    return this.origin.find((restaurant) => restaurant.info.id === id);
+    const restaurant = this.origin.find((restaurant) => restaurant.info.id === id);
+
+    if (!restaurant) throw new Error();
+
+    return restaurant;
   }
 }
 
