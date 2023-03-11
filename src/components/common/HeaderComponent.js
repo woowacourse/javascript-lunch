@@ -1,14 +1,43 @@
+import { RESTAURANT_ACTION } from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
+import dispatcher from "../../domain/Dispatcher";
 
 class HeaderComponent extends CustomElement {
-  showModal() {
-    document.querySelector(".modal").classList.add("modal--open");
-  }
-
   setEvent() {
     document
       .querySelector(".gnb__button")
       .addEventListener("click", this.showModal);
+
+    document
+      .querySelector(".menu__container")
+      .addEventListener("click", (e) => {
+        this.changeMenu(e);
+      });
+  }
+
+  changeMenu(e) {
+    const { id, parentNode } = e.target;
+    const total = "total_restaurant";
+    const favorite = "favorite_restaurant";
+    if (id === total || parentNode.id === total) {
+      document.getElementById(total).style.borderBottom =
+        "2px solid var(--primary-color)";
+      document.getElementById(favorite).style.borderBottom =
+        "2px solid var(--grey-200)";
+      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, "total");
+    }
+
+    if (id === favorite || parentNode.id === favorite) {
+      document.getElementById(total).style.borderBottom =
+        "2px solid var(--grey-200)";
+      document.getElementById(favorite).style.borderBottom =
+        "2px solid var(--primary-color)";
+      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, "favorite");
+    }
+  }
+
+  showModal() {
+    document.querySelector(".modal").classList.add("modal--open");
   }
 
   template() {
@@ -21,9 +50,14 @@ class HeaderComponent extends CustomElement {
         </button>
       </section>
       <section class="menu">
-        <h1 class="text-title">모든 음식점</h1>
-        <h1 class="text-title">자주 가는 음식점</h1>
-        </button>
+        <div class="menu__container">
+          <div id="total_restaurant">
+            <h1  class="text-title">모든 음식점</h1>
+          </div>
+          <div id="favorite_restaurant">
+            <h1 class="text-title">자주 가는 음식점</h1>
+          </div>
+        </div>
       </section>
     </header>
     `;
