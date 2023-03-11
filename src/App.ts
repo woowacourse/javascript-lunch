@@ -15,10 +15,8 @@ class App {
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
     RestaurantData.settingList(mockList);
-    localStorage.clear();
     this.render();
     RenderRestaurantList.render();
-    localStorage.clear();
   }
 
   render() {
@@ -39,7 +37,8 @@ class App {
 
   setEvent() {
     InputFormOpenButton.setEvent();
-    InputForm.setEvent();
+    InputForm.setEventSubmit();
+    InputForm.setEventCloseInput();
     FilterSortButton.setEvent();
     RestaurantList.setEvent();
     ListChooseSection.setEvent();

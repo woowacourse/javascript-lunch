@@ -59,14 +59,13 @@ const InputForm = {
   `;
   },
 
-  setEvent() {
+  setEventSubmit() {
     const formElem = $("form");
     formElem?.addEventListener("submit", (event) => {
       event.preventDefault();
 
       const bottomSheet = $(".bottomSheet") as HTMLElement;
       this.addRestaurant(bottomSheet);
-      this.cancelAddRestaurant(bottomSheet);
     });
   },
 
@@ -79,27 +78,29 @@ const InputForm = {
     this.reset();
   },
 
-  cancelAddRestaurant(elem: HTMLElement) {
+  setEventCloseInput() {
     const buttonSecondary = $(".button--secondary");
     buttonSecondary?.addEventListener("click", () => {
-      ControlDom.showClose(elem, "bottomSheet--open");
+      const bottomSheet = $(".bottomSheet") as HTMLElement;
+      ControlDom.showClose(bottomSheet, "bottomSheet--open");
     });
   },
 
   getInfo() {
     RestaurantData.id++;
     const form = new FormData($("form") as HTMLFormElement);
-    const restaurantValue: string[] = Array.from(form.values()).map(String);
-    // form.forEach((each) => restaurantValue.push(each.toString()));
+    const [category, name, takeTime, description, link]: string[] = Array.from(
+      form.values()
+    ).map(String);
 
     return {
       id: RestaurantData.id,
-      category: restaurantValue[0] as CategoryType,
-      name: restaurantValue[1],
-      takeTime: Number(restaurantValue[2]) as TakeTimeType,
+      category: category as CategoryType,
+      name: name,
+      takeTime: Number(takeTime) as TakeTimeType,
       like: false,
-      description: restaurantValue[3],
-      link: restaurantValue[4],
+      description: description,
+      link: link,
     };
   },
 
