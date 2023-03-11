@@ -22,17 +22,16 @@ export class App {
 
     this.collectedRender();
     this.initializeButtonEvents();
-
     if (getRestaurantListFromLocalstorage(RESTAURANT))
       localStorage.setItem(
         "number",
         getRestaurantListFromLocalstorage(RESTAURANT).at(-1).id -
           getRestaurantListFromLocalstorage(RESTAURANT).length +
-          1
+          2
       );
     else localStorage.setItem("number", 0);
 
-    const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant) => {
+    const restaurantFavoriteList = getRestaurantListFromLocalstorage(RESTAURANT) || [].map((restaurant) => {
       const idNumber = getRestaurantListFromLocalstorage("number");
       localStorage.setItem("number", idNumber + 1);
       const favoriteList = getRestaurantListFromLocalstorage("favorite")
