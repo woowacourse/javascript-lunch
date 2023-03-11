@@ -82,6 +82,14 @@ const actions = {
     actions.setValue('restaurants', store.domain.getRestaurants());
     localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
   },
+
+  findRestaurantById(id: number) {
+    if (!store.domain) return;
+
+    return actions
+      .getValue('restaurants')
+      .filter((restaurant) => restaurant.id === id)[0];
+  },
 };
 
 export default actions;
