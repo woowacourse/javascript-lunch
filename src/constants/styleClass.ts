@@ -4,6 +4,7 @@ const styleClass = {
     secondary: 'button--secondary'
   },
   text: {
+    center: 'text-center',
     title: 'text-title',
     caption: 'text-caption',
     help: 'help-text'
@@ -14,6 +15,9 @@ const styleClass = {
   },
   modal: {
     title: 'modal-title'
-  }
+  },
+  tab: {
+    menu: 'tab-menu'
+  },
 }
 export default styleClass
