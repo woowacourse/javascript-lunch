@@ -41,10 +41,14 @@ export default class Favorite extends Component {
   }
 
   switchToAllRestaurantList() {
-    console.log('all');
+    qs('.favorite-list-container').classList.add('list-none');
+    qs('.restaurant-list-container').classList.remove('list-none');
+    qs('.restaurant-filter-container').classList.remove('list-none');
   }
 
   switchToFavoriteRestaurantList() {
-    console.log('favorite');
+    qs('.favorite-list-container').classList.remove('list-none');
+    qs('.restaurant-list-container').classList.add('list-none');
+    qs('.restaurant-filter-container').classList.add('list-none');
   }
 }
