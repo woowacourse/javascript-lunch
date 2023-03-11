@@ -30,13 +30,9 @@ class RestaurantAddForm {
     );
   }
 
-  resetForm() {
+  closeForm(closeModal: CallableFunction) {
     const restaurantAddForm = $('#restaurant-add-form') as HTMLFormElement;
     restaurantAddForm.reset();
-  }
-
-  closeForm(closeModal: CallableFunction) {
-    this.resetForm();
     closeModal();
   }
 
