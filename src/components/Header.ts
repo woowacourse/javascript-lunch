@@ -1,8 +1,9 @@
-import ModalButton from './ModalButton.js';
+import ModalButton from './ModalButton';
 
 const Header = {
-  print() {
+  template() {
     const $app = document.querySelector('#app');
+    if (!$app) return;
 
     const template = `
     <header class="gnb">
