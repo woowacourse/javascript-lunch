@@ -1,11 +1,7 @@
 describe("음식점 관리 기능 구현 테스트", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:8080/");
-    cy.get(".gnb__button").click();
-    cy.get("#category").select("중식");
-    cy.get("#name").type("홍콩반점");
-    cy.get("#distance").select("10");
-    cy.get("#add-button").click();
+    cy.visit(Cypress.config().baseUrl);
+    cy.addRestaurant("중식", "홍콩반점", "10", "", "");
   });
 
   it("음식점 추가 기능 구현 테스트", () => {
@@ -25,9 +21,9 @@ describe("음식점 관리 기능 구현 테스트", () => {
 
   it("음식점 즐겨찾기 기능 구현 테스트", () => {
     cy.get("#홍콩반점").click();
-    cy.get(".modal").find(".star-container").find(".star-icon").should("have.attr", "src").and("include", "lined");
-    cy.get(".modal").find(".star-container").find(".star-icon").click();
-    cy.get(".modal").find(".star-container").find(".star-icon").should("have.attr", "src").and("include", "filled");
+    cy.findStarOnModal().should("have.attr", "src").and("include", "lined");
+    cy.findStarOnModal().click();
+    cy.findStarOnModal().should("have.attr", "src").and("include", "filled");
     cy.get(".restaurant-list")
       .find(".star-container")
       .find(".star-icon")
