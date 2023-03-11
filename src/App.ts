@@ -10,12 +10,10 @@ import { $$ } from "./utils/Dom";
 class App {
   restaurantList: Restaurant[];
   target: HTMLElement;
-  // currentPage: Page;
 
   constructor(body: Element) {
     this.target = <HTMLElement>body;
     this.restaurantList = restaurantListHandler.getRestaurants();
-    // this.currentPage = "total";
 
     Header.initialize(this.target);
     RestaurantFormBottomSheet.initialize(
@@ -24,7 +22,7 @@ class App {
     );
     NavigatorContainer.initialize(this.target, this.navigateToPage);
 
-    RestaurantList.updateRestaurantList(this.restaurantList);
+    this.navigateToPage("total");
   }
 
   addRestaurantItemToList(data: Restaurant) {
@@ -36,6 +34,7 @@ class App {
 
   navigateToPage = (pageName: string) => {
     this.deletePageSection();
+
     if (pageName === "total") {
       new Page(this.target, this.restaurantList, pageName);
       return;
