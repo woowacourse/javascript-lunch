@@ -1,6 +1,7 @@
-import { RESTAURANT_ICON_CATEGORY } from '../domain/constants';
-
 import { $, dispatchCustomEvent } from '../utils/dom';
+
+import { RESTAURANT_CATEGORY_ICON } from '../icons/category';
+import { FAVORITE_ICON_FILLED, FAVORITE_ICON_LINED } from '../icons/favorite';
 
 customElements.define(
   'restaurant-detail-modal',
@@ -16,14 +17,10 @@ customElements.define(
       this.innerHTML = /* html */ `
       <div class="icon-container">
         <div class="restaurant__category">
-          <img src="./category-${
-            RESTAURANT_ICON_CATEGORY[category]
-          }.png" alt="${category}" class="category-icon" />
+          ${RESTAURANT_CATEGORY_ICON[category]}
         </div>
         <button class="favorite">
-          <img src="./favorite-icon-${
-            isFavorite ? 'filled' : 'lined'
-          }.png" alt="favorite" class="favorite-icon" />
+          ${isFavorite ? FAVORITE_ICON_FILLED : FAVORITE_ICON_LINED}
         </button>
       </div>
       <h2 class="modal-title text-title detail-title">${name}</h2>

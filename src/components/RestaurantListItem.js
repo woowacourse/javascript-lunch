@@ -1,4 +1,5 @@
-import { RESTAURANT_ICON_CATEGORY } from '../domain/constants';
+import { RESTAURANT_CATEGORY_ICON } from '../icons/category';
+import { FAVORITE_ICON_FILLED, FAVORITE_ICON_LINED } from '../icons/favorite';
 
 customElements.define(
   'restaurant-list-item',
@@ -15,9 +16,7 @@ customElements.define(
       this.innerHTML = /* html */ `
       <li class="restaurant">
         <div class="restaurant__category">
-          <img src="./category-${
-            RESTAURANT_ICON_CATEGORY[category]
-          }.png" alt="${category}" class="category-icon" />
+          ${RESTAURANT_CATEGORY_ICON[category]}
         </div>
         <div class="restaurant__info">
           <div class="flex">
@@ -26,9 +25,7 @@ customElements.define(
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
             </div>
             <button class="favorite">
-              <img src="./favorite-icon-${
-                isFavorite ? 'filled' : 'lined'
-              }.png" alt="favorite" class="favorite-icon" />
+              ${isFavorite ? FAVORITE_ICON_FILLED : FAVORITE_ICON_LINED}
             </button>
           </div>
           <p class="restaurant__description text-body">${description}</p>
