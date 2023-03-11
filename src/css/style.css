@@ -154,9 +154,8 @@ body {
 }
 
 .restaurant {
-  position: relative;
-
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
 
   padding: 16px 8px;
@@ -164,12 +163,12 @@ body {
 }
 
 .favorite-icon {
-  cursor: pointer;
-  position: absolute;
-  top: 12px;
-  right: 20px;
   font-size: 30px;
   color: #f6a88a;
+}
+
+.favorite-icon.favorite {
+  color: #ec4a0a;
 }
 
 .restaurant__category {
@@ -298,6 +297,40 @@ body {
   border-radius: 8px;
 
   color: var(--grey-300);
+}
+
+.detail {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 608px;
+}
+
+.detail .favorite-icon {
+  position: absolute;
+  right: 8px;
+}
+
+.detail .restaurant__take-minute {
+  color: #ec4a0a;
+}
+
+.detail textarea {
+  resize: none;
+
+  border: none;
+  height: 240px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.detail .link-area {
+  height: 24px;
 }
 
 input[name='name'],
