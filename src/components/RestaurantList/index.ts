@@ -26,7 +26,11 @@ class RestaurantList extends HTMLElement {
         ).join("")
       )
       : (
-        '<div class="center super-big-font"><div><h1>텅</h1></div><div>'
+        `
+        <div class="center super-big-font text-center">
+          <div><h1>텅</h1></div>
+          <div>음식점이 없습니다.</div>
+        <div>`
       )
   }
 }

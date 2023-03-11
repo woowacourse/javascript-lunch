@@ -30,8 +30,8 @@
   transform: translate(-50%, -50%);
 }
 
-.super-big-font {
-  font-size: 5rem;
+.super-big-font h1 {
+  font-size: 7rem;
 }
 
 .text-center {
