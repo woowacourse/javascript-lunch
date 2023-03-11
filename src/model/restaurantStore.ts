@@ -32,6 +32,12 @@ export const restaurantStore = {
     return this;
   },
 
+  deleteById(id: number) {
+    const restaurantList = restaurantStore.getList().filter((restaurant) => restaurant.id !== id);
+
+    restaurantStore.setList(restaurantList);
+  },
+
   setList(restaurantList: IRestaurantInput[]) {
     localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
 
