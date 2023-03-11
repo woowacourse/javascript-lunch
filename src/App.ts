@@ -9,7 +9,7 @@ import { getLocalStorage, setLocalStorage } from "./utils/LocalStorage";
 import { KEY, CATEGORY_NAME, CATEGORY_IMG } from "./constants";
 import { $, $$ } from "./utils/Dom";
 import Tab from "./UI/Tab";
-import RestaurantModal from "./UI/RestaurantModal";
+import RestaurantDetail from "./UI/RestaurantDetail";
 import Store from "./Store";
 import { Category, RestaurantForm } from "./types/types";
 
@@ -64,16 +64,16 @@ export class App {
     );
   }
 
-  initDetailModal(event: Event) {
+  initDetailModal = (event: Event) => {
     const id = (event.target as HTMLLIElement).closest(".restaurant__info")?.id;
     const restaurants = Store.getRestaurantList();
     restaurants.forEach((restaurant: RestaurantForm) => {
       if (restaurant.id !== Number(id)) return;
-      const modal = new RestaurantModal(restaurant);
+      const modal = new RestaurantDetail(restaurant);
       this.removeItem(modal, restaurant);
       this.toggleModalFavorite(restaurant);
     });
-  }
+  };
 
   toggleFavorite(list: HTMLLIElement) {
     list?.addEventListener("click", (event) => {
@@ -85,10 +85,11 @@ export class App {
   setFavorite(id: string | undefined, event: Event) {
     const restaurants = Store.getRestaurantList();
     restaurants.forEach((restaurant: RestaurantForm) => {
-      if (id && restaurant.id !== Number(id)) return;
-      restaurant.favorite = !restaurant.favorite;
-      this.handleFavorite();
-      this.toggleFavoriteButton(restaurant.favorite, event);
+      if (id && restaurant.id === Number(id)) {
+        restaurant.favorite = !restaurant.favorite;
+        this.handleFavorite();
+        this.toggleFavoriteButton(restaurant.favorite, event);
+      }
     });
   }
 
@@ -182,7 +183,7 @@ export class App {
     return Store.getFilteredList();
   }
 
-  removeItem(modal: RestaurantModal, restaurantInfo: RestaurantForm) {
+  removeItem(modal: RestaurantDetail, restaurantInfo: RestaurantForm) {
     const removeButton = $(".remove-button") as HTMLButtonElement;
     removeButton.addEventListener("click", () => {
       Store.deleteRestaurantItem(restaurantInfo);
