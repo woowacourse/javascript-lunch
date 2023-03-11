@@ -1,5 +1,5 @@
-import favoriteIcon from './favoriteIcon';
-import { CATEGORY_IMAGE_URL } from '../constants';
+import favoriteIcon from '../common/favoriteIcon';
+import { CATEGORY_IMAGE_URL } from '../../constants';
 
 const restaurantListItem = ({ restaurant }) => {
   const { id, category, name, takeMinute, description, favorite } = restaurant;

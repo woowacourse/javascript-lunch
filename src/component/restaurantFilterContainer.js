@@ -1,4 +1,4 @@
-import select from './select';
+import select from './common/select';
 
 const restaurantFilterContainer = () => {
   const categoryOptions = [
