@@ -23,7 +23,7 @@ function Restaurants({ restaurants, handleFavoriteBtn, onClick }: RestaurantProp
 
     e.target === $('.favorite-icon', $('.restaurant'))
       ? handleFavoriteBtn(Number(restaurantId))
-      : onClick(lunchRecommendation.getRestaurant(Number(restaurantId))!);
+      : onClick(lunchRecommendation.getRestaurant(Number(restaurantId)));
   });
   return `
     <section class="restaurant-list-container">

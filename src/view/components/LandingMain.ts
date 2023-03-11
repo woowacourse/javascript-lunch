@@ -11,7 +11,14 @@ import { Restaurants } from './Restaurants';
 function LandingMain() {
   const {
     values: { restaurants, category, sortOption, tab },
-    handlers: { handleCategory, handleSortOption, handleFavoriteBtn, tabAll, tabFavorite },
+    handlers: {
+      handleCategory,
+      handleSortOption,
+      handleFavoriteBtn,
+      handleDeleteBtn,
+      tabAll,
+      tabFavorite,
+    },
   } = useRestaurants();
   const [focusedRestaurant, setFocusedRestaurant] = useState<Restaurant | null>(null);
   const [isRestaurantInfoModalOpen, openRestaurantInfoModal, closeRestaurantInfoModal] =
@@ -26,13 +33,16 @@ function LandingMain() {
     <main>
       ${Nav({
         NavTab: NavTab({ tab, tabAll, tabFavorite }),
-        NavFilter: NavFilter({ category, sortOption, handleCategory, handleSortOption }),
+        NavFilter: !tab
+          ? NavFilter({ category, sortOption, handleCategory, handleSortOption })
+          : '',
       })}
       ${Restaurants({ restaurants, handleFavoriteBtn, onClick: onClickRestaurant })}
       ${
         isRestaurantInfoModalOpen && focusedRestaurant?.info
           ? RestaurantInfoModal({
               handleFavoriteBtn,
+              handleDeleteBtn,
               info: focusedRestaurant.info,
               close: closeRestaurantInfoModal,
             })
