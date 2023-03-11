@@ -1,7 +1,8 @@
 import { renderRestaurantList } from "../components/RestaurantList/handleRestaurantList";
+import IListState from "../type/IListState";
 import IRestaurant from "../type/IRestaurant";
 
-const initState = {
+const initState: IListState = {
   restaurants: [] as IRestaurant[],
   filter: "all",
   sort: "name",
@@ -12,18 +13,13 @@ const restaurants = {
   state: initState,
   create() {
     this.state = new Proxy(initState, {
-      set: (obj, prop, value) => {
-        // type-guard (최적화 필요)
-        if (
-          prop === "restaurants" ||
-          prop === "filter" ||
-          prop === "sort" ||
-          prop === "menuTab"
-        ) {
+      set: (obj, prop: keyof IListState, value) => {
+        if (prop in obj) {
           obj[prop] = value;
+          renderRestaurantList();
+          return true;
         }
-        renderRestaurantList();
-        return true;
+        return false;
       },
     });
   },

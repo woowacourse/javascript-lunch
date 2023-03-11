@@ -5,4 +5,5 @@ export default interface IListState {
   restaurants: IRestaurant[];
   filter: TCategory;
   sort: string;
+  menuTab: string;
 }
