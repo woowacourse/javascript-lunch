@@ -3,7 +3,7 @@ import "./css/style.css";
 import "./css/gnb.css";
 import "./css/modal.css";
 import "./css/restaurantList.css";
-import "./css/inventory.css"
+import "./css/inventory.css";
 import "./assets/add-button.png";
 import "./assets/category-asian.png";
 import "./assets/category-korean.png";

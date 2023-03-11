@@ -126,7 +126,7 @@ export default class ModalRestaurantDetail {
     ).innerHTML += `<img class="modla--restaurant_image" src="./favorite-icon-lined.png">`;
     this.openModalDetail();
 
-    (getRestaurantListFromLocalstorage("favorite")??[]).forEach((val) => {
+    (getRestaurantListFromLocalstorage("favorite") ?? []).forEach((val) => {
       if (val.id === restaurantInfo.id) {
         $(`.modla--restaurant_favorite`).replaceChildren();
         $(

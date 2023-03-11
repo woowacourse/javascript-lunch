@@ -86,12 +86,15 @@ export class RestaurantList {
       "restaurants",
       stringifyJson(deletedRestaurantElementArray)
     );
-    this.list = getRestaurantListFromLocalstorage(RESTAURANT) ?? []
+    this.list = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
 
-    const restaruantFavorite = getRestaurantListFromLocalstorage("favorite") ?? [];
-    const deletedRestaurantElementList = restaruantFavorite.filter((val: RestaurantForm) => {
-      return val.id !== Number(restaurantId)
-    });
+    const restaruantFavorite =
+      getRestaurantListFromLocalstorage("favorite") ?? [];
+    const deletedRestaurantElementList = restaruantFavorite.filter(
+      (val: RestaurantForm) => {
+        return val.id !== Number(restaurantId);
+      }
+    );
     localStorage.setItem(
       "favorite",
       stringifyJson(deletedRestaurantElementList)
