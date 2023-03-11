@@ -13,6 +13,7 @@ export const isTarget = (
   { targetSelector, parentSelector }: { targetSelector: string; parentSelector: string }
 ) => {
   const children = $$(targetSelector, $(parentSelector));
+
   if (target instanceof Element && children)
     return [...children].includes(target) || target.closest(targetSelector);
 
@@ -33,3 +34,5 @@ export const parseAttribute = (attribute: Attribute) => {
     )
     .join(' ');
 };
+
+export const parseClassToSelector = (className: string) => '.' + className.split(' ').join('.');
