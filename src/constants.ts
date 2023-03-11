@@ -38,6 +38,15 @@ export const CATEGORY_NAME = {
   etc: "기타",
 };
 
+export const CATEGORY_SELECTOR = {
+  korean: "한식",
+  japanese: "일식",
+  western: "양식",
+  chinese: "중식",
+  asian: "아시안",
+  etc: "기타",
+};
+
 export const DISTANCE = {
   five: 5,
   ten: 10,

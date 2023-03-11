@@ -4,6 +4,7 @@ import {
   FORM_ARRAY,
   ERROR_MESSAGE,
   DISTANCE,
+  CATEGORY_SELECTOR,
 } from "../constants";
 import Validator from "../Validator";
 import Store from "../Store";
@@ -20,7 +21,7 @@ export default class Modal {
             <label for="category text-caption">카테고리</label>
             <select name="category" id="category" required>
               <option value="">선택해 주세요</option>
-              ${Object.entries(CATEGORY_NAME).map(
+              ${Object.entries(CATEGORY_SELECTOR).map(
                 ([key, value]) => `<option value=${value}>${value}</option>`
               )}
             </select>
