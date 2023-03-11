@@ -1,4 +1,4 @@
-import { CategoryImagePath } from '../data/CategoryImagePath';
+import { CategoryImagePath, FavoriteIconImagePath } from '../data/imagePath';
 import { Component } from '../type/Component';
 import { Restaurant } from '../type/Restaurant';
 
@@ -13,6 +13,13 @@ const restaurantTemplate = (restaurant: Restaurant) => `
       <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
       <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
       <p class="restaurant__description text-body">${restaurant.description ?? ''}</p>
+    </div>
+    <div class="restaurant__favorite">
+      <button type="button" class="button--favorite" aria-label="즐겨찾기 추가">
+        <img src=${
+          restaurant.isFavorite ? FavoriteIconImagePath.ADDED : FavoriteIconImagePath.DEFALUT
+        } alt="즐겨찾기 추가">
+      </button>
     </div>
   </li>`;
 
@@ -44,6 +51,24 @@ class RestaurantListSection implements Component {
         'beforeend',
         this.#restaurants.map((restaurant) => restaurantTemplate(restaurant)).join(''),
       );
+  };
+
+  setFavoriteButtonHandler = (handler: (name: string) => void) => {
+    Array.from(this.$target.querySelectorAll('.button--favorite')).forEach((button) => {
+      button.addEventListener('click', (event) => {
+        const parent = (event.target as HTMLButtonElement).closest('.restaurant') as HTMLElement;
+        this.changeFavoriteButtonImage(
+          parent.querySelector('img[alt="즐겨찾기 추가"]') as HTMLImageElement,
+        );
+        handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
+      });
+    });
+  };
+
+  private changeFavoriteButtonImage = (image: HTMLImageElement) => {
+    image.src === FavoriteIconImagePath.DEFALUT
+      ? (image.src = FavoriteIconImagePath.ADDED)
+      : (image.src = FavoriteIconImagePath.DEFALUT);
   };
 }
 

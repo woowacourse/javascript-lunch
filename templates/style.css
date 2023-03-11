@@ -208,6 +208,16 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.restaurant__favorite {
+  margin-left: auto;
+}
+
+.button--favorite {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 /* 음식점 추가 모달 *****************************************/
 .modal {
   display: none;

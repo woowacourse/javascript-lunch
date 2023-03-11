@@ -31,6 +31,11 @@ class RestaurantList {
       throw new Error('이미 존재하는 이름입니다.');
     }
   };
+
+  toggleFavorite = (name: string) => {
+    const index = this.list.findIndex((restaurant) => restaurant.name === name);
+    this.list[index].isFavorite = !this.list[index].isFavorite;
+  };
 }
 
 export { SortCondition, FilterCategory, RestaurantList };
