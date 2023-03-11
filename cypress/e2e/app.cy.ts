@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-
+import 'cypress-wait-until';
 import { mockData } from '../../src/mocks/restaurantsInfo';
 
 describe('점심 뭐 먹지 E2E test', () => {
@@ -31,5 +31,23 @@ describe('점심 뭐 먹지 E2E test', () => {
     cy.get('#nav-tab-2').click();
 
     cy.get('.restaurant').should('have.length', 1).last().should('contain', '피양콩할머니');
+  });
+
+  it('음식점을 카테고리에 따라 필터링이 가능하다', () => {
+    cy.get('#category-filter').select('중식');
+
+    cy.get('.restaurant').should('have.length', 2);
+  });
+
+  it('음식점을 거리순에 따라 필터링이 가능하다', () => {
+    cy.get('#sorting-filter').select('거리순');
+
+    cy.waitUntil(() => cy.get('.restaurant').first().should('contain', '10분 내'));
+  });
+
+  it('음식점을 이름순에 따라 필터링이 가능하다', () => {
+    cy.get('#sorting-filter').select('이름순');
+
+    cy.waitUntil(() => cy.get('.restaurant').first().should('contain.text', '동남아할머니'));
   });
 });
