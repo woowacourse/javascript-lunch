@@ -5,6 +5,7 @@ import { DEFAULT_RESTAURANTS, LOCAL_STORAGE_KEY } from '../constants';
 class App {
   play() {
     this.setRestaurantData();
+    this.selectEvent();
     $('restaurant-boxes').drawRestaurants();
   }
 
@@ -17,6 +18,22 @@ class App {
 
     const restaurants = JSON.stringify(DEFAULT_RESTAURANTS);
     localStorage.setItem(LOCAL_STORAGE_KEY, restaurants);
+  }
+
+  selectEvent() {
+    $('#favoriteTab').notSelect();
+
+    $('#allTab').addEventListener('click', () => {
+      $('#allTab').select();
+      $('#favoriteTab').notSelect();
+      $('restaurant-boxes').drawRestaurants();
+    });
+
+    $('#favoriteTab').addEventListener('click', () => {
+      $('#allTab').notSelect();
+      $('#favoriteTab').select();
+      $('restaurant-boxes').drawRestaurants();
+    });
   }
 }
 

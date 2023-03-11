@@ -1,33 +1,8 @@
-import { $ } from '../utils';
-
 class RestaurantTab extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.render();
     this.setComponentStyle();
-    this.initSetting();
-    this.selectEvent();
-  }
-
-  initSetting() {
-    const id = this.getAttribute('id');
-    if (id === 'favoriteTab') {
-      this.notSelect();
-    }
-  }
-
-  selectEvent() {
-    $('#allTab').addEventListener('click', () => {
-      $('#allTab').select();
-      $('#favoriteTab').notSelect();
-      $('restaurant-boxes').drawRestaurants();
-    });
-
-    $('#favoriteTab').addEventListener('click', () => {
-      $('#allTab').notSelect();
-      $('#favoriteTab').select();
-      $('restaurant-boxes').drawRestaurants();
-    });
   }
 
   select() {
