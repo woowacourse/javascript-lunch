@@ -43,7 +43,7 @@ describe('자주 가는 음식점 e2e 테스트', () => {
 
   it('모든 음식점 탭에서 자주 가는 음식점 목록에서 즐겨찾기 아이콘을 누르면 자주 가는 음식점 목록에 추가된다.', () => {
     cy.get('.restaurant[data-id="7"]').find('.restaurant-star-icon').click();
-    cy.get('#favorite-restaurants').click();
+    cy.get('label[for="favorite-restaurants"]').click();
     cy.get('.restaurant-list').find('.restaurant').should('have.attr', 'data-id', '7');
   });
 
@@ -51,7 +51,7 @@ describe('자주 가는 음식점 e2e 테스트', () => {
     cy.get('.restaurant[data-id="6"]').find('.restaurant-star-icon').click();
     cy.get('.restaurant[data-id="7"]').find('.restaurant-star-icon').click();
 
-    cy.get('#favorite-restaurants').click();
+    cy.get('label[for="favorite-restaurants"]').click();
 
     cy.get('.restaurant[data-id="6"]').find('.restaurant-star-icon').click();
     cy.get('.restaurant-list').find('.restaurant').should('not.have.attr', 'data-id', '6');
@@ -81,7 +81,7 @@ describe('자주 가는 음식점 e2e 테스트', () => {
     cy.get('.restaurant[data-id="7"]').find('.restaurant-star-icon').click();
     cy.get('.restaurant[data-id="1"]').find('.restaurant-star-icon').click();
 
-    cy.get('#favorite-restaurants').click();
+    cy.get('label[for="favorite-restaurants"]').click();
 
     cy.get('.restaurant[data-id="7"]').click();
     cy.get('#restaurant-information-star').click();
@@ -137,8 +137,6 @@ describe('자주 가는 음식점 e2e 테스트', () => {
 
     cy.reload();
 
-    cy.get('.restaurant[data-id="7"]')
-      .find('.restaurant-star-icon')
-      .should('have.class', 'favorite');
+    cy.get('.restaurant[data-id="7"]').find('.restaurant-star-icon').should('have.class', 'favorite');
   });
 });
