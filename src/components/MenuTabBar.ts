@@ -29,14 +29,22 @@ class MenuTabBar extends Component {
   }
 
   setEvent() {
-    on($('.all-restaurant-button'), 'click', () => {
-      this.tabToggle = Tab.All;
-      eventBus.dispatch('@click-tab', this.tabToggle);
+    on({
+      target: $('.all-restaurant-button'),
+      eventName: 'click',
+      handler: () => {
+        this.tabToggle = Tab.All;
+        eventBus.dispatch('@click-tab', this.tabToggle);
+      },
     });
 
-    on($('.favorite-restaurant-button'), 'click', () => {
-      this.tabToggle = Tab.Favorite;
-      eventBus.dispatch('@click-tab', this.tabToggle);
+    on({
+      target: $('.favorite-restaurant-button'),
+      eventName: 'click',
+      handler: () => {
+        this.tabToggle = Tab.Favorite;
+        eventBus.dispatch('@click-tab', this.tabToggle);
+      },
     });
 
     return this;

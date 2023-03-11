@@ -31,12 +31,20 @@ class FilterBar extends Component {
     const $categoryFilter = $<HTMLSelectElement>('#category-filter');
     const $sortingFilter = $<HTMLSelectElement>('#sorting-filter');
 
-    on($categoryFilter, 'change', () => {
-      this.#filterOption.category = $categoryFilter.value as Category;
+    on({
+      target: $categoryFilter,
+      eventName: 'change',
+      handler: () => {
+        this.#filterOption.category = $categoryFilter.value as Category;
+      },
     });
 
-    on($sortingFilter, 'change', () => {
-      this.#filterOption.order = $sortingFilter.value as Order;
+    on({
+      target: $sortingFilter,
+      eventName: 'change',
+      handler: () => {
+        this.#filterOption.order = $sortingFilter.value as Order;
+      },
     });
 
     return this;

@@ -28,14 +28,26 @@ class AddModalContainer extends Component {
   }
 
   setEvent() {
-    on($('.submit-restaurant'), 'click', this.handleSubmit.bind(this));
-
-    on($('.modal-backdrop'), 'click', () => {
-      this.hide();
+    on({
+      target: $('.submit-restaurant'),
+      eventName: 'click',
+      handler: this.handleSubmit.bind(this),
     });
 
-    on($('.cancel'), 'click', () => {
-      this.hide();
+    on({
+      target: $('.modal-backdrop'),
+      eventName: 'click',
+      handler: () => {
+        this.hide();
+      },
+    });
+
+    on({
+      target: $('.cancel'),
+      eventName: 'click',
+      handler: () => {
+        this.hide();
+      },
     });
 
     return this;
@@ -70,7 +82,7 @@ class AddModalContainer extends Component {
   }
 
   updateRestaurant(restaurantInput: IRestaurantInput) {
-    return restaurantStore.addList(restaurantInput).getFilteredList();
+    return restaurantStore.addList(restaurantInput);
   }
 
   // ! submit 이벤트 => event 에서 값을 추출할 수 있다. (click이벤트에서 submit이벤트로 변경)

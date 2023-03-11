@@ -58,7 +58,11 @@ class ListContainer extends Component {
   }
 
   setEvent() {
-    on(this.$target, 'click', this.handleClickRestaurant.bind(this));
+    on({
+      target: this.$target,
+      eventName: 'click',
+      handler: this.handleClickRestaurant.bind(this),
+    });
 
     return this;
   }

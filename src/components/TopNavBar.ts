@@ -12,11 +12,15 @@ class TopNavBar extends Component {
   setEvent() {
     const btnElement = $('.add-button');
 
-    if (btnElement instanceof HTMLButtonElement) {
-      on(btnElement, 'click', () => {
+    if (!(btnElement instanceof HTMLButtonElement)) return this;
+
+    on({
+      target: btnElement,
+      eventName: 'click',
+      handler: () => {
         eventBus.dispatch('@modal-click');
-      });
-    }
+      },
+    });
 
     return this;
   }

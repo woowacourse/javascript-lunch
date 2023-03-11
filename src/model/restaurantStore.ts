@@ -1,4 +1,3 @@
-import RestaurantItem from '@res/components/RestaurantItem';
 import { Category, Order } from '@res/constants/enum';
 import IRenderOptions from '@res/interfaces/IRenderOptions';
 import { IRestaurantInput, IRestaurant } from '@res/interfaces/IRestaurantInput';

@@ -1,3 +1,9 @@
+interface addEvent {
+  target: EventTarget;
+  eventName: string;
+  handler: (event: Event) => void;
+}
+
 export const $ = <T extends HTMLElement>(
   selector: string,
   scope: Document | HTMLElement = document
@@ -22,11 +28,7 @@ export const all$ = <T extends HTMLElement>(
   return Array.from(scope.querySelectorAll<T>(selector));
 };
 
-export const on = (
-  target: EventTarget,
-  eventName: string,
-  handler: (event: Event) => void
-): void => {
+export const on = ({ target, eventName, handler }: addEvent): void => {
   target.addEventListener(eventName, handler);
 };
 

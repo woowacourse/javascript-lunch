@@ -28,14 +28,29 @@ export default class DetailModal extends Component {
   }
 
   setEvent() {
-    on($('.favorite-icon', this.$target), 'click', this.handleClickFavorite.bind(this));
+    on({
+      target: $('.favorite-icon', this.$target),
+      eventName: 'click',
+      handler: this.handleClickFavorite.bind(this),
+    });
 
-    // delete-restaurant
-    on($('.delete-restaurant', this.$target), 'click', this.handleDeleteRestaurant.bind(this));
-    // close-modal
-    on($('.close-modal'), 'click', this.handleCloseModal.bind(this));
-    // modal-backdrop
-    on($('.modal-backdrop'), 'click', this.handleCloseModal.bind(this));
+    on({
+      target: $('.delete-restaurant', this.$target),
+      eventName: 'click',
+      handler: this.handleDeleteRestaurant.bind(this),
+    });
+
+    on({
+      target: $('.close-modal'),
+      eventName: 'click',
+      handler: this.handleCloseModal.bind(this),
+    });
+
+    on({
+      target: $('.modal-backdrop'),
+      eventName: 'click',
+      handler: this.handleCloseModal.bind(this),
+    });
 
     return this;
   }
