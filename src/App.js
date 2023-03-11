@@ -4,7 +4,7 @@ import modal from './component/modal';
 import restaurantList from './component/restaurantList';
 import restaurantFilterContainer from './component/restaurantFilterContainer';
 import { $ } from './utils/dom';
-import ListStorage from './utils/ListStorage';
+import CustomStorage from './utils/CustomStorage';
 import { DEFAULT_CATEGORY } from './constants';
 
 class App {
@@ -14,7 +14,7 @@ class App {
 
   constructor(root) {
     this.#root = root;
-    this.#storage = new ListStorage('restaurants');
+    this.#storage = new CustomStorage('restaurants', []);
     this.#initRestaurants();
   }
 
