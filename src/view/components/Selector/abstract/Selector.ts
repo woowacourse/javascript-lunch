@@ -1,8 +1,4 @@
-type SelectorStyle = {
-  name: 'category' | 'sorting';
-  id: 'category-filter' | 'sorting-filter';
-  options: { value: string; name: string }[];
-};
+import { SelectorStyle } from '../type/SelectorType';
 
 class Selector {
   #target;
