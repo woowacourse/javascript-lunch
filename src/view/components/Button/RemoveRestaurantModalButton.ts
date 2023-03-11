@@ -10,15 +10,16 @@ class RemoveRestaurantModalButton extends Button {
 
   removeRestaurantEvent(id: number) {
     actions.removeRestaurant(id);
+
     new RestaurantList($('.restaurant-list-wrapper')).render();
   }
 
   addEvent(eventTarget: Element) {
     if (eventTarget.classList.contains('remove')) {
-      this.removeRestaurantEvent(Number(eventTarget.parentElement?.id));
+      this.removeRestaurantEvent(Number(eventTarget.closest('li')?.id));
     }
 
-    this.closeModal();
+    this.closeModal(eventTarget);
 
     return this;
   }

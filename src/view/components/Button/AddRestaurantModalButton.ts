@@ -28,7 +28,7 @@ class AddRestaurantModalButton extends Button {
       this.addRestaurantEvent();
     }
 
-    this.closeModal();
+    this.closeModal(eventTarget);
     return this;
   }
 }

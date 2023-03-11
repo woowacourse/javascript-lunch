@@ -7,7 +7,7 @@ class CancelModalButton extends Button {
 
   addEvent(eventTarget: Element) {
     if (eventTarget.classList.contains('cancel')) {
-      this.closeModal();
+      this.closeModal(eventTarget);
     }
 
     return this;

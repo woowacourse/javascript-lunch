@@ -31,8 +31,14 @@ class Button {
     return this;
   }
 
-  closeModal() {
-    $('.modal')?.classList.remove('modal--open');
+  closeModal(eventTarget: Element) {
+    if (eventTarget.closest('.modal-add-wrapper')) {
+      $(`.modal-add-wrapper .modal`).classList.remove('modal--open');
+    }
+
+    if (eventTarget.closest('.modal-item-wrapper')) {
+      $(`.modal-item-wrapper .modal`).classList.remove('modal--open');
+    }
   }
 
   setEvent() {
