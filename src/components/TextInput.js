@@ -1,7 +1,7 @@
 class TextInput extends HTMLElement {
   getTextValue() {
     const id = this.getAttribute('id');
-    return this.shadowRoot.querySelector(`#${id}`).value;
+    return this.shadowRoot.querySelector(`#${id}`).value.trim();
   }
 
   static get observedAttributes() {
