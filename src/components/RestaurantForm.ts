@@ -115,8 +115,8 @@ function RestaurantFormTemplate() {
 
     <!-- 취소/추가 버튼 -->
     <div class="button-container">
-      <button data-type="cancel" type="button" class="button button--secondary text-caption" aria-label='submit-cancel'>취소하기</button>
-      <button data-type="submit" type='submit'class="button button--primary text-caption" aria-label='submit-form'>추가하기</button>
+      <button data-type="cancel" type="button" class="button button--secondary text-caption" >취소하기</button>
+      <button data-type="submit" type='submit'class="button button--primary text-caption" >추가하기</button>
     </div>
   `;
 }
