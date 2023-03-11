@@ -4,7 +4,7 @@ import { ImageByCategory, FavoriteImage } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
-import { $, newState, on } from '@res/utils/domUtils';
+import { all$, $, newState, on } from '@res/utils/domUtils';
 
 class ListContainer extends Component {
   #state: {
@@ -23,18 +23,35 @@ class ListContainer extends Component {
     eventBus
       .subscribe('@add-restaurant', this.handleAdd.bind(this))
       .subscribe('@change-filter', this.handleFilter.bind(this))
-      .subscribe('@reload-filter', this.handleTabChange.bind(this));
+      .subscribe('@reload-filter', this.handleTabChange.bind(this))
+      .subscribe('@toggle-favorite', this.handleToggleFavorite.bind(this));
 
     return this;
   }
 
+  handleToggleFavorite(id: number) {
+    all$('li', this.$target).forEach((elem) => {
+      if (Number(elem.dataset.id) === id) {
+        const $image = $<HTMLImageElement>('.favorite-icon', elem);
+        if ($image.classList.contains('favorite')) {
+          $image.src = FavoriteImage.favoriteOff;
+          $image.classList.remove('favorite');
+        } else {
+          $image.src = FavoriteImage.favoriteOn;
+          $image.classList.add('favorite');
+        }
+      }
+    });
+  }
+
   setEvent() {
+    // event 클릭
     on(this.$target, 'click', (event) => {
       const $eventTarget = event.target as HTMLElement;
       const $closestDiv = $eventTarget.closest('div')!;
-      const $restaurantItem = $closestDiv.closest('li')!;
       const id = Number($closestDiv.closest('li')!.dataset.id);
 
+      // event 클릭 - favorite
       if ($closestDiv.className === 'favorite') {
         const $image = $<HTMLImageElement>('img', $closestDiv);
 
@@ -46,8 +63,9 @@ class ListContainer extends Component {
           $image.classList.add('favorite');
         }
         restaurantStore.toggleFavorite(id);
+        // event 클릭 - item
       } else {
-        console.log(restaurantStore.getItemById(id));
+        eventBus.dispatch('@click-detail', id, restaurantStore.getItemById.bind(restaurantStore));
       }
     });
 
@@ -109,7 +127,7 @@ class ListContainer extends Component {
   favoriteImageTemplate(favorite: boolean) {
     return `<img src=${
       favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff
-    } alt='즐겨찾기' class="category-icon ${favorite ? 'favorite' : ''}"/>`;
+    } alt='즐겨찾기' class="favorite-icon ${favorite ? 'favorite' : ''}"/>`;
   }
 
   categoryImageTemplate(category: string): string {
