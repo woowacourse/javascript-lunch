@@ -5,15 +5,21 @@ class DeleteQustionModal extends Modal {
     this.attachShadow({ mode: 'open' });
     this.render();
     this.setComponentStyle(3);
-    this.closeModalEvent();
+    this.modalEvent();
   }
 
-  closeModalEvent() {
+  modalEvent() {
     this.shadowRoot
       .querySelector('#modalBackdrop')
       .addEventListener('click', () => {
         this.closeModal();
       });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Escape') {
+        this.closeModal();
+      }
+    });
   }
 
   closeModal() {

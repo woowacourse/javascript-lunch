@@ -30,6 +30,7 @@ const RestaurantList = {
     const findIndex = restaurants.findIndex(
       (restaurant) => restaurant.name === name
     );
+
     if (findIndex === -1) return;
 
     const updatedRestaurat = restaurants;

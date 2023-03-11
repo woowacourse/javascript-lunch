@@ -2,33 +2,17 @@ import { $, shortenString } from '../utils';
 import RestaurantList from '../domain/RestaurantList.ts';
 
 class RestaurantBox extends HTMLElement {
-  connectedCallback() {
-    this.attachShadow({ mode: 'open' });
-    this.render();
-    this.setComponentStyle();
-    this.showDetailEvent();
-    this.favoriteClickEvent();
-  }
-
-  favoriteClickEvent() {
+  favoriteClickEvent({ name }) {
     this.shadowRoot
       .querySelector('favorite-image')
       .addEventListener('click', (event) => {
         event.stopPropagation();
-        const name = this.getAttribute('name');
         RestaurantList.updateFavorite(name);
         $('restaurant-boxes').drawRestaurants();
       });
   }
 
-  showDetailEvent() {
-    const name = this.getAttribute('name');
-    const category = this.getAttribute('category');
-    const distance = this.getAttribute('distance');
-    const description = this.getAttribute('description') || '';
-    const link = this.getAttribute('link') || '';
-    const isFavorite = this.getAttribute('isFavorite');
-
+  showDetailEvent({ name, category, distance, description, link, isFavorite }) {
     this.shadowRoot.querySelector('li').addEventListener('click', () => {
       $('restaurant-detail-modal').openModal();
       $('restaurant-detail-modal').renderDetailRestaurant({
@@ -42,24 +26,7 @@ class RestaurantBox extends HTMLElement {
     });
   }
 
-  static get observedAttributes() {
-    return [
-      'category',
-      'name',
-      'distance',
-      'description',
-      'link',
-      'isFavorite',
-    ];
-  }
-
-  render() {
-    const name = this.getAttribute('name');
-    const category = this.getAttribute('category');
-    const distance = this.getAttribute('distance');
-    const description = this.getAttribute('description') || '';
-    const isFavorite = this.getAttribute('isFavorite');
-
+  render({ name, category, distance, description, isFavorite }) {
     const NAME_SLICE_NUMBER = 15;
     const DESCRIPTION_SLICE_NUMBER = 30;
 
@@ -159,6 +126,14 @@ class RestaurantBox extends HTMLElement {
 `;
 
     this.shadowRoot.append(componentStyle);
+  }
+
+  update(restaurant) {
+    this.attachShadow({ mode: 'open' });
+    this.render(restaurant);
+    this.setComponentStyle();
+    this.showDetailEvent(restaurant);
+    this.favoriteClickEvent(restaurant);
   }
 }
 

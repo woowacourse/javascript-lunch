@@ -30,8 +30,10 @@ class RestaurantBoxes extends HTMLElement {
     this.restaurantListRender(filteredList);
   }
 
-  getRestaurant({ category, name, distance, description, link, isFavorite }) {
-    return `<restaurant-box category="${category}" name="${name}" distance="${distance}" description="${description}" link="${link}" isFavorite="${isFavorite}"/>`;
+  getRestaurant(restaurant) {
+    const restaurantBox = document.createElement('restaurant-box');
+    restaurantBox.update(restaurant);
+    return restaurantBox;
   }
 
   restaurantListRender(restaurants) {
@@ -41,7 +43,7 @@ class RestaurantBoxes extends HTMLElement {
       const restaurantTemplate = this.getRestaurant(restaurant);
       this.shadowRoot
         .querySelector('#restaurantList')
-        .insertAdjacentHTML('beforeend', restaurantTemplate);
+        .insertAdjacentElement('beforeend', restaurantTemplate);
     });
   }
 

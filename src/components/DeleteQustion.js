@@ -10,22 +10,26 @@ class DeleteQustion extends HTMLElement {
     this.deleteClickEvent();
   }
 
-  deleteClickEvent() {
-    this.shadowRoot
-      .querySelector('#deleteRestaurant')
-      .addEventListener('click', () => {
-        const name = this.getAttribute('name');
-        RestaurantList.delete(name);
-        $('#deleteQuestionModal').closeModal();
-        $('#openDetail').closeModal();
-        $('restaurant-boxes').drawRestaurants();
-      });
-  }
-
   cancleClickEvent() {
     this.shadowRoot.querySelector('#cancel').addEventListener('click', () => {
       $('#deleteQuestionModal').closeModal();
     });
+  }
+
+  deleteRestaurant() {
+    const name = this.getAttribute('name');
+    RestaurantList.delete(name);
+    $('#deleteQuestionModal').closeModal();
+    $('#openDetail').closeModal();
+    $('restaurant-boxes').drawRestaurants();
+  }
+
+  deleteClickEvent() {
+    this.shadowRoot
+      .querySelector('#deleteRestaurant')
+      .addEventListener('click', () => {
+        this.deleteRestaurant();
+      });
   }
 
   render() {
