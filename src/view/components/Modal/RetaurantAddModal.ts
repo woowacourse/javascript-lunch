@@ -1,5 +1,6 @@
 import { $ } from '../../../utils/querySelector';
-import Button from '../Button';
+import AddRestaurantModalButton from '../Button/AddRestaurantModalButton';
+import CancelModalButton from '../Button/CancelModalButton';
 import Modal from './abstract/Modal';
 
 class RestaurantAddModal extends Modal {
@@ -66,23 +67,23 @@ class RestaurantAddModal extends Modal {
   }
 
   mounted() {
-    new Button({
-      $target: $('.button-container'),
-      info: {
+    new CancelModalButton($('.button-container'))
+      .render({
         buttonType: 'button',
         buttonStyle: 'button--secondary',
         buttonText: '취소하기',
-      },
-    });
+        func: 'cancel',
+      })
+      .setEvent();
 
-    new Button({
-      $target: $('.button-container'),
-      info: {
+    new AddRestaurantModalButton($('.button-container'))
+      .render({
         buttonType: 'submit',
         buttonStyle: 'button--primary',
         buttonText: '추가하기',
-      },
-    });
+        func: 'add',
+      })
+      .setEvent();
 
     return this;
   }
