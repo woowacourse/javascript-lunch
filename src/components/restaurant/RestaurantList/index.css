@@ -1,0 +1,14 @@
+ul:not(:empty) + slot[name='placeholder'] {
+  display: none;
+}
+
+.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 120px;
+
+  font-size: 1.2rem;
+  color: var(--grey-300);
+}
