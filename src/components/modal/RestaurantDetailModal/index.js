@@ -83,7 +83,7 @@ class RestaurantDetailModal {
   }
 
   setEvent(restaurantList) {
-    this.setOnClickFavoriteToggleEvent(restaurantList);
+    this.setOnClickFavoriteEvent(restaurantList);
     this.setOnClickRemoveEvent(restaurantList);
     this.setOnClickCloseEvent();
   }

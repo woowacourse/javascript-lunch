@@ -1,8 +1,8 @@
 import "./index.css";
-import AddRestaurantFormModal from "../AddRestaurantFormModal";
-import RestaurantDetailModal from "../RestaurantDetailModal";
+import AddRestaurantFormModal from "./AddRestaurantFormModal";
+import RestaurantDetailModal from "./RestaurantDetailModal";
 
-class ModalContainer {
+class Modal {
   $target;
 
   constructor($target) {
@@ -48,4 +48,4 @@ class ModalContainer {
   }
 }
 
-export default ModalContainer;
+export default Modal;
