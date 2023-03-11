@@ -1,15 +1,25 @@
 import { RestaurantType } from "../Template";
 import { $ } from "../until/ControlDom";
 
-export const FilterSort = {
+interface FilterSortInterFace {
+  filterState: string;
+  sortState: string;
+
+  getNewList: (restaurantList: RestaurantType[]) => RestaurantType[];
+  filter: (restaurantList: RestaurantType[]) => RestaurantType[];
+  sort: (restaurantList: RestaurantType[]) => RestaurantType[];
+  setFilterSortState: () => void;
+}
+
+export const FilterSort: FilterSortInterFace = {
   filterState: "전체",
   sortState: "name",
 
-  getNewList(restaurantList: RestaurantType[]): RestaurantType[] {
+  getNewList(restaurantList) {
     return this.sort(this.filter(restaurantList));
   },
 
-  filter(restaurantList: RestaurantType[]): RestaurantType[] {
+  filter(restaurantList) {
     if (this.filterState === "전체") return restaurantList;
 
     return restaurantList.filter(
@@ -17,7 +27,7 @@ export const FilterSort = {
     );
   },
 
-  sort(restaurantList: RestaurantType[]): RestaurantType[] {
+  sort(restaurantList) {
     if (this.sortState === "distance") {
       const result = restaurantList.sort((current, next) => {
         return current.takeTime - next.takeTime;
