@@ -2,8 +2,8 @@ import { FormValue, Errors } from '../types';
 import { ERROR_MESSAGE, MESSAGE, SELECT_OPTIONS } from '../constants/constants';
 import { CAPTION_ATTRIBUTE, FORM_ATTRIBUTE } from '../constants/domAttributes';
 import { $ } from '../utils/domSelectors';
-import Select from './Select';
 import restaurantFormValidator from '../validators/restaurantFormValidator';
+import Select from './Select';
 import Caption from './FormCaption';
 import { createInput } from '../template/InputTemplate';
 
