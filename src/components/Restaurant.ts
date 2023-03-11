@@ -1,17 +1,14 @@
-import categoryKoreanImg from '../../templates/category-korean.png';
-import categoryAsianImg from '../../templates/category-asian.png';
-import categoryChineseImg from '../../templates/category-chinese.png';
-import categoryEtcImg from '../../templates/category-etc.png';
-import categoryJapaneseImg from '../../templates/category-japanese.png';
-import categoryWesternImg from '../../templates/category-western.png';
+import { CategoryImgs } from '../data/images';
+
+const { asian, korean, chinese, japanese, western, etc } = CategoryImgs;
 
 const category = {
-  한식: categoryKoreanImg,
-  중식: categoryChineseImg,
-  일식: categoryJapaneseImg,
-  양식: categoryWesternImg,
-  아시안: categoryAsianImg,
-  기타: categoryEtcImg,
+  한식: korean,
+  중식: chinese,
+  일식: japanese,
+  양식: western,
+  아시안: asian,
+  기타: etc,
 };
 
 export interface RestaurantType {

@@ -1,10 +1,10 @@
-import RestaurantaddButtonImg from '../../templates/add-button.png';
+import { Button } from '../data/images';
 
 const ModalButton = {
   template() {
     return `
     <button type="button" class="gnb__button" aria-label="음식점 추가">
-    <img src=${RestaurantaddButtonImg} alt="음식점 추가">
+    <img src=${Button.add} alt="음식점 추가">
     </button>`;
   },
 
