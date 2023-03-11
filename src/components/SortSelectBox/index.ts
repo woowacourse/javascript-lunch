@@ -12,7 +12,7 @@ const options = [
 ];
 
 export default class SortSelectBox extends SelectBox {
-  constructor() {
-    super(attributes, options);
+  constructor(targetElement: Element) {
+    super(targetElement, attributes, options);
   }
 }

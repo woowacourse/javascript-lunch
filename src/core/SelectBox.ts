@@ -12,16 +12,18 @@ type Option = {
 };
 
 export default class SelectBox {
+  #targetElement;
   #attributes;
   #options;
 
-  constructor(attributes: Attributes, options: Options) {
+  constructor(targetElement: Element, attributes: Attributes, options: Options) {
+    this.#targetElement = targetElement;
     this.#attributes = attributes;
     this.#options = options;
   }
 
-  render(targetElement: Element) {
-    targetElement.insertAdjacentHTML('beforeend', this.#getTemplate());
+  render() {
+    this.#targetElement.insertAdjacentHTML('beforeend', this.#getTemplate());
   }
 
   #getTemplate() {

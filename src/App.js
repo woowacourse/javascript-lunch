@@ -22,6 +22,8 @@ export default class App {
 
   #modal;
   #restaurantList;
+  #categorySelectBox;
+  #sortSelectBox;
 
   constructor() {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
@@ -29,10 +31,12 @@ export default class App {
 
     this.#modal = new Modal($('#modal'));
     this.#restaurantList = new RestaurantList($('#restaurant-list-container'));
+    this.#categorySelectBox = new CategorySelectBox($('#restaurant-filter-container'));
+    this.#sortSelectBox = new SortSelectBox($('#restaurant-filter-container'));
 
     this.#modal.render();
-    new CategorySelectBox().render($('#restaurant-filter-container'));
-    new SortSelectBox().render($('#restaurant-filter-container'));
+    this.#categorySelectBox.render();
+    this.#sortSelectBox.render();
     this.renderRestaurantListByFilterOptions();
 
     this.bindEvents();

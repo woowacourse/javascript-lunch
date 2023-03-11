@@ -17,7 +17,7 @@ const options = [
 ];
 
 export default class CategorySelectBox extends SelectBox {
-  constructor() {
-    super(attributes, options);
+  constructor(targetElement: Element) {
+    super(targetElement, attributes, options);
   }
 }
