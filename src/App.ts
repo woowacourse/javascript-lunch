@@ -1,8 +1,7 @@
 import LunchHeader from './components/Header';
-import Modal from './components/Modal';
 import RestaurantItems from './components/RestaurantItems';
-import SelectBox from './components/SelectBox';
-import Tab from './components/Tab';
+import LunchTab from './components/Tab';
+import store from './store';
 
 class App extends HTMLElement {
   constructor() {
@@ -22,6 +21,7 @@ class App extends HTMLElement {
 
   connectedCallback() {
     this.setLunchHeaderProps();
+    this.setLunchTabProps();
   }
 
   private setLunchHeaderProps() {
@@ -33,6 +33,44 @@ class App extends HTMLElement {
     };
 
     $lunchHeader.setProps({ onModalButtonClick });
+  }
+
+  private setLunchTabProps() {
+    const $lunchTab = this.querySelector('lunch-tab') as LunchTab;
+    const props = {
+      defaultActiveKey: '1',
+      items: [
+        {
+          key: '1',
+          label: '모든 음식점',
+          children: '모든 음식점 리스트',
+        },
+        {
+          key: '2',
+          label: '자주 가는 음식점',
+          children: '자주 가는 음식점 리스트',
+        },
+      ],
+      onChange: (key: string) => {
+        const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
+          typeof RestaurantItems
+        >;
+        const $selectBox = document.querySelector('select-box') as HTMLElement;
+
+        // 모든 음식점
+        if (key === '1') {
+          $restaurantItems.render(store.restaurants);
+          $selectBox.style.display = '';
+        }
+
+        if (key === '2') {
+          $restaurantItems.render(store.getFavoriteRestaurants());
+          $selectBox.style.display = 'none';
+        }
+      },
+    };
+
+    $lunchTab.setProps(props);
   }
 }
 
