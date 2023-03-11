@@ -17,7 +17,6 @@ class RestaurantInformation {
 
     deleteButton.addEventListener('click', () => {
       const itemElement = $<HTMLDivElement>('#restaurant-information');
-      console.log(itemElement.dataset.id);
       handleDeleteRestaurant(Number(itemElement.dataset.id));
       handleCloseModal();
     });
@@ -112,7 +111,6 @@ class RestaurantInformation {
   renderContent(restaurant: Restaurant) {
     const modalContainer = $<HTMLDivElement>('#restaurant-information');
     modalContainer.dataset.id = String(restaurant.id);
-    console.log(modalContainer.dataset.id);
 
     const informationContainer = $<HTMLDivElement>('.restaurant-detail__info-container');
     informationContainer.replaceChildren();
