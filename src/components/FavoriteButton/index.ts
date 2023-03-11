@@ -7,6 +7,7 @@ import { renderRestaurantList } from "../RestaurantList/handleRestaurantList";
 class FavoriteButton extends HTMLElement {
   restaurantId: string | null;
   favorite: string | null;
+
   constructor() {
     super();
     this.restaurantId = this.getAttribute("restaurant-id");
@@ -14,6 +15,7 @@ class FavoriteButton extends HTMLElement {
     this.render();
     this.onClickFavoriteButton(this.restaurantId as string);
   }
+
   render() {
     this.innerHTML = `
     <img
