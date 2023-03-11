@@ -64,21 +64,10 @@ describe('App component', () => {
       .should('include', 'favorite-icon-filled.png');
   });
 
-  // it('opens and closes the bottom sheet', () => {
-  //   cy.get('.restaurant-item .restaurant__name').first().click();
-  //   cy.get('.bottom-sheet-container').should('be.visible');
-  //   cy.get('.close-bottom-sheet').click();
-  //   cy.get('.bottom-sheet-container').should('not.be.visible');
-  // });
-  //
-  // it('deletes a restaurant', () => {
-  //   cy.get('.restaurant-item .restaurant__name').first().click();
-  //   cy.get('.delete-restaurant').click();
-  //   cy.get('.bottom-sheet-container').should('not.be.visible');
-  //   cy.get('.restaurant-list-container .restaurant-item').should(
-  //     'have.length.greaterThan',
-  //     0
-  //   );
-  // });
-  //
+  it('음식점 삭제 테스트', () => {
+    cy.get('.tabview__content [id^="restaurant-"]').last().click();
+    cy.get('.delete-restaurant').click();
+
+    cy.get('.tabview__content [id^="restaurant-"]').should('have.length', 2);
+  });
 });
