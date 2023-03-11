@@ -2,8 +2,6 @@ import { parseAttribute } from './../../utils/common/domHelper';
 import { getImageSrc } from '../../utils/common/getImageSrc';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { Attribute } from '../../utils/common/domHelper';
-import '../../assets/favorite-icon-filled.png';
-import '../../assets/favorite-icon-lined.png';
 interface RestaurantProps {
   info: RestaurantInfo;
   attribute: Attribute;

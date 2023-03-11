@@ -1,5 +1,4 @@
 import { useEvents } from '../../utils/core';
-import '../../assets/add-button.png';
 import { Button } from './Button';
 
 interface HeaderProps {
