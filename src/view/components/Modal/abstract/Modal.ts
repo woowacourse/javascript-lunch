@@ -5,23 +5,23 @@ class Modal {
     this.#target = $target;
   }
 
-  innerTemplate() {
+  innerTemplate(value?: object) {
     return ``;
   }
 
-  template() {
+  template(value?: object) {
     return `
       <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
-        ${this.innerTemplate()}
+        ${this.innerTemplate(value)}
         </div>
       </div>
     `;
   }
 
-  render() {
-    this.#target.innerHTML = this.template();
+  render(value?: object) {
+    this.#target.innerHTML = this.template(value);
     this.mounted();
 
     return this;
