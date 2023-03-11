@@ -1,21 +1,30 @@
+import { Category, Order } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
 import { ImageByCategory, FavoriteImage, toggleFavoriteIcon } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
+import IRenderOptions from '@res/interfaces/IRenderOptions';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
+import { TabToggle } from '@res/interfaces/types';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { all$, $, newState, on } from '@res/utils/domUtils';
 
 class ListContainer extends Component {
   #state: {
-    restaurantList: IRestaurant[];
+    renderOptions: IRenderOptions;
   };
 
   constructor(elem: HTMLElement) {
     super(elem);
 
     this.#state = newState(
-      { restaurantList: restaurantStore.getFilteredList() },
+      {
+        renderOptions: {
+          category: Category.All,
+          order: Order.Name,
+          tab: 'all',
+        },
+      },
       this.render.bind(this)
     );
 
@@ -26,13 +35,11 @@ class ListContainer extends Component {
     eventBus
       .subscribe('@add-restaurant', this.handleAdd.bind(this))
       .subscribe('@change-filter', this.handleFilter.bind(this))
-      .subscribe('@reload-filter', this.handleTabChange.bind(this))
+      .subscribe('@click-tab', this.handleTabChange.bind(this))
       .subscribe('@toggle-favorite', this.handleToggleFavorite.bind(this));
 
     return this;
   }
-
-  // 모달에서 즐겨찾기 버튼 추가시 변경사항 적용
 
   handleToggleFavorite(id: number) {
     all$('li', this.$target).forEach((elem) => {
@@ -79,34 +86,32 @@ class ListContainer extends Component {
     return element.classList.contains('favorite-icon');
   }
 
-  handleTabChange(detail: any): void {
-    const { category, order, tab } = detail;
-
-    if (tab === 'all') {
-      this.handleFilter({ category, order });
-      return;
-    }
-
-    this.#state.restaurantList = restaurantStore.getFavoriteList();
+  handleTabChange(tab: TabToggle): void {
+    console.log(tab);
+    this.#state.renderOptions = { ...this.#state.renderOptions, tab };
   }
 
-  handleAdd(restaurant: IRestaurant): void {
-    this.#state.restaurantList = [...this.#state.restaurantList, restaurant];
+  // TODO: add 시에 아무 데이터 안넘겨 줘도 됨.
+  handleAdd(): void {
+    this.render();
   }
 
   handleFilter({ category, order }: IFilterOption): void {
-    this.#state.restaurantList = restaurantStore.getFilteredList(category, order) || [];
+    this.#state.renderOptions = { ...this.#state.renderOptions, category, order };
   }
 
   render() {
-    this.$target.innerHTML = this.template();
+    const restaurantList = restaurantStore.getList({ ...this.#state.renderOptions });
+    this.$target.innerHTML = this.template(restaurantList);
+
+    console.log(this.#state.renderOptions, 'renderOptions');
 
     return this;
   }
 
-  template(): string {
+  template(restaurantList: IRestaurant[]): string {
     return `<ul class="restaurant-list">
-      ${this.listTemplate([...this.#state.restaurantList])}
+      ${this.listTemplate([...restaurantList])}
     </ul>`;
   }
 
