@@ -11,6 +11,8 @@ export const onClickCancelButton = () => {
 export const onClickDeleteButton = (id: string) => {
   const deleteButton = document.getElementById("deleteButton");
   deleteButton?.addEventListener("click", () => {
-    deleteRestaurant(id);
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      deleteRestaurant(id);
+    }
   });
 };
