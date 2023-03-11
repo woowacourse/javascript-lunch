@@ -39,3 +39,12 @@ export const newState = (state: any, handler: any) => {
     },
   });
 };
+
+type ImageSrc = { onImage: string; offImage: string };
+
+export const toggleImageSource =
+  ({ onImage, offImage }: ImageSrc) =>
+  (imageElement: HTMLImageElement): void => {
+    // imageElement.src.includes(onImage.slice(1)) : image element의 src 값이 localhost:8080/... .png 로 나타남.
+    imageElement.src = imageElement.src.includes(onImage.slice(1)) ? offImage : onImage;
+  };

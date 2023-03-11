@@ -1,3 +1,5 @@
+import { toggleImageSource } from '@res/utils/domUtils';
+
 interface ImageMap {
   [key: string]: string;
 }
@@ -15,3 +17,8 @@ export const FavoriteImage: ImageMap = {
   favoriteOn: './favorite-icon-filled.png',
   favoriteOff: './favorite-icon-lined.png',
 };
+
+export const toggleFavoriteImageIn = toggleImageSource({
+  onImage: './favorite-icon-filled.png',
+  offImage: './favorite-icon-lined.png',
+});
