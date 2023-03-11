@@ -10,13 +10,13 @@ class Select {
     this.options = options;
   }
 
-  addSelectChangeEvent(onChange: CallableFunction) {
+  addSelectChangeEvent(handleOptionChange: CallableFunction) {
     const element = $<HTMLSelectElement>(`#${this.attributes.id}`);
 
     element.addEventListener('change', (event: Event) => {
       const target = event.target as HTMLSelectElement;
       const selectedOption = target.value;
-      onChange({ [target.name]: selectedOption });
+      handleOptionChange({ [target.name]: selectedOption });
     });
   }
 

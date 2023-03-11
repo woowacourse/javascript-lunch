@@ -1,10 +1,10 @@
 import { $ } from '../utils/domSelectors';
 
-function addHeaderEvent(onButtonClick: CallableFunction) {
+function addHeaderEvent(handleButtonClick: CallableFunction) {
   const addButton = $<HTMLButtonElement>('.gnb__button');
 
   addButton.addEventListener('click', () => {
-    onButtonClick();
+    handleButtonClick();
   });
 }
 

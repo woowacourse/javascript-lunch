@@ -13,7 +13,7 @@ class RestaurantListContainer {
 
   addEvent(
     handleFavoriteIconClick: CallableFunction,
-    handleItemClick: CallableFunction,
+    handleRestaurantClick: CallableFunction,
     handleInformation: CallableFunction
   ) {
     this.restaurantListElement.addEventListener('click', (event: Event) => {
@@ -24,7 +24,7 @@ class RestaurantListContainer {
         handleFavoriteIconClick(Number(itemElement.dataset.id));
         changeRestaurantFavoriteIcon(target);
       } else {
-        handleItemClick();
+        handleRestaurantClick();
         handleInformation(Number(itemElement.dataset.id));
       }
     });
