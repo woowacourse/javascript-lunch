@@ -20,12 +20,9 @@ export default class Modal {
             <label for="category text-caption">카테고리</label>
             <select name="category" id="category" required>
               <option value="">선택해 주세요</option>
-              <option value="${CATEGORY_NAME.korean}">${CATEGORY_NAME.korean}</option>
-              <option value="${CATEGORY_NAME.chinese}">${CATEGORY_NAME.chinese}</option>
-              <option value="${CATEGORY_NAME.japanese}">${CATEGORY_NAME.japanese}</option>
-              <option value="${CATEGORY_NAME.western}">${CATEGORY_NAME.western}</option>
-              <option value="${CATEGORY_NAME.asian}">${CATEGORY_NAME.asian}</option>
-              <option value="${CATEGORY_NAME.etc}">${CATEGORY_NAME.etc}</option>
+              ${Object.entries(CATEGORY_NAME).map(
+                ([key, value]) => `<option value=${value}>${value}</option>`
+              )}
             </select>
           </div>
 
@@ -40,11 +37,10 @@ export default class Modal {
             <label for="distance text-caption">거리(도보 이동 시간) </label>
             <select name="distance" id="distance" required>
               <option value="">선택해 주세요</option>
-              <option value="${DISTANCE.five}">${DISTANCE.five}분 내</option>
-              <option value="${DISTANCE.ten}">${DISTANCE.ten}분 내</option>
-              <option value="${DISTANCE.fifteen}">${DISTANCE.fifteen}분 내</option>
-              <option value="${DISTANCE.twenty}">${DISTANCE.twenty}분 내</option>
-              <option value="${DISTANCE.thirty}">${DISTANCE.thirty}분 내</option>
+              ${Object.entries(DISTANCE).map(
+                ([key, value]) =>
+                  `<option value=${value}>${value}분 내</option>`
+              )}
             </select>
           </div>
 
