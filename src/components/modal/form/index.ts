@@ -2,6 +2,7 @@ import type { Category, Distance, Restaurant } from "../../../types/restaurant";
 
 import { Modal } from "..";
 import { InputBox } from "./InputBox";
+import Random from "../../../utils/random";
 
 export class RestaurantAddForm extends HTMLFormElement {
   constructor() {
@@ -61,8 +62,9 @@ export class RestaurantAddForm extends HTMLFormElement {
     )?.getValue();
     const link = this.querySelector<InputBox>("[inputid='link']")?.getValue();
     const like = false;
+    const id = Random.generateUniqueId();
 
-    return { category, name, distance, description, link, like };
+    return { category, name, distance, description, link, like, id };
   }
 
   resetFormValues() {

@@ -1,4 +1,5 @@
 import { Modal } from "..";
+import { Info } from "./info";
 
 export class DetailModal extends HTMLDivElement {
   constructor() {
@@ -19,14 +20,31 @@ export class DetailModal extends HTMLDivElement {
     `;
   }
 
-  bindEvent(handleClickRemove: (restaurantName: string) => void) {
+  bindEvent(
+    handleClickRemove: (restaurantId: string) => void,
+    handleClickLikeIcon: (restaurantId: string) => void
+  ) {
     this.querySelector(".button--secondary")?.addEventListener("click", () => {
-      handleClickRemove(`${this.querySelector("h3")?.innerText}`);
+      const restaurantId = this.getRestaurantId();
+
+      handleClickRemove(restaurantId);
     });
 
     this.querySelector(".button--primary")?.addEventListener("click", () => {
       document.querySelector<Modal>(".modal")?.closeModal();
     });
+
+    this.querySelector(".detail-like-image")?.addEventListener("click", () => {
+      const restaurantId = this.getRestaurantId();
+
+      handleClickLikeIcon(restaurantId);
+    });
+  }
+
+  getRestaurantId() {
+    return `${this.querySelector<Info>(
+      ".restaurant-detail-container"
+    )?.getId()}`;
   }
 }
 

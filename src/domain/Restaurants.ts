@@ -30,10 +30,8 @@ class Restaurants {
     return sortedList;
   }
 
-  getRestaurantByName(restaurantName: string) {
-    return this.#list.filter(
-      (restaurant) => restaurant.name === restaurantName
-    )[0];
+  getRestaurantById(restaurantId: string) {
+    return this.#list.filter((restaurant) => restaurant.id === restaurantId)[0];
   }
 
   add(restaurant: Restaurant) {
@@ -64,17 +62,17 @@ class Restaurants {
     return this.#list;
   }
 
-  toggleLike(restaurantName: string) {
+  toggleLike(restaurantId: string) {
     this.#list = this.#list.map((restaurant) => {
-      if (restaurant.name === restaurantName)
+      if (restaurant.id === restaurantId)
         return { ...restaurant, like: !restaurant.like };
       return restaurant;
     });
   }
 
-  removeByName(restaurantName: string) {
+  removeById(restaurantId: string) {
     this.#list = this.#list.filter(
-      (restaurant) => restaurant.name !== restaurantName
+      (restaurant) => restaurant.id !== restaurantId
     );
   }
 }

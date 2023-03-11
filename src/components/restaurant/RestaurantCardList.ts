@@ -11,6 +11,7 @@ export class RestaurantCardList extends HTMLUListElement {
         .map(
           (restaurant) =>
             `<li 
+              id="${restaurant.id}"
               is="restaurant-card" 
               class="restaurant" 
               category="${restaurant.category}" 
@@ -18,7 +19,7 @@ export class RestaurantCardList extends HTMLUListElement {
               distance="${restaurant.distance}" 
               description="${restaurant.description}"
               like="${restaurant.like}" 
-              like="${restaurant.link}" 
+              link="${restaurant.link}" 
             ></li>`
         )
         .join("")}
@@ -30,16 +31,16 @@ export class RestaurantCardList extends HTMLUListElement {
     handleClickCard: (restaurantName: string) => void
   ) {
     this.addEventListener("click", (event: MouseEvent) => {
-      const restaurantName = (event.target as HTMLElement)
+      const restaurantId = (event.target as HTMLElement)
         .closest("li")
-        ?.getAttribute("name") as string;
+        ?.getAttribute("id") as string;
 
       if ((event.target as HTMLElement).className === "like-icon") {
-        handleClickLikeIcon(restaurantName);
+        handleClickLikeIcon(restaurantId);
         return;
       }
 
-      handleClickCard(restaurantName);
+      handleClickCard(restaurantId);
     });
   }
 }

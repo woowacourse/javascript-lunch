@@ -20,7 +20,7 @@ import {
   createModalDetailContent,
   DetailModal,
 } from "./components/modal/detail";
-import { createDetailInfo } from "./components/modal/detail/info";
+import { createDetailInfo, Info } from "./components/modal/detail/info";
 
 class App {
   #restaurants;
@@ -75,7 +75,10 @@ class App {
 
     document
       .querySelector<DetailModal>(".modal-detail")
-      ?.bindEvent(this.onClickRestaurantRemove.bind(this));
+      ?.bindEvent(
+        this.onClickRestaurantRemove.bind(this),
+        this.onClickDetailLikeButton.bind(this)
+      );
 
     document
       .querySelector<RestaurantCardList>(".restaurant-list")
@@ -138,15 +141,14 @@ class App {
     console.log(document.querySelector(".like-filter-container"));
   }
 
-  onClickRestaurantCard(restaurantName: string) {
-    const restaurantInfo =
-      this.#restaurants.getRestaurantByName(restaurantName);
+  onClickRestaurantCard(restaurantId: string) {
+    const restaurantInfo = this.#restaurants.getRestaurantById(restaurantId);
 
     document.querySelector<Modal>(".modal")?.openDetailModal(restaurantInfo);
   }
 
-  onClickRestaurantLikeButton(restaurantName: string) {
-    this.#restaurants.toggleLike(restaurantName);
+  onClickRestaurantLikeButton(restaurantId: string) {
+    this.#restaurants.toggleLike(restaurantId);
 
     localStorage.setItem(
       "restaurants",
@@ -156,8 +158,18 @@ class App {
     this.renderRestaurantList();
   }
 
-  onClickRestaurantRemove(restaurantName: string) {
-    this.#restaurants.removeByName(restaurantName);
+  onClickDetailLikeButton(restaurantId: string) {
+    this.onClickRestaurantLikeButton(restaurantId);
+
+    const restaurantInfo = this.#restaurants.getRestaurantById(restaurantId);
+
+    document
+      .querySelector<Info>(".restaurant-detail-container")
+      ?.renderContent(restaurantInfo);
+  }
+
+  onClickRestaurantRemove(restaurantId: string) {
+    this.#restaurants.removeById(restaurantId);
 
     localStorage.setItem(
       "restaurants",

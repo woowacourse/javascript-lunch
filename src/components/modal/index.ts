@@ -44,7 +44,7 @@ export class Modal extends HTMLDivElement {
     this.classList.add("modal--open");
     this.querySelector(".modal-detail")?.removeAttribute("hidden");
 
-    this.querySelector<Info>(".restaurant-detail-container")?.render(
+    this.querySelector<Info>(".restaurant-detail-container")?.renderContent(
       restaurantInfo
     );
   }
