@@ -9,6 +9,7 @@ interface Restaurant {
   filterByCategory: (category: CategoryAll) => void;
   sortByType: (type: SortTypeAll) => void;
   toggleFavorite: (restaurant: RestaurantInfo) => boolean;
+  addFavorite: () => void;
 }
 
 export const restaurant: Restaurant = {
@@ -61,11 +62,14 @@ export const restaurant: Restaurant = {
     restaurant.isFavorite = !restaurant.isFavorite;
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
-    if (this.filteredRestaurants.length === 0) {
-      return $('restaurant-box').renderRestaurantList(this.restaurants);
-    }
-    $('restaurant-box').renderRestaurantList(this.filteredRestaurants);
+    this.addFavorite();
 
     return restaurant.isFavorite;
+  },
+
+  addFavorite() {
+    return (this.favoriteRestaurants = this.restaurants.filter(
+      (restaurant) => restaurant.isFavorite
+    ));
   },
 };

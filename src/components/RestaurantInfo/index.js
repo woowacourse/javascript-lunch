@@ -96,7 +96,18 @@ class RestaurantInfo extends HTMLElement {
         handleFavoriteImg.setAttribute('src', FAVORITE_IMAGES[!isFavorite]);
         handleFavoriteImg.setAttribute('alt', !isFavorite);
       }
+      this.renderRestaurantList();
     });
+  }
+
+  renderRestaurantList() {
+    if ($('#favoriteRestaurant').classList.contains('clicked')) {
+      $('restaurant-box').renderRestaurantList(restaurant.favoriteRestaurants);
+    } else if (restaurant.filteredRestaurants.length === 0) {
+      $('restaurant-box').renderRestaurantList(restaurant.restaurants);
+    } else {
+      $('restaurant-box').renderRestaurantList(restaurant.filteredRestaurants);
+    }
   }
 }
 
