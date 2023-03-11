@@ -1,5 +1,4 @@
 import { CATEGORY_TO_FILENAME } from '../constants/constants';
-import { $ } from '../utils/common';
 
 class RestaurantItem {
   template(restaurant) {
