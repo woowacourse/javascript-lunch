@@ -1,4 +1,4 @@
-import { waitForCustomElementsDefined as whenCustomElementsDefined } from '../components/lifecycle';
+import { allCustomElementsDefined } from '../components/lifecycle';
 import RestaurantDetailModal from '../components/restaurant/modal/RestaurantDetailModal';
 import RestaurantList from '../components/restaurant/RestaurantList';
 import Restaurant, { RestaurantProps } from '../domain/Restaurant';
@@ -90,7 +90,7 @@ class Restaurants {
   }
 
   async updateComponents() {
-    await whenCustomElementsDefined();
+    await allCustomElementsDefined();
 
     document
       .querySelector<RestaurantList>('[slot="all"] r-restaurant-list')
