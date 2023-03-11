@@ -1,19 +1,28 @@
+beforeEach(() => {
+  cy.visit("http://localhost:8080/");
+  cy.viewport(500, 850);
+});
+
 describe("lunch e2e test", () => {
-  before(() => {
-    cy.visit("http://localhost:8080/");
-    cy.viewport(500, 850);
-  });
-
   it("식당 정보를 입력하면 목록에 추가된다", () => {
-    cy.get(".gnb__button").click();
+    restaurantList(
+      "한식",
+      "피양콩할마니",
+      "10",
+      "맛집입니다.",
+      "https://naver.me/G6DyD9tg"
+    );
 
-    cy.get("#category").select("한식");
-    cy.get("#name").type("김치찜");
-    cy.get("#takingTime").select("5");
-    cy.get("#description").type("맛있는 김치찜. 추천합니다.");
-
-    cy.get(".modal--submit").click();
-
-    cy.contains("김치찜");
+    cy.contains("피양콩할마니");
   });
 });
+
+function restaurantList(category, name, distance, description, link) {
+  cy.get(".gnb__button").click();
+  cy.get("#category").select(category);
+  cy.get("#name").type(name);
+  cy.get("#takingTime").select(distance);
+  cy.get("#description").type(description);
+  cy.get("#link").type(link);
+  cy.contains("추가하기").click();
+}
