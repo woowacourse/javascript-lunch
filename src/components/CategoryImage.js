@@ -30,8 +30,9 @@ class CategoryImage extends HTMLElement {
     const category = this.getAttribute('category');
 
     this.shadowRoot.innerHTML = `
-    <div class="category">
-      <img src=${this.#categoryImage[category]} alt=${category}>
+    <div class="category" >
+      <img title="${category}" 
+      src=${this.#categoryImage[category]} alt=${category}>
     </div>
     `;
   }

@@ -103,21 +103,23 @@ class RestaurantDetail extends HTMLElement {
       restaurant;
 
     this.shadowRoot.innerHTML = `
-    <div class="container">
+    <div class="container fixed-size">
       <div class="wrapper">
       <div class="image-container">
         <category-image category="${category}"></category-image>
         <favorite-image isFavorite="${isFavorite}"></favorite-image>
       </div>
-      <div class="">
-       <h3 class="m-4 text-title-2">${name}</h3>
+       <h3 class="m-4 text-title-2" title="${name}">${shortenString(
+      name,
+      20
+    )}</h3>
        <span class="m-4 distance text-body">캠퍼스부터 ${distance}분 내</span>
        <p class="m-4 text-body description scrollbar-hide">${description}</p>
        <a class="m-4 text-body link" title="${link}" href="${link}" target="_blank">${shortenString(
       link,
       25
     )}</a>
-      </div>
+    </div>
       <div class="button-container">
         <lunch-button
           name="삭제하기"
@@ -130,7 +132,7 @@ class RestaurantDetail extends HTMLElement {
           color="orange"
         ></lunch-button>
       </div>
-      </div>
+      
     </div>
     `;
   }
@@ -155,20 +157,27 @@ class RestaurantDetail extends HTMLElement {
     }
 
     .container{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
       position: fixed;
       width: 100%;
       height:700px;
+      max-width:390px;
       bottom: 0;
-      max-width: 360px;
       padding: 32px 16px;
       border-radius: 8px 8px 0px 0px;
       background: var(--grey-100);
       
     }
 
+    .fixed-size{
+      -webkit-box-sizing: border-box; 
+      -moz-box-sizing: border-box;    
+      box-sizing: border-box;    
+    }
+
     .button-container {
-      position:absolute;
-      bottom:32px;
       display: flex;
       justify-content:space-between;
       align-items:center;
@@ -184,10 +193,6 @@ class RestaurantDetail extends HTMLElement {
       color: var(--primary-color);
     }
     
-    .wrapper{
-      position:relative;
-      height:100%;
-    }
 
     .description{
       height:350px;
@@ -209,11 +214,17 @@ class RestaurantDetail extends HTMLElement {
       overflow-wrap: break-word;
     }
 
-    @media (max-height: 900px) {
+    @media (max-height: 700px) {
       .container {
-        height:500px;
+        height:550px;
       }
+
+      .description{
+        height:200px;
+      }
+  
     }
+
   `;
 
     this.shadowRoot.append(componentStyle);
