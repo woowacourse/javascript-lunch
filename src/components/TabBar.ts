@@ -25,10 +25,7 @@ export default class TabBar implements Component<TabBarState> {
   }
 
   addEvent() {
-    const buttons = this.$target.querySelectorAll('.tab-bar-select');
-    for (const button of buttons) {
-      button.addEventListener('click', this.state.onClickTabBar);
-    }
+    this.$target.addEventListener('click', this.state.onClickTabBar);
   }
 
   render() {

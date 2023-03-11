@@ -3,7 +3,6 @@ import type { Category, SortBy, Restaurant, TabBarSelect } from '../../type';
 import RestaurantList from './RestaurantList';
 import RestaurantFilterContainer from './RestaurantFilterContainer';
 import { DEFAULT_CATEGORY } from '../../utils/constants';
-import GNB from '../../components/GNB';
 import TabBar from '../../components/TabBar';
 import RestaurantInfoDrawer from '../RestaurantInfoDrawer';
 import { getRestaurants } from '../../utils/api';
