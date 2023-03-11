@@ -15,19 +15,17 @@ type RestaurantListPageState = {
   restaurants: Restaurant[];
   isOpenDrawer: boolean;
   selectId: number;
-  onToggleAddRestaurantDrawer: () => void;
 };
 
 type RestaurantListPageProps = {
   $parent: HTMLElement;
-  onToggleAddRestaurantDrawer: () => void;
 };
 
 export default class RestaurantListPage implements Component<RestaurantListPageState> {
   $target: HTMLElement;
   state: RestaurantListPageState;
 
-  constructor({ $parent, onToggleAddRestaurantDrawer }: RestaurantListPageProps) {
+  constructor({ $parent }: RestaurantListPageProps) {
     this.$target = document.createElement('div');
 
     this.state = {
@@ -36,7 +34,6 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
       sortBy: 'name',
       tabBarSelect: 'all',
       restaurants: getRestaurants(),
-      onToggleAddRestaurantDrawer,
       selectId: 0,
     };
 
@@ -51,10 +48,6 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
   render() {
     this.$target.innerHTML = '';
 
-    new GNB({
-      $parent: this.$target,
-      onToggleAddRestaurantDrawer: this.state.onToggleAddRestaurantDrawer,
-    }).render();
     new TabBar({
       $parent: this.$target,
       tabBarSelect: this.state.tabBarSelect,

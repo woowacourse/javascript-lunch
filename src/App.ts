@@ -1,6 +1,7 @@
 import type { Component } from './interface';
 import AddRestaurantDrawer from './pages/AddRestaurantDrawer';
 import RestaurantListPage from './pages/RestaurantListPage';
+import GNB from './components/GNB';
 
 type AppState = {
   isDrawerHide: boolean;
@@ -32,11 +33,12 @@ export default class App implements Component<AppState> {
 
   render() {
     this.$target.innerHTML = ``;
-
-    new RestaurantListPage({
+    new GNB({
       $parent: this.$target,
       onToggleAddRestaurantDrawer: this.onToggleAddRestaurantDrawer.bind(this),
     }).render();
+
+    new RestaurantListPage({ $parent: this.$target }).render();
 
     if (!this.state.isDrawerHide) {
       new AddRestaurantDrawer({
