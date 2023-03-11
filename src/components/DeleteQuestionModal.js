@@ -1,6 +1,6 @@
 import Modal from './Modal';
 
-class RestaurantDetailModal extends Modal {
+class DeleteQustionModal extends Modal {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.render();
@@ -8,18 +8,26 @@ class RestaurantDetailModal extends Modal {
     this.closeModalEvent();
   }
 
-  renderDetailRestaurant(restaurant) {
-    this.shadowRoot.querySelector('restaurant-detail').update(restaurant);
+  closeModalEvent() {
+    this.shadowRoot
+      .querySelector('#modalBackdrop')
+      .addEventListener('click', () => {
+        this.closeModal();
+      });
+  }
+
+  closeModal() {
+    this.modalToggle(false);
   }
 
   render() {
     this.shadowRoot.innerHTML = `
     <div id="modal" class="modal" alt="modal">
         <div id="modalBackdrop" class="backdrop"></div>
-        <restaurant-detail></restaurant-detail>
+        <delete-question></delete-question>
     </div>
 `;
   }
 }
 
-export default RestaurantDetailModal;
+export default DeleteQustionModal;

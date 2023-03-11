@@ -29,6 +29,9 @@ class RestaurantDetail extends HTMLElement {
     this.shadowRoot
       .querySelector('#deleteRestaurant')
       .addEventListener('click', () => {
+        this.shadowRoot.querySelector('delete-question-modal').openModal();
+
+        return;
         const { name } = this.getInformation();
         RestaurantList.delete(name);
         $('restaurant-detail-modal').closeModal();
@@ -132,7 +135,7 @@ class RestaurantDetail extends HTMLElement {
           color="orange"
         ></lunch-button>
       </div>
-      
+      <delete-question-modal></delete-question-modal>
     </div>
     `;
   }
@@ -182,6 +185,10 @@ class RestaurantDetail extends HTMLElement {
       justify-content:space-between;
       align-items:center;
       margin-top:32px;
+    }
+
+    .button-container:first-child {
+      margin-right:16px;
     }
 
     .image-container{

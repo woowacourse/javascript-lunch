@@ -32,7 +32,6 @@ class Button extends HTMLElement {
         width: 171px;
         height: 44px;
       
-        margin-right: 16px;
       
         border: none;
         border-radius: 8px;
@@ -58,8 +57,6 @@ class Button extends HTMLElement {
         button {
           width: 150px;
           height: 44px;
-        
-          margin-right: 16px;
         
           border: none;
           border-radius: 8px;

@@ -143,16 +143,16 @@ class AddRestaurantForm extends HTMLElement {
               caption="매장 정보를 확인할 수 있는 링크를 입력해 주세요."
             ></link-input>
             <div class="button-container">
-            <lunch-button
-            name="취소하기"
-            id="cancelModal"
-            color="white"
-            ></lunch-button>
-            <lunch-button
-            name="추가하기"
-            id="addRestraunt"
-            color="orange"
-            ></lunch-button>
+              <lunch-button
+              name="취소하기"
+              id="cancelModal"
+              color="white"
+              ></lunch-button>
+              <lunch-button
+              name="추가하기"
+              id="addRestraunt"
+              color="orange"
+              ></lunch-button>
             </div>
             </form>
         </div>
@@ -202,6 +202,10 @@ class AddRestaurantForm extends HTMLElement {
         display: flex;
         justify-content:space-between;
         align-items:center;
+      }
+
+      .button-container:first-child {
+        margin-right:16px;
       }
 
       .scrollbar-hide{
