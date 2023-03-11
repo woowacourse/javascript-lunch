@@ -21,18 +21,10 @@ class RestaurantView extends HTMLElement {
   render() {
     this.innerHTML = `
     <div>
-      <div class="restaurant__category">
-        <img
-        ${CategoryImage(this.restaurant?.category as string)}
-      </div>
-      <div class="d-flex justify-content-between">
-        <div>
-          <h3 class="restaurant__name text-subtitle">
-            ${this.restaurant?.name}
-          </h3>
-          <span class="restaurant__distance text-body" >
-            캠퍼스부터 ${this.restaurant?.distance}분 내
-          </span>
+      <div class="d-flex justify-content-between mb-1">
+        <div class="restaurant__category">
+          <img
+          ${CategoryImage(this.restaurant?.category as string)}
         </div>
         <div>
           <favorite-button
@@ -42,10 +34,24 @@ class RestaurantView extends HTMLElement {
           </favorite-button>
         </div>
       </div>
-      <p>
-        ${this.restaurant?.description}
-      </p>
       <div>
+        <div>
+          <h3 class="restaurant__name text-subtitle">
+            ${this.restaurant?.name}
+          </h3>
+        </div>
+        <div class="mb-1">
+          <span class="restaurant__distance text-body" >
+            캠퍼스부터 ${this.restaurant?.distance}분 내
+          </span>
+        </div>
+      </div>
+      <div class="mb-1">
+        <p>
+          ${this.restaurant?.description}
+        </p>
+      </div>
+      <div class="mb-1">
         <a href="${this.restaurant?.link}" target="_blank">
         ${this.restaurant?.link ?? ""}
         </a>
