@@ -1,6 +1,7 @@
-import FavoriteIcon from './components/\bIcon/FavoriteIcon';
+import App from './App';
 import DetailModal from './components/DetailModal';
 import Header from './components/Header';
+import FavoriteIcon from './components/Icon/FavoriteIcon';
 import Modal from './components/Modal';
 import RestaurantItem from './components/RestaurantItem';
 import RestaurantItems from './components/RestaurantItems';
@@ -23,3 +24,4 @@ customElements.define('select-box', SelectBox);
 customElements.define('detail-modal', DetailModal);
 customElements.define('favorite-icon', FavoriteIcon);
 customElements.define('lunch-tab', Tab);
+customElements.define('lunch-app', App);
