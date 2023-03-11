@@ -44,13 +44,15 @@ export default class App {
 
   bindEvents() {
     $('#modal').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
+    $('#modal').addEventListener('click', this.onClickDetailFavoriteIcon.bind(this));
+    $('#modal').addEventListener('click', this.onClickRestaurantDeleteButton.bind(this));
+    $('#modal').addEventListener('click', this.onClickDetailModalCloseButton.bind(this));
+
+    $('#restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
+
     $('#restaurant-filter-container').addEventListener(
       'change',
       this.renderRestaurantListByFilterOptions.bind(this)
-    );
-    $('#modal-open-button').addEventListener(
-      'click',
-      this.onClickRestaurantFormModalOpenButton.bind(this)
     );
 
     $('#restaurant-list-container').addEventListener(
@@ -58,10 +60,10 @@ export default class App {
       this.onClickRestaurantList.bind(this)
     );
 
-    $('#restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
-    $('#modal').addEventListener('click', this.onClickDetailFavoriteIcon.bind(this));
-    $('#modal').addEventListener('click', this.onClickRestaurantDeleteButton.bind(this));
-    $('#modal').addEventListener('click', this.onClickDetailModalCloseButton.bind(this));
+    $('#modal-open-button').addEventListener(
+      'click',
+      this.onClickRestaurantFormModalOpenButton.bind(this)
+    );
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -105,20 +107,54 @@ export default class App {
     this.renderRestaurantListByFilterOptions();
   }
 
-  renderRestaurantListByFilterOptions() {
-    const categoryOption = $('#category-filter').value;
-    const sortOption = $('#sorting-filter').value;
-    const restaurants = this.#restaurants.getRestaurants();
+  onClickDetailFavoriteIcon(e) {
+    if (e.target.id !== 'detail-favorite-icon') return;
 
-    const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
-    const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
+    const restaurantId = $('#modal-detail-view').dataset.listid;
+    this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
 
-    this.#restaurantList.render(sortedRestaurants);
+    const updatedRestaurants = this.#restaurants.getRestaurants();
+    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+    const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
+    this.#modal.render(targetRestaurant);
+
+    this.renderRestaurantListByFavoriteTab();
   }
 
-  onClickRestaurantFormModalOpenButton() {
-    this.#modal.render().bindEvents();
+  onClickRestaurantDeleteButton(e) {
+    if (e.target.id !== 'restaurant-delete-button') return;
+
+    const restaurantId = $('#modal-detail-view').dataset.listid;
+    this.#restaurants.deleteRestaurant(Number(restaurantId));
+
+    const updatedRestaurants = this.#restaurants.getRestaurants();
+    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+    this.renderRestaurantListByFavoriteTab();
+
     this.#modal.toggleModal();
+  }
+
+  onClickDetailModalCloseButton(e) {
+    if (e.target.id !== 'detail-modal-close-button') return;
+
+    this.#modal.toggleModal();
+  }
+
+  onChangeFavoriteTab(e) {
+    if (e.target.value === 'favorite') {
+      const restaurants = this.#restaurants.getRestaurants();
+      const favoriteRestaurants = getFavoriteRestaurants(restaurants);
+
+      this.#restaurantList.render(favoriteRestaurants);
+      $('#restaurant-filter-container').classList.add('hide');
+
+      return;
+    }
+
+    this.renderRestaurantListByFilterOptions();
+    $('#restaurant-filter-container').classList.remove('hide');
   }
 
   onClickRestaurantList(e) {
@@ -142,66 +178,8 @@ export default class App {
     this.#modal.toggleModal();
   }
 
-  onChangeFavoriteTab(e) {
-    if (e.target.value === 'favorite') {
-      const restaurants = this.#restaurants.getRestaurants();
-      const favoriteRestaurants = getFavoriteRestaurants(restaurants);
-
-      this.#restaurantList.render(favoriteRestaurants);
-      $('#restaurant-filter-container').classList.add('hide');
-
-      return;
-    }
-
-    this.renderRestaurantListByFilterOptions();
-    $('#restaurant-filter-container').classList.remove('hide');
-  }
-
-  onClickDetailFavoriteIcon(e) {
-    if (e.target.id !== 'detail-favorite-icon') return;
-
-    const restaurantId = $('#modal-detail-view').dataset.listid;
-    this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
-
-    const updatedRestaurants = this.#restaurants.getRestaurants();
-    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
-
-    const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
-    this.#modal.render(targetRestaurant);
-
-    this.renderRestaurantListByFavoriteTab();
-  }
-
-  renderRestaurantListByFavoriteTab() {
-    if ($('#tab-all').checked) {
-      this.renderRestaurantListByFilterOptions();
-
-      return;
-    }
-
-    const restaurant = this.#restaurants.getRestaurants();
-    const favoriteRestaurants = getFavoriteRestaurants(restaurant);
-
-    this.#restaurantList.render(favoriteRestaurants);
-  }
-
-  onClickRestaurantDeleteButton(e) {
-    if (e.target.id !== 'restaurant-delete-button') return;
-
-    const restaurantId = $('#modal-detail-view').dataset.listid;
-    this.#restaurants.deleteRestaurant(Number(restaurantId));
-
-    const updatedRestaurants = this.#restaurants.getRestaurants();
-    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
-
-    this.renderRestaurantListByFavoriteTab();
-
-    this.#modal.toggleModal();
-  }
-
-  onClickDetailModalCloseButton(e) {
-    if (e.target.id !== 'detail-modal-close-button') return;
-
+  onClickRestaurantFormModalOpenButton() {
+    this.#modal.render().bindEvents();
     this.#modal.toggleModal();
   }
 
