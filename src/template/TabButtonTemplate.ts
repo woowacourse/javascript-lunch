@@ -1,10 +1,6 @@
 import { Attribute, ButtonContent } from '../types/ui';
 
-function createTabButton(
-  inputAttributes: Attribute,
-  labelAttributes: Attribute,
-  content: ButtonContent
-) {
+function createTabButton(inputAttributes: Attribute, labelAttributes: Attribute, content: ButtonContent) {
   return `
     <input 
       type="radio" 

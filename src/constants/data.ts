@@ -32,8 +32,7 @@ const INITIAL_RESTAURANT_DATA: Restaurant[] = [
     category: '한식',
     name: '영동칼국수',
     distance: 15,
-    description:
-      '멀긴 한데 그래도 9,000원이라는 가격에 저렴하게 적게 먹을 수 있는 곳. 지갑 다이어트하기 좋은 곳',
+    description: '멀긴 한데 그래도 9,000원이라는 가격에 저렴하게 적게 먹을 수 있는 곳. 지갑 다이어트하기 좋은 곳',
     link: '',
     favorite: false,
     id: 4,
