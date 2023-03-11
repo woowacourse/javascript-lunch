@@ -2,7 +2,7 @@ import { RestaurantType } from "../type";
 import { $, $$ } from "../util/selector";
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
 import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
-import { executeClickEventListener } from "../util/eventListener";
+import { executeEventListener } from "../util/eventListener";
 import { updateRestaurantList } from "../domain/filter";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
@@ -45,9 +45,12 @@ export const renderRestaurantList = (restaurantList: RestaurantType[]) => {
 // Domain
 export const controlFavoriteIcon = () => {
   $$(".favorite-icon").forEach((icon) =>
-    executeClickEventListener(icon, (event) => {
-      toggleFavoriteIcon(event);
-      updateRestaurantList();
+    executeEventListener(icon, {
+      type: "click",
+      listener: (event) => {
+        toggleFavoriteIcon(event);
+        updateRestaurantList();
+      },
     })
   );
 };

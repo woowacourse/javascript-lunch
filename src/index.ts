@@ -17,11 +17,7 @@ import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
 } from "./modal/newRestaurantModalHandler";
-import {
-  executeChangeEventListener,
-  executeClickEventListener,
-  executeSubmitEventListener,
-} from "./util/eventListener";
+import { executeEventListener } from "./util/eventListener";
 import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
 import { renderTabButtons } from "./component/restaurantTabButton";
@@ -53,39 +49,41 @@ const App = {
   },
 
   controlNewRestaurantModal() {
-    executeClickEventListener($(".gnb__button"), () =>
-      handleModalOpenButtonClick(".modal")
+    executeEventListener($(".gnb__button")!, {
+      type: "click",
+      listener: () => handleModalOpenButtonClick(".modal"),
+    });
+
+    [$(".button--secondary")!, $(".modal-backdrop")!].forEach((el) =>
+      executeEventListener(el, {
+        type: "click",
+        listener: () => handleModalCancelButtonClick(".modal"),
+      })
     );
 
-    executeClickEventListener($(".button--secondary"), () =>
-      handleModalCancelButtonClick(".modal")
-    );
-
-    executeClickEventListener($(".modal-backdrop"), () =>
-      handleModalCancelButtonClick(".modal")
-    );
-
-    executeSubmitEventListener("#new-restaurant-form", (event: Event) => {
-      this.restaurantsController.addNewRestaurant(event);
+    executeEventListener($("#new-restaurant-form")!, {
+      type: "submit",
+      listener: (event) =>
+        this.restaurantsController.addNewRestaurant(event),
     });
   },
 
   controlFilter() {
-    executeChangeEventListener(
-      "#sorting-filter",
-      (selectedSort: string | number) => {
-        saveSelectedOption(SORT, selectedSort as string);
+    executeEventListener($("#sorting-filter")!, {
+      type: "change",
+      listener: (event) => {
+        saveSelectedOption(SORT, (event.target as HTMLOptionElement).value);
         updateRestaurantList();
-      }
-    );
+      },
+    });
 
-    executeChangeEventListener(
-      "#category-filter",
-      (selectedCategory: string | number) => {
-        saveSelectedOption(CATEGORY, selectedCategory as string);
+    executeEventListener($("#category-filter")!, {
+      type: "change",
+      listener: (event) => {
+        saveSelectedOption(CATEGORY, (event.target as HTMLOptionElement).value);
         updateRestaurantList();
-      }
-    );
+      },
+    });
   },
 };
 

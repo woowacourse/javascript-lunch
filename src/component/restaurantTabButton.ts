@@ -1,5 +1,5 @@
 import { updateRestaurantList } from "../domain/filter";
-import { executeClickEventListener } from "../util/eventListener";
+import { executeEventListener } from "../util/eventListener";
 import { $, $$ } from "../util/selector";
 
 // UI
@@ -24,28 +24,33 @@ export const renderTabButtons = () => {
     renderTemplate(tabButtonNameList)
   );
 
-  changeButtonColor();
+  changeButtonState();
 };
 
 // Domain
-const changeButtonColor = () => {
+const changeButtonState = () => {
   $$(".viewer-button").forEach((button) => {
-    executeClickEventListener(button, (event) => {
-      const target = event.target as HTMLButtonElement;
-      const nextButton = target.nextElementSibling;
-      const previousButton = target.previousElementSibling;
-      const CLICKED_BUTTON = "clicked-viewer-button";
-
-      const isClicked =
-        nextButton?.classList.contains(CLICKED_BUTTON) ??
-        previousButton?.classList.contains(CLICKED_BUTTON);
-
-      if (!target.classList.contains(CLICKED_BUTTON) && isClicked) {
-        (nextButton ?? previousButton)?.classList.remove(CLICKED_BUTTON);
-        target.classList.toggle(CLICKED_BUTTON);
-      }
-
-      updateRestaurantList();
+    executeEventListener(button, {
+      type: "click",
+      listener: (event) => changeButtonColor(event),
     });
   });
+};
+
+const changeButtonColor = (event: Event) => {
+  const target = event.target as HTMLButtonElement;
+  const nextButton = target.nextElementSibling;
+  const previousButton = target.previousElementSibling;
+  const CLICKED_BUTTON = "clicked-viewer-button";
+
+  const isClicked =
+    nextButton?.classList.contains(CLICKED_BUTTON) ??
+    previousButton?.classList.contains(CLICKED_BUTTON);
+
+  if (!target.classList.contains(CLICKED_BUTTON) && isClicked) {
+    (nextButton ?? previousButton)?.classList.remove(CLICKED_BUTTON);
+    target.classList.toggle(CLICKED_BUTTON);
+  }
+
+  updateRestaurantList();
 };

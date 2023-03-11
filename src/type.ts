@@ -14,3 +14,8 @@ export interface RestaurantType {
 }
 
 export type SortType = "name" | "distance";
+
+export interface EventListenerType {
+  type: string;
+  listener: (event: Event) => void;
+}
