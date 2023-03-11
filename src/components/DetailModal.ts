@@ -29,6 +29,29 @@ export default class DetailModal extends Component {
 
   setEvent() {
     on($('.favorite-icon', this.$target), 'click', this.handleClickFavorite.bind(this));
+
+    // delete-restaurant
+    on($('.delete-restaurant', this.$target), 'click', this.handleDeleteRestaurant.bind(this));
+    // close-modal
+    on($('.close-modal'), 'click', this.handleCloseModal.bind(this));
+    // modal-backdrop
+    on($('.modal-backdrop'), 'click', this.handleCloseModal.bind(this));
+
+    return this;
+  }
+
+  handleCloseModal() {
+    this.hide();
+  }
+
+  handleDeleteRestaurant() {
+    restaurantStore.deleteById(this.#id);
+    eventBus.dispatch('@delete-restaurant', this.#id);
+    this.hide();
+  }
+
+  hide(): this {
+    this.$target.innerHTML = '';
     return this;
   }
 
@@ -41,7 +64,7 @@ export default class DetailModal extends Component {
     eventBus.dispatch('@toggle-favorite', this.#id);
   }
 
-  template({ id, favorite, category, description, name, link, distance }: IRestaurant) {
+  template({ favorite, category, description, name, link, distance }: IRestaurant) {
     // FIXME: component 만들기
     // FIXME: img (음식사진, 즐겨찾기)
     // FIXME: modal 프레임
@@ -63,10 +86,10 @@ export default class DetailModal extends Component {
           <p class="restaurant__description text-body">${description}</p>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
           <p class="restaurant__link text-body">${link}</p>
-          <button type="button" class="button button--secondary text-caption cancel" onClick="this">
+          <button type="button" class="button button--secondary text-caption delete-restaurant" onClick="this">
             삭제하기
           </button>
-          <button class="button button--primary text-caption submit-restaurant">
+          <button class="button button--primary text-caption close-modal">
             닫기
           </button>
         </div>

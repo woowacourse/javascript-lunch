@@ -20,6 +20,7 @@ class FilterBar extends Component {
 
   subscribe() {
     eventBus.subscribe('@click-tab', (tab: TabToggle) => {
+      console.log(tab, 'tab');
       if (tab === 'all') {
         this.hide(false);
       } else {

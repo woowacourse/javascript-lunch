@@ -5,11 +5,20 @@ import { $, on } from '@res/utils/domUtils';
 
 class MenuTabBar extends Component {
   tabToggle: TabToggle;
+
   constructor(element: HTMLElement) {
     super(element);
 
     this.tabToggle = 'all';
-    this.render().setEvent();
+    this.render().subscribe().setEvent();
+  }
+
+  subscribe() {
+    eventBus.subscribe('@delete-restaurant', () => {
+      eventBus.dispatch('@click-tab', this.tabToggle);
+    });
+
+    return this;
   }
 
   template() {
