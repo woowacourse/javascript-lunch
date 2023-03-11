@@ -1,37 +1,30 @@
-import { Restaurant } from '../types/index';
-import { Attribute } from '../types/ui';
 import { ModalContent } from '../types/modal';
+import { Attribute } from '../types/ui';
 import { $ } from '../utils/domSelectors';
-import RestaurantAddForm from './RestaurantAddForm';
-import RestaurantInformation from './RestaurantInformation';
 
 class Modal {
   private attributes: Attribute;
   private content: ModalContent;
+  private onClose?: CallableFunction;
 
-  constructor(attributes: Attribute, content: ModalContent) {
+  constructor(attributes: Attribute, content: ModalContent, onClose?: CallableFunction) {
     this.attributes = attributes;
     this.content = content;
+    this.onClose = onClose;
   }
 
   closeModal = () => {
     const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.close();
 
-    const body = $<HTMLBodyElement>('body');
-    body.classList.remove('hide-overflow');
-
-    if (this.content === RestaurantAddForm) {
-      this.content.resetForm();
-    }
+    document.body.classList.remove('hide-overflow');
   };
 
   openModal = () => {
     const modal = $<HTMLDialogElement>(`#${this.attributes.id}-modal`);
     modal.showModal();
 
-    const body = $<HTMLBodyElement>('body');
-    body.classList.add('hide-overflow');
+    document.body.classList.add('hide-overflow');
   };
 
   addBackdropClickEvent() {
@@ -40,50 +33,29 @@ class Modal {
     backdrop.addEventListener('click', (event: Event) => {
       const target = event.target as HTMLDialogElement;
 
-      if (target === event.currentTarget) {
-        this.closeModal();
-      }
+      if (target === event.currentTarget) this.closeModal();
+
+      if (this.onClose) this.onClose();
     });
   }
 
-  addEvents(onSubmit?: CallableFunction) {
+  addEvent() {
     this.addBackdropClickEvent();
-
-    if (this.content === RestaurantAddForm) {
-      this.content.addEvents(this.closeModal, onSubmit as CallableFunction);
-    }
   }
 
   create() {
     return `
       <dialog class="modal" id="${this.attributes.id}-modal">
         <div class="modal-container" id="${this.attributes.id}">
-        ${this.content === RestaurantAddForm && this.content.create()}
+        ${this.content.create()}
         </div>
       </dialog>
     `;
   }
 
-  renderContent(
-    information?: Restaurant,
-    deleteRestaurant?: CallableFunction,
-    onFavoriteIconClick?: CallableFunction
-  ) {
-    const element = $<HTMLDivElement>(`#${this.attributes.id}`);
-
-    if (this.content === RestaurantInformation) {
-      element.replaceChildren();
-      element.insertAdjacentHTML('beforeend', this.content.create(information as Restaurant));
-      this.content.addEvents(
-        this.closeModal,
-        deleteRestaurant as CallableFunction,
-        onFavoriteIconClick as CallableFunction
-      );
-    }
-
-    if (this.content === RestaurantAddForm) {
-      element.insertAdjacentHTML('beforeend', this.content.create());
-    }
+  render() {
+    const main = $<HTMLElement>('main');
+    main.insertAdjacentHTML('beforeend', this.create());
   }
 }
 
