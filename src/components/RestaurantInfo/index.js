@@ -89,7 +89,7 @@ class RestaurantInfo extends HTMLElement {
         const restaurantId = parseInt(clickedLi.getAttribute('id'));
         restaurant.restaurants.find((info) => {
           if (info.id === restaurantId) {
-            return restaurant.addFavorite(info);
+            return restaurant.toggleFavorite(info);
           }
         });
         const isFavorite = handleFavoriteImg.getAttribute('alt') === 'true';

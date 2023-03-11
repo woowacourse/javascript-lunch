@@ -8,7 +8,7 @@ interface Restaurant {
   addRestaurant: (restaurant: RestaurantInfo) => void;
   filterByCategory: (category: CategoryAll) => void;
   sortByType: (type: SortTypeAll) => void;
-  addFavorite: (restaurant: RestaurantInfo) => boolean;
+  toggleFavorite: (restaurant: RestaurantInfo) => boolean;
 }
 
 export const restaurant: Restaurant = {
@@ -57,7 +57,7 @@ export const restaurant: Restaurant = {
     }
   },
 
-  addFavorite(restaurant: RestaurantInfo) {
+  toggleFavorite(restaurant: RestaurantInfo) {
     restaurant.isFavorite = !restaurant.isFavorite;
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
