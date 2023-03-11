@@ -2,7 +2,7 @@ import { LOCAL_STORAGE_KEY } from '../constant/constant';
 import RestaurantController from '../model/RestaurantController';
 import { Restaurant, Category, Distance, State } from '../types/restaurantTypes';
 
-export default class Modal {
+export default class addRestaurantModal {
   private $target: HTMLElement;
   private _restaurantController: RestaurantController;
   private _state!: State;
@@ -131,7 +131,9 @@ export default class Modal {
     if (modal) {
       modal.classList.add('hidden');
     }
-    const event = new CustomEvent('closeModal');
+    const event = new CustomEvent('closeaddModal', {
+      detail: {},
+    });
     document.dispatchEvent(event);
   }
 
