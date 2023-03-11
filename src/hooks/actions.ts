@@ -69,9 +69,14 @@ const actions = {
   checkFavoritRestaurant(id: number) {
     if (!store.domain) return;
 
-    actions.setValue('restaurants', store.domain.checkFavorite(id));
-
+    store.domain.checkFavorite(id);
     localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
+
+    if (actions.getValue('isFavorite')) {
+      actions.setValue('restaurants', store.domain.filterByFavorite());
+    } else {
+      actions.setValue('restaurants', store.domain.getRestaurants());
+    }
   },
 
   removeRestaurant(id: number) {
