@@ -47,7 +47,9 @@ class Modal extends Component {
           </slot>
           <slot name="content"></slot>
           <hr>
-          <slot name="actions"></slot>
+          <div class="actions">
+            <slot name="actions"></slot>
+          </div>
         </section>
       </dialog>
     `;

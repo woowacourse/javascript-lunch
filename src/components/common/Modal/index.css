@@ -30,6 +30,14 @@ hr {
   height: 36px;
 }
 
+.actions {
+  padding-bottom: 32px;
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  box-shadow: 0px -8px 36px 36px white;
+}
+
 ::slotted([slot='actions']) {
   display: flex;
   justify-content: stretch;
