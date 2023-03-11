@@ -46,7 +46,7 @@ class RestaurantView extends HTMLElement {
           </span>
         </div>
       </div>
-      <div class="mb-1">
+      <div class="mb-1 word-break">
         <p>
           ${this.restaurant?.description}
         </p>

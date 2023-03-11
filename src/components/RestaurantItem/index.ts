@@ -37,7 +37,7 @@ class RestaurantItem extends HTMLElement {
             </favorite-button>
           </div>
         </div>
-        <p class="restaurant__description text-body">
+        <p class="restaurant__description text-body word-break">
           ${restaurant.description}
         </p>
       </div>
