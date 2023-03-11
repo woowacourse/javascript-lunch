@@ -10,7 +10,6 @@ class RestaurantItem extends HTMLElement {
     if (id) {
       this.restaurant = findRestaurantById(id);
       this.restaurant && this.render(this.restaurant);
-      // this.onClickFavoriteButton(id);
     }
   }
 
