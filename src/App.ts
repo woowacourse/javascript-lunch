@@ -20,7 +20,7 @@ class App {
     this.components = {
       header: new Header(target),
       filterBar: new RestaurantFilterBar(target),
-      listSection: new RestaurantListSection(target, this.restaurantsList.getList('전체', '이름')),
+      listSection: new RestaurantListSection(target, this.getRestaurantsList('전체', '이름')),
       addModal: new RestaurantAddModal(target),
     };
 
@@ -36,13 +36,24 @@ class App {
   };
 
   renderList = (category: FilterCategory, sortCondition: SortCondition) => {
-    this.components.listSection.restaurants = this.restaurantsList.getList(category, sortCondition);
+    this.components.listSection.restaurants = this.getRestaurantsList(category, sortCondition);
     this.components.listSection.render();
   };
 
+  getRestaurantsList = (category: FilterCategory, condition: SortCondition) => {
+    switch (condition) {
+      case '이름':
+        return this.restaurantsList.sortByName(this.restaurantsList.getByCategory(category));
+      case '거리':
+        return this.restaurantsList.sortByDistance(this.restaurantsList.getByCategory(category));
+    }
+  };
+
+  getFavoriteList = () => this.restaurantsList.getFavoriteList();
+
   addRestaurant = (restaruant: Restaurant) => {
     this.restaurantsList.add(restaruant);
-    RestaurantLocalStorage.saveList('restaurantList', this.restaurantsList.getList('전체', '이름'));
+    RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantsList('전체', '이름'));
 
     this.renderList(
       this.components.filterBar.getCategory(),
