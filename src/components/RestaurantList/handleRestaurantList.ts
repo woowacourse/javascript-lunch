@@ -13,6 +13,6 @@ export const onClickRestaurantList = () => {
   restaurantList?.addEventListener("click", (event) => {
     event.stopPropagation();
     const id = (event.target as HTMLElement).closest("restaurant-item")?.id;
-    onClickRestaurantItem(id as string);
+    id && onClickRestaurantItem(id as string);
   });
 };
