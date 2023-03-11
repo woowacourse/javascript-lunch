@@ -6,7 +6,7 @@ import RestaurantContainer from "./UI/RestaurantContainer";
 import RestaurantItem from "./UI/RestaurantItem";
 import { sortByDistance, sortByName } from "./utils/Sort";
 import { getLocalStorage, setLocalStorage } from "./utils/LocalStorage";
-import { KEY, CATEGORY_NAME } from "./constants";
+import { KEY, CATEGORY_NAME, CATEGORY_IMG } from "./constants";
 import { $, $$ } from "./utils/Dom";
 import Tab from "./UI/Tab";
 import RestaurantModal from "./UI/RestaurantModal";
@@ -22,7 +22,7 @@ export class App {
     new FilterBar(this.restaurantList, this.restaurantItem);
     new RestaurantContainer();
     new Modal(this.restaurantList);
-    Tab();
+    new Tab();
     this.init();
 
     this.handleSelectedValue();
@@ -35,12 +35,16 @@ export class App {
     Store.setRestaurantList(localStorageData);
     const initialData = Store.getRestaurantList();
     this.sortRestaurants(initialData);
+    Store.setFilteredList("");
     if (initialData !== null)
       initialData.forEach((restaurant: RestaurantForm) => {
         this.restaurantItem.render(restaurant, $(".restaurant-list"));
       });
     this.clickItem();
-    this.toggleFavorite();
+    const restaurantList = $(".restaurant-list") as HTMLLIElement;
+    const favoriteList = $(".favorite-list") as HTMLLIElement;
+    this.toggleFavorite(restaurantList);
+    this.toggleFavorite(favoriteList);
   }
 
   sortRestaurants(restaurants: RestaurantForm[]) {
@@ -57,15 +61,16 @@ export class App {
         const restaurants = Store.getRestaurantList();
         restaurants.forEach((restaurant: RestaurantForm) => {
           if (restaurant.id !== Number(id)) return;
-          const modal = new RestaurantModal(restaurant, this.render);
+          const modal = new RestaurantModal(restaurant);
           this.removeItem(modal, restaurant);
+          this.toggleModalFavorite(restaurant);
         });
       })
     );
   }
 
-  toggleFavorite() {
-    $(".restaurant-list-container")?.addEventListener("click", (event) => {
+  toggleFavorite(list: HTMLLIElement) {
+    list?.addEventListener("click", (event) => {
       const id = (event.target as HTMLButtonElement).closest(".favorite")?.id;
       this.setFavorite(id, event);
     });
@@ -83,27 +88,38 @@ export class App {
   }
 
   handleFavorite() {
-    this.setInfoLocalStorage();
     this.renderFavorite();
+    this.setInfoLocalStorage();
   }
 
   renderFavorite() {
+    const restaurantList = $(".restaurant-list") as HTMLLIElement;
+    restaurantList.replaceChildren();
+    this.render(Store.getFilteredList(), restaurantList);
     const favoriteList = $(".favorite-list") as HTMLLIElement;
     favoriteList.replaceChildren();
     this.render(Store.getFavoriteList(), favoriteList);
   }
 
-  // refactoring
   toggleFavoriteButton(isFavorite: boolean, event: Event) {
     isFavorite
       ? (event.target as HTMLButtonElement).setAttribute(
           "src",
-          "./favorite-icon-filled.png"
+          CATEGORY_IMG.filled
         )
       : (event.target as HTMLButtonElement).setAttribute(
           "src",
-          "./favorite-icon-lined.png"
+          CATEGORY_IMG.lined
         );
+  }
+
+  toggleModalFavorite(restaurant: RestaurantForm) {
+    const modalFavorite = $(".modal-favorite") as HTMLElement;
+    modalFavorite.addEventListener("click", (event) => {
+      restaurant.favorite = !restaurant.favorite;
+      this.toggleFavoriteButton(restaurant.favorite, event);
+      this.renderFavorite();
+    });
   }
 
   handleSelectedValue() {
@@ -151,8 +167,13 @@ export class App {
 
   getSelectedList(selectedValue: string) {
     return selectedValue === CATEGORY_NAME.total || selectedValue === ""
-      ? Store.getRestaurantList()
+      ? this.setTotalList()
       : this.setSelectedList(selectedValue);
+  }
+
+  setTotalList() {
+    Store.setFilteredList(CATEGORY_NAME.total);
+    return Store.getFilteredList();
   }
 
   setSelectedList(selectedValue: string) {
