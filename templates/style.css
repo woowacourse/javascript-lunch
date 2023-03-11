@@ -54,6 +54,7 @@ body {
 /* GNB ********************************************/
 .gnb {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   height: 64px;
@@ -83,6 +84,35 @@ body {
   width: 40px;
   height: 40px;
   object-fit: contain;
+}
+
+.gnb__tab {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 64px;
+  margin: 16px;
+}
+
+.gnb__tab input {
+  display: none;
+}
+
+.gnb__tab label {
+  width: 50%;
+  text-align: center;
+  padding: 28px 0 0;
+  font-weight: 700;
+  border-bottom: 2px solid var(--grey-200);
+}
+
+.gnb__tab label:hover {
+  cursor: pointer;
+}
+
+.gnb__tab input:checked + label {
+  color: #ec4a0a;
+  border-bottom: 2px solid var(--primary-color);
 }
 
 /* 음식점 목록 *****************************************/

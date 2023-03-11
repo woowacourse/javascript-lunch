@@ -10,11 +10,19 @@ class Header implements Component {
   }
 
   template = () => `
-    <header class="gnb">
-      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-      <button type="button" class="gnb__button" aria-label="음식점 추가">
-        <img src= ${ImagePath} alt="음식점 추가">
-      </button>
+    <header>
+      <div class="gnb">
+        <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+        <button type="button" class="gnb__button" aria-label="음식점 추가">
+          <img src= ${ImagePath} alt="음식점 추가">
+        </button>
+      </div>
+      <div class="gnb__tab">
+          <input type="radio" name="tabs" id="all-restaurant" checked>
+          <label for="all-restaurant">모든 음식점</label>
+          <input type="radio" name="tabs" id="favorite-restaurant">
+          <label for="favorite-restaurant">자주 가는 음식점</label>
+      </div>
     </header>`;
 
   setButtonHandler = (handler: () => void) => {
