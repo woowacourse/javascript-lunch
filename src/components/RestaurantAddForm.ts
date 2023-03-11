@@ -23,17 +23,12 @@ class RestaurantAddForm {
     this.categorySelectCaption = new Caption(CAPTION_ATTRIBUTE.CATEGORY_SELECT, 'change');
     this.distanceSelectCaption = new Caption(CAPTION_ATTRIBUTE.DISTANCE_SELECT, 'change');
     this.nameInputCaption = new Caption(CAPTION_ATTRIBUTE.NAME_INPUT, 'input');
-    this.linkInputCaption = new Caption(
-      CAPTION_ATTRIBUTE.LINK_INPUT,
-      'input',
-      MESSAGE.LINK_DEFAULT_CAPTION
-    );
+    this.linkInputCaption = new Caption(CAPTION_ATTRIBUTE.LINK_INPUT, 'input', MESSAGE.LINK_DEFAULT_CAPTION);
   }
 
-  closeForm(closeModal: CallableFunction) {
+  resetForm() {
     const restaurantAddForm = $('#restaurant-add-form') as HTMLFormElement;
     restaurantAddForm.reset();
-    closeModal();
   }
 
   showFormErrors(errors: Errors) {
@@ -69,7 +64,8 @@ class RestaurantAddForm {
       const hasError = Object.values(formErrors).some(Boolean);
 
       if (!hasError) {
-        this.closeForm(closeModal);
+        this.resetForm();
+        closeModal();
         return addRestaurant({ ...restaurantItem });
       }
 
@@ -82,7 +78,8 @@ class RestaurantAddForm {
     const closeButton = $<HTMLButtonElement>('#form-close-button');
 
     closeButton.addEventListener('click', () => {
-      this.closeForm(closeModal);
+      this.resetForm();
+      closeModal();
     });
   }
 
