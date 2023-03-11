@@ -72,7 +72,7 @@ class RestaurantsList {
     restaurantList.forEach(restaurant => {
       $(`#${restaurant.id}`).addEventListener('click', e => {
         if (e.target.id === '') {
-          this.infoRenderCallback(restaurant);
+          this.infoRenderCallback(restaurant, this.render.bind(this), this.renderFavoriteRestaurant.bind(this));
         }
       });
     });

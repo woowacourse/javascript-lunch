@@ -24,7 +24,7 @@ const $main = $('main');
 
 const header = new Header($header);
 const addModal = new AddModal($main);
-const infoModal = new InfoModal();
+const infoModal = new InfoModal(restaurants);
 const tabbar = new Tabbar($main);
 const restaurantFilter = new RestaurantFilter($main);
 const restaurantsList = new RestaurantsList($main, restaurants, infoModal);
