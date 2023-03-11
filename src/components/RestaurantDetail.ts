@@ -91,7 +91,6 @@ class RestaurantDetail extends HTMLElement {
   #updateRestaurantsState() {
     if (TabBar.getCurrentTab() === "favorite") {
       this.controller.setFavoriteRestaurantList();
-      return;
     }
   }
 }
