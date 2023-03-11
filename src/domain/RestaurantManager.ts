@@ -30,10 +30,12 @@ export default class RestaurantManager {
   }
 
   refreshData(data: Restaurant[]) {
-    const refreshData = data.map((restaurant) => restaurant.storeName);
     const getData = this.store.getItem('restaurantList');
+
     if (getData !== null) {
-      return JSON.parse(getData).filter((data: Restaurant) => refreshData.includes(data.storeName));
+      const storageData: Restaurant[] = JSON.parse(getData);
+      const refreshData = storageData.map((restaurant) => restaurant.storeName);
+      return data.filter((data: Restaurant) => refreshData.includes(data.storeName));
     }
     return [];
   }

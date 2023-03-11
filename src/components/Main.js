@@ -25,6 +25,7 @@ class Main {
       <button class="render-unselected" type="button">자주 가는 음식점</button>
     </div>`,
     };
+
     return `
     ${FAVORITE_TEMPLATE[favorite]}
     <section class="restaurant-filter-container">

@@ -57,18 +57,19 @@ function addEvent() {
       sorts,
       $('.render-selected').textContent === '자주 가는 음식점'
     );
-
     return addEvent();
   });
 
   $('#sorting-filter').addEventListener('change', (e) => {
     const reRenderData = restaurantManager.filterRestaurantLists(category, e.target.value);
+
     $('.restaurant-list').innerHTML = main.render(
       reRenderData,
       category,
       SORT_DATA[e.target.value],
       $('.render-selected').textContent === '자주 가는 음식점'
     );
+
     return addEvent();
   });
 }
