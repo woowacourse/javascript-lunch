@@ -1,11 +1,25 @@
 {
-  "rules": {},
+  "rules": {
+    "no-alert": "off",
+    "import/extensions": "off",
+    "prettier/prettier": "error",
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": "off",
+    "no-new": "off",
+    "lines-between-class-members": "off",
+    "no-return-assign": "off",
+    "no-use-before-define": "off",
+    "no-param-reassign": "off",
+    "import/no-unresolved": "off",
+    "no-plusplus": "off"
+  },
   "env": {
     "es6": true,
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"]
 }
