@@ -16,9 +16,12 @@ body {
 }
 
 :root {
+  --darken-color-1: #d44208;
+  --darken-color-2: #de4509;
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
   --grey-100: #ffffff;
+  --grey-150: #ebeef2;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
   --grey-400: #344054;
@@ -47,6 +50,10 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+
+select {
+  cursor: pointer;
 }
 
 .gnb {
@@ -82,6 +89,60 @@ body {
   object-fit: contain;
 }
 
+.restaurant-navigation {
+  display: flex;
+}
+
+input[type='radio'],
+input[type='radio']:checked {
+  appearance: none;
+}
+
+input[type='radio']:checked + label {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-name {
+  width: 50%;
+  padding-top: 32px;
+  padding-bottom: 16px;
+
+  background-color: transparent;
+
+  color: var(--grey-300);
+  font-weight: bold;
+  text-align: center;
+
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+
+  cursor: pointer;
+}
+
+.tab-button {
+  width: 50%;
+  padding-top: 32px;
+  padding-bottom: 16px;
+
+  background-color: transparent;
+
+  color: var(--grey-300);
+  font-weight: bold;
+  text-align: center;
+
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+
+  cursor: pointer;
+}
+
+.tab-button--active {
+  color: var(--primary-color);
+
+  border-color: var(--primary-color);
+}
+
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
@@ -105,7 +166,6 @@ body {
   padding: 8px;
 }
 
-/* 음식점 목록 */
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
@@ -121,6 +181,8 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -143,10 +205,22 @@ body {
   height: 36px;
 }
 
+.restaurant__info-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.restaurant-star {
+  position: relative;
+  right: 0;
 }
 
 .restaurant__name {
@@ -168,9 +242,17 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.restaurant-star-icon {
+  cursor: pointer;
+}
+
 .modal {
   background: transparent;
   border: none;
+}
+
+.hide-overflow {
+  overflow: hidden;
 }
 
 .modal::backdrop {
@@ -191,6 +273,32 @@ body {
 
 .modal-title {
   margin-bottom: 36px;
+}
+
+.information {
+  display: flex;
+  justify-content: space-between;
+}
+
+.information .left-section {
+  display: flex;
+
+  align-items: center;
+}
+
+.restaurant-detail__description {
+  margin-top: 32px;
+}
+
+.restaurant__link {
+  display: block;
+  margin-top: 24px;
+  color: var(--darken-color-2);
+  cursor: pointer;
+}
+
+#restaurant-information .button-container {
+  margin-top: 24px;
 }
 
 .form-item {
@@ -254,6 +362,11 @@ body {
   color: var(--grey-300);
 }
 
+.icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 input[name='name'],
 input[name='link'] {
   height: 44px;
@@ -287,8 +400,24 @@ input[name='link'] {
   color: var(--grey-300);
 }
 
+.button--secondary:hover {
+  background: var(--grey-150);
+}
+
+.button--secondary:active {
+  background: #dce1e8;
+}
+
 .button--primary {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.button--primary:hover {
+  background: var(--darken-color-2);
+}
+
+.button--primary:active {
+  background: var(--darken-color-1);
 }

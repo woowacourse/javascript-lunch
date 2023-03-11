@@ -7,3 +7,5 @@ import '../assets/category-chinese.png';
 import '../assets/category-asian.png';
 import '../assets/category-western.png';
 import '../assets/category-etc.png';
+import '../assets/favorite-icon-filled.png';
+import '../assets/favorite-icon-lined.png';

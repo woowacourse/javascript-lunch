@@ -1,4 +1,4 @@
-import { CategoryOptions, SortingCriterion, Restaurant } from '../types/types';
+import { Restaurant } from '../types/index';
 
 class RestaurantService {
   private restaurantList: Restaurant[];
@@ -7,32 +7,42 @@ class RestaurantService {
     this.restaurantList = restaurantList;
   }
 
+  getRestaurant(restaurantId: number): Restaurant {
+    return this.restaurantList.find((restaurant) => restaurant.id === restaurantId)!;
+  }
+
+  getRestaurantList() {
+    return [...this.restaurantList];
+  }
+
+  getFavoriteRestaurantList() {
+    return this.restaurantList.filter((restaurant) => restaurant.favorite);
+  }
+
   add(restaurant: Restaurant) {
-    this.restaurantList.push(restaurant);
+    restaurant.id = this.restaurantList[this.restaurantList.length - 1].id + 1;
+    this.restaurantList.push({ ...restaurant });
   }
 
-  filter(category: CategoryOptions) {
-    if (category === '전체') return [...this.restaurantList];
+  delete(restaurantId: number) {
+    this.restaurantList = this.restaurantList.filter((restaurant) => restaurant.id !== restaurantId);
 
-    return this.restaurantList.filter((restaurant) => restaurant.category === category);
+    return [...this.restaurantList];
   }
 
-  sortByName(restaurantList: Restaurant[]) {
-    return [...restaurantList].sort((a, b) => a.name.localeCompare(b.name));
-  }
+  updateFavorite(restaurantId: number) {
+    this.restaurantList = this.restaurantList.map((restaurant) => {
+      if (restaurant.id === restaurantId) {
+        return {
+          ...restaurant,
+          favorite: !restaurant.favorite,
+        };
+      }
 
-  sortByDistance(restaurantList: Restaurant[]) {
-    return [...restaurantList].sort((a, b) => a.distance - b.distance);
-  }
+      return restaurant;
+    });
 
-  filterAndSort(category: CategoryOptions, criterion: SortingCriterion) {
-    const filteredRestaurantList = this.filter(category);
-
-    if (criterion === 'name') {
-      return this.sortByName(filteredRestaurantList);
-    }
-
-    return this.sortByDistance(filteredRestaurantList);
+    return [...this.restaurantList];
   }
 }
 

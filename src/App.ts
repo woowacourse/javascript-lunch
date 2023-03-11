@@ -1,59 +1,94 @@
-import { CategoryOptions, SortingCriterion, Restaurant } from './types/types';
+import { Restaurant, RestaurantFilter } from './types/index';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
-import { saveToLocalStorage, getLocalStorage } from './utils/localStorage';
+import { CATEGORY_ALL, DEFAULT_TAB, SORT_BY_NAME } from './constants/restaurant';
+import { MODAL_ATTRIBUTE } from './constants/domAttributes';
+import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
+import RestaurantTabMenu from './components/RestaurantTabMenu';
+import RestaurantFilters from './components/RestaurantFilters';
+import RestaurantListContainer from './components/RestaurantListContainer';
+import Modal from './components/Modal';
+import RestaurantForm from './components/RestaurantForm';
+import RestaurantInformation from './components/RestaurantInformation';
+import { addHeaderEvent } from './events/headerEvents';
 import RestaurantService from './domains/RestaurantService';
-import MainView from './views/MainView';
-import ModalView from './views/ModalView';
 
-export class App {
+class App {
   private restaurantService: RestaurantService;
-  private mainView = new MainView();
-  private modalView = new ModalView();
-  private currentCategory: CategoryOptions = '전체';
-  private currentSortingCriterion: SortingCriterion = 'name';
+  private restaurantListContainer: RestaurantListContainer;
+  private formModal: Modal = new Modal(MODAL_ATTRIBUTE.FORM, RestaurantForm);
+  private informationModal: Modal = new Modal(MODAL_ATTRIBUTE.RESTAURANT_INFORMATION, RestaurantInformation);
+  private currentDisplayStatus: RestaurantFilter = { category: CATEGORY_ALL, sorting: SORT_BY_NAME };
+  private currentTab: string = DEFAULT_TAB;
 
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
-    this.bindEventHandlers();
-    this.mainView.renderRestaurantList(
-      this.restaurantService.filterAndSort(this.currentCategory, this.currentSortingCriterion)
-    );
+    this.restaurantListContainer = new RestaurantListContainer(this.restaurantService);
+
+    this.renderComponents();
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
+    this.addEvents();
   }
 
-  bindEventHandlers() {
-    this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm);
-    this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
-    this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
+  renderComponents() {
+    RestaurantTabMenu.render(this.changeRestaurantMenuTab);
+    RestaurantFilters.render(this.changeFilter);
+    this.formModal.render(this.addRestaurant);
+    this.informationModal.render(this.deleteRestaurant);
   }
 
-  onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {
+  addRestaurant = (restaurantItem: Restaurant) => {
     this.restaurantService.add(restaurantItem);
-    const restaurantList = this.restaurantService.filterAndSort(
-      this.currentCategory,
-      this.currentSortingCriterion
-    );
+    const restaurantList = this.restaurantService.getRestaurantList();
     saveToLocalStorage(restaurantList);
-    this.mainView.renderRestaurantList(restaurantList);
+
+    if (
+      (restaurantItem.category === this.currentDisplayStatus.category ||
+        this.currentDisplayStatus.category === CATEGORY_ALL) &&
+      this.currentTab === DEFAULT_TAB
+    ) {
+      this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
+    }
   };
 
-  onChangeCategoryFilter = (category: CategoryOptions) => {
-    this.currentCategory = category;
-    const filteredRestaurantList: Restaurant[] = this.restaurantService.filterAndSort(
-      this.currentCategory,
-      this.currentSortingCriterion
-    );
-    this.mainView.renderRestaurantList(filteredRestaurantList);
+  changeRestaurantMenuTab = (tab: string) => {
+    this.currentTab = tab;
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
   };
 
-  onChangeSortingFilter = (criterion: SortingCriterion) => {
-    this.currentSortingCriterion = criterion;
-    const sortedRestaurantList: Restaurant[] = this.restaurantService.filterAndSort(
-      this.currentCategory,
-      this.currentSortingCriterion
-    );
-    this.mainView.renderRestaurantList(sortedRestaurantList);
+  changeFilter = (filter: RestaurantFilter) => {
+    this.currentDisplayStatus = { ...this.currentDisplayStatus, ...filter };
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
   };
+
+  updateFavoriteRestaurant = (restaurantId: number) => {
+    const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantId);
+    saveToLocalStorage(updatedRestaurantList);
+
+    if (this.currentTab !== DEFAULT_TAB) {
+      this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
+    }
+  };
+
+  showRestaurantInformation = (restaurantId: number) => {
+    const restaurant = this.restaurantService.getRestaurant(restaurantId);
+    RestaurantInformation.renderContent(restaurant, this.updateFavoriteRestaurant);
+  };
+
+  deleteRestaurant = (restaurantId: number) => {
+    const updatedRestaurantList = this.restaurantService.delete(restaurantId);
+    saveToLocalStorage(updatedRestaurantList);
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
+  };
+
+  addEvents() {
+    addHeaderEvent(this.formModal.open);
+    this.restaurantListContainer.addEvent(
+      this.updateFavoriteRestaurant,
+      this.informationModal.open,
+      this.showRestaurantInformation
+    );
+  }
 }
 
-new App();
+export default new App();
