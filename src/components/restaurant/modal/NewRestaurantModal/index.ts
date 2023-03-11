@@ -59,11 +59,11 @@ class NewRestaurantModal extends Component {
             default-option-label="선택해주세요"
           ></r-restaurant-category-select>
 
-          <r-input
+          <r-restaurant-name-input
             name="name"
             required
             title="이름"
-          ></r-input>
+          ></r-restaurant-name-input>
 
           <r-restaurant-distance-select
             name="distance"

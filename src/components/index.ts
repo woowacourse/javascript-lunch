@@ -9,6 +9,7 @@ import './common/Tabs';
 import './restaurant/CategoryIcon';
 import './restaurant/form/RestaurantCategorySelect';
 import './restaurant/form/RestaurantDistanceSelect';
+import './restaurant/form/RestaurantNameInput';
 import './restaurant/form/RestaurantSortSelect';
 import './restaurant/modal/NewRestaurantModal';
 import './restaurant/modal/RestaurantDetailModal';
