@@ -53,7 +53,7 @@ const RestaurantList = {
     type: SortTypeAll = 'name'
   ): Restaurant[] => {
     const restaurants = JSON.parse(
-      window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
+      window.localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
     );
 
     if (category === '전체') {

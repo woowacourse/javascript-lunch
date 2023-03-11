@@ -9,6 +9,10 @@ class Header extends HTMLElement {
     this.openModalEvent();
   }
 
+  titleClickEvent() {
+    this.shadowRoot.querySelector('#title').addEventListener('click', () => {});
+  }
+
   openModalEvent() {
     this.shadowRoot
       .querySelector('#openModal')
@@ -20,7 +24,7 @@ class Header extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
     <header id="head" >
-      <h1 class="text-title">점심 뭐 먹지</h1>
+      <h1 id="title" class="text-title">점심 뭐 먹지</h1>
       <button type="button" id="openModal" aria-label="음식점 추가">
         <img src=${logo} alt="음식점 추가" />
       </button>

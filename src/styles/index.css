@@ -21,6 +21,16 @@ body {
   --grey-500: #000000;
 }
 
+.navigation-bar {
+  max-width: 390px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding-bottom: 16px;
+  background-color: var(--grey-100);
+  z-index: 1;
+}
+
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;

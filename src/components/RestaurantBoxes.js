@@ -53,7 +53,9 @@ class RestaurantBoxes extends HTMLElement {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
         ul {
+          position:relative;
           display: flex;
+          top:200px;
           flex-direction: column;
         
           padding: 0 16px;

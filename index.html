@@ -8,23 +8,25 @@
   </head>
   <body>
     <div id="app">
-      <lunch-header></lunch-header>
-      <section class="categorySection">
-        <restaurant-tab id="allTab" name="모든 음식점"></restaurant-tab>
-        <restaurant-tab
-          id="favoriteTab"
-          name="자주 가는 음식점"
-        ></restaurant-tab>
-      </section>
-      <section class="restaurant-filter-container">
-        <filter-box
-          name="category"
-          id="categoryFilter"
-          options="전체,한식,중식,일식,양식,아시안,기타"
-        ></filter-box>
-        <filter-box name="sorting" id="sortingFilter" options="이름순,거리순">
-        </filter-box>
-      </section>
+      <div class="navigation-bar">
+        <lunch-header></lunch-header>
+        <section class="categorySection">
+          <restaurant-tab id="allTab" name="모든 음식점"></restaurant-tab>
+          <restaurant-tab
+            id="favoriteTab"
+            name="자주 가는 음식점"
+          ></restaurant-tab>
+        </section>
+        <section class="restaurant-filter-container">
+          <filter-box
+            name="category"
+            id="categoryFilter"
+            options="전체,한식,중식,일식,양식,아시안,기타"
+          ></filter-box>
+          <filter-box name="sorting" id="sortingFilter" options="이름순,거리순">
+          </filter-box>
+        </section>
+      </div>
       <restaurant-boxes></restaurant-boxes>
       <add-restaurant-modal
         kind="add"
