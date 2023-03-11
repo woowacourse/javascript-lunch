@@ -7,6 +7,7 @@ import { Restaurant } from '../src/types/Types';
 
 describe('Restaurants 도메인 테스트', () => {
   const yeoptoRestaurant: Restaurant = {
+    id: '1123124',
     category: '기타',
     name: '엽토네 떡볶이',
     distance: 5,
@@ -16,6 +17,7 @@ describe('Restaurants 도메인 테스트', () => {
   };
 
   const doriRestaurant: Restaurant = {
+    id: '1123125',
     category: '한식',
     name: '도리네 집밥',
     distance: 15,
@@ -27,6 +29,7 @@ describe('Restaurants 도메인 테스트', () => {
   const restaurants = new Restaurants([yeoptoRestaurant, doriRestaurant]);
 
   const gongwonRestaurant: Restaurant = {
+    id: '1123126',
     category: '일식',
     name: '공원네 초밥집',
     distance: 10,
@@ -64,7 +67,7 @@ describe('Restaurants 도메인 테스트', () => {
   });
 
   test('음식점이 즐겨찾기 되어있는지 확인한다', () => {
-    restaurants.setFavoriteState(yeoptoRestaurant.name);
+    restaurants.setFavoriteState(yeoptoRestaurant.id);
 
     expect(yeoptoRestaurant.favorites).toBe(true);
   });
@@ -76,7 +79,7 @@ describe('Restaurants 도메인 테스트', () => {
   });
 
   test('음식점을 삭제하는지 확인한다', () => {
-    restaurants.remove('도리네 집밥');
+    restaurants.remove(doriRestaurant.id);
 
     expect(restaurants.restaurantsList.length).toBe(2);
   });
