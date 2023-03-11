@@ -3,7 +3,7 @@ import RestaurantController from './model/RestaurantController';
 import Modal from './components/Modal';
 import { DEFAULT_CATEGORY, LOCAL_STORAGE_KEY, SORTING_OPTION } from './constant/constant';
 import DEFAULT_RESTAURANT_DATA from './constant/defaultRestaurantData';
-import { getDataFromLocalStorage } from './utils/localStorage';
+import { getDataFromLocalStorage, setDataToLocalStorage } from './utils/localStorage';
 import Header from './components/Header';
 import RestaurantItem from './components/RestaurantItem';
 import TabMenu from './components/TabMenu';
@@ -22,13 +22,13 @@ export default class App {
     this._restaurantController = new RestaurantController(this._state.restaurants);
     this._header = new Header();
     this._tabMenu = new TabMenu();
-
     this.render();
 
     document.addEventListener('addRestaurantClicked', this.handleAddRestaurantClicked.bind(this));
     document.addEventListener('closeModal', this.onCloseModal.bind(this));
     document.addEventListener('allRestaurantClicked', this.handleAllRestaurantClicked.bind(this));
     document.addEventListener('likedRestaurantClicked', this.handleLikedRestaurantClicked.bind(this));
+    document.addEventListener('restaurantLikeToggled', this.handleRestaurantLikeToggled.bind(this));
   }
 
   handleAddRestaurantClicked() {
@@ -74,6 +74,27 @@ export default class App {
     //선택 탭 빨간 줄 표시 출력 업데이트
     this._tabMenu.update(allButton as Element, likedButton as Element, 'liked');
   }
+  handleRestaurantLikeToggled(event: unknown) {
+    if (!(event instanceof CustomEvent)) {
+      return;
+    }
+
+    const { restaurantId, isLike } = event.detail;
+    const { restaurants } = this._state;
+    const targetRestaurant = restaurants.find(r => r.id === restaurantId);
+
+    if (!targetRestaurant) {
+      return;
+    }
+
+    targetRestaurant.isLike = isLike;
+
+    const storedData = getDataFromLocalStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
+    setDataToLocalStorage(LOCAL_STORAGE_KEY, {
+      ...storedData,
+      restaurants: this._restaurantController.getRestaurants(),
+    });
+  }
 
   setup() {
     this._state = getDataFromLocalStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
@@ -89,8 +110,8 @@ export default class App {
     ${this._header.template()}
     <main>
       <section class="tabMenu-container">
-      ${this._tabMenu.template()}
-    </section>
+        ${this._tabMenu.template()}
+      </section>
       </section>
       <!-- 카테고리/정렬 필터 -->
       <section class="restaurant-filter-container">
