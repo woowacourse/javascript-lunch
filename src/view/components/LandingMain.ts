@@ -1,7 +1,11 @@
+import { Restaurant } from './../../domain/model/LunchRecommendation';
+import { useState } from '../../utils/core';
+import { useBoolean } from '../../utils/hooks/useBoolean';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { Nav } from './Nav';
 import { NavFilter } from './NavFilter';
 import { NavTab } from './NavTab';
+import { RestaurantInfoModal } from './RestaurantInfoModal';
 import { Restaurants } from './Restaurants';
 
 function LandingMain() {
@@ -9,6 +13,14 @@ function LandingMain() {
     values: { restaurants, category, sortOption, tab },
     handlers: { handleCategory, handleSortOption, handleFavoriteBtn, tabAll, tabFavorite },
   } = useRestaurants();
+  const [focusedRestaurant, setFocusedRestaurant] = useState<Restaurant | null>(null);
+  const [isRestaurantInfoModalOpen, openRestaurantInfoModal, closeRestaurantInfoModal] =
+    useBoolean(true);
+
+  function onClickRestaurant(restaurant: Restaurant) {
+    setFocusedRestaurant(restaurant);
+    openRestaurantInfoModal();
+  }
 
   return `
     <main>
@@ -16,9 +28,18 @@ function LandingMain() {
         NavTab: NavTab({ tab, tabAll, tabFavorite }),
         NavFilter: NavFilter({ category, sortOption, handleCategory, handleSortOption }),
       })}
-      ${Restaurants({ restaurants, handleFavoriteBtn })}
+      ${Restaurants({ restaurants, handleFavoriteBtn, onClick: onClickRestaurant })}
+      ${
+        isRestaurantInfoModalOpen && focusedRestaurant?.info
+          ? RestaurantInfoModal({
+              handleFavoriteBtn,
+              info: focusedRestaurant.info,
+              close: closeRestaurantInfoModal,
+            })
+          : ''
+      }
     </main>
-  `;
+      `;
 }
 
 export { LandingMain };

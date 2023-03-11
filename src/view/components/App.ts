@@ -4,13 +4,14 @@ import { LandingMain } from './LandingMain';
 import { AddRestaurantModal } from './AddRestaurantModal';
 
 function App() {
-  const [isOpen, open, close] = useBoolean(false);
+  const [isAddRestaurantModalOpen, openAddRestaurantModal, closeAdRestaurantModal] =
+    useBoolean(false);
 
   return `
-    ${Header({ open })}
+    ${Header({ open: openAddRestaurantModal })}
     ${LandingMain()}
-    ${isOpen ? AddRestaurantModal({ close }) : ''}
-  `;
+    ${isAddRestaurantModalOpen ? AddRestaurantModal({ close: closeAdRestaurantModal }) : ''}
+    `;
 }
 
 export { App };
