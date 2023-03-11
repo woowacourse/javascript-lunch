@@ -1,3 +1,4 @@
+import styleClass from "../../constants/styleClass";
 import { selectRestaurants } from "../../domain/restaurant";
 import IRestaurant from "../../type/IRestaurant";
 import { onClickRestaurantList } from "./handleRestaurantList";
@@ -26,7 +27,7 @@ class RestaurantList extends HTMLElement {
         `).join("")
       )
       : (`
-        <div class="center super-big-font text-center">
+        <div class="center super-big-font ${styleClass.text.center}">
           <div><h1>텅</h1></div>
           <div>음식점이 없습니다.</div>
         <div>

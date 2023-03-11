@@ -1,3 +1,4 @@
+import styleClass from "../../constants/styleClass";
 import { findRestaurantById } from "../../domain/restaurant";
 import findImage from "../../tools/findImage";
 import IRestaurant from "../../type/IRestaurant";
@@ -22,7 +23,7 @@ class RestaurantView extends HTMLElement {
     this.innerHTML = `
     <div>
       <div class="d-flex justify-content-between mb-1">
-        <div class="restaurant__category">
+        <div class="${styleClass.restaurant.category}">
           <img
           ${CategoryImage(this.restaurant?.category as string)}
         </div>
@@ -36,12 +37,12 @@ class RestaurantView extends HTMLElement {
       </div>
       <div>
         <div>
-          <h3 class="restaurant__name text-subtitle">
+          <h3 class="${styleClass.restaurant.name} ${styleClass.text.subtitle}">
             ${this.restaurant?.name}
           </h3>
         </div>
         <div class="mb-1">
-          <span class="restaurant__distance text-body" >
+          <span class="${styleClass.restaurant.distance} ${styleClass.text.body}" >
             캠퍼스부터 ${this.restaurant?.distance}분 내
           </span>
         </div>
@@ -57,8 +58,8 @@ class RestaurantView extends HTMLElement {
         </a>
       </div>
       <div class="button-container">
-        <button id="deleteButton" type="button" class="button button--secondary text-caption">삭제하기</button>
-        <button id="cancelButton" type="button" class="button button--primary text-caption">닫기</button>
+        <button id="deleteButton" type="button" class="button ${styleClass.button.secondary} ${styleClass.text.caption}">삭제하기</button>
+        <button id="cancelButton" type="button" class="button ${styleClass.button.primary} ${styleClass.text.caption}">닫기</button>
       </div>
     </div>
     `;

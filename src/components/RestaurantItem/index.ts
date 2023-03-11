@@ -1,6 +1,7 @@
 import IRestaurant from "../../type/IRestaurant";
 import { findRestaurantById } from "../../domain/restaurant";
 import { CategoryImage } from "../CategoryImage";
+import styleClass from "../../constants/styleClass";
 class RestaurantItem extends HTMLElement {
   restaurant: IRestaurant | undefined;
 
@@ -16,16 +17,16 @@ class RestaurantItem extends HTMLElement {
   render(restaurant: IRestaurant) {
     this.innerHTML = `
     <li class="restaurant">
-      <div class="restaurant__category">
+      <div class="${styleClass.restaurant.category}">
         ${CategoryImage(restaurant.category)}
       </div>
-      <div class="restaurant__info w-100">
+      <div class="${styleClass.restaurant.info} w-100">
         <div class="d-flex justify-content-between">
           <div>
-            <h3 class="restaurant__name text-subtitle">
+            <h3 class="${styleClass.restaurant.name} ${styleClass.text.subtitle}">
               ${restaurant.name}
             </h3>
-            <span class="restaurant__distance text-body" >
+            <span class="${styleClass.restaurant.distance} text-body" >
               캠퍼스부터 ${restaurant.distance}분 내
             </span>
           </div>
@@ -37,7 +38,7 @@ class RestaurantItem extends HTMLElement {
             </favorite-button>
           </div>
         </div>
-        <p class="restaurant__description text-body word-break">
+        <p class="${styleClass.restaurant.description} ${styleClass.text.body} word-break">
           ${restaurant.description}
         </p>
       </div>

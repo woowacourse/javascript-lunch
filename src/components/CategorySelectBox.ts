@@ -1,3 +1,4 @@
+import styleClass from "../constants/styleClass";
 import { categoryOptions } from "../domain/restaurant";
 import { restaurants } from "../domain/restaurants";
 import { TCategory } from "../type/TCategory";
@@ -11,7 +12,7 @@ class CategorySelectBox extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <select name="category" id="category-filter" class="restaurant-filter">
+    <select name="category" id="category-filter" class="${styleClass.restaurant.filter}">
       <option value="all">전체</option>
       ${categoryOptions()}
     </select>
