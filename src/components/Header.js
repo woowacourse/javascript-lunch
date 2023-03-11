@@ -25,7 +25,7 @@ export default class Header {
   }
 
   setEvent() {
-    addEvent(this.$target, "click", ".gnb__button", this.toggleModal.bind(this));
+    addEvent(this.$target, "click", ".gnb__button", () => this.toggleModal());
   }
 
   toggleModal() {

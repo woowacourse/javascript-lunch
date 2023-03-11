@@ -35,19 +35,14 @@ export default class RestaurantList {
     const { tab } = this.props;
     if (tab === TAB.ALL) {
       this.#restaurantList.forEach((restaurant, index) => {
-        new Restaurant($restaurantList, { ...restaurant, render: this.render.bind(this), index });
+        new Restaurant($restaurantList, { ...restaurant, render: () => this.render(), index });
       });
     }
     if (tab === TAB.FAVORITE) {
       const favoriteRestaurants = [...localList].filter(({ stared }) => stared);
       favoriteRestaurants.forEach((restaurant, index) => {
-        new Restaurant($restaurantList, { ...restaurant, render: this.render.bind(this), index });
+        new Restaurant($restaurantList, { ...restaurant, render: () => this.render(), index });
       });
     }
-  }
-
-  setState(newState) {
-    this.#restaurantList = store.getLocalStorage();
-    this.render();
   }
 }

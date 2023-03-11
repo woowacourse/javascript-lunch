@@ -49,20 +49,25 @@ export default class App {
 
     if (this.state.tab === TAB.ALL) {
       const restaurant = new RestaurantList($restaurantList, { category, sortingWay, tab });
-      new Header($header, { render: restaurant.render.bind(restaurant) });
-      new Tabbar($tabBar, { tab, setState: this.setState.bind(this) });
+      new Header($header, { render: () => restaurant.render() });
+      new Tabbar($tabBar, {
+        tab,
+        setState: () => {
+          this.setState();
+        },
+      });
       $restaurantFilter.style.display = "flex";
       new Filter($restaurantFilter, {
         sortingWay,
         category,
-        setState: setState.bind(this),
+        setState: () => this.setState(),
       });
     }
 
     if (this.state.tab === TAB.FAVORITE) {
       const restaurant = new RestaurantList($restaurantList, { category, sortingWay, tab });
-      new Header($header, { render: restaurant.render.bind(restaurant) });
-      new Tabbar($tabBar, { tab, setState: this.setState.bind(this) });
+      new Header($header, { render: () => restaurant.render() });
+      new Tabbar($tabBar, { tab, setState: () => this.setState() });
       $restaurantFilter.style.display = "none";
     }
   }
