@@ -58,4 +58,11 @@ describe('점심 뭐 먹지 E2E test', () => {
     if (mockData[0].description) cy.get('.modal').should('contain.text', mockData[0].description);
     if (mockData[0].link) cy.get('.modal').should('contain.text', mockData[0].link);
   });
+
+  it('음식점을 삭제할 수 있다', () => {
+    cy.get('.restaurant').first().click();
+
+    cy.get('.button').contains('삭제하기').click();
+    cy.get('.restaurant').should('have.length', 9);
+  });
 });
