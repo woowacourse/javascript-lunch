@@ -34,7 +34,7 @@ class App extends Component {
       <ul class="restaurant-list"></ul>
     </section>
 
-    <section class="favorite-list-container">
+    <section class="favorite-list-container list-none">
       <ul class="favorite-list"></ul>
     </section>
 
