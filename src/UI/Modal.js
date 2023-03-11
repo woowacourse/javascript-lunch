@@ -1,7 +1,11 @@
 import { $, $$ } from "../utils/Dom";
 import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT } from "../utils/Constant";
-import { getRestaurantListFromLocalstorage } from "../utils/LocalStorage";
-
+import {
+  getRestaurantListFromLocalstorage,
+  getFoodCategoryFromLocalStorage,
+  getSortByFromLocalStorage,
+} from "../utils/LocalStorage";
+import RestaurantInventory from "./RestaurantInventory";
 export default class Modal {
   #template = `
     <div class="modal modal--open">
@@ -77,8 +81,7 @@ export default class Modal {
   }
 
   initializeButtonEvents() {
-    this.modalForm = $(".modal-form");
-    this.modalForm.addEventListener("submit", (event) => {
+    $(".modal-form").addEventListener("submit", (event) => {
       event.preventDefault();
       this.addRestaurant();
     });
@@ -90,39 +93,33 @@ export default class Modal {
     const restaurantInfo = this.setRestaurantInformation();
 
     this.restaurantList.add(restaurantInfo);
-    const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
-    const sortBy = localStorage.getItem("sort") ?? "name";
     this.restaurantRegistry.appendRestaurant(
       this.restaurantList.listRestaurant[this.getRestaurantLength()]
     );
-    $(".all-restaurant").style.color = "#ec4a0a";
-    $(".all-restaurant").style.borderBottom = "2px solid #ec4a0a";
-    $(".favorite-restaurant").style.color = "#667085";
-    $(".favorite-restaurant").style.borderBottom = "2px solid #667085";
-    $(".restaurant-filter-container").className = "restaurant-filter-container";
+    RestaurantInventory.favoriteTabToAllListTab();
+
+    this.restauranListFilter();
+    this.closeModal();
+  }
+
+  restauranListFilter() {
+    const foodCategory = getFoodCategoryFromLocalStorage();
+    const sortBy = getSortByFromLocalStorage();
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
-    this.closeModal();
   }
 
   setRestaurantInformation() {
     const restaurantInfo = {};
     const idNumber = getRestaurantListFromLocalstorage("number");
-    const array = [
-      "category",
-      "name",
-      "distance",
-      "description",
-      "link",
-      "favorite",
-    ];
+    const array = ["category","name","distance","description","link","favorite",];
 
     $$(".form-item").forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
-
     restaurantInfo["id"] = idNumber;
     restaurantInfo["favorite"] = "./favorite-icon-lined.png";
+
     localStorage.setItem("number", idNumber + 1);
     return restaurantInfo;
   }

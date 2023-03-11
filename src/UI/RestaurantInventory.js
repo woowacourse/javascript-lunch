@@ -13,9 +13,10 @@ export default class RestaurantInventory {
         </div>
     </div>
     `;
-  constructor(restaurantRegistry) {
-    this.restaurantRegistry = restaurantRegistry;
-  }
+
+    constructor(restaurantRegistry){
+        this.restaurantRegistry = restaurantRegistry
+    }
 
   render() {
     $("main").insertAdjacentHTML("afterbegin", this.#template);
@@ -23,37 +24,37 @@ export default class RestaurantInventory {
 
   initializeButtonEvents() {
     $(".all-restaurant").addEventListener("click", () => {
-      $(".all-restaurant").style.color = "#ec4a0a";
-      $(".all-restaurant").style.borderBottom = "2px solid #ec4a0a";
-      $(".favorite-restaurant").style.color = "#667085";
-      $(".favorite-restaurant").style.borderBottom = "2px solid #667085";
-      $(".restaurant-filter-container").className =
-        "restaurant-filter-container";
+        RestaurantInventory.favoriteTabToAllListTab();
       $(".restaurant-list").replaceChildren();
+
       const restaurantAll = getRestaurantListFromLocalstorage(RESTAURANT);
-      this.attachRestaurantToRegistry(restaurantAll);
+      this.restaurantRegistry.attachRestaurantToRegistry(restaurantAll);
     });
 
     $(".favorite-restaurant").addEventListener("click", () => {
-      $(".favorite-restaurant").style.color = "#ec4a0a";
-      $(".favorite-restaurant").style.borderBottom = "2px solid #ec4a0a";
-      $(".all-restaurant").style.color = "#667085";
-      $(".all-restaurant").style.borderBottom = "2px solid #667085";
-      $(".restaurant-filter-container").className =
-        "restaurant-filter-container filter-container-close";
+        RestaurantInventory.allListTabToFavoriteTab();
       $(".restaurant-list").replaceChildren();
-      const restaurantFavorite =
-        getRestaurantListFromLocalstorage("favorite") ?? [];
-      restaurantFavorite.forEach(
-        (restaurant) => (restaurant["favorite"] = "./favorite-icon-filled.png")
-      );
-      this.attachRestaurantToRegistry(restaurantFavorite);
+
+      const restaurantFavorite= getRestaurantListFromLocalstorage("favorite");
+      restaurantFavorite.forEach((restaurant) => (restaurant["favorite"] = "./favorite-icon-filled.png"));
+      this.restaurantRegistry.attachRestaurantToRegistry(restaurantFavorite);
     });
   }
 
-  attachRestaurantToRegistry(restaurantParsedInfo) {
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
-    });
+  static favoriteTabToAllListTab=function() {
+    $(".all-restaurant").style.color = "#ec4a0a";
+    $(".all-restaurant").style.borderBottom = "2px solid #ec4a0a";
+    $(".favorite-restaurant").style.color = "#667085";
+    $(".favorite-restaurant").style.borderBottom = "2px solid #667085";
+    $(".restaurant-filter-container").className = "restaurant-filter-container";
+  }
+
+  static allListTabToFavoriteTab=function() {
+    $(".favorite-restaurant").style.color = "#ec4a0a";
+    $(".favorite-restaurant").style.borderBottom = "2px solid #ec4a0a";
+    $(".all-restaurant").style.color = "#667085";
+    $(".all-restaurant").style.borderBottom = "2px solid #667085";
+    $(".restaurant-filter-container").className =
+      "restaurant-filter-container filter-container-close";
   }
 }

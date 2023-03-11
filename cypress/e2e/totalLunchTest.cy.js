@@ -141,7 +141,8 @@ describe("점심 뭐 먹지 e2e 테스트", () => {
     cy.get(".restaurant__description").should(
       "have.text",
       "타쿠미와 스노우보드 타고 일본 라면 먹으러 갔던 기억이 생생하다. 다시 만나면 그때처럼 놀고싶다 ㅎㅎ"
-    );
+      );
+    });
 
     it("즐겨찾기 목록에 추가하고 새로고침 정보를 유지할 수 있다.", () => {
       restaurantInput(
@@ -159,7 +160,6 @@ describe("점심 뭐 먹지 e2e 테스트", () => {
       cy.get(".favorite-restaurant").click();
       cy.get(".restaurant__name").should("contain", "도넛");
     });
-  });
 });
 
 function restaurantInput(category, name, distance, description, link) {

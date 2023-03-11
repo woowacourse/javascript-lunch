@@ -2,6 +2,9 @@ import { $ } from "../utils/Dom";
 import {
   stringifyJson,
   getRestaurantListFromLocalstorage,
+  getSortByFromLocalStorage,
+  getFoodCategoryFromLocalStorage,
+  setToLocalStorage
 } from "../utils/LocalStorage";
 import { RESTAURANT } from "../utils/Constant";
 
@@ -60,33 +63,57 @@ export default class ModalRestaurantDetail {
 
   initializeButtonEvents() {
     $(".button--close").addEventListener("click", this.closeModalDetail);
-    $(".button--delete").addEventListener("click", () => {
-      this.restaurantList.deleteRestaurantElement();
-      if ($(".favorite-restaurant").style.color === "rgb(236, 74, 10)") {
-        const restaurantAll =
-          getRestaurantListFromLocalstorage("favorite") || [];
-        console.log(restaurantAll);
-        this.closeModalDetail();
-        $(".restaurant-list").replaceChildren();
-        this.attachRestaurantToRegistry(restaurantAll);
-        return;
-      }
-      const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
-      const sortBy = localStorage.getItem("sort") ?? "name";
-      this.restaurantList.filterCategory(foodCategory);
-      this.restaurantList.filterBySort(sortBy, foodCategory);
+    $(".button--delete").addEventListener("click", () => this.deleteButtonInDetail());
+  }
+
+  deleteButtonInDetail(){
+    this.restaurantList.deleteRestaurantElement();
+    if ($(".favorite-restaurant").style.color === "rgb(236, 74, 10)") {
+      const restaurantAll =getRestaurantListFromLocalstorage("favorite") || [];
       this.closeModalDetail();
-    });
+
+      $(".restaurant-list").replaceChildren();
+      this.restaurantRegistry.attachRestaurantToRegistry(restaurantAll);
+      return;
+    }
+
+    this.restauranListFilter();
+    this.closeModalDetail();
   }
 
-  attachRestaurantToRegistry(restaurantParsedInfo) {
-    restaurantParsedInfo.forEach((value) => {
-      this.restaurantRegistry.appendRestaurant(value);
-    });
+  restauranListFilter() {
+    const foodCategory = getFoodCategoryFromLocalStorage();
+    const sortBy = getSortByFromLocalStorage();
+
+    this.restaurantList.filterCategory(foodCategory);
+    this.restaurantList.filterBySort(sortBy, foodCategory);
   }
 
-  changeRestaurantInformation(event, restaurantInfo) {
+  changeRestaurantInformation(restaurantInfo) {
     this.restaurantInfo = restaurantInfo;
+
+    this.setRestaurantInformation(restaurantInfo)
+
+    $(`.modla--restaurant_image`).addEventListener("click", this.favoriteEvent);
+  }
+
+  favoriteEvent = (e) => this.clickModalFavorite(e, this.restaurantInfo);
+
+  setRestaurantInformation(restaurantInfo){
+    this.setRestaurantId(restaurantInfo)
+    this.setRestaurantCategory(restaurantInfo)
+    this.setRestaurantName(restaurantInfo)
+    this.setRestaurantDistance(restaurantInfo)
+    this.setRestaurantDescription(restaurantInfo)
+    this.setRestaurantLink(restaurantInfo)
+    this.setRestaurantFavorite(restaurantInfo)
+  }
+
+  setRestaurantId(restaurantInfo){
+    $(".modal--detail").id = restaurantInfo.id;
+  }
+
+  setRestaurantCategory(restaurantInfo){
     const category = {
       한식: "./category-korean.png",
       일식: "./category-japanese.png",
@@ -96,102 +123,103 @@ export default class ModalRestaurantDetail {
       기타: "./category-etc.png",
     };
 
-    $(".modal--detail").id = restaurantInfo.id;
+    $(".modal-detail-restaurant__image").setAttribute("src", category[restaurantInfo.category]);
+    $(".modal-detail-restaurant__image").setAttribute("alt", restaurantInfo.category);
+  }
 
-    $(".modal-detail-restaurant__image").setAttribute(
-      "src",
-      category[restaurantInfo.category]
-    );
-    $(".modal-detail-restaurant__image").setAttribute(
-      "alt",
-      restaurantInfo.category
-    );
-
+  setRestaurantName(restaurantInfo){
     $(".modal-detail-restaurant__name").textContent = restaurantInfo.name;
+  }
+
+  setRestaurantDistance(restaurantInfo){
     $(
       ".modal-detail-restaurant__distance"
     ).textContent = `캠퍼스로부터 ${restaurantInfo.distance}분 내`;
+  }
+
+  setRestaurantDescription(restaurantInfo){
     $(".modal-detail-restaurant__description").textContent =
       restaurantInfo.description;
+  }
 
+  setRestaurantLink(restaurantInfo){
     $(".modal-detail-restaurant__link").setAttribute(
       "href",
       restaurantInfo.link
     );
     $(".modal-detail-restaurant__link").textContent = restaurantInfo.link;
+  }
 
-    $(`.modla--restaurant_favorite`).replaceChildren();
-    $(
-      `.modla--restaurant_favorite`
-    ).innerHTML += `<img class="modla--restaurant_image" src="./favorite-icon-lined.png">`;
+  setRestaurantFavorite(restaurantInfo){
+    this.changeFavoriteImg("./favorite-icon-lined.png")
     this.openModalDetail();
 
     (getRestaurantListFromLocalstorage("favorite") ?? []).forEach((val) => {
       if (val.id === restaurantInfo.id) {
-        $(`.modla--restaurant_favorite`).replaceChildren();
-        $(
-          `.modla--restaurant_favorite`
-        ).innerHTML += `<img class="modla--restaurant_image" src="./favorite-icon-filled.png">`;
+        this.changeFavoriteImg("./favorite-icon-filled.png")
       }
     });
+  }
 
-    $(`.modla--restaurant_image`).addEventListener("click", this.favoriteEvent);
+  changeFavoriteImg(favorite){
+    $(`.modla--restaurant_favorite`).replaceChildren();
+    $(`.modla--restaurant_favorite`).innerHTML += `<img class="modla--restaurant_image" src="${favorite}">`;
   }
 
   clickModalFavorite(e, restaurantInfo) {
     e.stopPropagation();
-    if (e.target.getAttribute("src") === "./favorite-icon-filled.png") {
-      const restaurantFavoriteList = getRestaurantListFromLocalstorage(
-        RESTAURANT
-      ).map((restaurant) => {
-        if (restaurant.id === restaurantInfo.id)
-          restaurant["favorite"] = "./favorite-icon-lined.png";
-        return restaurant;
-      });
-      localStorage.setItem(
-        "restaurants",
-        stringifyJson(restaurantFavoriteList)
-      );
-      const res = getRestaurantListFromLocalstorage("favorite") ?? [];
-      const deletedRestaurantElementArray = res.filter((val) => {
-        return val.id !== restaurantInfo.id;
-      });
-      localStorage.setItem(
-        "favorite",
-        stringifyJson(deletedRestaurantElementArray)
-      );
-      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute(
-        "src",
-        "./favorite-icon-lined.png"
-      );
-      e.target.setAttribute("src", "./favorite-icon-lined.png");
-    } else if (e.target.getAttribute("src") === "./favorite-icon-lined.png") {
-      const favorite = [];
-      const restaurantFavoriteList = getRestaurantListFromLocalstorage(
-        RESTAURANT
-      ).map((restaurant) => {
-        if (restaurant.id === restaurantInfo.id)
-          restaurant["favorite"] = "./favorite-icon-filled.png";
-        return restaurant;
-      });
-      localStorage.setItem(
-        "restaurants",
-        stringifyJson(restaurantFavoriteList)
-      );
-      const favoriteList = getRestaurantListFromLocalstorage("favorite");
-      if (favoriteList !== null)
-        favoriteList.forEach((val) => favorite.push(val));
-      favorite.push(restaurantInfo);
-      localStorage.setItem("favorite", stringifyJson(favorite));
-      $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute(
-        "src",
-        "./favorite-icon-filled.png"
-      );
-      e.target.setAttribute("src", "./favorite-icon-filled.png");
+
+    if (this.isFilledOrLined(e, "./favorite-icon-filled.png")) {
+      this.ifFavoriteFilled(e, restaurantInfo)
+      return;
+    }
+
+    if (this.isFilledOrLined(e, "./favorite-icon-lined.png")) {
+      this.ifFavoriteLined(e, restaurantInfo)
+      return;
     }
   }
 
-  favoriteEvent = (e) => this.clickModalFavorite(e, this.restaurantInfo);
+  isFilledOrLined(e, favorite){
+    return e.target.getAttribute("src") === favorite
+  }
+
+  getFavoriteList(favorite, restaurantInfo){
+    return getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant) => {
+      if (restaurant.id === restaurantInfo.id)
+        restaurant["favorite"] = favorite;
+      return restaurant;
+    });
+  }
+  
+  ifFavoriteFilled(e, restaurantInfo){
+    const restaurantFavoriteList = this.getFavoriteList("./favorite-icon-lined.png", restaurantInfo)
+    setToLocalStorage("restaurants", restaurantFavoriteList)
+
+    const res = (getRestaurantListFromLocalstorage("favorite")??[]);
+    const deletedRestaurantElementArray = res.filter((val) => val.id !== restaurantInfo.id);
+    setToLocalStorage("favorite", deletedRestaurantElementArray);
+    
+    this.changeFavoriteImageAttribut(e, restaurantInfo, "./favorite-icon-lined.png");
+  }
+
+  ifFavoriteLined(e, restaurantInfo){
+    const favorite = [];
+    const restaurantFavoriteList = this.getFavoriteList("./favorite-icon-filled.png", restaurantInfo)
+    setToLocalStorage("restaurants", restaurantFavoriteList)
+
+    const favoriteList = getRestaurantListFromLocalstorage("favorite")??[];
+    if (favoriteList !== null) favoriteList.forEach((val) => favorite.push(val));
+    favorite.push(restaurantInfo);
+    setToLocalStorage("favorite", favorite);
+    
+    this.changeFavoriteImageAttribut(e, restaurantInfo, "./favorite-icon-filled.png");
+  }
+
+  changeFavoriteImageAttribut(e, restaurantInfo, favorite){
+    $(`.restaurant_favorite${restaurantInfo.id}`).children[0].setAttribute("src",favorite);
+    e.target.setAttribute("src", favorite);
+  }
 
   openModalDetail() {
     $(".modal--detail").style.display = "block";
