@@ -29,9 +29,12 @@ export interface CustomElement extends HTMLElement {
 }
 
 export type Index = number;
+
+export type MENU = "total" | "favorite";
+
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod | Index;
+  data?: Restaurant | Category | SortMethod | Index | MENU;
 }
 
 export interface RestaurantAction {
@@ -42,4 +45,5 @@ export interface RestaurantAction {
   SHOW_DETAIL: string;
   UPDATE_MODAL_FAVORITE: string;
   DELETE_RESTAURANT: string;
+  CHANGE_MENU: string;
 }

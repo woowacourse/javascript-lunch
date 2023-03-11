@@ -1,4 +1,10 @@
-import { Category, Index, Restaurant, SortMethod } from "../abstracts/types";
+import {
+  Category,
+  Index,
+  MENU,
+  Restaurant,
+  SortMethod,
+} from "../abstracts/types";
 import {
   CATEGORY_DEFAULT,
   RESTAURANTS_STORAGE,
@@ -85,6 +91,24 @@ class RestaurantsStore {
     } catch (e) {
       this.hasNoneRestaurantList();
     }
+  }
+
+  changeMenu(menu: MENU) {
+    try {
+      this.refreshRestaurantList();
+    } catch (e) {
+      this.hasNoneRestaurantList();
+    }
+    this.#category = CATEGORY_DEFAULT;
+    this.#sortMethod = SORT_METHOD.NAME;
+
+    if (menu === "favorite") this.filterByMenu();
+  }
+
+  filterByMenu() {
+    this.#restaurantList = this.#restaurantList.filter(
+      (restaurant) => restaurant.favorite === 1
+    );
   }
 
   filterByCategory() {

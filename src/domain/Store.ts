@@ -5,6 +5,7 @@ import {
   Action,
   SortMethod,
   Index,
+  MENU,
 } from "../abstracts/types";
 import { RESTAURANT_ACTION } from "../abstracts/constants";
 import RestaurantsInstance from "./RestaurantsStore";
@@ -23,6 +24,14 @@ class Store {
 
   publish() {
     RestaurantsInstance.filterByCategory();
+    RestaurantsInstance.sortRestaurants();
+
+    this.#subscribers.forEach((subscriber) => {
+      subscriber.rerender(RestaurantsInstance.restaurantList);
+    });
+  }
+
+  publishMenu() {
     RestaurantsInstance.sortRestaurants();
 
     this.#subscribers.forEach((subscriber) => {
@@ -62,6 +71,10 @@ class Store {
     [RESTAURANT_ACTION.DELETE_RESTAURANT]: (action: Action) => {
       RestaurantsInstance.deleteRestaurant(action.data as Index);
       this.publish();
+    },
+    ["changeMenu"]: (action: Action) => {
+      RestaurantsInstance.changeMenu(action.data as MENU);
+      this.publishMenu();
     },
   };
 }
