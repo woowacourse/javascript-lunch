@@ -16,7 +16,7 @@ export default function RestaurantItem(
   const $li = document.createElement('li');
   $li.className = 'restaurant';
 
-  const listClickHandler = (e: Event) => {
+  const listClickHandler = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLElement)) return;
 
     const type = e.target.dataset['type'];

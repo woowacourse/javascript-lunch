@@ -15,7 +15,7 @@ export default function RestaurantInfo(
   const { id, category, distance, name, description, link, isFavorite } =
     restaurant.getRestaurantInfo();
 
-  const clickHandler = (e: Event) => {
+  const clickHandler = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLElement)) return;
     const type = e.target.dataset['type'];
 

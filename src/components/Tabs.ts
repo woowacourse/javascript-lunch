@@ -50,6 +50,4 @@ export default class Tabs {
     
     `;
   }
-
-  tabClickHandler(event: Event) {}
 }
