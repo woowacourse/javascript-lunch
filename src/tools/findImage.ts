@@ -18,8 +18,8 @@ const findImage = (category: string) => {
     western: categoryWestern,
     asian: categoryAsian,
     etc: categoryEtc,
-    favoriteFilled: favoriteFilled,
-    favoriteLined: favoriteLined,
+    favoriteFilled,
+    favoriteLined,
   };
   return imageSrc[category];
 };
