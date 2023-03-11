@@ -25,11 +25,11 @@ class Modal extends Component {
     this.shadowRoot?.querySelector('dialog')?.close();
   }
 
-  onClick(event: MouseEvent) {
+  private onClick(event: MouseEvent) {
     event.stopPropagation();
   }
 
-  onClose(event: CloseEvent) {
+  private onClose(event: CloseEvent) {
     this.dispatchEvent(new CloseEvent('close'));
   }
 

@@ -9,7 +9,7 @@ class RestaurantListItem extends Component {
     return [...super.getCSSStyleSheets(), style];
   }
 
-  onClickFavorite(event: MouseEvent) {
+  private onClickFavorite(event: MouseEvent) {
     event.stopPropagation();
 
     const restaurantId = this.getAttribute('restaurant-id');

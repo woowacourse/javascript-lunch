@@ -18,7 +18,7 @@ class RestaurantList extends Component {
     return this.#restaurants;
   }
 
-  onClickItem(event: MouseEvent) {
+  private onClickItem(event: MouseEvent) {
     if (!(event.target instanceof RestaurantListItem)) return;
 
     const $restaurantListItem = event.target;

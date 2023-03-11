@@ -25,23 +25,23 @@ class RestaurantDetailModal extends Component {
     this.shadowRoot?.querySelector<Modal>('r-modal')?.close();
   }
 
-  onClickClose() {
+  private onClickClose() {
     this.close();
   }
 
-  onClickDelete() {
+  private onClickDelete() {
     this.close();
 
     if (!this.#restaurant) return;
     restaurants.delete(this.#restaurant);
   }
 
-  onClickFavorite() {
+  private onClickFavorite() {
     if (!this.#restaurant) return;
     restaurants.toggleFavorite(this.#restaurant);
   }
 
-  onSubmit(event?: SubmitEvent) {
+  private onSubmit(event?: SubmitEvent) {
     event?.preventDefault();
   }
 
@@ -52,7 +52,7 @@ class RestaurantDetailModal extends Component {
     `;
   }
 
-  renderContentTemplate() {
+  private renderContentTemplate() {
     return `
       <header slot="header">
         <section>

@@ -17,7 +17,7 @@ class RestaurantFilterPanel extends Component {
     return [...super.getCSSStyleSheets(), style];
   }
 
-  onCategoryChange(category: RestaurantCategory | null) {
+  private onCategoryChange(category: RestaurantCategory | null) {
     this.filterFn = category
       ? filterBy((restaurant) => restaurant.getCategory() === category)
       : null;
@@ -25,12 +25,12 @@ class RestaurantFilterPanel extends Component {
     this.onChange();
   }
 
-  onSortChange(sortFn: RestaurantFilter) {
+  private onSortChange(sortFn: RestaurantFilter) {
     this.sortFn = sortFn;
     this.onChange();
   }
 
-  onChange() {
+  private onChange() {
     restaurants.setFilters(this.getFilters());
   }
 

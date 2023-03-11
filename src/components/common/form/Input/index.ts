@@ -16,7 +16,7 @@ class Input extends FormControlComponent {
     `;
   }
 
-  onInput(event: InputEvent) {
+  private onInput(event: InputEvent) {
     if (event.target instanceof HTMLInputElement) {
       this.internals.setFormValue(event.target.value);
     }

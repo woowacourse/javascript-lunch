@@ -57,7 +57,7 @@ class Select<OptionValue> extends FormControlComponent {
     `;
   }
 
-  onChange(event: Event) {
+  private onChange(event: Event) {
     if (event.target instanceof HTMLSelectElement) {
       this.setSelectedOption(this.#options[Number(event.target.value)]);
     }

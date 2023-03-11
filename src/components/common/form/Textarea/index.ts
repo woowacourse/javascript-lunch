@@ -18,7 +18,7 @@ class Textarea extends FormControlComponent {
     `;
   }
 
-  onInput(event: InputEvent) {
+  private onInput(event: InputEvent) {
     if (event.target instanceof HTMLTextAreaElement) {
       this.internals.setFormValue(event.target.value);
     }

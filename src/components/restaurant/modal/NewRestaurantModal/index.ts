@@ -18,15 +18,15 @@ class NewRestaurantModal extends Component {
     this.shadowRoot?.querySelector<Modal>('r-modal')?.close();
   }
 
-  onClickCancel() {
+  private onClickCancel() {
     this.close();
   }
 
-  onClickSubmit() {
+  private onClickSubmit() {
     this.onSubmit();
   }
 
-  onSubmit(event?: SubmitEvent) {
+  private onSubmit(event?: SubmitEvent) {
     event?.preventDefault();
 
     const restaurantProps = Object.fromEntries([
@@ -43,7 +43,7 @@ class NewRestaurantModal extends Component {
     this.close();
   }
 
-  onPostClose() {
+  private onPostClose() {
     this.shadowRoot?.querySelector('form')?.reset();
   }
 

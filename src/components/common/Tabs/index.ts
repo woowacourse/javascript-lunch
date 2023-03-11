@@ -31,7 +31,7 @@ class Tabs extends Component {
     this.shadowRoot?.querySelector(`slot[name="${tabItem.value}"]`)?.setAttribute('active', '');
   }
 
-  onClickTabItem(event: MouseEvent) {
+  private onClickTabItem(event: MouseEvent) {
     const $button = event.target;
     if (!($button instanceof HTMLButtonElement)) return;
 
