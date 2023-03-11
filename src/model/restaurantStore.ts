@@ -61,7 +61,7 @@ export const restaurantStore = {
     return restaurantList.filter((restaurant) => restaurant.favorite === true);
   },
 
-  getFiltered(category: Category, order: Order) {
+  getFilteredList(category: Category = Category.All, order: Order = Order.Name) {
     const restaurantList = restaurantStore.getList();
     const filteredList = restaurantStore.filterItems(restaurantList, category);
     return restaurantStore.sortItems(filteredList, order);

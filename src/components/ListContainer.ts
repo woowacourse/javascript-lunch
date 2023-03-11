@@ -14,7 +14,10 @@ class ListContainer extends Component {
   constructor(elem: HTMLElement) {
     super(elem);
 
-    this.#state = newState({ restaurantList: restaurantStore.getList() }, this.render.bind(this));
+    this.#state = newState(
+      { restaurantList: restaurantStore.getFilteredList() },
+      this.render.bind(this)
+    );
 
     this.render().subscribe().setEvent();
   }
@@ -92,7 +95,7 @@ class ListContainer extends Component {
   }
 
   handleFilter({ category, order }: IFilterOption): void {
-    this.#state.restaurantList = restaurantStore.getFiltered(category, order) || [];
+    this.#state.restaurantList = restaurantStore.getFilteredList(category, order) || [];
   }
 
   render() {

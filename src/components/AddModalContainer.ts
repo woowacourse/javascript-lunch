@@ -70,7 +70,7 @@ class AddModalContainer extends Component {
   }
 
   updateRestaurant(restaurantInput: IRestaurantInput) {
-    return restaurantStore.addList(restaurantInput).getList();
+    return restaurantStore.addList(restaurantInput).getFilteredList();
   }
 
   // ! submit 이벤트 => event 에서 값을 추출할 수 있다. (click이벤트에서 submit이벤트로 변경)
