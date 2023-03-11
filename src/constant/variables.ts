@@ -21,18 +21,18 @@ export const translateCategory = Object.fromEntries(
 export const SORTINGWAY = {
   NAME: "name",
   DISTANCE: "distance",
-};
+} as const;
 
 export const CLASS = {
   MODAL_OPEN: "modal--open",
-};
+} as const;
 
 export const CONTENT = {
   ADD_FORM: "addForm",
   RESTAURANT_DETAIL: "restaurantDetail",
-};
+} as const;
 
 export const TAB = {
   ALL: "all-restaurants",
   FAVORITE: "favorite-restaurants",
-};
+} as const;
