@@ -16,8 +16,26 @@ export default class RestaurantManager {
     }
   }
 
+  findRestaurantData(restaurantName: string): Restaurant {
+    return [...this.restaurantList].filter((data) => data.storeName === restaurantName)[0];
+  }
+
   getRestaurantList(): Restaurant[] {
-    return [...this.restaurantList];
+    const getData = this.store.getItem('restaurantList');
+    if (getData !== null) {
+      const newData = JSON.parse(getData);
+      return newData;
+    }
+    return [];
+  }
+
+  refreshData(data: Restaurant[]) {
+    const refreshData = data.map((restaurant) => restaurant.storeName);
+    const getData = this.store.getItem('restaurantList');
+    if (getData !== null) {
+      return JSON.parse(getData).filter((data: Restaurant) => refreshData.includes(data.storeName));
+    }
+    return [];
   }
 
   addRestaurant(restaurant: Restaurant) {
@@ -25,23 +43,59 @@ export default class RestaurantManager {
     this.store.setItem('restaurantList', JSON.stringify(this.restaurantList));
   }
 
-  sortRestaurantList(standard: SortBy): Restaurant[] {
-    if (standard === 'name') {
-      this.restaurantList.sort((data1: Restaurant, data2: Restaurant): number => {
+  filterRestaurantLists(category: Category, sortBy: SortBy) {
+    const filteredList =
+      category === '전체'
+        ? this.restaurantList
+        : this.restaurantList.filter((data) => data.category === category);
+
+    if (sortBy === 'name') {
+      filteredList.sort((data1: Restaurant, data2: Restaurant): number => {
         return data1.storeName.localeCompare(data2.storeName, undefined, {
           numeric: true,
           sensitivity: 'base',
         });
       });
-    } else if (standard === 'distance') {
-      this.restaurantList.sort(
+    } else if (sortBy === 'distance') {
+      filteredList.sort(
         (data1: Restaurant, data2: Restaurant): number => data1.distance - data2.distance
       );
     }
-    return this.restaurantList;
+
+    return filteredList;
   }
 
-  filterRestaurantList(category: Category): Restaurant[] {
-    return this.restaurantList.filter((data) => data.category === category);
+  getFavoriteList(): Restaurant[] {
+    const getData = this.store.getItem('restaurantList');
+    if (getData !== null) {
+      const newData = JSON.parse(getData);
+      return newData.filter((data: Restaurant) => data.favorite === true);
+    }
+    return [];
+  }
+
+  reverseFavorite(storeName: string) {
+    const datas = this.store.getItem('restaurantList');
+    let renderData = {};
+    if (datas !== null) {
+      const changedData = JSON.parse(datas).map((info: Restaurant) => {
+        if (storeName === info.storeName) {
+          info.favorite = !info.favorite;
+          renderData = info;
+        }
+        return info;
+      });
+      this.store.setItem('restaurantList', JSON.stringify(changedData));
+      return renderData;
+    }
+    return;
+  }
+
+  removeRestaurant(storeName: string): void {
+    const data = this.getRestaurantList();
+    this.restaurantList = data.filter((data) => {
+      if (data.storeName !== storeName) return data;
+    });
+    this.store.setItem('restaurantList', JSON.stringify(this.restaurantList));
   }
 }
