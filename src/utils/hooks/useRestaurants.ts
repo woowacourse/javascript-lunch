@@ -41,6 +41,11 @@ function useRestaurants() {
     setRestaurants(lunchRecommendation.getAllList());
   }
 
+  function handleDeleteBtn(id: RestaurantInfo['id']) {
+    lunchRecommendation.delete(id);
+    setRestaurants(lunchRecommendation.getAllList());
+  }
+
   function tabAll() {
     tabLeft();
     setRestaurants(lunchRecommendation.getAllList());
@@ -65,6 +70,7 @@ function useRestaurants() {
       handleSortOption,
       handleClickAddBtn,
       handleFavoriteBtn,
+      handleDeleteBtn,
       tabAll,
       tabFavorite,
     },
