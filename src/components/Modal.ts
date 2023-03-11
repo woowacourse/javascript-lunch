@@ -33,9 +33,11 @@ class Modal {
     backdrop.addEventListener('click', (event: Event) => {
       const target = event.target as HTMLDialogElement;
 
-      if (target === event.currentTarget) this.close();
+      if (target === event.currentTarget) {
+        this.close();
 
-      if (this.onClose) this.onClose();
+        if (this.onClose) this.onClose();
+      }
     });
   }
 
