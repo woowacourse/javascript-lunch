@@ -76,29 +76,35 @@ class App {
     });
   }
 
-  #initRestaurants = () => {
+  initRestaurants = () => {
     this.#model = new Restaurants(this.#storage.getList());
   };
 
-  #toggleModal = () => {
-    $('.modal').classList.toggle('modal--open');
+  toggleFormModal = () => {
+    $('#form-modal').classList.toggle('modal--open');
   };
 
-  #submitForm = (e) => {
+  toggleDetailModal = (e) => {
+    $('#detail-modal').classList.toggle('modal--open');
+  };
+
+  submitForm = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
     const restaurant = {
+      id: String(Date.now()),
       category: form.get('category'),
       name: form.get('name'),
       takeMinute: form.get('takeMinute'),
       description: form.get('description'),
       link: form.get('link'),
+      favorite: false,
     };
 
-    this.#storage.setList([...this.#storage.getList(), restaurant]);
+    this.#storage.setValue([...this.#storage.getValue(), restaurant]);
   };
 
-  #renderList = () => {
+  renderList = () => {
     const $categoryFilter = $('#category-filter');
     const $sortingFilter = $('#sorting-filter');
 
