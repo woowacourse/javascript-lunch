@@ -71,6 +71,11 @@ class App {
         actions: [this.toggleFilterContainer, this.renderList],
       },
       {
+        selectors: '.restaurant-list',
+        event: 'click',
+        actions: [this.handleListItem],
+      },
+      {
         selectors: '#detail-modal .favorite-icon',
         event: 'click',
         actions: [this.updateFavorite, this.initRestaurants, this.updateDetail, this.renderList],
@@ -104,6 +109,17 @@ class App {
       });
     });
   }
+
+  handleListItem = (e) => {
+    if (e.target.closest('.favorite-icon')) {
+      this.updateFavorite(e);
+      this.initRestaurants();
+      this.renderList();
+    } else {
+      this.updateDetail(e);
+      this.toggleDetailModal();
+    }
+  };
 
   initRestaurants = () => {
     this.#model = new Restaurants(this.#storage.getValue());
