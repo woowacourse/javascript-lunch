@@ -1,5 +1,4 @@
 import RestaurantList from '../domain/RestaurantList.ts';
-import { LOCAL_STORAGE_KEY } from '../constants/index.ts';
 import { $ } from '../utils';
 
 class AddRestaurantForm extends HTMLElement {
@@ -24,8 +23,11 @@ class AddRestaurantForm extends HTMLElement {
           link,
         };
 
-        const restaurants = RestaurantList.getList();
-        const isDuplicate = restaurants.find((res) => res.name === name);
+        const restaurants = RestaurantList.getLocalStorage();
+        const isDuplicate =
+          restaurant.length > 0
+            ? restaurants.find((res) => res.name === name)
+            : false;
 
         if (isDuplicate) {
           this.shadowRoot
@@ -34,10 +36,8 @@ class AddRestaurantForm extends HTMLElement {
           return;
         }
 
-        const updatedRestaurants = [...restaurants, restaurant];
+        RestaurantList.add(restaurant);
 
-        const restaurantsString = JSON.stringify(updatedRestaurants);
-        window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
         this.resetForm();
 
         $('#addRestaurantModal').closeModal();

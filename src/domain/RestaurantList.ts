@@ -46,7 +46,7 @@ const RestaurantList = {
   },
 
   getLocalStorage() {
-    return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+    return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '');
   },
 
   getList: (

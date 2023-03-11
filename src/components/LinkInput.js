@@ -15,7 +15,7 @@ class LinkInput extends TextInput {
 
     this.shadowRoot.innerHTML = `
     <div class="container">
-      <label for="${id} text-caption">${name}</label>
+      <label for="${id}" class="text-caption">${name}</label>
       <input type="text" name="${id}" id="${id}">
       <span class="help-text text-caption">${caption}</span>
       <div id="lengthContainer" class="length-info">

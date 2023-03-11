@@ -15,7 +15,7 @@ class DescriptionInput extends TextInput {
 
     this.shadowRoot.innerHTML = `
     <div class="container">
-      <label for="${id} text-caption">${name}</label>
+      <label for="${id}" class="text-caption">${name}</label>
       <textarea name="${id}" id="${id}" cols="30" rows="5"></textarea>
       <span class="help-text text-caption">${caption}</span>
       <div id="lengthContainer" class="length-info">

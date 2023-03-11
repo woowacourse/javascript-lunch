@@ -14,7 +14,7 @@ class NameInput extends TextInput {
 
     this.shadowRoot.innerHTML = `
     <div class="container required">
-      <label for="${id} text-caption">${name}</label>
+      <label for="${id}" class="text-caption">${name}</label>
       <input type="text" name="${id}" id="${id}" required>
       <div id="lengthContainer" class="length-info">
         <span id="length">0</span>

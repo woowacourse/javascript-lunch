@@ -52,7 +52,7 @@ class AddSelect extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
     <div class="container">
-      <label for="${id} text-caption">${name}</label>
+      <label for="${id}" class="text-caption">${name}</label>
         <select name="${id}" id="${id}" required>
           <option value="">선택해 주세요</option>
             ${options.join('\n')}

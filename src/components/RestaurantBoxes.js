@@ -33,6 +33,7 @@ class RestaurantBoxes extends HTMLElement {
   getRestaurant(restaurant) {
     const restaurantBox = document.createElement('restaurant-box');
     restaurantBox.update(restaurant);
+
     return restaurantBox;
   }
 
