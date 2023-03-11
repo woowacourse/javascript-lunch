@@ -50,4 +50,12 @@ describe('점심 뭐 먹지 E2E test', () => {
 
     cy.waitUntil(() => cy.get('.restaurant').first().should('contain.text', '동남아할머니'));
   });
+
+  it('음식점을 클릭하면 상세 정보를 볼 수 있다', () => {
+    cy.get('.restaurant').first().click();
+    cy.get('.modal').should('contain.text', mockData[0].name);
+    cy.get('.modal').should('contain.text', mockData[0].distance);
+    if (mockData[0].description) cy.get('.modal').should('contain.text', mockData[0].description);
+    if (mockData[0].link) cy.get('.modal').should('contain.text', mockData[0].link);
+  });
 });
