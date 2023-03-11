@@ -314,6 +314,11 @@ body {
   right: 8px;
 }
 
+.detail h2 {
+  font-weight: 600;
+  font-size: 20px;
+}
+
 .detail .restaurant__take-minute {
   color: #ec4a0a;
 }
