@@ -1,4 +1,4 @@
-export const LIST = "list";
+export const LIST_KEY = "list";
 
 export const CATEGORY = {
   ALL: "전체",
