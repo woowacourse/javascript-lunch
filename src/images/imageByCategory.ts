@@ -18,7 +18,7 @@ export const FavoriteImage: ImageMap = {
   favoriteOff: './favorite-icon-lined.png',
 };
 
-export const toggleFavoriteImageIn = toggleImageSource({
+export const toggleFavoriteIcon = toggleImageSource({
   onImage: './favorite-icon-filled.png',
   offImage: './favorite-icon-lined.png',
 });
