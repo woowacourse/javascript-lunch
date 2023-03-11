@@ -8,9 +8,10 @@ import Restaurants from './domain/Restaurants';
 import Tabbar from './components/Tabbar';
 import { $ } from './utils/common';
 import InfoModal from './components/modal/InfoModal';
+import { yeoptoRestaurant, doriRestaurant, gongwonRestaurant } from './data/MockData';
 
 if (localStorage.getItem('restaurants') === null) {
-  localStorage.setItem('restaurants', JSON.stringify([]));
+  localStorage.setItem('restaurants', JSON.stringify([yeoptoRestaurant, doriRestaurant, gongwonRestaurant]));
 }
 
 const restaurants = new Restaurants(JSON.parse(localStorage.getItem('restaurants')));
