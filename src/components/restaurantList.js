@@ -1,3 +1,4 @@
+import '../../css/restaurant-list.css';
 import '../assets/category-korean.png';
 import '../assets/category-chinese.png';
 import '../assets/category-japanese.png';
@@ -6,8 +7,8 @@ import '../assets/category-asian.png';
 import '../assets/category-etc.png';
 import '../assets/favorite-icon-filled.png';
 import '../assets/favorite-icon-lined.png';
+import { $ } from '../utils/selector';
 import { CATEGORY_IMAGES } from '../constants/asset';
-import { $inBody } from '../utils/selector';
 
 class RestaurantList {
   render(restaurantList) {
@@ -15,17 +16,20 @@ class RestaurantList {
       .map(info => this.#template(info))
       .join('');
 
-    $inBody('.restaurant-list').innerHTML = restaurantListHTML;
+    $('.restaurant-list').innerHTML = restaurantListHTML;
   }
 
   renderAdditionRestaurant(restaurant) {
-    $inBody('.restaurant').insertAdjacentHTML(
+    $('.restaurant').insertAdjacentHTML(
       'beforeend',
       this.#template(restaurant)
     );
   }
 
-  #template({ category, name, distance, description }) {
+  #template({ number, category, name, distance, description, isFavorite }) {
+    const favoriteOpenClass = isFavorite ? 'favorite-icon-filled--open' : '';
+
+    /* html */
     return `
 			<li class="restaurant">
     		<div class="restaurant__category">
@@ -36,16 +40,32 @@ class RestaurantList {
     			/>
     		</div>
     		<div class="restaurant__info">
-    			<h3 class="restaurant__name text-subtitle">
-						${name}
-					</h3>
-    			<span class="restaurant__distance text-body">
-						캠퍼스부터 ${distance}분 내
-					</span>
-    			<p class="restaurant__description text-body">
-    				${description}
-    			</p>
-    		</div>
+					<div class="info-top">
+						<div>
+    					<h3 class="restaurant__name text-subtitle">
+								${name}
+							</h3>
+    					<span class="restaurant__distance text-body">
+								캠퍼스부터 ${distance}분 내
+							</span>
+						</div>
+						<div class="favorite-icon-container">
+							<img
+								src="./favorite-icon-lined.png"
+								alt="즐겨찾기"
+								class="favorite-icon-lined favorite-icon-lined-${number}"
+							/>
+							<img
+								src="./favorite-icon-filled.png"
+								alt="즐겨찾기"
+								class="favorite-icon-filled favorite-icon-filled-${number} ${favoriteOpenClass}"
+							/>
+						</div>
+					</div>
+					<p class="restaurant__description text-body">
+					${description}
+					</p>
+				</div>
     	</li>
 		`;
   }

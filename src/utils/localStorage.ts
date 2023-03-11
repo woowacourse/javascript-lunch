@@ -5,11 +5,11 @@ export function saveListOnLocalStorage<T>(key: string, list: T[]) {
 }
 
 export function getListOnLocalStorage<T>(key: string): T[] {
-  const list = Object.values(JSON.parse(localStorage.getItem(key)!));
+  const item = localStorage.getItem(key);
 
-  if (!Array.isArray(list)) {
-    return [];
+  if (item) {
+    return Object.values(JSON.parse(item));
   }
 
-  return list as [];
+  return [] as [];
 }

@@ -1,14 +1,21 @@
-import { $inBody } from '../utils/selector';
+import '../../css/modal.css';
+import { $ } from '../utils/selector';
 
 class Modal {
+  #state = {
+    selector: '',
+  };
+
+  constructor(selector) {
+    this.#state.selector = selector;
+  }
+
   render() {
-    $inBody('.restaurant-add-modal').insertAdjacentHTML(
-      'beforeend',
-      this.#template()
-    );
+    $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
   }
 
   #template() {
+    /* html */
     return `
 			<div class="modal">
 				<div class="modal-backdrop"></div>

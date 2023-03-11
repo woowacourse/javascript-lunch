@@ -2,7 +2,7 @@ import { FILTER_OPTION } from '../constants/filter';
 import { RestaurantType } from '../type';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import RestaurantList from '../components/restaurantList.js';
-import { LOCAL_STORAGE_KEY } from '../constants/values';
+import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 
 export const sortByName = (allRestaurants: RestaurantType[]) => {
   return allRestaurants.sort((a, b) => {
@@ -24,7 +24,7 @@ export const sortByDistance = (allRestaurants: RestaurantType[]) => {
 
 export const filterCategory = (selectedCategory: string) => {
   const restaurantList = getListOnLocalStorage(
-    LOCAL_STORAGE_KEY
+    LOCAL_STORAGE_KEY.RESTAURANT_LIST
   ) as RestaurantType[];
   const restaurantListComponent = new RestaurantList();
 

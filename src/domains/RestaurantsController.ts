@@ -2,32 +2,21 @@ import RestaurantList from '../components/restaurantList.js';
 import { filterCategory, sortByDistance, sortByName } from './filter';
 import { RestaurantType } from '../type';
 import { isValidName } from '../validator';
-import { initialRestaurantList } from '../constants/initialRestaurantList';
 import { FILTER_OPTION } from '../constants/filter';
 import { getFormData } from '../utils/form';
-import {
-  getListOnLocalStorage,
-  saveListOnLocalStorage,
-} from '../utils/localStorage';
-import { LOCAL_STORAGE_KEY } from '../constants/values';
+import { saveListOnLocalStorage } from '../utils/localStorage';
+import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 
 class RestaurantsController {
   private static instance: RestaurantsController;
   private restaurantListComponent: RestaurantList = new RestaurantList();
   private restaurantList: RestaurantType[] = [];
+  private favoriteList: RestaurantType[] = [];
 
   private constructor() {
     if (!RestaurantsController.instance) {
       RestaurantsController.instance = this;
     }
-
-    this.renderRestaurantList(this.initLocalStorageItems());
-  }
-
-  private initLocalStorageItems() {
-    return window.localStorage.length
-      ? (getListOnLocalStorage(LOCAL_STORAGE_KEY) as RestaurantType[])
-      : initialRestaurantList;
   }
 
   public static getInstance() {
@@ -43,7 +32,11 @@ class RestaurantsController {
 
     try {
       isValidName(newRestaurant.name);
-      this.renderRestaurantList([...this.restaurantList, newRestaurant]);
+      this.updateRestaurantList([...this.restaurantList, newRestaurant]);
+      this.restaurantListComponent.render([
+        ...this.restaurantList,
+        newRestaurant,
+      ]);
 
       return true;
     } catch (error: !unknown) {
@@ -64,11 +57,11 @@ class RestaurantsController {
 
   sortRestaurantList(value: string) {
     if (value === FILTER_OPTION.NAME) {
-      this.renderRestaurantList(sortByName(this.restaurantList));
+      this.restaurantListComponent.render(sortByName(this.restaurantList));
     }
 
     if (value === FILTER_OPTION.DISTANCE) {
-      this.renderRestaurantList(sortByDistance(this.restaurantList));
+      this.restaurantListComponent.render(sortByDistance(this.restaurantList));
     }
   }
 
@@ -76,10 +69,12 @@ class RestaurantsController {
     filterCategory(value);
   }
 
-  renderRestaurantList(restaurantList: RestaurantType[]) {
+  updateRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
-    this.restaurantListComponent.render(this.restaurantList);
-    saveListOnLocalStorage(LOCAL_STORAGE_KEY, this.restaurantList);
+    saveListOnLocalStorage(
+      LOCAL_STORAGE_KEY.RESTAURANT_LIST,
+      this.restaurantList
+    );
   }
 }
 

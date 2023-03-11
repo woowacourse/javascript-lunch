@@ -2,6 +2,7 @@ import { RestaurantType } from '../type';
 
 export const initialRestaurantList: RestaurantType[] = [
   {
+    number: 0,
     category: '한식',
     name: '피양콩할마니',
     distance: '10',
@@ -14,16 +15,20 @@ export const initialRestaurantList: RestaurantType[] = [
     역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은
     만큼 덜어 먹을 수 있게 준비돼 있다.`,
     link: '',
+    isFavorite: false,
   },
   {
+    number: 1,
     category: '중식',
     name: '친친',
     distance: '5',
     description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과
     정성으로 정통 중식의 세계를 펼쳐갑니다.`,
     link: '',
+    isFavorite: false,
   },
   {
+    number: 2,
     category: '일식',
     name: '잇쇼우',
     distance: '10',
@@ -31,26 +36,33 @@ export const initialRestaurantList: RestaurantType[] = [
     정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는
     잇쇼우는 고객 한분 한분께 최선을 다하겠습니다.`,
     link: '',
+    isFavorite: false,
   },
   {
+    number: 3,
     category: '양식',
     name: '이태리키친',
     distance: '20',
     description: `늘 변화를 추구하는 이태리키친입니다.`,
     link: '',
+    isFavorite: false,
   },
   {
+    number: 4,
     category: '아시안',
     name: '호아빈 삼성점',
     distance: '15',
     description: `푸짐한 양에 국물이 일품인 쌀국수`,
     link: '',
+    isFavorite: false,
   },
   {
+    number: 5,
     category: '기타',
     name: '도스타코스 선릉점',
     distance: '5',
     description: `멕시칸 캐주얼 그릴`,
     link: '',
+    isFavorite: false,
   },
 ];

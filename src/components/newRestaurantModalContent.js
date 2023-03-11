@@ -1,3 +1,5 @@
+import '../../css/newRestaurantModalContent.css';
+import { $inBody } from '../utils/selector';
 import {
   BUTTON_TEXT,
   CATEGORY_LIST,
@@ -6,7 +8,6 @@ import {
   LABEL_TEXT,
   TITLE,
 } from '../constants/newRestaurantModalContent';
-import { $inBody } from '../utils/selector';
 
 class NewRestaurantModalContent {
   render(selector) {
@@ -14,6 +15,7 @@ class NewRestaurantModalContent {
   }
 
   #template() {
+    /* html */
     return `
 			<h2 class="modal-title text-title">${TITLE}</h2>
 					<form id="new-restaurant-form">
@@ -62,7 +64,7 @@ class NewRestaurantModalContent {
 
 						<!-- 취소/추가 버튼 -->
 						<div class="button-container">
-							<button type="button" class="button button--secondary text-caption" aria-label="cancel">
+							<button class="button button--secondary text-caption" aria-label="cancel">
 								${BUTTON_TEXT.CANCEL}
 							</button>
 							<button class="button button--primary text-caption" aria-label="register">

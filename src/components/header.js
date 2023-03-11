@@ -1,13 +1,14 @@
+import '../../css/gnb.css';
 import { $inBody } from '../utils/selector';
 import '../assets/add-button.png';
 
 class Header {
-  #props = {
+  #state = {
     title: '',
   };
 
-  constructor(props) {
-    this.#props = props;
+  constructor(state) {
+    this.#state = state;
   }
 
   render() {
@@ -15,8 +16,9 @@ class Header {
   }
 
   #template() {
+    /* html */
     return `
-			<h1 class="gnb__title text-title">${this.#props.title}</h1>
+			<h1 class="gnb__title text-title">${this.#state.title}</h1>
 			<button type="button" class="gnb__button" aria-label="음식점 추가">
 				<img src="./add-button.png" alt="음식점 추가" />
 			</button>
