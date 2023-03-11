@@ -54,8 +54,8 @@ const App = {
       listener: () => handleModalOpenButtonClick(".modal"),
     });
 
-    [$(".button--secondary")!, $(".modal-backdrop")!].forEach((el) =>
-      executeEventListener(el, {
+    [$(".button--secondary"), $(".modal-backdrop")].forEach((el) =>
+      executeEventListener(el!, {
         type: "click",
         listener: () => handleModalCancelButtonClick(".modal"),
       })
@@ -63,8 +63,7 @@ const App = {
 
     executeEventListener($("#new-restaurant-form")!, {
       type: "submit",
-      listener: (event) =>
-        this.restaurantsController.addNewRestaurant(event),
+      listener: (event) => this.restaurantsController.addNewRestaurant(event),
     });
   },
 

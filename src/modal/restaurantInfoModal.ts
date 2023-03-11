@@ -4,6 +4,7 @@ import { $ } from "../util/selector";
 import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
 import { updateRestaurantList } from "../domain/filter";
 import { preventScroll } from "./newRestaurantModalHandler";
+import { executeEventListener } from "../util/eventListener";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
 export const renderTemplate = (info: RestaurantType) => {
@@ -53,18 +54,21 @@ export const closeRestaurantInfoModal = () => {
     $("#restaurant-info-modal .button--primary"),
   ];
 
-  closeButton.forEach((button) =>
-    button?.addEventListener("click", () => {
-      $("#restaurant-info-modal")?.classList.remove("modal--open");
-      preventScroll();
-    })
-  );
+  closeButton.forEach((button) => {
+    executeEventListener(button!, {
+      type: "click",
+      listener: () => {
+        $("#restaurant-info-modal")?.classList.remove("modal--open");
+        preventScroll();
+      },
+    });
+  });
 };
 
 export const deleteRestaurant = () => {
-  $("#restaurant-info-modal .button--secondary")?.addEventListener(
-    "click",
-    (event: Event) => {
+  executeEventListener($("#restaurant-info-modal .button--secondary")!, {
+    type: "click",
+    listener: (event) => {
       const target = event.target as HTMLImageElement;
 
       const restaurantKey = target.closest("div")?.previousElementSibling
@@ -72,6 +76,6 @@ export const deleteRestaurant = () => {
 
       localStorage.removeItem(`${RESTAURANT}${restaurantKey}`);
       updateRestaurantList();
-    }
-  );
+    },
+  });
 };
