@@ -17,23 +17,32 @@ const MESSAGE = {
 
 const LOCAL_STORAGE_KEY = 'restaurants';
 
+const DEFAULT_TAB = 'all-restaurants';
+
+const TAB_ALL_NAME = '모든 음식점';
+const TAB_FAVORITE_NAME = '자주 가는 음식점';
+
+const CATEGORY_ALL = '전체';
+const SORT_BY_NAME = '이름순';
+
+const RESTAURANT_DISTANCE = [5, 10, 15, 20, 30] as const;
+
 const OPTION_NAMES = {
   PLACEHOLDER: '선택해 주세요',
-  ALL: '전체',
   CATEGORY: ['한식', '중식', '일식', '양식', '아시안', '기타'],
-  SORTING: ['이름순', '거리순'],
+  SORTING: [SORT_BY_NAME, '거리순'],
   DISTANCE: ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'],
-};
+} as const;
 
 const OPTION_VALUES = {
   PLACEHOLDER: '',
   DISTANCE: ['5', '10', '15', '20', '30'],
-};
+} as const;
 
 const SELECT_OPTIONS = {
   CATEGORY_FILTER: {
-    text: [OPTION_NAMES.ALL, ...OPTION_NAMES.CATEGORY],
-    value: [OPTION_NAMES.ALL, ...OPTION_NAMES.CATEGORY],
+    text: [CATEGORY_ALL, ...OPTION_NAMES.CATEGORY],
+    value: [CATEGORY_ALL, ...OPTION_NAMES.CATEGORY],
   },
   SORTING_FILTER: {
     text: OPTION_NAMES.SORTING,
@@ -49,4 +58,18 @@ const SELECT_OPTIONS = {
   },
 };
 
-export { REGEX, ERROR_MESSAGE, MESSAGE, LOCAL_STORAGE_KEY, SELECT_OPTIONS };
+export {
+  REGEX,
+  ERROR_MESSAGE,
+  MESSAGE,
+  LOCAL_STORAGE_KEY,
+  DEFAULT_TAB,
+  TAB_ALL_NAME,
+  TAB_FAVORITE_NAME,
+  CATEGORY_ALL,
+  SORT_BY_NAME,
+  RESTAURANT_DISTANCE,
+  OPTION_NAMES,
+  OPTION_VALUES,
+  SELECT_OPTIONS,
+};

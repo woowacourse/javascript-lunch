@@ -1,3 +1,4 @@
+import { TAB_ALL_NAME, TAB_FAVORITE_NAME } from '../constants/constants';
 import { TAB_BUTTON_ATTRIBUTE } from '../constants/domAttributes';
 import { createTabButton } from '../template/TabButtonTemplate';
 import { $ } from '../utils/domSelectors';
@@ -20,12 +21,12 @@ class RestaurantTabMenu {
       ${createTabButton(
         TAB_BUTTON_ATTRIBUTE.ALL_RESTAURANTS_INPUT,
         TAB_BUTTON_ATTRIBUTE.ALL_RESTAURANTS_LABEL,
-        '모든 음식점'
+        TAB_ALL_NAME
       )}
       ${createTabButton(
         TAB_BUTTON_ATTRIBUTE.FAVORITE_RESTAURANTS_INPUT,
         TAB_BUTTON_ATTRIBUTE.FAVORITE_RESTAURANTS_LABEL,
-        '자주 가는 음식점'
+        TAB_FAVORITE_NAME
       )}
       `
     );

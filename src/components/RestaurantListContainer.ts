@@ -1,4 +1,5 @@
 import { Restaurant, RestaurantFilter } from '../types/index';
+import { DEFAULT_TAB } from '../constants/constants';
 import { $ } from '../utils/domSelectors';
 import { changeRestaurantFavoriteIcon } from './utils';
 import { createRestaurantItem } from '../template/RestaurantItemTemplate';
@@ -27,7 +28,7 @@ class RestaurantListContainer {
 
   filterAndSortRestaurants(currentTab: string, displayStatus: RestaurantFilter) {
     const restaurantList =
-      currentTab === 'all-restaurants'
+      currentTab === DEFAULT_TAB
         ? this.restaurantService.getRestaurantList()
         : this.restaurantService.getFavoriteRestaurantList();
 

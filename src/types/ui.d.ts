@@ -9,8 +9,8 @@ export type Attribute = {
 };
 
 export type Option = {
-  text: string[];
-  value: string[];
+  text: readonly string[];
+  value: readonly string[];
 };
 
 export type ButtonContent = string;

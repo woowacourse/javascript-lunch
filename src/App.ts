@@ -10,14 +10,15 @@ import RestaurantForm from './components/RestaurantForm';
 import RestaurantInformation from './components/RestaurantInformation';
 import { addHeaderEvent } from './events/headerEvents';
 import RestaurantService from './domains/RestaurantService';
+import { CATEGORY_ALL, DEFAULT_TAB, SORT_BY_NAME } from './constants/constants';
 
 class App {
   private restaurantService: RestaurantService;
   private restaurantListContainer: RestaurantListContainer;
   private formModal: Modal = new Modal(MODAL_ATTRIBUTE.FORM, RestaurantForm);
   private informationModal: Modal = new Modal(MODAL_ATTRIBUTE.RESTAURANT_INFORMATION, RestaurantInformation);
-  private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
-  private currentTab: string = 'all-restaurants';
+  private currentDisplayStatus: RestaurantFilter = { category: CATEGORY_ALL, sorting: SORT_BY_NAME };
+  private currentTab: string = DEFAULT_TAB;
 
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
@@ -42,8 +43,8 @@ class App {
 
     if (
       (restaurantItem.category === this.currentDisplayStatus.category ||
-        this.currentDisplayStatus.category === '전체') &&
-      this.currentTab === 'all-restaurants'
+        this.currentDisplayStatus.category === CATEGORY_ALL) &&
+      this.currentTab === DEFAULT_TAB
     ) {
       this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
     }
@@ -63,7 +64,7 @@ class App {
     const updatedRestaurantList = this.restaurantService.updateFavorite(restaurantId);
     saveToLocalStorage(updatedRestaurantList);
 
-    if (this.currentTab === 'favorite-restaurants') {
+    if (this.currentTab !== DEFAULT_TAB) {
       this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
     }
   };

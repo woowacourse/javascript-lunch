@@ -1,7 +1,9 @@
-export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+import { RESTAURANT_DISTANCE, OPTION_NAMES } from '../constants/constants';
 
-type Distance = 5 | 10 | 15 | 20 | 30;
-type SortingOptions = '이름순' | '거리순';
+export type Category = (typeof OPTION_NAMES.CATEGORY)[number];
+
+type Distance = (typeof RESTAURANT_DISTANCE)[number];
+type SortingOptions = (typeof OPTION_NAMES.SORTING)[number];
 
 export type Restaurant = {
   category: Category;

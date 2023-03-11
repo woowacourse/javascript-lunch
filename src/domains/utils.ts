@@ -1,8 +1,9 @@
 import { Restaurant, RestaurantFilter } from '../types/index';
 import { CategoryOptions } from '../types/domain';
+import { CATEGORY_ALL, SORT_BY_NAME } from '../constants/constants';
 
 function filterByCategory(category: CategoryOptions, restaurantList: Restaurant[]) {
-  if (category === '전체') return [...restaurantList];
+  if (category === CATEGORY_ALL) return [...restaurantList];
 
   return restaurantList.filter((restaurant) => restaurant.category === category);
 }
@@ -18,7 +19,7 @@ function sortByDistance(restaurantList: Restaurant[]) {
 function filterAndSort(displayStatus: RestaurantFilter, restaurantList: Restaurant[]) {
   const filteredRestaurantList = filterByCategory(displayStatus.category, restaurantList);
 
-  if (displayStatus.sorting === '이름순') {
+  if (displayStatus.sorting === SORT_BY_NAME) {
     return sortByName(filteredRestaurantList);
   }
 

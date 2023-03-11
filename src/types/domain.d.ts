@@ -1,5 +1,6 @@
-import { Category } from '.';
+import { Category } from './index';
+import { CATEGORY_ALL } from '../constants/constants';
 
-type AllCategory = '전체';
+type AllCategory = typeof CATEGORY_ALL;
 
 export type CategoryOptions = AllCategory | Category;
