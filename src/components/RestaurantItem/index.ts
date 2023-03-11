@@ -34,7 +34,7 @@ class RestaurantItem extends HTMLElement {
             <favorite-button
               class="favorite-button-${restaurant.id}"
               restaurant-id="${restaurant.id}" 
-              favorite="${restaurant.favorite}">
+              data-favorite="${restaurant.favorite}">
             </favorite-button>
           </div>
         </div>

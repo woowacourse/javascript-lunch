@@ -38,7 +38,7 @@ class RestaurantView extends HTMLElement {
           <favorite-button
             class="favorite-button-${this.restaurant?.id}"
             restaurant-id="${this.restaurant?.id}" 
-            favorite="${this.restaurant?.favorite}">
+            data-favorite="${this.restaurant?.favorite}">
           </favorite-button>
         </div>
       </div>

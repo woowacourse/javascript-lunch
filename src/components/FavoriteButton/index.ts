@@ -8,7 +8,7 @@ class FavoriteButton extends HTMLElement {
   constructor() {
     super();
     this.restaurantId = this.getAttribute("restaurant-id");
-    this.favorite = JSON.parse(this.getAttribute("favorite") as string);
+    this.favorite = JSON.parse(this.dataset.favorite as string);
     this.render();
     this.onClickFavoriteButton(this.restaurantId as string);
   }
@@ -24,7 +24,7 @@ class FavoriteButton extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["favorite"];
+    return ["data-favorite"];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -42,7 +42,7 @@ class FavoriteButton extends HTMLElement {
         `.favorite-button-${this.restaurantId}`
       );
       buttons.forEach((button) => {
-        button.setAttribute("favorite", `${!this.favorite}`);
+        button.setAttribute("data-favorite", `${!this.favorite}`);
       });
     });
   }
