@@ -8,12 +8,12 @@ import RestaurantListContainer from './components/RestaurantListContainer';
 import Modal from './components/Modal';
 import RestaurantForm from './components/RestaurantForm';
 import RestaurantInformation from './components/RestaurantInformation';
-import { filterAndSort } from './domains/utils';
 import { addHeaderEvent } from './events/headerEvents';
 import RestaurantService from './domains/RestaurantService';
 
 class App {
   private restaurantService: RestaurantService;
+  private restaurantListContainer: RestaurantListContainer;
   private formModal: Modal = new Modal(MODAL_ATTRIBUTE.FORM, RestaurantForm);
   private informationModal: Modal = new Modal(MODAL_ATTRIBUTE.RESTAURANT_INFORMATION, RestaurantInformation);
   private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
@@ -22,8 +22,9 @@ class App {
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
+    this.restaurantListContainer = new RestaurantListContainer(this.restaurantService);
     this.renderComponents();
-    this.updateRestaurantList();
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
     this.addEvents();
   }
 
@@ -32,15 +33,6 @@ class App {
     RestaurantFilters.render();
     this.formModal.render();
     this.informationModal.render();
-  }
-
-  updateRestaurantList() {
-    const restaurantList =
-      this.currentTab === 'all-restaurants'
-        ? filterAndSort(this.currentDisplayStatus, this.restaurantService.getRestaurantList())
-        : filterAndSort(this.currentDisplayStatus, this.restaurantService.getFavoriteRestaurantList());
-
-    RestaurantListContainer.renderRestaurantItems(restaurantList);
   }
 
   addRestaurant = (restaurantItem: Restaurant) => {
@@ -53,18 +45,18 @@ class App {
         this.currentDisplayStatus.category === '전체') &&
       this.currentTab === 'all-restaurants'
     ) {
-      this.updateRestaurantList();
+      this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
     }
   };
 
   changeRestaurantMenuTab = (tab: string) => {
     this.currentTab = tab;
-    this.updateRestaurantList();
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
   };
 
   changeFilter = (filter: RestaurantFilter) => {
     this.currentDisplayStatus = { ...this.currentDisplayStatus, ...filter };
-    this.updateRestaurantList();
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
   };
 
   updateFavoriteRestaurant = (restaurantId: number) => {
@@ -72,7 +64,7 @@ class App {
     saveToLocalStorage(updatedRestaurantList);
 
     if (this.currentTab === 'favorite-restaurants') {
-      RestaurantListContainer.removeRestaurantItem(restaurantId);
+      this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
     }
   };
 
@@ -85,14 +77,14 @@ class App {
   deleteRestaurant = (restaurantId: number) => {
     const updatedRestaurantList = this.restaurantService.delete(restaurantId);
     saveToLocalStorage(updatedRestaurantList);
-    RestaurantListContainer.removeRestaurantItem(restaurantId);
+    this.restaurantListContainer.updateRestaurantList(this.currentTab, this.currentDisplayStatus);
   };
 
   addEvents() {
     addHeaderEvent(this.formModal.model);
     RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
-    RestaurantListContainer.addEvent(
+    this.restaurantListContainer.addEvent(
       this.updateFavoriteRestaurant,
       this.informationModal.model,
       this.showRestaurantInformation
