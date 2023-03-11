@@ -13,7 +13,7 @@ const tab = new Tab($(".restaurant-tab-container"));
 const filter = new Filter($(".restaurant-filter-container"));
 const restaurantList = new RestaurantList($(".restaurant-list-container"), modal);
 
-modal.setEvent(restaurantList);
+modal.setEvent();
 header.setEvent(modal, restaurantList);
 filter.setEvent(restaurantList);
 tab.setEvent(restaurantList);
