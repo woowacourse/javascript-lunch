@@ -1,76 +1,46 @@
 import { Restaurant, RestaurantFilter } from './types/index';
 import { INITIAL_RESTAURANT_DATA } from './constants/data';
 import { MODAL_ATTRIBUTE } from './constants/domAttributes';
-import { $ } from './utils/domSelectors';
 import { getLocalStorage, saveToLocalStorage } from './utils/localStorage';
+import RestaurantTabMenu from './components/RestaurantTabMenu';
 import RestaurantFilters from './components/RestaurantFilters';
-import {
-  addRestaurantTabChangeEvent,
-  renderRestaurantTabMenu,
-} from './components/RestaurantTabMenu';
-import {
-  addRestaurantClickEvent,
-  removeRestaurantItem,
-  renderRestaurantItems,
-} from './components/RestaurantListContainer';
+import RestaurantListContainer from './components/RestaurantListContainer';
 import Modal from './components/Modal';
-import RestaurantAddForm from './components/RestaurantAddForm';
+import RestaurantForm from './components/RestaurantForm';
 import RestaurantInformation from './components/RestaurantInformation';
+import { filterAndSort } from './domains/utils';
 import { addHeaderEvent } from './events/headerEvents';
 import RestaurantService from './domains/RestaurantService';
-import { filterAndSort } from './domains/utils';
 
 class App {
   private restaurantService: RestaurantService;
-  private formModal: Modal = new Modal(MODAL_ATTRIBUTE.FORM, RestaurantAddForm);
-  private informationModal: Modal = new Modal(
-    MODAL_ATTRIBUTE.RESTAURANT_INFORMATION,
-    RestaurantInformation
-  );
+  private formModal: Modal = new Modal(MODAL_ATTRIBUTE.FORM, RestaurantForm);
+  private informationModal: Modal = new Modal(MODAL_ATTRIBUTE.RESTAURANT_INFORMATION, RestaurantInformation);
   private currentDisplayStatus: RestaurantFilter = { category: '전체', sorting: '이름순' };
   private currentTab: string = 'all-restaurants';
-  private body = $<HTMLBodyElement>('body');
-  private restaurantListElement: Element;
 
   constructor() {
     const restaurantList = getLocalStorage() ?? INITIAL_RESTAURANT_DATA;
     this.restaurantService = new RestaurantService(restaurantList);
-    this.render();
     this.renderComponents();
-    this.restaurantListElement = $<HTMLButtonElement>('.restaurant-list');
     this.updateRestaurantList();
     this.addEvents();
   }
 
-  create() {
-    return `
-      <main>
-        ${RestaurantFilters.create()}
-        ${this.formModal.create()}
-        ${this.informationModal.create()}
-      </main>
-    `;
-  }
-
-  render() {
-    this.body.insertAdjacentHTML('beforeend', this.create());
-  }
-
   renderComponents() {
-    renderRestaurantTabMenu();
+    RestaurantTabMenu.render();
     RestaurantFilters.render();
+    this.formModal.render();
+    this.informationModal.render();
   }
 
   updateRestaurantList() {
     const restaurantList =
       this.currentTab === 'all-restaurants'
         ? filterAndSort(this.currentDisplayStatus, this.restaurantService.getRestaurantList())
-        : filterAndSort(
-            this.currentDisplayStatus,
-            this.restaurantService.getFavoriteRestaurantList()
-          );
+        : filterAndSort(this.currentDisplayStatus, this.restaurantService.getFavoriteRestaurantList());
 
-    renderRestaurantItems(restaurantList);
+    RestaurantListContainer.renderRestaurantItems(restaurantList);
   }
 
   addRestaurant = (restaurantItem: Restaurant) => {
@@ -102,36 +72,35 @@ class App {
     saveToLocalStorage(updatedRestaurantList);
 
     if (this.currentTab === 'favorite-restaurants') {
-      removeRestaurantItem(restaurantId);
+      RestaurantListContainer.removeRestaurantItem(restaurantId);
     }
   };
 
   showRestaurantInformation = (restaurantId: number) => {
     const restaurant = this.restaurantService.getRestaurant(restaurantId);
-    this.informationModal.renderContent(
-      restaurant,
-      this.deleteRestaurant,
-      this.updateFavoriteRestaurant
-    );
+    RestaurantInformation.renderContent(restaurant);
+    RestaurantInformation.addContentEvent(this.updateFavoriteRestaurant);
   };
 
   deleteRestaurant = (restaurantId: number) => {
     const updatedRestaurantList = this.restaurantService.delete(restaurantId);
     saveToLocalStorage(updatedRestaurantList);
-    removeRestaurantItem(restaurantId);
+    RestaurantListContainer.removeRestaurantItem(restaurantId);
   };
 
   addEvents() {
-    addHeaderEvent(this.formModal.openModal);
-    addRestaurantTabChangeEvent(this.changeRestaurantMenuTab);
+    addHeaderEvent(this.formModal.model);
+    RestaurantTabMenu.addEvent(this.changeRestaurantMenuTab);
     RestaurantFilters.addEvents(this.changeFilter);
-    addRestaurantClickEvent(
+    RestaurantListContainer.addEvent(
       this.updateFavoriteRestaurant,
-      this.showRestaurantInformation,
-      this.informationModal.openModal
+      this.informationModal.model,
+      this.showRestaurantInformation
     );
-    this.formModal.addEvents(this.addRestaurant);
-    this.informationModal.addEvents();
+    this.formModal.addEvent();
+    RestaurantForm.addEvents(this.formModal.close, this.addRestaurant);
+    this.informationModal.addEvent();
+    RestaurantInformation.addButtonEvents(this.informationModal.close, this.deleteRestaurant);
   }
 }
 
