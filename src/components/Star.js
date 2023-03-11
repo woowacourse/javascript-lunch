@@ -20,16 +20,27 @@ export default class Star {
   }
 
   setEvent() {
+    addEvent(this.$target, "click", ".star-icon", this.toggleStar.bind(this));
+  }
+
+  toggleStar() {
     const { name, stared, render } = this.props;
     const $modal = document.querySelector(".modal");
 
-    addEvent(this.$target, "click", ".star-icon", () => {
-      const restaurantList = store.getLocalStorage();
-      const targetName = Array.prototype.find.call(restaurantList, (obj) => obj.name === name);
-      targetName.stared = !stared;
-      store.setLocalStorage(restaurantList);
-      render();
-      new Modal($modal, { ...this.props, ...targetName });
-    });
+    this.setLocalStorage(name, stared);
+    this.renderModal($modal);
+    render();
+  }
+
+  setLocalStorage(name, stared) {
+    const restaurantList = store.getLocalStorage();
+    const targetName = restaurantList.find((obj) => obj.name === name);
+    this.targetName = targetName;
+    targetName.stared = !stared;
+    store.setLocalStorage(restaurantList);
+  }
+
+  renderModal($modal) {
+    new Modal($modal, { ...this.props, ...this.targetName });
   }
 }
