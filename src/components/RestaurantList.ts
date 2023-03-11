@@ -15,13 +15,17 @@ class RestaurantList {
   initialize(
     target: Element,
     restaurants: Restaurant[],
-    onSelectRestaurantID: (id: string) => void
+    onSelectRestaurantID: (id: string) => void,
+    rerenderList: () => void
   ) {
     this.render(target, restaurants);
-    this.addEvent(onSelectRestaurantID);
+    this.addEvent(onSelectRestaurantID, rerenderList);
   }
 
-  addEvent(onSelectRestaurantID: (id: string) => void) {
+  addEvent(
+    onSelectRestaurantID: (id: string) => void,
+    rerenderList: () => void
+  ) {
     const restaurantListContainer = <HTMLElement>$(".restaurant-list");
     restaurantListContainer?.addEventListener("click", (event) => {
       const target = <HTMLElement>event.target;
@@ -32,8 +36,7 @@ class RestaurantList {
 
       if (bookmarkButton) {
         restaurantListHandler.toggleBookmark(id);
-        const updatedRestaurants = restaurantListHandler.getRestaurants();
-        this.updateRestaurantList(updatedRestaurants);
+        rerenderList();
         return;
       }
 

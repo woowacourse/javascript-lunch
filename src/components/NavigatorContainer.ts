@@ -1,47 +1,54 @@
-import { $ } from "../utils/Dom";
+import { Constants } from "../utils/Constants";
+import { $, $$ } from "../utils/Dom";
 
 class NavigatorContainer {
+  currentMenu: string;
+
+  constructor() {
+    this.currentMenu = Constants.TOTAL;
+  }
+
   template() {
     return `
     <div class="navigator-container">
-    <div class="total-page" data-id="total">모든 음식점</div>
-    <div class="bookmark-page" data-id="bookmark">자주 가는 음식점</div>
+    <div class="total-page menu active" data-id="total">모든 음식점</div>
+    <div class="bookmark-page menu" data-id="bookmark">자주 가는 음식점</div>
     </div>
     `;
   }
 
-  initialize(target: Element, navigateToPage: (id: string) => void) {
+  initialize(
+    target: Element,
+    navigateToPage: (id: string) => void,
+    rerenderList: () => void
+  ) {
     this.render(target);
-    this.addEvent(navigateToPage);
+    this.addEvent(navigateToPage, rerenderList);
   }
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(navigateToPage: (page: string) => void) {
+  addEvent(navigateToPage: (page: string) => void, rerenderList: () => void) {
     $(".navigator-container")?.addEventListener("click", (event) => {
       const target = <HTMLElement>event.target;
       const id = <string>target.closest("div")?.dataset.id;
 
-      if (id) {
-        navigateToPage(id);
-      }
+      if (this.currentMenu !== id) {
+        this.currentMenu = id;
 
-      if (id === "total") {
-        target.classList.add("active");
-        const bookmark = $('[data-id="bookmark"]');
-        bookmark?.classList.remove("active");
-      } else if (id === "bookmark") {
-        target.classList.add("active");
-        const total = $('[data-id="total"]');
-        total?.classList.remove("active");
+        navigateToPage(id);
+        this.changeActiveMenuStyle();
+        rerenderList();
       }
     });
   }
 
-  closeNavigator(target: HTMLElement) {
-    target.remove();
+  changeActiveMenuStyle() {
+    $$(".menu").forEach((menu) => {
+      menu.classList.toggle("active");
+    });
   }
 }
 
