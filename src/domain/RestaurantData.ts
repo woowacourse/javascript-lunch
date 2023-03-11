@@ -52,7 +52,6 @@ export const RestaurantData: RestaurantDataType = {
     this.likeList = this.likeList.filter((res) => {
       return res.id !== id && res;
     });
-    LocalData.setDate(this.allList);
   },
 
   addLikeRestaurant(id) {
@@ -60,7 +59,6 @@ export const RestaurantData: RestaurantDataType = {
       return res.id === id && res;
     });
     this.likeList = [...this.likeList, ...likeRestaurant];
-    LocalData.setDate(this.allList);
   },
 
   getRestaurant(id) {

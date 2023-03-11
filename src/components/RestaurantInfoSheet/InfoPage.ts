@@ -87,10 +87,11 @@ export const InfoPage = {
     const cancelInfoButton = $(".cancel-info-BottomSheet-button");
     const deleteInfoButton = $(".delete-Restaurant-button");
 
-    cancelInfoButton?.addEventListener("click", () => this.closeInfoPage());
-    deleteInfoButton?.addEventListener("click", () =>
-      this.deleteInfoRestaurant()
+    deleteInfoButton?.addEventListener(
+      "click",
+      this.deleteInfoRestaurant.bind(this)
     );
+    cancelInfoButton?.addEventListener("click", this.closeInfoPage);
   },
 
   closeInfoPage() {
