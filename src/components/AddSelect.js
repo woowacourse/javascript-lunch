@@ -71,11 +71,10 @@ class AddSelect extends HTMLElement {
       }
 
       .container {
-        z-index:1;
         display: flex;
         flex-direction: column;
-      
         margin-bottom: 36px;
+        z-index:1;
       }
       
       label {
@@ -85,7 +84,6 @@ class AddSelect extends HTMLElement {
       
       label::after {
         padding-left: 4px;
-      
         color: var(--primary-color);
         content: "*";
       }
@@ -98,16 +96,14 @@ class AddSelect extends HTMLElement {
         height:44px;
         padding: 8px;
         margin: 6px 0;
-      
         border: 1px solid var(--grey-200);
         border-radius: 8px;
-      
         font-size: 16px;
       }
 
       .error{
-        color: red;
         padding: 2px 6px;
+        color: red;
       }
 `;
 

@@ -179,9 +179,9 @@ class AddRestaurantForm extends HTMLElement {
 
       .container {
         position: fixed;
-        max-width:390px;
-        width:100%;
         bottom: 0;
+        width:100%;
+        max-width:390px;
         padding: 32px 16px;
         border-radius: 8px 8px 0px 0px;
         background: var(--grey-100);

@@ -71,10 +71,8 @@ class RestaurantBox extends HTMLElement {
       li {
         display: flex;
         align-items: flex-start;
-      
-        padding: 16px 8px;
         width:100%;
-      
+        padding: 16px 8px;
         border-bottom: 1px solid #e9eaed;
         cursor:pointer;
         transition: background-color 0.3s;
@@ -87,8 +85,8 @@ class RestaurantBox extends HTMLElement {
 
       .info {
         display: flex;
-        flex-direction: column;
         justify-content: flex-start;
+        flex-direction: column;
         width:100%;
       }
       
@@ -102,10 +100,7 @@ class RestaurantBox extends HTMLElement {
       
       .description {
         display: -webkit-box;
-
-      
         padding-top: 8px;
-      
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-line-clamp: 2;

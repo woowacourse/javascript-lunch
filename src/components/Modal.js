@@ -56,8 +56,8 @@ class Modal extends HTMLElement {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .modal {
-          display: none;
-          overflow-x:hidden;
+        display: none;
+        overflow-x:hidden;
         }
       
       .modal-open {

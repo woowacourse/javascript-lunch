@@ -35,28 +35,27 @@ class RestaurantTab extends HTMLElement {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .select {
-        text-align: center;
         padding: 9px 0;
-        color: var(--primary-color);
         border-bottom: 2px solid var(--primary-color);
-        cursor: pointer;
-
+        text-align: center;
         font-weight: 700;
         font-size: 16px;
         line-height: 24px;
+        cursor: pointer;
+        color: var(--primary-color);
       }
 
       .not-select{
-        color: var(--grey-300);
         border-bottom: 2px solid var(--grey-300);
-        transition: background-color 0.3s;
         border-radius:4px 4px 0 0;
+        color: var(--grey-300);
+        transition: background-color 0.3s;
       }
 
       .not-select:hover {
+        border-bottom: 2px solid var(--grey-300);
         background-color: var(--lighten-30-color);
         color: var(--grey-300);
-        border-bottom: 2px solid var(--grey-300);
       }
     `;
 

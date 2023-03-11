@@ -34,18 +34,16 @@ class TextInput extends HTMLElement {
       .container {
         display: flex;
         flex-direction: column;
-      
         margin-bottom: 36px;
       }
       
       label {
-        color: var(--grey-400);
         font-size: 14px;
+        color: var(--grey-400);
       }
       
       .required label::after {
         padding-left: 4px;
-      
         color: var(--primary-color);
         content: "*";
       }
@@ -58,10 +56,8 @@ class TextInput extends HTMLElement {
        {
         padding: 0 8px;
         margin: 6px 0;
-      
         border: 1px solid var(--grey-200);
         border-radius: 8px;
-      
         font-size: 16px;
       }
       
@@ -75,8 +71,8 @@ class TextInput extends HTMLElement {
       }
 
       .error{
-        color: red;
         padding: 2px 6px;
+        color: red;
       }
 
       .length-info{

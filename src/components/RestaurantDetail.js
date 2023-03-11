@@ -224,7 +224,6 @@ class RestaurantDetail extends HTMLElement {
       .description{
         height:200px;
       }
-  
     }
 
   `;

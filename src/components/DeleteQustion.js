@@ -66,20 +66,19 @@ class DeleteQustion extends HTMLElement {
     }
 
     .check-modal {
-        position: fixed;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        max-width: 390px;
-        width: 100%;
-        height: 200px;
-        border-radius: 8px;
-      
+        flex-direction: column;
+        position: fixed;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 200px;
+        max-width: 390px;
         padding: 16px;
+        border-radius: 8px;
+        transform: translate(-50%, -50%);
         background-color: var(--grey-100);
         z-index:3;
       }
@@ -91,10 +90,10 @@ class DeleteQustion extends HTMLElement {
       }
       
       .check-text {
+        margin-bottom: 32px;
         font-size: 20px;
         line-height: 24px;
         font-weight: 600;
-        margin-bottom: 32px;
       }
     `;
 

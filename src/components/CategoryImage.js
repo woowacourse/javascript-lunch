@@ -48,9 +48,7 @@ class CategoryImage extends HTMLElement {
         height: 64px;
         min-width: 64px;
         min-height: 64px;
-      
         margin-right: 16px;
-      
         border-radius: 50%;
         background: var(--lighten-color);
       }

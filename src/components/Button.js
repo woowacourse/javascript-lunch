@@ -31,11 +31,8 @@ class Button extends HTMLElement {
       button {
         width: 171px;
         height: 44px;
-      
-      
         border: none;
         border-radius: 8px;
-      
         font-weight: 600;
         cursor: pointer;
         transition: background-color 0.3s;
@@ -44,7 +41,6 @@ class Button extends HTMLElement {
       .button--white {
         border: 1px solid var(--grey-300);
         background: transparent;
-      
         color: var(--grey-300);
       }
 
@@ -67,10 +63,8 @@ class Button extends HTMLElement {
         button {
           width: 150px;
           height: 44px;
-        
           border: none;
           border-radius: 8px;
-        
           font-weight: 600;
           cursor: pointer;
         }
