@@ -2,10 +2,12 @@ import { IRestaurant } from '../types';
 
 import deepCopy from '../utils/deepCopy';
 
+import dummyRestaurants from '../constants/dummyRestaurants';
+
 export default class Restaurants {
   #restaurants: IRestaurant[];
 
-  constructor(data: IRestaurant[] = []) {
+  constructor(data: IRestaurant[] = dummyRestaurants) {
     this.#restaurants = data;
   }
 
