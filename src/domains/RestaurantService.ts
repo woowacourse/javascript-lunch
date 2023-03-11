@@ -25,7 +25,9 @@ class RestaurantService {
   }
 
   delete(restaurantId: number) {
-    return this.restaurantList.filter((restaurant) => restaurant.id !== restaurantId);
+    this.restaurantList = this.restaurantList.filter((restaurant) => restaurant.id !== restaurantId);
+
+    return [...this.restaurantList];
   }
 
   updateFavorite(restaurantId: number) {
