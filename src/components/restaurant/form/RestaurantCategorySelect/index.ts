@@ -1,4 +1,5 @@
-import Restaurant, { RestaurantCategory } from '../../../../domain/Restaurant';
+import type { RestaurantCategory } from '../../../../domain/Restaurant';
+import Restaurant from '../../../../domain/Restaurant';
 import Select from '../../../common/form/Select';
 import { define } from '../../../decorators';
 

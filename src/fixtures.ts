@@ -1,4 +1,5 @@
-import Restaurant, { RestaurantProps } from './domain/Restaurant';
+import type { RestaurantProps } from './domain/Restaurant';
+import Restaurant from './domain/Restaurant';
 
 export const DEFAULT_RESTAURANTS = [
   {

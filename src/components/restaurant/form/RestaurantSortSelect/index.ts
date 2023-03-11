@@ -1,4 +1,5 @@
-import { RestaurantFilter, sortByDistance, sortByName } from '../../../../domain/RestaurantFilter';
+import type { RestaurantFilter } from '../../../../domain/RestaurantFilter';
+import { sortByDistance, sortByName } from '../../../../domain/RestaurantFilter';
 import Select from '../../../common/form/Select';
 import { define } from '../../../decorators';
 

@@ -1,4 +1,4 @@
-import Restaurant from './Restaurant';
+import type Restaurant from './Restaurant';
 
 export type RestaurantFilter = (restaurants: Restaurant[]) => Restaurant[];
 

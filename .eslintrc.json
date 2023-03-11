@@ -20,7 +20,13 @@
   "rules": {
     "class-methods-use-this": "off",
     "no-use-before-define": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "fixStyle": "separate-type-imports"
+      }
+    ]
   },
   "overrides": [
     {

@@ -1,8 +1,9 @@
 import { allCustomElementsDefined } from '../components/lifecycles';
-import RestaurantDetailModal from '../components/restaurant/modal/RestaurantDetailModal';
-import RestaurantList from '../components/restaurant/RestaurantList';
-import Restaurant, { RestaurantProps } from '../domain/Restaurant';
-import { RestaurantFilter } from '../domain/RestaurantFilter';
+import type RestaurantDetailModal from '../components/restaurant/modal/RestaurantDetailModal';
+import type RestaurantList from '../components/restaurant/RestaurantList';
+import type { RestaurantProps } from '../domain/Restaurant';
+import Restaurant from '../domain/Restaurant';
+import type { RestaurantFilter } from '../domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from '../fixtures';
 
 class Restaurants {

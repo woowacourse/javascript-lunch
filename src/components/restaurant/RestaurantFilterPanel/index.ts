@@ -1,5 +1,6 @@
-import { RestaurantCategory } from '../../../domain/Restaurant';
-import { filterBy, RestaurantFilter, sortByName } from '../../../domain/RestaurantFilter';
+import type { RestaurantCategory } from '../../../domain/Restaurant';
+import type { RestaurantFilter } from '../../../domain/RestaurantFilter';
+import { filterBy, sortByName } from '../../../domain/RestaurantFilter';
 import restaurants from '../../../states/restaurants';
 import Component from '../../Component';
 import { define } from '../../decorators';

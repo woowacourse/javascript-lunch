@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Tabs from './components/common/Tabs';
-import NewRestaurantModal from './components/restaurant/modal/NewRestaurantModal';
-import RestaurantDetailModal from './components/restaurant/modal/RestaurantDetailModal';
-import RestaurantList, { RestaurantClickEvent } from './components/restaurant/RestaurantList';
+import type Tabs from './components/common/Tabs';
+import type NewRestaurantModal from './components/restaurant/modal/NewRestaurantModal';
+import type RestaurantDetailModal from './components/restaurant/modal/RestaurantDetailModal';
+import type RestaurantList from './components/restaurant/RestaurantList';
+import type { RestaurantClickEvent } from './components/restaurant/RestaurantList';
 import restaurants from './states/restaurants';
 
 class App {

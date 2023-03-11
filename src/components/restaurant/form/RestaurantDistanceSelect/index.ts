@@ -1,4 +1,5 @@
-import Restaurant, { RestaurantDistance } from '../../../../domain/Restaurant';
+import type { RestaurantDistance } from '../../../../domain/Restaurant';
+import Restaurant from '../../../../domain/Restaurant';
 import Select from '../../../common/form/Select';
 import { define } from '../../../decorators';
 

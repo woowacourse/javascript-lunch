@@ -1,5 +1,5 @@
 import restaurants from '../../../../states/restaurants';
-import Modal from '../../../common/Modal';
+import type Modal from '../../../common/Modal';
 import Component from '../../../Component';
 import { define } from '../../../decorators';
 import style from './index.css';

@@ -1,4 +1,4 @@
-import Restaurant from '../../../domain/Restaurant';
+import type Restaurant from '../../../domain/Restaurant';
 import Component from '../../Component';
 import { define } from '../../decorators';
 import RestaurantListItem from '../RestaurantListItem';
