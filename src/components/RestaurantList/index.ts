@@ -1,6 +1,6 @@
 import Restaurant from './Restaurant';
 
-import { IRestaurant } from '../../types';
+import { Restaurant as RestaurantType } from '../../types';
 
 export default class RestaurantList {
   #targetElement: Element;
@@ -9,11 +9,11 @@ export default class RestaurantList {
     this.#targetElement = targetElement;
   }
 
-  render(restaurants: IRestaurant[]) {
+  render(restaurants: RestaurantType[]) {
     this.#targetElement.innerHTML = this.getTemplate(restaurants);
   }
 
-  getTemplate(restaurants: IRestaurant[]) {
+  getTemplate(restaurants: RestaurantType[]) {
     return `
       <ul class="restaurant-list">
         ${restaurants.reduce((html, restaurant) => html + Restaurant.getTemplate(restaurant), '')}
