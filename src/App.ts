@@ -72,8 +72,7 @@ class App {
 
   showRestaurantInformation = (restaurantId: number) => {
     const restaurant = this.restaurantService.getRestaurant(restaurantId);
-    RestaurantInformation.renderContent(restaurant);
-    RestaurantInformation.addContentEvent(this.updateFavoriteRestaurant);
+    RestaurantInformation.renderContent(restaurant, this.updateFavoriteRestaurant);
   };
 
   deleteRestaurant = (restaurantId: number) => {

@@ -22,6 +22,11 @@ class RestaurantInformation {
     });
   }
 
+  addEvents(handleCloseModal: CallableFunction, handleDeleteRestaurant: CallableFunction) {
+    this.addCloseButtonClickEvent(handleCloseModal);
+    this.addDeleteButtonClickEvent(handleCloseModal, handleDeleteRestaurant);
+  }
+
   addFavoriteIconClickEvent(onFavoriteIconClick: CallableFunction) {
     const favoriteIcon = $<HTMLImageElement>('#restaurant-information-star');
 
@@ -34,15 +39,6 @@ class RestaurantInformation {
       changeRestaurantFavoriteIcon(restaurantListItemFavoriteIcon);
       onFavoriteIconClick(Number(target.dataset.id));
     });
-  }
-
-  addEvents(handleCloseModal: CallableFunction, handleDeleteRestaurant: CallableFunction) {
-    this.addCloseButtonClickEvent(handleCloseModal);
-    this.addDeleteButtonClickEvent(handleCloseModal, handleDeleteRestaurant);
-  }
-
-  addContentEvent(handleFavoriteIconClick: CallableFunction) {
-    this.addFavoriteIconClickEvent(handleFavoriteIconClick);
   }
 
   create() {
@@ -108,13 +104,14 @@ class RestaurantInformation {
     `;
   }
 
-  renderContent(restaurant: Restaurant) {
+  renderContent(restaurant: Restaurant, handleFavoriteIconClick: CallableFunction) {
     const modalContainer = $<HTMLDivElement>('#restaurant-information');
     modalContainer.dataset.id = String(restaurant.id);
 
     const informationContainer = $<HTMLDivElement>('.restaurant-detail__info-container');
     informationContainer.replaceChildren();
     informationContainer.insertAdjacentHTML('afterbegin', this.createRestaurantInformationContent(restaurant));
+    this.addFavoriteIconClickEvent(handleFavoriteIconClick);
   }
 }
 
