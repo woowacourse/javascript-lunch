@@ -17,17 +17,17 @@ export interface Restaurant {
   isFavorite: boolean;
 }
 
-class RestaurantList {
-  static add(restaurant: Restaurant): void {
+const RestaurantList = {
+  add: (restaurant: Restaurant): void => {
     const restaurants = JSON.parse(
       window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
     );
 
     const updatedRestaurants = [...restaurants, restaurant];
     RestaurantList.updateRestaurants(updatedRestaurants);
-  }
+  },
 
-  static delete(name: string) {
+  delete: (name: string) => {
     const restaurants = RestaurantList.getList();
     const findIndex = restaurants.findIndex(
       (restaurant) => restaurant.name === name
@@ -39,19 +39,19 @@ class RestaurantList {
       ...restaurants.slice(findIndex + 1),
     ];
 
-    this.updateRestaurants(updatedRestaurat);
-  }
+    RestaurantList.updateRestaurants(updatedRestaurat);
+  },
 
-  static filterByCategory(restaurantList: Restaurant[], category: CategoryAll) {
+  filterByCategory: (restaurantList: Restaurant[], category: CategoryAll) => {
     return restaurantList.filter(
       (restaurant) => restaurant.category === category
     );
-  }
+  },
 
-  static getList(
+  getList: (
     category: CategoryAll = '전체',
     type: SortTypeAll = 'name'
-  ): Restaurant[] {
+  ): Restaurant[] => {
     const restaurants = JSON.parse(
       window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'
     );
@@ -64,9 +64,9 @@ class RestaurantList {
       category
     );
     return RestaurantList.sortByType(filteredCategory, type);
-  }
+  },
 
-  static sortByType(restaurantList: Restaurant[], type: SortTypeAll) {
+  sortByType: (restaurantList: Restaurant[], type: SortTypeAll) => {
     if (type === 'distance') {
       return [...restaurantList].sort(
         (aRestaurant, bRestaurant) =>
@@ -77,14 +77,14 @@ class RestaurantList {
     return [...restaurantList].sort((aRestaurant, bRestaurant) => {
       return aRestaurant.name.localeCompare(bRestaurant.name);
     });
-  }
+  },
 
-  static updateRestaurants(restaurants: Restaurant[]) {
+  updateRestaurants: (restaurants: Restaurant[]) => {
     const restaurantsString = JSON.stringify(restaurants);
     window.localStorage.setItem(LOCAL_STORAGE_KEY, restaurantsString);
-  }
+  },
 
-  static updateFavorite(name: string) {
+  updateFavorite: (name: string) => {
     const restaurants = RestaurantList.getList();
     const findIndex = restaurants.findIndex(
       (restaurant) => restaurant.name === name
@@ -101,7 +101,7 @@ class RestaurantList {
     ];
 
     RestaurantList.updateRestaurants(updatedRestaurants);
-  }
-}
+  },
+};
 
 export default RestaurantList;
