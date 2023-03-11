@@ -3,7 +3,8 @@ import state from '../../hooks/store';
 import { Restaurant } from '../../type/common';
 import { $ } from '../../utils/querySelector';
 import RestaurantItem from './RestaurantItem';
-import Selector from './Selector';
+import CategorySelector from './Selector/CategorySelector';
+import SortingSelector from './Selector/SortingSelector';
 
 class RestaurantList {
   #root;
@@ -24,9 +25,8 @@ class RestaurantList {
 
   #mounted() {
     if (!actions.getValue('isFavorite')) {
-      new Selector({
-        $target: $('.restaurant-filter-container'),
-        info: {
+      new CategorySelector($('.restaurant-filter-container'))
+        .render(state.categorySelector, {
           name: 'category',
           id: 'category-filter',
           options: [
@@ -38,20 +38,19 @@ class RestaurantList {
             { value: '아시안', name: '아시안' },
             { value: '기타', name: '기타' },
           ],
-        },
-      }).render(state.categorySelector);
+        })
+        .setEvent();
 
-      new Selector({
-        $target: $('.restaurant-filter-container'),
-        info: {
+      new SortingSelector($('.restaurant-filter-container'))
+        .render(state.sortSelector, {
           name: 'sorting',
           id: 'sorting-filter',
           options: [
             { value: 'name', name: '이름순' },
             { value: 'distance', name: '거리순' },
           ],
-        },
-      }).render(state.sortSelector);
+        })
+        .setEvent();
     }
 
     actions.getValue('restaurants')?.forEach((restaurant: Restaurant) => {
