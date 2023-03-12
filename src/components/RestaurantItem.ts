@@ -2,17 +2,17 @@ import images from '../img/images';
 import { Restaurant } from '../types/restaurantTypes';
 
 export default class RestaurantItem {
-  $target: HTMLElement;
-  restaurant: Restaurant;
+  private $target: HTMLElement;
+  private _restaurantInfo: Restaurant;
 
   constructor($target: HTMLElement, restaurant: Restaurant) {
     this.$target = $target;
-    this.restaurant = restaurant;
+    this._restaurantInfo = restaurant;
     this.render();
   }
 
   createRestaurantItem(): HTMLElement {
-    const { name, category, distance, description, isLike } = this.restaurant;
+    const { name, category, distance, description, isLike } = this._restaurantInfo;
 
     const $restaurantItem = document.createElement('li');
     $restaurantItem.classList.add('restaurant');
@@ -44,33 +44,33 @@ export default class RestaurantItem {
     return $restaurantItem;
   }
 
-  toggleLike(e: MouseEvent): void {
+  private toggleLike(e: MouseEvent): void {
     const $favoriteIcon = e.target as HTMLImageElement;
 
-    if (this.restaurant.isLike) {
+    if (this._restaurantInfo.isLike) {
       $favoriteIcon.setAttribute('src', images['빈별']);
       $favoriteIcon.setAttribute('alt', '빈별');
       $favoriteIcon.setAttribute('data-like', 'false');
-      this.restaurant.isLike = false;
+      this._restaurantInfo.isLike = false;
     } else {
       $favoriteIcon.setAttribute('src', images['색칠별']);
       $favoriteIcon.setAttribute('alt', '색칠별');
       $favoriteIcon.setAttribute('data-like', 'true');
-      this.restaurant.isLike = true;
+      this._restaurantInfo.isLike = true;
     }
 
     const event = new CustomEvent('restaurantLikeToggled');
     document.dispatchEvent(event);
   }
 
-  handleClick(): void {
+  private handleClick(): void {
     const event = new CustomEvent('restaurantItemClicked', {
-      detail: this.restaurant,
+      detail: this._restaurantInfo,
     });
     document.dispatchEvent(event);
   }
 
-  render(): void {
+  private render(): void {
     const $restaurantItem = this.createRestaurantItem();
     this.$target.appendChild($restaurantItem);
   }
