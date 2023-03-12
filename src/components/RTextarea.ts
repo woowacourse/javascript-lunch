@@ -16,7 +16,7 @@ class RTextarea extends RComponent {
                 resize: none;
             }
         </style>
-        <textarea></textarea>
+        <textarea rows="4"></textarea>
     `;
   }
 }
