@@ -44,7 +44,7 @@ describe('도메인 로직 테스트', () => {
   );
 
   test.each([[initialRestaurants, ['3']]])(
-    [`음식점이 %p 일 때, 좋아하는 음식점 id 결과는 %p 이다.`],
+    `음식점이 %p 일 때, 좋아하는 음식점 id 결과는 %p 이다.`,
     (restaurants, expectedIdList) => {
       const resultIdList = new Restaurants(restaurants)
         .getFavorite()
