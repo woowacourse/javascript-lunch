@@ -8,6 +8,14 @@ const Filter = {
       (restaurant) => restaurant.category === targetCategory
     );
   },
+
+  byNodeCategory(targetCategory: Category, restaurantList: any) {
+    if (targetCategory === "전체") return restaurantList;
+
+    return restaurantList?.filter(
+      (restaurant: any) => restaurant.element.category === targetCategory
+    );
+  },
 };
 
 export default Filter;
