@@ -68,6 +68,69 @@ class App {
     this.initEventHandlers();
   }
 
+  changeRestaurantFilter = (event: Event) => {
+    const $rSelect = event?.target as CustomSelectElement;
+    const value = $rSelect.getSelectedOption()?.value;
+
+    if (value === '전체') {
+      this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
+        Restaurants.getSorted(_restaurants, Restaurants.byName);
+    } else {
+      this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
+        Restaurants.filterByCategory(_restaurants, String(value));
+    }
+
+    this.updateRestaurants();
+  };
+
+  changeRestaurantSort = (event: Event) => {
+    const $rSelect = event?.target as CustomSelectElement;
+
+    const sortFilter = (_restaurants: Restaurant[]) =>
+      Restaurants.getSorted(
+        _restaurants,
+        $rSelect.getSelectedOption()?.value === 'name'
+          ? Restaurants.byName
+          : Restaurants.byDistance,
+      );
+
+    this.#filterPipes.sort = sortFilter;
+
+    this.updateRestaurants();
+  };
+
+  openModal = () => this.$modal.open();
+
+  addRestaurant = (event: Event) => {
+    event.preventDefault();
+
+    try {
+      const restaurant = this.createRestaurant(event);
+      this.#restaurants.push(restaurant);
+    } catch (e) {
+      const error = e as Error;
+      alert(error.message);
+      return;
+    }
+
+    this.$modal.close();
+    this.updateRestaurants();
+  };
+
+  createRestaurant = (event: Event) => {
+    const restaurantProps = Object.fromEntries([
+      ...new FormData(event.target as HTMLFormElement).entries(),
+    ]);
+
+    return new Restaurant({
+      category: String(restaurantProps.category),
+      name: String(restaurantProps.name),
+      distanceByMinutes: Number(restaurantProps.distanceByMinutes),
+      description: String(restaurantProps.description),
+      referenceUrl: String(restaurantProps.referenceUrl),
+    });
+  };
+
   initSelect() {
     this.$restaurantFilterSelect.setOptions([
       { value: '전체', label: '전체' },
@@ -102,67 +165,13 @@ class App {
   }
 
   initEventHandlers() {
-    this.$restaurantFilterSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as CustomSelectElement;
-      const value = $rSelect.getSelectedOption()?.value;
+    this.$restaurantFilterSelect.addEventListener('change', this.changeRestaurantFilter);
 
-      if (value === '전체') {
-        this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-          Restaurants.getSorted(_restaurants, Restaurants.byName);
-      } else {
-        this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-          Restaurants.filterByCategory(_restaurants, String(value));
-      }
+    this.$restaurantSortSelect.addEventListener('change', this.changeRestaurantSort);
 
-      this.updateRestaurants();
-    });
+    this.$modalOpenButton.addEventListener('click', this.openModal);
 
-    this.$restaurantSortSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as CustomSelectElement;
-
-      const sortFilter = (_restaurants: Restaurant[]) =>
-        Restaurants.getSorted(
-          _restaurants,
-          $rSelect.getSelectedOption()?.value === 'name'
-            ? Restaurants.byName
-            : Restaurants.byDistance,
-        );
-
-      this.#filterPipes.sort = sortFilter;
-
-      this.updateRestaurants();
-    });
-
-    this.$modalOpenButton.addEventListener('click', () => {
-      this.$modal.open();
-    });
-
-    this.$modalForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const restaurantProps = Object.fromEntries([
-        ...new FormData(event.target as HTMLFormElement).entries(),
-      ]);
-
-      try {
-        const restaurant = new Restaurant({
-          category: String(restaurantProps.category),
-          name: String(restaurantProps.name),
-          distanceByMinutes: Number(restaurantProps.distanceByMinutes),
-          description: String(restaurantProps.description),
-          referenceUrl: String(restaurantProps.referenceUrl),
-        });
-
-        this.#restaurants.push(restaurant);
-      } catch (e) {
-        const error = e as Error;
-        alert(error.message);
-        return;
-      }
-
-      this.$modal.close();
-      this.updateRestaurants();
-    });
+    this.$modalForm.addEventListener('submit', this.addRestaurant);
   }
 }
 
