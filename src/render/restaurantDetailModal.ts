@@ -1,15 +1,16 @@
 import { CustomRestaurantDetailModalElement } from '../components';
-import { RestaurantProps } from '../domain/Restaurant';
+import Restaurant, { RestaurantProps } from '../domain/Restaurant';
 
 const restaurantDetailModal = {
-  open: ({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) => {
+  open: (restaurant: Restaurant) => {
     const $restaurantDetailModal = `
       <r-restaurant-detail-modal
-        category="${category}"
-        name="${name}"
-        distanceByMinutes="${distanceByMinutes}"
-        description="${description ?? ''}"
-        referenceUrl="${referenceUrl ?? ''}"
+        category="${restaurant.getCategory()}"
+        name="${restaurant.getName()}"
+        distanceByMinutes="${restaurant.getDistanceByMinutes()}"
+        description="${restaurant.getDescription() ?? ''}"
+        referenceUrl="${restaurant.getReferenceUrl() ?? ''}"
+        ${restaurant.getIsFavorite() ? 'favorite' : ''}
       ></r-restaurant-detail-modal>
   `;
 

@@ -1,6 +1,10 @@
 import CustomElement from '../CustomElement';
 
 class RestaurantItem extends CustomElement {
+  static get observedAttributes() {
+    return ['favorite'];
+  }
+
   private get name() {
     return this.getAttribute('name');
   }
@@ -17,8 +21,8 @@ class RestaurantItem extends CustomElement {
     return this.getAttribute('category');
   }
 
-  private get referenceUrl() {
-    return this.getAttribute('referenceUrl');
+  private get isFavorite() {
+    return this.hasAttribute('favorite');
   }
 
   renderTemplate = () => {
@@ -35,6 +39,7 @@ class RestaurantItem extends CustomElement {
           margin: 0px 16px;
           cursor: pointer;
           border-bottom: 1px solid #e9eaed;
+          position: relative;
         }
         
         .restaurant__category {
@@ -100,6 +105,9 @@ class RestaurantItem extends CustomElement {
           </span>
           <p class="restaurant__description text-body">${this.description ?? ''}</p>
         </div>
+        <r-favorite-icon absolute ${this.isFavorite ? 'favorite' : ''} restaurantName="${
+      this.name
+    }"></r-favorite-icon>
       </li>
     `;
   };
@@ -110,16 +118,16 @@ class RestaurantItem extends CustomElement {
     this.initEventHandlers();
   };
 
-  clickRestaurant = () => {
+  clickRestaurant = ({ target }: Event) => {
+    const { id } = target as HTMLElement;
+
+    if (id === 'favorite-icon') return;
+
     this.dispatchEvent(
       new CustomEvent('openRestaurantDetailModal', {
         bubbles: true,
         detail: {
           name: this.name,
-          distanceByMinutes: this.distanceByMinutes,
-          description: this.description,
-          category: this.category,
-          referenceUrl: this.referenceUrl,
         },
       }),
     );

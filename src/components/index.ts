@@ -10,6 +10,7 @@ import FormItem from './shared/FormItem';
 import Input from './shared/Input';
 import Select from './shared/Select';
 import Textarea from './shared/Textarea';
+import FavoriteIcon from './shared/FavoriteIcon';
 
 export type CustomRestaurantListElement = RestaurantList;
 
@@ -32,4 +33,5 @@ export default {
   Input,
   Select,
   Textarea,
+  FavoriteIcon,
 };
