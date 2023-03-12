@@ -14,6 +14,12 @@ const Restaurants = {
   getSorted(restaurants: Restaurant[], compareFn: RestaurantCompareFn) {
     return [...restaurants].sort(compareFn);
   },
+
+  getAll: (_restaurants: Restaurant[]) => _restaurants,
+
+  getFavorite: (_restaurants: Restaurant[]) => {
+    return _restaurants.filter((restaurant) => restaurant.getIsFavorite());
+  },
 };
 
 export default Restaurants;
