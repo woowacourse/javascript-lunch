@@ -99,8 +99,6 @@ export const restaurantStore = {
       return restaurant;
     });
 
-    console.log(restaurantList);
-
     restaurantStore.setList(restaurantList);
   },
 };

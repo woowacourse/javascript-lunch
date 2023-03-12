@@ -91,7 +91,6 @@ class RestaurantListContainer extends Component {
   }
 
   handleTabChange(tab: Tab): void {
-    console.log(tab);
     this.#state.renderOptions = { ...this.#state.renderOptions, tab };
   }
 
@@ -107,8 +106,6 @@ class RestaurantListContainer extends Component {
   render() {
     const restaurantList = restaurantStore.getList({ ...this.#state.renderOptions });
     this.$target.innerHTML = this.template(restaurantList);
-
-    console.log(this.#state.renderOptions, 'renderOptions');
 
     return this;
   }
