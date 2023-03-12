@@ -6,7 +6,6 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { RestaurantItem } from '../src/components/RestaurantItem';
 import { RestaurantList } from '../src/components/RestaurantList';
-import { RESTAURANT_IMAGE } from '../src/constants/images';
 
 beforeEach(() => {
   document.body.innerHTML = `<ul class="restaurant-list" data-testid="restaurant-list"></ul>`;
@@ -40,7 +39,7 @@ describe('UI 테스트', () => {
 
   test('RestaurantItem 테스트', () => {
     const restaurant = { category: '한식', name: '우래옥', distance: 5 };
-    const restaurantItem = RestaurantItem(restaurant, RESTAURANT_IMAGE[restaurant.category]);
+    const restaurantItem = RestaurantItem(restaurant);
     const restaurantListContainer = document.querySelector('.restaurant-list');
 
     restaurantListContainer.insertAdjacentHTML('beforeend', restaurantItem);
