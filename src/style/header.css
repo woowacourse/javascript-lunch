@@ -1,11 +1,9 @@
 .gnb {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
   height: 64px;
-
   padding: 0 16px;
-
   background-color: var(--primary-color);
 }
 
@@ -15,11 +13,9 @@
 
 .gnb__button {
   height: 40px;
-
   border: none;
   border-radius: 8px;
   background: transparent;
-
   font-size: 24px;
   cursor: pointer;
 }

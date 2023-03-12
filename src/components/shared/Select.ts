@@ -63,10 +63,7 @@ class Select extends CustomFormElement {
   render(): void {
     super.render();
 
-    const $shadowRoot = this.shadowRoot;
-    if (!$shadowRoot) return;
-
-    const $select = $shadowRoot.querySelector<HTMLSelectElement>('#select');
+    const $select = this.querySelector<HTMLSelectElement>('#select');
     if (!$select) return;
 
     $select.addEventListener('change', (event) => {
