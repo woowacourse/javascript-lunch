@@ -28,9 +28,11 @@ class FavoriteIcon extends HTMLElement {
   }
 
   attributeChangedCallback() {
-    this.querySelector('img')!.src = this.hasAttribute('isfavorite')
-      ? favoriteIconFilled
-      : favoriteIconLined;
+    if (this.querySelector('img')) {
+      this.querySelector('img')!.src = this.hasAttribute('isfavorite')
+        ? favoriteIconFilled
+        : favoriteIconLined;
+    }
   }
 }
 
