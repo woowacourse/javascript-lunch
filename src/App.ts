@@ -1,13 +1,14 @@
 import type { Category, State } from './types/restaurantTypes';
 import RestaurantController from './model/RestaurantController';
-import Modal from './components/Modal';
-import { DEFAULT_CATEGORY, LOCAL_STORAGE_KEY, SORTING_OPTION } from './constant/constant';
+import addRestaurantModal from './components/addRestaurantModal';
+import { LOCAL_STORAGE_KEY } from './constant/constant';
 import DEFAULT_RESTAURANT_DATA from './constant/defaultRestaurantData';
-import { getDataFromStorage, setDataToStorage, setUpdateDataToStorage } from './utils/localStorage';
+import { getDataFromStorage, setUpdateDataToStorage } from './utils/localStorage';
 import Header from './components/Header';
 import RestaurantItem from './components/RestaurantItem';
 import TabMenu from './components/TabMenu';
 import SelectBox from './components/SelectBox';
+import detailRestaurantModal from './components/detailRestaurantModal';
 
 export default class App {
   private readonly $target: HTMLElement;
@@ -24,7 +25,7 @@ export default class App {
     this.$target = $target;
     this._state = getDataFromStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
     this._restaurantController = new RestaurantController(this._state.restaurants);
-    this.setup();
+
     this._header = new Header();
     this._tabMenu = new TabMenu();
     this.CategorySelectBox = new SelectBox(
@@ -46,19 +47,42 @@ export default class App {
       ],
       'sorting'
     );
-    this.render();
 
+    this.init();
+  }
+
+  private init() {
+    this.setup();
+    this.bindEvents();
+    this.render();
+    this.setTabMenu();
+  }
+
+  private setup() {
+    const previousRestaurantList = this._restaurantController.sortRestaurants(
+      this._state.filter as Category,
+      this._state.sortingOption
+    );
+    this._state.restaurants = previousRestaurantList;
+  }
+
+  private bindEvents() {
     document.addEventListener('addRestaurantClicked', this.handleAddRestaurantClicked.bind(this));
-    document.addEventListener('closeModal', this.onCloseModal.bind(this));
+
     document.addEventListener('allRestaurantClicked', this.handleAllRestaurantClicked.bind(this));
     document.addEventListener('likedRestaurantClicked', this.handleLikedRestaurantClicked.bind(this));
+
     document.addEventListener('restaurantLikeToggled', this.handleRestaurantLikeToggled.bind(this));
+    document.addEventListener('restaurantItemClicked', this.handleRestaurantItemClicked.bind(this));
+
+    document.addEventListener('closeaddModal', this.onCloseaddModal.bind(this));
+    document.addEventListener('closeDetailModal', this.onCloseaddModal.bind(this));
   }
 
   private handleAddRestaurantClicked() {
     const target = document.querySelector('body') as HTMLElement;
 
-    new Modal(target, this._restaurantController, this._state);
+    new addRestaurantModal(target, this._restaurantController, this._state);
   }
 
   private handleAllRestaurantClicked() {
@@ -83,58 +107,45 @@ export default class App {
       restaurants: selectedRestaurantList,
       currentTab: 'ALL',
     });
+    setUpdateDataToStorage({ currentTab: 'ALL' });
+
     this._tabMenu.update(allButton as Element, likedButton as Element, 'all');
   }
 
   private handleLikedRestaurantClicked() {
-    const likedRestaurant = this._restaurantController.filterByLiked();
     const allButton = this.$target.querySelector('#allRestaurantButton');
     const likedButton = this.$target.querySelector('#likedRestaurantButton');
-
-    allButton?.classList.remove('selected');
-    likedButton?.classList.add('selected');
-
     const categoryFilter = this.$target.querySelector('#category-filter');
     const sortingFilter = this.$target.querySelector('#sorting-filter');
 
+    allButton?.classList.remove('selected');
+    likedButton?.classList.add('selected');
     categoryFilter?.classList.add('hidden');
     sortingFilter?.classList.add('hidden');
+
+    const likedRestaurant = this._restaurantController.filterByLiked();
 
     this.setState({
       restaurants: likedRestaurant,
       currentTab: 'LIKED',
     });
+    setUpdateDataToStorage({ currentTab: 'LIKED' });
+
     this._tabMenu.update(allButton as Element, likedButton as Element, 'liked');
   }
 
-  private handleRestaurantLikeToggled(event: unknown) {
+  private handleRestaurantLikeToggled() {
+    setUpdateDataToStorage({ restaurants: this._restaurantController.getRestaurants() });
+  }
+
+  private handleRestaurantItemClicked(event: unknown) {
     if (!(event instanceof CustomEvent)) {
       return;
     }
 
-    const { restaurantId, isLike } = event.detail;
-    const { restaurants } = this._state;
-    const targetRestaurant = restaurants.find(r => r.id === restaurantId);
+    const restaurantInfo = event.detail;
 
-    if (!targetRestaurant) {
-      return;
-    }
-
-    targetRestaurant.isLike = isLike;
-
-    const storedData = getDataFromStorage(LOCAL_STORAGE_KEY) || DEFAULT_RESTAURANT_DATA;
-    setDataToStorage(LOCAL_STORAGE_KEY, {
-      ...storedData,
-      restaurants: this._restaurantController.getRestaurants(),
-    });
-  }
-
-  private setup() {
-    const previousRestaurantList = this._restaurantController.sortRestaurants(
-      this._state.filter as Category,
-      this._state.sortingOption
-    );
-    this._state.restaurants = previousRestaurantList;
+    new detailRestaurantModal(this._restaurantController, restaurantInfo, this._state);
   }
 
   private setState(newState: Partial<State>): void {
@@ -142,29 +153,17 @@ export default class App {
     this.render();
   }
 
-  template() {
-    return `
-    ${this._header.template()}
-    <main>
-      <section class="tabMenu-container">
-        ${this._tabMenu.template()}
-      </section>
-      <!-- 카테고리/정렬 필터 -->
-      <section class="restaurant-filter-container">
-        ${this.CategorySelectBox.template()}
-        <!-- 정렬 셀렉트 박스 -->
-        ${this.SortingSelectBox.template()}
-      </section>
-      <!-- 음식점 목록 -->
-      <section class="restaurant-list-container">
-        <ul class="restaurant-list">
-        </ul>        
-      </section>
-    </main>
-    `;
+  private setTabMenu() {
+    if (this._state.currentTab) {
+      if (this._state.currentTab === 'ALL') {
+        this.handleAllRestaurantClicked();
+      } else if (this._state.currentTab === 'LIKED') {
+        this.handleLikedRestaurantClicked();
+      }
+    }
   }
 
-  render(): void {
+  private render(): void {
     this.renderTemplate();
     this.renderRestaurantList();
     this.listenEvent();
@@ -178,6 +177,25 @@ export default class App {
 
     categoryFilter.value = this._state.filter;
     sortFilter.value = this._state.sortingOption;
+  }
+
+  private template() {
+    return `
+    ${this._header.template()}
+    <main>
+      <section class="tabMenu-container">
+        ${this._tabMenu.template()}
+      </section>
+      <section class="restaurant-filter-container">
+        ${this.CategorySelectBox.template()}
+        ${this.SortingSelectBox.template()}
+      </section>
+      <section class="restaurant-list-container">
+        <ul class="restaurant-list">
+        </ul>        
+      </section>
+    </main>
+    `;
   }
 
   private renderRestaurantList(): void {
@@ -213,15 +231,22 @@ export default class App {
     const sortingOption = target.value;
 
     const sortedRestaurants = this._restaurantController.sortRestaurants(this._state.filter as Category, sortingOption);
-    this.setState({ sortingOption, restaurants: sortedRestaurants });
+    this.setState({ sortingOption: sortingOption, restaurants: sortedRestaurants });
     setUpdateDataToStorage({ sortingOption: sortingOption });
   }
 
-  private onCloseModal() {
+  private onCloseaddModal() {
+    const storedData = getDataFromStorage(LOCAL_STORAGE_KEY);
+    const selectedRestaurantList = this._restaurantController.sortRestaurants(
+      this._state.filter as Category,
+      this._state.sortingOption
+    );
     this.setState({
-      sortingOption: SORTING_OPTION.NAME,
-      filter: DEFAULT_CATEGORY,
+      sortingOption: storedData?.sortingOption,
+      filter: storedData?.filter,
       isModalOpen: !this._state.isModalOpen,
+      restaurants: selectedRestaurantList,
     });
+    this.setTabMenu();
   }
 }
