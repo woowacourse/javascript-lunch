@@ -1,6 +1,6 @@
 import { useState } from '../core';
 
-function useBoolean(initial: boolean): [boolean, () => void, () => void] {
+function useBoolean(initial: boolean): [boolean, VoidFunction, VoidFunction] {
   const [boolean, setBoolean] = useState(initial);
 
   const setTrue = () => {

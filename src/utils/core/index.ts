@@ -1,22 +1,25 @@
 import { debounce } from '../common/debounce';
-import { $, $$, isTarget } from '../../utils/common/domHelper';
+import { $, isTarget } from '../../utils/common/domHelper';
+import { UnPack } from '../../types/common';
 
-interface Event {
+export interface EventCallback {
+  (e: HTMLElementEventMap[keyof HTMLElementEventMap]): void;
+}
+export interface Event {
   parentSelector: string;
   targetSelector: string;
   event: keyof HTMLElementEventMap;
-  callback: (this: Element, e: HTMLElementEventMap[Event['event']]) => void;
+  callback: EventCallback;
 }
 interface Options<T = unknown> {
   currentStateKey: number;
   states: T[];
   events: Event[];
-  root: null | HTMLElement;
+  root: null | Element;
   rootComponent: null | (() => string);
 }
 
 type Dispatch<T> = (value: T) => void;
-type UnPack<T> = T extends (infer U)[] ? U : T;
 
 function Core() {
   const options: Options<UnPack<Parameters<typeof useState>>> = {
@@ -36,7 +39,6 @@ function Core() {
 
     const setState = (newState: S) => {
       if (newState === state) return;
-      if (JSON.stringify(newState) === JSON.stringify(state)) return;
 
       states[key] = newState;
       _render();
@@ -82,8 +84,7 @@ function Core() {
       $(parentSelector)?.addEventListener(event, (e) => {
         const $parent = $(parentSelector);
 
-        if (isTarget(e.target, { targetSelector, parentSelector }) && $parent)
-          callback.call($parent, e);
+        if (isTarget(e.target, { targetSelector, parentSelector }) && $parent) callback(e);
       });
     });
   }

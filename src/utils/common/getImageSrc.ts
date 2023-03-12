@@ -1,9 +1,3 @@
-import '../../assets/category-etc.png';
-import '../../assets/category-korean.png';
-import '../../assets/category-chinese.png';
-import '../../assets/category-japanese.png';
-import '../../assets/category-western.png';
-import '../../assets/category-asian.png';
 import { Category } from '../../constants/lunchRecommendation';
 
 const src: Record<Category, `./category-${string}.png`> = {
