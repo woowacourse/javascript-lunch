@@ -1,4 +1,4 @@
-import { Category, Order } from '@res/constants/enum';
+import { Category, Order } from '../constants/enum';
 
 interface IFilterOption {
   category: Category;

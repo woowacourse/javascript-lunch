@@ -1,4 +1,4 @@
-import { setAttribute } from '@res/utils/domUtils';
+import { setAttribute } from '../../utils/domUtils';
 
 type ElementIdentifier = {
   idName?: string;

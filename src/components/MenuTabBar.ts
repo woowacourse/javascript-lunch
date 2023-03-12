@@ -1,7 +1,7 @@
-import { Tab } from '@res/constants/enum';
-import Component from '@res/core/Component';
-import { eventBus } from '@res/core/eventBus';
-import { $, on } from '@res/utils/domUtils';
+import { Tab } from '../constants/enum';
+import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import { $, on } from '../utils/domUtils';
 
 class MenuTabBar extends Component {
   tabToggle: Tab;

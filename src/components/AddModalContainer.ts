@@ -1,16 +1,16 @@
-import { INPUT_MESSAGE } from '@res/constants/messages';
-import Component from '@res/core/Component';
-import { eventBus } from '@res/core/eventBus';
-import { IRestaurantInput } from '@res/interfaces/IRestaurantInput';
-import { restaurantStore } from '@res/model/restaurantStore';
-import { $, on } from '@res/utils/domUtils';
+import { INPUT_MESSAGE } from '../constants/messages';
+import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import { IRestaurantInput } from '../interfaces/IRestaurantInput';
+import { restaurantStore } from '../model/restaurantStore';
+import { $, on } from '../utils/domUtils';
 import {
   isValidCategory,
   isValidDescription,
   isValidDistance,
   isValidLink,
   isValidName,
-} from '@res/validator/inputValidator';
+} from '../validator/inputValidator';
 import { buttonTemplate } from './templates/button';
 import { selectTemplate } from './templates/select';
 

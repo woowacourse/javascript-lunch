@@ -1,5 +1,5 @@
-import { FavoriteImage, ImageByCategory } from '@res/images/imageByCategory';
-import { IRestaurant } from '@res/interfaces/IRestaurantInput';
+import { FavoriteImage, ImageByCategory } from '../../images/imageByCategory';
+import { IRestaurant } from '../../interfaces/IRestaurantInput';
 import { iconImageTemplate } from './iconImage';
 
 const descriptionTemplate = (description: string): string => {

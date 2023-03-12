@@ -1,5 +1,5 @@
-import { ElementIdentifier } from '@res/interfaces/ElementIdentifier';
-import { setAttribute } from '@res/utils/domUtils';
+import { ElementIdentifier } from '../../interfaces/ElementIdentifier';
+import { setAttribute } from '../../utils/domUtils';
 
 type iconOption = {
   src: string;

@@ -1,4 +1,4 @@
-import { Category, Order, Tab } from '@res/constants/enum';
+import { Category, Order, Tab } from '../constants/enum';
 
 interface IRenderOptions {
   category: Category;

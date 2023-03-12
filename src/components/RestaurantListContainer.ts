@@ -1,12 +1,12 @@
-import { Category, Order, Tab } from '@res/constants/enum';
-import Component from '@res/core/Component';
-import { eventBus } from '@res/core/eventBus';
-import { toggleFavoriteIcon } from '@res/images/imageByCategory';
-import IFilterOption from '@res/interfaces/IFilterOption';
-import IRenderOptions from '@res/interfaces/IRenderOptions';
-import { IRestaurant } from '@res/interfaces/IRestaurantInput';
-import { restaurantStore } from '@res/model/restaurantStore';
-import { all$, $, newState, on } from '@res/utils/domUtils';
+import { Category, Order, Tab } from '../constants/enum';
+import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import { toggleFavoriteIcon } from '../images/imageByCategory';
+import IFilterOption from '../interfaces/IFilterOption';
+import IRenderOptions from '../interfaces/IRenderOptions';
+import { IRestaurant } from '../interfaces/IRestaurantInput';
+import { restaurantStore } from '../model/restaurantStore';
+import { $, all$, newState, on } from '../utils/domUtils';
 import listTemplate from './templates/restaurantListTemplate';
 
 class RestaurantListContainer extends Component {

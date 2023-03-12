@@ -1,6 +1,6 @@
-import Component from '@res/core/Component';
-import { eventBus } from '@res/core/eventBus';
-import { $, on } from '@res/utils/domUtils';
+import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import { $, on } from '../utils/domUtils';
 
 class TopNavBar extends Component {
   constructor(element: HTMLElement) {

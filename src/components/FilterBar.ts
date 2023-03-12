@@ -1,8 +1,8 @@
-import { Category, Order, Tab } from '@res/constants/enum';
-import Component from '@res/core/Component';
-import { eventBus } from '@res/core/eventBus';
-import IFilterOption from '@res/interfaces/IFilterOption';
-import { $, all$, newState, on } from '@res/utils/domUtils';
+import { Category, Order, Tab } from '../constants/enum';
+import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import IFilterOption from '../interfaces/IFilterOption';
+import { $, all$, newState, on } from '../utils/domUtils';
 import { selectTemplate } from './templates/select';
 
 class FilterBar extends Component {

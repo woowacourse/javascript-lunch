@@ -1,4 +1,4 @@
-import { IRestaurant } from '@res/interfaces/IRestaurantInput';
+import { IRestaurant } from '../interfaces/IRestaurantInput';
 
 export const sampleData: IRestaurant[] = [
   {

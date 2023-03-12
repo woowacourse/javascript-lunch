@@ -1,9 +1,9 @@
-import { eventBus } from '@res/core/eventBus';
-import { FavoriteImage, ImageByCategory, toggleFavoriteIcon } from '@res/images/imageByCategory';
-import { IRestaurant } from '@res/interfaces/IRestaurantInput';
-import { restaurantStore } from '@res/model/restaurantStore';
-import { $, on } from '@res/utils/domUtils';
 import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import { FavoriteImage, ImageByCategory, toggleFavoriteIcon } from '../images/imageByCategory';
+import { IRestaurant } from '../interfaces/IRestaurantInput';
+import { restaurantStore } from '../model/restaurantStore';
+import { $, on } from '../utils/domUtils';
 import { buttonTemplate } from './templates/button';
 import { iconImageTemplate } from './templates/iconImage';
 
@@ -125,5 +125,3 @@ export default class DetailModal extends Component {
     `;
   }
 }
-
-//

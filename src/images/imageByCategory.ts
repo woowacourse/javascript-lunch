@@ -1,4 +1,4 @@
-import { toggleImageSource } from '@res/utils/domUtils';
+import { toggleImageSource } from '../utils/domUtils';
 
 interface ImageMap {
   [key: string]: string;

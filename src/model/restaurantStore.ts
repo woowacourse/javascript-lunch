@@ -1,6 +1,6 @@
-import { Category, Order } from '@res/constants/enum';
-import IRenderOptions from '@res/interfaces/IRenderOptions';
-import { IRestaurantInput, IRestaurant } from '@res/interfaces/IRestaurantInput';
+import { Category, Order } from '../constants/enum';
+import IRenderOptions from '../interfaces/IRenderOptions';
+import { IRestaurant, IRestaurantInput } from '../interfaces/IRestaurantInput';
 import { sampleData } from './storage';
 
 const FAVORITE_DEFAULT = false;
@@ -102,24 +102,3 @@ export const restaurantStore = {
     restaurantStore.setList(restaurantList);
   },
 };
-
-restaurantStore.getNewID([
-  {
-    id: 1,
-    favorite: false,
-    category: '한식',
-    name: '얌샘김밥',
-    distance: '5',
-    description: '정말 마이따 마이따!',
-    link: 'https://naver.com',
-  },
-  {
-    id: 10,
-    favorite: true,
-    category: '한식',
-    name: '고봉김밥',
-    distance: '15',
-    description: '정말 고봉이다.',
-    link: 'https://naver.com',
-  },
-]);
