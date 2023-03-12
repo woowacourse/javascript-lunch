@@ -1,11 +1,23 @@
 export const showModal = () => {
-  const $modal = document.querySelector('#modal');
   document.body.classList.add('body--modal-open');
-  $modal.classList.add('modal--open');
+  document.querySelector('#modal').classList.add('modal--open');
 };
 
 export const closeModal = () => {
-  const $modal = document.querySelector('#modal');
   document.body.classList.remove('body--modal-open');
-  $modal.classList.remove('modal--open');
+  document.querySelector('#modal').classList.remove('modal--open');
+};
+
+export const showRestaurantForm = () => {
+  document.querySelector('#modal-info').classList.add('hide');
+  document.querySelector('#modal-form').classList.remove('hide');
+
+  showModal();
+};
+
+export const showInfo = () => {
+  document.querySelector('#modal-info').classList.remove('hide');
+  document.querySelector('#modal-form').classList.add('hide');
+
+  showModal();
 };
