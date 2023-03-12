@@ -1,9 +1,9 @@
+import { getListOnLocalStorage } from '../utils/localStorage';
+import { RestaurantType } from '../type';
 import { NAME_LENGTH } from '../constants/values';
 import { ERROR_MESSAGE } from '../constants/error';
 import { REGEX_SPECIAL_CHARACTERS } from '../constants/regexp';
-import { getListOnLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-import { RestaurantType } from '../type';
 
 export const checkRestaurantName = (input: string) => {
   if (REGEX_SPECIAL_CHARACTERS.test(input)) {

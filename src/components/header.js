@@ -1,6 +1,6 @@
-import '../../css/gnb.css';
-import { $inBody } from '../utils/selector';
+import '../../css/header.css';
 import '../assets/add-button.png';
+import { $ } from '../utils/selector';
 
 class Header {
   #state = {
@@ -13,10 +13,7 @@ class Header {
   }
 
   render() {
-    $inBody(this.#state.selector).insertAdjacentHTML(
-      'beforeend',
-      this.#template()
-    );
+    $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
   }
 
   #template() {

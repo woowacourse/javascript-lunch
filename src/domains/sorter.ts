@@ -1,7 +1,4 @@
 import { RestaurantType } from '../type';
-import { getListOnLocalStorage } from '../utils/localStorage';
-import { FILTER_OPTION } from '../constants/filter';
-import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 
 export const sortByName = (allRestaurants: RestaurantType[]) => {
   return allRestaurants.sort((a, b) => {

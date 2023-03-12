@@ -11,6 +11,7 @@
 
 .gnb__title {
   color: #fcfcfd;
+  cursor: pointer;
 }
 
 .gnb__button {

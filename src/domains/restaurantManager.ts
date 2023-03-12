@@ -1,13 +1,13 @@
-import RestaurantList from '../components/restaurantList.js';
-import { sortByDistance, sortByName } from './filter';
-import { RestaurantType } from '../type';
-import { isValidName } from '../validator';
-import { FILTER_OPTION } from '../constants/filter';
 import { getFormData } from '../utils/form';
+import { isValidName } from '../validator';
+import RestaurantList from '../components/restaurantList.js';
+import { sortByDistance, sortByName } from './sorter';
 import {
   getListOnLocalStorage,
   saveListOnLocalStorage,
 } from '../utils/localStorage';
+import { RestaurantType } from '../type';
+import { FILTER_OPTION } from '../constants/filter';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { initialRestaurantList } from '../constants/initialRestaurantList';
 

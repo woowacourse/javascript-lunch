@@ -1,11 +1,13 @@
 import '../css/style.css';
+import RestaurantManager from './domains/restaurantManager';
 import Header from './components/header.js';
 import Select from './components/select.js';
 import Modal from './components/modal.js';
 import restaurantAddContainer from './components/restaurantAddContainer';
+import restaurantBottomSheet from './components/restaurantBottomSheet';
 import Navigation from './components/navigation';
 import RestaurantList from './components/restaurantList';
-import RestaurantManager from './domains/restaurantManager';
+import { handleFavoriteIcon } from './handleUi/favoriteIcon';
 import { handleNavigationClick } from './handleUi/navigation';
 import { handleModalClose, handleModalOpen } from './handleUi/modal';
 import { resetForm, scrollToTopForm } from './handleUi/form';
@@ -13,10 +15,7 @@ import {
   executeOptionChangeEventListener,
   executeEventListener,
 } from './utils/eventListener';
-import {
-  getListOnLocalStorage,
-  saveListOnLocalStorage,
-} from './utils/localStorage';
+import { getListOnLocalStorage } from './utils/localStorage';
 import { RestaurantType } from './type';
 import {
   FILTER_CLASS,
@@ -25,9 +24,6 @@ import {
   SELECT_OPTION_LIST,
 } from './constants/filter';
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
-import { handleFavoriteIcon } from './handleUi/favoriteIcon';
-import restaurantBottomSheet from './components/restaurantBottomSheet';
-import { $ } from './utils/selector';
 
 const App = {
   header: new Header({ selector: 'header', title: '점심 뭐 먹지' }),
@@ -90,11 +86,22 @@ const App = {
   },
 
   initEventListeners() {
+    this.controlHeader();
     this.controlNavigation();
     this.controlFilter();
     this.controlRestaurantList();
     this.controlRestaurantAddContainer();
     this.controlRestaurantBottomSheet();
+  },
+
+  controlHeader() {
+    executeEventListener('header', 'click', (event: Event) => {
+      const target = event.target;
+
+      if (target instanceof HTMLHeadingElement) {
+        window.location.reload();
+      }
+    });
   },
 
   controlNavigation() {
@@ -164,11 +171,8 @@ const App = {
           favoriteList.splice(index, 1);
         }
 
-        saveListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST,
-          restaurantList
-        );
-        saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, favoriteList);
+        this.RestaurantManager.updateRestaurantList(restaurantList);
+        this.RestaurantManager.updateFavoriteList(favoriteList);
       }
     });
 
@@ -280,8 +284,20 @@ const App = {
             ) as RestaurantType[];
 
             const index = parseInt(target.name, 10);
+            const favoriteList = getListOnLocalStorage(
+              LOCAL_STORAGE_KEY.FAVORITE_LIST
+            ) as RestaurantType[];
+            if (restaurantList[index].isFavorite === true) {
+              const favoriteIndex = favoriteList.findIndex(
+                favorite => favorite.name === restaurantList[index].name
+              );
+
+              favoriteList.splice(favoriteIndex, 1);
+              favoriteList.forEach((favorite, i) => (favorite.number = i));
+              this.RestaurantManager.updateFavoriteList(favoriteList);
+            }
             restaurantList.splice(index, 1);
-            restaurantList.map((restaurant, i) => (restaurant.number = i));
+            restaurantList.forEach((restaurant, i) => (restaurant.number = i));
             this.RestaurantManager.updateRestaurantList(restaurantList);
             this.restaurantList.render(
               getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
