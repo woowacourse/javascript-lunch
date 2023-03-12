@@ -1,5 +1,4 @@
-import RestaurantItem from './components/RestaurantItem';
-import RestaurantItems from './components/RestaurantItems';
+import db from './db/restaurants';
 import { Restaurant, CategoryFilter, SortFilter, Restaurants } from './types';
 import { v4 as uuid } from 'uuid';
 
@@ -19,40 +18,27 @@ export const store: Store = {
   restaurants: {},
   categoryFilter: '전체',
   sortFilter: 'name',
+
   removeRestaurant(_id: string) {
     this.restaurants = Object.fromEntries(
       Object.entries(this.restaurants).filter(([id, _]) => id !== _id),
     );
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
-    localStorage.setItem('store', JSON.stringify(this.restaurants));
+
+    db.setRestaurants(this.restaurants);
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   },
 
   addRestaurants(restaurant: Restaurant) {
     this.restaurants = { [uuid()]: restaurant, ...this.restaurants };
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
-    localStorage.setItem(
-      'store',
-      JSON.stringify({
-        [uuid()]: restaurant,
-        ...JSON.parse(localStorage.getItem('store') || '{}'),
-      }),
-    );
+    db.addRestaurant(restaurant);
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   },
 
   filterRestaurants(categoryFilter: CategoryFilter) {
     this.categoryFilter = categoryFilter;
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
-    this.restaurants = JSON.parse(localStorage.getItem('store') || '{}');
+    this.restaurants = db.getRestaurants();
     if (categoryFilter === '전체') return;
     const filteredRestaurants = Object.fromEntries(
       Object.entries(this.restaurants).filter(
@@ -64,9 +50,7 @@ export const store: Store = {
 
   sortRestaurants(sortFilter: SortFilter) {
     this.sortFilter = sortFilter;
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
+
     let filteredRestaurants;
 
     switch (sortFilter) {
@@ -91,7 +75,7 @@ export const store: Store = {
 
   toggleFavoriteRestaurant(id: string) {
     this.restaurants[id].isFavorite = !this.restaurants[id].isFavorite;
-    localStorage.setItem('store', JSON.stringify(this.restaurants));
+    db.setRestaurants(this.restaurants);
   },
 
   getFavoriteRestaurants() {
