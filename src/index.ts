@@ -183,7 +183,7 @@ const App = {
       if (target instanceof HTMLButtonElement) {
         const restaurantList = getListOnLocalStorage(
           LOCAL_STORAGE_KEY.RESTAURANT_LIST
-        );
+        ) as RestaurantType[];
 
         const index = parseInt(target.name, 10);
         const restaurant = restaurantList[index];
@@ -234,14 +234,28 @@ const App = {
                 favoriteList.splice(index, 1);
               }
 
-              saveListOnLocalStorage(
-                LOCAL_STORAGE_KEY.RESTAURANT_LIST,
-                restaurantList
-              );
-              saveListOnLocalStorage(
-                LOCAL_STORAGE_KEY.FAVORITE_LIST,
-                favoriteList
-              );
+              this.RestaurantManager.updateRestaurantList(restaurantList);
+              this.RestaurantManager.updateFavoriteList(favoriteList);
+            }
+          }
+        );
+
+        executeEventListener(
+          '.button-container-info-modal',
+          'click',
+          (event: Event) => {
+            const target = event.target;
+
+            if (target instanceof HTMLButtonElement) {
+              if (target.ariaLabel === 'delete') {
+                restaurantList.splice(index, 1);
+                restaurantList.map((restaurant, i) => (restaurant.number = i));
+                this.RestaurantManager.updateRestaurantList(restaurantList);
+                this.restaurantList.render(
+                  getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
+                );
+              }
+              handleModalClose('#restaurant-bottom-sheet');
             }
           }
         );

@@ -100,6 +100,11 @@ class restaurantManager {
       this.restaurantList
     );
   }
+
+  updateFavoriteList(favoriteList: RestaurantType[]) {
+    this.favoriteList = favoriteList;
+    saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, this.favoriteList);
+  }
 }
 
 export default restaurantManager;
