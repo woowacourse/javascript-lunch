@@ -4,8 +4,8 @@ import { Restaurant } from '../types/types';
 import { RestaurantItem } from './RestaurantItem';
 import { FAVORITE_ICON_IMAGE, RESTAURANT_IMAGE } from '../constants/images';
 
-export const RestaurantList = (sortedRestaurants: Restaurant[]) => {
-  const restaurantItems = sortedRestaurants.map((restaurant) => {
+export const RestaurantList = (restaurants: Restaurant[]) => {
+  const restaurantItems = restaurants.map((restaurant) => {
     const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
 
     return RestaurantItem(restaurant, categoryImageUrl);
@@ -14,9 +14,9 @@ export const RestaurantList = (sortedRestaurants: Restaurant[]) => {
   return `${restaurantItems.join('')}`;
 };
 
-export const renderRestaurantList = (restaurantList: Restaurant[]) => {
+export const renderRestaurantList = (restaurants: Restaurant[]) => {
   const restaurantListContainer = $<HTMLUListElement>('.restaurant-list');
-  const restaurantListTemplate = RestaurantList(restaurantList);
+  const restaurantListTemplate = RestaurantList(restaurants);
 
   restaurantListContainer.innerHTML = '';
   restaurantListContainer.insertAdjacentHTML('beforeend', restaurantListTemplate);
