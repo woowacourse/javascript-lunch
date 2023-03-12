@@ -12,11 +12,7 @@ class Restaurants {
   }
 
   remove(personalRestaurant: PersonalRestaurant) {
-    const index = this.#list.findIndex(
-      (value) => value === personalRestaurant
-    );
-
-    this.#list.splice(index, 1);
+    this.#list = this.#list.filter((value) => value !== personalRestaurant);
   }
 }
 
