@@ -3,7 +3,7 @@ import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
 import render from './render';
 import { DEFAULT_RESTAURANTS } from './fixtures';
-import { FILTER, SORT } from './utils/constants';
+import { FILTER, SORT } from './constants';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
@@ -87,37 +87,26 @@ class App {
     });
   };
 
+  initLoad = () => {
+    render.init();
+
+    const restaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') || '[]');
+
+    if (!restaurants.length) {
+      this.#restaurants = restaurants.map((restaurant: Restaurant) =>
+        Object.setPrototypeOf(restaurant, Restaurant.prototype),
+      );
+    }
+
+    this.updateRestaurantsList();
+  };
+
   initEventHandlers() {
+    window.addEventListener('load', this.initLoad);
     document.addEventListener('openModal', render.openRegisterRestaurantModal);
     document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
     document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
     document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
-
-    window.addEventListener('load', () => {
-      const $lunchApp = document.querySelector<HTMLDivElement>('#lunch-app');
-
-      if (!$lunchApp) return;
-
-      $lunchApp.insertAdjacentHTML(
-        'afterbegin',
-        ` <r-header></r-header>
-          <main>
-            <r-search-restaurant-section></r-search-restaurant-section>
-            <r-restaurant-list id="restaurant-list"></r-restaurant-list>,
-          </main>
-        `,
-      );
-
-      const restaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') || '[]');
-
-      if (restaurants.length !== 0) {
-        this.#restaurants = restaurants.map((restaurant: Restaurant) =>
-          Object.setPrototypeOf(restaurant, Restaurant.prototype),
-        );
-      }
-
-      this.updateRestaurantsList();
-    });
   }
 }
 
