@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Restaurant from './domain/Restaurant';
+import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
-import { CustomModalElement, CustomRestaurantListElement, CustomSelectElement } from './components';
 import {
-  DEFAULT_FILTER_OPTIONS,
-  DEFAULT_MODAL_CATEGORY_OPTIONS,
-  DEFAULT_MODAL_DISTANCE_OPTIONS,
-  DEFAULT_RESTAURANTS,
-  DEFAULT_SORT_OPTIONS,
-} from './fixtures';
+  CustomRegisterRestaurantModalElement,
+  CustomRestaurantListElement,
+  CustomSelectElement,
+} from './components';
+import { DEFAULT_FILTER_OPTIONS, DEFAULT_RESTAURANTS, DEFAULT_SORT_OPTIONS } from './fixtures';
 import { FILTER, SORT } from './utils/constants';
 
 class App {
@@ -28,18 +26,6 @@ class App {
 
   $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
 
-  $modalForm = document.querySelector<HTMLFormElement>('#modal-form')!;
-
-  $modal = document.querySelector<CustomModalElement>('r-modal')!;
-
-  $restaurantModalCategory = document.querySelector<CustomSelectElement>(
-    '#restaurant-modal-category',
-  )!;
-
-  $restaurantModalDistance = document.querySelector<CustomSelectElement>(
-    '#restaurant-modal-distance',
-  )!;
-
   constructor() {
     this.init();
   }
@@ -48,7 +34,6 @@ class App {
     this.load();
 
     this.initSelect();
-    this.initModalSelect();
     this.initEventHandlers();
   }
 
@@ -110,36 +95,52 @@ class App {
     this.updateRestaurants();
   };
 
-  openModal = () => {
-    this.$modal.open();
+  openRegisterRestaurantModal = () => {
+    const $registerRestaurantModal = '<r-register-restaurant-modal></r-register-restaurant-modal>';
+    const $main = document.querySelector<HTMLElement>('main');
+
+    if (!$main) return;
+
+    $main.insertAdjacentHTML('beforeend', $registerRestaurantModal);
   };
 
-  addRestaurant = (event: Event) => {
-    console.log('식당 생성');
-    // event.preventDefault();
-    // try {
-    //   const restaurant = this.createRestaurant(event);
-    //   this.#restaurants.push(restaurant);
-    // } catch (e) {
-    //   const error = e as Error;
-    //   alert(error.message);
-    //   return;
-    // }
-    // this.$modal.close();
-    // this.updateRestaurants();
+  closeRegisterRestaurantModal = () => {
+    const $registerRestaurantModal = document.querySelector<CustomRegisterRestaurantModalElement>(
+      'r-register-restaurant-modal',
+    );
+
+    if (!$registerRestaurantModal) return;
+
+    $registerRestaurantModal.remove();
   };
 
-  createRestaurant = (event: Event) => {
-    const restaurantProps = Object.fromEntries([
-      ...new FormData(event.target as HTMLFormElement).entries(),
-    ]);
+  addRestaurant = ({ detail }: CustomEvent) => {
+    try {
+      const restaurant = this.createRestaurant(detail);
+      this.#restaurants.push(restaurant);
+    } catch (e) {
+      const error = e as Error;
+      alert(error.message);
+      return;
+    }
 
+    this.closeRegisterRestaurantModal();
+    this.updateRestaurants();
+  };
+
+  createRestaurant = ({
+    category,
+    name,
+    distanceByMinutes,
+    description,
+    referenceUrl,
+  }: RestaurantProps) => {
     return new Restaurant({
-      category: String(restaurantProps.category),
-      name: String(restaurantProps.name),
-      distanceByMinutes: Number(restaurantProps.distanceByMinutes),
-      description: String(restaurantProps.description),
-      referenceUrl: String(restaurantProps.referenceUrl),
+      category,
+      name,
+      distanceByMinutes,
+      description,
+      referenceUrl,
     });
   };
 
@@ -148,16 +149,11 @@ class App {
     this.$restaurantSortSelect.setOptions(DEFAULT_SORT_OPTIONS);
   }
 
-  initModalSelect() {
-    this.$restaurantModalCategory.setOptions(DEFAULT_MODAL_CATEGORY_OPTIONS);
-    this.$restaurantModalDistance.setOptions(DEFAULT_MODAL_DISTANCE_OPTIONS);
-  }
-
   initEventHandlers() {
     this.$restaurantFilterSelect.addEventListener('change', this.changeRestaurantFilter);
     this.$restaurantSortSelect.addEventListener('change', this.changeRestaurantSort);
-    this.$modalOpenButton.addEventListener('click', this.openModal);
-    document.addEventListener('createRestaurant', this.addRestaurant);
+    this.$modalOpenButton.addEventListener('click', this.openRegisterRestaurantModal);
+    document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
   }
 }
 

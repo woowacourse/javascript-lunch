@@ -1,6 +1,7 @@
+import RegisterRestaurantModal from './modal/RegisterRestaurantModal';
 import Restaurant from './restaurant/Restaurant';
 import RestaurantList from './restaurant/RestaurantList';
-import Modal from './modal/Modal';
+import Modal from './shared/Modal';
 import Button from './shared/Button';
 import FormItem from './shared/FormItem';
 import Input from './shared/Input';
@@ -11,9 +12,10 @@ export type CustomRestaurantListElement = RestaurantList;
 
 export type CustomSelectElement = Select;
 
-export type CustomModalElement = Modal;
+export type CustomRegisterRestaurantModalElement = RegisterRestaurantModal;
 
 export default {
+  RegisterRestaurantModal,
   Restaurant,
   RestaurantList,
   Modal,

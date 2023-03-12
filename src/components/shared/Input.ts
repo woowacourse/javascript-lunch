@@ -18,19 +18,6 @@ class Input extends CustomFormElement {
       <input>
     `;
   }
-
-  render(): void {
-    super.render();
-
-    const $input = this.querySelector<HTMLSelectElement>('input');
-    if (!$input) return;
-
-    $input.addEventListener('input', (event) => {
-      if (event.target instanceof HTMLInputElement) {
-        this.internals.setFormValue(event.target.value);
-      }
-    });
-  }
 }
 
 customElements.define('r-input', Input);

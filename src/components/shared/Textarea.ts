@@ -19,19 +19,6 @@ class Textarea extends CustomFormElement {
       <textarea rows="4"></textarea>
     `;
   }
-
-  render(): void {
-    super.render();
-
-    const $textarea = this.querySelector<HTMLTextAreaElement>('textarea');
-    if (!$textarea) return;
-
-    $textarea.addEventListener('input', (event) => {
-      if (event.target instanceof HTMLTextAreaElement) {
-        this.internals.setFormValue(event.target.value);
-      }
-    });
-  }
 }
 
 customElements.define('r-textarea', Textarea);
