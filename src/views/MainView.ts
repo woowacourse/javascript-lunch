@@ -1,7 +1,7 @@
 import { $ } from '../utils/domSelectors';
 
 class MainView {
-  private addButton = $<HTMLButtonElement>('.gnb__button');
+  private addButton = $<HTMLButtonElement>('#add-restaurant-button');
   private addRestaurantModal = $<HTMLDialogElement>('#add-restaurant-modal');
   private categoryFilter = $<HTMLSelectElement>('#category-filter');
   private sortingFilter = $<HTMLSelectElement>('#sorting-filter');

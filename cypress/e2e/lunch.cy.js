@@ -3,7 +3,7 @@ describe('javascript-lunch 미션 e2e 테스트', () => {
     cy.visit('http://localhost:8080/');
     cy.viewport(412, 915);
 
-    cy.get('.gnb__button').click();
+    cy.get('#add-restaurant-button').click();
     cy.get('#category').select('한식');
     cy.get('#name').type('우래옥');
     cy.get('#distance').select('30');
@@ -14,7 +14,7 @@ describe('javascript-lunch 미션 e2e 테스트', () => {
   it('음식점 정보를 입력해 목록에 추가할 수 있다.', () => {
     const restaurantName = '필동면옥';
 
-    cy.get('.gnb__button').click();
+    cy.get('#add-restaurant-button').click();
     cy.get('#category').select('한식');
     cy.get('#name').type(restaurantName);
     cy.get('#distance').select('10');
