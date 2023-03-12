@@ -27,7 +27,9 @@ describe('javascript-lunch 미션 e2e 테스트', () => {
   it('음식점을 클릭하면 상세정보를 볼 수 있다.', () => {
     cy.contains('우래옥').click();
 
-    cy.get('#restaurant-detail-modal').should('contain', '우래옥');
+    cy.get('#restaurant-detail-modal .restaurant__name').should('contain', '우래옥');
+    cy.get('#restaurant-detail-modal .restaurant__category img').should('have.attr', 'alt', '한식');
+    cy.get('#restaurant-detail-modal .restaurant__distance').should('contain', '30분');
   });
 
   it('음식점 상세정보에서 삭제하기를 클릭하면 음식점을 삭제할 수 있다.', () => {
@@ -38,16 +40,16 @@ describe('javascript-lunch 미션 e2e 테스트', () => {
   });
 
   it('즐겨찾기를 등록하면 자주 가는 음식점 목록에 추가할 수 있다.', () => {
-    cy.get('.favorite-button').eq(0).click();
+    cy.contains('우래옥').closest('.restaurant').find('.favorite-button').click();
     cy.contains('자주 가는 음식점').click();
 
     cy.get('.restaurant-list').should('contain', '우래옥');
   });
 
   it('즐겨찾기를 해제하면 자주 가는 음식점 목록에서 삭제할 수 있다.', () => {
-    cy.get('.favorite-button').eq(0).click();
+    cy.contains('우래옥').closest('.restaurant').find('.favorite-button').click();
     cy.contains('자주 가는 음식점').click();
-    cy.get('.favorite-button').eq(0).click();
+    cy.contains('우래옥').closest('.restaurant').find('.favorite-button').click();
 
     cy.get('.restaurant-list').should('not.contain', '우래옥');
   });
@@ -59,8 +61,9 @@ describe('javascript-lunch 미션 e2e 테스트', () => {
   });
 
   it('자주가는 음식점 추가 후 새로고침을 했을 때 추가한 음식점이 목록에 있다.', () => {
-    cy.get('.favorite-button').eq(0).click();
+    cy.contains('우래옥').closest('.restaurant').find('.favorite-button').click();
     cy.contains('자주 가는 음식점').click();
+
     cy.reload();
 
     cy.get('.restaurant-list').should('contain', '우래옥');
