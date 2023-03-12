@@ -11,10 +11,6 @@ class Button extends CustomFormElement {
     });
   }
 
-  get value() {
-    return this.getAttribute('type') ?? '';
-  }
-
   renderTemplate(): string {
     return `
       <style>

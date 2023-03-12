@@ -30,10 +30,6 @@ class Input extends CustomFormElement {
         }
       });
   }
-
-  get value() {
-    return document.querySelector<HTMLInputElement>('input')?.value ?? '';
-  }
 }
 
 customElements.define('r-input', Input);

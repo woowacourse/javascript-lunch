@@ -31,10 +31,6 @@ class Textarea extends CustomFormElement {
         }
       });
   }
-
-  get value() {
-    return document.querySelector<HTMLTextAreaElement>('textarea')?.innerText ?? '';
-  }
 }
 
 customElements.define('r-textarea', Textarea);
