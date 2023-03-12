@@ -234,7 +234,8 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
+.modal,
+.detail-modal {
   display: none;
 }
 
@@ -354,4 +355,25 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세 모달 *****************************************/
+
+.detail-modal-image-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
+}
+
+.detail-form-item {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 16px;
+}
+
+.detail-modal-title {
+  margin-bottom: 24px;
 }

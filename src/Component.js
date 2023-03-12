@@ -1,17 +1,21 @@
 import restaurantManager from './domain/RestaurantManager';
 import favoriteRestaurant from './domain/FavoriteRestaurant';
+import detailRestaurant from './domain/DetailRestaurant';
 
 export default class Component {
   $target;
   props;
+
   restaurantManager;
   favoriteRestaurant;
+  detailRestaurant;
 
   constructor($target, props = {}) {
     this.$target = $target;
     this.props = props;
     this.restaurantManager = restaurantManager;
     this.favoriteRestaurant = favoriteRestaurant;
+    this.detailRestaurant = detailRestaurant;
 
     this.render({ ...props });
   }

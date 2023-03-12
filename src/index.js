@@ -6,9 +6,10 @@ import Component from './Component.js';
 import Header from './components/Header.js';
 import RestaurantList from './components/RestaurantList.js';
 import AddModal from './components/AddModal.js';
-import Selector from './components/Selector';
-import Favorite from './components/Favorite';
-import FavoriteList from './components/FavoriteList';
+import Selector from './components/Selector.js';
+import Favorite from './components/Favorite.js';
+import FavoriteList from './components/FavoriteList.js';
+import DetailModal from './components/DetailModal.js';
 
 class App extends Component {
   constructor() {
@@ -20,6 +21,7 @@ class App extends Component {
     new RestaurantList(qs('.restaurant-list'));
     new FavoriteList(qs('.favorite-list'));
     new AddModal(qs('.modal'));
+    new DetailModal(qs('.detail-modal'));
   }
 
   template() {
@@ -39,6 +41,8 @@ class App extends Component {
     </section>
 
     <div class="modal"></div>
+
+    <div class="detail-modal"></div>
     `;
   }
 }
