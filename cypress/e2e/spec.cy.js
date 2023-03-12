@@ -8,9 +8,20 @@ describe('점심 뭐 먹지', () => {
     cy.contains('distance');
   });
 
-  it('음식점 상세 정보를 확인할 수 있다', () => {
-    cy.visit('http://localhost:8080/').get('restaurant-item').eq(0).click();
-    cy.contains('삭제하기');
-    cy.contains('닫기');
+  describe('음식점 상세 정보', () => {
+    beforeEach(() => {
+      cy.visit('http://localhost:8080/').contains('피양콩할머니').click();
+    });
+    it('렌더링이 잘 된다.', () => {
+      cy.contains('피양콩할머니').should('be.visible');
+      cy.contains('삭제하기').should('be.visible');
+      cy.contains('닫기').should('be.visible');
+    });
+
+    it('아이템을 삭제할 수 있다.', () => {
+      cy.contains('피양콩할머니').should('be.visible');
+      cy.contains('삭제하기').click();
+      cy.contains('피양콩할머니').should('not.be.visible');
+    });
   });
 });
