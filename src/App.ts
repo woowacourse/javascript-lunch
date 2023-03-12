@@ -59,16 +59,18 @@ export class App {
   }
 
   openDetailModal() {
-    $$(".list-container")?.forEach((container) =>
-      container.addEventListener("click", this.initDetailModal)
-    );
+    const restaurantWrapper = $(".restaurant-wrapper") as HTMLDivElement;
+    restaurantWrapper.addEventListener("click", this.initDetailModal);
+    // $$(".list-container")?.forEach((container) =>
+    //   container.addEventListener("click", this.initDetailModal)
+    // );
   }
 
   initDetailModal = (event: Event) => {
     const id = (event.target as HTMLLIElement).closest(".restaurant__info")?.id;
     const restaurants = Store.getRestaurantList();
     restaurants.forEach((restaurant: RestaurantForm) => {
-      if (restaurant.id !== Number(id)) return;
+      if (restaurant.id !== id) return;
       const modal = new RestaurantDetail(restaurant);
       this.removeItem(modal, restaurant);
       this.toggleModalFavorite(restaurant);
@@ -85,7 +87,7 @@ export class App {
   setFavorite(id: string | undefined, event: Event) {
     const restaurants = Store.getRestaurantList();
     restaurants.forEach((restaurant: RestaurantForm) => {
-      if (id && restaurant.id === Number(id)) {
+      if (id && restaurant.id === id) {
         restaurant.favorite = !restaurant.favorite;
         this.handleFavorite();
         this.toggleFavoriteButton(restaurant.favorite, event);
