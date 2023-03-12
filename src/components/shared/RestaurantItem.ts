@@ -1,15 +1,39 @@
 import CustomElement from '../CustomElement';
 
 class RestaurantItem extends CustomElement {
-  renderTemplate(): string {
+  private get name() {
+    return this.getAttribute('name');
+  }
+
+  private get distanceByMinutes() {
+    return this.getAttribute('distanceByMinutes');
+  }
+
+  private get description() {
+    return this.getAttribute('description');
+  }
+
+  private get category() {
+    return this.getAttribute('category');
+  }
+
+  private get referenceUrl() {
+    return this.getAttribute('referenceUrl');
+  }
+
+  renderTemplate = () => {
     return `
       <style>
+        #restaurant-item {
+          cursor: pointer;
+        }
+
         .restaurant {
           display: flex;
           align-items: flex-start;
-
-          padding: 16px 8px;
-
+          padding: 14px 16px 19px;
+          margin: 0px 16px;
+          cursor: pointer;
           border-bottom: 1px solid #e9eaed;
         }
         
@@ -59,26 +83,55 @@ class RestaurantItem extends CustomElement {
         }
       </style>
 
-      <li class="restaurant">
+      <li class="restaurant" id="restaurant-item">
         <div class="restaurant__category">
           <img
-            src="assets/categories/${this.getAttribute('category')}.png"
-            alt="${this.getAttribute('category')}"
+            src="assets/categories/${this.category}.png"
+            alt="${this.category}"
             class="category-icon"
           >
         </div>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">
-            ${this.getAttribute('name') ?? ''}
+            ${this.name}
           </h3>
           <span class="restaurant__distance text-body">
-            캠퍼스부터 ${this.getAttribute('distance' ?? '')}분 내
+            캠퍼스부터 ${this.distanceByMinutes}분 내
           </span>
-          <p class="restaurant__description text-body">${this.getAttribute('description') ?? ''}</p>
+          <p class="restaurant__description text-body">${this.description ?? ''}</p>
         </div>
       </li>
     `;
-  }
+  };
+
+  render = () => {
+    super.render();
+
+    this.initEventHandlers();
+  };
+
+  clickRestaurant = () => {
+    this.dispatchEvent(
+      new CustomEvent('openRestaurantDetailModal', {
+        bubbles: true,
+        detail: {
+          name: this.name,
+          distanceByMinutes: this.distanceByMinutes,
+          description: this.description,
+          category: this.category,
+          referenceUrl: this.referenceUrl,
+        },
+      }),
+    );
+  };
+
+  initEventHandlers = () => {
+    const $restaurant = this.querySelector('#restaurant-item');
+
+    if (!$restaurant) return;
+
+    $restaurant.addEventListener('click', this.clickRestaurant);
+  };
 }
 
 customElements.define('r-restaurant', RestaurantItem);

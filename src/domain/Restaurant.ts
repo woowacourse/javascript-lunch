@@ -55,6 +55,10 @@ class Restaurant {
     return this.category;
   }
 
+  getReferenceUrl() {
+    return this.referenceUrl;
+  }
+
   private validateCategory(category: string) {
     if (!(Restaurant.CATEGORIES as readonly string[]).includes(category)) {
       throw new Error(`카테고리는 ${Restaurant.CATEGORIES.join(', ')} 중 하나여야 합니다.`);

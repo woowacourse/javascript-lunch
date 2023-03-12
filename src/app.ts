@@ -84,6 +84,8 @@ class App {
     });
   };
 
+  openRestaurantDetailModal = ({ detail }: CustomEvent) => render.openRestaurantDetailModal(detail);
+
   initLoad = () => {
     render.init();
 
@@ -100,10 +102,14 @@ class App {
 
   initEventHandlers() {
     window.addEventListener('load', this.initLoad);
-    document.addEventListener('openModal', render.openRegisterRestaurantModal);
+    document.addEventListener('openRegisterRestauranModal', render.openRegisterRestaurantModal);
     document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
     document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
     document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
+    document.addEventListener(
+      'openRestaurantDetailModal',
+      this.openRestaurantDetailModal as EventListener,
+    );
   }
 }
 

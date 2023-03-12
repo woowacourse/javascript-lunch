@@ -9,9 +9,10 @@ class SearchRestaurantSection extends CustomElement {
         .restaurant-search-container {
           display: flex;
           justify-content: space-between;
+
           padding: 0 16px;
           margin-top: 24px;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
         }
       </style>
       <section class="restaurant-search-container">

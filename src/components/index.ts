@@ -1,4 +1,5 @@
 import RegisterRestaurantModal from './modal/RegisterRestaurantModal';
+import RestaurantDetailModal from './modal/RestaurantDetailModal';
 import RestaurantList from './restaurant/RestaurantList';
 import SearchRestaurantSection from './section/SearchRestaurantSection';
 import Header from './header/Header';
@@ -18,6 +19,7 @@ export type CustomRegisterRestaurantModalElement = RegisterRestaurantModal;
 
 export default {
   RegisterRestaurantModal,
+  RestaurantDetailModal,
   RestaurantItem,
   RestaurantList,
   SearchRestaurantSection,
