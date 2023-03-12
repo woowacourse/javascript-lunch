@@ -50,8 +50,8 @@ class NewRestaurantModal extends Component {
 
   override renderTemplate() {
     return `
-      <r-modal title="새로운 음식점" onclose="this.host.onPostClose()">
-        <form slot="content" onsubmit="this.host.onSubmit(event)">
+      <r-modal title="새로운 음식점">
+        <form slot="content">
           <r-restaurant-category-select
             name="category"
             required
@@ -89,19 +89,36 @@ class NewRestaurantModal extends Component {
 
         <div slot="actions">
           <r-button
+            id="cancel"
             variant="secondary"
             full
-            onclick="this.host.onClickCancel()"
           >취소하기</r-button>
 
           <r-button
+            id="submit"
             variant="primary"
             full
-            onclick="this.host.onClickSubmit()"
           >추가하기</r-button>
         </div>
       </r-modal>
     `;
+  }
+
+  override render() {
+    super.render();
+
+    this.shadowRoot!.querySelector('r-modal')?.addEventListener('close', () => {
+      this.onPostClose();
+    });
+    this.shadowRoot!.querySelector('form')?.addEventListener('submit', (event) => {
+      this.onSubmit(event);
+    });
+    this.shadowRoot!.querySelector('#cancel')?.addEventListener('click', () =>
+      this.onClickCancel(),
+    );
+    this.shadowRoot!.querySelector('#submit')?.addEventListener('click', () =>
+      this.onClickSubmit(),
+    );
   }
 }
 

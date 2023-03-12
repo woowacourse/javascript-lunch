@@ -9,14 +9,7 @@ class Input extends FormControlComponent {
     return [...super.getCSSStyleSheets(), formControlStyle, style];
   }
 
-  override renderTemplate() {
-    return `
-      <label for="form-control">${this.getAttribute('title') ?? ''}</label>
-      <input id="form-control" oninput="this.host.onInput(event)">
-    `;
-  }
-
-  private onInput(event: InputEvent) {
+  private onInput(event: Event) {
     if (event.target instanceof HTMLInputElement) {
       this.internals.setFormValue(event.target.value);
     }
@@ -32,6 +25,21 @@ class Input extends FormControlComponent {
       return;
     }
     this.internals.setValidity({});
+  }
+
+  override renderTemplate() {
+    return `
+      <label for="form-control">${this.getAttribute('title') ?? ''}</label>
+      <input id="form-control">
+    `;
+  }
+
+  override render() {
+    super.render();
+
+    this.shadowRoot!.querySelector('input')?.addEventListener('input', (event) =>
+      this.onInput(event),
+    );
   }
 
   override get value() {

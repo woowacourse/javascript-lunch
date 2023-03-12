@@ -59,8 +59,8 @@ class RestaurantDetailModal extends Component {
           <r-category-icon category="{category}"></r-category-icon>
 
           <r-button
+            id="favorite"
             variant="transparent"
-            onclick="this.host.onClickFavorite()"
           >
             <r-favorite-icon
               {favorite}
@@ -81,15 +81,15 @@ class RestaurantDetailModal extends Component {
 
       <div slot="actions">
         <r-button
+          id="delete"
           variant="secondary"
           full
-          onclick="this.host.onClickDelete()"
         >삭제하기</r-button>
 
         <r-button
+          id="close"
           variant="primary"
           full
-          onclick="this.host.onClickClose()"
         >닫기</r-button>
       </div>
     `;
@@ -109,6 +109,16 @@ class RestaurantDetailModal extends Component {
     }).reduce((html, [placeholder, value]) => {
       return html.replaceAll(`{${placeholder}}`, String(value));
     }, this.renderContentTemplate());
+
+    this.shadowRoot!.querySelector('#favorite')?.addEventListener('click', () =>
+      this.onClickFavorite(),
+    );
+    this.shadowRoot!.querySelector('#delete')?.addEventListener('click', () => {
+      this.onClickDelete();
+    });
+    this.shadowRoot!.querySelector('#close')?.addEventListener('click', () => {
+      this.onClickClose();
+    });
   }
 }
 

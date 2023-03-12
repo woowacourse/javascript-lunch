@@ -47,7 +47,7 @@ class Select<OptionValue> extends FormControlComponent {
   override renderTemplate() {
     return `
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
-      <select id="form-control" onchange="this.host.onChange(event)">
+      <select id="form-control">
         ${this.#options
           .map(({ label }, index) => {
             return `<option value="${index}">${label}</option>`;
@@ -55,6 +55,14 @@ class Select<OptionValue> extends FormControlComponent {
           .join('')}
       </select>
     `;
+  }
+
+  override render() {
+    super.render();
+
+    this.shadowRoot!.querySelector('select')?.addEventListener('change', (event) =>
+      this.onChange(event),
+    );
   }
 
   private onChange(event: Event) {

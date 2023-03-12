@@ -1,9 +1,10 @@
-import type { RestaurantCategory } from '../../../domain/Restaurant';
 import type { RestaurantFilter } from '../../../domain/RestaurantFilter';
 import { filterBy, sortByName } from '../../../domain/RestaurantFilter';
 import restaurants from '../../../states/restaurants';
 import Component from '../../Component';
 import { define } from '../../decorators';
+import type RestaurantCategorySelect from '../form/RestaurantCategorySelect';
+import type RestaurantSortSelect from '../form/RestaurantSortSelect';
 import style from './index.css';
 
 export type RestaurantFilterChangeEvent = CustomEvent<RestaurantFilter[]>;
@@ -18,7 +19,12 @@ class RestaurantFilterPanel extends Component {
     return [...super.getCSSStyleSheets(), style];
   }
 
-  private onCategoryChange(category: RestaurantCategory | null) {
+  private onCategoryChange() {
+    const $category = this.shadowRoot!.querySelector<RestaurantCategorySelect>(
+      'r-restaurant-category-select',
+    )!;
+    const category = $category.getSelectedOption()?.value;
+
     this.filterFn = category
       ? filterBy((restaurant) => restaurant.getCategory() === category)
       : null;
@@ -26,8 +32,11 @@ class RestaurantFilterPanel extends Component {
     this.onChange();
   }
 
-  private onSortChange(sortFn: RestaurantFilter) {
-    this.sortFn = sortFn;
+  private onSortChange() {
+    const $sort = this.shadowRoot!.querySelector<RestaurantSortSelect>('r-restaurant-sort-select')!;
+    const sortFn = $sort.getSelectedOption()?.value;
+
+    this.sortFn = sortFn ?? sortByName;
     this.onChange();
   }
 
@@ -41,15 +50,27 @@ class RestaurantFilterPanel extends Component {
         <r-restaurant-category-select
           name="category"
           default-option-label="전체"
-          onchange="this.host.onCategoryChange(this.getSelectedOption().value)"
         ></r-restaurant-category-select>
 
         <r-restaurant-sort-select
           name="sort"
-          onchange="this.host.onSortChange(this.getSelectedOption().value)"
         ></r-restaurant-sort-select>
       </form>
     `;
+  }
+
+  override render() {
+    super.render();
+
+    this.shadowRoot!.querySelector('r-restaurant-category-select')?.addEventListener(
+      'change',
+      () => {
+        this.onCategoryChange();
+      },
+    );
+    this.shadowRoot!.querySelector('r-restaurant-sort-select')?.addEventListener('change', () => {
+      this.onSortChange();
+    });
   }
 
   getFilters(): RestaurantFilter[] {

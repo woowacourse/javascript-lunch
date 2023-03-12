@@ -23,7 +23,7 @@ class RestaurantList extends Component {
     return this.#restaurants;
   }
 
-  private onClickItem(event: MouseEvent) {
+  private onClickItem(event: Event) {
     if (!(event.target instanceof RestaurantListItem)) return;
 
     const $restaurantListItem = event.target;
@@ -51,8 +51,6 @@ class RestaurantList extends Component {
             description="${restaurant.getDescription() ?? ''}"
             reference-url="${restaurant.getReferenceUrl() ?? ''}"
             ${restaurant.isFavorite() ? 'favorite' : ''}
-
-            onclick="this.host.onClickItem(event)"
           ></r-restaurant-list-item>
         `;
       })
@@ -67,6 +65,14 @@ class RestaurantList extends Component {
         </div>
       </slot>
     `;
+  }
+
+  override render() {
+    super.render();
+
+    this.shadowRoot!.querySelectorAll('r-restaurant-list-item').forEach(($item) =>
+      $item.addEventListener('click', (event) => this.onClickItem(event)),
+    );
   }
 }
 

@@ -31,7 +31,7 @@ class Tabs extends Component {
     this.shadowRoot?.querySelector(`slot[name="${tabItem.value}"]`)?.setAttribute('active', '');
   }
 
-  private onClickTabItem(event: MouseEvent) {
+  private onClickTabItem(event: Event) {
     const $button = event.target;
     if (!($button instanceof HTMLButtonElement)) return;
 
@@ -51,7 +51,6 @@ class Tabs extends Component {
                 <button
                   class="text-body"
                   data-value="${tabItem.value}"
-                  onclick="this.host.onClickTabItem(event)"
                 >${tabItem.label}</button>
               </li>`,
           )
@@ -62,6 +61,14 @@ class Tabs extends Component {
         ${this.#tabItems.map((tabItem) => `<slot name="${tabItem.value}"></slot>`).join('')}
       </div>
     `;
+  }
+
+  override render() {
+    super.render();
+
+    this.shadowRoot!.querySelectorAll('ul > li > button').forEach(($button) =>
+      $button.addEventListener('click', (event) => this.onClickTabItem(event)),
+    );
   }
 }
 

@@ -9,7 +9,7 @@ class RestaurantListItem extends Component {
     return [...super.getCSSStyleSheets(), style];
   }
 
-  private onClickFavorite(event: MouseEvent) {
+  private onClickFavorite(event: Event) {
     event.stopPropagation();
 
     const restaurantId = this.getAttribute('restaurant-id');
@@ -36,8 +36,8 @@ class RestaurantListItem extends Component {
         </header>
 
         <r-button
+          id="favorite"
           variant="transparent"
-          onclick="this.host.onClickFavorite(event)"
         >
           <r-favorite-icon ${this.hasAttribute('favorite') ? 'active' : ''}></r-favorite-icon>
         </r-button>
@@ -45,6 +45,14 @@ class RestaurantListItem extends Component {
         <p class="description text-body">${this.getAttribute('description') ?? ''}</p>
       </section>
     `;
+  }
+
+  override render() {
+    super.render();
+
+    this.shadowRoot!.querySelector('#favorite')?.addEventListener('click', (event) =>
+      this.onClickFavorite(event),
+    );
   }
 }
 
