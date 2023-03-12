@@ -36,7 +36,6 @@ class App {
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
       Object.values(this.#filterPipes).reduce(
-        // value = []
         (filteredRestaurants, filter) => filter(filteredRestaurants),
         this.#restaurants,
       ),
@@ -73,8 +72,8 @@ class App {
     const value = $rSelect.getSelectedOption()?.value;
 
     if (value === '전체') {
-      this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-        Restaurants.getSorted(_restaurants, Restaurants.byName);
+      const { filter, ...keys } = this.#filterPipes;
+      this.#filterPipes = keys;
     } else {
       this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
         Restaurants.filterByCategory(_restaurants, String(value));
