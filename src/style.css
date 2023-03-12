@@ -301,3 +301,7 @@ input[name='link'] {
 .input-error-message {
   color: var(--red);
 }
+
+.restaurant__favorite {
+  margin-left: auto;
+}
