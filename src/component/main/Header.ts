@@ -1,5 +1,5 @@
 import { $ } from "@/utils/Dom";
-import render from "@/view/render";
+import Render from "@/view/Render";
 
 class Header {
   template() {
@@ -18,7 +18,7 @@ class Header {
     });
 
     $(".gnb__button")?.addEventListener("click", () => {
-      render.openAddModal();
+      Render.openAddModal();
     });
   }
 

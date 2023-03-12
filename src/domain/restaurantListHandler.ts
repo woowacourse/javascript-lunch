@@ -1,7 +1,6 @@
 import { Constants } from "@/constant/Restaurant";
 import { Restaurant } from "@/type/type";
 import { getSavedData, saveData, saveMockData } from "@/utils/localStorage";
-import restaurantValidator from "./restaurantValidator";
 
 class RestaurantListHandler {
   private restaurants: Restaurant[] = [];

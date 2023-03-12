@@ -1,3 +1,5 @@
+import { Category, SelectAttribute } from "@/type/type";
+
 export const CATEGORY: Category[] = [
   "한식",
   "중식",

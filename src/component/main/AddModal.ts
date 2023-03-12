@@ -6,7 +6,7 @@ import { generateId } from "@/utils/generateId";
 import { convertStringToNumber } from "@/utils/convertor";
 import restaurantListHandler from "@/domain/restaurantListHandler";
 import AppController from "@/AppDataController";
-import render from "@/view/render";
+import Render from "@/view/Render";
 import restaurantValidator from "@/domain/restaurantValidator";
 import {
   CATEGORY,
@@ -95,7 +95,7 @@ class AddModal {
         restaurantValidator.validate(restaurant);
         restaurantListHandler.addRestaurant(restaurant);
         const restaurantList = AppController.getRestaurantList();
-        render.updateRestaurantList(restaurantList);
+        Render.updateRestaurantList(restaurantList);
         this.close();
       } catch (e) {
         const error = (e as string).toString();

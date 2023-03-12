@@ -3,7 +3,7 @@ import { categoryToSrc } from "@/utils/convertor";
 import { StarImgPath } from "@/constant/Restaurant";
 import { $ } from "@/utils/Dom";
 import restaurantListHandler from "@/domain/restaurantListHandler";
-import render from "@/view/render";
+import Render from "@/view/Render";
 import AppController from "@/AppDataController";
 
 class ItemModal {
@@ -61,6 +61,7 @@ class ItemModal {
 
   addEvent() {
     $(".item-modal--close")?.addEventListener("click", () => {
+      console.log("clicked");
       this.close();
     });
 
@@ -71,7 +72,7 @@ class ItemModal {
     $(".item-modal--delete")?.addEventListener("click", () => {
       restaurantListHandler.deleteRestaurant(this.restaurant.id);
       const restaurantList = AppController.getRestaurantList();
-      render.updateRestaurantList(restaurantList);
+      Render.updateRestaurantList(restaurantList);
       this.close();
     });
 
@@ -104,7 +105,7 @@ class ItemModal {
     this.renderBookmark();
 
     const restaurantList = AppController.getRestaurantList();
-    render.updateRestaurantList(restaurantList);
+    Render.updateRestaurantList(restaurantList);
   }
 }
 

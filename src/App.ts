@@ -1,5 +1,5 @@
 import AppController from "./AppDataController";
-import render from "./view/render";
+import render from "./view/Render";
 
 class App {
   constructor(body: HTMLElement) {

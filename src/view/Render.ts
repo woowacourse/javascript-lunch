@@ -39,6 +39,7 @@ class Render {
   openItemModal(restaurant: Restaurant) {
     const itemModal = new ItemModal(restaurant);
     itemModal.render();
+    itemModal.addEvent();
   }
 
   openAddModal() {

@@ -2,7 +2,7 @@ import AppController from "@/AppDataController";
 import { SelectAttribute, Category, Sort } from "@/type/type";
 import { convertSelectAttribute } from "@/utils/convertor";
 import { $ } from "@/utils/Dom";
-import render from "@/view/render";
+import Render from "@/view/Render";
 
 class Select {
   attribute: SelectAttribute;
@@ -22,7 +22,7 @@ class Select {
 
       AppController.setFilter(this.attribute.id, selectedOption);
       const restaurantList = AppController.getRestaurantList();
-      render.updateRestaurantList(restaurantList);
+      Render.updateRestaurantList(restaurantList);
     });
   }
 

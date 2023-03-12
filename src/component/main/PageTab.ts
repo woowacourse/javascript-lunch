@@ -2,7 +2,7 @@ import AppController from "@/AppDataController";
 import { Constants } from "@/constant/Restaurant";
 import { PageTabOption } from "@/type/type";
 import { $, $$ } from "@/utils/Dom";
-import render from "@/view/render";
+import Render from "@/view/Render";
 
 class PageTab {
   currentTab: string;
@@ -36,8 +36,8 @@ class PageTab {
         AppController.setPage(targetPage);
         const restaurantList = AppController.getRestaurantList();
 
-        render.toggleSelectContainer(targetPage);
-        render.updateRestaurantList(restaurantList);
+        Render.toggleSelectContainer(targetPage);
+        Render.updateRestaurantList(restaurantList);
       }
     });
   }

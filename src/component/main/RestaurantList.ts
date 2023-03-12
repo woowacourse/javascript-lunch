@@ -1,8 +1,8 @@
 import AppController from "@/AppDataController";
 import restaurantListHandler from "@/domain/restaurantListHandler";
-import { HandleWithId, Rerender, Restaurant } from "@/type/type";
+import { Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
-import render from "@/view/render";
+import Render from "@/view/Render";
 import RestaurantItem from "../common/RestaurantItem";
 
 class RestaurantList {
@@ -45,12 +45,12 @@ class RestaurantList {
       if (target.className === "bookmark") {
         restaurantListHandler.toggleBookmark(restaurantId);
         const restaurantList = AppController.getRestaurantList();
-        render.updateRestaurantList(restaurantList);
+        Render.updateRestaurantList(restaurantList);
         return;
       }
 
       const restaurant = <Restaurant>AppController.getRestaurant(restaurantId);
-      render.openItemModal(restaurant);
+      Render.openItemModal(restaurant);
     });
   }
 }
