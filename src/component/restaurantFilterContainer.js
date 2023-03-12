@@ -12,7 +12,7 @@ const restaurantFilterContainer = () => {
   ];
   const sortingOptions = [
     { value: 'name', content: '이름순' },
-    { value: 'distance', content: '거리순' },
+    { value: 'takeMinute', content: '거리순' },
   ];
 
   return `

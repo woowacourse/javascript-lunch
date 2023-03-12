@@ -1,9 +1,10 @@
+import type { Category, Restaurant, Sorting } from '../../type';
 import { DEFAULT_SORTING } from '../../constants';
 
 class Restaurants {
   #restaurants;
 
-  constructor(restaurants) {
+  constructor(restaurants: Restaurant[]) {
     this.#restaurants = restaurants;
   }
 
@@ -11,11 +12,11 @@ class Restaurants {
     return this.#restaurants;
   }
 
-  findRestaurant(id) {
+  findRestaurant(id: string) {
     return this.#restaurants.find((restaurant) => restaurant.id === id);
   }
 
-  getFiltered(category, sorting) {
+  getFiltered(category: Category, sorting: Sorting) {
     this.sort(sorting);
     return this.#restaurants.filter(
       (restaurant) => category === '전체' || restaurant.category === category
@@ -27,10 +28,11 @@ class Restaurants {
     return this.#restaurants.filter((restaurant) => restaurant.favorite === true);
   }
 
-  sort(sorting) {
-    const sortPivot = (restaurant) => {
+  sort(sorting: Sorting) {
+    const sortPivot = (restaurant: Restaurant) => {
       if (sorting === 'name') return restaurant.name;
-      if (sorting === 'distance') return Number(restaurant.takeMinute);
+      if (sorting === 'takeMinute') return Number(restaurant.takeMinute);
+      return 0;
     };
 
     this.#restaurants.sort((a, b) => {
