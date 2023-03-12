@@ -10,7 +10,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "test-unit": "jest --watch",
-    "test-component": "export DEBUG=cypress:webpack:stats && cypress open --component",
+    "test-component": "cypress open --component",
     "test-e2e": "concurrently \"npm run start -- --port 8090\" \"wait-on http://localhost:8090 && cypress open --e2e\""
   },
   "repository": {
