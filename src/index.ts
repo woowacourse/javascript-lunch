@@ -27,7 +27,6 @@ import {
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
 import { handleFavoriteIcon } from './handleUi/restaurant';
 import restaurantBottomSheet from './components/restaurantBottomSheet';
-import { $ } from './utils/selector';
 
 const App = {
   header: new Header({ selector: 'header', title: '점심 뭐 먹지' }),
@@ -87,12 +86,12 @@ const App = {
     this.restaurantAddModal.render();
     this.restaurantAddContainer.render();
     this.restaurantBottomSheet.render();
-    // this.restaurantBottomSheetContainer.render();
   },
 
   initEventListeners() {
     this.controlNavigation();
     this.controlFilter();
+    this.controlRestaurantList();
     this.controlRestaurantAddContainer();
     this.controlRestaurantBottomSheet();
   },
@@ -128,6 +127,58 @@ const App = {
       const selectedList = this.RestaurantManager.filterRestaurantList(value);
 
       this.restaurantList.render(selectedList);
+    });
+  },
+
+  controlRestaurantList() {
+    executeEventListener('.restaurant-list', 'click', (event: Event) => {
+      const target = event.target;
+
+      if (target instanceof HTMLButtonElement) {
+        const restaurantList = getListOnLocalStorage(
+          LOCAL_STORAGE_KEY.RESTAURANT_LIST
+        );
+        const index = parseInt(target.name, 10);
+
+        this.restaurantBottomSheetContainer.render(restaurantList[index]);
+        handleModalOpen('#restaurant-bottom-sheet');
+      }
+
+      if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
+        const favoriteLined = target.className.split(' ')[1];
+        const number = favoriteLined[favoriteLined.length - 1];
+
+        const isFavorite = handleFavoriteIcon(number);
+
+        const restaurantList = getListOnLocalStorage(
+          LOCAL_STORAGE_KEY.RESTAURANT_LIST
+        ) as RestaurantType[];
+        const favoriteList = getListOnLocalStorage(
+          LOCAL_STORAGE_KEY.FAVORITE_LIST
+        ) as RestaurantType[];
+
+        const parsedNumber = parseInt(number, 10);
+        const selected = restaurantList[parsedNumber];
+        if (isFavorite) {
+          if (!favoriteList.find(favorite => favorite.name === selected.name)) {
+            favoriteList.push(selected);
+          }
+          restaurantList[parsedNumber].isFavorite = true;
+          favoriteList[favoriteList.length - 1].isFavorite = true;
+        } else {
+          restaurantList[parsedNumber].isFavorite = false;
+          const index = favoriteList.findIndex(
+            favorite => favorite.name === restaurantList[parsedNumber].name
+          );
+          favoriteList.splice(index, 1);
+        }
+
+        saveListOnLocalStorage(
+          LOCAL_STORAGE_KEY.RESTAURANT_LIST,
+          restaurantList
+        );
+        saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, favoriteList);
+      }
     });
   },
 
@@ -168,50 +219,6 @@ const App = {
   },
 
   controlRestaurantBottomSheet() {
-    executeEventListener('.restaurant-list', 'click', (event: Event) => {
-      const target = event.target;
-
-      if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
-        const favoriteLined = target.className.split(' ')[1];
-        const number = favoriteLined[favoriteLined.length - 1];
-
-        const isFavorite = handleFavoriteIcon(number);
-
-        const restaurantList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST
-        ) as RestaurantType[];
-        const favoriteList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.FAVORITE_LIST
-        ) as RestaurantType[];
-
-        const parsedNumber = parseInt(number, 10);
-        const selected = restaurantList[parsedNumber];
-        if (isFavorite) {
-          if (!favoriteList.find(favorite => favorite.name === selected.name)) {
-            favoriteList.push(selected);
-          }
-          restaurantList[parsedNumber].isFavorite = true;
-          favoriteList[favoriteList.length - 1].isFavorite = true;
-        } else {
-          restaurantList[parsedNumber].isFavorite = false;
-          const index = favoriteList.findIndex(
-            favorite => favorite.name === restaurantList[parsedNumber].name
-          );
-          favoriteList.splice(index, 1);
-        }
-
-        saveListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST,
-          restaurantList
-        );
-        saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, favoriteList);
-      }
-
-      if (target instanceof HTMLButtonElement) {
-        handleModalOpen('#restaurant-bottom-sheet');
-      }
-    });
-
     executeEventListener('.restaurant-bottom-sheet-backdrop', 'click', () => {
       handleModalClose('#restaurant-bottom-sheet');
     });

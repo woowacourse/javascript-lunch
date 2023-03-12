@@ -1,14 +1,7 @@
 import '../../css/restaurant-bottom-sheet.css';
-import '../assets/category-korean.png';
-import '../assets/category-chinese.png';
-import '../assets/category-japanese.png';
-import '../assets/category-western.png';
-import '../assets/category-asian.png';
-import '../assets/category-etc.png';
-import '../assets/favorite-icon-filled.png';
-import '../assets/favorite-icon-lined.png';
 import { $ } from '../utils/selector';
 import { CATEGORY_IMAGES } from '../constants/asset';
+import { BUTTON_TEXT } from '../constants/restaurantAddContainer';
 
 class restaurantBottomSheet {
   #state = {
@@ -36,17 +29,18 @@ class restaurantBottomSheet {
 
     /* html */
     return `
-			<div>
 				<div class="head-info">
 
 					<!-- 카테고리, 음식점 이름, 거리 컨테이너 -->
 					<div class="head-left">
 
-						<img
-							src="./category-${CATEGORY_IMAGES[category]}.png"
-							alt="${category}"
-							class="category-icon"
-						/>
+						<div class="restaurant__category">
+							<img
+								src="./category-${CATEGORY_IMAGES[category]}.png"
+								alt="${category}"
+								class="category-icon"
+							/>
+						</div>
 
 						<h3 class="restaurant__name text-subtitle">
 							${name}
@@ -78,20 +72,21 @@ class restaurantBottomSheet {
 				</p>
 
 				<!-- 하이퍼링크 -->
-				<link class="restaurant-link"
+				<a class="restaurant-link"
 					href="${link}"
-				/>
+				>
+				${link}
+				</a>
 
 				<!-- 삭제/닫기 버튼 -->
 				<div class="button-container">
 					<button class="button button--secondary text-caption" aria-label="delete">
 						${BUTTON_TEXT.DELETE}
 					</button>
-					<button class="button button--primary text-caption" aria-label="cancel">
-						${BUTTON_TEXT.CANCEL}
+					<button class="button button--primary text-caption" aria-label="close">
+						${BUTTON_TEXT.CLOSE}
 					</button>
 				</div>
-			</div>
 		`;
   }
 }

@@ -76,6 +76,7 @@ class RestaurantList {
 					</p>
 					<button
 						class="restaurant-info-open-button"
+						name="${number}"
 						aria-label="open-restaurant-info"
 					/>
 				</div>

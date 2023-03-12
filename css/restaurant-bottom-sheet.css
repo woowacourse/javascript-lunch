@@ -1,5 +1,6 @@
 .restaurant-bottom-sheet-backdrop {
   position: fixed;
+  z-index: 2;
   top: 0;
   right: 0;
   bottom: 0;
@@ -13,7 +14,7 @@
   position: fixed;
   z-index: 2;
   bottom: 0;
-  height: 50%;
+  height: 70%;
   width: 100%;
 
   padding: 32px 16px;
@@ -21,4 +22,30 @@
   overflow-y: auto;
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+}
+
+.head-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.head-info .restaurant__name {
+  margin: 10px 0;
+}
+
+.restaurant-bottom-sheet-container .restaurant__description {
+  display: block;
+}
+
+.restaurant-link {
+  display: block;
+  margin: 20px 0;
+
+  color: black;
+  text-decoration: underline;
+}
+
+.restaurant-link:visited {
+  color: black;
 }
