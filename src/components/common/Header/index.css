@@ -1,0 +1,29 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  height: 64px;
+
+  padding: 0 16px;
+
+  background-color: var(--primary-color);
+  color: #fcfcfd;
+
+  user-select: none;
+}
+
+::slotted(button) {
+  height: 40px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
+}

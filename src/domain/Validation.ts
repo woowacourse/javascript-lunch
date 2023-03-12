@@ -1,7 +1,14 @@
+import Restaurant from './Restaurant';
+
 const Validation = {
   validateRestaurantNameLength(restaurantName: string) {
-    if (restaurantName.length < 1 || restaurantName.length > 20)
-      throw new Error('음식점 이름은 1 ~ 20자 사이어야 합니다.');
+    if (
+      restaurantName.length < Restaurant.MIN_LENGTH ||
+      Restaurant.MAX_LENGTH < restaurantName.length
+    )
+      throw new Error(
+        `음식점 이름은 ${Restaurant.MIN_LENGTH} ~ ${Restaurant.MAX_LENGTH}자 사이어야 합니다.`,
+      );
   },
 };
 

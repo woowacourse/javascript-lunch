@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+label {
+  font-size: 14px;
+  color: var(--grey-400);
+}
+
+:host([required]) label::after {
+  padding-left: 4px;
+  content: '*';
+  color: var(--primary-color);
+}
+
+:host::after {
+  position: absolute;
+  top: 100%;
+  font-size: 0.8rem;
+}
+
+:host(:valid)::after {
+  content: attr(helper-text);
+  color: var(--grey-300);
+}
+
+:host(:invalid) input,
+:host(:invalid) select,
+:host(:invalid) textarea {
+  border-color: red;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+}
+
+:host(:invalid)::after {
+  content: attr(validation-message);
+  color: red;
+}

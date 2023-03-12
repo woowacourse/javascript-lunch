@@ -1,0 +1,29 @@
+ul {
+  list-style: none;
+  display: flex;
+}
+
+ul > li {
+  flex: 1;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+  font-weight: 700 !important;
+
+  cursor: pointer;
+}
+
+button[active] {
+  border-bottom-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+slot:not([active]) {
+  display: none;
+}
