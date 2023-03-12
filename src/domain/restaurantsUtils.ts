@@ -1,31 +1,24 @@
-import { Restaurant, RestaurantSortType, RestaurantCategory } from '../types';
+import { Restaurant, RestaurantCategory } from '../types';
 
+const restaurantSortType = {
+  name: 'name',
+  distance: 'distance',
+} as const;
+
+type RestaurantSortType = keyof typeof restaurantSortType;
 type FilterCategory = RestaurantCategory | '전체';
 
 export const getFilteredRestaurantsByCategory = (
   restaurants: Restaurant[],
   category: FilterCategory
 ) => {
-  if (category === '전체') {
-    return restaurants;
-  }
+  if (category === '전체') return restaurants;
 
   return restaurants.filter((restaurant) => restaurant.category === category);
 };
 
 export const getFavoriteRestaurants = (restaurants: Restaurant[]) => {
   return restaurants.filter((restaurant) => restaurant.isFavorite);
-};
-
-export const getSortedRestaurants = (
-  filterdRestaurants: Restaurant[],
-  sortOption: RestaurantSortType
-) => {
-  if (sortOption === 'name') {
-    return getSortedRestaurantsByName(filterdRestaurants);
-  }
-
-  return getSortedRestaurantsByDistance(filterdRestaurants);
 };
 
 export const getSortedRestaurantsByName = (restaurants: Restaurant[]) => {
@@ -43,3 +36,11 @@ export const getSortedRestaurantsByDistance = (restaurants: Restaurant[]) => {
 
   return sortedRestaurants;
 };
+
+const sortMethods: Record<RestaurantSortType, (restaurants: Restaurant[]) => Restaurant[]> = {
+  [restaurantSortType.name]: getSortedRestaurantsByName,
+  [restaurantSortType.distance]: getSortedRestaurantsByDistance,
+};
+
+export const getSortedRestaurants = (restaurants: Restaurant[], sortOption: RestaurantSortType) =>
+  sortMethods[sortOption](restaurants);
