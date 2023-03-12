@@ -9,8 +9,9 @@ import { DEFAULT_RESTAURANTS } from './fixtures';
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
-  #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> =
-    {};
+  #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> = {
+    sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
+  };
 
   $restaurantList = document.querySelector<RRestaurantList>('#restaurant-list')!;
 
@@ -31,6 +32,7 @@ class App {
   updateRestaurants() {
     this.$restaurantList.setRestaurants(
       Object.values(this.#filterPipes).reduce(
+        // value = []
         (filteredRestaurants, filter) => filter(filteredRestaurants),
         this.#restaurants,
       ),
