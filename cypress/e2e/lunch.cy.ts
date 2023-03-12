@@ -17,7 +17,7 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
     cy.viewport(375, 667);
   });
 
-  it('음식 추가 테스트 및 새로고침 시에 데이터 유지 확인', () => {
+  it('새로운 음식점을 추가 폼을 통해 음식점을 추가할 수 있고 새로고침 시에 추가된 음식점이 유지되는지 테스트 한다.', () => {
     // 기존 음식 리스트 길이
     const listLength = mockRestaurant.length;
 
@@ -56,7 +56,7 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
       .should('have.length', listLength + 1);
   });
 
-  it('즐겨찾기 추가 및 즐겨찾기 탭에서 해당 음식 확인 및 새로고침 시에 favorite 적용 테스트', () => {
+  it('특정 음식점을 즐겨찾기 추가할 수 있고 및 즐겨찾기 탭에서 해당 음식점을 확인할 수 있다. 또한 새로고침 시에도 해당 정보가 유지되는지 테스트 한다.', () => {
     // 자주가는 음식점 목록 이동
     cy.get('.tab-container').each((ele) => {
       cy.wrap(ele).contains('자주가는 음식점').click();
@@ -105,7 +105,8 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
         .should('have.class', 'favorite-filled');
     });
   });
-  it('상세보기 구현 및 삭제 그리고 reload 시에 삭제 정보 적용 테스트', () => {
+
+  it('음식점의 상세보기를 확인하고 삭제버튼 클릭시에 해당 음식점이 삭제되었는지 확인한다. 그리고 새로고침 시에 삭제 정보가 유지되는지 테스트 한다.', () => {
     // 테스트 전 현재 list
     const listLength = mockRestaurant.length;
 
