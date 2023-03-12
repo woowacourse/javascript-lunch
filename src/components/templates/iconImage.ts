@@ -6,8 +6,8 @@ type iconOption = {
   alt: string;
 };
 
-export const iconImageTemplate = (opiton: iconOption, identifier: ElementIdentifier) => {
-  const { src, alt } = opiton;
+export const iconImageTemplate = (option: iconOption, identifier: ElementIdentifier) => {
+  const { src, alt } = option;
   const { idName, className } = identifier;
 
   return `<img src="${src}" alt="${alt}" ${setAttribute('id', idName)}, ${setAttribute(
