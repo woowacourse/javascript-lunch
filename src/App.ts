@@ -108,15 +108,10 @@ export class App {
   }
 
   toggleFavoriteButton(isFavorite: boolean, event: Event) {
-    isFavorite
-      ? (event.target as HTMLButtonElement).setAttribute(
-          "src",
-          CATEGORY_IMG.filled
-        )
-      : (event.target as HTMLButtonElement).setAttribute(
-          "src",
-          CATEGORY_IMG.lined
-        );
+    (event.target as HTMLButtonElement).setAttribute(
+      "src",
+      isFavorite ? CATEGORY_IMG.filled : CATEGORY_IMG.lined
+    );
   }
 
   toggleModalFavorite(restaurant: RestaurantForm) {
