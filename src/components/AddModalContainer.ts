@@ -5,6 +5,7 @@ import { IRestaurantInput } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
 import { isValidCategory, isValidDistance, isValidName } from '@res/validator/inputValidator';
+import { selectTemplate } from './templates/select';
 
 class AddModalContainer extends Component {
   constructor(element: HTMLElement) {
@@ -128,33 +129,53 @@ class AddModalContainer extends Component {
           <form class="restaurant-form" >
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
-              <select name="category" id="category-input" required>
-                <option value="" disabled selected>선택해 주세요</option>
-                <option value="한식">한식</option>
-                <option value="중식">중식</option>
-                <option value="일식">일식</option>
-                <option value="양식">양식</option>
-                <option value="아시안">아시안</option>
-                <option value="기타">기타</option>
-              </select>
-              <p id='category-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.category}<p/>
+              ${selectTemplate(
+                {
+                  values: [
+                    ['', '선택해 주세요'],
+                    ['한식', '한식'],
+                    ['중식', '중식'],
+                    ['일식', '일식'],
+                    ['양식', '양식'],
+                    ['아시안', '아시안'],
+                    ['기타', '기타'],
+                  ],
+                  selectedIndex: 0,
+                  disabledIndex: 0,
+                },
+                { idName: 'category-input', name: 'category' }
+              )}
+              <p id='category-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.category
+              }<p/>
             </div>
             <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
             <input type="text" name="name" id="name-input" required />
-              <p id='name-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.name}<p/>
+              <p id='name-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.name
+              }<p/>
             </div>
             <div class="form-item form-item--required">
               <label for="distance text-caption">거리(도보 이동 시간) </label>
-              <select name="distance" id="distance-input" required>
-                <option value="" disabled selected>선택해 주세요</option>
-                <option value="5">5분 내</option>
-                <option value="10">10분 내</option>
-                <option value="15">15분 내</option>
-                <option value="20">20분 내</option>
-                <option value="30">30분 내</option>
-              </select>
-              <p id='distance-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.distance}<p/>
+              ${selectTemplate(
+                {
+                  values: [
+                    ['', '선택해 주세요'],
+                    ['5', '5분 내'],
+                    ['10', '10분 내'],
+                    ['15', '15분 내'],
+                    ['20', '20분 내'],
+                    ['30', '30분 내'],
+                  ],
+                  selectedIndex: 0,
+                  disabledIndex: 0,
+                },
+                { idName: 'distance-input', name: 'distance' }
+              )}
+              <p id='distance-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.distance
+              }<p/>
             </div>
             <div class="form-item">
               <label for="description text-caption">설명</label>

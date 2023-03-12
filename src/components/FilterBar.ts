@@ -3,6 +3,7 @@ import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import { $, all$, newState, on } from '@res/utils/domUtils';
+import { selectTemplate } from './templates/select';
 
 class FilterBar extends Component {
   #filterOption: IFilterOption;
@@ -63,20 +64,33 @@ class FilterBar extends Component {
   }
 
   template() {
-    return `<select name="category" id="category-filter" class="restaurant-filter">
-    <option value="${Category.All}">전체</option>
-    <option value="${Category.Korean}">한식</option>
-    <option value="${Category.Chinese}" >중식</option>
-    <option value="${Category.Japanese}" >일식</option>
-    <option value="${Category.Western}" >양식</option>
-    <option value="${Category.Asian}">아시안</option>
-    <option value="${Category.Etc}">기타</option>
-  </select>
+    return `
+    ${selectTemplate(
+      {
+        values: [
+          [Category.All, Category.All],
+          [Category.Korean, Category.Korean],
+          [Category.Chinese, Category.Chinese],
+          [Category.Japanese, Category.Japanese],
+          [Category.Western, Category.Western],
+          [Category.Asian, Category.Asian],
+          [Category.Etc, Category.Etc],
+        ],
+        selectedIndex: 0,
+      },
+      { idName: 'category-filter', name: 'category', className: 'restaurant-filter' }
+    )}
 
-  <select name="sorting" id="sorting-filter" class="restaurant-filter">
-    <option value="${Order.Name}">이름순</option>
-    <option value="${Order.Distance}">거리순</option>
-  </select>`;
+    ${selectTemplate(
+      {
+        values: [
+          [Order.Name, Order.Name],
+          [Order.Distance, Order.Distance],
+        ],
+        selectedIndex: 0,
+      },
+      { idName: 'sorting-filter', name: 'sorting', className: 'restaurant-filter' }
+    )}`;
   }
 }
 
