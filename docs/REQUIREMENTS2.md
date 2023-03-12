@@ -3,7 +3,7 @@
 - [ ] error 타입 가드
 - [ ] 타입 단언 보다는 타입 가드 사용하기
 - [ ] HTML 관련 이벤트 핸들러 함수 제네릭 추상화
-- [ ] `getListOnLocalStorage()` `getItem` 으로 받아온 데이터 유효성 검사하기
+- [x] `getListOnLocalStorage()` `getItem` 으로 받아온 데이터 유효성 검사하기
 
 ---
 
