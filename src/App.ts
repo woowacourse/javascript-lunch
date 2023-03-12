@@ -4,7 +4,6 @@ import RestaurantList from './components/RestaurantList';
 import Tabs from './components/Tabs';
 import { IRestaurant } from './domain/Restaurant';
 import { store } from './store';
-import { TabType } from './types/type';
 
 interface IAppState {
   filters: Filters;
@@ -12,8 +11,7 @@ interface IAppState {
 }
 
 export interface IMethods {
-  renderListArticle: ($currentTarget: TabType) => void;
-  deleteHandler: (id: number) => void;
+  renderListArticle: () => void;
 }
 
 export default class App {
@@ -23,7 +21,7 @@ export default class App {
   constructor($app: HTMLDivElement) {
     const $main = document.createElement('main');
 
-    $app.appendChild(Header(this.addRestaurantInfo.bind(this)));
+    $app.appendChild(Header(this.renderListArticle.bind(this)));
     $app.appendChild($main);
     $main.appendChild(Tabs(this.renderListArticle.bind(this)));
     $main.appendChild(this.$listArticle);
@@ -40,7 +38,6 @@ export default class App {
       initialResutaurantInfos,
       {
         renderListArticle: this.renderListArticle.bind(this),
-        deleteHandler: this.deleteRestaurantInfo.bind(this),
       }
     );
 
@@ -49,12 +46,12 @@ export default class App {
       restaurantList,
     };
 
-    this.renderListArticle(store.currentTab);
+    this.renderListArticle();
   }
 
-  renderListArticle(currentTab?: TabType) {
+  renderListArticle() {
     this.$listArticle.innerHTML = '';
-    if (!currentTab) currentTab = 'all';
+    const { currentTab } = store;
 
     switch (currentTab) {
       case 'all':
@@ -100,15 +97,11 @@ export default class App {
   addRestaurantInfo(restaurantInfo: IRestaurant) {
     store.restaurantService.addRestaurant(restaurantInfo);
 
-    this.renderListArticle(store.currentTab);
-
     store.updateLocalStorage();
   }
 
   deleteRestaurantInfo(id: number) {
     store.restaurantService.deleteRestaurant(id);
-
-    this.renderListArticle(store.currentTab);
 
     store.updateLocalStorage();
   }

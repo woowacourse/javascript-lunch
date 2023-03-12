@@ -1,12 +1,8 @@
-import { event } from 'cypress/types/jquery';
 import addButton from '../../assets/add-button.png';
-import { IRestaurant } from '../domain/Restaurant';
 import { appendModal, showModal } from '../modal';
 import RestaurantForm from './RestaurantForm';
 
-export default function Header(
-  addRestaurantInfo: (restaurantInfo: IRestaurant) => void
-) {
+export default function Header(renderListArticle: () => void) {
   const $header = document.createElement('header');
   $header.className = 'gnb';
 
@@ -25,7 +21,7 @@ export default function Header(
     if (!(currentTarget instanceof HTMLButtonElement)) return;
 
     showModal();
-    appendModal(RestaurantForm(addRestaurantInfo));
+    appendModal(RestaurantForm(renderListArticle));
   });
 
   return $header;

@@ -4,10 +4,9 @@ import { closeModal } from '../modal';
 import Select from './Select';
 import { CategoryOptions, DistanceTime } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
+import { store } from '../store';
 
-export default function RestaurantForm(
-  addRestaurantInfo: (restaurantInfo: IRestaurant) => void
-) {
+export default function RestaurantForm(renderListArticle: () => void) {
   const $formContainer = document.createElement('div');
   const $form = document.createElement('form');
 
@@ -15,10 +14,7 @@ export default function RestaurantForm(
     closeModal();
   };
 
-  const handleFormSubmit = (
-    event: Event,
-    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
-  ) => {
+  const handleFormSubmit = (event: Event) => {
     event.preventDefault();
     const { target } = event;
 
@@ -26,7 +22,7 @@ export default function RestaurantForm(
 
     const restaurantInfo = getFormDatas();
 
-    addRestaurantInfo(restaurantInfo);
+    store.addRestaurantInfo(restaurantInfo);
 
     $form.reset();
     closeModal();
@@ -59,7 +55,7 @@ export default function RestaurantForm(
     if (!(e.target instanceof HTMLElement)) return;
     const { type } = e.target.dataset;
 
-    if (type === 'submit') handleFormSubmit(e, addRestaurantInfo);
+    if (type === 'submit') handleFormSubmit(e);
     if (type === 'cancel') handleFormCancel();
   });
 

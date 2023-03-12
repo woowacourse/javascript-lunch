@@ -21,12 +21,13 @@ export default function RestaurantInfo(
 
     if (type === 'close') {
       store.updateLocalStorage();
-      methods.renderListArticle(store.currentTab);
+      methods.renderListArticle();
       closeModal();
     }
 
     if (type === 'delete') {
-      methods.deleteHandler(id);
+      store.deleteRestaurantInfo(id);
+      methods.renderListArticle();
       closeModal();
     }
     if (type === 'favoriteButton') toggleFavoriteFilled(e.target, restaurant);
