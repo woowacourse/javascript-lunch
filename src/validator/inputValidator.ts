@@ -32,7 +32,7 @@ export const isValidDescription = (description: string): boolean => {
 
 export const isValidLink = (link: string): boolean => {
   // 정규표현식: http://, https://, m., www. 으로 시작하는 문자열만 가능.
-  if (link.length === 0 || /^(?:https?\/\/|www|m\.[\S]{1, 50})$/.test(link)) {
+  if (link.length === 0 || /^(?:https?:\/\/|www.|m.)[\S]{1,30}$/.test(link)) {
     return true;
   }
 
