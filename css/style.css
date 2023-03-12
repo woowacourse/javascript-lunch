@@ -162,7 +162,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
 
-  width: 80%;
+  width: 70%;
 }
 
 .restaurant__name {
@@ -177,7 +177,7 @@ body {
   display: -webkit-box;
 
   padding-top: 8px;
-  width: 50%;
+  width: 30%;
 
   overflow: auto;
   text-overflow: ellipsis;
