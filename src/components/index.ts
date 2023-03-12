@@ -1,8 +1,8 @@
 import RegisterRestaurantModal from './modal/RegisterRestaurantModal';
-import Restaurant from './restaurant/Restaurant';
 import RestaurantList from './restaurant/RestaurantList';
 import SearchRestaurantSection from './section/SearchRestaurantSection';
 import Header from './header/Header';
+import RestaurantItem from './shared/RestaurantItem';
 import Modal from './shared/Modal';
 import Button from './shared/Button';
 import FormItem from './shared/FormItem';
@@ -18,7 +18,7 @@ export type CustomRegisterRestaurantModalElement = RegisterRestaurantModal;
 
 export default {
   RegisterRestaurantModal,
-  Restaurant,
+  RestaurantItem,
   RestaurantList,
   SearchRestaurantSection,
   Header,

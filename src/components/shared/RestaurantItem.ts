@@ -1,6 +1,6 @@
 import CustomElement from '../CustomElement';
 
-class Restaurant extends CustomElement {
+class RestaurantItem extends CustomElement {
   renderTemplate(): string {
     return `
       <style>
@@ -81,6 +81,6 @@ class Restaurant extends CustomElement {
   }
 }
 
-customElements.define('r-restaurant', Restaurant);
+customElements.define('r-restaurant', RestaurantItem);
 
-export default Restaurant;
+export default RestaurantItem;
