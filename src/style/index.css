@@ -1,4 +1,6 @@
 @import url('./header.css');
+@import url('./button.css');
+@import url('./filterContainer.css');
 
 :root {
   --primary-color: #ec4a0a;
@@ -49,4 +51,13 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+
+r-select {
+  height: 44px;
+  min-width: 125px;
+}
+
+r-form-item {
+  margin-bottom: 36px;
 }
