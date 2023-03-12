@@ -10,8 +10,8 @@ import {
   addRestaurantDetailModalBackdropClickEventHandler,
   addRestaurantDetailModalCloseButtonClickEventHandler,
 } from './components/RestaurantDetailModal';
-import { TAB_ID, TAB_TITLE } from './constants/constants';
-import { addTabClickEventHandler, renderTabItem } from './components/TabItem';
+import { TAB_ID } from './constants/constants';
+import { addTabClickEventHandler, renderTabItemAll } from './components/TabItem';
 import {
   addFavoriteButtonClickEventHandler,
   addRestaurantListClickEventHandler,
@@ -25,27 +25,24 @@ export class App {
   private currentTab = TAB_ID.ALL;
 
   constructor() {
-    this.renderTabs();
+    renderTabItemAll();
     renderRestaurantList(this.restaurantService.filterAndSort());
+
     this.bindEventHandlers();
   }
 
   bindEventHandlers() {
     const restaurantNames = this.restaurantService.getRestaurantNames();
+
     this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm, restaurantNames);
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
     this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
     addTabClickEventHandler(this.onChangeTab);
     addRestaurantListClickEventHandler(this.onClickRestaurantList);
     addFavoriteButtonClickEventHandler(this.onClickFavoriteButton);
-    addRestaurantDetailModalCloseButtonClickEventHandler(); //
-    addRestaurantDetailModalBackdropClickEventHandler(); //
+    addRestaurantDetailModalCloseButtonClickEventHandler();
+    addRestaurantDetailModalBackdropClickEventHandler();
     addRestaurantRemoveButtonClickEventHandler(this.onClickRestaurantRemoveButton);
-  }
-
-  renderTabs() {
-    renderTabItem({ tabId: TAB_ID.ALL, tabTitle: TAB_TITLE.ALL, isChecked: true });
-    renderTabItem({ tabId: TAB_ID.FAVORITE, tabTitle: TAB_TITLE.FAVORITE, isChecked: false });
   }
 
   onSubmitRestaurantAddForm = (restaurantItem: Restaurant) => {

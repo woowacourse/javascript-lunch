@@ -1,6 +1,11 @@
 import './TabItem.css';
 import { $ } from '../utils/domSelectors';
-import { TAB_ID } from '../constants/constants';
+import { TAB_ID, TAB_TITLE } from '../constants/constants';
+
+const tabInfos = [
+  { tabId: TAB_ID.ALL, tabTitle: TAB_TITLE.ALL, isChecked: true },
+  { tabId: TAB_ID.FAVORITE, tabTitle: TAB_TITLE.FAVORITE, isChecked: false },
+];
 
 export const TabItem = (tabInfo: { tabId: string; tabTitle: string; isChecked: boolean }) => {
   const { tabId, tabTitle, isChecked } = tabInfo;
@@ -16,6 +21,10 @@ export const renderTabItem = (tabInfo: { tabId: string; tabTitle: string; isChec
   const tabItem = TabItem(tabInfo);
 
   tabs.insertAdjacentHTML('beforeend', tabItem);
+};
+
+export const renderTabItemAll = () => {
+  tabInfos.forEach((tabInfo) => renderTabItem(tabInfo));
 };
 
 export const addTabClickEventHandler = (onChangeTab: CallableFunction) => {
