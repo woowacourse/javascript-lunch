@@ -6,6 +6,7 @@ class RestaurantTypeSection extends CustomElement {
       <style>
         .restaurant-type-container {
           padding: 31px 16px 8px;
+          margin-bottom: 24px;
           display: grid;
           grid-template-columns: 1fr 1fr;
           text-align: center;

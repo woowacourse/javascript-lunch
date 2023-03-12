@@ -11,7 +11,6 @@ class SearchRestaurantSection extends CustomElement {
           justify-content: space-between;
 
           padding: 0 16px;
-          margin-top: 24px;
           margin-bottom: 24px;
         }
       </style>
