@@ -2,16 +2,13 @@ import '../css/style.css';
 import Header from './components/header.js';
 import Select from './components/select.js';
 import Modal from './components/modal.js';
-import NewRestaurantModalContent from './components/newRestaurantModalContent.js';
+import restaurantAddContainer from './components/restaurantAddContainer';
 import Navigation from './components/navigation';
 import RestaurantList from './components/restaurantList';
 import RestaurantManager from './domains/restaurantManager';
 import { handleNavigationClick } from './handleUi/navigation';
-import {
-  handleModalCloseButtonClick,
-  handleModalOpenButtonClick,
-} from './handleUi/modal';
-import { scrollToTopForm } from './handleUi/form';
+import { handleModalClose, handleModalOpen } from './handleUi/modal';
+import { resetForm, scrollToTopForm } from './handleUi/form';
 import {
   executeOptionChangeEventListener,
   executeEventListener,
@@ -53,9 +50,20 @@ const App = {
     listRenderSelector: '.restaurant-list',
     additionRenderSelector: '.restaurant',
   }),
-  modal: new Modal('.restaurant-add-modal'),
-  newRestaurantModalContent: new NewRestaurantModalContent(),
-  restaurantBottomSheet: new restaurantBottomSheet(),
+  restaurantAddModal: new Modal({
+    selector: '.restaurant-add-modal',
+    container: 'restaurant-add-container',
+  }),
+  restaurantAddContainer: new restaurantAddContainer({
+    selector: '.restaurant-add-container',
+  }),
+  restaurantBottomSheet: new Modal({
+    selector: '.restaurant-bottom-sheet',
+    container: 'restaurant-bottom-sheet-container',
+  }),
+  restaurantBottomSheetContainer: new restaurantBottomSheet({
+    selector: '.restaurant-bottom-sheet-container',
+  }),
 
   init() {
     this.RestaurantManager.initRestaurantList();
@@ -71,15 +79,16 @@ const App = {
     this.restaurantList.render(
       getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
     );
-    this.modal.render();
-    this.newRestaurantModalContent.render('.modal-container');
+    this.restaurantAddModal.render();
+    this.restaurantBottomSheet.render();
   },
 
   initEventListeners() {
     this.controlNavigation();
-    this.controlNewRestaurantModal();
     this.controlFilter();
-    this.controlRestaurant();
+    this.controlModal();
+    this.controlRestaurantAddContainer();
+    this.controlRestaurantBottomSheet();
   },
 
   controlNavigation() {
@@ -102,35 +111,6 @@ const App = {
     });
   },
 
-  controlNewRestaurantModal() {
-    executeEventListener('.gnb__button', 'click', handleModalOpenButtonClick);
-
-    executeEventListener(
-      '.button--secondary',
-      'click',
-      handleModalCloseButtonClick
-    );
-
-    executeEventListener(
-      '.modal-backdrop',
-      'click',
-      handleModalCloseButtonClick
-    );
-
-    executeEventListener('#new-restaurant-form', 'submit', (event: Event) => {
-      event.preventDefault();
-
-      if (this.RestaurantManager.addNewRestaurant(event)) {
-        this.restaurantList.render(
-          getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-        );
-        handleModalCloseButtonClick();
-      }
-
-      scrollToTopForm('.modal-container');
-    });
-  },
-
   controlFilter() {
     executeOptionChangeEventListener('#sorting-filter', (value: string) => {
       const sortedList = this.RestaurantManager.sortRestaurantList(value);
@@ -145,7 +125,42 @@ const App = {
     });
   },
 
-  controlRestaurant() {
+  controlModal() {
+    executeEventListener('.modal-backdrop', 'click', () => {
+      handleModalClose();
+      scrollToTopForm('.restaurant-add-container');
+    });
+  },
+
+  controlRestaurantAddContainer() {
+    executeEventListener('.gnb__button', 'click', () => {
+      this.restaurantAddContainer.render();
+      handleModalOpen();
+      resetForm('#new-restaurant-form');
+      scrollToTopForm('.restaurant-add-container');
+    });
+
+    executeEventListener('.button--secondary', 'click', () => {
+      handleModalClose();
+      scrollToTopForm('.restaurant-add-container');
+    });
+
+    executeEventListener('#new-restaurant-form', 'submit', (event: Event) => {
+      event.preventDefault();
+
+      if (this.RestaurantManager.addNewRestaurant(event)) {
+        this.restaurantList.render(
+          getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
+        );
+        handleModalClose();
+        resetForm('#new-restaurant-form');
+      }
+
+      scrollToTopForm('.restaurant-add-container');
+    });
+  },
+
+  controlRestaurantBottomSheet() {
     executeEventListener('.restaurant-list', 'click', (event: Event) => {
       const target = event.target;
 
@@ -195,6 +210,7 @@ const App = {
           target.className === 'category-icon')
       ) {
         this.restaurantBottomSheet.render();
+        handleModalOpen();
       }
     });
   },
