@@ -71,10 +71,11 @@ export default class RestaurantInfo {
         if (favoriteIcon) favoriteIcon.src = FAVORITE_ICON_PATH.FILLED;
       }
 
-      event.target.setAttribute('data-isfavorite', String(isFavorite));
-      restaurantIcon.setAttribute('data-isfavorite', String(isFavorite));
-      favoriteIcon.setAttribute('data-isfavorite', String(isFavorite));
-      restaurantService.updateFavorite(id, isFavorite);
+      event.target.setAttribute('data-isfavorite', String(!isFavorite));
+      restaurantIcon.setAttribute('data-isfavorite', String(!isFavorite));
+      if (favoriteIcon) favoriteIcon.setAttribute('data-isfavorite', String(!isFavorite));
+
+      restaurantService.updateFavorite(id, !isFavorite);
     }
   }
 

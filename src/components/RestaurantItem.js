@@ -65,8 +65,8 @@ export default class RestaurantItem {
         event.target.src = FAVORITE_ICON_PATH.FILLED;
       }
 
-      event.target.setAttribute('data-isfavorite', String(isFavorite));
-      restaurantService.updateFavorite(id, isFavorite);
+      event.target.setAttribute('data-isfavorite', String(!isFavorite));
+      restaurantService.updateFavorite(id, !isFavorite);
     }
   }
 
