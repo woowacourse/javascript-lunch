@@ -1,25 +1,29 @@
 import RComponent from './RComponent';
 
 class RFormItem extends RComponent {
+  static useShadowDom(): boolean {
+    return false;
+  }
+
   renderTemplate(): string {
     return `
       <style>
-        label {
+        r-form-item > label {
           color: var(--grey-400);
         }
 
-        span {
+        r-form-item > span {
           color: var(--grey-300);
         }
 
-        label.required::after {
+        r-form-item > label.required::after {
           padding-left: 4px;
 
           color: var(--primary-color);
           content: '*';
         }
-        
-        div {
+
+        r-form-item > div {
           margin-bottom: 36px;
         }
       </style>
@@ -28,7 +32,7 @@ class RFormItem extends RComponent {
         <label class="text-caption ${this.querySelector('[required]') ? 'required' : ''}">
           ${this.getAttribute('label') ?? ''}
         </label>
-        <slot></slot>
+        ${this.innerHTML}
         <span class="text-caption">
           ${this.getAttribute('helper-text') ?? ''}
         </span>
