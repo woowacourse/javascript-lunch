@@ -1,4 +1,5 @@
 import Restaurant from './domain/Restaurant';
+import { DEFAULT_OPTION, FILTER, SORT } from './utils/constants';
 
 export const DEFAULT_RESTAURANTS = [
   {
@@ -41,3 +42,32 @@ export const DEFAULT_RESTAURANTS = [
     description: '멕시칸 캐주얼 그릴',
   },
 ].map((restaurantProps) => new Restaurant(restaurantProps));
+
+export const DEFAULT_FILTER_OPTIONS = [
+  { value: FILTER.value.entire, label: FILTER.label.entire },
+  ...Restaurant.CATEGORIES.map((category) => ({
+    value: category,
+    label: category,
+  })),
+];
+
+export const DEFAULT_SORT_OPTIONS = [
+  { value: SORT.value.name, label: SORT.label.name },
+  { value: SORT.value.distance, label: SORT.label.distance },
+];
+
+export const DEFAULT_MODAL_CATEGORY_OPTIONS = [
+  { value: DEFAULT_OPTION.value, label: DEFAULT_OPTION.label },
+  ...Restaurant.CATEGORIES.map((category) => ({
+    value: category,
+    label: category,
+  })),
+];
+
+export const DEFAULT_MODAL_DISTANCE_OPTIONS = [
+  { value: DEFAULT_OPTION.value, label: DEFAULT_OPTION.label },
+  ...Restaurant.DISTANCE_BY_MINUTES.map((distance) => ({
+    value: distance,
+    label: `${distance}분 내`,
+  })),
+];

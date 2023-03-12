@@ -2,7 +2,14 @@
 import Restaurant from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
 import { CustomModalElement, CustomRestaurantListElement, CustomSelectElement } from './components';
-import { DEFAULT_RESTAURANTS } from './fixtures';
+import {
+  DEFAULT_FILTER_OPTIONS,
+  DEFAULT_MODAL_CATEGORY_OPTIONS,
+  DEFAULT_MODAL_DISTANCE_OPTIONS,
+  DEFAULT_RESTAURANTS,
+  DEFAULT_SORT_OPTIONS,
+} from './fixtures';
+import { FILTER, SORT } from './utils/constants';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
@@ -71,7 +78,7 @@ class App {
     const $rSelect = event?.target as CustomSelectElement;
     const value = $rSelect.getSelectedOption()?.value;
 
-    if (value === '전체') {
+    if (value === FILTER.value.entire) {
       const { filter, ...keys } = this.#filterPipes;
       this.#filterPipes = keys;
     } else {
@@ -88,7 +95,7 @@ class App {
     const sortFilter = (_restaurants: Restaurant[]) =>
       Restaurants.getSorted(
         _restaurants,
-        $rSelect.getSelectedOption()?.value === 'name'
+        $rSelect.getSelectedOption()?.value === SORT.value.name
           ? Restaurants.byName
           : Restaurants.byDistance,
       );
@@ -131,45 +138,19 @@ class App {
   };
 
   initSelect() {
-    this.$restaurantFilterSelect.setOptions([
-      { value: '전체', label: '전체' },
-      ...Restaurant.CATEGORIES.map((category) => ({
-        value: category,
-        label: category,
-      })),
-    ]);
-
-    this.$restaurantSortSelect.setOptions([
-      { value: 'name', label: '이름순' },
-      { value: 'distance', label: '거리순' },
-    ]);
+    this.$restaurantFilterSelect.setOptions(DEFAULT_FILTER_OPTIONS);
+    this.$restaurantSortSelect.setOptions(DEFAULT_SORT_OPTIONS);
   }
 
   initModalSelect() {
-    this.$restaurantModalCategory.setOptions([
-      { value: '', label: '선택해주세요' },
-      ...Restaurant.CATEGORIES.map((category) => ({
-        value: category,
-        label: category,
-      })),
-    ]);
-
-    this.$restaurantModalDistance.setOptions([
-      { value: '', label: '선택해주세요' },
-      ...Restaurant.DISTANCE_BY_MINUTES.map((distance) => ({
-        value: distance,
-        label: `${distance}분 내`,
-      })),
-    ]);
+    this.$restaurantModalCategory.setOptions(DEFAULT_MODAL_CATEGORY_OPTIONS);
+    this.$restaurantModalDistance.setOptions(DEFAULT_MODAL_DISTANCE_OPTIONS);
   }
 
   initEventHandlers() {
     this.$restaurantFilterSelect.addEventListener('change', this.changeRestaurantFilter);
-
     this.$restaurantSortSelect.addEventListener('change', this.changeRestaurantSort);
-
     this.$modalOpenButton.addEventListener('click', this.openModal);
-
     this.$modalForm.addEventListener('submit', this.addRestaurant);
   }
 }
