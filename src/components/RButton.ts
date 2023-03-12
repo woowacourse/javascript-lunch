@@ -1,6 +1,20 @@
-import RComponent from './RComponent';
+import RFormControl from './RFormControl';
 
-class RButton extends RComponent {
+class RButton extends RFormControl {
+  constructor() {
+    super();
+
+    this.addEventListener('click', (event) => {
+      if (this.getAttribute('type') === 'submit') {
+        if (this.form !== null) this.form.requestSubmit();
+      }
+    });
+  }
+
+  get value() {
+    return this.getAttribute('type') ?? '';
+  }
+
   renderTemplate(): string {
     return `
       <style>
@@ -30,7 +44,7 @@ class RButton extends RComponent {
         }
       </style>
 
-      <button class="text-caption">
+      <button type="button" class="text-caption">
         <slot></slot>
       </button>
     `;
