@@ -4,6 +4,8 @@ import { $ } from '../utils/selector';
 class Modal {
   #state = {
     selector: '',
+    id: '',
+    backdrop: '',
     container: '',
   };
 
@@ -18,8 +20,8 @@ class Modal {
   #template() {
     /* html */
     return `
-			<div class="modal">
-				<div class="modal-backdrop"></div>
+			<div class="modal" id="${this.#state.id}">
+				<div class="${this.#state.backdrop}"></div>
 				<div class="${this.#state.container}">
 				</div>
 			</div>

@@ -74,6 +74,10 @@ class RestaurantList {
 					<p class="restaurant__description text-body">
 					${description}
 					</p>
+					<button
+						class="restaurant-info-open-button"
+						aria-label="open-restaurant-info"
+					/>
 				</div>
     	</li>
 		`;

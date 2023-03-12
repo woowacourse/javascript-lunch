@@ -52,6 +52,8 @@ const App = {
   }),
   restaurantAddModal: new Modal({
     selector: '.restaurant-add-modal',
+    id: 'restaurant-add-modal',
+    backdrop: 'restaurant-add-backdrop',
     container: 'restaurant-add-container',
   }),
   restaurantAddContainer: new restaurantAddContainer({
@@ -59,6 +61,8 @@ const App = {
   }),
   restaurantBottomSheet: new Modal({
     selector: '.restaurant-bottom-sheet',
+    id: 'restaurant-bottom-sheet',
+    backdrop: 'restaurant-bottom-sheet-backdrop',
     container: 'restaurant-bottom-sheet-container',
   }),
   restaurantBottomSheetContainer: new restaurantBottomSheet({
@@ -80,13 +84,14 @@ const App = {
       getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
     );
     this.restaurantAddModal.render();
+    this.restaurantAddContainer.render();
     this.restaurantBottomSheet.render();
+    // this.restaurantBottomSheetContainer.render();
   },
 
   initEventListeners() {
     this.controlNavigation();
     this.controlFilter();
-    this.controlModal();
     this.controlRestaurantAddContainer();
     this.controlRestaurantBottomSheet();
   },
@@ -125,23 +130,21 @@ const App = {
     });
   },
 
-  controlModal() {
-    executeEventListener('.modal-backdrop', 'click', () => {
-      handleModalClose();
-      scrollToTopForm('.restaurant-add-container');
-    });
-  },
-
   controlRestaurantAddContainer() {
     executeEventListener('.gnb__button', 'click', () => {
-      this.restaurantAddContainer.render();
-      handleModalOpen();
+      handleModalOpen('#restaurant-add-modal');
       resetForm('#new-restaurant-form');
       scrollToTopForm('.restaurant-add-container');
     });
 
     executeEventListener('.button--secondary', 'click', () => {
-      handleModalClose();
+      handleModalClose('#restaurant-add-modal');
+      resetForm('#new-restaurant-form');
+      scrollToTopForm('.restaurant-add-container');
+    });
+
+    executeEventListener('.restaurant-add-backdrop', 'click', () => {
+      handleModalClose('#restaurant-add-modal');
       scrollToTopForm('.restaurant-add-container');
     });
 
@@ -152,7 +155,7 @@ const App = {
         this.restaurantList.render(
           getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
         );
-        handleModalClose();
+        handleModalClose('#restaurant-add-modal');
         resetForm('#new-restaurant-form');
       }
 
@@ -200,18 +203,13 @@ const App = {
         saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, favoriteList);
       }
 
-      if (
-        target instanceof HTMLLIElement ||
-        target instanceof HTMLHeadingElement ||
-        target instanceof HTMLSpanElement ||
-        target instanceof HTMLParagraphElement ||
-        target instanceof HTMLDivElement ||
-        (target instanceof HTMLImageElement &&
-          target.className === 'category-icon')
-      ) {
-        this.restaurantBottomSheet.render();
-        handleModalOpen();
+      if (target instanceof HTMLButtonElement) {
+        handleModalOpen('#restaurant-bottom-sheet');
       }
+    });
+
+    executeEventListener('.restaurant-bottom-sheet-backdrop', 'click', () => {
+      handleModalClose('#restaurant-bottom-sheet');
     });
   },
 };

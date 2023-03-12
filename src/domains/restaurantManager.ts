@@ -58,6 +58,7 @@ class restaurantManager {
 
     try {
       isValidName(newRestaurant.name);
+      newRestaurant.isFavorite = false;
       this.updateRestaurantList([...this.restaurantList, newRestaurant]);
 
       return true;

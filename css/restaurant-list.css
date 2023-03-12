@@ -1,6 +1,8 @@
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
 
   padding: 0 16px;
   margin: 16px 0;
@@ -9,6 +11,8 @@
 .restaurant {
   display: flex;
   align-items: flex-start;
+  height: 100%;
+  width: 100%;
 
   padding: 16px 8px;
 
@@ -37,9 +41,20 @@
 
 .restaurant__info {
   display: flex;
-  width: 100%;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.restaurant-info-open-button {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  border: none;
+  background: transparent;
 }
 
 .info-top {
@@ -49,6 +64,7 @@
 }
 
 .favorite-icon-container {
+  z-index: 1;
   height: 32px;
   width: 32px;
 

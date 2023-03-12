@@ -72,10 +72,17 @@ class restaurantAddContainer {
 
 				<!-- 취소/추가 버튼 -->
 				<div class="button-container">
-					<button class="button button--secondary text-caption" aria-label="cancel">
+					<button
+						class="button button--secondary"
+						id="add-cancel"
+						aria-label="cancel"
+					>
 						${BUTTON_TEXT.CANCEL}
 					</button>
-					<button class="button button--primary text-caption" aria-label="register">
+					<button
+						class="button button--primary"
+						aria-label="register"
+					>
 						${BUTTON_TEXT.ADDITION}
 					</button>
 				</div>
