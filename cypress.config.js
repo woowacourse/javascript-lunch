@@ -9,5 +9,7 @@ module.exports = defineConfig({
     },
     supportFile: 'cypress/support/component.ts',
   },
-  e2e: {},
+  e2e: {
+    baseUrl: 'http://localhost:8090',
+  },
 });
