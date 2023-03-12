@@ -38,8 +38,7 @@ export const renderRestaurantDetailModal = (restaurant: Restaurant) => {
   const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
   const restaurantDetailModalTemplate = RestaurantDetailModal(restaurant);
 
-  modal.innerHTML = '';
-  modal.insertAdjacentHTML('beforeend', restaurantDetailModalTemplate);
+  modal.innerHTML = restaurantDetailModalTemplate;
 };
 
 export const addRestaurantDetailModalFavoriteButtonClickEventHandler = (

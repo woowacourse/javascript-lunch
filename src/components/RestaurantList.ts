@@ -13,8 +13,7 @@ export const renderRestaurantList = (restaurants: Restaurant[]) => {
   const restaurantListContainer = $<HTMLUListElement>('.restaurant-list');
   const restaurantListTemplate = RestaurantList(restaurants);
 
-  restaurantListContainer.innerHTML = '';
-  restaurantListContainer.insertAdjacentHTML('beforeend', restaurantListTemplate);
+  restaurantListContainer.innerHTML = restaurantListTemplate;
 };
 
 export const addRestaurantListClickEventHandler = (onClickRestaurantList: CallableFunction) => {
