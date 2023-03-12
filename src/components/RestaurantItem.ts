@@ -59,12 +59,7 @@ export default class RestaurantItem {
       this.restaurant.isLike = true;
     }
 
-    const event = new CustomEvent('restaurantLikeToggled', {
-      detail: {
-        restaurantId: this.restaurant.id,
-        isLike: this.restaurant.isLike,
-      },
-    });
+    const event = new CustomEvent('restaurantLikeToggled');
     document.dispatchEvent(event);
   }
 
