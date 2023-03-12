@@ -28,7 +28,7 @@ export default class RestaurantForm {
         </div>
         <div class="form-item form-item--required">
           <label for="name text-caption">이름</label>
-          <input type="text" name="name" id="name" required>
+          <input type="text" name="name" id="name" maxLength="20" required>
         </div>
         <div class="form-item form-item--required">
           <label for="distance text-caption">거리(도보 이동 시간) </label>
