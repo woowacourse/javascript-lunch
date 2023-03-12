@@ -1,3 +1,5 @@
+import { setAttribute } from '@res/utils/domUtils';
+
 type ElementIdentifier = {
   idName?: string;
   className?: string;
@@ -27,8 +29,10 @@ export const selectTemplate = (option: OptionElement, identifier: ElementIdentif
   const { idName, className, name } = identifier;
 
   return `
-  <select ${name ? `name=${name}` : ``} ${className ? `className=${className}` : ''} ${
-    idName ? `id=${idName}` : ''
+  <select ${setAttribute('name', name)} ${setAttribute('class', className)} ${setAttribute(
+    'id',
+    idName
+  )}
   } required>
     ${optionTemplate(option)}
   </select>`;

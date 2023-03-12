@@ -50,3 +50,6 @@ export const toggleImageSource =
     // imageElement.src.includes(onImage.slice(1)) : image element의 src 값이 localhost:8080/... .png 로 나타남.
     imageElement.src = imageElement.src.includes(onImage.slice(1)) ? offImage : onImage;
   };
+
+export const setAttribute = (name: string, content: string | undefined): string =>
+  `${content ? `${name}="${content}"` : ``}`;
