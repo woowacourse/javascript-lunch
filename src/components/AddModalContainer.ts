@@ -29,8 +29,8 @@ class AddModalContainer extends Component {
 
   setEvent() {
     on({
-      target: $('.submit-restaurant'),
-      eventName: 'click',
+      target: $('.restaurant-form'),
+      eventName: 'submit',
       handler: this.handleSubmit.bind(this),
     });
 
@@ -54,8 +54,19 @@ class AddModalContainer extends Component {
   }
 
   handleSubmit(event: Event) {
-    event.preventDefault();
-    const restaurantInput = this.getInput();
+    // category: this.getElementValue($('#category-input')).trim(),
+    //   name: this.getElementValue($('#name-input')).trim(),
+    //   distance: this.getElementValue($('#distance-input')).trim(),
+    //   description: this.getElementValue($('#description-input')).trim(),
+    //   link: this.getElementValue($('#link-input')).trim(),
+    const $form = event?.target;
+
+    if (!($form instanceof HTMLFormElement)) {
+      return;
+    }
+
+    const restaurantInput = this.getInput($form);
+
     if (!this.validate(restaurantInput)) {
       return;
     }
@@ -65,6 +76,16 @@ class AddModalContainer extends Component {
     eventBus.dispatch('@add-restaurant', restaurantInput);
 
     this.hide();
+  }
+
+  getInput($form: HTMLFormElement): IRestaurantInput {
+    return [...new FormData($form).entries()].reduce(
+      (acc: Partial<IRestaurantInput>, [key, value]) => {
+        acc[key as keyof IRestaurantInput] = value as string;
+        return acc;
+      },
+      {}
+    ) as IRestaurantInput;
   }
 
   validate({ category, name, distance }: IRestaurantInput) {
@@ -85,17 +106,6 @@ class AddModalContainer extends Component {
     return restaurantStore.addList(restaurantInput);
   }
 
-  // ! submit 이벤트 => event 에서 값을 추출할 수 있다. (click이벤트에서 submit이벤트로 변경)
-  getInput(): IRestaurantInput {
-    return {
-      category: this.getElementValue($('#category-input')).trim(),
-      name: this.getElementValue($('#name-input')).trim(),
-      distance: this.getElementValue($('#distance-input')).trim(),
-      description: this.getElementValue($('#description-input')).trim(),
-      link: this.getElementValue($('#link-input')).trim(),
-    };
-  }
-
   getElementValue(element: HTMLElement): string {
     if (
       element instanceof HTMLInputElement ||
@@ -109,7 +119,6 @@ class AddModalContainer extends Component {
   }
 
   template(): string {
-    // ! submit 이벤트 => event 에서 값을 추출할 수 있다. (click이벤트에서 submit이벤트로 변경)
     // ! template 구조별로 나누어서 볼것
     return `
       <div class="modal modal--open">
