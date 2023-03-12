@@ -78,25 +78,19 @@ export const addFavoriteButtonClickEventHandler = (onClickFavoriteButton: Callab
 
   restaurantList.addEventListener('click', (event) => {
     if (event.target instanceof HTMLButtonElement) {
-      const currentImage = event.target.style.backgroundImage;
-      const toggledImageUrl = toggleButtonBackgroundImageUrl(currentImage);
-
-      event.target.style.backgroundImage = `url("${toggledImageUrl}")`;
-
       const name = event.target.parentNode?.querySelector('.restaurant__name')?.textContent;
       const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
 
-      restaurant.favoriteImageUrl = toggledImageUrl;
+      restaurant.favorite = !restaurant.favorite;
+      restaurant.favoriteImageUrl = restaurant.favorite
+        ? FAVORITE_ICON_IMAGE.FILLED
+        : FAVORITE_ICON_IMAGE.LINED;
+
+      event.target.style.backgroundImage = `url("${restaurant.favoriteImageUrl}")`;
+
       localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
 
       onClickFavoriteButton();
     }
   });
-};
-
-export const toggleButtonBackgroundImageUrl = (currentImage: string) => {
-  const linedImage = `url("${FAVORITE_ICON_IMAGE.LINED}")`;
-
-  if (currentImage === linedImage) return FAVORITE_ICON_IMAGE.FILLED;
-  return FAVORITE_ICON_IMAGE.LINED;
 };

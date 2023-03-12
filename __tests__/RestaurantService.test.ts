@@ -44,6 +44,7 @@ describe('RestaurantService 테스트', () => {
         name: '딘타이펑',
         distance: 30,
         description: '샤오롱바오 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
@@ -51,18 +52,21 @@ describe('RestaurantService 테스트', () => {
         name: '명정루',
         distance: 10,
         description: '짜장면 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
         category: '양식',
         name: '애슐리',
         distance: 10,
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
         category: '한식',
         name: '얌샘김밥',
         distance: 15,
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
@@ -70,6 +74,7 @@ describe('RestaurantService 테스트', () => {
         name: '평래옥',
         distance: 5,
         link: 'pyeongraeok.com',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
     ]);
@@ -84,6 +89,7 @@ describe('RestaurantService 테스트', () => {
         name: '평래옥',
         distance: 5,
         link: 'pyeongraeok.com',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
@@ -91,18 +97,21 @@ describe('RestaurantService 테스트', () => {
         name: '명정루',
         distance: 10,
         description: '짜장면 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
         category: '양식',
         name: '애슐리',
         distance: 10,
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
         category: '한식',
         name: '얌샘김밥',
         distance: 15,
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
 
@@ -111,6 +120,7 @@ describe('RestaurantService 테스트', () => {
         name: '딘타이펑',
         distance: 30,
         description: '샤오롱바오 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
     ]);
@@ -125,6 +135,7 @@ describe('RestaurantService 테스트', () => {
         name: '명정루',
         distance: 10,
         description: '짜장면 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
@@ -132,6 +143,7 @@ describe('RestaurantService 테스트', () => {
         name: '딘타이펑',
         distance: 30,
         description: '샤오롱바오 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
     ]);
@@ -146,6 +158,7 @@ describe('RestaurantService 테스트', () => {
         name: '딘타이펑',
         distance: 30,
         description: '샤오롱바오 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
@@ -153,6 +166,7 @@ describe('RestaurantService 테스트', () => {
         name: '명정루',
         distance: 10,
         description: '짜장면 맛집',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
     ]);
@@ -167,6 +181,7 @@ describe('RestaurantService 테스트', () => {
         category: '한식',
         name: '얌샘김밥',
         distance: 15,
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
@@ -174,6 +189,7 @@ describe('RestaurantService 테스트', () => {
         name: '평래옥',
         distance: 5,
         link: 'pyeongraeok.com',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
     ]);
@@ -188,12 +204,14 @@ describe('RestaurantService 테스트', () => {
         name: '평래옥',
         distance: 5,
         link: 'pyeongraeok.com',
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
       {
         category: '한식',
         name: '얌샘김밥',
         distance: 15,
+        favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
       },
     ]);

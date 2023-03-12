@@ -10,6 +10,7 @@ export type Restaurant = {
   distance: Distance;
   description?: string;
   link?: string;
+  favorite?: boolean;
   favoriteImageUrl?: FavoriteImageUrl;
 };
 

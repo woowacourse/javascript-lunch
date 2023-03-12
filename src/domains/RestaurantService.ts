@@ -24,9 +24,7 @@ class RestaurantService {
   getFavoriteRestaurantList() {
     const currentRestaurantList = this.getRestaurantList();
 
-    return currentRestaurantList.filter(
-      (restaurant) => restaurant.favoriteImageUrl === FAVORITE_ICON_IMAGE.FILLED,
-    );
+    return currentRestaurantList.filter((restaurant) => restaurant.favorite);
   }
 
   add(restaurant: Restaurant) {
@@ -34,6 +32,7 @@ class RestaurantService {
 
     if (restaurantNames.includes(restaurant.name)) return;
 
+    restaurant.favorite = false;
     restaurant.favoriteImageUrl = FAVORITE_ICON_IMAGE.LINED; // 즐겨찾기 아이콘 기본 경로 설정
     localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
   }
