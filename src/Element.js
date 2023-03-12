@@ -1,3 +1,4 @@
+import test from "../templates/category-chinese.png";
 const Elements = {
   addListContents: `
   <form>
@@ -77,21 +78,23 @@ const Elements = {
 </form>
   `,
 
-  listDetailContents: 
-  `
-  <div class="header-wrapper">
-    <img src="./templates/category-chinese.png" alt="image" />
-    <img src="./templates//favorite-icon-filled.png" alt="filled-star" />
-  </div>
-  <h1 class="info__title">최고심할머니</h1>
-  <strong class="info__distance">캠퍼스로부터 10분 내</strong>
-  <div class="info__description">최고심할머니의 최고 맛집입니다용</div>
-  <div class="info__link">https://naver.com</div>
-  <div class="button-wrapper">
-    <button class="button delete">삭제하기</button>
-    <button class="button close">닫기</button>
-  </div>
-  `
+  listDetailContents(infos, image) {
+    console.log(test);
+    return `
+    <div class="header-wrapper">
+      <img src="../../template/category-${infos.category}.png" alt="image" />
+      <img src="./templates//favorite-icon-filled.png" alt="filled-star" />
+    </div>
+    <h1 class="info__title">${infos.name}</h1>
+    <strong class="info__distance">${infos.distance}분 내</strong>
+    <div class="info__description">${infos.description}</div>
+    <div class="info__link">${infos.link}</div>
+    <div class="button-wrapper">
+      <button class="button delete">삭제하기</button>
+      <button class="button close">닫기</button>
+    </div>
+    `;
+  },
 };
 
 export default Elements;
