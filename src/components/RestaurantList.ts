@@ -32,7 +32,12 @@ export const addRestaurantListClickEventHandler = (onClickRestaurantList: Callab
 
     const name = getRestaurantNameFromEventTarget(event);
 
-    const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
+    if (typeof name !== 'string') return;
+    const restaurantJSON = localStorage.getItem(name);
+
+    if (typeof restaurantJSON !== 'string') return;
+    const restaurant = JSON.parse(restaurantJSON);
+
     onClickRestaurantList(restaurant);
   });
 };
@@ -79,7 +84,12 @@ export const addFavoriteButtonClickEventHandler = (onClickFavoriteButton: Callab
   restaurantList.addEventListener('click', (event) => {
     if (event.target instanceof HTMLButtonElement) {
       const name = event.target.parentNode?.querySelector('.restaurant__name')?.textContent;
-      const restaurant = JSON.parse(localStorage.getItem(name ?? '') ?? '{}');
+
+      if (typeof name !== 'string') return;
+      const restaurantJSON = localStorage.getItem(name);
+
+      if (typeof restaurantJSON !== 'string') return;
+      const restaurant = JSON.parse(restaurantJSON);
 
       restaurant.favorite = !restaurant.favorite;
       restaurant.favoriteImageUrl = restaurant.favorite
