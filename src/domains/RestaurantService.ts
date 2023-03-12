@@ -1,5 +1,5 @@
 import { CATEGORY, SORTING_CRITERION } from '../constants/constants';
-import { FAVORITE_ICON_IMAGE } from '../constants/images';
+import { FAVORITE_ICON_IMAGE, CATEGORY_IMAGE } from '../constants/images';
 import { Category, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
@@ -34,6 +34,8 @@ class RestaurantService {
 
     restaurant.favorite = false;
     restaurant.favoriteImageUrl = FAVORITE_ICON_IMAGE.LINED; // 즐겨찾기 아이콘 기본 경로 설정
+    restaurant.categoryImageUrl = CATEGORY_IMAGE[restaurant.category];
+
     localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
   }
 

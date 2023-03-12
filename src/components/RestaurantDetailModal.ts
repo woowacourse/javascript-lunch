@@ -2,10 +2,10 @@ import './RestaurantList.css';
 import './RestaurantDetailModal.css';
 import { $ } from '../utils/domSelectors';
 import { Restaurant } from '../types/types';
-import { RESTAURANT_IMAGE } from '../constants/images';
 
-export const RestaurantDetailModal = (restaurant: Restaurant, categoryImageUrl: string) => {
-  const { category, name, distance, description, link, favoriteImageUrl } = restaurant;
+export const RestaurantDetailModal = (restaurant: Restaurant) => {
+  const { category, name, distance, description, link, favoriteImageUrl, categoryImageUrl } =
+    restaurant;
 
   return `
     <div class="modal-container">
@@ -34,8 +34,7 @@ export const RestaurantDetailModal = (restaurant: Restaurant, categoryImageUrl: 
 
 export const renderRestaurantDetailModal = (restaurant: Restaurant) => {
   const modal = $<HTMLDialogElement>('#restaurant-detail-modal');
-  const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
-  const restaurantDetailModalTemplate = RestaurantDetailModal(restaurant, categoryImageUrl);
+  const restaurantDetailModalTemplate = RestaurantDetailModal(restaurant);
 
   modal.innerHTML = '';
   modal.insertAdjacentHTML('beforeend', restaurantDetailModalTemplate);

@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import { CATEGORY_IMAGE } from '../src/constants/images';
 import RestaurantService from '../src/domains/RestaurantService';
 
 describe('RestaurantService 테스트', () => {
@@ -18,14 +19,12 @@ describe('RestaurantService 테스트', () => {
       name: '딘타이펑',
       distance: 30,
       description: '샤오롱바오 맛집',
-      favoriteImageUrl: './favorite-icon-lined.png',
     });
     restaurantService.add({
       category: '중식',
       name: '명정루',
       distance: 10,
       description: '짜장면 맛집',
-      favoriteImageUrl: './favorite-icon-lined.png',
     });
     restaurantService.add({ category: '양식', name: '애슐리', distance: 10 });
     restaurantService.add({
@@ -33,7 +32,6 @@ describe('RestaurantService 테스트', () => {
       name: '평래옥',
       distance: 5,
       link: 'pyeongraeok.com',
-      favoriteImageUrl: './favorite-icon-lined.png',
     });
   });
 
@@ -46,6 +44,7 @@ describe('RestaurantService 테스트', () => {
         description: '샤오롱바오 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
       {
         category: '중식',
@@ -54,6 +53,7 @@ describe('RestaurantService 테스트', () => {
         description: '짜장면 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
       {
         category: '양식',
@@ -61,6 +61,7 @@ describe('RestaurantService 테스트', () => {
         distance: 10,
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['양식'],
       },
       {
         category: '한식',
@@ -68,6 +69,7 @@ describe('RestaurantService 테스트', () => {
         distance: 15,
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
       {
         category: '한식',
@@ -76,6 +78,7 @@ describe('RestaurantService 테스트', () => {
         link: 'pyeongraeok.com',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
     ]);
   });
@@ -91,6 +94,7 @@ describe('RestaurantService 테스트', () => {
         link: 'pyeongraeok.com',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
       {
         category: '중식',
@@ -99,6 +103,7 @@ describe('RestaurantService 테스트', () => {
         description: '짜장면 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
       {
         category: '양식',
@@ -106,6 +111,7 @@ describe('RestaurantService 테스트', () => {
         distance: 10,
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['양식'],
       },
       {
         category: '한식',
@@ -113,6 +119,7 @@ describe('RestaurantService 테스트', () => {
         distance: 15,
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
 
       {
@@ -122,6 +129,7 @@ describe('RestaurantService 테스트', () => {
         description: '샤오롱바오 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
     ]);
   });
@@ -137,6 +145,7 @@ describe('RestaurantService 테스트', () => {
         description: '짜장면 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
       {
         category: '중식',
@@ -145,6 +154,7 @@ describe('RestaurantService 테스트', () => {
         description: '샤오롱바오 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
     ]);
   });
@@ -160,6 +170,7 @@ describe('RestaurantService 테스트', () => {
         description: '샤오롱바오 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
       {
         category: '중식',
@@ -168,6 +179,7 @@ describe('RestaurantService 테스트', () => {
         description: '짜장면 맛집',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['중식'],
       },
     ]);
   });
@@ -183,6 +195,7 @@ describe('RestaurantService 테스트', () => {
         distance: 15,
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
       {
         category: '한식',
@@ -191,6 +204,7 @@ describe('RestaurantService 테스트', () => {
         link: 'pyeongraeok.com',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
     ]);
   });
@@ -206,6 +220,7 @@ describe('RestaurantService 테스트', () => {
         link: 'pyeongraeok.com',
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
       {
         category: '한식',
@@ -213,6 +228,7 @@ describe('RestaurantService 테스트', () => {
         distance: 15,
         favorite: false,
         favoriteImageUrl: './favorite-icon-lined.png',
+        categoryImageUrl: CATEGORY_IMAGE['한식'],
       },
     ]);
   });

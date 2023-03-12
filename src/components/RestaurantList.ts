@@ -2,15 +2,10 @@ import './RestaurantList.css';
 import { $ } from '../utils/domSelectors';
 import { Restaurant } from '../types/types';
 import { RestaurantItem } from './RestaurantItem';
-import { FAVORITE_ICON_IMAGE, RESTAURANT_IMAGE } from '../constants/images';
+import { FAVORITE_ICON_IMAGE } from '../constants/images';
 
 export const RestaurantList = (restaurants: Restaurant[]) => {
-  const restaurantItems = restaurants.map((restaurant) => {
-    const categoryImageUrl = RESTAURANT_IMAGE[restaurant.category];
-
-    return RestaurantItem(restaurant, categoryImageUrl);
-  });
-
+  const restaurantItems = restaurants.map((restaurant) => RestaurantItem(restaurant));
   return `${restaurantItems.join('')}`;
 };
 

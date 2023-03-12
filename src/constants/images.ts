@@ -1,4 +1,4 @@
-export const RESTAURANT_IMAGE = {
+export const CATEGORY_IMAGE = {
   전체: '',
   한식: './category-korean.png',
   중식: './category-chinese.png',

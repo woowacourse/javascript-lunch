@@ -1,7 +1,7 @@
 import { Restaurant } from '../types/types';
 
-export const RestaurantItem = (restaurant: Restaurant, categoryImageUrl: string) => {
-  const { category, name, distance, description, favoriteImageUrl } = restaurant;
+export const RestaurantItem = (restaurant: Restaurant) => {
+  const { category, name, distance, description, favoriteImageUrl, categoryImageUrl } = restaurant;
 
   return `<li class="restaurant">
   
