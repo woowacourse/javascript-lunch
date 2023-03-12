@@ -38,8 +38,8 @@ class NewRestaurantModal extends Component {
       category: String(restaurantProps.category),
       name: String(restaurantProps.name),
       distance: Number(restaurantProps.distance),
-      description: String(restaurantProps.description),
-      referenceUrl: String(restaurantProps.referenceUrl),
+      description: String(restaurantProps.description).trim() || null,
+      referenceUrl: String(restaurantProps.referenceUrl).trim() || null,
     });
     this.close();
   }

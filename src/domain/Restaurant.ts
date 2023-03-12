@@ -5,8 +5,8 @@ export type RestaurantProps = {
   category: string;
   name: string;
   distance: number;
-  description?: string | null;
-  referenceUrl?: string | null;
+  description: string | null;
+  referenceUrl: string | null;
 };
 
 export type RestaurantCategory = (typeof Restaurant.CATEGORIES)[number];
@@ -36,7 +36,14 @@ class Restaurant {
 
   private favorite = false;
 
-  constructor({ id, category, name, distance, description, referenceUrl }: RestaurantProps) {
+  constructor({
+    id,
+    category,
+    name,
+    distance,
+    description = null,
+    referenceUrl = null,
+  }: RestaurantProps) {
     this.validateCategory(category);
     this.validateName(name);
     this.validateDistance(distance);
@@ -45,8 +52,8 @@ class Restaurant {
     this.category = category;
     this.name = name;
     this.distance = distance;
-    this.description = description?.trim() || null;
-    this.referenceUrl = referenceUrl?.trim() || null;
+    this.description = description;
+    this.referenceUrl = referenceUrl;
   }
 
   getId() {
