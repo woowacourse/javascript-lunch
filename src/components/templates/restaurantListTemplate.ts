@@ -1,5 +1,6 @@
 import { FavoriteImage, ImageByCategory } from '@res/images/imageByCategory';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
+import { iconImageTemplate } from './iconImage';
 
 const descriptionTemplate = (description: string): string => {
   return `<p class="restaurant__description text-body">${description}</p>`;
@@ -14,13 +15,20 @@ const titleTemplate = (name: string): string => {
 };
 
 const categoryImageTemplate = (category: string): string => {
-  return `<img src=${ImageByCategory[category]} alt=${category} class="category-icon"/>`;
+  return iconImageTemplate(
+    { src: ImageByCategory[category], alt: category },
+    { className: 'category-icon' }
+  );
 };
 
-const favoriteImageTemplate = (favorite: boolean): string => {
-  return `<img src=${
-    favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff
-  } alt='즐겨찾기' class="favorite-icon ${favorite ? 'favorite' : ''}"/>`;
+const favoriteImage = (favorite: boolean): string => {
+  return iconImageTemplate(
+    {
+      src: favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff,
+      alt: '즐겨 찾는 음식점 토글 이미지',
+    },
+    { className: `favorite-icon ${favorite ? 'favorite' : ''}` }
+  );
 };
 
 const handleCreateList = ({
@@ -42,7 +50,7 @@ const handleCreateList = ({
       ${descriptionTemplate(description)}
     </div>
     <div class="restaurant__favorite"> 
-      ${favoriteImageTemplate(favorite)}
+      ${favoriteImage(favorite)}
     </div>
   </li>`;
 };

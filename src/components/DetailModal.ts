@@ -5,6 +5,7 @@ import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
 import Component from '../core/Component';
 import { buttonTemplate } from './templates/button';
+import { iconImageTemplate } from './templates/iconImage';
 
 export default class DetailModal extends Component {
   #id: number = 0;
@@ -87,24 +88,34 @@ export default class DetailModal extends Component {
         <div class="modal-container">
           <h3 class="restaurant__name text-subtitle">${name}</h3>
           <div class="restaurant__category">
-            <img src=${ImageByCategory[category]} alt=${category} class="category-icon"/>  
+            ${iconImageTemplate(
+              {
+                src: ImageByCategory[category],
+                alt: category + ' 카테고리 이미지',
+              },
+              { className: 'category-icon' }
+            )}
           </div>
-          <div class="favorite"> 
-            <img src=${
-              favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff
-            } alt='즐겨찾기' class="favorite-icon ${favorite ? 'favorite' : ''}"/>
+          <div class="favorite">
+            ${iconImageTemplate(
+              {
+                src: favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff,
+                alt: '즐겨 찾는 음식점 토글 이미지',
+              },
+              { className: 'favorite-icon' }
+            )}
           </div>
           <p class="restaurant__description text-body">${description}</p>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
           <p class="restaurant__link text-body">${link}</p>
-          ${buttonTemplate(
-            { content: '삭제하기', type: 'button' },
-            { className: 'button button--secondary text-caption delete-restaurant' }
-          )}
-          ${buttonTemplate(
-            { content: '닫기', type: 'button' },
-            { className: 'button button--primary text-caption close-modal' }
-          )}
+            ${buttonTemplate(
+              { content: '삭제하기', type: 'button' },
+              { className: 'button button--secondary text-caption delete-restaurant' }
+            )}
+            ${buttonTemplate(
+              { content: '닫기', type: 'button' },
+              { className: 'button button--primary text-caption close-modal' }
+            )}
         </div>
       </div>
     `;
