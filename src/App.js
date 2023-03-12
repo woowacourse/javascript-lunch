@@ -99,6 +99,7 @@ class App {
     this.#root.addEventListener(event, (e) => {
       const $target = $(selectors);
       if ($target === null || !$target.contains(e.target)) return;
+
       actions.forEach((action) => {
         action(e);
       });
@@ -111,7 +112,7 @@ class App {
       this.initModel();
       this.renderList();
     } else {
-      this.updateDetail(e);
+      this.updateDetailModal(e);
       this.toggleDetailModal();
     }
   };
