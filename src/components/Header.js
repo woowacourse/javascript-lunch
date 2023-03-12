@@ -1,9 +1,8 @@
-import { showModal } from '../modal';
-import addButton from '../../templates/add-button.png';
+import { showRestaurantForm } from '../modal';
 
 export default class Header {
-  constructor(rootElement) {
-    this.$root = rootElement;
+  constructor($root) {
+    this.$root = $root;
   }
 
   render() {
@@ -12,17 +11,21 @@ export default class Header {
 
   template() {
     return `
-      <header class="gnb">
-        <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-        <button id="add-restaurant-button" type="button" class="gnb__button" aria-label="음식점 추가">
-          <img src="./add-button.png" alt="음식점 추가">
-        </button>
-      </header>
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+      <button id="add-restaurant-button" type="button" class="gnb__button" aria-label="음식점 추가">
+        <img src="./add-button.png" alt="음식점 추가">
+      </button>
     `;
   }
 
   bindEvents() {
-    const modalOpenButton = this.$root.querySelector('#add-restaurant-button');
-    modalOpenButton.addEventListener('click', showModal);
+    this.$root
+      .querySelector('#add-restaurant-button')
+      .addEventListener('click', showRestaurantForm);
+  }
+
+  mount() {
+    this.render();
+    this.bindEvents();
   }
 }
