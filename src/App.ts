@@ -135,10 +135,9 @@ export class App {
     const sorted = $("#sorting-filter") as HTMLSelectElement;
     sorted.addEventListener("change", () => {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
-      if (sortedValue === "name")
-        this.filterHandler(selectedValue || "", sortByName);
+      if (sortedValue === "name") this.filterHandler(selectedValue, sortByName);
       if (sortedValue === "distance")
-        this.filterHandler(selectedValue || "", sortByDistance);
+        this.filterHandler(selectedValue, sortByDistance);
     });
   }
 
@@ -148,7 +147,10 @@ export class App {
     this.render(selectedList, restaurantItems);
   }
 
-  filterHandler(selectedValue: string | Category, filter: CallableFunction) {
+  filterHandler(
+    selectedValue: string | Category = "",
+    filter: CallableFunction
+  ) {
     const { restaurantItems, selectedList } = this.getItemsList(selectedValue);
     filter(selectedList);
     this.render(selectedList, restaurantItems);
@@ -161,10 +163,15 @@ export class App {
   }
 
   getItemsList(selectedValue: string) {
-    const restaurantItems = $(".restaurant-list") as HTMLLIElement;
-    restaurantItems.replaceChildren();
+    const restaurantItems = this.resetItems();
     const selectedList = this.getSelectedList(selectedValue);
     return { restaurantItems, selectedList };
+  }
+
+  resetItems() {
+    const restaurantItems = $(".restaurant-list") as HTMLLIElement;
+    restaurantItems.replaceChildren();
+    return restaurantItems;
   }
 
   setTotalList() {
