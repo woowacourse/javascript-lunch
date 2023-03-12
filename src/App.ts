@@ -49,7 +49,7 @@ class App {
     );
     this.components.listSection.render();
 
-    this.components.listSection.setFavoriteButtonHandler(this.toggleFavoriteButton);
+    this.components.listSection.setFavoriteButtonHandler(this.toggleIsFavorite);
     this.components.listSection.setRestaurantClickHandler(this.renderDetailModal);
   };
 
@@ -58,7 +58,7 @@ class App {
     this.components.listSection.setRestaurants(this.getFavoriteList());
     this.components.listSection.render();
 
-    this.components.listSection.setFavoriteButtonHandler(this.toggleFavoriteButton);
+    this.components.listSection.setFavoriteButtonHandler(this.toggleIsFavorite);
     this.components.listSection.setRestaurantClickHandler(this.renderDetailModal);
   };
 
@@ -67,7 +67,7 @@ class App {
     this.components.detailModal.render();
 
     this.components.detailModal.setCloseModalHandler();
-    this.components.detailModal.setFavoriteButtonHandler(this.toggleFavoriteButton);
+    this.components.detailModal.setFavoriteButtonHandler(this.toggleIsFavorite);
     this.components.detailModal.setDeleteButtonHandler(this.deleteRestaurant);
     this.components.detailModal.show();
   };
@@ -97,7 +97,7 @@ class App {
     this.renderAllTab();
   };
 
-  toggleFavoriteButton = (name: string) => {
+  toggleIsFavorite = (name: string) => {
     this.restaurantList.toggleFavorite(name);
     RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantList('전체', '이름'));
   };
