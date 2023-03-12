@@ -33,7 +33,7 @@ describe('도메인 로직 테스트', () => {
     [initialRestaurants, '일식', 'takeMinute', ['2', '3']],
     [initialRestaurants, '아시아', 'name', []],
   ])(
-    `음식점이 $p, 카테고리가 %p, 정렬기준이 %p 일 때, 필터링 된 음식점 id 결과는 %p 이다.`,
+    `음식점이 %o, 카테고리가 %s, 정렬기준이 %s 일 때, 필터링 된 음식점 id 결과는 %p 이다.`,
     (restaurants, category, sorting, expectedIdList) => {
       const resultIdList = new Restaurants(restaurants)
         .getFiltered(category, sorting)
@@ -44,7 +44,7 @@ describe('도메인 로직 테스트', () => {
   );
 
   test.each([[initialRestaurants, ['3']]])(
-    `음식점이 %p 일 때, 좋아하는 음식점 id 결과는 %p 이다.`,
+    `음식점이 %o 일 때, 좋아하는 음식점 id 결과는 %p 이다.`,
     (restaurants, expectedIdList) => {
       const resultIdList = new Restaurants(restaurants)
         .getFavorite()
