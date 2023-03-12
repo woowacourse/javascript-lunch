@@ -14,6 +14,10 @@ export type RestaurantCategory = (typeof Restaurant.CATEGORIES)[number];
 export type RestaurantDistance = (typeof Restaurant.DISTANCES)[number];
 
 class Restaurant {
+  static MIN_LENGTH = 1 as const;
+
+  static MAX_LENGTH = 20 as const;
+
   static CATEGORIES = ['한식', '중식', '일식', '양식', '아시안', '기타'] as const;
 
   static DISTANCES = [5, 10, 15, 20, 30] as const;
