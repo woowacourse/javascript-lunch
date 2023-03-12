@@ -20,7 +20,8 @@ export default class Star {
   }
 
   setEvent() {
-    addEvent(this.$target, "click", ".star-icon", () => this.toggleStar());
+    const $starIcon = this.$target.querySelector(".star-icon");
+    addEvent($starIcon, "click", () => this.toggleStar());
   }
 
   toggleStar() {

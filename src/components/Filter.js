@@ -35,10 +35,13 @@ export default class Filter {
   setEvent() {
     const { setState } = this.props;
 
-    addEvent(this.$target, "change", "#sorting-filter", (e) => {
+    const $sortingFilter = this.$target.querySelector("#sorting-filter");
+    addEvent($sortingFilter, "change", (e) => {
       setState({ sortingWay: e.target.value });
     });
-    addEvent(this.$target, "change", "#category-filter", (e) => {
+
+    const $categoryFilter = this.$target.querySelector("#category-filter");
+    addEvent($categoryFilter, "change", (e) => {
       setState({ category: e.target.value });
     });
   }

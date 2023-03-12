@@ -55,10 +55,13 @@ export default class RestaurantDetail {
     const { name, render } = this.props;
     const $modal = document.querySelector(".modal");
 
-    addEvent(this.$target, "click", "#quit-button", () => {
+    const $quitButton = this.$target.querySelector("#quit-button");
+    addEvent($quitButton, "click", () => {
       $modal.classList.toggle("modal--open");
     });
-    addEvent(this.$target, "click", "#remove-button", () => {
+
+    const $removeButton = this.$target.querySelector("#remove-button");
+    addEvent($removeButton, "click", () => {
       const list = store.getLocalStorage();
       const updatedList = list.filter((obj) => obj.name !== name);
       store.setLocalStorage(updatedList);

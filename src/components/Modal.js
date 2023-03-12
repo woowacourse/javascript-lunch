@@ -34,7 +34,8 @@ export default class Modal {
   setEvent() {
     const $modal = document.querySelector(".modal");
 
-    addEvent(this.$target, "click", ".modal-backdrop", () => {
+    const $modalBackdrop = this.$target.querySelector(".modal-backdrop");
+    addEvent($modalBackdrop, "click", () => {
       $modal.classList.toggle(CLASS.MODAL_OPEN);
     });
   }

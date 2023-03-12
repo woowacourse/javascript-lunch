@@ -96,10 +96,13 @@ export default class AddForm {
     const { render } = this.props;
     const $modal = document.querySelector(".modal");
 
-    addEvent(this.$target, "click", "#cancel-button", () => {
+    const $cancelButton = this.$target.querySelector("#cancel-button");
+    addEvent($cancelButton, "click", () => {
       $modal.classList.toggle(CLASS.MODAL_OPEN);
     });
-    addEvent(this.$target, "submit", "#add-restaurant-form", (event) => {
+
+    const $addRestaurantForm = this.$target.querySelector("#add-restaurant-form");
+    addEvent($addRestaurantForm, "submit", (event) => {
       event.preventDefault();
 
       const category = event.target[0].value;

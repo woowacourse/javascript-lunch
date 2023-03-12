@@ -33,12 +33,15 @@ export default class Tabbar {
   setEvent() {
     const { setState, tab } = this.props;
 
-    addEvent(this.$target, "click", "#all-restaurants", () => {
+    const $allRestaurants = this.$target.querySelector("#all-restaurants");
+    addEvent($allRestaurants, "click", () => {
       if (tab === "favorite-restaurants") {
         setState({ tab: TAB.ALL });
       }
     });
-    addEvent(this.$target, "click", "#favorite-restaurants", () => {
+
+    const $favoriteRestaurants = this.$target.querySelector("#favorite-restaurants");
+    addEvent($favoriteRestaurants, "click", () => {
       if (tab === "all-restaurants") {
         setState({ tab: TAB.FAVORITE });
       }
