@@ -2,6 +2,7 @@ import RegisterRestaurantModal from './modal/RegisterRestaurantModal';
 import Restaurant from './restaurant/Restaurant';
 import RestaurantList from './restaurant/RestaurantList';
 import SearchRestaurantSection from './section/SearchRestaurantSection';
+import Header from './header/Header';
 import Modal from './shared/Modal';
 import Button from './shared/Button';
 import FormItem from './shared/FormItem';
@@ -20,6 +21,7 @@ export default {
   Restaurant,
   RestaurantList,
   SearchRestaurantSection,
+  Header,
   Modal,
   Button,
   FormItem,
