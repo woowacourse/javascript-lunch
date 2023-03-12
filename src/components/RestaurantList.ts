@@ -43,38 +43,8 @@ export const addRestaurantListClickEventHandler = (onClickRestaurantList: Callab
 };
 
 export const getRestaurantNameFromEventTarget = (event: Event) => {
-  // 음식점 li요소 클릭
-  if (event.target instanceof HTMLLIElement) {
-    return event.target.querySelector('.restaurant__name')?.textContent;
-  }
-
-  // 음식점 카테고리 div요소 클릭
-  if (event.target instanceof HTMLDivElement) {
-    return event.target.nextElementSibling?.querySelector('.restaurant__name')?.textContent;
-  }
-
-  // 음식점 카테고리 이미지 클릭
-  if (event.target instanceof HTMLImageElement) {
-    const name =
-      event.target.parentElement?.nextElementSibling?.querySelector(
-        '.restaurant__name',
-      )?.textContent;
-    return name;
-  }
-
-  // 음식점 이름 클릭
-  if (event.target instanceof HTMLHeadingElement) {
-    return event.target.textContent;
-  }
-
-  // 음식점까지의 거리 클릭
-  if (event.target instanceof HTMLSpanElement) {
-    return event.target.previousElementSibling?.textContent;
-  }
-
-  // 음식점 설명 클릭
-  if (event.target instanceof HTMLParagraphElement) {
-    return event.target.previousElementSibling?.previousElementSibling?.textContent;
+  if (event.target instanceof HTMLElement) {
+    return event.target.closest('.restaurant')?.querySelector('.restaurant__name')?.textContent;
   }
 };
 
