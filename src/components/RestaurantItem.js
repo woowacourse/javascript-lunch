@@ -56,17 +56,17 @@ export default class RestaurantItem {
 
   handleFavoriteClick(event) {
     if (event.target.className === 'favorite-icon') {
-      if (event.target.getAttribute('data-isfavorite') === 'true') {
+      const id = event.currentTarget.getAttribute('data-id');
+      const isFavorite = event.target.getAttribute('data-isfavorite') === 'true';
+
+      if (isFavorite) {
         event.target.src = FAVORITE_ICON_PATH.LINED;
-        event.target.setAttribute('data-isfavorite', 'false');
-        const id = event.currentTarget.getAttribute('data-id');
-        restaurantService.updateFavorite(id, false);
       } else {
         event.target.src = FAVORITE_ICON_PATH.FILLED;
-        event.target.setAttribute('data-isfavorite', 'true');
-        const id = event.currentTarget.getAttribute('data-id');
-        restaurantService.updateFavorite(id, true);
       }
+
+      event.target.setAttribute('data-isfavorite', String(isFavorite));
+      restaurantService.updateFavorite(id, isFavorite);
     }
   }
 

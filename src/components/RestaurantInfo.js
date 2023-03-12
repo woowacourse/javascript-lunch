@@ -51,6 +51,7 @@ export default class RestaurantInfo {
   handleFavoriteClick(event) {
     if (event.target.className === 'favorite-icon') {
       const id = event.currentTarget.getAttribute('data-id');
+      const isFavorite = event.target.getAttribute('data-isfavorite') === 'true';
       const restaurantIcon = document
         .querySelector('.restaurant-list')
         .querySelector(`[data-id="${id}"]`)
@@ -60,19 +61,20 @@ export default class RestaurantInfo {
         ?.querySelector(`[data-id="${id}"]`)
         ?.querySelector('.favorite-icon');
 
-      if (event.target.getAttribute('data-isfavorite') === 'true') {
+      if (isFavorite) {
         event.target.src = FAVORITE_ICON_PATH.LINED;
-        event.target.setAttribute('data-isfavorite', 'false');
-        restaurantService.updateFavorite(id, false);
         restaurantIcon.src = FAVORITE_ICON_PATH.LINED;
         if (favoriteIcon) favoriteIcon.src = FAVORITE_ICON_PATH.LINED;
       } else {
         event.target.src = FAVORITE_ICON_PATH.FILLED;
-        event.target.setAttribute('data-isfavorite', 'true');
-        restaurantService.updateFavorite(id, true);
         restaurantIcon.src = FAVORITE_ICON_PATH.FILLED;
         if (favoriteIcon) favoriteIcon.src = FAVORITE_ICON_PATH.FILLED;
       }
+
+      event.target.setAttribute('data-isfavorite', String(isFavorite));
+      restaurantIcon.setAttribute('data-isfavorite', String(isFavorite));
+      favoriteIcon.setAttribute('data-isfavorite', String(isFavorite));
+      restaurantService.updateFavorite(id, isFavorite);
     }
   }
 
