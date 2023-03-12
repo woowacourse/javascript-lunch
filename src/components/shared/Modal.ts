@@ -10,7 +10,6 @@ class Modal extends CustomElement {
         right: 0;
         bottom: 0;
         left: 0;
-
         background: rgba(0, 0, 0, 0.35);
       }
 
@@ -23,6 +22,9 @@ class Modal extends CustomElement {
 
         border-radius: 8px 8px 0px 0px;
         background: var(--grey-100);
+
+        max-height: 90%;
+        overflow: auto;
       }
 
       .modal-title {
