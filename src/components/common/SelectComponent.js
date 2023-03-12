@@ -1,6 +1,6 @@
-import CustomElement from "../abstracts/CustomElement";
-import dispatcher from "../domain/Dispatcher";
-import { RESTAURANT_ACTION } from "../abstracts/constants";
+import CustomElement from "../../abstracts/CustomElement";
+import dispatcher from "../../domain/Dispatcher";
+import { RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class SelectComponent extends CustomElement {
   changeCategory() {

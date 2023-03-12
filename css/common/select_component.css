@@ -1,0 +1,28 @@
+.restaurant-filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 16px;
+  height: 94px;
+
+  position: fixed;
+  width: 100%;
+  top: 128px;
+  background-color: #fff;
+}
+
+.restaurant-filter-container select {
+  height: 44px;
+  min-width: 125px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 16px;
+}
+
+.restaurant-filter {
+  padding: 8px;
+}

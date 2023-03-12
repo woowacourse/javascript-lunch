@@ -1,13 +1,18 @@
 // style
-import "../style.css";
+import "../css/style.css";
 
 // components
 import "./components/restaurant/RestaurantsComponent";
 import "./components/restaurant/RestaurantComponent";
+
 import "./components/modal/RestaurantAddFormComponent";
-import "./components/HeaderComponent";
-import "./components/SelectComponent";
 import "./components/modal/ModalComponent";
+import "./components/modal/ModalDetailComponent";
+import "./components/modal/RestaurantDetailComponent";
+
+import "./components/common/HeaderComponent";
+import "./components/common/SelectComponent";
+import "./components/common/ButtonComponent";
 
 // images
 import "../img/add-button.png";

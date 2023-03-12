@@ -3,12 +3,13 @@ import CustomElement from "../../abstracts/CustomElement";
 class ModalComponent extends CustomElement {
   template() {
     return `
-      <div class="modal">
+      <div id="add_modal" class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <restaurant-add-form></restaurant-add-form>
         </div>
       </div>
+      
     `;
   }
 }
