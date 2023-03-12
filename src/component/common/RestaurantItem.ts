@@ -39,6 +39,10 @@ class RestaurantItem {
       </div>
     </li>`;
   }
+
+  render(target: Element) {
+    target.insertAdjacentHTML("beforeend", this.template());
+  }
 }
 
 export default RestaurantItem;

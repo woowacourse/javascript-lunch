@@ -1,10 +1,5 @@
-import {
-  SelectAttribute,
-  Category,
-  Rerender,
-  SetSelectedValue,
-  Sort,
-} from "@/type/type";
+import AppController from "@/AppController";
+import { SelectAttribute, Category, Rerender, Sort } from "@/type/type";
 import { convertSelectAttribute } from "@/utils/convertor";
 import { $ } from "@/utils/Dom";
 
@@ -17,13 +12,13 @@ class Select {
     this.options = options;
   }
 
-  addEvent(setSelectedValue: SetSelectedValue, rerenderList: Rerender) {
+  addEvent(rerenderList: Rerender) {
     const selectEl = $(`#${this.attribute.id}`);
     selectEl?.addEventListener("change", (e) => {
       const selectedOption = <Category | Sort>(
         (e.target as HTMLSelectElement).value
       );
-      setSelectedValue(this.attribute.id, selectedOption);
+      AppController.setFilter(this.attribute.id, selectedOption);
       rerenderList();
     });
   }

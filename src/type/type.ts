@@ -40,3 +40,5 @@ export type AddRestaurant = (restaurant: Restaurant) => void;
 export type HandleWithId = (id: string) => void;
 export type HandleWithPage = (page: PageTabOption) => void;
 export type Rerender = () => void;
+
+export type CRUD = AddRestaurant | HandleWithId;

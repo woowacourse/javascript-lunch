@@ -1,5 +1,6 @@
+import AppController from "@/AppController";
 import { Constants } from "@/constant/Restaurant";
-import { HandleWithPage, PageTabOption, Rerender } from "@/type/type";
+import { PageTabOption, Rerender } from "@/type/type";
 import { $, $$ } from "@/utils/Dom";
 
 class PageTab {
@@ -22,7 +23,7 @@ class PageTab {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(setPageState: HandleWithPage, rerenderList: Rerender) {
+  addEvent(route: (page: string) => void, rerenderList: Rerender) {
     $(".page-choice-container")?.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
       const targetPage = <PageTabOption>target.closest("div")?.dataset.id;
@@ -31,7 +32,8 @@ class PageTab {
         this.currentTab = targetPage;
 
         this.toggleFocus();
-        setPageState(targetPage);
+        route(targetPage);
+        AppController.setPage(targetPage);
         rerenderList();
       }
     });

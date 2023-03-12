@@ -1,18 +1,14 @@
 import Header from "@/component/main/Header";
 import AddModal from "@/component/main/AddModal";
-import { Constants } from "./constant/Restaurant";
 import PageTab from "./component/main/PageTab";
 import SelectContainer from "./component/main/SelectContainer";
 import AppController from "./AppController";
 import RestaurantList from "./component/main/RestaurantList";
-import { PageTabOption, Restaurant } from "./type/type";
+import { Restaurant } from "./type/type";
 import ItemModal from "./component/common/ItemModal";
 
 class App {
-  pageState: string;
-
   constructor(body: HTMLElement) {
-    this.pageState = "every";
     this.renderComponents(body);
     this.addEvents();
     this.rerenderList();
@@ -28,20 +24,14 @@ class App {
 
   addEvents() {
     Header.addEvent(AddModal.openModal);
-    PageTab.addEvent(this.setPageState, this.rerenderList);
-    SelectContainer.addEvent(AppController.setSelectedValue, this.rerenderList);
-    RestaurantList.addEvent(
-      this.openItemModal,
-      AppController.toggleBookmark,
-      this.rerenderList
-    );
-    AddModal.addEvent(AppController.addNewRestaurant, this.rerenderList);
+    PageTab.addEvent(this.toggleSelectContainer, this.rerenderList);
+    SelectContainer.addEvent(this.rerenderList);
+    RestaurantList.addEvent(this.openItemModal, this.rerenderList);
+    AddModal.addEvent(this.rerenderList);
   }
 
-  setPageState = (page: PageTabOption) => {
-    this.pageState = page;
-
-    if (page === Constants.EVERY_PAGE) {
+  toggleSelectContainer = (page: string) => {
+    if (page === "every") {
       SelectContainer.show();
       return;
     }
@@ -50,7 +40,7 @@ class App {
   };
 
   rerenderList = () => {
-    const newRestaurants = AppController.getRestaurantList(this.pageState);
+    const newRestaurants = AppController.getRestaurantList();
     RestaurantList.updateList(newRestaurants);
   };
 
@@ -58,11 +48,7 @@ class App {
     const restaurant = <Restaurant>AppController.getRestaurant(id);
     const itemModal = new ItemModal(restaurant);
     itemModal.render();
-    itemModal.addEvent(
-      AppController.deleteRestaurant,
-      AppController.toggleBookmark,
-      this.rerenderList
-    );
+    itemModal.addEvent(this.rerenderList);
   };
 }
 

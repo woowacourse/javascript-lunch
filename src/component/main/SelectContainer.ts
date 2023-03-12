@@ -5,7 +5,7 @@ import {
   SORTING,
   SortingFilterAttribute,
 } from "@/constant/Restaurant";
-import { Rerender, SetSelectedValue } from "@/type/type";
+import { Rerender } from "@/type/type";
 import Select from "@/component/common/Select";
 import { $ } from "@/utils/Dom";
 
@@ -35,9 +35,9 @@ class SelectContainer {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(setSelectedValue: SetSelectedValue, rerenderList: Rerender) {
-    this.categorySelect.addEvent(setSelectedValue, rerenderList);
-    this.sortingSelect.addEvent(setSelectedValue, rerenderList);
+  addEvent(rerenderList: Rerender) {
+    this.categorySelect.addEvent(rerenderList);
+    this.sortingSelect.addEvent(rerenderList);
   }
 
   hide() {

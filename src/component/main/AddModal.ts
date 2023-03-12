@@ -1,4 +1,4 @@
-import { AddRestaurant, Rerender, Restaurant } from "@/type/type";
+import { Rerender, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import Select from "@/component/common/Select";
 import {
@@ -10,6 +10,7 @@ import {
 } from "@/constant/Restaurant";
 import { generateId } from "@/utils/generateId";
 import { convertStringToNumber } from "@/utils/convertor";
+import restaurantListHandler from "@/domain/restaurantListHandler";
 
 class AddModal {
   categorySelect;
@@ -72,7 +73,7 @@ class AddModal {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(addNewRestaurant: AddRestaurant, rerenderList: Rerender) {
+  addEvent(rerenderList: Rerender) {
     $(".modal--close")?.addEventListener("click", () => {
       this.closeModal();
     });
@@ -88,7 +89,7 @@ class AddModal {
       const restaurant = this.getRestaurantData();
 
       try {
-        addNewRestaurant(restaurant);
+        restaurantListHandler.addRestaurant(restaurant);
         rerenderList();
         this.closeModal();
       } catch (e) {

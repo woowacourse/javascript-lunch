@@ -1,7 +1,8 @@
-import { HandleWithId, Rerender, Restaurant } from "@/type/type";
+import { Rerender, Restaurant } from "@/type/type";
 import { categoryToSrc } from "@/utils/convertor";
 import { StarImgPath } from "@/constant/Restaurant";
 import { $ } from "@/utils/Dom";
+import restaurantListHandler from "@/domain/restaurantListHandler";
 
 class ItemModal {
   restaurant: Restaurant;
@@ -56,11 +57,7 @@ class ItemModal {
     $(".item-modal")?.remove();
   }
 
-  addEvent(
-    deleteRestaurant: HandleWithId,
-    toggleBookmark: HandleWithId,
-    rerenderList: Rerender
-  ) {
+  addEvent(rerenderList: Rerender) {
     $(".item-modal--close")?.addEventListener("click", () => {
       this.close();
     });
@@ -70,13 +67,13 @@ class ItemModal {
     });
 
     $(".item-modal--delete")?.addEventListener("click", () => {
-      deleteRestaurant(this.restaurant.id);
+      restaurantListHandler.deleteRestaurant(this.restaurant.id);
       rerenderList();
       this.close();
     });
 
     $(".item-bookmark")?.addEventListener("click", () => {
-      this.onClickBookmark(toggleBookmark, rerenderList);
+      this.onClickBookmark(rerenderList);
     });
   }
 
@@ -88,20 +85,20 @@ class ItemModal {
     } alt="bookmarked" class="item-bookmark bookmark"/>`;
   }
 
-  renderBookmark(toggleBookmark: HandleWithId, rerenderList: Rerender) {
+  renderBookmark(rerenderList: Rerender) {
     $(".item-bookmark")?.remove();
 
     $(".images")?.insertAdjacentHTML("beforeend", this.bookMarkTemplate());
 
     $(".item-bookmark")?.addEventListener("click", () => {
-      this.onClickBookmark(toggleBookmark, rerenderList);
+      this.onClickBookmark(rerenderList);
     });
   }
 
-  onClickBookmark(toggleBookmark: HandleWithId, rerenderList: Rerender) {
-    toggleBookmark(this.restaurant.id);
+  onClickBookmark(rerenderList: Rerender) {
+    restaurantListHandler.toggleBookmark(this.restaurant.id);
     this.restaurant.bookmarked = !this.restaurant.bookmarked;
-    this.renderBookmark(toggleBookmark, rerenderList);
+    this.renderBookmark(rerenderList);
     rerenderList();
   }
 }
