@@ -110,7 +110,7 @@ class RestaurantDetail extends HTMLElement {
       </div>
        <h3 class="m-4 text-title-2" title="${name}">${shortenString(
       name,
-      20
+      19
     )}</h3>
        <span class="m-4 distance text-body">캠퍼스부터 ${distance}분 내</span>
        <p class="m-4 text-body description scrollbar-hide">${description}</p>

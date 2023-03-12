@@ -88,6 +88,30 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     link: '',
     isFavorite: false,
   },
+  {
+    name: '공백이없는긴문장을테스트하는음식점이름입니다',
+    category: '기타',
+    distance: 20,
+    description: `공백이없는긴문장을테스트하는설명입니다가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사`,
+    link: 'https://www.google.com/search?q=cypress+contains+includeShadowDom&sxsrf=AJOqlzVVhXz0AxFMFbs8Xij2s3UxkgZxBQ%3A1678611402986&ei=ypMNZKzvO43mwQOBlLeIDg&ved=0ahUKEwis_I_jgtb9AhUNc3AKHQHKDeEQ4dUDCA8&uact=5&oq=cypress+contains+includeShadowDom&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCAAQogQyBQgAEKIEMggIABCiBBCLAzoKCAAQRxDWBBCwAzoICCEQoAEQwwRKBAhBGABQthZYoidgqytoAXABeACAAZQBiAG9BJIBAzAuNJgBAKABAcgBCrgBAcABAQ&sclient=gws-wiz-serp',
+    isFavorite: false,
+  },
+  {
+    name: '이름에 "이 들어가 있는 경우',
+    category: '기타',
+    distance: 30,
+    description: ``,
+    link: '',
+    isFavorite: false,
+  },
+  {
+    name: "이름에 '이 들어가 있는 경우",
+    category: '기타',
+    distance: 5,
+    description: ``,
+    link: '',
+    isFavorite: false,
+  },
 ];
 
 const LOCAL_STORAGE_KEY = 'userList';

@@ -27,7 +27,7 @@ class RestaurantBox extends HTMLElement {
   }
 
   render({ name, category, distance, description = '', isFavorite = '' }) {
-    const NAME_SLICE_NUMBER = 15;
+    const NAME_SLICE_NUMBER = 14;
     const DESCRIPTION_SLICE_NUMBER = 30;
 
     this.shadowRoot.innerHTML = `
