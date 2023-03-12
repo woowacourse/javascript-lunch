@@ -12,6 +12,7 @@ export const CATEGORY = Object.freeze({
 });
 
 export const MAX_NAME_LENGTH = 20;
+
 export const MAX_DESCRIPTION_LENGTH = 300;
 
 export const ERROR_MESSAGE = Object.freeze({
@@ -27,7 +28,7 @@ export const REGEX = Object.freeze({
   BLANK: /\s/,
   NAME: /^[a-zA-Z가-힣0-9]*$/,
   URL: /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/,
-});
+
 
 export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
 export type SortOption = typeof NAME | typeof DISTANCE;
