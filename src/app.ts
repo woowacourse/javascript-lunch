@@ -1,162 +1,181 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Restaurant from './domain/Restaurant';
+import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
-import { CustomModalElement, CustomRestaurantListElement, CustomSelectElement } from './components';
-import {
-  DEFAULT_FILTER_OPTIONS,
-  DEFAULT_MODAL_CATEGORY_OPTIONS,
-  DEFAULT_MODAL_DISTANCE_OPTIONS,
-  DEFAULT_RESTAURANTS,
-  DEFAULT_SORT_OPTIONS,
-} from './fixtures';
-import { FILTER, SORT } from './utils/constants';
+import render from './render';
+import { DEFAULT_RESTAURANTS } from './fixtures';
+import { ALERT_MESSAGE, FILTER, SORT } from './utils/constants';
+import { getRestaurants, saveRestaurants } from './utils/localStorage';
+import errorHandler from './utils/errorHandler';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
-  #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> = {
-    sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
-  };
+  #restaurantListType: 'all' | 'favorite' = 'all';
 
-  $restaurantList = document.querySelector<CustomRestaurantListElement>('#restaurant-list')!;
-
-  $restaurantFilterSelect = document.querySelector<CustomSelectElement>(
-    '#restaurant-filter-select',
-  )!;
-
-  $restaurantSortSelect = document.querySelector<CustomSelectElement>('#restaurant-sort-select')!;
-
-  $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
-
-  $modalForm = document.querySelector<HTMLFormElement>('#modal-form')!;
-
-  $modal = document.querySelector<CustomModalElement>('r-modal')!;
-
-  $restaurantModalCategory = document.querySelector<CustomSelectElement>(
-    '#restaurant-modal-category',
-  )!;
-
-  $restaurantModalDistance = document.querySelector<CustomSelectElement>(
-    '#restaurant-modal-distance',
-  )!;
+  #filterPipes: Partial<
+    Record<'filter' | 'sort' | 'type', (restaurants: Restaurant[]) => Restaurant[]>
+  > = {};
 
   constructor() {
     this.init();
   }
 
-  init() {
-    this.load();
-
-    this.initSelect();
-    this.initModalSelect();
+  init = () => {
+    this.initFilterPipes();
     this.initEventHandlers();
-  }
+  };
 
-  updateRestaurants() {
-    this.$restaurantList.setRestaurants(
-      Object.values(this.#filterPipes).reduce(
-        (filteredRestaurants, filter) => filter(filteredRestaurants),
-        this.#restaurants,
-      ),
+  initFilterPipes = () => {
+    this.#filterPipes = {
+      sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
+      type: (_restaurants: Restaurant[]) => Restaurants.getAll(_restaurants),
+    };
+  };
+
+  updateRestaurantsList = () => {
+    const updatedRestaurantsList = Object.values(this.#filterPipes).reduce(
+      (filteredRestaurants, filter) => filter(filteredRestaurants),
+      this.#restaurants,
     );
 
-    this.save();
-  }
+    render.restaurantList(updatedRestaurantsList);
+    saveRestaurants(this.#restaurants);
+  };
 
-  save() {
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
-  }
+  changeRestaurantFilter = ({ detail }: CustomEvent) => {
+    if (detail.value === FILTER.value.entire) {
+      const { filter, ...keys } = this.#filterPipes;
+      this.#filterPipes = keys;
+    } else {
+      this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
+        Restaurants.filterByCategory(_restaurants, String(detail.value));
+    }
 
-  load() {
-    const restaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') || '[]');
+    this.updateRestaurantsList();
+  };
 
-    if (restaurants.length !== 0) {
+  changeRestaurantSort = ({ detail }: CustomEvent) => {
+    const compareFn =
+      detail.value === SORT.value.name ? Restaurants.byName : Restaurants.byDistance;
+
+    const sortFilter = (_restaurants: Restaurant[]) =>
+      Restaurants.getSorted(_restaurants, compareFn);
+
+    this.#filterPipes.sort = sortFilter;
+    this.updateRestaurantsList();
+  };
+
+  addRestaurant = ({ detail }: CustomEvent) => {
+    try {
+      const restaurant = this.createRestaurant(detail);
+      this.#restaurants.push(restaurant);
+    } catch (e) {
+      const error = e as Error;
+      render.message('error', 'top', error.message);
+      return;
+    }
+
+    render.message('success', 'bottom', ALERT_MESSAGE.createRestaurant);
+    render.closeRegisterRestaurantModal();
+    this.updateRestaurantsList();
+  };
+
+  createRestaurant = ({
+    category,
+    name,
+    distanceByMinutes,
+    description,
+    referenceUrl,
+  }: RestaurantProps) => {
+    return new Restaurant({
+      category,
+      name,
+      distanceByMinutes,
+      description,
+      referenceUrl,
+      existRestaurantsName: this.#restaurants.map((restaurant) => restaurant.getName()),
+    });
+  };
+
+  openRestaurantDetailModal = ({ detail }: CustomEvent) => {
+    const { name } = detail;
+
+    const restaurant = this.#restaurants.filter((_restaurant) => _restaurant.getName() === name)[0];
+
+    render.openRestaurantDetailModal(restaurant);
+  };
+
+  initLoad = () => {
+    render.init();
+
+    const restaurants: Restaurant[] = getRestaurants();
+
+    if (!!restaurants.length) {
       this.#restaurants = restaurants.map((restaurant: Restaurant) =>
         Object.setPrototypeOf(restaurant, Restaurant.prototype),
       );
     }
 
-    this.updateRestaurants();
-  }
-
-  changeRestaurantFilter = (event: Event) => {
-    const $rSelect = event?.target as CustomSelectElement;
-    const value = $rSelect.getSelectedOption()?.value;
-
-    if (value === FILTER.value.entire) {
-      const { filter, ...keys } = this.#filterPipes;
-      this.#filterPipes = keys;
-    } else {
-      this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-        Restaurants.filterByCategory(_restaurants, String(value));
-    }
-
-    this.updateRestaurants();
+    this.updateRestaurantsList();
   };
 
-  changeRestaurantSort = (event: Event) => {
-    const $rSelect = event?.target as CustomSelectElement;
+  deleteRestaurant = ({ detail }: CustomEvent) => {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.getName() !== detail.name,
+    );
 
-    const sortFilter = (_restaurants: Restaurant[]) =>
-      Restaurants.getSorted(
-        _restaurants,
-        $rSelect.getSelectedOption()?.value === SORT.value.name
-          ? Restaurants.byName
-          : Restaurants.byDistance,
-      );
-
-    this.#filterPipes.sort = sortFilter;
-
-    this.updateRestaurants();
+    render.message('success', 'bottom', ALERT_MESSAGE.removeRestaurant);
+    this.updateRestaurantsList();
+    render.closeRestaurantDetailModal();
   };
 
-  openModal = () => this.$modal.open();
+  toggleRestaurantFavorite = ({ detail }: CustomEvent) => {
+    const { restaurantName } = detail;
 
-  addRestaurant = (event: Event) => {
-    event.preventDefault();
-
-    try {
-      const restaurant = this.createRestaurant(event);
-      this.#restaurants.push(restaurant);
-    } catch (e) {
-      const error = e as Error;
-      alert(error.message);
-      return;
-    }
-
-    this.$modal.close();
-    this.updateRestaurants();
-  };
-
-  createRestaurant = (event: Event) => {
-    const restaurantProps = Object.fromEntries([
-      ...new FormData(event.target as HTMLFormElement).entries(),
-    ]);
-
-    return new Restaurant({
-      category: String(restaurantProps.category),
-      name: String(restaurantProps.name),
-      distanceByMinutes: Number(restaurantProps.distanceByMinutes),
-      description: String(restaurantProps.description),
-      referenceUrl: String(restaurantProps.referenceUrl),
+    this.#restaurants.forEach((restaurant) => {
+      if (restaurant.getName() === restaurantName) restaurant.toggleFavorite();
     });
+
+    const targetRestaurant = this.#restaurants.find(
+      (restaurant) => restaurant.getName() === restaurantName,
+    );
+
+    if (!targetRestaurant) return errorHandler.doseNotExistRestaurant();
+
+    render.toggleRestaurantFavorite(this.#restaurantListType, targetRestaurant);
+
+    saveRestaurants(this.#restaurants);
   };
 
-  initSelect() {
-    this.$restaurantFilterSelect.setOptions(DEFAULT_FILTER_OPTIONS);
-    this.$restaurantSortSelect.setOptions(DEFAULT_SORT_OPTIONS);
-  }
+  chagneRestaurantType = ({ detail }: CustomEvent) => {
+    const { type } = detail;
 
-  initModalSelect() {
-    this.$restaurantModalCategory.setOptions(DEFAULT_MODAL_CATEGORY_OPTIONS);
-    this.$restaurantModalDistance.setOptions(DEFAULT_MODAL_DISTANCE_OPTIONS);
-  }
+    this.#filterPipes.type = type === 'all' ? Restaurants.getAll : Restaurants.getFavorite;
+
+    if (type === 'all') {
+      render.openSearchRestaurantSection();
+      this.initFilterPipes();
+    } else {
+      render.closeSearchRestaurantSection();
+    }
+
+    this.#restaurantListType = type;
+    this.updateRestaurantsList();
+  };
 
   initEventHandlers() {
-    this.$restaurantFilterSelect.addEventListener('change', this.changeRestaurantFilter);
-    this.$restaurantSortSelect.addEventListener('change', this.changeRestaurantSort);
-    this.$modalOpenButton.addEventListener('click', this.openModal);
-    this.$modalForm.addEventListener('submit', this.addRestaurant);
+    window.addEventListener('load', this.initLoad);
+    document.addEventListener('openRegisterRestauranModal', render.openRegisterRestaurantModal);
+    document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
+    document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
+    document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
+    document.addEventListener(
+      'openRestaurantDetailModal',
+      this.openRestaurantDetailModal as EventListener,
+    );
+    document.addEventListener('deleteRestaurant', this.deleteRestaurant as EventListener);
+    document.addEventListener('toggleFavorite', this.toggleRestaurantFavorite as EventListener);
+    document.addEventListener('chagneRestaurantType', this.chagneRestaurantType as EventListener);
   }
 }
 

@@ -1,51 +1,23 @@
 import CustomFormElement from '../CustomFormElement';
 
 class Button extends CustomFormElement {
-  constructor() {
-    super();
-
-    this.addEventListener('click', () => {
-      if (this.getAttribute('type') === 'submit') {
-        if (this.form !== null) this.form.requestSubmit();
-      }
-    });
+  private get variant() {
+    return this.getAttribute('variant');
   }
 
-  get value() {
-    return this.getAttribute('type') ?? '';
+  private get action() {
+    return this.getAttribute('action');
   }
 
-  renderTemplate(): string {
+  renderTemplate() {
     return `
-      <style>
-        button {
-          width: 100%;
-          height: 44px;
-
-          margin-right: 16px;
-
-          border: none;
-          border-radius: 8px;
-
-          font-weight: 600;
-          cursor: pointer;    
-        }
-
-        :host([variant="primary"]) > button {
-          background: var(--primary-color);
-          color: var(--grey-100);
-        }
-        
-        :host([variant="secondary"]) > button {
-          border: 1px solid var(--grey-300);
-          background: transparent;
-
-          color: var(--grey-300);
-        }
-      </style>
-
-      <button type="button" class="text-caption">
-        <slot></slot>
+      <button 
+        type=${this.type}
+        action=${this.action}
+        variant=${this.variant} 
+        class="text-caption modal-button"
+      >
+        ${this.name}
       </button>
     `;
   }

@@ -25,7 +25,7 @@ abstract class CustomFormElement extends CustomElement {
    * Form Associated Element 에서 기본적으로 제공되어야 할 프로퍼티
    */
   get type() {
-    return this.localName;
+    return this.getAttribute('type');
   }
 
   /**

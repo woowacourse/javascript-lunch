@@ -4,31 +4,29 @@ import CustomElement from '../CustomElement';
 class RestaurantList extends CustomElement {
   #restaurants: Restaurant[] = [];
 
-  setRestaurants(restaurants: Restaurant[]) {
+  setRestaurants = (restaurants: Restaurant[]) => {
     this.#restaurants = restaurants;
     this.render();
-  }
+  };
 
-  getRestaurants() {
-    return this.#restaurants;
-  }
-
-  renderTemplate(): string {
+  renderTemplate = () => {
     return `
       <ul>
         ${this.#restaurants
           .map((restaurant) => {
             return `<r-restaurant
+              data-testid="${restaurant.getName()}"
               name="${restaurant.getName()}"
-              distance="${restaurant.getDistanceByMinutes()}"
+              distanceByMinutes="${restaurant.getDistanceByMinutes()}"
               description="${restaurant.getDescription() ?? ''}"
               category="${restaurant.getCategory() ?? ''}"
+              ${restaurant.getIsFavorite() ? 'favorite' : ''}
             ></r-restaurant>`;
           })
           .join('')}
       </ul>
     `;
-  }
+  };
 }
 
 customElements.define('r-restaurant-list', RestaurantList);

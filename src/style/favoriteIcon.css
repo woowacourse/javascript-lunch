@@ -1,0 +1,11 @@
+.favorite-icon {
+  font-size: 36px;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.not-favorite-icon {
+  font-size: 36px;
+  color: var(--lighten-color);
+  cursor: pointer;
+}

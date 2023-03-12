@@ -1,10 +1,18 @@
 @import url('./header.css');
 @import url('./button.css');
-@import url('./filterContainer.css');
+@import url('./modal.css');
+@import url('./favoriteIcon.css');
+@import url('./restaurantItem.css');
+@import url('./formItem.css');
+@import url('./restaurantDetailModal.css');
+@import url('./restaurantTypeSection.css');
+@import url('./searchRestaurantSection.css');
+@import url('./message.css');
 
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
+  --blue-color: rgb(70, 70, 255);
   --grey-100: #ffffff;
   --grey-200: #d0d5dd;
   --grey-300: #667085;

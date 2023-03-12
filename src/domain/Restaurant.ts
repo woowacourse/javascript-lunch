@@ -6,6 +6,8 @@ export interface RestaurantProps {
   distanceByMinutes: number;
   description?: string;
   referenceUrl?: string;
+  isFavorite?: boolean;
+  existRestaurantsName?: string[];
 }
 
 class Restaurant {
@@ -23,9 +25,18 @@ class Restaurant {
 
   private referenceUrl?: string;
 
-  constructor({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) {
+  private isFavorite = false;
+
+  constructor({
+    category,
+    name,
+    distanceByMinutes,
+    description,
+    referenceUrl,
+    existRestaurantsName,
+  }: RestaurantProps) {
     this.validateCategory(category);
-    this.validateName(name);
+    this.validateName(name, existRestaurantsName);
     this.validateDistanceByMinutes(distanceByMinutes);
 
     this.category = category;
@@ -55,22 +66,29 @@ class Restaurant {
     return this.category;
   }
 
-  private validateCategory(category: string) {
-    if (!(Restaurant.CATEGORIES as readonly string[]).includes(category)) {
-      throw new Error(`카테고리는 ${Restaurant.CATEGORIES.join(', ')} 중 하나여야 합니다.`);
-    }
+  getReferenceUrl() {
+    return this.referenceUrl;
   }
 
-  private validateName(name: string) {
+  getIsFavorite() {
+    return this.isFavorite;
+  }
+
+  toggleFavorite() {
+    this.isFavorite = !this.isFavorite;
+  }
+
+  private validateCategory(category: string) {
+    Validation.validateRestaurantCategory(category);
+  }
+
+  private validateName(name: string, existRestaurantsName?: string[]) {
     Validation.validateRestaurantNameLength(name);
+    Validation.validateRestaurantNameDuplication(name, existRestaurantsName);
   }
 
   private validateDistanceByMinutes(distanceByMinutes: number) {
-    if (!(Restaurant.DISTANCE_BY_MINUTES as readonly number[]).includes(distanceByMinutes)) {
-      throw new Error(
-        `거리는 ${Restaurant.DISTANCE_BY_MINUTES.join('분, ')}분 중 하나여야 합니다.`,
-      );
-    }
+    Validation.validateRestaurantDistanceByMinutes(distanceByMinutes);
   }
 }
 
