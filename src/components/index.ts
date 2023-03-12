@@ -5,3 +5,4 @@ import './RRestaurant';
 import './RModal';
 import './RSelect';
 import './RTextarea';
+import './RRestaurantList';
