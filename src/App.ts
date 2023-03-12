@@ -10,7 +10,7 @@ import store from './store';
 import { CategoryFilter, Restaurant, Restaurants, SortFilter } from './types';
 
 class App extends HTMLElement {
-  private activeTabKey: string = '1';
+  private activeTabKey = '1';
 
   constructor() {
     super();
@@ -140,6 +140,7 @@ class App extends HTMLElement {
         description,
         link,
       });
+      this.setLunchTabProps();
       this.setRestaurantItemsProps(store.restaurants);
     };
     $addModal.setProps({ onAddButtonClick });
