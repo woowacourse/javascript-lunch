@@ -1,4 +1,5 @@
-:root {
+:root,
+:host {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
   --grey-100: #ffffff;
