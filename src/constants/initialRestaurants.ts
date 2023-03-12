@@ -1,6 +1,6 @@
 import { Restaurant } from '../types';
 
-const dummyRestaurants: Restaurant[] = [
+const initialRestaurants: Restaurant[] = [
   {
     id: 1,
     category: '한식',
@@ -59,4 +59,4 @@ const dummyRestaurants: Restaurant[] = [
   },
 ];
 
-export default dummyRestaurants;
+export default initialRestaurants;
