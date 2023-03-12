@@ -28,8 +28,6 @@ class RestaurantList {
     this.isDeleted = false;
   }
 
-  getRestaurantInfo() {}
-
   create() {
     return `
       <li class="restaurant" id=${this.currentIndex}>
