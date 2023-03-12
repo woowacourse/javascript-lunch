@@ -5,6 +5,7 @@ const DEFAULT_RESTAURANT_DATA: State = {
   filter: DEFAULT_CATEGORY,
   sortingOption: SORTING_OPTION.NAME,
   isModalOpen: false,
+  currentTab: 'ALL',
   restaurants: [
     {
       id: 1,
