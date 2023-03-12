@@ -15,7 +15,7 @@ class RestaurantAddModal implements Component {
   template = () => `
     <div class="modal">
       <div class="modal-backdrop"></div>
-      <div class="modal-container">
+      <div class="modal-container restaurant-add-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id="form-add-restaurant">
           <div class="form-item form-item--required">

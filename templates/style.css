@@ -263,6 +263,11 @@ body::-webkit-scrollbar {
   background: var(--grey-100);
 }
 
+.restaurant-add-container {
+  height: 70%;
+  overflow-y: auto;
+}
+
 .modal-title {
   margin-bottom: 36px;
 }
@@ -363,7 +368,7 @@ input[name='link'] {
   justify-content: space-between;
   align-content: space-between;
   flex-flow: row wrap;
-  height: 500px;
+  row-gap: 6px;
 }
 
 .restaurant-detail-container .restaurant__info {
@@ -377,7 +382,7 @@ input[name='link'] {
 }
 
 .restaurant-detail-container .restaurant__description {
-  height: 216px;
+  height: 200px;
   overflow: auto;
 }
 
