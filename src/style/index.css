@@ -1,6 +1,6 @@
 @import url('./header.css');
 @import url('./button.css');
-@import url('./favoritesIcon.css');
+@import url('./favoriteIcon.css');
 
 :root {
   --primary-color: #ec4a0a;
