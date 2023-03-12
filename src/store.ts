@@ -14,24 +14,27 @@ interface Store {
   getFavoriteRestaurants: () => Restaurants;
 }
 
+const filterRestaurantsById = (restaurants: Restaurants, id: string): Restaurants => {
+  return Object.fromEntries(Object.entries(restaurants).filter(([_id, _]) => _id !== id));
+};
+
 export const store: Store = {
   restaurants: {},
   categoryFilter: '전체',
   sortFilter: 'name',
 
-  removeRestaurant(_id: string) {
-    this.restaurants = Object.fromEntries(
-      Object.entries(this.restaurants).filter(([id, _]) => id !== _id),
-    );
-
+  removeRestaurant(id: string) {
+    this.restaurants = filterRestaurantsById(this.restaurants, id);
     db.setRestaurants(this.restaurants);
+
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   },
 
   addRestaurants(restaurant: Restaurant) {
-    this.restaurants = { [uuid()]: restaurant, ...this.restaurants };
     db.addRestaurant(restaurant);
+    this.restaurants = db.getRestaurants();
+
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   },
@@ -39,20 +42,21 @@ export const store: Store = {
   filterRestaurants(categoryFilter: CategoryFilter) {
     this.categoryFilter = categoryFilter;
     this.restaurants = db.getRestaurants();
-    if (categoryFilter === '전체') return;
-    const filteredRestaurants = Object.fromEntries(
-      Object.entries(this.restaurants).filter(
-        ([_, restaurant]) => restaurant.category === categoryFilter,
-      ),
-    );
-    this.restaurants = filteredRestaurants;
+
+    this.restaurants =
+      categoryFilter === '전체'
+        ? db.getRestaurants()
+        : Object.fromEntries(
+            Object.entries(this.restaurants).filter(
+              ([_, restaurant]) => restaurant.category === categoryFilter,
+            ),
+          );
   },
 
   sortRestaurants(sortFilter: SortFilter) {
     this.sortFilter = sortFilter;
 
     let filteredRestaurants;
-
     switch (sortFilter) {
       case 'name':
         filteredRestaurants = Object.fromEntries(
