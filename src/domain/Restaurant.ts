@@ -1,4 +1,5 @@
 import Category from './Category';
+import Validation from './Validation';
 
 interface RestaurantProps {
   category: Category;
@@ -20,6 +21,8 @@ class Restaurant {
   #referenceUrl?: string;
 
   constructor({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) {
+    this.validate(name);
+
     this.#category = category;
     this.#name = name;
     this.#distanceByMinutes = distanceByMinutes;
@@ -37,6 +40,10 @@ class Restaurant {
 
   getDistanceByMinutes() {
     return this.#distanceByMinutes;
+  }
+
+  validate(name: string) {
+    Validation.validateRestaurantNameLength(name);
   }
 }
 
