@@ -30,7 +30,7 @@ export default class RestaurantItem extends Component {
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
             </div>
             <div class="favorite__shape">
-              <img src="${FAVORITE[starShape]}" alt="${starShape}" class="favorite-icon">
+              <img src="${FAVORITE[starShape]}" alt="${starShape}" class="favorite-icon" />
             </div>
           </div>
           <p class="restaurant__description text-body">${detail}</p>
@@ -52,8 +52,8 @@ export default class RestaurantItem extends Component {
   addRestaurantList(event) {
     const favoriteTexts = event.currentTarget.textContent
       .split('\n')
-      .filter((text) => text.trim().length !== 0)
-      .map((restaurantText) => restaurantText.trim());
+      .map((text) => text.trim())
+      .filter((text) => text.length !== 0);
 
     const category = event.currentTarget.children[0].children[0].alt;
 
