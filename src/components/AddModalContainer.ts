@@ -4,7 +4,13 @@ import { eventBus } from '@res/core/eventBus';
 import { IRestaurantInput } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
-import { isValidCategory, isValidDistance, isValidName } from '@res/validator/inputValidator';
+import {
+  isValidCategory,
+  isValidDescription,
+  isValidDistance,
+  isValidLink,
+  isValidName,
+} from '@res/validator/inputValidator';
 import { buttonTemplate } from './templates/button';
 import { selectTemplate } from './templates/select';
 
@@ -56,11 +62,6 @@ class AddModalContainer extends Component {
   }
 
   handleSubmit(event: Event) {
-    // category: this.getElementValue($('#category-input')).trim(),
-    //   name: this.getElementValue($('#name-input')).trim(),
-    //   distance: this.getElementValue($('#distance-input')).trim(),
-    //   description: this.getElementValue($('#description-input')).trim(),
-    //   link: this.getElementValue($('#link-input')).trim(),
     const $form = event?.target;
 
     if (!($form instanceof HTMLFormElement)) {
@@ -70,6 +71,7 @@ class AddModalContainer extends Component {
     const restaurantInput = this.getInput($form);
 
     if (!this.validate(restaurantInput)) {
+      event.preventDefault();
       return;
     }
 
@@ -90,8 +92,14 @@ class AddModalContainer extends Component {
     ) as IRestaurantInput;
   }
 
-  validate({ category, name, distance }: IRestaurantInput) {
-    if (isValidCategory(category) && isValidName(name) && isValidDistance(distance)) {
+  validate({ category, name, distance, description, link }: IRestaurantInput) {
+    if (
+      isValidCategory(category) &&
+      isValidName(name) &&
+      isValidDistance(distance) &&
+      isValidDescription(description) &&
+      isValidLink(link)
+    ) {
       return true;
     }
 
@@ -100,6 +108,12 @@ class AddModalContainer extends Component {
     $('#name-message').style.visibility = isValidName(name) ? 'hidden' : 'visible';
 
     $('#distance-message').style.visibility = isValidDistance(distance) ? 'hidden' : 'visible';
+
+    $('#description-message').style.visibility = isValidDescription(description)
+      ? 'hidden'
+      : 'visible';
+
+    $('#link-message').style.visibility = isValidLink(link) ? 'hidden' : 'visible';
 
     return false;
   }
@@ -151,7 +165,7 @@ class AddModalContainer extends Component {
             </div>
             <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
-            <input type="text" name="name" id="name-input" required />
+            <input type="text" name="name" id="name-input" maxlength="20" required />
               <p id='name-message' class='input-error-message' style="visibility:hidden">${
                 INPUT_MESSAGE.name
               }<p/>
@@ -184,17 +198,24 @@ class AddModalContainer extends Component {
                 id="description-input"
                 cols="30"
                 rows="5"
+                maxlength="50"
               ></textarea>
+              <p id='description-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.description
+              }<p/>
               <span class="help-text text-caption"
                 >메뉴 등 추가 정보를 입력해 주세요.</span
               >
             </div>
             <div class="form-item">
               <label for="link text-caption">참고 링크</label>
-              <input type="text" name="link" id="link-input" />
+              <input type="text" name="link" id="link-input" maxlength="50" />
               <span class="help-text text-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
+              <p id='link-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.link
+              }<p/>
             </div>
             <div class="button-container">
             ${buttonTemplate(
