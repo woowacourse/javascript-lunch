@@ -1,4 +1,4 @@
-import { RestaurantForm } from "./types/types";
+import { RestaurantForm } from "./global/types";
 import { CATEGORY_NAME } from "./constants";
 
 class Store {
@@ -47,6 +47,9 @@ class Store {
       (restaurant) => restaurant.id !== item.id
     );
     this.filteredItemList = this.filteredItemList.filter(
+      (restaurant) => restaurant.id !== item.id
+    );
+    this.favoriteItemList = this.favoriteItemList.filter(
       (restaurant) => restaurant.id !== item.id
     );
   }

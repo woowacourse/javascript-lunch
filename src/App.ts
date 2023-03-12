@@ -189,8 +189,11 @@ export class App {
       Store.deleteRestaurantItem(restaurantInfo);
       this.setInfoLocalStorage();
       const restaurantList = $(".restaurant-list") as HTMLLIElement;
+      const favoriteList = $(".favorite-list") as HTMLLIElement;
       restaurantList.replaceChildren();
+      favoriteList.replaceChildren();
       this.render(Store.getFilteredList(), restaurantList);
+      this.render(Store.getFavoriteList(), favoriteList);
       modal.closeModal();
     });
   }
