@@ -4,12 +4,15 @@ import { qs } from '../utils/domHelpers';
 
 export default class RestaurantItem extends Component {
   starShape;
+  restaurantData;
 
   constructor($target, restaurant) {
     super($target, restaurant);
+    this.restaurantData = restaurant;
 
     this.addEvent('click', (event) => {
-      this.switchFavorite(event);
+      if (event.target.className === 'favorite-icon') this.switchFavorite(event);
+      else this.activateDetailModal();
     });
   }
 
@@ -27,7 +30,7 @@ export default class RestaurantItem extends Component {
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
             </div>
             <div class="favorite__shape">
-              <img src="${FAVORITE[starShape]}" alt="${starShape}" class="category-icon">
+              <img src="${FAVORITE[starShape]}" alt="${starShape}" class="favorite-icon">
             </div>
           </div>
           <p class="restaurant__description text-body">${detail}</p>
@@ -35,11 +38,11 @@ export default class RestaurantItem extends Component {
   }
 
   switchFavorite(event) {
-    if (event.target.nodeName === 'IMG' && this.starShape === 'lined') {
+    if (this.starShape === 'lined') {
       this.starShape = 'filled';
 
       this.addRestaurantList(event);
-    } else if (event.target.nodeName === 'IMG' && this.starShape === 'filled') {
+    } else if (this.starShape === 'filled') {
       this.starShape = 'lined';
 
       this.removeRestaurantList(event);
@@ -77,5 +80,10 @@ export default class RestaurantItem extends Component {
 
     this.restaurantManager.unfillRestaurantStarShape(storeName);
     this.favoriteRestaurant.removeRestaurant(storeName);
+  }
+
+  activateDetailModal() {
+    this.detailRestaurant.setRestaurantDetail(this.restaurantData);
+    qs('.detail-modal').classList.add('modal--open');
   }
 }
