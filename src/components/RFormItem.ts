@@ -16,7 +16,7 @@ class RFormItem extends RComponent {
           color: var(--grey-300);
         }
 
-        r-form-item > label.required::after {
+        r-form-item label.required::after {
           padding-left: 4px;
 
           color: var(--primary-color);
