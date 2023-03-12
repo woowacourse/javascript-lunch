@@ -14,7 +14,7 @@ const detail = ({ restaurant }) => {
       <p class="restaurant__take-minute text-body">캠퍼스부터 ${takeMinute}분 내</p>
       <textarea readonly>${description}</textarea>
       <div class="link-area">
-        <a href="${link}"></a>
+        <a href="${link}">${link}</a>
       </div>
       <div class="button-container">
         ${button({ id: 'remove', type: 'button', style: 'secondary', content: '삭제하기' })}
