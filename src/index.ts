@@ -27,6 +27,7 @@ import {
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
 import { handleFavoriteIcon } from './handleUi/restaurant';
 import restaurantBottomSheet from './components/restaurantBottomSheet';
+import { $ } from './utils/selector';
 
 const App = {
   header: new Header({ selector: 'header', title: '점심 뭐 먹지' }),
@@ -137,7 +138,9 @@ const App = {
       scrollToTopForm('.restaurant-add-container');
     });
 
-    executeEventListener('.button--secondary', 'click', () => {
+    executeEventListener('.button--secondary', 'click', (event: Event) => {
+      event.preventDefault();
+
       handleModalClose('#restaurant-add-modal');
       resetForm('#new-restaurant-form');
       scrollToTopForm('.restaurant-add-container');
@@ -145,6 +148,7 @@ const App = {
 
     executeEventListener('.restaurant-add-backdrop', 'click', () => {
       handleModalClose('#restaurant-add-modal');
+      resetForm('#new-restaurant-form');
       scrollToTopForm('.restaurant-add-container');
     });
 
