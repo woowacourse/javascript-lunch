@@ -4,6 +4,10 @@
   height: 32px;
 }
 
+.more-detail {
+  -webkit-line-clamp: 4;
+}
+
 .category-favorite-icon-container {
   display: flex;
   justify-content: space-between;
@@ -22,4 +26,5 @@
 
 .restaurant__link {
   color: #000000;
+  margin-top: 10px;
 }
