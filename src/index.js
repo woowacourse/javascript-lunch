@@ -1,5 +1,5 @@
 import App from './app';
-import '../templates/style.css';
+import './style.css';
 import './images/add-button.png';
 import './images/category-korean.png';
 import './images/category-japanese.png';
