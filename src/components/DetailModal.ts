@@ -85,9 +85,9 @@ export default class DetailModal extends Component {
     return `  
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>
-        <div class="modal-container">
-          <h3 class="restaurant__name text-subtitle">${name}</h3>
-          <div class="restaurant__category">
+        <div class="modal-container detail-modal">
+          <div class="modal-icon-container"> 
+            <div class="restaurant__category">
             ${iconImageTemplate(
               {
                 src: ImageByCategory[category],
@@ -105,6 +105,8 @@ export default class DetailModal extends Component {
               { className: 'favorite-icon' }
             )}
           </div>
+          </div>
+          <h3 class="restaurant__name text-subtitle">${name}</h3>
           <p class="restaurant__description text-body">${description}</p>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
           <p class="restaurant__link text-body">${link}</p>

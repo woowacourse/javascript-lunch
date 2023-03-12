@@ -23,8 +23,12 @@ class MenuTabBar extends Component {
 
   template() {
     return `
-      <button class="all-restaurant-button">모든 음식점</button>
-      <button class="favorite-restaurant-button">자주 가는 음식점</button>
+    <div class="tab-container text-tab">
+      <input type="radio" id="all-tab" name="tab" class="all-restaurant-button" checked />
+      <label for="all-tab" >모든 음식점</label>
+      <input type="radio" id="favorite-tab" name="tab" class="favorite-restaurant-button"/>
+      <label for="favorite-tab">자주 가는 음식점</label>
+    <div>
     `;
   }
 
@@ -34,6 +38,7 @@ class MenuTabBar extends Component {
       eventName: 'click',
       handler: () => {
         this.tabToggle = Tab.All;
+
         eventBus.dispatch('@click-tab', this.tabToggle);
       },
     });
@@ -43,6 +48,7 @@ class MenuTabBar extends Component {
       eventName: 'click',
       handler: () => {
         this.tabToggle = Tab.Favorite;
+
         eventBus.dispatch('@click-tab', this.tabToggle);
       },
     });
