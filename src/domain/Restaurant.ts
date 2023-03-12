@@ -42,6 +42,14 @@ class Restaurant {
     return this.#distanceByMinutes;
   }
 
+  getDescription() {
+    return this.#description;
+  }
+
+  getCategory() {
+    return this.#category;
+  }
+
   validate(name: string) {
     Validation.validateRestaurantNameLength(name);
   }
