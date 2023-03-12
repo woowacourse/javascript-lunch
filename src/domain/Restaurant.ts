@@ -1,6 +1,6 @@
 import Validation from './Validation';
 
-interface RestaurantProps {
+export interface RestaurantProps {
   category: string;
   name: string;
   distanceByMinutes: number;
