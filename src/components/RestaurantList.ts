@@ -62,7 +62,7 @@ class RestaurantList {
     listSection.appendChild(listWrapper);
   }
 
-  getListInfo(callback: any, deleteList: any) {
+  hadleListClick(callback: any, deleteList: any) {
     document
       .getElementById(String(this.currentIndex))
       ?.addEventListener("click", (e) => {
@@ -85,6 +85,7 @@ class RestaurantList {
 
   showRestaurantDetail(deleteList: any) {
     const detailModal = new Modal(this.getModalContent());
+
     detailModal.render();
     this.hadleClickDelete(deleteList);
   }

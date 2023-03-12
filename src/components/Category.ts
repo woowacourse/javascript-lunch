@@ -1,5 +1,4 @@
 import { CategoryType } from "../type/category";
-import { Restaurant } from "../type/restaurant";
 import { $ } from "../util/querySelector";
 
 class Category {
@@ -35,6 +34,7 @@ class Category {
 
   checkSelectedOption() {
     const optionContainer = $(".nav-container");
+
     optionContainer?.addEventListener("click", (e) => {
       this.changeSelectedStyle(e);
     });
@@ -43,12 +43,14 @@ class Category {
   changeSelectedStyle(e: Event) {
     const allOption = $(".all");
     const favorateOption = $(".favorate");
+
     if (e.target === allOption) {
       this.#selected = "all";
       allOption?.classList.add("selected");
       favorateOption?.classList.remove("selected");
       return;
     }
+
     if (e.target === favorateOption) {
       this.#selected = "favorite";
       favorateOption?.classList.add("selected");
@@ -56,22 +58,13 @@ class Category {
     }
   }
 
-  handleClickCategory(
-    renderFavorates: any,
-    test: any,
-    currentCategory: string
-  ) {
+  handleClickCategory(renderFavorates: any, reRenderRestaurantList: any) {
     $(".favorate")?.addEventListener("click", (e) => {
       renderFavorates();
-      // currentCategory = "favorate";
-      // console.log(currentCategory);
     });
 
-    $(".all")?.addEventListener("click", () => {
-      // updateRestaurant();
-      test();
-      // currentCategory = "all";
-      // console.log(currentCategory);
+    $(".all")?.addEventListener("click", (e) => {
+      reRenderRestaurantList();
     });
   }
 }

@@ -1,8 +1,6 @@
 import { $ } from "../util/querySelector";
 
 class SelectFilter {
-  display: boolean = true;
-
   create() {
     return `
         <div class="category-wrapper">
@@ -28,13 +26,15 @@ class SelectFilter {
   }
 
   render() {
-    if (this.display) {
-      const mainSection = $("main");
-      const filterContainer = document.createElement("div");
+    const mainSection = $("main");
+    const filterContainer = document.createElement("div");
 
-      filterContainer.innerHTML = this.create();
-      mainSection?.prepend(filterContainer);
-    }
+    filterContainer.innerHTML = this.create();
+    mainSection?.prepend(filterContainer);
+  }
+
+  delete() {
+    $(".category-wrapper")?.remove();
   }
 }
 

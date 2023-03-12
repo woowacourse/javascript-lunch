@@ -2,7 +2,7 @@ import { Restaurant } from "../type/restaurant";
 
 class Restaurants {
   #list: Restaurant[] = [];
-  #nodeList: any = [];
+  #nodeList: Element[] = [];
 
   add(restaurant: Restaurant) {
     this.#list.push(restaurant);
@@ -19,8 +19,6 @@ class Restaurants {
   getNodeList() {
     return [...this.#nodeList];
   }
-
-  deleteList() {}
 }
 
 export default Restaurants;

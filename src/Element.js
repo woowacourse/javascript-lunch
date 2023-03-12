@@ -1,4 +1,11 @@
 import test from "../templates/category-chinese.png";
+import 일식 from "../templates/category-japanese.png";
+import 중식 from "../templates/category-chinese.png";
+import 한식 from "../templates/category-korean.png";
+import 양식 from "../templates/category-western.png";
+import 아시안 from "../templates/category-asian.png";
+import 기타 from "../templates/category-etc.png";
+
 const Elements = {
   addListContents: `
   <form>
@@ -79,11 +86,10 @@ const Elements = {
   `,
 
   listDetailContents(infos, image) {
-    console.log(test);
     return `
     <div class="header-wrapper">
       <img src="../../template/category-${infos.category}.png" alt="image" />
-      <img src="./templates//favorite-icon-filled.png" alt="filled-star" />
+      <img src=${image} alt="filled-star" />
     </div>
     <h1 class="info__title">${infos.name}</h1>
     <strong class="info__distance">${infos.distance}분 내</strong>
