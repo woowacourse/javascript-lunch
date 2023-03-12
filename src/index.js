@@ -1,6 +1,6 @@
+import App from './app';
 import './components';
 import './style/index.css';
 
-class App {}
-
 const app = new App();
+app.init();
