@@ -39,7 +39,7 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
       .children()
       .should('have.length', listLength + 1);
 
-    // 입력한 값이 존재하는지 확인인
+    // 입력한 값이 존재하는지 확인
     cy.get('.restaurant-list').each((ele) => {
       cy.wrap(ele).find('.restaurant__name').should('contain.text', '서서갈비');
       cy.wrap(ele)
@@ -50,6 +50,7 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
         .should('contain.text', '서서먹는 갈비입니다~');
     });
 
+    //새로고침시에 값이 유지되었는지 확인
     cy.reload();
     cy.get('.restaurant-list')
       .children()
@@ -164,5 +165,34 @@ describe('점심 뭐 먹지 step-2 테스트', () => {
     cy.get('.restaurant-list')
       .children()
       .should('have.length', listLength - 1);
+  });
+
+  it('음식점 카테고리를 선택하고, 거리순으로 정렬했을 때 필터링이 적용되는지 확인한다.', () => {
+    // '한식' 카테고리 선택
+    cy.get('#category-filter').select('한식');
+
+    // 정렬된 값들이 "한식"인지 확인
+    cy.get('.restaurant-list').each((restaurant) => {
+      cy.wrap(restaurant).find('img').should('have.attr', 'alt', '한식');
+    });
+
+    // '거리' 기준으로 값 정렬
+    cy.get('#sorting-filter').select('거리순');
+
+    // '거리순' 으로 정렬되어있는지 확인
+    const sortedRestaurant = [
+      '용호낙지',
+      '피양콩할마니',
+      '농민 백암 순대',
+      '진대감',
+    ];
+
+    cy.get('.restaurant-list')
+      .children()
+      .each((restaurant, index) => {
+        cy.wrap(restaurant)
+          .find('.restaurant__name')
+          .should('have.text', sortedRestaurant[index]);
+      });
   });
 });
