@@ -8,7 +8,7 @@ import form from './component/bottomSheet/form';
 import detail from './component/bottomSheet/detail';
 import { $ } from './utils/dom';
 import CustomStorage from './utils/CustomStorage';
-import { DEFAULT_CATEGORY } from './constants';
+import { DEFAULT_CATEGORY, DEFAULT_SORTING } from './constants';
 
 class App {
   #root;
@@ -22,6 +22,7 @@ class App {
   }
 
   initRender() {
+    const restaurants = this.#model.getFiltered(DEFAULT_CATEGORY, DEFAULT_SORTING);
     this.#root.innerHTML = `
       ${header()}
       <main>
@@ -29,7 +30,7 @@ class App {
         ${restaurantFilterContainer()}
         <section class="restaurant-list-container">
           ${restaurantList({
-            restaurants: this.#model.getFiltered(DEFAULT_CATEGORY, 'name'),
+            restaurants,
           })}
         </section>
         ${modal({ id: 'form-modal', content: form() })}
