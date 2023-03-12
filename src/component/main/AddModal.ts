@@ -1,27 +1,39 @@
-import { Category, TakingTime, AddRestaurant, Rerender } from "@/type/type";
+import { Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import Select from "@/component/common/Select";
-import { CATEGORY, TAKING_TIME, OptionValue } from "@/constant/Restaurant";
+import { OptionValue } from "@/constant/Restaurant";
+import { generateId } from "@/utils/generateId";
+import { convertStringToNumber } from "@/utils/convertor";
+import restaurantListHandler from "@/domain/restaurantListHandler";
+import AppController from "@/AppDataController";
+import Render from "@/view/Render";
+import restaurantValidator from "@/domain/restaurantValidator";
+import {
+  CATEGORY,
+  CategorySelectAttribute,
+  TakingTimeSelectAttribute,
+  TAKING_TIME,
+} from "@/data/componentData";
 
 class AddModal {
   categorySelect;
   takingTimeSelect;
 
   constructor() {
-    this.categorySelect = new Select(
-      { name: "category", id: "category", required: true },
-      [OptionValue.PLACE_HOLDER, ...CATEGORY]
-    );
-    this.takingTimeSelect = new Select(
-      { name: "takingTime", id: "takingTime", required: true },
-      [OptionValue.PLACE_HOLDER, ...TAKING_TIME]
-    );
+    this.categorySelect = new Select(CategorySelectAttribute, [
+      OptionValue.PLACE_HOLDER,
+      ...CATEGORY,
+    ]);
+    this.takingTimeSelect = new Select(TakingTimeSelectAttribute, [
+      OptionValue.PLACE_HOLDER,
+      ...TAKING_TIME,
+    ]);
   }
 
   template() {
-    return `<div class="modal">
+    return `<section class="modal add-modal">
     <div class="modal-backdrop"></div>
-    <div class="modal-container">
+    <div class="modal-container add-modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form class="modal-form">
         <div class="form-item form-item--required category--input">
@@ -57,32 +69,34 @@ class AddModal {
         </div>
       </form>
     </div>
-  </div>`;
+  </section>`;
   }
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(addNewRestaurant: AddRestaurant, rerenderList: Rerender) {
+  addEvent() {
     $(".modal--close")?.addEventListener("click", () => {
-      this.closeModal();
+      this.close();
     });
 
     $(".modal-backdrop")?.addEventListener("click", () => {
-      this.closeModal();
+      this.close();
     });
 
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       this.deleteErrorMessage();
 
-      const restaurant = this.getRestaurantData();
+      const restaurant = this.getFormData();
 
       try {
-        addNewRestaurant(restaurant);
-        rerenderList();
-        this.closeModal();
+        restaurantValidator.validate(restaurant);
+        restaurantListHandler.addRestaurant(restaurant);
+        const restaurantList = AppController.getRestaurantList();
+        Render.updateRestaurantList(restaurantList);
+        this.close();
       } catch (e) {
         const error = (e as string).toString();
         const [errorTarget, errorMessage] = error.split(":");
@@ -91,16 +105,18 @@ class AddModal {
     });
   }
 
-  getRestaurantData() {
+  getFormData() {
     const $modal = $(".modal-form") as HTMLFormElement;
     const formData = Object.fromEntries(new FormData($modal).entries());
     const restaurant = {
-      name: formData.name as string,
-      takingTime: Number(formData.takingTime) as TakingTime,
-      category: formData.category as Category,
-      link: formData.link as string,
-      description: formData.description as string,
-    };
+      id: generateId(),
+      name: (<string>formData.name).trim(),
+      takingTime: convertStringToNumber(<string>formData.takingTime),
+      category: formData.category,
+      link: formData.link,
+      description: formData.description,
+      bookmarked: false,
+    } as Restaurant;
 
     return restaurant;
   }
@@ -111,13 +127,13 @@ class AddModal {
     this.deleteErrorMessage();
   }
 
-  openModal() {
-    $(".modal")?.classList.add("modal--open");
+  open() {
+    $(".add-modal")?.classList.add("modal--open");
   }
 
-  closeModal() {
+  close() {
     this.resetForm();
-    $(".modal")?.classList.remove("modal--open");
+    $(".add-modal")?.classList.remove("modal--open");
   }
 
   showErrorMessage(target: string, message: string) {

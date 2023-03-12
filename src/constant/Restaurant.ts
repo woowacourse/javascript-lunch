@@ -1,4 +1,4 @@
-import { Category, Object } from "@/type/type";
+import { Object } from "@/type/type";
 
 export const CategoryImgPath: Readonly<Object> = {
   아시안: "category-asian.png",
@@ -9,6 +9,11 @@ export const CategoryImgPath: Readonly<Object> = {
   기타: "category-etc.png",
 };
 
+export const StarImgPath: Readonly<Object> = {
+  FILLED_STAR: "favorite-icon-filled.png",
+  EMPTY_STAR: "favorite-icon-lined.png",
+};
+
 export const OptionValue: Readonly<Object> = {
   TOTAL: "전체",
   PLACE_HOLDER: "선택해 주세요.",
@@ -17,10 +22,13 @@ export const OptionValue: Readonly<Object> = {
 };
 
 export const Constants: Readonly<Object> = {
-  RESTAURANT_LIST: "restuarantList",
+  RESTAURANT_LIST: "restaurantList",
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",
+  BOOKMARK: "bookmark",
+  EVERY_PAGE: "every",
+  BOOKMARKED_PAGE: "bookmarked",
 };
 
 export const ErrorName: Readonly<Object> = {
@@ -28,15 +36,3 @@ export const ErrorName: Readonly<Object> = {
   TAKING_TIME: "taking_time",
   CATEGORY: "category",
 };
-
-export const CATEGORY: Category[] = [
-  "한식",
-  "중식",
-  "일식",
-  "양식",
-  "아시안",
-  "기타",
-];
-
-export const SORTING = ["이름순", "거리순"];
-export const TAKING_TIME = ["5", "10", "15", "20", "30"];

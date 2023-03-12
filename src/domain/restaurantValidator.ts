@@ -1,7 +1,8 @@
-import { CATEGORY, ErrorName } from "@/constant/Restaurant";
+import { ErrorName } from "@/constant/Restaurant";
 import { ErrorMessage } from "@/constant/Message";
 import { Category, Restaurant, TakingTime } from "@/type/type";
-import restaurantListHandler from "./restaurantListHandler";
+import AppController from "@/AppDataController";
+import { CATEGORY } from "@/data/componentData";
 
 class RestaurantValidator {
   validate(restaurant: Restaurant) {
@@ -45,9 +46,9 @@ class RestaurantValidator {
   }
 
   private isNameExist(category: Category, name: string): boolean {
-    return restaurantListHandler
-      .getFilteredByCategory(category)
-      .some((restaurant) => restaurant.name === name);
+    return AppController.getFilteredByCategory(category).some(
+      (restaurant) => restaurant.name === name
+    );
   }
 
   private isTakingTimeEmpty(takingTime: TakingTime): boolean {
