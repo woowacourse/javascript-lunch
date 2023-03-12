@@ -10,6 +10,8 @@ import store from './store';
 import { CategoryFilter, Restaurant, Restaurants, SortFilter } from './types';
 
 class App extends HTMLElement {
+  private activeTabKey: string = '1';
+
   constructor() {
     super();
     this.render();
@@ -56,9 +58,6 @@ class App extends HTMLElement {
         },
       ],
       onChange: (key: string) => {
-        const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-          typeof RestaurantItems
-        >;
         const $filterBoxes = document.querySelector('#filter') as HTMLDivElement;
 
         // 모든 음식점
@@ -71,6 +70,8 @@ class App extends HTMLElement {
           this.setRestaurantItemsProps(store.getFavoriteRestaurants());
           $filterBoxes.style.display = 'none';
         }
+
+        this.activeTabKey = key;
       },
     };
 
@@ -86,6 +87,7 @@ class App extends HTMLElement {
       options: ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'],
       onChange: (option) => {
         store.filterRestaurants(option);
+        this.setRestaurantItemsProps(store.restaurants);
       },
     });
   }
@@ -97,6 +99,7 @@ class App extends HTMLElement {
       options: ['distance', 'name'],
       onChange: (option) => {
         store.sortRestaurants(option);
+        this.setRestaurantItemsProps(store.restaurants);
       },
     });
   }
@@ -151,7 +154,11 @@ class App extends HTMLElement {
         store.removeRestaurant(restaurantId);
         this.setRestaurantItemsProps(store.restaurants);
       },
-      onCloseButtonClick: () => {},
+      onCloseButtonClick: () => {
+        this.setRestaurantItemsProps(
+          this.activeTabKey === '1' ? store.restaurants : store.getFavoriteRestaurants(),
+        );
+      },
       onFavoriteButtonClick: () => {
         store.toggleFavoriteRestaurant(restaurantId);
       },

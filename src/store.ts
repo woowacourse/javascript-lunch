@@ -26,7 +26,6 @@ export const store: Store = {
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
-    $restaurantItems.render(this.restaurants);
     localStorage.setItem('store', JSON.stringify(this.restaurants));
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
@@ -37,7 +36,6 @@ export const store: Store = {
     const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
       typeof RestaurantItems
     >;
-    $restaurantItems.render(this.restaurants);
     localStorage.setItem(
       'store',
       JSON.stringify({
@@ -55,16 +53,13 @@ export const store: Store = {
       typeof RestaurantItems
     >;
     this.restaurants = JSON.parse(localStorage.getItem('store') || '{}');
-    if (categoryFilter === '전체') {
-      return $restaurantItems.render(this.restaurants);
-    }
+    if (categoryFilter === '전체') return;
     const filteredRestaurants = Object.fromEntries(
       Object.entries(this.restaurants).filter(
         ([_, restaurant]) => restaurant.category === categoryFilter,
       ),
     );
     this.restaurants = filteredRestaurants;
-    $restaurantItems.render(this.restaurants);
   },
 
   sortRestaurants(sortFilter: SortFilter) {
@@ -91,7 +86,7 @@ export const store: Store = {
         );
         break;
     }
-    $restaurantItems.render(filteredRestaurants);
+    this.restaurants = filteredRestaurants;
   },
 
   toggleFavoriteRestaurant(id: string) {
