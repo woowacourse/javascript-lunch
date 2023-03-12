@@ -20,7 +20,7 @@ const detailTemplate = (restaurant: Restaurant) => `
       <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
       <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
       <p class="restaurant__description text-body">${restaurant.description ?? ''}</p>
-      <a href=${restaurant.link?? ''} target="blank">${restaurant.link ?? ''}</a>
+      <a href=${restaurant.link ?? ''} target="blank">${restaurant.link ?? ''}</a>
     </div>
     <div class="button-container">
       <button type="button" class="button button--secondary text-caption">삭제하기</button>
@@ -72,6 +72,26 @@ class RestaurantDetailModal implements Component {
       'keydown',
       (event) => (event.key === 'Escape' || event.key === 'Esc') && this.hide(),
     );
+  };
+
+  setFavoriteButtonHandler = (handler: (name: string) => void) => {
+    this.$target.querySelector('.button--favorite')?.addEventListener('click', (event) => {
+      const parent = (event.target as HTMLButtonElement).closest(
+        '.restaurant-detail-container',
+      ) as HTMLElement;
+
+      this.changeFavoriteButtonImage(
+        parent.querySelector('img[alt="즐겨찾기 추가"]') as HTMLImageElement,
+      );
+
+      handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
+    });
+  };
+
+  private changeFavoriteButtonImage = (image: HTMLImageElement) => {
+    image.src === FavoriteIconImagePath.DEFALUT
+      ? (image.src = FavoriteIconImagePath.ADDED)
+      : (image.src = FavoriteIconImagePath.DEFALUT);
   };
 }
 

@@ -57,9 +57,11 @@ class RestaurantListSection implements Component {
     Array.from(this.$target.querySelectorAll('.button--favorite')).forEach((button) => {
       button.addEventListener('click', (event) => {
         const parent = (event.target as HTMLButtonElement).closest('.restaurant') as HTMLElement;
+
         this.changeFavoriteButtonImage(
           parent.querySelector('img[alt="즐겨찾기 추가"]') as HTMLImageElement,
         );
+
         handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
       });
     });

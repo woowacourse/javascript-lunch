@@ -67,6 +67,7 @@ class App {
     this.components.detailModal.render();
 
     this.components.detailModal.setCloseModalHandler();
+    this.components.detailModal.setFavoriteButtonHandler(this.toggleFavoriteButton);
     this.components.detailModal.show();
   };
 
