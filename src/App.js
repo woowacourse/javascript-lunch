@@ -18,7 +18,7 @@ class App {
   constructor(root) {
     this.#root = root;
     this.#storage = new CustomStorage('restaurants', []);
-    this.initRestaurants();
+    this.initModel();
   }
 
   initRender() {
@@ -53,7 +53,7 @@ class App {
       {
         selectors: '#form-modal form',
         event: 'submit',
-        actions: [this.submitForm, this.toggleFormModal, this.initRestaurants, this.renderList],
+        actions: [this.submitForm, this.toggleFormModal, this.initModel, this.renderList],
       },
       {
         selectors: '#category-filter',
@@ -78,7 +78,7 @@ class App {
       {
         selectors: '#detail-modal .favorite-icon',
         event: 'click',
-        actions: [this.updateFavorite, this.initRestaurants, this.updateDetail, this.renderList],
+        actions: [this.updateFavorite, this.initModel, this.updateDetailModal, this.renderList],
       },
       {
         selectors: '#detail-modal #close',
@@ -88,12 +88,7 @@ class App {
       {
         selectors: '#detail-modal #remove',
         event: 'click',
-        actions: [
-          this.removeRestaurant,
-          this.initRestaurants,
-          this.renderList,
-          this.toggleDetailModal,
-        ],
+        actions: [this.removeRestaurant, this.initModel, this.renderList, this.toggleDetailModal],
       },
     ].forEach((manual) => {
       this.addEvent(manual);
@@ -113,7 +108,7 @@ class App {
   handleListItem = (e) => {
     if (e.target.closest('.favorite-icon')) {
       this.updateFavorite(e);
-      this.initRestaurants();
+      this.initModel();
       this.renderList();
     } else {
       this.updateDetail(e);
@@ -121,7 +116,7 @@ class App {
     }
   };
 
-  initRestaurants = () => {
+  initModel = () => {
     this.#model = new Restaurants(this.#storage.getValue());
   };
 
@@ -129,7 +124,7 @@ class App {
     $('#form-modal').classList.toggle('modal--open');
   };
 
-  toggleDetailModal = (e) => {
+  toggleDetailModal = () => {
     $('#detail-modal').classList.toggle('modal--open');
   };
 
@@ -141,9 +136,9 @@ class App {
       category: form.get('category'),
       name: form.get('name'),
       takeMinute: form.get('takeMinute'),
+      favorite: false,
       description: form.get('description'),
       link: form.get('link'),
-      favorite: false,
     };
 
     this.#storage.setValue([...this.#storage.getValue(), restaurant]);
@@ -176,7 +171,7 @@ class App {
     this.#storage.setValue(newRestaurants);
   };
 
-  updateDetail = (e) => {
+  updateDetailModal = (e) => {
     const $parent = e.target.closest('.restaurant') || e.target.closest('.detail');
     const restaurant = this.#model.findRestaurant($parent.dataset.id);
     $('#detail-modal .modal-container').innerHTML = detail({ restaurant });
