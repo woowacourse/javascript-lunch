@@ -49,10 +49,14 @@
 
   padding-top: 8px;
 
-  overflow: hidden;
+  overflow-y: auto;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__description::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
 
 .favorite-button {
