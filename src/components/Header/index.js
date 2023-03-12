@@ -1,6 +1,7 @@
 import './index.css';
 import buttonImg from '../../assets/add-button.png';
 import { $ } from '../../utils';
+import Modal from '../Modal';
 
 class Header extends HTMLElement {
   connectedCallback() {
@@ -25,17 +26,13 @@ class Header extends HTMLElement {
   }
 
   modalHandler() {
-    $('#openModal').addEventListener('click', this.toggleModal);
-
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Escape') {
-        this.toggleModal();
-      }
-    });
+    $('#openModal').addEventListener('click', this.showAddretaurant);
   }
 
-  toggleModal() {
-    $('.modal').classList.toggle('modal--open');
+  showAddretaurant() {
+    $('#modalContainer').classList.add('modal--open');
+    const addRestaurant = document.createElement('add-restaurant');
+    $('#modalContainer').appendChild(addRestaurant);
   }
 }
 
