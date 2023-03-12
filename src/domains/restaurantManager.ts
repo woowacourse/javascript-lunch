@@ -1,5 +1,5 @@
 import RestaurantList from '../components/restaurantList.js';
-import { filterCategory, sortByDistance, sortByName } from './filter';
+import { sortByDistance, sortByName } from './filter';
 import { RestaurantType } from '../type';
 import { isValidName } from '../validator';
 import { FILTER_OPTION } from '../constants/filter';
@@ -42,7 +42,7 @@ class restaurantManager {
     this.restaurantList = isExistRestaurantList
       ? getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
       : initialRestaurantList;
-    this.favoriteList = isExistRestaurantList
+    this.favoriteList = isExistFavoriteList
       ? getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST)
       : [];
 
@@ -77,18 +77,18 @@ class restaurantManager {
     return Object.fromEntries(trimmedNewRestaurant);
   }
 
-  sortRestaurantList(value: string) {
-    if (value === FILTER_OPTION.NAME) {
-      this.restaurantListComponent.render(sortByName(this.restaurantList));
-    }
-
-    if (value === FILTER_OPTION.DISTANCE) {
-      this.restaurantListComponent.render(sortByDistance(this.restaurantList));
-    }
+  sortRestaurantList(sortingOption: string) {
+    return sortingOption === FILTER_OPTION.NAME
+      ? sortByName(this.restaurantList)
+      : sortByDistance(this.restaurantList);
   }
 
-  filterRestaurantList(value: string) {
-    filterCategory(value);
+  filterRestaurantList(selectingOption: string) {
+    return selectingOption === FILTER_OPTION.ALL_CATEGORIES
+      ? this.restaurantList
+      : this.restaurantList.filter(
+          restaurant => restaurant.category === selectingOption
+        );
   }
 
   updateRestaurantList(restaurantList: RestaurantType[]) {

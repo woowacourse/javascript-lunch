@@ -11,5 +11,5 @@ export function getListOnLocalStorage<T>(key: string): T[] {
     return Object.values(JSON.parse(item));
   }
 
-  return [] as [];
+  return [];
 }

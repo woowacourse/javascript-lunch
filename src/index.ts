@@ -27,7 +27,6 @@ import {
   FILTER_NAME,
   SELECT_OPTION_LIST,
 } from './constants/filter';
-import { initialRestaurantList } from './constants/initialRestaurantList';
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
 import { handleFavoriteIcon } from './handleUi/restaurant';
 import restaurantBottomSheet from './components/restaurantBottomSheet';
@@ -59,6 +58,7 @@ const App = {
   restaurantBottomSheet: new restaurantBottomSheet(),
 
   init() {
+    this.RestaurantManager.initRestaurantList();
     this.initRender();
     this.initEventListeners();
   },
@@ -68,7 +68,6 @@ const App = {
     this.navBar.render();
     this.categoryFilter.render();
     this.sortingFilter.render();
-    this.RestaurantManager.initRestaurantList();
     this.restaurantList.render(
       getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
     );
@@ -134,11 +133,15 @@ const App = {
 
   controlFilter() {
     executeOptionChangeEventListener('#sorting-filter', (value: string) => {
-      this.RestaurantManager.sortRestaurantList(value);
+      const sortedList = this.RestaurantManager.sortRestaurantList(value);
+
+      this.restaurantList.render(sortedList);
     });
 
     executeOptionChangeEventListener('#category-filter', (value: string) => {
-      this.RestaurantManager.filterRestaurantList(value);
+      const selectedList = this.RestaurantManager.filterRestaurantList(value);
+
+      this.restaurantList.render(selectedList);
     });
   },
 
