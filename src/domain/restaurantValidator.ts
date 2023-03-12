@@ -1,7 +1,8 @@
-import { CATEGORY, ErrorName } from "@/constant/Restaurant";
+import { ErrorName } from "@/constant/Restaurant";
 import { ErrorMessage } from "@/constant/Message";
 import { Category, Restaurant, TakingTime } from "@/type/type";
-import AppController from "@/AppController";
+import AppController from "@/AppDataController";
+import { CATEGORY } from "@/data/componentData";
 
 class RestaurantValidator {
   validate(restaurant: Restaurant) {

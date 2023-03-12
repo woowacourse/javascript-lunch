@@ -1,13 +1,12 @@
+import { OptionValue } from "@/constant/Restaurant";
+import Select from "@/component/common/Select";
+import { $ } from "@/utils/Dom";
 import {
   CATEGORY,
   CategoryFilterAttribute,
-  OptionValue,
   SORTING,
   SortingFilterAttribute,
-} from "@/constant/Restaurant";
-import { Rerender } from "@/type/type";
-import Select from "@/component/common/Select";
-import { $ } from "@/utils/Dom";
+} from "@/data/componentData";
 
 class SelectContainer {
   categorySelect;
@@ -35,9 +34,9 @@ class SelectContainer {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(rerenderList: Rerender) {
-    this.categorySelect.addEvent(rerenderList);
-    this.sortingSelect.addEvent(rerenderList);
+  addEvent() {
+    this.categorySelect.addEvent();
+    this.sortingSelect.addEvent();
   }
 
   hide() {

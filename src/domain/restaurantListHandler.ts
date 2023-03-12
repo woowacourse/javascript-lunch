@@ -16,7 +16,6 @@ class RestaurantListHandler {
   }
 
   addRestaurant(restaurant: Restaurant) {
-    restaurantValidator.validate(restaurant);
     this.restaurants = [restaurant, ...this.restaurants];
     saveData(Constants.RESTAURANT_LIST, this.restaurants);
   }

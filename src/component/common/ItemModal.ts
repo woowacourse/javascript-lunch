@@ -1,8 +1,10 @@
-import { Rerender, Restaurant } from "@/type/type";
+import { Restaurant } from "@/type/type";
 import { categoryToSrc } from "@/utils/convertor";
 import { StarImgPath } from "@/constant/Restaurant";
 import { $ } from "@/utils/Dom";
 import restaurantListHandler from "@/domain/restaurantListHandler";
+import render from "@/view/render";
+import AppController from "@/AppDataController";
 
 class ItemModal {
   restaurant: Restaurant;
@@ -57,7 +59,7 @@ class ItemModal {
     $(".item-modal")?.remove();
   }
 
-  addEvent(rerenderList: Rerender) {
+  addEvent() {
     $(".item-modal--close")?.addEventListener("click", () => {
       this.close();
     });
@@ -68,12 +70,13 @@ class ItemModal {
 
     $(".item-modal--delete")?.addEventListener("click", () => {
       restaurantListHandler.deleteRestaurant(this.restaurant.id);
-      rerenderList();
+      const restaurantList = AppController.getRestaurantList();
+      render.updateRestaurantList(restaurantList);
       this.close();
     });
 
     $(".item-bookmark")?.addEventListener("click", () => {
-      this.onClickBookmark(rerenderList);
+      this.onClickBookmark();
     });
   }
 
@@ -85,21 +88,23 @@ class ItemModal {
     } alt="bookmarked" class="item-bookmark bookmark"/>`;
   }
 
-  renderBookmark(rerenderList: Rerender) {
+  renderBookmark() {
     $(".item-bookmark")?.remove();
 
     $(".images")?.insertAdjacentHTML("beforeend", this.bookMarkTemplate());
 
     $(".item-bookmark")?.addEventListener("click", () => {
-      this.onClickBookmark(rerenderList);
+      this.onClickBookmark();
     });
   }
 
-  onClickBookmark(rerenderList: Rerender) {
+  onClickBookmark() {
     restaurantListHandler.toggleBookmark(this.restaurant.id);
     this.restaurant.bookmarked = !this.restaurant.bookmarked;
-    this.renderBookmark(rerenderList);
-    rerenderList();
+    this.renderBookmark();
+
+    const restaurantList = AppController.getRestaurantList();
+    render.updateRestaurantList(restaurantList);
   }
 }
 

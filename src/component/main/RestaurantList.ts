@@ -1,6 +1,8 @@
+import AppController from "@/AppDataController";
 import restaurantListHandler from "@/domain/restaurantListHandler";
 import { HandleWithId, Rerender, Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
+import render from "@/view/render";
 import RestaurantItem from "../common/RestaurantItem";
 
 class RestaurantList {
@@ -35,18 +37,20 @@ class RestaurantList {
     }
   }
 
-  addEvent(openItemModal: HandleWithId, rerenderList: Rerender) {
+  addEvent() {
     this.listEl.addEventListener("click", (e) => {
       const target = <HTMLElement>e.target;
       const restaurantId = <string>target.closest("li")?.dataset.id;
 
       if (target.className === "bookmark") {
         restaurantListHandler.toggleBookmark(restaurantId);
-        rerenderList();
+        const restaurantList = AppController.getRestaurantList();
+        render.updateRestaurantList(restaurantList);
         return;
       }
 
-      openItemModal(restaurantId);
+      const restaurant = <Restaurant>AppController.getRestaurant(restaurantId);
+      render.openItemModal(restaurant);
     });
   }
 }

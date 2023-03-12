@@ -1,16 +1,19 @@
-import { Rerender, Restaurant } from "@/type/type";
+import { Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
 import Select from "@/component/common/Select";
-import {
-  CATEGORY,
-  TAKING_TIME,
-  OptionValue,
-  CategorySelectAttribute,
-  TakingTimeSelectAttribute,
-} from "@/constant/Restaurant";
+import { OptionValue } from "@/constant/Restaurant";
 import { generateId } from "@/utils/generateId";
 import { convertStringToNumber } from "@/utils/convertor";
 import restaurantListHandler from "@/domain/restaurantListHandler";
+import AppController from "@/AppDataController";
+import render from "@/view/render";
+import restaurantValidator from "@/domain/restaurantValidator";
+import {
+  CATEGORY,
+  CategorySelectAttribute,
+  TakingTimeSelectAttribute,
+  TAKING_TIME,
+} from "@/data/componentData";
 
 class AddModal {
   categorySelect;
@@ -73,25 +76,27 @@ class AddModal {
     target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  addEvent(rerenderList: Rerender) {
+  addEvent() {
     $(".modal--close")?.addEventListener("click", () => {
-      this.closeModal();
+      this.close();
     });
 
     $(".modal-backdrop")?.addEventListener("click", () => {
-      this.closeModal();
+      this.close();
     });
 
     $(".modal-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       this.deleteErrorMessage();
 
-      const restaurant = this.getRestaurantData();
+      const restaurant = this.getFormData();
 
       try {
+        restaurantValidator.validate(restaurant);
         restaurantListHandler.addRestaurant(restaurant);
-        rerenderList();
-        this.closeModal();
+        const restaurantList = AppController.getRestaurantList();
+        render.updateRestaurantList(restaurantList);
+        this.close();
       } catch (e) {
         const error = (e as string).toString();
         const [errorTarget, errorMessage] = error.split(":");
@@ -100,7 +105,7 @@ class AddModal {
     });
   }
 
-  getRestaurantData() {
+  getFormData() {
     const $modal = $(".modal-form") as HTMLFormElement;
     const formData = Object.fromEntries(new FormData($modal).entries());
     const restaurant = {
@@ -122,11 +127,11 @@ class AddModal {
     this.deleteErrorMessage();
   }
 
-  openModal() {
+  open() {
     $(".add-modal")?.classList.add("modal--open");
   }
 
-  closeModal() {
+  close() {
     this.resetForm();
     $(".add-modal")?.classList.remove("modal--open");
   }

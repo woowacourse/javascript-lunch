@@ -9,7 +9,7 @@ class AppController {
   restaurantList: Restaurant[];
 
   constructor() {
-    this.page = "every";
+    this.page = Constants.EVERY_PAGE;
     this.category = <Category>OptionValue.TOTAL;
     this.sort = <Sort>OptionValue.NAME_ORDER;
     this.restaurantList = restaurantListHandler.getTotalRestaurants();
@@ -18,7 +18,7 @@ class AppController {
   getRestaurantList(): Restaurant[] {
     this.restaurantList = restaurantListHandler.getTotalRestaurants();
 
-    if (this.page === "bookmarked") {
+    if (this.page === Constants.BOOKMARKED_PAGE) {
       return this.restaurantList.filter((restaurant) => restaurant.bookmarked);
     }
 
