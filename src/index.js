@@ -12,5 +12,4 @@ async function waitForCustomElementsDefined() {
 
 waitForCustomElementsDefined().then(() => {
   const app = new App();
-  app.init();
 });
