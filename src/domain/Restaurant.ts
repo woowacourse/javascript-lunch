@@ -13,49 +13,51 @@ class Restaurant {
 
   static readonly DISTANCE_BY_MINUTES = [5, 10, 15, 20, 30] as const;
 
-  #category: string;
+  private category: string;
 
-  #name: string;
+  private name: string;
 
-  #distanceByMinutes: number;
+  private distanceByMinutes: number;
 
-  #description?: string;
+  private description?: string;
 
-  #referenceUrl?: string;
+  private referenceUrl?: string;
 
   constructor({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) {
     this.validate(name);
 
-    this.#category = category;
-    this.#name = name;
-    this.#distanceByMinutes = distanceByMinutes;
-    this.#description = description;
-    this.#referenceUrl = referenceUrl;
+    this.category = category;
+    this.name = name;
+    this.distanceByMinutes = distanceByMinutes;
+    this.description = description;
+    this.referenceUrl = referenceUrl;
   }
 
   isMatchCategory(searchCategory: string) {
-    return this.#category === searchCategory;
+    return this.category === searchCategory;
   }
 
   getName() {
-    return this.#name;
+    return this.name;
   }
 
   getDistanceByMinutes() {
-    return this.#distanceByMinutes;
+    return this.distanceByMinutes;
   }
 
   getDescription() {
-    return this.#description;
+    return this.description;
   }
 
   getCategory() {
-    return this.#category;
+    return this.category;
   }
 
   validate(name: string) {
     Validation.validateRestaurantNameLength(name);
   }
 }
+
+(globalThis as any).Restaurant = Restaurant;
 
 export default Restaurant;
