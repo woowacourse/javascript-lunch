@@ -11,6 +11,7 @@ export default {
 
   openRegisterRestaurantModal: registerRestaurantModal.open,
   closeRegisterRestaurantModal: registerRestaurantModal.close,
+  deleteRestaurantInFavoriteList: restaurantList.deleteRestaurantInFavoriteList,
 
   openRestaurantDetailModal: restaurantDetailModal.open,
   closeRestaurantDetailModal: restaurantDetailModal.close,

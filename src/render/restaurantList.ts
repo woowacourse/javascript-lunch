@@ -21,4 +21,12 @@ export default {
       $targetRestaurant.setAttribute('favorite', '');
     }
   },
+
+  deleteRestaurantInFavoriteList: (restaurantName: string) => {
+    const $targetRestaurant = document.querySelector(`r-restaurant[name="${restaurantName}"]`);
+
+    if (!$targetRestaurant) return;
+
+    $targetRestaurant.remove();
+  },
 };

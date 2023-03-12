@@ -9,6 +9,8 @@ import { getRestaurants, saveRestaurants } from './utils/localStorage';
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
+  #restaurantListType: 'all' | 'favorite' = 'all';
+
   #filterPipes: Partial<
     Record<'filter' | 'sort' | 'type', (restaurants: Restaurant[]) => Restaurant[]>
   > = {
@@ -127,6 +129,9 @@ class App {
 
     render.toggleRestaurantFavorite(restaurantName);
     saveRestaurants(this.#restaurants);
+
+    if (this.#restaurantListType === 'favorite')
+      render.deleteRestaurantInFavoriteList(restaurantName);
   };
 
   chagneRestaurantType = ({ detail }: CustomEvent) => {
@@ -134,6 +139,7 @@ class App {
 
     this.#filterPipes.type = type === 'all' ? Restaurants.getAll : Restaurants.getFavorite;
 
+    this.#restaurantListType = type;
     this.updateRestaurantsList();
   };
 
