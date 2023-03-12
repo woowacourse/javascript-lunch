@@ -7,6 +7,7 @@ const restaurants = [
     description:
       "한식집1 더미 설명입니다. 한식집1 더미 설명입니다. 한식집1 더미 설명입니다.",
     link: "",
+    id: "1",
   },
   {
     category: "한식",
@@ -16,6 +17,7 @@ const restaurants = [
     description:
       "한식집2 더미 설명입니다. 한식집2 더미 설명입니다. 한식집2 더미 설명입니다.",
     link: "",
+    id: "2",
   },
   {
     category: "중식",
@@ -25,6 +27,7 @@ const restaurants = [
     description:
       "중식집1 더미 설명입니다. 중식집1 더미 설명입니다. 중식집1 더미 설명입니다.",
     link: "",
+    id: "3",
   },
   {
     category: "양식",
@@ -34,6 +37,7 @@ const restaurants = [
     description:
       "양식집1 더미 설명입니다. 양식집1 더미 설명입니다. 양식집1 더미 설명입니다.",
     link: "",
+    id: "4",
   },
   {
     category: "일식",
@@ -43,6 +47,7 @@ const restaurants = [
     description:
       "일식집1 더미 설명입니다. 일식집1 더미 설명입니다. 일식집1 더미 설명입니다.",
     link: "",
+    id: "5",
   },
 ];
 
