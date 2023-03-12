@@ -22,9 +22,11 @@ export default class Restaurants {
   }
 
   deleteRestaurant(restaurantId: number) {
-    const targetIndex = this.#restaurants.findIndex((restaurant) => restaurant.id === restaurantId);
+    const restaurantsAfterDeleted = this.#restaurants.filter(
+      (restaurant) => restaurant.id !== restaurantId
+    );
 
-    this.#restaurants.splice(targetIndex, 1);
+    this.#restaurants = restaurantsAfterDeleted;
   }
 
   getRestaurants() {
