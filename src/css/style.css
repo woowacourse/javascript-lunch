@@ -338,8 +338,9 @@ body {
   line-height: 150%;
 }
 
-.detail .link-area {
+.detail .link-area a {
   height: 24px;
+  color: #000000;
 }
 
 input[name='name'],
