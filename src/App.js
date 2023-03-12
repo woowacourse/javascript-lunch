@@ -1,34 +1,34 @@
-import { restaurantService } from '.';
-import Filters from './components/Filters';
 import Header from './components/Header';
-import RestaurantForm from './components/RestaurantForm';
+import Tab from './components/Tab';
+import Filters from './components/Filters';
 import RestaurantList from './components/RestaurantList';
+import FavoriteList from './components/FavoriteList';
+import RestaurantForm from './components/RestaurantForm';
+import RestaurantInfo from './components/RestaurantInfo';
 
 class App {
   constructor($root) {
-    this.$header = new Header($root);
-    this.$restaurantList = new RestaurantList(
-      $root.querySelector('.restaurant-list-container'),
-      restaurantService.getRestaurant(),
-    );
-    this.$filter = new Filters(
-      $root.querySelector('.restaurant-filter-container'),
-      this.$restaurantList,
-    );
-    this.$restaurantForm = new RestaurantForm(
-      document.querySelector('#modal-container'),
-      this.$restaurantList,
-    );
+    this.$root = $root;
+
+    const $ = (selector) => this.$root.querySelector(selector);
+
+    this.header = new Header($('.gnb'));
+    this.tab = new Tab($('#tab-menu'));
+    this.filters = new Filters($('.restaurant-filter-container'));
+    this.restaurantList = new RestaurantList($('.restaurant-list-container'));
+    this.favoriteList = new FavoriteList($('.restaurant-favorite-container'));
+    this.restaurantForm = new RestaurantForm($('#modal-form'));
+    this.restaurantInfo = new RestaurantInfo($('#modal-info'));
   }
 
   init() {
-    this.$header.render();
-    this.$header.bindEvents();
-    this.$filter.render();
-    this.$filter.bindEvents();
-    this.$restaurantList.render();
-    this.$restaurantForm.render();
-    this.$restaurantForm.bindEvents();
+    this.header.mount();
+    this.tab.inject(this.restaurantList, this.favoriteList).mount();
+    this.filters.inject(this.restaurantList).mount();
+    this.restaurantList.inject(this.favoriteList, this.restaurantInfo).mount();
+    this.favoriteList.inject(this.restaurantInfo).mount();
+    this.restaurantForm.inject(this.restaurantList).mount();
+    this.restaurantInfo.inject(this.restaurantList, this.favoriteList);
   }
 }
 
