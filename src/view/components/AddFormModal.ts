@@ -99,7 +99,7 @@ function AddFormModal({ close, handleClickAddBtn }: AddFormModalProps) {
                 <!-- 취소/추가 버튼 -->
                 <div class="button-container">
                     <button type="reset" class="button button--secondary text-caption" id="cancel">취소하기</button>
-                    <button class="button button--primary text-caption">추가하기</button>
+                    <button type="submit" class="button button--primary text-caption">추가하기</button>
                 </div>
             </form>
         </div>

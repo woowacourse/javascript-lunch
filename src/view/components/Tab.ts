@@ -23,10 +23,10 @@ function Tab({ oftenOption, handleOftenTab }: TabOption) {
         <div class="restaurant-tab">
             <button class="tab-button ${
               !oftenOption ? 'active' : ''
-            }" data-id="all"><h3 class="text-subtitle">모든 음식점</h3></button>
+            } text-subtitle" data-id="all">모든 음식점</button>
             <button class="tab-button ${
               oftenOption ? 'active' : ''
-            }" data-id="often"><h3 class="text-subtitle">자주 가는 음식점</button>
+            } text-subtitle" data-id="often">자주 가는 음식점</button>
         </div>
     </section>
  `;

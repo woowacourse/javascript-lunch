@@ -13,8 +13,6 @@ function RestaurantItem(props: RestaurantProps) {
     info: { id, category, name, isOften, distance, description },
   } = props;
 
-  const iconStyle = isOften === false ? 'lined' : 'filled';
-
   return `
         <li class="restaurant">
             <div class="restaurant__category">

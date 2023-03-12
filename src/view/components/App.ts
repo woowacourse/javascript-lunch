@@ -61,7 +61,7 @@ function App() {
     ${Header({ open })}
     <main class="wrapper">
       ${Tab({ oftenOption, handleOftenTab })}
-      <div class="contentWrapper">
+      <div class="content-wrapper">
         <div class="content ${!oftenOption ? 'active' : ''}" id="all">
           ${Nav({ category, sortOption, handleCategory, handleSortOption })}
           ${RestaurantList({ restaurants })}
