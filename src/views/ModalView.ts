@@ -18,8 +18,8 @@ class ModalView {
 
   constructor() {
     this.initInputCaptions();
-    this.addCloseButtonClickEvent();
-    this.addModalBackdropClickEvent();
+    this.addCloseButtonClickEventHandler();
+    this.addModalBackdropClickEventHandler();
   }
 
   initInputCaptions() {
@@ -54,7 +54,7 @@ class ModalView {
       }
 
       this.showErrorMessages(errors);
-      this.addErrorMessageRemovingEvents();
+      this.addFormInputChangeEventHandlersforRemovingErrorMessage();
     });
   }
 
@@ -77,7 +77,14 @@ class ModalView {
     element.classList.remove('not-visible');
   }
 
-  addCategoryChangeEvent() {
+  addFormInputChangeEventHandlersforRemovingErrorMessage() {
+    this.addCategoryChangeEventHandler();
+    this.addNameInputEventHandler();
+    this.addDistanceChangeEventHandler();
+    this.addLinkInputEventHandler();
+  }
+
+  addCategoryChangeEventHandler() {
     this.categoryInput.addEventListener(
       'change',
       () => {
@@ -88,7 +95,7 @@ class ModalView {
     );
   }
 
-  addNameInputEvent() {
+  addNameInputEventHandler() {
     this.nameInput.addEventListener(
       'input',
       () => {
@@ -99,7 +106,7 @@ class ModalView {
     );
   }
 
-  addDistanceChangeEvent() {
+  addDistanceChangeEventHandler() {
     this.distanceInput.addEventListener(
       'change',
       () => {
@@ -110,7 +117,7 @@ class ModalView {
     );
   }
 
-  addLinkInputEvent() {
+  addLinkInputEventHandler() {
     this.linkInput.addEventListener(
       'input',
       () => {
@@ -121,23 +128,17 @@ class ModalView {
     );
   }
 
-  addErrorMessageRemovingEvents() {
-    this.addCategoryChangeEvent();
-    this.addNameInputEvent();
-    this.addDistanceChangeEvent();
-    this.addLinkInputEvent();
-  }
-
-  addCloseButtonClickEvent() {
+  addCloseButtonClickEventHandler() {
     this.closeButton.addEventListener('click', () => {
       this.restaurantAddForm.reset();
       this.modal.close();
     });
   }
 
-  addModalBackdropClickEvent() {
+  addModalBackdropClickEventHandler() {
     this.modal.addEventListener('click', (event) => {
       if (event.target instanceof HTMLDialogElement && event.target.nodeName === 'DIALOG') {
+        this.restaurantAddForm.reset();
         event.target.close();
       }
     });
