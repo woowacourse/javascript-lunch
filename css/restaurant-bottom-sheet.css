@@ -49,3 +49,9 @@
 .restaurant-link:visited {
   color: black;
 }
+
+.button-container-info-modal {
+  display: flex;
+  justify-self: center;
+  align-items: end;
+}

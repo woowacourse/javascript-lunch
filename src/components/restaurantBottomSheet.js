@@ -80,7 +80,11 @@ class restaurantBottomSheet {
 
 				<!-- 삭제/닫기 버튼 -->
 				<div class="button-container-info-modal">
-					<button class="button button--secondary text-caption" aria-label="delete">
+					<button
+						class="button button--secondary text-caption"
+						aria-label="delete"
+						name="${number}"
+					>
 						${BUTTON_TEXT.DELETE}
 					</button>
 					<button class="button button--primary text-caption" aria-label="close">

@@ -1,13 +1,17 @@
 import { $ } from '../utils/selector';
 
 export const resetForm = (formSelector: string) => {
-  const $form = $(formSelector) as HTMLFormElement;
+  const $form = $(formSelector);
 
-  $form.reset();
+  if ($form instanceof HTMLFormElement) {
+    $form.reset();
+  }
 };
 
 export const scrollToTopForm = (target: string) => {
-  const $target = $(target) as HTMLFormElement;
+  const $target = $(target);
 
-  $target.scrollTo(0, 0);
+  if ($target instanceof HTMLFormElement) {
+    $target.scrollTo(0, 0);
+  }
 };
