@@ -100,6 +100,15 @@ class App {
     this.updateRestaurantsList();
   };
 
+  deleteRestaurant = ({ detail }: CustomEvent) => {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.getName() !== detail.name,
+    );
+
+    this.updateRestaurantsList();
+    render.closeRestaurantDetailModal();
+  };
+
   initEventHandlers() {
     window.addEventListener('load', this.initLoad);
     document.addEventListener('openRegisterRestauranModal', render.openRegisterRestaurantModal);
@@ -110,6 +119,7 @@ class App {
       'openRestaurantDetailModal',
       this.openRestaurantDetailModal as EventListener,
     );
+    document.addEventListener('deleteRestaurant', this.deleteRestaurant as EventListener);
   }
 }
 
