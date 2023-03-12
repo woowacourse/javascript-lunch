@@ -13,7 +13,7 @@ class DetailRestaurant extends Observable {
       distance: 0,
       detail: '',
       link: '',
-      starShape: '',
+      starShape: 'lined',
     };
   }
 
