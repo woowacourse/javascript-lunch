@@ -5,7 +5,7 @@ import Modal from './components/modal.js';
 import NewRestaurantModalContent from './components/newRestaurantModalContent.js';
 import Navigation from './components/navigation';
 import RestaurantList from './components/restaurantList';
-import RestaurantsController from './domains/RestaurantsController';
+import RestaurantManager from './domains/restaurantManager';
 import { handleNavigationClick } from './handleUi/navigation';
 import {
   handleModalCloseButtonClick,
@@ -30,9 +30,10 @@ import {
 import { initialRestaurantList } from './constants/initialRestaurantList';
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
 import { handleFavoriteIcon } from './handleUi/restaurant';
+import restaurantBottomSheet from './components/restaurantBottomSheet';
 
 const App = {
-  header: new Header({ title: '점심 뭐 먹지' }),
+  header: new Header({ selector: 'header', title: '점심 뭐 먹지' }),
   navBar: new Navigation({ selector: 'nav', class: 'nav-container' }),
   categoryFilter: new Select({
     selector: '.restaurant-filter-container',
@@ -48,10 +49,14 @@ const App = {
     class: FILTER_CLASS,
     optionList: SELECT_OPTION_LIST.SORTING,
   }),
-  restaurantsController: RestaurantsController.getInstance(),
-  restaurantList: new RestaurantList(),
+  RestaurantManager: RestaurantManager.getInstance(),
+  restaurantList: new RestaurantList({
+    listRenderSelector: '.restaurant-list',
+    additionRenderSelector: '.restaurant',
+  }),
   modal: new Modal('.restaurant-add-modal'),
   newRestaurantModalContent: new NewRestaurantModalContent(),
+  restaurantBottomSheet: new restaurantBottomSheet(),
 
   init() {
     this.initRender();
@@ -63,12 +68,7 @@ const App = {
     this.navBar.render();
     this.categoryFilter.render();
     this.sortingFilter.render();
-    if (!window.localStorage.length) {
-      saveListOnLocalStorage(
-        LOCAL_STORAGE_KEY.RESTAURANT_LIST,
-        initialRestaurantList
-      );
-    }
+    this.RestaurantManager.initRestaurantList();
     this.restaurantList.render(
       getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
     );
@@ -121,7 +121,10 @@ const App = {
     executeEventListener('#new-restaurant-form', 'submit', (event: Event) => {
       event.preventDefault();
 
-      if (this.restaurantsController.addNewRestaurant(event)) {
+      if (this.RestaurantManager.addNewRestaurant(event)) {
+        this.restaurantList.render(
+          getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
+        );
         handleModalCloseButtonClick();
       }
 
@@ -131,11 +134,11 @@ const App = {
 
   controlFilter() {
     executeOptionChangeEventListener('#sorting-filter', (value: string) => {
-      this.restaurantsController.sortRestaurantList(value);
+      this.RestaurantManager.sortRestaurantList(value);
     });
 
     executeOptionChangeEventListener('#category-filter', (value: string) => {
-      this.restaurantsController.filterRestaurantList(value);
+      this.RestaurantManager.filterRestaurantList(value);
     });
   },
 
@@ -143,7 +146,7 @@ const App = {
     executeEventListener('.restaurant-list', 'click', (event: Event) => {
       const target = event.target;
 
-      if (target instanceof HTMLImageElement) {
+      if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
         const favoriteLined = target.className.split(' ')[1];
         const number = favoriteLined[favoriteLined.length - 1];
 
@@ -177,6 +180,18 @@ const App = {
           restaurantList
         );
         saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, favoriteList);
+      }
+
+      if (
+        target instanceof HTMLLIElement ||
+        target instanceof HTMLHeadingElement ||
+        target instanceof HTMLSpanElement ||
+        target instanceof HTMLParagraphElement ||
+        target instanceof HTMLDivElement ||
+        (target instanceof HTMLImageElement &&
+          target.className === 'category-icon')
+      ) {
+        this.restaurantBottomSheet.render();
       }
     });
   },

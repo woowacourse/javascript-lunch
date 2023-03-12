@@ -4,6 +4,7 @@ import { $ } from '../utils/selector';
 class Modal {
   #state = {
     selector: '',
+    htmlTemplate: '',
   };
 
   constructor(selector) {
@@ -12,6 +13,7 @@ class Modal {
 
   render() {
     $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
+    $('.modal-container').insertAdjacentHTML('beforeend', this.#template());
   }
 
   #template() {

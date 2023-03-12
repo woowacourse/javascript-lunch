@@ -11,6 +11,15 @@ import { $ } from '../utils/selector';
 import { CATEGORY_IMAGES } from '../constants/asset';
 
 class RestaurantList {
+  #state = {
+    listRenderSelector: '',
+    additionRenderSelector: '',
+  };
+
+  constructor(state) {
+    this.#state = state;
+  }
+
   render(restaurantList) {
     const restaurantListHTML = restaurantList
       .map(info => this.#template(info))
@@ -20,7 +29,7 @@ class RestaurantList {
   }
 
   renderAdditionRestaurant(restaurant) {
-    $('.restaurant').insertAdjacentHTML(
+    $(this.#state.additionRenderSelector).insertAdjacentHTML(
       'beforeend',
       this.#template(restaurant)
     );

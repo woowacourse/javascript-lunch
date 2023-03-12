@@ -4,6 +4,7 @@ import '../assets/add-button.png';
 
 class Header {
   #state = {
+    selector: '',
     title: '',
   };
 
@@ -12,7 +13,10 @@ class Header {
   }
 
   render() {
-    $inBody('header').insertAdjacentHTML('beforeend', this.#template());
+    $inBody(this.#state.selector).insertAdjacentHTML(
+      'beforeend',
+      this.#template()
+    );
   }
 
   #template() {
