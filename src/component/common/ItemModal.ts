@@ -61,7 +61,6 @@ class ItemModal {
 
   addEvent() {
     $(".item-modal--close")?.addEventListener("click", () => {
-      console.log("clicked");
       this.close();
     });
 
@@ -81,7 +80,7 @@ class ItemModal {
     });
   }
 
-  bookMarkTemplate() {
+  bookmarkTemplate() {
     return `<img src=${
       this.restaurant.bookmarked
         ? `./${StarImgPath.FILLED_STAR}`
@@ -92,7 +91,7 @@ class ItemModal {
   renderBookmark() {
     $(".item-bookmark")?.remove();
 
-    $(".images")?.insertAdjacentHTML("beforeend", this.bookMarkTemplate());
+    $(".images")?.insertAdjacentHTML("beforeend", this.bookmarkTemplate());
 
     $(".item-bookmark")?.addEventListener("click", () => {
       this.onClickBookmark();

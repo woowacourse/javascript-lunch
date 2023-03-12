@@ -4,7 +4,8 @@ import Header from "@/component/main/Header";
 import PageTab from "@/component/main/PageTab";
 import RestaurantList from "@/component/main/RestaurantList";
 import SelectContainer from "@/component/main/SelectContainer";
-import { Restaurant } from "@/type/type";
+import { Constants } from "@/constant/Restaurant";
+import { PageTabOption, Restaurant } from "@/type/type";
 
 class Render {
   init(target: Element) {
@@ -27,8 +28,8 @@ class Render {
     RestaurantList.updateList(newRestaurants);
   }
 
-  toggleSelectContainer(page: string) {
-    if (page === "every") {
+  toggleSelectContainer(page: PageTabOption) {
+    if (page === Constants.EVERY_PAGE) {
       SelectContainer.show();
       return;
     }

@@ -1,4 +1,4 @@
-import { Category, Object, SelectAttribute } from "@/type/type";
+import { Object } from "@/type/type";
 
 export const CategoryImgPath: Readonly<Object> = {
   아시안: "category-asian.png",
@@ -26,6 +26,7 @@ export const Constants: Readonly<Object> = {
   KOREAN: "ko-KR",
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",
+  BOOKMARK: "bookmark",
   EVERY_PAGE: "every",
   BOOKMARKED_PAGE: "bookmarked",
 };

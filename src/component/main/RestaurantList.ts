@@ -1,4 +1,5 @@
 import AppController from "@/AppDataController";
+import { Constants } from "@/constant/Restaurant";
 import restaurantListHandler from "@/domain/restaurantListHandler";
 import { Restaurant } from "@/type/type";
 import { $ } from "@/utils/Dom";
@@ -42,7 +43,7 @@ class RestaurantList {
       const target = <HTMLElement>e.target;
       const restaurantId = <string>target.closest("li")?.dataset.id;
 
-      if (target.className === "bookmark") {
+      if (target.className === Constants.BOOKMARK) {
         restaurantListHandler.toggleBookmark(restaurantId);
         const restaurantList = AppController.getRestaurantList();
         Render.updateRestaurantList(restaurantList);

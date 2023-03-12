@@ -13,19 +13,6 @@ class Select {
     this.options = options;
   }
 
-  addEvent() {
-    const selectEl = $(`#${this.attribute.id}`);
-    selectEl?.addEventListener("change", (e) => {
-      const selectedOption = <Category | Sort>(
-        (e.target as HTMLSelectElement).value
-      );
-
-      AppController.setFilter(this.attribute.id, selectedOption);
-      const restaurantList = AppController.getRestaurantList();
-      Render.updateRestaurantList(restaurantList);
-    });
-  }
-
   template() {
     return ` 
     <select ${convertSelectAttribute(this.attribute)}>
@@ -37,6 +24,19 @@ class Select {
     return this.options
       .map((option: string) => `<option value='${option}'> ${option} </option>`)
       .join("");
+  }
+
+  addEvent() {
+    const selectEl = $(`#${this.attribute.id}`);
+    selectEl?.addEventListener("change", (e) => {
+      const selectedOption = <Category | Sort>(
+        (e.target as HTMLSelectElement).value
+      );
+
+      AppController.setFilter(this.attribute.id, selectedOption);
+      const restaurantList = AppController.getRestaurantList();
+      Render.updateRestaurantList(restaurantList);
+    });
   }
 }
 
