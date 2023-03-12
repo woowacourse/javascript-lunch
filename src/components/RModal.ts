@@ -1,6 +1,18 @@
 import RComponent from './RComponent';
 
 class RModal extends RComponent {
+  static get observedAttributes() {
+    return ['open'];
+  }
+
+  open() {
+    this.setAttribute('open', '');
+  }
+
+  close() {
+    this.removeAttribute('open');
+  }
+
   renderTemplate(): string {
     return `
       <style>
@@ -8,7 +20,7 @@ class RModal extends RComponent {
         display: none;
       }
 
-      .modal--open {
+      :host([open]) .modal {
         display: block;
       }
 
