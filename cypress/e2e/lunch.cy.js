@@ -55,7 +55,7 @@ describe('javascript-lunch 미션 e2e 테스트', () => {
     );
   });
 
-  it('음식점을 클릭하면 상세정보를 볼 수 있다.', () => {
+  it('음식점을 클릭하면 상세정보를 확인할 수 있다.', () => {
     cy.contains('우래옥').click();
 
     cy.get('#restaurant-detail-modal .restaurant__name').should('contain', '우래옥');
