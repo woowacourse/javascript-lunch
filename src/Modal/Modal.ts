@@ -1,17 +1,12 @@
 import addCloseModalCallback from "./features/addCloseModalCallback";
-import addBackdrop from "./UI/addBackdrop";
-import addContainer from "./UI/addContainer";
+import createModal from "./UI/createModal";
 
 class Modal {
   public readonly element: HTMLElement;
 
   constructor(id: string) {
-    this.element = document.createElement("div");
-    this.element.setAttribute("class", "modal");
-    if (id) this.element.setAttribute("id", id);
+    this.element = createModal(id);
 
-    addBackdrop(this);
-    addContainer(this);
     addCloseModalCallback(this);
   }
 

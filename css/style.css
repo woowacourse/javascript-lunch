@@ -392,3 +392,8 @@ input[name="link"] {
   flex-direction:column;
   justify-content: space-evenly;
 }
+
+.select {
+  display: flex;
+  flex-direction: column;
+}

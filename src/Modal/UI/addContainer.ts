@@ -1,9 +1,9 @@
 import Modal from "../Modal";
 
-const addContainer = (modal: Modal) => {
+const addContainer = (element: HTMLElement) => {
   const container = document.createElement("div");
   container.setAttribute("class", "modal-container");
-  modal.element.appendChild(container);
+  element.appendChild(container);
 };
 
 export default addContainer;
