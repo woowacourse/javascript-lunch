@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
-import {
-  CustomRegisterRestaurantModalElement,
-  CustomRestaurantListElement,
-  CustomSelectElement,
-} from './components';
-import { DEFAULT_FILTER_OPTIONS, DEFAULT_RESTAURANTS, DEFAULT_SORT_OPTIONS } from './fixtures';
+import { CustomRegisterRestaurantModalElement, CustomRestaurantListElement } from './components';
+import { DEFAULT_RESTAURANTS } from './fixtures';
 import { FILTER, SORT } from './utils/constants';
 
 class App {
@@ -18,12 +14,6 @@ class App {
 
   $restaurantList = document.querySelector<CustomRestaurantListElement>('#restaurant-list')!;
 
-  $restaurantFilterSelect = document.querySelector<CustomSelectElement>(
-    '#restaurant-filter-select',
-  )!;
-
-  $restaurantSortSelect = document.querySelector<CustomSelectElement>('#restaurant-sort-select')!;
-
   $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
 
   constructor() {
@@ -33,7 +23,6 @@ class App {
   init() {
     this.load();
 
-    this.initSelect();
     this.initEventHandlers();
   }
 
@@ -64,30 +53,23 @@ class App {
     this.updateRestaurants();
   }
 
-  changeRestaurantFilter = (event: Event) => {
-    const $rSelect = event?.target as CustomSelectElement;
-    const value = $rSelect.getSelectedOption()?.value;
-
-    if (value === FILTER.value.entire) {
+  changeRestaurantFilter = ({ detail }: CustomEvent) => {
+    if (detail.value === FILTER.value.entire) {
       const { filter, ...keys } = this.#filterPipes;
       this.#filterPipes = keys;
     } else {
       this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-        Restaurants.filterByCategory(_restaurants, String(value));
+        Restaurants.filterByCategory(_restaurants, String(detail.value));
     }
 
     this.updateRestaurants();
   };
 
-  changeRestaurantSort = (event: Event) => {
-    const $rSelect = event?.target as CustomSelectElement;
-
+  changeRestaurantSort = ({ detail }: CustomEvent) => {
     const sortFilter = (_restaurants: Restaurant[]) =>
       Restaurants.getSorted(
         _restaurants,
-        $rSelect.getSelectedOption()?.value === SORT.value.name
-          ? Restaurants.byName
-          : Restaurants.byDistance,
+        detail.value === SORT.value.name ? Restaurants.byName : Restaurants.byDistance,
       );
 
     this.#filterPipes.sort = sortFilter;
@@ -144,15 +126,10 @@ class App {
     });
   };
 
-  initSelect() {
-    this.$restaurantFilterSelect.setOptions(DEFAULT_FILTER_OPTIONS);
-    this.$restaurantSortSelect.setOptions(DEFAULT_SORT_OPTIONS);
-  }
-
   initEventHandlers() {
-    this.$restaurantFilterSelect.addEventListener('change', this.changeRestaurantFilter);
-    this.$restaurantSortSelect.addEventListener('change', this.changeRestaurantSort);
     this.$modalOpenButton.addEventListener('click', this.openRegisterRestaurantModal);
+    document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
+    document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
     document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
   }
 }
