@@ -18,26 +18,23 @@ class Tab {
   }
 
   addEvent() {
+    const tabMenuContainer = $(".tab-menu-list");
     const tabMenu = $$(".tab-menu");
     const tabItems = $$(".tab-item");
     const tabFilter = $(".tab-filter");
-    tabMenu.forEach((tab, idx) => {
-      tab.addEventListener("click", function (event) {
+    tabMenuContainer.addEventListener("click", function (e) {
+      if (!e.target.classList.contains("active")) {
         tabItems.forEach((item) => {
-          item.classList.remove("active");
+          item.classList.toggle("active");
         });
-
         tabMenu.forEach((menu) => {
-          menu.classList.remove("active");
+          menu.classList.toggle("active");
         });
+      }
 
-        event.target.textContent === FAVORITE
-          ? tabFilter.classList.add("active")
-          : tabFilter.classList.remove("active");
-
-        tabMenu[idx].classList.add("active");
-        tabItems[idx].classList.add("active");
-      });
+      e.target.textContent === FAVORITE
+        ? tabFilter.classList.add("active")
+        : tabFilter.classList.remove("active");
     });
   }
 }
