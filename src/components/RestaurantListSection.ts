@@ -33,9 +33,9 @@ class RestaurantListSection implements Component {
     this.#restaurants = restaurants;
   }
 
-  set restaurants(restaurants: Restaurant[]) {
+  setRestaurants = (restaurants: Restaurant[]) => {
     this.#restaurants = restaurants;
-  }
+  };
 
   template = () => `
     <section class="restaurant-list-container">
@@ -61,6 +61,22 @@ class RestaurantListSection implements Component {
           parent.querySelector('img[alt="즐겨찾기 추가"]') as HTMLImageElement,
         );
         handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
+      });
+    });
+  };
+
+  setRestaurantClickHandler = (handler: (restaurant: Restaurant) => void) => {
+    ['.restaurant__category', '.restaurant__info'].forEach((className) => {
+      this.$target.querySelectorAll(className).forEach((element) => {
+        element?.addEventListener('click', (event) => {
+          const name = (
+            (event.target as HTMLElement)
+              .closest('.restaurant')
+              ?.querySelector('.restaurant__name') as HTMLElement
+          ).innerText;
+
+          handler(this.#restaurants.find((restaurant) => restaurant.name === name)!);
+        });
       });
     });
   };

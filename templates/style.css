@@ -183,10 +183,18 @@ body {
   height: 36px;
 }
 
+.restaurant .category-icon {
+  cursor: pointer;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.restaurant .restaurant__info {
+  cursor: pointer;
 }
 
 .restaurant__name {
@@ -339,4 +347,39 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세정보 모달 */
+
+.restaurant-detail-container {
+  display: flex;
+  flex-flow: row wrap;
+  height: 500px;
+}
+
+.restaurant-detail-container .restaurant__category {
+  margin-right: 70%;
+}
+
+.restaurant-detail-container .restaurant__favorite {
+  height: fit-content;
+}
+
+.restaurant-detail-container .restaurant__info {
+  row-gap: 10px;
+}
+
+.restaurant-detail-container .restaurant__name {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.restaurant-detail-container .restaurant__description {
+  height: 216px;
+  overflow: auto;
+}
+
+.restaurant-detail-container .button-container {
+  margin-top: auto;
+  width: 100%;
 }
