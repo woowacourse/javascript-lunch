@@ -1,6 +1,33 @@
 import RFormControl from './RFormControl';
 
+interface RSelectOption {
+  value: number | string | boolean;
+  label: string;
+}
+
 class RSelect extends RFormControl {
+  #options: RSelectOption[] = [];
+
+  #selectedOption: RSelectOption | null = null;
+
+  setOptions(options: RSelectOption[]) {
+    this.#options = options;
+    this.#selectedOption = null;
+    this.render();
+  }
+
+  getOptions() {
+    return this.#options;
+  }
+
+  getSelectedOption() {
+    return this.#selectedOption;
+  }
+
+  setSelectedOption(selectedOption: RSelectOption) {
+    this.#selectedOption = selectedOption;
+  }
+
   renderTemplate(): string {
     return `
       <style>
@@ -17,18 +44,11 @@ class RSelect extends RFormControl {
       </style>
 
       <select>
-        ${
-          !this.hasAttribute('values')
-            ? []
-            : this.getAttribute('values')
-                ?.split(',')
-                .map((option) => {
-                  return `
-            <option value="${option}">${option}</option>
-          `;
-                })
-                .join('')
-        }
+        ${this.#options
+          .map(({ value, label }) => {
+            return `<option value="${value}">${label}</option>`;
+          })
+          .join('')}
       </select>
     `;
   }
