@@ -1,4 +1,5 @@
 import $template from './app.html';
+import DetailModal from './components/DetailModal';
 import LunchHeader from './components/Header';
 import AddModal from './components/Modal';
 import RestaurantItems from './components/RestaurantItems';
@@ -106,23 +107,14 @@ class App extends HTMLElement {
       restaurants: restaurants,
       onRestaurantItemClick: (restaurantId: string) => {
         // detail-modal 열기
-        const $detailModal = document.createElement('detail-modal');
-        const { category, name, distance, isFavorite, description, link } =
-          restaurants[restaurantId];
+        const $detailModal = this.querySelector('detail-modal') as DetailModal;
 
-        $detailModal?.setAttribute('id', restaurantId);
-        $detailModal?.setAttribute('src', imgSrc[category]);
-        $detailModal?.setAttribute('category', category);
-        $detailModal?.setAttribute('name', name);
-        $detailModal?.setAttribute('distance', distance + '');
-        $detailModal?.setAttribute('description', description || '');
-        $detailModal?.setAttribute('link', link || '');
-
-        document.body.insertAdjacentElement('beforeend', $detailModal);
+        this.setDetailModalProps(restaurantId);
+        $detailModal.toggle();
       },
-      onFavoriteButtonClick(restaurantId: string) {
+
+      onFavoriteButtonClick: (restaurantId: string) => {
         store.toggleFavoriteRestaurant(restaurantId);
-        return;
       },
     });
   }
@@ -145,8 +137,25 @@ class App extends HTMLElement {
         description,
         link,
       });
+      this.setRestaurantItemsProps(store.restaurants);
     };
     $addModal.setProps({ onAddButtonClick });
+  }
+
+  private setDetailModalProps(restaurantId: string) {
+    const $detailModal = this.querySelector('detail-modal') as DetailModal;
+
+    $detailModal.setProps({
+      restaurant: store.restaurants[restaurantId],
+      onRemoveButtonClick: () => {
+        store.removeRestaurant(restaurantId);
+        this.setRestaurantItemsProps(store.restaurants);
+      },
+      onCloseButtonClick: () => {},
+      onFavoriteButtonClick: () => {
+        store.toggleFavoriteRestaurant(restaurantId);
+      },
+    });
   }
 }
 
