@@ -110,6 +110,7 @@ export default class DetailModal extends Component {
           <p class="restaurant__description text-body">${description}</p>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
           <p class="restaurant__link text-body">${link}</p>
+          <div class ="button-container">
             ${buttonTemplate(
               { content: '삭제하기', type: 'button' },
               { className: 'button button--secondary text-caption delete-restaurant' }
@@ -118,6 +119,7 @@ export default class DetailModal extends Component {
               { content: '닫기', type: 'button' },
               { className: 'button button--primary text-caption close-modal' }
             )}
+          </div>
         </div>
       </div>
     `;
