@@ -2,54 +2,40 @@ import './tabs.css';
 import { TabType } from '../types/type';
 import { store } from '../store';
 
-export default class Tabs {
-  $tab = document.createElement('div');
+export default function Tabs(renderListArticle: (currentTab: TabType) => void) {
+  const $tab = document.createElement('div');
+  $tab.className = 'tab-container';
 
-  constructor(
-    $root: HTMLElement,
-    renderListArticle: (currentTab: TabType) => void
-  ) {
-    this.$tab.className = 'tab-container';
+  const template = `
+      <button class="tab-button text-body selected" data-category="all">
+        모든 음식점
+      </button>
+      <button class="tab-button text-body" data-category="favorite">
+        자주가는 음식점
+      </button>
+    `;
 
-    this.render();
+  $tab.insertAdjacentHTML('beforeend', template);
 
-    this.$tab.addEventListener('click', (event) => {
-      if (!(event.target instanceof HTMLButtonElement)) return;
-      const { dataset } = event.target;
-      const { category } = dataset;
+  $tab.addEventListener('click', (event) => {
+    if (!(event.target instanceof HTMLButtonElement)) return;
+    const { dataset } = event.target;
+    const { category } = dataset;
 
-      if (category !== 'all' && category !== 'favorite') return;
+    if (category !== 'all' && category !== 'favorite') return;
 
-      const $buttons = this.$tab.querySelectorAll('button');
-      $buttons.forEach(($button) => {
-        $button.classList.remove('selected');
+    const $buttons = $tab.querySelectorAll('button');
+    $buttons.forEach(($button) => {
+      $button.classList.remove('selected');
 
-        if (category === $button.dataset.category)
-          $button.classList.add('selected');
-      });
-
-      store.currentTab = category;
-
-      renderListArticle(store.currentTab);
+      if (category === $button.dataset.category)
+        $button.classList.add('selected');
     });
 
-    $root.insertAdjacentElement('afterbegin', this.$tab);
-  }
+    store.currentTab = category;
 
-  render() {
-    this.$tab.innerHTML = '';
-    this.$tab.insertAdjacentHTML('beforeend', this.template());
-  }
+    renderListArticle(store.currentTab);
+  });
 
-  template() {
-    return `
-    <button class="tab-button text-body selected" data-category="all">
-      모든 음식점
-    </button>
-    <button class="tab-button text-body" data-category="favorite">
-      자주가는 음식점
-    </button>
-    
-    `;
-  }
+  return $tab;
 }
