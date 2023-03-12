@@ -1,3 +1,4 @@
+import RestaurantList from "../components/RestaurantList";
 import { Restaurant } from "../type/restaurant";
 
 const sortByName = (list: Restaurant[]) => {
@@ -19,21 +20,24 @@ export const sortRestaurant = (attribute: string, list: Restaurant[]) => {
   if (attribute === "distance") return sortByDistance(list);
 };
 
-const sortNodeByName = (list: any) => {
-  return list?.sort((a: any, b: any) => {
+const sortNodeByName = (list: RestaurantList[]) => {
+  return list?.sort((a: RestaurantList, b: RestaurantList) => {
     if (a.element.name <= b.element.name) return -1;
     return 1;
   });
 };
 
-const sortNodeByDistance = (list: any) => {
-  return list.sort((a: any, b: any) => {
+const sortNodeByDistance = (list: RestaurantList[]) => {
+  return list.sort((a: RestaurantList, b: RestaurantList) => {
     if (Number(a.element.distance) <= Number(b.element.distance)) return -1;
     return 1;
   });
 };
 
-export const sortRestaurantNode = (attribute: string, list: any) => {
+export const sortRestaurantNode = (
+  attribute: string,
+  list: RestaurantList[]
+) => {
   if (attribute === "name") return sortNodeByName(list);
   if (attribute === "distance") return sortNodeByDistance(list);
 };

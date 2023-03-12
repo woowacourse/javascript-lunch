@@ -25,7 +25,7 @@ import Category from "./components/Category";
 
 const newRestaurant = new Restaurants();
 const addButton = $(".gnb__button");
-const save = LocalStorage.setItem(localStorage.length);
+const save = LocalStorage.setItem(localStorage.length+1);
 let currentCategory = "all";
 addButton.querySelector("img").src = addButtonImg;
 

@@ -1,14 +1,15 @@
+import RestaurantList from "../components/RestaurantList";
 import { Restaurant } from "../type/restaurant";
 
 class Restaurants {
   #list: Restaurant[] = [];
-  #nodeList: Element[] = [];
+  #nodeList: RestaurantList[] = [];
 
   add(restaurant: Restaurant) {
     this.#list.push(restaurant);
   }
 
-  addNode(node: any) {
+  addNode(node: RestaurantList) {
     this.#nodeList?.push(node);
   }
 

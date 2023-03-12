@@ -1,19 +1,20 @@
 import "../../css/style.css";
 import Elements from "../Element";
+import { Restaurant } from "../type/restaurant";
 import { $ } from "../util/querySelector";
 import Modal from "./Modal";
 
 class RestaurantList {
   img: string;
   currentIndex: number;
-  element: any;
+  element: Restaurant;
   starImage: string;
   starEmpty: string;
   isFavorate: boolean;
   isDeleted: boolean;
 
   constructor(
-    element: any,
+    element: Restaurant,
     img: string,
     index: number,
     starImage: string,

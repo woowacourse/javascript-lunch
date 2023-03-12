@@ -1,3 +1,4 @@
+import RestaurantList from "../components/RestaurantList";
 import { Category, Restaurant } from "../type/restaurant";
 
 const Filter = {
@@ -9,11 +10,12 @@ const Filter = {
     );
   },
 
-  byNodeCategory(targetCategory: Category, restaurantList: any) {
+  byNodeCategory(targetCategory: Category, restaurantList: RestaurantList[]) {
     if (targetCategory === "전체") return restaurantList;
 
     return restaurantList?.filter(
-      (restaurant: any) => restaurant.element.category === targetCategory
+      (restaurant: RestaurantList) =>
+        restaurant.element.category === targetCategory
     );
   },
 };
