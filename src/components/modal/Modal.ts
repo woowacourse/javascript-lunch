@@ -1,7 +1,7 @@
-import RButton from '../shared/RButton';
-import RComponent from '../RComponent';
+import CustomElement from '../CustomElement';
+import RButton from '../shared/Button';
 
-class RModal extends RComponent {
+class Modal extends CustomElement {
   static get observedAttributes() {
     return ['open'];
   }
@@ -85,6 +85,6 @@ class RModal extends RComponent {
   }
 }
 
-customElements.define('r-modal', RModal);
+customElements.define('r-modal', Modal);
 
-export default RModal;
+export default Modal;

@@ -1,16 +1,16 @@
-import RFormControl from '../RFormControl';
+import CustomFormElement from '../CustomFormElement';
 
-interface RSelectOption {
+interface SelectOption {
   value: number | string | boolean;
   label: string;
 }
 
-class RSelect extends RFormControl {
-  #options: RSelectOption[] = [];
+class Select extends CustomFormElement {
+  #options: SelectOption[] = [];
 
-  #selectedOption: RSelectOption | null = null;
+  #selectedOption: SelectOption | null = null;
 
-  setOptions(options: RSelectOption[]) {
+  setOptions(options: SelectOption[]) {
     this.#options = options;
     this.#selectedOption = null;
 
@@ -25,7 +25,7 @@ class RSelect extends RFormControl {
     return this.#selectedOption;
   }
 
-  setSelectedOption(selectedOption: RSelectOption) {
+  setSelectedOption(selectedOption: SelectOption) {
     this.#selectedOption = selectedOption;
     this.internals.setFormValue(String(selectedOption.value));
     this.dispatchEvent(new CustomEvent('change'));
@@ -75,6 +75,6 @@ class RSelect extends RFormControl {
   }
 }
 
-customElements.define('r-select', RSelect);
+customElements.define('r-select', Select);
 
-export default RSelect;
+export default Select;

@@ -1,6 +1,6 @@
-import RFormControl from '../RFormControl';
+import CustomFormElement from '../CustomFormElement';
 
-class RTextarea extends RFormControl {
+class Textarea extends CustomFormElement {
   renderTemplate(): string {
     return `
       <style>
@@ -37,6 +37,6 @@ class RTextarea extends RFormControl {
   }
 }
 
-customElements.define('r-textarea', RTextarea);
+customElements.define('r-textarea', Textarea);
 
-export default RTextarea;
+export default Textarea;

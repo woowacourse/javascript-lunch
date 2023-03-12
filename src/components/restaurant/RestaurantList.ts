@@ -1,7 +1,7 @@
 import Restaurant from '../../domain/Restaurant';
-import RComponent from '../RComponent';
+import CustomElement from '../CustomElement';
 
-class RRestaurantList extends RComponent {
+class RestaurantList extends CustomElement {
   #restaurants: Restaurant[] = [];
 
   setRestaurants(restaurants: Restaurant[]) {
@@ -31,6 +31,6 @@ class RRestaurantList extends RComponent {
   }
 }
 
-customElements.define('r-restaurant-list', RRestaurantList);
+customElements.define('r-restaurant-list', RestaurantList);
 
-export default RRestaurantList;
+export default RestaurantList;

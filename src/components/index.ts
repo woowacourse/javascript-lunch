@@ -1,8 +1,8 @@
-import './shared/RButton';
-import './shared/RFormItem';
-import './shared/RInput';
-import './modal/RModal';
-import './restaurant/RRestaurant';
-import './restaurant/RRestaurantList';
-import './shared/RSelect';
-import './shared/RTextarea';
+import './restaurant/Restaurant';
+import './restaurant/RestaurantList';
+import './modal/Modal';
+import './shared/Button';
+import './shared/FormItem';
+import './shared/Input';
+import './shared/Select';
+import './shared/Textarea';
