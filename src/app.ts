@@ -131,6 +131,17 @@ class App {
     document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
     document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
     document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
+
+    window.addEventListener('load', () => {
+      const $main = document.querySelector<HTMLElement>('main');
+
+      if (!$main) return;
+
+      $main.insertAdjacentHTML(
+        'beforebegin',
+        `<r-search-restaurant-section></r-search-restaurant-section>`,
+      );
+    });
   }
 }
 
