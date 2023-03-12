@@ -1,8 +1,8 @@
-import { Restaurant } from '../types';
+import initialRestaurants from './initialRestaurants';
 
 import deepCopy from '../utils/deepCopy';
 
-import initialRestaurants from '../constants/initialRestaurants';
+import { Restaurant } from '../types';
 
 export default class Restaurants {
   #restaurants: Restaurant[];
