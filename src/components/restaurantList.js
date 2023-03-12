@@ -58,7 +58,7 @@ class RestaurantList {
 								캠퍼스부터 ${distance}분 내
 							</span>
 						</div>
-						<div class="favorite-icon-container">
+						<div class="favorite-icon-container" id="favorite-icon-list">
 							<img
 								src="./favorite-icon-lined.png"
 								alt="즐겨찾기"
