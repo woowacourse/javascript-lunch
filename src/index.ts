@@ -13,6 +13,7 @@ async function waitForCustomElementsDefined() {
 }
 
 waitForCustomElementsDefined().then(() => {
+  console.log('Starting App...');
   const app = new App();
   app.init();
 });
