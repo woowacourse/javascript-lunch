@@ -2,9 +2,9 @@ import { RestaurantForm } from "./global/types";
 import { CATEGORY_NAME } from "./constants";
 
 class Store {
-  static restaurantItemList: RestaurantForm[] = [];
-  static favoriteItemList: RestaurantForm[] = [];
-  static filteredItemList: RestaurantForm[] = [];
+  private static restaurantItemList: RestaurantForm[] = [];
+  private static favoriteItemList: RestaurantForm[] = [];
+  private static filteredItemList: RestaurantForm[] = [];
 
   static setRestaurantList(inputList: RestaurantForm[]) {
     this.restaurantItemList = [...this.restaurantItemList, ...inputList];
@@ -23,9 +23,7 @@ class Store {
   }
 
   static getFavoriteList() {
-    return this.restaurantItemList.filter(
-      (restaurant) => restaurant.favorite === true
-    );
+    return this.restaurantItemList.filter(({ favorite }) => favorite);
   }
 
   static getFilteredList() {
