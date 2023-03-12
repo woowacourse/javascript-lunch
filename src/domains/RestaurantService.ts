@@ -30,6 +30,10 @@ class RestaurantService {
   }
 
   add(restaurant: Restaurant) {
+    const restaurantNames = this.getRestaurantNames();
+
+    if (restaurantNames.includes(restaurant.name)) return;
+
     restaurant.favoriteImageUrl = FAVORITE_ICON_IMAGE.LINED; // 즐겨찾기 아이콘 기본 경로 설정
     localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
   }
