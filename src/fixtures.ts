@@ -43,5 +43,5 @@ export const DEFAULT_RESTAURANTS = [
   },
 ].map(
   (partialRestaurantProps) => (id: RestaurantProps['id']) =>
-    new Restaurant({ id, ...partialRestaurantProps }),
+    new Restaurant({ id, referenceUrl: null, ...partialRestaurantProps }),
 );
