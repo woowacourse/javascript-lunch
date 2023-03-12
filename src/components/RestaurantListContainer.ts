@@ -1,14 +1,15 @@
 import { Category, Order, Tab } from '@res/constants/enum';
 import Component from '@res/core/Component';
 import { eventBus } from '@res/core/eventBus';
-import { ImageByCategory, FavoriteImage, toggleFavoriteIcon } from '@res/images/imageByCategory';
+import { toggleFavoriteIcon } from '@res/images/imageByCategory';
 import IFilterOption from '@res/interfaces/IFilterOption';
 import IRenderOptions from '@res/interfaces/IRenderOptions';
 import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { all$, $, newState, on } from '@res/utils/domUtils';
+import listTemplate from './templates/restaurantListTemplate';
 
-class ListContainer extends Component {
+class RestaurantListContainer extends Component {
   #state: {
     renderOptions: IRenderOptions;
   };
@@ -114,53 +115,9 @@ class ListContainer extends Component {
 
   template(restaurantList: IRestaurant[]): string {
     return `<ul class="restaurant-list">
-      ${this.listTemplate([...restaurantList])}
+      ${listTemplate([...restaurantList])}
     </ul>`;
-  }
-
-  listTemplate(restaurantList: IRestaurant[]): string {
-    return restaurantList.map(this.handleCreateList.bind(this)).join('');
-  }
-
-  handleCreateList({ id, category, name, distance, description, favorite }: IRestaurant) {
-    // FIXME: component 만들기 img (음식 사진, 즐겨찾기 )
-    return `
-    <li data-id = ${id} class="restaurant">
-      <div class="restaurant__category">
-        ${this.categoryImageTemplate(category)}
-      </div>
-      <div class="restaurant__info">
-        ${this.titleTemplate(name)}
-        ${Number(distance) !== 0 ? this.distanceTemplate(distance) : ''}
-        ${this.descriptionTemplate(description)}
-      </div>
-      <div class="restaurant__favorite"> 
-        ${this.favoriteImageTemplate(favorite)}
-      </div>
-    </li>`;
-  }
-
-  favoriteImageTemplate(favorite: boolean) {
-    return `<img src=${
-      favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff
-    } alt='즐겨찾기' class="favorite-icon ${favorite ? 'favorite' : ''}"/>`;
-  }
-
-  categoryImageTemplate(category: string): string {
-    return `<img src=${ImageByCategory[category]} alt=${category} class="category-icon"/>`;
-  }
-
-  titleTemplate(name: string): string {
-    return `<h3 class="restaurant__name text-subtitle">${name}</h3>`;
-  }
-
-  distanceTemplate(distance: string): string {
-    return `<span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>`;
-  }
-
-  descriptionTemplate(description: string): string {
-    return `<p class="restaurant__description text-body">${description}</p>`;
   }
 }
 
-export default ListContainer;
+export default RestaurantListContainer;

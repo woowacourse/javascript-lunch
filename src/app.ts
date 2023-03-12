@@ -1,5 +1,5 @@
 import FilterBar from './components/FilterBar';
-import ListContainer from './components/ListContainer';
+import RestaurantListContainer from './components/RestaurantListContainer';
 import AddModalContainer from './components/AddModalContainer';
 import TopNavBar from './components/TopNavBar';
 import Component from './core/Component';
@@ -17,7 +17,7 @@ class App extends Component {
 
     this.component = {
       topNavBar: new TopNavBar($('.gnb')),
-      listContainer: new ListContainer($('.restaurant-list-container')),
+      RestaurantListContainer: new RestaurantListContainer($('.restaurant-list-container')),
       filterBar: new FilterBar($('.restaurant-filter-container')),
       addModalContainer: new AddModalContainer($('.restaurant-add-modal-container')),
       menuTabBar: new MenuTabBar($('.menu-tab-bar')),
