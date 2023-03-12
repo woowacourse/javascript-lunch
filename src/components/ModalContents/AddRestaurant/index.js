@@ -28,7 +28,9 @@ class AddRestaurant extends HTMLElement {
           options="5,10,15,20,30">
           </select-list>
           <text-input name ="설명" id="description"></text-input>
+          <span class="help-caption text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
           <text-input name ="링크" id="link"></text-input>
+          <span class="help-caption text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
           </div>
           <div class="button-container">
             <lunch-button type="click" name="취소하기" id="closeModal" color="white"></lunch-button>

@@ -17,10 +17,6 @@
   background: var(--grey-100);
 }
 
-.modal-title {
-  margin-bottom: 36px;
-}
-
 .modal-container form {
   height: 85%;
 }
@@ -32,4 +28,10 @@
 
 .overflow::-webkit-scrollbar {
   display: none;
+}
+
+.help-caption {
+  display: block;
+  color: #667085;
+  margin-bottom: 24px;
 }
