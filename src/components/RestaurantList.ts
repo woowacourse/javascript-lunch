@@ -1,5 +1,4 @@
 import { IMethods } from '../App';
-import { Restaurant } from '../domain/Restaurant';
 import { store } from '../store';
 import RestaurantItem from './RestaurantItem';
 
@@ -48,9 +47,5 @@ export default class RestaurantList {
       'beforeend',
       this.$restaurantListSection
     );
-  };
-
-  setState = (state: IRestaurantList) => {
-    this.state = { ...this.state, ...state };
   };
 }

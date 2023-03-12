@@ -16,12 +16,12 @@ export const closeModal = () => {
   $modal.classList.remove('modal--open');
 };
 
-export const appendModal = ($content: HTMLElement) => {
+export const clearedModalContainer = () => {
   const $modalContainer = document.querySelector('.modal-container');
 
-  if (!$modalContainer) return;
+  if ($modalContainer === null) return;
 
   $modalContainer.innerHTML = '';
 
-  $modalContainer.insertAdjacentElement('beforeend', $content);
+  return $modalContainer;
 };

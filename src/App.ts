@@ -1,58 +1,67 @@
 import Filters from './components/Filters';
 import Header from './components/Header';
+import RestaurantForm from './components/RestaurantForm';
 import RestaurantList from './components/RestaurantList';
 import Tabs from './components/Tabs';
-import { IRestaurant } from './domain/Restaurant';
+import { clearedModalContainer, showModal } from './modal';
 import { store } from './store';
 
-interface IAppState {
-  filters: Filters;
-  restaurantList: RestaurantList;
-}
-
 export interface IMethods {
-  renderListArticle: () => void;
+  renderListArticle: ($targetElement: HTMLElement) => void;
 }
 
 export default class App {
-  $listArticle = document.createElement('article');
-  state: IAppState;
+  $listArticle = document.querySelector('#list-article') as HTMLElement;
+  header: Header;
+  tabs: Tabs;
+  restaurantForm: RestaurantForm;
+  filters: Filters;
+  restaurantList: RestaurantList;
 
-  constructor($app: HTMLDivElement) {
-    const $main = document.createElement('main');
-
-    $app.appendChild(Header(this.renderListArticle.bind(this)));
-    $app.appendChild($main);
-    $main.appendChild(Tabs(this.renderListArticle.bind(this)));
-    $main.appendChild(this.$listArticle);
-    store.currentList = store.restaurantService.getRestaurantsInfo();
-
-    const filters = new Filters(
+  constructor() {
+    this.header = new Header();
+    this.tabs = new Tabs();
+    this.restaurantForm = new RestaurantForm(this.renderListArticle.bind(this));
+    this.filters = new Filters(
       this.$listArticle,
       this.renderAllList.bind(this)
     );
-    const restaurantList = new RestaurantList(this.$listArticle, {
+    this.restaurantList = new RestaurantList(this.$listArticle, {
       renderListArticle: this.renderListArticle.bind(this),
     });
 
-    this.state = {
-      filters,
-      restaurantList,
-    };
+    store.currentList = store.restaurantService.getRestaurantsInfo();
 
-    this.renderListArticle();
+    this.renderListArticle(this.$listArticle);
+    this.initialAddEventListener();
   }
 
-  renderListArticle() {
-    this.$listArticle.innerHTML = '';
+  initialAddEventListener() {
+    this.header.addHeaderEventListener(this.headerButtonHandler);
+    this.tabs.addTabEventListener(this.renderListArticle.bind(this));
+  }
+
+  headerButtonHandler(event: MouseEvent) {
+    const { currentTarget } = event;
+    if (!(currentTarget instanceof HTMLButtonElement)) return;
+
+    const $container = clearedModalContainer();
+    if (!$container || !($container instanceof HTMLElement)) return;
+
+    showModal();
+    this.restaurantForm.render($container);
+  }
+
+  renderListArticle($targetElement: HTMLElement) {
+    $targetElement.innerHTML = '';
     const { currentTab } = store;
 
     switch (currentTab) {
       case 'all':
-        this.renderAllList(this.$listArticle);
+        this.renderAllList($targetElement);
         break;
       case 'favorite':
-        this.renderFavoriteList(this.$listArticle);
+        this.renderFavoriteList($targetElement);
         break;
       default:
         return;
@@ -60,7 +69,7 @@ export default class App {
   }
 
   renderAllList($targetElement: HTMLElement) {
-    const { filters, restaurantList } = this.state;
+    const { filters, restaurantList } = this;
     const { currentCategory, currentFilter } = store;
 
     const filteredAndSortedList =
@@ -71,13 +80,13 @@ export default class App {
     store.currentList = filteredAndSortedList;
 
     filters.render($targetElement);
-    restaurantList.render($targetElement);
+    restaurantList.render($targetElement); // 이 filter와 render를 참조해야 하는데 이게 쉽지 않음;;
   }
 
   renderFavoriteList($targetElement: HTMLElement) {
     const favoriteNameSorted = store.getFavoriteList();
     store.currentList = favoriteNameSorted;
 
-    this.state.restaurantList.render($targetElement);
+    this.restaurantList.render($targetElement);
   }
 }

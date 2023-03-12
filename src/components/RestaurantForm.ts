@@ -6,30 +6,45 @@ import { CategoryOptions, DistanceTime } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
 import { store } from '../store';
 
-export default function RestaurantForm(renderListArticle: () => void) {
-  const $formContainer = document.createElement('div');
-  const $form = document.createElement('form');
+export default class RestaurantForm {
+  $formContainer = document.createElement('div');
 
-  const handleFormCancel = () => {
+  constructor(renderListArticle: ($ele: HTMLElement) => void) {
+    this.$formContainer.addEventListener('click', (e) => {
+      if (!(e.target instanceof HTMLElement)) return;
+      const { type } = e.target.dataset;
+
+      if (type === 'submit') this.handleFormSubmit(e, renderListArticle);
+      if (type === 'cancel') this.handleFormCancel();
+    });
+  }
+
+  handleFormCancel = () => {
     closeModal();
   };
 
-  const handleFormSubmit = (event: Event) => {
+  handleFormSubmit = (
+    event: Event,
+    renderListArticle: ($ele: HTMLElement) => void
+  ) => {
     event.preventDefault();
-    const { target } = event;
+    const { target, currentTarget } = event;
 
     if (!target) return null;
+    if (!(currentTarget instanceof HTMLElement)) return;
+    const $form = currentTarget.querySelector('form') as HTMLFormElement;
 
-    const restaurantInfo = getFormDatas();
+    const restaurantInfo = this.getFormDatas($form);
 
     store.addRestaurantInfo(restaurantInfo);
-    renderListArticle();
+    renderListArticle(store.$listArticle as HTMLElement);
 
     $form.reset();
+
     closeModal();
   };
 
-  const getFormDatas = (): IRestaurant => {
+  getFormDatas = ($form: HTMLFormElement): IRestaurant => {
     const category = $form.querySelector<HTMLSelectElement>('#category');
     const name = $form.querySelector<HTMLInputElement>('#name');
     const distance = $form.querySelector<HTMLSelectElement>('#distance');
@@ -48,19 +63,19 @@ export default function RestaurantForm(renderListArticle: () => void) {
     };
   };
 
-  $formContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
-  $form.innerHTML = RestaurantFormTemplate();
-  $formContainer.appendChild($form);
+  template() {
+    return `
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+      <form>  
+        ${RestaurantFormTemplate()}
+      </form>
+    `;
+  }
 
-  $formContainer.addEventListener('click', (e) => {
-    if (!(e.target instanceof HTMLElement)) return;
-    const { type } = e.target.dataset;
-
-    if (type === 'submit') handleFormSubmit(e);
-    if (type === 'cancel') handleFormCancel();
-  });
-
-  return $formContainer;
+  render($targetElement: HTMLElement) {
+    this.$formContainer.innerHTML = this.template();
+    $targetElement.insertAdjacentElement('beforeend', this.$formContainer);
+  }
 }
 
 function RestaurantFormTemplate() {
