@@ -14,3 +14,17 @@ export const SELECT_DISTANCE = [
   { value: '20', text: '20분 내' },
   { value: '30', text: '30분 내' },
 ];
+
+export const CATEGORY_IMAGE_PATH = {
+  한식: './category-korean.png',
+  중식: './category-chinese.png',
+  일식: './category-japanese.png',
+  양식: './category-western.png',
+  아시안: './category-asian.png',
+  기타: './category-etc.png',
+};
+
+export const FAVORITE_ICON_PATH = {
+  LINED: './favorite-icon-lined.png',
+  FILLED: './favorite-icon-filled.png',
+};
