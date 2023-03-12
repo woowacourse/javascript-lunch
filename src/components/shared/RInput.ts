@@ -1,4 +1,4 @@
-import RFormControl from './RFormControl';
+import RFormControl from '../RFormControl';
 
 class RInput extends RFormControl {
   override renderTemplate(): string {

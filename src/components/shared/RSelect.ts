@@ -1,4 +1,4 @@
-import RFormControl from './RFormControl';
+import RFormControl from '../RFormControl';
 
 interface RSelectOption {
   value: number | string | boolean;

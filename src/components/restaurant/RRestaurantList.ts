@@ -1,5 +1,5 @@
-import Restaurant from '../domain/Restaurant';
-import RComponent from './RComponent';
+import Restaurant from '../../domain/Restaurant';
+import RComponent from '../RComponent';
 
 class RRestaurantList extends RComponent {
   #restaurants: Restaurant[] = [];
