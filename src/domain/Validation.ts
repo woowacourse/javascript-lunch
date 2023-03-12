@@ -18,7 +18,7 @@ const Validation = {
   },
 
   validateRestaurantCategory: (category: string) => {
-    if (category === '') throw new Error(ERROR_MESSAGE.restaurantCategory);
+    if (!category.length) throw new Error(ERROR_MESSAGE.restaurantCategory);
   },
 
   validateRestaurantDistanceByMinutes: (distanceByMinutes: number) => {

@@ -109,7 +109,7 @@ class App {
 
     const restaurants: Restaurant[] = getRestaurants();
 
-    if (restaurants.length !== 0) {
+    if (!!restaurants.length) {
       this.#restaurants = restaurants.map((restaurant: Restaurant) =>
         Object.setPrototypeOf(restaurant, Restaurant.prototype),
       );

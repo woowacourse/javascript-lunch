@@ -118,6 +118,12 @@
 
 - [x] feat: 성공, 실패 메시지 띄우기
 
+### 코드 리뷰 후 리팩터링
+
+- [x] refactor: 불리언 값 활용
+- [ ] refactor: Array.prototype.find() 메서드 활용
+- [ ] refactor: 상수화 추가하기
+
 # 페어프로그래밍 회고
 
 ## 📆 2023-02-28
