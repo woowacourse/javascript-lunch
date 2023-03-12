@@ -3,7 +3,7 @@ import {
   Restaurant,
   RestaurantInfo,
 } from '../../domain/model/LunchRecommendation';
-import { $, getClosest } from '../../utils/common/domHelper';
+import { getClosest } from '../../utils/common/domHelper';
 import { useEvents } from '../../utils/core';
 import { Restaurant as RestaurantItem } from './Restaurant';
 
@@ -19,9 +19,9 @@ function Restaurants({ restaurants, handleFavoriteBtn, onClick }: RestaurantProp
   addEvent('click', '.restaurant', (e) => {
     const restaurantId = getClosest(e.target, '.restaurant')?.dataset.id;
 
-    if (!restaurantId) return;
+    if (!restaurantId || !(e.target instanceof Element)) return;
 
-    e.target === $('.favorite-icon', $('.restaurant'))
+    e.target.className === 'favorite-icon'
       ? handleFavoriteBtn(Number(restaurantId))
       : onClick(lunchRecommendation.getRestaurant(Number(restaurantId)));
   });
