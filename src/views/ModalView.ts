@@ -38,7 +38,7 @@ class ModalView {
       const formData: FormData = new FormData(this.restaurantAddForm);
       const restaurant = Object.fromEntries(
         [...formData].map(([key, value]) => {
-          if (key === 'distace') return [key, Number(value)];
+          if (key === 'distance') return [key, Number(value)];
           if (key === 'favorite') return [key, Boolean(value)];
           return [key, String(value)];
         }),
