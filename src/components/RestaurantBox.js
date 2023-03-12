@@ -31,7 +31,7 @@ class RestaurantBox extends HTMLElement {
     const DESCRIPTION_SLICE_NUMBER = 30;
 
     this.shadowRoot.innerHTML = `
-    <li>
+    <li >
       <category-image category=${category}></category-image>
       <div class="info">
         <div class="item-wrapper">
@@ -125,6 +125,7 @@ class RestaurantBox extends HTMLElement {
 
   update(restaurant) {
     this.attachShadow({ mode: 'open' });
+    this.setAttribute('id', restaurant.name);
     this.render(restaurant);
     this.setComponentStyle();
     this.showDetailEvent(restaurant);

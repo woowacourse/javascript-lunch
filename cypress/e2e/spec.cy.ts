@@ -81,5 +81,46 @@ describe('점심 뭐 먹지 사이트 전체 테스트', () => {
       .shadow()
       .contains('30')
       .should('have.text', '캠퍼스부터 30분 내');
+
+    // 즐겨찾기 추가
+
+    //when
+    cy.get('restaurant-boxes')
+      .shadow()
+      .find('#중화반점')
+      .shadow()
+      .find('favorite-image')
+      .click();
+
+    //then
+    cy.get('#favoriteTab').click();
+
+    cy.get('restaurant-boxes')
+      .shadow()
+      .find('restaurant-box')
+      .shadow()
+      .contains('중화반점')
+      .should('have.text', '중화반점');
+
+    cy.get('restaurant-boxes')
+      .shadow()
+      .find('restaurant-box')
+      .shadow()
+      .contains('30')
+      .should('have.text', '캠퍼스부터 30분 내');
+
+    // 즐겨찾기 해제
+
+    cy.get('restaurant-boxes')
+      .shadow()
+      .find('#중화반점')
+      .shadow()
+      .find('favorite-image')
+      .click();
+
+    cy.get('restaurant-boxes')
+      .shadow()
+      .find('div')
+      .should('have.text', '음식점 목록이 비었습니다');
   });
 });
