@@ -153,6 +153,10 @@ body {
   height: 36px;
 }
 
+.list-info-wrapper {
+  display: flex;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
@@ -415,6 +419,8 @@ input[name="link"] {
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
+
+  word-break: break-all;
 }
 
 .info__link {
