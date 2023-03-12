@@ -25,30 +25,32 @@
     <r-restaurant-list id="restaurant-list"></r-restaurant-list>
 
     <r-modal>
-      <r-form-item label="카테고리">
-        <r-select></r-select>
-      </r-form-item>
+      <form id="modal-form">
+        <r-form-item label="카테고리">
+          <r-select name="category" id="restaurant-modal-category" required></r-select>
+        </r-form-item>
 
-      <r-form-item label="이름">
-        <r-input></r-input>
-      </r-form-item>
+        <r-form-item label="이름">
+          <r-input name="name" required></r-input>
+        </r-form-item>
 
-      <r-form-item label="거리(도보 이동 시간)">
-        <r-select></r-select>
-      </r-form-item>
+        <r-form-item label="거리(도보 이동 시간)">
+          <r-select name="distanceByMinutes" id="restaurant-modal-distance" required></r-select>
+        </r-form-item>
 
-      <r-form-item label="설명" helper-text="메뉴 등 추가 정보를 입력해 주세요.">
-        <r-textarea></r-textarea>
-      </r-form-item>
+        <r-form-item label="설명" helper-text="메뉴 등 추가 정보를 입력해 주세요.">
+          <r-textarea name="description"></r-textarea>
+        </r-form-item>
 
-      <r-form-item label="참고 링크" helper-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요.">
-        <r-input></r-input>
-      </r-form-item>
+        <r-form-item label="참고 링크" helper-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요.">
+          <r-input name="referenceUrl"></r-input>
+        </r-form-item>
 
-      <div class="button-container">
-        <r-button variant="secondary">취소하기</r-button>
-        <r-button variant="primary">추가하기</r-button>
-      </div>
+        <div class="button-container">
+          <r-button action="cancel" variant="secondary">취소하기</r-button>
+          <r-button type="submit" variant="primary">추가하기</r-button>
+        </div>
+      </form>
     </r-modal>
   </main>
 </body>
