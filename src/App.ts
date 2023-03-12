@@ -7,6 +7,8 @@ import {
   addRestaurantRemoveButtonClickEventHandler,
   openRestaurantDetailModal,
   renderRestaurantDetailModal,
+  addRestaurantDetailModalBackdropClickEventHandler,
+  addRestaurantDetailModalCloseButtonClickEventHandler,
 } from './components/RestaurantDetailModal';
 import { TAB_ID, TAB_TITLE } from './constants/constants';
 import { addTabClickEventHandler, renderTabItem } from './components/TabItem';
@@ -36,6 +38,8 @@ export class App {
     addTabClickEventHandler(this.onChangeTab);
     addRestaurantListClickEventHandler(this.onClickRestaurantList);
     addFavoriteButtonClickEventHandler(this.onClickFavoriteButton);
+    addRestaurantDetailModalCloseButtonClickEventHandler(); //
+    addRestaurantDetailModalBackdropClickEventHandler(); //
     addRestaurantRemoveButtonClickEventHandler(this.onClickRestaurantRemoveButton);
   }
 

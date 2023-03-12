@@ -39,13 +39,6 @@ export const renderRestaurantDetailModal = (restaurant: Restaurant) => {
 
   modal.innerHTML = '';
   modal.insertAdjacentHTML('beforeend', restaurantDetailModalTemplate);
-
-  addRestaurantDetailModalEventHandlers();
-};
-
-export const addRestaurantDetailModalEventHandlers = () => {
-  addRestaurantDetailModalCloseButtonClickEventHandler();
-  addRestaurantDetailModalBackdropClickEventHandler();
 };
 
 export const addRestaurantDetailModalCloseButtonClickEventHandler = () => {
