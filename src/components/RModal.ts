@@ -64,7 +64,7 @@ class RModal extends RComponent {
   render(): void {
     super.render();
 
-    this.shadowRoot?.querySelector<HTMLFormElement>('form')?.addEventListener('click', (event) => {
+    this.shadowRoot?.querySelector<HTMLDivElement>('.modal')?.addEventListener('click', (event) => {
       if (!(event.target instanceof RButton)) {
         return;
       }
