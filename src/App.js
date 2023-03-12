@@ -54,7 +54,13 @@ class App {
       {
         selectors: '#form-modal form',
         event: 'submit',
-        actions: [this.submitForm, this.toggleFormModal, this.initModel, this.renderList],
+        actions: [
+          this.submitForm,
+          this.initForm,
+          this.toggleFormModal,
+          this.initModel,
+          this.renderList,
+        ],
       },
       {
         selectors: '#category-filter',
@@ -144,6 +150,10 @@ class App {
     };
 
     this.#storage.setValue([...this.#storage.getValue(), restaurant]);
+  };
+
+  initForm = () => {
+    $('#form-modal .modal-container').innerHTML = form();
   };
 
   renderList = () => {
