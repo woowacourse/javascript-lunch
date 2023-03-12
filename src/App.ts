@@ -25,21 +25,15 @@ export default class App {
     $app.appendChild($main);
     $main.appendChild(Tabs(this.renderListArticle.bind(this)));
     $main.appendChild(this.$listArticle);
-
-    const initialResutaurantInfos =
-      store.restaurantService.getRestaurantsInfo();
+    store.currentList = store.restaurantService.getRestaurantsInfo();
 
     const filters = new Filters(
       this.$listArticle,
       this.renderAllList.bind(this)
     );
-    const restaurantList = new RestaurantList(
-      this.$listArticle,
-      initialResutaurantInfos,
-      {
-        renderListArticle: this.renderListArticle.bind(this),
-      }
-    );
+    const restaurantList = new RestaurantList(this.$listArticle, {
+      renderListArticle: this.renderListArticle.bind(this),
+    });
 
     this.state = {
       filters,
@@ -74,11 +68,7 @@ export default class App {
         currentCategory,
         currentFilter
       );
-
-    restaurantList.setState({
-      ...restaurantList.state,
-      restaurantList: filteredAndSortedList,
-    });
+    store.currentList = filteredAndSortedList;
 
     filters.render($targetElement);
     restaurantList.render($targetElement);
@@ -86,23 +76,8 @@ export default class App {
 
   renderFavoriteList($targetElement: HTMLElement) {
     const favoriteNameSorted = store.getFavoriteList();
+    store.currentList = favoriteNameSorted;
 
-    this.state.restaurantList.setState({
-      ...this.state.restaurantList.state,
-      restaurantList: favoriteNameSorted,
-    });
     this.state.restaurantList.render($targetElement);
-  }
-
-  addRestaurantInfo(restaurantInfo: IRestaurant) {
-    store.restaurantService.addRestaurant(restaurantInfo);
-
-    store.updateLocalStorage();
-  }
-
-  deleteRestaurantInfo(id: number) {
-    store.restaurantService.deleteRestaurant(id);
-
-    store.updateLocalStorage();
   }
 }

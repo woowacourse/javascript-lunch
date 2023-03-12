@@ -7,6 +7,7 @@ interface IStore {
   currentTab: TabType;
   currentCategory: CategoryOptions;
   currentFilter: FilterOptions;
+  currentList: Restaurant[];
   restaurantService: RestaurantService;
   getFavoriteList: () => Restaurant[];
   addRestaurantInfo: (restaurantInfo: IRestaurant) => void;
@@ -28,6 +29,7 @@ export const store: IStore = {
   currentTab: 'all',
   currentCategory: '전체',
   currentFilter: '이름순',
+  currentList: [],
   restaurantService: new RestaurantService(getInitialRestaurantList()),
 
   getFavoriteList() {
@@ -40,11 +42,15 @@ export const store: IStore = {
   addRestaurantInfo(restaurantInfo: IRestaurant) {
     store.restaurantService.addRestaurant(restaurantInfo);
 
+    this.currentList = this.restaurantService.getRestaurantsInfo();
+
     this.updateLocalStorage();
   },
 
   deleteRestaurantInfo(id: number) {
     store.restaurantService.deleteRestaurant(id);
+
+    this.currentList = this.restaurantService.getRestaurantsInfo();
 
     this.updateLocalStorage();
   },

@@ -1,9 +1,9 @@
 import { IMethods } from '../App';
 import { Restaurant } from '../domain/Restaurant';
+import { store } from '../store';
 import RestaurantItem from './RestaurantItem';
 
 interface IRestaurantList {
-  restaurantList: Restaurant[];
   methods: IMethods;
 }
 
@@ -13,15 +13,10 @@ export default class RestaurantList {
 
   state: IRestaurantList;
 
-  constructor(
-    $root: HTMLElement,
-    restaurantList: Restaurant[],
-    methods: IMethods
-  ) {
+  constructor($root: HTMLElement, methods: IMethods) {
     this.$restaurantListSection.className = 'restaurant-list-container';
     this.$ul.className = 'restaurant-list';
     this.state = {
-      restaurantList,
       methods,
     };
 
@@ -30,13 +25,13 @@ export default class RestaurantList {
 
   template() {
     this.$ul.innerHTML = '';
-    if (!this.state.restaurantList.length) {
+    if (!store.currentList.length) {
       this.$ul.innerHTML =
         '<p class="no-list-message text-body">조회 가능한 식당이 없습니다.</p>';
 
       return;
     }
-    for (const restaurant of this.state.restaurantList) {
+    for (const restaurant of store.currentList) {
       this.$ul.insertAdjacentElement(
         'beforeend',
         RestaurantItem(restaurant, this.state.methods)

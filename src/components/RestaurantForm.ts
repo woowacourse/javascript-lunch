@@ -23,6 +23,7 @@ export default function RestaurantForm(renderListArticle: () => void) {
     const restaurantInfo = getFormDatas();
 
     store.addRestaurantInfo(restaurantInfo);
+    renderListArticle();
 
     $form.reset();
     closeModal();
