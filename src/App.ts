@@ -17,6 +17,7 @@ import {
   renderRestaurantDetailModal,
   addRestaurantDetailModalBackdropClickEventHandler,
   addRestaurantDetailModalCloseButtonClickEventHandler,
+  addRestaurantDetailModalFavoriteButtonClickEventHandler,
 } from './components/RestaurantDetailModal';
 
 export class App {
@@ -53,6 +54,7 @@ export class App {
     addTabClickEventHandler(this.onChangeTab);
     addRestaurantListClickEventHandler(this.onClickRestaurantList);
     addFavoriteButtonClickEventHandler(this.onClickFavoriteButton);
+    addRestaurantDetailModalFavoriteButtonClickEventHandler(this.onClickFavoriteButton);
     addRestaurantDetailModalCloseButtonClickEventHandler();
     addRestaurantDetailModalBackdropClickEventHandler();
     addRestaurantRemoveButtonClickEventHandler(this.onClickRestaurantRemoveButton);
