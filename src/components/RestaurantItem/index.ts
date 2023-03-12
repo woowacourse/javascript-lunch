@@ -1,11 +1,9 @@
-import { Category } from '../../types';
 import $template from './index.html';
+import { Category } from '../../types';
 import { imgSrc } from '../../image';
-class RestaurantItem extends HTMLElement {
-  constructor() {
-    super();
-  }
+import { $ } from '../../utils/dom';
 
+class RestaurantItem extends HTMLElement {
   connectedCallback() {
     this.render();
   }
@@ -17,6 +15,13 @@ class RestaurantItem extends HTMLElement {
       .replace('{name}', this.getAttribute('name')!)
       .replace('{distance}', this.getAttribute('distance')!)
       .replace('{description}', this.getAttribute('description')!);
+
+    const favorite = this.getAttribute('favorite');
+    const $wrapper = $<HTMLDivElement>('.description__wrapper', this);
+    $wrapper?.insertAdjacentHTML(
+      'beforeend',
+      `<favorite-icon favorite=${favorite}></favorite-icon>`,
+    );
   }
 }
 

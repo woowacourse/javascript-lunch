@@ -2,16 +2,12 @@ import header from './index.html';
 import { $ } from '../../utils/dom';
 
 class Header extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     this.innerHTML = header;
   }
 
   addModalHandler(openModalButtonHandler: CallableFunction) {
-    const $button = $<HTMLButtonElement>('.gnb__button');
+    const $button = $<HTMLButtonElement>('.gnb__button', this);
     $button.addEventListener('click', () => {
       openModalButtonHandler();
     });
