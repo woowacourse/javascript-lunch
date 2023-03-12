@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
-import { CustomRegisterRestaurantModalElement, CustomRestaurantListElement } from './components';
+
+import { CustomRestaurantListElement } from './components';
 import { DEFAULT_RESTAURANTS } from './fixtures';
 import { FILTER, SORT } from './utils/constants';
+import render from './render';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
@@ -41,18 +43,6 @@ class App {
     localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
   }
 
-  load() {
-    const restaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') || '[]');
-
-    if (restaurants.length !== 0) {
-      this.#restaurants = restaurants.map((restaurant: Restaurant) =>
-        Object.setPrototypeOf(restaurant, Restaurant.prototype),
-      );
-    }
-
-    this.updateRestaurantsList();
-  }
-
   changeRestaurantFilter = ({ detail }: CustomEvent) => {
     if (detail.value === FILTER.value.entire) {
       const { filter, ...keys } = this.#filterPipes;
@@ -77,25 +67,6 @@ class App {
     this.updateRestaurantsList();
   };
 
-  openRegisterRestaurantModal = () => {
-    const $registerRestaurantModal = '<r-register-restaurant-modal></r-register-restaurant-modal>';
-    const $main = document.querySelector<HTMLElement>('main');
-
-    if (!$main) return;
-
-    $main.insertAdjacentHTML('beforeend', $registerRestaurantModal);
-  };
-
-  closeRegisterRestaurantModal = () => {
-    const $registerRestaurantModal = document.querySelector<CustomRegisterRestaurantModalElement>(
-      'r-register-restaurant-modal',
-    );
-
-    if (!$registerRestaurantModal) return;
-
-    $registerRestaurantModal.remove();
-  };
-
   addRestaurant = ({ detail }: CustomEvent) => {
     try {
       const restaurant = this.createRestaurant(detail);
@@ -106,7 +77,7 @@ class App {
       return;
     }
 
-    this.closeRegisterRestaurantModal();
+    render.closeRegisterRestaurantModal();
     this.updateRestaurantsList();
   };
 
@@ -127,7 +98,7 @@ class App {
   };
 
   initEventHandlers() {
-    document.addEventListener('openModal', this.openRegisterRestaurantModal);
+    document.addEventListener('openModal', render.openRegisterRestaurantModal);
     document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
     document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
     document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
@@ -147,7 +118,15 @@ class App {
         `,
       );
 
-      this.load();
+      const restaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') || '[]');
+
+      if (restaurants.length !== 0) {
+        this.#restaurants = restaurants.map((restaurant: Restaurant) =>
+          Object.setPrototypeOf(restaurant, Restaurant.prototype),
+        );
+      }
+
+      this.updateRestaurantsList();
     });
   }
 }
