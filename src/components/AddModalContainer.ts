@@ -121,7 +121,6 @@ class AddModalContainer extends Component {
   }
 
   template(): string {
-    // ! template 구조별로 나누어서 볼것
     return `
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>

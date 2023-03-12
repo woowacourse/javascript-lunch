@@ -94,7 +94,6 @@ class RestaurantListContainer extends Component {
     this.#state.renderOptions = { ...this.#state.renderOptions, tab };
   }
 
-  // TODO: add 시에 아무 데이터 안넘겨 줘도 됨.
   handleAdd(): void {
     this.render();
   }

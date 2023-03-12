@@ -81,11 +81,6 @@ export default class DetailModal extends Component {
   }
 
   template({ favorite, category, description, name, link, distance }: IRestaurant) {
-    // FIXME: component 만들기
-    // FIXME: img (음식사진, 즐겨찾기)
-    // FIXME: modal 프레임
-    // FIXME: button (취소, 삭제)
-
     return `  
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>
