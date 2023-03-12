@@ -20,7 +20,7 @@ class RestaurantFormBottomSheet {
   }
 
   template() {
-    return `< class="form-sheet">
+    return `<div class="form-sheet">
     <div class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -58,7 +58,7 @@ class RestaurantFormBottomSheet {
         </div>
       </form>
     </div>
-  </>`;
+  </div>`;
   }
 
   initialize(target: Element, makeRestaurantItem: (data: Restaurant) => void) {
