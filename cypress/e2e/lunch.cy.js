@@ -24,6 +24,37 @@ describe('javascript-lunch 미션 e2e 테스트', () => {
     cy.get('.restaurant-list').children().should('contain', restaurantName);
   });
 
+  it('음식점 추가 시 유효하지 않은 음식점 정보를 입력한 경우 에러 메시지가 뜬다. ', () => {
+    cy.get('#add-restaurant-button').click();
+    cy.get('#name').type('🥸스시사카우');
+    cy.get('#description').type('가성비 좋은 오마카세 맛집');
+    cy.get('#link').type('abc');
+
+    cy.contains('추가하기').click();
+
+    cy.get('#category-caption').should('contain', '카테고리를 선택해 주세요.');
+    cy.get('#name-caption').should(
+      'contain',
+      '음식점 이름은 한글, 영어, 숫자, !@#$%^&*?\'",.만 포함하는 15글자 이하의 문자열로 입력해 주세요.',
+    );
+    cy.get('#distance-caption').should('contain', '거리를 선택해 주세요.');
+    cy.get('#link-caption').should('contain', '유효한 링크를 입력해 주세요.');
+  });
+
+  it('음식점 추가 시 중복되는 음식점 이름을 입력한 경우 에러 메시지가 뜬다. ', () => {
+    cy.get('#add-restaurant-button').click();
+    cy.get('#category').select('한식');
+    cy.get('#name').type('우래옥');
+    cy.get('#distance').select('30');
+
+    cy.contains('추가하기').click();
+
+    cy.get('#name-caption').should(
+      'contain',
+      '이미 존재하는 음식점 이름입니다. 다시 입력해 주세요.',
+    );
+  });
+
   it('음식점을 클릭하면 상세정보를 볼 수 있다.', () => {
     cy.contains('우래옥').click();
 
