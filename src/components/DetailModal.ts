@@ -4,6 +4,7 @@ import { IRestaurant } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
 import Component from '../core/Component';
+import { buttonTemplate } from './templates/button';
 
 export default class DetailModal extends Component {
   #id: number = 0;
@@ -101,12 +102,14 @@ export default class DetailModal extends Component {
           <p class="restaurant__description text-body">${description}</p>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 이내</span>
           <p class="restaurant__link text-body">${link}</p>
-          <button type="button" class="button button--secondary text-caption delete-restaurant" onClick="this">
-            삭제하기
-          </button>
-          <button class="button button--primary text-caption close-modal">
-            닫기
-          </button>
+          ${buttonTemplate(
+            { content: '삭제하기', type: 'button' },
+            { className: 'button button--secondary text-caption delete-restaurant' }
+          )}
+          ${buttonTemplate(
+            { content: '닫기', type: 'button' },
+            { className: 'button button--primary text-caption close-modal' }
+          )}
         </div>
       </div>
     `;

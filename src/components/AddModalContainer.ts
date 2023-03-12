@@ -5,6 +5,7 @@ import { IRestaurantInput } from '@res/interfaces/IRestaurantInput';
 import { restaurantStore } from '@res/model/restaurantStore';
 import { $, on } from '@res/utils/domUtils';
 import { isValidCategory, isValidDistance, isValidName } from '@res/validator/inputValidator';
+import { buttonTemplate } from './templates/button';
 import { selectTemplate } from './templates/select';
 
 class AddModalContainer extends Component {
@@ -195,22 +196,20 @@ class AddModalContainer extends Component {
               <span class="help-text text-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
-            </div>            <div class="button-container">
-              <button
-                type="button"
-                class="button button--secondary text-caption cancel"
-                onClick="this"
-              >
-                취소하기
-              </button>
-              <button class="button button--primary text-caption submit-restaurant">
-                추가하기
-              </button>
+            </div>
+            <div class="button-container">
+            ${buttonTemplate(
+              { content: '취소하기', type: 'button' },
+              { className: 'button button--secondary text-caption cancel' }
+            )}
+            ${buttonTemplate(
+              { content: '추가하기' },
+              { className: 'button button--primary text-caption submit-restaurant' }
+            )}
             </div>
           </form>
         </div>
       </div>`;
   }
 }
-
 export default AddModalContainer;
