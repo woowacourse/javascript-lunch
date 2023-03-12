@@ -162,6 +162,10 @@ body {
   border-bottom: 1px solid #e9eaed;
 }
 
+.restaurant .restaurant__info {
+  width: 100%;
+}
+
 .favorite-icon {
   font-size: 30px;
   color: #f6a88a;
