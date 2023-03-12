@@ -1,7 +1,7 @@
-import Validator from "../util/Validator";
-import Restaurant from "../type/restaurant";
-import { isValidFoodCategory } from "../type/FoodCategory";
-import { isValidEstimatedTime } from "../type/EstimatedTime";
+import Validator from "../../util/Validator";
+import Restaurant from "../../type/restaurant";
+import { isValidFoodCategory } from "../../type/FoodCategory";
+import { isValidEstimatedTime } from "../../type/EstimatedTime";
 
 const RestaurantValidator = {
   checkAll({ category, name, estimatedTime, link }: Restaurant) {
