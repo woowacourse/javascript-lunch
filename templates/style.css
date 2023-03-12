@@ -353,20 +353,15 @@ input[name='link'] {
 
 .restaurant-detail-container {
   display: flex;
+  justify-content: space-between;
+  align-content: space-between;
   flex-flow: row wrap;
   height: 500px;
 }
 
-.restaurant-detail-container .restaurant__category {
-  margin-right: 70%;
-}
-
-.restaurant-detail-container .restaurant__favorite {
-  height: fit-content;
-}
-
 .restaurant-detail-container .restaurant__info {
   row-gap: 10px;
+  flex: 1 1 100%;
 }
 
 .restaurant-detail-container .restaurant__name {
