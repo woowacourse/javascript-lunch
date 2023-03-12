@@ -8,9 +8,12 @@ describe('Validation', () => {
         (restaurantName) => {
           // given
           const restaurant = new Restaurant({
+            id: '1',
             category: '기타',
             name: restaurantName,
             distance: 5,
+            description: null,
+            referenceUrl: null,
           });
 
           // then
@@ -25,9 +28,12 @@ describe('Validation', () => {
         (restaurantName) => {
           const createRestaurant = () =>
             new Restaurant({
+              id: '1',
               category: '기타',
               name: restaurantName,
               distance: 5,
+              description: null,
+              referenceUrl: null,
             });
 
           expect(createRestaurant).toThrowError();
