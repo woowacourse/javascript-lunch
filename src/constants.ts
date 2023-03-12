@@ -10,16 +10,6 @@ export const CATEGORY_NAME: Record<string, Category> = {
   etc: '기타',
 };
 
-export const CATEGORIES: Category[] = [
-  CATEGORY_NAME.all,
-  CATEGORY_NAME.korean,
-  CATEGORY_NAME.chinese,
-  CATEGORY_NAME.japanese,
-  CATEGORY_NAME.western,
-  CATEGORY_NAME.asian,
-  CATEGORY_NAME.etc,
-];
-
 export const CATEGORY_IMAGE_URL: Record<string, string> = {
   [CATEGORY_NAME.korean]: './category-korean.png',
   [CATEGORY_NAME.chinese]: './category-chinese.png',
