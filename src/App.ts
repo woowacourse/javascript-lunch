@@ -68,6 +68,7 @@ class App {
 
     this.components.detailModal.setCloseModalHandler();
     this.components.detailModal.setFavoriteButtonHandler(this.toggleFavoriteButton);
+    this.components.detailModal.setDeleteButtonHandler(this.deleteRestaurant);
     this.components.detailModal.show();
   };
 
@@ -84,6 +85,13 @@ class App {
 
   addRestaurant = (restaruant: Restaurant) => {
     this.restaurantList.add(restaruant);
+    RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantList('전체', '이름'));
+
+    this.renderAllTab();
+  };
+
+  deleteRestaurant = (name: string) => {
+    this.restaurantList.delete(name);
     RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantList('전체', '이름'));
 
     this.renderAllTab();

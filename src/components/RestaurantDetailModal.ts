@@ -88,6 +88,17 @@ class RestaurantDetailModal implements Component {
     });
   };
 
+  setDeleteButtonHandler = (handler: (name: string) => void) => {
+    this.$target.querySelector('.button--secondary')?.addEventListener('click', (event) => {
+      const parent = (event.target as HTMLButtonElement).closest(
+        '.restaurant-detail-container',
+      ) as HTMLElement;
+
+      handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
+      this.hide();
+    });
+  };
+
   private changeFavoriteButtonImage = (image: HTMLImageElement) => {
     image.src === FavoriteIconImagePath.DEFALUT
       ? (image.src = FavoriteIconImagePath.ADDED)

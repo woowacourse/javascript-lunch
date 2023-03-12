@@ -12,6 +12,11 @@ class RestaurantList {
     this.list.push(restaurant);
   };
 
+  delete = (name: string) => {
+    const index = this.list.findIndex((restaurant) => restaurant.name === name);
+    this.list.splice(index, 1);
+  };
+
   getByCategory = (category: FilterCategory) =>
     category === '전체'
       ? this.list
