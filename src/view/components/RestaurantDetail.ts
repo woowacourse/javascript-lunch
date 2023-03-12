@@ -1,8 +1,14 @@
 import '../css/RestaurantDetail.css';
 import '../../assets/add-button.png';
+import '../../assets/favorite-icon-lined.png';
+import '../../assets/favorite-icon-filled.png';
 
 import { useEvents } from '../../utils/core';
-import { getCategoryImageSrc, getFavoriteIconSrc } from '../../utils/common/getImageSrc';
+import {
+  getCategoryImageSrc,
+  getCurrentIconStyle,
+  getFavoriteIconSrc,
+} from '../../utils/common/getImageSrc';
 
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 
@@ -20,21 +26,18 @@ function RestaurantDetail({
   handleClickDeleteBtn,
 }: DetailProps) {
   const { id, category, name, isOften, distance, description, link } = info;
-  const iconStyle = isOften === false ? 'lined' : 'filled';
 
   const [addEvent] = useEvents('.modal-container');
 
   addEvent('click', '.favorite-icon', (e) => {
     if (e.target instanceof HTMLImageElement) {
       e.target.src = getFavoriteIconSrc(e.target.src);
-      console.log(e.target.id);
       handleClickIcon(Number(e.target.id));
     }
   });
 
   addEvent('click', '#delete', (e) => {
     if (window.confirm('정말 삭제하시겠습니가?')) {
-      console.log('really 삭제됨');
       handleClickDeleteBtn(id);
       closeDetail();
       window.location.reload();
@@ -56,7 +59,7 @@ function RestaurantDetail({
           </div>
           
           <div class="restaurant__often">
-            <img src='./favorite-icon-${iconStyle}.png' class="favorite-icon" id=${id}>
+            <img src=${getCurrentIconStyle(isOften as boolean)} class="favorite-icon" id=${id}>
           </div>
          </header>
 

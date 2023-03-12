@@ -31,3 +31,8 @@ export const REGEX = Object.freeze({
 
 export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
 export type SortOption = typeof NAME | typeof DISTANCE;
+
+export const TAB = Object.freeze({
+  ALL: 'all',
+  OFTEN: 'often',
+});

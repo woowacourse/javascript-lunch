@@ -1,6 +1,7 @@
 import '../css/Tab.css';
 
 import { useEvents } from '../../utils/core';
+import { TAB } from '../../constants/lunchRecommendation';
 
 interface TabOption {
   oftenOption: boolean;
@@ -13,8 +14,7 @@ function Tab({ oftenOption, handleOftenTab }: TabOption) {
   addEvent('click', '.restaurant-tab', (e) => {
     if (e.target instanceof HTMLButtonElement) {
       const id = e.target.dataset.id;
-      const isOften = id === 'often';
-      handleOftenTab(isOften);
+      handleOftenTab(id === TAB.OFTEN);
     }
   });
 

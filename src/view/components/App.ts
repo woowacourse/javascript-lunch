@@ -18,6 +18,7 @@ function App() {
     category: '한식',
     name: '예시',
     distance: 20,
+    isOften: false,
   });
 
   const {

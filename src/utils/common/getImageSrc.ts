@@ -31,4 +31,9 @@ const getFavoriteIconSrc = (imageSrc: string) => {
   return favoriteIconSrc[iconStyle];
 };
 
-export { getCategoryImageSrc, getFavoriteIconSrc };
+const getCurrentIconStyle = (isOften: boolean) => {
+  const iconStyle = isOften ? 'lined' : 'filled';
+  return favoriteIconSrc[iconStyle];
+};
+
+export { getCategoryImageSrc, getFavoriteIconSrc, getCurrentIconStyle };
