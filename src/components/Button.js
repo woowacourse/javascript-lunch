@@ -15,7 +15,7 @@ class Button extends HTMLElement {
     const color = this.getAttribute('color');
 
     this.shadowRoot.innerHTML = `
-    <button type="button" id=${id} class="button--${color} text-caption">${name}</button>
+    <button type="button" id="${id}" alt="${id}" class="button--${color} text-caption">${name}</button>
     `;
   }
 

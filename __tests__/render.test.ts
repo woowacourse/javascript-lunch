@@ -4,7 +4,8 @@
 
 import '@testing-library/jest-dom';
 import { screen } from 'shadow-dom-testing-library';
-import { Restaurant } from '../src/domain/RestaurantList';
+import App from '../src/domain/App';
+import RestaurantList, { Restaurant } from '../src/domain/RestaurantList';
 import '../src/components';
 import { $, shortenString } from '../src/utils';
 import { fireEvent } from '@testing-library/dom';
@@ -12,7 +13,33 @@ import { LOCAL_STORAGE_KEY } from '../src/constants';
 
 describe('렌더가 잘 되는 지 테스트', () => {
   beforeEach(() => {
-    document.body.innerHTML = '';
+    document.body.innerHTML = `
+    <div id="app">
+    <div class="navigation-bar">
+      <lunch-header></lunch-header>
+      <section class="category-section">
+        <restaurant-tab id="allTab" name="모든 음식점"></restaurant-tab>
+        <restaurant-tab
+          id="favoriteTab"
+          name="자주 가는 음식점"
+        ></restaurant-tab>
+      </section>
+      <section class="restaurant-filter-container">
+        <filter-box
+          name="category"
+          id="categoryFilter"
+          options="전체,한식,중식,일식,양식,아시안,기타"
+        ></filter-box>
+        <filter-box name="sorting" id="sortingFilter" options="이름순,거리순">
+        </filter-box>
+      </section>
+    </div>
+    <restaurant-boxes></restaurant-boxes>
+    <add-restaurant-modal id="addRestaurantModal"></add-restaurant-modal>
+    <restaurant-detail-modal id="openDetail"></restaurant-detail-modal>
+    <delete-question-modal id="deleteQuestionModal"></delete-question-modal>
+  </div>
+`;
     const defaultValue = JSON.stringify('');
     window.localStorage.setItem(LOCAL_STORAGE_KEY, defaultValue);
   });
@@ -46,7 +73,7 @@ describe('렌더가 잘 되는 지 테스트', () => {
 
   test('헤더가 올바르게 나오는 지 테스트', () => {
     //given
-    document.body.innerHTML = '<lunch-header></lunch-header>';
+
     //when
 
     //then
@@ -55,7 +82,7 @@ describe('렌더가 잘 되는 지 테스트', () => {
 
   test('음식점 목록이 올바르게 나오는 지 테스트', () => {
     //given
-    document.body.innerHTML = '<restaurant-boxes></restaurant-boxes>';
+
     //when
     $('restaurant-boxes').restaurantListRender(restaurants);
 
@@ -71,9 +98,7 @@ describe('렌더가 잘 되는 지 테스트', () => {
 
   test('모달 창이 올바르게 열리는 지 테스트', () => {
     //given
-    document.body.innerHTML = `<lunch-header></lunch-header>
-    <add-restaurant-modal />
-    `;
+
     //when
     expect(
       $('add-restaurant-modal')?.shadowRoot?.querySelector('#modal')
@@ -89,9 +114,7 @@ describe('렌더가 잘 되는 지 테스트', () => {
 
   test('모달 창이 올바르게 닫히는 지 테스트', () => {
     //given
-    document.body.innerHTML = `<lunch-header></lunch-header>
-    <add-restaurant-modal />
-    `;
+
     //when
     fireEvent.click(screen.getByShadowAltText('음식점 추가'));
 
@@ -100,6 +123,7 @@ describe('렌더가 잘 되는 지 테스트', () => {
     ).toHaveClass('modal-open');
 
     fireEvent.click(screen.getByShadowText('취소하기'));
+
     //then
     expect(
       $('add-restaurant-modal')?.shadowRoot?.querySelector('#modal')
@@ -108,32 +132,6 @@ describe('렌더가 잘 되는 지 테스트', () => {
 
   test('음식점 목록 추가가 올바르게 되는 지 테스트', () => {
     //given
-    document.body.innerHTML = `
-    <div class="navigation-bar">
-        <lunch-header></lunch-header>
-        <section class="category-section">
-          <restaurant-tab id="allTab" name="모든 음식점"></restaurant-tab>
-          <restaurant-tab
-            id="favoriteTab"
-            name="자주 가는 음식점"
-          ></restaurant-tab>
-        </section>
-        <section class="restaurant-filter-container">
-          <filter-box
-            name="category"
-            id="categoryFilter"
-            options="전체,한식,중식,일식,양식,아시안,기타"
-          ></filter-box>
-          <filter-box name="sorting" id="sortingFilter" options="이름순,거리순">
-          </filter-box>
-        </section>
-      </div>
-      <restaurant-boxes></restaurant-boxes>
-      <add-restaurant-modal id="addRestaurantModal"></add-restaurant-modal>
-      <restaurant-detail-modal id="openDetail"></restaurant-detail-modal>
-      <delete-question-modal id="deleteQuestionModal"></delete-question-modal>
-    `;
-
     const CATEGORY = '중식';
     const NAME = '춘리짜장';
     const DISTANCE = '10';
@@ -212,5 +210,77 @@ describe('렌더가 잘 되는 지 테스트', () => {
     expect(
       screen.getByShadowText(shortenString(DESCRIPTION, 30))
     ).toBeInTheDocument();
+  });
+  test('음식점 목록 상세 정보가 렌더되는 지 테스트', () => {
+    //given
+    RestaurantList.add(korean);
+    new App().play();
+
+    //when
+    fireEvent.click(screen.getByShadowText(korean.name));
+
+    //then
+    expect(screen.getByShadowText(korean.link)).toBeInTheDocument();
+    expect(screen.getByShadowText('삭제하기')).toBeInTheDocument();
+    expect(screen.getByShadowText('닫기')).toBeInTheDocument();
+  });
+  test('음식점 목록 삭제가 올바르게 작동하는 지 테스트', () => {
+    //given
+    RestaurantList.add(korean);
+    new App().play();
+
+    //when
+    fireEvent.click(screen.getByShadowText(korean.name));
+    fireEvent.click(screen.getByShadowText('삭제하기'));
+    fireEvent.click(screen.getByShadowText('예'));
+
+    //then
+    expect(
+      screen.getByShadowText('음식점 목록이 비었습니다')
+    ).toBeInTheDocument();
+  });
+  test('자주가는 음식점 탭 이동 시 올바르게 렌더 되는 지 테스트', () => {
+    //given
+    RestaurantList.add(korean);
+    new App().play();
+
+    //when
+    fireEvent.click(screen.getByShadowText('자주 가는 음식점'));
+
+    //then
+    expect(
+      screen.getByShadowText('음식점 목록이 비었습니다')
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByShadowText('모든 음식점'));
+
+    expect(screen.getByShadowText(korean.name)).toBeInTheDocument();
+  });
+
+  test('자주가는 음식점 탭 이동과 즐겨찾기 후 올바르게 렌더 되는 지 테스트', () => {
+    //given
+    RestaurantList.add(korean);
+    new App().play();
+
+    //when
+    fireEvent.click(screen.getByShadowText('자주 가는 음식점'));
+
+    //then
+    expect(
+      screen.getByShadowText('음식점 목록이 비었습니다')
+    ).toBeInTheDocument();
+
+    //when
+    fireEvent.click(screen.getByShadowText('모든 음식점'));
+    fireEvent.click(screen.getByShadowAltText('isFavorite'));
+
+    //then
+    expect(screen.getByShadowText(korean.name)).toBeInTheDocument();
+
+    //when
+    fireEvent.click(screen.getByShadowText('자주 가는 음식점'));
+
+    //then
+    expect(screen.getByShadowText(korean.name)).toBeInTheDocument();
   });
 });
