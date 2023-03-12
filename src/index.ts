@@ -25,7 +25,7 @@ import {
   SELECT_OPTION_LIST,
 } from './constants/filter';
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
-import { handleFavoriteIcon } from './handleUi/restaurant';
+import { handleFavoriteIcon } from './handleUi/favoriteIcon';
 import restaurantBottomSheet from './components/restaurantBottomSheet';
 
 const App = {
@@ -131,6 +131,52 @@ const App = {
   },
 
   controlRestaurantList() {
+    executeEventListener(
+      '.favorite-icon-container',
+      'click',
+      (event: Event) => {
+        const target = event.target;
+
+        if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
+          const linedFavoriteIcon = target.className.split(' ')[1];
+          const number = linedFavoriteIcon[linedFavoriteIcon.length - 1];
+
+          const isFavorite = handleFavoriteIcon(number).list;
+
+          const restaurantList = getListOnLocalStorage(
+            LOCAL_STORAGE_KEY.RESTAURANT_LIST
+          ) as RestaurantType[];
+          const favoriteList = getListOnLocalStorage(
+            LOCAL_STORAGE_KEY.FAVORITE_LIST
+          ) as RestaurantType[];
+
+          const parsedNumber = parseInt(number, 10);
+          const selected = restaurantList[parsedNumber];
+          if (isFavorite) {
+            if (
+              !favoriteList.find(favorite => favorite.name === selected.name)
+            ) {
+              favoriteList.push(selected);
+            }
+            restaurantList[parsedNumber].isFavorite = true;
+            favoriteList[favoriteList.length - 1].isFavorite = true;
+          } else {
+            restaurantList[parsedNumber].isFavorite = false;
+            const index = favoriteList.findIndex(
+              favorite => favorite.name === restaurantList[parsedNumber].name
+            );
+            favoriteList.splice(index, 1);
+          }
+
+          saveListOnLocalStorage(
+            LOCAL_STORAGE_KEY.RESTAURANT_LIST,
+            restaurantList
+          );
+          saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, favoriteList);
+        }
+      }
+    );
+
     executeEventListener('.restaurant-list', 'click', (event: Event) => {
       const target = event.target;
 
@@ -138,46 +184,67 @@ const App = {
         const restaurantList = getListOnLocalStorage(
           LOCAL_STORAGE_KEY.RESTAURANT_LIST
         );
+
         const index = parseInt(target.name, 10);
+        const restaurant = restaurantList[index];
+        this.restaurantBottomSheetContainer.render(restaurant);
 
-        this.restaurantBottomSheetContainer.render(restaurantList[index]);
         handleModalOpen('#restaurant-bottom-sheet');
-      }
 
-      if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
-        const favoriteLined = target.className.split(' ')[1];
-        const number = favoriteLined[favoriteLined.length - 1];
+        executeEventListener(
+          '.favorite-icon-container-modal',
+          'click',
+          (event: Event) => {
+            const target = event.target;
 
-        const isFavorite = handleFavoriteIcon(number);
+            if (
+              target instanceof HTMLImageElement &&
+              target.alt === '즐겨찾기'
+            ) {
+              const linedFavoriteIcon = target.className.split(' ')[1];
+              const number = linedFavoriteIcon[linedFavoriteIcon.length - 1];
 
-        const restaurantList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST
-        ) as RestaurantType[];
-        const favoriteList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.FAVORITE_LIST
-        ) as RestaurantType[];
+              const isFavorite = handleFavoriteIcon(number).modal;
 
-        const parsedNumber = parseInt(number, 10);
-        const selected = restaurantList[parsedNumber];
-        if (isFavorite) {
-          if (!favoriteList.find(favorite => favorite.name === selected.name)) {
-            favoriteList.push(selected);
+              const restaurantList = getListOnLocalStorage(
+                LOCAL_STORAGE_KEY.RESTAURANT_LIST
+              ) as RestaurantType[];
+              const favoriteList = getListOnLocalStorage(
+                LOCAL_STORAGE_KEY.FAVORITE_LIST
+              ) as RestaurantType[];
+
+              const parsedNumber = parseInt(number, 10);
+              const selected = restaurantList[parsedNumber];
+              if (isFavorite) {
+                if (
+                  !favoriteList.find(
+                    favorite => favorite.name === selected.name
+                  )
+                ) {
+                  favoriteList.push(selected);
+                }
+                restaurantList[parsedNumber].isFavorite = true;
+                favoriteList[favoriteList.length - 1].isFavorite = true;
+              } else {
+                restaurantList[parsedNumber].isFavorite = false;
+                const index = favoriteList.findIndex(
+                  favorite =>
+                    favorite.name === restaurantList[parsedNumber].name
+                );
+                favoriteList.splice(index, 1);
+              }
+
+              saveListOnLocalStorage(
+                LOCAL_STORAGE_KEY.RESTAURANT_LIST,
+                restaurantList
+              );
+              saveListOnLocalStorage(
+                LOCAL_STORAGE_KEY.FAVORITE_LIST,
+                favoriteList
+              );
+            }
           }
-          restaurantList[parsedNumber].isFavorite = true;
-          favoriteList[favoriteList.length - 1].isFavorite = true;
-        } else {
-          restaurantList[parsedNumber].isFavorite = false;
-          const index = favoriteList.findIndex(
-            favorite => favorite.name === restaurantList[parsedNumber].name
-          );
-          favoriteList.splice(index, 1);
-        }
-
-        saveListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST,
-          restaurantList
         );
-        saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, favoriteList);
       }
     });
   },

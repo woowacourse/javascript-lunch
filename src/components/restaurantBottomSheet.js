@@ -52,7 +52,7 @@ class restaurantBottomSheet {
 					</div>
 
 					<!-- 즐겨찾기 등록/해제 버튼 -->
-					<div class="favorite-icon-container">
+					<div class="favorite-icon-container favorite-icon-container-modal">
 						<img
 							src="./favorite-icon-lined.png"
 							alt="즐겨찾기"
@@ -61,7 +61,7 @@ class restaurantBottomSheet {
 						<img
 							src="./favorite-icon-filled.png"
 							alt="즐겨찾기"
-							class="favorite-icon-filled favorite-icon-filled-${number} ${favoriteOpenClass}"
+							class="favorite-icon-filled favorite-icon-filled-modal-${number} ${favoriteOpenClass}"
 						/>
 					</div>
 				</div>
