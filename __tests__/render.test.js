@@ -6,7 +6,7 @@ import { screen } from '@testing-library/dom';
 
 import { LunchRecommendation } from '../src/domain/model/LunchRecommendation';
 
-import { mockData } from '../src/index';
+import { mockData } from '../src/data/mockData';
 import { getData } from '../src/utils/common/localStorage';
 import { useBoolean } from '../src/utils/hooks/useBoolean';
 import { $, $$ } from '../src/utils/common/domHelper';
