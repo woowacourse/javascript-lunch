@@ -22,6 +22,10 @@ class Restaurant {
     this.#description = description;
     this.#referenceUrl = referenceUrl;
   }
+
+  isMatchCategory(searchCategory: string) {
+    return this.#category.getName() === searchCategory;
+  }
 }
 
 export default Restaurant;
