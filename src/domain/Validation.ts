@@ -1,4 +1,4 @@
-import { RESTAURANT_NAME_LENGTH } from '../constants';
+import { RESTAURANT_NAME_LENGTH } from '../utils/constants';
 
 const Validation = {
   validateRestaurantNameLength(restaurantName: string) {

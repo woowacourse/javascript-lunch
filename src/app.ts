@@ -3,7 +3,8 @@ import Restaurant, { RestaurantProps } from './domain/Restaurant';
 import Restaurants from './domain/Restaurants';
 import render from './render';
 import { DEFAULT_RESTAURANTS } from './fixtures';
-import { FILTER, SORT } from './constants';
+import { FILTER, SORT } from './utils/constants';
+import { getRestaurants, saveRestaurants } from './utils/localStorage';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
@@ -16,23 +17,19 @@ class App {
     this.init();
   }
 
-  init() {
+  init = () => {
     this.initEventHandlers();
-  }
+  };
 
-  updateRestaurantsList() {
+  updateRestaurantsList = () => {
     const updatedRestaurantsList = Object.values(this.#filterPipes).reduce(
       (filteredRestaurants, filter) => filter(filteredRestaurants),
       this.#restaurants,
     );
 
     render.restaurantList(updatedRestaurantsList);
-    this.save();
-  }
-
-  save() {
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
-  }
+    saveRestaurants(this.#restaurants);
+  };
 
   changeRestaurantFilter = ({ detail }: CustomEvent) => {
     if (detail.value === FILTER.value.entire) {
@@ -90,9 +87,9 @@ class App {
   initLoad = () => {
     render.init();
 
-    const restaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') || '[]');
+    const restaurants: Restaurant[] = getRestaurants();
 
-    if (!restaurants.length) {
+    if (restaurants.length !== 0) {
       this.#restaurants = restaurants.map((restaurant: Restaurant) =>
         Object.setPrototypeOf(restaurant, Restaurant.prototype),
       );
