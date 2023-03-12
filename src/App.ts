@@ -61,9 +61,6 @@ export class App {
   openDetailModal() {
     const restaurantWrapper = $(".restaurant-wrapper") as HTMLDivElement;
     restaurantWrapper.addEventListener("click", this.initDetailModal);
-    // $$(".list-container")?.forEach((container) =>
-    //   container.addEventListener("click", this.initDetailModal)
-    // );
   }
 
   initDetailModal = (event: Event) => {
