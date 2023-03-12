@@ -1,4 +1,5 @@
-import RestaurantList from "./RestaurantList";
+import styleClass from "../constants/styleClass";
+import { restaurants } from "../domain/restaurants";
 
 class SortingSelectBox extends HTMLElement {
   constructor() {
@@ -9,7 +10,7 @@ class SortingSelectBox extends HTMLElement {
 
   render() {
     this.innerHTML = `
-        <select name="sorting" id="sorting-filter" class="restaurant-filter">
+        <select name="sorting" id="sorting-filter" class="${styleClass.restaurant.filter}">
           <option id="sortingOptionName" value="name">이름순</option>
           <option value="distance">거리순</option>
         </select>
@@ -26,10 +27,7 @@ class SortingSelectBox extends HTMLElement {
   }
 
   sortRestaurant(key: string) {
-    const restaurantList = document.getElementById("restaurantList");
-    if (restaurantList instanceof RestaurantList) {
-      restaurantList.sortBy(key);
-    }
+    restaurants.state.sort = key;
   }
 }
 

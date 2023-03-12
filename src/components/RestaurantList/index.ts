@@ -1,20 +1,12 @@
+import styleClass from "../../constants/styleClass";
+import { selectRestaurants } from "../../domain/restaurant";
 import IRestaurant from "../../type/IRestaurant";
-import RestaurantItem from "../RestaurantItem";
-import { TCategory } from "../../type/TCategory";
-import { restaurants } from "../../domain/restaurants";
-import { restoreRestaurants, selectRestaurants } from "./handleRestaurantList";
+import { onClickRestaurantList } from "./handleRestaurantList";
 
 class RestaurantList extends HTMLElement {
-  listState: { restaurants: IRestaurant[]; filter: TCategory; sort: string };
-
   constructor() {
     super();
-    this.listState = restaurants.create({
-      restaurants: [],
-      filter: "all",
-      sort: "name",
-    });
-    restoreRestaurants();
+    onClickRestaurantList();
   }
 
   render() {
@@ -28,17 +20,18 @@ class RestaurantList extends HTMLElement {
   }
 
   restaurantItems(selectedRestaurants: IRestaurant[]) {
-    return selectedRestaurants
-      .map((restaurant) => RestaurantItem(restaurant))
-      .join("");
-  }
-
-  filterBy(key: TCategory) {
-    this.listState.filter = key;
-  }
-
-  sortBy(key: string) {
-    this.listState.sort = key;
+    return selectedRestaurants.length > 0
+      ? (
+        selectedRestaurants.map((restaurant) => `
+          <restaurant-item id="${restaurant.id}"></restaurant-item>
+        `).join("")
+      )
+      : (`
+        <div class="center super-big-font ${styleClass.text.center}">
+          <div><h1>텅</h1></div>
+          <div>음식점이 없습니다.</div>
+        <div>
+      `)
   }
 }
 

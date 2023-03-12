@@ -13,7 +13,7 @@ const makeArray = (json: string) => {
 };
 
 const Storage = {
-  loadRestaurants() {
+  loadRestaurants(): IRestaurant[] {
     const json = localStorage.getItem("restaurants");
     if (json === null) {
       return [];

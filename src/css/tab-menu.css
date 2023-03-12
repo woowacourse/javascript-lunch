@@ -1,0 +1,20 @@
+/* Tabs */
+
+.tab-menu input[type="radio"] {
+  display: none;
+}
+
+.tab-menu {
+  color: #667085;
+  border-bottom: 2px solid #667085;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.tab-menu-open {
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
+}

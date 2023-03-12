@@ -1,25 +1,27 @@
 import { renderRestaurantList } from "../components/RestaurantList/handleRestaurantList";
+import IListState from "../type/IListState";
 import IRestaurant from "../type/IRestaurant";
-import { TCategory } from "../type/TCategory";
+
+const initState: IListState = {
+  restaurants: [] as IRestaurant[],
+  filter: "all",
+  sort: "name",
+  menuTab: "tab-all",
+};
 
 const restaurants = {
-  create(init: {
-    restaurants: IRestaurant[];
-    filter: TCategory;
-    sort: string;
-  }) {
-    const stateProxy = new Proxy(init, {
-      set: (obj, prop, value) => {
-        // type-guard
-        if (prop === "restaurants" || prop === "filter" || prop === "sort") {
+  state: initState,
+  create() {
+    this.state = new Proxy(initState, {
+      set: (obj, prop: keyof IListState, value) => {
+        if (prop in obj) {
           obj[prop] = value;
+          renderRestaurantList();
+          return true;
         }
-        renderRestaurantList();
-        return true;
+        return false;
       },
     });
-
-    return stateProxy;
   },
 };
 

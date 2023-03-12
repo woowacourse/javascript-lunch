@@ -1,6 +1,7 @@
+import styleClass from "../constants/styleClass";
 import { categoryOptions } from "../domain/restaurant";
+import { restaurants } from "../domain/restaurants";
 import { TCategory } from "../type/TCategory";
-import RestaurantList from "./RestaurantList";
 
 class CategorySelectBox extends HTMLElement {
   constructor() {
@@ -11,7 +12,7 @@ class CategorySelectBox extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <select name="category" id="category-filter" class="restaurant-filter">
+    <select name="category" id="category-filter" class="${styleClass.restaurant.filter}">
       <option value="all">전체</option>
       ${categoryOptions()}
     </select>
@@ -28,10 +29,7 @@ class CategorySelectBox extends HTMLElement {
   }
 
   filterCategory(key: TCategory) {
-    const restaurantList = document.getElementById("restaurantList");
-    if (restaurantList instanceof RestaurantList) {
-      restaurantList.filterBy(key);
-    }
+    restaurants.state.filter = key;
   }
 }
 
