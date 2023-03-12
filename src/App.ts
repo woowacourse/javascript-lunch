@@ -32,9 +32,9 @@ export class App {
   }
 
   bindEventHandlers() {
-    const restaurantNames = this.restaurantService.getRestaurantNames();
+    const getRestaurantNames = this.restaurantService.getRestaurantNames;
 
-    this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm, restaurantNames);
+    this.modalView.addSubmitEventHandler(this.onSubmitRestaurantAddForm, getRestaurantNames);
     this.mainView.addCategoryChangeEventHandler(this.onChangeCategoryFilter);
     this.mainView.addSortingChangeEventHandler(this.onChangeSortingFilter);
     addTabClickEventHandler(this.onChangeTab);

@@ -28,9 +28,13 @@ class ModalView {
     this.distanceInputCaption.textContent = ERROR_MESSAGE.EMPTY_DISTANCE;
   }
 
-  addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction, restaurantNames: string[]) {
+  addSubmitEventHandler(
+    onSubmitRestaurantAddForm: CallableFunction,
+    getRestaurantNames: CallableFunction,
+  ) {
     this.restaurantAddForm.addEventListener('submit', (event) => {
       event.preventDefault();
+
       const formData: FormData = new FormData(this.restaurantAddForm);
       const restaurant = Object.fromEntries(
         [...formData].map(([key, value]) => [
@@ -39,7 +43,7 @@ class ModalView {
         ]),
       ) as Restaurant;
 
-      const errors: Errors = restaurantFormValidator.verify(restaurant, restaurantNames);
+      const errors: Errors = restaurantFormValidator.verify(restaurant, getRestaurantNames());
       const hasError = Object.values(errors).some((error) => error === true);
 
       if (!hasError) {

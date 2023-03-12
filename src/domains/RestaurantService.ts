@@ -6,10 +6,10 @@ class RestaurantService {
   private currentCategory: Category = CATEGORY.ALL;
   private currentSortingCriterion: SortingCriterion = SORTING_CRITERION.NAME;
 
-  getRestaurantNames() {
+  getRestaurantNames = () => {
     const restaurantList = this.getRestaurantList();
     return restaurantList.map((restaurant) => restaurant.name);
-  }
+  };
 
   getRestaurantList() {
     const restaurantList = Object.keys(localStorage).map((key) => {
