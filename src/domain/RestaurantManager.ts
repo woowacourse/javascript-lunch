@@ -87,6 +87,16 @@ class RestaurantManager extends Observable {
 
     this.notify(this.restaurantList);
   }
+
+  removeRestaurnat(storeName: string) {
+    this.restaurantList = this.restaurantList.filter(
+      (restaurant) => restaurant.storeName !== storeName
+    );
+
+    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+
+    this.notify(this.restaurantList);
+  }
 }
 
 const restaurantManager = new RestaurantManager();
