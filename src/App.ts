@@ -11,7 +11,7 @@ import { $, $$ } from "./utils/Dom";
 import Tab from "./UI/Tab";
 import RestaurantDetail from "./UI/RestaurantDetail";
 import Store from "./Store";
-import { Category, RestaurantForm } from "./types/types";
+import { Category, RestaurantForm } from "./global/types";
 
 export class App {
   private restaurantList = new RestaurantList();
