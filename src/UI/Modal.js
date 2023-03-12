@@ -135,7 +135,7 @@ export default class Modal {
     $$(".form-item").forEach((inputValue, index) => {
       restaurantInfo[FORM_ARRAY[index]] = inputValue.children[1].value;
     });
-    restaurantInfo["id"] = Date.now();
+    restaurantInfo["id"] = crypto.randomUUID();
     restaurantInfo["favorite"] = false;
     return restaurantInfo;
   }
