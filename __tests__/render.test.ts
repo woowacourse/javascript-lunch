@@ -66,12 +66,9 @@ describe('전체 app ui 테스트', () => {
     expect(
       $target.querySelector('.restaurant-filter-container')
     ).not.toBeNull();
-    expect($target.querySelector('.restaurant-list-container')).not.toBeNull();
-    expect(
-      $target.querySelector('.restaurant-add-modal-container')
-    ).not.toBeNull();
+    expect($target.querySelector('.tabview__content')).not.toBeNull();
     // 초기 등록한 음식점이 없을 시 더미 데이터 (2개의 음식점) 을 보여준다.
-    expect($target.querySelectorAll('.restaurant')).toHaveLength(2);
+    expect($target.querySelectorAll('.restaurant')).toHaveLength(3);
   });
 
   it('form 을 submit 한 이후 음식점이 등록되어야한다.', () => {
@@ -95,8 +92,8 @@ describe('전체 app ui 테스트', () => {
 
     $submitButton.click();
 
-    // 처음 음식점을 등록 시 기존의 2개의 더미 데이터가 삭제되고 하나의 실제 음식점이 추가되므로 initialLength 보다 1이 작아야한다.
-    expect(app.$state.restaurantList.length).toBe(initialLength - 1);
+    // 처음 음식점을 등록 시 기존의 2개의 더미 데이터가 삭제되고 하나의 실제 음식점이 추가되므로 initialLength 보다 2가 작아야한다.
+    expect(app.$state.restaurantList.length).toBe(initialLength - 2);
     expect(localStorageMock.getItem('restaurantList')).toEqual(
       JSON.stringify(app.$state.restaurantList)
     );
@@ -108,6 +105,7 @@ describe('전체 app ui 테스트', () => {
         name: '김돈이 본점',
         category: Category.Korean,
         distance: '5',
+        isFavorite: false,
         description: '점심 김치찌개 너무 맛있어용',
         link: 'https://binaural.tistory.com/272',
       },
