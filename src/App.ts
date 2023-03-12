@@ -2,33 +2,18 @@ import Filters from './components/Filters';
 import Header from './components/Header';
 import RestaurantList from './components/RestaurantList';
 import Tabs from './components/Tabs';
-import { IRestaurant, Restaurant } from './domain/Restaurant';
-import RestaurantService from './domain/RestaurantService';
+import { IRestaurant } from './domain/Restaurant';
 import { store } from './store';
 import { TabType } from './types/type';
-import { getLocalStorage, setLocalStorage } from './utils/localStorage';
-
-const getInitialRestaurantList = () => {
-  const localRestaurants = getLocalStorage('restaurants');
-
-  if (typeof localRestaurants !== 'string') return [];
-
-  return [...JSON.parse(localRestaurants)].map(
-    (restaurant) => new Restaurant(restaurant)
-  );
-};
 
 interface IAppState {
-  tabs: Tabs;
   filters: Filters;
   restaurantList: RestaurantList;
-  restaurantService: RestaurantService;
 }
 
 export interface IMethods {
   renderListArticle: ($currentTarget: TabType) => void;
   deleteHandler: (id: number) => void;
-  updateLocalStorage: () => void;
 }
 
 export default class App {
@@ -37,15 +22,15 @@ export default class App {
 
   constructor($app: HTMLDivElement) {
     const $main = document.createElement('main');
-    const restaurantService = new RestaurantService(getInitialRestaurantList());
 
     $app.appendChild(Header(this.addRestaurantInfo.bind(this)));
     $app.appendChild($main);
+    $main.appendChild(Tabs(this.renderListArticle.bind(this)));
     $main.appendChild(this.$listArticle);
 
-    const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
+    const initialResutaurantInfos =
+      store.restaurantService.getRestaurantsInfo();
 
-    const tabs = new Tabs($main, this.renderListArticle.bind(this));
     const filters = new Filters(
       this.$listArticle,
       this.renderAllList.bind(this)
@@ -56,13 +41,10 @@ export default class App {
       {
         renderListArticle: this.renderListArticle.bind(this),
         deleteHandler: this.deleteRestaurantInfo.bind(this),
-        updateLocalStorage: () => this.updateLocalStorage(),
       }
     );
 
     this.state = {
-      restaurantService,
-      tabs,
       filters,
       restaurantList,
     };
@@ -87,13 +69,14 @@ export default class App {
   }
 
   renderAllList($targetElement: HTMLElement) {
-    const { filters, restaurantList, restaurantService } = this.state;
-    const { category, filter } = filters.state;
+    const { filters, restaurantList } = this.state;
+    const { currentCategory, currentFilter } = store;
 
-    const filteredAndSortedList = restaurantService.getFilteredAndSortedList(
-      category,
-      filter
-    );
+    const filteredAndSortedList =
+      store.restaurantService.getFilteredAndSortedList(
+        currentCategory,
+        currentFilter
+      );
 
     restaurantList.setState({
       ...restaurantList.state,
@@ -105,9 +88,7 @@ export default class App {
   }
 
   renderFavoriteList($targetElement: HTMLElement) {
-    const favorites = this.state.restaurantService.getFilterdFavoriteList();
-    const favoriteNameSorted =
-      this.state.restaurantService.sortByName(favorites);
+    const favoriteNameSorted = store.getFavoriteList();
 
     this.state.restaurantList.setState({
       ...this.state.restaurantList.state,
@@ -117,24 +98,18 @@ export default class App {
   }
 
   addRestaurantInfo(restaurantInfo: IRestaurant) {
-    this.state.restaurantService.addRestaurant(restaurantInfo);
+    store.restaurantService.addRestaurant(restaurantInfo);
 
     this.renderListArticle(store.currentTab);
 
-    this.updateLocalStorage();
+    store.updateLocalStorage();
   }
 
   deleteRestaurantInfo(id: number) {
-    this.state.restaurantService.deleteRestaurant(id);
+    store.restaurantService.deleteRestaurant(id);
 
     this.renderListArticle(store.currentTab);
 
-    this.updateLocalStorage();
-  }
-
-  updateLocalStorage() {
-    const currentList = this.state.restaurantService.getWholeRestaurantList();
-
-    setLocalStorage('restaurants', JSON.stringify(currentList));
+    store.updateLocalStorage();
   }
 }

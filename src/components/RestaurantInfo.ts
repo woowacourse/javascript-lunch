@@ -20,7 +20,7 @@ export default function RestaurantInfo(
     const type = e.target.dataset['type'];
 
     if (type === 'close') {
-      methods.updateLocalStorage();
+      store.updateLocalStorage();
       methods.renderListArticle(store.currentTab);
       closeModal();
     }

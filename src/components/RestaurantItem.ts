@@ -29,7 +29,7 @@ export default function RestaurantItem(
 
     if (type === 'favoriteButton') {
       toggleFavoriteFilled(e.target, restaurant);
-      methods.updateLocalStorage();
+      store.updateLocalStorage();
       methods.renderListArticle(store.currentTab);
     }
   };
