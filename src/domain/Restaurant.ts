@@ -1,8 +1,7 @@
-import Category from './Category';
 import Validation from './Validation';
 
 interface RestaurantProps {
-  category: Category;
+  category: string;
   name: string;
   distanceByMinutes: number;
   description?: string;
@@ -10,7 +9,7 @@ interface RestaurantProps {
 }
 
 class Restaurant {
-  #category: Category;
+  #category: string;
 
   #name: string;
 
@@ -31,7 +30,7 @@ class Restaurant {
   }
 
   isMatchCategory(searchCategory: string) {
-    return this.#category.getName() === searchCategory;
+    return this.#category === searchCategory;
   }
 
   getName() {
