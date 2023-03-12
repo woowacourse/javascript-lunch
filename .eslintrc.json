@@ -4,20 +4,23 @@
     "jest": true,
     "browser": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest"
   },
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "airbnb-base/legacy",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "rules": {},
+  "rules": {
+    "class-methods-use-this": "off"
+  },
   "overrides": [
     {
-      "files": [
-        "*.js"
-      ],
+      "files": ["*.js"],
       "rules": {
         "strict": "off"
       }

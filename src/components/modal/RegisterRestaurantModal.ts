@@ -1,84 +1,92 @@
 import CustomElement from '../CustomElement';
+import { CustomSelectElement } from '..';
+import { DEFAULT_MODAL_CATEGORY_OPTIONS, DEFAULT_MODAL_DISTANCE_OPTIONS } from '../../fixtures';
 
-class RestaurantDetailModal extends CustomElement {
-  private get name() {
-    return this.getAttribute('name');
-  }
-
-  private get distanceByMinutes() {
-    return this.getAttribute('distanceByMinutes');
-  }
-
-  private get description() {
-    return this.getAttribute('description');
-  }
-
-  private get category() {
-    return this.getAttribute('category');
-  }
-
-  private get referenceUrl() {
-    return this.getAttribute('referenceUrl');
-  }
-
-  renderTemplate = () => {
+class RegisterRestaurantModal extends CustomElement {
+  renderTemplate() {
     return `
-        <style>
-          .restaurant-detail-container {
-            display: grid;
-            row-gap: 16px;
-          }
-
-          .detail-top-contents {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start
-          }
-
-          .restaurnat-detail-contents {
-            word-break: break-all;
-          }
-
-          .restaurnat-detail-link {
-            color: var(--grey-500);
-          }
-
-          .restaurant-deatil-button-container {
-            margin-top: 16px
-          }
-        </style>
-        <r-modal>
-          <div class="restaurant-detail-container">
-            <div class="detail-top-contents">
-              <div class="restaurant__category">
-                <img
-                  src="assets/categories/${this.category}.png"
-                  alt="${this.category}"
-                  class="category-icon"
-                >
-              </div>
-              <div class="not-favorites-icon">☆</div>
-            </div>
-            <h2 class="text-title">${this.name}</h2>
-            <p class="restaurant__distance text-body">캠퍼스부터 ${this.distanceByMinutes}분 내</p>
-            ${
-              this.description &&
-              `<p class="text-body restaurnat-detail-contents">${this.description}</p>`
-            }
-            ${
-              this.referenceUrl &&
-              `<a class="restaurnat-detail-contents restaurnat-detail-link" href=${this.referenceUrl} target="_blank">${this.referenceUrl}</a>`
-            }
-            <div class="restaurant-deatil-button-container button-container">
-              <r-button type="button" action="delectRestaurant" variant="secondary" name="삭제하기"></r-button>
-              <r-button type="button" action="closeModal" variant="primary" name="닫기"></r-button>
-            </div>
+      <r-modal>
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <form id="modal-form">
+          <r-form-item label="카테고리" required>
+            <r-select name="category" id="restaurant-modal-category"></r-select>
+          </r-form-item>
+          <r-form-item label="이름" required>
+            <r-input name="name"></r-input>
+          </r-form-item>
+          <r-form-item label="거리(도보 이동 시간)" required>
+            <r-select name="distanceByMinutes" id="restaurant-modal-distance"></r-select>
+          </r-form-item>
+          <r-form-item label="설명" helper-text="메뉴 등 추가 정보를 입력해 주세요.">
+            <r-textarea name="description"></r-textarea>
+          </r-form-item>
+          <r-form-item label="참고 링크" helper-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요.">
+            <r-input name="referenceUrl"></r-input>
+          </r-form-item>
+          <div class="button-container">
+            <r-button type="button" action="closeModal" variant="secondary" name="취소하기"></r-button>
+            <r-button type="submit" action="submitForm" variant="primary" name="추가하기"></r-button>
           </div>
-        </r-modal>
-    `;
+        </form>
+      </r-modal>
+	  `;
+  }
+
+  render() {
+    super.render();
+
+    this.initEventHandlers();
+    this.initModalSelect();
+  }
+
+  generateCreateRestaurantEvent = (event: Event) => {
+    event.preventDefault();
+
+    const $category = this.querySelector<HTMLSelectElement>('#restaurant-modal-category select');
+    const $name = this.querySelector<HTMLInputElement>('r-input[name="name"] input');
+    const $distance = this.querySelector<HTMLSelectElement>('#restaurant-modal-distance select');
+    const $description = this.querySelector<HTMLTextAreaElement>(
+      'r-textarea[name="description"] textarea',
+    );
+    const $referenceUrl = this.querySelector<HTMLInputElement>(
+      'r-input[name="referenceUrl"] input',
+    );
+
+    if (!$category || !$name || !$distance || !$description || !$referenceUrl) return;
+
+    this.dispatchEvent(
+      new CustomEvent('createRestaurant', {
+        bubbles: true,
+        detail: {
+          category: $category.value,
+          name: $name?.value,
+          distanceByMinutes: Number($distance.value),
+          description: $description.value,
+          referenceUrl: $referenceUrl.value,
+        },
+      }),
+    );
+  };
+
+  initEventHandlers = () => {
+    const $registerRestaurantFrom = this.querySelector('form');
+
+    if (!$registerRestaurantFrom) return;
+
+    $registerRestaurantFrom.addEventListener('submit', this.generateCreateRestaurantEvent);
+  };
+
+  initModalSelect = () => {
+    const $category = this.querySelector<CustomSelectElement>('#restaurant-modal-category');
+    const $distance = this.querySelector<CustomSelectElement>('#restaurant-modal-distance');
+
+    if (!$category || !$distance) return;
+
+    $category.setInitialOptions(DEFAULT_MODAL_CATEGORY_OPTIONS);
+    $distance.setInitialOptions(DEFAULT_MODAL_DISTANCE_OPTIONS);
   };
 }
 
-customElements.define('r-restaurant-detail-modal', RestaurantDetailModal);
+customElements.define('r-register-restaurant-modal', RegisterRestaurantModal);
 
-export default RestaurantDetailModal;
+export default RegisterRestaurantModal;

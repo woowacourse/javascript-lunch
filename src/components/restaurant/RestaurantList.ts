@@ -19,7 +19,7 @@ class RestaurantList extends CustomElement {
               distanceByMinutes="${restaurant.getDistanceByMinutes()}"
               description="${restaurant.getDescription() ?? ''}"
               category="${restaurant.getCategory() ?? ''}"
-              referenceUrl="${restaurant.getReferenceUrl() ?? ''}",
+              ${restaurant.getIsFavorite() ? 'favorite' : ''}
             ></r-restaurant>`;
           })
           .join('')}
