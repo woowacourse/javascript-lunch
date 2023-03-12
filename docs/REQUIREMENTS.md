@@ -121,7 +121,8 @@
 ### 코드 리뷰 후 리팩터링
 
 - [x] refactor: 불리언 값 활용
-- [ ] refactor: Array.prototype.find() 메서드 활용
+- [x] refactor: Array.prototype.find() 메서드 활용을 활용하여 음식점 찾기
+  - 음식점을 찾지 못한 경우 에러를 반환
 - [ ] refactor: 상수화 추가하기
 
 # 페어프로그래밍 회고

@@ -5,6 +5,7 @@ import render from './render';
 import { DEFAULT_RESTAURANTS } from './fixtures';
 import { ALERT_MESSAGE, FILTER, SORT } from './utils/constants';
 import { getRestaurants, saveRestaurants } from './utils/localStorage';
+import errorHandler from './utils/errorHandler';
 
 class App {
   #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
@@ -131,13 +132,15 @@ class App {
   toggleRestaurantFavorite = ({ detail }: CustomEvent) => {
     const { restaurantName } = detail;
 
-    const targetRestaurant = this.#restaurants.filter(
-      (restaurant) => restaurant.getName() === restaurantName,
-    )[0];
-
     this.#restaurants.forEach((restaurant) => {
       if (restaurant.getName() === restaurantName) restaurant.toggleFavorite();
     });
+
+    const targetRestaurant = this.#restaurants.find(
+      (restaurant) => restaurant.getName() === restaurantName,
+    );
+
+    if (!targetRestaurant) return errorHandler.doseNotExistRestaurant();
 
     render.toggleRestaurantFavorite(this.#restaurantListType, targetRestaurant);
 
