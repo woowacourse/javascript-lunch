@@ -1,4 +1,5 @@
 import { CategoryType } from "../type/category";
+import { Restaurant } from "../type/restaurant";
 import { $ } from "../util/querySelector";
 
 class Category {
@@ -11,7 +12,7 @@ class Category {
   create() {
     return `
         <section class="nav-container">
-      <label class="category-label all">
+      <label class="category-label all selected">
         <input class="category-nav " value="모든 음식점" type="radio" name="category" style="display: none"></input>
         모든 음식점
       </label>
@@ -53,6 +54,25 @@ class Category {
       favorateOption?.classList.add("selected");
       allOption?.classList.remove("selected");
     }
+  }
+
+  handleClickCategory(
+    renderFavorates: any,
+    test: any,
+    currentCategory: string
+  ) {
+    $(".favorate")?.addEventListener("click", (e) => {
+      renderFavorates();
+      // currentCategory = "favorate";
+      // console.log(currentCategory);
+    });
+
+    $(".all")?.addEventListener("click", () => {
+      // updateRestaurant();
+      test();
+      // currentCategory = "all";
+      // console.log(currentCategory);
+    });
   }
 }
 
