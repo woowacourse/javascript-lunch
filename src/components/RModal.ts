@@ -1,3 +1,4 @@
+import RButton from './RButton';
 import RComponent from './RComponent';
 
 class RModal extends RComponent {
@@ -48,17 +49,51 @@ class RModal extends RComponent {
       .modal-title {
         margin-bottom: 36px;
       }
+
+      ::slotted(p) {
+        color: red;
+        margin-bottom: 20rem;
+      }
       </style>
+
       <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
           <form>
-              <slot></slot>
+            <slot></slot>
           </form>
         </div>
       </div>
     `;
+  }
+
+  render(): void {
+    super.render();
+
+    this.shadowRoot?.querySelector<HTMLFormElement>('form')?.addEventListener('click', (event) => {
+      if (!(event.target instanceof RButton)) {
+        return;
+      }
+
+      const $button = event.target;
+      const action = $button.getAttribute('action');
+
+      if (action === 'cancel') {
+        this.close();
+        return;
+      }
+      if (action === 'submit') {
+        // validation?
+        this.close();
+      }
+    });
+
+    this.shadowRoot
+      ?.querySelector<HTMLDivElement>('.modal-backdrop')
+      ?.addEventListener('click', () => {
+        this.close();
+      });
   }
 }
 
