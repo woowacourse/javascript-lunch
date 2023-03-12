@@ -389,8 +389,6 @@ input[name="link"] {
   display: flex;
   justify-content: space-between;
 
-  margin-top: 32px;
-  padding-left: 16px;
   padding-right: 18px;
 }
 
@@ -488,4 +486,13 @@ input[name="link"] {
   border-bottom: 2px solid #ec4a0a;
 
   color: #ec4a0a;
+}
+
+.detail-image {
+  background-color: black;
+}
+
+.modal-header-wrapper {
+  display: flex;
+  align-items: center;
 }

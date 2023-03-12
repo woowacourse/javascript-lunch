@@ -78,7 +78,12 @@ class RestaurantList {
   }
 
   getModalContent() {
-    return Elements.listDetailContents(this.element, this.img);
+    const currentStarImage = this.isFavorate ? this.starImage : this.starEmpty;
+    return Elements.listDetailContents(
+      this.element,
+      this.img,
+      currentStarImage
+    );
   }
 
   showRestaurantDetail(deleteList: any) {

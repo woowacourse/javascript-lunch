@@ -85,11 +85,13 @@ const Elements = {
 </form>
   `,
 
-  listDetailContents(infos, image) {
+  listDetailContents(infos, image,currentStarImage) {
     return `
     <div class="header-wrapper">
-      <img src="../../template/category-${infos.category}.png" alt="image" />
-      <img src=${image} alt="filled-star" />
+      <div class="restaurant__category">
+        <img src="${image}" alt="image" class="category-icon"/>
+      </div>
+      <img src=${currentStarImage} alt="filled-star" class="star" style="height:32px" />
     </div>
     <h1 class="info__title">${infos.name}</h1>
     <strong class="info__distance">${infos.distance}분 내</strong>
