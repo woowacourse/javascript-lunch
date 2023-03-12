@@ -10,6 +10,7 @@ class RestaurantList {
   starImage: string;
   starEmpty: string;
   isFavorate: boolean;
+  isDeleted: boolean;
 
   constructor(
     element: any,
@@ -24,6 +25,7 @@ class RestaurantList {
     this.starImage = starImage;
     this.starEmpty = starEmpty;
     this.isFavorate = false;
+    this.isDeleted = false;
   }
 
   getRestaurantInfo() {}
@@ -60,28 +62,38 @@ class RestaurantList {
     listSection.appendChild(listWrapper);
   }
 
-  getListInfo(callback: any) {
+  getListInfo(callback: any, deleteList: any) {
     document
       .getElementById(String(this.currentIndex))
       ?.addEventListener("click", (e) => {
-        console.log(e.target);
         const starIcon = document.getElementById(`star-${this.currentIndex}`);
         if (e.target === starIcon) {
-          callback(e, this.isFavorate);
+          this.isFavorate === true
+            ? (this.isFavorate = false)
+            : (this.isFavorate = true);
+
+          callback();
           return;
         }
-        this.showRestaurantDetail();
+        this.showRestaurantDetail(deleteList);
       });
   }
 
   getModalContent() {
-    console.log(this.element);
     return Elements.listDetailContents(this.element, this.img);
   }
 
-  showRestaurantDetail() {
+  showRestaurantDetail(deleteList: any) {
     const detailModal = new Modal(this.getModalContent());
     detailModal.render();
+    this.hadleClickDelete(deleteList);
+  }
+
+  hadleClickDelete(deleteList: any) {
+    $(".delete")?.addEventListener("click", () => {
+      this.isDeleted = true;
+      deleteList(this.element.name);
+    });
   }
 }
 
