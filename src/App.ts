@@ -1,7 +1,15 @@
 import MainView from './views/MainView';
 import ModalView from './views/ModalView';
 import RestaurantService from './domains/RestaurantService';
+import { TAB_ID } from './constants/constants';
+import { initialRestaurants } from './constants/initialRestaurants';
 import { Category, SortingCriterion, Restaurant } from './types/types';
+import { addTabClickEventHandler, renderTabItemAll } from './components/TabItem';
+import {
+  addFavoriteButtonClickEventHandler,
+  addRestaurantListClickEventHandler,
+  renderRestaurantList,
+} from './components/RestaurantList';
 import {
   closeRestaurantDetailModal,
   addRestaurantRemoveButtonClickEventHandler,
@@ -10,13 +18,6 @@ import {
   addRestaurantDetailModalBackdropClickEventHandler,
   addRestaurantDetailModalCloseButtonClickEventHandler,
 } from './components/RestaurantDetailModal';
-import { TAB_ID } from './constants/constants';
-import { addTabClickEventHandler, renderTabItemAll } from './components/TabItem';
-import {
-  addFavoriteButtonClickEventHandler,
-  addRestaurantListClickEventHandler,
-  renderRestaurantList,
-} from './components/RestaurantList';
 
 export class App {
   private restaurantService = new RestaurantService();
@@ -25,10 +26,22 @@ export class App {
   private currentTab = TAB_ID.ALL;
 
   constructor() {
+    this.initIfRestaurantListIsEmpty();
+
     renderTabItemAll();
     renderRestaurantList(this.restaurantService.filterAndSort());
 
     this.bindEventHandlers();
+  }
+
+  initIfRestaurantListIsEmpty() {
+    const restaurantList = this.getCurrentTabRestaurantList();
+
+    if (restaurantList.length !== 0) return;
+
+    initialRestaurants.forEach((restaurant) => {
+      this.restaurantService.add(restaurant);
+    });
   }
 
   bindEventHandlers() {
