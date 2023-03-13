@@ -3,11 +3,16 @@ const createWrappersForTarget = (
   quantity: number,
   id: string
 ): void => {
-  const wrapperHtml = Array.from({ length: quantity }, (_, i) => {
+  const wrapperElements = Array.from({ length: quantity }, (_, i) => {
     const wrapperId = `${id}-${i + 1}`;
-    return `<div id="${wrapperId}"></div>`;
-  }).join('');
-  target.innerHTML = wrapperHtml;
+    const wrapperElement = document.createElement('div');
+    wrapperElement.id = wrapperId;
+    return wrapperElement;
+  });
+
+  wrapperElements.forEach((wrapperEl) => {
+    target.appendChild(wrapperEl);
+  });
 };
 
 export default createWrappersForTarget;
