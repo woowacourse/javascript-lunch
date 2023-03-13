@@ -12,6 +12,10 @@ class RestaurantList {
     updateList(this);
   }
 
+  getList() {
+    return this.list.map((summary) => summary.info);
+  }
+
   newRestaurantEventCallback(event: CustomEvent) {
     this.add({ restaurant: event.detail.restaurant, favorite: event.detail.favorite });
   }
@@ -25,6 +29,10 @@ class RestaurantList {
     if (event.detail.from === "detailed") {
       this.list.forEach((summary) => summary.favoriteChangeCallback(event));
     }
+  }
+
+  updateCallback(event: CustomEvent) {
+    updateList(this);
   }
 }
 
