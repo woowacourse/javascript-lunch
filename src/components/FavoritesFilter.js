@@ -31,7 +31,7 @@ class FavoritesFilter {
     });
   }
 
-  setClickAllButtonEvent(OnClickButtonFirst, OnClickButtonSecond) {
+  setClickAllButtonEvent(onClickButton) {
     const $allButton = document.querySelector('.favorites-filter .all-restaurants');
 
     $allButton.addEventListener('click', e => {
@@ -42,12 +42,11 @@ class FavoritesFilter {
       const $favoritesButton = document.querySelector('.favorites-filter .favorites-restaurants');
       $favoritesButton.classList.remove('clicked');
 
-      OnClickButtonFirst();
-      OnClickButtonSecond();
+      onClickButton();
     });
   }
 
-  setClickFavoritesButtonEvent(OnClickButtonFirst, OnClickButtonSecond) {
+  setClickFavoritesButtonEvent(onClickButton) {
     const $favoritesButton = document.querySelector('.favorites-filter .favorites-restaurants');
 
     $favoritesButton.addEventListener('click', e => {
@@ -58,8 +57,7 @@ class FavoritesFilter {
       const $allButton = document.querySelector('.favorites-filter .all-restaurants');
       $allButton.classList.remove('clicked');
 
-      OnClickButtonFirst();
-      OnClickButtonSecond();
+      onClickButton();
     });
   }
 }

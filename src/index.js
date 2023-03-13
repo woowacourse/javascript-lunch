@@ -24,14 +24,13 @@ const restaurantsList = new RestaurantsList(restaurants, restaurantItemModal.ope
 modal.setSubmitEvent(restaurantsList.render.bind(restaurantsList));
 header.setOpenModalEvent(modal.render.bind(modal));
 
-favoritesFilter.setClickAllButtonEvent(
-  restaurantFilter.openFilter.bind(restaurantFilter),
-  restaurantsList.render.bind(restaurantsList)
-);
-favoritesFilter.setClickFavoritesButtonEvent(
-  restaurantFilter.closeFilter.bind(restaurantFilter),
-  restaurantsList.render.bind(restaurantsList)
-);
+favoritesFilter.setClickAllButtonEvent(() => {
+  restaurantFilter.openFilter.bind(restaurantFilter), restaurantsList.render.bind(restaurantsList);
+});
+
+favoritesFilter.setClickFavoritesButtonEvent(() => {
+  restaurantFilter.closeFilter.bind(restaurantFilter), restaurantsList.render.bind(restaurantsList);
+});
 
 restaurantFilter.setChangeEvent(restaurantsList.render.bind(restaurantsList));
 restaurantItemModal.setDeleteRestaurantEvent(restaurantsList.render.bind(restaurantsList));

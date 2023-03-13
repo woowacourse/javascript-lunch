@@ -28,7 +28,7 @@ class RestaurantItemModal {
     `;
   }
 
-  templateRestaurantsContents() {
+  makeContentsTemplate() {
     const imageFile = CATEGORY_TO_FILENAME[this.restaurantInfo.category];
     const iconName = FOVORITES_TO_FILENAME[this.restaurantInfo.favorites];
 
@@ -69,7 +69,7 @@ class RestaurantItemModal {
   }
 
   updateContents() {
-    document.querySelector(`.restaurant-item-modal .modal-contents`).innerHTML = this.templateRestaurantsContents();
+    document.querySelector(`.restaurant-item-modal .modal-contents`).innerHTML = this.makeContentsTemplate();
   }
 
   setFavoritesIconEvent() {
