@@ -5,38 +5,35 @@ import RestaurantAddFormComponent from "./RestaurantAddFormComponent";
 import { MODAL_ACTION } from "../../abstracts/constants";
 
 class ModalComponent extends CustomElement {
-  #state = {
-    modal: null,
-    modalContainer: null,
-  };
+  #modal;
+  #modalContainer;
 
   connectedCallback() {
     super.connectedCallback();
     ModalInstance.subscribe(this);
-    this.#state.modal = this.shadowRoot.querySelector(".modal");
-    this.#state.modalContainer =
-      this.shadowRoot.querySelector(".modal-container");
+    this.#modal = this.shadowRoot.querySelector(".modal");
+    this.#modalContainer = this.shadowRoot.querySelector(".modal-container");
   }
 
   modalOn() {
-    this.#state.modal.classList.add("modal--open");
+    this.#modal.classList.add("modal--open");
   }
 
   modalOff() {
-    this.#state.modal.classList.remove("modal--open");
-    this.#state.modalContainer.innerHTML = ``;
+    this.#modal.classList.remove("modal--open");
+    this.#modalContainer.innerHTML = ``;
   }
 
   selectModalType(modalType, action) {
     switch (modalType) {
       case MODAL_ACTION.MODAL_ADD_RESTAURANT:
-        this.#state.modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
+        this.#modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
         break;
       case MODAL_ACTION.MODAL_RESTAURANT_INFO:
-        this.#state.modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
+        this.#modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
         break;
       default:
-        this.#state.modalContainer.innerHTML = `<h1>ERROR</h1>`;
+        this.#modalContainer.innerHTML = `<h1>ERROR</h1>`;
         break;
     }
   }
@@ -47,7 +44,7 @@ class ModalComponent extends CustomElement {
 
       const modalType = action.type;
 
-      if (this.#state.modalContainer.childElementCount === 0) {
+      if (this.#modalContainer.childElementCount === 0) {
         this.selectModalType(modalType, action);
       }
 
