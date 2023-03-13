@@ -11,7 +11,7 @@ class ConfirmDeleteModal extends Modal {
   openCallback(event: CustomEvent) {
     (this.element.querySelector(".modal-container") as HTMLElement).innerHTML = TEMPLATE;
     (this.element.querySelector("h1") as HTMLElement).innerHTML = event.detail.info.restaurant.name;
-    console.log(event.detail);
+
     addCancelEvent(this);
     addDeleteEvent(this, event);
 
