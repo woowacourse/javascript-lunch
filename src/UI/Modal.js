@@ -10,6 +10,7 @@ import {
   getSortByFromLocalStorage,
 } from "../utils/LocalStorage";
 import RestaurantInventory from "./RestaurantInventory";
+import { nameValidation } from "../utils/Validation";
 export default class Modal {
   #template = `
     <div class="modal modal--open">
@@ -94,16 +95,21 @@ export default class Modal {
   }
 
   addRestaurant() {
-    const restaurantInfo = this.setRestaurantInformation();
+    try{
+      nameValidation($("#name").value)
+      const restaurantInfo = this.setRestaurantInformation();
 
-    this.restaurantList.add(restaurantInfo);
-    this.restaurantRegistry.appendRestaurant(
-      this.restaurantList.listRestaurant[this.getRestaurantLength()]
-    );
-    RestaurantInventory.favoriteTabToAllListTab();
+      this.restaurantList.add(restaurantInfo);
+      this.restaurantRegistry.appendRestaurant(
+        this.restaurantList.listRestaurant[this.getRestaurantLength()]
+      );
+      RestaurantInventory.favoriteTabToAllListTab();
 
-    this.restauranListFilter();
-    this.closeModal();
+      this.restauranListFilter();
+      this.closeModal();
+    }catch(error){
+      alert(error.message)
+    }
   }
 
   restauranListFilter() {
