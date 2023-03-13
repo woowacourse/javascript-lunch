@@ -1,8 +1,8 @@
-import { validateUrl } from "../../utils/validate";
-import { OptionValue, RestaurantSelect } from "../../utils/Constants";
-import { Category, TakingTime, Restaurant } from "../../types/type";
-import { $ } from "../../utils/Dom";
-import Select from "../reusable/Select";
+import { validateUrl } from "../utils/validate";
+import { OptionValue, RestaurantSelect } from "../utils/Constants";
+import type { Restaurant } from "../types/type";
+import { $ } from "../utils/Dom";
+import Select from "../components/common/Select";
 
 class RestaurantFormBottomSheet {
   categorySelect;
@@ -20,7 +20,7 @@ class RestaurantFormBottomSheet {
   }
 
   template() {
-    return `<div class="modal">
+    return `<div class="form-sheet">
     <div class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -53,7 +53,7 @@ class RestaurantFormBottomSheet {
         </div>
 
         <div class="button-container">
-          <button type="button" class="button button--secondary text-caption modal--close">취소하기</button>
+          <button type="button" class="button button--secondary text-caption form-sheet--close">취소하기</button>
           <button type="submit" class="button button--primary text-caption modal--submit">추가하기</button>
         </div>
       </form>
@@ -76,7 +76,7 @@ class RestaurantFormBottomSheet {
   }
 
   handleSheetClose() {
-    $(".modal--close")?.addEventListener("click", () => {
+    $(".form-sheet--close")?.addEventListener("click", () => {
       this.resetFormValues();
       this.closeModal();
     });
@@ -95,15 +95,17 @@ class RestaurantFormBottomSheet {
   }
 
   getFormData(): Restaurant {
-    const $modal = $(".modal-form") as HTMLFormElement;
+    const $modal = <HTMLFormElement>$(".modal-form");
     const formData = Object.fromEntries(new FormData($modal).entries());
 
-    const data = {
-      name: formData.name as string,
-      takingTime: formData.takingTime as TakingTime,
-      category: formData.category as Category,
-      link: this.getValidateLink(formData.link as string),
-      description: formData.description as string,
+    const data = <Restaurant>{
+      id: Date.now().toString(),
+      name: formData.name,
+      takingTime: formData.takingTime,
+      category: formData.category,
+      bookmark: false,
+      link: this.getValidateLink(<string>formData.link),
+      description: formData.description,
     };
 
     return data;
@@ -112,20 +114,20 @@ class RestaurantFormBottomSheet {
   getValidateLink(url: string) {
     try {
       return validateUrl(url);
-    } catch (error: unknown) {
-      const warning = $(".url-warning") as HTMLElement;
+    } catch (error) {
+      const warning = <HTMLElement>$(".url-warning");
       if (error instanceof Error) warning.textContent = error.message;
       throw error;
     }
   }
 
   resetFormValues() {
-    const modalForm = $(".modal-form") as HTMLFormElement;
+    const modalForm = <HTMLFormElement>$(".modal-form");
     modalForm.reset();
   }
 
   closeModal() {
-    $(".modal")?.classList.remove("modal--open");
+    $(".form-sheet")?.classList.remove("modal--open");
   }
 }
 

@@ -1,7 +1,7 @@
-import { OptionValue, RestaurantSelect } from "../../utils/Constants";
-import { Constants } from "../../utils/Constants";
-import { RerenderListType } from "../../types/type";
-import Select from "../reusable/Select";
+import type { SelectFilterType, RerenderListType } from "./../types/type";
+import { OptionValue, RestaurantSelect } from "../utils/Constants";
+import { Constants } from "../utils/Constants";
+import Select from "../components/common/Select";
 
 class SelectContainer {
   categorySelect;
@@ -40,8 +40,14 @@ class SelectContainer {
 
   initialize(target: Element, rerenderList: RerenderListType) {
     this.render(target);
-    this.categorySelect.addEvent(Constants.CATEGORY_FILTER, rerenderList);
-    this.sortingSelect.addEvent(Constants.SORTING_FILTER, rerenderList);
+    this.categorySelect.addEvent(
+      <SelectFilterType>Constants.CATEGORY_FILTER,
+      rerenderList.bind(this)
+    );
+    this.sortingSelect.addEvent(
+      <SelectFilterType>Constants.SORTING_FILTER,
+      rerenderList.bind(this)
+    );
   }
 
   render(target: Element) {

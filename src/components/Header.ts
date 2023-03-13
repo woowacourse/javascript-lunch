@@ -1,4 +1,4 @@
-import { $ } from "../../utils/Dom";
+import { $ } from "../utils/Dom";
 
 class Header {
   template() {
@@ -18,7 +18,7 @@ class Header {
 
   addEvent() {
     $(".gnb__button")?.addEventListener("click", () => {
-      $(".modal")?.classList.add("modal--open");
+      $(".form-sheet")?.classList.add("modal--open");
     });
   }
 

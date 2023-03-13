@@ -1,5 +1,5 @@
 import { Constants } from "../utils/Constants";
-import { Restaurant } from "../types/type";
+import type { Restaurant } from "../types/type";
 import { getSavedData, saveData } from "../utils/localStorage";
 
 class RestaurantListHandler {
@@ -15,7 +15,7 @@ class RestaurantListHandler {
   }
 
   getRestaurants(): Restaurant[] {
-    return [...this.restaurants];
+    return this.restaurants;
   }
 
   getSortedByName(restaurants: Restaurant[] = this.restaurants): Restaurant[] {
@@ -31,11 +31,36 @@ class RestaurantListHandler {
   }
 
   getFilteredByCategory(category: string): Restaurant[] {
-    return category === ""
-      ? this.getRestaurants()
-      : this.getRestaurants().filter(
-          (restaurant) => restaurant.category === category
-        );
+    return this.getRestaurants().filter(
+      (restaurant) => restaurant.category === category
+    );
+  }
+
+  getSelectedItem(id: string, restaurantList: Restaurant[]) {
+    return restaurantList.find((restaurant) => restaurant.id === id);
+  }
+
+  setDeleteItem(id: string, restaurantList: Restaurant[]) {
+    this.restaurants = restaurantList.filter(
+      (restaurant) => restaurant.id !== id
+    );
+
+    saveData(Constants.RESTAURANT_LIST, this.restaurants);
+  }
+
+  toggleBookmark(id: string) {
+    this.restaurants = this.restaurants.map((restaurant) => {
+      if (restaurant.id === id) {
+        return { ...restaurant, bookmark: !restaurant.bookmark };
+      }
+      return restaurant;
+    });
+
+    saveData(Constants.RESTAURANT_LIST, this.restaurants);
+  }
+
+  getBookmarkRestaurants() {
+    return this.restaurants.filter((restaurant) => restaurant.bookmark);
   }
 }
 

@@ -1,38 +1,75 @@
-import Header from "./components/disposable/Header";
-import RestaurantFormBottomSheet from "./components/disposable/RestaurantFormBottomSheet";
-import RestaurantList from "./components/disposable/RestaurantList";
-import SelectContainer from "./components/disposable/SelectContainer";
-import { Constants, OptionValue } from "./utils/Constants";
+import { Constants, OptionValue, Selector } from "./utils/Constants";
+import Header from "./components/Header";
+import RestaurantFormBottomSheet from "./components/RestaurantFormBottomSheet";
+import RestaurantList from "./components/RestaurantList";
 import restaurantListHandler from "./domain/restaurantListHandler";
-import { Restaurant } from "./types/type";
+import type { Restaurant } from "./types/type";
+import NavigatorContainer from "./components/NavigatorContainer";
+import { $$, showOrHide } from "./utils/Dom";
+import RestaurantItemBottomSheet from "./components/RestaurantItemBottomSheet";
+import SelectContainer from "./components/SelectContainer";
 
 class App {
   restaurantList: Restaurant[];
+  target: HTMLElement;
+  currentPage: string;
 
   constructor(body: Element) {
-    this.restaurantList = restaurantListHandler.getSortedByName();
+    this.target = <HTMLElement>body;
+    this.restaurantList = restaurantListHandler.getRestaurants();
+    this.currentPage = Constants.TOTAL;
 
-    Header.initialize(body);
-    SelectContainer.initialize(body, this.sortList);
-    RestaurantList.render(body);
+    Header.initialize(this.target);
     RestaurantFormBottomSheet.initialize(
-      body,
+      this.target,
       this.addRestaurantItemToList.bind(this)
     );
+    NavigatorContainer.initialize(
+      this.target,
+      this.setPageAndRerender,
+      this.rerenderList
+    );
+    SelectContainer.initialize(body, this.setSortListFilterById);
+    RestaurantList.initialize(
+      body,
+      this.restaurantList,
+      this.createItemBottomSheet,
+      this.rerenderList
+    );
 
-    RestaurantList.updateRestaurantList(this.restaurantList);
+    this.rerenderList();
   }
 
   addRestaurantItemToList(data: Restaurant) {
     restaurantListHandler.addRestaurant(data);
-    this.restaurantList = restaurantListHandler.getRestaurants();
 
-    RestaurantList.updateRestaurantList(this.restaurantList);
+    this.rerenderList();
   }
 
-  sortList = (id: string, value: string) => {
+  setPageAndRerender = (pageName: string) => {
+    this.currentPage = pageName;
+
+    if (pageName === Constants.TOTAL) {
+      showOrHide(Selector.SELECT_FILTER_CONTAINER);
+      return;
+    }
+    showOrHide(Selector.SELECT_FILTER_CONTAINER);
+
+    this.rerenderList();
+  };
+
+  deletePageSection() {
+    $$(Selector.SECTION)?.forEach((section) => {
+      section.remove();
+    });
+  }
+
+  setSortListFilterById = (id: string, value: string) => {
     if (id === Constants.CATEGORY_FILTER) {
-      this.restaurantList = restaurantListHandler.getFilteredByCategory(value);
+      this.restaurantList =
+        value === ""
+          ? restaurantListHandler.getRestaurants()
+          : restaurantListHandler.getFilteredByCategory(value);
     }
 
     if (id === Constants.SORTING_FILTER) {
@@ -43,6 +80,39 @@ class App {
     }
 
     RestaurantList.updateRestaurantList(this.restaurantList);
+  };
+
+  createItemBottomSheet = (id: string) => {
+    this.restaurantList = restaurantListHandler.getRestaurants();
+
+    const restaurant = <Restaurant>(
+      restaurantListHandler.getSelectedItem(id, this.restaurantList)
+    );
+    const itemSheet = new RestaurantItemBottomSheet(
+      restaurant,
+      this.deleteRestaurantItem
+    );
+    itemSheet.initialize(this.rerenderList);
+  };
+
+  deleteRestaurantItem = (id: string): void => {
+    restaurantListHandler.setDeleteItem(id, this.restaurantList);
+    this.rerenderList();
+  };
+
+  getFilteredRestaurantListByPage(page: string) {
+    if (page === Constants.TOTAL) {
+      return restaurantListHandler.getRestaurants();
+    }
+    return restaurantListHandler.getBookmarkRestaurants();
+  }
+
+  rerenderList = () => {
+    const newRestaurants = this.getFilteredRestaurantListByPage(
+      this.currentPage
+    );
+
+    RestaurantList.updateRestaurantList(newRestaurants);
   };
 }
 
