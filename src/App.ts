@@ -5,7 +5,7 @@ import RestaurantList from "./components/RestaurantList";
 import restaurantListHandler from "./domain/restaurantListHandler";
 import { Restaurant } from "./types/type";
 import NavigatorContainer from "./components/NavigatorContainer";
-import { $$, hide, show } from "./utils/Dom";
+import { $$, showOrHide } from "./utils/Dom";
 import RestaurantItemBottomSheet from "./components/RestaurantItemBottomSheet";
 import SelectContainer from "./components/SelectContainer";
 
@@ -50,10 +50,10 @@ class App {
     this.currentPage = pageName;
 
     if (pageName === Constants.TOTAL) {
-      show(Constants.SELECT_FILTER_CONTAINER);
+      showOrHide(Constants.SELECT_FILTER_CONTAINER);
       return;
     }
-    hide(Constants.SELECT_FILTER_CONTAINER);
+    showOrHide(Constants.SELECT_FILTER_CONTAINER);
 
     this.rerenderList();
   };
