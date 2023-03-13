@@ -19,6 +19,7 @@ body {
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
+  --list-hover-color: #f5e3de;
   --grey-100: #ffffff;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
@@ -88,6 +89,20 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+.restaurant__favorite__icon {
+  position: absolute;
+  top:10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.restaurant__favorite__icon:hover {
+  animation: shake 1.7s;
+  animation-iteration-count: infinite;
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -95,6 +110,10 @@ body {
 
   padding: 0 16px;
   margin-top: 24px;
+}
+
+.restaurant-filter-container-wrapper {
+  height: 60px;
 }
 
 .restaurant-filter-container select {
@@ -128,6 +147,11 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+  cursor: pointer;
+}
+
+.restaurant:hover {
+  background: var(--list-hover-color)
 }
 
 .restaurant__category {
@@ -151,9 +175,11 @@ body {
 }
 
 .restaurant__info {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .restaurant__name {
@@ -173,6 +199,10 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.default-link {
+  color: inherit
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -198,11 +228,13 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 88vh;
 
   padding: 32px 16px;
 
   border-radius: 8px 8px 0 0;
   background: var(--grey-100);
+  overflow-y: auto;
 }
 
 .modal-title {
@@ -348,4 +380,70 @@ input[name='link'] {
 
   font-size: 14px;
   padding: 8px;
+}
+
+
+/* 탭바 *****************************************/
+
+.tabview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tabview__nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.tabview__nav__button {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin: 0 1rem;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.tabview__nav__button:hover, .tabview__nav__button.active {
+  border-bottom: 2px solid #fd264f;
+  color: #fd264f;
+}
+
+.tabview__content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.tabview__content p {
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.tabview__content h4 {
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+/* keyframes *****************************************/
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }

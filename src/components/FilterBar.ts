@@ -4,9 +4,11 @@ import { IComponentPropState } from '../interfaces/IComponent';
 
 class FilterBar extends Component<IComponentPropState> {
   template() {
+    const { activeTab } = this.$props;
     const { category, order } = this.$props.filterOptions;
 
-    return `<select name="category" id="category-filter" class="restaurant-filter">
+    if (activeTab === 'all') {
+      return `<select name="category" id="category-filter" class="restaurant-filter">
     <option value="전체" ${
       category === Category.All && 'selected'
     }>전체</option>
@@ -35,6 +37,8 @@ class FilterBar extends Component<IComponentPropState> {
       order === Order.Distance && 'selected'
     }>거리순</option>
   </select>`;
+    }
+    return '';
   }
 
   getSortValues() {

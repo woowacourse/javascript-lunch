@@ -7,6 +7,7 @@
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
+  "extends": ["eslint:recommended", "plugin:import/recommended", "plugin:cypress/recommended"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -21,6 +22,16 @@
         "endOfLine": "auto"
       }
     ],
+    "import/order": ["error", {
+      "groups": [
+        "builtin",
+        "external",
+        "internal",
+        "parent",
+        "sibling",
+        "index"
+      ]
+    }],
     "no-console": "off",
     "no-underscore-dangle": "off",
     "object-curly-newline": "off",

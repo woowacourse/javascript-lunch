@@ -1,17 +1,13 @@
-import AddModalContainer from './components/AddModalContainer';
-import FilterBar from './components/FilterBar';
 import ListContainer from './components/ListContainer';
 import TopNavBar from './components/TopNavBar';
 import { Category, Order } from './constants/enum';
 import Component from './core/Component';
 import { IComponentPropState } from './interfaces/IComponent';
 import IRestaurantInput from './interfaces/IRestaurantInput';
-import {
-  getLocalStorageItems,
-  setLocalStorageItem,
-} from './utils/localStroageUtils';
+import { getLocalStorageItems } from './utils/localStroageUtils';
 import sortItemsByName from './utils/sortByName';
 import defaultDummyRestaurantsData from './constants/defaultDummyRestaurantsData';
+import BottomSheet from './components/common/BottomSheet';
 
 class App extends Component<IComponentPropState> {
   setup() {
@@ -20,6 +16,8 @@ class App extends Component<IComponentPropState> {
       restaurantList: this.getRestaurants(),
       filterOptions: { category: '전체', order: '이름순' },
       isAddFormValid: true,
+      bottomSheetType: '',
+      bottomSheetData: null,
     };
   }
 
@@ -27,25 +25,16 @@ class App extends Component<IComponentPropState> {
     return `<header class="gnb">
   </header>
   <main>
-    <section class="restaurant-filter-container"></section>
     <section class="restaurant-list-container"></section>
-    
-
-    <section class="restaurant-add-modal-container"></section>
-
-
-    
+    <section class="bottom-sheet-container"></section>
   </main>`;
   }
 
   mounted() {
-    const { toggleModal, addRestaurant, filterList } = this;
+    const { toggleModal, updateRootState } = this;
     const $topNavBar = this.$target.querySelector<HTMLHeadingElement>('.gnb');
-    const $addModalContainer = this.$target.querySelector<HTMLElement>(
-      '.restaurant-add-modal-container'
-    );
-    const $filterBar = this.$target.querySelector<HTMLElement>(
-      '.restaurant-filter-container'
+    const $bottomSheetContainer = this.$target.querySelector<HTMLElement>(
+      '.bottom-sheet-container'
     );
     const $listContainer = this.$target.querySelector<HTMLElement>(
       '.restaurant-list-container'
@@ -53,48 +42,39 @@ class App extends Component<IComponentPropState> {
 
     if ($topNavBar) {
       new TopNavBar($topNavBar, {
-        toggleModal: toggleModal.bind(this),
+        onClickAddIcon: toggleModal.bind(this),
       });
     }
 
-    if ($addModalContainer) {
-      new AddModalContainer($addModalContainer, {
+    if ($bottomSheetContainer) {
+      new BottomSheet($bottomSheetContainer, {
         toggleModal: toggleModal.bind(this),
         isModalOpened: this.$state.isModalOpened,
-        addRestaurant: addRestaurant.bind(this),
-      });
-    }
-
-    if ($filterBar) {
-      new FilterBar($filterBar, {
-        filterList: filterList.bind(this),
-        filterOptions: this.$state.filterOptions,
+        restaurantList: this.$state.restaurantList,
+        updateRootState: updateRootState.bind(this),
+        bottomSheetType: this.$state.bottomSheetType,
+        bottomSheetData: this.$state.bottomSheetData,
       });
     }
 
     if ($listContainer) {
       new ListContainer($listContainer, {
         restaurantList: this.$state.restaurantList,
+        filterList: this.filterList.bind(this),
+        filterOptions: this.$state.filterOptions,
+        updateRootState: this.updateRootState.bind(this),
+        toggleModal: this.toggleModal.bind(this),
       });
     }
   }
 
-  toggleModal(): void {
+  toggleModal(type: string, data?: IRestaurantInput) {
     const { isModalOpened } = this.$state;
-    this.setState({ isModalOpened: !isModalOpened });
-  }
-
-  addRestaurant(restaurantInput: IRestaurantInput) {
-    const restaurantList: IRestaurantInput[] =
-      this.getRestaurants() === defaultDummyRestaurantsData
-        ? []
-        : this.getRestaurants();
-
-    restaurantList.push(restaurantInput);
-
-    setLocalStorageItem('restaurantList', restaurantList);
-
-    this.setState({ restaurantList });
+    this.setState({
+      isModalOpened: !isModalOpened,
+      bottomSheetType: type,
+      bottomSheetData: data,
+    });
   }
 
   filterList(category: Category, order: Order) {
@@ -118,6 +98,10 @@ class App extends Component<IComponentPropState> {
       restaurantList: categoryFilteredList,
       filterOptions: { category, order },
     });
+  }
+
+  updateRootState(newState: IComponentPropState) {
+    this.setState(newState);
   }
 
   getFilteredListByCategory(

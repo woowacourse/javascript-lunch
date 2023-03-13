@@ -12,7 +12,7 @@ interface IComponent<P extends IComponentPropState> {
   mounted(): void;
   setEvent(): void;
   setState(newState: P): void;
-  addEven?(
+  addEvent(
     eventType: string,
     selector: string,
     callback: (event: Event) => void
