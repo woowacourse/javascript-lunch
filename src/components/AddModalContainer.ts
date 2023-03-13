@@ -72,6 +72,7 @@ class AddModalContainer extends Component {
 
     if (!this.validate(restaurantInput)) {
       event.preventDefault();
+      this.showValidationMessage(restaurantInput);
       return;
     }
 
@@ -80,6 +81,20 @@ class AddModalContainer extends Component {
     eventBus.dispatch('@add-restaurant', restaurantInput);
 
     this.hide();
+  }
+
+  showValidationMessage({ category, name, distance, description, link }: RestaurantInput): void {
+    $('#category-message').style.visibility = isValidCategory(category) ? 'hidden' : 'visible';
+
+    $('#name-message').style.visibility = isValidName(name) ? 'hidden' : 'visible';
+
+    $('#distance-message').style.visibility = isValidDistance(distance) ? 'hidden' : 'visible';
+
+    $('#description-message').style.visibility = isValidDescription(description)
+      ? 'hidden'
+      : 'visible';
+
+    $('#link-message').style.visibility = isValidLink(link) ? 'hidden' : 'visible';
   }
 
   getInputs($form: HTMLFormElement): RestaurantInput {
@@ -92,30 +107,14 @@ class AddModalContainer extends Component {
     ) as RestaurantInput;
   }
 
-  validate({ category, name, distance, description, link }: RestaurantInput) {
-    if (
+  validate({ category, name, distance, description, link }: RestaurantInput): boolean {
+    return (
       isValidCategory(category) &&
       isValidName(name) &&
       isValidDistance(distance) &&
       isValidDescription(description) &&
       isValidLink(link)
-    ) {
-      return true;
-    }
-
-    $('#category-message').style.visibility = isValidCategory(category) ? 'hidden' : 'visible';
-
-    $('#name-message').style.visibility = isValidName(name) ? 'hidden' : 'visible';
-
-    $('#distance-message').style.visibility = isValidDistance(distance) ? 'hidden' : 'visible';
-
-    $('#description-message').style.visibility = isValidDescription(description)
-      ? 'hidden'
-      : 'visible';
-
-    $('#link-message').style.visibility = isValidLink(link) ? 'hidden' : 'visible';
-
-    return false;
+    );
   }
 
   updateRestaurant(restaurantInput: RestaurantInput) {
