@@ -5,10 +5,13 @@ import { $ } from '../../utils/common';
 class AddModal extends Modal {
   constructor($target, restaurants, restaurantsList) {
     super($target);
+
+    this.addRestaurant = restaurants.add.bind(restaurants);
+    this.renderSortedList = restaurantsList.renderSortedList.bind(restaurantsList);
+
     this.$target.insertAdjacentHTML('beforeend', this.setContainer());
     this.container = $('.modal-container');
-    this.addRestaurant = restaurants.add.bind(restaurants);
-    this.listSetState = restaurantsList.setState.bind(restaurantsList);
+
     this.render();
   }
 
@@ -92,7 +95,8 @@ class AddModal extends Modal {
   }
 
   changeRestaurantsState(restaurant) {
-    this.listSetState(this.addRestaurant(restaurant));
+    this.addRestaurant(restaurant)
+    this.renderSortedList();
 
     this.toggleModalOpen();
   }
