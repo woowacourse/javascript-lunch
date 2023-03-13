@@ -20,7 +20,7 @@ class RestaurantDetailedModal extends Modal {
     this.element.querySelector(".modal-container")?.appendChild(
       createDetailedElement(event.detail.info)
     );
-    console.log('asdf');
+  
     addCloseButtonCallback(this);
     addDeleteButtonCallback(this);
     addFavoriteButtonCallback(this);
