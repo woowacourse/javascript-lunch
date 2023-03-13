@@ -1,0 +1,31 @@
+.tabs {
+  margin-top: 3rem;
+
+  display: flex;
+  justify-content: center;
+
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.tab {
+  width: 15rem;
+  height: 2rem;
+
+  color: var(--grey-300);
+
+  border-bottom: 2px solid;
+  border-color: var(--gray-300);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.tab--open {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}

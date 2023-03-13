@@ -3,8 +3,10 @@ import { Restaurant } from '../type/common';
 class Restaurants {
   #restaurants: Restaurant[] = [];
 
+  #id = 0;
+
   addRestaurant(restaurant: Restaurant) {
-    this.#restaurants.push(restaurant);
+    this.#restaurants.push({ id: this.#id++, ...restaurant });
   }
 
   getRestaurants() {
@@ -29,6 +31,24 @@ class Restaurants {
     return this.#restaurants.filter(
       (restaurant) => restaurant.category === category
     );
+  }
+
+  filterByFavorite() {
+    return this.#restaurants.filter((restaurant) => !!restaurant.favorite);
+  }
+
+  removeRestaurant(id: number) {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
+  }
+
+  checkFavorite(id: number) {
+    this.#restaurants = this.#restaurants.map((restaurant) => {
+      if (restaurant.id === id) restaurant.favorite = !restaurant.favorite;
+
+      return restaurant;
+    });
   }
 }
 

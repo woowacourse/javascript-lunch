@@ -46,13 +46,54 @@ const actions = {
 
     actions.setValue('restaurants', store.domain.filterByCategory(category));
     actions.setValue('categorySelector', category as RestaurantCategoryType);
+    actions.setValue('isFavorite', false);
   },
 
   addRestaurant(restaurant: Restaurant) {
     if (!store.domain) return;
 
     store.domain.addRestaurant(restaurant);
+
     localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
+  },
+
+  filterFavoriteRestaurnats() {
+    if (!store.domain) return;
+
+    actions.setValue('restaurants', store.domain.filterByFavorite());
+    actions.setValue('isFavorite', true);
+
+    localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
+  },
+
+  checkFavoritRestaurant(id: number) {
+    if (!store.domain) return;
+
+    store.domain.checkFavorite(id);
+    localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
+
+    if (actions.getValue('isFavorite')) {
+      actions.setValue('restaurants', store.domain.filterByFavorite());
+    } else {
+      actions.setValue('restaurants', store.domain.getRestaurants());
+    }
+  },
+
+  removeRestaurant(id: number) {
+    if (!store.domain) return;
+
+    store.domain.removeRestaurant(id);
+
+    actions.setValue('restaurants', store.domain.getRestaurants());
+    localMemory.setData(LOCAL_STORAGE_KEY, store.domain.getRestaurants());
+  },
+
+  findRestaurantById(id: number) {
+    if (!store.domain) return;
+
+    return actions
+      .getValue('restaurants')
+      .filter((restaurant) => restaurant.id === id)[0];
   },
 };
 

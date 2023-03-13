@@ -29,6 +29,8 @@
     }
   },
 
+  "ignorePatterns": ["__tests__/"],
+
   "rules": {
     "no-unused-vars": "off",
     "lines-between-class-members": [
