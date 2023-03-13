@@ -6,8 +6,10 @@ import { FilterCategory, RestaurantList, SortCondition } from './domain/Restaura
 import RestaurantAddModal from './components/RestaurantAddModal';
 import { RestaurantLocalStorage } from './domain/RestaurantLocalStorage';
 import RestaurantDetailModal from './components/RestaurantDetailModal';
+import { Component } from './type/Component';
 
-class App {
+class App implements Component {
+  $target: Element;
   private restaurantList: RestaurantList;
   private components: {
     header: Header;
@@ -17,90 +19,122 @@ class App {
     detailModal: RestaurantDetailModal;
   };
 
-  constructor(target: HTMLElement) {
+  constructor(parent: HTMLElement) {
+    this.$target = document.createElement('main');
+    parent.insertAdjacentElement('beforeend', this.$target);
     this.restaurantList = new RestaurantList(RestaurantLocalStorage.loadList('restaurantList'));
     this.components = {
-      header: new Header(target),
-      filterBar: new RestaurantFilterBar(target),
-      listSection: new RestaurantListSection(target, this.getRestaurantList('전체', '이름')),
-      addModal: new RestaurantAddModal(target, this.restaurantList.validateRestaurant),
-      detailModal: new RestaurantDetailModal(target),
+      header: new Header(parent),
+      filterBar: new RestaurantFilterBar(this.$target),
+      listSection: new RestaurantListSection(
+        this.$target,
+        this.getRestaurantList({ category: '전체', sortCondition: '이름' }),
+      ),
+      addModal: new RestaurantAddModal(this.$target, this.restaurantList.validateRestaurant),
+      detailModal: new RestaurantDetailModal(this.$target),
     };
-
-    this.init();
   }
 
-  init = () => {
+  init() {
+    this.render();
     this.renderAllTab();
-    this.components.header.setButtonHandler(this.components.addModal.show);
-    this.components.header.setTabHandler(this.renderAllTab, this.renderFavoriteTab);
-    this.components.filterBar.setSelectChangeHandler(this.renderAllTab);
-    this.components.addModal.setAddbuttonHandler(this.addRestaurant);
-    this.components.addModal.setCloseModalHandler();
-  };
 
-  renderAllTab = () => {
+    this.components.header.setEventHandler(
+      'addButton',
+      this.components.addModal.show.bind(this.components.addModal),
+    );
+    this.components.header.setEventHandler('allTab', this.renderAllTab.bind(this));
+    this.components.header.setEventHandler('favoriteTab', this.renderFavoriteTab.bind(this));
+    this.components.filterBar.setEventHandler('filter', this.renderAllTab.bind(this));
+    this.components.addModal.setEventHandler('addButton', this.addRestaurant.bind(this));
+    this.components.addModal.setCloseModalHandler();
+  }
+
+  render(): void {
+    this.components.header.render();
+    this.components.filterBar.render();
+    this.components.listSection.render();
+    this.components.addModal.render();
+    this.components.detailModal.render();
+  }
+
+  renderAllTab() {
     this.components.filterBar.show();
     this.components.listSection.setRestaurants(
-      this.getRestaurantList(
-        this.components.filterBar.getCategory(),
-        this.components.filterBar.getSortCondition(),
-      ),
+      this.getRestaurantList({
+        category: this.components.filterBar.getCategory(),
+        sortCondition: this.components.filterBar.getSortCondition(),
+      }),
     );
-    this.components.listSection.render();
+    this.components.listSection.reRender();
 
-    this.components.listSection.setFavoriteButtonHandler(this.toggleIsFavorite);
-    this.components.listSection.setRestaurantClickHandler(this.renderDetailModal);
-  };
+    this.components.listSection.setFavoriteButtonHandler(this.toggleIsFavorite.bind(this));
+    this.components.listSection.setRestaurantClickHandler(this.renderDetailModal.bind(this));
+  }
 
-  renderFavoriteTab = () => {
+  renderFavoriteTab() {
     this.components.filterBar.hide();
     this.components.listSection.setRestaurants(this.getFavoriteList());
-    this.components.listSection.render();
+    this.components.listSection.reRender();
 
-    this.components.listSection.setFavoriteButtonHandler(this.toggleIsFavorite);
-    this.components.listSection.setRestaurantClickHandler(this.renderDetailModal);
-  };
+    this.components.listSection.setFavoriteButtonHandler(this.toggleIsFavorite.bind(this));
+    this.components.listSection.setRestaurantClickHandler(this.renderDetailModal.bind(this));
+  }
 
-  renderDetailModal = (restaurant: Restaurant) => {
+  renderDetailModal(restaurant: Restaurant) {
     this.components.detailModal.setRestaurant(restaurant);
-    this.components.detailModal.render();
+    this.components.detailModal.reRender();
 
+    this.components.detailModal.setEventHandler('favoriteButton', this.toggleIsFavorite.bind(this));
+    this.components.detailModal.setEventHandler('deleteButton', this.deleteRestaurant.bind(this));
     this.components.detailModal.setCloseModalHandler();
-    this.components.detailModal.setFavoriteButtonHandler(this.toggleIsFavorite);
-    this.components.detailModal.setDeleteButtonHandler(this.deleteRestaurant);
     this.components.detailModal.show();
-  };
+  }
 
-  getRestaurantList = (category: FilterCategory, condition: SortCondition) => {
-    switch (condition) {
+  getRestaurantList(condition: { category: FilterCategory; sortCondition: SortCondition }) {
+    switch (condition.sortCondition) {
       case '이름':
-        return this.restaurantList.sortByName(this.restaurantList.getByCategory(category));
+        return this.restaurantList.sortByName(
+          this.restaurantList.getByCategory(condition.category),
+        );
       case '거리':
-        return this.restaurantList.sortByDistance(this.restaurantList.getByCategory(category));
+        return this.restaurantList.sortByDistance(
+          this.restaurantList.getByCategory(condition.category),
+        );
     }
-  };
+  }
 
-  getFavoriteList = () => this.restaurantList.getFavoriteList();
+  getFavoriteList() {
+    return this.restaurantList.getFavoriteList();
+  }
 
-  addRestaurant = (restaruant: Restaurant) => {
+  addRestaurant(restaruant: Restaurant) {
     this.restaurantList.add(restaruant);
-    RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantList('전체', '이름'));
+    RestaurantLocalStorage.saveList(
+      'restaurantList',
+      this.getRestaurantList({ category: '전체', sortCondition: '이름' }),
+    );
 
     this.renderAllTab();
-  };
+  }
 
-  deleteRestaurant = (name: string) => {
+  deleteRestaurant(name: string) {
     this.restaurantList.delete(name);
-    RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantList('전체', '이름'));
+    RestaurantLocalStorage.saveList(
+      'restaurantList',
+      this.getRestaurantList({ category: '전체', sortCondition: '이름' }),
+    );
 
     this.renderAllTab();
-  };
+  }
 
-  toggleIsFavorite = (name: string) => {
+  toggleIsFavorite(name: string) {
     this.restaurantList.toggleFavorite(name);
-    RestaurantLocalStorage.saveList('restaurantList', this.getRestaurantList('전체', '이름'));
-  };
+    RestaurantLocalStorage.saveList(
+      'restaurantList',
+      this.getRestaurantList({ category: '전체', sortCondition: '이름' }),
+    );
+  }
 }
 
 export default App;
