@@ -2,12 +2,15 @@ import RestaurantItem from './RestaurantItem';
 import { $ } from '../utils/common';
 
 class RestaurantsList {
+  favoriteList = [];
+  restaurantList = [];
+
   constructor($target, restaurants, infoModal) {
     this.$target = $target;
-    this.sortedCallback = restaurants.getSelectedRestaurantsList.bind(restaurants);
-    this.getFavoriteCallback = restaurants.getFavoriteRestaurantList.bind(restaurants);
-    this.infoRenderCallback = infoModal.render.bind(infoModal);
-    this.restaurantItem = new RestaurantItem();
+    this.sortRestaurantList = restaurants.getSelectedRestaurantsList.bind(restaurants);
+    this.getFavoriteRestaurantList = restaurants.getFavoriteRestaurantList.bind(restaurants);
+    this.setFavoriteState = restaurants.setFavoriteState.bind(restaurants);
+    this.restaurantInfoRender = infoModal.render.bind(infoModal);
     this.setState(restaurants.restaurantsList);
   }
 
@@ -35,46 +38,46 @@ class RestaurantsList {
     const category = categoryFilter.options[categoryFilter.selectedIndex].value;
     const sortType = sortTypeFilter.options[sortTypeFilter.selectedIndex].value;
 
-    const sortedRestaurantList = this.sortedCallback(category, sortType);
+    const sortedRestaurantList = this.sortRestaurantList(category, sortType);
 
     this.renderRestaurantItem(sortedRestaurantList);
   }
 
   renderRestaurantItem(sortedRestaurantList) {
-    const restaurantList = $('.restaurant-list');
-    restaurantList.replaceChildren();
+    const $restaurantList = $('.restaurant-list');
+    $restaurantList.replaceChildren();
 
-    restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(sortedRestaurantList));
-    this.setItemEvent(sortedRestaurantList);
-  }
-
-  renderFavoriteRestaurant() {
-    const restaurantList = $('.restaurant-list');
-    restaurantList.replaceChildren();
-
-    restaurantList.insertAdjacentHTML('beforeend', this.restaurantItem.makeItemList(this.getFavoriteCallback()));
-    this.setItemEvent(this.getFavoriteCallback());
-  }
-
-  setEvent(callback) {
-    $('.restaurant-list').addEventListener('click', e => {
-      callback(e.target.alt);
-      if ($('ul.tabbar-selector li.current').innerText === '자주 가는 음식점') {
-        this.renderFavoriteRestaurant();
-        return;
-      }
-
-      this.render();
+    this.restaurantList = [];
+    sortedRestaurantList.forEach(restaurant => {
+      this.restaurantList.push(
+        new RestaurantItem(
+          $restaurantList,
+          restaurant,
+          this.restaurantInfoRender.bind(this),
+          this.render.bind(this),
+          this.setFavoriteState.bind(this)
+        )
+      );
     });
   }
 
-  setItemEvent(restaurantList) {
-    restaurantList.forEach(restaurant => {
-      $(`#${restaurant.id}`).addEventListener('click', e => {
-        if (e.target.id === '') {
-          this.infoRenderCallback(restaurant, this.render.bind(this), this.renderFavoriteRestaurant.bind(this));
-        }
-      });
+  renderFavoriteRestaurant() {
+    const $restaurantList = $('.restaurant-list');
+    $restaurantList.replaceChildren();
+
+    const favoriteList = this.getFavoriteRestaurantList();
+
+    this.favoriteList = [];
+    favoriteList.forEach(restaurant => {
+      this.favoriteList.push(
+        new RestaurantItem(
+          $restaurantList,
+          restaurant,
+          this.restaurantInfoRender.bind(this),
+          this.render.bind(this),
+          this.setFavoriteState.bind(this)
+        )
+      );
     });
   }
 }

@@ -30,10 +30,10 @@ class RestaurantFilter {
     this.$target.insertAdjacentHTML('beforeend', this.template());
   }
 
-  setEvent(callback) {
+  setEvent(listRender) {
     const filters = $('.restaurant-filter-container');
 
-    filters.addEventListener('change', callback);
+    filters.addEventListener('change', listRender);
   }
 
   closeFilter() {

@@ -24,17 +24,13 @@ const $header = $('.gnb');
 const $main = $('main');
 
 const header = new Header($header);
-const addModal = new AddModal($main);
-const infoModal = new InfoModal(restaurants);
 const tabbar = new Tabbar($main);
 const restaurantFilter = new RestaurantFilter($main);
+const infoModal = new InfoModal(restaurants);
 const restaurantsList = new RestaurantsList($main, restaurants, infoModal);
+const addModal = new AddModal($main, restaurants, restaurantsList);
 
-header.setEvent(
-  addModal.render.bind(addModal),
-  restaurantsList.setState.bind(restaurantsList),
-  restaurants.add.bind(restaurants)
-);
+header.setEvent(addModal.render.bind(addModal));
 
 tabbar.setEvent(
   restaurantsList.render.bind(restaurantsList),
@@ -45,4 +41,4 @@ tabbar.setEvent(
 
 restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
 
-restaurantsList.setEvent(restaurants.setFavoriteState.bind(restaurants));
+// restaurantsList.setEvent(restaurants.setFavoriteState.bind(restaurants));

@@ -3,10 +3,12 @@ import { validateBlankString } from '../../utils/common';
 import { $ } from '../../utils/common';
 
 class AddModal extends Modal {
-  constructor($target) {
+  constructor($target, restaurants, restaurantsList) {
     super($target);
     this.$target.insertAdjacentHTML('beforeend', this.setContainer());
     this.container = $('.modal-container');
+    this.addRestaurant = restaurants.add.bind(restaurants);
+    this.listSetState = restaurantsList.setState.bind(restaurantsList);
     this.render();
   }
 
@@ -60,17 +62,17 @@ class AddModal extends Modal {
     `;
   }
 
-  render(setStateCallback, addCallback) {
+  render() {
     this.container.replaceChildren();
     this.container.insertAdjacentHTML('beforeend', this.template());
 
-    this.setSubmitEvent(setStateCallback, addCallback);
+    this.setSubmitEvent();
     this.setModalCloseEvent();
 
     this.toggleModalOpen();
   }
 
-  setSubmitEvent(setStateCallback, addCallback) {
+  setSubmitEvent() {
     const modalForm = $('.modal form');
 
     modalForm.addEventListener('submit', e => {
@@ -79,7 +81,7 @@ class AddModal extends Modal {
       }
 
       $('.error').classList.remove('error--show');
-      this.changeRestaurantsState(this.makeNewRestaurant(), setStateCallback, addCallback);
+      this.changeRestaurantsState(this.makeNewRestaurant());
     });
   }
 
@@ -89,8 +91,8 @@ class AddModal extends Modal {
     e.preventDefault();
   }
 
-  changeRestaurantsState(restaurant, setStateCallback, addCallback) {
-    setStateCallback(addCallback(restaurant));
+  changeRestaurantsState(restaurant) {
+    this.listSetState(this.addRestaurant(restaurant));
 
     this.toggleModalOpen();
   }
