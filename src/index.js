@@ -10,6 +10,7 @@ import setRestaurantsTemplateToLocalStorage from "./setRestaurantsTemplateToLoca
 import DocumentEventBus from "./DocumentEventBus/DocumentEventBus";
 import RestaurantList from "./RestaurantList/RestaurantList";
 import RestaurantDetailedModal from "./RestaurantDetailedModal/RestaurantDetailedModal";
+import InputSuccessModal from "./InputSuccessModal/InputSuccessModal";
 
 const restaurantList = new RestaurantList();
 $("main").appendChild(restaurantList.element);
@@ -85,6 +86,10 @@ submitAlertPosition.appendChild(submitAlert.element);
 const restaurantDetailedModal = new RestaurantDetailedModal("restaurant-detailed-modal");
 $("main").appendChild(restaurantDetailedModal.element);
 
+// 음식점 입력 성공 모달 생성
+const inputSuccessModal = new InputSuccessModal("input-success-modal");
+$("main").appendChild(inputSuccessModal.element);
+
 // 이벤트 구독 관계 설정
 DocumentEventBus.subscribe("validateCategory", categoryAlert.eventCallback.bind(categoryAlert));
 DocumentEventBus.subscribe("validateName", nameAlert.eventCallback.bind(nameAlert));
@@ -104,6 +109,8 @@ DocumentEventBus.subscribe(
   "openDetailed",
   restaurantDetailedModal.openModalEventCallback.bind(restaurantDetailedModal),
 );
+
+DocumentEventBus.subscribe("restaurantSubmit", inputSuccessModal.submitSuccessCallback.bind(inputSuccessModal));
 
 // 새로고침
 window.addEventListener("beforeunload", () => LocalStorage.setItem("restaurants", restaurantList.getList()));
