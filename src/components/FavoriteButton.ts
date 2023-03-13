@@ -5,14 +5,13 @@ import favoriteLinedImage from "../images/favorite-icon-lined.png";
 import restaurantState from "../states/restaurants";
 
 class FavoriteButton extends HTMLButtonElement {
-  #isFavorite: Boolean;
+  #isFavorite: boolean;
 
   constructor() {
     super();
 
     this.#isFavorite =
       restaurantState.getTargetRestaurant(this.value)?.isFavorite || false;
-    this.onClick = this.onClick.bind(this);
   }
 
   connectedCallback() {
