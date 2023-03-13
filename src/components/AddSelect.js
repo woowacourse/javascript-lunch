@@ -1,10 +1,4 @@
 class AddSelect extends HTMLElement {
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'options') {
-      this.connectedCallback();
-    }
-  }
-
   createOption(title, kind) {
     if (kind === 'distance') {
       return `<option value="${title}">${title}분 내</option>`;
@@ -14,86 +8,8 @@ class AddSelect extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    const componentStyle = document.createElement('style');
-    componentStyle.textContent = `
-      .text-caption {
-        font-size: 14px;
-        line-height: 20px;
-        font-weight: 400;
-      }
-
-      .container {
-        z-index:1;
-        display: flex;
-        flex-direction: column;
-      
-        margin-bottom: 36px;
-      }
-      
-      label {
-        color: var(--grey-400);
-        font-size: 14px;
-      }
-      
-      label::after {
-        padding-left: 4px;
-      
-        color: var(--primary-color);
-        content: "*";
-      }
-      
-      .container .help-text {
-        color: var(--grey-300);
-      }
-      
-      select {
-        padding: 8px;
-        margin: 6px 0;
-      
-        border: 1px solid var(--grey-200);
-        border-radius: 8px;
-      
-        font-size: 16px;
-      }
-      
-    
-      
-      select {
-        height: 44px;
-      
-        padding: 8px;
-      
-        border: 1px solid var(--grey-200);
-        border-radius: 8px;
-      
-        color: var(--grey-300);
-      }
-
-      .error{
-        color: red;
-        padding: 2px 6px;
-      }
-`;
-
-    const name = this.getAttribute('name');
-    const id = this.getAttribute('id');
-    const optionsAttribute = this.getAttribute('options').split(',');
-    const options = optionsAttribute.map((option) =>
-      this.createOption(option, id)
-    );
-
-    this.shadowRoot.innerHTML = `
-    <div class="container">
-      <label for="${id} text-caption">${name}</label>
-        <select name="${id}" id="${id}" required>
-          <option value="">선택해 주세요</option>
-            ${options.join('\n')}
-        </select>
-    </div>
-    `;
-
-    this.shadowRoot.append(componentStyle);
-
+    this.render();
+    this.setComponentStyle();
     this.setRemoveErrorEvent();
   }
 
@@ -124,6 +40,74 @@ class AddSelect extends HTMLElement {
     if (errorMessage) {
       this.shadowRoot.querySelector('.container').removeChild(errorMessage);
     }
+  }
+
+  render() {
+    const name = this.getAttribute('name');
+    const id = this.getAttribute('id');
+    const optionsAttribute = this.getAttribute('options').split(',');
+    const options = optionsAttribute.map((option) =>
+      this.createOption(option, id)
+    );
+
+    this.shadowRoot.innerHTML = `
+    <div class="container">
+      <label for="${id}" class="text-caption">${name}</label>
+        <select name="${id}" id="${id}" required>
+          <option value="">선택해 주세요</option>
+            ${options.join('\n')}
+        </select>
+    </div>
+    `;
+  }
+
+  setComponentStyle() {
+    const componentStyle = document.createElement('style');
+    componentStyle.textContent = `
+      .text-caption {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 36px;
+        z-index:1;
+      }
+      
+      label {
+        color: var(--grey-400);
+        font-size: 14px;
+      }
+      
+      label::after {
+        padding-left: 4px;
+        color: var(--primary-color);
+        content: "*";
+      }
+      
+      .container .help-text {
+        color: var(--grey-300);
+      }
+      
+      select {
+        height:44px;
+        padding: 8px;
+        margin: 6px 0;
+        border: 1px solid var(--grey-200);
+        border-radius: 8px;
+        font-size: 16px;
+      }
+
+      .error{
+        padding: 2px 6px;
+        color: red;
+      }
+`;
+
+    this.shadowRoot.append(componentStyle);
   }
 
   setRemoveErrorEvent() {

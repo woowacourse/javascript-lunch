@@ -1,30 +1,59 @@
-import { COUNTRY_FOOD } from '../constants/index.ts';
-import koreanImage from '../assets/category-korean.png';
-import chineseImage from '../assets/category-chinese.png';
-import japaneseImage from '../assets/category-japanese.png';
-import westernImage from '../assets/category-western.png';
-import asianImage from '../assets/category-asian.png';
-import etcImage from '../assets/category-etc.png';
-import { shortenString } from '../utils';
+import RestaurantList from '../domain/RestaurantList.ts';
+import { $, shortenString } from '../utils';
 
 class RestaurantBox extends HTMLElement {
-  #categoryImage = {
-    [COUNTRY_FOOD.korean]: koreanImage,
-    [COUNTRY_FOOD.chinese]: chineseImage,
-    [COUNTRY_FOOD.japanese]: japaneseImage,
-    [COUNTRY_FOOD.western]: westernImage,
-    [COUNTRY_FOOD.asian]: asianImage,
-    [COUNTRY_FOOD.etc]: etcImage,
-  };
-
-  attributeChangedCallback(name) {
-    if (name === 'category' && name === 'name' && name === 'distance') {
-      this.connectedCallback();
-    }
+  favoriteClickEvent({ name }) {
+    this.shadowRoot
+      .querySelector('favorite-image')
+      .addEventListener('click', (event) => {
+        event.stopPropagation();
+        RestaurantList.updateFavorite(name);
+        $('restaurant-boxes').drawRestaurants();
+      });
   }
 
-  connectedCallback() {
-    this.attachShadow({ mode: 'open' });
+  showDetailEvent({ name, category, distance, description, link, isFavorite }) {
+    this.shadowRoot.querySelector('li').addEventListener('click', () => {
+      $('restaurant-detail-modal').openModal();
+      $('restaurant-detail-modal').renderDetailRestaurant({
+        name,
+        category,
+        distance,
+        description,
+        link,
+        isFavorite,
+      });
+    });
+  }
+
+  render({ name, category, distance, description = '', isFavorite = '' }) {
+    const NAME_SLICE_NUMBER = 14;
+    const DESCRIPTION_SLICE_NUMBER = 30;
+
+    this.shadowRoot.innerHTML = `
+    <li >
+      <category-image category=${category}></category-image>
+      <div class="info">
+        <div class="item-wrapper">
+          <div class="name-container">
+            <h3 class="name text-subtitle">${shortenString(
+              name,
+              NAME_SLICE_NUMBER
+            )}</h3>
+            <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
+          </div>
+          <favorite-image isFavorite="${isFavorite}"></favorite-image>
+        </div>
+        <span class="description text-body">${shortenString(
+          description,
+          DESCRIPTION_SLICE_NUMBER
+        )}</span>
+      </div>
+    </li>
+    `;
+  }
+
+  setComponentStyle() {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
       .text-subtitle {
@@ -42,42 +71,23 @@ class RestaurantBox extends HTMLElement {
       li {
         display: flex;
         align-items: flex-start;
-      
+        width:100%;
         padding: 16px 8px;
-      
         border-bottom: 1px solid #e9eaed;
+        cursor:pointer;
+        transition: background-color 0.3s;
       }
 
-      @media (max-width: 400px) {
-        li {
-          padding: 8px 4px;
-        }
+      li:hover {
+        background-color: var(--lighten-30-color);
       }
       
-      .category {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 64px;
-        height: 64px;
-        min-width: 64px;
-        min-height: 64px;
-      
-        margin-right: 16px;
-      
-        border-radius: 50%;
-        background: var(--lighten-color);
-      }
-      
-      img {
-        width: 36px;
-        height: 36px;
-      }
-      
+
       .info {
         display: flex;
-        flex-direction: column;
         justify-content: flex-start;
+        flex-direction: column;
+        width:100%;
       }
       
       .name {
@@ -90,48 +100,36 @@ class RestaurantBox extends HTMLElement {
       
       .description {
         display: -webkit-box;
-      
         padding-top: 8px;
-      
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
+        overflow-wrap: break-word;
+      }
+
+      .item-wrapper{
+        display:flex;
+        justify-content:space-between;
+      }
+
+      @media (max-height: 900px) {
+        li {
+          padding: 8px 4px;
+        }
       }
 `;
-
-    const name = this.getAttribute('name');
-    const category = this.getAttribute('category');
-    const distance = this.getAttribute('distance');
-    const description = this.getAttribute('description') || '';
-
-    const NAME_SLICE_NUMBER = 18;
-    const DESCRIPTION_SLICE_NUMBER = 56;
-
-    this.shadowRoot.innerHTML = `
-    <li>
-    <div class="category">
-      <img src=${this.#categoryImage[category]} alt=${category}>
-    </div>
-    <div class="info">
-      <h3 class="name text-subtitle">${shortenString(
-        name,
-        NAME_SLICE_NUMBER
-      )}</h3>
-      <span class="distance text-body">캠퍼스부터 ${distance}분 내</span>
-      <p class="description text-body">${shortenString(
-        description,
-        DESCRIPTION_SLICE_NUMBER
-      )}</p>
-    </div>
-  </li>
-    `;
 
     this.shadowRoot.append(componentStyle);
   }
 
-  static get observedAttributes() {
-    return ['category', 'name', 'distance', 'description'];
+  update(restaurant) {
+    this.attachShadow({ mode: 'open' });
+    this.setAttribute('id', restaurant.name);
+    this.render(restaurant);
+    this.setComponentStyle();
+    this.showDetailEvent(restaurant);
+    this.favoriteClickEvent(restaurant);
   }
 }
 

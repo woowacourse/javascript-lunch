@@ -1,4 +1,4 @@
-import { Restaurant } from '../domain/model/RestaurantList';
+import { Restaurant } from '../domain/RestaurantList';
 
 const COUNTRY_FOOD = Object.freeze({
   korean: '한식',
@@ -19,6 +19,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     드리고자 항상 노력하고 연구 중입니다. 해동 및
     숙성과정을 통해 최고급 참다랑어를 생참치 본연의맛 그대로 드실수 있도록 항상 노력하겠습니다.`,
     link: 'https://seungjaetuna.modoo.at',
+    isFavorite: false,
   },
   {
     name: '농민백암순대 본점',
@@ -28,6 +29,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     회전, 올리브영 사거리에서 좌회전, 직진하면서 
     우측에 cu 편의점과 만두집 사이 골목  양쪽에 위치하고 있습니다`,
     link: '',
+    isFavorite: false,
   },
   {
     name: '김돈이 본점',
@@ -35,6 +37,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     distance: 5,
     description: `안녕하세요. 김돈이 선릉본점입니다. 항상 노력하는 김돈이가 되겠습니다`,
     link: '',
+    isFavorite: false,
   },
   {
     name: '트라가 삼성점',
@@ -48,6 +51,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     해산물은 당일 받은 것을 당일 소모하는 것을 원칙으로 하며,
     24시간이 지나면 전량 폐기합니다.`,
     link: '',
+    isFavorite: false,
   },
   {
     name: '마담밍',
@@ -55,6 +59,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     distance: 10,
     description: `우리나라 최초 짬뽕냉면.냉짬뽕식당 입니다..21년의 역사가있습니다`,
     link: 'http://www.madamming.com/',
+    isFavorite: false,
   },
   {
     name: '72420',
@@ -65,6 +70,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     매장에서 직접 우려내기에
     국물부터가 특별합니다.`,
     link: 'http://www.madamming.com/',
+    isFavorite: false,
   },
   {
     name: '월미당 대치점',
@@ -72,6 +78,7 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     distance: 30,
     description: ``,
     link: '',
+    isFavorite: false,
   },
   {
     name: '전봇대',
@@ -79,6 +86,31 @@ const DEFAULT_RESTAURANTS: Restaurant[] = [
     distance: 20,
     description: ``,
     link: '',
+    isFavorite: false,
+  },
+  {
+    name: '공백이없는긴문장을테스트하는음식점이름입니다',
+    category: '기타',
+    distance: 20,
+    description: `공백이없는긴문장을테스트하는설명입니다가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사`,
+    link: 'https://www.google.com/search?q=cypress+contains+includeShadowDom&sxsrf=AJOqlzVVhXz0AxFMFbs8Xij2s3UxkgZxBQ%3A1678611402986&ei=ypMNZKzvO43mwQOBlLeIDg&ved=0ahUKEwis_I_jgtb9AhUNc3AKHQHKDeEQ4dUDCA8&uact=5&oq=cypress+contains+includeShadowDom&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCAAQogQyBQgAEKIEMggIABCiBBCLAzoKCAAQRxDWBBCwAzoICCEQoAEQwwRKBAhBGABQthZYoidgqytoAXABeACAAZQBiAG9BJIBAzAuNJgBAKABAcgBCrgBAcABAQ&sclient=gws-wiz-serp',
+    isFavorite: false,
+  },
+  {
+    name: '이름에 "이 들어가 있는 경우',
+    category: '기타',
+    distance: 30,
+    description: ``,
+    link: '',
+    isFavorite: false,
+  },
+  {
+    name: "이름에 '이 들어가 있는 경우",
+    category: '기타',
+    distance: 5,
+    description: ``,
+    link: '',
+    isFavorite: false,
   },
 ];
 
