@@ -1,5 +1,6 @@
 import Component from '../Component';
 import { geid, qs } from '../utils/domHelpers';
+import { isAbnormalStoreName, isDuplicatedStoreName } from '../validation/validationInput';
 
 export default class AddModal extends Component {
   constructor($target) {
@@ -91,12 +92,11 @@ export default class AddModal extends Component {
       return el.value;
     });
 
-    if (inputData[1].trim() === '' || !inputData[1].match(/^[a-zA-Z0-9가-힣ㄱ-ㅎ\s]*$/)) {
-      alert('음식점 이름은 적어도 하나의 문자를 입력해야 하며 특수기호는 포함할 수 없습니다.');
+    if (this.validateStoreName(inputData[1])) {
       return;
     }
 
-    const addData = {
+    const addRestaurantData = {
       category: inputData[0],
       storeName: inputData[1],
       distance: inputData[2],
@@ -105,7 +105,25 @@ export default class AddModal extends Component {
       starShape: 'lined',
     };
 
-    this.restaurantManager.addRestaurant(addData);
+    this.restaurantManager.addRestaurant(addRestaurantData);
     event.currentTarget.classList.remove('modal--open');
+  }
+
+  validateStoreName(storeName) {
+    const storeNameList = this.restaurantManager
+      .getRestaurantList()
+      .map((restaurant) => restaurant.storeName);
+
+    if (storeName.trim() === '' || !storeName.match(/^[a-zA-Z0-9가-힣ㄱ-ㅎ\s]*$/)) {
+      alert('음식점 이름은 공백 또는 특수기호로만 이루어질 수 없습니다.');
+      return true;
+    }
+
+    if (storeNameList.includes(storeName)) {
+      alert('음식점 이름은 이미 추가된 음식점 이름과 중복될 수 없습니다.');
+      return true;
+    }
+
+    return false;
   }
 }
