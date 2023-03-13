@@ -7,6 +7,7 @@ import { $ } from './utils/domUtils';
 import { restaurantStore } from './model/restaurantStore';
 import MenuTabBar from './components/MenuTabBar';
 import DetailModal from './components/DetailModal';
+import DeleteModal from './components/DeleteModal';
 
 class App extends Component {
   readonly component: any;
@@ -22,6 +23,7 @@ class App extends Component {
       addModalContainer: new AddModalContainer($('.restaurant-add-modal-container')),
       menuTabBar: new MenuTabBar($('.menu-tab-bar')),
       detailModal: new DetailModal($('.detail-modal-container')),
+      deleteModal: new DeleteModal($('.delete-modal')),
     };
   }
 }

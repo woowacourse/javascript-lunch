@@ -33,20 +33,12 @@ class RestaurantListContainer extends Component {
 
   subscribe(): this {
     eventBus
-      .subscribe('@add-restaurant', this.handleAdd.bind(this))
+      .subscribe('@add-restaurant', this.render.bind(this))
       .subscribe('@change-filter', this.handleFilter.bind(this))
       .subscribe('@click-tab', this.handleTabChange.bind(this))
-      .subscribe('@toggle-favorite', this.handleToggleFavorite.bind(this));
+      .subscribe('@toggle-favorite', this.render.bind(this));
 
     return this;
-  }
-
-  handleToggleFavorite(id: number) {
-    all$('li', this.$target).forEach((elem) => {
-      if (!this.isTarget(elem, id)) return;
-
-      this.toggleFavorite($<HTMLImageElement>('.favorite-icon', elem));
-    });
   }
 
   isTarget(elem: HTMLElement, id: number): boolean {
@@ -83,14 +75,17 @@ class RestaurantListContainer extends Component {
 
     const id = Number($li.dataset.id);
 
-    this.isClickFavorite($eventTarget)
-      ? this.handleClickFavorite($eventTarget, id)
-      : this.handleClickBody(id);
+    this.isClickFavorite($eventTarget) ? this.handleClickFavorite(id) : this.handleClickBody(id);
   }
 
-  handleClickFavorite(element: HTMLElement, id: number): void {
-    this.toggleFavorite(element as HTMLImageElement);
+  handleClickFavorite(id: number): void {
     restaurantStore.toggleFavorite(id);
+
+    this.render();
+
+    if (this.#state.renderOptions.tab === Tab.Favorite) {
+      eventBus.dispatch('@remove-favorite', id);
+    }
   }
 
   handleClickBody(id: number): void {
@@ -105,16 +100,13 @@ class RestaurantListContainer extends Component {
     this.#state.renderOptions = { ...this.#state.renderOptions, tab };
   }
 
-  handleAdd(): void {
-    this.render();
-  }
-
   handleFilter({ category, order }: FilterOption): void {
     this.#state.renderOptions = { ...this.#state.renderOptions, category, order };
   }
 
   render() {
     const restaurantList = restaurantStore.getList({ ...this.#state.renderOptions });
+
     this.$target.innerHTML = this.template(restaurantList);
 
     return this;
