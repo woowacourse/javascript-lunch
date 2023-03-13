@@ -1,6 +1,12 @@
 import { updateData } from '../../utils/common/localStorage';
 
-import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
+import {
+  Category,
+  CATEGORY,
+  NAME,
+  SortOption,
+  LOCAL_STORAGE_KEY,
+} from '../../constants/lunchRecommendation';
 
 export interface FilterType {
   sortOption: SortOption;
@@ -72,18 +78,27 @@ export class LunchRecommendation implements ILunchRecommendation {
     const isOften = false;
 
     this.origin.push(new Restaurant({ ...restaurantInfo, id, isOften }));
-    updateData(this.origin.map(({ info }) => info));
+    updateData(
+      this.origin.map(({ info }) => info),
+      LOCAL_STORAGE_KEY
+    );
   }
 
   addOften(restaurantId: RestaurantInfo['id']): void {
     const selectedRestaurant = this.origin.find((e) => e.info.id === restaurantId);
     selectedRestaurant!.toggleOften();
-    updateData(this.origin.map(({ info }) => info));
+    updateData(
+      this.origin.map(({ info }) => info),
+      LOCAL_STORAGE_KEY
+    );
   }
 
   delete(restaurantId: RestaurantInfo['id']): Restaurant[] {
     this.origin = this.origin.filter((restaurant) => restaurant.info.id !== restaurantId);
-    updateData(this.origin.map(({ info }) => info));
+    updateData(
+      this.origin.map(({ info }) => info),
+      LOCAL_STORAGE_KEY
+    );
 
     return this.origin;
   }

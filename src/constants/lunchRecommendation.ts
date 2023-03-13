@@ -29,10 +29,14 @@ export const REGEX = Object.freeze({
   URL: /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/,
 });
 
-export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
-export type SortOption = typeof NAME | typeof DISTANCE;
-
 export const TAB = Object.freeze({
   ALL: 'all',
   OFTEN: 'often',
 });
+
+export type MockType = 'mock';
+
+export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
+export type SortOption = typeof NAME | typeof DISTANCE;
+
+export const LOCAL_STORAGE_KEY = 'mock';

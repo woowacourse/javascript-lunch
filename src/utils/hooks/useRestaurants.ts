@@ -1,4 +1,4 @@
-import { Category, SortOption } from '../../constants/lunchRecommendation';
+import { Category, SortOption, LOCAL_STORAGE_KEY } from '../../constants/lunchRecommendation';
 import {
   LunchRecommendation,
   Restaurant,
@@ -7,7 +7,7 @@ import {
 import { getData } from '../common/localStorage';
 import { useState } from '../core';
 
-const lunchRecommendation = new LunchRecommendation(getData());
+const lunchRecommendation = new LunchRecommendation(getData(LOCAL_STORAGE_KEY));
 
 function useRestaurants() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>(lunchRecommendation.getList());
