@@ -82,7 +82,7 @@ export default class App {
   }
 
   onClickRestaurant(e) {
-    const restaurantId = e.target.closest('li').id;
+    const restaurantId = e.target.closest('.restaurant').id;
     const restaurants = this.restaurants.getRestaurants();
     const clickedRestaurant = restaurants.find((restaurant) => restaurant.id === restaurantId);
 
