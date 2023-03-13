@@ -7,6 +7,8 @@ import '../image/category-etc.png';
 import '../image/category-western.png';
 import '../image/category-korean.png';
 import '../image/category-japanese.png';
+import '../image/favorite-icon-filled.png';
+import '../image/favorite-icon-lined.png';
 
 const fragment = document.createDocumentFragment();
 new App({ $parent: fragment }).render();

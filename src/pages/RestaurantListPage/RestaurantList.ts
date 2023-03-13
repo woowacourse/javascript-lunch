@@ -1,5 +1,5 @@
 import type { Component } from '../../interface';
-import type { Category, Restaurant, SortBy } from '../../type';
+import type { Category, Restaurant, SortBy, TabBarSelect } from '../../type';
 import RestaurantListItem from '../../components/RestaurantListItem';
 import { DEFAULT_CATEGORY } from '../../utils/constants';
 
@@ -7,6 +7,9 @@ type RestaurantListState = {
   restaurants: Restaurant[];
   category: Category;
   sortBy: SortBy;
+  tabBarSelect: TabBarSelect;
+  fetchNewRestaurants: () => void;
+  onOpenInfoDrawer: (e: Event) => void;
 };
 
 type RestaurantListProps = {
@@ -14,53 +17,84 @@ type RestaurantListProps = {
   restaurants: Restaurant[];
   category: Category;
   sortBy: SortBy;
+  tabBarSelect: TabBarSelect;
+  fetchNewRestaurants: () => void;
+  onOpenInfoDrawer: (e: Event) => void;
 };
 
-class RestaurantList implements Component<RestaurantListState> {
+export default class RestaurantList implements Component<RestaurantListState> {
   $target: HTMLElement;
   state: RestaurantListState;
 
-  constructor({ $parent, restaurants, category, sortBy }: RestaurantListProps) {
-    this.$target = document.createElement('div');
+  constructor({
+    $parent,
+    restaurants,
+    category,
+    sortBy,
+    tabBarSelect,
+    fetchNewRestaurants,
+    onOpenInfoDrawer,
+  }: RestaurantListProps) {
+    this.$target = document.createElement('ul');
+    this.$target.classList.add('restaurant-list');
+
     this.state = {
       restaurants,
       category,
       sortBy,
+      tabBarSelect,
+      fetchNewRestaurants,
+      onOpenInfoDrawer,
     };
 
     $parent.append(this.$target);
   }
 
-  setState(newState: RestaurantListState) {
-    this.state = newState;
-    this.render();
-  }
-
-  render() {
+  public getTemplate() {
     const fragment = document.createDocumentFragment();
 
     this.categorizeRestaurantByOption().forEach((restaurant) => {
-      new RestaurantListItem({ $parent: fragment, restaurant }).render();
+      new RestaurantListItem({
+        $parent: fragment,
+        restaurant,
+        fetchNewRestaurants: this.state.fetchNewRestaurants,
+        onOpenInfoDrawer: this.state.onOpenInfoDrawer,
+      }).render();
     });
 
-    this.$target.append(fragment);
+    return fragment;
   }
 
-  categorizeRestaurantByOption() {
-    const { category, sortBy } = this.state;
-    const filtered = this.state.restaurants.filter(
+  public render() {
+    this.$target.append(this.getTemplate());
+  }
+
+  private filterByTabBarSelect(restaurants: Restaurant[]) {
+    return restaurants.filter((restaurant) =>
+      this.state.tabBarSelect === 'favorite' ? restaurant.isFavorite : restaurant
+    );
+  }
+
+  private filterByCategory(restaurants: Restaurant[], category: Category) {
+    return restaurants.filter(
       (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category
     );
+  }
 
+  private filterBySorting(restaurants: Restaurant[], sortBy: SortBy) {
     const getPivot = (restaurant: Restaurant) =>
       sortBy === 'name' ? restaurant.name : Number(restaurant.distance);
-
-    return filtered.sort((a, b) => {
+    return restaurants.sort((a, b) => {
       if (getPivot(a) > getPivot(b)) return 1;
       if (getPivot(a) < getPivot(b)) return -1;
       return 0;
     });
   }
-}
 
-export default RestaurantList;
+  private categorizeRestaurantByOption() {
+    return this.filterBySorting(
+      this.filterByCategory(this.filterByTabBarSelect(this.state.restaurants), this.state.category),
+      this.state.sortBy
+    );
+  }
+}

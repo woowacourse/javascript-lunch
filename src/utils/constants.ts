@@ -75,3 +75,6 @@ export const DEFAULT_CATEGORY: Category = CATEGORY_NAME.all;
 export const DEFAULT_DISTANCE: Distance = 5;
 export const OPTION_START_INDEX = 1;
 export const REQUEST_RASTAURANT_KEY = 'restaurants';
+export const STAR_FILL_IMAGE_URL = './favorite-icon-filled.png';
+export const STAR_LINE_IMAGE_URL = './favorite-icon-lined.png';
+export const REQUEST_RESTAURANT_ID_KEY = 'restaurantId';

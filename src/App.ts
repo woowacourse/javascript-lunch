@@ -1,16 +1,17 @@
 import type { Component } from './interface';
 import AddRestaurantDrawer from './pages/AddRestaurantDrawer';
 import RestaurantListPage from './pages/RestaurantListPage';
+import GNB from './components/GNB';
 
 type AppState = {
-  addRestaurantDrawerHide: boolean;
+  isDrawerHide: boolean;
 };
 
 type AppProps = {
   $parent: HTMLElement;
 };
 
-class App implements Component<AppState> {
+export default class App implements Component<AppState> {
   $target: HTMLElement;
   state: AppState;
 
@@ -19,42 +20,38 @@ class App implements Component<AppState> {
     this.$target.classList.add('app');
 
     this.state = {
-      addRestaurantDrawerHide: true,
+      isDrawerHide: true,
     };
 
     $parent.append(this.$target);
   }
 
-  setState(newState: AppState) {
+  public setState(newState: AppState) {
     this.state = newState;
     this.render();
   }
 
-  render() {
-    const { addRestaurantDrawerHide } = this.state;
+  public render() {
     this.$target.innerHTML = ``;
-
-    new RestaurantListPage({
+    new GNB({
       $parent: this.$target,
-      toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
+      onToggleAddRestaurantDrawer: this.onToggleAddRestaurantDrawer.bind(this),
     }).render();
 
-    if (!addRestaurantDrawerHide) {
+    new RestaurantListPage({ $parent: this.$target }).render();
+
+    if (!this.state.isDrawerHide) {
       new AddRestaurantDrawer({
         $parent: this.$target,
-        toggleAddRestaurantDrawer: this.toggleAddRestaurantDrawer.bind(this),
+        onToggleAddRestaurantDrawer: this.onToggleAddRestaurantDrawer.bind(this),
       }).render();
     }
   }
 
-  toggleAddRestaurantDrawer() {
-    const { addRestaurantDrawerHide } = this.state;
-
+  public onToggleAddRestaurantDrawer() {
     this.setState({
       ...this.state,
-      addRestaurantDrawerHide: !addRestaurantDrawerHide,
+      isDrawerHide: !this.state.isDrawerHide,
     });
   }
 }
-
-export default App;

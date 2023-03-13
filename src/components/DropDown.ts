@@ -15,9 +15,10 @@ type DropDownProps = {
   options: SelectOption[];
   selectedOption: Category | SortBy;
   onChangeHandler: (e: Event) => void;
+  key: string;
 };
 
-class DropDown implements Component<DropDownState> {
+export default class DropDown implements Component<DropDownState> {
   $target: HTMLSelectElement;
   state: DropDownState;
 
@@ -29,30 +30,31 @@ class DropDown implements Component<DropDownState> {
     options,
     selectedOption,
     onChangeHandler,
+    key,
   }: DropDownProps) {
     this.$target = document.createElement('select');
     this.$target.classList.add(classNames ?? '');
     this.$target.id = id ?? '';
     this.$target.name = name ?? '';
+    this.$target.dataset.key = key;
     this.state = {
       options,
       selectedOption,
       onChangeHandler,
     };
     $parent.append(this.$target);
-    this.$target?.addEventListener('change', this.state.onChangeHandler);
+    this.addEvent();
   }
 
-  setState(newState: DropDownState) {
-    this.state = newState;
-    this.render();
-  }
-
-  setSelectAttribute(selectedOption: string, target: string) {
+  private setSelectAttribute(selectedOption: string, target: string) {
     return selectedOption === target ? 'selected' : '';
   }
 
-  render() {
+  private addEvent() {
+    this.$target?.addEventListener('change', this.state.onChangeHandler);
+  }
+
+  public render() {
     this.$target.innerHTML = `
         ${this.state.options
           .map(
@@ -66,5 +68,3 @@ class DropDown implements Component<DropDownState> {
         `;
   }
 }
-
-export default DropDown;
