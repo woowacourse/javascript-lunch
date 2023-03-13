@@ -1,13 +1,7 @@
-import { components } from '../components/components';
 import filter from '../domains/filter';
 
-export const handleFilterChange = (event: Event) => {
-  const target = event.target;
+export const handleFilterChange = (target: HTMLSelectElement) => {
+  const value = target.value;
 
-  if (target instanceof HTMLSelectElement) {
-    const value = target.value;
-    const selectedList = filter.sortByOption(value);
-
-    components.restaurantList.render(selectedList);
-  }
+  return filter.sortByOption(value);
 };

@@ -3,20 +3,18 @@ import { RestaurantType } from '../type/types';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { $, $$ } from '../utils/selector';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+import restaurantManager from '../domains/restaurantManager';
 
-export const handleFavoriteIconClick = (event: Event) => {
-  const target = event.target;
+export const handleFavoriteIconClick = (
+  target: HTMLImageElement,
+  RestaurantManager: restaurantManager
+) => {
   const restaurantList = getListOnLocalStorage(
     LOCAL_STORAGE_KEY.RESTAURANT_LIST
   );
   const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
 
-  if (
-    target instanceof HTMLImageElement &&
-    target.alt === '즐겨찾기' &&
-    isRestaurantList(restaurantList) &&
-    isRestaurantList(favoriteList)
-  ) {
+  if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
     const number = parseInt(target.className.split(' ')[1].split('-')[3], 10);
 
     if (toggleFavoriteIcon(number)) {
@@ -24,9 +22,10 @@ export const handleFavoriteIconClick = (event: Event) => {
     } else {
       removeFavoriteItem({ restaurantList, favoriteList }, number);
     }
-  }
 
-  return { restaurantList, favoriteList };
+    RestaurantManager.updateRestaurantList(restaurantList);
+    RestaurantManager.updateFavoriteList(favoriteList);
+  }
 };
 
 const toggleFavoriteIcon = (number: number) => {

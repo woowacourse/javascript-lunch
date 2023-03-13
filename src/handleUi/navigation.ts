@@ -1,27 +1,21 @@
 import { $ } from '../utils/selector';
 import { SELECTOR } from '../constants/selector';
 import { components } from '../components/components';
+import { ARIA_LABEL, SELECTED_CLASS_NAME } from '../constants/navigation';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-import { ARIA_LABEL, SELECTED_CLASS_NAME } from '../constants/navigation';
 
-export const handleNavigationClick = (event: Event) => {
-  const target = event.target;
+export const handleNavigationClick = (target: HTMLButtonElement) => {
+  if (isAllRestaurants(target)) {
+    components.categoryFilter.show();
+    components.sortingFilter.show();
 
-  if (target instanceof HTMLButtonElement) {
-    if (isAllRestaurants(target)) {
-      components.categoryFilter.show();
-      components.sortingFilter.show();
-      components.restaurantList.render(
-        getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-      );
-    } else {
-      components.categoryFilter.hide();
-      components.sortingFilter.hide();
-      components.restaurantList.render(
-        getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST)
-      );
-    }
+    return getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+  } else {
+    components.categoryFilter.hide();
+    components.sortingFilter.hide();
+
+    return getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
   }
 };
 

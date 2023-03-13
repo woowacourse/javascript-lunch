@@ -7,6 +7,8 @@ import restaurantAddContainer from './restaurantAddContainer';
 import restaurantBottomSheet from './restaurantBottomSheet';
 import { FILTER_ID, FILTER_CLASS, FILTER_NAME } from '../constants/filter';
 import { SELECT_OPTION_LIST } from '../constants/filter';
+import { getListOnLocalStorage } from '../utils/localStorage';
+import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 
 export const components = {
   header: new Header({ selector: 'header', title: '점심 뭐 먹지' }),
@@ -55,4 +57,17 @@ export const components = {
   restaurantBottomSheetContainer: new restaurantBottomSheet({
     selector: '.restaurant-bottom-sheet-container',
   }),
+
+  initRender() {
+    this.header.render();
+    this.navBar.render();
+    this.categoryFilter.render();
+    this.sortingFilter.render();
+    this.restaurantList.render(
+      getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
+    );
+    this.restaurantAddModal.render();
+    this.restaurantAddContainer.render();
+    this.restaurantBottomSheet.render();
+  },
 };

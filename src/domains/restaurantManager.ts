@@ -1,6 +1,5 @@
 import { getFormData } from '../utils/form';
 import { isValidName } from '../validator';
-import RestaurantList from '../components/restaurantList.js';
 import {
   getListOnLocalStorage,
   saveListOnLocalStorage,
@@ -11,7 +10,6 @@ import { initialRestaurantList } from '../constants/initialRestaurantList';
 
 class restaurantManager {
   private static instance: restaurantManager;
-  private restaurantListComponent: RestaurantList = new RestaurantList();
   private restaurantList: RestaurantType[] = [];
   private favoriteList: RestaurantType[] = [];
 
@@ -51,7 +49,7 @@ class restaurantManager {
     saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, this.favoriteList);
   }
 
-  addNewRestaurant(event: Event) {
+  public addNewRestaurant(event: Event) {
     const newRestaurant = this.getNewRestaurant(event);
 
     try {
@@ -68,7 +66,7 @@ class restaurantManager {
     }
   }
 
-  getNewRestaurant(event: Event) {
+  public getNewRestaurant(event: Event) {
     const trimmedNewRestaurant = getFormData(event).map(([key, value]) => [
       key,
       String(value).trim(),
@@ -77,7 +75,7 @@ class restaurantManager {
     return Object.fromEntries(trimmedNewRestaurant);
   }
 
-  updateRestaurantList(restaurantList: RestaurantType[]) {
+  public updateRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
     saveListOnLocalStorage(
       LOCAL_STORAGE_KEY.RESTAURANT_LIST,
@@ -85,7 +83,7 @@ class restaurantManager {
     );
   }
 
-  updateFavoriteList(favoriteList: RestaurantType[]) {
+  public updateFavoriteList(favoriteList: RestaurantType[]) {
     this.favoriteList = favoriteList;
     saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, this.favoriteList);
   }
