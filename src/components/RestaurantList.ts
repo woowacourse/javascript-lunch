@@ -19,8 +19,8 @@ class RestaurantList extends HTMLElement {
         <ul class="restaurant-list">
         ${this.controller
           .getRestaurants()
-          .map((restaurant: RestaurantType, index: number) =>
-            new RestaurantItem().render(restaurant, index)
+          .map((restaurant: RestaurantType) =>
+            new RestaurantItem().render(restaurant)
           )
           .join("")}
         </ul>
@@ -33,11 +33,9 @@ class RestaurantList extends HTMLElement {
   onClickRestaurantItem() {
     const restaurantItems = this.querySelectorAll("#restaurantInfo");
 
-    restaurantItems.forEach((restaurantItem) => {
+    restaurantItems.forEach((restaurantItem, index) => {
       restaurantItem.addEventListener("click", () => {
-        this.controller.setSelectedRestaurantIndex(
-          Number(restaurantItem.getAttribute("key"))
-        );
+        this.controller.setSelectedRestaurantIndex(index);
         openBottomSheet("<restaurant-detail />");
       });
     });
@@ -46,11 +44,9 @@ class RestaurantList extends HTMLElement {
   onToggleFavorite() {
     const favorites = this.querySelectorAll("#favorite");
 
-    favorites.forEach((favorite: any) => {
+    favorites.forEach((favorite, index) => {
       favorite.addEventListener("click", () => {
-        this.controller.setSelectedRestaurantIndex(
-          Number(favorite.parentElement.getAttribute("key"))
-        );
+        this.controller.setSelectedRestaurantIndex(index);
         this.controller.toggleFavorite();
 
         if (TabBar.getCurrentTab() === "favorite") {

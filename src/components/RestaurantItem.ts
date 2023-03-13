@@ -3,15 +3,15 @@ import { favoriteIconFilled, favoriteIconLined } from "../assets/";
 import { findImage } from "../utils";
 
 class RestaurantItem {
-  render(restaurant: RestaurantType, index: number) {
+  render(restaurant: RestaurantType) {
     return `
-      <li id="restaurantItem" class="restaurant" key="${index}">
+      <li id="restaurantItem" class="restaurant">
         <div class="restaurant__category">
           <img src="${findImage(restaurant.category)}" alt="${
       restaurant.category
     }" class="category-icon">
         </div>
-        <div id="restaurantInfo" class="restaurant__info" key="${index}">
+        <div id="restaurantInfo" class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${
             restaurant.distance
