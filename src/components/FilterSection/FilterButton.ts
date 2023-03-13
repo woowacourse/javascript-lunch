@@ -1,5 +1,5 @@
 import RestaurantListItem, { TCategory } from '../../domain/RestaurantListItem';
-import RestaurantList from '../RestaurantList';
+import RestaurantList from '../RestaurantListSection';
 import { ID } from '../../constants';
 
 const FilterButton = {
@@ -16,6 +16,9 @@ const FilterButton = {
       </select>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
+    this.handleCategoryFilter(RestaurantListItem);
+  },
+  handleCategoryFilter(RestaurantListItem: RestaurantListItem) {
     const categoryFilter = document.querySelector(`#${ID.CATEGORY_FILTER}`) as HTMLSelectElement;
 
     categoryFilter?.addEventListener('change', () => {
@@ -23,7 +26,7 @@ const FilterButton = {
       RestaurantListItem.setFilter(select);
       const result = RestaurantListItem.filterAndSort();
 
-      RestaurantList.update(result);
+      RestaurantList.update(RestaurantListItem, result);
     });
   },
 };

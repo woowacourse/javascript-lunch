@@ -1,5 +1,5 @@
 import RestaurantListItem from '../../domain/RestaurantListItem';
-import RestaurantList from '../RestaurantList';
+import RestaurantList from '../RestaurantListSection';
 import { TPriority } from '../../domain/RestaurantListItem';
 import { ID } from '../../constants';
 
@@ -12,6 +12,9 @@ const SortButton = {
       </select>`;
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
+    this.handleSortingFilter(RestaurantListItem);
+  },
+  handleSortingFilter(RestaurantListItem: RestaurantListItem) {
     const sortingFilter = document.querySelector(`#${ID.SORTING_FILTER}`) as HTMLSelectElement;
 
     sortingFilter?.addEventListener('change', () => {
@@ -19,7 +22,7 @@ const SortButton = {
       RestaurantListItem.setSort(select);
       const result = RestaurantListItem.filterAndSort();
 
-      RestaurantList.update(result);
+      RestaurantList.update(RestaurantListItem, result);
     });
   },
 };

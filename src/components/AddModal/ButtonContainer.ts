@@ -1,4 +1,4 @@
-import Modal from '.';
+import AddModal from '.';
 import { ID } from '../../constants';
 
 const ButtonContainer = {
@@ -10,12 +10,15 @@ const ButtonContainer = {
       </div>`;
   },
   setEvent() {
+    this.handleCancelButton();
+  },
+  handleCancelButton() {
     const cancelButton = document.querySelector(`#${ID.CANCEL_BUTTON}`);
 
     cancelButton?.addEventListener('click', (e) => {
       e.preventDefault();
-      Modal.formReset();
-      Modal.closeModal();
+      AddModal.formReset();
+      AddModal.closeModal();
     });
   },
 };

@@ -17,7 +17,7 @@ body {
 }
 
 main {
-  height: calc(100% - 148px);
+  height: calc(100% - 234px);
 }
 
 #app {
@@ -100,6 +100,30 @@ select option[value=''][disabled] {
 
 /* 음식점 목록 *****************************************/
 
+/* 음식점 선택 메뉴 */
+.menu-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 32px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.menu-item {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+  cursor: pointer;
+}
+
+.menu-item-clicked {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -165,12 +189,23 @@ select option[value=''][disabled] {
   background: var(--lighten-color);
 }
 
+.favorite {
+  position: absolute;
+  background: none;
+  border: none;
+  right: 12px;
+  top: 12px;
+}
+
 .category-icon {
   width: 36px;
   height: 36px;
 }
 
 .restaurant__info {
+  position: relative;
+  width: 100%;
+  margin: 12px 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -196,12 +231,17 @@ select option[value=''][disabled] {
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
+.add-modal {
+  display: none;
+}
+
+.detail-modal {
   display: none;
 }
 
 .modal--open {
   display: block;
+  z-index: 1;
 }
 
 .modal-backdrop {

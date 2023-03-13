@@ -14,6 +14,14 @@ const FilterSection = {
     FilterButton.setEvent(RestaurantListItem);
     SortButton.setEvent(RestaurantListItem);
   },
+  hide() {
+    const restaurantFilterContainer = document.querySelector('.restaurant-filter-container') as HTMLElement;
+    restaurantFilterContainer.style.display = 'none';
+  },
+  show() {
+    const restaurantFilterContainer = document.querySelector('.restaurant-filter-container') as HTMLElement;
+    restaurantFilterContainer.style.display = 'flex';
+  },
 };
 
 export default FilterSection;

@@ -5,6 +5,8 @@ import categoryEtc from './image/category-etc.png';
 import categoryJapanese from './image/category-japanese.png';
 import categoryKorean from './image/category-korean.png';
 import categoryWestern from './image/category-western.png';
+import favoriteIconFilled from './image/favorite-icon-filled.png';
+import favoriteIconLined from './image/favorite-icon-lined.png';
 import { TCategory } from '../domain/RestaurantListItem';
 
 export const Button = {
@@ -18,4 +20,9 @@ export const Category: Record<TCategory, string> = {
   일식: categoryJapanese,
   한식: categoryKorean,
   양식: categoryWestern,
+};
+
+export const Favorite = {
+  filled: favoriteIconFilled,
+  lined: favoriteIconLined,
 };
