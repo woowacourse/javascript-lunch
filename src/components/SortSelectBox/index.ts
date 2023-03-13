@@ -1,4 +1,4 @@
-import SelectBox from '../../core/SelectBox';
+import SelectBox from '../common/SelectBox';
 
 const attributes = {
   name: 'sorting',
