@@ -9,7 +9,7 @@ const addFavoriteButtonCallback = (summary: RestaurantSummary) => {
     );
 
     summary.element.dispatchEvent(
-      new CustomEvent("favoriteChange", { bubbles: true })
+      new CustomEvent("favoriteChange", { bubbles: true, detail: { from: "summary" }})
     );
   });
 };
