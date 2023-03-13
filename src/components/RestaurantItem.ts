@@ -5,7 +5,7 @@ import { findImage } from "../utils";
 class RestaurantItem {
   render(restaurant: RestaurantType) {
     return `
-      <li id="restaurantItem" class="restaurant">
+      <li class="restaurant">
         <div class="restaurant__category">
           <img src="${findImage(restaurant.category)}" alt="${
       restaurant.category
