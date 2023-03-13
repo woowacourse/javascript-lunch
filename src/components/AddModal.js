@@ -1,12 +1,17 @@
 import Component from '../Component';
+import { geid, qs } from '../utils/domHelpers';
 
 export default class AddModal extends Component {
   constructor($target) {
     super($target);
 
-    this.addEvent('click', (event) => {
-      this.cancelInputData(event);
-    }).addEvent('submit', (event) => {
+    this.addEvent(
+      'click',
+      () => {
+        this.cancelInputData();
+      },
+      geid('cancel-modal-button')
+    ).addEvent('submit', (event) => {
       this.submitInputData(event);
     });
   }
@@ -68,17 +73,15 @@ export default class AddModal extends Component {
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
               <button type="button" id="cancel-modal-button" class="button button--secondary text-caption">취소하기</button>
-              <button class="button button--primary text-caption">추가하기</button>
+              <button id="submit-modal-button" class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
         </div>
       `;
   }
 
-  cancelInputData(event) {
-    if (event.target.id === 'cancel-modal-button') {
-      event.currentTarget.classList.remove('modal--open');
-    }
+  cancelInputData() {
+    qs('.modal').classList.remove('modal--open');
   }
 
   submitInputData(event) {
