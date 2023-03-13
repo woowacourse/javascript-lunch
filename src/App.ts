@@ -137,10 +137,6 @@ class App {
     this.renderRestaurantList();
   }
 
-  onClickLikeFilteringOption() {
-    console.log(document.querySelector(".like-filter-container"));
-  }
-
   onClickRestaurantCard(restaurantId: string) {
     const restaurantInfo = this.#restaurants.getRestaurantById(restaurantId);
 
