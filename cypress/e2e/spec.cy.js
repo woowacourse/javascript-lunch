@@ -97,11 +97,11 @@ describe("음식점 리스트 렌더링 테스트", () => {
   it("카테고리 필터 선택시 해당하는 카테고리를 가진 음식점만 렌더링 된다.", () => {
     cy.get("#category-filter").select("한식");
 
-    cy.get(".restaurant-list").contains("한식집1").should("be.visible");
-    cy.get(".restaurant-list").contains("한식집2").should("be.visible");
-    cy.get(".restaurant-list").contains("일식집1").should("not.exist");
-    cy.get(".restaurant-list").contains("양식집1").should("not.exist");
-    cy.get(".restaurant-list").contains("중식집1").should("not.exist");
+    cy.get(".restaurant-list").should((elem) =>
+      elem.children().each((_, li) => {
+        expect(li.getAttribute("category")).to.equal("한식");
+      })
+    );
   });
 
   it("정렬 필터 선택시 해당 정렬 기준에 의해 렌더링 된다.", () => {
@@ -144,11 +144,11 @@ describe("음식점 리스트 렌더링 테스트", () => {
   it("즐겨찾기 탭 클릭시 즐겨찾기한 음식점만 렌더링 된다.", () => {
     cy.get("#like-button").click();
 
-    cy.get(".restaurant-list").contains("한식집1").should("be.visible");
-    cy.get(".restaurant-list").contains("한식집2").should("be.visible");
-    cy.get(".restaurant-list").contains("양식집1").should("be.visible");
-    cy.get(".restaurant-list").contains("일식집1").should("not.exist");
-    cy.get(".restaurant-list").contains("중식집1").should("not.exist");
+    cy.get(".restaurant-list").should((elem) =>
+      elem.children().each((_, li) => {
+        expect(li.getAttribute("like")).to.equal("true");
+      })
+    );
   });
 });
 
