@@ -1,7 +1,6 @@
 import Filters from './components/Filters';
 import Header from './components/Header';
 import RestaurantForm from './components/RestaurantForm';
-import RestaurantInfo from './components/RestaurantInfo';
 import RestaurantList from './components/RestaurantList';
 import Tabs from './components/Tabs';
 import { clearedModalContainer, showModal } from './modal';

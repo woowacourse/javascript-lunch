@@ -1,3 +1,4 @@
+import { IFilterProps } from '../store';
 import { CategoryOptions, FilterOptions } from '../types/type';
 import { IRestaurant, Restaurant } from './Restaurant';
 
@@ -64,7 +65,7 @@ export default class RestaurantService {
     }
   }
 
-  getFilteredAndSortedList(category: CategoryOptions, filter: FilterOptions) {
+  getFilteredAndSortedList({ category, filter }: IFilterProps) {
     const wholeList = this.getRestaurantsInfo();
 
     const filteredList = this.filterByCategory(wholeList, category);

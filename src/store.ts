@@ -5,22 +5,25 @@ import RestaurantService from './domain/RestaurantService';
 import { CategoryOptions, FilterOptions, TabType } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
+export interface IFilterProps {
+  category: CategoryOptions;
+  filter: FilterOptions;
+}
+
 interface IStore {
   $listArticle?: HTMLElement;
   restaurantList?: RestaurantList;
   filters?: Filters;
   currentTab: TabType;
-  currentCategory: CategoryOptions;
-  currentFilter: FilterOptions;
+  currentFilterOptions: IFilterProps;
   currentList: Restaurant[];
   restaurantService: RestaurantService;
   setListArticle: ($listArticle: HTMLElement) => void;
   setRestaurantListAndFilters: (props: ISetListAndFilter) => void;
-  getFavoriteList: () => Restaurant[];
+  setCurrentFilterOptions: (options: IFilterProps) => void;
   addRestaurantInfo: (restaurantInfo: IRestaurant) => void;
   deleteRestaurantInfo: (id: number) => void;
   updateLocalStorage: () => void;
-  getCurrentFilteredAndSortedList: () => Restaurant[];
   renderListArticle: () => void;
 }
 
@@ -42,8 +45,10 @@ const getInitialRestaurantList = () => {
 export const store: IStore = {
   restaurantService: new RestaurantService(getInitialRestaurantList()),
   currentTab: 'all',
-  currentCategory: '전체',
-  currentFilter: '이름순',
+  currentFilterOptions: {
+    category: '전체',
+    filter: '이름순',
+  },
   currentList: [],
 
   setRestaurantListAndFilters({ restaurantList, filters }: ISetListAndFilter) {
@@ -55,11 +60,8 @@ export const store: IStore = {
     this.$listArticle = $listArticle;
   },
 
-  getFavoriteList() {
-    const favorites = store.restaurantService.getFilterdFavoriteList();
-    const favoriteNameSorted = store.restaurantService.sortByName(favorites);
-
-    return favoriteNameSorted;
+  setCurrentFilterOptions(options: IFilterProps) {
+    this.currentFilterOptions = { ...options };
   },
 
   addRestaurantInfo(restaurantInfo: IRestaurant) {
@@ -84,31 +86,27 @@ export const store: IStore = {
     setLocalStorage('restaurants', JSON.stringify(currentList));
   },
 
-  getCurrentFilteredAndSortedList() {
-    const { currentCategory, currentFilter } = store;
-
-    const filteredAndSortedList =
-      store.restaurantService.getFilteredAndSortedList(
-        currentCategory,
-        currentFilter
-      );
-    return filteredAndSortedList;
-  },
-
   renderListArticle() {
     if (!this.$listArticle) return;
 
     this.$listArticle.innerHTML = '';
-    const { currentTab } = store;
+    const { currentTab, currentFilterOptions, restaurantService } = this;
 
     switch (currentTab) {
       case 'all':
-        this.currentList = this.getCurrentFilteredAndSortedList();
+        const filteredAndSortedList =
+          restaurantService.getFilteredAndSortedList(currentFilterOptions);
+
+        this.currentList = filteredAndSortedList;
+
         this.filters?.render(this.$listArticle);
         this.restaurantList?.render(this.$listArticle);
         break;
       case 'favorite':
-        this.currentList = this.getFavoriteList();
+        const favorites = restaurantService.getFilterdFavoriteList();
+        const favoriteNameSorted = restaurantService.sortByName(favorites);
+
+        this.currentList = favoriteNameSorted;
         this.restaurantList?.render(this.$listArticle);
         break;
       default:

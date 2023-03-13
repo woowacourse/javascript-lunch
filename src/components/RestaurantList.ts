@@ -3,7 +3,7 @@ import RestaurantItem from './RestaurantItem';
 
 export default class RestaurantList {
   $restaurantListSection = document.createElement('section');
-  $ul = document.createElement('section');
+  $ul = document.createElement('ul');
 
   constructor() {
     if (!store.$listArticle) return;
