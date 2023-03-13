@@ -37,49 +37,26 @@ export default class RestaurantItem extends Component {
         </div>`;
   }
 
-  switchFavorite(event) {
+  switchFavorite() {
     if (this.starShape === 'lined') {
       this.starShape = 'filled';
 
-      this.addRestaurantList(event);
+      this.addRestaurantList();
     } else if (this.starShape === 'filled') {
       this.starShape = 'lined';
 
-      this.removeRestaurantList(event);
+      this.removeRestaurantList();
     }
   }
 
-  addRestaurantList(event) {
-    const favoriteTexts = event.currentTarget.textContent
-      .split('\n')
-      .map((text) => text.trim())
-      .filter((text) => text.length !== 0);
-
-    const category = event.currentTarget.children[0].children[0].alt;
-
-    const addFavoriteData = {
-      category: category,
-      storeName: favoriteTexts[0],
-      distance: favoriteTexts[1].match(/\d+/).join(''),
-      detail: favoriteTexts[2] || '',
-      link: favoriteTexts[3] || '',
-      starShape: 'filled',
-    };
-
-    this.restaurantManager.fillRestaurantStarShape(favoriteTexts[0]);
-    this.favoriteRestaurant.addRestaurant(addFavoriteData);
+  addRestaurantList() {
+    this.restaurantManager.fillRestaurantStarShape(this.restaurantData.storeName);
+    this.favoriteRestaurant.addRestaurant(this.restaurantData);
   }
 
-  removeRestaurantList(event) {
-    const favoriteTexts = event.currentTarget.textContent
-      .split('\n')
-      .filter((text) => text.trim().length !== 0)
-      .map((restaurantText) => restaurantText.trim());
-
-    const storeName = favoriteTexts[0];
-
-    this.restaurantManager.unfillRestaurantStarShape(storeName);
-    this.favoriteRestaurant.removeRestaurant(storeName);
+  removeRestaurantList() {
+    this.restaurantManager.unfillRestaurantStarShape(this.restaurantData.storeName);
+    this.favoriteRestaurant.removeRestaurant(this.restaurantData.storeName);
   }
 
   activateDetailModal() {
