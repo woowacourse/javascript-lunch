@@ -6,7 +6,6 @@ import IMAGE from "./IMAGE";
 import LocalStorage from "./util/LocalStorage";
 import SelectInput from "./util/SelectInput";
 import RestaurantInputModal from "./RestaurantInputModal/RestaurantInputModal";
-import setRestaurantsTemplateToLocalStorage from "./setRestaurantsTemplateToLocalStorage";
 import DocumentEventBus from "./util/DocumentEventBus";
 import RestaurantList from "./RestaurantList/RestaurantList";
 import RestaurantDetailedModal from "./RestaurantDetailedModal/RestaurantDetailedModal";
@@ -120,8 +119,6 @@ DocumentEventBus.subscribe("deleteRestaurant", confirmDeleteModal.openCallback.b
 window.addEventListener("beforeunload", () => LocalStorage.setItem("restaurants", restaurantList.getList()));
 
 window.onload = () => {
-  setRestaurantsTemplateToLocalStorage();
-
   LocalStorage.getItem("restaurants").forEach((item) => {
     restaurantList.add(item);
   });

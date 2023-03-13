@@ -97,10 +97,6 @@ const RESTAURANTS_TEMPLATE = [
   },
 ];
 
-const setRestaurantsTemplateToLocalStorage = () => {
-  if (!localStorage.getItem("restaurants")) {
-    localStorage.setItem("restaurants", JSON.stringify(RESTAURANTS_TEMPLATE));
-  }
-};
+const LOCALSTORAGE_SAMPLE_DATA = JSON.stringify(RESTAURANTS_TEMPLATE);
 
-export default setRestaurantsTemplateToLocalStorage;
+export default LOCALSTORAGE_SAMPLE_DATA;

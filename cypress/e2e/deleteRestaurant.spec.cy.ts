@@ -1,5 +1,8 @@
+import LOCALSTORAGE_SAMPLE_DATA from "../utils/localStorageSampleData";
+
 describe('음식점 삭제 테스트', () => {
   it('음식점 요약정보를 누르면 세부정보가 열린다.', () => {
+    window.localStorage.setItem("restaurants", LOCALSTORAGE_SAMPLE_DATA);
     cy.visit('http://localhost:8080');
 
     cy.get('.restaurant')
@@ -12,6 +15,7 @@ describe('음식점 삭제 테스트', () => {
   });
 
   it('음식점 세부정보에서 삭제하기를 누르면 확인창이 열리고 최종적으로 삭제한다.', () => {
+    window.localStorage.setItem("restaurants", LOCALSTORAGE_SAMPLE_DATA);
     cy.visit('http://localhost:8080');
 
     cy.get('.restaurant')
