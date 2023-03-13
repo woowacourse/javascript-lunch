@@ -7,7 +7,7 @@ import LocalStorage from "./util/LocalStorage";
 import SelectInput from "./util/SelectInput";
 import RestaurantInputModal from "./RestaurantInputModal/RestaurantInputModal";
 import setRestaurantsTemplateToLocalStorage from "./setRestaurantsTemplateToLocalStorage";
-import DocumentEventBus from "./DocumentEventBus/DocumentEventBus";
+import DocumentEventBus from "./util/DocumentEventBus";
 import RestaurantList from "./RestaurantList/RestaurantList";
 import RestaurantDetailedModal from "./RestaurantDetailedModal/RestaurantDetailedModal";
 import InputSuccessModal from "./InputSuccessModal/InputSuccessModal";
