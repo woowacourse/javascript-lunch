@@ -43,3 +43,4 @@ test('음식점들을 카테고리별로 필터링한다.', () => {
 
   expect(filteredRestaurants.every((restaurant) => restaurant.category === category)).toBe(true);
 });
+
