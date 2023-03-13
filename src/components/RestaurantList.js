@@ -1,13 +1,15 @@
+import { TAB } from "../constant/variables";
 import RestaurantFilter from "../domain/RestaurantFilter";
 import store from "../util/store";
 import Restaurant from "./Restaurant";
 
 export default class RestaurantList {
+  #restaurantList;
+
   constructor($target, props) {
     this.$target = $target;
     this.props = props;
     this.render();
-    this.setEvent();
   }
 
   template() {
@@ -27,21 +29,20 @@ export default class RestaurantList {
 
     const localList = store.getLocalStorage();
     const sortedRestaurants = RestaurantFilter.sortRestaurants(sortingWay, localList);
-    const categorizedRestaurants = RestaurantFilter.categorizeRestaurants(category, sortedRestaurants);
-
+    this.#restaurantList = RestaurantFilter.categorizeRestaurants(category, sortedRestaurants);
     const $restaurantList = this.$target.querySelector(".restaurant-list");
-    categorizedRestaurants.forEach((restaurant) => {
-      new Restaurant($restaurantList, restaurant);
-    });
-  }
 
-  setEvent() {}
-
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      const target = event.target;
-      if (!target.closest(selector)) return false;
-      callback(event);
-    });
+    const { tab } = this.props;
+    if (tab === TAB.ALL) {
+      this.#restaurantList.forEach((restaurant, index) => {
+        new Restaurant($restaurantList, { ...restaurant, render: () => this.render(), index });
+      });
+    }
+    if (tab === TAB.FAVORITE) {
+      const favoriteRestaurants = [...localList].filter(({ stared }) => stared);
+      favoriteRestaurants.forEach((restaurant, index) => {
+        new Restaurant($restaurantList, { ...restaurant, render: () => this.render(), index });
+      });
+    }
   }
 }

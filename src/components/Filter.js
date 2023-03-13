@@ -1,3 +1,5 @@
+import { addEvent } from "../util/addEvent";
+
 export default class Filter {
   constructor($target, props) {
     this.$target = $target;
@@ -33,19 +35,14 @@ export default class Filter {
   setEvent() {
     const { setState } = this.props;
 
-    this.addEvent("change", "#sorting-filter", (e) => {
+    const $sortingFilter = this.$target.querySelector("#sorting-filter");
+    addEvent($sortingFilter, "change", (e) => {
       setState({ sortingWay: e.target.value });
     });
-    this.addEvent("change", "#category-filter", (e) => {
-      setState({ category: e.target.value });
-    });
-  }
 
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      const target = event.target;
-      if (!target.closest(selector)) return false;
-      callback(event);
+    const $categoryFilter = this.$target.querySelector("#category-filter");
+    addEvent($categoryFilter, "change", (e) => {
+      setState({ category: e.target.value });
     });
   }
 }

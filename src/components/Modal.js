@@ -1,4 +1,7 @@
+import { CLASS, CONTENT } from "../constant/variables";
+import { addEvent } from "../util/addEvent";
 import AddForm from "./AddForm";
+import RestaurantDetail from "./RestaurantDetail";
 
 export default class Modal {
   constructor($target, props) {
@@ -21,23 +24,19 @@ export default class Modal {
   }
 
   mounted() {
-    const { render } = this.props;
+    const { render, content } = this.props;
     const $modalContainer = document.querySelector(".modal-container");
 
-    if (this.props.content === "addForm") new AddForm($modalContainer, { render });
+    if (content === CONTENT.ADD_FORM) new AddForm($modalContainer, { render });
+    if (content === CONTENT.RESTAURANT_DETAIL) new RestaurantDetail($modalContainer, { ...this.props });
   }
 
   setEvent() {
-    this.addEvent("click", ".modal-backdrop", () => {
-      this.$target.classList.toggle("modal--open");
-    });
-  }
+    const $modal = document.querySelector(".modal");
 
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      const target = event.target;
-      if (!target.closest(selector)) return false;
-      callback(event);
+    const $modalBackdrop = this.$target.querySelector(".modal-backdrop");
+    addEvent($modalBackdrop, "click", () => {
+      $modal.classList.toggle(CLASS.MODAL_OPEN);
     });
   }
 }

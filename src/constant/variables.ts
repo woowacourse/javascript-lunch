@@ -1,4 +1,4 @@
-export const LIST = "list";
+export const LIST_KEY = "list";
 
 export const CATEGORY = {
   ALL: "전체",
@@ -10,16 +10,29 @@ export const CATEGORY = {
   ETC: "기타",
 } as const;
 
-export const CATEGORY_LOWER_CASE = {
-  KOREAN: "korean",
-  CHINESE: "chinese",
-  JAPANESE: "japanese",
-  ASIAN: "asian",
-  WESTERN: "western",
-  ETC: "etc",
-} as const;
+export const CATEGORY_LOWER_CASE = Object.fromEntries(
+  Object.entries(CATEGORY).map(([key, value]) => [key, key.toLowerCase()])
+);
+
+export const translateCategory = Object.fromEntries(
+  Object.entries(CATEGORY).map(([key, value]) => [value, key.toLowerCase()])
+);
 
 export const SORTINGWAY = {
   NAME: "name",
   DISTANCE: "distance",
-};
+} as const;
+
+export const CLASS = {
+  MODAL_OPEN: "modal--open",
+} as const;
+
+export const CONTENT = {
+  ADD_FORM: "addForm",
+  RESTAURANT_DETAIL: "restaurantDetail",
+} as const;
+
+export const TAB = {
+  ALL: "all-restaurants",
+  FAVORITE: "favorite-restaurants",
+} as const;

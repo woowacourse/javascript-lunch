@@ -1,4 +1,5 @@
-import AddForm from "./AddForm";
+import { CLASS } from "../constant/variables";
+import { addEvent } from "../util/addEvent";
 import Modal from "./Modal";
 
 export default class Header {
@@ -19,27 +20,17 @@ export default class Header {
         `;
   }
 
-  mounted() {
-    new Modal(this.$modal, { ...this.props, content: "addForm" });
-  }
-
   render() {
     this.$target.innerHTML = this.template();
-    this.mounted();
   }
 
   setEvent() {
-    this.addEvent("click", ".gnb__button", this.toggleModal.bind(this));
+    const $button = this.$target.querySelector(".gnb__button");
+    addEvent($button, "click", () => this.toggleModal());
   }
 
   toggleModal() {
-    this.$modal.classList.toggle("modal--open");
-  }
-
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      if (!event.target.closest(selector)) return false;
-      callback(event);
-    });
+    new Modal(this.$modal, { ...this.props, content: "addForm" });
+    this.$modal.classList.toggle(CLASS.MODAL_OPEN);
   }
 }

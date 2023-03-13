@@ -144,6 +144,10 @@ body {
   background: var(--lighten-color);
 }
 
+a {
+  color: var(--grey-500);
+}
+
 .category-icon {
   width: 36px;
   height: 36px;
@@ -295,4 +299,74 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.star-icon {
+  width: 26px;
+  height: 26px;
+}
+
+/* 커스텀 ---------------------------------------- */
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.p-16 {
+  padding: 16px;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.color-primary {
+  color: var(--primary-color);
+}
+
+.underline {
+  border-bottom: 2px solid;
+  border-color: var(--grey-200);
+  width: 50%;
+  color: var(--grey-300);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
 }

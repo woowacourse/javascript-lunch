@@ -1,17 +1,25 @@
-import translateCategory from "../util/translateCategory";
+import { translateCategory } from "../constant/variables";
+import Modal from "./Modal";
+import Star from "./Star";
 
 export default class Restaurant {
   constructor($target, props) {
     this.$target = $target;
     this.props = props;
     this.render();
+    this.setEvent();
+    this.$modal = document.querySelector(".modal");
   }
 
   template() {
     const { name, category, distance, description } = this.props;
 
     return `
-        <li class="restaurant">
+    <li>
+        <div class="relative">
+         <div class="item-star star-container absolute right-0"></div>
+        </div>
+        <div class="restaurant" id=${name}>
         <div class="restaurant__category">
           <img
             src="./category-${translateCategory[category]}.png"
@@ -28,11 +36,28 @@ export default class Restaurant {
             ${description}
           </p>
         </div>
-      </li>
+      </div>
+    </li>
         `;
   }
 
   render() {
     this.$target.insertAdjacentHTML("beforeend", this.template());
+    this.mounted();
+  }
+
+  mounted() {
+    const { index } = this.props;
+    const $starContainer = document.querySelectorAll(".item-star");
+    new Star($starContainer[index], this.props);
+  }
+
+  setEvent() {
+    const { name, render } = this.props;
+    this.$restaurantItem = this.$target.querySelector(`#${name}`);
+    this.$restaurantItem.addEventListener("click", () => {
+      new Modal(this.$modal, { ...this.props, content: "restaurantDetail", render });
+      this.$modal.classList.toggle("modal--open");
+    });
   }
 }

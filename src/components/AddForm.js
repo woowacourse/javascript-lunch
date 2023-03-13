@@ -1,4 +1,6 @@
+import { CLASS } from "../constant/variables";
 import Validator from "../domain/Validator";
+import { addEvent } from "../util/addEvent";
 import store from "../util/store";
 
 export default class AddForm {
@@ -94,10 +96,13 @@ export default class AddForm {
     const { render } = this.props;
     const $modal = document.querySelector(".modal");
 
-    this.addEvent("click", "#cancel-button", () => {
-      $modal.classList.toggle("modal--open");
+    const $cancelButton = this.$target.querySelector("#cancel-button");
+    addEvent($cancelButton, "click", () => {
+      $modal.classList.toggle(CLASS.MODAL_OPEN);
     });
-    this.addEvent("submit", "#add-restaurant-form", (event) => {
+
+    const $addRestaurantForm = this.$target.querySelector("#add-restaurant-form");
+    addEvent($addRestaurantForm, "submit", (event) => {
       event.preventDefault();
 
       const category = event.target[0].value;
@@ -105,7 +110,7 @@ export default class AddForm {
       const distance = event.target[2].value;
       const description = event.target[3].value;
       const link = event.target[4].value;
-      const newRestaurant = { name, category, distance, description, link };
+      const newRestaurant = { name, category, distance, description, link, stared: false };
 
       this.addRestaurant(newRestaurant, render);
     });
@@ -119,19 +124,11 @@ export default class AddForm {
     try {
       Validator.isValidName(newRestaurant.name, RestaurantNames);
       store.addRestaurant(newRestaurant);
-      $modal.classList.toggle("modal--open");
+      $modal.classList.toggle(CLASS.MODAL_OPEN);
       this.render();
       render();
     } catch (error) {
       alert(error.message);
     }
-  }
-
-  addEvent(eventType, selector, callback) {
-    this.$target.addEventListener(eventType, (event) => {
-      const target = event.target;
-      if (!target.closest(selector)) return false;
-      callback(event);
-    });
   }
 }
