@@ -1,3 +1,11 @@
+import test from "../templates/category-chinese.png";
+import 일식 from "../templates/category-japanese.png";
+import 중식 from "../templates/category-chinese.png";
+import 한식 from "../templates/category-korean.png";
+import 양식 from "../templates/category-western.png";
+import 아시안 from "../templates/category-asian.png";
+import 기타 from "../templates/category-etc.png";
+
 const Elements = {
   addListContents: `
   <form>
@@ -76,6 +84,25 @@ const Elements = {
   </div>
 </form>
   `,
+
+  listDetailContents(infos, image,currentStarImage) {
+    return `
+    <div class="header-wrapper">
+      <div class="restaurant__category">
+        <img src="${image}" alt="image" class="category-icon"/>
+      </div>
+      <img src=${currentStarImage} alt="filled-star" class="star" style="height:32px" />
+    </div>
+    <h1 class="info__title">${infos.name}</h1>
+    <strong class="info__distance">${infos.distance}분 내</strong>
+    <div class="info__description">${infos.description}</div>
+    <div class="info__link">${infos.link}</div>
+    <div class="button-wrapper">
+      <button class="button delete">삭제하기</button>
+      <button class="button close">닫기</button>
+    </div>
+    `;
+  },
 };
 
 export default Elements;

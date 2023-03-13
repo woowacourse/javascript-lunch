@@ -1,7 +1,7 @@
 import Validator from "./Validator";
 import { Restaurant } from "./type/restaurant";
 
-const Input = {
+const InputError = {
   checkAll({ category, name, distance, link }: Restaurant) {
     this.checkCategory(category);
     this.checkName(name);
@@ -31,4 +31,4 @@ const Input = {
   },
 };
 
-export default Input;
+export default InputError;

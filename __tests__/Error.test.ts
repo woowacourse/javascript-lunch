@@ -1,4 +1,4 @@
-import Input from "../src/Input";
+import Input from "../src/InputError";
 
 test("공백 이름이면 에러 발생", () => {
   expect(() => Input.checkName("")).toThrow("[ERROR]");

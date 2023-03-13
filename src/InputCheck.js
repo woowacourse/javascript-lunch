@@ -1,4 +1,4 @@
-import Input from "./Input";
+import Input from "./InputError";
 import Alert from "./util/Alert";
 import { $ } from "./util/querySelector";
 

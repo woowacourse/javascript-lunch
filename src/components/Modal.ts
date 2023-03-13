@@ -37,6 +37,10 @@ class Modal {
         this.close();
       }
     });
+
+    $(".close")?.addEventListener("click", () => {
+      this.close();
+    });
   }
 
   create() {
@@ -55,7 +59,7 @@ class Modal {
     const modalContainer = document.createElement("div");
 
     modalContainer.innerHTML = this.create();
-    mainSection?.appendChild(modalContainer);
+    mainSection?.prepend(modalContainer);
     this.open();
     this.handleCloseEvent();
   }

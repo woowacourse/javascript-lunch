@@ -13,6 +13,14 @@ const LocalStorage = {
   getItems() {
     return Object.values(window.localStorage).map((item) => JSON.parse(item));
   },
+
+  remove(targetName: string) {
+    for (let key in localStorage) {
+      if (JSON.parse(localStorage[key]).name === targetName) {
+        localStorage.removeItem(key);
+      }
+    }
+  },
 };
 
 export default LocalStorage;
