@@ -11,8 +11,6 @@ export default class RestaurantItem {
     this.#restaurantManager = restaurantManager;
     this.#restaurantImage = restaurantImage;
     this.#informationModal = new InformationModal(RESTAURANT_IMAGE, restaurantManager, this.render);
-    this.componentClickedEvent = this.componentClickedEvent.bind(this);
-
     this.componentClickedEvent();
   }
 
