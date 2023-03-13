@@ -1,6 +1,16 @@
 import { $, $$ } from "../utils/Dom";
-import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT} from "../utils/Constant"
-
+import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT, 
+  FOODCATEGORY_LOCALSTORAGE_KEY, SORTBY_LOCALSTORAGE_KEY, 
+  NUMBER__LOCALSTORAGE_KEY, CATEGORY_VALUE, NAME_VALUE, 
+  DISTANCE_VALUE, DESCRIPTION_VALUE, LINK_VALUE, 
+  FAVORITE_VALUE, ID_VALUE, FAVORITE_UNENROLL } from "../utils/Constant";
+import {
+  getRestaurantListFromLocalstorage,
+  getFoodCategoryFromLocalStorage,
+  getSortByFromLocalStorage,
+} from "../utils/LocalStorage";
+import RestaurantInventory from "./RestaurantInventory";
+import { nameValidation } from "../utils/Validation";
 export default class Modal {
   #template = `
     <div class="modal modal--open">
@@ -76,8 +86,7 @@ export default class Modal {
   }
 
   initializeButtonEvents() {
-    this.modalForm = $(".modal-form");
-    this.modalForm.addEventListener("submit", (event) => {
+    $(".modal-form").addEventListener("submit", (event) => {
       event.preventDefault();
       this.addRestaurant();
     });
@@ -86,27 +95,42 @@ export default class Modal {
   }
 
   addRestaurant() {
-    const restaurantInfo = this.setRestaurantInformation();
+    try{
+      nameValidation($("#name").value)
+      const restaurantInfo = this.setRestaurantInformation();
 
-    this.restaurantList.add(restaurantInfo);
-    const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
-    const sortBy = localStorage.getItem("sort") ?? "name";
-    this.restaurantRegistry.appendRestaurant(
-      this.restaurantList.listRestaurant[this.getRestaurantLength()]
-    );
+      this.restaurantList.add(restaurantInfo);
+      this.restaurantRegistry.appendRestaurant(
+        this.restaurantList.listRestaurant[this.getRestaurantLength()]
+      );
+      RestaurantInventory.favoriteTabToAllListTab();
+
+      this.restauranListFilter();
+      this.closeModal();
+    }catch(error){
+      alert(error.message)
+    }
+  }
+
+  restauranListFilter() {
+    const foodCategory = getFoodCategoryFromLocalStorage(FOODCATEGORY_LOCALSTORAGE_KEY);
+    const sortBy = getSortByFromLocalStorage(SORTBY_LOCALSTORAGE_KEY);
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
-    this.closeModal();
   }
 
   setRestaurantInformation() {
     const restaurantInfo = {};
-    const array = ["category", "name", "distance", "description", "link"];
+    const idNumber = getRestaurantListFromLocalstorage(NUMBER__LOCALSTORAGE_KEY);
+    const array = [CATEGORY_VALUE,NAME_VALUE,DISTANCE_VALUE,DESCRIPTION_VALUE,LINK_VALUE,FAVORITE_VALUE,];
 
     $$(".form-item").forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
+    restaurantInfo[ID_VALUE] = idNumber;
+    restaurantInfo[FAVORITE_VALUE] = FAVORITE_UNENROLL;
 
+    localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, idNumber + 1);
     return restaurantInfo;
   }
 
@@ -116,7 +140,7 @@ export default class Modal {
 
   closeModal = () => {
     this.resetValue();
-    $(".modal--open").style.display = "none";
+    $(".modal").style.display = "none";
   };
 
   resetValue() {

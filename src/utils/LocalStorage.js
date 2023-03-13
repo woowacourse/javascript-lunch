@@ -1,9 +1,21 @@
-import { RESTAURANT } from "./Constant";
+import { ALL_CATEGORY_VALUE, NAME_VALUE } from "./Constant";
 
-export function getRestaurantListFromLocalstorage() {
-  return JSON.parse(localStorage.getItem(RESTAURANT));
+export function getRestaurantListFromLocalstorage(value) {
+  return JSON.parse(localStorage.getItem(value));
 }
 
-export function stringifyJson(restaurant) {
-  return JSON.stringify(restaurant);
+export function stringifyJson(value) {
+  return JSON.stringify(value);
+}
+
+export function getFoodCategoryFromLocalStorage(value){
+  return localStorage.getItem(value) ?? ALL_CATEGORY_VALUE;
+}
+
+export function getSortByFromLocalStorage(value){
+  return localStorage.getItem(value) ?? NAME_VALUE;
+}
+    
+export function setToLocalStorage(key, restaurants){
+  localStorage.setItem(key,stringifyJson(restaurants));
 }

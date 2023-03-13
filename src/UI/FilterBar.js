@@ -1,6 +1,5 @@
 import { $ } from "../utils/Dom";
-import { sortByName, sortByDistance } from "../utils/Sort";
-
+import { FOODCATEGORY_LOCALSTORAGE_KEY, SORTBY_LOCALSTORAGE_KEY } from "../utils/Constant";
 export default class FilterBar {
   #template = `
     <main>
@@ -38,14 +37,19 @@ export default class FilterBar {
     selected.addEventListener("change", () => {
       const selectedValue = selected.options[selected.selectedIndex].value;
       this.restaurantList.filterCategory(selectedValue);
-      this.restaurantList.filterBySort(localStorage.getItem("sort"), selectedValue)
+      this.restaurantList.filterBySort(
+        localStorage.getItem(SORTBY_LOCALSTORAGE_KEY),
+        selectedValue
+      );
     });
 
     const sorted = $("#sorting-filter");
     sorted.addEventListener("change", () => {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
-      this.restaurantList.filterBySort(sortedValue, localStorage.getItem("foodCategory"));
+      this.restaurantList.filterBySort(
+        sortedValue,
+        localStorage.getItem(FOODCATEGORY_LOCALSTORAGE_KEY)
+      );
     });
   }
-  
 }
