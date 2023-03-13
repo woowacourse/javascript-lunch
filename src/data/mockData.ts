@@ -1,6 +1,6 @@
-import { RestaurantType } from '../components/Restaurant';
+import { IRestaurant } from '../domain/RestaurantListItem';
 
-const mockKorean: RestaurantType = {
+const mockKorean: IRestaurant = {
   category: '한식',
   name: '피양콩할마니',
   distance: 10,
@@ -10,54 +10,51 @@ const mockKorean: RestaurantType = {
   link: 'https://naver.me/G6DyD9tg',
 };
 
-const mockJapan: RestaurantType = {
+const mockJapan: IRestaurant = {
   category: '일식',
-  name: '일일일',
-  distance: 15,
-  description: `ㅇㅇ`,
+  name: '돈카라',
+  distance: 10,
+  description: `생선까스 맛집`,
   link: 'https://naver.me/G6DyD9tg',
 };
 
-const mockWestern: RestaurantType = {
+const mockWestern: IRestaurant = {
   category: '양식',
-  name: '양양양',
+  name: '도미노피자',
   distance: 5,
-  description: `ㅇㅇ`,
+  description: `스테이크 피자 맛집`,
   link: 'https://naver.me/G6DyD9tg',
 };
 
-const mockAsian: RestaurantType = {
+const mockAsian: IRestaurant = {
   category: '아시안',
   name: '피앤창',
   distance: 20,
-  description: `ㅇㅇ`,
+  description: `아메리칸 동남아 스타일 음식점`,
   link: 'https://naver.me/G6DyD9tg',
 };
 
-const mockChina: RestaurantType = {
+const mockChina: IRestaurant = {
   category: '중식',
   name: '용용선생',
   distance: 30,
-  description: `ㅇㅇ`,
+  description: `마라전골이 맛있는 집`,
   link: 'https://naver.me/G6DyD9tg',
 };
 
-const mockEtc: RestaurantType = {
+const mockEtc: IRestaurant = {
   category: '기타',
   name: '타코',
   distance: 15,
-  description: `ㅇㅇ`,
+  description: `타코가 맛있는 집`,
   link: 'https://naver.me/G6DyD9tg',
 };
 
-export const mockList: RestaurantType[] = [
+export const mockList: IRestaurant[] = [
   mockKorean,
-  mockAsian,
-  mockChina,
   mockChina,
   mockJapan,
   mockEtc,
   mockWestern,
-  mockKorean,
   mockAsian,
 ];
