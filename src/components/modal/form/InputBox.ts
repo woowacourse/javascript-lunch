@@ -31,6 +31,7 @@ export class InputBox extends HTMLDivElement {
                   id=${inputId} 
                   ${caption === null && "required"} 
                   ${name === "name" && 'maxlength="15"'}
+                  class="input-handle-element"
                 />
               `
             : isSelect === null
@@ -41,6 +42,7 @@ export class InputBox extends HTMLDivElement {
                   cols="30"
                   rows="5"
                   ${caption === null && "required"}
+                  class="input-handle-element"
                 ></textarea>
               `
             : `
@@ -49,6 +51,7 @@ export class InputBox extends HTMLDivElement {
                   name=${name} 
                   id=${inputId} 
                   ${caption === null && "required"}
+                  class="input-handle-element"
                 ></select>
               `
         }
@@ -61,11 +64,8 @@ export class InputBox extends HTMLDivElement {
   }
 
   getValue() {
-    return (this.children[1] as InputHandleElement).value;
-  }
-
-  resetValue() {
-    (this.children[1] as InputHandleElement).value = "";
+    return this.querySelector<InputHandleElement>(".input-handle-element")
+      ?.value;
   }
 }
 
