@@ -1,15 +1,11 @@
 import addButton from '../../assets/add-button.png';
 
 export default class Header {
-  $header: HTMLHeadElement | null;
+  $header = document.createElement('header');
 
-  constructor() {
-    const $gnbElement = document.querySelector<HTMLHeadElement>('.gnb');
-
-    this.$header = $gnbElement;
-    if (this.$header === null) return;
-
-    this.render(this.$header);
+  constructor($root: HTMLElement) {
+    this.$header.className = 'gnb';
+    this.render($root);
   }
 
   template() {
@@ -22,11 +18,11 @@ export default class Header {
   }
 
   render($targetElement: HTMLHeadElement) {
-    $targetElement.insertAdjacentHTML('beforeend', this.template());
+    this.$header.innerHTML = this.template();
+    $targetElement.insertAdjacentElement('afterbegin', this.$header);
   }
 
   addHeaderEventListener(callback: (e: MouseEvent) => void) {
-    if (this.$header === null) return;
     const $button = this.$header.querySelector('.gnb__button');
     if ($button === null || !($button instanceof HTMLButtonElement)) return;
 

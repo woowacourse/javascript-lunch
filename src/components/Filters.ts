@@ -5,9 +5,7 @@ import { arrayElementToObject } from '../utils/util';
 import { store } from '../store';
 
 export default class Filters {
-  $filterSection = document.querySelector(
-    '.restaurant-filter-container'
-  ) as HTMLElement;
+  $filterSection = document.createElement('section');
 
   constructor() {
     if (!store.$listArticle) return;

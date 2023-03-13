@@ -18,7 +18,7 @@ export default class App {
 
     store.setListArticle($listArticle);
 
-    this.header = new Header();
+    this.header = new Header(document.body);
     this.tabs = new Tabs();
     this.restaurantForm = new RestaurantForm();
     this.filters = new Filters();

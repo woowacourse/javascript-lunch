@@ -2,14 +2,12 @@ import { store } from '../store';
 import RestaurantItem from './RestaurantItem';
 
 export default class RestaurantList {
-  $restaurantListSection = document.querySelector(
-    '.restaurant-list-container'
-  ) as HTMLElement;
+  $restaurantListSection = document.createElement('section');
   $ul = document.createElement('ul');
 
   constructor() {
     if (!store.$listArticle) return;
-
+    this.$restaurantListSection.className = 'restaurant-list-container';
     this.$ul.className = 'restaurant-list';
 
     this.render(store.$listArticle);
