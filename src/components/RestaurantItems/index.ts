@@ -1,26 +1,39 @@
+import { Restaurants } from '../../types';
+import RestaurantItem from '../RestaurantItem';
 import $template from './index.html';
-import { store } from '../../store';
-import { Restaurant } from '../../types';
 
+interface Props {
+  restaurants: Restaurants;
+  onRestaurantItemClick: (restaurantId: string) => void;
+  onFavoriteButtonClick: (restaurantId: string) => void;
+}
 class RestaurantItems extends HTMLElement {
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    this.render(store.restaurants);
-  }
-
-  render(restaurants: Restaurant[]) {
     this.innerHTML = $template;
-    const $restaurantList = this.querySelector('.restaurant-list') as HTMLElement;
+  }
 
-    restaurants.forEach((restaurant) => {
-      const { category, name, distance, description } = restaurant;
+  setProps({ restaurants, onRestaurantItemClick, onFavoriteButtonClick }: Props) {
+    this.render(restaurants);
+    const $restaurantItems = this.querySelectorAll<RestaurantItem>('restaurant-item');
 
+    $restaurantItems.forEach(($restaurantItem) => {
+      const id = $restaurantItem.getAttribute('id') as string;
+      $restaurantItem.setProps({
+        restaurant: restaurants[id],
+        onRestaurantItemClick,
+        onFavoriteButtonClick,
+      });
+    });
+  }
+
+  render(restaurants: Restaurants) {
+    const $restaurantList = this.querySelector('.restaurant-list') as HTMLUListElement;
+    $restaurantList.innerHTML = '';
+    Object.entries(restaurants).forEach(([id, restaurant]) => {
       $restaurantList.insertAdjacentHTML(
         'beforeend',
-        `<restaurant-item category=${category} name=${name} distance=${distance} description=${description}></restaurant-item>`,
+        `<restaurant-item id=${id}></restaurant-item>`,
       );
     });
   }

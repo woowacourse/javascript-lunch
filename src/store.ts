@@ -1,64 +1,90 @@
-import { Restaurant, CategoryFilter, SortFilter } from './types';
-import RestaurantItems from './components/RestaurantItems';
+import db from './db/restaurants';
+import { Restaurant, CategoryFilter, SortFilter, Restaurants } from './types';
 
 interface Store {
-  restaurants: Restaurant[];
+  restaurants: Restaurants;
   categoryFilter: CategoryFilter;
   sortFilter: SortFilter;
+  removeRestaurant: (restaurant: string) => void;
   addRestaurants: (restaurant: Restaurant) => void;
   filterRestaurants: (categoryFilter: CategoryFilter) => void;
   sortRestaurants: (sortFilter: SortFilter) => void;
+  toggleFavoriteRestaurant: (id: string) => void;
+  getFavoriteRestaurants: () => Restaurants;
 }
 
+const filterRestaurantsById = (restaurants: Restaurants, id: string): Restaurants => {
+  return Object.fromEntries(Object.entries(restaurants).filter(([_id, _]) => _id !== id));
+};
+
 export const store: Store = {
-  restaurants: [],
+  restaurants: {},
   categoryFilter: '전체',
   sortFilter: 'name',
 
+  removeRestaurant(id: string) {
+    this.restaurants = filterRestaurantsById(this.restaurants, id);
+    db.setRestaurants(this.restaurants);
+
+    this.filterRestaurants(this.categoryFilter);
+    this.sortRestaurants(this.sortFilter);
+  },
+
   addRestaurants(restaurant: Restaurant) {
-    this.restaurants = [...this.restaurants, restaurant];
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
-    $restaurantItems.render(this.restaurants);
-    localStorage.setItem(
-      'store',
-      JSON.stringify([...JSON.parse(localStorage.getItem('store') || '[]'), restaurant]),
-    );
+    db.addRestaurant(restaurant);
+    this.restaurants = db.getRestaurants();
+
     this.filterRestaurants(this.categoryFilter);
     this.sortRestaurants(this.sortFilter);
   },
 
   filterRestaurants(categoryFilter: CategoryFilter) {
     this.categoryFilter = categoryFilter;
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
-    this.restaurants = JSON.parse(localStorage.getItem('store') || '[]');
-    if (categoryFilter === '전체') {
-      return $restaurantItems.render(this.restaurants);
-    }
-    const filteredRestaurants = this.restaurants.filter(
-      (restaurant) => restaurant.category === categoryFilter,
-    );
-    this.restaurants = filteredRestaurants;
-    $restaurantItems.render(this.restaurants);
+    this.restaurants = db.getRestaurants();
+
+    this.restaurants =
+      categoryFilter === '전체'
+        ? db.getRestaurants()
+        : Object.fromEntries(
+            Object.entries(this.restaurants).filter(
+              ([_, restaurant]) => restaurant.category === categoryFilter,
+            ),
+          );
   },
 
   sortRestaurants(sortFilter: SortFilter) {
     this.sortFilter = sortFilter;
-    const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-      typeof RestaurantItems
-    >;
+
+    let filteredRestaurants;
     switch (sortFilter) {
       case 'name':
-        this.restaurants.sort((a, b) => (a.name > b.name ? 1 : -1));
+        filteredRestaurants = Object.fromEntries(
+          Object.entries(this.restaurants).sort(([a_, a_restaurant], [b_, b_restaurant]) =>
+            a_restaurant.name > b_restaurant.name ? 1 : -1,
+          ),
+        );
         break;
       case 'distance':
-        this.restaurants.sort((a, b) => a.distance - b.distance);
+        filteredRestaurants = Object.fromEntries(
+          Object.entries(this.restaurants).sort(
+            ([a_, a_restaurant], [b_, b_restaurant]) =>
+              a_restaurant.distance - b_restaurant.distance,
+          ),
+        );
         break;
     }
-    $restaurantItems.render(this.restaurants);
+    this.restaurants = filteredRestaurants;
+  },
+
+  toggleFavoriteRestaurant(id: string) {
+    this.restaurants[id].isFavorite = !this.restaurants[id].isFavorite;
+    db.setRestaurants(this.restaurants);
+  },
+
+  getFavoriteRestaurants() {
+    return Object.fromEntries(
+      Object.entries(this.restaurants).filter(([id, restaurant]) => restaurant.isFavorite),
+    );
   },
 };
 

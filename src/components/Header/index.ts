@@ -1,18 +1,22 @@
-import header from './index.html';
+import $template from './index.html';
 
-class Header extends HTMLElement {
+interface Props {
+  onModalButtonClick: () => void;
+}
+class LunchHeader extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = header;
+    this.innerHTML = $template;
   }
 
-  connectedCallback() {
+  setProps(props: Props) {
+    this.setHandleModalButtonClick(props.onModalButtonClick);
+  }
+
+  private setHandleModalButtonClick(onModalButtonClick: Props['onModalButtonClick']) {
     const $button = this.querySelector('.gnb__button');
-    $button?.addEventListener('click', () => {
-      const modal = document.querySelector('.modal');
-      modal?.classList.add('modal--open');
-    });
+    $button?.addEventListener('click', onModalButtonClick);
   }
 }
 
-export default Header;
+export default LunchHeader;
