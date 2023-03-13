@@ -1,6 +1,6 @@
 const Validator = {
   isEmptyInput(input: string) {
-    return input.length === 0;
+    return input.trim().length === 0;
   },
 
   isCorrectLink(link: string) {

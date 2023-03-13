@@ -1,4 +1,4 @@
-import Validator from "../src/Validator";
+import Validator from "../src/util/Validator";
 
 test("이름이 공백일 때 true를 반환하는 함수 테스트", () => {
   expect(Validator.isEmptyInput("")).toBeTruthy();

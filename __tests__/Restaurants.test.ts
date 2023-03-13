@@ -1,49 +1,66 @@
-import { Restaurant, Category } from "../src/type/restaurant";
+import PersonalRestaurant from "../src/type/PersonalRestaurant";
 import Restaurants from "../src/domain/Restaurants";
 
 describe("레스토랑 테스트", () => {
   const restaurants = new Restaurants();
-  const category: Category = "양식";
-  const restaurantList: Restaurant[] = [
+  
+  const restaurantList: PersonalRestaurant[] = [
     {
-      name: "맥도날드",
-      category: category,
-      distance: "5",
-      description: "",
-      link: "",
+      restaurant: {
+        name: "맥도날드",
+        category: "양식",
+        estimatedTime: "5",
+        description: "",
+        link: "",
+      },
+      favorite: false,
     },
     {
-      name: "롯데리아",
-      category: category,
-      distance: "20",
-      description: "",
-      link: "",
+      restaurant: {
+        name: "롯데리아",
+        category: "양식",
+        estimatedTime: "20",
+        description: "",
+        link: "",
+      },
+      favorite: true,
     },
     {
-      name: "버거킹",
-      category: category,
-      distance: "30",
-      description: "",
-      link: "",
+      restaurant: {
+        name: "버거킹",
+        category: "한식",
+        estimatedTime: "30",
+        description: "",
+        link: "",
+      },
+      favorite: false,
     },
     {
-      name: "맘스터치",
-      category: category,
-      distance: "10",
-      description: "",
-      link: "",
+      restaurant: {
+        name: "맘스터치",
+        category: "중식",
+        estimatedTime: "10",
+        description: "",
+        link: "",
+      },
+      favorite: true,
     },
     {
-      name: "KFC",
-      category: category,
-      distance: "15",
-      description: "",
-      link: "",
+      restaurant: {
+        name: "KFC",
+        category: "아시안",
+        estimatedTime: "15",
+        description: "",
+        link: "",
+      },
+      favorite: false,
     },
   ];
-  restaurantList.forEach((restaurant: Restaurant) =>
+
+  restaurantList.forEach((restaurant: PersonalRestaurant) =>
     restaurants.add(restaurant)
   );
+
   test("음식점 목록 입력 테스트", () => {
     expect(restaurants.getList()).toEqual(restaurantList);
   });

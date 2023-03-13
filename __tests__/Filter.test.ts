@@ -1,59 +1,106 @@
 import Filter from "../src/domain/Filter";
-import { Category, Restaurant } from "../src/type/restaurant";
+import PersonalRestaurant from "../src/type/PersonalRestaurant";
 
 describe("Filter 객체 테스트", () => {
-  const restaurantList: Restaurant[] = [
+  const restaurantList: PersonalRestaurant[] = [
     {
-      name: "맥도날드",
-      category: "양식",
-      distance: "5",
-      description: "",
-      link: "",
-    },
-    {
-      name: "롯데리아",
-      category: "양식",
-      distance: "20",
-      description: "",
-      link: "",
-    },
-    {
-      name: "버거킹",
-      category: "한식",
-      distance: "30",
-      description: "",
-      link: "",
-    },
-    {
-      name: "맘스터치",
-      category: "중식",
-      distance: "10",
-      description: "",
-      link: "",
-    },
-    {
-      name: "KFC",
-      category: "아시안",
-      distance: "15",
-      description: "",
-      link: "",
-    },
-  ];
-  test("카테고리 필터링하는 함수 테스트", () => {
-    expect(Filter.byCategory("양식", restaurantList)).toEqual([
-      {
+      restaurant: {
         name: "맥도날드",
         category: "양식",
-        distance: "5",
+        estimatedTime: "5",
         description: "",
         link: "",
       },
-      {
+      favorite: false,
+    },
+    {
+      restaurant: {
         name: "롯데리아",
         category: "양식",
-        distance: "20",
+        estimatedTime: "20",
         description: "",
         link: "",
+      },
+      favorite: true,
+    },
+    {
+      restaurant: {
+        name: "버거킹",
+        category: "한식",
+        estimatedTime: "30",
+        description: "",
+        link: "",
+      },
+      favorite: false,
+    },
+    {
+      restaurant: {
+        name: "맘스터치",
+        category: "중식",
+        estimatedTime: "10",
+        description: "",
+        link: "",
+      },
+      favorite: true,
+    },
+    {
+      restaurant: {
+        name: "KFC",
+        category: "아시안",
+        estimatedTime: "15",
+        description: "",
+        link: "",
+      },
+      favorite: false,
+    },
+  ];
+
+  test("카테고리 필터링하는 함수 테스트", () => {
+    expect(Filter.byCategory("양식", restaurantList)).toEqual([
+      {
+        restaurant: {
+          name: "맥도날드",
+          category: "양식",
+          estimatedTime: "5",
+          description: "",
+          link: "",
+        },
+        favorite: false,
+      },
+      {
+        restaurant: {
+          name: "롯데리아",
+          category: "양식",
+          estimatedTime: "20",
+          description: "",
+          link: "",
+        },
+        favorite: true,
+      },
+    ]);
+  });
+
+  test("자주 가는 음식점 필터링하는 함수 테스트", () => {
+    expect(Filter.byFavorite(restaurantList)).toEqual([
+      {
+        restaurant: {
+          name: "롯데리아",
+          category: "양식",
+          estimatedTime: "20",
+          description: "",
+          link: "",
+        },
+        favorite: true,
+      },
+      {
+        restaurant: {
+          name: "맘스터치",
+          category: "중식",
+          estimatedTime: "10",
+          description: "",
+          link: "",
+        },
+        favorite: true,
       },
     ]);
   });

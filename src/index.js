@@ -1,36 +1,33 @@
 import "../css/style.css";
 import { getFoodCategoryMemberList } from "./type/FoodCategory";
-import { getEstimatedTimeMemberList } from "./type/EstimatedTime";
-import Modal from "./component/Modal";
-import Restaurants from "./domain/Restaurants";
-import RestaurantValidator from "./domain/RestaurantValidator";
-import Alert from "./component/Alert";
+import Alert from "./Alert/Alert";
 import { $ } from "./util/querySelector";
-import Filter from "./domain/Filter";
 import IMAGE from "./IMAGE";
-import { sort } from "./domain/Sort";
 import LocalStorage from "./util/LocalStorage";
-import appendNewRestaurant from "./component/appendNewRestaurant";
-import createSelectInput from "./component/createSelectInput";
+import SelectInput from "./util/SelectInput";
+import RestaurantInputModal from "./RestaurantInputModal/RestaurantInputModal";
+import DocumentEventBus from "./util/DocumentEventBus";
+import RestaurantList from "./RestaurantList/RestaurantList";
+import RestaurantDetailedModal from "./RestaurantDetailedModal/RestaurantDetailedModal";
+import InputSuccessModal from "./InputSuccessModal/InputSuccessModal";
+import ConfirmDeleteModal from "./ConfirmDeleteModal/ConfirmDeleteModal";
 
-const CATEGORY = getFoodCategoryMemberList();
-const ESTIMATEDTIME = getEstimatedTimeMemberList();
-
-const restaurantList = new Restaurants();
+const restaurantList = new RestaurantList();
+$("main").appendChild(restaurantList.element);
 
 // 카테고리, 정렬 필터 생성
 const filterContainer = $(".restaurant-filter-container");
 
-const categoryFilterElement = createSelectInput(
+const categoryFilterElement = SelectInput.create(
   "category-filter",
   "",
-  ["전체", ...CATEGORY],
-  ["전체", ...CATEGORY],
+  ["전체", ...getFoodCategoryMemberList()],
+  ["전체", ...getFoodCategoryMemberList()],
 );
 categoryFilterElement.setAttribute("class", "restaurant-filter");
 filterContainer.appendChild(categoryFilterElement);
 
-const sortingFilterElement = createSelectInput(
+const sortingFilterElement = SelectInput.create(
   "sorting-filter",
   "",
   ["name", "distance"],
@@ -42,173 +39,88 @@ filterContainer.appendChild(sortingFilterElement);
 const categoryFilter = $("#category-filter");
 const sortingFilter = $("#sorting-filter");
 
+categoryFilter.addEventListener("change", (event) => {
+  event.target.dispatchEvent(new CustomEvent("updateList", { bubbles: true }));
+});
+
+sortingFilter.addEventListener("change", (event) => {
+  event.target.dispatchEvent(new CustomEvent("updateList", { bubbles: true }));
+});
+
+$("#global-filter-radio").addEventListener("change", (event) => {
+  event.target.dispatchEvent(new CustomEvent("updateList", { bubbles: true }));
+});
+
 // 음식점 입력 모달 생성
-const restaurantInputModal = Modal.create("new-restaurant-input");
-$("main").appendChild(restaurantInputModal);
-
-const addRestaurantFormTemplate = $("#new-restaurant-form-template");
-const addRestaurantForm = document.importNode(addRestaurantFormTemplate.content, true);
-addRestaurantForm.querySelector(".category-input").innerHTML = createSelectInput(
-  "category",
-  "카테고리",
-  ["", ...CATEGORY],
-  ["선택해 주세요", ...CATEGORY],
-).innerHTML;
-addRestaurantForm.querySelector(".distance-input").innerHTML = createSelectInput(
-  "distance",
-  "거리(걸리는 시간)",
-  ["", ...ESTIMATEDTIME],
-  ["선택해 주세요", ...ESTIMATEDTIME],
-).innerHTML;
-addRestaurantForm.querySelector("form").setAttribute("id", "restaurant-input-form");
-
-Modal.setChildElement(restaurantInputModal, addRestaurantForm);
+const restaurantInputModal = new RestaurantInputModal("new-restaurant-input");
+$("main").appendChild(restaurantInputModal.element);
 
 const addButton = $(".gnb__button");
 addButton.querySelector("img").src = IMAGE.ADD_BTN;
 addButton.addEventListener("click", () => {
-  $("#restaurant-input-form").reset();
-  Modal.open(restaurantInputModal);
+  restaurantInputModal.open();
 });
+
+// 음식점 입력 모달에 알람창 생성
+const [
+  categoryAlertPosition,
+  nameAlertPosition,
+  distanceAlertPosition,
+  linkAlertPosition,
+  submitAlertPosition,
+] = restaurantInputModal.element.querySelectorAll(".alert-position");
+
+const categoryAlert = new Alert("alert-category");
+const nameAlert = new Alert("alert-category");
+const distanceAlert = new Alert("alert-category");
+const linkAlert = new Alert("alert-category");
+const submitAlert = new Alert("alert-category");
+
+categoryAlertPosition.appendChild(categoryAlert.element);
+nameAlertPosition.appendChild(nameAlert.element);
+distanceAlertPosition.appendChild(distanceAlert.element);
+linkAlertPosition.appendChild(linkAlert.element);
+submitAlertPosition.appendChild(submitAlert.element);
+
+// 음식점 세부 정보 모달 생성
+const restaurantDetailedModal = new RestaurantDetailedModal("restaurant-detailed-modal");
+$("main").appendChild(restaurantDetailedModal.element);
 
 // 음식점 입력 성공 모달 생성
-const restaurantInputSuccessModal = Modal.create("input-success-modal");
-Modal.setInnerHTML(restaurantInputSuccessModal, `
-<h1>음식점 입력 성공!</h1>
-<h3>전체 보기에서 확인하시겠습니까?</h3><div class="button-container">
-<button type="button" id="change-category-to-all" class="button button--primary text-caption">
-  네
-</button>
-<button type="button" id="no-change-category" class="button button--secondary text-caption">
-  아니오
-</button>
-</div>
-`);
-$("main").appendChild(restaurantInputSuccessModal);
+const inputSuccessModal = new InputSuccessModal("input-success-modal");
+$("main").appendChild(inputSuccessModal.element);
 
-// 음식점 입력
-const cancelButton = $("#new-restaurant-input .button--secondary");
-const submitButton = $("#new-restaurant-input .button--primary");
-const submitAlert = $("#alert-submit");
-const linkInput = $("#link");
-const linkAlert = $("#alert-link");
-const catgoryInput = $("#category");
-const categoryAlert = $("#alert-category");
-const nameInput = $("#name");
-const nameAlert = $("#alert-name");
-const distanceInput = $("#distance");
-const distanceAlert = $("#alert-distance");
-const descriptionInput = $("#description");
+// 음식점 삭제 확인 모달 생성
+const confirmDeleteModal = new ConfirmDeleteModal("confirm-delete-modal");
+$("main").appendChild(confirmDeleteModal.element);
 
-catgoryInput.addEventListener("focusout", () => {
-  try {
-    RestaurantValidator.checkCategory(catgoryInput.value);
-    Alert.close(categoryAlert);
-    Alert.close(submitAlert);
-  } catch (e) {
-    Alert.open(categoryAlert, e.message);
-  }
-});
+// 이벤트 구독 관계 설정
+DocumentEventBus.subscribe("validateCategory", categoryAlert.eventCallback.bind(categoryAlert));
+DocumentEventBus.subscribe("validateName", nameAlert.eventCallback.bind(nameAlert));
+DocumentEventBus.subscribe("validateDistance", distanceAlert.eventCallback.bind(distanceAlert));
+DocumentEventBus.subscribe("validateLink", linkAlert.eventCallback.bind(linkAlert));
+DocumentEventBus.subscribe("inputFail", submitAlert.eventCallback.bind(submitAlert));
 
-nameInput.addEventListener("focusout", () => {
-  try {
-    RestaurantValidator.checkName(nameInput.value);
-    Alert.close(nameAlert);
-    Alert.close(submitAlert);
-  } catch (e) {
-    Alert.open(nameAlert, e.message);
-  }
-});
+DocumentEventBus.subscribe("restaurantSubmit", restaurantList.newRestaurantEventCallback.bind(restaurantList));
+DocumentEventBus.subscribe("deleteRestaurantConfirmed", restaurantList.deleteCallback.bind(restaurantList));
+DocumentEventBus.subscribe("favoriteChange", restaurantList.favoriteChangeCallback.bind(restaurantList));
+DocumentEventBus.subscribe("updateList", restaurantList.updateCallback.bind(restaurantList));
 
-distanceInput.addEventListener("focusout", () => {
-  try {
-    RestaurantValidator.checkDistance(distanceInput.value);
-    Alert.close(distanceAlert);
-    Alert.close(submitAlert);
-  } catch (e) {
-    Alert.open(distanceAlert, e.message);
-  }
-});
+DocumentEventBus.subscribe(
+  "openDetailed",
+  restaurantDetailedModal.openModalEventCallback.bind(restaurantDetailedModal),
+);
 
-linkInput.addEventListener("focusout", () => {
-  try {
-    RestaurantValidator.checkLink(linkInput.value);
-    Alert.close(linkAlert);
-    Alert.close(submitAlert);
-  } catch (e) {
-    Alert.open(linkAlert, e.message);
-  }
-});
+DocumentEventBus.subscribe("restaurantSubmit", inputSuccessModal.submitSuccessCallback.bind(inputSuccessModal));
 
-cancelButton.addEventListener("click", () => {
-  Modal.close(restaurantInputModal);
-});
+DocumentEventBus.subscribe("deleteRestaurant", confirmDeleteModal.openCallback.bind(confirmDeleteModal));
 
-const readRestaurantInput = () => {
-  const category = catgoryInput.value;
-  const name = nameInput.value;
-  const estimatedTime = distanceInput.value;
-  const description = descriptionInput.value;
-  const link = linkInput.value;
+// 새로고침 관련
+window.addEventListener("beforeunload", () => LocalStorage.setItem("restaurants", restaurantList.getList()));
 
-  return {
-    category, name, estimatedTime, description, link,
-  };
-};
-
-const updateRestaurant = () => {
-  $(".restaurant-list-container").innerHTML = "";
-  LocalStorage.setItem("restaurants", restaurantList.getList());
-  const sortResult = sort(sortingFilter.value, restaurantList.getList());
-  const filterResult = Filter.byCategory(categoryFilter.value, sortResult);
-  return filterResult.forEach((element) => appendNewRestaurant(element));
-};
-
-$("#change-category-to-all").addEventListener("click", () => {
-  categoryFilter.value = "전체";
-  updateRestaurant();
-  Modal.close(restaurantInputSuccessModal);
-});
-
-$("#no-change-category").addEventListener("click", () => {
-  Modal.close(restaurantInputSuccessModal);
-});
-
-submitButton.addEventListener("click", (event) => {
-  event.preventDefault();
-
-  const restaurant = readRestaurantInput();
-
-  try {
-    RestaurantValidator.checkAll(restaurant);
-  } catch (e) {
-    Alert.open(submitAlert, e.message);
-    return;
-  }
-
-  restaurantList.add(restaurant);
-  updateRestaurant();
-
-  Modal.close(restaurantInputModal);
-
-  if (categoryFilter.value !== "전체" && restaurant.value !== categoryFilter.value) {
-    Modal.open(restaurantInputSuccessModal);
-  }
-});
-
-// 새로고침
 window.onload = () => {
   LocalStorage.getItem("restaurants").forEach((item) => {
     restaurantList.add(item);
   });
-  updateRestaurant();
+  window.dispatchEvent(new CustomEvent("updateList", { bubbles: true }));
 };
-
-// 필터
-categoryFilter.addEventListener("change", () => {
-  updateRestaurant();
-});
-
-sortingFilter.addEventListener("change", () => {
-  updateRestaurant();
-});
