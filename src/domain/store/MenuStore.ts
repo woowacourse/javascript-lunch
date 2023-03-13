@@ -3,21 +3,21 @@ import { Action } from "../../abstracts/types";
 import Store from "./Store";
 
 class MenuStore extends Store {
-  #menu: string = "all";
+  private menu: string = "all";
 
-  publish() {
+  public publish() {
     this.getSubscribers().forEach((subscriber) => {
-      subscriber.rerender(this.#menu);
+      subscriber.rerender(this.menu);
     });
   }
 
-  reducer = {
+  public reducer = {
     [MENU_ACTION.MENU_ALL]: (action: Action) => {
-      this.#menu = "all";
+      this.menu = "all";
       this.publish();
     },
     [MENU_ACTION.MENU_FAVORITE]: (action: Action) => {
-      this.#menu = "favorite";
+      this.menu = "favorite";
       this.publish();
     },
   };

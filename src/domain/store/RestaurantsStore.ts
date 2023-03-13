@@ -14,23 +14,23 @@ import {
 import CustomElement from "../../abstracts/CustomElement";
 
 class RestaurantsStore extends Store {
-  #restaurantList: Restaurant[] = [];
-  #category: Category = CATEGORY_DEFAULT;
-  #sortMethod: SortMethod = SORT_METHOD.NAME;
+  private restaurantList: Restaurant[] = [];
+  private category: Category = CATEGORY_DEFAULT;
+  private sortMethod: SortMethod = SORT_METHOD.NAME;
 
-  publish() {
-    this.sortRestaurants(this.#sortMethod);
+  public publish() {
+    this.sortRestaurants(this.sortMethod);
     this.getSubscribers().forEach((subscriber: CustomElement) => {
       subscriber.rerender({
-        restaurantList: this.#restaurantList,
-        category: this.#category,
+        restaurantList: this.restaurantList,
+        category: this.category,
       });
     });
   }
 
-  reducer = {
+  public reducer = {
     [RESTAURANT_ACTION.SET_RESTAURANT_LIST]: (action: Action) => {
-      this.#restaurantList = action.data as Restaurant[];
+      this.restaurantList = action.data as Restaurant[];
       this.publish();
     },
     [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
@@ -46,7 +46,7 @@ class RestaurantsStore extends Store {
       this.publish();
     },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
-      this.#category = action.data as Category;
+      this.category = action.data as Category;
       this.publish();
     },
     [RESTAURANT_ACTION.SORT_RESTAURANTS]: (action: Action) => {
@@ -55,43 +55,43 @@ class RestaurantsStore extends Store {
     },
   };
 
-  addRestaurant(addedRestaurantData: AddRestaurant) {
+  private addRestaurant(addedRestaurantData: AddRestaurant) {
     const restaurant = addedRestaurantData as Restaurant;
-    restaurant.id = this.#restaurantList.length;
+    restaurant.id = this.restaurantList.length;
 
-    this.#restaurantList.push(restaurant);
+    this.restaurantList.push(restaurant);
   }
 
-  deleteRestaurant(restaurantId: number) {
-    const restaurantIndex = this.#restaurantList.findIndex(
+  private deleteRestaurant(restaurantId: number) {
+    const restaurantIndex = this.restaurantList.findIndex(
       (restaurant) => restaurant.id === Number(restaurantId)
     );
 
-    this.#restaurantList.splice(restaurantIndex, 1);
+    this.restaurantList.splice(restaurantIndex, 1);
   }
 
-  handleFavoriteRestaurant(restaurantId: number) {
-    const index = this.#restaurantList.findIndex(
+  private handleFavoriteRestaurant(restaurantId: number) {
+    const index = this.restaurantList.findIndex(
       (restaurant) => restaurant.id === Number(restaurantId)
     );
-    const restaurant = this.#restaurantList[index];
+    const restaurant = this.restaurantList[index];
 
     if (restaurant) {
-      this.#restaurantList[index].isFavorite = !restaurant.isFavorite;
+      this.restaurantList[index].isFavorite = !restaurant.isFavorite;
     }
   }
 
-  sortRestaurants(sortMethod: SortMethod) {
-    this.#sortMethod = sortMethod;
-    switch (this.#sortMethod) {
+  private sortRestaurants(sortMethod: SortMethod) {
+    this.sortMethod = sortMethod;
+    switch (this.sortMethod) {
       case SORT_METHOD.NAME:
-        this.#restaurantList = this.#restaurantList.sort(
+        this.restaurantList = this.restaurantList.sort(
           (prev: Restaurant, next: Restaurant) =>
             prev.name > next.name ? 1 : -1
         );
         break;
       case SORT_METHOD.DISTANCE:
-        this.#restaurantList = this.#restaurantList.sort(
+        this.restaurantList = this.restaurantList.sort(
           (prev: Restaurant, next: Restaurant) => prev.distance - next.distance
         );
         break;

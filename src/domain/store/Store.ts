@@ -1,14 +1,14 @@
 import CustomElement from "../../abstracts/CustomElement";
 
 class Store {
-  #subscribers: CustomElement[] = [];
+  private subscribers: CustomElement[] = [];
 
-  subscribe(element: CustomElement) {
-    this.#subscribers.push(element);
+  public subscribe(element: CustomElement) {
+    this.subscribers.push(element);
   }
 
-  getSubscribers(): CustomElement[] {
-    return this.#subscribers;
+  protected getSubscribers(): CustomElement[] {
+    return this.subscribers;
   }
 
   reducer = {};

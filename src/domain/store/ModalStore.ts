@@ -3,25 +3,25 @@ import { Action } from "../../abstracts/types";
 import Store from "./Store";
 
 class ModalStore extends Store {
-  #isModalOn: boolean = false;
+  private isModalOn: boolean = false;
 
-  publish(action: Action) {
+  public publish(action: Action) {
     this.getSubscribers().forEach((subscriber) => {
-      subscriber.rerender(this.#isModalOn, action);
+      subscriber.rerender(this.isModalOn, action);
     });
   }
 
-  reducer = {
+  public reducer = {
     [MODAL_ACTION.MODAL_ADD_RESTAURANT]: (action: Action) => {
-      this.#isModalOn = true;
+      this.isModalOn = true;
       this.publish(action);
     },
     [MODAL_ACTION.MODAL_RESTAURANT_INFO]: (action: Action) => {
-      this.#isModalOn = true;
+      this.isModalOn = true;
       this.publish(action);
     },
     [MODAL_ACTION.MODAL_OFF]: (action: Action) => {
-      this.#isModalOn = false;
+      this.isModalOn = false;
       this.publish(action);
     },
   };
