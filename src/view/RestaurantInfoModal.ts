@@ -28,6 +28,8 @@ class RestaurantInfoModal {
         innerId: 'restaurant-info-modal-contents',
       },
     });
+
+    this.#setListeners();
   }
 
   closeOrOpenModal(command: string) {
@@ -35,16 +37,8 @@ class RestaurantInfoModal {
   }
 
   updateRestaurantInfo(restaurant: Restaurant) {
-    $('#restaurant-info-modal-contents').innerHTML = '';
-
-    new RestaurantItem({
-      parentElement: $('#restaurant-info-modal-contents'),
-      restaurant: restaurant,
-      parentEvent: {
-        onFavoriteButtonClicked: (itemId: number) =>
-          this.#parentEvent.onFavoriteButtonClicked(itemId),
-      },
-    });
+    $('#restaurant-info-modal-contents').innerHTML =
+      RestaurantItem.template(restaurant);
 
     new TwinButtons({
       parentElement: $('#restaurant-info-modal-contents'),
@@ -65,6 +59,25 @@ class RestaurantInfoModal {
   openInfoModal(restaurant: Restaurant) {
     this.updateRestaurantInfo(restaurant);
     this.closeOrOpenModal('open');
+  }
+
+  #setListeners() {
+    $('#restaurant-info-modal').addEventListener('click', (event) => {
+      console.log('OK Clicked');
+
+      if (
+        event.target instanceof HTMLElement &&
+        event.target.closest('.favorite-button')
+      ) {
+        console.log('OK stage pass');
+        const restaurantItemId = Number(
+          event.target.closest('.restaurant')!.getAttribute('item-id')
+        );
+        console.log(restaurantItemId);
+
+        this.#parentEvent.onFavoriteButtonClicked(restaurantItemId);
+      }
+    });
   }
 }
 

@@ -22,29 +22,38 @@ class RestaurantList {
     this.#parentEvent = parentEvent;
 
     this.#render();
-    this.#renderRestaurantItems();
+    this.#setListeners();
   }
 
   #render() {
     const template = `
-      <ul class="restaurants-list" id="restaurant-list"></ul>
+      <ul class="restaurants-list" id="restaurant-list"
+      >${this.#restaurants
+        .map((restaurant: Restaurant) => RestaurantItem.template(restaurant))
+        .join('')}</ul
+      >
     `;
 
     this.#parentElement.innerHTML = template;
   }
 
-  #renderRestaurantItems() {
-    this.#restaurants.forEach((restaurant: Restaurant) => {
-      new RestaurantItem({
-        parentElement: $(`#restaurant-list`),
-        restaurant: restaurant,
-        parentEvent: {
-          onItemClicked: (itemId: number) =>
-            this.#parentEvent.onRestaurantItemClicked(itemId),
-          onFavoriteButtonClicked: (itemId: number) =>
-            this.#parentEvent.onFavoriteButtonClicked(itemId),
-        },
-      });
+  #setListeners() {
+    $('#restaurant-list').addEventListener('click', (event) => {
+      if (event.target instanceof HTMLElement) {
+        const restaurantItemId = event.target
+          .closest('.restaurant')
+          ?.getAttribute('item-id');
+
+        if (typeof restaurantItemId !== 'string') {
+          return;
+        }
+
+        event.target
+          .closest('.favorite-button')
+          ?.classList.contains('favorite-button')
+          ? this.#parentEvent.onFavoriteButtonClicked(Number(restaurantItemId))
+          : this.#parentEvent.onRestaurantItemClicked(Number(restaurantItemId));
+      }
     });
   }
 }
