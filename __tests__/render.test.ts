@@ -20,7 +20,6 @@ const category = ['한식', '중식', '일식', '양식', '아시안', '기타']
 const distance = ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'];
 
 describe('컴포넌트 테스트', () => {
-  // document.body 에 추가하며 테스트할 예정이라면 각 단위 테스트가 독립적으로 실행될 수 있도록 document.body를 비워줍니다.
   beforeEach(() => {
     document.body.innerHTML = `<div id="app"></div>`;
   });
@@ -39,7 +38,7 @@ describe('컴포넌트 테스트', () => {
     [NameInput, ['이름']],
     [DescriptionInput, ['설명', '메뉴 등 추가 정보를 입력해 주세요.']],
     [LinkInput, ['참고 링크', '매장 정보를 확인할 수 있는 링크를 입력해 주세요.']],
-  ])('모달의 Input UI 텍스트 검사', (dom, texts) => {
+  ])('모달의 Input UI 텍스트가 올바른지 검사한다.', (dom, texts) => {
     const app = document.querySelector(`#${ID.APP}`) as HTMLDivElement;
     const container = dom.template();
     app.innerHTML = container;
@@ -49,7 +48,7 @@ describe('컴포넌트 테스트', () => {
     });
   });
 
-  test('필터 버튼 UI 테스트', () => {
+  test('필터 버튼 UI에 쓰이는 텍스트가 올바른지 검사한다.', () => {
     const app = document.querySelector(`#${ID.APP}`) as HTMLDivElement;
     const container = FilterSection.template();
     app.innerHTML = container;
@@ -59,7 +58,7 @@ describe('컴포넌트 테스트', () => {
     });
   });
 
-  test('헤더 UI 테스트', () => {
+  test('헤더 UI에 쓰이는 텍스트는 "점심 뭐 먹지"이며, 헤더에 있는 버튼이 정상적으로 동작한다.', () => {
     const app = document.querySelector(`#${ID.APP}`) as HTMLDivElement;
     const container = Header.template();
     app.innerHTML = container;
@@ -68,7 +67,7 @@ describe('컴포넌트 테스트', () => {
     expect(fireEvent.click(screen.getByTestId('headerButton'))).toBe(true);
   });
 
-  test('메뉴 UI 테스트', () => {
+  test('메뉴 UI의 버튼 텍스트는 "모든 음식점", "자주가는 음식점"이며 정상적으로 동작한다.', () => {
     const app = document.querySelector(`#${ID.APP}`) as HTMLDivElement;
     const container = Menu.template();
     app.innerHTML = container;
@@ -79,7 +78,7 @@ describe('컴포넌트 테스트', () => {
     expect(fireEvent.click(screen.getByText('자주 가는 음식점'))).toBe(true);
   });
 
-  test('음식점 리스트 UI 테스트', () => {
+  test('초기 음식점 리스트 UI에서는 mockList에 있는 음식점의 이름을 모두 포함한다.', () => {
     const app = document.querySelector(`#${ID.APP}`) as HTMLDivElement;
     const container = RestaurantListSection.template(mockList);
     app.innerHTML = container;
