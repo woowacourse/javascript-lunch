@@ -8,6 +8,7 @@ export default class Tabs {
     this.$tab = document.querySelector<HTMLDivElement>('.tab-container');
     if (this.$tab === null) return;
 
+    this.addTabEventListener();
     this.render(this.$tab);
   }
 

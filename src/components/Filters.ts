@@ -8,27 +8,13 @@ export default class Filters {
   $filterSection = document.createElement('section');
 
   constructor() {
+    if (!store.$listArticle) return;
+
     this.$filterSection.className = 'restaurant-filter-container';
 
     this.render(store.$listArticle);
-    this.$filterSection.addEventListener('change', (e: Event) => {
-      if (!(e.target instanceof HTMLSelectElement)) return;
 
-      const { id, value } = e.target;
-
-      switch (id) {
-        case 'category-filter':
-          store.currentCategory = value as CategoryOptions;
-          break;
-        case 'sorting-filter':
-          store.currentFilter = value as FilterOptions;
-          break;
-        default:
-          return;
-      }
-
-      store.renderListArticle();
-    });
+    this.$filterSection.addEventListener('change', this.changeEventHandler);
 
     store.$listArticle.appendChild(this.$filterSection);
   }
@@ -55,5 +41,24 @@ export default class Filters {
       className: 'restaurant-filter',
     })}
   `;
+  }
+
+  changeEventHandler(e: Event) {
+    if (!(e.target instanceof HTMLSelectElement)) return;
+
+    const { id, value } = e.target;
+
+    switch (id) {
+      case 'category-filter':
+        store.currentCategory = value as CategoryOptions;
+        break;
+      case 'sorting-filter':
+        store.currentFilter = value as FilterOptions;
+        break;
+      default:
+        return;
+    }
+
+    store.renderListArticle();
   }
 }
