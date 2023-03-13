@@ -1,11 +1,22 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
+  "root": true,
   "overrides": [],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier", "react", "import"],
+  "extends": [
+    "eslint:recommended",
+    "eslint-config-airbnb-typescript",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "ignorePatterns": ["dist/", "node_modules/"],
   "rules": {
     "max-depth": ["error", 1],
     "max-lines-per-function": ["error", 10],
@@ -14,18 +25,15 @@
     "prettier/prettier": "error",
     "quotes": ["error", "single"]
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
-  ],
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
-  "ignorePatterns": ["dist/", "node_modules/"]
+  "env": {
+    "browser": true,
+    "es2021": true
+  }
 }
