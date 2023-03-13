@@ -51,14 +51,16 @@ const restaurants = [
   },
 ];
 
+beforeEach(() => {
+  cy.visit("http://localhost:8080/", {
+    onBeforeLoad(win) {
+      win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
+    },
+  });
+});
+
 describe("음식점 추가 모달 기능 테스트", () => {
   it("값 입력 후 제출시 화면에 추가된 음식점이 렌더링 된다.", () => {
-    cy.visit("http://localhost:8080/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
-      },
-    });
-
     cy.contains("한식집3").should("not.exist");
 
     cy.get(".gnb__button").click();
@@ -78,12 +80,6 @@ describe("음식점 추가 모달 기능 테스트", () => {
   });
 
   it("필수 값을 입력하지 않고 제출시 모달이 열린채로 유지되며, 제출되지 않는다.", () => {
-    cy.visit("http://localhost:8080/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
-      },
-    });
-
     cy.get(".gnb__button").click();
 
     cy.get("#name").type("한식집3");
@@ -102,12 +98,6 @@ describe("음식점 추가 모달 기능 테스트", () => {
 
 describe("음식점 리스트 렌더링 테스트", () => {
   it("카테고리 필터 선택시 해당하는 카테고리를 가진 음식점만 렌더링 된다.", () => {
-    cy.visit("http://localhost:8080/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
-      },
-    });
-
     cy.get("#category-filter").select("한식");
 
     cy.get(".restaurant-list").contains("한식집1").should("be.visible");
@@ -120,10 +110,10 @@ describe("음식점 리스트 렌더링 테스트", () => {
   it("정렬 필터 선택시 해당 정렬 기준에 의해 렌더링 된다.", () => {
     const sortedTitle = ["한식집1", "한식집2", "중식집1", "양식집1", "일식집1"];
 
-    cy.visit("http://localhost:8080/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
-      },
+    cy.get(".restaurant-list").should((elem) => {
+      elem.children().each((index, li) => {
+        expect(li.querySelector(".restaurant__name").innerText).to.equal(
+          sortedTitleByDistance[index]
     });
 
     cy.get("#sorting-filter").select("distance");
@@ -138,12 +128,6 @@ describe("음식점 리스트 렌더링 테스트", () => {
   });
 
   it("즐겨찾기 탭 클릭시 즐겨찾기한 음식점만 렌더링 된다.", () => {
-    cy.visit("http://localhost:8080/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
-      },
-    });
-
     cy.get("#like-button").click();
 
     cy.get(".restaurant-list").contains("한식집1").should("be.visible");
@@ -156,12 +140,6 @@ describe("음식점 리스트 렌더링 테스트", () => {
 
 describe("음식점 상세 모달 기능 테스트", () => {
   it("음식점 카드 클릭시 해당 음식점의 상세 모달이 렌더링 된다.", () => {
-    cy.visit("http://localhost:8080/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
-      },
-    });
-
     cy.contains("일식집1").click();
 
     cy.get("form").should("not.be.visible");
@@ -170,12 +148,6 @@ describe("음식점 상세 모달 기능 테스트", () => {
   });
 
   it("삭제하기 버튼 클릭시 음식점 리스트에서 해당 항목이 삭제된다.", () => {
-    cy.visit("http://localhost:8080/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("restaurants", JSON.stringify(restaurants));
-      },
-    });
-
     cy.contains("일식집1").click();
 
     cy.contains("삭제하기").click();
