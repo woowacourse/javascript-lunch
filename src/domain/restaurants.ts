@@ -46,7 +46,7 @@ export const restaurants: Restaurants = {
     const deleteRestaurantIndex = this.list.findIndex(
       (restaurant) => restaurant.restaurantID === restaurantID
     );
-    this.list.splice(deleteRestaurantIndex, 1);
+    if (deleteRestaurantIndex > -1) this.list.splice(deleteRestaurantIndex, 1);
   },
 
   filterByCategory(category, restaurants) {
