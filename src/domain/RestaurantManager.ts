@@ -1,6 +1,7 @@
 import { STORE_RESTAURANT } from '../constants/constants';
 import { INIT_RESTAURANT_DATA } from '../constants/initRestaurantData';
 import { Restaurant, SortBy, Category } from '../types/Restaurant.js';
+import { getStoreData } from '../utils/getStoreData';
 
 export default class RestaurantManager {
   private restaurantList: Restaurant[];
@@ -33,14 +34,9 @@ export default class RestaurantManager {
   }
 
   refreshData(data: Restaurant[]) {
-    const getData = this.store.getItem(STORE_RESTAURANT);
-
-    if (getData !== null) {
-      const storageData: Restaurant[] = JSON.parse(getData);
-      const refreshData = storageData.map((restaurant) => restaurant.storeName);
-      return data.filter((data: Restaurant) => refreshData.includes(data.storeName));
-    }
-    return [];
+    const storageData: Restaurant[] = getStoreData(this.store, STORE_RESTAURANT);
+    const refreshData = storageData.map((restaurant) => restaurant.storeName);
+    return data.filter((data: Restaurant) => refreshData.includes(data.storeName));
   }
 
   addRestaurant(restaurant: Restaurant) {
@@ -71,29 +67,22 @@ export default class RestaurantManager {
   }
 
   getFavoriteList(): Restaurant[] {
-    const getData = this.store.getItem(STORE_RESTAURANT);
-    if (getData !== null) {
-      const newData = JSON.parse(getData);
-      return newData.filter((data: Restaurant) => data.favorite === true);
-    }
-    return [];
+    return getStoreData(this.store, STORE_RESTAURANT).filter(
+      (data: Restaurant) => data.favorite === true
+    );
   }
 
   reverseFavorite(storeName: string) {
-    const datas = this.store.getItem(STORE_RESTAURANT);
     let renderData = {};
-    if (datas !== null) {
-      const changedData = JSON.parse(datas).map((info: Restaurant) => {
-        if (storeName === info.storeName) {
-          info.favorite = !info.favorite;
-          renderData = info;
-        }
-        return info;
-      });
-      this.store.setItem(STORE_RESTAURANT, JSON.stringify(changedData));
-      return renderData;
-    }
-    return;
+    const changedData = getStoreData(this.store, STORE_RESTAURANT).map((info: Restaurant) => {
+      if (storeName === info.storeName) {
+        info.favorite = !info.favorite;
+        renderData = info;
+      }
+      return info;
+    });
+    this.store.setItem(STORE_RESTAURANT, JSON.stringify(changedData));
+    return renderData;
   }
 
   removeRestaurant(storeName: string): void {
