@@ -1,8 +1,8 @@
 import { restaurantStore } from '../src/model/restaurantStore';
-import { IRestaurant } from '../src/interfaces/IRestaurantInput';
+import { Restaurant } from '../src/interfaces/RestaurantInput';
 import { Category, Order } from '../src/constants/enum';
 
-const sampleData: IRestaurant[] = [
+const sampleData: Restaurant[] = [
   {
     id: 1,
     favorite: false,
@@ -56,14 +56,14 @@ describe('음식점 리스트 필터 및 정렬 확인', () => {
 
   test('이름 순으로 정렬했을 때 id의 순서는 [2, 3, 1, 4]이다. ', () => {
     const sortedRestaurants = restaurantStore.sortItems(sampleData, Order.Name);
-    const idList = sortedRestaurants.map((restaurant: IRestaurant) => restaurant.id);
+    const idList = sortedRestaurants.map((restaurant: Restaurant) => restaurant.id);
 
     expect(idList).toEqual([2, 3, 1, 4]);
   });
 
   test('거리 순으로 정렬했을 때 id의 순서는 [1, 3, 2, 4]이다. ', () => {
     const sortedRestaurants = restaurantStore.sortItems(sampleData, Order.Distance);
-    const idList = sortedRestaurants.map((restaurant: IRestaurant) => restaurant.id);
+    const idList = sortedRestaurants.map((restaurant: Restaurant) => restaurant.id);
 
     expect(idList).toEqual([1, 3, 2, 4]);
   });
