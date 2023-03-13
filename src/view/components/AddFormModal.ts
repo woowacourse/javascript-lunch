@@ -1,37 +1,45 @@
-import { useEvents } from '../../utils/core';
-import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { useRestaurants } from '../../utils/hooks/useRestaurants';
-import { getFormFields } from '../../utils/common/formData';
+import '../css/AddFormModal.css';
 
-interface ModalProps {
+import { useEvents } from '../../utils/core';
+import { IFormData, getFormFields } from '../../utils/common/formData';
+import validator from '../../validation/validator';
+
+import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
+interface AddFormModalProps {
   close: VoidFunction;
+  handleClickAddBtn: (restaurantInfo: RestaurantInfo) => void;
 }
 
-function Modal({ close }: ModalProps) {
-  const {
-    handlers: { handleClickAddBtn },
-  } = useRestaurants();
+function AddFormModal({ close, handleClickAddBtn }: AddFormModalProps) {
   const [addEvent] = useEvents('.modal');
 
   addEvent('click', '.modal-backdrop', (e) => {
     close();
   });
 
-  addEvent('click', '.button-container', (e) => {
+  addEvent('click', '#cancel', (e) => {
     close();
   });
 
   addEvent('submit', 'form', (e) => {
     if (e.target instanceof HTMLFormElement) {
       e.preventDefault();
-      const fields = getFormFields(e.target);
+      const fields: IFormData = getFormFields(e.target);
 
-      handleClickAddBtn({
-        ...fields,
-        distance: Number(fields.distance),
-      } as unknown as RestaurantInfo);
+      try {
+        validator.checkName(String(fields.name));
+        if (fields.description) validator.checkDescription(String(fields.description));
+        if (fields.link) validator.checkLinkFormat(String(fields.link));
 
-      close();
+        handleClickAddBtn({
+          ...fields,
+          distance: Number(fields.distance),
+        } as RestaurantInfo);
+
+        close();
+      } catch (err) {
+        alert(err);
+      }
     }
   });
 
@@ -45,8 +53,8 @@ function Modal({ close }: ModalProps) {
                 <div class="form-item form-item--required">
                     <label for="category text-caption">카테고리</label>
                     <select name="category" id="category" required>
-                        <option value="">선택해 주세요</option>/option>
-                        <option value="양식">양식
+                        <option value="">선택해 주세요</option>
+                        <option value="양식">양식</option>
                         <option value="한식">한식</option>
                         <option value="중식">중식</option>
                         <option value="일식">일식</option>
@@ -58,7 +66,7 @@ function Modal({ close }: ModalProps) {
                 <!-- 음식점 이름 -->
                 <div class="form-item form-item--required">
                     <label for="name text-caption">이름</label>
-                    <input type="text" name="name" id="name" required>
+                    <input type="text" name="name" id="name" placeholder="20자 이내로 공백 없이 입력해주세요" required>
                 </div>
 
                 <!-- 거리 -->
@@ -77,25 +85,25 @@ function Modal({ close }: ModalProps) {
                 <!-- 설명 -->
                 <div class="form-item">
                 <label for="description text-caption">설명</label>
-                <textarea name="description" id="description" cols="30" rows="5"></textarea>
+                <textarea name="description" id="description" cols="30" rows="5" placeholder="300자 이내로 입력해주세요"></textarea>
                 <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
                 </div>
 
                 <!-- 링크 -->
                 <div class="form-item">
                     <label for="link text-caption">참고 링크</label>
-                    <input type="text" name="link" id="link">
+                    <input type="text" name="link" id="link" placeholder="https://">
                     <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
                 </div>
 
                 <!-- 취소/추가 버튼 -->
                 <div class="button-container">
-                    <button type="reset" class="button button--secondary text-caption">취소하기</button>
-                    <button class="button button--primary text-caption">추가하기</button>
+                    <button type="reset" class="button button--secondary text-caption" id="cancel">취소하기</button>
+                    <button type="submit" class="button button--primary text-caption">추가하기</button>
                 </div>
             </form>
         </div>
     </div>
     `;
 }
-export { Modal };
+export { AddFormModal };

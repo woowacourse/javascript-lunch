@@ -1,7 +1,12 @@
-import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
-import { errorHandler } from '../../utils/common/errorHandler';
-import { addData } from '../../utils/common/localStorage';
-import { validator } from '../../validation/validator';
+import { updateData } from '../../utils/common/localStorage';
+
+import {
+  Category,
+  CATEGORY,
+  NAME,
+  SortOption,
+  LOCAL_STORAGE_KEY,
+} from '../../constants/lunchRecommendation';
 
 export interface FilterType {
   sortOption: SortOption;
@@ -15,10 +20,12 @@ export interface RestaurantInfo {
   distance: number;
   description?: string;
   link?: string;
+  isOften?: boolean;
 }
 
 export interface IRestaurant {
   getSomeInfo<T extends keyof RestaurantInfo>(type: T): RestaurantInfo[T];
+  toggleOften(): void;
 }
 
 interface ILunchRecommendation {
@@ -28,8 +35,9 @@ interface ILunchRecommendation {
   sortByName(list: Restaurant[]): Restaurant[];
   sortByDistance(list: Restaurant[]): Restaurant[];
   getList(): Restaurant[];
+  getOftenList(): Restaurant[];
+  addOften(restaurantId: RestaurantInfo['id']): void;
 }
-
 export class Restaurant implements IRestaurant {
   info: RestaurantInfo;
 
@@ -46,6 +54,18 @@ export class Restaurant implements IRestaurant {
   getSomeInfo<T extends keyof RestaurantInfo>(type: T) {
     return this.info[type];
   }
+
+  getAllInfo() {
+    return this.info;
+  }
+
+  toggleOften() {
+    this.info.isOften = !this.info.isOften;
+  }
+
+  toJSON() {
+    return this.info;
+  }
 }
 
 export class LunchRecommendation implements ILunchRecommendation {
@@ -55,16 +75,25 @@ export class LunchRecommendation implements ILunchRecommendation {
     this.origin = infoList.map((info) => new Restaurant(info));
   }
 
-  add(restaurantInfo: Omit<RestaurantInfo, 'id'>): void {
-    errorHandler(validator, restaurantInfo);
+  add(restaurantInfo: Omit<RestaurantInfo, 'id' | 'isOften'>): void {
+    const isEmptyList = this.origin.length === 0;
 
-    const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
-    this.origin.push(new Restaurant({ ...restaurantInfo, id }));
-    addData(this.origin.map(({ info }) => info));
+    const id = isEmptyList ? 0 : Math.max(...this.origin.map(({ info }) => info.id)) + 1;
+    const isOften = false;
+
+    this.origin.push(new Restaurant({ ...restaurantInfo, id, isOften }));
+    updateData(this.origin, LOCAL_STORAGE_KEY);
+  }
+
+  addOften(restaurantId: RestaurantInfo['id']): void {
+    const selectedRestaurant = this.origin.find((e) => e.info.id === restaurantId);
+    selectedRestaurant!.toggleOften();
+    updateData(this.origin, LOCAL_STORAGE_KEY);
   }
 
   delete(restaurantId: RestaurantInfo['id']): Restaurant[] {
     this.origin = this.origin.filter((restaurant) => restaurant.info.id !== restaurantId);
+    updateData(this.origin, LOCAL_STORAGE_KEY);
 
     return this.origin;
   }
@@ -108,5 +137,9 @@ export class LunchRecommendation implements ILunchRecommendation {
 
   getList() {
     return this.origin;
+  }
+
+  getOftenList() {
+    return this.origin.filter((restaurant) => restaurant.info.isOften);
   }
 }

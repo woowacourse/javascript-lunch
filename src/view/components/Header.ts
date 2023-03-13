@@ -1,4 +1,6 @@
+import '../css/Header.css';
 import '../../assets/add-button.png';
+
 import { useEvents } from '../../utils/core';
 
 interface HeaderProps {

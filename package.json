@@ -8,7 +8,8 @@
     "start": "webpack serve",
     "build": "webpack --mode=production",
     "test-unit": "jest --watch",
-    "test-model": "jest /__tests__/__model__ --watch",
+    "test-model": "jest /__tests__/__model__",
+    "test-render": "jest /__tests__/render.test.js --watch",
     "test-e2e": "cypress open",
     "prepare": "husky install"
   },
@@ -58,5 +59,11 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|svg)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }

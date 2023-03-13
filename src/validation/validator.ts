@@ -5,18 +5,7 @@ import {
   ERROR_MESSAGE,
 } from '../constants/lunchRecommendation';
 
-export interface IValidator {
-  checkName(input: string): void;
-  checkDescription(input: string): void;
-  checkLinkFormat(input: string): void;
-  isEmpty(input: string): void;
-  isCorrectNameFormat(input: string): void;
-  isCorrectNameLength(input: string): void;
-  isCorrectDescriptionLength(input: string): void;
-  isCorrectLinkFormat(input: string): void;
-}
-
-export const validator: IValidator = {
+const validator = {
   checkName(input: string) {
     validator.isEmpty(input);
     validator.isCorrectNameFormat(input);
@@ -24,11 +13,11 @@ export const validator: IValidator = {
   },
 
   checkDescription(input: string) {
-    validator.isCorrectDescriptionLength(input);
+    if (input.length > MAX_DESCRIPTION_LENGTH) throw new Error(ERROR_MESSAGE.DESCRIPTION_LENGTH);
   },
 
   checkLinkFormat(input: string) {
-    validator.isCorrectLinkFormat(input);
+    if (!REGEX.URL.test(input)) throw new Error(ERROR_MESSAGE.LINK_FORMAT);
   },
 
   isEmpty(input: string) {
@@ -40,15 +29,8 @@ export const validator: IValidator = {
   },
 
   isCorrectNameLength(input: string) {
-    if (input.length > MAX_NAME_LENGTH || input.length === 0)
-      throw new Error(ERROR_MESSAGE.NAME_LENGTH);
-  },
-
-  isCorrectDescriptionLength(input: string) {
-    if (input.length > MAX_DESCRIPTION_LENGTH) throw new Error(ERROR_MESSAGE.DESCRIPTION_LENGTH);
-  },
-
-  isCorrectLinkFormat(input: string) {
-    if (!REGEX.URL.test(input)) throw new Error(ERROR_MESSAGE.LINK_FORMAT);
+    if (input.length > MAX_NAME_LENGTH) throw new Error(ERROR_MESSAGE.NAME_LENGTH);
   },
 };
+
+export default validator;

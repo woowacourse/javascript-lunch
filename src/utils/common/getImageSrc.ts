@@ -4,9 +4,12 @@ import '../../assets/category-chinese.png';
 import '../../assets/category-japanese.png';
 import '../../assets/category-western.png';
 import '../../assets/category-asian.png';
+import '../../assets/favorite-icon-filled.png';
+import '../../assets/favorite-icon-lined.png';
+
 import { Category } from '../../constants/lunchRecommendation';
 
-const src: Record<Category, `./category-${string}.png`> = {
+const categorySrc: Record<Category, `./category-${string}.png`> = {
   전체: './category-all.png',
   기타: './category-etc.png',
   한식: './category-korean.png',
@@ -16,6 +19,21 @@ const src: Record<Category, `./category-${string}.png`> = {
   아시안: './category-asian.png',
 };
 
-const getImageSrc = (category: Category) => src[category];
+export const favoriteIconSrc: Record<string, `./favorite-icon-${string}.png`> = {
+  lined: './favorite-icon-filled.png',
+  filled: './favorite-icon-lined.png',
+};
 
-export { getImageSrc };
+const getCategoryImageSrc = (category: Category) => categorySrc[category];
+
+const getFavoriteIconSrc = (imageSrc: string) => {
+  const iconStyle = imageSrc.split('-')[2].split('.')[0];
+  return favoriteIconSrc[iconStyle];
+};
+
+const getCurrentIconStyle = (isOften: boolean) => {
+  const iconStyle = isOften ? 'lined' : 'filled';
+  return favoriteIconSrc[iconStyle];
+};
+
+export { getCategoryImageSrc, getFavoriteIconSrc, getCurrentIconStyle };
