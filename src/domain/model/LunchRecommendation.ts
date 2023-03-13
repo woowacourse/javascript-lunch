@@ -60,7 +60,7 @@ export class Restaurant implements IRestaurant {
   }
 
   toggleOften() {
-    this.info.isOften = this.info.isOften ? false : true;
+    this.info.isOften = !this.info.isOften;
   }
 }
 
