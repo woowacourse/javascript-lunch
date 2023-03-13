@@ -1,6 +1,5 @@
 import Component from '../Component';
 import { geid, qs } from '../utils/domHelpers';
-import { isAbnormalStoreName, isDuplicatedStoreName } from '../validation/validationInput';
 
 export default class AddModal extends Component {
   constructor($target) {
@@ -106,7 +105,8 @@ export default class AddModal extends Component {
     };
 
     this.restaurantManager.addRestaurant(addRestaurantData);
-    event.currentTarget.classList.remove('modal--open');
+    this.cancelInputData();
+    this.resetInputValue(event);
   }
 
   validateStoreName(storeName) {
@@ -125,5 +125,9 @@ export default class AddModal extends Component {
     }
 
     return false;
+  }
+
+  resetInputValue(event) {
+    [...event.target].forEach((el) => (el.value = ''));
   }
 }
