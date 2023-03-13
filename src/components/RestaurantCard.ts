@@ -79,11 +79,7 @@ class RestaurantCard extends HTMLLIElement {
   onClickFavoriteButton() {
     const $restaurantCardList =
       document.querySelector<RestaurantCardList>(".restaurant-list");
-
-    if ($restaurantCardList?.dataset.view === "favorite") {
-      $restaurantCardList?.setRestaurants("favorite");
-      $restaurantCardList?.render();
-    }
+    $restaurantCardList?.renderFavoriteView();
   }
 
   getRestaurant() {

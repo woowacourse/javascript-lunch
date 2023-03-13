@@ -86,6 +86,13 @@ class RestaurantCardList extends HTMLUListElement {
     return attName === "sorting-filter";
   }
 
+  renderFavoriteView() {
+    if (this.dataset.view === "favorite") {
+      this.setRestaurants("favorite");
+      this.render();
+    }
+  }
+
   setRestaurants(viewOption: string) {
     if (viewOption !== "all" && viewOption !== "favorite") return;
 
