@@ -1,27 +1,19 @@
-import { RestaurantCategory, Restaurant } from '../../../types';
+import {
+  categoryIconFileName,
+  favoriteIconFileName,
+  favoriteIconAlt,
+} from '../../../constants/imageFileMetadata';
 
-type ImgFileName = {
-  [key in RestaurantCategory]: string;
-};
-const imgFileName: ImgFileName = {
-  한식: 'category-korean.png',
-  중식: 'category-chinese.png',
-  일식: 'category-japanese.png',
-  아시안: 'category-asian.png',
-  양식: 'category-western.png',
-  기타: 'category-etc.png',
-};
+import { Restaurant } from '../../../types';
 
 const RestaurantDetail = {
   getTemplate(restaurant: Restaurant) {
-    const { id, category, distance, isFavorite, name, description, link } = restaurant;
-    const favoriteIconSrc = isFavorite ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png';
-    const favoriteIconAlt = isFavorite ? 'favorite-icon-filled' : 'favorite-icon-lined';
+    const { id, category, name, distance, description, link, isFavorite } = restaurant;
 
     return `
     <div id='modal-detail-view' class='modal-detail-view' data-listid='${id}'>
       <div class="restaurant__category">
-        <img src="./${imgFileName[category]}" alt="${category}" class="category-icon" />
+        <img src="./${categoryIconFileName[category]}" alt="${category}" class="category-icon" />
       </div>
       <h2 class="modal-title text-title">${name}</h2>    
       <div class="restaurant__info">    
@@ -36,7 +28,10 @@ const RestaurantDetail = {
         <button id="detail-modal-close-button" class="button button--primary text-caption">닫기</button>
       </div>
       <div class="restaurant__favorite">
-        <img src="./${favoriteIconSrc}" alt="${favoriteIconAlt}" id="detail-favorite-icon" class="favorite-icon"/>
+        <img src="./${favoriteIconFileName[`${isFavorite}`]}"
+        alt="${favoriteIconAlt[`${isFavorite}`]}" 
+        id="detail-favorite-icon" 
+        class="favorite-icon"/>
       </div>
     </div>    
     `;
