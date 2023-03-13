@@ -33,7 +33,7 @@ export const selectTemplate = (option: OptionElement, identifier: ElementIdentif
     'id',
     idName
   )}
-  } required>
+  }>
     ${optionTemplate(option)}
   </select>`;
 };

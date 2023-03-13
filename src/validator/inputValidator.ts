@@ -7,7 +7,7 @@ export const isValidName = (name: string): boolean => {
 };
 
 export const isValidCategory = (category: string): boolean => {
-  if (category !== '') {
+  if (category !== undefined) {
     return true;
   }
 
@@ -15,7 +15,7 @@ export const isValidCategory = (category: string): boolean => {
 };
 
 export const isValidDistance = (distance: string): boolean => {
-  if (distance !== '') {
+  if (distance !== undefined) {
     return true;
   }
 

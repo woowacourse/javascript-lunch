@@ -157,7 +157,7 @@ class AddModalContainer extends Component {
             </div>
             <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
-            <input type="text" name="name" id="name-input" maxlength="20" required />
+            <input type="text" name="name" id="name-input"/>
               <p id='name-message' class='input-error-message' style="visibility:hidden">${
                 INPUT_MESSAGE.name
               }<p/>
@@ -183,7 +183,6 @@ class AddModalContainer extends Component {
                 id="description-input"
                 cols="30"
                 rows="5"
-                maxlength="50"
               ></textarea>
               <p id='description-message' class='input-error-message' style="visibility:hidden">${
                 INPUT_MESSAGE.description
@@ -194,7 +193,7 @@ class AddModalContainer extends Component {
             </div>
             <div class="form-item">
               <label for="link text-caption">참고 링크</label>
-              <input type="text" name="link" id="link-input" maxlength="50" />
+              <input type="text" name="link" id="link-input" />
               <span class="help-text text-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
