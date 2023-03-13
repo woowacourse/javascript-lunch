@@ -8,16 +8,6 @@ describe('App component', () => {
     cy.get('main').should('exist');
   });
 
-  it('초기 음식점 리스트(더미 데이터) 3개를 렌더링 해야한다.', () => {
-    cy.get('.restaurant-list-container .tabview__content').should('exist');
-
-    cy.get('.tabview__content').should(($items) => {
-      expect($items.find('#restaurant-1')).to.exist;
-      expect($items.find('#restaurant-2')).to.exist;
-      expect($items.find('#restaurant-3')).to.exist;
-    });
-  });
-
   it('음식점 등록 후 리스트에 해당 음식점이 존재해야한다.', () => {
     cy.get('.nav-add-button').click();
     cy.get('.modal-container').should('be.visible');
@@ -50,7 +40,7 @@ describe('App component', () => {
       });
   });
 
-  it('자주 가는 음식점 테스트.', () => {
+  it('favorite 아이콘을 클릭하면 해당 음식점을 자주 가는 음식점 탭에 보여준다', () => {
     cy.get('.tabview__content [id^="restaurant-"]').should('have.length', 3);
 
     cy.get('#restaurant-2 .restaurant__favorite__icon').click();
