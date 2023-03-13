@@ -6,12 +6,8 @@ class Store {
   private static favoriteItemList: RestaurantForm[] = [];
   private static filteredItemList: RestaurantForm[] = [];
 
-  static setRestaurantList(inputList: RestaurantForm[]) {
+  static appendRestaurantList(inputList: RestaurantForm[]) {
     this.restaurantItemList = [...this.restaurantItemList, ...inputList];
-  }
-
-  static appendRestaurant(input: RestaurantForm) {
-    this.restaurantItemList = [...this.restaurantItemList, input];
   }
 
   static setFilteredList(selectedValue: string) {

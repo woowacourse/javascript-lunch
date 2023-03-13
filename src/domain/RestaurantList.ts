@@ -5,7 +5,7 @@ import { KEY } from "../constants";
 
 export default class RestaurantList {
   add(restaurantInfo: RestaurantForm) {
-    Store.appendRestaurant(restaurantInfo);
+    Store.appendRestaurantList([restaurantInfo]);
     const restaurantString = JSON.stringify(
       Store.getRestaurantList().map((info) => info)
     );

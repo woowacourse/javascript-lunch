@@ -32,7 +32,7 @@ export class App {
 
   init() {
     const localStorageData = getLocalStorage(KEY);
-    Store.setRestaurantList(localStorageData);
+    Store.appendRestaurantList(localStorageData);
     const initialData = Store.getRestaurantList();
     Store.setFilteredList(CATEGORY_NAME.total);
     if (initialData !== null)
