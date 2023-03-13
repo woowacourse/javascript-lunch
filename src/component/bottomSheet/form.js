@@ -1,25 +1,9 @@
 import select from '../common/select';
 import button from '../common/button';
+import { CATEGORY_OPTIONS, TAKE_MINUTE_OPTIONS } from '../../constants';
 
 const form = () => {
-  const categoryOptions = [
-    { value: '', content: '선택해 주세요' },
-    { value: '한식', content: '한식' },
-    { value: '중식', content: '중식' },
-    { value: '일식', content: '일식' },
-    { value: '양식', content: '양식' },
-    { value: '아시안', content: '아시안' },
-    { value: '기타', content: '기타' },
-  ];
-  const takeMinuteOptions = [
-    { value: '', content: '선택해 주세요' },
-    { value: '5', content: '5분 내' },
-    { value: '10', content: '10분 내' },
-    { value: '15', content: '15분 내' },
-    { value: '20', content: '20분 내' },
-    { value: '30', content: '30분 내' },
-  ];
-
+  const defaultOption = { value: '', content: '선택해 주세요' };
   return `
     <form>
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -29,7 +13,7 @@ const form = () => {
           id: 'category',
           name: 'category',
           required: true,
-          options: categoryOptions,
+          options: [defaultOption, ...CATEGORY_OPTIONS],
         })}
       </div>
       <div class="form-item form-item--required">
@@ -42,7 +26,7 @@ const form = () => {
           id: 'takeMinute',
           name: 'takeMinute',
           required: true,
-          options: takeMinuteOptions,
+          options: [defaultOption, ...TAKE_MINUTE_OPTIONS],
         })}
       </div>
       <div class="form-item">
