@@ -1,28 +1,38 @@
 import { controlFavoriteIcon } from "../domain/favoriteIconController";
 import { updateRestaurants } from "../domain/filter";
+import { tabButtonType } from "../type";
 import { executeEventListener } from "../util/eventListener";
 import { $, $$ } from "../util/selector";
 
 // UI
-const renderTemplate = (buttonNameList: string[]) => {
+const renderTemplate = (buttonList: tabButtonType) => {
   return `<button
-  id="all-restaurants"
-  class="text-body viewer-button clicked-viewer-button"
->
-  ${buttonNameList[0]}
-</button>
-<button id="favorite-restaurant" class="text-body viewer-button">
-  ${buttonNameList[1]}
-</button>`;
+      id="tab-button${buttonList.key}"
+      class="text-body viewer-button ${buttonList.state ? "active" : ""}"
+    >
+      ${buttonList.name}
+    </button>`;
+};
+
+const tabButtons = [
+  { key: 0, name: "모든 음식점", state: true },
+  { key: 0, name: "즐겨찾는 음식점", state: false },
+];
+
+const combineAllRestaurants = (tabButtons: tabButtonType[]) => {
+  return tabButtons
+    .map((button, index) => {
+      button.key = index + 1;
+      return renderTemplate(button);
+    })
+    .join("");
 };
 
 export const renderTabButtons = () => {
   const tabButtonElement = $("#restaurant-list-viewer");
-  const tabButtonNameList = ["모든 음식점", "즐겨찾는 음식점"];
-
   tabButtonElement?.insertAdjacentHTML(
     "beforeend",
-    renderTemplate(tabButtonNameList)
+    combineAllRestaurants(tabButtons)
   );
 
   changeButtonState();
@@ -33,25 +43,20 @@ const changeButtonState = () => {
   $$(".viewer-button").forEach((button) => {
     executeEventListener(button, {
       type: "click",
-      listener: (event) => changeButtonColor(event),
+      listener: (event) => activeButton(event),
     });
   });
 };
 
-const changeButtonColor = (event: Event) => {
+const activeButton = (event: Event) => {
   const target = event.target as HTMLButtonElement;
-  const nextButton = target.nextElementSibling;
-  const previousButton = target.previousElementSibling;
-  const CLICKED_BUTTON = "clicked-viewer-button";
+  const buttons = target.closest("#restaurant-list-viewer")?.children;
+  const CLICKED_BUTTON = "active";
 
-  const isClicked =
-    nextButton?.classList.contains(CLICKED_BUTTON) ??
-    previousButton?.classList.contains(CLICKED_BUTTON);
+  [...buttons!].forEach((button) => button.classList.remove(CLICKED_BUTTON));
 
-  if (!target.classList.contains(CLICKED_BUTTON) && isClicked) {
-    (nextButton ?? previousButton)?.classList.remove(CLICKED_BUTTON);
-    target.classList.toggle(CLICKED_BUTTON);
-  }
+  if (target.classList.contains(CLICKED_BUTTON)) return;
+  target.classList.toggle(CLICKED_BUTTON);
 
   updateRestaurants();
   controlFavoriteIcon();

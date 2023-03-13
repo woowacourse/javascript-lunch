@@ -92,6 +92,7 @@ body::-webkit-scrollbar {
 /* 음식점 목록 *****************************************/
 /* 즐겨찾기 */
 #restaurant-list-viewer {
+  display: flex;
   margin: 31px 16px 0;
 
   font-size: 0;
@@ -100,7 +101,7 @@ body::-webkit-scrollbar {
 }
 
 .viewer-button {
-  width: 50%;
+  flex: 1;
   height: 24px;
   padding-bottom: 9px;
 
@@ -114,7 +115,7 @@ body::-webkit-scrollbar {
   cursor: pointer;
 }
 
-.clicked-viewer-button {
+.active {
   border-bottom: 2px solid var(--primary-color);
 
   color: var(--primary-color);

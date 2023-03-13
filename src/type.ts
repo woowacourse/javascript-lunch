@@ -21,3 +21,9 @@ export interface EventListenerType {
   type: string;
   listener: (event: Event) => void;
 }
+
+export interface tabButtonType {
+  key: number;
+  name: string;
+  state: boolean;
+}
