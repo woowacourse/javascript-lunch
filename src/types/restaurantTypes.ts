@@ -2,12 +2,22 @@ export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' |
 
 export type Distance = 5 | 10 | 15 | 20 | 30;
 
-export type State = { filter: string; isModalOpen: boolean; sortingOption: string; restaurants: Restaurant[] };
+export type currentTab = 'ALL' | 'LIKED';
+
+export type State = {
+  filter: string;
+  isModalOpen: boolean;
+  sortingOption: string;
+  restaurants: Restaurant[];
+  currentTab: currentTab;
+};
 
 export interface Restaurant {
-  category: Category;
+  id?: number;
   name: string;
-  distance: Distance;
+  category: Category;
+  distance: number;
   description?: string;
   link?: string;
+  isLike?: boolean;
 }
