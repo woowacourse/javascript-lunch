@@ -25,7 +25,7 @@ function addEvent() {
   const category = $('select#category-filter option:checked').value;
   const sorts = $('select#sorting-filter option:checked').textContent;
 
-  $('.render-filter').addEventListener('click', (e) => {
+  $('#render-filter').addEventListener('click', (e) => {
     if (e.target.className === 'render-unselected') {
       const reRenderData = restaurantManager.filterRestaurantLists(category, sorts);
       $('.render-selected').className = 'render-unselected';

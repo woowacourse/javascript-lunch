@@ -120,7 +120,7 @@ body {
   margin: 16px 0;
 }
 
-.render-filter {
+#render-filter {
   display: flex;
   justify-content: space-around;
   font-family: Roboto;

@@ -16,11 +16,11 @@ class Main {
 
   render(data, selected, sortby, favorite) {
     const FAVORITE_TEMPLATE = {
-      true: `<div class="render-filter">
+      true: `<div id="render-filter">
       <button class="render-unselected" type="button">모든 음식점</button>
       <button class="render-selected" type="button">자주 가는 음식점</button>
     </div>`,
-      false: `<div class="render-filter">
+      false: `<div id="render-filter">
       <button class="render-selected" type="button">모든 음식점</button>
       <button class="render-unselected" type="button">자주 가는 음식점</button>
     </div>`,
