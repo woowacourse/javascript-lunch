@@ -8,7 +8,7 @@ import star from "../../../templates/favorite-icon-filled.png";
 import lineStar from "../../../templates/favorite-icon-lined.png";
 import { RestaurantType } from "../../Template";
 
-const categoryCountry = {
+const categoryImg = {
   한식: categoryKorean,
   중식: categoryChinese,
   일식: categoryJapanese,
@@ -26,16 +26,12 @@ export const Restaurant = {
     takeTime,
     description,
   }: RestaurantType) {
-    const descriptionTemplate =
-      description &&
-      `<p class="restaurant__description text-body">${description}</p>`;
-
     return `
         <li class="restaurant" id=${id}>
           <div class="restaurant__category">
-            <img src="${
-              categoryCountry[category] ?? categoryCountry["기타"]
-            }" alt="${category ?? "기타"}" class="category-icon">
+            <img src="${categoryImg[category] ?? categoryImg["기타"]}" alt="${
+      category ?? "기타"
+    }" class="category-icon">
           </div>
           <div class="restaurant__info">
             <div class="restaurant__main">
@@ -47,7 +43,11 @@ export const Restaurant = {
                 like ? star : lineStar
               }" alt="선호되는 가게 여부"/>
             </div>
-            ${descriptionTemplate ?? ""}
+            ${
+              description
+                ? `<p class="restaurant__description text-body">${description}</p>`
+                : ""
+            }
           </div>
         </li>`;
   },

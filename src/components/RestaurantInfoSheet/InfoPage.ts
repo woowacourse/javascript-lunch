@@ -11,7 +11,7 @@ import { RestaurantType } from "../../Template";
 import { $ } from "../../until/ControlDom";
 import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
 
-const categoryCountry = {
+const categoryImg = {
   한식: categoryKorean,
   중식: categoryChinese,
   일식: categoryJapanese,
@@ -37,38 +37,38 @@ export const InfoPage = {
     description,
     link,
   }: RestaurantType) {
-    const descriptionTemplate =
-      description &&
-      `<div class="info restaurant-info-description">
-        <p>${description}</p>
-      </div>`;
-
-    const linkTemplate =
-      link &&
-      `<div class="info restaurant-info-link">
-        <a href="${link}" target="blank">${link}</a>
-      </div>`;
-
     return `
-            <div>
-                <div class="info restaurant__category">
-                <img
-                    src="${categoryCountry[category]}"
-                    alt="${category}"
-                    class="category-icon"
-                />
-                </div>
-                <img class="info-likeImg" src="${
-                  like ? star : lineStar
-                }" alt="선호되는 가게 여부"/>
-                
-                <div class="info restaurant-info-name" id=${id}><h2>${name}</h2></div>
-                <div class="info restaurant-info-takeTime">
-                    캠퍼스로부터 ${takeTime}분 내
-                </div>
-                ${descriptionTemplate ?? ""}
-                ${linkTemplate ?? ""}
+            
+            <div class="info restaurant__category">
+              <img
+                  src="${categoryImg[category]}"
+                  alt="${category}"
+                  class="category-icon"
+              />
             </div>
+            <img class="info-likeImg" src="${
+              like ? star : lineStar
+            }" alt="선호되는 가게 여부"/>
+            
+            <div class="info restaurant-info-name" id=${id}><h2>${name}</h2></div>
+            <div class="info restaurant-info-takeTime">
+                캠퍼스로부터 ${takeTime}분 내
+            </div>
+            ${
+              description
+                ? `<div class="info restaurant-info-description">
+                <p>${description}</p>
+              </div>`
+                : ""
+            }
+            ${
+              link
+                ? `<div class="info restaurant-info-link">
+                <a href="${link}" target="blank">${link}</a>
+              </div>`
+                : ""
+            }
+              
         `;
   },
 
@@ -81,7 +81,7 @@ export const InfoPage = {
   },
 
   showBottomSheet(id: number) {
-    const infoBottomSheet = $("dialog") as HTMLDialogElement;
+    const infoBottomSheet = $(".info-BottomSheet") as HTMLDialogElement;
     const restaurantInfoButton = $(".restaurant-info-button") as HTMLElement;
 
     const restaurantInfoNode = document.createElement("div");
@@ -113,8 +113,8 @@ export const InfoPage = {
   },
 
   deleteInfoRestaurant() {
-    const restaurant = $(".restaurant-info-name");
-    RestaurantData.deleteOneRestaurant(+restaurant?.id!);
+    const restaurant = $(".restaurant-info-name") as HTMLElement;
+    RestaurantData.deleteOneRestaurant(+restaurant?.id);
     this.closeInfoPage();
     RenderRestaurantList.render();
   },
