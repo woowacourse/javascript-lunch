@@ -9,7 +9,6 @@ const DetailModal = {
         <div class="modal-backdrop"></div>
           <div class="${CLASS.MODAL_CONTAINER}">
               ${RestaurantDetail.template(restaurant)}
-            </div>
           </div>
       </dialog>`;
   },
