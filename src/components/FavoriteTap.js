@@ -2,26 +2,21 @@ import Component from '../Component.js';
 import { qs } from '../utils/domHelpers.js';
 
 export default class Favorite extends Component {
-  #allRestaurant;
-  #favoriteRestaurant;
-
   constructor($target) {
     super($target);
-    this.#allRestaurant = qs('#all__restaurant__radio + label');
-    this.#favoriteRestaurant = qs('#favorite__restaurant__radio + label');
 
     this.addEvent(
       'click',
       () => {
         this.switchToAllRestaurantList();
       },
-      this.#allRestaurant
+      qs('#all__restaurant__radio + label')
     ).addEvent(
       'click',
       () => {
         this.switchToFavoriteRestaurantList();
       },
-      this.#favoriteRestaurant
+      qs('#favorite__restaurant__radio + label')
     );
   }
 
