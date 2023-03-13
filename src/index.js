@@ -30,7 +30,7 @@ function addEvent() {
       const reRenderData = restaurantManager.filterRestaurantLists(category, sorts);
       $('.render-selected').className = 'render-unselected';
       e.target.className = 'render-selected';
-      if (e.target.textContent === '자주 가는 음식점') {
+      if (e.target.id === 'favorite') {
         $('.restaurant-list').innerHTML = main.render(reRenderData, category, sorts, true);
         return addEvent();
       }
@@ -46,7 +46,7 @@ function addEvent() {
         renderData,
         '전체',
         sorts,
-        $('.render-selected').textContent === '자주 가는 음식점'
+        $('.render-selected').id === 'favorite'
       );
       return addEvent();
     }
@@ -55,7 +55,7 @@ function addEvent() {
       reRenderData,
       e.target.value,
       sorts,
-      $('.render-selected').textContent === '자주 가는 음식점'
+      $('.render-selected').id === 'favorite'
     );
     return addEvent();
   });
@@ -67,7 +67,7 @@ function addEvent() {
       reRenderData,
       category,
       SORT_DATA[e.target.value],
-      $('.render-selected').textContent === '자주 가는 음식점'
+      $('.render-selected').id === 'favorite'
     );
 
     return addEvent();
