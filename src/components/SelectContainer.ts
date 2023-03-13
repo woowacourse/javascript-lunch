@@ -2,7 +2,6 @@ import type { SelectFilterType, RerenderListType } from "./../types/type";
 import { OptionValue, RestaurantSelect } from "../utils/Constants";
 import { Constants } from "../utils/Constants";
 import Select from "../components/common/Select";
-import { $ } from "../utils/Dom";
 
 class SelectContainer {
   categorySelect;
@@ -53,14 +52,6 @@ class SelectContainer {
 
   render(target: Element) {
     target.insertAdjacentHTML("beforeend", this.template());
-  }
-
-  hide() {
-    $(".restaurant-filter-container")?.classList.add("hide");
-  }
-
-  show() {
-    $(".restaurant-filter-container")?.classList.remove("hide");
   }
 }
 
