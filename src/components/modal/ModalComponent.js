@@ -2,21 +2,40 @@ import CustomElement from "../../abstracts/CustomElement";
 import ModalInstance from "../../domain/store/ModalStore";
 import RestaurantInfoComponent from "./RestaurantInfoComponent";
 import RestaurantAddFormComponent from "./RestaurantAddFormComponent";
+import { MODAL_ACTION } from "../../abstracts/constants";
 
 class ModalComponent extends CustomElement {
+  #modal;
+  #modalContainer;
+
   connectedCallback() {
     super.connectedCallback();
     ModalInstance.subscribe(this);
+    this.#modal = this.shadowRoot.querySelector(".modal");
+    this.#modalContainer = this.shadowRoot.querySelector(".modal-container");
   }
 
   modalOn() {
-    this.shadowRoot.querySelector(".modal").classList.add("modal--open");
+    this.#modal.classList.add("modal--open");
   }
 
   modalOff() {
-    this.shadowRoot.querySelector(".modal").classList.remove("modal--open");
-    const modalContainer = this.shadowRoot.querySelector(".modal-container");
-    modalContainer.innerHTML = ``;
+    this.#modal.classList.remove("modal--open");
+    this.#modalContainer.innerHTML = ``;
+  }
+
+  selectModalType(modalType, action) {
+    switch (modalType) {
+      case MODAL_ACTION.MODAL_ADD_RESTAURANT:
+        this.#modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
+        break;
+      case MODAL_ACTION.MODAL_RESTAURANT_INFO:
+        this.#modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
+        break;
+      default:
+        this.#modalContainer.innerHTML = `<h1>ERROR</h1>`;
+        break;
+    }
   }
 
   rerender(isModalOn, action) {
@@ -24,21 +43,11 @@ class ModalComponent extends CustomElement {
       this.modalOn();
 
       const modalType = action.type;
-      const modalContainer = this.shadowRoot.querySelector(".modal-container");
 
-      if (
-        modalType === "modal_add_restaurant" &&
-        modalContainer.childElementCount === 0
-      ) {
-        modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
+      if (this.#modalContainer.childElementCount === 0) {
+        this.selectModalType(modalType, action);
       }
-      if (
-        modalType === "modal_restaurant_info" &&
-        action.data &&
-        modalContainer.childElementCount === 0
-      ) {
-        modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
-      }
+
       return;
     }
 
