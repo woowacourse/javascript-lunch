@@ -6,7 +6,8 @@ class Restaurants {
   #restaurants: Restaurant[];
 
   constructor(restaurants: Restaurant[]) {
-    this.#restaurants = restaurants;
+    this.#restaurants = [];
+    restaurants.forEach(restaurant => this.add(restaurant));
   }
 
   get restaurants(): Restaurant[] {
