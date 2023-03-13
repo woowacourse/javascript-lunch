@@ -77,7 +77,7 @@ function App() {
       isOpenDetail
         ? RestaurantDetail({ info, closeDetail, handleClickIcon, handleClickDeleteBtn })
         : ''
-    };
+    }
   `;
 }
 
