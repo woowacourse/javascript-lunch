@@ -118,9 +118,10 @@ class RestaurantDetailModal implements Modal {
   }
 
   private changeFavoriteButtonImage(image: HTMLImageElement) {
-    image.src === FavoriteIconImagePath.DEFALUT
-      ? (image.src = FavoriteIconImagePath.ADDED)
-      : (image.src = FavoriteIconImagePath.DEFALUT);
+    image.src =
+      image.src === FavoriteIconImagePath.DEFALUT
+        ? FavoriteIconImagePath.ADDED
+        : FavoriteIconImagePath.DEFALUT;
   }
 }
 
