@@ -11,21 +11,13 @@ const attachSubmitCallback = (modal: RestaurantInputModal) => {
     try {
       RestaurantValidator.checkAll(restaurant);
     } catch (e) {
-      //Alert.open(submitAlert, e.message);
       return;
     }
   
-    //restaurantList.add({ restaurant, favorite: false });
-    //window.dispatchEvent(renderRestaurants);
-  
     modal.close();
-  
-    // if (categoryFilter.value !== "전체" && restaurant.category !== categoryFilter.value) {
-    //   Modal.open(restaurantInputSuccessModal);
-    // }
-    //console.log(restaurant);
+
     modal.element.dispatchEvent(
-      new CustomEvent("restaurantsubmit", { bubbles: true, detail: { restaurant }})
+      new CustomEvent("restaurantSubmit", { bubbles: true, detail: { restaurant, favorite: false }})
     );
   });
 };
