@@ -61,7 +61,7 @@ export const store: IStore = {
   },
 
   setCurrentFilterOptions(options: IFilterProps) {
-    this.currentFilterOptions = { ...options };
+    store.currentFilterOptions = { ...options };
   },
 
   addRestaurantInfo(restaurantInfo: IRestaurant) {
