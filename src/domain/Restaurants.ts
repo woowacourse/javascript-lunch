@@ -31,7 +31,7 @@ class Restaurants {
   }
 
   getRestaurantById(restaurantId: string) {
-    return this.#list.filter((restaurant) => restaurant.id === restaurantId)[0];
+    return this.#list.find((restaurant) => restaurant.id === restaurantId);
   }
 
   add(restaurant: Restaurant) {

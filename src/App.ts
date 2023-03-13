@@ -140,7 +140,8 @@ class App {
   onClickRestaurantCard(restaurantId: string) {
     const restaurantInfo = this.#restaurants.getRestaurantById(restaurantId);
 
-    document.querySelector<Modal>(".modal")?.openDetailModal(restaurantInfo);
+    if (restaurantInfo)
+      document.querySelector<Modal>(".modal")?.openDetailModal(restaurantInfo);
   }
 
   onClickRestaurantLikeButton(restaurantId: string) {
@@ -159,9 +160,10 @@ class App {
 
     const restaurantInfo = this.#restaurants.getRestaurantById(restaurantId);
 
-    document
-      .querySelector<Info>(".restaurant-detail-container")
-      ?.renderContent(restaurantInfo);
+    if (restaurantInfo)
+      document
+        .querySelector<Info>(".restaurant-detail-container")
+        ?.renderContent(restaurantInfo);
   }
 
   onClickRestaurantRemove(restaurantId: string) {
