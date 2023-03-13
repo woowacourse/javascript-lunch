@@ -1,18 +1,21 @@
 class CustomElement extends HTMLElement {
+  state = {};
+
   connectedCallback() {
-    this.render();
+    this.initRender();
     this.handleEvent();
   }
 
-  render() {
-    this.insertAdjacentHTML("beforeend", this.template());
+  initRender() {
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = this.template();
   }
 
   template() {}
 
   handleEvent() {}
 
-  rerender(data) {}
+  rerender(data, action) {}
 }
 
 export default CustomElement;

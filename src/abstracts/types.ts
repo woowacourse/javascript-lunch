@@ -9,28 +9,42 @@ export type Category =
 
 export type SortMethod = "name" | "distance";
 
-export interface Restaurant {
+export interface AddRestaurant {
   category: Category;
   name: string;
   distance: number;
   description?: string;
   link?: string;
+  isFavorite: boolean;
+}
+
+export interface Restaurant extends AddRestaurant {
+  id: number;
 }
 
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod | boolean;
+  data?: Restaurant | Category | SortMethod | boolean | number | Restaurant[];
 }
 
 export type LocalArrayData = Restaurant[];
 
 export interface RestaurantAction {
+  SET_RESTAURANT_LIST: string;
   ADD_RESTAURANT: string;
+  HANDLE_FAVORITE: string;
+  DELETE_RESTAURANT: string;
   FILTER_BY_CATEGORY: string;
   SORT_RESTAURANTS: string;
 }
 
 export interface ModalAction {
-  MODAL_ON: string;
+  MODAL_ADD_RESTAURANT: string;
+  MODAL_RESTAURANT_INFO: string;
   MODAL_OFF: string;
+}
+
+export interface MenuAction {
+  MENU_ALL: string;
+  MENU_FAVORITE: string;
 }

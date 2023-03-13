@@ -1,33 +1,89 @@
 import CustomElement from "../../abstracts/CustomElement";
-import RestaurantInstance from "../../domain/RestaurantsStore";
+import RestaurantComponent from "./RestaurantComponent";
+import SelectContainer from "../filter/SelectContainer";
+import dispatcher from "../../domain/Dispatcher";
+import RestaurantInstance from "../../domain/store/RestaurantsStore";
+import {
+  CATEGORY_DEFAULT,
+  RESTAURANTS_STORAGE,
+  RESTAURANT_ACTION,
+} from "../../abstracts/constants";
+import {
+  getArrayFromLocalStorage,
+  setArrayToLocalStorage,
+} from "../../utils/localStorage";
 
 class RestaurantListComponent extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     RestaurantInstance.subscribe(this);
-    RestaurantInstance.publish();
+
+    const restaurantsFromLocalStorage =
+      getArrayFromLocalStorage(RESTAURANTS_STORAGE);
+
+    if (!restaurantsFromLocalStorage) {
+      setArrayToLocalStorage(RESTAURANTS_STORAGE, []);
+      return;
+    }
+    dispatcher(
+      RESTAURANT_ACTION.SET_RESTAURANT_LIST,
+      restaurantsFromLocalStorage
+    );
   }
 
-  rerender(restaurantList) {
-    const restaurants = restaurantList
+  rerender({ restaurantList, category }) {
+    setArrayToLocalStorage(RESTAURANTS_STORAGE, restaurantList);
+
+    const filteredRestaurants =
+      category === CATEGORY_DEFAULT
+        ? restaurantList
+        : restaurantList.filter(
+            (restaurant) => restaurant.category === category
+          );
+
+    const restaurants = filteredRestaurants
       .map((restaurant) => {
         return `
-      <restaurant-element 
-      category="${restaurant.category}" 
-      name="${restaurant.name}" 
-      distance="${restaurant.distance}" 
-      description="${restaurant.description}" 
-      link="${restaurant.link}"
-      >
-      </restaurant-element>`;
+          <restaurant-element 
+          id="${restaurant.id}" 
+          category="${restaurant.category}" 
+          name="${restaurant.name}" 
+          distance="${restaurant.distance}" 
+          description="${restaurant.description}" 
+          link="${restaurant.link}" 
+          isFavorite="${restaurant.isFavorite}"
+          >
+          </restaurant-element>
+        `;
       })
       .join("");
 
-    this.querySelector(".restaurant-list").innerHTML = restaurants;
+    this.shadowRoot.querySelector(".restaurant-list").innerHTML = restaurants;
   }
 
   template() {
     return `
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      :host {
+        width: 50%;
+        height: 100%;
+      }
+      .restaurant-list-container {
+        display: flex;
+        flex-direction: column;
+      
+        padding: 0 16px;
+      }
+      ul {
+        list-style: none;
+      }
+    </style>
+    <select-container></select-container>
     <section class="restaurant-list-container">
       <ul class="restaurant-list"></ul>
     </section>

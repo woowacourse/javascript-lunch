@@ -1,15 +1,24 @@
-import { ModalAction, RestaurantAction } from "./types";
+import { MenuAction, ModalAction, RestaurantAction } from "./types";
 
 export const RESTAURANT_ACTION: RestaurantAction = {
+  SET_RESTAURANT_LIST: "set_restaurant_list",
   ADD_RESTAURANT: "add_restaurant",
+  HANDLE_FAVORITE: "handle_favorite",
+  DELETE_RESTAURANT: "delete_restaurant",
   FILTER_BY_CATEGORY: "filter_by_category",
   SORT_RESTAURANTS: "sort_restaurants",
 } as const;
 
 export const MODAL_ACTION: ModalAction = {
-  MODAL_ON: "modal_on",
+  MODAL_ADD_RESTAURANT: "modal_add_restaurant",
+  MODAL_RESTAURANT_INFO: "modal_restaurant_info",
   MODAL_OFF: "modal_off",
 } as const;
+
+export const MENU_ACTION: MenuAction = {
+  MENU_ALL: "menu_all",
+  MENU_FAVORITE: "menu_favorite",
+};
 
 export const CATEGORY_IMG = {
   한식: "./category-korean.png",
@@ -20,6 +29,16 @@ export const CATEGORY_IMG = {
   기타: "./category-etc.png",
 } as const;
 
+export const FAVORITE_IMG = {
+  EMPTY: "./favorite-icon-lined.png",
+  FILLED: "./favorite-icon-filled.png",
+} as const;
+
+export const FAVORITE_TYPE = {
+  NOT_FAVORITE: "EMPTY",
+  FAVORITE: "FILLED",
+} as const;
+
 export const RESTAURANTS_STORAGE = "restaurantList";
 
 export const CATEGORY_DEFAULT = "전체";
@@ -27,4 +46,9 @@ export const CATEGORY_DEFAULT = "전체";
 export const SORT_METHOD = {
   NAME: "name",
   DISTANCE: "distance",
+} as const;
+
+export const MENU_TITLE = {
+  ALL: "모든 음식점",
+  FAVORITE: "자주 가는 음식점",
 } as const;

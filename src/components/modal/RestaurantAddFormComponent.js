@@ -1,21 +1,26 @@
 import CustomElement from "../../abstracts/CustomElement";
 import dispatcher from "../../domain/Dispatcher";
-import { RESTAURANT_ACTION } from "../../abstracts/constants";
+import { MODAL_ACTION, RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class RestaurantAddFormComponent extends CustomElement {
   handleEvent() {
-    this.querySelector("form").addEventListener("submit", (event) =>
-      this.addRestaurant(event)
-    );
+    this.shadowRoot
+      .querySelector("form")
+      .addEventListener("submit", (event) => this.addRestaurant(event));
+
+    this.shadowRoot
+      .querySelector(".button--secondary")
+      .addEventListener("click", () => dispatcher(MODAL_ACTION.MODAL_OFF));
   }
 
   addRestaurant(event) {
     event.preventDefault();
-    const category = this.querySelector("#category").value;
-    const name = this.querySelector("#name").value;
-    const distance = this.querySelector("#distance").value;
-    const description = this.querySelector("#description").value;
-    const link = this.querySelector("#link").value;
+    const category = this.shadowRoot.querySelector("#category").value;
+    const name = this.shadowRoot.querySelector("#name").value;
+    const distance = this.shadowRoot.querySelector("#distance").value;
+    const description = this.shadowRoot.querySelector("#description").value;
+    const link = this.shadowRoot.querySelector("#link").value;
+    const isFavorite = false;
 
     const restaurant = {
       category,
@@ -23,17 +28,138 @@ class RestaurantAddFormComponent extends CustomElement {
       distance,
       description,
       link,
+      isFavorite,
     };
 
     dispatcher(RESTAURANT_ACTION.ADD_RESTAURANT, restaurant);
-    dispatcher("modal_off");
+    dispatcher(MODAL_ACTION.MODAL_OFF);
 
-    this.querySelector("form").reset();
+    this.shadowRoot.querySelector("form").reset();
   }
 
   template() {
     return `
-    <h2 class="modal-title text-title">새로운 음식점</h2>
+        <style>
+          * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+          }
+
+          :host {
+            display: block;
+            height: 90vh;
+            width: 100%;
+            overflow-y: scroll;
+            padding: 32px 16px !important;
+          }
+
+          .modal-title {
+            margin-bottom: 36px;
+          }
+
+          .text-title {
+            font-size: 20px;
+            line-height: 24px;
+            font-weight: 600;
+          }
+          
+          .form-item {
+            display: flex;
+            flex-direction: column;
+          
+            margin-bottom: 36px;
+          }
+          
+          .form-item label {
+            color: var(--grey-400);
+            font-size: 14px;
+          }
+          
+          .form-item--required label::after {
+            padding-left: 4px;
+          
+            color: var(--primary-color);
+            content: "*";
+          }
+          
+          .form-item .help-text {
+            color: var(--grey-300);
+          }
+          
+          .form-item input,
+          .form-item textarea,
+          .form-item select {
+            padding: 8px;
+            margin: 6px 0;
+          
+            border: 1px solid var(--grey-200);
+            border-radius: 8px;
+          
+            font-size: 16px;
+          }
+          
+          .form-item textarea {
+            resize: none;
+          }
+          
+          .form-item select {
+            height: 44px;
+          
+            padding: 8px;
+          
+            border: 1px solid var(--grey-200);
+            border-radius: 8px;
+          
+            color: var(--grey-300);
+          }
+          
+          input[name="name"],
+          input[name="link"] {
+            height: 44px;
+          }
+          
+          .button-container {
+            display: flex;
+          }
+          
+          .button {
+            width: 100%;
+            height: 44px;
+          
+            margin-right: 16px;
+          
+            border: none;
+            border-radius: 8px;
+          
+            font-weight: 600;
+            cursor: pointer;
+          }
+          
+          .button:last-child {
+            margin-right: 0;
+          }
+
+          .button--secondary {
+            border: 1px solid var(--grey-300);
+            background: transparent;
+          
+            color: var(--grey-300);
+          }
+          
+          .button--primary {
+            background: var(--primary-color);
+          
+            color: var(--grey-100);
+          }      
+
+          .text-caption {
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+          }
+        </style>
+          <h2 class="modal-title text-title">새로운 음식점</h2>
           <form>
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
