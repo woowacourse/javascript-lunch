@@ -24,11 +24,11 @@ class Restaurants {
   }
 
   getFavorite() {
-    this.sort(DEFAULT_SORTING);
+    this.sort();
     return this.#restaurants.filter((restaurant) => restaurant.favorite === true);
   }
 
-  sort(sorting: Sorting) {
+  sort(sorting = DEFAULT_SORTING) {
     const sortPivot = (restaurant: Restaurant) => {
       if (sorting === 'name') return restaurant.name;
       if (sorting === 'takeMinute') return Number(restaurant.takeMinute);
