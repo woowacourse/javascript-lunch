@@ -108,20 +108,37 @@ describe("음식점 리스트 렌더링 테스트", () => {
   });
 
   it("정렬 필터 선택시 해당 정렬 기준에 의해 렌더링 된다.", () => {
-    const sortedTitle = ["한식집1", "한식집2", "중식집1", "양식집1", "일식집1"];
-
-    cy.get(".restaurant-list").should((elem) => {
-      elem.children().each((index, li) => {
-        expect(li.querySelector(".restaurant__name").innerText).to.equal(
-          sortedTitleByDistance[index]
-    });
+    const sortedTitleByDistance = [
+      "한식집1",
+      "한식집2",
+      "중식집1",
+      "양식집1",
+      "일식집1",
+    ];
+    const sortedTitleByName = [
+      "양식집1",
+      "일식집1",
+      "중식집1",
+      "한식집1",
+      "한식집2",
+    ];
 
     cy.get("#sorting-filter").select("distance");
 
     cy.get(".restaurant-list").should((elem) => {
       elem.children().each((index, li) => {
         expect(li.querySelector(".restaurant__name").innerText).to.equal(
-          sortedTitle[index]
+          sortedTitleByDistance[index]
+        );
+      });
+    });
+
+    cy.get("#sorting-filter").select("name");
+
+    cy.get(".restaurant-list").should((elem) => {
+      elem.children().each((index, li) => {
+        expect(li.querySelector(".restaurant__name").innerText).to.equal(
+          sortedTitleByName[index]
         );
       });
     });
