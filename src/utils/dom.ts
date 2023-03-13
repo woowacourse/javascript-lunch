@@ -1,2 +1,2 @@
-export const $ = (element: string) => document.querySelector(element);
-export const $$ = (element: string) => document.querySelectorAll(element);
+export const $ = (queryString: string) => document.querySelector(queryString);
+export const $$ = (queryString: string) => document.querySelectorAll(queryString);
