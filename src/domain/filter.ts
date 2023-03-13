@@ -19,9 +19,7 @@ const sortByDistance = (allRestaurants: RestaurantType[]) => {
 };
 
 const filterCategory = (selectedCategory: CategoryOptionType) => {
-  const restaurantList = $("#favorite-restaurant")?.classList.contains(
-    "clicked-viewer-button"
-  )
+  const restaurantList = $("#tab-button2")?.classList.contains("active")
     ? filterFavoriteRestaurant()
     : getAllRestaurantsInLocalStorage();
 

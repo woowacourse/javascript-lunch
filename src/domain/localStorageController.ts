@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_KEY } from "../constant";
-import { CategoryOptionType, RestaurantType, SortType } from "../type";
+import { RestaurantType } from "../type";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
 import { $ } from "../util/selector";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
