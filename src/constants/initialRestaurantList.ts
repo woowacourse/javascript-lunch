@@ -1,4 +1,4 @@
-import { RestaurantType } from '../type';
+import { RestaurantType } from '../type/types';
 
 export const initialRestaurantList: RestaurantType[] = [
   {

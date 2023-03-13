@@ -52,17 +52,17 @@ class restaurantBottomSheet {
 					</div>
 
 					<!-- 즐겨찾기 등록/해제 버튼 -->
-					<div class="favorite-icon-container" id="favorite-icon-modal">
-						<img
-							src="./favorite-icon-lined.png"
-							alt="즐겨찾기"
-							class="favorite-icon-lined favorite-icon-lined-${number}"
-						/>
-						<img
-							src="./favorite-icon-filled.png"
-							alt="즐겨찾기"
-							class="favorite-icon-filled favorite-icon-filled-modal-${number} ${favoriteOpenClass}"
-						/>
+					<div class="favorite-icon-container">
+					<img
+						src="./favorite-icon-lined.png"
+						alt="즐겨찾기"
+						class="favorite-icon-lined favorite-icon-lined-${number}"
+					/>
+					<img
+						src="./favorite-icon-filled.png"
+						alt="즐겨찾기"
+						class="favorite-icon-filled favorite-icon-filled-${number} ${favoriteOpenClass}"
+					/>
 					</div>
 				</div>
 

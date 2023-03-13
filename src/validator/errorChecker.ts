@@ -1,5 +1,5 @@
 import { getListOnLocalStorage } from '../utils/localStorage';
-import { RestaurantType } from '../type';
+import { RestaurantType } from '../type/types';
 import { NAME_LENGTH } from '../constants/values';
 import { ERROR_MESSAGE } from '../constants/error';
 import { REGEX_SPECIAL_CHARACTERS } from '../constants/regexp';

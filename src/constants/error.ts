@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE_INTERFACE } from '../type';
+import { ERROR_MESSAGE_INTERFACE } from '../type/types';
 
 export const ERROR_MESSAGE: ERROR_MESSAGE_INTERFACE = {
   NO_SPECIAL_CHARACTERS: '이름에 특수문자는 입력할 수 없습니다.',

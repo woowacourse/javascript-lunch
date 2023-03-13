@@ -1,18 +1,22 @@
 import '../css/style.css';
 import { components } from './components/components';
 import RestaurantManager from './domains/restaurantManager';
-import { handleFavoriteIcon } from './handleUi/favoriteIcon';
+import { handleFavoriteIconClick } from './handleUi/favoriteIcon';
 import { handleNavigationClick } from './handleUi/navigation';
 import { handleModalClose, handleModalOpen } from './handleUi/modal';
-import { resetForm, scrollToTopForm } from './handleUi/form';
-import {
-  executeOptionChangeEventListener,
-  executeEventListener,
-} from './utils/eventListener';
+import { handleGNBClick, handleHeaderTitleClick } from './handleUi/header';
+import { handleFilterChange } from './handleUi/filter';
+import { executeEventListener } from './utils/eventListener';
 import { getListOnLocalStorage } from './utils/localStorage';
-import { RestaurantType } from './type';
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
-import { handleHeaderTitleClick } from './handleUi/header';
+import { RestaurantType } from './type/types';
+import { isRestaurant, isRestaurantList } from './type/customTypeGuards';
+import { handleRestaurantItemClick } from './handleUi/restaurantItem';
+import {
+  handleBackdropClick,
+  handleCancelClick,
+  handleNewRestaurantFormSubmit,
+} from './handleUi/restaurantAddContainer';
 
 const App = {
   RestaurantManager: RestaurantManager.getInstance(),
@@ -42,177 +46,73 @@ const App = {
     this.controlFilter();
     this.controlRestaurantList();
     this.controlRestaurantAddContainer();
-    this.controlRestaurantBottomSheet();
   },
 
   controlHeader() {
-    executeEventListener('header', 'click', handleHeaderTitleClick);
+    executeEventListener('header', 'click', (event: Event) => {
+      handleHeaderTitleClick(event);
+      handleGNBClick(event);
+    });
   },
 
   controlNavigation() {
-    executeEventListener('.nav-container', 'click', this.handleNavigationClick);
-  },
-
-  handleNavigationClick() {
-    const selected = handleNavigationClick();
-
-    if (selected.isAllRestaurant) {
-      components.categoryFilter.show();
-      components.sortingFilter.show();
-    } else {
-      components.categoryFilter.hide();
-      components.sortingFilter.hide();
-    }
-
-    const list = selected.isAllRestaurant
-      ? getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-      : getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
-
-    components.restaurantList.render(list);
+    executeEventListener('.nav-container', 'click', handleNavigationClick);
   },
 
   controlFilter() {
-    executeOptionChangeEventListener('#sorting-filter', (value: string) => {
-      const sortedList = this.RestaurantManager.sortRestaurantList(value);
-
-      components.restaurantList.render(sortedList);
-    });
-
-    executeOptionChangeEventListener('#category-filter', (value: string) => {
-      const selectedList = this.RestaurantManager.filterRestaurantList(value);
-
-      components.restaurantList.render(selectedList);
-    });
+    executeEventListener(
+      '.restaurant-filter-container',
+      'change',
+      handleFilterChange
+    );
   },
 
   controlRestaurantList() {
     executeEventListener('.restaurant-list', 'click', (event: Event) => {
-      const target = event.target;
+      const { restaurantList, favoriteList } = handleFavoriteIconClick(event);
 
-      if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
-        const linedFavoriteIcon = target.className.split(' ')[1];
-        const number = linedFavoriteIcon[linedFavoriteIcon.length - 1];
-
-        const isFavorite = handleFavoriteIcon(number).list;
-
-        const restaurantList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST
-        ) as RestaurantType[];
-        const favoriteList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.FAVORITE_LIST
-        ) as RestaurantType[];
-
-        const parsedNumber = parseInt(number, 10);
-        const selected = restaurantList[parsedNumber];
-        if (isFavorite) {
-          if (!favoriteList.find(favorite => favorite.name === selected.name)) {
-            favoriteList.push(selected);
-          }
-          restaurantList[parsedNumber].isFavorite = true;
-          favoriteList[favoriteList.length - 1].isFavorite = true;
-        } else {
-          restaurantList[parsedNumber].isFavorite = false;
-          const index = favoriteList.findIndex(
-            favorite => favorite.name === restaurantList[parsedNumber].name
-          );
-          favoriteList.splice(index, 1);
-        }
-
+      if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
         this.RestaurantManager.updateRestaurantList(restaurantList);
         this.RestaurantManager.updateFavoriteList(favoriteList);
       }
-    });
 
-    executeEventListener('.restaurant-list', 'click', (event: Event) => {
-      const target = event.target;
-
-      if (target instanceof HTMLButtonElement) {
-        const restaurantList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST
-        ) as RestaurantType[];
-
-        const index = parseInt(target.name, 10);
-        const restaurant = restaurantList[index];
-        components.restaurantBottomSheetContainer.render(restaurant);
-        this.controlRestaurantBottomSheet();
-        handleModalOpen('#restaurant-bottom-sheet');
+      const restaurant = handleRestaurantItemClick(event);
+      if (isRestaurant(restaurant)) {
+        this.controlRestaurantBottomSheet(restaurant);
       }
     });
   },
 
   controlRestaurantAddContainer() {
-    executeEventListener('.gnb__button', 'click', () => {
-      handleModalOpen('#restaurant-add-modal');
-      resetForm('#new-restaurant-form');
-      scrollToTopForm('.restaurant-add-container');
-    });
-
-    executeEventListener('.button--secondary', 'click', (event: Event) => {
-      event.preventDefault();
-
-      handleModalClose('#restaurant-add-modal');
-      resetForm('#new-restaurant-form');
-      scrollToTopForm('.restaurant-add-container');
-    });
-
-    executeEventListener('.restaurant-add-backdrop', 'click', () => {
-      handleModalClose('#restaurant-add-modal');
-      resetForm('#new-restaurant-form');
-      scrollToTopForm('.restaurant-add-container');
-    });
-
-    executeEventListener('#new-restaurant-form', 'submit', (event: Event) => {
-      event.preventDefault();
-
-      if (this.RestaurantManager.addNewRestaurant(event)) {
-        components.restaurantList.render(
-          getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-        );
-        handleModalClose('#restaurant-add-modal');
-        resetForm('#new-restaurant-form');
+    executeEventListener(
+      '.restaurant-add-container',
+      'click',
+      (event: Event) => {
+        event.preventDefault();
+        handleCancelClick(event);
+        handleNewRestaurantFormSubmit(event, this.RestaurantManager);
       }
+    );
 
-      scrollToTopForm('.restaurant-add-container');
-    });
+    executeEventListener(
+      '.restaurant-add-backdrop',
+      'click',
+      handleBackdropClick
+    );
   },
 
-  controlRestaurantBottomSheet() {
+  controlRestaurantBottomSheet(restaurant: RestaurantType) {
+    components.restaurantBottomSheetContainer.render(restaurant);
+    handleModalOpen('#restaurant-bottom-sheet');
+
     executeEventListener('.restaurant-bottom-sheet-backdrop', 'click', () => {
       handleModalClose('#restaurant-bottom-sheet');
     });
 
-    executeEventListener('#favorite-icon-modal', 'click', (event: Event) => {
-      const target = event.target;
+    executeEventListener('.head-info', 'click', (event: Event) => {
+      const { restaurantList, favoriteList } = handleFavoriteIconClick(event);
 
-      if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
-        const linedFavoriteIcon = target.className.split(' ')[1];
-        const number = linedFavoriteIcon[linedFavoriteIcon.length - 1];
-
-        const isFavorite = handleFavoriteIcon(number).modal;
-
-        const restaurantList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.RESTAURANT_LIST
-        ) as RestaurantType[];
-        const favoriteList = getListOnLocalStorage(
-          LOCAL_STORAGE_KEY.FAVORITE_LIST
-        ) as RestaurantType[];
-
-        const parsedNumber = parseInt(number, 10);
-        const selected = restaurantList[parsedNumber];
-        if (isFavorite) {
-          if (!favoriteList.find(favorite => favorite.name === selected.name)) {
-            favoriteList.push(selected);
-          }
-          restaurantList[parsedNumber].isFavorite = true;
-          favoriteList[favoriteList.length - 1].isFavorite = true;
-        } else {
-          restaurantList[parsedNumber].isFavorite = false;
-          const index = favoriteList.findIndex(
-            favorite => favorite.name === restaurantList[parsedNumber].name
-          );
-          favoriteList.splice(index, 1);
-        }
-
+      if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
         this.RestaurantManager.updateRestaurantList(restaurantList);
         this.RestaurantManager.updateFavoriteList(favoriteList);
       }

@@ -1,13 +1,11 @@
 import { getFormData } from '../utils/form';
 import { isValidName } from '../validator';
 import RestaurantList from '../components/restaurantList.js';
-import { sortByDistance, sortByName } from './sorter';
 import {
   getListOnLocalStorage,
   saveListOnLocalStorage,
 } from '../utils/localStorage';
-import { RestaurantType } from '../type';
-import { FILTER_OPTION } from '../constants/filter';
+import { RestaurantType } from '../type/types';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { initialRestaurantList } from '../constants/initialRestaurantList';
 
@@ -77,20 +75,6 @@ class restaurantManager {
     ]);
 
     return Object.fromEntries(trimmedNewRestaurant);
-  }
-
-  sortRestaurantList(sortingOption: string) {
-    return sortingOption === FILTER_OPTION.NAME
-      ? sortByName(this.restaurantList)
-      : sortByDistance(this.restaurantList);
-  }
-
-  filterRestaurantList(selectingOption: string) {
-    return selectingOption === FILTER_OPTION.ALL_CATEGORIES
-      ? this.restaurantList
-      : this.restaurantList.filter(
-          restaurant => restaurant.category === selectingOption
-        );
   }
 
   updateRestaurantList(restaurantList: RestaurantType[]) {
