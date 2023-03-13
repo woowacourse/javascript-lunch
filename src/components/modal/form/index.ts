@@ -27,7 +27,7 @@ export class RestaurantAddForm extends HTMLFormElement {
           >
               취소하기
           </button>
-          <button class="button button--primary text-caption">
+          <button class="button button--primary text-caption submit-button">
               추가하기
           </button>
       </div>

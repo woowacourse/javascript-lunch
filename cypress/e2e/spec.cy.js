@@ -86,9 +86,7 @@ describe("음식점 추가 모달 기능 테스트", () => {
       "한식집3 더미 설명입니다. 한식집3 더미 설명입니다. 한식집3 더미 설명입니다."
     );
 
-    cy.get(
-      ".modal-container > form > .button-container > .button--primary"
-    ).click();
+    cy.get(".submit-button").click();
 
     cy.get(".modal-container").should("be.visible");
     cy.contains("한식집3").should("not.exist");
