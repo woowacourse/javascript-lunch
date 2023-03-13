@@ -87,14 +87,14 @@ const InputForm = {
   },
 
   getInfo() {
-    RestaurantData.id++;
+    RestaurantData.nowId++;
     const form = new FormData($("form") as HTMLFormElement);
     const [category, name, takeTime, description, link]: string[] = Array.from(
       form.values()
     ).map(String);
 
     return {
-      id: RestaurantData.id,
+      id: RestaurantData.nowId + 1,
       category: category as CategoryType,
       name: name,
       takeTime: Number(takeTime) as TakeTimeType,

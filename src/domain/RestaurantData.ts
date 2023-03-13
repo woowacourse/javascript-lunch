@@ -4,7 +4,7 @@ import { LocalData } from "../until/LocalData";
 interface RestaurantDataInterFace {
   allList: RestaurantType[];
   likeList: RestaurantType[];
-  id: number;
+  nowId: number;
 
   settingList: (restaurantList: RestaurantType[]) => void;
   addRestaurant: (restaurant: RestaurantType) => void;
@@ -13,12 +13,13 @@ interface RestaurantDataInterFace {
   addLikeRestaurant: (id: number) => void;
   getRestaurant: (id: number) => RestaurantType;
   deleteOneRestaurant: (id: number) => void;
+  findLastID: () => void;
 }
 
 export const RestaurantData: RestaurantDataInterFace = {
   allList: [],
   likeList: [],
-  id: 0,
+  nowId: 0,
 
   settingList(restaurantList) {
     const isLocalData = LocalData.getData("restaurantList");
@@ -26,12 +27,12 @@ export const RestaurantData: RestaurantDataInterFace = {
     if (isLocalData) {
       this.allList = isLocalData;
       this.likeList = this.allList.filter((res) => res.like);
-      this.id = this.allList.length - 1;
+      this.findLastID();
       return;
     }
 
     this.allList = restaurantList;
-    this.id = this.allList.length - 1;
+    this.findLastID();
     LocalData.setDate("restaurantList", this.allList);
   },
 
@@ -44,12 +45,11 @@ export const RestaurantData: RestaurantDataInterFace = {
     this.allList.forEach((elem) => {
       if (elem.id !== id) return;
       if (elem.like) {
-        elem.like = false;
         this.deleteLikeRestaurant(id);
       } else {
-        elem.like = true;
         this.addLikeRestaurant(id);
       }
+      elem.like = !elem.like;
     });
     LocalData.setDate("restaurantList", this.allList);
   },
@@ -67,10 +67,8 @@ export const RestaurantData: RestaurantDataInterFace = {
     this.likeList = [...this.likeList, ...likeRestaurant];
   },
 
-  getRestaurant(id) {
-    return this.allList.filter((res) => {
-      return res.id === id && res;
-    })[0];
+  getRestaurant(fineId) {
+    return this.allList.find(({ id }) => id === fineId)!;
   },
 
   deleteOneRestaurant(id) {
@@ -78,5 +76,10 @@ export const RestaurantData: RestaurantDataInterFace = {
       return res.id !== id && res;
     });
     this.deleteLikeRestaurant(id);
+  },
+
+  findLastID() {
+    this.nowId =
+      this.allList.length === 0 ? 0 : this.allList[this.allList.length - 1].id;
   },
 };
