@@ -1,7 +1,7 @@
 import '../css/AddFormModal.css';
 
 import { useEvents } from '../../utils/core';
-import { getFormFields } from '../../utils/common/formData';
+import { IFormData, getFormFields } from '../../utils/common/formData';
 import validator from '../../validation/validator';
 
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
@@ -24,17 +24,17 @@ function AddFormModal({ close, handleClickAddBtn }: AddFormModalProps) {
   addEvent('submit', 'form', (e) => {
     if (e.target instanceof HTMLFormElement) {
       e.preventDefault();
-      const fields = getFormFields(e.target);
+      const fields: IFormData = getFormFields(e.target);
 
       try {
-        validator.checkName(fields.name);
-        if (fields.description) validator.checkDescription(fields.description);
-        if (fields.link) validator.checkLinkFormat(fields.link);
-
+        validator.checkName(String(fields.name));
+        if (fields.description) validator.checkDescription(String(fields.description));
+        if (fields.link) validator.checkLinkFormat(String(fields.link));
+        console.log(fields);
         handleClickAddBtn({
           ...fields,
           distance: Number(fields.distance),
-        } as unknown as RestaurantInfo);
+        } as RestaurantInfo);
 
         close();
       } catch (err) {
