@@ -2,6 +2,7 @@ import PersonalRestaurant from "../type/PersonalRestaurant";
 import createElement from "./UI/createElement";
 import RestaurantSummary from "../RestaurantSummary/RestaurantSummary";
 import updateList from "./features/updateList";
+import { $ } from "../util/querySelector";
 
 class RestaurantList {
   public list: RestaurantSummary[] = [];
@@ -28,6 +29,10 @@ class RestaurantList {
   favoriteChangeCallback(event: CustomEvent) {
     if (event.detail.from === "detailed") {
       this.list.forEach((summary) => summary.favoriteChangeCallback(event));
+    }
+
+    if (($("nav input[name='global-filter']:checked") as HTMLInputElement).value === "favorite") {
+      updateList(this);
     }
   }
 
