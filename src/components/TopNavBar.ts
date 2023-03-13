@@ -2,7 +2,7 @@ import imagePaths from '../constants/imagePaths';
 import Component from '../core/Component';
 
 interface ITopNavBarProps {
-  toggleModal: (type: string) => void;
+  onClickAddIcon: (type: string) => void;
 }
 
 class TopNavBar extends Component<ITopNavBarProps> {
@@ -15,10 +15,10 @@ class TopNavBar extends Component<ITopNavBarProps> {
   }
 
   setEvent() {
-    const { toggleModal } = this.$props;
+    const { onClickAddIcon } = this.$props;
 
     this.addEvent('click', '.nav-add-button', () => {
-      toggleModal('addRestaurant');
+      onClickAddIcon('addRestaurant');
     });
   }
 }

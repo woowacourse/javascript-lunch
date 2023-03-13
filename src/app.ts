@@ -42,7 +42,7 @@ class App extends Component<IComponentPropState> {
 
     if ($topNavBar) {
       new TopNavBar($topNavBar, {
-        toggleModal: toggleModal.bind(this),
+        onClickAddIcon: toggleModal.bind(this),
       });
     }
 
