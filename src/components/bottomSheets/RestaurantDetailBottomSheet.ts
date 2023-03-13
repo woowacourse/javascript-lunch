@@ -50,9 +50,9 @@ class RestaurantDetailBottomSheet extends Component<IComponentPropState> {
       r.name === restaurant.name ? { ...r, isFavorite: !r.isFavorite } : r
     );
 
-    const updatedBottomSheetData = restaurantList.filter(
+    const updatedBottomSheetData = restaurantList.find(
       (_restaurant) => _restaurant.name === restaurant.name
-    )[0];
+    );
 
     setLocalStorageItem('restaurantList', restaurantList);
     updateRootState({
