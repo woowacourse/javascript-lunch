@@ -3,7 +3,6 @@ import { RESTAURANT_IMAGE, FAVORITE } from '../constants/images.ts';
 import { qs } from '../utils/domHelpers';
 
 export default class RestaurantItem extends Component {
-  starShape;
   restaurantData;
 
   constructor($target, restaurant) {
@@ -17,8 +16,6 @@ export default class RestaurantItem extends Component {
   }
 
   template({ category, storeName, distance, detail, link, starShape }) {
-    this.starShape = starShape;
-
     return `
         <div class="restaurant__category">
           <img src="${RESTAURANT_IMAGE[category]}" alt="${category}" class="category-icon">
@@ -39,12 +36,8 @@ export default class RestaurantItem extends Component {
 
   switchFavorite() {
     if (this.starShape === 'lined') {
-      this.starShape = 'filled';
-
       this.addRestaurantList();
     } else if (this.starShape === 'filled') {
-      this.starShape = 'lined';
-
       this.removeRestaurantList();
     }
   }
@@ -52,11 +45,15 @@ export default class RestaurantItem extends Component {
   addRestaurantList() {
     this.restaurantManager.fillRestaurantStarShape(this.restaurantData.storeName);
     this.favoriteRestaurant.addRestaurant(this.restaurantData);
+
+    this.restaurantData.starShape = 'filled';
   }
 
   removeRestaurantList() {
     this.restaurantManager.unfillRestaurantStarShape(this.restaurantData.storeName);
     this.favoriteRestaurant.removeRestaurant(this.restaurantData.storeName);
+
+    this.restaurantData.starShape = 'lined';
   }
 
   activateDetailModal() {
