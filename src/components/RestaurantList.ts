@@ -1,37 +1,39 @@
-import { Restaurant } from '../domain/Restaurant';
-import RestaurantItemTemplate from './RestaurantItem';
-
-interface IRestaurantList {
-  restaurantList: Restaurant[];
-}
+import { store } from '../store';
+import RestaurantItem from './RestaurantItem';
 
 export default class RestaurantList {
   $restaurantListSection = document.createElement('section');
+  $ul = document.createElement('ul');
 
-  state!: IRestaurantList;
+  constructor() {
+    if (!store.$listArticle) return;
+    this.$restaurantListSection.className = 'restaurant-list-container';
+    this.$ul.className = 'restaurant-list';
 
-  constructor($root: HTMLElement, restaurants: Restaurant[]) {
-    this.$restaurantListSection.className = 'restaurant-list-cotainer';
-
-    this.setState({ restaurantList: restaurants });
-
-    $root.appendChild(this.$restaurantListSection);
+    this.render(store.$listArticle);
   }
 
-  render = () => {
-    this.$restaurantListSection.innerHTML = `
-    <ul class="restaurant-list">
-      ${this.state.restaurantList.reduce(
-        (html, restaurant) =>
-          html + RestaurantItemTemplate(restaurant.getRestaurantInfo()),
-        ''
-      )}
-    </ul>
-    `;
-  };
+  renderUl() {
+    this.$ul.innerHTML = '';
+    if (!store.currentList.length) {
+      this.$ul.innerHTML =
+        '<p class="no-list-message text-body">조회 가능한 식당이 없습니다.</p>';
+      return;
+    }
 
-  setState = (state: IRestaurantList) => {
-    this.state = { ...this.state, ...state };
-    this.render();
+    for (const restaurant of store.currentList) {
+      this.$ul.insertAdjacentElement('beforeend', RestaurantItem(restaurant));
+    }
+  }
+
+  render = ($targetElement: HTMLElement) => {
+    this.$restaurantListSection.innerHTML = '';
+    this.renderUl();
+    this.$restaurantListSection.appendChild(this.$ul);
+
+    $targetElement.insertAdjacentElement(
+      'beforeend',
+      this.$restaurantListSection
+    );
   };
 }

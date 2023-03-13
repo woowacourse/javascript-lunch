@@ -4,72 +4,75 @@ import { closeModal } from '../modal';
 import Select from './Select';
 import { CategoryOptions, DistanceTime } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
+import { store } from '../store';
 
 export default class RestaurantForm {
-  $form = document.createElement('form');
+  $formContainer = document.createElement('div');
 
-  constructor(
-    $root: HTMLElement,
-    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
-  ) {
-    $root.innerHTML = '<h2 class="modal-title text-title">새로운 음식점</h2>';
-    this.render();
+  constructor() {
+    this.$formContainer.addEventListener('click', (e) => {
+      if (!(e.target instanceof HTMLElement)) return;
+      const { type } = e.target.dataset;
 
-    this.$form.addEventListener('submit', (e) =>
-      this.handleFormSubmit(e, addRestaurantInfo)
-    );
-    const $cancelButton = this.$form.querySelector(
-      '#cancel-button'
-    ) as HTMLButtonElement;
-    $cancelButton.addEventListener('click', this.handleFormCancel);
-
-    $root.appendChild(this.$form);
-  }
-
-  render = () => {
-    this.$form.innerHTML = `
-      ${RestaurantFormTemplate()}
-    `;
-  };
-
-  handleFormSubmit = (
-    event: SubmitEvent,
-    addRestaurantInfo: (restaurantInfo: IRestaurant) => void
-  ) => {
-    event.preventDefault();
-    const { target } = event;
-
-    if (!target) return null;
-
-    const restaurantInfo = this.getFormDatas();
-
-    addRestaurantInfo(restaurantInfo);
-
-    this.$form.reset();
-    closeModal();
-  };
-
-  getFormDatas(): IRestaurant {
-    const category = this.$form.querySelector('#category') as HTMLSelectElement;
-    const name = this.$form.querySelector('#name') as HTMLInputElement;
-    const distance = this.$form.querySelector('#distance') as HTMLSelectElement;
-    const description = this.$form.querySelector(
-      '#description'
-    ) as HTMLTextAreaElement;
-    const link = this.$form.querySelector('#link') as HTMLInputElement;
-
-    return {
-      category: category.value as CategoryOptions,
-      name: name.value ?? '',
-      distance: Number(distance.value) as DistanceTime,
-      description: description.value ?? '',
-      link: link.value ?? '',
-    };
+      if (type === 'submit') this.handleFormSubmit(e);
+      if (type === 'cancel') this.handleFormCancel();
+    });
   }
 
   handleFormCancel = () => {
     closeModal();
   };
+
+  handleFormSubmit = (event: Event) => {
+    event.preventDefault();
+    const { target, currentTarget } = event;
+
+    if (!target) return null;
+    if (!(currentTarget instanceof HTMLElement)) return;
+    const $form = currentTarget.querySelector('form') as HTMLFormElement;
+
+    const restaurantInfo = this.getFormDatas($form);
+
+    store.addRestaurantInfo(restaurantInfo);
+    store.renderListArticle(); // 여기서 currentTab에 따라 render를 다르게 해줌.
+
+    $form.reset();
+
+    closeModal();
+  };
+
+  getFormDatas = ($form: HTMLFormElement): IRestaurant => {
+    const category = $form.querySelector<HTMLSelectElement>('#category');
+    const name = $form.querySelector<HTMLInputElement>('#name');
+    const distance = $form.querySelector<HTMLSelectElement>('#distance');
+    const description =
+      $form.querySelector<HTMLTextAreaElement>('#description');
+    const link = $form.querySelector<HTMLInputElement>('#link');
+
+    return {
+      id: Date.now(),
+      category: category ? (category.value as CategoryOptions) : '한식',
+      name: name ? name.value : '',
+      distance: distance ? (Number(distance.value) as DistanceTime) : 5,
+      description: description ? description.value : '',
+      link: link ? link.value : '',
+      isFavorite: false,
+    };
+  };
+
+  template() {
+    return `
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+      <form>  
+        ${RestaurantFormTemplate()}
+      </form>
+    `;
+  }
+
+  render($targetElement: HTMLElement) {
+    this.$formContainer.innerHTML = this.template();
+    $targetElement.insertAdjacentElement('beforeend', this.$formContainer);
+  }
 }
 
 function RestaurantFormTemplate() {
@@ -120,8 +123,8 @@ function RestaurantFormTemplate() {
 
     <!-- 취소/추가 버튼 -->
     <div class="button-container">
-      <button id="cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
-      <button class="button button--primary text-caption">추가하기</button>
+      <button data-type="cancel" type="button" class="button button--secondary text-caption" >취소하기</button>
+      <button data-type="submit" type='submit'class="button button--primary text-caption" >추가하기</button>
     </div>
   `;
 }

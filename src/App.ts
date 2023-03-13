@@ -2,100 +2,51 @@ import Filters from './components/Filters';
 import Header from './components/Header';
 import RestaurantForm from './components/RestaurantForm';
 import RestaurantList from './components/RestaurantList';
-import { mockRestaurant } from './data';
-import { IRestaurant, Restaurant } from './domain/Restaurant';
-import RestaurantService from './domain/RestaurantService';
-import { CategoryOptions, FilterOptions } from './types/type';
-import { getLocalStorage, setLocalStorage } from './utils/localStorage';
-
-const getInitialRestaurantList = () => {
-  const localRestaurants =
-    JSON.parse(getLocalStorage('restaurants') as string) || [];
-
-  return [...mockRestaurant, ...localRestaurants].map(
-    (restaurant) => new Restaurant(restaurant)
-  );
-};
-
-interface IAppState {
-  filters: Filters;
-  restaurantList: RestaurantList;
-  restaurantForm: RestaurantForm;
-  restaurantService: RestaurantService;
-}
+import Tabs from './components/Tabs';
+import { clearedModalContainer, showModal } from './modal';
+import { store } from './store';
 
 export default class App {
-  state: IAppState;
+  header: Header;
+  tabs: Tabs;
+  restaurantForm: RestaurantForm;
+  filters: Filters;
+  restaurantList: RestaurantList;
 
-  constructor($app: HTMLDivElement) {
-    const $main = document.createElement('main');
-    const $modalContainer = document.querySelector('.modal-container');
-    const restaurantService = new RestaurantService(getInitialRestaurantList());
+  constructor() {
+    const $listArticle = document.querySelector('#list-article') as HTMLElement;
 
-    new Header($app);
+    store.setListArticle($listArticle);
 
-    $app.appendChild($main);
-    const initialResutaurantInfos = restaurantService.getRestaurantsInfo();
+    this.header = new Header(document.body);
+    this.tabs = new Tabs();
+    this.restaurantForm = new RestaurantForm();
+    this.filters = new Filters();
+    this.restaurantList = new RestaurantList();
 
-    this.state = {
-      restaurantService,
-      filters: new Filters($main, this.filterRestaurantList.bind(this)),
-      restaurantList: new RestaurantList($main, initialResutaurantInfos),
-      restaurantForm: new RestaurantForm(
-        $modalContainer as HTMLDivElement,
-        this.addRestaurantInfo.bind(this)
-      ),
-    };
-
-    this.filterRestaurantList.bind(this)('전체', '이름순');
-  }
-
-  getSortedList(filter: FilterOptions, filterdList: Restaurant[]) {
-    const { sortByName, sortByDistance } = this.state.restaurantService;
-
-    switch (filter) {
-      case '이름순':
-        return sortByName(filterdList);
-      case '거리순':
-        return sortByDistance(filterdList);
-      default:
-        return [];
-    }
-  }
-
-  filterRestaurantList(category: CategoryOptions, filter: FilterOptions): void {
-    const { restaurantService, restaurantList, filters } = this.state;
-
-    if (!filters || !restaurantList) return;
-
-    const wholeList = restaurantService.getRestaurantsInfo();
-
-    const filtered = restaurantService.filterByCategory(wholeList, category);
-
-    const sortedList = this.getSortedList(filter, filtered);
-
-    filters.setState({ filter, category });
-
-    restaurantList.setState({
-      restaurantList: sortedList,
+    store.setRestaurantListAndFilters({
+      filters: this.filters,
+      restaurantList: this.restaurantList,
     });
+
+    store.currentList = store.restaurantService.getRestaurantsInfo();
+
+    store.renderListArticle();
+    this.initialAddEventListener();
   }
 
-  addRestaurantInfo(restaurantInfo: IRestaurant) {
-    this.state.restaurantService.addRestaurant(restaurantInfo);
+  initialAddEventListener() {
+    this.header.addHeaderEventListener(this.headerButtonHandler.bind(this));
+  }
 
-    const {
-      state: { category, filter },
-    } = this.state.filters;
+  headerButtonHandler(event: MouseEvent) {
+    const { currentTarget } = event;
+    if (!(currentTarget instanceof HTMLButtonElement)) return;
 
-    this.filterRestaurantList(category, filter);
+    const $container = clearedModalContainer();
+    if (!$container || !($container instanceof HTMLElement)) return;
 
-    const localRestaurants =
-      JSON.parse(getLocalStorage('restaurants') as string) || [];
-
-    setLocalStorage(
-      'restaurants',
-      JSON.stringify([...localRestaurants, restaurantInfo])
-    );
+    showModal();
+    this.restaurantForm.render($container);
   }
 }

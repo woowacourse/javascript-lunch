@@ -8,22 +8,29 @@ import App from '../src/App';
 
 function render() {
   document.body.innerHTML = `
-    <div id="app"></div>
-    <div class="modal" title="modal">
+    <haeder class="gnb"></haeder>
+    <main>
+      <div class="tab-container"></div>
+      <article id="list-article">
+        <section class="restaurant-filter-container"></section>
+        <section class="restaurant-list-container"></section>
+      </article>
+    </main>
+    <div class="modal">
       <div class="modal-backdrop"></div>
       <div class="modal-container"></div>
     </div>
   `;
 
-  const $app = document.getElementById('app');
-
-  new App($app);
+  new App();
 }
 
 describe('dom 테스트를 시작합니다.', () => {
   beforeEach(render);
 
   test('버튼 클릭시에 modal창이 띄워진다.', () => {
+    console.log(document.body, '@@');
+
     const button = screen.getByLabelText('음식점 추가');
 
     fireEvent.click(button);

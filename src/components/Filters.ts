@@ -2,79 +2,72 @@ import { CATEGORY, FILTER } from '../constants';
 import Select from './Select';
 import { CategoryOptions, FilterOptions } from '../types/type';
 import { arrayElementToObject } from '../utils/util';
-
-interface IFilterState {
-  category: CategoryOptions;
-  filter: FilterOptions;
-}
+import { store } from '../store';
 
 export default class Filters {
   $filterSection = document.createElement('section');
 
-  state: IFilterState;
+  constructor() {
+    if (!store.$listArticle) return;
 
-  constructor(
-    $root: HTMLElement,
-    filterRestaurantList: (
-      category: CategoryOptions,
-      filter: FilterOptions
-    ) => void
-  ) {
     this.$filterSection.className = 'restaurant-filter-container';
-    this.state = {
-      category: '전체',
-      filter: '이름순',
-    };
-    this.render();
-    this.$filterSection.addEventListener('change', (e) =>
-      this.handleFiltersChange(e, filterRestaurantList)
-    );
-    $root.appendChild(this.$filterSection);
+
+    this.render(store.$listArticle);
+
+    this.$filterSection.addEventListener('change', this.changeEventHandler);
+
+    store.$listArticle.appendChild(this.$filterSection);
   }
 
-  render = () => {
-    this.$filterSection.innerHTML = `
-    ${Select({
-      name: 'category',
-      id: 'category-filter',
-      options: arrayElementToObject(['전체', ...CATEGORY]),
-      selected: this.state.category,
-      className: 'restaurant-filter',
-    })}
-    ${Select({
-      name: 'sorting',
-      id: 'sorting-filter',
-      options: arrayElementToObject([...FILTER]),
-      selected: this.state.filter,
-      className: 'restaurant-filter',
-    })}
-  `;
+  render = ($targetElement: HTMLElement) => {
+    this.$filterSection.innerHTML = this.template();
+    $targetElement.insertAdjacentElement('beforeend', this.$filterSection);
   };
 
-  setState = (state: IFilterState) => {
-    this.state = { ...this.state, ...state };
-    this.render();
-  };
+  template() {
+    const { currentFilterOptions } = store;
+    return `
+      ${Select({
+        name: 'category',
+        id: 'category-filter',
+        options: arrayElementToObject(['전체', ...CATEGORY]),
+        selected: currentFilterOptions.category,
+        className: 'restaurant-filter',
+      })}
+      ${Select({
+        name: 'sorting',
+        id: 'sorting-filter',
+        options: arrayElementToObject([...FILTER]),
+        selected: currentFilterOptions.filter,
+        className: 'restaurant-filter',
+      })}
+    `;
+  }
 
-  handleFiltersChange = (
-    event: Event,
-    filterRestaurantList: (
-      category: CategoryOptions,
-      filter: FilterOptions
-    ) => void
-  ) => {
-    const { category, filter } = this.state;
-    const { id, value } = event.target as HTMLSelectElement;
+  changeEventHandler(e: Event) {
+    if (!(e.target instanceof HTMLSelectElement)) return;
+
+    const { id, value } = e.target;
+    const { setCurrentFilterOptions, currentFilterOptions } = store;
 
     switch (id) {
       case 'category-filter':
-        filterRestaurantList(value as CategoryOptions, filter);
+        setCurrentFilterOptions({
+          ...currentFilterOptions,
+          category: value as CategoryOptions,
+        });
+
         break;
       case 'sorting-filter':
-        filterRestaurantList(category, value as FilterOptions);
+        setCurrentFilterOptions({
+          ...currentFilterOptions,
+          filter: value as FilterOptions,
+        });
         break;
       default:
         return;
     }
-  };
+
+    store.renderListArticle();
+  }
 }

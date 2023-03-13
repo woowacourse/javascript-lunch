@@ -1,9 +1,11 @@
 import { CategoryOptions, DistanceTime } from '../types/type';
 
 export interface IRestaurant {
+  id: number;
   category: CategoryOptions;
   distance: DistanceTime;
   name: string;
+  isFavorite: boolean;
   description?: string;
   link?: string;
 }
@@ -29,5 +31,13 @@ export class Restaurant {
 
   isSameCategory(category: CategoryOptions) {
     return this.#state.category === category;
+  }
+
+  setFavoriteState(favorite: boolean) {
+    this.#state.isFavorite = favorite;
+  }
+
+  getFavoriteState() {
+    return this.#state.isFavorite;
   }
 }
