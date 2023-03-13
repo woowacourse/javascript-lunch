@@ -1,6 +1,6 @@
-import { $, FilterSort, Render } from "../until/ControlDom";
-import { MakeNewList } from "../domain/MakeNewList";
-import { RestaurantService } from "../domain/RestaurantService";
+import { $ } from "../../until/ControlDom";
+import { FilterSort } from "../../domain/FilterSort";
+import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
 
 const FilterSortButton = {
   template() {
@@ -20,11 +20,11 @@ const FilterSortButton = {
       </select>`;
   },
 
-  FilterSort() {
+  setEvent() {
     const restaurantFilterContainer = $(".restaurant-filter-container");
     restaurantFilterContainer?.addEventListener("change", () => {
-      FilterSort.setState();
-      Render.restaurantList(MakeNewList.getNewList(RestaurantService.list));
+      FilterSort.setFilterSortState();
+      RenderRestaurantList.render();
     });
   },
 };

@@ -1,8 +1,9 @@
-import { $, BottomSheetForm, Render } from "../until/ControlDom";
-import { RestaurantService } from "../domain/RestaurantService";
-import { Template } from "../Template";
+import { $, ControlDom } from "../../until/ControlDom";
+import { RestaurantData } from "../../domain/RestaurantData";
+import { CategoryType, TakeTimeType } from "../../Template";
+import { RenderRestaurantList } from "../../domain/RenderRestaurantList";
 
-const BottomSheet = {
+const InputForm = {
   template() {
     return `
     <div class="bottomSheet">
@@ -58,25 +59,54 @@ const BottomSheet = {
   `;
   },
 
-  addRestaurant() {
+  setEventSubmit() {
     const formElem = $("form");
     formElem?.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      const newRestaurant = BottomSheetForm.getInfo();
-      BottomSheetForm.reset();
-      BottomSheetForm.toggle();
-      RestaurantService.addRestaurant(newRestaurant);
-      Render.restaurantList(RestaurantService.list);
+      const bottomSheet = $(".bottomSheet") as HTMLElement;
+      this.addRestaurant(bottomSheet);
     });
-    this.cancelAddRestaurant();
   },
 
-  cancelAddRestaurant() {
+  addRestaurant(elem: HTMLElement) {
+    const newRestaurant = this.getInfo();
+    RestaurantData.addRestaurant(newRestaurant);
+    RenderRestaurantList.render();
+
+    ControlDom.showClose(elem, "bottomSheet--open");
+    this.reset();
+  },
+
+  setEventCloseInput() {
     const buttonSecondary = $(".button--secondary");
     buttonSecondary?.addEventListener("click", () => {
-      BottomSheetForm.toggle();
+      const bottomSheet = $(".bottomSheet") as HTMLElement;
+      ControlDom.showClose(bottomSheet, "bottomSheet--open");
     });
   },
+
+  getInfo() {
+    RestaurantData.nowId++;
+    const form = new FormData($("form") as HTMLFormElement);
+    const [category, name, takeTime, description, link]: string[] = Array.from(
+      form.values()
+    ).map(String);
+    console.log(RestaurantData.nowId);
+    return {
+      id: RestaurantData.nowId,
+      category: category as CategoryType,
+      name: name,
+      takeTime: Number(takeTime) as TakeTimeType,
+      like: false,
+      description: description,
+      link: link,
+    };
+  },
+
+  reset() {
+    const form = $("form") as HTMLFormElement;
+    form.reset();
+  },
 };
-export default BottomSheet;
+export default InputForm;

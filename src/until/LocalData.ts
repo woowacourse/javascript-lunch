@@ -1,14 +1,12 @@
 import { RestaurantType } from "../Template";
 
 export const LocalData = {
-  dataName: "restaurantList",
-
-  setDate(data: RestaurantType[]) {
-    localStorage.setItem(this.dataName, JSON.stringify(data));
+  setDate(dataName: string, data: RestaurantType[]) {
+    localStorage.setItem(dataName, JSON.stringify(data));
   },
 
-  getData() {
-    const localList = localStorage.getItem(this.dataName);
+  getData(dataName: string) {
+    const localList = localStorage.getItem(dataName);
     return localList && JSON.parse(localList);
   },
 };

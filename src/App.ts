@@ -1,39 +1,48 @@
-import BottomSheet from "./components/BottomSheet";
-import BottomSheetOpenButton from "./components/BottomSheetOpenButton";
-import FilterSortButton from "./components/FilterSortButton";
-import { RestaurantService } from "./domain/RestaurantService";
+import InputForm from "./components/InputSheet/InputForm";
+import InputFormOpenButton from "./components/MainPage/InputFormOpenButton";
+import FilterSortButton from "./components/MainPage/FilterSortButton";
+import { RestaurantData } from "./domain/RestaurantData";
 import { mockList } from "./data/mockRestaurant";
-import { Template } from "./Template";
+import { MainHeader } from "./components/MainPage/MainHeader";
+import { RestaurantList } from "./components/MainPage/RestaurantList";
+import { ListChooseSection } from "./components/MainPage/ListChooseSection";
+import { InfoPage } from "./components/RestaurantInfoSheet/InfoPage";
+import { RenderRestaurantList } from "./domain/RenderRestaurantList";
 
 class App {
   #app;
 
   constructor() {
     this.#app = document.querySelector("#app") as HTMLElement;
-    RestaurantService.list = mockList;
-    RestaurantService.settingList();
-    localStorage.clear();
+    RestaurantData.settingList(mockList);
+    this.render();
+    RenderRestaurantList.render();
   }
 
   render() {
     this.#app.innerHTML = `
-      ${Template.mainHeader(BottomSheetOpenButton.template())}
+      ${MainHeader.template(InputFormOpenButton.template())}
       <main>
+        ${ListChooseSection.template()}
         <section class="restaurant-filter-container">
           ${FilterSortButton.template()}
         </section>
         <section class="restaurant-list-container">
-          ${Template.restaurantList(RestaurantService.list)}
         </section>
       </main>
-      ${BottomSheet.template()}`;
+      ${InputForm.template()}
+      ${InfoPage.infoPageTemplate()}`;
     this.setEvent();
   }
 
   setEvent() {
-    BottomSheetOpenButton.openBottomSheet();
-    BottomSheet.addRestaurant();
-    FilterSortButton.FilterSort();
+    InputFormOpenButton.setEvent();
+    InputForm.setEventSubmit();
+    InputForm.setEventCloseInput();
+    FilterSortButton.setEvent();
+    RestaurantList.setEvent();
+    ListChooseSection.setEvent();
+    InfoPage.setEvent();
   }
 }
 

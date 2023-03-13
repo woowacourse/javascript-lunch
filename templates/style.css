@@ -130,7 +130,6 @@ main {
 
   -ms-overflow-style: none;
   scrollbar-width: none;
-  overflow-y: scroll;
 }
 
 .restaurant-list-container::-webkit-scrollbar {
@@ -170,6 +169,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: calc(100% - 64px);
 }
 
 .restaurant__name {
@@ -312,4 +312,112 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.restaurant__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.list-choose-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 80px;
+}
+
+.allList,
+.likeList {
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+  width: 48%;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  height: 50%;
+}
+
+.selectList {
+  font-weight: bolder;
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.allList:hover,
+.likeList:hover {
+  cursor: pointer;
+}
+
+.show-filter {
+  display: none;
+}
+
+.info-BottomSheet {
+  position: fixed;
+  margin-top: auto;
+  max-width: 100%;
+  width: 100%;
+  border: 0;
+  padding: 32px 16px;
+  border-radius: 8px 8px 0px 0px;
+  overflow: scroll;
+}
+
+.info-BottomSheet-title {
+  margin-bottom: 36px;
+}
+
+.restaurant-list-container :hover {
+  cursor: pointer;
+}
+
+.info {
+  margin: 4%;
+}
+
+.restaurant-info-takeTime {
+  color: var(--primary-color);
+  font-size: large;
+}
+.restaurant-info-description > p {
+  line-height: 1.5;
+  font-size: large;
+}
+
+.restaurant-info-link > a {
+  font-size: large;
+  color: black;
+}
+
+.restaurant-info-button {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.info-button {
+  width: 47%;
+  border-radius: 8px;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.delete-Restaurant-button {
+  background-color: white;
+  border: 1px solid var(--grey-400);
+  color: var(--grey-400);
+}
+
+.cancel-info-BottomSheet-button {
+  background-color: var(--primary-color);
+  border: 0;
+  color: white;
+}
+
+.info-likeImg {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 40px;
 }
