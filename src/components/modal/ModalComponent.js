@@ -9,35 +9,40 @@ class ModalComponent extends CustomElement {
     ModalInstance.subscribe(this);
   }
 
-  modalOnOff(isModalOn) {
-    if (isModalOn) {
-      this.shadowRoot.querySelector(".modal").classList.add("modal--open");
-      return;
-    }
+  modalOn() {
+    this.shadowRoot.querySelector(".modal").classList.add("modal--open");
+  }
+
+  modalOff() {
     this.shadowRoot.querySelector(".modal").classList.remove("modal--open");
     const modalContainer = this.shadowRoot.querySelector(".modal-container");
     modalContainer.innerHTML = ``;
   }
 
   rerender(isModalOn, action) {
-    this.modalOnOff(isModalOn);
+    if (isModalOn) {
+      this.modalOn();
 
-    const modalType = action.type;
-    const modalContainer = this.shadowRoot.querySelector(".modal-container");
+      const modalType = action.type;
+      const modalContainer = this.shadowRoot.querySelector(".modal-container");
 
-    if (
-      modalType === "modal_add_restaurant" &&
-      modalContainer.childElementCount === 0
-    ) {
-      modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
+      if (
+        modalType === "modal_add_restaurant" &&
+        modalContainer.childElementCount === 0
+      ) {
+        modalContainer.innerHTML = `<restaurant-add-form></restaurant-add-form>`;
+      }
+      if (
+        modalType === "modal_restaurant_info" &&
+        action.data &&
+        modalContainer.childElementCount === 0
+      ) {
+        modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
+      }
+      return;
     }
-    if (
-      modalType === "modal_restaurant_info" &&
-      action.data &&
-      modalContainer.childElementCount === 0
-    ) {
-      modalContainer.innerHTML = `<restaurant-info id=${action.data}></restaurant-info>`;
-    }
+
+    this.modalOff();
   }
 
   template() {
