@@ -7,11 +7,13 @@ class RestaurantsList {
 
   constructor($target, restaurants, infoModal) {
     this.$target = $target;
+
     this.sortRestaurantList = restaurants.getSelectedRestaurantsList.bind(restaurants);
     this.getFavoriteRestaurantList = restaurants.getFavoriteRestaurantList.bind(restaurants);
     this.setFavoriteState = restaurants.setFavoriteState.bind(restaurants);
     this.restaurantInfoRender = infoModal.render.bind(infoModal);
-    this.setState(restaurants.restaurantsList);
+
+    this.renderSortedList();
   }
 
   template() {
@@ -22,12 +24,7 @@ class RestaurantsList {
     `;
   }
 
-  setState(newState) {
-    this.state = newState;
-    this.render();
-  }
-
-  render() {
+  renderSortedList() {
     if (!$(`.restaurant-list-container`)) {
       this.$target.insertAdjacentHTML('beforeend', this.template());
     }
@@ -40,44 +37,27 @@ class RestaurantsList {
 
     const sortedRestaurantList = this.sortRestaurantList(category, sortType);
 
-    this.renderRestaurantItem(sortedRestaurantList);
+    this.renderList(sortedRestaurantList, this.restaurantList);
   }
 
-  renderRestaurantItem(sortedRestaurantList) {
+  renderFavoriteItem() {
+    this.renderList(this.getFavoriteRestaurantList(), this.favoriteList);
+  }
+
+  renderList(list, stateList) {
     const $restaurantList = $('.restaurant-list');
     $restaurantList.replaceChildren();
 
-    this.restaurantList = [];
-    sortedRestaurantList.forEach(restaurant => {
-      this.restaurantList.push(
-        new RestaurantItem(
-          $restaurantList,
-          restaurant,
-          this.restaurantInfoRender.bind(this),
-          this.render.bind(this),
-          this.setFavoriteState.bind(this)
-        )
-      );
-    });
-  }
-
-  renderFavoriteRestaurant() {
-    const $restaurantList = $('.restaurant-list');
-    $restaurantList.replaceChildren();
-
-    const favoriteList = this.getFavoriteRestaurantList();
+    const callbackFunction = {
+      setFavorite: this.setFavoriteState.bind(this),
+      infoRender: this.restaurantInfoRender.bind(this),
+      listRender: this.renderSortedList.bind(this),
+      favoriteRender: this.renderFavoriteItem.bind(this),
+    };
 
     this.favoriteList = [];
-    favoriteList.forEach(restaurant => {
-      this.favoriteList.push(
-        new RestaurantItem(
-          $restaurantList,
-          restaurant,
-          this.restaurantInfoRender.bind(this),
-          this.render.bind(this),
-          this.setFavoriteState.bind(this)
-        )
-      );
+    list.forEach(restaurant => {
+      stateList.push(new RestaurantItem($restaurantList, restaurant, callbackFunction));
     });
   }
 }
