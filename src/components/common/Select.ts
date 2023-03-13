@@ -1,3 +1,4 @@
+import { SelectFilterType } from "./../../types/type";
 import { Category, Sort } from "../../types/type";
 import { Attribute, RerenderListType } from "../../types/type";
 import { $ } from "../../utils/Dom";
@@ -30,7 +31,7 @@ class Select {
       .join("");
   }
 
-  addEvent(id: string, rerenderList: RerenderListType) {
+  addEvent(id: SelectFilterType, rerenderList: RerenderListType) {
     const selectEl = $(`#${id}`);
     selectEl?.addEventListener("change", (event) => {
       const selectedOption = (<HTMLSelectElement>event.target).value as

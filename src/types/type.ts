@@ -23,3 +23,5 @@ export type RerenderListType = (
   id: string,
   selectedValue: Category | Sort
 ) => void;
+
+export type SelectFilterType = "category-filter" | "sorting-filter";
