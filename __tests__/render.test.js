@@ -8,6 +8,7 @@ import RestaurantsList from '../src/components/RestaurantsList';
 import Restaurants from '../src/domain/Restaurants';
 import InfoModal from '../src/components/modal/InfoModal';
 import Tabbar from '../src/components/Tabbar';
+import { $ } from '../src/utils/common';
 
 import { screen, fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
@@ -38,32 +39,26 @@ describe('컴포넌트 단위 테스트', () => {
     <main></main>
   `;
 
-  const $header = document.querySelector('.gnb');
-  const $main = document.querySelector('main');
+  const $header = $('.gnb');
+  const $main = $('main');
 
   const header = new Header($header);
-  const addModal = new AddModal($main);
-  const infoModal = new InfoModal(restaurants);
   const tabbar = new Tabbar($main);
   const restaurantFilter = new RestaurantFilter($main);
+  const infoModal = new InfoModal(restaurants);
   const restaurantsList = new RestaurantsList($main, restaurants, infoModal);
+  const addModal = new AddModal($main, restaurants, restaurantsList);
 
-  header.setEvent(
-    addModal.render.bind(addModal),
-    restaurantsList.setState.bind(restaurantsList),
-    restaurants.add.bind(restaurants)
-  );
+  header.setEvent(addModal.render.bind(addModal));
 
   tabbar.setEvent(
-    restaurantsList.render.bind(restaurantsList),
-    restaurantsList.renderFavoriteRestaurant.bind(restaurantsList),
+    restaurantsList.renderSortedList.bind(restaurantsList),
+    restaurantsList.renderFavoriteItem.bind(restaurantsList),
     restaurantFilter.openFilter.bind(restaurantFilter),
     restaurantFilter.closeFilter.bind(restaurantFilter)
   );
 
-  restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
-
-  restaurantsList.setEvent(restaurants.setFavoriteState.bind(restaurants));
+  restaurantFilter.setEvent(restaurantsList.renderSortedList.bind(restaurantsList));
 
   test('음식점 리스트에 음식점들이 렌더링이 됐는지 확인한다.', () => {
     const yeopto = screen.getByText('엽토네 떡볶이');
