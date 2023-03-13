@@ -92,9 +92,9 @@ const InputForm = {
     const [category, name, takeTime, description, link]: string[] = Array.from(
       form.values()
     ).map(String);
-
+    console.log(RestaurantData.nowId);
     return {
-      id: RestaurantData.nowId + 1,
+      id: RestaurantData.nowId,
       category: category as CategoryType,
       name: name,
       takeTime: Number(takeTime) as TakeTimeType,

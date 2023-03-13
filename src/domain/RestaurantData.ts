@@ -37,7 +37,7 @@ export const RestaurantData: RestaurantDataInterFace = {
   },
 
   addRestaurant(restaurant) {
-    this.allList = [restaurant, ...this.allList];
+    this.allList = [...this.allList, restaurant];
     LocalData.setDate("restaurantList", this.allList);
   },
 
@@ -80,6 +80,8 @@ export const RestaurantData: RestaurantDataInterFace = {
 
   findLastID() {
     this.nowId =
-      this.allList.length === 0 ? 0 : this.allList[this.allList.length - 1].id;
+      this.allList.length === 0
+        ? 0
+        : Math.max(...this.allList.map((res) => res.id));
   },
 };
