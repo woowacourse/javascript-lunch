@@ -37,11 +37,11 @@ class RestaurantFilter {
   }
 
   closeFilter() {
-    return $('.restaurant-filter-container').classList.remove('restaurant-filter-open');
+    $('.restaurant-filter-container').classList.remove('restaurant-filter-open');
   }
 
   openFilter() {
-    return $('.restaurant-filter-container').classList.add('restaurant-filter-open');
+    $('.restaurant-filter-container').classList.add('restaurant-filter-open');
   }
 }
 
