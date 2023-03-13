@@ -15,4 +15,6 @@ export interface RestaurantForm {
   distance: Distance;
   description?: string;
   link?: string;
+  id: string;
+  favorite: boolean;
 }

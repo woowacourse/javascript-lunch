@@ -20,6 +20,8 @@ describe("렌더링 테스트", () => {
       category: "한식",
       name: "진대감",
       distance: "5",
+      id: 100,
+      favorite: true,
     };
     const restaurantItem = new RestaurantItem();
     restaurantItem.render(restaurant);
@@ -32,16 +34,22 @@ describe("렌더링 테스트", () => {
         category: "일식",
         name: "오또상스시",
         distance: "10",
+        id: 100,
+        favorite: true,
       },
       {
         category: "중식",
         name: "명정루",
         distance: "5",
+        id: 100,
+        favorite: true,
       },
       {
         category: "기타",
         name: "버거킹",
         distance: "5",
+        id: 100,
+        favorite: true,
       },
     ];
 

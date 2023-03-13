@@ -151,8 +151,15 @@ body {
 
 .restaurant__info {
   display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.restaurant__text {
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
 .restaurant__name {
@@ -172,6 +179,25 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.favorite {
+  color: var(--primary-color);
+  font-size: 24px;
+  border: none;
+  background-color: var(--grey-100);
+  display: flex;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.favorite-list {
+  width: 100%;
+}
+
+button.favorite {
+  cursor: pointer;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -295,4 +321,69 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 탭 메뉴 *****************************************/
+.tab-menu-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 30px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.tab-menu {
+  width: 45%;
+  padding: 10px;
+  text-align: center;
+  color: var(--grey-300);
+  cursor: pointer;
+  border-bottom: var(--grey-200) solid 2px;
+}
+
+.tab-menu.active {
+  color: var(--primary-color);
+  border-bottom: var(--primary-color) solid 2px;
+}
+
+.tab-filter.active {
+  display: none;
+}
+
+.tab-item {
+  display: none;
+}
+
+.tab-item.active {
+  display: flex;
+}
+
+/* 음식점 정보 모달 *****************************************/
+.restaurant-detail {
+  display: none;
+}
+
+.detail-modal__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.detail-modal__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.detail-modal__text div:nth-child(n) {
+  margin-bottom: 16px;
+}
+
+.detail-modal__info img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
 }

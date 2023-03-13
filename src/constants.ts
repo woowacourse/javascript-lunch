@@ -11,13 +11,15 @@ export const REGEX = {
   URL: /(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
 };
 
-export const CATEGORY = {
+export const CATEGORY_IMG = {
   한식: "./category-korean.png",
   일식: "./category-japanese.png",
   양식: "./category-western.png",
   중식: "./category-chinese.png",
   아시안: "./category-asian.png",
   기타: "./category-etc.png",
+  filled: "./favorite-icon-filled.png",
+  lined: "./favorite-icon-lined.png",
 };
 
 export const ERROR_MESSAGE = {
@@ -36,6 +38,15 @@ export const CATEGORY_NAME = {
   etc: "기타",
 };
 
+export const CATEGORY_SELECTOR = {
+  korean: "한식",
+  japanese: "일식",
+  western: "양식",
+  chinese: "중식",
+  asian: "아시안",
+  etc: "기타",
+};
+
 export const DISTANCE = {
   five: 5,
   ten: 10,
@@ -44,4 +55,6 @@ export const DISTANCE = {
   thirty: 30,
 };
 
-export const KEY = "전체";
+export const FAVORITE = "자주 가는 음식점";
+
+export const KEY = "restaurants";

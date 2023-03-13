@@ -1,4 +1,4 @@
-import { RestaurantForm } from "../types";
+import { RestaurantForm } from "../global/types";
 
 export const sortByName = (restaurant: RestaurantForm[]) => {
   return restaurant.sort((prev: RestaurantForm, next: RestaurantForm) => {

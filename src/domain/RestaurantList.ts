@@ -1,55 +1,36 @@
-import { getLocalStorage, setLocalStorage } from "../utils/LocalStorage";
-
-import { RestaurantForm, Category } from "../types";
+import { setLocalStorage } from "../utils/LocalStorage";
+import Store from "../Store";
+import { RestaurantForm, Category } from "../global/types";
 import { KEY } from "../constants";
 
 export default class RestaurantList {
-  private formList: RestaurantForm[] = [];
-
-  constructor() {
-    this.init();
+  private store: Store;
+  constructor(store: Store) {
+    this.store = store;
   }
-
-  get listRestaurant(): RestaurantForm[] {
-    return this.formList;
-  }
-
-  init() {
-    const parsedRestaurants = getLocalStorage(KEY);
-    if (parsedRestaurants.length !== 0)
-      parsedRestaurants.forEach((restaurant: RestaurantForm) => {
-        this.formList = [...this.formList, restaurant];
-      });
-  }
-
   add(restaurantInfo: RestaurantForm) {
-    this.formList = [...this.formList, restaurantInfo];
-    this.filterAll();
-    this.categoryFilter(restaurantInfo.category);
-  }
-
-  filterAll() {
-    const restaurantString = JSON.stringify(this.formList.map((info) => info));
+    this.store.appendRestaurantList([restaurantInfo]);
+    const restaurantString = JSON.stringify(
+      this.store.getRestaurantList().map((info) => info)
+    );
     setLocalStorage(KEY, restaurantString);
+    this.categoryFilter(restaurantInfo.category);
   }
 
   categoryFilter(category: Category) {
     if (category === "전체") {
-      this.filterAll();
-      return;
+      return this.store.getRestaurantList();
     }
 
-    const filteredList: RestaurantForm[] = this.formList.reduce(
-      (arr: RestaurantForm[], curInfo: RestaurantForm) => {
+    const filteredList: RestaurantForm[] = this.store
+      .getRestaurantList()
+      .reduce((arr: RestaurantForm[], curInfo) => {
         if (curInfo.category === category) {
           arr.push(curInfo);
         }
         return arr;
-      },
-      []
-    );
+      }, []);
 
-    setLocalStorage(category, JSON.stringify(filteredList));
     return filteredList;
   }
 }

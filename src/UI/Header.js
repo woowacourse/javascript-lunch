@@ -9,15 +9,15 @@ export default class Header {
     `;
 
   constructor() {
-    const header = $(".gnb") as HTMLElement;
+    const header = $(".gnb");
     header.insertAdjacentHTML("beforeend", this.#template);
-    const openModalButton = $(".gnb__button") as HTMLElement;
+    const openModalButton = $(".gnb__button");
     openModalButton.addEventListener("click", this.openModal);
   }
 
   openModal() {
-    const modal = $(".modal--open") as HTMLElement;
-    const category = $("#category") as HTMLElement;
+    const modal = $(".modal--open");
+    const category = $("#category");
     modal.style.display = "block";
     category.focus();
   }

@@ -7,7 +7,7 @@ export default class RestaurantContainer {
     `;
 
   constructor() {
-    const listContainer = $(".restaurant-list-container") as HTMLElement;
+    const listContainer = $(".restaurant-list-container");
     listContainer.insertAdjacentHTML("beforeend", this.#template);
   }
 }
