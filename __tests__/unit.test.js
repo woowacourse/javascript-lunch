@@ -1,82 +1,56 @@
-/**
- * @jest-environment jsdom
- */
+import Restaurants from '../src/domain/models/Restaurants';
 
-import '@testing-library/jest-dom';
-import RestaurantList from '../src/components/main/restaurant/RestaurantList';
+describe('도메인 로직 테스트', () => {
+  const initialRestaurants = [
+    {
+      id: '1',
+      name: '가',
+      category: '한식',
+      takeMinute: 30,
+      favorite: false,
+    },
+    {
+      id: '2',
+      name: '하',
+      category: '일식',
+      takeMinute: 5,
+      favorite: false,
+    },
+    {
+      id: '3',
+      name: '자',
+      category: '일식',
+      takeMinute: 15,
+      favorite: true,
+    },
+  ];
 
-describe('RestaurantList 정렬 테스트', () => {
-  beforeEach(() => {
-    document.body.innerHTML = '';
-  });
+  test.each([
+    [initialRestaurants, '전체', 'name', ['1', '3', '2']],
+    [initialRestaurants, '전체', 'takeMinute', ['2', '3', '1']],
+    [initialRestaurants, '한식', 'name', ['1']],
+    [initialRestaurants, '일식', 'name', ['3', '2']],
+    [initialRestaurants, '일식', 'takeMinute', ['2', '3']],
+    [initialRestaurants, '아시아', 'name', []],
+  ])(
+    `음식점이 %o, 카테고리가 %s, 정렬기준이 %s 일 때, 필터링 된 음식점 id 결과는 %p 이다.`,
+    (restaurants, category, sorting, expectedIdList) => {
+      const resultIdList = new Restaurants(restaurants)
+        .getFiltered(category, sorting)
+        .map((restaurant) => restaurant.id);
 
-  test('이름 순 정렬 테스트', () => {
-    const currentCategory = '전체';
-    const currentSortBy = 'name';
-    const restaurants = [
-      {
-        category: '한식',
-        name: '농민백암순대',
-        distance: 15,
-        description: '선릉에서 제일 유명한 국밥집',
-        link: '',
-      },
-      {
-        category: '양식',
-        name: '버거킹',
-        distance: 10,
-        description: '햄버거 하면 버거킹',
-        link: '',
-      },
-      {
-        category: '양식',
-        name: '맥도날드',
-        distance: 5,
-        description: '햄버거 하면 두번째는 맥도날드',
-        link: '',
-      },
-    ];
+      expect(resultIdList).toEqual(expectedIdList);
+    }
+  );
 
-    new RestaurantList(document.body, { currentCategory, currentSortBy, restaurants }).render();
+  test.each([[initialRestaurants, ['3']]])(
+    `음식점이 %o 일 때, 좋아하는 음식점 id 결과는 %p 이다.`,
+    (restaurants, expectedIdList) => {
+      const resultIdList = new Restaurants(restaurants)
+        .getFavorite()
+        .map((restaurant) => restaurant.id);
 
-    const restaurantList = document.querySelectorAll('.restaurant');
-    expect(restaurantList[0]).toHaveTextContent('농민백암순대');
-    expect(restaurantList[1]).toHaveTextContent('맥도날드');
-    expect(restaurantList[2]).toHaveTextContent('버거킹');
-  });
-
-  test('거리 순 정렬 테스트', () => {
-    const currentCategory = '전체';
-    const currentSortBy = 'distance';
-    const restaurants = [
-      {
-        category: '한식',
-        name: '농민백암순대',
-        distance: 15,
-        description: '선릉에서 제일 유명한 국밥집',
-        link: '',
-      },
-      {
-        category: '양식',
-        name: '버거킹',
-        distance: 10,
-        description: '햄버거 하면 버거킹',
-        link: '',
-      },
-      {
-        category: '양식',
-        name: '맥도날드',
-        distance: 5,
-        description: '햄버거 하면 두번째는 맥도날드',
-        link: '',
-      },
-    ];
-
-    new RestaurantList(document.body, { currentCategory, currentSortBy, restaurants }).render();
-
-    const restaurantList = document.querySelectorAll('.restaurant');
-    expect(restaurantList[0]).toHaveTextContent('맥도날드');
-    expect(restaurantList[1]).toHaveTextContent('버거킹');
-    expect(restaurantList[2]).toHaveTextContent('농민백암순대');
-  });
+      expect(resultIdList).toEqual(expectedIdList);
+    }
+  );
 });

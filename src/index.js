@@ -1,4 +1,4 @@
-import './css/index.css';
+import './css/style.css';
 import '../image/add-button.png';
 import '../image/category-asian.png';
 import '../image/category-chinese.png';
@@ -6,9 +6,8 @@ import '../image/category-etc.png';
 import '../image/category-western.png';
 import '../image/category-korean.png';
 import '../image/category-japanese.png';
-import App from './components/App';
+import App from './App';
 
-const fragment = document.createDocumentFragment();
-
-new App(fragment).render();
-document.getElementById('root')?.append(fragment);
+const app = new App(document.querySelector('#root'));
+app.initRender();
+app.addEvents();
