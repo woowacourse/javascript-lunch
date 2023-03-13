@@ -11,8 +11,8 @@ class Bookmark {
     return `
     <button class="restaurant__bookmark">${
       this.restaurant.bookmark
-        ? "<img src='./favorite-icon-filled.png'>"
-        : "<img src='./favorite-icon-lined.png'>"
+        ? `<img src='./favorite-icon-filled.png'>`
+        : `<img src='./favorite-icon-lined.png'>`
     }</button>
     `;
   }
