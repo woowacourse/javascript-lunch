@@ -46,16 +46,12 @@ class RestaurantInfoComponent extends CustomElement {
         );
       });
 
-    if (this.shadowRoot.querySelector(".favorite-icon")) {
-      this.shadowRoot
-        .querySelector(".favorite-icon")
-        .addEventListener("click", () => {
-          dispatcher(
-            RESTAURANT_ACTION.HANDLE_FAVORITE,
-            this.getAttribute("id")
-          );
-          RestaurantInstance.publish();
-        });
+    const favoriteIcon = this.shadowRoot.querySelector(".favorite-icon");
+    if (favoriteIcon) {
+      favoriteIcon.addEventListener("click", () => {
+        dispatcher(RESTAURANT_ACTION.HANDLE_FAVORITE, this.getAttribute("id"));
+        RestaurantInstance.publish();
+      });
     }
   }
 
@@ -75,20 +71,23 @@ class RestaurantInfoComponent extends CustomElement {
       this.shadowRoot
         .querySelector(".category-icon")
         .setAttribute("src", CATEGORY_IMG[this.state.restaurant.category]);
+
       this.shadowRoot
         .querySelector(".favorite-icon")
         .setAttribute("src", FAVORITE_IMG[this.state.isFavorite]);
+
       this.shadowRoot.querySelector("#title").innerHTML =
         this.state.restaurant.name;
+
       this.shadowRoot.querySelector("#distance").innerHTML =
         "캠퍼스로부터 " + this.state.restaurant.distance + "분 내";
+
       this.shadowRoot.querySelector("#description").innerHTML =
         this.state.restaurant.description;
-      this.shadowRoot.querySelector("#link").innerHTML =
-        this.state.restaurant.link;
-      this.shadowRoot
-        .querySelector("#link")
-        .setAttribute("href", this.state.restaurant.link);
+
+      const $link = this.shadowRoot.querySelector("#link");
+      $link.innerHTML = this.state.restaurant.link;
+      $link.setAttribute("href", this.state.restaurant.link);
     }
   }
 
