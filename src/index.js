@@ -95,10 +95,7 @@ DocumentEventBus.subscribe("validateCategory", categoryAlert.eventCallback.bind(
 DocumentEventBus.subscribe("validateName", nameAlert.eventCallback.bind(nameAlert));
 DocumentEventBus.subscribe("validateDistance", distanceAlert.eventCallback.bind(distanceAlert));
 DocumentEventBus.subscribe("validateLink", linkAlert.eventCallback.bind(linkAlert));
-DocumentEventBus.subscribe("validateCategory", submitAlert.eventCallback.bind(submitAlert));
-DocumentEventBus.subscribe("validateName", submitAlert.eventCallback.bind(submitAlert));
-DocumentEventBus.subscribe("validateDistance", submitAlert.eventCallback.bind(submitAlert));
-DocumentEventBus.subscribe("validateLink", submitAlert.eventCallback.bind(submitAlert));
+DocumentEventBus.subscribe("inputFail", submitAlert.eventCallback.bind(submitAlert));
 
 DocumentEventBus.subscribe("restaurantSubmit", restaurantList.newRestaurantEventCallback.bind(restaurantList));
 DocumentEventBus.subscribe("deleteRestaurant", restaurantList.deleteCallback.bind(restaurantList));

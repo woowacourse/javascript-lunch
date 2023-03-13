@@ -10,7 +10,8 @@ const attachSubmitCallback = (modal: RestaurantInputModal) => {
   
     try {
       RestaurantValidator.checkAll(restaurant);
-    } catch (e) {
+    } catch {
+      modal.element.dispatchEvent(new CustomEvent("inputFail", { bubbles: true, detail: { message: "입력값을 다시 확인해 주세요!!" }}));
       return;
     }
   
