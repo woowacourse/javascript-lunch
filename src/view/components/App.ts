@@ -44,7 +44,6 @@ function App() {
     if (e.target instanceof HTMLElement) {
       const id = Number(e.target.id);
       setInfo(handleClickName(id));
-      console.log(id);
       openDetail();
     }
   });
