@@ -13,7 +13,7 @@ ul.tabbar-selector li {
   font-weight: 700;
   width: 50%;
   color: var(--grey-300);
-  padding: 15px 15px;
+  padding: 15px;
   cursor: pointer;
   border-bottom: 2px solid var(--grey-200);
   text-align: center;
