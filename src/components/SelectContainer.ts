@@ -1,7 +1,6 @@
-import { SelectFilterType } from "./../types/type";
+import type { SelectFilterType, RerenderListType } from "./../types/type";
 import { OptionValue, RestaurantSelect } from "../utils/Constants";
 import { Constants } from "../utils/Constants";
-import { RerenderListType } from "../types/type";
 import Select from "../components/common/Select";
 import { $ } from "../utils/Dom";
 

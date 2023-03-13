@@ -1,4 +1,4 @@
-import { Restaurant } from "../types/type";
+import type { Restaurant } from "../types/type";
 import { $ } from "../utils/Dom";
 import RestaurantItem from "../components/common/RestaurantItem";
 import restaurantListHandler from "../domain/restaurantListHandler";

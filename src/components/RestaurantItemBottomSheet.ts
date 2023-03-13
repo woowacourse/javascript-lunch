@@ -1,7 +1,7 @@
 import restaurantListHandler from "../domain/restaurantListHandler";
 import { categoryToSrc } from "../utils/convertor";
 import { $ } from "../utils/Dom";
-import { Category, Restaurant } from "./../types/type";
+import type { Category, Restaurant } from "./../types/type";
 import Bookmark from "./common/Bookmark";
 
 class RestaurantItemBottomSheet {

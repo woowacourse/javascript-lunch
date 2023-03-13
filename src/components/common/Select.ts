@@ -1,6 +1,10 @@
-import { SelectFilterType } from "./../../types/type";
-import { Category, Sort } from "../../types/type";
-import { Attribute, RerenderListType } from "../../types/type";
+import type {
+  SelectFilterType,
+  Category,
+  Sort,
+  Attribute,
+  RerenderListType,
+} from "./../../types/type";
 import { $ } from "../../utils/Dom";
 
 class Select {

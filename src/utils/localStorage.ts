@@ -1,4 +1,4 @@
-import { Restaurant } from "../types/type";
+import type { Restaurant } from "../types/type";
 
 export const getSavedData = (key: string) =>
   JSON.parse(<string>localStorage.getItem(key)) || [];

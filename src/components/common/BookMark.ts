@@ -1,4 +1,4 @@
-import { Restaurant } from "../../types/type";
+import type { Restaurant } from "../../types/type";
 
 class Bookmark {
   restaurant: Restaurant;

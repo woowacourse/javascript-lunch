@@ -1,6 +1,6 @@
 import { validateUrl } from "../utils/validate";
 import { OptionValue, RestaurantSelect } from "../utils/Constants";
-import { Restaurant } from "../types/type";
+import type { Restaurant } from "../types/type";
 import { $ } from "../utils/Dom";
 import Select from "../components/common/Select";
 

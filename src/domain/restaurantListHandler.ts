@@ -1,5 +1,5 @@
 import { Constants } from "../utils/Constants";
-import { Restaurant } from "../types/type";
+import type { Restaurant } from "../types/type";
 import { getSavedData, saveData } from "../utils/localStorage";
 
 class RestaurantListHandler {

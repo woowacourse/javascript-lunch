@@ -1,4 +1,4 @@
-import { Category, Restaurant } from "../../types/type";
+import type { Category, Restaurant } from "../../types/type";
 import { categoryToSrc } from "../../utils/convertor";
 import Bookmark from "./Bookmark";
 
