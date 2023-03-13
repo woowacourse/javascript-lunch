@@ -2,7 +2,7 @@
 import "../style.css";
 
 // components
-import "./components/common/HeaderComponent";
+import "./components/header/HeaderComponent";
 import "./components/menu/MenuContainer";
 import "./components/restaurant/RestaurantsContainer";
 import "./components/modal/ModalComponent";
