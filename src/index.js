@@ -33,12 +33,10 @@ const addModal = new AddModal($main, restaurants, restaurantsList);
 header.setEvent(addModal.render.bind(addModal));
 
 tabbar.setEvent(
-  restaurantsList.render.bind(restaurantsList),
-  restaurantsList.renderFavoriteRestaurant.bind(restaurantsList),
+  restaurantsList.renderSortedList.bind(restaurantsList),
+  restaurantsList.renderFavoriteItem.bind(restaurantsList),
   restaurantFilter.openFilter.bind(restaurantFilter),
   restaurantFilter.closeFilter.bind(restaurantFilter)
 );
 
-restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
-
-// restaurantsList.setEvent(restaurants.setFavoriteState.bind(restaurants));
+restaurantFilter.setEvent(restaurantsList.renderSortedList.bind(restaurantsList));
