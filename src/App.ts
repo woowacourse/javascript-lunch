@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import RestaurantFormBottomSheet from "./components/RestaurantFormBottomSheet";
 import RestaurantList from "./components/RestaurantList";
 import restaurantListHandler from "./domain/restaurantListHandler";
-import { Restaurant } from "./types/type";
+import type { Restaurant } from "./types/type";
 import NavigatorContainer from "./components/NavigatorContainer";
 import { $$, showOrHide } from "./utils/Dom";
 import RestaurantItemBottomSheet from "./components/RestaurantItemBottomSheet";
@@ -95,12 +95,8 @@ class App {
     itemSheet.initialize(this.rerenderList);
   };
 
-  deleteRestaurantItem = (id: string) => {
-    this.restaurantList = restaurantListHandler.setDeleteItem(
-      id,
-      this.restaurantList
-    );
-
+  deleteRestaurantItem = (id: string): void => {
+    restaurantListHandler.setDeleteItem(id, this.restaurantList);
     this.rerenderList();
   };
 

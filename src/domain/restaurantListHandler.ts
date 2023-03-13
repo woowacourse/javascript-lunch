@@ -46,8 +46,6 @@ class RestaurantListHandler {
     );
 
     saveData(Constants.RESTAURANT_LIST, this.restaurants);
-
-    return this.restaurants;
   }
 
   toggleBookmark(id: string) {
