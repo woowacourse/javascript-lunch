@@ -16,7 +16,7 @@ export default class DetailModal extends Component {
   }
 
   subscribe() {
-    eventBus.subscribe('@click-detail', (restaurant) => {
+    eventBus.subscribe('@close-detail-modal', (restaurant) => {
       const { id } = restaurant;
       this.#id = id;
       this.render(restaurantStore.getItemById(id)).setEvent();

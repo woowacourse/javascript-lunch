@@ -18,7 +18,7 @@ class TopNavBar extends Component {
       target: btnElement,
       eventName: 'click',
       handler: () => {
-        eventBus.dispatch('@modal-click');
+        eventBus.dispatch('@click-add-modal');
       },
     });
 

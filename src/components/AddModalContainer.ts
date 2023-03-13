@@ -22,7 +22,7 @@ class AddModalContainer extends Component {
   }
 
   subscribe() {
-    eventBus.subscribe('@modal-click', () => {
+    eventBus.subscribe('@click-add-modal', () => {
       this.render().setEvent();
     });
 

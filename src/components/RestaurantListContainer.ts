@@ -94,7 +94,7 @@ class RestaurantListContainer extends Component {
   }
 
   handleClickBody(id: number): void {
-    eventBus.dispatch('@click-detail', id, restaurantStore.getItemById);
+    eventBus.dispatch('@close-detail-modal', id, restaurantStore.getItemById);
   }
 
   isClickFavorite(element: HTMLElement): boolean {
