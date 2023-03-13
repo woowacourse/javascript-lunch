@@ -1,15 +1,11 @@
 import './restaurantItem.css';
 import { Restaurant } from '../domain/Restaurant';
-import { appendModal, showModal } from '../modal';
+import { clearedModalContainer, showModal } from '../modal';
 import { categoryImageSource } from '../utils/imageSource';
 import RestaurantInfo from './RestaurantInfo';
-import { IMethods } from '../App';
 import { store } from '../store';
 
-export default function RestaurantItem(
-  restaurant: Restaurant,
-  methods: IMethods
-) {
+export default function RestaurantItem(restaurant: Restaurant) {
   const { category, distance, name, description, isFavorite } =
     restaurant.getRestaurantInfo();
 
@@ -22,15 +18,19 @@ export default function RestaurantItem(
     const type = e.target.dataset['type'];
 
     if (type === undefined) {
+      const $container = clearedModalContainer();
+      if (!$container || !($container instanceof HTMLElement)) return;
+
       showModal();
-      appendModal(RestaurantInfo(restaurant, methods));
+      $container.insertAdjacentElement('beforeend', RestaurantInfo(restaurant));
+
       return;
     }
 
     if (type === 'favoriteButton') {
       toggleFavoriteFilled(e.target, restaurant);
       store.updateLocalStorage();
-      methods.renderListArticle();
+      store.renderListArticle();
     }
   };
 

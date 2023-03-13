@@ -26,7 +26,7 @@ export default class Tabs {
     $targetElement.insertAdjacentHTML('beforeend', this.template());
   }
 
-  addTabEventListener(renderListArticle: ($element: HTMLElement) => void) {
+  addTabEventListener() {
     if (this.$tab === null) return;
 
     this.$tab.addEventListener('click', (event) => {
@@ -52,7 +52,7 @@ export default class Tabs {
 
       store.currentTab = category;
 
-      renderListArticle(store.$listArticle);
+      store.renderListArticle();
     });
   }
 }

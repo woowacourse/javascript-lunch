@@ -1,25 +1,15 @@
-import { IMethods } from '../App';
 import { store } from '../store';
 import RestaurantItem from './RestaurantItem';
-
-interface IRestaurantList {
-  methods: IMethods;
-}
 
 export default class RestaurantList {
   $restaurantListSection = document.createElement('section');
   $ul = document.createElement('section');
 
-  state: IRestaurantList;
-
-  constructor($root: HTMLElement, methods: IMethods) {
+  constructor() {
     this.$restaurantListSection.className = 'restaurant-list-container';
     this.$ul.className = 'restaurant-list';
-    this.state = {
-      methods,
-    };
 
-    this.render($root);
+    this.render(store.$listArticle);
   }
 
   template() {
@@ -31,10 +21,7 @@ export default class RestaurantList {
       return;
     }
     for (const restaurant of store.currentList) {
-      this.$ul.insertAdjacentElement(
-        'beforeend',
-        RestaurantItem(restaurant, this.state.methods)
-      );
+      this.$ul.insertAdjacentElement('beforeend', RestaurantItem(restaurant));
     }
   }
 

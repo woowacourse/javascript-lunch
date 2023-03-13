@@ -3,13 +3,9 @@ import { Restaurant } from '../domain/Restaurant';
 import { closeModal } from '../modal';
 import { categoryImageSource } from '../utils/imageSource';
 import { toggleFavoriteFilled } from './RestaurantItem';
-import { IMethods } from '../App';
 import { store } from '../store';
 
-export default function RestaurantInfo(
-  restaurant: Restaurant,
-  methods: IMethods
-) {
+export default function RestaurantInfo(restaurant: Restaurant) {
   const $infoContainer = document.createElement('div');
   $infoContainer.className = 'info-container';
   const { id, category, distance, name, description, link, isFavorite } =
@@ -21,13 +17,13 @@ export default function RestaurantInfo(
 
     if (type === 'close') {
       store.updateLocalStorage();
-      methods.renderListArticle();
+      store.renderListArticle();
       closeModal();
     }
 
     if (type === 'delete') {
       store.deleteRestaurantInfo(id);
-      methods.renderListArticle();
+      store.renderListArticle();
       closeModal();
     }
     if (type === 'favoriteButton') toggleFavoriteFilled(e.target, restaurant);

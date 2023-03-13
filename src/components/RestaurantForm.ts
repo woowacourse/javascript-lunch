@@ -9,12 +9,12 @@ import { store } from '../store';
 export default class RestaurantForm {
   $formContainer = document.createElement('div');
 
-  constructor(renderListArticle: ($ele: HTMLElement) => void) {
+  constructor() {
     this.$formContainer.addEventListener('click', (e) => {
       if (!(e.target instanceof HTMLElement)) return;
       const { type } = e.target.dataset;
 
-      if (type === 'submit') this.handleFormSubmit(e, renderListArticle);
+      if (type === 'submit') this.handleFormSubmit(e);
       if (type === 'cancel') this.handleFormCancel();
     });
   }
@@ -23,10 +23,7 @@ export default class RestaurantForm {
     closeModal();
   };
 
-  handleFormSubmit = (
-    event: Event,
-    renderListArticle: ($ele: HTMLElement) => void
-  ) => {
+  handleFormSubmit = (event: Event) => {
     event.preventDefault();
     const { target, currentTarget } = event;
 
@@ -37,7 +34,7 @@ export default class RestaurantForm {
     const restaurantInfo = this.getFormDatas($form);
 
     store.addRestaurantInfo(restaurantInfo);
-    renderListArticle(store.$listArticle as HTMLElement);
+    store.renderListArticle(); // 여기서 currentTab에 따라 render를 다르게 해줌.
 
     $form.reset();
 

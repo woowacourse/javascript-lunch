@@ -7,13 +7,10 @@ import { store } from '../store';
 export default class Filters {
   $filterSection = document.createElement('section');
 
-  constructor(
-    $root: HTMLElement,
-    renderAllList: ($targetElement: HTMLElement) => void
-  ) {
+  constructor() {
     this.$filterSection.className = 'restaurant-filter-container';
 
-    this.render($root);
+    this.render(store.$listArticle);
     this.$filterSection.addEventListener('change', (e: Event) => {
       if (!(e.target instanceof HTMLSelectElement)) return;
 
@@ -30,10 +27,10 @@ export default class Filters {
           return;
       }
 
-      renderAllList($root);
+      store.renderListArticle();
     });
 
-    $root.appendChild(this.$filterSection);
+    store.$listArticle.appendChild(this.$filterSection);
   }
 
   render = ($targetElement: HTMLElement) => {

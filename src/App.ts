@@ -1,6 +1,7 @@
 import Filters from './components/Filters';
 import Header from './components/Header';
 import RestaurantForm from './components/RestaurantForm';
+import RestaurantInfo from './components/RestaurantInfo';
 import RestaurantList from './components/RestaurantList';
 import Tabs from './components/Tabs';
 import { clearedModalContainer, showModal } from './modal';
@@ -21,24 +22,24 @@ export default class App {
   constructor() {
     this.header = new Header();
     this.tabs = new Tabs();
-    this.restaurantForm = new RestaurantForm(this.renderListArticle.bind(this));
-    this.filters = new Filters(
-      this.$listArticle,
-      this.renderAllList.bind(this)
-    );
-    this.restaurantList = new RestaurantList(this.$listArticle, {
-      renderListArticle: this.renderListArticle.bind(this),
+    this.restaurantForm = new RestaurantForm();
+    this.filters = new Filters();
+    this.restaurantList = new RestaurantList();
+
+    store.setRestaurantListAndFilters({
+      filters: this.filters,
+      restaurantList: this.restaurantList,
     });
 
     store.currentList = store.restaurantService.getRestaurantsInfo();
 
-    this.renderListArticle(this.$listArticle);
+    store.renderListArticle();
     this.initialAddEventListener();
   }
 
   initialAddEventListener() {
-    this.header.addHeaderEventListener(this.headerButtonHandler);
-    this.tabs.addTabEventListener(this.renderListArticle.bind(this));
+    this.header.addHeaderEventListener(this.headerButtonHandler.bind(this));
+    this.tabs.addTabEventListener();
   }
 
   headerButtonHandler(event: MouseEvent) {
@@ -52,32 +53,10 @@ export default class App {
     this.restaurantForm.render($container);
   }
 
-  renderListArticle($targetElement: HTMLElement) {
-    $targetElement.innerHTML = '';
-    const { currentTab } = store;
-
-    switch (currentTab) {
-      case 'all':
-        this.renderAllList($targetElement);
-        break;
-      case 'favorite':
-        this.renderFavoriteList($targetElement);
-        break;
-      default:
-        return;
-    }
-  }
-
   renderAllList($targetElement: HTMLElement) {
     const { filters, restaurantList } = this;
-    const { currentCategory, currentFilter } = store;
 
-    const filteredAndSortedList =
-      store.restaurantService.getFilteredAndSortedList(
-        currentCategory,
-        currentFilter
-      );
-    store.currentList = filteredAndSortedList;
+    store.currentList = store.getCurrentFilteredAndSortedList();
 
     filters.render($targetElement);
     restaurantList.render($targetElement); // 이 filter와 render를 참조해야 하는데 이게 쉽지 않음;;
