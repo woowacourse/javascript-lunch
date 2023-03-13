@@ -17,10 +17,10 @@ type OptionElement = {
 const optionTemplate = ({ values, selectedIndex, disabledIndex }: OptionElement) => {
   return values
     .map(
-      (value, idx) =>
-        `<option value="${value[0]}" ${disabledIndex === idx ? 'disabled' : ''} ${
+      ([value, text], idx) =>
+        `<option value="${value}" ${disabledIndex === idx ? 'disabled' : ''} ${
           selectedIndex === idx ? 'selected' : ''
-        }>${value[1]}</option>`
+        }>${text}</option>`
     )
     .join('');
 };
