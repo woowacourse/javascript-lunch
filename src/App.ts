@@ -4,7 +4,7 @@ import RestaurantListSection from './components/RestaurantListSection';
 import { Restaurant } from './type/Restaurant';
 import { FilterCategory, RestaurantList, SortCondition } from './domain/RestaurantList';
 import RestaurantAddModal from './components/RestaurantAddModal';
-import { RestaurantLocalStorage } from './domain/RestaurantLocalStorage';
+import { RestaurantStorage } from './domain/RestaurantStorage';
 import RestaurantDetailModal from './components/RestaurantDetailModal';
 import { Component } from './type/Component';
 
@@ -22,7 +22,7 @@ class App implements Component {
   constructor(parent: HTMLElement) {
     this.$target = document.createElement('main');
     parent.insertAdjacentElement('beforeend', this.$target);
-    this.restaurantList = new RestaurantList(RestaurantLocalStorage.loadList('restaurantList'));
+    this.restaurantList = new RestaurantList(RestaurantStorage.loadList('restaurantList'));
     this.components = {
       header: new Header(parent),
       filterBar: new RestaurantFilterBar(this.$target),
@@ -110,7 +110,7 @@ class App implements Component {
 
   addRestaurant(restaruant: Restaurant) {
     this.restaurantList.add(restaruant);
-    RestaurantLocalStorage.saveList(
+    RestaurantStorage.saveList(
       'restaurantList',
       this.getRestaurantList({ category: '전체', sortCondition: '이름' }),
     );
@@ -120,7 +120,7 @@ class App implements Component {
 
   deleteRestaurant(name: string) {
     this.restaurantList.delete(name);
-    RestaurantLocalStorage.saveList(
+    RestaurantStorage.saveList(
       'restaurantList',
       this.getRestaurantList({ category: '전체', sortCondition: '이름' }),
     );
@@ -130,7 +130,7 @@ class App implements Component {
 
   toggleIsFavorite(name: string) {
     this.restaurantList.toggleFavorite(name);
-    RestaurantLocalStorage.saveList(
+    RestaurantStorage.saveList(
       'restaurantList',
       this.getRestaurantList({ category: '전체', sortCondition: '이름' }),
     );
