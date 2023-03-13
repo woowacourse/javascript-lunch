@@ -1,10 +1,19 @@
-import { INPUT_MESSAGE } from '@res/constants/messages';
-import Component from '@res/core/Component';
-import { eventBus } from '@res/core/eventBus';
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
-import { restaurantStore } from '@res/model/restaurantStore';
-import { $, on } from '@res/utils/domUtils';
-import { isValidCategory, isValidDistance, isValidName } from '@res/validator/inputValidator';
+import { categorySelectionList, distanceSelectionList } from '../constants/listForSelection';
+import { INPUT_MESSAGE } from '../constants/messages';
+import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import { RestaurantInput } from '../interfaces/RestaurantInput';
+import { restaurantStore } from '../model/restaurantStore';
+import { $, on } from '../utils/domUtils';
+import {
+  isValidCategory,
+  isValidDescription,
+  isValidDistance,
+  isValidLink,
+  isValidName,
+} from '../validator/inputValidator';
+import { buttonTemplate } from './templates/button';
+import { selectTemplate } from './templates/select';
 
 class AddModalContainer extends Component {
   constructor(element: HTMLElement) {
@@ -14,25 +23,57 @@ class AddModalContainer extends Component {
   }
 
   subscribe() {
-    eventBus.subscribe('@modal-click', () => {
+    eventBus.subscribe('@click-add-modal', () => {
       this.render().setEvent();
     });
 
     return this;
   }
 
+  hide(isOn: boolean = true) {
+    if (isOn) this.$target.innerHTML = '';
+
+    return this;
+  }
+
   setEvent() {
-    on($('.submit-restaurant'), 'click', this.handleSubmit.bind(this));
-    on($('.modal-backdrop'), 'click', this.hide.bind(this));
-    on($('.cancel'), 'click', this.hide.bind(this));
+    on({
+      target: $('.restaurant-form'),
+      eventName: 'submit',
+      handler: this.handleSubmit.bind(this),
+    });
+
+    on({
+      target: $('.modal-backdrop'),
+      eventName: 'click',
+      handler: () => {
+        this.hide();
+      },
+    });
+
+    on({
+      target: $('.cancel'),
+      eventName: 'click',
+      handler: () => {
+        this.hide();
+      },
+    });
 
     return this;
   }
 
   handleSubmit(event: Event) {
-    event.preventDefault();
-    const restaurantInput = this.getInput();
+    const $form = event?.target;
+
+    if (!($form instanceof HTMLFormElement)) {
+      return;
+    }
+
+    const restaurantInput = this.getInputs($form);
+
     if (!this.validate(restaurantInput)) {
+      event.preventDefault();
+      this.showValidationMessage(restaurantInput);
       return;
     }
 
@@ -43,32 +84,42 @@ class AddModalContainer extends Component {
     this.hide();
   }
 
-  validate({ category, name, distance }: IRestaurantInput) {
-    if (isValidCategory(category) && isValidName(name) && isValidDistance(distance)) {
-      return true;
-    }
-
+  showValidationMessage({ category, name, distance, description, link }: RestaurantInput): void {
     $('#category-message').style.visibility = isValidCategory(category) ? 'hidden' : 'visible';
 
     $('#name-message').style.visibility = isValidName(name) ? 'hidden' : 'visible';
 
     $('#distance-message').style.visibility = isValidDistance(distance) ? 'hidden' : 'visible';
 
-    return false;
+    $('#description-message').style.visibility = isValidDescription(description)
+      ? 'hidden'
+      : 'visible';
+
+    $('#link-message').style.visibility = isValidLink(link) ? 'hidden' : 'visible';
   }
 
-  updateRestaurant(restaurantInput: IRestaurantInput) {
-    return restaurantStore.addList(restaurantInput).getList();
+  getInputs($form: HTMLFormElement): RestaurantInput {
+    return [...new FormData($form).entries()].reduce(
+      (acc: Partial<RestaurantInput>, [key, value]) => {
+        acc[key as keyof RestaurantInput] = value as string;
+        return acc;
+      },
+      {}
+    ) as RestaurantInput;
   }
 
-  getInput(): IRestaurantInput {
-    return {
-      category: this.getElementValue($('#category-input')).trim(),
-      name: this.getElementValue($('#name-input')).trim(),
-      distance: this.getElementValue($('#distance-input')).trim(),
-      description: this.getElementValue($('#description-input')).trim(),
-      link: this.getElementValue($('#link-input')).trim(),
-    };
+  validate({ category, name, distance, description, link }: RestaurantInput): boolean {
+    return (
+      isValidCategory(category) &&
+      isValidName(name) &&
+      isValidDistance(distance) &&
+      isValidDescription(description) &&
+      isValidLink(link)
+    );
+  }
+
+  updateRestaurant(restaurantInput: RestaurantInput) {
+    return restaurantStore.addList(restaurantInput);
   }
 
   getElementValue(element: HTMLElement): string {
@@ -92,33 +143,38 @@ class AddModalContainer extends Component {
           <form class="restaurant-form" >
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
-              <select name="category" id="category-input" required>
-                <option value="" disabled selected>선택해 주세요</option>
-                <option value="한식">한식</option>
-                <option value="중식">중식</option>
-                <option value="일식">일식</option>
-                <option value="양식">양식</option>
-                <option value="아시안">아시안</option>
-                <option value="기타">기타</option>
-              </select>
-              <p id='category-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.category}<p/>
+              ${selectTemplate(
+                {
+                  values: categorySelectionList,
+                  selectedIndex: 0,
+                  disabledIndex: 0,
+                },
+                { idName: 'category-input', name: 'category' }
+              )}
+              <p id='category-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.category
+              }<p/>
             </div>
             <div class="form-item form-item--required">
             <label for="name text-caption">이름</label>
-            <input type="text" name="name" id="name-input" required />
-              <p id='name-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.name}<p/>
+            <input type="text" name="name" id="name-input"/>
+              <p id='name-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.name
+              }<p/>
             </div>
             <div class="form-item form-item--required">
               <label for="distance text-caption">거리(도보 이동 시간) </label>
-              <select name="distance" id="distance-input" required>
-                <option value="" disabled selected>선택해 주세요</option>
-                <option value="5">5분 내</option>
-                <option value="10">10분 내</option>
-                <option value="15">15분 내</option>
-                <option value="20">20분 내</option>
-                <option value="30">30분 내</option>
-              </select>
-              <p id='distance-message' class='input-error-message' style="visibility:hidden">${INPUT_MESSAGE.distance}<p/>
+              ${selectTemplate(
+                {
+                  values: distanceSelectionList,
+                  selectedIndex: 0,
+                  disabledIndex: 0,
+                },
+                { idName: 'distance-input', name: 'distance' }
+              )}
+              <p id='distance-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.distance
+              }<p/>
             </div>
             <div class="form-item">
               <label for="description text-caption">설명</label>
@@ -128,6 +184,9 @@ class AddModalContainer extends Component {
                 cols="30"
                 rows="5"
               ></textarea>
+              <p id='description-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.description
+              }<p/>
               <span class="help-text text-caption"
                 >메뉴 등 추가 정보를 입력해 주세요.</span
               >
@@ -138,23 +197,23 @@ class AddModalContainer extends Component {
               <span class="help-text text-caption"
                 >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
               >
+              <p id='link-message' class='input-error-message' style="visibility:hidden">${
+                INPUT_MESSAGE.link
+              }<p/>
             </div>
             <div class="button-container">
-              <button
-                type="button"
-                class="button button--secondary text-caption cancel"
-                onClick="this"
-              >
-                취소하기
-              </button>
-              <button class="button button--primary text-caption submit-restaurant">
-                추가하기
-              </button>
+            ${buttonTemplate(
+              { content: '취소하기', type: 'button' },
+              { className: 'button button--secondary text-caption cancel' }
+            )}
+            ${buttonTemplate(
+              { content: '추가하기' },
+              { className: 'button button--primary text-caption submit-restaurant' }
+            )}
             </div>
           </form>
         </div>
       </div>`;
   }
 }
-
 export default AddModalContainer;

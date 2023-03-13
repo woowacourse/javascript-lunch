@@ -12,3 +12,8 @@ export enum Order {
   Name = '이름순',
   Distance = '거리순',
 }
+
+export enum Tab {
+  All = 'all',
+  Favorite = 'favorite',
+}

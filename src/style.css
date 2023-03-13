@@ -52,6 +52,13 @@ body {
   font-weight: 400;
 }
 
+.text-tab {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  color: var(--grey-300);
+}
+
 /* GNB ********************************************/
 .gnb {
   display: flex;
@@ -195,11 +202,17 @@ body {
 }
 
 .modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   position: fixed;
   bottom: 0;
   width: 100%;
 
   padding: 32px 16px;
+
+  max-height: 90%;
+  overflow: auto;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
@@ -300,4 +313,78 @@ input[name='link'] {
 
 .input-error-message {
   color: var(--red);
+}
+
+.restaurant__favorite {
+  margin-left: auto;
+}
+
+/* detail-modal */
+.modal-icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-container .restaurant__description {
+  display: block;
+  padding-top: 8px;
+  text-overflow: unset;
+
+  max-height: 100%;
+  overflow: auto;
+}
+
+.menu-tab-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-tab-bar .tab-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 30px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.tab-container label {
+  display: block;
+
+  border-bottom: var(--grey-300) 2px solid;
+  height: 33px;
+
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.tab-container input[type='radio'] {
+  display: none;
+}
+
+.tab-container input[type='radio']:checked + label {
+  color: var(--primary-color);
+  border-bottom: var(--primary-color) 2px solid;
+}
+
+.delete-modal {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.delete-modal p {
+  margin: auto;
+}
+
+.delete-modal .button {
+  width: 100px;
 }

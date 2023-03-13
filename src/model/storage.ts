@@ -1,14 +1,19 @@
-import IRestaurantInput from '@res/interfaces/IRestaurantInput';
+import { Restaurant } from '../interfaces/RestaurantInput';
 
-export const sampleData: IRestaurantInput[] = [
+export const sampleData: Restaurant[] = [
   {
+    id: 1,
+    favorite: false,
     category: '한식',
     name: '얌샘김밥',
     distance: '5',
-    description: '정말 마이따 마이따!',
+    description:
+      '정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!정말 마이따 마이따!',
     link: 'https://naver.com',
   },
   {
+    id: 2,
+    favorite: true,
     category: '한식',
     name: '고봉김밥',
     distance: '15',
@@ -16,6 +21,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 3,
+    favorite: false,
     category: '한식',
     name: '김치 맛 세상',
     distance: '10',
@@ -23,6 +30,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 4,
+    favorite: false,
     category: '중식',
     name: '중화반점',
     distance: '20',
@@ -30,6 +39,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 5,
+    favorite: false,
     category: '중식',
     name: '홍콩반점',
     distance: '15',
@@ -37,6 +48,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 6,
+    favorite: false,
     category: '중식',
     name: '백종원의 짜장',
     distance: '10',
@@ -44,6 +57,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 7,
+    favorite: false,
     category: '일식',
     name: '초초초초밥',
     distance: '15',
@@ -51,6 +66,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 8,
+    favorite: false,
     category: '일식',
     name: '테레레레 텐동',
     distance: '20',
@@ -58,6 +75,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 9,
+    favorite: true,
     category: '일식',
     name: '마구로루로 동',
     distance: '20',
@@ -65,6 +84,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 10,
+    favorite: false,
     category: '기타',
     name: '팟따이이잇',
     distance: '10',
@@ -72,6 +93,8 @@ export const sampleData: IRestaurantInput[] = [
     link: 'https://naver.com',
   },
   {
+    id: 11,
+    favorite: false,
     category: '아시안',
     name: '베뜨남 딸국수',
     distance: '10',

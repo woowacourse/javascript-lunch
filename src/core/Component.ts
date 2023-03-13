@@ -1,20 +1,22 @@
 export default class Component {
   $target: HTMLElement;
+  #display: string;
 
   constructor(target: HTMLElement) {
     this.$target = target;
+    this.#display = this.$target.style.display;
 
     return this;
   }
 
-  render(): this {
+  render(detail?: any): this {
     this.$target.innerHTML = this.template();
 
     return this;
   }
 
-  hide(): this {
-    this.$target.innerHTML = '';
+  hide(toggle: boolean = true): this {
+    this.$target.style.display = toggle ? 'none' : this.#display;
 
     return this;
   }
@@ -23,7 +25,7 @@ export default class Component {
     return this;
   }
 
-  template() {
+  template(detail?: any) {
     return '';
   }
 }
