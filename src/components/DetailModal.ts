@@ -1,7 +1,7 @@
 import Component from '../core/Component';
 import { eventBus } from '../core/eventBus';
 import { FavoriteImage, ImageByCategory, toggleFavoriteIcon } from '../images/imageByCategory';
-import { IRestaurant } from '../interfaces/IRestaurantInput';
+import { Restaurant } from '../interfaces/RestaurantInput';
 import { restaurantStore } from '../model/restaurantStore';
 import { $, on } from '../utils/domUtils';
 import { buttonTemplate } from './templates/button';
@@ -23,7 +23,7 @@ export default class DetailModal extends Component {
     });
   }
 
-  render(restaurant: IRestaurant) {
+  render(restaurant: Restaurant) {
     this.$target.innerHTML = this.template(restaurant);
 
     return this;
@@ -81,7 +81,7 @@ export default class DetailModal extends Component {
     eventBus.dispatch('@toggle-favorite', this.#id);
   }
 
-  template({ favorite, category, description, name, link, distance }: IRestaurant) {
+  template({ favorite, category, description, name, link, distance }: Restaurant) {
     return `  
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>

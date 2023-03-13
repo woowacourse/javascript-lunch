@@ -1,6 +1,6 @@
 import { Category, Order } from '../constants/enum';
-import IRenderOptions from '../interfaces/IRenderOptions';
-import { IRestaurant, IRestaurantInput } from '../interfaces/IRestaurantInput';
+import RenderOptions from '../interfaces/RenderOptions';
+import { Restaurant, RestaurantInput } from '../interfaces/RestaurantInput';
 import { sampleData } from './storage';
 
 const FAVORITE_DEFAULT = false;
@@ -10,7 +10,7 @@ export const restaurantStore = {
     restaurantStore.setList(sampleData);
   },
 
-  getList({ category, order, tab }: IRenderOptions) {
+  getList({ category, order, tab }: RenderOptions) {
     if (tab === 'favorite') {
       return restaurantStore.getFavoriteList();
     }
@@ -18,7 +18,7 @@ export const restaurantStore = {
     return restaurantStore.getFilteredList(category, order);
   },
 
-  getItemById(id: number): IRestaurant {
+  getItemById(id: number): Restaurant {
     for (const restaurantItem of restaurantStore.fetchList()) {
       if (restaurantItem.id === id) return restaurantItem;
     }
@@ -26,10 +26,10 @@ export const restaurantStore = {
     throw new Error('restaurantStore.getItemById() id값이 존재하지 않습니다.');
   },
 
-  addList(restaurantInput: IRestaurantInput) {
+  addList(restaurantInput: RestaurantInput) {
     const restaurantList = restaurantStore.fetchList();
 
-    const restaurantToAdd: IRestaurant = {
+    const restaurantToAdd: Restaurant = {
       id: restaurantStore.getNewID(restaurantList),
       favorite: FAVORITE_DEFAULT,
       ...restaurantInput,
@@ -46,13 +46,13 @@ export const restaurantStore = {
     restaurantStore.setList(restaurantList);
   },
 
-  setList(restaurantList: IRestaurantInput[]) {
+  setList(restaurantList: RestaurantInput[]) {
     localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
 
     return restaurantStore;
   },
 
-  getNewID(restaurantList: IRestaurant[]): number {
+  getNewID(restaurantList: Restaurant[]): number {
     return (
       restaurantList.reduce((acc, { id }) => {
         return id > acc ? id : acc;
@@ -60,11 +60,11 @@ export const restaurantStore = {
     );
   },
 
-  fetchList(): IRestaurant[] {
+  fetchList(): Restaurant[] {
     return [...JSON.parse(localStorage.getItem('restaurantList') || '[]')];
   },
 
-  getFavoriteList(): IRestaurant[] {
+  getFavoriteList(): Restaurant[] {
     const restaurantList = restaurantStore.fetchList();
     return restaurantList.filter((restaurant) => restaurant.favorite === true);
   },
@@ -75,15 +75,15 @@ export const restaurantStore = {
     return restaurantStore.sortItems(filteredList, order);
   },
 
-  filterItems(restaurantList: IRestaurant[], category: Category): IRestaurant[] {
+  filterItems(restaurantList: Restaurant[], category: Category): Restaurant[] {
     if (category === Category.All) {
       return restaurantList;
     }
 
-    return restaurantList.filter((restaurant: IRestaurant) => restaurant.category === category);
+    return restaurantList.filter((restaurant: Restaurant) => restaurant.category === category);
   },
 
-  sortItems(restaurantList: IRestaurant[], order: Order): IRestaurant[] {
+  sortItems(restaurantList: Restaurant[], order: Order): Restaurant[] {
     if (order === Order.Name) {
       return restaurantList.sort((first, second) => first.name.localeCompare(second.name, 'ko'));
     }

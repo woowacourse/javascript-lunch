@@ -1,5 +1,5 @@
 import { FavoriteImage, ImageByCategory } from '../../images/imageByCategory';
-import { IRestaurant } from '../../interfaces/IRestaurantInput';
+import { Restaurant } from '../../interfaces/RestaurantInput';
 import { iconImageTemplate } from './iconImage';
 
 const descriptionTemplate = (description: string): string => {
@@ -38,7 +38,7 @@ const handleCreateList = ({
   distance,
   description,
   favorite,
-}: IRestaurant): string => {
+}: Restaurant): string => {
   return `
   <li data-id = ${id} class="restaurant">
     <div class="restaurant__category">
@@ -55,7 +55,7 @@ const handleCreateList = ({
   </li>`;
 };
 
-const listTemplate = (restaurantList: IRestaurant[]): string => {
+const listTemplate = (restaurantList: Restaurant[]): string => {
   return restaurantList.map(handleCreateList).join('');
 };
 

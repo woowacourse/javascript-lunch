@@ -1,12 +1,12 @@
 import { Category, Order, Tab } from '../constants/enum';
 import Component from '../core/Component';
 import { eventBus } from '../core/eventBus';
-import IFilterOption from '../interfaces/IFilterOption';
+import FilterOption from '../interfaces/FilterOption';
 import { $, all$, newState, on } from '../utils/domUtils';
 import { selectTemplate } from './templates/select';
 
 class FilterBar extends Component {
-  #filterOption: IFilterOption;
+  #filterOption: FilterOption;
 
   constructor(elem: HTMLElement) {
     super(elem);
@@ -51,7 +51,7 @@ class FilterBar extends Component {
     return this;
   }
 
-  selectFilterOption({ category, order }: IFilterOption): this {
+  selectFilterOption({ category, order }: FilterOption): this {
     all$<HTMLOptionElement>('#category-filter > option').forEach(($option) => {
       if ($option.innerText === category) $option.selected = true;
     });

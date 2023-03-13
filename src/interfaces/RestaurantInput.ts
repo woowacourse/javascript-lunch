@@ -1,4 +1,4 @@
-export interface IRestaurantInput {
+export interface RestaurantInput {
   category: string;
   name: string;
   distance: string;
@@ -6,7 +6,7 @@ export interface IRestaurantInput {
   link: string;
 }
 
-export interface IRestaurant extends IRestaurantInput {
+export interface Restaurant extends RestaurantInput {
   id: number;
   favorite: boolean;
 }

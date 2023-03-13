@@ -1,8 +1,8 @@
 import { Category, Order } from '../constants/enum';
 
-interface IFilterOption {
+interface FilterOption {
   category: Category;
   order: Order;
 }
 
-export default IFilterOption;
+export default FilterOption;

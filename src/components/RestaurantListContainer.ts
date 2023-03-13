@@ -2,16 +2,16 @@ import { Category, Order, Tab } from '../constants/enum';
 import Component from '../core/Component';
 import { eventBus } from '../core/eventBus';
 import { toggleFavoriteIcon } from '../images/imageByCategory';
-import IFilterOption from '../interfaces/IFilterOption';
-import IRenderOptions from '../interfaces/IRenderOptions';
-import { IRestaurant } from '../interfaces/IRestaurantInput';
+import FilterOption from '../interfaces/FilterOption';
+import RenderOptions from '../interfaces/RenderOptions';
+import { Restaurant } from '../interfaces/RestaurantInput';
 import { restaurantStore } from '../model/restaurantStore';
 import { $, all$, newState, on } from '../utils/domUtils';
 import listTemplate from './templates/restaurantListTemplate';
 
 class RestaurantListContainer extends Component {
   #state: {
-    renderOptions: IRenderOptions;
+    renderOptions: RenderOptions;
   };
 
   constructor(elem: HTMLElement) {
@@ -98,7 +98,7 @@ class RestaurantListContainer extends Component {
     this.render();
   }
 
-  handleFilter({ category, order }: IFilterOption): void {
+  handleFilter({ category, order }: FilterOption): void {
     this.#state.renderOptions = { ...this.#state.renderOptions, category, order };
   }
 
@@ -109,7 +109,7 @@ class RestaurantListContainer extends Component {
     return this;
   }
 
-  template(restaurantList: IRestaurant[]): string {
+  template(restaurantList: Restaurant[]): string {
     return `<ul class="restaurant-list">
       ${listTemplate([...restaurantList])}
     </ul>`;

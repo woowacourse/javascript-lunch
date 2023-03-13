@@ -1,7 +1,7 @@
 import { INPUT_MESSAGE } from '../constants/messages';
 import Component from '../core/Component';
 import { eventBus } from '../core/eventBus';
-import { IRestaurantInput } from '../interfaces/IRestaurantInput';
+import { RestaurantInput } from '../interfaces/RestaurantInput';
 import { restaurantStore } from '../model/restaurantStore';
 import { $, on } from '../utils/domUtils';
 import {
@@ -82,17 +82,17 @@ class AddModalContainer extends Component {
     this.hide();
   }
 
-  getInput($form: HTMLFormElement): IRestaurantInput {
+  getInput($form: HTMLFormElement): RestaurantInput {
     return [...new FormData($form).entries()].reduce(
-      (acc: Partial<IRestaurantInput>, [key, value]) => {
-        acc[key as keyof IRestaurantInput] = value as string;
+      (acc: Partial<RestaurantInput>, [key, value]) => {
+        acc[key as keyof RestaurantInput] = value as string;
         return acc;
       },
       {}
-    ) as IRestaurantInput;
+    ) as RestaurantInput;
   }
 
-  validate({ category, name, distance, description, link }: IRestaurantInput) {
+  validate({ category, name, distance, description, link }: RestaurantInput) {
     if (
       isValidCategory(category) &&
       isValidName(name) &&
@@ -118,7 +118,7 @@ class AddModalContainer extends Component {
     return false;
   }
 
-  updateRestaurant(restaurantInput: IRestaurantInput) {
+  updateRestaurant(restaurantInput: RestaurantInput) {
     return restaurantStore.addList(restaurantInput);
   }
 

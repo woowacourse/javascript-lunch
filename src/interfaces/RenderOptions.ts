@@ -1,9 +1,9 @@
 import { Category, Order, Tab } from '../constants/enum';
 
-interface IRenderOptions {
+interface RenderOptions {
   category: Category;
   order: Order;
   tab: Tab;
 }
 
-export default IRenderOptions;
+export default RenderOptions;

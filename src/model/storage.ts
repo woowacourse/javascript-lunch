@@ -1,6 +1,6 @@
-import { IRestaurant } from '../interfaces/IRestaurantInput';
+import { Restaurant } from '../interfaces/RestaurantInput';
 
-export const sampleData: IRestaurant[] = [
+export const sampleData: Restaurant[] = [
   {
     id: 1,
     favorite: false,
