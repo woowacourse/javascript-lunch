@@ -60,9 +60,8 @@ export default class App {
 
   setState(obj) {
     this.state = { ...this.state, ...obj };
-    const key = Object.keys(obj)[0];
 
-    if (key === 'navTab' && obj[key] === '자주 가는 음식점') {
+    if (this.state.navTab === '자주 가는 음식점') {
       $('.restaurant-filter-container').classList.add('hidden');
       return this.renderLikedItems();
     }
