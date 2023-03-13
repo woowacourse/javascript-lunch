@@ -1,4 +1,4 @@
-import SelectInput from "../../component/common/SelectInput";
+import SelectInput from "../../util/SelectInput";
 import { getFoodCategoryMemberList } from "../../type/FoodCategory";
 import { getEstimatedTimeMemberList } from "../../type/EstimatedTime";
 import TEMPLATE from "./template";

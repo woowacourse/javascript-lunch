@@ -20,6 +20,7 @@ const addOptions = (id, valueList, textList) => {
 const SelectInput = {
   create(id, labelText, valueList, textList) {
     const root = document.createElement("div");
+    root.classList.add("select");
 
     root.appendChild(createLabel(id, labelText));
     root.appendChild(addOptions(id, valueList, textList));

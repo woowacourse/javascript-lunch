@@ -4,7 +4,7 @@ import Alert from "./Alert/Alert";
 import { $ } from "./util/querySelector";
 import IMAGE from "./IMAGE";
 import LocalStorage from "./util/LocalStorage";
-import SelectInput from "./component/common/SelectInput";
+import SelectInput from "./util/SelectInput";
 import RestaurantInputModal from "./RestaurantInputModal/RestaurantInputModal";
 import setRestaurantsTemplateToLocalStorage from "./setRestaurantsTemplateToLocalStorage";
 import DocumentEventBus from "./DocumentEventBus/DocumentEventBus";
