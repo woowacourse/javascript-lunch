@@ -7,21 +7,22 @@ import RestaurantItem from "./UI/RestaurantItem";
 import { sortByDistance, sortByName } from "./utils/Sort";
 import { getLocalStorage, setLocalStorage } from "./utils/LocalStorage";
 import { KEY, CATEGORY_NAME, CATEGORY_IMG } from "./constants";
-import { $, $$ } from "./utils/Dom";
+import { $ } from "./utils/Dom";
 import Tab from "./UI/Tab";
 import RestaurantDetail from "./UI/RestaurantDetail";
 import Store from "./Store";
 import { Category, RestaurantForm } from "./global/types";
 
 export class App {
-  private restaurantList = new RestaurantList();
+  private store = new Store();
+  private restaurantList = new RestaurantList(this.store);
   private restaurantItem = new RestaurantItem();
 
   constructor() {
     new Header();
     new FilterBar();
     new RestaurantContainer();
-    new Modal(this.restaurantList);
+    new Modal(this.restaurantList, this.store);
     new Tab();
     this.init();
 
@@ -32,9 +33,9 @@ export class App {
 
   init() {
     const localStorageData = getLocalStorage(KEY);
-    Store.appendRestaurantList(localStorageData);
-    const initialData = Store.getRestaurantList();
-    Store.setFilteredList(CATEGORY_NAME.total);
+    this.store.appendRestaurantList(localStorageData);
+    const initialData = this.store.getRestaurantList();
+    this.store.setFilteredList(CATEGORY_NAME.total);
     if (initialData !== null)
       initialData.forEach((restaurant: RestaurantForm) => {
         this.restaurantItem.render(restaurant, $(".restaurant-list"));
@@ -67,7 +68,7 @@ export class App {
     const list = (event.target as HTMLLIElement).closest(".restaurant__info");
     if (list) {
       const id = list.id;
-      const restaurants = Store.getRestaurantList();
+      const restaurants = this.store.getRestaurantList();
       restaurants.forEach((restaurant: RestaurantForm) => {
         if (restaurant.id !== id) return;
         const modal = new RestaurantDetail(restaurant);
@@ -85,7 +86,7 @@ export class App {
   }
 
   setFavorite(id: string | undefined, event: Event) {
-    const restaurants = Store.getRestaurantList();
+    const restaurants = this.store.getRestaurantList();
     restaurants.forEach((restaurant: RestaurantForm) => {
       if (id && restaurant.id === id) {
         restaurant.favorite = !restaurant.favorite;
@@ -103,10 +104,10 @@ export class App {
   renderFavorite() {
     const restaurantList = $(".restaurant-list") as HTMLLIElement;
     restaurantList.replaceChildren();
-    this.render(Store.getFilteredList(), restaurantList);
+    this.render(this.store.getFilteredList(), restaurantList);
     const favoriteList = $(".favorite-list") as HTMLLIElement;
     favoriteList.replaceChildren();
-    this.render(Store.getFavoriteList(), favoriteList);
+    this.render(this.store.getFavoriteList(), favoriteList);
   }
 
   toggleFavoriteButton(isFavorite: boolean, event: Event) {
@@ -178,33 +179,33 @@ export class App {
   }
 
   setTotalList() {
-    Store.setFilteredList(CATEGORY_NAME.total);
-    return Store.getFilteredList();
+    this.store.setFilteredList(CATEGORY_NAME.total);
+    return this.store.getFilteredList();
   }
 
   setSelectedList(selectedValue: string) {
-    Store.setFilteredList(selectedValue);
-    return Store.getFilteredList();
+    this.store.setFilteredList(selectedValue);
+    return this.store.getFilteredList();
   }
 
   removeItem(modal: RestaurantDetail, restaurantInfo: RestaurantForm) {
     const removeButton = $(".remove-button") as HTMLButtonElement;
     removeButton.addEventListener("click", () => {
-      Store.deleteRestaurantItem(restaurantInfo);
+      this.store.deleteRestaurantItem(restaurantInfo);
       this.setInfoLocalStorage();
       const restaurantList = $(".restaurant-list") as HTMLLIElement;
       const favoriteList = $(".favorite-list") as HTMLLIElement;
       restaurantList.replaceChildren();
       favoriteList.replaceChildren();
-      this.render(Store.getFilteredList(), restaurantList);
-      this.render(Store.getFavoriteList(), favoriteList);
+      this.render(this.store.getFilteredList(), restaurantList);
+      this.render(this.store.getFavoriteList(), favoriteList);
       modal.closeModal();
     });
   }
 
   setInfoLocalStorage() {
     const restaurantString = JSON.stringify(
-      Store.getRestaurantList().map((info) => info)
+      this.store.getRestaurantList().map((info) => info)
     );
     setLocalStorage(KEY, restaurantString);
   }

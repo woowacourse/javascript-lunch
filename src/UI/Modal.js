@@ -7,7 +7,6 @@ import {
   CATEGORY_SELECTOR,
 } from "../constants";
 import Validator from "../Validator";
-import Store from "../Store";
 
 export default class Modal {
   #template = `
@@ -68,7 +67,8 @@ export default class Modal {
       </div>
     `;
 
-  constructor(restaurantList) {
+  constructor(restaurantList, store) {
+    this.store = store;
     this.restaurantList = restaurantList;
     this.init();
   }
@@ -96,7 +96,7 @@ export default class Modal {
 
   validateRestaurantInfo(restaurantInfo) {
     if (this.isInvalidName(restaurantInfo.name)) return true;
-    if (this.isDuplicated(Store.getRestaurantList(), restaurantInfo.name))
+    if (this.isDuplicated(this.store.getRestaurantList(), restaurantInfo.name))
       return true;
     if (this.isInvalidURL(restaurantInfo.link)) return true;
     return false;
