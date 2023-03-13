@@ -11,7 +11,7 @@ class Main {
     this.#restaurant = new RestaurantItem(RESTAURANT_IMAGE, restaurantManager);
     this.#restaurantManager = restaurantManager;
     this.#renderEvent = renderEvent;
-    this.closeModal();
+    this.addEvent();
   }
 
   render(data, selected, sortby, favorite) {
@@ -58,7 +58,7 @@ class Main {
     `;
   }
 
-  closeModal() {
+  addEvent() {
     $('.information-modal--close').addEventListener('click', (e) => {
       const category = $('select#category-filter option:checked').value;
       const sorts = $('select#sorting-filter option:checked').textContent;
@@ -66,45 +66,57 @@ class Main {
       if (e.target.textContent === '닫기') {
         $('.information-modal--open').className = 'information-modal--close';
       } else if (e.target.textContent === '삭제하기') {
-        const removeData = $('#storeName').textContent;
-        this.#restaurantManager.removeRestaurant(removeData);
-        $('.information-modal--open').className = 'information-modal--close';
-        $('.restaurant-list').innerHTML = this.render(
-          this.#restaurantManager.getRestaurantList(),
-          category,
-          sorts,
-          $('.render-selected').textContent === '자주 가는 음식점'
-        );
-        this.closeModal();
+        this.removeRestaurant(category, sorts);
+        this.addEvent();
         this.#renderEvent();
       } else if (e.target.tagName === 'IMG' && e.target.className === 'category-filled') {
-        alert('즐겨찾기가 해제되었습니다.');
-        $('.information-modal--open').className = 'information-modal--close';
-        const removeFavorite = $('#storeName').textContent;
-        this.#restaurantManager.reverseFavorite(removeFavorite);
-        $('.restaurant-list').innerHTML = this.render(
-          this.#restaurantManager.getRestaurantList(),
-          category,
-          sorts,
-          $('.render-selected').textContent === '자주 가는 음식점'
-        );
-        this.closeModal();
+        this.removeFavoriteInModal();
+        this.addEvent();
         this.#renderEvent();
       } else if (e.target.tagName === 'IMG' && e.target.className === 'category-lined') {
-        alert('즐겨찾기가 추가되었습니다.');
-        $('.information-modal--open').className = 'information-modal--close';
-        const removeFavorite = $('#storeName').textContent;
-        this.#restaurantManager.reverseFavorite(removeFavorite);
-        $('.restaurant-list').innerHTML = this.render(
-          this.#restaurantManager.getRestaurantList(),
-          category,
-          sorts,
-          $('.render-selected').textContent === '자주 가는 음식점'
-        );
-        this.closeModal();
+        this.addFavoriteInModal();
+        this.addEvent();
         this.#renderEvent();
       }
     });
+  }
+
+  removeRestaurant(category, sorts) {
+    const removeData = $('#storeName').textContent;
+    this.#restaurantManager.removeRestaurant(removeData);
+    $('.information-modal--open').className = 'information-modal--close';
+    $('.restaurant-list').innerHTML = this.render(
+      this.#restaurantManager.getRestaurantList(),
+      category,
+      sorts,
+      $('.render-selected').textContent === '자주 가는 음식점'
+    );
+  }
+
+  addFavoriteInModal() {
+    alert('즐겨찾기가 추가되었습니다.');
+    $('.information-modal--open').className = 'information-modal--close';
+    const removeFavorite = $('#storeName').textContent;
+    this.#restaurantManager.reverseFavorite(removeFavorite);
+    $('.restaurant-list').innerHTML = this.render(
+      this.#restaurantManager.getRestaurantList(),
+      category,
+      sorts,
+      $('.render-selected').textContent === '자주 가는 음식점'
+    );
+  }
+
+  removeFavoriteInModal() {
+    alert('즐겨찾기가 해제되었습니다.');
+    $('.information-modal--open').className = 'information-modal--close';
+    const removeFavorite = $('#storeName').textContent;
+    this.#restaurantManager.reverseFavorite(removeFavorite);
+    $('.restaurant-list').innerHTML = this.render(
+      this.#restaurantManager.getRestaurantList(),
+      category,
+      sorts,
+      $('.render-selected').textContent === '자주 가는 음식점'
+    );
   }
 }
 

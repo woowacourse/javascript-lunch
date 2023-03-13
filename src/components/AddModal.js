@@ -6,10 +6,10 @@ export default class AddModal {
   #renderEvent;
 
   constructor(restaurantManager, main, renderEvent) {
-    this.#renderEvent = renderEvent;
     this.addEvent();
     this.#restaurantManager = restaurantManager;
     this.#main = main;
+    this.#renderEvent = renderEvent;
   }
 
   addEvent() {
