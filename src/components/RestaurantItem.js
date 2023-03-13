@@ -2,11 +2,9 @@ import { CATEGORY_TO_FILENAME } from '../constants/constants';
 import { $ } from '../utils/common';
 
 class RestaurantItem {
-  constructor($target, restaurant, restaurantInfoRender, listRender, setFavoriteState) {
+  constructor($target, restaurant, callbackFunction) {
     this.$target = $target;
-    this.setFavorite = setFavoriteState;
-    this.listRender = listRender;
-    this.restaurantInfoRender = restaurantInfoRender;
+    this.eventFunction = callbackFunction;
     this.render(restaurant);
   }
 
@@ -41,15 +39,25 @@ class RestaurantItem {
 
   setFavoriteIconEvent(restaurant) {
     $(`#${restaurant.id}`).addEventListener('click', e => {
-      this.setFavorite(e.target.id);
-      this.listRender();
+      this.eventFunction.setFavorite(e.target.id);
+
+      if ($('.current').innerText === '모든 음식점') {
+        this.eventFunction.listRender();
+        return;
+      }
+
+      this.eventFunction.favoriteRender();
     });
   }
 
   setItemEvent(restaurant) {
     $(`#li${restaurant.id}`).addEventListener('click', e => {
       if (e.target.id !== `${restaurant.id}`) {
-        this.restaurantInfoRender(restaurant);
+        this.eventFunction.infoRender(
+          restaurant,
+          this.eventFunction.listRender.bind(this),
+          this.eventFunction.favoriteRender.bind(this)
+        );
       }
     });
   }
