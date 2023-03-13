@@ -1,6 +1,6 @@
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
 import { RestaurantType } from "../type";
-import { $, $$ } from "../util/selector";
+import { $ } from "../util/selector";
 import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
 import { updateRestaurants } from "../domain/filter";
 import { preventScroll } from "../domain/newRestaurantModalController";
@@ -14,7 +14,7 @@ const { RESTAURANT } = LOCAL_STORAGE_KEY;
 // UI
 const renderTemplate = (info: RestaurantType) => {
   return `<div class="modal-backdrop"></div>
-  <div class="modal-container">
+  <div id="${info.name}" class="modal-container">
     <div class="restaurant__category">
       <img src="./category-${CATEGORY_IMAGE[info.category]}.png" alt="${
     info.category
@@ -31,19 +31,21 @@ const renderTemplate = (info: RestaurantType) => {
         class="favorite-icon"
       />
       <p class="restaurant__description text-body">
-      ${info.description}
+        ${info.description}
       </p>
       <p class="restaurant__link text-body">${info.link}</p>
     </div>
+    
+    <!-- 삭제/닫기 버튼 -->
+    <div class="button-container restaurant-info-modal-button">
+      <button type="button" class="button button--secondary text-caption">
+        삭제하기
+      </button>
+      <button class="button button--primary text-caption">닫기</button>
+    </div>
   </div>
   
-  <!-- 삭제/닫기 버튼 -->
-  <div class="button-container restaurant-info-modal-button">
-    <button type="button" class="button button--secondary text-caption">
-      삭제하기
-    </button>
-    <button class="button button--primary text-caption">닫기</button>
-  </div>`;
+  `;
 };
 
 export const renderRestaurantInfoModal = (info: RestaurantType) => {
@@ -54,70 +56,57 @@ export const renderRestaurantInfoModal = (info: RestaurantType) => {
 
 // Domain
 export const initRestaurantInfoModal = () => {
-  controlFavoriteIcon();
-
-  $$(".restaurant").forEach((restaurant) =>
-    executeEventListener(restaurant, {
-      type: "click",
-      listener: (event) => {
-        controlRestaurantInfoModal(event);
-        controlModalFavoriteIcon();
-      },
-    })
-  );
+  executeEventListener($(".restaurant-list-container")!, {
+    type: "click",
+    listener: (event: Event) => {
+      controlRestaurantInfoModal(event).bind(event);
+      controlModalFavoriteIcon();
+      if ((event.target as HTMLElement).className === "favorite-icon") {
+        controlFavoriteIcon();
+      }
+    },
+  });
 };
 
 export const controlRestaurantInfoModal = (event: Event) => {
-  const clickedElement = event.currentTarget as HTMLElement;
-  const clickedRestaurantKey = `${RESTAURANT}${
-    clickedElement.children[1].children[0].textContent as string
-  }`;
-  const clickedRestaurantInfo = localStorage.getItem(clickedRestaurantKey);
   const target = event.target as HTMLImageElement;
+  const clickedRestaurantKey = target.closest(".restaurant")!.id;
+  const clickedRestaurantInfo = localStorage.getItem(clickedRestaurantKey);
 
   if (target.classList.value !== "favorite-icon") {
-    const body = $("body") as HTMLBodyElement;
+    const body = target.closest("body")!;
     body.style.overflow = "hidden";
 
     $("#restaurant-info-modal")?.classList.add("modal--open");
     renderRestaurantInfoModal(JSON.parse(String(clickedRestaurantInfo)));
   }
 
-  closeRestaurantInfoModal();
-  deleteRestaurant();
+  return controlRestaurantInfoModal;
 };
 
-const closeRestaurantInfoModal = () => {
-  const closeButton = [
-    $("#restaurant-info-modal > .modal-backdrop"),
-    $("#restaurant-info-modal .button--secondary"),
-    $("#restaurant-info-modal .button--primary"),
-  ];
+export const closeRestaurantInfoModal = (event: Event) => {
+  const target = event.target as HTMLElement;
+  const isClosing =
+    target.className === "modal-backdrop" ||
+    target.classList.contains("button--primary") ||
+    target.classList.contains("button--secondary");
 
-  closeButton.forEach((button) => {
-    executeEventListener(button!, {
-      type: "click",
-      listener: () => {
-        $("#restaurant-info-modal")?.classList.remove("modal--open");
-        preventScroll();
-        initRestaurantInfoModal();
-      },
-    });
-  });
+  const clickedRestaurantInfoModal = event.currentTarget as HTMLElement;
+
+  if (isClosing) {
+    clickedRestaurantInfoModal?.classList.remove("modal--open");
+    preventScroll();
+  }
 };
 
-const deleteRestaurant = () => {
-  executeEventListener($("#restaurant-info-modal .button--secondary")!, {
-    type: "click",
-    listener: (event) => {
-      const target = event.target as HTMLImageElement;
+export const deleteRestaurant = (target: HTMLElement) => {
+  if (target.classList.contains("button--secondary")) {
+    const restaurantKey = `${RESTAURANT}${
+      target.closest(".modal-container")!.id
+    }`;
 
-      const restaurantKey = target.closest("div")?.previousElementSibling
-        ?.children[1].children[0].textContent as string;
-
-      localStorage.removeItem(`${RESTAURANT}${restaurantKey}`);
-      updateRestaurants();
-      initRestaurantInfoModal();
-    },
-  });
+    localStorage.removeItem(restaurantKey);
+    updateRestaurants();
+    controlFavoriteIcon();
+  }
 };

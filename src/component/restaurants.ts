@@ -1,13 +1,11 @@
 import { RestaurantType } from "../type";
 import { $ } from "../util/selector";
 import { CATEGORY_IMAGE, FAVORITE_IMAGE } from "../constant/imageConstant";
-import { FAVORITE_ALT } from "../constant";
-import { updateRestaurants } from "../domain/filter";
-import { initRestaurantInfoModal } from "./restaurantInfoModal";
-
+import { FAVORITE_ALT, LOCAL_STORAGE_KEY } from "../constant";
+const { RESTAURANT } = LOCAL_STORAGE_KEY;
 // UI
 const renderTemplate = (info: RestaurantType) => {
-  return `<li class="restaurant">
+  return `<li id="${RESTAURANT}${info.name}" class="restaurant">
     <div class="restaurant__category">
       <img
         src="./category-${CATEGORY_IMAGE[info.category]}.png"
@@ -39,10 +37,4 @@ export const renderRestaurants = (restaurantList: RestaurantType[]) => {
   restaurantListElement.innerHTML = `
   <ul class="restaurant-list">${combineAllRestaurants(restaurantList)}</ul>
   `;
-};
-
-// Domain
-export const updateAndInitRestaurants = () => {
-  updateRestaurants();
-  initRestaurantInfoModal();
 };

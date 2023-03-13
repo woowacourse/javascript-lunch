@@ -21,8 +21,13 @@ import { executeEventListener } from "./util/eventListener";
 import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
 import { renderTabButtons } from "./component/restaurantTabButton";
-import { initRestaurantInfoModal } from "./component/restaurantInfoModal";
+import {
+  initRestaurantInfoModal,
+  closeRestaurantInfoModal,
+  deleteRestaurant,
+} from "./component/restaurantInfoModal";
 import { CategoryOptionType, SortType } from "./type";
+import { controlFavoriteIcon } from "./domain/favoriteIconController";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 
@@ -39,6 +44,8 @@ const App = {
     this.controlFilter();
     renderTabButtons();
     initRestaurantInfoModal();
+    controlFavoriteIcon();
+    this.controlModalButtons();
   },
 
   initLocalStorage() {
@@ -70,12 +77,24 @@ const App = {
     });
   },
 
+  controlModalButtons() {
+    executeEventListener($("#restaurant-info-modal")!, {
+      type: "click",
+      listener: (event) => {
+        const target = event.target as HTMLElement;
+        closeRestaurantInfoModal(event);
+        deleteRestaurant(target);
+      },
+    });
+  },
+
   controlFilter() {
     executeEventListener($("#sorting-filter")!, {
       type: "change",
       listener: (event) => {
         saveSelectedOption(SORT, (event.target as HTMLOptionElement).value);
         updateRestaurants();
+        controlFavoriteIcon();
       },
     });
 
@@ -84,6 +103,7 @@ const App = {
       listener: (event) => {
         saveSelectedOption(CATEGORY, (event.target as HTMLOptionElement).value);
         updateRestaurants();
+        controlFavoriteIcon();
       },
     });
   },

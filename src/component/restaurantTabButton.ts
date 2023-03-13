@@ -1,3 +1,4 @@
+import { controlFavoriteIcon } from "../domain/favoriteIconController";
 import { updateRestaurants } from "../domain/filter";
 import { executeEventListener } from "../util/eventListener";
 import { $, $$ } from "../util/selector";
@@ -53,4 +54,5 @@ const changeButtonColor = (event: Event) => {
   }
 
   updateRestaurants();
+  controlFavoriteIcon();
 };

@@ -2,7 +2,6 @@ import { executeEventListener } from "../util/eventListener";
 import { $, $$ } from "../util/selector";
 import { updateRestaurants } from "./filter";
 import { FAVORITE_IMAGE } from "../constant/imageConstant";
-import { updateAndInitRestaurants } from "../component/restaurants";
 import { LOCAL_STORAGE_KEY } from "../constant";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
@@ -12,7 +11,7 @@ export const controlFavoriteIcon = () => {
       type: "click",
       listener: (event) => {
         toggleFavoriteIcon(event);
-        updateAndInitRestaurants();
+        updateRestaurants();
       },
     })
   );
@@ -21,7 +20,7 @@ export const controlFavoriteIcon = () => {
 export const controlModalFavoriteIcon = () => {
   executeEventListener($("#restaurant-info-modal .favorite-icon")!, {
     type: "click",
-    listener: (event: Event) => {
+    listener: (event) => {
       toggleFavoriteIcon(event);
       updateRestaurants();
     },
@@ -30,21 +29,21 @@ export const controlModalFavoriteIcon = () => {
 
 const toggleFavoriteIcon = (event: Event) => {
   const img = event.target as HTMLImageElement;
-  const keyName = img.closest("div")?.children[0].textContent as string;
-  const clickedRestaurantKey = `${RESTAURANT}${keyName}`;
+  const clickedRestaurantKey =
+    img.closest(".restaurant")?.id ??
+    `${RESTAURANT}${img.closest(".modal-container")?.id}`;
   const clickedRestaurantInfo = JSON.parse(
     String(localStorage.getItem(clickedRestaurantKey))
   );
 
-  const isNotFavorite =
-    img.src === `${location.href}favorite-icon-${FAVORITE_IMAGE["none"]}.png`;
+  const isFavorite = clickedRestaurantInfo.favorite === "favorite";
 
-  if (isNotFavorite) {
-    changeFavoriteImage(img, "favorite");
-    clickedRestaurantInfo.favorite = "favorite";
-  } else {
+  if (isFavorite) {
     changeFavoriteImage(img, "none");
     clickedRestaurantInfo.favorite = "none";
+  } else {
+    changeFavoriteImage(img, "favorite");
+    clickedRestaurantInfo.favorite = "favorite";
   }
   changeFavoriteInLocalStorage(clickedRestaurantKey, clickedRestaurantInfo);
 };
