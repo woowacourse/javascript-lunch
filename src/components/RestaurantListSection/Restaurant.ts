@@ -30,9 +30,14 @@ const Restaurant = {
     restaurants.forEach((item) => {
       item?.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
-        const restaurant = RestaurantListItem.getItemByDataId(target.dataset.id as string) as IRestaurant;
-        DetailModal.openModal(restaurant);
-        DetailModal.setEvent(RestaurantListItem);
+        const id = target.dataset.id;
+        if (id) {
+          const restaurant = RestaurantListItem.getItemByDataId(target.dataset.id as string) as IRestaurant;
+          DetailModal.openModal(restaurant);
+          DetailModal.setEvent(RestaurantListItem);
+        } else {
+          alert('올바르지 않은 id 값입니다.');
+        }
       });
     });
   },
