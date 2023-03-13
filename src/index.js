@@ -6,8 +6,8 @@ import Component from './Component.js';
 import Header from './components/Header.js';
 import RestaurantList from './components/RestaurantList.js';
 import AddModal from './components/AddModal.js';
-import Selector from './components/Selector.js';
-import Favorite from './components/Favorite.js';
+import SelectorTap from './components/SelectorTap.js';
+import FavoriteTap from './components/FavoriteTap.js';
 import FavoriteList from './components/FavoriteList.js';
 import DetailModal from './components/DetailModal.js';
 
@@ -16,8 +16,8 @@ class App extends Component {
     super(geid('app'));
 
     new Header(qs('.gnb'));
-    new Favorite(qs('.restaurant-favorite-container'));
-    new Selector(qs('.restaurant-filter-container'));
+    new FavoriteTap(qs('.restaurant-favorite-container'));
+    new SelectorTap(qs('.restaurant-filter-container'));
     new RestaurantList(qs('.restaurant-list'));
     new FavoriteList(qs('.favorite-list'));
     new AddModal(qs('.modal'));
