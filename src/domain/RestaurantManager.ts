@@ -1,3 +1,4 @@
+import { STORE_RESTAURANT } from '../constants/constants';
 import { INIT_RESTAURANT_DATA } from '../constants/initRestaurantData';
 import { Restaurant, SortBy, Category } from '../types/Restaurant.js';
 
@@ -7,9 +8,9 @@ export default class RestaurantManager {
 
   constructor(store: Storage) {
     this.store = store;
-    const restaurantData = this.store.getItem('restaurantList');
+    const restaurantData = this.store.getItem(STORE_RESTAURANT);
     if (restaurantData === null || restaurantData.length === 0) {
-      this.store.setItem('restaurantList', JSON.stringify(INIT_RESTAURANT_DATA));
+      this.store.setItem(STORE_RESTAURANT, JSON.stringify(INIT_RESTAURANT_DATA));
       this.restaurantList = JSON.parse(JSON.stringify(INIT_RESTAURANT_DATA));
     } else {
       this.restaurantList = JSON.parse(restaurantData);
@@ -17,11 +18,13 @@ export default class RestaurantManager {
   }
 
   findRestaurantData(restaurantName: string): Restaurant {
-    return [...this.restaurantList].filter((data) => data.storeName === restaurantName)[0];
+    const resultData = [...this.restaurantList].filter((data) => data.storeName === restaurantName);
+    if (resultData.length !== 0) return resultData[0];
+    return {} as Restaurant;
   }
 
   getRestaurantList(): Restaurant[] {
-    const getData = this.store.getItem('restaurantList');
+    const getData = this.store.getItem(STORE_RESTAURANT);
     if (getData !== null) {
       const newData = JSON.parse(getData);
       return newData;
@@ -30,7 +33,7 @@ export default class RestaurantManager {
   }
 
   refreshData(data: Restaurant[]) {
-    const getData = this.store.getItem('restaurantList');
+    const getData = this.store.getItem(STORE_RESTAURANT);
 
     if (getData !== null) {
       const storageData: Restaurant[] = JSON.parse(getData);
@@ -42,7 +45,7 @@ export default class RestaurantManager {
 
   addRestaurant(restaurant: Restaurant) {
     this.restaurantList.push(restaurant);
-    this.store.setItem('restaurantList', JSON.stringify(this.restaurantList));
+    this.store.setItem(STORE_RESTAURANT, JSON.stringify(this.restaurantList));
   }
 
   filterRestaurantLists(category: Category, sortBy: SortBy) {
@@ -68,7 +71,7 @@ export default class RestaurantManager {
   }
 
   getFavoriteList(): Restaurant[] {
-    const getData = this.store.getItem('restaurantList');
+    const getData = this.store.getItem(STORE_RESTAURANT);
     if (getData !== null) {
       const newData = JSON.parse(getData);
       return newData.filter((data: Restaurant) => data.favorite === true);
@@ -77,7 +80,7 @@ export default class RestaurantManager {
   }
 
   reverseFavorite(storeName: string) {
-    const datas = this.store.getItem('restaurantList');
+    const datas = this.store.getItem(STORE_RESTAURANT);
     let renderData = {};
     if (datas !== null) {
       const changedData = JSON.parse(datas).map((info: Restaurant) => {
@@ -87,7 +90,7 @@ export default class RestaurantManager {
         }
         return info;
       });
-      this.store.setItem('restaurantList', JSON.stringify(changedData));
+      this.store.setItem(STORE_RESTAURANT, JSON.stringify(changedData));
       return renderData;
     }
     return;
@@ -98,6 +101,6 @@ export default class RestaurantManager {
     this.restaurantList = data.filter((data) => {
       if (data.storeName !== storeName) return data;
     });
-    this.store.setItem('restaurantList', JSON.stringify(this.restaurantList));
+    this.store.setItem(STORE_RESTAURANT, JSON.stringify(this.restaurantList));
   }
 }
