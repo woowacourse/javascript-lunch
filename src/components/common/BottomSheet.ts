@@ -11,9 +11,9 @@ class BottomSheet extends Component<IComponentPropState> {
       ${
         isModalOpened
           ? `    <!-- 음식점 추가 모달 -->
-          <div class="modal modal--open">
-            <div class="modal-backdrop"></div>
-            <div class="modal-container">
+          <div class='modal modal--open'>
+            <div class='modal-backdrop'></div>
+            <div class='modal-container'>
               <div class='modal-content'></div>
             </div>
           </div>`
@@ -27,22 +27,23 @@ class BottomSheet extends Component<IComponentPropState> {
     const { bottomSheetType } = this.$props;
 
     if ($target) {
-      if (bottomSheetType === 'addRestaurant') {
-        new AddRestaurantBottomSheet($target, {
-          toggleModal: this.$props.toggleModal,
-          updateRootState: this.$props.updateRootState,
-          restaurantList: this.$props.restaurantList,
-        });
-      }
-
-      if (bottomSheetType === 'restaurantDetail') {
-        new RestaurantDetailBottomSheet($target, {
-          toggleModal: this.$props.toggleModal,
-          updateRootState: this.$props.updateRootState,
-          restaurantList: this.$props.restaurantList,
-          restaurantData: this.$props.bottomSheetData,
-          updateBottomSheetData: this.$props.updateBottomSheetData,
-        });
+      switch (bottomSheetType) {
+        case 'addRestaurant':
+          new AddRestaurantBottomSheet($target, {
+            toggleModal: this.$props.toggleModal,
+            updateRootState: this.$props.updateRootState,
+            restaurantList: this.$props.restaurantList,
+          });
+          break;
+        case 'restaurantDetail':
+          new RestaurantDetailBottomSheet($target, {
+            toggleModal: this.$props.toggleModal,
+            updateRootState: this.$props.updateRootState,
+            restaurantList: this.$props.restaurantList,
+            restaurantData: this.$props.bottomSheetData,
+            updateBottomSheetData: this.$props.updateBottomSheetData,
+          });
+          break;
       }
     }
   }
