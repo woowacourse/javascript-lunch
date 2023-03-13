@@ -84,31 +84,36 @@ export default class App {
   onClickRestaurant(e) {
     const restaurantId = e.target.closest('li').id;
     const restaurants = this.restaurants.getRestaurants();
-    const restaurantIndex = restaurants.findIndex((restaurant) => {
-      return restaurant.id === restaurantId;
-    });
+    const clickedRestaurant = restaurants.find((restaurant) => restaurant.id === restaurantId);
 
     if ([...e.target.classList].includes('favorite-icon')) {
-      return this.onClickStarIcon(restaurants, restaurantId, restaurantIndex);
+      return this.onClickStarIcon(clickedRestaurant);
     }
 
     new RestaurantDetailModal(
-      restaurants[restaurantIndex],
+      clickedRestaurant,
       this.onClickDeleteButton.bind(this),
       this.toggleRestaurantDetailModal
     );
   }
 
-  onClickStarIcon(restaurants, restaurantId, restaurantIndex) {
-    const isLiked = !restaurants[restaurantIndex].liked;
-    restaurants[restaurantIndex].liked = isLiked;
+  onClickStarIcon(clickedRestaurant) {
+    const isLiked = !clickedRestaurant.liked;
+    this.displayFilledStarIconIfLiked(clickedRestaurant.id, isLiked);
 
-    const likeStar = $(`#${restaurantId} .like-star`);
-    isLiked ? likeStar.classList.remove('hidden') : likeStar.classList.add('hidden');
-
-    const updatedRestaurants = this.restaurants.updateRestaurant(restaurantId, isLiked);
+    const updatedRestaurants = this.restaurants.updateRestaurant(clickedRestaurant.id, isLiked);
 
     store.setLocalStorage('lunch_app_restaurants', updatedRestaurants);
+  }
+
+  displayFilledStarIconIfLiked(clickedRestaurantId, isLiked) {
+    const filledStarIcon = $(`#${clickedRestaurantId} .like-star`);
+
+    if (isLiked) {
+      return filledStarIcon.classList.remove('hidden');
+    }
+
+    filledStarIcon.classList.add('hidden');
   }
 
   onSubmitAddRestaurantForm(e) {
