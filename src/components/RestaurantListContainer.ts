@@ -69,8 +69,19 @@ class RestaurantListContainer extends Component {
   }
 
   handleClickRestaurant(event: Event): void {
-    const $eventTarget = event.target as HTMLElement;
-    const id = Number($eventTarget.closest('li')!.dataset.id);
+    const $eventTarget = event.target;
+
+    if (!($eventTarget instanceof HTMLElement)) {
+      return;
+    }
+
+    const $li = $eventTarget.closest('li');
+
+    if ($li === null) {
+      return;
+    }
+
+    const id = Number($li.dataset.id);
 
     this.isClickFavorite($eventTarget)
       ? this.handleClickFavorite($eventTarget, id)
