@@ -1,14 +1,13 @@
-import RestaurantsList from './RestaurantsList';
-
 class RestaurantFilter {
   constructor() {
     this.$target = document.querySelector('main');
+
     this.render();
   }
 
   template() {
     return `
-      <section class="restaurant-filter-container">
+      <section class="restaurant-filter-container filter--open">
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
           <option value="한식">한식</option>
@@ -28,12 +27,20 @@ class RestaurantFilter {
   }
 
   render() {
-    if (!document.querySelector('.restaurant-filter-containe')) {
-      this.$target.insertAdjacentHTML('afterbegin', this.template());
+    if (!document.querySelector('.restaurant-filter-container')) {
+      this.$target.insertAdjacentHTML('beforeend', this.template());
     }
   }
 
-  setEvent(renderRestaurantsList) {
+  openFilter() {
+    document.querySelector('.restaurant-filter-container').classList.add('filter--open');
+  }
+
+  closeFilter() {
+    document.querySelector('.restaurant-filter-container').classList.remove('filter--open');
+  }
+
+  setChangeEvent(renderRestaurantsList) {
     const $filters = document.querySelector('.restaurant-filter-container');
 
     $filters.addEventListener('change', e => {

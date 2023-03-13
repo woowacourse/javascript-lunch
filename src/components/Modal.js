@@ -1,9 +1,11 @@
 class Modal {
   constructor(restaurants) {
     this.restaurants = restaurants;
+
     this.$target = document.querySelector('main');
+
     this.render();
-    this.setModalCloseEvent();
+    this.setCloseEvent();
   }
 
   template() {
@@ -96,7 +98,7 @@ class Modal {
     });
   }
 
-  setModalCloseEvent() {
+  setCloseEvent() {
     const $cancelButton = document.querySelector('.modal .button--secondary');
 
     $cancelButton.addEventListener('click', e => {
@@ -111,7 +113,7 @@ class Modal {
     const name = document.querySelector('#name').value;
     const distance = document.querySelector('#distance').value;
     const description = document.querySelector('#description').value;
-    const link = document.querySelector('#link');
+    const link = document.querySelector('#link').value;
 
     return {
       category: category,

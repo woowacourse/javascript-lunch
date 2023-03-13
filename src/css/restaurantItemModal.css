@@ -1,0 +1,27 @@
+.restaurant-item-modal .text-body,
+.restaurant-item-modal .text-subtitle {
+  margin-top: 16px;
+}
+
+.restaurant-item-modal .favorite-icon {
+  position: absolute;
+
+  right: 16px;
+}
+
+.restaurant-item-modal .restaurant__description {
+  display: block;
+
+  max-height: 380px;
+  overflow-y: auto;
+
+  padding-top: 0;
+}
+
+.restaurant__link {
+  display: block;
+
+  margin: 32px 0;
+
+  color: var(--grey-500);
+}

@@ -3,6 +3,8 @@
 @import './modal.css';
 @import './restaurants_list.css';
 @import './typography.css';
+@import './restaurantItemModal.css';
+@import './favoritesFilter.css';
 
 * {
   padding: 0;

@@ -1,12 +1,11 @@
 import RestaurantItem from './RestaurantItem';
 class RestaurantsList {
-  restaurants;
-  restaurantItems;
-
-  constructor(restaurants) {
+  constructor(restaurants, onClickRestaurantItem) {
+    this.onClickRestaurantItem = onClickRestaurantItem;
     this.restaurants = restaurants;
-    this.restaurantItems = [];
+
     this.$target = document.querySelector('main');
+
     this.render();
   }
 
@@ -23,15 +22,27 @@ class RestaurantsList {
       this.$target.insertAdjacentHTML('beforeend', this.template());
     }
 
+    const restaurantList = this.getRestaurantbyFilterValue();
+    this.makeRestaurantItems(restaurantList);
+  }
+
+  getRestaurantbyFilterValue() {
+    if (document.querySelector('.favorites-filter').getAttribute('value') === 'all') {
+      return this.getRestaurantsByCategoryAndSort();
+    }
+
+    return this.restaurants.getFavoritesRestaurant();
+  }
+
+  getRestaurantsByCategoryAndSort() {
     const $categoryFilter = document.querySelector('#category-filter');
     const $sortTypeFilter = document.querySelector('#sorting-filter');
-
     const category = $categoryFilter.options[$categoryFilter.selectedIndex].value;
     const sortType = $sortTypeFilter.options[$sortTypeFilter.selectedIndex].value;
 
     const restaurants = this.restaurants.getRestaurant(category, sortType);
 
-    this.makeRestaurantItems(restaurants);
+    return restaurants;
   }
 
   makeRestaurantItems(restaurants) {
@@ -39,8 +50,8 @@ class RestaurantsList {
     $restaurantList.replaceChildren();
 
     restaurants.forEach(restaurant => {
-      const restaurantItem = new RestaurantItem(restaurant);
-      this.restaurantItems.push(restaurantItem);
+      const restaurantItem = new RestaurantItem(restaurant, this.restaurants);
+      restaurantItem.setClickItemEvent(this.onClickRestaurantItem);
     });
   }
 }

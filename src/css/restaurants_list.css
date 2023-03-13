@@ -2,11 +2,15 @@
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
-  display: flex;
+  display: none;
   justify-content: space-between;
 
   padding: 0 16px;
   margin-top: 24px;
+}
+
+.filter--open {
+  display: flex;
 }
 
 .restaurant-filter-container select {
@@ -18,10 +22,6 @@
   background: transparent;
 
   font-size: 16px;
-}
-
-.restaurant-filter {
-  padding: 8px;
 }
 
 /* 음식점 목록 */
@@ -36,10 +36,49 @@
 .restaurant {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
 
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+}
+
+.restaurant__category__info {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+
+  width: calc(100% - 32px);
+}
+
+.restaurant__category__info:hover .category-icon {
+  animation-name: jump;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes jump {
+  0% {
+    transform: translate(0, 0px);
+  }
+  10% {
+    transform: translate(0, -10px);
+  }
+  16% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, 0);
+  }
+  31% {
+    transform: translate(0, -10px);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 .restaurant__category {
@@ -55,6 +94,31 @@
 
   border-radius: 50%;
   background: var(--lighten-color);
+
+  cursor: pointer;
+}
+
+.favorite-icon {
+  width: 30px;
+  cursor: pointer;
+}
+
+.favorite-icon:hover {
+  animation-name: pulse;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .category-icon {
@@ -66,6 +130,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  width: 90%;
+  cursor: pointer;
 }
 
 .restaurant__name {
@@ -78,9 +145,9 @@
 
 .restaurant__description {
   display: -webkit-box;
-
   padding-top: 8px;
 
+  word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
