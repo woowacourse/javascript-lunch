@@ -1,3 +1,4 @@
+import { categorySelectionList, distanceSelectionList } from '../constants/listForSelection';
 import { INPUT_MESSAGE } from '../constants/messages';
 import Component from '../core/Component';
 import { eventBus } from '../core/eventBus';
@@ -144,15 +145,7 @@ class AddModalContainer extends Component {
               <label for="category text-caption">카테고리</label>
               ${selectTemplate(
                 {
-                  values: [
-                    ['', '선택해 주세요'],
-                    ['한식', '한식'],
-                    ['중식', '중식'],
-                    ['일식', '일식'],
-                    ['양식', '양식'],
-                    ['아시안', '아시안'],
-                    ['기타', '기타'],
-                  ],
+                  values: categorySelectionList,
                   selectedIndex: 0,
                   disabledIndex: 0,
                 },
@@ -173,14 +166,7 @@ class AddModalContainer extends Component {
               <label for="distance text-caption">거리(도보 이동 시간) </label>
               ${selectTemplate(
                 {
-                  values: [
-                    ['', '선택해 주세요'],
-                    ['5', '5분 내'],
-                    ['10', '10분 내'],
-                    ['15', '15분 내'],
-                    ['20', '20분 내'],
-                    ['30', '30분 내'],
-                  ],
+                  values: distanceSelectionList,
                   selectedIndex: 0,
                   disabledIndex: 0,
                 },

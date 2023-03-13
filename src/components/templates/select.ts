@@ -6,7 +6,7 @@ type ElementIdentifier = {
   name?: string;
 };
 
-type elementValue = [value: string, content: string];
+export type elementValue = [value: string, content: string];
 
 type OptionElement = {
   values: elementValue[];

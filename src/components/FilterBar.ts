@@ -1,4 +1,5 @@
 import { Category, Order, Tab } from '../constants/enum';
+import { categorySelectionsList, orderSelectionsList } from '../constants/listForSelection';
 import Component from '../core/Component';
 import { eventBus } from '../core/eventBus';
 import FilterOption from '../interfaces/FilterOption';
@@ -67,15 +68,7 @@ class FilterBar extends Component {
     return `
     ${selectTemplate(
       {
-        values: [
-          [Category.All, Category.All],
-          [Category.Korean, Category.Korean],
-          [Category.Chinese, Category.Chinese],
-          [Category.Japanese, Category.Japanese],
-          [Category.Western, Category.Western],
-          [Category.Asian, Category.Asian],
-          [Category.Etc, Category.Etc],
-        ],
+        values: categorySelectionsList,
         selectedIndex: 0,
       },
       { idName: 'category-filter', name: 'category', className: 'restaurant-filter' }
@@ -83,10 +76,7 @@ class FilterBar extends Component {
 
     ${selectTemplate(
       {
-        values: [
-          [Order.Name, Order.Name],
-          [Order.Distance, Order.Distance],
-        ],
+        values: orderSelectionsList,
         selectedIndex: 0,
       },
       { idName: 'sorting-filter', name: 'sorting', className: 'restaurant-filter' }
