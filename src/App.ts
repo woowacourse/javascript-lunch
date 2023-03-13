@@ -1,4 +1,4 @@
-import { Constants, OptionValue } from "./utils/Constants";
+import { Constants, OptionValue, Selector } from "./utils/Constants";
 import Header from "./components/Header";
 import RestaurantFormBottomSheet from "./components/RestaurantFormBottomSheet";
 import RestaurantList from "./components/RestaurantList";
@@ -50,16 +50,16 @@ class App {
     this.currentPage = pageName;
 
     if (pageName === Constants.TOTAL) {
-      showOrHide(Constants.SELECT_FILTER_CONTAINER);
+      showOrHide(Selector.SELECT_FILTER_CONTAINER);
       return;
     }
-    showOrHide(Constants.SELECT_FILTER_CONTAINER);
+    showOrHide(Selector.SELECT_FILTER_CONTAINER);
 
     this.rerenderList();
   };
 
   deletePageSection() {
-    $$(Constants.SECTION)?.forEach((section) => {
+    $$(Selector.SECTION)?.forEach((section) => {
       section.remove();
     });
   }

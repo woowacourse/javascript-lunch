@@ -15,11 +15,14 @@ export const OptionValue: Readonly<{ [key: string]: string }> = {
 };
 
 export const Constants: Readonly<{ [key: string]: string }> = {
-  RESTAURANT_LIST: "restaurantList",
   KOREAN: "ko-KR",
+  TOTAL: "total",
+  RESTAURANT_LIST: "restaurantList",
   CATEGORY_FILTER: "category-filter",
   SORTING_FILTER: "sorting-filter",
-  TOTAL: "total",
+};
+
+export const Selector: Readonly<{ [key: string]: string }> = {
   SELECT_FILTER_CONTAINER: ".restaurant-filter-container",
   SECTION: "section",
 };
