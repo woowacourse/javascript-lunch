@@ -1,4 +1,4 @@
-import { FILTER_OPTION_INTERFACE } from '../type';
+import { FILTER_OPTION_INTERFACE, RestaurantType } from '../type/types';
 
 export const FILTER_ID = {
   CATEGORY: 'category-filter',

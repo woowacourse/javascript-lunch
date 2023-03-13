@@ -1,11 +1,32 @@
 import { FILTER_OPTION } from '../constants/filter';
-import { RestaurantType } from '../type';
+import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+import { RestaurantType } from '../type/types';
 import { getListOnLocalStorage } from '../utils/localStorage';
-import RestaurantList from '../components/restaurantList.js';
-import { LOCAL_STORAGE_KEY } from '../constants/values';
 
-export const sortByName = (allRestaurants: RestaurantType[]) => {
-  return allRestaurants.sort((a, b) => {
+const filter = {
+  sortByOption(sortingOption: string) {
+    const restaurantList = getListOnLocalStorage(
+      LOCAL_STORAGE_KEY.RESTAURANT_LIST
+    ) as RestaurantType[];
+
+    if (sortingOption === FILTER_OPTION.NAME) {
+      return sortByName(restaurantList);
+    }
+
+    if (sortingOption === FILTER_OPTION.DISTANCE) {
+      return sortByDistance(restaurantList);
+    }
+
+    if (sortingOption !== FILTER_OPTION.ALL_CATEGORIES) {
+      return sortByCategories(restaurantList, sortingOption);
+    }
+
+    return restaurantList;
+  },
+};
+
+const sortByName = (restaurantList: RestaurantType[]) => {
+  return restaurantList.sort((a, b) => {
     if (a.name > b.name) {
       return 1;
     }
@@ -18,23 +39,17 @@ export const sortByName = (allRestaurants: RestaurantType[]) => {
   });
 };
 
-export const sortByDistance = (allRestaurants: RestaurantType[]) => {
-  return allRestaurants.sort((a, b) => Number(a.distance) - Number(b.distance));
+const sortByDistance = (restaurantList: RestaurantType[]) => {
+  return restaurantList.sort((a, b) => Number(a.distance) - Number(b.distance));
 };
 
-export const filterCategory = (selectedCategory: string) => {
-  const restaurantList = getListOnLocalStorage(
-    LOCAL_STORAGE_KEY
-  ) as RestaurantType[];
-  const restaurantListComponent = new RestaurantList();
-
-  if (selectedCategory === FILTER_OPTION.ALL_CATEGORIES) {
-    return restaurantListComponent.render(restaurantList);
-  }
-
-  const filteredList = restaurantList.filter(
-    restaurant => restaurant.category === selectedCategory
+const sortByCategories = (
+  restaurantList: RestaurantType[],
+  sortingOption: string
+): RestaurantType[] => {
+  return restaurantList.filter(
+    restaurant => restaurant.category === sortingOption
   );
-
-  restaurantListComponent.render(filteredList);
 };
+
+export default filter;

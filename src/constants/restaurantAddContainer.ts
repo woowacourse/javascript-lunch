@@ -36,4 +36,6 @@ export const DISTANCE_LIST = [
 export const BUTTON_TEXT = {
   CANCEL: '취소하기',
   ADDITION: '추가하기',
+  DELETE: '삭제하기',
+  CLOSE: '닫기',
 };

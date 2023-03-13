@@ -1,36 +1,51 @@
-import { $inBody } from '../utils/selector';
+import '../../css/filter.css';
+import { $ } from '../utils/selector';
 
 class Select {
-  #props = {
+  #state = {
+    selector: '',
     id: '',
     name: '',
     class: '',
     optionList: [],
   };
 
-  constructor(props) {
-    this.#props = props;
+  constructor(state) {
+    this.#state = state;
   }
 
-  render(selector) {
-    $inBody(selector).insertAdjacentHTML('beforeend', this.#template());
+  render() {
+    $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
+    this.show();
+  }
+
+  show() {
+    $(this.#state.selector).classList.add('restaurant-filter-container--open');
+  }
+
+  hide() {
+    $(this.#state.selector).classList.remove(
+      'restaurant-filter-container--open'
+    );
   }
 
   #template() {
+    /* html */
     return `
-			<label
-				for="${this.#props.id}"
-			/>
-			<select
-				name="${this.#props.name}"
-				id="${this.#props.id}"
-				class="${this.#props.class}">
-				${this.#props.optionList
-          .map(
-            option => `<option value="${option.value}">${option.text}</option>`
-          )
-          .join('')}
-			</select>
+				<label
+					for="${this.#state.id}"
+				/>
+				<select
+					name="${this.#state.name}"
+					id="${this.#state.id}"
+					class="${this.#state.class}">
+					${this.#state.optionList
+            .map(
+              option =>
+                `<option value="${option.value}">${option.text}</option>`
+            )
+            .join('')}
+				</select>
 		`;
   }
 }

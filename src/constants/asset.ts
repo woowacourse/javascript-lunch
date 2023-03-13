@@ -1,4 +1,4 @@
-import { CATEGORY_IMAGES_INTERFACE } from '../type';
+import { CATEGORY_IMAGES_INTERFACE } from '../type/types';
 
 export const CATEGORY_IMAGES: CATEGORY_IMAGES_INTERFACE = {
   한식: 'korean',

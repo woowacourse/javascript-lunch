@@ -1,0 +1,56 @@
+nav {
+  height: 64px;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.text-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 90%;
+  width: 100%;
+}
+
+.bar-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 10%;
+  width: 100%;
+}
+
+.nav-button {
+  width: 47%;
+
+  border: none;
+  cursor: pointer;
+}
+
+.text-button {
+  height: 32px;
+  background: transparent;
+
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--grey-300);
+}
+
+.bar-button {
+  border: 1px solid var(--grey-200);
+}
+
+.selected-text {
+  color: var(--primary-color);
+}
+
+.selected-bar {
+  border: 1px solid var(--primary-color);
+}
