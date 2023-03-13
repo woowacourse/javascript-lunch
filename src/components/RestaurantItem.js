@@ -52,7 +52,8 @@ export default class RestaurantItem {
         const renderData = this.#restaurantManager.findRestaurantData(restaurantName);
         const modal = $('.information-modal--close');
         modal.innerHTML = this.#informationModal.render(renderData);
-        modal.className = 'information-modal--open';
+        modal.classList.add('information-modal--open');
+        modal.classList.remove('information-modal--close');
       }
     });
   }
