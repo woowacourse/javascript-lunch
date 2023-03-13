@@ -62,6 +62,10 @@ export class Restaurant implements IRestaurant {
   toggleOften() {
     this.info.isOften = !this.info.isOften;
   }
+
+  toJSON() {
+    return this.info;
+  }
 }
 
 export class LunchRecommendation implements ILunchRecommendation {
@@ -78,27 +82,18 @@ export class LunchRecommendation implements ILunchRecommendation {
     const isOften = false;
 
     this.origin.push(new Restaurant({ ...restaurantInfo, id, isOften }));
-    updateData(
-      this.origin.map(({ info }) => info),
-      LOCAL_STORAGE_KEY
-    );
+    updateData(this.origin, LOCAL_STORAGE_KEY);
   }
 
   addOften(restaurantId: RestaurantInfo['id']): void {
     const selectedRestaurant = this.origin.find((e) => e.info.id === restaurantId);
     selectedRestaurant!.toggleOften();
-    updateData(
-      this.origin.map(({ info }) => info),
-      LOCAL_STORAGE_KEY
-    );
+    updateData(this.origin, LOCAL_STORAGE_KEY);
   }
 
   delete(restaurantId: RestaurantInfo['id']): Restaurant[] {
     this.origin = this.origin.filter((restaurant) => restaurant.info.id !== restaurantId);
-    updateData(
-      this.origin.map(({ info }) => info),
-      LOCAL_STORAGE_KEY
-    );
+    updateData(this.origin, LOCAL_STORAGE_KEY);
 
     return this.origin;
   }
