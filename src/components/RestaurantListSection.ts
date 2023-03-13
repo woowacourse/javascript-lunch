@@ -28,22 +28,27 @@ class RestaurantListSection implements Component {
   #restaurants: Restaurant[];
 
   constructor(parent: Element, restaurants: Restaurant[]) {
-    parent.insertAdjacentHTML('beforeend', this.template());
-    this.$target = parent.lastElementChild!;
+    this.$target = document.createElement('section');
+    this.$target.classList.add('restaurant-list-container');
+    this.#restaurants = restaurants;
+    parent.insertAdjacentElement('beforeend', this.$target);
+  }
+
+  setRestaurants(restaurants: Restaurant[]) {
     this.#restaurants = restaurants;
   }
 
-  setRestaurants = (restaurants: Restaurant[]) => {
-    this.#restaurants = restaurants;
-  };
-
-  template = () => `
-    <section class="restaurant-list-container">
+  template() {
+    return `
       <ul class="restaurant-list">
-      </ul>
-    </section>`;
+      </ul>`;
+  }
 
-  render = () => {
+  render() {
+    this.$target.insertAdjacentHTML('beforeend', this.template());
+  }
+
+  reRender() {
     this.$target.querySelector('.restaurant-list')?.replaceChildren();
     this.$target
       .querySelector('.restaurant-list')
@@ -51,9 +56,9 @@ class RestaurantListSection implements Component {
         'beforeend',
         this.#restaurants.map((restaurant) => restaurantTemplate(restaurant)).join(''),
       );
-  };
+  }
 
-  setFavoriteButtonHandler = (handler: (name: string) => void) => {
+  setFavoriteButtonHandler(handler: (name: string) => void) {
     Array.from(this.$target.querySelectorAll('.button--favorite')).forEach((button) => {
       button.addEventListener('click', (event) => {
         const parent = (event.target as HTMLButtonElement).closest('.restaurant') as HTMLElement;
@@ -65,9 +70,9 @@ class RestaurantListSection implements Component {
         handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
       });
     });
-  };
+  }
 
-  setRestaurantClickHandler = (handler: (restaurant: Restaurant) => void) => {
+  setRestaurantClickHandler(handler: (restaurant: Restaurant) => void) {
     ['.restaurant__category', '.restaurant__info'].forEach((className) => {
       this.$target.querySelectorAll(className).forEach((element) => {
         element?.addEventListener('click', (event) => {
@@ -81,13 +86,13 @@ class RestaurantListSection implements Component {
         });
       });
     });
-  };
+  }
 
-  private changeFavoriteButtonImage = (image: HTMLImageElement) => {
+  private changeFavoriteButtonImage(image: HTMLImageElement) {
     image.src === FavoriteIconImagePath.DEFALUT
       ? (image.src = FavoriteIconImagePath.ADDED)
       : (image.src = FavoriteIconImagePath.DEFALUT);
-  };
+  }
 }
 
 export default RestaurantListSection;

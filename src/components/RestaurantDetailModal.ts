@@ -1,5 +1,5 @@
 import { CategoryImagePath, FavoriteIconImagePath } from '../data/imagePath';
-import { Component } from '../type/Component';
+import { Modal } from '../type/Component';
 import { Restaurant } from '../type/Restaurant';
 
 const detailTemplate = (restaurant: Restaurant) => `
@@ -29,52 +29,70 @@ const detailTemplate = (restaurant: Restaurant) => `
   </section>
 `;
 
-class RestaurantDetailModal implements Component {
+class RestaurantDetailModal implements Modal {
   $target: Element;
   #restaurant?: Restaurant;
 
-  constructor(parent: HTMLElement) {
-    parent.insertAdjacentHTML('beforeend', this.template());
-    this.$target = parent.lastElementChild!;
+  constructor(parent: Element) {
+    this.$target = document.createElement('div');
+    this.$target.classList.add('modal');
+    parent.insertAdjacentElement('beforeend', this.$target);
   }
 
-  template = () => `
-    <div class="modal">
-      <div class="modal-backdrop"></div>
-      <div class="modal-container"></div>
-    </div>
-  `;
+  template() {
+    return `
+        <div class="modal-backdrop"></div>
+        <div class="modal-container"></div>`;
+  }
 
-  setRestaurant = (restaurant: Restaurant) => {
+  setRestaurant(restaurant: Restaurant) {
     this.#restaurant = restaurant;
-  };
+  }
 
-  render = () => {
+  render() {
+    this.$target.insertAdjacentHTML('beforeend', this.template());
+  }
+
+  reRender(): void {
     this.$target.querySelector('.modal-container')?.replaceChildren();
     this.$target
       .querySelector('.modal-container')
       ?.insertAdjacentHTML('beforeend', detailTemplate(this.#restaurant!));
-  };
+  }
 
-  show = () => {
+  show() {
     this.$target.classList.add('modal--open');
-  };
+  }
 
-  hide = () => {
+  hide() {
     this.$target.classList.remove('modal--open');
-  };
+  }
 
-  setCloseModalHandler = () => {
-    this.$target.querySelector('.button--primary')?.addEventListener('click', this.hide);
-    this.$target.querySelector('.modal-backdrop')?.addEventListener('click', this.hide);
+  setCloseModalHandler() {
+    this.$target.querySelector('.button--primary')?.addEventListener('click', this.hide.bind(this));
+    this.$target.querySelector('.modal-backdrop')?.addEventListener('click', this.hide.bind(this));
 
     document.addEventListener(
       'keydown',
       (event) => (event.key === 'Escape' || event.key === 'Esc') && this.hide(),
     );
-  };
+  }
 
-  setFavoriteButtonHandler = (handler: (name: string) => void) => {
+  setEventHandler(
+    elementName: 'favoriteButton' | 'deleteButton',
+    handler: (name: string) => void,
+  ): void {
+    switch (elementName) {
+      case 'favoriteButton':
+        this.setFavoriteButtonHandler(handler.bind(this));
+        break;
+      case 'deleteButton':
+        this.setDeleteButtonHandler(handler.bind(this));
+        break;
+    }
+  }
+
+  private setFavoriteButtonHandler(handler: (name: string) => void) {
     this.$target.querySelector('.button--favorite')?.addEventListener('click', (event) => {
       const parent = (event.target as HTMLButtonElement).closest(
         '.restaurant-detail-container',
@@ -86,9 +104,9 @@ class RestaurantDetailModal implements Component {
 
       handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
     });
-  };
+  }
 
-  setDeleteButtonHandler = (handler: (name: string) => void) => {
+  private setDeleteButtonHandler(handler: (name: string) => void) {
     this.$target.querySelector('.button--secondary')?.addEventListener('click', (event) => {
       const parent = (event.target as HTMLButtonElement).closest(
         '.restaurant-detail-container',
@@ -97,13 +115,13 @@ class RestaurantDetailModal implements Component {
       handler((parent.querySelector('.restaurant__name') as HTMLElement).innerText);
       this.hide();
     });
-  };
+  }
 
-  private changeFavoriteButtonImage = (image: HTMLImageElement) => {
+  private changeFavoriteButtonImage(image: HTMLImageElement) {
     image.src === FavoriteIconImagePath.DEFALUT
       ? (image.src = FavoriteIconImagePath.ADDED)
       : (image.src = FavoriteIconImagePath.DEFALUT);
-  };
+  }
 }
 
 export default RestaurantDetailModal;
