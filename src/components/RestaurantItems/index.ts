@@ -1,5 +1,4 @@
-import { store } from '../../store';
-import { Restaurant, Restaurants } from '../../types';
+import { Restaurants } from '../../types';
 import RestaurantItem from '../RestaurantItem';
 import $template from './index.html';
 

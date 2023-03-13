@@ -1,5 +1,3 @@
-import store from '../../store';
-import RestaurantItems from '../RestaurantItems';
 import $template from './index.html';
 
 interface Props {

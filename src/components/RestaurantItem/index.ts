@@ -1,7 +1,5 @@
 import { imgSrc } from '../../constants/image';
-import store from '../../store';
-import { Category, Restaurant } from '../../types';
-import FavoriteIcon from '../Icon/FavoriteIcon';
+import { Restaurant } from '../../types';
 import $template from './index.html';
 
 interface Props {

@@ -1,7 +1,5 @@
 import { imgSrc } from '../../constants/image';
-import store from '../../store';
-import { Category, Distance, Restaurant } from '../../types';
-import RestaurantItems from '../RestaurantItems';
+import { Restaurant } from '../../types';
 import $template from './index.html';
 
 interface Props {
@@ -36,9 +34,6 @@ class DetailModal extends HTMLElement {
     const $closeButton = this.querySelector<HTMLButtonElement>('#close-button')!;
     // 닫기
     $closeButton.addEventListener('click', () => {
-      const $restaurantItems = document.querySelector('restaurant-items') as InstanceType<
-        typeof RestaurantItems
-      >;
       onCloseButtonClick();
       this.toggle();
     });

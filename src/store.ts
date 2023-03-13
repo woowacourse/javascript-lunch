@@ -1,6 +1,5 @@
 import db from './db/restaurants';
 import { Restaurant, CategoryFilter, SortFilter, Restaurants } from './types';
-import { v4 as uuid } from 'uuid';
 
 interface Store {
   restaurants: Restaurants;

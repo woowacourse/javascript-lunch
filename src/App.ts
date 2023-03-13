@@ -5,7 +5,6 @@ import AddModal from './components/Modal';
 import RestaurantItems from './components/RestaurantItems';
 import SelectBox from './components/SelectBox';
 import LunchTab from './components/Tab';
-import { imgSrc } from './constants/image';
 import store from './store';
 import { CategoryFilter, Restaurant, Restaurants, SortFilter } from './types';
 
