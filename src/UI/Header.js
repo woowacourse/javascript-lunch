@@ -13,6 +13,7 @@ export default class Header {
   constructor() {}
 
   initializeButtonEvents() {
+    $(".gnb__title").addEventListener("click", ()=>window.location.reload())
     $(".gnb__button").addEventListener("click", this.openModal);
   }
 
