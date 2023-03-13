@@ -3,9 +3,9 @@ import IRestaurantInput from '../interfaces/IRestaurantInput';
 import { IComponentPropState } from '../interfaces/IComponent';
 import preferenceTabs from '../constants/preferenceTabs';
 import FilterBar from './FilterBar';
+import restaurant from './Restaurant';
 import Restaurant from './Restaurant';
 import createWrappersForTarget from '../utils/createWrappersForTarget';
-import restaurant from './Restaurant';
 
 class ListContainer extends Component<IComponentPropState> {
   setup() {
@@ -49,22 +49,47 @@ class ListContainer extends Component<IComponentPropState> {
   `;
   }
 
+  getFilteredRestaurants(
+    restaurantListToShow: Array<IRestaurantInput>,
+    activeTab: 'all' | 'favorites'
+  ): Array<IRestaurantInput> {
+    switch (activeTab) {
+      case 'all':
+        return restaurantListToShow;
+      case 'favorites':
+        return restaurantListToShow.filter(
+          (restaurant: IRestaurantInput) => restaurant.isFavorite
+        );
+    }
+  }
+
+  renderRestaurants(filteredRestaurants: Array<IRestaurantInput>) {
+    filteredRestaurants.forEach(
+      (restaurant: IRestaurantInput, index: number) => {
+        const target = this.$target.querySelector<HTMLElement>(
+          `#restaurant-${index + 1}`
+        )!;
+        new Restaurant(target, {
+          restaurant,
+          originalRestaurantList: this.$props.restaurantList,
+          updateRootState: this.$props.updateRootState,
+          toggleModal: this.$props.toggleModal,
+        });
+      }
+    );
+  }
+
   mounted() {
     const $filterBar = this.$target.querySelector<HTMLElement>(
       '.restaurant-filter-container'
     );
-
     const $tabViewContent =
       this.$target.querySelector<HTMLElement>('.tabview__content')!;
 
-    const { restaurantListToShow } = this.$state;
-
-    const filteredRestaurants =
-      this.$state.activeTab === 'all'
-        ? restaurantListToShow
-        : restaurantListToShow.filter(
-            (restaurant: IRestaurantInput) => restaurant.isFavorite
-          );
+    const filteredRestaurants = this.getFilteredRestaurants(
+      this.$state.restaurantListToShow,
+      this.$state.activeTab
+    );
 
     if ($filterBar) {
       new FilterBar($filterBar, {
@@ -80,21 +105,9 @@ class ListContainer extends Component<IComponentPropState> {
         filteredRestaurants.length,
         'restaurant'
       );
-
-      filteredRestaurants.forEach(
-        (restaurant: IRestaurantInput, index: number) => {
-          const target = this.$target.querySelector<HTMLElement>(
-            `#restaurant-${index + 1}`
-          )!;
-          new Restaurant(target, {
-            restaurant,
-            originalRestaurantList: this.$props.restaurantList,
-            updateRootState: this.$props.updateRootState,
-            toggleModal: this.$props.toggleModal,
-          });
-        }
-      );
     }
+
+    this.renderRestaurants(filteredRestaurants);
   }
 
   setEvent(): void {
