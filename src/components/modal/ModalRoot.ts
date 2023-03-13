@@ -1,3 +1,5 @@
+import "./ModalRoot.style.css";
+
 import ModalContent from "./ModalContent";
 
 class ModalRoot extends HTMLElement {
@@ -27,7 +29,8 @@ class ModalRoot extends HTMLElement {
     if (!(content instanceof ModalContent)) return;
 
     this.appendChild(content);
-    content.bindEvent(this.close);
+    content.setCloseModal(this.close);
+    content.bindEvent();
 
     this.#contentName = contentName;
   }

@@ -18,6 +18,22 @@ class Restaurants {
   add(restaurant: Restaurant) {
     this.#list = [...this.#list, restaurant];
   }
+
+  getTargetRestaurant(targetId: string) {
+    return this.#list.find((restaurant) => restaurant.id === targetId);
+  }
+
+  deleteTargetRestaurant(targetId: string) {
+    this.#list = this.#list.filter((restaurant) => restaurant.id !== targetId);
+  }
+
+  toggleTargetRestaurantFavorite(targetId: string) {
+    this.#list = this.#list.map((restaurant) =>
+      restaurant.id === targetId
+        ? { ...restaurant, isFavorite: !restaurant.isFavorite }
+        : restaurant
+    );
+  }
 }
 
 export default Restaurants;

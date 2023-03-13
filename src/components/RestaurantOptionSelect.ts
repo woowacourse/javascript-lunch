@@ -24,10 +24,10 @@ class RestaurantOptionSelect extends HTMLSelectElement {
     if (!this.isSelectId(id)) return;
 
     this.innerHTML = `
-      ${OPTIONS[id].text
+      ${Object.entries(OPTIONS[id])
         .map(
-          (optionText, index) =>
-            `<option value=${OPTIONS[id].value[index]}>${optionText}</option>`
+          ([optionLabel, optionValue]) =>
+            `<option value=${optionValue}>${optionLabel}</option>`
         )
         .join("")}
     `;

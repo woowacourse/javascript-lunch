@@ -24,12 +24,15 @@ class App {
     return `
       <header is="lunch-header" class="gnb"></header>
       <main>
+        <nav class="restaurant-nav">
+          <ul is="tab-menu" class="restaurant-tab-menu"></ul>
+        </nav>
         <section class="restaurant-filter-container">
           <select is="restaurant-option-select" name="category" id="category-filter" class="restaurant-filter" hasFilterEvent></select>
           <select is="restaurant-option-select" name="sorting" id="sorting-filter" class="restaurant-filter" hasFilterEvent></select>
         </section>
         <section class="restaurant-list-container">
-          <ul is="restaurant-card-list" class="restaurant-list"></ul>
+          <ul is="restaurant-card-list" class="restaurant-list" data-view="all"></ul>
         </section>
         <modal-root class="modal"></modal-root>
       </main>

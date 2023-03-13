@@ -1,0 +1,42 @@
+@import "./base.css";
+@import "./color.css";
+@import "./typography.css";
+
+.restaurant-nav,
+.restaurant-filter-container,
+.restaurant-list-container {
+  padding: 0 16px;
+}
+
+.restaurant-filter-container {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 24px;
+}
+
+.restaurant-filter-container select {
+  height: 44px;
+  min-width: 125px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 16px;
+}
+
+.restaurant-filter {
+  padding: 8px;
+}
+
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
+
+  margin: 16px 0;
+}
+
+.hide {
+  display: none;
+}

@@ -1,1 +1,1 @@
-export const LUNCH_STORAGE_ID = "lunch-restaurants";
+export const LUNCH_STORAGE_ID = "eat-for-lunch";

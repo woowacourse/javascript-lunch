@@ -1,3 +1,5 @@
+import "./RestaurantAddModal.style.css";
+
 import type { Category, Distance, Restaurant } from "../../types/restaurant";
 
 import ModalContent from "./ModalContent";
@@ -61,16 +63,16 @@ class RestaurantAddModal extends ModalContent {
     `;
   }
 
-  bindEvent(closeModal: () => void) {
-    this.querySelector("form")?.addEventListener("submit", (event) => {
-      this.onSubmit(event);
-      closeModal();
-    });
+  bindEvent() {
+    this.querySelector("form")?.addEventListener(
+      "submit",
+      this.onSubmit.bind(this)
+    );
 
-    this.querySelector("#cancel-button")?.addEventListener("click", () => {
-      this.onClickCancelButton;
-      closeModal();
-    });
+    this.querySelector("#cancel-button")?.addEventListener(
+      "click",
+      this.onClickCancelButton.bind(this)
+    );
   }
 
   onSubmit(event: Event) {
@@ -82,10 +84,18 @@ class RestaurantAddModal extends ModalContent {
     const $restaurantCardList =
       document.querySelector<RestaurantCardList>(".restaurant-list");
     $restaurantCardList?.setAttribute("data-length", restaurantState.length());
+
+    if (!this.closeModal) return;
+
+    this.closeModal();
   }
 
-  onClickCancelButton() {
+  onClickCancelButton(): void {
     this.querySelector<HTMLFormElement>("form")?.reset();
+
+    if (!this.closeModal) return;
+
+    this.closeModal();
   }
 
   createRestaurant(): Restaurant {
@@ -99,7 +109,15 @@ class RestaurantAddModal extends ModalContent {
       this.querySelector<HTMLTextAreaElement>("#description")?.value;
     const link = this.querySelector<HTMLInputElement>("#link")?.value;
 
-    return { category, name, distance, description, link };
+    return {
+      id: `${Date.now()}`,
+      category,
+      name,
+      distance,
+      description,
+      link,
+      isFavorite: false,
+    };
   }
 }
 
