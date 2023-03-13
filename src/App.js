@@ -22,7 +22,7 @@ export default class App {
       navTab: '모든 음식점',
     };
 
-    const restaurantsData = store.getLocalStorage();
+    const restaurantsData = store.getLocalStorage('lunch_app_restaurants');
     this.restaurants = new Restaurants(restaurantsData);
 
     new Header(this.onClickAddRestaurantButton.bind(this));
@@ -113,7 +113,7 @@ export default class App {
 
     const updatedRestaurants = this.restaurants.updateRestaurant(restaurantId, isLiked);
 
-    store.setLocalStorage(updatedRestaurants);
+    store.setLocalStorage('lunch_app_restaurants', updatedRestaurants);
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -144,7 +144,7 @@ export default class App {
     };
 
     this.restaurants.addRestaurant(restaurant);
-    store.setLocalStorage(this.restaurants.getRestaurants());
+    store.setLocalStorage('lunch_app_restaurants', this.restaurants.getRestaurants());
 
     this.toggleAddRestaurantModal();
 
@@ -160,7 +160,7 @@ export default class App {
     $(`#${restaurantId}`).remove();
     this.toggleRestaurantDetailModal();
 
-    store.setLocalStorage(restaurants);
+    store.setLocalStorage('lunch_app_restaurants', restaurants);
   }
 
   toggleAddRestaurantModal() {
