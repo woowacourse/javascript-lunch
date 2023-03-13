@@ -11,6 +11,7 @@ import DocumentEventBus from "./DocumentEventBus/DocumentEventBus";
 import RestaurantList from "./RestaurantList/RestaurantList";
 import RestaurantDetailedModal from "./RestaurantDetailedModal/RestaurantDetailedModal";
 import InputSuccessModal from "./InputSuccessModal/InputSuccessModal";
+import ConfirmDeleteModal from "./ConfirmDeleteModal/ConfirmDeleteModal";
 
 const restaurantList = new RestaurantList();
 $("main").appendChild(restaurantList.element);
@@ -90,6 +91,10 @@ $("main").appendChild(restaurantDetailedModal.element);
 const inputSuccessModal = new InputSuccessModal("input-success-modal");
 $("main").appendChild(inputSuccessModal.element);
 
+// 음식점 삭제 확인 모달 생성
+const confirmDeleteModal = new ConfirmDeleteModal("confirm-delete-modal");
+$("main").appendChild(confirmDeleteModal.element);
+
 // 이벤트 구독 관계 설정
 DocumentEventBus.subscribe("validateCategory", categoryAlert.eventCallback.bind(categoryAlert));
 DocumentEventBus.subscribe("validateName", nameAlert.eventCallback.bind(nameAlert));
@@ -98,7 +103,7 @@ DocumentEventBus.subscribe("validateLink", linkAlert.eventCallback.bind(linkAler
 DocumentEventBus.subscribe("inputFail", submitAlert.eventCallback.bind(submitAlert));
 
 DocumentEventBus.subscribe("restaurantSubmit", restaurantList.newRestaurantEventCallback.bind(restaurantList));
-DocumentEventBus.subscribe("deleteRestaurant", restaurantList.deleteCallback.bind(restaurantList));
+DocumentEventBus.subscribe("deleteRestaurantConfirmed", restaurantList.deleteCallback.bind(restaurantList));
 DocumentEventBus.subscribe("favoriteChange", restaurantList.favoriteChangeCallback.bind(restaurantList));
 DocumentEventBus.subscribe("updateList", restaurantList.updateCallback.bind(restaurantList));
 
@@ -109,7 +114,9 @@ DocumentEventBus.subscribe(
 
 DocumentEventBus.subscribe("restaurantSubmit", inputSuccessModal.submitSuccessCallback.bind(inputSuccessModal));
 
-// 새로고침
+DocumentEventBus.subscribe("deleteRestaurant", confirmDeleteModal.openCallback.bind(confirmDeleteModal));
+
+// 새로고침 관련
 window.addEventListener("beforeunload", () => LocalStorage.setItem("restaurants", restaurantList.getList()));
 
 window.onload = () => {
