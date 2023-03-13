@@ -21,18 +21,14 @@ class Select {
     <select name=${this.attribute.name} id=${this.attribute.id} class=${
       this.attribute.className
     } required=${this.attribute.required}>
-    ${this.renderOption()}
-    </select>`;
-  }
-
-  renderOption() {
-    return this.options
+    ${this.options
       .map((option: string, index: number) =>
         index
           ? `<option value='${option}'> ${option} </option>`
           : `<option value=''> ${option}</option>`
       )
-      .join("");
+      .join("")}
+    </select>`;
   }
 
   addEvent(id: SelectFilterType, rerenderList: RerenderListType) {
