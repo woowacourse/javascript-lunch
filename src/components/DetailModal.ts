@@ -8,7 +8,7 @@ import { buttonTemplate } from './templates/button';
 import { iconImageTemplate } from './templates/iconImage';
 
 export default class DetailModal extends Component {
-  #id: number = 0;
+  #id!: number; //Property '#id' has no initializer and is not definitely assigned in the constructor.
   constructor(target: HTMLElement) {
     super(target);
 
