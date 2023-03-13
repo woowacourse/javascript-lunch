@@ -46,15 +46,15 @@ export default class DropDown implements Component<DropDownState> {
     this.addEvent();
   }
 
-  setSelectAttribute(selectedOption: string, target: string) {
+  private setSelectAttribute(selectedOption: string, target: string) {
     return selectedOption === target ? 'selected' : '';
   }
 
-  addEvent() {
+  private addEvent() {
     this.$target?.addEventListener('change', this.state.onChangeHandler);
   }
 
-  render() {
+  public render() {
     this.$target.innerHTML = `
         ${this.state.options
           .map(

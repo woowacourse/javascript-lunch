@@ -24,11 +24,11 @@ export default class TabBar implements Component<TabBarState> {
     $parent.appendChild(this.$target);
   }
 
-  addEvent() {
+  private addEvent() {
     this.$target.addEventListener('click', this.state.onClickTabBar);
   }
 
-  render() {
+  public render() {
     this.$target.innerHTML = `
             <button class='tab-bar-select' data-select='${
               this.state.tabBarSelect === 'all'

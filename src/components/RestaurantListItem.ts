@@ -36,12 +36,12 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
     $parent.append(this.$target);
   }
 
-  setState(newState: RestaurantListItemState) {
+  public setState(newState: RestaurantListItemState) {
     this.state = newState;
     this.render();
   }
 
-  addEvent() {
+  private addEvent() {
     this.$target.addEventListener('click', this.state.onOpenInfoDrawer);
     this.$target.querySelector('.favorite__button')?.addEventListener('click', (e: Event) => {
       e.stopPropagation();
@@ -57,7 +57,7 @@ export default class RestaurantListItem implements Component<RestaurantListItemS
     });
   }
 
-  render() {
+  public render() {
     const { id, category, name, distance, description, isFavorite } = this.state.restaurant;
 
     this.$target.innerHTML = `

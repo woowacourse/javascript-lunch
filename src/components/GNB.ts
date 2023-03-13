@@ -22,13 +22,13 @@ export default class GNB implements Component<GNBState> {
     $parent.append(this.$target);
   }
 
-  addEvent() {
+  private addEvent() {
     this.$target
       .querySelector('button')
       ?.addEventListener('click', this.state.onToggleAddRestaurantDrawer);
   }
 
-  render() {
+  public render() {
     this.$target.innerHTML = `
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">

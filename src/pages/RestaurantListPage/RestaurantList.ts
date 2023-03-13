@@ -50,7 +50,7 @@ export default class RestaurantList implements Component<RestaurantListState> {
     $parent.append(this.$target);
   }
 
-  getTemplate() {
+  public getTemplate() {
     const fragment = document.createDocumentFragment();
 
     this.categorizeRestaurantByOption().forEach((restaurant) => {
@@ -65,23 +65,23 @@ export default class RestaurantList implements Component<RestaurantListState> {
     return fragment;
   }
 
-  render() {
+  public render() {
     this.$target.append(this.getTemplate());
   }
 
-  filterByTabBarSelect(restaurants: Restaurant[]) {
+  private filterByTabBarSelect(restaurants: Restaurant[]) {
     return restaurants.filter((restaurant) =>
       this.state.tabBarSelect === 'favorite' ? restaurant.isFavorite : restaurant
     );
   }
 
-  filterByCategory(restaurants: Restaurant[], category: Category) {
+  private filterByCategory(restaurants: Restaurant[], category: Category) {
     return restaurants.filter(
       (restaurant) => category === DEFAULT_CATEGORY || restaurant.category === category
     );
   }
 
-  filterBySorting(restaurants: Restaurant[], sortBy: SortBy) {
+  private filterBySorting(restaurants: Restaurant[], sortBy: SortBy) {
     const getPivot = (restaurant: Restaurant) =>
       sortBy === 'name' ? restaurant.name : Number(restaurant.distance);
     return restaurants.sort((a, b) => {
@@ -91,7 +91,7 @@ export default class RestaurantList implements Component<RestaurantListState> {
     });
   }
 
-  categorizeRestaurantByOption() {
+  private categorizeRestaurantByOption() {
     return this.filterBySorting(
       this.filterByCategory(this.filterByTabBarSelect(this.state.restaurants), this.state.category),
       this.state.sortBy

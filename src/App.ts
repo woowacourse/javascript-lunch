@@ -26,12 +26,12 @@ export default class App implements Component<AppState> {
     $parent.append(this.$target);
   }
 
-  setState(newState: AppState) {
+  public setState(newState: AppState) {
     this.state = newState;
     this.render();
   }
 
-  render() {
+  public render() {
     this.$target.innerHTML = ``;
     new GNB({
       $parent: this.$target,
@@ -48,7 +48,7 @@ export default class App implements Component<AppState> {
     }
   }
 
-  onToggleAddRestaurantDrawer() {
+  public onToggleAddRestaurantDrawer() {
     this.setState({
       ...this.state,
       isDrawerHide: !this.state.isDrawerHide,

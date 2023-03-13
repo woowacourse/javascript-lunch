@@ -39,12 +39,12 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
     $parent.append(this.$target);
   }
 
-  setState(newState: RestaurantListPageState) {
+  public setState(newState: RestaurantListPageState) {
     this.state = newState;
     this.render();
   }
 
-  render() {
+  public render() {
     this.$target.innerHTML = '';
 
     new TabBar({
@@ -80,12 +80,12 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
     }
   }
 
-  fetchNewRestaurants() {
+  public fetchNewRestaurants() {
     const restaurants = getRestaurants();
     this.setState({ ...this.state, restaurants });
   }
 
-  onChangeDropDown(e: Event) {
+  public onChangeDropDown(e: Event) {
     const $select = e.target as HTMLSelectElement;
     const key = $select.dataset.key as 'category' | 'sortBy';
     this.setState({
@@ -94,7 +94,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
     });
   }
 
-  onClickTabBar(e: Event) {
+  public onClickTabBar(e: Event) {
     const target = e.target as HTMLButtonElement;
     const tabBarSelect = target.dataset.type as TabBarSelect;
 
@@ -104,7 +104,7 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
     });
   }
 
-  onOpenInfoDrawer(e: Event) {
+  public onOpenInfoDrawer(e: Event) {
     const currentTarget = e.currentTarget as HTMLElement;
     const restaurantId = Number(currentTarget.dataset.restaurantId ?? '0');
 
@@ -115,14 +115,14 @@ export default class RestaurantListPage implements Component<RestaurantListPageS
     });
   }
 
-  onToggleOpenDrawer() {
+  public onToggleOpenDrawer() {
     this.setState({
       ...this.state,
       isOpenDrawer: !this.state.isOpenDrawer,
     });
   }
 
-  onDeleteRestaurant() {
+  public onDeleteRestaurant() {
     const restaurants = getRestaurants();
 
     this.setState({

@@ -37,7 +37,7 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
     $parent.append(this.$target);
   }
 
-  addEvent() {
+  private addEvent() {
     this.$target.addEventListener('click', (e: Event) => {
       const target = e.target as HTMLElement;
 
@@ -62,7 +62,7 @@ export default class RestaurantInfoDrawer implements Component<RestaurantInfoDra
     });
   }
 
-  render() {
+  public render() {
     const { category, name, distance, description, link, id, isFavorite } = getRestaurantById(
       this.state.selectId
     );
