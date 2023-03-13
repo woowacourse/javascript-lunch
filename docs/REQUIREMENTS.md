@@ -85,8 +85,8 @@
 
 ### step2 피드백
 
-- [ ] 테스트 케이스 작성할 때 좀 더 명확한 테스트 명으로 작성
-- [ ] aria-label 사용시 필요한 구역에만 사용
-- [ ] type Guard 사용하기
-- [ ] props drilling 문제 해소하기 위해 전역 store 사용하기
-- [ ] 각각의 객체와 변수에 맞는 type 설정하기
+- [x] 테스트 케이스 작성할 때 좀 더 명확한 테스트 명으로 작성
+- [x] aria-label 사용시 필요한 구역에만 사용
+- [x] type Guard 사용하기
+- [x] props drilling 문제 해소하기 위해 전역 store 사용하기
+- [x] 각각의 객체와 변수에 맞는 type 설정하기
