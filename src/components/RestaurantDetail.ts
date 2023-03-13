@@ -17,7 +17,7 @@ class RestaurantDetail extends HTMLElement {
 
   render(restaurant: RestaurantType) {
     this.innerHTML = `
-      <div>
+      <div id="restaurantDetail">
         <div class="icon-container">
           <div class="restaurant__category">
             <img src="${findImage(restaurant.category)}" alt="${

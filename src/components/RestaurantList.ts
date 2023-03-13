@@ -15,7 +15,7 @@ class RestaurantList extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <section class="restaurant-list-container">
+      <section id="restaurantList" class="restaurant-list-container">
         <ul class="restaurant-list">
         ${this.controller
           .getRestaurants()
