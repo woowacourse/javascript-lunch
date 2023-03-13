@@ -8,6 +8,7 @@ import { store } from '../store';
 export default function RestaurantInfo(restaurant: Restaurant) {
   const $infoContainer = document.createElement('div');
   $infoContainer.className = 'info-container';
+
   const { id, category, distance, name, description, link, isFavorite } =
     restaurant.getRestaurantInfo();
 

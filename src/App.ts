@@ -7,12 +7,7 @@ import Tabs from './components/Tabs';
 import { clearedModalContainer, showModal } from './modal';
 import { store } from './store';
 
-export interface IMethods {
-  renderListArticle: ($targetElement: HTMLElement) => void;
-}
-
 export default class App {
-  $listArticle = document.querySelector('#list-article') as HTMLElement;
   header: Header;
   tabs: Tabs;
   restaurantForm: RestaurantForm;
@@ -26,6 +21,9 @@ export default class App {
     this.filters = new Filters();
     this.restaurantList = new RestaurantList();
 
+    const $listArticle = document.querySelector('#list-article') as HTMLElement;
+
+    store.setListArticle($listArticle);
     store.setRestaurantListAndFilters({
       filters: this.filters,
       restaurantList: this.restaurantList,
@@ -39,7 +37,6 @@ export default class App {
 
   initialAddEventListener() {
     this.header.addHeaderEventListener(this.headerButtonHandler.bind(this));
-    this.tabs.addTabEventListener();
   }
 
   headerButtonHandler(event: MouseEvent) {
@@ -51,21 +48,5 @@ export default class App {
 
     showModal();
     this.restaurantForm.render($container);
-  }
-
-  renderAllList($targetElement: HTMLElement) {
-    const { filters, restaurantList } = this;
-
-    store.currentList = store.getCurrentFilteredAndSortedList();
-
-    filters.render($targetElement);
-    restaurantList.render($targetElement); // 이 filter와 render를 참조해야 하는데 이게 쉽지 않음;;
-  }
-
-  renderFavoriteList($targetElement: HTMLElement) {
-    const favoriteNameSorted = store.getFavoriteList();
-    store.currentList = favoriteNameSorted;
-
-    this.restaurantList.render($targetElement);
   }
 }

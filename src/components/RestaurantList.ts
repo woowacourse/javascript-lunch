@@ -6,6 +6,8 @@ export default class RestaurantList {
   $ul = document.createElement('section');
 
   constructor() {
+    if (!store.$listArticle) return;
+
     this.$restaurantListSection.className = 'restaurant-list-container';
     this.$ul.className = 'restaurant-list';
 

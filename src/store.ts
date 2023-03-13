@@ -6,7 +6,7 @@ import { CategoryOptions, FilterOptions, TabType } from './types/type';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
 
 interface IStore {
-  $listArticle: HTMLElement;
+  $listArticle?: HTMLElement;
   restaurantList?: RestaurantList;
   filters?: Filters;
   currentTab: TabType;
@@ -14,6 +14,7 @@ interface IStore {
   currentFilter: FilterOptions;
   currentList: Restaurant[];
   restaurantService: RestaurantService;
+  setListArticle: ($listArticle: HTMLElement) => void;
   setRestaurantListAndFilters: (props: ISetListAndFilter) => void;
   getFavoriteList: () => Restaurant[];
   addRestaurantInfo: (restaurantInfo: IRestaurant) => void;
@@ -39,12 +40,20 @@ const getInitialRestaurantList = () => {
 };
 
 export const store: IStore = {
-  $listArticle: document.querySelector('#list-article') as HTMLElement,
   restaurantService: new RestaurantService(getInitialRestaurantList()),
   currentTab: 'all',
   currentCategory: '전체',
   currentFilter: '이름순',
   currentList: [],
+
+  setRestaurantListAndFilters({ restaurantList, filters }: ISetListAndFilter) {
+    this.restaurantList = restaurantList;
+    this.filters = filters;
+  },
+
+  setListArticle($listArticle: HTMLElement) {
+    this.$listArticle = $listArticle;
+  },
 
   getFavoriteList() {
     const favorites = store.restaurantService.getFilterdFavoriteList();
@@ -87,6 +96,8 @@ export const store: IStore = {
   },
 
   renderListArticle() {
+    if (!this.$listArticle) return;
+
     this.$listArticle.innerHTML = '';
     const { currentTab } = store;
 
@@ -103,10 +114,5 @@ export const store: IStore = {
       default:
         return;
     }
-  },
-
-  setRestaurantListAndFilters({ restaurantList, filters }: ISetListAndFilter) {
-    this.restaurantList = restaurantList;
-    this.filters = filters;
   },
 };
