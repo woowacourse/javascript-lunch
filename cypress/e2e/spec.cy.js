@@ -88,7 +88,7 @@ describe("음식점 추가 모달 기능 테스트", () => {
 
     cy.get(".submit-button").click();
 
-    cy.get(".modal-container").should("be.visible");
+    cy.get("form").should("be.visible");
     cy.contains("한식집3").should("not.exist");
   });
 });
