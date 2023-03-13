@@ -373,3 +373,18 @@ input[name='link'] {
   color: var(--primary-color);
   border-bottom: var(--primary-color) 2px solid;
 }
+
+.delete-modal {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.delete-modal p {
+  margin: auto;
+}
+
+.delete-modal .button {
+  width: 50px;
+}
