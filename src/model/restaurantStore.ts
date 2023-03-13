@@ -1,4 +1,4 @@
-import { Category, Order } from '../constants/enum';
+import { Category, Order, Tab } from '../constants/enum';
 import RenderOptions from '../interfaces/RenderOptions';
 import { Restaurant, RestaurantInput } from '../interfaces/RestaurantInput';
 import { sampleData } from './storage';
@@ -11,7 +11,7 @@ export const restaurantStore = {
   },
 
   getList({ category, order, tab }: RenderOptions) {
-    if (tab === 'favorite') {
+    if (tab === Tab.Favorite) {
       return restaurantStore.getFavoriteList();
     }
 

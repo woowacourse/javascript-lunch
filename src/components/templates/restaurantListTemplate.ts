@@ -1,3 +1,4 @@
+import { Tab } from '../../constants/enum';
 import { FavoriteImage, ImageByCategory } from '../../images/imageByCategory';
 import { Restaurant } from '../../interfaces/RestaurantInput';
 import { iconImageTemplate } from './iconImage';
@@ -27,7 +28,7 @@ const favoriteImage = (favorite: boolean): string => {
       src: favorite ? FavoriteImage.favoriteOn : FavoriteImage.favoriteOff,
       alt: '즐겨 찾는 음식점 토글 이미지',
     },
-    { className: `favorite-icon ${favorite ? 'favorite' : ''}` }
+    { className: `favorite-icon ${favorite ? Tab.Favorite : ''}` }
   );
 };
 
