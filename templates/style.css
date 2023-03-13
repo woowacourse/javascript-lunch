@@ -24,6 +24,10 @@ main {
   height: 100%;
 }
 
+select option[value=''][disabled] {
+  display: none;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
