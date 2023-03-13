@@ -19,7 +19,6 @@ class RestaurantsStore extends Store {
   private sortMethod: SortMethod = SORT_METHOD.NAME;
 
   public publish() {
-    this.sortRestaurants(this.sortMethod);
     this.getSubscribers().forEach((subscriber: CustomElement) => {
       subscriber.rerender({
         restaurantList: this.restaurantList,
@@ -31,10 +30,12 @@ class RestaurantsStore extends Store {
   public reducer = {
     [RESTAURANT_ACTION.SET_RESTAURANT_LIST]: (action: Action) => {
       this.restaurantList = action.data as Restaurant[];
+      this.sortRestaurants(this.sortMethod);
       this.publish();
     },
     [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
       this.addRestaurant(action.data as Restaurant);
+      this.sortRestaurants(this.sortMethod);
       this.publish();
     },
     [RESTAURANT_ACTION.HANDLE_FAVORITE]: (action: Action) => {
