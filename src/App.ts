@@ -64,14 +64,17 @@ export class App {
   }
 
   initDetailModal = (event: Event) => {
-    const id = (event.target as HTMLLIElement).closest(".restaurant__info")?.id;
-    const restaurants = Store.getRestaurantList();
-    restaurants.forEach((restaurant: RestaurantForm) => {
-      if (restaurant.id !== id) return;
-      const modal = new RestaurantDetail(restaurant);
-      this.removeItem(modal, restaurant);
-      this.toggleModalFavorite(restaurant);
-    });
+    const list = (event.target as HTMLLIElement).closest(".restaurant__info");
+    if (list) {
+      const id = list.id;
+      const restaurants = Store.getRestaurantList();
+      restaurants.forEach((restaurant: RestaurantForm) => {
+        if (restaurant.id !== id) return;
+        const modal = new RestaurantDetail(restaurant);
+        this.removeItem(modal, restaurant);
+        this.toggleModalFavorite(restaurant);
+      });
+    }
   };
 
   toggleFavorite(list: HTMLLIElement) {
