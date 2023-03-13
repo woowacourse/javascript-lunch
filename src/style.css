@@ -191,6 +191,8 @@ select option[value=''][disabled] {
 
 .favorite {
   position: absolute;
+  background: none;
+  border: none;
   right: 12px;
   top: 12px;
 }
