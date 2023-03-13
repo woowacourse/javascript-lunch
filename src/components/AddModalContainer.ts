@@ -29,8 +29,8 @@ class AddModalContainer extends Component {
     return this;
   }
 
-  hide(toggle: boolean = true) {
-    if (toggle) this.$target.innerHTML = '';
+  hide(isOn: boolean = true) {
+    if (isOn) this.$target.innerHTML = '';
 
     return this;
   }
