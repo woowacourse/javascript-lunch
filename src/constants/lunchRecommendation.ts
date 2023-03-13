@@ -12,6 +12,7 @@ export const CATEGORY = Object.freeze({
 });
 
 export const MAX_NAME_LENGTH = 20;
+
 export const MAX_DESCRIPTION_LENGTH = 300;
 
 export const ERROR_MESSAGE = Object.freeze({
