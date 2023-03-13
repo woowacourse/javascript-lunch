@@ -18,13 +18,16 @@ class RestaurantListComponent extends CustomElement {
     super.connectedCallback();
     RestaurantInstance.subscribe(this);
 
-    if (!getArrayFromLocalStorage(RESTAURANTS_STORAGE)) {
+    const restaurantsFromLocalStorage =
+      getArrayFromLocalStorage(RESTAURANTS_STORAGE);
+
+    if (!restaurantsFromLocalStorage) {
       setArrayToLocalStorage(RESTAURANTS_STORAGE, []);
       return;
     }
     dispatcher(
       RESTAURANT_ACTION.SET_RESTAURANT_LIST,
-      getArrayFromLocalStorage(RESTAURANTS_STORAGE)
+      restaurantsFromLocalStorage
     );
   }
 
