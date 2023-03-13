@@ -91,12 +91,15 @@ class RestaurantItemBottomSheet {
   }
 
   handleSheetClose() {
-    $(".item-sheet--close")?.addEventListener("click", () => {
-      this.closeSheet();
-    });
+    const itemSheetElements = [
+      $(".item-sheet--close"),
+      $(".item-sheet-backdrop"),
+    ];
 
-    $(".item-sheet-backdrop")?.addEventListener("click", () => {
-      this.closeSheet();
+    itemSheetElements.forEach((element) => {
+      element?.addEventListener("click", () => {
+        this.closeSheet();
+      });
     });
   }
 
