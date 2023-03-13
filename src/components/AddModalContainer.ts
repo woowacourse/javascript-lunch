@@ -68,7 +68,7 @@ class AddModalContainer extends Component {
       return;
     }
 
-    const restaurantInput = this.getInput($form);
+    const restaurantInput = this.getInputs($form);
 
     if (!this.validate(restaurantInput)) {
       event.preventDefault();
@@ -82,7 +82,7 @@ class AddModalContainer extends Component {
     this.hide();
   }
 
-  getInput($form: HTMLFormElement): RestaurantInput {
+  getInputs($form: HTMLFormElement): RestaurantInput {
     return [...new FormData($form).entries()].reduce(
       (acc: Partial<RestaurantInput>, [key, value]) => {
         acc[key as keyof RestaurantInput] = value as string;
