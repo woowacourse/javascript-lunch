@@ -1,12 +1,6 @@
 import '../css/style.css';
+import { components } from './components/components';
 import RestaurantManager from './domains/restaurantManager';
-import Header from './components/header.js';
-import Select from './components/select.js';
-import Modal from './components/modal.js';
-import restaurantAddContainer from './components/restaurantAddContainer';
-import restaurantBottomSheet from './components/restaurantBottomSheet';
-import Navigation from './components/navigation';
-import RestaurantList from './components/restaurantList';
 import { handleFavoriteIcon } from './handleUi/favoriteIcon';
 import { handleNavigationClick } from './handleUi/navigation';
 import { handleModalClose, handleModalOpen } from './handleUi/modal';
@@ -17,54 +11,11 @@ import {
 } from './utils/eventListener';
 import { getListOnLocalStorage } from './utils/localStorage';
 import { RestaurantType } from './type';
-import {
-  FILTER_CLASS,
-  FILTER_ID,
-  FILTER_NAME,
-  SELECT_OPTION_LIST,
-} from './constants/filter';
 import { LOCAL_STORAGE_KEY } from './constants/localStorage';
+import { handleHeaderTitleClick } from './handleUi/header';
 
 const App = {
-  header: new Header({ selector: 'header', title: '점심 뭐 먹지' }),
-  navBar: new Navigation({ selector: 'nav', class: 'nav-container' }),
-  categoryFilter: new Select({
-    selector: '.restaurant-filter-container',
-    id: FILTER_ID.CATEGORY,
-    name: FILTER_NAME.CATEGORY,
-    class: FILTER_CLASS,
-    optionList: SELECT_OPTION_LIST.CATEGORY,
-  }),
-  sortingFilter: new Select({
-    selector: '.restaurant-filter-container',
-    id: FILTER_ID.SORTING,
-    name: FILTER_NAME.SORTING,
-    class: FILTER_CLASS,
-    optionList: SELECT_OPTION_LIST.SORTING,
-  }),
   RestaurantManager: RestaurantManager.getInstance(),
-  restaurantList: new RestaurantList({
-    listRenderSelector: '.restaurant-list',
-    additionRenderSelector: '.restaurant',
-  }),
-  restaurantAddModal: new Modal({
-    selector: '.restaurant-add-modal',
-    id: 'restaurant-add-modal',
-    backdrop: 'restaurant-add-backdrop',
-    container: 'restaurant-add-container',
-  }),
-  restaurantAddContainer: new restaurantAddContainer({
-    selector: '.restaurant-add-container',
-  }),
-  restaurantBottomSheet: new Modal({
-    selector: '.restaurant-bottom-sheet',
-    id: 'restaurant-bottom-sheet',
-    backdrop: 'restaurant-bottom-sheet-backdrop',
-    container: 'restaurant-bottom-sheet-container',
-  }),
-  restaurantBottomSheetContainer: new restaurantBottomSheet({
-    selector: '.restaurant-bottom-sheet-container',
-  }),
 
   init() {
     this.RestaurantManager.initRestaurantList();
@@ -73,16 +24,16 @@ const App = {
   },
 
   initRender() {
-    this.header.render();
-    this.navBar.render();
-    this.categoryFilter.render();
-    this.sortingFilter.render();
-    this.restaurantList.render(
+    components.header.render();
+    components.navBar.render();
+    components.categoryFilter.render();
+    components.sortingFilter.render();
+    components.restaurantList.render(
       getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
     );
-    this.restaurantAddModal.render();
-    this.restaurantAddContainer.render();
-    this.restaurantBottomSheet.render();
+    components.restaurantAddModal.render();
+    components.restaurantAddContainer.render();
+    components.restaurantBottomSheet.render();
   },
 
   initEventListeners() {
@@ -95,46 +46,42 @@ const App = {
   },
 
   controlHeader() {
-    executeEventListener('header', 'click', (event: Event) => {
-      const target = event.target;
-
-      if (target instanceof HTMLHeadingElement) {
-        window.location.reload();
-      }
-    });
+    executeEventListener('header', 'click', handleHeaderTitleClick);
   },
 
   controlNavigation() {
-    executeEventListener('.nav-container', 'click', () => {
-      const selected = handleNavigationClick();
+    executeEventListener('.nav-container', 'click', this.handleNavigationClick);
+  },
 
-      if (selected.isAllRestaurant) {
-        this.categoryFilter.show();
-        this.sortingFilter.show();
-      } else {
-        this.categoryFilter.hide();
-        this.sortingFilter.hide();
-      }
+  handleNavigationClick() {
+    const selected = handleNavigationClick();
 
-      const list = selected.isAllRestaurant
-        ? getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-        : getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
+    if (selected.isAllRestaurant) {
+      components.categoryFilter.show();
+      components.sortingFilter.show();
+    } else {
+      components.categoryFilter.hide();
+      components.sortingFilter.hide();
+    }
 
-      this.restaurantList.render(list);
-    });
+    const list = selected.isAllRestaurant
+      ? getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
+      : getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
+
+    components.restaurantList.render(list);
   },
 
   controlFilter() {
     executeOptionChangeEventListener('#sorting-filter', (value: string) => {
       const sortedList = this.RestaurantManager.sortRestaurantList(value);
 
-      this.restaurantList.render(sortedList);
+      components.restaurantList.render(sortedList);
     });
 
     executeOptionChangeEventListener('#category-filter', (value: string) => {
       const selectedList = this.RestaurantManager.filterRestaurantList(value);
 
-      this.restaurantList.render(selectedList);
+      components.restaurantList.render(selectedList);
     });
   },
 
@@ -186,7 +133,7 @@ const App = {
 
         const index = parseInt(target.name, 10);
         const restaurant = restaurantList[index];
-        this.restaurantBottomSheetContainer.render(restaurant);
+        components.restaurantBottomSheetContainer.render(restaurant);
         this.controlRestaurantBottomSheet();
         handleModalOpen('#restaurant-bottom-sheet');
       }
@@ -218,7 +165,7 @@ const App = {
       event.preventDefault();
 
       if (this.RestaurantManager.addNewRestaurant(event)) {
-        this.restaurantList.render(
+        components.restaurantList.render(
           getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
         );
         handleModalClose('#restaurant-add-modal');
@@ -299,7 +246,7 @@ const App = {
             restaurantList.splice(index, 1);
             restaurantList.forEach((restaurant, i) => (restaurant.number = i));
             this.RestaurantManager.updateRestaurantList(restaurantList);
-            this.restaurantList.render(
+            components.restaurantList.render(
               getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
             );
           }
