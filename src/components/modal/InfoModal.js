@@ -5,10 +5,9 @@ import { $ } from '../../utils/common';
 class InfoModal extends Modal {
   constructor(restaurants) {
     super();
-    this.container = $('.modal-container');
+
     this.setFavoriteState = restaurants.setFavoriteState.bind(restaurants);
     this.removeRestaurant = restaurants.remove.bind(restaurants);
-    this.restaurants = restaurants;
   }
 
   template(restaurant) {
@@ -45,8 +44,8 @@ class InfoModal extends Modal {
   }
 
   render(restaurant, listRender, favoriteRender) {
-    this.container.replaceChildren();
-    this.container.innerHTML = this.template(restaurant);
+    $('.modal-container').replaceChildren();
+    $('.modal-container').innerHTML = this.template(restaurant);
 
     this.cancelModal(listRender, favoriteRender);
     this.setFavoriteEvent(restaurant, listRender, favoriteRender);
@@ -89,8 +88,8 @@ class InfoModal extends Modal {
   setFavoriteEvent(restaurant, listRender, favoriteRender) {
     $('.info-form').addEventListener('click', e => {
       this.setFavoriteState(e.target.alt);
-      this.container.replaceChildren();
-      this.container.innerHTML = this.template(restaurant);
+      $('.modal-container').replaceChildren();
+      $('.modal-container').innerHTML = this.template(restaurant);
 
       this.cancelModal(listRender, favoriteRender);
       this.setFavoriteEvent(restaurant, listRender, favoriteRender);
