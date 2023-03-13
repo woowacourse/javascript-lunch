@@ -65,20 +65,21 @@ class RestaurantsStore extends Store {
 
   private deleteRestaurant(restaurantId: number) {
     const restaurantIndex = this.restaurantList.findIndex(
-      (restaurant) => restaurant.id === Number(restaurantId)
+      (restaurant: Restaurant) => restaurant.id === Number(restaurantId)
     );
-
-    this.restaurantList.splice(restaurantIndex, 1);
+    if (restaurantIndex !== -1) {
+      this.restaurantList.splice(restaurantIndex, 1);
+    }
   }
 
   private handleFavoriteRestaurant(restaurantId: number) {
-    const index = this.restaurantList.findIndex(
-      (restaurant) => restaurant.id === Number(restaurantId)
+    const restaurantIndex = this.restaurantList.findIndex(
+      (restaurant: Restaurant) => restaurant.id === Number(restaurantId)
     );
-    const restaurant = this.restaurantList[index];
+    if (restaurantIndex !== -1) {
+      const restaurant = this.restaurantList[restaurantIndex];
 
-    if (restaurant) {
-      this.restaurantList[index].isFavorite = !restaurant.isFavorite;
+      this.restaurantList[restaurantIndex].isFavorite = !restaurant.isFavorite;
     }
   }
 
