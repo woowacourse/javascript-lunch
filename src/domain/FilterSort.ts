@@ -28,20 +28,23 @@ export const FilterSort: FilterSortInterFace = {
   },
 
   sort(restaurantList) {
-    if (this.sortState === "distance") {
-      return restaurantList.sort((prev, next) => prev.takeTime - next.takeTime);
-    }
+    const sortStandard =
+      this.sortState === "distance"
+        ? (prev: RestaurantType, next: RestaurantType) =>
+            prev.takeTime - next.takeTime
+        : (prev: RestaurantType, next: RestaurantType) =>
+            prev.name > next.name ? 1 : -1;
 
-    return restaurantList.sort((prev, next) =>
-      prev.name > next.name ? 1 : -1
-    );
+    return restaurantList.sort(sortStandard);
   },
 
   setFilterSortState() {
     const filter = $("#category-filter") as HTMLSelectElement;
     const sortBy = $("#sorting-filter") as HTMLSelectElement;
 
-    FilterSort.filterState = filter.options[filter.selectedIndex].value;
-    FilterSort.sortState = sortBy.options[sortBy.selectedIndex].value;
+    FilterSort.filterState =
+      filter.options[filter.selectedIndex].value ?? "전체";
+    FilterSort.sortState =
+      sortBy.options[sortBy.selectedIndex].value ?? "distance";
   },
 };

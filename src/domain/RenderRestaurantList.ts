@@ -24,11 +24,10 @@ export const RenderRestaurantList = {
   },
 
   getRestaurantForShow(listSection: string) {
-    if (listSection === "allList") {
-      return RestaurantList.template(
-        FilterSort.getNewList(RestaurantData.allList)
-      );
-    }
-    return RestaurantList.template(RestaurantData.likeList);
+    return RestaurantList.template(
+      listSection === "allList"
+        ? FilterSort.getNewList(RestaurantData.allList)
+        : RestaurantData.likeList
+    );
   },
 };
