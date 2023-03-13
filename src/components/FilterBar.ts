@@ -54,11 +54,11 @@ class FilterBar extends Component {
 
   selectFilterOption({ category, order }: FilterOption): this {
     all$<HTMLOptionElement>('#category-filter > option').forEach(($option) => {
-      if ($option.innerText === category) $option.selected = true;
+      if ($option.value === category) $option.selected = true;
     });
 
     all$<HTMLOptionElement>('#sorting-filter > option').forEach(($option) => {
-      if ($option.innerText === order) $option.selected = true;
+      if ($option.value === order) $option.selected = true;
     });
 
     return this;
