@@ -6,7 +6,9 @@ import {
   getFoodCategoryFromLocalStorage,
   setToLocalStorage
 } from "../utils/LocalStorage";
-import { RESTAURANT } from "../utils/Constant";
+import { RESTAURANT_LOCALSTORAGE_KEY, FOODCATEGORY_LOCALSTORAGE_KEY, 
+  SORTBY_LOCALSTORAGE_KEY, FAVORITE_LOCALSTORAGE_KEY, 
+  FAVORITE_VALUE, FAVORITE_ENROLL, FAVORITE_UNENROLL } from "../utils/Constant";
 
 export default class ModalRestaurantDetail {
   #template = `
@@ -69,7 +71,7 @@ export default class ModalRestaurantDetail {
   deleteButtonInDetail(){
     this.restaurantList.deleteRestaurantElement();
     if ($(".favorite-restaurant").style.color === "rgb(236, 74, 10)") {
-      const restaurantAll =getRestaurantListFromLocalstorage("favorite") || [];
+      const restaurantAll =getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY) || [];
       this.closeModalDetail();
 
       $(".restaurant-list").replaceChildren();
@@ -82,8 +84,8 @@ export default class ModalRestaurantDetail {
   }
 
   restauranListFilter() {
-    const foodCategory = getFoodCategoryFromLocalStorage();
-    const sortBy = getSortByFromLocalStorage();
+    const foodCategory = getFoodCategoryFromLocalStorage(FOODCATEGORY_LOCALSTORAGE_KEY);
+    const sortBy = getSortByFromLocalStorage(SORTBY_LOCALSTORAGE_KEY);
 
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
@@ -151,12 +153,12 @@ export default class ModalRestaurantDetail {
   }
 
   setRestaurantFavorite(restaurantInfo){
-    this.changeFavoriteImg("./favorite-icon-lined.png")
+    this.changeFavoriteImg(FAVORITE_UNENROLL)
     this.openModalDetail();
 
-    (getRestaurantListFromLocalstorage("favorite") ?? []).forEach((val) => {
+    (getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY) ?? []).forEach((val) => {
       if (val.id === restaurantInfo.id) {
-        this.changeFavoriteImg("./favorite-icon-filled.png")
+        this.changeFavoriteImg(FAVORITE_ENROLL)
       }
     });
   }
@@ -169,12 +171,12 @@ export default class ModalRestaurantDetail {
   clickModalFavorite(e, restaurantInfo) {
     e.stopPropagation();
 
-    if (this.isFilledOrLined(e, "./favorite-icon-filled.png")) {
+    if (this.isFilledOrLined(e, FAVORITE_ENROLL)) {
       this.ifFavoriteFilled(e, restaurantInfo)
       return;
     }
 
-    if (this.isFilledOrLined(e, "./favorite-icon-lined.png")) {
+    if (this.isFilledOrLined(e, FAVORITE_UNENROLL)) {
       this.ifFavoriteLined(e, restaurantInfo)
       return;
     }
@@ -185,35 +187,35 @@ export default class ModalRestaurantDetail {
   }
 
   getFavoriteList(favorite, restaurantInfo){
-    return getRestaurantListFromLocalstorage(RESTAURANT).map((restaurant) => {
+    return getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY).map((restaurant) => {
       if (restaurant.id === restaurantInfo.id)
-        restaurant["favorite"] = favorite;
+        restaurant[FAVORITE_VALUE] = favorite;
       return restaurant;
     });
   }
   
   ifFavoriteFilled(e, restaurantInfo){
-    const restaurantFavoriteList = this.getFavoriteList("./favorite-icon-lined.png", restaurantInfo)
-    setToLocalStorage("restaurants", restaurantFavoriteList)
+    const restaurantFavoriteList = this.getFavoriteList(FAVORITE_UNENROLL, restaurantInfo)
+    setToLocalStorage(RESTAURANT_LOCALSTORAGE_KEY, restaurantFavoriteList)
 
-    const res = (getRestaurantListFromLocalstorage("favorite")??[]);
+    const res = (getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY)??[]);
     const deletedRestaurantElementArray = res.filter((val) => val.id !== restaurantInfo.id);
-    setToLocalStorage("favorite", deletedRestaurantElementArray);
+    setToLocalStorage(FAVORITE_LOCALSTORAGE_KEY, deletedRestaurantElementArray);
     
-    this.changeFavoriteImageAttribut(e, restaurantInfo, "./favorite-icon-lined.png");
+    this.changeFavoriteImageAttribut(e, restaurantInfo, FAVORITE_UNENROLL);
   }
 
   ifFavoriteLined(e, restaurantInfo){
     const favorite = [];
-    const restaurantFavoriteList = this.getFavoriteList("./favorite-icon-filled.png", restaurantInfo)
-    setToLocalStorage("restaurants", restaurantFavoriteList)
+    const restaurantFavoriteList = this.getFavoriteList(FAVORITE_ENROLL, restaurantInfo)
+    setToLocalStorage(RESTAURANT_LOCALSTORAGE_KEY, restaurantFavoriteList)
 
-    const favoriteList = getRestaurantListFromLocalstorage("favorite")??[];
+    const favoriteList = getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY)??[];
     if (favoriteList !== null) favoriteList.forEach((val) => favorite.push(val));
     favorite.push(restaurantInfo);
-    setToLocalStorage("favorite", favorite);
+    setToLocalStorage(FAVORITE_LOCALSTORAGE_KEY, favorite);
     
-    this.changeFavoriteImageAttribut(e, restaurantInfo, "./favorite-icon-filled.png");
+    this.changeFavoriteImageAttribut(e, restaurantInfo, FAVORITE_ENROLL);
   }
 
   changeFavoriteImageAttribut(e, restaurantInfo, favorite){

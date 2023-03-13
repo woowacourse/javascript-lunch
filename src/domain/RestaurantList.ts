@@ -6,13 +6,15 @@ import {
   getRestaurantListFromLocalstorage,
   stringifyJson,
 } from "../utils/LocalStorage";
-import { RESTAURANT } from "../utils/Constant";
+import { RESTAURANT_LOCALSTORAGE_KEY, FOODCATEGORY_LOCALSTORAGE_KEY, 
+  SORTBY_LOCALSTORAGE_KEY, FAVORITE_LOCALSTORAGE_KEY, 
+  ALL_CATEGORY_VALUE, NAME_VALUE, DISTANCE_VALUE } from "../utils/Constant";
 export class RestaurantList {
   private list: RestaurantForm[] = [];
   private restaurantRegistry;
 
   constructor() {
-    const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
+    const res = getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY) ?? [];
     if (res.length !== 0) {
       res.forEach((val: RestaurantForm) => {
         this.list.push(val);
@@ -22,11 +24,11 @@ export class RestaurantList {
   }
 
   add(restaurantInfo: RestaurantForm) {
-    const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
+    const res = getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY) ?? [];
     this.list = [...res, restaurantInfo];
 
     const restaurantString = stringifyJson(this.list);
-    localStorage.setItem("restaurants", restaurantString);
+    localStorage.setItem(RESTAURANT_LOCALSTORAGE_KEY, restaurantString);
   }
 
   get listRestaurant(): RestaurantForm[] {
@@ -35,7 +37,7 @@ export class RestaurantList {
 
   categoryFilter(category: Category) {
     const filteredList: RestaurantForm[] = [];
-    if (category === "전체") {
+    if (category === ALL_CATEGORY_VALUE) {
       return this.list;
     }
 
@@ -51,7 +53,7 @@ export class RestaurantList {
   }
 
   filterCategory(selectedValue: Category) {
-    localStorage.setItem("foodCategory", selectedValue);
+    localStorage.setItem(FOODCATEGORY_LOCALSTORAGE_KEY, selectedValue);
 
     $(".restaurant-list").replaceChildren();
     const restaurantParsedInfo = this.categoryFilter(selectedValue);
@@ -62,10 +64,10 @@ export class RestaurantList {
     $(".restaurant-list").replaceChildren();
     const restaurantParsedInfo = this.categoryFilter(foodCategory);
 
-    if (sortBy === "name") sortByName(restaurantParsedInfo);
-    if (sortBy === "distance") sortByDistance(restaurantParsedInfo);
+    if (sortBy === NAME_VALUE) sortByName(restaurantParsedInfo);
+    if (sortBy === DISTANCE_VALUE) sortByDistance(restaurantParsedInfo);
 
-    localStorage.setItem("sort", sortBy);
+    localStorage.setItem(SORTBY_LOCALSTORAGE_KEY, sortBy);
     this.attachRestaurantToRegistry(restaurantParsedInfo);
   }
 
@@ -77,26 +79,26 @@ export class RestaurantList {
 
   deleteRestaurantElement() {
     const restaurantId = $(".modal--detail").id;
-    const res = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
+    const res = getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY) ?? [];
 
     const deletedRestaurantElementArray = res.filter(
       (val: RestaurantForm) => val.id !== Number(restaurantId)
     );
     localStorage.setItem(
-      "restaurants",
+      RESTAURANT_LOCALSTORAGE_KEY,
       stringifyJson(deletedRestaurantElementArray)
     );
-    this.list = getRestaurantListFromLocalstorage(RESTAURANT) ?? [];
+    this.list = getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY) ?? [];
 
     const restaruantFavorite =
-      getRestaurantListFromLocalstorage("favorite") ?? [];
+      getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY) ?? [];
     const deletedRestaurantElementList = restaruantFavorite.filter(
       (val: RestaurantForm) => {
         return val.id !== Number(restaurantId);
       }
     );
     localStorage.setItem(
-      "favorite",
+      FAVORITE_LOCALSTORAGE_KEY,
       stringifyJson(deletedRestaurantElementList)
     );
   }

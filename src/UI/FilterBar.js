@@ -1,4 +1,5 @@
 import { $ } from "../utils/Dom";
+import { FOODCATEGORY_LOCALSTORAGE_KEY, SORTBY_LOCALSTORAGE_KEY } from "../utils/Constant";
 export default class FilterBar {
   #template = `
     <main>
@@ -37,7 +38,7 @@ export default class FilterBar {
       const selectedValue = selected.options[selected.selectedIndex].value;
       this.restaurantList.filterCategory(selectedValue);
       this.restaurantList.filterBySort(
-        localStorage.getItem("sort"),
+        localStorage.getItem(SORTBY_LOCALSTORAGE_KEY),
         selectedValue
       );
     });
@@ -47,7 +48,7 @@ export default class FilterBar {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
       this.restaurantList.filterBySort(
         sortedValue,
-        localStorage.getItem("foodCategory")
+        localStorage.getItem(FOODCATEGORY_LOCALSTORAGE_KEY)
       );
     });
   }

@@ -1,5 +1,9 @@
 import { $, $$ } from "../utils/Dom";
-import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT } from "../utils/Constant";
+import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT, 
+  FOODCATEGORY_LOCALSTORAGE_KEY, SORTBY_LOCALSTORAGE_KEY, 
+  NUMBER__LOCALSTORAGE_KEY, CATEGORY_VALUE, NAME_VALUE, 
+  DISTANCE_VALUE, DESCRIPTION_VALUE, LINK_VALUE, 
+  FAVORITE_VALUE, ID_VALUE, FAVORITE_UNENROLL } from "../utils/Constant";
 import {
   getRestaurantListFromLocalstorage,
   getFoodCategoryFromLocalStorage,
@@ -103,24 +107,24 @@ export default class Modal {
   }
 
   restauranListFilter() {
-    const foodCategory = getFoodCategoryFromLocalStorage();
-    const sortBy = getSortByFromLocalStorage();
+    const foodCategory = getFoodCategoryFromLocalStorage(FOODCATEGORY_LOCALSTORAGE_KEY);
+    const sortBy = getSortByFromLocalStorage(SORTBY_LOCALSTORAGE_KEY);
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
   }
 
   setRestaurantInformation() {
     const restaurantInfo = {};
-    const idNumber = getRestaurantListFromLocalstorage("number");
-    const array = ["category","name","distance","description","link","favorite",];
+    const idNumber = getRestaurantListFromLocalstorage(NUMBER__LOCALSTORAGE_KEY);
+    const array = [CATEGORY_VALUE,NAME_VALUE,DISTANCE_VALUE,DESCRIPTION_VALUE,LINK_VALUE,FAVORITE_VALUE,];
 
     $$(".form-item").forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
-    restaurantInfo["id"] = idNumber;
-    restaurantInfo["favorite"] = "./favorite-icon-lined.png";
+    restaurantInfo[ID_VALUE] = idNumber;
+    restaurantInfo[FAVORITE_VALUE] = FAVORITE_UNENROLL;
 
-    localStorage.setItem("number", idNumber + 1);
+    localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, idNumber + 1);
     return restaurantInfo;
   }
 
