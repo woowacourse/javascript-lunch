@@ -18,14 +18,17 @@ beforeEach(() => {
 });
 
 test('Header 렌더링 확인', () => {
-  Header.render(document.body);
+  const header = new Header(document.body);
+  header.render();
 
   expect(screen.queryByText('점심 뭐 먹지')).toBeInTheDocument();
   expect(screen.queryByLabelText('음식점 추가')).toBeInTheDocument();
 });
 
 test('RestaurantFilterBar 렌더링 확인', () => {
-  RestaurantFilterBar.render(document.body);
+  const restaurantFilterBar = new RestaurantFilterBar(document.body);
+  restaurantFilterBar.render();
+
   const $categoryFilter = document.getElementById('category-filter');
   const $sortingFilter = document.getElementById('sorting-filter');
 
@@ -39,7 +42,8 @@ test('RestaurantFilterBar 렌더링 확인', () => {
 });
 
 test('RestaurantAddModal 렌더링 확인', () => {
-  RestaurantAddModal.render(document.body);
+  const restaurantAddModal = new RestaurantAddModal(document.body);
+  restaurantAddModal.render();
 
   const $category = document.getElementById('category');
   const $distance = document.getElementById('distance');

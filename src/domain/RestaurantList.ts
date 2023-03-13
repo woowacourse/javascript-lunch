@@ -1,4 +1,5 @@
 import { Restaurant, Category } from '../type/Restaurant';
+import { Validator } from '../util/Validator';
 
 type SortCondition = '이름' | '거리';
 
@@ -7,25 +8,39 @@ type FilterCategory = '전체' | Category;
 class RestaurantList {
   constructor(private list: Restaurant[] = []) {}
 
-  add(restaurant: Restaurant) {
+  add = (restaurant: Restaurant) => {
     this.list.push(restaurant);
-  }
+  };
 
-  getList(category: FilterCategory, condition: SortCondition) {
-    return this.sortByCondition(this.filterByCategory(category), condition);
-  }
+  delete = (name: string) => {
+    const index = this.list.findIndex((restaurant) => restaurant.name === name);
+    this.list.splice(index, 1);
+  };
 
-  private filterByCategory(category: FilterCategory) {
-    return category === '전체'
+  getByCategory = (category: FilterCategory) =>
+    category === '전체'
       ? this.list
       : this.list.filter((restaurant) => restaurant.category === category);
-  }
 
-  private sortByCondition(list: Restaurant[], condition: SortCondition) {
-    return condition === '거리'
-      ? [...list].sort((a, b) => a.distance - b.distance)
-      : [...list].sort((a, b) => a.name.localeCompare(b.name));
-  }
+  getFavoriteList = () => this.list.filter((restaurant) => restaurant.isFavorite);
+
+  sortByName = (list: Restaurant[]) => [...list].sort((a, b) => a.name.localeCompare(b.name));
+
+  sortByDistance = (list: Restaurant[]) => [...list].sort((a, b) => a.distance - b.distance);
+
+  validateRestaurant = (restaurant: Restaurant) => {
+    if (Validator.isOnlyWhiteSpace(restaurant.name)) {
+      throw new Error('공백만 입력할 수 없습니다.');
+    }
+    if (this.list.map((element) => element.name).includes(restaurant.name)) {
+      throw new Error('이미 존재하는 이름입니다.');
+    }
+  };
+
+  toggleFavorite = (name: string) => {
+    const index = this.list.findIndex((restaurant) => restaurant.name === name);
+    this.list[index].isFavorite = !this.list[index].isFavorite;
+  };
 }
 
 export { SortCondition, FilterCategory, RestaurantList };
