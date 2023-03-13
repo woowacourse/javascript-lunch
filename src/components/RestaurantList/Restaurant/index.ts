@@ -1,29 +1,31 @@
-import { RestaurantCategory, IRestaurant } from '../../../types';
+import {
+  categoryIconFileName,
+  favoriteIconFileName,
+  favoriteIconAlt,
+} from '../../../constants/imageFileMetadata';
 
-type ImgFileName = {
-  [key in RestaurantCategory]: string;
-};
-const imgFileName: ImgFileName = {
-  한식: 'category-korean',
-  중식: 'category-chinese',
-  일식: 'category-japanese',
-  아시안: 'category-asian',
-  양식: 'category-western',
-  기타: 'category-etc',
-};
+import { Restaurant } from '../../../types';
 
 const Restaurant = {
-  getTemplate(restaurant: IRestaurant) {
-    return `
-    <li class="restaurant">
+  getTemplate(restaurant: Restaurant) {
+    const { id, category, name, distance, description, isFavorite } = restaurant;
+
+    return `  
+    <li id="restaurant" class="restaurant" data-listid=${id} >
       <div class="restaurant__category">
-        <img src="./${imgFileName[restaurant.category]}.png" alt="${restaurant.category}"
+        <img src="./${categoryIconFileName[category]}" alt="${category}"
         class="category-icon" />
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
-        <p class="restaurant__description text-body">${restaurant.description}</p>
+        <h3 class="restaurant__name text-subtitle">${name}</h3>
+        <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+        <p class="restaurant__description text-body">${description}</p>
+      </div>
+      <div class="restaurant__favorite">
+        <img src="./${favoriteIconFileName[`${isFavorite}`]}"
+        alt="${favoriteIconAlt[`${isFavorite}`]}"  
+        id="favorite-icon" 
+        class="favorite-icon"/>
       </div>
     </li>`;
   },

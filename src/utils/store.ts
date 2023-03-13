@@ -1,5 +1,5 @@
 const store = {
-  setLocalStorage<T>(key: string, data: T) {
+  setLocalStorage(key: string, data) {
     localStorage.setItem(key, JSON.stringify(data));
   },
 

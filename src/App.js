@@ -1,49 +1,69 @@
 import RestaurantList from './components/RestaurantList';
-import Selectbox from './components/Selectbox';
+import Modal from './components/Modal';
+import CategorySelectBox from './components/CategorySelectBox';
+import SortSelectBox from './components/SortSelectBox';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
+import {
+  getFilteredRestaurantsByCategory,
+  getSortedRestaurants,
+  getFavoriteRestaurants,
+} from './domain/restaurantsUtils';
 
 import { $ } from './utils/dom';
 import store from './utils/store';
+import primaryKeyGenerator from './utils/primaryKeyGenerator';
 
-import {
-  FILTER_CATEGORY_SELECTBOX_CONFIG,
-  FORM_CATEGORY_SELECTBOX_CONFIG,
-  FORM_DISTANCE_SELECTBOX_CONFIG,
-} from './constants/selectboxConfig';
 import { RESTAURANTS_KEY } from './constants/storeKey';
 
 export default class App {
   #restaurants;
 
+  #modal;
+  #restaurantList;
+  #categorySelectBox;
+  #sortSelectBox;
+
   constructor() {
     const restaurantsData = store.getLocalStorage(RESTAURANTS_KEY);
     this.#restaurants = new Restaurants(restaurantsData);
 
-    Selectbox.render(
-      $('.restaurant-filter-container'),
-      'afterbegin',
-      FILTER_CATEGORY_SELECTBOX_CONFIG
-    );
-    Selectbox.render($('.form-category-container'), 'beforeend', FORM_CATEGORY_SELECTBOX_CONFIG);
-    Selectbox.render($('.form-distance-container'), 'beforeend', FORM_DISTANCE_SELECTBOX_CONFIG);
+    this.#modal = new Modal($('#modal'));
+    this.#restaurantList = new RestaurantList($('#restaurant-list-container'));
+    this.#categorySelectBox = new CategorySelectBox($('#restaurant-filter-container'));
+    this.#sortSelectBox = new SortSelectBox($('#restaurant-filter-container'));
+
+    this.#modal.render();
+    this.#categorySelectBox.render();
+    this.#sortSelectBox.render();
     this.renderRestaurantListByFilterOptions();
 
     this.bindEvents();
   }
 
   bindEvents() {
-    $('.add-restaurant-form').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
-    $('.restaurant-filter-container').addEventListener(
+    $('#modal').addEventListener('submit', this.onSubmitAddRestaurantForm.bind(this));
+    $('#modal').addEventListener('click', this.onClickDetailFavoriteIcon.bind(this));
+    $('#modal').addEventListener('click', this.onClickRestaurantDeleteButton.bind(this));
+    $('#modal').addEventListener('click', this.onClickDetailModalCloseButton.bind(this));
+
+    $('#restaurant-favorite-tab').addEventListener('change', this.onChangeFavoriteTab.bind(this));
+
+    $('#restaurant-filter-container').addEventListener(
       'change',
       this.renderRestaurantListByFilterOptions.bind(this)
     );
-    $('.modal-open-button').addEventListener(
+
+    $('#restaurant-list-container').addEventListener(
+      'click',
+      this.onClickRestaurantList.bind(this)
+    );
+
+    $('#modal-open-button').addEventListener(
       'click',
       this.onClickRestaurantFormModalOpenButton.bind(this)
     );
-    $('.modal-close-button').addEventListener('click', this.toggleModal);
   }
 
   onSubmitAddRestaurantForm(e) {
@@ -65,20 +85,102 @@ export default class App {
       return;
     }
 
+    const uniqueId = primaryKeyGenerator();
+
     const restaurant = {
+      id: uniqueId,
       category,
       name,
       distance,
       description,
       link,
+      isFavorite: false,
     };
 
     this.#restaurants.addRestaurant(restaurant);
     store.setLocalStorage(RESTAURANTS_KEY, this.#restaurants.getRestaurants());
 
-    this.toggleModal();
+    this.#modal.toggleModal();
+
+    $('#tab-all').checked = true;
+    $('#restaurant-filter-container').classList.remove('hide');
+    this.renderRestaurantListByFilterOptions();
+  }
+
+  onClickDetailFavoriteIcon(e) {
+    if (e.target.id !== 'detail-favorite-icon') return;
+
+    const restaurantId = $('#modal-detail-view').dataset.listid;
+    this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
+
+    const updatedRestaurants = this.#restaurants.getRestaurants();
+    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+    const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
+    this.#modal.render(targetRestaurant);
+
+    this.renderRestaurantListByFavoriteTab();
+  }
+
+  onClickRestaurantDeleteButton(e) {
+    if (e.target.id !== 'restaurant-delete-button') return;
+
+    const restaurantId = $('#modal-detail-view').dataset.listid;
+    this.#restaurants.deleteRestaurant(Number(restaurantId));
+
+    const updatedRestaurants = this.#restaurants.getRestaurants();
+    store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+    this.renderRestaurantListByFavoriteTab();
+
+    this.#modal.toggleModal();
+  }
+
+  onClickDetailModalCloseButton(e) {
+    if (e.target.id !== 'detail-modal-close-button') return;
+
+    this.#modal.toggleModal();
+  }
+
+  onChangeFavoriteTab(e) {
+    if (e.target.value === 'favorite') {
+      const restaurants = this.#restaurants.getRestaurants();
+      const favoriteRestaurants = getFavoriteRestaurants(restaurants);
+
+      this.#restaurantList.render(favoriteRestaurants);
+      $('#restaurant-filter-container').classList.add('hide');
+
+      return;
+    }
 
     this.renderRestaurantListByFilterOptions();
+    $('#restaurant-filter-container').classList.remove('hide');
+  }
+
+  onClickRestaurantList(e) {
+    if (e.target.id === 'favorite-icon') {
+      const restaurantId = e.target.closest('li').dataset.listid;
+
+      this.#restaurants.toggleFavoriteRestaurant(Number(restaurantId));
+
+      const updatedRestaurants = this.#restaurants.getRestaurants();
+      store.setLocalStorage(RESTAURANTS_KEY, updatedRestaurants);
+
+      this.renderRestaurantListByFavoriteTab();
+
+      return;
+    }
+
+    const restaurantId = e.target.closest('li').dataset.listid;
+    const targetRestaurant = this.#restaurants.getRestaurantById(Number(restaurantId));
+
+    this.#modal.render(targetRestaurant);
+    this.#modal.toggleModal();
+  }
+
+  onClickRestaurantFormModalOpenButton() {
+    this.#modal.render().bindEvents();
+    this.#modal.toggleModal();
   }
 
   renderRestaurantListByFilterOptions() {
@@ -86,24 +188,22 @@ export default class App {
     const sortOption = $('#sorting-filter').value;
     const restaurants = this.#restaurants.getRestaurants();
 
-    const filteredRestaurants = RestaurantList.getFilteredRestaurantsByCategory(
-      restaurants,
-      categoryOption
-    );
-    const sortedRestaurants = RestaurantList.getSortedRestaurants(filteredRestaurants, sortOption);
+    const filteredRestaurants = getFilteredRestaurantsByCategory(restaurants, categoryOption);
+    const sortedRestaurants = getSortedRestaurants(filteredRestaurants, sortOption);
 
-    const template = RestaurantList.getTemplate(sortedRestaurants);
-
-    RestaurantList.render($('.restaurant-list-container'), template);
+    this.#restaurantList.render(sortedRestaurants);
   }
 
-  onClickRestaurantFormModalOpenButton() {
-    $('.add-restaurant-form').reset();
+  renderRestaurantListByFavoriteTab() {
+    if ($('#tab-all').checked) {
+      this.renderRestaurantListByFilterOptions();
 
-    this.toggleModal();
-  }
+      return;
+    }
 
-  toggleModal() {
-    $('.modal').classList.toggle('modal--open');
+    const restaurant = this.#restaurants.getRestaurants();
+    const favoriteRestaurants = getFavoriteRestaurants(restaurant);
+
+    this.#restaurantList.render(favoriteRestaurants);
   }
 }

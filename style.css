@@ -87,6 +87,45 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 자주 가는 음식점 탭*/
+.restaurant-favorite-tab {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 16px;
+}
+
+.restaurant-favorite-tab input[type='radio'] {
+  display: none;
+}
+
+.restaurant-favorite-tab input[type='radio']:checked + label {
+  border-bottom: solid 2px var(--primary-color);
+
+  color: var(--primary-color);
+}
+
+.restaurant-favorite-tab label {
+  width: 100%;
+  height: 64px;
+
+  padding-top: 28px;
+  border: none;
+  border-bottom: solid 2px var(--grey-300);
+
+  background-color: transparent;
+
+  color: var(--grey-300);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+
+  cursor: pointer;
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -123,6 +162,7 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
+  position: relative;
 
   padding: 16px 8px;
 
@@ -142,6 +182,8 @@ body {
 
   border-radius: 50%;
   background: var(--lighten-color);
+
+  flex: 0 1 48px;
 }
 
 .category-icon {
@@ -153,6 +195,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  margin-right: 26px;
 }
 
 .restaurant__name {
@@ -174,14 +218,21 @@ body {
   -webkit-box-orient: vertical;
 }
 
-/* 음식점 추가 모달 *****************************************/
-.modal {
-  display: none;
+.restaurant__favorite {
+  position: relative;
+
+  flex: 1 1 10%;
 }
 
-.modal--open {
-  display: block;
+.favorite-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  cursor: pointer;
 }
+
+/* 음식점 추가 모달 *****************************************/
 
 .modal-backdrop {
   position: fixed;
@@ -224,7 +275,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +309,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -295,4 +346,40 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세 정보 모달 */
+.modal-detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-detail-view .modal-title {
+  margin: 0;
+}
+
+.modal-detail-view .text-body {
+  -webkit-box-orient: initial;
+}
+
+.modal-detail-view .restaurant__link {
+  color: var(--grey-500);
+}
+
+.modal-detail-view .restaurant__favorite {
+  position: inherit;
+}
+
+.modal-detail-view .favorite-icon {
+  position: absolute;
+  top: 32px;
+  right: 16px;
+
+  cursor: pointer;
+}
+
+/* global */
+.hide {
+  display: none;
 }
