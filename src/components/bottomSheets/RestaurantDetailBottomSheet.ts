@@ -33,16 +33,13 @@ class RestaurantDetailBottomSheet extends Component<IComponentPropState> {
       `;
   }
 
-  removeRestaurant = (
-    list: IRestaurantInput[],
-    name: string
-  ): IRestaurantInput[] => {
+  removeRestaurant(list: IRestaurantInput[], name: string): IRestaurantInput[] {
     const index = list.findIndex((restaurant) => restaurant.name === name);
     if (index !== -1) {
       list.splice(index, 1);
     }
     return list;
-  };
+  }
 
   updateRestaurantIsFavorite(
     restaurant: IRestaurantInput,
