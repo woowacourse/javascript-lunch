@@ -1,12 +1,17 @@
 import Component from '../Component';
+import { geid, qs } from '../utils/domHelpers';
 
 export default class AddModal extends Component {
   constructor($target) {
     super($target);
 
-    this.addEvent('click', (event) => {
-      this.cancelInputData(event);
-    }).addEvent('submit', (event) => {
+    this.addEvent(
+      'click',
+      () => {
+        this.cancelInputData();
+      },
+      geid('cancel-modal-button')
+    ).addEvent('submit', (event) => {
       this.submitInputData(event);
     });
   }
@@ -68,17 +73,15 @@ export default class AddModal extends Component {
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
               <button type="button" id="cancel-modal-button" class="button button--secondary text-caption">취소하기</button>
-              <button class="button button--primary text-caption">추가하기</button>
+              <button id="submit-modal-button" class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
         </div>
       `;
   }
 
-  cancelInputData(event) {
-    if (event.target.id === 'cancel-modal-button') {
-      event.currentTarget.classList.remove('modal--open');
-    }
+  cancelInputData() {
+    qs('.modal').classList.remove('modal--open');
   }
 
   submitInputData(event) {
@@ -88,20 +91,43 @@ export default class AddModal extends Component {
       return el.value;
     });
 
-    if (inputData[1] === '' || !inputData[1].match(/^[a-zA-Z0-9]*$/)) {
-      alert('음식점 이름은 적어도 하나의 문자를 입력해야 합니다.');
+    if (this.validateStoreName(inputData[1])) {
       return;
     }
 
-    const addData = {
+    const addRestaurantData = {
       category: inputData[0],
       storeName: inputData[1],
       distance: inputData[2],
       detail: inputData[3],
       link: inputData[4],
+      starShape: 'lined',
     };
 
-    this.restaurantManager.addRestaurant(addData);
-    event.currentTarget.classList.remove('modal--open');
+    this.restaurantManager.addRestaurant(addRestaurantData);
+    this.cancelInputData();
+    this.resetInputValue(event);
+  }
+
+  validateStoreName(storeName) {
+    const storeNameList = this.restaurantManager
+      .getRestaurantList()
+      .map((restaurant) => restaurant.storeName);
+
+    if (storeName.trim() === '' || !storeName.match(/^[a-zA-Z0-9가-힣ㄱ-ㅎ\s]*$/)) {
+      alert('음식점 이름은 공백 또는 특수기호로만 이루어질 수 없습니다.');
+      return true;
+    }
+
+    if (storeNameList.includes(storeName)) {
+      alert('음식점 이름은 이미 추가된 음식점 이름과 중복될 수 없습니다.');
+      return true;
+    }
+
+    return false;
+  }
+
+  resetInputValue(event) {
+    [...event.target].forEach((el) => (el.value = ''));
   }
 }

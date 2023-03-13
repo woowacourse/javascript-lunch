@@ -1,27 +1,37 @@
 import restaurantManager from './domain/RestaurantManager';
+import favoriteRestaurant from './domain/FavoriteRestaurant';
+import detailRestaurant from './domain/DetailRestaurant';
 
 export default class Component {
   $target;
+  props;
+
   restaurantManager;
+  favoriteRestaurant;
+  detailRestaurant;
 
-  constructor($target) {
+  constructor($target, props = {}) {
     this.$target = $target;
+    this.props = props;
     this.restaurantManager = restaurantManager;
+    this.favoriteRestaurant = favoriteRestaurant;
+    this.detailRestaurant = detailRestaurant;
 
-    this.render();
+    this.render({ ...props });
   }
 
-  addEvent(eventType, callback) {
-    this.$target.addEventListener(eventType, callback);
+  addEvent(eventType, callback, target = this.$target) {
+    target.addEventListener(eventType, callback);
 
     return this;
   }
 
-  template() {
-    return '';
+  template(restaurantData) {
+    return restaurantData;
   }
 
-  render() {
-    this.template() && (this.$target.innerHTML = this.template());
+  render(restaurantData) {
+    if (Object.keys(restaurantData).length === 0) this.$target.innerHTML = this.template();
+    else this.$target.innerHTML = this.template(restaurantData);
   }
 }

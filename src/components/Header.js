@@ -1,14 +1,23 @@
 import { qs } from '../utils/domHelpers';
 import Component from '../Component';
 
-class Header extends Component {
+export default class Header extends Component {
   constructor($target) {
     super($target);
 
-    this.addEvent('click', (event) => {
-      if (event.target.parentNode.type === 'button') this.activateModal();
-      if (event.target.className.includes('gnb__title')) this.disActivateModal();
-    });
+    this.addEvent(
+      'click',
+      () => {
+        this.activateModal();
+      },
+      qs('.gnb__button')
+    ).addEvent(
+      'click',
+      () => {
+        this.goToHome();
+      },
+      qs('.gnb__title')
+    );
   }
 
   template() {
@@ -24,9 +33,7 @@ class Header extends Component {
     qs('.modal').classList.add('modal--open');
   }
 
-  disActivateModal() {
+  goToHome() {
     qs('.modal').classList.remove('modal--open');
   }
 }
-
-export default Header;

@@ -1,12 +1,12 @@
 import { geid, qs } from '../utils/domHelpers.js';
-import RestaurantItem from './RestaurantItem.js';
-import Component from '../Component.js';
+import Component from '../Component';
+import RestaurantItem from './RestaurantItem';
 
-export default class RestaurantList extends Component {
+export default class FavoriteList extends Component {
   constructor($target) {
     super($target);
 
-    this.restaurantManager.subscribe(this.reRender.bind(this));
+    this.favoriteRestaurant.subscribe(this.reRender.bind(this));
 
     this.lazyRender();
   }
@@ -20,30 +20,30 @@ export default class RestaurantList extends Component {
     if (!restaurantList) {
       [...this.$target.children].forEach((_, idx) => {
         new RestaurantItem(
-          geid(`restaurant__${idx}`),
-          this.restaurantManager.getRestaurantList()[idx]
+          geid(`restaurant__favorite__${idx}`),
+          this.favoriteRestaurant.getRestaurantList()[idx]
         );
       });
     }
 
     if (restaurantList) {
       restaurantList.forEach((restaurant, idx) => {
-        new RestaurantItem(geid(`restaurant__${idx}`), restaurant);
+        new RestaurantItem(geid(`restaurant__favorite__${idx}`), restaurant);
       });
     }
   }
 
   template(restaurantList) {
     if (!restaurantList) {
-      return `${this.restaurantManager
+      return `${this.favoriteRestaurant
         .getRestaurantList()
-        .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+        .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
         .join('')}`;
     }
 
     if (restaurantList) {
       return `${restaurantList
-        .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+        .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
         .join('')}`;
     }
   }

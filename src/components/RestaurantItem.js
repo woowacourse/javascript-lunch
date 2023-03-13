@@ -1,22 +1,63 @@
-export default class RestaurantItem {
-  #restaurantImage;
+import Component from '../Component';
+import { RESTAURANT_IMAGE, FAVORITE } from '../constants/images.ts';
+import { qs } from '../utils/domHelpers';
 
-  constructor(restaurantItem) {
-    this.#restaurantImage = restaurantItem;
+export default class RestaurantItem extends Component {
+  restaurantData;
+
+  constructor($target, restaurant) {
+    super($target, restaurant);
+    this.restaurantData = restaurant;
+
+    this.addEvent('click', (event) => {
+      if (event.target.className === 'favorite-icon') this.switchFavorite(event);
+      else this.activateDetailModal();
+    });
   }
 
-  render({ category, storeName, distance, detail }) {
+  template({ category, storeName, distance, detail, link, starShape }) {
     return `
-      <li class="restaurant">
         <div class="restaurant__category">
-          <img src="${this.#restaurantImage[category]}" alt="${category}" class="category-icon">
+          <img src="${RESTAURANT_IMAGE[category]}" alt="${category}" class="category-icon">
         </div>
-        <div class="restaurant__info">
-          <h3 class="restaurant__name text-subtitle">${storeName}</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+        <div class="restaurant__detail">
+          <div class="restaurant__header">
+            <div class="restaurant__info">
+              <h3 class="restaurant__name text-subtitle">${storeName}</h3>
+              <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+            </div>
+            <div class="favorite__shape">
+              <img src="${FAVORITE[starShape]}" alt="${starShape}" class="favorite-icon" />
+            </div>
+          </div>
           <p class="restaurant__description text-body">${detail}</p>
-        </div>
-      </li>
-        `;
+        </div>`;
+  }
+
+  switchFavorite() {
+    if (this.restaurantData.starShape === 'lined') {
+      this.addRestaurantList();
+    } else if (this.restaurantData.starShape === 'filled') {
+      this.removeRestaurantList();
+    }
+  }
+
+  addRestaurantList() {
+    this.restaurantData.starShape = 'filled';
+
+    this.restaurantManager.fillRestaurantStarShape(this.restaurantData.storeName);
+    this.favoriteRestaurant.addRestaurant(this.restaurantData);
+  }
+
+  removeRestaurantList() {
+    this.restaurantData.starShape = 'lined';
+
+    this.restaurantManager.unfillRestaurantStarShape(this.restaurantData.storeName);
+    this.favoriteRestaurant.removeRestaurant(this.restaurantData.storeName);
+  }
+
+  activateDetailModal() {
+    this.detailRestaurant.setRestaurantDetail(this.restaurantData);
+    qs('.detail-modal').classList.add('modal--open');
   }
 }
