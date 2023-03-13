@@ -1,4 +1,5 @@
 import { $, $$ } from './utils/dom';
+import store from './utils/store';
 
 import CreateRestaurantModal from './components/CreateRestaurantModal';
 import Header from './components/Header';
@@ -9,8 +10,6 @@ import RestaurantDetailModal from './components/RestaurantDetailModal';
 
 import Restaurants from './domain/Restaurants';
 import Validator from './domain/Validator';
-
-import store from './utils/store';
 
 export default class App {
   restaurants;
@@ -42,7 +41,7 @@ export default class App {
   }
 
   onClickNavTab(e) {
-    const navElements = $$('.upper-tab > div');
+    const navElements = $$('.nav-button');
     const clickedElement = e.target;
 
     navElements.forEach((navElement) => {
