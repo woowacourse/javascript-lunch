@@ -5,8 +5,8 @@ import Modal from '../AddModal';
 const HeaderButton = {
   template() {
     return `
-      <button type="button" class="${CLASS.GNB_BUTTON}" aria-label="음식점" data-testId="headerButton">
-        <img src=${Button.add} alt="음식점 추가">
+      <button type="button" class="${CLASS.GNB_BUTTON}" aria-label="음식점" data-testid="headerButton">
+        <img src=${Button.add} alt="음식점 추가" />
       </button>`;
   },
   setEvent() {
