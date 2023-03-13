@@ -44,12 +44,12 @@ class App {
       {
         selectors: 'header button',
         event: 'click',
-        actions: [this.toggleFormModal],
+        action: this.toggleFormModal,
       },
       {
         selectors: '#form-modal #cancel',
         event: 'click',
-        actions: [this.toggleFormModal],
+        action: this.toggleFormModal,
       },
       {
         selectors: '#form-modal form',
@@ -65,12 +65,12 @@ class App {
       {
         selectors: '#category-filter',
         event: 'change',
-        actions: [this.renderList],
+        action: this.renderList,
       },
       {
         selectors: '#sorting-filter',
         event: 'change',
-        actions: [this.renderList],
+        action: this.renderList,
       },
       {
         selectors: '.tab-bar',
@@ -80,7 +80,7 @@ class App {
       {
         selectors: '.restaurant-list',
         event: 'click',
-        actions: [this.handleListItem],
+        action: this.handleListItem,
       },
       {
         selectors: '#detail-modal .favorite-icon',
@@ -90,7 +90,7 @@ class App {
       {
         selectors: '#detail-modal #close',
         event: 'click',
-        actions: [this.toggleDetailModal],
+        action: this.toggleDetailModal,
       },
       {
         selectors: '#detail-modal #remove',
@@ -102,7 +102,7 @@ class App {
     });
   }
 
-  addEvent({ selectors, event, actions }) {
+  addEvent({ selectors, event, action, actions = [action] }) {
     this.#root.addEventListener(event, (e) => {
       const $target = $(selectors);
       if ($target === null || !$target.contains(e.target)) return;
