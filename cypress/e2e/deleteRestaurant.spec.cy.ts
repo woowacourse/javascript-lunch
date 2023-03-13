@@ -25,7 +25,7 @@ describe('음식점 삭제 테스트', () => {
       .should('be.visible')
       .should('contain', '바나프레소');
 
-    cy.get('#confirm-delete-modal .button--primary')
+    cy.get('#confirm-delete-modal .button--secondary')
       .click();
 
     cy.get('.restaurant-list-container')

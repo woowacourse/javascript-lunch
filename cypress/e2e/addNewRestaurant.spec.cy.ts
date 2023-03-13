@@ -84,8 +84,7 @@ describe('새로운 음식점 추가 테스트', () => {
       .blur();
     
     cy.get('#new-restaurant-input')
-      .contains('이름을 입력해 주세요')
-      .should('not.be.visible');
+      .should("not.contain", "이름을 입력해 주세요");
   });
 
   it('양식에서 아시안 입력 성공 시 카테고리 전환 모달로 전체 카테고리로 변환', () => {

@@ -53,7 +53,7 @@ $("#global-filter-radio").addEventListener("change", (event) => {
 });
 
 // 음식점 입력 모달 생성
-const restaurantInputModal = new RestaurantInputModal("restaurant-input-modal");
+const restaurantInputModal = new RestaurantInputModal("new-restaurant-input");
 $("main").appendChild(restaurantInputModal.element);
 
 const addButton = $(".gnb__button");
