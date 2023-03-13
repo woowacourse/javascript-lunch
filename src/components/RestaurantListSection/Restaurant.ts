@@ -22,24 +22,6 @@ const Restaurant = {
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
     FavoriteIcon.setEvent(RestaurantListItem);
-    this.handleRestaurants(RestaurantListItem);
-  },
-  handleRestaurants(RestaurantListItem: RestaurantListItem) {
-    const restaurants = document.querySelectorAll(`.${CLASS.RESTAURANT}`) as NodeListOf<HTMLElement>;
-
-    restaurants.forEach((item) => {
-      item?.addEventListener('click', (e) => {
-        const target = e.currentTarget as HTMLElement;
-        const id = target.dataset.id;
-        if (id) {
-          const restaurant = RestaurantListItem.getItemByDataId(target.dataset.id as string) as IRestaurant;
-          DetailModal.openModal(restaurant);
-          DetailModal.setEvent(RestaurantListItem);
-        } else {
-          alert('올바르지 않은 id 값입니다.');
-        }
-      });
-    });
   },
   remove(id: string) {
     const restaurants = document.querySelectorAll(`.${CLASS.RESTAURANT}`) as NodeListOf<HTMLElement>;

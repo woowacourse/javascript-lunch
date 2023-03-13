@@ -12,6 +12,7 @@ const RestaurantListSection = {
   },
   setEvent(RestaurantListItem: RestaurantListItem) {
     Restaurant.setEvent(RestaurantListItem);
+    RestaurantList.setEvent(RestaurantListItem);
   },
   update(RestaurantListItem: RestaurantListItem, restaurantList: IRestaurant[]) {
     const restaurantListContainer = document.querySelector(`.${CLASS.RESTAURANT_LIST_CONTAINER}`) as HTMLDivElement;
