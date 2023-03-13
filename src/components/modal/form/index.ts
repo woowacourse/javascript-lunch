@@ -51,9 +51,8 @@ export class RestaurantAddForm extends HTMLFormElement {
     const category = this.querySelector<InputBox>(
       "[inputid='category']"
     )?.getValue() as Category;
-    const name = this.querySelector<InputBox>(
-      "[inputid='name']"
-    )?.getValue() as string;
+    const name =
+      this.querySelector<InputBox>("[inputid='name']")?.getValue() ?? "";
     const distance = Number(
       this.querySelector<InputBox>("[inputid='distance']")?.getValue()
     ) as Distance;

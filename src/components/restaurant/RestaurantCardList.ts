@@ -31,9 +31,8 @@ export class RestaurantCardList extends HTMLUListElement {
     handleClickCard: (restaurantName: string) => void
   ) {
     this.addEventListener("click", (event: MouseEvent) => {
-      const restaurantId = (event.target as HTMLElement)
-        .closest("li")
-        ?.getAttribute("id") as string;
+      const restaurantId =
+        (event.target as HTMLElement).closest("li")?.getAttribute("id") ?? "";
 
       if ((event.target as HTMLElement).className === "like-icon") {
         handleClickLikeIcon(restaurantId);
