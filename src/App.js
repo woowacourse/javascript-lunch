@@ -49,12 +49,6 @@ export default class App {
     });
     clickedElement.classList.add('selected');
 
-    if (clickedElement.innerText === '자주 가는 음식점') {
-      $('.restaurant-filter-container').classList.add('hidden');
-    } else {
-      $('.restaurant-filter-container').classList.remove('hidden');
-    }
-
     this.setState({ navTab: clickedElement.innerText });
   }
 
@@ -69,9 +63,11 @@ export default class App {
     const key = Object.keys(obj)[0];
 
     if (key === 'navTab' && obj[key] === '자주 가는 음식점') {
+      $('.restaurant-filter-container').classList.add('hidden');
       return this.renderLikedItems();
     }
 
+    $('.restaurant-filter-container').classList.remove('hidden');
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
   }
 
