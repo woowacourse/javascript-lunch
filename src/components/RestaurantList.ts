@@ -2,26 +2,27 @@ import { store } from '../store';
 import RestaurantItem from './RestaurantItem';
 
 export default class RestaurantList {
-  $restaurantListSection = document.createElement('section');
+  $restaurantListSection = document.querySelector(
+    '.restaurant-list-container'
+  ) as HTMLElement;
   $ul = document.createElement('ul');
 
   constructor() {
     if (!store.$listArticle) return;
 
-    this.$restaurantListSection.className = 'restaurant-list-container';
     this.$ul.className = 'restaurant-list';
 
     this.render(store.$listArticle);
   }
 
-  template() {
+  renderUl() {
     this.$ul.innerHTML = '';
     if (!store.currentList.length) {
       this.$ul.innerHTML =
         '<p class="no-list-message text-body">조회 가능한 식당이 없습니다.</p>';
-
       return;
     }
+
     for (const restaurant of store.currentList) {
       this.$ul.insertAdjacentElement('beforeend', RestaurantItem(restaurant));
     }
@@ -29,7 +30,7 @@ export default class RestaurantList {
 
   render = ($targetElement: HTMLElement) => {
     this.$restaurantListSection.innerHTML = '';
-    this.template();
+    this.renderUl();
     this.$restaurantListSection.appendChild(this.$ul);
 
     $targetElement.insertAdjacentElement(

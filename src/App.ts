@@ -14,15 +14,16 @@ export default class App {
   restaurantList: RestaurantList;
 
   constructor() {
+    const $listArticle = document.querySelector('#list-article') as HTMLElement;
+
+    store.setListArticle($listArticle);
+
     this.header = new Header();
     this.tabs = new Tabs();
     this.restaurantForm = new RestaurantForm();
     this.filters = new Filters();
     this.restaurantList = new RestaurantList();
 
-    const $listArticle = document.querySelector('#list-article') as HTMLElement;
-
-    store.setListArticle($listArticle);
     store.setRestaurantListAndFilters({
       filters: this.filters,
       restaurantList: this.restaurantList,

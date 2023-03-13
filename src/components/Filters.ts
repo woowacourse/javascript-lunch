@@ -5,7 +5,9 @@ import { arrayElementToObject } from '../utils/util';
 import { store } from '../store';
 
 export default class Filters {
-  $filterSection = document.createElement('section');
+  $filterSection = document.querySelector(
+    '.restaurant-filter-container'
+  ) as HTMLElement;
 
   constructor() {
     if (!store.$listArticle) return;
@@ -25,35 +27,44 @@ export default class Filters {
   };
 
   template() {
+    const { currentFilterOptions } = store;
     return `
-    ${Select({
-      name: 'category',
-      id: 'category-filter',
-      options: arrayElementToObject(['전체', ...CATEGORY]),
-      selected: store.currentCategory,
-      className: 'restaurant-filter',
-    })}
-    ${Select({
-      name: 'sorting',
-      id: 'sorting-filter',
-      options: arrayElementToObject([...FILTER]),
-      selected: store.currentFilter,
-      className: 'restaurant-filter',
-    })}
-  `;
+      ${Select({
+        name: 'category',
+        id: 'category-filter',
+        options: arrayElementToObject(['전체', ...CATEGORY]),
+        selected: currentFilterOptions.category,
+        className: 'restaurant-filter',
+      })}
+      ${Select({
+        name: 'sorting',
+        id: 'sorting-filter',
+        options: arrayElementToObject([...FILTER]),
+        selected: currentFilterOptions.filter,
+        className: 'restaurant-filter',
+      })}
+    `;
   }
 
   changeEventHandler(e: Event) {
     if (!(e.target instanceof HTMLSelectElement)) return;
 
     const { id, value } = e.target;
+    const { setCurrentFilterOptions, currentFilterOptions } = store;
 
     switch (id) {
       case 'category-filter':
-        store.currentCategory = value as CategoryOptions;
+        setCurrentFilterOptions({
+          ...currentFilterOptions,
+          category: value as CategoryOptions,
+        });
+
         break;
       case 'sorting-filter':
-        store.currentFilter = value as FilterOptions;
+        setCurrentFilterOptions({
+          ...currentFilterOptions,
+          filter: value as FilterOptions,
+        });
         break;
       default:
         return;
