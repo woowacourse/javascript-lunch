@@ -105,7 +105,9 @@ describe("lunch e2e test", () => {
   });
 });
 
-function restaurantList(category, name, distance, description, link) {
+function restaurantList(options) {
+  const { category, name, distance, description, link } = options;
+
   cy.get(".gnb__button").click();
   cy.get("#category").select(category);
   cy.get("#name").type(name);
