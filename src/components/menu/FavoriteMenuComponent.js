@@ -1,7 +1,7 @@
 import MenuComponent from "./MenuComponent";
 import dispatcher from "../../domain/Dispatcher";
 import MenuInstance from "../../domain/store/MenuStore";
-import { MENU_TITLE } from "../../abstracts/constants";
+import { MENU_ACTION, MENU_TITLE } from "../../abstracts/constants";
 
 class FavoriteMenuComponent extends MenuComponent {
   menuTitle = MENU_TITLE.FAVORITE;
@@ -14,7 +14,7 @@ class FavoriteMenuComponent extends MenuComponent {
 
   handleEvent() {
     this.addEventListener("click", () => {
-      dispatcher("menu_favorite");
+      dispatcher(MENU_ACTION.MENU_FAVORITE);
     });
   }
 

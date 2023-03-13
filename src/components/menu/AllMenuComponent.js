@@ -1,7 +1,7 @@
 import MenuComponent from "./MenuComponent";
 import dispatcher from "../../domain/Dispatcher";
 import MenuInstance from "../../domain/store/MenuStore";
-import { MENU_TITLE } from "../../abstracts/constants";
+import { MENU_ACTION, MENU_TITLE } from "../../abstracts/constants";
 
 class AllMenuComponent extends MenuComponent {
   menuTitle = MENU_TITLE.ALL;
@@ -14,7 +14,7 @@ class AllMenuComponent extends MenuComponent {
 
   handleEvent() {
     this.addEventListener("click", () => {
-      dispatcher("menu_all");
+      dispatcher(MENU_ACTION.MENU_ALL);
     });
   }
 
