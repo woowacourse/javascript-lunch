@@ -18,25 +18,10 @@ const html = `
 `;
 
 export default class RestaurantFilterContainer {
-  setState;
-
-  constructor(setState) {
-    this.setState = setState;
+  constructor(onChangeCategory, onChangeSortOption) {
     $('.restaurant-filter-container').innerHTML = html;
 
-    $('#category-filter').addEventListener('change', this.onChangeCategory.bind(this));
-    $('#sorting-filter').addEventListener('change', this.onChangeSortOption.bind(this));
-  }
-
-  onChangeCategory(e) {
-    const category = e.target.value;
-
-    this.setState({ filterCategory: category });
-  }
-
-  onChangeSortOption(e) {
-    const sortOption = e.target.value;
-
-    this.setState({ sortOption: sortOption });
+    $('#category-filter').addEventListener('change', onChangeCategory.bind(this));
+    $('#sorting-filter').addEventListener('change', onChangeSortOption.bind(this));
   }
 }

@@ -27,7 +27,10 @@ export default class App {
 
     new Header(this.onClickAddRestaurantButton.bind(this));
     new UpperTab(this.onClickNavTab.bind(this));
-    new RestaurantFilterContainer(this.setState.bind(this));
+    new RestaurantFilterContainer(
+      this.onChangeCategory.bind(this),
+      this.onChangeSortOption.bind(this)
+    );
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
     new CreateRestaurantModal(
       this.onSubmitAddRestaurantForm.bind(this),
@@ -68,6 +71,18 @@ export default class App {
 
     $('.restaurant-filter-container').classList.remove('hidden');
     this.renderFilteredItems(this.state.filterCategory, this.state.sortOption);
+  }
+
+  onChangeCategory(e) {
+    const category = e.target.value;
+
+    this.setState({ filterCategory: category });
+  }
+
+  onChangeSortOption(e) {
+    const sortOption = e.target.value;
+
+    this.setState({ sortOption: sortOption });
   }
 
   renderFilteredItems(filterCategory, sortOption) {
