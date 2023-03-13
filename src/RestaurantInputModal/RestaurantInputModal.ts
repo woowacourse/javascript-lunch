@@ -17,9 +17,7 @@ class RestaurantInputModal extends Modal{
   // override
   open() {
     this.element.querySelector("form")?.reset();
-    if (!this.element.classList.contains("modal--open")) {
-      this.element.classList.add("modal--open");
-    }
+    super.open();
   }
 }
 

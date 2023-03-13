@@ -220,7 +220,7 @@ nav {
   display: none;
 }
 
-.modal--open {
+.modal[data-open="true"] {
   display: block;
 }
 
@@ -358,7 +358,7 @@ input[name="link"] {
   text-align: center;
 }
 
-.alert--open {
+.alert[data-open="true"] {
   display: flex;
 }
 

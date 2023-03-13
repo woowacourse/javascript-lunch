@@ -5,18 +5,19 @@ class Alert {
 
   constructor(id: string) {
     this.element = createAlert(id);
+    this.element.dataset.open = "false";
   }
 
   open() {
-    if (!this.element.classList.contains("alert--open")) {
-      this.element.classList.add("alert--open");
+    if (this.element.dataset.open === "false") {
+      this.element.dataset.open = "true";
     }
   }
 
   close() {
-    if (this.element.classList.contains("alert--open")) {
+    if (this.element.dataset.open === "true") {
       this.element.innerHTML = "";
-      this.element.classList.remove("alert--open");
+      this.element.dataset.open = "false";
     }
   }
 

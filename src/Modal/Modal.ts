@@ -6,19 +6,20 @@ class Modal {
 
   constructor(id: string) {
     this.element = createModal(id);
+    this.element.dataset.open = "false";
 
     addCloseModalCallback(this);
   }
 
   open() {
-    if (!this.element.classList.contains("modal--open")) {
-      this.element.classList.add("modal--open");
+    if (this.element.dataset.open === "false") {
+      this.element.dataset.open = "true";
     }
   }
 
   close() {
-    if (this.element.classList.contains("modal--open")) {
-      this.element.classList.remove("modal--open");
+    if (this.element.dataset.open === "true") {
+      this.element.dataset.open = "false";
     }
   }
 }
