@@ -35,25 +35,25 @@ export default class RestaurantItem extends Component {
   }
 
   switchFavorite() {
-    if (this.starShape === 'lined') {
+    if (this.restaurantData.starShape === 'lined') {
       this.addRestaurantList();
-    } else if (this.starShape === 'filled') {
+    } else if (this.restaurantData.starShape === 'filled') {
       this.removeRestaurantList();
     }
   }
 
   addRestaurantList() {
+    this.restaurantData.starShape = 'filled';
+
     this.restaurantManager.fillRestaurantStarShape(this.restaurantData.storeName);
     this.favoriteRestaurant.addRestaurant(this.restaurantData);
-
-    this.restaurantData.starShape = 'filled';
   }
 
   removeRestaurantList() {
+    this.restaurantData.starShape = 'lined';
+
     this.restaurantManager.unfillRestaurantStarShape(this.restaurantData.storeName);
     this.favoriteRestaurant.removeRestaurant(this.restaurantData.storeName);
-
-    this.restaurantData.starShape = 'lined';
   }
 
   activateDetailModal() {
