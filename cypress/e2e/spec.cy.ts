@@ -3,18 +3,16 @@ import {
   FAVORITE_IMAGE_PATH,
   LOCAL_STORAGE_KEY,
 } from '../../src/constant';
-import { writeRestaurantAddForm, checkRestaurantItem } from '../testfunctions';
+
 import testcases from '../../testcase/e2e-testcase';
 
 describe('레스토랑 추가 테스트', () => {
   it('레스토랑 정보를 입력하면, 레스토랑이 추가되어야 한다.', () => {
     cy.visit('/');
 
-    cy.get('.modal.modal--open').should('not.exist');
-    cy.get('#header-add-button').click();
-    cy.get('.modal.modal--open').should('exist');
+    cy.openAddModal();
 
-    writeRestaurantAddForm({
+    cy.writeRestaurantAddForm({
       category: '중식',
       name: '차이나타운',
       distanceInMinutes: '15',
@@ -24,7 +22,7 @@ describe('레스토랑 추가 테스트', () => {
 
     cy.get('.modal.modal--open').should('not.exist');
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['중식'],
       name: '차이나타운',
       distanceInMinutes: '15',
@@ -36,11 +34,9 @@ describe('레스토랑 추가 테스트', () => {
   it('레스토랑 입력은 올바르게 적어야 한다. 만약 잘못 적은 경우에는 레스토랑이 추가되지 않아야 한다.', () => {
     cy.visit('/');
 
-    cy.get('.modal.modal--open').should('not.exist');
-    cy.get('#header-add-button').click();
-    cy.get('.modal.modal--open').should('exist');
+    cy.openAddModal();
 
-    writeRestaurantAddForm({
+    cy.writeRestaurantAddForm({
       category: '중식',
       name: '차이나타운',
       distanceInMinutes: '',
@@ -48,14 +44,11 @@ describe('레스토랑 추가 테스트', () => {
       link: 'https://chinatown.com/',
     });
 
-    cy.get('.modal.modal--open').should('exist');
-    cy.get('#add-modal-cancel').click();
+    cy.closeAddModal();
 
-    cy.get('.modal.modal--open').should('not.exist');
-    cy.get('#header-add-button').click();
-    cy.get('.modal.modal--open').should('exist');
+    cy.openAddModal();
 
-    writeRestaurantAddForm({
+    cy.writeRestaurantAddForm({
       category: '',
       name: '차이나타운',
       distanceInMinutes: '15',
@@ -63,14 +56,11 @@ describe('레스토랑 추가 테스트', () => {
       link: 'https://chinatown.com/',
     });
 
-    cy.get('.modal.modal--open').should('exist');
-    cy.get('#add-modal-cancel').click();
+    cy.closeAddModal();
 
-    cy.get('.modal.modal--open').should('not.exist');
-    cy.get('#header-add-button').click();
-    cy.get('.modal.modal--open').should('exist');
+    cy.openAddModal();
 
-    writeRestaurantAddForm({
+    cy.writeRestaurantAddForm({
       category: '중식',
       name: '차이나타운',
       distanceInMinutes: '15',
@@ -78,14 +68,11 @@ describe('레스토랑 추가 테스트', () => {
       link: 'chinatowncom',
     });
 
-    cy.get('.modal.modal--open').should('exist');
-    cy.get('#add-modal-cancel').click();
+    cy.closeAddModal();
 
-    cy.get('.modal.modal--open').should('not.exist');
-    cy.get('#header-add-button').click();
-    cy.get('.modal.modal--open').should('exist');
+    cy.openAddModal();
 
-    writeRestaurantAddForm({
+    cy.writeRestaurantAddForm({
       category: '중식',
       name: '차이나타운',
       distanceInMinutes: '15',
@@ -95,7 +82,7 @@ describe('레스토랑 추가 테스트', () => {
 
     cy.get('#modal.modal--open').should('not.exist');
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['중식'],
       name: '차이나타운',
       distanceInMinutes: '15',
@@ -148,7 +135,7 @@ describe('레스토랑 팝업 테스트', () => {
     cy.get('.restaurant').eq(0).click();
     cy.get('#info-modal-delete').click();
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '스파이스 & 화이트',
       distanceInMinutes: '10',
@@ -157,7 +144,7 @@ describe('레스토랑 팝업 테스트', () => {
       favoriteSrc: FAVORITE_IMAGE_PATH.unstarred,
     });
 
-    checkRestaurantItem(1, {
+    cy.checkRestaurantItem(1, {
       imageSrc: CATEGORY_IMAGE_PATH['일식'],
       name: '우리집 일본집',
       distanceInMinutes: '20',
@@ -179,7 +166,7 @@ describe('레스토랑 필터링 테스트', () => {
     cy.visit('/');
     cy.get('#category-filter').select('양식');
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '뉴욕스테이크하우스',
       distanceInMinutes: '30',
@@ -188,7 +175,7 @@ describe('레스토랑 필터링 테스트', () => {
       favoriteSrc: FAVORITE_IMAGE_PATH.unstarred,
     });
 
-    checkRestaurantItem(1, {
+    cy.checkRestaurantItem(1, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '스파이스 & 화이트',
       distanceInMinutes: '10',
@@ -204,7 +191,7 @@ describe('레스토랑 필터링 테스트', () => {
     cy.visit('/');
     cy.get('#sorting-filter').select('거리순');
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['한식'],
       name: '신선한밥상',
       distanceInMinutes: '5',
@@ -213,7 +200,7 @@ describe('레스토랑 필터링 테스트', () => {
       favoriteSrc: FAVORITE_IMAGE_PATH.unstarred,
     });
 
-    checkRestaurantItem(1, {
+    cy.checkRestaurantItem(1, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '스파이스 & 화이트',
       distanceInMinutes: '10',
@@ -222,7 +209,7 @@ describe('레스토랑 필터링 테스트', () => {
       favoriteSrc: FAVORITE_IMAGE_PATH.unstarred,
     });
 
-    checkRestaurantItem(2, {
+    cy.checkRestaurantItem(2, {
       imageSrc: CATEGORY_IMAGE_PATH['일식'],
       name: '우리집 일본집',
       distanceInMinutes: '20',
@@ -231,7 +218,7 @@ describe('레스토랑 필터링 테스트', () => {
       favoriteSrc: FAVORITE_IMAGE_PATH.unstarred,
     });
 
-    checkRestaurantItem(3, {
+    cy.checkRestaurantItem(3, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '뉴욕스테이크하우스',
       distanceInMinutes: '30',
@@ -255,7 +242,7 @@ describe('레스토랑 필터링 테스트', () => {
 
     cy.get('#info-modal-close').click();
 
-    checkRestaurantItem(1, {
+    cy.checkRestaurantItem(1, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '스파이스 & 화이트',
       distanceInMinutes: '10',
@@ -264,7 +251,7 @@ describe('레스토랑 필터링 테스트', () => {
       favoriteSrc: FAVORITE_IMAGE_PATH.starred,
     });
 
-    checkRestaurantItem(2, {
+    cy.checkRestaurantItem(2, {
       imageSrc: CATEGORY_IMAGE_PATH['한식'],
       name: '신선한밥상',
       distanceInMinutes: '5',
@@ -275,7 +262,7 @@ describe('레스토랑 필터링 테스트', () => {
 
     cy.get('#category-filter').select('한식');
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['한식'],
       name: '신선한밥상',
       distanceInMinutes: '5',
@@ -287,7 +274,7 @@ describe('레스토랑 필터링 테스트', () => {
 
     cy.get('.favorite-radio[for="favorite-filter-favorite"]').click();
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '스파이스 & 화이트',
       distanceInMinutes: '10',
@@ -296,7 +283,7 @@ describe('레스토랑 필터링 테스트', () => {
       favoriteSrc: FAVORITE_IMAGE_PATH.starred,
     });
 
-    checkRestaurantItem(1, {
+    cy.checkRestaurantItem(1, {
       imageSrc: CATEGORY_IMAGE_PATH['한식'],
       name: '신선한밥상',
       distanceInMinutes: '5',
@@ -307,7 +294,7 @@ describe('레스토랑 필터링 테스트', () => {
 
     cy.get('.favorite-radio[for="favorite-filter-all"]').click();
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['한식'],
       name: '신선한밥상',
       distanceInMinutes: '5',
@@ -320,7 +307,7 @@ describe('레스토랑 필터링 테스트', () => {
     cy.get('#restaurant-list .favorite-button').eq(0).click();
     cy.get('.favorite-radio[for="favorite-filter-favorite"]').click();
 
-    checkRestaurantItem(0, {
+    cy.checkRestaurantItem(0, {
       imageSrc: CATEGORY_IMAGE_PATH['양식'],
       name: '스파이스 & 화이트',
       distanceInMinutes: '10',
