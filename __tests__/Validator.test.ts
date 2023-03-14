@@ -1,74 +1,106 @@
+// @ts-nocheck
+
 import Validator from '../src/domain/Validator';
+import { correctUserInputs } from '../testcase/unit-testcase';
 import { ERROR_MESSAGE } from '../src/constant';
 
-describe('카테고리 유효성 검사', () => {
-  test.each([['몰?루'], [''], ['한식1'], [' 한식']])(
-    '(실패 사례) 카테고리 입력값 %s 유효성 검사',
-    (input) => {
-      expect(() => Validator.checkCategory(input)).toThrow(
-        ERROR_MESSAGE.category
-      );
-    }
-  );
-  test.each([['한식'], ['중식'], ['일식'], ['아시안'], ['양식'], ['기타']])(
-    '(성공 사례) 카테고리 입력값 %s 유효성 검사',
-    (input) => {
-      expect(() => Validator.checkCategory(input)).not.toThrow();
-    }
-  );
-});
-
-describe('이름 유효성 검사', () => {
-  test.each([[''], ['    ']])(
-    '(실패 사례) 이름 입력값 %s 유효성 검사',
-    (input) => {
-      expect(() => Validator.checkName(input)).toThrow(ERROR_MESSAGE.name);
+describe('레스토랑 유효성 검사 테스트 (Validator)', () => {
+  const validator = new Validator();
+  test.each([correctUserInputs])(
+    '정상적인 레스토랑의 정보가 주어졌다면 오류가 발생하지 않아야 한다.',
+    (testcase) => {
+      expect(() => validator.errorIfInvalidRestaurant(testcase)).not.toThrow();
     }
   );
 
-  test.each([
-    ['푸만능'],
-    ['ChatGPT'],
-    ['요술 토끼'],
-    ['123'],
-    ['몰★루'],
-    ['/?! 0%vZ _w'],
-  ])('(성공 사례) 이름 입력값 %s 유효성 검사', (input) => {
-    expect(() => Validator.checkName(input)).not.toThrow();
+  test('레스토랑의 카테고리를 고르지 않아 값이 비어있는 경우 카테고리 오류를 발생시켜야 한다.', () => {
+    const testcase = {
+      category: '',
+      name: '차이나타운',
+      distanceInMinutes: '20',
+      description: '가     나다   라   마바  사  ',
+      link: 'https://chinatown.com/',
+    };
+    expect(() => validator.errorIfInvalidRestaurant(testcase)).toThrow(
+      ERROR_MESSAGE.categoryIsEmpty
+    );
   });
-});
 
-describe('거리 유효성 검사', () => {
-  test.each([[''], ['1'], ['-3'], ['거리']])(
-    '(실패 사례) 거리 입력값 %s 유효성 검사',
-    (input) => {
-      expect(() => Validator.checkDistance(input)).toThrow(
-        ERROR_MESSAGE.distance
-      );
-    }
-  );
+  test('레스토랑의 이름이 비어있는 경우 이름 관련 오류를 발생시켜야 한다.', () => {
+    const testcase = {
+      category: '중식',
+      name: '',
+      distanceInMinutes: '20',
+      description: '    ',
+      link: 'https://chinatown.com/',
+    };
+    expect(() => validator.errorIfInvalidRestaurant(testcase)).toThrow(
+      ERROR_MESSAGE.nameIsEmpty
+    );
+  });
 
-  test.each([['5'], ['10'], ['15'], ['20'], ['25'], ['30']])(
-    '(성공 사례) 거리 입력값 %s 유효성 검사',
-    (input) => {
-      expect(() => Validator.checkDistance(input)).not.toThrow();
-    }
-  );
-});
+  test('레스토랑의 이름이 공백만으로 이루어진 경우 이름 관련 오류를 발생시켜야 한다.', () => {
+    const testcase = {
+      category: '중식',
+      name: '    ',
+      distanceInMinutes: '15',
+      description: 'Test Message',
+      link: 'https://chinatown.com/',
+    };
+    expect(() => validator.errorIfInvalidRestaurant(testcase)).toThrow(
+      ERROR_MESSAGE.nameIsEmpty
+    );
+  });
 
-describe('참고 링크 유효성 검사', () => {
-  test.each([[''], ['만얼'], ['wwwwoowacom'], ['http:**magic.co.kr']])(
-    '(실패 사례) 참고 링크 입력값 %s 유효성 검사',
-    (input) => {
-      expect(() => Validator.checkLink(input)).toThrow(ERROR_MESSAGE.link);
-    }
-  );
+  test('레스토랑의 거리를 선택하지 않아 거리 값이 비어있는 경우 거리 관련 오류를 발생시켜야 한다.', () => {
+    const testcase = {
+      category: '중식',
+      name: '차이나타운',
+      distanceInMinutes: '',
+      description: '',
+      link: 'https://chinatown.com/',
+    };
+    expect(() => validator.errorIfInvalidRestaurant(testcase)).toThrow(
+      ERROR_MESSAGE.distanceInMinutesIsEmpty
+    );
+  });
 
-  test.each([
-    ['http://naver.me/abcdefg'],
-    ['https://naver.com'],
-    ['https://woowacourse.github.io'],
-  ])('(성공 사례) 참고 링크 입력값 %s 유효성 검사', (input) => {
-    expect(() => Validator.checkLink(input)).not.toThrow();
+  test('링크가 올바르지 않을 경우 링크 관련 오류를 발생시켜야 한다.', () => {
+    const testcase = {
+      category: '중식',
+      name: '차이나타운',
+      distanceInMinutes: '5',
+      description: '대충 여기에 설명',
+      link: 'htt://chinatown.com/',
+    };
+    expect(() => validator.errorIfInvalidRestaurant(testcase)).toThrow(
+      ERROR_MESSAGE.linkIsInvalid
+    );
+  });
+
+  test('링크가 올바르지 않을 경우 링크 관련 오류를 발생시켜야 한다.', () => {
+    const testcase = {
+      category: '중식',
+      name: '차이나타운',
+      distanceInMinutes: '5',
+      description: '대충 여기에 설명',
+      link: 'chinatowncom',
+    };
+    expect(() => validator.errorIfInvalidRestaurant(testcase)).toThrow(
+      ERROR_MESSAGE.linkIsInvalid
+    );
+  });
+
+  test('링크가 올바르지 않을 경우 링크 관련 오류를 발생시켜야 한다.', () => {
+    const testcase = {
+      category: '중식',
+      name: '차이나타운',
+      distanceInMinutes: '5',
+      description: '대충 여기에 설명',
+      link: 'ChinaTown.',
+    };
+    expect(() => validator.errorIfInvalidRestaurant(testcase)).toThrow(
+      ERROR_MESSAGE.linkIsInvalid
+    );
   });
 });

@@ -1,70 +1,71 @@
 import { $, $$ } from '../util/querySelector';
-import { Restaurant } from '../type';
+import { UserRestaurantInput } from '../type';
+import Modal from './components/Modal';
 import getFormData from '../util/getFormData';
+import TwinButtons from './components/TwinButtons';
 
 type RestaurantAddModalType = {
   parentElement: HTMLElement;
   parentEvent: {
     onModalCancelButtonClicked: () => void;
-    onModalAddButtonClicked: (restaurantData: Restaurant) => void;
+    onModalAddButtonClicked: (restaurantData: UserRestaurantInput) => void;
   };
 };
 
 class RestaurantAddModal {
   #parentElement;
   #parentEvent;
+  #modal;
 
   constructor({ parentElement, parentEvent }: RestaurantAddModalType) {
     this.#parentElement = parentElement;
     this.#parentEvent = parentEvent;
 
-    this.#render();
+    this.#modal = new Modal({
+      parentElement: this.#parentElement,
+      info: {
+        id: 'restaurant-add-modal',
+        innerId: 'restaurant-add-modal-contents',
+      },
+    });
+
+    this.#fillContentsInModal();
     this.#setListeners();
   }
 
-  toggleModal() {
-    $(`#restaurant-add-modal`).classList.toggle('modal--open');
+  closeOrOpenModal(command: string) {
+    this.#modal.closeOrOpenModal(command);
+  }
+
+  showErrorMessage(message: string) {
+    $(`#error-item`).style.opacity = '1';
+    $(`#error-text`).innerText = message;
+  }
+
+  hideErrorMessage() {
+    $(`#error-item`).style.opacity = '0';
+    $(`#error-text`).innerText = '';
   }
 
   clearAllInputs() {
     $$(
       '#modal-add-form input, #modal-add-form textarea, #modal-add-form select'
     ).forEach((input) => {
-      (
-        input as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      ).value = '';
+      if (
+        input instanceof HTMLInputElement ||
+        input instanceof HTMLTextAreaElement ||
+        input instanceof HTMLSelectElement
+      ) {
+        input.value = '';
+      }
     });
   }
 
-  #setListeners() {
-    ($(`#modal-cancel-button`) as HTMLButtonElement).addEventListener(
-      'click',
-      () => {
-        this.#parentEvent.onModalCancelButtonClicked();
-      }
-    );
-
-    ($(`#modal-add-form`) as HTMLFormElement).addEventListener(
-      'submit',
-      (event) => {
-        event.preventDefault();
-
-        const restaurantData = getFormData(
-          $(`#modal-add-form`) as HTMLFormElement
-        );
-
-        this.#parentEvent.onModalAddButtonClicked(restaurantData as Restaurant);
-      }
-    );
-  }
-
-  #render() {
+  #fillContentsInModal() {
     const template = `
-      <div class="modal" id="restaurant-add-modal">
-      <div class="modal-backdrop"></div>
-      <div class="modal-container">
-        <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form id="modal-add-form">
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+      <form id="modal-add-form">
+        <div class="modal-add-main-menu">
           <div class="form-item form-item--required">
             <label for="category text-caption">카테고리</label>
             <select name="category" id="category" required>
@@ -102,15 +103,44 @@ class RestaurantAddModal {
             <input type="text" name="link" id="link">
             <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
           </div>
-          <div class="button-container">
-            <button type="button" class="button button--secondary text-caption" id="modal-cancel-button">취소하기</button>
-            <button class="button button--primary text-caption" id="modal-add-button">추가하기</button>
-          </div>
-        </form>
-      </div>
-    </div>`;
+        </div>
+        <div class="error-item" id="error-item">
+          <img class="error-image" src="./error-icon.png" />
+          <div class="error-text text-caption" id="error-text"></span>
+        </div>
+      </form>
+    `;
 
-    this.#parentElement.innerHTML = template;
+    $('#restaurant-add-modal-contents').innerHTML = template;
+
+    new TwinButtons({
+      parentElement: $('#modal-add-form'),
+      info: {
+        leftButtonId: 'add-modal-cancel',
+        rightButtonId: 'add-modal-submit',
+        leftButtonName: '취소하기',
+        rightButtonName: '추가하기',
+      },
+      parentEvent: {
+        onLeftButtonClicked: () =>
+          this.#parentEvent.onModalCancelButtonClicked(),
+      },
+    });
+  }
+
+  #setListeners() {
+    const $modalAddForm = $(`#modal-add-form`);
+    if (!($modalAddForm instanceof HTMLFormElement)) return;
+
+    $modalAddForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const restaurantData = getFormData($modalAddForm);
+
+      this.#parentEvent.onModalAddButtonClicked(
+        restaurantData as UserRestaurantInput
+      );
+    });
   }
 }
 

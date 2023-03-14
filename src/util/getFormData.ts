@@ -1,14 +1,8 @@
 const getFormData = (formElement: HTMLFormElement) => {
   const formData = new FormData(formElement);
 
-  const convertedData: Record<string, FormDataEntryValue> = [
-    ...formData.entries(),
-  ].reduce(
-    (totalData, [key, value]) => ({
-      ...totalData,
-      [key]: value.toString(),
-    }),
-    {}
+  const convertedData: Record<string, FormDataEntryValue> = Object.fromEntries(
+    formData.entries()
   );
 
   return convertedData;
