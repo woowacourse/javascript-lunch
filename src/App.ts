@@ -1,185 +1,174 @@
-import type { Category, State } from './types/restaurantTypes';
-import image from './img/images';
-import Restaurants from './model/Restaurants';
-import Component from './components/Component';
-import Modal from './components/Modal';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import Restaurant, { RestaurantProps } from './domain/Restaurant';
+import Restaurants from './domain/Restaurants';
+import render from './render';
+import { DEFAULT_RESTAURANTS } from './fixtures';
+import { FILTER, SORT } from './utils/constants';
+import { getRestaurants, saveRestaurants } from './utils/localStorage';
 
-export default class App extends Component {
-  restuarants: Restaurants;
+class App {
+  #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
 
-  constructor($target: HTMLElement) {
-    super($target);
-    this.restuarants = new Restaurants(this.$state!.restaurants);
+  #restaurantListType: 'all' | 'favorite' = 'all';
+
+  #filterPipes: Partial<
+    Record<'filter' | 'sort' | 'type', (restaurants: Restaurant[]) => Restaurant[]>
+  > = {};
+
+  constructor() {
+    this.init();
   }
 
-  setup() {
-    this.$state = this.getStateFromLocalStorage() || {
-      filter: '전체',
-      sort: 'name',
-      restaurants: [
-        {
-          name: '피양콩할마니',
-          category: '한식',
-          distance: 10,
-          description:
-            '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로, ‘피양’은 평안도 사투리로 ‘평양’을 의미한다. 딸과 함께 운영하는 이곳에선 맷돌로 직접 간 콩만을 사용하며, 일체의 조미료를 넣지 않은 건강식을 선보인다. 콩비지와 피양 만두가 이곳의 대표 메뉴지만, 할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.',
-        },
-        {
-          name: '친친',
-          category: '중식',
-          distance: 5,
-          description:
-            'Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다',
-        },
-        {
-          name: '잇쇼우',
-          category: '일식',
-          distance: 10,
-          description:
-            '잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다',
-        },
-        {
-          name: '이태리키친',
-          category: '양식',
-          distance: 20,
-          description: '늘 변화를 추구하는 이태리키친입니다.',
-        },
-        {
-          name: '쌀국수',
-          category: '아시안',
-          distance: 20,
-          description: '쌀국수 맛있어요.',
-        },
-        {
-          name: '도스타코스',
-          category: '기타',
-          distance: 30,
-          description: '타코 맛있어요!.',
-        },
-        {
-          name: '오토상',
-          category: '일식',
-          distance: 5,
-          description: '스시 맛있어요!.',
-        },
-        {
-          name: '곤방와',
-          category: '일식',
-          distance: 15,
-          description: '라멘 전문 레스토랑!.',
-        },
-      ],
+  init = () => {
+    this.initFilterPipes();
+    this.initEventHandlers();
+  };
+
+  initFilterPipes = () => {
+    this.#filterPipes = {
+      sort: (_restaurants: Restaurant[]) => Restaurants.getSorted(_restaurants, Restaurants.byName),
+      type: (_restaurants: Restaurant[]) => Restaurants.getAll(_restaurants),
     };
-  }
+  };
 
-  getStateFromLocalStorage(): State | null {
-    const stateString = localStorage.getItem('state');
-    if (!stateString) return null;
+  updateRestaurantsList = () => {
+    const updatedRestaurantsList = Object.values(this.#filterPipes).reduce(
+      (filteredRestaurants, filter) => filter(filteredRestaurants),
+      this.#restaurants,
+    );
 
+    render.restaurantList(updatedRestaurantsList);
+    saveRestaurants(this.#restaurants);
+  };
+
+  changeRestaurantFilter = ({ detail }: CustomEvent) => {
+    if (detail.value === FILTER.value.entire) {
+      const { filter, ...keys } = this.#filterPipes;
+      this.#filterPipes = keys;
+    } else {
+      this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
+        Restaurants.filterByCategory(_restaurants, String(detail.value));
+    }
+
+    this.updateRestaurantsList();
+  };
+
+  changeRestaurantSort = ({ detail }: CustomEvent) => {
+    const compareFn =
+      detail.value === SORT.value.name ? Restaurants.byName : Restaurants.byDistance;
+
+    const sortFilter = (_restaurants: Restaurant[]) =>
+      Restaurants.getSorted(_restaurants, compareFn);
+
+    this.#filterPipes.sort = sortFilter;
+    this.updateRestaurantsList();
+  };
+
+  addRestaurant = ({ detail }: CustomEvent) => {
     try {
-      const state = JSON.parse(stateString);
-      return state;
-    } catch (err) {
-      console.error(err);
-      return null;
-    }
-  }
-
-  template() {
-    return `
-    <header class="gnb">
-      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-      <button type="button" class="gnb__button" aria-label="음식점 추가">
-      <img src="${image.추가버튼}" alt="음식점 추가">
-      </button>
-    </header>
-    <main>
-    <!-- 카테고리/정렬 필터 -->
-    <section class="restaurant-filter-container">
-      <select name="category" id="category-filter" class="restaurant-filter">
-        <option value="전체">전체</option>
-        <option value="한식">한식</option>
-        <option value="중식">중식</option>
-        <option value="일식">일식</option>
-        <option value="양식">양식</option>
-        <option value="아시안">아시안</option>
-        <option value="기타">기타</option>
-      </select>
-
-      <!-- 정렬 셀렉트 박스 -->
-      <select name="sorting" id="sorting-filter" class="restaurant-filter" >
-        <option value="name">이름순</option>
-        <option value="distance">거리순</option>
-      </select>
-    </section>
-
-    <!-- 음식점 목록 -->
-    <section class="restaurant-list-container">
-      <ul class="restaurant-list">
-        ${this.$state!.restaurants.map(
-          ({ name, category, distance, description }) => `
-          <li class="restaurant">
-            <div class="restaurant__category">
-              <img src="${image[category]}" alt="${category}" class="category-icon">
-            </div>
-            <div class="restaurant__info">
-              <h3 class="restaurant__name text-subtitle">${name}</h3>
-              <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-              <p class="restaurant__description text-body">${description}</p>
-            </div>
-          </li>
-        `
-        ).join('')}
-      </ul>        
-    </section>
-    </main>
-    `;
-  }
-
-  render(): void {
-    this.$target.innerHTML = this.template();
-
-    const categoryFilter = this.$target.querySelector('#category-filter');
-    if (categoryFilter instanceof HTMLSelectElement) {
-      categoryFilter.value = this.$state!.filter;
+      const restaurant = this.createRestaurant(detail);
+      this.#restaurants.push(restaurant);
+    } catch (e) {
+      const error = e as Error;
+      alert(error.message);
+      return;
     }
 
-    const sortFilter = this.$target.querySelector('#sorting-filter');
-    if (sortFilter instanceof HTMLSelectElement) {
-      sortFilter.value = this.$state!.sort;
+    render.closeRegisterRestaurantModal();
+    this.updateRestaurantsList();
+  };
+
+  createRestaurant = ({
+    category,
+    name,
+    distanceByMinutes,
+    description,
+    referenceUrl,
+  }: RestaurantProps) => {
+    return new Restaurant({
+      category,
+      name,
+      distanceByMinutes,
+      description,
+      referenceUrl,
+    });
+  };
+
+  openRestaurantDetailModal = ({ detail }: CustomEvent) => {
+    const { name } = detail;
+
+    const restaurant = this.#restaurants.filter((_restaurant) => _restaurant.getName() === name)[0];
+
+    render.openRestaurantDetailModal(restaurant);
+  };
+
+  initLoad = () => {
+    render.init();
+
+    const restaurants: Restaurant[] = getRestaurants();
+
+    if (restaurants.length !== 0) {
+      this.#restaurants = restaurants.map((restaurant: Restaurant) =>
+        Object.setPrototypeOf(restaurant, Restaurant.prototype),
+      );
     }
 
-    this.listenEvent();
-  }
+    this.updateRestaurantsList();
+  };
 
-  listenEvent() {
-    this.$target.querySelector('.gnb__button')!.addEventListener('click', (event: Event) => {
-      new Modal(this.$target, this.restuarants, this.$state);
+  deleteRestaurant = ({ detail }: CustomEvent) => {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.getName() !== detail.name,
+    );
+
+    this.updateRestaurantsList();
+    render.closeRestaurantDetailModal();
+  };
+
+  toggleRestaurantFavorite = ({ detail }: CustomEvent) => {
+    const { restaurantName } = detail;
+
+    this.#restaurants.forEach((restaurant) => {
+      if (restaurant.getName() === restaurantName) restaurant.toggleFavorite();
     });
 
-    this.$target.querySelector('#category-filter')!.addEventListener('change', (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const value = target.value;
-      const filteredRestuarant = this.restuarants!.filterByCategory(value as Category);
+    render.toggleRestaurantFavorite(restaurantName);
+    saveRestaurants(this.#restaurants);
 
-      this.setState({ filter: value, restaurants: filteredRestuarant });
-    });
+    if (this.#restaurantListType === 'favorite')
+      render.deleteRestaurantInFavoriteList(restaurantName);
+  };
 
-    this.$target.querySelector('#sorting-filter')!.addEventListener('change', (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const value = target.value;
+  chagneRestaurantType = ({ detail }: CustomEvent) => {
+    const { type } = detail;
 
-      if (value === 'name') {
-        const sortedByName = this.restuarants!.sortByName(this.$state!.filter as Category);
-        this.setState({ sort: value, restaurants: sortedByName });
-        return;
-      }
+    this.#filterPipes.type = type === 'all' ? Restaurants.getAll : Restaurants.getFavorite;
 
-      if (value === 'distance') {
-        const sortedByDistance = this.restuarants!.sortByDistance(this.$state!.filter as Category);
-        this.setState({ sort: value, restaurants: sortedByDistance });
-        return;
-      }
-    });
+    if (type === 'all') {
+      render.openSearchRestaurantSection();
+      this.initFilterPipes();
+    } else {
+      render.closeSearchRestaurantSection();
+    }
+
+    this.#restaurantListType = type;
+    this.updateRestaurantsList();
+  };
+
+  initEventHandlers() {
+    window.addEventListener('load', this.initLoad);
+    document.addEventListener('openRegisterRestauranModal', render.openRegisterRestaurantModal);
+    document.addEventListener('changeFilter', this.changeRestaurantFilter as EventListener);
+    document.addEventListener('changeSort', this.changeRestaurantSort as EventListener);
+    document.addEventListener('createRestaurant', this.addRestaurant as EventListener);
+    document.addEventListener(
+      'openRestaurantDetailModal',
+      this.openRestaurantDetailModal as EventListener,
+    );
+    document.addEventListener('deleteRestaurant', this.deleteRestaurant as EventListener);
+    document.addEventListener('toggleFavorite', this.toggleRestaurantFavorite as EventListener);
+    document.addEventListener('chagneRestaurantType', this.chagneRestaurantType as EventListener);
   }
 }
+
+export default App;
