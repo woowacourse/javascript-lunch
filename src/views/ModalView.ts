@@ -5,7 +5,7 @@ import { ERROR_MESSAGE, MESSAGE } from '../constants/constants';
 
 class ModalView {
   private restaurantAddForm = $<HTMLFormElement>('#restaurant-add-form');
-  private modal = $<HTMLDialogElement>('.modal');
+  private modal = $<HTMLDialogElement>('#add-restaurant-modal');
   private closeButton = $<HTMLButtonElement>('#modal-close-button');
   private categoryInput = $<HTMLSelectElement>('#category');
   private categoryInputCaption = $<HTMLSpanElement>('#category-caption');
@@ -18,8 +18,8 @@ class ModalView {
 
   constructor() {
     this.initInputCaptions();
-    this.addCloseButtonClickEvent();
-    this.addModalBackdropClickEvent();
+    this.addCloseButtonClickEventHandler();
+    this.addModalBackdropClickEventHandler();
   }
 
   initInputCaptions() {
@@ -28,25 +28,33 @@ class ModalView {
     this.distanceInputCaption.textContent = ERROR_MESSAGE.EMPTY_DISTANCE;
   }
 
-  addSubmitEventHandler(onSubmitRestaurantAddForm: CallableFunction) {
+  addSubmitEventHandler(
+    onSubmitRestaurantAddForm: CallableFunction,
+    getRestaurantNames: CallableFunction,
+  ) {
     this.restaurantAddForm.addEventListener('submit', (event) => {
       event.preventDefault();
+
       const formData: FormData = new FormData(this.restaurantAddForm);
-      const restaurantItem = Object.fromEntries(
-        [...formData].map(([key, value]) => [key, key === 'distance' ? Number(value) : value]),
+      const restaurant = Object.fromEntries(
+        [...formData].map(([key, value]) => {
+          if (key === 'distance') return [key, Number(value)];
+          if (key === 'favorite') return [key, Boolean(value)];
+          return [key, String(value)];
+        }),
       ) as Restaurant;
 
-      const errors: Errors = restaurantFormValidator.verify(restaurantItem);
+      const errors: Errors = restaurantFormValidator.verify(restaurant, getRestaurantNames());
       const hasError = Object.values(errors).some((error) => error === true);
 
       if (!hasError) {
         this.restaurantAddForm.reset();
         this.modal.close();
-        return onSubmitRestaurantAddForm(restaurantItem);
+        return onSubmitRestaurantAddForm(restaurant);
       }
 
       this.showErrorMessages(errors);
-      this.addErrorMessageRemovingEvents();
+      this.addFormInputChangeEventHandlersforRemovingErrorMessage();
     });
   }
 
@@ -58,6 +66,10 @@ class ModalView {
       this.changeStyleForErrorMessage(this.linkInputCaption);
       this.linkInputCaption.textContent = ERROR_MESSAGE.INVALID_LINK;
     }
+    if (errors.overlapName) {
+      this.changeStyleForErrorMessage(this.nameInputCaption);
+      this.nameInputCaption.textContent = ERROR_MESSAGE.OVERLAP_NAME;
+    }
   }
 
   changeStyleForErrorMessage<E extends Element>(element: E) {
@@ -65,7 +77,14 @@ class ModalView {
     element.classList.remove('not-visible');
   }
 
-  addCategoryChangeEvent() {
+  addFormInputChangeEventHandlersforRemovingErrorMessage() {
+    this.addCategoryChangeEventHandler();
+    this.addNameInputEventHandler();
+    this.addDistanceChangeEventHandler();
+    this.addLinkInputEventHandler();
+  }
+
+  addCategoryChangeEventHandler() {
     this.categoryInput.addEventListener(
       'change',
       () => {
@@ -76,7 +95,7 @@ class ModalView {
     );
   }
 
-  addNameInputEvent() {
+  addNameInputEventHandler() {
     this.nameInput.addEventListener(
       'input',
       () => {
@@ -87,7 +106,7 @@ class ModalView {
     );
   }
 
-  addDistanceChangeEvent() {
+  addDistanceChangeEventHandler() {
     this.distanceInput.addEventListener(
       'change',
       () => {
@@ -98,7 +117,7 @@ class ModalView {
     );
   }
 
-  addLinkInputEvent() {
+  addLinkInputEventHandler() {
     this.linkInput.addEventListener(
       'input',
       () => {
@@ -109,23 +128,17 @@ class ModalView {
     );
   }
 
-  addErrorMessageRemovingEvents() {
-    this.addCategoryChangeEvent();
-    this.addNameInputEvent();
-    this.addDistanceChangeEvent();
-    this.addLinkInputEvent();
-  }
-
-  addCloseButtonClickEvent() {
+  addCloseButtonClickEventHandler() {
     this.closeButton.addEventListener('click', () => {
       this.restaurantAddForm.reset();
       this.modal.close();
     });
   }
 
-  addModalBackdropClickEvent() {
+  addModalBackdropClickEventHandler() {
     this.modal.addEventListener('click', (event) => {
       if (event.target instanceof HTMLDialogElement && event.target.nodeName === 'DIALOG') {
+        this.restaurantAddForm.reset();
         event.target.close();
       }
     });

@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <title>점심 뭐 먹지</title>
-    <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
@@ -11,12 +10,15 @@
     <!-- GNB -->
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-      <button type="button" class="gnb__button" aria-label="음식점 추가">
+      <button type="button" id="add-restaurant-button" class="gnb__button" aria-label="음식점 추가">
         <img src="./add-button.png" alt="음식점 추가" />
       </button>
     </header>
 
     <main>
+      <!-- 탭 메뉴 -->
+      <div class="tabs"></div>
+
       <!-- 카테고리/정렬 필터 -->
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
@@ -37,12 +39,10 @@
       </section>
 
       <!-- 음식점 목록 -->
-      <section class="restaurant-list-container">
-        <ul class="restaurant-list"></ul>
-      </section>
+      <ul class="restaurant-list"></ul>
 
       <!-- 음식점 추가 모달 -->
-      <dialog class="modal">
+      <dialog class="modal" id="add-restaurant-modal">
         <div class="modal-container">
           <h2 class="modal-title text-title">새로운 음식점</h2>
           <form id="restaurant-add-form" novalidate>
@@ -58,14 +58,16 @@
                 <option value="아시안">아시안</option>
                 <option value="기타">기타</option>
               </select>
-              <span class="help-text text-caption info-text" id="category-caption"></span>
+              <span
+                class="help-text text-caption info-text not-visible"
+                id="category-caption"></span>
             </div>
 
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
               <label for="name text-caption">이름</label>
               <input type="text" name="name" id="name" required />
-              <span class="help-text text-caption info-text" id="name-caption"></span>
+              <span class="help-text text-caption info-text not-visible" id="name-caption"></span>
             </div>
 
             <!-- 거리 -->
@@ -79,7 +81,9 @@
                 <option value="20">20분 내</option>
                 <option value="30">30분 내</option>
               </select>
-              <span class="help-text text-caption info-text" id="distance-caption"></span>
+              <span
+                class="help-text text-caption info-text not-visible"
+                id="distance-caption"></span>
             </div>
 
             <!-- 설명 -->
@@ -113,6 +117,9 @@
           </form>
         </div>
       </dialog>
+
+      <!-- 음식점 상세 모달 -->
+      <dialog class="modal" id="restaurant-detail-modal"></dialog>
     </main>
   </body>
 </html>

@@ -85,6 +85,15 @@ body {
   object-fit: contain;
 }
 
+.tabs {
+  display: flex;
+  justify-content: space-around;
+
+  margin: 9px 16px;
+  padding: 0px;
+  list-style: none;
+}
+
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */
@@ -112,66 +121,12 @@ body {
 }
 
 /* 음식점 목록 */
-.restaurant-list-container {
+.restaurant-list {
   display: flex;
   flex-direction: column;
 
   padding: 0 16px;
   margin: 16px 0;
-}
-
-.restaurant {
-  display: flex;
-  align-items: flex-start;
-
-  padding: 16px 8px;
-
-  border-bottom: 1px solid #e9eaed;
-}
-
-.restaurant__category {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  height: 64px;
-  min-width: 64px;
-  min-height: 64px;
-
-  margin-right: 16px;
-
-  border-radius: 50%;
-  background: var(--lighten-color);
-}
-
-.category-icon {
-  width: 36px;
-  height: 36px;
-}
-
-.restaurant__info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.restaurant__name {
-  margin: 0;
-}
-
-.restaurant__distance {
-  color: var(--primary-color);
-}
-
-.restaurant__description {
-  display: -webkit-box;
-
-  padding-top: 8px;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -180,11 +135,18 @@ body {
   left: 0;
   bottom: 0;
   width: 100vw;
+  height: 70vh;
 
   padding: 32px 16px;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  overflow-y: auto;
+}
+
+.modal-container::-webkit-scrollbar {
+  display: none;
 }
 
 .modal-title {

@@ -1,18 +1,46 @@
-import { CATEGORY, LOCAL_STORAGE_KEY, SORTING_CRITERION } from '../constants/constants';
+import { CATEGORY, SORTING_CRITERION } from '../constants/constants';
+import { FAVORITE_ICON_IMAGE, CATEGORY_IMAGE } from '../constants/images';
 import { Category, SortingCriterion, Restaurant } from '../types/types';
 
 class RestaurantService {
-  private restaurantList: Restaurant[];
   private currentCategory: Category = CATEGORY.ALL;
   private currentSortingCriterion: SortingCriterion = SORTING_CRITERION.NAME;
 
-  constructor() {
-    this.restaurantList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.RESTAURANTS) ?? '[]');
+  getRestaurantNames = () => {
+    const restaurantList = this.getRestaurantList();
+    return restaurantList.map((restaurant) => restaurant.name);
+  };
+
+  getRestaurantList() {
+    const restaurantList = Object.keys(localStorage).map((key) => {
+      const restaurantItem = localStorage.getItem(key);
+      if (restaurantItem) return JSON.parse(restaurantItem);
+    });
+
+    if (restaurantList.length > 0) return restaurantList;
+    return [];
+  }
+
+  getFavoriteRestaurantList() {
+    const currentRestaurantList = this.getRestaurantList();
+
+    return currentRestaurantList.filter((restaurant) => restaurant.favorite);
   }
 
   add(restaurant: Restaurant) {
-    this.restaurantList.push(restaurant);
-    localStorage.setItem(LOCAL_STORAGE_KEY.RESTAURANTS, JSON.stringify(this.restaurantList));
+    const restaurantNames = this.getRestaurantNames();
+
+    if (restaurantNames.includes(restaurant.name)) return;
+
+    restaurant.favorite = false;
+    restaurant.favoriteImageUrl = FAVORITE_ICON_IMAGE.LINED; // 즐겨찾기 아이콘 기본 경로 설정
+    restaurant.categoryImageUrl = CATEGORY_IMAGE[restaurant.category];
+
+    localStorage.setItem(restaurant.name, JSON.stringify(restaurant));
+  }
+
+  remove(restaurantName: string) {
+    localStorage.removeItem(restaurantName);
   }
 
   setCurrentCategory(category: Category) {
@@ -23,10 +51,10 @@ class RestaurantService {
     this.currentSortingCriterion = criterion;
   }
 
-  filterBy(category: Category): Restaurant[] {
-    if (category === CATEGORY.ALL) return [...this.restaurantList];
+  filterBy(category: Category, restaurantList: Restaurant[]): Restaurant[] {
+    if (category === CATEGORY.ALL) return [...restaurantList];
 
-    return this.restaurantList.filter((restaurant) => restaurant.category === category);
+    return restaurantList.filter((restaurant) => restaurant.category === category);
   }
 
   sortBy(criterion: SortingCriterion, restaurantList: Restaurant[]): Restaurant[] {
@@ -37,8 +65,8 @@ class RestaurantService {
     return [...restaurantList].sort((a, b) => a.distance - b.distance);
   }
 
-  filterAndSort(): Restaurant[] {
-    const filteredRestaurantList = this.filterBy(this.currentCategory);
+  filterAndSort(restaurantList: Restaurant[] = this.getRestaurantList()): Restaurant[] {
+    const filteredRestaurantList = this.filterBy(this.currentCategory, restaurantList);
     return this.sortBy(this.currentSortingCriterion, filteredRestaurantList);
   }
 }

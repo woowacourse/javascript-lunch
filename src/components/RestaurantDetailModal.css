@@ -1,0 +1,29 @@
+/* 음식점 상세정보 모달 *****************************************/
+.in-detail-modal {
+  top: -64px;
+}
+
+.more-detail {
+  -webkit-line-clamp: 4;
+}
+
+.category-favorite-icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant__info {
+  position: relative;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  margin-bottom: 32px;
+}
+
+.restaurant__link {
+  color: #000000;
+  margin-top: 10px;
+}
