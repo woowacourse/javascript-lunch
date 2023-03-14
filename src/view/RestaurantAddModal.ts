@@ -44,6 +44,7 @@ class RestaurantAddModal {
 
   hideErrorMessage() {
     $(`#error-item`).style.opacity = '0';
+    $(`#error-text`).innerText = '';
   }
 
   clearAllInputs() {
