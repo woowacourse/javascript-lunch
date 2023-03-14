@@ -1,6 +1,6 @@
 import type { Category } from "../../types/restaurant";
 
-import { getCategoryImage } from "../../constants/categoryImage";
+import { getCategoryImage, getLikeImage } from "../../constants/categoryImage";
 
 class RestaurantCard extends HTMLLIElement {
   constructor() {
@@ -16,6 +16,7 @@ class RestaurantCard extends HTMLLIElement {
     const name = this.getAttribute("name");
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
+    const like = JSON.parse(`${this.getAttribute("like")}`);
 
     this.innerHTML = `
       <div class="restaurant__category">
@@ -31,8 +32,14 @@ class RestaurantCard extends HTMLLIElement {
           캠퍼스부터 ${distance}분 내
         </span>
         <p class="restaurant__description text-body">
-          ${description ?? ""}
+          ${description ? description : ""}
         </p>
+        <img
+          src=${getLikeImage(like)}
+          alt="like"
+          class="like-icon"
+          name=${name}
+        />
       </div>
     `;
   }

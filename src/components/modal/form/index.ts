@@ -2,6 +2,7 @@ import type { Category, Distance, Restaurant } from "../../../types/restaurant";
 
 import { Modal } from "..";
 import { InputBox } from "./InputBox";
+import Random from "../../../utils/Random";
 
 export class RestaurantAddForm extends HTMLFormElement {
   constructor() {
@@ -26,7 +27,7 @@ export class RestaurantAddForm extends HTMLFormElement {
           >
               취소하기
           </button>
-          <button class="button button--primary text-caption">
+          <button class="button button--primary text-caption submit-button">
               추가하기
           </button>
       </div>
@@ -50,9 +51,8 @@ export class RestaurantAddForm extends HTMLFormElement {
     const category = this.querySelector<InputBox>(
       "[inputid='category']"
     )?.getValue() as Category;
-    const name = this.querySelector<InputBox>(
-      "[inputid='name']"
-    )?.getValue() as string;
+    const name =
+      this.querySelector<InputBox>("[inputid='name']")?.getValue() ?? "";
     const distance = Number(
       this.querySelector<InputBox>("[inputid='distance']")?.getValue()
     ) as Distance;
@@ -60,17 +60,14 @@ export class RestaurantAddForm extends HTMLFormElement {
       "[inputid='description']"
     )?.getValue();
     const link = this.querySelector<InputBox>("[inputid='link']")?.getValue();
+    const like = false;
+    const id = Random.generateUniqueId();
 
-    return { category, name, distance, description, link };
+    return { category, name, distance, description, link, like, id };
   }
 
   resetFormValues() {
-    this.querySelector<InputBox>("[inputid='category']")?.resetValue();
-    (this.querySelector("#category") as HTMLSelectElement).value = "";
-    (this.querySelector("#name") as HTMLInputElement).value = "";
-    (this.querySelector("#distance") as HTMLSelectElement).value = "";
-    (this.querySelector("#description") as HTMLTextAreaElement).value = "";
-    (this.querySelector("#link") as HTMLInputElement).value = "";
+    this.reset();
   }
 }
 

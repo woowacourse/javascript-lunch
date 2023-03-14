@@ -2,6 +2,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 ul,
@@ -13,6 +15,10 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+}
+
+h1 {
+  overflow: hidden;
 }
 
 /* Colors *****************************************/
@@ -87,6 +93,34 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+.like-filter-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.like-filter-button {
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+
+  flex: 1;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.like-filter-button--activated {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -127,6 +161,10 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  position: relative;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -147,6 +185,15 @@ body {
 .category-icon {
   width: 36px;
   height: 36px;
+}
+
+.like-icon {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
 }
 
 .restaurant__info {
@@ -295,4 +342,30 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 세부정보 모달 *****************************************/
+
+.restaurant-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: calc(100vw - 32px);
+}
+
+.image-container {
+  position: relative;
+  width: calc(100% - 16px);
+}
+
+.detail-like-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.detail-text {
+  overflow: scroll;
+  overflow-x: hidden;
+  max-height: 50vh;
 }

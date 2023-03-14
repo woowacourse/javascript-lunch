@@ -6,6 +6,8 @@ import categoryChineseImage from "../../templates/category-chinese.png";
 import categoryJapaneseImage from "../../templates/category-japanese.png";
 import categoryWesternImage from "../../templates/category-western.png";
 import categoryEtcImage from "../../templates/category-etc.png";
+import restaurant_unlike from "../../templates/restaurant_unlike.svg";
+import restaurant_like from "../../templates/restaurant_like.svg";
 
 const categoryImages = {
   한식: categoryKoreanImage,
@@ -18,3 +20,6 @@ const categoryImages = {
 
 export const getCategoryImage = (category: Category) =>
   categoryImages[category] ?? categoryImages["기타"];
+
+export const getLikeImage = (like: boolean) =>
+  like ? restaurant_like : restaurant_unlike;
