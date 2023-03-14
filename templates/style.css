@@ -87,20 +87,51 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 음식점 탭 */
+restaurant-tab {
+  display: flex;
+
+  padding: 32px 16px;
+}
+
+.restaurant-tab:checked + label {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+restaurant-tab > label {
+  flex: 1;
+
+  padding: 9px 0;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--grey-300);
+
+  border-bottom: 2px solid var(--grey-200);
+
+  text-align: center;
+  cursor: pointer;
+}
+
+.restaurant-tab {
+  appearance: none;
+}
+
 /* 카테고리/정렬 필터 */
 restaurant-filter {
   display: flex;
   justify-content: space-between;
 
   padding: 0 16px;
-  margin-top: 24px;
 }
 
 .restaurant-filter-container select {
   height: 44px;
   min-width: 125px;
 
-  border: 1px solid #d0d5dd;
+  border: 1px solid var(--grey-200);
   border-radius: 8px;
   background: transparent;
 
@@ -127,6 +158,8 @@ restaurant-filter {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -153,6 +186,28 @@ restaurant-filter {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.restaurant__info > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.favorite__button {
+  height: 32px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.favorite-icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .restaurant__name {
@@ -189,6 +244,8 @@ restaurant-filter {
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 80vh;
+  overflow: auto;
 
   padding: 32px 16px;
 
@@ -216,7 +273,7 @@ restaurant-filter {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -250,8 +307,8 @@ restaurant-filter {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -287,4 +344,35 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세정보 모달 *****************************************/
+
+#restaurant__image__area {
+  display: flex;
+  justify-content: space-between;
+}
+
+restaurant-detail h2 {
+  padding: 16px 0;
+}
+
+restaurant-detail p {
+  margin-top: 16px;
+}
+
+restaurant-detail a {
+  color: black;
+}
+
+#link-container {
+  margin: 16px 0 32px;
+}
+
+.hidden {
+  display: none;
+}
+
+button:focus {
+  outline: none;
 }

@@ -12,10 +12,12 @@ customElements.define(
         .map(
           (restaurant) => /* html */ `
           <restaurant-list-item
+            restaurantID="${restaurant.restaurantID}"
             category="${restaurant.category}"
             restaurantName="${restaurant.name}"
             distance="${restaurant.distance}"
             description="${restaurant.description}"
+            favorite="${restaurant.favorite}"
           ></restaurant-list-item>
         `
         )

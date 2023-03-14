@@ -7,6 +7,7 @@ import { setLocalStorage } from './utils/localStorage';
 const LunchMenuApp = {
   init() {
     restaurants.init();
+    this.setRestaurantList();
     this.render(restaurants.list);
     this.bindEvents();
   },
@@ -21,18 +22,36 @@ const LunchMenuApp = {
   },
 
   bindEvents() {
-    $('restaurant-register-modal').addEventListener(
-      'registerRestaurant',
-      ({ detail: restaurant }) => this.handleRestaurantRegister(restaurant)
+    $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
+      this.handleRestaurantRegister(restaurant)
     );
     $('restaurant-filter').addEventListener('change', () => this.handleRestaurantFilter());
-    $('.gnb__button').addEventListener('click', () => $('restaurant-register-modal').openModal());
+    $('.gnb__button').addEventListener('click', () =>
+      $('custom-modal').openModal('<restaurant-register-form />')
+    );
+
+    $('restaurant-tab').addEventListener('changeRestaurantTab', ({ detail: tabType }) =>
+      this.handleRestaurantTabChange(tabType)
+    );
+    $('.restaurant-list-container').addEventListener(
+      'changeRestaurantFavorite',
+      ({ detail: restaurantID }) => this.handleRestaurantFavoriteChange(restaurantID)
+    );
+    $('.restaurant-list-container').addEventListener(
+      'clickRestaurantDetail',
+      ({ detail: restaurantID }) => this.handleRestaurantDetailClick(restaurantID)
+    );
+    $('.restaurant-list-container').addEventListener(
+      'deleteRestaurant',
+      ({ detail: restaurantID }) => this.handleRestaurantDelete(restaurantID)
+    );
   },
 
   handleRestaurantRegister(restaurant) {
     restaurants.add(restaurant);
     this.setRestaurantList();
-    this.handleRestaurantFilter();
+    $('#tab-all').checked = true;
+    this.handleRestaurantTabChange('all');
   },
 
   setRestaurantList() {
@@ -50,6 +69,35 @@ const LunchMenuApp = {
     };
 
     this.render(sortByType[sortingType]());
+  },
+
+  handleRestaurantTabChange(tabType) {
+    const filteredRestaurants = restaurants.filterByFavorite(tabType, restaurants.list);
+
+    if (tabType === 'favorite') {
+      $('restaurant-filter').hide();
+      this.render(filteredRestaurants);
+      return;
+    }
+    $('restaurant-filter').show();
+    this.handleRestaurantFilter();
+  },
+
+  handleRestaurantFavoriteChange(restaurantID) {
+    restaurants.changeFavorite(restaurantID);
+    this.setRestaurantList();
+    this.handleRestaurantTabChange($('input[name="tab"]:checked').value);
+  },
+
+  handleRestaurantDetailClick(restaurantID) {
+    $('custom-modal').openModal('<restaurant-detail/>');
+    $('restaurant-detail').render(restaurants.getRestaurant(restaurantID));
+  },
+
+  handleRestaurantDelete(restaurantID) {
+    restaurants.delete(restaurantID);
+    this.setRestaurantList();
+    this.handleRestaurantTabChange($('input[name="tab"]:checked').value);
   },
 };
 

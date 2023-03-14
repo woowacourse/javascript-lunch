@@ -1,5 +1,3 @@
-import { $, dispatchCustomEvent } from '../utils/dom';
-
 customElements.define(
   'restaurant-filter',
   class RestaurantFilter extends HTMLElement {
@@ -24,6 +22,14 @@ customElements.define(
           <option value="distance">거리순</option>
         </select>
       `;
+    }
+
+    hide() {
+      this.classList.add('hidden');
+    }
+
+    show() {
+      this.classList.remove('hidden');
     }
   }
 );
