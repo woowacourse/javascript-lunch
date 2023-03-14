@@ -36,7 +36,7 @@ const restaurants = [
 ];
 
 describe("음식점 리스트 관리 클래스 테스트", () => {
-  test("getter에 인자를 넣지 않고 사용하면, 자동으로 '전체' 카테고리 및 '이름순'으로 정렬해서 데이터를 가져옴", () => {
+  test("getter에 인자를 넣지 않고 사용하면, 자동으로 '전체' 카테고리 및 '이름순'으로 정렬해서 데이터를 가져온다.", () => {
     const restaurantListManager = new RestaurantListManager(Object.assign(restaurants));
 
     const result = restaurantListManager.getRestaurantList();
@@ -77,7 +77,7 @@ describe("음식점 리스트 관리 클래스 테스트", () => {
     ]);
   });
 
-  test("음식점 추가 기능 테스트", () => {
+  test("음식점 2개 추가 후 음식점 결과 반환", () => {
     const restaurantListManager = new RestaurantListManager([]);
 
     restaurantListManager.addRestaurant({
@@ -120,7 +120,7 @@ describe("음식점 리스트 관리 클래스 테스트", () => {
     ]);
   });
 
-  test("음식점 리스트 카테고리 필터링 테스트", () => {
+  test("음식점 리스트에서 한식으로 필터링 하면 한식 음식점만 남고, 아시안으로 필터링 하면 아시안 음식점만 남는다.", () => {
     const restaurantListManager = new RestaurantListManager(Object.assign(restaurants));
 
     const koreanRestaurantList = restaurantListManager.getRestaurantList("한식");
@@ -157,7 +157,7 @@ describe("음식점 리스트 관리 클래스 테스트", () => {
     ]);
   });
 
-  test("음식점 리스트 정렬 테스트", () => {
+  test("음식점 리스트를 이름순으로 정렬 시 가식당, 나식당, 다식당, 라식당 순으로 정렬된다. / 거리순으로 정렬시 distance가 작은 순으로 정렬된다. ", () => {
     const restaurantListManager = new RestaurantListManager(Object.assign(restaurants));
 
     const sortedByName = restaurantListManager.getRestaurantList("전체", "이름순");
@@ -234,7 +234,7 @@ describe("음식점 리스트 관리 클래스 테스트", () => {
     ]);
   });
 
-  test("음식점 리스트 정렬 테스트", () => {
+  test("음식점 리스트에서 즐겨찾기 한 음식점만 가져온다.", () => {
     const restaurantListManager = new RestaurantListManager(Object.assign(restaurants));
 
     const favoriteList = restaurantListManager.getFavoriteList();
