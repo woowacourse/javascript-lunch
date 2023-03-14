@@ -12,7 +12,7 @@
 }
 
 .form-item-container {
-  overflow: scroll;
+  overflow: auto;
 }
 
 .form-item {
