@@ -130,17 +130,16 @@ class RestaurantAddModal {
 
   #setListeners() {
     const $modalAddForm = $(`#modal-add-form`);
+    if (!($modalAddForm instanceof HTMLFormElement)) return;
 
     $modalAddForm.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      if ($modalAddForm instanceof HTMLFormElement) {
-        const restaurantData = getFormData($modalAddForm);
+      const restaurantData = getFormData($modalAddForm);
 
-        this.#parentEvent.onModalAddButtonClicked(
-          restaurantData as UserRestaurantInput
-        );
-      }
+      this.#parentEvent.onModalAddButtonClicked(
+        restaurantData as UserRestaurantInput
+      );
     });
   }
 }

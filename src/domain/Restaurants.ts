@@ -51,9 +51,8 @@ class Restaurants {
     const searchedIndex = this.#getRestaurantIndexById(itemId);
 
     if (itemId !== -1) {
-      this.#restaurants[searchedIndex].isFavorite
-        ? (this.#restaurants[searchedIndex].isFavorite = false)
-        : (this.#restaurants[searchedIndex].isFavorite = true);
+      const isFavorite = this.#restaurants[searchedIndex].isFavorite;
+      this.#restaurants[searchedIndex].isFavorite = !isFavorite;
     }
   }
 

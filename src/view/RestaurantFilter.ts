@@ -56,9 +56,8 @@ class RestaurantFilter {
   }
 
   #closeOrOpenSelectFilter(command: string) {
-    command === 'open'
-      ? ($(`#restaurant-filter-container`).style.display = 'flex')
-      : ($(`#restaurant-filter-container`).style.display = 'none');
+    $(`#restaurant-filter-container`).style.display =
+      command === 'open' ? 'flex' : 'none';
   }
 
   #render() {
