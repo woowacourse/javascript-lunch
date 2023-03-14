@@ -8,7 +8,7 @@ export const inputValidator = {
     return nameInput;
   },
   validateLink: (linkInput: string) => {
-    if (!URL_REGEX.test(linkInput)) {
+    if (linkInput.trim().length != 0 && !URL_REGEX.test(linkInput)) {
       throw new Error("[ERROR] 유효한 링크를 입력해주세요.");
     }
     return linkInput;

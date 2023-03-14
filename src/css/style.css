@@ -85,6 +85,34 @@ body {
   object-fit: contain;
 }
 
+/* 메뉴 탭바 ********************************************/
+.tab-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 15px 10px 15px;
+}
+
+.tab {
+  width: 100%;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 35px;
+
+  text-align: center;
+
+  color: #667085;
+  border-bottom: 2px solid #d0d5dd;
+}
+
+.radio:checked + label {
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
+}
+
+.radio {
+  appearance: none;
+}
+
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */
@@ -151,6 +179,7 @@ body {
 
 .restaurant__info {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -197,7 +226,8 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 50rem;
+  height: auto;
+  max-height: 100%;
   overflow-y: scroll;
 
   padding: 32px 16px;
@@ -297,4 +327,29 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세 모달 *****************************************/
+.icon-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.info-container {
+  margin-bottom: 30px;
+}
+
+.restaurant__detail__name {
+  margin: 15px 0 10px 0;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.restaurant__detail__distance {
+  color: var(--primary-color);
+}
+
+.restaurant__detail__description {
+  margin: 15px 0 10px 0;
 }

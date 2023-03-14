@@ -6,7 +6,7 @@ class BottomSheet extends HTMLElement {
   render(children: string) {
     this.innerHTML = `
       <div id="modalBackdrop" class="modal-backdrop"></div>
-      <div id="foo" class="modal-container">
+      <div id="modal" class="modal-container">
         ${children}
       </div>
     `;

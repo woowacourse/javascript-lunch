@@ -5,6 +5,8 @@ import categoryKorean from "../assets/category-korean.png";
 import categoryWestern from "../assets/category-western.png";
 import categoryEtc from "../assets/category-etc.png";
 import addButton from "../assets/add-button.png";
+import favoriteIconFilled from "../assets/favorite-icon-filled.png";
+import favoriteIconLined from "../assets/favorite-icon-lined.png";
 
 export {
   categoryAsian,
@@ -14,4 +16,6 @@ export {
   categoryWestern,
   categoryEtc,
   addButton,
+  favoriteIconFilled,
+  favoriteIconLined,
 };

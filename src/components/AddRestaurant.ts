@@ -1,9 +1,10 @@
 import Controller from "../domain/Controller";
 import { inputValidator } from "../domain/inputValidator";
 import RestaurantType from "../type/Restaurant";
-import { closeBottomSheet } from "../utils";
+import { closeBottomSheet, showRestaurantFilter } from "../utils";
 import CategorySelectBox from "./CategorySelectBox";
 import SortingSelectBox from "./SortingSelectBox";
+import TabBar from "./TabBar";
 
 class AddRestaurant extends HTMLElement {
   private controller;
@@ -67,7 +68,7 @@ class AddRestaurant extends HTMLElement {
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
           <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
-          <button type="submit" class="button button--primary text-caption">추가하기</button>
+          <button id="submitButton" type="submit" class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
     `;
@@ -75,23 +76,32 @@ class AddRestaurant extends HTMLElement {
 
   onClickCancelButton() {
     const cancelButton = this.querySelector("#cancelButton");
-    cancelButton?.addEventListener("click", () => {
-      closeBottomSheet();
-    });
+    if (cancelButton instanceof HTMLElement) {
+      cancelButton.addEventListener("click", () => {
+        closeBottomSheet();
+      });
+    }
   }
 
   onSubmitRestaurantForm() {
     const restaurantForm = document.getElementById("restaurantForm");
-    restaurantForm?.addEventListener("submit", (event) => {
-      event.preventDefault();
 
-      const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
-      this.controller.addRestaurant(newRestaurant);
-      this.controller.filterRestaurants(CategorySelectBox.getOption());
-      this.controller.sortRestaurants(SortingSelectBox.getOption());
+    if (restaurantForm instanceof HTMLElement) {
+      restaurantForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-      closeBottomSheet();
-    });
+        const newRestaurant = this.createNewRestaurant(event) as RestaurantType;
+        this.controller.addRestaurant(newRestaurant);
+        this.controller.sortRestaurants(SortingSelectBox.getOption());
+        this.controller.filterRestaurants(CategorySelectBox.getOption());
+
+        if (TabBar.getCurrentTab() == "favorite") {
+          TabBar.setCurrentTab("all");
+          showRestaurantFilter();
+        }
+        closeBottomSheet();
+      });
+    }
   }
 
   createNewRestaurant(event: SubmitEvent) {
@@ -103,6 +113,7 @@ class AddRestaurant extends HTMLElement {
         distance: Number(formData.get("distance")),
         description: formData.get("description") as string,
         link: inputValidator.validateLink(formData.get("link") as string),
+        isFavorite: false,
       };
       return newRestaurant;
     } catch (error: any) {

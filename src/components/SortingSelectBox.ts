@@ -22,12 +22,11 @@ class SortingSelectBox extends HTMLElement {
 
   onSelectOption() {
     const sortingFilter = document.getElementById("sorting-filter");
-    if (!(sortingFilter instanceof HTMLSelectElement)) {
-      return;
+    if (sortingFilter instanceof HTMLSelectElement) {
+      sortingFilter.addEventListener("change", () => {
+        this.controller.sortRestaurants(sortingFilter.value);
+      });
     }
-    sortingFilter?.addEventListener("change", () => {
-      this.controller.sortRestaurants(sortingFilter.value);
-    });
   }
 
   static getOption(): string {
@@ -35,6 +34,7 @@ class SortingSelectBox extends HTMLElement {
     if (!(sortingFilter instanceof HTMLSelectElement)) {
       return NO_ELEMENT;
     }
+
     return sortingFilter.value;
   }
 }
