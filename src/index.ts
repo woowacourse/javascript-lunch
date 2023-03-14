@@ -10,19 +10,24 @@ import "./assets/category-western.png";
 import "./assets/favorite-icon-filled.png";
 import "./assets/favorite-icon-lined.png";
 
-import { updateRestaurantList } from "./domain/filter";
+import { updateRestaurants } from "./domain/filter";
 import { saveSelectedOption } from "./domain/localStorageController";
 import RestaurantsController from "./domain/RestaurantsController";
 import {
   handleModalCancelButtonClick,
   handleModalOpenButtonClick,
-} from "./modal";
-import {
-  executeChangeEventListener,
-  executeClickEventListener,
-  executeSubmitEventListener,
-} from "./util/eventListener";
+} from "./domain/newRestaurantModalController";
+import { executeEventListener } from "./util/eventListener";
+import { $ } from "./util/selector";
 import { LOCAL_STORAGE_KEY, SELECTED_OPTION } from "./constant";
+import { renderTabButtons } from "./component/restaurantTabButton";
+import {
+  initRestaurantInfoModal,
+  closeRestaurantInfoModal,
+  deleteRestaurant,
+} from "./component/restaurantInfoModal";
+import { CategoryOptionType, SortType } from "./type";
+import { controlFavoriteIcon } from "./domain/favoriteIconController";
 const { CATEGORY, SORT } = LOCAL_STORAGE_KEY;
 const { NAME, All_CATEGORIES } = SELECTED_OPTION;
 
@@ -37,50 +42,70 @@ const App = {
   initEventListeners() {
     this.controlNewRestaurantModal();
     this.controlFilter();
+    renderTabButtons();
+    initRestaurantInfoModal();
+    controlFavoriteIcon();
+    this.controlModalButtons();
   },
 
   initLocalStorage() {
-    const selectedCategory = localStorage.getItem(CATEGORY) as string | null;
+    const selectedCategory = localStorage.getItem(
+      CATEGORY
+    ) as CategoryOptionType;
     saveSelectedOption(CATEGORY, selectedCategory ?? All_CATEGORIES);
 
-    const selectedSort = localStorage.getItem(SORT) as string | null;
+    const selectedSort = localStorage.getItem(SORT) as SortType;
     saveSelectedOption(SORT, selectedSort ?? NAME);
   },
 
   controlNewRestaurantModal() {
-    executeClickEventListener(".gnb__button", () =>
-      handleModalOpenButtonClick(".modal")
+    executeEventListener($(".gnb__button")!, {
+      type: "click",
+      listener: () => handleModalOpenButtonClick(".modal"),
+    });
+
+    [$(".button--secondary"), $(".modal-backdrop")].forEach((el) =>
+      executeEventListener(el!, {
+        type: "click",
+        listener: () => handleModalCancelButtonClick(".modal"),
+      })
     );
 
-    executeClickEventListener(".button--secondary", () =>
-      handleModalCancelButtonClick(".modal")
-    );
+    executeEventListener($("#new-restaurant-form")!, {
+      type: "submit",
+      listener: (event) => this.restaurantsController.addNewRestaurant(event),
+    });
+  },
 
-    executeClickEventListener(".modal-backdrop", () =>
-      handleModalCancelButtonClick(".modal")
-    );
-
-    executeSubmitEventListener("#new-restaurant-form", (event: Event) => {
-      this.restaurantsController.addNewRestaurant(event);
+  controlModalButtons() {
+    executeEventListener($("#restaurant-info-modal")!, {
+      type: "click",
+      listener: (event) => {
+        const target = event.target as HTMLElement;
+        closeRestaurantInfoModal(event);
+        deleteRestaurant(target);
+      },
     });
   },
 
   controlFilter() {
-    executeChangeEventListener(
-      "#sorting-filter",
-      (selectedSort: string | number) => {
-        saveSelectedOption(SORT, selectedSort as string);
-        updateRestaurantList();
-      }
-    );
+    executeEventListener($("#sorting-filter")!, {
+      type: "change",
+      listener: (event) => {
+        saveSelectedOption(SORT, (event.target as HTMLOptionElement).value);
+        updateRestaurants();
+        controlFavoriteIcon();
+      },
+    });
 
-    executeChangeEventListener(
-      "#category-filter",
-      (selectedCategory: string | number) => {
-        saveSelectedOption(CATEGORY, selectedCategory as string);
-        updateRestaurantList();
-      }
-    );
+    executeEventListener($("#category-filter")!, {
+      type: "change",
+      listener: (event) => {
+        saveSelectedOption(CATEGORY, (event.target as HTMLOptionElement).value);
+        updateRestaurants();
+        controlFavoriteIcon();
+      },
+    });
   },
 };
 

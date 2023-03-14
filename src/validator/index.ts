@@ -4,8 +4,8 @@ import {
   checkDuplicate,
 } from "./errorThrower";
 
-export const validateName = (restaurantInfo: string) => {
-  checkDuplicate(restaurantInfo);
-  checkInputLength(restaurantInfo);
-  checkRestaurantName(restaurantInfo);
+export const validateName = (restaurantName: string) => {
+  checkDuplicate(restaurantName);
+  checkInputLength(restaurantName);
+  checkRestaurantName(restaurantName);
 };

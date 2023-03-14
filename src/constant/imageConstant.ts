@@ -6,3 +6,8 @@ export const CATEGORY_IMAGE = {
   아시안: "asian",
   기타: "etc",
 };
+
+export const FAVORITE_IMAGE = {
+  none: "lined",
+  favorite: "filled",
+};

@@ -5,26 +5,24 @@ import { $ } from "../util/selector";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
 
 export const saveRestaurantsInLocalStorage = (restaurant: RestaurantType) => {
-  const key = `${RESTAURANT}${findLocalStorageKeys(RESTAURANT).length + 1}`;
+  const key = `${RESTAURANT}${restaurant.name}`;
   const value = JSON.stringify(restaurant);
 
   localStorage.setItem(key, value);
 };
 
 export const getAllRestaurantsInLocalStorage = () => {
-  return findLocalStorageKeys(RESTAURANT).map((_, index) =>
-    JSON.parse(localStorage.getItem(`${RESTAURANT}${index + 1}`) || "[]")
+  return findLocalStorageKeys(RESTAURANT).map((key) =>
+    JSON.parse(localStorage.getItem(`${key}`) || "[]")
   );
 };
 
 export const saveSelectedOption = (
   optionKey: string,
-  selectedCategory: string
+  selectedOption: string
 ) => {
-  localStorage.setItem(optionKey, selectedCategory);
+  localStorage.setItem(optionKey, selectedOption);
 
-  const selectedOption = $(
-    `option[value=${selectedCategory}]`
-  ) as HTMLOptionElement;
-  selectedOption.selected = true;
+  const option = $(`option[value=${selectedOption}]`) as HTMLOptionElement;
+  option.selected = true;
 };

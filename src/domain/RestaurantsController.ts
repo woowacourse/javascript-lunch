@@ -3,9 +3,9 @@ import { getFormData } from "../util/form";
 import { validateName } from "../validator";
 import { initialRestaurantData } from "../constant/initialRestaurants";
 import { saveRestaurantsInLocalStorage } from "./localStorageController";
-import { renderRestaurantList } from "../component/restaurantList";
-import { updateRestaurantList } from "./filter";
-import { handleModalCancelButtonClick } from "../modal";
+import { renderRestaurants } from "../component/restaurants";
+import { updateRestaurants } from "./filter";
+import { handleModalCancelButtonClick } from "./newRestaurantModalController";
 import { findLocalStorageKeys } from "../util/findKeyInLocalStorage";
 import { LOCAL_STORAGE_KEY } from "../constant";
 const { RESTAURANT } = LOCAL_STORAGE_KEY;
@@ -31,16 +31,16 @@ export default class RestaurantsController {
 
   private initRestaurantsInfo() {
     if (findLocalStorageKeys(RESTAURANT).length) {
-      updateRestaurantList();
+      updateRestaurants();
     } else {
       this.restaurantList = initialRestaurantData;
-      renderRestaurantList(initialRestaurantData);
+      renderRestaurants(initialRestaurantData);
     }
 
-    this.saveRestaurantList();
+    this.saveRestaurants();
   }
 
-  saveRestaurantList() {
+  saveRestaurants() {
     if (!localStorage.length) {
       this.restaurantList.forEach((restaurant: RestaurantType) =>
         saveRestaurantsInLocalStorage(restaurant)
@@ -54,6 +54,7 @@ export default class RestaurantsController {
       String(value).trim(),
     ]);
     const restaurantInfo = Object.fromEntries(trimmedInfo);
+    restaurantInfo.favorite = "none";
 
     try {
       validateName(restaurantInfo.name);
@@ -64,6 +65,6 @@ export default class RestaurantsController {
     handleModalCancelButtonClick(".modal");
     saveRestaurantsInLocalStorage(restaurantInfo);
 
-    updateRestaurantList();
+    updateRestaurants();
   }
 }

@@ -8,6 +8,17 @@ body {
   font-size: 16px;
 }
 
+body {
+  /* hidden scroll */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  /* hidden scroll */
+  display: none;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -79,6 +90,36 @@ body {
 }
 
 /* 음식점 목록 *****************************************/
+/* 즐겨찾기 */
+#restaurant-list-viewer {
+  display: flex;
+  margin: 31px 16px 0;
+
+  font-size: 0;
+  line-height: 0;
+  text-align: center;
+}
+
+.viewer-button {
+  flex: 1;
+  height: 24px;
+  padding-bottom: 9px;
+
+  background: transparent;
+  border-bottom: 2px solid var(--grey-200);
+  box-sizing: content-box;
+
+  font-weight: 700;
+  color: var(--grey-200);
+
+  cursor: pointer;
+}
+
+.active {
+  border-bottom: 2px solid var(--primary-color);
+
+  color: var(--primary-color);
+}
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
@@ -120,6 +161,7 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -137,15 +179,12 @@ body {
   background: var(--lighten-color);
 }
 
-.category-icon {
-  width: 36px;
-  height: 36px;
-}
-
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+  position: relative;
 }
 
 .restaurant__name {
@@ -154,6 +193,13 @@ body {
 
 .restaurant__distance {
   color: var(--primary-color);
+}
+
+.favorite-icon {
+  position: absolute;
+  right: 0;
+  width: 26.66px;
+  height: 25.33px;
 }
 
 .restaurant__description {
@@ -272,6 +318,10 @@ input[name="link"] {
   display: flex;
 }
 
+.restaurant-info-modal .button-container {
+  width: calc(100% - 32px);
+}
+
 .button {
   width: 100%;
   height: 44px;
@@ -300,4 +350,38 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 정보 모달 */
+#restaurant-info-modal .modal-container {
+  height: 556px;
+}
+#restaurant-info-modal .favorite-icon {
+  top: -62px;
+}
+
+#restaurant-info-modal .restaurant__name {
+  margin: 16px 0;
+}
+
+#restaurant-info-modal .restaurant__distance {
+  margin-bottom: 8px;
+}
+
+#restaurant-info-modal .restaurant__description {
+  margin-bottom: 16px;
+
+  -webkit-line-clamp: 9;
+}
+
+.restaurant-info-modal-button {
+  position: fixed;
+  width: calc(100% - 32px);
+  bottom: 0;
+
+  padding: 32px 0;
+}
+
+.restaurant-info-modal-button button {
+  width: 50%;
 }
