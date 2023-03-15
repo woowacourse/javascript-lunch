@@ -2,10 +2,13 @@
  * @jest-environment jsdom
  */
 import Header from '../src/components/Header';
-import Modal from '../src/components/Modal';
+import AddModal from '../src/components/modal/AddModal';
 import RestaurantFilter from '../src/components/RestaurantFilter';
 import RestaurantsList from '../src/components/RestaurantsList';
 import Restaurants from '../src/domain/Restaurants';
+import InfoModal from '../src/components/modal/InfoModal';
+import Tabbar from '../src/components/Tabbar';
+import { $ } from '../src/utils/common';
 
 import { screen, fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
@@ -17,6 +20,7 @@ describe('컴포넌트 단위 테스트', () => {
     distance: 5,
     description: 'undefined',
     link: 'undefined',
+    id: 'a1234',
   };
 
   const doriRestaurant = {
@@ -25,6 +29,7 @@ describe('컴포넌트 단위 테스트', () => {
     distance: 15,
     description: 'undefined',
     link: 'undefined',
+    id: 'a1235',
   };
 
   const restaurants = new Restaurants([yeoptoRestaurant, doriRestaurant]);
@@ -34,18 +39,26 @@ describe('컴포넌트 단위 테스트', () => {
     <main></main>
   `;
 
-  const $header = document.querySelector('.gnb');
-  const $main = document.querySelector('main');
+  const $header = $('.gnb');
+  const $main = $('main');
 
   const header = new Header($header);
-  const modal = new Modal($main);
+  const tabbar = new Tabbar($main);
   const restaurantFilter = new RestaurantFilter($main);
-  const restaurantsList = new RestaurantsList($main, restaurants);
+  const infoModal = new InfoModal(restaurants);
+  const restaurantsList = new RestaurantsList($main, restaurants, infoModal);
+  const addModal = new AddModal($main, restaurants, restaurantsList);
 
-header.setEvent(modal.toggleModalOpen.bind(modal));
-modal.setSubmitEvent(restaurantsList.setState.bind(restaurantsList), restaurants.add.bind(restaurants));
-modal.setModalCloseEvent();
-restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
+  header.setEvent(addModal.render.bind(addModal));
+
+  tabbar.setEvent(
+    restaurantsList.renderSortedList.bind(restaurantsList),
+    restaurantsList.renderFavoriteItem.bind(restaurantsList),
+    restaurantFilter.openFilter.bind(restaurantFilter),
+    restaurantFilter.closeFilter.bind(restaurantFilter)
+  );
+
+  restaurantFilter.setEvent(restaurantsList.renderSortedList.bind(restaurantsList));
 
   test('음식점 리스트에 음식점들이 렌더링이 됐는지 확인한다.', () => {
     const yeopto = screen.getByText('엽토네 떡볶이');
@@ -57,7 +70,7 @@ restaurantFilter.setEvent(restaurantsList.render.bind(restaurantsList));
 
   test('모달 창이 정상적으로 팝업되는 지 확인한다.', () => {
     fireEvent.click(screen.getByAltText('음식점 추가'));
-    
+
     expect(screen.getByText('새로운 음식점')).toBeInTheDocument();
   });
 });

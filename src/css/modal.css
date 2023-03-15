@@ -130,3 +130,27 @@ input[name='link'] {
 .error--show {
   display: block;
 }
+
+.info-modal-icon {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.info-modal-content h3 {
+  margin-bottom: 15px;
+}
+
+.info-modal-content div {
+  margin-bottom: 15px;
+}
+
+.info-modal-content p {
+  margin-bottom: 15px;
+  word-break: normal;
+  height: auto;
+}
+
+.info-modal-content .link-container {
+  margin-bottom: 32px;
+}
