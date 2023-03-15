@@ -1,6 +1,8 @@
 import "./index.css";
 import translateCategory from "../../../util/translateCategory";
 import LocalStorage from "../../../util/LocalStorage";
+import Modal from "../../Modal";
+import { $ } from "../../../util/dom";
 
 class RestaurantItem {
   $target;
@@ -58,8 +60,8 @@ class RestaurantItem {
     this.$target.querySelector(`#restaurant${this.restaurantInfo.id}`).addEventListener("click", (event) => {
       if (event.target.closest(".favorite")) return;
 
-      restaurantList.modal.renderRestaurantDetail(this.restaurantInfo, restaurantList);
-      restaurantList.modal.toggle();
+      const modal = new Modal($(".modal"));
+      modal.renderRestaurantDetail(this.restaurantInfo, restaurantList);
     });
   }
 

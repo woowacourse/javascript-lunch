@@ -6,12 +6,10 @@ import RestaurantItem from "./RestaurantItem";
 
 class RestaurantList {
   $target;
-  modal;
   restaurantListManager;
 
-  constructor($target, modal) {
+  constructor($target) {
     this.$target = $target;
-    this.modal = modal;
 
     const localData = LocalStorage.getData("list");
     this.restaurantListManager = new RestaurantListManager(localData);

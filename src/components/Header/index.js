@@ -1,3 +1,5 @@
+import { $ } from "../../util/dom";
+import Modal from "../Modal";
 import "./index.css";
 
 class Header {
@@ -22,10 +24,10 @@ class Header {
     this.$target.insertAdjacentHTML("beforeend", this.template());
   }
 
-  setAddButtonClickEvent(modal, restaurantList) {
+  setAddButtonClickEvent(restaurantList) {
     this.$target.querySelector(".gnb__button").addEventListener("click", () => {
+      const modal = new Modal($(".modal"));
       modal.renderAddRestaurantForm(restaurantList);
-      modal.toggle();
     });
   }
 

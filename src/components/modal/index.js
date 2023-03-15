@@ -8,6 +8,8 @@ class Modal {
   constructor($target) {
     this.$target = $target;
     this.render();
+    this.setEvent();
+    this.toggle();
   }
 
   template() {
@@ -18,7 +20,7 @@ class Modal {
   }
 
   render() {
-    this.$target.insertAdjacentHTML("beforeend", this.template());
+    this.$target.innerHTML = this.template();
   }
 
   toggle() {
