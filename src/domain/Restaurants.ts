@@ -1,4 +1,4 @@
-import { Restaurant, Category, RestaurantSortType } from '../types';
+import { Restaurant, Category, SortType, FilterCategory } from '../types';
 
 import deepCopy from '../utils/deepCopy';
 
@@ -13,7 +13,21 @@ export default class Restaurants {
     this.#restaurants.push(restaurant);
   }
 
-  getFilteredRestaurantsByCategory(category: Category) {
+  updateRestaurant(id: string, liked: boolean) {
+    const targetRestaurantIndex = this.#restaurants.findIndex((restaurant) => restaurant.id === id);
+
+    this.#restaurants[targetRestaurantIndex].liked = liked;
+
+    return deepCopy(this.#restaurants);
+  }
+
+  deleteRestaurant(id: string) {
+    this.#restaurants = this.#restaurants.filter((restaurant) => restaurant.id !== id);
+
+    return deepCopy(this.#restaurants);
+  }
+
+  getFilteredRestaurantsByCategory(category: FilterCategory) {
     const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
 
     if (category === '전체') {
@@ -25,12 +39,18 @@ export default class Restaurants {
     });
   }
 
-  getSortedRestaurants(filterdRestaurants: Restaurant[], sortOption: RestaurantSortType) {
+  getLikedRestaurants() {
+    const copiedRestaurants: Restaurant[] = deepCopy(this.#restaurants);
+
+    return copiedRestaurants.filter((restaurant: Restaurant) => restaurant.liked);
+  }
+
+  getSortedRestaurants(filteredRestaurants: Restaurant[], sortOption: SortType) {
     if (sortOption === 'name') {
-      return this.getSortedRestaurantsByName(filterdRestaurants);
+      return this.getSortedRestaurantsByName(filteredRestaurants);
     }
 
-    return this.getSortedRestaurantsByDistance(filterdRestaurants);
+    return this.getSortedRestaurantsByDistance(filteredRestaurants);
   }
 
   getSortedRestaurantsByName(restaurants: Restaurant[]) {

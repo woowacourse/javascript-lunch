@@ -1,6 +1,6 @@
-import { CATEGORIES, DISTANCES } from '../constants/formCondition';
-import { ERROR_MESSAGE } from '../constants/message';
-import { Restaurant } from '../types';
+import { CATEGORIES, DISTANCES } from '../constants';
+import { ERROR_MESSAGE } from '../constants';
+import { Category, Distance, Restaurant } from '../types';
 
 const Validator = {
   validateFormData({ category, name, distance }: Restaurant) {
@@ -9,7 +9,7 @@ const Validator = {
     this.validateDistance(distance);
   },
 
-  validateCategory(selectedCategory: string) {
+  validateCategory(selectedCategory: Category) {
     if (this.isEmptyFormValue(selectedCategory)) {
       throw new Error(ERROR_MESSAGE.emptyCategory);
     }
@@ -29,11 +29,11 @@ const Validator = {
     return formValue === '';
   },
 
-  isValidCategory(selectedCategory: string) {
+  isValidCategory(selectedCategory: Category) {
     return CATEGORIES.includes(selectedCategory);
   },
 
-  validateDistance(selectedDistance: string) {
+  validateDistance(selectedDistance: Distance) {
     if (this.isEmptyFormValue(selectedDistance)) {
       throw new Error(ERROR_MESSAGE.emptyDistance);
     }
@@ -43,7 +43,7 @@ const Validator = {
     }
   },
 
-  isValidDistance(selectedDistance: string) {
+  isValidDistance(selectedDistance: Distance) {
     return DISTANCES.includes(selectedDistance);
   },
 };
