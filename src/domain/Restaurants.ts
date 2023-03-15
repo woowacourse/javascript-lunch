@@ -14,8 +14,9 @@ class Restaurants {
   }
 
   add(restaurant: Restaurant): Restaurant[] {
+    restaurant.favorites = false;
+    restaurant.id = `a${Date.now().toString()}`;
     this.#restaurantsList.push(this.getConvertedUndefinedToEmptyString(restaurant));
-    window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantsList));
 
     return this.#restaurantsList;
   }
@@ -43,6 +44,24 @@ class Restaurants {
     }
 
     return [...restaurants].sort((a, b) => a.distance - b.distance);
+  }
+
+  setFavoriteState(id: string) {
+    this.#restaurantsList = this.#restaurantsList.map(restaurant => {
+      if (restaurant.id === id) {
+        restaurant.favorites = !restaurant.favorites;
+        return restaurant;
+      }
+      return restaurant;
+    });
+  }
+
+  getFavoriteRestaurantList() {
+    return this.#restaurantsList.filter(restaurant => restaurant.favorites);
+  }
+
+  remove(id: string) {
+    this.#restaurantsList = this.#restaurantsList.filter(restaurant => restaurant.id !== id);
   }
 }
 
