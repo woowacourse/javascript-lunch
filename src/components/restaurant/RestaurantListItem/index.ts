@@ -21,7 +21,7 @@ class RestaurantListItem extends Component {
     restaurants.toggleFavorite(restaurant);
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <section>
         <r-category-icon category="${this.getAttribute('category')}"></r-category-icon>

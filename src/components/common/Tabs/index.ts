@@ -41,7 +41,7 @@ class Tabs extends Component {
     this.setSelectedTabItem(tabItem);
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <ul>
         ${this.#tabItems

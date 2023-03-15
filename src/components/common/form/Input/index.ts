@@ -27,7 +27,7 @@ class Input extends FormControlComponent {
     this.internals.setValidity({});
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
       <input id="form-control">

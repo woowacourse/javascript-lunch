@@ -52,7 +52,7 @@ class RestaurantDetailModal extends Component {
     `;
   }
 
-  private renderContentTemplate() {
+  private getRenderContentTemplate() {
     return `
       <header slot="header">
         <section>

@@ -38,7 +38,7 @@ class Modal extends Component {
     this.dispatchEvent(new CloseEvent('close'));
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <dialog>
         <section>

@@ -8,7 +8,7 @@ class CategoryIcon extends Component {
     return [...super.getCSSStyleSheets(), style];
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <div>
         <img

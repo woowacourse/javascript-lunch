@@ -39,7 +39,7 @@ class RestaurantList extends Component {
     );
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     const restaurants = this.#restaurants
       .map((restaurant) => {
         return `

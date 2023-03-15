@@ -8,7 +8,7 @@ class Header extends Component {
     return [...super.getCSSStyleSheets(), style];
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <header>
         <h2>${this.getAttribute('title') ?? ''}</h2>

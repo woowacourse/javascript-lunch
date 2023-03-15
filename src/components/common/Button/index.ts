@@ -12,7 +12,7 @@ class Button extends FormControlComponent {
     return [...super.getCSSStyleSheets(), style];
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <button type="button" class="text-caption">
         <slot></slot>

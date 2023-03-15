@@ -7,7 +7,7 @@ class FavoriteIcon extends Component {
     return ['active'];
   }
 
-  renderTemplate() {
+  getRenderTemplate() {
     return `
       <img src="assets/favorite-icon-${this.hasAttribute('active') ? 'filled' : 'lined'}.png">
     `;

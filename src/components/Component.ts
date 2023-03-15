@@ -16,10 +16,10 @@ abstract class Component extends HTMLElement {
     return [style];
   }
 
-  abstract renderTemplate(): string;
+  abstract getRenderTemplate(): string;
 
   render() {
-    this.shadowRoot!.innerHTML = this.renderTemplate();
+    this.shadowRoot!.innerHTML = this.getRenderTemplate();
     this.renderCallback();
   }
 

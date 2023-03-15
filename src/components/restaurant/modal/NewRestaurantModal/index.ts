@@ -48,7 +48,7 @@ class NewRestaurantModal extends Component {
     this.shadowRoot?.querySelector('form')?.reset();
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <r-modal title="새로운 음식점">
         <form slot="content">

@@ -44,7 +44,7 @@ class Select<OptionValue> extends FormControlComponent {
     this.dispatchEvent(new CustomEvent('change'));
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
       <select id="form-control">

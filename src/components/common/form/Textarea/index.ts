@@ -9,7 +9,7 @@ class Textarea extends FormControlComponent {
     return [...super.getCSSStyleSheets(), formControlStyle, style];
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <label for="form-control">${this.getAttribute('title') ?? ''}</label>
       <textarea

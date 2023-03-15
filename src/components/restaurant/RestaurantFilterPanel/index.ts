@@ -44,7 +44,7 @@ class RestaurantFilterPanel extends Component {
     restaurants.setFilters(this.getFilters());
   }
 
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <form onsubmit="return false">
         <r-restaurant-category-select
