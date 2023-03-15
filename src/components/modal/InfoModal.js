@@ -22,7 +22,7 @@ class InfoModal extends Modal {
         <div>
           <img id="${restaurant.id}" class="favorite-icon" src="./${
       restaurant.favorites ? 'favorite-icon-filled' : 'favorite-icon-lined'
-    }.png" alt="${restaurant.id}" />
+    }.png" alt="${restaurant.name}" />
         </div>
       </div>
       <div class="info-modal-content">
@@ -72,7 +72,7 @@ class InfoModal extends Modal {
     const removeButton = $('.button--secondary');
 
     removeButton.addEventListener('click', () => {
-      this.removeRestaurant($('.favorite-icon').alt);
+      this.removeRestaurant($('.favorite-icon').id);
 
       if ($('.current').innerText === '모든 음식점') {
         this.toggleModalOpen();
@@ -87,7 +87,7 @@ class InfoModal extends Modal {
 
   setFavoriteEvent(restaurant, listRender, favoriteRender) {
     $('.info-form').addEventListener('click', e => {
-      this.setFavoriteState(e.target.alt);
+      this.setFavoriteState(e.target.id);
       $('.modal-container').replaceChildren();
       $('.modal-container').innerHTML = this.template(restaurant);
 
