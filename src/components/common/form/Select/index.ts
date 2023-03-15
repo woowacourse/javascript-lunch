@@ -57,13 +57,7 @@ class Select<OptionValue> extends FormControlComponent {
     `;
   }
 
-  override render() {
-    super.render();
-
-    this.initEventListeners();
-  }
-
-  private initEventListeners() {
+  protected override renderCallback() {
     this.shadowRoot!.querySelector('select')?.addEventListener('change', (event) =>
       this.onChange(event),
     );

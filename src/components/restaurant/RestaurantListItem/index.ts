@@ -47,9 +47,7 @@ class RestaurantListItem extends Component {
     `;
   }
 
-  override render() {
-    super.render();
-
+  protected override renderCallback(): void {
     this.shadowRoot!.querySelector('#favorite')?.addEventListener('click', (event) =>
       this.onClickFavorite(event),
     );

@@ -20,7 +20,10 @@ abstract class Component extends HTMLElement {
 
   render() {
     this.shadowRoot!.innerHTML = this.renderTemplate();
+    this.renderCallback();
   }
+
+  protected renderCallback() {}
 
   connectedCallback() {
     this.render();

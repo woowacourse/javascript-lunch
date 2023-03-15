@@ -67,13 +67,7 @@ class RestaurantList extends Component {
     `;
   }
 
-  override render() {
-    super.render();
-
-    this.initEventListeners();
-  }
-
-  private initEventListeners() {
+  protected override renderCallback() {
     this.shadowRoot!.querySelectorAll('r-restaurant-list-item').forEach(($item) =>
       $item.addEventListener('click', (event) => this.onClickItem(event)),
     );

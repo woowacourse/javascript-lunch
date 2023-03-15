@@ -110,10 +110,10 @@ class RestaurantDetailModal extends Component {
       return html.replaceAll(`{${placeholder}}`, String(value));
     }, this.renderContentTemplate());
 
-    this.initEventListeners();
+    this.renderContentCallback();
   }
 
-  private initEventListeners() {
+  private renderContentCallback() {
     this.shadowRoot!.querySelector('#favorite')?.addEventListener('click', () =>
       this.onClickFavorite(),
     );

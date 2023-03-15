@@ -63,13 +63,7 @@ class Tabs extends Component {
     `;
   }
 
-  override render() {
-    super.render();
-
-    this.initEventListeners();
-  }
-
-  private initEventListeners() {
+  protected override renderCallback() {
     this.shadowRoot!.querySelectorAll('ul > li > button').forEach(($button) =>
       $button.addEventListener('click', (event) => this.onClickTabItem(event)),
     );

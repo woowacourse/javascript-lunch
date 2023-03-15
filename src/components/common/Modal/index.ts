@@ -55,13 +55,7 @@ class Modal extends Component {
     `;
   }
 
-  override render() {
-    super.render();
-
-    this.initEventListeners();
-  }
-
-  private initEventListeners() {
+  protected override renderCallback() {
     this.shadowRoot!.querySelector('dialog')?.addEventListener('close', (event) =>
       this.onClose(event),
     );
