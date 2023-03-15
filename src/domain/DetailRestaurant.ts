@@ -8,7 +8,7 @@ class DetailRestaurant extends Observable {
     super();
 
     this.restaurantDetail = {
-      category: '전체',
+      category: '한식',
       storeName: '',
       distance: 0,
       detail: '',
