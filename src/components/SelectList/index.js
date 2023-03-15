@@ -29,16 +29,6 @@ class SelectList extends HTMLElement {
     </div>
     `;
   }
-
-  static get observedAttributes() {
-    return ['name', 'id', 'options'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'options') {
-      this.connectedCallback();
-    }
-  }
 }
 
 export default SelectList;

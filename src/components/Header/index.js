@@ -5,7 +5,7 @@ import { $ } from '../../utils';
 class Header extends HTMLElement {
   connectedCallback() {
     this.render();
-    this.modalHandler();
+    this.handleModal();
   }
 
   render() {
@@ -24,18 +24,15 @@ class Header extends HTMLElement {
   `;
   }
 
-  modalHandler() {
-    $('#openModal').addEventListener('click', this.toggleModal);
-
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Escape') {
-        this.toggleModal();
-      }
-    });
+  handleModal() {
+    $('#openModal').addEventListener('click', this.showAddretaurant);
   }
 
-  toggleModal() {
-    $('.modal').classList.toggle('modal--open');
+  showAddretaurant() {
+    $('#modalContainer').classList.add('modal--open');
+
+    const addRestaurant = document.createElement('add-restaurant');
+    $('#modalContainer').appendChild(addRestaurant);
   }
 }
 
