@@ -1,0 +1,19 @@
+.restaurant {
+  position: relative;
+}
+
+.favorite-button {
+  position: absolute;
+  right: 18.67px;
+  top: 16.67px;
+
+  width: 32px;
+  height: 32px;
+
+  background: url('../../assets/favorite-icon-lined.png') no-repeat;
+  border: none;
+}
+
+.favorite-filled {
+  background: url('../../assets/favorite-icon-filled.png') no-repeat;
+}

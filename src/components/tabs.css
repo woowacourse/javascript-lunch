@@ -1,0 +1,26 @@
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+
+  margin: 32px 0 0 0;
+  padding: 0 16px;
+}
+
+.tab-button {
+  width: 100%;
+
+  color: var(--grey-400);
+  font-weight: 700;
+
+  padding: 0 0 9px 0;
+
+  background: none;
+
+  border: none;
+  border-bottom: solid 2px var(--grey-400);
+}
+
+.selected {
+  color: var(--primary-color);
+  border-bottom: solid 2px var(--primary-color);
+}
