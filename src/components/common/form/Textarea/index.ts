@@ -22,6 +22,10 @@ class Textarea extends FormControlComponent {
   override render() {
     super.render();
 
+    this.initEventListeners();
+  }
+
+  private initEventListeners() {
     this.shadowRoot!.querySelector('textarea')?.addEventListener('input', (event) =>
       this.onInput(event),
     );

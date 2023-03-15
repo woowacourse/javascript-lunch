@@ -37,6 +37,10 @@ class Input extends FormControlComponent {
   override render() {
     super.render();
 
+    this.initEventListeners();
+  }
+
+  private initEventListeners() {
     this.shadowRoot!.querySelector('input')?.addEventListener('input', (event) =>
       this.onInput(event),
     );

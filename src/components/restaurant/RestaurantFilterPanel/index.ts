@@ -62,6 +62,10 @@ class RestaurantFilterPanel extends Component {
   override render() {
     super.render();
 
+    this.initEventListeners();
+  }
+
+  private initEventListeners() {
     this.shadowRoot!.querySelector('r-restaurant-category-select')?.addEventListener(
       'change',
       () => {

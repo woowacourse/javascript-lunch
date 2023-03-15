@@ -107,6 +107,10 @@ class NewRestaurantModal extends Component {
   override render() {
     super.render();
 
+    this.initEventListeners();
+  }
+
+  private initEventListeners() {
     this.shadowRoot!.querySelector('r-modal')?.addEventListener('close', () => {
       this.onPostClose();
     });
