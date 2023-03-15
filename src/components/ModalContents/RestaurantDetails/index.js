@@ -52,12 +52,12 @@ class RestaurantDetails extends HTMLElement {
       </div>
     `;
 
-    this.modalHandler();
+    this.handleModal();
     this.handleFavorite();
     this.handleDelete();
   }
 
-  modalHandler() {
+  handleModal() {
     $('#cancelModal').addEventListener('click', this.closeModal);
   }
 

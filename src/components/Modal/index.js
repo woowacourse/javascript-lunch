@@ -4,7 +4,7 @@ import './index.css';
 class Modal extends HTMLElement {
   connectedCallback() {
     this.render();
-    this.modalHandler();
+    this.handleModal();
   }
 
   render() {
@@ -15,7 +15,7 @@ class Modal extends HTMLElement {
     `;
   }
 
-  modalHandler() {
+  handleModal() {
     $('#modalBackdrop').addEventListener('click', this.closeModal);
 
     document.addEventListener('keydown', (event) => {

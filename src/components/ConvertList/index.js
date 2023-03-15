@@ -6,6 +6,7 @@ import './index.css';
 class ConvertList extends HTMLElement {
   connectedCallback() {
     this.render();
+    this.handleModal();
   }
 
   render() {
@@ -15,10 +16,9 @@ class ConvertList extends HTMLElement {
         <div id="favoriteRestaurant" class="convert-list">자주 가는 음식점</div>
     </div>
     `;
-    this.modalHandler();
   }
 
-  modalHandler() {
+  handleModal() {
     $('#allRestaurant').addEventListener('click', this.showAllRestaurants);
     $('#favoriteRestaurant').addEventListener(
       'click',

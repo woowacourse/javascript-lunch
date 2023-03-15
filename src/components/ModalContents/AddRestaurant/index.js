@@ -7,7 +7,7 @@ class AddRestaurant extends HTMLElement {
   connectedCallback() {
     this.render();
     this.addRestaurantEvent();
-    this.modalHandler();
+    this.handleModal();
   }
 
   render() {
@@ -78,7 +78,7 @@ class AddRestaurant extends HTMLElement {
     $('#linkInput').value = '';
   }
 
-  modalHandler() {
+  handleModal() {
     $('#closeModal').addEventListener('click', this.closeModal);
   }
 

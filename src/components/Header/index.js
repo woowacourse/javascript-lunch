@@ -6,7 +6,7 @@ import Modal from '../Modal';
 class Header extends HTMLElement {
   connectedCallback() {
     this.render();
-    this.modalHandler();
+    this.handleModal();
   }
 
   render() {
@@ -25,7 +25,7 @@ class Header extends HTMLElement {
   `;
   }
 
-  modalHandler() {
+  handleModal() {
     $('#openModal').addEventListener('click', this.showAddretaurant);
   }
 
