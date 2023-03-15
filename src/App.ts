@@ -1,7 +1,8 @@
 import Header from './components/Header';
-import Modal from './components/Modal';
+import Menu from './components/Menu';
 import FilterSection from './components/FilterSection';
-import RestaurantList from './components/RestaurantList';
+import RestaurantListSection from './components/RestaurantListSection';
+import AddModal from './components/AddModal';
 import RestaurantListItem from './domain/RestaurantListItem';
 import RestaurantStorage from './domain/RestaurantStorage';
 import { ID } from './constants';
@@ -20,10 +21,11 @@ class App {
     this.#app.innerHTML = `
       ${Header.template()}
       <main>
+        ${Menu.template()}
         ${FilterSection.template()}
-        ${RestaurantList.template(this.#restaurantListItem.getListItem())}
+        ${RestaurantListSection.template(this.#restaurantListItem.getListItem())}
 
-        ${Modal.template()}
+        ${AddModal.template()}
       </main>`;
 
     this.#setEvent();
@@ -31,8 +33,10 @@ class App {
 
   #setEvent() {
     Header.setEvent();
+    Menu.setEvent(this.#restaurantListItem);
     FilterSection.setEvent(this.#restaurantListItem);
-    Modal.setEvent(this.#restaurantListItem);
+    RestaurantListSection.setEvent(this.#restaurantListItem);
+    AddModal.setEvent(this.#restaurantListItem);
   }
 }
 
