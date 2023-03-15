@@ -39,16 +39,6 @@ class TextInput extends HTMLElement {
         `;
     }
   }
-
-  static get observedAttributes() {
-    return ['name', 'id', 'caption'];
-  }
-
-  attributeChangedCallback(name) {
-    if (name === 'name' && name === 'id' && name === 'caption') {
-      this.connectedCallback();
-    }
-  }
 }
 
 export default TextInput;

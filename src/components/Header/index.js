@@ -1,7 +1,6 @@
 import './index.css';
 import buttonImg from '../../assets/add-button.png';
 import { $ } from '../../utils';
-import Modal from '../Modal';
 
 class Header extends HTMLElement {
   connectedCallback() {
@@ -31,6 +30,7 @@ class Header extends HTMLElement {
 
   showAddretaurant() {
     $('#modalContainer').classList.add('modal--open');
+
     const addRestaurant = document.createElement('add-restaurant');
     $('#modalContainer').appendChild(addRestaurant);
   }

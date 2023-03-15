@@ -15,6 +15,7 @@ import { $ } from './utils';
 
 restaurant.restaurants = JSON.parse(localStorage.getItem('restaurant') || '[]');
 restaurant.addFavorite();
+
 customElements.define('lunch-header', Header);
 customElements.define('convert-list', ConvertList);
 customElements.define('restaurant-modal', Modal);

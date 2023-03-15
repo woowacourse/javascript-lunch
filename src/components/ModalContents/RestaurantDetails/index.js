@@ -69,6 +69,7 @@ class RestaurantDetails extends HTMLElement {
     const handleFavoriteImg = this.querySelector('#handleFavorite');
     handleFavoriteImg.addEventListener('click', (e) => {
       e.stopPropagation();
+
       const clickedDiv = e.target.closest('div');
       if (clickedDiv) {
         const restaurantId = parseInt(clickedDiv.getAttribute('id'));
@@ -99,6 +100,7 @@ class RestaurantDetails extends HTMLElement {
     const handleDelete = this.querySelector('#deleteContent');
     handleDelete.addEventListener('click', (e) => {
       e.stopPropagation();
+
       const clickedDiv = $('.restaurant-info').closest('div');
       if (clickedDiv) {
         const restaurantId = parseInt(clickedDiv.getAttribute('id'));

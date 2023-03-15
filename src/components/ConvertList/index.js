@@ -31,6 +31,7 @@ class ConvertList extends HTMLElement {
     $('#favoriteRestaurant').classList.remove('clicked');
     $('#categoryFilter').classList.remove('hide');
     $('#sortingFilter').classList.remove('hide');
+
     const allRestaurants = new RestaurantBox();
     allRestaurants.renderRestaurantList(restaurant.restaurants);
   }
@@ -40,6 +41,7 @@ class ConvertList extends HTMLElement {
     $('#favoriteRestaurant').classList.add('clicked');
     $('#categoryFilter').classList.add('hide');
     $('#sortingFilter').classList.add('hide');
+
     const favoriteRestaurant = new RestaurantBox();
     favoriteRestaurant.renderRestaurantList(restaurant.favoriteRestaurants);
   }

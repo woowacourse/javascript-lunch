@@ -84,6 +84,7 @@ class RestaurantInfo extends HTMLElement {
     const handleFavoriteImg = this.querySelector('#handleFavorite');
     handleFavoriteImg.addEventListener('click', (e) => {
       e.stopPropagation();
+
       const clickedLi = e.target.closest('li');
       if (clickedLi) {
         const restaurantId = parseInt(clickedLi.getAttribute('id'));

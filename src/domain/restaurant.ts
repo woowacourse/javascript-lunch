@@ -44,6 +44,7 @@ export const restaurant: Restaurant = {
     if (this.filteredRestaurants.length === 0) {
       this.filteredRestaurants = [...this.restaurants];
     }
+
     if (type === '거리순') {
       const sortBydistance = this.filteredRestaurants.sort(
         (aRestaurant, bRestaurant) =>
@@ -63,8 +64,8 @@ export const restaurant: Restaurant = {
     restaurant.isFavorite = !restaurant.isFavorite;
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
-    this.addFavorite();
 
+    this.addFavorite();
     return restaurant.isFavorite;
   },
 
@@ -80,6 +81,7 @@ export const restaurant: Restaurant = {
       (a) => a !== restaurant
     );
     this.addFavorite();
+
     const restaurantsString = JSON.stringify(this.restaurants);
     localStorage.setItem('restaurant', restaurantsString);
   },

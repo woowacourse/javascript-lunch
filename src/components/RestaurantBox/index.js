@@ -1,4 +1,3 @@
-import { restaurant } from '../../domain/restaurant';
 import { $ } from '../../utils';
 import './index.css';
 

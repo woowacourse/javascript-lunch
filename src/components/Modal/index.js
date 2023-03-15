@@ -28,6 +28,7 @@ class Modal extends HTMLElement {
   closeModal() {
     const modalContainer = $('#modalContainer');
     modalContainer.classList.remove('modal--open');
+
     ['restaurant-details', 'add-restaurant'].forEach((elementName) => {
       const element = modalContainer.querySelector(elementName);
       if (element) {
