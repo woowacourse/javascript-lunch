@@ -19,7 +19,7 @@ class Restaurants {
 
   load() {
     const serializedRestaurantIdCounter = localStorage.getItem('restaurantIdCounter');
-    if (serializedRestaurantIdCounter) {
+    if (serializedRestaurantIdCounter !== null) {
       this.restaurantIdCounter = JSON.parse(serializedRestaurantIdCounter);
     }
 
