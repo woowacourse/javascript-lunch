@@ -49,7 +49,7 @@ class InfoModal extends Modal {
 
     this.cancelModal(listRender, favoriteRender);
     this.setFavoriteEvent(restaurant, listRender, favoriteRender);
-    this.setRemoveEvent(listRender, favoriteRender);
+    this.setRemoveHandleEvent(listRender, favoriteRender);
     this.toggleModalOpen();
   }
 
@@ -68,7 +68,7 @@ class InfoModal extends Modal {
     });
   }
 
-  setRemoveEvent(listRender, favoriteRender) {
+  setRemoveHandleEvent(listRender, favoriteRender) {
     const removeButton = $('.button--secondary');
 
     removeButton.addEventListener('click', () => {
