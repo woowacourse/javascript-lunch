@@ -69,9 +69,9 @@ export const restaurant: Restaurant = {
   },
 
   addFavorite() {
-    return (this.favoriteRestaurants = this.restaurants.filter(
+    this.favoriteRestaurants = this.restaurants.filter(
       (restaurant) => restaurant.isFavorite
-    ));
+    );
   },
 
   deleteRestaurant(restaurant: RestaurantInfo) {
