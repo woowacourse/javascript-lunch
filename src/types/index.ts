@@ -1,11 +1,18 @@
-export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타' | '전체';
-export type Distance = '5' | '10' | '15' | '20' | '30';
-export type RestaurantSortType = 'name' | 'distance';
+import { CATEGORIES, DISTANCES, FILTER_CATEGORIES, SORT_TYPE } from '../constants';
+
+type ArrayLiteral<T extends ReadonlyArray<any>> = T[number];
+
+export type Category = ArrayLiteral<typeof CATEGORIES>;
+export type FilterCategory = ArrayLiteral<typeof FILTER_CATEGORIES>;
+export type Distance = ArrayLiteral<typeof DISTANCES>;
+export type SortType = ArrayLiteral<typeof SORT_TYPE>;
 
 export interface Restaurant {
+  id: String;
   category: Category;
   name: string;
   distance: Distance;
-  description?: string;
-  link?: string;
+  description: string;
+  link: string;
+  liked: boolean;
 }
