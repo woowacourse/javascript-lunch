@@ -20,18 +20,18 @@ export default class DetailModal extends Component {
       category,
       storeName,
       distance,
-      detail,
-      link,
+      detail = '',
+      link = '',
       starShape,
     } = this.detailRestaurant.getRestaurantDetail()
   ) {
     this.details = {
-      category: category,
-      storeName: storeName,
-      distance: distance,
-      detail: detail || '',
-      link: link || '',
-      starShape: starShape,
+      category,
+      storeName,
+      distance,
+      detail,
+      link,
+      starShape,
     };
 
     return `
