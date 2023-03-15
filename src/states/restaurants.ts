@@ -5,37 +5,36 @@ import type { RestaurantProps } from '../domain/Restaurant';
 import Restaurant from '../domain/Restaurant';
 import type { RestaurantFilter } from '../domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from '../fixtures';
+import RestaurantsJSONParser from '../parser/RestaurantsJSONParser';
+import type { IStorage } from '../storage/IStorage';
+import RestaurantsLocalStorage from '../storage/RestaurantsLocalStorage';
 
-class Restaurants {
+export interface RestaurantsState {
+  restaurantIdCounter: number;
+
+  restaurants: Restaurant[];
+}
+
+export class Restaurants implements RestaurantsState {
   filters: RestaurantFilter[] = [];
 
-  restaurantIdCounter = 1;
+  restaurantIdCounter;
 
-  restaurants: Restaurant[] = DEFAULT_RESTAURANTS.map((createFn) => createFn(this.assignId()));
+  restaurants: Restaurant[];
+
+  private readonly parser = new RestaurantsJSONParser();
+
+  private readonly storage: IStorage<RestaurantsState> = new RestaurantsLocalStorage(this.parser, {
+    restaurantIdCounter: 1,
+    restaurants: DEFAULT_RESTAURANTS.map((createFn) => createFn(this.assignId())),
+  });
 
   constructor() {
-    this.load();
-  }
+    const loadedState = this.storage.load();
+    this.restaurantIdCounter = loadedState.restaurantIdCounter;
+    this.restaurants = loadedState.restaurants;
 
-  load() {
-    const serializedRestaurantIdCounter = localStorage.getItem('restaurantIdCounter');
-    if (serializedRestaurantIdCounter !== null) {
-      this.restaurantIdCounter = JSON.parse(serializedRestaurantIdCounter);
-    }
-
-    const serializedRestaurantObjects = localStorage.getItem('restaurants');
-    if (serializedRestaurantObjects) {
-      const restaurantObjects: unknown[] = JSON.parse(serializedRestaurantObjects);
-      this.restaurants = restaurantObjects.map((restaurantObject) => {
-        return Object.setPrototypeOf(restaurantObject, Restaurant.prototype);
-      });
-    }
     this.updateComponents();
-  }
-
-  save() {
-    localStorage.setItem('restaurantIdCounter', JSON.stringify(this.restaurantIdCounter));
-    localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
   }
 
   create(restaurantProps: Omit<RestaurantProps, 'id'>) {
@@ -45,19 +44,19 @@ class Restaurants {
     });
     this.restaurants.push(restaurant);
     this.updateComponents();
-    this.save();
+    this.storage.save(this);
   }
 
   delete(restaurant: Restaurant) {
     this.restaurants = this.restaurants.filter((_restaurant) => _restaurant !== restaurant);
     this.updateComponents();
-    this.save();
+    this.storage.save(this);
   }
 
   toggleFavorite(restaurant: Restaurant) {
     restaurant.setFavorite(!restaurant.isFavorite());
     this.updateComponents();
-    this.save();
+    this.storage.save(this);
   }
 
   assignId() {
