@@ -41,11 +41,7 @@ class RestaurantDetailModal extends Component {
     restaurants.toggleFavorite(this.#restaurant);
   }
 
-  private onSubmit(event?: SubmitEvent) {
-    event?.preventDefault();
-  }
-
-  override renderTemplate() {
+  override getRenderTemplate() {
     return `
       <r-modal>
       </r-modal>
@@ -108,7 +104,7 @@ class RestaurantDetailModal extends Component {
       referenceUrl: this.#restaurant?.getReferenceUrl() ?? '',
     }).reduce((html, [placeholder, value]) => {
       return html.replaceAll(`{${placeholder}}`, String(value));
-    }, this.renderContentTemplate());
+    }, this.getRenderContentTemplate());
 
     this.renderContentCallback();
   }
