@@ -8,10 +8,17 @@ import {
   getRestaurantListFromLocalstorage,
   stringifyJson,
 } from "./utils/LocalStorage.js";
-import { RESTAURANT_LOCALSTORAGE_KEY, FOODCATEGORY_LOCALSTORAGE_KEY, 
-  SORTBY_LOCALSTORAGE_KEY, FAVORITE_LOCALSTORAGE_KEY, 
-  NUMBER__LOCALSTORAGE_KEY, ALL_CATEGORY_VALUE, 
-  NAME_VALUE, FAVORITE_VALUE, FAVORITE_ENROLL } from "./utils/Constant";
+import {
+  RESTAURANT_LOCALSTORAGE_KEY,
+  FOODCATEGORY_LOCALSTORAGE_KEY,
+  SORTBY_LOCALSTORAGE_KEY,
+  FAVORITE_LOCALSTORAGE_KEY,
+  NUMBER__LOCALSTORAGE_KEY,
+  ALL_CATEGORY_VALUE,
+  NAME_VALUE,
+  FAVORITE_VALUE,
+  FAVORITE_ENROLL,
+} from "./utils/Constant";
 import ModalRestaurantDetail from "./UI/ModalRestaurantDetail.js";
 import RestaurantInventory from "./UI/RestaurantInventory.js";
 
@@ -29,31 +36,40 @@ export class App {
       this.restaurantRegistry
     );
 
+    const localRestaurants = getRestaurantListFromLocalstorage(
+      RESTAURANT_LOCALSTORAGE_KEY
+    );
     this.collectedRender();
     this.initializeButtonEvents();
-    if (getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY))
-      localStorage.setItem(
-        NUMBER__LOCALSTORAGE_KEY,
-        getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY).at(-1).id -
-          getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY).length +
-          2
-      );
-    else localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, 0);
+    if (localRestaurants !== null) {
+      const localRestaurantNextNumber = localRestaurants.at(-1).id + 1;
+      localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, localRestaurantNextNumber);
+    } else localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, 0);
+
+
+    const favoriteList = getRestaurantListFromLocalstorage(
+      FAVORITE_LOCALSTORAGE_KEY
+    );
 
     const restaurantFavoriteList =
-      getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY) ||
+      localRestaurants ||
       [].map((restaurant) => {
-        const idNumber = getRestaurantListFromLocalstorage(NUMBER__LOCALSTORAGE_KEY);
-        localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, idNumber + 1);
-        const favoriteList = getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY);
-        if (favoriteList.filter((val) => val.id === restaurant.id).length)
+        if (this.isThereRestaurantInFavorites(favoriteList, restaurant).length)
           restaurant[FAVORITE_VALUE] = FAVORITE_ENROLL;
         return restaurant;
       });
-    localStorage.setItem(RESTAURANT_LOCALSTORAGE_KEY, stringifyJson(restaurantFavoriteList));
+    localStorage.setItem(
+      RESTAURANT_LOCALSTORAGE_KEY,
+      stringifyJson(restaurantFavoriteList)
+    );
+
     localStorage.setItem(SORTBY_LOCALSTORAGE_KEY, NAME_VALUE);
     localStorage.setItem(FOODCATEGORY_LOCALSTORAGE_KEY, ALL_CATEGORY_VALUE);
     this.restaurantList.filterBySort(NAME_VALUE, ALL_CATEGORY_VALUE);
+  }
+
+  isThereRestaurantInFavorites(favoriteList, restaurant){
+    return favoriteList.filter((val) => val.id === restaurant.id).length
   }
 
   collectedRender() {
