@@ -1,4 +1,4 @@
-type Restaurant = {
+type UserRestaurantInput = {
   category: CategoryType;
   name: string;
   distanceInMinutes: string;
@@ -6,7 +6,30 @@ type Restaurant = {
   link: string;
 };
 
+type Restaurant = UserRestaurantInput & {
+  isFavorite: boolean;
+  itemId: number;
+};
+
+type LocalStorageRestaurantData = {
+  restaurants: Restaurant[];
+  id: number;
+};
+
+type FilterProperties = {
+  filterBy: string;
+  sortBy: string;
+  favoriteBy: string;
+};
+
 type CategoryType = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type SelectCategoryType = CategoryType | '전체';
 
-export { Restaurant, CategoryType, SelectCategoryType };
+export {
+  UserRestaurantInput,
+  Restaurant,
+  LocalStorageRestaurantData,
+  FilterProperties,
+  CategoryType,
+  SelectCategoryType,
+};

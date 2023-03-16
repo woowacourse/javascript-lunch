@@ -1,63 +1,103 @@
 import { LOCAL_STORAGE_KEY } from '../constant';
-import { Restaurant } from '../type';
+import { Restaurant, UserRestaurantInput } from '../type';
+import RestaurantSearcher from './RestaurantSearcher';
 import storage from '../util/storage';
 
 class Restaurants {
-  #restaurants: Restaurant[] = storage.getData(LOCAL_STORAGE_KEY) || [];
-  #filterBy: string = '전체';
-  #sortBy: string = '이름순';
+  #restaurants: Restaurant[] =
+    (storage.getData(LOCAL_STORAGE_KEY) || []).restaurants || [];
+  #id: number = (storage.getData(LOCAL_STORAGE_KEY) || []).id || 0;
+  #restaurantSearcher = new RestaurantSearcher();
+  #filterProperties = { filterBy: '전체', sortBy: 'name', favoriteBy: 'all' };
 
-  addRestaurant(restaurant: Restaurant) {
-    this.#restaurants.push(restaurant);
+  addRestaurant(restaurantInput: UserRestaurantInput) {
+    this.#restaurants.push({
+      ...restaurantInput,
+      isFavorite: false,
+      itemId: this.#id,
+      link: this.#trimLink(restaurantInput.link),
+    });
+
+    this.#id += 1;
   }
 
   getRestaurants() {
-    const filteredRestaurants = this.#getFilteredRestaurantsByCategory(
-      [...this.#restaurants],
-      this.#filterBy
+    return this.#restaurantSearcher.search(
+      this.#restaurants,
+      this.#filterProperties
     );
-
-    const sortedRestaurants =
-      this.#sortBy === 'name'
-        ? this.#getSortedRestaurantsByName(filteredRestaurants)
-        : this.#getSortedRestaurantsByDistanceInMinutes(filteredRestaurants);
-
-    return sortedRestaurants;
   }
 
   saveRestaurantsToLocalStorage() {
-    storage.setData(LOCAL_STORAGE_KEY, this.#restaurants);
+    storage.setData(LOCAL_STORAGE_KEY, {
+      restaurants: this.#restaurants,
+      id: this.#id,
+    });
   }
 
   setFilterBy(filterBy: string) {
-    this.#filterBy = filterBy;
+    this.#filterProperties.filterBy = filterBy;
   }
 
   setSortBy(sortBy: string) {
-    this.#sortBy = sortBy;
+    this.#filterProperties.sortBy = sortBy;
   }
 
-  #getSortedRestaurantsByName(restaurants: Restaurant[]) {
-    return [...restaurants].sort((x, y) => x.name.localeCompare(y.name));
+  setFavoriteBy(favoriteBy: string) {
+    this.#filterProperties.favoriteBy = favoriteBy;
   }
 
-  #getSortedRestaurantsByDistanceInMinutes(restaurants: Restaurant[]) {
-    return [...restaurants].sort(
-      (x, y) => Number(x.distanceInMinutes) - Number(y.distanceInMinutes)
-    );
+  toggleFavorite(itemId: number) {
+    const searchedIndex = this.#getRestaurantIndexById(itemId);
+
+    if (itemId !== -1) {
+      const isFavorite = this.#restaurants[searchedIndex].isFavorite;
+      this.#restaurants[searchedIndex].isFavorite = !isFavorite;
+    }
   }
 
-  #getFilteredRestaurantsByCategory(
-    restaurants: Restaurant[],
-    category: string
-  ) {
-    if (category === '전체') {
-      return restaurants;
+  getRestaurantById(itemId: number) {
+    const searchedIndex = this.#getRestaurantIndexById(itemId);
+
+    if (searchedIndex === -1) {
+      throw Error(
+        '데이터를 불러오는 중 오류가 발생했습니다. 페이지를 새로고침 해 주세요.'
+      );
     }
 
-    return [...restaurants].filter(
-      (restaurant) => restaurant.category === category
-    );
+    return this.#restaurants[searchedIndex];
+  }
+
+  deleteRestaurantById(itemId: number) {
+    const searchedIndex = this.#getRestaurantIndexById(itemId);
+
+    if (searchedIndex !== -1) {
+      this.#restaurants.splice(searchedIndex, 1);
+    }
+  }
+
+  #trimLink(link: string) {
+    if (link.trim() === '') {
+      return '';
+    }
+
+    return `${
+      link.startsWith('https://') || link.startsWith('http://')
+        ? ''
+        : 'https://'
+    }${link}`;
+  }
+
+  #getRestaurantIndexById(itemId: number) {
+    let searchedIndex = -1;
+
+    this.#restaurants.forEach((restaurant, index) => {
+      if (restaurant.itemId === itemId) {
+        searchedIndex = index;
+      }
+    });
+
+    return searchedIndex;
   }
 }
 
