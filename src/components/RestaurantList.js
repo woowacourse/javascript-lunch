@@ -1,4 +1,4 @@
-import { RESTAURANT_IMAGE } from '../constants/images.ts';
+import { geid, qs } from '../utils/domHelpers.js';
 import RestaurantItem from './RestaurantItem.js';
 import Component from '../Component.js';
 
@@ -6,33 +6,37 @@ export default class RestaurantList extends Component {
   constructor($target) {
     super($target);
 
-    this.restaurantManager.subscribe(this.render.bind(this));
+    this.restaurantManager.subscribe(this.reRender.bind(this));
+
+    this.lazyRender();
   }
 
-  template() {
-    return `
-    ${this.restaurantItemTemplate()}
-    `;
+  reRender(restaurantList) {
+    this.render(restaurantList);
+    this.lazyRender(restaurantList);
   }
 
-  restaurantItemTemplate() {
-    return this.filterOrSort();
+  lazyRender(restaurantList = null) {
+    restaurantList === null
+      ? [...this.$target.children].forEach((_, idx) => {
+          new RestaurantItem(
+            geid(`restaurant__${idx}`),
+            this.restaurantManager.getRestaurantList()[idx]
+          );
+        })
+      : restaurantList.forEach((restaurant, idx) => {
+          new RestaurantItem(geid(`restaurant__${idx}`), restaurant);
+        });
   }
 
-  filterOrSort() {
-    if (this.restaurantManager.getIsFiltered()) {
-      return `
-      ${this.restaurantManager
-        .getFilterRestaurantList()
-        .map((restaurant) => new RestaurantItem(RESTAURANT_IMAGE).render(restaurant))}
-      
-      `;
-    }
-
-    return `
-    ${this.restaurantManager
-      .getRestaurantList()
-      .map((restaurant) => new RestaurantItem(RESTAURANT_IMAGE).render(restaurant))}
-    `;
+  template(restaurantList) {
+    restaurantList === null
+      ? `${this.restaurantManager
+          .getRestaurantList()
+          .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+          .join('')}`
+      : `${restaurantList
+          .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+          .join('')}`;
   }
 }

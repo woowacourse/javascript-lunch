@@ -9,7 +9,7 @@ export default class Observable {
     this._observers.push(observer);
   }
 
-  notify() {
-    this._observers.forEach((observer) => observer());
+  notify(restaurantData) {
+    this._observers.forEach((observer) => observer(restaurantData));
   }
 }
