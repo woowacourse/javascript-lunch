@@ -1,13 +1,13 @@
-import { allCustomElementsDefined } from '../components/lifecycles';
-import type RestaurantDetailModal from '../components/restaurant/modal/RestaurantDetailModal';
-import type RestaurantList from '../components/restaurant/RestaurantList';
-import type { RestaurantProps } from '../domain/Restaurant';
-import Restaurant from '../domain/Restaurant';
-import type { RestaurantFilter } from '../domain/RestaurantFilter';
-import { DEFAULT_RESTAURANTS } from '../fixtures';
-import type { IStorage } from '../storage/IStorage';
-import RestaurantsJSONParser from '../storage/parser/RestaurantsJSONParser';
-import RestaurantsLocalStorage from '../storage/RestaurantsLocalStorage';
+import { allCustomElementsDefined } from '@/components/lifecycles';
+import type RestaurantDetailModal from '@/components/restaurant/modal/RestaurantDetailModal';
+import type RestaurantList from '@/components/restaurant/RestaurantList';
+import type { RestaurantProps } from '@/domain/Restaurant';
+import Restaurant from '@/domain/Restaurant';
+import type { RestaurantFilter } from '@/domain/RestaurantFilter';
+import { DEFAULT_RESTAURANTS } from '@/fixtures';
+import type { IStorage } from '@/storage/IStorage';
+import RestaurantsJSONParser from '@/storage/parsers/RestaurantsJSONParser';
+import RestaurantsLocalStorage from '@/storage/RestaurantsLocalStorage';
 
 export interface RestaurantsState {
   restaurantIdCounter: number;
