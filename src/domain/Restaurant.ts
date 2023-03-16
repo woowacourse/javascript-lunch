@@ -2,11 +2,11 @@ import Validation from './Validation';
 
 export type RestaurantProps = {
   id: string;
-  category: string;
+  category: RestaurantCategory;
   name: string;
-  distance: number;
-  description: string | null;
-  referenceUrl: string | null;
+  distance: RestaurantDistance;
+  description?: string | null;
+  referenceUrl?: string | null;
 };
 
 export type RestaurantCategory = (typeof Restaurant.CATEGORIES)[number];
@@ -36,24 +36,17 @@ class Restaurant {
 
   private favorite = false;
 
-  constructor({
-    id,
-    category,
-    name,
-    distance,
-    description = null,
-    referenceUrl = null,
-  }: RestaurantProps) {
-    this.validateCategory(category);
-    this.validateName(name);
-    this.validateDistance(distance);
+  constructor({ id, category, name, distance, description, referenceUrl }: RestaurantProps) {
+    Restaurant.validateCategory(category);
+    Restaurant.validateName(name);
+    Restaurant.validateDistance(distance);
 
     this.id = id;
     this.category = category;
     this.name = name;
     this.distance = distance;
-    this.description = description;
-    this.referenceUrl = referenceUrl;
+    this.description = description ?? null;
+    this.referenceUrl = referenceUrl ?? null;
   }
 
   getId() {
@@ -88,17 +81,17 @@ class Restaurant {
     this.favorite = favorite;
   }
 
-  private validateCategory(category: string): asserts category is RestaurantCategory {
+  static validateCategory(category: string): asserts category is RestaurantCategory {
     if (Restaurant.CATEGORIES.every((_category) => _category !== category)) {
       throw new Error(`카테고리는 ${Restaurant.CATEGORIES.join(', ')} 중 하나여야 합니다.`);
     }
   }
 
-  private validateName(name: string) {
+  static validateName(name: string) {
     Validation.validateRestaurantNameLength(name);
   }
 
-  private validateDistance(distance: number): asserts distance is RestaurantDistance {
+  static validateDistance(distance: number): asserts distance is RestaurantDistance {
     if (Restaurant.DISTANCES.every((_distance) => _distance !== distance)) {
       throw new Error(`거리는 ${Restaurant.DISTANCES.join('분, ')}분 중 하나여야 합니다.`);
     }

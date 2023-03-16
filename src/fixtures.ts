@@ -1,7 +1,7 @@
 import type { RestaurantProps } from './domain/Restaurant';
 import Restaurant from './domain/Restaurant';
 
-export const DEFAULT_RESTAURANTS = [
+const restaurantProps: Omit<RestaurantProps, 'id'>[] = [
   {
     category: '한식',
     name: '피양콩할머니',
@@ -41,7 +41,9 @@ export const DEFAULT_RESTAURANTS = [
     distance: 5,
     description: '멕시칸 캐주얼 그릴',
   },
-].map(
+];
+
+export const DEFAULT_RESTAURANTS = restaurantProps.map(
   (partialRestaurantProps) => (id: RestaurantProps['id']) =>
-    new Restaurant({ id, referenceUrl: null, ...partialRestaurantProps }),
+    new Restaurant({ id, ...partialRestaurantProps }),
 );
