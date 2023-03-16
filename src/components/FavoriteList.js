@@ -17,20 +17,16 @@ export default class FavoriteList extends Component {
   }
 
   lazyRender(restaurantList = null) {
-    if (!restaurantList) {
-      [...this.$target.children].forEach((_, idx) => {
-        new RestaurantItem(
-          geid(`restaurant__favorite__${idx}`),
-          this.favoriteRestaurant.getRestaurantList()[idx]
-        );
-      });
-    }
-
-    if (restaurantList) {
-      restaurantList.forEach((restaurant, idx) => {
-        new RestaurantItem(geid(`restaurant__favorite__${idx}`), restaurant);
-      });
-    }
+    restaurantList === null
+      ? [...this.$target.children].forEach((_, idx) => {
+          new RestaurantItem(
+            geid(`restaurant__favorite__${idx}`),
+            this.favoriteRestaurant.getRestaurantList()[idx]
+          );
+        })
+      : restaurantList.forEach((restaurant, idx) => {
+          new RestaurantItem(geid(`restaurant__favorite__${idx}`), restaurant);
+        });
   }
 
   template(restaurantList) {
