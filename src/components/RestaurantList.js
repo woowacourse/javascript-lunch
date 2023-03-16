@@ -30,17 +30,13 @@ export default class RestaurantList extends Component {
   }
 
   template(restaurantList) {
-    if (!restaurantList) {
-      return `${this.restaurantManager
-        .getRestaurantList()
-        .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
-        .join('')}`;
-    }
-
-    if (restaurantList) {
-      return `${restaurantList
-        .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
-        .join('')}`;
-    }
+    restaurantList === null
+      ? `${this.restaurantManager
+          .getRestaurantList()
+          .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+          .join('')}`
+      : `${restaurantList
+          .map((_, index) => `<li class="restaurant" id="restaurant__${index}"></li>`)
+          .join('')}`;
   }
 }

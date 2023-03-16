@@ -30,17 +30,13 @@ export default class FavoriteList extends Component {
   }
 
   template(restaurantList) {
-    if (!restaurantList) {
-      return `${this.favoriteRestaurant
-        .getRestaurantList()
-        .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
-        .join('')}`;
-    }
-
-    if (restaurantList) {
-      return `${restaurantList
-        .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
-        .join('')}`;
-    }
+    return restaurantList === null
+      ? `${this.favoriteRestaurant
+          .getRestaurantList()
+          .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
+          .join('')}`
+      : `${restaurantList
+          .map((_, idx) => `<li class="restaurant" id="restaurant__favorite__${idx}"></li>`)
+          .join('')}`;
   }
 }
