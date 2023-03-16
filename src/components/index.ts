@@ -10,7 +10,6 @@ export { default as CategoryIcon } from './restaurant/CategoryIcon';
 export { default as RestaurantCategorySelect } from './restaurant/form/RestaurantCategorySelect';
 export { default as RestaurantDistanceSelect } from './restaurant/form/RestaurantDistanceSelect';
 export { default as RestaurantNameInput } from './restaurant/form/RestaurantNameInput';
-export { default as RestaurantSortSelect } from './restaurant/form/RestaurantSortSelect';
 export { default as NewRestaurantModal } from './restaurant/modal/NewRestaurantModal';
 export { default as RestaurantDetailModal } from './restaurant/modal/RestaurantDetailModal';
 export { default as RestaurantFilterPanel } from './restaurant/RestaurantFilterPanel';

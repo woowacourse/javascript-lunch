@@ -1,10 +1,10 @@
+import type Select from '@/components/common/form/Select';
 import Component from '@/components/Component';
 import { define } from '@/components/decorators';
 import type { RestaurantFilter } from '@/domain/RestaurantFilter';
-import { filterBy, sortByName } from '@/domain/RestaurantFilter';
+import { filterBy, sortByDistance, sortByName } from '@/domain/RestaurantFilter';
 import restaurants from '@/states/restaurants';
 import type RestaurantCategorySelect from '../form/RestaurantCategorySelect';
-import type RestaurantSortSelect from '../form/RestaurantSortSelect';
 import style from './index.css';
 
 export type RestaurantFilterChangeEvent = CustomEvent<RestaurantFilter[]>;
@@ -33,7 +33,7 @@ class RestaurantFilterPanel extends Component {
   }
 
   private onSortChange() {
-    const $sort = this.shadowRoot!.querySelector<RestaurantSortSelect>('r-restaurant-sort-select')!;
+    const $sort = this.shadowRoot!.querySelector<Select<RestaurantFilter>>('r-select')!;
     const sortFn = $sort.getSelectedOption()?.value;
 
     this.sortFn = sortFn ?? sortByName;
@@ -52,9 +52,7 @@ class RestaurantFilterPanel extends Component {
           default-option-label="전체"
         ></r-restaurant-category-select>
 
-        <r-restaurant-sort-select
-          name="sort"
-        ></r-restaurant-sort-select>
+        <r-select name="sort"></r-select>
       </form>
     `;
   }
@@ -66,9 +64,13 @@ class RestaurantFilterPanel extends Component {
         this.onCategoryChange();
       },
     );
-    this.shadowRoot!.querySelector('r-restaurant-sort-select')?.addEventListener('change', () => {
+    this.shadowRoot!.querySelector('r-select')?.addEventListener('change', () => {
       this.onSortChange();
     });
+    this.shadowRoot!.querySelector<Select<RestaurantFilter>>('r-select')?.setOptions([
+      { value: sortByName, label: '이름순' },
+      { value: sortByDistance, label: '거리순' },
+    ]);
   }
 
   getFilters(): RestaurantFilter[] {
