@@ -6,6 +6,7 @@ import Restaurant from '@/domain/Restaurant';
 import type { RestaurantFilter } from '@/domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from '@/fixtures';
 import type { IStorage } from '@/storage/IStorage';
+import type { IParser } from '@/storage/parsers/IParser';
 import RestaurantsJSONParser from '@/storage/parsers/RestaurantsJSONParser';
 import RestaurantsLocalStorage from '@/storage/RestaurantsLocalStorage';
 
@@ -22,7 +23,7 @@ export class Restaurants implements RestaurantsState {
 
   restaurants: Restaurant[];
 
-  private readonly parser = new RestaurantsJSONParser();
+  private readonly parser: IParser<RestaurantsState> = new RestaurantsJSONParser();
 
   private readonly storage: IStorage<RestaurantsState> = new RestaurantsLocalStorage(this.parser, {
     restaurantIdCounter: 1,
