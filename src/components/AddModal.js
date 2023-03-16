@@ -1,5 +1,6 @@
 import Component from '../Component';
 import { geid, qs } from '../utils/domHelpers';
+import { ERROR, REG_EXP } from '../constants';
 
 export default class AddModal extends Component {
   constructor($target) {
@@ -114,13 +115,13 @@ export default class AddModal extends Component {
       .getRestaurantList()
       .map((restaurant) => restaurant.storeName);
 
-    if (storeName.trim() === '' || !storeName.match(/^[a-zA-Z0-9가-힣ㄱ-ㅎ\s]*$/)) {
-      alert('음식점 이름은 공백 또는 특수기호로만 이루어질 수 없습니다.');
+    if (storeName.trim() === '' || !storeName.match(REG_EXP.storeName)) {
+      alert(ERROR.typeStoreName);
       return true;
     }
 
     if (storeNameList.includes(storeName)) {
-      alert('음식점 이름은 이미 추가된 음식점 이름과 중복될 수 없습니다.');
+      alert(ERROR.duplicatedStoreName);
       return true;
     }
 
