@@ -10,13 +10,13 @@ export default class Favorite extends Component {
       () => {
         this.switchToAllRestaurantList();
       },
-      qs('#all__restaurant__radio + label')
+      qs('.all__restaurant__label')
     ).addEvent(
       'click',
       () => {
         this.switchToFavoriteRestaurantList();
       },
-      qs('#favorite__restaurant__radio + label')
+      qs('.favorite__restaurant__label')
     );
   }
 
@@ -24,12 +24,12 @@ export default class Favorite extends Component {
     return `
     <div class="favorite-item">
       <input type="radio" id="all__restaurant__radio" name="favorite" aria-label="모든 음식점" checked />
-      <label for="all__restaurant__radio">모든 음식점</label>
+      <label class="all__restaurant__label" for="all__restaurant__radio">모든 음식점</label>
       <div></div>
     </div>
     <div class="favorite-item">
       <input type="radio" id="favorite__restaurant__radio" name="favorite" aria-label="자주 가는 음식점" />
-      <label for="favorite__restaurant__radio">자주 가는 음식점</label>
+      <label class="favorite__restaurant__label" for="favorite__restaurant__radio">자주 가는 음식점</label>
       <div></div>
     </div>
       `;
