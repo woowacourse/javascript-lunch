@@ -1,6 +1,6 @@
 import type { RestaurantsState } from '../states/restaurants';
 import type { IStorage } from './IStorage';
-import type { IParser } from './parser/IParser';
+import type { IParser } from './parsers/IParser';
 
 class RestaurantsLocalStorage implements IStorage<RestaurantsState> {
   constructor(
@@ -9,8 +9,11 @@ class RestaurantsLocalStorage implements IStorage<RestaurantsState> {
   ) {}
 
   save(state: RestaurantsState): void {
-    localStorage.setItem('restaurantIdCounter', JSON.stringify(state.restaurantIdCounter));
-    localStorage.setItem('restaurants', JSON.stringify(state.restaurants));
+    localStorage.setItem(
+      'restaurantIdCounter',
+      this.parser.stringify('restaurantIdCounter', state),
+    );
+    localStorage.setItem('restaurants', this.parser.stringify('restaurants', state));
   }
 
   load(): RestaurantsState {

@@ -20,11 +20,15 @@ class RestaurantsJSONParser implements IParser<RestaurantsState> {
     }
   }
 
-  deserializeRestaurants(objects: object[]) {
+  private deserializeRestaurants(objects: object[]) {
     const restaurants: Restaurant[] = objects.map((object) =>
       Object.setPrototypeOf(object, Restaurant.prototype),
     );
     return restaurants;
+  }
+
+  stringify<Key extends keyof RestaurantsState>(key: Key, state: RestaurantsState): string {
+    return JSON.stringify(state[key]);
   }
 }
 
