@@ -5,35 +5,39 @@
 }
 
 .all-restaurant {
-    width: 50%;
-  font-family: "Roboto";
+  width: 50%;
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
 
   text-align: center;
-  color: #ec4a0a;
-  border-bottom: 2px solid #ec4a0a;
   padding: 9px;
   margin-left: 16px;
   cursor: pointer;
 }
 
+.active {
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
+}
+
+.inactive {
+  color: #667085;
+  border-bottom: 2px solid #667085;
+}
+
 .favorite-restaurant {
-    width: 50%;
-  font-family: "Roboto";
+  width: 50%;
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
 
   text-align: center;
-  color: #667085;
-  border-bottom: 2px solid #667085;
   padding: 9px;
   margin-right: 16px;
   cursor: pointer;
 }
-
-
