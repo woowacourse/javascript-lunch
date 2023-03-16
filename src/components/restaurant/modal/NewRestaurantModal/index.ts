@@ -1,7 +1,7 @@
-import restaurants from '../../../../states/restaurants';
-import type Modal from '../../../common/Modal';
-import Component from '../../../Component';
-import { define } from '../../../decorators';
+import type Modal from '@/components/common/Modal';
+import Component from '@/components/Component';
+import { define } from '@/components/decorators';
+import restaurants from '@/states/restaurants';
 import style from './index.css';
 
 @define('r-new-restaurant-modal')

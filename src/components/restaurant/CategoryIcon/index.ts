@@ -1,5 +1,5 @@
-import Component from '../../Component';
-import { define } from '../../decorators';
+import Component from '@/components/Component';
+import { define } from '@/components/decorators';
 import style from './index.css';
 
 @define('r-category-icon')

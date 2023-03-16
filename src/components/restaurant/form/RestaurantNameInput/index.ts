@@ -1,6 +1,6 @@
-import Validation from '../../../../domain/Validation';
-import Input from '../../../common/form/Input';
-import { define } from '../../../decorators';
+import Input from '@/components/common/form/Input';
+import { define } from '@/components/decorators';
+import Validation from '@/domain/Validation';
 
 @define('r-restaurant-name-input')
 class RestaurantNameInput extends Input {

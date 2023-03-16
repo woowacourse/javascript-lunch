@@ -1,7 +1,7 @@
-import type { RestaurantCategory } from '../../../../domain/Restaurant';
-import Restaurant from '../../../../domain/Restaurant';
-import Select from '../../../common/form/Select';
-import { define } from '../../../decorators';
+import Select from '@/components/common/form/Select';
+import { define } from '@/components/decorators';
+import type { RestaurantCategory } from '@/domain/Restaurant';
+import Restaurant from '@/domain/Restaurant';
 
 @define('r-restaurant-category-select')
 class RestaurantCategorySelect extends Select<RestaurantCategory | string | null> {

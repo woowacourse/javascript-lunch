@@ -1,7 +1,7 @@
-import type { RestaurantFilter } from '../../../../domain/RestaurantFilter';
-import { sortByDistance, sortByName } from '../../../../domain/RestaurantFilter';
-import Select from '../../../common/form/Select';
-import { define } from '../../../decorators';
+import Select from '@/components/common/form/Select';
+import { define } from '@/components/decorators';
+import type { RestaurantFilter } from '@/domain/RestaurantFilter';
+import { sortByDistance, sortByName } from '@/domain/RestaurantFilter';
 
 @define('r-restaurant-sort-select')
 class RestaurantSortSelect extends Select<RestaurantFilter> {

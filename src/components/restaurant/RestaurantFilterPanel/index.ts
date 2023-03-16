@@ -1,8 +1,8 @@
-import type { RestaurantFilter } from '../../../domain/RestaurantFilter';
-import { filterBy, sortByName } from '../../../domain/RestaurantFilter';
-import restaurants from '../../../states/restaurants';
-import Component from '../../Component';
-import { define } from '../../decorators';
+import Component from '@/components/Component';
+import { define } from '@/components/decorators';
+import type { RestaurantFilter } from '@/domain/RestaurantFilter';
+import { filterBy, sortByName } from '@/domain/RestaurantFilter';
+import restaurants from '@/states/restaurants';
 import type RestaurantCategorySelect from '../form/RestaurantCategorySelect';
 import type RestaurantSortSelect from '../form/RestaurantSortSelect';
 import style from './index.css';

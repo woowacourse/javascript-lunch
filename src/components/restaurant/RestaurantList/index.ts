@@ -1,6 +1,6 @@
-import type Restaurant from '../../../domain/Restaurant';
-import Component from '../../Component';
-import { define } from '../../decorators';
+import Component from '@/components/Component';
+import { define } from '@/components/decorators';
+import type Restaurant from '@/domain/Restaurant';
 import RestaurantListItem from '../RestaurantListItem';
 import style from './index.css';
 

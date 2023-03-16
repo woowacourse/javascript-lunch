@@ -1,7 +1,7 @@
-import type { RestaurantDistance } from '../../../../domain/Restaurant';
-import Restaurant from '../../../../domain/Restaurant';
-import Select from '../../../common/form/Select';
-import { define } from '../../../decorators';
+import Select from '@/components/common/form/Select';
+import { define } from '@/components/decorators';
+import type { RestaurantDistance } from '@/domain/Restaurant';
+import Restaurant from '@/domain/Restaurant';
 
 @define('r-restaurant-distance-select')
 class RestaurantDistanceSelect extends Select<RestaurantDistance | string | null> {

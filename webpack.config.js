@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -12,6 +13,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js', '.mjs'],
+    plugins: [new TsconfigPathsPlugin()],
   },
   module: {
     rules: [
