@@ -1,5 +1,5 @@
-import Restaurant from '../domain/Restaurant';
-import type { Restaurants, RestaurantsState } from '../states/restaurants';
+import Restaurant from '../../domain/Restaurant';
+import type { Restaurants, RestaurantsState } from '../../states/restaurants';
 import type { IParser } from './IParser';
 
 class RestaurantsJSONParser implements IParser<RestaurantsState> {

@@ -5,8 +5,8 @@ import type { RestaurantProps } from '../domain/Restaurant';
 import Restaurant from '../domain/Restaurant';
 import type { RestaurantFilter } from '../domain/RestaurantFilter';
 import { DEFAULT_RESTAURANTS } from '../fixtures';
-import RestaurantsJSONParser from '../parser/RestaurantsJSONParser';
 import type { IStorage } from '../storage/IStorage';
+import RestaurantsJSONParser from '../storage/parser/RestaurantsJSONParser';
 import RestaurantsLocalStorage from '../storage/RestaurantsLocalStorage';
 
 export interface RestaurantsState {

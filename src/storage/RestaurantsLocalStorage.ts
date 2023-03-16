@@ -1,6 +1,6 @@
-import type { IParser } from '../parser/IParser';
 import type { RestaurantsState } from '../states/restaurants';
 import type { IStorage } from './IStorage';
+import type { IParser } from './parser/IParser';
 
 class RestaurantsLocalStorage implements IStorage<RestaurantsState> {
   constructor(
