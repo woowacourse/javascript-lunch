@@ -11,9 +11,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js', '.mjs'],
-    alias: {
-      '@res': path.resolve(__dirname, 'src/'),
-    },
   },
   module: {
     rules: [

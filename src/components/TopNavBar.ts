@@ -1,6 +1,6 @@
-import Component from '@res/core/Component';
-import { eventBus } from '@res/core/eventBus';
-import { $, on } from '@res/utils/domUtils';
+import Component from '../core/Component';
+import { eventBus } from '../core/eventBus';
+import { $, on } from '../utils/domUtils';
 
 class TopNavBar extends Component {
   constructor(element: HTMLElement) {
@@ -12,11 +12,15 @@ class TopNavBar extends Component {
   setEvent() {
     const btnElement = $('.add-button');
 
-    if (btnElement instanceof HTMLButtonElement) {
-      on(btnElement, 'click', () => {
-        eventBus.dispatch('@modal-click');
-      });
-    }
+    if (!(btnElement instanceof HTMLButtonElement)) return this;
+
+    on({
+      target: btnElement,
+      eventName: 'click',
+      handler: () => {
+        eventBus.dispatch('@click-add-modal');
+      },
+    });
 
     return this;
   }
