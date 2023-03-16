@@ -1,6 +1,7 @@
 import type Modal from '@/components/common/Modal';
 import Component from '@/components/Component';
 import { define } from '@/components/decorators';
+import Restaurant from '@/domain/Restaurant';
 import restaurants from '@/states/restaurants';
 import style from './index.css';
 
@@ -34,10 +35,24 @@ class NewRestaurantModal extends Component {
 
     const restaurantProps = Object.fromEntries([...new FormData($form).entries()]);
 
+    const category = String(restaurantProps.category);
+    const distance = Number(restaurantProps.distance);
+    const name = String(restaurantProps.name);
+
+    try {
+      Restaurant.validateCategory(category);
+      Restaurant.validateName(name);
+      Restaurant.validateDistance(distance);
+    } catch (e) {
+      const error = e as Error;
+      alert(error?.message ?? error);
+      return;
+    }
+
     restaurants.create({
-      category: String(restaurantProps.category),
-      name: String(restaurantProps.name),
-      distance: Number(restaurantProps.distance),
+      category,
+      name,
+      distance,
       description: String(restaurantProps.description).trim() || null,
       referenceUrl: String(restaurantProps.referenceUrl).trim() || null,
     });
