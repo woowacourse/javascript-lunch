@@ -15,7 +15,7 @@ class RestaurantListItem extends Component {
     const restaurantId = this.getAttribute('restaurant-id');
     if (!restaurantId) return;
 
-    const restaurant = restaurants.getRestaurant(restaurantId);
+    const restaurant = restaurants.getRestaurant(Number(restaurantId));
     if (!restaurant) return;
 
     restaurants.toggleFavorite(restaurant);

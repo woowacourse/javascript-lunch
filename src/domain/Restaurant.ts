@@ -1,7 +1,7 @@
 import Validation from './Validation';
 
 export type RestaurantProps = {
-  id: string;
+  id: number;
   category: RestaurantCategory;
   name: string;
   distance: RestaurantDistance;
@@ -22,7 +22,7 @@ class Restaurant {
 
   static DISTANCES = [5, 10, 15, 20, 30] as const;
 
-  private readonly id: string;
+  private readonly id: number;
 
   private readonly category: RestaurantCategory;
 

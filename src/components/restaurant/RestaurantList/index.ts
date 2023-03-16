@@ -34,7 +34,7 @@ class RestaurantList extends Component {
     this.dispatchEvent(
       new CustomEvent('click', {
         bubbles: true,
-        detail: restaurantId,
+        detail: Number(restaurantId),
       }),
     );
   }

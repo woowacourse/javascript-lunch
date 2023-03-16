@@ -1,6 +1,4 @@
 import { allCustomElementsDefined } from '@/components/lifecycles';
-import type RestaurantDetailModal from '@/components/restaurant/modal/RestaurantDetailModal';
-import type RestaurantList from '@/components/restaurant/RestaurantList';
 import type { RestaurantProps } from '@/domain/Restaurant';
 import Restaurant from '@/domain/Restaurant';
 import type { RestaurantFilter } from '@/domain/RestaurantFilter';
@@ -16,10 +14,14 @@ export interface RestaurantsState {
   restaurants: Restaurant[];
 }
 
+export type RestaurantsListenerFn = (restaurants: Restaurants) => void;
+
 export class Restaurants implements RestaurantsState {
+  #eventListeners: RestaurantsListenerFn[] = [];
+
   filters: RestaurantFilter[] = [];
 
-  restaurantIdCounter;
+  restaurantIdCounter = 1;
 
   restaurants: Restaurant[];
 
@@ -63,7 +65,7 @@ export class Restaurants implements RestaurantsState {
   assignId() {
     const id = this.restaurantIdCounter;
     this.restaurantIdCounter += 1;
-    return String(id);
+    return id;
   }
 
   setFilters(filters: RestaurantFilter[]) {
@@ -90,18 +92,19 @@ export class Restaurants implements RestaurantsState {
     return this.restaurants.filter((restaurant) => restaurant.isFavorite());
   }
 
+  addEventListener(listener: RestaurantsListenerFn) {
+    this.#eventListeners.push(listener);
+    listener(this);
+  }
+
+  dispatchEvent() {
+    this.#eventListeners.forEach((listener) => listener(this));
+  }
+
   async updateComponents() {
     await allCustomElementsDefined();
 
-    document
-      .querySelector<RestaurantList>('[slot="all"] r-restaurant-list')
-      ?.setRestaurants(this.getFilteredRestaurants());
-
-    document
-      .querySelector<RestaurantList>('[slot="favorite"] r-restaurant-list')
-      ?.setRestaurants(this.getFavoritedRestaurants());
-
-    document.querySelector<RestaurantDetailModal>('r-restaurant-detail-modal')?.renderContent();
+    this.dispatchEvent();
   }
 }
 

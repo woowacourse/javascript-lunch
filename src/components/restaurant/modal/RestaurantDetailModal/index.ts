@@ -120,6 +120,14 @@ class RestaurantDetailModal extends Component {
       this.onClickClose();
     });
   }
+
+  override connectedCallback() {
+    super.connectedCallback();
+
+    restaurants.addEventListener(() => {
+      this.renderContent();
+    });
+  }
 }
 
 export default RestaurantDetailModal;
