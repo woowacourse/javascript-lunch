@@ -28,9 +28,7 @@ class Modal {
   handleCloseEvent() {
     const modalBg = $(".modal-backdrop");
 
-    modalBg?.addEventListener("click", () => {
-      this.close();
-    });
+    modalBg?.addEventListener("click", this.close);
 
     document.addEventListener("keyup", (event) => {
       if (event.key === "Escape") {

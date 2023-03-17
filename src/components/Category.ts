@@ -59,13 +59,9 @@ class Category {
   }
 
   handleClickCategory(renderFavorates: any, reRenderRestaurantList: any) {
-    $(".favorate")?.addEventListener("click", (e) => {
-      renderFavorates();
-    });
+    $(".favorate")?.addEventListener("click", renderFavorates);
 
-    $(".all")?.addEventListener("click", (e) => {
-      reRenderRestaurantList();
-    });
+    $(".all")?.addEventListener("click", reRenderRestaurantList);
   }
 }
 
