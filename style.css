@@ -39,6 +39,12 @@ body {
   font-weight: 600;
 }
 
+.text-page {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
 .text-body {
   font-size: 16px;
   line-height: 24px;
@@ -86,6 +92,29 @@ body {
 }
 
 /* 음식점 목록 *****************************************/
+
+/* 리스트 선택 */
+
+.page-choice-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 30px;
+  padding: 0 15px;
+}
+
+.choice {
+  text-align: center;
+  width: 50%;
+  color: var(--grey-300);
+  padding-bottom: 10px;
+  border-bottom: var(--grey-300) solid 2px;
+}
+
+.page-chosen {
+  color: var(--primary-color);
+  border-bottom: var(--primary-color) solid 2px;
+}
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
@@ -150,6 +179,7 @@ body {
 }
 
 .restaurant__info {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -172,6 +202,17 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bookmark {
+  width: 33px;
+  height: 30px;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -265,6 +306,7 @@ input[name="link"] {
 
 .button-container {
   display: flex;
+  margin-top: 40px;
 }
 
 .button {
@@ -299,4 +341,35 @@ input[name="link"] {
 
 .error--message {
   color: red;
+}
+
+/* 음식점 아이템 모달 *****************************************/
+.item-modal-container {
+  height: 70%;
+}
+
+.item-information {
+  height: 70%;
+}
+
+.item__name {
+  margin: 20px 0 16px 0;
+}
+
+.item__takingTime {
+  color: var(--primary-color);
+  margin: 16px 0;
+}
+
+.item__description {
+  height: 75%;
+  overflow: scroll;
+}
+
+a {
+  color: inherit;
+}
+
+.hide {
+  display: none;
 }

@@ -1,4 +1,5 @@
 import { $ } from "@/utils/Dom";
+import Render from "@/view/Render";
 
 class Header {
   template() {
@@ -11,13 +12,13 @@ class Header {
     </header>`;
   }
 
-  addEvent(openModal: () => void) {
+  addEvent() {
     $(".gnb__title")?.addEventListener("click", () => {
       location.reload();
     });
 
     $(".gnb__button")?.addEventListener("click", () => {
-      openModal();
+      Render.openAddModal();
     });
   }
 

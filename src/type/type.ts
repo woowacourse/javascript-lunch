@@ -1,4 +1,4 @@
-export interface Attribute {
+export interface SelectAttribute {
   id: string;
   className?: string;
   name: string;
@@ -15,15 +15,18 @@ export type Category =
   | "기타";
 export type TakingTime = 5 | 10 | 15 | 20 | 25 | 30;
 export type Sort = "이름순" | "거리순";
+export type PageTabOption = "every" | "bookmarked";
 
 export interface Object {
   [key: string]: string;
 }
 
 export interface Restaurant {
+  id: string;
   category: Category;
   name: string;
   takingTime: TakingTime;
+  bookmarked: boolean;
   description?: string;
   link?: string;
 }
@@ -32,6 +35,3 @@ export type SetSelectedValue = (
   sortId: string,
   selectedValue: Category | Sort
 ) => void;
-
-export type AddRestaurant = (restaurant: Restaurant) => void;
-export type Rerender = () => void;
