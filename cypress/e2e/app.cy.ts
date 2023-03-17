@@ -1,7 +1,14 @@
 /// <reference types="cypress" />
+import restaurantsJson from '../fixtures/restaurants.json';
+
 describe('점심 뭐 먹지 E2E', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.visit('/', {
+      onBeforeLoad: () => {
+        localStorage.setItem('restaurants', JSON.stringify(restaurantsJson));
+        localStorage.setItem('restaurantIdCounter', '7');
+      },
+    });
   });
 
   it('초기 화면이 잘 표시되어야 한다', () => {
@@ -11,7 +18,7 @@ describe('점심 뭐 먹지 E2E', () => {
   it('음식점을 카테고리 기준으로 필터링한다', () => {
     cy.get('section[slot="all"]').within(() => {
       cy.get('r-restaurant-category-select').find('select').select('한식');
-      cy.get('r-restaurant-list-item').should('have.length', 1).contains('피양콩할머니');
+      cy.get('r-restaurant-list-item').should('have.length', 1).contains('피야앙콩');
 
       cy.get('r-restaurant-category-select').find('select').select('중식');
       cy.get('r-restaurant-list-item').should('have.length', 1).contains('친친');
@@ -24,7 +31,7 @@ describe('점심 뭐 먹지 E2E', () => {
   it('음식점을 이름순 또는 거리순으로 정렬하여 본다', () => {
     cy.get('section[slot="all"]').within(() => {
       cy.get('r-select').find('select').select('거리순');
-      cy.get('r-restaurant-list-item').last().contains('이태리키친');
+      cy.get('r-restaurant-list-item').last().contains('이태뤼이키친');
 
       cy.get('r-select').find('select').select('이름순');
       cy.get('r-restaurant-list-item').last().contains('호아빈 삼성점');
