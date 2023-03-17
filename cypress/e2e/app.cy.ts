@@ -26,6 +26,7 @@ describe('점심 뭐 먹지 앱 테스트', () => {
 
         cy.addSampleRestaurant();
 
+        cy.get('input#all-restaurants').should('be.checked');
         cy.get('.restaurant-list').children().should('have.length', 7);
         cy.contains('김돈이').should('exist');
       });
