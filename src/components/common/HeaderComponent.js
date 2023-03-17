@@ -15,16 +15,15 @@ class HeaderComponent extends CustomElement {
   }
 
   changeMenu(e) {
-    const { id, parentNode } = e.target;
-    if (id === MENU.TOTAL_MENU || parentNode.id === MENU.TOTAL_MENU) {
-      this.changeMenuColor(MENU.TOTAL_MENU, MENU.FAVORITE_MENU);
-      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, MENU.TOTAL);
-    }
+    const currentMenu = e.target.closest("div div").id;
+    const previousMenu =
+      currentMenu === MENU.TOTAL_MENU ? MENU.FAVORITE_MENU : MENU.TOTAL_MENU;
+    this.changeMenuColor(currentMenu, previousMenu);
 
-    if (id === MENU.FAVORITE_MENU || parentNode.id === MENU.FAVORITE_MENU) {
-      this.changeMenuColor(MENU.FAVORITE_MENU, MENU.TOTAL_MENU);
-      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, MENU.FAVORITE);
-    }
+    const menuCommend =
+      currentMenu === MENU.TOTAL_MENU ? MENU.TOTAL : MENU.FAVORITE;
+
+    dispatcher(RESTAURANT_ACTION.CHANGE_MENU, menuCommend);
   }
 
   changeMenuColor(currentMenu, previousMenu) {
