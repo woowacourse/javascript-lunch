@@ -18,10 +18,9 @@ customElements.define(
             category="${restaurant.category}"
             restaurantName="${restaurant.name}"
             distance="${restaurant.distance}"
-            description="${restaurant.description}"
             link="${restaurant.link}"
             isFavorite="${restaurant.isFavorite}"
-          ></restaurant-list-item>
+          >${restaurant.description}</restaurant-list-item>
         `
         )
         .join('')}

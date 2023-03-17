@@ -10,8 +10,9 @@ customElements.define(
       const category = this.getAttribute('category');
       const restaurantName = this.getAttribute('restaurantName');
       const distance = this.getAttribute('distance');
-      const description = this.getAttribute('description');
       const isFavorite = JSON.parse(this.getAttribute('isFavorite'));
+
+      const description = this.innerHTML;
 
       this.innerHTML = /* html */ `
       <li class="restaurant">
