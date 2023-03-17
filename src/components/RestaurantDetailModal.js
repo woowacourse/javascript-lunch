@@ -56,7 +56,7 @@ customElements.define(
     }
 
     isFavoriteButtonClicked($target) {
-      return !!$target.closest('.favorite');
+      return Boolean($target.closest('.favorite'));
     }
 
     handleDeleteButtonClick() {
