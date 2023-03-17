@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from './domain/constants';
+import { RESTAURANTS_LOCAL_STORAGE_KEY } from './domain/constants';
 import { restaurantManager } from './domain/restaurantManager';
 
 import { $, isChecked, resetSelect, isModalOpened } from './utils/dom';
@@ -123,7 +123,7 @@ const LunchMenuApp = {
   },
 
   setRestaurantList() {
-    setLocalStorage(LOCAL_STORAGE_KEY, restaurantManager.list);
+    setLocalStorage(RESTAURANTS_LOCAL_STORAGE_KEY, restaurantManager.list);
   },
 
   renderUpdatedRestaurantList() {

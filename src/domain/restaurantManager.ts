@@ -1,6 +1,6 @@
 import { sampleRestaurants } from './sampleRestaurants';
 
-import { LOCAL_STORAGE_KEY } from './constants';
+import { RESTAURANTS_LOCAL_STORAGE_KEY } from './constants';
 
 import { getLocalStorage } from '../utils/localStorage';
 
@@ -34,7 +34,7 @@ export const restaurantManager: RestaurantManager = {
   list: [],
 
   init() {
-    this.list = getLocalStorage(LOCAL_STORAGE_KEY) ?? sampleRestaurants;
+    this.list = getLocalStorage(RESTAURANTS_LOCAL_STORAGE_KEY) ?? sampleRestaurants;
   },
 
   add(restaurant) {

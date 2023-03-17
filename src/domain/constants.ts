@@ -1,1 +1,1 @@
-export const LOCAL_STORAGE_KEY = 'restaurants';
+export const RESTAURANTS_LOCAL_STORAGE_KEY = 'restaurants';
