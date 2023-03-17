@@ -20,10 +20,10 @@ export const CATEGORY_IMG = {
   기타: "./category-etc.png",
 } as const;
 
-export const FAVORITE_IMG = {
-  "0": "./favorite-icon-lined.png",
-  "1": "./favorite-icon-filled.png",
-};
+export const FAVORITE_IMG = [
+  "./favorite-icon-lined.png",
+  "./favorite-icon-filled.png",
+];
 
 export const RESTAURANTS_STORAGE = "restaurantList";
 

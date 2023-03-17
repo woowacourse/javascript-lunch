@@ -29,7 +29,7 @@ class RestaurantComponent extends CustomElement {
 
   changeFavorite(e) {
     e.preventDefault();
-    const favorite = this.getAttribute("favorite") === "0" ? "1" : "0";
+    const favorite = this.getAttribute("favorite") === "0" ? 1 : 0;
     const listKey = this.getAttribute("listKey");
     this.setAttribute("favorite", favorite);
 
