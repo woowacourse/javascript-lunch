@@ -43,7 +43,7 @@ customElements.define(
     bindEvents() {
       $('.icon-container').addEventListener('click', (e) => this.handleFavoriteButtonClick(e));
       $('.delete-button').addEventListener('click', () => this.handleDeleteButtonClick());
-      $('.cancel-button').addEventListener('click', $('custom-modal').closeModal);
+      $('.cancel-button').addEventListener('click', () => this.handleCancelButtonClick());
     }
 
     handleFavoriteButtonClick(e) {
@@ -67,6 +67,10 @@ customElements.define(
         });
         $('custom-modal').closeModal();
       }
+    }
+
+    handleCancelButtonClick() {
+      $('custom-modal').closeModal;
     }
   }
 );
