@@ -1,7 +1,7 @@
 import { allCustomElementsDefined } from '@/components/lifecycles';
 import type { RestaurantProps } from '@/domain/Restaurant';
 import Restaurant from '@/domain/Restaurant';
-import type { RestaurantFilter } from '@/domain/RestaurantFilter';
+import type { RestaurantFilter } from '@/domain/RestaurantFilters';
 import { DEFAULT_RESTAURANTS } from '@/fixtures';
 import type { IStorage } from '@/storage/IStorage';
 import type { IParser } from '@/storage/parsers/IParser';

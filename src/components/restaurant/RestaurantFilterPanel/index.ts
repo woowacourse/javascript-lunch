@@ -1,8 +1,8 @@
 import type Select from '@/components/common/form/Select';
 import Component from '@/components/Component';
 import { define } from '@/components/decorators';
-import type { RestaurantFilter } from '@/domain/RestaurantFilter';
-import { filterBy, sortByDistance, sortByName } from '@/domain/RestaurantFilter';
+import type { RestaurantFilter } from '@/domain/RestaurantFilters';
+import RestaurantFilters from '@/domain/RestaurantFilters';
 import restaurants from '@/states/restaurants';
 import type RestaurantCategorySelect from '../form/RestaurantCategorySelect';
 import style from './index.css';
@@ -13,7 +13,7 @@ export type RestaurantFilterChangeEvent = CustomEvent<RestaurantFilter[]>;
 class RestaurantFilterPanel extends Component {
   private filterFn: RestaurantFilter | null = null;
 
-  private sortFn: RestaurantFilter = sortByName;
+  private sortFn: RestaurantFilter = RestaurantFilters.sortByName;
 
   override getCSSStyleSheets() {
     return [...super.getCSSStyleSheets(), style];
@@ -26,7 +26,7 @@ class RestaurantFilterPanel extends Component {
     const category = $category.getSelectedOption()?.value;
 
     this.filterFn = category
-      ? filterBy((restaurant) => restaurant.getCategory() === category)
+      ? RestaurantFilters.filterBy((restaurant) => restaurant.getCategory() === category)
       : null;
 
     this.onChange();
@@ -36,7 +36,7 @@ class RestaurantFilterPanel extends Component {
     const $sort = this.shadowRoot!.querySelector<Select<RestaurantFilter>>('r-select')!;
     const sortFn = $sort.getSelectedOption()?.value;
 
-    this.sortFn = sortFn ?? sortByName;
+    this.sortFn = sortFn ?? RestaurantFilters.sortByName;
     this.onChange();
   }
 
@@ -68,8 +68,8 @@ class RestaurantFilterPanel extends Component {
       this.onSortChange();
     });
     this.shadowRoot!.querySelector<Select<RestaurantFilter>>('r-select')?.setOptions([
-      { value: sortByName, label: '이름순' },
-      { value: sortByDistance, label: '거리순' },
+      { value: RestaurantFilters.sortByName, label: '이름순' },
+      { value: RestaurantFilters.sortByDistance, label: '거리순' },
     ]);
   }
 
