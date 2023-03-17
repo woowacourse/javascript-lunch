@@ -12,7 +12,7 @@ const nameExistValidation = (name) => {
 const nameRepeatValidation = (name) => {
   const restaurants = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT);
   if (restaurants.length === 0) return false;
-  return !restaurants.every((restaurant) => restaurant.name !== name);
+  return restaurants.some((restaurant) => restaurant.name === name);
 };
 
 export const nameValidation = (name) => {
