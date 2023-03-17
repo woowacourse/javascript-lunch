@@ -69,10 +69,10 @@ customElements.define(
       e.preventDefault();
 
       const restaurant = this.createRestaurantInfo([...e.target.elements].slice(0, 5));
-      this.dispatch(restaurant);
-      this.resetForm(e.target);
 
+      this.dispatch(restaurant);
       $('custom-modal').closeModal();
+      this.resetForm(e.target);
     }
 
     createRestaurantInfo(formElements) {
