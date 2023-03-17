@@ -16,8 +16,8 @@ class ModalDetailComponent extends CustomElement {
       category="${restaurant.category}" 
       name="${restaurant.name}" 
       distance="${restaurant.distance}" 
-      description="${restaurant.description}" 
-      link="${restaurant.link}"
+      description="${restaurant.description ? restaurant.description : ""}" 
+      link="${restaurant.link ? restaurant.link : ""}"
       favorite="${restaurant.favorite}"
       listKey="${restaurant.key}"
     >
