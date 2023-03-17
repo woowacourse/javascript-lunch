@@ -1,7 +1,7 @@
 import {
   Category,
   Index,
-  MENU_TAP,
+  MenuTap,
   Restaurant,
   SortMethod,
 } from "../abstracts/types";
@@ -16,7 +16,7 @@ class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
   #category: Category = CATEGORY_DEFAULT;
   #sortMethod: SortMethod = SORT_METHOD.NAME;
-  #menu: MENU_TAP = "total";
+  #menu: MenuTap = "total";
 
   constructor() {
     this.hasNoneRestaurantList();
@@ -34,7 +34,7 @@ class RestaurantsStore {
     this.#sortMethod = sortMethod;
   }
 
-  set menu(menu: MENU_TAP) {
+  set menu(menu: MenuTap) {
     this.#menu = menu;
   }
 

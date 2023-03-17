@@ -5,7 +5,7 @@ import {
   Action,
   SortMethod,
   Index,
-  MENU_TAP,
+  MenuTap,
 } from "../abstracts/types";
 import { MENU, RESTAURANT_ACTION } from "../abstracts/constants";
 import RestaurantsInstance from "./RestaurantsStore";
@@ -77,7 +77,7 @@ class Store {
       this.publishMenu();
     },
     [RESTAURANT_ACTION.CHANGE_MENU]: (action: Action) => {
-      RestaurantsInstance.menu = action.data as MENU_TAP;
+      RestaurantsInstance.menu = action.data as MenuTap;
       this.publishMenu();
     },
   };
