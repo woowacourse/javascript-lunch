@@ -1,9 +1,6 @@
 import { $, $$ } from '../utils/Dom';
 import { NUMBER_FORM, LOCALSTORAGE_KEY, FORM_VALUE, LOCAL_INPUT, FAVORITE_ICON } from '../utils/Constant';
-import {
-  getRestaurantListFromLocalstorage,
-  getValueFromLocalStorage,
-} from '../utils/LocalStorage';
+import { getRestaurantListFromLocalstorage, getValueFromLocalStorage } from '../utils/LocalStorage';
 import RestaurantInventory from './RestaurantInventory';
 import { nameValidation } from '../utils/Validation';
 export default class Modal {

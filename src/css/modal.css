@@ -47,7 +47,7 @@
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -79,8 +79,8 @@
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -123,7 +123,7 @@ input[name="link"] {
   display: none;
 }
 
-.modal-picture-favorite{
+.modal-picture-favorite {
   display: flex;
   justify-content: space-between;
 }

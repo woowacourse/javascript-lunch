@@ -1,21 +1,13 @@
-import Header from "./UI/Header.js";
-import RestaurantContainer from "./UI/RestaurantContainer.js";
-import Modal from "./UI/Modal";
-import FilterBar from "./UI/FilterBar";
-import { RestaurantList } from "./domain/RestaurantList";
-import RestaurantRegistry from "./UI/RestaurantRegistry.js";
-import {
-  getRestaurantListFromLocalstorage,
-  stringifyJson,
-} from "./utils/LocalStorage.js";
-import {
-  LOCALSTORAGE_KEY,
-  LOCAL_INPUT,
-  FORM_VALUE,
-  FAVORITE_ICON
-} from "./utils/Constant";
-import ModalRestaurantDetail from "./UI/ModalRestaurantDetail.js";
-import RestaurantInventory from "./UI/RestaurantInventory.js";
+import Header from './UI/Header.js';
+import RestaurantContainer from './UI/RestaurantContainer.js';
+import Modal from './UI/Modal';
+import FilterBar from './UI/FilterBar';
+import { RestaurantList } from './domain/RestaurantList';
+import RestaurantRegistry from './UI/RestaurantRegistry.js';
+import { getRestaurantListFromLocalstorage, stringifyJson } from './utils/LocalStorage.js';
+import { LOCALSTORAGE_KEY, LOCAL_INPUT, FORM_VALUE, FAVORITE_ICON } from './utils/Constant';
+import ModalRestaurantDetail from './UI/ModalRestaurantDetail.js';
+import RestaurantInventory from './UI/RestaurantInventory.js';
 
 export class App {
   constructor() {
@@ -26,14 +18,9 @@ export class App {
     this.filter = new FilterBar(this.restaurantList, this.restaurantRegistry);
     this.restaurantInventory = new RestaurantInventory(this.restaurantRegistry);
     this.restaurantContainer = new RestaurantContainer();
-    this.modalRestaurantDetail = new ModalRestaurantDetail(
-      this.restaurantList,
-      this.restaurantRegistry
-    );
+    this.modalRestaurantDetail = new ModalRestaurantDetail(this.restaurantList, this.restaurantRegistry);
 
-    const localRestaurants = getRestaurantListFromLocalstorage(
-      LOCALSTORAGE_KEY.RESTAURANT
-    );
+    const localRestaurants = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT);
     this.collectedRender();
     this.initializeButtonEvents();
     if (localRestaurants !== null) {
@@ -41,30 +28,24 @@ export class App {
       localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, localRestaurantNextNumber);
     } else localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, 0);
 
-
-    const favoriteList = getRestaurantListFromLocalstorage(
-      LOCALSTORAGE_KEY.FAVORITE   
-    );
+    const favoriteList = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE);
 
     const restaurantFavoriteList =
       localRestaurants ||
-      [].map((restaurant) => {
+      [].map(restaurant => {
         if (this.isThereRestaurantInFavorites(favoriteList, restaurant).length)
           restaurant[LOCAL_INPUT.FAVORITE] = FAVORITE_ICON.ENROLL;
         return restaurant;
       });
-    localStorage.setItem(
-      LOCALSTORAGE_KEY.RESTAURANT,
-      stringifyJson(restaurantFavoriteList)
-    );
+    localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT, stringifyJson(restaurantFavoriteList));
 
     localStorage.setItem(LOCALSTORAGE_KEY.SORTBY, FORM_VALUE.NAME);
     localStorage.setItem(LOCALSTORAGE_KEY.FOODCATEGORY, LOCAL_INPUT.ALL_CATEGORY);
     this.restaurantList.filterBySort(FORM_VALUE.NAME, LOCAL_INPUT.ALL_CATEGORY);
   }
 
-  isThereRestaurantInFavorites(favoriteList, restaurant){
-    return favoriteList.filter((val) => val.id === restaurant.id).length
+  isThereRestaurantInFavorites(favoriteList, restaurant) {
+    return favoriteList.filter(val => val.id === restaurant.id).length;
   }
 
   collectedRender() {

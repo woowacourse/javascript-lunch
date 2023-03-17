@@ -1,10 +1,6 @@
 import { $ } from '../utils/Dom';
 import { getRestaurantListFromLocalstorage } from '../utils/LocalStorage';
-import {
-  LOCALSTORAGE_KEY,
-  LOCAL_INPUT,
-  FAVORITE_ICON,
-} from '../utils/Constant';
+import { LOCALSTORAGE_KEY, LOCAL_INPUT, FAVORITE_ICON } from '../utils/Constant';
 
 export default class RestaurantInventory {
   #template = `

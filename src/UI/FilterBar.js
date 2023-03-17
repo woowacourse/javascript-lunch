@@ -1,5 +1,5 @@
-import { $ } from "../utils/Dom";
-import { LOCALSTORAGE_KEY } from "../utils/Constant";
+import { $ } from '../utils/Dom';
+import { LOCALSTORAGE_KEY } from '../utils/Constant';
 export default class FilterBar {
   #template = `
     <main>
@@ -29,27 +29,21 @@ export default class FilterBar {
   }
 
   render() {
-    document.body.insertAdjacentHTML("beforeend", this.#template);
+    document.body.insertAdjacentHTML('beforeend', this.#template);
   }
 
   initializeButtonEvents() {
-    const selected = $("#category-filter");
-    selected.addEventListener("change", () => {
+    const selected = $('#category-filter');
+    selected.addEventListener('change', () => {
       const selectedValue = selected.options[selected.selectedIndex].value;
       this.restaurantList.filterCategory(selectedValue);
-      this.restaurantList.filterBySort(
-        localStorage.getItem(LOCALSTORAGE_KEY.SORTBY),
-        selectedValue
-      );
+      this.restaurantList.filterBySort(localStorage.getItem(LOCALSTORAGE_KEY.SORTBY), selectedValue);
     });
 
-    const sorted = $("#sorting-filter");
-    sorted.addEventListener("change", () => {
+    const sorted = $('#sorting-filter');
+    sorted.addEventListener('change', () => {
       const sortedValue = sorted.options[sorted.selectedIndex].value;
-      this.restaurantList.filterBySort(
-        sortedValue,
-        localStorage.getItem(LOCALSTORAGE_KEY.FOODCATEGORY)
-      );
+      this.restaurantList.filterBySort(sortedValue, localStorage.getItem(LOCALSTORAGE_KEY.FOODCATEGORY));
     });
   }
 }

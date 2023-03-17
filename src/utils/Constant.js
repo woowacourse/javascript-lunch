@@ -37,10 +37,10 @@ export const NUMBER_FORM = {
 // picture
 
 export const PICTURE_PATH = {
-    KOREAN: "./category-korean.png",
-    JAPANESE: "./category-japanese.png",
-    AMERICAN: "./category-western.png",
-    CHINESE: "./category-chinese.png",
-    ASIAN: "./category-asian.png",
-    ETC: "./category-etc.png",
-}
+  KOREAN: './category-korean.png',
+  JAPANESE: './category-japanese.png',
+  AMERICAN: './category-western.png',
+  CHINESE: './category-chinese.png',
+  ASIAN: './category-asian.png',
+  ETC: './category-etc.png',
+};
