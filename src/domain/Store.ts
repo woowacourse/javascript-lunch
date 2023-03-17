@@ -7,7 +7,7 @@ import {
   Index,
   MENU_TAP,
 } from "../abstracts/types";
-import { RESTAURANT_ACTION } from "../abstracts/constants";
+import { MENU, RESTAURANT_ACTION } from "../abstracts/constants";
 import RestaurantsInstance from "./RestaurantsStore";
 
 class Store {
@@ -50,7 +50,9 @@ class Store {
   reducer = {
     [RESTAURANT_ACTION.ADD_RESTAURANT]: (action: Action) => {
       RestaurantsInstance.addRestaurant(action.data as Restaurant);
-      this.publish();
+      RestaurantsInstance.menu === MENU.FAVORITE
+        ? this.publishMenu()
+        : this.publish();
     },
     [RESTAURANT_ACTION.FILTER_BY_CATEGORY]: (action: Action) => {
       RestaurantsInstance.category = action.data as Category;
@@ -62,7 +64,7 @@ class Store {
     },
     [RESTAURANT_ACTION.UPDATE_FAVORITE]: (action: Action) => {
       RestaurantsInstance.updateFavorite(action.data as Index);
-      if (RestaurantsInstance.menu === "favorite") this.publishMenu();
+      if (RestaurantsInstance.menu === MENU.FAVORITE) this.publishMenu();
     },
     [RESTAURANT_ACTION.SHOW_DETAIL]: (action: Action) => {
       this.publishDetail(action.data as Index);
