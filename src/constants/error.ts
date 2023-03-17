@@ -10,6 +10,7 @@ const NOT_STRING = `[ERROR] 문자열만 입력해 주세요.`;
 const EXCEED_MAXIMUM_NAME_LENGTH = `[ERROR] 10글자 이하로 입력해 주세요.`;
 const EMPTY_VALUE = `[ERROR] 필수 항목입니다.`;
 const INVALID_CATEGORY = `[ERROR] 유효하지 않은 항목 입니다.`;
+const NON_EXISTENT_DATA = `[ERROR] 존재하지 않는 데이터 입니다.`;
 
 export const ERROR_CODE = Object.freeze({
   UNEXPECTED_ERROR: 'UNEXPECTED_ERROR',
@@ -18,6 +19,7 @@ export const ERROR_CODE = Object.freeze({
   NOT_STRING: 'NOT_STRING',
   EMPTY_VALUE: 'EMPTY_VALUE',
   INVALID_CATEGORY: 'INVALID_CATEGORY',
+  NON_EXISTENT_DATA: 'NON_EXISTENT_DATA',
 });
 
 export const ERROR_MESSAGE: CodeToMessage<typeof ERROR_CODE> = Object.freeze({
@@ -27,6 +29,7 @@ export const ERROR_MESSAGE: CodeToMessage<typeof ERROR_CODE> = Object.freeze({
   NOT_STRING,
   EMPTY_VALUE,
   INVALID_CATEGORY,
+  NON_EXISTENT_DATA,
 });
 
 export type ErrorCode = typeof ERROR_CODE;
