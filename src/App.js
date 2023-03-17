@@ -9,15 +9,10 @@ import {
   stringifyJson,
 } from "./utils/LocalStorage.js";
 import {
-  RESTAURANT_LOCALSTORAGE_KEY,
-  FOODCATEGORY_LOCALSTORAGE_KEY,
-  SORTBY_LOCALSTORAGE_KEY,
-  FAVORITE_LOCALSTORAGE_KEY,
-  NUMBER__LOCALSTORAGE_KEY,
-  ALL_CATEGORY_VALUE,
-  NAME_VALUE,
-  FAVORITE_VALUE,
-  FAVORITE_ENROLL,
+  LOCALSTORAGE_KEY,
+  LOCAL_INPUT,
+  FORM_VALUE,
+  FAVORITE_ICON
 } from "./utils/Constant";
 import ModalRestaurantDetail from "./UI/ModalRestaurantDetail.js";
 import RestaurantInventory from "./UI/RestaurantInventory.js";
@@ -37,35 +32,35 @@ export class App {
     );
 
     const localRestaurants = getRestaurantListFromLocalstorage(
-      RESTAURANT_LOCALSTORAGE_KEY
+      LOCALSTORAGE_KEY.RESTAURANT
     );
     this.collectedRender();
     this.initializeButtonEvents();
     if (localRestaurants !== null) {
       const localRestaurantNextNumber = localRestaurants.at(-1).id + 1;
-      localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, localRestaurantNextNumber);
-    } else localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, 0);
+      localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, localRestaurantNextNumber);
+    } else localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, 0);
 
 
     const favoriteList = getRestaurantListFromLocalstorage(
-      FAVORITE_LOCALSTORAGE_KEY
+      LOCALSTORAGE_KEY.FAVORITE   
     );
 
     const restaurantFavoriteList =
       localRestaurants ||
       [].map((restaurant) => {
         if (this.isThereRestaurantInFavorites(favoriteList, restaurant).length)
-          restaurant[FAVORITE_VALUE] = FAVORITE_ENROLL;
+          restaurant[LOCAL_INPUT.FAVORITE] = FAVORITE_ICON.ENROLL;
         return restaurant;
       });
     localStorage.setItem(
-      RESTAURANT_LOCALSTORAGE_KEY,
+      LOCALSTORAGE_KEY.RESTAURANT,
       stringifyJson(restaurantFavoriteList)
     );
 
-    localStorage.setItem(SORTBY_LOCALSTORAGE_KEY, NAME_VALUE);
-    localStorage.setItem(FOODCATEGORY_LOCALSTORAGE_KEY, ALL_CATEGORY_VALUE);
-    this.restaurantList.filterBySort(NAME_VALUE, ALL_CATEGORY_VALUE);
+    localStorage.setItem(LOCALSTORAGE_KEY.SORTBY, FORM_VALUE.NAME);
+    localStorage.setItem(LOCALSTORAGE_KEY.FOODCATEGORY, LOCAL_INPUT.ALL_CATEGORY);
+    this.restaurantList.filterBySort(FORM_VALUE.NAME, LOCAL_INPUT.ALL_CATEGORY);
   }
 
   isThereRestaurantInFavorites(favoriteList, restaurant){

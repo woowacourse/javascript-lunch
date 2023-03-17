@@ -1,10 +1,9 @@
 import { $ } from '../utils/Dom';
 import { getRestaurantListFromLocalstorage } from '../utils/LocalStorage';
 import {
-  RESTAURANT_LOCALSTORAGE_KEY,
-  FAVORITE_LOCALSTORAGE_KEY,
-  FAVORITE_VALUE,
-  FAVORITE_ENROLL,
+  LOCALSTORAGE_KEY,
+  LOCAL_INPUT,
+  FAVORITE_ICON,
 } from '../utils/Constant';
 
 export default class RestaurantInventory {
@@ -32,7 +31,7 @@ export default class RestaurantInventory {
       RestaurantInventory.favoriteTabToAllListTab();
       $('.restaurant-list').replaceChildren();
 
-      const restaurantAll = getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY);
+      const restaurantAll = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT);
       this.restaurantRegistry.attachRestaurantToRegistry(restaurantAll);
     });
 
@@ -40,8 +39,8 @@ export default class RestaurantInventory {
       RestaurantInventory.allListTabToFavoriteTab();
       $('.restaurant-list').replaceChildren();
 
-      const restaurantFavorite = getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY);
-      restaurantFavorite.forEach(restaurant => (restaurant[FAVORITE_VALUE] = FAVORITE_ENROLL));
+      const restaurantFavorite = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE);
+      restaurantFavorite.forEach(restaurant => (restaurant[LOCAL_INPUT.FAVORITE] = FAVORITE_ICON.ENROLL));
       this.restaurantRegistry.attachRestaurantToRegistry(restaurantFavorite);
     });
   }

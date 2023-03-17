@@ -6,15 +6,7 @@ import {
   getFoodCategoryFromLocalStorage,
   setToLocalStorage,
 } from '../utils/LocalStorage';
-import {
-  RESTAURANT_LOCALSTORAGE_KEY,
-  FOODCATEGORY_LOCALSTORAGE_KEY,
-  SORTBY_LOCALSTORAGE_KEY,
-  FAVORITE_LOCALSTORAGE_KEY,
-  FAVORITE_VALUE,
-  FAVORITE_ENROLL,
-  FAVORITE_UNENROLL,
-} from '../utils/Constant';
+import { LOCALSTORAGE_KEY, LOCAL_INPUT, FAVORITE_ICON, PICTURE_PATH } from '../utils/Constant';
 
 export default class ModalRestaurantDetail {
   #template = `
@@ -74,11 +66,11 @@ export default class ModalRestaurantDetail {
     $('.button--delete').addEventListener('click', this.deleteButtonInDetail);
   }
 
-  deleteButtonInDetail=()=>{
+  deleteButtonInDetail = () => {
     this.restaurantList.deleteRestaurantElement();
-    
-    if ($('.favorite-restaurant').classList.contains("active")) {
-      const restaurantAll = getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY) || [];
+
+    if ($('.favorite-restaurant').classList.contains('active')) {
+      const restaurantAll = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE) || [];
       this.closeModalDetail();
 
       $('.restaurant-list').replaceChildren();
@@ -88,11 +80,11 @@ export default class ModalRestaurantDetail {
 
     this.restauranListFilter();
     this.closeModalDetail();
-  }
+  };
 
   restauranListFilter() {
-    const foodCategory = getFoodCategoryFromLocalStorage(FOODCATEGORY_LOCALSTORAGE_KEY);
-    const sortBy = getSortByFromLocalStorage(SORTBY_LOCALSTORAGE_KEY);
+    const foodCategory = getFoodCategoryFromLocalStorage(LOCALSTORAGE_KEY.FOODCATEGORY);
+    const sortBy = getSortByFromLocalStorage(LOCALSTORAGE_KEY.SORTBY);
 
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
@@ -124,12 +116,12 @@ export default class ModalRestaurantDetail {
 
   setRestaurantCategory(restaurantInfo) {
     const category = {
-      한식: './category-korean.png',
-      일식: './category-japanese.png',
-      양식: './category-western.png',
-      중식: './category-chinese.png',
-      아시안: './category-asian.png',
-      기타: './category-etc.png',
+      한식: PICTURE_PATH.KOREAN,
+      일식: PICTURE_PATH.JAPANESE,
+      양식: PICTURE_PATH.AMERICAN,
+      중식: PICTURE_PATH.CHINESE,
+      아시안: PICTURE_PATH.ASIAN,
+      기타: PICTURE_PATH.ETC,
     };
 
     $('.modal-detail-restaurant__image').setAttribute('src', category[restaurantInfo.category]);
@@ -154,12 +146,12 @@ export default class ModalRestaurantDetail {
   }
 
   setRestaurantFavorite(restaurantInfo) {
-    this.changeFavoriteImg(FAVORITE_UNENROLL);
+    this.changeFavoriteImg(FAVORITE_ICON.UNENROLL);
     this.openModalDetail();
 
-    (getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY) ?? []).forEach(val => {
+    (getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE) ?? []).forEach(val => {
       if (val.id === restaurantInfo.id) {
-        this.changeFavoriteImg(FAVORITE_ENROLL);
+        this.changeFavoriteImg(FAVORITE_ICON.ENROLL);
       }
     });
   }
@@ -172,12 +164,12 @@ export default class ModalRestaurantDetail {
   clickModalFavorite(e, restaurantInfo) {
     e.stopPropagation();
 
-    if (this.isFilledOrLined(e, FAVORITE_ENROLL)) {
+    if (this.isFilledOrLined(e, FAVORITE_ICON.ENROLL)) {
       this.ifFavoriteFilled(e, restaurantInfo);
       return;
     }
 
-    if (this.isFilledOrLined(e, FAVORITE_UNENROLL)) {
+    if (this.isFilledOrLined(e, FAVORITE_ICON.UNENROLL)) {
       this.ifFavoriteLined(e, restaurantInfo);
       return;
     }
@@ -188,34 +180,34 @@ export default class ModalRestaurantDetail {
   }
 
   getFavoriteList(favorite, restaurantInfo) {
-    return getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY).map(restaurant => {
-      if (restaurant.id === restaurantInfo.id) restaurant[FAVORITE_VALUE] = favorite;
+    return getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT).map(restaurant => {
+      if (restaurant.id === restaurantInfo.id) restaurant[LOCAL_INPUT.FAVORITE] = favorite;
       return restaurant;
     });
   }
 
   ifFavoriteFilled(e, restaurantInfo) {
-    const restaurantFavoriteList = this.getFavoriteList(FAVORITE_UNENROLL, restaurantInfo);
-    setToLocalStorage(RESTAURANT_LOCALSTORAGE_KEY, restaurantFavoriteList);
+    const restaurantFavoriteList = this.getFavoriteList(FAVORITE_ICON.UNENROLL, restaurantInfo);
+    setToLocalStorage(LOCALSTORAGE_KEY.RESTAURANT, restaurantFavoriteList);
 
-    const res = getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY) ?? [];
+    const res = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE) ?? [];
     const deletedRestaurantElementArray = res.filter(val => val.id !== restaurantInfo.id);
-    setToLocalStorage(FAVORITE_LOCALSTORAGE_KEY, deletedRestaurantElementArray);
+    setToLocalStorage(LOCALSTORAGE_KEY.FAVORITE, deletedRestaurantElementArray);
 
-    this.changeFavoriteImageAttribut(e, restaurantInfo, FAVORITE_UNENROLL);
+    this.changeFavoriteImageAttribut(e, restaurantInfo, FAVORITE_ICON.UNENROLL);
   }
 
   ifFavoriteLined(e, restaurantInfo) {
     const favorite = [];
-    const restaurantFavoriteList = this.getFavoriteList(FAVORITE_ENROLL, restaurantInfo);
-    setToLocalStorage(RESTAURANT_LOCALSTORAGE_KEY, restaurantFavoriteList);
+    const restaurantFavoriteList = this.getFavoriteList(FAVORITE_ICON.ENROLL, restaurantInfo);
+    setToLocalStorage(LOCALSTORAGE_KEY.RESTAURANT, restaurantFavoriteList);
 
-    const favoriteList = getRestaurantListFromLocalstorage(FAVORITE_LOCALSTORAGE_KEY) ?? [];
+    const favoriteList = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE) ?? [];
     if (favoriteList !== null) favoriteList.forEach(val => favorite.push(val));
     favorite.push(restaurantInfo);
-    setToLocalStorage(FAVORITE_LOCALSTORAGE_KEY, favorite);
+    setToLocalStorage(LOCALSTORAGE_KEY.FAVORITE, favorite);
 
-    this.changeFavoriteImageAttribut(e, restaurantInfo, FAVORITE_ENROLL);
+    this.changeFavoriteImageAttribut(e, restaurantInfo, FAVORITE_ICON.ENROLL);
   }
 
   changeFavoriteImageAttribut(e, restaurantInfo, favorite) {

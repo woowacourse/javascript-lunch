@@ -1,16 +1,12 @@
-import { $, $$ } from "../utils/Dom";
-import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT, 
-  FOODCATEGORY_LOCALSTORAGE_KEY, SORTBY_LOCALSTORAGE_KEY, 
-  NUMBER__LOCALSTORAGE_KEY, CATEGORY_VALUE, NAME_VALUE, 
-  DISTANCE_VALUE, DESCRIPTION_VALUE, LINK_VALUE, 
-  FAVORITE_VALUE, ID_VALUE, FAVORITE_UNENROLL } from "../utils/Constant";
+import { $, $$ } from '../utils/Dom';
+import { NUMBER_FORM, LOCALSTORAGE_KEY, FORM_VALUE, LOCAL_INPUT, FAVORITE_ICON } from '../utils/Constant';
 import {
   getRestaurantListFromLocalstorage,
   getFoodCategoryFromLocalStorage,
   getSortByFromLocalStorage,
-} from "../utils/LocalStorage";
-import RestaurantInventory from "./RestaurantInventory";
-import { nameValidation } from "../utils/Validation";
+} from '../utils/LocalStorage';
+import RestaurantInventory from './RestaurantInventory';
+import { nameValidation } from '../utils/Validation';
 export default class Modal {
   #template = `
     <div class="modal modal--open">
@@ -82,55 +78,60 @@ export default class Modal {
   }
 
   render() {
-    document.body.insertAdjacentHTML("beforeend", this.#template);
+    document.body.insertAdjacentHTML('beforeend', this.#template);
   }
 
   initializeButtonEvents() {
-    $(".modal-form").addEventListener("submit", (event) => {
+    $('.modal-form').addEventListener('submit', event => {
       event.preventDefault();
       this.addRestaurant();
     });
 
-    $(".button--secondary").addEventListener("click", this.closeModal);
+    $('.button--secondary').addEventListener('click', this.closeModal);
   }
 
   addRestaurant() {
-    try{
-      nameValidation($("#name").value)
+    try {
+      nameValidation($('#name').value);
       const restaurantInfo = this.setRestaurantInformation();
 
       this.restaurantList.add(restaurantInfo);
-      this.restaurantRegistry.appendRestaurant(
-        this.restaurantList.listRestaurant[this.getRestaurantLength()]
-      );
+      this.restaurantRegistry.appendRestaurant(this.restaurantList.listRestaurant[this.getRestaurantLength()]);
       RestaurantInventory.favoriteTabToAllListTab();
 
       this.restauranListFilter();
       this.closeModal();
-    }catch(error){
-      alert(error.message)
+    } catch (error) {
+      alert(error.message);
     }
   }
 
   restauranListFilter() {
-    const foodCategory = getFoodCategoryFromLocalStorage(FOODCATEGORY_LOCALSTORAGE_KEY);
-    const sortBy = getSortByFromLocalStorage(SORTBY_LOCALSTORAGE_KEY);
+    const foodCategory = getFoodCategoryFromLocalStorage(LOCALSTORAGE_KEY.FOODCATEGORY);
+    const sortBy = getSortByFromLocalStorage(LOCALSTORAGE_KEY.SORTBY);
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
   }
 
   setRestaurantInformation() {
     const restaurantInfo = {};
-    const idNumber = getRestaurantListFromLocalstorage(NUMBER__LOCALSTORAGE_KEY);
-    const array = [CATEGORY_VALUE,NAME_VALUE,DISTANCE_VALUE,DESCRIPTION_VALUE,LINK_VALUE,FAVORITE_VALUE,];
+    const idNumber = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.NUMBER);
+    const array = [
+      FORM_VALUE.CATEGORY,
+      FORM_VALUE.NAME,
+      FORM_VALUE.DISTANCE,
+      FORM_VALUE.DESCRIPTION,
+      FORM_VALUE.LINK,
+      LOCAL_INPUT.FAVORITE,
+    ];
 
-    $$(".form-item").forEach((val, index) => {
+    $$('.form-item').forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
-    restaurantInfo[ID_VALUE] = idNumber;
-    restaurantInfo[FAVORITE_VALUE] = FAVORITE_UNENROLL;
+    restaurantInfo[LOCAL_INPUT.ID] = idNumber;
+    restaurantInfo[LOCAL_INPUT.FAVORITE] = FAVORITE_ICON.UNENROLL;
 
-    localStorage.setItem(NUMBER__LOCALSTORAGE_KEY, idNumber + 1);
+    localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, idNumber + 1);
     return restaurantInfo;
   }
 
@@ -140,17 +141,17 @@ export default class Modal {
 
   closeModal = () => {
     this.resetValue();
-    $(".modal").style.display = "none";
+    $('.modal').style.display = 'none';
   };
 
   resetValue() {
-    $$(".form-item").forEach((val, index) => {
-      if (index === CATEGORY || index === DISTANCE) {
-        val.children[INFORMATION_RESTAURANT].value = "";
+    $$('.form-item').forEach((val, index) => {
+      if (index === NUMBER_FORM.CATEGORY || index === NUMBER_FORM.DISTANCE) {
+        val.children[NUMBER_FORM.INFORMATION_RESTAURANT].value = '';
         return;
       }
 
-      val.children[INFORMATION_RESTAURANT].value = null;
+      val.children[NUMBER_FORM.INFORMATION_RESTAURANT].value = null;
     });
   }
 }

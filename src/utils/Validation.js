@@ -1,5 +1,5 @@
 import { getRestaurantListFromLocalstorage } from "./LocalStorage";
-import { RESTAURANT_LOCALSTORAGE_KEY } from "./Constant";
+import { LOCALSTORAGE_KEY } from "./Constant";
 
 const nameCountLimitValidation = (name) => {
   return name.length > 10;
@@ -10,7 +10,7 @@ const nameExistValidation = (name) => {
 };
 
 const nameRepeatValidation = (name) => {
-  const restaurants = getRestaurantListFromLocalstorage(RESTAURANT_LOCALSTORAGE_KEY);
+  const restaurants = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT);
   if (restaurants.length === 0) return false;
   return !restaurants.every((restaurant) => restaurant.name !== name);
 };
