@@ -19,7 +19,7 @@ customElements.define(
         <div class="restaurant__category">
           ${RESTAURANT_CATEGORY_ICONS[category]}
         </div>
-        <button class="favorite">
+        <button class="favorite" aria-label="자주 가는 음식점 등록">
           ${isFavorite ? FAVORITE_ICON_FILLED : FAVORITE_ICON_LINED}
         </button>
       </div>

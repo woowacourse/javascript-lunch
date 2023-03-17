@@ -24,7 +24,7 @@ customElements.define(
               <h2 class="restaurant__name text-subtitle">${restaurantName}</h2>
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
             </div>
-            <button class="favorite">
+            <button class="favorite" aria-label="자주 가는 음식점 등록">
               ${isFavorite ? FAVORITE_ICON_FILLED : FAVORITE_ICON_LINED}
             </button>
           </div>
