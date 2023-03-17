@@ -35,31 +35,36 @@ const Restaurant = {
 
   checkDistance(distance: unknown) {
     if (typeof distance !== 'string' && typeof distance !== 'number')
-      throw new CustomError(ERROR_CODE.INVALID_CATEGORY, distance);
+      throw new CustomError({ code: ERROR_CODE.INVALID_CATEGORY }, distance);
     if (
       !Object.values(META_DISTANCE).includes(distance as MetaDistance) &&
       !Object.keys(META_DISTANCE).includes(String(distance))
     )
-      throw new CustomError(ERROR_CODE.INVALID_CATEGORY, distance);
+      throw new CustomError({ code: ERROR_CODE.INVALID_CATEGORY }, distance);
 
     return true;
   },
 
   checkCategory(category: unknown) {
-    if (typeof category !== 'string') throw new CustomError(ERROR_CODE.NOT_STRING, category);
+    if (typeof category !== 'string')
+      throw new CustomError({ code: ERROR_CODE.NOT_STRING }, category);
     if (category.length < MIN_REQUIRED_LENGTH)
-      throw new CustomError(ERROR_CODE.EMPTY_VALUE, category);
+      throw new CustomError({ code: ERROR_CODE.EMPTY_VALUE }, category);
     if (!Object.values(CATEGORY).includes(category as MetaCategory))
-      throw new CustomError(ERROR_CODE.INVALID_CATEGORY, category);
+      throw new CustomError({ code: ERROR_CODE.INVALID_CATEGORY }, category);
 
     return true;
   },
 
   checkName(name: unknown) {
-    if (typeof name !== 'string') throw new CustomError(ERROR_CODE.NOT_STRING, name);
-    if (name.length < MIN_NAME_LENGTH) throw new CustomError(ERROR_CODE.EMPTY_VALUE, name);
+    if (typeof name !== 'string') throw new CustomError({ code: ERROR_CODE.NOT_STRING }, name);
+    if (name.length < MIN_NAME_LENGTH)
+      throw new CustomError({ code: ERROR_CODE.EMPTY_VALUE }, name);
     if (name.length > MAX_NAME_LENGTH)
-      throw new CustomError(ERROR_CODE.EXCEED_MAXIMUM_NAME_LENGTH, name);
+      throw new CustomError(
+        { code: ERROR_CODE.EXCEED_MAXIMUM_NAME_LENGTH, payload: { max: MAX_NAME_LENGTH } },
+        name
+      );
 
     return true;
   },

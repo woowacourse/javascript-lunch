@@ -8,7 +8,7 @@ export function addData(data: unknown, id: string = 'mock') {
 export function getData(id: string = 'mock') {
   const data = localStorage.getItem(id);
 
-  if (!data) throw new CustomError(ERROR_CODE.NON_EXISTENT_DATA);
+  if (!data) throw new CustomError({ code: ERROR_CODE.NON_EXISTENT_DATA });
 
   return JSON.parse(data);
 }

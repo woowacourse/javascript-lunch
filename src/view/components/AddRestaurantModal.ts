@@ -71,6 +71,7 @@ function AddRestaurantModal({ close }: AddRestaurantModalProps) {
         <div class="form-item form-item--required">
             ${Input({
               label: '이름',
+              error: errors['name'],
               attribute: {
                 id: 'name',
                 name: 'name',
