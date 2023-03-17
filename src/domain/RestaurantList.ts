@@ -33,6 +33,8 @@ export class RestaurantList {
   categoryFilter(category: Category) {
     const filteredList: RestaurantForm[] = [];
     if (category === LOCAL_INPUT.ALL_CATEGORY) {
+      const res = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT) ?? [];
+      this.list = [...res];
       return this.list;
     }
 
@@ -40,6 +42,8 @@ export class RestaurantList {
   }
 
   foodFilter(category: Category, filteredList: RestaurantForm[]) {
+    const res = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT) ?? [];
+    this.list = [...res];
     this.list.filter(info => {
       if (info.category === category) filteredList.push(info);
     });
