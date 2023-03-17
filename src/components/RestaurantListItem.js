@@ -1,4 +1,4 @@
-import { RESTAURANT_CATEGORY_ICON } from '../icons/category';
+import { RESTAURANT_CATEGORY_ICONS } from '../icons/category';
 import { FAVORITE_ICON_FILLED, FAVORITE_ICON_LINED } from '../icons/favorite';
 
 customElements.define(
@@ -16,7 +16,7 @@ customElements.define(
       this.innerHTML = /* html */ `
       <li class="restaurant">
         <div class="restaurant__category">
-          ${RESTAURANT_CATEGORY_ICON[category]}
+          ${RESTAURANT_CATEGORY_ICONS[category]}
         </div>
         <div class="restaurant__info">
           <div class="flex">

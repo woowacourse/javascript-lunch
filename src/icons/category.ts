@@ -82,7 +82,7 @@ const CATEGORY_ETC_ICON = `<svg width="36" height="36" viewBox="0 0 36 36" fill=
 </svg>
 `;
 
-export const RESTAURANT_CATEGORY_ICON = {
+export const RESTAURANT_CATEGORY_ICONS = {
   한식: CATEGORY_KOREAN_ICON,
   중식: CATEGORY_CHINESE_ICON,
   일식: CATEGORY_JAPANESE_ICON,
