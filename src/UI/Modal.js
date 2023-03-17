@@ -2,8 +2,7 @@ import { $, $$ } from '../utils/Dom';
 import { NUMBER_FORM, LOCALSTORAGE_KEY, FORM_VALUE, LOCAL_INPUT, FAVORITE_ICON } from '../utils/Constant';
 import {
   getRestaurantListFromLocalstorage,
-  getFoodCategoryFromLocalStorage,
-  getSortByFromLocalStorage,
+  getValueFromLocalStorage,
 } from '../utils/LocalStorage';
 import RestaurantInventory from './RestaurantInventory';
 import { nameValidation } from '../utils/Validation';
@@ -107,8 +106,8 @@ export default class Modal {
   }
 
   restauranListFilter() {
-    const foodCategory = getFoodCategoryFromLocalStorage(LOCALSTORAGE_KEY.FOODCATEGORY);
-    const sortBy = getSortByFromLocalStorage(LOCALSTORAGE_KEY.SORTBY);
+    const foodCategory = getValueFromLocalStorage(LOCALSTORAGE_KEY.FOODCATEGORY, LOCAL_INPUT.ALL_CATEGORY);
+    const sortBy = getValueFromLocalStorage(LOCALSTORAGE_KEY.SORTBY, FORM_VALUE.NAME);
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
   }

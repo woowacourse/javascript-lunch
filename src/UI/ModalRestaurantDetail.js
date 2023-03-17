@@ -1,12 +1,10 @@
 import { $ } from '../utils/Dom';
 import {
-  stringifyJson,
   getRestaurantListFromLocalstorage,
-  getSortByFromLocalStorage,
-  getFoodCategoryFromLocalStorage,
+  getValueFromLocalStorage,
   setToLocalStorage,
 } from '../utils/LocalStorage';
-import { LOCALSTORAGE_KEY, LOCAL_INPUT, FAVORITE_ICON, PICTURE_PATH } from '../utils/Constant';
+import { LOCALSTORAGE_KEY, LOCAL_INPUT, FAVORITE_ICON, PICTURE_PATH, FORM_VALUE } from '../utils/Constant';
 
 export default class ModalRestaurantDetail {
   #template = `
@@ -83,8 +81,8 @@ export default class ModalRestaurantDetail {
   };
 
   restauranListFilter() {
-    const foodCategory = getFoodCategoryFromLocalStorage(LOCALSTORAGE_KEY.FOODCATEGORY);
-    const sortBy = getSortByFromLocalStorage(LOCALSTORAGE_KEY.SORTBY);
+    const foodCategory = getValueFromLocalStorage(LOCALSTORAGE_KEY.FOODCATEGORY, LOCAL_INPUT.ALL_CATEGORY);
+    const sortBy = getValueFromLocalStorage(LOCALSTORAGE_KEY.SORTBY, FORM_VALUE.NAME);
 
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
