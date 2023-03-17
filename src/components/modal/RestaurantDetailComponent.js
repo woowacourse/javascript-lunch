@@ -32,10 +32,8 @@ class RestaurantDetailComponent extends CustomElement {
   }
 
   hideModal() {
-    const listKey = this.getAttribute("listKey");
-
     document.getElementById("detail_modal").classList.remove("modal--open");
-    dispatcher(RESTAURANT_ACTION.UPDATE_MODAL_FAVORITE, parseInt(listKey));
+    dispatcher(RESTAURANT_ACTION.UPDATE_MODAL_FAVORITE);
   }
 
   deleteRestaurant() {

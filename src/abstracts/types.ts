@@ -34,7 +34,7 @@ export type MENU_TAP = "total" | "favorite";
 
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod | Index | MENU_TAP;
+  data: Restaurant | Category | SortMethod | Index | MENU_TAP;
 }
 
 export interface RestaurantAction {
