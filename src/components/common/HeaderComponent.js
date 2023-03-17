@@ -33,6 +33,7 @@ class HeaderComponent extends CustomElement {
     document.getElementById(previousMenu).classList.add("previous_menu");
     document.getElementById(previousMenu).classList.remove("current_menu");
   }
+
   showModal() {
     const modal = document.querySelector(".modal");
     if (modal) modal.classList.add("modal--open");
@@ -49,11 +50,11 @@ class HeaderComponent extends CustomElement {
       </section>
       <section class="menu">
         <div class="menu__container">
-          <div id="total_restaurant" class="current_menu">
-            <h1  class="text-title">모든 음식점</h1>
+          <div id="total_restaurant" class="current_menu text-title">
+            모든 음식점
           </div>
-          <div id="favorite_restaurant" class="previous_menu">
-            <h1 class="text-title">자주 가는 음식점</h1>
+          <div id="favorite_restaurant" class="previous_menu text-title">
+            자주 가는 음식점
           </div>
         </div>
       </section>
