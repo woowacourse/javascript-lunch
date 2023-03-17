@@ -67,7 +67,7 @@ const LunchMenuApp = {
     this.resetFilter();
 
     if (this.isFavoriteTabChecked()) {
-      this.moveToAllRestaurantsTab();
+      this.resetRestaurantsTab();
     }
 
     this.updateRestaurantList();
@@ -82,7 +82,7 @@ const LunchMenuApp = {
     return isChecked($('#favorite-restaurants'));
   },
 
-  moveToAllRestaurantsTab() {
+  resetRestaurantsTab() {
     $('#all-restaurants').checked = true;
     $('restaurant-tab').handleTabChange();
   },
