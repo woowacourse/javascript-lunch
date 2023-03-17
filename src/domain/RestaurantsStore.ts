@@ -1,12 +1,13 @@
 import {
   Category,
   Index,
-  MENU,
+  MENU_TAP,
   Restaurant,
   SortMethod,
 } from "../abstracts/types";
 import {
   CATEGORY_DEFAULT,
+  MENU,
   RESTAURANTS_STORAGE,
   SORT_METHOD,
 } from "../abstracts/constants";
@@ -93,7 +94,7 @@ class RestaurantsStore {
     }
   }
 
-  changeMenu(menu: MENU) {
+  changeMenu(menu: MENU_TAP) {
     try {
       this.refreshRestaurantList();
     } catch (e) {
@@ -102,7 +103,7 @@ class RestaurantsStore {
     this.#category = CATEGORY_DEFAULT;
     this.#sortMethod = SORT_METHOD.NAME;
 
-    if (menu === "favorite") this.filterByMenu();
+    if (menu === MENU.FAVORITE) this.filterByMenu();
   }
 
   filterByMenu() {

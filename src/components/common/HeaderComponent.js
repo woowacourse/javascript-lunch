@@ -1,4 +1,4 @@
-import { RESTAURANT_ACTION } from "../../abstracts/constants";
+import { RESTAURANT_ACTION, MENU } from "../../abstracts/constants";
 import CustomElement from "../../abstracts/CustomElement";
 import dispatcher from "../../domain/Dispatcher";
 
@@ -17,25 +17,23 @@ class HeaderComponent extends CustomElement {
 
   changeMenu(e) {
     const { id, parentNode } = e.target;
-    const total = "total_restaurant";
-    const favorite = "favorite_restaurant";
-    if (id === total || parentNode.id === total) {
-      document.getElementById(total).style.borderBottom =
-        "2px solid var(--primary-color)";
-      document.getElementById(favorite).style.borderBottom =
-        "2px solid var(--grey-200)";
-      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, "total");
+    if (id === MENU.TOTAL_MENU || parentNode.id === MENU.TOTAL_MENU) {
+      this.changeMenuColor(MENU.TOTAL_MENU, MENU.FAVORITE_MENU);
+      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, MENU.TOTAL);
     }
 
-    if (id === favorite || parentNode.id === favorite) {
-      document.getElementById(total).style.borderBottom =
-        "2px solid var(--grey-200)";
-      document.getElementById(favorite).style.borderBottom =
-        "2px solid var(--primary-color)";
-      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, "favorite");
+    if (id === MENU.FAVORITE_MENU || parentNode.id === MENU.FAVORITE_MENU) {
+      this.changeMenuColor(MENU.FAVORITE_MENU, MENU.TOTAL_MENU);
+      dispatcher(RESTAURANT_ACTION.CHANGE_MENU, MENU.FAVORITE);
     }
   }
 
+  changeMenuColor(currentMenu, previousMenu) {
+    document.getElementById(currentMenu).style.borderBottom =
+      "2px solid var(--primary-color)";
+    document.getElementById(previousMenu).style.borderBottom =
+      "2px solid var(--grey-200)";
+  }
   showModal() {
     document.querySelector(".modal").classList.add("modal--open");
   }

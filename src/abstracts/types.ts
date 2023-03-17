@@ -30,11 +30,11 @@ export interface CustomElement extends HTMLElement {
 
 export type Index = number;
 
-export type MENU = "total" | "favorite";
+export type MENU_TAP = "total" | "favorite";
 
 export interface Action {
   type: string;
-  data?: Restaurant | Category | SortMethod | Index | MENU;
+  data?: Restaurant | Category | SortMethod | Index | MENU_TAP;
 }
 
 export interface RestaurantAction {

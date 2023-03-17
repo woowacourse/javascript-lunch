@@ -5,7 +5,7 @@ import {
   Action,
   SortMethod,
   Index,
-  MENU,
+  MENU_TAP,
 } from "../abstracts/types";
 import { RESTAURANT_ACTION } from "../abstracts/constants";
 import RestaurantsInstance from "./RestaurantsStore";
@@ -72,8 +72,8 @@ class Store {
       RestaurantsInstance.deleteRestaurant(action.data as Index);
       this.publish();
     },
-    ["changeMenu"]: (action: Action) => {
-      RestaurantsInstance.changeMenu(action.data as MENU);
+    [RESTAURANT_ACTION.CHANGE_MENU]: (action: Action) => {
+      RestaurantsInstance.changeMenu(action.data as MENU_TAP);
       this.publishMenu();
     },
   };
