@@ -23,10 +23,10 @@ describe('점심 뭐 먹지 E2E', () => {
 
   it('음식점을 이름순 또는 거리순으로 정렬하여 본다', () => {
     cy.get('section[slot="all"]').within(() => {
-      cy.get('r-restaurant-sort-select').find('select').select('거리순');
+      cy.get('r-select').find('select').select('거리순');
       cy.get('r-restaurant-list-item').last().contains('이태리키친');
 
-      cy.get('r-restaurant-sort-select').find('select').select('이름순');
+      cy.get('r-select').find('select').select('이름순');
       cy.get('r-restaurant-list-item').last().contains('호아빈 삼성점');
     });
   });
