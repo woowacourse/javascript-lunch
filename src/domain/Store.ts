@@ -62,6 +62,7 @@ class Store {
     },
     [RESTAURANT_ACTION.UPDATE_FAVORITE]: (action: Action) => {
       RestaurantsInstance.updateFavorite(action.data as Index);
+      if (RestaurantsInstance.menu === "favorite") this.publishMenu();
     },
     [RESTAURANT_ACTION.SHOW_DETAIL]: (action: Action) => {
       this.publishDetail(action.data as Index);

@@ -16,7 +16,7 @@ class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
   #category: Category = CATEGORY_DEFAULT;
   #sortMethod: SortMethod = SORT_METHOD.NAME;
-  #menu: string = "total";
+  #menu: MENU_TAP = "total";
 
   constructor() {
     this.hasNoneRestaurantList();
@@ -36,6 +36,10 @@ class RestaurantsStore {
 
   set menu(menu: MENU_TAP) {
     this.#menu = menu;
+  }
+
+  get menu() {
+    return this.#menu;
   }
 
   show(index: Index) {
