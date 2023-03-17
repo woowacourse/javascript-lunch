@@ -19,7 +19,7 @@ const LunchMenuApp = {
 
   bindEvents() {
     $('.gnb__button').addEventListener('click', () => this.openRestaurantRegisterModal());
-    $('restaurant-tab').addEventListener('change', (e) => this.handleTabChange(e));
+    $('restaurant-tab').addEventListener('change', (e) => this.renderByCheckedTab(e));
     $('restaurant-filter').addEventListener('change', () => this.renderUpdatedRestaurantList());
   },
 
@@ -29,13 +29,13 @@ const LunchMenuApp = {
       ({ detail: restaurantId }) => this.openRestaurantDetailModal(restaurantId)
     );
     $('custom-modal').addEventListener('registerRestaurant', ({ detail: restaurant }) =>
-      this.handleRestaurantRegister(restaurant)
+      this.registerRestaurant(restaurant)
     );
     $('custom-modal').addEventListener('removeRestaurant', ({ detail: restaurantId }) =>
-      this.handleRestaurantRemove(restaurantId)
+      this.removeRestaurant(restaurantId)
     );
     $('body').addEventListener('toggleFavorite', ({ detail: restaurantId }) =>
-      this.handleFavoriteToggle(restaurantId)
+      this.toggleFavorite(restaurantId)
     );
   },
 
@@ -52,16 +52,7 @@ const LunchMenuApp = {
     $('custom-modal').openModal();
   },
 
-  handleTabChange(e) {
-    if (e.target.id === 'all-restaurants') {
-      this.renderUpdatedRestaurantList();
-      return;
-    }
-
-    this.render(restaurantManager.filterByFavorite(restaurantManager.list));
-  },
-
-  handleRestaurantRegister(restaurant) {
+  registerRestaurant(restaurant) {
     restaurantManager.add(restaurant);
 
     this.resetFilter();
@@ -73,26 +64,12 @@ const LunchMenuApp = {
     this.updateRestaurantList();
   },
 
-  resetFilter() {
-    resetSelect($('#category-filter'));
-    resetSelect($('#sorting-filter'));
-  },
-
-  isFavoriteTabChecked() {
-    return isChecked($('#favorite-restaurants'));
-  },
-
-  resetRestaurantsTab() {
-    $('#all-restaurants').checked = true;
-    $('restaurant-tab').handleTabChange();
-  },
-
-  handleRestaurantRemove(restaurantId) {
+  removeRestaurant(restaurantId) {
     restaurantManager.remove(restaurantId);
     this.updateRestaurantList();
   },
 
-  handleFavoriteToggle(restaurantId) {
+  toggleFavorite(restaurantId) {
     restaurantManager.toggleFavorite(restaurantId);
 
     if (isModalOpened($('.modal'))) {
@@ -102,6 +79,45 @@ const LunchMenuApp = {
     }
 
     this.updateRestaurantList();
+  },
+
+  renderByCheckedTab(e) {
+    if (e.target.id === 'all-restaurants') {
+      this.renderUpdatedRestaurantList();
+      return;
+    }
+
+    this.render(restaurantManager.filterByFavorite(restaurantManager.list));
+  },
+
+  renderUpdatedRestaurantList() {
+    const category = $('#category-filter').value;
+    const sortingType = $('#sorting-filter').value;
+    const filteredRestaurants = restaurantManager.filterByCategory(
+      category,
+      restaurantManager.list
+    );
+    const sortByType = {
+      register: () => filteredRestaurants,
+      name: () => restaurantManager.sortByName(filteredRestaurants),
+      distance: () => restaurantManager.sortByDistance(filteredRestaurants),
+    };
+
+    this.render(sortByType[sortingType]());
+  },
+
+  resetFilter() {
+    resetSelect($('#category-filter'));
+    resetSelect($('#sorting-filter'));
+  },
+
+  resetRestaurantsTab() {
+    $('#all-restaurants').checked = true;
+    $('restaurant-tab').renderByCheckedTab();
+  },
+
+  isFavoriteTabChecked() {
+    return isChecked($('#favorite-restaurants'));
   },
 
   updateDetailModal(updatedRestaurant) {
@@ -124,22 +140,6 @@ const LunchMenuApp = {
 
   setRestaurantList() {
     setLocalStorage(RESTAURANTS_LOCAL_STORAGE_KEY, restaurantManager.list);
-  },
-
-  renderUpdatedRestaurantList() {
-    const category = $('#category-filter').value;
-    const sortingType = $('#sorting-filter').value;
-    const filteredRestaurants = restaurantManager.filterByCategory(
-      category,
-      restaurantManager.list
-    );
-    const sortByType = {
-      register: () => filteredRestaurants,
-      name: () => restaurantManager.sortByName(filteredRestaurants),
-      distance: () => restaurantManager.sortByDistance(filteredRestaurants),
-    };
-
-    this.render(sortByType[sortingType]());
   },
 };
 
