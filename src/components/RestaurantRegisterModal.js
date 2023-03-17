@@ -105,7 +105,7 @@ customElements.define(
     }
 
     handleCancelButtonClick() {
-      $('custom-modal').closeModal;
+      $('custom-modal').closeModal();
     }
   }
 );
