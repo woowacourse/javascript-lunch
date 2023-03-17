@@ -3,6 +3,16 @@ import dispatcher from "../../domain/Dispatcher";
 import { RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class SelectComponent extends CustomElement {
+  setEvent() {
+    const category_filter = document.querySelector("#category-filter");
+    if (category_filter)
+      category_filter.addEventListener("change", this.changeCategory);
+
+    const sorting_filter = document.querySelector("#sorting-filter");
+    if (sorting_filter)
+      sorting_filter.addEventListener("change", this.changeSortMethod);
+  }
+
   changeCategory() {
     const category = document.querySelector("#category-filter").value;
     dispatcher(RESTAURANT_ACTION.FILTER_BY_CATEGORY, category);
@@ -11,15 +21,6 @@ class SelectComponent extends CustomElement {
   changeSortMethod() {
     const sortMethod = document.querySelector("#sorting-filter").value;
     dispatcher(RESTAURANT_ACTION.SORT_RESTAURANTS, sortMethod);
-  }
-
-  setEvent() {
-    document
-      .querySelector("#category-filter")
-      .addEventListener("change", this.changeCategory);
-    document
-      .querySelector("#sorting-filter")
-      .addEventListener("change", this.changeSortMethod);
   }
 
   template() {

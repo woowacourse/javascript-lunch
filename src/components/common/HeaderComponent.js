@@ -4,13 +4,12 @@ import dispatcher from "../../domain/Dispatcher";
 
 class HeaderComponent extends CustomElement {
   setEvent() {
-    document
-      .querySelector(".gnb__button")
-      .addEventListener("click", this.showModal);
+    const gnb__button = document.querySelector(".gnb__button");
+    if (gnb__button) gnb__button.addEventListener("click", this.showModal);
 
-    document
-      .querySelector(".menu__container")
-      .addEventListener("click", (e) => {
+    const menu__container = document.querySelector(".menu__container");
+    if (menu__container)
+      menu__container.addEventListener("click", (e) => {
         this.changeMenu(e);
       });
   }
@@ -35,7 +34,8 @@ class HeaderComponent extends CustomElement {
       "2px solid var(--grey-200)";
   }
   showModal() {
-    document.querySelector(".modal").classList.add("modal--open");
+    const modal = document.querySelector(".modal");
+    if (modal) modal.classList.add("modal--open");
   }
 
   template() {

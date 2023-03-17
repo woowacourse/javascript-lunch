@@ -4,11 +4,13 @@ import { RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class RestaurantAddFormComponent extends CustomElement {
   setEvent() {
-    document.querySelector("form").addEventListener("submit", (e) => {
-      this.addRestaurant(e);
-      this.hideModal();
-      this.cleanForm();
-    });
+    const form = document.querySelector("form");
+    if (form)
+      form.addEventListener("submit", (e) => {
+        this.addRestaurant(e);
+        this.hideModal();
+        this.cleanForm();
+      });
 
     document.getElementById("cancel").addEventListener("click", this.hideModal);
   }

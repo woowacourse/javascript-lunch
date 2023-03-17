@@ -9,10 +9,10 @@ import dispatcher from "../../domain/Dispatcher";
 class RestaurantDetailComponent extends CustomElement {
   setEvent() {
     const modal = document.querySelector(".detail__name");
-
-    modal.querySelector(".star").addEventListener("click", (e) => {
-      this.changeFavorite(e);
-    });
+    if (modal)
+      modal.querySelector(".star").addEventListener("click", (e) => {
+        this.changeFavorite(e);
+      });
 
     document.getElementById("close").addEventListener("click", this.hideModal);
     document.getElementById("delete").addEventListener("click", () => {
