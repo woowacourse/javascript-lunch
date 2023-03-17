@@ -53,7 +53,7 @@ describe('점심 뭐 먹지 앱 테스트', () => {
       it('`잇쇼우` 음식점이 자주 가는 음식점 탭에서 보여야 한다.', () => {
         cy.get('restaurant-list-item').contains('잇쇼우').should('exist');
 
-        cy.get('button.favorite').eq(2).click();
+        cy.contains('restaurant-list-item', '잇쇼우').find('button.favorite').click();
         cy.contains('자주 가는 음식점').click();
 
         cy.get('restaurant-list-item').contains('잇쇼우').should('exist');
@@ -80,7 +80,7 @@ describe('점심 뭐 먹지 앱 테스트', () => {
           cy.contains('자주 가는 음식점').click();
           cy.get('restaurant-list-item').contains('피양콩할마니').should('exist');
 
-          cy.get('button.favorite').eq(0).click();
+          cy.contains('restaurant-list-item', '피양콩할마니').find('button.favorite').click();
 
           cy.get('restaurant-list-item').contains('피양콩할마니').should('not.exist');
         });
