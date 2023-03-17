@@ -19,7 +19,6 @@
 
   width: 50%;
   text-align: center;
-  border-bottom: 2px solid var(--primary-color);
 }
 
 #favorite_restaurant {
@@ -27,5 +26,4 @@
 
   width: 50%;
   text-align: center;
-  border-bottom: 2px solid var(--grey-200);
 }

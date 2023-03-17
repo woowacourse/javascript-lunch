@@ -38,3 +38,11 @@
   height: 40px;
   object-fit: contain;
 }
+
+.current_menu {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.previous_menu {
+  border-bottom: 2px solid var(--grey-200);
+}

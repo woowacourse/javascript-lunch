@@ -27,10 +27,11 @@ class HeaderComponent extends CustomElement {
   }
 
   changeMenuColor(currentMenu, previousMenu) {
-    document.getElementById(currentMenu).style.borderBottom =
-      "2px solid var(--primary-color)";
-    document.getElementById(previousMenu).style.borderBottom =
-      "2px solid var(--grey-200)";
+    document.getElementById(currentMenu).classList.add("current_menu");
+    document.getElementById(currentMenu).classList.remove("previous_menu");
+
+    document.getElementById(previousMenu).classList.add("previous_menu");
+    document.getElementById(previousMenu).classList.remove("current_menu");
   }
   showModal() {
     const modal = document.querySelector(".modal");
@@ -48,10 +49,10 @@ class HeaderComponent extends CustomElement {
       </section>
       <section class="menu">
         <div class="menu__container">
-          <div id="total_restaurant">
+          <div id="total_restaurant" class="current_menu">
             <h1  class="text-title">모든 음식점</h1>
           </div>
-          <div id="favorite_restaurant">
+          <div id="favorite_restaurant" class="previous_menu">
             <h1 class="text-title">자주 가는 음식점</h1>
           </div>
         </div>
