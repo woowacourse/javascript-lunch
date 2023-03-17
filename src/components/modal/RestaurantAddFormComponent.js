@@ -4,19 +4,19 @@ import { RESTAURANT_ACTION } from "../../abstracts/constants";
 
 class RestaurantAddFormComponent extends CustomElement {
   setEvent() {
-    document.querySelector("form").addEventListener("submit", (e) => {
-      this.addRestaurant(e);
-      this.hideModal();
-      this.cleanForm();
-    });
+    const form = document.querySelector("form");
+    if (form)
+      form.addEventListener("submit", (e) => {
+        this.addRestaurant(e);
+        this.hideModal();
+        this.cleanForm();
+      });
 
-    document
-      .querySelector(".button--secondary")
-      .addEventListener("click", this.hideModal);
+    document.getElementById("cancel").addEventListener("click", this.hideModal);
   }
 
   hideModal() {
-    document.querySelector(".modal").classList.remove("modal--open");
+    document.getElementById("add_modal").classList.remove("modal--open");
   }
 
   cleanForm() {
@@ -30,6 +30,7 @@ class RestaurantAddFormComponent extends CustomElement {
     const distance = document.querySelector("#distance").value;
     const description = document.querySelector("#description").value;
     const link = document.querySelector("#link").value;
+    const favorite = 0;
 
     const restaurant = {
       category,
@@ -37,6 +38,7 @@ class RestaurantAddFormComponent extends CustomElement {
       distance,
       description,
       link,
+      favorite,
     };
 
     dispatcher(RESTAURANT_ACTION.ADD_RESTAURANT, restaurant);
@@ -104,8 +106,8 @@ class RestaurantAddFormComponent extends CustomElement {
 
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-              <button type="button" class="button button--secondary text-caption">취소하기</button>
-              <button type="submit" class="button button--primary text-caption">추가하기</button>
+              <button-element id="cancel" btnType="button" btnClass="button--secondary" btnText="취소하기"></button-element>
+              <button-element btnType="submit" btnClass="button--primary" btnText="추가하기"></button-element>
             </div>
           </form>
         `;

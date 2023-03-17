@@ -1,0 +1,29 @@
+.menu {
+  padding: 0 30px;
+
+  position: fixed;
+  width: 100%;
+  top: 64px;
+}
+
+.menu__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 64px;
+}
+
+#total_restaurant {
+  padding: 16px 0 16px;
+
+  width: 50%;
+  text-align: center;
+}
+
+#favorite_restaurant {
+  padding: 16px 0 16px;
+
+  width: 50%;
+  text-align: center;
+}

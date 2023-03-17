@@ -1,4 +1,10 @@
-import { Action, Restaurant, Category, SortMethod } from "../abstracts/types";
+import {
+  Action,
+  Restaurant,
+  Category,
+  SortMethod,
+  Index,
+} from "../abstracts/types";
 import StoreInstance from "./Store";
 
 const reducer = {
@@ -7,7 +13,7 @@ const reducer = {
 
 const dispatcher = (
   type: string,
-  data?: Restaurant | Category | SortMethod
+  data: Restaurant | Category | SortMethod | Index
 ) => {
   const action: Action = { type, data };
   reducer[type](action);
