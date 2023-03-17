@@ -113,7 +113,7 @@ const LunchMenuApp = {
 
   resetRestaurantsTab() {
     $('#all-restaurants').checked = true;
-    $('restaurant-tab').renderByCheckedTab();
+    $('restaurant-tab').handleTabChange();
   },
 
   isFavoriteTabChecked() {
