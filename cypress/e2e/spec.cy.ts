@@ -1,4 +1,35 @@
-describe("e2e테스트_점심 뭐 먹지", () => {
+describe("e2e테스트_점심 뭐 먹지_localstorage 세팅 전", () => {
+  it("모달에서 음식점 정보를 입력하고 추가하기 버튼을 눌렀을 때 음식점이 추가되는 기능테스트", () => {
+    cy.viewport(1920, 970);
+    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html");
+    cy.contains("열라왕짬뽕").should("not.exist");
+    cy.get(".gnb__button").click();
+
+    cy.get("#category").select("중식");
+    cy.get("#name").type("열라왕짬뽕");
+    cy.get("#distance").select("10");
+    cy.get("#description").type("어렸을 때 많이 먹은 중국집입니다.");
+
+    cy.get(
+      ".modal-container > form > .button-container > .button--primary"
+    ).click();
+
+    cy.contains("열라왕짬뽕").should("be.visible");
+  });
+});
+
+describe("e2e테스트_점심 뭐 먹지_localstorage 세팅 후", () => {
+  beforeEach(() => {
+    cy.viewport(1920, 970);
+    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html", {
+      onBeforeLoad(win) {
+        restaurantList.forEach((element, idx) => {
+          win.localStorage.setItem(`${idx}`, JSON.stringify(element));
+        });
+      },
+    });
+  });
+
   const restaurantList = [
     {
       category: "한식",
@@ -41,108 +72,35 @@ describe("e2e테스트_점심 뭐 먹지", () => {
     },
   ];
 
-  it("모달에서 음식점 정보를 입력하고 추가하기 버튼을 눌렀을 때 음식점이 추가되는 기능테스트", () => {
-    cy.viewport(1920, 970);
-    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html");
-
-    cy.contains("열라왕짬뽕").should("not.exist");
-    cy.get(".gnb__button").click();
-
-    cy.get("#category").select("중식");
-    cy.get("#name").type("열라왕짬뽕");
-    cy.get("#distance").select("10");
-    cy.get("#description").type("어렸을 때 많이 먹은 중국집입니다.");
-
-    cy.get(
-      ".modal-container > form > .button-container > .button--primary"
-    ).click();
-
-    cy.contains("열라왕짬뽕").should("be.visible");
-  });
-
   it("카테고리 필터를 선택했을 때 해당 카테고리 음식이 아닐 경우 랜더링 되지 않는 기능 테스트", () => {
-    cy.viewport(1920, 970);
-    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html", {
-      onBeforeLoad(win) {
-        restaurantList.forEach((element, idx) => {
-          win.localStorage.setItem(`${idx}`, JSON.stringify(element));
-        });
-      },
-    });
-
     cy.get("#category-filter").select("일식");
     cy.contains("열라왕짬뽕").should("not.exist");
   });
 
   it("카테고리 필터를 선택했을 때 해당 카테고리 음식일 경우 랜더링 되는 기능 테스트", () => {
-    cy.viewport(1920, 970);
-    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html", {
-      onBeforeLoad(win) {
-        restaurantList.forEach((element, idx) => {
-          win.localStorage.setItem(`${idx}`, JSON.stringify(element));
-        });
-      },
-    });
-
     cy.get("#category-filter").select("일식");
     cy.contains("작은도쿄").should("be.visible");
   });
 
   it("이름순 정렬 필터를 선택했을 때 이름순으로 랜더링 되는 기능 테스트", () => {
-    cy.viewport(1920, 970);
-    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html", {
-      onBeforeLoad(win) {
-        restaurantList.forEach((element, idx) => {
-          win.localStorage.setItem(`${idx}`, JSON.stringify(element));
-        });
-      },
-    });
-
     cy.get("#sorting-filter").select("이름순");
     cy.contains("가정집 백반").first();
     cy.contains("작은도쿄").last();
   });
 
   it("거리순 정렬 필터를 선택했을 때 이름순으로 랜더링 되는 기능 테스트", () => {
-    cy.viewport(1920, 970);
-    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html", {
-      onBeforeLoad(win) {
-        restaurantList.forEach((element, idx) => {
-          win.localStorage.setItem(`${idx}`, JSON.stringify(element));
-        });
-      },
-    });
-
     cy.get("#sorting-filter").select("이름순");
     cy.contains("가정집 백반").first();
     cy.contains("어메이징 아시안").last();
   });
 
   it("즐겨찾기 아이콘을 누르고 카테고리를 변경하면 즐겨찾기한 리스트만 랜더링 되는 기능 테스트", () => {
-    cy.viewport(1920, 970);
-    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html", {
-      onBeforeLoad(win) {
-        restaurantList.forEach((element, idx) => {
-          win.localStorage.setItem(`${idx}`, JSON.stringify(element));
-        });
-      },
-    });
-
     cy.get(".restaurant").contains("작은도쿄").get("#star-4").click();
     cy.get(".favorate").click();
     cy.contains("작은도쿄").should("be.visible");
   });
 
   it("리스트를 선택했을 때 해당 리스트 모달이 랜더링 되는 기능 테스트", () => {
-    cy.viewport(1920, 970);
-    cy.visit("https://naveowo.github.io/javascript-lunch/dist/index.html", {
-      onBeforeLoad(win) {
-        restaurantList.forEach((element, idx) => {
-          win.localStorage.setItem(`${idx}`, JSON.stringify(element));
-        });
-      },
-    });
-
     cy.get(".restaurant").contains("작은도쿄").click();
     cy.get(".modal").contains("작은도쿄").should("be.visible");
   });
