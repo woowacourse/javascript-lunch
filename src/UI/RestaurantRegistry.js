@@ -75,10 +75,11 @@ export default class RestaurantRegistry {
     return e.target.getAttribute("src") === favorite
   }
 
-  getFavoriteList(favorite, restaurantInfo){
-    return getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT).map((restaurant) => {
+  getFavoriteList(favorite_icon, restaurantInfo){
+    const restaurant_copy = [...getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT)]
+    return restaurant_copy.map((restaurant) => {
       if (restaurant.id === restaurantInfo.id)
-        restaurant[LOCAL_INPUT.FAVORITE] = favorite;
+        restaurant[LOCAL_INPUT.FAVORITE] = favorite_icon;
       return restaurant;
     });
   }
@@ -95,12 +96,11 @@ export default class RestaurantRegistry {
   }
 
   ifFavoriteLined(e, restaurantInfo){
-    const favorite = [];
     const restaurantFavoriteList = this.getFavoriteList(FAVORITE_ICON.ENROLL, restaurantInfo)
     setToLocalStorage(LOCALSTORAGE_KEY.RESTAURANT, restaurantFavoriteList)
 
     const favoriteList = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE)??[];
-    if (favoriteList !== null) favoriteList.forEach((val) => favorite.push(val));
+    const favorite = [...favoriteList]
     favorite.push(restaurantInfo);
     setToLocalStorage(LOCALSTORAGE_KEY.FAVORITE, favorite);
     
