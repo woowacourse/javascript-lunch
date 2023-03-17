@@ -42,7 +42,7 @@ class RestaurantDetailComponent extends CustomElement {
     const listKey = this.getAttribute("listKey");
 
     document.getElementById("detail_modal").classList.remove("modal--open");
-    dispatcher("deleteRestaurant", parseInt(listKey));
+    dispatcher(RESTAURANT_ACTION.DELETE_RESTAURANT, parseInt(listKey));
   }
 
   template() {

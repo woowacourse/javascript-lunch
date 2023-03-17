@@ -16,6 +16,7 @@ class RestaurantsStore {
   #restaurantList: Restaurant[] = [];
   #category: Category = CATEGORY_DEFAULT;
   #sortMethod: SortMethod = SORT_METHOD.NAME;
+  #menu: string = "total";
 
   constructor() {
     this.hasNoneRestaurantList();
@@ -31,6 +32,10 @@ class RestaurantsStore {
 
   set sortMethod(sortMethod: SortMethod) {
     this.#sortMethod = sortMethod;
+  }
+
+  set menu(menu: MENU_TAP) {
+    this.#menu = menu;
   }
 
   show(index: Index) {
@@ -94,7 +99,7 @@ class RestaurantsStore {
     }
   }
 
-  changeMenu(menu: MENU_TAP) {
+  changeMenu() {
     try {
       this.refreshRestaurantList();
     } catch (e) {
@@ -103,7 +108,7 @@ class RestaurantsStore {
     this.#category = CATEGORY_DEFAULT;
     this.#sortMethod = SORT_METHOD.NAME;
 
-    if (menu === MENU.FAVORITE) this.filterByMenu();
+    if (this.#menu === MENU.FAVORITE) this.filterByMenu();
   }
 
   filterByMenu() {

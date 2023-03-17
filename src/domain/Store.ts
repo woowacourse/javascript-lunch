@@ -32,6 +32,7 @@ class Store {
   }
 
   publishMenu() {
+    RestaurantsInstance.changeMenu();
     RestaurantsInstance.sortRestaurants();
 
     this.#subscribers.forEach((subscriber) => {
@@ -66,14 +67,14 @@ class Store {
       this.publishDetail(action.data as Index);
     },
     [RESTAURANT_ACTION.UPDATE_MODAL_FAVORITE]: (action: Action) => {
-      this.publish();
+      this.publishMenu();
     },
     [RESTAURANT_ACTION.DELETE_RESTAURANT]: (action: Action) => {
       RestaurantsInstance.deleteRestaurant(action.data as Index);
-      this.publish();
+      this.publishMenu();
     },
     [RESTAURANT_ACTION.CHANGE_MENU]: (action: Action) => {
-      RestaurantsInstance.changeMenu(action.data as MENU_TAP);
+      RestaurantsInstance.menu = action.data as MENU_TAP;
       this.publishMenu();
     },
   };
