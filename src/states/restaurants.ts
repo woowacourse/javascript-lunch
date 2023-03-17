@@ -21,14 +21,14 @@ export class Restaurants implements RestaurantsState {
 
   filters: RestaurantFilter[] = [];
 
-  restaurantIdCounter = 1;
+  restaurantIdCounter = 0;
 
-  restaurants: Restaurant[];
+  restaurants: Restaurant[] = [];
 
   private readonly parser: IParser<RestaurantsState> = new RestaurantsJSONParser();
 
   private readonly storage: IStorage<RestaurantsState> = new RestaurantsLocalStorage(this.parser, {
-    restaurantIdCounter: 1,
+    restaurantIdCounter: 0,
     restaurants: DEFAULT_RESTAURANTS.map((createFn) => createFn(this.assignId())),
   });
 
@@ -63,9 +63,12 @@ export class Restaurants implements RestaurantsState {
   }
 
   assignId() {
-    const id = this.restaurantIdCounter;
-    this.restaurantIdCounter += 1;
-    return id;
+    const ids = new Set(this.restaurants.map((restaurant) => restaurant.getId()));
+    do {
+      this.restaurantIdCounter += 1;
+    } while (ids.has(this.restaurantIdCounter));
+
+    return this.restaurantIdCounter;
   }
 
   setFilters(filters: RestaurantFilter[]) {

@@ -20,4 +20,6 @@ class RestaurantNameInput extends Input {
   }
 }
 
+(globalThis as any).RestaurantNameInput = RestaurantNameInput;
+
 export default RestaurantNameInput;
