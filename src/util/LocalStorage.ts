@@ -15,11 +15,11 @@ const LocalStorage = {
   },
 
   remove(targetName: string) {
-    for (let key in localStorage) {
+    Object.keys(localStorage).forEach((key: string) => {
       if (JSON.parse(localStorage[key]).name === targetName) {
         localStorage.removeItem(key);
       }
-    }
+    });
   },
 };
 
