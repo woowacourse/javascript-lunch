@@ -15,6 +15,11 @@ body {
   font-size: 16px;
 }
 
+body.scroll--hidden {
+  height: 100vh;
+  overflow: hidden;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -291,11 +296,14 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 90vh;
 
   padding: 32px 16px;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  overflow-y: scroll;
 }
 
 .modal-title {

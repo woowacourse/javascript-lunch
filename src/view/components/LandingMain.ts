@@ -1,12 +1,12 @@
 import { Restaurant } from './../../domain/model/LunchRecommendation';
 import { useState } from '../../utils/core';
-import { useBoolean } from '../../utils/hooks/useBoolean';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { Nav } from './Nav';
 import { NavFilter } from './NavFilter';
 import { NavTab } from './NavTab';
 import { RestaurantInfoModal } from './RestaurantInfoModal';
 import { Restaurants } from './Restaurants';
+import { useModal } from '../../utils/hooks/useModal';
 
 function LandingMain() {
   const {
@@ -22,7 +22,7 @@ function LandingMain() {
   } = useRestaurants();
   const [focusedRestaurant, setFocusedRestaurant] = useState<Restaurant | null>(null);
   const [isRestaurantInfoModalOpen, openRestaurantInfoModal, closeRestaurantInfoModal] =
-    useBoolean(true);
+    useModal(true);
 
   function onClickRestaurant(restaurant: Restaurant) {
     setFocusedRestaurant(restaurant);
