@@ -44,7 +44,7 @@ export class RestaurantList {
     const filteredList: RestaurantForm[] = [];
     const res = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT) ?? [];
     this.list = [...res];
-    this.list.filter(info => {
+    this.list.forEach(info => {
       if (info.category === category) filteredList.push(info);
     });
 
