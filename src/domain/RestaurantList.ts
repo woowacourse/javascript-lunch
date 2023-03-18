@@ -31,17 +31,17 @@ export class RestaurantList {
   }
 
   categoryFilter(category: Category) {
-    const filteredList: RestaurantForm[] = [];
     if (category === LOCAL_INPUT.ALL_CATEGORY) {
       const res = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT) ?? [];
       this.list = [...res];
       return this.list;
     }
 
-    return this.foodFilter(category, filteredList);
+    return this.foodFilter(category);
   }
 
-  foodFilter(category: Category, filteredList: RestaurantForm[]) {
+  foodFilter(category: Category) {
+    const filteredList: RestaurantForm[] = [];
     const res = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT) ?? [];
     this.list = [...res];
     this.list.filter(info => {
