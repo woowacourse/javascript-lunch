@@ -174,8 +174,8 @@ export default class ModalRestaurantDetail {
   }
 
   getFavoriteList(favorite_icon, restaurantInfo) {
-    const restaurant_copy = [...getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT)];
-    return restaurant_copy.map(restaurant => {
+    const restaurantCopy = [...getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT)];
+    return restaurantCopy.map(restaurant => {
       if (restaurant.id === restaurantInfo.id) restaurant[LOCAL_INPUT.FAVORITE] = favorite_icon;
       return restaurant;
     });
