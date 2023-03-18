@@ -4,6 +4,7 @@ import RestaurantItem from './RestaurantItem';
 export default class RestaurantList {
   constructor($root) {
     this.$root = $root;
+    this.tabName = 'restaurant-list';
   }
 
   render() {

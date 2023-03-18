@@ -23,7 +23,7 @@ class App {
 
   init() {
     this.header.mount();
-    this.tab.inject(this.restaurantList, this.favoriteList).mount();
+    this.tab.inject(this.restaurantList, this.favoriteList, this.filters).mount();
     this.filters.inject(this.restaurantList).mount();
     this.restaurantList.inject(this.favoriteList, this.restaurantInfo).mount();
     this.favoriteList.inject(this.restaurantInfo).mount();

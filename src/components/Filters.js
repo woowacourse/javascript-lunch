@@ -6,6 +6,7 @@ import selectTemplate from '../template/selectTemplate';
 export default class Filters {
   constructor($root) {
     this.$root = $root;
+    this.tabName = 'restaurant-list';
   }
 
   render() {
@@ -28,6 +29,8 @@ export default class Filters {
       })}
     `;
   }
+
+  rerender() {}
 
   bindEvents() {
     this.$root.addEventListener('change', this.handleFiltersChange.bind(this));

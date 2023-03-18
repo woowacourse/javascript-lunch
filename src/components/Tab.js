@@ -1,10 +1,6 @@
 export default class Tab {
   constructor($root) {
     this.$root = $root;
-
-    this.$filters = document.querySelector('.restaurant-filter-container');
-    this.$restaurantList = document.querySelector('.restaurant-list-container');
-    this.$favoriteList = document.querySelector('.restaurant-favorite-container');
   }
 
   render() {
@@ -23,21 +19,17 @@ export default class Tab {
   bindEvents() {
     this.$root.querySelector('#tabs').addEventListener('click', (event) => {
       const target = event.target;
+      const hideTabs = this.tabs.filter((tab) => target.id !== tab.tabName);
+      const showTabs = this.tabs.filter((tab) => target.id === tab.tabName);
 
-      if (target.id === 'restaurant-list') {
-        this.$filters.classList.remove('hide');
-        this.$restaurantList.classList.remove('hide');
-        this.$favoriteList.classList.add('hide');
+      console.log(hideTabs);
+      console.log(showTabs);
 
-        this.restaurantList.rerender();
-      }
-      if (target.id === 'restaurant-favorite') {
-        this.$filters.classList.add('hide');
-        this.$restaurantList.classList.add('hide');
-        this.$favoriteList.classList.remove('hide');
-
-        this.favoriteList.rerender();
-      }
+      hideTabs.forEach((tab) => tab.$root.classList.add('hide'));
+      showTabs.forEach((tab) => {
+        tab.$root.classList.remove('hide');
+        tab.rerender();
+      });
 
       this.$root.querySelectorAll('.tab__item').forEach((tabItem) => {
         tabItem.classList.remove('active');
@@ -47,9 +39,8 @@ export default class Tab {
     });
   }
 
-  inject(restaurantList, favoriteList) {
-    this.restaurantList = restaurantList;
-    this.favoriteList = favoriteList;
+  inject(restaurantList, favoriteList, filters) {
+    this.tabs = [restaurantList, favoriteList, filters];
 
     return this;
   }
