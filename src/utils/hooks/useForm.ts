@@ -1,4 +1,5 @@
-import { getFormFields } from '../common/formData';
+import { FormFields } from './../common/formData';
+import { getFormFields, isFormElement } from '../common/formData';
 import { EventCallback, useState } from '../core';
 import { handleError } from '../../validation';
 import { CustomError } from '../../validation/error';
@@ -34,61 +35,68 @@ let conditions: Conditions = {};
 function useForm() {
   const [formState, setFormState] = useState<FormState>({ errors: {} });
 
-  const resetErrors = () => setFormState({ errors: {} });
   const reset = () => {
     conditions = {};
     setFormState({ errors: {} });
   };
 
   const register = (name: string, validator: Validator) => {
+    /** @description initialize conditions */
     if (!conditions[name]) {
-      conditions[name] = {
-        value: '',
-        validator,
-      };
+      conditions[name] = { value: '', validator };
     }
 
+    /** @description persist value */
     return String(conditions[name].value);
   };
 
   const handleSubmit = (onSubmit: EventCallback): EventCallback => {
     return (e) => {
-      if (e.target instanceof HTMLFormElement) {
+      if (isFormElement(e.target)) {
         e.preventDefault();
-        const errors: Errors = {};
+
         const fields = getFormFields(e.target);
+        const errors = validateFields(fields);
 
-        Object.entries(conditions).forEach(([name, { validator }]) => {
-          conditions[name].value = fields[name];
+        if (!Object.keys(errors).length) {
+          return onSubmit(e);
+        }
 
-          return validate({
-            data: fields[name],
-            validator,
-            onError(error) {
-              errors[name] = error.message;
-            },
-          });
-        });
-
-        if (Object.keys(errors).length === 0) {
-          onSubmit(e);
-        } else setFormState({ ...formState, errors });
+        /** @description update error info */
+        setFormState({ ...formState, errors });
       }
     };
   };
 
-  const validate = ({ data, validator, onError }: Validate) => {
+  const validateFields = (fields: FormFields) => {
+    /** @description save error info */
+    const errors: Errors = {};
+
+    Object.entries(conditions).forEach(([name, { validator }]) => {
+      /** @description update value for persistence */
+      conditions[name].value = fields[name];
+
+      validateField({
+        data: fields[name],
+        validator,
+        onError(error) {
+          errors[name] = error.message;
+        },
+      });
+    });
+
+    return errors;
+  };
+
+  const validateField = ({ data, validator, onError }: Validate) => {
     try {
       validator(data);
-      return true;
     } catch (error) {
       handleError(error, { onError });
-
-      return false;
     }
   };
 
-  return { formState, register, handleSubmit, resetErrors, reset };
+  return { formState, register, handleSubmit, reset };
 }
 
 export { useForm };
