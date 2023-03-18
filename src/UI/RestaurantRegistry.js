@@ -1,16 +1,16 @@
 import { $ } from '../utils/Dom';
 import ModalRestaurantDetail from './ModalRestaurantDetail';
 import { stringifyJson, getRestaurantListFromLocalstorage, setToLocalStorage } from '../utils/LocalStorage';
-import { LOCALSTORAGE_KEY, LOCAL_INPUT, FAVORITE_ICON } from '../utils/Constant';
+import { LOCALSTORAGE_KEY, LOCAL_INPUT, FAVORITE_ICON, PICTURE_PATH } from '../utils/Constant';
 export default class RestaurantRegistry {
   appendRestaurant(restaurantInfo) {
     const category = {
-      한식: './category-korean.png',
-      일식: './category-japanese.png',
-      양식: './category-western.png',
-      중식: './category-chinese.png',
-      아시안: './category-asian.png',
-      기타: './category-etc.png',
+      한식: PICTURE_PATH.KOREAN,
+      일식: PICTURE_PATH.JAPANESE,
+      양식: PICTURE_PATH.AMERICAN,
+      중식: PICTURE_PATH.CHINESE,
+      아시안: PICTURE_PATH.ASIAN,
+      기타: PICTURE_PATH.ETC,
     };
     const template = `
     <li class="restaurant" id="restaurant${restaurantInfo.id}">
