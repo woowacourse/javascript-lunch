@@ -1,4 +1,4 @@
-import { $ } from "../utils/Dom";
+import { $ } from '../utils/Dom';
 
 export default class Header {
   #template = `
@@ -13,14 +13,15 @@ export default class Header {
   constructor() {}
 
   initializeButtonEvents() {
-    $(".gnb__button").addEventListener("click", this.openModal);
+    $('.gnb__title').addEventListener('click', () => window.location.reload());
+    $('.gnb__button').addEventListener('click', this.openModal);
   }
 
   render() {
-    document.body.insertAdjacentHTML("afterbegin", this.#template);
+    document.body.insertAdjacentHTML('afterbegin', this.#template);
   }
 
   openModal() {
-    $(".modal--open").style.display = "block";
+    $('.modal').style.display = 'block';
   }
 }

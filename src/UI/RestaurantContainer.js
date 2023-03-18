@@ -1,4 +1,4 @@
-import { $ } from "../utils/Dom";
+import { $ } from '../utils/Dom';
 
 export default class RestaurantContainer {
   #template = `
@@ -9,6 +9,6 @@ export default class RestaurantContainer {
     `;
 
   render() {
-    $("main").insertAdjacentHTML("beforeend", this.#template);
+    $('main').insertAdjacentHTML('beforeend', this.#template);
   }
 }

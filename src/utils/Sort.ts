@@ -1,4 +1,4 @@
-import { RestaurantForm } from "../domain/Restaurant";
+import { RestaurantForm } from '../domain/Restaurant';
 
 export const sortByName = (restaurant: RestaurantForm[]) => {
   return restaurant.sort((prev: RestaurantForm, next: RestaurantForm) => {
@@ -9,8 +9,5 @@ export const sortByName = (restaurant: RestaurantForm[]) => {
 };
 
 export const sortByDistance = (restaurant: RestaurantForm[]) => {
-  return restaurant.sort(
-    (prev: RestaurantForm, next: RestaurantForm) =>
-      prev.distance - next.distance
-  );
+  return restaurant.sort((prev: RestaurantForm, next: RestaurantForm) => prev.distance - next.distance);
 };

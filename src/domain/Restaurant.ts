@@ -1,11 +1,4 @@
-export type Category =
-  | "전체"
-  | "한식"
-  | "중식"
-  | "양식"
-  | "일식"
-  | "아시안"
-  | "기타";
+export type Category = '전체' | '한식' | '중식' | '양식' | '일식' | '아시안' | '기타';
 type Distance = 5 | 10 | 15 | 20 | 30;
 
 export interface RestaurantForm {
@@ -14,6 +7,8 @@ export interface RestaurantForm {
   distance: Distance;
   description?: string;
   link?: string;
+  id?: number;
+  favorite?: string;
 }
 
 export class Restaurant {

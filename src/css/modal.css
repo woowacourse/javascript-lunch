@@ -3,10 +3,6 @@
   display: none;
 }
 
-.modal--open {
-  display: none;
-}
-
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -21,11 +17,14 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 95%;
 
   padding: 32px 16px;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  overflow: scroll;
 }
 
 .modal-title {
@@ -48,7 +47,7 @@
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -80,8 +79,8 @@
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -117,4 +116,27 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 디테일 모달 *****************************************/
+.modal--detail {
+  display: none;
+}
+
+.modal-picture-favorite {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-item {
+  margin-bottom: 16px;
+}
+
+.modal-detail-restaurant__link {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.detail-button-container {
+  margin-top: 30px;
 }

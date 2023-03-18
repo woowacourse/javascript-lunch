@@ -1,6 +1,8 @@
-import { $, $$ } from "../utils/Dom";
-import { CATEGORY, DISTANCE, INFORMATION_RESTAURANT} from "../utils/Constant"
-
+import { $, $$ } from '../utils/Dom';
+import { NUMBER_FORM, LOCALSTORAGE_KEY, FORM_VALUE, LOCAL_INPUT, FAVORITE_ICON } from '../utils/Constant';
+import { getRestaurantListFromLocalstorage, getValueFromLocalStorage } from '../utils/LocalStorage';
+import RestaurantInventory from './RestaurantInventory';
+import { nameValidation } from '../utils/Validation';
 export default class Modal {
   #template = `
     <div class="modal modal--open">
@@ -72,41 +74,60 @@ export default class Modal {
   }
 
   render() {
-    document.body.insertAdjacentHTML("beforeend", this.#template);
+    document.body.insertAdjacentHTML('beforeend', this.#template);
   }
 
   initializeButtonEvents() {
-    this.modalForm = $(".modal-form");
-    this.modalForm.addEventListener("submit", (event) => {
+    $('.modal-form').addEventListener('submit', event => {
       event.preventDefault();
       this.addRestaurant();
     });
 
-    $(".button--secondary").addEventListener("click", this.closeModal);
+    $('.button--secondary').addEventListener('click', this.closeModal);
   }
 
   addRestaurant() {
-    const restaurantInfo = this.setRestaurantInformation();
+    try {
+      nameValidation($('#name').value);
+      const restaurantInfo = this.setRestaurantInformation();
 
-    this.restaurantList.add(restaurantInfo);
-    const foodCategory = localStorage.getItem("foodCategory") ?? "전체";
-    const sortBy = localStorage.getItem("sort") ?? "name";
-    this.restaurantRegistry.appendRestaurant(
-      this.restaurantList.listRestaurant[this.getRestaurantLength()]
-    );
+      this.restaurantList.add(restaurantInfo);
+      this.restaurantRegistry.appendRestaurant(this.restaurantList.listRestaurant[this.getRestaurantLength()]);
+      RestaurantInventory.favoriteTabToAllListTab();
+
+      this.restauranListFilter();
+      this.closeModal();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  restauranListFilter() {
+    const foodCategory = getValueFromLocalStorage(LOCALSTORAGE_KEY.FOODCATEGORY, LOCAL_INPUT.ALL_CATEGORY);
+    const sortBy = getValueFromLocalStorage(LOCALSTORAGE_KEY.SORTBY, FORM_VALUE.NAME);
     this.restaurantList.filterCategory(foodCategory);
     this.restaurantList.filterBySort(sortBy, foodCategory);
-    this.closeModal();
   }
 
   setRestaurantInformation() {
     const restaurantInfo = {};
-    const array = ["category", "name", "distance", "description", "link"];
+    const idNumber = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.NUMBER);
+    const array = [
+      FORM_VALUE.CATEGORY,
+      FORM_VALUE.NAME,
+      FORM_VALUE.DISTANCE,
+      FORM_VALUE.DESCRIPTION,
+      FORM_VALUE.LINK,
+      LOCAL_INPUT.FAVORITE,
+    ];
 
-    $$(".form-item").forEach((val, index) => {
+    $$('.form-item').forEach((val, index) => {
       restaurantInfo[array[index]] = val.children[1].value;
     });
+    restaurantInfo[LOCAL_INPUT.ID] = idNumber;
+    restaurantInfo[LOCAL_INPUT.FAVORITE] = FAVORITE_ICON.UNENROLL;
 
+    localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, idNumber + 1);
     return restaurantInfo;
   }
 
@@ -116,17 +137,17 @@ export default class Modal {
 
   closeModal = () => {
     this.resetValue();
-    $(".modal--open").style.display = "none";
+    $('.modal').style.display = 'none';
   };
 
   resetValue() {
-    $$(".form-item").forEach((val, index) => {
-      if (index === CATEGORY || index === DISTANCE) {
-        val.children[INFORMATION_RESTAURANT].value = "";
+    $$('.form-item').forEach((val, index) => {
+      if (index === NUMBER_FORM.CATEGORY || index === NUMBER_FORM.DISTANCE) {
+        val.children[NUMBER_FORM.INFORMATION_RESTAURANT].value = '';
         return;
       }
 
-      val.children[INFORMATION_RESTAURANT].value = null;
+      val.children[NUMBER_FORM.INFORMATION_RESTAURANT].value = null;
     });
   }
 }
