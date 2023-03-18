@@ -28,14 +28,16 @@ class Modal {
   handleCloseEvent() {
     const modalBg = $(".modal-backdrop");
 
-    modalBg?.addEventListener("click", () => {
-      this.close();
-    });
+    modalBg?.addEventListener("click", this.close);
 
     document.addEventListener("keyup", (event) => {
       if (event.key === "Escape") {
         this.close();
       }
+    });
+
+    $(".close")?.addEventListener("click", () => {
+      this.close();
     });
   }
 
@@ -55,7 +57,7 @@ class Modal {
     const modalContainer = document.createElement("div");
 
     modalContainer.innerHTML = this.create();
-    mainSection?.appendChild(modalContainer);
+    mainSection?.prepend(modalContainer);
     this.open();
     this.handleCloseEvent();
   }
