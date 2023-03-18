@@ -20,24 +20,17 @@ export class App {
     this.restaurantContainer = new RestaurantContainer();
     this.modalRestaurantDetail = new ModalRestaurantDetail(this.restaurantList, this.restaurantRegistry);
 
-    const localRestaurants = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT);
+    const localRestaurants = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.RESTAURANT) || [];
     this.collectedRender();
     this.initializeButtonEvents();
-    if (localRestaurants !== null) {
+    if (localRestaurants.length !== 0) {
       const localRestaurantNextNumber = localRestaurants.at(-1).id + 1;
       localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, localRestaurantNextNumber);
-    } else localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, 0);
-
-    const favoriteList = getRestaurantListFromLocalstorage(LOCALSTORAGE_KEY.FAVORITE);
-
-    const restaurantFavoriteList =
-      localRestaurants ||
-      [].map(restaurant => {
-        if (this.isThereRestaurantInFavorites(favoriteList, restaurant).length)
-          restaurant[LOCAL_INPUT.FAVORITE] = FAVORITE_ICON.ENROLL;
-        return restaurant;
-      });
-    localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT, stringifyJson(restaurantFavoriteList));
+    } else {
+      localStorage.setItem(LOCALSTORAGE_KEY.NUMBER, 0);
+    }
+    
+    localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT, stringifyJson(localRestaurants));
 
     localStorage.setItem(LOCALSTORAGE_KEY.SORTBY, FORM_VALUE.NAME);
     localStorage.setItem(LOCALSTORAGE_KEY.FOODCATEGORY, LOCAL_INPUT.ALL_CATEGORY);
