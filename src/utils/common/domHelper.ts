@@ -20,9 +20,13 @@ export const isTarget = (
   return false;
 };
 
+export const isHTMLElement = (target: Element): target is HTMLElement =>
+  target instanceof HTMLElement;
+
 export const getClosest = (target: EventTarget | null, selector: string) => {
   if (!(target instanceof Element)) return null;
-  if (!(target.closest(selector) instanceof HTMLElement)) return null;
+  if (!target.closest(selector)) return null;
+  if (!isHTMLElement(target.closest(selector)!)) return null;
 
   return target.closest(selector) as HTMLElement;
 };
