@@ -15,5 +15,11 @@ export const SORT_OPTIONS = Object.freeze({
   NAME: '이름순',
 });
 
+export const TAB = Object.freeze({
+  ALL: 'ALL',
+  FAVORITE: 'FAVORITE',
+});
+
 export type Category = Values<typeof CATEGORY>;
 export type SortOption = Values<typeof SORT_OPTIONS>;
+export type Tab = Values<typeof TAB>;
