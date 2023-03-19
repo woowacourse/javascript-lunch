@@ -12,7 +12,7 @@ function Input(props: InputProps) {
   return `
     ${
       label
-        ? `<label for="${attribute.id ?? ''} text-caption">
+        ? `<label for="${attribute.id ?? ''}">
               <span class="form-label-text ${attribute.required ? 'required' : ''}">${label}</span>
               ${error ? `<span class="form-label-error">${error}</span>` : ''}
           </label>`

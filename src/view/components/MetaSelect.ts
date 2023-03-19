@@ -12,7 +12,7 @@ interface MetaSelectProps {
 function MetaSelect(props: MetaSelectProps) {
   const { attribute, selected, metaData, label, error } = props;
   return `
-    <label for="distance text-caption">
+    <label for=${attribute.id}>
       ${label ? `<span class="form-label-text--required">${label}</span>` : ''}
       ${error ? `<span class="form-label-error">${error}</span>` : ''}
     </label>
