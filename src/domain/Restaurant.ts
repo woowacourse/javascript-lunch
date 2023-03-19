@@ -1,50 +1,64 @@
 import Validation from './Validation';
 
-export interface RestaurantProps {
-  category: string;
+export type RestaurantProps = {
+  id: number;
+  category: RestaurantCategory;
   name: string;
-  distanceByMinutes: number;
-  description?: string;
-  referenceUrl?: string;
-}
+  distance: RestaurantDistance;
+  description?: string | null;
+  referenceUrl?: string | null;
+};
+
+export type RestaurantCategory = (typeof Restaurant.CATEGORIES)[number];
+
+export type RestaurantDistance = (typeof Restaurant.DISTANCES)[number];
 
 class Restaurant {
-  static readonly CATEGORIES = ['한식', '중식', '일식', '양식', '아시안', '기타'] as const;
+  static MIN_LENGTH = 1 as const;
 
-  static readonly DISTANCE_BY_MINUTES = [5, 10, 15, 20, 30] as const;
+  static MAX_LENGTH = 20 as const;
 
-  private category: string;
+  static CATEGORIES = ['한식', '중식', '일식', '양식', '아시안', '기타'] as const;
 
-  private name: string;
+  static DISTANCES = [5, 10, 15, 20, 30] as const;
 
-  private distanceByMinutes: number;
+  private readonly id: number;
 
-  private description?: string;
+  private readonly category: RestaurantCategory;
 
-  private referenceUrl?: string;
+  private readonly name: string;
 
-  constructor({ category, name, distanceByMinutes, description, referenceUrl }: RestaurantProps) {
-    this.validateCategory(category);
-    this.validateName(name);
-    this.validateDistanceByMinutes(distanceByMinutes);
+  private readonly distance: RestaurantDistance;
 
+  private readonly description: string | null;
+
+  private readonly referenceUrl: string | null;
+
+  private favorite = false;
+
+  constructor({ id, category, name, distance, description, referenceUrl }: RestaurantProps) {
+    Restaurant.validateCategory(category);
+    Restaurant.validateName(name);
+    Restaurant.validateDistance(distance);
+
+    this.id = id;
     this.category = category;
     this.name = name;
-    this.distanceByMinutes = distanceByMinutes;
-    this.description = description || undefined;
-    this.referenceUrl = referenceUrl || undefined;
+    this.distance = distance;
+    this.description = description ?? null;
+    this.referenceUrl = referenceUrl ?? null;
   }
 
-  isMatchCategory(searchCategory: string) {
-    return this.category === searchCategory;
+  getId() {
+    return this.id;
   }
 
   getName() {
     return this.name;
   }
 
-  getDistanceByMinutes() {
-    return this.distanceByMinutes;
+  getDistance() {
+    return this.distance;
   }
 
   getDescription() {
@@ -55,21 +69,31 @@ class Restaurant {
     return this.category;
   }
 
-  private validateCategory(category: string) {
-    if (!(Restaurant.CATEGORIES as readonly string[]).includes(category)) {
+  getReferenceUrl() {
+    return this.referenceUrl;
+  }
+
+  isFavorite() {
+    return this.favorite;
+  }
+
+  setFavorite(favorite = true) {
+    this.favorite = favorite;
+  }
+
+  static validateCategory(category: string): asserts category is RestaurantCategory {
+    if (Restaurant.CATEGORIES.every((_category) => _category !== category)) {
       throw new Error(`카테고리는 ${Restaurant.CATEGORIES.join(', ')} 중 하나여야 합니다.`);
     }
   }
 
-  private validateName(name: string) {
+  static validateName(name: string) {
     Validation.validateRestaurantNameLength(name);
   }
 
-  private validateDistanceByMinutes(distanceByMinutes: number) {
-    if (!(Restaurant.DISTANCE_BY_MINUTES as readonly number[]).includes(distanceByMinutes)) {
-      throw new Error(
-        `거리는 ${Restaurant.DISTANCE_BY_MINUTES.join('분, ')}분 중 하나여야 합니다.`,
-      );
+  static validateDistance(distance: number): asserts distance is RestaurantDistance {
+    if (Restaurant.DISTANCES.every((_distance) => _distance !== distance)) {
+      throw new Error(`거리는 ${Restaurant.DISTANCES.join('분, ')}분 중 하나여야 합니다.`);
     }
   }
 }

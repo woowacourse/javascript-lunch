@@ -1,161 +1,59 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import RModal from './components/RModal';
-import RRestaurantList from './components/RRestaurantList';
-import RSelect from './components/RSelect';
-import Restaurant from './domain/Restaurant';
-import Restaurants from './domain/Restaurants';
-import { DEFAULT_RESTAURANTS } from './fixtures';
+import type Tabs from './components/common/Tabs';
+import { allCustomElementsDefined } from './components/lifecycles';
+import type NewRestaurantModal from './components/restaurant/modal/NewRestaurantModal';
+import type RestaurantDetailModal from './components/restaurant/modal/RestaurantDetailModal';
+import type RestaurantList from './components/restaurant/RestaurantList';
+import type { RestaurantClickEvent } from './components/restaurant/RestaurantList';
+import restaurants from './states/restaurants';
 
 class App {
-  #restaurants: Restaurant[] = DEFAULT_RESTAURANTS;
-
-  #filterPipes: Partial<Record<'filter' | 'sort', (restaurants: Restaurant[]) => Restaurant[]>> =
-    {};
-
-  $restaurantList = document.querySelector<RRestaurantList>('#restaurant-list')!;
-
-  $restaurantFilterSelect = document.querySelector<RSelect>('#restaurant-filter-select')!;
-
-  $restaurantSortSelect = document.querySelector<RSelect>('#restaurant-sort-select')!;
-
-  $modalOpenButton = document.querySelector<HTMLButtonElement>('#modal-open-button')!;
-
-  $modalForm = document.querySelector<HTMLFormElement>('#modal-form')!;
-
-  $modal = document.querySelector<RModal>('r-modal')!;
-
-  $restaurantModalCategory = document.querySelector<RSelect>('#restaurant-modal-category')!;
-
-  $restaurantModalDistance = document.querySelector<RSelect>('#restaurant-modal-distance')!;
-
-  updateRestaurants() {
-    this.$restaurantList.setRestaurants(
-      Object.values(this.#filterPipes).reduce(
-        (filteredRestaurants, filter) => filter(filteredRestaurants),
-        this.#restaurants,
-      ),
-    );
-
-    this.save();
-  }
-
-  save() {
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
-  }
-
-  load() {
-    const restaurants = JSON.parse(localStorage.getItem('restaurants') ?? 'null');
-    if (restaurants) {
-      this.#restaurants = restaurants.map((restaurant: Restaurant) =>
-        Object.setPrototypeOf(restaurant, Restaurant.prototype),
-      );
-    }
-
-    this.updateRestaurants();
-  }
-
-  init() {
-    this.load();
-
-    this.initSelect();
-    this.initModalSelect();
-    this.initEventHandlers();
-  }
-
-  initSelect() {
-    this.$restaurantFilterSelect.setOptions([
-      { value: '전체', label: '전체' },
-      ...Restaurant.CATEGORIES.map((category) => ({
-        value: category,
-        label: category,
-      })),
-    ]);
-
-    this.$restaurantSortSelect.setOptions([
-      { value: 'name', label: '이름순' },
-      { value: 'distance', label: '거리순' },
-    ]);
-  }
-
-  initModalSelect() {
-    this.$restaurantModalCategory.setOptions([
-      { value: '', label: '선택해주세요' },
-      ...Restaurant.CATEGORIES.map((category) => ({
-        value: category,
-        label: category,
-      })),
-    ]);
-
-    this.$restaurantModalDistance.setOptions([
-      { value: '', label: '선택해주세요' },
-      ...Restaurant.DISTANCE_BY_MINUTES.map((distance) => ({
-        value: distance,
-        label: `${distance}분 내`,
-      })),
-    ]);
+  constructor() {
+    allCustomElementsDefined().then(() => this.initEventHandlers());
   }
 
   initEventHandlers() {
-    this.$restaurantFilterSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as RSelect;
-      const value = $rSelect.getSelectedOption()?.value;
+    document
+      .querySelector<HTMLButtonElement>('#modal-open-button')
+      ?.addEventListener('click', () => {
+        document.querySelector<NewRestaurantModal>('r-new-restaurant-modal')?.open();
+      });
 
-      if (value === '전체') {
-        this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-          Restaurants.getSorted(_restaurants, Restaurants.byName);
-      } else {
-        this.#filterPipes.filter = (_restaurants: Restaurant[]) =>
-          Restaurants.filterByCategory(_restaurants, String(value));
-      }
+    document.querySelectorAll<RestaurantList>('r-restaurant-list').forEach(($restaurantList) =>
+      $restaurantList.addEventListener('click', (e: Event) => {
+        const event = e as RestaurantClickEvent;
 
-      this.updateRestaurants();
+        const restaurantId = event.detail;
+        const restaurant = restaurants.getRestaurant(restaurantId);
+        if (!restaurant) return;
+
+        document
+          .querySelector<RestaurantDetailModal>('r-restaurant-detail-modal')
+          ?.open(restaurant);
+      }),
+    );
+
+    document.querySelector<Tabs>('r-tabs')?.setTabItems([
+      {
+        label: '모든 음식점',
+        value: 'all',
+      },
+      {
+        label: '자주 가는 음식점',
+        value: 'favorite',
+      },
+    ]);
+
+    restaurants.addEventListener(() => {
+      document
+        .querySelector<RestaurantList>('[slot="all"] r-restaurant-list')
+        ?.setRestaurants(restaurants.getFilteredRestaurants());
     });
 
-    this.$restaurantSortSelect.addEventListener('change', (event) => {
-      const $rSelect = event?.target as RSelect;
-
-      const sortFilter = (_restaurants: Restaurant[]) =>
-        Restaurants.getSorted(
-          _restaurants,
-          $rSelect.getSelectedOption()?.value === 'name'
-            ? Restaurants.byName
-            : Restaurants.byDistance,
-        );
-
-      this.#filterPipes.sort = sortFilter;
-
-      this.updateRestaurants();
-    });
-
-    this.$modalOpenButton.addEventListener('click', () => {
-      this.$modal.open();
-    });
-
-    this.$modalForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const restaurantProps = Object.fromEntries([
-        ...new FormData(event.target as HTMLFormElement).entries(),
-      ]);
-
-      try {
-        const restaurant = new Restaurant({
-          category: String(restaurantProps.category),
-          name: String(restaurantProps.name),
-          distanceByMinutes: Number(restaurantProps.distanceByMinutes),
-          description: String(restaurantProps.description),
-          referenceUrl: String(restaurantProps.referenceUrl),
-        });
-
-        this.#restaurants.push(restaurant);
-      } catch (e) {
-        const error = e as Error;
-        alert(error.message);
-        return;
-      }
-
-      this.$modal.close();
-      this.updateRestaurants();
+    restaurants.addEventListener(() => {
+      document
+        .querySelector<RestaurantList>('[slot="favorite"] r-restaurant-list')
+        ?.setRestaurants(restaurants.getFavoritedRestaurants());
     });
   }
 }

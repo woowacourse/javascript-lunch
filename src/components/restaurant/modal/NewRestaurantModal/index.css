@@ -1,0 +1,7 @@
+form > * {
+  margin: 42px 0;
+}
+
+form > button {
+  display: none;
+}

@@ -8,6 +8,12 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": "src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+    },
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -21,6 +27,8 @@
     "skipLibCheck": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src"

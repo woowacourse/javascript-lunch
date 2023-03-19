@@ -1,8 +1,5 @@
-@import url('./header.css');
-@import url('./button.css');
-@import url('./filterContainer.css');
-
-:root {
+:root,
+:host {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
   --grey-100: #ffffff;
@@ -53,11 +50,10 @@ body {
   font-weight: 400;
 }
 
-r-select {
-  height: 44px;
-  min-width: 125px;
+main {
+  padding: 24px 16px;
 }
 
-r-form-item {
-  margin-bottom: 36px;
+r-tabs > section {
+  margin-top: 8px;
 }

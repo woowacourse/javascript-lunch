@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -12,6 +13,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js', '.mjs'],
+    plugins: [new TsconfigPathsPlugin()],
   },
   module: {
     rules: [
@@ -24,7 +26,12 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: {
+          loader: 'css-loader',
+          options: {
+            exportType: 'css-style-sheet',
+          },
+        },
       },
     ],
   },
