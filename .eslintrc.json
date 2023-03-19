@@ -18,12 +18,14 @@
   },
   "ignorePatterns": ["dist/", "node_modules/"],
   "rules": {
+    "max-len": ["error", { "code": 100 }],
     "max-depth": ["error", 1],
     "max-lines-per-function": ["error", 10],
     "max-params": ["error", 2],
     "no-console": "off",
     "prettier/prettier": "error",
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "@typescript-eslint/no-inferrable-types": "error"
   },
   "settings": {
     "import/resolver": {

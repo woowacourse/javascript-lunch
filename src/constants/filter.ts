@@ -1,5 +1,3 @@
-import { FILTER_OPTION_INTERFACE, RestaurantType } from '../type/types';
-
 export const FILTER_ID = {
   CATEGORY: 'category-filter',
   SORTING: 'sorting-filter',
@@ -28,7 +26,7 @@ export const SELECT_OPTION_LIST = {
   ],
 };
 
-export const FILTER_OPTION: FILTER_OPTION_INTERFACE = {
+export const FILTER_OPTION = {
   NAME: 'name',
   DISTANCE: 'distance',
   ALL_CATEGORIES: '전체',
