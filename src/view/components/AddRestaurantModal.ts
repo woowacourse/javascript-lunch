@@ -35,12 +35,12 @@ function AddRestaurantModal({ close }: AddRestaurantModalProps) {
   const onSubmit: EventCallback = (e) => {
     if (e.target instanceof HTMLFormElement) {
       const fields = getFormFields(e.target);
-      const isSuccess = handleClickAddBtn({
+      handleClickAddBtn({
         ...fields,
         distance: parseDistance(fields.distance as string),
       } as Omit<RestaurantInfo, 'id'>);
 
-      isSuccess && closeModal();
+      closeModal();
     }
   };
 

@@ -1,7 +1,6 @@
 import { Category, SortOption } from '../../constants/lunchRecommendation';
 import {
   lunchRecommendation,
-  LunchRecommendation,
   Restaurant,
   RestaurantInfo,
 } from '../../domain/model/LunchRecommendation';
@@ -12,7 +11,7 @@ const initialCategory = '전체';
 const initialSortOption = '거리순';
 
 function useRestaurants() {
-  const [tab, tabRight, tabLeft] = useBoolean(false);
+  const [tab, setTabFavorite, setTabAll] = useBoolean(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>(lunchRecommendation.getAllList());
   const [category, setCategory] = useState<Category>(initialCategory);
   const [sortOption, setSortOption] = useState<SortOption>(initialSortOption);
@@ -30,9 +29,7 @@ function useRestaurants() {
   function handleClickAddBtn(restaurantInfo: Omit<RestaurantInfo, 'id'>) {
     const isSuccess = lunchRecommendation.add(restaurantInfo);
 
-    if (isSuccess) setRestaurants(lunchRecommendation.getAllList());
-
-    return isSuccess;
+    if (isSuccess) setRestaurants(lunchRecommendation.renderBy({ category, sortOption }));
   }
 
   function handleFavoriteBtn(id: RestaurantInfo['id']) {
@@ -42,24 +39,17 @@ function useRestaurants() {
 
   function handleDeleteBtn(id: RestaurantInfo['id']) {
     lunchRecommendation.delete(id);
-    setRestaurants(lunchRecommendation.getAllList());
+    setRestaurants(lunchRecommendation.renderBy({ category, sortOption }));
   }
 
   function tabAll() {
-    tabLeft();
+    setTabAll();
     setRestaurants(lunchRecommendation.getAllList());
-    resetFilter();
   }
 
   function tabFavorite() {
-    tabRight();
+    setTabFavorite();
     setRestaurants(lunchRecommendation.getFavoriteList());
-    resetFilter();
-  }
-
-  function resetFilter() {
-    setCategory(initialCategory);
-    setSortOption(initialSortOption);
   }
 
   return {
