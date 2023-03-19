@@ -1,9 +1,18 @@
 import '../templates/style.css';
+import '../templates/add-button.png';
+import '../templates/category-korean.png';
+import '../templates/category-chinese.png';
+import '../templates/category-japanese.png';
+import '../templates/category-western.png';
+import '../templates/category-asian.png';
+import '../templates/category-etc.png';
+import '../templates/favorite-icon-lined.png';
+import '../templates/favorite-icon-filled.png';
 
-import App from './App';
 import { mockRestaurant } from './data';
-import RestaurantService from './domain/RestaurantService';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage';
+import RestaurantService from './domain/RestaurantService';
+import App from './App';
 
 export const restaurantService = new RestaurantService(
   getLocalStorage('restaurants') ?? mockRestaurant,

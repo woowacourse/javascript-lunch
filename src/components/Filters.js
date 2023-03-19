@@ -1,12 +1,12 @@
 import { restaurantService } from '..';
 import { CATEGORIES, SORTS } from '../constants';
-import selectTemplate from '../template/selectTemplate';
 import { arrayElementToObject } from '../utils/util';
+import selectTemplate from '../template/selectTemplate';
 
 export default class Filters {
-  constructor(rootElement, restaurantList) {
-    this.$root = rootElement;
-    this.$restaurantList = restaurantList;
+  constructor($root) {
+    this.$root = $root;
+    this.tabName = 'restaurant-list';
   }
 
   render() {
@@ -30,6 +30,8 @@ export default class Filters {
     `;
   }
 
+  rerender() {}
+
   bindEvents() {
     this.$root.addEventListener('change', this.handleFiltersChange.bind(this));
   }
@@ -37,20 +39,22 @@ export default class Filters {
   handleFiltersChange(event) {
     const { id, value } = event.target;
 
-    switch (id) {
-      case 'category-filter':
-        restaurantService.category = value;
-        break;
-      case 'sorting-filter':
-        restaurantService.sort = value;
-        break;
-      default:
-        return;
-    }
+    if (id === 'category-filter') restaurantService.category = value;
+    if (id === 'sorting-filter') restaurantService.sort = value;
 
     restaurantService.filterRestaurantList();
-    this.$restaurantList.restaurants = restaurantService.getFilteredRestaurant();
-    this.$restaurantList.remove();
-    this.$restaurantList.render();
+
+    this.restaurantList.rerender();
+  }
+
+  inject(restaurantList) {
+    this.restaurantList = restaurantList;
+
+    return this;
+  }
+
+  mount() {
+    this.render();
+    this.bindEvents();
   }
 }
