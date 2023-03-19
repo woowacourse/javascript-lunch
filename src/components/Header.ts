@@ -7,12 +7,16 @@ class Header {
     container: '',
   };
 
-  constructor(state) {
+  constructor(state: { container: string }) {
     this.#state = state;
   }
 
   render() {
-    $(this.#state.container).insertAdjacentHTML('beforeend', this.#template());
+    const headerContainer = $(this.#state.container);
+
+    if (headerContainer instanceof HTMLElement) {
+      headerContainer.insertAdjacentHTML('beforeend', this.#template());
+    }
   }
 
   #template() {

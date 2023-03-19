@@ -7,12 +7,16 @@ class Modal {
     modalId: '',
   };
 
-  constructor(state) {
+  constructor(state: { container: string; modalId: string }) {
     this.#state = state;
   }
 
   render() {
-    $(this.#state.container).insertAdjacentHTML('beforeend', this.#template());
+    const modalContainer = $(this.#state.container);
+
+    if (modalContainer) {
+      modalContainer.insertAdjacentHTML('beforeend', this.#template());
+    }
   }
 
   #template() {

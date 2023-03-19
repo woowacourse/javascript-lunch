@@ -1,22 +1,35 @@
 import '../../css/restaurant-bottom-sheet.css';
+import '../assets/category-korean.png';
+import '../assets/category-chinese.png';
+import '../assets/category-japanese.png';
+import '../assets/category-western.png';
+import '../assets/category-asian.png';
+import '../assets/category-etc.png';
+import '../assets/favorite-icon-filled.png';
+import '../assets/favorite-icon-lined.png';
 import { $ } from '../utils/selector';
 import { CATEGORY_IMAGES } from '../constants/asset';
 import { BUTTON_TEXT } from '../constants/restaurantAddModalContent';
+import { RestaurantType } from '../type/types';
 
 class RestaurantBottomSheetContent {
   #state = {
     container: '',
   };
 
-  constructor(state) {
+  constructor(state: { container: string }) {
     this.#state = state;
   }
 
-  render(restaurant) {
-    $(this.#state.container).innerHTML = this.#template(restaurant);
+  render(restaurant: RestaurantType) {
+    const bottomSheet = $(this.#state.container);
+
+    if (bottomSheet) {
+      bottomSheet.innerHTML = this.#template(restaurant);
+    }
   }
 
-  #template({ number, category, name, distance, description, isFavorite, link }) {
+  #template({ number, category, name, distance, description, isFavorite, link }: RestaurantType) {
     const favoriteOpenClass = isFavorite ? 'favorite-icon-filled--open' : '';
 
     /* html */

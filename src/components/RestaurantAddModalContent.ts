@@ -14,12 +14,16 @@ class RestaurantAddModalContent {
     container: '',
   };
 
-  constructor(state) {
+  constructor(state: { container: string }) {
     this.#state = state;
   }
 
   render() {
-    $(this.#state.container).innerHTML = this.#template();
+    const restaurantAddModal = $(this.#state.container);
+
+    if (restaurantAddModal) {
+      restaurantAddModal.innerHTML = this.#template();
+    }
   }
 
   #template() {

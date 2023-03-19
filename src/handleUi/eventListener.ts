@@ -15,6 +15,7 @@ import { executeEventListener } from '../utils/eventListener';
 import { handleDeleteClick } from './bottomSheet';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+import { isRestaurant, isRestaurantList } from '../type/customTypeGuards';
 
 export const eventListener = {
   initEventListeners(RestaurantManager: restaurantManager) {
@@ -45,7 +46,9 @@ export const eventListener = {
 
       if (target instanceof HTMLButtonElement) {
         const restaurantList = handleNavigationClick(target);
-        components.restaurantList.render(restaurantList);
+        if (isRestaurantList(restaurantList)) {
+          components.restaurantList.render(restaurantList);
+        }
       }
     });
   },
@@ -56,7 +59,9 @@ export const eventListener = {
 
       if (target instanceof HTMLSelectElement) {
         const restaurantList = handleFilterChange(target);
-        components.restaurantList.render(restaurantList);
+        if (isRestaurantList(restaurantList)) {
+          components.restaurantList.render(restaurantList);
+        }
       }
     });
   },
@@ -71,7 +76,9 @@ export const eventListener = {
 
       if (target instanceof HTMLButtonElement) {
         const restaurant = handleRestaurantItemClick(target);
-        components.restaurantBottomSheetContent.render(restaurant);
+        if (isRestaurant(restaurant)) {
+          components.restaurantBottomSheetContent.render(restaurant);
+        }
         this.controlRestaurantBottomSheet(RestaurantManager);
       }
     });

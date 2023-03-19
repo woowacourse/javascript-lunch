@@ -6,12 +6,16 @@ class Navigation {
     container: '',
   };
 
-  constructor(state) {
+  constructor(state: { container: string }) {
     this.#state = state;
   }
 
   render() {
-    $(this.#state.container).insertAdjacentHTML('beforeend', this.#template());
+    const navigationContainer = $(this.#state.container);
+
+    if (navigationContainer) {
+      navigationContainer.insertAdjacentHTML('beforeend', this.#template());
+    }
   }
 
   #template() {

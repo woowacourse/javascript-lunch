@@ -9,30 +9,35 @@ import '../assets/favorite-icon-filled.png';
 import '../assets/favorite-icon-lined.png';
 import { $ } from '../utils/selector';
 import { CATEGORY_IMAGES } from '../constants/asset';
+import { RestaurantType } from '../type/types';
 
 class RestaurantList {
   #state = {
     additionRenderContainer: '',
   };
 
-  constructor(state) {
+  constructor(state: { additionRenderContainer: string }) {
     this.#state = state;
   }
 
-  render(restaurantList) {
+  render(restaurantList: RestaurantType[]) {
+    const restaurantListContainer = $('.restaurant-list');
     const restaurantListHTML = restaurantList.map(info => this.#template(info)).join('');
 
-    $('.restaurant-list').innerHTML = restaurantListHTML;
+    if (restaurantListContainer) {
+      restaurantListContainer.innerHTML = restaurantListHTML;
+    }
   }
 
-  renderAdditionRestaurant(restaurant) {
-    $(this.#state.additionRenderContainer).insertAdjacentHTML(
-      'beforeend',
-      this.#template(restaurant)
-    );
+  renderAdditionRestaurant(restaurant: RestaurantType) {
+    const restaurantListContainer = $(this.#state.additionRenderContainer);
+
+    if (restaurantListContainer) {
+      restaurantListContainer.insertAdjacentHTML('beforeend', this.#template(restaurant));
+    }
   }
 
-  #template({ number, category, name, distance, description, isFavorite }) {
+  #template({ number, category, name, distance, description, isFavorite }: RestaurantType) {
     const favoriteOpenClass = isFavorite ? 'favorite-icon-filled--open' : '';
 
     /* html */
