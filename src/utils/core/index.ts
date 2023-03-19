@@ -11,10 +11,18 @@ export interface Event {
   event: keyof HTMLElementEventMap;
   callback: EventCallback;
 }
+
+export interface Effect {
+  callback(): unknown;
+  deps: unknown[];
+}
+
 interface Options<T = unknown> {
   currentStateKey: number;
+  currentEffectsKey: number;
   states: T[];
   events: Event[];
+  effects: Effect[];
   root: null | Element;
   rootComponent: null | (() => string);
 }
@@ -24,8 +32,10 @@ type Dispatch<T> = (value: T) => void;
 function Core() {
   const options: Options<UnPack<Parameters<typeof useState>>> = {
     currentStateKey: 0,
+    currentEffectsKey: 0,
     states: [],
     events: [],
+    effects: [],
     root: null,
     rootComponent: null,
   };
@@ -48,11 +58,27 @@ function Core() {
     return [state, setState];
   }
 
+  const useEffect = (callback: Effect['callback'], deps: Effect['deps']) => {
+    const { currentEffectsKey: key, effects } = options;
+    if (effects.length === key) {
+      effects.push({ deps, callback });
+      callback();
+    }
+
+    if (JSON.stringify(effects[key].deps) !== JSON.stringify(deps)) {
+      callback();
+      effects[key] = { deps, callback };
+    }
+
+    options.currentEffectsKey += 1;
+  };
+
   const _render = debounce(() => {
     const { root, rootComponent } = options;
     if (!root || !rootComponent) return;
     root.innerHTML = rootComponent();
     options.currentStateKey = 0;
+    options.currentEffectsKey = 0;
 
     _addEvent();
 
@@ -89,7 +115,7 @@ function Core() {
     });
   }
 
-  return { useState, useEvents, render };
+  return { useState, useEvents, useEffect, render };
 }
 
-export const { useState, useEvents, render } = Core();
+export const { useState, useEvents, useEffect, render } = Core();
