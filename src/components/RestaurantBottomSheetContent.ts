@@ -1,37 +1,51 @@
 import '../../css/restaurant-bottom-sheet.css';
-import '../assets/category-korean.png';
-import '../assets/category-chinese.png';
-import '../assets/category-japanese.png';
-import '../assets/category-western.png';
-import '../assets/category-asian.png';
-import '../assets/category-etc.png';
-import '../assets/favorite-icon-filled.png';
-import '../assets/favorite-icon-lined.png';
 import { $ } from '../utils/selector';
-import { CATEGORY_IMAGES } from '../constants/asset';
 import { BUTTON_TEXT } from '../constants/restaurantAddModalContent';
-import { RestaurantType } from '../type/types';
+import { RestaurantListState, RestaurantType } from '../type/types';
+import FavoriteIcon from './FavoriteIcon';
+import RestaurantCategory from './RestaurantCategory';
+import RestaurantName from './RestaurantName';
+import RestaurantDistance from './RestaurantDistance';
+import RestaurantDescription from './RestaurantDescription';
 
 class RestaurantBottomSheetContent {
-  #state = {
+  private state: RestaurantListState = {
     container: '',
+    nameComponent: null,
+    distanceComponent: null,
+    categoryComponent: null,
+    favoriteComponent: null,
+    descriptionComponent: null,
   };
 
-  constructor(state: { container: string }) {
-    this.#state = state;
+  constructor(state: {
+    container: string;
+    nameComponent: RestaurantName;
+    distanceComponent: RestaurantDistance;
+    categoryComponent: RestaurantCategory;
+    favoriteComponent: FavoriteIcon;
+    descriptionComponent: RestaurantDescription;
+  }) {
+    this.state = state;
   }
 
   render(restaurant: RestaurantType) {
-    const bottomSheet = $(this.#state.container);
+    const bottomSheet = $(this.state.container);
 
     if (bottomSheet) {
-      bottomSheet.innerHTML = this.#template(restaurant);
+      bottomSheet.innerHTML = this.template(restaurant);
     }
   }
 
-  #template({ number, category, name, distance, description, isFavorite, link }: RestaurantType) {
-    const favoriteOpenClass = isFavorite ? 'favorite-icon-filled--open' : '';
-
+  private template({
+    number,
+    category,
+    name,
+    distance,
+    description,
+    isFavorite,
+    link,
+  }: RestaurantType) {
     /* html */
     return `
 			<div class="modal-backdrop"></div>
@@ -42,41 +56,21 @@ class RestaurantBottomSheetContent {
 					<div class="head-left">
 
 						<div class="restaurant__category">
-							<img
-								src="./category-${CATEGORY_IMAGES[category]}.png"
-								alt="${category}"
-								class="category-icon"
-							/>
+							${this.state.categoryComponent?.template(category)}
 						</div>
 
-						<h3 class="restaurant__name text-subtitle">
-							${name}
-						</h3>
-
-						<span class="restaurant__distance text-body">
-							캠퍼스부터 ${distance}분 내
-						</span>
+						${this.state.nameComponent?.template(name)}
+						${this.state.distanceComponent?.template(distance)}
 					</div>
 
 					<!-- 즐겨찾기 등록/해제 버튼 -->
 					<div class="favorite-icon-container">
-					<img
-						src="./favorite-icon-lined.png"
-						alt="즐겨찾기"
-						class="favorite-icon-lined favorite-icon-lined-${number}"
-					/>
-					<img
-						src="./favorite-icon-filled.png"
-						alt="즐겨찾기"
-						class="favorite-icon-filled favorite-icon-filled-${number} ${favoriteOpenClass}"
-					/>
+						${this.state.favoriteComponent?.template(number, isFavorite ? 'favorite-icon-filled--open' : '')}
 					</div>
 				</div>
 
 				<!-- 음식점 설명 -->
-				<p class="restaurant__description text-body">
-					${description}
-				</p>
+				${this.state.descriptionComponent?.template(description)}
 
 				<!-- 하이퍼링크 -->
 				<a class="restaurant-link"

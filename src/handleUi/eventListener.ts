@@ -1,4 +1,4 @@
-import restaurantManager from '../domains/RestaurantManager';
+import RestaurantManager from '../domains/RestaurantManager';
 import { components } from '../components/components';
 import { handleGNBClick, handleHeaderTitleClick } from './header';
 import { handleNavigationClick } from './navigation';
@@ -18,12 +18,12 @@ import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { isRestaurant, isRestaurantList } from '../type/customTypeGuards';
 
 export const eventListener = {
-  initEventListeners(RestaurantManager: restaurantManager) {
+  initEventListeners(restaurantManager: RestaurantManager) {
     this.controlHeader();
     this.controlNavigation();
     this.controlFilter();
-    this.controlRestaurantList(RestaurantManager);
-    this.controlRestaurantAddContainer(RestaurantManager);
+    this.controlRestaurantList(restaurantManager);
+    this.controlRestaurantAddContainer(restaurantManager);
   },
 
   controlHeader() {
@@ -66,12 +66,12 @@ export const eventListener = {
     });
   },
 
-  controlRestaurantList(RestaurantManager: restaurantManager) {
+  controlRestaurantList(restaurantManager: RestaurantManager) {
     executeEventListener('.restaurant-list-container', 'click', (event: Event) => {
       const target = event.target;
 
       if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
-        handleFavoriteIconClick(target, RestaurantManager);
+        handleFavoriteIconClick(target, restaurantManager);
       }
 
       if (target instanceof HTMLButtonElement) {
@@ -79,12 +79,12 @@ export const eventListener = {
         if (isRestaurant(restaurant)) {
           components.restaurantBottomSheetContent.render(restaurant);
         }
-        this.controlRestaurantBottomSheet(RestaurantManager);
+        this.controlRestaurantBottomSheet(restaurantManager);
       }
     });
   },
 
-  controlRestaurantAddContainer(RestaurantManager: restaurantManager) {
+  controlRestaurantAddContainer(restaurantManager: RestaurantManager) {
     executeEventListener('#add-cancel', 'click', (event: Event) => {
       const target = event.target;
       event.preventDefault();
@@ -106,14 +106,14 @@ export const eventListener = {
       const target = event.target;
       event.preventDefault();
 
-      if (target instanceof HTMLFormElement && RestaurantManager.addNewRestaurant(event)) {
+      if (target instanceof HTMLFormElement && restaurantManager.addNewRestaurant(event)) {
         handleNewRestaurantAddSubmit();
         components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
       }
     });
   },
 
-  controlRestaurantBottomSheet(RestaurantManager: restaurantManager) {
+  controlRestaurantBottomSheet(restaurantManager: RestaurantManager) {
     handleModalOpen('#restaurant-bottom-sheet');
 
     executeEventListener('.modal-backdrop', 'click', () => {
@@ -124,7 +124,7 @@ export const eventListener = {
       const target = event.target;
 
       if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
-        handleFavoriteIconClick(target, RestaurantManager);
+        handleFavoriteIconClick(target, restaurantManager);
       }
     });
 
@@ -136,7 +136,7 @@ export const eventListener = {
       }
 
       if (target instanceof HTMLButtonElement && target.ariaLabel === 'delete') {
-        handleDeleteClick(target, RestaurantManager);
+        handleDeleteClick(target, restaurantManager);
         components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
       }
     });

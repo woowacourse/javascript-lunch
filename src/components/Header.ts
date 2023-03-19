@@ -3,23 +3,23 @@ import '../assets/add-button.png';
 import { $ } from '../utils/selector';
 
 class Header {
-  #state = {
+  private state = {
     container: '',
   };
 
   constructor(state: { container: string }) {
-    this.#state = state;
+    this.state = state;
   }
 
   render() {
-    const headerContainer = $(this.#state.container);
+    const headerContainer = $(this.state.container);
 
     if (headerContainer instanceof HTMLElement) {
-      headerContainer.insertAdjacentHTML('beforeend', this.#template());
+      headerContainer.insertAdjacentHTML('beforeend', this.template());
     }
   }
 
-  #template() {
+  private template() {
     /* html */
     return `
 			<h1 class="gnb__title text-title">점심 뭐 먹지</h1>

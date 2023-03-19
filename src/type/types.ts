@@ -1,3 +1,9 @@
+import FavoriteIcon from '../components/FavoriteIcon';
+import RestaurantCategory from '../components/RestaurantCategory';
+import RestaurantDescription from '../components/RestaurantDescription';
+import RestaurantDistance from '../components/RestaurantDistance';
+import RestaurantName from '../components/RestaurantName';
+
 export type SortingOption =
   | 'name'
   | 'distance'
@@ -21,4 +27,13 @@ export interface RestaurantType {
 
 export interface SortBy {
   [key: string]: (list: RestaurantType[]) => RestaurantType[];
+}
+
+export interface RestaurantListState {
+  container: string;
+  nameComponent: RestaurantName | null;
+  distanceComponent: RestaurantDistance | null;
+  categoryComponent: RestaurantCategory | null;
+  favoriteComponent: FavoriteIcon | null;
+  descriptionComponent: RestaurantDescription | null;
 }

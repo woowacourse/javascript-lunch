@@ -10,23 +10,23 @@ import {
 } from '../constants/restaurantAddModalContent';
 
 class RestaurantAddModalContent {
-  #state = {
+  private state = {
     container: '',
   };
 
   constructor(state: { container: string }) {
-    this.#state = state;
+    this.state = state;
   }
 
   render() {
-    const restaurantAddModal = $(this.#state.container);
+    const restaurantAddModal = $(this.state.container);
 
     if (restaurantAddModal) {
-      restaurantAddModal.innerHTML = this.#template();
+      restaurantAddModal.innerHTML = this.template();
     }
   }
 
-  #template() {
+  private template() {
     /* html */
     return `
 			<div class="modal-backdrop"></div>

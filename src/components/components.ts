@@ -8,6 +8,11 @@ import RestaurantBottomSheetContent from './RestaurantBottomSheetContent';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { SELECT_OPTION_LIST } from '../constants/filter';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+import FavoriteIcon from './FavoriteIcon';
+import RestaurantCategory from './RestaurantCategory';
+import RestaurantName from './RestaurantName';
+import RestaurantDistance from './RestaurantDistance';
+import RestaurantDescription from './RestaurantDescription';
 
 export const components = {
   header: new Header({ container: 'header' }),
@@ -31,7 +36,12 @@ export const components = {
   }),
 
   restaurantList: new RestaurantList({
-    additionRenderContainer: '.restaurant',
+    container: '.restaurant-list',
+    nameComponent: new RestaurantName({ container: '' }),
+    distanceComponent: new RestaurantDistance({ container: '' }),
+    categoryComponent: new RestaurantCategory({ container: '.restaurant__category' }),
+    favoriteComponent: new FavoriteIcon({ container: '.favorite-icon-container' }),
+    descriptionComponent: new RestaurantDescription({ container: '' }),
   }),
 
   restaurantAddModal: new Modal({
@@ -50,6 +60,11 @@ export const components = {
 
   restaurantBottomSheetContent: new RestaurantBottomSheetContent({
     container: '#restaurant-bottom-sheet',
+    nameComponent: new RestaurantName({ container: '' }),
+    distanceComponent: new RestaurantDistance({ container: '' }),
+    categoryComponent: new RestaurantCategory({ container: '.restaurant__category' }),
+    favoriteComponent: new FavoriteIcon({ container: '.favorite-icon-container' }),
+    descriptionComponent: new RestaurantDescription({ container: '' }),
   }),
 
   initRender() {

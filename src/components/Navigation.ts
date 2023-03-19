@@ -2,23 +2,23 @@ import '../../css/nav.css';
 import { $ } from '../utils/selector';
 
 class Navigation {
-  #state = {
+  private state = {
     container: '',
   };
 
   constructor(state: { container: string }) {
-    this.#state = state;
+    this.state = state;
   }
 
   render() {
-    const navigationContainer = $(this.#state.container);
+    const navigationContainer = $(this.state.container);
 
     if (navigationContainer) {
-      navigationContainer.insertAdjacentHTML('beforeend', this.#template());
+      navigationContainer.insertAdjacentHTML('beforeend', this.template());
     }
   }
 
-  #template() {
+  private template() {
     /* html */
     return `
 			<div class="nav-container">

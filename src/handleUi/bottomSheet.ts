@@ -1,19 +1,34 @@
-import restaurantManager from '../domains/RestaurantManager';
+import RestaurantManager from '../domains/RestaurantManager';
 import { isRestaurantList } from '../type/customTypeGuards';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { RestaurantType } from '../type/types';
 
-export const handleDeleteClick = (
-  target: HTMLButtonElement,
-  RestaurantManager: restaurantManager
+const deleteFavoriteItem = (
+  {
+    restaurantList,
+    favoriteList,
+  }: { restaurantList: RestaurantType[]; favoriteList: RestaurantType[] },
+  index: number,
+  restaurantManager: RestaurantManager
 ) => {
-  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
-  const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
+  const favoriteIndex = favoriteList.findIndex(
+    favorite => favorite.name === restaurantList[index].name
+  );
 
-  if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
-    deleteItem(target, { restaurantList, favoriteList }, RestaurantManager);
-  }
+  favoriteList.splice(favoriteIndex, 1);
+  favoriteList.forEach((favorite, i) => (favorite.number = i));
+  restaurantManager.updateFavoriteList(favoriteList);
+};
+
+const deleteRestaurantItem = (
+  restaurantList: RestaurantType[],
+  index: number,
+  restaurantManager: RestaurantManager
+) => {
+  restaurantList.splice(index, 1);
+  restaurantList.forEach((restaurant, i) => (restaurant.number = i));
+  restaurantManager.updateRestaurantList(restaurantList);
 };
 
 const deleteItem = (
@@ -22,39 +37,24 @@ const deleteItem = (
     restaurantList,
     favoriteList,
   }: { restaurantList: RestaurantType[]; favoriteList: RestaurantType[] },
-  RestaurantManager: restaurantManager
+  restaurantManager: RestaurantManager
 ) => {
   const index = parseInt(target.name, 10);
 
   if (restaurantList[index].isFavorite === true) {
-    deleteFavoriteItem({ restaurantList, favoriteList }, index, RestaurantManager);
+    deleteFavoriteItem({ restaurantList, favoriteList }, index, restaurantManager);
   }
-  deleteRestaurantItem(restaurantList, index, RestaurantManager);
+  deleteRestaurantItem(restaurantList, index, restaurantManager);
 };
 
-const deleteFavoriteItem = (
-  {
-    restaurantList,
-    favoriteList,
-  }: { restaurantList: RestaurantType[]; favoriteList: RestaurantType[] },
-  index: number,
-  RestaurantManager: restaurantManager
+export const handleDeleteClick = (
+  target: HTMLButtonElement,
+  restaurantManager: RestaurantManager
 ) => {
-  const favoriteIndex = favoriteList.findIndex(
-    favorite => favorite.name === restaurantList[index].name
-  );
+  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+  const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
 
-  favoriteList.splice(favoriteIndex, 1);
-  favoriteList.forEach((favorite, i) => (favorite.number = i));
-  RestaurantManager.updateFavoriteList(favoriteList);
-};
-
-const deleteRestaurantItem = (
-  restaurantList: RestaurantType[],
-  index: number,
-  RestaurantManager: restaurantManager
-) => {
-  restaurantList.splice(index, 1);
-  restaurantList.forEach((restaurant, i) => (restaurant.number = i));
-  RestaurantManager.updateRestaurantList(restaurantList);
+  if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
+    deleteItem(target, { restaurantList, favoriteList }, restaurantManager);
+  }
 };

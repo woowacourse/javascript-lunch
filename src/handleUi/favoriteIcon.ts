@@ -3,11 +3,11 @@ import { RestaurantType } from '../type/types';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { $, $$ } from '../utils/selector';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-import restaurantManager from '../domains/RestaurantManager';
+import RestaurantManager from '../domains/RestaurantManager';
 
 export const handleFavoriteIconClick = (
   target: HTMLImageElement,
-  RestaurantManager: restaurantManager
+  restaurantManager: RestaurantManager
 ) => {
   const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
   const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
@@ -21,8 +21,8 @@ export const handleFavoriteIconClick = (
       removeFavoriteItem({ restaurantList, favoriteList }, number);
     }
 
-    RestaurantManager.updateRestaurantList(restaurantList);
-    RestaurantManager.updateFavoriteList(favoriteList);
+    restaurantManager.updateRestaurantList(restaurantList);
+    restaurantManager.updateFavoriteList(favoriteList);
   }
 };
 

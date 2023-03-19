@@ -1,81 +1,64 @@
 import '../../css/restaurant-list.css';
-import '../assets/category-korean.png';
-import '../assets/category-chinese.png';
-import '../assets/category-japanese.png';
-import '../assets/category-western.png';
-import '../assets/category-asian.png';
-import '../assets/category-etc.png';
-import '../assets/favorite-icon-filled.png';
-import '../assets/favorite-icon-lined.png';
 import { $ } from '../utils/selector';
-import { CATEGORY_IMAGES } from '../constants/asset';
-import { RestaurantType } from '../type/types';
+import { RestaurantListState, RestaurantType } from '../type/types';
+import FavoriteIcon from './FavoriteIcon';
+import RestaurantCategory from './RestaurantCategory';
+import RestaurantName from './RestaurantName';
+import RestaurantDistance from './RestaurantDistance';
+import RestaurantDescription from './RestaurantDescription';
 
 class RestaurantList {
-  #state = {
-    additionRenderContainer: '',
+  private state: RestaurantListState = {
+    container: '',
+    nameComponent: null,
+    distanceComponent: null,
+    categoryComponent: null,
+    favoriteComponent: null,
+    descriptionComponent: null,
   };
 
-  constructor(state: { additionRenderContainer: string }) {
-    this.#state = state;
+  constructor(state: {
+    container: string;
+    nameComponent: RestaurantName;
+    distanceComponent: RestaurantDistance;
+    categoryComponent: RestaurantCategory;
+    favoriteComponent: FavoriteIcon;
+    descriptionComponent: RestaurantDescription;
+  }) {
+    this.state = state;
   }
 
   render(restaurantList: RestaurantType[]) {
-    const restaurantListContainer = $('.restaurant-list');
-    const restaurantListHTML = restaurantList.map(info => this.#template(info)).join('');
+    const restaurantListContainer = $(this.state.container);
+    const restaurantListHTML = restaurantList.map(info => this.template(info)).join('');
 
     if (restaurantListContainer) {
       restaurantListContainer.innerHTML = restaurantListHTML;
     }
   }
 
-  renderAdditionRestaurant(restaurant: RestaurantType) {
-    const restaurantListContainer = $(this.#state.additionRenderContainer);
-
-    if (restaurantListContainer) {
-      restaurantListContainer.insertAdjacentHTML('beforeend', this.#template(restaurant));
-    }
-  }
-
-  #template({ number, category, name, distance, description, isFavorite }: RestaurantType) {
-    const favoriteOpenClass = isFavorite ? 'favorite-icon-filled--open' : '';
-
+  private template({ number, category, name, distance, description, isFavorite }: RestaurantType) {
     /* html */
     return `
 			<li class="restaurant">
     		<div class="restaurant__category">
-    			<img
-    				src="./category-${CATEGORY_IMAGES[category]}.png"
-    				alt="${category}"
-    				class="category-icon"
-    			/>
+    			${this.state.categoryComponent?.template(category)}
     		</div>
+
     		<div class="restaurant__info">
 					<div class="info-top">
 						<div>
-    					<h3 class="restaurant__name text-subtitle">
-								${name}
-							</h3>
-    					<span class="restaurant__distance text-body">
-								캠퍼스부터 ${distance}분 내
-							</span>
+    					${this.state.nameComponent?.template(name)}
+    					${this.state.distanceComponent?.template(distance)}
 						</div>
+
 						<div class="favorite-icon-container">
-							<img
-								src="./favorite-icon-lined.png"
-								alt="즐겨찾기"
-								class="favorite-icon-lined favorite-icon-lined-${number}"
-							/>
-							<img
-								src="./favorite-icon-filled.png"
-								alt="즐겨찾기"
-								class="favorite-icon-filled favorite-icon-filled-${number} ${favoriteOpenClass}"
-							/>
+							${this.state.favoriteComponent?.template(number, isFavorite ? 'favorite-icon-filled--open' : '')}
 						</div>
 					</div>
-					<p class="restaurant__description text-body">
-					${description}
-					</p>
+
+					${this.state.descriptionComponent?.template(description)}
+
 					<button
 						class="restaurant-info-open-button"
 						name="${number}"
