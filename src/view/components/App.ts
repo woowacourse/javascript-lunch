@@ -4,13 +4,13 @@ import { AddRestaurantModal } from './AddRestaurantModal';
 import { useModal } from '../../utils/hooks/useModal';
 
 function App() {
-  const [isAddRestaurantModalOpen, openAddRestaurantModal, closeAdRestaurantModal] =
+  const [isAddRestaurantModalOpen, openAddRestaurantModal, closeAddRestaurantModal] =
     useModal(false);
 
   return `
     ${Header({ open: openAddRestaurantModal })}
     ${LandingMain()}
-    ${isAddRestaurantModalOpen ? AddRestaurantModal({ close: closeAdRestaurantModal }) : ''}
+    ${isAddRestaurantModalOpen ? AddRestaurantModal({ close: closeAddRestaurantModal }) : ''}
     `;
 }
 
