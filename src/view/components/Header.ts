@@ -8,7 +8,7 @@ interface HeaderProps {
 function Header({ openAddRestaurantModal }: HeaderProps) {
   const [addEvent] = useEvents('.gnb');
 
-  addEvent('click', '.gnb__button', (e) => {
+  addEvent('click', '.gnb__button', () => {
     openAddRestaurantModal();
   });
 
