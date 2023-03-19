@@ -1,4 +1,4 @@
-import { RestaurantType } from './types';
+import { RestaurantType, SortingOption } from './types';
 
 const restaurantKeys = [
   'number',
@@ -23,4 +23,22 @@ export const isRestaurantList = (restaurantList: unknown): restaurantList is Res
     Array.isArray(localRestaurantList) &&
     localRestaurantList.every(restaurant => isRestaurant(restaurant))
   );
+};
+
+const sortingOptionKeys = [
+  'name',
+  'distance',
+  '한식',
+  '중식',
+  '일식',
+  '양식',
+  '아시안',
+  '기타',
+  '전체',
+];
+
+export const isSortingOption = (sortingOption: unknown): sortingOption is SortingOption => {
+  const value = sortingOption as SortingOption;
+
+  return sortingOptionKeys.includes(value);
 };

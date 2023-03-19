@@ -3,10 +3,8 @@ import { $ } from '../utils/selector';
 
 class Modal {
   #state = {
-    selector: '',
-    id: '',
-    backdrop: '',
     container: '',
+    modalId: '',
   };
 
   constructor(state) {
@@ -14,16 +12,13 @@ class Modal {
   }
 
   render() {
-    $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
+    $(this.#state.container).insertAdjacentHTML('beforeend', this.#template());
   }
 
   #template() {
     /* html */
     return `
-			<div class="modal" id="${this.#state.id}">
-				<div class="${this.#state.backdrop}"></div>
-				<div class="${this.#state.container}">
-				</div>
+			<div class="modal" id="${this.#state.modalId}">
 			</div>
 		`;
   }

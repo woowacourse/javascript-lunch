@@ -1,7 +1,10 @@
-import filter from '../domains/filter';
+import { sortByOption } from '../domains/filter';
+import { isSortingOption } from '../type/customTypeGuards';
 
 export const handleFilterChange = (target: HTMLSelectElement) => {
   const value = target.value;
 
-  return filter.sortByOption(value);
+  if (isSortingOption(value)) {
+    return sortByOption(value);
+  }
 };

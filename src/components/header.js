@@ -4,8 +4,7 @@ import { $ } from '../utils/selector';
 
 class Header {
   #state = {
-    selector: '',
-    title: '',
+    container: '',
   };
 
   constructor(state) {
@@ -13,13 +12,13 @@ class Header {
   }
 
   render() {
-    $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
+    $(this.#state.container).insertAdjacentHTML('beforeend', this.#template());
   }
 
   #template() {
     /* html */
     return `
-			<h1 class="gnb__title text-title">${this.#state.title}</h1>
+			<h1 class="gnb__title text-title">점심 뭐 먹지</h1>
 			<button type="button" class="gnb__button" aria-label="음식점 추가">
 				<img src="./add-button.png" alt="음식점 추가" />
 			</button>

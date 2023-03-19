@@ -1,55 +1,31 @@
-import { FILTER_OPTION } from '../constants/filter';
-import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-import { RestaurantType } from '../type/types';
 import { getListOnLocalStorage } from '../utils/localStorage';
+import { RestaurantType, SortBy, SortingOption } from '../type/types';
+import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+import { isRestaurantList } from '../type/customTypeGuards';
 
-const filter = {
-  sortByOption(sortingOption: string) {
-    const restaurantList = getListOnLocalStorage(
-      LOCAL_STORAGE_KEY.RESTAURANT_LIST
-    ) as RestaurantType[];
-
-    if (sortingOption === FILTER_OPTION.NAME) {
-      return sortByName(restaurantList);
-    }
-
-    if (sortingOption === FILTER_OPTION.DISTANCE) {
-      return sortByDistance(restaurantList);
-    }
-
-    if (sortingOption !== FILTER_OPTION.ALL_CATEGORIES) {
-      return sortByCategories(restaurantList, sortingOption);
-    }
-
-    return restaurantList;
-  },
+const sortBy: SortBy = {
+  name: (list: RestaurantType[]) =>
+    list.sort((a, b) => {
+      if (a.name > b.name) return 1;
+      if (a.name < b.name) return -1;
+      return 0;
+    }),
+  distance: (list: RestaurantType[]) =>
+    list.sort((a, b) => Number(a.distance) - Number(b.distance)),
 };
 
-const sortByName = (restaurantList: RestaurantType[]) => {
-  return restaurantList.sort((a, b) => {
-    if (a.name > b.name) {
-      return 1;
-    }
-
-    if (a.name < b.name) {
-      return -1;
-    }
-
-    return 0;
-  });
+const sortByCategory = (list: RestaurantType[], category: SortingOption) => {
+  return category === '전체' ? list : list.filter(restaurant => restaurant.category === category);
 };
 
-const sortByDistance = (restaurantList: RestaurantType[]) => {
-  return restaurantList.sort((a, b) => Number(a.distance) - Number(b.distance));
-};
+export const sortByOption = (sortingOption: SortingOption) => {
+  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
 
-const sortByCategories = (
-  restaurantList: RestaurantType[],
-  sortingOption: string
-): RestaurantType[] => {
-  return restaurantList.filter(
-    restaurant => restaurant.category === sortingOption
-  );
-};
+  const sortByFunction = sortBy[sortingOption];
 
-export default filter;
+  if (isRestaurantList(restaurantList)) {
+    return sortByFunction
+      ? sortByFunction(restaurantList)
+      : sortByCategory(restaurantList, sortingOption);
+  }
+};

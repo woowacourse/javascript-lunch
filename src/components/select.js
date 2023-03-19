@@ -3,7 +3,7 @@ import { $ } from '../utils/selector';
 
 class Select {
   #state = {
-    selector: '',
+    container: '',
     id: '',
     name: '',
     class: '',
@@ -15,18 +15,16 @@ class Select {
   }
 
   render() {
-    $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
+    $(this.#state.container).insertAdjacentHTML('beforeend', this.#template());
     this.show();
   }
 
   show() {
-    $(this.#state.selector).classList.add('restaurant-filter-container--open');
+    $(this.#state.container).classList.add('restaurant-filter-container--open');
   }
 
   hide() {
-    $(this.#state.selector).classList.remove(
-      'restaurant-filter-container--open'
-    );
+    $(this.#state.container).classList.remove('restaurant-filter-container--open');
   }
 
   #template() {
@@ -40,10 +38,7 @@ class Select {
 					id="${this.#state.id}"
 					class="${this.#state.class}">
 					${this.#state.optionList
-            .map(
-              option =>
-                `<option value="${option.value}">${option.text}</option>`
-            )
+            .map(option => `<option value="${option.value}">${option.text}</option>`)
             .join('')}
 				</select>
 		`;

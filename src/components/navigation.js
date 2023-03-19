@@ -3,8 +3,7 @@ import { $ } from '../utils/selector';
 
 class Navigation {
   #state = {
-    selector: '',
-    class: '',
+    container: '',
   };
 
   constructor(state) {
@@ -12,13 +11,13 @@ class Navigation {
   }
 
   render() {
-    $(this.#state.selector).insertAdjacentHTML('beforeend', this.#template());
+    $(this.#state.container).insertAdjacentHTML('beforeend', this.#template());
   }
 
   #template() {
     /* html */
     return `
-			<div class=${this.#state.class}>
+			<div class="nav-container">
 				<div class="text-button-container">
 					<button class="selected-text nav-button text-button text-button--primary" aria-label="all-restaurants">모든 음식점</button>
 					<button class="nav-button text-button text-button--secondary" aria-label="favorite-restaurants">자주 가는 음식점</button>

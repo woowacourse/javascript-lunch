@@ -3,59 +3,53 @@ import Navigation from './Navigation';
 import Select from './Select';
 import RestaurantList from './RestaurantList';
 import Modal from './Modal';
-import RestaurantAddContainer from './RestaurantAddContainer';
-import RestaurantBottomSheet from './RestaurantBottomSheet';
-import { FILTER_ID, FILTER_CLASS, FILTER_NAME } from '../constants/filter';
-import { SELECT_OPTION_LIST } from '../constants/filter';
+import RestaurantAddModalContent from './RestaurantAddModalContent';
+import RestaurantBottomSheetContent from './RestaurantBottomSheetContent';
 import { getListOnLocalStorage } from '../utils/localStorage';
+import { SELECT_OPTION_LIST } from '../constants/filter';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 
 export const components = {
-  header: new Header({ selector: 'header', title: '점심 뭐 먹지' }),
+  header: new Header({ container: 'header' }),
 
-  navBar: new Navigation({ selector: 'nav', class: 'nav-container' }),
+  navBar: new Navigation({ container: 'nav' }),
 
   categoryFilter: new Select({
-    selector: '.restaurant-filter-container',
-    id: FILTER_ID.CATEGORY,
-    name: FILTER_NAME.CATEGORY,
-    class: FILTER_CLASS,
+    container: '.restaurant-filter-container',
+    id: 'category-filter',
+    name: 'category',
+    class: 'restaurant-select',
     optionList: SELECT_OPTION_LIST.CATEGORY,
   }),
 
   sortingFilter: new Select({
-    selector: '.restaurant-filter-container',
-    id: FILTER_ID.SORTING,
-    name: FILTER_NAME.SORTING,
-    class: FILTER_CLASS,
+    container: '.restaurant-filter-container',
+    id: 'sorting-filter',
+    name: 'sorting',
+    class: 'restaurant-select',
     optionList: SELECT_OPTION_LIST.SORTING,
   }),
 
   restaurantList: new RestaurantList({
-    listRenderSelector: '.restaurant-list',
-    additionRenderSelector: '.restaurant',
+    additionRenderContainer: '.restaurant',
   }),
 
   restaurantAddModal: new Modal({
-    selector: '.restaurant-add-modal',
-    id: 'restaurant-add-modal',
-    backdrop: 'restaurant-add-backdrop',
-    container: 'restaurant-add-container',
+    container: '.restaurant-add-modal',
+    modalId: 'restaurant-add-modal',
   }),
 
-  restaurantAddContainer: new RestaurantAddContainer({
-    selector: '.restaurant-add-container',
+  restaurantAddModalContent: new RestaurantAddModalContent({
+    container: '#restaurant-add-modal',
   }),
 
   restaurantBottomSheet: new Modal({
-    selector: '.restaurant-bottom-sheet',
-    id: 'restaurant-bottom-sheet',
-    backdrop: 'restaurant-bottom-sheet-backdrop',
-    container: 'restaurant-bottom-sheet-container',
+    container: '.restaurant-bottom-sheet',
+    modalId: 'restaurant-bottom-sheet',
   }),
 
-  restaurantBottomSheetContainer: new RestaurantBottomSheet({
-    selector: '.restaurant-bottom-sheet-container',
+  restaurantBottomSheetContent: new RestaurantBottomSheetContent({
+    container: '#restaurant-bottom-sheet',
   }),
 
   initRender() {
@@ -65,7 +59,7 @@ export const components = {
     this.sortingFilter.render();
     this.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
     this.restaurantAddModal.render();
-    this.restaurantAddContainer.render();
+    this.restaurantAddModalContent.render();
     this.restaurantBottomSheet.render();
   },
 };

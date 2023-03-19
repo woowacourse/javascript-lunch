@@ -71,7 +71,7 @@ export const eventListener = {
 
       if (target instanceof HTMLButtonElement) {
         const restaurant = handleRestaurantItemClick(target);
-        components.restaurantBottomSheetContainer.render(restaurant);
+        components.restaurantBottomSheetContent.render(restaurant);
         this.controlRestaurantBottomSheet(RestaurantManager);
       }
     });
@@ -87,10 +87,10 @@ export const eventListener = {
       }
     });
 
-    executeEventListener('.restaurant-add-backdrop', 'click', (event: Event) => {
+    executeEventListener('.modal-backdrop', 'click', (event: Event) => {
       const target = event.target;
 
-      if (target instanceof HTMLDivElement && target.className === 'restaurant-add-backdrop') {
+      if (target instanceof HTMLDivElement && target.className === 'modal-backdrop') {
         handleBackdropClick();
       }
     });
@@ -109,7 +109,7 @@ export const eventListener = {
   controlRestaurantBottomSheet(RestaurantManager: restaurantManager) {
     handleModalOpen('#restaurant-bottom-sheet');
 
-    executeEventListener('.restaurant-bottom-sheet-backdrop', 'click', () => {
+    executeEventListener('.modal-backdrop', 'click', () => {
       handleModalClose('#restaurant-bottom-sheet');
     });
 

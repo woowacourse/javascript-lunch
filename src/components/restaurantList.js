@@ -12,8 +12,7 @@ import { CATEGORY_IMAGES } from '../constants/asset';
 
 class RestaurantList {
   #state = {
-    listRenderSelector: '',
-    additionRenderSelector: '',
+    additionRenderContainer: '',
   };
 
   constructor(state) {
@@ -21,15 +20,13 @@ class RestaurantList {
   }
 
   render(restaurantList) {
-    const restaurantListHTML = restaurantList
-      .map(info => this.#template(info))
-      .join('');
+    const restaurantListHTML = restaurantList.map(info => this.#template(info)).join('');
 
     $('.restaurant-list').innerHTML = restaurantListHTML;
   }
 
   renderAdditionRestaurant(restaurant) {
-    $(this.#state.additionRenderSelector).insertAdjacentHTML(
+    $(this.#state.additionRenderContainer).insertAdjacentHTML(
       'beforeend',
       this.#template(restaurant)
     );

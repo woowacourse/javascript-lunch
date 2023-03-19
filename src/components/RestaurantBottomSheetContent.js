@@ -1,11 +1,11 @@
 import '../../css/restaurant-bottom-sheet.css';
 import { $ } from '../utils/selector';
 import { CATEGORY_IMAGES } from '../constants/asset';
-import { BUTTON_TEXT } from '../constants/restaurantAddContainer';
+import { BUTTON_TEXT } from '../constants/restaurantAddModalContent';
 
-class RestaurantBottomSheet {
+class RestaurantBottomSheetContent {
   #state = {
-    selector: '',
+    container: '',
   };
 
   constructor(state) {
@@ -13,7 +13,7 @@ class RestaurantBottomSheet {
   }
 
   render(restaurant) {
-    $(this.#state.selector).innerHTML = this.#template(restaurant);
+    $(this.#state.container).innerHTML = this.#template(restaurant);
   }
 
   #template({ number, category, name, distance, description, isFavorite, link }) {
@@ -21,6 +21,8 @@ class RestaurantBottomSheet {
 
     /* html */
     return `
+			<div class="modal-backdrop"></div>
+			<div class="restaurant-bottom-sheet-container">
 				<div class="head-info">
 
 					<!-- 카테고리, 음식점 이름, 거리 컨테이너 -->
@@ -83,8 +85,9 @@ class RestaurantBottomSheet {
 						${BUTTON_TEXT.CLOSE}
 					</button>
 				</div>
+			</div>
 		`;
   }
 }
 
-export default RestaurantBottomSheet;
+export default RestaurantBottomSheetContent;
