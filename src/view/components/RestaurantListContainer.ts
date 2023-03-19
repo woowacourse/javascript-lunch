@@ -1,4 +1,4 @@
-import { Restaurant } from './../../domain/model/LunchRecommendation';
+import { Restaurant } from '../../domain/model/LunchRecommendation';
 import { useState } from '../../utils/core';
 import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { Nav } from './Nav';
@@ -9,12 +9,12 @@ import { Restaurants } from './Restaurants';
 import { useModal } from '../../utils/hooks/useModal';
 import { RestaurantRegistrationModal } from './RestaurantRegistrationModal';
 
-interface LandingMain {
+interface RestaurantListContainerProps {
   isAddRestaurantModalOpen: boolean;
   closeAddRestaurantModal: VoidFunction;
 }
 
-function LandingMain(props: LandingMain) {
+function RestaurantListContainer(props: RestaurantListContainerProps) {
   const { isAddRestaurantModalOpen, closeAddRestaurantModal } = props;
   const [focusedRestaurant, setFocusedRestaurant] = useState<Restaurant | null>(null);
   const [isRestaurantInfoModalOpen, openRestaurantInfoModal, closeRestaurantInfoModal] =
@@ -65,4 +65,4 @@ function LandingMain(props: LandingMain) {
       `;
 }
 
-export { LandingMain };
+export { RestaurantListContainer };

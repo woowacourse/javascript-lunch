@@ -1,5 +1,5 @@
 import { Header } from './Header';
-import { LandingMain } from './LandingMain';
+import { RestaurantListContainer } from './RestaurantListContainer';
 import { useModal } from '../../utils/hooks/useModal';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
 
   return `
     ${Header({ openAddRestaurantModal })}
-    ${LandingMain({ isAddRestaurantModalOpen, closeAddRestaurantModal })}
+    ${RestaurantListContainer({ isAddRestaurantModalOpen, closeAddRestaurantModal })}
     
     `;
 }
