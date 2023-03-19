@@ -38,7 +38,7 @@ class RestaurantBottomSheetContent {
   }
 
   private template({
-    number,
+    restaurantNumber,
     category,
     name,
     distance,
@@ -65,7 +65,10 @@ class RestaurantBottomSheetContent {
 
 					<!-- 즐겨찾기 등록/해제 버튼 -->
 					<div class="favorite-icon-container">
-						${this.state.favoriteComponent?.template(number, isFavorite ? 'favorite-icon-filled--open' : '')}
+						${this.state.favoriteComponent?.template(
+              restaurantNumber,
+              isFavorite ? 'favorite-icon-filled--open' : ''
+            )}
 					</div>
 				</div>
 
@@ -84,7 +87,7 @@ class RestaurantBottomSheetContent {
 					<button
 						class="button button--secondary text-caption"
 						aria-label="delete"
-						name="${number}"
+						name="${restaurantNumber}"
 					>
 						${BUTTON_TEXT.DELETE}
 					</button>

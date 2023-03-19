@@ -2,7 +2,7 @@ import { RestaurantType } from '../type/types';
 
 export const initialRestaurantList: RestaurantType[] = [
   {
-    number: 0,
+    restaurantNumber: 0,
     category: '한식',
     name: '피양콩할마니',
     distance: '10',
@@ -18,7 +18,7 @@ export const initialRestaurantList: RestaurantType[] = [
     isFavorite: false,
   },
   {
-    number: 1,
+    restaurantNumber: 1,
     category: '중식',
     name: '친친',
     distance: '5',
@@ -28,7 +28,7 @@ export const initialRestaurantList: RestaurantType[] = [
     isFavorite: false,
   },
   {
-    number: 2,
+    restaurantNumber: 2,
     category: '일식',
     name: '잇쇼우',
     distance: '10',
@@ -39,7 +39,7 @@ export const initialRestaurantList: RestaurantType[] = [
     isFavorite: false,
   },
   {
-    number: 3,
+    restaurantNumber: 3,
     category: '양식',
     name: '이태리키친',
     distance: '20',
@@ -48,7 +48,7 @@ export const initialRestaurantList: RestaurantType[] = [
     isFavorite: false,
   },
   {
-    number: 4,
+    restaurantNumber: 4,
     category: '아시안',
     name: '호아빈 삼성점',
     distance: '15',
@@ -57,7 +57,7 @@ export const initialRestaurantList: RestaurantType[] = [
     isFavorite: false,
   },
   {
-    number: 5,
+    restaurantNumber: 5,
     category: '기타',
     name: '도스타코스 선릉점',
     distance: '5',

@@ -53,7 +53,7 @@ class RestaurantManager {
 
   private checkNewRestaurant(newRestaurant: RestaurantType) {
     isValidName(newRestaurant.name);
-    newRestaurant.number = this.restaurantList.length;
+    newRestaurant.restaurantNumber = this.restaurantList.length;
     newRestaurant.isFavorite = false;
   }
 

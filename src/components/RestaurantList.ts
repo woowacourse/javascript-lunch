@@ -37,7 +37,14 @@ class RestaurantList {
     }
   }
 
-  private template({ number, category, name, distance, description, isFavorite }: RestaurantType) {
+  private template({
+    restaurantNumber,
+    category,
+    name,
+    distance,
+    description,
+    isFavorite,
+  }: RestaurantType) {
     /* html */
     return `
 			<li class="restaurant">
@@ -53,7 +60,10 @@ class RestaurantList {
 						</div>
 
 						<div class="favorite-icon-container">
-							${this.state.favoriteComponent?.template(number, isFavorite ? 'favorite-icon-filled--open' : '')}
+							${this.state.favoriteComponent?.template(
+                restaurantNumber,
+                isFavorite ? 'favorite-icon-filled--open' : ''
+              )}
 						</div>
 					</div>
 
@@ -61,7 +71,7 @@ class RestaurantList {
 
 					<button
 						class="restaurant-info-open-button"
-						name="${number}"
+						name="${restaurantNumber}"
 						aria-label="open-restaurant-info"
 					/>
 				</div>

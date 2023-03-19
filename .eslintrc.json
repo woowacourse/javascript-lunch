@@ -19,7 +19,7 @@
   "ignorePatterns": ["dist/", "node_modules/"],
   "rules": {
     "max-len": ["error", { "code": 100 }],
-    "max-depth": ["error", 1],
+    "max-depth": ["error", 2],
     "max-lines-per-function": ["error", 15],
     "max-params": ["error", 2],
     "no-console": "off",

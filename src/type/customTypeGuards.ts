@@ -1,7 +1,7 @@
 import { RestaurantType, SortingOption } from './types';
 
 const restaurantKeys = [
-  'number',
+  'restaurantNumber',
   'category',
   'name',
   'distance',
