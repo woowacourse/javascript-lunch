@@ -27,7 +27,9 @@ interface Options<T = unknown> {
   rootComponent: null | (() => string);
 }
 
-type Dispatch<T> = (value: T) => void;
+interface Dispatch<T> {
+  (value: T): void;
+}
 
 function Core() {
   const options: Options<UnPack<Parameters<typeof useState>>> = {
