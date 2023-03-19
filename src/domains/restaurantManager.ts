@@ -26,36 +26,50 @@ class RestaurantManager {
     return RestaurantManager.instance;
   }
 
-  public initRestaurantList() {
-    const isExistRestaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST).length;
-    const isExistFavoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST).length;
+  private getInitList(listType: string, initList: RestaurantType[]): RestaurantType[] {
+    return getListOnLocalStorage(listType).length ? getListOnLocalStorage(listType) : initList;
+  }
 
-    this.restaurantList = isExistRestaurantList
-      ? getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-      : initialRestaurantList;
-    this.favoriteList = isExistFavoriteList
-      ? getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST)
-      : [];
+  public initRestaurantList() {
+    this.restaurantList = this.getInitList(
+      LOCAL_STORAGE_KEY.RESTAURANT_LIST,
+      initialRestaurantList
+    );
+    this.favoriteList = this.getInitList(LOCAL_STORAGE_KEY.FAVORITE_LIST, []);
 
     saveListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST, this.restaurantList);
     saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, this.favoriteList);
+  }
+
+  public updateList(list: RestaurantType[], listType: string) {
+    if (listType === LOCAL_STORAGE_KEY.RESTAURANT_LIST) {
+      this.restaurantList = list;
+      saveListOnLocalStorage(listType, this.restaurantList);
+    } else {
+      this.favoriteList = list;
+      saveListOnLocalStorage(listType, this.favoriteList);
+    }
+  }
+
+  private checkNewRestaurant(newRestaurant: RestaurantType) {
+    isValidName(newRestaurant.name);
+    newRestaurant.number = this.restaurantList.length;
+    newRestaurant.isFavorite = false;
   }
 
   public addNewRestaurant(event: Event) {
     const newRestaurant = this.getNewRestaurant(event);
 
     try {
-      isValidName(newRestaurant.name);
-      newRestaurant.number = this.restaurantList.length;
-      newRestaurant.isFavorite = false;
-      this.updateRestaurantList([...this.restaurantList, newRestaurant]);
-
-      return true;
-    } catch (error: !unknown) {
-      alert(error.message);
+      this.checkNewRestaurant(newRestaurant);
+      this.updateList([...this.restaurantList, newRestaurant], LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
 
       return false;
     }
+
+    return true;
   }
 
   public getNewRestaurant(event: Event) {
@@ -65,16 +79,6 @@ class RestaurantManager {
     ]);
 
     return Object.fromEntries(trimmedNewRestaurant);
-  }
-
-  public updateRestaurantList(restaurantList: RestaurantType[]) {
-    this.restaurantList = restaurantList;
-    saveListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST, this.restaurantList);
-  }
-
-  public updateFavoriteList(favoriteList: RestaurantType[]) {
-    this.favoriteList = favoriteList;
-    saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, this.favoriteList);
   }
 }
 

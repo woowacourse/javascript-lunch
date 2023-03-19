@@ -18,7 +18,7 @@ const deleteFavoriteItem = (
 
   favoriteList.splice(favoriteIndex, 1);
   favoriteList.forEach((favorite, i) => (favorite.number = i));
-  restaurantManager.updateFavoriteList(favoriteList);
+  restaurantManager.updateList(favoriteList, LOCAL_STORAGE_KEY.FAVORITE_LIST);
 };
 
 const deleteRestaurantItem = (
@@ -28,7 +28,7 @@ const deleteRestaurantItem = (
 ) => {
   restaurantList.splice(index, 1);
   restaurantList.forEach((restaurant, i) => (restaurant.number = i));
-  restaurantManager.updateRestaurantList(restaurantList);
+  restaurantManager.updateList(restaurantList, LOCAL_STORAGE_KEY.RESTAURANT_LIST);
 };
 
 const deleteItem = (

@@ -21,8 +21,8 @@ export const handleFavoriteIconClick = (
       removeFavoriteItem({ restaurantList, favoriteList }, number);
     }
 
-    restaurantManager.updateRestaurantList(restaurantList);
-    restaurantManager.updateFavoriteList(favoriteList);
+    restaurantManager.updateList(restaurantList, LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+    restaurantManager.updateList(favoriteList, LOCAL_STORAGE_KEY.FAVORITE_LIST);
   }
 };
 
