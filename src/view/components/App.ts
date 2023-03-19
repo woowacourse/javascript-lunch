@@ -1,6 +1,5 @@
 import { Header } from './Header';
 import { LandingMain } from './LandingMain';
-import { AddRestaurantModal } from './AddRestaurantModal';
 import { useModal } from '../../utils/hooks/useModal';
 
 function App() {

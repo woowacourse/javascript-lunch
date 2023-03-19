@@ -1,6 +1,5 @@
 import { EventCallback, useEvents } from '../../utils/core';
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
-import { useRestaurants } from '../../utils/hooks/useRestaurants';
 import { getFormFields } from '../../utils/common/formData';
 import { useForm } from '../../utils/hooks/useForm';
 import Validator from '../../validation';
@@ -11,12 +10,15 @@ import { parseDistance } from '../../utils/common/restaurant';
 import { Input } from './common/Input';
 import { Modal } from './Modal';
 
-interface AddRestaurantModalProps {
+interface RestaurantRegistrationModalProps {
   close: VoidFunction;
   handleClickAddBtn(res: Omit<RestaurantInfo, 'id'>): void;
 }
 
-function AddRestaurantModal({ close, handleClickAddBtn }: AddRestaurantModalProps) {
+function RestaurantRegistrationModal({
+  close,
+  handleClickAddBtn,
+}: RestaurantRegistrationModalProps) {
   const {
     register,
     formState: { errors },
@@ -138,4 +140,4 @@ function AddRestaurantModal({ close, handleClickAddBtn }: AddRestaurantModalProp
     </form>`,
   });
 }
-export { AddRestaurantModal };
+export { RestaurantRegistrationModal };

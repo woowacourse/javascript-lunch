@@ -7,7 +7,7 @@ import { NavTab } from './NavTab';
 import { RestaurantInfoModal } from './RestaurantInfoModal';
 import { Restaurants } from './Restaurants';
 import { useModal } from '../../utils/hooks/useModal';
-import { AddRestaurantModal } from './AddRestaurantModal';
+import { RestaurantRegistrationModal } from './RestaurantRegistrationModal';
 
 interface LandingMain {
   isAddRestaurantModalOpen: boolean;
@@ -59,7 +59,7 @@ function LandingMain(props: LandingMain) {
     </main>
     ${
       isAddRestaurantModalOpen
-        ? AddRestaurantModal({ close: closeAddRestaurantModal, handleClickAddBtn })
+        ? RestaurantRegistrationModal({ close: closeAddRestaurantModal, handleClickAddBtn })
         : ''
     }
       `;
