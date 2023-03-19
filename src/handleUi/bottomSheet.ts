@@ -1,4 +1,4 @@
-import restaurantManager from '../domains/restaurantManager';
+import restaurantManager from '../domains/RestaurantManager';
 import { isRestaurantList } from '../type/customTypeGuards';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';

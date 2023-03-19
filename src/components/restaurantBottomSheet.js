@@ -3,7 +3,7 @@ import { $ } from '../utils/selector';
 import { CATEGORY_IMAGES } from '../constants/asset';
 import { BUTTON_TEXT } from '../constants/restaurantAddContainer';
 
-class restaurantBottomSheet {
+class RestaurantBottomSheet {
   #state = {
     selector: '',
   };
@@ -16,15 +16,7 @@ class restaurantBottomSheet {
     $(this.#state.selector).innerHTML = this.#template(restaurant);
   }
 
-  #template({
-    number,
-    category,
-    name,
-    distance,
-    description,
-    isFavorite,
-    link,
-  }) {
+  #template({ number, category, name, distance, description, isFavorite, link }) {
     const favoriteOpenClass = isFavorite ? 'favorite-icon-filled--open' : '';
 
     /* html */
@@ -95,4 +87,4 @@ class restaurantBottomSheet {
   }
 }
 
-export default restaurantBottomSheet;
+export default RestaurantBottomSheet;

@@ -1,10 +1,10 @@
-import Header from './header';
-import Navigation from './navigation';
-import Select from './select';
-import RestaurantList from './restaurantList';
-import Modal from './modal';
-import restaurantAddContainer from './restaurantAddContainer';
-import restaurantBottomSheet from './restaurantBottomSheet';
+import Header from './Header';
+import Navigation from './Navigation';
+import Select from './Select';
+import RestaurantList from './RestaurantList';
+import Modal from './Modal';
+import RestaurantAddContainer from './RestaurantAddContainer';
+import RestaurantBottomSheet from './RestaurantBottomSheet';
 import { FILTER_ID, FILTER_CLASS, FILTER_NAME } from '../constants/filter';
 import { SELECT_OPTION_LIST } from '../constants/filter';
 import { getListOnLocalStorage } from '../utils/localStorage';
@@ -43,7 +43,7 @@ export const components = {
     container: 'restaurant-add-container',
   }),
 
-  restaurantAddContainer: new restaurantAddContainer({
+  restaurantAddContainer: new RestaurantAddContainer({
     selector: '.restaurant-add-container',
   }),
 
@@ -54,7 +54,7 @@ export const components = {
     container: 'restaurant-bottom-sheet-container',
   }),
 
-  restaurantBottomSheetContainer: new restaurantBottomSheet({
+  restaurantBottomSheetContainer: new RestaurantBottomSheet({
     selector: '.restaurant-bottom-sheet-container',
   }),
 
@@ -63,9 +63,7 @@ export const components = {
     this.navBar.render();
     this.categoryFilter.render();
     this.sortingFilter.render();
-    this.restaurantList.render(
-      getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-    );
+    this.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
     this.restaurantAddModal.render();
     this.restaurantAddContainer.render();
     this.restaurantBottomSheet.render();

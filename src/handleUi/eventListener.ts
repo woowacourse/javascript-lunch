@@ -1,4 +1,4 @@
-import restaurantManager from '../domains/restaurantManager';
+import restaurantManager from '../domains/RestaurantManager';
 import { components } from '../components/components';
 import { handleGNBClick, handleHeaderTitleClick } from './header';
 import { handleNavigationClick } from './navigation';
@@ -51,38 +51,30 @@ export const eventListener = {
   },
 
   controlFilter() {
-    executeEventListener(
-      '.restaurant-filter-container',
-      'change',
-      (event: Event) => {
-        const target = event.target;
+    executeEventListener('.restaurant-filter-container', 'change', (event: Event) => {
+      const target = event.target;
 
-        if (target instanceof HTMLSelectElement) {
-          const restaurantList = handleFilterChange(target);
-          components.restaurantList.render(restaurantList);
-        }
+      if (target instanceof HTMLSelectElement) {
+        const restaurantList = handleFilterChange(target);
+        components.restaurantList.render(restaurantList);
       }
-    );
+    });
   },
 
   controlRestaurantList(RestaurantManager: restaurantManager) {
-    executeEventListener(
-      '.restaurant-list-container',
-      'click',
-      (event: Event) => {
-        const target = event.target;
+    executeEventListener('.restaurant-list-container', 'click', (event: Event) => {
+      const target = event.target;
 
-        if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
-          handleFavoriteIconClick(target, RestaurantManager);
-        }
-
-        if (target instanceof HTMLButtonElement) {
-          const restaurant = handleRestaurantItemClick(target);
-          components.restaurantBottomSheetContainer.render(restaurant);
-          this.controlRestaurantBottomSheet(RestaurantManager);
-        }
+      if (target instanceof HTMLImageElement && target.alt === '즐겨찾기') {
+        handleFavoriteIconClick(target, RestaurantManager);
       }
-    );
+
+      if (target instanceof HTMLButtonElement) {
+        const restaurant = handleRestaurantItemClick(target);
+        components.restaurantBottomSheetContainer.render(restaurant);
+        this.controlRestaurantBottomSheet(RestaurantManager);
+      }
+    });
   },
 
   controlRestaurantAddContainer(RestaurantManager: restaurantManager) {
@@ -90,41 +82,26 @@ export const eventListener = {
       const target = event.target;
       event.preventDefault();
 
-      if (
-        target instanceof HTMLButtonElement &&
-        target.ariaLabel === 'cancel'
-      ) {
+      if (target instanceof HTMLButtonElement && target.ariaLabel === 'cancel') {
         handleNewRestaurantCancelClick();
       }
     });
 
-    executeEventListener(
-      '.restaurant-add-backdrop',
-      'click',
-      (event: Event) => {
-        const target = event.target;
+    executeEventListener('.restaurant-add-backdrop', 'click', (event: Event) => {
+      const target = event.target;
 
-        if (
-          target instanceof HTMLDivElement &&
-          target.className === 'restaurant-add-backdrop'
-        ) {
-          handleBackdropClick();
-        }
+      if (target instanceof HTMLDivElement && target.className === 'restaurant-add-backdrop') {
+        handleBackdropClick();
       }
-    );
+    });
 
     executeEventListener('#new-restaurant-form', 'submit', (event: Event) => {
       const target = event.target;
       event.preventDefault();
 
-      if (
-        target instanceof HTMLFormElement &&
-        RestaurantManager.addNewRestaurant(event)
-      ) {
+      if (target instanceof HTMLFormElement && RestaurantManager.addNewRestaurant(event)) {
         handleNewRestaurantAddSubmit();
-        components.restaurantList.render(
-          getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-        );
+        components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
       }
     });
   },
@@ -144,26 +121,17 @@ export const eventListener = {
       }
     });
 
-    executeEventListener(
-      '.button-container-info-modal',
-      'click',
-      (event: Event) => {
-        const target = event.target;
+    executeEventListener('.button-container-info-modal', 'click', (event: Event) => {
+      const target = event.target;
 
-        if (target instanceof HTMLButtonElement) {
-          handleModalClose('#restaurant-bottom-sheet');
-        }
-
-        if (
-          target instanceof HTMLButtonElement &&
-          target.ariaLabel === 'delete'
-        ) {
-          handleDeleteClick(target, RestaurantManager);
-          components.restaurantList.render(
-            getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
-          );
-        }
+      if (target instanceof HTMLButtonElement) {
+        handleModalClose('#restaurant-bottom-sheet');
       }
-    );
+
+      if (target instanceof HTMLButtonElement && target.ariaLabel === 'delete') {
+        handleDeleteClick(target, RestaurantManager);
+        components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
+      }
+    });
   },
 };

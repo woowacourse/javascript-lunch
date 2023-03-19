@@ -9,7 +9,7 @@ import {
   TITLE,
 } from '../constants/restaurantAddContainer';
 
-class restaurantAddContainer {
+class RestaurantAddContainer {
   #state = {
     selector: '',
   };
@@ -31,10 +31,9 @@ class restaurantAddContainer {
 				<div class="form-item form-item--required">
 					<label for="category">${LABEL_TEXT.CATEGORY}</label>
 					<select name="category" id="category" required>
-						${CATEGORY_LIST.map(
-              category =>
-                `<option value="${category.value}">${category.text}</option>`
-            ).join('')}
+						${CATEGORY_LIST.map(category => `<option value="${category.value}">${category.text}</option>`).join(
+              ''
+            )}
 					</select>
 				</div>
 
@@ -49,10 +48,7 @@ class restaurantAddContainer {
 				<div class="form-item form-item--required">
 					<label for="distance">${LABEL_TEXT.DISTANCE}</label>
 					<select name="distance" id="distance" required>
-						${DISTANCE_LIST.map(
-              distance =>
-                `<option value="${distance.value}">${distance.text}</option>`
-            )}
+						${DISTANCE_LIST.map(distance => `<option value="${distance.value}">${distance.text}</option>`)}
 					</select>
 				</div>
 
@@ -91,4 +87,4 @@ class restaurantAddContainer {
   }
 }
 
-export default restaurantAddContainer;
+export default RestaurantAddContainer;

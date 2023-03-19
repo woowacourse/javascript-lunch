@@ -3,15 +3,13 @@ import { RestaurantType } from '../type/types';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { $, $$ } from '../utils/selector';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-import restaurantManager from '../domains/restaurantManager';
+import restaurantManager from '../domains/RestaurantManager';
 
 export const handleFavoriteIconClick = (
   target: HTMLImageElement,
   RestaurantManager: restaurantManager
 ) => {
-  const restaurantList = getListOnLocalStorage(
-    LOCAL_STORAGE_KEY.RESTAURANT_LIST
-  );
+  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
   const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
 
   if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
@@ -40,10 +38,7 @@ const toggleFavoriteIcon = (number: number) => {
   return isFilled;
 };
 
-const isFavoriteItem = (
-  favoriteList: RestaurantType[],
-  selected: RestaurantType
-) => {
+const isFavoriteItem = (favoriteList: RestaurantType[], selected: RestaurantType) => {
   return favoriteList.find(favorite => favorite.name === selected.name);
 };
 
@@ -72,8 +67,6 @@ const removeFavoriteItem = (
   number: number
 ) => {
   restaurantList[number].isFavorite = false;
-  const index = favoriteList.findIndex(
-    favorite => favorite.name === restaurantList[number].name
-  );
+  const index = favoriteList.findIndex(favorite => favorite.name === restaurantList[number].name);
   favoriteList.splice(index, 1);
 };

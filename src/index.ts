@@ -1,15 +1,15 @@
 import '../css/style.css';
-import RestaurantManager from './domains/restaurantManager';
+import RestaurantManager from './domains/RestaurantManager';
 import { components } from './components/components';
 import { eventListener } from './handleUi/eventListener';
 
 const App = {
-  RestaurantManager: RestaurantManager.getInstance(),
+  restaurantManager: RestaurantManager.getInstance(),
 
   init() {
-    this.RestaurantManager.initRestaurantList();
+    this.restaurantManager.initRestaurantList();
     components.initRender();
-    eventListener.initEventListeners(this.RestaurantManager);
+    eventListener.initEventListeners(this.restaurantManager);
   },
 };
 

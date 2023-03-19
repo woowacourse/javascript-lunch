@@ -1,39 +1,34 @@
 import { getFormData } from '../utils/form';
 import { isValidName } from '../validator';
-import {
-  getListOnLocalStorage,
-  saveListOnLocalStorage,
-} from '../utils/localStorage';
+import { getListOnLocalStorage, saveListOnLocalStorage } from '../utils/localStorage';
 import { RestaurantType } from '../type/types';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { initialRestaurantList } from '../constants/initialRestaurantList';
 
-class restaurantManager {
-  private static instance: restaurantManager;
+class RestaurantManager {
+  private static instance: RestaurantManager;
+
   private restaurantList: RestaurantType[] = [];
+
   private favoriteList: RestaurantType[] = [];
 
   private constructor() {
-    if (!restaurantManager.instance) {
-      restaurantManager.instance = this;
+    if (!RestaurantManager.instance) {
+      RestaurantManager.instance = this;
     }
   }
 
   public static getInstance() {
-    if (!restaurantManager.instance) {
-      restaurantManager.instance = new restaurantManager();
+    if (!RestaurantManager.instance) {
+      RestaurantManager.instance = new RestaurantManager();
     }
 
-    return restaurantManager.instance;
+    return RestaurantManager.instance;
   }
 
   public initRestaurantList() {
-    const isExistRestaurantList = getListOnLocalStorage(
-      LOCAL_STORAGE_KEY.RESTAURANT_LIST
-    ).length;
-    const isExistFavoriteList = getListOnLocalStorage(
-      LOCAL_STORAGE_KEY.RESTAURANT_LIST
-    ).length;
+    const isExistRestaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST).length;
+    const isExistFavoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST).length;
 
     this.restaurantList = isExistRestaurantList
       ? getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST)
@@ -42,10 +37,7 @@ class restaurantManager {
       ? getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST)
       : [];
 
-    saveListOnLocalStorage(
-      LOCAL_STORAGE_KEY.RESTAURANT_LIST,
-      this.restaurantList
-    );
+    saveListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST, this.restaurantList);
     saveListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST, this.favoriteList);
   }
 
@@ -77,10 +69,7 @@ class restaurantManager {
 
   public updateRestaurantList(restaurantList: RestaurantType[]) {
     this.restaurantList = restaurantList;
-    saveListOnLocalStorage(
-      LOCAL_STORAGE_KEY.RESTAURANT_LIST,
-      this.restaurantList
-    );
+    saveListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST, this.restaurantList);
   }
 
   public updateFavoriteList(favoriteList: RestaurantType[]) {
@@ -89,4 +78,4 @@ class restaurantManager {
   }
 }
 
-export default restaurantManager;
+export default RestaurantManager;
