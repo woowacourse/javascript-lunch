@@ -8,8 +8,7 @@
     "start": "webpack serve",
     "build": "webpack --mode=production",
     "test-unit": "jest --watch",
-    "test-e2e": "cypress open",
-    "test-code-coverage": "nyc mocha"
+    "test-e2e": "cypress open"
   },
   "repository": {
     "type": "git",
