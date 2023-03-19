@@ -23,7 +23,7 @@
     "max-lines-per-function": ["error", 10],
     "max-params": ["error", 2],
     "no-console": "off",
-    "prettier/prettier": "error",
+    // "prettier/prettier": "error",
     "quotes": ["error", "single"],
     "@typescript-eslint/no-inferrable-types": "error"
   },

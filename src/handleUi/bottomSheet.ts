@@ -8,9 +8,7 @@ export const handleDeleteClick = (
   target: HTMLButtonElement,
   RestaurantManager: restaurantManager
 ) => {
-  const restaurantList = getListOnLocalStorage(
-    LOCAL_STORAGE_KEY.RESTAURANT_LIST
-  );
+  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
   const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
 
   if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
@@ -29,11 +27,7 @@ const deleteItem = (
   const index = parseInt(target.name, 10);
 
   if (restaurantList[index].isFavorite === true) {
-    deleteFavoriteItem(
-      { restaurantList, favoriteList },
-      index,
-      RestaurantManager
-    );
+    deleteFavoriteItem({ restaurantList, favoriteList }, index, RestaurantManager);
   }
   deleteRestaurantItem(restaurantList, index, RestaurantManager);
 };

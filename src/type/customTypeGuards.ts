@@ -1,19 +1,26 @@
 import { RestaurantType } from './types';
 
-export const isRestaurant = (restaurant: any): restaurant is RestaurantType => {
-  return (
-    'number' in restaurant &&
-    'category' in restaurant &&
-    'name' in restaurant &&
-    'distance' in restaurant &&
-    'description' in restaurant &&
-    'link' in restaurant &&
-    'isFavorite' in restaurant
-  );
+const restaurantKeys = [
+  'number',
+  'category',
+  'name',
+  'distance',
+  'description',
+  'link',
+  'isFavorite',
+];
+
+export const isRestaurant = (restaurant: unknown): restaurant is RestaurantType => {
+  const localRestaurant = restaurant as RestaurantType;
+
+  return restaurantKeys.every(key => key in localRestaurant);
 };
 
-export const isRestaurantList = (
-  restaurantList: any
-): restaurantList is RestaurantType[] => {
-  return restaurantList.every((restaurant: any) => isRestaurant(restaurant));
+export const isRestaurantList = (restaurantList: unknown): restaurantList is RestaurantType[] => {
+  const localRestaurantList = restaurantList as RestaurantType[];
+
+  return (
+    Array.isArray(localRestaurantList) &&
+    localRestaurantList.every(restaurant => isRestaurant(restaurant))
+  );
 };
