@@ -93,5 +93,3 @@ export const mockData: RestaurantInfo[] = [
     favorite: false,
   },
 ];
-
-export const initMockData = () => addData(mockData);

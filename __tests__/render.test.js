@@ -6,6 +6,11 @@ import '@testing-library/jest-dom';
 import { $ } from '../src/utils/common/domHelper.ts';
 import { App } from '../src/view/components/App.ts';
 import { render } from '../src/utils/core/index.ts';
+import { mockData } from '../src/mocks/restaurantsInfo.ts';
+
+jest.mock('../src/utils/common/localStorage', () => ({
+  getData: jest.fn(() => mockData),
+}));
 
 const waitElement = (getElementCallback, options) => {
   return waitFor(() => {
