@@ -2,14 +2,14 @@ import { useEvents } from '../../utils/core';
 import { Button } from './Button';
 
 interface HeaderProps {
-  open: VoidFunction;
+  openAddRestaurantModal: VoidFunction;
 }
 
-function Header({ open }: HeaderProps) {
+function Header({ openAddRestaurantModal }: HeaderProps) {
   const [addEvent] = useEvents('.gnb');
 
   addEvent('click', '.gnb__button', (e) => {
-    open();
+    openAddRestaurantModal();
   });
 
   return `

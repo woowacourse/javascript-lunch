@@ -13,12 +13,10 @@ import { Modal } from './Modal';
 
 interface AddRestaurantModalProps {
   close: VoidFunction;
+  handleClickAddBtn(res: Omit<RestaurantInfo, 'id'>): void;
 }
 
-function AddRestaurantModal({ close }: AddRestaurantModalProps) {
-  const {
-    handlers: { handleClickAddBtn },
-  } = useRestaurants();
+function AddRestaurantModal({ close, handleClickAddBtn }: AddRestaurantModalProps) {
   const {
     register,
     formState: { errors },

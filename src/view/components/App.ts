@@ -8,9 +8,9 @@ function App() {
     useModal(false);
 
   return `
-    ${Header({ open: openAddRestaurantModal })}
-    ${LandingMain()}
-    ${isAddRestaurantModalOpen ? AddRestaurantModal({ close: closeAddRestaurantModal }) : ''}
+    ${Header({ openAddRestaurantModal })}
+    ${LandingMain({ isAddRestaurantModalOpen, closeAddRestaurantModal })}
+    
     `;
 }
 

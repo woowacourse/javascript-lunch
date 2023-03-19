@@ -7,22 +7,30 @@ import { NavTab } from './NavTab';
 import { RestaurantInfoModal } from './RestaurantInfoModal';
 import { Restaurants } from './Restaurants';
 import { useModal } from '../../utils/hooks/useModal';
+import { AddRestaurantModal } from './AddRestaurantModal';
 
-function LandingMain() {
+interface LandingMain {
+  isAddRestaurantModalOpen: boolean;
+  closeAddRestaurantModal: VoidFunction;
+}
+
+function LandingMain(props: LandingMain) {
+  const { isAddRestaurantModalOpen, closeAddRestaurantModal } = props;
+  const [focusedRestaurant, setFocusedRestaurant] = useState<Restaurant | null>(null);
+  const [isRestaurantInfoModalOpen, openRestaurantInfoModal, closeRestaurantInfoModal] =
+    useModal(false);
   const {
     values: { restaurants, category, sortOption, tab },
     handlers: {
       handleCategory,
       handleSortOption,
       handleFavoriteBtn,
+      handleClickAddBtn,
       handleDeleteBtn,
       tabAll,
       tabFavorite,
     },
   } = useRestaurants();
-  const [focusedRestaurant, setFocusedRestaurant] = useState<Restaurant | null>(null);
-  const [isRestaurantInfoModalOpen, openRestaurantInfoModal, closeRestaurantInfoModal] =
-    useModal(true);
 
   function onClickRestaurant(restaurant: Restaurant) {
     setFocusedRestaurant(restaurant);
@@ -49,6 +57,11 @@ function LandingMain() {
           : ''
       }
     </main>
+    ${
+      isAddRestaurantModalOpen
+        ? AddRestaurantModal({ close: closeAddRestaurantModal, handleClickAddBtn })
+        : ''
+    }
       `;
 }
 
