@@ -1,7 +1,7 @@
 import { Attribute } from '../../utils/common/domHelper';
 import { Select } from './common/Select';
 
-interface MetaSelectProps {
+interface DropdownProps {
   attribute: Attribute;
   selected: string;
   metaData: string[];
@@ -9,7 +9,7 @@ interface MetaSelectProps {
   error?: string;
 }
 
-function MetaSelect(props: MetaSelectProps) {
+function Dropdown(props: DropdownProps) {
   const { attribute, selected, metaData, label, error } = props;
   return `
     <label for=${attribute.id}>
@@ -35,4 +35,4 @@ function MetaSelect(props: MetaSelectProps) {
   `;
 }
 
-export { MetaSelect };
+export { Dropdown };

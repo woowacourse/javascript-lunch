@@ -5,7 +5,7 @@ import { useForm } from '../../utils/hooks/useForm';
 import Validator from '../../validation';
 import { META_CATEGORY, META_DISTANCE } from '../../constants/restaurants';
 import { Button } from './Button';
-import { MetaSelect } from './MetaSelect';
+import { Dropdown } from './Dropdown';
 import { parseDistance } from '../../utils/common/restaurant';
 import { Input } from './common/Input';
 import { Modal } from './Modal';
@@ -53,7 +53,7 @@ function RestaurantRegistrationModal({
     <form>
         <!-- 카테고리 -->
         <div class="form-item form-item--required">
-            ${MetaSelect({
+            ${Dropdown({
               label: '카테고리',
               error: errors['category'],
               metaData: Object.values(META_CATEGORY),
@@ -85,7 +85,7 @@ function RestaurantRegistrationModal({
 
         <!-- 거리 -->
         <div class="form-item form-item--required">
-            ${MetaSelect({
+            ${Dropdown({
               label: '거리(도보 이동 시간)',
               error: errors['distance'],
               metaData: Object.values(META_DISTANCE),
