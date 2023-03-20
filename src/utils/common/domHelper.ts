@@ -23,12 +23,14 @@ export const isTarget = (
 export const isHTMLElement = (target: Element): target is HTMLElement =>
   target instanceof HTMLElement;
 
-export const getClosest = (target: EventTarget | null, selector: string) => {
+export const getClosest = (target: Element | EventTarget | null, selector: string) => {
   if (!(target instanceof Element)) return null;
-  if (!target.closest(selector)) return null;
-  if (!isHTMLElement(target.closest(selector)!)) return null;
 
-  return target.closest(selector) as HTMLElement;
+  const parent = target.closest(selector);
+  if (!parent) return null;
+  if (!isHTMLElement(parent)) return null;
+
+  return parent;
 };
 
 export const parseAttribute = (attribute: Attribute) => {
