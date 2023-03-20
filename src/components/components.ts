@@ -13,6 +13,7 @@ import RestaurantCategory from './RestaurantCategory';
 import RestaurantName from './RestaurantName';
 import RestaurantDistance from './RestaurantDistance';
 import RestaurantDescription from './RestaurantDescription';
+import RestaurantListContainer from './RestaurantListContainer';
 
 export const components = {
   header: new Header({ container: 'header' }),
@@ -34,6 +35,8 @@ export const components = {
     class: 'restaurant-select',
     optionList: SELECT_OPTION_LIST.SORTING,
   }),
+
+  restaurantListContainer: new RestaurantListContainer({ container: '.restaurant-list-container' }),
 
   restaurantList: new RestaurantList({
     container: '.restaurant-list',
@@ -72,6 +75,7 @@ export const components = {
     this.navBar.render();
     this.categoryFilter.render();
     this.sortingFilter.render();
+    this.restaurantListContainer.render();
     this.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
     this.restaurantAddModal.render();
     this.restaurantAddModalContent.render();

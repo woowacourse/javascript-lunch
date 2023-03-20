@@ -1,0 +1,8 @@
+.empty-favorite-list {
+  width: auto;
+  height: auto;
+  margin-top: 200px;
+  text-align: center;
+  vertical-align: middle;
+  color: var(--grey-300);
+}

@@ -18,7 +18,11 @@ const removeFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, inde
 
   favoriteList.splice(foundIndex, 1);
 
-  components.restaurantList.render(favoriteList);
+  if (!favoriteList.length) {
+    components.restaurantListContainer.renderEmptyTemplate();
+  } else {
+    components.restaurantList.render(favoriteList);
+  }
 };
 
 const addFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, index): void => {

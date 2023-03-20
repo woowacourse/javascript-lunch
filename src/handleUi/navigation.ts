@@ -40,10 +40,15 @@ export const handleNavigationClick = (target: HTMLButtonElement) => {
   if (isAllRestaurants(target)) {
     components.categoryFilter.show();
     components.sortingFilter.show();
+    components.restaurantListContainer.render();
     components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
   } else {
     components.categoryFilter.hide();
     components.sortingFilter.hide();
-    components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST));
+    if (!getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST).length) {
+      components.restaurantListContainer.renderEmptyTemplate();
+    } else {
+      components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST));
+    }
   }
 };
