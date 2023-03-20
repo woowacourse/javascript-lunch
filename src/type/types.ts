@@ -89,7 +89,7 @@ export interface DeleteItem {
 }
 
 export interface HandleDeleteClick {
-  (target: HTMLButtonElement, RestaurantManager: RestaurantManager): void;
+  (target: HTMLButtonElement, restaurantManager: RestaurantManager): void;
 }
 
 export interface NavigationDom {
