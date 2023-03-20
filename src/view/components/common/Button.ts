@@ -1,5 +1,5 @@
-import { Attribute, parseAttribute, parseClassToSelector } from '../../utils/common/domHelper';
-import { useEvents } from '../../utils/core';
+import { Attribute, parseAttribute, parseClassToSelector } from '../../../utils/common/domHelper';
+import { useEvents } from '../../../utils/core';
 
 interface ButtonProps {
   attribute: Attribute;

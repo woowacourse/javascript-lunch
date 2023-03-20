@@ -4,11 +4,11 @@ import { getFormFields } from '../../utils/common/formData';
 import { useForm } from '../../utils/hooks/useForm';
 import Validator from '../../validation';
 import { META_CATEGORY, META_DISTANCE } from '../../constants/restaurants';
-import { Button } from './Button';
-import { Dropdown } from './Dropdown';
+import { Button } from './common/Button';
+import { Dropdown } from './common/Dropdown';
 import { parseDistance } from '../../utils/common/restaurant';
 import { Input } from './common/Input';
-import { Modal } from './Modal';
+import { Modal } from './common/Modal';
 
 interface RestaurantRegistrationModalProps {
   close: VoidFunction;

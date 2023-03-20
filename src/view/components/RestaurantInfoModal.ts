@@ -1,8 +1,8 @@
 import { RestaurantInfo } from '../../domain/model/LunchRecommendation';
 import { getClosest } from '../../utils/common/domHelper';
 import { useEvents } from '../../utils/core';
-import { Button } from './Button';
-import { Modal } from './Modal';
+import { Button } from './common/Button';
+import { Modal } from './common/Modal';
 import { Restaurant } from './Restaurant';
 
 interface RestaurantInfoModalProps {

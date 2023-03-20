@@ -1,5 +1,5 @@
 import { useEvents } from '../../utils/core';
-import { Button } from './Button';
+import { Button } from './common/Button';
 
 interface HeaderProps {
   openAddRestaurantModal: VoidFunction;

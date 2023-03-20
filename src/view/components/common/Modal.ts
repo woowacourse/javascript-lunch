@@ -1,6 +1,6 @@
-import { parseAttribute } from './../../utils/common/domHelper';
-import { Attribute } from '../../utils/common/domHelper';
-import { useEvents } from '../../utils/core';
+import { parseAttribute } from '../../../utils/common/domHelper';
+import { Attribute } from '../../../utils/common/domHelper';
+import { useEvents } from '../../../utils/core';
 
 interface ModalProps {
   attribute?: Attribute;

@@ -1,5 +1,5 @@
-import { Attribute } from '../../utils/common/domHelper';
-import { Select } from './common/Select';
+import { Attribute } from '../../../utils/common/domHelper';
+import { Select } from './Select';
 
 interface DropdownProps {
   attribute: Attribute;
