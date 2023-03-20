@@ -32,7 +32,7 @@ class RestaurantBottomSheetContent {
   render(restaurant: RestaurantType) {
     const bottomSheet = $(this.state.container);
 
-    if (bottomSheet) {
+    if (bottomSheet instanceof HTMLElement) {
       bottomSheet.innerHTML = this.template(restaurant);
     }
   }

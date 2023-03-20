@@ -21,7 +21,7 @@ class RestaurantAddModalContent {
   render() {
     const restaurantAddModal = $(this.state.container);
 
-    if (restaurantAddModal) {
+    if (restaurantAddModal instanceof HTMLElement) {
       restaurantAddModal.innerHTML = this.template();
     }
   }

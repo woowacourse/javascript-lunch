@@ -14,7 +14,7 @@ class Modal {
   render() {
     const modalContainer = $(this.state.container);
 
-    if (modalContainer) {
+    if (modalContainer instanceof HTMLElement) {
       modalContainer.insertAdjacentHTML('beforeend', this.template());
     }
   }

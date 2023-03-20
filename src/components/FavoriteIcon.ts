@@ -14,7 +14,7 @@ class FavoriteIcon {
   render(number: number, favoriteOpenClass: string) {
     const favoriteIconContainer = $(this.state.container);
 
-    if (favoriteIconContainer) {
+    if (favoriteIconContainer instanceof HTMLElement) {
       favoriteIconContainer.insertAdjacentHTML(
         'beforeend',
         this.template(number, favoriteOpenClass)

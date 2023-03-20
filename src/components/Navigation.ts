@@ -13,7 +13,7 @@ class Navigation {
   render() {
     const navigationContainer = $(this.state.container);
 
-    if (navigationContainer) {
+    if (navigationContainer instanceof HTMLElement) {
       navigationContainer.insertAdjacentHTML('beforeend', this.template());
     }
   }

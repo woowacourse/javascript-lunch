@@ -13,7 +13,7 @@ class RestaurantListContainer {
   render() {
     const parentElement = $(this.state.container);
 
-    if (parentElement) {
+    if (parentElement instanceof HTMLElement) {
       parentElement.innerHTML = this.template();
     }
   }
@@ -21,7 +21,7 @@ class RestaurantListContainer {
   renderEmptyTemplate() {
     const parentElement = $(this.state.container);
 
-    if (parentElement) {
+    if (parentElement instanceof HTMLElement) {
       parentElement.innerHTML =
         '<h2 class="empty-favorite-list">자주 가는 음식점을 등록해 주세요</h2>';
     }

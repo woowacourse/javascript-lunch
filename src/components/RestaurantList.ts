@@ -32,7 +32,7 @@ class RestaurantList {
     const restaurantListContainer = $(this.state.container);
     const restaurantListHTML = restaurantList.map(info => this.template(info)).join('');
 
-    if (restaurantListContainer) {
+    if (restaurantListContainer instanceof HTMLUListElement) {
       restaurantListContainer.innerHTML = restaurantListHTML;
     }
   }

@@ -20,7 +20,7 @@ class RestaurantCategory {
   render(category: RestaurantType['category']) {
     const categoryContainer = $(this.state.container);
 
-    if (categoryContainer) {
+    if (categoryContainer instanceof HTMLElement) {
       categoryContainer.insertAdjacentHTML('beforeend', this.template(category));
     }
   }

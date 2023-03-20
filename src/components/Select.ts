@@ -24,7 +24,7 @@ class Select {
   render() {
     const selectContainer = $(this.#state.container);
 
-    if (selectContainer) {
+    if (selectContainer instanceof HTMLElement) {
       selectContainer.insertAdjacentHTML('beforeend', this.#template());
       this.show();
     }
