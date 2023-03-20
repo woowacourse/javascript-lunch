@@ -3,26 +3,25 @@ import { FavoriteItem, HandleFavoriteIconClick, RestaurantType } from '../type/t
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { $, $$ } from '../utils/selector';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-
-const toggleFavoriteIcon = (number: number) => {
-  const filledIconList = $$(`.favorite-icon-filled-${number}`);
-  if (filledIconList) {
-    filledIconList.forEach(filledIcon => filledIcon.classList.toggle('favorite-icon-filled--open'));
-  }
-
-  const filledIcon = $(`.favorite-icon-filled-${number}`);
-  if (filledIcon) {
-    const isFilled = filledIcon.classList.contains('favorite-icon-filled--open');
-
-    return isFilled;
-  }
-};
+import { components } from '../components/components';
 
 const isFavoriteItem = (favoriteList: RestaurantType[], selected: RestaurantType) => {
   return favoriteList.find(favorite => favorite.name === selected.name);
 };
 
-const addFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, index) => {
+const removeFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, index): void => {
+  restaurantList[index].isFavorite = false;
+
+  const foundIndex = favoriteList.findIndex(
+    favorite => favorite.name === restaurantList[index].name
+  );
+
+  favoriteList.splice(foundIndex, 1);
+
+  components.restaurantList.render(favoriteList);
+};
+
+const addFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, index): void => {
   const selected = restaurantList[index];
 
   if (isFavoriteItem(favoriteList, selected)) {
@@ -34,14 +33,20 @@ const addFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, index) 
   favoriteList[favoriteList.length - 1].isFavorite = true;
 };
 
-const removeFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, index) => {
-  restaurantList[index].isFavorite = false;
+const toggleIcon = (number: number): void => {
+  const filledIconList = $$(`.favorite-icon-filled-${number}`);
+  if (filledIconList) {
+    filledIconList.forEach(filledIcon => filledIcon.classList.toggle('favorite-icon-filled--open'));
+  }
+};
 
-  const foundIndex = favoriteList.findIndex(
-    favorite => favorite.name === restaurantList[index].name
-  );
+const isFilledIcon = (number: number): boolean => {
+  const filledIcon = $(`.favorite-icon-filled-${number}`);
+  if (filledIcon) {
+    return filledIcon.classList.contains('favorite-icon-filled--open');
+  }
 
-  favoriteList.splice(foundIndex, 1);
+  return false;
 };
 
 export const handleFavoriteIconClick: HandleFavoriteIconClick = (target, restaurantManager) => {
@@ -51,9 +56,13 @@ export const handleFavoriteIconClick: HandleFavoriteIconClick = (target, restaur
   if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
     const restaurantNumber = parseInt(target.className.split(' ')[1].split('-')[3], 10);
 
-    if (toggleFavoriteIcon(restaurantNumber))
+    toggleIcon(restaurantNumber);
+
+    if (isFilledIcon(restaurantNumber)) {
       addFavoriteItem({ restaurantList, favoriteList }, restaurantNumber);
-    else removeFavoriteItem({ restaurantList, favoriteList }, restaurantNumber);
+    } else {
+      removeFavoriteItem({ restaurantList, favoriteList }, restaurantNumber);
+    }
 
     restaurantManager.updateList(restaurantList, LOCAL_STORAGE_KEY.RESTAURANT_LIST);
     restaurantManager.updateList(favoriteList, LOCAL_STORAGE_KEY.FAVORITE_LIST);
