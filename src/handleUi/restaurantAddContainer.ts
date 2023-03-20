@@ -1,20 +1,16 @@
+import { components } from '../components/components';
+import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+import { getListOnLocalStorage } from '../utils/localStorage';
 import { resetForm, scrollToTopForm } from './form';
 import { handleModalClose } from './modal';
 
-const handleNewRestaurantClose = () => {
+export const handleNewRestaurantCancel = () => {
   handleModalClose('#restaurant-add-modal');
-  resetForm('#new-restaurant-form');
   scrollToTopForm('.restaurant-add-container');
 };
 
-export const handleNewRestaurantCancelClick = () => {
-  handleNewRestaurantClose();
-};
-
-export const handleNewRestaurantAddSubmit = () => {
-  handleNewRestaurantClose();
-};
-
-export const handleBackdropClick = () => {
-  handleNewRestaurantClose();
+export const handleNewRestaurantAdd = () => {
+  handleNewRestaurantCancel();
+  resetForm('#new-restaurant-form');
+  components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
 };

@@ -63,6 +63,16 @@ export interface DeleteRestaurantItem {
   ): void;
 }
 
+export interface FavoriteItem {
+  (
+    {
+      restaurantList,
+      favoriteList,
+    }: { restaurantList: RestaurantType[]; favoriteList: RestaurantType[] },
+    index: number
+  ): void;
+}
+
 export interface DeleteItem {
   (
     target: HTMLButtonElement,
@@ -87,4 +97,8 @@ export interface NavigationDom {
   $primaryBar: HTMLElement | null;
   $secondaryText: HTMLElement | null;
   $secondaryBar: HTMLElement | null;
+}
+
+export interface HandleFavoriteIconClick {
+  (target: HTMLImageElement, restaurantManager: RestaurantManager): void;
 }

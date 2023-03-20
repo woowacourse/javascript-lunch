@@ -1,7 +1,7 @@
 import '../css/style.css';
 import RestaurantManager from './domains/RestaurantManager';
 import { components } from './components/components';
-import { eventListener } from './handleUi/eventListener';
+import { initEventListeners } from './handleUi/eventListener';
 
 const App = {
   restaurantManager: RestaurantManager.getInstance(),
@@ -9,7 +9,7 @@ const App = {
   init() {
     this.restaurantManager.initRestaurantList();
     components.initRender();
-    eventListener.initEventListeners(this.restaurantManager);
+    initEventListeners(this.restaurantManager);
   },
 };
 

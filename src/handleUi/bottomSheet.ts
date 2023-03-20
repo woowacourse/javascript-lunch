@@ -8,6 +8,7 @@ import {
   DeleteRestaurantItem,
   HandleDeleteClick,
 } from '../type/types';
+import { components } from '../components/components';
 
 const deleteFavoriteItem: DeleteFavoriteItem = (
   { restaurantList, favoriteList, restaurantManager },
@@ -50,4 +51,6 @@ export const handleDeleteClick: HandleDeleteClick = (
   if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
     deleteItem(target, { restaurantList, favoriteList, restaurantManager });
   }
+
+  components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
 };

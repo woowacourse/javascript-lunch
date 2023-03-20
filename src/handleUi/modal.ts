@@ -1,9 +1,17 @@
 import { $ } from '../utils/selector';
 
 export const handleModalClose = (selector: string): void => {
-  $(selector)?.classList.remove('modal--open');
+  const modalContainer = $(selector);
+
+  if (modalContainer) {
+    modalContainer.classList.remove('modal--open');
+  }
 };
 
 export const handleModalOpen = (selector: string): void => {
-  $(selector)?.classList.add('modal--open');
+  const modalContainer = $(selector);
+
+  if (modalContainer) {
+    modalContainer.classList.add('modal--open');
+  }
 };

@@ -11,7 +11,7 @@ export const resetForm = (formSelector: string) => {
 export const scrollToTopForm = (target: string) => {
   const $target = $(target);
 
-  if ($target instanceof HTMLFormElement) {
+  if ($target instanceof HTMLDivElement) {
     $target.scrollTo(0, 0);
   }
 };

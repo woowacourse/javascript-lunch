@@ -5,5 +5,9 @@ interface ExecuteEventListener {
 }
 
 export const executeEventListener: ExecuteEventListener = ({ selector, type }, callback) => {
-  $(selector)?.addEventListener(type, callback);
+  const element = $(selector);
+
+  if (element) {
+    element.addEventListener(type, callback);
+  }
 };
