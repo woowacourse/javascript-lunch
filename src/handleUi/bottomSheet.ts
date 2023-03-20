@@ -1,5 +1,4 @@
 import RestaurantManager from '../domains/RestaurantManager';
-import { isRestaurantList } from '../type/customTypeGuards';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import {
@@ -7,6 +6,7 @@ import {
   DeleteItem,
   DeleteRestaurantItem,
   HandleDeleteClick,
+  RestaurantType,
 } from '../type/types';
 import { components } from '../components/components';
 
@@ -45,12 +45,10 @@ export const handleDeleteClick: HandleDeleteClick = (
   target: HTMLButtonElement,
   restaurantManager: RestaurantManager
 ) => {
-  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
-  const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
+  const restaurantList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+  const favoriteList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.FAVORITE_LIST);
 
-  if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
-    deleteItem(target, { restaurantList, favoriteList, restaurantManager });
-  }
+  deleteItem(target, { restaurantList, favoriteList, restaurantManager });
 
   components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST));
 };

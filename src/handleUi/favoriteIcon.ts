@@ -1,4 +1,3 @@
-import { isRestaurantList } from '../type/customTypeGuards';
 import { FavoriteItem, HandleFavoriteIconClick, RestaurantType } from '../type/types';
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { $, $$ } from '../utils/selector';
@@ -54,21 +53,19 @@ const isFilledIcon = (number: number): boolean => {
 };
 
 export const handleFavoriteIconClick: HandleFavoriteIconClick = (target, restaurantManager) => {
-  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
-  const favoriteList = getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST);
+  const restaurantList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+  const favoriteList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.FAVORITE_LIST);
 
-  if (isRestaurantList(restaurantList) && isRestaurantList(favoriteList)) {
-    const restaurantNumber = parseInt(target.className.split(' ')[1].split('-')[3], 10);
+  const restaurantNumber = parseInt(target.className.split(' ')[1].split('-')[3], 10);
 
-    toggleIcon(restaurantNumber);
+  toggleIcon(restaurantNumber);
 
-    if (isFilledIcon(restaurantNumber)) {
-      addFavoriteItem({ restaurantList, favoriteList }, restaurantNumber);
-    } else {
-      removeFavoriteItem({ restaurantList, favoriteList }, restaurantNumber);
-    }
-
-    restaurantManager.updateList(restaurantList, LOCAL_STORAGE_KEY.RESTAURANT_LIST);
-    restaurantManager.updateList(favoriteList, LOCAL_STORAGE_KEY.FAVORITE_LIST);
+  if (isFilledIcon(restaurantNumber)) {
+    addFavoriteItem({ restaurantList, favoriteList }, restaurantNumber);
+  } else {
+    removeFavoriteItem({ restaurantList, favoriteList }, restaurantNumber);
   }
+
+  restaurantManager.updateList(restaurantList, LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+  restaurantManager.updateList(favoriteList, LOCAL_STORAGE_KEY.FAVORITE_LIST);
 };

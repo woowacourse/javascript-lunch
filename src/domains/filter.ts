@@ -1,7 +1,6 @@
 import { getListOnLocalStorage } from '../utils/localStorage';
 import { RestaurantType, SortBy, SortingOption } from '../type/types';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
-import { isRestaurantList } from '../type/customTypeGuards';
 
 const sortBy: SortBy = {
   name: (list: RestaurantType[]) =>
@@ -19,13 +18,11 @@ const sortByCategory = (list: RestaurantType[], category: SortingOption) => {
 };
 
 export const sortByOption = (sortingOption: SortingOption) => {
-  const restaurantList = getListOnLocalStorage(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
+  const restaurantList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
 
   const sortByFunction = sortBy[sortingOption];
 
-  if (isRestaurantList(restaurantList)) {
-    return sortByFunction
-      ? sortByFunction(restaurantList)
-      : sortByCategory(restaurantList, sortingOption);
-  }
+  return sortByFunction
+    ? sortByFunction(restaurantList)
+    : sortByCategory(restaurantList, sortingOption);
 };
