@@ -5,6 +5,6 @@ export const handleFilterChange = (target: HTMLSelectElement) => {
   const value = target.value;
 
   if (isSortingOption(value)) {
-    return sortByOption(value);
+    sortByOption(value);
   }
 };
