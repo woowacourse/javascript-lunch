@@ -1,28 +1,43 @@
 import { debounce } from '../common/debounce';
-import { $, $$, isTarget } from '../../utils/common/domHelper';
+import { $, isTarget } from '../../utils/common/domHelper';
+import { UnPack } from '../../types/common';
 
-interface Event {
+export interface EventCallback {
+  (e: HTMLElementEventMap[keyof HTMLElementEventMap]): void;
+}
+export interface Event {
   parentSelector: string;
   targetSelector: string;
   event: keyof HTMLElementEventMap;
-  callback: (this: Element, e: HTMLElementEventMap[Event['event']]) => void;
+  callback: EventCallback;
 }
+
+export interface Effect {
+  callback(): unknown;
+  deps: unknown[];
+}
+
 interface Options<T = unknown> {
   currentStateKey: number;
+  currentEffectsKey: number;
   states: T[];
   events: Event[];
-  root: null | HTMLElement;
+  effects: Effect[];
+  root: null | Element;
   rootComponent: null | (() => string);
 }
 
-type Dispatch<T> = (value: T) => void;
-type UnPack<T> = T extends (infer U)[] ? U : T;
+interface Dispatch<T> {
+  (value: T): void;
+}
 
 function Core() {
   const options: Options<UnPack<Parameters<typeof useState>>> = {
     currentStateKey: 0,
+    currentEffectsKey: 0,
     states: [],
     events: [],
+    effects: [],
     root: null,
     rootComponent: null,
   };
@@ -36,7 +51,6 @@ function Core() {
 
     const setState = (newState: S) => {
       if (newState === state) return;
-      if (JSON.stringify(newState) === JSON.stringify(state)) return;
 
       states[key] = newState;
       _render();
@@ -46,11 +60,27 @@ function Core() {
     return [state, setState];
   }
 
+  const useEffect = (callback: Effect['callback'], deps: Effect['deps']) => {
+    const { currentEffectsKey: key, effects } = options;
+    if (effects.length === key) {
+      effects.push({ deps, callback });
+      callback();
+    }
+
+    if (JSON.stringify(effects[key].deps) !== JSON.stringify(deps)) {
+      callback();
+      effects[key] = { deps, callback };
+    }
+
+    options.currentEffectsKey += 1;
+  };
+
   const _render = debounce(() => {
     const { root, rootComponent } = options;
     if (!root || !rootComponent) return;
     root.innerHTML = rootComponent();
     options.currentStateKey = 0;
+    options.currentEffectsKey = 0;
 
     _addEvent();
 
@@ -82,13 +112,12 @@ function Core() {
       $(parentSelector)?.addEventListener(event, (e) => {
         const $parent = $(parentSelector);
 
-        if (isTarget(e.target, { targetSelector, parentSelector }) && $parent)
-          callback.call($parent, e);
+        if (isTarget(e.target, { targetSelector, parentSelector }) && $parent) callback(e);
       });
     });
   }
 
-  return { useState, useEvents, render };
+  return { useState, useEvents, useEffect, render };
 }
 
-export const { useState, useEvents, render } = Core();
+export const { useState, useEvents, useEffect, render } = Core();

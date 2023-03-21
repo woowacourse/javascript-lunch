@@ -1,7 +1,6 @@
-import { Category, CATEGORY, NAME, SortOption } from '../../constants/lunchRecommendation';
-import { errorHandler } from '../../utils/common/errorHandler';
-import { addData } from '../../utils/common/localStorage';
-import { validator } from '../../validation/validator';
+import { Category, CATEGORY, SortOption, SORT_OPTIONS } from '../../constants/lunchRecommendation';
+import { addData, getData } from '../../utils/common/localStorage';
+import Validator from '../../validation';
 
 export interface FilterType {
   sortOption: SortOption;
@@ -15,6 +14,7 @@ export interface RestaurantInfo {
   distance: number;
   description?: string;
   link?: string;
+  favorite: boolean;
 }
 
 export interface IRestaurant {
@@ -22,12 +22,16 @@ export interface IRestaurant {
 }
 
 interface ILunchRecommendation {
-  add(restaurant: Omit<RestaurantInfo, 'id'>): void;
+  add(restaurant: Omit<RestaurantInfo, 'id'>): boolean;
   delete(restaurantId: RestaurantInfo['id']): Restaurant[];
   renderBy(filterType: FilterType): Restaurant[];
+  filterByCategory(list: Restaurant[], category: string): Restaurant[];
   sortByName(list: Restaurant[]): Restaurant[];
   sortByDistance(list: Restaurant[]): Restaurant[];
-  getList(): Restaurant[];
+  toggleFavorite(id: RestaurantInfo['id']): void;
+  getAllList(): Restaurant[];
+  getFavoriteList(): Restaurant[];
+  getRestaurant(id: RestaurantInfo['id']): Restaurant | undefined;
 }
 
 export class Restaurant implements IRestaurant {
@@ -55,16 +59,31 @@ export class LunchRecommendation implements ILunchRecommendation {
     this.origin = infoList.map((info) => new Restaurant(info));
   }
 
-  add(restaurantInfo: Omit<RestaurantInfo, 'id'>): void {
-    errorHandler(validator, restaurantInfo);
+  private generateId() {
+    if (!this.origin.length) return 1;
 
-    const id = Math.max(...this.origin.map(({ info }) => info.id)) + 1;
-    this.origin.push(new Restaurant({ ...restaurantInfo, id }));
-    addData(this.origin.map(({ info }) => info));
+    return Math.max(...this.origin.map(({ info }) => info.id)) + 1;
+  }
+
+  add(restaurantInfo: Omit<RestaurantInfo, 'id'>): boolean {
+    const id = this.generateId();
+    const newRestaurant = { ...restaurantInfo, id };
+
+    const { isValid } = Validator.Restaurant.info(newRestaurant, {
+      onError: (error) => alert(error.message),
+    });
+
+    if (isValid) {
+      this.origin.push(new Restaurant(newRestaurant));
+      addData(this.origin.map(({ info }) => info));
+    }
+
+    return isValid;
   }
 
   delete(restaurantId: RestaurantInfo['id']): Restaurant[] {
     this.origin = this.origin.filter((restaurant) => restaurant.info.id !== restaurantId);
+    addData(this.origin.map(({ info }) => info));
 
     return this.origin;
   }
@@ -76,7 +95,8 @@ export class LunchRecommendation implements ILunchRecommendation {
   renderBy({ sortOption, category }: FilterType) {
     const filtered =
       category === CATEGORY.ALL ? this.origin : this.filterByCategory(this.origin, category);
-    const sorted = sortOption === NAME ? this.sortByName(filtered) : this.sortByDistance(filtered);
+    const sorted =
+      sortOption === SORT_OPTIONS.NAME ? this.sortByName(filtered) : this.sortByDistance(filtered);
 
     return sorted;
   }
@@ -106,7 +126,30 @@ export class LunchRecommendation implements ILunchRecommendation {
     );
   }
 
-  getList() {
+  toggleFavorite(id: RestaurantInfo['id']) {
+    this.origin = this.origin.map((restaurant) => {
+      if (restaurant.info.id === id) restaurant.info.favorite = !restaurant.info.favorite;
+
+      return restaurant;
+    });
+    addData(this.origin.map(({ info }) => info));
+  }
+
+  getAllList() {
     return this.origin;
   }
+
+  getFavoriteList() {
+    return this.origin.filter((restaurant) => restaurant.info.favorite);
+  }
+
+  getRestaurant(id: RestaurantInfo['id']) {
+    const restaurant = this.origin.find((restaurant) => restaurant.info.id === id);
+
+    if (!restaurant) throw new Error();
+
+    return restaurant;
+  }
 }
+
+export const lunchRecommendation = new LunchRecommendation(getData());

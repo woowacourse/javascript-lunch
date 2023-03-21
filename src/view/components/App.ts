@@ -1,16 +1,16 @@
-import { useBoolean } from '../../utils/hooks/useBoolean';
 import { Header } from './Header';
-import { LandingMain } from './LandingMain';
-import { Modal } from './Modal';
+import { RestaurantListContainer } from './RestaurantListContainer';
+import { useModal } from '../../utils/hooks/useModal';
 
 function App() {
-  const [isOpen, open, close] = useBoolean(false);
+  const [isAddRestaurantModalOpen, openAddRestaurantModal, closeAddRestaurantModal] =
+    useModal(false);
 
   return `
-    ${Header({ open })}
-    ${LandingMain()}
-    ${isOpen ? Modal({ close }) : ''}
-  `;
+    ${Header({ openAddRestaurantModal })}
+    ${RestaurantListContainer({ isAddRestaurantModalOpen, closeAddRestaurantModal })}
+    
+    `;
 }
 
 export { App };
