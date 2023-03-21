@@ -1,4 +1,4 @@
-import { restaurants } from '../src/domain/Restaurant';
+import { restaurants } from '../src/domain/restaurants';
 
 test('새로운 음식점을 추가한다', () => {
   const newRestaurant = {
@@ -43,3 +43,4 @@ test('음식점들을 카테고리별로 필터링한다.', () => {
 
   expect(filteredRestaurants.every((restaurant) => restaurant.category === category)).toBe(true);
 });
+
