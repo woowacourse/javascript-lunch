@@ -16,12 +16,6 @@ const removeFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, inde
   );
 
   favoriteList.splice(foundIndex, 1);
-
-  if (!favoriteList.length) {
-    components.restaurantListContainer.renderEmptyTemplate();
-  } else {
-    components.restaurantList.render(favoriteList);
-  }
 };
 
 const addFavoriteItem: FavoriteItem = ({ restaurantList, favoriteList }, index): void => {
@@ -52,6 +46,13 @@ const isFilledIcon = (number: number): boolean => {
   return false;
 };
 
+const renderFavoriteListAfterRemove = () => {
+  if (components.navBar.isSelectFavoriteNav()) {
+    components.favoriteListContainer.render();
+    components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST));
+  }
+};
+
 export const handleFavoriteIconClick: HandleFavoriteIconClick = (target, restaurantManager) => {
   const restaurantList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
   const favoriteList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.FAVORITE_LIST);
@@ -68,4 +69,6 @@ export const handleFavoriteIconClick: HandleFavoriteIconClick = (target, restaur
 
   restaurantManager.updateList(restaurantList, LOCAL_STORAGE_KEY.RESTAURANT_LIST);
   restaurantManager.updateList(favoriteList, LOCAL_STORAGE_KEY.FAVORITE_LIST);
+
+  renderFavoriteListAfterRemove();
 };

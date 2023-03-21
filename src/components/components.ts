@@ -36,7 +36,15 @@ export const components = {
     optionList: SELECT_OPTION_LIST.SORTING,
   }),
 
-  restaurantListContainer: new RestaurantListContainer({ container: '.restaurant-list-container' }),
+  restaurantListContainer: new RestaurantListContainer({
+    container: '.restaurant-list-container',
+    id: 'restaurant-list-container',
+  }),
+
+  favoriteListContainer: new RestaurantListContainer({
+    container: '.restaurant-list-container',
+    id: 'favorite-list-container',
+  }),
 
   restaurantList: new RestaurantList({
     container: '.restaurant-list',

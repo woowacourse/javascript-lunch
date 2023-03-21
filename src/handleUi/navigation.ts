@@ -6,19 +6,33 @@ import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { NavigationDom } from '../type/types';
 
 const showAllRestaurantList = ($navigation: NavigationDom) => {
-  $navigation.$primaryText?.classList.add('selected-text');
-  $navigation.$primaryBar?.classList.add('selected-bar');
-  $navigation.$secondaryText?.classList.remove('selected-text');
-  $navigation.$secondaryBar?.classList.remove('selected-bar');
+  if (
+    $navigation.$primaryText instanceof HTMLButtonElement &&
+    $navigation.$primaryBar instanceof HTMLButtonElement &&
+    $navigation.$secondaryText instanceof HTMLButtonElement &&
+    $navigation.$secondaryBar instanceof HTMLButtonElement
+  ) {
+    $navigation.$primaryText.classList.add('selected-text');
+    $navigation.$primaryBar.classList.add('selected-bar');
+    $navigation.$secondaryText.classList.remove('selected-text');
+    $navigation.$secondaryBar.classList.remove('selected-bar');
+  }
 
   return true;
 };
 
 const showFavoriteList = ($navigation: NavigationDom) => {
-  $navigation.$secondaryText?.classList.add('selected-text');
-  $navigation.$secondaryBar?.classList.add('selected-bar');
-  $navigation.$primaryText?.classList.remove('selected-text');
-  $navigation.$primaryBar?.classList.remove('selected-bar');
+  if (
+    $navigation.$primaryText instanceof HTMLButtonElement &&
+    $navigation.$primaryBar instanceof HTMLButtonElement &&
+    $navigation.$secondaryText instanceof HTMLButtonElement &&
+    $navigation.$secondaryBar instanceof HTMLButtonElement
+  ) {
+    $navigation.$secondaryText.classList.add('selected-text');
+    $navigation.$secondaryBar.classList.add('selected-bar');
+    $navigation.$primaryText.classList.remove('selected-text');
+    $navigation.$primaryBar.classList.remove('selected-bar');
+  }
 
   return false;
 };
@@ -45,10 +59,7 @@ export const handleNavigationClick = (target: HTMLButtonElement) => {
   } else {
     components.categoryFilter.hide();
     components.sortingFilter.hide();
-    if (!getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST).length) {
-      components.restaurantListContainer.renderEmptyTemplate();
-    } else {
-      components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST));
-    }
+    components.favoriteListContainer.render();
+    components.restaurantList.render(getListOnLocalStorage(LOCAL_STORAGE_KEY.FAVORITE_LIST));
   }
 };

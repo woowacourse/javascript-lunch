@@ -18,6 +18,14 @@ class Navigation {
     }
   }
 
+  isSelectFavoriteNav() {
+    const favoriteButtonElement = $('.text-button--secondary');
+
+    if (favoriteButtonElement instanceof HTMLButtonElement) {
+      return favoriteButtonElement.classList.contains('selected-text');
+    }
+  }
+
   private template() {
     /* html */
     return `
