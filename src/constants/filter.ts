@@ -1,17 +1,3 @@
-import { FILTER_OPTION_INTERFACE } from '../type';
-
-export const FILTER_ID = {
-  CATEGORY: 'category-filter',
-  SORTING: 'sorting-filter',
-};
-
-export const FILTER_NAME = {
-  CATEGORY: 'category',
-  SORTING: 'sorting',
-};
-
-export const FILTER_CLASS = 'restaurant-SELECT';
-
 export const SELECT_OPTION_LIST = {
   CATEGORY: [
     { value: '전체', text: '전체' },
@@ -26,10 +12,4 @@ export const SELECT_OPTION_LIST = {
     { value: 'name', text: '이름순' },
     { value: 'distance', text: '거리순' },
   ],
-};
-
-export const FILTER_OPTION: FILTER_OPTION_INTERFACE = {
-  NAME: 'name',
-  DISTANCE: 'distance',
-  ALL_CATEGORIES: '전체',
 };

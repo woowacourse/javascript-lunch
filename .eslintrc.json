@@ -1,31 +1,41 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
+  "root": true,
   "overrides": [],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "max-depth": ["error", 1],
-    "max-lines-per-function": ["error", 10],
-    "max-params": ["error", 2],
-    "no-console": "off",
-    "prettier/prettier": "error",
-    "quotes": ["error", "single"]
-  },
+  "plugins": ["@typescript-eslint", "prettier", "react", "import"],
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
+    "eslint-config-airbnb-typescript",
+    "prettier",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
   ],
   "parserOptions": {
     "project": "./tsconfig.json",
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "ignorePatterns": ["dist/", "node_modules/"]
+  "ignorePatterns": ["dist/", "node_modules/"],
+  "rules": {
+    "max-len": ["error", { "code": 100 }],
+    "max-depth": ["error", 2],
+    "max-lines-per-function": ["error", 20],
+    "max-params": ["error", 2],
+    "no-console": "off",
+    // "prettier/prettier": "error",
+    "quotes": ["error", "single"],
+    "@typescript-eslint/no-inferrable-types": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2021": true
+  }
 }

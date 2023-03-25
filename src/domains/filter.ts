@@ -1,40 +1,33 @@
-import { FILTER_OPTION } from '../constants/filter';
-import { RestaurantType } from '../type';
 import { getListOnLocalStorage } from '../utils/localStorage';
-import RestaurantList from '../components/restaurantList.js';
-import { LOCAL_STORAGE_KEY } from '../constants/values';
+import { RestaurantType, SortBy, SortingOption } from '../type/types';
+import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+import { components } from '../components/components';
 
-export const sortByName = (allRestaurants: RestaurantType[]) => {
-  return allRestaurants.sort((a, b) => {
-    if (a.name > b.name) {
-      return 1;
-    }
-
-    if (a.name < b.name) {
-      return -1;
-    }
-
-    return 0;
-  });
+const sortBy: SortBy = {
+  name: (list: RestaurantType[]) => {
+    return list.sort((a, b) => {
+      if (a.name > b.name) return 1;
+      if (a.name < b.name) return -1;
+      return 0;
+    });
+  },
+  distance: (list: RestaurantType[]) => {
+    return list.sort((a, b) => Number(a.distance) - Number(b.distance));
+  },
 };
 
-export const sortByDistance = (allRestaurants: RestaurantType[]) => {
-  return allRestaurants.sort((a, b) => Number(a.distance) - Number(b.distance));
+const sortByCategory = (list: RestaurantType[], category: SortingOption) => {
+  return category === '전체' ? list : list.filter(restaurant => restaurant.category === category);
 };
 
-export const filterCategory = (selectedCategory: string) => {
-  const restaurantList = getListOnLocalStorage(
-    LOCAL_STORAGE_KEY
-  ) as RestaurantType[];
-  const restaurantListComponent = new RestaurantList();
+export const sortByOption = (sortingOption: SortingOption) => {
+  const restaurantList = getListOnLocalStorage<RestaurantType>(LOCAL_STORAGE_KEY.RESTAURANT_LIST);
 
-  if (selectedCategory === FILTER_OPTION.ALL_CATEGORIES) {
-    return restaurantListComponent.render(restaurantList);
-  }
+  const sortByFunction = sortBy[sortingOption];
 
-  const filteredList = restaurantList.filter(
-    restaurant => restaurant.category === selectedCategory
-  );
+  const list = sortByFunction
+    ? sortByFunction(restaurantList)
+    : sortByCategory(restaurantList, sortingOption);
 
-  restaurantListComponent.render(filteredList);
+  components.restaurantList.render(list);
 };
