@@ -27,6 +27,12 @@ class Restaurants implements RestaurantsInterface {
       return 1;
     });
   }
+
+  orderByName() {
+    return this.restaurants.toSorted((prevRestaurant, nextRestaurant) =>
+      prevRestaurant.name < nextRestaurant.name ? -1 : 1,
+    );
+  }
 }
 
 export default Restaurants;
