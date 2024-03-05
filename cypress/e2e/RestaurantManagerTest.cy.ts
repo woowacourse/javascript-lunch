@@ -19,7 +19,7 @@ describe("음식점 목록 테스트", () => {
     restaurantManager.add(newRestaurant);
 
     // then
-    expect(restaurantManager.getRestaurants()).to.eq([newRestaurant]);
+    expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
   });
 
   it("음식점을 이름순으로 정렬해 반환한다.", () => {
