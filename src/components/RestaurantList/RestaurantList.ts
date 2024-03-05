@@ -17,15 +17,22 @@ class RestaurantList extends BaseComponent {
     `;
   }
 
-  protected setEvent(): void {}
+  protected setEvent(): void {
+    this.on({
+      target: document,
+      eventName: "addRestaurant",
+      eventHandler: () => {
+        this.connectedCallback();
+      },
+    });
+  }
 
   private createRestaurantItems() {
     const restaurant = new Restaurant();
-
     const restaurantDetails = restaurant.getRestaurants();
 
     return restaurantDetails.reduce(
-      (acc, restaurantDetail: RestaurantDetail) => {
+      (acc: any, restaurantDetail: RestaurantDetail) => {
         const restaurantItem = new RestaurantItem(restaurantDetail);
 
         return acc + restaurantItem.getTemplate();

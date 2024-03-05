@@ -20,7 +20,7 @@ abstract class BaseComponent extends HTMLElement {
     return "";
   }
 
-  protected emit<T>(eventType: string, detail: T) {
+  protected emit<T>(eventType: string, detail?: T) {
     const customEvent = new CustomEvent(eventType, {
       bubbles: true,
       detail,

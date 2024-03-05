@@ -1,7 +1,7 @@
-export type CustomEventType = "";
+export type CustomEventType = "addRestaurant";
 
 export interface EventHandler {
-  target: HTMLElement;
+  target: HTMLElement | Document;
   eventName: CustomEventType | keyof HTMLElementEventMap;
   eventHandler: EventListener;
 }
