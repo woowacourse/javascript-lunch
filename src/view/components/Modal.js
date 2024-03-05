@@ -1,15 +1,13 @@
-const Modal = () => {
+import { RESTAURANT_FORM_EVENTS } from './RestaurantForm';
+
+export const Modal = () => {
   const modal = document.querySelector('.modal');
-  const handleCloseModal = (e) => {
-    e.preventDefault();
+  const handleCloseModal = () => {
     modal.classList.remove('modal--open');
   };
 
-  const cancelBtn = modal.querySelector("button[type='reset']");
-  cancelBtn.addEventListener('click', handleCloseModal);
-
-  const addBtn = modal.querySelector("button[type='submit']");
-  addBtn.addEventListener('click', handleCloseModal);
+  modal.addEventListener(RESTAURANT_FORM_EVENTS.submit, () => handleCloseModal());
+  modal.addEventListener(RESTAURANT_FORM_EVENTS.reset, () => handleCloseModal());
 };
 
 export default Modal;
