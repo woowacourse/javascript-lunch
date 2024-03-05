@@ -9,3 +9,15 @@ export interface Irestaurant {
   description?: string;
   link?: string;
 }
+
+export interface IrestaurantList {
+  restaurantList?: Irestaurant[];
+
+  addRestaurant: (restaurant: Irestaurant) => void;
+
+  sortByName: () => Irestaurant[];
+
+  sortByDistance: () => Irestaurant[];
+
+  filterByCategory: (category: Icategory) => Irestaurant[];
+}
