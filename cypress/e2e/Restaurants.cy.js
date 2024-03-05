@@ -67,4 +67,36 @@ describe('음식점 목록 테스트', () => {
 
     expect(restaurants.orderByDistance()).to.deep.equal(result);
   });
+
+  it('이름순으로 음식점 목록을 정렬한다.', () => {
+    const restaurants = new Restaurants();
+    const result = [
+      {
+        category: '한식',
+        name: '간식당',
+        walkingTimeFromCampus: 5,
+      },
+      {
+        category: '양식',
+        name: '양식당',
+        walkingTimeFromCampus: 30,
+      },
+      {
+        category: '중식',
+        name: '중식당',
+        walkingTimeFromCampus: 20,
+      },
+      {
+        category: '한식',
+        name: '한식당',
+        walkingTimeFromCampus: 5,
+      },
+    ];
+
+    restaurantList.forEach((restaurant) => {
+      restaurants.addRestaurant(restaurant);
+    });
+
+    expect(restaurants.orderByName()).to.deep.equal(result);
+  });
 });
