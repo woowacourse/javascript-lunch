@@ -22,7 +22,7 @@
 - localStorage에서 데이터 관리
 
 # 컴포넌트
-- CategoryItem
+- CategoryIcon
   - Restaurant의 카테고리별 아이콘
 - Restaurant
   - 음식점에 대한 컴포넌트
