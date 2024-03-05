@@ -37,4 +37,17 @@ describe('음식점 목록 기능 단위 테스트', () => {
 
     expect(restaurants.getSortedByName()).toEqual(result);
   });
+
+  test('음식점 목록을 거리 순으로 정렬할 수 있다.', () => {
+    const result = [
+      new Restaurant(restaurantF),
+      new Restaurant(restaurantE),
+      new Restaurant(restaurantD),
+      new Restaurant(restaurantC),
+      new Restaurant(restaurantB),
+      new Restaurant(restaurantA),
+    ];
+
+    expect(restaurants.getSortedByDistance()).toEqual(result);
+  });
 });
