@@ -9,10 +9,7 @@ class LunchApp extends BaseComponent {
           <main>
             <section class="restaurant-filter-container">
               <category-dropdown></category-dropdown>            
-              <select name="sorting" id="sorting-filter" class="restaurant-filter">
-                <option value="name">이름순</option>
-                <option value="distance">거리순</option>
-              </select>
+              <sort-dropdown></sort-dropdown>
             </section>
           </main>
         `;
