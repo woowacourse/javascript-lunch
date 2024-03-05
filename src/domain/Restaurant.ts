@@ -1,7 +1,10 @@
-type Restaurant = {
-  category: any;
-  name: string;
-  distance: number;
-  introduction?: string;
-  link?: string;
-};
+import { RestaurantType, CategoryType } from '../types';
+
+class Restaurant {
+  #restaurant;
+  constructor(restaurant: RestaurantType) {
+    this.#restaurant = restaurant;
+  }
+}
+
+export default Restaurant;
