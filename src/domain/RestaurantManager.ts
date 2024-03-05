@@ -40,7 +40,7 @@ export class RestaurantManager implements IRestaurantManager {
   sortByAscendingWalkingTime(): IRestaurant[] {
     return [...this.restaurants].sort((a, b) => {
       if (a.walkingTime < b.walkingTime) return -1;
-      if (a.walkingTime > b.walkingTime) return -1;
+      if (a.walkingTime > b.walkingTime) return 1;
 
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
@@ -49,6 +49,8 @@ export class RestaurantManager implements IRestaurantManager {
   }
 
   filteredRestaurants(category: Category): IRestaurant[] {
-    throw new Error("Method not implemented.");
+    return [...this.restaurants].filter(
+      (restaurant) => restaurant.category === category
+    );
   }
 }

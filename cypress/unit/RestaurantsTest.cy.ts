@@ -1,4 +1,4 @@
-import { IRestaurant, Category } from "../../src/domain/interface/IRestaurant";
+import { IRestaurant } from "../../src/domain/interface/IRestaurant";
 import {
   IRestaurantManager,
   RestaurantManager,
@@ -19,7 +19,7 @@ describe("음식점 목록 테스트", () => {
     restaurantManager.add(newRestaurant);
 
     // then
-    expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
+    expect(restaurantManager.getRestaurants()).to.eql(([newRestaurant]);
   });
 
   it("음식점을 이름순으로 정렬해 반환한다.", () => {
@@ -158,10 +158,10 @@ describe("음식점 목록 테스트", () => {
     restaurantManager.add(newRestaurant);
 
     // then
-    expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
+    expect(restaurantManager.getRestaurants()).to.eql(([newRestaurant]);
   });
 
-  const totalRestaurants: IRestaurant[] = [
+  const totalRestaurants: IRestaurants[] = [
     {
       category: "중식",
       name: "가",
@@ -184,54 +184,59 @@ describe("음식점 목록 테스트", () => {
     },
   ];
 
-  const testData: { category: Category; filteredRestaurants: IRestaurant[] }[] =
-    [
-      {
-        category: "중식",
-        filteredRestaurants: [
-          {
-            category: "중식",
-            name: "가",
-            walkingTime: 5,
-          },
-        ],
-      },
-      {
-        category: "일식",
-        filteredRestaurants: [
-          {
-            category: "일식",
-            name: "바",
-            walkingTime: 30,
-          },
-        ],
-      },
-      {
-        category: "한식",
-        filteredRestaurants: [
-          {
-            category: "한식",
-            name: "마녀김밥",
-            walkingTime: 10,
-          },
-          {
-            category: "한식",
-            name: "나",
-            walkingTime: 20,
-          },
-        ],
-      },
-    ];
+  const testData = [
+    {
+      category: "중식",
+      filteredRestaurants: [
+        {
+          category: "중식",
+          name: "가",
+          walkingTime: 5,
+        },
+      ],
+    },
+    {
+      category: "일식",
+      filteredRestaurants: [
+        {
+          category: "일식",
+          name: "바",
+          walkingTime: 30,
+        },
+      ],
+    },
+    {
+      category: "한식",
+      filteredRestaurants: [
+        {
+          category: "한식",
+          name: "마녀김밥",
+          walkingTime: 10,
+        },
+        {
+          category: "한식",
+          name: "나",
+          walkingTime: 20,
+        },
+      ],
+    },
+  ];
 
   testData.forEach(({ category, filteredRestaurants }) => {
     it(`${category}로 정렬한 결과를 받아온다.`, () => {
       // given
+      const newRestaurant: IRestaurant = {
+        category: "중식",
+        name: "친친",
+        walkingTime: 5,
+      };
+
       const restaurantManager: IRestaurantManager = new RestaurantManager(
         totalRestaurants
       );
 
       // then
-      expect(restaurantManager.filteredRestaurants(category)).to.eql(
+      expect(restaurantManager.filteredRestaurants(newRestaurant)).to.eql(
         filteredRestaurants
       );
     });
