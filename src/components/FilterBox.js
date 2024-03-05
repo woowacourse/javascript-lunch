@@ -26,7 +26,7 @@ class FilterBox extends HTMLElement {
   removeEvent() {}
 
   categoryTemplate() {
-    const categoryOption = ['전체', '한식', '일식', '양식', '아시안', '기타'];
+    const categoryOption = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
 
     return `
       <select name="category" class="restaurant-filter">
