@@ -96,4 +96,15 @@ describe('맛집 클래스 테스트', () => {
       );
     });
   });
+  describe('맛집 필터링 테스트', () => {
+    it('필터로 기타를 고르면 식당이름은 쑤쑤당이다.', () => {
+      // given
+      const matzip = new Matzip(matzipList);
+      const filterByCategoryResult = '쑤쑤당';
+      // when
+      const result = matzip.filterByCategory('기타');
+      // then
+      expect(result.map((restaurant) => restaurant.name)).to.include(filterByCategoryResult);
+    });
+  });
 });
