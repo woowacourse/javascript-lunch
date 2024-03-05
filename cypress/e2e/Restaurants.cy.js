@@ -1,3 +1,5 @@
+import Restaurants from '../../src/domains/Restaurants.ts';
+
 describe('음식점 목록 테스트', () => {
   const restaurantList = [
     {
