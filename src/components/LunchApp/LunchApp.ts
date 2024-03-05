@@ -13,6 +13,7 @@ class LunchApp extends BaseComponent {
             </section>
             <restaurant-list></restaurant-list>
           </main>
+          <restaurant-add-modal class="modal"></restaurant-add-modal>
         `;
   }
 
