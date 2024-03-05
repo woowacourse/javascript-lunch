@@ -17,7 +17,11 @@ class Restaurants {
   }
 
   getSortedByName() {
-    return this.#restaurants.sort((a, b) => a.getName() - b.getName());
+    return [...this.#restaurants.sort((a, b) => a.getName() - b.getName())];
+  }
+
+  getSortedByDistance() {
+    return [...this.#restaurants.sort((a, b) => a.getDistance() - b.getDistance())];
   }
 }
 
