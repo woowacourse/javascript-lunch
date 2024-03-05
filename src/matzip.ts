@@ -1,4 +1,4 @@
-import { MatzipInterface, Restaurant, SortType } from './types';
+import { MatzipInterface, Restaurant, SortType, CategoryType } from './types';
 import { CategoryValidator, NameValidator, DistanceValidator } from './validator/index';
 
 class Matzip implements MatzipInterface {
@@ -20,6 +20,10 @@ class Matzip implements MatzipInterface {
     };
 
     return [...this.restaurants.sort(SORT_BY[sortBy])];
+  }
+
+  filterByCategory(category: CategoryType) {
+    return [...this.restaurants.filter((restaurant) => restaurant.category === category)];
   }
 
   sortByName(a: Restaurant, b: Restaurant) {
