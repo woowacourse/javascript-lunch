@@ -1,6 +1,6 @@
 import { MatzipInterface, RestaurantType } from './types';
 import Restaurant from './domain/Restaurant';
-import CategoryValidator from './validator/CategoryValidator';
+import { CategoryValidator, NameValidator } from './validator/index';
 
 class Matzip implements MatzipInterface {
   restaurants: Restaurant[] = [];
@@ -17,6 +17,7 @@ class Matzip implements MatzipInterface {
   addValidate(restaurant: RestaurantType) {
     CategoryValidator.empty(restaurant.category + '');
     CategoryValidator.exist(restaurant.category + '');
+    NameValidator.empty(restaurant.name);
   }
 }
 
