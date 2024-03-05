@@ -33,6 +33,10 @@ class Restaurant {
       throw new Error('❌');
     }
   }
+
+  getInfo() {
+    return { ...this.#restaurantInfo };
+  }
 }
 
 export default Restaurant;

@@ -2,8 +2,11 @@
   "rules": {
     "max-depth": ["warn", 1],
     "max-params": ["warn", 3],
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off"
   },
+
   "overrides": [
     {
       "files": ["./src/**"],
