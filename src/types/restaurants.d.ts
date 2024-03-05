@@ -1,4 +1,3 @@
-interface Restaurants {
-  restaurants: Restaurant[];
+interface RestaurantsInterface {
   filterByCategory: (category: Category) => Restaurant[];
 }

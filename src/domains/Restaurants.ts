@@ -1,22 +1,22 @@
-class Restaurants implements Restaurants {
-  #restaurants: Restaurant[];
+class Restaurants implements RestaurantsInterface {
+  private restaurants: Restaurant[];
 
   constructor() {
-    this.#restaurants = [];
+    this.restaurants = [];
   }
 
   filterByCategory(category: Category) {
-    return this.#restaurants.filter((restaurant) => restaurant.category === category);
+    return this.restaurants.filter((restaurant) => restaurant.category === category);
   }
 
   addRestaurant(restaurant: Restaurant) {
     // TODO: 이 값이 있는지 없는지 -> set 고려
 
-    this.#restaurants.push(restaurant);
+    this.restaurants.push(restaurant);
   }
 
   orderByDistance() {
-    return this.#restaurants.toSorted(
+    return this.restaurants.toSorted(
       (prevRestaurant, nextRestaurant) =>
         prevRestaurant.walkingTimeFromCampus - nextRestaurant.walkingTimeFromCampus,
     );
