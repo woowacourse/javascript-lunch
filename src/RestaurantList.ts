@@ -1,21 +1,20 @@
-import Restaurant, { IRestaurant, TCategory } from './Restaurant';
+import type Restaurant from './Restaurant';
+import type { TCategory } from './Restaurant';
 
 type TRestaurantInstance = InstanceType<typeof Restaurant>;
-interface IRestaurantList {
-  restaurants: TRestaurantInstance[];
-}
+type IRestaurantList = TRestaurantInstance[];
 
 class RestaurantList {
   restaurants;
-  constructor({ restaurants }: IRestaurantList) {
+  constructor(restaurants: IRestaurantList) {
     this.restaurants = restaurants;
   }
 
-  getSortedByName(): TRestaurantInstance[] {
+  getSortedByName(): IRestaurantList {
     return [...this.restaurants].sort((a, b) => (a.information.name > b.information.name ? 1 : -1));
   }
 
-  getSortedByDistance(): TRestaurantInstance[] {
+  getSortedByDistance(): IRestaurantList {
     return [...this.restaurants].sort((a, b) => (a.information.distance > b.information.distance ? 1 : -1));
   }
 
@@ -23,7 +22,7 @@ class RestaurantList {
     this.restaurants.push(restaurant);
   }
 
-  filterByCategory(category: TCategory): TRestaurantInstance[] {
+  filterByCategory(category: TCategory): IRestaurantList {
     return this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
   }
 }
