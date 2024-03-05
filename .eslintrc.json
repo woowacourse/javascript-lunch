@@ -1,11 +1,13 @@
 {
-  "rules": {},
   "env": {
-    "es6": true,
-    "node": true
+    "browser": true,
+    "es2021": true
   },
+  "extends": ["airbnb", "standard-with-typescript", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "rules": {}
 }
