@@ -13,8 +13,9 @@ interface Restaurant {
 }
 
 interface Restaurants {
-  restaurants: Restaurant[];
-  addRestaurant: (restaurant: Restaurant) => boolean;
-  filterByCategory: (category: Category) => Restaurant[];
-  sortByProperty: (property: Property) => Restaurant[];
+  addRestaurant: (restaurant: Restaurant, restaurantList: Restaurant[]) => boolean;
+  filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
+  sortByProperty: (property: Property, restaurantList: Restaurant[]) => Restaurant[];
 }
+
+export { Category, Distance, Property, Restaurant, Restaurants };
