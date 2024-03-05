@@ -12,5 +12,14 @@
     "project": ["tsconfig.json"]
   },
   "ignorePatterns": ["cypress.config.ts"],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/no-unused-expressions": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      }
+    }
+  }
 }
