@@ -14,6 +14,8 @@ module.exports = {
       },
     },
   ],
+
+  // (포매터)
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
