@@ -3,7 +3,7 @@
   "compilerOptions": {
     "incremental": true,
     "target": "ES2020",
-    "types": ["cypress"],
+    "types": ["node", "cypress", "chai", "mocha"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
@@ -17,6 +17,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "cypress", "dist"]
+  "include": ["src", "**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

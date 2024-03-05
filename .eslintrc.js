@@ -1,12 +1,12 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
   },
   overrides: [
     {
       env: {
         node: true,
+        cypress: true,
       },
       files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
