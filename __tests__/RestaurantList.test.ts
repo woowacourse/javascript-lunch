@@ -1,8 +1,8 @@
 import { Category, Distance, Restaurant } from "../src/types";
 import RestaurantList from "../src/domain/RestaurantList";
 
-describe("음식점 목록 테스트", () => {
-  test("목록이 알맞게 출력되었는지", () => {
+describe("음식점 목록 클래스 테스트", () => {
+  test("음식점 목록을 반환한다.", () => {
     // Given
     const restaurants: Restaurant[] = [
       {
@@ -33,6 +33,45 @@ describe("음식점 목록 테스트", () => {
     const restaurantList = new RestaurantList(restaurants);
 
     // Then
-    expect(restaurantList.getRestaurants).toEqual(answer);
+    expect(restaurantList.getRestaurants()).toEqual(answer);
+  });
+
+  test("카테고리별로 필터링해서 반환한다", () => {
+    // Given
+    const restaurants: Restaurant[] = [
+      {
+        category: "한식",
+        name: "우리김밥",
+        distance: 5,
+      },
+      {
+        category: "일식",
+        name: "너네초밥",
+        distance: 30,
+      },
+      {
+        category: "중식",
+        name: "친친",
+        distance: 20,
+      },
+      {
+        category: "아시안",
+        name: "김밥천국",
+        distance: 15,
+      },
+    ];
+    const answer: Restaurant[] = [
+      {
+        category: "한식",
+        name: "우리김밥",
+        distance: 5,
+      },
+    ];
+
+    // When
+    const restaurantList = new RestaurantList(restaurants);
+
+    // Then
+    expect(restaurantList.getFilteredRestaurants("한식")).toEqual(answer);
   });
 });

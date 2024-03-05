@@ -1,4 +1,4 @@
-import { Restaurant } from "../types";
+import { Restaurant, Category } from "../types";
 
 class RestaurantList {
   private restaurants: Restaurant[];
@@ -7,8 +7,14 @@ class RestaurantList {
     this.restaurants = restaurants;
   }
 
-  get getRestaurants(): Restaurant[] {
+  getRestaurants(): Restaurant[] {
     return [...this.restaurants];
+  }
+
+  getFilteredRestaurants(category: Category): Restaurant[] {
+    return this.restaurants.filter(
+      (restaurant) => restaurant.category === category
+    );
   }
 }
 
