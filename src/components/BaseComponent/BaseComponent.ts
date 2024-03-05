@@ -1,3 +1,5 @@
+import { EventHandler } from "./BaseComponent.type";
+
 abstract class BaseComponent extends HTMLElement {
   protected connectedCallback() {
     this.render();
@@ -27,11 +29,11 @@ abstract class BaseComponent extends HTMLElement {
     this.dispatchEvent(customEvent);
   }
 
-  protected on({ target, eventName, eventHandler }: any) {
+  protected on({ target, eventName, eventHandler }: EventHandler) {
     target.addEventListener(eventName, eventHandler);
   }
 
-  protected off({ target, eventName, eventHandler }: any) {
+  protected off({ target, eventName, eventHandler }: EventHandler) {
     target.removeEventListener(eventName, eventHandler);
   }
 }

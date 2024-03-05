@@ -20,22 +20,39 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 620px;
 
-  padding: 32px 16px;
+  padding: 24px 16px;
+  overflow: auto;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
 }
 
+/* Chrome, Safari */
+.modal-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+.modal-container {
+  scrollbar-width: none;
+}
+
+/* IE & Edge */
+.modal-container {
+  -ms-overflow-style: none;
+}
+
 .modal-title {
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .form-item {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .form-item label {
