@@ -1,4 +1,4 @@
-export interface IRestuarant {
+export interface IRestaurant {
   name: string;
   distance: Distance;
   category: Category;
