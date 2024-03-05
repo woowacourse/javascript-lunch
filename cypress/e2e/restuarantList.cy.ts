@@ -1,46 +1,5 @@
-import { Category, IRestaurant } from '../../src/types/Restaurant';
-import Restaurant from '../../src/domains/entities/Restuarant';
-
-class RestaurantList {
-  restaurantList: Restaurant[];
-
-  constructor(restaurants: IRestaurant[]) {
-    this.restaurantList = restaurants.map((restaurant: IRestaurant) => new Restaurant(restaurant));
-  }
-
-  get() {
-    return this.restaurantList.map((restaurant) => restaurant.get());
-  }
-
-  filterByCategory(category: Category) {
-    return this.restaurantList
-      .filter((restaurant) => restaurant.get().category === category)
-      .map((restaurant) => restaurant.get());
-  }
-
-  sortByName() {
-    return this.restaurantList
-      .sort((a, b) => a.get().name.localeCompare(b.get().name))
-      .map((restaurant) => restaurant.get());
-  }
-
-  sortByDistance() {
-    return this.restaurantList
-      .sort((a, b) => a.get().distance - b.get().distance)
-      .map((restaurant) => restaurant.get());
-  }
-
-  addRestaurant(restaurantArg: IRestaurant) {
-    const restaurants = this.restaurantList.map((restaurant) => {
-      return JSON.stringify(restaurant.get());
-    });
-    if (restaurants.includes(JSON.stringify(restaurantArg))) {
-      throw new Error('[ERROR] 이미 존재하는 음식점입니다.');
-    }
-    const restaurant = new Restaurant(restaurantArg);
-    this.restaurantList.push(restaurant);
-  }
-}
+import RestaurantList from '../../src/domains/entities/RestaurantList';
+import { IRestaurant } from '../../src/types/Restaurant';
 
 describe('레스토랑 리스트 클래스', () => {
   const restaurant1: IRestaurant = {
@@ -89,7 +48,7 @@ describe('레스토랑 리스트 클래스', () => {
   });
 
   it('새로운 음식점을 정상적으로 잘 추가한다.', () => {
-    const newRstaurant: IRestaurant = {
+    const newRestaurant: IRestaurant = {
       name: '꺼벙이 김밥',
       distance: 5,
       category: '한식',
@@ -98,13 +57,13 @@ describe('레스토랑 리스트 클래스', () => {
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const restaurantList = new RestaurantList(RESTAURANTS);
 
-    restaurantList.addRestaurant(newRstaurant);
+    restaurantList.addRestaurant(newRestaurant);
 
     expect(restaurantList.get()).to.deep.equal([
       restaurant1,
       restaurant2,
       restaurant3,
-      newRstaurant,
+      newRestaurant,
     ]);
   });
 
