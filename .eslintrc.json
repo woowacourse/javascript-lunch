@@ -1,11 +1,25 @@
 {
-  "rules": {},
+  "rules": {
+    "max-depth": ["error", 1],
+    "max-params": ["error", 2],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  },
   "env": {
+    "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "extends": ["airbnb-base", "prettier"]
 }
