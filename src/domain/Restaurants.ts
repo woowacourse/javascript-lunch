@@ -1,4 +1,3 @@
-import { IRestaurant } from '../type/types';
 import Restaurant from './Restaurant';
 
 class Restaurants {

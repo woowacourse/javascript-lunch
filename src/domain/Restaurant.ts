@@ -1,9 +1,9 @@
-import { IRestaurant, TDistance } from '../type/types';
+import { IRestaurant } from '../type/types';
 
 class Restaurant {
   #category: string;
   #name: string;
-  #distance: TDistance;
+  #distance: number;
   #description?: string;
   #reference?: string;
 
