@@ -4,7 +4,7 @@ class RestaurantList {
   private restaurants: Restaurant[];
 
   constructor(restaurants: Restaurant[]) {
-    this.restaurants = restaurants;
+    this.restaurants = restaurants.map((restaurant) => deepCopy(restaurant));
   }
 
   getRestaurants(): Restaurant[] {
@@ -28,6 +28,10 @@ class RestaurantList {
         }
         return 0;
       });
+  }
+
+  add(restaurant: Restaurant) {
+    this.restaurants = [...this.restaurants, deepCopy(restaurant)];
   }
 }
 
