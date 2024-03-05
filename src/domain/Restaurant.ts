@@ -16,6 +16,10 @@ class Restaurant {
     this.#description = description ?? '';
     this.#reference = reference ?? '';
   }
+
+  getCategory() {
+    return this.#category;
+  }
 }
 
 export default Restaurant;

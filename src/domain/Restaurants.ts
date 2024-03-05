@@ -1,14 +1,19 @@
-import { IRestaurant } from '../type/types';
+import { IRestaurant, TCategory } from '../type/types';
+import Restaurant from './Restaurant';
 
 class Restaurants {
-  #restaurants: IRestaurant[];
+  #restaurants: Restaurant[];
 
   constructor() {
     this.#restaurants = [];
   }
 
-  addRestaurant(restaurant: IRestaurant) {
+  addRestaurant(restaurant: Restaurant) {
     this.#restaurants.push(restaurant);
+  }
+
+  getFilteredByCategory(category: TCategory) {
+    return [...this.#restaurants.filter((restaurant) => restaurant.getCategory() === category)];
   }
 }
 
