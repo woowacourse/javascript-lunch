@@ -1,11 +1,10 @@
+import { IRestaurant } from "../../src/domain/interface/IRestaurant";
+import {
+  IRestaurantManager,
+  RestaurantManager,
+} from "../../src/domain/RestaurantManager";
+
 describe("음식점 목록 테스트", () => {
-  const { add, divide, multiply, subtract } = math;
-
-  // before(() => {
-  //   // check if the import worked correctly
-  //   expect(add, "add").to.be.a("function");
-  // });
-
   it("음식점을 추가하면 정상적으로 추가되었는지 확인한다.", () => {
     // given
     const newRestaurant: IRestaurant = {
@@ -74,7 +73,7 @@ describe("음식점 목록 테스트", () => {
     ];
 
     // then
-    expect(restaurantManager.sortByAscendingName()).to.eq(
+    expect(restaurantManager.sortByAscendingName()).to.eql(
       sortedByAscendingName
     );
   });
@@ -86,6 +85,11 @@ describe("음식점 목록 테스트", () => {
         category: "한식",
         name: "바",
         walkingTime: 30,
+      },
+      {
+        category: "한식",
+        name: "간",
+        walkingTime: 5,
       },
       {
         category: "한식",
@@ -114,6 +118,11 @@ describe("음식점 목록 테스트", () => {
       },
       {
         category: "한식",
+        name: "간",
+        walkingTime: 5,
+      },
+      {
+        category: "한식",
         name: "마녀김밥",
         walkingTime: 10,
       },
@@ -130,7 +139,7 @@ describe("음식점 목록 테스트", () => {
     ];
 
     // then
-    expect(restaurantManager.sortByAscendingName()).to.eq(
+    expect(restaurantManager.sortByAscendingWalkingTime()).to.eql(
       sortedByAscendingWalkingTime
     );
   });
