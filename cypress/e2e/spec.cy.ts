@@ -1,36 +1,5 @@
-import { Category, IRestaurant, Distance } from '../../src/types/Restaurant';
-class Restaurant implements IRestaurant {
-  name: string;
-  distance: Distance;
-  category: Category;
-  description?: string;
-  link?: string;
-
-  constructor(restaurantArgs: IRestaurant) {
-    this.name = restaurantArgs.name;
-    this.distance = restaurantArgs.distance;
-    this.category = restaurantArgs.category;
-    this.description = restaurantArgs.description;
-    this.link = restaurantArgs.link;
-    this.#validateName();
-    this.#validateDescription();
-  }
-
-  getName() {
-    return this.name;
-  }
-
-  #validateName() {
-    if (!this.name.length || this.name.length > 20) {
-      throw new Error('[ERROR] 이름의 길이는 1~20자 여야 합니다.');
-    }
-  }
-  #validateDescription() {
-    if (this.description && this.description.length > 500) {
-      throw new Error('[ERROR] 음식점 설명 길이는 500자를 초과할 수 없습니다.');
-    }
-  }
-}
+import { IRestaurant } from '../../src/types/Restaurant';
+import Restaurant from '../../src/domains/entities/Restuarant';
 
 describe('레스토랑 클래스', () => {
   it('성공 케이스', () => {
@@ -40,8 +9,15 @@ describe('레스토랑 클래스', () => {
       category: '중식',
       description: '게살볶음밥',
     };
+    const EXPECTED_RESULT: IRestaurant = {
+      name: '친친',
+      distance: 10,
+      category: '중식',
+      description: '게살볶음밥',
+    };
+
     const restaurant = new Restaurant(RESTAURANT_ARGS);
-    expect(restaurant.getName()).to.equal('친친');
+    expect(restaurant.get()).to.deep.equal(EXPECTED_RESULT);
   });
 
   describe('잘못된 길이의 이름이 인자로 들어올 때, 에러를 반환한다.', () => {
@@ -73,7 +49,16 @@ describe('레스토랑 클래스', () => {
       category: '중식',
       description: INVALID_DESCRIPTION,
     };
-
     expect(() => new Restaurant(RESTAURANT_ARGS)).to.throw('[ERROR]');
+  });
+  it('없는 속성을 꺼냈을 때 에러를 반환하지 않는다.', () => {
+    const RESTAURANT_ARGS: IRestaurant = {
+      name: '친친',
+      distance: 10,
+      category: '중식',
+      link: '',
+    };
+    const restaurant = new Restaurant(RESTAURANT_ARGS);
+    expect(() => restaurant.get().link).not.to.throw();
   });
 });
