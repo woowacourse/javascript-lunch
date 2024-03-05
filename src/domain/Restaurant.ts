@@ -20,6 +20,10 @@ class Restaurant {
   getCategory() {
     return this.#category;
   }
+
+  getName() {
+    return this.#name;
+  }
 }
 
 export default Restaurant;

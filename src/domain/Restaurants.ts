@@ -15,6 +15,10 @@ class Restaurants {
   getFilteredByCategory(category: TCategory) {
     return [...this.#restaurants.filter((restaurant) => restaurant.getCategory() === category)];
   }
+
+  getSortedByName() {
+    return this.#restaurants.sort((a, b) => a.getName() - b.getName());
+  }
 }
 
 export default Restaurants;
