@@ -1,5 +1,5 @@
 import { RestaurantType, CategoryType, SortType } from './index';
-import Restaurant from './restaurant';
+import Restaurant from '../domain/Restaurant';
 
 interface Matzip {
   restaurants: Restaurant[];
