@@ -14,6 +14,13 @@ class Restaurants implements Restaurants {
 
     this.#restaurants.push(restaurant);
   }
+
+  orderByDistance() {
+    return this.#restaurants.toSorted(
+      (prevRestaurant, nextRestaurant) =>
+        prevRestaurant.walkingTimeFromCampus - nextRestaurant.walkingTimeFromCampus,
+    );
+  }
 }
 
 export default Restaurants;
