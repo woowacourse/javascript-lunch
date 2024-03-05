@@ -1,4 +1,4 @@
-import { IRestaurant, TCategory } from '../type/types';
+import { IRestaurant } from '../type/types';
 import Restaurant from './Restaurant';
 
 class Restaurants {
@@ -12,7 +12,7 @@ class Restaurants {
     this.#restaurants.push(restaurant);
   }
 
-  getFilteredByCategory(category: TCategory) {
+  getFilteredByCategory(category: string) {
     return [...this.#restaurants.filter((restaurant) => restaurant.getCategory() === category)];
   }
 
