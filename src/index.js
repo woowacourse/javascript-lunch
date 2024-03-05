@@ -3,3 +3,4 @@ import "../src/styles/reset.css";
 
 import "./components/LunchApp/LunchApp";
 import "./components/GlobalNavigationBar/GlobalNavigationBar";
+import "./components/CategoryDropdown/CategoryDropdown";
