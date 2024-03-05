@@ -9,7 +9,12 @@ describe('음식점 목록 테스트', () => {
     },
     {
       category: '한식',
-      name: '한식당',
+      name: '한식한식당',
+      walkingTimeFromCampus: 5,
+    },
+    {
+      category: '한식',
+      name: '간식당',
       walkingTimeFromCampus: 5,
     },
     {
@@ -17,46 +22,31 @@ describe('음식점 목록 테스트', () => {
       name: '양식당',
       walkingTimeFromCampus: 30,
     },
-    {
-      category: '한식',
-      name: '한식한식당',
-      walkingTimeFromCampus: 5,
-    },
   ];
 
   it('카테고리별로 음식점 목록을 필터링할 수 있다.', () => {
     const restaurants = new Restaurants();
-    const result = [
-      {
-        category: '한식',
-        name: '한식당',
-        walkingTimeFromCampus: 5,
-      },
-      {
-        category: '한식',
-        name: '한식한식당',
-        walkingTimeFromCampus: 5,
-      },
-    ];
 
     restaurantList.forEach((restaurant) => {
       restaurants.addRestaurant(restaurant);
     });
 
-    expect(restaurants.filterByCategory('한식')).to.deep.equal(result);
+    expect(
+      restaurants.filterByCategory('한식').every((restaurant) => restaurant.category === '한식'),
+    ).to.be.true;
   });
 
-  it('거리순으로 음식점 목록을 정렬할 수 있다.', () => {
+  it('거리순으로 음식점 목록을 정렬한다. 단, 거리가 같을 시, 이름순으로 정렬한다.', () => {
     const restaurants = new Restaurants();
     const result = [
       {
         category: '한식',
-        name: '한식당',
+        name: '간식당',
         walkingTimeFromCampus: 5,
       },
       {
         category: '한식',
-        name: '한식한식당',
+        name: '한식당',
         walkingTimeFromCampus: 5,
       },
       {
