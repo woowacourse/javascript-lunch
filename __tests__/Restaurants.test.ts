@@ -24,4 +24,17 @@ describe('음식점 목록 기능 단위 테스트', () => {
   ])('음식점 목록 중 "%s" 인 카테고리만 필터링 할 수 있다.', (category: string, restaurant: Restaurant) => {
     expect(restaurants.getFilteredByCategory(category)).toEqual([restaurant]);
   });
+
+  test('음식점 목록을 이름 순으로 정렬할 수 있다.', () => {
+    const result = [
+      new Restaurant(restaurantF),
+      new Restaurant(restaurantE),
+      new Restaurant(restaurantD),
+      new Restaurant(restaurantA),
+      new Restaurant(restaurantB),
+      new Restaurant(restaurantC),
+    ];
+
+    expect(restaurants.getSortedByName()).toEqual(result);
+  });
 });
