@@ -9,15 +9,35 @@
 
 ## 음식점
 
-- [ ] 카테고리(필수) - "한식", "중식", "일식", "아시안", "양식", "기타" 중 하나
-- [ ] 이름(필수) - 문자열
-- [ ] 거리(필수) - 5, 10, 15, 20, 30 중 하나
-- [ ] 설명(옵션) - 문자열
-- [ ] 참고 링크(옵션) - 링크
+- [x] 카테고리(필수) - "한식", "중식", "일식", "아시안", "양식", "기타" 중 하나
+- [x] 이름(필수) - 문자열
+- [x] 거리(필수) - 5, 10, 15, 20, 30 중 하나
+- [x] 설명(옵션) - 문자열
+- [x] 참고 링크(옵션) - 링크
 
 ## UI
 
-- [ ] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은????
+- [ ] RestaurantListLayout
+  - [ ] header
+    - [ ] title
+    - [ ] add restaurant button
+  - [ ] main
+    - [ ] RestaurantOptionSection
+      - [ ] filter select
+      - [ ] sort select
+    - [ ] RestaurantListSection
+      - [ ] RestaurantItem
+- [ ] AddRestaurantModal
+  - [ ] AddRestaurantForm
+    - [ ] form title
+    - [ ] category select
+    - [ ] name input
+    - [ ] distance select
+    - [ ] description input
+    - [ ] link input
+    - [ ] cancel button
+    - [ ] submit button
+- [ ] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 -> alert
 
 ## 기타
 
