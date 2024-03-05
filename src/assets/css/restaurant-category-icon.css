@@ -1,0 +1,36 @@
+.restaurant__category-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--lunch-primary-lighten-color);
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+
+  div {
+    background-size: 36px;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+  }
+}
+
+
+.icon-western {
+background-image: url('../svgs/category-western.svg');
+}
+.icon-asian {
+background-image: url('../svgs/category-asian.svg');
+}
+.icon-chinese {
+background-image: url('../svgs/category-chinese.svg');
+}
+.icon-japanese {
+background-image: url('../svgs/category-japanese.svg');
+}
+.icon-korean {
+  background-image: url('../svgs/category-korean.svg');
+}
+.icon-etc {
+background-image: url('../svgs/category-etc.svg');
+}

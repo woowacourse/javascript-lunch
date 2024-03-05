@@ -1,0 +1,32 @@
+.restaurant{
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  max-height: 137px;
+  padding: 14px 8px 19px 7px;
+  box-sizing: border-box;
+  line-height: 24px;
+  border-bottom: 1px solid var(--lunch-grey-scale-2-color);
+}
+.restaurant__info{
+  margin-left: 16px;
+}
+.restaurant__info__title{
+  font-weight: var(--lunch-subtitle-font-weight);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 263px;
+  white-space: nowrap;
+}
+.restaurant__info__distance{
+  color: var(--lunch-primary-color);
+}
+.restaurant__info__explanation{
+  max-height: 48px;
+  max-width: 263px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; 
+}

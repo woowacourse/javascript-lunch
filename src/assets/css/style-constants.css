@@ -1,17 +1,22 @@
 :root{
-  --lunch-primary-color: #EC4A0A,
-  --lunch-primary-lighten-color: #F6A88A,
-  --lunch-grey-scale-1-color: #FFFFFF,
-  --lunch-grey-scale-2-color: #D0D5DD,
-  --lunch-grey-scale-3-color: #667085,
-  --lunch-grey-scale-4-color: #344054,
-  --lunch-grey-scale-5-color: #000000
+  --lunch-primary-color: #EC4A0A;
+  --lunch-primary-lighten-color: #F6A88A;
+  --lunch-grey-scale-1-color: #FFFFFF;
+  --lunch-grey-scale-2-color: #D0D5DD;
+  --lunch-grey-scale-3-color: #667085;
+  --lunch-grey-scale-4-color: #344054;
+  --lunch-grey-scale-5-color: #000000;
 
   --lunch-title-font-size: 20px;
   --lunch-subtitle-font-size: 18px
   --default-font-size:16px;
   --label-font-size: 14px;
+
   --default-font-weight:400;
-  --lunch-title-font-weigh: 600;
-  --lunch-subtitle-font-weigh: 700;
+  --lunch-title-font-weight: 600;
+  --lunch-subtitle-font-weight: 700;
+
+  --default-font-family: "Roboto", sans-serif;
 } 
+
+

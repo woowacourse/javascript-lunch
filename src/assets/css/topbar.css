@@ -1,0 +1,27 @@
+.topbar{
+  position: fixed;
+  width: 390px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:20px 16px;
+  background-color: var(--lunch-primary-color);
+  box-sizing: border-box;
+  z-index: 1;
+}
+.topbar__title{
+  font-size: var(--lunch-title-font-size);
+  font-weight: var(--lunch-title-font-weight);
+  color:var(--lunch-grey-scale-1-color);
+}
+.topbar__button {
+  background-image: url('../svgs/add-button.svg');
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  border: none;
+  padding: 1px;
+  box-sizing: border-box;
+  background-color: transparent;
+}
