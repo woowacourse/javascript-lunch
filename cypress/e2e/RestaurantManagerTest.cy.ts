@@ -19,7 +19,7 @@ describe("음식점 목록 테스트", () => {
     restaurantManager.add(newRestaurant);
 
     // then
-    expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
+    expect(restaurantManager.getRestaurants()).to.eq([newRestaurant]);
   });
 
   it("음식점을 이름순으로 정렬해 반환한다.", () => {
@@ -73,7 +73,7 @@ describe("음식점 목록 테스트", () => {
     ];
 
     // then
-    expect(restaurantManager.sortByAscendingName()).to.eq(
+    expect(restaurantManager.sortByAscendingName()).to.eql(
       sortedByAscendingName
     );
   });
@@ -85,6 +85,11 @@ describe("음식점 목록 테스트", () => {
         category: "한식",
         name: "바",
         walkingTime: 30,
+      },
+      {
+        category: "한식",
+        name: "간",
+        walkingTime: 5,
       },
       {
         category: "한식",
@@ -113,6 +118,11 @@ describe("음식점 목록 테스트", () => {
       },
       {
         category: "한식",
+        name: "간",
+        walkingTime: 5,
+      },
+      {
+        category: "한식",
         name: "마녀김밥",
         walkingTime: 10,
       },
@@ -129,7 +139,7 @@ describe("음식점 목록 테스트", () => {
     ];
 
     // then
-    expect(restaurantManager.sortByAscendingName()).to.eq(
+    expect(restaurantManager.sortByAscendingWalkingTime()).to.eql(
       sortedByAscendingWalkingTime
     );
   });
