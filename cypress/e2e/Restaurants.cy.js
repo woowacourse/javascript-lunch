@@ -9,7 +9,7 @@ describe('음식점 목록 테스트', () => {
     },
     {
       category: '한식',
-      name: '한식한식당',
+      name: '한식당',
       walkingTimeFromCampus: 5,
     },
     {

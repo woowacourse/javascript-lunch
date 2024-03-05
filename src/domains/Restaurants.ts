@@ -16,10 +16,16 @@ class Restaurants implements RestaurantsInterface {
   }
 
   orderByDistance() {
-    return this.restaurants.toSorted(
-      (prevRestaurant, nextRestaurant) =>
-        prevRestaurant.walkingTimeFromCampus - nextRestaurant.walkingTimeFromCampus,
-    );
+    return this.restaurants.toSorted((prevRestaurant, nextRestaurant) => {
+      if (prevRestaurant.walkingTimeFromCampus < nextRestaurant.walkingTimeFromCampus) {
+        return -1;
+      } else if (prevRestaurant.walkingTimeFromCampus === nextRestaurant.walkingTimeFromCampus) {
+        if (prevRestaurant.name < nextRestaurant.name) {
+          return -1;
+        }
+      }
+      return 1;
+    });
   }
 }
 
