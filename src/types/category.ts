@@ -1,3 +1,8 @@
-type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+import Condition from '../constants/Condition';
+
+const { CATEGORY } = Condition;
+
+type Union<T> = T[keyof T];
+type Category = Union<typeof CATEGORY>;
 
 export default Category;
