@@ -1,5 +1,4 @@
-import { MatzipInterface, RestaurantType } from './types';
-import Restaurant from './domain/Restaurant';
+import { MatzipInterface, Restaurant } from './types';
 import { CategoryValidator, NameValidator, DistanceValidator } from './validator/index';
 
 class Matzip implements MatzipInterface {
@@ -9,13 +8,12 @@ class Matzip implements MatzipInterface {
     this.restaurants = restaurants;
   }
 
-  add(restaurant: RestaurantType) {
+  add(restaurant: Restaurant) {
     this.addValidate(restaurant);
-    const newRestaurant = new Restaurant(restaurant);
-    this.restaurants.push(newRestaurant);
+    this.restaurants.push(restaurant);
   }
 
-  addValidate(restaurant: RestaurantType) {
+  addValidate(restaurant: Restaurant) {
     CategoryValidator.empty(restaurant.category + '');
     CategoryValidator.exist(restaurant.category + '');
     NameValidator.empty(restaurant.name);
