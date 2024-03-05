@@ -8,13 +8,13 @@ abstract class BaseComponent extends HTMLElement {
     this.removeEvent();
   }
 
-  protected abstract render(): void;
+  protected render() {}
 
   protected abstract setEvent(): void;
 
   protected removeEvent() {}
 
-  protected getTemplate() {
+  public getTemplate() {
     return "";
   }
 

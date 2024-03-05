@@ -11,6 +11,7 @@ class LunchApp extends BaseComponent {
               <category-dropdown></category-dropdown>            
               <sort-dropdown></sort-dropdown>
             </section>
+            <restaurant-list></restaurant-list>
           </main>
         `;
   }
