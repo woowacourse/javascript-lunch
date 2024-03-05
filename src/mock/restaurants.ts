@@ -9,12 +9,12 @@ const matzipList: Restaurant[] = [
   {
     name: '쑤쑤당',
     category: '기타',
-    distance: 10,
+    distance: 15,
   },
   {
     name: '썬데이네쌀국수',
     category: '아시안',
-    distance: 15,
+    distance: 10,
   },
   {
     name: '파슬리네텐동',

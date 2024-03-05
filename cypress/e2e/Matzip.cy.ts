@@ -83,5 +83,17 @@ describe('맛집 클래스 테스트', () => {
       // then
       expect(sortedMatzip.map((matzip) => matzip.name)).to.have.ordered.members(sortedByNameResult);
     });
+
+    it('맛집 거리순 정렬 테스트', () => {
+      // given
+      const matzip = new Matzip(matzipList);
+      const sortedByDistanceResult = ['쿠키네칼국수', '썬데이네쌀국수', '쑤쑤당', '파슬리네텐동'];
+      // when
+      const sortedMatzip = matzip.sort('거리순');
+      // then
+      expect(sortedMatzip.map((matzip) => matzip.name)).to.have.ordered.members(
+        sortedByDistanceResult,
+      );
+    });
   });
 });
