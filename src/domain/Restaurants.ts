@@ -13,15 +13,15 @@ class Restaurants {
   }
 
   getFilteredByCategory(category: TCategory) {
-    return [...this.#restaurants.filter((restaurant) => restaurant.getCategory() === category)];
+    return [...this.#restaurants.filter((restaurant) => restaurant.category === category)];
   }
 
   getSortedByName() {
-    return [...this.#restaurants.sort((a, b) => Number(a.getName()) - Number(b.getName()))];
+    return [...this.#restaurants.sort((a, b) => a.name.localeCompare(b.name))];
   }
 
   getSortedByDistance() {
-    return [...this.#restaurants.sort((a, b) => a.getDistance() - b.getDistance())];
+    return [...this.#restaurants.sort((a, b) => a.distance - b.distance)];
   }
 }
 
