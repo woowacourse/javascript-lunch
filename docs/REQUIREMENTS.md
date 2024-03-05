@@ -22,7 +22,7 @@
 - localStorage에서 데이터 관리
 
 # 컴포넌트
-- CategoryIcon
+- RestaurantIcon
   - Restaurant의 카테고리별 아이콘
 - Restaurant
   - 음식점에 대한 컴포넌트
@@ -32,7 +32,7 @@
   - color, text, 버튼 클릭 시 기능이 담긴 컴포넌트
 - DropBox
   - 선택 카테고리를 관리하는 컴포넌트
-- Navigation
+- TopBar
   - 페이지 상단의 헤더와 음식점 추가 버튼이 담긴 컴포넌트
 - Modal
 - Fieldset
