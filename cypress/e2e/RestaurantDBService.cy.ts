@@ -1,24 +1,5 @@
+import RestaurantDBService from '../../src/domains/services/RestaurantDBService';
 import { IRestaurant } from '../../src/types/Restaurant';
-import RestaurantList from '../../src/domains/entities/RestaurantList';
-
-class RestaurantDBService {
-  #RESTAURANTS_DB_KEY = 'restaurants';
-  #restaurantList;
-
-  constructor() {
-    const existingRestuarants = JSON.parse(this.getRestuarantListFromDB() || '[]');
-    this.#restaurantList = new RestaurantList(existingRestuarants);
-  }
-
-  getRestuarantListFromDB() {
-    return localStorage.getItem(this.#RESTAURANTS_DB_KEY);
-  }
-
-  add(restaurant: IRestaurant) {
-    this.#restaurantList.addRestaurant(restaurant);
-    localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(this.#restaurantList.get()));
-  }
-}
 
 describe('음식점 DB 서비스 테스트', () => {
   const RESTAURANTS_DB_TEST_KEY = 'restaurants_test';
