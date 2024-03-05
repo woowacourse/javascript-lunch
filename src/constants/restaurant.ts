@@ -8,10 +8,8 @@ const RESTAURANT = {
   minTimeToReach: 1,
   maxTimeToReach: 60,
 
-  minDescriptionLength: 1,
   maxDescriptionLength: 500,
 
-  minLinkLength: 1,
   maxLinkLength: 500,
 };
 

@@ -1,7 +1,7 @@
 import RESTAURANT from "../constants/restaurant";
-import { validateInRange } from "../utils/validator";
+import { validateInRange, validateNumberBelow } from "../utils/validator";
 
-interface RestaurantProps {
+export interface RestaurantInfo {
   name: string;
   category: Category;
   timeToReach: Minute;
@@ -25,7 +25,7 @@ class Restaurant {
     timeToReach,
     description,
     link,
-  }: RestaurantProps) {
+  }: RestaurantInfo) {
     this.#validateProps({
       name,
       category,
@@ -41,7 +41,11 @@ class Restaurant {
     this.#link = link;
   }
 
-  getRestauarntInfo(): RestaurantProps {
+  getName(): string {
+    return this.#name;
+  }
+
+  getInfo(): RestaurantInfo {
     return {
       name: this.#name,
       category: this.#category,
@@ -57,7 +61,7 @@ class Restaurant {
     timeToReach,
     description,
     link,
-  }: RestaurantProps): void {
+  }: RestaurantInfo): void {
     this.#validateName(name);
     this.#validateCategory(category);
     this.#validateTimeToReach(timeToReach);
@@ -90,19 +94,11 @@ class Restaurant {
   }
 
   #validateDescription(description: string): void {
-    validateInRange(
-      RESTAURANT.minDescriptionLength,
-      RESTAURANT.maxDescriptionLength,
-      description.length
-    );
+    validateNumberBelow(RESTAURANT.maxDescriptionLength, description.length);
   }
 
   #validateLink(link: string): void {
-    validateInRange(
-      RESTAURANT.minLinkLength,
-      RESTAURANT.maxLinkLength,
-      link.length
-    );
+    validateNumberBelow(RESTAURANT.maxLinkLength, link.length);
   }
 }
 
