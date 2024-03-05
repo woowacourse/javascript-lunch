@@ -57,4 +57,17 @@ describe('맛집 클래스 테스트', () => {
     // when & then
     expect(() => matzip.add(matzip1)).to.throw();
   });
+  it('맛집 추가 테스트', () => {
+    // given
+    const matzip = new Matzip([]);
+    const matzip1: Restaurant = {
+      name: '쑤쑤네짜장면',
+      category: '중식',
+      distance: 5,
+    };
+    // when
+    matzip.add(matzip1);
+    // then
+    expect(matzip.restaurants.length).to.eq(1);
+  });
 });
