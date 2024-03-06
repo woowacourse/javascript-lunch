@@ -7,6 +7,7 @@ export interface RestaurantDetail {
 }
 
 export type MenuCategory =
+  | "전체"
   | "한식"
   | "중식"
   | "일식"

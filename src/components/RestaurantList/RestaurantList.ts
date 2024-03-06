@@ -35,6 +35,12 @@ class RestaurantList extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.sortChange,
       eventHandler: this.handleSortRestaurantItems.bind(this),
     });
+
+    this.on({
+      target: document,
+      eventName: CUSTOM_EVENT_TYPE.filterCategory,
+      eventHandler: this.handleFilterRestaurantItems.bind(this),
+    });
   }
 
   private handleSortRestaurantItems(event: Event) {
@@ -42,6 +48,15 @@ class RestaurantList extends BaseComponent {
       const sortType = event.detail;
 
       this.restaurant.sortRestaurants(sortType);
+      this.connectedCallback();
+    }
+  }
+
+  private handleFilterRestaurantItems(event: Event) {
+    if (event instanceof CustomEvent) {
+      const filterType = event.detail;
+
+      this.restaurant.filterRestaurants(filterType);
       this.connectedCallback();
     }
   }
