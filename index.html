@@ -18,48 +18,50 @@
     </template>
 
     <template id="template-restaurant-form">
-      <!-- 카테고리 -->
-      <div class="form-item form-item--required">
-        <label for="category" class="text-caption">카테고리</label>
-        <select
-          is="app-select"
-          name="category"
-          id="category"
-          required
-          data-options='[{"value":"한식","option":"한식"},{"value":"중식","option":"중식"},{"value":"일식","option":"일식"},{"value":"양식","option":"양식"},{"value":"아시안","option":"아시안"},{"value":"기타","option":"기타"}]'
-        ></select>
-      </div>
+      <div class="input-container">
+        <!-- 카테고리 -->
+        <div class="form-item form-item--required">
+          <label for="category" class="text-caption">카테고리</label>
+          <select
+            is="app-select"
+            name="category"
+            id="category"
+            required
+            data-options='[{"value":"한식","option":"한식"},{"value":"중식","option":"중식"},{"value":"일식","option":"일식"},{"value":"양식","option":"양식"},{"value":"아시안","option":"아시안"},{"value":"기타","option":"기타"}]'
+          ></select>
+        </div>
 
-      <!-- 음식점 이름 -->
-      <div class="form-item form-item--required">
-        <label for="name" class="text-caption">이름</label>
-        <input type="text" name="name" id="name" required />
-      </div>
+        <!-- 음식점 이름 -->
+        <div class="form-item form-item--required">
+          <label for="name" class="text-caption">이름</label>
+          <input type="text" name="name" id="name" required />
+        </div>
 
-      <!-- 거리 -->
-      <div class="form-item form-item--required">
-        <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
-        <select
-          is="app-select"
-          name="distance"
-          id="distance"
-          required
-          data-options='[{"value":5,"option":"5분 내"},{"value":10,"option":"10분 내"},{"value":15,"option":"15분 내"},{"value":20,"option":"20분 내"},{"value":30,"option":"30분 내"}]'
-        ></select>
-      </div>
+        <!-- 거리 -->
+        <div class="form-item form-item--required">
+          <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
+          <select
+            is="app-select"
+            name="distance"
+            id="distance"
+            required
+            data-options='[{"value":5,"option":"5분 내"},{"value":10,"option":"10분 내"},{"value":15,"option":"15분 내"},{"value":20,"option":"20분 내"},{"value":30,"option":"30분 내"}]'
+          ></select>
+        </div>
 
-      <!-- 설명 -->
-      <div class="form-item">
-        <label for="description" class="text-caption">설명</label>
-        <textarea name="description" id="description" cols="30" rows="5"></textarea>
-        <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-      </div>
+        <!-- 설명 -->
+        <div class="form-item">
+          <label for="description" class="text-caption">설명</label>
+          <textarea name="description" id="description" cols="30" rows="5"></textarea>
+          <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+        </div>
 
-      <!-- 링크 -->
-      <div class="form-item">
-        <label for="link" class="text-caption">참고 링크</label>
-        <input type="text" name="link" id="link" />
-        <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+        <!-- 링크 -->
+        <div class="form-item">
+          <label for="link" class="text-caption">참고 링크</label>
+          <input type="text" name="link" id="link" />
+          <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+        </div>
       </div>
 
       <!-- 취소/추가 버튼 -->
@@ -69,16 +71,55 @@
       </div>
     </template>
 
+    <template id="template-modal">
+      <style>
+        .modal {
+          display: none;
+        }
+
+        .modal--open {
+          display: block;
+        }
+
+        .modal-backdrop {
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+
+          background: rgba(0, 0, 0, 0.35);
+        }
+
+        .modal-container {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          height: 90%;
+
+          padding: 32px 16px;
+          box-sizing: border-box;
+
+          border-radius: 8px 8px 0px 0px;
+          background: var(--grey-100);
+        }
+      </style>
+      <div class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+          <slot name="title"></slot>
+          <slot name="body"></slot>
+        </div>
+      </div>
+    </template>
+
     <!-- GNB -->
     <app-gnb></app-gnb>
 
     <!-- 음식점 추가 모달 -->
-    <div class="modal">
-      <div class="modal-backdrop"></div>
-      <div class="modal-container">
-        <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form is="app-restaurant-form" id="restaurant-form"></form>
-      </div>
-    </div>
+    <app-modal>
+      <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
+      <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
+    </app-modal>
   </body>
 </html>

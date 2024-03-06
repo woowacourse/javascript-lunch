@@ -1,3 +1,10 @@
+.input-container {
+  height: 85%;
+  overflow-y: scroll;
+
+  margin-bottom: 10px;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
