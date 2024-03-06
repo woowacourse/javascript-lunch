@@ -1,5 +1,7 @@
 type Icategory = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
 
+type IAll = "전체";
+
 type Idistance = 5 | 10 | 15 | 20 | 30;
 
 export interface Irestaurant {
@@ -10,16 +12,25 @@ export interface Irestaurant {
   link?: string;
 }
 
+// export interface IrestaurantState {
+//   category: Icategory;
+//   name?: string;
+//   distance?: Idistance;
+//   description?: string;
+//   link?: string;
+// }
+
 export interface IrestaurantList {
-  restaurantList?: Irestaurant[];
+  // addRestaurant: (restaurant: Irestaurant) => void;
 
-  addRestaurant: (restaurant: Irestaurant) => void;
+  sortByName: (restaurantList: Irestaurant[]) => Irestaurant[];
 
-  sortByName: () => Irestaurant[];
+  sortByDistance: (restaurantList: Irestaurant[]) => Irestaurant[];
 
-  sortByDistance: () => Irestaurant[];
-
-  filterByCategory: (category: Icategory) => Irestaurant[];
+  filterByCategory: (
+    category: Icategory,
+    restaurantList: Irestaurant[],
+  ) => Irestaurant[];
 }
 
 interface IcategoryInfo {
