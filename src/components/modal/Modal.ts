@@ -15,6 +15,7 @@ function Modal() {
     console.log(mainContainer);
     submitHandler(modal);
     cancelHandler(modal);
+    dimmerClickHandler(modal);
   };
 
   const submitHandler = (modal: HTMLElement) => {
@@ -38,6 +39,15 @@ function Modal() {
       event.preventDefault();
       modal.classList.remove("modal--open");
       console.log("remove");
+    });
+  };
+
+  const dimmerClickHandler = (modal: HTMLElement) => {
+    const dimmer = document.getElementsByClassName("modal-backdrop")[0];
+
+    dimmer.addEventListener("click", () => {
+      console.log("dimmer");
+      modal.classList.remove("modal--open");
     });
   };
 
