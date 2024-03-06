@@ -6,6 +6,8 @@ import './view/styles/global.css';
 import './view/styles/gnb.css';
 import './view/styles/modal.css';
 
+import './view/imgs/add-button.png';
+
 GNB();
 RestaurantForm();
 Modal();
