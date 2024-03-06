@@ -4,7 +4,6 @@ export default class GNB extends HTMLElement {
 
     const template = document.querySelector('#template-header');
     const content = template.content.cloneNode(true);
-    console.log(content);
     this.appendChild(content);
   }
 
