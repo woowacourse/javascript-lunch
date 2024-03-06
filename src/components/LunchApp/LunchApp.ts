@@ -16,8 +16,6 @@ class LunchApp extends BaseComponent {
           <restaurant-add-modal class="modal"></restaurant-add-modal>
         `;
   }
-
-  protected setEvent(): void {}
 }
 
 customElements.define("lunch-app", LunchApp);

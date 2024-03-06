@@ -1,6 +1,6 @@
 import { CustomEventListener } from "./BaseComponent.type";
 
-abstract class BaseComponent extends HTMLElement {
+class BaseComponent extends HTMLElement {
   protected connectedCallback() {
     this.render();
     this.setEvent();
@@ -12,7 +12,7 @@ abstract class BaseComponent extends HTMLElement {
 
   protected render() {}
 
-  protected abstract setEvent(): void;
+  protected setEvent() {}
 
   protected removeEvent() {}
 
