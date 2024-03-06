@@ -1,17 +1,17 @@
-import { Category, DistanceByWalk } from '../enum/enums';
-import type { RestaurantDataType } from '../type/restaurantDataType';
+import { IRestaurant } from '../interface/Interface';
+import type { Category, MinutesWalk } from '../constants/Type';
 
 class Restaurant {
   private name: string;
   private category: Category;
-  private distanceByWalk: DistanceByWalk;
+  private minutesWalk: MinutesWalk;
   private description?: string;
   private referenceUrl?: string;
 
-  constructor({ name, category, distanceByWalk, description = '', referenceUrl = '' }: RestaurantDataType) {
+  constructor({ name, category, minutesWalk, description = '', referenceUrl = '' }: IRestaurant) {
     this.name = name;
     this.category = category;
-    this.distanceByWalk = distanceByWalk;
+    this.minutesWalk = minutesWalk;
     this.description = description;
     this.referenceUrl = referenceUrl;
   }
@@ -20,15 +20,15 @@ class Restaurant {
     return this.name;
   }
 
-  getDistanceByWalk(): DistanceByWalk {
-    return this.distanceByWalk;
+  getMinutesWalk(): MinutesWalk {
+    return this.minutesWalk;
   }
 
-  getData() {
+  getData(): IRestaurant {
     return {
       name: this.name,
       category: this.category,
-      distanceByWalk: this.distanceByWalk,
+      minutesWalk: this.minutesWalk,
       description: this.description,
       referenceUrl: this.referenceUrl,
     };
