@@ -1,1 +1,1 @@
-export const template = '<ul class="restaurant-list"></ul>';
+export const restaurantListTemplate = `<ul class="restaurant-list"></ul>`;

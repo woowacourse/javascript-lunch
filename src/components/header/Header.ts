@@ -1,11 +1,11 @@
-import { template } from "./template";
+import { headerTemplate } from "./template";
 
 function Header() {
   const render = () => {
     const mainContainer = document.getElementById("mainContainer");
     const header = document.createElement("header");
     header.setAttribute("class", "headerContainer");
-    header.innerHTML += template;
+    header.innerHTML += headerTemplate;
 
     if (mainContainer) {
       mainContainer.appendChild(header);

@@ -1,13 +1,13 @@
 import { Irestaurant } from "../../types";
 import Restaurant from "../restaurant/Restaurant";
-import { template } from "./template";
+import { restaurantListTemplate } from "./template";
 
 function RestaurantList() {
   const render = () => {
     const main = document.querySelector("main");
     const section = document.createElement("section");
     section.setAttribute("class", "restaurant-list-container");
-    section.innerHTML += template;
+    section.innerHTML += restaurantListTemplate;
 
     const localStorageTest = localStorage.getItem("restaurantInfo");
 
