@@ -1,6 +1,10 @@
 import { template } from "./template";
 import SelectCategory from "./select_category/SelectCategory";
 import ModalButton from "./modal_button/ModalButton";
+import InputName from "./input_name/InputName";
+import SelectDistance from "./select_distance/SelectDistance";
+import InputDescription from "./input_description/InputDescription";
+import InputLink from "./input_link/InputLink";
 
 function Modal() {
   const render = () => {
@@ -16,6 +20,12 @@ function Modal() {
     // Elements
     const form = document.getElementsByClassName("modal-form")[0];
     SelectCategory().render(form);
+    InputName().render(form);
+    SelectDistance().render(form);
+    InputDescription().render(form);
+    InputLink().render(form);
+
+    //
     ModalButton().render(modal, form);
     dimmerClickHandler(modal);
   };

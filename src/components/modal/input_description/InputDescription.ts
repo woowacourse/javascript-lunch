@@ -1,5 +1,9 @@
+import { inputDescriptionTemplate } from "./template";
+
 function InputDescription() {
-  const render = () => {};
+  const render = (form: Element) => {
+    form.innerHTML += inputDescriptionTemplate;
+  };
 
   return {
     render,

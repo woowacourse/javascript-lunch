@@ -1,5 +1,9 @@
+import { inputLinkTemplate } from "./template";
+
 function InputLink() {
-  const render = () => {};
+  const render = (form: Element) => {
+    form.innerHTML += inputLinkTemplate;
+  };
 
   return {
     render,

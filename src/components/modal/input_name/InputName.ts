@@ -1,5 +1,9 @@
+import { inputNameTemplate } from "./template";
+
 function InputName() {
-  const render = () => {};
+  const render = (form: Element) => {
+    form.innerHTML += inputNameTemplate;
+  };
 
   return {
     render,
