@@ -1,3 +1,5 @@
+@import '../../assets/css/style-constants.css';
+
 .restaurant-list-container .dropbox {
   width: 125px;
   height: 40px;
@@ -8,27 +10,32 @@
   height: 44px;
 }
 
+.dropbox {
+  position: relative;
+}
+
 .dropbox select {
   position: relative;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  transition: background-image 0.1s;
   box-sizing: border-box;
   border: 1px solid var(--lunch-grey-scale-2-color);
   border-radius: 8px;
-  background: url('../svgs/down-arrow.svg');
-  background-position: calc(100% - 12px);
-  background-repeat: no-repeat;
   padding: 8px;
   width: inherit;
   height: inherit;
   color: var(--lunch-grey-scale-3-color);
 }
 
-.dropbox select:focus {
-  outline: none;
-  background: url('../svgs/up-arrow.svg');
-  background-position: calc(100% - 12px);
-  background-repeat: no-repeat;
+.dropbox .arrow-icon {
+  position: absolute;
+  right: 9px;
+  bottom: calc((40px - 8px) / 2);
+  z-index: 1;
+}
+
+.dropbox .arrow-icon:focus {
+  transform: rotate(180deg);
+  /* transform: rotateX('angle'); */
 }
