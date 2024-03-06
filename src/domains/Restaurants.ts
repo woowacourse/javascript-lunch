@@ -16,22 +16,14 @@ class Restaurants implements RestaurantsInterface {
   }
 
   orderByDistance() {
-    return this.restaurants.toSorted((prevRestaurant, nextRestaurant) => {
-      if (prevRestaurant.walkingTimeFromCampus < nextRestaurant.walkingTimeFromCampus) {
-        return -1;
-      } else if (prevRestaurant.walkingTimeFromCampus === nextRestaurant.walkingTimeFromCampus) {
-        if (prevRestaurant.name < nextRestaurant.name) {
-          return -1;
-        }
-      }
-      return 1;
+    return this.restaurants.toSorted((prev, next) => {
+      const compareWalkingTime = prev.walkingTimeFromCampus - next.walkingTimeFromCampus;
+      return compareWalkingTime || prev.name.localeCompare(next.name);
     });
   }
 
   orderByName() {
-    return this.restaurants.toSorted((prevRestaurant, nextRestaurant) =>
-      prevRestaurant.name < nextRestaurant.name ? -1 : 1,
-    );
+    return this.restaurants.toSorted((prev, next) => prev.name.localeCompare(next.name));
   }
 }
 
