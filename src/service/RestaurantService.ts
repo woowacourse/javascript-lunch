@@ -70,6 +70,7 @@ class RestaurantService {
   }
 
   addNewRestaurant(event) {
+    // TODO: 함수 시행 시점 정하기, customevent 추가하기
     const restaurantData: IRestaurant = event.detail;
     const newRestaurant: Restaurant = new Restaurant(restaurantData);
     this.restaurants = [...this.restaurants, newRestaurant];
@@ -77,6 +78,7 @@ class RestaurantService {
   }
 
   saveRestaurants(restaurants: Restaurant[]) {
+    // TODO: 함수 시행 시점 정하기
     localStorage.setItem('restaurants', JSON.stringify(restaurants));
   }
 
@@ -85,7 +87,7 @@ class RestaurantService {
     if (restaurants) {
       return JSON.parse(restaurants);
     }
-    return null;
+    return null; // TODO: 데이터 없으면 error 반환
   }
 }
 
