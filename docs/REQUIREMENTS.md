@@ -40,6 +40,16 @@
 - 음식점에 해당하는 카테고리의 아이콘을 보여준다.
 - 📍 칸을 벗어나는 이름이나 설명은 ... 처리한다.
 
+컴포넌트
+
+1. GNB(Header)
+2. SelectBox
+3. Filter Container
+4. Modal
+5. RestuarantList
+6. Restuarant
+7. Footer
+
 음식점(Restaurant)
 
 - 📍 필수 속성이 하나라도 빠지면 에러 메세지를 띄운다.

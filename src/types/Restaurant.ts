@@ -1,3 +1,5 @@
+import CONDITIONS from '../constants/Condition';
+
 export interface IRestaurant {
   name: string;
   distance: Distance;
@@ -6,8 +8,8 @@ export interface IRestaurant {
   link?: string;
 }
 
-export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+export type Category = (typeof CONDITIONS.CATEGORIES)[number];
 
-export type Distance = 5 | 10 | 15 | 20 | 30;
+export type Distance = (typeof CONDITIONS.DISTANCES)[number];
 
-export type SortCriteria = '이름순' | '거리순';
+export type SortCriteria = (typeof CONDITIONS.SORT_CRITERION)[number];
