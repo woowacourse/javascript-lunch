@@ -1,28 +1,33 @@
 import Restaurant from './Restaurant';
 import { TCategory } from '../type/types';
 
-class Restaurants {
-  #restaurants: Restaurant[];
-
-  constructor() {
-    this.#restaurants = [];
-  }
-
+const Restaurants = {
   addRestaurant(restaurant: Restaurant) {
-    this.#restaurants.push(restaurant);
-  }
+    const restaurants = localStorage.getItem('restaurants');
 
-  getFilteredByCategory(category: TCategory) {
-    return [...this.#restaurants.filter((restaurant) => restaurant.category === category)];
-  }
+    if (restaurants) {
+      localStorage.setItem('restaurants', JSON.stringify([...JSON.parse(restaurants), restaurant]));
+    } else {
+      localStorage.setItem('restaurants', JSON.stringify([restaurant]));
+    }
+  },
 
-  getSortedByName() {
-    return [...this.#restaurants.sort((a, b) => a.name.localeCompare(b.name))];
-  }
+  getRestaurants() {
+    const restaurants = localStorage.getItem('restaurants');
+    return restaurants ? restaurants : [];
+  },
 
-  getSortedByDistance() {
-    return [...this.#restaurants.sort((a, b) => a.distance - b.distance)];
-  }
-}
+  getFilteredByCategory(restaurants: Restaurant[], category: TCategory) {
+    return restaurants.filter((restaurant) => restaurant.category === category);
+  },
+
+  getSortedByName(restaurants: Restaurant[]) {
+    return [...restaurants.sort((a, b) => a.name.localeCompare(b.name))];
+  },
+
+  getSortedByDistance(restaurants: Restaurant[]) {
+    return [...restaurants.sort((a, b) => a.distance - b.distance)];
+  },
+};
 
 export default Restaurants;
