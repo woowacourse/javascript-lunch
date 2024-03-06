@@ -15,32 +15,3 @@ customElements.define('filter-box', FilterBox);
 customElements.define('filter-box-container', FilterBoxContainer);
 customElements.define('restaurant-info', RestaurantInfo);
 customElements.define('restaurant-add-modal', RestaurantAddModal);
-
-import Restaurants from './domain/Restaurants';
-import Restaurant from './domain/Restaurant';
-
-localStorage.clear();
-
-Restaurants.addRestaurant(
-  new Restaurant({
-    category: '한식',
-    name: '파슬리네 김치찌개',
-    distance: 5,
-  }),
-);
-
-Restaurants.addRestaurant(
-  new Restaurant({
-    category: '중식',
-    name: '파슬리네 짜장면',
-    distance: 10,
-  }),
-);
-
-Restaurants.addRestaurant(
-  new Restaurant({
-    category: '일식',
-    name: '파슬리네 초밥',
-    distance: 15,
-  }),
-);
