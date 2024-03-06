@@ -11,9 +11,10 @@
     "sourceType": "module",
     "project": ["tsconfig.json"]
   },
-  "ignorePatterns": ["cypress.config.ts"],
+  "ignorePatterns": ["cypress.config.ts", "webpack.config.js"],
   "rules": {
-    "@typescript-eslint/no-unused-expressions": "off"
+    "@typescript-eslint/no-unused-expressions": "off",
+    "import/extensions": "off"
   },
   "settings": {
     "import/resolver": {
