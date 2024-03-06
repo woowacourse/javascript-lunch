@@ -41,6 +41,7 @@ class RestaurantApp extends HTMLElement {
     });
 
     this.addEventListener('cancelButtonClick', () => {
+      console.log('click');
       this.querySelector('restaurant-add-modal').setAttribute('open', 'false');
     });
   }

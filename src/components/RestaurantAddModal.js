@@ -18,36 +18,43 @@ class RestaurantAddModal extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
+
+    if (JSON.parse(newValue)) {
+      this.querySelector('.modal').classList.add('modal--open');
+    } else {
+      this.querySelector('.modal').classList.remove('modal--open');
+    }
+
+    this.setEvent();
   }
 
   render() {
-    const open = this.getAttribute('open');
-    this.innerHTML = this.template(JSON.parse(open));
+    this.innerHTML = this.template();
   }
 
   setEvent() {
-    // this.querySelector('.button--primary').addEventListener('click', () => {
-    //   this.dispatchEvent(
-    //     new CustomEvent('sumbitButtonClick', {
-    //       bubbles: true,
-    //     }),
-    //   );
-    // });
-    // this.querySelector('.button--secondary').addEventListener('click', () => {
-    //   this.dispatchEvent(
-    //     new CustomEvent('cancelButtonClick', {
-    //       bubbles: true,
-    //     }),
-    //   );
-    // });
+    this.querySelector('.button--primary').addEventListener('click', () => {
+      this.dispatchEvent(
+        new CustomEvent('sumbitButtonClick', {
+          bubbles: true,
+        }),
+      );
+    });
+
+    this.querySelector('.button--secondary').addEventListener('click', () => {
+      this.dispatchEvent(
+        new CustomEvent('cancelButtonClick', {
+          bubbles: true,
+        }),
+      );
+    });
   }
 
   removeEvent() {}
 
-  template(open) {
-    if (open) {
-      return `
-          <div class="modal modal--open">
+  template() {
+    return `
+          <div class="modal">
               <div class="modal-backdrop"></div>
               <div class="modal-container">
                   <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -97,9 +104,6 @@ class RestaurantAddModal extends HTMLElement {
               </div>
           </div>
       `;
-    }
-
-    return ``;
   }
 }
 
