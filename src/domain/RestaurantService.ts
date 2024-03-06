@@ -1,4 +1,4 @@
-import { Category, Property, Restaurant, Restaurants } from '../interface/RestaurantInterfaces';
+import { Category, SortingProperty, Restaurant, Restaurants } from '../interface/RestaurantInterfaces';
 
 const RestaurantService: Restaurants = {
   addRestaurant(restaurant: Restaurant, restaurantList: Restaurant[]): boolean {
@@ -16,7 +16,7 @@ const RestaurantService: Restaurants = {
     return restaurantList.filter(restaurant => restaurant.category === category);
   },
 
-  sortByProperty(property: Property, restaurantList: Restaurant[]): Restaurant[] {
+  sortByProperty(property: SortingProperty, restaurantList: Restaurant[]): Restaurant[] {
     return restaurantList.sort((a: Restaurant, b: Restaurant) => (a[property] > b[property] ? 1 : -1));
   },
 };

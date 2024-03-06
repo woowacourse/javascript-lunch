@@ -1,8 +1,10 @@
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 
+type FilteringCategory = '전체' | Category;
+
 type Distance = 5 | 10 | 15 | 20 | 30;
 
-type Property = 'name' | 'distance';
+type SortingProperty = 'name' | 'distance';
 
 interface Restaurant {
   category: Category;
@@ -15,7 +17,7 @@ interface Restaurant {
 interface Restaurants {
   addRestaurant: (restaurant: Restaurant, restaurantList: Restaurant[]) => boolean;
   filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
-  sortByProperty: (property: Property, restaurantList: Restaurant[]) => Restaurant[];
+  sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];
 }
 
-export { Category, Distance, Property, Restaurant, Restaurants };
+export { Category, FilteringCategory, Distance, SortingProperty, Restaurant, Restaurants };
