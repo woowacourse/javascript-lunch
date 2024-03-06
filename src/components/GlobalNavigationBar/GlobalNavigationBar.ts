@@ -3,6 +3,7 @@ import "./GlobalNavigationBar.css";
 import BaseComponent from "../BaseComponent/BaseComponent";
 import addButton from "../../assets/images/add-button.png";
 import { $ } from "../../utils/dom";
+import { ELEMENT_SELECTOR } from "../../constants/selector";
 
 class GlobalNavigationBar extends BaseComponent {
   protected render() {
@@ -18,19 +19,19 @@ class GlobalNavigationBar extends BaseComponent {
 
   protected setEvent(): void {
     this.on({
-      target: $("#gnb-button"),
+      target: $(ELEMENT_SELECTOR.gnbButton),
       eventName: "click",
       eventHandler: this.handleOpenModal.bind(this),
     });
   }
 
   private handleOpenModal() {
-    $("restaurant-add-modal").classList.add("modal--open");
+    $(ELEMENT_SELECTOR.restaurantAddModal).classList.add("modal--open");
   }
 
   protected removeEvent(): void {
     this.off({
-      target: $("#gnb-button"),
+      target: $(ELEMENT_SELECTOR.gnbButton),
       eventName: "click",
       eventHandler: this.handleOpenModal.bind(this),
     });
