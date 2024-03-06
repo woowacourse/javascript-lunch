@@ -34,7 +34,6 @@
 - categoryIcon
 - RestaurantItem
 - RestaurantList
-- Button
 - Form
 - BottomSheet
 
@@ -43,3 +42,4 @@
 - Input 컴포넌트 x css만 만들기
 - Textarea
 - Select
+- Button
