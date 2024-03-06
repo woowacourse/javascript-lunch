@@ -35,13 +35,16 @@ class RestaurantApp extends HTMLElement {
       this.querySelector('restaurant-add-modal').setAttribute('open', 'true');
     });
 
-    this.addEventListener('submitButtonClick', () => {
+    this.addEventListener('submitButtonClick', (event) => {
+      Restaurants.addRestaurant(event.detail);
+
+      this.#restaurants = this.generateRestaurantsBySelection();
+
       this.querySelector('restaurant-list').setAttribute('restaurants', `${JSON.stringify(this.#restaurants)}`);
       this.querySelector('restaurant-add-modal').setAttribute('open', 'false');
     });
 
     this.addEventListener('cancelButtonClick', () => {
-      console.log('click');
       this.querySelector('restaurant-add-modal').setAttribute('open', 'false');
     });
   }

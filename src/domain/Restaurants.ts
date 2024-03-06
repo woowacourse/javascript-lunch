@@ -1,5 +1,5 @@
 import Restaurant from './Restaurant';
-import { TCategory, TSortingOption } from '../type/types';
+import { IRestaurant, TCategory, TSortingOption } from '../type/types';
 
 function getRestaurants() {
   const restaurants = localStorage.getItem('restaurants');
@@ -19,13 +19,13 @@ function getSortedByDistance(restaurants: Restaurant[]) {
 }
 
 const Restaurants = {
-  addRestaurant(restaurant: Restaurant) {
+  addRestaurant(restaurant: IRestaurant) {
     const restaurants = localStorage.getItem('restaurants');
 
     if (restaurants) {
-      localStorage.setItem('restaurants', JSON.stringify([...JSON.parse(restaurants), restaurant]));
+      localStorage.setItem('restaurants', JSON.stringify([...JSON.parse(restaurants), new Restaurant(restaurant)]));
     } else {
-      localStorage.setItem('restaurants', JSON.stringify([restaurant]));
+      localStorage.setItem('restaurants', JSON.stringify([new Restaurant(restaurant)]));
     }
   },
 

@@ -33,10 +33,19 @@ class RestaurantAddModal extends HTMLElement {
   }
 
   setEvent() {
-    this.querySelector('.button--primary').addEventListener('click', () => {
+    this.querySelector('.button--primary').addEventListener('click', (event) => {
+      event.preventDefault();
+
+      const category = this.querySelector('.modal-category').value;
+      const name = this.querySelector('.modal-restaurant-name').value;
+      const distance = Number(this.querySelector('.modal-distance').value.replace('분내', ''));
+      const description = this.querySelector('.modal-description').value;
+      const reference = this.querySelector('.modal-reference').value;
+
       this.dispatchEvent(
-        new CustomEvent('sumbitButtonClick', {
+        new CustomEvent('submitButtonClick', {
           bubbles: true,
+          detail: { category, name, distance, description, reference },
         }),
       );
     });
@@ -73,7 +82,7 @@ class RestaurantAddModal extends HTMLElement {
                       </div>
                       <div class="form-item form-item--required">
                           <label for="name text-caption">이름</label>
-                          <input type="text" name="name" id="name" required />
+                          <input class="modal-restaurant-name" type="text" name="name" id="name" required />
                       </div>
                       <div class="form-item form-item--required">
                           <label for="distance text-caption">거리(도보 이동 시간)</label>
@@ -88,12 +97,12 @@ class RestaurantAddModal extends HTMLElement {
                       </div>
                       <div class="form-item">
                           <label for="description text-caption">설명</label>
-                          <textarea name="description" id="description" cols="30" rows="5"></textarea>
+                          <textarea name="description" class="modal-description" id="description" cols="30" rows="5"></textarea>
                           <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
                       </div>
                       <div class="form-item">
                           <label for="link text-caption">참고 링크</label>
-                          <input type="text" name="link" id="link" />
+                          <input type="text" name="reference" class="modal-reference" id="reference" />
                           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
                       </div>
                       <div class="button-container">
