@@ -9,7 +9,14 @@ export interface IRestaurantInfo {
   link?: string;
 }
 
-const RESTAURANT_CATEGORY: readonly ICategory[] = Object.freeze(['한식', '중식', '일식', '아시안', '양식', '기타']);
+export const RESTAURANT_CATEGORY: readonly ICategory[] = Object.freeze([
+  '한식',
+  '중식',
+  '일식',
+  '아시안',
+  '양식',
+  '기타',
+]);
 const DISTANCE_FROM_CAMPUS: readonly IDistanceFromCampus[] = Object.freeze([5, 10, 15, 20, 30]);
 
 class Restaurant {
