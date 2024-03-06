@@ -21,3 +21,8 @@ export interface IrestaurantList {
 
   filterByCategory: (category: Icategory) => Irestaurant[];
 }
+
+interface IcategoryInfo {
+  category: string;
+  categoryImg: string;
+}
