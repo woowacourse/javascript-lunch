@@ -24,3 +24,22 @@
 - 설명의 길이가 0 ~ 500자 사이가 아닌 경우 에러 발생
 - 참고 링크의 길이가 0 ~ 500자 사이가 아닌 경우 에러 발생
 - 모든 입력의 양 끝 공백은 제거
+
+# UI 컴포넌트
+
+## 컴포넌트(클래스)
+
+- Header
+- filterContainer
+- categoryIcon
+- RestaurantItem
+- RestaurantList
+- Button
+- Form
+- BottomSheet
+
+## 공통 css
+
+- Input 컴포넌트 x css만 만들기
+- Textarea
+- Select
