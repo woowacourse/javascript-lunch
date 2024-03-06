@@ -1,4 +1,5 @@
 import Restaurant from '../../src/domain/Restaurant';
+import RestaurantValidator from '../../src/validator/RestaurantValidator';
 import { IRestaurant } from '../../src/interface/Interface';
 
 describe('[Restaurant] 음식점 객체 테스트', () => {
@@ -36,5 +37,17 @@ describe('[Restaurant] 음식점 객체 테스트', () => {
 
     // Assert
     expect(expectedResult).to.eql(true);
+  });
+
+  it('이름의 길이가 1자 미만 20자 초과이거나 이름이 공백으로만 이루어져 있으면 오류를 반환한다.', () => {
+    // Assign
+    const tooLongName = '이음식점은맛있지만음식점의이름이21글자임';
+    const tooShortName = '';
+    const onlyBlankName = '         ';
+
+    // Assert
+    expect(RestaurantValidator.validateRestaurantName(tooLongName)).to.throw(Error);
+    expect(RestaurantValidator.validateRestaurantName(tooShortName)).to.throw(Error);
+    expect(RestaurantValidator.validateRestaurantName(onlyBlankName)).to.throw(Error);
   });
 });
