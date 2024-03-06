@@ -6,11 +6,11 @@ class RestaurantDBService {
   #restaurantList;
 
   constructor() {
-    const existingRestuarants = JSON.parse(this.getRestuarantListFromDB() || '[]');
+    const existingRestuarants = JSON.parse(this.get() || '[]');
     this.#restaurantList = new RestaurantList(existingRestuarants);
   }
 
-  getRestuarantListFromDB() {
+  get() {
     return localStorage.getItem(this.#RESTAURANTS_DB_KEY);
   }
 
