@@ -11,11 +11,10 @@ const mainContainer = document.createElement("main");
 mainContainer.setAttribute("id", "mainContainer");
 document.body.appendChild(mainContainer);
 
+Modal().render();
 Header().render();
 FilterBar().render();
 RestaurantList().render();
-Modal().render();
-Modal().clickHandler();
 
 // mainContainer.appendChild(element);
 

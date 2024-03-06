@@ -11,14 +11,18 @@ function Header() {
       mainContainer.appendChild(header);
     }
 
-    // const testButton = document.getElementById("button");
-
-    // if (testButton) {
-    //   testButton.addEventListener("click", () => {
-    //     console.log("hi");
-    //   });
-    // }
+    modalOpenHandler();
   };
+
+  const modalOpenHandler = () => {
+    const modal = document.getElementsByClassName("modal")[0];
+    const openButton = document.getElementsByClassName("gnb__button")[0];
+
+    openButton.addEventListener("click", () => {
+      modal.classList.add("modal--open");
+    });
+  };
+
   return {
     render,
   };
