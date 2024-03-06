@@ -1,3 +1,5 @@
+import ValidateConditions from '../../src/validators/ValidateConditions.js';
+
 describe('유효성 검증 테스트', () => {
   it('배열 안에 값이 포함되어있다면 true를 반환하는 테스트', () => {
     const inputs = [30, '한식'];
