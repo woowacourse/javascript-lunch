@@ -1,10 +1,15 @@
 import "./RestaurantAddModal.css";
 
 import BaseComponent from "../BaseComponent/BaseComponent";
-import { $ } from "../../utils/dom";
+
 import Restaurant from "../../domain/Restaurant/Restaurant";
 import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
+
+import { $ } from "../../utils/dom";
+import { createOptionElements } from "../../utils/createOptionElements";
+
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 
 class RestaurantAddModal extends BaseComponent {
   protected render(): void {
@@ -17,12 +22,9 @@ class RestaurantAddModal extends BaseComponent {
                     <label for="category text-caption">카테고리</label>
                     <select name="category" id="category" required>
                       <option value="">선택해 주세요</option>
-                      <option value="한식">한식</option>
-                      <option value="중식">중식</option>
-                      <option value="일식">일식</option>
-                      <option value="양식">양식</option>
-                      <option value="아시안">아시안</option>
-                      <option value="기타">기타</option>
+                      ${createOptionElements(
+                        Object.values(MENU_CATEGORIES).slice(1)
+                      )}
                     </select>
                 </div>
 

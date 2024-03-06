@@ -1,35 +1,18 @@
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
+import { createOptionElements } from "../../utils/createOptionElements";
 import { $ } from "../../utils/dom";
+
 import BaseComponent from "../BaseComponent/BaseComponent";
 
-import type { MenuCategoryDictionary } from "./CategoryDropdown.type";
-
 class CategoryDropdown extends BaseComponent {
-  static MENU_CATEGORIES: MenuCategoryDictionary = {
-    all: "전체",
-    korean: "한식",
-    chinese: "중식",
-    japanese: "일식",
-    western: "양식",
-    asian: "아시안",
-    others: "기타",
-  } as const;
-
   protected render(): void {
     this.innerHTML = `
         <select name="category" id="category-filter" class="restaurant-filter">
-            ${this.createMenuCategoryOptions()}
+            ${createOptionElements(Object.values(MENU_CATEGORIES))}
         </select>
     `;
-  }
-
-  private createMenuCategoryOptions() {
-    return Object.values(CategoryDropdown.MENU_CATEGORIES)
-      .map((menuCategory) => {
-        return `<option value=${menuCategory}>${menuCategory}</option>`;
-      })
-      .join("");
   }
 
   protected setEvent(): void {
