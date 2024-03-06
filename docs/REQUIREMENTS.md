@@ -21,10 +21,13 @@
   - [ ] header
     - [ ] title
     - [ ] add restaurant button
+      - click event: AddRestaurantModal 띄우기
   - [ ] main
     - [ ] RestaurantOptionSection
       - [ ] filter select
+        - select event: 해당 value에 맞도록 필터링 -> RestaurantListSection에 반영
       - [ ] sort select
+        - select event: 해당 value에 맞도록 정렬 -> RestaurantListSection에 반영
     - [ ] RestaurantListSection
       - [ ] RestaurantItem
 - [ ] AddRestaurantModal
@@ -36,7 +39,9 @@
     - [ ] description input
     - [ ] link input
     - [ ] cancel button
+      - click event: AddRestaurantModal 닫기
     - [ ] submit button
+      - submit event: 음식점 추가 및 RestaurantListSection에 반영
 - [ ] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 -> alert
 
 ## 기타
