@@ -48,3 +48,31 @@ describe('레스토랑 추가 기능 테스트', () => {
     expect(result).to.equal(false);
   });
 });
+
+describe('레스토랑 카테고리 별 필터링 기능 테스트', () => {
+  const DUMMY = [
+    { category: '한식', name: '꺼벙이분식', distance: 5, description: '돈까스 김밥 맛집', link: 'www.naver.com' },
+    { category: '한식', name: '용호동낙지', distance: 10, description: '사장님 츤데레', link: 'www.naver.com' },
+    { category: '중식', name: '친친', distance: 5, description: '게살볶음밥 굿', link: 'www.daum.net' },
+  ];
+
+  it('카테고리가 전체인 경우 전체 레스토랑 리스트를 반환한다.', () => {
+    const category = '전체';
+
+    const result = RestaurantService.filterByCategory(category, DUMMY);
+
+    expect(result).to.deep.equal(DUMMY);
+  });
+
+  const categories = ['한식', '중식'];
+
+  const expectedResult = [[DUMMY[0], DUMMY[1]], [DUMMY[2]]];
+
+  categories.forEach((category, index) => {
+    it(`카테고리가 ${category}인 경우 해당하는 레스토랑 리스트를 반환한다.`, () => {
+      const result = RestaurantService.filterByCategory(category, DUMMY);
+
+      expect(result).to.deep.equal(expectedResult[index]);
+    });
+  });
+});
