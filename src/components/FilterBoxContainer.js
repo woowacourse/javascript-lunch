@@ -25,8 +25,16 @@ class FilterBoxContainer extends HTMLElement {
   template() {
     return `
       <section class="restaurant-filter-container">
-          <filter-box class="category" option="category"></filter-box>
-          <filter-box class="sorting" option="sorting"></filter-box>
+          <filter-box type="category" option="${[
+            '전체',
+            '한식',
+            '중식',
+            '일식',
+            '아시안',
+            '양식',
+            '기타',
+          ]}"></filter-box>
+          <filter-box type="sorting" option="${['이름순', '거리순']}"></filter-box>
       </section>
     `;
   }

@@ -21,12 +21,16 @@ class CustomHeader extends HTMLElement {
   }
 
   setEvent() {
-    this.querySelector('.gnb__button').addEventListener('click', () => this.buttonOnClick());
+    this.querySelector('.gnb__button').addEventListener('click', () => {
+      this.dispatchEvent(
+        new CustomEvent('gnbButtonClick', {
+          bubbles: true,
+        }),
+      );
+    });
   }
 
-  removeEvent() {
-    this.querySelector('.gnb__button').removeEventListener('click', () => this.buttonOnClick());
-  }
+  removeEvent() {}
 
   template() {
     return `
@@ -37,10 +41,6 @@ class CustomHeader extends HTMLElement {
         </button>
       </header>
     `;
-  }
-
-  buttonOnClick() {
-    alert('버튼이 클릭되었습니다.');
   }
 }
 

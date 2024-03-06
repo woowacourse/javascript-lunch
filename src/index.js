@@ -4,6 +4,7 @@ import FilterBox from './components/FilterBox';
 import FilterBoxContainer from './components/FilterBoxContainer';
 import RestaurantList from './components/RestaurantList';
 import RestaurantInfo from './components/RestaurantInfo';
+import RestaurantAddModal from './components/RestaurantAddModal';
 
 import '../templates/style.css';
 
@@ -13,6 +14,7 @@ customElements.define('restaurant-list', RestaurantList);
 customElements.define('filter-box', FilterBox);
 customElements.define('filter-box-container', FilterBoxContainer);
 customElements.define('restaurant-info', RestaurantInfo);
+customElements.define('restaurant-add-modal', RestaurantAddModal);
 
 import Restaurants from './domain/Restaurants';
 import Restaurant from './domain/Restaurant';
