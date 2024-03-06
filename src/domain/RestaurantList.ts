@@ -1,37 +1,58 @@
-import { Restaurant, Category } from "../types";
+import { Restaurant, Category, SortingStandard } from "../types";
 import { deepCopy } from "../util";
+
+function getResturantsFromLocalStorage(): Restaurant[] {
+  if (!localStorage.getItem("restaurants")) {
+    localStorage.setItem("restaurants", JSON.stringify([]));
+  }
+
+  const restaurants = localStorage.getItem("restaurants") as string;
+
+  return JSON.parse(restaurants);
+}
+
+function setRestaurantsToLocalStorage(newRestuarant: Restaurant) {
+  const newRestaurants = [...getResturantsFromLocalStorage(), newRestuarant];
+  localStorage.setItem("restaurants", JSON.stringify(newRestaurants));
+}
+
 class RestaurantList {
-  private restaurants: Restaurant[];
+  getRestaurants({
+    category,
+    sortingStandard,
+  }: {
+    category: Category | "전체";
+    sortingStandard: SortingStandard;
+  }): Restaurant[] {
+    const restaurants: Restaurant[] = getResturantsFromLocalStorage();
+    if (category === "전체") {
+      return restaurants
+        .sort((a, b) => {
+          if (a[sortingStandard] < b[sortingStandard]) {
+            return -1;
+          } else if (a[sortingStandard] < b[sortingStandard]) {
+            return 1;
+          }
+          return 0;
+        })
+        .map((restaurant) => deepCopy(restaurant));
+    }
 
-  constructor(restaurants: Restaurant[]) {
-    this.restaurants = restaurants.map((restaurant) => deepCopy(restaurant));
-  }
-
-  getRestaurants(): Restaurant[] {
-    return this.restaurants.map((restaurant) => deepCopy(restaurant));
-  }
-
-  getFilteredRestaurants(category: Category): Restaurant[] {
-    return this.restaurants
-      .map((restaurant) => deepCopy(restaurant))
-      .filter((restaurant) => restaurant.category === category);
-  }
-
-  getSortedRestaurants(standard: "name" | "distance") {
-    return this.restaurants
-      .map((restaurants) => deepCopy(restaurants))
+    return restaurants
+      .filter((restaurant) => restaurant.category === category)
       .sort((a, b) => {
-        if (a[standard] < b[standard]) {
+        if (a[sortingStandard] < b[sortingStandard]) {
           return -1;
-        } else if (a[standard] < b[standard]) {
+        } else if (a[sortingStandard] < b[sortingStandard]) {
           return 1;
         }
         return 0;
-      });
+      })
+      .map((restaurant) => deepCopy(restaurant));
   }
 
   add(restaurant: Restaurant) {
-    this.restaurants = [...this.restaurants, deepCopy(restaurant)];
+    setRestaurantsToLocalStorage(restaurant);
   }
 }
 
