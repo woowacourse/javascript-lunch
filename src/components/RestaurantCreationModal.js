@@ -1,13 +1,13 @@
 export default class RestaurantCreationModal {
   constructor() {
-    this.render();
+    this.addEvent();
   }
 
   render() {
     /*html*/
     return `
     <!-- 음식점 추가 모달 -->
-    <div class="modal-backdrop"></div>
+    <div id="modal-backdrop" class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form>
@@ -61,11 +61,21 @@ export default class RestaurantCreationModal {
 
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
-          <button type="button" class="button button--secondary text-caption">취소하기</button>
+          <button type="button" id="cancel-button" class="button button--secondary text-caption">취소하기</button>
           <button class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
     </div>
     `;
+  }
+
+  addEvent() {
+    const main = document.querySelector('main');
+
+    main.addEventListener('click', (event) => {
+      if (event.target.id === 'cancel-button' || event.target.id === 'modal-backdrop') {
+        document.getElementById('restaurant-creation-modal').classList.remove('modal--open');
+      }
+    });
   }
 }

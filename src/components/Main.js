@@ -1,3 +1,5 @@
+import RestaurantCreationModal from './RestaurantCreationModal.js';
+
 export default class Main {
   constructor() {}
 
