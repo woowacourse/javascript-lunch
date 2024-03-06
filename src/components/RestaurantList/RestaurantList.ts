@@ -20,14 +20,24 @@ class RestaurantList extends BaseComponent {
     `;
   }
 
+  private createRestaurantItems() {
+    const restaurantDetails = this.restaurant.getRestaurants();
+
+    return restaurantDetails.reduce(
+      (acc: string, restaurantDetail: RestaurantDetail) => {
+        const restaurantItem = new RestaurantItem(restaurantDetail);
+
+        return acc + restaurantItem.getTemplate();
+      },
+      ""
+    );
+  }
+
   protected setEvent(): void {
     this.on({
       target: document,
       eventName: CUSTOM_EVENT_TYPE.addRestaurant,
-      eventHandler: () => {
-        this.restaurant.updateRestaurants();
-        this.connectedCallback();
-      },
+      eventHandler: this.handleRerenderRestaurantList.bind(this),
     });
 
     this.on({
@@ -41,6 +51,11 @@ class RestaurantList extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.filterCategory,
       eventHandler: this.handleFilterRestaurantItems.bind(this),
     });
+  }
+
+  private handleRerenderRestaurantList() {
+    this.restaurant.updateRestaurants();
+    this.connectedCallback();
   }
 
   private handleSortRestaurantItems(event: Event) {
@@ -61,17 +76,24 @@ class RestaurantList extends BaseComponent {
     }
   }
 
-  private createRestaurantItems() {
-    const restaurantDetails = this.restaurant.getRestaurants();
+  protected removeEvent(): void {
+    this.off({
+      target: document,
+      eventName: CUSTOM_EVENT_TYPE.addRestaurant,
+      eventHandler: this.handleRerenderRestaurantList.bind(this),
+    });
 
-    return restaurantDetails.reduce(
-      (acc: string, restaurantDetail: RestaurantDetail) => {
-        const restaurantItem = new RestaurantItem(restaurantDetail);
+    this.off({
+      target: document,
+      eventName: CUSTOM_EVENT_TYPE.sortChange,
+      eventHandler: this.handleSortRestaurantItems.bind(this),
+    });
 
-        return acc + restaurantItem.getTemplate();
-      },
-      ""
-    );
+    this.off({
+      target: document,
+      eventName: CUSTOM_EVENT_TYPE.filterCategory,
+      eventHandler: this.handleFilterRestaurantItems.bind(this),
+    });
   }
 }
 
