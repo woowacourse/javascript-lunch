@@ -29,17 +29,17 @@
 
 ## 컴포넌트(클래스)
 
-- Header
-- filterContainer
-- categoryIcon
-- RestaurantItem
-- RestaurantList
-- Form
-- BottomSheet
+- [ ] Header
+- [ ] filterContainer
+- [x] categoryIcon
+- [ ] RestaurantItem
+- [ ] RestaurantList
+- [ ] Form
+- [ ] BottomSheet
 
 ## 공통 css
 
-- Input 컴포넌트 x css만 만들기
-- Textarea
-- Select
-- Button
+- [ ] Input 컴포넌트 x css만 만들기
+- [ ] Textarea
+- [ ] Select
+- [ ] Button
