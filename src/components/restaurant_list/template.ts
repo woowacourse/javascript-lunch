@@ -1,1 +1,5 @@
-export const restaurantListTemplate = `<ul class="restaurant-list"></ul>`;
+export const restaurantListTemplate = /*html*/ `
+<section class="restaurant-list-container">
+    <ul class="restaurant-list"></ul>
+</section>
+`;

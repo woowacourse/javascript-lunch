@@ -1,33 +1,43 @@
+import RestaurantListStorageService from "../../services/restaurantListStorageService";
 import { Irestaurant } from "../../types";
 import Restaurant from "../restaurant/Restaurant";
 import { restaurantListTemplate } from "./template";
+import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
-function RestaurantList() {
-  const render = () => {
-    const main = document.querySelector("main");
-    const section = document.createElement("section");
-    section.setAttribute("class", "restaurant-list-container");
-    section.innerHTML += restaurantListTemplate;
+function RestaurantList(localStorageTest: Irestaurant[]) {
+  const main = document.querySelector("main");
 
-    const localStorageTest = localStorage.getItem("restaurantInfo");
-
-    if (localStorageTest) {
-      const allRestaurants = JSON.parse(localStorageTest);
-      const totalText = allRestaurants.reduce(
-        (acc: string, cur: Irestaurant) => {
-          return acc + Restaurant().render(cur);
-        },
-        "",
-      );
-
-      section.innerHTML += totalText;
-    }
+  const init = () => {
+    const formattedRestaurantListTemplate = convertHTMLStringToDOM(
+      restaurantListTemplate,
+    );
 
     if (main) {
-      main.appendChild(section);
+      main.appendChild(formattedRestaurantListTemplate);
     }
+
+    render();
+  };
+
+  const render = () => {
+    const ul = document.getElementsByClassName("restaurant-list")[0];
+
+    while (ul.firstChild) {
+      ul.removeChild(ul.firstChild);
+    }
+
+    const totalText = localStorageTest.reduce(
+      (acc: string, cur: Irestaurant) => {
+        return acc + Restaurant().render(cur);
+      },
+      "",
+    );
+
+    const formattedTotalText = convertHTMLStringToDOM(totalText);
+    ul.appendChild(formattedTotalText);
   };
   return {
+    init,
     render,
   };
 }

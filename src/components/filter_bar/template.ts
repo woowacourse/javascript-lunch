@@ -1,5 +1,4 @@
-export const filterBarTemplate = `
-<section class="restaurant-filter-container">
+export const filterBarTemplate = /*html*/ `
 <select name="category" id="category-filter" class="restaurant-filter">
   <option value="전체">전체</option>
   <option value="한식">한식</option>
@@ -9,3 +8,10 @@ export const filterBarTemplate = `
   <option value="아시안">아시안</option>
   <option value="기타">기타</option>
 </select>`;
+
+export const sortBarTemplate = /*html*/ `
+<select name="sorting" id="sorting-filter" class="restaurant-filter">
+  <option value="name">이름순</option>
+  <option value="distance">거리순</option>
+</select>
+`;
