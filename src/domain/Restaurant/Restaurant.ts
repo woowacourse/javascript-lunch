@@ -8,15 +8,8 @@ class Restaurant {
     return this.restaurants;
   }
 
-  public addRestaurants(restaurantDetail: RestaurantDetail) {
-    const existingRestaurants = RestaurantStore.get();
-
-    existingRestaurants.push(restaurantDetail);
-
-    localStorage.setItem(
-      "restaurantDetail",
-      JSON.stringify(existingRestaurants)
-    );
+  public addRestaurant(restaurantDetail: RestaurantDetail) {
+    RestaurantStore.set(restaurantDetail);
   }
 }
 

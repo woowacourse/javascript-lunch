@@ -32,7 +32,7 @@ class RestaurantList extends BaseComponent {
     const restaurantDetails = restaurant.getRestaurants();
 
     return restaurantDetails.reduce(
-      (acc: any, restaurantDetail: RestaurantDetail) => {
+      (acc: string, restaurantDetail: RestaurantDetail) => {
         const restaurantItem = new RestaurantItem(restaurantDetail);
 
         return acc + restaurantItem.getTemplate();
