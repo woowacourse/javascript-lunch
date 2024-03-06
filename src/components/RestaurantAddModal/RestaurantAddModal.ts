@@ -4,6 +4,7 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 import { $ } from "../../utils/dom";
 import Restaurant from "../../domain/Restaurant/Restaurant";
 import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
+import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 
 class RestaurantAddModal extends BaseComponent {
   protected render(): void {
@@ -67,7 +68,7 @@ class RestaurantAddModal extends BaseComponent {
     this.on({
       target: $("#modal-cancel-button"),
       eventName: "click",
-      eventHandler: this.handleCloseModal.bind(this),
+      eventHandler: this.handleCancelButton.bind(this),
     });
 
     this.on({
@@ -75,6 +76,12 @@ class RestaurantAddModal extends BaseComponent {
       eventName: "submit",
       eventHandler: this.handleSubmitAddRestaurant.bind(this),
     });
+  }
+
+  private handleCancelButton() {
+    this.handleCloseModal();
+
+    ($("#restaurant-add-form") as HTMLFormElement).reset();
   }
 
   private handleCloseModal() {
@@ -87,12 +94,13 @@ class RestaurantAddModal extends BaseComponent {
     const result = this.createFormData();
 
     const restaurant = new Restaurant();
-    restaurant.addRestaurants(result);
+    restaurant.addRestaurant(result);
 
-    this.handleCloseModal();
     ($("#restaurant-add-form") as HTMLFormElement).reset();
 
-    this.emit("addRestaurant");
+    this.handleCloseModal();
+
+    this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
   }
 
   private createFormData() {

@@ -1,7 +1,10 @@
-export type CustomEventType = "addRestaurant";
+import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { ObjectToUnion } from "../../types/common";
 
-export interface EventHandler {
+export type CustomEventType = ObjectToUnion<typeof CUSTOM_EVENT_TYPE>;
+
+export interface CustomEventListener {
   target: HTMLElement | Document;
   eventName: CustomEventType | keyof HTMLElementEventMap;
-  eventHandler: EventListener;
+  eventHandler: (event: Event) => void;
 }
