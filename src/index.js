@@ -1,7 +1,7 @@
 // components
 import Modal from './view/components/Modal';
 import RestaurantForm from './view/components/RestaurantForm';
-import Select from './view/components/select/Select';
+import Select from './view/components/Select';
 import GNB from './view/components/GNB';
 
 // styles
