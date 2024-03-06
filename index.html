@@ -25,15 +25,13 @@
           <!-- 카테고리 -->
           <div class="form-item form-item--required">
             <label for="category" class="text-caption">카테고리</label>
-            <select name="category" id="category" required>
-              <option value="">선택해 주세요</option>
-              <option value="한식">한식</option>
-              <option value="중식">중식</option>
-              <option value="일식">일식</option>
-              <option value="양식">양식</option>
-              <option value="아시안">아시안</option>
-              <option value="기타">기타</option>
-            </select>
+            <select
+              is="app-select"
+              name="category"
+              id="category"
+              required
+              data-options='[{"value":"한식","option":"한식"},{"value":"중식","option":"중식"},{"value":"일식","option":"일식"},{"value":"양식","option":"양식"},{"value":"아시안","option":"아시안"},{"value":"기타","option":"기타"}]'
+            ></select>
           </div>
 
           <!-- 음식점 이름 -->
@@ -45,14 +43,13 @@
           <!-- 거리 -->
           <div class="form-item form-item--required">
             <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
-            <select name="distance" id="distance" required>
-              <option value="">선택해 주세요</option>
-              <option value="5">5분 내</option>
-              <option value="10">10분 내</option>
-              <option value="15">15분 내</option>
-              <option value="20">20분 내</option>
-              <option value="30">30분 내</option>
-            </select>
+            <select
+              is="app-select"
+              name="distance"
+              id="distance"
+              required
+              data-options='[{"value":5,"option":"5분 내"},{"value":10,"option":"10분 내"},{"value":15,"option":"15분 내"},{"value":20,"option":"20분 내"},{"value":30,"option":"30분 내"}]'
+            ></select>
           </div>
 
           <!-- 설명 -->
