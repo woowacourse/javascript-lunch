@@ -1,4 +1,6 @@
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { ELEMENT_SELECTOR } from "../../constants/selector";
+import { createOptionElements } from "../../utils/createOptionElements";
 import { $ } from "../../utils/dom";
 import BaseComponent from "../BaseComponent/BaseComponent";
 
@@ -13,14 +15,16 @@ class SortDropdown extends BaseComponent {
   protected render(): void {
     this.innerHTML = `
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-            ${this.createSortCategoryOptions()}
+            ${createOptionElements(
+              Object.values(SortDropdown.SORT_CATEGORIES_TYPE)
+            )}
         </select>
     `;
   }
 
   protected setEvent(): void {
     this.on({
-      target: $("#sorting-filter"),
+      target: $(ELEMENT_SELECTOR.sortingFilter),
       eventName: "change",
       eventHandler: this.handleChangeSort.bind(this),
     });
@@ -36,12 +40,12 @@ class SortDropdown extends BaseComponent {
     this.emit(CUSTOM_EVENT_TYPE.sortChange, selectedOption);
   }
 
-  private createSortCategoryOptions() {
-    return Object.values(SortDropdown.SORT_CATEGORIES_TYPE)
-      .map((sortCategory) => {
-        return `<option value=${sortCategory}>${sortCategory}</option>`;
-      })
-      .join("");
+  protected removeEvent(): void {
+    this.off({
+      target: $(ELEMENT_SELECTOR.sortingFilter),
+      eventName: "change",
+      eventHandler: this.handleChangeSort.bind(this),
+    });
   }
 }
 

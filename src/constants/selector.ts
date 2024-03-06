@@ -4,4 +4,5 @@ export const ELEMENT_SELECTOR = {
   restaurantAddModal: "restaurant-add-modal",
   modalCancelButton: "#modal-cancel-button",
   restaurantAddForm: "#restaurant-add-form",
+  sortingFilter: "#sorting-filter",
 } as const;
