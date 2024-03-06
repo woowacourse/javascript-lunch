@@ -1,11 +1,10 @@
 import Restaurants from '../domain/Restaurants';
 
 class RestaurantList extends HTMLElement {
-  #restaurants;
+  static observedAttributes = ['restaurants'];
 
   constructor() {
     super();
-    this.#restaurants = new Restaurants();
   }
 
   connectedCallback() {
@@ -19,36 +18,25 @@ class RestaurantList extends HTMLElement {
     this.removeEvent();
   }
 
-  render() {
-    const restaurants = this.#restaurants.getRestaurants();
-    this.innerHTML = this.template(restaurants);
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.render();
   }
 
-  setEvent() {
-    this.generateRestaurantsBySelection();
+  render() {
+    this.innerHTML = this.template(JSON.parse(this.getAttribute('restaurants')));
   }
+
+  setEvent() {}
 
   removeEvent() {}
 
-  generateRestaurantsBySelection() {
-    console.log(this.querySelector('.category'));
-  }
-
   template(restaurants) {
     return `
-    <section class="restaurant-filter-container">
-      <filter-box class="category" option="category"></filter-box>
-      <filter-box option="sorting"></filter-box>
-    </section>
     <section class="restaurant-list-container">
       ${restaurants
         .map(
           (restaurant) =>
-            `<restaurant-info category=${JSON.stringify(restaurant.category)} name=${JSON.stringify(
-              restaurant.name,
-            )} distance=${restaurant.distance} description=${JSON.stringify(
-              restaurant.description,
-            )} reference=${JSON.stringify(restaurant.reference)}></restaurant-info>`,
+            `<restaurant-info category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-info>`,
         )
         .join('')}
       </section>

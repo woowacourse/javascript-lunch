@@ -1,5 +1,22 @@
 import Restaurant from './Restaurant';
-import { TCategory } from '../type/types';
+import { TCategory, TSortingOption } from '../type/types';
+
+function getRestaurants() {
+  const restaurants = localStorage.getItem('restaurants');
+  return restaurants ? JSON.parse(restaurants) : [];
+}
+
+function getFilteredByCategory(restaurants: Restaurant[], category: TCategory) {
+  return category === '전체' ? restaurants : restaurants.filter((restaurant) => restaurant.category === category);
+}
+
+function getSortedByName(restaurants: Restaurant[]) {
+  return [...restaurants.sort((a, b) => a.name.localeCompare(b.name))];
+}
+
+function getSortedByDistance(restaurants: Restaurant[]) {
+  return [...restaurants.sort((a, b) => a.distance - b.distance)];
+}
 
 const Restaurants = {
   addRestaurant(restaurant: Restaurant) {
@@ -12,21 +29,11 @@ const Restaurants = {
     }
   },
 
-  getRestaurants() {
-    const restaurants = localStorage.getItem('restaurants');
-    return restaurants ? restaurants : [];
-  },
+  transformRestaurants(category: TCategory, sortingOption: TSortingOption) {
+    const restaurants = getRestaurants();
+    const filteredRestaurants = getFilteredByCategory(restaurants, category);
 
-  getFilteredByCategory(restaurants: Restaurant[], category: TCategory) {
-    return restaurants.filter((restaurant) => restaurant.category === category);
-  },
-
-  getSortedByName(restaurants: Restaurant[]) {
-    return [...restaurants.sort((a, b) => a.name.localeCompare(b.name))];
-  },
-
-  getSortedByDistance(restaurants: Restaurant[]) {
-    return [...restaurants.sort((a, b) => a.distance - b.distance)];
+    return sortingOption === '이름순' ? getSortedByName(filteredRestaurants) : getSortedByDistance(filteredRestaurants);
   },
 };
 
