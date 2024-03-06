@@ -100,6 +100,7 @@ export default class Main {
             </div>
           </li>
         </ul>
+        <div id="restaurant-creation-modal" class="modal modal--open"></div>
       </section>
     `;
   }
