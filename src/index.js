@@ -5,7 +5,6 @@ import './components/FilterContainer.ts';
 import './components/ListContainer.ts';
 import './components/Modal.ts';
 
-import Matzip from './matzip';
-import matzipList from './mock/restaurants';
+import matzipApp from './matzipApp';
 
-const matzip = new Matzip(matzipList);
+matzipApp.init();
