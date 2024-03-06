@@ -3,15 +3,23 @@ import "./RestaurantAddModal.css";
 import BaseComponent from "../BaseComponent/BaseComponent";
 
 import Restaurant from "../../domain/Restaurant/Restaurant";
-import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
+import {
+  Distance,
+  RestaurantDetail,
+} from "../../domain/Restaurant/Restaurant.type";
+
+import { OPTION_ELEMENT_REGEXP } from "./RestaurantAddModal.constant";
 
 import { $ } from "../../utils/dom";
 import { createOptionElements } from "../../utils/createOptionElements";
 
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
+import { ELEMENT_SELECTOR } from "../../constants/selector";
 
 class RestaurantAddModal extends BaseComponent {
+  static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];
+
   protected render(): void {
     this.innerHTML = `
         <div class="modal-backdrop"></div>
@@ -37,11 +45,12 @@ class RestaurantAddModal extends BaseComponent {
                     <label for="distance text-caption">거리(도보 이동 시간) </label>
                     <select name="distance" id="distance" required>
                     <option value="">선택해 주세요</option>
-                    <option value="5">5분 내</option>
-                    <option value="10">10분 내</option>
-                    <option value="15">15분 내</option>
-                    <option value="20">20분 내</option>
-                    <option value="30">30분 내</option>
+                    ${createOptionElements(
+                      RestaurantAddModal.DISTANCES_OPTIONS
+                    ).replace(
+                      OPTION_ELEMENT_REGEXP,
+                      (_, p1, p2) => `<option value=${p1}>${p2}분 내</option>`
+                    )}
                     </select>
                 </div>
 
@@ -53,7 +62,7 @@ class RestaurantAddModal extends BaseComponent {
 
                 <div class="form-item">
                     <label for="url" text-caption">참고 링크</label>
-                    <input type="text" name="url"" id="url"">
+                    <input type="text" name="url" id="url"/>
                     <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
                 </div>
 
@@ -68,13 +77,13 @@ class RestaurantAddModal extends BaseComponent {
 
   protected setEvent(): void {
     this.on({
-      target: $("#modal-cancel-button"),
+      target: $(ELEMENT_SELECTOR.modalCancelButton),
       eventName: "click",
       eventHandler: this.handleCancelButton.bind(this),
     });
 
     this.on({
-      target: $("#restaurant-add-form"),
+      target: $(ELEMENT_SELECTOR.restaurantAddForm),
       eventName: "submit",
       eventHandler: this.handleSubmitAddRestaurant.bind(this),
     });
@@ -83,7 +92,15 @@ class RestaurantAddModal extends BaseComponent {
   private handleCancelButton() {
     this.handleCloseModal();
 
-    ($("#restaurant-add-form") as HTMLFormElement).reset();
+    this.resetForm();
+  }
+
+  private resetForm() {
+    const formElement = $(ELEMENT_SELECTOR.restaurantAddForm);
+
+    if (formElement instanceof HTMLFormElement) {
+      formElement.reset();
+    }
   }
 
   private handleCloseModal() {
@@ -93,34 +110,55 @@ class RestaurantAddModal extends BaseComponent {
   private handleSubmitAddRestaurant(event: Event) {
     event.preventDefault();
 
-    const result = this.createFormData();
+    this.addUserInputRestaurantDetail();
 
-    const restaurant = new Restaurant();
-    restaurant.addRestaurant(result);
-
-    ($("#restaurant-add-form") as HTMLFormElement).reset();
+    this.resetForm();
 
     this.handleCloseModal();
 
     this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
   }
 
-  private createFormData() {
-    const formData = new FormData($("#restaurant-add-form") as HTMLFormElement);
-    const result: Record<string, FormDataEntryValue> = {};
+  private addUserInputRestaurantDetail() {
+    const userInputRestaurantDetail = this.createFormDataToRestaurantDetail();
 
-    for (const [key, value] of formData.entries()) {
-      result[key] = value;
+    if (userInputRestaurantDetail) {
+      const restaurant = new Restaurant();
+      restaurant.addRestaurant(userInputRestaurantDetail);
+    }
+  }
+
+  private createFormDataToRestaurantDetail() {
+    let formData = null;
+
+    const formElement = $(ELEMENT_SELECTOR.restaurantAddForm);
+
+    if (formElement instanceof HTMLFormElement) {
+      formData = new FormData(formElement);
+
+      const userInputValues: Record<string, FormDataEntryValue> = {};
+
+      for (const [key, value] of formData.entries()) {
+        userInputValues[key] = value;
+      }
+
+      return userInputValues as unknown as RestaurantDetail;
     }
 
-    return result as unknown as RestaurantDetail;
+    return null;
   }
 
   protected removeEvent(): void {
     this.off({
-      target: $("#modal-cancel-button"),
+      target: $(ELEMENT_SELECTOR.modalCancelButton),
       eventName: "click",
       eventHandler: this.handleCloseModal.bind(this),
+    });
+
+    this.off({
+      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      eventName: "submit",
+      eventHandler: this.handleSubmitAddRestaurant.bind(this),
     });
   }
 }
