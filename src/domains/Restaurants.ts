@@ -16,14 +16,16 @@ class Restaurants implements RestaurantsInterface {
   }
 
   orderByDistance() {
-    return this.restaurants.toSorted((prev, next) => {
+    return this.restaurants.toSorted((prev: Restaurant, next: Restaurant) => {
       const compareWalkingTime = prev.walkingTimeFromCampus - next.walkingTimeFromCampus;
       return compareWalkingTime || prev.name.localeCompare(next.name);
     });
   }
 
   orderByName() {
-    return this.restaurants.toSorted((prev, next) => prev.name.localeCompare(next.name));
+    return this.restaurants.toSorted((prev: Restaurant, next: Restaurant) =>
+      prev.name.localeCompare(next.name),
+    );
   }
 }
 
