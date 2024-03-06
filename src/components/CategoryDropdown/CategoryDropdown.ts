@@ -1,4 +1,5 @@
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { ELEMENT_SELECTOR } from "../../constants/selector";
 import { $ } from "../../utils/dom";
 import BaseComponent from "../BaseComponent/BaseComponent";
 
@@ -18,36 +19,35 @@ class CategoryDropdown extends BaseComponent {
   protected render(): void {
     this.innerHTML = `
         <select name="category" id="category-filter" class="restaurant-filter">
-            <option value="전체">전체</option>
             ${this.createMenuCategoryOptions()}
         </select>
     `;
   }
 
+  private createMenuCategoryOptions() {
+    return Object.values(CategoryDropdown.MENU_CATEGORIES)
+      .map((menuCategory) => {
+        return `<option value=${menuCategory}>${menuCategory}</option>`;
+      })
+      .join("");
+  }
+
   protected setEvent(): void {
     this.on({
-      target: $("#category-filter"),
+      target: $(ELEMENT_SELECTOR.categoryFilter),
       eventName: "change",
       eventHandler: this.handleChangeCategoryFilter.bind(this),
     });
   }
 
   private handleChangeCategoryFilter(event: Event) {
-    if (event?.target instanceof HTMLSelectElement) {
-      const category = event.target.value;
+    const targetElement = event?.target;
+
+    if (targetElement instanceof HTMLSelectElement) {
+      const category = targetElement.value;
 
       this.emit(CUSTOM_EVENT_TYPE.filterCategory, category);
     }
-  }
-
-  private createMenuCategoryOptions() {
-    return Object.values(CategoryDropdown.MENU_CATEGORIES)
-      .map((menuCategory) => {
-        if (menuCategory === CategoryDropdown.MENU_CATEGORIES.all) return;
-
-        return `<option value=${menuCategory}>${menuCategory}</option>`;
-      })
-      .join("");
   }
 }
 
