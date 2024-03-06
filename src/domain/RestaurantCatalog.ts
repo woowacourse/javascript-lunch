@@ -25,7 +25,14 @@ class RestaurantCatalog {
     });
   }
 
-  sortByDistance() {}
+  sortByDistance() {
+    return this.#restaurants.sort((restaurantPrev, restaurantCurrent) => {
+      if (restaurantPrev.getInfo().distanceFromCampus !== restaurantCurrent.getInfo().distanceFromCampus) {
+        return restaurantPrev.getInfo().distanceFromCampus - restaurantCurrent.getInfo().distanceFromCampus;
+      }
+      return restaurantPrev.getInfo().name.localeCompare(restaurantCurrent.getInfo().name);
+    });
+  }
 
   getRestaurants() {
     return [...this.#restaurants];
