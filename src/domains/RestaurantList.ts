@@ -10,7 +10,9 @@ class RestaurantList {
   }
 
   get list() {
-    return JSON.parse(JSON.stringify(this.#list));
+    return JSON.parse(JSON.stringify(this.#list)) as
+      | RestaurantInfo[]
+      | undefined;
   }
 
   addRestaurant(info: RestaurantInfo) {
