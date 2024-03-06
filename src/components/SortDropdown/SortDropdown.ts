@@ -1,9 +1,14 @@
+import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { $ } from "../../utils/dom";
 import BaseComponent from "../BaseComponent/BaseComponent";
 
-import { SortCategory } from "./SortDropdown.type";
+import { SortCategory, SortKey } from "./SortDropdown.type";
 
 class SortDropdown extends BaseComponent {
-  #sortCategories: SortCategory[] = ["이름순", "거리순"];
+  static SORT_CATEGORIES_TYPE: Record<SortKey, SortCategory> = {
+    name: "이름순",
+    distance: "거리순",
+  };
 
   protected render(): void {
     this.innerHTML = `
@@ -13,10 +18,26 @@ class SortDropdown extends BaseComponent {
     `;
   }
 
-  protected setEvent(): void {}
+  protected setEvent(): void {
+    this.on({
+      target: $("#sorting-filter"),
+      eventName: "change",
+      eventHandler: this.handleChangeSort.bind(this),
+    });
+  }
+
+  private handleChangeSort(event: Event): void {
+    let selectedOption = "";
+
+    if (event?.target instanceof HTMLSelectElement) {
+      selectedOption = event.target.value;
+    }
+
+    this.emit(CUSTOM_EVENT_TYPE.sortChange, selectedOption);
+  }
 
   private createSortCategoryOptions() {
-    return this.#sortCategories
+    return Object.values(SortDropdown.SORT_CATEGORIES_TYPE)
       .map((sortCategory) => {
         return `<option value=${sortCategory}>${sortCategory}</option>`;
       })
@@ -25,3 +46,5 @@ class SortDropdown extends BaseComponent {
 }
 
 customElements.define("sort-dropdown", SortDropdown);
+
+export default SortDropdown;
