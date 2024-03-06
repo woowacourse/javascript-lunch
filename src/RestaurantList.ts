@@ -2,7 +2,7 @@ import type Restaurant from './Restaurant';
 import type { TCategory } from './Restaurant';
 
 type TRestaurantInstance = InstanceType<typeof Restaurant>;
-type IRestaurantList = TRestaurantInstance[];
+export type IRestaurantList = TRestaurantInstance[];
 
 class RestaurantList {
   restaurants;
@@ -20,6 +20,7 @@ class RestaurantList {
 
   add(restaurant: TRestaurantInstance): void {
     this.restaurants.push(restaurant);
+    localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
   }
 
   filterByCategory(category: TCategory): IRestaurantList {
