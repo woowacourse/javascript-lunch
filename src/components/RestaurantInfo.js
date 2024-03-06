@@ -1,4 +1,13 @@
+import koreanCategoryImg from '../assets/category-korean.png';
+import japaneseCategoryImg from '../assets/category-japanese.png';
+import chineseCategoryImg from '../assets/category-chinese.png';
+import asianCategoryImg from '../assets/category-asian.png';
+import westernCategoryImg from '../assets/category-western.png';
+import etcCategoryImg from '../assets/category-etc.png';
+
 class RestaurantInfo extends HTMLElement {
+  static observedAttributes = ['category', 'name', 'distance', 'description', 'reference'];
+
   constructor() {
     super();
   }
@@ -15,9 +24,17 @@ class RestaurantInfo extends HTMLElement {
   }
 
   render() {
-    const restaurant = this.getAttribute('restaurant');
+    const category = this.getAttribute('category');
+    const name = this.getAttribute('name');
+    const distance = this.getAttribute('distance');
+    const description = this.getAttribute('description');
+    const reference = this.getAttribute('reference');
 
-    this.innerHTML = this.template(restaurant);
+    this.innerHTML = this.template(category, name, distance, description, reference);
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.render();
   }
 
   setEvent() {}
@@ -27,35 +44,35 @@ class RestaurantInfo extends HTMLElement {
   displayCategoryIcon(category) {
     switch (category) {
       case '한식':
-        return `<img src="./category-korean.png" alt="한식" class="category-icon" />`;
+        return `<img src=${koreanCategoryImg} alt="한식" class="category-icon" />`;
       case '중식':
-        return `<img src="./category-chinese.png" alt="중식" class="category-icon" />`;
+        return `<img src=${chineseCategoryImg} alt="중식" class="category-icon" />`;
       case '일식':
-        return `<img src="./category-japanese.png" alt="일식" class="category-icon" />`;
+        return `<img src=${japaneseCategoryImg} alt="일식" class="category-icon" />`;
       case '양식':
-        return `<img src="./category-westurn.png" alt="양식" class="category-icon" />`;
+        return `<img src=${westernCategoryImg} alt="양식" class="category-icon" />`;
       case '아시안':
-        return `<img src="./category-asian.png" alt="아시안" class="category-icon" />`;
+        return `<img src=${asianCategoryImg} alt="아시안" class="category-icon" />`;
       case '기타':
-        return `<img src="./category-etc.png" alt="기타" class="category-icon" />`;
+        return `<img src=${etcCategoryImg} alt="기타" class="category-icon" />`;
       default:
         return '';
     }
   }
 
-  template(restaurant) {
+  template(category, name, distance, description, reference) {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
-          ${displayCategoryIcon(restaurant.category)}
+          ${this.displayCategoryIcon(category)}
         </div>
         <div class="restaurant__info">
-          <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
+          <h3 class="restaurant__name text-subtitle">${name}</h3>
+          <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description text-body">
-            ${restaurant.description}
+            ${description !== undefined ? description : ''}
           </p>
-        </div>
+      </div>
       </li>
     `;
   }
