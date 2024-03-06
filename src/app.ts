@@ -1,11 +1,6 @@
-import BaseComponent from './components/base/BaseComponent';
-
-class App extends BaseComponent {
+class App extends HTMLElement {
   constructor() {
     super();
-  }
-
-  render() {
     this.innerHTML = `
     <matzip-gnb></matzip-gnb>
     <main>

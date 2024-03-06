@@ -1,11 +1,6 @@
-import BaseComponent from './base/BaseComponent';
-
-class FilterContainer extends BaseComponent {
+class FilterContainer extends HTMLElement {
   constructor() {
     super();
-  }
-
-  render() {
     this.innerHTML = `
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">

@@ -1,12 +1,8 @@
-import BaseComponent from '../base/BaseComponent';
 import AddButton from '../../../templates/add-button.png';
 
-class Header extends BaseComponent {
+class Header extends HTMLElement {
   constructor() {
     super();
-  }
-
-  render() {
     this.innerHTML = `
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>

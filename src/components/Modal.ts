@@ -1,11 +1,6 @@
-import BaseComponent from './base/BaseComponent';
-
-class Modal extends BaseComponent {
+class Modal extends HTMLElement {
   constructor() {
     super();
-  }
-
-  render() {
     this.innerHTML = `
     <div class="modal modal--open">
     <div class="modal-backdrop"></div>

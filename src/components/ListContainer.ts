@@ -1,11 +1,6 @@
-import BaseComponent from './base/BaseComponent';
-
-class ListContainer extends BaseComponent {
+class ListContainer extends HTMLElement {
   constructor() {
     super();
-  }
-
-  render() {
     this.innerHTML = `
     <section class="restaurant-list-container">
     <ul class="restaurant-list">
