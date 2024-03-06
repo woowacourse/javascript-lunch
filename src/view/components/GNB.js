@@ -1,10 +1,18 @@
-const GNB = () => {
-  const button = document.querySelector('.gnb__button');
+export default class GNB extends HTMLElement {
+  constructor() {
+    super();
 
-  button.addEventListener('click', () => {
-    const modal = document.querySelector('.modal');
-    modal.classList.add('modal--open');
-  });
-};
+    const template = document.querySelector('#template-header');
+    const content = template.content.cloneNode(true);
+    console.log(content);
+    this.appendChild(content);
+  }
 
-export default GNB;
+  connectedCallback() {
+    const button = this.querySelector('.gnb__button');
+    button.addEventListener('click', () => {
+      const modal = document.querySelector('.modal');
+      modal.classList.add('modal--open');
+    });
+  }
+}
