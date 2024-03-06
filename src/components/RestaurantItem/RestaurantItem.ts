@@ -1,11 +1,35 @@
 import "./RestaurantItem.css";
 
+import {
+  categoryKorean,
+  categoryAsian,
+  categoryChinese,
+  categoryEtc,
+  categoryJapanese,
+  categoryWestern,
+} from "../../assets/images/index";
+
 import BaseComponent from "../BaseComponent/BaseComponent";
-import categoryKorean from "../../assets/images/category-korean.png";
-import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
+
+import type { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
+
+import type { MenuCategory } from "../../constants/menuCategory/menuCategory.type";
+import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 
 class RestaurantItem extends BaseComponent {
   private restaurantDetail: RestaurantDetail;
+
+  private restaurantImage: Record<
+    Exclude<MenuCategory, typeof MENU_CATEGORIES.all>,
+    string
+  > = {
+    아시안: categoryAsian,
+    양식: categoryWestern,
+    일식: categoryJapanese,
+    중식: categoryChinese,
+    한식: categoryKorean,
+    기타: categoryEtc,
+  };
 
   constructor(restaurantDetail: RestaurantDetail) {
     super();
@@ -13,25 +37,36 @@ class RestaurantItem extends BaseComponent {
     this.restaurantDetail = restaurantDetail;
   }
 
-  //TODO: 이미지 리팩터링 필요
   public getTemplate() {
     return `
         <li class="restaurant">
             <div class="restaurant__category">
-                <img src=${categoryKorean} alt="한식" class="category-icon">
+                <img src=${this.convertCategoryToImage(
+                  this.restaurantDetail.category
+                )} alt=${this.restaurantDetail.category} class="category-icon">
             </div>
             <div class="restaurant__info">
-                <h3 class="restaurant__name text-subtitle">${this.restaurantDetail.name}</h3>
-                <span class="restaurant__distance text-body">캠퍼스로부터 ${this.restaurantDetail.distance}분 내</span>
-                <p class="restaurant__description text-body">${this.restaurantDetail.description}</p>
+                <h3 class="restaurant__name text-subtitle">${
+                  this.restaurantDetail.name
+                }</h3>
+                <span class="restaurant__distance text-body">캠퍼스로부터 ${
+                  this.restaurantDetail.distance
+                }분 내</span>
+                <p class="restaurant__description text-body">${
+                  this.restaurantDetail.description
+                }</p>
             </div>
         </li>
     `;
   }
 
-  protected setEvent(): void {}
+  private convertCategoryToImage(
+    category: Exclude<MenuCategory, typeof MENU_CATEGORIES.all>
+  ) {
+    return this.restaurantImage[category];
+  }
 }
 
-customElements.define("restaurant-ltem", RestaurantItem);
+customElements.define("restaurant-item", RestaurantItem);
 
 export default RestaurantItem;
