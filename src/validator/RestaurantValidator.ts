@@ -1,15 +1,6 @@
-import { RestaurantDataType } from '../type/restaurantDataType';
-
 const RestaurantValidator = {
-  validateUserInput(restaurantData: RestaurantDataType) {
-    if (!restaurantData.category || !restaurantData.distanceByWalk) {
-      throw new Error('값을 입력해주세요.');
-    }
-    this.validateRestaurantName(restaurantData.name);
-  },
-
   validateRestaurantName(userInput: string) {
-    const isNameLengthOutOfRange = userInput.length < 1 || userInput.length > 20;
+    const isNameLengthOutOfRange = userInput.length < 1 || userInput.length > 20; // 상수 처리 필요
     if (isNameLengthOutOfRange) {
       throw new Error('1글자 이상 20글자 이하로 입력해주세요.');
     }
