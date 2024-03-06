@@ -1,6 +1,6 @@
 import { RESTAURANT_FORM_EVENTS } from './RestaurantForm';
 
-export default class AppModal extends HTMLElement {
+export default class Modal extends HTMLElement {
   #shadowRoot;
 
   constructor() {
