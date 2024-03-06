@@ -1,4 +1,6 @@
 class FilterBox extends HTMLElement {
+  static observedAttributes = ['type', 'option'];
+
   constructor() {
     super();
   }
@@ -15,32 +17,32 @@ class FilterBox extends HTMLElement {
   }
 
   render() {
-    const option = this.getAttribute('option');
+    const type = this.getAttribute('type');
+    const option = this.getAttribute('option').split(',');
 
-    if (option === 'category') this.innerHTML = this.categoryTemplate();
-    if (option === 'sorting') this.innerHTML = this.sortingTemplate();
+    this.innerHTML = this.template(type, option);
   }
 
-  setEvent() {}
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.render();
+  }
+
+  setEvent() {
+    this.querySelector('select').addEventListener('change', (event) => {
+      this.dispatchEvent(
+        new CustomEvent('selectChange', {
+          bubbles: true,
+        }),
+      );
+    });
+  }
 
   removeEvent() {}
 
-  categoryTemplate() {
-    const categoryOption = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
-
+  template(type, option) {
     return `
-      <select name="category" class="restaurant-filter">
-        ${categoryOption.map((categoryName) => `<option value=${categoryName}>${categoryName}</option>`)}
-      </select>
-    `;
-  }
-
-  sortingTemplate() {
-    const sortingOption = ['이름순', '거리순'];
-
-    return `
-      <select name="sorting" class="restaurant-filter">
-        ${sortingOption.map((sortingName) => `<option value=${sortingName}>${sortingName}</option>`)}
+      <select name=${type} id=${type} class=${type}>
+        ${option.map((el) => `<option value=${el}>${el}</option>`).join('')}
       </select>
     `;
   }
