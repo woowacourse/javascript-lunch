@@ -4,12 +4,13 @@ import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
+import storage from './storage';
 
 const { $, $$ } = DOM;
 
 const matzipApp = {
   init() {
-    const matzip = new Matzip(matzipList);
+    const matzip = new Matzip(storage.getData());
     this.initList(matzip);
     this.openModal();
     this.listenCategoryChange(matzip);
