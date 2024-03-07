@@ -24,9 +24,9 @@ function ModalButton() {
       const restaurantInfo = restaurantStateStore.getRestaurantField();
       console.log(checkValidateHandler(restaurantInfo));
 
-      const inValidMessage = document.getElementsByClassName("inValid_message");
+      const invalidMessage = document.getElementsByClassName("invalid_message");
 
-      if (inValidMessage.length === 0) {
+      if (invalidMessage.length === 0) {
         modal.classList.remove("modal--open");
         RestaurantListStorageService.setData(restaurantInfo as Irestaurant);
       }
@@ -38,6 +38,7 @@ function ModalButton() {
   const checkValidateHandler = (restaurantInfo: IrestaurantField) => {
     const validateResult = validateRestaurantState(restaurantInfo);
     console.log(validateResult);
+    removePrevErrorMessage();
 
     validateResult.forEach((result, index) => {
       if (result.errorMessage && !result.isValid) {
@@ -46,10 +47,22 @@ function ModalButton() {
     });
   };
 
+  const removePrevErrorMessage = () => {
+    // "invalid_message" 클래스를 가진 모든 요소를 선택
+    const prevMessages = document.querySelectorAll(".invalid_message");
+
+    // 각 요소에 대해 반복하여 DOM에서 제거
+    prevMessages.forEach((msg) => {
+      if (msg && msg.parentNode) {
+        msg.parentNode.removeChild(msg);
+      }
+    });
+  };
+
   const renderErrorMessage = (index: number, result: IinvalidResult) => {
     const targetTag = document.getElementsByClassName("form-item")[index];
     const p = document.createElement("p");
-    p.setAttribute("class", `inValid_message ${result.targetClassName}`);
+    p.setAttribute("class", `invalid_message ${result.targetClassName}`);
     p.textContent = result.errorMessage;
     targetTag.appendChild(p);
   };
