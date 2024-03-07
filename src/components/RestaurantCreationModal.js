@@ -1,7 +1,7 @@
 import Restaurant from './Restaurant';
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
-import { RestaurantsValidator } from '../validators';
+import { RestaurantsValidator, validateRequiredValue } from '../validators';
 
 export default class RestaurantCreationModal {
   constructor(restaurants) {
@@ -93,7 +93,7 @@ export default class RestaurantCreationModal {
       if (event.target.id === 'add-button')
         tryCatchWrapper(
           () => this.addRestaurantAndRender(),
-          (message) => this.displayErrorMessage(message),
+          (error) => this.displayErrorMessage(error.message, error.inputElement),
         );
     });
   }
@@ -109,17 +109,39 @@ export default class RestaurantCreationModal {
 
   addRestaurantAndRender() {
     const inputData = this.getInputData();
+    this.resetErrorMessage();
+
+    // 음식점 이름 중복 검사
     const restaurantNames = this.restaurants.getStorageData.map((restaurant) => restaurant.name);
-    RestaurantsValidator(restaurantNames, inputData.name);
+    RestaurantsValidator($('name'), { restaurantNames, name: inputData.name });
+
+    // 필수 값 입력되었는지 검사
+    this.validate('category');
+    this.validate('name');
+    this.validate('distance');
+
     this.restaurants.addRestaurant(inputData);
     $('restaurant-creation-modal').classList.remove('modal--open');
 
     $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
+
+    // 초기화
     $('restaurant-input-form').reset();
-    $('name-error').innerText = '';
   }
 
-  displayErrorMessage(message) {
-    $('name-error').innerText = message;
+  validate(inputElement) {
+    validateRequiredValue($(inputElement), $(inputElement).value);
+    $(`${inputElement}-error`).innerText = '';
+  }
+
+  // TODO: 리팩터링
+  resetErrorMessage() {
+    $('category-error').innerText = '';
+    $('name-error').innerText = '';
+    $('distance-error').innerText = '';
+  }
+
+  displayErrorMessage(message, inputElement) {
+    $(`${inputElement.id}-error`).innerText = message;
   }
 }

@@ -24,8 +24,6 @@ class Restaurants implements RestaurantsInterface {
   }
 
   addRestaurant(restaurant: Restaurant) {
-    const restaurantsNames = this.getStorageData.map(({ name }: Restaurant) => name);
-    RestaurantsValidator(restaurantsNames, restaurant.name);
     this.storage.setItem('restaurants', JSON.stringify([restaurant, ...this.getStorageData]));
   }
 
