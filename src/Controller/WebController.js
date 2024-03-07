@@ -16,12 +16,12 @@ class WebController {
 
     this.#renderDropdownOptions('category-select', RESTAURANT_CATEGORY);
     this.#renderDropdownOptions('sort-select', SORT_CONDITION);
-    eventController(this.#restaurantCatalog);
   }
 
   #renderDropdownOptions(id, options) {
     const select = document.getElementById(id);
     select.addOptions(options);
+    select.catalog = this.#restaurantCatalog;
   }
 }
 

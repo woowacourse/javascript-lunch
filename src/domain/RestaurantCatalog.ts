@@ -27,19 +27,19 @@ class RestaurantCatalog {
     return this.#restaurants.filter((restaurant) => restaurant.getInfo().category === category);
   }
 
-  sortByName() {
-    return this.#restaurants.sort((restaurantPrev, restaurantCurrent) => {
-      if (restaurantPrev.getInfo().name < restaurantCurrent.getInfo().name) return -1;
+  static sortByName(restaurants: IRestaurantInfo[]) {
+    return restaurants.sort((restaurantPrev, restaurantCurrent) => {
+      if (restaurantPrev.name < restaurantCurrent.name) return -1;
       return 1;
     });
   }
 
-  sortByDistance() {
-    return this.#restaurants.sort((restaurantPrev, restaurantCurrent) => {
-      if (restaurantPrev.getInfo().distanceFromCampus !== restaurantCurrent.getInfo().distanceFromCampus) {
-        return restaurantPrev.getInfo().distanceFromCampus - restaurantCurrent.getInfo().distanceFromCampus;
+  static sortByDistance(restaurants: IRestaurantInfo[]) {
+    return restaurants.sort((restaurantPrev, restaurantCurrent) => {
+      if (restaurantPrev.distanceFromCampus !== restaurantCurrent.distanceFromCampus) {
+        return restaurantPrev.distanceFromCampus - restaurantCurrent.distanceFromCampus;
       }
-      return restaurantPrev.getInfo().name.localeCompare(restaurantCurrent.getInfo().name);
+      return restaurantPrev.name.localeCompare(restaurantCurrent.name);
     });
   }
 

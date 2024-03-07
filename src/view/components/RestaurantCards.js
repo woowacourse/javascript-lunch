@@ -1,8 +1,22 @@
+import RestaurantCatalog from '../../domain/RestaurantCatalog';
+
 class RestaurantCards extends HTMLUListElement {
-  connectedCallback() {}
+  connectedCallback() {
+    this.setAttribute('data-sort', '이름순');
+  }
 
   #appendList() {
-    JSON.parse(this.dataset.restaurants).forEach(({ category, name, distanceFromCampus, description }) => {
+    const restaurants = JSON.parse(this.dataset.restaurants);
+    if (this.dataset.sort === '이름순') {
+      this.#makeRestaurantElement(RestaurantCatalog.sortByName(restaurants));
+    }
+    if (this.dataset.sort === '거리순') {
+      this.#makeRestaurantElement(RestaurantCatalog.sortByDistance(restaurants));
+    }
+  }
+
+  #makeRestaurantElement(restaurants) {
+    restaurants.forEach(({ category, name, distanceFromCampus, description }) => {
       const liElement = document.createElement('li');
       liElement.classList.add('restaurant');
       liElement.innerHTML = `
@@ -36,18 +50,18 @@ class RestaurantCards extends HTMLUListElement {
   }
 
   renderList() {
-    this.#appendList();
+    if (this.dataset.restaurants) {
+      this.#appendList();
+    }
   }
 
   static get observedAttributes() {
-    return ['data-restaurants'];
+    return ['data-restaurants', 'data-sort'];
   }
 
-  // 속성이 변경될 때 호출되는 콜백
   attributeChangedCallback(name, oldValue, newValue) {
     this.clear();
     this.renderList();
-    // }
   }
 }
 

@@ -1,6 +1,22 @@
 class Dropdown extends HTMLSelectElement {
+  #catalog;
+
   connectedCallback() {
-    console.log('Component added to DOM');
+    this.addEventListener('change', (e) => {
+      const restaurants = this.#catalog.filterByCategory(e.target.value);
+
+      const restaurantList = document.querySelector('.restaurant-list');
+
+      if (this.id === 'category-select') {
+        restaurantList.setAttribute(
+          'data-restaurants',
+          JSON.stringify(restaurants.map((restaurant) => restaurant.getInfo())),
+        );
+      }
+      if (this.id === 'sort-select') {
+        restaurantList.setAttribute('data-sort', e.target.value);
+      }
+    });
   }
 
   addOptions(options) {
@@ -10,6 +26,10 @@ class Dropdown extends HTMLSelectElement {
       optionElement.textContent = option;
       this.appendChild(optionElement);
     });
+  }
+
+  set catalog(catalog) {
+    this.#catalog = catalog;
   }
 }
 
