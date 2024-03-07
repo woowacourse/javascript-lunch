@@ -1,0 +1,45 @@
+import EventComponent from "../../abstract/EventComponent";
+import { $ } from "../../utils/selector";
+
+interface Option {
+  value: string;
+  label: string;
+}
+
+export default class Select extends EventComponent {
+  protected getTemplate(): string {
+    const rawOptions = this.getAttribute("options");
+    const id = this.getAttribute("id") || "";
+    const className = this.getAttribute("class-name") || "";
+
+    const options = rawOptions ? (JSON.parse(rawOptions) as Option[]) : [];
+
+    return `
+      <select id=${id} class=${className}>
+      ${options.map(
+        ({ value, label }) => `<option value=${value}>${label}</option>`
+      )}
+      </select>
+    `;
+  }
+
+  private handleSelectChange(e: Event, eventName: string) {
+    const select = e.target as HTMLSelectElement;
+    const selectedValue = select.value;
+
+    this.dispatchEvent(new CustomEvent(eventName, { detail: selectedValue }));
+  }
+
+  protected setEvent(): void {
+    const eventName = this.getAttribute("event-name") || "";
+    const id = this.getAttribute("id") || "";
+
+    $(`#${id}`)?.addEventListener("change", (e) =>
+      this.handleSelectChange(e, eventName)
+    );
+  }
+
+  static get observedAttributes() {
+    return ["options", "event-name", "id", "class-name"];
+  }
+}
