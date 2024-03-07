@@ -1,4 +1,6 @@
-import { Icategory, IrestaurantField } from "../types";
+import restaurantStateStore from "../store/RestaurantStateStore";
+import { Icategory, Irestaurant, IrestaurantField } from "../types";
+import RestaurantListStorageService from "./restaurantListStorageService";
 
 const validate = {
   validateCategory(category?: Icategory) {
@@ -13,7 +15,8 @@ const validate = {
       isValid: true,
     };
   },
-  validateName(name?: string) {
+
+  validateNoName(name?: string) {
     if (name === undefined || name.length <= 0) {
       return {
         targetClassName: "invalid_name",
@@ -25,6 +28,25 @@ const validate = {
       isValid: true,
     };
   },
+
+  validateDuplicateName(name?: string) {
+    const restaurantList = RestaurantListStorageService.getData();
+    const checkDuplication = restaurantList.find(
+      (restaurant: Irestaurant) => restaurant.name === name,
+    );
+
+    if (checkDuplication) {
+      return {
+        targetClassName: "invalid_name",
+        isValid: false,
+        errorMessage: "이미 등록된 레스토랑입니다.",
+      };
+    }
+    return {
+      isValid: true,
+    };
+  },
+
   validateDistance(distance?: number) {
     if (distance === undefined) {
       return {
@@ -67,7 +89,9 @@ const validate = {
 
 function validateRestaurantState(restaurantInfo: IrestaurantField) {
   const isValidCategory = validate.validateCategory(restaurantInfo.category);
-  const isValidName = validate.validateName(restaurantInfo.name);
+  const isValidName =
+    validate.validateNoName(restaurantInfo.name) &&
+    validate.validateDuplicateName(restaurantInfo.name);
   const isValidDistance = validate.validateDistance(restaurantInfo.distance);
   const isValidDescription = validate.validateDescription(
     restaurantInfo.description,

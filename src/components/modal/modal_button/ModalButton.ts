@@ -29,10 +29,10 @@ function ModalButton() {
       if (invalidMessage.length === 0) {
         modal.classList.remove("modal--open");
         RestaurantListStorageService.setData(restaurantInfo as Irestaurant);
+        initializeFormState();
       }
 
       RestaurantList().reRender();
-      initializeFormState();
     });
   };
 
