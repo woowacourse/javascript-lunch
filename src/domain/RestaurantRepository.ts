@@ -18,7 +18,7 @@ function getSortedByDistance(restaurants: Restaurant[]) {
   return [...restaurants.sort((a, b) => a.distance - b.distance)];
 }
 
-const Restaurants = {
+const RestaurantRepository = {
   addRestaurant(restaurant: IRestaurant) {
     const restaurants = localStorage.getItem('restaurants');
 
@@ -37,4 +37,4 @@ const Restaurants = {
   },
 };
 
-export default Restaurants;
+export default RestaurantRepository;

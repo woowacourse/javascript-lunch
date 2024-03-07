@@ -1,11 +1,11 @@
-import Restaurants from '../domain/Restaurants';
+import RestaurantRepository from '../domain/RestaurantRepository';
 
 class RestaurantApp extends HTMLElement {
   #restaurants;
 
   constructor() {
     super();
-    this.#restaurants = Restaurants.transformRestaurants('전체', '이름순');
+    this.#restaurants = RestaurantRepository.transformRestaurants('전체', '이름순');
   }
 
   connectedCallback() {
@@ -36,7 +36,7 @@ class RestaurantApp extends HTMLElement {
     });
 
     this.addEventListener('submitButtonClick', (event) => {
-      Restaurants.addRestaurant(event.detail);
+      RestaurantRepository.addRestaurant(event.detail);
 
       this.#restaurants = this.generateRestaurantsBySelection();
 
@@ -55,7 +55,7 @@ class RestaurantApp extends HTMLElement {
     const category = this.querySelector('.category').value;
     const sorting = this.querySelector('.sorting').value;
 
-    this.#restaurants = Restaurants.transformRestaurants(category, sorting);
+    this.#restaurants = RestaurantRepository.transformRestaurants(category, sorting);
 
     this.querySelector('restaurant-list').setAttribute('restaurants', `${JSON.stringify(this.#restaurants)}`);
   }

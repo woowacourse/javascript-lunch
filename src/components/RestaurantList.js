@@ -1,5 +1,3 @@
-import Restaurants from '../domain/Restaurants';
-
 class RestaurantList extends HTMLElement {
   static observedAttributes = ['restaurants'];
 
