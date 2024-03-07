@@ -7,7 +7,7 @@ const storage = {
     const localStorageData = localStorage.getItem(MATZIP_DATA);
 
     if (localStorageData === null) {
-      localStorage.setItem(MATZIP_DATA, JSON.stringify(data));
+      localStorage.setItem(MATZIP_DATA, JSON.stringify([data]));
       return;
     }
 
@@ -16,7 +16,7 @@ const storage = {
     localStorage.setItem(MATZIP_DATA, JSON.stringify(newData));
   },
 
-  getData() {
+  getData(): Restaurant[] {
     const localStorageData = localStorage.getItem(MATZIP_DATA);
     if (localStorageData === null) return [];
     return JSON.parse(localStorageData);

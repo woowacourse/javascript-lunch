@@ -67,7 +67,9 @@ const matzipApp = {
         introduction: fieldValues[3],
         link: fieldValues[4],
       };
+
       matzip.add(newRestaurant);
+      storage.addData(newRestaurant);
       $('.modal')?.classList.remove('modal--open');
       $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
     });
