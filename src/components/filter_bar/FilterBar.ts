@@ -1,28 +1,40 @@
-import { filterBarTemplate, sortBarTemplate } from "./template";
+import {
+  baseSectionTemplate,
+  filterSelectTemplate,
+  sortSelectTemplate,
+} from "./template";
 import { Icategory, IsortType } from "../../types";
 
-import RestaurantListStorageService from "../../services/restaurantListStorageService";
-import restaurantListHelper from "../../domain/RestaurantListHelper";
 import RestaurantList from "../restaurant_list/RestaurantList";
 import filterState from "../../store/FilterStateStore";
+import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
 function FilterBar() {
   const render = () => {
-    const mainContainer = document.getElementById("mainContainer");
-    const main = document.createElement("main");
-    main.setAttribute("class", "main");
-    const section = document.createElement("section");
-    section.setAttribute("class", "restaurant-filter-container");
-    section.innerHTML += filterBarTemplate;
-    section.innerHTML += sortBarTemplate;
-    main.appendChild(section);
-
-    if (mainContainer) {
-      mainContainer.appendChild(main);
-    }
+    generateBaseComponents();
+    generateFilterBarComponents();
 
     filterCategoryHandler();
     sortListHandler();
+  };
+
+  const generateBaseComponents = () => {
+    const mainContainer = document.getElementById("mainContainer");
+    const formattedBaseSectionTemplate =
+      convertHTMLStringToDOM(baseSectionTemplate);
+
+    if (mainContainer) {
+      mainContainer.appendChild(formattedBaseSectionTemplate);
+    }
+  };
+
+  const generateFilterBarComponents = () => {
+    const barContainer = document.getElementsByClassName(
+      "restaurant-filter-container",
+    )[0];
+
+    barContainer.appendChild(convertHTMLStringToDOM(filterSelectTemplate));
+    barContainer.appendChild(convertHTMLStringToDOM(sortSelectTemplate));
   };
 
   const filterCategoryHandler = () => {
