@@ -20,7 +20,9 @@ class FilterBox extends Component {
   }
 
   setEvent() {
-    $('select').addEventListener('change', () => this.makeCustomEvent('selectChange'));
+    const type = this.getAttribute('type');
+
+    $(`.${type}`).addEventListener('change', () => this.makeCustomEvent('selectChange'));
   }
 
   removeEvent() {

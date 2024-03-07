@@ -40,6 +40,8 @@ class RestaurantApp extends Component {
     const category = $('.category').value;
     const sorting = $('.sorting').value;
 
+    console.log('정렬');
+
     this.#restaurants = RestaurantRepository.transformRestaurants(category, sorting);
 
     $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
