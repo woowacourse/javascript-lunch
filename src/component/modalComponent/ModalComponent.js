@@ -64,7 +64,15 @@ class ModalComponent extends BaseComponent {
 
   #handleReset() {
     try {
-      $('.modal').classList.remove('modal--open');
+      const $modal = $('.modal');
+      const $form = $('#modal-form');
+
+      $modal.classList.remove('modal--open');
+      $form.category.value = '';
+      $form.name.value = '';
+      $form.distance.value = '';
+      $form.description.value = '';
+      $form.link.value = '';
     } catch (error) {
       throw new Error();
     }
