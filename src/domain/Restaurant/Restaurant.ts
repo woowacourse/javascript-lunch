@@ -1,6 +1,6 @@
 import SortDropdown from "../../components/SortDropdown/SortDropdown";
 import { SortCategory } from "../../components/SortDropdown/SortDropdown.type";
-import RestaurantStore from "../../stores/RestaurantStore";
+import RestaurantStorage from "../../storages/RestaurantStorage";
 import { MenuCategory, RestaurantDetail } from "./Restaurant.type";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 
@@ -18,7 +18,7 @@ class Restaurant {
     category: MenuCategory,
     sortType: SortCategory
   ): RestaurantDetail[] {
-    return RestaurantStore.get()
+    return RestaurantStorage.get()
       .filter(
         (restaurantDetail: RestaurantDetail) =>
           category === MENU_CATEGORIES.all ||
@@ -45,7 +45,7 @@ class Restaurant {
   }
 
   public addRestaurant(restaurantDetail: RestaurantDetail) {
-    RestaurantStore.set(restaurantDetail);
+    RestaurantStorage.set(restaurantDetail);
 
     this.updateRestaurants(this.sortType);
   }
