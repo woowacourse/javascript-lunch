@@ -1,13 +1,14 @@
-import type Restaurant from './Restaurant';
-import type { TCategory } from './Restaurant';
-
-type TRestaurantInstance = InstanceType<typeof Restaurant>;
-export type IRestaurantList = TRestaurantInstance[];
+import type { IRestaurantList, TRestaurantInstance, TCategory } from './types/restaurant';
+import { STORAGE_KEY } from './constants/config';
 
 class RestaurantList {
-  restaurants;
+  restaurants: IRestaurantList;
+
   constructor(restaurants: IRestaurantList) {
-    this.restaurants = restaurants;
+    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
+    if (restaurantsInStorage != null) this.restaurants = JSON.parse(restaurantsInStorage);
+    else this.restaurants = restaurants;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
   }
 
   getSortedByName(): IRestaurantList {
@@ -20,7 +21,7 @@ class RestaurantList {
 
   add(restaurant: TRestaurantInstance): void {
     this.restaurants.push(restaurant);
-    localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
   }
 
   filterByCategory(category: TCategory): IRestaurantList {

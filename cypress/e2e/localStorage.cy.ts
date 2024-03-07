@@ -1,6 +1,6 @@
 import Restaurant from '../../src/Restaurant';
 import RestaurantList from '../../src/RestaurantList';
-import type { IRestaurantList } from '../../src/RestaurantList';
+import type { IRestaurantList } from '../../src/types/restaurant';
 
 type IStorage = Record<string, string>;
 
