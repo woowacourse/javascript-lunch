@@ -4,7 +4,7 @@ import RestaurantListStorageService from "../../../services/restaurantListStorag
 import RestaurantList from "../../restaurant_list/RestaurantList";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 import validateRestaurantState from "../../../services/validateRestaurantState";
-import { Irestaurant, IrestaurantField } from "../../../types";
+import { IinvalidResult, Irestaurant, IrestaurantField } from "../../../types";
 
 function ModalButton() {
   const render = (modal: Element, form: Element) => {
@@ -41,16 +41,16 @@ function ModalButton() {
 
     validateResult.forEach((result, index) => {
       if (result.errorMessage && !result.isValid) {
-        renderErrorMessage(index, result.errorMessage);
+        renderErrorMessage(index, result);
       }
     });
   };
 
-  const renderErrorMessage = (index: number, errorMessage: string) => {
+  const renderErrorMessage = (index: number, result: IinvalidResult) => {
     const targetTag = document.getElementsByClassName("form-item")[index];
     const p = document.createElement("p");
-    p.setAttribute("class", "inValid_message");
-    p.textContent = errorMessage;
+    p.setAttribute("class", `inValid_message ${result.targetClassName}`);
+    p.textContent = result.errorMessage;
     targetTag.appendChild(p);
   };
 

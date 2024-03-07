@@ -2,8 +2,9 @@ import { Icategory, IrestaurantField } from "../types";
 
 const validate = {
   validateCategory(category?: Icategory) {
-    if (category === undefined) {
+    if (category === undefined || category.length <= 0) {
       return {
+        targetClassName: "invalid_category",
         isValid: false,
         errorMessage: "카테고리는 필수적으로 선택해주세요.",
       };
@@ -13,8 +14,9 @@ const validate = {
     };
   },
   validateName(name?: string) {
-    if (name === undefined) {
+    if (name === undefined || name.length <= 0) {
       return {
+        targetClassName: "invalid_name",
         isValid: false,
         errorMessage: "레스토랑 이름은 필수적으로 작성해주세요",
       };
@@ -26,6 +28,7 @@ const validate = {
   validateDistance(distance?: number) {
     if (distance === undefined) {
       return {
+        targetClassName: "invalid_distance",
         isValid: false,
         errorMessage: "거리를 필수적으로 선택해주세요.",
       };
@@ -38,6 +41,7 @@ const validate = {
   validateDescription(description?: string) {
     if (description?.length && description.length > 200) {
       return {
+        targetClassName: "invalid_description",
         isValid: false,
         errorMessage: "설명의 최대 글자수는 200자입니다.",
       };
@@ -50,6 +54,7 @@ const validate = {
   validateLink(link?: string) {
     if (!link?.startsWith("http") && link !== undefined) {
       return {
+        targetClassName: "invalid_link",
         isValid: false,
         errorMessage: "유효한 주소값을 입력해주세요",
       };

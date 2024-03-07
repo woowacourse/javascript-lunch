@@ -5,6 +5,12 @@ type Idistance = 5 | 10 | 15 | 20 | 30;
 
 type IsortType = "name" | "distance";
 
+type IinvalidResult = {
+  targetClassName: string;
+  isValid: boolean;
+  errorMessage: string;
+};
+
 export interface Irestaurant {
   category: Icategory;
   name: string;

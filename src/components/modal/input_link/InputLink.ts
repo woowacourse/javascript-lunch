@@ -1,6 +1,7 @@
 import { inputLinkTemplate } from "./template";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
+import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
 
 function InputLink() {
   const render = (form: Element) => {
@@ -14,11 +15,11 @@ function InputLink() {
       const link = document.getElementById("link");
 
       if (link) {
-        link.addEventListener("input", (e) => {
-          const target = e.target as HTMLInputElement;
-          if (target) {
-            restaurantStateStore.setLink(target.value);
-            console.log(restaurantStateStore.getRestaurantInfo());
+        link.addEventListener("input", (event) => {
+          if (event.target instanceof HTMLInputElement) {
+            const inputLink = event.target.value;
+            removeHTMLElementByClassName("invalid_link");
+            restaurantStateStore.setLink(inputLink);
           }
         });
       }
