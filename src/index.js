@@ -1,4 +1,5 @@
 // test
-import '../templates/style.css';
 
-import './components/Header/Header';
+import '@/components/Header/Header';
+import '@/css/index.css';
+import '@/components/Header/Header.css';
