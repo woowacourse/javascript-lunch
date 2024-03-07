@@ -1,12 +1,23 @@
+import BaseComponent from "../BaseComponent/BaseComponent";
+
+import type { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
+
 import { createOptionElements } from "../../utils/createOptionElements";
 import { $ } from "../../utils/dom";
 
-import BaseComponent from "../BaseComponent/BaseComponent";
-
 class CategoryDropdown extends BaseComponent {
+  private eventListeners: CustomEventListenerDictionary = {
+    categoryFilter: {
+      target: $(ELEMENT_SELECTOR.categoryFilter),
+      eventName: "change",
+      eventHandler: this.handleChangeCategoryFilter.bind(this),
+    },
+  };
+
   protected render(): void {
     this.innerHTML = `
         <select name="category" id="category-filter" class="restaurant-filter">
@@ -16,11 +27,7 @@ class CategoryDropdown extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on({
-      target: $(ELEMENT_SELECTOR.categoryFilter),
-      eventName: "change",
-      eventHandler: this.handleChangeCategoryFilter.bind(this),
-    });
+    this.on(this.eventListeners.categoryFilter);
   }
 
   private handleChangeCategoryFilter(event: Event) {
@@ -31,6 +38,10 @@ class CategoryDropdown extends BaseComponent {
 
       this.emit(CUSTOM_EVENT_TYPE.filterCategory, category);
     }
+  }
+
+  protected removeEvent(): void {
+    this.off(this.eventListeners.categoryFilter);
   }
 }
 
