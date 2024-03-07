@@ -4,7 +4,7 @@ export default abstract class BaseComponent extends HTMLElement {
   }
 
   protected render() {
-    this.insertAdjacentHTML("afterbegin", this.getTemplate());
+    this.innerHTML = this.getTemplate();
   }
 
   protected abstract getTemplate(): string;
