@@ -26,7 +26,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
       .should('contain', '파슬리와 썬데이가 장인 정신으로 한땀한땀 구워주는 삼겹살 맛집입니다.');
   });
 
-  context('음식점을 카테고리 별로 필터링 할 수 있다.', () => {
+  context('음식점을 카테고리 별로 필터링할 수 있다.', () => {
     it('한식을 선택한 경우 카테고리가 한식인 음식점만 표시된다.', () => {
       cy.get('.category').select('한식');
 
@@ -61,6 +61,22 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
       cy.get('.category').select('기타');
 
       cy.get('.restaurant').find('.restaurant__name').should('contain', '썬데이네 반찬가게');
+    });
+  });
+
+  context('음식점을 이름순, 거리순으로 정렬할 수 있다.', () => {
+    it('이름순을 선택한 경우 이름순으로 음식점이 정렬된다.', () => {
+      cy.get('.sorting').select('이름순');
+
+      cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 반찬가게');
+      cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리네 회전초밥');
+    });
+
+    it('거리순을 선택한 경우 거리순으로 음식점이 정렬된다.', () => {
+      cy.get('.sorting').select('거리순');
+
+      cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 반찬가게');
+      cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리네 김치찌개');
     });
   });
 });
