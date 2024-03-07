@@ -1,7 +1,7 @@
 export const selectCategoryTemplate = /*html*/ `
 <div class="form-item form-item--required">
   <label for="category text-caption">카테고리</label>
-  <select name="category" id="category" class="why" required>  
+  <select name="category" id="category" required>  
     <option value="">선택해 주세요</option>  
     <option value="한식">한식</option>  
     <option value="중식">중식</option>  

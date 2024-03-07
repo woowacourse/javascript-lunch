@@ -32,6 +32,7 @@ function ModalButton() {
       }
 
       RestaurantList().reRender();
+      initializeFormState();
     });
   };
 
@@ -48,10 +49,8 @@ function ModalButton() {
   };
 
   const removePrevErrorMessage = () => {
-    // "invalid_message" 클래스를 가진 모든 요소를 선택
     const prevMessages = document.querySelectorAll(".invalid_message");
 
-    // 각 요소에 대해 반복하여 DOM에서 제거
     prevMessages.forEach((msg) => {
       if (msg && msg.parentNode) {
         msg.parentNode.removeChild(msg);
@@ -75,7 +74,13 @@ function ModalButton() {
     cancelButton.addEventListener("click", (event) => {
       event.preventDefault();
       modal.classList.remove("modal--open");
+      initializeFormState();
     });
+  };
+
+  const initializeFormState = () => {
+    const modalForm = document.getElementById("modal-form") as HTMLFormElement;
+    modalForm.reset();
   };
 
   return {
