@@ -18,8 +18,12 @@ class RestaurantController {
   }
 
   run() {
-    OutputView.renderRestaurantList(this.#restaurantList);
+    this.reload();
     this.showAddRestaurantModal();
+  }
+
+  reload() {
+    OutputView.renderRestaurantList(this.#restaurantList);
   }
 
   getRecentData() {
@@ -33,12 +37,14 @@ class RestaurantController {
 
       const form = $('form');
       if (!form) return;
+
       form.addEventListener('reset', () => OutputView.closeModal());
       form.addEventListener('submit', e => {
         e.preventDefault();
         const newRestaurant = this.createRestaurant();
         RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
         OutputView.closeModal();
+        this.reload();
       });
     });
   }
@@ -50,25 +56,9 @@ class RestaurantController {
       const input = $(id);
       formData[input.name] = input.name === 'distance' ? parseInt(input.value, 10) : input.value;
     });
-    console.log(formData);
 
     return formData;
   }
-
-  // const category = $('#category');
-  // const name = $('#name');
-  // const distance = $('#distance');
-  // const description = $('#description');
-  // const link = $('#link');
-  // if (!category || !name || !distance || !description || !link) return;
-
-  // return {
-  //   category: category.value,
-  //   name: name.value,
-  //   distance: parseInt(distance.value, 10),
-  //   description: description.value,
-  //   link: link.value,
-  // };
 }
 
 export default RestaurantController;

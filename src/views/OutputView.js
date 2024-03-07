@@ -12,9 +12,8 @@ const OutputView = {
     restaurantList.forEach(restaurant => {
       restaurantListElement.insertAdjacentHTML('beforeend', RestaurantComponent(restaurant));
     });
-
+    restaurantListContainer.replaceChildren();
     restaurantListContainer.append(restaurantListElement);
-    console.log(restaurantListContainer);
   },
 
   renderAddRestaurant() {
