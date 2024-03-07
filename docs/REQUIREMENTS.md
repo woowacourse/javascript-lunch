@@ -29,10 +29,9 @@
 
 ## 컴포넌트(클래스)
 
-- [ ] Header
-- [ ] filterContainer
+- [x] Header
 - [x] categoryIcon
-- [ ] RestaurantItem
+- [x] RestaurantItem
 - [ ] RestaurantList
 - [ ] Form
 - [ ] BottomSheet
