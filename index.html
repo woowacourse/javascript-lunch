@@ -2,14 +2,132 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
   <title>점심 뭐 먹지</title>
+  <link rel="stylesheet" href="templates/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
 
+
+  <!-- GNB -->
+  <template id="gnb-template">
+    <header class="gnb">
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+      <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <img src="/templates/add-button.png" alt="음식점 추가">
+      </button>
+    </header>
+  </template>
+
+  <!-- 카테고리 셀릭트박스 템플릿 -->
+  <template id="category-filter-template">
+    <select name="category" id="category-filter" class="restaurant-filter">
+      <option value="전체">전체</option>
+      <option value="한식">한식</option>
+      <option value="중식">중식</option>
+      <option value="일식">일식</option>
+      <option value="양식">양식</option>
+      <option value="아시안">아시안</option>
+      <option value="기타">기타</option>
+    </select>
+  </template>
+
+  <!-- 정렬 셀렉트박스 템플릿 -->
+  <template id="sorting-filter-template">
+    <select name="sorting" id="sorting-filter" class="restaurant-filter">
+      <option value="name">이름순</option>
+      <option value="distance">거리순</option>
+    </select>
+  </template>
+
+  <!-- 음식점 목록 -->
+
+  <template id="restaurant-list-template">
+    <ul class="restaurant-list">
+    </ul>
+  </template>
+
+  <template id="restaurant-card-template">
+    <li class="restaurant-card">
+      <div class="restaurant-card__category">
+        <img src="/templates/category-korean.png" alt="한식" class="category-icon">
+      </div>
+      <div class="restaurant-card__info">
+        <h3 class="restaurant-card__name text-subtitle">이름</h3>
+        <span class="restaurant-card__distance text-body">거리</span>
+        <p class="restaurant-card__description text-body">설명</p>
+      </div>
+    </li>
+  </template>
+
+  <!-- 음식점 추가 모달 -->
+  <template id="modal-template">
+    <div class="modal modal--open">
+      <div class="modal-backdrop"></div>
+      <div class="modal-container">
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <form>
+
+          <!-- 카테고리 -->
+          <div class="form-item form-item--required">
+            <label for="category text-caption">카테고리</label>
+            <select name="category" id="category" required>
+              <option value="">선택해 주세요</option>
+              <option value="한식">한식</option>
+              <option value="중식">중식</option>
+              <option value="일식">일식</option>
+              <option value="양식">양식</option>
+              <option value="아시안">아시안</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+
+          <!-- 음식점 이름 -->
+          <div class="form-item form-item--required">
+            <label for="name text-caption">이름</label>
+            <input type="text" name="name" id="name" required>
+          </div>
+
+          <!-- 거리 -->
+          <div class="form-item form-item--required">
+            <label for="distance text-caption">거리(도보 이동 시간) </label>
+            <select name="distance" id="distance" required>
+              <option value="">선택해 주세요</option>
+              <option value="5">5분 내</option>
+              <option value="10">10분 내</option>
+              <option value="15">15분 내</option>
+              <option value="20">20분 내</option>
+              <option value="30">30분 내</option>
+            </select>
+          </div>
+
+          <!-- 설명 -->
+          <div class="form-item">
+            <label for="description text-caption">설명</label>
+            <textarea name="description" id="description" cols="30" rows="5"></textarea>
+            <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+          </div>
+
+          <!-- 링크 -->
+          <div class="form-item">
+            <label for="link text-caption">참고 링크</label>
+            <input type="text" name="link" id="link">
+            <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+          </div>
+
+          <!-- 취소/추가 버튼 -->
+          <div class="button-container">
+            <button type="button" class="button button--secondary text-caption">취소하기</button>
+            <button class="button button--primary text-caption">추가하기</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <script type="module" src="./src/index.js"></script>
 </body>
 
 </html>
