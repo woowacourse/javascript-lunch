@@ -15,16 +15,16 @@ type RestaurantDataProviderType = {
 
 type ExecuteProps = {
   category?: Category;
-  sortBy: SortBy;
+  sortBy?: SortBy;
 };
 
 type FilterByCategoryProps = {
-  category: Category;
+  category?: Category;
   allRestaurants: Restaurants;
 };
 
 type SortRestaurantsProps = {
-  sortBy: SortBy;
+  sortBy?: SortBy;
   filterRestaurants: Restaurants;
 };
 
@@ -37,7 +37,9 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
     const restaurants = localStorage.getItem('restaurants');
     const allRestaurants = JSON.parse(restaurants || '[]');
 
-    const filterRestaurants = category ? this.filterByCategory({ category, allRestaurants }) : allRestaurants;
+    const filterRestaurants = category
+      ? this.filterByCategory({ category, allRestaurants })
+      : allRestaurants;
     const sortedRestaurants = this.sortRestaurants({ sortBy, filterRestaurants });
     return sortedRestaurants;
   },
@@ -49,7 +51,7 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
   },
 
   sortRestaurants({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
-    if (sortBy === '최신순' || sortBy === '오래된순') {
+    if (!sortBy || sortBy === '최신순' || sortBy === '오래된순') {
       return this.sortByCreatedAt({ sortBy, filterRestaurants });
     }
     if (sortBy === '가게명순▲' || sortBy === '가게명순▼') {
@@ -60,7 +62,7 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
 
   sortByCreatedAt({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
     return Object.values(filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
-      if (sortBy === '최신순') {
+      if (sortBy === '오래된순') {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       }
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();

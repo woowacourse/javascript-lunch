@@ -3,7 +3,12 @@ import '../LunchItem/LunchItem';
 
 import { RestaurantDataProvider } from '../../domain/index';
 
-import { Category, Restaurant, Restaurants } from '../../types/index';
+import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
+
+export interface FilterPropsTypes {
+  category?: Category;
+  sortBy?: SortBy;
+}
 
 const LUNCH_ITEMS = `
 <section class="restaurant-list-container">
@@ -12,22 +17,23 @@ const LUNCH_ITEMS = `
 </section>`;
 
 const LUNCH_ITEM = (restaurant: Restaurant) => `
-<lunch-item category=${restaurant.category} name=${restaurant.name} distance=${restaurant.distance} description=${restaurant.description ?? ''}>
+<lunch-item category=${restaurant.category} name=${restaurant.name} distance=${restaurant.distance
+  } description=${restaurant.description ?? ''}>
   </lunch-item>`;
 
 class LunchItems extends HTMLElement {
   connectedCallback() {
     this.render();
-    this.renderItems();
+    this.renderItems({});
   }
 
   render(): void {
     this.innerHTML = LUNCH_ITEMS;
   }
 
-  renderItems(): void {
+  renderItems({ category, sortBy }: FilterPropsTypes): void {
     const itemHTMLs: string[] = [];
-    this.getRestaurants().forEach((restaurant) => {
+    this.getRestaurants({ category, sortBy }).forEach((restaurant) => {
       itemHTMLs.push(LUNCH_ITEM(restaurant));
     });
     const itemsHTML = this.querySelector('.restaurant-list');
@@ -36,10 +42,11 @@ class LunchItems extends HTMLElement {
     }
   }
 
-  getRestaurants(): Restaurants {
-    const prop: Category | undefined = undefined;
-    return RestaurantDataProvider.execute({ category: prop, sortBy: '최신순' });
+  getRestaurants({ category, sortBy }: FilterPropsTypes): Restaurants {
+    return RestaurantDataProvider.execute({ category, sortBy });
   }
 }
 
 customElements.define('lunch-items', LunchItems);
+
+export default LunchItems;
