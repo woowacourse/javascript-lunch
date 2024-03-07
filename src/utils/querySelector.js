@@ -1,8 +1,8 @@
-const $ = (target: string): Element | null => {
+const $ = target => {
   return document.querySelector(target);
 };
 
-const $$ = (target: string): NodeList | null => {
+const $$ = target => {
   return document.querySelectorAll(target);
 };
 

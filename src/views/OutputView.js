@@ -1,26 +1,24 @@
 import AddRestaurant from '../components/Modal/AddRestaurant';
 import RestaurantComponent from '../components/Restaurant/RestaurantComponent';
-import { Restaurant } from '../interface/RestaurantInterfaces';
 import { $ } from '../utils/querySelector';
 
 const OutputView = {
-  renderRestaurantList(restaurantList: Restaurant[]) {
+  renderRestaurantList(restaurantList) {
     const restaurantListContainer = $('.restaurant-list-container');
-    if (!restaurantListContainer) return;
 
     const restaurantListElement = document.createElement('ul');
     restaurantListElement.classList.add('restaurant-list');
 
-    restaurantList.forEach((restaurant: Restaurant) => {
+    restaurantList.forEach(restaurant => {
       restaurantListElement.insertAdjacentHTML('beforeend', RestaurantComponent(restaurant));
     });
 
     restaurantListContainer.append(restaurantListElement);
+    console.log(restaurantListContainer);
   },
 
   renderAddRestaurant() {
     const modalContainer = $('.modal-container');
-    if (!modalContainer) return;
 
     const newNode = AddRestaurant();
     modalContainer.innerHTML = newNode;
@@ -30,15 +28,11 @@ const OutputView = {
 
   openModal() {
     const modal = $('.modal');
-    if (!modal) return;
-
     modal.classList.add('modal--open');
   },
 
   closeModal() {
     const modal = $('.modal');
-    if (!modal) return;
-
     modal.classList.remove('modal--open');
   },
 };
