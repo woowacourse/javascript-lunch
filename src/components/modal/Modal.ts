@@ -1,4 +1,4 @@
-import { template } from "./template";
+import { modalTemplate } from "./template";
 import SelectCategory from "./select_category/SelectCategory";
 import ModalButton from "./modal_button/ModalButton";
 import InputName from "./input_name/InputName";
@@ -9,10 +9,7 @@ import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
 function Modal() {
   const render = () => {
-    const mainContainer = document.getElementById("mainContainer");
-    if (mainContainer) {
-      mainContainer.appendChild(convertHTMLStringToDOM(template));
-    }
+    document.body.appendChild(convertHTMLStringToDOM(modalTemplate));
 
     renderModalContent();
   };

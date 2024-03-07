@@ -3,11 +3,7 @@ import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
 function Header() {
   const render = () => {
-    const mainContainer = document.getElementById("mainContainer");
-
-    if (mainContainer) {
-      mainContainer.appendChild(convertHTMLStringToDOM(headerTemplate));
-    }
+    document.body.appendChild(convertHTMLStringToDOM(headerTemplate));
 
     modalOpenHandler();
   };

@@ -19,13 +19,10 @@ function FilterBar() {
   };
 
   const generateBaseComponents = () => {
-    const mainContainer = document.getElementById("mainContainer");
     const formattedBaseSectionTemplate =
       convertHTMLStringToDOM(baseSectionTemplate);
 
-    if (mainContainer) {
-      mainContainer.appendChild(formattedBaseSectionTemplate);
-    }
+    document.body.appendChild(formattedBaseSectionTemplate);
   };
 
   const generateFilterBarComponents = () => {
