@@ -22,11 +22,11 @@ export default class RestaurantForm extends HTMLFormElement {
 
     const data = new FormData(e.target);
     const formData = this.#getFormDataObj(data);
-    this.#setLocalStorage(formData);
 
     this.dispatchEvent(
       new CustomEvent(RESTAURANT_FORM_EVENTS.submit, {
         bubbles: true,
+        detail: { formData },
       }),
     );
   }

@@ -13,6 +13,7 @@ import './view/styles/RestaurantForm.css';
 
 // imgs
 import './view/imgs/add-button.png';
+import WebController from './service/WebController';
 
 // Modal();
 
@@ -20,3 +21,6 @@ window.customElements.define('app-gnb', GNB);
 window.customElements.define('app-modal', Modal);
 window.customElements.define('app-select', Select, { extends: 'select' });
 window.customElements.define('app-restaurant-form', RestaurantForm, { extends: 'form' });
+
+const controller = new WebController();
+controller.start();

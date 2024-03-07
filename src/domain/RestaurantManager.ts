@@ -9,10 +9,14 @@ interface Restaurant {
 }
 
 class RestaurantManager {
-  #restaurants: Array<Restaurant> = [];
+  #restaurants: Restaurant[] = [];
 
-  get restaurants() {
+  get restaurants(): Restaurant[] {
     return [...this.#restaurants];
+  }
+
+  set restaurants(restaurants: Restaurant[]) {
+    this.#restaurants = restaurants;
   }
 
   add(restaurant: Restaurant) {

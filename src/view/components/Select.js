@@ -1,3 +1,7 @@
+export const SELECT_EVENTS = {
+  onchange: 'selectOnChange',
+};
+
 export default class Select extends HTMLSelectElement {
   constructor() {
     super();
@@ -16,8 +20,25 @@ export default class Select extends HTMLSelectElement {
     this.setAttribute('data-options', JSON.stringify(value));
   }
 
+  connectedCallback() {
+    this.addEventListener('change', this.#handleOnChange.bind(this));
+  }
+
   attributeChangedCallback() {
     this.#createOptions();
+  }
+
+  #handleOnChange(e) {
+    const { value } = e.target;
+    this.dispatchEvent(
+      new CustomEvent(SELECT_EVENTS.onchange, {
+        bubbles: true,
+        detail: {
+          value,
+          id: this.id,
+        },
+      }),
+    );
   }
 
   #createOptions() {
