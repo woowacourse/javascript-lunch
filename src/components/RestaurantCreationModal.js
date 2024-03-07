@@ -1,5 +1,7 @@
-import { $ } from '../utils/dom';
 import Restaurant from './Restaurant';
+import tryCatchWrapper from '../utils/tryCatchWrapper';
+import { $ } from '../utils/dom';
+import { RestaurantsValidator } from '../validators';
 
 export default class RestaurantCreationModal {
   constructor(restaurants) {
@@ -28,12 +30,14 @@ export default class RestaurantCreationModal {
             <option value="아시안">아시안</option>
             <option value="기타">기타</option>
           </select>
+          <span id="category-error" class="error-message"></span>
         </div>
 
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
           <label for="name text-caption">이름</label>
           <input type="text" name="name" id="name" required>
+          <span id="name-error" class="error-message"></span>
         </div>
 
         <!-- 거리 -->
@@ -47,6 +51,7 @@ export default class RestaurantCreationModal {
             <option value="20">20분 내</option>
             <option value="30">30분 내</option>
           </select>
+          <span id="distance-error" class="error-message"></span>
         </div>
 
         <!-- 설명 -->
@@ -85,14 +90,11 @@ export default class RestaurantCreationModal {
     main.addEventListener('click', (event) => {
       event.preventDefault();
 
-      if (event.target.id === 'add-button') {
-        const inputData = this.getInputData();
-        this.restaurants.addRestaurant(inputData);
-        $('restaurant-creation-modal').classList.remove('modal--open');
-
-        $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
-        $('restaurant-input-form').reset();
-      }
+      if (event.target.id === 'add-button')
+        tryCatchWrapper(
+          () => this.addRestaurantAndRender(),
+          (message) => this.displayErrorMessage(message),
+        );
     });
   }
 
@@ -103,5 +105,21 @@ export default class RestaurantCreationModal {
     const description = $('description').value;
 
     return { category, name, walkingTimeFromCampus, description };
+  }
+
+  addRestaurantAndRender() {
+    const inputData = this.getInputData();
+    const restaurantNames = this.restaurants.getStorageData.map((restaurant) => restaurant.name);
+    RestaurantsValidator(restaurantNames, inputData.name);
+    this.restaurants.addRestaurant(inputData);
+    $('restaurant-creation-modal').classList.remove('modal--open');
+
+    $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
+    $('restaurant-input-form').reset();
+    $('name-error').innerText = '';
+  }
+
+  displayErrorMessage(message) {
+    $('name-error').innerText = message;
   }
 }

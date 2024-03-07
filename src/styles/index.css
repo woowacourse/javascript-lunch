@@ -208,10 +208,15 @@ body {
   margin-bottom: 36px;
 }
 
+.error-message {
+  height: 20px;
+  color: tomato;
+  font-weight: 600;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
-
   margin-bottom: 36px;
 }
 

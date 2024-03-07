@@ -24,13 +24,9 @@ class Restaurants implements RestaurantsInterface {
   }
 
   addRestaurant(restaurant: Restaurant) {
-    try {
-      const restaurantsNames = this.getStorageData.map(({ name }: Restaurant) => name);
-      RestaurantsValidator(restaurantsNames, restaurant.name);
-      this.storage.setItem('restaurants', JSON.stringify([restaurant, ...this.getStorageData]));
-    } catch (error) {
-      console.log(this.handleCatchError(error));
-    }
+    const restaurantsNames = this.getStorageData.map(({ name }: Restaurant) => name);
+    RestaurantsValidator(restaurantsNames, restaurant.name);
+    this.storage.setItem('restaurants', JSON.stringify([restaurant, ...this.getStorageData]));
   }
 
   orderByDistance() {
@@ -44,10 +40,6 @@ class Restaurants implements RestaurantsInterface {
     return this.getStorageData.toSorted((prev: Restaurant, next: Restaurant) =>
       prev.name.localeCompare(next.name),
     );
-  }
-
-  private handleCatchError(error: unknown) {
-    if (error instanceof Error) return error.message;
   }
 }
 
