@@ -16,9 +16,9 @@ export default class Select extends EventComponent {
 
     return `
       <select id=${id} class=${className}>
-      ${options.map(
-        ({ value, label }) => `<option value=${value}>${label}</option>`
-      )}
+        ${options.map(
+          ({ value, label }) => `<option value=${value}>${label}</option>`
+        )}
       </select>
     `;
   }
@@ -27,7 +27,9 @@ export default class Select extends EventComponent {
     const select = e.target as HTMLSelectElement;
     const selectedValue = select.value;
 
-    this.dispatchEvent(new CustomEvent(eventName, { detail: selectedValue }));
+    this.dispatchEvent(
+      new CustomEvent(eventName, { detail: selectedValue, bubbles: true })
+    );
   }
 
   protected setEvent(): void {
