@@ -1,3 +1,4 @@
 import RestaurantListController from './RestaurantListController';
-
-export { RestaurantListController };
+import StoreAddBtnController from './StoreAddBtnController';
+import FilteringController from './FilteringController';
+export { StoreAddBtnController, RestaurantListController, FilteringController };

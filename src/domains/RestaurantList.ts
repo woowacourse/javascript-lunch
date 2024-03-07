@@ -3,16 +3,15 @@ import InitialRestaurantData from '../data/restaurantData';
 import { Category, RestaurantInfo } from '../types';
 
 class RestaurantList {
-  #list: RestaurantInfo[] | undefined = InitialRestaurantData;
+  #list: RestaurantInfo[] = InitialRestaurantData;
 
   constructor() {
     this.#updateListByLocalStorage();
+    this.#list = this.sortRestaurants(this.#list, 'name');
   }
 
   get list() {
-    return JSON.parse(JSON.stringify(this.#list)) as
-      | RestaurantInfo[]
-      | undefined;
+    return JSON.parse(JSON.stringify(this.#list)) as RestaurantInfo[];
   }
 
   addRestaurant(info: RestaurantInfo) {
@@ -38,15 +37,23 @@ class RestaurantList {
       throw new Error(MESSAGE.duplicateRestaurantName);
     }
   }
-
   //2단계 - 즐겨찾기 편집
-  // filterRestaurantByCategory(category: Category) {
-  //   return this.#list
-  //     ?  JSON.parse(JSON.stringify(this.#list)).filter(
-  //         (info: RestaurantInfo) => info.category === category,
-  //       )
-  //     : undefined;
-  // }
+  filterRestaurantsByCategory(category: Category) {
+    return this.#list
+      ? JSON.parse(JSON.stringify(this.#list)).filter(
+          (info: RestaurantInfo) => info.category === category,
+        )
+      : undefined;
+  }
+
+  sortRestaurants(restaurants: RestaurantInfo[], sorting: 'name' | 'distance') {
+    return restaurants.sort((prev, current) => {
+      if (sorting === 'distance') {
+        return prev.distance - current.distance;
+      }
+      return prev.name.localeCompare(current.name);
+    });
+  }
 }
 
 export default RestaurantList;

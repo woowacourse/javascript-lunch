@@ -1,6 +1,6 @@
 import './style.css';
 import ArrowIcon from '../../assets/svg/down-arrow.svg';
-import { DropBoxMap } from '../../constants';
+import { DROP_BOX_MAP } from '../../constants';
 import { DropBoxName } from '../../types';
 
 class DropBoxInnerHtmlMaker {
@@ -11,7 +11,7 @@ class DropBoxInnerHtmlMaker {
   }
 
   #getDropBoxProps(name: DropBoxName) {
-    return DropBoxMap.get(name);
+    return DROP_BOX_MAP.get(name);
   }
 
   get html() {
@@ -33,6 +33,7 @@ class DropBoxInnerHtmlMaker {
           name="${selectProps.name}"
           id="${selectProps.id}"
           class="${selectProps.class}"
+          ${selectProps.required ? 'required' : ''}
         >
         ${options
           .map(

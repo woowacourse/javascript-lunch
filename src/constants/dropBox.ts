@@ -1,17 +1,19 @@
 import { DropBoxName, SelectProps, OptionProps } from '../types';
-
-export const DropBoxMap = new Map<
-  DropBoxName,
-  { selectProps: SelectProps; labelText: string; options: OptionProps[] }
->([
+// TODO: 파일 분리
+export type DropBoxMapValue = {
+  selectProps: SelectProps;
+  labelText: string;
+  options: OptionProps[];
+};
+export const DROP_BOX_MAP = new Map<DropBoxName, DropBoxMapValue>([
   [
-    'filteringSort',
+    'filteringSorting',
     {
       selectProps: {
         name: 'sorting',
-        id: 'sorting-filter',
+        id: 'filtering-sorting',
         class: 'restaurant-filter',
-        require: false,
+        required: false,
       },
       labelText: '이름순, 거리순 졍렬',
       options: [
@@ -26,9 +28,9 @@ export const DropBoxMap = new Map<
     {
       selectProps: {
         name: 'category',
-        id: 'category-filter',
+        id: 'filtering-category',
         class: 'restaurant-filter',
-        require: false,
+        required: false,
       },
       labelText: '카테고리 정렬',
       options: [
@@ -50,7 +52,7 @@ export const DropBoxMap = new Map<
         name: 'category',
         id: 'category-filter',
         class: 'restaurant-filter',
-        require: true,
+        required: true,
       },
       labelText: '카테고리 정렬',
       options: [
@@ -72,7 +74,7 @@ export const DropBoxMap = new Map<
         name: 'distance',
         id: 'distance-filter',
         class: 'restaurant-filter',
-        require: false,
+        required: true,
       },
       labelText: '상점 거리 입력',
       options: [

@@ -10,7 +10,7 @@ class Restaurant {
   }
 
   get info() {
-    return JSON.parse(JSON.stringify(this.#info));
+    return JSON.parse(JSON.stringify(this.#info)) as RestaurantInfo;
   }
 
   #validateInfo(info: RestaurantInfo) {

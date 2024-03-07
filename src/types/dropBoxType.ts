@@ -1,5 +1,5 @@
 export type DropBoxName =
-  | 'filteringSort'
+  | 'filteringSorting'
   | 'filteringCategory'
   | 'category'
   | 'distance';
@@ -8,7 +8,7 @@ export interface SelectProps {
   name?: string;
   id: string;
   class?: string;
-  require: boolean;
+  required: boolean;
 }
 
 export interface OptionProps {

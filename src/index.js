@@ -8,8 +8,17 @@ import './components/CustomTextarea/index.ts';
 import './components/RestaurantFormModalInner/index.ts';
 import './components/CustomModal/index.ts';
 import './components/ErrorMessageBox/index.ts';
+import './components/Restaurant/index.ts';
+import RestaurantList from './domains/RestaurantList.ts';
 
-import { RestaurantListController } from './services/index.ts';
+import {
+  RestaurantListController,
+  StoreAddBtnController,
+  FilteringController,
+} from './services/index.ts';
 import './components/DropBox/index.ts';
 
-RestaurantListController.injectRestaurantListHTML();
+RestaurantListController.updateLocalStorage();
+RestaurantListController.injectRestaurantListHTML(new RestaurantList().list);
+StoreAddBtnController.addEventToBtn();
+FilteringController.addEventToFiltering();

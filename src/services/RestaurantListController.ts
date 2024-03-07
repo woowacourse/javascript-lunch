@@ -1,10 +1,20 @@
 import { RestaurantInfo } from '../types';
-import { RestaurantList } from '../domains';
-import '../components/Restaurant/index.ts';
+import InitialRestaurantData from '../data/restaurantData';
+import { StorageKeyEnum } from '../constants';
 
 const RestaurantListController = {
-  injectRestaurantListHTML() {
-    const restaurantList = new RestaurantList().list;
+  updateLocalStorage() {
+    const data = localStorage.getItem(StorageKeyEnum.restaurants);
+
+    if (!data) {
+      localStorage.setItem(
+        StorageKeyEnum.restaurants,
+        JSON.stringify(InitialRestaurantData),
+      );
+    }
+  },
+
+  injectRestaurantListHTML(restaurantList?: RestaurantInfo[]) {
     const listEl = document.querySelector('.restaurant-list');
 
     const innerHTML = restaurantList
@@ -13,8 +23,9 @@ const RestaurantListController = {
       })
       .join('');
 
-    if (innerHTML && listEl) {
-      listEl.innerHTML = innerHTML;
+    if (listEl) {
+      listEl.innerHTML =
+        innerHTML || '<p id="none-restaurant">찾으시는 음식점이 없습니다.</p>';
     }
   },
 };
