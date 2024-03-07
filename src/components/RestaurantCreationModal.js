@@ -2,6 +2,7 @@ import Restaurant from './Restaurant';
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
 import { validateRequiredValue, validateRestaurantsName } from '../validators';
+import { RULES } from '../constants/rules';
 
 export default class RestaurantCreationModal {
   constructor(restaurants) {
@@ -97,14 +98,11 @@ export default class RestaurantCreationModal {
         );
     });
 
-    // TODO1: 상수화
-    const requiredValue = ['category', 'name', 'distance'];
-
-    main.addEventListener('focusout', ({ target: { id } }) => {
-      if (requiredValue.some((value) => value === id)) {
+    main.addEventListener('focusout', ({ target }) => {
+      if (RULES.requiredIds.some((id) => id === target.id)) {
         tryCatchWrapper(
-          () => this.validateRequirements(id),
-          ({ message }) => this.displayErrorMessage(message, id),
+          () => this.validateRequirements(target.id),
+          ({ message }) => this.displayErrorMessage(message, target.id),
         );
       }
     });
@@ -126,10 +124,7 @@ export default class RestaurantCreationModal {
     const restaurantNames = this.restaurants.getStorageData.map((restaurant) => restaurant.name);
     validateRestaurantsName({ restaurantNames, name: inputData.name });
 
-    // TODO2: requiredValue를 상수화 한 다음에 순회하기
-    this.validateRequirements('category');
-    this.validateRequirements('name');
-    this.validateRequirements('distance');
+    RULES.requiredIds.forEach((id) => this.validateRequirements(id));
 
     this.restaurants.addRestaurant(inputData);
     $('restaurant-creation-modal').classList.remove('modal--open');
@@ -141,7 +136,6 @@ export default class RestaurantCreationModal {
   }
 
   validateRequirements(id) {
-    console.log(id);
     validateRequiredValue(id, $(id).value);
     $(`${id}-error`).innerText = '';
   }
