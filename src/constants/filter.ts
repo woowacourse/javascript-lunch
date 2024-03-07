@@ -1,27 +1,23 @@
+import { CATEGORY } from "./category";
 import { CategoryFilter, SortFilter } from "../types/Filter";
 
-export const CATEGORY_FILTER: {
+export const RESTAURANT_DISPLAYING_FILTER: {
   [key in CategoryFilter]: CategoryFilter;
 } = {
+  ...CATEGORY,
   all: "all",
-  korean: "korean",
-  chinese: "chinese",
-  japanese: "japanese",
-  western: "western",
-  asian: "asian",
-  etc: "etc",
 };
 
-export const KOREAN_CATEGORY_FILTER: {
+export const KOREAN_RESTAURANT_DISPLAYING_FILTER: {
   [key: string]: string;
 } = {
-  [CATEGORY_FILTER.all]: "전체",
-  [CATEGORY_FILTER.korean]: "한식",
-  [CATEGORY_FILTER.chinese]: "중식",
-  [CATEGORY_FILTER.japanese]: "일식",
-  [CATEGORY_FILTER.western]: "양식",
-  [CATEGORY_FILTER.asian]: "아시안",
-  [CATEGORY_FILTER.etc]: "기타",
+  [RESTAURANT_DISPLAYING_FILTER.all]: "전체",
+  [RESTAURANT_DISPLAYING_FILTER.korean]: "한식",
+  [RESTAURANT_DISPLAYING_FILTER.chinese]: "중식",
+  [RESTAURANT_DISPLAYING_FILTER.japanese]: "일식",
+  [RESTAURANT_DISPLAYING_FILTER.western]: "양식",
+  [RESTAURANT_DISPLAYING_FILTER.asian]: "아시안",
+  [RESTAURANT_DISPLAYING_FILTER.etc]: "기타",
 };
 
 export const SORT_FILTER: {
@@ -32,7 +28,7 @@ export const SORT_FILTER: {
 };
 
 export const KOREAN_SORT_FILTER: {
-  [key: number]: string;
+  [key: string]: string;
 } = {
   [SORT_FILTER.name]: "이름순",
   [SORT_FILTER.timeToReach]: "거리순",

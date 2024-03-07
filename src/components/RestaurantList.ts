@@ -3,8 +3,8 @@ import Restaurants from "../domain/Restaurants";
 import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
 import FilterBar from "./FilterBar";
 import EventComponent from "../abstract/EventComponent";
-import { CATEGORY_FILTER, SORT_FILTER } from "../constants/filter";
-import { EVENT } from "../constants/event";
+import { RESTAURANT_DISPLAYING_FILTER, SORT_FILTER } from "../constants/filter";
+import { FILTER_EVENT } from "../constants/event";
 import { CategoryFilter, SortFilter } from "../types/Filter";
 
 customElements.define("restaurant-item", RestaurantItem);
@@ -15,7 +15,7 @@ export default class RestaurantList extends EventComponent {
   private sortFilter: SortFilter;
 
   constructor(
-    categoryFilter = CATEGORY_FILTER.all as CategoryFilter,
+    categoryFilter = RESTAURANT_DISPLAYING_FILTER.all as CategoryFilter,
     sortFilter = SORT_FILTER.name as SortFilter
   ) {
     super();
@@ -58,11 +58,11 @@ export default class RestaurantList extends EventComponent {
   }
 
   protected setEvent() {
-    document.addEventListener(EVENT.categoryFilterChanged, (e) =>
+    document.addEventListener(FILTER_EVENT.categoryFilterChanged, (e) =>
       this.handleCategoryFilterChange(e as CustomEvent)
     );
 
-    document.addEventListener(EVENT.sortFilterChanged, (e) =>
+    document.addEventListener(FILTER_EVENT.sortFilterChanged, (e) =>
       this.handleSortFilterChange(e as CustomEvent)
     );
   }
@@ -87,11 +87,11 @@ export default class RestaurantList extends EventComponent {
     restaurantInfos: RestaurantInfo[],
     categoryFilter: CategoryFilter
   ): RestaurantInfo[] {
-    if (!Object.keys(CATEGORY_FILTER).includes(categoryFilter)) {
+    if (!Object.keys(RESTAURANT_DISPLAYING_FILTER).includes(categoryFilter)) {
       return restaurantInfos;
     }
 
-    if (categoryFilter === CATEGORY_FILTER.all) {
+    if (categoryFilter === RESTAURANT_DISPLAYING_FILTER.all) {
       return restaurantInfos;
     }
 
