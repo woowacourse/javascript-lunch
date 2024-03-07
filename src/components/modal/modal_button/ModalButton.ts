@@ -2,15 +2,17 @@ import { modalButtonTemplate } from "./template";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import RestaurantListStorageService from "../../../services/restaurantListStorageService";
 import RestaurantList from "../../restaurant_list/RestaurantList";
+import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
 function ModalButton() {
-  const render = (modal: HTMLElement, form: Element) => {
-    form.innerHTML += modalButtonTemplate;
+  const render = (modal: Element, form: Element) => {
+    form.appendChild(convertHTMLStringToDOM(modalButtonTemplate));
+
     submitHandler(modal);
     cancelHandler(modal);
   };
 
-  const submitHandler = (modal: HTMLElement) => {
+  const submitHandler = (modal: Element) => {
     const submitButton = document.getElementsByClassName("button--primary")[0];
     console.log(submitButton);
 
@@ -24,7 +26,7 @@ function ModalButton() {
     });
   };
 
-  const cancelHandler = (modal: HTMLElement) => {
+  const cancelHandler = (modal: Element) => {
     const cancelButton =
       document.getElementsByClassName("button--secondary")[0];
     console.log(cancelButton);

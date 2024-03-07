@@ -1,9 +1,10 @@
 import { inputDescriptionTemplate } from "./template";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
+import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
 function InputDescription() {
   const render = (form: Element) => {
-    form.innerHTML += inputDescriptionTemplate;
+    form.appendChild(convertHTMLStringToDOM(inputDescriptionTemplate));
 
     inputDescriptionHandler();
   };

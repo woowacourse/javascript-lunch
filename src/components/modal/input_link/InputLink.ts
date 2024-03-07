@@ -1,9 +1,10 @@
 import { inputLinkTemplate } from "./template";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
+import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
 function InputLink() {
   const render = (form: Element) => {
-    form.innerHTML += inputLinkTemplate;
+    form.appendChild(convertHTMLStringToDOM(inputLinkTemplate));
 
     inputLinkHandler();
   };

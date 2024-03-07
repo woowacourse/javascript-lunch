@@ -1,4 +1,4 @@
-export const template = /*html*/ `
+export const selectCategoryTemplate = /*html*/ `
 <div class="form-item form-item--required">
   <label for="category text-caption">카테고리</label>
   <select name="category" id="category" class="why" required>  

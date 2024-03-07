@@ -1,10 +1,11 @@
-import { template } from "./template";
+import { selectCategoryTemplate } from "./template";
 import { Icategory } from "../../../types";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
+import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
 function SelectCategory() {
   const render = (form: Element) => {
-    form.innerHTML += template;
+    form.appendChild(convertHTMLStringToDOM(selectCategoryTemplate));
 
     categoryChange();
   };

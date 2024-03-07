@@ -1,10 +1,11 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import { Idistance } from "../../../types";
 import { selectDistanceTemplate } from "./template";
+import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
 function SelectDistance() {
   const render = (form: Element) => {
-    form.innerHTML += selectDistanceTemplate;
+    form.appendChild(convertHTMLStringToDOM(selectDistanceTemplate));
 
     distanceChange();
   };
