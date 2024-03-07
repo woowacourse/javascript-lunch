@@ -6,8 +6,7 @@ interface ValidationInput {
   name: string;
 }
 
-// TODO: 함수명 동사 + 명사로 변경하기
-export function RestaurantsValidator(value: ValidationInput) {
+export function validateRestaurantsName(value: ValidationInput) {
   const { restaurantNames, name } = value;
   if (ValidateConditions.isIncluded(restaurantNames, name))
     throw new Error('중복된 가게 이름입니다!');

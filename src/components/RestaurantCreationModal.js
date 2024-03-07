@@ -1,7 +1,7 @@
 import Restaurant from './Restaurant';
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
-import { RestaurantsValidator, validateRequiredValue } from '../validators';
+import { validateRequiredValue, validateRestaurantsName } from '../validators';
 
 export default class RestaurantCreationModal {
   constructor(restaurants) {
@@ -124,7 +124,7 @@ export default class RestaurantCreationModal {
 
     // 음식점 이름 중복 검사
     const restaurantNames = this.restaurants.getStorageData.map((restaurant) => restaurant.name);
-    RestaurantsValidator({ restaurantNames, name: inputData.name });
+    validateRestaurantsName({ restaurantNames, name: inputData.name });
 
     // TODO2: requiredValue를 상수화 한 다음에 순회하기
     this.validateRequirements('category');
