@@ -10,7 +10,6 @@ export default class RestaurantItem extends BaseComponent {
     const timeToReach = this.getAttribute("timeToReach");
     const description = this.getAttribute("description");
     const link = this.getAttribute("link");
-    console.log(category, name, timeToReach, description, link);
 
     return `
       <li class="restaurant">
