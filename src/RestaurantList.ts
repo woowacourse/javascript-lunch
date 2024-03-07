@@ -1,5 +1,6 @@
 import type { IRestaurantList, TRestaurantInstance, TCategory } from './types/restaurant';
 import { STORAGE_KEY } from './constants/config';
+import { ALL } from './constants/filter';
 
 class RestaurantList {
   restaurants: IRestaurantList;
@@ -25,6 +26,7 @@ class RestaurantList {
   }
 
   filterByCategory(category: TCategory): IRestaurantList {
+    if (category === ALL) return this.restaurants;
     return this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
   }
 }
