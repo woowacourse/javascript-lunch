@@ -14,5 +14,6 @@ export const SORTING_KEY = {
 };
 
 export const EVENT = {
-  filter: 'filter'
+  changedFilter: 'changedFilter',
+  clickedGNBButton: 'clickedGNBButton'
 };
