@@ -20,4 +20,4 @@ export const OPTION = {
     { value: '이름순', name: '이름순' },
     { value: '거리순', name: '거리순' },
   ],
-};
+} as const;

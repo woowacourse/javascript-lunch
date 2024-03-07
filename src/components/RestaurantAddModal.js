@@ -1,6 +1,7 @@
 import Component from './Component';
 import { OPTION } from '../constants/Condition';
-import { $, $setAttribute } from '../utils/dom';
+import { $ } from '../utils/dom';
+import { isEmptyInput } from '../utils/validation';
 
 class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];
@@ -35,10 +36,14 @@ class RestaurantAddModal extends Component {
   #onSubmit(event) {
     event.preventDefault();
 
+    if (this.#handleEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
+      return;
+    }
+
     const formData = {
       category: $('.modal-category').value,
       name: $('.modal-restaurant-name').value,
-      distance: Number($('.modal-distance').value),
+      distance: $('.modal-distance').value,
       description: $('.modal-description').value,
       reference: $('.modal-reference').value,
     };
@@ -48,6 +53,25 @@ class RestaurantAddModal extends Component {
 
   #onCancel() {
     this.dispatchEvent(new CustomEvent('cancelButtonClick', { bubbles: true }));
+  }
+
+  #handleEmptyError(selectors) {
+    const errors = selectors.filter((selector) => {
+      if (isEmptyInput($(selector).value)) {
+        $(`${selector}-error-message`).textContent = '값을 입력하세요.';
+        return true;
+      }
+
+      $(`${selector}-error-message`).textContent = '';
+      return false;
+    });
+
+    if (!errors.length) {
+      return false;
+    }
+
+    $(errors[0]).focus();
+    return true;
   }
 
   template() {
@@ -63,10 +87,12 @@ class RestaurantAddModal extends Component {
                             OPTION.INFO,
                             ...OPTION.CATEGORY,
                           ])}'></filter-box>
+                          <p class="modal-category-error-message"></p>
                       </div>
                       <div class="form-item form-item--required">
                           <label for="name text-caption">이름</label>
-                          <input class="modal-restaurant-name" type="text" name="name" id="name" required />
+                          <input class="modal-restaurant-name" type="text" name="name" id="name" />
+                          <p class="modal-restaurant-name-error-message"></p>
                       </div>
                       <div class="form-item form-item--required">
                           <label for="distance text-caption">거리(도보 이동 시간)</label>
@@ -74,6 +100,7 @@ class RestaurantAddModal extends Component {
                             OPTION.INFO,
                             ...OPTION.DISTANCE,
                           ])}'></filter-box>
+                          <p class="modal-distance-error-message"></p>
                       </div>
                       <div class="form-item">
                           <label for="description text-caption">설명</label>
@@ -84,6 +111,7 @@ class RestaurantAddModal extends Component {
                           <label for="link text-caption">참고 링크</label>
                           <input type="text" name="reference" class="modal-reference" id="reference" />
                           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+                          <p class="modal-reference-error-message"></p>
                       </div>
                       <div class="button-container">
                           <button type="button" class="button button--secondary text-caption">취소하기</button>
