@@ -1,6 +1,6 @@
 export const FILTER_EVENT = {
-  categoryFilterChanged: "categoryFilterChanged",
-  sortFilterChanged: "sortFilterChanged",
+  categoryFilterChange: "categoryFilterChange",
+  sortFilterChange: "sortFilterChange",
 };
 
 export const MODAL_EVENT = {
@@ -10,4 +10,8 @@ export const MODAL_EVENT = {
 export const MODAL_EVENT_ACTION = {
   open: "open",
   close: "close",
+};
+
+export const RESTAURANT_EVENT = {
+  restaurantFormSubmit: "restaurantFormSubmit",
 };

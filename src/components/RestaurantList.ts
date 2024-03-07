@@ -4,27 +4,30 @@ import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
 import FilterBar from "./FilterBar";
 import EventComponent from "../abstract/EventComponent";
 import { RESTAURANT_DISPLAYING_FILTER, SORT_FILTER } from "../constants/filter";
-import { FILTER_EVENT } from "../constants/event";
+import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
 import { CategoryFilter, SortFilter } from "../types/Filter";
 
 customElements.define("restaurant-item", RestaurantItem);
 customElements.define("filter-bar", FilterBar);
 
 export default class RestaurantList extends EventComponent {
+  private restaurants: Restaurants;
   private categoryFilter: CategoryFilter;
   private sortFilter: SortFilter;
 
   constructor(
+    restaurants: Restaurants = new Restaurants([]),
     categoryFilter = RESTAURANT_DISPLAYING_FILTER.all as CategoryFilter,
     sortFilter = SORT_FILTER.name as SortFilter
   ) {
     super();
+    this.restaurants = restaurants;
     this.categoryFilter = categoryFilter;
     this.sortFilter = sortFilter;
   }
 
   protected getTemplate(): string {
-    const restaurantInfos = new Restaurants([]).getDetails();
+    const restaurantInfos = this.restaurants.getDetails();
 
     const filteredRestaurantInfos = this.filterByCategory(
       restaurantInfos,
@@ -58,17 +61,21 @@ export default class RestaurantList extends EventComponent {
   }
 
   protected setEvent() {
-    document.addEventListener(FILTER_EVENT.categoryFilterChanged, (e) =>
+    document.addEventListener(FILTER_EVENT.categoryFilterChange, (e) =>
       this.handleCategoryFilterChange(e as CustomEvent)
     );
 
-    document.addEventListener(FILTER_EVENT.sortFilterChanged, (e) =>
+    document.addEventListener(FILTER_EVENT.sortFilterChange, (e) =>
       this.handleSortFilterChange(e as CustomEvent)
     );
+
+    document.addEventListener(RESTAURANT_EVENT.restaurantFormSubmit, (e) => {
+      this.handleRestaurantFormSubmit(e as CustomEvent);
+    });
   }
 
   private handleCategoryFilterChange(event: CustomEvent) {
-    const categoryFilter = event?.detail;
+    const { value: categoryFilter } = event?.detail;
 
     this.categoryFilter = categoryFilter;
 
@@ -76,9 +83,19 @@ export default class RestaurantList extends EventComponent {
   }
 
   private handleSortFilterChange(event: CustomEvent) {
-    const sortFilter = event?.detail;
+    const { value: sortFilter } = event?.detail;
 
     this.sortFilter = sortFilter;
+
+    this.render();
+  }
+
+  private handleRestaurantFormSubmit(event: CustomEvent) {
+    const { payload } = event?.detail;
+
+    const restaurant = new Restaurant(payload);
+
+    this.restaurants.add(restaurant);
 
     this.render();
   }
