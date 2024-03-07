@@ -3,8 +3,8 @@ type Minutes = 5 | 10 | 15 | 20 | 30;
 
 interface Restaurant {
   category: Category;
-  name: 'string';
+  name: string;
   walkingTimeFromCampus: Minutes;
-  description?: 'string';
-  referenceLink?: 'string';
+  description?: string;
+  referenceLink?: string;
 }
