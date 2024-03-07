@@ -79,7 +79,7 @@ describe('맛집 클래스 테스트', () => {
       const matzip = new Matzip(matzipList);
       const sortedByNameResult = ['썬데이네쌀국수', '쑤쑤당', '쿠키네칼국수', '파슬리네텐동'];
       // when
-      const sortedMatzip = matzip.sort('이름순');
+      const sortedMatzip = matzip.sort('name', matzipList);
       // then
       expect(sortedMatzip.map((matzip) => matzip.name)).to.have.ordered.members(sortedByNameResult);
     });
@@ -89,7 +89,7 @@ describe('맛집 클래스 테스트', () => {
       const matzip = new Matzip(matzipList);
       const sortedByDistanceResult = ['쿠키네칼국수', '썬데이네쌀국수', '쑤쑤당', '파슬리네텐동'];
       // when
-      const sortedMatzip = matzip.sort('거리순');
+      const sortedMatzip = matzip.sort('distance', matzipList);
       // then
       expect(sortedMatzip.map((matzip) => matzip.name)).to.have.ordered.members(
         sortedByDistanceResult,

@@ -25,12 +25,6 @@ const matzipList: Restaurant[] = [
     distance: 20,
     introduction: '김윤아김윤아김윤아',
   },
-  {
-    name: '파슬리네초밥',
-    category: '일식',
-    distance: 20,
-    introduction: '김윤아김윤아김윤아',
-  },
 ];
 
 export default matzipList;

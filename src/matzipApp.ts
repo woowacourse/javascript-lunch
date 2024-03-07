@@ -1,5 +1,4 @@
 import Matzip from './matzip';
-import matzipList from './mock/restaurants';
 import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/Restaurant';
