@@ -16,7 +16,7 @@ class BaseComponent extends HTMLElement {
 
   protected removeEvent() {}
 
-  public getTemplate() {
+  protected getTemplate() {
     return "";
   }
 
