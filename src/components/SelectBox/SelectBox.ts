@@ -11,7 +11,8 @@ class SelectBox extends BaseComponent {
 
   render() {
     const selectTag = this.#makeSelectTag();
-    this.append(selectTag);
+    this.outerHTML = selectTag.outerHTML; // outerHTML
+    //this.append(selectTag);
   }
 
   #makeSelectTag() {
