@@ -1,3 +1,5 @@
+import { MENU_CATEGORIES } from "./menuCategory";
+
 export type MenuCategory =
   | "전체"
   | "한식"
@@ -6,6 +8,11 @@ export type MenuCategory =
   | "양식"
   | "아시안"
   | "기타";
+
+export type MenuCategoryWithoutAll = Exclude<
+  MenuCategory,
+  typeof MENU_CATEGORIES.all
+>;
 
 export type MenuCategoryKey =
   | "all"
