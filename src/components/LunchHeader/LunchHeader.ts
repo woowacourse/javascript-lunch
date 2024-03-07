@@ -1,5 +1,5 @@
 import './style.css';
-import ADD_BUTTON from '../../imgs/add-button.png';
+import { ADD_BUTTON } from '../../imgs/index';
 
 const LUNCH_HEADER = `
 <header class="gnb">
