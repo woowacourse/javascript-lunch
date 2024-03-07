@@ -4,16 +4,12 @@ import restaurantListHelper from "../domain/RestaurantListHelper";
 
 const RestaurantListStorageService = {
   getfilteredData() {
-    const localData = this.getData();
-    const filteredState = filterState.getFilterInfo();
-
     const filtereDataByCategory = restaurantListHelper.filterByCategory(
-      filteredState.filter,
-      localData,
+      filterState.getFilterInfo().filter,
+      this.getData(),
     );
-
     return restaurantListHelper.sortBySelectedValue(
-      filteredState.sort,
+      filterState.getFilterInfo().sort,
       filtereDataByCategory,
     );
   },

@@ -26,18 +26,21 @@ function RestaurantList() {
 
   const render = (filterData: Irestaurant[]) => {
     const ul = document.getElementsByClassName("restaurant-list")[0];
+    resetPrevRestaurantList(ul);
 
-    while (ul.firstChild) {
-      ul.removeChild(ul.firstChild);
-    }
-
-    const totalText = filterData.reduce((acc: string, cur: Irestaurant) => {
-      return acc + Restaurant().render(cur);
+    const totalText = filterData.reduce((acc: string, res: Irestaurant) => {
+      return acc + Restaurant(res);
     }, "");
-
     const formattedTotalText = convertHTMLStringToDOM(totalText);
     ul.appendChild(formattedTotalText);
   };
+
+  const resetPrevRestaurantList = (ul: Element) => {
+    while (ul.firstChild) {
+      ul.removeChild(ul.firstChild);
+    }
+  };
+
   return {
     init,
     reRender,
