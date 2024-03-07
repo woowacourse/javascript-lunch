@@ -1,5 +1,5 @@
 import { IRestaurant } from '../../src/types/Restaurant';
-import Restaurant from '../../src/domains/entities/Restuarant';
+import Restaurant from '../../src/domains/entities/Restaurant';
 
 describe('레스토랑 클래스', () => {
   it('성공 케이스', () => {

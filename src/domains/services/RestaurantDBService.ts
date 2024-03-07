@@ -6,8 +6,8 @@ class RestaurantDBService {
   #restaurantList;
 
   constructor() {
-    const existingRestuarants = JSON.parse(this.get() || '[]');
-    this.#restaurantList = new RestaurantList(existingRestuarants);
+    const existingRestaurants = JSON.parse(this.get() || '[]');
+    this.#restaurantList = new RestaurantList(existingRestaurants);
   }
 
   get() {

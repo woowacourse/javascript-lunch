@@ -1,5 +1,5 @@
 import { Category, IRestaurant } from '../../types/Restaurant';
-import Restaurant from './Restuarant';
+import Restaurant from './Restaurant';
 
 class RestaurantList {
   restaurantList: Restaurant[];

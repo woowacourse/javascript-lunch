@@ -7,7 +7,7 @@ import chineseIcon from '@/assets/category-chinese.png';
 import westernIcon from '@/assets/category-western.png';
 import etcIcon from '@/assets/category-etc.png';
 import { Category } from '@/types/Restaurant';
-import RestaurantItem from '../RestuarantItem/RestuarantItem';
+import RestaurantItem from '../RestaurantItem/RestaurantItem';
 
 const Icons: { [key: Category]: string } = {
   한식: koreanIcon,
@@ -20,11 +20,11 @@ const Icons: { [key: Category]: string } = {
 
 class RestaurantList extends BaseComponent {
   render() {
-    const restaurantList = this.#makeRestuarantList();
+    const restaurantList = this.#makeRestaurantList();
     this.append(restaurantList);
   }
 
-  #makeRestuarantList() {
+  #makeRestaurantList() {
     const restaurantList = restaurantListMock.map((restaurant) => new RestaurantItem(restaurant));
     const ulTag = document.createElement('ul');
     ulTag.classList.add('restaurant-list');
