@@ -3,8 +3,8 @@ import restaurantStateStore from "../../../store/RestaurantStateStore";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
 
-function InputName() {
-  const render = (form: Element) => {
+function InputName(form: Element) {
+  const render = () => {
     form.appendChild(convertHTMLStringToDOM(inputNameTemplate));
 
     inputNameHandler();
@@ -31,9 +31,7 @@ function InputName() {
     });
   };
 
-  return {
-    render,
-  };
+  render();
 }
 
 export default InputName;

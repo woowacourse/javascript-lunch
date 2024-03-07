@@ -6,8 +6,8 @@ import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 import validateRestaurantState from "../../../services/validateRestaurantState";
 import { IinvalidResult, Irestaurant, IrestaurantField } from "../../../types";
 
-function ModalButton() {
-  const render = (modal: Element, form: Element) => {
+function ModalButton(modal: Element, form: Element) {
+  const render = () => {
     form.appendChild(convertHTMLStringToDOM(modalButtonTemplate));
 
     submitHandler(modal);
@@ -83,9 +83,7 @@ function ModalButton() {
     modalForm.reset();
   };
 
-  return {
-    render,
-  };
+  render();
 }
 
 export default ModalButton;

@@ -3,8 +3,8 @@ import restaurantStateStore from "../../../store/RestaurantStateStore";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
 
-function InputLink() {
-  const render = (form: Element) => {
+function InputLink(form: Element) {
+  const render = () => {
     form.appendChild(convertHTMLStringToDOM(inputLinkTemplate));
 
     inputLinkHandler();
@@ -30,9 +30,7 @@ function InputLink() {
     });
   };
 
-  return {
-    render,
-  };
+  render();
 }
 
 export default InputLink;

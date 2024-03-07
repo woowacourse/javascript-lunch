@@ -20,16 +20,16 @@ function Modal() {
 
     renderModalForm(form);
 
-    ModalButton().render(modal, form);
+    ModalButton(modal, form);
     dimmerClickHandler(modal);
   };
 
   const renderModalForm = (form: Element) => {
-    SelectCategory().render(form);
-    InputName().render(form);
-    SelectDistance().render(form);
-    InputDescription().render(form);
-    InputLink().render(form);
+    SelectCategory(form);
+    InputName(form);
+    SelectDistance(form);
+    InputDescription(form);
+    InputLink(form);
   };
 
   const dimmerClickHandler = (modal: Element) => {
