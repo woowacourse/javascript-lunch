@@ -44,7 +44,7 @@ const LABELS: LabelsType = {
   distance: '거리(도보 이동 시간)',
 };
 
-type FormItemType = 'dropdown' | 'input' | 'textArea';
+export type FormItemType = 'dropdown' | 'input' | 'textArea';
 
 type RenderTypeProps = {
   name: string;
@@ -92,5 +92,18 @@ class LunchFormItem extends HTMLElement {
       options.innerHTML = optionItems.join('');
     }
   }
+
+  getValue(type: FormItemType) {
+    switch (type) {
+      case 'dropdown':
+        return this.querySelector('select')?.value;
+      case 'input':
+        return this.querySelector('input')?.value;
+      case 'textArea':
+        return this.querySelector('textarea')?.value;
+    }
+  }
 }
 customElements.define('lunch-form-item', LunchFormItem);
+
+export default LunchFormItem;
