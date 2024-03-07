@@ -4,13 +4,14 @@ import './components/LunchHeader/LunchHeader';
 import './components/LunchItemFilter/LunchItemFilter';
 import './components/LunchItem/LunchItem';
 import './components/LunchItems/LunchItems';
-import { RestaurantRegister } from './domain';
+import './components/LunchRegisterModal/LunchRegisterModal';
 import DUMMY from './constants/dummy';
 
 const LUNCH_APP = `
 <lunch-header></lunch-header>
 <lunch-item-filter></lunch-item-filter>
 <lunch-items></lunch-items>
+<lunch-register-modal></lunch-register-modal>
 `;
 
 class LunchApp extends HTMLElement {
