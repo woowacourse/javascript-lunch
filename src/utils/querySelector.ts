@@ -1,11 +1,9 @@
-const querySelector = {
-  $(target: string) {
-    return document.querySelector(target);
-  },
-
-  $$(target: string) {
-    return document.querySelectorAll(target);
-  },
+const $ = (target: string): Element | null => {
+  return document.querySelector(target);
 };
 
-export default querySelector;
+const $$ = (target: string): NodeList | null => {
+  return document.querySelectorAll(target);
+};
+
+export { $, $$ };
