@@ -16,9 +16,24 @@ import { createOptionElements } from "../../utils/createOptionElements";
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
+import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 
 class RestaurantAddModal extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];
+
+  private eventListeners: CustomEventListenerDictionary = {
+    modalCancelButtonClick: {
+      target: $(ELEMENT_SELECTOR.modalCancelButton),
+      eventName: "click",
+      eventHandler: this.handleCancelButton.bind(this),
+    },
+
+    restaurantAddFormSubmit: {
+      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      eventName: "submit",
+      eventHandler: this.handleSubmitAddRestaurant.bind(this),
+    },
+  };
 
   protected render(): void {
     this.innerHTML = `
@@ -76,17 +91,9 @@ class RestaurantAddModal extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on({
-      target: $(ELEMENT_SELECTOR.modalCancelButton),
-      eventName: "click",
-      eventHandler: this.handleCancelButton.bind(this),
-    });
+    this.on(this.eventListeners.modalCancelButtonClick);
 
-    this.on({
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
-      eventName: "submit",
-      eventHandler: this.handleSubmitAddRestaurant.bind(this),
-    });
+    this.on(this.eventListeners.restaurantAddForm);
   }
 
   private handleCancelButton() {
@@ -95,16 +102,16 @@ class RestaurantAddModal extends BaseComponent {
     this.resetForm();
   }
 
+  private handleCloseModal() {
+    this.classList.remove("modal--open");
+  }
+
   private resetForm() {
     const formElement = $(ELEMENT_SELECTOR.restaurantAddForm);
 
     if (formElement instanceof HTMLFormElement) {
       formElement.reset();
     }
-  }
-
-  private handleCloseModal() {
-    this.classList.remove("modal--open");
   }
 
   private handleSubmitAddRestaurant(event: Event) {
@@ -149,17 +156,9 @@ class RestaurantAddModal extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    this.off({
-      target: $(ELEMENT_SELECTOR.modalCancelButton),
-      eventName: "click",
-      eventHandler: this.handleCloseModal.bind(this),
-    });
+    this.off(this.eventListeners.modalCancelButtonClick);
 
-    this.off({
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
-      eventName: "submit",
-      eventHandler: this.handleSubmitAddRestaurant.bind(this),
-    });
+    this.off(this.eventListeners.restaurantAddForm);
   }
 }
 
