@@ -31,28 +31,14 @@ describe('RestaurantManager 기능 테스트', () => {
     });
   });
 
-  describe('filterByCategory 기능 테스트', () => {
-    test('카테고리를 전달받아 해당 카테고리를 갖는 객체 배열을 반환한다.', () => {
-      const RESULT = [RESTARANT_A, RESTARANT_C];
-      const CATEGORY = '분식';
-
-      expect(manager.filterByCategory(CATEGORY)).toEqual(RESULT);
-    });
-  });
-
-  describe('sortByName 기능 테스트', () => {
-    test('이름을 기준으로 레스토랑 배열을 오름차순 정렬한 결과를 반환한다.', () => {
-      const RESULT = [RESTARANT_B, RESTARANT_A, RESTARANT_C];
-
-      expect(manager.sortByName()).toEqual(RESULT);
-    });
-  });
-
-  describe('sortByDistance 기능 테스트', () => {
-    test('거리를 기준으로 레스토랑 배열을 오름차순 정렬한 결과를 반환한다.', () => {
-      const RESULT = [RESTARANT_C, RESTARANT_B, RESTARANT_A];
-
-      expect(manager.sortByDistance()).toEqual(RESULT);
+  describe('filteredAndSortedByOptions 기능 테스트', () => {
+    test.each([
+      { category: '한식', option: 'name', result: [] },
+      { category: '분식', option: 'distance', result: [RESTARANT_C, RESTARANT_A] },
+      { category: '분식', option: 'name', result: [RESTARANT_A, RESTARANT_C] },
+      { category: '전체', option: 'name', result: [RESTARANT_B, RESTARANT_A, RESTARANT_C] },
+    ])('카테고리와 옵션을 전달받아 정렬한 결과를 반환한다.', ({ category, option, result }) => {
+      expect(manager.filteredAndSortedByOptions(category, option)).toEqual(result);
     });
   });
 });
