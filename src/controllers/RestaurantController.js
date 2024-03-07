@@ -34,18 +34,20 @@ class RestaurantController {
     const addRestaurantButton = $('.gnb__button');
     addRestaurantButton.addEventListener('click', () => {
       OutputView.renderAddRestaurant(this.#restaurantList);
+      this.manageFormEvents();
+    });
+  }
 
-      const form = $('form');
-      if (!form) return;
+  manageFormEvents() {
+    const form = $('form');
 
-      form.addEventListener('reset', () => OutputView.closeModal());
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        const newRestaurant = this.createRestaurant();
-        RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
-        OutputView.closeModal();
-        this.reload();
-      });
+    form.addEventListener('reset', () => OutputView.closeModal());
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const newRestaurant = this.createRestaurant();
+      RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
+      OutputView.closeModal();
+      this.reload();
     });
   }
 
