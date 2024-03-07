@@ -39,3 +39,9 @@ const $gnbButton = document.querySelector('.gnb__button');
 $gnbButton.addEventListener('click', () => {
   $modal.classList.add('modal--open');
 });
+
+// 취소하기 버튼 클릭 시 modal close
+const $closeButton = document.querySelector('#button-close');
+$closeButton.addEventListener('click', () => {
+  $modal.classList.remove('modal--open');
+});
