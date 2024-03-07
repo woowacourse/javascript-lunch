@@ -25,22 +25,11 @@ const RestaurantListStorageService = {
     }
   },
 
-  setData(restaurantList: Irestaurant[]) {
-    // const mergedData = Object.assign({}, this.getData(), { ...restaurantList });
-    // console.log("getData: ", this.getData());
-    // const prevData = this.getData();
+  setData(restaurant: Irestaurant) {
+    const prevData = this.getData();
+    const newData = [...prevData, restaurant];
 
-    // console.log("restaurantList: ", restaurantList);
-    // prevData.push(restaurantList);
-    // const dataFromGet = this.getData() || {};
-
-    // restaurantList와 dataFromGet을 합치기
-    // const mergedData = {
-    //   ...dataFromGet,
-    //   ...restaurantList,
-    // };
-    // console.log("p", mergedData);
-    localStorage.setItem("restaurantList", JSON.stringify(restaurantList));
+    localStorage.setItem("restaurantList", JSON.stringify(newData));
   },
 };
 
