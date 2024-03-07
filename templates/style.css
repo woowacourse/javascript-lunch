@@ -297,6 +297,6 @@ input[name="link"] {
   color: var(--grey-100);
 }
 
-.inValid_message {
+.invalid_message {
   color: var(--primary-color);
 }
