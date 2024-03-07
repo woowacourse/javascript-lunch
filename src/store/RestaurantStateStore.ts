@@ -1,17 +1,17 @@
 import Restaurant from "../domain/Restaurant";
-import { Icategory, Idistance, Irestaurant } from "../types";
+import { Icategory, Idistance, Irestaurant, IrestaurantField } from "../types";
 
 class RestaurantStateStore {
-  #restaurantState: Irestaurant = {
-    category: "기타",
-    name: "",
-    distance: 5,
+  #restaurantState: IrestaurantField = {
+    category: undefined,
+    name: undefined,
+    distance: undefined,
     description: undefined,
     link: undefined,
   };
 
   setCategory(selectCategory: Icategory) {
-    this.#restaurantState.category = selectCategory as Icategory;
+    this.#restaurantState.category = selectCategory;
   }
 
   setName(inputName: string) {
@@ -22,16 +22,20 @@ class RestaurantStateStore {
     this.#restaurantState.distance = selectDistance;
   }
 
-  setDescription(inputDescription: string) {
+  setDescription(inputDescription: string | undefined) {
     this.#restaurantState.description = inputDescription;
   }
 
-  setLink(inputLink: string) {
+  setLink(inputLink: string | undefined) {
     this.#restaurantState.link = inputLink;
   }
 
-  getRestaurantInfo() {
-    return Restaurant(this.#restaurantState);
+  getRestaurantField() {
+    return this.#restaurantState;
+  }
+
+  setRestaurantState() {
+    return Restaurant(this.#restaurantState as Irestaurant);
   }
 }
 
