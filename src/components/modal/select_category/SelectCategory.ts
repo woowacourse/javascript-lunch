@@ -16,13 +16,17 @@ function SelectCategory() {
       const select = document.getElementById("category");
 
       if (select) {
-        select.addEventListener("change", (event) => {
-          if (event.target instanceof HTMLSelectElement) {
-            const selectedValue = event.target.value;
-            removeHTMLElementByClassName("invalid_category");
-            restaurantStateStore.setCategory(selectedValue as Icategory);
-          }
-        });
+        selectEventHandler(select);
+      }
+    });
+  };
+
+  const selectEventHandler = (select: HTMLElement) => {
+    select.addEventListener("change", (event) => {
+      if (event.target instanceof HTMLSelectElement) {
+        const selectedValue = event.target.value;
+        removeHTMLElementByClassName("invalid_category");
+        restaurantStateStore.setCategory(selectedValue as Icategory);
       }
     });
   };

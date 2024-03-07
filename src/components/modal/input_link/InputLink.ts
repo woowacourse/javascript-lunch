@@ -15,13 +15,17 @@ function InputLink() {
       const link = document.getElementById("link");
 
       if (link) {
-        link.addEventListener("input", (event) => {
-          if (event.target instanceof HTMLInputElement) {
-            const inputLink = event.target.value;
-            removeHTMLElementByClassName("invalid_link");
-            restaurantStateStore.setLink(inputLink);
-          }
-        });
+        linkEventHandler(link);
+      }
+    });
+  };
+
+  const linkEventHandler = (link: HTMLElement) => {
+    link.addEventListener("input", (event) => {
+      if (event.target instanceof HTMLInputElement) {
+        const inputLink = event.target.value;
+        removeHTMLElementByClassName("invalid_link");
+        restaurantStateStore.setLink(inputLink);
       }
     });
   };

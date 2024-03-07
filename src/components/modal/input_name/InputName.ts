@@ -16,13 +16,17 @@ function InputName() {
       console.log(input);
 
       if (input) {
-        input.addEventListener("input", (event) => {
-          if (event.target instanceof HTMLInputElement) {
-            const inputValue = event.target.value;
-            removeHTMLElementByClassName("invalid_name");
-            restaurantStateStore.setName(inputValue);
-          }
-        });
+        inputNameEventHandler(input);
+      }
+    });
+  };
+
+  const inputNameEventHandler = (input: HTMLElement) => {
+    input.addEventListener("input", (event) => {
+      if (event.target instanceof HTMLInputElement) {
+        const inputValue = event.target.value;
+        removeHTMLElementByClassName("invalid_name");
+        restaurantStateStore.setName(inputValue);
       }
     });
   };
