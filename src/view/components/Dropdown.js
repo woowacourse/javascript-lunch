@@ -8,6 +8,13 @@ class Dropdown extends HTMLSelectElement {
       const restaurantList = document.querySelector('.restaurant-list');
 
       if (this.id === 'category-select') {
+        if (e.target.value === '전체') {
+          restaurantList.setAttribute(
+            'data-restaurants',
+            JSON.stringify(this.#catalog.getRestaurants().map((restaurant) => restaurant.getInfo())),
+          );
+          return;
+        }
         restaurantList.setAttribute(
           'data-restaurants',
           JSON.stringify(restaurants.map((restaurant) => restaurant.getInfo())),

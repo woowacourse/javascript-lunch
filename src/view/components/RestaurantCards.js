@@ -7,6 +7,7 @@ class RestaurantCards extends HTMLUListElement {
 
   #appendList() {
     const restaurants = JSON.parse(this.dataset.restaurants);
+
     if (this.dataset.sort === '이름순') {
       this.#makeRestaurantElement(RestaurantCatalog.sortByName(restaurants));
     }
