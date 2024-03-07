@@ -15,7 +15,6 @@ body {
   font-size: 16px;
 }
 
-/* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
@@ -26,7 +25,6 @@ body {
   --grey-500: #000000;
 }
 
-/* Typography *************************************/
 .text-title {
   font-size: 20px;
   line-height: 24px;

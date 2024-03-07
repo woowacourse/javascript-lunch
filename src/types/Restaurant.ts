@@ -1,5 +1,4 @@
-import CONDITIONS from '../constants/Condition';
-
+import { CATEGORIES, CONDITIONS } from '@/constants/Condition';
 export interface IRestaurant {
   name: string;
   distance: Distance;
@@ -8,7 +7,7 @@ export interface IRestaurant {
   link?: string;
 }
 
-export type Category = (typeof CONDITIONS.CATEGORIES)[number];
+export type Category = keyof typeof CATEGORIES;
 
 export type Distance = (typeof CONDITIONS.DISTANCES)[number];
 
