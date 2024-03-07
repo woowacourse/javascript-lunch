@@ -9,7 +9,7 @@ export interface RestaurantInfo {
   link: string;
 }
 
-type Category = "한식" | "중식" | "일식" | "아시안" | "디저트";
+type Category = "korean" | "chinese" | "japanese" | "asian" | "dessert";
 type Minute = number;
 
 class Restaurant {
