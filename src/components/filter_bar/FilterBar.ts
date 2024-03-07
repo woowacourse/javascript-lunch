@@ -66,9 +66,7 @@ function FilterBar() {
     });
   };
 
-  return {
-    render,
-  };
+  render();
 }
 
 export default FilterBar;

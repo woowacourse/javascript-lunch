@@ -17,9 +17,7 @@ function Header() {
     });
   };
 
-  return {
-    render,
-  };
+  render();
 }
 
 export default Header;

@@ -41,9 +41,7 @@ function Modal() {
     });
   };
 
-  return {
-    render,
-  };
+  render();
 }
 
 export default Modal;

@@ -5,9 +5,9 @@ import RestaurantList from "../restaurant_list/RestaurantList";
 
 function App() {
   const render = () => {
-    Modal().render();
-    Header().render();
-    FilterBar().render();
+    Modal();
+    Header();
+    FilterBar();
     RestaurantList().init();
   };
 
