@@ -1,13 +1,6 @@
 import { Category, Distance, SortingStandard } from "../types";
 
-const categories: readonly Category[] = [
-  "한식",
-  "중식",
-  "일식",
-  "아시안",
-  "양식",
-  "기타",
-];
+const categories = ["한식", "중식", "일식", "아시안", "양식", "기타"] as const;
 
 const categoryToIconNameMapper = {
   한식: "category-korean.png",
@@ -18,14 +11,14 @@ const categoryToIconNameMapper = {
   기타: "category-etc.png",
 };
 
-const sortingStandards: readonly SortingStandard[] = ["name", "distance"];
+const sortingStandards = ["name", "distance"] as const;
 
 const sortingStandardsMapper = {
   name: "이름순",
   distance: "거리순",
 } as const;
 
-const distances: readonly Distance[] = [5, 10, 15, 20, 30];
+const distances = [5, 10, 15, 20, 30] as const;
 
 const distancesMapper = {
   5: "5분 내",
