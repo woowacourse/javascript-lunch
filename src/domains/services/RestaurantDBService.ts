@@ -1,6 +1,7 @@
 import { CONDITIONS } from '@/constants/Condition';
-import { IRestaurant } from '../../types/Restaurant';
+import { Category, IRestaurant } from '../../types/Restaurant';
 import RestaurantCollection from '../entities/RestaurantCollection';
+import restaurantListMock from '@/mock/restaurantList.mock';
 
 class RestaurantDBService {
   #RESTAURANTS_DB_KEY = 'restaurants';
@@ -9,26 +10,25 @@ class RestaurantDBService {
   constructor() {
     const existingRestaurants = JSON.parse(this.get() || '[]');
     this.#restaurantList = new RestaurantCollection(existingRestaurants);
+    this.set(restaurantListMock);
   }
 
-  getFromRestuarList() {
-    const restaurants = this.#restaurantList.filterByCategory('거리');
-    const list2 = new RestaurantCollection(restaurants);
-    return list2.sortByDistance();
+  getFromRestaurantList(category: Category, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
+    const restaurants = this.#restaurantList.filterByCategory(category);
+    return new RestaurantCollection(restaurants).sort(sortCriteria);
   }
 
   get() {
     return localStorage.getItem(this.#RESTAURANTS_DB_KEY);
   }
 
+  set(data: IRestaurant[]) {
+    localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(data));
+  }
+
   add(restaurant: IRestaurant) {
     this.#restaurantList.addRestaurant(restaurant);
     localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(this.#restaurantList.get()));
-  }
-
-  sort(sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
-    if (sortCriteria === '이름순') return this.#restaurantList.sortByName();
-    return this.#restaurantList.sortByDistance();
   }
 }
 

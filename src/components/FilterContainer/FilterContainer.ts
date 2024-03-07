@@ -1,14 +1,36 @@
 import { CATEGORIES_WITH_ALL_KEYS, SORT_CRITERION_KEYS } from '@/constants/Condition';
 import BaseComponent from '../BaseComponent';
 import SelectBox from '../SelectBox/SelectBox';
+import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import { Category, SortCriteria } from '@/types/Restaurant';
 class FilterContainer extends BaseComponent {
+  #selectCategoryBox: SelectBox;
+  #selectSortBox: SelectBox;
+
+  constructor() {
+    super();
+    this.#selectCategoryBox = new SelectBox(CATEGORIES_WITH_ALL_KEYS, 'category');
+    this.#selectSortBox = new SelectBox(SORT_CRITERION_KEYS, 'sorting');
+  }
+
   render() {
-    this.append(new SelectBox(CATEGORIES_WITH_ALL_KEYS, 'category'));
-    this.append(new SelectBox(SORT_CRITERION_KEYS, 'sorting'));
+    this.append(this.#selectCategoryBox);
+    this.append(this.#selectSortBox);
   }
   setEvent() {
-    this.addEventListener('onChange', (event) => {
-      const restaurants = document.querySelector('.restaurant-list-container');
+    this.addEventListener('change', (event) => {
+      const restaurantDBService = new RestaurantDBService();
+
+      const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
+      const selectedSortCriteria = this.querySelector('#sorting-filter') as HTMLSelectElement;
+
+      console.log(
+        restaurantDBService.getFromRestaurantList(
+          selectedCategory.value as Category,
+          selectedSortCriteria.value as SortCriteria,
+        ),
+      );
+      // const restaurants = document.querySelector('.restaurant-list-container');
     });
   }
 }

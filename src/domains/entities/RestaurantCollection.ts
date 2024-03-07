@@ -1,3 +1,4 @@
+import { CONDITIONS } from '@/constants/Condition';
 import { Category, IRestaurant } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
@@ -16,6 +17,11 @@ class RestaurantCollection {
     return this.restaurantList
       .filter((restaurant) => restaurant.get().category === category)
       .map((restaurant) => restaurant.get());
+  }
+
+  sort(sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
+    if (sortCriteria === '이름순') return this.sortByName();
+    return this.sortByDistance();
   }
 
   sortByName() {
