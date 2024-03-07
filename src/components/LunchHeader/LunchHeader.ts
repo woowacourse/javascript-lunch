@@ -13,10 +13,23 @@ const LUNCH_HEADER = `
 class LunchHeader extends HTMLElement {
   connectedCallback() {
     this.render();
+    this.setEventListener();
   }
 
   render() {
     this.innerHTML = LUNCH_HEADER;
+  }
+
+  setEventListener() {
+    console.log('setEventListener');
+    const button = this.querySelector('.gnb__button');
+    button?.addEventListener('click', () => {
+      const modal = document.querySelector('.modal');
+      console.log('클릭됨!');
+      if (modal?.classList) {
+        modal.classList.add('modal--open');
+      }
+    });
   }
 }
 
