@@ -1,14 +1,12 @@
 import { headerTemplate } from "./template";
+import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
 function Header() {
   const render = () => {
     const mainContainer = document.getElementById("mainContainer");
-    const header = document.createElement("header");
-    header.setAttribute("class", "headerContainer");
-    header.innerHTML += headerTemplate;
 
     if (mainContainer) {
-      mainContainer.appendChild(header);
+      mainContainer.appendChild(convertHTMLStringToDOM(headerTemplate));
     }
 
     modalOpenHandler();
