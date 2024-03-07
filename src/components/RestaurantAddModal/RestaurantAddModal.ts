@@ -2,11 +2,12 @@ import "./RestaurantAddModal.css";
 
 import BaseComponent from "../BaseComponent/BaseComponent";
 
-import Restaurant from "../../domain/Restaurant/Restaurant";
-import {
+import type { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+import type {
   Distance,
   RestaurantDetail,
 } from "../../domain/Restaurant/Restaurant.type";
+import Restaurant from "../../domain/Restaurant/Restaurant";
 
 import { OPTION_ELEMENT_REGEXP } from "./RestaurantAddModal.constant";
 
@@ -16,7 +17,7 @@ import { createOptionElements } from "../../utils/createOptionElements";
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
-import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+import { ERROR_MESSAGE } from "../../constants/errorMessage";
 
 class RestaurantAddModal extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];
@@ -120,15 +121,21 @@ class RestaurantAddModal extends BaseComponent {
   }
 
   private handleSubmitAddRestaurant(event: Event) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    this.addUserInputRestaurantDetail();
+      this.addUserInputRestaurantDetail();
 
-    this.resetForm();
+      this.resetForm();
 
-    this.handleCloseModal();
+      this.handleCloseModal();
 
-    this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+      this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+    } catch (error: unknown | Error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   }
 
   private addUserInputRestaurantDetail() {
@@ -136,8 +143,30 @@ class RestaurantAddModal extends BaseComponent {
 
     if (userInputRestaurantDetail) {
       const restaurant = new Restaurant();
+
+      const duplicatedRestaurant = this.findDuplicateRestaurantByName(
+        restaurant,
+        userInputRestaurantDetail
+      );
+
+      if (duplicatedRestaurant) {
+        throw new Error(ERROR_MESSAGE.duplicateRestaurant);
+      }
+
       restaurant.addRestaurant(userInputRestaurantDetail);
     }
+  }
+
+  private findDuplicateRestaurantByName(
+    restaurant: Restaurant,
+    userInputRestaurantDetail: RestaurantDetail
+  ) {
+    const prevRestaurantList = restaurant.getRestaurants();
+
+    return prevRestaurantList.find(
+      (restaurantDetail) =>
+        restaurantDetail.name === userInputRestaurantDetail.name
+    );
   }
 
   private createFormDataToRestaurantDetail() {
