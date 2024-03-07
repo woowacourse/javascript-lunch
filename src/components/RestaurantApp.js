@@ -27,6 +27,13 @@ class RestaurantApp extends Component {
     });
   }
 
+  removeEvent() {
+    this.removeEventListener('selectChange');
+    this.removeEventListener('gnbButtonClick');
+    this.removeEventListener('cancelButtonClick');
+    this.removeEventListener('submitButtonClick');
+  }
+
   #updateRestaurants(restaurant) {
     RestaurantRepository.addRestaurant(restaurant);
     this.#restaurants = this.#generateRestaurants();

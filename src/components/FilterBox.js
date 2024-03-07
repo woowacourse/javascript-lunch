@@ -20,13 +20,11 @@ class FilterBox extends Component {
   }
 
   setEvent() {
-    $('select').addEventListener('change', (event) => {
-      this.dispatchEvent(
-        new CustomEvent('selectChange', {
-          bubbles: true,
-        }),
-      );
-    });
+    $('select').addEventListener('change', () => this.makeCustomEvent('selectChange'));
+  }
+
+  removeEvent() {
+    $('select').removeEventListener('change', () => this.makeCustomEvent('selectChange'));
   }
 
   template(type, option) {

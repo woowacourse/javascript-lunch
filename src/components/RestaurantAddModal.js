@@ -21,8 +21,19 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    $('.button--primary').addEventListener('click', (event) => this.#onSubmit(event));
-    $('.button--secondary').addEventListener('click', () => this.#onCancel());
+    this.addEventListener('click', (event) => {
+      if (event.target.classList.contains('button--primary')) {
+        this.#onSubmit(event);
+      }
+
+      if (event.target.classList.contains('button--secondary')) {
+        this.#onCancel();
+      }
+    });
+  }
+
+  removeEvent() {
+    this.removeEventListener('click');
   }
 
   #updateModal(isOpen) {
@@ -48,11 +59,11 @@ class RestaurantAddModal extends Component {
       reference: $('.modal-reference').value,
     };
 
-    this.dispatchEvent(new CustomEvent('submitButtonClick', { bubbles: true, detail: formData }));
+    this.makeCustomEvent('submitButtonClick', formData);
   }
 
   #onCancel() {
-    this.dispatchEvent(new CustomEvent('cancelButtonClick', { bubbles: true }));
+    this.makeCustomEvent('cancelButtonClick');
   }
 
   #handleEmptyError(selectors) {

@@ -12,13 +12,11 @@ class CustomHeader extends Component {
   }
 
   setEvent() {
-    $('.gnb__button').addEventListener('click', () => {
-      this.dispatchEvent(
-        new CustomEvent('gnbButtonClick', {
-          bubbles: true,
-        }),
-      );
-    });
+    $('.gnb__button').addEventListener('click', () => this.makeCustomEvent('gnbButtonClick'));
+  }
+
+  removeEvent() {
+    $('.gnb__button').removeEventListener('click', () => this.makeCustomEvent('gnbButtonClick'));
   }
 
   template() {
