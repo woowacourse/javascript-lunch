@@ -1,3 +1,5 @@
+import Restaurant from './Restaurant';
+
 export default class RestaurantCreationModal {
   constructor(restaurants) {
     this.restaurants = restaurants;
@@ -101,6 +103,13 @@ export default class RestaurantCreationModal {
         };
 
         this.restaurants.addRestaurant(result);
+        document.getElementById('restaurant-creation-modal').classList.remove('modal--open');
+
+        document.querySelector('#restaurant-list').innerHTML =
+          this.restaurants.getStorageData.reduce(
+            (acc, current) => acc + new Restaurant().render(current),
+            '',
+          );
       }
     });
   }
