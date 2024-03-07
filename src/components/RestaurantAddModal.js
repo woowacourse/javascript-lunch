@@ -1,19 +1,10 @@
-class RestaurantAddModal extends HTMLElement {
+import Component from './Component';
+
+class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];
 
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    if (this.isConnected) {
-      this.render();
-      this.setEvent();
-    }
-  }
-
-  disconnectedCallback() {
-    this.removeEvent();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -58,8 +49,6 @@ class RestaurantAddModal extends HTMLElement {
       );
     });
   }
-
-  removeEvent() {}
 
   template() {
     return `

@@ -5,17 +5,6 @@ class RestaurantList extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
-    if (this.isConnected) {
-      this.render();
-      this.setEvent();
-    }
-  }
-
-  disconnectedCallback() {
-    this.removeEvent();
-  }
-
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
   }
@@ -23,10 +12,6 @@ class RestaurantList extends HTMLElement {
   render() {
     this.innerHTML = this.template(JSON.parse(this.getAttribute('restaurants')));
   }
-
-  setEvent() {}
-
-  removeEvent() {}
 
   template(restaurants) {
     return `

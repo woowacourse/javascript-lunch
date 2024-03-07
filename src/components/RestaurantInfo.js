@@ -1,3 +1,4 @@
+import Component from './Component';
 import koreanCategoryImg from '../assets/category-korean.png';
 import japaneseCategoryImg from '../assets/category-japanese.png';
 import chineseCategoryImg from '../assets/category-chinese.png';
@@ -5,22 +6,11 @@ import asianCategoryImg from '../assets/category-asian.png';
 import westernCategoryImg from '../assets/category-western.png';
 import etcCategoryImg from '../assets/category-etc.png';
 
-class RestaurantInfo extends HTMLElement {
+class RestaurantInfo extends Component {
   static observedAttributes = ['category', 'name', 'distance', 'description', 'reference'];
 
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    if (this.isConnected) {
-      this.render();
-      this.setEvent();
-    }
-  }
-
-  disconnectedCallback() {
-    this.removeEvent();
   }
 
   render() {
@@ -36,10 +26,6 @@ class RestaurantInfo extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
   }
-
-  setEvent() {}
-
-  removeEvent() {}
 
   displayCategoryIcon(category) {
     switch (category) {

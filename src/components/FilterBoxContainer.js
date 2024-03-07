@@ -1,26 +1,13 @@
-class FilterBoxContainer extends HTMLElement {
+import Component from './Component';
+
+class FilterBoxContainer extends Component {
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    if (this.isConnected) {
-      this.render();
-      this.setEvent();
-    }
-  }
-
-  disconnectedCallback() {
-    this.removeEvent();
   }
 
   render() {
     this.innerHTML = this.template();
   }
-
-  setEvent() {}
-
-  removeEvent() {}
 
   template() {
     return `

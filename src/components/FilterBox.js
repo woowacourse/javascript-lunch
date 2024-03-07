@@ -1,19 +1,10 @@
-class FilterBox extends HTMLElement {
+import Component from './Component';
+
+class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];
 
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    if (this.isConnected) {
-      this.render();
-      this.setEvent();
-    }
-  }
-
-  disconnectedCallback() {
-    this.removeEvent();
   }
 
   render() {
@@ -36,8 +27,6 @@ class FilterBox extends HTMLElement {
       );
     });
   }
-
-  removeEvent() {}
 
   template(type, option) {
     return `

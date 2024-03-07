@@ -1,19 +1,9 @@
 import addButtonImg from '../assets/add-button.png';
+import Component from './Component';
 
-class CustomHeader extends HTMLElement {
+class CustomHeader extends Component {
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    if (this.isConnected) {
-      this.render();
-      this.setEvent();
-    }
-  }
-
-  disconnectedCallback() {
-    this.removeEvent();
   }
 
   render() {
@@ -29,8 +19,6 @@ class CustomHeader extends HTMLElement {
       );
     });
   }
-
-  removeEvent() {}
 
   template() {
     return `
