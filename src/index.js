@@ -45,3 +45,20 @@ const $closeButton = document.querySelector('#button-close');
 $closeButton.addEventListener('click', () => {
   $modal.classList.remove('modal--open');
 });
+
+// 추가하기 버튼 클릭 시 form submit 이벤트
+const $restaurantForm = document.querySelector('form');
+$restaurantForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const category = $restaurantForm.elements.category.value;
+  const name = $restaurantForm.elements.name.value;
+  const distance = $restaurantForm.elements.distance.value;
+  const description = $restaurantForm.elements.description.value;
+  const link = $restaurantForm.elements.link.value;
+  const restaurantInformation = new Restaurant({ category, name, distance, description, link });
+
+  restaurantList.add(restaurantInformation);
+  const lastElement = restaurantList.restaurants[restaurantList.restaurants.length - 1];
+  $restaurantList.insertAdjacentHTML('beforeend', RestaurantComponent(lastElement.information));
+  $modal.classList.remove('modal--open');
+});
