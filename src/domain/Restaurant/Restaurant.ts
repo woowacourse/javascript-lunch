@@ -3,43 +3,63 @@ import { SortCategory } from "../../components/SortDropdown/SortDropdown.type";
 import RestaurantStore from "../../stores/RestaurantStore";
 import { MenuCategory, RestaurantDetail } from "./Restaurant.type";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
+
 class Restaurant {
-  private restaurants: RestaurantDetail[] = RestaurantStore.get();
+  private currentCategory = MENU_CATEGORIES.all;
+
+  private sortType: SortCategory = SortDropdown.SORT_CATEGORIES_TYPE.name;
+
+  private restaurants: RestaurantDetail[] = this.getSortedRestaurants(
+    MENU_CATEGORIES.all,
+    SortDropdown.SORT_CATEGORIES_TYPE.name
+  );
+
+  private getSortedRestaurants(
+    category: MenuCategory,
+    sortType: SortCategory
+  ): RestaurantDetail[] {
+    return RestaurantStore.get()
+      .filter(
+        (restaurantDetail: RestaurantDetail) =>
+          category === MENU_CATEGORIES.all ||
+          restaurantDetail.category === category
+      )
+      .sort(
+        sortType === SortDropdown.SORT_CATEGORIES_TYPE.name
+          ? (a: RestaurantDetail, b: RestaurantDetail) =>
+              a.name.localeCompare(b.name)
+          : (a: RestaurantDetail, b: RestaurantDetail) =>
+              a.distance - b.distance
+      );
+  }
 
   public getRestaurants() {
     return this.restaurants;
   }
 
-  public updateRestaurants() {
-    this.restaurants = RestaurantStore.get();
+  public updateRestaurants(sortType: SortCategory) {
+    this.restaurants = this.getSortedRestaurants(
+      this.currentCategory,
+      sortType
+    );
   }
 
   public addRestaurant(restaurantDetail: RestaurantDetail) {
     RestaurantStore.set(restaurantDetail);
+
+    this.updateRestaurants(this.sortType);
   }
 
   public sortRestaurants(sortType: SortCategory) {
-    if (sortType === SortDropdown.SORT_CATEGORIES_TYPE.distance) {
-      this.restaurants = this.restaurants.sort(
-        (a, b) => a["distance"] - b["distance"]
-      );
-    }
+    this.sortType = sortType;
 
-    if (sortType === SortDropdown.SORT_CATEGORIES_TYPE.name) {
-      this.restaurants = this.restaurants.sort((a, b) =>
-        a["name"].localeCompare(b["name"])
-      );
-    }
+    this.updateRestaurants(sortType);
   }
 
-  public filterRestaurants(filterType: MenuCategory) {
-    this.updateRestaurants();
+  public filterRestaurants(filterType: MenuCategory, sortType: SortCategory) {
+    this.currentCategory = filterType;
 
-    if (filterType === MENU_CATEGORIES.all) return;
-
-    this.restaurants = this.restaurants.filter(
-      (restaurant) => restaurant.category === filterType
-    );
+    this.updateRestaurants(sortType);
   }
 }
 

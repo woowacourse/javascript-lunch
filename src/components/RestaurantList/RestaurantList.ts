@@ -6,9 +6,13 @@ import RestaurantItem from "../RestaurantItem/RestaurantItem";
 
 import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { SortCategory } from "../SortDropdown/SortDropdown.type";
+import SortDropdown from "../SortDropdown/SortDropdown";
 
 class RestaurantList extends BaseComponent {
   private restaurant = new Restaurant();
+
+  private sortType: SortCategory = SortDropdown.SORT_CATEGORIES_TYPE.name;
 
   private eventListeners = {
     addRestaurant: {
@@ -62,7 +66,7 @@ class RestaurantList extends BaseComponent {
   }
 
   private handleRerenderRestaurantList() {
-    this.restaurant.updateRestaurants();
+    this.restaurant.updateRestaurants(this.sortType);
 
     this.connectedCallback();
   }
@@ -70,6 +74,8 @@ class RestaurantList extends BaseComponent {
   private handleSortRestaurantItems(event: Event) {
     if (event instanceof CustomEvent) {
       const sortType = event.detail;
+
+      this.sortType = sortType;
 
       this.restaurant.sortRestaurants(sortType);
 
