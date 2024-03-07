@@ -1,6 +1,5 @@
 import Component from './Component';
 import { OPTION } from '../constants/Condition';
-import { $, $setAttribute } from '../utils/dom';
 
 class FilterBoxContainer extends Component {
   constructor() {

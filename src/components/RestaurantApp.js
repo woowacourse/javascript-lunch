@@ -1,6 +1,6 @@
 import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
-import { $, $setAttribute, $getAttribute } from '../utils/dom';
+import { $, $setAttribute } from '../utils/dom';
 
 class RestaurantApp extends Component {
   #restaurants;
@@ -16,11 +16,8 @@ class RestaurantApp extends Component {
 
   setEvent() {
     this.addEventListener('selectChange', () => this.#generateRestaurants());
-
     this.addEventListener('gnbButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'true'));
-
     this.addEventListener('cancelButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'false'));
-
     this.addEventListener('submitButtonClick', (event) => {
       this.#updateRestaurants(event.detail);
       $setAttribute('restaurant-add-modal', 'open', 'false');

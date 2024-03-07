@@ -18,9 +18,8 @@ class RestaurantInfo extends Component {
     const name = this.getAttribute('name');
     const distance = this.getAttribute('distance');
     const description = this.getAttribute('description');
-    const reference = this.getAttribute('reference');
 
-    this.innerHTML = this.template(category, name, distance, description, reference);
+    this.innerHTML = this.template(category, name, distance, description);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -46,7 +45,7 @@ class RestaurantInfo extends Component {
     }
   }
 
-  template(category, name, distance, description, reference) {
+  template(category, name, distance, description) {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
