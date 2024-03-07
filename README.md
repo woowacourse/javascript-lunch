@@ -22,7 +22,7 @@
 ### utils
 
 - [ ] fetchLocalData: 로컬 데이터를 서비스에 제공하는 함수.
-- [ ] $, $$: DOM 요소 선택 함수
+- [x] $, $$: DOM 요소 선택 함수
 
 ### service
 
