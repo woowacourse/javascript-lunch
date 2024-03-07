@@ -47,7 +47,7 @@
 3. Filter Container
 4. Modal
 5. RestuarantList
-6. Restuarant
+6. RestuarantItem
 7. Footer
 
 음식점(Restaurant)

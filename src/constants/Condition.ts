@@ -21,4 +21,5 @@ export const CATEGORIES_WITH_ALL: { [key: string]: string } = {
 };
 
 export const CATEGORIES_WITH_ALL_KEYS = Object.keys(CATEGORIES_WITH_ALL);
+export const CATEGORIES_KEYS = Object.keys(CATEGORIES);
 export const SORT_CRITERION_KEYS = Object.keys(CONDITIONS.SORT_CRITERION);
