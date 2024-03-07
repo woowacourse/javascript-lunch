@@ -1,5 +1,5 @@
 import { filterBarTemplate, sortBarTemplate } from "./template";
-import { Icategory } from "../../types";
+import { Icategory, IsortType } from "../../types";
 
 import RestaurantListStorageService from "../../services/restaurantListStorageService";
 import restaurantListHelper from "../../domain/RestaurantListHelper";
@@ -20,10 +20,11 @@ function FilterBar() {
       mainContainer.appendChild(main);
     }
 
-    filterBarHandler();
+    filterCategoryHandler();
+    sortListHandler();
   };
 
-  const filterBarHandler = () => {
+  const filterCategoryHandler = () => {
     document.addEventListener("DOMContentLoaded", () => {
       const categoryFilter = document.getElementById("category-filter");
       if (categoryFilter) {
@@ -35,6 +36,29 @@ function FilterBar() {
               selectedValue,
               restaurantList,
             );
+            console.log(filterData);
+            RestaurantList(filterData).render();
+          }
+        });
+      }
+    });
+  };
+
+  const sortListHandler = () => {
+    document.addEventListener("DOMContentLoaded", () => {
+      const sortFilter = document.getElementById("sorting-filter");
+      if (sortFilter) {
+        sortFilter.addEventListener("change", (event) => {
+          if (event.target instanceof HTMLSelectElement) {
+            const selectedValue = event.target.value as IsortType;
+
+            const restaurantList = RestaurantListStorageService.getData();
+
+            const filterData = restaurantListHelper.sortBySelectedValue(
+              selectedValue,
+              restaurantList,
+            );
+
             console.log(filterData);
             RestaurantList(filterData).render();
           }
