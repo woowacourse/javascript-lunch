@@ -9,7 +9,7 @@ export interface IRestaurantManager {
 }
 
 export class RestaurantManager implements IRestaurantManager {
-  private restaurants: IRestaurant[] = [];
+  private restaurants: IRestaurant[];
 
   constructor(restaurants: IRestaurant[] = []) {
     this.restaurants = restaurants;
@@ -23,6 +23,7 @@ export class RestaurantManager implements IRestaurantManager {
       throw new Error("[ERROR]");
     }
     this.restaurants.push(newRestaurant);
+    localStorage.setItem("restaurants", JSON.stringify(this.restaurants));
   }
 
   getRestaurants(): IRestaurant[] {
@@ -39,8 +40,11 @@ export class RestaurantManager implements IRestaurantManager {
 
   sortByAscendingWalkingTime(): IRestaurant[] {
     return [...this.restaurants].sort((a, b) => {
-      if (a.walkingTime < b.walkingTime) return -1;
-      if (a.walkingTime > b.walkingTime) return 1;
+      const aTime = Number(a.walkingTime);
+      const bTime = Number(b.walkingTime);
+
+      if (aTime < bTime) return -1;
+      if (aTime > bTime) return 1;
 
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
