@@ -1,12 +1,9 @@
-function createButton({ type, name, parent, callback, classNames }) {
-  const button = render({ type, classNames, name });
-  if(!parent) return button;
-  
-  $(parent).innerHTML += button;
+function createButton({ type, name, callback, className, eventType }) {
+  const button = render({ type, className, name });
 
-  if(!callback) return button;
-  
-  button.addEventListener(type, (event) => {
+  if (!callback) return button;
+
+  button.addEventListener(eventType, (event) => {
     event.preventDefault();
     callback();
   });
@@ -14,12 +11,12 @@ function createButton({ type, name, parent, callback, classNames }) {
   return button;
 }
 
-function render({ type, classNames, name }) {
-  const button = document.createElement("button");
-  button.type = type;
-  button.className = classNames.join(" ");
+function render({ type, className, name }) {
+  const button = document.createElement('button');
+  button.type = type ? type : 'button';
+  button.className = className;
   button.textContent = name;
 
   return button;
 }
-
+export default createButton;
