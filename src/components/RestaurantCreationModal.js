@@ -1,3 +1,4 @@
+import { $ } from '../utils/dom';
 import Restaurant from './Restaurant';
 
 export default class RestaurantCreationModal {
@@ -13,7 +14,7 @@ export default class RestaurantCreationModal {
     <div id="modal-backdrop" class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form>
+      <form id="restaurant-input-form">
 
         <!-- 카테고리 -->
         <div class="form-item form-item--required">
@@ -77,7 +78,7 @@ export default class RestaurantCreationModal {
 
     main.addEventListener('click', (event) => {
       if (event.target.id === 'cancel-button' || event.target.id === 'modal-backdrop') {
-        document.getElementById('restaurant-creation-modal').classList.remove('modal--open');
+        $('restaurant-creation-modal').classList.remove('modal--open');
       }
     });
 
@@ -85,32 +86,22 @@ export default class RestaurantCreationModal {
       event.preventDefault();
 
       if (event.target.id === 'add-button') {
-        const selectedCategory =
-          document.getElementById('category').options[category.selectedIndex].value;
+        const inputData = this.getInputData();
+        this.restaurants.addRestaurant(inputData);
+        $('restaurant-creation-modal').classList.remove('modal--open');
 
-        const name = document.getElementById('name').value;
-
-        const selectedDistance =
-          document.getElementById('distance').options[distance.selectedIndex].value;
-
-        const description = document.getElementById('description').value;
-
-        const result = {
-          category: selectedCategory,
-          name,
-          walkingTimeFromCampus: selectedDistance,
-          description,
-        };
-
-        this.restaurants.addRestaurant(result);
-        document.getElementById('restaurant-creation-modal').classList.remove('modal--open');
-
-        document.querySelector('#restaurant-list').innerHTML =
-          this.restaurants.getStorageData.reduce(
-            (acc, current) => acc + new Restaurant().render(current),
-            '',
-          );
+        $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
+        $('restaurant-input-form').reset();
       }
     });
+  }
+
+  getInputData() {
+    const category = $('category').options[$('category').selectedIndex].value;
+    const name = $('name').value;
+    const walkingTimeFromCampus = $('distance').options[$('distance').selectedIndex].value;
+    const description = $('description').value;
+
+    return { category, name, walkingTimeFromCampus, description };
   }
 }
