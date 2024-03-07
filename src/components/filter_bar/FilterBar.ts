@@ -34,10 +34,7 @@ function FilterBar() {
             const selectedValue = event.target.value as Icategory;
             filterState.setFilterType(selectedValue);
 
-            const filterData = RestaurantListStorageService.getfilteredData();
-
-            console.log(filterData);
-            RestaurantList(filterData).render();
+            RestaurantList().reRender();
           }
         });
       }
@@ -53,10 +50,7 @@ function FilterBar() {
             const selectedValue = event.target.value as IsortType;
             filterState.setSortType(selectedValue);
 
-            const filterData = RestaurantListStorageService.getfilteredData();
-
-            console.log(filterData);
-            RestaurantList(filterData).render();
+            RestaurantList().reRender();
           }
         });
       }

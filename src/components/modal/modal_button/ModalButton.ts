@@ -1,4 +1,7 @@
 import { modalButtonTemplate } from "./template";
+import restaurantStateStore from "../../../store/RestaurantStateStore";
+import RestaurantListStorageService from "../../../services/restaurantListStorageService";
+import RestaurantList from "../../restaurant_list/RestaurantList";
 
 function ModalButton() {
   const render = (modal: HTMLElement, form: Element) => {
@@ -13,8 +16,11 @@ function ModalButton() {
 
     submitButton.addEventListener("click", (event) => {
       event.preventDefault();
+      const restaurantInfo = restaurantStateStore.getRestaurantInfo();
       modal.classList.remove("modal--open");
-      console.log("submit");
+      RestaurantListStorageService.setData(restaurantInfo);
+
+      RestaurantList().reRender();
     });
   };
 
