@@ -1,7 +1,7 @@
 export type ICategory = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type IDistanceFromCampus = 5 | 10 | 15 | 20 | 30;
 
-const DISTANCE_FROM_CAMPUS: readonly IDistanceFromCampus[] = Object.freeze([5, 10, 15, 20, 30]);
+export const DISTANCE_FROM_CAMPUS: readonly IDistanceFromCampus[] = Object.freeze([5, 10, 15, 20, 30]);
 
 export const RESTAURANT_CATEGORY: readonly ICategory[] = Object.freeze([
   '한식',
@@ -30,15 +30,15 @@ class Restaurant {
 
   #validateRestaurantType(obj: IRestaurantInfo) {
     if (!RESTAURANT_CATEGORY.includes(obj.category)) {
-      throw new Error('❌');
+      throw new Error('❌ 1');
     }
 
     if (typeof obj.name !== 'string') {
-      throw new Error('❌');
+      throw new Error('❌ 2');
     }
 
     if (!DISTANCE_FROM_CAMPUS.includes(obj.distanceFromCampus)) {
-      throw new Error('❌');
+      throw new Error('❌ 3');
     }
   }
 
