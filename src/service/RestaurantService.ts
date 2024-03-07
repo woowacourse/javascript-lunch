@@ -1,23 +1,25 @@
+import { MinutesWalk } from './../constants/Type';
 import Restaurant from '../domain/Restaurant';
+import defaultRestaurant from '../data/defaultRestaurants.json';
 import { Category } from '../constants/Type';
 import { IRestaurant } from '../interface/Interface';
 
-const testData: IRestaurant[] = [
-  {
-    name: '하동관',
-    category: '한식',
-    minutesWalk: 5,
-    description: '곰탕 유명',
-    referenceUrl: 'https://naver.com',
-  },
-  {
-    name: '마담밍',
-    category: '중식',
-    minutesWalk: 5,
-    description: '중국냉면 유명',
-    referenceUrl: 'https://woowahan.com',
-  },
-];
+// const testData: IRestaurant[] = [
+//   {
+//     name: '하동관',
+//     category: '한식',
+//     minutesWalk: 5,
+//     description: '곰탕 유명',
+//     referenceUrl: 'https://naver.com',
+//   },
+//   {
+//     name: '마담밍',
+//     category: '중식',
+//     minutesWalk: 5,
+//     description: '중국냉면 유명',
+//     referenceUrl: 'https://woowahan.com',
+//   },
+// ];
 
 type SortType = '이름순' | '거리순';
 type CompareFunction = (a: Restaurant, b: Restaurant) => number;
@@ -26,27 +28,19 @@ class RestaurantService {
   private restaurants: Restaurant[];
 
   constructor() {
-    const restaurants = this.loadRestaurants();
-    this.restaurants = restaurants ?? testData.map((item) => new Restaurant(item));
+    this.restaurants = this.loadRestaurants();
+    this.saveRestaurants(this.restaurants);
   }
 
-  // getRestaurantListObject(): object[] {
-  //   const restaurantList = this.restaurants.map((restaurant) => restaurant.getData());
-  //   return restaurantList;
-  // }
-
-  // getRestaurantListByCategoryObject(categoryText: Category): object[] {
-  //   const restaurantListByCategory = this.restaurants
-  //     .filter((restaurant) => restaurant.isMatchedCategory(categoryText))
-  //     .map((restaurant) => restaurant.getData());
-  //   return restaurantListByCategory;
-  // }
-
-  getRestaurants(category: Category, sortType: SortType): IRestaurant[] {
-    const restaurantsByCategory = this.restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
+  getRestaurants(sortType: SortType, category?: Category): IRestaurant[] {
+    const restaurants = category ? this.getRestaurantsByCategory(category) : this.restaurants;
     const compareFunction = this.getCompareFunction(sortType);
-    const sortedRestaurantsByCategory = this.getSortedRestaurants(restaurantsByCategory, compareFunction);
-    return sortedRestaurantsByCategory.map((restaurant) => restaurant.getData());
+    const sortedRestaurants = this.getSortedRestaurants(restaurants, compareFunction);
+    return sortedRestaurants.map((restaurant) => restaurant.getData());
+  }
+
+  private getRestaurantsByCategory(category: Category) {
+    return this.restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
   }
 
   private getCompareFunction(sortType: SortType): CompareFunction {
@@ -69,25 +63,29 @@ class RestaurantService {
     return a.getMinutesWalk() - b.getMinutesWalk();
   }
 
-  addNewRestaurant(event) {
-    // TODO: 함수 시행 시점 정하기, customevent 추가하기
-    const restaurantData: IRestaurant = event.detail;
-    const newRestaurant: Restaurant = new Restaurant(restaurantData);
-    this.restaurants = [...this.restaurants, newRestaurant];
-    this.saveRestaurants([...this.restaurants]);
-  }
-
   saveRestaurants(restaurants: Restaurant[]) {
     // TODO: 함수 시행 시점 정하기
     localStorage.setItem('restaurants', JSON.stringify(restaurants));
   }
 
-  loadRestaurants(): Restaurant[] | null {
+  loadRestaurants(): Restaurant[] {
     const restaurants = localStorage.getItem('restaurants');
     if (restaurants) {
       return JSON.parse(restaurants);
     }
-    return null; // TODO: 데이터 없으면 error 반환
+    const defaultData = defaultRestaurant.map((restaurant) => {
+      const restaurantObject: IRestaurant = {
+        name: restaurant.name,
+        category: restaurant.category as Category,
+        minutesWalk: restaurant.minutesWalk as MinutesWalk,
+        description: restaurant.description,
+        referenceUrl: restaurant.referenceUrl,
+      };
+      return restaurantObject;
+    });
+
+    return defaultData.map((object: IRestaurant) => new Restaurant(object));
+    // TODO: 데이터 없으면 defaultData fetch
   }
 }
 
