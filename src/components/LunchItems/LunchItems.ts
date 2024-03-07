@@ -3,7 +3,7 @@ import '../LunchItem/LunchItem';
 
 import { RestaurantDataProvider } from '../../domain/index';
 
-import { Restaurant, Restaurants } from '../../types/index';
+import { Category, Restaurant, Restaurants } from '../../types/index';
 
 const LUNCH_ITEMS = `
 <section class="restaurant-list-container">
@@ -37,7 +37,8 @@ class LunchItems extends HTMLElement {
   }
 
   getRestaurants(): Restaurants {
-    return RestaurantDataProvider.execute({ category: '양식', sortBy: '최신순' });
+    const prop: Category | undefined = undefined;
+    return RestaurantDataProvider.execute({ category: prop, sortBy: '최신순' });
   }
 }
 
