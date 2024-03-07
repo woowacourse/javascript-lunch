@@ -1,4 +1,5 @@
 import Component from './Component';
+import { $ } from '../utils/dom';
 
 class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];
@@ -19,7 +20,7 @@ class FilterBox extends Component {
   }
 
   setEvent() {
-    this.querySelector('select').addEventListener('change', (event) => {
+    $('select').addEventListener('change', (event) => {
       this.dispatchEvent(
         new CustomEvent('selectChange', {
           bubbles: true,

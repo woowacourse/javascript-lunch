@@ -1,4 +1,5 @@
 import Component from './Component';
+import { $ } from '../utils/dom';
 
 class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];
@@ -11,9 +12,9 @@ class RestaurantAddModal extends Component {
     this.render();
 
     if (JSON.parse(newValue)) {
-      this.querySelector('.modal').classList.add('modal--open');
+      $('.modal').classList.add('modal--open');
     } else {
-      this.querySelector('.modal').classList.remove('modal--open');
+      $('.modal').classList.remove('modal--open');
     }
 
     this.setEvent();
@@ -24,14 +25,14 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    this.querySelector('.button--primary').addEventListener('click', (event) => {
+    $('.button--primary').addEventListener('click', (event) => {
       event.preventDefault();
 
-      const category = this.querySelector('.modal-category').value;
-      const name = this.querySelector('.modal-restaurant-name').value;
-      const distance = Number(this.querySelector('.modal-distance').value.replace('분내', ''));
-      const description = this.querySelector('.modal-description').value;
-      const reference = this.querySelector('.modal-reference').value;
+      const category = $('.modal-category').value;
+      const name = $('.modal-restaurant-name').value;
+      const distance = Number($('.modal-distance').value.replace('분내', ''));
+      const description = $('.modal-description').value;
+      const reference = $('.modal-reference').value;
 
       this.dispatchEvent(
         new CustomEvent('submitButtonClick', {
@@ -41,7 +42,7 @@ class RestaurantAddModal extends Component {
       );
     });
 
-    this.querySelector('.button--secondary').addEventListener('click', () => {
+    $('.button--secondary').addEventListener('click', () => {
       this.dispatchEvent(
         new CustomEvent('cancelButtonClick', {
           bubbles: true,

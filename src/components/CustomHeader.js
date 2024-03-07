@@ -1,5 +1,6 @@
-import addButtonImg from '../assets/add-button.png';
 import Component from './Component';
+import { $ } from '../utils/dom';
+import addButtonImg from '../assets/add-button.png';
 
 class CustomHeader extends Component {
   constructor() {
@@ -11,7 +12,7 @@ class CustomHeader extends Component {
   }
 
   setEvent() {
-    this.querySelector('.gnb__button').addEventListener('click', () => {
+    $('.gnb__button').addEventListener('click', () => {
       this.dispatchEvent(
         new CustomEvent('gnbButtonClick', {
           bubbles: true,

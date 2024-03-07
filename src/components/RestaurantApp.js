@@ -1,5 +1,6 @@
 import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
+import { $, $setAttribute, $getAttribute } from '../utils/dom';
 
 class RestaurantApp extends Component {
   #restaurants;
@@ -14,38 +15,37 @@ class RestaurantApp extends Component {
   }
 
   setEvent() {
-    this.querySelector('restaurant-list').setAttribute('restaurants', `${JSON.stringify(this.#restaurants)}`);
-    this.querySelector('restaurant-add-modal').setAttribute('open', 'false');
+    $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
+    $setAttribute('restaurant-add-modal', 'open', 'false');
 
     this.addEventListener('selectChange', () => {
       this.#generateRestaurantsBySelection();
     });
 
     this.addEventListener('gnbButtonClick', () => {
-      this.querySelector('restaurant-add-modal').setAttribute('open', 'true');
+      $setAttribute('restaurant-add-modal', 'open', 'true');
     });
 
     this.addEventListener('submitButtonClick', (event) => {
       RestaurantRepository.addRestaurant(event.detail);
 
       this.#restaurants = this.#generateRestaurantsBySelection();
-
-      this.querySelector('restaurant-list').setAttribute('restaurants', `${JSON.stringify(this.#restaurants)}`);
-      this.querySelector('restaurant-add-modal').setAttribute('open', 'false');
+      $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
+      $setAttribute('restaurant-add-modal', 'open', 'false');
     });
 
     this.addEventListener('cancelButtonClick', () => {
-      this.querySelector('restaurant-add-modal').setAttribute('open', 'false');
+      $setAttribute('restaurant-add-modal', 'open', 'false');
     });
   }
 
   #generateRestaurantsBySelection() {
-    const category = this.querySelector('.category').value;
-    const sorting = this.querySelector('.sorting').value;
+    const category = $('.category').value;
+    const sorting = $('.sorting').value;
 
     this.#restaurants = RestaurantRepository.transformRestaurants(category, sorting);
 
-    this.querySelector('restaurant-list').setAttribute('restaurants', `${JSON.stringify(this.#restaurants)}`);
+    $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
   }
 
   template() {
