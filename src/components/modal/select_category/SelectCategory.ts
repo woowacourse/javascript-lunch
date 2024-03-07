@@ -1,39 +1,15 @@
 import { selectCategoryTemplate } from "./template";
-import { Icategory } from "../../../types";
-import restaurantStateStore from "../../../store/RestaurantStateStore";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import { categoryChange } from "./handlers";
 
-function SelectCategory() {
-  const render = (form: Element) => {
+function SelectCategory(form: Element) {
+  const render = () => {
     form.appendChild(convertHTMLStringToDOM(selectCategoryTemplate));
 
     categoryChange();
   };
 
-  const categoryChange = () => {
-    document.addEventListener("DOMContentLoaded", () => {
-      const select = document.getElementById("category");
-
-      if (select) {
-        selectEventHandler(select);
-      }
-    });
-  };
-
-  const selectEventHandler = (select: HTMLElement) => {
-    select.addEventListener("change", (event) => {
-      if (event.target instanceof HTMLSelectElement) {
-        const selectedValue = event.target.value;
-        removeHTMLElementByClassName("invalid_category");
-        restaurantStateStore.setCategory(selectedValue as Icategory);
-      }
-    });
-  };
-
-  return {
-    render,
-  };
+  render();
 }
 
 export default SelectCategory;

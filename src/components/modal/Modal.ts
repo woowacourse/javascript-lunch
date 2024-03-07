@@ -6,6 +6,7 @@ import SelectDistance from "./select_distance/SelectDistance";
 import InputDescription from "./input_description/InputDescription";
 import InputLink from "./input_link/InputLink";
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
+import { dimmerClickHandler } from "./handlers";
 
 function Modal() {
   const render = () => {
@@ -30,15 +31,6 @@ function Modal() {
     SelectDistance(form);
     InputDescription(form);
     InputLink(form);
-  };
-
-  const dimmerClickHandler = (modal: Element) => {
-    const dimmer = document.getElementsByClassName("modal-backdrop")[0];
-
-    dimmer.addEventListener("click", () => {
-      console.log("dimmer");
-      modal.classList.remove("modal--open");
-    });
   };
 
   render();

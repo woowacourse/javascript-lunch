@@ -1,7 +1,6 @@
 import { inputDescriptionTemplate } from "./template";
-import restaurantStateStore from "../../../store/RestaurantStateStore";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import { descriptionEventHandler } from "./handlers";
 
 function InputDescription(form: Element) {
   const render = () => {
@@ -16,16 +15,6 @@ function InputDescription(form: Element) {
 
       if (description) {
         descriptionEventHandler(description);
-      }
-    });
-  };
-
-  const descriptionEventHandler = (description: HTMLElement) => {
-    description.addEventListener("input", (event) => {
-      if (event.target instanceof HTMLTextAreaElement) {
-        const inputDescription = event.target.value;
-        removeHTMLElementByClassName("invalid_description");
-        restaurantStateStore.setDescription(inputDescription);
       }
     });
   };
