@@ -8,7 +8,8 @@ const RestaurantService: Restaurants = {
     if (existingRestaurant) {
       return false;
     }
-    localStorage.setItem('restaurantList', JSON.stringify(restaurant));
+    restaurantList.push(restaurant);
+    localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
     return true;
   },
 
