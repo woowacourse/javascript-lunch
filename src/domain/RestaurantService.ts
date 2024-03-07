@@ -1,4 +1,4 @@
-import { Category, SortingProperty, Restaurant, Restaurants } from '../interface/RestaurantInterfaces';
+import { FilteringCategory, SortingProperty, Restaurant, Restaurants } from '../interface/RestaurantInterfaces';
 
 const RestaurantService: Restaurants = {
   addRestaurant(restaurant: Restaurant, restaurantList: Restaurant[]): boolean {
@@ -8,11 +8,12 @@ const RestaurantService: Restaurants = {
     if (existingRestaurant) {
       return false;
     }
-    localStorage.push('restaurantList');
+    localStorage.setItem('restaurantList', JSON.stringify(restaurant));
     return true;
   },
 
-  filterByCategory(category: Category, restaurantList: Restaurant[]): Restaurant[] {
+  filterByCategory(category: FilteringCategory, restaurantList: Restaurant[]): Restaurant[] {
+    if (category === '전체') return restaurantList;
     return restaurantList.filter(restaurant => restaurant.category === category);
   },
 
