@@ -1,12 +1,13 @@
-export default class Select {
-  #data;
+import { $ } from '../utils/dom';
+import Restaurant from './Restaurant';
 
-  constructor(data) {
-    this.#data = data;
+export default class Select {
+  constructor(restaurants) {
+    this.restaurants = restaurants;
+    this.addEvent();
   }
 
-  render() {
-    const { id, name, options } = this.#data;
+  render({ id, name, options }) {
     const select = document.createElement('select');
     select.setAttribute('id', id);
     select.setAttribute('name', name);
@@ -22,5 +23,23 @@ export default class Select {
     });
 
     return select;
+  }
+
+  addEvent() {
+    const targetIds = ['sorting-filter', 'category-filter'];
+
+    $('main').addEventListener('change', ({ target }) => {
+      if (targetIds.some((id) => target.id === id)) {
+        const selectedValue = target.options[target.selectedIndex].value;
+        this.restaurants.setStandard = { id: target.id, standard: selectedValue };
+      }
+
+      document.getElementById('restaurant-list').innerHTML = '';
+      this.restaurants.standardList.forEach((restaurantData) => {
+        document.getElementById('restaurant-list').innerHTML += new Restaurant().render(
+          restaurantData,
+        );
+      });
+    });
   }
 }
