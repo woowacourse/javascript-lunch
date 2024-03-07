@@ -15,31 +15,29 @@ class RestaurantApp extends Component {
   }
 
   setEvent() {
-    $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
-    $setAttribute('restaurant-add-modal', 'open', 'false');
+    this.addEventListener('selectChange', () => this.#generateRestaurants());
 
-    this.addEventListener('selectChange', () => {
-      this.#generateRestaurantsBySelection();
-    });
+    this.addEventListener('gnbButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'true'));
 
-    this.addEventListener('gnbButtonClick', () => {
-      $setAttribute('restaurant-add-modal', 'open', 'true');
-    });
+    this.addEventListener('cancelButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'false'));
 
     this.addEventListener('submitButtonClick', (event) => {
-      RestaurantRepository.addRestaurant(event.detail);
-
-      this.#restaurants = this.#generateRestaurantsBySelection();
-      $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
-      $setAttribute('restaurant-add-modal', 'open', 'false');
-    });
-
-    this.addEventListener('cancelButtonClick', () => {
-      $setAttribute('restaurant-add-modal', 'open', 'false');
+      this.#updateRestaurants(event.detail);
+      this.initAttribute();
     });
   }
 
-  #generateRestaurantsBySelection() {
+  initAttribute() {
+    $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
+    $setAttribute('restaurant-add-modal', 'open', 'false');
+  }
+
+  #updateRestaurants(restaurant) {
+    RestaurantRepository.addRestaurant(restaurant);
+    this.#restaurants = this.#generateRestaurants();
+  }
+
+  #generateRestaurants() {
     const category = $('.category').value;
     const sorting = $('.sorting').value;
 
