@@ -26,8 +26,6 @@ class Matzip implements MatzipInterface {
   }
 
   sort(sortBy: SortType, restaurants: Restaurant[]) {
-    console.log(sortBy);
-
     const SORT_BY = {
       name: this.sortByName,
       distance: this.sortByDistance,

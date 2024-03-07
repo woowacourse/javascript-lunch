@@ -6,6 +6,6 @@ import './components/ListContainer.ts';
 import './components/Modal.ts';
 import './components/Restaurant.ts';
 
-import matzipApp from './matzipApp';
+import root from './Root';
 
-matzipApp.init();
+root.init();

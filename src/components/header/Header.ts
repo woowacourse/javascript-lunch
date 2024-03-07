@@ -1,4 +1,7 @@
 import { AddButton } from '../../asset/img/index';
+import DOM from '../../utils/DOM';
+
+const { $ } = DOM;
 
 class Header extends HTMLElement {
   constructor() {
@@ -10,6 +13,14 @@ class Header extends HTMLElement {
         <img src="${AddButton}" alt="음식점 추가">
       </button>
     </header>`;
+
+    this.openModal();
+  }
+
+  openModal() {
+    $('.gnb__button')?.addEventListener('click', () => {
+      $('.modal')?.classList.add('modal--open');
+    });
   }
 }
 

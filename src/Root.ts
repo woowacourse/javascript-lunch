@@ -7,11 +7,10 @@ import storage from './storage';
 
 const { $, $$ } = DOM;
 
-const matzipApp = {
+const root = {
   init() {
     const matzip = new Matzip(storage.getData());
     this.initList(matzip);
-    this.openModal();
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
   },
@@ -73,12 +72,6 @@ const matzipApp = {
       $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
     });
   },
-
-  openModal() {
-    $('.gnb__button')?.addEventListener('click', () => {
-      $('.modal')?.classList.add('modal--open');
-    });
-  },
 };
 
-export default matzipApp;
+export default root;
