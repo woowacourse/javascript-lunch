@@ -1,8 +1,10 @@
 type Icategory = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
 
-type IAll = "전체";
+type Iall = "전체";
 
 type Idistance = 5 | 10 | 15 | 20 | 30;
+
+type IsortType = "name" | "distance";
 
 export interface Irestaurant {
   category: Icategory;
