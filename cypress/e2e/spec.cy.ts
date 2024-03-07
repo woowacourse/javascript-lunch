@@ -76,7 +76,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
       cy.get('.sorting').select('거리순');
 
       cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 반찬가게');
-      cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리네 김치찌개');
+      cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리네 짜장면');
     });
   });
 });
