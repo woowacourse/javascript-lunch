@@ -1,4 +1,4 @@
-function $(selector: string, target: Element | Document = document): Element | null {
+function $<E extends Element = Element>(selector: string, target: Element | Document = document): E | null {
   return target.querySelector(selector);
 }
 
