@@ -1,4 +1,5 @@
 import initialData from '../data/initialData.json';
+import { RestaurantsValidator } from '../validators';
 
 class Restaurants implements RestaurantsInterface {
   private storage;
@@ -23,9 +24,13 @@ class Restaurants implements RestaurantsInterface {
   }
 
   addRestaurant(restaurant: Restaurant) {
-    // TODO: 이 값이 있는지 없는지 -> set 고려
-
-    this.storage.setItem('restaurants', JSON.stringify(restaurant));
+    try {
+      const restaurantsNames = this.getStorageData.map(({ name }: Restaurant) => name);
+      RestaurantsValidator(restaurantsNames, restaurant.name);
+      this.storage.setItem('restaurants', JSON.stringify(restaurant));
+    } catch (error) {
+      console.log(this.handleCatchError(error));
+    }
   }
 
   orderByDistance() {
@@ -39,6 +44,10 @@ class Restaurants implements RestaurantsInterface {
     return this.getStorageData.toSorted((prev: Restaurant, next: Restaurant) =>
       prev.name.localeCompare(next.name),
     );
+  }
+
+  private handleCatchError(error: unknown) {
+    if (error instanceof Error) return error.message;
   }
 }
 
