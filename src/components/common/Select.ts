@@ -9,13 +9,14 @@ interface Option {
 export default class Select extends EventComponent {
   protected getTemplate(): string {
     const rawOptions = this.getAttribute("options");
-    const id = this.getAttribute("id") || "";
+    const selectId = this.getAttribute("select-id") || "";
     const className = this.getAttribute("class-name") || "";
+    const name = this.getAttribute("name") || "";
 
     const options = rawOptions ? (JSON.parse(rawOptions) as Option[]) : [];
 
     return `
-      <select id=${id} class=${className}>
+      <select id=${selectId} class=${className} name=${name}>
         ${options.map(
           ({ value, label }) => `<option value=${value}>${label}</option>`
         )}
@@ -28,20 +29,23 @@ export default class Select extends EventComponent {
     const selectedValue = select.value;
 
     this.dispatchEvent(
-      new CustomEvent(eventName, { detail: selectedValue, bubbles: true })
+      new CustomEvent(eventName, {
+        detail: { value: selectedValue },
+        bubbles: true,
+      })
     );
   }
 
   protected setEvent(): void {
     const eventName = this.getAttribute("event-name") || "";
-    const id = this.getAttribute("id") || "";
+    const selectId = this.getAttribute("select-id") || "";
 
-    $(`#${id}`)?.addEventListener("change", (e) =>
+    $(`#${selectId}`)?.addEventListener("change", (e) =>
       this.handleSelectChange(e, eventName)
     );
   }
 
   static get observedAttributes() {
-    return ["options", "event-name", "id", "class-name"];
+    return ["options", "event-name", "select-id", "class-name", "name"];
   }
 }

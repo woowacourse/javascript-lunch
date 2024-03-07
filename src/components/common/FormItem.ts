@@ -2,7 +2,7 @@ import BaseComponent from "../../abstract/BaseComponent";
 
 export default class FormItem extends BaseComponent {
   protected getTemplate(): string {
-    const id = this.getAttribute("id");
+    const labelFor = this.getAttribute("label-for");
     const title = this.getAttribute("title");
     const required = this.getAttribute("required");
     const helpText = this.getAttribute("help-text");
@@ -11,7 +11,7 @@ export default class FormItem extends BaseComponent {
 
     return `
       <div class="form-item${required ? " form-item--required" : ""}">
-        <label for="${id} text-caption">${title}</label>
+        <label for="${labelFor} text-caption">${title}</label>
         ${children}
         ${
           helpText
@@ -23,6 +23,6 @@ export default class FormItem extends BaseComponent {
   }
 
   static get observedAttributes() {
-    return ["title", "required", "help-text", "id"];
+    return ["title", "required", "help-text", "label-for"];
   }
 }

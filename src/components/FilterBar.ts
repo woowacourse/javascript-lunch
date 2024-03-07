@@ -11,17 +11,17 @@ export default class FilterBar extends BaseComponent {
     return `
     <section class="restaurant-filter-container">
       <select-box
-        id="category-select"
+        select-id="category-select"
         class-name="restaurant-filter" 
         options=${this.generateCategoryOptions()}
-        event-name=${FILTER_EVENT.categoryFilterChanged}
+        event-name=${FILTER_EVENT.categoryFilterChange}
       ></select-box>
 
       <select-box
-        id="sorting-filter"
+        select-id="sorting-filter"
         class-name="restaurant-filter"
         options=${this.generateSortingOptions()}
-        event-name=${FILTER_EVENT.sortFilterChanged}
+        event-name=${FILTER_EVENT.sortFilterChange}
       ></select-box>
     </section>
 `;
