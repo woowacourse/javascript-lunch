@@ -12,6 +12,7 @@ export default class LunchApp extends BaseComponent {
     return `
       <div>
         <restaurant-header></restaurant-header> 
+        <filter-bar></filter-bar>
         <restaruant-list></restaruant-list>
       </div>
       `;
