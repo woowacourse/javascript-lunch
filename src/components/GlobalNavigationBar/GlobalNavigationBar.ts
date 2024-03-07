@@ -9,7 +9,6 @@ import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.ty
 class GlobalNavigationBar extends BaseComponent {
   private eventListeners: CustomEventListenerDictionary = {
     gnbButtonClick: {
-      target: $(ELEMENT_SELECTOR.gnbButton),
       eventName: "click",
       eventHandler: this.handleOpenModal,
     },
@@ -27,7 +26,10 @@ class GlobalNavigationBar extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on(this.eventListeners.gnbButtonClick);
+    this.on({
+      ...this.eventListeners.gnbButtonClick,
+      target: $(ELEMENT_SELECTOR.gnbButton),
+    });
   }
 
   private handleOpenModal() {
@@ -35,7 +37,10 @@ class GlobalNavigationBar extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    this.off(this.eventListeners.gnbButtonClick);
+    this.off({
+      ...this.eventListeners.gnbButtonClick,
+      target: $(ELEMENT_SELECTOR.gnbButton),
+    });
   }
 }
 

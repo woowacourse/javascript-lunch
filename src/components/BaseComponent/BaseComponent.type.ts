@@ -10,5 +10,5 @@ export interface CustomEventListener {
 }
 
 export type CustomEventListenerDictionary = {
-  [key: string]: CustomEventListener;
+  [key: string]: Omit<CustomEventListener, "target">;
 };

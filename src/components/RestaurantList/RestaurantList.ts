@@ -8,27 +8,25 @@ import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { SortCategory } from "../SortDropdown/SortDropdown.type";
 import SortDropdown from "../SortDropdown/SortDropdown";
+import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 
 class RestaurantList extends BaseComponent {
   private restaurant = new Restaurant();
 
   private sortType: SortCategory = SortDropdown.SORT_CATEGORIES_TYPE.name;
 
-  private eventListeners = {
+  private eventListeners: CustomEventListenerDictionary = {
     addRestaurant: {
-      target: document,
       eventName: CUSTOM_EVENT_TYPE.addRestaurant,
       eventHandler: this.handleRerenderRestaurantList.bind(this),
     },
 
     sortChange: {
-      target: document,
       eventName: CUSTOM_EVENT_TYPE.sortChange,
       eventHandler: this.handleSortRestaurantItems.bind(this),
     },
 
     filterCategory: {
-      target: document,
       eventName: CUSTOM_EVENT_TYPE.filterCategory,
       eventHandler: this.handleFilterRestaurantItems.bind(this),
     },
@@ -58,11 +56,11 @@ class RestaurantList extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on(this.eventListeners.addRestaurant);
+    this.on({ ...this.eventListeners.addRestaurant, target: document });
 
-    this.on(this.eventListeners.sortChange);
+    this.on({ ...this.eventListeners.sortChange, target: document });
 
-    this.on(this.eventListeners.filterCategory);
+    this.on({ ...this.eventListeners.filterCategory, target: document });
   }
 
   private handleRerenderRestaurantList() {
@@ -94,11 +92,11 @@ class RestaurantList extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    this.off(this.eventListeners.addRestaurant);
+    this.off({ ...this.eventListeners.addRestaurant, target: document });
 
-    this.off(this.eventListeners.sortChange);
+    this.off({ ...this.eventListeners.sortChange, target: document });
 
-    this.off(this.eventListeners.filterCategory);
+    this.off({ ...this.eventListeners.filterCategory, target: document });
   }
 }
 

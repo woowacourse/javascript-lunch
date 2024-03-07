@@ -23,13 +23,11 @@ class RestaurantAddModal extends BaseComponent {
 
   private eventListeners: CustomEventListenerDictionary = {
     modalCancelButtonClick: {
-      target: $(ELEMENT_SELECTOR.modalCancelButton),
       eventName: "click",
       eventHandler: this.handleCancelButton.bind(this),
     },
 
     restaurantAddFormSubmit: {
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
       eventName: "submit",
       eventHandler: this.handleSubmitAddRestaurant.bind(this),
     },
@@ -64,7 +62,8 @@ class RestaurantAddModal extends BaseComponent {
                       RestaurantAddModal.DISTANCES_OPTIONS
                     ).replace(
                       OPTION_ELEMENT_REGEXP,
-                      (_, p1, p2) => `<option value=${p1}>${p2}분 내</option>`
+                      (_, value) =>
+                        `<option value=${value}>${value}분 내</option>`
                     )}
                     </select>
                 </div>
@@ -91,9 +90,15 @@ class RestaurantAddModal extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on(this.eventListeners.modalCancelButtonClick);
+    this.on({
+      ...this.eventListeners.modalCancelButtonClick,
+      target: $(ELEMENT_SELECTOR.modalCancelButton),
+    });
 
-    this.on(this.eventListeners.restaurantAddForm);
+    this.on({
+      ...this.eventListeners.restaurantAddFormSubmit,
+      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+    });
   }
 
   private handleCancelButton() {
@@ -156,9 +161,15 @@ class RestaurantAddModal extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    this.off(this.eventListeners.modalCancelButtonClick);
+    this.off({
+      ...this.eventListeners.modalCancelButtonClick,
+      target: $(ELEMENT_SELECTOR.modalCancelButton),
+    });
 
-    this.off(this.eventListeners.restaurantAddForm);
+    this.off({
+      ...this.eventListeners.restaurantAddFormSubmit,
+      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+    });
   }
 }
 

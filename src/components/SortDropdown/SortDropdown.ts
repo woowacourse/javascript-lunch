@@ -3,6 +3,7 @@ import { ELEMENT_SELECTOR } from "../../constants/selector";
 import { createOptionElements } from "../../utils/createOptionElements";
 import { $ } from "../../utils/dom";
 import BaseComponent from "../BaseComponent/BaseComponent";
+import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 
 import { SortCategory, SortKey } from "./SortDropdown.type";
 
@@ -10,6 +11,13 @@ class SortDropdown extends BaseComponent {
   static SORT_CATEGORIES_TYPE: Record<SortKey, SortCategory> = {
     name: "이름순",
     distance: "거리순",
+  };
+
+  private eventListeners: CustomEventListenerDictionary = {
+    sortingFilterChange: {
+      eventName: "change",
+      eventHandler: this.handleChangeSort.bind(this),
+    },
   };
 
   protected render(): void {
@@ -24,27 +32,25 @@ class SortDropdown extends BaseComponent {
 
   protected setEvent(): void {
     this.on({
+      ...this.eventListeners.sortingFilterChange,
       target: $(ELEMENT_SELECTOR.sortingFilter),
-      eventName: "change",
-      eventHandler: this.handleChangeSort.bind(this),
     });
   }
 
   private handleChangeSort(event: Event): void {
-    let selectedOption = "";
+    const targetElement = event?.target;
 
-    if (event?.target instanceof HTMLSelectElement) {
-      selectedOption = event.target.value;
+    if (targetElement instanceof HTMLSelectElement) {
+      const selectedOption = targetElement.value;
+
+      this.emit(CUSTOM_EVENT_TYPE.sortChange, selectedOption);
     }
-
-    this.emit(CUSTOM_EVENT_TYPE.sortChange, selectedOption);
   }
 
   protected removeEvent(): void {
-    this.off({
+    this.on({
+      ...this.eventListeners.sortingFilterChange,
       target: $(ELEMENT_SELECTOR.sortingFilter),
-      eventName: "change",
-      eventHandler: this.handleChangeSort.bind(this),
     });
   }
 }

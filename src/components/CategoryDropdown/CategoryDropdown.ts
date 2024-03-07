@@ -12,7 +12,6 @@ import { $ } from "../../utils/dom";
 class CategoryDropdown extends BaseComponent {
   private eventListeners: CustomEventListenerDictionary = {
     categoryFilter: {
-      target: $(ELEMENT_SELECTOR.categoryFilter),
       eventName: "change",
       eventHandler: this.handleChangeCategoryFilter.bind(this),
     },
@@ -27,7 +26,10 @@ class CategoryDropdown extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on(this.eventListeners.categoryFilter);
+    this.on({
+      ...this.eventListeners.categoryFilter,
+      target: $(ELEMENT_SELECTOR.categoryFilter),
+    });
   }
 
   private handleChangeCategoryFilter(event: Event) {
@@ -41,7 +43,10 @@ class CategoryDropdown extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    this.off(this.eventListeners.categoryFilter);
+    this.off({
+      ...this.eventListeners.categoryFilter,
+      target: $(ELEMENT_SELECTOR.categoryFilter),
+    });
   }
 }
 
