@@ -1,3 +1,3 @@
-type Sort = '이름순' | '거리순';
+type Sort = 'name' | 'distance';
 
 export default Sort;

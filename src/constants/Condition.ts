@@ -1,4 +1,5 @@
 const CATEGORY = {
+  whole: '전체',
   koreanFood: '한식',
   chineseFood: '중식',
   japaneseFood: '일식',

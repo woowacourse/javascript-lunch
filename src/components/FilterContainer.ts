@@ -1,14 +1,11 @@
-import Select from './select/Select';
-import { OptionProps } from './Option';
-import Condition from '../constants/Condition';
 import DOM from '../utils/DOM';
 
-const { CATEGORY } = Condition;
 const { $ } = DOM;
 
-export interface CategoryChangeEvent extends CustomEvent {
+export interface FilterChangeEvent extends CustomEvent {
   detail: {
     selectedCategory: string;
+    selectedSort: string;
   };
 }
 
@@ -37,16 +34,57 @@ class FilterContainer extends HTMLElement {
   }
 
   setEvent() {
-    const select = $('#category-filter') as HTMLSelectElement;
-    select?.addEventListener('change', () => {
-      const selectedValue = select.options[select.selectedIndex].value;
+    this.categoryChange();
+    this.sortChange();
+  }
 
-      const categoryChangeEvent = new CustomEvent('categoryChange', {
+  categoryChange() {
+    const categorySelect = $('#category-filter');
+    const sortSelect = $('#sorting-filter');
+
+    if (!(categorySelect instanceof HTMLSelectElement)) {
+      return;
+    }
+    if (!(sortSelect instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    categorySelect?.addEventListener('change', () => {
+      const selectedCategory = categorySelect.options[categorySelect.selectedIndex].value;
+      const selectedSort = sortSelect.options[sortSelect.selectedIndex].value;
+
+      const filterChangeEvent = new CustomEvent('filterChange', {
         detail: {
-          selectedCategory: selectedValue,
+          selectedCategory,
+          selectedSort,
         },
       });
-      document.dispatchEvent(categoryChangeEvent);
+      document.dispatchEvent(filterChangeEvent);
+    });
+  }
+
+  sortChange() {
+    const categorySelect = $('#category-filter');
+    const sortSelect = $('#sorting-filter');
+
+    if (!(categorySelect instanceof HTMLSelectElement)) {
+      return;
+    }
+    if (!(sortSelect instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    sortSelect?.addEventListener('change', () => {
+      const selectedCategory = categorySelect.options[categorySelect.selectedIndex].value;
+      const selectedSort = sortSelect.options[sortSelect.selectedIndex].value;
+
+      const filterChangeEvent = new CustomEvent('filterChange', {
+        detail: {
+          selectedCategory,
+          selectedSort,
+        },
+      });
+      document.dispatchEvent(filterChangeEvent);
     });
   }
 }
