@@ -42,7 +42,7 @@ class RestaurantService {
     return a.getMinutesWalk() - b.getMinutesWalk();
   }
 
-  addRestaurants(restaurant: IRestaurant) {
+  addRestaurant(restaurant: IRestaurant) {
     this.restaurants = [...this.restaurants, new Restaurant(restaurant)];
     this.saveRestaurants(this.restaurants);
   }
