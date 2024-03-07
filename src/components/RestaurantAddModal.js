@@ -10,13 +10,7 @@ class RestaurantAddModal extends Component {
 
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
-
-    if (JSON.parse(newValue)) {
-      $('.modal').classList.add('modal--open');
-    } else {
-      $('.modal').classList.remove('modal--open');
-    }
-
+    this.#updateModal(JSON.parse(newValue));
     this.setEvent();
   }
 
@@ -25,30 +19,34 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    $('.button--primary').addEventListener('click', (event) => {
-      event.preventDefault();
+    $('.button--primary').addEventListener('click', (event) => this.#onSubmit(event));
+    $('.button--secondary').addEventListener('click', () => this.#onCancel());
+  }
 
-      const category = $('.modal-category').value;
-      const name = $('.modal-restaurant-name').value;
-      const distance = Number($('.modal-distance').value.replace('분내', ''));
-      const description = $('.modal-description').value;
-      const reference = $('.modal-reference').value;
+  #updateModal(isOpen) {
+    if (isOpen) {
+      $('.modal').classList.add('modal--open');
+    } else {
+      $('.modal').classList.remove('modal--open');
+    }
+  }
 
-      this.dispatchEvent(
-        new CustomEvent('submitButtonClick', {
-          bubbles: true,
-          detail: { category, name, distance, description, reference },
-        }),
-      );
-    });
+  #onSubmit(event) {
+    event.preventDefault();
 
-    $('.button--secondary').addEventListener('click', () => {
-      this.dispatchEvent(
-        new CustomEvent('cancelButtonClick', {
-          bubbles: true,
-        }),
-      );
-    });
+    const formData = {
+      category: $('.modal-category').value,
+      name: $('.modal-restaurant-name').value,
+      distance: Number($('.modal-distance').value.replace('분내', '')),
+      description: $('.modal-description').value,
+      reference: $('.modal-reference').value,
+    };
+
+    this.dispatchEvent(new CustomEvent('submitButtonClick', { bubbles: true, detail: formData }));
+  }
+
+  #onCancel() {
+    this.dispatchEvent(new CustomEvent('cancelButtonClick', { bubbles: true }));
   }
 
   template() {

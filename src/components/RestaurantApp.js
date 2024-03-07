@@ -23,7 +23,7 @@ class RestaurantApp extends Component {
 
     this.addEventListener('submitButtonClick', (event) => {
       this.#updateRestaurants(event.detail);
-      this.initAttribute();
+      $setAttribute('restaurant-add-modal', 'open', 'false');
     });
   }
 
