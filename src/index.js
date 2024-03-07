@@ -1,4 +1,4 @@
-import '../templates/style.css';
+import './styles/style.css';
 import './app.ts';
 import './components/header/Header.ts';
 import './components/FilterContainer.ts';
