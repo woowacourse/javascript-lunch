@@ -1,54 +1,18 @@
-import './style.css';
-import ArrowIcon from '../../assets/svg/down-arrow.svg';
-
-class DropBox {
-  $dropBoxEl = document.createElement('div');
-
-  constructor(
-    selectProps: {
-      labelText: string;
-      name?: string;
-      id: string;
-      class?: string;
-    },
-    options: string[],
-  ) {
-    this.$dropBoxEl.setAttribute('class', 'dropbox');
-    const html = this.#getInnerHTML(selectProps, options);
-
-    this.$dropBoxEl.innerHTML = html;
+import DropBoxInnerHtmlMaker from './DropBoxInnerHtmlMaker';
+import { DropBoxName } from '../../types';
+class DropBox extends HTMLElement {
+  constructor() {
+    super();
   }
 
-  get dropBoxEl() {
-    return this.$dropBoxEl;
-  }
+  connectedCallback() {
+    const dropBoxName = this.getAttribute('name') as DropBoxName;
 
-  #getInnerHTML(
-    selectProps: {
-      labelText: string;
-      name?: string;
-      id: string;
-      class?: string;
-    },
-    options: string[],
-  ) {
-    const html = `
-      <label class="screen-read-only" for="${selectProps.id}">
-        ${selectProps.labelText}
-      </label >
-      <img src=${ArrowIcon} class="arrow-icon"/>
-      <select
-        name="${selectProps.name}"
-        id="${selectProps.id}"
-        class="${selectProps.class}"
-      >
-      ${options
-        .map((option) => `<option value="${option}">${option}</option>`)
-        .join('')}
-      </select>
-    `;
+    const innerHTML = new DropBoxInnerHtmlMaker(dropBoxName).html;
 
-    return html;
+    if (innerHTML) {
+      this.innerHTML = innerHTML;
+    }
   }
 }
-export default DropBox;
+customElements.define('drop-box', DropBox);

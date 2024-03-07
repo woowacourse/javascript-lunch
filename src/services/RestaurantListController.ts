@@ -1,18 +1,21 @@
 import { RestaurantInfo } from '../types';
 import { RestaurantList } from '../domains';
-import { RestaurantComponent } from '../components';
+import '../components/Restaurant/index.ts';
 
 const RestaurantListController = {
   injectRestaurantListHTML() {
     const restaurantList = new RestaurantList().list;
     const listEl = document.querySelector('.restaurant-list');
-    const fragmentElement = document.createDocumentFragment();
 
-    restaurantList?.forEach((info: RestaurantInfo) => {
-      new RestaurantComponent(fragmentElement, info);
-    });
+    const innerHTML = restaurantList
+      ?.map((info: RestaurantInfo) => {
+        return `<restaurant-box name="${info.name}"></restaurant-box>`;
+      })
+      .join('');
 
-    listEl?.appendChild(fragmentElement);
+    if (innerHTML && listEl) {
+      listEl.innerHTML = innerHTML;
+    }
   },
 };
 

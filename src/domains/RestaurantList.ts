@@ -28,7 +28,6 @@ class RestaurantList {
 
   #updateListByLocalStorage() {
     const item = localStorage.getItem(StorageKeyEnum.restaurants);
-
     if (item) {
       this.#list = JSON.parse(item);
     }

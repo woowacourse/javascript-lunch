@@ -1,6 +1,6 @@
 @import '../../assets/css/style-constants.css';
 
-.restaurant__category-icon {
+category-icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,11 +8,9 @@
   background-color: var(--lunch-primary-lighten-color);
   width: 64px;
   height: 64px;
-
-  div {
-    background-size: 36px;
-    background-repeat: no-repeat;
-    width: 36px;
-    height: 36px;
-  }
+}
+category-icon img {
+  background-size: 36px;
+  width: 36px;
+  height: 36px;
 }

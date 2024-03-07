@@ -12,16 +12,3 @@ export interface RestaurantInfo {
   link?: string;
   like?: boolean;
 }
-
-// class RestaurantList {
-//   private restaurants: Restaurant[] = InitialRestaurantData;
-
-//   constructor() {}
-
-//   saveLocalStorage() {
-//     localStorage.setItem(
-//       StorageKeyEnum.restaurants,
-//       JSON.stringify(this.restaurants),
-//     );
-//   }
-// }

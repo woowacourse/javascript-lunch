@@ -1,20 +1,20 @@
 @import '../../assets/css/style-constants.css';
 
-.restaurant-list-container .dropbox {
+.restaurant-list-container drop-box {
   width: 125px;
   height: 40px;
 }
 
-.restaurant-form-container .dropbox {
+.restaurant-form-container drop-box {
   width: 358px;
   height: 44px;
 }
 
-.dropbox {
+drop-box {
   position: relative;
 }
 
-.dropbox select {
+drop-box select {
   position: relative;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -28,14 +28,14 @@
   color: var(--lunch-grey-scale-3-color);
 }
 
-.dropbox .arrow-icon {
+drop-box .arrow-icon {
   position: absolute;
   right: 9px;
   bottom: calc((40px - 8px) / 2);
   z-index: 1;
 }
 
-.dropbox .arrow-icon:focus {
+drop-box .arrow-icon:focus {
   transform: rotate(180deg);
   /* transform: rotateX('angle'); */
 }
