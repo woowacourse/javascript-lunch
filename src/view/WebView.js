@@ -5,10 +5,15 @@ export default class WebView {
 
   #sortingFilter;
 
+  #restaurantList;
+
   constructor() {
     this.#categoryFilter = document.querySelector('#category-filter');
     this.#sortingFilter = document.querySelector('#sorting-filter');
+    this.#restaurantList = document.querySelector('ul[is="app-restaurant-list"]');
   }
 
-  addEventListeners() {}
+  set restaurants(restaurants) {
+    this.#restaurantList.restaurants = restaurants;
+  }
 }

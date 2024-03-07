@@ -5,6 +5,7 @@ export default class RestaurantItem extends HTMLLIElement {
     const template = document.querySelector('#template-restaurant-item');
     const content = template.content.cloneNode(true);
     this.appendChild(content);
+    this.classList.add('restaurant');
   }
 
   static observedAttributes = ['data-restaurant'];

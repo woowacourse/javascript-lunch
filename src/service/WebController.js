@@ -17,6 +17,7 @@ export default class WebController {
 
   async start() {
     this.#syncLocalStorageAndDomain();
+    this.#webView.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
 
     document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
       const { formData } = e.detail;
@@ -29,7 +30,8 @@ export default class WebController {
       const sortingFilter = document.querySelector('#sorting-filter');
 
       const result = this.#restaurantManger.filteredAndSortedByOptions(formData.category, sortingFilter.value);
-      // console.log(result);
+      this.#webView.restaurants = result;
+
       categoryFilter.value = formData.category;
     });
 
@@ -40,7 +42,7 @@ export default class WebController {
       this.#syncLocalStorageAndDomain();
 
       const result = this.#restaurantManger.filteredAndSortedByOptions(categoryFilter.value, sortingFilter.value);
-      // console.log(result);
+      this.#webView.restaurants = result;
     });
   }
 
