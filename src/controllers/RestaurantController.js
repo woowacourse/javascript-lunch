@@ -4,7 +4,7 @@ import { $ } from '../utils/querySelector';
 import OutputView from '../views/OutputView';
 
 class RestaurantController {
-  #restaurantList;
+  #restaurantList; // 추가할 때만 변경
 
   #category;
 
@@ -20,10 +20,14 @@ class RestaurantController {
   run() {
     this.reload();
     this.showAddRestaurantModal();
+    this.manageFilterValue();
   }
 
   reload() {
-    OutputView.renderRestaurantList(this.#restaurantList);
+    const filteredList = RestaurantService.filterByCategory(this.#category, this.#restaurantList);
+    const processedList = RestaurantService.sortByProperty(this.#property, filteredList);
+
+    OutputView.renderRestaurantList(processedList);
   }
 
   getRecentData() {
@@ -35,6 +39,7 @@ class RestaurantController {
     addRestaurantButton.addEventListener('click', () => {
       OutputView.renderAddRestaurant(this.#restaurantList);
       this.manageFormEvents();
+      this.manageModalEvents();
     });
   }
 
@@ -60,6 +65,28 @@ class RestaurantController {
     });
 
     return formData;
+  }
+
+  manageModalEvents() {
+    const modalBackdrop = $('.modal-backdrop');
+
+    modalBackdrop.addEventListener('click', () => {
+      OutputView.closeModal();
+    });
+  }
+
+  manageFilterValue() {
+    const categoryFilter = $('#category-filter');
+    categoryFilter.addEventListener('change', () => {
+      this.#category = categoryFilter.options[categoryFilter.selectedIndex].value;
+      this.reload();
+    });
+
+    const sortingFilter = $('#sorting-filter');
+    sortingFilter.addEventListener('change', () => {
+      this.#property = sortingFilter.options[sortingFilter.selectedIndex].value;
+      this.reload();
+    });
   }
 }
 
