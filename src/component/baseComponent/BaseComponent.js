@@ -3,7 +3,6 @@ import { $ } from '../../util/dom.js';
 class BaseComponent extends HTMLElement {
   constructor() {
     super();
-    this.setEvent();
   }
 
   connectedCallback() {}
@@ -12,16 +11,17 @@ class BaseComponent extends HTMLElement {
     this.removeEvent();
   }
 
-  render() {}
+  getTemplate(selector) {
+    return $(selector).content.cloneNode(true);
+  }
+
+  render(instance) {
+    this.appendChild(instance);
+  }
 
   setEvent() {}
 
   removeEvent() {}
-
-  getTemplate(selector) {
-    const instance = $(selector).content.cloneNode(true);
-    this.appendChild(instance);
-  }
 
   emit(eventType, detail) {
     const customEvent = new CustomEvent(eventType, {

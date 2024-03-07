@@ -11,6 +11,14 @@
 <body>
   <g-n-b></g-n-b>
 
+  <main>
+    <section class="restaurant-filter-container">
+      <select-filter id="category-filter"></select-filter>
+      <select-filter id="sorting-filter"></select-filter>
+    </section>
+    <section class="restaurant-list-container"></section>
+  </main>
+
   <!-- GNB -->
   <template id="gnb-template">
     <header class="gnb">
@@ -39,6 +47,12 @@
     <select name="sorting" id="sorting-filter" class="restaurant-filter">
       <option value="name">이름순</option>
       <option value="distance">거리순</option>
+    </select>
+  </template>
+
+
+  <template id="select-filter-template">
+    <select class="restaurant-filter">
     </select>
   </template>
 
@@ -128,6 +142,26 @@
   </template>
 
   <script type="module" src="./src/index.js"></script>
+  <script>
+    const data = [
+      { name: '이름1', distance: '10', category: '한식', description: '설명1' },
+      { name: '이름2', distance: '20', category: '한식', description: '설명2' },
+      { name: '이름3', distance: '30', category: '한식', description: '설명3' },
+      { name: '이름4', distance: '40', category: '한식', description: '설명4' },
+      { name: '이름5', distance: '50', category: '한식', description: '설명5' },
+    ]
+    let index = 0;
+    const testBtn = document.querySelector('#btn-test');
+    testBtn.addEventListener('click', () => {
+      const customEvent = new CustomEvent('생성', {
+        bubbles: true,
+        detail: data[index]
+      })
+      index++;
+      document.dispatchEvent(customEvent)
+      console.log(customEvent)
+    })
+  </script>
 </body>
 
 </html>
