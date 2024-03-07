@@ -14,3 +14,11 @@ export const CATEGORIES: { [key: string]: string } = {
   양식: 'western',
   기타: 'etc',
 } as const;
+
+export const CATEGORIES_WITH_ALL: { [key: string]: string } = {
+  전체: 'all',
+  ...CATEGORIES,
+};
+
+export const CATEGORIES_WITH_ALL_KEYS = Object.keys(CATEGORIES_WITH_ALL);
+export const SORT_CRITERION_KEYS = Object.keys(CONDITIONS.SORT_CRITERION);

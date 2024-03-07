@@ -1,13 +1,12 @@
-import BaseComponent from '../BaseComponent';
-
+import BaseComponent from '@/components/BaseComponent';
 class SelectBox extends BaseComponent {
   #optionValues;
-  #id;
+  #name;
 
-  constructor(optionValues: string[], id: string) {
+  constructor(optionValues: string[], name: string) {
     super();
     this.#optionValues = optionValues;
-    this.#id = id;
+    this.#name = name;
   }
 
   render() {
@@ -18,8 +17,8 @@ class SelectBox extends BaseComponent {
   #makeSelectTag() {
     const selectTag = document.createElement('select');
     selectTag.classList.add('restaurant-filter');
-    selectTag.name = 'category';
-    selectTag.id = this.#id;
+    selectTag.name = this.#name;
+    selectTag.id = `${this.#name}-filter`;
 
     selectTag.append(this.#makeOptionTags());
     return selectTag;

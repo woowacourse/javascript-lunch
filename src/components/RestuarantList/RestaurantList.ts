@@ -21,7 +21,7 @@ class RestaurantList extends BaseComponent {
               </p>
             </div>
           </li>
-
+0
           <li class="restaurant">
             <div class="restaurant__category">
               <img src="./category-chinese.png" alt="중식" class="category-icon" />
