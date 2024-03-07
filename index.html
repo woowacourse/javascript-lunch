@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>점심 뭐 먹지</title>
-  <link rel="stylesheet" href="templates/style.css">
+  <link rel="stylesheet" src="templates/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -16,16 +16,22 @@
       <select-filter id="category-filter"></select-filter>
       <select-filter id="sorting-filter"></select-filter>
     </section>
-    <section class="restaurant-list-container"></section>
+
+    <section class="restaurant-list-container">
+      <restaurant-list></restaurant-list>
+    </section>
+
     <registry-modal></registry-modal>
   </main>
+
+  <restaurant-card></restaurant-card>
 
   <!-- GNB -->
   <template id="gnb-template">
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">
-        <img src="/templates/add-button.png" alt="음식점 추가">
+        <img src="./templates/add-button.png" alt="음식점 추가">
       </button>
     </header>
   </template>
@@ -42,10 +48,11 @@
     </ul>
   </template>
 
+  <!-- 음식점 카드 -->
   <template id="restaurant-card-template">
     <li class="restaurant-card">
       <div class="restaurant-card__category">
-        <img src="/templates/category-korean.png" alt="한식" class="category-icon">
+        <img class="category-icon">
       </div>
       <div class="restaurant-card__info">
         <h3 class="restaurant-card__name text-subtitle">이름</h3>
@@ -121,26 +128,6 @@
   </template>
 
   <script type="module" src="./src/index.js"></script>
-  <script>
-    const data = [
-      { name: '이름1', distance: '10', category: '한식', description: '설명1' },
-      { name: '이름2', distance: '20', category: '한식', description: '설명2' },
-      { name: '이름3', distance: '30', category: '한식', description: '설명3' },
-      { name: '이름4', distance: '40', category: '한식', description: '설명4' },
-      { name: '이름5', distance: '50', category: '한식', description: '설명5' },
-    ]
-    let index = 0;
-    const testBtn = document.querySelector('#btn-test');
-    testBtn.addEventListener('click', () => {
-      const customEvent = new CustomEvent('생성', {
-        bubbles: true,
-        detail: data[index]
-      })
-      index++;
-      document.dispatchEvent(customEvent)
-      console.log(customEvent)
-    })
-  </script>
 </body>
 
 </html>
