@@ -11,10 +11,9 @@ class CustomInput extends HTMLElement {
     const name = this.getAttribute('name');
     const required = this.getAttribute('required');
     const placeholder = this.getAttribute('placeholder');
+    const maxlength = this.getAttribute('maxlength');
 
-    this.innerHTML = `
-    <input type="${type}" name="${name}" id="${id}" required="${required}"  placeholder="${placeholder || ''}"/>
-    `;
+    this.innerHTML = `<input  type="${type}" name="${name}" id="${id}" ${required ? 'required' : ''}  placeholder="${placeholder || ''}" ${maxlength ? `maxlength=${maxlength}` : ''} />`;
 
     this.querySelector('input')?.addEventListener('change', (event) =>
       this.#handleChange(event),

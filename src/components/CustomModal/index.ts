@@ -43,7 +43,7 @@ class CustomModal extends HTMLElement {
       }
     
     </style>
-      <div class="modal open">
+      <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <slot name="child"></slot>

@@ -1,5 +1,9 @@
 import './style.css';
-
+import { DROP_BOX_MAP, StorageKeyEnum } from '../../constants';
+import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
+import { Restaurant } from '../../domains';
+import { RestaurantListController } from '../../services';
+import { RestaurantList } from '../../domains';
 class RestaurantFormModalInner extends HTMLElement {
   constructor() {
     super();
@@ -18,7 +22,7 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
           <label for="restaurant-name">이름</label>
-          <custom-input type="text" id="restaurant-name" name="restaurant-name" required></custom-input>
+          <custom-input type="text" id="restaurant-name" name="restaurant-name" required="true" maxlength="10"></custom-input>
           <error-message-box></error-message-box>
         </div>
 
@@ -36,6 +40,7 @@ class RestaurantFormModalInner extends HTMLElement {
                 cols="30"
                 rows="5"
                 placeholder="메뉴 등 추가 정보를 입력해 주세요."
+                maxlength="150"
               ></custom-textarea>
           <error-message-box></error-message-box>
         </div>
@@ -43,17 +48,146 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 링크 -->
         <div class="form-item">
           <label for="restaurant-link">참고 링크</label>
-          <custom-input type="text" id="restaurant-link" name="restaurant-link" placeholder="매장 정보를 확인할 수 있는 링크를 입력해 주세요."></custom-input>
+          <custom-input type="text" id="restaurant-link" name="restaurant-link" placeholder="매장 정보를 확인할 수 있는 링크를 입력해 주세요." maxlength="2000"></custom-input>
           <error-message-box></error-message-box>
         </div>
 
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
-          <default-btn color="white" text="취소하기" ></default-btn>
-          <default-btn color="red" text="추가하기" ></default-btn>
+          <default-btn color="white" text="취소하기" type="reset"></default-btn>
+          <default-btn color="red" text="추가하기" type="submit"></default-btn>
         </div>
       </form>
     `;
+
+    //이벤트
+    const formEl = this.querySelector('form');
+    formEl?.addEventListener('reset', this.#handleResetForm.bind(this));
+    formEl?.addEventListener('submit', (event) =>
+      this.#handleSubmitFormToAddStore(event),
+    );
+  }
+
+  //이벤트 함수 정의
+  #getSelectedOptions() {
+    const keys: DropBoxName[] = ['category', 'distance'];
+
+    const options = keys.map((key) => {
+      const id = DROP_BOX_MAP.get(key)?.selectProps?.id;
+
+      if (id) {
+        const selectElement = document.getElementById(
+          id,
+        ) as HTMLSelectElement | null;
+
+        const selectedIndex = selectElement?.selectedIndex;
+        const selectedValue = selectedIndex
+          ? selectElement?.options[selectedIndex].value
+          : undefined;
+        return {
+          key: key,
+          value: selectedValue,
+        };
+      }
+    });
+
+    const map: Map<DropBoxName, string> = options.reduce((accumulator, obj) => {
+      return accumulator.set(obj?.key, obj?.value);
+    }, new Map());
+
+    return map;
+  }
+
+  #getRestaurantName() {
+    const name = (
+      document
+        .getElementById('restaurant-name')
+        ?.querySelector('input') as HTMLInputElement
+    ).value;
+    return name;
+  }
+
+  #getRestaurantDescription() {
+    const description = (
+      document
+        .getElementById('restaurant-description')
+        ?.querySelector('textarea') as HTMLInputElement | null
+    )?.value;
+
+    return description;
+  }
+
+  #getRestaurantLink() {
+    const link = (
+      document
+        .getElementById('restaurant-link')
+        ?.querySelector('input') as HTMLInputElement | null
+    )?.value;
+
+    return link;
+  }
+
+  #getRestaurantInfo() {
+    const selectedOptions = this.#getSelectedOptions();
+    const name = this.#getRestaurantName();
+    const category = selectedOptions.get('category');
+    const distance = selectedOptions.get('distance');
+
+    const info: RestaurantInfo = {
+      category: category as Category,
+      name: name,
+      distance: Number(distance) as Distance,
+      description: this.#getRestaurantDescription(),
+      link: this.#getRestaurantLink(),
+    };
+
+    try {
+      const restaurant = new Restaurant(info);
+
+      return restaurant.info;
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
+  }
+
+  #updateLocalStorage(info: RestaurantInfo) {
+    const previousData = localStorage.getItem(StorageKeyEnum.restaurants);
+
+    const restaurants = previousData ? JSON.parse(previousData) : [];
+
+    restaurants.push(info);
+
+    localStorage.setItem(
+      StorageKeyEnum.restaurants,
+      JSON.stringify(restaurants),
+    );
+  }
+  #closeModal() {
+    const modalEl = document
+      .querySelector('custom-modal')
+      ?.shadowRoot?.querySelector('.modal');
+
+    modalEl?.classList.toggle('open');
+  }
+
+  #handleResetForm() {
+    this.#closeModal();
+  }
+
+  #handleSubmitFormToAddStore(event: Event) {
+    // TODO: 에러 메세지 띄우기
+    event.preventDefault();
+
+    const newInfo = this.#getRestaurantInfo();
+
+    if (newInfo) {
+      this.#updateLocalStorage(newInfo);
+      this.querySelector('form')?.reset();
+      RestaurantListController.injectRestaurantListHTML(
+        new RestaurantList().list,
+      );
+    }
   }
 }
 customElements.define('restaurant-form-inner', RestaurantFormModalInner);

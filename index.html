@@ -14,13 +14,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
     />
-    <!-- <link rel="stylesheet" href="./src/assets/css/main.css" /> -->
     <title>점심 뭐 먹지</title>
   </head>
-
   <body>
     <div class="inner">
-      <!--TopBar-->
       <header class="top-bar">
         <h1 class="top-bar__title">점심 뭐 먹지?</h1>
         <add-btn></add-btn>
@@ -29,38 +26,11 @@
         <section class="restaurant-list-container">
           <div class="drop-box-group">
             <drop-box name="filteringCategory"></drop-box>
-            <drop-box name="filteringSort"></drop-box>
+            <drop-box name="filteringSorting"></drop-box>
           </div>
-          <!-- DropBox -->
-          <!-- <div class="dropbox">
-              <label class="screen-read-only" for="select-category"
-                >카테고리 정렬</label
-              >
-              <select
-                name="category"
-                id="select-category"
-                class="restaurant-filter"
-              >
-                <option value="전체">전체</option>
-                <option value="한식">한식</option>
-                <option value="중식">중식</option>
-                <option value="일식">일식</option>
-                <option value="양식">양식</option>
-                <option value="아시안">아시안</option>
-                <option value="기타">기타</option>
-              </select>
-            </div>
-            <div class="dropbox">
-              <label class="screen-read-only" for="select-ordery"></label>
-              <select name="languages" id="select-order">
-                <div class="select__inner">
-                  <option value="name">이름순</option>
-                  <option value="distance">거리순</option>
-                </div>
-              </select>
-            </div>
-          </div> -->
-          <ul class="restaurant-list"></ul>
+          <ul class="restaurant-list">
+            <!--레스토랑 목록-->
+          </ul>
         </section>
         <!--TODO: 2단계 진행-> <section>
       즐겨찾기 목록

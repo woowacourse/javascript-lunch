@@ -12,9 +12,10 @@ class CustomTextarea extends HTMLElement {
     const cols = this.getAttribute('clos');
     const rows = this.getAttribute('rows');
     const placeholder = this.getAttribute('placeholder');
+    const maxlength = this.getAttribute('maxlength');
 
     this.innerHTML = `
-    <textarea name="${name}" id="${id}" cols="${cols}" rows="${rows}" placeholder="${placeholder || ''}"></textarea>
+    <textarea name="${name}" id="${id}" cols="${cols}" rows="${rows}" placeholder="${placeholder || ''}"  ${maxlength ? `maxlength=${maxlength}` : ''}></textarea>
     `;
 
     this.querySelector('textarea')?.addEventListener('change', (event) =>
