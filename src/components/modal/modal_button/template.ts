@@ -1,4 +1,4 @@
-export const modalButtonTemplate = `
+export const modalButtonTemplate = /*html*/ `
 <div class="button-container">
     <button
     type="button"

@@ -25,7 +25,7 @@ function Modal() {
     InputDescription().render(form);
     InputLink().render(form);
 
-    //
+    // Modal
     ModalButton().render(modal, form);
     dimmerClickHandler(modal);
   };

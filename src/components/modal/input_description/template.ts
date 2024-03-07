@@ -1,4 +1,5 @@
-export const inputDescriptionTemplate = `<div class="form-item">
+export const inputDescriptionTemplate = /*html*/ `
+<div class="form-item">
 <label for="description text-caption">설명</label>
 <textarea
   name="description"
