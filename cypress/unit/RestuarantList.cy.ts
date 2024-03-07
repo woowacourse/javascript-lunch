@@ -1,4 +1,4 @@
-import RestaurantList from '../../src/domains/entities/RestaurantList';
+import RestaurantCollection from '../../src/domains/entities/RestaurantCollection';
 import { IRestaurant } from '../../src/types/Restaurant';
 
 describe('레스토랑 리스트 클래스', () => {
@@ -23,27 +23,27 @@ describe('레스토랑 리스트 클래스', () => {
 
   it('인자로 음식점 배열을 받아서, 잘 반환한다.', () => {
     const RESTAURANTS: IRestaurant[] = [restaurant1, restaurant2];
-    const restaurantList = new RestaurantList(RESTAURANTS);
+    const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.get()).to.deep.equal([restaurant1, restaurant2]);
   });
 
   it('인자로 받은 카테고리로 음식점을 잘 필터링한다.', () => {
     const RESTAURANTS: IRestaurant[] = [restaurant1, restaurant2];
-    const restaurantList = new RestaurantList(RESTAURANTS);
+    const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.filterByCategory('중식')).to.deep.equal([restaurant1]);
   });
 
   it('이름순 정렬을 요청받았을 때, 잘 정렬된 결과를 반환한다.', () => {
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const EXPECTED_RESULT = [restaurant3, restaurant2, restaurant1];
-    const restaurantList = new RestaurantList(RESTAURANTS);
+    const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.sortByName()).to.deep.equal(EXPECTED_RESULT);
   });
 
   it('거리순 정렬을 요청받았을 때, 잘 정렬된 결과를 반환한다.', () => {
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const EXPECTED_RESULT = [restaurant2, restaurant3, restaurant1];
-    const restaurantList = new RestaurantList(RESTAURANTS);
+    const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.sortByDistance()).to.deep.equal(EXPECTED_RESULT);
   });
 
@@ -55,7 +55,7 @@ describe('레스토랑 리스트 클래스', () => {
       description: '돈가스김밥 추천',
     };
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
-    const restaurantList = new RestaurantList(RESTAURANTS);
+    const restaurantList = new RestaurantCollection(RESTAURANTS);
 
     restaurantList.addRestaurant(newRestaurant);
 
@@ -70,7 +70,7 @@ describe('레스토랑 리스트 클래스', () => {
   it('중복된 음식점이 이미 있을 경우 에러를 반환한다.', () => {
     const newRstaurant: IRestaurant = { ...restaurant1 };
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
-    const restaurantList = new RestaurantList(RESTAURANTS);
+    const restaurantList = new RestaurantCollection(RESTAURANTS);
 
     expect(() => restaurantList.addRestaurant(newRstaurant)).to.throw('[ERROR]');
   });

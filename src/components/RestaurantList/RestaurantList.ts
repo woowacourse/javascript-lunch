@@ -26,6 +26,7 @@ class RestaurantList extends BaseComponent {
 
   #makeRestaurantList() {
     const restaurantList = restaurantListMock.map((restaurant) => new RestaurantItem(restaurant));
+
     const ulTag = document.createElement('ul');
     ulTag.classList.add('restaurant-list');
     restaurantList.forEach((restaurant) => {

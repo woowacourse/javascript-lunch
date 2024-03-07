@@ -1,7 +1,7 @@
 import { Category, IRestaurant } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
-class RestaurantList {
+class RestaurantCollection {
   restaurantList: Restaurant[];
 
   constructor(restaurants: IRestaurant[]) {
@@ -42,4 +42,4 @@ class RestaurantList {
   }
 }
 
-export default RestaurantList;
+export default RestaurantCollection;

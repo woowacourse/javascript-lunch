@@ -6,6 +6,11 @@ class FilterContainer extends BaseComponent {
     this.append(new SelectBox(CATEGORIES_WITH_ALL_KEYS, 'category'));
     this.append(new SelectBox(SORT_CRITERION_KEYS, 'sorting'));
   }
+  setEvent() {
+    this.addEventListener('onChange', (event) => {
+      const restaurants = document.querySelector('.restaurant-list-container');
+    });
+  }
 }
 
 customElements.define('filter-container', FilterContainer);
