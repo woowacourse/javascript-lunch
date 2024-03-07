@@ -4,8 +4,17 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 import addButton from "../../assets/images/add-button.png";
 import { $ } from "../../utils/dom";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
+import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 
 class GlobalNavigationBar extends BaseComponent {
+  private eventListeners: CustomEventListenerDictionary = {
+    gnbButtonClick: {
+      target: $(ELEMENT_SELECTOR.gnbButton),
+      eventName: "click",
+      eventHandler: this.handleOpenModal,
+    },
+  };
+
   protected render() {
     this.innerHTML = `
         <header class="gnb">
@@ -18,11 +27,7 @@ class GlobalNavigationBar extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on({
-      target: $(ELEMENT_SELECTOR.gnbButton),
-      eventName: "click",
-      eventHandler: this.handleOpenModal.bind(this),
-    });
+    this.on(this.eventListeners.gnbButtonClick);
   }
 
   private handleOpenModal() {
@@ -30,11 +35,7 @@ class GlobalNavigationBar extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    this.off({
-      target: $(ELEMENT_SELECTOR.gnbButton),
-      eventName: "click",
-      eventHandler: this.handleOpenModal.bind(this),
-    });
+    this.off(this.eventListeners.gnbButtonClick);
   }
 }
 
