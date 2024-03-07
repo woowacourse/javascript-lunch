@@ -4,6 +4,7 @@ import { Icategory, IsortType } from "../../types";
 import RestaurantListStorageService from "../../services/restaurantListStorageService";
 import restaurantListHelper from "../../domain/RestaurantListHelper";
 import RestaurantList from "../restaurant_list/RestaurantList";
+import filterState from "../../store/FilterStateStore";
 
 function FilterBar() {
   const render = () => {
@@ -31,11 +32,10 @@ function FilterBar() {
         categoryFilter.addEventListener("change", (event) => {
           if (event.target instanceof HTMLSelectElement) {
             const selectedValue = event.target.value as Icategory;
-            const restaurantList = RestaurantListStorageService.getData();
-            const filterData = restaurantListHelper.filterByCategory(
-              selectedValue,
-              restaurantList,
-            );
+            filterState.setFilterType(selectedValue);
+
+            const filterData = RestaurantListStorageService.getfilteredData();
+
             console.log(filterData);
             RestaurantList(filterData).render();
           }
@@ -51,13 +51,9 @@ function FilterBar() {
         sortFilter.addEventListener("change", (event) => {
           if (event.target instanceof HTMLSelectElement) {
             const selectedValue = event.target.value as IsortType;
+            filterState.setSortType(selectedValue);
 
-            const restaurantList = RestaurantListStorageService.getData();
-
-            const filterData = restaurantListHelper.sortBySelectedValue(
-              selectedValue,
-              restaurantList,
-            );
+            const filterData = RestaurantListStorageService.getfilteredData();
 
             console.log(filterData);
             RestaurantList(filterData).render();

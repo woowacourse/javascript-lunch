@@ -1,7 +1,7 @@
 import Restaurant from "../domain/Restaurant";
 import { Icategory, Idistance, Irestaurant } from "../types";
 
-class StateStore {
+class RestaurantStateStore {
   #restaurantState: Irestaurant = {
     category: "기타",
     name: "",
@@ -32,10 +32,9 @@ class StateStore {
 
   getRestaurantInfo() {
     return Restaurant(this.#restaurantState);
-    // return this.#restaurantState;
   }
 }
 
-const stateStore = new StateStore();
+const restaurantStateStore = new RestaurantStateStore();
 
-export default stateStore;
+export default restaurantStateStore;

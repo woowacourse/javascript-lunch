@@ -1,6 +1,23 @@
 import { Irestaurant } from "../types";
+import filterState from "../store/FilterStateStore";
+import restaurantListHelper from "../domain/RestaurantListHelper";
 
 const RestaurantListStorageService = {
+  getfilteredData() {
+    const localData = this.getData();
+    const filteredState = filterState.getFilterInfo();
+
+    const filtereDataByCategory = restaurantListHelper.filterByCategory(
+      filteredState.filter,
+      localData,
+    );
+
+    return restaurantListHelper.sortBySelectedValue(
+      filteredState.sort,
+      filtereDataByCategory,
+    );
+  },
+
   getData() {
     const restaurantList = localStorage.getItem("restaurantList");
     if (restaurantList) {
