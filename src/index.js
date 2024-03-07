@@ -32,3 +32,10 @@ const $categoryContainer = document.getElementById('category-container');
 const $distanceContainer = document.getElementById('distance-container');
 $categoryContainer.insertAdjacentHTML('beforeend', SelectBoxComponent(FORM_CATEGORY_ATTRIBUTE, FORM_CATEGORY));
 $distanceContainer.insertAdjacentHTML('beforeend', SelectBoxComponent(FORM_DISTANCE_ATTRIBUTE, FORM_DISTANCE));
+
+// 상단 우측 버튼 클릭 시 modal open
+const $modal = document.querySelector('.modal');
+const $gnbButton = document.querySelector('.gnb__button');
+$gnbButton.addEventListener('click', () => {
+  $modal.classList.add('modal--open');
+});
