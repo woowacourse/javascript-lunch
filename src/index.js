@@ -4,6 +4,7 @@ import GNB from './view/components/GNB';
 import Modal from './view/components/Modal';
 import Select from './view/components/Select';
 import RestaurantForm from './view/components/RestaurantForm';
+import RestaurantList from './view/components/RestaurantList';
 import RestaurantItem from './view/components/RestaurantItem';
 
 // styles
@@ -28,6 +29,7 @@ window.customElements.define('app-modal', Modal);
 window.customElements.define('app-select', Select, { extends: 'select' });
 window.customElements.define('app-restaurant-form', RestaurantForm, { extends: 'form' });
 window.customElements.define('app-restaurant-item', RestaurantItem, { extends: 'li' });
+window.customElements.define('app-restaurant-list', RestaurantList, { extends: 'ul' });
 
 const controller = new WebController();
 controller.start();
