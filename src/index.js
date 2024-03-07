@@ -33,6 +33,20 @@ const $distanceContainer = document.getElementById('distance-container');
 $categoryContainer.insertAdjacentHTML('beforeend', SelectBoxComponent(FORM_CATEGORY_ATTRIBUTE, FORM_CATEGORY));
 $distanceContainer.insertAdjacentHTML('beforeend', SelectBoxComponent(FORM_DISTANCE_ATTRIBUTE, FORM_DISTANCE));
 
+// category 필터링 셀렉트 박스 이벤트
+const $categoryFilter = document.getElementById('category-filter');
+
+$categoryFilter.addEventListener('change', () => {
+  const options = $categoryFilter.options;
+  const category = options[options.selectedIndex].text;
+  const filteredRestaurantList = restaurantList.filterByCategory(category);
+
+  $restaurantList.replaceChildren();
+  filteredRestaurantList.forEach(element => {
+    $restaurantList.innerHTML += RestaurantComponent(element.information);
+  });
+});
+
 // 상단 우측 버튼 클릭 시 modal open
 const $modal = document.querySelector('.modal');
 const $gnbButton = document.querySelector('.gnb__button');
