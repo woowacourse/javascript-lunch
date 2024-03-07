@@ -15,8 +15,10 @@ class WebController {
 
     this.#renderDropdownOptions('category-select', ['전체', ...RESTAURANT_CATEGORY]);
     this.#renderDropdownOptions('sort-select', SORT_CONDITION);
+    this.#renderDropdownOptions('add-category-select', RESTAURANT_CATEGORY);
   }
 
+  // TODO: 리팩터링, 메서드의 위치 -> component로?
   #renderDropdownOptions(id, options) {
     const select = document.getElementById(id);
     select.addOptions(options);

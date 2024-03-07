@@ -10,7 +10,7 @@
   <body>
     <header class="gnb">
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-      <button type="button" class="gnb__button" aria-label="음식점 추가">
+      <button id="add-restaurent-button" type="button" class="gnb__button" aria-label="음식점 추가">
         <img src="./templates/add-button.png" alt="음식점 추가" />
       </button>
     </header>
@@ -23,6 +23,30 @@
       <section class="restaurant-list-container">
         <ul is="restaurant-cards" class="restaurant-list"></ul>
       </section>
+
+      <!-- <select is="drop-down" id="dropdown-category-select"></select> -->
+      <!-- 모달창 -->
+      <div class="modal modal--open">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+          <h2 class="modal-title text-title">새로운 음식점</h2>
+          <form id="add-restaurant-form">
+            <!-- 카테고리 -->
+            <div class="form-item form-item--required">
+              <label for="category text-caption">카테고리</label>
+              <select is="drop-down" name="category" id="add-category-select" required>
+                <!-- <option value="">선택해 주세요</option>
+                <option value="한식">한식</option>
+                <option value="중식">중식</option>
+                <option value="일식">일식</option>
+                <option value="양식">양식</option>
+                <option value="아시안">아시안</option>
+                <option value="기타">기타</option> -->
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
     </main>
   </body>
 </html>
