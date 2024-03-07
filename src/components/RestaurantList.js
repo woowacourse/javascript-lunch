@@ -10,7 +10,8 @@ class RestaurantList extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = this.template(JSON.parse(this.getAttribute('restaurants')));
+    const restaurants = JSON.parse(this.getAttribute('restaurants'));
+    this.innerHTML = this.template(restaurants);
   }
 
   template(restaurants) {

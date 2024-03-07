@@ -7,7 +7,6 @@ class Component extends HTMLElement {
     if (this.isConnected) {
       this.render();
       this.setEvent();
-      this.initAttribute();
     }
   }
 
@@ -20,8 +19,6 @@ class Component extends HTMLElement {
   setEvent() {}
 
   removeEvent() {}
-
-  initAttribute() {}
 
   template() {
     return ``;

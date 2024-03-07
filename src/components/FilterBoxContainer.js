@@ -1,4 +1,6 @@
 import Component from './Component';
+import { OPTION } from '../constants/Condition';
+import { $, $setAttribute } from '../utils/dom';
 
 class FilterBoxContainer extends Component {
   constructor() {
@@ -12,16 +14,8 @@ class FilterBoxContainer extends Component {
   template() {
     return `
       <section class="restaurant-filter-container">
-          <filter-box type="category" option="${[
-            '전체',
-            '한식',
-            '중식',
-            '일식',
-            '아시안',
-            '양식',
-            '기타',
-          ]}"></filter-box>
-          <filter-box type="sorting" option="${['이름순', '거리순']}"></filter-box>
+          <filter-box type="category" option='${JSON.stringify([OPTION.ALL, ...OPTION.CATEGORY])}'></filter-box>
+          <filter-box type="sorting" option='${JSON.stringify(OPTION.SORTING)}'></filter-box>
       </section>
     `;
   }

@@ -1,5 +1,6 @@
 import Component from './Component';
-import { $ } from '../utils/dom';
+import { OPTION } from '../constants/Condition';
+import { $, $setAttribute } from '../utils/dom';
 
 class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];
@@ -37,7 +38,7 @@ class RestaurantAddModal extends Component {
     const formData = {
       category: $('.modal-category').value,
       name: $('.modal-restaurant-name').value,
-      distance: Number($('.modal-distance').value.replace('분내', '')),
+      distance: Number($('.modal-distance').value),
       description: $('.modal-description').value,
       reference: $('.modal-reference').value,
     };
@@ -58,15 +59,10 @@ class RestaurantAddModal extends Component {
                   <form>
                       <div class="form-item form-item--required">
                           <label for="category text-caption">카테고리</label>
-                          <filter-box type="modal-category" option="${[
-                            '선택해주세요',
-                            '한식',
-                            '중식',
-                            '일식',
-                            '아시안',
-                            '양식',
-                            '기타',
-                          ]}"></filter-box>
+                          <filter-box type="modal-category" option='${JSON.stringify([
+                            OPTION.INFO,
+                            ...OPTION.CATEGORY,
+                          ])}'></filter-box>
                       </div>
                       <div class="form-item form-item--required">
                           <label for="name text-caption">이름</label>
@@ -74,14 +70,10 @@ class RestaurantAddModal extends Component {
                       </div>
                       <div class="form-item form-item--required">
                           <label for="distance text-caption">거리(도보 이동 시간)</label>
-                          <filter-box type="modal-distance" option="${[
-                            '선택해주세요',
-                            '5분내',
-                            '10분내',
-                            '15분내',
-                            '20분내',
-                            '30분내',
-                          ]}"></filter-box>
+                          <filter-box type="modal-distance" option='${JSON.stringify([
+                            OPTION.INFO,
+                            ...OPTION.DISTANCE,
+                          ])}'></filter-box>
                       </div>
                       <div class="form-item">
                           <label for="description text-caption">설명</label>

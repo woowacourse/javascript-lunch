@@ -27,11 +27,6 @@ class RestaurantApp extends Component {
     });
   }
 
-  initAttribute() {
-    $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
-    $setAttribute('restaurant-add-modal', 'open', 'false');
-  }
-
   #updateRestaurants(restaurant) {
     RestaurantRepository.addRestaurant(restaurant);
     this.#restaurants = this.#generateRestaurants();
@@ -50,8 +45,8 @@ class RestaurantApp extends Component {
     return `
       <custom-header></custom-header>
       <filter-box-container></filter-box-container>
-      <restaurant-list></restaurant-list>
-      <restaurant-add-modal></restaurant-add-modal>
+      <restaurant-list restaurants='${JSON.stringify(this.#restaurants)}'></restaurant-list>
+      <restaurant-add-modal open="false"></restaurant-add-modal>
     `;
   }
 }

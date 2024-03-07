@@ -10,7 +10,7 @@ class FilterBox extends Component {
 
   render() {
     const type = this.getAttribute('type');
-    const option = this.getAttribute('option').split(',');
+    const option = JSON.parse(this.getAttribute('option'));
 
     this.innerHTML = this.template(type, option);
   }
@@ -32,7 +32,7 @@ class FilterBox extends Component {
   template(type, option) {
     return `
       <select name=${type} id=${type} class=${type}>
-        ${option.map((el) => `<option value=${el}>${el}</option>`).join('')}
+        ${option.map((el) => `<option value=${el.value}>${el.name}</option>`).join('')}
       </select>
     `;
   }
