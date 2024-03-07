@@ -1,9 +1,16 @@
 import Restaurant, { IRestaurantInfo, ICategory } from './Restaurant';
+import { mockingData } from './mocking';
 
 export const SORT_CONDITION: readonly ('이름순' | '거리순')[] = Object.freeze(['이름순', '거리순']);
 
 class RestaurantCatalog {
   #restaurants: Restaurant[] = [];
+
+  constructor() {
+    mockingData.forEach((data) => {
+      this.pushNewRestaurant(data);
+    });
+  }
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
     this.#restaurants.forEach((restaurant: Restaurant) => {

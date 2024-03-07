@@ -1,14 +1,8 @@
-import { mockingData } from '../../domain/mocking';
-
 class RestaurantCards extends HTMLUListElement {
-  #raesaurants;
+  connectedCallback() {}
 
-  connectedCallback() {
-    this.#appendList(mockingData);
-  }
-
-  #appendList(datas) {
-    datas.forEach(({ category, name, distanceFromCampus, description }) => {
+  #appendList() {
+    JSON.parse(this.dataset.restaurants).forEach(({ category, name, distanceFromCampus, description }) => {
       const liElement = document.createElement('li');
       liElement.classList.add('restaurant');
       liElement.innerHTML = `
@@ -35,6 +29,25 @@ class RestaurantCards extends HTMLUListElement {
       일식: 'japanese',
     };
     return IMG_CATEGOY[category];
+  }
+
+  clear() {
+    this.innerHTML = '';
+  }
+
+  renderList() {
+    this.#appendList();
+  }
+
+  static get observedAttributes() {
+    return ['data-restaurants'];
+  }
+
+  // 속성이 변경될 때 호출되는 콜백
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.clear();
+    this.renderList();
+    // }
   }
 }
 
