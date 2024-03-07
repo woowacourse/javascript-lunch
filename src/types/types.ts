@@ -1,11 +1,11 @@
 export const CATEGORY = {
-  All: '전체',
-  Korean: '한식',
-  Chinese: '중식',
-  Japanese: '일식',
-  Asian: '아시안',
-  Western: '양식',
-  Others: '기타'
+  all: '전체',
+  korean: '한식',
+  chinese: '중식',
+  japanese: '일식',
+  asian: '아시안',
+  western: '양식',
+  others: '기타'
 };
 
 export const SORTING_KEY = {

@@ -1,4 +1,4 @@
-import { CATEGORY, SORTING_KEY, EVENT } from '../../types/types.js';
+import { CATEGORY, SORTING_KEY, EVENT } from '../../types/types.ts';
 import { $ } from '../../util/dom.js';
 import BaseComponent from '../baseComponent/BaseComponent.js';
 

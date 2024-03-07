@@ -1,5 +1,5 @@
 import BaseComponent from '../baseComponent/BaseComponent.js';
-import { EVENT } from '../../types/types.js';
+import { EVENT } from '../../types/types.ts';
 import { $ } from '../../util/dom.js';
 
 class ModalComponent extends BaseComponent {

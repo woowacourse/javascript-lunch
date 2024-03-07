@@ -1,6 +1,6 @@
 import { $ } from '../../util/dom.js';
 import BaseComponent from '../baseComponent/BaseComponent.js';
-import { EVENT } from '../../types/types.js';
+import { EVENT } from '../../types/types.ts';
 
 class GNBComponent extends BaseComponent {
   constructor() {
