@@ -4,6 +4,7 @@ import {
   KOREAN_CATEGORY_FILTER,
   KOREAN_SORT_FILTER,
 } from "../constants/filter";
+import convertObjectToOptions from "../utils/convertObjectToOptions";
 
 export default class FilterBar extends BaseComponent {
   protected getTemplate(): string {
@@ -34,13 +35,9 @@ export default class FilterBar extends BaseComponent {
     return this.generateOptions(KOREAN_SORT_FILTER);
   }
 
-  private generateOptions(filterLiteralObject: Record<number, string>) {
-    const filterOptions = Object.entries(filterLiteralObject).map(
-      ([key, value]) => {
-        return { value: key, label: value };
-      }
-    );
+  private generateOptions(filterLiteralObject: Record<string, string>) {
+    const fiilteredOptions = convertObjectToOptions(filterLiteralObject);
 
-    return JSON.stringify(filterOptions);
+    return JSON.stringify(fiilteredOptions);
   }
 }
