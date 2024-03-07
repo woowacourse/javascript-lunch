@@ -6,6 +6,7 @@ class WebController {
 
   run() {
     this.#restaurantCatalog = new RestaurantCatalog();
+    this.#initRestaurantCatalogFromLocalStorage();
 
     this.#assignRestaurantDataAttribute();
 
@@ -26,6 +27,15 @@ class WebController {
     modalOpenButton.addEventListener('click', () => {
       this.#openModal();
     });
+  }
+
+  #initRestaurantCatalogFromLocalStorage() {
+    const localData = localStorage.getItem('restaurants');
+    if (localData) {
+      JSON.parse(localData).forEach((restaurant) => {
+        this.#restaurantCatalog.pushNewRestaurant(restaurant);
+      });
+    }
   }
 
   // TODO: 리팩터링, 메서드의 위치 -> component로?
@@ -55,17 +65,24 @@ class WebController {
         description: { value: descriptionValue },
         link: { value: linkValue },
       } = e.target;
-      this.#restaurantCatalog.pushNewRestaurant({
+      const restaurantInfo = {
         category: categoryValue,
         name: nameValue,
         distanceFromCampus: Number(distanceValue),
         description: descriptionValue,
         link: linkValue,
-      });
-
+      };
+      this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
+      this.#updateRestaurantToLocalStorage(restaurantInfo);
       this.#assignRestaurantDataAttribute();
       this.#closeModal();
     });
+  }
+
+  #updateRestaurantToLocalStorage(restaurant) {
+    const restaurantArr = JSON.parse(localStorage.getItem('restaurants')) || [];
+    restaurantArr.push(restaurant);
+    localStorage.setItem('restaurants', JSON.stringify(restaurantArr));
   }
 
   #closeModal() {
