@@ -7,13 +7,13 @@ interface ValidationInput {
 }
 
 // TODO: 함수명 동사 + 명사로 변경하기
-export function RestaurantsValidator(inputElement: HTMLElement, value: ValidationInput) {
+export function RestaurantsValidator(value: ValidationInput) {
   const { restaurantNames, name } = value;
   if (ValidateConditions.isIncluded(restaurantNames, name))
-    throw new ValidationError('중복된 가게 이름입니다!', inputElement);
+    throw new Error('중복된 가게 이름입니다!');
 }
 
-export function validateRequiredValue(inputElement: HTMLElement, value: string) {
+export function validateRequiredValue(id: string, value: string) {
   if (ValidateConditions.isBlank(value))
-    throw new ValidationError(`${inputElement.id}는 필수 입력 값입니다.`, inputElement);
+    throw new ValidationError(`${id}는 필수 입력 값입니다.`, id);
 }
