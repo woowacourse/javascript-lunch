@@ -42,6 +42,11 @@ class RestaurantService {
     return a.getMinutesWalk() - b.getMinutesWalk();
   }
 
+  addRestaurants(restaurant: IRestaurant) {
+    this.restaurants = [...this.restaurants, new Restaurant(restaurant)];
+    this.saveRestaurants(this.restaurants);
+  }
+
   saveRestaurants(restaurants: Restaurant[]) {
     // TODO: 함수 시행 시점 정하기
     localStorage.setItem('restaurants', JSON.stringify(restaurants));
@@ -50,7 +55,7 @@ class RestaurantService {
   loadRestaurants(): Restaurant[] {
     const restaurants = localStorage.getItem('restaurants');
     if (restaurants) {
-      return JSON.parse(restaurants);
+      return JSON.parse(restaurants).map((object: IRestaurant) => new Restaurant(object));
     }
     const defaultData = defaultRestaurant.map((restaurant) => {
       const restaurantObject: IRestaurant = {
@@ -64,7 +69,6 @@ class RestaurantService {
     });
 
     return defaultData.map((object: IRestaurant) => new Restaurant(object));
-    // TODO: 데이터 없으면 defaultData fetch
   }
 }
 
