@@ -15,5 +15,7 @@ export const SORTING_KEY = {
 
 export const EVENT = {
   changedFilter: 'changedFilter',
-  clickedGNBButton: 'clickedGNBButton'
+  clickedGNBButton: 'clickedGNBButton',
+  clickedModalSubmitButton: 'clickedModalSubmitButton',
+  clickedModalResetButton: 'clickedModalResetButton'
 };

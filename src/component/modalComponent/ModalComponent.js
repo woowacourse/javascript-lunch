@@ -18,6 +18,13 @@ class ModalComponent extends BaseComponent {
       { target: document, eventName: EVENT.clickedGNBButton },
       this.#handleOpeningModal.bind(this)
     );
+    this.on({ target: $('#modal-form'), eventName: 'submit' }, this.#handleSubmit.bind(this));
+    this.on({ target: $('#modal-form'), eventName: 'reset' }, this.#handleReset.bind(this));
+    this.on(
+      { target: document, eventName: EVENT.clickedModalSubmitButton },
+      this.#handleReset.bind(this)
+    );
+    this.on({ target: $('.modal-backdrop'), eventName: 'click' }, this.#handleReset.bind(this));
   }
 
   removeEvent() {
@@ -31,6 +38,33 @@ class ModalComponent extends BaseComponent {
     try {
       const $modal = $('.modal');
       $modal.classList.add('modal--open');
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  #handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+
+    try {
+      const restaurant = {};
+      restaurant.category = form.category.value;
+      restaurant.name = form.name.value;
+      restaurant.distance = form.distance.value;
+      restaurant.description = form.description.value;
+      restaurant.link = form.link.value;
+
+      this.emit(EVENT.clickedModalSubmitButton, restaurant);
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  #handleReset() {
+    try {
+      $('.modal').classList.remove('modal--open');
     } catch (error) {
       throw new Error();
     }
