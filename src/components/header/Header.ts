@@ -1,4 +1,4 @@
-import AddButton from '../../../templates/add-button.png';
+import { AddButton } from '../../asset/img/index';
 
 class Header extends HTMLElement {
   constructor() {

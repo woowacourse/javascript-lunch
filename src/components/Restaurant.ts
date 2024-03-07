@@ -1,4 +1,22 @@
-import { Restaurant as RestaurantType } from '../types/index';
+import { Restaurant as RestaurantType, CategoryType } from '../types/index';
+import {
+  CategoryAsian,
+  CategoryChinese,
+  CategoryEtc,
+  CategoryJapanese,
+  CategoryKorean,
+  CategoryWestern,
+} from '../asset/img/index';
+
+const CATEGORY_IMAGE: Record<CategoryType, string> = {
+  한식: CategoryKorean,
+  중식: CategoryChinese,
+  일식: CategoryJapanese,
+  양식: CategoryWestern,
+  아시안: CategoryAsian,
+  기타: CategoryEtc,
+  전체: '',
+};
 
 class Restaurant extends HTMLElement {
   constructor(restaurant: RestaurantType) {
@@ -8,7 +26,7 @@ class Restaurant extends HTMLElement {
     this.innerHTML = `
     <li class="restaurant">
       <div class="restaurant__category">
-        <img src="./category-korean.png" alt="${category}" class="category-icon">
+        <img src="${CATEGORY_IMAGE[category]}" alt="${category}" class="category-icon">
       </div>
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle">${name}</h3>
