@@ -2,7 +2,7 @@ import CATEGORY_CONVERTER from '../../constant/config';
 import { Restaurant } from '../../interface/RestaurantInterfaces';
 
 const RestaurantComponent = (restaurant: Restaurant) => {
-  return `
+  return /*html*/ `
   <li class="restaurant">
     <div class="restaurant__category">
       <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.png" alt=${restaurant.category} class="category-icon" />
