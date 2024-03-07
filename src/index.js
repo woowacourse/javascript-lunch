@@ -1,5 +1,3 @@
-// test
-
 import '@/components/Header/Header';
 import '@/components/FilterContainer/FilterContainer';
 import '@/components/SelectBox/SelectBox';

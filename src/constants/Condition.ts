@@ -1,6 +1,9 @@
 export const CONDITIONS = Object.freeze({
   DISTANCES: [5, 10, 15, 20, 30],
-  SORT_CRITERION: ['이름순', '거리순'],
+  SORT_CRITERION: {
+    이름순: 'name',
+    거리순: 'distance',
+  },
 });
 
 export const CATEGORIES: { [key: string]: string } = {

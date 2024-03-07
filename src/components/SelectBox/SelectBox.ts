@@ -1,17 +1,39 @@
 import BaseComponent from '../BaseComponent';
 
 class SelectBox extends BaseComponent {
+  #optionValues;
+  #id;
+
+  constructor(optionValues: string[], id: string) {
+    super();
+    this.#optionValues = optionValues;
+    this.#id = id;
+  }
+
   render() {
-    this.innerHTML = `<select name="category" id="category-filter" class="restaurant-filter">
-    <option value="전체">전체</option>
-    <option value="한식">한식</option>
-    <option value="중식">중식</option>
-    <option value="일식">일식</option>
-    <option value="양식">양식</option>
-    <option value="아시안">아시안</option>
-    <option value="기타">기타</option>
-  </select>
-`;
+    const selectTag = this.#makeSelectTag();
+    this.append(selectTag);
+  }
+
+  #makeSelectTag() {
+    const selectTag = document.createElement('select');
+    selectTag.classList.add('restaurant-filter');
+    selectTag.name = 'category';
+    selectTag.id = this.#id;
+
+    selectTag.append(this.#makeOptionTags());
+    return selectTag;
+  }
+
+  #makeOptionTags() {
+    const fragment = new DocumentFragment();
+    this.#optionValues.forEach((category) => {
+      const optionTag = document.createElement('option');
+      optionTag.value = category;
+      optionTag.textContent = category;
+      fragment.append(optionTag);
+    });
+    return fragment;
   }
 }
 

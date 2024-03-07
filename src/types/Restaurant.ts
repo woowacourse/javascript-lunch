@@ -11,4 +11,4 @@ export type Category = keyof typeof CATEGORIES;
 
 export type Distance = (typeof CONDITIONS.DISTANCES)[number];
 
-export type SortCriteria = (typeof CONDITIONS.SORT_CRITERION)[number];
+export type SortCriteria = keyof typeof CONDITIONS.SORT_CRITERION;
