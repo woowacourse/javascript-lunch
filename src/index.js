@@ -1,4 +1,6 @@
 import '../templates/style.css';
+import '../templates/add-button.png';
+
 import Restaurant from './Restaurant';
 import RestaurantList from './RestaurantList';
 import RestaurantComponent from './components/Restaurant';
@@ -9,7 +11,6 @@ import { CATEGORY, CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from './cons
 const $restaurantList = document.querySelector('.restaurant-list');
 const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
-
 restaurantList.restaurants.forEach(element => {
   $restaurantList.innerHTML += RestaurantComponent(element.information);
 });
