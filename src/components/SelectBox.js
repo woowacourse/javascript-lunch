@@ -3,7 +3,7 @@ const getSelectOption = selectOption => {
 };
 
 const SelectBoxComponent = (select, options) => {
-  return `<select name=${select.name} id=${select.id} class="restaurant-filter">
+  return `<select name=${select.name} id=${select.id} class=${select.class} ${select.required}>
         ${options.map(option => getSelectOption(option)).join('')}
 </select>`;
 };
