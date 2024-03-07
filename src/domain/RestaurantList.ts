@@ -56,4 +56,5 @@ class RestaurantList {
   }
 }
 
-export default RestaurantList;
+const restaurantList = new RestaurantList();
+export default restaurantList;
