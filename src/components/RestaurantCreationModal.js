@@ -1,5 +1,6 @@
 export default class RestaurantCreationModal {
-  constructor() {
+  constructor(restaurants) {
+    this.restaurants = restaurants;
     this.addEvent();
   }
 
@@ -62,7 +63,7 @@ export default class RestaurantCreationModal {
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
           <button type="button" id="cancel-button" class="button button--secondary text-caption">취소하기</button>
-          <button class="button button--primary text-caption">추가하기</button>
+          <button id="add-button" class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
     </div>
@@ -75,6 +76,31 @@ export default class RestaurantCreationModal {
     main.addEventListener('click', (event) => {
       if (event.target.id === 'cancel-button' || event.target.id === 'modal-backdrop') {
         document.getElementById('restaurant-creation-modal').classList.remove('modal--open');
+      }
+    });
+
+    main.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      if (event.target.id === 'add-button') {
+        const selectedCategory =
+          document.getElementById('category').options[category.selectedIndex].value;
+
+        const name = document.getElementById('name').value;
+
+        const selectedDistance =
+          document.getElementById('distance').options[distance.selectedIndex].value;
+
+        const description = document.getElementById('description').value;
+
+        const result = {
+          category: selectedCategory,
+          name,
+          walkingTimeFromCampus: selectedDistance,
+          description,
+        };
+
+        this.restaurants.addRestaurant(result);
       }
     });
   }

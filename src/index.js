@@ -40,7 +40,7 @@ const main = new Main();
 const sortingSelect = new Select(selectDatas[0]);
 const categorySelect = new Select(selectDatas[1]);
 const restaurant = new Restaurant();
-const modal = new RestaurantCreationModal();
+const modal = new RestaurantCreationModal(restaurants);
 
 document.getElementById('header').innerHTML = header.render();
 document.getElementById('main').innerHTML = main.render();
