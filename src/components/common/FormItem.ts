@@ -5,7 +5,7 @@ export default class FormItem extends BaseComponent {
     const id = this.getAttribute("id");
     const title = this.getAttribute("title");
     const required = this.getAttribute("required");
-    const noti = this.getAttribute("noti");
+    const helpText = this.getAttribute("help-text");
 
     const children = this.innerHTML;
 
@@ -13,12 +13,16 @@ export default class FormItem extends BaseComponent {
       <div class="form-item${required ? " form-item--required" : ""}">
         <label for="${id} text-caption">${title}</label>
         ${children}
-        ${noti ? `<span class="help-text text-caption">${noti}</span>` : ""}
+        ${
+          helpText
+            ? `<span class="help-text text-caption">${helpText}</span>`
+            : ""
+        }
       </div>
     `;
   }
 
   static get observedAttributes() {
-    return ["title", "required", "noti", "id"];
+    return ["title", "required", "help-text", "id"];
   }
 }
