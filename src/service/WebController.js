@@ -16,17 +16,36 @@ export default class WebController {
   }
 
   async start() {
+    this.#syncLocalStorageAndDomain();
+
     document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
       const { formData } = e.detail;
-      // localStorage 업데이트
+
       this.#updateLocalStorage(formData);
 
-      // domain 업데이트
-      this.#restaurantManger.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
+      this.#syncLocalStorageAndDomain();
+
+      const categoryFilter = document.querySelector('#category-filter');
+      const sortingFilter = document.querySelector('#sorting-filter');
+
+      const result = this.#restaurantManger.filteredAndSortedByOptions(formData.category, sortingFilter.value);
+      // console.log(result);
+      categoryFilter.value = formData.category;
     });
-    // document.addEventListener(SELECT_EVENTS.onchange, (e) => {
-    //   const { detail } = e;
-    // });
+
+    document.querySelector('.restaurant-filter-container').addEventListener(SELECT_EVENTS.onchange, (e) => {
+      const categoryFilter = document.querySelector('#category-filter');
+      const sortingFilter = document.querySelector('#sorting-filter');
+
+      this.#syncLocalStorageAndDomain();
+
+      const result = this.#restaurantManger.filteredAndSortedByOptions(categoryFilter.value, sortingFilter.value);
+      // console.log(result);
+    });
+  }
+
+  #syncLocalStorageAndDomain() {
+    this.#restaurantManger.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
   }
 
   #updateLocalStorage(restaurant) {
