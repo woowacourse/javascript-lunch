@@ -1,28 +1,7 @@
-import { MinutesWalk } from './../constants/Type';
 import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
-import { Category } from '../constants/Type';
+import { Category, MinutesWalk, SortType, CompareFunction } from '../constants/Type';
 import { IRestaurant } from '../interface/Interface';
-
-// const testData: IRestaurant[] = [
-//   {
-//     name: '하동관',
-//     category: '한식',
-//     minutesWalk: 5,
-//     description: '곰탕 유명',
-//     referenceUrl: 'https://naver.com',
-//   },
-//   {
-//     name: '마담밍',
-//     category: '중식',
-//     minutesWalk: 5,
-//     description: '중국냉면 유명',
-//     referenceUrl: 'https://woowahan.com',
-//   },
-// ];
-
-type SortType = '이름순' | '거리순';
-type CompareFunction = (a: Restaurant, b: Restaurant) => number;
 
 class RestaurantService {
   private restaurants: Restaurant[];
