@@ -1,9 +1,9 @@
 const ValidateConditions = {
-  isIncluded<T>(array: Array<T>, value: T): boolean {
+  isIncluded<T extends string | number>(array: Array<T>, value: T): boolean {
     return array.includes(value);
   },
 
-  isBlank(value: string | number) {
+  isBlank(value: string) {
     return value === '';
   },
 };
