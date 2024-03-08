@@ -37,10 +37,13 @@ export const set = {
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
-          if (category === '전체')
+          if (category === '전체'){
+            restaurantManager.udateFilterRestaurants();
             return this.updateRestaurantList(
               restaurantManager.getRestaurants()
             );
+          }
+            
           this.updateRestaurantList(
             restaurantManager.filteredRestaurants(category)
           );
