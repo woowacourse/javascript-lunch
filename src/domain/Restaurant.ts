@@ -1,14 +1,26 @@
-import { IRestaurant } from '../interface/Interface';
+import { ILocation } from '../interface/Interface';
 import type { Category, MinutesWalk } from '../constants/Type';
 
-class Restaurant {
+class Restaurant implements ILocation {
   private name: string;
   private category: Category;
   private minutesWalk: MinutesWalk;
   private description?: string;
   private referenceUrl?: string;
 
-  constructor({ name, category, minutesWalk, description = '', referenceUrl = '' }: IRestaurant) {
+  constructor({
+    name,
+    category,
+    minutesWalk,
+    description = '',
+    referenceUrl = '',
+  }: {
+    name: string;
+    category: Category;
+    minutesWalk: MinutesWalk;
+    description?: string;
+    referenceUrl?: string;
+  }) {
     this.name = name;
     this.category = category;
     this.minutesWalk = minutesWalk;
@@ -24,7 +36,7 @@ class Restaurant {
     return this.minutesWalk;
   }
 
-  getData(): IRestaurant {
+  getData() {
     return {
       name: this.name,
       category: this.category,
