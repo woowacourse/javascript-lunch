@@ -1,4 +1,5 @@
 import { $ } from "../../utils/dom";
+import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantNameInput extends BaseComponent {
@@ -16,9 +17,7 @@ class RestaurantNameInput extends BaseComponent {
   }
 
   #isValidName(value) {
-    const valueLength = value.length;
-
-    return valueLength <= 10 && valueLength > 0;
+    return restaurantValidator.isInRange(value, 0, 10);
   }
 
   setEvent() {
