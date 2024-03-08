@@ -37,7 +37,7 @@ class RestaurantList extends BaseComponent {
             accRestaurants +
             `
             <restaurant-item
-              name = ${name}
+              name = "${name}"
               category = ${category}
               distance = ${distance}
               description = "${description}"
