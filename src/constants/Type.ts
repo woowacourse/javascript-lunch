@@ -6,4 +6,12 @@ type MinutesWalk = (typeof TYPE_SETTING.minutesWalk)[number];
 type SortType = (typeof TYPE_SETTING.sortType)[number];
 type CompareFunction = (a: Restaurant, b: Restaurant) => number;
 
-export { Category, MinutesWalk, SortType, CompareFunction };
+type LocationData = {
+  name: string;
+  category: Category;
+  minutesWalk: MinutesWalk;
+  description?: string;
+  referenceUrl?: string;
+};
+
+export { Category, MinutesWalk, SortType, CompareFunction, LocationData };
