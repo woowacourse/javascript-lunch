@@ -16,7 +16,7 @@ import {
   SORTING_ATTRIBUTE,
 } from './constants/filter';
 import HomeEventHandler from './eventHandler/HomeEventHandler';
-import ModalEventHandler from './eventHandler/ModalEventHadler';
+import ModalEventHandler from './eventHandler/ModalEventHandler';
 
 const $restaurantList = document.querySelector('.restaurant-list');
 const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
