@@ -1,38 +1,35 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { RestaurantDataType } from '../../../type/restaurantDataType';
+import { LocationData } from '../../../constants/Type';
 
-export default class RestaurantList extends HTMLElement {
-  private restaurants: RestaurantDataType[];
+class RestaurantList extends HTMLElement {
+  private restaurants: LocationData[];
 
-  constructor(restaurants: RestaurantDataType[]) {
+  constructor(restaurants: LocationData[]) {
     super();
     this.restaurants = restaurants;
   }
 
   connectedCallback() {
-    this.render();
+    const restaurantList: HTMLElement[] = this.createRestaurantList();
+    this.render(restaurantList);
   }
 
-  updateRestaurantList(newRestaurants: RestaurantDataType[]) {
-    this.restaurants = newRestaurants;
-    this.render();
+  createRestaurantList() {
+    return this.restaurants.map((restaurantData) => new RestaurantItem(restaurantData));
   }
 
-  private clearRestaurantList() {
-    while (this.firstChild) {
-      this.removeChild(this.firstChild);
-    }
-  }
+  private render(restaurantList: HTMLElement[]) {
+    const listContainer = document.createElement('ul');
+    listContainer.classList.add('restaurant-list');
 
-  private render() {
-    this.clearRestaurantList();
-
-    this.classList.add('restaurant-list-container');
-    this.restaurants.forEach((restaurantData) => {
-      const restaurantItem = new RestaurantItem(restaurantData);
-      this.appendChild(restaurantItem);
+    restaurantList.forEach((restaurantItem) => {
+      listContainer.appendChild(restaurantItem);
     });
+
+    this.innerHTML = `<section class="restaurant-list-container"></section>`;
+    this.querySelector('.restaurant-list-container')!.appendChild(listContainer);
   }
 }
 
 customElements.define('restaurant-list', RestaurantList);
+export default RestaurantList;
