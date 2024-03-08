@@ -4,7 +4,7 @@ import SelectBox from '../SelectBox/SelectBox';
 import BaseComponent from '../BaseComponent';
 import BasicButton from '../BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import { IRestaurant } from '@/types/Restaurant';
+import { IRestaurant, RequiredCategoriesKeys, RequiredDistanceKeys } from '@/types/Restaurant';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
@@ -29,104 +29,14 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #makeForm() {
-    /* 카테고리 선택 */
-    const $categorySelection = this.#makeCategorySelectBox();
-    this.#form.append($categorySelection);
-
-    /*이름 인풋박스*/
-    const $nameInputBox = document.createElement('div');
-    $nameInputBox.classList.add('form-item', 'form-item--required');
-    $nameInputBox.innerHTML = `
-    <label for="name text-caption">이름</label>
-     <input type="text" name="name" id="name" required />
-    `;
-    this.#form.append($nameInputBox);
-
-    /*거리 셀렉트 박스*/
+    this.#makeCategorySelectBox();
+    this.#makeNameInput();
     this.#makeDistanceSelectBox();
+    this.#makeDescriptionTextArea();
+    this.#makeLinkInput();
+    this.#makeButtons();
 
-    /*설명 인풋*/
-    const $descriptionTextBox = document.createElement('div');
-    $descriptionTextBox.classList.add('form-item');
-    $descriptionTextBox.innerHTML = `
-              <label for="description text-caption">설명</label>
-              <textarea name="description" id="description" cols="30" rows="5"></textarea>
-              <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-`;
-
-    this.#form.append($descriptionTextBox);
-
-    /*링크 인풋*/
-    const $linkTextBox = document.createElement('div');
-    $linkTextBox.classList.add('form-item');
-    $linkTextBox.innerHTML = ` <label for="link text-caption">참고 링크</label>
-                <input type="text" name="link" id="link" />
-                 <span class="help-text text-caption"> 매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
-    this.#form.append($linkTextBox);
-
-    /*버튼*/
-    const $buttonBox = document.createElement('div');
-    $buttonBox.classList.add('button-container');
-
-    const cancelButton = new BasicButton(false, '취소하기', 'reset', () => {
-      this.closeModal();
-    });
-    const addButton = new BasicButton(true, '추가하기', 'submit', () => {});
-
-    $buttonBox.append(cancelButton);
-    $buttonBox.append(addButton);
-
-    this.#form.append($buttonBox);
-
-    this.#form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.querySelector('.category-select > .error')?.classList.add('hidden');
-      document.querySelector('.distance-select > .error')?.classList.add('hidden');
-
-      const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
-
-      const distance = Number(
-        (this.#form.elements.namedItem('distance') as HTMLInputElement).value.slice(0, -3),
-      );
-
-      const category = (this.#form.elements.namedItem('category') as HTMLInputElement).value;
-      const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
-      const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
-
-      //필수값 validation
-      if (category === '선택해주세요') {
-        document.querySelector('.category-select > .error')?.classList.remove('hidden');
-      }
-
-      if (Number.isNaN(distance)) {
-        document.querySelector('.distance-select > .error')?.classList.remove('hidden');
-      }
-
-      if (category === '선택해주세요' || Number.isNaN(distance)) {
-        return;
-      }
-
-      const newRestaurant: IRestaurant = {
-        name,
-        distance, // TODO : '분 내'를 지우려고 3개없앴음. 야매로 해뒀음.
-        category,
-      };
-      if (description) {
-        newRestaurant.description = description;
-      }
-      if (link) {
-        newRestaurant.link = link;
-      }
-      const DBService = new RestaurantDBService();
-      DBService.add(newRestaurant);
-
-      const selectElement = document.querySelector('.restaurant-filter-container');
-      const event = new Event('change', {
-        bubbles: true,
-        cancelable: true,
-      });
-      selectElement?.dispatchEvent(event);
-    });
+    this.#submitForm();
     this.closeModal();
   }
 
@@ -147,8 +57,17 @@ class NewRestaurantModal extends BaseComponent {
     errorBox.classList.add('error', 'hidden');
     errorBox.textContent = '카테고리는 필수 입력입니다.';
     $categorySelectBox.append(errorBox);
+    this.#form.append($categorySelectBox);
+  }
 
-    return $categorySelectBox;
+  #makeNameInput() {
+    const $nameInputBox = document.createElement('div');
+    $nameInputBox.classList.add('form-item', 'form-item--required');
+    $nameInputBox.innerHTML = `
+    <label for="name text-caption">이름</label>
+     <input type="text" name="name" id="name" required />
+    `;
+    this.#form.append($nameInputBox);
   }
 
   #makeDistanceSelectBox() {
@@ -168,6 +87,93 @@ class NewRestaurantModal extends BaseComponent {
     $distanceSelection.append(errorBox);
 
     this.#form.append($distanceSelection);
+  }
+
+  #makeDescriptionTextArea() {
+    const $descriptionTextBox = document.createElement('div');
+    $descriptionTextBox.classList.add('form-item');
+    $descriptionTextBox.innerHTML = `
+              <label for="description text-caption">설명</label>
+              <textarea name="description" id="description" cols="30" rows="5"></textarea>
+              <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+`;
+
+    this.#form.append($descriptionTextBox);
+  }
+
+  #makeLinkInput() {
+    const $linkTextBox = document.createElement('div');
+    $linkTextBox.classList.add('form-item');
+    $linkTextBox.innerHTML = ` <label for="link text-caption">참고 링크</label>
+                <input type="text" name="link" id="link" />
+                 <span class="help-text text-caption"> 매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
+    this.#form.append($linkTextBox);
+  }
+
+  #makeButtons() {
+    const $buttonBox = document.createElement('div');
+    $buttonBox.classList.add('button-container');
+
+    const cancelButton = new BasicButton(false, '취소하기', 'reset', () => {
+      this.closeModal();
+    });
+    const addButton = new BasicButton(true, '추가하기', 'submit', () => {});
+
+    $buttonBox.append(cancelButton);
+    $buttonBox.append(addButton);
+
+    this.#form.append($buttonBox);
+  }
+
+  #requireValueValidation(category: RequiredCategoriesKeys, distance: RequiredDistanceKeys) {
+    if (category === '선택해주세요') {
+      document.querySelector('.category-select > .error')?.classList.remove('hidden');
+    }
+    if (Number.isNaN(distance)) {
+      document.querySelector('.distance-select > .error')?.classList.remove('hidden');
+    }
+    if (category === '선택해주세요' || Number.isNaN(distance)) {
+      return;
+    }
+  }
+
+  #submitForm() {
+    this.#form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.querySelector('.category-select > .error')?.classList.add('hidden');
+      document.querySelector('.distance-select > .error')?.classList.add('hidden');
+
+      const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
+      const distance = Number(
+        (this.#form.elements.namedItem('distance') as HTMLInputElement).value.slice(0, -3),
+      );
+      const category = (this.#form.elements.namedItem('category') as HTMLInputElement).value;
+      const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
+      const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
+
+      this.#requireValueValidation(category, distance);
+
+      const newRestaurant: IRestaurant = {
+        name,
+        distance,
+        category,
+      };
+      if (description) {
+        newRestaurant.description = description;
+      }
+      if (link) {
+        newRestaurant.link = link;
+      }
+      const DBService = new RestaurantDBService();
+      DBService.add(newRestaurant);
+
+      const selectElement = document.querySelector('.restaurant-filter-container');
+      const event = new Event('change', {
+        bubbles: true,
+        cancelable: true,
+      });
+      selectElement?.dispatchEvent(event);
+    });
   }
 
   closeModal() {
