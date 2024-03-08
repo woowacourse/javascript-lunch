@@ -83,7 +83,6 @@ export default class RestaurantCreationModal {
   }
 
   // TODO: addEvent 이벤트 분리, 내부 메서드 분리
-  // TODO: clickEvent vs submitEvent
   // TODO: focusout의 중복값 측정은 뺄것인가?
   addEvent() {
     $('restaurant-creation-modal').addEventListener('click', (event) => {
@@ -92,14 +91,15 @@ export default class RestaurantCreationModal {
       }
     });
 
-    $('restaurant-creation-modal').addEventListener('click', (event) => {
+    $('restaurant-creation-modal').addEventListener('submit', (event) => {
       event.preventDefault();
 
-      if (event.target.id === 'add-button')
+      if (event.submitter.id === 'add-button') {
         tryCatchWrapper(
           () => this.addRestaurantAndRender(),
           ({ message }) => alert(message),
         );
+      }
     });
 
     $('restaurant-creation-modal').addEventListener('focusout', ({ target }) => {
