@@ -1,3 +1,4 @@
+import { ASSETS } from '../../../constants/setting';
 import { $ } from '../../../utils/domSelector';
 
 class LunchHeader extends HTMLElement {
@@ -7,8 +8,12 @@ class LunchHeader extends HTMLElement {
   }
 
   private addEvent() {
-    $('#add-restaurant-button', this)?.addEventListener('click', () => {
-      this.dispatchEvent(new CustomEvent('showAddRestaurantModal'));
+    $('#add-restaurant-button')!.addEventListener('click', () => {
+      this.dispatchEvent(
+        new CustomEvent('showAddRestaurantModal', {
+          bubbles: true,
+        }),
+      );
     });
   }
 
@@ -17,7 +22,7 @@ class LunchHeader extends HTMLElement {
       <header class="gnb">
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
         <button type="button" id="add-restaurant-button" class="gnb__button" aria-label="음식점 추가">
-          <img src="./add-button.png" alt="음식점 추가" />
+          <img src=${ASSETS.imageUrl.버튼_음식점추가} alt="음식점 추가" />
         </button>
       </header>
     `;
@@ -25,3 +30,4 @@ class LunchHeader extends HTMLElement {
 }
 
 customElements.define('lunch-header', LunchHeader);
+export default LunchHeader;
