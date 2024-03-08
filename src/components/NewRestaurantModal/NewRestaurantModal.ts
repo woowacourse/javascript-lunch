@@ -41,17 +41,6 @@ class NewRestaurantModal extends BaseComponent {
     this.closeModal();
   }
 
-  private makeDescriptionTextBox() {
-    const $descriptionTextBox = document.createElement('div');
-    $descriptionTextBox.classList.add('form-item');
-    $descriptionTextBox.innerHTML = `
-              <label for="description text-caption">설명</label>
-              <textarea name="description" id="description" cols="30" rows="5"></textarea>
-              <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-`;
-    return $descriptionTextBox;
-  }
-
   #makeCategorySelectBox() {
     const $categorySelectBox = document.createElement('div');
     $categorySelectBox.classList.add('form-item', 'form-item--required', 'category-select');
@@ -79,11 +68,13 @@ class NewRestaurantModal extends BaseComponent {
     <label for="name text-caption">이름</label>
      <input type="text" name="name" id="name" />
     `;
-    this.#form.append($nameInputBox);
     const errorBox = document.createElement('div');
     errorBox.classList.add('error', 'hidden');
     errorBox.textContent = '이름값은 필수 입력입니다.';
+
     $nameInputBox.append(errorBox);
+
+    this.#form.append($nameInputBox);
   }
 
   #makeDistanceSelectBox() {
