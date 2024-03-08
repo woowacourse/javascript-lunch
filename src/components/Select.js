@@ -1,10 +1,11 @@
 import Restaurant from './Restaurant';
 import { $ } from '../utils/dom';
+import { RULES } from '../constants/rules';
 
 export default class Select {
   constructor(restaurants) {
     this.restaurants = restaurants;
-    this.addEvent();
+    this.handleSelectChange();
   }
 
   render({ id, name, options }) {
@@ -26,21 +27,14 @@ export default class Select {
     return select;
   }
 
-  addEvent() {
-    // TODO: 상수화
-    const targetIds = ['sorting-filter', 'category-filter'];
-
-    // TODO: 내부 이벤트 분리
+  handleSelectChange() {
     $('main').addEventListener('change', ({ target }) => {
-      if (targetIds.some((id) => target.id === id)) {
+      if (RULES.selectIds.some((id) => target.id === id)) {
         const selectedValue = target.options[target.selectedIndex].value;
         this.restaurants.setStandard = { id: target.id, standard: selectedValue };
       }
 
-      $('restaurant-list').innerHTML = '';
-      this.restaurants.standardList.forEach((restaurantData) => {
-        $('restaurant-list').innerHTML += new Restaurant().render(restaurantData);
-      });
+      this.reRenderRestaurantList();
     });
   }
 
@@ -51,5 +45,12 @@ export default class Select {
     if (sortingFilter === key || categoryFilter === key) {
       option.setAttribute('selected', 'selected');
     }
+  }
+
+  reRenderRestaurantList() {
+    $('restaurant-list').innerHTML = '';
+    this.restaurants.standardList.forEach((restaurantData) => {
+      $('restaurant-list').innerHTML += new Restaurant().render(restaurantData);
+    });
   }
 }

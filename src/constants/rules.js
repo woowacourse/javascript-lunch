@@ -1,3 +1,4 @@
+// TODO: <고민> 상수 Object.freeze() 도입할 것인지
 export const SELECTED_DATA = {
   sorting: {
     id: 'sorting-filter',
@@ -24,4 +25,5 @@ export const SELECTED_DATA = {
 
 export const RULES = {
   requiredIds: ['category', 'name', 'distance'],
+  selectIds: ['sorting-filter', 'category-filter'],
 };
