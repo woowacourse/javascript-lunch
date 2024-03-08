@@ -32,7 +32,7 @@ class WebController {
       this.#closeModal();
     });
 
-    const modalOpenButton = document.getElementById('add-restaurent-button');
+    const modalOpenButton = document.getElementById('add-restaurant-button');
     modalOpenButton.addEventListener('click', () => {
       this.#openModal();
     });
