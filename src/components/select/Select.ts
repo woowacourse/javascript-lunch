@@ -3,7 +3,7 @@ import Option, { OptionProps } from '../Option';
 export type SelectProps = {
   name: string;
   id: string;
-  classname: string;
+  classname?: string;
   required: boolean;
   options: OptionProps[];
 };
@@ -15,7 +15,7 @@ class Select extends HTMLSelectElement {
 
     this.name = name;
     this.id = id;
-    this.classList.add(classname);
+    if (classname !== undefined) this.classList.add(classname);
     this.required = required;
     this.addOptions(options);
   }

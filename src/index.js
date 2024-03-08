@@ -5,6 +5,7 @@ import './components/FilterContainer.ts';
 import './components/ListContainer.ts';
 import './components/Modal.ts';
 import './components/Restaurant.ts';
+import './components/RestaurantForm.ts';
 
 import root from './Root';
 
