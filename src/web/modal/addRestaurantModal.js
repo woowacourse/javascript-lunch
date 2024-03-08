@@ -22,19 +22,18 @@ function createNewRestaurantModal(restaurantManager) {
       return restaurant;
     }, {});
 
-    try { 
+    try {
       restaurantManager.add(newRestaurant);
-      set.updateRestaurantList(restaurantManager.getfilterRestaurants());
+      set.updateRestaurantList(restaurantManager.getRestaurants());
       modal.remove('modal--open');
     } catch (e) {
       toast(e.message);
     }
-    
+
     // localStorage.setItem(
     //   'restaurants',
     //   JSON.stringify(restaurantManager.sortByAscendingName())
     // );
-
   });
   return container;
 }

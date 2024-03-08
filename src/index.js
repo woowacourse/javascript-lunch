@@ -5,8 +5,7 @@
 //   리스트 렌더(목록)
 // }
 import '../templates/style.css';
-import { set } from './web/control';
-import './component/toast/toast.css'
+import './component/toast/toast.css';
 
 import './images/category-korean.png';
 import './images/category-etc.png';
@@ -15,5 +14,7 @@ import './images/category-chinese.png';
 import './images/category-asian.png';
 import './images/category-western.png';
 import './images/add-button.png';
+
+import { set } from './web/control';
 
 set.start();
