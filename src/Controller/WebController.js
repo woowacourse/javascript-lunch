@@ -72,10 +72,14 @@ class WebController {
         description: descriptionValue,
         link: linkValue,
       };
-      this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
-      this.#updateRestaurantToLocalStorage(restaurantInfo);
-      this.#assignRestaurantDataAttribute();
-      this.#closeModal();
+      try {
+        this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
+        this.#updateRestaurantToLocalStorage(restaurantInfo);
+        this.#assignRestaurantDataAttribute();
+        this.#closeModal();
+      } catch (e) {
+        alert(e.message);
+      }
     });
   }
 
