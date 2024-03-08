@@ -1,10 +1,17 @@
-import { LabelProps } from './Label';
-import { OptionProps } from './Option';
-import { SelectProps } from './select/Select';
-import { InputProps } from './Input';
-import { TextAreaProps } from './TextArea';
-import { CaptionProps } from './Caption';
+import {
+  LabelProps,
+  OptionProps,
+  SelectProps,
+  InputProps,
+  TextAreaProps,
+  CaptionProps,
+  ButtonProps,
+} from './tag/props';
+
+import { Button } from './tag';
+
 import FormItem from './FormItem';
+
 class RestaurantForm extends HTMLElement {
   constructor() {
     super();
@@ -17,6 +24,7 @@ class RestaurantForm extends HTMLElement {
     this.createDistanceField();
     this.createDescriptionField();
     this.createLinkField();
+    this.createButtons();
   }
 
   createCategoryField() {
@@ -153,6 +161,26 @@ class RestaurantForm extends HTMLElement {
         caption,
       }),
     );
+  }
+
+  createButtons() {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.setAttribute('class', 'button-container');
+
+    const cancelButton: ButtonProps = {
+      type: 'button',
+      classnames: ['button', 'button--secondary', 'text-caption', 'modal--close'],
+      children: '취소하기',
+    };
+    const submitButton: ButtonProps = {
+      type: 'submit',
+      classnames: ['button', 'button--primary', 'text-caption'],
+      children: '추가하기',
+    };
+    buttonContainer.appendChild(new Button(cancelButton));
+    buttonContainer.appendChild(new Button(submitButton));
+
+    this.appendChild(buttonContainer);
   }
 }
 

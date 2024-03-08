@@ -1,7 +1,4 @@
-export interface LabelProps {
-  htmlFor: string;
-  text: string;
-}
+import LabelProps from './props/LabelProps';
 
 class Label extends HTMLLabelElement {
   constructor(props: LabelProps) {

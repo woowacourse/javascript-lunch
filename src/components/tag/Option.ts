@@ -1,7 +1,4 @@
-export type OptionProps = {
-  value: string;
-  text: string;
-};
+import OptionProps from './props/OptionProps';
 
 class Option extends HTMLOptionElement {
   constructor(props: OptionProps) {

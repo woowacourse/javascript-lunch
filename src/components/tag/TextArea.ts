@@ -1,9 +1,4 @@
-export interface TextAreaProps {
-  name: string;
-  id: string;
-  cols: number;
-  rows: number;
-}
+import TextAreaProps from './props/TextAreaProps';
 
 class TextArea extends HTMLTextAreaElement {
   constructor(props: TextAreaProps) {

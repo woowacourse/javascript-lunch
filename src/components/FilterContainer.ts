@@ -1,6 +1,7 @@
 import DOM from '../utils/DOM';
-import Select, { SelectProps } from './select/Select'; // ++
-import { OptionProps } from './Option'; // ++
+
+import { Select } from './tag';
+import { SelectProps, OptionProps } from './tag/props';
 
 const { $ } = DOM;
 

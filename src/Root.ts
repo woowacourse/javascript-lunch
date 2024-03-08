@@ -4,9 +4,7 @@ import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
-import Select from './components/select/Select';
-import Input from './components/Input';
-import TextArea from './components/TextArea';
+import { Select, Input, TextArea } from './components/tag';
 
 const { $, $$ } = DOM;
 

@@ -1,12 +1,6 @@
-import Option, { OptionProps } from '../Option';
-
-export type SelectProps = {
-  name: string;
-  id: string;
-  classname?: string;
-  required: boolean;
-  options: OptionProps[];
-};
+import Option from './Option';
+import OptionProps from './props/OptionProps';
+import SelectProps from './props/SelectProps';
 
 class Select extends HTMLSelectElement {
   constructor(props: SelectProps) {

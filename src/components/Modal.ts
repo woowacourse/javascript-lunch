@@ -12,11 +12,6 @@ class Modal extends HTMLElement {
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id="restaurant-form"></form>
-        <!-- 취소/추가 버튼 -->
-        <div class="button-container">
-          <button type="button" class="button button--secondary text-caption modal--close">취소하기</button>
-          <button type="submit" form="restaurant-form" class="button button--primary text-caption">추가하기</button>
-        </div>
       </div>
     </div>
     `;

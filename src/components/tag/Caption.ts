@@ -1,7 +1,4 @@
-export interface CaptionProps {
-  classnames: string[];
-  text: string;
-}
+import CaptionProps from './props/CaptionProps';
 
 class Caption extends HTMLSpanElement {
   constructor(props: CaptionProps) {
