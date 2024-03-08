@@ -27,7 +27,7 @@ class CategoryIcon extends HTMLElement {
     if (item) {
       const { imageUrl, alt } = item;
 
-      this.innerHTML = `          
+      this.innerHTML = /*html*/ `          
         <img src="${imageUrl}" alt="${alt}" />         
       `;
     }

@@ -24,7 +24,7 @@ class DropBoxInnerHtmlMaker {
     if (dropBoxProps) {
       const { selectProps, labelText, options } = dropBoxProps;
 
-      const html = `
+      const html = /*html*/ `
         <label class="screen-read-only" for="${selectProps.id}">
           ${labelText}
         </label >

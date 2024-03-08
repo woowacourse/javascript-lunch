@@ -1,5 +1,6 @@
 import DropBoxInnerHtmlMaker from './DropBoxInnerHtmlMaker';
 import { DropBoxName } from '../../types';
+
 class DropBox extends HTMLElement {
   constructor() {
     super();

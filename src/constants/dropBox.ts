@@ -5,6 +5,7 @@ export type DropBoxMapValue = {
   labelText: string;
   options: OptionProps[];
 };
+
 export const DROP_BOX_MAP = new Map<DropBoxName, DropBoxMapValue>([
   [
     'filteringSorting',

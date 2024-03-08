@@ -1,5 +1,5 @@
 import { RestaurantInfo } from '../types';
-import InitialRestaurantData from '../data/restaurantData';
+import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { StorageKeyEnum } from '../constants';
 
 const RestaurantListController = {
@@ -9,7 +9,7 @@ const RestaurantListController = {
     if (!data) {
       localStorage.setItem(
         StorageKeyEnum.restaurants,
-        JSON.stringify(InitialRestaurantData),
+        JSON.stringify(INITIAL_RESTAURANT_DATA),
       );
     }
   },
@@ -25,7 +25,8 @@ const RestaurantListController = {
 
     if (listEl) {
       listEl.innerHTML =
-        innerHTML || '<p id="none-restaurant">찾으시는 음식점이 없습니다.</p>';
+        innerHTML ||
+        '<p id="none-restaurant">해당 카테고리의 음식점이 존재하지 않습니다.</p>';
     }
   },
 };

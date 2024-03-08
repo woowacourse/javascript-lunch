@@ -7,7 +7,7 @@ class AddBtn extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = `<button>
+    this.innerHTML = /*html*/ `<button>
       <img src=${AddButtonIcon} alt="음식점 추가 버튼"/>
     </button>
     `;
@@ -17,7 +17,6 @@ class AddBtn extends HTMLElement {
     );
   }
 
-  // TODO: 모달 open
   #handleClickToAddStore(event: MouseEvent) {
     event.stopPropagation();
   }

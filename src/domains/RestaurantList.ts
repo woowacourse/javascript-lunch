@@ -1,9 +1,9 @@
 import { StorageKeyEnum, MESSAGE } from '../constants';
-import InitialRestaurantData from '../data/restaurantData';
+import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { Category, RestaurantInfo } from '../types';
 
 class RestaurantList {
-  #list: RestaurantInfo[] = InitialRestaurantData;
+  #list: RestaurantInfo[] = INITIAL_RESTAURANT_DATA;
 
   constructor() {
     this.#updateListByLocalStorage();

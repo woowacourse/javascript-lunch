@@ -1,7 +1,7 @@
 import { CategoryEnum, StorageKeyEnum, MESSAGE } from '../src/constants';
 import { RestaurantInfo } from '../src/types';
 import { RestaurantList } from '../src/domains';
-import InitialRestaurantData from '../src/data/restaurantData';
+import { INITIAL_RESTAURANT_DATA } from '../src/data/restaurantData';
 
 describe('RestaurantList 테스트', () => {
   describe('로컬 저장소', () => {
@@ -25,17 +25,17 @@ describe('RestaurantList 테스트', () => {
 
       expect(restaurantList.list).toEqual(ITEM);
     });
-    test('로컬 저장소에 음식점 리스트 데이터가 없으면 RestaurantList의 lists는 초기값은 InitialRestaurantData이다.', () => {
+    test('로컬 저장소에 음식점 리스트 데이터가 없으면 RestaurantList의 lists는 초기값은 INITIAL_RESTAURANT_DATA이다.', () => {
       const restaurantList = new RestaurantList();
 
-      // InitialRestaurantData 과 직접 비교 시 "deep"오류가 나와서 undefined 여부로 테스트
+      // INITIAL_RESTAURANT_DATA 과 직접 비교 시 "deep"오류가 나와서 undefined 여부로 테스트
       expect(restaurantList.list).toBeDefined();
     });
   });
 
   describe('음식점 추가', () => {
     test('중복 음식점이 있으면 오류가 발생한다 ', () => {
-      const restaurant = InitialRestaurantData[0];
+      const restaurant = INITIAL_RESTAURANT_DATA[0];
 
       const restaurantList = new RestaurantList();
 

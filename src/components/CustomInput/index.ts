@@ -13,7 +13,7 @@ class CustomInput extends HTMLElement {
     const placeholder = this.getAttribute('placeholder');
     const maxlength = this.getAttribute('maxlength');
 
-    this.innerHTML = `<input  type="${type}" name="${name}" id="${id}" ${required ? 'required' : ''}  placeholder="${placeholder || ''}" ${maxlength ? `maxlength=${maxlength}` : ''} />`;
+    this.innerHTML = /*html*/ `<input  type="${type}" name="${name}" id="${id}" ${required ? 'required' : ''}  placeholder="${placeholder || ''}" ${maxlength ? `maxlength=${maxlength}` : ''} />`;
 
     this.querySelector('input')?.addEventListener('change', (event) =>
       this.#handleChange(event),
@@ -29,4 +29,5 @@ class CustomInput extends HTMLElement {
     }
   }
 }
+
 customElements.define('custom-input', CustomInput);

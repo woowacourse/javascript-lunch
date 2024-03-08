@@ -14,7 +14,7 @@ class CustomTextarea extends HTMLElement {
     const placeholder = this.getAttribute('placeholder');
     const maxlength = this.getAttribute('maxlength');
 
-    this.innerHTML = `
+    this.innerHTML = /*html*/ `
     <textarea name="${name}" id="${id}" cols="${cols}" rows="${rows}" placeholder="${placeholder || ''}"  ${maxlength ? `maxlength=${maxlength}` : ''}></textarea>
     `;
 

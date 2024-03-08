@@ -2,7 +2,6 @@ import { ProtocolEnum } from './enum';
 import { CHARACTER_LIMIT } from './rule';
 
 export const MESSAGE = {
-  // descriptionHasInvalidKoreanChars: '한글만 입력이 가능합니다.',
   descriptionHasInvalidCharacterLimit: `${CHARACTER_LIMIT.description}자 이내만 입력이 가능합니다.`,
   nameHasInvalidCharacterLimit: `${CHARACTER_LIMIT.description}자 이내만 입력이 가능합니다.`,
   linkHasInvalidChars: '영어,숫자,기호(.,-,/)만 입력이 가능합니다.',

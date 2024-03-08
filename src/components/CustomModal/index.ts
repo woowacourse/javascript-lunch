@@ -5,7 +5,7 @@ class CustomModal extends HTMLElement {
     super();
 
     const shadow = this.attachShadow({ mode: 'open' }); // Shadow DOM 생성
-    shadow.innerHTML = `
+    shadow.innerHTML = /*html*/ `
     <style>
       .modal {
         display: none;
