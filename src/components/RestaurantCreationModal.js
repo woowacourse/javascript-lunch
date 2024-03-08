@@ -11,10 +11,6 @@ export default class RestaurantCreationModal {
   }
 
   render() {
-    // TODO: 주석 제거
-    // TODO: <고민> html 태그 id 상수화 (ex: category)
-    // TODO: html 분리
-    /*html*/
     return `
     <!-- 음식점 추가 모달 -->
     <div id="modal-backdrop" class="modal-backdrop"></div>

@@ -2,7 +2,6 @@ import ICON from '../icons';
 
 export default class Restaurant {
   render({ category, name, walkingTimeFromCampus, description }) {
-    /*html*/
     return `
     <li class="restaurant">
       <div class="restaurant__category">

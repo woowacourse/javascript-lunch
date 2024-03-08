@@ -1,3 +1,4 @@
+import { $ } from '../utils/dom';
 import ICON from '../icons';
 
 export default class Header {
@@ -6,7 +7,6 @@ export default class Header {
   }
 
   render() {
-    /*html*/
     return `
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" id="gnb__button" class="gnb__button" aria-label="음식점 추가">
@@ -16,9 +16,9 @@ export default class Header {
   }
 
   handleButtonClick() {
-    document.getElementById('header').addEventListener('click', (e) => {
+    $('header').addEventListener('click', (e) => {
       if (e.target.parentNode.id === 'gnb__button') {
-        document.getElementById('restaurant-creation-modal').classList.add('modal--open');
+        $('restaurant-creation-modal').classList.add('modal--open');
       }
     });
   }

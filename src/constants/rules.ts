@@ -1,4 +1,3 @@
-// TODO: <고민> 상수 Object.freeze() 도입할 것인지
 export const SELECTED_DATA: SelectedDataType = {
   sorting: {
     id: 'sorting-filter',

@@ -1,5 +1,3 @@
-// TODO: <마지막> import, 선언 순서 정리
-
 import Restaurants from './domains/Restaurants';
 
 import Header from './components/Header';
@@ -27,5 +25,4 @@ $('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.categor
 restaurants.standardList.forEach((restaurantData) => {
   $('restaurant-list').innerHTML += restaurant.render(restaurantData);
 });
-
 $('restaurant-creation-modal').innerHTML = modal.render();
