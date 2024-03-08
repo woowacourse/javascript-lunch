@@ -11,4 +11,14 @@ const descriptionEventHandler = (description: HTMLElement) => {
   });
 };
 
-export default descriptionEventHandler;
+const inputDescriptionHandler = () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const description = document.getElementById("description");
+
+    if (description) {
+      descriptionEventHandler(description);
+    }
+  });
+};
+
+export default inputDescriptionHandler;
