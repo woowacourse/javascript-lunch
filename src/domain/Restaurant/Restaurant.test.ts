@@ -121,6 +121,7 @@ describe("Restaurant 모듈 테스트", () => {
   });
 
   describe("중복 된 음식점 추가 검증 기능", () => {
+    // given
     const newRestaurantDetail: RestaurantDetail = {
       category: "한식",
       name: "한식당1", // 이미 존재하는 이름
@@ -129,14 +130,17 @@ describe("Restaurant 모듈 테스트", () => {
       url: "http://example.com/new",
     };
     test(`중복된 음식점 이름이 존재 할 경우 "${ERROR_MESSAGE.duplicateRestaurant}" 메시지와 함께 에러를 발생시킨다`, () => {
+      // when - then
       expect(() => {
         restaurant.findDuplicateRestaurantByName(newRestaurantDetail);
       }).toThrow(ERROR_MESSAGE.duplicateRestaurant);
     });
 
     test("중복된 음식점 이름이 없다면 에러를 발생시키지 않는다", () => {
+      // given
       newRestaurantDetail.name = "지니 식당";
 
+      // when - then
       expect(() => {
         restaurant.findDuplicateRestaurantByName(newRestaurantDetail);
       }).not.toThrow(ERROR_MESSAGE.duplicateRestaurant);
