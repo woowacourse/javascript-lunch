@@ -41,7 +41,6 @@ export const INVALID_DEFAULT_DATA = [
 describe("폼 입력 테스트", () => {
   it("레스토랑 추가 폼에 유효하지 않은 값을 입력한 경우 에러를 발생한다.", () => {
     cy.wrap(INVALID_DEFAULT_DATA).each((data) => {
-      console.log(data);
       expect(() => {
         validateRestaurantData(data);
       }).to.throw("error");
