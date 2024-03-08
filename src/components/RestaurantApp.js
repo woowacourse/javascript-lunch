@@ -1,6 +1,7 @@
 import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import { $, $setAttribute } from '../utils/dom';
+import { OPTION } from '../constants/Condition';
 
 class RestaurantApp extends Component {
   #restaurants;
@@ -40,8 +41,6 @@ class RestaurantApp extends Component {
     const category = $('.category').value;
     const sorting = $('.sorting').value;
 
-    console.log('정렬');
-
     this.#restaurants = RestaurantRepository.transformRestaurants(category, sorting);
 
     $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
@@ -50,7 +49,10 @@ class RestaurantApp extends Component {
   template() {
     return `
       <custom-header></custom-header>
-      <filter-box-container></filter-box-container>
+      <section class="restaurant-filter-container">
+          <filter-box type="category" option='${JSON.stringify([OPTION.ALL, ...OPTION.CATEGORY])}'></filter-box>
+          <filter-box type="sorting" option='${JSON.stringify(OPTION.SORTING)}'></filter-box>
+      </section>
       <restaurant-list restaurants='${JSON.stringify(this.#restaurants)}'></restaurant-list>
       <restaurant-add-modal open="false"></restaurant-add-modal>
     `;
