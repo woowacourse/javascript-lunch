@@ -1,3 +1,5 @@
+const FORM_INPUT_QUERY = ['#category', '#name', '#distance', '#description', '#link'];
+
 const CATEGORY_CONVERTER = {
   한식: 'korean',
   중식: 'chinese',
@@ -7,4 +9,4 @@ const CATEGORY_CONVERTER = {
   기타: 'etc',
 };
 
-export default CATEGORY_CONVERTER;
+export { FORM_INPUT_QUERY, CATEGORY_CONVERTER };
