@@ -29,10 +29,10 @@ class SelectBox extends BaseComponent {
 
   #makeOptionTags() {
     const fragment = new DocumentFragment();
-    this.#optionValues.forEach((category) => {
+    this.#optionValues.forEach((option) => {
       const optionTag = document.createElement('option');
-      optionTag.value = category;
-      optionTag.textContent = category;
+      optionTag.value = option; //5
+      optionTag.textContent = option; //5분 내
       fragment.append(optionTag);
     });
     return fragment;

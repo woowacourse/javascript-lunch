@@ -3,6 +3,9 @@ import BasicModal from '../BasicModal/BasicModal';
 import SelectBox from '../SelectBox/SelectBox';
 import BaseComponent from '../BaseComponent';
 import BasicButton from '../BasicButton/BasicButton';
+import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import { IRestaurant } from '@/types/Restaurant';
+import RestaurantList from '../RestaurantList/RestaurantList';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
@@ -74,10 +77,46 @@ class NewRestaurantModal extends BaseComponent {
     /*버튼*/
     const $buttonBox = document.createElement('div');
     $buttonBox.classList.add('button-container');
-    $buttonBox.append(new BasicButton(false, '취소하기'));
-    $buttonBox.append(new BasicButton(true, '추가하기'));
+    const cancelButton = new BasicButton(false, '취소하기');
+    const addButton = new BasicButton(true, '추가하기');
+    $buttonBox.append(cancelButton);
+    $buttonBox.append(addButton);
 
     this.#form.append($buttonBox);
+
+    this.#form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
+      const distance = (this.#form.elements.namedItem('distance') as HTMLInputElement).value;
+      const category = (this.#form.elements.namedItem('category') as HTMLInputElement).value;
+      const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
+      const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
+
+      console.log(distance);
+      const newRestaurant: IRestaurant = {
+        name,
+        distance: Number(distance.slice(0, -3)), // TODO : '분 내'를 지우려고 3개없앴음. 야매로 해뒀음.
+        category,
+      };
+      if (description) {
+        newRestaurant.description = description;
+      }
+      if (link) {
+        newRestaurant.link = link;
+      }
+      const DBService = new RestaurantDBService();
+      DBService.add(newRestaurant);
+
+      const selectElement = document.querySelector('.restaurant-filter-container');
+      // Event 생성자를 사용하여 change 이벤트 객체를 생성합니다.
+      const event = new Event('change', {
+        bubbles: true, // 이벤트가 버블링되도록 설정
+        cancelable: true, // 이벤트를 취소할 수 있도록 설정
+      });
+      // 엘리먼트에 change 이벤트를 디스패치합니다.
+      selectElement?.dispatchEvent(event);
+    });
   }
 
   #makeCategorySelectBox() {
