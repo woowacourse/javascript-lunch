@@ -1,5 +1,6 @@
 import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
+import createRestaurantCard from '../component/restaurantCard';
 import {
   KOREAN_CATEGORY,
   categoryFilterList,
@@ -83,47 +84,8 @@ export const set = {
       const listItem = document.createElement('li');
       listItem.className = 'restaurant';
 
-      const categoryDiv = document.createElement('div');
-      categoryDiv.className = 'restaurant__category';
-
-      // <img> 요소 생성 및 설정
-      const categoryImg = document.createElement('img');
-      categoryImg.src = `./category-${
-        KOREAN_CATEGORY[restaurant.category]
-      }.png`;
-      categoryImg.alt = restaurant.category;
-      categoryImg.className = 'category-icon';
-
-      // <img>를 카테고리 <div>에 추가
-      categoryDiv.append(categoryImg);
-
-      // 정보 <div> 생성
-      const infoDiv = document.createElement('div');
-      infoDiv.className = 'restaurant__info';
-
-      // <h3> 요소 생성 및 설정
-      const restaurantName = document.createElement('h3');
-      restaurantName.className = 'restaurant__name text-subtitle';
-      restaurantName.textContent = restaurant.name;
-
-      // 거리 <span> 생성 및 설정
-      const restaurantDistance = document.createElement('span');
-      restaurantDistance.className = 'restaurant__distance text-body';
-      restaurantDistance.textContent = `캠퍼스부터 ${restaurant.walkingTime}분 내`;
-
-      // 설명 <p> 생성 및 설정
-      const restaurantDescription = document.createElement('p');
-      restaurantDescription.className = 'restaurant__description text-body';
-      restaurantDescription.textContent = restaurant?.description;
-
-      // 요소들을 infoDiv에 추가
-      infoDiv.append(restaurantName);
-      infoDiv.append(restaurantDistance);
-      infoDiv.append(restaurantDescription);
-
-      // 카테고리 <div>와 정보 <div>를 최상위 <li>에 추가
+      const categoryDiv = createRestaurantCard(restaurant);
       listItem.append(categoryDiv);
-      listItem.append(infoDiv);
       restaurantList.append(listItem);
     });
 
