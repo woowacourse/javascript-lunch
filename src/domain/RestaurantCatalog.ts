@@ -1,8 +1,11 @@
+import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 import Restaurant, { IRestaurantInfo, ICategory } from './Restaurant';
 
 export const SORT_CONDITION: readonly ('이름순' | '거리순')[] = Object.freeze(['이름순', '거리순']);
 
-type ICatalogCategory = ICategory | '전체';
+const ALL_CATEGORY = '전체';
+
+type ICatalogCategory = ICategory | typeof ALL_CATEGORY;
 
 class RestaurantCatalog {
   #restaurants: Restaurant[] = [];
@@ -10,7 +13,7 @@ class RestaurantCatalog {
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
     this.#restaurants.forEach((restaurant: Restaurant) => {
       if (restaurant.getInfo().name === restaurantInfo.name) {
-        throw new Error('❌');
+        throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
     });
 
@@ -19,7 +22,7 @@ class RestaurantCatalog {
   }
 
   filterByCategory(category: ICatalogCategory) {
-    if (category === '전체') {
+    if (category === ALL_CATEGORY) {
       return this.#restaurants;
     }
     return this.#restaurants.filter((restaurant) => restaurant.getInfo().category === category);

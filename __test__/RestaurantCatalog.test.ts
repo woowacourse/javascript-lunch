@@ -1,3 +1,4 @@
+import { ERROR_PREFIX } from '../src/constants/errorMessage.js';
 import { IRestaurantInfo } from '../src/domain/Restaurant.ts';
 import RestaurantCatalog from '../src/domain/RestaurantCatalog.ts';
 
@@ -21,7 +22,7 @@ describe('RestaurantCatalog 예외 테스트', () => {
 
     expect(() => {
       newRestaurantCatalog.pushNewRestaurant(input);
-    }).toThrow('❌');
+    }).toThrow(`${ERROR_PREFIX}`);
   });
 });
 

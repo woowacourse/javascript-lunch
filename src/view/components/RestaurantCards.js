@@ -1,4 +1,4 @@
-import RestaurantCatalog from '../../domain/RestaurantCatalog';
+import RestaurantCatalog, { SORT_CONDITION } from '../../domain/RestaurantCatalog';
 
 const IMG_CATEGORY = Object.freeze({
   한식: 'korean',
@@ -9,18 +9,20 @@ const IMG_CATEGORY = Object.freeze({
   일식: 'japanese',
 });
 
+const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
+
 class RestaurantCards extends HTMLUListElement {
   connectedCallback() {
-    this.setAttribute('data-sort', '이름순');
+    this.setAttribute('data-sort', SORT_BY_NAME);
   }
 
   #appendList() {
     const restaurants = JSON.parse(this.dataset.restaurants);
 
-    if (this.dataset.sort === '이름순') {
+    if (this.dataset.sort === SORT_BY_NAME) {
       this.#makeRestaurantElement(RestaurantCatalog.sortByName(restaurants));
     }
-    if (this.dataset.sort === '거리순') {
+    if (this.dataset.sort === SORT_BY_DISTANCE) {
       this.#makeRestaurantElement(RestaurantCatalog.sortByDistance(restaurants));
     }
   }

@@ -1,3 +1,5 @@
+import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
+
 export type ICategory = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type IDistanceFromCampus = 5 | 10 | 15 | 20 | 30;
 
@@ -32,19 +34,19 @@ class Restaurant {
 
   #validateRestaurantCategory(category: ICategory) {
     if (!RESTAURANT_CATEGORY.includes(category)) {
-      throw new Error('❌ 잘못된 카테고리를 입력하였습니다.');
+      throw new Error(`${ERROR_PREFIX}${RESTAURANT_ERROR_MESSAGES.WRONG_CATEGORY}`);
     }
   }
 
   #validateRestaurantName(name: string) {
     if (typeof name !== 'string' || !name) {
-      throw new Error('❌ 잘못된 이름을 입력하였습니다.');
+      throw new Error(`${ERROR_PREFIX}${RESTAURANT_ERROR_MESSAGES.WRONG_NAME}`);
     }
   }
 
   #validateDistanceFromCampus(distanceFromCampus: IDistanceFromCampus) {
     if (!DISTANCE_FROM_CAMPUS.includes(distanceFromCampus)) {
-      throw new Error('❌ 잘못된 거리(도보 이동 시간)을 입력하였습니다.');
+      throw new Error(`${ERROR_PREFIX}${RESTAURANT_ERROR_MESSAGES.WRONG_DISTANCE}`);
     }
   }
 
