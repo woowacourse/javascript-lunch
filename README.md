@@ -28,7 +28,7 @@ npm run jest-test
 
 ## 구현
 
-<img src="./lunch_step1.gif" alt="미션- 점심 뭐 먹지 :1단계 구현" />
+<img src="./lunch_step1.gif" alt="미션- 점심 뭐 먹지 :1단계 구현"  height="350px"/>
 
 ## 폴더,파일 구조
 
