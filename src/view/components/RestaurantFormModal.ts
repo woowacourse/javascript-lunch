@@ -135,11 +135,20 @@ class RestaurantFormModal {
     const $addRestaurantCancelButton = document.querySelector(
       "#add-restaurant-cancel__button"
     ) as HTMLButtonElement;
-    $addRestaurantCancelButton.addEventListener(type, listener);
+
+    $addRestaurantCancelButton.addEventListener(type, (e: Event) => {
+      const $restaurantForm = document.querySelector(
+        "#restaurant-form"
+      ) as HTMLFormElement;
+      $restaurantForm.reset();
+
+      listener(e);
+    });
   }
 
   private addRestaurant(e: Event) {
-    const formData = new FormData(e.target as HTMLFormElement);
+    const $restaurantForm = e.target as HTMLFormElement;
+    const formData = new FormData($restaurantForm);
 
     const newRestuarant: Restaurant = {
       category: formData.get("category") as Category,
@@ -148,6 +157,7 @@ class RestaurantFormModal {
       description: formData.get("description") as string,
       link: formData.get("link") as Link,
     };
+    $restaurantForm.reset();
 
     restaurantList.add(newRestuarant);
   }
