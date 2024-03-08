@@ -1,4 +1,4 @@
-import './app/style.css';
+import './css/style.css';
 
 import './app/modal/AddRestaurantModal/AddRestaurantModal.ts';
 import './app/root/LunchHeader/LunchHeader.ts';

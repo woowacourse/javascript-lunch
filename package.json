@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-lunch/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-lunch#readme",
+  "readme": "https://github.com/woowacourse/javascript-lunch#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
@@ -48,5 +48,5 @@
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
   },
-  "hompage": "https://github.com/greetings1012/javascript-lunch"
+  "homepage": "https://github.com/greetings1012/javascript-lunch"
 }
