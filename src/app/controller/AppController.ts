@@ -1,69 +1,45 @@
-import '../style.css';
-import '../modal/AddRestaurantModal/AddRestaurantModal';
-import '../root/NavigationBar/NavigationBar';
-import '../root/RestaurantListFilter/RestaurantListFilter';
-import '../root/RestaurantItem/RestaurantItem';
-
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
-import { Category, SortOrder } from '../../enum/enums';
-import { RestaurantDataType } from '../../type/restaurantDataType';
-import { $ } from '../../util/domSelector';
+import { SortType, Category, LocationData } from '../../constants/Type';
+import { $ } from '../../utils/domSelector';
 
-export default class AppController {
-  private sortOrder: SortOrder;
-  private category: Category | '';
-  private restaurantService: RestaurantService;
-  private restaurantList: RestaurantList;
+class AppController {
+  sortType: SortType;
+  category: Category | '전체';
+  restaurantService: RestaurantService;
 
   constructor() {
-    this.sortOrder = SortOrder.이름순;
-    this.category = '';
+    this.sortType = '이름순';
+    this.category = '전체';
     this.restaurantService = new RestaurantService();
-    this.restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder));
   }
 
   initializeApp() {
+    const restaurantList: RestaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortType));
+    document.querySelector('#app')!.appendChild(restaurantList);
     this.addEvent();
-    this.showRestaurantList();
   }
 
-  private addEvent() {
-    $('nav-bar').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
-    $('restaurant-list-filter').addEventListener('changeCategory', this.changeCategory.bind(this));
-    $('restaurant-list-filter').addEventListener('changeSortOrder', this.changeSortOrder.bind(this));
-    $('add-restaurant-modal').addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
+  addEvent() {
+    $('lunch-header')!.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
+    $('add-restaurant-modal')!.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
   }
 
-  private changeCategory(event: Event) {
-    const category: Category = (event as CustomEvent).detail;
-    this.category = category;
-    this.updateRestaurantList();
-  }
-
-  private changeSortOrder(event: Event) {
-    const sortOrder: SortOrder = (event as CustomEvent).detail;
-    this.sortOrder = sortOrder;
-    this.updateRestaurantList();
-  }
-
-  private addRestaurant(event: Event) {
-    const detail: RestaurantDataType = (event as CustomEvent).detail;
+  addRestaurant(event: Event) {
+    const detail: LocationData = (event as CustomEvent).detail;
     this.restaurantService.addRestaurant(detail);
-    this.updateRestaurantList();
+    this.refreshRestaurantList();
   }
 
-  private showRestaurantList() {
-    $('#app').appendChild(this.restaurantList);
+  refreshRestaurantList() {
+    $('#app')!.removeChild($('restaurant-list')!);
+    const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortType));
+    $('#app')!.appendChild(restaurantList);
   }
 
-  private updateRestaurantList() {
-    const category = this.category === '' ? undefined : this.category;
-    const newRestaurantList = this.restaurantService.getRestaurants(this.sortOrder, category);
-    this.restaurantList.updateRestaurantList(newRestaurantList);
-  }
-
-  private showAddRestaurantModal() {
-    $<HTMLDialogElement>('#add-restaurant-modal').showModal();
+  showAddRestaurantModal() {
+    $<HTMLDialogElement>('#add-restaurant-modal')!.showModal();
   }
 }
+
+export default AppController;
