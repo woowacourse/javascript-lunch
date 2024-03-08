@@ -31,7 +31,7 @@ export default class Select {
     $('restaurant-filter-container').addEventListener('change', ({ target }) => {
       if (RULES.selectIds.some((id) => target.id === id)) {
         const selectedValue = target.options[target.selectedIndex].value;
-        this.restaurants.setStandard = { id: target.id, standard: selectedValue };
+        this.restaurants.standard = { id: target.id, standard: selectedValue };
       }
 
       this.reRenderRestaurantList();

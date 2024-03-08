@@ -130,7 +130,7 @@ export default class RestaurantCreationModal {
   }
 
   validateIputData(inputData) {
-    const restaurantNames = this.restaurants.getStorageData.map((restaurant) => restaurant.name);
+    const restaurantNames = this.restaurants.storageData.map((restaurant) => restaurant.name);
 
     validateRestaurantsName({ restaurantNames, name: inputData.name });
     RULES.requiredIds.forEach((id) => this.validateRequirements(id));

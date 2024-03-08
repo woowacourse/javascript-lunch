@@ -37,6 +37,13 @@ class Restaurants implements RestaurantsInterface {
     );
   }
 
+  sortByStandard(restaurants: Restaurant[], sorting: string) {
+    if (sorting && sorting === 'distance') return this.orderByDistance(restaurants);
+    if (sorting && sorting === 'name') return this.orderByName(restaurants);
+
+    return this.storageData;
+  }
+
   get storageData() {
     return JSON.parse(this.storage.getItem('restaurants') || '{}');
   }
@@ -51,14 +58,7 @@ class Restaurants implements RestaurantsInterface {
     return this.sortByStandard(restaurants, sorting);
   }
 
-  sortByStandard(restaurants: Restaurant[], sorting: string): Restaurant[] {
-    if (sorting && sorting === 'distance') return this.orderByDistance(restaurants);
-    if (sorting && sorting === 'name') return this.orderByName(restaurants);
-
-    return this.storageData;
-  }
-
-  set setStandard(value: { id: string; standard: string }) {
+  set standard(value: { id: string; standard: string }) {
     this.storage.setItem(value.id, value.standard);
   }
 }
