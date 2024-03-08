@@ -82,34 +82,68 @@ export default class RestaurantCreationModal {
     `;
   }
 
-  // TODO: addEvent 이벤트 분리, 내부 메서드 분리
-  // TODO: focusout의 중복값 측정은 뺄것인가?
   addEvent() {
-    $('restaurant-creation-modal').addEventListener('click', (event) => {
-      if (event.target.id === 'cancel-button' || event.target.id === 'modal-backdrop') {
-        $('restaurant-creation-modal').classList.remove('modal--open');
+    this.handleCancelButton();
+    this.handleCreationButton();
+    this.handleInputFocusout();
+  }
+
+  handleInputFocusout() {
+    $('restaurant-creation-modal').addEventListener('focusout', ({ target }) => {
+      if (RULES.requiredIds.some((id) => id === target.id)) {
+        tryCatchWrapper(
+          () => this.validateRequirements(target.id),
+          ({ message }) => ($(`${target.id}-error`).innerText = message),
+        );
       }
     });
+  }
 
+  handleCreationButton() {
     $('restaurant-creation-modal').addEventListener('submit', (event) => {
       event.preventDefault();
 
       if (event.submitter.id === 'add-button') {
         tryCatchWrapper(
-          () => this.addRestaurantAndRender(),
+          () => this.addRestaurant(),
           ({ message }) => alert(message),
         );
       }
     });
+  }
 
-    $('restaurant-creation-modal').addEventListener('focusout', ({ target }) => {
-      if (RULES.requiredIds.some((id) => id === target.id)) {
-        tryCatchWrapper(
-          () => this.validateRequirements(target.id),
-          ({ message }) => this.displayErrorMessage(message, target.id),
-        );
+  handleCancelButton() {
+    $('restaurant-creation-modal').addEventListener('click', ({ target: { id } }) => {
+      if (id === 'cancel-button' || id === 'modal-backdrop') {
+        $('restaurant-creation-modal').classList.remove('modal--open');
       }
     });
+  }
+
+  addRestaurant() {
+    const inputData = this.getInputData();
+
+    this.validateIputData(inputData);
+    this.restaurants.addRestaurant(inputData);
+    $('restaurant-creation-modal').classList.remove('modal--open');
+    this.insertRestaurantList(inputData);
+  }
+
+  validateIputData(inputData) {
+    const restaurantNames = this.restaurants.getStorageData.map((restaurant) => restaurant.name);
+
+    validateRestaurantsName({ restaurantNames, name: inputData.name });
+    RULES.requiredIds.forEach((id) => this.validateRequirements(id));
+  }
+
+  validateRequirements(id) {
+    validateRequiredValue(id, $(id).value);
+    $(`${id}-error`).innerText = '';
+  }
+
+  insertRestaurantList(inputData) {
+    $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
+    $('restaurant-input-form').reset();
   }
 
   getInputData() {
@@ -119,32 +153,5 @@ export default class RestaurantCreationModal {
     const description = $('description').value;
 
     return { category, name, walkingTimeFromCampus, description };
-  }
-
-  addRestaurantAndRender() {
-    const inputData = this.getInputData();
-
-    // 음식점 이름 중복 검사
-    const restaurantNames = this.restaurants.getStorageData.map((restaurant) => restaurant.name);
-    validateRestaurantsName({ restaurantNames, name: inputData.name });
-
-    RULES.requiredIds.forEach((id) => this.validateRequirements(id));
-
-    this.restaurants.addRestaurant(inputData);
-    $('restaurant-creation-modal').classList.remove('modal--open');
-
-    $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
-
-    // 초기화
-    $('restaurant-input-form').reset();
-  }
-
-  validateRequirements(id) {
-    validateRequiredValue(id, $(id).value);
-    $(`${id}-error`).innerText = '';
-  }
-
-  displayErrorMessage(message, id) {
-    $(`${id}-error`).innerText = message;
   }
 }
