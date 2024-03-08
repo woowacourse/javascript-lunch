@@ -305,3 +305,7 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+.hidden {
+  visibility: hidden;
+}
