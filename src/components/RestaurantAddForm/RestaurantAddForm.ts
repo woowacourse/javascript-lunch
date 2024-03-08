@@ -138,12 +138,10 @@ class RestaurantAddForm extends BaseComponent {
   }
 
   private createFormDataToRestaurantDetail() {
-    let formData = null;
-
     const formElement = $(ELEMENT_SELECTOR.restaurantAddForm);
 
     if (formElement instanceof HTMLFormElement) {
-      formData = new FormData(formElement);
+      const formData = new FormData(formElement);
 
       const userInputValues: Record<string, FormDataEntryValue> = {};
 
