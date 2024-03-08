@@ -1,47 +1,12 @@
 import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
-import { Category, SortBy } from '../../types';
-
-// interface CategoryConstantType {
-//   koreanFood: string;
-//   chineseFood: string;
-//   japaneseFood: string;
-//   asianFood: string;
-//   italianFood: string;
-//   etc: string;
-// }
-// interface SortByConstantType {
-//   newest: string;
-//   oldest: string;
-//   nameAscending: string;
-//   nameDescending: string;
-//   distanceAscending: string;
-//   distanceDescending: string;
-// }
-// interface OptionsType {
-//   category: CategoryConstantType;
-//   sortBy: SortByConstantType;
-// }
-
-// const OPTIONS: OptionsType = {
-//   category: CATEGORIES,
-//   sortBy: SORTBY,
-// };
-
-// const OPTIONS = {
-//   category: CATEGORIES,
-//   sortBy: SORTBY,
-// };
-
-// type Union<T> = T[keyof T];
-// type OptionAttributeType = Union<typeof Object.keys(OPTIONS)>;
 
 const LUNCH_DROPDOWN = `
 <select name="dropdown" id="dropdown-filter" class="restaurant-filter">
 </select>`;
 
 const DROPDOWN_OPTION = (value: string) => `
-  <option value=${value}>${value}</option>
+  <option value=${value === '전체' ? '' : value}>${value}</option>
 `;
 
 class LunchDropdown extends HTMLElement {
@@ -61,15 +26,9 @@ class LunchDropdown extends HTMLElement {
       const changeDropdownEvent = new CustomEvent('changeDropdown', {
         bubbles: true,
       });
-
       this.dispatchEvent(changeDropdownEvent);
     });
   }
-
-  // handleChange() {
-  //   console.log(this);
-  //   console.log('123');
-  // }
 
   renderOptions(): void {
     const optionsAttribute = this.getAttribute('options');
