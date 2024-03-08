@@ -13,7 +13,7 @@ customElements.define("restaurant-form", RestaurantForm);
 
 export default class LunchApp extends BaseComponent {
   getTemplate() {
-    return /* html */ `
+    return `
       <div>
         <restaurant-header></restaurant-header> 
         <filter-bar></filter-bar>
