@@ -1,3 +1,4 @@
+
 .form-item {
   display: flex;
   flex-direction: column;
@@ -47,3 +48,10 @@
 
   color: var(--grey-300);
 }
+
+input[name="name"],
+input[name="link"] {
+  height: 44px;
+  box-sizing: border-box;
+}
+
