@@ -1,1 +1,1 @@
-type SortStandart = "이름순" | "거리순";
+type SortStandard = "이름순" | "거리순";
