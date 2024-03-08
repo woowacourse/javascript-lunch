@@ -30,7 +30,7 @@ class CustomModal extends HTMLElement {
 
       .modal-container {
         width: inherit;
-        max-height: 730px;
+        max-height: 85%;
         position: fixed;
         bottom: 0;
         border-radius: 8px 8px 0px 0px;

@@ -170,6 +170,9 @@ class RestaurantFormModalInner extends HTMLElement {
       ?.shadowRoot?.querySelector('.modal');
 
     modalEl?.classList.toggle('open');
+
+    const bodyEl = document.querySelector('body');
+    if (bodyEl) bodyEl.style.overflowY = 'scroll';
   }
 
   #handleResetForm() {

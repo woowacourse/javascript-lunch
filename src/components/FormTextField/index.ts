@@ -30,6 +30,12 @@ class FormTextField extends HTMLElement {
           font-weight: 500;
           font-size: 12px;
         }
+        label {
+          margin-bottom: 6px;
+          color: var(--lunch-grey-scale-4-color);
+          font-size: var(--label-font-size);
+          line-height: 20px;
+        }
       </style>
     `;
 

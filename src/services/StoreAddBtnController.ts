@@ -10,6 +10,9 @@ const StoreAddBtnController = {
         ?.shadowRoot?.querySelector('.modal');
 
       modalEl?.classList.add('open');
+
+      const bodyEl = document.querySelector('body');
+      if (bodyEl) bodyEl.style.overflowY = 'hidden';
     });
   },
 };
