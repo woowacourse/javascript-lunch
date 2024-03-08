@@ -1,5 +1,6 @@
 import Component from './Component';
 import { OPTION } from '../constants/Condition';
+import { ERROR } from '../constants/Message';
 import { $ } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 
@@ -69,7 +70,7 @@ class RestaurantAddModal extends Component {
   #handleEmptyError(selectors) {
     const errors = selectors.filter((selector) => {
       if (isEmptyInput($(selector).value)) {
-        $(`${selector}-error-message`).textContent = '값을 입력하세요.';
+        $(`${selector}-error-message`).textContent = ERROR.NULL;
         return true;
       }
 

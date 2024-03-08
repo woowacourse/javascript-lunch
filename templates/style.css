@@ -232,6 +232,7 @@ body {
 .form-item input,
 .form-item textarea,
 .form-item select {
+  width: 100%;
   padding: 8px;
   margin: 6px 0;
 
