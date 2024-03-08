@@ -14,6 +14,7 @@ class RestaurantCollection {
   }
 
   filterByCategory(category: Category) {
+    if (category === '전체') return this.restaurantList.map((restaurant) => restaurant.get());
     return this.restaurantList
       .filter((restaurant) => restaurant.get().category === category)
       .map((restaurant) => restaurant.get());

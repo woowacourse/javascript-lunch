@@ -49,6 +49,13 @@ const restaurantListMock: IRestaurant[] = [
     description: `멕시칸 캐주얼 그릴`,
     link: 'https://www.naver.com',
   },
+  {
+    name: '얌샘김밥',
+    category: '한식',
+    distance: 5,
+    description: `멕시칸 캐주얼 그릴`,
+    link: 'https://www.naver.com',
+  },
 ];
 
 export default restaurantListMock;
