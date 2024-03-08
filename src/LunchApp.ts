@@ -14,14 +14,14 @@ customElements.define("restaurant-form", RestaurantForm);
 export default class LunchApp extends BaseComponent {
   getTemplate() {
     return `
-      <div>
         <restaurant-header></restaurant-header> 
-        <filter-bar></filter-bar>
-        <restaruant-list></restaruant-list>
-        <modal-box modal-id="retaurant-form-modal">
+        <main>
+          <filter-bar></filter-bar>
+          <restaruant-list></restaruant-list>
+          <modal-box modal-id="retaurant-form-modal">
           <restaurant-form></restaurant-form>
-        </modal-box>
-      </div>
+          </modal-box>
+        </main>
       `;
   }
 }
