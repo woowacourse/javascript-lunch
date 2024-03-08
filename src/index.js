@@ -19,54 +19,91 @@ import {
 const $restaurantList = document.querySelector('.restaurant-list');
 const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
-restaurantList.restaurants.forEach(element => {
-  $restaurantList.innerHTML += RestaurantComponent(element.information);
-});
 
-const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
-$restaurantFilterContainer.innerHTML += SelectBoxComponent(FILTERED_CATEGORY_ATTRIBUTE, FILTERED_CATEGORY);
-$restaurantFilterContainer.innerHTML += SelectBoxComponent(SORTING_ATTRIBUTE, SORTING);
+const handleCategoryFilter = () => {
+  const $categoryFilter = document.getElementById('category-filter');
+  const $sortingFilter = document.getElementById('sorting-filter');
 
-// form select box 생성
-const $categoryContainer = document.getElementById('category-container');
-const $distanceContainer = document.getElementById('distance-container');
-$categoryContainer.insertAdjacentHTML('beforeend', SelectBoxComponent(FORM_CATEGORY_ATTRIBUTE, FORM_CATEGORY));
-$distanceContainer.insertAdjacentHTML('beforeend', SelectBoxComponent(FORM_DISTANCE_ATTRIBUTE, FORM_DISTANCE));
+  const categoryOptions = $categoryFilter.options;
+  const category = categoryOptions[categoryOptions.selectedIndex].text;
+  const sortingOptions = $sortingFilter.options;
+  const sortingCondition = sortingOptions[sortingOptions.selectedIndex].text;
 
-// category 필터링 셀렉트 박스 이벤트
-const $categoryFilter = document.getElementById('category-filter');
-
-$categoryFilter.addEventListener('change', () => {
-  const options = $categoryFilter.options;
-  const category = options[options.selectedIndex].text;
-  const filteredRestaurantList = restaurantList.filterByCategory(category);
-
+  restaurantList.filterByCategory(category);
+  const sortedList = restaurantList.getSortedByCondition(sortingCondition);
   $restaurantList.replaceChildren();
-  filteredRestaurantList.forEach(element => {
+  sortedList.forEach(element => {
     $restaurantList.innerHTML += RestaurantComponent(element.information);
   });
-});
+};
+
+const handleSortingFilter = () => {
+  const $sortingFilter = document.getElementById('sorting-filter');
+  const options = $sortingFilter.options;
+  const sortingCondition = options[options.selectedIndex].text;
+
+  const sortedList = restaurantList.getSortedByCondition(sortingCondition);
+  $restaurantList.replaceChildren();
+  sortedList.forEach(element => {
+    $restaurantList.innerHTML += RestaurantComponent(element.information);
+  });
+};
+
+const init = () => {
+  restaurantList.restaurants.forEach(element => {
+    $restaurantList.innerHTML += RestaurantComponent(element.information);
+  });
+
+  // 홈화면 select box 생성
+  const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
+  new SelectBoxComponent({
+    $target: $restaurantFilterContainer,
+    attributes: FILTERED_CATEGORY_ATTRIBUTE,
+    eventHandler: handleCategoryFilter,
+    options: FILTERED_CATEGORY,
+  });
+  new SelectBoxComponent({
+    $target: $restaurantFilterContainer,
+    attributes: SORTING_ATTRIBUTE,
+    eventHandler: handleSortingFilter,
+    options: SORTING,
+  });
+
+  // 모달 form select box 생성
+  const $categoryContainer = document.getElementById('category-container');
+  const $distanceContainer = document.getElementById('distance-container');
+  new SelectBoxComponent({
+    $target: $categoryContainer,
+    attributes: FORM_CATEGORY_ATTRIBUTE,
+    options: FORM_CATEGORY,
+  });
+  new SelectBoxComponent({
+    $target: $distanceContainer,
+    attributes: FORM_DISTANCE_ATTRIBUTE,
+    options: FORM_DISTANCE,
+  });
+};
+
+init();
 
 // 상단 우측 버튼 클릭 시 modal open
 const $modal = document.querySelector('.modal');
 const $gnbButton = document.querySelector('.gnb__button');
-$gnbButton.addEventListener('click', () => {
-  $modal.classList.add('modal--open');
-});
 
-// 취소하기 버튼 클릭 시 modal close
-const $closeButton = document.querySelector('#button-close');
-$closeButton.addEventListener('click', () => {
-  $modal.classList.remove('modal--open');
-});
+const handleOpenModal = () => {
+  $modal.classList.add('modal--open');
+};
+
+$gnbButton.addEventListener('click', handleOpenModal);
 
 // 추가하기 버튼 클릭 시 form submit 이벤트
 const $restaurantForm = document.querySelector('form');
-$restaurantForm.addEventListener('submit', e => {
+
+const handleAddRestaurant = e => {
   e.preventDefault();
   const category = $restaurantForm.elements.category.value;
   const name = $restaurantForm.elements.name.value;
-  const distance = $restaurantForm.elements.distance.value;
+  const distance = Number($restaurantForm.elements.distance.value);
   const description = $restaurantForm.elements.description.value;
   const link = $restaurantForm.elements.link.value;
   const restaurantInformation = new Restaurant({ category, name, distance, description, link });
@@ -74,5 +111,16 @@ $restaurantForm.addEventListener('submit', e => {
   restaurantList.add(restaurantInformation);
   const lastElement = restaurantList.restaurants[restaurantList.restaurants.length - 1];
   $restaurantList.insertAdjacentHTML('beforeend', RestaurantComponent(lastElement.information));
+  handleCloseModal();
+};
+
+// 취소하기 버튼 클릭 시 modal close
+// const $modal = document.querySelector('.modal');
+const $closeButton = document.querySelector('#button-close');
+const handleCloseModal = () => {
   $modal.classList.remove('modal--open');
-});
+  $restaurantForm.reset();
+};
+
+$restaurantForm.addEventListener('submit', e => handleAddRestaurant(e));
+$closeButton.addEventListener('click', handleCloseModal);
