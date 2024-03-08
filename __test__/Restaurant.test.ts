@@ -1,7 +1,7 @@
 import Restaurant from '../src/domain/Restaurant.ts';
 
 describe('Restaurant 테스트', () => {
-  const invalidRestaurantCase = [
+  const invalidRestaurantCase: any[] = [
     {
       category: '간편식',
       name: '반포식스',

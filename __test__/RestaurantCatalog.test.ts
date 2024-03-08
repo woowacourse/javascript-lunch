@@ -1,7 +1,8 @@
+import { IRestaurantInfo } from '../src/domain/Restaurant.ts';
 import RestaurantCatalog from '../src/domain/RestaurantCatalog.ts';
 
 describe('RestaurantCatalog 예외 테스트', () => {
-  const invalidRestaurantCase = [
+  const invalidRestaurantCase: IRestaurantInfo[] = [
     {
       category: '한식',
       name: '반포식스',
@@ -25,7 +26,7 @@ describe('RestaurantCatalog 예외 테스트', () => {
 });
 
 describe('RestaurantCatalog 기능 테스트', () => {
-  const validRestaurantCase = [
+  const validRestaurantCase: IRestaurantInfo[] = [
     {
       category: '한식',
       name: '반포식스',
@@ -71,7 +72,7 @@ describe('RestaurantCatalog 기능 테스트', () => {
   });
 
   test('category 거리순 정렬 테스트 - 오름차순 정렬', () => {
-    const validRestaurantCaseForDistanceSort = [
+    const validRestaurantCaseForDistanceSort: IRestaurantInfo[] = [
       {
         category: '한식',
         name: '반포식스',
