@@ -1,7 +1,6 @@
 import { KOREAN_CATEGORY } from '../constant/cons';
 
 function createRestaurantCard(restaurant) {
-  console.log(restaurant);
   const restaurantCard = render(restaurant)
 
   return restaurantCard;
