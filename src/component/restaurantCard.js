@@ -42,7 +42,6 @@ function createInfoDiv({ name, walkingTime, description = '' }) {
 function createCategoryImage(category) {
   const categoryImg = document.createElement('img');
   categoryImg.src = `./category-${KOREAN_CATEGORY[category]}.png`;
-  console.log(`./category-${KOREAN_CATEGORY[category]}.png`);
   categoryImg.alt = category;
   categoryImg.className = 'category-icon';
 
