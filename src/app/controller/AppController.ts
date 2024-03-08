@@ -1,28 +1,45 @@
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
-import { SortType, Category, LocationData } from '../../constants/Type';
+import { Sort, Category, LocationData } from '../../constants/Type';
 import { $ } from '../../utils/domSelector';
 
 class AppController {
-  sortType: SortType;
+  sort: Sort;
   category: Category | '전체';
   restaurantService: RestaurantService;
 
   constructor() {
-    this.sortType = '이름순';
+    this.sort = '이름순';
     this.category = '전체';
     this.restaurantService = new RestaurantService();
   }
 
   initializeApp() {
-    const restaurantList: RestaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortType));
+    const category = this.category === '전체' ? undefined : this.category;
+    const restaurantList: RestaurantList = new RestaurantList(
+      this.restaurantService.getRestaurants(this.sort, category),
+    );
     document.querySelector('#app')!.appendChild(restaurantList);
     this.addEvent();
   }
 
   addEvent() {
     $('lunch-header')!.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
+    $('select-box-section')!.addEventListener('changeCategory', this.changeCategory.bind(this));
+    $('select-box-section')!.addEventListener('changeSort', this.changeSort.bind(this));
     $('add-restaurant-modal')!.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
+  }
+
+  changeCategory(event: Event) {
+    const category: Category = (event as CustomEvent).detail;
+    this.category = category;
+    this.refreshRestaurantList();
+  }
+
+  changeSort(event: Event) {
+    const sort: Sort = (event as CustomEvent).detail;
+    this.sort = sort;
+    this.refreshRestaurantList();
   }
 
   addRestaurant(event: Event) {
@@ -32,8 +49,9 @@ class AppController {
   }
 
   refreshRestaurantList() {
+    const category = this.category === '전체' ? undefined : this.category;
     $('#app')!.removeChild($('restaurant-list')!);
-    const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortType));
+    const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sort, category));
     $('#app')!.appendChild(restaurantList);
   }
 
