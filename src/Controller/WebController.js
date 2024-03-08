@@ -6,21 +6,27 @@ class WebController {
   #restaurantCatalog;
 
   run() {
+    this.#init();
+    this.#renderDropdownElement();
+    this.#formSubmitEventHandler();
+    this.#buttonEventHandler();
+  }
+
+  #init() {
     this.#restaurantCatalog = new RestaurantCatalog();
     this.#defaultDataInsert();
-
     this.#initRestaurantCatalogFromLocalStorage();
-
     this.#assignRestaurantDataAttribute();
+  }
 
-    this.#renderDropdownOptions('category-select', ['전체', ...RESTAURANT_CATEGORY]);
+  #renderDropdownElement() {
+    this.#renderDropdownOptions('category-select', RESTAURANT_CATEGORY);
     this.#renderDropdownOptions('sort-select', SORT_CONDITION);
     this.#renderDropdownOptions('add-category-select', RESTAURANT_CATEGORY);
     this.#renderDropdownOptions('add-distance-select', DISTANCE_FROM_CAMPUS);
+  }
 
-    this.#formSubmitEventHandler();
-
-    // Button event
+  #buttonEventHandler() {
     const modalCloseButton = document.getElementById('form-modal-close-button');
     modalCloseButton.addEventListener('click', () => {
       this.#closeModal();
@@ -67,20 +73,7 @@ class WebController {
 
     addForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const {
-        category: { value: categoryValue },
-        name: { value: nameValue },
-        distance: { value: distanceValue },
-        description: { value: descriptionValue },
-        link: { value: linkValue },
-      } = e.target;
-      const restaurantInfo = {
-        category: categoryValue,
-        name: nameValue,
-        distanceFromCampus: Number(distanceValue),
-        description: descriptionValue,
-        link: linkValue,
-      };
+      const restaurantInfo = this.#makeRestaurantInfo(e.target);
       try {
         this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
         this.#updateRestaurantToLocalStorage(restaurantInfo);
@@ -90,6 +83,17 @@ class WebController {
         alert(e.message);
       }
     });
+  }
+
+  #makeRestaurantInfo(target) {
+    const { category, name, distance, description, link } = target;
+    return {
+      category: category.value,
+      name: name.value,
+      distanceFromCampus: Number(distance.value),
+      description: description.value,
+      link: link.value,
+    };
   }
 
   #updateRestaurantToLocalStorage(restaurant) {
