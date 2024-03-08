@@ -52,11 +52,9 @@ const validate = {
 
   checkDuplicate(name?: string) {
     const restaurantList = RestaurantListStorageService.getData();
-    const f = restaurantList.find(
+    return restaurantList.find(
       (restaurant: Irestaurant) => restaurant.name === name,
     );
-    console.log("rr", f);
-    return f;
   },
 
   validateDistance(distance?: number) {

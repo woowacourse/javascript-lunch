@@ -32,11 +32,11 @@ class RestaurantStateStore {
     this.#restaurantState.distance = selectDistance;
   }
 
-  setDescription(inputDescription: string | undefined) {
+  setDescription(inputDescription: string) {
     this.#restaurantState.description = inputDescription;
   }
 
-  setLink(inputLink: string | undefined) {
+  setLink(inputLink: string) {
     this.#restaurantState.link = inputLink;
   }
 
