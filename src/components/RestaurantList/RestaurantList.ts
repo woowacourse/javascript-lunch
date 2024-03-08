@@ -15,7 +15,6 @@ class RestaurantList extends BaseComponent {
   }
 
   render() {
-    //처음 렌더링 될 떄 localStorage에서 데이터 가져오기
     const restaurantList = this.#makeRestaurantList(this.#restaurantList);
     this.append(restaurantList);
   }
