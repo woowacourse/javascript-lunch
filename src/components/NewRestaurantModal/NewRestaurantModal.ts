@@ -5,7 +5,6 @@ import BaseComponent from '../BaseComponent';
 import BasicButton from '../BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { IRestaurant } from '@/types/Restaurant';
-import RestaurantList from '../RestaurantList/RestaurantList';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
@@ -77,8 +76,15 @@ class NewRestaurantModal extends BaseComponent {
     /*버튼*/
     const $buttonBox = document.createElement('div');
     $buttonBox.classList.add('button-container');
-    const cancelButton = new BasicButton(false, '취소하기');
-    const addButton = new BasicButton(true, '추가하기');
+
+    const cancelButton = new BasicButton(false, '취소하기', 'button', () => {
+      this.closeModal();
+    });
+    const addButton = new BasicButton(true, '추가하기', 'submit', () => {});
+
+    cancelButton.setAttribute('type', 'button');
+    addButton.setAttribute('type', 'submit');
+
     $buttonBox.append(cancelButton);
     $buttonBox.append(addButton);
 
@@ -93,7 +99,6 @@ class NewRestaurantModal extends BaseComponent {
       const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
       const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
 
-      console.log(distance);
       const newRestaurant: IRestaurant = {
         name,
         distance: Number(distance.slice(0, -3)), // TODO : '분 내'를 지우려고 3개없앴음. 야매로 해뒀음.
@@ -109,14 +114,13 @@ class NewRestaurantModal extends BaseComponent {
       DBService.add(newRestaurant);
 
       const selectElement = document.querySelector('.restaurant-filter-container');
-      // Event 생성자를 사용하여 change 이벤트 객체를 생성합니다.
       const event = new Event('change', {
-        bubbles: true, // 이벤트가 버블링되도록 설정
-        cancelable: true, // 이벤트를 취소할 수 있도록 설정
+        bubbles: true,
+        cancelable: true,
       });
-      // 엘리먼트에 change 이벤트를 디스패치합니다.
       selectElement?.dispatchEvent(event);
     });
+    this.closeModal();
   }
 
   #makeCategorySelectBox() {
@@ -132,6 +136,10 @@ class NewRestaurantModal extends BaseComponent {
     $categorySelectBox.append($categorySelect);
 
     return $categorySelectBox;
+  }
+
+  closeModal() {
+    this.classList.remove('modal--open');
   }
 }
 export default NewRestaurantModal;
