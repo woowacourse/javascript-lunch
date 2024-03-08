@@ -22,14 +22,13 @@ function createNewRestaurantModal(restaurantManager) {
     }, {});
 
     restaurantManager.add(newRestaurant);
-    localStorage.setItem(
-      'restaurants',
-      JSON.stringify(restaurantManager.sortByAscendingName())
-    );
+    set.updateRestaurantList(restaurantManager.getfilterRestaurants());
+    // localStorage.setItem(
+    //   'restaurants',
+    //   JSON.stringify(restaurantManager.sortByAscendingName())
+    // );
 
     modal.remove('modal--open');
-
-    set.updateRestaurantList(restaurantManager.sortByAscendingName());
   });
   return container;
 }
@@ -45,18 +44,18 @@ function render() {
 
   const categorySelect = createDropDown({
     id: 'category',
-    callback: () => {}, // 작업 필요
     options: Object.keys(KOREAN_CATEGORY),
     className: '',
     required: true,
+    cover: '선택해 주세요',
   });
 
   const distanceSelect = createDropDown({
     id: 'walkingTime',
-    callback: () => {}, // 작업 필요
     options: WALKING_TIME,
     className: '',
     required: true,
+    cover: '선택해 주세요',
   });
 
   const categorySelcterLabelWrapper = createlabelWrapper({
