@@ -7,13 +7,14 @@ import RestaurantItem from "../RestaurantItem/RestaurantItem";
 import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { SortCategory } from "../SortDropdown/SortDropdown.type";
-import SortDropdown from "../SortDropdown/SortDropdown";
+
 import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
 
 class RestaurantList extends BaseComponent {
   private restaurant = new Restaurant();
 
-  private sortType: SortCategory = SortDropdown.SORT_CATEGORIES_TYPE.name;
+  private sortType: SortCategory = SORT_CATEGORIES_TYPE.name;
 
   private eventListeners: CustomEventListenerDictionary = {
     addRestaurant: {
