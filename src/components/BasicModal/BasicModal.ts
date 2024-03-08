@@ -17,6 +17,10 @@ class BasicModal extends BaseComponent {
     modalContainerElement.classList.add('modal-container');
     modalContainerElement.append(this.#children);
     this.append(modalContainerElement);
+
+    backdropElement.addEventListener('click', () => {
+      document.querySelector('.modal')?.classList.remove('modal--open');
+    });
   }
 }
 export default BasicModal;

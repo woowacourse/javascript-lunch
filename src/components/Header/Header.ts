@@ -8,6 +8,10 @@ class Header extends BaseComponent {
       <button type="button" class="gnb__button" aria-label="음식점 추가">
         <img src=${AddButton} alt="음식점 추가" />
       </button>`;
+
+    document.querySelector('.gnb__button')?.addEventListener('click', () => {
+      document.querySelector('.modal')?.classList.add('modal--open');
+    });
   }
 }
 
