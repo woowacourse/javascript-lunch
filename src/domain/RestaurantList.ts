@@ -1,9 +1,10 @@
+import { CATEGORY_WITH_ENTIRE } from "../constants/selectOptions";
 import sortLetters from "../utils/sortLetters";
 
 class RestaurantList {
   static #restaurants: Map<string, Restaurant> = new Map();
   static #sortCallback: Record<
-    SortStandart,
+    SortStandard,
     (a: Restaurant, b: Restaurant) => number
   > = {
     이름순: (a: Restaurant, b: Restaurant) => sortLetters(a.name, b.name),
@@ -28,7 +29,7 @@ class RestaurantList {
 
   static delete(name: string) {
     if (this.#restaurants.get(name) === undefined) {
-      throw new Error("name 없음");
+      throw new Error("NAME IS UNDEFINED");
     }
     this.#restaurants.delete(name);
   }
@@ -38,16 +39,17 @@ class RestaurantList {
     sortStandard,
   }: {
     category: CategoryWithEntire;
-    sortStandard: SortStandart;
+    sortStandard: SortStandard;
   }) {
     const filteredRestaurant = this.#filterByCategory(category);
     filteredRestaurant.sort(this.#sortCallback[sortStandard]);
+
     return filteredRestaurant;
   }
 
   static #filterByCategory(category: CategoryWithEntire) {
     const restaurants = this.getRestaurants();
-    if (category === "전체") {
+    if (category === CATEGORY_WITH_ENTIRE[0]) {
       return restaurants;
     }
     return restaurants.filter((restaurant) => restaurant.category === category);

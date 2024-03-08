@@ -3,6 +3,8 @@ import generateButton from "../generateComponent/generateButton";
 import FormItem from "./FormItem";
 import createElementByTag from "../generateComponent/utils/createElementByTag";
 import RestaurantList from "../../domain/RestaurantList";
+import { CATECORY, DISTANCE } from "../../constants/selectOptions";
+import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
 class AddRestaurantForm {
   #categoryFormItem: FormItem;
   #nameFormItem: FormItem;
@@ -41,12 +43,9 @@ class AddRestaurantForm {
   }
 
   #createcategoryFormItem() {
-    const categorySelectBoxInModal = generateSelectBox(
-      ["한식", "중식", "일식", "아시안", "양식", "기타"],
-      false
-    );
+    const categorySelectBoxInModal = generateSelectBox(CATECORY, false);
     const categoryFormItem = new FormItem({
-      subject: "카테고리",
+      subject: FORM_ITEM_TEXTS.categoryTitle,
       readableElement: categorySelectBoxInModal,
       isRequired: true,
     });
@@ -62,7 +61,7 @@ class AddRestaurantForm {
     nameInput.required = true;
 
     const nameFormItem = new FormItem({
-      subject: "이름",
+      subject: FORM_ITEM_TEXTS.nameTitle,
       readableElement: nameInput,
       isRequired: true,
     });
@@ -70,13 +69,12 @@ class AddRestaurantForm {
   }
 
   #createDistanceFormItem() {
-    const distanceSelectBoxInModal = generateSelectBox(
-      ["5", "10", "15", "20", "30"],
-      false
-    );
+    const DISTANCE_STRINGS = DISTANCE.map((el) => el.toString());
+
+    const distanceSelectBoxInModal = generateSelectBox(DISTANCE_STRINGS, false);
 
     const distanceFormItem = new FormItem({
-      subject: "거리(도보 이동 시간)",
+      subject: FORM_ITEM_TEXTS.distanceTitle,
       readableElement: distanceSelectBoxInModal,
       isRequired: true,
     });
@@ -92,9 +90,9 @@ class AddRestaurantForm {
     descriptTextArea.rows = 5;
 
     const descriptionFormItem = new FormItem({
-      subject: "설명",
+      subject: FORM_ITEM_TEXTS.descriptionTitle,
       readableElement: descriptTextArea,
-      description: "메뉴 등 추가 정보를 입력해 주세요",
+      description: FORM_ITEM_TEXTS.descriptionDescription,
     });
 
     return descriptionFormItem;
@@ -107,9 +105,9 @@ class AddRestaurantForm {
     urlInput.id = "link";
 
     const urlFormItem = new FormItem({
-      subject: "참고 링크",
+      subject: FORM_ITEM_TEXTS.urlTitle,
       readableElement: urlInput,
-      description: "매장 정보를 확인할 수있는 링크를 입력해 주세요.",
+      description: FORM_ITEM_TEXTS.urlDescription,
     });
 
     return urlFormItem;
@@ -122,7 +120,7 @@ class AddRestaurantForm {
     });
 
     const cancelButton = generateButton({
-      value: "취소하기",
+      value: FORM_ITEM_TEXTS.cancelButton,
       classes: "button button--secondary text-caption".split(" "),
       onclick: (e) => {
         e.preventDefault();
@@ -132,7 +130,7 @@ class AddRestaurantForm {
     cancelButton.type = "button";
 
     const addButton = generateButton({
-      value: "추가하기",
+      value: FORM_ITEM_TEXTS.addButton,
       classes: "button button--primary text-caption".split(" "),
       onclick: () => {
         const newRestaurant: Restaurant = {

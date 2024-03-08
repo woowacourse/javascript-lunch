@@ -1,3 +1,5 @@
+import { DEFAULT_UNSELECTED_OPTION } from "../../constants/selectOptions";
+
 const generateSelectBoxOption = (options: string[]) => {
   return options.map((option) => {
     const optionElement = document.createElement("option");
@@ -18,7 +20,9 @@ const generateSelectBox = (
 
   const optionElements = generateSelectBoxOption(options);
   if (!hasDefaultOption) {
-    const defaultOption = generateSelectBoxOption(["선택해주세요"])[0];
+    const defaultOption = generateSelectBoxOption([
+      DEFAULT_UNSELECTED_OPTION,
+    ])[0];
     defaultOption.selected = true;
     defaultOption.disabled = true;
     defaultOption.value = "";

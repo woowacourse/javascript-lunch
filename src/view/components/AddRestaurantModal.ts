@@ -1,3 +1,4 @@
+import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
 import generateModal from "../generateComponent/generateModal";
 import AddRestaurantForm from "./AddRestaurantForm";
 
@@ -25,7 +26,7 @@ class AddRestaurantModal {
 
   #createH2() {
     const h2InModal = document.createElement("h2");
-    h2InModal.textContent = "새로운 음식점";
+    h2InModal.textContent = FORM_ITEM_TEXTS.formTitle;
     h2InModal.classList.add(..."modal-title text-title".split(" "));
     return h2InModal;
   }
