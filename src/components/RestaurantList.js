@@ -55,8 +55,6 @@ class RestaurantList extends BaseComponent {
     document.addEventListener("select-change", (event) => {
       const { type, option } = event.detail;
 
-      console.log(type, option);
-
       type === "sort"
         ? this.#sortRestauantList(option)
         : this.#filterRestaurantList(option);

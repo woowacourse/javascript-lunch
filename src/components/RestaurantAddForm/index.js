@@ -99,8 +99,6 @@ class RestaurantAddForm extends BaseComponent {
 
       const formData = this.#getFormData();
 
-      console.log("formData", formData);
-
       try {
         if (add(formData)) {
           this.emitEvent("add-restaurant");
