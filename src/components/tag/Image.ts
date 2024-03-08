@@ -3,10 +3,11 @@ import ImageProps from './props/ImageProps';
 class Image extends HTMLImageElement {
   constructor(props: ImageProps) {
     super();
-    const { src, alt } = props;
+    const { src, alt, classnames } = props;
 
     this.src = src;
     if (alt !== undefined) this.alt = alt;
+    if (classnames !== undefined) this.classList.add(...classnames);
   }
 }
 
