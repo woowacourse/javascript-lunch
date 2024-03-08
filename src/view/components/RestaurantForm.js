@@ -30,11 +30,11 @@ export default class RestaurantForm extends HTMLFormElement {
         detail: { formData },
       }),
     );
+ 
+    this.reset();
   }
 
-  #handleReset(e) {
-    e.preventDefault();
-
+  #handleReset() {
     this.dispatchEvent(
       new CustomEvent(RESTAURANT_FORM_EVENTS.reset, {
         bubbles: true,
