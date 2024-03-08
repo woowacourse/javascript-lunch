@@ -2,6 +2,8 @@ import Restaurant, { IRestaurantInfo, ICategory } from './Restaurant';
 
 export const SORT_CONDITION: readonly ('이름순' | '거리순')[] = Object.freeze(['이름순', '거리순']);
 
+type ICatalogCategory = ICategory | '전체';
+
 class RestaurantCatalog {
   #restaurants: Restaurant[] = [];
 
@@ -16,7 +18,10 @@ class RestaurantCatalog {
     this.#restaurants.push(newRestaurant);
   }
 
-  filterByCategory(category: ICategory) {
+  filterByCategory(category: ICatalogCategory) {
+    if (category === '전체') {
+      return this.#restaurants;
+    }
     return this.#restaurants.filter((restaurant) => restaurant.getInfo().category === category);
   }
 
