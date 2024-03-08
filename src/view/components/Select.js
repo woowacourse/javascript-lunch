@@ -3,10 +3,6 @@ export const SELECT_EVENTS = {
 };
 
 export default class Select extends HTMLSelectElement {
-  constructor() {
-    super();
-  }
-
   static observedAttributes = ['data-options'];
 
   get options() {
@@ -28,8 +24,10 @@ export default class Select extends HTMLSelectElement {
     this.#createOptions();
   }
 
+  // eslint-disable-next-line
   #handleOnChange(e) {
     const { value } = e.target;
+    
     this.dispatchEvent(
       new CustomEvent(SELECT_EVENTS.onchange, {
         bubbles: true,
@@ -45,18 +43,9 @@ export default class Select extends HTMLSelectElement {
     this.innerHTML = '';
 
     const fragment = document.createDocumentFragment();
-    // fragment.appendChild(this.#generateDefaultOption('선택해 주세요'));
     this.#generateOptions().forEach((option) => fragment.appendChild(option));
-
     this.appendChild(fragment);
   }
-
-  // #generateDefaultOption(innerText) {
-  //   const defaultOption = document.createElement('option');
-  //   defaultOption.value = '';
-  //   defaultOption.innerHTML = innerText;
-  //   return defaultOption;
-  // }
 
   #generateOptions() {
     return this.options.map(({ value, option }) => {

@@ -2,46 +2,10 @@
   "rules": {
     "max-depth": ["error", 1],
     "max-params": ["error", 2],
+    "max-lines-per-function": ["error", 10],
     "no-return-assign": "off",
     "no-return-await": "off",
-    "class-methods-use-this": "off",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "type",
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "unknown"
-        ],
-        "pathGroups": [
-          {
-            "pattern": "@service/*",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@domain/*",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@view/*",
-            "group": "internal",
-            "position": "after"
-          }
-        ],
-
-        "pathGroupsExcludedImportTypes": ["@tanstack*"],
-        "alphabetize": {
-          "order": "asc"
-        }
-      }
-    ]
+    "class-methods-use-this": "off"
   },
   "env": {
     "browser": true,
@@ -53,7 +17,6 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": ["airbnb-base", "prettier", "plugin:import/recommended"],
-  "plugins": ["import"],
+  "extends": ["airbnb-base", "prettier"],
   "ignorePatterns": ["dist"]
 }

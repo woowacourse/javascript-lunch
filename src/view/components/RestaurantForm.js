@@ -17,6 +17,7 @@ export default class RestaurantForm extends HTMLFormElement {
     this.addEventListener('reset', this.#handleReset.bind(this));
   }
 
+  // eslint-disable-next-line
   #handleSubmit(e) {
     e.preventDefault();
 
@@ -47,17 +48,7 @@ export default class RestaurantForm extends HTMLFormElement {
   #getFormDataObj(data) {
     return [...data.keys()].reduce((formData, key) => {
       const value = data.get(key);
-      formData[key] = value;
-      return formData;
+      return {...formData, [key]: value};
     }, {});
-  }
-
-  #setLocalStorage(formData) {
-    if (window.localStorage.getItem('restaurants')) {
-      const restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
-      restaurants.push(formData);
-      window.localStorage.setItem('restaurants', JSON.stringify(restaurants));
-    }
-    window.localStorage.setItem('restaurants', JSON.stringify([formData]));
   }
 }

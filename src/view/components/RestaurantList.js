@@ -31,7 +31,6 @@ export default class RestaurantList extends HTMLUListElement {
       const restaurantItem = this.#getRestaurantItem(restaurant);
       fragment.appendChild(restaurantItem);
     });
-
     this.appendChild(fragment);
   }
 

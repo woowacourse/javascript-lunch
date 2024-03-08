@@ -27,10 +27,10 @@ export default class RestaurantItem extends HTMLLIElement {
 
   #initRestaurantItem() {
     const { category, name, distance, description } = this.restaurant;
+
     this.querySelector('.restaurant__name').innerHTML = name;
     this.querySelector('.restaurant__distance').innerHTML = `캠퍼스로부터 ${distance}분 내 `;
     this.querySelector('.restaurant__description').innerHTML = description;
-
     this.querySelector('.category-icon').src = this.#getCategoryIconUrl(category);
     this.querySelector('.category-icon').alt = category;
   }
@@ -42,5 +42,6 @@ export default class RestaurantItem extends HTMLLIElement {
     if (category === '양식') return './category-western.png';
     if (category === '아시안') return './category-asian.png';
     if (category === '기타') return './category-etc.png';
+    return '';
   }
 }
