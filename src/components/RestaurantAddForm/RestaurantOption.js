@@ -21,7 +21,7 @@ class RestaurantOptions extends BaseComponent {
             return `<option value=${valuesArray[index]}>${option}</option>;`;
           })}
         </select>
-        <p class="hidden" id=${id}-select-error-message>옵션을 선택해주세요</p>
+        <p class="hidden text-caption error-message" id=${id}-select-error-message>옵션을 선택해주세요</p>
     </div>`;
   }
 
@@ -32,7 +32,6 @@ class RestaurantOptions extends BaseComponent {
 
   #isSelected() {
     const id = this.getAttribute("id");
-    console.log("selected option", $(`#${id}-select`).value);
     return restaurantValidator.isSelected($(`#${id}-select`).value);
   }
 

@@ -12,7 +12,7 @@ class RestaurantNameInput extends BaseComponent {
       <div class="form-item form-item--required" id="name-input">
         <label for="name">이름</label>
         <input type="text" name="name" id="name" class="text-caption">
-        <p class="hidden" id="error-message">10글자 이하로 작성해주세요</p>
+        <p class="hidden text-caption error-message" id="error-message">1글자 이상 10글자 이하로 작성해주세요</p>
       </div>`;
   }
 
