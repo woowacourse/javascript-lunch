@@ -25,7 +25,13 @@ export default class RestaurantForm extends EventComponent {
     return `
     <form>
       <form-item title="카테고리" required="true" label-for="category">
-        <select-box select-id="category" name="category" options=${this.generateCategoryOptions()}></select-box>
+        <select-box
+          select-id="category"
+          name="category"
+          options=${this.generateCategoryOptions()}
+          required="true"
+        >
+        </select-box>
       </form-item>
 
       <form-item title="이름" required="true" id="name">
@@ -33,9 +39,13 @@ export default class RestaurantForm extends EventComponent {
       </form-item>
 
       <form-item title="거리(도보 이동 시간)" required="true" label-for="time-to-reach">
-        <select-box select-id="time-to-reach" name="time-to-reach" options=${JSON.stringify(
-          distanceOptions
-        )}></select-box>
+        <select-box
+          select-id="time-to-reach"
+          name="time-to-reach"
+          options=${JSON.stringify(distanceOptions)}
+          required="true"
+        >
+        </select-box>
       </form-item>
 
       <form-item title="설명" label-for="description" help-text="메뉴 등 추가 정보를 입력해 주세요."}>
@@ -43,7 +53,7 @@ export default class RestaurantForm extends EventComponent {
       </form-item>
 
       <form-item title="참고 링크" label-for="link" help-text="매장 정보를 확인할 수 있는 링크를 입력해 주세요.">
-        <input type="text" name="link" id="link">
+        <input type="text" name="link" id="link" />
       </form-item>
 
       <div class="button-container">
@@ -85,21 +95,26 @@ export default class RestaurantForm extends EventComponent {
       timeToReach: Number(timeToReach),
     };
 
+    const cleanUp = () => {
+      (e.target as HTMLFormElement)?.reset();
+
+      this.dispatchEvent(
+        new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+          bubbles: true,
+          detail: { action: MODAL_EVENT_ACTION.close },
+        })
+      );
+    };
+
     this.dispatchEvent(
       new CustomEvent(RESTAURANT_EVENT.restaurantFormSubmit, {
         bubbles: true,
-        detail: { payload },
+        detail: {
+          payload,
+          cleanUp,
+        },
       })
     );
-
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
-        bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.close },
-      })
-    );
-
-    (e.target as HTMLFormElement)?.reset();
   }
 
   private generateCategoryOptions() {

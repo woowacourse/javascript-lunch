@@ -12,11 +12,14 @@ export default class Select extends EventComponent {
     const selectId = this.getAttribute("select-id") || "";
     const className = this.getAttribute("class-name") || "";
     const name = this.getAttribute("name") || "";
+    const required = this.getAttribute("required") || "";
 
     const options = rawOptions ? (JSON.parse(rawOptions) as Option[]) : [];
 
     return `
-      <select id=${selectId} class=${className} name=${name}>
+      <select id=${selectId} class=${className} name=${name} ${
+      required ? "required" : ""
+    }>
         ${options.map(
           ({ value, label }) => `<option value=${value}>${label}</option>`
         )}
@@ -46,6 +49,13 @@ export default class Select extends EventComponent {
   }
 
   static get observedAttributes() {
-    return ["options", "event-name", "select-id", "class-name", "name"];
+    return [
+      "options",
+      "event-name",
+      "select-id",
+      "class-name",
+      "name",
+      "required",
+    ];
   }
 }
