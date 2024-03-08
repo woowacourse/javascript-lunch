@@ -32,13 +32,11 @@
 - [x] Header
 - [x] categoryIcon
 - [x] RestaurantItem
-- [ ] RestaurantList
-- [ ] Form
-- [ ] BottomSheet
+- [x] RestaurantList
+- [x] Form
+- [x] Modal
+- [x] Select
 
-## 공통 css
+## 추가 구현 사항
 
-- [ ] Input 컴포넌트 x css만 만들기
-- [ ] Textarea
-- [ ] Select
-- [ ] Button
+- [ ] customElement attribute 유효성 검증
