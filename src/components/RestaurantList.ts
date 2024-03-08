@@ -6,6 +6,7 @@ import EventComponent from "../abstract/EventComponent";
 import { RESTAURANT_DISPLAYING_FILTER, SORT_FILTER } from "../constants/filter";
 import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
 import { CategoryFilter, SortFilter } from "../types/Filter";
+import restaurantStore from "../store/restaurantStore";
 
 customElements.define("restaurant-item", RestaurantItem);
 customElements.define("filter-bar", FilterBar);
@@ -16,9 +17,9 @@ export default class RestaurantList extends EventComponent {
   private sortFilter: SortFilter;
 
   constructor(
-    restaurants: Restaurants = new Restaurants([]),
-    categoryFilter = RESTAURANT_DISPLAYING_FILTER.all as CategoryFilter,
-    sortFilter = SORT_FILTER.name as SortFilter
+    restaurants = restaurantStore.getRestaurants(),
+    categoryFilter = RESTAURANT_DISPLAYING_FILTER.all,
+    sortFilter = SORT_FILTER.name
   ) {
     super();
     this.restaurants = restaurants;
@@ -51,7 +52,8 @@ export default class RestaurantList extends EventComponent {
                 description,
                 link,
               }: RestaurantInfo) =>
-                `<restaurant-item name="${name}" category="${category}" timeToReach=${timeToReach} description=${description} link=${link}>
+                `
+            <restaurant-item name="${name}" category="${category}" timeToReach="${timeToReach}" description="${description}" link="${link}">
             </restaurant-item>`
             )
             .join("")}
@@ -91,12 +93,17 @@ export default class RestaurantList extends EventComponent {
   }
 
   private handleRestaurantFormSubmit(event: CustomEvent) {
-    const { payload } = event?.detail;
+    const { payload, cleanUp } = event?.detail;
 
-    const restaurant = new Restaurant(payload);
+    try {
+      const restaurant = new Restaurant(payload);
+      this.restaurants.add(restaurant);
+      restaurantStore.setRestaurnats(this.restaurants);
+    } catch (error: any) {
+      return alert(error.message);
+    }
 
-    this.restaurants.add(restaurant);
-
+    cleanUp();
     this.render();
   }
 
