@@ -1,4 +1,4 @@
-import type Restaurant from '../Restaurant';
+import type Restaurant from '../domain/Restaurant';
 
 type TCategory = '전체' | '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type TSorting = '이름순' | '거리순';

@@ -1,4 +1,4 @@
-import Restaurant from '../../src/Restaurant';
+import Restaurant from '../../src/domain/Restaurant';
 
 describe('Restaurant 도메인 테스트', () => {
   it('해당 음식점의 카테고리가 선택된 카테고리와 일치하는 지 확인한다.', () => {
