@@ -1,4 +1,4 @@
-import { CATEGORY, SORTING_KEY, EVENT } from '../../types/types.ts';
+import { CATEGORY, SORTING_KEY, EVENT, DEFAULT } from '../../types/types.ts';
 import { $ } from '../../util/dom.js';
 import BaseComponent from '../baseComponent/BaseComponent.js';
 
@@ -20,8 +20,10 @@ class SelectFilterComponent extends BaseComponent {
 
     if (filterType === 'category-filter') {
       this.#createOptions(CATEGORY, $select);
+      $select.name = DEFAULT.category;
     } else {
       this.#createOptions(SORTING_KEY, $select);
+      $select.name = DEFAULT.sortingKey;
     }
 
     this.appendChild(instance);
