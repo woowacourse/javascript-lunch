@@ -5,7 +5,7 @@ import RestaurantList from './components/RestaurantList';
 import RestaurantInfo from './components/RestaurantInfo';
 import RestaurantAddModal from './components/RestaurantAddModal';
 
-import '../styles/style.css';
+import './styles/style.css';
 
 customElements.define('restaurant-app', RestaurantApp);
 customElements.define('custom-header', CustomHeader);
