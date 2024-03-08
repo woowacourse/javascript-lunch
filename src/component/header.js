@@ -1,3 +1,4 @@
+import { APP_NAME } from '../constant/cons.js';
 import { $ } from '../utils/selector.js';
 import createNewRestaurantModal from '../web/modal/addRestaurantModal.js';
 import modal from './modal.js';
@@ -18,7 +19,7 @@ const item = {
   logo() {
     const h1 = document.createElement('h1');
     h1.className = 'gnb__title text-title';
-    h1.textContent = '점심 뭐 먹지';
+    h1.textContent = APP_NAME;
     return h1;
   },
 
