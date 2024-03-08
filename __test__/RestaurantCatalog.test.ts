@@ -63,11 +63,11 @@ describe('RestaurantCatalog 기능 테스트', () => {
   });
 
   test('category 이름순 정렬 테스트 - 오름차순 정렬', () => {
-    expect(newRestaurantCatalog.sortByName()[0].getInfo().name).toEqual('깡장시골보리밥');
+    expect(RestaurantCatalog.sortByName(validRestaurantCase)[0].name).toEqual('깡장시골보리밥');
   });
 
   test('category 거리순 정렬 테스트 - 오름차순 정렬, 동률일 시 이름의 오름차순으로', () => {
-    expect(newRestaurantCatalog.sortByDistance()[0].getInfo().name).toEqual('깡장시골보리밥');
+    expect(RestaurantCatalog.sortByDistance(validRestaurantCase)[0].name).toEqual('깡장시골보리밥');
   });
 
   test('category 거리순 정렬 테스트 - 오름차순 정렬', () => {
@@ -94,12 +94,6 @@ describe('RestaurantCatalog 기능 테스트', () => {
       },
     ];
 
-    const newRestaurantCatalog = new RestaurantCatalog();
-
-    validRestaurantCaseForDistanceSort.forEach((restaurantInfo) => {
-      newRestaurantCatalog.pushNewRestaurant(restaurantInfo);
-    });
-
-    expect(newRestaurantCatalog.sortByDistance()[0].getInfo().name).toEqual('빕스');
+    expect(RestaurantCatalog.sortByDistance(validRestaurantCaseForDistanceSort)[0].name).toEqual('빕스');
   });
 });
