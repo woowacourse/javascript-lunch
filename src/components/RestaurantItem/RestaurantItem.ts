@@ -13,11 +13,7 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 
 import type { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
 
-import type {
-  MenuCategory,
-  MenuCategoryWithoutAll,
-} from "../../constants/menuCategory/menuCategory.type";
-import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
+import type { MenuCategoryWithoutAll } from "../../constants/menuCategory/menuCategory.type";
 
 class RestaurantItem extends BaseComponent {
   private restaurantDetail: RestaurantDetail;

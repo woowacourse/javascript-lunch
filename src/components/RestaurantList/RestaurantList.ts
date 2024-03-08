@@ -46,7 +46,7 @@ class RestaurantList extends BaseComponent {
   }
 
   private createRestaurantItems() {
-    const restaurantDetails = this.restaurant.getRestaurants();
+    const restaurantDetails = this.restaurant.getRestaurantDetails();
 
     return restaurantDetails.reduce(
       (acc: string, restaurantDetail: RestaurantDetail) => {

@@ -15,7 +15,7 @@ class Restaurant {
 
   private storage: CustomStorage<RestaurantDetail[], RestaurantDetail>;
 
-  private restaurants: RestaurantDetail[];
+  private restaurantsDetails: RestaurantDetail[];
 
   constructor(
     storage: CustomStorage<
@@ -24,7 +24,7 @@ class Restaurant {
     > = RestaurantStorage
   ) {
     this.storage = storage;
-    this.restaurants = this.getSortedRestaurants(
+    this.restaurantsDetails = this.getSortedRestaurants(
       this.currentCategory,
       this.sortType
     );
@@ -50,12 +50,12 @@ class Restaurant {
       );
   }
 
-  public getRestaurants() {
-    return this.restaurants;
+  public getRestaurantDetails() {
+    return this.restaurantsDetails;
   }
 
   public updateRestaurants(sortType: SortCategory) {
-    this.restaurants = this.getSortedRestaurants(
+    this.restaurantsDetails = this.getSortedRestaurants(
       this.currentCategory,
       sortType
     );
@@ -85,7 +85,7 @@ class Restaurant {
   public findDuplicateRestaurantByName(
     userInputRestaurantDetail: RestaurantDetail
   ) {
-    const duplicateRestaurantDetail = this.restaurants.find(
+    const duplicateRestaurantDetail = this.restaurantsDetails.find(
       (restaurantDetail) =>
         restaurantDetail.name === userInputRestaurantDetail.name
     );

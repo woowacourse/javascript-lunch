@@ -8,3 +8,4 @@ import "./components/SortDropdown/SortDropdown";
 import "./components/RestaurantList/RestaurantList";
 import "./components/RestaurantItem/RestaurantItem";
 import "./components/RestaurantAddModal/RestaurantAddModal";
+import "./components/RestaurantAddForm/RestaurantAddForm";

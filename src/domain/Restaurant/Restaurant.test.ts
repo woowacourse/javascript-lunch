@@ -88,7 +88,7 @@ describe("Restaurant 모듈 테스트", () => {
     comparator: (a: RestaurantDetail[K], b: RestaurantDetail[K]) => boolean
   ): boolean =>
     restaurant
-      .getRestaurants()
+      .getRestaurantDetails()
       .every(
         (restaurantDetail, index, restaurantDetails) =>
           index === 0 ||
@@ -114,7 +114,9 @@ describe("Restaurant 모듈 테스트", () => {
       restaurant.addRestaurant(newRestaurantDetail);
 
       // then
-      expect(restaurant.getRestaurants()).toContainEqual(newRestaurantDetail);
+      expect(restaurant.getRestaurantDetails()).toContainEqual(
+        newRestaurantDetail
+      );
     });
   });
 
@@ -179,7 +181,7 @@ describe("Restaurant 모듈 테스트", () => {
 
         // then
         const isFilteredRestaurants = restaurant
-          .getRestaurants()
+          .getRestaurantDetails()
           .every(({ category }) => category === targetCategory);
         expect(isFilteredRestaurants).toBeTruthy();
       }
@@ -193,7 +195,7 @@ describe("Restaurant 모듈 테스트", () => {
       restaurant.filterRestaurants(MENU_CATEGORIES.all);
 
       // then
-      const restaurantsDetails = restaurant.getRestaurants();
+      const restaurantsDetails = restaurant.getRestaurantDetails();
 
       initialRestaurantDetails.forEach((restaurantDetail) => {
         expect(restaurantsDetails).toContainEqual(restaurantDetail);
@@ -218,7 +220,7 @@ describe("Restaurant 모듈 테스트", () => {
       restaurant.addRestaurant(newRestaurantDetail);
 
       // then
-      const restaurantDetails = restaurant.getRestaurants();
+      const restaurantDetails = restaurant.getRestaurantDetails();
       expect(restaurantDetails).not.toContainEqual(newRestaurantDetail);
     });
 
@@ -237,7 +239,7 @@ describe("Restaurant 모듈 테스트", () => {
       restaurant.addRestaurant(newRestaurantDetail);
 
       // then
-      const restaurantDetails = restaurant.getRestaurants();
+      const restaurantDetails = restaurant.getRestaurantDetails();
       expect(restaurantDetails).toContainEqual(newRestaurantDetail);
     });
 
@@ -249,7 +251,7 @@ describe("Restaurant 모듈 테스트", () => {
       // then
       const isSortedByDistance = isSortedBy("distance", (a, b) => a >= b);
       const isFilteredRestaurants = restaurant
-        .getRestaurants()
+        .getRestaurantDetails()
         .every(({ category }) => category === "중식");
 
       expect(isFilteredRestaurants && isSortedByDistance).toBeTruthy();
@@ -266,7 +268,7 @@ describe("Restaurant 모듈 테스트", () => {
         (a, b) => a.localeCompare(b) >= 0
       );
       const isFilteredRestaurants = restaurant
-        .getRestaurants()
+        .getRestaurantDetails()
         .every(({ category }) => category === "중식");
 
       expect(isFilteredRestaurants && isSortedByName).toBeTruthy();
