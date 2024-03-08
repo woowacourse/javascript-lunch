@@ -11,4 +11,5 @@ const inputDescriptionTemplate = /*html*/ `
     >메뉴 등 추가 정보를 입력해 주세요.</span
   >
 </div>`;
+
 export default inputDescriptionTemplate;
