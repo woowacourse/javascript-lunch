@@ -9,10 +9,18 @@ li {
   list-style: none;
 }
 
-html,
-body {
+html {
+  display: flex;
+  justify-content: center;
+  background-color: var(--grey-500);
   font-family: sans-serif;
   font-size: 16px;
+}
+
+body {
+  height: 100vh;
+  width: 390px;
+  background-color: #ffffff;
 }
 
 /* Colors *****************************************/
@@ -112,12 +120,15 @@ body {
 }
 
 /* 음식점 목록 */
-.restaurant-list-container {
+.restaurant-list {
   display: flex;
   flex-direction: column;
-
   padding: 0 16px;
   margin: 16px 0;
+
+  background-color: var(--primary-color);
+  height: 80%;
+  overflow-y: auto;
 }
 
 .restaurant-card {
@@ -175,6 +186,10 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
+
+#modal-template {
+}
+
 .modal {
   display: none;
 }
@@ -189,14 +204,13 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-
   background: rgba(0, 0, 0, 0.35);
 }
 
 .modal-container {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 390px;
 
   padding: 32px 16px;
 
