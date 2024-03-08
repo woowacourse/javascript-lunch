@@ -1,11 +1,14 @@
 import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant';
 import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
+import { mockingData } from '../domain/mocking';
 
 class WebController {
   #restaurantCatalog;
 
   run() {
     this.#restaurantCatalog = new RestaurantCatalog();
+    this.#defaultDataInsert();
+
     this.#initRestaurantCatalogFromLocalStorage();
 
     this.#assignRestaurantDataAttribute();
@@ -26,6 +29,12 @@ class WebController {
     const modalOpenButton = document.getElementById('add-restaurent-button');
     modalOpenButton.addEventListener('click', () => {
       this.#openModal();
+    });
+  }
+
+  #defaultDataInsert() {
+    mockingData.forEach((data) => {
+      this.#restaurantCatalog.pushNewRestaurant(data);
     });
   }
 
