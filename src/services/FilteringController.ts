@@ -9,35 +9,15 @@ const FilteringController = {
 
     filteringCategoryEl?.addEventListener(
       'change',
-      this.private_handleChangeFilteringOption.bind(this),
+      this.showFilteredSortedList.bind(this),
     );
     filteringSortingEl?.addEventListener(
       'change',
-      this.private_handleChangeFilteringOption.bind(this),
+      this.showFilteredSortedList.bind(this),
     );
   },
-  private_getSelectedValue(selectElement: HTMLSelectElement) {
-    const selectedIndex = selectElement?.selectedIndex;
-    const selectedValue = selectElement?.options[selectedIndex].value;
 
-    return selectedValue;
-  },
-
-  private_getSelectedOption() {
-    const filteringCategory = document.getElementById(
-      'filtering-category',
-    ) as HTMLSelectElement;
-    const filteringSorting = document.getElementById(
-      'filtering-sorting',
-    ) as HTMLSelectElement;
-
-    return {
-      category: this.private_getSelectedValue(filteringCategory),
-      sorting: this.private_getSelectedValue(filteringSorting),
-    };
-  },
-
-  private_handleChangeFilteringOption() {
+  showFilteredSortedList() {
     const { category, sorting } = this.private_getSelectedOption() as {
       category: string;
       sorting: string;
@@ -58,6 +38,27 @@ const FilteringController = {
       : undefined;
 
     RestaurantListController.injectRestaurantListHTML(sortedList);
+  },
+
+  private_getSelectedValue(selectElement: HTMLSelectElement) {
+    const selectedIndex = selectElement?.selectedIndex;
+    const selectedValue = selectElement?.options[selectedIndex].value;
+
+    return selectedValue;
+  },
+
+  private_getSelectedOption() {
+    const filteringCategory = document.getElementById(
+      'filtering-category',
+    ) as HTMLSelectElement;
+    const filteringSorting = document.getElementById(
+      'filtering-sorting',
+    ) as HTMLSelectElement;
+
+    return {
+      category: this.private_getSelectedValue(filteringCategory),
+      sorting: this.private_getSelectedValue(filteringSorting),
+    };
   },
 };
 
