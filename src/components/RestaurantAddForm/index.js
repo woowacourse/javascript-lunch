@@ -39,16 +39,14 @@ class RestaurantAddForm extends BaseComponent {
 
   render() {
     this.innerHTML = `
-      <div class="modal">
+    <div class="modal">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id="restaurant-add-form">
- 
-        <restaurant-option id="category" values="${RESTAURANT_ADD_VALUES}" options="${RESTAURANT_ADD_CATEGORY}"></restaurant-option>
-        <restaurant-name-input></restaurant-name-input>
-        <restaurant-option id="distance" values="${RESTAURANT_ADD_DISTANCE_VALUE}" options="${RESTAURANT_ADD_DISTANCE}"></restaurant-option>
-
+          <restaurant-option id="category" values="${RESTAURANT_ADD_VALUES}" options="${RESTAURANT_ADD_CATEGORY}"></restaurant-option>
+          <restaurant-name-input></restaurant-name-input>
+          <restaurant-option id="distance" values="${RESTAURANT_ADD_DISTANCE_VALUE}" options="${RESTAURANT_ADD_DISTANCE}"></restaurant-option>
 
           <div class="form-item">
             <label for="description">설명</label>
@@ -56,7 +54,6 @@ class RestaurantAddForm extends BaseComponent {
             <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
             <p class="hidden" id="error-message">10글자 이하로 작성해주세요</p>
           </div>
-
           <div class="form-item">
             <label for="link">참고 링크</label>
             <input type="text" name="link" id="link">
@@ -91,12 +88,6 @@ class RestaurantAddForm extends BaseComponent {
     $(".modal").classList.remove("modal--open");
   }
 
-  // TODO
-
-  // - 이름 input
-  // - 설명 input
-  // -> 예외 UI 이벤트 등록
-
   setEvent() {
     document.addEventListener("modal-open", () => {
       this.#renderFormModal();
@@ -108,10 +99,16 @@ class RestaurantAddForm extends BaseComponent {
 
       const formData = this.#getFormData();
 
-      if (add(formData)) {
-        this.emitEvent("add-restaurant");
-        this.#hideFormModal();
-        this.#resetFormData();
+      console.log("formData", formData);
+
+      try {
+        if (add(formData)) {
+          this.emitEvent("add-restaurant");
+          this.#hideFormModal();
+          this.#resetFormData();
+        }
+      } catch (error) {
+        alert(error.message);
       }
     });
 
