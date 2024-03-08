@@ -8,17 +8,18 @@
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "overrides": [
     {
-      "files": ["*.test.js"],
+      "files": ["*.cy.ts", "/src/components"],
       "rules": {
+        "no-undef": "off",
         "max-lines-per-function": "off",
-        "max-depth": "off",
-        "no-undef": "off"
+        "max-depth": "off"
       }
     }
   ],
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "extends": ["eslint:recommended"]
 }
