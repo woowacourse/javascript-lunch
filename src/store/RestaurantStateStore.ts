@@ -1,14 +1,24 @@
 import Restaurant from "../domain/SetRestaurant";
-import { Icategory, Idistance, Irestaurant, IrestaurantField } from "../types";
+import { Icategory, Idistance, Irestaurant, MappedType } from "../types";
 
 class RestaurantStateStore {
-  #restaurantState: IrestaurantField = {
+  #restaurantState: MappedType<Irestaurant> = {
     category: undefined,
     name: undefined,
     distance: undefined,
     description: undefined,
     link: undefined,
   };
+
+  resetState() {
+    this.#restaurantState = {
+      category: undefined,
+      name: undefined,
+      distance: undefined,
+      description: undefined,
+      link: undefined,
+    };
+  }
 
   setCategory(selectCategory: Icategory) {
     this.#restaurantState.category = selectCategory;

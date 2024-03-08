@@ -6,6 +6,10 @@ export type Idistance = 5 | 10 | 15 | 20 | 30;
 
 export type IsortType = "name" | "distance";
 
+export type MappedType<T> = {
+  [K in keyof T]?: T[K];
+};
+
 export type IinvalidResult = {
   targetClassName: string;
   isValid: boolean;
@@ -16,14 +20,6 @@ export interface Irestaurant {
   category: Icategory;
   name: string;
   distance: Idistance;
-  description?: string;
-  link?: string;
-}
-
-export interface IrestaurantField {
-  category?: Icategory;
-  name?: string;
-  distance?: Idistance;
   description?: string;
   link?: string;
 }

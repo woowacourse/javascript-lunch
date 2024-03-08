@@ -1,4 +1,4 @@
-import { Icategory, Irestaurant, IrestaurantField } from "../types";
+import { Icategory, Irestaurant, MappedType } from "../types";
 
 import RestaurantListStorageService from "./restaurantListStorageService";
 
@@ -15,7 +15,7 @@ const validate = {
         errorMessage: "카테고리는 필수적으로 선택해주세요.",
       };
     }
-    return { valid };
+    return valid;
   },
 
   validateNoName(name?: string) {
@@ -26,7 +26,7 @@ const validate = {
         errorMessage: "레스토랑 이름은 필수적으로 작성해주세요",
       };
     }
-    return { valid };
+    return valid;
   },
 
   validateDuplicateName(name?: string) {
@@ -37,14 +37,26 @@ const validate = {
         errorMessage: "이미 등록된 레스토랑입니다.",
       };
     }
-    return { valid };
+    return valid;
+  },
+
+  validateName(name?: string) {
+    if (!this.validateNoName(name).isValid) {
+      return this.validateNoName(name);
+    }
+    if (!this.validateDuplicateName(name).isValid) {
+      return this.validateDuplicateName(name);
+    }
+    return valid;
   },
 
   checkDuplicate(name?: string) {
     const restaurantList = RestaurantListStorageService.getData();
-    return restaurantList.find(
+    const f = restaurantList.find(
       (restaurant: Irestaurant) => restaurant.name === name,
     );
+    console.log("rr", f);
+    return f;
   },
 
   validateDistance(distance?: number) {
@@ -55,7 +67,7 @@ const validate = {
         errorMessage: "거리를 필수적으로 선택해주세요.",
       };
     }
-    return { valid };
+    return valid;
   },
 
   validateDescription(description?: string) {
@@ -66,7 +78,7 @@ const validate = {
         errorMessage: "설명의 최대 글자수는 200자입니다.",
       };
     }
-    return { valid };
+    return valid;
   },
 
   validateLink(link?: string) {
@@ -77,15 +89,14 @@ const validate = {
         errorMessage: "유효한 주소값을 입력해주세요",
       };
     }
-    return { valid };
+    return valid;
   },
 };
 
-function validateRestaurantState(restaurantInfo: IrestaurantField) {
+function validateRestaurantState(restaurantInfo: MappedType<Irestaurant>) {
   return [
     validate.validateCategory(restaurantInfo.category),
-    validate.validateNoName(restaurantInfo.name) &&
-      validate.validateDuplicateName(restaurantInfo.name),
+    validate.validateName(restaurantInfo.name),
     validate.validateDistance(restaurantInfo.distance),
     validate.validateDescription(restaurantInfo.description),
     validate.validateLink(restaurantInfo.link),

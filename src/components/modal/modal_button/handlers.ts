@@ -1,21 +1,21 @@
 import RestaurantListStorageService from "../../../services/restaurantListStorageService";
 import validateRestaurantState from "../../../services/validateRestaurantState";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import { IinvalidResult, Irestaurant, IrestaurantField } from "../../../types";
+import { IinvalidResult, Irestaurant, MappedType } from "../../../types";
 import RestaurantList from "../../restaurant_list/RestaurantList";
 
 const initializeFormState = () => {
   const modalForm = document.getElementById("modal-form") as HTMLFormElement;
   modalForm.reset();
+  restaurantStateStore.resetState();
 };
 
-const addNewRestaurant = (modal: Element) => {
-  const restaurantInfo = restaurantStateStore.getRestaurantField();
+const addNewRestaurant = (modal: Element, restaurantInfo: Irestaurant) => {
   const invalidMessage = document.getElementsByClassName("invalid_message");
 
   if (invalidMessage.length === 0) {
     modal.classList.remove("modal--open");
-    RestaurantListStorageService.setData(restaurantInfo as Irestaurant);
+    RestaurantListStorageService.setData(restaurantInfo);
     initializeFormState();
   }
 };
@@ -30,33 +30,36 @@ const removePrevErrorMessage = () => {
   });
 };
 
-const renderErrorMessage = (index: number, result: IinvalidResult) => {
+const renderErrorMessage = (
+  index: number,
+  result: MappedType<IinvalidResult>,
+) => {
   const targetTag = document.getElementsByClassName("form-item")[index];
   const p = document.createElement("p");
   p.setAttribute("class", `invalid_message ${result.targetClassName}`);
-  p.textContent = result.errorMessage;
+  p.textContent = result.errorMessage as string;
   targetTag.appendChild(p);
+};
+
+const checkValidateHandler = (restaurantInfo: MappedType<Irestaurant>) => {
+  const validateResult = validateRestaurantState(restaurantInfo);
+  removePrevErrorMessage();
+
+  validateResult.forEach((result, index) => {
+    if (!result.isValid) {
+      renderErrorMessage(index, result);
+    }
+  });
 };
 
 export const submitHandler = (modal: Element) => {
   const submitButton = document.getElementsByClassName("button--primary")[0];
   submitButton.addEventListener("click", (event) => {
     event.preventDefault();
-
-    addNewRestaurant(modal);
-
+    const restaurantInfo = restaurantStateStore.getRestaurantField();
+    checkValidateHandler(restaurantInfo);
+    addNewRestaurant(modal, restaurantInfo as Irestaurant);
     RestaurantList().reRender();
-  });
-};
-
-export const checkValidateHandler = (restaurantInfo: IrestaurantField) => {
-  const validateResult = validateRestaurantState(restaurantInfo);
-  removePrevErrorMessage();
-
-  validateResult.forEach((result, index) => {
-    if (result.errorMessage && !result.isValid) {
-      renderErrorMessage(index, result);
-    }
   });
 };
 
