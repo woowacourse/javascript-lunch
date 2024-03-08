@@ -22,5 +22,3 @@ export type MenuCategoryKey =
   | "western"
   | "asian"
   | "others";
-
-export type MenuCategoryDictionary = Record<MenuCategoryKey, MenuCategory>;
