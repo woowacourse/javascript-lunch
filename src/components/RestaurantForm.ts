@@ -1,5 +1,6 @@
 import EventComponent from "../abstract/EventComponent";
-import { KOREAN_CATEGORY } from "../constants/category";
+import FormItem from "./common/FormItem";
+
 import {
   MODAL_EVENT,
   MODAL_EVENT_ACTION,
@@ -7,7 +8,7 @@ import {
 } from "../constants/event";
 import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { $ } from "../utils/selector";
-import FormItem from "./common/FormItem";
+import { KOREAN_CATEGORY } from "../constants/category";
 
 customElements.define("form-item", FormItem);
 

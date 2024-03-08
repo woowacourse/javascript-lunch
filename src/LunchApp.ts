@@ -1,9 +1,8 @@
 import BaseComponent from "./abstract/BaseComponent";
-
-import RestaurantHeader from "./components/RestaurantHeader";
-import RestaurantList from "./components/RestaurantList";
 import Select from "./components/common/Select";
 import Modal from "./components/common/Modal";
+import RestaurantHeader from "./components/RestaurantHeader";
+import RestaurantList from "./components/RestaurantList";
 import RestaurantForm from "./components/RestaurantForm";
 
 customElements.define("restaurant-header", RestaurantHeader);

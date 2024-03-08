@@ -1,6 +1,7 @@
 import EventComponent from "../abstract/EventComponent";
-import { MODAL_EVENT, MODAL_EVENT_ACTION } from "../constants/event";
+
 import { $ } from "../utils/selector";
+import { MODAL_EVENT, MODAL_EVENT_ACTION } from "../constants/event";
 
 export default class RestaurantHeader extends EventComponent {
   protected getTemplate() {

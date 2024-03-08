@@ -1,4 +1,5 @@
 import BaseComponent from "../abstract/BaseComponent";
+
 import CategoryIcon from "./CategoryIcon";
 
 customElements.define("category-icon", CategoryIcon);

@@ -1,10 +1,11 @@
 import BaseComponent from "../abstract/BaseComponent";
+
+import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { FILTER_EVENT } from "../constants/event";
 import {
   KOREAN_RESTAURANT_DISPLAYING_FILTER,
   KOREAN_SORT_FILTER,
 } from "../constants/filter";
-import convertObjectToOptions from "../utils/convertObjectToOptions";
 
 export default class FilterBar extends BaseComponent {
   protected getTemplate(): string {

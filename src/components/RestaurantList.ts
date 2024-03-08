@@ -1,12 +1,13 @@
+import EventComponent from "../abstract/EventComponent";
 import RestaurantItem from "./RestaurantItem";
+import FilterBar from "./FilterBar";
 import Restaurants from "../domain/Restaurants";
 import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
-import FilterBar from "./FilterBar";
-import EventComponent from "../abstract/EventComponent";
-import { RESTAURANT_DISPLAYING_FILTER, SORT_FILTER } from "../constants/filter";
-import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
+
 import { CategoryFilter, SortFilter } from "../types/Filter";
 import restaurantStore from "../store/restaurantStore";
+import { RESTAURANT_DISPLAYING_FILTER, SORT_FILTER } from "../constants/filter";
+import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
 
 customElements.define("restaurant-item", RestaurantItem);
 customElements.define("filter-bar", FilterBar);

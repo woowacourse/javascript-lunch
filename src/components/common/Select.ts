@@ -1,4 +1,5 @@
 import EventComponent from "../../abstract/EventComponent";
+
 import { $ } from "../../utils/selector";
 
 interface Option {
