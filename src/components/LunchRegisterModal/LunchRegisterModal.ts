@@ -49,6 +49,8 @@ class LunchRegisterModal extends HTMLElement {
     if (modal?.className) {
       modal.classList.remove('modal--open');
     }
+
+    this.querySelector('form')?.reset();
   }
 
   setSubmitListener() {
