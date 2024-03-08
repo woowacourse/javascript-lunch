@@ -11,10 +11,6 @@ class RestaurantApp extends Component {
     this.#restaurants = RestaurantRepository.transformRestaurants('전체', '이름순');
   }
 
-  render() {
-    this.innerHTML = this.template();
-  }
-
   setEvent() {
     this.addEventListener('selectChange', () => this.#generateRestaurants());
     this.addEventListener('gnbButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'true'));

@@ -14,7 +14,9 @@ class Component extends HTMLElement {
     this.removeEvent();
   }
 
-  render() {}
+  render() {
+    this.innerHTML = this.template();
+  }
 
   setEvent() {}
 

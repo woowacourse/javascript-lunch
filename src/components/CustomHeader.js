@@ -1,5 +1,5 @@
 import Component from './Component';
-import { $ } from '../utils/dom';
+import { $, $addEvent, $removeEvent } from '../utils/dom';
 import addButtonImg from '../assets/add-button.png';
 
 class CustomHeader extends Component {
@@ -7,16 +7,12 @@ class CustomHeader extends Component {
     super();
   }
 
-  render() {
-    this.innerHTML = this.template();
-  }
-
   setEvent() {
-    $('.gnb__button').addEventListener('click', () => this.makeCustomEvent('gnbButtonClick'));
+    $addEvent('.gnb__button', 'click', () => this.makeCustomEvent('gnbButtonClick'));
   }
 
   removeEvent() {
-    $('.gnb__button').removeEventListener('click', () => this.makeCustomEvent('gnbButtonClick'));
+    $removeEvent('.gnb__button', 'click', () => this.makeCustomEvent('gnbButtonClick'));
   }
 
   template() {

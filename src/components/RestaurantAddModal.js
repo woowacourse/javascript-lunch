@@ -1,7 +1,7 @@
 import Component from './Component';
 import { OPTION } from '../constants/Condition';
 import { ERROR } from '../constants/Message';
-import { $ } from '../utils/dom';
+import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 
 class RestaurantAddModal extends Component {
@@ -17,24 +17,14 @@ class RestaurantAddModal extends Component {
     this.setEvent();
   }
 
-  render() {
-    this.innerHTML = this.template();
-  }
-
   setEvent() {
-    this.addEventListener('click', (event) => {
-      if (event.target.classList.contains('button--primary')) {
-        this.#onSubmit(event);
-      }
-
-      if (event.target.classList.contains('button--secondary')) {
-        this.#onCancel();
-      }
-    });
+    $addEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
+    $addEvent('.button--secondary', 'click', () => this.#onCancel());
   }
 
   removeEvent() {
-    this.removeEventListener('click');
+    $removeEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
+    $removeEvent('.button--secondary', 'click', () => this.#onCancel());
   }
 
   #updateModal(isOpen) {

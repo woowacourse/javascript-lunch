@@ -1,38 +1,38 @@
 import Component from './Component';
-import { $ } from '../utils/dom';
+import { $, $addEvent, $removeEvent } from '../utils/dom';
 
 class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];
 
+  #type;
+  #option;
+
   constructor() {
     super();
-  }
 
-  render() {
-    const type = this.getAttribute('type');
-    const option = JSON.parse(this.getAttribute('option'));
-
-    this.innerHTML = this.template(type, option);
+    this.#type = this.getAttribute('type');
+    this.#option = JSON.parse(this.getAttribute('option'));
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    this.#type = this.getAttribute('type');
+    this.#option = JSON.parse(this.getAttribute('option'));
+
     this.render();
   }
 
   setEvent() {
-    const type = this.getAttribute('type');
-
-    $(`.${type}`).addEventListener('change', () => this.makeCustomEvent('selectChange'));
+    $addEvent(`.${this.#type}`, 'change', () => this.makeCustomEvent('selectChange'));
   }
 
   removeEvent() {
-    $('select').removeEventListener('change', () => this.makeCustomEvent('selectChange'));
+    $removeEvent(`.${this.#type}`, 'change', () => this.makeCustomEvent('selectChange'));
   }
 
-  template(type, option) {
+  template() {
     return `
-      <select name=${type} id=${type} class=${type}>
-        ${option.map((el) => `<option value=${el.value}>${el.name}</option>`).join('')}
+      <select name=${this.#type} id=${this.#type} class=${this.#type}>
+        ${this.#option.map((el) => `<option value=${el.value}>${el.name}</option>`).join('')}
       </select>
     `;
   }

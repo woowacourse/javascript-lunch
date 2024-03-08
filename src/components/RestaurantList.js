@@ -1,23 +1,24 @@
-class RestaurantList extends HTMLElement {
+import Component from './Component';
+
+class RestaurantList extends Component {
   static observedAttributes = ['restaurants'];
+
+  #restaurants;
 
   constructor() {
     super();
+    this.#restaurants = JSON.parse(this.getAttribute('restaurants'));
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    this.#restaurants = JSON.parse(this.getAttribute('restaurants'));
     this.render();
   }
 
-  render() {
-    const restaurants = JSON.parse(this.getAttribute('restaurants'));
-    this.innerHTML = this.template(restaurants);
-  }
-
-  template(restaurants) {
+  template() {
     return `
     <section class="restaurant-list-container">
-      ${restaurants
+      ${this.#restaurants
         .map(
           (restaurant) =>
             `<restaurant-info category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-info>`,
