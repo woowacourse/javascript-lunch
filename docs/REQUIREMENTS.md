@@ -37,3 +37,7 @@ UI
 기타
 
 - 새로고침해도 추가한 음식점 정보들이 유지되어야 한다.
+
+## 배포 주소
+
+https://soosoo22.github.io/javascript-lunch/dist/
