@@ -28,7 +28,7 @@ export default class Select {
   }
 
   handleSelectChange() {
-    $('main').addEventListener('change', ({ target }) => {
+    $('restaurant-filter-container').addEventListener('change', ({ target }) => {
       if (RULES.selectIds.some((id) => target.id === id)) {
         const selectedValue = target.options[target.selectedIndex].value;
         this.restaurants.setStandard = { id: target.id, standard: selectedValue };

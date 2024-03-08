@@ -1,33 +1,31 @@
+// TODO: <마지막> import, 선언 순서 정리
+
 import Restaurants from './domains/Restaurants';
 
 import Header from './components/Header';
-import Main from './components/Main';
 import Select from './components/Select';
 import Restaurant from './components/Restaurant';
 import RestaurantCreationModal from './components/RestaurantCreationModal';
-import './styles/index.css';
+
+import { $ } from './utils/dom';
 import { SELECTED_DATA } from './constants/rules';
+
+import './styles/index.css';
 
 // domain
 const restaurants = new Restaurants(localStorage);
 
 // components
 const header = new Header();
-const main = new Main();
 const select = new Select(restaurants);
 const restaurant = new Restaurant();
 const modal = new RestaurantCreationModal(restaurants);
 
-document.getElementById('header').innerHTML = header.render();
-document.getElementById('main').innerHTML = main.render();
-document
-  .getElementById('restaurant-filter-container')
-  .appendChild(select.render(SELECTED_DATA.sorting));
-document
-  .getElementById('restaurant-filter-container')
-  .appendChild(select.render(SELECTED_DATA.category));
+$('header').innerHTML = header.render();
+$('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.sorting));
+$('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.category));
 restaurants.standardList.forEach((restaurantData) => {
-  document.getElementById('restaurant-list').innerHTML += restaurant.render(restaurantData);
+  $('restaurant-list').innerHTML += restaurant.render(restaurantData);
 });
 
-document.getElementById('restaurant-creation-modal').innerHTML = modal.render();
+$('restaurant-creation-modal').innerHTML = modal.render();

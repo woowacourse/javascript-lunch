@@ -11,6 +11,10 @@ export default class RestaurantCreationModal {
   }
 
   render() {
+    // TODO: 주석 제거
+    // TODO: <고민> html 태그 id 상수화 (ex: category)
+    // TODO: id를 한글로 변환하는 상수가 있어야하지 않나? ex) {category: 카테고리 }와 같은..? 왜냐하면 에러 메시지에서 영어로 나옴.
+    // TODO: html 분리
     /*html*/
     return `
     <!-- 음식점 추가 모달 -->
@@ -79,16 +83,17 @@ export default class RestaurantCreationModal {
     `;
   }
 
+  // TODO: addEvent 이벤트 분리, 내부 메서드 분리
+  // TODO: clickEvent vs submitEvent
+  // TODO: focusout의 중복값 측정은 뺄것인가?
   addEvent() {
-    const main = document.querySelector('main');
-
-    main.addEventListener('click', (event) => {
+    $('restaurant-creation-modal').addEventListener('click', (event) => {
       if (event.target.id === 'cancel-button' || event.target.id === 'modal-backdrop') {
         $('restaurant-creation-modal').classList.remove('modal--open');
       }
     });
 
-    main.addEventListener('click', (event) => {
+    $('restaurant-creation-modal').addEventListener('click', (event) => {
       event.preventDefault();
 
       if (event.target.id === 'add-button')
@@ -98,7 +103,7 @@ export default class RestaurantCreationModal {
         );
     });
 
-    main.addEventListener('focusout', ({ target }) => {
+    $('restaurant-creation-modal').addEventListener('focusout', ({ target }) => {
       if (RULES.requiredIds.some((id) => id === target.id)) {
         tryCatchWrapper(
           () => this.validateRequirements(target.id),
