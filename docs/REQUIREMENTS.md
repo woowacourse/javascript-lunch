@@ -1,5 +1,8 @@
 ## 1단계 - 음식점 목록
 
+### 배포주소
+https://jinhokim98.github.io/javascript-lunch/dist/
+
 음식점
 
 - 음식점은 카테고리, 이름, 거리(도보 이동 시간), 설명, 참고 링크 정보를 갖고 있다.
