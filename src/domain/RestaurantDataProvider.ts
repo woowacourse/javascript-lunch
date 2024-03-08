@@ -63,9 +63,9 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
   sortByCreatedAt({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
     return Object.values(filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
       if (sortBy === '오래된순') {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
       }
-      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   },
 
