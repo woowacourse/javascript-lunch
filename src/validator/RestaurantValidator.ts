@@ -1,6 +1,15 @@
+import { LocationData } from '../constants/Type';
+
 const RestaurantValidator = {
+  validateUserInput(locationData: LocationData) {
+    if (!locationData.category || !locationData.minutesWalk) {
+      throw new Error('값을 입력해주세요.');
+    }
+    this.validateRestaurantName(locationData.name);
+  },
+
   validateRestaurantName(userInput: string) {
-    const isNameLengthOutOfRange = userInput.length < 1 || userInput.length > 20; // 상수 처리 필요
+    const isNameLengthOutOfRange = userInput.length < 1 || userInput.length > 20;
     if (isNameLengthOutOfRange) {
       throw new Error('1글자 이상 20글자 이하로 입력해주세요.');
     }
