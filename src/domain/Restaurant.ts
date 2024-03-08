@@ -1,3 +1,4 @@
+import { CATEGORY } from "../constants/category";
 import RESTAURANT from "../constants/restaurant";
 import { validateInRange, validateNumberBelow } from "../utils/validator";
 
@@ -83,6 +84,10 @@ class Restaurant {
       RESTAURANT.maxCategoryLength,
       category.length
     );
+
+    if (!Object.keys(CATEGORY).includes(category as Category)) {
+      throw new Error("Invalid category");
+    }
   }
 
   #validateTimeToReach(timeToReach: Minute): void {
