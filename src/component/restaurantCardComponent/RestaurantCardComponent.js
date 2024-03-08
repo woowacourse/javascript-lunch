@@ -1,6 +1,6 @@
 import { $ } from '../../util/dom.js';
 import BaseComponent from '../baseComponent/BaseComponent.js';
-import { CATEGORY, EVENT } from '../../types/types.ts';
+import { CATEGORY, EVENT } from '../../types/types';
 
 class RestaurantCardComponent extends BaseComponent {
   constructor() {
@@ -8,12 +8,20 @@ class RestaurantCardComponent extends BaseComponent {
   }
 
   connectedCallback() {
-    this.setEvent();
+    const instance = this.getTemplate('#restaurant-card-template');
+
+    const restaurantInfo = {
+      category: this.dataset.category,
+      name: this.dataset.name,
+      distance: this.dataset.distance,
+      description: this.dataset.description,
+      link: this.dataset.link
+    };
+
+    this.render(instance, restaurantInfo);
   }
 
   render(instance, restaurantInfo) {
-    console.log('instance :>> ', instance);
-    console.log('restaurantInfo :>> ', restaurantInfo);
     const { category, name, distance, description } = restaurantInfo;
     const imageSource = Object.keys(CATEGORY).find((key) => CATEGORY[key] === category);
 
@@ -23,21 +31,6 @@ class RestaurantCardComponent extends BaseComponent {
     $('.restaurant-card__description', instance).textContent = description;
 
     this.appendChild(instance);
-  }
-
-  setEvent() {
-    this.on(
-      { target: document, eventName: EVENT.clickedModalSubmitButton },
-      this.#handleCreateCard.bind(this)
-    );
-  }
-
-  removeEvent() {}
-
-  #handleCreateCard(event) {
-    const instance = this.getTemplate('#restaurant-card-template');
-    const restaurantInfo = event.detail;
-    this.render(instance, restaurantInfo);
   }
 }
 

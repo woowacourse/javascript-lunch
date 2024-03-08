@@ -1,6 +1,7 @@
 import BaseComponent from '../baseComponent/BaseComponent.js';
-import { EVENT } from '../../types/types.ts';
+import { EVENT } from '../../types/types';
 import { $ } from '../../util/dom.js';
+import restaurantAPI from '../../util/restaurantAPI';
 
 class ModalComponent extends BaseComponent {
   constructor() {
@@ -52,11 +53,13 @@ class ModalComponent extends BaseComponent {
       const restaurant = {};
       restaurant.category = form.category.value;
       restaurant.name = form.name.value;
-      restaurant.distance = form.distance.value;
+      restaurant.distance = Number(form.distance.value);
       restaurant.description = form.description.value;
       restaurant.link = form.link.value;
 
-      this.emit(EVENT.clickedModalSubmitButton, restaurant);
+      restaurantAPI.save(restaurant);
+
+      this.emit(EVENT.clickedModalSubmitButton);
     } catch (error) {
       throw new Error();
     }
