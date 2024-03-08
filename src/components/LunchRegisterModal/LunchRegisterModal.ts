@@ -1,21 +1,23 @@
 import './style.css';
+// eslint-disable-next-line import/no-duplicates
 import '../LunchFormItem/LunchFormItem';
 import '../LunchButton/LunchButton';
-
 import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
+import { RestaurantRegister } from '../../domain';
+import LunchItems from '../LunchItems/LunchItems';
+import { SortBy } from '../../types';
 
-// TODO: lunch-form-item prop들 변경하기
 const LUNCH_REGISTER_MODAL = /* html */ `
 <div class="modal">
   <div class="modal-backdrop"></div>
   <div class="modal-container">
     <h2 class="modal-title text-title">새로운 음식점</h2>
     <form>
-      <lunch-form-item type="dropdown" name="category" label="카테고리" message=""></lunch-form-item>
-      <lunch-form-item type="input" name="name"></lunch-form-item>
-      <lunch-form-item type="dropdown" name="distance"></lunch-form-item>
-      <lunch-form-item type="textArea" name="description"></lunch-form-item>
-      <lunch-form-item type="input" name="link"></lunch-form-item>
+      <lunch-form-item type="dropdown" name="category" label="카테고리"  required="true"></lunch-form-item>
+      <lunch-form-item type="input" name="name" label="가게명"  required="true"></lunch-form-item>
+      <lunch-form-item type="dropdown" name="distance" label="거리"  required="true"></lunch-form-item>
+      <lunch-form-item type="textArea" name="description" label="설명" message="메뉴 등 추가 정보를 입력해 주세요." ></lunch-form-item>
+      <lunch-form-item type="input" name="link" label="링크" message="링크 어쩌고 저쩌고" ></lunch-form-item>
       <div class="button-container">
         <lunch-button type="button" text="취소하기" color="secondary"></lunch-button>
         <lunch-button text="추가하기" color="primary"></lunch-button>
@@ -40,7 +42,6 @@ class LunchRegisterModal extends HTMLElement {
     cancelButton?.addEventListener('click', () => {
       this.handleModalClose();
     });
-
   }
 
   handleModalClose() {
@@ -52,15 +53,31 @@ class LunchRegisterModal extends HTMLElement {
 
   setSubmitListener() {
     this.addEventListener('submit', (event) => {
+      event.preventDefault();
       const forms: NodeListOf<LunchFormItem> = this.querySelectorAll('lunch-form-item');
+      const entries: string[][] = [['createdAt', '']];
       forms.forEach((form: LunchFormItem) => {
-        console.log(form.getValue(form.getAttribute('type') as FormItemType));
-        event.preventDefault();
-        console.log(event.target);
+        const key = form.getAttribute('name') ?? '';
+        const value = form.getValue(form.getAttribute('type') as FormItemType) ?? '';
+        entries.push([key, value]);
       });
+      const newRestaurant = Object.fromEntries(entries);
+      newRestaurant.createdAt = new Date();
+      RestaurantRegister.execute(newRestaurant);
+      this.handleModalClose();
+
+      const dropdowns = document.querySelectorAll('lunch-dropdown');
+      dropdowns.forEach((dropdown) => {
+        const select = dropdown.querySelector('select');
+        if (select) {
+          select.options[0].selected = true;
+        }
+      });
+
+      const items = document.querySelector('lunch-items') as LunchItems;
+      items.renderItems({ sortBy: '최신순' as SortBy });
     });
   }
-
 }
 
 customElements.define('lunch-register-modal', LunchRegisterModal);

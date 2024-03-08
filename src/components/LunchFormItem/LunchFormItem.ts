@@ -1,55 +1,44 @@
 import { CATEGORIES } from '../../constants/categories';
 import { DISTANCE } from '../../constants/distance';
-import { Category, Distance } from '../../types';
 
-// type FormItemType = 'dropdown' | 'input' | 'textArea';
-// type NameType = 'category' | 'distance' | 'description';
+export type FormItemType = 'dropdown' | 'input' | 'textArea';
 
-const LUNCH_FORM_ITEM_DROPDOWN = (name: string) => `
-<div class="form-item form-item--required">
-  <label for="category text-caption">${LABELS[name]}</label>
-  <select name="${name}" id="category" class="dropdown-items" required>
+export interface FormItemProps {
+  name: string;
+  type: FormItemType;
+  label: string;
+  message: string;
+  required: boolean;
+}
 
-  </select>
+const LUNCH_FORM_ITEM = (props: FormItemProps) => `
+<div class="form-item">
+  <label for="category text-caption">${props.label}</label>
 </div>
+`;
+
+const LUNCH_FORM_ITEM_DROPDOWN = (props: FormItemProps) => `
+  <select name="${props.name}" id="${props.name}" class="dropdown-items" ${props.required ? 'required' : ''
+  }>
+  </select>
 `;
 
 const DROPDOWN_OPTION = (value: string) => `
   <option value=${value}>${value}</option>
 `;
 
-const LUNCH_FORM_ITEM_INPUT = (name: string) => `
-<div class="form-item form-item--required">
-  <label for="name text-caption">가게명</label>
-  <input type="text" name="name" id="name" required>
-</div>
+const LUNCH_FORM_ITEM_INPUT = (props: FormItemProps) => `
+  <input type="text" name="${props.name}" id="${props.name}" ${props.required ? 'required' : ''}>
 `;
 
-const LUNCH_FORM_ITEM_TEXTAREA = (name: string) => `
-<div class="form-item">
-  <label for="description text-caption"> 설명 </label>
-  <textarea name="description" id="description" cols="30" rows="5"> </textarea>
-  <span class="help-text text-caption"> 메뉴 등 추가 정보를 입력해 주세요.</span>
-</div>
+const LUNCH_FORM_ITEM_TEXTAREA = (props: FormItemProps) => `
+  <textarea name="${props.name}" id="${props.name}" cols="30" rows="5" ${props.required ? 'required' : ''
+  }> </textarea>
 `;
 
-type LabelsType = {
-  [index: string]: string;
-  category: string;
-  distance: string;
-};
-
-const LABELS: LabelsType = {
-  category: '카테고리',
-  distance: '거리(도보 이동 시간)',
-};
-
-export type FormItemType = 'dropdown' | 'input' | 'textArea';
-
-type RenderTypeProps = {
-  name: string;
-  type: FormItemType;
-};
+const LUNCH_FORM_ITEM_MESSAGE = (props: FormItemProps) => `
+<span class="help-text text-caption">${props.message}</span>
+`;
 
 class LunchFormItem extends HTMLElement {
   connectedCallback() {
@@ -59,29 +48,54 @@ class LunchFormItem extends HTMLElement {
   render(): void {
     const type = this.getAttribute('type') as FormItemType;
     const name = this.getAttribute('name') ?? '';
-    this.innerHTML = this.renderType({ name, type }) ?? '';
-    this.renderDropdownOptions(name);
+    const label = this.getAttribute('label') ?? '';
+    const message = this.getAttribute('message') ?? '';
+    const required = this.getAttribute('required') === 'true';
+    this.innerHTML = LUNCH_FORM_ITEM({ name, type, label, message, required });
+    this.renderDetails({ name, type, label, message, required });
   }
 
-  renderType({ name, type }: RenderTypeProps): string {
-    switch (type) {
-      case 'dropdown':
-        return LUNCH_FORM_ITEM_DROPDOWN(name);
-      case 'input':
-        return LUNCH_FORM_ITEM_INPUT(name);
-      case 'textArea':
-        return LUNCH_FORM_ITEM_TEXTAREA(name);
+  renderDetails(props: FormItemProps) {
+    this.renderRequired(props);
+    this.renderTypes(props);
+    this.renderMessages(props);
+  }
+
+  renderRequired(props: FormItemProps) {
+    if (props.required) {
+      this.querySelector('.form-item')?.classList.add('form-item--required');
     }
   }
 
-  renderDropdownOptions(name: string): void {
+  renderTypes(props: FormItemProps) {
+    switch (props.type) {
+      case 'dropdown':
+        this.renderDropdown(props);
+        break;
+      case 'input':
+        this.renderInput(props);
+        break;
+      case 'textArea':
+        this.renderTextArea(props);
+    }
+  }
+
+  renderDropdown(props: FormItemProps) {
+    this.querySelector('.form-item')?.insertAdjacentHTML(
+      'beforeend',
+      LUNCH_FORM_ITEM_DROPDOWN(props),
+    );
+    this.renderDropdownOptions(props);
+  }
+
+  renderDropdownOptions(props: FormItemProps): void {
     const optionItems: string[] = ["<option value=''>선택해 주세요</option>"];
-    if (name === 'category') {
+    if (props.name === 'category') {
       Object.values(CATEGORIES).forEach((element) => {
         optionItems.push(DROPDOWN_OPTION(element));
       });
     }
-    if (name === 'distance') {
+    if (props.name === 'distance') {
       Object.values(DISTANCE).forEach((element) => {
         optionItems.push(DROPDOWN_OPTION(`${element}`));
       });
@@ -91,6 +105,24 @@ class LunchFormItem extends HTMLElement {
     if (options) {
       options.innerHTML = optionItems.join('');
     }
+  }
+
+  renderInput(props: FormItemProps) {
+    this.querySelector('.form-item')?.insertAdjacentHTML('beforeend', LUNCH_FORM_ITEM_INPUT(props));
+  }
+
+  renderTextArea(props: FormItemProps) {
+    this.querySelector('.form-item')?.insertAdjacentHTML(
+      'beforeend',
+      LUNCH_FORM_ITEM_TEXTAREA(props),
+    );
+  }
+
+  renderMessages(props: FormItemProps) {
+    this.querySelector('.form-item')?.insertAdjacentHTML(
+      'beforeend',
+      LUNCH_FORM_ITEM_MESSAGE(props),
+    );
   }
 
   getValue(type: FormItemType) {

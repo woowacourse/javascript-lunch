@@ -17,7 +17,8 @@ const LUNCH_ITEMS = `
 </section>`;
 
 const LUNCH_ITEM = (restaurant: Restaurant) => `
-<lunch-item category=${restaurant.category} name=${restaurant.name} distance=${restaurant.distance} description=${restaurant.description ?? ''}>
+<lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance
+  }" description="${restaurant.description ?? ''}">
   </lunch-item>`;
 
 class LunchItems extends HTMLElement {
