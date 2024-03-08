@@ -5,6 +5,7 @@ import './components/LunchItemFilter/LunchItemFilter';
 import './components/LunchItem/LunchItem';
 import './components/LunchItems/LunchItems';
 import './components/LunchRegisterModal/LunchRegisterModal';
+
 import DUMMY from './constants/dummy';
 
 const LUNCH_APP = `
@@ -16,12 +17,12 @@ const LUNCH_APP = `
 
 class LunchApp extends HTMLElement {
   connectedCallback() {
-    localStorage.getItem('restaurants') ??
-      localStorage.setItem('restaurants', JSON.stringify(DUMMY));
     this.render();
   }
 
   render() {
+    localStorage.getItem('restaurants') ??
+      localStorage.setItem('restaurants', JSON.stringify(DUMMY));
     this.innerHTML = LUNCH_APP;
   }
 }
