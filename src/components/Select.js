@@ -1,5 +1,5 @@
-import { $ } from '../utils/dom';
 import Restaurant from './Restaurant';
+import { $ } from '../utils/dom';
 
 export default class Select {
   constructor(restaurants) {
@@ -18,6 +18,7 @@ export default class Select {
 
       option.setAttribute('value', key);
       option.innerText = value;
+      this.initSelectInput(option, key);
 
       select.appendChild(option);
     });
@@ -26,20 +27,29 @@ export default class Select {
   }
 
   addEvent() {
+    // TODO: 상수화
     const targetIds = ['sorting-filter', 'category-filter'];
 
+    // TODO: 내부 이벤트 분리
     $('main').addEventListener('change', ({ target }) => {
       if (targetIds.some((id) => target.id === id)) {
         const selectedValue = target.options[target.selectedIndex].value;
         this.restaurants.setStandard = { id: target.id, standard: selectedValue };
       }
 
-      document.getElementById('restaurant-list').innerHTML = '';
+      $('restaurant-list').innerHTML = '';
       this.restaurants.standardList.forEach((restaurantData) => {
-        document.getElementById('restaurant-list').innerHTML += new Restaurant().render(
-          restaurantData,
-        );
+        $('restaurant-list').innerHTML += new Restaurant().render(restaurantData);
       });
     });
+  }
+
+  initSelectInput(option, key) {
+    const sortingFilter = localStorage.getItem('sorting-filter');
+    const categoryFilter = localStorage.getItem('category-filter');
+
+    if (sortingFilter === key || categoryFilter === key) {
+      option.setAttribute('selected', 'selected');
+    }
   }
 }
