@@ -16,38 +16,12 @@ class Restaurants implements RestaurantsInterface {
     }
   }
 
-  get getStorageData() {
-    return JSON.parse(this.storage.getItem('restaurants') || '{}');
-  }
-
-  get standardList() {
-    const sorting: string | null = this.storage.getItem('sorting-filter') || '';
-    const category: Category | null = this.storage.getItem('category-filter') as Category;
-
-    const restaurants: Restaurant[] =
-      category === '전체' ? this.getStorageData : this.filterByCategory(category);
-
-    if (sorting && sorting === 'distance') {
-      return this.orderByDistance(restaurants);
-    }
-
-    if (sorting && sorting === 'name') {
-      return this.orderByName(restaurants);
-    }
-
-    return this.getStorageData;
-  }
-
-  set setStandard(value: { id: string; standard: string }) {
-    this.storage.setItem(value.id, value.standard);
-  }
-
   filterByCategory(category: Category) {
-    return this.getStorageData.filter((restaurant: Restaurant) => restaurant.category === category);
+    return this.storageData.filter((restaurant: Restaurant) => restaurant.category === category);
   }
 
   addRestaurant(restaurant: Restaurant) {
-    this.storage.setItem('restaurants', JSON.stringify([restaurant, ...this.getStorageData]));
+    this.storage.setItem('restaurants', JSON.stringify([restaurant, ...this.storageData]));
   }
 
   orderByDistance(restaurants: Restaurant[]) {
@@ -61,6 +35,31 @@ class Restaurants implements RestaurantsInterface {
     return restaurants.toSorted((prev: Restaurant, next: Restaurant) =>
       prev.name.localeCompare(next.name),
     );
+  }
+
+  get storageData() {
+    return JSON.parse(this.storage.getItem('restaurants') || '{}');
+  }
+
+  get standardList() {
+    const sorting: string | null = this.storage.getItem('sorting-filter') || '이름순';
+    const category: Category | null = this.storage.getItem('category-filter') as Category;
+
+    const restaurants: Restaurant[] =
+      category === '전체' ? this.storageData : this.filterByCategory(category);
+
+    return this.sortByStandard(restaurants, sorting);
+  }
+
+  sortByStandard(restaurants: Restaurant[], sorting: string): Restaurant[] {
+    if (sorting && sorting === 'distance') return this.orderByDistance(restaurants);
+    if (sorting && sorting === 'name') return this.orderByName(restaurants);
+
+    return this.storageData;
+  }
+
+  set setStandard(value: { id: string; standard: string }) {
+    this.storage.setItem(value.id, value.standard);
   }
 }
 
