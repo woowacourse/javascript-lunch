@@ -5,7 +5,7 @@ import '../LunchButton/LunchButton';
 import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
 import { RestaurantRegister } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
-import { SortBy } from '../../types';
+import { Restaurant } from '../../types';
 
 const LUNCH_REGISTER_MODAL = /* html */ `
 <div class="modal">
@@ -56,29 +56,39 @@ class LunchRegisterModal extends HTMLElement {
   setSubmitListener() {
     this.addEventListener('submit', (event) => {
       event.preventDefault();
-      const forms: NodeListOf<LunchFormItem> = this.querySelectorAll('lunch-form-item');
-      const entries: string[][] = [['createdAt', '']];
-      forms.forEach((form: LunchFormItem) => {
-        const key = form.getAttribute('name') ?? '';
-        const value = form.getValue(form.getAttribute('type') as FormItemType) ?? '';
-        entries.push([key, value]);
-      });
-      const newRestaurant = Object.fromEntries(entries);
-      newRestaurant.createdAt = new Date();
+
+      const newRestaurant: Restaurant = this.getNewRestaurant();
       RestaurantRegister.execute(newRestaurant);
       this.handleModalClose();
-
-      const dropdowns = document.querySelectorAll('lunch-dropdown');
-      dropdowns.forEach((dropdown) => {
-        const select = dropdown.querySelector('select');
-        if (select) {
-          select.options[0].selected = true;
-        }
-      });
-
-      const items = document.querySelector('lunch-items') as LunchItems;
-      items.renderItems({ sortBy: '최신순' as SortBy });
+      this.handleDropDown();
     });
+  }
+
+  getNewRestaurant() {
+    const forms: NodeListOf<LunchFormItem> = this.querySelectorAll('lunch-form-item');
+    const newRestaurant = { createdAt: new Date() } as Restaurant;
+    forms.forEach((form: LunchFormItem) => {
+      const key = form.getAttribute('name') ?? '';
+      const value = form.getValue(form.getAttribute('type') as FormItemType) ?? '';
+      newRestaurant[key] = value;
+    });
+    return newRestaurant;
+  }
+
+  handleDropDown() {
+    const dropdowns = document.querySelectorAll('lunch-dropdown');
+    dropdowns.forEach((dropdown) => {
+      const select = dropdown.querySelector('select');
+      if (select) {
+        select.options[0].selected = true;
+      }
+    });
+    this.handleRenderItems();
+  }
+
+  handleRenderItems() {
+    const items = document.querySelector('lunch-items') as LunchItems;
+    items.renderItems({});
   }
 }
 
