@@ -1,6 +1,6 @@
 import { RestaurantInfo } from '../../types';
 import './style.css';
-import InitialRestaurantData from '../../data/restaurantData';
+import { INITIAL_RESTAURANT_DATA } from '../../data/restaurantData';
 import { StorageKeyEnum } from '../../constants';
 
 class RestaurantComponent extends HTMLElement {
@@ -16,14 +16,14 @@ class RestaurantComponent extends HTMLElement {
     );
     const storeData = localStorageItem
       ? (JSON.parse(localStorageItem) as RestaurantInfo[])
-      : InitialRestaurantData;
+      : INITIAL_RESTAURANT_DATA;
 
     const store = storeData.find((data) => data.name === storeName);
 
     if (store) {
       const iconHTML = `<category-icon category="${store.category}"></category-icon>`;
 
-      this.innerHTML = `
+      this.innerHTML = /*html*/ `
       <li class="restaurant">
           ${iconHTML}
           <div class="restaurant__info">
@@ -32,7 +32,7 @@ class RestaurantComponent extends HTMLElement {
             </h3>
             <p class="restaurant__info__distance"> 캠퍼스부터 ${store.distance}분 내</p>
             <p class="restaurant__info__explanation">
-              ${store.description}
+              ${store.description ? store.description : '<span class="none-description">상점 설명이 존재하지 않습니다.</span>'}
             </p>
           </div>
         </li>
