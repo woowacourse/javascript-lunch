@@ -1,5 +1,5 @@
-import Restaurant from '../../src/Restaurant';
-import RestaurantList from '../../src/RestaurantList';
+import Restaurant from '../../src/domain/Restaurant';
+import RestaurantList from '../../src/domain/RestaurantList';
 
 describe('RestaurantList 도메인 테스트', () => {
   it('음식점 목록에 새로운 음식점을 추가할 수 있다.', () => {

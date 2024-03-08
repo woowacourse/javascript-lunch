@@ -1,6 +1,6 @@
-import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from './types/restaurant';
-import { STORAGE_KEY } from './constants/config';
-import { ALL, BY_NAME_ASC } from './constants/filter';
+import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from '../types/restaurant';
+import { STORAGE_KEY } from '../constants/config';
+import { ALL, BY_NAME_ASC } from '../constants/filter';
 import Restaurant from './Restaurant';
 
 class RestaurantList {

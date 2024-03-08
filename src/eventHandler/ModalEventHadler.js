@@ -1,4 +1,4 @@
-import Restaurant from '../Restaurant';
+import Restaurant from '../domain/Restaurant';
 import RestaurantComponent from '../components/Restaurant';
 
 class ModalEventHandler {

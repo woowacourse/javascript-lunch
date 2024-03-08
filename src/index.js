@@ -1,7 +1,7 @@
 import '../templates/style.css';
 import '../templates/add-button.png';
-import Restaurant from './Restaurant';
-import RestaurantList from './RestaurantList';
+import Restaurant from './domain/Restaurant';
+import RestaurantList from './domain/RestaurantList';
 import RestaurantComponent from './components/Restaurant';
 import SelectBoxComponent from './components/SelectBox';
 import { DEFAULT_RESTAURAMT_LIST } from './constants/config';

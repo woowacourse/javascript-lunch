@@ -1,5 +1,5 @@
-import Restaurant from '../../src/Restaurant';
-import RestaurantList from '../../src/RestaurantList';
+import Restaurant from '../../src/domain/Restaurant';
+import RestaurantList from '../../src/domain/RestaurantList';
 import type { IRestaurantList } from '../../src/types/restaurant';
 
 type IStorage = Record<string, string>;
