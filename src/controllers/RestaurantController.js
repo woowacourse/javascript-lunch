@@ -50,7 +50,9 @@ class RestaurantController {
     form.addEventListener('submit', e => {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
-      RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
+      const isAdded = RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
+      const isAddedComment = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
+      alert(isAddedComment);
       OutputView.closeModal();
       this.reload();
     });
