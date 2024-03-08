@@ -3,11 +3,11 @@ import { ADD_BUTTON } from '../../imgs/index';
 
 const LUNCH_HEADER = `
 <header class="gnb">
-    <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-    <button type="button" class="gnb__button" aria-label="음식점 추가">
-      <img src=${ADD_BUTTON} alt="음식점 추가">
-    </button>
-  </header>
+  <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+  <button type="button" class="gnb__button" aria-label="음식점 추가">
+    <img src=${ADD_BUTTON} alt="음식점 추가">
+  </button>
+</header>
 `;
 
 class LunchHeader extends HTMLElement {

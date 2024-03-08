@@ -9,10 +9,10 @@ import './components/LunchRegisterModal/LunchRegisterModal';
 import DUMMY from './constants/dummy';
 
 const LUNCH_APP = `
-<lunch-header></lunch-header>
-<lunch-item-filter></lunch-item-filter>
-<lunch-items></lunch-items>
-<lunch-register-modal></lunch-register-modal>
+  <lunch-header></lunch-header>
+  <lunch-item-filter></lunch-item-filter>
+  <lunch-items></lunch-items>
+  <lunch-register-modal></lunch-register-modal>
 `;
 
 class LunchApp extends HTMLElement {

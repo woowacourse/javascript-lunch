@@ -14,9 +14,9 @@ export interface FormItemProps {
 }
 
 const LUNCH_FORM_ITEM = (props: FormItemProps) => `
-<div class="form-item">
-  <label for="category text-caption">${props.label}</label>
-</div>
+  <div class="form-item">
+    <label for="category text-caption">${props.label}</label>
+  </div>
 `;
 
 const LUNCH_FORM_ITEM_DROPDOWN = (props: FormItemProps) => `
@@ -39,7 +39,7 @@ const LUNCH_FORM_ITEM_TEXTAREA = (props: FormItemProps) => `
 `;
 
 const LUNCH_FORM_ITEM_MESSAGE = (props: FormItemProps) => `
-<span class="help-text text-caption">${props.message}</span>
+  <span class="help-text text-caption">${props.message}</span>
 `;
 
 class LunchFormItem extends HTMLElement {

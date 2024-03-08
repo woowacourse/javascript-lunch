@@ -2,8 +2,8 @@ import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
 
 const LUNCH_DROPDOWN = `
-<select name="dropdown" id="dropdown-filter" class="restaurant-filter">
-</select>`;
+  <select name="dropdown" id="dropdown-filter" class="restaurant-filter"></select>
+`;
 
 const DROPDOWN_OPTION = (value: string) => `
   <option value=${value === '전체' ? '' : value}>${value}</option>

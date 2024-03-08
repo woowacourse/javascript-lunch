@@ -5,10 +5,11 @@ import LunchItems from '../LunchItems/LunchItems';
 import { Category, SortBy } from '../../types';
 
 const LUNCH_ITEM_FILTER = `
-<section class="restaurant-filter-container">
-  <lunch-dropdown options="category"></lunch-dropdown>
-  <lunch-dropdown options="sortBy"></lunch-dropdown>
-</section>`;
+  <section class="restaurant-filter-container">
+    <lunch-dropdown options="category"></lunch-dropdown>
+    <lunch-dropdown options="sortBy"></lunch-dropdown>
+  </section>
+`;
 
 class LunchItemFilter extends HTMLElement {
   connectedCallback() {

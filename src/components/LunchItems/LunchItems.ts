@@ -11,15 +11,16 @@ export interface FilterPropsTypes {
 }
 
 const LUNCH_ITEMS = `
-<section class="restaurant-list-container">
-  <ul class="restaurant-list">
-  </ul>
-</section>`;
+  <section class="restaurant-list-container">
+    <ul class="restaurant-list">
+    </ul>
+  </section>
+`;
 
 const LUNCH_ITEM = (restaurant: Restaurant) => `
-<lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance
-  }" description="${restaurant.description ?? ''}">
-  </lunch-item>`;
+  <lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance
+  }" description="${restaurant.description ?? ''}"></lunch-item>
+`;
 
 class LunchItems extends HTMLElement {
   connectedCallback() {
