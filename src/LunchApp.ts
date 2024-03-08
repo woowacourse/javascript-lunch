@@ -1,4 +1,5 @@
 import BaseComponent from "./abstract/BaseComponent";
+
 import RestaurantHeader from "./components/RestaurantHeader";
 import RestaurantList from "./components/RestaurantList";
 import Select from "./components/common/Select";
@@ -19,12 +20,9 @@ export default class LunchApp extends BaseComponent {
         <filter-bar></filter-bar>
         <restaruant-list></restaruant-list>
         <modal-box modal-id="retaurant-form-modal">
-          <div class="modal-container">
-            <h2 class="modal-title text-title">새로운 음식점</h2>
-            <restaurant-form></restaurant-form>
-          </div>
+          <restaurant-form></restaurant-form>
         </modal-box>
-        </div>
+      </div>
       `;
   }
 }

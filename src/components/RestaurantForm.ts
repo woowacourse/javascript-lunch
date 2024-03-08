@@ -23,6 +23,7 @@ const distanceOptions = [
 export default class RestaurantForm extends EventComponent {
   getTemplate(): string {
     return `
+    <h2 class="modal-title text-title">새로운 음식점</h2>
     <form>
       <form-item title="카테고리" required="true" label-for="category">
         <select-box
