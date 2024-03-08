@@ -11,8 +11,10 @@ import { SortCategory } from "../SortDropdown/SortDropdown.type";
 import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
 
+import RestaurantStorage from "../../storages/RestaurantStorage";
+
 class RestaurantList extends BaseComponent {
-  private restaurant = new Restaurant();
+  private restaurant = new Restaurant(RestaurantStorage);
 
   private sortType: SortCategory = SORT_CATEGORIES_TYPE.name;
 
