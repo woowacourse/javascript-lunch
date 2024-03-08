@@ -24,21 +24,27 @@ class Restaurant {
   #restaurantInfo: IRestaurantInfo;
 
   constructor(obj: IRestaurantInfo) {
-    this.#validateRestaurantType(obj);
+    this.#validateRestaurantCategory(obj.category);
+    this.#validateDistanceFromCampus(obj.distanceFromCampus);
+    this.#validateRestaurantName(obj.name);
     this.#restaurantInfo = obj;
   }
 
-  #validateRestaurantType(obj: IRestaurantInfo) {
-    if (!RESTAURANT_CATEGORY.includes(obj.category)) {
-      throw new Error('❌ 1');
+  #validateRestaurantCategory(category: ICategory) {
+    if (!RESTAURANT_CATEGORY.includes(category)) {
+      throw new Error('❌ 잘못된 카테고리를 입력하였습니다.');
     }
+  }
 
-    if (typeof obj.name !== 'string') {
-      throw new Error('❌ 2');
+  #validateRestaurantName(name: string) {
+    if (typeof name !== 'string' || !name) {
+      throw new Error('❌ 잘못된 이름을 입력하였습니다.');
     }
+  }
 
-    if (!DISTANCE_FROM_CAMPUS.includes(obj.distanceFromCampus)) {
-      throw new Error('❌ 3');
+  #validateDistanceFromCampus(distanceFromCampus: IDistanceFromCampus) {
+    if (!DISTANCE_FROM_CAMPUS.includes(distanceFromCampus)) {
+      throw new Error('❌ 잘못된 거리(도보 이동 시간)을 입력하였습니다.');
     }
   }
 
