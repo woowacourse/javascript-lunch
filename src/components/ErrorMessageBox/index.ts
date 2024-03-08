@@ -5,10 +5,11 @@ class ErrorMessageBox extends HTMLElement {
   constructor() {
     super();
   }
+
   connectedCallback() {
     const message = this.getAttribute('message');
 
-    this.innerHTML = `
+    this.innerHTML = /*html*/ `
     <div>${message || ''}</div>
     `;
   }

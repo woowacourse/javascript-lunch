@@ -2,15 +2,14 @@ import './style.css';
 import { DROP_BOX_MAP, StorageKeyEnum } from '../../constants';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
 import { Restaurant } from '../../domains';
-import { RestaurantListController } from '../../services';
-import { RestaurantList } from '../../domains';
+import { FilteringController } from '../../services';
 class RestaurantFormModalInner extends HTMLElement {
   constructor() {
     super();
   }
 
   connectedCallback() {
-    this.innerHTML = `             
+    this.innerHTML = /*html*/ `             
       <h2 class="restaurant-form-modal-title">새로운 음식점</h2>
       <form>
         <!-- 카테고리 -->
@@ -22,8 +21,7 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
           <label for="restaurant-name">이름</label>
-          <custom-input type="text" id="restaurant-name" name="restaurant-name" required="true" maxlength="10"></custom-input>
-          <error-message-box></error-message-box>
+          <custom-input type="text" id="restaurant-name" name="restaurant-name" required="true" maxlength="10" placeholder="이름 (10자 이내)"></custom-input>
         </div>
 
         <!-- 거리 -->
@@ -39,19 +37,23 @@ class RestaurantFormModalInner extends HTMLElement {
                 id="restaurant-description"
                 cols="30"
                 rows="5"
-                placeholder="메뉴 등 추가 정보를 입력해 주세요."
+                placeholder="메뉴 등 추가 정보를 입력해 주세요.(150자 이내)"
                 maxlength="150"
               ></custom-textarea>
-          <error-message-box></error-message-box>
         </div>
 
         <!-- 링크 -->
         <div class="form-item">
-          <label for="restaurant-link">참고 링크</label>
-          <custom-input type="text" id="restaurant-link" name="restaurant-link" placeholder="매장 정보를 확인할 수 있는 링크를 입력해 주세요." maxlength="2000"></custom-input>
-          <error-message-box></error-message-box>
+          <form-text-filed
+          labelText="참고 링크"
+          labelForId="restaurant-link"
+          key="link"
+        >
+          <div slot="formChild">
+            <custom-input type="text" id="restaurant-link" name="restaurant-link" placeholder="음식점 링크 (http/https 포함, 예시: https://example.com)" maxlength="2000"></custom-input>
+          </div>
+        </form-text-filed>
         </div>
-
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
           <default-btn color="white" text="취소하기" type="reset"></default-btn>
@@ -146,7 +148,6 @@ class RestaurantFormModalInner extends HTMLElement {
 
       return restaurant.info;
     } catch (error) {
-      console.error(error);
       return undefined;
     }
   }
@@ -176,7 +177,6 @@ class RestaurantFormModalInner extends HTMLElement {
   }
 
   #handleSubmitFormToAddStore(event: Event) {
-    // TODO: 에러 메세지 띄우기
     event.preventDefault();
 
     const newInfo = this.#getRestaurantInfo();
@@ -184,9 +184,7 @@ class RestaurantFormModalInner extends HTMLElement {
     if (newInfo) {
       this.#updateLocalStorage(newInfo);
       this.querySelector('form')?.reset();
-      RestaurantListController.injectRestaurantListHTML(
-        new RestaurantList().list,
-      );
+      FilteringController.showFilteredSortedList();
     }
   }
 }
