@@ -47,7 +47,7 @@ describe("폼 입력 테스트", () => {
       }).to.throw("error");
     });
   }),
-    it("레스토랑 추가 폼에 값을 입력했을 때 ", () => {
+    it("레스토랑 추가 폼에 옳은 값을 입력했을때 에러를 발생하지 않는다.", () => {
       cy.wrap(DEFAULT_DATA).each((data) => {
         expect(() => {
           validateRestaurantData(data);
