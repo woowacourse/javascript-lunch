@@ -71,18 +71,22 @@ class WebController {
   #formSubmitEventHandler() {
     const addForm = document.getElementById('add-restaurant-form');
 
-    addForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const restaurantInfo = this.#makeRestaurantInfo(e.target);
-      try {
-        this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
-        this.#updateRestaurantToLocalStorage(restaurantInfo);
-        this.#assignRestaurantDataAttribute();
-        this.#closeModal();
-      } catch (e) {
-        alert(e.message);
-      }
+    addForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const restaurantInfo = this.#makeRestaurantInfo(event.target);
+      this.#formSubmitEvent(restaurantInfo);
     });
+  }
+
+  #formSubmitEvent(restaurantInfo) {
+    try {
+      this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
+      this.#updateRestaurantToLocalStorage(restaurantInfo);
+      this.#assignRestaurantDataAttribute();
+      this.#closeModal();
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   #makeRestaurantInfo(target) {
