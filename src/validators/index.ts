@@ -1,5 +1,5 @@
-import ValidationError from '../utils/ValidationError';
 import ValidateConditions from './ValidateConditions';
+import { ERROR_MESSAGES } from '../constants/messages';
 
 interface ValidationInput {
   restaurantNames: string[];
@@ -9,10 +9,11 @@ interface ValidationInput {
 export function validateRestaurantsName(value: ValidationInput) {
   const { restaurantNames, name } = value;
   if (ValidateConditions.isIncluded(restaurantNames, name))
-    throw new Error('중복된 가게 이름입니다!');
+    throw new Error(ERROR_MESSAGES.duplicateName);
 }
 
 export function validateRequiredValue(id: string, value: string) {
-  if (ValidateConditions.isBlank(value))
-    throw new ValidationError(`${id}는 필수 입력 값입니다.`, id);
+  if (ValidateConditions.isBlank(value)) {
+    throw new Error(ERROR_MESSAGES.requireValue(id));
+  }
 }
