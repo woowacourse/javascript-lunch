@@ -36,6 +36,8 @@ class RestaurantList {
   }
 
   add(restaurant: TRestaurantInstance): void {
+    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
+    if (restaurantsInStorage != null) this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
     this.restaurants.push(restaurant);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
   }
