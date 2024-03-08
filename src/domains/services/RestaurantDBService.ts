@@ -5,16 +5,16 @@ import restaurantListMock from '@/mock/restaurantList.mock';
 
 class RestaurantDBService {
   #RESTAURANTS_DB_KEY = 'restaurants';
-  #restaurantList;
+  #restaurantCollection;
 
   constructor() {
     const existingRestaurants = JSON.parse(this.get() || '[]');
-    this.#restaurantList = new RestaurantCollection(existingRestaurants);
+    this.#restaurantCollection = new RestaurantCollection(existingRestaurants);
     this.set(restaurantListMock);
   }
 
   getFromRestaurantList(category: Category, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
-    const restaurants = this.#restaurantList.filterByCategory(category);
+    const restaurants = this.#restaurantCollection.filterByCategory(category);
     return new RestaurantCollection(restaurants).sort(sortCriteria);
   }
 
@@ -27,8 +27,11 @@ class RestaurantDBService {
   }
 
   add(restaurant: IRestaurant) {
-    this.#restaurantList.addRestaurant(restaurant);
-    localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(this.#restaurantList.get()));
+    this.#restaurantCollection.addRestaurant(restaurant);
+    localStorage.setItem(
+      this.#RESTAURANTS_DB_KEY,
+      JSON.stringify(this.#restaurantCollection.get()),
+    );
   }
 }
 
