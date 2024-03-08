@@ -39,7 +39,7 @@ class RestaurantItem extends BaseComponent {
     <h3 class="restaurant__name text-subtitle">${this.#name}</h3>
     <span class="restaurant__distance text-body">캠퍼스부터 ${this.#distance}분 내</span>
     <p class="restaurant__description text-body">
-    ${this.#description}
+    ${this.#description ?? ''}
     </p>
     </div>
     </li>`;

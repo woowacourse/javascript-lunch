@@ -62,12 +62,16 @@ class NewRestaurantModal extends BaseComponent {
 
   #makeNameInput() {
     const $nameInputBox = document.createElement('div');
-    $nameInputBox.classList.add('form-item', 'form-item--required');
+    $nameInputBox.classList.add('form-item', 'form-item--required', 'name-input-box');
     $nameInputBox.innerHTML = `
     <label for="name text-caption">이름</label>
-     <input type="text" name="name" id="name" required />
+     <input type="text" name="name" id="name" />
     `;
     this.#form.append($nameInputBox);
+    const errorBox = document.createElement('div');
+    errorBox.classList.add('error', 'hidden');
+    errorBox.textContent = '이름값은 필수 입력입니다.';
+    $nameInputBox.append(errorBox);
   }
 
   #makeDistanceSelectBox() {
@@ -125,61 +129,79 @@ class NewRestaurantModal extends BaseComponent {
     this.#form.append($buttonBox);
   }
 
-  #requireValueValidation(category: RequiredCategoriesKeys, distance: RequiredDistanceKeys) {
-    if (category === '선택해주세요') {
+  #validateRequiredValues(
+    category: RequiredCategoriesKeys,
+    distance: RequiredDistanceKeys,
+    name: string | null,
+  ) {
+    const isNotValidCategory = category === '선택해주세요';
+    const isNotValidDistance = Number.isNaN(distance);
+    const isNotValidName = !name;
+    if (isNotValidCategory) {
       document.querySelector('.category-select > .error')?.classList.remove('hidden');
     }
-    if (Number.isNaN(distance)) {
+    if (isNotValidDistance) {
       document.querySelector('.distance-select > .error')?.classList.remove('hidden');
     }
-    if (category === '선택해주세요' || Number.isNaN(distance)) {
-      return;
+    if (isNotValidName) {
+      document.querySelector('.name-input-box > .error')?.classList.remove('hidden');
     }
+    return isNotValidCategory || isNotValidDistance || isNotValidName;
   }
 
   #submitForm() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
-      document.querySelector('.category-select > .error')?.classList.add('hidden');
-      document.querySelector('.distance-select > .error')?.classList.add('hidden');
+      this.#hideErrorMessage();
+      const [name, distance, category, description, link] = this.#getValues();
 
-      const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
-      const distance = Number(
-        (this.#form.elements.namedItem('distance') as HTMLInputElement).value.slice(0, -3),
-      );
-      const category = (this.#form.elements.namedItem('category') as HTMLInputElement).value;
-      const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
-      const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
-
-      this.#requireValueValidation(category, distance);
+      if (this.#validateRequiredValues(category, distance, name)) return;
 
       const newRestaurant: IRestaurant = {
         name,
         distance,
         category,
+        ...(description && { description }),
+        ...(link && { link }),
       };
-      if (description) {
-        newRestaurant.description = description;
-      }
-      if (link) {
-        newRestaurant.link = link;
-      }
       const DBService = new RestaurantDBService();
       DBService.add(newRestaurant);
 
-      const selectElement = document.querySelector('.restaurant-filter-container');
-      const event = new Event('change', {
-        bubbles: true,
-        cancelable: true,
-      });
-      selectElement?.dispatchEvent(event);
+      this.#rerenderByFilter();
+      this.closeModal();
     });
   }
 
   closeModal() {
+    this.#hideErrorMessage();
+    this.classList.remove('modal--open');
+  }
+
+  #hideErrorMessage() {
     document.querySelector('.category-select > .error')?.classList.add('hidden');
     document.querySelector('.distance-select > .error')?.classList.add('hidden');
-    this.classList.remove('modal--open');
+    document.querySelector('.name-input-box > .error')?.classList.add('hidden');
+  }
+
+  #getValues() {
+    const name = (this.#form.elements.namedItem('name') as HTMLInputElement)
+      .value as RequiredCategoriesKeys;
+    const distance = Number(
+      (this.#form.elements.namedItem('distance') as HTMLSelectElement).value.slice(0, -3),
+    ) as RequiredDistanceKeys;
+    const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
+    const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
+    const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
+    return [name, distance, category, description, link];
+  }
+
+  #rerenderByFilter() {
+    const selectElement = document.querySelector('.restaurant-filter-container');
+    const event = new Event('change', {
+      bubbles: true,
+      cancelable: true,
+    });
+    selectElement?.dispatchEvent(event);
   }
 }
 export default NewRestaurantModal;
