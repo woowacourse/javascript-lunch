@@ -59,7 +59,6 @@ export default class RestaurantForm extends HTMLFormElement {
   #checkLinkInputVaildity() {
     if(this.#linkInput.value === "") return true;
     
-    console.log(this.#linkInput.value);
     const regex = new RegExp('^https?:\/\/');
     return regex.test(this.#linkInput.value);
   }
