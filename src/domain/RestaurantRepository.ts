@@ -1,11 +1,11 @@
-import { IRestaurant, TCategory, TSortingOption } from '../type/types';
+import { IRestaurant, TAllCategory, TSortingOption } from '../type/types';
 
 function getRestaurants() {
   const restaurants = localStorage.getItem('restaurants');
   return restaurants ? JSON.parse(restaurants) : [];
 }
 
-function getFilteredByCategory(restaurants: IRestaurant[], category: TCategory) {
+function getFilteredByCategory(restaurants: IRestaurant[], category: TAllCategory) {
   return category === '전체' ? restaurants : restaurants.filter((restaurant) => restaurant.category === category);
 }
 
@@ -32,7 +32,7 @@ const RestaurantRepository = {
     }
   },
 
-  transformRestaurants(category: TCategory, sortingOption: TSortingOption) {
+  transformRestaurants(category: TAllCategory, sortingOption: TSortingOption) {
     const restaurants = getRestaurants();
     const filteredRestaurants = getFilteredByCategory(restaurants, category);
 
