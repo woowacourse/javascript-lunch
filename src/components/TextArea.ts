@@ -15,6 +15,10 @@ class TextArea extends HTMLTextAreaElement {
     this.cols = cols;
     this.rows = rows;
   }
+
+  getValue(): string {
+    return this.value;
+  }
 }
 
 customElements.define('matzip-textarea', TextArea, { extends: 'textarea' });

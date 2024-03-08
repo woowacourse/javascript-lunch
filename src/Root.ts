@@ -4,6 +4,9 @@ import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
+import Select from './components/select/Select';
+import Input from './components/Input';
+import TextArea from './components/TextArea';
 
 const { $, $$ } = DOM;
 
@@ -47,16 +50,8 @@ const root = {
     $('#restaurant-form')?.addEventListener('submit', (event) => {
       event.preventDefault();
       const fieldValues = Array.from($$('.form-item')).map((item) => {
-        const field = item.children[1];
-        if (field instanceof HTMLSelectElement) {
-          return field.options[field.selectedIndex].value;
-        }
-        if (field instanceof HTMLInputElement) {
-          return field.value;
-        }
-        if (field instanceof HTMLTextAreaElement) {
-          return field.value;
-        }
+        const field = item.children[1] as Select | TextArea | Input;
+        return field.getValue();
       });
       const newRestaurant: RestaurantType = {
         category: fieldValues[0] as CategoryType,

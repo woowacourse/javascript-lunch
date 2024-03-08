@@ -25,6 +25,10 @@ class Select extends HTMLSelectElement {
       this.appendChild(new Option(option));
     });
   }
+
+  getValue(): string {
+    return this.options[this.selectedIndex].value;
+  }
 }
 
 customElements.define('matzip-select', Select, { extends: 'select' });
