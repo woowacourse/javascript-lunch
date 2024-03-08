@@ -1,4 +1,4 @@
-import { DEFAULT_DATA } from "../constants/MenuApp";
+import { DEFAULT_DATA, ERROR_MESSAGES } from "../constants/MenuApp";
 import restaurantValidator from "../validators/restaurantValidator";
 
 type Category = "한식" | "일식" | "아시안" | "양식" | "중식" | "전체" | "기타";
@@ -24,6 +24,7 @@ const getRestaurantFromStorage = () => {
 
 const isAlreadyExist = (newRestaurantName: string) => {
   const storedRestaurants = getRestaurantFromStorage();
+
   return storedRestaurants.some(
     ({ name }) => trimAllSpace(newRestaurantName) === trimAllSpace(name)
   );
@@ -32,23 +33,23 @@ const isAlreadyExist = (newRestaurantName: string) => {
 export const validateRestaurantData = (restaurantInfo: TRestaurant) => {
   const { name, category, distance, description, link } = restaurantInfo;
 
-  if (!restaurantValidator.isInRange(name, 0, 10)) {
-    throw new Error("error");
-  }
   if (!restaurantValidator.isSelected(category)) {
-    throw new Error("error");
+    throw new Error(ERROR_MESSAGES.invalidCategory);
+  }
+  if (!restaurantValidator.isInRange(name, 0, 10)) {
+    throw new Error(ERROR_MESSAGES.invalidRestaurantName);
   }
   if (!restaurantValidator.isSelected(distance)) {
-    throw new Error("error");
+    throw new Error(ERROR_MESSAGES.invalidDisctance);
   }
   if (description && !restaurantValidator.isInRange(description, 0, 300)) {
-    throw new Error("error");
+    throw new Error(ERROR_MESSAGES.invalidDescriptionLength);
   }
   if (link && !restaurantValidator.isValidLink(link)) {
-    throw new Error("error");
+    throw new Error(ERROR_MESSAGES.invalidLink);
   }
   if (isAlreadyExist(name)) {
-    throw new Error("error");
+    throw new Error(ERROR_MESSAGES.invalidRestaurantUniquness);
   }
 };
 
