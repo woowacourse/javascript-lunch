@@ -1,5 +1,6 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
+import './Header.css';
 
 class Header extends BaseComponent {
   render() {

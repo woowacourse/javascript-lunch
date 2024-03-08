@@ -1,4 +1,6 @@
 import BaseComponent from '@/components/BaseComponent';
+
+import './SelectBox.css';
 class SelectBox extends BaseComponent {
   #optionValues;
   #name;

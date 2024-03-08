@@ -1,10 +1,11 @@
 import { CATEGORIES_WITH_ALL_KEYS, SORT_CRITERION_KEYS } from '@/constants/Condition';
 import BaseComponent from '../BaseComponent';
-import SelectBox from '../SelectBox/SelectBox';
+import SelectBox from '../Basic/SelectBox/SelectBox';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
 
+import './FilterContainer.css';
 class FilterContainer extends BaseComponent {
   #selectCategoryBox: SelectBox;
   #selectSortBox: SelectBox;

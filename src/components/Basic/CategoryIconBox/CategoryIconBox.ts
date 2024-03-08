@@ -1,4 +1,5 @@
-import BaseComponent from '../BaseComponent';
+import BaseComponent from '../../BaseComponent';
+import './CategoryIconBox.css';
 
 class CategoryIconBox extends BaseComponent {}
 

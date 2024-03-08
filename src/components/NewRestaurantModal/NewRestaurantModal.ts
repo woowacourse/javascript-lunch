@@ -1,11 +1,12 @@
 import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
-import BasicModal from '../BasicModal/BasicModal';
-import SelectBox from '../SelectBox/SelectBox';
+import BasicModal from '../Basic/BasicModal/BasicModal';
+import SelectBox from '../Basic/SelectBox/SelectBox';
 import BaseComponent from '../BaseComponent';
-import BasicButton from '../BasicButton/BasicButton';
+import BasicButton from '../Basic/BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { IRestaurant } from '@/types/Restaurant';
 
+import './NewRestaurantModal.css';
 class NewRestaurantModal extends BaseComponent {
   #form;
   #title;
@@ -29,53 +30,36 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #makeForm() {
-    /* 카테고리 선택 */
     const $categorySelection = this.#makeCategorySelectBox();
-    this.#form.append($categorySelection);
 
-    /*이름 인풋박스*/
-    const $nameInputBox = document.createElement('div');
-    $nameInputBox.classList.add('form-item', 'form-item--required');
-    $nameInputBox.innerHTML = `
-    <label for="name text-caption">이름</label>
-     <input type="text" name="name" id="name" required />
-    `;
-    this.#form.append($nameInputBox);
+    const $nameInputBox = this.#makeNameInputBox();
+    const $distanceSelectBox = this.#makeDistanceSelectBox();
 
-    /*거리 셀렉트 박스*/
-    this.#makeDistanceSelectBox();
-
-    /*설명 인풋*/
-    const $descriptionTextBox = document.createElement('div');
-    $descriptionTextBox.classList.add('form-item');
-    $descriptionTextBox.innerHTML = `
-              <label for="description text-caption">설명</label>
-              <textarea name="description" id="description" cols="30" rows="5"></textarea>
-              <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-`;
-
-    this.#form.append($descriptionTextBox);
-
-    /*링크 인풋*/
+    const $descriptionTextBox = this.makeDescriptionTextBox();
     const $linkTextBox = document.createElement('div');
     $linkTextBox.classList.add('form-item');
     $linkTextBox.innerHTML = ` <label for="link text-caption">참고 링크</label>
-                <input type="text" name="link" id="link" />
-                 <span class="help-text text-caption"> 매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
-    this.#form.append($linkTextBox);
+            <input type="text" name="link" id="link" />
+             <span class="help-text text-caption"> 매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
 
-    /*버튼*/
     const $buttonBox = document.createElement('div');
     $buttonBox.classList.add('button-container');
 
     const cancelButton = new BasicButton(false, '취소하기', 'reset', () => {
       this.closeModal();
     });
-    const addButton = new BasicButton(true, '추가하기', 'submit', () => {});
+    const addButton = new BasicButton(true, '추가하기', 'submit', () => {
+      this.closeModal();
+    });
 
     $buttonBox.append(cancelButton);
     $buttonBox.append(addButton);
 
+    this.#form.append($categorySelection);
+    this.#form.append($nameInputBox);
+    this.#form.append($distanceSelectBox);
+    this.#form.append($descriptionTextBox);
+    this.#form.append($linkTextBox);
     this.#form.append($buttonBox);
 
     this.#form.addEventListener('submit', (e) => {
@@ -130,6 +114,17 @@ class NewRestaurantModal extends BaseComponent {
     this.closeModal();
   }
 
+  private makeDescriptionTextBox() {
+    const $descriptionTextBox = document.createElement('div');
+    $descriptionTextBox.classList.add('form-item');
+    $descriptionTextBox.innerHTML = `
+              <label for="description text-caption">설명</label>
+              <textarea name="description" id="description" cols="30" rows="5"></textarea>
+              <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+`;
+    return $descriptionTextBox;
+  }
+
   #makeCategorySelectBox() {
     const $categorySelectBox = document.createElement('div');
     $categorySelectBox.classList.add('form-item', 'form-item--required', 'category-select');
@@ -151,6 +146,16 @@ class NewRestaurantModal extends BaseComponent {
     return $categorySelectBox;
   }
 
+  #makeNameInputBox() {
+    const $nameInputBox = document.createElement('div');
+    $nameInputBox.classList.add('form-item', 'form-item--required');
+    $nameInputBox.innerHTML = `
+    <label for="name text-caption">이름</label>
+     <input type="text" name="name" id="name" required />
+    `;
+    return $nameInputBox;
+  }
+
   #makeDistanceSelectBox() {
     const $distanceSelection = document.createElement('div');
     $distanceSelection.classList.add('form-item', 'form-item--required', 'distance-select');
@@ -167,12 +172,13 @@ class NewRestaurantModal extends BaseComponent {
     errorBox.textContent = '거리 값은 필수 입력입니다.';
     $distanceSelection.append(errorBox);
 
-    this.#form.append($distanceSelection);
+    return $distanceSelection;
   }
 
   closeModal() {
     document.querySelector('.category-select > .error')?.classList.add('hidden');
     document.querySelector('.distance-select > .error')?.classList.add('hidden');
+
     this.classList.remove('modal--open');
   }
 }

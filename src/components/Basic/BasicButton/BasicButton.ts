@@ -1,5 +1,5 @@
-import BaseComponent from '../BaseComponent';
-
+import BaseComponent from '../../BaseComponent';
+import './BasicButton.css';
 class BasicButton extends BaseComponent {
   #isPrimary;
   #innerText;
