@@ -26,10 +26,6 @@ class FormItem {
     this.item.append(label, this.#readableElement, span);
   }
 
-  renderInElement(element: HTMLElement) {
-    element.append(this.item);
-  }
-
   getValue() {
     return this.#readableElement.value;
   }
