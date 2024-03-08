@@ -1,9 +1,9 @@
-// WebView, Domain을 중개하는
-
+// eslint-disable-next-line
 import RestaurantManager from '../domain/RestaurantManager';
+
 import WebView from '../view/WebView';
-import { RESTAURANT_FORM_EVENTS } from '../view/components/RestaurantForm';
 import { SELECT_EVENTS } from '../view/components/Select';
+import { RESTAURANT_FORM_EVENTS } from '../view/components/RestaurantForm';
 
 export default class WebController {
   #webView;
@@ -19,31 +19,8 @@ export default class WebController {
     this.#syncLocalStorageAndDomain();
     this.#webView.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
 
-    document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
-      const { formData } = e.detail;
-
-      this.#updateLocalStorage(formData);
-
-      this.#syncLocalStorageAndDomain();
-
-      const categoryFilter = document.querySelector('#category-filter');
-      const sortingFilter = document.querySelector('#sorting-filter');
-
-      const result = this.#restaurantManger.filteredAndSortedByOptions(formData.category, sortingFilter.value);
-      this.#webView.restaurants = result;
-
-      categoryFilter.value = formData.category;
-    });
-
-    document.querySelector('.restaurant-filter-container').addEventListener(SELECT_EVENTS.onchange, (e) => {
-      const categoryFilter = document.querySelector('#category-filter');
-      const sortingFilter = document.querySelector('#sorting-filter');
-
-      this.#syncLocalStorageAndDomain();
-
-      const result = this.#restaurantManger.filteredAndSortedByOptions(categoryFilter.value, sortingFilter.value);
-      this.#webView.restaurants = result;
-    });
+    this.#addRestaurantSubmitEventListener()   
+    this.#addFilterOnchangeEventListenr()
   }
 
   #syncLocalStorageAndDomain() {
@@ -59,5 +36,28 @@ export default class WebController {
     } else {
       window.localStorage.setItem('restaurants', JSON.stringify([restaurant]));
     }
+  }
+
+  #updateRestaurantList(category, option) {
+    const result = this.#restaurantManger.filteredAndSortedByOptions(category, option);
+    this.#webView.restaurants = result;
+  }
+
+  #addRestaurantSubmitEventListener() {
+    document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
+      const { formData } = e.detail;
+
+      this.#updateLocalStorage(formData);
+      this.#syncLocalStorageAndDomain();
+      this.#updateRestaurantList(formData.category, this.#webView.sortingFilter);
+      this.#webView.categoryFilter = formData.category;
+    });
+  }
+
+  #addFilterOnchangeEventListenr() {
+    document.querySelector('.restaurant-filter-container').addEventListener(SELECT_EVENTS.onchange, () => {
+      this.#syncLocalStorageAndDomain();
+      this.#updateRestaurantList(this.#webView.categoryFilter, this.#webView.sortingFilter);
+    });
   }
 }
