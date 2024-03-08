@@ -1,6 +1,6 @@
 import DOM from '../utils/DOM';
 import Select, { SelectProps } from './select/Select'; // ++
-import Option, { OptionProps } from './Option'; // ++
+import { OptionProps } from './Option'; // ++
 
 const { $ } = DOM;
 
@@ -22,6 +22,13 @@ class FilterContainer extends HTMLElement {
   }
 
   setEvent() {
+    this.createCategorySelect();
+    this.createSortSelect();
+    this.categoryChange();
+    this.sortChange();
+  }
+
+  createCategorySelect() {
     const options: OptionProps[] = [
       { value: '전체', text: '전체' },
       { value: '한식', text: '한식' },
@@ -38,7 +45,10 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: options,
     };
+    $('.restaurant-filter-container')?.appendChild(new Select(selectBox));
+  }
 
+  createSortSelect() {
     const sortOptions: OptionProps[] = [
       { value: 'name', text: '이름순' },
       { value: 'distance', text: '거리순' },
@@ -50,12 +60,7 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: sortOptions,
     };
-
-    $('.restaurant-filter-container')?.appendChild(new Select(selectBox));
     $('.restaurant-filter-container')?.appendChild(new Select(sortBox));
-
-    this.categoryChange();
-    this.sortChange();
   }
 
   categoryChange() {
