@@ -6,6 +6,7 @@
 // }
 import '../templates/style.css';
 import { set } from './web/control';
+import './component/toast/toast.css'
 
 import './images/category-korean.png';
 import './images/category-etc.png';

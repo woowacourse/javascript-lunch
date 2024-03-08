@@ -23,9 +23,11 @@ export class RestaurantManager implements IRestaurantManager {
     const hasSameName = this.restaurants.some(
       ({ name }) => name === newRestaurant.name
     );
+
     if (hasSameName) {
-      throw new Error('[ERROR]');
+      throw new Error('이미 있는 식당은 다시 추가할 수 없어요.');
     }
+
     this.restaurants.push(newRestaurant);
     localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
   }

@@ -6,6 +6,7 @@ import modal from '../../component/modal';
 import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/cons';
 import createButton from '../../component/button';
 import { set } from '../control';
+import toast from '../../component/toast/toast';
 
 const formIds = ['category', 'name', 'walkingTime', 'description', 'link'];
 
@@ -21,14 +22,19 @@ function createNewRestaurantModal(restaurantManager) {
       return restaurant;
     }, {});
 
-    restaurantManager.add(newRestaurant);
-    set.updateRestaurantList(restaurantManager.getfilterRestaurants());
+    try { 
+      restaurantManager.add(newRestaurant);
+      set.updateRestaurantList(restaurantManager.getfilterRestaurants());
+      modal.remove('modal--open');
+    } catch (e) {
+      toast(e.message);
+    }
+    
     // localStorage.setItem(
     //   'restaurants',
     //   JSON.stringify(restaurantManager.sortByAscendingName())
     // );
 
-    modal.remove('modal--open');
   });
   return container;
 }
