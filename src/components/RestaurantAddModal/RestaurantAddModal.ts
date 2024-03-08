@@ -144,29 +144,10 @@ class RestaurantAddModal extends BaseComponent {
     if (userInputRestaurantDetail) {
       const restaurant = new Restaurant();
 
-      const duplicatedRestaurant = this.findDuplicateRestaurantByName(
-        restaurant,
-        userInputRestaurantDetail
-      );
-
-      if (duplicatedRestaurant) {
-        throw new Error(ERROR_MESSAGE.duplicateRestaurant);
-      }
+      restaurant.findDuplicateRestaurantByName(userInputRestaurantDetail);
 
       restaurant.addRestaurant(userInputRestaurantDetail);
     }
-  }
-
-  private findDuplicateRestaurantByName(
-    restaurant: Restaurant,
-    userInputRestaurantDetail: RestaurantDetail
-  ) {
-    const prevRestaurantList = restaurant.getRestaurants();
-
-    return prevRestaurantList.find(
-      (restaurantDetail) =>
-        restaurantDetail.name === userInputRestaurantDetail.name
-    );
   }
 
   private createFormDataToRestaurantDetail() {
