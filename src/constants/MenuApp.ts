@@ -50,6 +50,15 @@ export const DEFAULT_DATA: TRestaurant[] = [
   },
 ];
 
+export const ERROR_MESSAGES = {
+  invalidRestaurantName: "식당 이름은 1글자 이상 10글자 이하여야합니다.",
+  invalidCategory: "카테고리를 선택해주세요",
+  invalidDisctance: "거리(도보 이동 시간)을 선택해주세요",
+  invalidDescriptionLength: "식당 설명은 300자 이하여야합니다",
+  invalidLink: "유요하지 않은 링크 형식입니다.",
+  invalidRestaurantUniquness: "이미 존재하는 식당입니다!",
+};
+
 export const CATEGORY_OPTIONS = [
   "한식",
   "중식",
