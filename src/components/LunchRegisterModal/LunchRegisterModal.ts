@@ -15,9 +15,9 @@ const LUNCH_REGISTER_MODAL = /* html */ `
     <form>
       <lunch-form-item type="dropdown" name="category" label="카테고리"  required="true"></lunch-form-item>
       <lunch-form-item type="input" name="name" label="가게명"  required="true"></lunch-form-item>
-      <lunch-form-item type="dropdown" name="distance" label="거리"  required="true"></lunch-form-item>
+      <lunch-form-item type="dropdown" name="distance" label="거리(도보 이동 시간)"  required="true"></lunch-form-item>
       <lunch-form-item type="textArea" name="description" label="설명" message="메뉴 등 추가 정보를 입력해 주세요." ></lunch-form-item>
-      <lunch-form-item type="input" name="link" label="링크" message="링크 어쩌고 저쩌고" ></lunch-form-item>
+      <lunch-form-item type="input" name="link" label="링크" message="매장 정보를 확인할 수 있는 링크를 입력해 주세요." ></lunch-form-item>
       <div class="button-container">
         <lunch-button type="button" text="취소하기" color="secondary"></lunch-button>
         <lunch-button text="추가하기" color="primary"></lunch-button>
