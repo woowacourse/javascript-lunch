@@ -13,16 +13,16 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 
 import type { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
 
-import type { MenuCategory } from "../../constants/menuCategory/menuCategory.type";
+import type {
+  MenuCategory,
+  MenuCategoryWithoutAll,
+} from "../../constants/menuCategory/menuCategory.type";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 
 class RestaurantItem extends BaseComponent {
   private restaurantDetail: RestaurantDetail;
 
-  private restaurantImage: Record<
-    Exclude<MenuCategory, typeof MENU_CATEGORIES.all>,
-    string
-  > = {
+  private restaurantImage: Record<MenuCategoryWithoutAll, string> = {
     아시안: categoryAsian,
     양식: categoryWestern,
     일식: categoryJapanese,
@@ -60,9 +60,7 @@ class RestaurantItem extends BaseComponent {
     `;
   }
 
-  private convertCategoryToImage(
-    category: Exclude<MenuCategory, typeof MENU_CATEGORIES.all>
-  ) {
+  private convertCategoryToImage(category: MenuCategoryWithoutAll) {
     return this.restaurantImage[category];
   }
 }

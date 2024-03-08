@@ -1,50 +1,48 @@
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
+import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
 import { createOptionElements } from "../../utils/createOptionElements";
 import { $ } from "../../utils/dom";
 import BaseComponent from "../BaseComponent/BaseComponent";
-
-import { SortCategory, SortKey } from "./SortDropdown.type";
+import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 
 class SortDropdown extends BaseComponent {
-  static SORT_CATEGORIES_TYPE: Record<SortKey, SortCategory> = {
-    name: "이름순",
-    distance: "거리순",
+  private eventListeners: CustomEventListenerDictionary = {
+    sortingFilterChange: {
+      eventName: "change",
+      eventHandler: this.handleChangeSort.bind(this),
+    },
   };
 
   protected render(): void {
     this.innerHTML = `
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-            ${createOptionElements(
-              Object.values(SortDropdown.SORT_CATEGORIES_TYPE)
-            )}
+            ${createOptionElements(Object.values(SORT_CATEGORIES_TYPE))}
         </select>
     `;
   }
 
   protected setEvent(): void {
     this.on({
+      ...this.eventListeners.sortingFilterChange,
       target: $(ELEMENT_SELECTOR.sortingFilter),
-      eventName: "change",
-      eventHandler: this.handleChangeSort.bind(this),
     });
   }
 
   private handleChangeSort(event: Event): void {
-    let selectedOption = "";
+    const targetElement = event?.target;
 
-    if (event?.target instanceof HTMLSelectElement) {
-      selectedOption = event.target.value;
+    if (targetElement instanceof HTMLSelectElement) {
+      const selectedOption = targetElement.value;
+
+      this.emit(CUSTOM_EVENT_TYPE.sortChange, selectedOption);
     }
-
-    this.emit(CUSTOM_EVENT_TYPE.sortChange, selectedOption);
   }
 
   protected removeEvent(): void {
-    this.off({
+    this.on({
+      ...this.eventListeners.sortingFilterChange,
       target: $(ELEMENT_SELECTOR.sortingFilter),
-      eventName: "change",
-      eventHandler: this.handleChangeSort.bind(this),
     });
   }
 }

@@ -1,7 +1,7 @@
-import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
+import { MenuCategoryWithoutAll } from "../../constants/menuCategory/menuCategory.type";
 
 export interface RestaurantDetail {
-  category: Exclude<MenuCategory, typeof MENU_CATEGORIES.all>;
+  category: MenuCategoryWithoutAll;
   name: string;
   distance: Distance;
   description?: string;

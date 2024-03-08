@@ -6,16 +6,41 @@ import RestaurantItem from "../RestaurantItem/RestaurantItem";
 
 import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import { SortCategory } from "../SortDropdown/SortDropdown.type";
+
+import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
+
+import RestaurantStorage from "../../storages/RestaurantStorage";
 
 class RestaurantList extends BaseComponent {
-  private restaurant = new Restaurant();
+  private restaurant = new Restaurant(RestaurantStorage);
+
+  private sortType: SortCategory = SORT_CATEGORIES_TYPE.name;
+
+  private eventListeners: CustomEventListenerDictionary = {
+    addRestaurant: {
+      eventName: CUSTOM_EVENT_TYPE.addRestaurant,
+      eventHandler: this.handleRerenderRestaurantList.bind(this),
+    },
+
+    sortChange: {
+      eventName: CUSTOM_EVENT_TYPE.sortChange,
+      eventHandler: this.handleSortRestaurantItems.bind(this),
+    },
+
+    filterCategory: {
+      eventName: CUSTOM_EVENT_TYPE.filterCategory,
+      eventHandler: this.handleFilterRestaurantItems.bind(this),
+    },
+  };
 
   protected render(): void {
     this.innerHTML = `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
           ${this.createRestaurantItems()}
-        </ul>
+        </ul> 
       </section>
     `;
   }
@@ -34,27 +59,16 @@ class RestaurantList extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on({
-      target: document,
-      eventName: CUSTOM_EVENT_TYPE.addRestaurant,
-      eventHandler: this.handleRerenderRestaurantList.bind(this),
-    });
+    this.on({ ...this.eventListeners.addRestaurant, target: document });
 
-    this.on({
-      target: document,
-      eventName: CUSTOM_EVENT_TYPE.sortChange,
-      eventHandler: this.handleSortRestaurantItems.bind(this),
-    });
+    this.on({ ...this.eventListeners.sortChange, target: document });
 
-    this.on({
-      target: document,
-      eventName: CUSTOM_EVENT_TYPE.filterCategory,
-      eventHandler: this.handleFilterRestaurantItems.bind(this),
-    });
+    this.on({ ...this.eventListeners.filterCategory, target: document });
   }
 
   private handleRerenderRestaurantList() {
-    this.restaurant.updateRestaurants();
+    this.restaurant.updateRestaurants(this.sortType);
+
     this.connectedCallback();
   }
 
@@ -62,7 +76,10 @@ class RestaurantList extends BaseComponent {
     if (event instanceof CustomEvent) {
       const sortType = event.detail;
 
+      this.sortType = sortType;
+
       this.restaurant.sortRestaurants(sortType);
+
       this.connectedCallback();
     }
   }
@@ -71,29 +88,18 @@ class RestaurantList extends BaseComponent {
     if (event instanceof CustomEvent) {
       const filterType = event.detail;
 
-      this.restaurant.filterRestaurants(filterType);
+      this.restaurant.filterRestaurants(filterType, this.sortType);
+
       this.connectedCallback();
     }
   }
 
   protected removeEvent(): void {
-    this.off({
-      target: document,
-      eventName: CUSTOM_EVENT_TYPE.addRestaurant,
-      eventHandler: this.handleRerenderRestaurantList.bind(this),
-    });
+    this.off({ ...this.eventListeners.addRestaurant, target: document });
 
-    this.off({
-      target: document,
-      eventName: CUSTOM_EVENT_TYPE.sortChange,
-      eventHandler: this.handleSortRestaurantItems.bind(this),
-    });
+    this.off({ ...this.eventListeners.sortChange, target: document });
 
-    this.off({
-      target: document,
-      eventName: CUSTOM_EVENT_TYPE.filterCategory,
-      eventHandler: this.handleFilterRestaurantItems.bind(this),
-    });
+    this.off({ ...this.eventListeners.filterCategory, target: document });
   }
 }
 

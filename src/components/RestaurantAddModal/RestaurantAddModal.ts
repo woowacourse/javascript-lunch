@@ -2,11 +2,12 @@ import "./RestaurantAddModal.css";
 
 import BaseComponent from "../BaseComponent/BaseComponent";
 
-import Restaurant from "../../domain/Restaurant/Restaurant";
-import {
+import type { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+import type {
   Distance,
   RestaurantDetail,
 } from "../../domain/Restaurant/Restaurant.type";
+import Restaurant from "../../domain/Restaurant/Restaurant";
 
 import { OPTION_ELEMENT_REGEXP } from "./RestaurantAddModal.constant";
 
@@ -16,9 +17,22 @@ import { createOptionElements } from "../../utils/createOptionElements";
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
+import { ERROR_MESSAGE } from "../../constants/errorMessage";
 
 class RestaurantAddModal extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];
+
+  private eventListeners: CustomEventListenerDictionary = {
+    modalCancelButtonClick: {
+      eventName: "click",
+      eventHandler: this.handleCancelButton.bind(this),
+    },
+
+    restaurantAddFormSubmit: {
+      eventName: "submit",
+      eventHandler: this.handleSubmitAddRestaurant.bind(this),
+    },
+  };
 
   protected render(): void {
     this.innerHTML = `
@@ -49,7 +63,8 @@ class RestaurantAddModal extends BaseComponent {
                       RestaurantAddModal.DISTANCES_OPTIONS
                     ).replace(
                       OPTION_ELEMENT_REGEXP,
-                      (_, p1, p2) => `<option value=${p1}>${p2}분 내</option>`
+                      (_, value) =>
+                        `<option value=${value}>${value}분 내</option>`
                     )}
                     </select>
                 </div>
@@ -77,15 +92,13 @@ class RestaurantAddModal extends BaseComponent {
 
   protected setEvent(): void {
     this.on({
+      ...this.eventListeners.modalCancelButtonClick,
       target: $(ELEMENT_SELECTOR.modalCancelButton),
-      eventName: "click",
-      eventHandler: this.handleCancelButton.bind(this),
     });
 
     this.on({
+      ...this.eventListeners.restaurantAddFormSubmit,
       target: $(ELEMENT_SELECTOR.restaurantAddForm),
-      eventName: "submit",
-      eventHandler: this.handleSubmitAddRestaurant.bind(this),
     });
   }
 
@@ -93,6 +106,10 @@ class RestaurantAddModal extends BaseComponent {
     this.handleCloseModal();
 
     this.resetForm();
+  }
+
+  private handleCloseModal() {
+    this.classList.remove("modal--open");
   }
 
   private resetForm() {
@@ -103,20 +120,22 @@ class RestaurantAddModal extends BaseComponent {
     }
   }
 
-  private handleCloseModal() {
-    this.classList.remove("modal--open");
-  }
-
   private handleSubmitAddRestaurant(event: Event) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    this.addUserInputRestaurantDetail();
+      this.addUserInputRestaurantDetail();
 
-    this.resetForm();
+      this.resetForm();
 
-    this.handleCloseModal();
+      this.handleCloseModal();
 
-    this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+      this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+    } catch (error: unknown | Error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   }
 
   private addUserInputRestaurantDetail() {
@@ -124,6 +143,9 @@ class RestaurantAddModal extends BaseComponent {
 
     if (userInputRestaurantDetail) {
       const restaurant = new Restaurant();
+
+      restaurant.findDuplicateRestaurantByName(userInputRestaurantDetail);
+
       restaurant.addRestaurant(userInputRestaurantDetail);
     }
   }
@@ -150,15 +172,13 @@ class RestaurantAddModal extends BaseComponent {
 
   protected removeEvent(): void {
     this.off({
+      ...this.eventListeners.modalCancelButtonClick,
       target: $(ELEMENT_SELECTOR.modalCancelButton),
-      eventName: "click",
-      eventHandler: this.handleCloseModal.bind(this),
     });
 
     this.off({
+      ...this.eventListeners.restaurantAddFormSubmit,
       target: $(ELEMENT_SELECTOR.restaurantAddForm),
-      eventName: "submit",
-      eventHandler: this.handleSubmitAddRestaurant.bind(this),
     });
   }
 }

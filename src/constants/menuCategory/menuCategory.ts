@@ -1,6 +1,4 @@
-import { MenuCategoryDictionary } from "./menuCategory.type";
-
-export const MENU_CATEGORIES: MenuCategoryDictionary = {
+export const MENU_CATEGORIES = {
   all: "전체",
   korean: "한식",
   chinese: "중식",
