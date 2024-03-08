@@ -1,7 +1,6 @@
 import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
-import { Category, MinutesWalk, SortType, CompareFunction } from '../constants/Type';
-import { IRestaurant } from '../interface/Interface';
+import { Category, MinutesWalk, SortType, CompareFunction, LocationData } from '../constants/Type';
 
 class RestaurantService {
   private restaurants: Restaurant[];
@@ -11,7 +10,7 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  getRestaurants(sortType: SortType, category?: Category): IRestaurant[] {
+  getRestaurants(sortType: SortType, category?: Category): LocationData[] {
     const restaurants = category ? this.getRestaurantsByCategory(category) : this.restaurants;
     const compareFunction = this.getCompareFunction(sortType);
     const sortedRestaurants = this.getSortedRestaurants(restaurants, compareFunction);
@@ -42,7 +41,7 @@ class RestaurantService {
     return a.getMinutesWalk() - b.getMinutesWalk();
   }
 
-  addRestaurant(restaurant: IRestaurant) {
+  addRestaurant(restaurant: LocationData) {
     this.restaurants = [...this.restaurants, new Restaurant(restaurant)];
     this.saveRestaurants(this.restaurants);
   }
@@ -55,10 +54,10 @@ class RestaurantService {
   loadRestaurants(): Restaurant[] {
     const restaurants = localStorage.getItem('restaurants');
     if (restaurants) {
-      return JSON.parse(restaurants).map((object: IRestaurant) => new Restaurant(object));
+      return JSON.parse(restaurants).map((object: LocationData) => new Restaurant(object));
     }
     const defaultData = defaultRestaurant.map((restaurant) => {
-      const restaurantObject: IRestaurant = {
+      const restaurantObject: LocationData = {
         name: restaurant.name,
         category: restaurant.category as Category,
         minutesWalk: restaurant.minutesWalk as MinutesWalk,
@@ -68,7 +67,7 @@ class RestaurantService {
       return restaurantObject;
     });
 
-    return defaultData.map((object: IRestaurant) => new Restaurant(object));
+    return defaultData.map((object: LocationData) => new Restaurant(object));
   }
 }
 
