@@ -19,6 +19,7 @@ body {
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
+  --error-color: #ff0000;
   --grey-100: #ffffff;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
@@ -308,4 +309,8 @@ input[name="link"] {
 
 .hidden {
   visibility: hidden;
+}
+
+.error-message {
+  color: var(--error-color);
 }
