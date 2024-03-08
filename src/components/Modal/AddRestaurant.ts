@@ -1,18 +1,13 @@
+import { ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS, ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS } from '../../constant/options';
+import Button from '../Common/Button';
+import Dropdown from '../Common/Dropdown';
+
 const AddRestaurant = () => {
   return /*html*/ `
   <h2 class="modal-title text-title">새로운 음식점</h2>
   <form >
     <div class="form-item form-item--required">
-      <label for="category text-caption">카테고리</label>
-      <select name="category" id="category" required>
-        <option value="">선택해 주세요</option>
-        <option value="한식">한식</option>
-        <option value="중식">중식</option>
-        <option value="일식">일식</option>
-        <option value="양식">양식</option>
-        <option value="아시안">아시안</option>
-        <option value="기타">기타</option>
-      </select>
+      ${Dropdown(ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS)}
     </div>
 
     <div class="form-item form-item--required">
@@ -21,15 +16,7 @@ const AddRestaurant = () => {
     </div>
 
     <div class="form-item form-item--required">
-      <label for="distance text-caption">거리(도보 이동 시간) </label>
-      <select name="distance" id="distance" required>
-        <option value="">선택해 주세요</option>
-        <option value="5">5분 내</option>
-        <option value="10">10분 내</option>
-        <option value="15">15분 내</option>
-        <option value="20">20분 내</option>
-        <option value="30">30분 내</option>
-      </select>
+      ${Dropdown(ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS)}
     </div>
 
     <div class="form-item">
@@ -45,8 +32,8 @@ const AddRestaurant = () => {
     </div>
 
     <div class="button-container">
-      <button type="reset" class="button button--secondary text-caption">취소하기</button>
-      <button type="submit" class="button button--primary text-caption">추가하기</button>
+      ${Button('reset', 'secondary', '취소하기')}
+      ${Button('submit', 'primary', '추가하기')}
     </div>
   </form>
   `;

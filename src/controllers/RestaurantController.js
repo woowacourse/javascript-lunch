@@ -2,9 +2,11 @@ import { FORM_INPUT_QUERY } from '../constant/config';
 import RestaurantService from '../domain/RestaurantService';
 import { $ } from '../utils/querySelector';
 import OutputView from '../views/OutputView';
+import Dropdown from '../components/Common/Dropdown';
+import { FILTER_DROPDOWN_PROPS, SORT_DROPDOWN_PROPS } from '../constant/options';
 
 class RestaurantController {
-  #restaurantList; // 추가할 때만 변경
+  #restaurantList;
 
   #category;
 
@@ -18,9 +20,20 @@ class RestaurantController {
   }
 
   run() {
+    this.showFilterDropdown();
     this.reload();
     this.showAddRestaurantModal();
     this.manageFilterValue();
+  }
+
+  showFilterDropdown() {
+    const filterContainer = $('.restaurant-filter-container');
+
+    const filterDropdown = Dropdown(FILTER_DROPDOWN_PROPS);
+    const sortDropdown = Dropdown(SORT_DROPDOWN_PROPS);
+
+    filterContainer.insertAdjacentHTML('beforeend', filterDropdown);
+    filterContainer.insertAdjacentHTML('beforeend', sortDropdown);
   }
 
   reload() {
