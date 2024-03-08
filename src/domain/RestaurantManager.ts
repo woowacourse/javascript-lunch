@@ -28,7 +28,6 @@ class RestaurantManager {
   filteredAndSortedByOptions(category: Category, option: Option) {
     const filteredRestaurant = this.#filterByCategory(category);
 
-    console.log(category, option);
     if (option === 'name') return this.#sortByName(filteredRestaurant);
 
     if (option === 'distance') return this.#sortByDistance(filteredRestaurant);
