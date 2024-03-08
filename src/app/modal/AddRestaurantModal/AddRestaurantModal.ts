@@ -1,21 +1,8 @@
-import { $ } from '../../../util/domSelector';
-import handleError from '../../../util/handleError';
-import RestaurantValidator from '../../../validator/RestaurantValidator';
-import {
-  createCaption,
-  createFormButton,
-  createFormButtonContainer,
-  createFormItemContainer,
-  createInput,
-  createLabel,
-  createOptionItems,
-  createSelectBox,
-  createTextArea,
-} from '../../../util/createFormElement';
-
-import type { RestaurantDataType } from '../../../type/restaurantDataType';
-
-import { Category, DistanceByWalk } from '../../../enum/enums';
+import { $, $$ } from '../../../utils/domSelector';
+import { TYPE_SETTING } from '../../../constants/setting';
+import { ILocation } from '../../../interface/Interface';
+import RestaurantService from '../../../service/RestaurantService';
+import { Category, LocationData, MinutesWalk } from '../../../constants/Type';
 
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
@@ -24,147 +11,144 @@ class AddRestaurantModal extends HTMLElement {
   }
 
   private addEvent() {
-    $('#cancel-adding-restaurant-button').addEventListener('click', this.clearModal.bind(this));
-    $('#add-restaurant-form').addEventListener('submit', this.handleSubmit.bind(this));
+    $('#cancel-adding-restaurant-button', this)?.addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('cancelAddingRestaurant'));
+      this.clearAllInput();
+      $<HTMLDialogElement>('#add-restaurant-modal')!.close();
+    });
+
+    $('#submit-adding-restaurant-button', this)?.addEventListener('click', () => {
+      const restaruantData = this.inputToRestaurantData();
+      this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: restaruantData }));
+      this.clearAllInput();
+      $<HTMLDialogElement>('#add-restaurant-modal')!.close();
+    });
   }
 
-  private handleSubmit(event: Event) {
-    try {
-      event.preventDefault();
-      const newRestaurantData = this.handleFormData(new FormData(event.target as HTMLFormElement));
-      this.submitNewRestaurant(newRestaurantData);
-      this.clearModal();
-    } catch (error) {
-      handleError(error);
-    }
+  private inputToRestaurantData() {
+    const restaurantData: LocationData = {
+      name: $<HTMLInputElement>('#restaurant-name')!.value,
+      category: $<HTMLSelectElement>('#restaurant-category')!.value as Category,
+      minutesWalk: parseInt($<HTMLSelectElement>('#restaurant-minuteswalk')!.value) as MinutesWalk,
+      description: $<HTMLTextAreaElement>('#restaurant-description')!.value,
+      referenceUrl: $<HTMLInputElement>('#restaurant-referenceurl')!.value,
+    };
+    return restaurantData;
   }
 
-  private handleFormData(formData: FormData): RestaurantDataType {
-    const formDataEntries = Object.fromEntries(formData.entries());
-    if (this.isRestaurantData(formDataEntries)) {
-      return formDataEntries;
-    }
-    throw new Error('입력된 음식점 정보가 올바르지 않습니다. 새로고침 후 다시 입력해주세요.');
+  private clearAllInput() {
+    $$('input, textarea, select', this).forEach((input) => {
+      if (
+        input instanceof HTMLInputElement ||
+        input instanceof HTMLSelectElement ||
+        input instanceof HTMLTextAreaElement
+      ) {
+        input.value = '';
+      }
+    });
   }
 
-  private submitNewRestaurant(newRestaurantData: RestaurantDataType) {
-    try {
-      RestaurantValidator.validateUserInput(newRestaurantData);
-      this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: newRestaurantData }));
-    } catch (error) {
-      handleError(error);
-    }
+  private getDefaultSelection() {
+    return `
+    <option value="">선택해 주세요</option>
+    `;
+  }
+  private getEachCategory() {
+    return TYPE_SETTING.category
+      .map((category) => {
+        return `<option value="${category}">${category}</option>`;
+      })
+      .join('');
   }
 
-  private isRestaurantData(object: any): object is RestaurantDataType {
-    return (
-      'name' in object &&
-      'category' in object &&
-      Object.values(Category).includes(object.category) &&
-      'distanceByWalk' in object &&
-      Object.values(DistanceByWalk).includes(object.distanceByWalk)
-    );
+  private showCategorySelectbox() {
+    return `
+    <!-- 카테고리 -->
+    <div class="form-item form-item--required">
+      <label for="category text-caption">카테고리</label>
+      <select name="category" id="restaurant-category" required>
+        ${this.getDefaultSelection()}
+        ${this.getEachCategory()}
+      </select>
+    </div>`;
   }
 
-  private clearModal() {
-    $<HTMLFormElement>('#add-restaurant-form').reset();
-    $<HTMLDialogElement>('#add-restaurant-modal').close();
+  private getEachMinutesWalk() {
+    return TYPE_SETTING.minutesWalk
+      .map((minutesWalk) => {
+        return `<option value="${minutesWalk}">${minutesWalk}분 내</option>`;
+      })
+      .join('');
   }
 
-  private createModalTitle(): HTMLHeadingElement {
-    const modalTitle = document.createElement('h2');
-    modalTitle.classList.add('modal-title', 'text-title');
-    modalTitle.textContent = '새로운 음식점';
-    return modalTitle;
+  private showMinutesWalkSelectbox() {
+    return `
+    <!-- 거리 -->
+        <div class="form-item form-item--required">
+          <label for="distance text-caption">거리(도보 이동 시간) </label>
+          <select name="distance" id="restaurant-minuteswalk" required>
+          ${this.getDefaultSelection()}
+          ${this.getEachMinutesWalk()};
+          </select>
+        </div>
+    `;
   }
 
-  private createNameInput(): HTMLDivElement {
-    const nameInput = createFormItemContainer({ required: true });
-    nameInput.appendChild(createLabel({ targetId: 'name', labelText: '이름' }));
-    nameInput.appendChild(createInput({ type: 'text', name: 'name', required: true }));
-    return nameInput;
-  }
+  // private createSelectBox({ selectBoxName: string, label: string, options: string }): string {
+  //   return `
+  //     <div class="form-item form-item--required">
+  //       <label for="${selectBoxName} text-caption">거리(도보 이동 시간) </label>
+  //       <select name="distance" id="distance" required>
+  //         ${this.getDefaultSelection()}
+  //         ${this.getEachMinutesWalk()};
+  //       </select>
+  //     </div>
+  //   `;
+  // }
 
-  private createCategoryInput(): HTMLDivElement {
-    const categoryInput = createFormItemContainer({ required: true });
-    const categorySelectBox = createSelectBox({ name: 'category', required: true });
-    categorySelectBox.append(...createOptionItems({ type: Category, defaultOption: '선택해 주세요' }));
-    categoryInput.appendChild(createLabel({ targetId: 'category', labelText: '카테고리' }));
-    categoryInput.appendChild(categorySelectBox);
-    return categoryInput;
-  }
-
-  private createDistanceInput(): HTMLDivElement {
-    const distanceInput = createFormItemContainer({ required: true });
-    const distanceSelectBox = createSelectBox({ name: 'distanceByWalk', required: true });
-    distanceSelectBox.append(...createOptionItems({ type: DistanceByWalk, defaultOption: '선택해 주세요' }));
-    distanceInput.appendChild(createLabel({ targetId: 'distanceByWalk', labelText: '거리(도보 이동 시간)' }));
-    distanceInput.appendChild(distanceSelectBox);
-    return distanceInput;
-  }
-
-  private createDescriptionInput(): HTMLDivElement {
-    const descriptionInput = createFormItemContainer({ required: false });
-    descriptionInput.appendChild(createLabel({ targetId: 'description', labelText: '설명 ' }));
-    descriptionInput.appendChild(createTextArea({ name: 'description', cols: 30, rows: 5, required: false }));
-    descriptionInput.appendChild(createCaption({ captionText: '메뉴 등 추가 정보를 입력해 주세요.' }));
-    return descriptionInput;
-  }
-
-  private createReferenceInput(): HTMLDivElement {
-    const referenceInput = createFormItemContainer({ required: false });
-    referenceInput.appendChild(createLabel({ targetId: 'referenceUrl', labelText: '참고 링크' }));
-    referenceInput.appendChild(createInput({ type: 'url', name: 'referenceUrl', required: false }));
-    referenceInput.appendChild(createCaption({ captionText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.' }));
-    return referenceInput;
-  }
-
-  private createButtonContainer(): HTMLDivElement {
-    const buttonContainer = createFormButtonContainer();
-    buttonContainer.appendChild(
-      createFormButton({
-        type: 'button',
-        style: 'secondary',
-        id: 'cancel-adding-restaurant-button',
-        textContent: '취소하기',
-      }),
-    );
-    buttonContainer.appendChild(
-      createFormButton({
-        type: 'submit',
-        style: 'primary',
-        id: 'submit-adding-restaurant-button',
-        textContent: '추가하기',
-      }),
-    );
-    return buttonContainer;
-  }
-
-  private createAddRestaurantForm(): HTMLFormElement {
-    const form = document.createElement('form');
-    form.id = 'add-restaurant-form';
-
-    form.appendChild(this.createNameInput());
-    form.appendChild(this.createCategoryInput());
-    form.appendChild(this.createDistanceInput());
-    form.appendChild(this.createDescriptionInput());
-    form.appendChild(this.createReferenceInput());
-    form.appendChild(this.createButtonContainer());
-
-    return form;
-  }
+  //TODO: 위 코드 살려보기!
 
   private render() {
-    const modal = document.createElement('dialog');
-    modal.id = 'add-restaurant-modal';
-    const modalContainer = document.createElement('div');
-    modalContainer.classList.add('modal-container');
+    this.innerHTML = `
+    <!-- 음식점 추가 모달 -->
+    <dialog id="add-restaurant-modal">
+      <div class="modal-container">
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <form>
 
-    modal.appendChild(modalContainer);
-    modalContainer.appendChild(this.createModalTitle());
-    modalContainer.appendChild(this.createAddRestaurantForm());
+          <!-- 음식점 이름 -->
+          <div class="form-item form-item--required">
+            <label for="name text-caption">이름</label>
+            <input type="text" name="restaurant-name" id="restaurant-name" required />
+          </div>
 
-    this.appendChild(modal);
+          ${this.showCategorySelectbox()}
+
+          ${this.showMinutesWalkSelectbox()}
+
+          <!-- 설명 -->
+          <div class="form-item">
+            <label for="description text-caption">설명</label>
+            <textarea name="description" id="restaurant-description" cols="30" rows="5"></textarea>
+            <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+          </div>
+
+          <!-- 링크 -->
+          <div class="form-item">
+            <label for="link text-caption">참고 링크</label>
+            <input type="text" name="link" id="restaurant-referenceurl" />
+            <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+          </div>
+
+          <!-- 취소/추가 버튼 -->
+          <div class="button-container">
+            <button type="button" class="button button--secondary text-caption" id="cancel-adding-restaurant-button">취소하기</button>
+            <button type="button" class="button button--primary text-caption" id="submit-adding-restaurant-button">추가하기</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+    `;
   }
 }
 
