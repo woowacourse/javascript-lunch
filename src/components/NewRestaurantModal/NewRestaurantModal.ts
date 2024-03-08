@@ -43,16 +43,7 @@ class NewRestaurantModal extends BaseComponent {
     this.#form.append($nameInputBox);
 
     /*거리 셀렉트 박스*/
-    const $distanceSelection = document.createElement('div');
-    $distanceSelection.classList.add('form-item', 'form-item--required');
-    $distanceSelection.innerHTML = `<label for="distance text-caption">거리(도보 이동 시간) </label>    `;
-    $distanceSelection.append(
-      new SelectBox(
-        CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
-        'distance',
-      ),
-    );
-    this.#form.append($distanceSelection);
+    this.#makeDistanceSelectBox();
 
     /*설명 인풋*/
     const $descriptionTextBox = document.createElement('div');
@@ -77,13 +68,10 @@ class NewRestaurantModal extends BaseComponent {
     const $buttonBox = document.createElement('div');
     $buttonBox.classList.add('button-container');
 
-    const cancelButton = new BasicButton(false, '취소하기', 'button', () => {
+    const cancelButton = new BasicButton(false, '취소하기', 'reset', () => {
       this.closeModal();
     });
     const addButton = new BasicButton(true, '추가하기', 'submit', () => {});
-
-    cancelButton.setAttribute('type', 'button');
-    addButton.setAttribute('type', 'submit');
 
     $buttonBox.append(cancelButton);
     $buttonBox.append(addButton);
@@ -92,16 +80,35 @@ class NewRestaurantModal extends BaseComponent {
 
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
+      document.querySelector('.category-select > .error')?.classList.add('hidden');
+      document.querySelector('.distance-select > .error')?.classList.add('hidden');
 
       const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
-      const distance = (this.#form.elements.namedItem('distance') as HTMLInputElement).value;
+
+      const distance = Number(
+        (this.#form.elements.namedItem('distance') as HTMLInputElement).value.slice(0, -3),
+      );
+
       const category = (this.#form.elements.namedItem('category') as HTMLInputElement).value;
       const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
       const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
 
+      //필수값 validation
+      if (category === '선택해주세요') {
+        document.querySelector('.category-select > .error')?.classList.remove('hidden');
+      }
+
+      if (Number.isNaN(distance)) {
+        document.querySelector('.distance-select > .error')?.classList.remove('hidden');
+      }
+
+      if (category === '선택해주세요' || Number.isNaN(distance)) {
+        return;
+      }
+
       const newRestaurant: IRestaurant = {
         name,
-        distance: Number(distance.slice(0, -3)), // TODO : '분 내'를 지우려고 3개없앴음. 야매로 해뒀음.
+        distance, // TODO : '분 내'를 지우려고 3개없앴음. 야매로 해뒀음.
         category,
       };
       if (description) {
@@ -125,20 +132,47 @@ class NewRestaurantModal extends BaseComponent {
 
   #makeCategorySelectBox() {
     const $categorySelectBox = document.createElement('div');
-    $categorySelectBox.classList.add('form-item', 'form-item--required');
+    $categorySelectBox.classList.add('form-item', 'form-item--required', 'category-select');
 
     const $categoryLabel = document.createElement('label');
     $categoryLabel.setAttribute('for', 'category text-caption');
     $categoryLabel.textContent = '카테고리';
     $categorySelectBox.append($categoryLabel);
 
-    const $categorySelect = new SelectBox(CATEGORIES_KEYS, 'category');
+    const CATEGORIES_KEYS_REQUIRED = ['선택해주세요', ...CATEGORIES_KEYS];
+    const $categorySelect = new SelectBox(CATEGORIES_KEYS_REQUIRED, 'category');
     $categorySelectBox.append($categorySelect);
+
+    const errorBox = document.createElement('div');
+    errorBox.classList.add('error', 'hidden');
+    errorBox.textContent = '카테고리는 필수 입력입니다.';
+    $categorySelectBox.append(errorBox);
 
     return $categorySelectBox;
   }
 
+  #makeDistanceSelectBox() {
+    const $distanceSelection = document.createElement('div');
+    $distanceSelection.classList.add('form-item', 'form-item--required', 'distance-select');
+    $distanceSelection.innerHTML = `<label for="distance text-caption">거리(도보 이동 시간) </label>  
+      `;
+
+    const DISTANCES_REQURIED = [
+      '선택해주세요',
+      ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
+    ];
+    $distanceSelection.append(new SelectBox(DISTANCES_REQURIED, 'distance'));
+    const errorBox = document.createElement('div');
+    errorBox.classList.add('error', 'hidden');
+    errorBox.textContent = '거리 값은 필수 입력입니다.';
+    $distanceSelection.append(errorBox);
+
+    this.#form.append($distanceSelection);
+  }
+
   closeModal() {
+    document.querySelector('.category-select > .error')?.classList.add('hidden');
+    document.querySelector('.distance-select > .error')?.classList.add('hidden');
     this.classList.remove('modal--open');
   }
 }
