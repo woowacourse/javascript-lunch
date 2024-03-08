@@ -1,7 +1,7 @@
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
 import modalOpenHandler from "./handlers";
-import headerTemplate from "./template";
+import headerTemplate from "./headerTemplate";
 
 function Header() {
   const render = () => {

@@ -1,7 +1,7 @@
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
 import { inputLinkHandler } from "./handlers";
-import inputLinkTemplate from "./template";
+import inputLinkTemplate from "./inputLinkTemplate";
 
 function InputLink(form: Element) {
   const render = () => {
