@@ -43,20 +43,23 @@ export default class RestaurantList extends EventComponent {
     return `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
-          ${displayingRestaurantInfos
-            .map(
-              ({
-                name,
-                category,
-                timeToReach,
-                description,
-                link,
-              }: RestaurantInfo) =>
-                `
+          ${
+            displayingRestaurantInfos
+              .map(
+                ({
+                  name,
+                  category,
+                  timeToReach,
+                  description,
+                  link,
+                }: RestaurantInfo) =>
+                  `
             <restaurant-item name="${name}" category="${category}" timeToReach="${timeToReach}" description="${description}" link="${link}">
             </restaurant-item>`
-            )
-            .join("")}
+              )
+              .join("") ||
+            "<p class='no-restaurant-item-message'>등록된 식당이 없습니다.<br/> 식당을 추가해주세요 👨🏻‍🍳</p>"
+          }
         </ul>
       </section>
     `;
