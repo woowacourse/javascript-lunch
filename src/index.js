@@ -1,1 +1,1 @@
-import './LunchApp'
+import './LunchApp';
