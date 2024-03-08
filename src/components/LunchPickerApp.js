@@ -3,7 +3,7 @@ import RestaurantRepository from '../domain/RestaurantRepository';
 import { $, $setAttribute } from '../utils/dom';
 import { OPTION } from '../constants/Condition';
 
-class RestaurantApp extends Component {
+class LunchPickerApp extends Component {
   #restaurants;
 
   constructor() {
@@ -44,7 +44,7 @@ class RestaurantApp extends Component {
 
   template() {
     return `
-      <custom-header></custom-header>
+      <lunch-picker-header></lunch-picker-header>
       <section class="restaurant-filter-container">
           <filter-box type="category" option='${JSON.stringify([OPTION.ALL, ...OPTION.CATEGORY])}'></filter-box>
           <filter-box type="sorting" option='${JSON.stringify(OPTION.SORTING)}'></filter-box>
@@ -55,4 +55,4 @@ class RestaurantApp extends Component {
   }
 }
 
-export default RestaurantApp;
+export default LunchPickerApp;

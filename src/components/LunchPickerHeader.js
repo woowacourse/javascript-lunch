@@ -2,7 +2,7 @@ import Component from './Component';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
 import addButtonImg from '../assets/add-button.png';
 
-class CustomHeader extends Component {
+class LunchPickerHeader extends Component {
   constructor() {
     super();
   }
@@ -27,4 +27,4 @@ class CustomHeader extends Component {
   }
 }
 
-export default CustomHeader;
+export default LunchPickerHeader;
