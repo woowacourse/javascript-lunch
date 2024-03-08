@@ -36,7 +36,6 @@ class ModalEventHandler {
   }
 
   handleCategoryFilter() {
-    console.log('handleCategoryFilter:', this.restaurantList);
     const $categoryFilter = document.getElementById('category-filter');
     const $sortingFilter = document.getElementById('sorting-filter');
     const $restaurantList = document.querySelector('.restaurant-list');
