@@ -1,7 +1,7 @@
 import Restaurant from './Restaurant';
+import { validateRequiredValue, validateRestaurantsName } from '../validators';
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
-import { validateRequiredValue, validateRestaurantsName } from '../validators';
 import { RULES } from '../constants/rules';
 
 export default class RestaurantCreationModal {
@@ -13,7 +13,6 @@ export default class RestaurantCreationModal {
   render() {
     // TODO: 주석 제거
     // TODO: <고민> html 태그 id 상수화 (ex: category)
-    // TODO: id를 한글로 변환하는 상수가 있어야하지 않나? ex) {category: 카테고리 }와 같은..? 왜냐하면 에러 메시지에서 영어로 나옴.
     // TODO: html 분리
     /*html*/
     return `

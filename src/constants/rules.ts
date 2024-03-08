@@ -1,5 +1,5 @@
 // TODO: <고민> 상수 Object.freeze() 도입할 것인지
-export const SELECTED_DATA = {
+export const SELECTED_DATA: SelectedDataType = {
   sorting: {
     id: 'sorting-filter',
     name: 'sorting',
@@ -23,7 +23,13 @@ export const SELECTED_DATA = {
   },
 };
 
-export const RULES = {
+export const RULES: RulesType = {
   requiredIds: ['category', 'name', 'distance'],
   selectIds: ['sorting-filter', 'category-filter'],
+};
+
+export const CONVERT: ConvertType = {
+  name: '이름',
+  category: '카테고리',
+  distance: '거리',
 };
