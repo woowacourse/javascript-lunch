@@ -1,36 +1,12 @@
+import {
+  CATEGORY_OPTIONS,
+  CATEGORY_OPTION_VALUES,
+  DISTANCE_OPTIONS,
+  DISTANCE_OPTION_VALUES,
+} from "../../constants/MenuApp";
 import { add } from "../../domains/Restaurants";
 import { $ } from "../../utils/dom";
 import BaseComponent from "../BaseComponent";
-
-const RESTAURANT_ADD_VALUES = [
-  "",
-  "한식",
-  "중식",
-  "일식",
-  "양식",
-  "아시안",
-  "기타",
-];
-const RESTAURANT_ADD_CATEGORY = [
-  "선택해주세요",
-  "한식",
-  "중식",
-  "일식",
-  "양식",
-  "아시안",
-  "기타",
-];
-
-const RESTAURANT_ADD_DISTANCE = [
-  "선택해주세요",
-  "5분 내",
-  "10분 내",
-  "15분 내",
-  "20분 내",
-  "30분 내",
-];
-
-const RESTAURANT_ADD_DISTANCE_VALUE = ["", "5", "10", "15", "20", "30"];
 
 class RestaurantAddForm extends BaseComponent {
   constructor() {
@@ -44,9 +20,14 @@ class RestaurantAddForm extends BaseComponent {
       <div class="modal-container">
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id="restaurant-add-form">
-          <restaurant-option id="category" values="${RESTAURANT_ADD_VALUES}" options="${RESTAURANT_ADD_CATEGORY}"></restaurant-option>
+          <restaurant-option 
+          id="category" 
+          values="${["", ...CATEGORY_OPTIONS]}" options="${[
+      "선택해주세요",
+      ...CATEGORY_OPTIONS,
+    ]}"></restaurant-option>
           <restaurant-name-input></restaurant-name-input>
-          <restaurant-option id="distance" values="${RESTAURANT_ADD_DISTANCE_VALUE}" options="${RESTAURANT_ADD_DISTANCE}"></restaurant-option>
+          <restaurant-option id="distance" values="${DISTANCE_OPTION_VALUES}" options="${DISTANCE_OPTIONS}"></restaurant-option>
 
           <div class="form-item">
             <label for="description">설명</label>

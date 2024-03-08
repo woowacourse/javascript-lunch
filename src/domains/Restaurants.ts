@@ -29,8 +29,9 @@ const isAlreadyExist = (newRestaurantName: string) => {
   );
 };
 
-const validateRestaurantData = (restaurantInfo: TRestaurant) => {
+export const validateRestaurantData = (restaurantInfo: TRestaurant) => {
   const { name, category, distance, description, link } = restaurantInfo;
+
   if (!restaurantValidator.isInRange(name, 0, 10)) {
     throw new Error("error");
   }

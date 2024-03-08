@@ -11,10 +11,11 @@ class RestaurantOptions extends BaseComponent {
     const optionsArray = this.getAttribute("options").split(",");
     const valuesArray = this.getAttribute("values").split(",");
     const id = this.getAttribute("id");
+    const text = this.#getOptionText(id);
 
     this.innerHTML = `        
     <div class="form-item form-item--required">
-        <label for="category text-caption">카테고리</label>
+        <label for="${id}-select">${text}</label>
         <select name="${id}" id=${id}-select>
           ${optionsArray.map((option, index) => {
             return `<option value=${valuesArray[index]}>${option}</option>;`;
@@ -22,6 +23,11 @@ class RestaurantOptions extends BaseComponent {
         </select>
         <p class="hidden" id=${id}-select-error-message>옵션을 선택해주세요</p>
     </div>`;
+  }
+
+  #getOptionText(id) {
+    if (id === "category") return "카테고리";
+    if (id === "distance") return "거리(도보 이동 시간)";
   }
 
   #isSelected() {

@@ -1,3 +1,4 @@
+import { CATEGORY_OPTIONS } from "../constants/MenuApp";
 import { initResaurantStorage } from "../domains/Restaurants";
 import BaseComponent from "./BaseComponent.js";
 
@@ -19,12 +20,7 @@ class MenuApp extends BaseComponent {
         <section class="restaurant-filter-container">
             <option-selector type="category" options=${[
               "전체",
-              "한식",
-              "중식",
-              "일식",
-              "양식",
-              "아시안",
-              "기타",
+              ...CATEGORY_OPTIONS,
             ]} ></option-selector>
 
             <option-selector type="sort" options=${[
