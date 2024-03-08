@@ -4,7 +4,7 @@
 
 ## 배포 페이지
 
-[🖥️ 깃허브 페이지 바로가기]()
+[🖥️ 깃허브 페이지 바로가기](https://soi-ha.github.io/javascript-lunch/dist/)
 
 ## 설치
 
