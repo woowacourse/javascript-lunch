@@ -1,4 +1,5 @@
 import { $ } from "../../utils/dom";
+import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantOptions extends BaseComponent {
@@ -14,10 +15,10 @@ class RestaurantOptions extends BaseComponent {
     this.innerHTML = `        
     <div class="form-item form-item--required">
         <label for="category text-caption">카테고리</label>
-        <select name="category" id=${id}-select>
-        ${optionsArray.map((option, index) => {
-          return `<option value=${valuesArray[index]}>${option}</option>;`;
-        })}
+        <select name="${id}" id=${id}-select>
+          ${optionsArray.map((option, index) => {
+            return `<option value=${valuesArray[index]}>${option}</option>;`;
+          })}
         </select>
         <p class="hidden" id=${id}-select-error-message>옵션을 선택해주세요</p>
     </div>`;
@@ -25,15 +26,16 @@ class RestaurantOptions extends BaseComponent {
 
   #isSelected() {
     const id = this.getAttribute("id");
-    return $(`#${id}-select`).value === "";
+    console.log("selected option", $(`#${id}-select`).value);
+    return restaurantValidator.isSelected($(`#${id}-select`).value);
   }
 
   setEvent() {
     const id = this.getAttribute("id");
     document.addEventListener("add-form-submit", (e) => {
       this.#isSelected()
-        ? $(`#${id}-select-error-message`).classList.remove("hidden")
-        : $(`#${id}-select-error-message`).classList.add("hidden");
+        ? $(`#${id}-select-error-message`).classList.add("hidden")
+        : $(`#${id}-select-error-message`).classList.remove("hidden");
     });
   }
 }
