@@ -1,10 +1,10 @@
-import { sampleRestaurants } from './data';
+import restaurants from '../fixtures/restaurants.json';
 
 describe('점심 뭐 먹지 E2E 테스트', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080');
     cy.viewport(550, 950);
-    localStorage.setItem('restaurants', JSON.stringify(sampleRestaurants));
+    localStorage.setItem('restaurants', JSON.stringify(restaurants));
   });
 
   it('새로운 음식점을 추가할 수 있다.', () => {
