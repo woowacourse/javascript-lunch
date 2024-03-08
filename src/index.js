@@ -3,5 +3,7 @@ import "./components/Header.js";
 import "./components/OptionSelector.js";
 import "./components/RestaurantList.js";
 import "./components/RestaurantItem.js";
-import "./components/RestaurantAddForm.js";
+import "./components/RestaurantAddForm/RestaurantNameInput.js";
+import "./components/RestaurantAddForm/RestaurantOption.js";
+import "./components/RestaurantAddForm/index.js";
 import "./components/MenuApp.js";
