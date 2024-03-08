@@ -1,3 +1,5 @@
+import './style.css';
+
 import { CATEGORIES } from '../../constants/categories';
 import { DISTANCE } from '../../constants/distance';
 
@@ -33,7 +35,7 @@ const LUNCH_FORM_ITEM_INPUT = (props: FormItemProps) => `
 
 const LUNCH_FORM_ITEM_TEXTAREA = (props: FormItemProps) => `
   <textarea name="${props.name}" id="${props.name}" cols="30" rows="5" ${props.required ? 'required' : ''
-  }> </textarea>
+  }></textarea>
 `;
 
 const LUNCH_FORM_ITEM_MESSAGE = (props: FormItemProps) => `
