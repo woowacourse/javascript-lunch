@@ -1,11 +1,5 @@
 import './style.css';
 
-// import {ASIAN}, { KOREAN } from '../../imgs/category-asian.png';
-// import {CHINESE} from '../../imgs/category-chinese.png';
-// import {JAPANESE} from '../../imgs/category-japanese.png';
-
-// import WESTERN from '../../imgs/category-western.png';
-// import ETC from '../../imgs/category-etc.png';
 import { KOREAN, CHINESE, JAPANESE, ASIAN, WESTERN, ETC } from '../../imgs/index';
 import { Category, Distance } from '../../types/index';
 
@@ -25,7 +19,12 @@ export const CATEGORY_IMG = {
   기타: ETC,
 } as const;
 
-const LUNCH_ITEM = ({ category, name, distance, description }: LunchItemProps) => `<li class="restaurant">
+const LUNCH_ITEM = ({
+  category,
+  name,
+  distance,
+  description,
+}: LunchItemProps) => `<li class="restaurant">
     <div class="restaurant__category">
       <img src=${CATEGORY_IMG[category]} alt=${category} class="category-icon">
     </div>
@@ -47,7 +46,6 @@ class LunchItem extends HTMLElement {
     const name: string = this.getAttribute('name') ?? '';
     const distance: Distance = (Number(this.getAttribute('distance')) as Distance) ?? 10;
     const description: string = this.getAttribute('description') ?? '';
-
     return {
       category,
       name,
