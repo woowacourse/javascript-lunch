@@ -125,9 +125,13 @@ class RestaurantFormModal {
 
     $restaurantForm.addEventListener(type, (e) => {
       e.preventDefault();
-      this.addRestaurant(e);
-      this.closeModal();
-      listener(e);
+      try {
+        this.addRestaurant(e);
+        this.closeModal();
+        listener(e);
+      } catch (error: any) {
+        alert(error.message);
+      }
     });
   }
 
@@ -157,9 +161,10 @@ class RestaurantFormModal {
       description: formData.get("description") as string,
       link: formData.get("link") as Link,
     };
-    $restaurantForm.reset();
 
     restaurantList.add(newRestuarant);
+
+    $restaurantForm.reset();
   }
 }
 

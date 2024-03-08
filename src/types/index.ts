@@ -11,7 +11,7 @@ type Restaurant = {
   name: string;
   distance: Distance;
   description?: string;
-  link?: Link;
+  link?: Link | "";
 };
 
 type SortingStandard = (typeof sortingStandards)[number];
