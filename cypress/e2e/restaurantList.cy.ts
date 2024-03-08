@@ -20,7 +20,8 @@ describe('RestaurantList 도메인 테스트', () => {
     const RESTAURANT_LIST = new RestaurantList([RESTAURANT_1, RESTAURANT_2, RESTAURANT_3]);
     const FILTERED_COUNT = 2;
 
-    const RESULT = RESTAURANT_LIST.filterByCategory('아시안');
+    RESTAURANT_LIST.filterByCategory('아시안');
+    const RESULT = RESTAURANT_LIST.getSortedByName();
 
     expect(RESULT.length).to.equal(FILTERED_COUNT);
   });
