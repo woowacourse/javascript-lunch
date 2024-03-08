@@ -16,9 +16,9 @@ const LUNCH_APP = `
 
 class LunchApp extends HTMLElement {
   connectedCallback() {
-    this.render();
     localStorage.getItem('restaurants') ??
       localStorage.setItem('restaurants', JSON.stringify(DUMMY));
+    this.render();
   }
 
   render() {
