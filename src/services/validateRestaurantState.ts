@@ -1,4 +1,5 @@
 import { Icategory, Irestaurant, IrestaurantField } from "../types";
+
 import RestaurantListStorageService from "./restaurantListStorageService";
 
 const valid = {

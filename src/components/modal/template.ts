@@ -1,4 +1,4 @@
-export const modalTemplate = /*html*/ `
+const modalTemplate = /*html*/ `
 <div class="modal">
   <div class="modal-backdrop"></div>
   <div class="modal-container">
@@ -6,3 +6,5 @@ export const modalTemplate = /*html*/ `
     <form id="modal-form" class="modal-form"></form>
   </div>
 </div>`;
+
+export default modalTemplate;

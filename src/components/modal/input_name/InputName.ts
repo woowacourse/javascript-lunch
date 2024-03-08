@@ -1,6 +1,7 @@
-import { inputNameTemplate } from "./template";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
-import { inputNameHandler } from "./handlers";
+
+import inputNameHandler from "./handlers";
+import inputNameTemplate from "./template";
 
 function InputName(form: Element) {
   const render = () => {

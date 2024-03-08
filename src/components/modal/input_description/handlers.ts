@@ -1,7 +1,7 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
 
-export const descriptionEventHandler = (description: HTMLElement) => {
+const descriptionEventHandler = (description: HTMLElement) => {
   description.addEventListener("input", (event) => {
     if (event.target instanceof HTMLTextAreaElement) {
       const inputDescription = event.target.value;
@@ -10,3 +10,5 @@ export const descriptionEventHandler = (description: HTMLElement) => {
     }
   });
 };
+
+export default descriptionEventHandler;

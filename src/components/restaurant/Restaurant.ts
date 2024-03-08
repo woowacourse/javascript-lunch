@@ -1,35 +1,31 @@
 import { Irestaurant } from "../../types";
-import { baseTemplate, categoryTemplate, template } from "./template";
+
 import categoryMatchedImageData from "./categoryMatchedImageData";
+import { baseTemplate, categoryTemplate, template } from "./template";
+
+const findCategory = (restaurant: Irestaurant) =>
+  categoryMatchedImageData.find(
+    (item) => item.category === restaurant.category,
+  );
+
+const getMatchedCategoryInfo = (restaurant: Irestaurant) => {
+  const categoryInfo = findCategory(restaurant);
+  if (categoryInfo) return categoryInfo;
+
+  return {
+    categoryImg: "",
+    category: "",
+  };
+};
 
 function Restaurant(restaurant: Irestaurant) {
-  const render = () => {
-    const categoryInfo = getMatchedCategoryInfo(restaurant);
-    const restaurantContainer = baseTemplate(
-      categoryTemplate(categoryInfo),
-      template(restaurant),
-    );
+  const categoryInfo = getMatchedCategoryInfo(restaurant);
+  const restaurantContainer = baseTemplate(
+    categoryTemplate(categoryInfo),
+    template(restaurant),
+  );
 
-    return restaurantContainer;
-  };
-
-  const findCategory = (restaurant: Irestaurant) => {
-    return categoryMatchedImageData.find(
-      (item) => item.category === restaurant.category,
-    );
-  };
-
-  const getMatchedCategoryInfo = (restaurant: Irestaurant) => {
-    const categoryInfo = findCategory(restaurant);
-    if (categoryInfo) return categoryInfo;
-
-    return {
-      categoryImg: "",
-      category: "",
-    };
-  };
-
-  render();
+  return restaurantContainer;
 }
 
 export default Restaurant;

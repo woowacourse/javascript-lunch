@@ -2,15 +2,6 @@ import filterState from "../../store/FilterStateStore";
 import { Icategory, IsortType } from "../../types";
 import RestaurantList from "../restaurant_list/RestaurantList";
 
-export const changeFilter = () => {
-  document.addEventListener("DOMContentLoaded", () => {
-    const categoryFilter = document.getElementById("category-filter");
-    if (categoryFilter) {
-      categoryFilterHandler(categoryFilter);
-    }
-  });
-};
-
 const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   categoryFilter.addEventListener("change", (event) => {
     if (event.target instanceof HTMLSelectElement) {
@@ -22,11 +13,11 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   });
 };
 
-export const changeSorting = () => {
+export const changeFilter = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const sortFilter = document.getElementById("sorting-filter");
-    if (sortFilter) {
-      sortHandler(sortFilter);
+    const categoryFilter = document.getElementById("category-filter");
+    if (categoryFilter) {
+      categoryFilterHandler(categoryFilter);
     }
   });
 };
@@ -38,6 +29,15 @@ const sortHandler = (sortFilter: HTMLElement) => {
       filterState.setSortType(selectedValue);
 
       RestaurantList().reRender();
+    }
+  });
+};
+
+export const changeSorting = () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const sortFilter = document.getElementById("sorting-filter");
+    if (sortFilter) {
+      sortHandler(sortFilter);
     }
   });
 };

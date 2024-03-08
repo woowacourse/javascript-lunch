@@ -1,6 +1,7 @@
-import { modalButtonTemplate } from "./template";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
+
 import { cancelHandler, submitHandler } from "./handlers";
+import modalButtonTemplate from "./template";
 
 function ModalButton(modal: Element, form: Element) {
   const render = () => {

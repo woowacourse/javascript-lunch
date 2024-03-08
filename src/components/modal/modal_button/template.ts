@@ -1,4 +1,4 @@
-export const modalButtonTemplate = /*html*/ `
+const modalButtonTemplate = /*html*/ `
 <div class="button-container">
     <button
     type="button"
@@ -11,3 +11,5 @@ export const modalButtonTemplate = /*html*/ `
     </button>
 </div>
 `;
+
+export default modalButtonTemplate;

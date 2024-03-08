@@ -1,6 +1,7 @@
-import { selectDistanceTemplate } from "./template";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
+
 import { distanceChange } from "./handlers";
+import selectDistanceTemplate from "./template";
 
 function SelectDistance(form: Element) {
   const render = () => {

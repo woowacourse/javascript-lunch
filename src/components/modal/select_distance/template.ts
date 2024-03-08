@@ -1,4 +1,4 @@
-export const selectDistanceTemplate = /*html*/ `
+const selectDistanceTemplate = /*html*/ `
 <div class="form-item form-item--required">
 <label for="distance text-caption">거리(도보 이동 시간) </label>
 <select name="distance" id="distance" required>
@@ -10,3 +10,4 @@ export const selectDistanceTemplate = /*html*/ `
   <option value="30">30분 내</option>
 </select>
 </div>`;
+export default selectDistanceTemplate;

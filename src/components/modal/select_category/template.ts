@@ -1,4 +1,4 @@
-export const selectCategoryTemplate = /*html*/ `
+const selectCategoryTemplate = /*html*/ `
 <div class="form-item form-item--required">
   <label for="category text-caption">카테고리</label>
   <select name="category" id="category" required>  
@@ -11,3 +11,5 @@ export const selectCategoryTemplate = /*html*/ `
     <option value="기타">기타</option>
   </select>
 </div>`;
+
+export default selectCategoryTemplate;

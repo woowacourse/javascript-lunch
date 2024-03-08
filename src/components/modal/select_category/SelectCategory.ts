@@ -1,6 +1,7 @@
-import { selectCategoryTemplate } from "./template";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
+
 import { categoryChange } from "./handlers";
+import selectCategoryTemplate from "./template";
 
 function SelectCategory(form: Element) {
   const render = () => {

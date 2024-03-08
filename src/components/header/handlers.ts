@@ -1,4 +1,4 @@
-export const modalOpenHandler = () => {
+const modalOpenHandler = () => {
   const modal = document.getElementsByClassName("modal")[0];
   const openButton = document.getElementsByClassName("gnb__button")[0];
 
@@ -6,3 +6,4 @@ export const modalOpenHandler = () => {
     modal.classList.add("modal--open");
   });
 };
+export default modalOpenHandler;

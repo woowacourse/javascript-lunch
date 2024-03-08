@@ -1,4 +1,4 @@
-export const inputLinkTemplate = /*html*/ `
+const inputLinkTemplate = /*html*/ `
 <div class="form-item">
   <label for="link text-caption">참고 링크</label>
   <input type="text" name="link" id="link" />
@@ -7,3 +7,4 @@ export const inputLinkTemplate = /*html*/ `
   </span>
 </div>
 `;
+export default inputLinkTemplate;

@@ -1,6 +1,6 @@
 import { Irestaurant } from "../types";
 
-export default function Restaurant(restaurant: Irestaurant) {
+export default function setRestaurant(restaurant: Irestaurant) {
   return {
     category: restaurant.category,
     name: restaurant.name,

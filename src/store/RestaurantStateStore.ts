@@ -1,4 +1,4 @@
-import Restaurant from "../domain/Restaurant";
+import Restaurant from "../domain/SetRestaurant";
 import { Icategory, Idistance, Irestaurant, IrestaurantField } from "../types";
 
 class RestaurantStateStore {

@@ -1,37 +1,33 @@
+import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
+
+import { changeFilter, changeSorting } from "./handlers";
 import {
   baseSectionTemplate,
   filterSelectTemplate,
   sortSelectTemplate,
 } from "./template";
-import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
-import { changeFilter, changeSorting } from "./handlers";
 
-function FilterBar() {
-  const render = () => {
-    generateBaseComponents();
-    generateFilterBarComponents();
+const generateBaseComponents = () => {
+  const formattedBaseSectionTemplate =
+    convertHTMLStringToDOM(baseSectionTemplate);
 
-    changeFilter();
-    changeSorting();
-  };
+  document.body.appendChild(formattedBaseSectionTemplate);
+};
 
-  const generateBaseComponents = () => {
-    const formattedBaseSectionTemplate =
-      convertHTMLStringToDOM(baseSectionTemplate);
+const generateFilterBarComponents = () => {
+  const barContainer = document.getElementsByClassName(
+    "restaurant-filter-container",
+  )[0];
 
-    document.body.appendChild(formattedBaseSectionTemplate);
-  };
+  barContainer.appendChild(convertHTMLStringToDOM(filterSelectTemplate));
+  barContainer.appendChild(convertHTMLStringToDOM(sortSelectTemplate));
+};
 
-  const generateFilterBarComponents = () => {
-    const barContainer = document.getElementsByClassName(
-      "restaurant-filter-container",
-    )[0];
+const FilterBar = () => {
+  generateBaseComponents();
+  generateFilterBarComponents();
 
-    barContainer.appendChild(convertHTMLStringToDOM(filterSelectTemplate));
-    barContainer.appendChild(convertHTMLStringToDOM(sortSelectTemplate));
-  };
-
-  render();
-}
-
+  changeFilter();
+  changeSorting();
+};
 export default FilterBar;

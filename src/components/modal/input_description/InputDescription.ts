@@ -1,25 +1,22 @@
-import { inputDescriptionTemplate } from "./template";
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
-import { descriptionEventHandler } from "./handlers";
+
+import descriptionEventHandler from "./handlers";
+import inputDescriptionTemplate from "./template";
+
+const inputDescriptionHandler = () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const description = document.getElementById("description");
+
+    if (description) {
+      descriptionEventHandler(description);
+    }
+  });
+};
 
 function InputDescription(form: Element) {
-  const render = () => {
-    form.appendChild(convertHTMLStringToDOM(inputDescriptionTemplate));
+  form.appendChild(convertHTMLStringToDOM(inputDescriptionTemplate));
 
-    inputDescriptionHandler();
-  };
-
-  const inputDescriptionHandler = () => {
-    document.addEventListener("DOMContentLoaded", () => {
-      const description = document.getElementById("description");
-
-      if (description) {
-        descriptionEventHandler(description);
-      }
-    });
-  };
-
-  render();
+  inputDescriptionHandler();
 }
 
 export default InputDescription;

@@ -1,11 +1,12 @@
-type Icategory = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
-type Iall = "전체";
+export type Icategory = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
 
-type Idistance = 5 | 10 | 15 | 20 | 30;
+export type Iall = "전체";
 
-type IsortType = "name" | "distance";
+export type Idistance = 5 | 10 | 15 | 20 | 30;
 
-type IinvalidResult = {
+export type IsortType = "name" | "distance";
+
+export type IinvalidResult = {
   targetClassName: string;
   isValid: boolean;
   errorMessage: string;
@@ -28,8 +29,6 @@ export interface IrestaurantField {
 }
 
 export interface IrestaurantList {
-  // addRestaurant: (restaurant: Irestaurant) => void;
-
   sortByName: (restaurantList: Irestaurant[]) => Irestaurant[];
 
   sortByDistance: (restaurantList: Irestaurant[]) => Irestaurant[];
@@ -40,7 +39,7 @@ export interface IrestaurantList {
   ) => Irestaurant[];
 }
 
-interface IcategoryInfo {
+export interface IcategoryInfo {
   category: string;
   categoryImg: string;
 }
