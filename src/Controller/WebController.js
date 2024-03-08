@@ -104,9 +104,11 @@ class WebController {
 
   #closeModal() {
     const modal = document.getElementById('add-form-modal');
+    const form = document.getElementById('add-restaurant-form');
 
     modal.classList.remove('modal--open');
     modal.classList.add('modal--close');
+    form.reset();
   }
 
   #openModal() {
