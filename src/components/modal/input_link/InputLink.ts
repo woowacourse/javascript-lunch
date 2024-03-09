@@ -1,10 +1,9 @@
-import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
-
 import { inputLinkHandler } from './handlers';
-import inputLinkTemplate from './inputLinkTemplate';
+import { renderBaseComponents, renderLinkComponents } from './renderHandlers';
 
 function InputLink(form: Element) {
-  form.appendChild(convertHTMLStringToDOM(inputLinkTemplate));
+  renderBaseComponents(form);
+  renderLinkComponents();
 
   inputLinkHandler();
 }

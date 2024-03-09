@@ -52,3 +52,16 @@ export interface LabelElementDataType extends Partial<BasicElementDataType> {
   TAG_HTML_FOR: string;
   TAG_TEXT: string;
 }
+
+export type InputComponentPropsType = {
+  type: string;
+  id: string;
+  className?: string;
+  required?: boolean;
+};
+
+export interface InputElementDataType extends Partial<BasicElementDataType> {
+  TAG_ID: string;
+  TAG_REQUIRED?: boolean;
+  TAG_TYPE: string;
+}
