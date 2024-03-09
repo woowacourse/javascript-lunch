@@ -1,17 +1,13 @@
 import BaseComponent from '../BaseComponent';
 
+type ButtonType = 'submit' | 'reset' | 'button';
 class BasicButton extends BaseComponent {
   #isPrimary;
   #innerText;
   #type;
   #clickEvent;
 
-  constructor(
-    isPrimary: boolean,
-    innerText: string,
-    type: 'submit' | 'reset' | 'button',
-    clickEvent: () => void,
-  ) {
+  constructor(isPrimary: boolean, innerText: string, type: ButtonType, clickEvent: () => void) {
     super();
     this.#isPrimary = isPrimary;
     this.#innerText = innerText;
@@ -20,7 +16,7 @@ class BasicButton extends BaseComponent {
   }
 
   render() {
-    const $button = this.#getButton();
+    const $button = this.#addButton();
     this.append($button);
     this.classList.add('button');
     this.addEventListener('click', () => {
@@ -28,7 +24,7 @@ class BasicButton extends BaseComponent {
     });
   }
 
-  #getButton() {
+  #addButton() {
     const $button = document.createElement('button');
     const buttonStyleClass = `${this.#isPrimary ? 'button--primary' : 'button--secondary'}`;
     $button.classList.add('button', 'text-caption', buttonStyleClass);

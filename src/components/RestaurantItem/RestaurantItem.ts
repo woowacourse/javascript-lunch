@@ -7,7 +7,7 @@ import westernIcon from '@/assets/category-western.png';
 import etcIcon from '@/assets/category-etc.png';
 import { Category, IRestaurant } from '@/types/Restaurant';
 
-export const Icons: { [key: Category]: string } = {
+export const Icons = {
   한식: koreanIcon,
   아시안: asianIcon,
   일식: japaneseIcon,

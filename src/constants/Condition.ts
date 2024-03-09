@@ -6,7 +6,7 @@ export const CONDITIONS = Object.freeze({
   },
 });
 
-export const CATEGORIES: { [key: string]: string } = {
+export const CATEGORIES = {
   한식: 'korean',
   중식: 'chinese',
   일식: 'japanese',
