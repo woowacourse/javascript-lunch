@@ -10,10 +10,6 @@
     "test": "cypress open",
     "lint": "eslint src/"
   },
-  "repositorhttps://github.com/woowacourse/javascript-lunch/pull/104/conflict?name=package.json&base_oid=06d1bf212ffc0f0196dacd056c0a998adbc89863&head_oid=38a8762d07ac8f70daad90c3d49094739ec7045fy": {
-    "type": "git",
-    "url": "git+https://github.com/woowacourse/javascript-lunch.git"
-  },
   "keywords": [],
   "author": "",
   "license": "MIT",
