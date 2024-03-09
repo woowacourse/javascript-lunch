@@ -17,33 +17,26 @@
 
 ## UI
 
-- [ ] RestaurantListLayout
-  - [ ] header
-    - [ ] title
-    - [ ] add restaurant button
-      - click event: AddRestaurantModal 띄우기
-  - [ ] main
-    - [ ] RestaurantOptionSection
-      - [ ] filter select
+- [x] RestaurantListView
+  - [x] header
+    - [x] add restaurant button
+      - click event: RestaurantFormModal 띄우기
+  - [x] main
+    - [x] RestaurantSelectSection
+      - [x] category select
         - select event: 해당 value에 맞도록 필터링 -> RestaurantListSection에 반영
-      - [ ] sort select
+      - [x] sort select
         - select event: 해당 value에 맞도록 정렬 -> RestaurantListSection에 반영
-    - [ ] RestaurantListSection
-      - [ ] RestaurantItem
-- [ ] AddRestaurantModal
-  - [ ] AddRestaurantForm
-    - [ ] form title
-    - [ ] category select
-    - [ ] name input
-    - [ ] distance select
-    - [ ] description input
-    - [ ] link input
-    - [ ] cancel button
-      - click event: AddRestaurantModal 닫기
-    - [ ] submit button
+    - [x] RestaurantListSection
+      - [x] RestaurantItem
+- [x] RestaurantFormModal
+  - [x] AddRestaurantForm
+    - [x] cancel button
+      - click event: RestaurantFormModal 닫기
+    - [x] submit button
       - submit event: 음식점 추가 및 RestaurantListSection에 반영
-- [ ] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 -> alert
+- [x] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 -> alert
 
 ## 기타
 
-- [ ] 새로고침해도 추가한 음식점 정보들이 유지된다(localStorage).
+- [x] 새로고침해도 추가한 음식점 정보들이 유지된다(localStorage).
