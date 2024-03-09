@@ -2,7 +2,7 @@ import { Restaurant } from "../types";
 
 const RESTAURANTS = "restaurants";
 
-export function getResturantsFromLocalStorage(): Restaurant[] {
+export function getRestaurantsFromLocalStorage(): Restaurant[] {
   if (!localStorage.getItem(RESTAURANTS)) {
     localStorage.setItem(RESTAURANTS, JSON.stringify([]));
   }
@@ -13,6 +13,6 @@ export function getResturantsFromLocalStorage(): Restaurant[] {
 }
 
 export function setRestaurantsToLocalStorage(newRestuarant: Restaurant) {
-  const newRestaurants = [...getResturantsFromLocalStorage(), newRestuarant];
+  const newRestaurants = [...getRestaurantsFromLocalStorage(), newRestuarant];
   localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
 }

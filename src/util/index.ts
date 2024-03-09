@@ -1,11 +1,11 @@
 import { deepCopy } from "./deepCopy";
 import {
-  getResturantsFromLocalStorage,
+  getRestaurantsFromLocalStorage,
   setRestaurantsToLocalStorage,
 } from "./localStorage";
 
 export {
   deepCopy,
-  getResturantsFromLocalStorage,
+  getRestaurantsFromLocalStorage,
   setRestaurantsToLocalStorage,
 };

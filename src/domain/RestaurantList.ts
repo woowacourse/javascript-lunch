@@ -1,7 +1,7 @@
 import { Restaurant, Category, SortingStandard, Link } from "../types";
 import {
   deepCopy,
-  getResturantsFromLocalStorage,
+  getRestaurantsFromLocalStorage,
   setRestaurantsToLocalStorage,
 } from "../util";
 import { categories, distances } from "../constants";
@@ -14,7 +14,7 @@ class RestaurantList {
     category: Category | "전체";
     sortingStandard: SortingStandard;
   }): Restaurant[] {
-    const restaurants: Restaurant[] = getResturantsFromLocalStorage();
+    const restaurants: Restaurant[] = getRestaurantsFromLocalStorage();
     if (category === "전체") {
       return restaurants
         .sort((a, b) => {
