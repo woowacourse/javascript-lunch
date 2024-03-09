@@ -6,4 +6,4 @@ export { default as CategoryJapanese } from './category-japanese.png';
 export { default as CategoryKorean } from './category-korean.png';
 export { default as CategoryWestern } from './category-western.png';
 export { default as FavoriteIconFilled } from './favorite-icon-filled.png';
-export { default as FavoriteIconLined } from './favorite-icon-Lined.png';
+export { default as FavoriteIconLined } from './favorite-icon-lined.png';
