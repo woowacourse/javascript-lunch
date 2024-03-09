@@ -5,14 +5,35 @@ function validateSelector(selector: string) {
   }
 }
 
+function validateExistElement(element: Element | null) {
+  if (element === null) {
+    alert('element를 찾을 수 없습니다,');
+    throw new Error('element를 찾을 수 없습니다');
+  }
+}
+
+function validateExistElements(elements: NodeListOf<Element>) {
+  if (elements.length === 0) {
+    alert('element를 찾을 수 없습니다,');
+    throw new Error('element를 찾을 수 없습니다');
+  }
+}
+
 const DOM = {
-  $: (selector: string) => {
-    validateSelector(selector);
-    return document.querySelector(selector);
+  $: <T>(selector: string) => {
+    validateSelector(selector);    
+    const element = document.querySelector(selector);    
+    
+    validateExistElement(element);
+    return element as T;
   },
-  $$: (selector: string) => {
+
+  $$: <T extends Element>(selector: string) => {
     validateSelector(selector);
-    return document.querySelectorAll(selector);
+    const elements = document.querySelectorAll(selector);
+
+    validateExistElements(elements);
+    return elements as NodeListOf<T>;
   },
 };
 

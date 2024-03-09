@@ -5,6 +5,7 @@ import Restaurant from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
+import ListContainer from './components/ListContainer';
 
 const { $, $$ } = DOM;
 
@@ -18,18 +19,21 @@ const root = {
 
   initList(matzip: Matzip) {
     document.addEventListener('DOMContentLoaded', () => {
-      const initSort = $('#sorting-filter') as HTMLSelectElement;
+      const initSort = $<HTMLSelectElement>('#sorting-filter');
       const sortBy = initSort.options[initSort.selectedIndex].value;
+      const listContainer = new ListContainer();
 
       matzip.filterAndSort('전체', sortBy as SortType).forEach((restaurant) => {
-        $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant));
+        listContainer.appendChild(new Restaurant(restaurant));
       });
+
+      $<HTMLElement>('main').appendChild(listContainer);
     });
   },
 
   listenCategoryChange(matzip: Matzip) {
     document.addEventListener('filterChange', (event: Event) => {
-      Array.from($$('.restaurant')).map((node) => node.remove());
+      $<ListContainer>('.restaurant-lists').remove();
 
       const customEvent = event as FilterChangeEvent;
       const selectedCategory = customEvent.detail.selectedCategory;
@@ -38,14 +42,19 @@ const root = {
         selectedCategory as CategoryType,
         selectedSort as SortType,
       );
+
+      const listContainer = new ListContainer();      
+
       restaurants.forEach((restaurant) => {
-        $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant));
+        listContainer.appendChild(new Restaurant(restaurant));
       });
+
+      $<HTMLElement>('main').appendChild(listContainer);
     });
   },
 
   listenRestaurantAdd(matzip: Matzip) {
-    $('#restaurant-form')?.addEventListener('submit', (event) => {
+    $<HTMLElement>('#restaurant-form').addEventListener('submit', (event) => {
       event.preventDefault();
       const fieldValues = Array.from($$('.form-item')).map((item) => {
         const field = item.children[1] as Select | TextArea | Input;
@@ -61,8 +70,8 @@ const root = {
 
       matzip.add(newRestaurant);
       storage.addData(newRestaurant);
-      $('.modal')?.classList.remove('modal--open');
-      $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
+      $<HTMLElement>('.modal').classList.remove('modal--open');
+      $<HTMLUListElement>('.restaurant-lists').appendChild(new Restaurant(newRestaurant));
     });
   },
 };

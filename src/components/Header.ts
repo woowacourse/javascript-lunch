@@ -29,12 +29,12 @@ class Header extends HTMLElement {
       ariaLabel: '음식점 추가',
       children: new Image(image),
     };
-    $('.gnb')?.appendChild(new Button(button));
+    $<HTMLElement>('.gnb')?.appendChild(new Button(button));
   }
 
   openModal() {
-    $('.gnb__button')?.addEventListener('click', () => {
-      $('.modal')?.classList.add('modal--open');
+    $<HTMLButtonElement>('.gnb__button').addEventListener('click', () => {
+      $<HTMLElement>('.modal').classList.add('modal--open');
     });
   }
 }

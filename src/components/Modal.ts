@@ -24,15 +24,15 @@ class Modal extends HTMLElement {
   }
 
   appendForm() {
-    $('#restaurant-form')?.appendChild(new RestaurantForm());
+    $<HTMLFormElement>('#restaurant-form').appendChild(new RestaurantForm());
   }
 
   closeModal() {
-    $('.modal-backdrop')?.addEventListener('click', () => {
-      $('.modal')?.classList.remove('modal--open');
+    $<HTMLDivElement>('.modal-backdrop').addEventListener('click', () => {
+      $<HTMLDivElement>('.modal').classList.remove('modal--open');
     });
-    $('.modal--close')?.addEventListener('click', () => {
-      $('.modal')?.classList.remove('modal--open');
+    $<HTMLButtonElement>('.modal--close')?.addEventListener('click', () => {
+      $<HTMLDivElement>('.modal').classList.remove('modal--open');
     });
   }
 }

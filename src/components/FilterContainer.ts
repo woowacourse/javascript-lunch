@@ -46,7 +46,7 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: options,
     };
-    $('.restaurant-filter-container')?.appendChild(new Select(selectBox));
+    $<HTMLElement>('.restaurant-filter-container').appendChild(new Select(selectBox));
   }
 
   createSortSelect() {
@@ -61,7 +61,7 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: sortOptions,
     };
-    $('.restaurant-filter-container')?.appendChild(new Select(sortBox));
+    $<HTMLElement>('.restaurant-filter-container')?.appendChild(new Select(sortBox));
   }
 
   categoryChange() {
