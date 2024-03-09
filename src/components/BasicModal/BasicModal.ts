@@ -32,13 +32,9 @@ class BasicModal extends BaseComponent {
   }
 
   static blockModalBodyScroll() {
-    if (document.querySelector('.modal')?.classList.contains('modal--open')) {
-      document.body.style.overflow = 'hidden';
-      console.log('열림');
-    } else {
-      document.body.style.overflow = 'auto';
-      console.log('닫림');
-    }
+    if (document.querySelector('.modal')?.classList.contains('modal--open'))
+      return (document.body.style.overflow = 'hidden');
+    return (document.body.style.overflow = 'auto');
   }
 }
 export default BasicModal;

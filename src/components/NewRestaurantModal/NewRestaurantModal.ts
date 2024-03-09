@@ -4,7 +4,8 @@ import SelectBox from '../SelectBox/SelectBox';
 import BaseComponent from '../BaseComponent';
 import BasicButton from '../BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import { IRestaurant, RequiredCategoriesKeys, RequiredDistanceKeys } from '@/types/Restaurant';
+import { Category, IRestaurant } from '@/types/Restaurant';
+import validator from '@/utils/validator';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
@@ -59,11 +60,18 @@ class NewRestaurantModal extends BaseComponent {
     });
 
     $categorySelectBox.append($categorySelect);
-    const errorBox = document.createElement('div');
-    errorBox.classList.add('error', 'hidden');
-    errorBox.textContent = '카테고리는 필수 입력입니다.';
-    $categorySelectBox.append(errorBox);
+    const $errorBox = this.#makeErrorMessage('카테고리는 필수 입력입니다.', 'category-error');
+    $categorySelectBox.append($errorBox);
+
     this.#form.append($categorySelectBox);
+  }
+
+  #makeErrorMessage(text: string, id: string) {
+    const $errorBox = document.createElement('div');
+    $errorBox.id = id;
+    $errorBox.classList.add('error', 'hidden');
+    $errorBox.textContent = text;
+    return $errorBox;
   }
 
   #makeNameInput() {
@@ -71,13 +79,11 @@ class NewRestaurantModal extends BaseComponent {
     $nameInputBox.classList.add('form-item', 'form-item--required', 'name-input-box');
     $nameInputBox.innerHTML = `
     <label for="name text-caption">이름</label>
-     <input type="text" name="name" id="name" />
+     <input type="text" name="name" id="name" max="10"/>
     `;
     this.#form.append($nameInputBox);
-    const errorBox = document.createElement('div');
-    errorBox.classList.add('error', 'hidden');
-    errorBox.textContent = '이름값은 필수 입력입니다.';
-    $nameInputBox.append(errorBox);
+    const $errorBox = this.#makeErrorMessage('이름값은 필수 입력입니다.', 'name-error');
+    $nameInputBox.append($errorBox);
   }
 
   #makeDistanceSelectBox() {
@@ -98,10 +104,9 @@ class NewRestaurantModal extends BaseComponent {
         id: '',
       }),
     );
-    const errorBox = document.createElement('div');
-    errorBox.classList.add('error', 'hidden');
-    errorBox.textContent = '거리 값은 필수 입력입니다.';
-    $distanceSelection.append(errorBox);
+
+    const $errorBox = this.#makeErrorMessage('거리 값은 필수 입력입니다.', 'distance-error');
+    $distanceSelection.append($errorBox);
 
     this.#form.append($distanceSelection);
   }
@@ -111,7 +116,7 @@ class NewRestaurantModal extends BaseComponent {
     $descriptionTextBox.classList.add('form-item');
     $descriptionTextBox.innerHTML = `
               <label for="description text-caption">설명</label>
-              <textarea name="description" id="description" cols="30" rows="5"></textarea>
+              <textarea name="description" id="description" cols="30" rows="5" max="300"></textarea>
               <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
 `;
 
@@ -124,6 +129,9 @@ class NewRestaurantModal extends BaseComponent {
     $linkTextBox.innerHTML = ` <label for="link text-caption">참고 링크</label>
                 <input type="text" name="link" id="link" />
                  <span class="help-text text-caption"> 매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
+    const $errorBox = this.#makeErrorMessage('유효한 링크를 입력해주세요', 'link-error');
+    $linkTextBox.append($errorBox);
+
     this.#form.append($linkTextBox);
   }
 
@@ -140,8 +148,8 @@ class NewRestaurantModal extends BaseComponent {
     const addButton = new BasicButton({
       variant: 'primary',
       textContent: '추가하기',
-      type: 'button',
-      clickEvent: this.#submitForm,
+      type: 'submit',
+      clickEvent: () => {},
     });
 
     $buttonBox.append(cancelButton);
@@ -150,38 +158,96 @@ class NewRestaurantModal extends BaseComponent {
     this.#form.append($buttonBox);
   }
 
-  #validateRequiredValues(
-    category: RequiredCategoriesKeys,
-    distance: RequiredDistanceKeys,
-    name: string | null,
-  ) {
-    const isNotValidCategory = category === '선택해주세요';
-    const isNotValidDistance = Number.isNaN(distance);
-    const isNotValidName = !name;
-    if (isNotValidCategory) {
-      document.querySelector('.category-select > .error')?.classList.remove('hidden');
+  // #validateRequiredValues(
+  //   category: RequiredCategoriesKeys,
+  //   distance: RequiredDistanceKeys,
+  //   name: string | null,
+  // ) {
+  //   const isNotValidCategory = category === '선택해주세요';
+  //   const isNotValidDistance = Number.isNaN(distance);
+  //   const isNotValidName = !name;
+  //   if (isNotValidCategory) {
+  //     document.querySelector('#category-error')?.classList.remove('hidden');
+  //   }
+  //   if (isNotValidDistance) {
+  //     document.querySelector('#distance-error')?.classList.remove('hidden');
+  //   }
+  //   if (isNotValidName) {
+  //     document.querySelector('#name-error')?.classList.remove('hidden');
+  //   }
+  //   if (link && !validator.isValidLink(link)) {
+  //     document.querySelector('#link-error')?.classList.remove('hidden');
+  //   }
+
+  //   return isNotValidCategory || isNotValidDistance || isNotValidName;
+  // }
+
+  #validateCategory(category: string) {
+    if (!validator.isValidCategory(category)) {
+      document.querySelector('#category-error')?.classList.remove('hidden');
+      return false;
     }
-    if (isNotValidDistance) {
-      document.querySelector('.distance-select > .error')?.classList.remove('hidden');
+    return true;
+  }
+
+  #validateDistance(distance: number) {
+    if (!validator.isValidDistance(distance)) {
+      document.querySelector('#distance-error')?.classList.remove('hidden');
+      return false;
     }
-    if (isNotValidName) {
-      document.querySelector('.name-input-box > .error')?.classList.remove('hidden');
+    return true;
+  }
+
+  #validateName(name: string | null) {
+    if (!validator.isValidName(name)) {
+      document.querySelector('#name-error')?.classList.remove('hidden');
+      return false;
     }
-    return isNotValidCategory || isNotValidDistance || isNotValidName;
+    return true;
+  }
+
+  #validateLink(link: string) {
+    if (!validator.isValidLink(link)) {
+      document.querySelector('#link-error')?.classList.remove('hidden');
+    }
+  }
+
+  #validateValues({
+    category,
+    distance,
+    name,
+    link,
+  }: {
+    category: string;
+    distance: number;
+    name: string;
+    link: string;
+  }) {
+    this.#validateCategory(category);
+    this.#validateDistance(distance);
+    this.#validateName(name);
+    this.#validateLink(link);
+
+    return (
+      this.#validateCategory(category) ||
+      this.#validateDistance(distance) ||
+      this.#validateName(name)
+    );
   }
 
   #submitForm() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.#hideErrorMessage();
-      const [name, distance, category, description, link] = this.#getValues();
+      const values = this.#getValues();
+      const { category, name, distance, description, link } = values;
 
-      if (this.#validateRequiredValues(category, distance, name)) return;
+      if (this.#validateValues(values)) return;
 
       const newRestaurant: IRestaurant = {
         name,
         distance,
-        category,
+        category: category as Category,
         ...(description && { description }),
         ...(link && { link }),
       };
@@ -200,21 +266,21 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #hideErrorMessage() {
-    document.querySelector('.category-select > .error')?.classList.add('hidden');
-    document.querySelector('.distance-select > .error')?.classList.add('hidden');
-    document.querySelector('.name-input-box > .error')?.classList.add('hidden');
+    document.querySelectorAll('.error').forEach((el) => {
+      el.classList.add('hidden');
+    });
   }
 
   #getValues() {
-    const name = (this.#form.elements.namedItem('name') as HTMLInputElement)
-      .value as RequiredCategoriesKeys;
+    const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
     const distance = Number(
       (this.#form.elements.namedItem('distance') as HTMLSelectElement).value.slice(0, -3),
-    ) as RequiredDistanceKeys;
+    );
     const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
     const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
-    return [name, distance, category, description, link];
+
+    return { name, distance, category, description, link };
   }
 
   #rerenderByFilter() {
