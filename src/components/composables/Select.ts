@@ -1,4 +1,4 @@
-import { SelectPropsType, SelectElementPropsType, OptionElementPropsType } from '../../types';
+import { OptionElementPropsType, SelectElementPropsType, SelectPropsType } from '../../types';
 
 const createSelectElement = ({ id, name, className }: SelectElementPropsType) =>
   Object.assign(document.createElement('select'), {

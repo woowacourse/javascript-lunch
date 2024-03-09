@@ -1,16 +1,12 @@
-import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
+import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 
-import modalOpenHandler from "./handlers";
-import headerTemplate from "./headerTemplate";
+import modalOpenHandler from './eventHandlers';
+import headerTemplate from './headerTemplate';
 
 function Header() {
-  const render = () => {
-    document.body.appendChild(convertHTMLStringToDOM(headerTemplate));
+  document.body.appendChild(convertHTMLStringToDOM(headerTemplate));
 
-    modalOpenHandler();
-  };
-
-  render();
+  modalOpenHandler();
 }
 
 export default Header;
