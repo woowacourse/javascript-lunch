@@ -1,7 +1,7 @@
 const convertHTMLStringToDOM = (htmlString: string) => {
-  const template = document.createElement("template");
-  template.innerHTML = htmlString.trim();
-  return template.content;
+  const parser = new DOMParser();
+  const document = parser.parseFromString(htmlString, "text/html");
+  return document.body.firstChild!;
 };
 
 export default convertHTMLStringToDOM;
