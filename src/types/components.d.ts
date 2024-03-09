@@ -3,31 +3,29 @@ type Option = {
   value: string;
 };
 
-export type SelectPropsType = {
-  options: Option[];
+export type SelectComponentPropsType = {
+  options: readonly Option[];
   className?: string;
   id?: string;
   name: string;
   defaultValue?: string;
+  required?: boolean;
 };
 
 type BasicElementDataType = {
   TAG_CLASS_NAME: string;
 };
 
-export interface SelectElementDataType extends BasicElementDataType {
-  UI_OPTIONS: Option[];
+export interface SelectElementDataType extends Partial<BasicElementDataType> {
+  UI_OPTIONS: readonly Option[];
   TAG_ID: string;
   TAG_NAME: string;
+  TAG_REQUIRED?: boolean;
 }
-
-export type SelectElementPropsType = {
-  [K in keyof SelectProps]?: SelectProps[K];
-};
 
 export type OptionElementPropsType = {
   select: HTMLSelectElement;
-  options: Option[];
+  options: readonly Option[];
   defaultValue?: string;
 };
 

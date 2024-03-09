@@ -1,10 +1,9 @@
-import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
-
 import { categoryChange } from './eventHandlers';
-import selectCategoryTemplate from './selectCategoryTemplate';
+import { renderSelectCategoryLabelComponent, renderBaseSelectCategoryComponent } from './renderHandlers';
 
 function SelectCategory(form: Element) {
-  form.appendChild(convertHTMLStringToDOM(selectCategoryTemplate));
+  renderBaseSelectCategoryComponent(form);
+  renderSelectCategoryLabelComponent();
 
   categoryChange();
 }
