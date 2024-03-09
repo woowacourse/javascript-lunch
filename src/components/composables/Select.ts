@@ -1,10 +1,11 @@
-import { OptionElementPropsType, SelectElementPropsType, SelectPropsType } from '../../types/components';
+import { OptionElementPropsType, SelectComponentPropsType } from '../../types/components';
 
-const createSelectElement = ({ id, name, className }: SelectElementPropsType) =>
+const createSelectElement = ({ id, name, className, required }: Partial<SelectComponentPropsType>) =>
   Object.assign(document.createElement('select'), {
     id,
     name,
     className,
+    required,
   });
 
 const createOptionElements = ({ select, options, defaultValue }: OptionElementPropsType) => {
@@ -17,8 +18,9 @@ const createOptionElements = ({ select, options, defaultValue }: OptionElementPr
   );
 };
 
-function Select({ id, name, className, options, defaultValue }: SelectPropsType) {
-  const select = createSelectElement({ id, name, className });
+function Select({ id, name, className, options, defaultValue, required }: SelectComponentPropsType) {
+  const select = createSelectElement({ id, name, className, required });
+
   createOptionElements({ select, options, defaultValue });
 
   return select;
