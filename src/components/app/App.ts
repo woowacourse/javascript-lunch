@@ -8,7 +8,7 @@ function App() {
     Modal();
     Header();
     FilterBar();
-    RestaurantList().init();
+    RestaurantList();
   };
 
   render();
