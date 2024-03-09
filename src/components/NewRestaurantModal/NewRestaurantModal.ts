@@ -5,7 +5,7 @@ import BaseComponent from '../BaseComponent';
 import BasicButton from '../BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, IRestaurant } from '@/types/Restaurant';
-import validator from '@/utils/validator';
+import { isValidateAndMakeErrorMessage, validator } from '@/utils/validator';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
@@ -158,60 +158,6 @@ class NewRestaurantModal extends BaseComponent {
     this.#form.append($buttonBox);
   }
 
-  // #validateRequiredValues(
-  //   category: RequiredCategoriesKeys,
-  //   distance: RequiredDistanceKeys,
-  //   name: string | null,
-  // ) {
-  //   const isNotValidCategory = category === '선택해주세요';
-  //   const isNotValidDistance = Number.isNaN(distance);
-  //   const isNotValidName = !name;
-  //   if (isNotValidCategory) {
-  //     document.querySelector('#category-error')?.classList.remove('hidden');
-  //   }
-  //   if (isNotValidDistance) {
-  //     document.querySelector('#distance-error')?.classList.remove('hidden');
-  //   }
-  //   if (isNotValidName) {
-  //     document.querySelector('#name-error')?.classList.remove('hidden');
-  //   }
-  //   if (link && !validator.isValidLink(link)) {
-  //     document.querySelector('#link-error')?.classList.remove('hidden');
-  //   }
-
-  //   return isNotValidCategory || isNotValidDistance || isNotValidName;
-  // }
-
-  #validateCategory(category: string) {
-    if (!validator.isValidCategory(category)) {
-      document.querySelector('#category-error')?.classList.remove('hidden');
-      return false;
-    }
-    return true;
-  }
-
-  #validateDistance(distance: number) {
-    if (!validator.isValidDistance(distance)) {
-      document.querySelector('#distance-error')?.classList.remove('hidden');
-      return false;
-    }
-    return true;
-  }
-
-  #validateName(name: string | null) {
-    if (!validator.isValidName(name)) {
-      document.querySelector('#name-error')?.classList.remove('hidden');
-      return false;
-    }
-    return true;
-  }
-
-  #validateLink(link: string) {
-    if (!validator.isValidLink(link)) {
-      document.querySelector('#link-error')?.classList.remove('hidden');
-    }
-  }
-
   #validateValues({
     category,
     distance,
@@ -223,15 +169,15 @@ class NewRestaurantModal extends BaseComponent {
     name: string;
     link: string;
   }) {
-    this.#validateCategory(category);
-    this.#validateDistance(distance);
-    this.#validateName(name);
-    this.#validateLink(link);
+    isValidateAndMakeErrorMessage.category(category);
+    isValidateAndMakeErrorMessage.distance(distance);
+    isValidateAndMakeErrorMessage.name(name);
+    link && isValidateAndMakeErrorMessage.link(link);
 
     return (
-      this.#validateCategory(category) ||
-      this.#validateDistance(distance) ||
-      this.#validateName(name)
+      validator.isValidCategory(category) ||
+      validator.isValidDistance(distance) ||
+      validator.isValidName(name)
     );
   }
 
