@@ -27,18 +27,22 @@ class SelectBoxComponent {
   }
 
   render(): void {
+    const selectTag = this.#getSelectTag();
+    this.options.forEach(option => {
+      const optionTag = this.#getOptionTag(option);
+      selectTag.appendChild(optionTag);
+    });
+    this.$target.appendChild(selectTag);
+  }
+
+  #getSelectTag(): HTMLSelectElement {
     const { name, id, class: className, required } = this.attributes;
     const selectTag = document.createElement('select');
     selectTag.name = name ?? '';
     selectTag.id = id ?? '';
     if (className != null) selectTag.classList.add(className);
     selectTag.required = required ?? false;
-
-    this.options.forEach(option => {
-      const optionTag = this.#getOptionTag(option);
-      selectTag.appendChild(optionTag);
-    });
-    this.$target.appendChild(selectTag);
+    return selectTag;
   }
 
   #getOptionTag(selectOption: ISelectOption): HTMLOptionElement {
