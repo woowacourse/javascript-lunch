@@ -36,7 +36,7 @@ const handleCategoryFilter = () => {
   const sortedList = restaurantList.getSortedByCondition(sortingCondition);
   $restaurantList.replaceChildren();
   sortedList.forEach(element => {
-    $restaurantList.innerHTML += RestaurantComponent(element.information);
+    new RestaurantComponent({ $target: $restaurantList, information: element.information });
   });
 };
 
@@ -48,13 +48,13 @@ const handleSortingFilter = () => {
   const sortedList = restaurantList.getSortedByCondition(sortingCondition);
   $restaurantList.replaceChildren();
   sortedList.forEach(element => {
-    $restaurantList.innerHTML += RestaurantComponent(element.information);
+    new RestaurantComponent({ $target: $restaurantList, information: element.information });
   });
 };
 
 const init = () => {
   restaurantList.restaurants.forEach(element => {
-    $restaurantList.innerHTML += RestaurantComponent(element.information);
+    new RestaurantComponent({ $target: $restaurantList, information: element.information });
   });
 
   // 홈화면 select 생성

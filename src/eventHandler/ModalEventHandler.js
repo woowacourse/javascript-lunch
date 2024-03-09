@@ -49,7 +49,7 @@ class ModalEventHandler {
     const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
     $restaurantList.replaceChildren();
     sortedList.forEach(element => {
-      $restaurantList.innerHTML += RestaurantComponent(element.information);
+      new RestaurantComponent({ $target: $restaurantList, information: element.information });
     });
   }
 }
