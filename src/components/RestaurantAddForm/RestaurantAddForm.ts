@@ -14,6 +14,7 @@ import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
 
 import { $ } from "../../utils/dom";
+import { isUserInputValues } from "../../utils/typeGuard";
 
 class RestaurantAddForm extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];
@@ -137,7 +138,7 @@ class RestaurantAddForm extends BaseComponent {
         userInputValues[key] = value;
       }
 
-      return userInputValues as unknown as RestaurantDetail;
+      if (isUserInputValues(userInputValues)) return userInputValues;
     }
 
     return null;
@@ -148,6 +149,7 @@ class RestaurantAddForm extends BaseComponent {
       ...this.eventListeners.resetForm,
       target: document,
     });
+
     this.off({
       ...this.eventListeners.restaurantAddFormSubmit,
       target: $(ELEMENT_SELECTOR.restaurantAddForm),
