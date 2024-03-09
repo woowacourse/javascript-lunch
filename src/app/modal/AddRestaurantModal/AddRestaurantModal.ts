@@ -40,15 +40,7 @@ class AddRestaurantModal extends HTMLElement {
   }
 
   private clearAllInput() {
-    $$('input, textarea, select', this).forEach((input) => {
-      if (
-        input instanceof HTMLInputElement ||
-        input instanceof HTMLSelectElement ||
-        input instanceof HTMLTextAreaElement
-      ) {
-        input.value = '';
-      }
-    });
+    $<HTMLFormElement>('#add-restaurant-form')!.reset();
   }
 
   private getDefaultSelection() {
