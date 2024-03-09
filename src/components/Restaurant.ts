@@ -1,6 +1,7 @@
 import { CATEGORY_IMG_SRC } from '../constants/filter';
+import type { IRestaurant } from '../types/restaurant';
 
-const RestaurantComponent = information => {
+const RestaurantComponent = (information: IRestaurant): string => {
   return `<li class="restaurant">
     <div class="restaurant__category">
     

@@ -14,7 +14,6 @@ class RestaurantList {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getStorageRestaurantList(restaurantsInStorage: string): IRestaurantList {
     const parsedRestaurantList: IRestaurantList = JSON.parse(restaurantsInStorage);
     return parsedRestaurantList.map(parsedRestaurant => new Restaurant(parsedRestaurant.information));

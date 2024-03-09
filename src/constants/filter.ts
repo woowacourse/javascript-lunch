@@ -6,6 +6,7 @@ import japanese from '../../templates/category-japanese.png';
 import western from '../../templates/category-western.png';
 import asian from '../../templates/category-asian.png';
 import etc from '../../templates/category-etc.png';
+import type { TCategory } from '../types/restaurant';
 
 const ALL = '전체';
 
@@ -46,7 +47,8 @@ const FORM_DISTANCE: ISelectOption[] = [
   { value: '30', text: '30분 내' },
 ];
 
-const CATEGORY_IMG_SRC = {
+const CATEGORY_IMG_SRC: Record<TCategory, any> = {
+  전체: '',
   한식: korean,
   중식: chinese,
   일식: japanese,
