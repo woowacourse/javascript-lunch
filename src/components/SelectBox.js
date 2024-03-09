@@ -18,16 +18,25 @@ class SelectBoxComponent {
   }
 
   render() {
-    this.$target.insertAdjacentHTML(
-      'beforeend',
-      `<select name=${this.attributes.name} id=${this.attributes.id} class=${this.attributes.class} ${this.attributes.required && 'required'}>
-    ${this.options.map(option => this.#getSelectOption(option)).join('')}
-</select>`,
-    );
+    const { name, id, class: className, required } = this.attributes;
+    const selectTag = document.createElement('select');
+    selectTag.name = name;
+    selectTag.id = id;
+    selectTag.classList.add(className);
+    selectTag.required = required ? true : false;
+
+    this.options.forEach(option => {
+      const optionTag = this.#getOptionTag(option);
+      selectTag.appendChild(optionTag);
+    });
+    this.$target.appendChild(selectTag);
   }
 
-  #getSelectOption(selectOption) {
-    return `<option value=${selectOption.value}>${selectOption.text}</option>`;
+  #getOptionTag(selectOption) {
+    const optionTag = document.createElement('option');
+    optionTag.value = selectOption.value;
+    optionTag.textContent = selectOption.text;
+    return optionTag;
   }
 }
 
