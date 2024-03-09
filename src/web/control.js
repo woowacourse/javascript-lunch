@@ -22,7 +22,7 @@ export const set = {
       createHeader({
         className: 'gnb',
         left: 'logo',
-        right: 'add',
+        right: 'RestaurantAdditionButton',
         restaurantManager,
       })
     );

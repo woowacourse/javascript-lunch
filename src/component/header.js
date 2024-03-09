@@ -14,7 +14,6 @@ function createHeader({ className, left, right, restaurantManager }) {
   return header;
 }
 
-// REFACTOR: 앱 이름 상수로 분리
 const item = {
   logo() {
     const h1 = document.createElement('h1');
@@ -23,7 +22,7 @@ const item = {
     return h1;
   },
 
-  add(restaurantManager) {
+  RestaurantAdditionButton(restaurantManager) {
     const button = document.createElement('button');
 
     button.type = 'button';
@@ -36,14 +35,14 @@ const item = {
     img.alt = '음식점 추가';
 
     button.appendChild(img);
-    eventHandler.add(button, restaurantManager);
+    eventHandler.addEventRestaurantButton(button, restaurantManager);
 
     return button;
   },
 };
 
 const eventHandler = {
-  add(element, restaurantManager) {
+  addEventRestaurantButton(element, restaurantManager) {
     element.addEventListener('click', () => {
       const newRestaurantModalElement =
         createNewRestaurantModal(restaurantManager);
