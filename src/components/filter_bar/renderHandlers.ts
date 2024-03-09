@@ -6,14 +6,14 @@ import {
   sortSelectTemplate,
 } from "./filterBarTemplate";
 
-export const generateBaseComponents = () => {
+export const renderBaseComponents = () => {
   const formattedBaseSectionTemplate =
     convertHTMLStringToDOM(baseSectionTemplate);
 
   document.body.appendChild(formattedBaseSectionTemplate);
 };
 
-export const generateFilterBarComponents = () => {
+export const renderFilterBarComponents = () => {
   const barContainer = document.getElementsByClassName(
     "restaurant-filter-container",
   )[0];

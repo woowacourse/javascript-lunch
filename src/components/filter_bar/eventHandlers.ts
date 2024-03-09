@@ -13,7 +13,7 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   });
 };
 
-export const changeFilter = () => {
+export const selectOptionByFoodCategory = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const categoryFilter = document.getElementById("category-filter");
     if (categoryFilter) {
@@ -33,7 +33,7 @@ const sortHandler = (sortFilter: HTMLElement) => {
   });
 };
 
-export const changeSorting = () => {
+export const selectOptionByNameOrDistance = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const sortFilter = document.getElementById("sorting-filter");
     if (sortFilter) {

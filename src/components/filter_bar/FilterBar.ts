@@ -1,14 +1,17 @@
-import { changeFilter, changeSorting } from "./handlers";
 import {
-  generateBaseComponents,
-  generateFilterBarComponents,
+  selectOptionByFoodCategory,
+  selectOptionByNameOrDistance,
+} from "./eventHandlers";
+import {
+  renderBaseComponents,
+  renderFilterBarComponents,
 } from "./renderHandlers";
 
 const FilterBar = () => {
-  generateBaseComponents();
-  generateFilterBarComponents();
+  renderBaseComponents();
+  renderFilterBarComponents();
 
-  changeFilter();
-  changeSorting();
+  selectOptionByFoodCategory();
+  selectOptionByNameOrDistance();
 };
 export default FilterBar;
