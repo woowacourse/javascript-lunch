@@ -1,10 +1,9 @@
-import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
-
 import inputNameHandler from './handlers';
-import inputNameTemplate from './inputNameTemplate';
+import { renderBaseComponents, renderInputComponents } from './renderHandlers';
 
 function InputName(form: Element) {
-  form.appendChild(convertHTMLStringToDOM(inputNameTemplate));
+  renderBaseComponents(form);
+  renderInputComponents();
 
   inputNameHandler();
 }
