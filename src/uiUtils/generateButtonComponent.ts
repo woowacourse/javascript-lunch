@@ -1,5 +1,5 @@
 import Button from '../components/composables/Button';
-import { ButtonElementDataType } from '../types';
+import { ButtonElementDataType } from '../types/components';
 
 const generateButtonComponent = (buttonOptionData: ButtonElementDataType) => {
   const { TAG_TEXT, TAG_TYPE, TAG_CLASS_NAME } = buttonOptionData;

@@ -1,6 +1,6 @@
 import RESTAURANT_CATEGORY_DATA from '../../constants/RestaurantCategoryData';
 import SORT_BY_NAME_OR_CATEGORY_DATA from '../../constants/SortByNameOrDistanceData';
-import generateSelectElement from '../../uiUtils/generateSelectElement';
+import generateSelectElement from '../../uiUtils/generateSelectComponent';
 import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 
 import { baseSectionTemplate } from './filterBarTemplate';

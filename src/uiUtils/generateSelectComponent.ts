@@ -1,5 +1,5 @@
 import Select from '../components/composables/Select';
-import { SelectElementDataType } from '../types';
+import { SelectElementDataType } from '../types/components';
 
 const generateSelectComponent = (selectOptionData: SelectElementDataType) => {
   const { TAG_ID, TAG_NAME, TAG_CLASS_NAME, UI_OPTIONS } = selectOptionData;

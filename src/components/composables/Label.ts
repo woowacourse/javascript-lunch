@@ -1,4 +1,4 @@
-import { LabelComponentPropsType } from '../../types';
+import { LabelComponentPropsType } from '../../types/components';
 
 function Label({ htmlFor, text, className }: LabelComponentPropsType) {
   const label = document.createElement('label');

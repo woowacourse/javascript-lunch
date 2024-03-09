@@ -1,5 +1,5 @@
 import Label from '../components/composables/Label';
-import { LabelElementDataType } from '../types';
+import { LabelElementDataType } from '../types/components';
 
 const generateLabelComponent = (labelOptionData: LabelElementDataType) => {
   const { TAG_HTML_FOR, TAG_TEXT } = labelOptionData;
