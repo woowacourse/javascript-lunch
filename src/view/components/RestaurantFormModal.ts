@@ -129,8 +129,10 @@ class RestaurantFormModal {
         this.addRestaurant(e);
         this.closeModal();
         listener(e);
-      } catch (error: any) {
-        alert(error.message);
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
       }
     });
   }
