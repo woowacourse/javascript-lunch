@@ -6,31 +6,34 @@ import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
 
 class FilterContainer extends BaseComponent {
-  #selectCategoryBox: SelectBox;
-  #selectSortBox: SelectBox;
   #restaurantList;
 
   constructor() {
     super();
-    this.#selectCategoryBox = new SelectBox({
+    this.#restaurantList = document.querySelector('.restaurant-list-container') as RestaurantList;
+  }
+
+  render() {
+    this.append(this.#makeSelectCategoryBox());
+    this.append(this.#makeSelectSortBox());
+  }
+
+  #makeSelectCategoryBox() {
+    return new SelectBox({
       optionValues: CATEGORIES_WITH_ALL_KEYS,
       name: 'category',
       classList: ['restaurant-filter'],
       id: 'category-filter',
     });
+  }
 
-    this.#selectSortBox = new SelectBox({
+  #makeSelectSortBox() {
+    return new SelectBox({
       optionValues: SORT_CRITERION_KEYS,
       name: 'sorting',
       classList: ['restaurant-filter'],
       id: 'sorting-filter',
     });
-    this.#restaurantList = document.querySelector('.restaurant-list-container') as RestaurantList;
-  }
-
-  render() {
-    this.append(this.#selectCategoryBox);
-    this.append(this.#selectSortBox);
   }
 
   setEvent() {

@@ -6,6 +6,7 @@ import '@/components/RestaurantItem/RestaurantItem';
 import '@/components/BasicModal/BasicModal';
 import '@/components/NewRestaurantModal/NewRestaurantModal';
 import '@/components/BasicButton/BasicButton';
+import '@/components/CategoryIconBox/CategoryIconBox';
 
 import '@/css/index.css';
 
@@ -17,3 +18,4 @@ import '@/components/RestaurantItem/RestaurantItem.css';
 import '@/components/BasicModal/BasicModal.css';
 import '@/components/NewRestaurantModal/NewRestaurantModal.css';
 import '@/components/BasicButton/BasicButton.css';
+import '@/components/CategoryIconBox/CategoryIconBox.css';

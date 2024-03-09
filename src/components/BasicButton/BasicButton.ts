@@ -1,16 +1,22 @@
 import BaseComponent from '../BaseComponent';
 
-type ButtonType = 'submit' | 'reset' | 'button';
+type ButtonProps = {
+  variant: 'primary' | 'secondary';
+  textContent: string;
+  type: 'submit' | 'reset' | 'button';
+  clickEvent: () => void;
+};
+
 class BasicButton extends BaseComponent {
-  #isPrimary;
-  #innerText;
+  #variant;
+  #textContent;
   #type;
   #clickEvent;
 
-  constructor(isPrimary: boolean, innerText: string, type: ButtonType, clickEvent: () => void) {
+  constructor({ variant, textContent, type, clickEvent }: ButtonProps) {
     super();
-    this.#isPrimary = isPrimary;
-    this.#innerText = innerText;
+    this.#variant = variant;
+    this.#textContent = textContent;
     this.#type = type;
     this.#clickEvent = clickEvent;
   }
@@ -26,10 +32,12 @@ class BasicButton extends BaseComponent {
 
   #addButton() {
     const $button = document.createElement('button');
-    const buttonStyleClass = `${this.#isPrimary ? 'button--primary' : 'button--secondary'}`;
+    const buttonStyleClass = `${
+      this.#variant === 'primary' ? 'button--primary' : 'button--secondary'
+    }`;
     $button.classList.add('button', 'text-caption', buttonStyleClass);
     $button.setAttribute('type', this.#type);
-    $button.innerText = this.#innerText;
+    $button.textContent = this.#textContent;
 
     return $button;
   }

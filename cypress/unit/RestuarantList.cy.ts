@@ -21,13 +21,13 @@ describe('레스토랑 리스트 클래스', () => {
     description: '라면과 밥 맛있음',
   };
 
-  it('인자로 음식점 배열을 받아서, 잘 반환한다.', () => {
+  it('음식점들을 모두 반환한다.', () => {
     const RESTAURANTS: IRestaurant[] = [restaurant1, restaurant2];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.get()).to.deep.equal([restaurant1, restaurant2]);
   });
 
-  it('인자로 받은 카테고리로 음식점을 잘 필터링한다.', () => {
+  it('인자로 받은 카테고리 기준으로 필터링된 음식점을 반환한다.', () => {
     const RESTAURANTS: IRestaurant[] = [restaurant1, restaurant2];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.filterByCategory('중식')).to.deep.equal([restaurant1]);
