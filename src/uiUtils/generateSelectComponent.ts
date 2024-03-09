@@ -1,7 +1,7 @@
 import Select from '../components/composables/Select';
 import { SelectElementDataType } from '../types';
 
-const generateSelectElement = (selectOptionData: SelectElementDataType) => {
+const generateSelectComponent = (selectOptionData: SelectElementDataType) => {
   const { TAG_ID, TAG_NAME, TAG_CLASS_NAME, UI_OPTIONS } = selectOptionData;
 
   return Select({
@@ -12,4 +12,4 @@ const generateSelectElement = (selectOptionData: SelectElementDataType) => {
   });
 };
 
-export default generateSelectElement;
+export default generateSelectComponent;
