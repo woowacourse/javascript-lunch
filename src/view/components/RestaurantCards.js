@@ -39,7 +39,7 @@ class RestaurantCards extends HTMLUListElement {
   #generateInnerHTML({ category, name, distanceFromCampus, description }) {
     return `
     <div class="restaurant__category">
-      <img src="./templates/category-${IMG_CATEGORY[category]}.png" alt="${category}" class="category-icon">
+      <img src="./assets/category-${IMG_CATEGORY[category]}.png" alt="${category}" class="category-icon">
     </div>
     <div class="restaurant__info">
       <h3 class="restaurant__name text-subtitle">${name}</h3>
