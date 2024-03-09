@@ -25,16 +25,16 @@ class CategoryIconBox extends BaseComponent {
   }
 
   render() {
-    const $categoryBox = document.createElement('div');
-    $categoryBox.classList.add('restaurant__category');
-
     const $imgBox = document.createElement('img');
     $imgBox.setAttribute('src', Icons[this.#category]);
     $imgBox.setAttribute('alt', this.#category);
     $imgBox.classList.add('category-icon');
 
-    $categoryBox.append($imgBox);
+    this.classList.add('restaurant__category');
+    this.append($imgBox);
   }
 }
 
 export default CategoryIconBox;
+
+customElements.define('category-icon', CategoryIconBox);
