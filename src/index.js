@@ -4,7 +4,7 @@ import Restaurant from './domain/Restaurant';
 import RestaurantList from './domain/RestaurantList';
 import RestaurantComponent from './components/Restaurant';
 import SelectBoxComponent from './components/SelectBox';
-import { DEFAULT_RESTAURAMT_LIST } from './constants/config';
+import { DEFAULT_RESTAURANT_LIST } from './constants/config';
 import {
   FILTERED_CATEGORY,
   FILTERED_CATEGORY_ATTRIBUTE,
@@ -16,10 +16,10 @@ import {
   SORTING_ATTRIBUTE,
 } from './constants/filter';
 import HomeEventHandler from './eventHandler/HomeEventHandler';
-import ModalEventHandler from './eventHandler/ModalEventHadler';
+import ModalEventHandler from './eventHandler/ModalEventHandler';
 
 const $restaurantList = document.querySelector('.restaurant-list');
-const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
+const getDefaultRestaurantList = () => DEFAULT_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
 new ModalEventHandler(restaurantList);
 

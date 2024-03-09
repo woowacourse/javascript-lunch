@@ -7,6 +7,6 @@ module.exports = {
   trailingComma: 'all', 
   bracketSpacing: true, 
   arrowParens: 'avoid', 
-  proseWrap: 'never', 
-  endOfLine: 'auto', 
+  proseWrap: 'never',
+  endOfLine: 'auto'
 };

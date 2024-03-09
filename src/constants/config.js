@@ -1,4 +1,4 @@
-const DEFAULT_RESTAURAMT_LIST = [
+const DEFAULT_RESTAURANT_LIST = [
   {
     category: '아시안',
     name: '피양콩할마니',
@@ -44,4 +44,4 @@ const DEFAULT_RESTAURAMT_LIST = [
 
 const STORAGE_KEY = 'restaurants';
 
-export { DEFAULT_RESTAURAMT_LIST, STORAGE_KEY };
+export { DEFAULT_RESTAURANT_LIST, STORAGE_KEY };
