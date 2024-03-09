@@ -1,3 +1,5 @@
+import type { IDomAttributes, ISelectOption } from '../types/selectBox';
+
 import korean from '../../templates/category-korean.png';
 import chinese from '../../templates/category-chinese.png';
 import japanese from '../../templates/category-japanese.png';
@@ -7,7 +9,7 @@ import etc from '../../templates/category-etc.png';
 
 const ALL = '전체';
 
-const FOOD_CATEGORY = [
+const FOOD_CATEGORY: ISelectOption[] = [
   { value: '한식', text: '한식' },
   { value: '중식', text: '중식' },
   { value: '일식', text: '일식' },
@@ -16,22 +18,26 @@ const FOOD_CATEGORY = [
   { value: '기타', text: '기타' },
 ];
 
-const FILTERED_CATEGORY_ATTRIBUTE = { name: 'category', id: 'category-filter', class: 'restaurant-filter' };
-const FILTERED_CATEGORY = [{ value: ALL, text: ALL }, ...FOOD_CATEGORY];
+const FILTERED_CATEGORY_ATTRIBUTE: IDomAttributes = {
+  name: 'category',
+  id: 'category-filter',
+  class: 'restaurant-filter',
+};
+const FILTERED_CATEGORY: ISelectOption[] = [{ value: ALL, text: ALL }, ...FOOD_CATEGORY];
 
 const BY_NAME_ASC = '이름순';
 const BY_DISTANCE_ASC = '거리순';
-const SORTING_ATTRIBUTE = { name: 'sorting', id: 'sorting-filter', class: 'restaurant-filter' };
-const SORTING = [
+const SORTING_ATTRIBUTE: IDomAttributes = { name: 'sorting', id: 'sorting-filter', class: 'restaurant-filter' };
+const SORTING: ISelectOption[] = [
   { value: 'name', text: BY_NAME_ASC },
   { value: 'distance', text: BY_DISTANCE_ASC },
 ];
 
-const FORM_CATEGORY_ATTRIBUTE = { name: 'category', id: 'category', required: true };
-const FORM_CATEGORY = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
+const FORM_CATEGORY_ATTRIBUTE: IDomAttributes = { name: 'category', id: 'category', required: true };
+const FORM_CATEGORY: ISelectOption[] = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
 
-const FORM_DISTANCE_ATTRIBUTE = { name: 'distance', id: 'distance', required: true };
-const FORM_DISTANCE = [
+const FORM_DISTANCE_ATTRIBUTE: IDomAttributes = { name: 'distance', id: 'distance', required: true };
+const FORM_DISTANCE: ISelectOption[] = [
   { value: '', text: '선택해 주세요' },
   { value: '5', text: '5분 내' },
   { value: '10', text: '10분 내' },
