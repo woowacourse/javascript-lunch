@@ -7,6 +7,7 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { IRestaurant, RequiredCategoriesKeys, RequiredDistanceKeys } from '@/types/Restaurant';
 
 import './NewRestaurantModal.css';
+import FilterContainer from '../FilterContainer/FilterContainer';
 class NewRestaurantModal extends BaseComponent {
   #form;
   #title;
@@ -187,11 +188,11 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #getValues() {
-    const name = (this.#form.elements.namedItem('name') as HTMLInputElement)
-      .value as RequiredCategoriesKeys;
-    const distance = Number(
+    const name: RequiredCategoriesKeys = (this.#form.elements.namedItem('name') as HTMLInputElement)
+      .value;
+    const distance: RequiredDistanceKeys = Number(
       (this.#form.elements.namedItem('distance') as HTMLSelectElement).value.slice(0, -3),
-    ) as RequiredDistanceKeys;
+    );
     const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
     const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
@@ -199,14 +200,10 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #rerenderByFilter() {
-    const selectElement = document.querySelector('.restaurant-filter-container');
-    const event = new Event('change', {
-      bubbles: true,
-      cancelable: true,
-    });
-    selectElement?.dispatchEvent(event);
+    const selectElement = document.querySelector('.restaurant-filter-container') as FilterContainer;
+    selectElement.rerender();
   }
 }
 export default NewRestaurantModal;
 
-customElements.define('new-restaurantmodal', NewRestaurantModal);
+customElements.define('new-restaurant-modal', NewRestaurantModal);

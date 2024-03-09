@@ -4,8 +4,9 @@ import RestaurantItem from './RestaurantItem/RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantList.css';
+
 class RestaurantList extends BaseComponent {
-  #restaurantList;
+  #restaurantList: IRestaurant[];
   #restaurantDBService: RestaurantDBService;
 
   constructor() {
@@ -19,9 +20,9 @@ class RestaurantList extends BaseComponent {
     this.append(restaurantList);
   }
 
-  rerender(restaurantList: IRestaurant[]) {
+  rerender(restaurants: IRestaurant[]) {
     this.#removeChildren();
-    this.#restaurantList = restaurantList;
+    this.#restaurantList = restaurants;
     const restaurantListAll = this.#makeRestaurantList(this.#restaurantList);
     this.append(restaurantListAll);
   }

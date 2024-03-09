@@ -9,13 +9,13 @@ import './FilterContainer.css';
 class FilterContainer extends BaseComponent {
   #selectCategoryBox: SelectBox;
   #selectSortBox: SelectBox;
-  #restaurantList;
+  #restaurantList: RestaurantList;
 
   constructor() {
     super();
     this.#selectCategoryBox = new SelectBox(CATEGORIES_WITH_ALL_KEYS, 'category');
     this.#selectSortBox = new SelectBox(SORT_CRITERION_KEYS, 'sorting');
-    this.#restaurantList = document.querySelector('.restaurant-list-container') as RestaurantList;
+    this.#restaurantList = document.querySelector('restaurant-list') as RestaurantList;
   }
 
   render() {
@@ -23,11 +23,29 @@ class FilterContainer extends BaseComponent {
     this.append(this.#selectSortBox);
   }
 
+  rerender() {
+    const restaurantDBService = new RestaurantDBService();
+
+    const selectedCategory = this.querySelector('select-box#category-filter') as HTMLSelectElement;
+    const selectedSortCriteria = this.querySelector(
+      'select-box#sorting-filter',
+    ) as HTMLSelectElement;
+
+    const newRestaurantList = restaurantDBService.getFromRestaurantList(
+      selectedCategory.value as Category,
+      selectedSortCriteria.value as SortCriteria,
+    );
+
+    this.#restaurantList.rerender(newRestaurantList);
+  }
+
   setEvent() {
     this.addEventListener('change', () => {
       const restaurantDBService = new RestaurantDBService();
 
-      const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
+      const selectedCategory = this.querySelector(
+        'select-box#category-filter',
+      ) as HTMLSelectElement;
       const selectedSortCriteria = this.querySelector('#sorting-filter') as HTMLSelectElement;
 
       const newRestaurantList = restaurantDBService.getFromRestaurantList(
@@ -41,3 +59,5 @@ class FilterContainer extends BaseComponent {
 }
 
 customElements.define('filter-container', FilterContainer);
+
+export default FilterContainer;
