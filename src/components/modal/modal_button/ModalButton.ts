@@ -1,10 +1,9 @@
-import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
-
 import { cancelHandler, submitHandler } from './handlers';
-import modalButtonTemplate from './modalButtonTemplate';
+import { renderBaseComponents, renderButtonComponents } from './renderHandler';
 
 function ModalButton(modal: Element, form: Element) {
-  form.appendChild(convertHTMLStringToDOM(modalButtonTemplate));
+  renderBaseComponents(form);
+  renderButtonComponents();
 
   submitHandler(modal);
   cancelHandler(modal);
