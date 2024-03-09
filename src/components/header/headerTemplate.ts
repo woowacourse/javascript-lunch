@@ -1,4 +1,4 @@
-import imageSrc from "../../../templates/add-button.png";
+import imageSrc from '../../../templates/add-button.png';
 
 const headerTemplate = /*html*/ `
 <header class="gnb">
