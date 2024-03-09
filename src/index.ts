@@ -1,3 +1,3 @@
-import App from "./App";
+import View from "./view";
 
-new App().init();
+new View(document.querySelector("body") as HTMLBodyElement);

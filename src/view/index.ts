@@ -13,18 +13,29 @@ import RestaurantListSection from "./components/RestaurantListSection";
 import RestaurantFormModal from "./components/RestaurantFormModal";
 
 class View {
+  private $target;
   private selectSection;
   private listSection;
   private formModal;
 
-  constructor() {
+  constructor($target: HTMLElement) {
+    this.$target = $target;
+
     this.selectSection = new RestaurantSelectSection();
     this.listSection = new RestaurantListSection();
     this.formModal = new RestaurantFormModal();
+
+    this.renderInit();
+
+    this.renderSelectSection();
+    this.renderListSection();
+    this.renderFormModal();
+
+    this.setEvents();
   }
 
-  renderInit($target: HTMLElement) {
-    $target.innerHTML = /*html*/ `
+  renderInit() {
+    this.$target.innerHTML = /*html*/ `
       <header class="gnb">
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
         <button
