@@ -61,7 +61,7 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: sortOptions,
     };
-    $<HTMLElement>('.restaurant-filter-container')?.appendChild(new Select(sortBox));
+    $<HTMLElement>('.restaurant-filter-container').appendChild(new Select(sortBox));
   }
 
   categoryChange() {

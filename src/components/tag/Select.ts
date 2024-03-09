@@ -1,6 +1,9 @@
 import Option from './Option';
 import OptionProps from './props/OptionProps';
 import SelectProps from './props/SelectProps';
+import DOM from '../../utils/DOM';
+
+const {insertElementsInTarget} = DOM;
 
 class Select extends HTMLSelectElement {
   constructor(props: SelectProps) {
@@ -15,9 +18,8 @@ class Select extends HTMLSelectElement {
   }
 
   addOptions(options: OptionProps[]) {
-    options.forEach((option) => {
-      this.appendChild(new Option(option));
-    });
+    const optionElements = options.map((option) => new Option(option));
+    insertElementsInTarget(this, optionElements);
   }
 
   getValue(): string {

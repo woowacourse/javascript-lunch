@@ -7,7 +7,7 @@ import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
 import ListContainer from './components/ListContainer';
 
-const { $, $$ } = DOM;
+const { $, $$, insertElementsInTarget } = DOM;
 
 const root = {
   init() {
@@ -22,11 +22,9 @@ const root = {
       const initSort = $<HTMLSelectElement>('#sorting-filter');
       const sortBy = initSort.options[initSort.selectedIndex].value;
       const listContainer = new ListContainer();
+      const restaurantElements: Restaurant[] = matzip.filterAndSort('전체', sortBy as SortType).map((restaurant) => new Restaurant(restaurant));
 
-      matzip.filterAndSort('전체', sortBy as SortType).forEach((restaurant) => {
-        listContainer.appendChild(new Restaurant(restaurant));
-      });
-
+      insertElementsInTarget(listContainer, restaurantElements);
       $<HTMLElement>('main').appendChild(listContainer);
     });
   },
@@ -38,17 +36,13 @@ const root = {
       const customEvent = event as FilterChangeEvent;
       const selectedCategory = customEvent.detail.selectedCategory;
       const selectedSort = customEvent.detail.selectedSort;
-      const restaurants = matzip.filterAndSort(
+      const restaurantElements: Restaurant[] = matzip.filterAndSort(
         selectedCategory as CategoryType,
         selectedSort as SortType,
-      );
+      ).map((restaurant) => new Restaurant(restaurant));
 
       const listContainer = new ListContainer();      
-
-      restaurants.forEach((restaurant) => {
-        listContainer.appendChild(new Restaurant(restaurant));
-      });
-
+      insertElementsInTarget(listContainer, restaurantElements);
       $<HTMLElement>('main').appendChild(listContainer);
     });
   },
