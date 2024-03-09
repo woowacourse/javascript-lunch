@@ -24,7 +24,7 @@ function createNewRestaurantModal(restaurantManager) {
 
     try {
       restaurantManager.add(newRestaurant);
-      set.updateRestaurantList(restaurantManager.getRestaurants());
+      set.updateRestaurantList(restaurantManager.getfilterRestaurants());
       modal.remove('modal--open');
     } catch (e) {
       toast(e.message);
@@ -48,7 +48,7 @@ function render() {
     options: Object.keys(KOREAN_CATEGORY),
     className: '',
     required: true,
-    cover: '선택해 주세요',
+    NoneSelcteddefaultMessage: '선택해 주세요',
   });
 
   const distanceSelect = createDropDown({
@@ -56,7 +56,7 @@ function render() {
     options: WALKING_TIME,
     className: '',
     required: true,
-    cover: '선택해 주세요',
+    NoneSelcteddefaultMessage: '선택해 주세요',
   });
 
   const categorySelcterLabelWrapper = createlabelWrapper({

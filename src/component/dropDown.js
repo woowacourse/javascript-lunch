@@ -1,7 +1,7 @@
 import { $ } from '../utils/selector.js';
 
-function createDropDown({ id, callback, options, className, required, cover }) {
-  const dropdown = render({ options, id, className, required ,cover});
+function createDropDown({ id, callback, options, className, required, NoneSelcteddefaultMessage }) {
+  const dropdown = render({ options, id, className, required ,NoneSelcteddefaultMessage});
 
   if (!callback) return dropdown;
 
@@ -14,16 +14,16 @@ function createDropDown({ id, callback, options, className, required, cover }) {
 }
 
 // REFACTOR: createElement로 수정해야한다.
-function render({ options, id, className, required,  cover}) {
+function render({ options, id, className, required,  NoneSelcteddefaultMessage}) {
   const select = document.createElement('select');
   select.id = id;
   select.className = className;
   select.required = required;
 
-  if(!!cover) {
+  if(!!NoneSelcteddefaultMessage) {
     const option = document.createElement('option');
     option.value = ''
-    option.textContent = cover;
+    option.textContent = NoneSelcteddefaultMessage;
     select.appendChild(option);
   }
 
