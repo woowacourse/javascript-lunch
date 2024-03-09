@@ -41,7 +41,6 @@ class NewRestaurantModalView extends BaseComponent {
     const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_CATEGORY, 'category');
     $categorySelectBox.append($errorBox);
     return $categorySelectBox;
-    // this.#form.append($categorySelectBox);
   }
 
   #makeErrorMessage(text: string, id: string) {
