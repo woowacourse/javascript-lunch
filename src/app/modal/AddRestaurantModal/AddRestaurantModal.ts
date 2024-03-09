@@ -40,15 +40,7 @@ class AddRestaurantModal extends HTMLElement {
   }
 
   private clearAllInput() {
-    $$('input, textarea, select', this).forEach((input) => {
-      if (
-        input instanceof HTMLInputElement ||
-        input instanceof HTMLSelectElement ||
-        input instanceof HTMLTextAreaElement
-      ) {
-        input.value = '';
-      }
-    });
+    $<HTMLFormElement>('#add-restaurant-form')!.reset();
   }
 
   private getDefaultSelection() {
@@ -113,9 +105,9 @@ class AddRestaurantModal extends HTMLElement {
             </div>
 
             ${this.showCategorySelectbox()}
-            
+
             ${this.showMinutesWalkSelectbox()}
-            
+
             <!-- 설명 -->
             <div class="form-item">
               <label for="description text-caption">설명</label>
