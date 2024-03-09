@@ -6,6 +6,8 @@ import BasicButton from '../BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, IRestaurant } from '@/types/Restaurant';
 import { isValidateAndMakeErrorMessage, validator } from '@/utils/validator';
+import { ErrorId, ErrorMessage } from '@/constants/ErrorMessage';
+import { hideErrorMessage } from '@/utils/view';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
@@ -60,7 +62,7 @@ class NewRestaurantModal extends BaseComponent {
     });
 
     $categorySelectBox.append($categorySelect);
-    const $errorBox = this.#makeErrorMessage('카테고리는 필수 입력입니다.', 'category-error');
+    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_CATEGORY, 'category');
     $categorySelectBox.append($errorBox);
 
     this.#form.append($categorySelectBox);
@@ -68,7 +70,7 @@ class NewRestaurantModal extends BaseComponent {
 
   #makeErrorMessage(text: string, id: string) {
     const $errorBox = document.createElement('div');
-    $errorBox.id = id;
+    $errorBox.id = ErrorId(id);
     $errorBox.classList.add('error', 'hidden');
     $errorBox.textContent = text;
     return $errorBox;
@@ -82,7 +84,7 @@ class NewRestaurantModal extends BaseComponent {
      <input type="text" name="name" id="name" max="10"/>
     `;
     this.#form.append($nameInputBox);
-    const $errorBox = this.#makeErrorMessage('이름값은 필수 입력입니다.', 'name-error');
+    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_NAME, 'name');
     $nameInputBox.append($errorBox);
   }
 
@@ -91,7 +93,7 @@ class NewRestaurantModal extends BaseComponent {
     $distanceSelection.classList.add('form-item', 'form-item--required', 'distance-select');
     $distanceSelection.innerHTML = `<label for="distance text-caption">거리(도보 이동 시간) </label>  
       `;
-
+    $distanceSelection.id = 'distance';
     const DISTANCES_REQURIED = [
       '선택해주세요',
       ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
@@ -105,7 +107,7 @@ class NewRestaurantModal extends BaseComponent {
       }),
     );
 
-    const $errorBox = this.#makeErrorMessage('거리 값은 필수 입력입니다.', 'distance-error');
+    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_DISTANCE, 'distance');
     $distanceSelection.append($errorBox);
 
     this.#form.append($distanceSelection);
@@ -129,7 +131,7 @@ class NewRestaurantModal extends BaseComponent {
     $linkTextBox.innerHTML = ` <label for="link text-caption">참고 링크</label>
                 <input type="text" name="link" id="link" />
                  <span class="help-text text-caption"> 매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
-    const $errorBox = this.#makeErrorMessage('유효한 링크를 입력해주세요', 'link-error');
+    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_LINK, 'link');
     $linkTextBox.append($errorBox);
 
     this.#form.append($linkTextBox);
@@ -184,7 +186,7 @@ class NewRestaurantModal extends BaseComponent {
   #submitForm() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
-      this.#hideErrorMessage();
+      hideErrorMessage();
       const values = this.#getValues();
       const { category, name, distance, description, link } = values;
 
@@ -206,15 +208,9 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   closeModal() {
-    this.#hideErrorMessage();
+    hideErrorMessage();
     this.classList.remove('modal--open');
     BasicModal.blockModalBodyScroll();
-  }
-
-  #hideErrorMessage() {
-    document.querySelectorAll('.error').forEach((el) => {
-      el.classList.add('hidden');
-    });
   }
 
   #getValues() {

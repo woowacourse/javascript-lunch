@@ -10,7 +10,7 @@ export const validator = {
     return name && name.length <= 10;
   },
   isValidDistance(distance: number | string) {
-    return Number.isNaN(distance);
+    return !Number.isNaN(distance);
   },
   isValidCategory(category: string) {
     return CATEGORIES_KEYS.includes(category);
