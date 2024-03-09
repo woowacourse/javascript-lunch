@@ -1,23 +1,19 @@
-import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
+import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
+import RESTAURANT_CATEGORY_DATA from '../../constants/RestaurantCategoryData';
+import SORT_BY_NAME_OR_CATEGORY_DATA from '../../constants/SortByNameOrDistanceData';
 
-import {
-  baseSectionTemplate,
-  filterSelectTemplate,
-  sortSelectTemplate,
-} from "./filterBarTemplate";
+import { baseSectionTemplate } from './filterBarTemplate';
+import generateSelectElement from '../../uiUtils/generateSelectElement';
 
 export const renderBaseComponents = () => {
-  const formattedBaseSectionTemplate =
-    convertHTMLStringToDOM(baseSectionTemplate);
+  const formattedBaseSectionTemplate = convertHTMLStringToDOM(baseSectionTemplate);
 
   document.body.appendChild(formattedBaseSectionTemplate);
 };
 
 export const renderFilterBarComponents = () => {
-  const barContainer = document.getElementsByClassName(
-    "restaurant-filter-container",
-  )[0];
+  const barContainer = document.getElementsByClassName('restaurant-filter-container')[0];
 
-  barContainer.appendChild(convertHTMLStringToDOM(filterSelectTemplate));
-  barContainer.appendChild(convertHTMLStringToDOM(sortSelectTemplate));
+  barContainer.appendChild(generateSelectElement(RESTAURANT_CATEGORY_DATA));
+  barContainer.appendChild(generateSelectElement(SORT_BY_NAME_OR_CATEGORY_DATA));
 };
