@@ -1,4 +1,4 @@
-import '../templates/style.css';
+import '../style.css';
 import WebController from './Controller/WebController';
 
 import Dropdown from './view/components/Dropdown';
