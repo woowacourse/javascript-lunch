@@ -1,4 +1,4 @@
-import { Irestaurant } from "../types";
+import { Irestaurant } from '../types';
 
 export default function setRestaurant(restaurant: Irestaurant) {
   return {

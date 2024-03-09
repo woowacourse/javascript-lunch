@@ -1,10 +1,10 @@
-import restaurantListHelper from "../domain/RestaurantListHelper";
-import filterState from "../store/FilterStateStore";
-import { Irestaurant } from "../types";
+import restaurantListHelper from '../domain/RestaurantListHelper';
+import filterState from '../store/FilterStateStore';
+import { Irestaurant } from '../types';
 
 const RestaurantListStorageService = {
   getData() {
-    const restaurantList = localStorage.getItem("restaurantList");
+    const restaurantList = localStorage.getItem('restaurantList');
     if (restaurantList) {
       return JSON.parse(restaurantList);
     }
@@ -16,10 +16,7 @@ const RestaurantListStorageService = {
       filterState.getFilterInfo().filter,
       this.getData(),
     );
-    return restaurantListHelper.sortBySelectedValue(
-      filterState.getFilterInfo().sort,
-      filtereDataByCategory,
-    );
+    return restaurantListHelper.sortBySelectedValue(filterState.getFilterInfo().sort, filtereDataByCategory);
   },
 
   setData(restaurant: Irestaurant) {
@@ -27,7 +24,7 @@ const RestaurantListStorageService = {
 
     const newData = [...prevData, restaurant];
 
-    localStorage.setItem("restaurantList", JSON.stringify(newData));
+    localStorage.setItem('restaurantList', JSON.stringify(newData));
   },
 };
 

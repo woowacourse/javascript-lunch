@@ -1,6 +1,6 @@
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
-import { distanceChange } from './handlers';
+import { distanceChange } from './eventHandlers';
 import selectDistanceTemplate from './selectDistanceTemplate';
 
 function SelectDistance(form: Element) {

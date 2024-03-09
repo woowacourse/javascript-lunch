@@ -1,4 +1,4 @@
-import dimmerClickHandler from './handlers';
+import dimmerClickHandler from './eventHandlers';
 import InputDescription from './input_description/InputDescription';
 import InputLink from './input_link/InputLink';
 import InputName from './input_name/InputName';

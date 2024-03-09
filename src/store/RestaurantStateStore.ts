@@ -1,5 +1,5 @@
-import Restaurant from "../domain/SetRestaurant";
-import { Icategory, Idistance, Irestaurant, MappedType } from "../types";
+import Restaurant from '../domain/SetRestaurant';
+import { Icategory, Idistance, Irestaurant, MappedType } from '../types';
 
 class RestaurantStateStore {
   #restaurantState: MappedType<Irestaurant> = {

@@ -1,6 +1,6 @@
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
-import { categoryChange } from './handlers';
+import { categoryChange } from './eventHandlers';
 import selectCategoryTemplate from './selectCategoryTemplate';
 
 function SelectCategory(form: Element) {

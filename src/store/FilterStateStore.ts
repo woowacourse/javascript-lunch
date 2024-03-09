@@ -1,12 +1,12 @@
-import { Iall, Icategory, IsortType } from "../types";
+import { Iall, Icategory, IsortType } from '../types';
 
 class FilterStateStore {
   #filterState: {
     filter: Icategory | Iall;
     sort: IsortType;
   } = {
-    filter: "전체",
-    sort: "name",
+    filter: '전체',
+    sort: 'name',
   };
 
   setFilterType(filter: Icategory | Iall) {
