@@ -65,3 +65,12 @@ export interface InputElementDataType extends Partial<BasicElementDataType> {
   TAG_REQUIRED?: boolean;
   TAG_TYPE: string;
 }
+
+export type SpanComponentPropsType = {
+  className?: string;
+  text: string;
+};
+
+export interface SpanElementDataType extends Partial<BasicElementDataType> {
+  TAG_TEXT: string;
+}
