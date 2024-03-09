@@ -196,6 +196,7 @@ class NewRestaurantModal extends BaseComponent {
   closeModal() {
     this.#hideErrorMessage();
     this.classList.remove('modal--open');
+    BasicModal.blockModalBodyScroll();
   }
 
   #hideErrorMessage() {
