@@ -1,9 +1,9 @@
-import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 import RESTAURANT_CATEGORY_DATA from '../../constants/RestaurantCategoryData';
 import SORT_BY_NAME_OR_CATEGORY_DATA from '../../constants/SortByNameOrDistanceData';
+import generateSelectElement from '../../uiUtils/generateSelectElement';
+import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 
 import { baseSectionTemplate } from './filterBarTemplate';
-import generateSelectElement from '../../uiUtils/generateSelectElement';
 
 export const renderBaseComponents = () => {
   const formattedBaseSectionTemplate = convertHTMLStringToDOM(baseSectionTemplate);
