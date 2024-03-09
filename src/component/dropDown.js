@@ -6,8 +6,8 @@ function createDropDown({ id, callback, options, className, required, cover }) {
   if (!callback) return dropdown;
 
   dropdown.addEventListener('change', () => {
-    const selectedOption = dropdown.value; // 선택된 옵션 값
-    callback(selectedOption); // 콜백 함수 호출
+    const selectedOption = dropdown.value;
+    callback(selectedOption);
   });
 
   return dropdown;
