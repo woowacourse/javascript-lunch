@@ -1,21 +1,10 @@
 import { Restaurant, Category, SortingStandard, Link } from "../types";
-import { deepCopy } from "../util";
+import {
+  deepCopy,
+  getResturantsFromLocalStorage,
+  setRestaurantsToLocalStorage,
+} from "../util";
 import { categories, distances } from "../constants";
-
-function getResturantsFromLocalStorage(): Restaurant[] {
-  if (!localStorage.getItem("restaurants")) {
-    localStorage.setItem("restaurants", JSON.stringify([]));
-  }
-
-  const restaurants = localStorage.getItem("restaurants") as string;
-
-  return JSON.parse(restaurants);
-}
-
-function setRestaurantsToLocalStorage(newRestuarant: Restaurant) {
-  const newRestaurants = [...getResturantsFromLocalStorage(), newRestuarant];
-  localStorage.setItem("restaurants", JSON.stringify(newRestaurants));
-}
 
 class RestaurantList {
   getRestaurants({
