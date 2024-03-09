@@ -4,6 +4,7 @@ import {
   sortingStandardsMapper,
 } from "../../constants";
 import { Category, SortingStandard } from "../../types";
+import { getRestaurantsFromLocalStorage } from "../../util";
 
 class RestaurantSelectSection {
   renderInit() {
@@ -32,14 +33,9 @@ class RestaurantSelectSection {
       "#category-filter"
     ) as HTMLSelectElement;
 
-    const categoryFragment = new DocumentFragment();
-    categories.forEach((category) => {
-      const categoryTag = document.createElement("option");
-      categoryTag.value = category;
-      categoryTag.textContent = category;
-      categoryFragment.append(categoryTag);
-    });
-    $categoryFilter.appendChild(categoryFragment);
+    const $frag = this.getOptions(categories);
+
+    $categoryFilter.appendChild($frag);
   }
 
   renderSorting() {
@@ -47,14 +43,9 @@ class RestaurantSelectSection {
       "#sorting-filter"
     ) as HTMLSelectElement;
 
-    const sortingFragment = new DocumentFragment();
-    sortingStandards.forEach((sortingStandard) => {
-      const sortingStandardTag = document.createElement("option");
-      sortingStandardTag.value = sortingStandard;
-      sortingStandardTag.textContent = sortingStandardsMapper[sortingStandard];
-      sortingFragment.append(sortingStandardTag);
-    });
-    $sortingFilter.appendChild(sortingFragment);
+    const $frag = this.getOptions(sortingStandards);
+
+    $sortingFilter.appendChild($frag);
   }
 
   getFilterValues(): {
@@ -79,6 +70,26 @@ class RestaurantSelectSection {
     ) as HTMLDivElement;
 
     $restaurantFilterContainer.addEventListener(type, listener);
+  }
+
+  private getOptions(
+    options: readonly Category[] | readonly SortingStandard[]
+  ) {
+    const $frag = new DocumentFragment();
+
+    options.forEach((option) => {
+      const $option = document.createElement("option");
+
+      $option.value = option;
+      $option.textContent =
+        option === "name" || option === "distance"
+          ? sortingStandardsMapper[option]
+          : option;
+
+      $frag.append($option);
+    });
+
+    return $frag;
   }
 }
 

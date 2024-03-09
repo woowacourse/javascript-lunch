@@ -1,8 +1,8 @@
 import { categories, distances, sortingStandards } from "../constants";
 
-type Category = (typeof categories)[number];
+type Category = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
 
-type Distance = (typeof distances)[number];
+type Distance = 5 | 10 | 15 | 20 | 30;
 
 type Link = `https://${string}` | `http://${string}`;
 
@@ -14,6 +14,6 @@ type Restaurant = {
   link?: Link | "";
 };
 
-type SortingStandard = (typeof sortingStandards)[number];
+type SortingStandard = "name" | "distance";
 
 export { Category, Distance, Restaurant, SortingStandard, Link };
