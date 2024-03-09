@@ -13,8 +13,6 @@ class Restaurant implements IRestaurant {
     this.category = restaurantArgs.category;
     this.description = restaurantArgs.description;
     this.link = restaurantArgs.link;
-    this.#validateName();
-    this.#validateDescription();
   }
 
   get() {
@@ -30,17 +28,6 @@ class Restaurant implements IRestaurant {
       result.link = this.link;
     }
     return result;
-  }
-
-  #validateName() {
-    if (!this.name.length || this.name.length > 20) {
-      throw new Error('[ERROR] 이름의 길이는 1~20자 여야 합니다.');
-    }
-  }
-  #validateDescription() {
-    if (this.description && this.description.length > 500) {
-      throw new Error('[ERROR] 음식점 설명 길이는 500자를 초과할 수 없습니다.');
-    }
   }
 }
 export default Restaurant;
