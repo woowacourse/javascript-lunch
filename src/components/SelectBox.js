@@ -20,7 +20,7 @@ class SelectBoxComponent {
   render() {
     this.$target.insertAdjacentHTML(
       'beforeend',
-      `<select name=${this.attributes.name} id=${this.attributes.id} class=${this.attributes.class} ${this.attributes.required}>
+      `<select name=${this.attributes.name} id=${this.attributes.id} class=${this.attributes.class} ${this.attributes.required && 'required'}>
     ${this.options.map(option => this.#getSelectOption(option)).join('')}
 </select>`,
     );

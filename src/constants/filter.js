@@ -28,7 +28,7 @@ const SORTING = [
 ];
 
 const FORM_CATEGORY_ATTRIBUTE = { name: 'category', id: 'category', required: true };
-const FORM_CATEGORY = [{ value: '선택해 주세요', text: '선택해 주세요' }, ...FOOD_CATEGORY];
+const FORM_CATEGORY = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
 
 const FORM_DISTANCE_ATTRIBUTE = { name: 'distance', id: 'distance', required: true };
 const FORM_DISTANCE = [
