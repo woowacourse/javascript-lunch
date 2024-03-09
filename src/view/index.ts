@@ -63,7 +63,7 @@ class View {
   }
 
   renderListSection() {
-    this.listSection.renderRestauantList(this.selectSection.getFilterValues());
+    this.listSection.renderRestaurantList(this.selectSection.getFilterValues());
   }
 
   renderFormModal() {

@@ -13,7 +13,7 @@ class RestaurantListSection {
     `;
   }
 
-  renderRestauantList({
+  renderRestaurantList({
     category,
     sortingStandard,
   }: {
@@ -31,9 +31,9 @@ class RestaurantListSection {
     });
 
     restaurants.forEach((restaurant) => {
-      const restauantTag = document.createElement("li");
-      restauantTag.className = "restaurant";
-      restauantTag.innerHTML = /*html*/ `
+      const restaurantTag = document.createElement("li");
+      restaurantTag.className = "restaurant";
+      restaurantTag.innerHTML = /*html*/ `
           <div class="restaurant__category">
             <img
               src="${categoryToIconNameMapper[restaurant.category]}"
@@ -51,7 +51,7 @@ class RestaurantListSection {
             </p>
           </div>
         `;
-      restaurantFragment.append(restauantTag);
+      restaurantFragment.append(restaurantTag);
     });
     $restaurantList.replaceChildren(restaurantFragment);
   }
