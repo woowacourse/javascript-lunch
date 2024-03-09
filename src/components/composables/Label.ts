@@ -4,9 +4,7 @@ function Label({ htmlFor, text, className }: LabelComponentPropsType) {
   const label = document.createElement('label');
   label.setAttribute('for', htmlFor);
   label.textContent = text;
-  if (className) {
-    label.className = className;
-  }
+  label.className = className ?? '';
 
   return label;
 }
