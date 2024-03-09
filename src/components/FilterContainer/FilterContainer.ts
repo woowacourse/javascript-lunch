@@ -12,8 +12,19 @@ class FilterContainer extends BaseComponent {
 
   constructor() {
     super();
-    this.#selectCategoryBox = new SelectBox(CATEGORIES_WITH_ALL_KEYS, 'category');
-    this.#selectSortBox = new SelectBox(SORT_CRITERION_KEYS, 'sorting');
+    this.#selectCategoryBox = new SelectBox({
+      optionValues: CATEGORIES_WITH_ALL_KEYS,
+      name: 'category',
+      classList: ['restaurant-filter'],
+      id: 'category-filter',
+    });
+
+    this.#selectSortBox = new SelectBox({
+      optionValues: SORT_CRITERION_KEYS,
+      name: 'sorting',
+      classList: ['restaurant-filter'],
+      id: 'sorting-filter',
+    });
     this.#restaurantList = document.querySelector('.restaurant-list-container') as RestaurantList;
   }
 

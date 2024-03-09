@@ -50,9 +50,15 @@ class NewRestaurantModal extends BaseComponent {
     $categorySelectBox.append($categoryLabel);
 
     const CATEGORIES_KEYS_REQUIRED = ['선택해주세요', ...CATEGORIES_KEYS];
-    const $categorySelect = new SelectBox(CATEGORIES_KEYS_REQUIRED, 'category');
-    $categorySelectBox.append($categorySelect);
 
+    const $categorySelect = new SelectBox({
+      optionValues: CATEGORIES_KEYS_REQUIRED,
+      name: 'category',
+      classList: [],
+      id: 'category',
+    });
+
+    $categorySelectBox.append($categorySelect);
     const errorBox = document.createElement('div');
     errorBox.classList.add('error', 'hidden');
     errorBox.textContent = '카테고리는 필수 입력입니다.';
@@ -84,7 +90,14 @@ class NewRestaurantModal extends BaseComponent {
       '선택해주세요',
       ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
     ];
-    $distanceSelection.append(new SelectBox(DISTANCES_REQURIED, 'distance'));
+    $distanceSelection.append(
+      new SelectBox({
+        optionValues: DISTANCES_REQURIED,
+        name: 'distance',
+        classList: [],
+        id: '',
+      }),
+    );
     const errorBox = document.createElement('div');
     errorBox.classList.add('error', 'hidden');
     errorBox.textContent = '거리 값은 필수 입력입니다.';
