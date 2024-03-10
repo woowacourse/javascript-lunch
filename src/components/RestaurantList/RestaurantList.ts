@@ -12,7 +12,7 @@ class RestaurantList extends BaseComponent {
   constructor() {
     super();
     this.#restaurantDBService = new RestaurantDBService();
-    this.#restaurantList = JSON.parse(this.#restaurantDBService.get() || '');
+    this.#restaurantList = this.#restaurantDBService.get();
   }
 
   render() {

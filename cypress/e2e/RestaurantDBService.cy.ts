@@ -27,7 +27,7 @@ describe('음식점 DB 서비스 테스트', () => {
 
     restaurantDBService.add(NEW_RESTAURANT);
 
-    expect(JSON.parse(localStorage.getItem(RESTAURANTS_DB_TEST_KEY) || '[]')).to.deep.equal([
+    expect(JSON.parse(localStorage.getItem(RESTAURANTS_DB_TEST_KEY) ?? '[]')).to.deep.equal([
       NEW_RESTAURANT,
     ]);
   });
@@ -54,9 +54,6 @@ describe('음식점 DB 서비스 테스트', () => {
       JSON.stringify([RESTAURANT_FIRST, RESTAURANT_SECOND]),
     );
 
-    expect(JSON.parse(restaurantDBService.get() || '[]')).to.deep.equal([
-      RESTAURANT_FIRST,
-      RESTAURANT_SECOND,
-    ]);
+    expect(restaurantDBService.get()).to.deep.equal([RESTAURANT_FIRST, RESTAURANT_SECOND]);
   });
 });

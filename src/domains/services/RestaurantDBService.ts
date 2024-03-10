@@ -20,12 +20,12 @@ class RestaurantDBService {
   }
 
   update() {
-    const existingRestaurants = JSON.parse(this.get() || '[]');
+    const existingRestaurants = this.get();
     this.#restaurantCollection = new RestaurantCollection(existingRestaurants);
   }
 
   get() {
-    return localStorage.getItem(this.#RESTAURANTS_DB_KEY);
+    return JSON.parse(localStorage.getItem(this.#RESTAURANTS_DB_KEY) ?? '[]');
   }
 
   set(data: IRestaurant[]) {
