@@ -25,13 +25,13 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
           <form-input
-          labelText="이름"
-          labelForId="restaurant-name"
-          key="name"
-          type="text"
-          required="true",
-          placeholder="이름을 입력해주세요(10자 이내)"
-          maxlength="10"
+            labelText="이름"
+            labelForId="restaurant-name"
+            key="name"
+            type="text"
+            required="true",
+            placeholder="이름을 입력해주세요(10자 이내)"
+            maxlength="10"
           > 
           </form-input>
         </div>
@@ -45,12 +45,12 @@ class RestaurantFormModalInner extends HTMLElement {
         <div class="form-item">
           <label for="restaurant-description">설명</label>
           <custom-textarea
-                name="restaurant-description"
-                id="restaurant-description"
-                cols="30"
-                rows="5"
-                placeholder="메뉴 등 추가 정보를 입력해 주세요.(150자 이내)"
-                maxlength="150"
+            name="restaurant-description"
+            id="restaurant-description"
+            cols="30"
+            rows="5"
+            placeholder="메뉴 등 추가 정보를 입력해 주세요.(150자 이내)"
+            maxlength="150"
           >
           </custom-textarea>
         </div>

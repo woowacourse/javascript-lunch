@@ -19,6 +19,8 @@ class RestaurantComponent extends HTMLElement {
     const store = storeData.find((data) => data.name === storeName);
 
     if (store) {
+      const noneDescription = /* html */ `<span class="none-description">상점 설명이 존재하지 않습니다.</span>`;
+
       this.innerHTML = /* html */ `
       <li class="restaurant">
         <category-icon category="${store.category}"></category-icon>
@@ -28,11 +30,7 @@ class RestaurantComponent extends HTMLElement {
             </h3>
             <p class="restaurant__info__distance"> 캠퍼스부터 ${store.distance}분 내</p>
             <p class="restaurant__info__explanation">
-              ${
-                store.description
-                  ? store.description
-                  : '<span class="none-description">상점 설명이 존재하지 않습니다.</span>'
-              }
+              ${store.description ? store.description : noneDescription}
             </p>
           </div>
         </li>
@@ -41,7 +39,7 @@ class RestaurantComponent extends HTMLElement {
       return;
     }
 
-    this.innerHTML = '<p>해당 상점을 찾을 수 없습니다.</p>';
+    this.innerHTML = /* html */ `<p>해당 상점을 찾을 수 없습니다.</p>`;
   }
 }
 

@@ -1,3 +1,4 @@
+import { setObjectAttribute } from '../../utils';
 import FormTextField from '../FormTextField';
 
 class FromInput extends FormTextField {
@@ -14,18 +15,17 @@ class FromInput extends FormTextField {
       maxlength: this.getAttribute('maxlength'),
       placeholder: this.getAttribute('placeholder'),
     };
+
     super.connectedCallback();
     this.#setCustomInput(attributes);
     super.handleAddEvent();
   }
 
   #setCustomInput(attributes: Object) {
-    const customInputEl = document.createElement('custom-input');
-
-    Object.entries(attributes).forEach(([key, value]) => {
-      customInputEl.setAttribute(key, value);
-    });
-
+    const customInputEl = setObjectAttribute(
+      attributes,
+      document.createElement('custom-input'),
+    );
     const customTextContainerEl = this.querySelector('.custom-text-container');
 
     customTextContainerEl?.appendChild(customInputEl);

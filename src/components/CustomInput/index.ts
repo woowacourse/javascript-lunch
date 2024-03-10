@@ -1,6 +1,7 @@
 import * as xssFilters from 'xss-filters';
 
 import './style.css';
+import { setObjectAttribute } from '../../utils';
 
 class CustomInput extends HTMLElement {
   constructor() {
@@ -8,38 +9,25 @@ class CustomInput extends HTMLElement {
   }
 
   connectedCallback() {
-    const id = this.getAttribute('id');
-    const type = this.getAttribute('type');
-    const name = this.getAttribute('name');
-    const required = this.getAttribute('required');
-    const placeholder = this.getAttribute('placeholder');
-    const maxlength = this.getAttribute('maxlength');
-
-    const inputEl = document.createElement('input');
-
-    const inputAttributes = {
-      id: id,
-      type: type,
-      name: `${name}`,
-      required: required,
-      placeholder: placeholder,
-      maxlength: maxlength,
+    const attributes = {
+      id: this.getAttribute('id'),
+      type: this.getAttribute('type'),
+      name: this.getAttribute('name'),
+      required: this.getAttribute('required'),
+      placeholder: this.getAttribute('placeholder'),
+      maxlength: this.getAttribute('maxlength'),
     };
 
-    Object.entries(inputAttributes).forEach(([key, value]) => {
-      if (value) {
-        key === 'required'
-          ? (inputEl.required = true)
-          : inputEl.setAttribute(key, value);
-      }
-    });
+    const inputEl = setObjectAttribute(
+      attributes,
+      document.createElement('input'),
+    );
+
     this.appendChild(inputEl);
 
-    this.querySelector('input')?.addEventListener('change', (event) =>
-      this.#handleChange(event),
-    );
+    inputEl.addEventListener('change', (event) => this.#handleChange(event));
   }
-  addChange(fn: () => void) {}
+
   #handleChange(event: Event) {
     const eventTarget = event.target;
 

@@ -34,7 +34,7 @@ class CategoryIcon extends HTMLElement {
 
       const { imageUrl, alt } = item as IconMapValue;
 
-      this.innerHTML = `<img src="${imageUrl}" alt="${alt}"/>`;
+      this.innerHTML = /* html */ `<img src="${imageUrl}" alt="${alt}"/>`;
     }
   }
 }

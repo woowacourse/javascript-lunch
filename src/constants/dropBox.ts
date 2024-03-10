@@ -1,10 +1,5 @@
-import { DropBoxName, SelectProps, OptionProps } from '../types';
-// TODO: 파일 분리
-export type DropBoxMapValue = {
-  selectProps: SelectProps;
-  labelText: string;
-  options: OptionProps[];
-};
+import { DropBoxName, DropBoxMapValue } from '../types';
+import { CATEGORY_OPTIONS } from './rule';
 
 export const DROP_BOX_MAP = new Map<DropBoxName, DropBoxMapValue>([
   [
@@ -34,15 +29,7 @@ export const DROP_BOX_MAP = new Map<DropBoxName, DropBoxMapValue>([
         required: false,
       },
       labelText: '카테고리 정렬',
-      options: [
-        { value: 'all', text: '전체' },
-        { value: 'korean', text: '한식' },
-        { value: 'chinese', text: '중식' },
-        { value: 'japanese', text: '일식' },
-        { value: 'western', text: '양식' },
-        { value: 'asian', text: '아시안' },
-        { value: 'etc', text: '기타' },
-      ],
+      options: [{ value: 'all', text: '전체' }, ...CATEGORY_OPTIONS],
     },
   ],
 
@@ -58,12 +45,7 @@ export const DROP_BOX_MAP = new Map<DropBoxName, DropBoxMapValue>([
       labelText: '카테고리 정렬',
       options: [
         { value: '', text: '선택해주세요.', hidden: true },
-        { value: 'korean', text: '한식' },
-        { value: 'chinese', text: '중식' },
-        { value: 'japanese', text: '일식' },
-        { value: 'western', text: '양식' },
-        { value: 'asian', text: '아시안' },
-        { value: 'etc', text: '기타' },
+        ...CATEGORY_OPTIONS,
       ],
     },
   ],

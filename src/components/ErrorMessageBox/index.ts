@@ -6,8 +6,11 @@ class ErrorMessageBox extends HTMLElement {
   }
 
   connectedCallback() {
-    const message = this.getAttribute('message');
-    this.innerHTML = /* html */ `<div>${message || ''}</div>`;
+    const divEl = document.createElement('div');
+
+    divEl.textContent = this.getAttribute('message') || '';
+
+    this.appendChild(divEl);
   }
 }
 

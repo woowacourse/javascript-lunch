@@ -8,12 +8,10 @@ class CustomModal extends HTMLElement {
 
     shadow.innerHTML = /* html */ `
     <style>
-
-
       .modal {
         display: none;
       }
-
+      
       .modal.open {
         display:block;
         position: absolute;

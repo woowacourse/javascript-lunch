@@ -16,3 +16,9 @@ export interface OptionProps {
   text: string;
   hidden?: boolean;
 }
+
+export type DropBoxMapValue = {
+  selectProps: SelectProps;
+  labelText: string;
+  options: OptionProps[];
+};

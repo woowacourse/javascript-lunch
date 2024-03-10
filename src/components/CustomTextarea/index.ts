@@ -1,6 +1,7 @@
 import * as xssFilters from 'xss-filters';
 
 import './style.css';
+import { setObjectAttribute } from '../../utils';
 
 class CustomTextarea extends HTMLElement {
   constructor() {
@@ -8,29 +9,23 @@ class CustomTextarea extends HTMLElement {
   }
 
   connectedCallback() {
-    const id = this.getAttribute('id');
-    const name = this.getAttribute('name');
-    const cols = this.getAttribute('clos');
-    const rows = this.getAttribute('rows');
-    const placeholder = this.getAttribute('placeholder');
-    const maxlength = this.getAttribute('maxlength');
+    const attributes = {
+      id: this.getAttribute('id'),
+      name: this.getAttribute('name'),
+      cols: this.getAttribute('clos'),
+      rows: this.getAttribute('rows'),
+      placeholder: this.getAttribute('placeholder'),
+      maxlength: this.getAttribute('maxlength'),
+    };
 
-    this.innerHTML = /* html */ `<textarea  
-      name="${name}" 
-      id="${id}" 
-      cols="${cols}" 
-      rows="${rows}" 
-      placeholder="${placeholder || ''}"  
-      ${maxlength ? `maxlength=${maxlength}` : ''}></textarea>
-    `;
+    const textareaEl = setObjectAttribute(
+      attributes,
+      document.createElement('textarea'),
+    );
 
-    const textareaEl = this.querySelector('textarea');
+    this.appendChild(textareaEl);
 
-    if (textareaEl instanceof HTMLTextAreaElement) {
-      textareaEl.addEventListener('change', (event) =>
-        this.#handleChange(event),
-      );
-    }
+    textareaEl.addEventListener('change', (event) => this.#handleChange(event));
   }
 
   #handleChange(event: Event) {

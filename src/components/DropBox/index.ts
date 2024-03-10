@@ -10,8 +10,7 @@ class DropBox extends HTMLElement {
     const dropBoxName = this.getAttribute('name') as DropBoxName;
 
     if (this.#isDropBoxName(dropBoxName)) {
-      const innerHTML = new DropBoxInnerHtmlMaker(dropBoxName).innerHtml;
-      this.innerHTML = innerHTML || '';
+      this.innerHTML = new DropBoxInnerHtmlMaker(dropBoxName).innerHtml || '';
     }
   }
 

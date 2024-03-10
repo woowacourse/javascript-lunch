@@ -1,6 +1,7 @@
 import './style.css';
 
-import { DefaultBtnColor } from '../../types';
+import { BtnType, DefaultBtnColor } from '../../types';
+import { setObjectAttribute } from '../../utils';
 
 class DefaultBtn extends HTMLElement {
   constructor() {
@@ -8,19 +9,21 @@ class DefaultBtn extends HTMLElement {
   }
 
   connectedCallback() {
-    const color = this.getAttribute('color');
-    const text = this.getAttribute('text');
-    const type = this.getAttribute('type');
     const defaultBtnColor: DefaultBtnColor = 'red';
+    const defaultBtnType: BtnType = 'button';
+    const attributes = {
+      class: `btn-color-${this.getAttribute('color') || defaultBtnColor}`,
+      type: this.getAttribute('type') || defaultBtnType,
+    };
 
-    this.innerHTML = /* html */ `             
-      <button
-        type=${type || 'button'}
-        class='btn-color-${color || defaultBtnColor}'
-      >
-        ${text}
-      </button>
-    `;
+    const btnEl = setObjectAttribute(
+      attributes,
+      document.createElement('button'),
+    );
+
+    btnEl.textContent = this.getAttribute('text');
+
+    this.appendChild(btnEl);
   }
 }
 

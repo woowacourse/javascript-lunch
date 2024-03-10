@@ -10,6 +10,22 @@ class FormTextField extends HTMLElement {
   }
 
   connectedCallback() {
+    //style
+    const style = document.createElement('style');
+    style.textContent = `
+      error-message-box{
+        color: var(--lunch-primary-color);
+        font-weight: 500;
+        font-size: 12px;
+        padding=left:18px;
+      }
+      label {
+        margin-bottom: 6px;
+        color: var(--lunch-grey-scale-4-color);
+        font-size: var(--label-font-size);
+        line-height: 20px;
+      }
+    `;
     //label
     const labelText = this.getAttribute('labelText');
     const labelForId = this.getAttribute('labelForId');
@@ -17,23 +33,7 @@ class FormTextField extends HTMLElement {
 
     if (labelForId) labelEl.setAttribute('for', labelForId);
     labelEl.textContent = labelText;
-    //style
-    const style = document.createElement('style');
-    style.textContent = `
-    error-message-box{
-      color: var(--lunch-primary-color);
-      font-weight: 500;
-      font-size: 12px;
-      padding=left:18px;
-    }
-    label {
-      margin-bottom: 6px;
-      color: var(--lunch-grey-scale-4-color);
-      font-size: var(--label-font-size);
-      line-height: 20px;
-    }
-
-`; //customTextContainerEl
+    //customTextContainerEl
     const customTextContainerEl = document.createElement('div');
     customTextContainerEl.className = 'custom-text-container';
     //errorMessage
@@ -47,6 +47,7 @@ class FormTextField extends HTMLElement {
 
   handleAddEvent() {
     const key = this.getAttribute('key');
+
     if (this.#isRestaurantInfoKey(key)) {
       this.#addEventToChange(key);
     }
@@ -70,6 +71,7 @@ class FormTextField extends HTMLElement {
     const customTextContainerEl = this.querySelector('.custom-text-container');
     const inputOrTextareaEl =
       customTextContainerEl?.firstElementChild?.firstChild;
+
     if (
       inputOrTextareaEl instanceof HTMLInputElement ||
       inputOrTextareaEl instanceof HTMLTextAreaElement
@@ -96,9 +98,8 @@ class FormTextField extends HTMLElement {
   }
 
   #handleErrorMessage(error: unknown) {
-    const customTextContainerEl = this.querySelector('.custom-text-container');
     const errorMessageBoxEl = this.querySelector('error-message-box');
-    console.log(error, errorMessageBoxEl);
+
     if (error instanceof Error && errorMessageBoxEl instanceof HTMLElement) {
       errorMessageBoxEl.textContent = error.message || null;
     }
