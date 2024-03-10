@@ -13,12 +13,12 @@ import { KOREAN_CATEGORY } from "../constants/category";
 customElements.define("form-item", FormItem);
 
 const distanceOptions = [
-  { value: "", label: "선택해 주세요" },
-  { value: "5", label: "5분 내" },
-  { value: "10", label: "10분 내" },
-  { value: "15", label: "15분 내" },
-  { value: "20", label: "20분 내" },
-  { value: "30", label: "30분 내" },
+  { value: null, label: "선택해 주세요" },
+  { value: 5, label: "5분 내" },
+  { value: 10, label: "10분 내" },
+  { value: 15, label: "15분 내" },
+  { value: 20, label: "20분 내" },
+  { value: 30, label: "30분 내" },
 ];
 
 export default class RestaurantForm extends EventComponent {
@@ -29,6 +29,7 @@ export default class RestaurantForm extends EventComponent {
       <form-item title="카테고리" required="true" label-for="category">
         <select-box
           select-id="category"
+          class-name="category-select"
           name="category"
           options=${this.generateCategoryOptions()}
           required="true"
@@ -43,7 +44,8 @@ export default class RestaurantForm extends EventComponent {
       <form-item title="거리(도보 이동 시간)" required="true" label-for="time-to-reach">
         <select-box
           select-id="time-to-reach"
-          name="time-to-reach"
+          class-name="time-to-reach-select"
+          name="timeToReach"
           options=${this.generateDistanceOptions()}
           required="true"
         >
@@ -88,13 +90,9 @@ export default class RestaurantForm extends EventComponent {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
 
-    const category = ($("#category") as HTMLSelectElement).value;
-    const timeToReach = ($("#time-to-reach") as HTMLSelectElement).value;
-
     const payload = {
       ...data,
-      category,
-      timeToReach: Number(timeToReach),
+      timeToReach: Number(data.timeToReach),
     };
 
     const cleanUp = () => {
