@@ -5,18 +5,193 @@ import {
 } from '../../src/domain/RestaurantManager';
 
 describe('음식점 목록 테스트', () => {
+  const TestData = {
+    addition: {
+      input: {
+        category: '중식',
+        name: '친친',
+        walkingTime: 5,
+      },
+      output: {
+        category: '중식',
+        name: '친친',
+        walkingTime: 5,
+      },
+    },
+
+    sortingName: {
+      input: [
+        {
+          category: '한식',
+          name: '바',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '가',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '나',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '마녀김밥',
+          walkingTime: 5,
+        },
+      ],
+      output: [
+        {
+          category: '한식',
+          name: '가',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '나',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '마녀김밥',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '바',
+          walkingTime: 5,
+        },
+      ],
+    },
+    sortingWalkingTime: {
+      input: [
+        {
+          category: '한식',
+          name: '바',
+          walkingTime: 30,
+        },
+        {
+          category: '한식',
+          name: '간',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '가',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '나',
+          walkingTime: 20,
+        },
+        {
+          category: '한식',
+          name: '마녀김밥',
+          walkingTime: 10,
+        },
+      ],
+      output: [
+        {
+          category: '한식',
+          name: '가',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '간',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '마녀김밥',
+          walkingTime: 10,
+        },
+        {
+          category: '한식',
+          name: '나',
+          walkingTime: 20,
+        },
+        {
+          category: '한식',
+          name: '바',
+          walkingTime: 30,
+        },
+      ],
+    },
+
+    filterTests: {
+      input: [
+        {
+          category: '중식',
+          filteredRestaurants: [
+            {
+              category: '중식',
+              name: '가',
+              walkingTime: 5,
+            },
+          ],
+        },
+        {
+          category: '일식',
+          filteredRestaurants: [
+            {
+              category: '일식',
+              name: '바',
+              walkingTime: 30,
+            },
+          ],
+        },
+        {
+          category: '한식',
+          filteredRestaurants: [
+            {
+              category: '한식',
+              name: '마녀김밥',
+              walkingTime: 10,
+            },
+            {
+              category: '한식',
+              name: '나',
+              walkingTime: 20,
+            },
+          ],
+        },
+      ],
+      output: [
+        {
+          category: '중식',
+          name: '가',
+          walkingTime: 5,
+        },
+        {
+          category: '한식',
+          name: '마녀김밥',
+          walkingTime: 10,
+        },
+        {
+          category: '한식',
+          name: '나',
+          walkingTime: 20,
+        },
+        {
+          category: '일식',
+          name: '바',
+          walkingTime: 30,
+        },
+      ],
+    },
+  };
   it('음식점을 추가하면 정상적으로 추가되었는지 확인한다.', () => {
     // given
-    const newRestaurant: IRestaurant = {
-      category: '중식',
-      name: '친친',
-      walkingTime: 5,
-    };
+    const newRestaurant: IRestaurant = TestData.addition.input;
 
     const restaurantManager: IRestaurantManager = new RestaurantManager([]);
 
     // when
-    restaurantManager.add(newRestaurant);
+    restaurantManager.add(TestData.addition.output);
 
     // then
     expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
@@ -24,53 +199,11 @@ describe('음식점 목록 테스트', () => {
 
   it('음식점을 이름순으로 정렬해 반환한다.', () => {
     // given
-    const localStorageRestaurants: IRestaurant[] = [
-      {
-        category: '한식',
-        name: '바',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '가',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '나',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '마녀김밥',
-        walkingTime: 5,
-      },
-    ];
+    const localStorageRestaurants: IRestaurant[] = TestData.sortingName.input;
     const restaurantManager: IRestaurantManager = new RestaurantManager(
       localStorageRestaurants
     );
-    const sortedByAscendingName: IRestaurant[] = [
-      {
-        category: '한식',
-        name: '가',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '나',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '마녀김밥',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '바',
-        walkingTime: 5,
-      },
-    ];
+    const sortedByAscendingName: IRestaurant[] = TestData.sortingName.output;
 
     // then
     expect(restaurantManager.sortByAscendingName()).to.eql(
@@ -80,63 +213,13 @@ describe('음식점 목록 테스트', () => {
 
   it('음식점을 거리순으로 정렬해 반환한다.', () => {
     // given
-    const localStorageRestaurants: IRestaurant[] = [
-      {
-        category: '한식',
-        name: '바',
-        walkingTime: 30,
-      },
-      {
-        category: '한식',
-        name: '간',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '가',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '나',
-        walkingTime: 20,
-      },
-      {
-        category: '한식',
-        name: '마녀김밥',
-        walkingTime: 10,
-      },
-    ];
+    const localStorageRestaurants: IRestaurant[] =
+      TestData.sortingWalkingTime.input;
     const restaurantManager: IRestaurantManager = new RestaurantManager(
       localStorageRestaurants
     );
-    const sortedByAscendingWalkingTime: IRestaurant[] = [
-      {
-        category: '한식',
-        name: '가',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '간',
-        walkingTime: 5,
-      },
-      {
-        category: '한식',
-        name: '마녀김밥',
-        walkingTime: 10,
-      },
-      {
-        category: '한식',
-        name: '나',
-        walkingTime: 20,
-      },
-      {
-        category: '한식',
-        name: '바',
-        walkingTime: 30,
-      },
-    ];
+    const sortedByAscendingWalkingTime: IRestaurant[] =
+      TestData.sortingWalkingTime.output;
 
     // then
     expect(restaurantManager.sortByAscendingWalkingTime()).to.eql(
@@ -161,67 +244,10 @@ describe('음식점 목록 테스트', () => {
     expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
   });
 
-  const totalRestaurants: IRestaurant[] = [
-    {
-      category: '중식',
-      name: '가',
-      walkingTime: 5,
-    },
-    {
-      category: '한식',
-      name: '마녀김밥',
-      walkingTime: 10,
-    },
-    {
-      category: '한식',
-      name: '나',
-      walkingTime: 20,
-    },
-    {
-      category: '일식',
-      name: '바',
-      walkingTime: 30,
-    },
-  ];
+  const totalRestaurants: IRestaurant[] = TestData.filterTests.output;
 
   const testData: { category: Category; filteredRestaurants: IRestaurant[] }[] =
-    [
-      {
-        category: '중식',
-        filteredRestaurants: [
-          {
-            category: '중식',
-            name: '가',
-            walkingTime: 5,
-          },
-        ],
-      },
-      {
-        category: '일식',
-        filteredRestaurants: [
-          {
-            category: '일식',
-            name: '바',
-            walkingTime: 30,
-          },
-        ],
-      },
-      {
-        category: '한식',
-        filteredRestaurants: [
-          {
-            category: '한식',
-            name: '마녀김밥',
-            walkingTime: 10,
-          },
-          {
-            category: '한식',
-            name: '나',
-            walkingTime: 20,
-          },
-        ],
-      },
-    ];
+    TestData.filterTests.input;
 
   testData.forEach(({ category, filteredRestaurants }) => {
     it(`${category}로 정렬한 결과를 받아온다.`, () => {
