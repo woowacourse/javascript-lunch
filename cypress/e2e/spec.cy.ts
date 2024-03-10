@@ -1,6 +1,18 @@
 import restaurants from '../fixtures/restaurants.json';
 
-describe('점심 뭐 먹지 E2E 테스트', () => {
+describe('점심 뭐 먹지 로컬 스토리지에 데이터가 없는 경우를 테스트한다', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:8080');
+    cy.viewport(550, 950);
+    localStorage.removeItem('restaurants');
+  });
+
+  it('데이터가 없을 경우 목록 부분이 비어있어야 한다.', () => {
+    cy.get('.restaurant-item').should('not.exist');
+  });
+});
+
+describe('점심 뭐 먹지 로컬 스토리지에 데이터가 있는 경우를 테스트한다', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080');
     cy.viewport(550, 950);
