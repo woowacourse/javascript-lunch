@@ -1,10 +1,12 @@
-import generateSelectBox from "../generateComponent/generateSelectBox";
-import generateButton from "../generateComponent/generateButton";
-import FormItem from "./FormItem";
-import createElementByTag from "../generateComponent/utils/createElementByTag";
-import RestaurantList from "../../domain/RestaurantList";
-import { CATECORY, DISTANCE } from "../../constants/selectOptions";
+import { CATEGORY, DISTANCE } from "../../constants/selectOptions";
+
 import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
+import FormItem from "./FormItem";
+import RestaurantList from "../../domain/RestaurantList";
+import createElementByTag from "../generateComponent/utils/createElementByTag";
+import generateButton from "../generateComponent/generateButton";
+import generateSelectBox from "../generateComponent/generateSelectBox";
+
 class AddRestaurantForm {
   #categoryFormItem: FormItem;
   #nameFormItem: FormItem;
@@ -43,7 +45,7 @@ class AddRestaurantForm {
   }
 
   #createcategoryFormItem() {
-    const categorySelectBoxInModal = generateSelectBox(CATECORY, false);
+    const categorySelectBoxInModal = generateSelectBox(CATEGORY, false);
     const categoryFormItem = new FormItem({
       subject: FORM_ITEM_TEXTS.categoryTitle,
       readableElement: categorySelectBoxInModal,

@@ -10,7 +10,7 @@ export const CATEGORY_WITH_ENTIRE: CategoryWithEntire[] = [
 
 export const SORT_STANDARD: SortStandard[] = ["이름순", "거리순"];
 
-export const CATECORY: Category[] = [
+export const CATEGORY: Category[] = [
   "한식",
   "중식",
   "일식",
