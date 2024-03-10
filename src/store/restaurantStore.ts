@@ -17,7 +17,7 @@ const restaurantStore = {
       return new Restaurants(restaurantsArray);
     } catch {
       localStore.reset();
-      alert("데이터 건들지 마세요!");
+      alert("데이터가 훼손되어 식당 목록이 초기화되었습니다.");
       return this.get();
     }
   },
