@@ -1,7 +1,7 @@
 import type { IButtonAttributes } from '../types/dom';
 import dom from '../utils/dom';
 
-interface IButton {
+interface IButtonProps {
   $target: HTMLElement;
   attributes: IButtonAttributes;
   eventHandler: () => void;
@@ -12,7 +12,7 @@ class Button {
   attributes;
   eventHandler;
 
-  constructor({ $target, attributes, eventHandler }: IButton) {
+  constructor({ $target, attributes, eventHandler }: IButtonProps) {
     this.$target = $target;
     this.attributes = attributes;
     this.eventHandler = eventHandler;

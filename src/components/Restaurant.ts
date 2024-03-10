@@ -1,5 +1,6 @@
 import { CATEGORY_IMG_SRC } from '../constants/filter';
 import type { IRestaurant } from '../types/restaurant';
+import dom from '../utils/dom';
 
 interface IRestaurantProps {
   $target: HTMLElement;
@@ -17,63 +18,67 @@ class RestaurantComponent {
   }
 
   render(): void {
-    const restaurantWrapper = document.createElement('li');
-    restaurantWrapper.classList.add('restaurant');
     const categoryWrapper = this.#getRestaurantCategory();
     const infoWrapper = this.#getRestaurantInfo();
-    restaurantWrapper.appendChild(categoryWrapper);
-    restaurantWrapper.appendChild(infoWrapper);
+    const restaurantWrapper = dom.create({
+      tagName: 'li',
+      classNames: ['restaurant'],
+      children: [categoryWrapper, infoWrapper],
+    });
     this.$target.appendChild(restaurantWrapper);
   }
 
-  #getRestaurantCategory(): HTMLDivElement {
-    const categoryWrapper = document.createElement('div');
-    categoryWrapper.classList.add('restaurant__category');
+  #getRestaurantCategory(): HTMLElement {
     const restaurantImage = this.#getRestaurantImage();
-    categoryWrapper.appendChild(restaurantImage);
+    const categoryWrapper = dom.create({
+      tagName: 'div',
+      classNames: ['restaurant__category'],
+      children: [restaurantImage],
+    });
     return categoryWrapper;
   }
 
-  #getRestaurantInfo(): HTMLDivElement {
-    const infoWrapper = document.createElement('div');
+  #getRestaurantInfo(): HTMLElement {
     const subtitle = this.#getRestaurantSubtitle();
     const distance = this.#getRestaurantDistance();
     const description = this.#getRestaurantDescription();
-    infoWrapper.appendChild(subtitle);
-    infoWrapper.appendChild(distance);
-    infoWrapper.appendChild(description);
+    const infoWrapper = dom.create({ tagName: 'div', children: [subtitle, distance, description] });
     return infoWrapper;
   }
 
   #getRestaurantImage(): HTMLImageElement {
-    const imageTag = document.createElement('img');
-    imageTag.src = CATEGORY_IMG_SRC[this.information.category];
-    imageTag.alt = this.information.category;
-    imageTag.classList.add('category-icon');
+    const imageTag = dom.createImageTag({
+      classNames: ['category-icon'],
+      src: CATEGORY_IMG_SRC[this.information.category],
+      alt: this.information.category,
+    });
     return imageTag;
   }
 
   #getRestaurantSubtitle(): HTMLHeadElement {
-    const thirdHeaderTag = document.createElement('h3');
-    thirdHeaderTag.classList.add('restaurant__name');
-    thirdHeaderTag.classList.add('text-subtitle');
-    thirdHeaderTag.textContent = this.information.name;
+    const thirdHeaderTag = dom.create({
+      tagName: 'h3',
+      classNames: ['restaurant__name', 'text-subtitle'],
+      text: this.information.name,
+    });
     return thirdHeaderTag;
   }
 
   #getRestaurantDistance(): HTMLSpanElement {
-    const spanTag = document.createElement('span');
-    spanTag.classList.add('restaurant__distance');
-    spanTag.classList.add('text-body');
-    spanTag.textContent = `캠퍼스부터 ${this.information.distance}분 내`;
+    const spanTag = dom.create({
+      tagName: 'span',
+      classNames: ['restaurant__distance', 'text-body'],
+      text: `캠퍼스부터 ${this.information.distance}분 내`,
+    });
     return spanTag;
   }
 
-  #getRestaurantDescription(): HTMLParagraphElement {
-    const paragraphTag = document.createElement('p');
-    paragraphTag.classList.add('restaurant__description');
-    paragraphTag.classList.add('text-body');
-    paragraphTag.textContent = this.information.description ?? '';
+  #getRestaurantDescription(): HTMLElement {
+    const paragraphTag = dom.create({
+      tagName: 'p',
+      classNames: ['restaurant__description', 'text-body'],
+      text: this.information.description,
+    });
     return paragraphTag;
   }
 }

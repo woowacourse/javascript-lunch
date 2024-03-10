@@ -1,7 +1,7 @@
 import type { ISelectAttributes, IOptionAttributes } from '../types/dom';
 import dom from '../utils/dom';
 
-interface ISelectBox {
+interface ISelectBoxProps {
   $target: HTMLElement;
   attributes: ISelectAttributes;
   eventHandler: () => void;
@@ -14,7 +14,7 @@ class SelectBoxComponent {
   eventHandler;
   options;
 
-  constructor({ $target, attributes, eventHandler, options }: ISelectBox) {
+  constructor({ $target, attributes, eventHandler, options }: ISelectBoxProps) {
     this.$target = $target;
     this.attributes = attributes;
     this.eventHandler = eventHandler;
