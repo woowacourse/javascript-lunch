@@ -11,7 +11,6 @@ function createDropDown({ id, callback, options, className, required, NoneSelcte
   return dropdown;
 }
 
-// REFACTOR: createElement로 수정해야한다.
 function render({ options, id, className, required,  NoneSelcteddefaultMessage}) {
   const select = document.createElement('select');
   select.id = id;
