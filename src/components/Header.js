@@ -16,8 +16,8 @@ export default class Header {
   }
 
   handleButtonClick() {
-    $('header').addEventListener('click', (e) => {
-      if (e.target.parentNode.id === 'gnb__button') {
+    $('header').addEventListener('click', ({ target }) => {
+      if (target.closest('#gnb__button')) {
         $('restaurant-creation-modal').classList.add('modal--open');
       }
     });

@@ -109,8 +109,8 @@ export default class RestaurantCreationModal {
   }
 
   handleCancelButton() {
-    $('restaurant-creation-modal').addEventListener('click', ({ target: { id } }) => {
-      if (id === 'cancel-button' || id === 'modal-backdrop') {
+    $('restaurant-creation-modal').addEventListener('click', ({ target }) => {
+      if (target.closest('#cancel-button') || target.closest('#modal-backdrop')) {
         $('restaurant-creation-modal').classList.remove('modal--open');
       }
     });
