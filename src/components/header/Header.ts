@@ -25,7 +25,7 @@ class Header extends HTMLElement {
     };
     const button: ButtonProps = {
       type: 'button',
-      classnames: ['gnb__button'],
+      varient: 'gnb',
       ariaLabel: '음식점 추가',
       children: new Image(image),
     };

@@ -1,6 +1,7 @@
 interface ButtonProps {
   type: 'submit' | 'reset' | 'button';
-  classnames: string[];
+  varient : 'gnb' | 'primary' | 'secondary';
+  classnames?: string[];
   ariaLabel?: string;
   children: string | HTMLImageElement;
   disabled?: boolean;

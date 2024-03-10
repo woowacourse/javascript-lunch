@@ -35,14 +35,14 @@
   margin-right: 0;
 }
 
-.button--secondary {
+.secondary__button {
   border: 1px solid var(--grey-300);
   background: transparent;
 
   color: var(--grey-300);
 }
 
-.button--primary {
+.primary__button {
   background: var(--primary-color);
 
   color: var(--grey-100);

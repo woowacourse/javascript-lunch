@@ -172,12 +172,14 @@ class RestaurantForm extends HTMLFormElement {
 
     const cancelButton: ButtonProps = {
       type: 'reset',
-      classnames: ['button', 'button--secondary', 'text-caption', 'modal--close'],
+      classnames: ['button', 'text-caption', 'modal--close'],
+      varient: 'secondary',
       children: '취소하기',
     };
     const submitButton: ButtonProps = {
       type: 'submit',
-      classnames: ['button', 'button--primary', 'text-caption', 'form-submit'],
+      classnames: ['button', 'text-caption', 'form-submit'],
+      varient: 'primary',
       children: '추가하기',
       disabled: true,
     };
