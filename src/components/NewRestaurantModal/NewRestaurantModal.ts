@@ -15,13 +15,13 @@ import {
 
 import './NewRestaurantModal.css';
 import FilterContainer from '../FilterContainer/FilterContainer';
+import VerticalInputBox from '../Basic/VerticalInputBox/VerticalInputBox';
 class NewRestaurantModal extends BaseComponent {
   #title: HTMLHeadingElement;
   #form: HTMLFormElement;
 
   constructor() {
     super();
-    // this.#form = document.createElement('form');
     this.#form = this.#makeForm();
     this.#title = document.createElement('h2');
     this.#title.classList.add('modal-title', 'text-title');
@@ -48,6 +48,15 @@ class NewRestaurantModal extends BaseComponent {
     this.#makeDistanceSelectBox();
     this.#makeDescriptionTextArea();
     this.#makeLinkInput();
+
+    const inputBoxArgs = {
+      name: '버터',
+      idName: 'butter',
+      classList: ['name-input-box'],
+      hasVerification: true,
+      isRequired: true,
+    };
+    this.#form.append(new VerticalInputBox(inputBoxArgs));
     this.#makeButtons();
     return this.#form;
   }

@@ -39,7 +39,7 @@ describe('음식점 DB 서비스 테스트', () => {
       name: '꺼벙이 김밥',
       distance: 10,
       category: '한식',
-      description: '김밥 최저',
+      description: '김밥 취저',
     };
 
     const RESTAURANT_SECOND: IRestaurant = {

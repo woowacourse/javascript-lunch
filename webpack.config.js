@@ -13,6 +13,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.mjs', '.css'],
     alias: {
       '@': path.resolve(__dirname, './src/'),
+      '@assets': path.resolve(__dirname, './assets/'),
     },
   },
   module: {

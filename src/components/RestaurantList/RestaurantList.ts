@@ -1,6 +1,6 @@
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import BaseComponent from '../BaseComponent';
-import RestaurantItem from './RestaurantItem/RestaurantItem';
+import RestaurantItem from './RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantList.css';
