@@ -72,3 +72,18 @@ export type SpanComponentPropsType = {
 export interface SpanElementDataType extends Partial<BasicElementDataType> {
   TAG_TEXT: string;
 }
+
+export type TextAreaComponentPropsType = {
+  name: string;
+  id: string;
+  cols: number;
+  rows: number;
+  className: string;
+};
+
+export interface TextAreaElementDataType extends Partial<BasicElementDataType> {
+  TAG_ID: string;
+  TAG_NAME: string;
+  TAG_ROWS: number;
+  TAG_COLS: number;
+}
