@@ -1,10 +1,11 @@
+import { CATEGORY } from "../../src/constants/category.ts";
 import RESTAURANT from "../../src/constants/restaurant.ts";
 import Restaurant from "../../src/domain/Restaurant.ts";
 
 describe("Restaurant 유효성 검증 테스트", () => {
   const restaurantInfo = {
     name: "맛있는 식당",
-    category: "한식",
+    category: CATEGORY.korean,
     timeToReach: 10,
     description: "맛있는 식당입니다.",
     link: "https://www.naver.com",
@@ -29,8 +30,7 @@ describe("Restaurant 유효성 검증 테스트", () => {
   });
 
   it(`식당 이름 글자 수가 ${RESTAURANT.maxNameLength} 초과일 경우 에러 발생`, () => {
-    const longName =
-      "식당 이름 이름 식당 이름 이름 식당 이름 이름 식당 이름 이름 식당 이름 이름";
+    const longName = "이식당의이름은스물한글자로된식당이름입니다";
 
     expect(
       () =>

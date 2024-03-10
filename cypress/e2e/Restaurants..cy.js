@@ -1,10 +1,11 @@
+import { CATEGORY } from "../../src/constants/category";
 import Restaurant from "../../src/domain/Restaurant";
 import Restaurants from "../../src/domain/Restaurants";
 
 const createRestaurant = (name) => {
   return new Restaurant({
     name,
-    category: "한식",
+    category: CATEGORY.korean,
     timeToReach: 10,
     description: "맛있는 식당입니다.",
     link: "https://www.naver.com",
