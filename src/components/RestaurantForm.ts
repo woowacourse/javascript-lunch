@@ -9,8 +9,11 @@ import {
 } from './tag/props';
 
 import { Button } from './tag';
+import Condition from '../constants/Condition';
 
 import FormItem from './FormItem';
+
+const { REGULAR_EXPRESSION } = Condition;
 
 class RestaurantForm extends HTMLElement {
   constructor() {
@@ -147,6 +150,7 @@ class RestaurantForm extends HTMLElement {
       name: 'link',
       id: 'link',
       required: false,
+      pattern: REGULAR_EXPRESSION.URL,
     };
 
     const caption: CaptionProps = {
