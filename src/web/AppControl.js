@@ -2,13 +2,12 @@ import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
 import createRestaurantCard from '../component/restaurantCard';
 import {
-  KOREAN_CATEGORY,
   categoryFilterList,
   sortingFilterLsit,
-} from '../constant/cons';
+} from '../constant/select';
 import { RestaurantManager } from '../domain/RestaurantManager';
 
-export const set = {
+export const appController = {
   start() {
     const data = JSON.parse(localStorage.getItem('restaurants')) || [];
     const restaurantManager = new RestaurantManager(data);

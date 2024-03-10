@@ -3,12 +3,12 @@ import createInput from '../../component/input';
 import createlabelWrapper from '../../component/labelWrapper';
 import createTextArea from '../../component/textArea';
 import modal from '../../component/modal';
-import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/cons';
 import createButton from '../../component/button';
-import { set } from '../control';
+import { appController } from '../AppControl';
 import toast from '../../component/toast/toast';
+import { formIds } from '../../constant/appString';
+import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/select';
 
-const formIds = ['category', 'name', 'walkingTime', 'description', 'link'];
 
 function createNewRestaurantModal(restaurantManager) {
   const container = render();
@@ -24,7 +24,7 @@ function createNewRestaurantModal(restaurantManager) {
 
     try {
       restaurantManager.add(newRestaurant);
-      set.updateRestaurantList(restaurantManager.getfilterRestaurants());
+      appController.updateRestaurantList(restaurantManager.getfilterRestaurants());
       modal.remove('modal--open');
     } catch (e) {
       toast(e.message);
@@ -46,7 +46,6 @@ function render() {
   const categorySelect = createDropDown({
     id: 'category',
     options: Object.keys(KOREAN_CATEGORY),
-    className: '',
     required: true,
     NoneSelcteddefaultMessage: '선택해 주세요',
   });
@@ -54,7 +53,6 @@ function render() {
   const distanceSelect = createDropDown({
     id: 'walkingTime',
     options: WALKING_TIME,
-    className: '',
     required: true,
     NoneSelcteddefaultMessage: '선택해 주세요',
   });
