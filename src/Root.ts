@@ -7,11 +7,9 @@ import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/Restaurant';
 import ListContainer from './components/ListContainer';
-import { Select } from './components/tag/select';
-import { TextArea } from './components/tag/textarea';
-import { Input } from './components/tag/input';
+import RestaurantForm from './components/RestaurantForm';
 
-const { $, $$, insertElementsInTarget } = DOM;
+const { $, insertElementsInTarget } = DOM;
 const { CATEGORY } = Condition;
 
 const root = {
@@ -53,26 +51,30 @@ const root = {
   },
 
   listenRestaurantAdd(matzip: Matzip) {
-    $<HTMLElement>('#restaurant-form').addEventListener('submit', (event) => {
+    const form = $<RestaurantForm>('#restaurant-form'); 
+
+    form.addEventListener('submit', (event) => {
       event.preventDefault();
-      console.log(event);
-      
-      const fieldValues = Array.from($$('.form-item')).map((item) => {
-        const field = item.children[1] as Select | TextArea | Input;
-        return field.getValue();
-      });
+      const formFields = form.getFormFields();      
+      const fieldValues = formFields.map((field) => field.getValue());
+
       const newRestaurant: RestaurantType = {
         category: fieldValues[0] as CategoryType,
-        name: fieldValues[1] as string,
+        name: fieldValues[1],
         distance: Number(fieldValues[2]),
         introduction: fieldValues[3],
         link: fieldValues[4],
       };
 
-      matzip.add(newRestaurant);
-      storage.addData(newRestaurant);
-      $<HTMLElement>('.modal').classList.remove('modal--open');
-      $<HTMLUListElement>('.restaurant-lists').appendChild(new Restaurant(newRestaurant));
+      try {
+        matzip.add(newRestaurant);
+        
+        storage.addData(newRestaurant);
+        $<HTMLElement>('.modal').classList.remove('modal--open');
+        $<HTMLUListElement>('.restaurant-lists').appendChild(new Restaurant(newRestaurant));
+      } catch (error) {
+        alert(error);
+      }
     });
   },
 };

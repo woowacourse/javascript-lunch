@@ -5,13 +5,15 @@ import FormItem from './FormItem';
 
 import { Button, ButtonProps } from './tag/button';
 import { CaptionProps } from './tag/caption';
-import { InputProps } from './tag/input';
+import { Input, InputProps } from './tag/input';
 import { LabelProps } from './tag/label';
 import { OptionProps } from './tag/option';
-import { SelectProps } from './tag/select';
-import { TextAreaProps } from './tag/textarea';
+import { Select, SelectProps } from './tag/select';
+import { TextArea, TextAreaProps } from './tag/textarea';
+import DOM from '../utils/DOM';
 
 const { REGULAR_EXPRESSION } = Condition;
+const {} = DOM;
 
 class RestaurantForm extends HTMLFormElement {
   constructor() {
@@ -186,7 +188,17 @@ class RestaurantForm extends HTMLFormElement {
     this.appendChild(buttonContainer);
   }
 
-  getFormValues() {
+  getFormFields(): Array<Select | TextArea | Input> {
+    const formFields = [...this.children].filter((children) => children.className.includes('form-item'));
+    
+    return formFields.map((field) => {
+      const inputField = Array.from(field.children).find((child) => this.getInputField(child));
+      return inputField as Select | TextArea | Input;
+    });
+  }
+
+  private getInputField(element: Element): element is Select | TextArea | Input {
+    return ['SELECT', 'TEXTAREA', 'INPUT'].includes(element.tagName);
   }
 }
 
