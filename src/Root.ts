@@ -1,15 +1,18 @@
 import Matzip from './matzip';
+import storage from './storage';
+import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
+import Condition from './constants/Condition';
+
 import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/Restaurant';
-import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
-import storage from './storage';
 import ListContainer from './components/ListContainer';
 import { Select } from './components/tag/select';
 import { TextArea } from './components/tag/textarea';
 import { Input } from './components/tag/input';
 
 const { $, $$, insertElementsInTarget } = DOM;
+const { CATEGORY } = Condition;
 
 const root = {
   init() {
@@ -24,7 +27,7 @@ const root = {
       const initSort = $<HTMLSelectElement>('#sorting-filter');
       const sortBy = initSort.options[initSort.selectedIndex].value;
       const listContainer = new ListContainer();
-      const restaurantElements: Restaurant[] = matzip.filterAndSort('전체', sortBy as SortType).map((restaurant) => new Restaurant(restaurant));
+      const restaurantElements: Restaurant[] = matzip.filterAndSort(CATEGORY.whole, sortBy as SortType).map((restaurant) => new Restaurant(restaurant));
 
       insertElementsInTarget(listContainer, restaurantElements);
       $<HTMLElement>('main').appendChild(listContainer);
