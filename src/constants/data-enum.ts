@@ -7,11 +7,6 @@ export enum CategoryEnum {
   etc = 'etc',
 }
 
-export enum ProtocolEnum {
-  http = 'http',
-  https = 'https',
-}
-
 export enum StorageKeyEnum {
   restaurants = 'restaurants',
 }

@@ -1,4 +1,4 @@
-import { ProtocolEnum } from './enum';
+import { ProtocolEnum } from './domain-enum';
 import { CHARACTER_LIMIT } from './rule';
 
 export const MESSAGE = {
