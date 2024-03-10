@@ -1,13 +1,12 @@
 import type RestaurantList from '../domain/RestaurantList';
 import type { ISelectAttributes, IOptionAttributes } from '../types/dom';
-import type { TCategory, TSorting } from '../types/restaurant';
+import type { IRestaurantList, TCategory, TSorting } from '../types/restaurant';
 import dom from '../utils/dom';
 import RestaurantComponent from './Restaurant';
 
 interface ISelectBoxProps {
   $target: HTMLElement;
   attributes: ISelectAttributes;
-  eventHandler: () => void;
   options: IOptionAttributes[];
   kind?: 'category' | 'sorting';
   restaurantList?: RestaurantList;
@@ -17,14 +16,12 @@ class SelectBoxComponent {
   kind;
   $target;
   attributes;
-  eventHandler;
   options;
   restaurantList;
 
-  constructor({ $target, attributes, eventHandler, options, kind, restaurantList }: ISelectBoxProps) {
+  constructor({ $target, attributes, options, kind, restaurantList }: ISelectBoxProps) {
     this.$target = $target;
     this.attributes = attributes;
-    this.eventHandler = eventHandler;
     this.options = options;
     this.kind = kind;
     this.restaurantList = restaurantList;
@@ -51,30 +48,31 @@ class SelectBoxComponent {
     return dom.createSelectTag({ name, id, classNames, required });
   }
 
-  handleCategoryFilter(): void {
+  renderFilteredList(sortedList: IRestaurantList): void {
     const $restaurantList = document.querySelector('.restaurant-list') as HTMLElement;
-    const category = this.getSelectedCategory();
-    const sortingCondition = this.getSelectedSortingCondition();
 
-    if (this.restaurantList == null) return;
-    this.restaurantList.filterByCategory(category);
-    const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
     $restaurantList.replaceChildren();
     sortedList.forEach(element => {
       new RestaurantComponent({ $target: $restaurantList, information: element.information });
     });
   }
 
+  handleCategoryFilter(): void {
+    const category = this.getSelectedCategory();
+    const sortingCondition = this.getSelectedSortingCondition();
+
+    if (this.restaurantList == null) return;
+    this.restaurantList.filterByCategory(category);
+    const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
+    this.renderFilteredList(sortedList);
+  }
+
   handleSortingFilter(): void {
-    const $restaurantList = document.querySelector('.restaurant-list') as HTMLElement;
     const sortingCondition = this.getSelectedSortingCondition();
 
     if (this.restaurantList == null) return;
     const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
-    $restaurantList.replaceChildren();
-    sortedList.forEach(element => {
-      new RestaurantComponent({ $target: $restaurantList, information: element.information });
-    });
+    this.renderFilteredList(sortedList);
   }
 
   getSelectedCategory(): TCategory {
