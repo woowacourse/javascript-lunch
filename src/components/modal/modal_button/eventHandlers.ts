@@ -1,7 +1,7 @@
 import RestaurantListStorageService from '../../../services/restaurantListStorageService';
 import validateRestaurantState from '../../../services/validateRestaurantState';
 import restaurantStateStore from '../../../store/RestaurantStateStore';
-import { IinvalidResult, Irestaurant, MappedType } from '../../../types';
+import { InvalidResult, RestaurantState } from '../../../types';
 import RestaurantList from '../../restaurant_list/RestaurantList';
 
 const initializeFormState = () => {
@@ -10,7 +10,7 @@ const initializeFormState = () => {
   restaurantStateStore.resetState();
 };
 
-const addNewRestaurant = (modal: Element, restaurantInfo: Irestaurant) => {
+const addNewRestaurant = (modal: Element, restaurantInfo: RestaurantState) => {
   const invalidMessage = document.getElementsByClassName('invalid_message');
 
   if (invalidMessage.length === 0) {
@@ -30,7 +30,7 @@ const removePrevErrorMessage = () => {
   });
 };
 
-const renderErrorMessage = (index: number, result: MappedType<IinvalidResult>) => {
+const renderErrorMessage = (index: number, result: Partial<InvalidResult>) => {
   const targetTag = document.getElementsByClassName('form-item')[index];
   const p = document.createElement('p');
   p.setAttribute('class', `invalid_message ${result.targetClassName}`);
@@ -38,7 +38,7 @@ const renderErrorMessage = (index: number, result: MappedType<IinvalidResult>) =
   targetTag.appendChild(p);
 };
 
-const checkValidateHandler = (restaurantInfo: MappedType<Irestaurant>) => {
+const checkValidateHandler = (restaurantInfo: Partial<RestaurantState>) => {
   const validateResult = validateRestaurantState(restaurantInfo);
   removePrevErrorMessage();
 
@@ -55,7 +55,7 @@ export const submitHandler = (modal: Element) => {
     event.preventDefault();
     const restaurantInfo = restaurantStateStore.getRestaurantField();
     checkValidateHandler(restaurantInfo);
-    addNewRestaurant(modal, restaurantInfo as Irestaurant);
+    addNewRestaurant(modal, restaurantInfo as RestaurantState);
     RestaurantList().reRender();
   });
 };

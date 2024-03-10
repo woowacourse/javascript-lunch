@@ -1,6 +1,6 @@
-import { Irestaurant } from '../types';
+import { RestaurantState } from '../types';
 
-export default function setRestaurant(restaurant: Irestaurant) {
+export default function setRestaurant(restaurant: RestaurantState) {
   return {
     category: restaurant.category,
     name: restaurant.name,

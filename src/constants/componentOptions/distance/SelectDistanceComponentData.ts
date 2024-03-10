@@ -1,4 +1,4 @@
-import SELECT_DISTANCE_UI_OPITONS from './selectOptions/selectDistanceUiOptions';
+import SELECT_DISTANCE_UI_OPITONS from '../../selectOptions/selectDistanceUiOptions';
 
 const SELECT_DISTANCE_COMPONENT_DATA = Object.freeze({
   UI_OPTIONS: SELECT_DISTANCE_UI_OPITONS,

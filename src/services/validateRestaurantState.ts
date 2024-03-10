@@ -1,4 +1,4 @@
-import { Icategory, Irestaurant, MappedType } from '../types';
+import { Category, RestaurantState } from '../types';
 
 import RestaurantListStorageService from './restaurantListStorageService';
 
@@ -7,7 +7,7 @@ const valid = {
 };
 
 const validate = {
-  validateCategory(category?: Icategory) {
+  validateCategory(category?: Category) {
     if (category === undefined || category.length <= 0) {
       return {
         targetClassName: 'invalid_category',
@@ -52,7 +52,7 @@ const validate = {
 
   checkDuplicate(name?: string) {
     const restaurantList = RestaurantListStorageService.getData();
-    return restaurantList.find((restaurant: Irestaurant) => restaurant.name === name);
+    return restaurantList.find((restaurant: RestaurantState) => restaurant.name === name);
   },
 
   validateDistance(distance?: number) {
@@ -89,7 +89,7 @@ const validate = {
   },
 };
 
-function validateRestaurantState(restaurantInfo: MappedType<Irestaurant>) {
+function validateRestaurantState(restaurantInfo: Partial<RestaurantState>) {
   return [
     validate.validateCategory(restaurantInfo.category),
     validate.validateName(restaurantInfo.name),

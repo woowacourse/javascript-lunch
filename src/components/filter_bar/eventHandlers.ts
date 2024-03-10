@@ -1,11 +1,11 @@
 import filterState from '../../store/FilterStateStore';
-import { Icategory, IsortType } from '../../types';
+import { Category, SortType } from '../../types';
 import RestaurantList from '../restaurant_list/RestaurantList';
 
 const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   categoryFilter.addEventListener('change', (event) => {
     if (event.target instanceof HTMLSelectElement) {
-      const selectedValue = event.target.value as Icategory;
+      const selectedValue = event.target.value as Category;
       filterState.setFilterType(selectedValue);
 
       RestaurantList().reRender();
@@ -25,7 +25,7 @@ export const selectOptionByFoodCategory = () => {
 const sortHandler = (sortFilter: HTMLElement) => {
   sortFilter.addEventListener('change', (event) => {
     if (event.target instanceof HTMLSelectElement) {
-      const selectedValue = event.target.value as IsortType;
+      const selectedValue = event.target.value as SortType;
       filterState.setSortType(selectedValue);
 
       RestaurantList().reRender();

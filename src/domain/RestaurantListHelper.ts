@@ -1,17 +1,17 @@
-import { Iall, Icategory, Irestaurant, IrestaurantList, IsortType } from '../types';
+import { All, Category, RestaurantState, RestaurantHelperFunction, SortType } from '../types';
 
-class RestaurantListHelper implements IrestaurantList {
-  sortBySelectedValue(seletedValue: IsortType, restaurantList: Irestaurant[]) {
+class RestaurantListHelper implements RestaurantHelperFunction {
+  sortBySelectedValue(seletedValue: SortType, restaurantList: RestaurantState[]) {
     if (seletedValue === 'name') return this.sortByName(restaurantList);
 
     return this.sortByDistance(restaurantList);
   }
 
-  sortByName(restaurantList: Irestaurant[]) {
+  sortByName(restaurantList: RestaurantState[]) {
     return restaurantList.sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  sortByDistance(restaurantList: Irestaurant[]) {
+  sortByDistance(restaurantList: RestaurantState[]) {
     return restaurantList.sort((a, b) => {
       if (a.distance === b.distance) {
         return a.name.localeCompare(b.name);
@@ -20,7 +20,7 @@ class RestaurantListHelper implements IrestaurantList {
     });
   }
 
-  filterByCategory(category: Icategory | Iall, restaurantList: Irestaurant[]) {
+  filterByCategory(category: Category | All, restaurantList: RestaurantState[]) {
     if (category === '전체') {
       return restaurantList;
     }

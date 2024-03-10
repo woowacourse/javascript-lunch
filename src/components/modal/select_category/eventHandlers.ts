@@ -1,5 +1,5 @@
 import restaurantStateStore from '../../../store/RestaurantStateStore';
-import { Icategory } from '../../../types';
+import { Category } from '../../../types';
 import removeHTMLElementByClassName from '../../../utils/removeHTMLElementByClassName';
 
 const selectEventHandler = (select: HTMLElement) => {
@@ -7,7 +7,7 @@ const selectEventHandler = (select: HTMLElement) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = event.target.value;
       removeHTMLElementByClassName('invalid_category');
-      restaurantStateStore.setCategory(selectedValue as Icategory);
+      restaurantStateStore.setCategory(selectedValue as Category);
     }
   });
 };

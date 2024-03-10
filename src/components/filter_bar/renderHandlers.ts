@@ -1,5 +1,5 @@
-import RESTAURANT_CATEGORY_DATA from '../../constants/RestaurantCategoryData';
-import SORT_BY_NAME_OR_CATEGORY_DATA from '../../constants/SortByNameOrDistanceData';
+import RESTAURANT_CATEGORY_DATA from '../../constants/componentOptions/selectCategory/RestaurantCategoryData';
+import SORT_BY_NAME_OR_CATEGORY_DATA from '../../constants/componentOptions/selectCategory/SortByNameOrDistanceData';
 import generateSelectElement from '../../uiUtils/generateSelectComponent';
 import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 

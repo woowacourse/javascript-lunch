@@ -29,7 +29,7 @@ export type OptionElementPropsType = {
   defaultValue?: string;
 };
 
-export type ButtonProps = {
+export type ButtonComponentProps = {
   type?: 'button' | 'submit' | 'reset';
   className: string;
   text: string;

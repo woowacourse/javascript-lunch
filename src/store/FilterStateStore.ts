@@ -1,19 +1,19 @@
-import { Iall, Icategory, IsortType } from '../types';
+import { All, Category, SortType } from '../types';
 
 class FilterStateStore {
   #filterState: {
-    filter: Icategory | Iall;
-    sort: IsortType;
+    filter: Category | All;
+    sort: SortType;
   } = {
     filter: '전체',
     sort: 'name',
   };
 
-  setFilterType(filter: Icategory | Iall) {
+  setFilterType(filter: Category | All) {
     this.#filterState.filter = filter;
   }
 
-  setSortType(sort: IsortType) {
+  setSortType(sort: SortType) {
     this.#filterState.sort = sort;
   }
 

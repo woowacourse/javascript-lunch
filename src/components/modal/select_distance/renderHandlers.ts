@@ -1,5 +1,5 @@
-import DISTANCE_LABEL_COMPONENT_DATA from '../../../constants/DistanceLabelComponentData';
-import SELECT_DISTANCE_COMPONENT_DATA from '../../../constants/SelectDistanceComponentData';
+import DISTANCE_LABEL_COMPONENT_DATA from '../../../constants/componentOptions/distance/DistanceLabelComponentData';
+import SELECT_DISTANCE_COMPONENT_DATA from '../../../constants/componentOptions/distance/SelectDistanceComponentData';
 import generateLabelComponent from '../../../uiUtils/generateLabelComponent';
 import generateSelectComponent from '../../../uiUtils/generateSelectComponent';
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';

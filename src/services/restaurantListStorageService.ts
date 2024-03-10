@@ -1,6 +1,6 @@
 import restaurantListHelper from '../domain/RestaurantListHelper';
 import filterState from '../store/FilterStateStore';
-import { Irestaurant } from '../types';
+import { RestaurantState } from '../types';
 
 const RestaurantListStorageService = {
   getData() {
@@ -19,7 +19,7 @@ const RestaurantListStorageService = {
     return restaurantListHelper.sortBySelectedValue(filterState.getFilterInfo().sort, filtereDataByCategory);
   },
 
-  setData(restaurant: Irestaurant) {
+  setData(restaurant: RestaurantState) {
     const prevData = this.getData();
 
     const newData = [...prevData, restaurant];

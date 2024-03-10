@@ -1,22 +1,22 @@
-export type Icategory = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 
-export type Iall = '전체';
+export type All = '전체';
 
-export type Idistance = 5 | 10 | 15 | 20 | 30;
+export type Distance = 5 | 10 | 15 | 20 | 30;
 
-export type IsortType = 'name' | 'distance';
+export type SortType = 'name' | 'distance';
 
-export type MappedType<T> = {
-  [K in keyof T]?: T[K];
-};
+// export type MappedType<T> = {
+//   [K in keyof T]?: T[K];
+// };
 
-export type IinvalidResult = {
+export type InvalidResult = {
   targetClassName: string;
   isValid: boolean;
   errorMessage: string;
 };
 
-export interface Irestaurant {
+export interface RestaurantState {
   category: Icategory;
   name: string;
   distance: Idistance;
@@ -24,7 +24,7 @@ export interface Irestaurant {
   link?: string;
 }
 
-export interface IrestaurantList {
+export interface RestaurantHelperFunction {
   sortByName: (restaurantList: Irestaurant[]) => Irestaurant[];
 
   sortByDistance: (restaurantList: Irestaurant[]) => Irestaurant[];

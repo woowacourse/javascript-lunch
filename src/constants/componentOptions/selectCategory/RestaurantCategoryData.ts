@@ -1,4 +1,4 @@
-import { ROOT_RESTAURANT_CATEGORY_UI_OPIONS } from './selectOptions/restaurantCategoryUiOptions';
+import { ROOT_RESTAURANT_CATEGORY_UI_OPIONS } from '../../selectOptions/restaurantCategoryUiOptions';
 
 const RESTAURANT_CATEGORY_DATA = Object.freeze({
   UI_OPTIONS: ROOT_RESTAURANT_CATEGORY_UI_OPIONS,

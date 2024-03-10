@@ -1,8 +1,8 @@
 import Restaurant from '../domain/SetRestaurant';
-import { Icategory, Idistance, Irestaurant, MappedType } from '../types';
+import { Category, Distance, RestaurantState } from '../types';
 
 class RestaurantStateStore {
-  #restaurantState: MappedType<Irestaurant> = {
+  #restaurantState: Partial<RestaurantState> = {
     category: undefined,
     name: undefined,
     distance: undefined,
@@ -20,7 +20,7 @@ class RestaurantStateStore {
     };
   }
 
-  setCategory(selectCategory: Icategory) {
+  setCategory(selectCategory: Category) {
     this.#restaurantState.category = selectCategory;
   }
 
@@ -28,7 +28,7 @@ class RestaurantStateStore {
     this.#restaurantState.name = inputName;
   }
 
-  setDistance(selectDistance: Idistance) {
+  setDistance(selectDistance: Distance) {
     this.#restaurantState.distance = selectDistance;
   }
 
@@ -45,7 +45,7 @@ class RestaurantStateStore {
   }
 
   setRestaurantState() {
-    return Restaurant(this.#restaurantState as Irestaurant);
+    return Restaurant(this.#restaurantState as RestaurantState);
   }
 }
 

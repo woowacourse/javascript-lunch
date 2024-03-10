@@ -1,5 +1,5 @@
-import SELECT_CATEGORY_COMPONENT_DATA from '../../../constants/SelectCategoryComponentData';
-import SELECT_CATEGORY_LABEL_COMPONENT_DATA from '../../../constants/SelectCategoryLabelComponentData';
+import SELECT_CATEGORY_COMPONENT_DATA from '../../../constants/componentOptions/selectCategory/SelectCategoryComponentData';
+import SELECT_CATEGORY_LABEL_COMPONENT_DATA from '../../../constants/componentOptions/selectCategory/SelectCategoryLabelComponentData';
 import generateLabelComponent from '../../../uiUtils/generateLabelComponent';
 import generateSelectComponent from '../../../uiUtils/generateSelectComponent';
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
