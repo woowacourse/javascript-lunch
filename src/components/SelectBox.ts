@@ -1,8 +1,8 @@
-import type { IDomAttributes, ISelectOption } from '../types/selectBox';
+import type { ISelectAttributes, ISelectOption } from '../types/selectBox';
 
 interface ISelectBox {
   $target: HTMLElement;
-  attributes: IDomAttributes;
+  attributes: ISelectAttributes;
   eventHandler: () => void;
   options: ISelectOption[];
 }

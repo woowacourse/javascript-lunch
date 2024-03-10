@@ -1,8 +1,8 @@
-import type { IDomAttributes } from '../types/selectBox';
+import type { IButtonAttributes } from '../types/selectBox';
 
 interface IButton {
   $target: HTMLElement;
-  attributes: IDomAttributes;
+  attributes: IButtonAttributes;
   eventHandler: () => void;
 }
 

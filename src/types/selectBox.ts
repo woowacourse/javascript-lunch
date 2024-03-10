@@ -2,9 +2,15 @@ interface IDomAttributes {
   name?: string;
   id?: string;
   class?: string[];
-  required?: boolean;
-  type?: 'submit' | 'reset' | 'button';
   text?: string;
+}
+
+interface ISelectAttributes extends IDomAttributes {
+  required?: boolean;
+}
+
+interface IButtonAttributes extends IDomAttributes {
+  type?: 'submit' | 'reset' | 'button';
 }
 
 interface ISelectOption {
@@ -12,4 +18,4 @@ interface ISelectOption {
   text: string;
 }
 
-export type { IDomAttributes, ISelectOption };
+export type { IDomAttributes, ISelectAttributes, IButtonAttributes, ISelectOption };

@@ -1,4 +1,4 @@
-import type { IDomAttributes, ISelectOption } from '../types/selectBox';
+import type { IButtonAttributes, IDomAttributes, ISelectAttributes, ISelectOption } from '../types/selectBox';
 
 import korean from '../../templates/category-korean.png';
 import chinese from '../../templates/category-chinese.png';
@@ -34,10 +34,10 @@ const SORTING: ISelectOption[] = [
   { value: 'distance', text: BY_DISTANCE_ASC },
 ];
 
-const FORM_CATEGORY_ATTRIBUTE: IDomAttributes = { name: 'category', id: 'category', required: true };
+const FORM_CATEGORY_ATTRIBUTE: ISelectAttributes = { name: 'category', id: 'category', required: true };
 const FORM_CATEGORY: ISelectOption[] = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
 
-const FORM_DISTANCE_ATTRIBUTE: IDomAttributes = { name: 'distance', id: 'distance', required: true };
+const FORM_DISTANCE_ATTRIBUTE: ISelectAttributes = { name: 'distance', id: 'distance', required: true };
 const FORM_DISTANCE: ISelectOption[] = [
   { value: '', text: '선택해 주세요' },
   { value: '5', text: '5분 내' },
@@ -47,13 +47,13 @@ const FORM_DISTANCE: ISelectOption[] = [
   { value: '30', text: '30분 내' },
 ];
 
-const CLOSE_BUTTON_ATTRIBUTE: IDomAttributes = {
+const CLOSE_BUTTON_ATTRIBUTE: IButtonAttributes = {
   id: 'button-close',
   type: 'button',
   class: ['button', 'button--secondary', 'text-caption'],
   text: '취소하기',
 };
-const ADD_BUTTON_ATTRIBUTE: IDomAttributes = {
+const ADD_BUTTON_ATTRIBUTE: IButtonAttributes = {
   id: 'button-add',
   class: ['button', 'button--primary', 'text-caption'],
   text: '추가하기',
