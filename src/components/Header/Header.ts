@@ -10,7 +10,7 @@ class Header extends BaseComponent {
         <img src=${AddButton} alt="음식점 추가" />
       </button>`;
 
-    document.querySelector('.gnb__button')?.addEventListener('click', () => {
+    this.querySelector('button')?.addEventListener('click', () => {
       document.querySelector('.modal')?.classList.add('modal--open');
     });
   }

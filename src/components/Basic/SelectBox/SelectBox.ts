@@ -13,32 +13,21 @@ class SelectBox<T extends string> extends HTMLSelectElement {
   }
 
   render() {
-    const selectTag = this.#makeSelectTag();
-    // this.append(selectTag);
-    // this.outerHTML = selectTag.outerHTML; // TODO: 임시방편인 outerHTML 없애도록.
-  }
-
-  #makeSelectTag() {
-    // const this = document.createElement('select');
-    //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 class 다름 => 고치기
     this.className = 'restaurant-filter';
     this.name = this.#name;
-    //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 아이디가 다름 => 고치기
     this.id = `${this.#name}-filter`;
-
-    this.append(this.#makeOptionTags());
-    return this;
+    this.#makeOptionTags();
   }
+  //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 class 다름 => 고치기
+  //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 아이디가 다름 => 고치기
 
   #makeOptionTags() {
-    const fragment = new DocumentFragment();
     this.#optionValues.forEach((option) => {
-      const optionTag = document.createElement('option');
+      const optionTag = new Option();
       optionTag.value = option; //5
       optionTag.textContent = option; //5분 내
-      fragment.append(optionTag);
+      this.add(optionTag);
     });
-    return fragment;
   }
 }
 

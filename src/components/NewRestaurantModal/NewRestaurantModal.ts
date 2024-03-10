@@ -16,15 +16,14 @@ import {
 import './NewRestaurantModal.css';
 import FilterContainer from '../FilterContainer/FilterContainer';
 class NewRestaurantModal extends BaseComponent {
+  #title: HTMLHeadingElement;
   #form: HTMLFormElement;
-  #title;
 
   constructor() {
     super();
     // this.#form = document.createElement('form');
     this.#form = this.#makeForm();
     this.#title = document.createElement('h2');
-
     this.#title.classList.add('modal-title', 'text-title');
     this.#title.textContent = '새로운 음식점';
   }
@@ -37,26 +36,27 @@ class NewRestaurantModal extends BaseComponent {
     $fragment.append(this.#form);
     //this.attachShadow({ mode: 'open' });
     this.append(new BasicModal($fragment));
+
+    this.#submitForm();
+    this.closeModal();
   }
 
   #makeForm() {
-    this.#form = document.createElement('form');
+    this.#form = document.createElement('form') as HTMLFormElement;
     this.#makeCategorySelectBox();
     this.#makeNameInput();
     this.#makeDistanceSelectBox();
     this.#makeDescriptionTextArea();
     this.#makeLinkInput();
     this.#makeButtons();
-    this.#submitForm();
-    this.closeModal();
     return this.#form;
   }
 
   #makeCategorySelectBox() {
-    const $categorySelectBox = document.createElement('div');
+    const $categorySelectBox = document.createElement('div') as HTMLDivElement;
     $categorySelectBox.classList.add('form-item', 'form-item--required', 'category-select');
 
-    const $categoryLabel = document.createElement('label');
+    const $categoryLabel = document.createElement('label') as HTMLLabelElement;
     $categoryLabel.setAttribute('for', 'category text-caption');
     $categoryLabel.textContent = '카테고리';
     $categorySelectBox.append($categoryLabel);
@@ -214,6 +214,7 @@ class NewRestaurantModal extends BaseComponent {
         -3,
       ) as DistanceOrPlaceholder,
     );
+
     const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
     const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
@@ -221,8 +222,8 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #rerenderByFilter() {
-    const selectElement = document.querySelector('.restaurant-filter-container') as FilterContainer;
-    selectElement.rerender();
+    const filterContainer: FilterContainer = document.querySelector('filter-container')!;
+    filterContainer.repaint();
   }
 }
 export default NewRestaurantModal;

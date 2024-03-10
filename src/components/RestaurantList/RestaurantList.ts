@@ -20,7 +20,7 @@ class RestaurantList extends BaseComponent {
     this.append(restaurantList);
   }
 
-  rerender(restaurants: IRestaurant[]) {
+  repaint(restaurants: IRestaurant[]) {
     this.#removeChildren();
     this.#restaurantList = restaurants;
     const restaurantListAll = this.#makeRestaurantList(this.#restaurantList);

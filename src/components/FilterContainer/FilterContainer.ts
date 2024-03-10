@@ -15,7 +15,7 @@ class FilterContainer extends BaseComponent {
     super();
     this.#selectCategoryBox = new SelectBox<CategoryOrAll>(CATEGORIES_WITH_ALL_KEYS, 'category');
     this.#selectSortBox = new SelectBox<SortCriteria>(SORT_CRITERION_KEYS, 'sorting');
-    this.#restaurantList = document.querySelector('restaurant-list') as RestaurantList;
+    this.#restaurantList = document.querySelector('restaurant-list')!;
   }
 
   render() {
@@ -23,30 +23,20 @@ class FilterContainer extends BaseComponent {
     this.append(this.#selectSortBox);
   }
 
-  rerender() {
+  repaint() {
     const restaurantDBService = new RestaurantDBService();
 
-    const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
-    const selectedSortCriteria = this.querySelector('#sorting-filter') as HTMLSelectElement;
-
     const newRestaurantList = restaurantDBService.getFromRestaurantList(
-      selectedCategory.value as Category,
-      selectedSortCriteria.value as SortCriteria,
+      this.#selectCategoryBox.value as Category,
+      this.#selectSortBox.value as SortCriteria,
     );
 
-    this.#restaurantList.rerender(newRestaurantList);
+    this.#restaurantList.repaint(newRestaurantList);
   }
 
   setEvent() {
     this.addEventListener('change', () => {
-      const restaurantDBService = new RestaurantDBService();
-
-      const newRestaurantList = restaurantDBService.getFromRestaurantList(
-        this.#selectCategoryBox.value as Category,
-        this.#selectSortBox.value as SortCriteria,
-      );
-
-      this.#restaurantList.rerender(newRestaurantList);
+      this.repaint();
     });
   }
 }
