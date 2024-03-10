@@ -14,3 +14,11 @@ export const SORTS = {
   BYNAME: "이름순",
   BYDISTANCE: "거리순",
 };
+
+export const DISTANCES = {
+  "5": "5분 내",
+  "10": "10분 내",
+  "15": "15분 내",
+  "20": "20분 내",
+  "30": "30분 내",
+};

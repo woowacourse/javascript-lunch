@@ -1,10 +1,11 @@
+import { CATEGORIES, SORTS } from "../constants/system";
 import { Iall, Icategory } from "../types/category";
 import { Irestaurant, IrestaurantList } from "../types/restaurant";
 import { IsortType } from "../types/sort";
 
 class RestaurantListHelper implements IrestaurantList {
   sortBySelectedValue(seletedValue: IsortType, restaurantList: Irestaurant[]) {
-    if (seletedValue === "name") return this.sortByName(restaurantList);
+    if (seletedValue === SORTS.BYNAME) return this.sortByName(restaurantList);
 
     return this.sortByDistance(restaurantList);
   }
@@ -23,7 +24,7 @@ class RestaurantListHelper implements IrestaurantList {
   }
 
   filterByCategory(category: Icategory | Iall, restaurantList: Irestaurant[]) {
-    if (category === "전체") {
+    if (category === CATEGORIES.ALL) {
       return restaurantList;
     }
 

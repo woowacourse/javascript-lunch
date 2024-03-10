@@ -4,13 +4,9 @@ import { distanceChange } from "./handlers";
 import selectDistanceTemplate from "./selectDistanceTemplate";
 
 function SelectDistance(form: Element) {
-  const render = () => {
-    form.appendChild(convertHTMLStringToDOM(selectDistanceTemplate));
+  form.appendChild(convertHTMLStringToDOM(selectDistanceTemplate));
 
-    distanceChange();
-  };
-
-  render();
+  distanceChange();
 }
 
 export default SelectDistance;
