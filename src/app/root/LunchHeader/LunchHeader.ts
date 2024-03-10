@@ -8,7 +8,7 @@ class LunchHeader extends HTMLElement {
   }
 
   private addEvent() {
-    $('#add-restaurant-button')!.addEventListener('click', () => {
+    $('#add-restaurant-button').addEventListener('click', () => {
       this.dispatchEvent(
         new CustomEvent('showAddRestaurantModal', {
           bubbles: true,

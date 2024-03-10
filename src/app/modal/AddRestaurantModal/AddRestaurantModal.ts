@@ -1,4 +1,4 @@
-import { $, $$ } from '../../../utils/domSelector';
+import { $ } from '../../../utils/domSelector';
 import { TYPE_SETTING } from '../../../constants/setting';
 import { LocationData } from '../../../constants/Type';
 import handleError from '../../../utils/handleError';
@@ -28,11 +28,11 @@ class AddRestaurantModal extends HTMLElement {
   }
 
   private addEvent() {
-    $('#cancel-adding-restaurant-button', this)?.addEventListener('click', () => {
+    $('#cancel-adding-restaurant-button').addEventListener('click', () => {
       this.clearModal();
     });
 
-    $('#add-restaurant-form')!.addEventListener('submit', (event: Event) => {
+    $('#add-restaurant-form').addEventListener('submit', (event: Event) => {
       event.preventDefault();
       this.handleFormData(new FormData(event.target as HTMLFormElement));
     });
@@ -69,11 +69,11 @@ class AddRestaurantModal extends HTMLElement {
 
   private clearModal() {
     this.clearAllInput();
-    $<HTMLDialogElement>('#add-restaurant-modal')!.close();
+    $<HTMLDialogElement>('#add-restaurant-modal').close();
   }
 
   private clearAllInput() {
-    $<HTMLFormElement>('#add-restaurant-form')!.reset();
+    $<HTMLFormElement>('#add-restaurant-form').reset();
   }
 
   private getDefaultSelection() {

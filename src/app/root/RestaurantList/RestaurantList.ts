@@ -1,5 +1,6 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { LocationData } from '../../../constants/Type';
+import { $ } from '../../../utils/domSelector';
 
 class RestaurantList extends HTMLElement {
   private restaurants: LocationData[];
@@ -27,7 +28,7 @@ class RestaurantList extends HTMLElement {
     });
 
     this.innerHTML = `<section class="restaurant-list-container"></section>`;
-    this.querySelector('.restaurant-list-container')!.appendChild(listContainer);
+    $('.restaurant-list-container').appendChild(listContainer);
   }
 }
 
