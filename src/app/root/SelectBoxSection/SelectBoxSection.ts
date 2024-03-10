@@ -8,7 +8,7 @@ class SelectBoxSection extends HTMLElement {
   }
 
   private addEvent() {
-    $('#category-filter')!.addEventListener('change', (event: Event) => {
+    $('#category-filter').addEventListener('change', (event: Event) => {
       this.dispatchEvent(
         new CustomEvent('changeCategory', {
           detail: (event.target as HTMLSelectElement).value,
@@ -16,7 +16,7 @@ class SelectBoxSection extends HTMLElement {
       );
     });
 
-    $('#sorting-filter')!.addEventListener('change', (event: Event) => {
+    $('#sorting-filter').addEventListener('change', (event: Event) => {
       this.dispatchEvent(
         new CustomEvent('changeSort', {
           detail: (event.target as HTMLSelectElement).value,

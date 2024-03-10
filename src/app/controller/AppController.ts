@@ -19,15 +19,15 @@ class AppController {
     const restaurantList: RestaurantList = new RestaurantList(
       this.restaurantService.getRestaurants(this.sort, category),
     );
-    document.querySelector('#app')!.appendChild(restaurantList);
+    $('#app').appendChild(restaurantList);
     this.addEvent();
   }
 
   addEvent() {
-    $('lunch-header')!.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
-    $('select-box-section')!.addEventListener('changeCategory', this.changeCategory.bind(this));
-    $('select-box-section')!.addEventListener('changeSort', this.changeSort.bind(this));
-    $('add-restaurant-modal')!.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
+    $('lunch-header').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
+    $('select-box-section').addEventListener('changeCategory', this.changeCategory.bind(this));
+    $('select-box-section').addEventListener('changeSort', this.changeSort.bind(this));
+    $('add-restaurant-modal').addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
   }
 
   changeCategory(event: Event) {
@@ -50,13 +50,13 @@ class AppController {
 
   refreshRestaurantList() {
     const category = this.category === '전체' ? undefined : this.category;
-    $('#app')!.removeChild($('restaurant-list')!);
+    $('#app').removeChild($('restaurant-list')!);
     const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sort, category));
-    $('#app')!.appendChild(restaurantList);
+    $('#app').appendChild(restaurantList);
   }
 
   showAddRestaurantModal() {
-    $<HTMLDialogElement>('#add-restaurant-modal')!.showModal();
+    $<HTMLDialogElement>('#add-restaurant-modal').showModal();
   }
 }
 
