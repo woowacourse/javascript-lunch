@@ -6,7 +6,9 @@ import { IinvalidResult } from "../../../types/validate";
 import RestaurantList from "../../restaurant_list/RestaurantList";
 
 const initializeFormState = () => {
-  const modalForm = document.getElementById("modal-form") as HTMLFormElement;
+  const modalForm: HTMLFormElement = document.getElementById(
+    "modal-form",
+  ) as HTMLFormElement;
   modalForm.reset();
   restaurantStateStore.resetState();
 };

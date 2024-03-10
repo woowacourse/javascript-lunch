@@ -13,11 +13,9 @@ const descriptionEventHandler = (description: HTMLElement) => {
 
 const inputDescriptionHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const description = document.getElementById("description");
+    const description = document.getElementById("description") as HTMLElement;
 
-    if (description) {
-      descriptionEventHandler(description);
-    }
+    descriptionEventHandler(description);
   });
 };
 

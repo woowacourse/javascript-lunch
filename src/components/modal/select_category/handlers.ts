@@ -14,10 +14,8 @@ export const selectEventHandler = (select: HTMLElement) => {
 
 export const categoryChange = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const select = document.getElementById("category");
+    const select = document.getElementById("category") as HTMLElement;
 
-    if (select) {
-      selectEventHandler(select);
-    }
+    selectEventHandler(select);
   });
 };

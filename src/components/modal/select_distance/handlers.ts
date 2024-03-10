@@ -14,10 +14,8 @@ export const selectDistanceEventHandler = (select: HTMLElement) => {
 
 export const distanceChange = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const select = document.getElementById("distance");
+    const select = document.getElementById("distance") as HTMLElement;
 
-    if (select) {
-      selectDistanceEventHandler(select);
-    }
+    selectDistanceEventHandler(select);
   });
 };

@@ -13,10 +13,8 @@ export const linkEventHandler = (link: HTMLElement) => {
 
 export const inputLinkHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const link = document.getElementById("link");
+    const link = document.getElementById("link") as HTMLElement;
 
-    if (link) {
-      linkEventHandler(link);
-    }
+    linkEventHandler(link);
   });
 };

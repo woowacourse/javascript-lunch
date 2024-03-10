@@ -16,10 +16,11 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
 
 export const changeFilter = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const categoryFilter = document.getElementById("category-filter");
-    if (categoryFilter) {
-      categoryFilterHandler(categoryFilter);
-    }
+    const categoryFilter: HTMLElement = document.getElementById(
+      "category-filter",
+    ) as HTMLElement;
+
+    categoryFilterHandler(categoryFilter);
   });
 };
 
@@ -36,9 +37,8 @@ const sortHandler = (sortFilter: HTMLElement) => {
 
 export const changeSorting = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const sortFilter = document.getElementById("sorting-filter");
-    if (sortFilter) {
-      sortHandler(sortFilter);
-    }
+    const sortFilter = document.getElementById("sorting-filter") as HTMLElement;
+
+    sortHandler(sortFilter);
   });
 };
