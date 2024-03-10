@@ -1,7 +1,7 @@
 import '../assets/css/main.css';
+import '../components/AddStoreBtn/index.ts';
 import '../components/CategoryIcon/style.css';
 import '../components/CategoryIcon/index.ts';
-import '../components/AddBtn/index.ts';
 import '../components/DefaultBtn/index.ts';
 import '../components/CustomModal/index.ts';
 import '../components/CustomInput/index.ts';
@@ -20,7 +20,6 @@ const WebController = {
     RestaurantListController.injectRestaurantListHTML(
       new RestaurantList().list,
     );
-    StoreAddBtnController.addEventToBtn();
     FilteringController.addEventToFiltering();
   },
 };
