@@ -31,10 +31,6 @@ class FormItem {
   }
 
   resetForm() {
-    if (this.#readableElement instanceof HTMLSelectElement) {
-      this.#readableElement.options[0].selected = true;
-      return;
-    }
     this.#readableElement.value = "";
   }
 
