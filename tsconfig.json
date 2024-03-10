@@ -1,6 +1,10 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true,
     "incremental": true,
     "target": "ES2020",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -14,7 +18,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["cypress"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "cypress", "dist"]

@@ -1,4 +1,6 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "max-depth": ["error", 1],
     "max-params": ["error", 2],
@@ -10,7 +12,12 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "import/prefer-default-export": "off",
+    "no-useless-constructor": "off",
+    "class-methods-use-this": "off",
+    "no-shadow": "off",
+    "no-new": "off"
   },
   "env": {
     "browser": true,
@@ -21,5 +28,9 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["airbnb-base", "prettier"]
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ]
 }
