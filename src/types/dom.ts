@@ -14,8 +14,9 @@ interface IButtonAttributes extends IDomAttributes {
   type?: 'submit' | 'reset' | 'button';
 }
 
-interface IDomCreation extends IDomAttributes {
-  tagName: string;
+interface IImageAttributes extends IDomAttributes {
+  src: string;
+  alt: string;
 }
 
 interface IOptionAttributes {
@@ -23,4 +24,9 @@ interface IOptionAttributes {
   text: string;
 }
 
-export type { IDomAttributes, ISelectAttributes, IButtonAttributes, IDomCreation, IOptionAttributes };
+interface IDomCreation extends IDomAttributes {
+  tagName: string;
+  children?: HTMLElement[];
+}
+
+export type { IDomAttributes, ISelectAttributes, IButtonAttributes, IImageAttributes, IOptionAttributes, IDomCreation };

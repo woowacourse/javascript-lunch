@@ -1,6 +1,41 @@
-import type { IButtonAttributes, ISelectAttributes, IOptionAttributes } from '../types/dom';
+import type {
+  IButtonAttributes,
+  ISelectAttributes,
+  IOptionAttributes,
+  IImageAttributes,
+  IDomCreation,
+} from '../types/dom';
 
 const dom = {
+  create({ tagName, id, classNames, text, children }: IDomCreation) {
+    const tag = document.createElement(tagName);
+    tag.id = id ?? '';
+    tag.textContent = text ?? '';
+    if (classNames != null) {
+      classNames.forEach(className => {
+        tag.classList.add(className);
+      });
+    }
+    if (children != null) {
+      children.forEach(child => {
+        tag.appendChild(child);
+      });
+    }
+    return tag;
+  },
+
+  createImageTag({ classNames, src, alt }: IImageAttributes): HTMLImageElement {
+    const imageTag = document.createElement('img');
+    imageTag.src = src ?? '';
+    imageTag.alt = alt ?? '';
+    if (classNames != null) {
+      classNames.forEach(className => {
+        imageTag.classList.add(className);
+      });
+    }
+    return imageTag;
+  },
+
   createSelectTag({ id, classNames, name, required }: ISelectAttributes): HTMLSelectElement {
     const selectTag = document.createElement('select');
     selectTag.name = name ?? '';
