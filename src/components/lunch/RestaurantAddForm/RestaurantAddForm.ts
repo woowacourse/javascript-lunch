@@ -39,33 +39,52 @@ class RestaurantAddForm extends BaseComponent {
 
     this.innerHTML = `
         <form id="restaurant-add-form">
-            <div class="form-item form-item--required">
-                <label for="category text-caption">카테고리</label>
-                <common-dropdown name="category" id="category" options="${menuCategoryWithoutAllOptions}" title="선택해 주세요" /></common-dropdown>            
-            </div>
-
-            <div class="form-item form-item--required">
-                <label for="name text-caption">이름</label>
-                <input type="text" name="name" id="name" required>
-            </div>
-
-            <div class="form-item form-item--required">
-                <label for="distance text-caption">거리(도보 이동 시간) </label>
-                <common-dropdown name="distance" addOptionText="분 내" id="distance" options="${RestaurantAddForm.DISTANCES_OPTIONS}" title="선택해 주세요" /></common-dropdown>            
-            </div>
-
-            <div class="form-item">
-                <label for="description text-caption">설명</label>
-                <textarea name="description" id="description" cols="30" rows="5"></textarea>
-                <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-            </div>
-
-            <div class="form-item">
-                <label for="url" text-caption">참고 링크</label>
-                <input type="text" name="url" id="url"/>
-                <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
-            </div>
-
+            <common-form-item
+              for="category"
+              classList="form-item--required"
+              children="
+                ${`<common-dropdown name='category' id='category' options='${menuCategoryWithoutAllOptions}' title='선택해 주세요'></common-dropdown>`}
+              "
+              labelText="카테고리"
+            >
+            </common-form-item>
+            <common-form-item
+              for="name"
+              classList="form-item--required"
+              children="
+                ${`<input type='text' name='name' id='name' required>`}
+              "
+              labelText="이름"
+            >
+            </common-form-item>
+            <common-form-item
+              for="distance"
+              classList="form-item--required"
+              children="
+                ${`<common-dropdown name='distance' addOptionText='분 내' id='distance' options='${RestaurantAddForm.DISTANCES_OPTIONS}' title='선택해 주세요' /></common-dropdown>`}
+              "
+              labelText="거리(도보 이동 시간)"
+            >
+            </common-form-item>
+            <common-form-item
+              for="description"
+              classList="form-item--required"
+              children="
+                ${`<textarea name='description' id='description' cols='30' rows='5'></textarea>
+                <span class='help-text text-caption'>메뉴 등 추가 정보를 입력해 주세요.</span>`}
+              "
+              labelText="설명"
+            >
+            </common-form-item>
+            <common-form-item
+              for="url"
+              children="
+                ${`<input type='text' name='url' id='url'/>
+                <span class='help-text text-caption'>매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`}
+              "
+              labelText="참고 링크"
+            >
+            </common-form-item>
             <div class="button-container">
                 <button id="modal-cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
                 <button type="submit" class="button button--primary text-caption">추가하기</button>

@@ -9,3 +9,4 @@ import "./components/lunch/RestaurantAddForm/RestaurantAddForm";
 
 import "./components/common/CommonDropdown/CommonDropdown";
 import "./components/common/CommonModal/CommonModal";
+import "./components/common/CommonFormItem/CommonFormItem";
