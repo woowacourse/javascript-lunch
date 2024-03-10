@@ -1,6 +1,6 @@
-import { CATEGORY, MESSAGE, STORAGE_KEY } from '../src/constants/index.ts';
-import { Restaurant } from '../src/domains/index.ts';
-import { RestaurantInfo } from '../src/types/index.ts';
+import { CATEGORY, MESSAGE, STORAGE_KEY } from '../src/constants';
+import { Restaurant } from '../src/domains';
+import { RestaurantInfo } from '../src/types';
 
 describe('Restaurant 테스트', () => {
   const initialInfo: RestaurantInfo = {

@@ -1,6 +1,6 @@
-import { CATEGORY, STORAGE_KEY } from '../src/constants/index.ts';
-import { RestaurantList } from '../src/domains/index.ts';
-import { Category, RestaurantInfo } from '../src/types/index.ts';
+import { CATEGORY, STORAGE_KEY } from '../src/constants';
+import { RestaurantList } from '../src/domains';
+import { Category, RestaurantInfo } from '../src/types';
 
 describe('RestaurantList 테스트', () => {
   describe('로컬 저장소', () => {

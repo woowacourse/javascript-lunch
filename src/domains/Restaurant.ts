@@ -1,10 +1,5 @@
-import {
-  CHARACTER_LIMIT,
-  MESSAGE,
-  PROTOCOL,
-  STORAGE_KEY,
-} from '../constants/index.ts';
-import { RestaurantInfo } from '../types/index.ts';
+import { CHARACTER_LIMIT, MESSAGE, PROTOCOL, STORAGE_KEY } from '../constants';
+import { RestaurantInfo } from '../types';
 
 class Restaurant {
   #info!: RestaurantInfo;

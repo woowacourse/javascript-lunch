@@ -1,4 +1,4 @@
-import { CHARACTER_LIMIT, PROTOCOL } from './rule.ts';
+import { CHARACTER_LIMIT, PROTOCOL } from './rule';
 
 export const MESSAGE = {
   descriptionHasInvalidCharacterLimit: `1자 이상 ${CHARACTER_LIMIT.description}자 이내만 입력이 가능합니다.`,

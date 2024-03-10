@@ -1,5 +1,5 @@
-import { DropBoxName } from '../../types/index.ts';
-import DropBoxInnerHtmlMaker from './DropBoxInnerHtmlMaker.ts';
+import { DropBoxName } from '../../types';
+import DropBoxInnerHtmlMaker from './DropBoxInnerHtmlMaker';
 
 class DropBox extends HTMLElement {
   constructor() {

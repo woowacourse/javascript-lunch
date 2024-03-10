@@ -1,6 +1,11 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
   "rules": {
     "max-depth": ["error", 1],
     "max-params": ["error", 2],
@@ -28,9 +33,5 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": [
-    "airbnb-base",
-    "prettier",
-    "plugin:@typescript-eslint/recommended"
-  ]
+  "extends": ["airbnb-base", "prettier"]
 }

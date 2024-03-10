@@ -1,6 +1,6 @@
 import './style.css';
 
-import { DefaultBtnColor } from '../../types/index.ts';
+import { DefaultBtnColor } from '../../types';
 
 class DefaultBtn extends HTMLElement {
   constructor() {

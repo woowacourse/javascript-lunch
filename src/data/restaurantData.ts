@@ -1,5 +1,5 @@
-import { CATEGORY } from '../constants/index.ts';
-import { RestaurantInfo } from '../types/index.ts';
+import { CATEGORY } from '../constants';
+import { RestaurantInfo } from '../types';
 
 export const INITIAL_RESTAURANT_DATA: RestaurantInfo[] = [
   {

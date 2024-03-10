@@ -1,5 +1,5 @@
-import FilteringController from './FilteringController.ts';
-import RestaurantListController from './RestaurantListController.ts';
-import WebController from './WebController.ts';
+import FilteringController from './FilteringController';
+import RestaurantListController from './RestaurantListController';
+import WebController from './WebController';
 
 export { RestaurantListController, FilteringController, WebController };

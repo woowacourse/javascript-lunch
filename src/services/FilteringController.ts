@@ -30,14 +30,14 @@ const FilteringController = {
         ? restaurantList.list
         : restaurantList.filterRestaurantsByCategory(category as Category);
 
-    const sortedList = filteredList[0]
-      ? restaurantList.sortRestaurants(
-          filteredList,
-          sorting as 'name' | 'distance',
-        )
-      : undefined;
+    if (filteredList?.[0]) {
+      const sortedList = restaurantList.sortRestaurants(
+        filteredList,
+        sorting as 'name' | 'distance',
+      );
 
-    RestaurantListController.injectRestaurantListHTML(sortedList);
+      RestaurantListController.injectRestaurantListHTML(sortedList);
+    }
   },
 
   private_getSelectedValue(selectElement: HTMLSelectElement) {

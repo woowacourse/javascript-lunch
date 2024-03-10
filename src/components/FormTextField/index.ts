@@ -1,6 +1,6 @@
-import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData.ts';
-import { Restaurant } from '../../domains/index.ts';
-import { RestaurantInfoKey, RestaurantInfo } from '../../types/index.ts';
+import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData';
+import { Restaurant } from '../../domains';
+import { RestaurantInfoKey, RestaurantInfo } from '../../types';
 
 class FormTextField extends HTMLElement {
   constructor() {

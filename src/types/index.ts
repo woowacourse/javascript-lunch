@@ -1,3 +1,3 @@
-export * from './btnType.ts';
-export * from './dropBoxType.ts';
-export * from './restaurantType.ts';
+export * from './btnType';
+export * from './dropBoxType';
+export * from './restaurantType';

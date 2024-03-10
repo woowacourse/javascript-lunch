@@ -1,7 +1,7 @@
-import { STORAGE_KEY } from '../constants/index.ts';
-import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData.ts';
-import { Category, RestaurantInfo } from '../types/index.ts';
-import { getDeepCopiedArray } from '../utils/index.ts';
+import { STORAGE_KEY } from '../constants';
+import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
+import { Category, RestaurantInfo } from '../types';
+import { getDeepCopiedArray } from '../utils';
 
 class RestaurantList {
   #list: RestaurantInfo[] = INITIAL_RESTAURANT_DATA;

@@ -1,4 +1,4 @@
-import { CATEGORY } from '../constants/index.ts';
+import { CATEGORY } from '../constants';
 
 export type Category = keyof typeof CATEGORY;
 

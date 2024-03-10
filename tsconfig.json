@@ -1,10 +1,6 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "allowImportingTsExtensions": true,
     "incremental": true,
     "target": "ES2020",
     "lib": ["dom", "dom.iterable", "esnext"],

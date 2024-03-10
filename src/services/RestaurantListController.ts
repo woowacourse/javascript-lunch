@@ -1,6 +1,6 @@
-import { STORAGE_KEY } from '../constants/index.ts';
-import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData.ts';
-import { RestaurantInfo } from '../types/index.ts';
+import { STORAGE_KEY } from '../constants';
+import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
+import { RestaurantInfo } from '../types';
 
 const RestaurantListController = {
   updateLocalStorage() {

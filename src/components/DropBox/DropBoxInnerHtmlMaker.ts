@@ -1,8 +1,8 @@
 import './style.css';
 
 import ArrowIcon from '../../assets/svg/down-arrow.svg';
-import { DROP_BOX_MAP } from '../../constants/index.ts';
-import { DropBoxName } from '../../types/index.ts';
+import { DROP_BOX_MAP } from '../../constants';
+import { DropBoxName } from '../../types';
 
 class DropBoxInnerHtmlMaker {
   #innerHtml?: string;

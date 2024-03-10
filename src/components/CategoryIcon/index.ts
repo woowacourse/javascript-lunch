@@ -7,8 +7,8 @@ import JapaneseIcon from '../../assets/svg/category-japanese.svg';
 import KoreanIcon from '../../assets/svg/category-korean.svg';
 import WesternIcon from '../../assets/svg/category-western.svg';
 
-import { CATEGORY } from '../../constants/rule.ts';
-import { Category } from '../../types/index.ts';
+import { CATEGORY } from '../../constants';
+import { Category } from '../../types';
 
 type IconMapValue = { imageUrl: string; alt: string };
 
