@@ -11,3 +11,5 @@ export const closeModal = (modal: HTMLElement) => {
   modal.classList.remove('modal--open');
   BasicModal.blockModalBodyScroll();
 };
+
+export const makeLabel = (label: string) => {};

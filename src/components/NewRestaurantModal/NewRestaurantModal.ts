@@ -46,8 +46,8 @@ class NewRestaurantModal extends NewRestaurantModalView {
     link && isValidateAndMakeErrorMessage.link(link);
 
     return (
-      validator.isValidCategory(category) ||
-      validator.isValidDistance(distance) ||
+      validator.isValidCategory(category) &&
+      validator.isValidDistance(distance) &&
       validator.isValidName(name)
     );
   }
@@ -59,7 +59,7 @@ class NewRestaurantModal extends NewRestaurantModalView {
       const values = this.#getValues();
       const { category, name, distance, description, link } = values;
 
-      if (this.#validateValues(values)) return;
+      if (!this.#validateValues(values)) return;
 
       const newRestaurant: IRestaurant = {
         name,

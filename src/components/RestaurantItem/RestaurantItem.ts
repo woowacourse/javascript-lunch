@@ -5,7 +5,7 @@ import japaneseIcon from '@/assets/category-japanese.png';
 import chineseIcon from '@/assets/category-chinese.png';
 import westernIcon from '@/assets/category-western.png';
 import etcIcon from '@/assets/category-etc.png';
-import { Category, IRestaurant } from '@/types/Restaurant';
+import { IRestaurant } from '@/types/Restaurant';
 import CategoryIconBox from '../CategoryIconBox/CategoryIconBox';
 
 export const Icons = {
