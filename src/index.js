@@ -14,12 +14,12 @@ import './styles/index.css';
 const restaurants = new Restaurants(localStorage);
 
 // components
-const header = new Header();
+new Header();
 const select = new Select(restaurants);
 const restaurant = new Restaurant();
 const modal = new RestaurantCreationModal(restaurants);
 
-$('header').innerHTML = header.render();
+$('header').innerHTML = Header.getTemplate();
 $('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.sorting));
 $('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.category));
 restaurants.standardList.forEach((restaurantData) => {

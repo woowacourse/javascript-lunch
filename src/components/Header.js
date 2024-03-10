@@ -1,12 +1,13 @@
 import { $ } from '../utils/dom';
 import ICON from '../icons';
+import { openModal } from '../utils/modalHandler';
 
-export default class Header {
+class Header {
   constructor() {
-    this.handleButtonClick();
+    this.initEventListeners();
   }
 
-  render() {
+  static getTemplate() {
     return `
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" id="gnb__button" class="gnb__button" aria-label="음식점 추가">
@@ -15,11 +16,15 @@ export default class Header {
     `;
   }
 
-  handleButtonClick() {
-    $('header').addEventListener('click', (e) => {
-      if (e.target.parentNode.id === 'gnb__button') {
-        $('restaurant-creation-modal').classList.add('modal--open');
-      }
-    });
+  initEventListeners() {
+    $('header').addEventListener('click', this.openRestaurantCreationModal.bind(this));
+  }
+
+  openRestaurantCreationModal(event) {
+    if (event.target.closest('#gnb__button')) {
+      openModal($('restaurant-creation-modal'));
+    }
   }
 }
+
+export default Header;
