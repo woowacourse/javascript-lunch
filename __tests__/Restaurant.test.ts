@@ -1,4 +1,4 @@
-import { CATEGORY, MESSAGE, STORAGE_KEY } from '../src/constants';
+import { CATEGORY, DISTANCES, MESSAGE, STORAGE_KEY } from '../src/constants';
 import { Restaurant } from '../src/domains';
 import { RestaurantInfo } from '../src/types';
 
@@ -24,6 +24,16 @@ describe('Restaurant 테스트', () => {
     beforeAll(() => {
       localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(ITEM));
     });
+    test.each([['1', '이름'], { nam: '이름' }, undefined])(
+      '이름이 문자 타입이 아니면 오류가 발생한다',
+      (value) => {
+        expect(() => {
+          // 타입 오류 검사를 위해 ts 기능 끔
+          // @ts-ignore
+          new Restaurant({ ...initialInfo, name: value });
+        }).toThrow(MESSAGE.invalidStringType);
+      },
+    );
     test.each(['12345678910', ''])(
       '이름 입력값의 글자수가 1자 미만, 10자 초과 시 오류가 발생한다.  \n [Test Case] : %s',
       (value: string) => {
@@ -65,6 +75,32 @@ describe('Restaurant 테스트', () => {
         });
       }).not.toThrow();
     });
+  });
+
+  describe('유효성 검사- 카테고리', () => {
+    test.each(['한식', 'ko', 'all'])(
+      `카테고리가 유효한 카테코리("${Object.keys(CATEGORY).join(',')}")가 아니라면 오류가 발생한다`,
+      (value) => {
+        expect(() => {
+          // 타입 오류 검사를 위해 ts 기능 끔
+          // @ts-ignore
+          new Restaurant({ ...initialInfo, category: value });
+        }).toThrow(MESSAGE.invalidCategoryType);
+      },
+    );
+  });
+
+  describe('유효성 검사- 거리', () => {
+    test.each(['5', '오분', 6, 31, 0])(
+      `거리가 숫자 타입의 유효한 거리("${DISTANCES.join(',')}")가 아니라면 오류가 발생한다`,
+      (value) => {
+        expect(() => {
+          // 타입 오류 검사를 위해 ts 기능 끔
+          // @ts-ignore
+          new Restaurant({ ...initialInfo, distance: value });
+        }).toThrow(MESSAGE.invalidDistanceType);
+      },
+    );
   });
 
   describe('유효성 검사-설명', () => {
@@ -122,30 +158,6 @@ describe('Restaurant 테스트', () => {
       },
     );
 
-    test.each(['https://한글'])(
-      '링크 입력값이 영어가 아니면 오류가 발생한다. \n [Test Case] : %s',
-      (value: string) => {
-        expect(() => {
-          new Restaurant({
-            ...initialInfo,
-            link: value,
-          });
-        }).toThrow(MESSAGE.linkHasInvalidChars);
-      },
-    );
-
-    test.each(['https://english'])(
-      '링크 입력값이 영어이면 오류가 발생하지 않는다. \n [Test Case] : %s',
-      (value: string) => {
-        expect(() => {
-          new Restaurant({
-            ...initialInfo,
-            link: value,
-          });
-        }).not.toThrow();
-      },
-    );
-
     test.each(['htt://', 'h://'])(
       '링크 입력값의 첫 시작이 http/https 프로토콜이 존재하지 않으면 오류가 발생한다. \n [Test Case] : %s',
       (value: string) => {
@@ -158,7 +170,10 @@ describe('Restaurant 테스트', () => {
       },
     );
 
-    test.each(['http://', 'https://'])(
+    test.each([
+      'http://www.lunch.com',
+      'https://www.lunch.com/category?korean',
+    ])(
       '링크 입력값의 첫 시작이 http/https 프로토콜이면  오류가 발생하지 않는다. \n [Test Case] : %s',
       (value: string) => {
         expect(() => {
