@@ -10,10 +10,14 @@ import { MENU_CATEGORIES } from "../../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../../constants/selector";
 
 import { $ } from "../../../utils/dom";
-import { isUserInputValues } from "../../../utils/typeGuard";
+import {
+  isUserInputValues,
+  isValidErrorMessageKey,
+} from "../../../utils/typeGuard";
+import { ERROR_TARGET_ELEMENTS_DICTIONARY } from "./RestaurantAddForm.constant";
 
 class RestaurantAddForm extends BaseComponent {
-  static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];
+  static DISTANCES_OPTIONS: Distance[] = ["5", "10", "15", "20", "30"];
 
   private eventListeners = {
     resetForm: {
@@ -42,7 +46,7 @@ class RestaurantAddForm extends BaseComponent {
               for="category"
               classList="form-item--required"
               children="
-                ${`<common-dropdown name='category' id='category' options='${menuCategoryWithoutAllOptions}' title='선택해 주세요'></common-dropdown>`}
+                ${`<common-dropdown name='category' id='category-select' options='${menuCategoryWithoutAllOptions}' title='선택해 주세요'></common-dropdown>`}
               "
               labelText="카테고리"
             >
@@ -51,7 +55,7 @@ class RestaurantAddForm extends BaseComponent {
               for="name"
               classList="form-item--required"
               children="
-                ${`<input type='text' name='name' id='name' required>`}
+                ${`<input type='text' name='name' id='name-input' required>`}
               "
               labelText="이름"
             >
@@ -60,16 +64,15 @@ class RestaurantAddForm extends BaseComponent {
               for="distance"
               classList="form-item--required"
               children="
-                ${`<common-dropdown name='distance' addOptionText='분 내' id='distance' options='${RestaurantAddForm.DISTANCES_OPTIONS}' title='선택해 주세요' /></common-dropdown>`}
+                ${`<common-dropdown name='distance' addOptionText='분 내' id='distance-select' options='${RestaurantAddForm.DISTANCES_OPTIONS}' title='선택해 주세요' /></common-dropdown>`}
               "
               labelText="거리(도보 이동 시간)"
             >
             </common-form-item>
             <common-form-item
               for="description"
-              classList="form-item--required"
               children="
-                ${`<textarea name='description' id='description' cols='30' rows='5'></textarea>
+                ${`<textarea name='description' id='description-textarea' cols='30' rows='5'></textarea>
                 <span class='help-text text-caption'>메뉴 등 추가 정보를 입력해 주세요.</span>`}
               "
               labelText="설명"
@@ -78,7 +81,7 @@ class RestaurantAddForm extends BaseComponent {
             <common-form-item
               for="url"
               children="
-                ${`<input type='text' name='url' id='url'/>
+                ${`<input type='text' name='url' id='url-input'/>
                 <span class='help-text text-caption'>매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`}
               "
               labelText="참고 링크"
@@ -139,6 +142,16 @@ class RestaurantAddForm extends BaseComponent {
     } catch (error: unknown | Error) {
       if (error instanceof Error) {
         alert(error.message);
+
+        const errorMessage = error.message;
+
+        if (isValidErrorMessageKey(errorMessage)) {
+          const targetElement = $(
+            ERROR_TARGET_ELEMENTS_DICTIONARY[errorMessage]
+          );
+
+          targetElement.focus();
+        }
       }
     }
   }
@@ -146,12 +159,10 @@ class RestaurantAddForm extends BaseComponent {
   private addUserInputRestaurantDetail() {
     const userInputRestaurantDetail = this.createFormDataToRestaurantDetail();
 
-    console.log(userInputRestaurantDetail);
-
     if (userInputRestaurantDetail) {
       const restaurant = new Restaurant();
 
-      restaurant.findDuplicateRestaurantByName(userInputRestaurantDetail);
+      restaurant.validateRestaurantDetail(userInputRestaurantDetail);
 
       restaurant.addRestaurant(userInputRestaurantDetail);
     }

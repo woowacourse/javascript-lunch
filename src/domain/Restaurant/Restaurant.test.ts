@@ -3,9 +3,10 @@ import type { CustomStorage } from "../../storages/type";
 import Restaurant from "./Restaurant";
 import type { RestaurantDetail } from "./Restaurant.type";
 
+import RestaurantDetailValidator from "../../validator/restaurantDetail/RestaurantDetailValidator";
+
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
-import { ERROR_MESSAGE } from "../../constants/errorMessage";
 
 // given
 class FakeRestaurantStorage
@@ -15,56 +16,56 @@ class FakeRestaurantStorage
     {
       category: "한식",
       name: "한식당1",
-      distance: 10,
+      distance: "10",
       description: "맛있는 한식당",
       url: "http://example.com/1",
     },
     {
       category: "한식",
       name: "한식당2",
-      distance: 5,
+      distance: "5",
       description: "저렴한 한식당",
       url: "http://example.com/2",
     },
     {
       category: "중식",
       name: "중식당1",
-      distance: 15,
+      distance: "15",
       description: "중국집",
       url: "http://example.com/3",
     },
     {
       category: "중식",
       name: "중식당2",
-      distance: 10,
+      distance: "10",
       description: "중국집2",
       url: "http://example.com/44",
     },
     {
       category: "일식",
       name: "일식당1",
-      distance: 20,
+      distance: "20",
       description: "일본 음식",
       url: "http://example.com/4",
     },
     {
       category: "양식",
       name: "양식당1",
-      distance: 30,
+      distance: "30",
       description: "서양 음식",
       url: "http://example.com/5",
     },
     {
       category: "아시안",
       name: "아시안 음식당1",
-      distance: 20,
+      distance: "20",
       description: "다양한 아시아 음식",
       url: "http://example.com/6",
     },
     {
       category: "기타",
       name: "세계 음식당1",
-      distance: 15,
+      distance: "15",
       description: "세계 각국의 음식을 제공",
       url: "http://example.com/7",
     },
@@ -105,7 +106,7 @@ describe("Restaurant 모듈 테스트", () => {
       const newRestaurantDetail: RestaurantDetail = {
         category: "양식",
         name: "양식당2",
-        distance: 30,
+        distance: "30",
         description: "모던 유럽 요리",
         url: "http://example.com/6",
       };
@@ -125,15 +126,17 @@ describe("Restaurant 모듈 테스트", () => {
     const newRestaurantDetail: RestaurantDetail = {
       category: "한식",
       name: "한식당1", // 이미 존재하는 이름
-      distance: 15,
+      distance: "15",
       description: "새로운 한식당",
       url: "http://example.com/new",
     };
-    test(`중복된 음식점 이름이 존재 할 경우 "${ERROR_MESSAGE.duplicateRestaurant}" 메시지와 함께 에러를 발생시킨다`, () => {
+    test(`중복된 음식점 이름이 존재 할 경우 "${RestaurantDetailValidator.validationTypes.duplicateNames.errorMessage}" 메시지와 함께 에러를 발생시킨다`, () => {
       // when - then
       expect(() => {
-        restaurant.findDuplicateRestaurantByName(newRestaurantDetail);
-      }).toThrow(ERROR_MESSAGE.duplicateRestaurant);
+        restaurant.validateRestaurantDetail(newRestaurantDetail);
+      }).toThrow(
+        RestaurantDetailValidator.validationTypes.duplicateNames.errorMessage
+      );
     });
 
     test("중복된 음식점 이름이 없다면 에러를 발생시키지 않는다", () => {
@@ -142,8 +145,10 @@ describe("Restaurant 모듈 테스트", () => {
 
       // when - then
       expect(() => {
-        restaurant.findDuplicateRestaurantByName(newRestaurantDetail);
-      }).not.toThrow(ERROR_MESSAGE.duplicateRestaurant);
+        restaurant.validateRestaurantDetail(newRestaurantDetail);
+      }).not.toThrow(
+        RestaurantDetailValidator.validationTypes.duplicateNames.errorMessage
+      );
     });
   });
 
@@ -163,7 +168,9 @@ describe("Restaurant 모듈 테스트", () => {
       restaurant.sortRestaurants(SORT_CATEGORIES_TYPE.distance);
 
       // then
-      expect(isSortedBy("distance", (a, b) => a >= b)).toBeTruthy();
+      expect(
+        isSortedBy("distance", (a, b) => Number(a) >= Number(b))
+      ).toBeTruthy();
     });
   });
 
@@ -214,7 +221,7 @@ describe("Restaurant 모듈 테스트", () => {
       const newRestaurantDetail: RestaurantDetail = {
         category: "한식",
         name: "한식당3",
-        distance: 30,
+        distance: "30",
         description: "신규 한식당",
         url: "http://example.com/new",
       };
@@ -233,7 +240,7 @@ describe("Restaurant 모듈 테스트", () => {
       const newRestaurantDetail: RestaurantDetail = {
         category: "양식",
         name: "양식당123",
-        distance: 30,
+        distance: "30",
         description: "신규 양식당",
         url: "http://example.com/new",
       };
@@ -253,7 +260,10 @@ describe("Restaurant 모듈 테스트", () => {
       restaurant.sortRestaurants(SORT_CATEGORIES_TYPE.distance);
 
       // then
-      const isSortedByDistance = isSortedBy("distance", (a, b) => a >= b);
+      const isSortedByDistance = isSortedBy(
+        "distance",
+        (a, b) => Number(a) >= Number(b)
+      );
       const isFilteredRestaurants = restaurant
         .getRestaurantDetails()
         .every(({ category }) => category === "중식");
@@ -287,7 +297,9 @@ describe("Restaurant 모듈 테스트", () => {
       );
 
       // then
-      expect(isSortedBy("distance", (a, b) => a >= b)).toBeTruthy();
+      expect(
+        isSortedBy("distance", (a, b) => Number(a) >= Number(b))
+      ).toBeTruthy();
     });
   });
 });

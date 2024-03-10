@@ -17,4 +17,4 @@ export type MenuCategory =
   | "아시안"
   | "기타";
 
-export type Distance = 5 | 10 | 15 | 20 | 30;
+export type Distance = "5" | "10" | "15" | "20" | "30";

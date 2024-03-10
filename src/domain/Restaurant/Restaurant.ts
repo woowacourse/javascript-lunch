@@ -3,9 +3,10 @@ import type { CustomStorage } from "../../storages/type";
 
 import type { MenuCategory, RestaurantDetail } from "./Restaurant.type";
 
+import RestaurantDetailValidator from "../../validator/restaurantDetail/RestaurantDetailValidator";
+
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
-import { ERROR_MESSAGE } from "../../constants/errorMessage";
 import type { SortCategory } from "../../constants/sortCategory/sortCategory.type";
 
 class Restaurant {
@@ -46,7 +47,7 @@ class Restaurant {
           ? (a: RestaurantDetail, b: RestaurantDetail) =>
               a.name.localeCompare(b.name)
           : (a: RestaurantDetail, b: RestaurantDetail) =>
-              a.distance - b.distance
+              Number(a.distance) - Number(b.distance)
       );
   }
 
@@ -82,17 +83,11 @@ class Restaurant {
     this.updateRestaurants(sortType);
   }
 
-  public findDuplicateRestaurantByName(
-    userInputRestaurantDetail: RestaurantDetail
-  ) {
-    const duplicateRestaurantDetail = this.restaurantsDetails.find(
-      (restaurantDetail) =>
-        restaurantDetail.name === userInputRestaurantDetail.name
+  public validateRestaurantDetail(userInputRestaurantDetail: RestaurantDetail) {
+    RestaurantDetailValidator.check(
+      userInputRestaurantDetail,
+      this.restaurantsDetails
     );
-
-    if (duplicateRestaurantDetail) {
-      throw new Error(ERROR_MESSAGE.duplicateRestaurant);
-    }
   }
 }
 
