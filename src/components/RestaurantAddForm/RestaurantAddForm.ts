@@ -12,7 +12,6 @@ import type {
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
-import { OPTION_ELEMENT_REGEXP } from "../../constants/regexp";
 
 import { createOptionElements } from "../../utils/createOptionElements";
 import { $ } from "../../utils/dom";
@@ -55,10 +54,8 @@ class RestaurantAddForm extends BaseComponent {
                 <select name="distance" id="distance" required>
                 <option value="">선택해 주세요</option>
                 ${createOptionElements(
-                  RestaurantAddForm.DISTANCES_OPTIONS
-                ).replace(
-                  OPTION_ELEMENT_REGEXP,
-                  (_, value) => `<option value=${value}>${value}분 내</option>`
+                  RestaurantAddForm.DISTANCES_OPTIONS,
+                  (value) => `${value}분 내`
                 )}
                 </select>
             </div>
