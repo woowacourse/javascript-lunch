@@ -1,15 +1,29 @@
-import { Restaurant } from '../src/domains';
-import { RestaurantInfo } from '../src/types';
-import { MESSAGE } from '../src/constants';
+import { CATEGORY, MESSAGE, STORAGE_KEY } from '../src/constants/index.ts';
+import { Restaurant } from '../src/domains/index.ts';
+import { RestaurantInfo } from '../src/types/index.ts';
 
 describe('Restaurant 테스트', () => {
   const initialInfo: RestaurantInfo = {
     category: 'korean',
-    name: '꺼벙이네',
+    name: '바다_소하',
     distance: 5,
   };
 
   describe('유효성 검사-이름', () => {
+    const ITEM: RestaurantInfo[] = [
+      {
+        category: CATEGORY.korean,
+        name: '피양콩할마니',
+        distance: 10,
+        description:
+          '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은 되비지를 맛볼..',
+        link: 'https://piyang.modoo.at',
+      },
+    ];
+
+    beforeAll(() => {
+      localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(ITEM));
+    });
     test.each(['12345678910', ''])(
       '이름 입력값의 글자수가 1자 미만, 10자 초과 시 오류가 발생한다.  \n [Test Case] : %s',
       (value: string) => {
@@ -33,6 +47,24 @@ describe('Restaurant 테스트', () => {
         }).not.toThrow();
       },
     );
+
+    test('이름이 이미 등록된 이름일 경우 오류가 발생한다.', () => {
+      expect(() => {
+        new Restaurant({
+          ...initialInfo,
+          name: ITEM[0].name,
+        });
+      }).toThrow(MESSAGE.duplicateRestaurantName);
+    });
+
+    test('등록된 음식점들과 이름이 중복되지 않으면 오류가 발생하지 않는다.', () => {
+      expect(() => {
+        new Restaurant({
+          ...initialInfo,
+          name: 'mau__%e_as',
+        });
+      }).not.toThrow();
+    });
   });
 
   describe('유효성 검사-설명', () => {
@@ -62,7 +94,7 @@ describe('Restaurant 테스트', () => {
   });
 
   describe('유효성 검사-링크', () => {
-    test.each(['https://' + Array.from({ length: 2001 }, () => 'j').join('')])(
+    test.each([`https://${Array.from({ length: 2001 }, () => 'j').join('')}`])(
       '링크 입력값의 글자수가 2000자 초과 시 오류가 발생한다. \n [Test Case] : %s',
       (value: string) => {
         expect(() => {
@@ -77,7 +109,7 @@ describe('Restaurant 테스트', () => {
     test.each([
       'https:// ',
       'http:// ',
-      'https://' + Array.from({ length: 1992 }, () => 'j').join(''),
+      `https://${Array.from({ length: 1992 }, () => 'j').join('')}`,
     ])(
       '링크 입력값의 글자수가1자 이상 2000자 이내이면 오류가 발생하지 않는다. \n [Test Case] : %s',
       (value: string) => {
