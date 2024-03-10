@@ -6,6 +6,8 @@ import RestaurantComponent from './components/Restaurant';
 import SelectBoxComponent from './components/SelectBox';
 import { DEFAULT_RESTAURANT_LIST } from './constants/config';
 import {
+  ADD_BUTTON_ATTRIBUTE,
+  CLOSE_BUTTON_ATTRIBUTE,
   FILTERED_CATEGORY,
   FILTERED_CATEGORY_ATTRIBUTE,
   FORM_CATEGORY,
@@ -17,11 +19,11 @@ import {
 } from './constants/filter';
 import HomeEventHandler from './eventHandler/HomeEventHandler';
 import ModalEventHandler from './eventHandler/ModalEventHandler';
+import Button from './components/Button';
 
 const $restaurantList = document.querySelector('.restaurant-list');
 const getDefaultRestaurantList = () => DEFAULT_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
-new ModalEventHandler(restaurantList);
 
 const getSelectedCategory = () => {
   const $categoryFilter = document.getElementById('category-filter');
@@ -91,7 +93,19 @@ const init = () => {
     attributes: FORM_DISTANCE_ATTRIBUTE,
     options: FORM_DISTANCE,
   });
+
+  const $buttonContainer = document.querySelector('.button-container');
+  new Button({
+    $target: $buttonContainer,
+    attributes: CLOSE_BUTTON_ATTRIBUTE,
+  });
+
+  new Button({
+    $target: $buttonContainer,
+    attributes: ADD_BUTTON_ATTRIBUTE,
+  });
 };
 
 init();
 new HomeEventHandler();
+new ModalEventHandler(restaurantList);
