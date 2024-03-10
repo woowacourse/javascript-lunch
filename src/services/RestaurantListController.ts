@@ -1,14 +1,14 @@
-import { RestaurantInfo } from '../types';
-import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
-import { StorageKeyEnum } from '../constants';
+import { STORAGE_KEY } from '../constants/index.ts';
+import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData.ts';
+import { RestaurantInfo } from '../types/index.ts';
 
 const RestaurantListController = {
   updateLocalStorage() {
-    const data = localStorage.getItem(StorageKeyEnum.restaurants);
+    const data = localStorage.getItem(STORAGE_KEY.restaurants);
 
     if (!data) {
       localStorage.setItem(
-        StorageKeyEnum.restaurants,
+        STORAGE_KEY.restaurants,
         JSON.stringify(INITIAL_RESTAURANT_DATA),
       );
     }
@@ -18,9 +18,10 @@ const RestaurantListController = {
     const listEl = document.querySelector('.restaurant-list');
 
     const innerHTML = restaurantList
-      ?.map((info: RestaurantInfo) => {
-        return `<restaurant-box name="${info.name}"></restaurant-box>`;
-      })
+      ?.map(
+        (info: RestaurantInfo) =>
+          `<restaurant-box name="${info.name}"></restaurant-box>`,
+      )
       .join('');
 
     if (listEl) {

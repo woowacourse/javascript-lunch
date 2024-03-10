@@ -1,6 +1,6 @@
-import { RestaurantInfoKey, RestaurantInfo } from '../../types';
-import { Restaurant } from '../../domains';
-import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData';
+import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData.ts';
+import { Restaurant } from '../../domains/index.ts';
+import { RestaurantInfoKey, RestaurantInfo } from '../../types/index.ts';
 
 class FormTextField extends HTMLElement {
   constructor() {
@@ -12,16 +12,16 @@ class FormTextField extends HTMLElement {
 
     const labelText = this.getAttribute('labelText');
     const labelForId = this.getAttribute('labelForId');
-    const key = this.getAttribute('key') as RestaurantInfoKey;
+    const key = this.getAttribute('key');
 
-    const label = document.createElement('label');
-    if (labelForId) label.setAttribute('for', labelForId);
-    label.textContent = labelText;
+    const labelEl = document.createElement('label');
+    if (labelForId) labelEl.setAttribute('for', labelForId);
+    labelEl.textContent = labelText;
 
     const slot = document.createElement('slot'); // Slot 요소 생성
     slot.setAttribute('name', 'formChild'); // Slot의 이름 설정
 
-    const errorMessageBox = document.createElement('error-message-box');
+    const errorMessageBoxEl = document.createElement('error-message-box');
 
     shadow.innerHTML = `
       <style>
@@ -39,17 +39,33 @@ class FormTextField extends HTMLElement {
       </style>
     `;
 
-    shadow.appendChild(label);
+    shadow.appendChild(labelEl);
     shadow.appendChild(slot);
-    shadow.appendChild(errorMessageBox);
+    shadow.appendChild(errorMessageBoxEl);
 
-    this.#addEventToChange(key);
+    if (this.#isRestaurantInfoKey(key)) {
+      this.#addEventToChange(key);
+    }
+  }
+
+  #isRestaurantInfoKey(key: string | null): key is RestaurantInfoKey {
+    const restaurantInfoKeys: RestaurantInfoKey[] = [
+      'category',
+      'description',
+      'distance',
+      'distance',
+      'like',
+      'link',
+      'name',
+    ];
+
+    return key ? ([...restaurantInfoKeys] as string[]).includes(key) : false;
   }
 
   #addEventToChange(key: RestaurantInfoKey) {
-    const slotContent = this.shadowRoot
-      ?.querySelector('slot')
-      ?.assignedNodes()[0];
+    const slot = this.shadowRoot?.querySelector('slot');
+    const slotContent = slot?.querySelector('slot')?.assignedNodes()[0];
+
     if (slotContent) {
       slotContent.addEventListener('change', (event) =>
         this.#handleChangeToValidateValue(event, key),
@@ -64,19 +80,21 @@ class FormTextField extends HTMLElement {
     (newInfo[key] as string) = value;
 
     try {
+      // eslint[no-new] rule :off
+      // eslint-disable-next-line
       new Restaurant(newInfo);
       this.#handleErrorMessage('');
     } catch (error) {
-      if (error instanceof Error) this.#handleErrorMessage(error.message);
+      this.#handleErrorMessage(error);
     }
   }
 
-  #handleErrorMessage(message?: string) {
+  #handleErrorMessage(error: unknown) {
     const errorMessageBoxEl =
       this.shadowRoot?.querySelector('error-message-box');
 
-    if (errorMessageBoxEl?.textContent) {
-      errorMessageBoxEl.textContent = message || null;
+    if (error instanceof Error && errorMessageBoxEl instanceof HTMLElement) {
+      errorMessageBoxEl.textContent = error.message || null;
     }
   }
 }

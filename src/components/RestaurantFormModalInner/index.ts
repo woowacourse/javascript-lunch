@@ -1,8 +1,15 @@
 import './style.css';
-import { DROP_BOX_MAP, StorageKeyEnum } from '../../constants';
-import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
-import { Restaurant } from '../../domains';
-import { FilteringController } from '../../services';
+
+import { DROP_BOX_MAP } from '../../constants/index.ts';
+import { Restaurant, RestaurantList } from '../../domains/index.ts';
+import { FilteringController } from '../../services/index.ts';
+import {
+  DropBoxName,
+  RestaurantInfo,
+  Category,
+  Distance,
+} from '../../types/index.ts';
+
 class RestaurantFormModalInner extends HTMLElement {
   constructor() {
     super();

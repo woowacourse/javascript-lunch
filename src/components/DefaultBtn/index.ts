@@ -1,22 +1,27 @@
 import './style.css';
-import { Color, BtnType } from '../../types';
-class AddBtn extends HTMLElement {
+
+import { DefaultBtnColor } from '../../types/index.ts';
+
+class DefaultBtn extends HTMLElement {
   constructor() {
     super();
   }
 
   connectedCallback() {
-    const color = this.getAttribute('color') as Color;
+    const color = this.getAttribute('color');
     const text = this.getAttribute('text');
-    const type = this.getAttribute('type') as BtnType;
-    this.innerHTML = /*html*/ `             
+    const type = this.getAttribute('type');
+    const defaultBtnColor: DefaultBtnColor = 'red';
+
+    this.innerHTML = /* html */ `             
       <button
         type=${type || 'button'}
-        class='btn-color-${color}'
+        class='btn-color-${color || defaultBtnColor}'
       >
         ${text}
       </button>
     `;
   }
 }
-customElements.define('default-btn', AddBtn);
+
+customElements.define('default-btn', DefaultBtn);

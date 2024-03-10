@@ -1,4 +1,5 @@
 import * as xssFilters from 'xss-filters';
+
 import './style.css';
 
 class CustomTextarea extends HTMLElement {
@@ -14,22 +15,35 @@ class CustomTextarea extends HTMLElement {
     const placeholder = this.getAttribute('placeholder');
     const maxlength = this.getAttribute('maxlength');
 
-    this.innerHTML = /*html*/ `
-    <textarea name="${name}" id="${id}" cols="${cols}" rows="${rows}" placeholder="${placeholder || ''}"  ${maxlength ? `maxlength=${maxlength}` : ''}></textarea>
+    this.innerHTML = /* html */ `
+    <textarea  
+      name="${name}" 
+      id="${id}" 
+      cols="${cols}" 
+      rows="${rows}" 
+      placeholder="${placeholder || ''}"  
+      ${maxlength ? `maxlength=${maxlength}` : ''}>
+    </textarea>
     `;
 
-    this.querySelector('textarea')?.addEventListener('change', (event) =>
-      this.#handleChange(event),
-    );
+    const textareaEl = this.querySelector('textarea');
+
+    if (textareaEl instanceof HTMLTextAreaElement) {
+      textareaEl.addEventListener('change', (event) =>
+        this.#handleChange(event),
+      );
+    }
   }
 
   #handleChange(event: Event) {
-    const eventTarget = event.target as HTMLInputElement;
-    const { value } = eventTarget;
+    const eventTarget = event.target;
 
-    if (eventTarget) {
+    if (eventTarget instanceof HTMLTextAreaElement) {
+      const { value } = eventTarget;
+
       eventTarget.value = xssFilters.inHTMLData(value);
     }
   }
 }
+
 customElements.define('custom-textarea', CustomTextarea);

@@ -1,4 +1,4 @@
-import Restaurant from './Restaurant';
-import RestaurantList from './RestaurantList';
+import Restaurant from './Restaurant.ts';
+import RestaurantList from './RestaurantList.ts';
 
 export { Restaurant, RestaurantList };

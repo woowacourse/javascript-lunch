@@ -10,9 +10,11 @@
   max-height: 137px;
   line-height: 24px;
 }
+
 .restaurant__info {
   margin-left: 16px;
 }
+
 .restaurant__info__title {
   max-width: 263px;
   overflow: hidden;
@@ -20,9 +22,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .restaurant__info__distance {
   color: var(--lunch-primary-color);
 }
+
 .restaurant__info__explanation {
   display: -webkit-box;
   max-width: 263px;
@@ -32,6 +36,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
 .restaurant__info__explanation .none-description {
   opacity: 0.5;
   color: var(--lunch-grey-scale-3-color);

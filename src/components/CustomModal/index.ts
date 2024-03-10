@@ -1,12 +1,17 @@
-import './style.css';
-
 class CustomModal extends HTMLElement {
   constructor() {
     super();
 
-    const shadow = this.attachShadow({ mode: 'open' }); // Shadow DOM 생성
-    shadow.innerHTML = /*html*/ `
+    const shadow = this.attachShadow({ mode: 'open' });
+
+    shadow.innerHTML = /* html */ `
     <style>
+      custom-modal {
+        display: block;
+        width: inherit;
+        height: inherit;
+      }
+
       .modal {
         display: none;
       }

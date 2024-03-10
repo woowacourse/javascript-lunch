@@ -1,17 +1,15 @@
 default-btn {
   width: 100%;
 }
+
 default-btn button {
   display: block;
   cursor: pointer;
-
   border: none;
   border-radius: 8px;
   width: 100%;
   height: 44px;
-
   font-weight: var(--lunch-title-font-weight);
-
   font-size: var(--label-font-size);
   line-height: 20px;
 }
@@ -23,12 +21,10 @@ default-btn button:last-child {
 .btn-color-white {
   border: 1px solid var(--lunch-grey-scale-3-color);
   background: transparent;
-
   color: var(--lunch-grey-scale-3-color);
 }
 
 .btn-color-red {
   background: var(--lunch-primary-color);
-
   color: var(--lunch-grey-scale-1-color);
 }

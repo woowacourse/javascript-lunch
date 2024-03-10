@@ -1,10 +1,11 @@
 import './style.css';
+
 import ArrowIcon from '../../assets/svg/down-arrow.svg';
-import { DROP_BOX_MAP } from '../../constants';
-import { DropBoxName } from '../../types';
+import { DROP_BOX_MAP } from '../../constants/index.ts';
+import { DropBoxName } from '../../types/index.ts';
 
 class DropBoxInnerHtmlMaker {
-  #html?: string;
+  #innerHtml?: string;
 
   constructor(name: DropBoxName) {
     this.#setHTML(name);
@@ -14,8 +15,8 @@ class DropBoxInnerHtmlMaker {
     return DROP_BOX_MAP.get(name);
   }
 
-  get html() {
-    return this.#html;
+  get innerHtml() {
+    return this.#innerHtml;
   }
 
   #setHTML(name: DropBoxName) {
@@ -24,7 +25,7 @@ class DropBoxInnerHtmlMaker {
     if (dropBoxProps) {
       const { selectProps, labelText, options } = dropBoxProps;
 
-      const html = /*html*/ `
+      this.#innerHtml = /* html */ `
         <label class="screen-read-only" for="${selectProps.id}">
           ${labelText}
         </label >
@@ -43,8 +44,6 @@ class DropBoxInnerHtmlMaker {
           .join('')}
         </select>
     `;
-
-      this.#html = html;
     }
   }
 }
