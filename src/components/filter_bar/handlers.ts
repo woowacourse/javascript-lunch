@@ -9,7 +9,7 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
       const selectedValue = event.target.value as Icategory;
       filterState.setFilterType(selectedValue);
 
-      RestaurantList().reRender();
+      RestaurantList();
     }
   });
 };
@@ -29,7 +29,7 @@ const sortHandler = (sortFilter: HTMLElement) => {
       const selectedValue = event.target.value as IsortType;
       filterState.setSortType(selectedValue);
 
-      RestaurantList().reRender();
+      RestaurantList();
     }
   });
 };
