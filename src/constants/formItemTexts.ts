@@ -9,5 +9,5 @@ const FORM_ITEM_TEXTS = {
   urlDescription: "매장 정보를 확인할 수있는 링크를 입력해 주세요.",
   cancelButton: "취소하기",
   addButton: "추가하기",
-};
+} as const;
 export default FORM_ITEM_TEXTS;
