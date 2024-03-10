@@ -22,13 +22,13 @@ const FOOD_CATEGORY: ISelectOption[] = [
 const FILTERED_CATEGORY_ATTRIBUTE: IDomAttributes = {
   name: 'category',
   id: 'category-filter',
-  class: 'restaurant-filter',
+  class: ['restaurant-filter'],
 };
 const FILTERED_CATEGORY: ISelectOption[] = [{ value: ALL, text: ALL }, ...FOOD_CATEGORY];
 
 const BY_NAME_ASC = '이름순';
 const BY_DISTANCE_ASC = '거리순';
-const SORTING_ATTRIBUTE: IDomAttributes = { name: 'sorting', id: 'sorting-filter', class: 'restaurant-filter' };
+const SORTING_ATTRIBUTE: IDomAttributes = { name: 'sorting', id: 'sorting-filter', class: ['restaurant-filter'] };
 const SORTING: ISelectOption[] = [
   { value: 'name', text: BY_NAME_ASC },
   { value: 'distance', text: BY_DISTANCE_ASC },
@@ -46,6 +46,18 @@ const FORM_DISTANCE: ISelectOption[] = [
   { value: '20', text: '20분 내' },
   { value: '30', text: '30분 내' },
 ];
+
+const CLOSE_BUTTON_ATTRIBUTE: IDomAttributes = {
+  id: 'button-close',
+  type: 'button',
+  class: ['button', 'button--secondary', 'text-caption'],
+  text: '취소하기',
+};
+const ADD_BUTTON_ATTRIBUTE: IDomAttributes = {
+  id: 'button-add',
+  class: ['button', 'button--primary', 'text-caption'],
+  text: '추가하기',
+};
 
 const CATEGORY_IMG_SRC: Record<TCategory, any> = {
   전체: '',
@@ -69,5 +81,7 @@ export {
   FORM_CATEGORY,
   FORM_DISTANCE_ATTRIBUTE,
   FORM_DISTANCE,
+  CLOSE_BUTTON_ATTRIBUTE,
+  ADD_BUTTON_ATTRIBUTE,
   CATEGORY_IMG_SRC,
 };

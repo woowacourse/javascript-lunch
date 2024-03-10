@@ -36,11 +36,15 @@ class SelectBoxComponent {
   }
 
   #getSelectTag(): HTMLSelectElement {
-    const { name, id, class: className, required } = this.attributes;
+    const { name, id, class: classNames, required } = this.attributes;
     const selectTag = document.createElement('select');
     selectTag.name = name ?? '';
     selectTag.id = id ?? '';
-    if (className != null) selectTag.classList.add(className);
+    if (classNames != null) {
+      classNames.forEach(className => {
+        selectTag.classList.add(className);
+      });
+    }
     selectTag.required = required ?? false;
     return selectTag;
   }

@@ -1,8 +1,10 @@
 interface IDomAttributes {
   name?: string;
   id?: string;
-  class?: string;
+  class?: string[];
   required?: boolean;
+  type?: 'submit' | 'reset' | 'button';
+  text?: string;
 }
 
 interface ISelectOption {
