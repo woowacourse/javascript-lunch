@@ -1,11 +1,11 @@
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타' | '전체';
-
+type Distance = 5 | 10 | 15 | 20 | 30;
 type Option = 'name' | 'distance';
 
 interface Restaurant {
   category: Category;
   name: string;
-  distance: 5 | 10 | 15 | 20 | 30;
+  distance: Distance;
   description?: string;
   link?: string;
 }
@@ -25,7 +25,7 @@ class RestaurantManager {
     this.#restaurants.push(restaurant);
   }
 
-  filteredAndSortedByOptions(category: Category, option: Option) {
+  filteredAndSortedByOptions(category: Category, option: Option): Restaurant[] | void {
     const filteredRestaurant = this.#filterByCategory(category);
 
     if (option === 'name') return this.#sortByName(filteredRestaurant);
