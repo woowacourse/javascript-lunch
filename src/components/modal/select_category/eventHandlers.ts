@@ -2,7 +2,7 @@ import restaurantStateStore from '../../../store/RestaurantStateStore';
 import { Icategory } from '../../../types';
 import removeHTMLElementByClassName from '../../../utils/removeHTMLElementByClassName';
 
-export const selectEventHandler = (select: HTMLElement) => {
+const selectEventHandler = (select: HTMLElement) => {
   select.addEventListener('change', (event) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = event.target.value;

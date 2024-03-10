@@ -13,9 +13,9 @@ export const renderBaseDescriptionComponent = (form: Element) => {
 };
 
 export const renderDescriptionComponent = () => {
-  const formItem = document.getElementsByClassName('form-item')[0];
+  const descriptionContainer = document.getElementsByClassName('description-container')[0];
 
-  formItem.appendChild(generateLabelComponent(DESCRIPTION_LABEL_COMPONENT_DATA));
-  formItem.appendChild(generateTextAreaComponent(DESCRIPTION_TEXT_AREA_COMPONENT_DATA));
-  formItem.appendChild(generateSpanComponent(DESCRIPTION_SPAN_COMPONENT_DATA));
+  descriptionContainer.appendChild(generateLabelComponent(DESCRIPTION_LABEL_COMPONENT_DATA));
+  descriptionContainer.appendChild(generateTextAreaComponent(DESCRIPTION_TEXT_AREA_COMPONENT_DATA));
+  descriptionContainer.appendChild(generateSpanComponent(DESCRIPTION_SPAN_COMPONENT_DATA));
 };

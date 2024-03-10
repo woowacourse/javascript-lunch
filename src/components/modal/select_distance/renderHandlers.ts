@@ -11,8 +11,8 @@ export const renderBaseDistanceComponent = (form: Element) => {
 };
 
 export const renderDistanceSelectComponent = () => {
-  const formItem = document.getElementsByClassName('form-item')[0];
+  const distanceContainer = document.getElementsByClassName('distance-container')[0];
 
-  formItem.appendChild(generateLabelComponent(DISTANCE_LABEL_COMPONENT_DATA));
-  formItem.appendChild(generateSelectComponent(SELECT_DISTANCE_COMPONENT_DATA));
+  distanceContainer.appendChild(generateLabelComponent(DISTANCE_LABEL_COMPONENT_DATA));
+  distanceContainer.appendChild(generateSelectComponent(SELECT_DISTANCE_COMPONENT_DATA));
 };

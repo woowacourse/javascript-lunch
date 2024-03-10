@@ -11,8 +11,8 @@ export const renderBaseSelectCategoryComponent = (form: Element) => {
 };
 
 export const renderSelectCategoryLabelComponent = () => {
-  const formItem = document.getElementsByClassName('form-item')[0];
+  const categoryContainer = document.getElementsByClassName('category-container')[0];
 
-  formItem.appendChild(generateLabelComponent(SELECT_CATEGORY_LABEL_COMPONENT_DATA));
-  formItem.appendChild(generateSelectComponent(SELECT_CATEGORY_COMPONENT_DATA));
+  categoryContainer.appendChild(generateLabelComponent(SELECT_CATEGORY_LABEL_COMPONENT_DATA));
+  categoryContainer.appendChild(generateSelectComponent(SELECT_CATEGORY_COMPONENT_DATA));
 };

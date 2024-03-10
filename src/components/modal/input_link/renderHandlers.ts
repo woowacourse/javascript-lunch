@@ -13,9 +13,9 @@ export const renderBaseLinkComponents = (form: Element) => {
 };
 
 export const renderLinkComponents = () => {
-  const formContainer = document.getElementsByClassName('form-item')[0];
+  const linkContainer = document.getElementsByClassName('link-container')[0];
 
-  formContainer.appendChild(generateLabelComponent(LINK_LABEL_COMPONENT_DATA));
-  formContainer.appendChild(generateInputComponent(LINK_INPUT_COMPONENT_DATA));
-  formContainer.appendChild(generateSpanComponent(LINK_SPAN_COMPONENT_DATA));
+  linkContainer.appendChild(generateLabelComponent(LINK_LABEL_COMPONENT_DATA));
+  linkContainer.appendChild(generateInputComponent(LINK_INPUT_COMPONENT_DATA));
+  linkContainer.appendChild(generateSpanComponent(LINK_SPAN_COMPONENT_DATA));
 };
