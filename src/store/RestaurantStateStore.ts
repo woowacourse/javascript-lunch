@@ -1,8 +1,10 @@
 import Restaurant from "../domain/SetRestaurant";
-import { Icategory, Idistance, Irestaurant, MappedType } from "../types";
+import { Icategory } from "../types/category";
+import { Idistance } from "../types/distance";
+import { Irestaurant } from "../types/restaurant";
 
 class RestaurantStateStore {
-  #restaurantState: MappedType<Irestaurant> = {
+  #restaurantState: Partial<Irestaurant> = {
     category: undefined,
     name: undefined,
     distance: undefined,

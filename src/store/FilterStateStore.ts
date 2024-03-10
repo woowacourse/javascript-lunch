@@ -1,4 +1,5 @@
-import { Iall, Icategory, IsortType } from "../types";
+import { Iall, Icategory } from "../types/category";
+import { IsortType } from "../types/sort";
 
 class FilterStateStore {
   #filterState: {

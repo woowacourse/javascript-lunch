@@ -1,4 +1,4 @@
-import { Irestaurant } from "../../types";
+import { Irestaurant } from "../../types/restaurant";
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 import Restaurant from "../restaurant/Restaurant";
 

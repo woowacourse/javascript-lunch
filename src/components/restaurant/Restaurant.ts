@@ -1,4 +1,4 @@
-import { Irestaurant } from "../../types";
+import { Irestaurant } from "../../types/restaurant";
 
 import { getMatchedCategoryInfo } from "./renderHandlers";
 import { baseTemplate, categoryTemplate, template } from "./restaurantTemplate";

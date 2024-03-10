@@ -1,5 +1,6 @@
 import filterState from "../../store/FilterStateStore";
-import { Icategory, IsortType } from "../../types";
+import { Icategory } from "../../types/category";
+import { IsortType } from "../../types/sort";
 import RestaurantList from "../restaurant_list/RestaurantList";
 
 const categoryFilterHandler = (categoryFilter: HTMLElement) => {

@@ -1,5 +1,5 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import { Idistance } from "../../../types";
+import { Idistance } from "../../../types/distance";
 import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
 
 export const selectDistanceEventHandler = (select: HTMLElement) => {

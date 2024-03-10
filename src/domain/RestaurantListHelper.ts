@@ -1,10 +1,6 @@
-import {
-  Iall,
-  Icategory,
-  Irestaurant,
-  IrestaurantList,
-  IsortType,
-} from "../types";
+import { Iall, Icategory } from "../types/category";
+import { Irestaurant, IrestaurantList } from "../types/restaurant";
+import { IsortType } from "../types/sort";
 
 class RestaurantListHelper implements IrestaurantList {
   sortBySelectedValue(seletedValue: IsortType, restaurantList: Irestaurant[]) {

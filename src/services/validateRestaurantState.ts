@@ -1,4 +1,5 @@
-import { Icategory, Irestaurant, MappedType } from "../types";
+import { Icategory } from "../types/category";
+import { Irestaurant } from "../types/restaurant";
 
 import RestaurantListStorageService from "./restaurantListStorageService";
 
@@ -91,7 +92,7 @@ const validate = {
   },
 };
 
-function validateRestaurantState(restaurantInfo: MappedType<Irestaurant>) {
+function validateRestaurantState(restaurantInfo: Partial<Irestaurant>) {
   return [
     validate.validateCategory(restaurantInfo.category),
     validate.validateName(restaurantInfo.name),

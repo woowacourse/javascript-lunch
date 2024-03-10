@@ -1,5 +1,5 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import { Icategory } from "../../../types";
+import { Icategory } from "../../../types/category";
 import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
 
 export const selectEventHandler = (select: HTMLElement) => {
