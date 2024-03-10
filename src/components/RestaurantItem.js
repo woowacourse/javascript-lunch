@@ -1,3 +1,12 @@
+import './RestaurantItem.css';
+
+import koreanIcon from '../statics/imgs/category-korean.png';
+import chineseIcon from '../statics/imgs/category-chinese.png';
+import japaneseIcon from '../statics/imgs/category-japanese.png';
+import westernIcon from '../statics/imgs/category-western.png';
+import asianIcon from '../statics/imgs/category-asian.png';
+import etcIcon from '../statics/imgs/category-etc.png';
+
 export default class RestaurantItem extends HTMLLIElement {
   constructor() {
     super();
@@ -36,12 +45,12 @@ export default class RestaurantItem extends HTMLLIElement {
   }
 
   #getCategoryIconUrl(category) {
-    if (category === '한식') return './category-korean.png';
-    if (category === '중식') return './category-chinese.png';
-    if (category === '일식') return './category-japanese.png';
-    if (category === '양식') return './category-western.png';
-    if (category === '아시안') return './category-asian.png';
-    if (category === '기타') return './category-etc.png';
+    if (category === '한식') return koreanIcon;
+    if (category === '중식') return chineseIcon;
+    if (category === '일식') return japaneseIcon;
+    if (category === '양식') return westernIcon;
+    if (category === '아시안') return asianIcon;
+    if (category === '기타') return etcIcon;
     return '';
   }
 }

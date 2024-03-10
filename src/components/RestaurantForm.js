@@ -1,3 +1,5 @@
+import './RestaurantForm.css';
+
 export const RESTAURANT_FORM_EVENTS = {
   submit: 'restaurantFormSubmit',
   reset: 'restaurantFormReset',
@@ -21,9 +23,9 @@ export default class RestaurantForm extends HTMLFormElement {
     this.addEventListener('reset', this.#handleReset.bind(this));
 
     this.#linkInput.addEventListener('invalid', () => {
-      this.#linkInput.value = ""
+      this.#linkInput.value = '';
       this.#linkInput.setCustomValidity('');
-    })
+    });
   }
 
   // eslint-disable-next-line
@@ -31,7 +33,7 @@ export default class RestaurantForm extends HTMLFormElement {
     e.preventDefault();
 
     if (!this.#checkLinkInputVaildity()) {
-      this.#linkInput.setCustomValidity('유효하지 않은 링크입니다.')
+      this.#linkInput.setCustomValidity('유효하지 않은 링크입니다.');
       return;
     }
 
@@ -44,7 +46,7 @@ export default class RestaurantForm extends HTMLFormElement {
         detail: { formData },
       }),
     );
-      
+
     this.reset();
   }
 
@@ -57,9 +59,9 @@ export default class RestaurantForm extends HTMLFormElement {
   }
 
   #checkLinkInputVaildity() {
-    if(this.#linkInput.value === "") return true;
-    
-    const regex = new RegExp('^https?:\/\/');
+    if (this.#linkInput.value === '') return true;
+
+    const regex = new RegExp('^https?://');
     return regex.test(this.#linkInput.value);
   }
 
@@ -69,7 +71,7 @@ export default class RestaurantForm extends HTMLFormElement {
   #getFormDataObj(data) {
     return [...data.keys()].reduce((formData, key) => {
       const value = data.get(key);
-      return {...formData, [key]: value};
+      return { ...formData, [key]: value };
     }, {});
   }
 }

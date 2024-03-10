@@ -1,11 +1,13 @@
 // eslint-disable-next-line
 import RestaurantManager from '../domain/RestaurantManager';
 
-import WebView from '../view/WebView';
-import { SELECT_EVENTS } from '../view/components/Select';
-import { RESTAURANT_FORM_EVENTS } from '../view/components/RestaurantForm';
+import './App.css';
 
-export default class WebController {
+import WebView from '../view/WebView';
+import { SELECT_EVENTS } from './Select';
+import { RESTAURANT_FORM_EVENTS } from './RestaurantForm';
+
+export default class App {
   #webView;
 
   #restaurantManger;
@@ -19,8 +21,8 @@ export default class WebController {
     this.#syncLocalStorageAndDomain();
     this.#webView.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
 
-    this.#addRestaurantSubmitEventListener()   
-    this.#addFilterOnchangeEventListenr()
+    this.#addRestaurantSubmitEventListener();
+    this.#addFilterOnchangeEventListenr();
   }
 
   #syncLocalStorageAndDomain() {
