@@ -1,17 +1,17 @@
 import "./RestaurantList.css";
 
-import BaseComponent from "../BaseComponent/BaseComponent";
-import Restaurant from "../../domain/Restaurant/Restaurant";
+import BaseComponent from "../../BaseComponent/BaseComponent";
+import { CustomEventListenerDictionary } from "../../BaseComponent/BaseComponent.type";
+
+import Restaurant from "../../../domain/Restaurant/Restaurant";
+import { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
 import RestaurantItem from "../RestaurantItem/RestaurantItem";
 
-import { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
-import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
-import { SortCategory } from "../SortDropdown/SortDropdown.type";
+import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
+import { SORT_CATEGORIES_TYPE } from "../../../constants/sortCategory/sortCategory";
+import type { SortCategory } from "../../../constants/sortCategory/sortCategory.type";
 
-import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
-import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
-
-import RestaurantStorage from "../../storages/RestaurantStorage";
+import RestaurantStorage from "../../../storages/RestaurantStorage";
 
 class RestaurantList extends BaseComponent {
   private restaurant = new Restaurant(RestaurantStorage);

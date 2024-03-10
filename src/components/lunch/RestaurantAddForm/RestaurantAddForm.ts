@@ -1,17 +1,17 @@
 import "./RestaurantAddForm.css";
 
-import BaseComponent from "../BaseComponent/BaseComponent";
-import type { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+import BaseComponent from "../../BaseComponent/BaseComponent";
+import type { CustomEventListenerDictionary } from "../../BaseComponent/BaseComponent.type";
 
-import Restaurant from "../../domain/Restaurant/Restaurant";
-import type { Distance } from "../../domain/Restaurant/Restaurant.type";
+import Restaurant from "../../../domain/Restaurant/Restaurant";
+import type { Distance } from "../../../domain/Restaurant/Restaurant.type";
 
-import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
-import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
-import { ELEMENT_SELECTOR } from "../../constants/selector";
+import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
+import { MENU_CATEGORIES } from "../../../constants/menuCategory/menuCategory";
+import { ELEMENT_SELECTOR } from "../../../constants/selector";
 
-import { $ } from "../../utils/dom";
-import { isUserInputValues } from "../../utils/typeGuard";
+import { $ } from "../../../utils/dom";
+import { isUserInputValues } from "../../../utils/typeGuard";
 
 class RestaurantAddForm extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];

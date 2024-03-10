@@ -7,13 +7,13 @@ import {
   categoryEtc,
   categoryJapanese,
   categoryWestern,
-} from "../../assets/images/index";
+} from "../../../assets/images/index";
 
-import BaseComponent from "../BaseComponent/BaseComponent";
+import BaseComponent from "../../BaseComponent/BaseComponent";
 
-import type { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
+import type { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
 
-import type { MenuCategoryWithoutAll } from "../../constants/menuCategory/menuCategory.type";
+import type { MenuCategoryWithoutAll } from "../../../constants/menuCategory/menuCategory.type";
 
 class RestaurantItem extends BaseComponent {
   private restaurantDetail: RestaurantDetail;

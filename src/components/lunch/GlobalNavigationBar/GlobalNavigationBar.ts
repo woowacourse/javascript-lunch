@@ -1,10 +1,13 @@
 import "./GlobalNavigationBar.css";
 
-import BaseComponent from "../BaseComponent/BaseComponent";
-import addButton from "../../assets/images/add-button.png";
-import { $ } from "../../utils/dom";
-import { ELEMENT_SELECTOR } from "../../constants/selector";
-import { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
+import addButton from "../../../assets/images/add-button.png";
+
+import BaseComponent from "../../BaseComponent/BaseComponent";
+import { CustomEventListenerDictionary } from "../../BaseComponent/BaseComponent.type";
+
+import { $ } from "../../../utils/dom";
+
+import { ELEMENT_SELECTOR } from "../../../constants/selector";
 
 class GlobalNavigationBar extends BaseComponent {
   private eventListeners: CustomEventListenerDictionary = {

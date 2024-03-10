@@ -1,11 +1,11 @@
-import "../common/CommonModal/CommonModal.css";
+import "../../common/CommonModal/CommonModal.css";
 import "./LunchApp.css";
 
-import BaseComponent from "../BaseComponent/BaseComponent";
-import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
-import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
-import { ELEMENT_SELECTOR } from "../../constants/selector";
-import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
+import BaseComponent from "../../BaseComponent/BaseComponent";
+import { SORT_CATEGORIES_TYPE } from "../../../constants/sortCategory/sortCategory";
+import { MENU_CATEGORIES } from "../../../constants/menuCategory/menuCategory";
+import { ELEMENT_SELECTOR } from "../../../constants/selector";
+import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
 
 class LunchApp extends BaseComponent {
   protected render() {
