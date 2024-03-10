@@ -1,4 +1,9 @@
-import { CATEGORY, DISTANCE } from "../../constants/selectOptions";
+import {
+  CATEGORY,
+  DISTANCE,
+  isCategory,
+  isDistance,
+} from "../../constants/selectOptions";
 
 import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
 import FormItem from "./FormItem";
@@ -162,15 +167,20 @@ class AddRestaurantForm {
   }
 
   #getValues() {
-    const newRestaurant: Restaurant = {
+    const category = this.#categoryFormItem.getValue();
+    const distance = Number(this.#distanceFormItem.getValue());
+
+    if (!(isCategory(category) && isDistance(distance))) {
+      throw new Error("[ERROR] Category or Distance is Invalid");
+    }
+
+    return {
       name: this.#nameFormItem.getValue(),
-      category: this.#categoryFormItem.getValue() as Category,
-      distance: Number(this.#distanceFormItem.getValue()) as Distance,
+      category,
+      distance,
       description: this.#descriptionFormItem.getValue(),
       url: this.#urlFormItem.getValue(),
     };
-
-    return newRestaurant;
   }
 }
 
