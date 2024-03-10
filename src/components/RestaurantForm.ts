@@ -13,9 +13,10 @@ import { TextAreaProps } from './tag/textarea';
 
 const { REGULAR_EXPRESSION } = Condition;
 
-class RestaurantForm extends HTMLElement {
+class RestaurantForm extends HTMLFormElement {
   constructor() {
     super();
+    this.id = 'restaurant-form';
     this.createElements();
   }
 
@@ -184,8 +185,11 @@ class RestaurantForm extends HTMLElement {
 
     this.appendChild(buttonContainer);
   }
+
+  getFormValues() {
+  }
 }
 
-customElements.define('restaurant-form', RestaurantForm);
+customElements.define('restaurant-form', RestaurantForm, { extends: 'form' });
 
 export default RestaurantForm;

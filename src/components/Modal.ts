@@ -6,25 +6,39 @@ const { $ } = DOM;
 class Modal extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = /*html*/ `
-    <div class="modal">
-      <div class="modal-backdrop"></div>
-      <div class="modal-container">
-        <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form id="restaurant-form"></form>
-      </div>
-    </div>
-    `;
     this.setEvent();
   }
 
   setEvent() {
+    this.createLayout();
     this.appendForm();
     this.closeModal();
   }
 
+  createLayout() {
+    const modal = document.createElement('div');
+    modal.setAttribute('class', 'modal');
+    
+    const modalBackdrop = document.createElement('div');
+    modalBackdrop.className = 'modal-backdrop';
+    modal.appendChild(modalBackdrop);
+
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'modal-container';
+    
+    const modalTitle = document.createElement('h2');
+    modalTitle.className = 'modal-title';
+    const modalTitleClassList = ['modal-title', 'text-title'];
+    modalTitle.textContent = '새로운 음식점';
+    modalTitle.classList.add(...modalTitleClassList);
+    
+    modalContainer.appendChild(modalTitle);
+    modal.appendChild(modalContainer);
+    this.appendChild(modal);
+  }
+
   appendForm() {
-    $<HTMLFormElement>('#restaurant-form').appendChild(new RestaurantForm());
+    $<HTMLDivElement>('.modal-container').appendChild(new RestaurantForm());
   }
 
   closeModal() {
