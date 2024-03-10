@@ -1,29 +1,17 @@
-import { ILocation } from '../interface/Interface';
-import type { Category, MinutesWalk } from '../constants/Type';
+import { Category, DistanceByWalk } from '../enum/enums';
+import type { RestaurantData } from '../type/types';
 
-class Restaurant implements ILocation {
+class Restaurant {
   private name: string;
   private category: Category;
-  private minutesWalk: MinutesWalk;
+  private distanceByWalk: DistanceByWalk;
   private description?: string;
   private referenceUrl?: string;
 
-  constructor({
-    name,
-    category,
-    minutesWalk,
-    description = '',
-    referenceUrl = '',
-  }: {
-    name: string;
-    category: Category;
-    minutesWalk: MinutesWalk;
-    description?: string;
-    referenceUrl?: string;
-  }) {
+  constructor({ name, category, distanceByWalk, description = '', referenceUrl = '' }: RestaurantData) {
     this.name = name;
     this.category = category;
-    this.minutesWalk = minutesWalk;
+    this.distanceByWalk = distanceByWalk;
     this.description = description;
     this.referenceUrl = referenceUrl;
   }
@@ -32,15 +20,15 @@ class Restaurant implements ILocation {
     return this.name;
   }
 
-  getMinutesWalk(): MinutesWalk {
-    return this.minutesWalk;
+  getMinutesWalk(): DistanceByWalk {
+    return this.distanceByWalk;
   }
 
   getData() {
     return {
       name: this.name,
       category: this.category,
-      minutesWalk: this.minutesWalk,
+      distanceByWalk: this.distanceByWalk,
       description: this.description,
       referenceUrl: this.referenceUrl,
     };

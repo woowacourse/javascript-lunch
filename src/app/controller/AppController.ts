@@ -1,15 +1,16 @@
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
-import { Sort, Category, LocationData } from '../../constants/Type';
-import { $ } from '../../utils/domSelector';
+import { Category, SortOrder } from '../../enum/enums';
+import { RestaurantData } from '../../type/types';
+import { $ } from '../../util/domSelector';
 
-class AppController {
-  sort: Sort;
+export default class AppController {
+  sortOrder: SortOrder;
   category: Category | '전체';
   restaurantService: RestaurantService;
 
   constructor() {
-    this.sort = '이름순';
+    this.sortOrder = SortOrder.이름순;
     this.category = '전체';
     this.restaurantService = new RestaurantService();
   }
@@ -17,16 +18,16 @@ class AppController {
   initializeApp() {
     const category = this.category === '전체' ? undefined : this.category;
     const restaurantList: RestaurantList = new RestaurantList(
-      this.restaurantService.getRestaurants(this.sort, category),
+      this.restaurantService.getRestaurants(this.sortOrder, category),
     );
     $('#app').appendChild(restaurantList);
     this.addEvent();
   }
 
   addEvent() {
-    $('lunch-header').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
+    $('nav-bar').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
     $('select-box-section').addEventListener('changeCategory', this.changeCategory.bind(this));
-    $('select-box-section').addEventListener('changeSort', this.changeSort.bind(this));
+    $('select-box-section').addEventListener('changeSortOrder', this.changeSortOrder.bind(this));
     $('add-restaurant-modal').addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
   }
 
@@ -36,14 +37,14 @@ class AppController {
     this.refreshRestaurantList();
   }
 
-  changeSort(event: Event) {
-    const sort: Sort = (event as CustomEvent).detail;
-    this.sort = sort;
+  changeSortOrder(event: Event) {
+    const sortOrder: SortOrder = (event as CustomEvent).detail;
+    this.sortOrder = sortOrder;
     this.refreshRestaurantList();
   }
 
   addRestaurant(event: Event) {
-    const detail: LocationData = (event as CustomEvent).detail;
+    const detail: RestaurantData = (event as CustomEvent).detail;
     this.restaurantService.addRestaurant(detail);
     this.refreshRestaurantList();
   }
@@ -51,7 +52,7 @@ class AppController {
   refreshRestaurantList() {
     const category = this.category === '전체' ? undefined : this.category;
     $('#app').removeChild($('restaurant-list')!);
-    const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sort, category));
+    const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder, category));
     $('#app').appendChild(restaurantList);
   }
 
@@ -59,5 +60,3 @@ class AppController {
     $<HTMLDialogElement>('#add-restaurant-modal').showModal();
   }
 }
-
-export default AppController;

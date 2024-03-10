@@ -1,25 +1,8 @@
-import { $ } from '../../../utils/domSelector';
-import { TYPE_SETTING } from '../../../constants/setting';
-import { LocationData } from '../../../constants/Type';
-import handleError from '../../../utils/handleError';
+import { $ } from '../../../util/domSelector';
+import { Category, DistanceByWalk } from '../../../enum/enums';
+import { RestaurantData } from '../../../type/types';
+import handleError from '../../../util/handleError';
 import RestaurantValidator from '../../../validator/RestaurantValidator';
-
-enum Category {
-  한식 = '한식',
-  일식 = '일식',
-  중식 = '중식',
-  양식 = '양식',
-  아시안 = '아시안',
-  기타 = '기타',
-}
-
-enum DistanceByWalk {
-  '5분 내' = 5,
-  '10분 내' = 10,
-  '15분 내' = 15,
-  '20분 내' = 20,
-  '30분 내' = 30,
-}
 
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
@@ -40,14 +23,14 @@ class AddRestaurantModal extends HTMLElement {
 
   private handleFormData(formData: FormData) {
     const formDataEntries = Object.fromEntries(formData.entries());
-    if (this.isLocationData(formDataEntries)) {
+    if (this.isRestaurantData(formDataEntries)) {
       this.submitNewRestaurant(formDataEntries);
       return;
     }
     alert('입력된 음식점 정보가 올바르지 않습니다. 새로고침 후 다시 입력해주세요.');
   }
 
-  private submitNewRestaurant(formDataEntries: LocationData) {
+  private submitNewRestaurant(formDataEntries: RestaurantData) {
     try {
       RestaurantValidator.validateUserInput(formDataEntries);
       this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: formDataEntries }));
@@ -57,13 +40,13 @@ class AddRestaurantModal extends HTMLElement {
     }
   }
 
-  private isLocationData(object: any): object is LocationData {
+  private isRestaurantData(object: any): object is RestaurantData {
     return (
       'name' in object &&
       'category' in object &&
       Object.values(Category).includes(object.category) &&
-      'minutesWalk' in object &&
-      Object.values(DistanceByWalk).includes(parseInt(object.minutesWalk))
+      'distanceByWalk' in object &&
+      Object.values(DistanceByWalk).includes(object.distanceByWalk)
     );
   }
 
@@ -82,7 +65,7 @@ class AddRestaurantModal extends HTMLElement {
     `;
   }
   private getEachCategory() {
-    return TYPE_SETTING.category
+    return Object.values(Category)
       .map((category) => {
         return `<option value="${category}">${category}</option>`;
       })
@@ -102,22 +85,22 @@ class AddRestaurantModal extends HTMLElement {
       `;
   }
 
-  private getEachMinutesWalk() {
-    return TYPE_SETTING.minutesWalk
-      .map((minutesWalk) => {
-        return `<option value="${minutesWalk}">${minutesWalk}분 내</option>`;
+  private getEachDistanceByWalk() {
+    return Object.entries(DistanceByWalk)
+      .map(([minutesText, minutes]) => {
+        return `<option value="${minutes}">${minutesText}</option>`;
       })
       .join('');
   }
 
-  private showMinutesWalkSelectbox() {
+  private showDistanceByWalkSelectbox() {
     return `
       <!-- 거리 -->
       <div class="form-item form-item--required">
         <label for="distance text-caption">거리(도보 이동 시간) </label>
-        <select name="minutesWalk" id="restaurant-minuteswalk" required>
+        <select name="distanceByWalk" id="restaurant-distancebywalk" required>
         ${this.getDefaultSelection()}
-        ${this.getEachMinutesWalk()};
+        ${this.getEachDistanceByWalk()};
         </select>
       </div>
     `;
@@ -139,7 +122,7 @@ class AddRestaurantModal extends HTMLElement {
 
             ${this.showCategorySelectbox()}
 
-            ${this.showMinutesWalkSelectbox()}
+            ${this.showDistanceByWalkSelectbox()}
 
             <!-- 설명 -->
             <div class="form-item">

@@ -1,7 +1,7 @@
-import { ASSETS } from '../../../constants/setting';
-import { $ } from '../../../utils/domSelector';
+import { Asset } from '../../../asset/asset';
+import { $ } from '../../../util/domSelector';
 
-class LunchHeader extends HTMLElement {
+export default class NavigationBar extends HTMLElement {
   connectedCallback() {
     this.render();
     this.addEvent();
@@ -18,12 +18,11 @@ class LunchHeader extends HTMLElement {
       <header class="gnb">
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
         <button type="button" id="add-restaurant-button" class="gnb__button" aria-label="음식점 추가">
-          <img src=${ASSETS.imageUrl.버튼_음식점추가} alt="음식점 추가" />
+          <img src=${Asset.imageUrl.버튼_음식점추가} alt="음식점 추가" />
         </button>
       </header>
     `;
   }
 }
 
-customElements.define('lunch-header', LunchHeader);
-export default LunchHeader;
+customElements.define('nav-bar', NavigationBar);
