@@ -11,11 +11,7 @@ import "../../templates/category-etc.png";
 
 type ImagePath = string;
 
-type CategoryToImagePath = {
-  [key in Category]: ImagePath;
-};
-
-const CATEGORY_TO_IMAGE_PATH: CategoryToImagePath = {
+const CATEGORY_TO_IMAGE_PATH: Record<Category, ImagePath> = {
   korean: "./category-korean.png",
   chinese: "./category-chinese.png",
   japanese: "./category-japanese.png",
@@ -41,7 +37,7 @@ export default class CategoryIcon extends BaseComponent {
     `;
   }
 
-  private isCategory(category: string): category is keyof CategoryToImagePath {
+  private isCategory(category: string): category is Category {
     return Object.keys(CATEGORY_TO_IMAGE_PATH).includes(category);
   }
 
