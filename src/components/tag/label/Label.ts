@@ -1,4 +1,5 @@
 import LabelProps from './LabelProps';
+import './label.css';
 
 class Label extends HTMLLabelElement {
   constructor(props: LabelProps) {

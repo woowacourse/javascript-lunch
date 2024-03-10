@@ -1,4 +1,4 @@
-import { Restaurant as RestaurantType, CategoryType } from '../types/index';
+import { Restaurant as RestaurantType, CategoryType } from '../../types/index';
 import {
   CategoryAsian,
   CategoryChinese,
@@ -6,7 +6,9 @@ import {
   CategoryJapanese,
   CategoryKorean,
   CategoryWestern,
-} from '../asset/img/index';
+} from '../../asset/img/index';
+
+import './restaurant.css';
 
 const CATEGORY_IMAGE: Record<CategoryType, string> = {
   한식: CategoryKorean,

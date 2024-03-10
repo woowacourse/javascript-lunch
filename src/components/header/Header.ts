@@ -1,8 +1,8 @@
-import { AddButton } from '../asset/img/index';
-import DOM from '../utils/DOM';
-import { Button, ButtonProps } from './tag/button';
-import { Image, ImageProps } from './tag/image';
-
+import { AddButton } from '../../asset/img/index';
+import DOM from '../../utils/DOM';
+import { Button, ButtonProps } from '../tag/button';
+import { Image, ImageProps } from '../tag/image';
+import './header.css';
 
 const { $ } = DOM;
 

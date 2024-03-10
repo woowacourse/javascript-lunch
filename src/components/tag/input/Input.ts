@@ -1,4 +1,5 @@
 import InputProps from './InputProps';
+import './input.css';
 
 class Input extends HTMLInputElement {
   constructor(props: InputProps) {

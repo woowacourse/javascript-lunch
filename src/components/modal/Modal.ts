@@ -1,5 +1,6 @@
-import DOM from '../utils/DOM';
-import RestaurantForm from './RestaurantForm';
+import DOM from '../../utils/DOM';
+import RestaurantForm from '../RestaurantForm';
+import './modal.css';
 
 const { $ } = DOM;
 

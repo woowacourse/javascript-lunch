@@ -1,6 +1,7 @@
 import DOM from '../../../utils/DOM';
 import { SelectProps } from '../select';
 import { Option, OptionProps } from '../option';
+import './select.css';
 
 const { insertElementsInTarget } = DOM;
 

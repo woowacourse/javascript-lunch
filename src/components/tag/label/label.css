@@ -1,0 +1,13 @@
+@import url('../../../styles/style.css');
+
+.form-item label {
+  color: var(--grey-400);
+  font-size: 14px;
+}
+
+.form-item--required label::after {
+  padding-left: 4px;
+
+  color: var(--primary-color);
+  content: '*';
+}

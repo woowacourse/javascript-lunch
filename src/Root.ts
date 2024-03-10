@@ -5,7 +5,7 @@ import Condition from './constants/Condition';
 
 import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
-import Restaurant from './components/Restaurant';
+import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
 

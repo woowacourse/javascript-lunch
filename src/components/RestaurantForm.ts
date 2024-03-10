@@ -1,5 +1,5 @@
 import Condition from '../constants/Condition';
-import FormItem from './FormItem';
+import FormItem from './formItem/FormItem';
 
 import { Button, ButtonProps } from './tag/button';
 import { CaptionProps } from './tag/caption';
