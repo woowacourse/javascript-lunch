@@ -1,6 +1,6 @@
 import './style.css';
 import { BtnColor, BtnType } from '../../types';
-class AddBtn extends HTMLElement {
+class DefaultBtn extends HTMLElement {
   constructor() {
     super();
   }
@@ -19,4 +19,4 @@ class AddBtn extends HTMLElement {
     `;
   }
 }
-customElements.define('default-btn', AddBtn);
+customElements.define('default-btn', DefaultBtn);
