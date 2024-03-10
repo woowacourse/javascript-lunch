@@ -21,45 +21,11 @@ import HomeEventHandler from './eventHandler/HomeEventHandler';
 import ModalEventHandler from './eventHandler/ModalEventHandler';
 import Button from './components/Button';
 
-const $restaurantList = document.querySelector('.restaurant-list');
-const getDefaultRestaurantList = () => DEFAULT_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant));
-const restaurantList = new RestaurantList(getDefaultRestaurantList());
-
-const getSelectedCategory = () => {
-  const $categoryFilter = document.getElementById('category-filter');
-  const categoryOptions = $categoryFilter.options;
-  return categoryOptions[categoryOptions.selectedIndex].text;
-};
-
-const getSelectedSortingCondition = () => {
-  const $sortingFilter = document.getElementById('sorting-filter');
-  const sortingOptions = $sortingFilter.options;
-  return sortingOptions[sortingOptions.selectedIndex].text;
-};
-
-const handleCategoryFilter = () => {
-  const category = getSelectedCategory();
-  const sortingCondition = getSelectedSortingCondition();
-
-  restaurantList.filterByCategory(category);
-  const sortedList = restaurantList.getSortedByCondition(sortingCondition);
-  $restaurantList.replaceChildren();
-  sortedList.forEach(element => {
-    new RestaurantComponent({ $target: $restaurantList, information: element.information });
-  });
-};
-
-const handleSortingFilter = () => {
-  const sortingCondition = getSelectedSortingCondition();
-
-  const sortedList = restaurantList.getSortedByCondition(sortingCondition);
-  $restaurantList.replaceChildren();
-  sortedList.forEach(element => {
-    new RestaurantComponent({ $target: $restaurantList, information: element.information });
-  });
-};
-
 const init = () => {
+  const $restaurantList = document.querySelector('.restaurant-list');
+  const getDefaultRestaurantList = () => DEFAULT_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant));
+  const restaurantList = new RestaurantList(getDefaultRestaurantList());
+
   restaurantList.restaurants.forEach(element => {
     new RestaurantComponent({ $target: $restaurantList, information: element.information });
   });
@@ -67,17 +33,19 @@ const init = () => {
   // 홈화면 select 생성
   const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
   new SelectBoxComponent({
+    kind: 'category',
     $target: $restaurantFilterContainer,
     attributes: FILTERED_CATEGORY_ATTRIBUTE,
-    eventHandler: handleCategoryFilter,
     options: FILTERED_CATEGORY,
+    restaurantList,
   });
 
   new SelectBoxComponent({
+    kind: 'sorting',
     $target: $restaurantFilterContainer,
     attributes: SORTING_ATTRIBUTE,
-    eventHandler: handleSortingFilter,
     options: SORTING,
+    restaurantList,
   });
 
   // 모달 form select 생성
@@ -104,8 +72,9 @@ const init = () => {
     $target: $buttonContainer,
     attributes: ADD_BUTTON_ATTRIBUTE,
   });
+
+  new HomeEventHandler();
+  new ModalEventHandler(restaurantList);
 };
 
 init();
-new HomeEventHandler();
-new ModalEventHandler(restaurantList);
