@@ -1,22 +1,17 @@
 import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from '../types/restaurant';
 import { STORAGE_KEY } from '../constants/config';
 import { ALL, BY_NAME_ASC } from '../constants/filter';
-import Restaurant from './Restaurant';
+import RestaurantStorage from './RestaurantStorage';
 
 class RestaurantList {
   restaurants: IRestaurantList;
 
   constructor(restaurants: IRestaurantList) {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
+    const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
+    if (restaurantsInStorage.length > 0) this.restaurants = restaurantsInStorage;
     else this.restaurants = restaurants;
     this.restaurants = this.getSortedByName();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
-  }
-
-  getStorageRestaurantList(restaurantsInStorage: string): IRestaurantList {
-    const parsedRestaurantList: IRestaurantList = JSON.parse(restaurantsInStorage);
-    return parsedRestaurantList.map(parsedRestaurant => new Restaurant(parsedRestaurant.information));
+    RestaurantStorage.set(this.restaurants);
   }
 
   getSortedByName(): IRestaurantList {
@@ -35,15 +30,15 @@ class RestaurantList {
   }
 
   add(restaurant: TRestaurantInstance): void {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
+    const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
+    if (restaurantsInStorage.length > 0) this.restaurants = restaurantsInStorage;
     this.restaurants.push(restaurant);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
+    RestaurantStorage.set(this.restaurants);
   }
 
   filterByCategory(category: TCategory): void {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
+    const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
+    if (restaurantsInStorage.length > 0) this.restaurants = restaurantsInStorage;
     if (category !== ALL)
       this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
   }
