@@ -26,21 +26,21 @@ class RestaurantManager {
   }
 
   filteredAndSortedByOptions(category: Category, option: Option): Restaurant[] | void {
-    const filteredRestaurant = this.#filterByCategory(category);
+    const filteredRestaurants = this.#filterByCategory(category);
 
-    if (option === 'name') return this.#sortByName(filteredRestaurant);
+    if (option === 'name') return this.#sortByName(filteredRestaurants);
 
-    if (option === 'distance') return this.#sortByDistance(filteredRestaurant);
+    if (option === 'distance') return this.#sortByDistance(filteredRestaurants);
   }
 
   #filterByCategory(category: Category): Restaurant[] {
     if (category === '전체') return this.restaurants;
 
-    return this.#restaurants.filter((restaurant) => restaurant.category === category);
+    return this.restaurants.filter((restaurant) => restaurant.category === category);
   }
 
   #sortByName(restaurants: Restaurant[]): Restaurant[] {
-    return restaurants.sort((a, b) => {
+    return [...restaurants].sort((a, b) => {
       if (a.name > b.name) return 1;
       if (a.name < b.name) return -1;
       return 0;
@@ -48,7 +48,7 @@ class RestaurantManager {
   }
 
   #sortByDistance(restaurants: Restaurant[]): Restaurant[] {
-    return restaurants.sort((a, b) => a.distance - b.distance);
+    return [...restaurants].sort((a, b) => a.distance - b.distance);
   }
 }
 
