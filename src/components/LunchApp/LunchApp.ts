@@ -1,3 +1,4 @@
+import "../common/CommonModal/CommonModal.css";
 import "./LunchApp.css";
 
 import BaseComponent from "../BaseComponent/BaseComponent";
@@ -15,12 +16,34 @@ class LunchApp extends BaseComponent {
           <global-navigation-bar></global-navigation-bar>
           <main>
             <section class="restaurant-filter-container">
-              <common-dropdown classList="restaurant-filter" eventType="${CUSTOM_EVENT_TYPE.filterCategory}" target="${ELEMENT_SELECTOR.categoryFilter}" id="category-filter" options="${menuCategoryOptions}" /></common-dropdown>            
-              <common-dropdown classList="restaurant-filter" eventType="${CUSTOM_EVENT_TYPE.sortChange}" target="${ELEMENT_SELECTOR.sortingFilter}" id="sorting-filter" options="${sortCategoryOptions}" /></common-dropdown>
+              <common-dropdown 
+                classList="restaurant-filter" 
+                eventType="${CUSTOM_EVENT_TYPE.filterCategory}" 
+                target="${ELEMENT_SELECTOR.categoryFilter}" 
+                id="category-filter" 
+                options="${menuCategoryOptions}" 
+              >
+              </common-dropdown>            
+              <common-dropdown 
+                classList="restaurant-filter" 
+                eventType="${CUSTOM_EVENT_TYPE.sortChange}" 
+                target="${ELEMENT_SELECTOR.sortingFilter}" 
+                id="sorting-filter" 
+                options="${sortCategoryOptions}"
+              >
+              </common-dropdown>
             </section>
             <restaurant-list></restaurant-list>
           </main>
-          <restaurant-add-modal class="modal"></restaurant-add-modal>
+          <common-modal
+            id="restaurant-add-modal" 
+            class="modal" 
+            children="${`
+              <h2 class='modal-title text-title'>새로운 음식점</h2>
+              <restaurant-add-form></restaurant-add-form>
+            `}"
+          >
+          </common-modal>
         `;
   }
 }

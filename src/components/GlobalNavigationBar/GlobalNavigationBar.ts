@@ -33,7 +33,11 @@ class GlobalNavigationBar extends BaseComponent {
   }
 
   private handleOpenModal() {
-    $(ELEMENT_SELECTOR.restaurantAddModal).classList.add("modal--open");
+    const modalContent = $(ELEMENT_SELECTOR.commonModalContent);
+
+    if (modalContent instanceof HTMLDialogElement) {
+      modalContent.showModal();
+    }
   }
 
   protected removeEvent(): void {

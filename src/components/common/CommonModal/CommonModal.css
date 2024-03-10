@@ -1,11 +1,3 @@
-.modal {
-  display: none;
-}
-
-.modal--open {
-  display: block;
-}
-
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -27,23 +19,13 @@
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  /* Firefox & IE & Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* Chrome, Safari */
 .modal-container::-webkit-scrollbar {
   display: none;
-}
-
-/* Firefox */
-.modal-container {
-  scrollbar-width: none;
-}
-
-/* IE & Edge */
-.modal-container {
-  -ms-overflow-style: none;
-}
-
-.modal-title {
-  margin-bottom: 24px;
 }

@@ -4,10 +4,7 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 import type { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 
 import Restaurant from "../../domain/Restaurant/Restaurant";
-import type {
-  Distance,
-  RestaurantDetail,
-} from "../../domain/Restaurant/Restaurant.type";
+import type { Distance } from "../../domain/Restaurant/Restaurant.type";
 
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
@@ -29,6 +26,11 @@ class RestaurantAddForm extends BaseComponent {
       eventName: "submit",
       eventHandler: this.handleSubmitAddRestaurant.bind(this),
     },
+
+    modalCancelButtonClick: {
+      eventName: "click",
+      eventHandler: this.handleCancelButton.bind(this),
+    },
   };
 
   protected render(): void {
@@ -39,7 +41,7 @@ class RestaurantAddForm extends BaseComponent {
         <form id="restaurant-add-form">
             <div class="form-item form-item--required">
                 <label for="category text-caption">카테고리</label>
-                <common-dropdown id="category" options="${menuCategoryWithoutAllOptions}" title="선택해 주세요" /></common-dropdown>            
+                <common-dropdown name="category" id="category" options="${menuCategoryWithoutAllOptions}" title="선택해 주세요" /></common-dropdown>            
             </div>
 
             <div class="form-item form-item--required">
@@ -49,7 +51,7 @@ class RestaurantAddForm extends BaseComponent {
 
             <div class="form-item form-item--required">
                 <label for="distance text-caption">거리(도보 이동 시간) </label>
-                <common-dropdown addOptionText="분 내" id="distance" options="${RestaurantAddForm.DISTANCES_OPTIONS}" title="선택해 주세요" /></common-dropdown>            
+                <common-dropdown name="distance" addOptionText="분 내" id="distance" options="${RestaurantAddForm.DISTANCES_OPTIONS}" title="선택해 주세요" /></common-dropdown>            
             </div>
 
             <div class="form-item">
@@ -74,18 +76,27 @@ class RestaurantAddForm extends BaseComponent {
 
   protected setEvent(): void {
     this.on({
-      ...this.eventListeners.resetForm,
+      ...this.eventListeners.restaurantAddFormSubmit,
       target: document,
     });
 
     this.on({
-      ...this.eventListeners.restaurantAddFormSubmit,
+      ...this.eventListeners.resetForm,
+      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+    });
+
+    this.on({
+      ...this.eventListeners.modalCancelButtonClick,
       target: $(ELEMENT_SELECTOR.restaurantAddForm),
     });
   }
 
   private handleCloseModal() {
-    $(ELEMENT_SELECTOR.restaurantAddModal).classList.remove("modal--open");
+    const modalContentElement = $(ELEMENT_SELECTOR.commonModalContent);
+
+    if (modalContentElement instanceof HTMLDialogElement) {
+      modalContentElement.close();
+    }
   }
 
   private handleResetForm() {
@@ -144,14 +155,33 @@ class RestaurantAddForm extends BaseComponent {
     return null;
   }
 
+  private handleCancelButton(event: Event) {
+    const target = event.target;
+
+    if (
+      target instanceof HTMLElement &&
+      !target.matches(ELEMENT_SELECTOR.modalCancelButton)
+    )
+      return;
+
+    this.handleCloseModal();
+
+    this.handleResetForm();
+  }
+
   protected removeEvent(): void {
     this.off({
-      ...this.eventListeners.resetForm,
+      ...this.eventListeners.restaurantAddFormSubmit,
       target: document,
     });
 
     this.off({
-      ...this.eventListeners.restaurantAddFormSubmit,
+      ...this.eventListeners.resetForm,
+      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+    });
+
+    this.off({
+      ...this.eventListeners.modalCancelButtonClick,
       target: $(ELEMENT_SELECTOR.restaurantAddForm),
     });
   }
