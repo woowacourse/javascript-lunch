@@ -14,8 +14,10 @@
   "ignorePatterns": ["cypress.config.ts", "webpack.config.js", "src/**/*.js"],
   "rules": {
     "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "import/extensions": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-new": "off"
   },
   "settings": {
     "import/resolver": {
