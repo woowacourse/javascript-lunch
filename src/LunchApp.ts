@@ -6,7 +6,7 @@ import RestaurantList from "./components/RestaurantList";
 import RestaurantForm from "./components/RestaurantForm";
 
 customElements.define("restaurant-header", RestaurantHeader);
-customElements.define("restaruant-list", RestaurantList);
+customElements.define("restaurant-list", RestaurantList);
 customElements.define("select-box", Select);
 customElements.define("modal-box", Modal);
 customElements.define("restaurant-form", RestaurantForm);
@@ -17,8 +17,8 @@ export default class LunchApp extends BaseComponent {
         <restaurant-header></restaurant-header> 
         <main>
           <filter-bar></filter-bar>
-          <restaruant-list></restaruant-list>
-          <modal-box modal-id="retaurant-form-modal">
+          <restaurant-list></restaurant-list>
+          <modal-box modal-id="restaurant-form-modal">
           <restaurant-form></restaurant-form>
           </modal-box>
         </main>
