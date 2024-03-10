@@ -15,6 +15,10 @@ class Input extends HTMLInputElement {
   getValue(): string {
     return this.value;
   }
+
+  isValidate() {
+    return this.validity.valid;
+  }
 }
 
 customElements.define('matzip-input', Input, { extends: 'input' });

@@ -1,5 +1,3 @@
-
-
 import Condition from '../constants/Condition';
 import FormItem from './FormItem';
 
@@ -10,15 +8,14 @@ import { LabelProps } from './tag/label';
 import { OptionProps } from './tag/option';
 import { Select, SelectProps } from './tag/select';
 import { TextArea, TextAreaProps } from './tag/textarea';
-import DOM from '../utils/DOM';
 
 const { REGULAR_EXPRESSION } = Condition;
-const {} = DOM;
 
 class RestaurantForm extends HTMLFormElement {
   constructor() {
     super();
     this.id = 'restaurant-form';
+    this.submitButton = null;
     this.createElements();
   }
 
@@ -29,6 +26,7 @@ class RestaurantForm extends HTMLFormElement {
     this.createDescriptionField();
     this.createLinkField();
     this.createButtons();
+    this.setupValidation();
   }
 
   createCategoryField() {
@@ -173,17 +171,20 @@ class RestaurantForm extends HTMLFormElement {
     buttonContainer.setAttribute('class', 'button-container');
 
     const cancelButton: ButtonProps = {
-      type: 'button',
+      type: 'reset',
       classnames: ['button', 'button--secondary', 'text-caption', 'modal--close'],
       children: '취소하기',
     };
     const submitButton: ButtonProps = {
       type: 'submit',
-      classnames: ['button', 'button--primary', 'text-caption'],
+      classnames: ['button', 'button--primary', 'text-caption', 'form-submit'],
       children: '추가하기',
+      disabled: true,
     };
+
+    this.submitButton = new Button(submitButton);
     buttonContainer.appendChild(new Button(cancelButton));
-    buttonContainer.appendChild(new Button(submitButton));
+    buttonContainer.appendChild(this.submitButton);
 
     this.appendChild(buttonContainer);
   }
@@ -199,6 +200,27 @@ class RestaurantForm extends HTMLFormElement {
 
   private getInputField(element: Element): element is Select | TextArea | Input {
     return ['SELECT', 'TEXTAREA', 'INPUT'].includes(element.tagName);
+  }
+
+  updateButtonState() {
+    const formFields = this.getFormFields();
+    const allFieldsValid = formFields.every(field => field.isValidate());
+  
+    if (allFieldsValid) {
+      this.submitButton.removeAttribute('disabled');
+    } else {
+      this.submitButton.setAttribute('disabled', 'true');
+    }
+  }
+
+  setupValidation() {
+    const formFields = this.getFormFields();
+
+    formFields.forEach(field => {
+      field.addEventListener('input', () => {
+        this.updateButtonState();
+      });
+    });
   }
 }
 

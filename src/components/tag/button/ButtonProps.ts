@@ -3,6 +3,7 @@ interface ButtonProps {
   classnames: string[];
   ariaLabel?: string;
   children: string | HTMLImageElement;
+  disabled?: boolean;
 }
 
 export default ButtonProps;

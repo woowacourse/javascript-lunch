@@ -3,7 +3,7 @@ import ButtonProps from './ButtonProps';
 class Button extends HTMLButtonElement {
   constructor(props: ButtonProps) {
     super();
-    const { type, classnames, ariaLabel, children } = props;
+    const { type, classnames, ariaLabel, children, disabled } = props;
 
     this.type = type;
     this.classList.add(...classnames);
@@ -13,6 +13,7 @@ class Button extends HTMLButtonElement {
     if (children instanceof HTMLImageElement) {
       this.appendChild(children);
     }
+    if (disabled !== undefined) this.disabled = disabled;
   }
 }
 
