@@ -35,6 +35,7 @@ export default class RestaurantForm extends EventComponent {
           name="category"
           options=${this.generateCategoryOptions()}
           required="true"
+          label-name="카테고리"
         >
         </select-box>
       </form-item>
@@ -50,7 +51,8 @@ export default class RestaurantForm extends EventComponent {
           name="timeToReach"
           options=${this.generateDistanceOptions()}
           required="true"
-        >
+          label-name="도보이동시간"
+          >
         </select-box>
       </form-item>
 

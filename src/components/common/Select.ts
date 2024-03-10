@@ -14,11 +14,12 @@ export default class Select extends EventComponent {
     const className = this.getAttribute("class-name") || "";
     const name = this.getAttribute("name") || "";
     const required = this.getAttribute("required") || "";
+    const labelName = this.getAttribute("label-name") || "";
 
     const options = rawOptions ? (JSON.parse(rawOptions) as Option[]) : [];
 
     return `
-      <select id=${selectId} class=${className} name=${name} ${
+      <select id=${selectId} class=${className} name=${name} aria-label=${labelName} ${
       required ? "required" : ""
     }>
         ${options
@@ -44,6 +45,8 @@ export default class Select extends EventComponent {
     const eventName = this.getAttribute("event-name") || "";
     const selectId = this.getAttribute("select-id") || "";
 
+    if (eventName === "" || selectId === "") return;
+
     $(`#${selectId}`)?.addEventListener("change", (e) =>
       this.handleSelectChange(e, eventName)
     );
@@ -57,6 +60,7 @@ export default class Select extends EventComponent {
       "class-name",
       "name",
       "required",
+      "label-name",
     ];
   }
 }
