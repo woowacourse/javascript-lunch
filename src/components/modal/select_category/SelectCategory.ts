@@ -1,4 +1,4 @@
-import { categoryChange } from './eventHandlers';
+import categoryChange from './eventHandlers';
 import { renderBaseSelectCategoryComponent, renderSelectCategoryLabelComponent } from './renderHandlers';
 
 function SelectCategory(form: Element) {

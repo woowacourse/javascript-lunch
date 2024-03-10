@@ -1,4 +1,4 @@
-import { All, Category, RestaurantState, RestaurantHelperFunction, SortType } from '../types';
+import { All, Category, RestaurantHelperFunction, RestaurantState, SortType } from '../types';
 
 class RestaurantListHelper implements RestaurantHelperFunction {
   sortBySelectedValue(seletedValue: SortType, restaurantList: RestaurantState[]) {

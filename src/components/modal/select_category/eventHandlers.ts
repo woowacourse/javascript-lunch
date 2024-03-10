@@ -12,7 +12,7 @@ const selectEventHandler = (select: HTMLElement) => {
   });
 };
 
-export const categoryChange = () => {
+const categoryChange = () => {
   document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('category');
 
@@ -21,3 +21,5 @@ export const categoryChange = () => {
     }
   });
 };
+
+export default categoryChange;

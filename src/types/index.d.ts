@@ -6,10 +6,6 @@ export type Distance = 5 | 10 | 15 | 20 | 30;
 
 export type SortType = 'name' | 'distance';
 
-// export type MappedType<T> = {
-//   [K in keyof T]?: T[K];
-// };
-
 export type InvalidResult = {
   targetClassName: string;
   success: boolean;
