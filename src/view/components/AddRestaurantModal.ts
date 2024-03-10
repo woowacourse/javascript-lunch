@@ -1,4 +1,5 @@
 import AddRestaurantForm from "./AddRestaurantForm";
+import AllRestaurantList from "../../domain/AllRestaurantList";
 import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
 import generateModal from "../generateComponent/generateModal";
 
@@ -9,7 +10,10 @@ class AddRestaurantModal {
   constructor() {
     this.#form = new AddRestaurantForm();
     const restaurantForm = this.#form.getForm({
-      hideModalFunc: this.hide.bind(this),
+      handleClickCancelButton: this.hide.bind(this),
+      handleClickAddButton: (newRestaurant: Restaurant) => {
+        this.#addRestaurant.bind(this)(newRestaurant);
+      },
     });
     const contents = [this.#createH2(), restaurantForm];
     this.element = generateModal(contents);
@@ -22,6 +26,16 @@ class AddRestaurantModal {
 
   open() {
     this.element.classList.add("modal--open");
+  }
+
+  #addRestaurant(newRestaurant: Restaurant) {
+    if (
+      newRestaurant.name &&
+      newRestaurant.category &&
+      newRestaurant.distance
+    ) {
+      AllRestaurantList.add(newRestaurant);
+    }
   }
 
   #createH2() {

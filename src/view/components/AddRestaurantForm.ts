@@ -2,7 +2,6 @@ import { CATEGORY, DISTANCE } from "../../constants/selectOptions";
 
 import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
 import FormItem from "./FormItem";
-import RestaurantList from "../../domain/RestaurantList";
 import createElementByTag from "../generateComponent/utils/createElementByTag";
 import generateButton from "../generateComponent/generateButton";
 import generateSelectBox from "../generateComponent/generateSelectBox";
@@ -22,7 +21,13 @@ class AddRestaurantForm {
     this.#urlFormItem = this.#createUrlFormItem();
   }
 
-  getForm({ hideModalFunc }: { hideModalFunc: () => void }) {
+  getForm({
+    handleClickCancelButton,
+    handleClickAddButton,
+  }: {
+    handleClickCancelButton: () => void;
+    handleClickAddButton: (newRestaurant: Restaurant) => void;
+  }) {
     const form = document.createElement("form");
     form.append(
       this.#categoryFormItem.item,
@@ -30,7 +35,7 @@ class AddRestaurantForm {
       this.#distanceFormItem.item,
       this.#descriptionFormItem.item,
       this.#urlFormItem.item,
-      this.#createButtonDiv(hideModalFunc)
+      this.#createButtonDiv({ handleClickCancelButton, handleClickAddButton })
     );
 
     return form;
@@ -46,6 +51,7 @@ class AddRestaurantForm {
 
   #createCategoryFormItem() {
     const categorySelectBoxInModal = generateSelectBox(CATEGORY, false);
+
     const categoryFormItem = new FormItem({
       subject: FORM_ITEM_TEXTS.categoryTitle,
       readableElement: categorySelectBoxInModal,
@@ -67,11 +73,12 @@ class AddRestaurantForm {
       readableElement: nameInput,
       isRequired: true,
     });
+
     return nameFormItem;
   }
 
   #createDistanceFormItem() {
-    const DISTANCE_STRINGS = DISTANCE.map((el) => el.toString());
+    const DISTANCE_STRINGS = DISTANCE.map(String);
 
     const distanceSelectBoxInModal = generateSelectBox(DISTANCE_STRINGS, false);
 
@@ -80,12 +87,12 @@ class AddRestaurantForm {
       readableElement: distanceSelectBoxInModal,
       isRequired: true,
     });
+
     return distanceFormItem;
   }
 
   #createDescriptionFormItem() {
     const descriptionTextArea = document.createElement("textarea");
-
     descriptionTextArea.name = "description";
     descriptionTextArea.id = "description";
     descriptionTextArea.cols = 30;
@@ -115,46 +122,55 @@ class AddRestaurantForm {
     return urlFormItem;
   }
 
-  #createButtonDiv(hideModalFunc: () => void) {
+  #createButtonDiv({
+    handleClickCancelButton,
+    handleClickAddButton,
+  }: {
+    handleClickCancelButton: () => void;
+    handleClickAddButton: (newRestaurant: Restaurant) => void;
+  }) {
     const buttonDiv = createElementByTag({
       tag: "div",
       classes: ["button-container"],
     });
 
-    const cancelButton = generateButton({
-      value: FORM_ITEM_TEXTS.cancelButton,
-      classes: "button button--secondary text-caption".split(" "),
-      onclick: (e) => {
-        e.preventDefault();
-        hideModalFunc();
-      },
-    });
+    const addButton = this.#createAddButton(handleClickAddButton);
+    const cancelButton = this.#createCancelButton(handleClickCancelButton);
     cancelButton.type = "button";
-
-    const addButton = generateButton({
-      value: FORM_ITEM_TEXTS.addButton,
-      classes: "button button--primary text-caption".split(" "),
-      onclick: () => {
-        const newRestaurant: Restaurant = {
-          name: this.#nameFormItem.getValue(),
-          category: this.#categoryFormItem.getValue() as Category,
-          distance: Number(this.#distanceFormItem.getValue()) as Distance,
-          description: this.#descriptionFormItem.getValue(),
-          url: this.#urlFormItem.getValue(),
-        };
-
-        if (
-          newRestaurant.name &&
-          newRestaurant.category &&
-          newRestaurant.distance
-        ) {
-          RestaurantList.add(newRestaurant);
-        }
-      },
-    });
 
     buttonDiv.append(cancelButton, addButton);
     return buttonDiv;
+  }
+
+  #createCancelButton(handleClickCancelButton: () => void) {
+    return generateButton({
+      value: FORM_ITEM_TEXTS.cancelButton,
+      classes: "button button--secondary text-caption".split(" "),
+      onclick: handleClickCancelButton,
+    });
+  }
+
+  #createAddButton(handleClickAddButton: (newRestaurant: Restaurant) => void) {
+    return generateButton({
+      value: FORM_ITEM_TEXTS.addButton,
+      classes: "button button--primary text-caption".split(" "),
+      onclick: () => {
+        const newRestaurant = this.#getValues();
+        handleClickAddButton(newRestaurant);
+      },
+    });
+  }
+
+  #getValues() {
+    const newRestaurant: Restaurant = {
+      name: this.#nameFormItem.getValue(),
+      category: this.#categoryFormItem.getValue() as Category,
+      distance: Number(this.#distanceFormItem.getValue()) as Distance,
+      description: this.#descriptionFormItem.getValue(),
+      url: this.#urlFormItem.getValue(),
+    };
+
+    return newRestaurant;
   }
 }
 
