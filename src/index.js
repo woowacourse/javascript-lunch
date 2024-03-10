@@ -4,56 +4,56 @@ import "./image/add-button.png";
 import { CATEGORY_WITH_ENTIRE, SORT_STANDARD } from "./constants/selectOptions";
 
 import AddRestaurantModal from "./view/components/AddRestaurantModal";
-import RestaurantList from "./domain/RestaurantList";
+import AllRestaurantList from "./domain/AllRestaurantList";
 import generateSelectBox from "./view/generateComponent/generateSelectBox";
 import getLocalStorageItem from "./utils/getLocalStorageItem";
 import renderRestaurantItem from "./view/renderRestaurantItem";
 import { restaurantData } from "./data/restaurantData";
-
-const restaurants = getLocalStorageItem("restaurants", restaurantData);
-
-RestaurantList.init(restaurants ?? []);
+import setLocalStorageItem from "./utils/setLocalStorageItem";
 
 const main = document.getElementById("main");
+const modal = new AddRestaurantModal();
+main.append(modal.element);
 
 const filterContainer = document.getElementById("filter-container");
 const categorySelectBox = generateSelectBox(CATEGORY_WITH_ENTIRE);
 const sortStandardSelectBox = generateSelectBox(SORT_STANDARD);
-
 filterContainer.append(categorySelectBox, sortStandardSelectBox);
 
-filterContainer.addEventListener("change", () => {
-  renderRestaurantItem({
-    category: categorySelectBox.value,
-    sortStandard: sortStandardSelectBox.value,
-  });
-});
+const openButton = document.getElementById("add-restaurant-button");
+
+const restaurants = getLocalStorageItem("allRestaurants", restaurantData);
+
+AllRestaurantList.init(restaurants ?? []);
 
 renderRestaurantItem({
+  restaurantList: AllRestaurantList,
   category: CATEGORY_WITH_ENTIRE[0],
   sortStandard: SORT_STANDARD[0],
 });
 
-const modal = new AddRestaurantModal();
+openButton.addEventListener("click", () => {
+  modal.open();
+});
 
-main.append(modal.element);
-
-main.addEventListener("submit", (e) => {
-  e.preventDefault();
+filterContainer.addEventListener("change", () => {
   renderRestaurantItem({
+    restaurantList: AllRestaurantList,
     category: categorySelectBox.value,
     sortStandard: sortStandardSelectBox.value,
   });
-  modal.hide();
-
-  const stringifiedRestaurants = JSON.stringify(
-    RestaurantList.getRestaurants()
-  );
-  localStorage.setItem("restaurants", stringifiedRestaurants);
 });
 
-const openButton = document.getElementById("add-restaurant-button");
+main.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-openButton.addEventListener("click", () => {
-  modal.open();
+  renderRestaurantItem({
+    restaurantList: AllRestaurantList,
+    category: categorySelectBox.value,
+    sortStandard: sortStandardSelectBox.value,
+  });
+
+  modal.hide();
+
+  setLocalStorageItem("allRestaurants", AllRestaurantList.getRestaurants());
 });
