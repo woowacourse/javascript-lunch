@@ -18,13 +18,14 @@ class CommonDropdown extends BaseComponent {
   protected render(): void {
     const id = this.getAttribute("id");
     const classList = this.getAttribute("classList");
+    const name = this.getAttribute("name");
 
     const options = this.getAttribute("options")?.split(",");
     const title = this.getAttribute("title");
     const addOptionText = this.getAttribute("addOptionText");
 
     this.innerHTML = `
-        <select id="${id}" class="${classList}">
+        <select name="${name ?? ""}" id="${id}" class="${classList}">
             ${title ? `<option value="">${title}</option>` : ""}
 
             ${createOptionElements(

@@ -10,7 +10,7 @@ export const isCustomEventType = (
 export const isUserInputValues = (
   userInputValues: object
 ): userInputValues is RestaurantDetail => {
-  return Object.keys(userInputValues).every((key) => {
-    ["category", "name", "distance"].includes(key);
-  });
+  return Object.keys(userInputValues).every((key) =>
+    ["category", "name", "distance", "description", "url"].includes(key)
+  );
 };
