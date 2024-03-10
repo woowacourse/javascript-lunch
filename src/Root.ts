@@ -55,6 +55,8 @@ const root = {
   listenRestaurantAdd(matzip: Matzip) {
     $<HTMLElement>('#restaurant-form').addEventListener('submit', (event) => {
       event.preventDefault();
+      console.log(event);
+      
       const fieldValues = Array.from($$('.form-item')).map((item) => {
         const field = item.children[1] as Select | TextArea | Input;
         return field.getValue();

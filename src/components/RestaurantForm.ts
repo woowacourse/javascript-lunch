@@ -148,7 +148,7 @@ class RestaurantForm extends HTMLElement {
       name: 'link',
       id: 'link',
       required: false,
-      pattern: REGULAR_EXPRESSION.URL,
+      pattern: String(REGULAR_EXPRESSION.URL),
     };
 
     const caption: CaptionProps = {

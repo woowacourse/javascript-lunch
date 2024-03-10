@@ -11,7 +11,7 @@ const CATEGORY = {
 const DISTANCE = [5, 10, 15, 20, 30];
 
 const REGULAR_EXPRESSION = {
-  URL: '/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/',
+  URL: /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/,
 };
 
 const Condition = {
