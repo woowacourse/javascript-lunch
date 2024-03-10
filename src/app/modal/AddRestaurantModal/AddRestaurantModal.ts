@@ -1,7 +1,25 @@
 import { $, $$ } from '../../../utils/domSelector';
 import { TYPE_SETTING } from '../../../constants/setting';
 import { LocationData } from '../../../constants/Type';
+import handleError from '../../../utils/handleError';
 import RestaurantValidator from '../../../validator/RestaurantValidator';
+
+enum Category {
+  한식 = '한식',
+  일식 = '일식',
+  중식 = '중식',
+  양식 = '양식',
+  아시안 = '아시안',
+  기타 = '기타',
+}
+
+enum DistanceByWalk {
+  '5분 내' = 5,
+  '10분 내' = 10,
+  '15분 내' = 15,
+  '20분 내' = 20,
+  '30분 내' = 30,
+}
 
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
@@ -15,23 +33,38 @@ class AddRestaurantModal extends HTMLElement {
     });
 
     $('#add-restaurant-form')!.addEventListener('submit', (event: Event) => {
-      try {
-        event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
-        const restaurantInputData = Object.fromEntries(formData.entries()) as any as LocationData;
-        RestaurantValidator.validateUserInput(restaurantInputData);
-        this.submitNewRestaurantData(restaurantInputData);
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(error.message);
-        }
-      }
+      event.preventDefault();
+      this.handleFormData(new FormData(event.target as HTMLFormElement));
     });
   }
 
-  private submitNewRestaurantData(restaurantData: LocationData) {
-    this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: restaurantData }));
-    this.clearModal();
+  private handleFormData(formData: FormData) {
+    const formDataEntries = Object.fromEntries(formData.entries());
+    if (this.isLocationData(formDataEntries)) {
+      this.submitNewRestaurant(formDataEntries);
+      return;
+    }
+    alert('입력된 음식점 정보가 올바르지 않습니다. 새로고침 후 다시 입력해주세요.');
+  }
+
+  private submitNewRestaurant(formDataEntries: LocationData) {
+    try {
+      RestaurantValidator.validateUserInput(formDataEntries);
+      this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: formDataEntries }));
+      this.clearModal();
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  private isLocationData(object: any): object is LocationData {
+    return (
+      'name' in object &&
+      'category' in object &&
+      Object.values(Category).includes(object.category) &&
+      'minutesWalk' in object &&
+      Object.values(DistanceByWalk).includes(parseInt(object.minutesWalk))
+    );
   }
 
   private clearModal() {
