@@ -25,7 +25,7 @@ class RestaurantService {
   private getCompareFunction(sortOrder: SortOrder): CompareFunction {
     const compareFunctions: { [key in SortOrder]: (a: Restaurant, b: Restaurant) => number } = {
       이름순: (a, b) => this.compareName(a, b),
-      거리순: (a, b) => this.compareMinutesWalk(a, b),
+      거리순: (a, b) => this.compareDistanceByWalk(a, b),
     };
     return compareFunctions[sortOrder];
   }
@@ -38,8 +38,8 @@ class RestaurantService {
     return a.getName().localeCompare(b.getName());
   }
 
-  private compareMinutesWalk(a: Restaurant, b: Restaurant): number {
-    const compareResult = parseInt(a.getMinutesWalk()) - parseInt(b.getMinutesWalk());
+  private compareDistanceByWalk(a: Restaurant, b: Restaurant): number {
+    const compareResult = parseInt(a.getDistanceByWalk()) - parseInt(b.getDistanceByWalk());
     return compareResult === 0 ? this.compareName(a, b) : compareResult;
   }
 
