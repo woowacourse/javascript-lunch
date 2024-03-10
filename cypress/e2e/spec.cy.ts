@@ -44,15 +44,23 @@ describe('점심 뭐 먹지 로컬 스토리지에 데이터가 있는 경우를
 
   context('음식점을 이름순, 거리순으로 정렬할 수 있다.', () => {
     it('이름순을 선택한 경우 이름순으로 음식점이 정렬된다.', () => {
+      const sortedByName = restaurants.sort((a, b) => a.name.localeCompare(b.name));
       cy.get('.sorting').select('이름순');
-      cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 반찬가게');
-      cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리네 회전초밥');
+      cy.get('.restaurant').first().find('.restaurant__name').should('contain', sortedByName[0].name);
+      cy.get('.restaurant')
+        .last()
+        .find('.restaurant__name')
+        .should('contain', sortedByName[sortedByName.length - 1].name);
     });
 
     it('거리순을 선택한 경우 거리순으로 음식점이 정렬된다.', () => {
+      const sortedByDistance = restaurants.sort((a, b) => a.distance - b.distance);
       cy.get('.sorting').select('거리순');
-      cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 반찬가게');
-      cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리네 짜장면');
+      cy.get('.restaurant').first().find('.restaurant__name').should('contain', sortedByDistance[0].name);
+      cy.get('.restaurant')
+        .last()
+        .find('.restaurant__name')
+        .should('contain', sortedByDistance[sortedByDistance.length - 1].name);
     });
   });
 });
