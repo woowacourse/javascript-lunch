@@ -1,18 +1,12 @@
-import '../../styles/modalOpenButton.css';
-
 import ADD_BUTTON_IMAGE from '../../assets/images/add-button.png';
 
 import Component from '../Component';
 import { EventInfo } from '../../types/component';
+import { $ } from '../../utils/dom';
 
 class ModalOpenButton extends Component {
-  protected setTemplate() {
-    return `
-      <template>
-        <button type="button" class="modal-open-button" aria-label="음식점 추가">
-          <img src=${ADD_BUTTON_IMAGE} alt="음식점 추가">
-        </button>
-      </template>`;
+  protected setTemplateId() {
+    return '#modal-open-button-template';
   }
 
   protected setEvents(): EventInfo[] {
@@ -20,6 +14,8 @@ class ModalOpenButton extends Component {
   }
 
   protected render() {
+    const $img = $('img', this.component);
+    $img?.setAttribute('src', ADD_BUTTON_IMAGE);
     this.appendChild(this.component);
   }
 }

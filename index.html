@@ -8,8 +8,25 @@
 
   <body>
     <header>
-      <app-header></app-header>
+      <div class="app-header">
+        <header-title></header-title>
+        <modal-open-button></modal-open-button>
+      </div>
     </header>
+
+    <!-- 템플릿 -->
+
+    <!-- header-title -->
+    <template id="header-title-template">
+      <h1 class="head-title text-title">점심 뭐 먹지</h1>
+    </template>
+
+    <!-- modal-open-button -->
+    <template id="modal-open-button-template">
+      <button type="button" class="modal-open-button" aria-label="음식점 추가">
+        <img alt="음식점 추가" />
+      </button>
+    </template>
 
     <!-- <main>
       <section class="restaurant-filter-container">

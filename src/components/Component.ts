@@ -1,4 +1,5 @@
 import { EventInfo } from '../types/component';
+import { $ } from '../utils/dom';
 
 // Component 클래스를 추상 클래스로 선언
 abstract class Component extends HTMLElement {
@@ -7,7 +8,9 @@ abstract class Component extends HTMLElement {
 
   constructor() {
     super();
-    this.component = this.createComponent(this.setTemplate());
+
+    const template = this.getTemplate(this.setTemplateId());
+    this.component = this.createComponent(template);
   }
 
   protected connectedCallback() {
@@ -20,8 +23,8 @@ abstract class Component extends HTMLElement {
     this.detachEventListeners();
   }
 
-  /** [Overriding] 이 함수에서 컴포넌트의 템플릿을 문자열로 반환해야 합니다. */
-  protected abstract setTemplate(): string;
+  /** [Overriding] 이 함수에서 템플릿의 ID를 반환해야 합니다. */
+  protected abstract setTemplateId(): string;
 
   /** [Overriding] 이 함수에서 이벤트 객체 리스트를 반환해야 합니다. */
   protected abstract setEvents(): EventInfo[];
@@ -29,23 +32,24 @@ abstract class Component extends HTMLElement {
   /** [Overriding] 이 함수에서 컴포넌트를 랜더링해야 합니다. */
   protected abstract render(): void;
 
-  private createComponent(template: string): HTMLElement {
-    let component: HTMLElement;
+  private getTemplate(templateId: string): HTMLTemplateElement {
+    const templateElement = $(templateId);
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(template, 'text/html');
-    const templateElement = doc.querySelector('template');
-
-    if (templateElement) {
-      const content = templateElement.content;
-      component = content.firstElementChild as HTMLElement;
-
-      // this.attachShadow({ mode: 'open' }).appendChild(content.cloneNode(true));
-    } else {
-      throw new Error('Template element is not found.');
+    if (!(templateElement instanceof HTMLTemplateElement)) {
+      throw new Error('The element is not an HTMLTemplateElement.');
     }
 
-    return component;
+    return templateElement;
+  }
+
+  private createComponent(template: HTMLTemplateElement): HTMLElement {
+    const content = template.content;
+
+    if (!content.firstElementChild) {
+      throw new Error('Template does not contain any elements.');
+    }
+
+    return content.firstElementChild.cloneNode(true) as HTMLElement;
   }
 
   private attachEventListeners() {
