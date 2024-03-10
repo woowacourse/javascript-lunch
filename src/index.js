@@ -23,14 +23,21 @@ const getDefaultRestaurantList = () => DEFAULT_RESTAURANT_LIST.map(restaurant =>
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
 new ModalEventHandler(restaurantList);
 
-const handleCategoryFilter = () => {
+const getSelectedCategory = () => {
   const $categoryFilter = document.getElementById('category-filter');
-  const $sortingFilter = document.getElementById('sorting-filter');
-
   const categoryOptions = $categoryFilter.options;
-  const category = categoryOptions[categoryOptions.selectedIndex].text;
+  return categoryOptions[categoryOptions.selectedIndex].text;
+};
+
+const getSelectedSortingCondition = () => {
+  const $sortingFilter = document.getElementById('sorting-filter');
   const sortingOptions = $sortingFilter.options;
-  const sortingCondition = sortingOptions[sortingOptions.selectedIndex].text;
+  return sortingOptions[sortingOptions.selectedIndex].text;
+};
+
+const handleCategoryFilter = () => {
+  const category = getSelectedCategory();
+  const sortingCondition = getSelectedSortingCondition();
 
   restaurantList.filterByCategory(category);
   const sortedList = restaurantList.getSortedByCondition(sortingCondition);
@@ -41,9 +48,7 @@ const handleCategoryFilter = () => {
 };
 
 const handleSortingFilter = () => {
-  const $sortingFilter = document.getElementById('sorting-filter');
-  const options = $sortingFilter.options;
-  const sortingCondition = options[options.selectedIndex].text;
+  const sortingCondition = getSelectedSortingCondition();
 
   const sortedList = restaurantList.getSortedByCondition(sortingCondition);
   $restaurantList.replaceChildren();
