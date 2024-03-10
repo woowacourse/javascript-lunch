@@ -1,6 +1,6 @@
+import AddRestaurantForm from "./AddRestaurantForm";
 import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
 import generateModal from "../generateComponent/generateModal";
-import AddRestaurantForm from "./AddRestaurantForm";
 
 class AddRestaurantModal {
   element;

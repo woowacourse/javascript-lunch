@@ -15,7 +15,7 @@ class AddRestaurantForm {
   #urlFormItem: FormItem;
 
   constructor() {
-    this.#categoryFormItem = this.#createcategoryFormItem();
+    this.#categoryFormItem = this.#createCategoryFormItem();
     this.#nameFormItem = this.#createNameFormItem();
     this.#distanceFormItem = this.#createDistanceFormItem();
     this.#descriptionFormItem = this.#createDescriptionFormItem();
@@ -44,7 +44,7 @@ class AddRestaurantForm {
     this.#urlFormItem.resetForm();
   }
 
-  #createcategoryFormItem() {
+  #createCategoryFormItem() {
     const categorySelectBoxInModal = generateSelectBox(CATEGORY, false);
     const categoryFormItem = new FormItem({
       subject: FORM_ITEM_TEXTS.categoryTitle,
@@ -84,16 +84,16 @@ class AddRestaurantForm {
   }
 
   #createDescriptionFormItem() {
-    const descriptTextArea = document.createElement("textarea");
+    const descriptionTextArea = document.createElement("textarea");
 
-    descriptTextArea.name = "description";
-    descriptTextArea.id = "description";
-    descriptTextArea.cols = 30;
-    descriptTextArea.rows = 5;
+    descriptionTextArea.name = "description";
+    descriptionTextArea.id = "description";
+    descriptionTextArea.cols = 30;
+    descriptionTextArea.rows = 5;
 
     const descriptionFormItem = new FormItem({
       subject: FORM_ITEM_TEXTS.descriptionTitle,
-      readableElement: descriptTextArea,
+      readableElement: descriptionTextArea,
       description: FORM_ITEM_TEXTS.descriptionDescription,
     });
 

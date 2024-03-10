@@ -1,15 +1,15 @@
-import createElementByTag from "./utils/createElementByTag";
-import KOREAN_ICON from "../../../templates/category-korean.png";
-import CHINESE_ICON from "../../../templates/category-chinese.png";
-import JAPANESS_ICON from "../../../templates/category-japanese.png";
 import ASIAN_ICON from "../../../templates/category-asian.png";
-import WESTERN_ICON from "../../../templates/category-western.png";
+import CHINESE_ICON from "../../../templates/category-chinese.png";
 import ECT_ICON from "../../../templates/category-etc.png";
+import JAPANESE_ICON from "../../../templates/category-japanese.png";
+import KOREAN_ICON from "../../../templates/category-korean.png";
+import WESTERN_ICON from "../../../templates/category-western.png";
+import createElementByTag from "./utils/createElementByTag";
 
 const categoryImgSrcMatcher = {
   한식: KOREAN_ICON,
   중식: CHINESE_ICON,
-  일식: JAPANESS_ICON,
+  일식: JAPANESE_ICON,
   아시안: ASIAN_ICON,
   양식: WESTERN_ICON,
   기타: ECT_ICON,

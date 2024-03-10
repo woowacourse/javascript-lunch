@@ -1,12 +1,14 @@
 import "../templates/style.css";
 import "./image/add-button.png";
-import generateSelectBox from "./view/generateComponent/generateSelectBox";
-import RestaurantList from "./domain/RestaurantList";
-import { restaurantData } from "./data/restaurantData";
-import AddRestaurantModal from "./view/components/AddRestaurantModal";
-import renderRestaurantItem from "./view/renderRestaurantItem";
-import getLocalStorageItem from "./utils/getLocalStorageItem";
+
 import { CATEGORY_WITH_ENTIRE, SORT_STANDARD } from "./constants/selectOptions";
+
+import AddRestaurantModal from "./view/components/AddRestaurantModal";
+import RestaurantList from "./domain/RestaurantList";
+import generateSelectBox from "./view/generateComponent/generateSelectBox";
+import getLocalStorageItem from "./utils/getLocalStorageItem";
+import renderRestaurantItem from "./view/renderRestaurantItem";
+import { restaurantData } from "./data/restaurantData";
 
 const restaurants = getLocalStorageItem("restaurants", restaurantData);
 
