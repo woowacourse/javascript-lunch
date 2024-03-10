@@ -8,8 +8,7 @@ class RestaurantList {
 
   constructor(restaurants: IRestaurantList) {
     const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
-    if (restaurantsInStorage.length > 0) this.restaurants = restaurantsInStorage;
-    else this.restaurants = restaurants;
+    this.restaurants = restaurantsInStorage.length > 0 ? restaurantsInStorage : restaurants;
     this.restaurants = this.getSortedByName();
     RestaurantStorage.set(this.restaurants);
   }
@@ -23,22 +22,17 @@ class RestaurantList {
   }
 
   getSortedByCondition(sortingCondition: TSorting): IRestaurantList {
-    if (sortingCondition === BY_NAME_ASC) {
-      return this.getSortedByName();
-    }
-    return this.getSortedByDistance();
+    return sortingCondition === BY_NAME_ASC ? this.getSortedByName() : this.getSortedByDistance();
   }
 
   add(restaurant: TRestaurantInstance): void {
     const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
-    if (restaurantsInStorage.length > 0) this.restaurants = restaurantsInStorage;
-    this.restaurants.push(restaurant);
+    this.restaurants = restaurantsInStorage.length > 0 ? [...restaurantsInStorage, restaurant] : [restaurant];
     RestaurantStorage.set(this.restaurants);
   }
 
   filterByCategory(category: TCategory): void {
-    const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
-    if (restaurantsInStorage.length > 0) this.restaurants = restaurantsInStorage;
+    this.restaurants = RestaurantStorage.get(STORAGE_KEY);
     if (category !== ALL)
       this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
   }
