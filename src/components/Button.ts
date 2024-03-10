@@ -54,6 +54,7 @@ class Button {
     const { name, id, classNames, type, text } = this.attributes;
     const buttonTag = dom.createButtonTag({ name, id, classNames, type, text });
     this.$target.appendChild(buttonTag);
+    this.$target = buttonTag;
   }
 
   close(): void {

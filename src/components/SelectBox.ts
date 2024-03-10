@@ -41,6 +41,7 @@ class SelectBoxComponent {
       selectTag.appendChild(optionTag);
     });
     this.$target.appendChild(selectTag);
+    this.$target = selectTag;
   }
 
   #getSelectTag(): HTMLSelectElement {
@@ -48,7 +49,7 @@ class SelectBoxComponent {
     return dom.createSelectTag({ name, id, classNames, required });
   }
 
-  renderFilteredList(sortedList: IRestaurantList): void {
+  renderNewRestaurantList(sortedList: IRestaurantList): void {
     const $restaurantList = dom.getElement('.restaurant-list') as HTMLElement;
 
     $restaurantList.replaceChildren();
@@ -64,7 +65,7 @@ class SelectBoxComponent {
     if (this.restaurantList == null) return;
     this.restaurantList.filterByCategory(category);
     const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
-    this.renderFilteredList(sortedList);
+    this.renderNewRestaurantList(sortedList);
   }
 
   handleSortingFilter(): void {
@@ -72,7 +73,7 @@ class SelectBoxComponent {
 
     if (this.restaurantList == null) return;
     const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
-    this.renderFilteredList(sortedList);
+    this.renderNewRestaurantList(sortedList);
   }
 
   getSelectedCategory(): TCategory {
