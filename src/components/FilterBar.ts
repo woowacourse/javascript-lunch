@@ -37,8 +37,8 @@ export default class FilterBar extends BaseComponent {
   }
 
   private generateOptions(filterLiteralObject: Record<string, string>) {
-    const fiilteredOptions = convertObjectToOptions(filterLiteralObject);
+    const filteredOptions = convertObjectToOptions(filterLiteralObject);
 
-    return JSON.stringify(fiilteredOptions);
+    return JSON.stringify(filteredOptions);
   }
 }
