@@ -1,7 +1,3 @@
-export type Category =
-  | "korean"
-  | "chinese"
-  | "japanese"
-  | "western"
-  | "asian"
-  | "etc";
+import { CATEGORY } from "../constants/category";
+
+export type Category = keyof typeof CATEGORY;

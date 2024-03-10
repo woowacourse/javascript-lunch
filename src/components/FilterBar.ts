@@ -3,7 +3,7 @@ import BaseComponent from "../abstract/BaseComponent";
 import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { FILTER_EVENT } from "../constants/event";
 import {
-  KOREAN_RESTAURANT_DISPLAYING_FILTER,
+  KOREAN_CATEGORY_FILTER,
   KOREAN_SORT_FILTER,
 } from "../constants/filter";
 
@@ -33,7 +33,7 @@ export default class FilterBar extends BaseComponent {
   }
 
   private generateCategoryOptions() {
-    return this.generateOptions(KOREAN_RESTAURANT_DISPLAYING_FILTER);
+    return this.generateOptions(KOREAN_CATEGORY_FILTER);
   }
 
   private generateSortingOptions() {

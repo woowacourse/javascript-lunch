@@ -6,7 +6,7 @@ import { RestaurantInfo } from "../domain/Restaurant";
 
 import { CategoryFilter, SortFilter } from "../types/Filter";
 import restaurantStore from "../store/restaurantStore";
-import { RESTAURANT_DISPLAYING_FILTER, SORT_FILTER } from "../constants/filter";
+import { CATEGORY_FILTER, SORT_FILTER } from "../constants/filter";
 import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
 
 customElements.define("restaurant-item", RestaurantItem);
@@ -19,7 +19,7 @@ export default class RestaurantList extends EventComponent {
 
   constructor(
     restaurants = restaurantStore.get(),
-    categoryFilter = RESTAURANT_DISPLAYING_FILTER.all,
+    categoryFilter = CATEGORY_FILTER.all,
     sortFilter = SORT_FILTER.name
   ) {
     super();
@@ -108,11 +108,11 @@ export default class RestaurantList extends EventComponent {
     restaurantInfos: RestaurantInfo[],
     categoryFilter: CategoryFilter
   ): RestaurantInfo[] {
-    if (!Object.keys(RESTAURANT_DISPLAYING_FILTER).includes(categoryFilter)) {
+    if (!Object.keys(CATEGORY_FILTER).includes(categoryFilter)) {
       return restaurantInfos;
     }
 
-    if (categoryFilter === RESTAURANT_DISPLAYING_FILTER.all) {
+    if (categoryFilter === CATEGORY_FILTER.all) {
       return restaurantInfos;
     }
 

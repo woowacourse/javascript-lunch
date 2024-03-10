@@ -1,35 +1,21 @@
-import { CATEGORY } from "./category";
-import { CategoryFilter, SortFilter } from "../types/Filter";
+import { CATEGORY, KOREAN_CATEGORY } from "./category";
 
-export const RESTAURANT_DISPLAYING_FILTER: {
-  [key in CategoryFilter]: CategoryFilter;
-} = {
+export const CATEGORY_FILTER = {
   ...CATEGORY,
   all: "all",
-};
+} as const;
 
-export const KOREAN_RESTAURANT_DISPLAYING_FILTER: {
-  [key: string]: string;
-} = {
-  [RESTAURANT_DISPLAYING_FILTER.all]: "전체",
-  [RESTAURANT_DISPLAYING_FILTER.korean]: "한식",
-  [RESTAURANT_DISPLAYING_FILTER.chinese]: "중식",
-  [RESTAURANT_DISPLAYING_FILTER.japanese]: "일식",
-  [RESTAURANT_DISPLAYING_FILTER.western]: "양식",
-  [RESTAURANT_DISPLAYING_FILTER.asian]: "아시안",
-  [RESTAURANT_DISPLAYING_FILTER.etc]: "기타",
-};
+export const KOREAN_CATEGORY_FILTER = {
+  ...KOREAN_CATEGORY,
+  all: "전체",
+} as const;
 
-export const SORT_FILTER: {
-  [key in SortFilter]: SortFilter;
-} = {
+export const SORT_FILTER = {
   name: "name",
   timeToReach: "timeToReach",
-};
+} as const;
 
-export const KOREAN_SORT_FILTER: {
-  [key: string]: string;
-} = {
+export const KOREAN_SORT_FILTER = {
   [SORT_FILTER.name]: "이름순",
   [SORT_FILTER.timeToReach]: "거리순",
-};
+} as const;
