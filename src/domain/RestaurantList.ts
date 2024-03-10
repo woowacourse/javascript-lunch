@@ -2,8 +2,8 @@ import { CATEGORY_WITH_ENTIRE } from "../constants/selectOptions";
 import sortLetters from "../utils/sortLetters";
 
 class RestaurantList {
-  static #restaurants: Map<string, Restaurant> = new Map();
-  static #sortCallback: Record<
+  #restaurants: Map<string, Restaurant> = new Map();
+  #sortCallback: Record<
     SortStandard,
     (a: Restaurant, b: Restaurant) => number
   > = {
@@ -11,30 +11,34 @@ class RestaurantList {
     거리순: (a: Restaurant, b: Restaurant) => a.distance - b.distance,
   };
 
-  static init(restaurants: Restaurant[] = []) {
+  constructor(restaurants: Restaurant[] = []) {
+    this.init(restaurants);
+  }
+
+  init(restaurants: Restaurant[] = []) {
     const restaurantEntries: [string, Restaurant][] = restaurants.map(
       (restaurant) => [restaurant.name, restaurant]
     );
-    RestaurantList.#restaurants = new Map(restaurantEntries);
+    this.#restaurants = new Map(restaurantEntries);
   }
 
-  static getRestaurants() {
+  getRestaurants() {
     return Array.from(this.#restaurants.values());
   }
 
-  static add(restaurant: Restaurant) {
+  add(restaurant: Restaurant) {
     this.#restaurants.set(restaurant.name, restaurant);
     return this;
   }
 
-  static delete(name: string) {
+  delete(name: string) {
     if (this.#restaurants.get(name) === undefined) {
       throw new Error("NAME IS UNDEFINED");
     }
     this.#restaurants.delete(name);
   }
 
-  static getOrderedRestaurant({
+  getOrderedRestaurant({
     category,
     sortStandard,
   }: {
@@ -47,7 +51,7 @@ class RestaurantList {
     return filteredRestaurant;
   }
 
-  static #filterByCategory(category: CategoryWithEntire) {
+  #filterByCategory(category: CategoryWithEntire) {
     const restaurants = this.getRestaurants();
     if (category === CATEGORY_WITH_ENTIRE[0]) {
       return restaurants;
