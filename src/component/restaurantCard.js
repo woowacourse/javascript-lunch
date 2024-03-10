@@ -1,4 +1,4 @@
-import { KOREAN_CATEGORY } from '../constant/cons';
+import { KOREAN_CATEGORY } from "../constant/select";
 
 function createRestaurantCard(restaurant) {
   const restaurantCard = render(restaurant)

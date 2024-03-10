@@ -1,5 +1,3 @@
-import { $ } from '../utils/selector.js';
-
 function createDropDown({ id, callback, options, className, required, NoneSelcteddefaultMessage }) {
   const dropdown = render({ options, id, className, required ,NoneSelcteddefaultMessage});
 

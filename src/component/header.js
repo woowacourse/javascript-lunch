@@ -1,5 +1,4 @@
-import { APP_NAME } from '../constant/cons.js';
-import { $ } from '../utils/selector.js';
+import { APP_NAME } from '../constant/appString.ts';
 import createNewRestaurantModal from '../web/modal/addRestaurantModal.js';
 import modal from './modal.js';
 

@@ -1,46 +1,47 @@
-import { IRestaurant, Category } from '../domain/interface/IRestaurant';
+import { ERROR_MESSAGE } from '../constant/error';
+import { Restaurant, Category } from '../interface/Restaurant';
 
 export interface IRestaurantManager {
-  add(newRestaurant: IRestaurant): void;
-  getRestaurants(): IRestaurant[];
-  getfilterRestaurants(): IRestaurant[];
-  sortByAscendingName(): IRestaurant[];
-  sortByAscendingWalkingTime(): IRestaurant[];
+  add(newRestaurant: Restaurant): void;
+  getRestaurants(): Restaurant[];
+  getfilterRestaurants(): Restaurant[];
+  sortByAscendingName(): Restaurant[];
+  sortByAscendingWalkingTime(): Restaurant[];
   udateFilterRestaurants(): void;
-  filteredRestaurants(category: Category): IRestaurant[];
+  filteredRestaurants(category: Category): Restaurant[];
 }
 
 export class RestaurantManager implements IRestaurantManager {
-  private restaurants: IRestaurant[];
-  private filterRestaurants: IRestaurant[];
+  private restaurants: Restaurant[];
+  private filterRestaurants: Restaurant[];
 
-  constructor(restaurants: IRestaurant[] = []) {
+  constructor(restaurants: Restaurant[] = []) {
     this.restaurants = [...restaurants];
     this.filterRestaurants = [...restaurants];
   }
 
-  add(newRestaurant: IRestaurant): void {
+  add(newRestaurant: Restaurant): void {
     const hasSameName = this.restaurants.some(
       ({ name }) => name === newRestaurant.name
     );
 
     if (hasSameName) {
-      throw new Error('이미 있는 식당은 다시 추가할 수 없어요.');
+      throw new Error(ERROR_MESSAGE.sameRestaurantName);
     }
-
+    this.filterRestaurants.unshift(newRestaurant);
     this.restaurants.push(newRestaurant);
     localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
   }
 
-  getRestaurants(): IRestaurant[] {
+  getRestaurants(): Restaurant[] {
     return [...this.restaurants];
   }
 
-  getfilterRestaurants(): IRestaurant[] {
+  getfilterRestaurants(): Restaurant[] {
     return [...this.filterRestaurants];
   }
 
-  sortByAscendingName(): IRestaurant[] {
+  sortByAscendingName(): Restaurant[] {
     const sortingReataurants = this.filterRestaurants.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
@@ -55,7 +56,7 @@ export class RestaurantManager implements IRestaurantManager {
     return [...sortingReataurants];
   }
 
-  sortByAscendingWalkingTime(): IRestaurant[] {
+  sortByAscendingWalkingTime(): Restaurant[] {
     const sortingReataurants = this.filterRestaurants.sort((a, b) => {
       const aTime = Number(a.walkingTime);
       const bTime = Number(b.walkingTime);
@@ -87,7 +88,7 @@ export class RestaurantManager implements IRestaurantManager {
     this.filterRestaurants = [...this.restaurants];
   }
 
-  filteredRestaurants(category: Category): IRestaurant[] {
+  filteredRestaurants(category: Category): Restaurant[] {
     this.filterRestaurants = [...this.restaurants].filter(
       (restaurant) => restaurant.category === category
     );
