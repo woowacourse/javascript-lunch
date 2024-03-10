@@ -20,7 +20,7 @@ class Restaurant {
     return this.name;
   }
 
-  getMinutesWalk(): DistanceByWalk {
+  getDistanceByWalk(): DistanceByWalk {
     return this.distanceByWalk;
   }
 
