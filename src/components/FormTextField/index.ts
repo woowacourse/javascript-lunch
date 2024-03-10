@@ -3,46 +3,50 @@ import { Restaurant } from '../../domains';
 import { RestaurantInfoKey, RestaurantInfo } from '../../types';
 
 class FormTextField extends HTMLElement {
+  $customTextField: HTMLElement | undefined;
+
   constructor() {
     super();
   }
 
   connectedCallback() {
-    const shadow = this.attachShadow({ mode: 'open' });
-
+    //label
     const labelText = this.getAttribute('labelText');
     const labelForId = this.getAttribute('labelForId');
-    const key = this.getAttribute('key');
-
     const labelEl = document.createElement('label');
+
     if (labelForId) labelEl.setAttribute('for', labelForId);
     labelEl.textContent = labelText;
+    //style
+    const style = document.createElement('style');
+    style.textContent = `
+    error-message-box{
+      color: var(--lunch-primary-color);
+      font-weight: 500;
+      font-size: 12px;
+      padding=left:18px;
+    }
+    label {
+      margin-bottom: 6px;
+      color: var(--lunch-grey-scale-4-color);
+      font-size: var(--label-font-size);
+      line-height: 20px;
+    }
 
-    const slot = document.createElement('slot'); // Slot 요소 생성
-    slot.setAttribute('name', 'formChild'); // Slot의 이름 설정
-
+`; //customTextContainerEl
+    const customTextContainerEl = document.createElement('div');
+    customTextContainerEl.className = 'custom-text-container';
+    //errorMessage
     const errorMessageBoxEl = document.createElement('error-message-box');
 
-    shadow.innerHTML = `
-      <style>
-        error-message-box{
-          color: var(--lunch-primary-color);
-          font-weight: 500;
-          font-size: 12px;
-        }
-        label {
-          margin-bottom: 6px;
-          color: var(--lunch-grey-scale-4-color);
-          font-size: var(--label-font-size);
-          line-height: 20px;
-        }
-      </style>
-    `;
+    this.appendChild(style);
+    this.appendChild(labelEl);
+    this.appendChild(customTextContainerEl);
+    this.appendChild(errorMessageBoxEl);
+  }
 
-    shadow.appendChild(labelEl);
-    shadow.appendChild(slot);
-    shadow.appendChild(errorMessageBoxEl);
-
+  handleAddEvent() {
+    const key = this.getAttribute('key');
     if (this.#isRestaurantInfoKey(key)) {
       this.#addEventToChange(key);
     }
@@ -63,11 +67,14 @@ class FormTextField extends HTMLElement {
   }
 
   #addEventToChange(key: RestaurantInfoKey) {
-    const slot = this.shadowRoot?.querySelector('slot');
-    const slotContent = slot?.querySelector('slot')?.assignedNodes()[0];
-
-    if (slotContent) {
-      slotContent.addEventListener('change', (event) =>
+    const customTextContainerEl = this.querySelector('.custom-text-container');
+    const inputOrTextareaEl =
+      customTextContainerEl?.firstElementChild?.firstChild;
+    if (
+      inputOrTextareaEl instanceof HTMLInputElement ||
+      inputOrTextareaEl instanceof HTMLTextAreaElement
+    ) {
+      inputOrTextareaEl.addEventListener('change', (event) =>
         this.#handleChangeToValidateValue(event, key),
       );
     }
@@ -76,7 +83,6 @@ class FormTextField extends HTMLElement {
   #handleChangeToValidateValue(event: Event, key: RestaurantInfoKey) {
     const { value } = event.target as HTMLInputElement | HTMLTextAreaElement;
     const newInfo: RestaurantInfo = { ...RESTAURANT_INFO_FOR_VALIDATE_TEST };
-
     (newInfo[key] as string) = value;
 
     try {
@@ -90,12 +96,13 @@ class FormTextField extends HTMLElement {
   }
 
   #handleErrorMessage(error: unknown) {
-    const errorMessageBoxEl =
-      this.shadowRoot?.querySelector('error-message-box');
-
+    const customTextContainerEl = this.querySelector('.custom-text-container');
+    const errorMessageBoxEl = this.querySelector('error-message-box');
+    console.log(error, errorMessageBoxEl);
     if (error instanceof Error && errorMessageBoxEl instanceof HTMLElement) {
       errorMessageBoxEl.textContent = error.message || null;
     }
   }
 }
-customElements.define('form-text-filed', FormTextField);
+
+export default FormTextField;

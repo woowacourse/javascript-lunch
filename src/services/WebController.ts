@@ -7,6 +7,7 @@ import '../components/CustomModal';
 import '../components/CustomInput';
 import '../components/CustomTextarea';
 import '../components/FormTextField';
+import '../components/FormInput';
 import '../components/RestaurantFormModalInner';
 import '../components/ErrorMessageBox';
 import '../components/Restaurant';

@@ -15,22 +15,31 @@ class CustomInput extends HTMLElement {
     const placeholder = this.getAttribute('placeholder');
     const maxlength = this.getAttribute('maxlength');
 
-    this.innerHTML = /* html */ `
-    <input  
-      type="${type}" 
-      name="${name}" 
-      id="${id}" 
-      ${required ? 'required' : ''}  
-      ="${placeholder || ''}" 
-      ${maxlength ? `maxlength=${maxlength}` : ''} 
-    />
-    `;
+    const inputEl = document.createElement('input');
+
+    const inputAttributes = {
+      id: id,
+      type: type,
+      name: `${name}`,
+      required: required,
+      placeholder: placeholder,
+      maxlength: maxlength,
+    };
+
+    Object.entries(inputAttributes).forEach(([key, value]) => {
+      if (value) {
+        key === 'required'
+          ? (inputEl.required = true)
+          : inputEl.setAttribute(key, value);
+      }
+    });
+    this.appendChild(inputEl);
 
     this.querySelector('input')?.addEventListener('change', (event) =>
       this.#handleChange(event),
     );
   }
-
+  addChange(fn: () => void) {}
   #handleChange(event: Event) {
     const eventTarget = event.target;
 
