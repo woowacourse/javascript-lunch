@@ -8,7 +8,7 @@ class DefaultBtn extends HTMLElement {
   connectedCallback() {
     const color = this.getAttribute('color') as BtnColor;
     const text = this.getAttribute('text');
-    const type = this.getAttribute('type') as BtnType;
+    const type = this.getAttribute('type') as BtnType | undefined;
     this.innerHTML = /*html*/ `             
       <button
         type=${type || 'button'}
