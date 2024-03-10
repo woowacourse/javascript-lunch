@@ -2,7 +2,7 @@ import EventComponent from "../abstract/EventComponent";
 import RestaurantItem from "./RestaurantItem";
 import FilterBar from "./FilterBar";
 import Restaurants from "../domain/Restaurants";
-import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
+import { RestaurantInfo } from "../domain/Restaurant";
 
 import { CategoryFilter, SortFilter } from "../types/Filter";
 import restaurantStore from "../store/restaurantStore";
@@ -18,7 +18,7 @@ export default class RestaurantList extends EventComponent {
   private sortFilter: SortFilter;
 
   constructor(
-    restaurants = restaurantStore.getRestaurants(),
+    restaurants = restaurantStore.get(),
     categoryFilter = RESTAURANT_DISPLAYING_FILTER.all,
     sortFilter = SORT_FILTER.name
   ) {
@@ -97,17 +97,15 @@ export default class RestaurantList extends EventComponent {
   }
 
   private handleRestaurantFormSubmit(event: CustomEvent) {
-    const { payload, cleanUp } = event?.detail;
+    const { newRestaurant } = event?.detail;
 
     try {
-      const restaurant = new Restaurant(payload);
-      this.restaurants.add(restaurant);
-      restaurantStore.setRestaurnats(this.restaurants);
+      this.restaurants.add(newRestaurant);
+      restaurantStore.set(this.restaurants);
     } catch (error: any) {
       return alert(error.message);
     }
 
-    cleanUp();
     this.render();
   }
 

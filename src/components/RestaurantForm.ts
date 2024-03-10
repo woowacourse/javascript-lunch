@@ -9,6 +9,7 @@ import {
 import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { $ } from "../utils/selector";
 import { KOREAN_CATEGORY } from "../constants/category";
+import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
 
 customElements.define("form-item", FormItem);
 
@@ -87,34 +88,24 @@ export default class RestaurantForm extends EventComponent {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
 
-    const payload = {
-      ...data,
-      timeToReach: Number(data.timeToReach),
-    };
-
-    const cleanUp = () => {
-      (e.target as HTMLFormElement)?.reset();
+    try {
+      const restaurantInfo = this.extractRestaurantFormData(form);
+      const newRestaurant = new Restaurant(restaurantInfo as RestaurantInfo);
 
       this.dispatchEvent(
-        new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+        new CustomEvent(RESTAURANT_EVENT.restaurantFormSubmit, {
           bubbles: true,
-          detail: { action: MODAL_EVENT_ACTION.close },
+          detail: { newRestaurant },
         })
       );
-    };
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
 
-    this.dispatchEvent(
-      new CustomEvent(RESTAURANT_EVENT.restaurantFormSubmit, {
-        bubbles: true,
-        detail: {
-          payload,
-          cleanUp,
-        },
-      })
-    );
+    this.cleanUpSubmit(form);
   }
 
   private generateCategoryOptions() {
@@ -134,5 +125,26 @@ export default class RestaurantForm extends EventComponent {
     const filteredOptions = convertObjectToOptions(filterLiteralObject);
 
     return JSON.stringify(filteredOptions);
+  }
+
+  private extractRestaurantFormData(form: HTMLFormElement) {
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    return {
+      ...data,
+      timeToReach: Number(data.timeToReach),
+    };
+  }
+
+  private cleanUpSubmit(form: HTMLFormElement) {
+    form.reset();
+
+    this.dispatchEvent(
+      new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+        bubbles: true,
+        detail: { action: MODAL_EVENT_ACTION.close },
+      })
+    );
   }
 }
