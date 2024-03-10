@@ -1,3 +1,4 @@
+import { Attributes } from '../../types';
 import { setObjectAttribute } from '../../utils';
 import FormTextField from '../FormTextField';
 
@@ -7,7 +8,7 @@ class FromInput extends FormTextField {
   }
 
   connectedCallback() {
-    const attributes = {
+    const attributes: Attributes = {
       type: this.getAttribute('type'),
       id: this.getAttribute('labelForId'),
       name: this.getAttribute('labelForId'),
@@ -21,7 +22,7 @@ class FromInput extends FormTextField {
     super.handleAddEvent();
   }
 
-  #setCustomInput(attributes: Object) {
+  #setCustomInput(attributes: Attributes) {
     const customInputEl = setObjectAttribute(
       attributes,
       document.createElement('custom-input'),

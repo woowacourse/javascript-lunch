@@ -1,5 +1,6 @@
+import { CATEGORY, CATEGORY_OPTIONS, DROP_BOX_MAP } from '../constants';
 import { RestaurantList } from '../domains';
-import { Category } from '../types';
+import { Category, DropBoxMapValue } from '../types';
 import RestaurantListController from './RestaurantListController';
 
 const FilteringController = {
@@ -18,12 +19,21 @@ const FilteringController = {
   },
 
   showFilteredSortedList() {
-    const { category, sorting } = this.private_getSelectedOption() as {
-      category: string;
-      sorting: string;
-    };
+    const option = this.private_getSelectedOption();
+    if (!option) return;
 
+    const { category, sorting } = option;
     const restaurantList = new RestaurantList();
+
+    const dropBoxCategories = DROP_BOX_MAP.get(
+      'filteringCategory',
+    )?.options.map((option) => option.value);
+
+    if (
+      !dropBoxCategories ||
+      dropBoxCategories.find((item) => item !== category)
+    )
+      return;
 
     const filteredList =
       category === 'all'
@@ -47,18 +57,21 @@ const FilteringController = {
     return selectedValue;
   },
 
-  private_getSelectedOption() {
-    const filteringCategory = document.getElementById(
-      'filtering-category',
-    ) as HTMLSelectElement;
-    const filteringSorting = document.getElementById(
-      'filtering-sorting',
-    ) as HTMLSelectElement;
+  private_getSelectedOption():
+    | { category: string; sorting: string }
+    | undefined {
+    const filteringCategory = document.getElementById('filtering-category');
+    const filteringSorting = document.getElementById('filtering-sorting');
 
-    return {
-      category: this.private_getSelectedValue(filteringCategory),
-      sorting: this.private_getSelectedValue(filteringSorting),
-    };
+    if (
+      filteringCategory instanceof HTMLSelectElement &&
+      filteringSorting instanceof HTMLSelectElement
+    ) {
+      return {
+        category: this.private_getSelectedValue(filteringCategory),
+        sorting: this.private_getSelectedValue(filteringSorting),
+      };
+    }
   },
 };
 

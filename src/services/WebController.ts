@@ -21,6 +21,7 @@ const WebController = {
     RestaurantListController.injectRestaurantListHTML(
       new RestaurantList().list,
     );
+
     FilteringController.addEventToFiltering();
   },
 };

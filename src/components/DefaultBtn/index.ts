@@ -1,6 +1,6 @@
 import './style.css';
 
-import { BtnType, DefaultBtnColor } from '../../types';
+import { Attributes, BtnType, DefaultBtnColor } from '../../types';
 import { setObjectAttribute } from '../../utils';
 
 class DefaultBtn extends HTMLElement {
@@ -11,7 +11,7 @@ class DefaultBtn extends HTMLElement {
   connectedCallback() {
     const defaultBtnColor: DefaultBtnColor = 'red';
     const defaultBtnType: BtnType = 'button';
-    const attributes = {
+    const attributes: Attributes = {
       class: `btn-color-${this.getAttribute('color') || defaultBtnColor}`,
       type: this.getAttribute('type') || defaultBtnType,
     };

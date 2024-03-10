@@ -2,6 +2,7 @@ import * as xssFilters from 'xss-filters';
 
 import './style.css';
 import { setObjectAttribute } from '../../utils';
+import { Attributes } from '../../types';
 
 class CustomTextarea extends HTMLElement {
   constructor() {
@@ -9,7 +10,7 @@ class CustomTextarea extends HTMLElement {
   }
 
   connectedCallback() {
-    const attributes = {
+    const attributes: Attributes = {
       id: this.getAttribute('id'),
       name: this.getAttribute('name'),
       cols: this.getAttribute('clos'),

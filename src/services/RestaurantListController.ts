@@ -17,17 +17,16 @@ const RestaurantListController = {
   injectRestaurantListHTML(restaurantList?: RestaurantInfo[]) {
     const listEl = document.querySelector('.restaurant-list');
 
-    const innerHTML = restaurantList
+    const restaurantListText = restaurantList
       ?.map(
         (info: RestaurantInfo) =>
           `<restaurant-box name="${info.name}"></restaurant-box>`,
       )
       .join('');
 
+    const noneRestaurant = /* html */ `<p id="none-restaurant-category">해당 카테고리의 음식점이 존재하지 않습니다.</p>`;
     if (listEl) {
-      listEl.innerHTML =
-        innerHTML ||
-        '<p id="none-restaurant">해당 카테고리의 음식점이 존재하지 않습니다.</p>';
+      listEl.innerHTML = restaurantListText || noneRestaurant;
     }
   },
 };

@@ -2,6 +2,7 @@ import * as xssFilters from 'xss-filters';
 
 import './style.css';
 import { setObjectAttribute } from '../../utils';
+import { Attributes } from '../../types';
 
 class CustomInput extends HTMLElement {
   constructor() {
@@ -9,7 +10,7 @@ class CustomInput extends HTMLElement {
   }
 
   connectedCallback() {
-    const attributes = {
+    const attributes: Attributes = {
       id: this.getAttribute('id'),
       type: this.getAttribute('type'),
       name: this.getAttribute('name'),

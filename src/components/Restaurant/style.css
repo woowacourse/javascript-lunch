@@ -55,7 +55,7 @@
   display: none;
 }
 
-.restaurant-list #none-restaurant {
+.restaurant-list #none-restaurant-category {
   position: absolute;
   top: 50%;
   left: 19%;
