@@ -7,6 +7,14 @@ import type {
 } from '../types/dom';
 
 const dom = {
+  getElement(selector: string) {
+    const element = document.querySelector(selector);
+    if (element === null) {
+      throw Error(`${selector} is not found`);
+    }
+    return element;
+  },
+
   create({ tagName, id, classNames, text, children }: IDomCreation) {
     const tag = document.createElement(tagName);
     tag.id = id ?? '';

@@ -49,7 +49,7 @@ class SelectBoxComponent {
   }
 
   renderFilteredList(sortedList: IRestaurantList): void {
-    const $restaurantList = document.querySelector('.restaurant-list') as HTMLElement;
+    const $restaurantList = dom.getElement('.restaurant-list') as HTMLElement;
 
     $restaurantList.replaceChildren();
     sortedList.forEach(element => {
@@ -76,13 +76,13 @@ class SelectBoxComponent {
   }
 
   getSelectedCategory(): TCategory {
-    const $categoryFilter = document.getElementById('category-filter') as HTMLSelectElement;
+    const $categoryFilter = dom.getElement('#category-filter') as HTMLSelectElement;
     const categoryOptions = $categoryFilter.options;
     return categoryOptions[categoryOptions.selectedIndex].text as TCategory;
   }
 
   getSelectedSortingCondition(): TSorting {
-    const $sortingFilter = document.getElementById('sorting-filter') as HTMLSelectElement;
+    const $sortingFilter = dom.getElement('#sorting-filter') as HTMLSelectElement;
     const sortingOptions = $sortingFilter.options;
     return sortingOptions[sortingOptions.selectedIndex].text as TSorting;
   }
