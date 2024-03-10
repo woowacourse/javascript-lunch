@@ -1,5 +1,6 @@
 import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
+import { Category, SortBy } from '../../types';
 
 const LUNCH_DROPDOWN = `
   <select name="dropdown" id="dropdown-filter" class="restaurant-filter"></select>
@@ -39,16 +40,24 @@ class LunchDropdown extends HTMLElement {
     const optionItems: string[] = [];
     if (optionsAttribute === 'category') {
       optionItems.push(DROPDOWN_OPTION('전체'));
-      Object.values(CATEGORIES).forEach((element) => {
-        optionItems.push(DROPDOWN_OPTION(element));
-      });
+      this.handleOptionItems(optionItems, CATEGORIES);
     }
     if (optionsAttribute === 'sortBy') {
-      Object.values(SORTBY).forEach((element) => {
-        optionItems.push(DROPDOWN_OPTION(element));
-      });
+      this.handleOptionItems(optionItems, SORTBY);
     }
+  }
 
+  handleOptionItems(optionItems: string[], object: typeof CATEGORIES | typeof SORTBY) {
+    optionItems.push(
+      ...Object.values(object).map((element) => {
+        const value = element as Category | SortBy;
+        return DROPDOWN_OPTION(value);
+      }),
+    );
+    this.inputOptionItems(optionItems);
+  }
+
+  inputOptionItems(optionItems: string[]) {
     const options = this.querySelector('.restaurant-filter');
     if (options) {
       options.innerHTML = optionItems.join('');
