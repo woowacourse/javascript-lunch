@@ -1,6 +1,7 @@
 import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
-import { Category, MinutesWalk, Sort, CompareFunction, LocationData } from '../constants/Type';
+import { Category, DistanceByWalk, SortOrder } from '../enum/enums';
+import { CompareFunction, RestaurantData } from '../type/types';
 
 class RestaurantService {
   private restaurants: Restaurant[];
@@ -10,9 +11,9 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  getRestaurants(sort: Sort, category?: Category): LocationData[] {
+  getRestaurants(sortOrder: SortOrder, category?: Category): RestaurantData[] {
     const restaurants = category ? this.getRestaurantsByCategory(category) : this.restaurants;
-    const compareFunction = this.getCompareFunction(sort);
+    const compareFunction = this.getCompareFunction(sortOrder);
     const sortedRestaurants = this.getSortedRestaurants(restaurants, compareFunction);
     return sortedRestaurants.map((restaurant) => restaurant.getData());
   }
@@ -21,12 +22,12 @@ class RestaurantService {
     return this.restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
   }
 
-  private getCompareFunction(sort: Sort): CompareFunction {
-    const compareFunctions: { [key in Sort]: (a: Restaurant, b: Restaurant) => number } = {
+  private getCompareFunction(sortOrder: SortOrder): CompareFunction {
+    const compareFunctions: { [key in SortOrder]: (a: Restaurant, b: Restaurant) => number } = {
       이름순: (a, b) => this.compareName(a, b),
       거리순: (a, b) => this.compareMinutesWalk(a, b),
     };
-    return compareFunctions[sort];
+    return compareFunctions[sortOrder];
   }
 
   private getSortedRestaurants(restaurants: Restaurant[], compareFunction: CompareFunction) {
@@ -38,11 +39,11 @@ class RestaurantService {
   }
 
   private compareMinutesWalk(a: Restaurant, b: Restaurant): number {
-    const compareResult = a.getMinutesWalk() - b.getMinutesWalk();
-    return compareResult === 0 ? a.getName().localeCompare(b.getName()) : compareResult;
+    const compareResult = parseInt(a.getMinutesWalk()) - parseInt(b.getMinutesWalk());
+    return compareResult === 0 ? this.compareName(a, b) : compareResult;
   }
 
-  addRestaurant(restaurant: LocationData) {
+  addRestaurant(restaurant: RestaurantData) {
     this.restaurants.push(new Restaurant(restaurant));
     this.saveRestaurants(this.restaurants);
   }
@@ -54,17 +55,17 @@ class RestaurantService {
   private loadRestaurants(): Restaurant[] {
     const restaurants = localStorage.getItem('restaurants');
     if (restaurants) {
-      return JSON.parse(restaurants).map((object: LocationData) => new Restaurant(object));
+      return JSON.parse(restaurants).map((object: RestaurantData) => new Restaurant(object));
     }
-    return this.loadDefaultRestaurantData().map((object: LocationData) => new Restaurant(object));
+    return this.loadDefaultRestaurantData().map((object: RestaurantData) => new Restaurant(object));
   }
 
-  private loadDefaultRestaurantData(): LocationData[] {
+  private loadDefaultRestaurantData(): RestaurantData[] {
     return defaultRestaurant.map((restaurant) => {
-      const restaurantObject: LocationData = {
+      const restaurantObject: RestaurantData = {
         name: restaurant.name,
         category: restaurant.category as Category,
-        minutesWalk: restaurant.minutesWalk as MinutesWalk,
+        distanceByWalk: restaurant.distanceByWalk as DistanceByWalk,
         description: restaurant.description,
         referenceUrl: restaurant.referenceUrl,
       };

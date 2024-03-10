@@ -1,11 +1,11 @@
-import { LocationData } from '../constants/Type';
+import { RestaurantData } from '../type/types';
 
 const RestaurantValidator = {
-  validateUserInput(locationData: LocationData) {
-    if (!locationData.category || !locationData.minutesWalk) {
+  validateUserInput(restaurantData: RestaurantData) {
+    if (!restaurantData.category || !restaurantData.distanceByWalk) {
       throw new Error('값을 입력해주세요.');
     }
-    this.validateRestaurantName(locationData.name);
+    this.validateRestaurantName(restaurantData.name);
   },
 
   validateRestaurantName(userInput: string) {

@@ -1,11 +1,11 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { LocationData } from '../../../constants/Type';
-import { $ } from '../../../utils/domSelector';
+import { RestaurantData } from '../../../type/types';
+import { $ } from '../../../util/domSelector';
 
-class RestaurantList extends HTMLElement {
-  private restaurants: LocationData[];
+export default class RestaurantList extends HTMLElement {
+  private restaurants: RestaurantData[];
 
-  constructor(restaurants: LocationData[]) {
+  constructor(restaurants: RestaurantData[]) {
     super();
     this.restaurants = restaurants;
   }
@@ -33,4 +33,3 @@ class RestaurantList extends HTMLElement {
 }
 
 customElements.define('restaurant-list', RestaurantList);
-export default RestaurantList;

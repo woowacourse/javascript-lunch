@@ -1,5 +1,5 @@
-import { TYPE_SETTING } from '../../../constants/setting';
-import { $ } from '../../../utils/domSelector';
+import { Category, SortOrder } from '../../../enum/enums';
+import { $ } from '../../../util/domSelector';
 
 class SelectBoxSection extends HTMLElement {
   connectedCallback() {
@@ -18,7 +18,7 @@ class SelectBoxSection extends HTMLElement {
 
     $('#sorting-filter').addEventListener('change', (event: Event) => {
       this.dispatchEvent(
-        new CustomEvent('changeSort', {
+        new CustomEvent('changeSortOrder', {
           detail: (event.target as HTMLSelectElement).value,
         }),
       );
@@ -26,14 +26,14 @@ class SelectBoxSection extends HTMLElement {
   }
 
   private getCategoryName() {
-    return TYPE_SETTING.category.map((category) => {
+    return Object.values(Category).map((category) => {
       return `<option value="${category}">${category}</option>`;
     });
   }
 
-  private getFilterName() {
-    return TYPE_SETTING.sort.map((filter) => {
-      return `<option value="${filter}">${filter}</option>`;
+  private getSortOrderName() {
+    return Object.values(SortOrder).map((sortOrder) => {
+      return `<option value="${sortOrder}">${sortOrder}</option>`;
     });
   }
 
@@ -47,7 +47,7 @@ class SelectBoxSection extends HTMLElement {
 
         <!-- 정렬 셀렉트 박스 -->
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          ${this.getFilterName()}
+          ${this.getSortOrderName()}
         </select>
       </section>
       `;

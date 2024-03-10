@@ -1,10 +1,10 @@
-import { LocationData } from '../../../constants/Type';
-import { ASSETS } from '../../../constants/setting';
+import { RestaurantData } from '../../../type/types';
+import { Asset } from '../../../asset/asset';
 
-class RestaurantItem extends HTMLElement {
-  private restaurantData: LocationData;
+export default class RestaurantItem extends HTMLElement {
+  private restaurantData: RestaurantData;
 
-  constructor(restaurantData: LocationData) {
+  constructor(restaurantData: RestaurantData) {
     super();
     this.restaurantData = restaurantData;
   }
@@ -17,12 +17,12 @@ class RestaurantItem extends HTMLElement {
     this.innerHTML = `
       <li class="restaurant">
         <div class="restaurant__category">
-          <img src="${ASSETS.imageUrl[this.restaurantData.category]}" \
+          <img src="${Asset.imageUrl[this.restaurantData.category]}" \
           alt="${this.restaurantData.category}" class="category-icon" />
         </div>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${this.restaurantData.name}</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 ${this.restaurantData.minutesWalk}분 내</span>
+          <span class="restaurant__distance text-body">캠퍼스부터 ${this.restaurantData.distanceByWalk}분 내</span>
           <p class="restaurant__description text-body">${this.restaurantData.description}</p>
         </div>
       </li>
@@ -31,4 +31,3 @@ class RestaurantItem extends HTMLElement {
 }
 
 customElements.define('restaurant-item', RestaurantItem);
-export default RestaurantItem;
