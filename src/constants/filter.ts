@@ -1,4 +1,4 @@
-import type { IButtonAttributes, IDomAttributes, ISelectAttributes, ISelectOption } from '../types/selectBox';
+import type { IButtonAttributes, ISelectAttributes, IOptionAttributes } from '../types/dom';
 
 import korean from '../../templates/category-korean.png';
 import chinese from '../../templates/category-chinese.png';
@@ -10,7 +10,7 @@ import type { TCategory } from '../types/restaurant';
 
 const ALL = '전체';
 
-const FOOD_CATEGORY: ISelectOption[] = [
+const FOOD_CATEGORY: IOptionAttributes[] = [
   { value: '한식', text: '한식' },
   { value: '중식', text: '중식' },
   { value: '일식', text: '일식' },
@@ -19,26 +19,30 @@ const FOOD_CATEGORY: ISelectOption[] = [
   { value: '기타', text: '기타' },
 ];
 
-const FILTERED_CATEGORY_ATTRIBUTE: IDomAttributes = {
+const FILTERED_CATEGORY_ATTRIBUTE: ISelectAttributes = {
   name: 'category',
   id: 'category-filter',
-  class: ['restaurant-filter'],
+  classNames: ['restaurant-filter'],
 };
-const FILTERED_CATEGORY: ISelectOption[] = [{ value: ALL, text: ALL }, ...FOOD_CATEGORY];
+const FILTERED_CATEGORY: IOptionAttributes[] = [{ value: ALL, text: ALL }, ...FOOD_CATEGORY];
 
 const BY_NAME_ASC = '이름순';
 const BY_DISTANCE_ASC = '거리순';
-const SORTING_ATTRIBUTE: IDomAttributes = { name: 'sorting', id: 'sorting-filter', class: ['restaurant-filter'] };
-const SORTING: ISelectOption[] = [
+const SORTING_ATTRIBUTE: ISelectAttributes = {
+  name: 'sorting',
+  id: 'sorting-filter',
+  classNames: ['restaurant-filter'],
+};
+const SORTING: IOptionAttributes[] = [
   { value: 'name', text: BY_NAME_ASC },
   { value: 'distance', text: BY_DISTANCE_ASC },
 ];
 
 const FORM_CATEGORY_ATTRIBUTE: ISelectAttributes = { name: 'category', id: 'category', required: true };
-const FORM_CATEGORY: ISelectOption[] = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
+const FORM_CATEGORY: IOptionAttributes[] = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
 
 const FORM_DISTANCE_ATTRIBUTE: ISelectAttributes = { name: 'distance', id: 'distance', required: true };
-const FORM_DISTANCE: ISelectOption[] = [
+const FORM_DISTANCE: IOptionAttributes[] = [
   { value: '', text: '선택해 주세요' },
   { value: '5', text: '5분 내' },
   { value: '10', text: '10분 내' },
@@ -50,12 +54,12 @@ const FORM_DISTANCE: ISelectOption[] = [
 const CLOSE_BUTTON_ATTRIBUTE: IButtonAttributes = {
   id: 'button-close',
   type: 'button',
-  class: ['button', 'button--secondary', 'text-caption'],
+  classNames: ['button', 'button--secondary', 'text-caption'],
   text: '취소하기',
 };
 const ADD_BUTTON_ATTRIBUTE: IButtonAttributes = {
   id: 'button-add',
-  class: ['button', 'button--primary', 'text-caption'],
+  classNames: ['button', 'button--primary', 'text-caption'],
   text: '추가하기',
 };
 

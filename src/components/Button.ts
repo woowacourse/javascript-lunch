@@ -1,4 +1,5 @@
-import type { IButtonAttributes } from '../types/selectBox';
+import type { IButtonAttributes } from '../types/dom';
+import dom from '../utils/dom';
 
 interface IButton {
   $target: HTMLElement;
@@ -24,23 +25,9 @@ class Button {
   }
 
   render(): void {
-    const buttonTag = this.#getButtonTag();
+    const { name, id, classNames, type, text } = this.attributes;
+    const buttonTag = dom.createButtonTag({ name, id, classNames, type, text });
     this.$target.appendChild(buttonTag);
-  }
-
-  #getButtonTag(): HTMLButtonElement {
-    const buttonTag = document.createElement('button');
-    const { name, id, class: classNames, type, text } = this.attributes;
-    buttonTag.name = name ?? '';
-    buttonTag.id = id ?? '';
-    if (classNames != null) {
-      classNames.forEach(className => {
-        buttonTag.classList.add(className);
-      });
-    }
-    buttonTag.type = type ?? 'submit';
-    buttonTag.textContent = text ?? '';
-    return buttonTag;
   }
 }
 

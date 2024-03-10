@@ -1,10 +1,11 @@
-import type { ISelectAttributes, ISelectOption } from '../types/selectBox';
+import type { ISelectAttributes, IOptionAttributes } from '../types/dom';
+import dom from '../utils/dom';
 
 interface ISelectBox {
   $target: HTMLElement;
   attributes: ISelectAttributes;
   eventHandler: () => void;
-  options: ISelectOption[];
+  options: IOptionAttributes[];
 }
 
 class SelectBoxComponent {
@@ -29,31 +30,15 @@ class SelectBoxComponent {
   render(): void {
     const selectTag = this.#getSelectTag();
     this.options.forEach(option => {
-      const optionTag = this.#getOptionTag(option);
+      const optionTag = dom.createOptionTag({ value: option.value, text: option.text });
       selectTag.appendChild(optionTag);
     });
     this.$target.appendChild(selectTag);
   }
 
   #getSelectTag(): HTMLSelectElement {
-    const { name, id, class: classNames, required } = this.attributes;
-    const selectTag = document.createElement('select');
-    selectTag.name = name ?? '';
-    selectTag.id = id ?? '';
-    if (classNames != null) {
-      classNames.forEach(className => {
-        selectTag.classList.add(className);
-      });
-    }
-    selectTag.required = required ?? false;
-    return selectTag;
-  }
-
-  #getOptionTag(selectOption: ISelectOption): HTMLOptionElement {
-    const optionTag = document.createElement('option');
-    optionTag.value = selectOption.value;
-    optionTag.textContent = selectOption.text;
-    return optionTag;
+    const { name, id, classNames, required } = this.attributes;
+    return dom.createSelectTag({ name, id, classNames, required });
   }
 }
 
