@@ -1,4 +1,4 @@
-import '../assets/css/main.css';
+import '../styles/main.css';
 import '../components/CategoryIcon/style.css';
 import '../components/CategoryIcon/index.ts';
 import '../components/AddBtn/index.ts';
