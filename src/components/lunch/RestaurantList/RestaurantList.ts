@@ -1,7 +1,6 @@
 import "./RestaurantList.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
-import { CustomEventListenerDictionary } from "../../BaseComponent/BaseComponent.type";
 
 import Restaurant from "../../../domain/Restaurant/Restaurant";
 import { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
@@ -18,7 +17,7 @@ class RestaurantList extends BaseComponent {
 
   private sortType: SortCategory = SORT_CATEGORIES_TYPE.name;
 
-  private eventListeners: CustomEventListenerDictionary = {
+  private eventListeners = {
     addRestaurant: {
       eventName: CUSTOM_EVENT_TYPE.addRestaurant,
       eventHandler: this.handleRerenderRestaurantList.bind(this),
@@ -33,7 +32,7 @@ class RestaurantList extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.filterCategory,
       eventHandler: this.handleFilterRestaurantItems.bind(this),
     },
-  };
+  } as const;
 
   protected render(): void {
     this.innerHTML = `

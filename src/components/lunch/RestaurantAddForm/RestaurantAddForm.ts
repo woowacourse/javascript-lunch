@@ -1,7 +1,6 @@
 import "./RestaurantAddForm.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
-import type { CustomEventListenerDictionary } from "../../BaseComponent/BaseComponent.type";
 
 import Restaurant from "../../../domain/Restaurant/Restaurant";
 import type { Distance } from "../../../domain/Restaurant/Restaurant.type";
@@ -16,7 +15,7 @@ import { isUserInputValues } from "../../../utils/typeGuard";
 class RestaurantAddForm extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = [5, 10, 15, 20, 30];
 
-  private eventListeners: CustomEventListenerDictionary = {
+  private eventListeners = {
     resetForm: {
       eventName: CUSTOM_EVENT_TYPE.resetForm,
       eventHandler: this.handleResetForm.bind(this),
@@ -31,7 +30,7 @@ class RestaurantAddForm extends BaseComponent {
       eventName: "click",
       eventHandler: this.handleCancelButton.bind(this),
     },
-  };
+  } as const;
 
   protected render(): void {
     const menuCategoryWithoutAllOptions =
@@ -146,6 +145,8 @@ class RestaurantAddForm extends BaseComponent {
 
   private addUserInputRestaurantDetail() {
     const userInputRestaurantDetail = this.createFormDataToRestaurantDetail();
+
+    console.log(userInputRestaurantDetail);
 
     if (userInputRestaurantDetail) {
       const restaurant = new Restaurant();

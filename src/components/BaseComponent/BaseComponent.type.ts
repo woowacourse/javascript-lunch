@@ -8,7 +8,3 @@ export interface CustomEventListener {
   eventName: CustomEventType | keyof HTMLElementEventMap;
   eventHandler: (event: Event) => void;
 }
-
-export type CustomEventListenerDictionary = {
-  [key: string]: Omit<CustomEventListener, "target">;
-};

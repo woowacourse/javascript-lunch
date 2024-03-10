@@ -1,5 +1,4 @@
 import BaseComponent from "../../BaseComponent/BaseComponent";
-import type { CustomEventListenerDictionary } from "../../BaseComponent/BaseComponent.type";
 
 import { $ } from "../../../utils/dom";
 import { createOptionElements } from "../../../utils/createOptionElements";
@@ -8,12 +7,12 @@ import { isCustomEventType } from "../../../utils/typeGuard";
 import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
 
 class CommonDropdown extends BaseComponent {
-  private eventListeners: CustomEventListenerDictionary = {
+  private eventListeners = {
     dropDown: {
       eventName: "change",
       eventHandler: this.handleChange.bind(this),
     },
-  };
+  } as const;
 
   protected render(): void {
     const id = this.getAttribute("id");
