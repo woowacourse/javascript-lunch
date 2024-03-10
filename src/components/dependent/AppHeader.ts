@@ -4,11 +4,14 @@ import Component from '../Component';
 import { EventInfo } from '../../types/component';
 
 class AppHeaderComponent extends Component {
+  // NOTE: Custom Element는 Self Closing 형식을 사용할 수 없다.
   protected setTemplate() {
     return `
       <template>
-        <header-title />
-        <modal-open-button />
+        <div class="app-header">
+          <header-title></header-title>
+          <modal-open-button></modal-open-button>
+        </div>
       </template>`;
   }
 

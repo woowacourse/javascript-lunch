@@ -1,4 +1,4 @@
-import '../../styles/headerTitle.css';
+import '../../styles/modalOpenButton.css';
 
 import ADD_BUTTON_IMAGE from '../../assets/images/add-button.png';
 
@@ -9,7 +9,7 @@ class ModalOpenButton extends Component {
   protected setTemplate() {
     return `
       <template>
-        <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <button type="button" class="modal-open-button" aria-label="음식점 추가">
           <img src=${ADD_BUTTON_IMAGE} alt="음식점 추가">
         </button>
       </template>`;
