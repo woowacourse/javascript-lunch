@@ -8,7 +8,7 @@ import etcIcon from '@/assets/category-etc.png';
 import { Category, IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantItem.css';
-export const Icons: { [key: Category]: string } = {
+export const Icons: { [key in Category]: string } = {
   한식: koreanIcon,
   아시안: asianIcon,
   일식: japaneseIcon,

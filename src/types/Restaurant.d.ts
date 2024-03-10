@@ -1,16 +1,18 @@
 import { CATEGORIES, CONDITIONS } from '@/constants/Condition';
 export interface IRestaurant {
   name: string;
-  distance: Distance;
+  distance: DistanceNumeric;
   category: Category;
   description?: string;
   link?: string;
 }
 
 export type Category = keyof typeof CATEGORIES;
-export type RequiredCategoriesKeys = '선택해주세요' | CategoryKey;
+export type CategoryOrPlaceholder = '선택해주세요' | Category;
+export type CategoryOrAll = '전체' | Category;
 
-export type Distance = (typeof CONDITIONS.DISTANCES)[number];
-export type RequiredDistanceKeys = '선택해주세요' | Distance;
+export type DistanceNumeric = (typeof CONDITIONS.DISTANCES)[number];
+export type NumberToString<T> = T extends number ? `${T}` : never;
 
+export type DistanceOrPlaceholder = '선택해주세요' | NumberToString<DistanceNumeric>;
 export type SortCriteria = keyof typeof CONDITIONS.SORT_CRITERION;

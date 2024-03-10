@@ -1,8 +1,8 @@
-import { Category, IRestaurant, Distance } from '../../types/Restaurant';
+import { Category, IRestaurant, DistanceNumeric } from '../../types/Restaurant';
 
 class Restaurant implements IRestaurant {
   name: string;
-  distance: Distance;
+  distance: DistanceNumeric;
   category: Category;
   description?: string;
   link?: string;

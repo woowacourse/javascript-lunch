@@ -1,5 +1,5 @@
 import { CONDITIONS } from '@/constants/Condition';
-import { Category, IRestaurant } from '../../types/Restaurant';
+import { Category, CategoryOrAll, IRestaurant } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
 class RestaurantCollection {
@@ -13,7 +13,7 @@ class RestaurantCollection {
     return this.restaurantList.map((restaurant) => restaurant.get());
   }
 
-  filterByCategory(category: Category) {
+  filterByCategory(category: CategoryOrAll) {
     if (category === '전체') return this.restaurantList.map((restaurant) => restaurant.get());
     return this.restaurantList
       .filter((restaurant) => restaurant.get().category === category)

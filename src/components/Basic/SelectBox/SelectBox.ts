@@ -1,32 +1,33 @@
 import BaseComponent from '@/components/BaseComponent';
 
 import './SelectBox.css';
-class SelectBox extends BaseComponent {
-  #optionValues;
+class SelectBox<T extends string> extends HTMLSelectElement {
+  #optionValues: T[];
   #name;
 
-  constructor(optionValues: string[], name: string) {
+  constructor(optionValues: T[], name: string) {
     super();
     this.#optionValues = optionValues;
     this.#name = name;
+    this.render();
   }
 
   render() {
     const selectTag = this.#makeSelectTag();
-    this.outerHTML = selectTag.outerHTML; // TODO: 임시방편인 outerHTML 없애도록.
-    //this.append(selectTag);
+    // this.append(selectTag);
+    // this.outerHTML = selectTag.outerHTML; // TODO: 임시방편인 outerHTML 없애도록.
   }
 
   #makeSelectTag() {
-    const selectTag = document.createElement('select');
+    // const this = document.createElement('select');
     //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 class 다름 => 고치기
-    selectTag.classList.add('restaurant-filter');
-    selectTag.name = this.#name;
+    this.className = 'restaurant-filter';
+    this.name = this.#name;
     //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 아이디가 다름 => 고치기
-    selectTag.id = `${this.#name}-filter`;
+    this.id = `${this.#name}-filter`;
 
-    selectTag.append(this.#makeOptionTags());
-    return selectTag;
+    this.append(this.#makeOptionTags());
+    return this;
   }
 
   #makeOptionTags() {
@@ -43,4 +44,4 @@ class SelectBox extends BaseComponent {
 
 export default SelectBox;
 
-customElements.define('select-box', SelectBox);
+customElements.define('select-box', SelectBox, { extends: 'select' });

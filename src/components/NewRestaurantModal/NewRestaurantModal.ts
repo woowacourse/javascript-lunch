@@ -4,17 +4,25 @@ import SelectBox from '../Basic/SelectBox/SelectBox';
 import BaseComponent from '../BaseComponent';
 import BasicButton from '../Basic/BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import { IRestaurant, RequiredCategoriesKeys, RequiredDistanceKeys } from '@/types/Restaurant';
+import {
+  IRestaurant,
+  CategoryOrPlaceholder,
+  DistanceOrPlaceholder,
+  CategoryOrAll,
+  Category,
+  DistanceNumeric,
+} from '@/types/Restaurant';
 
 import './NewRestaurantModal.css';
 import FilterContainer from '../FilterContainer/FilterContainer';
 class NewRestaurantModal extends BaseComponent {
-  #form;
+  #form: HTMLFormElement;
   #title;
 
   constructor() {
     super();
-    this.#form = document.createElement('form');
+    // this.#form = document.createElement('form');
+    this.#form = this.#makeForm();
     this.#title = document.createElement('h2');
 
     this.#title.classList.add('modal-title', 'text-title');
@@ -27,19 +35,21 @@ class NewRestaurantModal extends BaseComponent {
     const $fragment = new DocumentFragment();
     $fragment.append(this.#title);
     $fragment.append(this.#form);
+    //this.attachShadow({ mode: 'open' });
     this.append(new BasicModal($fragment));
   }
 
   #makeForm() {
+    this.#form = document.createElement('form');
     this.#makeCategorySelectBox();
     this.#makeNameInput();
     this.#makeDistanceSelectBox();
     this.#makeDescriptionTextArea();
     this.#makeLinkInput();
     this.#makeButtons();
-
     this.#submitForm();
     this.closeModal();
+    return this.#form;
   }
 
   #makeCategorySelectBox() {
@@ -51,8 +61,14 @@ class NewRestaurantModal extends BaseComponent {
     $categoryLabel.textContent = '카테고리';
     $categorySelectBox.append($categoryLabel);
 
-    const CATEGORIES_KEYS_REQUIRED = ['선택해주세요', ...CATEGORIES_KEYS];
-    const $categorySelect = new SelectBox(CATEGORIES_KEYS_REQUIRED, 'category');
+    const CATEGORIES_KEYS_WITH_PLACEHOLDER: CategoryOrPlaceholder[] = [
+      '선택해주세요',
+      ...CATEGORIES_KEYS,
+    ];
+    const $categorySelect = new SelectBox<CategoryOrPlaceholder>(
+      CATEGORIES_KEYS_WITH_PLACEHOLDER,
+      'category',
+    );
     $categorySelectBox.append($categorySelect);
 
     const errorBox = document.createElement('div');
@@ -133,11 +149,7 @@ class NewRestaurantModal extends BaseComponent {
     this.#form.append($buttonBox);
   }
 
-  #validateRequiredValues(
-    category: RequiredCategoriesKeys,
-    distance: RequiredDistanceKeys,
-    name: string | null,
-  ) {
+  #validateRequiredValues(category: CategoryOrPlaceholder, distance: number, name: string | null) {
     const isNotValidCategory = category === '선택해주세요';
     const isNotValidDistance = Number.isNaN(distance);
     const isNotValidName = !name;
@@ -150,21 +162,23 @@ class NewRestaurantModal extends BaseComponent {
     if (isNotValidName) {
       document.querySelector('.name-input-box > .error')?.classList.remove('hidden');
     }
-    return isNotValidCategory || isNotValidDistance || isNotValidName;
+    return !isNotValidCategory || isNotValidDistance || isNotValidName;
   }
 
   #submitForm() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.#hideErrorMessage();
-      const [name, distance, category, description, link] = this.#getValues();
+      const { name, distance, category, description, link } = this.#getValues();
 
       if (this.#validateRequiredValues(category, distance, name)) return;
 
+      const distanceNumeric = distance as DistanceNumeric;
+      const categoryOnly = category as Category;
       const newRestaurant: IRestaurant = {
         name,
-        distance,
-        category,
+        distance: distanceNumeric,
+        category: categoryOnly,
         ...(description && { description }),
         ...(link && { link }),
       };
@@ -187,16 +201,24 @@ class NewRestaurantModal extends BaseComponent {
     document.querySelector('.name-input-box > .error')?.classList.add('hidden');
   }
 
-  #getValues() {
-    const name: RequiredCategoriesKeys = (this.#form.elements.namedItem('name') as HTMLInputElement)
-      .value;
-    const distance: RequiredDistanceKeys = Number(
-      (this.#form.elements.namedItem('distance') as HTMLSelectElement).value.slice(0, -3),
+  #getValues(): {
+    name: string;
+    distance: number;
+    category: CategoryOrPlaceholder;
+    description: string;
+    link: string;
+  } {
+    const name: string = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
+    const distance = Number(
+      (this.#form.elements.namedItem('distance') as HTMLSelectElement).value.slice(
+        0,
+        -3,
+      ) as DistanceOrPlaceholder,
     );
-    const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
+    const category = this.#form.$categorySelect.value;
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
     const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
-    return [name, distance, category, description, link];
+    return { name, distance, category, description, link };
   }
 
   #rerenderByFilter() {
