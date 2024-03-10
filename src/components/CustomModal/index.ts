@@ -1,3 +1,5 @@
+import './style.css';
+
 class CustomModal extends HTMLElement {
   constructor() {
     super();
@@ -6,11 +8,7 @@ class CustomModal extends HTMLElement {
 
     shadow.innerHTML = /* html */ `
     <style>
-      custom-modal {
-        display: block;
-        width: inherit;
-        height: inherit;
-      }
+
 
       .modal {
         display: none;

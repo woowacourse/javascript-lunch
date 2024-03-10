@@ -29,14 +29,12 @@ class CategoryIcon extends HTMLElement {
   connectedCallback() {
     const category = this.getAttribute('category');
 
-    if (category && category in Object.keys(CATEGORY)) {
+    if (category && Object.keys(CATEGORY).includes(category)) {
       const item = iconMap.get(category as Category);
 
       const { imageUrl, alt } = item as IconMapValue;
 
-      this.innerHTML = /* html */ `          
-        <img src="${imageUrl}" alt="${alt}" />         
-      `;
+      this.innerHTML = `<img src="${imageUrl}" alt="${alt}"/>`;
     }
   }
 }
