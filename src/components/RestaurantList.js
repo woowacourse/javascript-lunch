@@ -18,13 +18,15 @@ class RestaurantList extends Component {
   template() {
     return `
     <section class="restaurant-list-container">
-      ${this.#restaurants
-        .map(
-          (restaurant) =>
-            `<restaurant-info category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-info>`,
-        )
-        .join('')}
-      </section>
+      <ol>
+        ${this.#restaurants
+          .map(
+            (restaurant) =>
+              `<restaurant-info category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-info>`,
+          )
+          .join('')}
+      </ol>
+    </section>
     `;
   }
 }
