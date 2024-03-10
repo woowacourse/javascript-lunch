@@ -47,3 +47,10 @@
 
   color: var(--grey-100);
 }
+
+.button:disabled {
+  background: var(--grey-300);
+
+  color: var(--grey-100);
+  cursor: not-allowed;
+}
