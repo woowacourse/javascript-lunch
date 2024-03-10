@@ -1,4 +1,4 @@
-import InputProps from './props/InputProps';
+import InputProps from './InputProps';
 
 class Input extends HTMLInputElement {
   constructor(props: InputProps) {

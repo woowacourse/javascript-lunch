@@ -1,4 +1,4 @@
-import ImageProps from './props/ImageProps';
+import ImageProps from './ImageProps';
 
 class Image extends HTMLImageElement {
   constructor(props: ImageProps) {

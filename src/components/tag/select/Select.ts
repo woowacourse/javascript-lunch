@@ -1,9 +1,8 @@
-import Option from './Option';
-import OptionProps from './props/OptionProps';
-import SelectProps from './props/SelectProps';
-import DOM from '../../utils/DOM';
+import DOM from '../../../utils/DOM';
+import { SelectProps } from '../select';
+import { Option, OptionProps } from '../option';
 
-const {insertElementsInTarget} = DOM;
+const { insertElementsInTarget } = DOM;
 
 class Select extends HTMLSelectElement {
   constructor(props: SelectProps) {

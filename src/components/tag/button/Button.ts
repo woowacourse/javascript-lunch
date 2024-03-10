@@ -1,4 +1,4 @@
-import ButtonProps from './props/ButtonProps';
+import ButtonProps from './ButtonProps';
 
 class Button extends HTMLButtonElement {
   constructor(props: ButtonProps) {

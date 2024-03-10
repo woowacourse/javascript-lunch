@@ -1,4 +1,4 @@
-import OptionProps from './props/OptionProps';
+import OptionProps from './OptionProps';
 
 class Option extends HTMLOptionElement {
   constructor(props: OptionProps) {

@@ -1,17 +1,15 @@
-import {
-  LabelProps,
-  OptionProps,
-  SelectProps,
-  InputProps,
-  TextAreaProps,
-  CaptionProps,
-  ButtonProps,
-} from './tag/props';
 
-import { Button } from './tag';
+
 import Condition from '../constants/Condition';
-
 import FormItem from './FormItem';
+
+import { Button, ButtonProps } from './tag/button';
+import { CaptionProps } from './tag/caption';
+import { InputProps } from './tag/input';
+import { LabelProps } from './tag/label';
+import { OptionProps } from './tag/option';
+import { SelectProps } from './tag/select';
+import { TextAreaProps } from './tag/textarea';
 
 const { REGULAR_EXPRESSION } = Condition;
 

@@ -4,8 +4,10 @@ import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
-import { Select, Input, TextArea } from './components/tag';
 import ListContainer from './components/ListContainer';
+import { Select } from './components/tag/select';
+import { TextArea } from './components/tag/textarea';
+import { Input } from './components/tag/input';
 
 const { $, $$, insertElementsInTarget } = DOM;
 

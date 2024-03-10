@@ -1,4 +1,4 @@
-import TextAreaProps from './props/TextAreaProps';
+import TextAreaProps from './TextAreaProps';
 
 class TextArea extends HTMLTextAreaElement {
   constructor(props: TextAreaProps) {

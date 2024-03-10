@@ -1,5 +1,8 @@
-import { Label, Select, Caption, Input, TextArea } from './tag';
-import { LabelProps, SelectProps, CaptionProps, InputProps, TextAreaProps } from './tag/props';
+import { Caption, CaptionProps } from "./tag/caption";
+import { Input, InputProps } from "./tag/input";
+import { Label, LabelProps } from "./tag/label";
+import { Select, SelectProps } from "./tag/select";
+import { TextArea, TextAreaProps } from "./tag/textarea";
 
 interface FormItemProps {
   required: boolean;

@@ -1,4 +1,4 @@
-import OptionProps from './OptionProps';
+import OptionProps from '../option/OptionProps';
 
 type SelectProps = {
   name: string;

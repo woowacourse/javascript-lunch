@@ -1,4 +1,4 @@
-import CaptionProps from './props/CaptionProps';
+import CaptionProps from './CaptionProps';
 
 class Caption extends HTMLSpanElement {
   constructor(props: CaptionProps) {
