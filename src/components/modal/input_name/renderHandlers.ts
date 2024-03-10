@@ -11,7 +11,7 @@ export const renderBaseComponents = (form: Element) => {
 };
 
 export const renderInputComponents = () => {
-  const formItem = document.getElementsByClassName('form-item')[1];
+  const formItem = document.getElementsByClassName('form-item')[0];
 
   formItem.appendChild(generateLabelComponent(NAME_LABEL_COMPONENT_DATA));
   formItem.appendChild(generateInputComponent(NAME_INPUT_COMPONENT_DATA));

@@ -8,7 +8,7 @@ import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
 import inputLinkTemplate from './inputLinkTemplate';
 
-export const renderBaseComponents = (form: Element) => {
+export const renderBaseLinkComponents = (form: Element) => {
   form.appendChild(convertHTMLStringToDOM(inputLinkTemplate));
 };
 

@@ -1,8 +1,8 @@
-import { inputLinkHandler } from './handlers';
-import { renderBaseComponents, renderLinkComponents } from './renderHandlers';
+import { inputLinkHandler } from './eventHandlers';
+import { renderBaseLinkComponents, renderLinkComponents } from './renderHandlers';
 
 function InputLink(form: Element) {
-  renderBaseComponents(form);
+  renderBaseLinkComponents(form);
   renderLinkComponents();
 
   inputLinkHandler();

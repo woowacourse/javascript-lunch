@@ -1,4 +1,4 @@
-import { MODAL_RESTAURANT_CATEGORY_UI_OPTIONS } from './componentsData/restaurantCategoryUiOptions';
+import { MODAL_RESTAURANT_CATEGORY_UI_OPTIONS } from './selectOptions/restaurantCategoryUiOptions';
 
 const SELECT_CATEGORY_COMPONENT_DATA = Object.freeze({
   UI_OPTIONS: MODAL_RESTAURANT_CATEGORY_UI_OPTIONS,

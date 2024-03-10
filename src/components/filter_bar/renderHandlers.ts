@@ -3,9 +3,9 @@ import SORT_BY_NAME_OR_CATEGORY_DATA from '../../constants/SortByNameOrDistanceD
 import generateSelectElement from '../../uiUtils/generateSelectComponent';
 import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 
-import { baseSectionTemplate } from './filterBarTemplate';
+import baseSectionTemplate from './filterBarTemplate';
 
-export const renderBaseComponents = () => {
+export const renderBaseFilterBarComponents = () => {
   const formattedBaseSectionTemplate = convertHTMLStringToDOM(baseSectionTemplate);
 
   document.body.appendChild(formattedBaseSectionTemplate);

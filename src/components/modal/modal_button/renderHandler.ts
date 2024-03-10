@@ -5,7 +5,7 @@ import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
 import modalButtonTemplate from './modalButtonTemplate';
 
-export const renderBaseComponents = (form: Element) => {
+export const renderBaseModalButtonComponents = (form: Element) => {
   form.appendChild(convertHTMLStringToDOM(modalButtonTemplate));
 };
 

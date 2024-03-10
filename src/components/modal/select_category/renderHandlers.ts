@@ -1,9 +1,10 @@
-import SELECT_CATEGORY_LABEL_COMPONENT_DATA from '../../../constants/SelectCategoryLabelComponentData';
 import SELECT_CATEGORY_COMPONENT_DATA from '../../../constants/SelectCategoryComponentData';
-import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
-import selectCategoryTemplate from './selectCategoryTemplate';
+import SELECT_CATEGORY_LABEL_COMPONENT_DATA from '../../../constants/SelectCategoryLabelComponentData';
 import generateLabelComponent from '../../../uiUtils/generateLabelComponent';
 import generateSelectComponent from '../../../uiUtils/generateSelectComponent';
+import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
+
+import selectCategoryTemplate from './selectCategoryTemplate';
 
 export const renderBaseSelectCategoryComponent = (form: Element) => {
   form.appendChild(convertHTMLStringToDOM(selectCategoryTemplate));

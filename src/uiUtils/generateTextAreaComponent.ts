@@ -1,5 +1,5 @@
-import { TextAreaElementDataType } from '../types/components';
 import TextArea from '../components/composables/TextArea';
+import { TextAreaElementDataType } from '../types/components';
 
 const generateTextAreaComponent = (textAreaOptionData: TextAreaElementDataType) => {
   const { TAG_ID, TAG_NAME, TAG_ROWS, TAG_COLS } = textAreaOptionData;
