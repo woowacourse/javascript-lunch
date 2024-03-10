@@ -158,7 +158,7 @@ body {
   height: 36px;
 }
 
-.restaurant__info {
+.restaurant__item {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
