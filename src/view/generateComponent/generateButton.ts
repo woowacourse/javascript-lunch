@@ -13,7 +13,12 @@ const generateButton = ({
     tag: "button",
     classes,
     contents: value,
-  }) as HTMLButtonElement;
+  });
+
+  if (!(button instanceof HTMLButtonElement)) {
+    throw new Error("[ERROR] Button is not HTMLButtonElement");
+  }
+
   button.addEventListener("click", onclick);
   return button;
 };
