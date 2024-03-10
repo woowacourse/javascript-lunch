@@ -37,15 +37,15 @@ export const appController = {
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
+          restaurantManager.udateCurentCategoty(category);
           if (category === '전체'){
-            restaurantManager.udateFilterRestaurants();
             return this.updateRestaurantList(
               restaurantManager.getRestaurants()
             );
           }
             
           this.updateRestaurantList(
-            restaurantManager.filteredRestaurants(category)
+            restaurantManager.filteredRestaurants()
           );
         },
       })
@@ -58,6 +58,7 @@ export const appController = {
         className: 'restaurant-filter',
         options: sortingFilterLsit,
         callback: (category) => {
+          restaurantManager.udateCurentSelectedSorting(category);
           if (category === '이름순')
             this.updateRestaurantList(restaurantManager.sortByAscendingName());
           if (category === '거리순')
@@ -68,7 +69,7 @@ export const appController = {
       })
     );
 
-    this.updateRestaurantList(restaurantManager.sortByAscendingName());
+    this.updateRestaurantList(restaurantManager.getRestaurants());
   },
 
   updateRestaurantList(restaurants) {

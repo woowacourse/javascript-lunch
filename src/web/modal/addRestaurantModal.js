@@ -24,7 +24,7 @@ function createNewRestaurantModal(restaurantManager) {
 
     try {
       restaurantManager.add(newRestaurant);
-      appController.updateRestaurantList(restaurantManager.getfilterRestaurants());
+      appController.updateRestaurantList(restaurantManager.filteredRestaurants());
       modal.remove('modal--open');
     } catch (e) {
       toast(e.message);
