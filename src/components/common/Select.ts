@@ -21,9 +21,9 @@ export default class Select extends EventComponent {
       <select id=${selectId} class=${className} name=${name} ${
       required ? "required" : ""
     }>
-        ${options.map(
-          ({ value, label }) => `<option value=${value}>${label}</option>`
-        )}
+        ${options
+          .map(({ value, label }) => `<option value=${value}>${label}</option>`)
+          .join("")}
       </select>
     `;
   }
