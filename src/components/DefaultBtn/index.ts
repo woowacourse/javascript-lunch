@@ -1,12 +1,12 @@
 import './style.css';
-import { Color, BtnType } from '../../types';
+import { BtnColor, BtnType } from '../../types';
 class AddBtn extends HTMLElement {
   constructor() {
     super();
   }
 
   connectedCallback() {
-    const color = this.getAttribute('color') as Color;
+    const color = this.getAttribute('color') as BtnColor;
     const text = this.getAttribute('text');
     const type = this.getAttribute('type') as BtnType;
     this.innerHTML = /*html*/ `             
