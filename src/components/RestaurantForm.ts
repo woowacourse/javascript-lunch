@@ -13,12 +13,12 @@ import { KOREAN_CATEGORY } from "../constants/category";
 customElements.define("form-item", FormItem);
 
 const distanceOptions = [
-  { value: "", label: "선택해&nbsp;주세요" },
-  { value: "5", label: "5분&nbsp;내" },
-  { value: "10", label: "10분&nbsp;내" },
-  { value: "15", label: "15분&nbsp;내" },
-  { value: "20", label: "20분&nbsp;내" },
-  { value: "30", label: "30분&nbsp;내" },
+  { value: "", label: "선택해 주세요" },
+  { value: "5", label: "5분 내" },
+  { value: "10", label: "10분 내" },
+  { value: "15", label: "15분 내" },
+  { value: "20", label: "20분 내" },
+  { value: "30", label: "30분 내" },
 ];
 
 export default class RestaurantForm extends EventComponent {
@@ -44,7 +44,7 @@ export default class RestaurantForm extends EventComponent {
         <select-box
           select-id="time-to-reach"
           name="time-to-reach"
-          options=${JSON.stringify(distanceOptions)}
+          options=${this.generateDistanceOptions()}
           required="true"
         >
         </select-box>
@@ -121,6 +121,15 @@ export default class RestaurantForm extends EventComponent {
 
   private generateCategoryOptions() {
     return this.generateOptions(KOREAN_CATEGORY);
+  }
+
+  private generateDistanceOptions() {
+    const optionsWithoutBlank = distanceOptions.map((option) => ({
+      ...option,
+      label: option.label.replace(" ", "&nbsp;"),
+    }));
+
+    return JSON.stringify(optionsWithoutBlank);
   }
 
   private generateOptions(filterLiteralObject: Record<string, string>) {
