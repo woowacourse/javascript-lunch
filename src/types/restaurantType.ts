@@ -1,5 +1,4 @@
 import { CategoryEnum } from '../constants';
-import { Restaurant } from '../domains';
 
 export type Category = keyof typeof CategoryEnum;
 
