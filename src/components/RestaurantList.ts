@@ -99,12 +99,7 @@ export default class RestaurantList extends EventComponent {
   private handleRestaurantFormSubmit(event: CustomEvent) {
     const { newRestaurant } = event?.detail;
 
-    try {
-      this.restaurants.add(newRestaurant);
-      restaurantStore.set(this.restaurants);
-    } catch (error: any) {
-      return alert(error.message);
-    }
+    this.restaurants.add(newRestaurant);
 
     this.render();
   }

@@ -10,6 +10,7 @@ import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { $ } from "../utils/selector";
 import { KOREAN_CATEGORY } from "../constants/category";
 import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
+import restaurantStore from "../store/restaurantStore";
 
 customElements.define("form-item", FormItem);
 
@@ -90,8 +91,9 @@ export default class RestaurantForm extends EventComponent {
     const form = e.target as HTMLFormElement;
 
     try {
-      const restaurantInfo = this.extractRestaurantFormData(form);
+      const restaurantInfo = this.extractRestaurantInfo(form);
       const newRestaurant = new Restaurant(restaurantInfo as RestaurantInfo);
+      restaurantStore.add(newRestaurant);
 
       this.dispatchEvent(
         new CustomEvent(RESTAURANT_EVENT.restaurantFormSubmit, {
@@ -127,7 +129,7 @@ export default class RestaurantForm extends EventComponent {
     return JSON.stringify(filteredOptions);
   }
 
-  private extractRestaurantFormData(form: HTMLFormElement) {
+  private extractRestaurantInfo(form: HTMLFormElement) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
 
