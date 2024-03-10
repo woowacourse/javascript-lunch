@@ -14,10 +14,7 @@ export interface FilterChangeEvent extends CustomEvent {
 class FilterContainer extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = /*html*/ `
-      <section class="restaurant-filter-container">
-      </section>
-    `;
+    this.className = 'restaurant-filter-container';
     this.setEvent();
   }
 
@@ -45,7 +42,7 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: options,
     };
-    $<HTMLElement>('.restaurant-filter-container').appendChild(new Select(selectBox));
+    this.appendChild(new Select(selectBox));
   }
 
   createSortSelect() {
@@ -60,28 +57,18 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: sortOptions,
     };
-    $<HTMLElement>('.restaurant-filter-container').appendChild(new Select(sortBox));
+    this.appendChild(new Select(sortBox));
   }
 
   categoryChange() {
-    const categorySelect = $('#category-filter');
-    const sortSelect = $('#sorting-filter');
+    const categorySelect = $<Select>('#category-filter');
+    const sortSelect = $<Select>('#sorting-filter');
 
-    if (!(categorySelect instanceof HTMLSelectElement)) {
-      return;
-    }
-    if (!(sortSelect instanceof HTMLSelectElement)) {
-      return;
-    }
-
-    categorySelect?.addEventListener('change', () => {
-      const selectedCategory = categorySelect.options[categorySelect.selectedIndex].value;
-      const selectedSort = sortSelect.options[sortSelect.selectedIndex].value;
-
+    categorySelect.addEventListener('change', () => {
       const filterChangeEvent = new CustomEvent('filterChange', {
         detail: {
-          selectedCategory,
-          selectedSort,
+          selectedCategory: categorySelect.getValue(),
+          selectedSort: sortSelect.getValue(),
         },
       });
       document.dispatchEvent(filterChangeEvent);
@@ -89,24 +76,14 @@ class FilterContainer extends HTMLElement {
   }
 
   sortChange() {
-    const categorySelect = $('#category-filter');
-    const sortSelect = $('#sorting-filter');
+    const categorySelect = $<Select>('#category-filter');
+    const sortSelect = $<Select>('#sorting-filter');
 
-    if (!(categorySelect instanceof HTMLSelectElement)) {
-      return;
-    }
-    if (!(sortSelect instanceof HTMLSelectElement)) {
-      return;
-    }
-
-    sortSelect?.addEventListener('change', () => {
-      const selectedCategory = categorySelect.options[categorySelect.selectedIndex].value;
-      const selectedSort = sortSelect.options[sortSelect.selectedIndex].value;
-
+    sortSelect.addEventListener('change', () => {
       const filterChangeEvent = new CustomEvent('filterChange', {
         detail: {
-          selectedCategory,
-          selectedSort,
+          selectedCategory: categorySelect.getValue(),
+          selectedSort: sortSelect.getValue(),
         },
       });
       document.dispatchEvent(filterChangeEvent);
