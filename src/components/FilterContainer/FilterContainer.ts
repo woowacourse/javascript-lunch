@@ -26,10 +26,8 @@ class FilterContainer extends BaseComponent {
   rerender() {
     const restaurantDBService = new RestaurantDBService();
 
-    const selectedCategory = this.querySelector('select-box#category-filter') as HTMLSelectElement;
-    const selectedSortCriteria = this.querySelector(
-      'select-box#sorting-filter',
-    ) as HTMLSelectElement;
+    const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
+    const selectedSortCriteria = this.querySelector('#sorting-filter') as HTMLSelectElement;
 
     const newRestaurantList = restaurantDBService.getFromRestaurantList(
       selectedCategory.value as Category,

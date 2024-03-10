@@ -149,7 +149,7 @@ class NewRestaurantModal extends BaseComponent {
     this.#form.append($buttonBox);
   }
 
-  #validateRequiredValues(category: CategoryOrPlaceholder, distance: number, name: string | null) {
+  #validateRequiredValues(category: string, distance: number, name: string | null) {
     const isNotValidCategory = category === '선택해주세요';
     const isNotValidDistance = Number.isNaN(distance);
     const isNotValidName = !name;
@@ -162,7 +162,7 @@ class NewRestaurantModal extends BaseComponent {
     if (isNotValidName) {
       document.querySelector('.name-input-box > .error')?.classList.remove('hidden');
     }
-    return !isNotValidCategory || isNotValidDistance || isNotValidName;
+    return isNotValidCategory || isNotValidDistance || isNotValidName;
   }
 
   #submitForm() {
@@ -170,7 +170,6 @@ class NewRestaurantModal extends BaseComponent {
       e.preventDefault();
       this.#hideErrorMessage();
       const { name, distance, category, description, link } = this.#getValues();
-
       if (this.#validateRequiredValues(category, distance, name)) return;
 
       const distanceNumeric = distance as DistanceNumeric;
@@ -204,7 +203,7 @@ class NewRestaurantModal extends BaseComponent {
   #getValues(): {
     name: string;
     distance: number;
-    category: CategoryOrPlaceholder;
+    category: string;
     description: string;
     link: string;
   } {
@@ -215,7 +214,7 @@ class NewRestaurantModal extends BaseComponent {
         -3,
       ) as DistanceOrPlaceholder,
     );
-    const category = this.#form.$categorySelect.value;
+    const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
     const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
     return { name, distance, category, description, link };
