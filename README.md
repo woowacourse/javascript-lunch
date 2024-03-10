@@ -3,7 +3,7 @@
 우아한테크코스 레벨1 점심 뭐 먹지 미션
 
 <img width="406" alt="스크린샷 2024-03-10 오후 7 05 35" src="https://github.com/healim01/javascript-lunch/assets/74346290/329afdb4-69c8-48f0-9b7b-ff2f076bfef1">
-<img width="782" alt="스크린샷 2024-03-10 오후 7 05 41" src="https://github.com/healim01/javascript-lunch/assets/74346290/bf332067-596a-4f86-bc56-5c3b70d01cf7">
+<img width="850" alt="스크린샷 2024-03-10 오후 7 18 25" src="https://github.com/healim01/javascript-lunch/assets/74346290/c5de6899-1211-43c3-8541-30b7c85dd36a">
 
 
 ### 1단계 - 기능 구현 목록
