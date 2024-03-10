@@ -3,7 +3,7 @@ import { Category, RestaurantState } from '../types';
 import RestaurantListStorageService from './restaurantListStorageService';
 
 const valid = {
-  isValid: true,
+  success: true,
 };
 
 const validate = {
@@ -11,7 +11,7 @@ const validate = {
     if (category === undefined || category.length <= 0) {
       return {
         targetClassName: 'invalid_category',
-        isValid: false,
+        success: false,
         errorMessage: '카테고리는 필수적으로 선택해주세요.',
       };
     }
@@ -22,7 +22,7 @@ const validate = {
     if (name === undefined || name.length <= 0) {
       return {
         targetClassName: 'invalid_name',
-        isValid: false,
+        success: false,
         errorMessage: '레스토랑 이름은 필수적으로 작성해주세요',
       };
     }
@@ -33,7 +33,7 @@ const validate = {
     if (this.checkDuplicate(name)) {
       return {
         targetClassName: 'invalid_name',
-        isValid: false,
+        success: false,
         errorMessage: '이미 등록된 레스토랑입니다.',
       };
     }
@@ -41,10 +41,10 @@ const validate = {
   },
 
   validateName(name?: string) {
-    if (!this.validateNoName(name).isValid) {
+    if (!this.validateNoName(name).success) {
       return this.validateNoName(name);
     }
-    if (!this.validateDuplicateName(name).isValid) {
+    if (!this.validateDuplicateName(name).success) {
       return this.validateDuplicateName(name);
     }
     return valid;
@@ -59,7 +59,7 @@ const validate = {
     if (distance === undefined) {
       return {
         targetClassName: 'invalid_distance',
-        isValid: false,
+        success: false,
         errorMessage: '거리를 필수적으로 선택해주세요.',
       };
     }
@@ -70,7 +70,7 @@ const validate = {
     if (description?.length && description.length > 200) {
       return {
         targetClassName: 'invalid_description',
-        isValid: false,
+        success: false,
         errorMessage: '설명의 최대 글자수는 200자입니다.',
       };
     }
@@ -81,7 +81,7 @@ const validate = {
     if (!link?.startsWith('http') && link !== undefined) {
       return {
         targetClassName: 'invalid_link',
-        isValid: false,
+        success: false,
         errorMessage: '유효한 주소값을 입력해주세요',
       };
     }

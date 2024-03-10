@@ -43,7 +43,7 @@ const checkValidateHandler = (restaurantInfo: Partial<RestaurantState>) => {
   removePrevErrorMessage();
 
   validateResult.forEach((result, index) => {
-    if (!result.isValid) {
+    if (!result.success) {
       renderErrorMessage(index, result);
     }
   });

@@ -12,7 +12,7 @@ export type SortType = 'name' | 'distance';
 
 export type InvalidResult = {
   targetClassName: string;
-  isValid: boolean;
+  success: boolean;
   errorMessage: string;
 };
 

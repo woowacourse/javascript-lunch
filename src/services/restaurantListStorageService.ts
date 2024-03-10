@@ -1,4 +1,4 @@
-import restaurantListHelper from '../domain/RestaurantListHelper';
+import restaurantListHelper from '../helpers/RestaurantListHelper';
 import filterState from '../store/FilterStateStore';
 import { RestaurantState } from '../types';
 
