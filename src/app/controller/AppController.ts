@@ -5,9 +5,9 @@ import { RestaurantData } from '../../type/types';
 import { $ } from '../../util/domSelector';
 
 export default class AppController {
-  sortOrder: SortOrder;
-  category: Category | '전체';
-  restaurantService: RestaurantService;
+  private sortOrder: SortOrder;
+  private category: Category | '전체';
+  private restaurantService: RestaurantService;
 
   constructor() {
     this.sortOrder = SortOrder.이름순;
@@ -24,39 +24,39 @@ export default class AppController {
     this.addEvent();
   }
 
-  addEvent() {
+  private addEvent() {
     $('nav-bar').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
     $('select-box-section').addEventListener('changeCategory', this.changeCategory.bind(this));
     $('select-box-section').addEventListener('changeSortOrder', this.changeSortOrder.bind(this));
     $('add-restaurant-modal').addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
   }
 
-  changeCategory(event: Event) {
+  private changeCategory(event: Event) {
     const category: Category = (event as CustomEvent).detail;
     this.category = category;
     this.refreshRestaurantList();
   }
 
-  changeSortOrder(event: Event) {
+  private changeSortOrder(event: Event) {
     const sortOrder: SortOrder = (event as CustomEvent).detail;
     this.sortOrder = sortOrder;
     this.refreshRestaurantList();
   }
 
-  addRestaurant(event: Event) {
+  private addRestaurant(event: Event) {
     const detail: RestaurantData = (event as CustomEvent).detail;
     this.restaurantService.addRestaurant(detail);
     this.refreshRestaurantList();
   }
 
-  refreshRestaurantList() {
+  private refreshRestaurantList() {
     const category = this.category === '전체' ? undefined : this.category;
     $('#app').removeChild($('restaurant-list')!);
     const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder, category));
     $('#app').appendChild(restaurantList);
   }
 
-  showAddRestaurantModal() {
+  private showAddRestaurantModal() {
     $<HTMLDialogElement>('#add-restaurant-modal').showModal();
   }
 }
