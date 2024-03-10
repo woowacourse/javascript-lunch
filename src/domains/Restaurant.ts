@@ -1,5 +1,10 @@
-import { CHARACTER_LIMIT, MESSAGE, ProtocolEnum } from '../constants';
-import { RestaurantInfo } from '../types';
+import {
+  CHARACTER_LIMIT,
+  MESSAGE,
+  PROTOCOL,
+  STORAGE_KEY,
+} from '../constants/index.ts';
+import { RestaurantInfo } from '../types/index.ts';
 
 class Restaurant {
   #info!: RestaurantInfo;
@@ -15,6 +20,7 @@ class Restaurant {
 
   #validateInfo(info: RestaurantInfo) {
     this.#validateNameCharacterLimit(info.name);
+    this.#validateNameDuplicate(info.name);
 
     if (info.description) {
       this.#validateDescriptionCharacterLimit(info.description);
@@ -30,6 +36,18 @@ class Restaurant {
   #validateNameCharacterLimit(name: string) {
     if (name.trim().length === 0 || name.length > CHARACTER_LIMIT.name) {
       throw new Error(MESSAGE.nameHasInvalidCharacterLimit);
+    }
+  }
+
+  #validateNameDuplicate(name: string) {
+    const storageRestaurantList = localStorage.getItem(STORAGE_KEY.restaurants);
+
+    if (!storageRestaurantList) return;
+
+    const list = JSON.parse(storageRestaurantList) as RestaurantInfo[];
+
+    if (list.some((info) => info.name === name)) {
+      throw new Error(MESSAGE.duplicateRestaurantName);
     }
   }
 
@@ -56,8 +74,8 @@ class Restaurant {
 
   #validateLinkProtocol(link: string) {
     const pass =
-      link.startsWith(`${ProtocolEnum.http}://`) ||
-      link.startsWith(`${ProtocolEnum.https}://`);
+      link.startsWith(`${PROTOCOL.http}://`) ||
+      link.startsWith(`${PROTOCOL.https}://`);
 
     if (!pass) {
       throw new Error(MESSAGE.linkHasInvalidProtocol);
