@@ -1,5 +1,5 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
 const descriptionEventHandler = (description: HTMLElement) => {
   description.addEventListener("input", (event) => {

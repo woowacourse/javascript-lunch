@@ -1,6 +1,6 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import { Icategory } from "../../../types/category";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
 export const selectEventHandler = (select: HTMLElement) => {
   select.addEventListener("change", (event) => {

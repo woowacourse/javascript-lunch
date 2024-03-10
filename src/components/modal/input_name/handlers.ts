@@ -1,5 +1,5 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
 const inputNameEventHandler = (input: HTMLElement) => {
   input.addEventListener("input", (event) => {
