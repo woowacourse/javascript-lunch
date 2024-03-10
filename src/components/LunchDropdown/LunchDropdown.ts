@@ -23,11 +23,15 @@ class LunchDropdown extends HTMLElement {
   setEventListener(): void {
     const select = this.querySelector('select');
     select?.addEventListener('change', () => {
-      const changeDropdownEvent = new CustomEvent('changeDropdown', {
-        bubbles: true,
-      });
-      this.dispatchEvent(changeDropdownEvent);
+      this.setDropdownEvent();
     });
+  }
+
+  setDropdownEvent() {
+    const changeDropdownEvent = new CustomEvent('changeDropdown', {
+      bubbles: true,
+    });
+    this.dispatchEvent(changeDropdownEvent);
   }
 
   renderOptions(): void {
