@@ -23,17 +23,55 @@ class Restaurant extends HTMLLIElement {
     super();
     
     this.className = 'restaurant';
-    const { category, name, distance, introduction } = restaurant;
-    this.innerHTML = `
-    <div class="restaurant__category">
-      <img src="${CATEGORY_IMAGE[category]}" alt="${category}" class="category-icon">
-    </div>
-    <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-      <p class="restaurant__description text-body">${introduction}</p>
-    </div>
-    `;
+    this.createLayout(restaurant);
+  };
+
+  createLayout(restaurant: RestaurantType) {
+    const frag = document.createDocumentFragment();
+    const restaurantCategory = this.createRestaurantCategory(restaurant.category);
+    const restaurantInfo = this.createRestaurantInfo(restaurant);
+
+    frag.appendChild(restaurantCategory);
+    frag.appendChild(restaurantInfo);
+    this.appendChild(frag);
+  }
+
+  createRestaurantCategory(category: CategoryType) {
+    const restaurantCategory = document.createElement('div');
+    restaurantCategory.className = 'restaurant__category';
+    
+    const img = document.createElement('img');
+    img.setAttribute('src', CATEGORY_IMAGE[category]);
+    img.setAttribute('alt', category);
+    img.className = 'category-icon';
+    restaurantCategory.appendChild(img);
+    return restaurantCategory;
+  }
+
+  createRestaurantInfo(restaurant: RestaurantType) {
+    const { name, distance, introduction } = restaurant;
+    const restaurantInfo = document.createElement('div');
+    restaurantInfo.className = 'restaurant__info';
+
+    const h3 = document.createElement('h3');
+    const h3ClassList = ['restaurant__name', 'text-subtitle'];
+    h3.classList.add(...h3ClassList);
+    h3.textContent = name;
+
+    const span = document.createElement('span');
+    const spanClassList = ['restaurant__distance', 'text-body'];
+    span.classList.add(...spanClassList);
+    span.textContent = `캠퍼스부터 ${distance}분 내`;
+
+    const p = document.createElement('p');
+    const pClassList = ['restaurant__description', 'text-body'];
+    p.classList.add(...pClassList);
+    p.textContent = introduction ?? '';
+
+    restaurantInfo.appendChild(h3);
+    restaurantInfo.appendChild(span);
+    restaurantInfo.appendChild(p);
+    return restaurantInfo;
   }
 }
 
