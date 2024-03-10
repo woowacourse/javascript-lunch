@@ -1,5 +1,12 @@
-import { CHARACTER_LIMIT, MESSAGE, PROTOCOL, STORAGE_KEY } from '../constants';
-import { RestaurantInfo } from '../types';
+import {
+  CATEGORY,
+  CHARACTER_LIMIT,
+  DISTANCES,
+  MESSAGE,
+  PROTOCOL,
+  STORAGE_KEY,
+} from '../constants';
+import { Distance, RestaurantInfo } from '../types';
 
 class Restaurant {
   #info!: RestaurantInfo;
@@ -14,17 +21,30 @@ class Restaurant {
   }
 
   #validateInfo(info: RestaurantInfo) {
+    //name
+    this.#validateStringType(info.name);
     this.#validateNameCharacterLimit(info.name);
     this.#validateNameDuplicate(info.name);
 
+    //category
+    this.#validateCategory(info.category);
+    //distance
+    this.#validateDistance(info.distance);
+
     if (info.description) {
+      this.#validateStringType(info.description);
       this.#validateDescriptionCharacterLimit(info.description);
     }
 
     if (info.link) {
       this.#validateLinkCharacterLimit(info.link);
-      this.#validateLinkEnglishChars(info.link);
-      this.#validateLinkProtocol(info.link);
+      this.#validateLinkUrl(info.link);
+    }
+  }
+
+  #validateStringType(string: any) {
+    if (typeof string !== 'string') {
+      throw new Error(MESSAGE.invalidStringType);
     }
   }
 
@@ -46,6 +66,23 @@ class Restaurant {
     }
   }
 
+  #validateCategory(category: string) {
+    const categories = Object.keys(CATEGORY);
+    const isInvalidCategory = !categories.find((item) => item === category);
+
+    if (isInvalidCategory) {
+      throw new Error(MESSAGE.invalidCategoryType);
+    }
+  }
+
+  #validateDistance(distance: string | number) {
+    const isInValidDistance = !DISTANCES.find((item) => item === distance);
+
+    if (isInValidDistance) {
+      throw new Error(MESSAGE.invalidDistanceType);
+    }
+  }
+
   #validateDescriptionCharacterLimit(description: string) {
     if (
       description.trim().length === 0 ||
@@ -61,18 +98,11 @@ class Restaurant {
     }
   }
 
-  #validateLinkEnglishChars(link: string) {
-    if (/[가-힣]/.test(link)) {
-      throw new Error(MESSAGE.linkHasInvalidChars);
-    }
-  }
+  #validateLinkUrl(link: string) {
+    const regexp = new RegExp('^(https?://)');
+    const isInValidLink = !regexp.test(link);
 
-  #validateLinkProtocol(link: string) {
-    const pass =
-      link.startsWith(`${PROTOCOL.http}://`) ||
-      link.startsWith(`${PROTOCOL.https}://`);
-
-    if (!pass) {
+    if (isInValidLink) {
       throw new Error(MESSAGE.linkHasInvalidProtocol);
     }
   }
