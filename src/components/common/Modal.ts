@@ -22,8 +22,9 @@ export default class Modal extends EventComponent {
 
   setEvent(): void {
     const modalId = this.getAttribute("modal-id") || "";
+    const listeningEventName = this.getAttribute("listening-event-name") || "";
 
-    document.addEventListener(MODAL_EVENT.restaurantFormModalAction, (e) =>
+    document.addEventListener(listeningEventName, (e) =>
       this.handleFormModalAction(e as CustomEvent, modalId)
     );
 
@@ -53,6 +54,6 @@ export default class Modal extends EventComponent {
   }
 
   static get observedAttributes() {
-    return ["isOpen", "modal-id"];
+    return ["isOpen", "modal-id", "listening-event-name"];
   }
 }

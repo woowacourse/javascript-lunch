@@ -4,6 +4,7 @@ import Modal from "./components/common/Modal";
 import RestaurantHeader from "./components/RestaurantHeader";
 import RestaurantList from "./components/RestaurantList";
 import RestaurantForm from "./components/RestaurantForm";
+import { MODAL_EVENT } from "./constants/event";
 
 customElements.define("restaurant-header", RestaurantHeader);
 customElements.define("restaurant-list", RestaurantList);
@@ -18,8 +19,8 @@ export default class LunchApp extends BaseComponent {
         <main>
           <filter-bar></filter-bar>
           <restaurant-list></restaurant-list>
-          <modal-box modal-id="restaurant-form-modal">
-          <restaurant-form></restaurant-form>
+          <modal-box modal-id="restaurant-form-modal" listening-event-name=${MODAL_EVENT.restaurantFormModalAction}>
+            <restaurant-form></restaurant-form>
           </modal-box>
         </main>
       `;
