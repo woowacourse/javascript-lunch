@@ -34,34 +34,11 @@ describe('점심 뭐 먹지 로컬 스토리지에 데이터가 있는 경우를
   });
 
   context('음식점을 카테고리 별로 필터링할 수 있다.', () => {
-    it('한식을 선택한 경우 카테고리가 한식인 음식점만 표시된다.', () => {
-      cy.get('.category').select('한식');
-      cy.get('.restaurant').find('.restaurant__name').should('contain', '파슬리네 김치찌개');
-    });
-
-    it('중식을 선택한 경우 카테고리가 중식인 음식점만 표시된다.', () => {
-      cy.get('.category').select('중식');
-      cy.get('.restaurant').find('.restaurant__name').should('contain', '파슬리네 짜장면');
-    });
-
-    it('양식을 선택한 경우 카테고리가 양식인 음식점만 표시된다.', () => {
-      cy.get('.category').select('양식');
-      cy.get('.restaurant').find('.restaurant__name').should('contain', '썬데이네 파스타');
-    });
-
-    it('일식을 선택한 경우 카테고리가 일식인 음식점만 표시된다.', () => {
-      cy.get('.category').select('일식');
-      cy.get('.restaurant').find('.restaurant__name').should('contain', '파슬리네 회전초밥');
-    });
-
-    it('아시안을 선택한 경우 카테고리가 아시안인 음식점만 표시된다.', () => {
-      cy.get('.category').select('아시안');
-      cy.get('.restaurant').find('.restaurant__name').should('contain', '썬데이네 쌀국수');
-    });
-
-    it('기타를 선택한 경우 카테고리가 기타인 음식점만 표시된다.', () => {
-      cy.get('.category').select('기타');
-      cy.get('.restaurant').find('.restaurant__name').should('contain', '썬데이네 반찬가게');
+    restaurants.forEach((restaurant) => {
+      it(`${restaurant.category}을 선택한 경우 카테고리가 ${restaurant.category}인 음식점만 표시된다.`, () => {
+        cy.get('.category').select(restaurant.category);
+        cy.get('.restaurant').find('.restaurant__name').should('contain', restaurant.name);
+      });
     });
   });
 
