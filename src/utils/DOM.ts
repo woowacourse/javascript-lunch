@@ -44,7 +44,7 @@ const DOM = {
       frag.appendChild(element);
     });
 
-    target.appendChild(frag.cloneNode(true));
+    target.appendChild(frag);
   },
 };
 
