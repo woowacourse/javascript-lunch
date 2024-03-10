@@ -1,3 +1,4 @@
+import ERROR from '../constants/error';
 import { Category, RestaurantState } from '../types';
 
 import RestaurantListStorageService from './restaurantListStorageService';
@@ -10,9 +11,9 @@ const validate = {
   validateCategory(category?: Category) {
     if (category === undefined || category.length <= 0) {
       return {
-        targetClassName: 'invalid_category',
+        targetClassName: ERROR.INVALID_CATEGORY.CLASS_NAME,
         success: false,
-        errorMessage: '카테고리는 필수적으로 선택해주세요.',
+        errorMessage: ERROR.INVALID_CATEGORY.MESSAGE,
       };
     }
     return valid;
@@ -21,9 +22,9 @@ const validate = {
   validateNoName(name?: string) {
     if (name === undefined || name.length <= 0) {
       return {
-        targetClassName: 'invalid_name',
+        targetClassName: ERROR.INVALID_NAME.CLASS_NAME,
         success: false,
-        errorMessage: '레스토랑 이름은 필수적으로 작성해주세요',
+        errorMessage: ERROR.INVALID_NAME.MESSAGE,
       };
     }
     return valid;
@@ -32,9 +33,9 @@ const validate = {
   validateDuplicateName(name?: string) {
     if (this.checkDuplicate(name)) {
       return {
-        targetClassName: 'invalid_name',
+        targetClassName: ERROR.DUPLICATE_NAME.CLASS_NAME,
         success: false,
-        errorMessage: '이미 등록된 레스토랑입니다.',
+        errorMessage: ERROR.DUPLICATE_NAME.MESSAGE,
       };
     }
     return valid;
