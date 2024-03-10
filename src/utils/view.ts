@@ -12,4 +12,9 @@ export const closeModal = (modal: HTMLElement) => {
   BasicModal.blockModalBodyScroll();
 };
 
-export const makeLabel = (label: string) => {};
+export const makeLabel = ({ htmlFor, text }: { htmlFor: string; text: string }) => {
+  const $label = document.createElement('label');
+  $label.setAttribute('for', htmlFor);
+  $label.textContent = text;
+  return $label;
+};

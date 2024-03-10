@@ -3,7 +3,7 @@ import BaseComponent from '../BaseComponent';
 import SelectBox from '../SelectBox/SelectBox';
 import { ErrorId, ErrorMessage } from '@/constants/ErrorMessage';
 import BasicButton from '../BasicButton/BasicButton';
-import { closeModal } from '@/utils/view';
+import { closeModal, makeLabel } from '@/utils/view';
 import Input from '../Input/Input';
 
 class NewRestaurantModalView extends BaseComponent {
@@ -24,10 +24,10 @@ class NewRestaurantModalView extends BaseComponent {
     const $categorySelectBox = document.createElement('div');
     $categorySelectBox.classList.add('form-item', 'form-item--required', 'category-select');
 
-    const $categoryLabel = document.createElement('label');
-    $categoryLabel.setAttribute('for', 'category text-caption');
-    $categoryLabel.textContent = '카테고리';
-    $categorySelectBox.append($categoryLabel);
+    const $categoryLabel = makeLabel({
+      htmlFor: 'category text-caption',
+      text: '카테고리',
+    });
 
     const CATEGORIES_KEYS_REQUIRED = ['선택해주세요', ...CATEGORIES_KEYS];
 
@@ -38,6 +38,7 @@ class NewRestaurantModalView extends BaseComponent {
       id: 'category',
     });
 
+    $categorySelectBox.append($categoryLabel);
     $categorySelectBox.append($categorySelect);
     const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_CATEGORY, 'category');
     $categorySelectBox.append($errorBox);
@@ -56,9 +57,10 @@ class NewRestaurantModalView extends BaseComponent {
     const $nameInputBox = document.createElement('div');
     $nameInputBox.classList.add('form-item', 'form-item--required', 'name-input-box');
 
-    const $nameLabel = document.createElement('label');
-    $nameLabel.setAttribute('for', 'name text-caption');
-    $nameLabel.textContent = '이름';
+    const $nameLabel = makeLabel({
+      htmlFor: 'name text-caption',
+      text: '이름',
+    });
 
     const $nameInput = new Input({
       inputId: 'name',
@@ -79,9 +81,10 @@ class NewRestaurantModalView extends BaseComponent {
     const $distanceSelection = document.createElement('div');
     $distanceSelection.classList.add('form-item', 'form-item--required', 'distance-select');
 
-    const $distanceLabel = document.createElement('label');
-    $distanceLabel.setAttribute('for', 'distance text-caption');
-    $distanceLabel.textContent = '거리(도보 이동 시간)';
+    const $distanceLabel = makeLabel({
+      htmlFor: 'distance text-caption',
+      text: '거리(도보 이동 시간)',
+    });
 
     $distanceSelection.append($distanceLabel);
     $distanceSelection.id = 'distance';
@@ -108,9 +111,10 @@ class NewRestaurantModalView extends BaseComponent {
     const $descriptionTextBox = document.createElement('div');
     $descriptionTextBox.classList.add('form-item');
 
-    const $descriptionLabel = document.createElement('label');
-    $descriptionLabel.setAttribute('for', 'description text-caption');
-    $descriptionLabel.textContent = '설명';
+    const $descriptionLabel = makeLabel({
+      htmlFor: 'description text-caption',
+      text: '설명',
+    });
 
     const $textArea = document.createElement('textarea');
     $textArea.setAttribute('name', 'description');
@@ -134,9 +138,10 @@ class NewRestaurantModalView extends BaseComponent {
     const $linkTextBox = document.createElement('div');
     $linkTextBox.classList.add('form-item');
 
-    const $linkLabel = document.createElement('label');
-    $linkLabel.setAttribute('for', 'link text-caption');
-    $linkLabel.textContent = '참고 링크';
+    const $linkLabel = makeLabel({
+      htmlFor: 'link text-caption',
+      text: '참고 링크',
+    });
 
     const $linkInput = new Input({ inputId: 'link', inputName: 'link' });
 
