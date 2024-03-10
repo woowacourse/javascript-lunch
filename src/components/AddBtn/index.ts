@@ -11,14 +11,6 @@ class AddBtn extends HTMLElement {
       <img src=${AddButtonIcon} alt="음식점 추가 버튼"/>
     </button>
     `;
-
-    this.addEventListener('click', (event) =>
-      this.#handleClickToAddStore(event),
-    );
-  }
-
-  #handleClickToAddStore(event: MouseEvent) {
-    event.stopPropagation();
   }
 }
 customElements.define('add-btn', AddBtn);
