@@ -1,4 +1,4 @@
-import { FORM_INPUT_QUERY } from '../constant/constants';
+import { FORM_INPUT_QUERY, LOCALSTORAGE_KEY } from '../constant/constants';
 import RestaurantService from '../domain/RestaurantService';
 import { $ } from '../utils/querySelector';
 import OutputView from '../views/OutputView';
@@ -45,19 +45,19 @@ class RestaurantController {
   }
 
   getRecentData() {
-    return JSON.parse(localStorage.getItem('restaurantList')) || [];
+    return JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
   }
 
   showAddRestaurantModal() {
     const addRestaurantButton = $('.gnb__button');
     addRestaurantButton.addEventListener('click', () => {
       OutputView.renderAddRestaurant(this.#restaurantList);
-      this.manageFormEvents();
+      this.manageAddRestaurantFormEvents();
       this.manageModalEvents();
     });
   }
 
-  manageFormEvents() {
+  manageAddRestaurantFormEvents() {
     const restaurantService = new RestaurantService();
     const formAddRestaurant = $('.form-add-restaurant');
 

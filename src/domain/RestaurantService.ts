@@ -1,3 +1,4 @@
+import { LOCALSTORAGE_KEY } from '../constant/constants';
 import { FilteringCategory, SortingProperty, Restaurant, Restaurants } from '../interface/RestaurantInterfaces';
 
 class RestaurantService implements Restaurants {
@@ -9,7 +10,7 @@ class RestaurantService implements Restaurants {
       return false;
     }
     restaurantList.push(restaurant);
-    localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
+    localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(restaurantList));
     return true;
   }
 
