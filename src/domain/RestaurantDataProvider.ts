@@ -79,10 +79,7 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
   },
 
   compareNameOrder(a: Restaurant, b: Restaurant): number {
-    if (a.name.toUpperCase() > b.name.toUpperCase()) {
-      return 1;
-    }
-    return -1;
+    return a.name.localeCompare(b.name);
   },
 
   sortByDistance({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
