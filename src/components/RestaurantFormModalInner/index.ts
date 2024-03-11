@@ -70,18 +70,22 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
           <default-btn color="white" text="취소하기" type="reset"></default-btn>
-          <default-btn color="red" text="추가하기" type="submit"></default-btn>
+          <default-btn disabled="true" color="red" text="추가하기" type="submit"></default-btn>
         </div>
       </form>
     `;
 
     // 이벤트
-    const formEl = this.shadowRoot?.querySelector('form');
+    const formEl = this.querySelector('form');
 
     if (formEl instanceof HTMLFormElement) {
       formEl.addEventListener('reset', this.#handleResetForm.bind(this));
       formEl.addEventListener('submit', (event) =>
         this.#handleSubmitFormToAddStore(event),
+      );
+      formEl.addEventListener(
+        'focusout',
+        this.#handleFocusOutToActiveSubmitBtn.bind(this),
       );
     }
   }
@@ -147,11 +151,34 @@ class RestaurantFormModalInner extends HTMLElement {
       link: this.#getTextFieldValue('restaurant-link', 'input'),
     };
 
-    this.#newInfo = new Restaurant(info).info;
+    // consistent-return : off
+    // eslint-disable-next-line
+    return info;
   }
 
   #addToRestaurantList(info: RestaurantInfo) {
     new RestaurantList().addRestaurant(info);
+  }
+
+  #handleSubmitBtnDisabled(disabled: boolean) {
+    const submitBtnEl = this.querySelector('button[type="submit"]');
+
+    if (submitBtnEl instanceof HTMLButtonElement) {
+      submitBtnEl.disabled = disabled;
+    }
+  }
+
+  #handleFocusOutToActiveSubmitBtn() {
+    const info = this.#getRestaurantInfo();
+
+    if (!info) return;
+
+    try {
+      this.#newInfo = new Restaurant(info).info;
+      this.#handleSubmitBtnDisabled(false);
+    } catch (error) {
+      this.#handleSubmitBtnDisabled(true);
+    }
   }
 
   #closeModal() {

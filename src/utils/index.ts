@@ -15,6 +15,11 @@ export const setObjectAttribute = (
       return;
     }
 
+    if (key === 'disabled' && 'disabled' in el) {
+      el.setAttribute('disabled', '');
+      return;
+    }
+
     el.setAttribute(key, value);
   });
 

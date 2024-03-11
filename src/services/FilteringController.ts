@@ -31,7 +31,7 @@ const FilteringController = {
 
     if (
       !dropBoxCategories ||
-      dropBoxCategories.find((item) => item !== category)
+      !dropBoxCategories.find((item) => item === category)
     )
       return;
 
