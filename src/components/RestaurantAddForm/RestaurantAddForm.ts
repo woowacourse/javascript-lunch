@@ -10,10 +10,8 @@ import type {
 } from "../../domain/Restaurant/Restaurant.type";
 
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
-import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
 
-import { createOptionElements } from "../../utils/createOptionElements";
 import { $ } from "../../utils/dom";
 
 class RestaurantAddForm extends BaseComponent {
@@ -36,12 +34,7 @@ class RestaurantAddForm extends BaseComponent {
         <form id="restaurant-add-form">
             <div class="form-item form-item--required">
                 <label for="category text-caption">카테고리</label>
-                <select name="category" id="category" required>
-                    <option value="">선택해 주세요</option>
-                    ${createOptionElements(
-                      Object.values(MENU_CATEGORIES).slice(1)
-                    )}
-                </select>
+                <form-category-dropdown></form-category-dropdown>
             </div>
 
             <div class="form-item form-item--required">
@@ -51,13 +44,7 @@ class RestaurantAddForm extends BaseComponent {
 
             <div class="form-item form-item--required">
                 <label for="distance text-caption">거리(도보 이동 시간) </label>
-                <select name="distance" id="distance" required>
-                <option value="">선택해 주세요</option>
-                ${createOptionElements(
-                  RestaurantAddForm.DISTANCES_OPTIONS,
-                  (value) => `${value}분 내`
-                )}
-                </select>
+                <form-distance-dropdown></form-distance-dropdown>
             </div>
 
             <div class="form-item">

@@ -1,7 +1,12 @@
-export const createOptionElements = <T>(options: T[]) => {
-  return Object.values(options)
-    .map((optionValue) => {
-      return `<option value=${optionValue}>${optionValue}</option>`;
-    })
-    .join("");
+export const createOptionElements = <T>(options: {
+  contents: string[];
+  values: T[];
+}) => {
+  const { contents: optionLabels, values: optionValues } = options;
+
+  const optionsArray = optionLabels.map((label, index) => {
+    return `<option value="${optionValues[index]}">${label}</option>`;
+  });
+
+  return optionsArray.join("");
 };
