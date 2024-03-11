@@ -1,8 +1,20 @@
+import Dropdown from '../components/Common/Dropdown';
 import AddRestaurant from '../components/Modal/AddRestaurant';
 import RestaurantComponent from '../components/Restaurant/RestaurantComponent';
+import { FILTER_DROPDOWN_PROPS, SORT_DROPDOWN_PROPS } from '../constant/options';
 import { $ } from '../utils/querySelector';
 
 const OutputView = {
+  renderFilterDropdown() {
+    const filterContainer = $('.restaurant-filter-container');
+
+    const filterDropdown = Dropdown(FILTER_DROPDOWN_PROPS);
+    const sortDropdown = Dropdown(SORT_DROPDOWN_PROPS);
+
+    filterContainer.insertAdjacentHTML('beforeend', filterDropdown);
+    filterContainer.insertAdjacentHTML('beforeend', sortDropdown);
+  },
+
   renderRestaurantList(restaurantList) {
     const restaurantListContainer = $('.restaurant-list-container');
 
