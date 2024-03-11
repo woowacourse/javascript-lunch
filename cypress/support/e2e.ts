@@ -14,7 +14,207 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import { Category, WalkingTime } from '../../src/interface/Restaurant';
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+export interface RestaurantData {
+  category: Category;
+  name: string;
+  walkingTime: WalkingTime;
+}
+
+export interface TestData {
+  input: RestaurantData[];
+  output: RestaurantData[];
+}
+
+export interface filterTestDate {
+  input: { category: Category; filteredRestaurants: RestaurantData[] }[];
+  output: RestaurantData[];
+}
+
+export const addition: TestData = {
+  input: [
+    {
+      category: '중식',
+      name: '친친',
+      walkingTime: 5,
+    },
+  ],
+  output: [
+    {
+      category: '중식',
+      name: '친친',
+      walkingTime: 5,
+    },
+  ],
+};
+
+export const sortingName: TestData = {
+  input: [
+    {
+      category: '한식',
+      name: '바',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '가',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '나',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '마녀김밥',
+      walkingTime: 5,
+    },
+  ],
+  output: [
+    {
+      category: '한식',
+      name: '가',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '나',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '마녀김밥',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '바',
+      walkingTime: 5,
+    },
+  ],
+};
+
+export const sortingWalkingTime: TestData = {
+  input: [
+    {
+      category: '한식',
+      name: '바',
+      walkingTime: 30,
+    },
+    {
+      category: '한식',
+      name: '간',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '가',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '나',
+      walkingTime: 20,
+    },
+    {
+      category: '한식',
+      name: '마녀김밥',
+      walkingTime: 10,
+    },
+  ],
+  output: [
+    {
+      category: '한식',
+      name: '가',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '간',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '마녀김밥',
+      walkingTime: 10,
+    },
+    {
+      category: '한식',
+      name: '나',
+      walkingTime: 20,
+    },
+    {
+      category: '한식',
+      name: '바',
+      walkingTime: 30,
+    },
+  ],
+};
+
+export const filterTests: filterTestDate = {
+  input: [
+    {
+      category: '중식',
+      filteredRestaurants: [
+        {
+          category: '중식',
+          name: '가',
+          walkingTime: 5,
+        },
+      ],
+    },
+    {
+      category: '일식',
+      filteredRestaurants: [
+        {
+          category: '일식',
+          name: '바',
+          walkingTime: 30,
+        },
+      ],
+    },
+    {
+      category: '한식',
+      filteredRestaurants: [
+        {
+          category: '한식',
+          name: '마녀김밥',
+          walkingTime: 10,
+        },
+        {
+          category: '한식',
+          name: '나',
+          walkingTime: 20,
+        },
+      ],
+    },
+  ],
+  output: [
+    {
+      category: '중식',
+      name: '가',
+      walkingTime: 5,
+    },
+    {
+      category: '한식',
+      name: '마녀김밥',
+      walkingTime: 10,
+    },
+    {
+      category: '한식',
+      name: '나',
+      walkingTime: 20,
+    },
+    {
+      category: '일식',
+      name: '바',
+      walkingTime: 30,
+    },
+  ],
+};
