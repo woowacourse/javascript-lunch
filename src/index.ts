@@ -5,7 +5,7 @@ import Restaurant from './domain/Restaurant';
 import RestaurantList from './domain/RestaurantList';
 import RestaurantComponent from './components/Restaurant';
 import SelectBoxComponent from './components/SelectBox';
-import { DEFAULT_RESTAURANT_LIST } from './constants/config';
+import { INITIAL_RESTAURANT_LIST } from './constants/config';
 import {
   ADD_BUTTON_ATTRIBUTE,
   CLOSE_BUTTON_ATTRIBUTE,
@@ -20,6 +20,12 @@ import {
 } from './constants/filter';
 import Button from './components/button/Button';
 import dom from './utils/dom';
+import formValidator from './validator/formValidator';
+import type { TDistance, TCategory } from './types/restaurant';
+import type { IFormInput } from './types/dom';
+
+const getInitialRestaurantList = (): RestaurantList =>
+  new RestaurantList(INITIAL_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant)));
 
 const createCategorySelect = ($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList): void => {
   new SelectBoxComponent({
@@ -95,10 +101,33 @@ const handleCloseModal = (): void => {
   $form.reset();
 };
 
+const getFormInputTag = (): IFormInput => {
+  const category = dom.getElement('#category') as HTMLInputElement;
+  const name = dom.getElement('#name') as HTMLInputElement;
+  const distance = dom.getElement('#distance') as HTMLInputElement;
+  const link = dom.getElement('#link') as HTMLInputElement;
+  const $addButton = dom.getElement('#button-add') as HTMLButtonElement;
+  return { category, name, distance, link, $addButton };
+};
+
+const handleFormInput = ({
+  category: $category,
+  name: $name,
+  distance: $distance,
+  link: $link,
+  $addButton,
+}: IFormInput): void => {
+  const category = $category.value as TCategory;
+  const name = $name.value;
+  const distance = $distance.value as unknown as TDistance;
+  const referenceLink = $link.value;
+
+  if (formValidator.isValidForm({ category, name, distance, referenceLink })) $addButton.disabled = false;
+  else $addButton.disabled = true;
+};
+
 const init = (): void => {
-  const getDefaultRestaurantList = (): RestaurantList =>
-    new RestaurantList(DEFAULT_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant)));
-  const restaurantList = getDefaultRestaurantList();
+  const restaurantList = getInitialRestaurantList();
 
   const $restaurantList = dom.getElement('.restaurant-list');
   restaurantList.restaurants.forEach(restaurant => {
@@ -109,8 +138,12 @@ const init = (): void => {
   createModalFormSelect(restaurantList);
   createModalFormButton(restaurantList);
 
+  const { category, name, distance, link, $addButton } = getFormInputTag();
   dom.getElement('.gnb__button').addEventListener('click', handleOpenModal);
   dom.getElement('.modal-backdrop').addEventListener('click', handleCloseModal);
+  dom.getElement('form').addEventListener('input', () => {
+    handleFormInput({ category, name, distance, link, $addButton });
+  });
 };
 
 init();

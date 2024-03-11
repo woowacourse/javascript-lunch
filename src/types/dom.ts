@@ -29,4 +29,29 @@ interface IDomCreation extends IDomAttributes {
   children?: HTMLElement[];
 }
 
-export type { IDomAttributes, ISelectAttributes, IButtonAttributes, IImageAttributes, IOptionAttributes, IDomCreation };
+interface FormElements extends HTMLFormControlsCollection {
+  category: HTMLInputElement;
+  name: HTMLInputElement;
+  distance: HTMLInputElement;
+  description: HTMLInputElement;
+  link: HTMLInputElement;
+}
+
+interface IFormInput {
+  category: HTMLInputElement;
+  name: HTMLInputElement;
+  distance: HTMLInputElement;
+  link: HTMLInputElement;
+  $addButton: HTMLButtonElement;
+}
+
+export type {
+  IDomAttributes,
+  ISelectAttributes,
+  IButtonAttributes,
+  IImageAttributes,
+  IOptionAttributes,
+  IDomCreation,
+  FormElements,
+  IFormInput,
+};
