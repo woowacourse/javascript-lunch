@@ -73,6 +73,7 @@ const createModalFormButton = restaurantList => {
     kind: 'close',
     $target: $buttonContainer,
     attributes: CLOSE_BUTTON_ATTRIBUTE,
+    handleCloseModal: handleCloseModal
   });
   new Button({
     kind: 'add',
@@ -85,6 +86,13 @@ const createModalFormButton = restaurantList => {
 const handleOpenModal = () => {
   document.querySelector('.modal').classList.add('modal--open');
 };
+
+const handleCloseModal = () => {
+  dom.getElement('.modal').classList.remove('modal--open');
+  dom.getElement('#error-link').classList.add('hidden');
+  const $form = dom.getElement('form');
+  $form.reset();
+}
 
 const init = () => {
   const getDefaultRestaurantList = () =>
@@ -100,7 +108,8 @@ const init = () => {
   createModalFormSelect(restaurantList);
   createModalFormButton(restaurantList);
 
-  document.querySelector('.gnb__button').addEventListener('click', handleOpenModal);
+  dom.getElement('.gnb__button').addEventListener('click', handleOpenModal);
+  dom.getElement('.modal-backdrop').addEventListener('click', handleCloseModal);
 };
 
 init();

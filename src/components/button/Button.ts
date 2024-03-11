@@ -18,6 +18,7 @@ interface IButtonProps {
   attributes: IButtonAttributes;
   kind: 'close' | 'add';
   restaurantList?: RestaurantList;
+  handleCloseModal: () => void;
 }
 
 class Button {
@@ -25,12 +26,14 @@ class Button {
   attributes;
   kind;
   restaurantList;
+  handleCloseModal;
 
-  constructor({ $target, attributes, kind, restaurantList }: IButtonProps) {
+  constructor({ $target, attributes, kind, restaurantList, handleCloseModal }: IButtonProps) {
     this.$target = $target;
     this.attributes = attributes;
     this.kind = kind;
     this.restaurantList = restaurantList;
+    this.handleCloseModal = handleCloseModal;
     this.render();
     this.setEvent();
   }
@@ -43,9 +46,7 @@ class Button {
         this.handleAddRestaurant($form);
       });
     } else if (this.kind === 'close') {
-      this.$target.addEventListener('click', () => {
-        this.close();
-      });
+      this.$target.addEventListener('click', this.handleCloseModal);
     }
   }
 
@@ -56,20 +57,13 @@ class Button {
     this.$target = buttonTag;
   }
 
-  close(): void {
-    dom.getElement('.modal').classList.remove('modal--open');
-    dom.getElement('#error-link').classList.add('hidden');
-    const $form = dom.getElement('form') as HTMLFormElement;
-    $form.reset();
-  }
-
   handleAddRestaurant($form: HTMLFormElement): void {
     const restaurantInformation = this.getRestaurantFormData($form);
     if (restaurantInformation === undefined) return;
     if (this.restaurantList == null) return;
     this.restaurantList.add(restaurantInformation);
     this.dispatchSelectEvent();
-    this.close();
+    this.handleCloseModal();
   }
 
   getRestaurantFormData($restaurantForm: HTMLFormElement): Restaurant | undefined {
@@ -82,7 +76,11 @@ class Button {
     const referenceLink = elements.link.value;
 
     const isValidForm = formValidator.isValidForm({ category, name, distance, referenceLink });
-    if (!isValidForm) return;
+    if (!isValidForm) {
+      const $addButton = dom.getElement('#button-add') as HTMLButtonElement;
+      $addButton.disabled = true;
+      return;
+    }
     return new Restaurant({ category, name, distance, description, referenceLink });
   }
 
