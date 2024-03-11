@@ -21,36 +21,39 @@ class FormItem extends HTMLDivElement {
   }
 
   createElements(props: FormItemProps) {
+    const frag = document.createDocumentFragment();
     const { label, select, caption, input, textarea } = props;
-    this.createLabel(label);
-    this.createSelect(select);
-    this.createInput(input);
-    this.createTextArea(textarea);
-    this.createCaption(caption);
+    this.createLabel(frag, label);
+    this.createSelect(frag, select);
+    this.createInput(frag, input);
+    this.createTextArea(frag, textarea);
+    this.createCaption(frag, caption);
+
+    this.appendChild(frag);
   }
 
-  createLabel(label: LabelProps) {
-    this.appendChild(new Label(label));
+  createLabel(frag: DocumentFragment, label: LabelProps) {
+    frag.appendChild(new Label(label));
   }
 
-  createSelect(select?: SelectProps) {
+  createSelect(frag: DocumentFragment, select?: SelectProps) {
     if (select === undefined) return;
-    this.appendChild(new Select(select));
+    frag.appendChild(new Select(select));
   }
 
-  createInput(input?: InputProps) {
+  createInput(frag: DocumentFragment, input?: InputProps) {
     if (input === undefined) return;
-    this.appendChild(new Input(input));
+    frag.appendChild(new Input(input));
   }
 
-  createTextArea(textarea?: TextAreaProps) {
+  createTextArea(frag: DocumentFragment, textarea?: TextAreaProps) {
     if (textarea === undefined) return;
-    this.appendChild(new TextArea(textarea));
+    frag.appendChild(new TextArea(textarea));
   }
 
-  createCaption(caption?: CaptionProps) {
+  createCaption(frag: DocumentFragment, caption?: CaptionProps) {
     if (caption === undefined) return;
-    this.appendChild(new Caption(caption));
+    frag.appendChild(new Caption(caption));
   }
 }
 
