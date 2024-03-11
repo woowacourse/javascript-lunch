@@ -1,3 +1,4 @@
+import { SORTBY } from '../constants/sortBy';
 import { Category } from '../types/Category';
 import { Restaurant } from '../types/Restaurant';
 import { Restaurants } from '../types/Restaurants';
@@ -51,10 +52,10 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
   },
 
   sortRestaurants(props: SortRestaurantsProps): Restaurants {
-    if (!props.sortBy || props.sortBy === '최신순' || props.sortBy === '오래된순') {
+    if (!props.sortBy || props.sortBy === SORTBY.newest || props.sortBy === SORTBY.oldest) {
       return this.sortByCreatedAt(props);
     }
-    if (props.sortBy === '가게명순▲' || props.sortBy === '가게명순▼') {
+    if (props.sortBy === SORTBY.nameAscending || props.sortBy === SORTBY.nameDescending) {
       return this.sortByName(props);
     }
     return this.sortByDistance(props);
@@ -62,7 +63,7 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
 
   sortByCreatedAt(props: SortRestaurantsProps): Restaurants {
     return Object.values(props.filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
-      if (props.sortBy === '오래된순') {
+      if (props.sortBy === SORTBY.oldest) {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
       }
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
@@ -71,7 +72,7 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
 
   sortByName(props: SortRestaurantsProps): Restaurants {
     return Object.values(props.filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
-      if (props.sortBy === '가게명순▲') {
+      if (props.sortBy === SORTBY.nameAscending) {
         return this.compareNameOrder(a, b);
       }
       return -this.compareNameOrder(a, b);
@@ -87,7 +88,7 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
 
   sortByDistance(props: SortRestaurantsProps): Restaurants {
     return Object.values(props.filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
-      if (props.sortBy === '거리순▲') {
+      if (props.sortBy === SORTBY.distanceAscending) {
         return a.distance - b.distance;
       }
       return b.distance - a.distance;
