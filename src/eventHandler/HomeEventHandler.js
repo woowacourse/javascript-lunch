@@ -29,9 +29,7 @@ class HomeEventHandler {
     this.restaurantList.filterByCategory(category);
     const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
     $restaurantList.replaceChildren();
-    sortedList.forEach(element => {
-      $restaurantList.innerHTML += RestaurantComponent(element.information);
-    });
+    RestaurantComponent.render(sortedList);
   }
 }
 

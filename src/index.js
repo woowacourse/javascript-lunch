@@ -25,9 +25,7 @@ new ModalEventHandler(restaurantList);
 const homeEventHandler = new HomeEventHandler(restaurantList);
 
 const init = () => {
-  restaurantList.restaurants.forEach(element => {
-    $restaurantList.innerHTML += RestaurantComponent(element.information);
-  });
+  RestaurantComponent.render(restaurantList.restaurants);
 
   // 홈화면 select 생성
   const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
