@@ -1,6 +1,10 @@
 import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
 
+type DropdownOptionsTable = {
+  [keys: string]: Record<string, string | number>;
+};
+
 const LUNCH_DROPDOWN = `
   <select name="dropdown" id="dropdown-filter" class="restaurant-filter"></select>
 `;
@@ -10,6 +14,11 @@ const DROPDOWN_OPTION = (value: string) => `
 `;
 
 class LunchDropdown extends HTMLElement {
+  DROPDOWN_OPTIONS_TABLE: DropdownOptionsTable = {
+    category: CATEGORIES,
+    sortBy: SORTBY,
+  };
+
   connectedCallback() {
     this.render();
     this.renderOptions();
@@ -31,24 +40,23 @@ class LunchDropdown extends HTMLElement {
   }
 
   renderOptions(): void {
-    const optionsAttribute = this.getAttribute('options');
+    const optionsAttribute = this.getAttribute('options') ?? '';
     const optionItems: string[] = [];
-    if (optionsAttribute === 'category') {
-      optionItems.push(DROPDOWN_OPTION('전체'));
-      Object.values(CATEGORIES).forEach((element) => {
-        optionItems.push(DROPDOWN_OPTION(element));
-      });
-    }
-    if (optionsAttribute === 'sortBy') {
-      Object.values(SORTBY).forEach((element) => {
-        optionItems.push(DROPDOWN_OPTION(element));
-      });
-    }
-
+    this.appendDropdownOptions(optionsAttribute, optionItems);
     const options = this.querySelector('.restaurant-filter');
+
     if (options) {
       options.innerHTML = optionItems.join('');
     }
+  }
+
+  appendDropdownOptions(option: string, optionItems: string[]) {
+    if (option === 'category') {
+      optionItems.push(DROPDOWN_OPTION('전체'));
+    }
+    Object.values(this.DROPDOWN_OPTIONS_TABLE[option]).forEach((element) => {
+      optionItems.push(DROPDOWN_OPTION(`${element}`));
+    });
   }
 }
 
