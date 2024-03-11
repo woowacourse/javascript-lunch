@@ -4,7 +4,7 @@
     "es2021": true
   },
   "parser": "@typescript-eslint/parser",
-  "extends": ["airbnb", "standard-with-typescript", "plugin:prettier/recommended"],
+  "extends": ["standard-with-typescript", "plugin:prettier/recommended"],
   "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": "latest",
