@@ -21,3 +21,10 @@ export const OPTION = {
     { value: '거리순', name: '거리순' },
   ],
 } as const;
+
+export const OPTIONS_MAP = {
+  category: [OPTION.ALL, ...OPTION.CATEGORY],
+  sorting: OPTION.SORTING,
+  'modal-category': [OPTION.INFO, ...OPTION.CATEGORY],
+  'modal-sorting': [OPTION.INFO, ...OPTION.DISTANCE],
+} as const;

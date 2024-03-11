@@ -15,10 +15,10 @@ class RestaurantItem extends Component {
   constructor() {
     super();
 
-    this.#category = this.getAttribute('category');
-    this.#name = this.getAttribute('name');
-    this.#distance = this.getAttribute('distance');
-    this.#description = this.getAttribute('description');
+    this.#category = this.getAttribute('category') || '';
+    this.#name = this.getAttribute('name') || '';
+    this.#distance = this.getAttribute('distance') || '';
+    this.#description = this.getAttribute('description') || '';
   }
 
   displayCategoryIcon(category) {

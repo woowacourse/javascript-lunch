@@ -41,8 +41,8 @@ class LunchPickerApp extends Component {
     return `
       <lunch-picker-header></lunch-picker-header>
       <section class="restaurant-filter-container">
-          <filter-box type="category" option='${JSON.stringify([OPTION.ALL, ...OPTION.CATEGORY])}'></filter-box>
-          <filter-box type="sorting" option='${JSON.stringify(OPTION.SORTING)}'></filter-box>
+          <filter-box type="category"></filter-box>
+          <filter-box type="sorting"></filter-box>
       </section>
       <restaurant-list category="전체" sorting="이름순"></restaurant-list>
       <restaurant-add-modal open="false"></restaurant-add-modal>

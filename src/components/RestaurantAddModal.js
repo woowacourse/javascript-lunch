@@ -2,7 +2,6 @@ import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
-import { OPTION } from '../constants/Condition';
 import { ERROR } from '../constants/Message';
 
 class RestaurantAddModal extends Component {
@@ -83,10 +82,7 @@ class RestaurantAddModal extends Component {
                   <form>
                       <div class="form-item form-item--required">
                           <label for="category text-caption">카테고리</label>
-                          <filter-box type="modal-category" option='${JSON.stringify([
-                            OPTION.INFO,
-                            ...OPTION.CATEGORY,
-                          ])}'></filter-box>
+                          <filter-box type="modal-category"></filter-box>
                           <p class="modal-category-error-message"></p>
                       </div>
                       <div class="form-item form-item--required">
@@ -96,10 +92,7 @@ class RestaurantAddModal extends Component {
                       </div>
                       <div class="form-item form-item--required">
                           <label for="distance text-caption">거리(도보 이동 시간)</label>
-                          <filter-box type="modal-distance" option='${JSON.stringify([
-                            OPTION.INFO,
-                            ...OPTION.DISTANCE,
-                          ])}'></filter-box>
+                          <filter-box type="modal-distance"></filter-box>
                           <p class="modal-distance-error-message"></p>
                       </div>
                       <div class="form-item">
