@@ -13,7 +13,7 @@ class Header extends HTMLElement {
   }
 
   render() {
-    this.classList.add('gnbb');
+    this.classList.add('gnb');
     this.innerHTML = `
       <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">

@@ -7,5 +7,6 @@ import '@/components/Basic/BasicModal/BasicModal';
 import '@/components/NewRestaurantModal/NewRestaurantModal';
 import '@/components/Basic/BasicButton/BasicButton';
 import '@/components/MainApp';
+import '@/components/Basic/FavoriteIcon';
 
 import '@/css/index.css';

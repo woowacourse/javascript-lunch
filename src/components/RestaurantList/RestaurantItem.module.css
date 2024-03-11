@@ -5,6 +5,8 @@
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  position: relative;
 }
 
 .restaurant__category {
@@ -22,7 +24,7 @@
   background: var(--lighten-color);
 }
 
-.category-icon {
+.categoryIcon {
   width: 36px;
   height: 36px;
 }
