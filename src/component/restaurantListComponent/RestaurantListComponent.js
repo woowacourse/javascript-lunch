@@ -35,6 +35,11 @@ class RestaurantListComponent extends BaseComponent {
       $categoryFilter.getAttribute('name'),
       $sortingFilter.getAttribute('name')
     );
+
+    this.#renderRestaurantCards(list);
+  }
+
+  #renderRestaurantCards(list) {
     list.forEach((restaurant) => {
       const $card = document.createElement('restaurant-card');
       $card.dataset.category = restaurant.category;
