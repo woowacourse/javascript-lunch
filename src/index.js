@@ -6,5 +6,6 @@ import '@/components/RestaurantList/RestaurantItem';
 import '@/components/Basic/BasicModal/BasicModal';
 import '@/components/NewRestaurantModal/NewRestaurantModal';
 import '@/components/Basic/BasicButton/BasicButton';
+import '@/components/MainApp';
 
 import '@/css/index.css';

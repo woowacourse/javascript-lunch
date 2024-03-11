@@ -5,6 +5,7 @@ import './Header.css';
 class Header extends HTMLElement {
   constructor() {
     super();
+    this.role = 'banner';
   }
 
   connectedCallback() {

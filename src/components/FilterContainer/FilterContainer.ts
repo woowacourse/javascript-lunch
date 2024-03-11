@@ -23,6 +23,10 @@ class FilterContainer extends BaseComponent {
     this.append(this.#selectSortBox);
   }
 
+  get() {
+    return { category: this.#selectCategoryBox.value, sortCriteria: this.#selectSortBox.value };
+  }
+
   repaint() {
     const restaurantDBService = new RestaurantDBService();
 
@@ -30,8 +34,6 @@ class FilterContainer extends BaseComponent {
       this.#selectCategoryBox.value as Category,
       this.#selectSortBox.value as SortCriteria,
     );
-
-    //this.#restaurantList = document.querySelector('.restaurant-list')!;
 
     this.#restaurantList.paint(newRestaurantList);
   }

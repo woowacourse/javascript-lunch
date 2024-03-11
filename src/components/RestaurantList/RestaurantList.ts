@@ -38,17 +38,6 @@ class RestaurantList extends HTMLUListElement {
       this.removeChild(this.firstChild);
     }
   }
-
-  #makeRestaurantList(data: IRestaurant[]) {
-    const restaurantList = data.map((restaurant) => new RestaurantItem(restaurant));
-
-    const ulTag = document.createElement('ul');
-    ulTag.classList.add('restaurant-list');
-    restaurantList.forEach((restaurant) => {
-      ulTag.append(restaurant);
-    });
-    return ulTag;
-  }
 }
 
 customElements.define('restaurant-list', RestaurantList, { extends: 'ul' });

@@ -3,7 +3,7 @@ import BaseComponent from '@/components/BaseComponent';
 interface InputBoxArgs {
   name: string;
   idName: string;
-  hasVerification: boolean;
+  hasVerification?: boolean;
   classList?: string[];
   isRequired?: boolean;
   helpText?: string;
@@ -21,6 +21,8 @@ class VerticalInputBox extends HTMLDivElement {
     this.innerHTML = `
     <label for="${this.idName} text-caption">${this.name}</label>
      <input type="text" name=${this.idName} id=${this.idName} />
+     ${helpText !== undefined && `<span class="help-text text-caption">${helpText}</span>`}
+     ${hasVerification && `<div class="error hidden">${this.name} 값은 필수 입력입니다.</span>`}    
     `;
 
     this.classList.add('form-item', ...(classList ?? []));
@@ -28,27 +30,9 @@ class VerticalInputBox extends HTMLDivElement {
     if (isRequired) {
       this.classList.add('form-item--required');
     }
-    if (helpText) {
-      this.append(this.#makeHelpText(helpText));
-    }
-    if (hasVerification) {
-      this.append(this.#makeErrorBox());
-    }
   }
 
-  #makeErrorBox() {
-    const errorBox = document.createElement('div');
-    errorBox.classList.add('error', 'hidden');
-    errorBox.textContent = `${this.name} 값은 필수 입력입니다.`;
-    return errorBox;
-  }
-
-  #makeHelpText(helpText: string) {
-    const helpTextSpan = document.createElement('span');
-    helpTextSpan.classList.add('help-text', 'text-cation');
-    helpTextSpan.textContent = `${helpText}`;
-    return helpTextSpan;
-  }
+  occurError() {}
 }
 customElements.define('vertical-input-box', VerticalInputBox, { extends: 'div' });
 

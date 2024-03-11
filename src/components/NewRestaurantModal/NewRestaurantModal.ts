@@ -14,8 +14,8 @@ import {
 } from '@/types/Restaurant';
 
 import './NewRestaurantModal.css';
-import FilterContainer from '../FilterContainer/FilterContainer';
 import VerticalInputBox from '../Basic/VerticalInputBox/VerticalInputBox';
+import MainApp from '../MainApp';
 class NewRestaurantModal extends BaseComponent {
   #title: HTMLHeadingElement;
   #form: HTMLFormElement;
@@ -27,17 +27,12 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   render() {
-    this.#title = this.#makeTitle();
-    this.#form = this.#makeForm();
-
-    const $fragment = new DocumentFragment();
-    $fragment.append(this.#title);
-    $fragment.append(this.#form);
-    //this.attachShadow({ mode: 'open' });
-    this.append(new BasicModal($fragment));
+    this.append(new BasicModal([this.#title, this.#form]));
 
     this.#setSubmitEvent();
     this.closeModal();
+    // NOTE : 필요시 Shadow DOM 을 고려해보는것도 좋음.
+    //this.attachShadow({ mode: 'open' });
   }
 
   #makeTitle() {
@@ -69,12 +64,8 @@ class NewRestaurantModal extends BaseComponent {
     $categoryLabel.textContent = '카테고리';
     $categorySelectBox.append($categoryLabel);
 
-    const CATEGORIES_KEYS_WITH_PLACEHOLDER: CategoryOrPlaceholder[] = [
-      '선택해주세요',
-      ...CATEGORIES_KEYS,
-    ];
     const $categorySelect = new SelectBox<CategoryOrPlaceholder>(
-      CATEGORIES_KEYS_WITH_PLACEHOLDER,
+      ['선택해주세요', ...CATEGORIES_KEYS],
       'category',
     );
     $categorySelectBox.append($categorySelect);
@@ -134,9 +125,6 @@ class NewRestaurantModal extends BaseComponent {
     const inputBoxArgs = {
       name: '링크',
       idName: 'link',
-      classList: [],
-      hasVerification: true,
-      isRequired: true,
       helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
     };
 
@@ -203,6 +191,13 @@ class NewRestaurantModal extends BaseComponent {
     this.classList.remove('modal--open');
   }
 
+  openModal() {
+    this.classList.add('modal--open');
+  }
+
+  getForm() {
+    return this.#form;
+  }
   #hideErrorMessage() {
     document.querySelector('.category-select > .error')?.classList.add('hidden');
     document.querySelector('.distance-select > .error')?.classList.add('hidden');
@@ -231,8 +226,7 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #rerenderByFilter() {
-    const filterContainer: FilterContainer = document.querySelector('filter-container')!;
-    filterContainer.repaint();
+    (this.parentElement as MainApp).repaint();
   }
 }
 export default NewRestaurantModal;
