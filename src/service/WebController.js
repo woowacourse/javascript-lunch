@@ -15,12 +15,12 @@ export default class WebController {
     this.#restaurantManger = new RestaurantManager();
   }
 
-  async start() {
+  start() {
     this.#syncLocalStorageAndDomain();
     this.#webView.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
 
-    this.#addRestaurantSubmitEventListener()   
-    this.#addFilterOnchangeEventListenr()
+    this.#addRestaurantSubmitEventListener();
+    this.#addFilterOnchangeEventListener();
   }
 
   #syncLocalStorageAndDomain() {
@@ -54,7 +54,7 @@ export default class WebController {
     });
   }
 
-  #addFilterOnchangeEventListenr() {
+  #addFilterOnchangeEventListener() {
     document.querySelector('.restaurant-filter-container').addEventListener(SELECT_EVENTS.onchange, () => {
       this.#syncLocalStorageAndDomain();
       this.#updateRestaurantList(this.#webView.categoryFilter, this.#webView.sortingFilter);

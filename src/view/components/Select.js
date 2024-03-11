@@ -27,7 +27,7 @@ export default class Select extends HTMLSelectElement {
   // eslint-disable-next-line
   #handleOnChange(e) {
     const { value } = e.target;
-    
+
     this.dispatchEvent(
       new CustomEvent(SELECT_EVENTS.onchange, {
         bubbles: true,
