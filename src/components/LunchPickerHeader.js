@@ -3,10 +3,6 @@ import { $, $addEvent, $removeEvent } from '../utils/dom';
 import addButtonImg from '../assets/add-button.png';
 
 class LunchPickerHeader extends Component {
-  constructor() {
-    super();
-  }
-
   setEvent() {
     $addEvent('.gnb__button', 'click', () => this.makeCustomEvent('gnbButtonClick'));
   }

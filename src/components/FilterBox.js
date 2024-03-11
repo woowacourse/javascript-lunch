@@ -14,7 +14,7 @@ class FilterBox extends Component {
     this.#option = JSON.parse(this.getAttribute('option'));
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback() {
     this.#type = this.getAttribute('type');
     this.#option = JSON.parse(this.getAttribute('option'));
 
