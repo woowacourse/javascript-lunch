@@ -11,6 +11,9 @@ import {
 import { Button } from './tag';
 
 import FormItem from './FormItem';
+import Condition from '../constants/Condition';
+
+const { CATEGORY } = Condition;
 
 class RestaurantForm extends HTMLElement {
   constructor() {
@@ -34,12 +37,12 @@ class RestaurantForm extends HTMLElement {
     };
     const options: OptionProps[] = [
       { value: '', text: '선택해 주세요' },
-      { value: '한식', text: '한식' },
-      { value: '중식', text: '중식' },
-      { value: '일식', text: '일식' },
-      { value: '양식', text: '양식' },
-      { value: '아시안', text: '아시안' },
-      { value: '기타', text: '기타' },
+      { value: CATEGORY.KOREAN_FOOD, text: CATEGORY.KOREAN_FOOD },
+      { value: CATEGORY.CHINESE_FOOD, text: CATEGORY.CHINESE_FOOD },
+      { value: CATEGORY.JAPANESE_FOOD, text: CATEGORY.JAPANESE_FOOD },
+      { value: CATEGORY.WESTERN_FOOD, text: CATEGORY.WESTERN_FOOD },
+      { value: CATEGORY.ASIAN_FOOD, text: CATEGORY.ASIAN_FOOD },
+      { value: CATEGORY.ETC, text: CATEGORY.ETC },
     ];
     const select: SelectProps = {
       name: 'category',
