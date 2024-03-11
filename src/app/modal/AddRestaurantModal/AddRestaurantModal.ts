@@ -72,7 +72,7 @@ class AddRestaurantModal extends HTMLElement {
     return `
       <!-- 카테고리 -->
       <div class="form-item form-item--required">
-        <label for="category text-caption">카테고리</label>
+        <label for="restaurant-category text-caption">카테고리</label>
         <select name="category" id="restaurant-category" required>
           ${this.getDefaultSelection()}
           ${this.getEachCategory()}
@@ -93,7 +93,7 @@ class AddRestaurantModal extends HTMLElement {
     return `
       <!-- 거리 -->
       <div class="form-item form-item--required">
-        <label for="distance text-caption">거리(도보 이동 시간) </label>
+        <label for="restaurant-minuteswalk text-caption">거리(도보 이동 시간) </label>
         <select name="minutesWalk" id="restaurant-minuteswalk" required>
         ${this.getDefaultSelection()}
         ${this.getEachMinutesWalk()};
@@ -112,7 +112,7 @@ class AddRestaurantModal extends HTMLElement {
 
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
-              <label for="name text-caption">이름</label>
+              <label for="restaurant-name text-caption">이름</label>
               <input type="text" name="name" id="restaurant-name" required />
             </div>
 
@@ -122,14 +122,14 @@ class AddRestaurantModal extends HTMLElement {
             
             <!-- 설명 -->
             <div class="form-item">
-              <label for="description text-caption">설명</label>
+              <label for="restaurant-description text-caption">설명</label>
               <textarea name="description" id="restaurant-description" cols="30" rows="5"></textarea>
               <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
             </div>
 
             <!-- 링크 -->
             <div class="form-item">
-              <label for="link text-caption">참고 링크</label>
+              <label for="restaurant-referenceurl text-caption">참고 링크</label>
               <input type="text" name="referenceUrl" id="restaurant-referenceurl" />
               <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
             </div>
