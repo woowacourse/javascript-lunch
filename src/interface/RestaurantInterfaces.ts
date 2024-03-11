@@ -6,20 +6,6 @@ type Distance = 5 | 10 | 15 | 20 | 30;
 
 type SortingProperty = 'name' | 'distance';
 
-interface DropdownOption {
-  value: string;
-  content: string;
-}
-
-interface DropdownProps {
-  options: DropdownOption[];
-  label?: string;
-  name?: string;
-  id?: string;
-  className?: string;
-  isRequired: boolean;
-}
-
 interface Restaurant {
   category: Category;
   name: string;
@@ -34,13 +20,27 @@ interface Restaurants {
   sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];
 }
 
+interface DropdownOption {
+  value: string;
+  content: string;
+}
+
+interface DropdownProps {
+  options: DropdownOption[];
+  label?: string;
+  name?: string;
+  id?: string;
+  className?: string;
+  isRequired: boolean;
+}
+
 export {
   Category,
   FilteringCategory,
   Distance,
   SortingProperty,
-  DropdownOption,
-  DropdownProps,
   Restaurant,
   Restaurants,
+  DropdownOption,
+  DropdownProps,
 };
