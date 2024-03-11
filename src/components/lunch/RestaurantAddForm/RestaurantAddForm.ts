@@ -2,6 +2,8 @@ import "./RestaurantAddForm.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
 
+import { ERROR_TARGET_ELEMENTS_DICTIONARY } from "./RestaurantAddForm.constant";
+
 import Restaurant from "../../../domain/Restaurant/Restaurant";
 import type { Distance } from "../../../domain/Restaurant/Restaurant.type";
 
@@ -14,7 +16,6 @@ import {
   isUserInputValues,
   isValidErrorMessageKey,
 } from "../../../utils/typeGuard";
-import { ERROR_TARGET_ELEMENTS_DICTIONARY } from "./RestaurantAddForm.constant";
 
 class RestaurantAddForm extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = ["5", "10", "15", "20", "30"];
@@ -140,18 +141,20 @@ class RestaurantAddForm extends BaseComponent {
 
       this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
     } catch (error: unknown | Error) {
-      if (error instanceof Error) {
-        alert(error.message);
+      this.handleError(error);
+    }
+  }
 
-        const errorMessage = error.message;
+  private handleError(error: unknown | Error) {
+    if (error instanceof Error) {
+      alert(error.message);
 
-        if (isValidErrorMessageKey(errorMessage)) {
-          const targetElement = $(
-            ERROR_TARGET_ELEMENTS_DICTIONARY[errorMessage]
-          );
+      const errorMessage = error.message;
 
-          targetElement.focus();
-        }
+      if (isValidErrorMessageKey(errorMessage)) {
+        const targetElement = $(ERROR_TARGET_ELEMENTS_DICTIONARY[errorMessage]);
+
+        targetElement.focus();
       }
     }
   }
