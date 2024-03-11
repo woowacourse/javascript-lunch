@@ -17,7 +17,7 @@ const restaurants = new Restaurants(localStorage);
 new Header();
 const select = new Select(restaurants);
 const restaurant = new Restaurant();
-const modal = new RestaurantCreationModal(restaurants);
+new RestaurantCreationModal(restaurants);
 
 $('header').innerHTML = Header.getTemplate();
 $('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.sorting));
@@ -25,4 +25,4 @@ $('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.categor
 restaurants.standardList.forEach((restaurantData) => {
   $('restaurant-list').innerHTML += restaurant.render(restaurantData);
 });
-$('restaurant-creation-modal').innerHTML = modal.render();
+$('restaurant-creation-modal').innerHTML = RestaurantCreationModal.getTemplate();

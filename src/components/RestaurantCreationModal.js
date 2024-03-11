@@ -2,15 +2,16 @@ import Restaurant from './Restaurant';
 import { validateRequiredValue, validateRestaurantsName } from '../validators';
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
+import { closeModal } from '../utils/modalHandler';
 import { RULES } from '../constants/rules';
 
 export default class RestaurantCreationModal {
   constructor(restaurants) {
     this.restaurants = restaurants;
-    this.addEvent();
+    this.initEventListeners();
   }
 
-  render() {
+  static getTemplate() {
     return `
     <!-- 음식점 추가 모달 -->
     <div id="modal-backdrop" class="modal-backdrop"></div>
@@ -78,61 +79,58 @@ export default class RestaurantCreationModal {
     `;
   }
 
-  addEvent() {
-    this.handleCancelButton();
-    this.handleCreationButton();
-    this.handleInputFocusout();
+  initEventListeners() {
+    const modal = $('restaurant-creation-modal');
+
+    modal.addEventListener('focusout', this.handleRequiredInput.bind(this));
+    modal.addEventListener('click', this.handleModalClose.bind(this));
+    modal.addEventListener('submit', this.handleAddRestaurant.bind(this));
   }
 
-  handleInputFocusout() {
-    $('restaurant-creation-modal').addEventListener('focusout', ({ target }) => {
-      if (RULES.requiredIds.some((id) => id === target.id)) {
-        tryCatchWrapper({
-          tryBlock: () => this.validateRequirements(target.id),
-          catchBlock: ({ message }) => ($(`${target.id}-error`).innerText = message),
-        });
-      }
-    });
+  handleRequiredInput(event) {
+    const targetId = event.target.id;
+
+    if (RULES.requiredIds.some((requiredId) => requiredId === targetId)) {
+      tryCatchWrapper({
+        tryBlock: () => this.validateRequiredInput(targetId),
+        catchBlock: ({ message }) => ($(`${targetId}-error`).innerText = message),
+      });
+    }
   }
 
-  handleCreationButton() {
-    $('restaurant-creation-modal').addEventListener('submit', (event) => {
-      event.preventDefault();
+  handleModalClose(event) {
+    const targetId = event.target.id;
 
-      if (event.submitter.id === 'add-button') {
-        tryCatchWrapper({
-          tryBlock: () => this.addRestaurant(),
-          catchBlock: ({ message }) => alert(message),
-        });
-      }
-    });
+    if (targetId === 'cancel-button' || targetId === 'modal-backdrop') {
+      closeModal($('restaurant-creation-modal'));
+    }
   }
 
-  handleCancelButton() {
-    $('restaurant-creation-modal').addEventListener('click', ({ target: { id } }) => {
-      if (id === 'cancel-button' || id === 'modal-backdrop') {
-        $('restaurant-creation-modal').classList.remove('modal--open');
-      }
-    });
+  handleAddRestaurant(event) {
+    event.preventDefault();
+
+    if (event.submitter.id === 'add-button') {
+      tryCatchWrapper({
+        tryBlock: () => this.addRestaurant(event),
+        catchBlock: ({ message }) => alert(message),
+      });
+    }
   }
 
-  addRestaurant() {
-    const inputData = this.getInputData();
+  addRestaurant(event) {
+    const inputData = this.getInputData(event);
 
-    this.validateInputData(inputData);
-    this.restaurants.addRestaurant(inputData);
-    $('restaurant-creation-modal').classList.remove('modal--open');
+    this.validateUniqueName(inputData);
+    closeModal($('restaurant-creation-modal'));
     this.insertRestaurantList(inputData);
   }
 
-  validateInputData(inputData) {
+  validateUniqueName(inputData) {
     const restaurantNames = this.restaurants.storageData.map((restaurant) => restaurant.name);
-
     validateRestaurantsName({ restaurantNames, name: inputData.name });
-    RULES.requiredIds.forEach((id) => this.validateRequirements(id));
   }
 
-  validateRequirements(id) {
+  validateRequiredInput(id) {
     validateRequiredValue(id, $(id).value);
     $(`${id}-error`).innerText = '';
   }
@@ -142,11 +140,13 @@ export default class RestaurantCreationModal {
     $('restaurant-input-form').reset();
   }
 
-  getInputData() {
-    const category = $('category').options[$('category').selectedIndex].value;
-    const name = $('name').value;
-    const walkingTimeFromCampus = $('distance').options[$('distance').selectedIndex].value;
-    const description = $('description').value;
+  getInputData(event) {
+    const form = event.target;
+    console.log(event);
+    const category = form['category'].value;
+    const name = form['name'].value;
+    const walkingTimeFromCampus = form['distance'].value;
+    const description = form['description'].value;
 
     return { category, name, walkingTimeFromCampus, description };
   }
