@@ -13,6 +13,8 @@ export interface FormItemProps {
   required: boolean;
 }
 
+type FormTableType = Record<FormItemType, () => void>;
+
 const LUNCH_FORM_ITEM = (props: FormItemProps) => `
   <div class="form-item">
     <label for="category text-caption">${props.label}</label>
@@ -20,8 +22,9 @@ const LUNCH_FORM_ITEM = (props: FormItemProps) => `
 `;
 
 const LUNCH_FORM_ITEM_DROPDOWN = (props: FormItemProps) => `
-  <select name="${props.name}" id="${props.name}" class="dropdown-items" ${props.required ? 'required' : ''
-  }>
+  <select name="${props.name}" id="${props.name}" class="dropdown-items" ${
+  props.required ? 'required' : ''
+}>
   </select>
 `;
 
@@ -34,8 +37,9 @@ const LUNCH_FORM_ITEM_INPUT = (props: FormItemProps) => `
 `;
 
 const LUNCH_FORM_ITEM_TEXTAREA = (props: FormItemProps) => `
-  <textarea name="${props.name}" id="${props.name}" cols="30" rows="5" ${props.required ? 'required' : ''
-  }></textarea>
+  <textarea name="${props.name}" id="${props.name}" cols="30" rows="5" ${
+  props.required ? 'required' : ''
+}></textarea>
 `;
 
 const LUNCH_FORM_ITEM_MESSAGE = (props: FormItemProps) => `
@@ -70,16 +74,13 @@ class LunchFormItem extends HTMLElement {
   }
 
   renderTypes(props: FormItemProps) {
-    switch (props.type) {
-      case 'dropdown':
-        this.renderDropdown(props);
-        break;
-      case 'input':
-        this.renderInput(props);
-        break;
-      case 'textArea':
-        this.renderTextArea(props);
-    }
+    const formTable: FormTableType = {
+      dropdown: () => this.renderDropdown(props),
+      input: () => this.renderInput(props),
+      textArea: () => this.renderTextArea(props),
+    };
+    const renderTypeFunction = formTable[props.type];
+    renderTypeFunction();
   }
 
   renderDropdown(props: FormItemProps) {
