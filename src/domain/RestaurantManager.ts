@@ -25,12 +25,12 @@ class RestaurantManager {
     this.#restaurants.push(restaurant);
   }
 
-  filteredAndSortedByOptions(category: Category, option: Option) {
+  filteredAndSortedByOptions(category: Category, option: Option): Restaurant[] {
     const filteredRestaurant = this.#filterByCategory(category);
 
-    if (option === 'name') return this.#sortByName(filteredRestaurant);
-
     if (option === 'distance') return this.#sortByDistance(filteredRestaurant);
+
+    return this.#sortByName(filteredRestaurant);
   }
 
   #filterByCategory(category: Category): Restaurant[] {
@@ -40,15 +40,11 @@ class RestaurantManager {
   }
 
   #sortByName(restaurants: Restaurant[]): Restaurant[] {
-    return restaurants.sort((a, b) => {
-      if (a.name > b.name) return 1;
-      if (a.name < b.name) return -1;
-      return 0;
-    });
+    return [...restaurants].sort((a, b) => a.name.localeCompare(b.name));
   }
 
   #sortByDistance(restaurants: Restaurant[]): Restaurant[] {
-    return restaurants.sort((a, b) => a.distance - b.distance);
+    return [...restaurants].sort((a, b) => a.distance - b.distance);
   }
 }
 
