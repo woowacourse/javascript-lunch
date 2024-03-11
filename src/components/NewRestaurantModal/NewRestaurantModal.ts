@@ -1,10 +1,15 @@
 import BasicModal from '../BasicModal/BasicModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import { Category, IRestaurant } from '@/types/Restaurant';
-import { isValidateAndMakeErrorMessage, validator } from '@/utils/validator';
+import { Category, Distance, IRestaurant } from '@/types/Restaurant';
+import {
+  checkAllValuesValid,
+  isValidateAndMakeErrorMessage,
+  validateAllValuesAndMakeErrorMessage,
+  validator,
+} from '@/utils/validator';
 import { closeModal, hideErrorMessage } from '@/utils/view';
 import NewRestaurantModalView from './NewRestaurantModalView';
-import { ErrorMessage } from '@/constants/ErrorMessage';
+import { ErrorMessage } from '@/constants/Message';
 
 class NewRestaurantModal extends NewRestaurantModalView {
   #form;
@@ -30,29 +35,6 @@ class NewRestaurantModal extends NewRestaurantModalView {
     this.append(new BasicModal($fragment));
   }
 
-  #validateValues({
-    category,
-    distance,
-    name,
-    link,
-  }: {
-    category: string;
-    distance: number;
-    name: string;
-    link: string;
-  }) {
-    isValidateAndMakeErrorMessage.category(category);
-    isValidateAndMakeErrorMessage.distance(distance);
-    isValidateAndMakeErrorMessage.name(name);
-    link && isValidateAndMakeErrorMessage.link(link);
-
-    return (
-      validator.isValidCategory(category) &&
-      validator.isValidDistance(distance) &&
-      validator.isValidName(name)
-    );
-  }
-
   #submitForm() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -61,15 +43,17 @@ class NewRestaurantModal extends NewRestaurantModalView {
       const values = this.#getValues();
       const { category, name, distance, description, link } = values;
 
-      if (!this.#validateValues(values)) return;
+      validateAllValuesAndMakeErrorMessage({ category, distance, name, link });
+      if (!checkAllValuesValid({ category, distance, name, link })) return;
 
       const newRestaurant: IRestaurant = {
         name,
-        distance,
+        distance: distance as Distance,
         category: category as Category,
         ...(description && { description }),
         ...(link && { link }),
       };
+
       const DBService = new RestaurantDBService();
       DBService.add(newRestaurant);
 

@@ -9,6 +9,7 @@ export const validator = {
   isValidName(name: string | null) {
     return name && name.length <= 10;
   },
+
   isValidDistance(distance: number | string) {
     return !Number.isNaN(distance);
   },
@@ -41,4 +42,46 @@ export const isValidateAndMakeErrorMessage = {
       document.querySelector('#link-error')?.classList.remove('hidden');
     }
   },
+};
+
+export const validateAllValuesAndMakeErrorMessage = ({
+  category,
+  distance,
+  name,
+  link,
+}: {
+  category: string;
+  distance: number;
+  name: string;
+  link: string | null;
+}) => {
+  isValidateAndMakeErrorMessage.category(category);
+  isValidateAndMakeErrorMessage.distance(distance);
+  isValidateAndMakeErrorMessage.name(name);
+  link && isValidateAndMakeErrorMessage.link(link);
+};
+
+export const checkAllValuesValid = ({
+  category,
+  distance,
+  name,
+  link,
+}: {
+  category: string;
+  distance: number;
+  name: string;
+  link: string;
+}) => {
+  if (!link) {
+    validator.isValidCategory(category) &&
+      validator.isValidDistance(distance) &&
+      validator.isValidName(name);
+  }
+
+  return (
+    validator.isValidCategory(category) &&
+    validator.isValidDistance(distance) &&
+    validator.isValidLink(link) &&
+    validator.isValidName(name)
+  );
 };

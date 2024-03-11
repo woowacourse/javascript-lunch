@@ -1,10 +1,10 @@
-export const CONDITIONS = Object.freeze({
+export const CONDITIONS = {
   DISTANCES: [5, 10, 15, 20, 30],
   SORT_CRITERION: {
     이름순: 'name',
     거리순: 'distance',
   },
-});
+} as const;
 
 export const CATEGORIES = {
   한식: 'korean',
@@ -18,7 +18,7 @@ export const CATEGORIES = {
 export const CATEGORIES_WITH_ALL: { [key: string]: string } = {
   전체: 'all',
   ...CATEGORIES,
-};
+} as const;
 
 export const CATEGORIES_WITH_ALL_KEYS = Object.keys(CATEGORIES_WITH_ALL);
 export const CATEGORIES_KEYS = Object.keys(CATEGORIES);

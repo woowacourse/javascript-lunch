@@ -13,7 +13,7 @@ export const closeModal = (modal: HTMLElement) => {
 export const blockModalBodyScroll = () => {
   if (document.querySelector('.modal')?.classList.contains('modal--open'))
     return (document.body.style.overflow = 'hidden');
-  return (document.body.style.overflow = 'auto');
+  document.body.style.overflow = 'auto';
 };
 
 export const makeLabel = ({ htmlFor, text }: { htmlFor: string; text: string }) => {

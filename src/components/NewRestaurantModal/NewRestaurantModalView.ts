@@ -1,7 +1,7 @@
 import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
 import BaseComponent from '../BaseComponent';
 import SelectBox from '../SelectBox/SelectBox';
-import { ErrorId, ErrorMessage } from '@/constants/ErrorMessage';
+import { ErrorId, ErrorMessage, InfoMessage } from '@/constants/Message';
 import BasicButton from '../BasicButton/BasicButton';
 import { closeModal, makeLabel } from '@/utils/view';
 import Input from '../Input/Input';
@@ -62,7 +62,6 @@ class NewRestaurantModalView extends BaseComponent {
       htmlFor: 'name text-caption',
       text: '이름',
     });
-
     const $nameInput = new Input({
       inputId: 'name',
       inputName: 'name',
@@ -86,7 +85,6 @@ class NewRestaurantModalView extends BaseComponent {
       htmlFor: 'distance text-caption',
       text: '거리(도보 이동 시간)',
     });
-
     $distanceSelection.append($distanceLabel);
     $distanceSelection.id = 'distance';
     const DISTANCES_REQURIED_VALUES = [
@@ -132,7 +130,7 @@ class NewRestaurantModalView extends BaseComponent {
 
     const $span = document.createElement('span');
     $span.classList.add('help-text', 'text-caption');
-    $span.textContent = '메뉴 등 추가 정보를 입력해 주세요.';
+    $span.textContent = InfoMessage.DESCRIPTION;
 
     $descriptionTextBox.append($descriptionLabel);
     $descriptionTextBox.append($textArea);
@@ -154,7 +152,7 @@ class NewRestaurantModalView extends BaseComponent {
 
     const $span = document.createElement('span');
     $span.classList.add('help-text', 'text-caption');
-    $span.textContent = '매장 정보를 확인할 수 있는 링크를 입력해 주세요.';
+    $span.textContent = InfoMessage.LINK;
 
     $linkTextBox.append($linkLabel);
     $linkTextBox.append($linkInput);

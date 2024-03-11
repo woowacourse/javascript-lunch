@@ -4,7 +4,7 @@ import SelectBox from '../SelectBox/SelectBox';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
-import { ErrorMessage } from '@/constants/ErrorMessage';
+import { ErrorMessage } from '@/constants/Message';
 
 class FilterContainer extends BaseComponent {
   #restaurantList;

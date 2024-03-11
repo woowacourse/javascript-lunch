@@ -1,7 +1,7 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
 import { blockModalBodyScroll } from '@/utils/view';
-import { ErrorMessage } from '@/constants/ErrorMessage';
+import { ErrorMessage } from '@/constants/Message';
 
 class Header extends BaseComponent {
   render() {
