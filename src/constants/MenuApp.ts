@@ -8,7 +8,7 @@ interface TRestaurant {
   description?: string;
 }
 
-export const DEFAULT_DATA: TRestaurant[] = [
+export const DEFAULT_RESTAURANT_DATA: TRestaurant[] = [
   {
     name: "피양콩 할마니",
     distance: 10,

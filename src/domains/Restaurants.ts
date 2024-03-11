@@ -1,4 +1,4 @@
-import { DEFAULT_DATA, ERROR_MESSAGES } from "../constants/MenuApp";
+import { DEFAULT_RESTAURANT_DATA, ERROR_MESSAGES } from "../constants/MenuApp";
 import restaurantValidator from "../validators/restaurantValidator";
 
 type Category = "한식" | "일식" | "아시안" | "양식" | "중식" | "전체" | "기타";
@@ -70,7 +70,7 @@ export const initRestaurantStorage = () => {
     return;
   }
 
-  DEFAULT_DATA.forEach((data: TRestaurant) => {
+  DEFAULT_RESTAURANT_DATA.forEach((data: TRestaurant) => {
     add(data);
   });
 };
