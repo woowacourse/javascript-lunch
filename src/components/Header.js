@@ -3,10 +3,6 @@ import { $ } from "../utils/dom.js";
 import BaseComponent from "./BaseComponent.js";
 
 class Header extends BaseComponent {
-  constructor() {
-    super();
-  }
-
   render() {
     this.innerHTML = `
     <header class="gnb">

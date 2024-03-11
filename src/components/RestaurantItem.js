@@ -9,10 +9,6 @@ import {
 import BaseComponent from "./BaseComponent.js";
 
 class RestaurantItem extends BaseComponent {
-  constructor() {
-    super();
-  }
-
   #categoryToImg(category) {
     switch (category) {
       case "한식":

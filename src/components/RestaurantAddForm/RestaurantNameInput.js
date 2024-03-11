@@ -3,10 +3,6 @@ import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantNameInput extends BaseComponent {
-  constructor() {
-    super();
-  }
-
   render() {
     this.innerHTML = `
       <div class="form-item form-item--required" id="name-input">

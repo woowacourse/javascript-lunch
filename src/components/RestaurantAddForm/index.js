@@ -8,10 +8,6 @@ import { $ } from "../../utils/dom";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantAddForm extends BaseComponent {
-  constructor() {
-    super();
-  }
-
   render() {
     this.innerHTML = `
     <div class="modal">

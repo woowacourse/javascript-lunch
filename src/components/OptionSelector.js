@@ -1,10 +1,6 @@
 import BaseComponent from "./BaseComponent.js";
 
 class OptionSelector extends BaseComponent {
-  constructor() {
-    super();
-  }
-
   render() {
     const optionsArray = this.getAttribute("options").split(",");
 

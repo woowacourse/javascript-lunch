@@ -3,10 +3,6 @@ import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantOptions extends BaseComponent {
-  constructor() {
-    super();
-  }
-
   render() {
     const optionsArray = this.getAttribute("options").split(",");
     const valuesArray = this.getAttribute("values").split(",");

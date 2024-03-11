@@ -3,10 +3,6 @@ import { initRestaurantStorage } from "../domains/Restaurants";
 import BaseComponent from "./BaseComponent.js";
 
 class MenuApp extends BaseComponent {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     initRestaurantStorage();
     this.render();
