@@ -1,6 +1,5 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { RestaurantData } from '../../../type/types';
-import { $ } from '../../../util/domSelector';
 
 export default class RestaurantList extends HTMLElement {
   private restaurants: RestaurantData[];
@@ -11,24 +10,32 @@ export default class RestaurantList extends HTMLElement {
   }
 
   connectedCallback() {
-    const restaurantList: HTMLElement[] = this.createRestaurantList();
-    this.render(restaurantList);
+    this.render();
   }
 
-  createRestaurantList() {
-    return this.restaurants.map((restaurantData) => new RestaurantItem(restaurantData));
+  updateRestaurantList(newRestaurants: RestaurantData[]) {
+    this.restaurants = newRestaurants;
+    this.render();
   }
 
-  private render(restaurantList: HTMLElement[]) {
-    const listContainer = document.createElement('ul');
-    listContainer.classList.add('restaurant-list');
+  private createRestaurantList() {
+    const restaurantList = document.createElement('ul');
+    restaurantList.className = 'restaurant-list';
 
-    restaurantList.forEach((restaurantItem) => {
-      listContainer.appendChild(restaurantItem);
+    this.restaurants.forEach((restaurantData) => {
+      const restaurantItem = new RestaurantItem(restaurantData);
+      restaurantList.appendChild(restaurantItem);
     });
+    return restaurantList;
+  }
 
-    this.innerHTML = `<section class="restaurant-list-container"></section>`;
-    $('.restaurant-list-container').appendChild(listContainer);
+  private render() {
+    this.innerHTML = ``;
+    const section = document.createElement('section');
+    section.className = 'restaurant-list-container';
+
+    section.appendChild(this.createRestaurantList());
+    this.appendChild(section);
   }
 }
 

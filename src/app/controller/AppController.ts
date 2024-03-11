@@ -8,20 +8,22 @@ export default class AppController {
   private sortOrder: SortOrder;
   private category: Category | '전체';
   private restaurantService: RestaurantService;
+  private restaurantList: RestaurantList;
 
   constructor() {
     this.sortOrder = SortOrder.이름순;
     this.category = '전체';
     this.restaurantService = new RestaurantService();
+    this.restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder));
+  }
+
+  connectedCallback() {
+    this.initializeApp();
   }
 
   initializeApp() {
-    const category = this.category === '전체' ? undefined : this.category;
-    const restaurantList: RestaurantList = new RestaurantList(
-      this.restaurantService.getRestaurants(this.sortOrder, category),
-    );
-    $('#app').appendChild(restaurantList);
     this.addEvent();
+    this.showRestaurantList();
   }
 
   private addEvent() {
@@ -34,26 +36,29 @@ export default class AppController {
   private changeCategory(event: Event) {
     const category: Category = (event as CustomEvent).detail;
     this.category = category;
-    this.refreshRestaurantList();
+    this.updateRestaurantList();
   }
 
   private changeSortOrder(event: Event) {
     const sortOrder: SortOrder = (event as CustomEvent).detail;
     this.sortOrder = sortOrder;
-    this.refreshRestaurantList();
+    this.updateRestaurantList();
   }
 
   private addRestaurant(event: Event) {
     const detail: RestaurantData = (event as CustomEvent).detail;
     this.restaurantService.addRestaurant(detail);
-    this.refreshRestaurantList();
+    this.updateRestaurantList();
   }
 
-  private refreshRestaurantList() {
+  private showRestaurantList() {
+    $('#app').appendChild(this.restaurantList);
+  }
+
+  private updateRestaurantList() {
     const category = this.category === '전체' ? undefined : this.category;
-    $('#app').removeChild($('restaurant-list')!);
-    const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder, category));
-    $('#app').appendChild(restaurantList);
+    const newRestaurantList = this.restaurantService.getRestaurants(this.sortOrder, category);
+    this.restaurantList.updateRestaurantList(newRestaurantList);
   }
 
   private showAddRestaurantModal() {
