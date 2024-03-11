@@ -20,23 +20,23 @@ class LunchPickerApp extends Component {
     }
 
     if (event.target.classList.contains('button--primary')) {
-      $setAttribute('restaurant-add-modal', 'open', 'false');
-    }
-
-    if (event.target.classList.contains('button--secondary')) {
-      $setAttribute('restaurant-add-modal', 'open', 'false');
+      this.#updateRestaurantList();
     }
   };
 
   #handleChange = (event) => {
     if (event.target.classList.contains('category') || event.target.classList.contains('sorting')) {
-      const category = $('.category').value;
-      const sorting = $('.sorting').value;
-
-      $setAttribute('restaurant-list', 'category', `${category}`);
-      $setAttribute('restaurant-list', 'sorting', `${sorting}`);
+      this.#updateRestaurantList();
     }
   };
+
+  #updateRestaurantList() {
+    const category = $('.category').value || '';
+    const sorting = $('.sorting').value || '';
+
+    $setAttribute('restaurant-list', 'category', `${category}`);
+    $setAttribute('restaurant-list', 'sorting', `${sorting}`);
+  }
 
   template() {
     return `

@@ -10,16 +10,18 @@ class RestaurantAddModal extends Component {
 
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
-    this.#updateModal(JSON.parse(newValue));
     this.setEvent();
+    this.#updateModal(JSON.parse(newValue));
   }
 
   setEvent() {
     $addEvent('.button--primary', 'click', this.#onSubmit);
+    $addEvent('.button--secondary', 'click', this.#onCancel);
   }
 
   removeEvent() {
     $removeEvent('.button--primary', 'click', this.#onSubmit);
+    $removeEvent('.button--secondary', 'click', this.#onCancel);
   }
 
   #updateModal(isOpen) {
@@ -46,6 +48,11 @@ class RestaurantAddModal extends Component {
     };
 
     RestaurantRepository.addRestaurant(formData);
+    this.#updateModal(false);
+  };
+
+  #onCancel = () => {
+    this.#updateModal(false);
   };
 
   #handleEmptyError(selectors) {
