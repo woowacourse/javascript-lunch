@@ -37,7 +37,7 @@ type SortRestaurantsProps = {
 const RestaurantDataProvider: RestaurantDataProviderType = {
   execute({ category, sortBy }: ExecuteProps): Restaurants {
     const restaurants = localStorage.getItem(LOCALSTORAGE.restaurants);
-    const allRestaurants = JSON.parse(restaurants || '[]');
+    const allRestaurants = JSON.parse(restaurants ?? '[]');
 
     const filterRestaurants = category
       ? this.filterByCategory({ category, allRestaurants })
