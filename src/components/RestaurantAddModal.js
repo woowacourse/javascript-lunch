@@ -1,6 +1,6 @@
 import Component from './Component';
-import { OPTION } from '../constants/Condition';
-import { ERROR } from '../constants/Message';
+import { OPTION } from '../constants/conditions';
+import { ERROR } from '../constants/messages';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 
