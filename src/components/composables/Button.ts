@@ -1,10 +1,11 @@
 import { ButtonComponentProps } from '../../types/components';
 
 function Button({ type = 'button', className, text }: ButtonComponentProps): HTMLButtonElement {
-  const button = document.createElement('button');
-  button.type = type;
-  button.className = className;
-  button.textContent = text;
+  const button = Object.assign(document.createElement('button'), {
+    type,
+    className,
+    textContent: text,
+  });
 
   return button;
 }
