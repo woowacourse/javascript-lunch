@@ -263,6 +263,14 @@ input[name="link"] {
   height: 44px;
 }
 
+input:invalid:required {
+  border: 2px dashed red;
+}
+
+select:invalid:required { 
+  border: 2px dashed red;
+}
+
 .button-container {
   display: flex;
 }
