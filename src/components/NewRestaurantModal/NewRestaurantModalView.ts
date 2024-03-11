@@ -33,6 +33,7 @@ class NewRestaurantModalView extends BaseComponent {
 
     const $categorySelect = new SelectBox({
       optionValues: CATEGORIES_KEYS_REQUIRED,
+      optionTexts: CATEGORIES_KEYS_REQUIRED,
       name: 'category',
       classList: [],
       id: 'category',
@@ -88,13 +89,19 @@ class NewRestaurantModalView extends BaseComponent {
 
     $distanceSelection.append($distanceLabel);
     $distanceSelection.id = 'distance';
-    const DISTANCES_REQURIED = [
+    const DISTANCES_REQURIED_VALUES = [
+      '선택해주세요',
+      ...CONDITIONS.DISTANCES.map((num) => String(num)),
+    ];
+
+    const DISTANCES_REQURIED_TEXT = [
       '선택해주세요',
       ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
     ];
     $distanceSelection.append(
       new SelectBox({
-        optionValues: DISTANCES_REQURIED,
+        optionValues: DISTANCES_REQURIED_VALUES,
+        optionTexts: DISTANCES_REQURIED_TEXT,
         name: 'distance',
         classList: [],
         id: '',

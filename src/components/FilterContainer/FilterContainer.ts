@@ -21,6 +21,7 @@ class FilterContainer extends BaseComponent {
   #makeSelectCategoryBox() {
     return new SelectBox({
       optionValues: CATEGORIES_WITH_ALL_KEYS,
+      optionTexts: CATEGORIES_WITH_ALL_KEYS,
       name: 'category',
       classList: ['restaurant-filter'],
       id: 'category-filter',
@@ -30,6 +31,7 @@ class FilterContainer extends BaseComponent {
   #makeSelectSortBox() {
     return new SelectBox({
       optionValues: SORT_CRITERION_KEYS,
+      optionTexts: SORT_CRITERION_KEYS,
       name: 'sorting',
       classList: ['restaurant-filter'],
       id: 'sorting-filter',

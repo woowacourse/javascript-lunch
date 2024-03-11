@@ -2,19 +2,22 @@ import BaseComponent from '@/components/BaseComponent';
 
 type SelectBoxProps = {
   optionValues: string[];
+  optionTexts: string[];
   name: string;
   classList: string[];
   id: string;
 };
 class SelectBox extends BaseComponent {
   #optionValues;
+  #optionTexts;
   #name;
   #classList;
   #id;
 
-  constructor({ optionValues, name, classList, id }: SelectBoxProps) {
+  constructor({ optionValues, optionTexts, name, classList, id }: SelectBoxProps) {
     super();
     this.#optionValues = optionValues;
+    this.#optionTexts = optionTexts;
     this.#name = name;
     this.#classList = classList;
     this.#id = id;
@@ -36,10 +39,10 @@ class SelectBox extends BaseComponent {
 
   #makeOptionTags() {
     const fragment = new DocumentFragment();
-    this.#optionValues.forEach((option) => {
+    this.#optionValues.forEach((option, index) => {
       const optionTag = document.createElement('option');
       optionTag.value = option;
-      optionTag.textContent = option;
+      optionTag.textContent = this.#optionTexts[index];
       fragment.append(optionTag);
     });
     return fragment;

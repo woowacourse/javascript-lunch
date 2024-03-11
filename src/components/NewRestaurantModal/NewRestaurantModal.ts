@@ -80,9 +80,7 @@ class NewRestaurantModal extends NewRestaurantModalView {
 
   #getValues() {
     const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
-    const distance = Number(
-      (this.#form.elements.namedItem('distance') as HTMLSelectElement).value.slice(0, -3),
-    );
+    const distance = Number((this.#form.elements.namedItem('distance') as HTMLSelectElement).value);
     const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
     const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
