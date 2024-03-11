@@ -8,7 +8,7 @@ const resetPrevRestaurantList = (ul: Element) => {
   }
 };
 
-const render = (filterData: RestaurantState[]) => {
+const renderRestaurantList = (filterData: RestaurantState[]) => {
   const ul = document.getElementsByClassName('restaurant-list')[0];
   resetPrevRestaurantList(ul);
   const totalText = filterData.reduce((acc: string, cur: RestaurantState) => acc + Restaurant(cur), '');
@@ -16,4 +16,4 @@ const render = (filterData: RestaurantState[]) => {
 
   if (formattedTotalText) ul.appendChild(formattedTotalText);
 };
-export default render;
+export default renderRestaurantList;

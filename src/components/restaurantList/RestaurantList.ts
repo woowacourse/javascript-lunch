@@ -2,15 +2,15 @@
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 
-import render from './renderHandlers';
+import renderRestaurantList from './renderHandlers';
 import restaurantListTemplate from './restaurantListTemplate';
 
 function RestaurantList() {
   const main = document.querySelector('main');
 
-  const reRender = () => {
+  const render = () => {
     const filterData = RestaurantListStorageService.getfilteredData();
-    render(filterData);
+    renderRestaurantList(filterData);
   };
 
   const formattedRestaurantListTemplate = convertHTMLStringToDOM(restaurantListTemplate);
@@ -18,10 +18,10 @@ function RestaurantList() {
     main.appendChild(formattedRestaurantListTemplate);
   }
 
-  reRender();
+  render();
 
   return {
-    reRender,
+    render,
   };
 }
 

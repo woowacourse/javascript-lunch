@@ -1,5 +1,5 @@
-import ADD_BUTTON_COMPONENT_DATA from '../../../constants/button/AddButtonComponentData';
-import CANCEL_BUTTON_COMPONENT_DATA from '../../../constants/button/CancelButtonComponentData';
+import ADD_BUTTON_COMPONENT_DATA from './componentsData/AddButtonComponentData';
+import CANCEL_BUTTON_COMPONENT_DATA from './componentsData/CancelButtonComponentData';
 import generateButtonComponent from '../../../uiUtils/generateButtonComponent';
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 

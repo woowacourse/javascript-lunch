@@ -8,7 +8,7 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
       const selectedValue = event.target.value as Category;
       filterState.setFilterType(selectedValue);
 
-      RestaurantList().reRender();
+      RestaurantList().render();
     }
   });
 };
@@ -28,7 +28,7 @@ const sortHandler = (sortFilter: HTMLElement) => {
       const selectedValue = event.target.value as SortType;
       filterState.setSortType(selectedValue);
 
-      RestaurantList().reRender();
+      RestaurantList().render();
     }
   });
 };

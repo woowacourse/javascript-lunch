@@ -56,7 +56,7 @@ export const submitHandler = (modal: Element) => {
     const restaurantInfo = restaurantStateStore.getRestaurantField();
     checkValidateHandler(restaurantInfo);
     addNewRestaurant(modal, restaurantInfo as RestaurantState);
-    RestaurantList().reRender();
+    RestaurantList().render();
   });
 };
 
