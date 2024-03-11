@@ -8,5 +8,5 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: 'avoid',
   proseWrap: 'never',
-  endOfLine: 'auto',
+  endOfLine: 'lf',
 };
