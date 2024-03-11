@@ -1,5 +1,3 @@
-import { Category, Distance, SortingStandard } from "../types";
-
 const categories = ["한식", "중식", "일식", "아시안", "양식", "기타"] as const;
 
 const categoryToIconNameMapper = {

@@ -135,7 +135,7 @@ class RestaurantFormModal {
     });
   }
 
-  setCloesEvent(type: string, listener: (event: Event) => void) {
+  setCloseEvent(type: string, listener: (event: Event) => void) {
     const $addRestaurantCancelButton = document.querySelector(
       "#add-restaurant-cancel__button"
     ) as HTMLButtonElement;

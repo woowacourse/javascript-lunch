@@ -1,8 +1,12 @@
 import { categories, distances, sortingStandards } from "../constants";
 
-type Category = (typeof categories)[number];
+type ArrayToEnum<T extends readonly unknown[]> = T[number];
 
-type Distance = (typeof distances)[number];
+type Category = ArrayToEnum<typeof categories>;
+
+type Distance = ArrayToEnum<typeof distances>;
+
+type SortingStandard = ArrayToEnum<typeof sortingStandards>;
 
 type Link = `https://${string}` | `http://${string}`;
 
@@ -13,7 +17,5 @@ type Restaurant = {
   description?: string;
   link?: Link | "";
 };
-
-type SortingStandard = (typeof sortingStandards)[number];
 
 export { Category, Distance, Restaurant, SortingStandard, Link };
