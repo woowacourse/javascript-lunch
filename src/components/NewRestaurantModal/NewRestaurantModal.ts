@@ -36,7 +36,7 @@ class NewRestaurantModal extends BaseComponent {
     //this.attachShadow({ mode: 'open' });
     this.append(new BasicModal($fragment));
 
-    this.#submitForm();
+    this.#setSubmitEvent();
     this.closeModal();
   }
 
@@ -131,12 +131,16 @@ class NewRestaurantModal extends BaseComponent {
   }
 
   #makeLinkInput() {
-    const $linkTextBox = document.createElement('div');
-    $linkTextBox.classList.add('form-item');
-    $linkTextBox.innerHTML = ` <label for="link text-caption">참고 링크</label>
-                <input type="text" name="link" id="link" />
-                 <span class="help-text text-caption"> 매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
-    return $linkTextBox;
+    const inputBoxArgs = {
+      name: '링크',
+      idName: 'link',
+      classList: [],
+      hasVerification: true,
+      isRequired: true,
+      helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
+    };
+
+    return new VerticalInputBox(inputBoxArgs);
   }
 
   #makeButtons() {
@@ -159,18 +163,18 @@ class NewRestaurantModal extends BaseComponent {
     const isNotValidDistance = Number.isNaN(distance);
     const isNotValidName = !name;
     if (isNotValidCategory) {
-      document.querySelector('.category-select > .error')?.classList.remove('hidden');
+      this.querySelector('.category-select > .error')?.classList.remove('hidden');
     }
     if (isNotValidDistance) {
-      document.querySelector('.distance-select > .error')?.classList.remove('hidden');
+      this.querySelector('.distance-select > .error')?.classList.remove('hidden');
     }
     if (isNotValidName) {
-      document.querySelector('.name-input-box > .error')?.classList.remove('hidden');
+      this.querySelector('.name-input-box > .error')?.classList.remove('hidden');
     }
     return isNotValidCategory || isNotValidDistance || isNotValidName;
   }
 
-  #submitForm() {
+  #setSubmitEvent() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.#hideErrorMessage();
