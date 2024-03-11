@@ -8,15 +8,11 @@ function getFilteredByCategory(restaurants: IRestaurant[], category: TAllCategor
 }
 
 function getSortedByName(restaurants: IRestaurant[]) {
-  return [
-    ...restaurants.sort((a, b) => {
-      return a.name.localeCompare(b.name);
-    }),
-  ];
+  return [...restaurants].sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function getSortedByDistance(restaurants: IRestaurant[]) {
-  return [...restaurants.sort((a, b) => a.distance - b.distance)];
+  return [...restaurants].sort((a, b) => a.distance - b.distance);
 }
 
 const RestaurantRepository = {
