@@ -1,5 +1,6 @@
 import { blockModalBodyScroll } from '@/utils/view';
 import BaseComponent from '../BaseComponent';
+import { $ } from '@/utils/DOM';
 
 class BasicModal extends BaseComponent {
   #children: Node;
@@ -17,9 +18,9 @@ class BasicModal extends BaseComponent {
 
   setEvent(): void {
     this.#backdropElement.addEventListener('click', () => {
-      const $modal = document.querySelector('.modal');
-      $modal?.classList.remove('modal--open');
-      blockModalBodyScroll();
+      if ($('.modal')) {
+        blockModalBodyScroll();
+      }
     });
   }
 

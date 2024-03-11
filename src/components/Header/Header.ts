@@ -2,16 +2,16 @@ import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
 import { blockModalBodyScroll } from '@/utils/view';
 import { ErrorMessage } from '@/constants/Message';
-
+import { $ } from '@/utils/DOM';
 class Header extends BaseComponent {
   render() {
     this.#makeTitle();
     this.#makeAddButton();
-    const $gnbButton = document.querySelector('.gnb__button');
+    const $gnbButton = $('.gnb__button');
     if (!$gnbButton) {
       return console.error(ErrorMessage.NULL_SELECTOR($gnbButton));
     }
-    document.querySelector('.gnb__button')?.addEventListener('click', () => {
+    $gnbButton.addEventListener('click', () => {
       document.querySelector('.modal')?.classList.add('modal--open');
       blockModalBodyScroll();
     });

@@ -5,6 +5,7 @@ import { checkAllValuesValid, validateAllValuesAndMakeErrorMessage } from '@/uti
 import { closeModal, hideErrorMessage } from '@/utils/view';
 import NewRestaurantModalView from './NewRestaurantModalView';
 import { ErrorMessage } from '@/constants/Message';
+import { $ } from '@/utils/DOM';
 
 class NewRestaurantModal extends NewRestaurantModalView {
   #form;
@@ -58,6 +59,7 @@ class NewRestaurantModal extends NewRestaurantModalView {
 
   #getValues() {
     const name = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
+    console.log('name', name);
     const distance = Number((this.#form.elements.namedItem('distance') as HTMLSelectElement).value);
     const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
@@ -67,7 +69,7 @@ class NewRestaurantModal extends NewRestaurantModalView {
   }
 
   #rerenderByFilter() {
-    const $selectElement = document.querySelector('.restaurant-filter-container');
+    const $selectElement = $('.restaurant-filter-container');
     if (!$selectElement) {
       return console.error(ErrorMessage.NULL_SELECTOR($selectElement));
     }

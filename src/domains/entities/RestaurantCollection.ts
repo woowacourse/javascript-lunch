@@ -1,4 +1,4 @@
-import { AllAndCategory, IRestaurant, SortCriteria } from '../../types/Restaurant';
+import type { AllAndCategory, IRestaurant, SortCriteria } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
 class RestaurantCollection {

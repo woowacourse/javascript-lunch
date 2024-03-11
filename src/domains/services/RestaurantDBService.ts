@@ -1,4 +1,4 @@
-import { Category, IRestaurant, SortCriteria } from '../../types/Restaurant';
+import type { Category, IRestaurant, SortCriteria } from '../../types/Restaurant';
 import RestaurantCollection from '../entities/RestaurantCollection';
 import restaurantListMock from '@/mock/restaurantList.mock';
 

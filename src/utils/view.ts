@@ -1,5 +1,10 @@
+import { ErrorMessage } from '@/constants/Message';
+import { $, $$ } from './DOM';
+
 export const hideErrorMessage = () => {
-  document.querySelectorAll('.error').forEach((el) => {
+  const $errors = $$('.error');
+  if (!$errors.length) return console.error(ErrorMessage.NULL_SELECTOR);
+  $errors.forEach((el) => {
     el.classList.add('hidden');
   });
 };
@@ -11,8 +16,9 @@ export const closeModal = (modal: HTMLElement) => {
 };
 
 export const blockModalBodyScroll = () => {
-  if (document.querySelector('.modal')?.classList.contains('modal--open'))
-    return (document.body.style.overflow = 'hidden');
+  const $modal = $('.modal');
+  if (!$modal) return console.error(ErrorMessage.NULL_SELECTOR);
+  if ($modal.classList.contains('modal--open')) return (document.body.style.overflow = 'hidden');
   document.body.style.overflow = 'auto';
 };
 

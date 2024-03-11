@@ -5,6 +5,7 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
 import { ErrorMessage } from '@/constants/Message';
+import { $ } from '@/utils/DOM';
 
 class FilterContainer extends BaseComponent {
   #restaurantList;
@@ -12,7 +13,7 @@ class FilterContainer extends BaseComponent {
 
   constructor() {
     super();
-    this.#restaurantList = document.querySelector('.restaurant-list-container') as RestaurantList;
+    this.#restaurantList = $('.restaurant-list-container') as RestaurantList;
     this.#restaurantDBService = new RestaurantDBService();
   }
 
@@ -43,17 +44,12 @@ class FilterContainer extends BaseComponent {
 
   setEvent() {
     this.addEventListener('change', () => {
-      const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
-      if (!selectedCategory) {
-        return console.error(ErrorMessage.NULL_SELECTOR(selectedCategory));
-      }
-      const selectedSortCriteria = this.querySelector('#sorting-filter') as HTMLSelectElement;
-      if (!selectedSortCriteria) {
-        return console.error(ErrorMessage.NULL_SELECTOR(selectedSortCriteria));
-      }
+      const $selectedCategory = $('#category-filter') as HTMLSelectElement;
+      const $selectedSortCriteria = $('#sorting-filter') as HTMLSelectElement;
+
       const newRestaurantList = this.#restaurantDBService.getFromRestaurantList(
-        selectedCategory.value as Category,
-        selectedSortCriteria.value as SortCriteria,
+        $selectedCategory.value as Category,
+        $selectedSortCriteria.value as SortCriteria,
       );
       this.#restaurantList.rerender(newRestaurantList);
     });

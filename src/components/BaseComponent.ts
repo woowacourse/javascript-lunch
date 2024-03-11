@@ -7,9 +7,6 @@ class BaseComponent extends HTMLElement {
   }
   render() {}
   setEvent() {}
-  on(selector: string, type: keyof ElementEventMap, eventListener: EventListener) {
-    document.querySelector(selector)?.addEventListener(type, eventListener);
-  }
 }
 
 export default BaseComponent;

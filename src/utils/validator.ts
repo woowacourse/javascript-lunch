@@ -1,4 +1,6 @@
 import { CATEGORIES_KEYS } from '@/constants/Condition';
+import { $ } from './DOM';
+import { ErrorMessage } from '@/constants/Message';
 
 export const validator = {
   isValidLink(link: string) {
@@ -21,25 +23,33 @@ export const validator = {
 export const isValidateAndMakeErrorMessage = {
   category(category: string) {
     if (!validator.isValidCategory(category)) {
-      document.querySelector('#category-error')?.classList.remove('hidden');
+      const $categoryError = $('#category-error');
+      if (!$categoryError) return console.error(ErrorMessage.NULL_SELECTOR);
+      $categoryError.classList.remove('hidden');
     }
   },
 
   distance(distance: number) {
     if (!validator.isValidDistance(distance)) {
-      document.querySelector('#distance-error')?.classList.remove('hidden');
+      const $distanceError = $('#distance-error');
+      if (!$distanceError) return console.error(ErrorMessage.NULL_SELECTOR);
+      $distanceError.classList.remove('hidden');
     }
   },
 
   name(name: string | null) {
     if (!validator.isValidName(name)) {
-      document.querySelector('#name-error')?.classList.remove('hidden');
+      const $nameError = $('#name-error');
+      if (!$nameError) return console.error(ErrorMessage.NULL_SELECTOR);
+      $nameError.classList.remove('hidden');
     }
   },
 
   link(link: string) {
     if (!validator.isValidLink(link)) {
-      document.querySelector('#link-error')?.classList.remove('hidden');
+      const $linkError = $('#link-error');
+      if (!$linkError) return console.error(ErrorMessage.NULL_SELECTOR);
+      $linkError.classList.remove('hidden');
     }
   },
 };
