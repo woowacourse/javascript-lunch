@@ -1,8 +1,9 @@
 import Restaurant from '../Restaurant/Restaurant';
+import Select from '../Common/Select';
 import { validateRequiredValue, validateRestaurantsName } from '../../validators';
 import tryCatchWrapper from '../../utils/tryCatchWrapper';
 import { $ } from '../../utils/dom';
-import { RULES } from '../../constants/rules';
+import { RULES, SELECT_FORM_DATA } from '../../constants/rules';
 
 export default class AddRestaurantModal {
   constructor(restaurants) {
@@ -21,16 +22,7 @@ export default class AddRestaurantModal {
 
         <!-- 카테고리 -->
         <div class="form-item form-item--required">
-          <label for="category text-caption">카테고리</label>
-          <select name="category" id="category" required>
-            <option value="">선택해 주세요</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
-            <option value="일식">일식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="기타">기타</option>
-          </select>
+          ${Select(SELECT_FORM_DATA.category)}
           <span id="category-error" class="error-message"></span>
         </div>
 
@@ -43,15 +35,7 @@ export default class AddRestaurantModal {
 
         <!-- 거리 -->
         <div class="form-item form-item--required">
-          <label for="distance text-caption">거리(도보 이동 시간) </label>
-          <select name="distance" id="distance" required>
-            <option value="">선택해 주세요</option>
-            <option value="5">5분 내</option>
-            <option value="10">10분 내</option>
-            <option value="15">15분 내</option>
-            <option value="20">20분 내</option>
-            <option value="30">30분 내</option>
-          </select>
+          ${Select(SELECT_FORM_DATA.distance)}
           <span id="distance-error" class="error-message"></span>
         </div>
 

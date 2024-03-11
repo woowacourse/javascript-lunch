@@ -1,4 +1,5 @@
 import Restaurant from '../Restaurant/Restaurant';
+import Select from '../Common/Select';
 import { $ } from '../../utils/dom';
 import { RULES } from '../../constants/rules';
 
@@ -8,23 +9,8 @@ export default class RestaurantFilter {
     this.handleSelectChange();
   }
 
-  render({ id, name, options }) {
-    const select = document.createElement('select');
-    select.setAttribute('id', id);
-    select.setAttribute('name', name);
-    select.classList.add('restaurant-filter');
-
-    Object.entries(options).forEach(([key, value]) => {
-      const option = document.createElement('option');
-
-      option.setAttribute('value', key);
-      option.innerText = value;
-      this.initSelectInput(option, key);
-
-      select.appendChild(option);
-    });
-
-    return select;
+  render(data) {
+    return Select(data);
   }
 
   handleSelectChange() {

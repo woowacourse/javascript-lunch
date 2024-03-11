@@ -6,7 +6,7 @@ import Restaurant from './components/Restaurant/Restaurant';
 import RestaurantFilter from './components/RestaurantFilter/RestaurantFilter';
 
 import { $ } from './utils/dom';
-import { SELECTED_DATA } from './constants/rules';
+import { SELECT_FILTER_DATA } from './constants/rules';
 
 import './styles/index.css';
 
@@ -20,8 +20,8 @@ const restaurant = new Restaurant();
 const modal = new RestaurantCreationModal(restaurants);
 
 $('header').innerHTML = header.render();
-$('restaurant-filter-container').appendChild(restaurantFilter.render(SELECTED_DATA.sorting));
-$('restaurant-filter-container').appendChild(restaurantFilter.render(SELECTED_DATA.category));
+$('restaurant-filter-container').innerHTML += restaurantFilter.render(SELECT_FILTER_DATA.sorting);
+$('restaurant-filter-container').innerHTML += restaurantFilter.render(SELECT_FILTER_DATA.category);
 restaurants.standardList.forEach((restaurantData) => {
   $('restaurant-list').innerHTML += restaurant.render(restaurantData);
 });
