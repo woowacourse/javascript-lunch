@@ -1,18 +1,26 @@
 import Component from './Component';
+import RestaurantRepository from '../domain/RestaurantRepository';
 
 class RestaurantList extends Component {
-  static observedAttributes = ['restaurants'];
+  static observedAttributes = ['category', 'sorting'];
 
   #restaurants;
 
   constructor() {
     super();
-    this.#restaurants = JSON.parse(this.getAttribute('restaurants'));
+    this.#restaurants = this.#generateRestaurants();
   }
 
   attributeChangedCallback() {
-    this.#restaurants = JSON.parse(this.getAttribute('restaurants'));
+    this.#restaurants = this.#generateRestaurants();
     this.render();
+  }
+
+  #generateRestaurants() {
+    const category = this.getAttribute('category');
+    const sorting = this.getAttribute('sorting');
+
+    return RestaurantRepository.transformRestaurants(category, sorting);
   }
 
   template() {
