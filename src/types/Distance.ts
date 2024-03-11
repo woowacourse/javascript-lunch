@@ -1,5 +1,4 @@
 import { DISTANCE } from '../constants/distance';
-
-type Union<T> = T[keyof T];
+import { Union } from './Category';
 
 export type Distance = Union<typeof DISTANCE>;

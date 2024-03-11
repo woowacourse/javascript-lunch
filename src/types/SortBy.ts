@@ -1,5 +1,4 @@
 import { SORTBY } from '../constants/sortBy';
-
-type Union<T> = T[keyof T];
+import { Union } from './Category';
 
 export type SortBy = Union<typeof SORTBY>;
