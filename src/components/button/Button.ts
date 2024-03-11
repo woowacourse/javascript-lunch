@@ -86,6 +86,15 @@ class Button {
 
     return new Restaurant({ category, name, distance, description, referenceLink });
   }
+
+  dispatchSelectEvent(): void {
+    const $categoryContainer = dom.getElement('#category-filter');
+    const filterEvent = new Event('change', {
+      bubbles: true,
+      cancelable: true,
+    });
+    $categoryContainer.dispatchEvent(filterEvent);
+  }
 }
 
 export default Button;

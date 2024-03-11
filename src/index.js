@@ -1,5 +1,6 @@
 import '../templates/style.css';
 import '../templates/add-button.png';
+
 import Restaurant from './domain/Restaurant';
 import RestaurantList from './domain/RestaurantList';
 import RestaurantComponent from './components/Restaurant';
@@ -17,9 +18,8 @@ import {
   SORTING,
   SORTING_ATTRIBUTE,
 } from './constants/filter';
-import HomeEventHandler from './eventHandler/HomeEventHandler';
-import ModalEventHandler from './eventHandler/ModalEventHandler';
-import Button from './components/Button';
+import Button from './components/button/Button';
+import dom from './utils/dom';
 
 const createCategorySelect = ($restaurantFilterContainer, restaurantList) => {
   return new SelectBoxComponent({
@@ -47,33 +47,43 @@ const createHomeSelect = restaurantList => {
   createSortingSelect($restaurantFilterContainer, restaurantList);
 };
 
-const createModalFormSelect = () => {
-  const $categoryContainer = document.getElementById('category-container');
+
+const createModalFormSelect = (restaurantList) => {
+  const $categoryContainer = dom.getElement('#category-container');
   new SelectBoxComponent({
     $target: $categoryContainer,
     attributes: FORM_CATEGORY_ATTRIBUTE,
     options: FORM_CATEGORY,
+    restaurantList,
   });
 
-  const $distanceContainer = document.getElementById('distance-container');
+  const $distanceContainer = dom.getElement('#distance-container');
   new SelectBoxComponent({
     $target: $distanceContainer,
     attributes: FORM_DISTANCE_ATTRIBUTE,
     options: FORM_DISTANCE,
+    restaurantList,
   });
 };
 
-const createModalFormButton = () => {
-  const $buttonContainer = document.querySelector('.button-container');
+const createModalFormButton = restaurantList => {
+  const $buttonContainer = dom.getElement('.button-container');
 
   new Button({
+    kind: 'close',
     $target: $buttonContainer,
     attributes: CLOSE_BUTTON_ATTRIBUTE,
   });
   new Button({
+    kind: 'add',
     $target: $buttonContainer,
     attributes: ADD_BUTTON_ATTRIBUTE,
+    restaurantList,
   });
+};
+
+const handleOpenModal = () => {
+  document.querySelector('.modal').classList.add('modal--open');
 };
 
 const init = () => {
@@ -87,11 +97,10 @@ const init = () => {
   });
 
   createHomeSelect(restaurantList);
-  createModalFormSelect();
-  createModalFormButton();
+  createModalFormSelect(restaurantList);
+  createModalFormButton(restaurantList);
 
-  new HomeEventHandler();
-  new ModalEventHandler(restaurantList);
+  document.querySelector('.gnb__button').addEventListener('click', handleOpenModal);
 };
 
 init();

@@ -61,7 +61,6 @@ class SelectBoxComponent {
   handleCategoryFilter(): void {
     const category = this.getSelectedCategory();
     const sortingCondition = this.getSelectedSortingCondition();
-
     if (this.restaurantList == null) return;
     this.restaurantList.filterByCategory(category);
     const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
@@ -70,7 +69,6 @@ class SelectBoxComponent {
 
   handleSortingFilter(): void {
     const sortingCondition = this.getSelectedSortingCondition();
-
     if (this.restaurantList == null) return;
     const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
     this.renderNewRestaurantList(sortedList);
