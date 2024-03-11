@@ -1,5 +1,5 @@
 import Restaurant from '../domain/Restaurant';
-import RestaurantComponent from '../components/Restaurant';
+import HomeEventHandler from './HomeEventHandler';
 
 class ModalEventHandler {
   restaurantList;
@@ -31,27 +31,8 @@ class ModalEventHandler {
     const restaurantInformation = new Restaurant({ category, name, distance, description, link });
 
     this.restaurantList.add(restaurantInformation);
-    this.handleCategoryFilter();
+    new HomeEventHandler(this.restaurantList).handleFilter();
     this.close();
-  }
-
-  handleCategoryFilter() {
-    console.log('handleCategoryFilter:', this.restaurantList);
-    const $categoryFilter = document.getElementById('category-filter');
-    const $sortingFilter = document.getElementById('sorting-filter');
-    const $restaurantList = document.querySelector('.restaurant-list');
-
-    const categoryOptions = $categoryFilter.options;
-    const category = categoryOptions[categoryOptions.selectedIndex].text;
-    const sortingOptions = $sortingFilter.options;
-    const sortingCondition = sortingOptions[sortingOptions.selectedIndex].text;
-
-    this.restaurantList.filterByCategory(category);
-    const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
-    $restaurantList.replaceChildren();
-    sortedList.forEach(element => {
-      $restaurantList.innerHTML += RestaurantComponent(element.information);
-    });
   }
 }
 

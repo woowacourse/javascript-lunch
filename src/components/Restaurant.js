@@ -3,7 +3,6 @@ import { CATEGORY_IMG_SRC } from '../constants/filter';
 const RestaurantComponent = information => {
   return `<li class="restaurant">
     <div class="restaurant__category">
-    
       <img src=${CATEGORY_IMG_SRC[information.category]} alt=${information.category} class="category-icon" />
     </div>
     <div class="restaurant__info">

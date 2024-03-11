@@ -22,35 +22,7 @@ const $restaurantList = document.querySelector('.restaurant-list');
 const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
 new ModalEventHandler(restaurantList);
-
-const handleCategoryFilter = () => {
-  const $categoryFilter = document.getElementById('category-filter');
-  const $sortingFilter = document.getElementById('sorting-filter');
-
-  const categoryOptions = $categoryFilter.options;
-  const category = categoryOptions[categoryOptions.selectedIndex].text;
-  const sortingOptions = $sortingFilter.options;
-  const sortingCondition = sortingOptions[sortingOptions.selectedIndex].text;
-
-  restaurantList.filterByCategory(category);
-  const sortedList = restaurantList.getSortedByCondition(sortingCondition);
-  $restaurantList.replaceChildren();
-  sortedList.forEach(element => {
-    $restaurantList.innerHTML += RestaurantComponent(element.information);
-  });
-};
-
-const handleSortingFilter = () => {
-  const $sortingFilter = document.getElementById('sorting-filter');
-  const options = $sortingFilter.options;
-  const sortingCondition = options[options.selectedIndex].text;
-
-  const sortedList = restaurantList.getSortedByCondition(sortingCondition);
-  $restaurantList.replaceChildren();
-  sortedList.forEach(element => {
-    $restaurantList.innerHTML += RestaurantComponent(element.information);
-  });
-};
+const homeEventHandler = new HomeEventHandler(restaurantList);
 
 const init = () => {
   restaurantList.restaurants.forEach(element => {
@@ -63,7 +35,9 @@ const init = () => {
   const filterByCategoryInformation = {
     $target: $restaurantFilterContainer,
     attributes: FILTERED_CATEGORY_ATTRIBUTE,
-    eventHandler: handleCategoryFilter,
+    eventHandler: () => {
+      homeEventHandler.handleFilter();
+    },
     options: FILTERED_CATEGORY,
   };
   SelectBoxComponent.render(filterByCategoryInformation);
@@ -71,7 +45,9 @@ const init = () => {
   const sortingInformation = {
     $target: $restaurantFilterContainer,
     attributes: SORTING_ATTRIBUTE,
-    eventHandler: handleSortingFilter,
+    eventHandler: () => {
+      homeEventHandler.handleFilter();
+    },
     options: SORTING,
   };
   SelectBoxComponent.render(sortingInformation);
@@ -96,4 +72,3 @@ const init = () => {
 };
 
 init();
-new HomeEventHandler();
