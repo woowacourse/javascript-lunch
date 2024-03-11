@@ -11,8 +11,7 @@ export const setObjectAttribute = (
     if (value === null) return;
 
     if (key === 'required' && 'required' in el) {
-      console.log(value, el, typeof value);
-      el.required = !!value;
+      el.setAttribute('required', '');
       return;
     }
 

@@ -2,7 +2,7 @@ import './style.css';
 
 import { DROP_BOX_MAP } from '../../constants';
 import { Restaurant, RestaurantList } from '../../domains';
-import { FilteringController } from '../../services';
+import FilteringController from '../../services/FilteringController';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
 
 class RestaurantFormModalInner extends HTMLElement {

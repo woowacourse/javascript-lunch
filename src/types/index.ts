@@ -4,7 +4,7 @@ export type DefaultBtnColor = 'red' | 'white';
 
 export type BtnType = 'submit' | 'reset' | 'button';
 
-//restaurant
+// restaurant
 export type Category = keyof typeof CATEGORY;
 
 export type Distance = 5 | 10 | 15 | 20 | 30;
@@ -19,7 +19,7 @@ export interface RestaurantInfo {
 
 export type RestaurantInfoKey = keyof RestaurantInfo;
 
-//dropbox
+// dropbox
 export type DropBoxName =
   | 'filteringSorting'
   | 'filteringCategory'
@@ -45,7 +45,7 @@ export interface DropBoxMapValue {
   options: OptionProps[];
 }
 
-//attributes
+// attributes
 export interface Attributes {
   [key: string]: string | null;
 }

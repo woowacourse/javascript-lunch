@@ -1,6 +1,6 @@
-import { CATEGORY, CATEGORY_OPTIONS, DROP_BOX_MAP } from '../constants';
+import { DROP_BOX_MAP } from '../constants';
 import { RestaurantList } from '../domains';
-import { Category, DropBoxMapValue } from '../types';
+import { Category } from '../types';
 import RestaurantListController from './RestaurantListController';
 
 const FilteringController = {
@@ -27,7 +27,7 @@ const FilteringController = {
 
     const dropBoxCategories = DROP_BOX_MAP.get(
       'filteringCategory',
-    )?.options.map((option) => option.value);
+    )?.options.map((item) => item.value);
 
     if (
       !dropBoxCategories ||
@@ -72,6 +72,8 @@ const FilteringController = {
         sorting: this.private_getSelectedValue(filteringSorting),
       };
     }
+
+    return undefined;
   },
 };
 

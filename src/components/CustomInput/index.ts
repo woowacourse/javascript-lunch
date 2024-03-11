@@ -1,8 +1,9 @@
 import * as xssFilters from 'xss-filters';
 
 import './style.css';
-import { setObjectAttribute } from '../../utils';
+
 import { Attributes } from '../../types';
+import { setObjectAttribute } from '../../utils';
 
 class CustomInput extends HTMLElement {
   constructor() {

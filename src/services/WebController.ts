@@ -1,4 +1,5 @@
 import '../assets/css/main.css';
+
 import '../components/AddStoreBtn';
 import '../components/CategoryIcon/style.css';
 import '../components/CategoryIcon';
@@ -12,8 +13,11 @@ import '../components/RestaurantFormModalInner';
 import '../components/ErrorMessageBox';
 import '../components/Restaurant';
 import '../components/DropBox';
+
 import { RestaurantList } from '../domains';
-import { RestaurantListController, FilteringController } from '.';
+
+import FilteringController from './FilteringController';
+import RestaurantListController from './RestaurantListController';
 
 const WebController = {
   setup() {

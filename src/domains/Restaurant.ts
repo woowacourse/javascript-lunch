@@ -3,10 +3,9 @@ import {
   CHARACTER_LIMIT,
   DISTANCES,
   MESSAGE,
-  PROTOCOL,
   STORAGE_KEY,
 } from '../constants';
-import { Distance, RestaurantInfo } from '../types';
+import { RestaurantInfo } from '../types';
 
 class Restaurant {
   #info!: RestaurantInfo;
@@ -21,14 +20,14 @@ class Restaurant {
   }
 
   #validateInfo(info: RestaurantInfo) {
-    //name
+    // name
     this.#validateStringType(info.name);
     this.#validateNameCharacterLimit(info.name);
     this.#validateNameDuplicate(info.name);
 
-    //category
+    // category
     this.#validateCategory(info.category);
-    //distance
+    // distance
     this.#validateDistance(info.distance);
 
     if (info.description) {
@@ -42,7 +41,7 @@ class Restaurant {
     }
   }
 
-  #validateStringType(string: any) {
+  #validateStringType(string: string | undefined | null) {
     if (typeof string !== 'string') {
       throw new Error(MESSAGE.invalidStringType);
     }
@@ -99,7 +98,7 @@ class Restaurant {
   }
 
   #validateLinkUrl(link: string) {
-    const regexp = new RegExp('^(https?://)');
+    const regexp = /^(https?:\/\/)/;
     const isInValidLink = !regexp.test(link);
 
     if (isInValidLink) {

@@ -1,11 +1,6 @@
 {
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["src"]
-      }
-    }
-  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "max-depth": ["error", 1],
     "max-params": ["error", 2],
@@ -22,7 +17,9 @@
     "no-useless-constructor": "off",
     "class-methods-use-this": "off",
     "no-shadow": "off",
-    "no-new": "off"
+    "no-new": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
+    "import/no-cycle": "off"
   },
   "env": {
     "browser": true,
@@ -31,7 +28,13 @@
     "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "project": "./tsconfig.json"
   },
-  "extends": ["airbnb-base", "prettier"]
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ]
 }

@@ -10,7 +10,7 @@ class FormTextField extends HTMLElement {
   }
 
   connectedCallback() {
-    //style
+    // style
     const style = document.createElement('style');
     style.textContent = `
       error-message-box{
@@ -26,17 +26,17 @@ class FormTextField extends HTMLElement {
         line-height: 20px;
       }
     `;
-    //label
+    // label
     const labelText = this.getAttribute('labelText');
     const labelForId = this.getAttribute('labelForId');
     const labelEl = document.createElement('label');
 
     if (labelForId) labelEl.setAttribute('for', labelForId);
     labelEl.textContent = labelText;
-    //customTextContainerEl
+    // customTextContainerEl
     const customTextContainerEl = document.createElement('div');
     customTextContainerEl.className = 'custom-text-container';
-    //errorMessage
+    // errorMessage
     const errorMessageBoxEl = document.createElement('error-message-box');
 
     this.appendChild(style);
