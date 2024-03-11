@@ -3,7 +3,7 @@ import Restaurant, { IRestaurantInfo, Category } from './Restaurant';
 
 export const SORT_CONDITION: readonly ('이름순' | '거리순')[] = Object.freeze(['이름순', '거리순']);
 
-const ALL_CATEGORY = '전체';
+export const ALL_CATEGORY = '전체';
 
 type ICatalogCategory = Category | typeof ALL_CATEGORY;
 
@@ -16,9 +16,9 @@ class RestaurantCatalog {
         throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
     });
-
-    const newRestaurant = new Restaurant(restaurantInfo);
-    this.#restaurants.push(newRestaurant);
+    const newRestaurant = { ...restaurantInfo, id: this.#restaurants.length };
+    this.#restaurants.push(new Restaurant(newRestaurant));
+    return newRestaurant;
   }
 
   filterByCategory(category: ICatalogCategory) {

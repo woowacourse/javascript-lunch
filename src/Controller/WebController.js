@@ -1,5 +1,5 @@
 import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant';
-import restaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
+import restaurantCatalog, { ALL_CATEGORY, SORT_CONDITION } from '../domain/RestaurantCatalog';
 import mockingData from '../domain/mocking';
 
 class WebController {
@@ -13,7 +13,29 @@ class WebController {
   #init() {
     this.#insertDefaultData();
     this.#initRestaurantCatalogFromLocalStorage();
-    this.#assignRestaurantDataAttribute();
+    this.#renderRestaurantList();
+  }
+
+  #insertDefaultData() {
+    mockingData.forEach((data) => {
+      restaurantCatalog.pushNewRestaurant(data);
+    });
+  }
+
+  #initRestaurantCatalogFromLocalStorage() {
+    const localData = localStorage.getItem('restaurants');
+    if (localData) {
+      JSON.parse(localData).forEach((restaurant) => {
+        restaurantCatalog.pushNewRestaurant(restaurant);
+      });
+    }
+  }
+
+  #renderRestaurantList() {
+    const restaurantCards = document.querySelector('.restaurant-list');
+    const SORT_BY_NAME = SORT_CONDITION[1];
+    restaurantCards.setAttribute('data-sort-select', SORT_BY_NAME);
+    restaurantCards.setAttribute('data-category-select', ALL_CATEGORY);
   }
 
   #renderDropdownElement() {
@@ -35,32 +57,9 @@ class WebController {
     });
   }
 
-  #insertDefaultData() {
-    mockingData.forEach((data) => {
-      restaurantCatalog.pushNewRestaurant(data);
-    });
-  }
-
-  #initRestaurantCatalogFromLocalStorage() {
-    const localData = localStorage.getItem('restaurants');
-    if (localData) {
-      JSON.parse(localData).forEach((restaurant) => {
-        restaurantCatalog.pushNewRestaurant(restaurant);
-      });
-    }
-  }
-
   #renderDropdownOptions(id, options) {
     const select = document.getElementById(id);
     select.addOptions(options);
-  }
-
-  #assignRestaurantDataAttribute() {
-    const restaurantList = document.querySelector('.restaurant-list');
-    restaurantList.setAttribute(
-      'data-restaurants',
-      JSON.stringify(restaurantCatalog.getRestaurantsClass().map((restaurant) => restaurant.getRestaurantInfoObject())),
-    );
   }
 
   #addEventToForm() {
@@ -75,9 +74,9 @@ class WebController {
 
   #executeFormSubmitEvent(restaurantInfo) {
     try {
-      restaurantCatalog.pushNewRestaurant(restaurantInfo);
-      this.#updateRestaurantToLocalStorage(restaurantInfo);
-      this.#assignRestaurantDataAttribute();
+      const newRestaurant = restaurantCatalog.pushNewRestaurant(restaurantInfo);
+      this.#updateRestaurantToLocalStorage(newRestaurant);
+      // TODO: ResaurantCards에 요소 추가 및 렌더링
       this.#closeModal();
     } catch (error) {
       alert(error.message);

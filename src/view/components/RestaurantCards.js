@@ -11,23 +11,22 @@ const IMG_CATEGORY = Object.freeze({
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
+function sortMethod(attribute) {
+  if (attribute === SORT_BY_NAME) return restaurantCatalog.sortByName;
+  if (attribute === SORT_BY_DISTANCE) return restaurantCatalog.sortByDistance;
+}
+
 class RestaurantCards extends HTMLUListElement {
-  connectedCallback() {
-    this.setAttribute('data-sort', SORT_BY_NAME);
+  #appendRestaurants() {
+    const dataFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select'))(
+      restaurantCatalog
+        .filterByCategory(this.getAttribute('data-category-select'))
+        .map((restaurant) => restaurant.getRestaurantInfoObject()),
+    );
+    this.#appendRestaurantElement(dataFilteredAndSorted);
   }
 
-  #appendList() {
-    const restaurants = JSON.parse(this.dataset.restaurants);
-
-    if (this.dataset.sort === SORT_BY_NAME) {
-      this.#makeRestaurantElement(restaurantCatalog.sortByName(restaurants));
-    }
-    if (this.dataset.sort === SORT_BY_DISTANCE) {
-      this.#makeRestaurantElement(restaurantCatalog.sortByDistance(restaurants));
-    }
-  }
-
-  #makeRestaurantElement(restaurants) {
+  #appendRestaurantElement(restaurants) {
     restaurants.forEach((data) => {
       const liElement = document.createElement('li');
       liElement.classList.add('restaurant');
@@ -53,19 +52,16 @@ class RestaurantCards extends HTMLUListElement {
     this.innerHTML = '';
   }
 
-  renderList() {
-    if (this.dataset.restaurants) {
-      this.#appendList();
-    }
-  }
-
   static get observedAttributes() {
-    return ['data-restaurants', 'data-sort'];
+    return ['data-sort-select', 'data-category-select'];
   }
 
   attributeChangedCallback() {
     this.clear();
-    this.renderList();
+    if (!this.getAttribute('data-sort-select') && !this.getAttribute('data-category-select')) {
+      return;
+    }
+    this.#appendRestaurants();
   }
 }
 

@@ -15,6 +15,7 @@ export const RESTAURANT_CATEGORY: readonly Category[] = Object.freeze([
 ]);
 
 export interface IRestaurantInfo {
+  id?: number;
   category: Category;
   name: string;
   distanceFromCampus: DistanceFromCampus;
