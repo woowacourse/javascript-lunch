@@ -1,4 +1,4 @@
-const tryCatchWrapper = (tryBlock, catchBlock) => {
+const tryCatchWrapper = ({ tryBlock, catchBlock }) => {
   try {
     tryBlock();
   } catch (error) {

@@ -87,10 +87,10 @@ export default class RestaurantCreationModal {
   handleInputFocusout() {
     $('restaurant-creation-modal').addEventListener('focusout', ({ target }) => {
       if (RULES.requiredIds.some((id) => id === target.id)) {
-        tryCatchWrapper(
-          () => this.validateRequirements(target.id),
-          ({ message }) => ($(`${target.id}-error`).innerText = message),
-        );
+        tryCatchWrapper({
+          tryBlock: () => this.validateRequirements(target.id),
+          catchBlock: ({ message }) => ($(`${target.id}-error`).innerText = message),
+        });
       }
     });
   }
@@ -100,10 +100,10 @@ export default class RestaurantCreationModal {
       event.preventDefault();
 
       if (event.submitter.id === 'add-button') {
-        tryCatchWrapper(
-          () => this.addRestaurant(),
-          ({ message }) => alert(message),
-        );
+        tryCatchWrapper({
+          tryBlock: () => this.addRestaurant(),
+          catchBlock: ({ message }) => alert(message),
+        });
       }
     });
   }
@@ -119,13 +119,13 @@ export default class RestaurantCreationModal {
   addRestaurant() {
     const inputData = this.getInputData();
 
-    this.validateIputData(inputData);
+    this.validateInputData(inputData);
     this.restaurants.addRestaurant(inputData);
     $('restaurant-creation-modal').classList.remove('modal--open');
     this.insertRestaurantList(inputData);
   }
 
-  validateIputData(inputData) {
+  validateInputData(inputData) {
     const restaurantNames = this.restaurants.storageData.map((restaurant) => restaurant.name);
 
     validateRestaurantsName({ restaurantNames, name: inputData.name });
