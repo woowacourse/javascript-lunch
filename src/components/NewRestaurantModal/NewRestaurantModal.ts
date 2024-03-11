@@ -73,6 +73,8 @@ class NewRestaurantModal extends NewRestaurantModalView {
 
       this.#rerenderByFilter();
       closeModal(this);
+
+      this.#form.reset();
     });
   }
 
