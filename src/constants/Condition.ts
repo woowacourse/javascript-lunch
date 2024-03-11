@@ -23,3 +23,14 @@ export const CATEGORIES_WITH_ALL: { [key: string]: string } = {
 export const CATEGORIES_WITH_ALL_KEYS = Object.keys(CATEGORIES_WITH_ALL);
 export const CATEGORIES_KEYS = Object.keys(CATEGORIES);
 export const SORT_CRITERION_KEYS = Object.keys(CONDITIONS.SORT_CRITERION);
+
+export const CATEGORIES_KEYS_REQUIRED = ['선택해주세요', ...CATEGORIES_KEYS];
+
+export const DISTANCES_REQURIED_VALUES = [
+  '선택해주세요',
+  ...CONDITIONS.DISTANCES.map((num) => String(num)),
+];
+export const DISTANCES_REQURIED_TEXT = [
+  '선택해주세요',
+  ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
+];

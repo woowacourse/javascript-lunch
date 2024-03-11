@@ -1,5 +1,4 @@
-import { CONDITIONS } from '@/constants/Condition';
-import { AllAndCategory, Category, IRestaurant, SortCriteria } from '../../types/Restaurant';
+import { AllAndCategory, IRestaurant, SortCriteria } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
 class RestaurantCollection {

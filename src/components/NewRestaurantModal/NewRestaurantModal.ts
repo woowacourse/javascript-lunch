@@ -1,12 +1,7 @@
 import BasicModal from '../BasicModal/BasicModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, Distance, IRestaurant } from '@/types/Restaurant';
-import {
-  checkAllValuesValid,
-  isValidateAndMakeErrorMessage,
-  validateAllValuesAndMakeErrorMessage,
-  validator,
-} from '@/utils/validator';
+import { checkAllValuesValid, validateAllValuesAndMakeErrorMessage } from '@/utils/validator';
 import { closeModal, hideErrorMessage } from '@/utils/view';
 import NewRestaurantModalView from './NewRestaurantModalView';
 import { ErrorMessage } from '@/constants/Message';
@@ -19,14 +14,12 @@ class NewRestaurantModal extends NewRestaurantModalView {
     super();
     this.#form = document.createElement('form');
     this.#title = document.createElement('h2');
-
     this.#title.classList.add('modal-title', 'text-title');
     this.#title.textContent = '새로운 음식점';
   }
 
   render() {
     super.makeForm(this.#form);
-    this.#submitForm();
     closeModal(this);
 
     const $fragment = new DocumentFragment();
@@ -35,13 +28,16 @@ class NewRestaurantModal extends NewRestaurantModalView {
     this.append(new BasicModal($fragment));
   }
 
+  setEvent(): void {
+    this.#submitForm();
+  }
+
   #submitForm() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
       hideErrorMessage();
 
-      const values = this.#getValues();
-      const { category, name, distance, description, link } = values;
+      const { category, name, distance, description, link } = this.#getValues();
 
       validateAllValuesAndMakeErrorMessage({ category, distance, name, link });
       if (!checkAllValuesValid({ category, distance, name, link })) return;
@@ -56,10 +52,8 @@ class NewRestaurantModal extends NewRestaurantModalView {
 
       const DBService = new RestaurantDBService();
       DBService.add(newRestaurant);
-
       this.#rerenderByFilter();
       closeModal(this);
-
       this.#form.reset();
     });
   }
@@ -83,7 +77,7 @@ class NewRestaurantModal extends NewRestaurantModalView {
       bubbles: true,
       cancelable: true,
     });
-    $selectElement?.dispatchEvent(event);
+    $selectElement.dispatchEvent(event);
   }
 }
 export default NewRestaurantModal;

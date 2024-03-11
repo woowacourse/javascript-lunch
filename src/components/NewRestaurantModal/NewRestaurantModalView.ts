@@ -1,9 +1,13 @@
-import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
+import {
+  CATEGORIES_KEYS_REQUIRED,
+  DISTANCES_REQURIED_TEXT,
+  DISTANCES_REQURIED_VALUES,
+} from '@/constants/Condition';
 import BaseComponent from '../BaseComponent';
 import SelectBox from '../SelectBox/SelectBox';
 import { ErrorId, ErrorMessage, InfoMessage } from '@/constants/Message';
 import BasicButton from '../BasicButton/BasicButton';
-import { closeModal, makeLabel } from '@/utils/view';
+import { closeModal, makeInputInfo, makeLabel } from '@/utils/view';
 import Input from '../Input/Input';
 
 class NewRestaurantModalView extends BaseComponent {
@@ -28,9 +32,6 @@ class NewRestaurantModalView extends BaseComponent {
       htmlFor: 'category text-caption',
       text: '카테고리',
     });
-
-    const CATEGORIES_KEYS_REQUIRED = ['선택해주세요', ...CATEGORIES_KEYS];
-
     const $categorySelect = new SelectBox({
       optionValues: CATEGORIES_KEYS_REQUIRED,
       optionTexts: CATEGORIES_KEYS_REQUIRED,
@@ -87,15 +88,7 @@ class NewRestaurantModalView extends BaseComponent {
     });
     $distanceSelection.append($distanceLabel);
     $distanceSelection.id = 'distance';
-    const DISTANCES_REQURIED_VALUES = [
-      '선택해주세요',
-      ...CONDITIONS.DISTANCES.map((num) => String(num)),
-    ];
 
-    const DISTANCES_REQURIED_TEXT = [
-      '선택해주세요',
-      ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
-    ];
     $distanceSelection.append(
       new SelectBox({
         optionValues: DISTANCES_REQURIED_VALUES,
@@ -128,13 +121,11 @@ class NewRestaurantModalView extends BaseComponent {
     $textArea.setAttribute('rows', '5');
     $textArea.setAttribute('max', '300');
 
-    const $span = document.createElement('span');
-    $span.classList.add('help-text', 'text-caption');
-    $span.textContent = InfoMessage.DESCRIPTION;
+    const $infoSpan = makeInputInfo(InfoMessage.DESCRIPTION);
 
     $descriptionTextBox.append($descriptionLabel);
     $descriptionTextBox.append($textArea);
-    $descriptionTextBox.append($span);
+    $descriptionTextBox.append($infoSpan);
 
     return $descriptionTextBox;
   }
@@ -149,14 +140,11 @@ class NewRestaurantModalView extends BaseComponent {
     });
 
     const $linkInput = new Input({ inputId: 'link', inputName: 'link' });
-
-    const $span = document.createElement('span');
-    $span.classList.add('help-text', 'text-caption');
-    $span.textContent = InfoMessage.LINK;
+    const $infoSpan = makeInputInfo(InfoMessage.LINK);
 
     $linkTextBox.append($linkLabel);
     $linkTextBox.append($linkInput);
-    $linkTextBox.append($span);
+    $linkTextBox.append($infoSpan);
 
     const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_LINK, 'link');
     $linkTextBox.append($errorBox);
@@ -168,23 +156,31 @@ class NewRestaurantModalView extends BaseComponent {
     const $buttonBox = document.createElement('div');
     $buttonBox.classList.add('button-container');
 
-    const cancelButton = new BasicButton({
+    const $cancelButton = this.#makeCancelButton();
+    const $addButton = this.#makeAddButton();
+
+    $buttonBox.append($cancelButton);
+    $buttonBox.append($addButton);
+
+    return $buttonBox;
+  }
+
+  #makeCancelButton() {
+    return new BasicButton({
       variant: 'secondary',
       textContent: '취소하기',
       type: 'reset',
       clickEvent: () => closeModal(this),
     });
-    const addButton = new BasicButton({
+  }
+
+  #makeAddButton() {
+    return new BasicButton({
       variant: 'primary',
       textContent: '추가하기',
       type: 'submit',
       clickEvent: () => {},
     });
-
-    $buttonBox.append(cancelButton);
-    $buttonBox.append(addButton);
-
-    return $buttonBox;
   }
 }
 

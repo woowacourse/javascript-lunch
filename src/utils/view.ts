@@ -22,3 +22,10 @@ export const makeLabel = ({ htmlFor, text }: { htmlFor: string; text: string }) 
   $label.textContent = text;
   return $label;
 };
+
+export const makeInputInfo = (infoText: string) => {
+  const $inputInfo = document.createElement('span');
+  $inputInfo.classList.add('help-text', 'text-caption');
+  $inputInfo.textContent = infoText;
+  return $inputInfo;
+};

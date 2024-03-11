@@ -1,4 +1,3 @@
-import { CONDITIONS } from '@/constants/Condition';
 import { Category, IRestaurant, SortCriteria } from '../../types/Restaurant';
 import RestaurantCollection from '../entities/RestaurantCollection';
 import restaurantListMock from '@/mock/restaurantList.mock';
