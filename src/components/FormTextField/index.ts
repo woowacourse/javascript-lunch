@@ -91,6 +91,7 @@ class FormTextField extends HTMLElement {
       // eslint[no-new] rule :off
       // eslint-disable-next-line
       new Restaurant(newInfo);
+
       this.#handleErrorMessage('');
     } catch (error) {
       this.#handleErrorMessage(error);
@@ -100,8 +101,9 @@ class FormTextField extends HTMLElement {
   #handleErrorMessage(error: unknown) {
     const errorMessageBoxEl = this.querySelector('error-message-box');
 
-    if (error instanceof Error && errorMessageBoxEl instanceof HTMLElement) {
-      errorMessageBoxEl.textContent = error.message || null;
+    if (errorMessageBoxEl instanceof HTMLElement) {
+      errorMessageBoxEl.textContent =
+        error instanceof Error ? error.message : null;
     }
   }
 }
