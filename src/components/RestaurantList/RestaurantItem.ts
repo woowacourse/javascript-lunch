@@ -17,7 +17,7 @@ export const Icons: { [key in Category]: string } = {
   기타: etcIcon,
 };
 
-class RestaurantItem extends BaseComponent {
+class RestaurantItem extends HTMLLIElement {
   #category;
   #distance;
   #description;
@@ -31,8 +31,13 @@ class RestaurantItem extends BaseComponent {
     this.#description = description;
   }
 
+  connectedCallback() {
+    this.render();
+  }
+
   render() {
-    this.outerHTML = `<li class="restaurant">
+    this.className = 'restaurant';
+    this.innerHTML = `
     <div class="restaurant__category">
     <img src=${Icons[this.#category]} alt=${this.#category} class="category-icon" />
     </div>
@@ -43,10 +48,10 @@ class RestaurantItem extends BaseComponent {
     ${this.#description ?? ''}
     </p>
     </div>
-    </li>`;
+   `;
   }
 }
 
 export default RestaurantItem;
 
-customElements.define('restaurant-item', RestaurantItem);
+customElements.define('restaurant-item', RestaurantItem, { extends: 'li' });

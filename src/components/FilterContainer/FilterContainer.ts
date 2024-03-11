@@ -15,7 +15,7 @@ class FilterContainer extends BaseComponent {
     super();
     this.#selectCategoryBox = new SelectBox<CategoryOrAll>(CATEGORIES_WITH_ALL_KEYS, 'category');
     this.#selectSortBox = new SelectBox<SortCriteria>(SORT_CRITERION_KEYS, 'sorting');
-    this.#restaurantList = document.querySelector('restaurant-list')!;
+    this.#restaurantList = document.querySelector('.restaurant-list')!;
   }
 
   render() {
@@ -31,7 +31,9 @@ class FilterContainer extends BaseComponent {
       this.#selectSortBox.value as SortCriteria,
     );
 
-    this.#restaurantList.repaint(newRestaurantList);
+    //this.#restaurantList = document.querySelector('.restaurant-list')!;
+
+    this.#restaurantList.paint(newRestaurantList);
   }
 
   setEvent() {

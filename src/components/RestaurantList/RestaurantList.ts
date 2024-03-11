@@ -1,30 +1,36 @@
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import BaseComponent from '../BaseComponent';
 import RestaurantItem from './RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantList.css';
 
-class RestaurantList extends BaseComponent {
+class RestaurantList extends HTMLUListElement {
   #restaurantList: IRestaurant[];
   #restaurantDBService: RestaurantDBService;
 
   constructor() {
     super();
+    this.classList.add('restaurant-list');
     this.#restaurantDBService = new RestaurantDBService();
     this.#restaurantList = this.#restaurantDBService.get();
   }
 
-  render() {
-    const restaurantList = this.#makeRestaurantList(this.#restaurantList);
-    this.append(restaurantList);
+  connectedCallback() {
+    this.render();
   }
 
-  repaint(restaurants: IRestaurant[]) {
+  render() {
     this.#removeChildren();
+
+    const restaurantList = this.#restaurantList.map((restaurant) => new RestaurantItem(restaurant));
+    restaurantList.forEach((restaurant) => {
+      this.append(restaurant);
+    });
+  }
+
+  paint(restaurants: IRestaurant[]) {
     this.#restaurantList = restaurants;
-    const restaurantListAll = this.#makeRestaurantList(this.#restaurantList);
-    this.append(restaurantListAll);
+    this.render();
   }
 
   #removeChildren() {
@@ -45,5 +51,5 @@ class RestaurantList extends BaseComponent {
   }
 }
 
-customElements.define('restaurant-list', RestaurantList);
+customElements.define('restaurant-list', RestaurantList, { extends: 'ul' });
 export default RestaurantList;
