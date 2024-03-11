@@ -21,33 +21,33 @@ describe('레스토랑 리스트 클래스', () => {
     description: '라면과 밥 맛있음',
   };
 
-  it('인자로 음식점 배열을 받아서, 잘 반환한다.', () => {
+  it('인자로 음식점 배열을 받아서, 반환한다.', () => {
     const RESTAURANTS: IRestaurant[] = [restaurant1, restaurant2];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.get()).to.deep.equal([restaurant1, restaurant2]);
   });
 
-  it('인자로 받은 카테고리로 음식점을 잘 필터링한다.', () => {
+  it('인자로 받은 카테고리로 음식점을 필터링한다.', () => {
     const RESTAURANTS: IRestaurant[] = [restaurant1, restaurant2];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.filterByCategory('중식')).to.deep.equal([restaurant1]);
   });
 
-  it('이름순 정렬을 요청받았을 때, 잘 정렬된 결과를 반환한다.', () => {
+  it('이름순 정렬을 요청받았을 때, 정렬된 결과를 반환한다.', () => {
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const EXPECTED_RESULT = [restaurant3, restaurant2, restaurant1];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.sortByName()).to.deep.equal(EXPECTED_RESULT);
   });
 
-  it('거리순 정렬을 요청받았을 때, 잘 정렬된 결과를 반환한다.', () => {
+  it('거리순 정렬을 요청받았을 때, 정렬된 결과를 반환한다.', () => {
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const EXPECTED_RESULT = [restaurant2, restaurant3, restaurant1];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.sortByDistance()).to.deep.equal(EXPECTED_RESULT);
   });
 
-  it('새로운 음식점을 정상적으로 잘 추가한다.', () => {
+  it('새로운 음식점을 정상적으로 추가한다.', () => {
     const newRestaurant: IRestaurant = {
       name: '꺼벙이 김밥',
       distance: 5,
