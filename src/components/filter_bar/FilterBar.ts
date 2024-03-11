@@ -1,8 +1,27 @@
-import { changeFilter, changeSorting } from "./handlers";
+import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
+
 import {
-  generateBaseComponents,
-  generateFilterBarComponents,
-} from "./renderHandlers";
+  baseSectionTemplate,
+  filterSelectTemplate,
+  sortSelectTemplate,
+} from "./filterBarTemplate";
+import { changeFilter, changeSorting } from "./handlers";
+
+export const generateBaseComponents = () => {
+  const formattedBaseSectionTemplate =
+    convertHTMLStringToDOM(baseSectionTemplate);
+
+  document.body.appendChild(formattedBaseSectionTemplate);
+};
+
+export const generateFilterBarComponents = () => {
+  const barContainer = document.getElementsByClassName(
+    "restaurant-filter-container",
+  )[0];
+
+  barContainer.appendChild(convertHTMLStringToDOM(filterSelectTemplate));
+  barContainer.appendChild(convertHTMLStringToDOM(sortSelectTemplate));
+};
 
 const FilterBar = () => {
   generateBaseComponents();
