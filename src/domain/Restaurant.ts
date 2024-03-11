@@ -1,11 +1,11 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 
-export type ICategory = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
-type IDistanceFromCampus = 5 | 10 | 15 | 20 | 30;
+export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+type DistanceFromCampus = 5 | 10 | 15 | 20 | 30;
 
-export const DISTANCE_FROM_CAMPUS: readonly IDistanceFromCampus[] = Object.freeze([5, 10, 15, 20, 30]);
+export const DISTANCE_FROM_CAMPUS: readonly DistanceFromCampus[] = Object.freeze([5, 10, 15, 20, 30]);
 
-export const RESTAURANT_CATEGORY: readonly ICategory[] = Object.freeze([
+export const RESTAURANT_CATEGORY: readonly Category[] = Object.freeze([
   '한식',
   '중식',
   '일식',
@@ -15,9 +15,9 @@ export const RESTAURANT_CATEGORY: readonly ICategory[] = Object.freeze([
 ]);
 
 export interface IRestaurantInfo {
-  category: ICategory;
+  category: Category;
   name: string;
-  distanceFromCampus: IDistanceFromCampus;
+  distanceFromCampus: DistanceFromCampus;
   description?: string;
   link?: string;
 }
@@ -32,7 +32,7 @@ class Restaurant {
     this.#restaurantInfo = obj;
   }
 
-  #validateRestaurantCategory(category: ICategory) {
+  #validateRestaurantCategory(category: Category) {
     if (!RESTAURANT_CATEGORY.includes(category)) {
       throw new Error(`${ERROR_PREFIX}${RESTAURANT_ERROR_MESSAGES.WRONG_CATEGORY}`);
     }
@@ -44,7 +44,7 @@ class Restaurant {
     }
   }
 
-  #validateDistanceFromCampus(distanceFromCampus: IDistanceFromCampus) {
+  #validateDistanceFromCampus(distanceFromCampus: DistanceFromCampus) {
     if (!DISTANCE_FROM_CAMPUS.includes(distanceFromCampus)) {
       throw new Error(`${ERROR_PREFIX}${RESTAURANT_ERROR_MESSAGES.WRONG_DISTANCE}`);
     }

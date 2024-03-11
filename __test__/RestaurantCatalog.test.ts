@@ -61,7 +61,7 @@ describe('RestaurantCatalog 기능 테스트', () => {
   });
 
   test('4개의 음식점을 추가하면 4개의 음식점이 추가된다.', () => {
-    expect(newRestaurantCatalog.getRestaurants().length).toEqual(4);
+    expect(newRestaurantCatalog.getRestaurantsClass().length).toEqual(4);
   });
 
   test('category 필터링 테스트 - 한식 필터링 시 4개 음식점 중 2개 음식점 반환', () => {

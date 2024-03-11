@@ -64,7 +64,7 @@ class WebController {
     restaurantList.setAttribute(
       'data-restaurants',
       JSON.stringify(
-        this.#restaurantCatalog.getRestaurants().map((restaurant) => restaurant.getRestaurantInfoObject()),
+        this.#restaurantCatalog.getRestaurantsClass().map((restaurant) => restaurant.getRestaurantInfoObject()),
       ),
     );
   }
