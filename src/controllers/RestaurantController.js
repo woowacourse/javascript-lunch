@@ -1,6 +1,6 @@
-import { FORM_INPUT_QUERY } from '../constant/config';
-import RestaurantService from '../domain/RestaurantService';
+import { FORM_INPUT_QUERY, LOCAL_STORAGE_KEY } from '../constant/constants';
 import { $ } from '../utils/querySelector';
+import RestaurantService from '../domain/RestaurantService';
 import OutputView from '../views/OutputView';
 
 class RestaurantController {
@@ -32,7 +32,7 @@ class RestaurantController {
   }
 
   getRecentData() {
-    return JSON.parse(localStorage.getItem('restaurantList')) || [];
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
   }
 
   showAddRestaurantModal() {

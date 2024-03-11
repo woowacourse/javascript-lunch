@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE_KEY } from '../constant/constants';
 import { FilteringCategory, SortingProperty, Restaurant, Restaurants } from '../interface/RestaurantInterfaces';
 
 const RestaurantService: Restaurants = {
@@ -9,7 +10,7 @@ const RestaurantService: Restaurants = {
       return false;
     }
     restaurantList.push(restaurant);
-    localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurantList));
     return true;
   },
 

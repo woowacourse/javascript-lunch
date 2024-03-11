@@ -9,4 +9,6 @@ const CATEGORY_CONVERTER = {
   기타: 'etc',
 };
 
-export { FORM_INPUT_QUERY, CATEGORY_CONVERTER };
+const LOCAL_STORAGE_KEY = 'restaurantList';
+
+export { FORM_INPUT_QUERY, CATEGORY_CONVERTER, LOCAL_STORAGE_KEY };

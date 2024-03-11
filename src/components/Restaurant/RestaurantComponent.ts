@@ -1,4 +1,4 @@
-import { CATEGORY_CONVERTER } from '../../constant/config';
+import { CATEGORY_CONVERTER } from '../../constant/constants';
 import { Restaurant } from '../../interface/RestaurantInterfaces';
 
 const RestaurantComponent = (restaurant: Restaurant) => {
