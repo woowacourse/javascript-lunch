@@ -36,8 +36,8 @@ class RestaurantList extends BaseComponent {
             `
             <restaurant-item
               name = "${name}"
-              category = ${category}
-              distance = ${distance}
+              category = "${category}"
+              distance = "${distance}"
               description = "${description}"
             >
             </restaurant-item>

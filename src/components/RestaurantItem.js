@@ -38,7 +38,7 @@ class RestaurantItem extends BaseComponent {
     this.innerHTML = `
     <li class="restaurant">
         <div class="restaurant__category">
-            <img src=${img} alt="한식" class="category-icon">
+            <img src=${img} alt=${category} class="category-icon">
         </div>
         <div class="restaurant__info">
             <h3 class="restaurant__name text-subtitle">${name}</h3>
