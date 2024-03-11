@@ -59,33 +59,40 @@ const init = () => {
 
   // 홈화면 select 생성
   const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
-  new SelectBoxComponent({
+
+  const filterByCategoryInformation = {
     $target: $restaurantFilterContainer,
     attributes: FILTERED_CATEGORY_ATTRIBUTE,
     eventHandler: handleCategoryFilter,
     options: FILTERED_CATEGORY,
-  });
+  };
+  SelectBoxComponent.render(filterByCategoryInformation);
 
-  new SelectBoxComponent({
+  const sortingInformation = {
     $target: $restaurantFilterContainer,
     attributes: SORTING_ATTRIBUTE,
     eventHandler: handleSortingFilter,
     options: SORTING,
-  });
+  };
+  SelectBoxComponent.render(sortingInformation);
 
   // 모달 form select 생성
   const $categoryContainer = document.getElementById('category-container');
   const $distanceContainer = document.getElementById('distance-container');
-  new SelectBoxComponent({
+
+  const formCategoryInformation = {
     $target: $categoryContainer,
     attributes: FORM_CATEGORY_ATTRIBUTE,
     options: FORM_CATEGORY,
-  });
-  new SelectBoxComponent({
+  };
+  SelectBoxComponent.render(formCategoryInformation);
+
+  const formDistanceInformation = {
     $target: $distanceContainer,
     attributes: FORM_DISTANCE_ATTRIBUTE,
     options: FORM_DISTANCE,
-  });
+  };
+  SelectBoxComponent.render(formDistanceInformation);
 };
 
 init();

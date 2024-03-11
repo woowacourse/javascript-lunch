@@ -1,34 +1,25 @@
-class SelectBoxComponent {
-  $target;
-  attributes;
-  eventHandler;
-  options;
+const SelectBoxComponent = {
+  render(selectBoxInformation) {
+    this.mounted(selectBoxInformation);
+    this.setEvent(selectBoxInformation);
+  },
 
-  constructor({ $target, attributes, eventHandler, options }) {
-    this.$target = $target;
-    this.attributes = attributes;
-    this.eventHandler = eventHandler;
-    this.options = options;
-    this.render();
-    this.setEvent();
-  }
+  setEvent(selectBoxInformation) {
+    selectBoxInformation.$target.addEventListener('change', selectBoxInformation.eventHandler);
+  },
 
-  setEvent() {
-    this.$target.addEventListener('change', this.eventHandler);
-  }
-
-  render() {
-    this.$target.insertAdjacentHTML(
+  mounted(selectBoxInformation) {
+    selectBoxInformation.$target.insertAdjacentHTML(
       'beforeend',
-      `<select name=${this.attributes.name} id=${this.attributes.id} class=${this.attributes.class} ${this.attributes.required}>
-    ${this.options.map(option => this.#getSelectOption(option)).join('')}
+      `<select name=${selectBoxInformation.attributes.name} id=${selectBoxInformation.attributes.id} class=${selectBoxInformation.attributes.class} ${selectBoxInformation.attributes.required}>
+    ${selectBoxInformation.options.map(option => this.getSelectOption(option)).join('')}
 </select>`,
     );
-  }
+  },
 
-  #getSelectOption(selectOption) {
+  getSelectOption(selectOption) {
     return `<option value=${selectOption.value}>${selectOption.text}</option>`;
-  }
-}
+  },
+};
 
 export default SelectBoxComponent;
