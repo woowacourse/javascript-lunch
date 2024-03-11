@@ -168,7 +168,7 @@ class RestaurantForm extends HTMLElement {
     buttonContainer.setAttribute('class', 'button-container');
 
     const cancelButton: ButtonProps = {
-      type: 'button',
+      type: 'reset',
       classnames: ['button', 'button--secondary', 'text-caption', 'modal--close'],
       children: '취소하기',
     };
