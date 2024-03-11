@@ -4,8 +4,8 @@ import dimmerClickHandler from "./handlers";
 import InputDescription from "./input_description/InputDescription";
 import InputLink from "./input_link/InputLink";
 import InputName from "./input_name/InputName";
-import modalTemplate from "./modalTemplate";
 import ModalButton from "./modal_button/ModalButton";
+import modalTemplate from "./modalTemplate";
 import SelectCategory from "./select_category/SelectCategory";
 import SelectDistance from "./select_distance/SelectDistance";
 
