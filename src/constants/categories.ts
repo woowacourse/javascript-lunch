@@ -1,4 +1,4 @@
-export const CATEGORIES = {
+export const CATEGORIES: Record<string, string> = {
   koreanFood: '한식',
   chineseFood: '중식',
   japaneseFood: '일식',

@@ -1,4 +1,4 @@
-export const SORTBY = {
+export const SORTBY: Record<string, string> = {
   newest: '최신순',
   oldest: '오래된순',
   nameAscending: '가게명순▲',
