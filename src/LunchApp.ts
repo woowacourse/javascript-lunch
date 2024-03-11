@@ -7,6 +7,7 @@ import './components/LunchItems/LunchItems';
 import './components/LunchRegisterModal/LunchRegisterModal';
 
 import DUMMY from './constants/dummy';
+import { LOCALSTORAGE } from './constants/localStorage';
 
 const LUNCH_APP = `
   <lunch-header></lunch-header>
@@ -21,8 +22,8 @@ class LunchApp extends HTMLElement {
   }
 
   setData() {
-    localStorage.getItem('restaurants') ??
-      localStorage.setItem('restaurants', JSON.stringify(DUMMY));
+    localStorage.getItem(LOCALSTORAGE.restaurants) ??
+      localStorage.setItem(LOCALSTORAGE.restaurants, JSON.stringify(DUMMY));
   }
 
   render() {
