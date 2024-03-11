@@ -35,7 +35,7 @@ class FilterBox extends Component {
       this.#type === 'category' ? '카테고리 별로 ' : '이름순 또는 거리순으로 '
     }음식점을 필터링할 수 있습니다.</label>
       <select name=${this.#type} id=${this.#type} class=${this.#type}>
-        ${this.#option.map((el) => `<option value=${el.value}>${el.value}</option>`).join('')}
+        ${this.#option.map((el) => `<option value=${el.value}>${el.name}</option>`).join('')}
       </select>
     `;
   }
