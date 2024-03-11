@@ -1,4 +1,4 @@
-import { Message } from '../interface/Restaurant';
+import { Message, WalkingTime } from '../interface/Restaurant';
 
 export const KOREAN_CATEGORY: Message = {
   한식: 'korean',
@@ -9,9 +9,9 @@ export const KOREAN_CATEGORY: Message = {
   기타: 'etc',
 };
 
-export const WALKING_TIME: number[] = [5, 10, 15, 20, 30];
+export const WALKING_TIME: readonly WalkingTime[] = [5, 10, 15, 20, 30];
 
-export const categoryFilterList: string[] = [
+export const categoryFilterList: readonly string[] = [
   '전체',
   '한식',
   '중식',
@@ -21,4 +21,4 @@ export const categoryFilterList: string[] = [
   '기타',
 ];
 
-export const sortingFilterLsit: string[] = ['이름순', '거리순'];
+export const sortingFilterLsit: readonly string[] = ['이름순', '거리순'];
