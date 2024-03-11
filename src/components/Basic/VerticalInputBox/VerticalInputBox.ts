@@ -21,8 +21,10 @@ class VerticalInputBox extends HTMLDivElement {
     this.innerHTML = `
     <label for="${this.idName} text-caption">${this.name}</label>
      <input type="text" name=${this.idName} id=${this.idName} />
-     ${helpText !== undefined && `<span class="help-text text-caption">${helpText}</span>`}
-     ${hasVerification && `<div class="error hidden">${this.name} 값은 필수 입력입니다.</span>`}    
+     ${helpText ? `<span class="help-text text-caption">${helpText}</span>` : ''}
+     ${
+       hasVerification ? `<div class="error hidden">${this.name} 값은 필수 입력입니다.</span>` : ''
+     }    
     `;
 
     this.classList.add('form-item', ...(classList ?? []));
