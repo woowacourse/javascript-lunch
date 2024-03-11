@@ -11,7 +11,7 @@ export const linkEventHandler = (link: HTMLElement) => {
   });
 };
 
-export const inputLinkHandler = () => {
+export const inputRestaurantLinkHandler = () => {
   document.addEventListener('DOMContentLoaded', () => {
     const link = document.getElementById('link');
 

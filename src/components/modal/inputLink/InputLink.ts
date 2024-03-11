@@ -1,11 +1,11 @@
-import { inputLinkHandler } from './eventHandlers';
+import { inputRestaurantLinkHandler } from './eventHandlers';
 import { renderBaseLinkComponents, renderLinkComponents } from './renderHandlers';
 
 function InputLink(form: Element) {
   renderBaseLinkComponents(form);
   renderLinkComponents();
 
-  inputLinkHandler();
+  inputRestaurantLinkHandler();
 }
 
 export default InputLink;
