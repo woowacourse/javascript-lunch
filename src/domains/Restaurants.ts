@@ -1,3 +1,4 @@
+import { STORAGE } from '../constants/rules';
 import initialData from '../data/initialData.json';
 
 class Restaurants implements RestaurantsInterface {
@@ -9,19 +10,15 @@ class Restaurants implements RestaurantsInterface {
   }
 
   initStorage() {
-    if (!this.storage.getItem('restaurants')) {
-      this.storage.setItem('restaurants', JSON.stringify(initialData));
-      this.storage.setItem('sorting-filter', 'name');
-      this.storage.setItem('category-filter', '전체');
+    if (!this.storage.getItem(STORAGE.restaurants)) {
+      this.storage.setItem(STORAGE.restaurants, JSON.stringify(initialData));
+      this.storage.setItem(STORAGE.sorting, STORAGE.initialSorting);
+      this.storage.setItem(STORAGE.category, STORAGE.initialCategory);
     }
   }
 
   filterByCategory(category: Category) {
     return this.storageData.filter((restaurant: Restaurant) => restaurant.category === category);
-  }
-
-  addRestaurant(restaurant: Restaurant) {
-    this.storage.setItem('restaurants', JSON.stringify([restaurant, ...this.storageData]));
   }
 
   orderByDistance(restaurants: Restaurant[]) {
@@ -38,22 +35,27 @@ class Restaurants implements RestaurantsInterface {
   }
 
   sortByStandard(restaurants: Restaurant[], sorting: string) {
-    if (sorting && sorting === 'distance') return this.orderByDistance(restaurants);
-    if (sorting && sorting === 'name') return this.orderByName(restaurants);
+    if (sorting === 'distance') return this.orderByDistance(restaurants);
+    if (sorting === 'name') return this.orderByName(restaurants);
 
     return this.storageData;
   }
 
+  addRestaurant(restaurant: Restaurant) {
+    this.storage.setItem(STORAGE.restaurants, JSON.stringify([restaurant, ...this.storageData]));
+  }
+
   get storageData() {
-    return JSON.parse(this.storage.getItem('restaurants') || '{}');
+    return JSON.parse(this.storage.getItem(STORAGE.restaurants) ?? '[]');
   }
 
   get standardList() {
-    const sorting: string | null = this.storage.getItem('sorting-filter') || '이름순';
-    const category: Category | null = this.storage.getItem('category-filter') as Category;
+    const sorting = this.storage.getItem(STORAGE.sorting) ?? STORAGE.initialSorting;
+    const category =
+      (this.storage.getItem(STORAGE.category) as Category) ?? STORAGE.initialCategory;
 
     const restaurants: Restaurant[] =
-      category === '전체' ? this.storageData : this.filterByCategory(category);
+      category === STORAGE.initialCategory ? this.storageData : this.filterByCategory(category);
 
     return this.sortByStandard(restaurants, sorting);
   }

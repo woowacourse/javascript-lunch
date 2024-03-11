@@ -22,7 +22,7 @@ export const SELECTED_DATA: SelectedDataType = {
   },
 };
 
-export const RULES: RulesType = {
+export const FIELD_IDS: FieldIdsType = {
   requiredIds: ['category', 'name', 'distance'],
   selectIds: ['sorting-filter', 'category-filter'],
 };
@@ -31,4 +31,12 @@ export const CONVERT: ConvertType = {
   name: '이름',
   category: '카테고리',
   distance: '거리',
+};
+
+export const STORAGE = {
+  restaurants: 'restaurants',
+  sorting: 'sorting-filter',
+  category: 'category-filter',
+  initialSorting: 'name',
+  initialCategory: '전체',
 };

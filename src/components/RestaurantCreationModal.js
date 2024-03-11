@@ -3,7 +3,7 @@ import { validateRequiredValue, validateRestaurantsName } from '../validators';
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
 import { closeModal } from '../utils/modalHandler';
-import { RULES } from '../constants/rules';
+import { FIELD_IDS } from '../constants/rules';
 
 export default class RestaurantCreationModal {
   constructor(restaurants) {
@@ -90,7 +90,7 @@ export default class RestaurantCreationModal {
   handleRequiredInput(event) {
     const targetId = event.target.id;
 
-    if (RULES.requiredIds.some((requiredId) => requiredId === targetId)) {
+    if (FIELD_IDS.requiredIds.some((requiredId) => requiredId === targetId)) {
       tryCatchWrapper({
         tryBlock: () => this.validateRequiredInput(targetId),
         catchBlock: ({ message }) => ($(`${targetId}-error`).innerText = message),
@@ -142,7 +142,7 @@ export default class RestaurantCreationModal {
 
   getInputData(event) {
     const form = event.target;
-    console.log(event);
+
     const category = form['category'].value;
     const name = form['name'].value;
     const walkingTimeFromCampus = form['distance'].value;

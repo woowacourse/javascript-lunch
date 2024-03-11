@@ -15,7 +15,7 @@ type SelectedDataType = {
   };
 };
 
-type RulesType = {
+type FieldIdsType = {
   requiredIds: string[];
   selectIds: string[];
 };

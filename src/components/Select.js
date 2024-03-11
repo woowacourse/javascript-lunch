@@ -1,6 +1,6 @@
 import Restaurant from './Restaurant';
 import { $ } from '../utils/dom';
-import { RULES } from '../constants/rules';
+import { FIELD_IDS } from '../constants/rules';
 
 export default class Select {
   constructor(restaurants) {
@@ -29,7 +29,7 @@ export default class Select {
 
   handleSelectChange() {
     $('restaurant-filter-container').addEventListener('change', ({ target }) => {
-      if (RULES.selectIds.some((id) => target.id === id)) {
+      if (FIELD_IDS.selectIds.some((id) => target.id === id)) {
         const selectedValue = target.options[target.selectedIndex].value;
         this.restaurants.standard = { id: target.id, standard: selectedValue };
       }
