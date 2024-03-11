@@ -105,13 +105,13 @@ export default class AddRestaurantModal {
   addRestaurant() {
     const inputData = this.getInputData();
 
-    this.validateIputData(inputData);
+    this.validateInputData(inputData);
     this.restaurants.addRestaurant(inputData);
     $('restaurant-creation-modal').classList.remove('modal--open');
     this.insertRestaurantList(inputData);
   }
 
-  validateIputData(inputData) {
+  validateInputData(inputData) {
     const restaurantNames = this.restaurants.storageData.map((restaurant) => restaurant.name);
 
     validateRestaurantsName({ restaurantNames, name: inputData.name });
