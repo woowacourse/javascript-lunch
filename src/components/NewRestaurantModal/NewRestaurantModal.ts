@@ -16,7 +16,7 @@ import {
 import './NewRestaurantModal.css';
 import VerticalInputBox from '../Basic/VerticalInputBox/VerticalInputBox';
 import MainApp from '../MainApp';
-class NewRestaurantModal extends BaseComponent {
+class NewRestaurantModal extends BasicModal {
   #title: HTMLHeadingElement;
   #form: HTMLFormElement;
 
@@ -24,13 +24,12 @@ class NewRestaurantModal extends BaseComponent {
     super();
     this.#title = this.#makeTitle();
     this.#form = this.#makeForm();
+    this.appendAll([this.#title, this.#form]);
+    this.#setSubmitEvent();
   }
 
   render() {
-    this.append(new BasicModal([this.#title, this.#form]));
-
-    this.#setSubmitEvent();
-    this.closeModal();
+    //this.closeModal();
     // NOTE : 필요시 Shadow DOM 을 고려해보는것도 좋음.
     //this.attachShadow({ mode: 'open' });
   }
@@ -231,4 +230,4 @@ class NewRestaurantModal extends BaseComponent {
 }
 export default NewRestaurantModal;
 
-customElements.define('new-restaurant-modal', NewRestaurantModal);
+customElements.define('new-restaurant-modal', NewRestaurantModal, { extends: 'div' });

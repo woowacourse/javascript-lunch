@@ -15,7 +15,7 @@ class MainApp extends HTMLDivElement {
     this.className = 'main-app';
     this.innerHTML = `<filter-container class="restaurant-filter-container"></filter-container>
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
-    <new-restaurant-modal class="modal"></new-restaurant-modal>`;
+    <div is="new-restaurant-modal" class="modal"></div>`;
 
     this.#filterContainer = this.querySelector('.restaurant-filter-container')!;
     this.#restaurantList = this.querySelector('.restaurant-list')!;
