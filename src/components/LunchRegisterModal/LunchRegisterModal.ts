@@ -3,7 +3,7 @@ import './style.css';
 import '../LunchFormItem/LunchFormItem';
 import '../LunchButton/LunchButton';
 import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
-import { RestaurantRegister } from '../../domain';
+import { RestaurantRegistry } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
 
@@ -58,7 +58,7 @@ class LunchRegisterModal extends HTMLElement {
       event.preventDefault();
 
       const newRestaurant: Restaurant = this.getNewRestaurant();
-      RestaurantRegister.registerOneRestaurant(newRestaurant);
+      RestaurantRegistry.registerOneRestaurant(newRestaurant);
       this.handleModalClose();
       this.handleDropDown();
     });
