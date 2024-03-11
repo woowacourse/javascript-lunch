@@ -18,7 +18,7 @@
     "types": ["cypress"]
   },
   "include": ["src"],
-  "exclude": ["node_modules", "cypress", "dist"],
+  "exclude": ["node_modules", "cypress", "dist", "webpack.config.js"],
   "parserOptions": {
     "project": "./tsconfig.json"
   }
