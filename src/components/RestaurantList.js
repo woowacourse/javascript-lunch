@@ -15,7 +15,7 @@ class RestaurantList extends BaseComponent {
       : filterByCategory(this.#currentCategory);
   }
 
-  #sortRestauantList(sortOption) {
+  #sortRestaurantList(sortOption) {
     this.render(sortOption);
   }
 
@@ -24,30 +24,34 @@ class RestaurantList extends BaseComponent {
     this.render();
   }
 
+  #createRestaurantListHTML(restaurantList) {
+    return restaurantList.reduce((accRestaurants, currentRestaurant) => {
+      const { name, category, distance, description } = currentRestaurant;
+
+      return (
+        accRestaurants +
+        `
+        <restaurant-item
+          name="${name}"
+          category="${category}"
+          distance=${distance}"
+          description="${description}"
+        ></restaurant-item>
+        `
+      );
+    }, "");
+  }
+
   render(sortOption) {
     const currentList = this.#getCurrentList(sortOption);
 
     this.innerHTML = `
-    <section class="restaurant-list-container">
+      <section class="restaurant-list-container">
         <ul class="restaurant-list">
-        ${currentList.reduce((accRestaurants, currRestaurant) => {
-          const { name, category, distance, description } = currRestaurant;
-
-          return (
-            accRestaurants +
-            `
-            <restaurant-item
-              name = "${name}"
-              category = ${category}
-              distance = ${distance}
-              description = "${description}"
-            >
-            </restaurant-item>
-            `
-          );
-        }, "")}
+        ${this.#createRestaurantListHTML(currentList)}
         </ul>
-    </section>
+      </section>
+      
     `;
   }
 
@@ -56,7 +60,7 @@ class RestaurantList extends BaseComponent {
       const { type, option } = event.detail;
 
       type === "sort"
-        ? this.#sortRestauantList(option)
+        ? this.#sortRestaurantList(option)
         : this.#filterRestaurantList(option);
     });
 
