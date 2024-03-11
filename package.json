@@ -7,7 +7,9 @@
     "watch": "webpack --watch",
     "start": "webpack serve",
     "build": "webpack --mode=production",
-    "test": "cypress open"
+    "test": "cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,6 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-lunch/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-lunch#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
@@ -37,5 +38,9 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
+  },
+  "homepage": "https://ss0526100.github.io/javascript-lunch",
+  "dependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
