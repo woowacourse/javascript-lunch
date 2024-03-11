@@ -47,6 +47,8 @@ const FilteringController = {
       );
 
       RestaurantListController.injectRestaurantListHTML(sortedList);
+    } else {
+      RestaurantListController.injectRestaurantListHTML();
     }
   },
 
