@@ -6,7 +6,7 @@ import asianCategoryImg from '../assets/category-asian.png';
 import westernCategoryImg from '../assets/category-western.png';
 import etcCategoryImg from '../assets/category-etc.png';
 
-class RestaurantInfo extends Component {
+class RestaurantItem extends Component {
   static observedAttributes = ['category', 'name', 'distance', 'description', 'reference'];
 
   #category;
@@ -69,4 +69,4 @@ class RestaurantInfo extends Component {
   }
 }
 
-export default RestaurantInfo;
+export default RestaurantItem;

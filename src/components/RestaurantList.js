@@ -21,7 +21,7 @@ class RestaurantList extends Component {
       ${this.#restaurants
         .map(
           (restaurant) =>
-            `<restaurant-info category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-info>`,
+            `<restaurant-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-item>`,
         )
         .join('')}
       </section>
