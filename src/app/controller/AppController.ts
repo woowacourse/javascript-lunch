@@ -1,6 +1,6 @@
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
-import { Sort, Category, LocationData } from '../../constants/Type';
+import { Sort, Category, LocationData } from '../../constants/typings';
 import { $ } from '../../utils/domSelector';
 
 class AppController {

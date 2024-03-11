@@ -1,4 +1,4 @@
-import { LocationData } from '../../../constants/Type';
+import { LocationData } from '../../../constants/typings';
 import { ASSETS } from '../../../constants/setting';
 
 class RestaurantItem extends HTMLElement {

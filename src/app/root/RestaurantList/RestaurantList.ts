@@ -1,5 +1,5 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { LocationData } from '../../../constants/Type';
+import { LocationData } from '../../../constants/typings';
 
 class RestaurantList extends HTMLElement {
   private restaurants: LocationData[];
