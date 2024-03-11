@@ -1,4 +1,4 @@
-import "../../templates/style.css";
+import "../styles/style.css";
 import "../../templates/add-button.png";
 import "../../templates/category-asian.png";
 import "../../templates/category-chinese.png";
