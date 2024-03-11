@@ -1,0 +1,11 @@
+@import url('../../../styles/style.css');
+
+.text-caption {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.help-text {
+  color: var(--grey-300);
+}

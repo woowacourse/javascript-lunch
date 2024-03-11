@@ -1,0 +1,16 @@
+@import url('../../../styles/style.css');
+
+.form-item input {
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 16px;
+}
+
+input[name='name'],
+input[name='link'] {
+  height: 44px;
+}
