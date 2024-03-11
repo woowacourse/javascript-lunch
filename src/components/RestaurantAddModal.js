@@ -15,11 +15,11 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    $addEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
+    $addEvent('.button--primary', 'click', this.#onSubmit);
   }
 
   removeEvent() {
-    $removeEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
+    $removeEvent('.button--primary', 'click', this.#onSubmit);
   }
 
   #updateModal(isOpen) {
@@ -30,7 +30,7 @@ class RestaurantAddModal extends Component {
     }
   }
 
-  #onSubmit(event) {
+  #onSubmit = (event) => {
     event.preventDefault();
 
     if (this.#handleEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
@@ -46,7 +46,7 @@ class RestaurantAddModal extends Component {
     };
 
     RestaurantRepository.addRestaurant(formData);
-  }
+  };
 
   #handleEmptyError(selectors) {
     const errors = selectors.filter((selector) => {

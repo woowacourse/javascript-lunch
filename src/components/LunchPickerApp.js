@@ -5,37 +5,38 @@ import { OPTION } from '../constants/Condition';
 
 class LunchPickerApp extends Component {
   setEvent() {
-    this.addEventListener('click', (event) => {
-      if (event.target.closest('.gnb__button')) {
-        $setAttribute('restaurant-add-modal', 'open', 'true');
-      }
-
-      if (event.target.classList.contains('button--primary')) {
-        $setAttribute('restaurant-add-modal', 'open', 'false');
-      }
-
-      if (event.target.classList.contains('button--secondary')) {
-        $setAttribute('restaurant-add-modal', 'open', 'false');
-      }
-    });
-
-    this.addEventListener('change', (event) => {
-      if (event.target.classList.contains('category') || event.target.classList.contains('sorting')) {
-        const category = $('.category').value;
-        const sorting = $('.sorting').value;
-
-        $setAttribute('restaurant-list', 'category', `${category}`);
-        $setAttribute('restaurant-list', 'sorting', `${sorting}`);
-      }
-    });
+    this.addEventListener('click', this.#handleClick);
+    this.addEventListener('change', this.#handleChange);
   }
 
   removeEvent() {
-    this.removeEventListener('selectChange');
-    this.removeEventListener('gnbButtonClick');
-    this.removeEventListener('cancelButtonClick');
-    this.removeEventListener('submitButtonClick');
+    this.removeEventListener('click', this.#handleClick);
+    this.removeEventListener('change', this.#handleChange);
   }
+
+  #handleClick = (event) => {
+    if (event.target.closest('.gnb__button')) {
+      $setAttribute('restaurant-add-modal', 'open', 'true');
+    }
+
+    if (event.target.classList.contains('button--primary')) {
+      $setAttribute('restaurant-add-modal', 'open', 'false');
+    }
+
+    if (event.target.classList.contains('button--secondary')) {
+      $setAttribute('restaurant-add-modal', 'open', 'false');
+    }
+  };
+
+  #handleChange = (event) => {
+    if (event.target.classList.contains('category') || event.target.classList.contains('sorting')) {
+      const category = $('.category').value;
+      const sorting = $('.sorting').value;
+
+      $setAttribute('restaurant-list', 'category', `${category}`);
+      $setAttribute('restaurant-list', 'sorting', `${sorting}`);
+    }
+  };
 
   template() {
     return `
