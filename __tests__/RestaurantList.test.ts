@@ -1,4 +1,4 @@
-import { Category, Distance, Restaurant, SortingStandard } from "../src/types";
+import { Category, Restaurant, SortingStandard } from "../src/types";
 import RestaurantList from "../src/domain/RestaurantList";
 
 describe("음식점 목록 클래스 테스트", () => {

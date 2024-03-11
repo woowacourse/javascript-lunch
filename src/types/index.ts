@@ -1,4 +1,4 @@
-import { categories, distances, sortingStandards } from "../constants";
+import { categories, distances } from "../constants";
 
 type Category = "한식" | "중식" | "일식" | "아시안" | "양식" | "기타";
 
