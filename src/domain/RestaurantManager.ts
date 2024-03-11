@@ -51,11 +51,6 @@ export class RestaurantManager implements RestaurantManager {
       return 0;
     });
 
-    this.restaurants.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
     return [...sortingReataurants];
   }
 
@@ -84,7 +79,11 @@ export class RestaurantManager implements RestaurantManager {
   }
 
   filteredRestaurants(): Restaurant[] {
-    return [...this.restaurants].filter(
+    if (this.curentSelectedCategory === '전체') {
+      return [...this.restaurants];
+    }
+
+    return this.restaurants.filter(
       (restaurant) => restaurant.category === this.curentSelectedCategory
     );
   }
