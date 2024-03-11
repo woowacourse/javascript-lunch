@@ -26,5 +26,5 @@ export const OPTIONS_MAP = {
   category: [OPTION.ALL, ...OPTION.CATEGORY],
   sorting: OPTION.SORTING,
   'modal-category': [OPTION.INFO, ...OPTION.CATEGORY],
-  'modal-sorting': [OPTION.INFO, ...OPTION.DISTANCE],
+  'modal-distance': [OPTION.INFO, ...OPTION.DISTANCE],
 } as const;

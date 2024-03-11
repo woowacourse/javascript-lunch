@@ -1,6 +1,5 @@
 import Component from './Component';
 import { $, $setAttribute } from '../utils/dom';
-import { OPTION } from '../constants/Condition';
 
 class LunchPickerApp extends Component {
   setEvent() {
@@ -30,8 +29,8 @@ class LunchPickerApp extends Component {
   };
 
   #updateRestaurantList() {
-    const category = $('.category').value || '';
-    const sorting = $('.sorting').value || '';
+    const category = $('.category').value || '전체';
+    const sorting = $('.sorting').value || '이름순';
 
     $setAttribute('restaurant-list', 'category', `${category}`);
     $setAttribute('restaurant-list', 'sorting', `${sorting}`);

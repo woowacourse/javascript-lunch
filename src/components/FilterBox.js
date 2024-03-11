@@ -6,7 +6,7 @@ class FilterBox extends Component {
 
   constructor() {
     super();
-    this.#type = this.getAttribute('type');
+    this.#type = this.getAttribute('type') || '';
   }
 
   template() {

@@ -17,8 +17,8 @@ class RestaurantList extends Component {
   }
 
   #generateRestaurants() {
-    const category = this.getAttribute('category');
-    const sorting = this.getAttribute('sorting');
+    const category = this.getAttribute('category') || '전체';
+    const sorting = this.getAttribute('sorting') || '이름순';
 
     return RestaurantRepository.transformRestaurants(category, sorting);
   }
