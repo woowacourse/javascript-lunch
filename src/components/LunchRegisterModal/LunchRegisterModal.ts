@@ -72,6 +72,7 @@ class LunchRegisterModal extends HTMLElement {
       const value = form.getValue(form.getAttribute('type') as FormItemType) ?? '';
       newRestaurant[key] = value;
     });
+    console.log(newRestaurant);
     return newRestaurant;
   }
 

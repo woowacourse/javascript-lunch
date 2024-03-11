@@ -20,7 +20,7 @@ type DropdownOptionsTable = {
 };
 
 // type FormElementsTable = Record<string, HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
-type FormElementsTable = Record<string, string>;
+type FormElementsTable = Record<FormItemType, string>;
 
 const LUNCH_FORM_ITEM = (props: FormItemProps) => `
 <div class="form-item">
@@ -52,23 +52,6 @@ const LUNCH_FORM_ITEM_MESSAGE = (props: FormItemProps) => `
 `;
 
 class LunchFormItem extends HTMLElement {
-  FORM_TYPE_LOOKUP_TABLE: FormTypeLookupTable = {
-    dropdown: (props: FormItemProps) => this.renderDropdown(props),
-    input: (props: FormItemProps) => this.renderInput(props),
-    textArea: (props: FormItemProps) => this.renderTextArea(props),
-  };
-
-  DROPDOWN_OPTIONS_TABLE: DropdownOptionsTable = {
-    category: CATEGORIES,
-    distance: DISTANCE,
-  };
-
-  FORM_ELEMENTS_VALUE_TABLE: FormElementsTable = {
-    dropdown: this.querySelector('select')?.value ?? '',
-    input: this.querySelector('input')?.value ?? '',
-    textArea: (this.querySelector('textArea') as HTMLTextAreaElement)?.value,
-  };
-
   connectedCallback() {
     this.render();
   }
@@ -96,7 +79,12 @@ class LunchFormItem extends HTMLElement {
   }
 
   renderTypes(props: FormItemProps) {
-    const renderTypeFunction = this.FORM_TYPE_LOOKUP_TABLE[props.type];
+    const FORM_TYPE_LOOKUP_TABLE: FormTypeLookupTable = {
+      dropdown: () => this.renderDropdown(props),
+      input: () => this.renderInput(props),
+      textArea: () => this.renderTextArea(props),
+    };
+    const renderTypeFunction = FORM_TYPE_LOOKUP_TABLE[props.type];
     renderTypeFunction(props);
   }
 
@@ -119,7 +107,11 @@ class LunchFormItem extends HTMLElement {
   }
 
   appendDropdownOptions(option: string, optionItems: string[]) {
-    Object.values(this.DROPDOWN_OPTIONS_TABLE[option]).forEach((element) => {
+    const DROPDOWN_OPTIONS_TABLE: DropdownOptionsTable = {
+      category: CATEGORIES,
+      distance: DISTANCE,
+    };
+    Object.values(DROPDOWN_OPTIONS_TABLE[option]).forEach((element) => {
       optionItems.push(DROPDOWN_OPTION(`${element}`));
     });
   }
@@ -143,7 +135,12 @@ class LunchFormItem extends HTMLElement {
   }
 
   getValue(type: FormItemType) {
-    return this.FORM_ELEMENTS_VALUE_TABLE[type];
+    const FORM_ELEMENTS_VALUE_TABLE: FormElementsTable = {
+      dropdown: this.querySelector('select')?.value ?? '',
+      input: this.querySelector('input')?.value ?? '',
+      textArea: (this.querySelector('textArea') as HTMLTextAreaElement)?.value,
+    };
+    return FORM_ELEMENTS_VALUE_TABLE[type];
   }
 }
 customElements.define('lunch-form-item', LunchFormItem);
