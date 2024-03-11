@@ -10,7 +10,7 @@ type LunchItemProps = {
   description: string;
 };
 
-export const CATEGORY_IMG = {
+export const CATEGORY_IMG: Record<string, string> = {
   한식: KOREAN,
   중식: CHINESE,
   일식: JAPANESE,
