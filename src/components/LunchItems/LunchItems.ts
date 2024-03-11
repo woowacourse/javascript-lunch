@@ -44,7 +44,7 @@ class LunchItems extends HTMLElement {
   }
 
   getRestaurants(props: FilterProps): Restaurants {
-    return RestaurantDataProvider.execute(props);
+    return RestaurantDataProvider.getAllRestaurantsByOption(props);
   }
 }
 

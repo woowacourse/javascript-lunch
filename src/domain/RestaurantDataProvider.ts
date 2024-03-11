@@ -4,7 +4,7 @@ import { Restaurants } from '../types/Restaurants';
 import { SortBy } from '../types/SortBy';
 
 type RestaurantDataProviderType = {
-  execute: ({ category, sortBy }: ExecuteProps) => Restaurants;
+  getAllRestaurantsByOption: ({ category, sortBy }: getAllRestaurantsByOptionProps) => Restaurants;
   filterByCategory: ({ category, allRestaurants }: FilterByCategoryProps) => Restaurants;
   sortRestaurants: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
   sortByCreatedAt: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
@@ -13,7 +13,7 @@ type RestaurantDataProviderType = {
   sortByDistance: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
 };
 
-type ExecuteProps = {
+type getAllRestaurantsByOptionProps = {
   category?: Category;
   sortBy?: SortBy;
 };
@@ -33,7 +33,7 @@ type SortRestaurantsProps = {
  * @return {Array}
  */
 const RestaurantDataProvider: RestaurantDataProviderType = {
-  execute(props: ExecuteProps): Restaurants {
+  getAllRestaurantsByOption(props: getAllRestaurantsByOptionProps): Restaurants {
     const restaurants = localStorage.getItem('restaurants');
     const allRestaurants = JSON.parse(restaurants || '[]');
 
