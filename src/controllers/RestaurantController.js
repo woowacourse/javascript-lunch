@@ -11,27 +11,26 @@ class RestaurantController {
   #property;
 
   constructor() {
-    this.#restaurantList = this.getRecentData();
-
+    this.#restaurantList = this.fetchData();
     this.#category = '전체';
     this.#property = 'name';
   }
 
   run() {
     OutputView.renderFilterDropdown();
-    this.reload();
+    this.updateRestaurantList();
     this.showAddRestaurantModal();
     this.manageFilterValue();
   }
 
-  reload() {
+  updateRestaurantList() {
     const filteredList = RestaurantService.filterByCategory(this.#category, this.#restaurantList);
     const processedList = RestaurantService.sortByProperty(this.#property, filteredList);
 
     OutputView.renderRestaurantList(processedList);
   }
 
-  getRecentData() {
+  fetchData() {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
   }
 
@@ -56,7 +55,7 @@ class RestaurantController {
       alert(isAddedComment);
 
       if (!isAdded) return;
-      this.reload();
+      this.updateRestaurantList();
       OutputView.closeModal();
     });
   }
@@ -84,13 +83,13 @@ class RestaurantController {
     const categoryFilter = $('#category-filter');
     categoryFilter.addEventListener('change', () => {
       this.#category = categoryFilter.options[categoryFilter.selectedIndex].value;
-      this.reload();
+      this.updateRestaurantList();
     });
 
     const sortingFilter = $('#sorting-filter');
     sortingFilter.addEventListener('change', () => {
       this.#property = sortingFilter.options[sortingFilter.selectedIndex].value;
-      this.reload();
+      this.updateRestaurantList();
     });
   }
 }
