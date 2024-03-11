@@ -11,19 +11,21 @@ import "../../templates/favorite-icon-lined.png";
 import RestaurantSelectSection from "./components/RestaurantSelectSection";
 import RestaurantListSection from "./components/RestaurantListSection";
 import RestaurantFormModal from "./components/RestaurantFormModal";
+import RestaurantList from "../domain/RestaurantList";
 
 class View {
   private $target;
+
   private selectSection;
   private listSection;
   private formModal;
 
-  constructor($target: HTMLElement) {
+  constructor($target: HTMLElement, restaurantList: RestaurantList) {
     this.$target = $target;
 
     this.selectSection = new RestaurantSelectSection();
-    this.listSection = new RestaurantListSection();
-    this.formModal = new RestaurantFormModal();
+    this.listSection = new RestaurantListSection(restaurantList);
+    this.formModal = new RestaurantFormModal(restaurantList);
 
     this.renderInit();
 

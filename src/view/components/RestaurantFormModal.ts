@@ -1,5 +1,5 @@
 import { categories, distances, distancesMapper } from "../../constants";
-import restaurantList from "../../domain/RestaurantList";
+import RestaurantList from "../../domain/RestaurantList";
 import {
   Category,
   Distance,
@@ -10,6 +10,12 @@ import {
 } from "../../types";
 
 class RestaurantFormModal {
+  private restaurantList;
+
+  constructor(restaurantList: RestaurantList) {
+    this.restaurantList = restaurantList;
+  }
+
   renderInit() {
     return /*html*/ `
       <div class="modal" id="add-restaurant-form__modal">
@@ -125,7 +131,7 @@ class RestaurantFormModal {
         const restaurant = this.generateRestaurant(
           new FormData($restaurantForm)
         );
-        restaurantList.add(restaurant);
+        this.restaurantList.add(restaurant);
 
         $restaurantForm.reset();
         this.closeModal();

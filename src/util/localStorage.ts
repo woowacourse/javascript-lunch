@@ -12,7 +12,6 @@ export function getRestaurantsFromLocalStorage(): Restaurant[] {
   return JSON.parse(restaurants);
 }
 
-export function setRestaurantsToLocalStorage(newRestuarant: Restaurant) {
-  const newRestaurants = [...getRestaurantsFromLocalStorage(), newRestuarant];
-  localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
+export function setRestaurantsToLocalStorage(restaurants: Restaurant[]) {
+  localStorage.setItem(RESTAURANTS, JSON.stringify(restaurants));
 }

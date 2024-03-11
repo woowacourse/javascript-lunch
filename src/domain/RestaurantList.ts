@@ -1,12 +1,14 @@
-import { Restaurant, Category, SortingStandard, Link, isLink } from "../types";
-import {
-  deepCopy,
-  getRestaurantsFromLocalStorage,
-  setRestaurantsToLocalStorage,
-} from "../util";
+import { Restaurant, Category, SortingStandard, isLink } from "../types";
+import { deepCopy } from "../util";
 import { categories, distances } from "../constants";
 
 class RestaurantList {
+  private restaurants;
+
+  constructor(restaurants: Restaurant[]) {
+    this.restaurants = restaurants.map((restaurant) => deepCopy(restaurant));
+  }
+
   getRestaurants({
     category,
     sortingStandard,
@@ -14,9 +16,9 @@ class RestaurantList {
     category: Category | "전체";
     sortingStandard: SortingStandard;
   }): Restaurant[] {
-    const restaurants: Restaurant[] = getRestaurantsFromLocalStorage();
     if (category === "전체") {
-      return restaurants
+      return this.restaurants
+        .map((restaurant) => deepCopy(restaurant))
         .sort((a, b) => {
           if (a[sortingStandard] < b[sortingStandard]) {
             return -1;
@@ -24,11 +26,11 @@ class RestaurantList {
             return 1;
           }
           return 0;
-        })
-        .map((restaurant) => deepCopy(restaurant));
+        });
     }
 
-    return restaurants
+    return this.restaurants
+      .map((restaurant) => deepCopy(restaurant))
       .filter((restaurant) => restaurant.category === category)
       .sort((a, b) => {
         if (a[sortingStandard] < b[sortingStandard]) {
@@ -37,14 +39,13 @@ class RestaurantList {
           return 1;
         }
         return 0;
-      })
-      .map((restaurant) => deepCopy(restaurant));
+      });
   }
 
   add(restaurant: Restaurant) {
     this.validateRestaurant(restaurant);
 
-    setRestaurantsToLocalStorage(restaurant);
+    this.restaurants = [...this.restaurants, deepCopy(restaurant)];
   }
 
   private validateRestaurant(restaurant: Restaurant) {
@@ -66,5 +67,4 @@ class RestaurantList {
   }
 }
 
-const restaurantList = new RestaurantList();
-export default restaurantList;
+export default RestaurantList;

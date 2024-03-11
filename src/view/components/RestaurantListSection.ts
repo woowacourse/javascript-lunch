@@ -1,9 +1,14 @@
 import RestaurantList from "../../domain/RestaurantList";
-import restaurantList from "../../domain/RestaurantList";
 import { categoryToIconNameMapper, distancesMapper } from "../../constants";
 import { Category, SortingStandard } from "../../types";
 
 class RestaurantListSection {
+  private restaurantList;
+
+  constructor(restaurantList: RestaurantList) {
+    this.restaurantList = restaurantList;
+  }
+
   renderInit() {
     return /*html*/ `
       <section class="restaurant-list-container">
@@ -25,7 +30,7 @@ class RestaurantListSection {
     ) as HTMLUListElement;
 
     const restaurantFragment = new DocumentFragment();
-    const restaurants = restaurantList.getRestaurants({
+    const restaurants = this.restaurantList.getRestaurants({
       category,
       sortingStandard,
     });

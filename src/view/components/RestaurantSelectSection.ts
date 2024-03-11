@@ -4,7 +4,6 @@ import {
   sortingStandardsMapper,
 } from "../../constants";
 import { Category, SortingStandard } from "../../types";
-import { getRestaurantsFromLocalStorage } from "../../util";
 
 class RestaurantSelectSection {
   renderInit() {
