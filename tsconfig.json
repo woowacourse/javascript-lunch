@@ -3,6 +3,7 @@
   "compilerOptions": {
     "incremental": true,
     "target": "ES2020",
+    "types": ["node", "cypress"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
@@ -14,8 +15,12 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src"],
-  "exclude": ["node_modules", "cypress", "dist"]
+  "exclude": ["node_modules", "dist"]
 }
