@@ -1,30 +1,39 @@
 import BaseComponent from "./BaseComponent.js";
 
 class OptionSelector extends BaseComponent {
+  #selectType = null;
+
   constructor() {
     super();
+    this.#selectType = this.getAttribute("type");
+  }
+
+  #createOptionHTML(options) {
+    return options.reduce(
+      (accOptions, currOption) =>
+        accOptions + `<option value=${currOption}>${currOption}</option>;`,
+      ""
+    );
   }
 
   render() {
-    const optionsArray = this.getAttribute("options").split(",");
+    const options = this.getAttribute("options").split(",");
 
     this.innerHTML = `
-      <select name="category" id="category-filter" class="restaurant-filter">
-        ${optionsArray.map((option) => {
-          return `<option value=${option}>${option}</option>;`;
-        })}
+      <select name="category" id="category-filter" class="restaurant-filter-select select-arrow-down arrow-down-black" aria-label="${
+        this.#selectType
+      }-select">
+        ${this.#createOptionHTML(options)}
       </select> 
     `;
   }
 
   setEvent() {
-    const selectType = this.getAttribute("type");
-
     this.addEventListener("change", (e) => {
       const selectedValue = e.target.value;
 
       this.emitEvent("select-change", {
-        type: selectType,
+        type: this.#selectType,
         option: selectedValue,
       });
     });
