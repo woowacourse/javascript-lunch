@@ -11,11 +11,16 @@ interface InputBoxArgs {
 class VerticalInputBox extends HTMLDivElement {
   name: string;
   idName: string;
+  #hasVerification: boolean;
+  #classList?: string[];
+  isRequired?: boolean;
 
   constructor({ name, idName, classList, hasVerification, isRequired }: InputBoxArgs) {
     super();
     this.name = name;
     this.idName = idName;
+    this.#hasVerification = hasVerification;
+
     this.classList.add('form-item', ...(classList ?? []));
     if (hasVerification) {
       this.#makeErrorBox();
@@ -35,6 +40,9 @@ class VerticalInputBox extends HTMLDivElement {
     <label for="${this.idName} text-caption">${this.name}</label>
      <input type="text" name=${this.idName} id=${this.idName} />
     `;
+    if (this.#hasVerification) {
+      this.append(this.#makeErrorBox());
+    }
   }
   #setEvent() {}
 
@@ -42,7 +50,7 @@ class VerticalInputBox extends HTMLDivElement {
     const errorBox = document.createElement('div');
     errorBox.classList.add('error', 'hidden');
     errorBox.textContent = `${this.name} 값은 필수 입력입니다.`;
-    this.append(errorBox);
+    return errorBox;
   }
 }
 customElements.define('vertical-input-box', VerticalInputBox, { extends: 'div' });

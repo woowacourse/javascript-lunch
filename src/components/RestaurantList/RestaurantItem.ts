@@ -1,10 +1,10 @@
-import BaseComponent from '../BaseComponent';
 import koreanIcon from '@assets/category-korean.png';
 import asianIcon from '@assets/category-asian.png';
 import japaneseIcon from '@assets/category-japanese.png';
 import chineseIcon from '@assets/category-chinese.png';
 import westernIcon from '@assets/category-western.png';
 import etcIcon from '@assets/category-etc.png';
+
 import { Category, IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantItem.css';
