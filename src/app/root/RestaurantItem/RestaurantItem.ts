@@ -1,5 +1,5 @@
-import { LocationData } from '../../../constants/typings';
-import { ASSETS } from '../../../constants/setting';
+import { IMAGE } from '../../../assets/assets';
+import { LocationData } from '../../../constants/typings';
 
 class RestaurantItem extends HTMLElement {
   private restaurantData: LocationData;
@@ -17,7 +17,7 @@ class RestaurantItem extends HTMLElement {
     this.innerHTML = ` 
       <li class="restaurant">
         <div class="restaurant__category">
-          <img src="${ASSETS.imageUrl[this.restaurantData.category]}" \
+          <img src="${IMAGE.url[this.restaurantData.category]}" \
           alt="${this.restaurantData.category}" class="category-icon" />
         </div>
         <div class="restaurant__info">

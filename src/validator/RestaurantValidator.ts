@@ -1,4 +1,4 @@
-import { LocationData } from '../constants/typings';
+import { LocationData } from '../constants/typings';
 
 const RestaurantValidator = {
   validateUserInput(locationData: LocationData) {
