@@ -1,6 +1,6 @@
 import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant';
 import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
-import { mockingData } from '../domain/mocking';
+import mockingData from '../domain/mocking';
 
 class WebController {
   #restaurantCatalog;
@@ -53,7 +53,6 @@ class WebController {
     }
   }
 
-  // TODO: 리팩터링, 메서드의 위치 -> component로?
   #renderDropdownOptions(id, options) {
     const select = document.getElementById(id);
     select.addOptions(options);

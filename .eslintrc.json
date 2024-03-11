@@ -7,7 +7,8 @@
     "import/extensions": "off",
     "max-len": "off",
     "object-curly-newline": "off",
-    "no-alert": "off"
+    "no-alert": "off",
+    "linebreak-style": "off"
   },
 
   "overrides": [
