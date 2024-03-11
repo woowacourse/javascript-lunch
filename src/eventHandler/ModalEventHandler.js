@@ -22,7 +22,7 @@ class ModalEventHandler {
 
   handleAddRestaurant(e) {
     e.preventDefault();
-    const $restaurantForm = document.querySelector('form');
+    const $restaurantForm = e.target;
     const category = $restaurantForm.elements.category.value;
     const name = $restaurantForm.elements.name.value;
     const distance = Number($restaurantForm.elements.distance.value);
