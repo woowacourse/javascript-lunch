@@ -8,21 +8,27 @@ class SelectBoxSection extends HTMLElement {
   }
 
   private addEvent() {
-    $('#category-filter')!.addEventListener('change', (event: Event) => {
-      this.dispatchEvent(
-        new CustomEvent('changeCategory', {
-          detail: (event.target as HTMLSelectElement).value,
-        }),
-      );
-    });
+    const categoryFilter = $('#category-filter');
+    if (categoryFilter) {
+      categoryFilter.addEventListener('change', (event: Event) => {
+        this.dispatchEvent(
+          new CustomEvent('changeCategory', {
+            detail: (event.target as HTMLSelectElement).value,
+          }),
+        );
+      });
+    }
 
-    $('#sorting-filter')!.addEventListener('change', (event: Event) => {
-      this.dispatchEvent(
-        new CustomEvent('changeSort', {
-          detail: (event.target as HTMLSelectElement).value,
-        }),
-      );
-    });
+    const sortingFilter = $('#sorting-filter');
+    if (sortingFilter) {
+      sortingFilter.addEventListener('change', (event: Event) => {
+        this.dispatchEvent(
+          new CustomEvent('changeSort', {
+            detail: (event.target as HTMLSelectElement).value,
+          }),
+        );
+      });
+    }
   }
 
   private getCategoryName() {

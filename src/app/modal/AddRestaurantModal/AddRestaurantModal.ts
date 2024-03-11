@@ -13,30 +13,34 @@ class AddRestaurantModal extends HTMLElement {
     $('#cancel-adding-restaurant-button', this)?.addEventListener('click', () => {
       this.clearModal();
     });
+    const addResultForm = $('#add-restaurant-form');
 
-    $('#add-restaurant-form')!.addEventListener('submit', (event: Event) => {
-      try {
-        event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
-        const restaurantInputData = Object.fromEntries(formData.entries()) as any as LocationData;
-        RestaurantValidator.validateUserInput(restaurantInputData);
-        this.submitNewRestaurantData(restaurantInputData);
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(error.message);
+    if (addResultForm) {
+      addResultForm.addEventListener('submit', (event: Event) => {
+        try {
+          event.preventDefault();
+          const formData = new FormData(event.target as HTMLFormElement);
+          const restaurantInputData = Object.fromEntries(formData.entries());
+          RestaurantValidator.validateUserInput(restaurantInputData);
+          this.submitNewRestaurantData(restaurantInputData);
+        } catch (error) {
+          if (error instanceof Error) {
+            alert(error.message);
+          }
         }
-      }
-    });
+      });
+    }
   }
 
-  private submitNewRestaurantData(restaurantData: LocationData) {
-    this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: restaurantData }));
+  private submitNewRestaurantData(inputData: Object) {
+    this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: inputData }));
     this.clearModal();
   }
 
   private clearModal() {
     this.clearAllInput();
-    $<HTMLDialogElement>('#add-restaurant-modal')!.close();
+    const addRestaurantModal = $<HTMLDialogElement>('#add-restaurant-modal');
+    if (addRestaurantModal) addRestaurantModal.close();
   }
 
   private clearAllInput() {

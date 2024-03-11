@@ -8,9 +8,12 @@ class LunchHeader extends HTMLElement {
   }
 
   private addEvent() {
-    $('#add-restaurant-button')!.addEventListener('click', () => {
-      this.dispatchEvent(new CustomEvent('showAddRestaurantModal', {}));
-    });
+    const addRestaurantButton = $('#add-restaurant-button');
+    if (addRestaurantButton) {
+      addRestaurantButton.addEventListener('click', () => {
+        this.dispatchEvent(new CustomEvent('showAddRestaurantModal', {}));
+      });
+    }
   }
 
   private render() {

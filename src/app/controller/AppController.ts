@@ -19,15 +19,30 @@ class AppController {
     const restaurantList: RestaurantList = new RestaurantList(
       this.restaurantService.getRestaurants(this.sort, category),
     );
-    document.querySelector('#app')!.appendChild(restaurantList);
-    this.addEvent();
+    const appElement = document.querySelector('#app');
+
+    if (appElement) {
+      appElement.appendChild(restaurantList);
+      this.addEvent();
+    }
   }
 
   addEvent() {
-    $('lunch-header')!.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
-    $('select-box-section')!.addEventListener('changeCategory', this.changeCategory.bind(this));
-    $('select-box-section')!.addEventListener('changeSort', this.changeSort.bind(this));
-    $('add-restaurant-modal')!.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
+    const lunchHeader = document.querySelector('#lunch-header');
+    if (lunchHeader) {
+      lunchHeader.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
+    }
+
+    const selectBoxSection = document.querySelector('#select-box-section');
+    if (selectBoxSection) {
+      selectBoxSection.addEventListener('changeCategory', this.changeCategory.bind(this));
+      selectBoxSection.addEventListener('changeSort', this.changeSort.bind(this));
+    }
+
+    const addRestaurantModal = document.querySelector('#add-restaurant-modal');
+    if (addRestaurantModal) {
+      addRestaurantModal.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
+    }
   }
 
   changeCategory(event: Event) {
@@ -50,13 +65,18 @@ class AppController {
 
   refreshRestaurantList() {
     const category = this.category === '전체' ? undefined : this.category;
-    $('#app')!.removeChild($('restaurant-list')!);
-    const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sort, category));
-    $('#app')!.appendChild(restaurantList);
+    const appElement = $('#app');
+    const oldRestaurantList = $('restaurant-list');
+    if (appElement && oldRestaurantList) {
+      appElement.removeChild(oldRestaurantList);
+      const restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sort, category));
+      appElement.appendChild(restaurantList);
+    }
   }
 
   showAddRestaurantModal() {
-    $<HTMLDialogElement>('#add-restaurant-modal')!.showModal();
+    const addResultModal = $<HTMLDialogElement>('#add-restaurant-modal');
+    if (addResultModal) addResultModal.showModal();
   }
 }
 
