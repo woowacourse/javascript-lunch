@@ -72,16 +72,6 @@ const trimAllSpace = (str: string): string => {
   return str.replaceAll(" ", "");
 };
 
-export const initRestaurantStorage = () => {
-  if (getRestaurantFromStorage().length > 0) {
-    return;
-  }
-
-  DEFAULT_RESTAURANT_DATA.forEach((data: RestaurantType) => {
-    add(data);
-  });
-};
-
 export const add = (restaurantInfo: RestaurantType) => {
   const storedRestaurants = getRestaurantFromStorage();
   validateRestaurantData(restaurantInfo);
@@ -92,6 +82,16 @@ export const add = (restaurantInfo: RestaurantType) => {
   );
 
   return true;
+};
+
+export const initRestaurantStorage = () => {
+  if (getRestaurantFromStorage().length > 0) {
+    return;
+  }
+
+  DEFAULT_RESTAURANT_DATA.forEach((data: RestaurantType) => {
+    add(data);
+  });
 };
 
 export const filterByCategory = (category: CategoryType) => {

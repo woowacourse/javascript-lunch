@@ -1,10 +1,10 @@
 import {
-  category_asian,
-  category_chinese,
-  category_etc,
-  category_japanese,
-  category_korean,
-  category_western,
+  categoryAsian,
+  categoryChinese,
+  categoryEtc,
+  categoryJapanese,
+  categoryKorean,
+  categoryWestern,
 } from "../assets/index.js";
 import BaseComponent from "./BaseComponent.js";
 
@@ -12,17 +12,17 @@ class RestaurantItem extends BaseComponent {
   #categoryToImg(category) {
     switch (category) {
       case "한식":
-        return category_korean;
+        return categoryKorean;
       case "중식":
-        return category_chinese;
+        return categoryChinese;
       case "아시안":
-        return category_asian;
+        return categoryAsian;
       case "일식":
-        return category_japanese;
+        return categoryJapanese;
       case "양식":
-        return category_western;
+        return categoryWestern;
       case "기타":
-        return category_etc;
+        return categoryEtc;
       default:
         break;
     }
