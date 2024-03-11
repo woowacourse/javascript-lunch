@@ -1,10 +1,10 @@
 import dimmerClickHandler from './eventHandlers';
-import InputDescription from './input_description/InputDescription';
-import InputLink from './input_link/InputLink';
-import InputName from './input_name/InputName';
-import ModalButton from './modal_button/ModalButton';
-import SelectCategory from './select_category/SelectCategory';
-import SelectDistance from './select_distance/SelectDistance';
+import InputDescription from './inputDescription/InputDescription';
+import InputLink from './inputLink/InputLink';
+import InputName from './inputName/InputName';
+import ModalButton from './modalButton/ModalButton';
+import SelectCategory from './selectCategory/SelectCategory';
+import SelectDistance from './selectDistance/SelectDistance';
 
 const renderModalForm = (form: Element) => {
   SelectCategory(form);

@@ -1,6 +1,6 @@
 import filterState from '../../store/FilterStateStore';
 import { Category, SortType } from '../../types';
-import RestaurantList from '../restaurant_list/RestaurantList';
+import RestaurantList from '../restaurantList/RestaurantList';
 
 const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   categoryFilter.addEventListener('change', (event) => {

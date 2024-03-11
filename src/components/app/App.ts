@@ -1,7 +1,7 @@
-import FilterBar from '../filter_bar/FilterBar';
+import FilterBar from '../filterBar/FilterBar';
 import Header from '../header/Header';
 import Modal from '../modal/Modal';
-import RestaurantList from '../restaurant_list/RestaurantList';
+import RestaurantList from '../restaurantList/RestaurantList';
 
 function App() {
   Modal();
