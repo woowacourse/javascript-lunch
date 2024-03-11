@@ -1,13 +1,14 @@
 /* 음식점 추가 모달 *****************************************/
-.modal {
-  display: none;
-}
 
 .modal--open {
   display: block;
+  height: 100%;
+  background: white;
 }
 
 .modal-backdrop {
+  visibility: hidden;
+  opacity: 0;
   position: fixed;
   top: 0;
   right: 0;
@@ -16,17 +17,31 @@
 
   background: rgba(0, 0, 0, 0.35);
 }
+.modal--open .modal-backdrop {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
 
 .modal-container {
+  visibility: hidden;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 80%;
 
   padding: 32px 16px;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  opacity: 0;
+}
+.modal--open .modal-container {
+  transition: opacity 0.2s ease-in-out;
+  visibility: visible;
+  opacity: 1;
 }
 
 .modal-title {
