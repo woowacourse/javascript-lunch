@@ -97,7 +97,6 @@ export const filterByCategory = (category: Category) => {
 
 export const sortByType = (category: Category, type: SortType) => {
   const filteredRestaurants = filterByCategory(category);
-
   return type === "이름순"
     ? sortByName(filteredRestaurants)
     : sortByDistance(filteredRestaurants);

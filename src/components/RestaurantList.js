@@ -10,9 +10,7 @@ class RestaurantList extends BaseComponent {
   }
 
   #getCurrentList(sortOption) {
-    return sortOption
-      ? sortByType(this.#currentCategory, sortOption)
-      : filterByCategory(this.#currentCategory);
+    return sortByType(this.#currentCategory, sortOption);
   }
 
   #sortRestaurantList(sortOption) {
