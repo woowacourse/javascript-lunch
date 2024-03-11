@@ -23,8 +23,7 @@ class BasicButton extends BaseComponent {
 
   render() {
     const $button = this.#addButton();
-    this.append($button);
-    this.classList.add('button');
+    this.outerHTML = $button.outerHTML;
   }
 
   setEvent(): void {

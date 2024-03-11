@@ -8,10 +8,12 @@ import { ErrorMessage } from '@/constants/Message';
 
 class FilterContainer extends BaseComponent {
   #restaurantList;
+  #restaurantDBService;
 
   constructor() {
     super();
     this.#restaurantList = document.querySelector('.restaurant-list-container') as RestaurantList;
+    this.#restaurantDBService = new RestaurantDBService();
   }
 
   render() {
@@ -41,8 +43,6 @@ class FilterContainer extends BaseComponent {
 
   setEvent() {
     this.addEventListener('change', () => {
-      const restaurantDBService = new RestaurantDBService();
-
       const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
       if (!selectedCategory) {
         return console.error(ErrorMessage.NULL_SELECTOR(selectedCategory));
@@ -51,7 +51,7 @@ class FilterContainer extends BaseComponent {
       if (!selectedSortCriteria) {
         return console.error(ErrorMessage.NULL_SELECTOR(selectedSortCriteria));
       }
-      const newRestaurantList = restaurantDBService.getFromRestaurantList(
+      const newRestaurantList = this.#restaurantDBService.getFromRestaurantList(
         selectedCategory.value as Category,
         selectedSortCriteria.value as SortCriteria,
       );

@@ -9,6 +9,7 @@ import { ErrorMessage } from '@/constants/Message';
 class NewRestaurantModal extends NewRestaurantModalView {
   #form;
   #title;
+  #restaurantDBService;
 
   constructor() {
     super();
@@ -16,20 +17,18 @@ class NewRestaurantModal extends NewRestaurantModalView {
     this.#title = document.createElement('h2');
     this.#title.classList.add('modal-title', 'text-title');
     this.#title.textContent = '새로운 음식점';
+    this.#restaurantDBService = new RestaurantDBService();
   }
 
   render() {
     super.makeForm(this.#form);
+    this.#submitForm();
     closeModal(this);
 
     const $fragment = new DocumentFragment();
     $fragment.append(this.#title);
     $fragment.append(this.#form);
     this.append(new BasicModal($fragment));
-  }
-
-  setEvent(): void {
-    this.#submitForm();
   }
 
   #submitForm() {
@@ -50,8 +49,7 @@ class NewRestaurantModal extends NewRestaurantModalView {
         ...(link && { link }),
       };
 
-      const DBService = new RestaurantDBService();
-      DBService.add(newRestaurant);
+      this.#restaurantDBService.add(newRestaurant);
       this.#rerenderByFilter();
       closeModal(this);
       this.#form.reset();

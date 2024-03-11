@@ -16,23 +16,33 @@ describe('음식점 DB 서비스 테스트', () => {
     });
   });
 
-  it('새로운 음식점을 추가했을 때, 로컬 스토리지에 잘 반영된다.', () => {
-    const NEW_RESTAURANT: IRestaurant = {
+  it('새로운 음식점을 추가했을 때, 로컬 스토리지에 새로운 음식점이 추가된 음식점 목록이 가져와진다.', () => {
+    const NEW_RESTAURANT1: IRestaurant = {
       name: '친친',
       distance: 10,
       category: '중식',
       description: '게살볶음밥',
     };
+    const NEW_RESTAURANT2: IRestaurant = {
+      name: '꺼벙이 김밥',
+      distance: 10,
+      category: '한식',
+      description: '김밥 최저',
+    };
+
     const restaurantDBService = new RestaurantDBService();
 
-    restaurantDBService.add(NEW_RESTAURANT);
+    restaurantDBService.add(NEW_RESTAURANT1);
+    restaurantDBService.add(NEW_RESTAURANT2);
 
     expect(JSON.parse(localStorage.getItem(RESTAURANTS_DB_TEST_KEY) || '[]')).to.deep.equal([
-      NEW_RESTAURANT,
+      NEW_RESTAURANT1,
+      NEW_RESTAURANT2,
     ]);
+    expect(JSON.parse(localStorage.getItem(RESTAURANTS_DB_TEST_KEY) || '[]').length).to.equal(2);
   });
 
-  it('get했을 때, 기존에 로컬스토리지에 있던 데이터를 잘 가져온다.', () => {
+  it('RestaurantDBService의 get 메서드를 썼을 때 저장된 음식점 목록이 잘 가져와진다.', () => {
     const restaurantDBService = new RestaurantDBService();
 
     const RESTAURANT_FIRST: IRestaurant = {

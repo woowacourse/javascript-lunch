@@ -73,11 +73,12 @@ export const checkAllValuesValid = ({
   link: string;
 }) => {
   if (!link) {
-    validator.isValidCategory(category) &&
+    return (
+      validator.isValidCategory(category) &&
       validator.isValidDistance(distance) &&
-      validator.isValidName(name);
+      validator.isValidName(name)
+    );
   }
-
   return (
     validator.isValidCategory(category) &&
     validator.isValidDistance(distance) &&
