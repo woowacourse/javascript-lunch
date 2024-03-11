@@ -21,7 +21,7 @@ class RestaurantController {
 
   run() {
     this.showFilterDropdown();
-    this.reload();
+    this.updateRestaurantList();
     this.showAddRestaurantModal();
     this.manageFilterValue();
   }
@@ -36,7 +36,7 @@ class RestaurantController {
     filterContainer.insertAdjacentHTML('beforeend', sortDropdown);
   }
 
-  reload() {
+  updateRestaurantList() {
     const restaurantService = new RestaurantService();
     const filteredList = restaurantService.filterByCategory(this.#category, this.#restaurantList);
     const processedList = restaurantService.sortByProperty(this.#property, filteredList);
@@ -70,7 +70,7 @@ class RestaurantController {
       alert(isAddedText);
 
       if (!isAdded) return;
-      this.reload();
+      this.updateRestaurantList();
       OutputView.closeModal();
     });
   }
@@ -98,13 +98,13 @@ class RestaurantController {
     const categoryFilter = $('#category-filter');
     categoryFilter.addEventListener('change', () => {
       this.#category = categoryFilter.options[categoryFilter.selectedIndex].value;
-      this.reload();
+      this.updateRestaurantList();
     });
 
     const sortingFilter = $('#sorting-filter');
     sortingFilter.addEventListener('change', () => {
       this.#property = sortingFilter.options[sortingFilter.selectedIndex].value;
-      this.reload();
+      this.updateRestaurantList();
     });
   }
 }
