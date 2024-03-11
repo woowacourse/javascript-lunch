@@ -1,4 +1,5 @@
 import Component from './Component';
+import RestaurantRepository from '../domain/RestaurantRepository';
 import { OPTION } from '../constants/Condition';
 import { ERROR } from '../constants/Message';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
@@ -15,12 +16,10 @@ class RestaurantAddModal extends Component {
 
   setEvent() {
     $addEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
-    $addEvent('.button--secondary', 'click', () => this.#onCancel());
   }
 
   removeEvent() {
     $removeEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
-    $removeEvent('.button--secondary', 'click', () => this.#onCancel());
   }
 
   #updateModal(isOpen) {
@@ -46,11 +45,7 @@ class RestaurantAddModal extends Component {
       reference: $('.modal-reference').value,
     };
 
-    this.makeCustomEvent('submitButtonClick', formData);
-  }
-
-  #onCancel() {
-    this.makeCustomEvent('cancelButtonClick');
+    RestaurantRepository.addRestaurant(formData);
   }
 
   #handleEmptyError(selectors) {

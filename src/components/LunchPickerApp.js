@@ -12,12 +12,25 @@ class LunchPickerApp extends Component {
   }
 
   setEvent() {
-    this.addEventListener('selectChange', () => this.#generateRestaurants());
-    this.addEventListener('gnbButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'true'));
-    this.addEventListener('cancelButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'false'));
-    this.addEventListener('submitButtonClick', (event) => {
-      this.#updateRestaurants(event.detail);
-      $setAttribute('restaurant-add-modal', 'open', 'false');
+    this.addEventListener('change', (event) => {
+      if (event.target.classList.contains('category') || event.target.classList.contains('sorting')) {
+        this.#generateRestaurants();
+      }
+    });
+
+    this.addEventListener('click', (event) => {
+      if (event.target.closest('.gnb__button')) {
+        $setAttribute('restaurant-add-modal', 'open', 'true');
+      }
+
+      if (event.target.classList.contains('button--primary')) {
+        this.#restaurants = this.#generateRestaurants();
+        $setAttribute('restaurant-add-modal', 'open', 'false');
+      }
+
+      if (event.target.classList.contains('button--secondary')) {
+        $setAttribute('restaurant-add-modal', 'open', 'false');
+      }
     });
   }
 
@@ -26,11 +39,6 @@ class LunchPickerApp extends Component {
     this.removeEventListener('gnbButtonClick');
     this.removeEventListener('cancelButtonClick');
     this.removeEventListener('submitButtonClick');
-  }
-
-  #updateRestaurants(restaurant) {
-    RestaurantRepository.addRestaurant(restaurant);
-    this.#restaurants = this.#generateRestaurants();
   }
 
   #generateRestaurants() {

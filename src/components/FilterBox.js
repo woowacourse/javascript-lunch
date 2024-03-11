@@ -1,5 +1,4 @@
 import Component from './Component';
-import { $addEvent, $removeEvent } from '../utils/dom';
 
 class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];
@@ -19,14 +18,6 @@ class FilterBox extends Component {
     this.#option = JSON.parse(this.getAttribute('option'));
 
     this.render();
-  }
-
-  setEvent() {
-    $addEvent(`.${this.#type}`, 'change', () => this.makeCustomEvent('selectChange'));
-  }
-
-  removeEvent() {
-    $removeEvent(`.${this.#type}`, 'change', () => this.makeCustomEvent('selectChange'));
   }
 
   template() {
