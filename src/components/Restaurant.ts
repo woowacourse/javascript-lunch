@@ -18,7 +18,7 @@ const CATEGORY_IMAGE: Record<CategoryType, string> = {
   전체: '',
 };
 
-class Restaurant extends HTMLElement {
+class Restaurant extends HTMLUListElement {
   constructor(restaurant: RestaurantType) {
     super();
 
@@ -38,6 +38,6 @@ class Restaurant extends HTMLElement {
   }
 }
 
-customElements.define('restaurant-list-container', Restaurant);
+customElements.define('restaurant-list-container', Restaurant, { extends: 'ul' });
 
 export default Restaurant;
