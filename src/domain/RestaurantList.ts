@@ -27,29 +27,24 @@ class RestaurantList {
   }): Restaurant[] {
     const restaurants: Restaurant[] = getResturantsFromLocalStorage();
     if (category === "전체") {
-      return restaurants
-        .sort((a, b) => {
-          if (a[sortingStandard] < b[sortingStandard]) {
-            return -1;
-          } else if (a[sortingStandard] < b[sortingStandard]) {
-            return 1;
-          }
-          return 0;
-        })
-        .map((restaurant) => deepCopy(restaurant));
+      return restaurants.toSorted((a, b) => {
+        if (a[sortingStandard] < b[sortingStandard]) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
     }
 
     return restaurants
       .filter((restaurant) => restaurant.category === category)
-      .sort((a, b) => {
+      .toSorted((a, b) => {
         if (a[sortingStandard] < b[sortingStandard]) {
           return -1;
-        } else if (a[sortingStandard] < b[sortingStandard]) {
+        } else {
           return 1;
         }
-        return 0;
-      })
-      .map((restaurant) => deepCopy(restaurant));
+      });
   }
 
   add(restaurant: Restaurant) {
