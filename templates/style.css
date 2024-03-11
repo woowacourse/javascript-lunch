@@ -271,6 +271,14 @@ select:invalid:required {
   border: 2px dashed red;
 }
 
+.error-text {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
+
 .button-container {
   display: flex;
 }
