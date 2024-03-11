@@ -28,14 +28,14 @@ class RestaurantCatalog {
     return this.#restaurants.filter((restaurant) => restaurant.getRestaurantInfoObject().category === category);
   }
 
-  static sortByName(restaurants: IRestaurantInfo[]) {
+  sortByName(restaurants: IRestaurantInfo[]) {
     return restaurants.sort((restaurantPrev, restaurantCurrent) => {
       if (restaurantPrev.name < restaurantCurrent.name) return -1;
       return 1;
     });
   }
 
-  static sortByDistance(restaurants: IRestaurantInfo[]) {
+  sortByDistance(restaurants: IRestaurantInfo[]) {
     return restaurants.sort((restaurantPrev, restaurantCurrent) => {
       if (restaurantPrev.distanceFromCampus !== restaurantCurrent.distanceFromCampus) {
         return restaurantPrev.distanceFromCampus - restaurantCurrent.distanceFromCampus;
@@ -49,4 +49,5 @@ class RestaurantCatalog {
   }
 }
 
-export default RestaurantCatalog;
+const restaurantCatalog = new RestaurantCatalog();
+export default restaurantCatalog;

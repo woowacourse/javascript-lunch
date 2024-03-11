@@ -1,6 +1,6 @@
-class Dropdown extends HTMLSelectElement {
-  #catalog;
+import restaurantCatalog from '../../domain/RestaurantCatalog';
 
+class Dropdown extends HTMLSelectElement {
   connectedCallback() {
     this.addEventListener('change', (event) => {
       const restaurantList = document.querySelector('.restaurant-list');
@@ -11,7 +11,7 @@ class Dropdown extends HTMLSelectElement {
   }
 
   #setAttributeCategorySelect(restaurantList, eventValue) {
-    const restaurants = this.#catalog.filterByCategory(eventValue);
+    const restaurants = restaurantCatalog.filterByCategory(eventValue);
     if (this.id === 'category-select') {
       restaurantList.setAttribute(
         'data-restaurants',
@@ -33,10 +33,6 @@ class Dropdown extends HTMLSelectElement {
       optionElement.textContent = option;
       this.appendChild(optionElement);
     });
-  }
-
-  set catalog(catalog) {
-    this.#catalog = catalog;
   }
 }
 

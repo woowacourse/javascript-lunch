@@ -1,10 +1,8 @@
 import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant';
-import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
+import restaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
 import mockingData from '../domain/mocking';
 
 class WebController {
-  #restaurantCatalog;
-
   run() {
     this.#init();
     this.#renderDropdownElement();
@@ -13,7 +11,6 @@ class WebController {
   }
 
   #init() {
-    this.#restaurantCatalog = new RestaurantCatalog();
     this.#insertDefaultData();
     this.#initRestaurantCatalogFromLocalStorage();
     this.#assignRestaurantDataAttribute();
@@ -40,7 +37,7 @@ class WebController {
 
   #insertDefaultData() {
     mockingData.forEach((data) => {
-      this.#restaurantCatalog.pushNewRestaurant(data);
+      restaurantCatalog.pushNewRestaurant(data);
     });
   }
 
@@ -48,7 +45,7 @@ class WebController {
     const localData = localStorage.getItem('restaurants');
     if (localData) {
       JSON.parse(localData).forEach((restaurant) => {
-        this.#restaurantCatalog.pushNewRestaurant(restaurant);
+        restaurantCatalog.pushNewRestaurant(restaurant);
       });
     }
   }
@@ -56,16 +53,13 @@ class WebController {
   #renderDropdownOptions(id, options) {
     const select = document.getElementById(id);
     select.addOptions(options);
-    select.catalog = this.#restaurantCatalog;
   }
 
   #assignRestaurantDataAttribute() {
     const restaurantList = document.querySelector('.restaurant-list');
     restaurantList.setAttribute(
       'data-restaurants',
-      JSON.stringify(
-        this.#restaurantCatalog.getRestaurantsClass().map((restaurant) => restaurant.getRestaurantInfoObject()),
-      ),
+      JSON.stringify(restaurantCatalog.getRestaurantsClass().map((restaurant) => restaurant.getRestaurantInfoObject())),
     );
   }
 
@@ -81,7 +75,7 @@ class WebController {
 
   #executeFormSubmitEvent(restaurantInfo) {
     try {
-      this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
+      restaurantCatalog.pushNewRestaurant(restaurantInfo);
       this.#updateRestaurantToLocalStorage(restaurantInfo);
       this.#assignRestaurantDataAttribute();
       this.#closeModal();
