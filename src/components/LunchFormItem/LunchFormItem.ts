@@ -14,6 +14,7 @@ export interface FormItemProps {
 }
 
 type FormTableType = Record<FormItemType, () => void>;
+type FormItemTableType = Record<FormItemType, string>;
 
 const LUNCH_FORM_ITEM = (props: FormItemProps) => `
   <div class="form-item">
@@ -129,14 +130,12 @@ class LunchFormItem extends HTMLElement {
   }
 
   getValue(type: FormItemType) {
-    switch (type) {
-      case 'dropdown':
-        return this.querySelector('select')?.value;
-      case 'input':
-        return this.querySelector('input')?.value;
-      case 'textArea':
-        return this.querySelector('textarea')?.value;
-    }
+    const formItemTable: FormItemTableType = {
+      dropdown: this.querySelector('select')?.value ?? '',
+      input: this.querySelector('input')?.value ?? '',
+      textArea: this.querySelector('textarea')?.value ?? '',
+    };
+    return formItemTable[type];
   }
 }
 customElements.define('lunch-form-item', LunchFormItem);
