@@ -5,9 +5,8 @@ const KEY = 'restaurant';
 const restaurantAPI = {
   save: (restaurant: Restaurant) => {
     const json = window.localStorage.getItem(KEY);
-    const list = json ? JSON.parse(json) : [];
-    list.push(restaurant);
-    window.localStorage.setItem(KEY, JSON.stringify(list));
+    const existingRestaurants = json ? JSON.parse(json) : [];
+    window.localStorage.setItem(KEY, JSON.stringify([...existingRestaurants, restaurant]));
   },
 
   load: (category = DEFAULT.category, sortingKey = DEFAULT.sortingKey) => {
