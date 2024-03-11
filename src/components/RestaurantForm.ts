@@ -40,8 +40,8 @@ export default class RestaurantForm extends EventComponent {
         </select-box>
       </form-item>
 
-      <form-item title="이름" required="true" id="name">
-        <input type="text" id="name" name="name" required>
+      <form-item title="이름" required="true" id="name" label-for="restaurant-name">
+        <input type="text" id="restaurant-name" name="name" required />
       </form-item>
 
       <form-item title="거리(도보 이동 시간)" required="true" label-for="time-to-reach">
@@ -105,7 +105,7 @@ export default class RestaurantForm extends EventComponent {
       );
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message);
+        return alert(error.message);
       }
     }
 

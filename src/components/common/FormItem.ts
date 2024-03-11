@@ -11,7 +11,7 @@ export default class FormItem extends BaseComponent {
 
     return `
       <div class="form-item${required ? " form-item--required" : ""}">
-        <label for="${labelFor} text-caption">${title}</label>
+        <label for="${labelFor}" class="text-caption">${title}</label>
         ${children}
         ${
           helpText
