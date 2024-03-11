@@ -1,4 +1,4 @@
-import ICON from '../icons';
+import ICON from '../../icons';
 
 export default class Restaurant {
   render({ category, name, walkingTimeFromCampus, description }) {

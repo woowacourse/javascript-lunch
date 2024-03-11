@@ -1,5 +1,5 @@
-import { $ } from '../utils/dom';
-import ICON from '../icons';
+import { $ } from '../../utils/dom';
+import ICON from '../../icons';
 
 export default class Header {
   constructor() {

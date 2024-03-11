@@ -1,8 +1,8 @@
-import Restaurant from './Restaurant';
-import { $ } from '../utils/dom';
-import { RULES } from '../constants/rules';
+import Restaurant from '../Restaurant/Restaurant';
+import { $ } from '../../utils/dom';
+import { RULES } from '../../constants/rules';
 
-export default class Select {
+export default class RestaurantFilter {
   constructor(restaurants) {
     this.restaurants = restaurants;
     this.handleSelectChange();

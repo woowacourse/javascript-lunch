@@ -1,16 +1,17 @@
-import Restaurant from './Restaurant';
-import { validateRequiredValue, validateRestaurantsName } from '../validators';
-import tryCatchWrapper from '../utils/tryCatchWrapper';
-import { $ } from '../utils/dom';
-import { RULES } from '../constants/rules';
+import Restaurant from '../Restaurant/Restaurant';
+import { validateRequiredValue, validateRestaurantsName } from '../../validators';
+import tryCatchWrapper from '../../utils/tryCatchWrapper';
+import { $ } from '../../utils/dom';
+import { RULES } from '../../constants/rules';
 
-export default class RestaurantCreationModal {
+export default class AddRestaurantModal {
   constructor(restaurants) {
     this.restaurants = restaurants;
     this.addEvent();
   }
 
   render() {
+    // TODO: option 상수화
     return `
     <!-- 음식점 추가 모달 -->
     <div id="modal-backdrop" class="modal-backdrop"></div>
@@ -95,6 +96,7 @@ export default class RestaurantCreationModal {
     });
   }
 
+  // TODO: 이벤트를 addRestaurant에 보낼 것인지. 보내게 되면 prop drilling이 일어남. 어떤 방법이 더 좋은 것인가. 그렇게 된다면 target['name']으로 가져올 수 있음.
   handleCreationButton() {
     $('restaurant-creation-modal').addEventListener('submit', (event) => {
       event.preventDefault();
