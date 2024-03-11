@@ -15,7 +15,7 @@ class Dropdown extends HTMLSelectElement {
     if (this.id === 'category-select') {
       restaurantList.setAttribute(
         'data-restaurants',
-        JSON.stringify(restaurants.map((restaurant) => restaurant.getInfo())),
+        JSON.stringify(restaurants.map((restaurant) => restaurant.getRestaurantInfoObject())),
       );
     }
   }

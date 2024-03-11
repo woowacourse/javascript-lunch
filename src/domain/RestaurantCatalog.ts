@@ -12,7 +12,7 @@ class RestaurantCatalog {
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
     this.#restaurants.forEach((restaurant: Restaurant) => {
-      if (restaurant.getInfo().name === restaurantInfo.name) {
+      if (restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
         throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
     });
@@ -25,7 +25,7 @@ class RestaurantCatalog {
     if (category === ALL_CATEGORY) {
       return this.#restaurants;
     }
-    return this.#restaurants.filter((restaurant) => restaurant.getInfo().category === category);
+    return this.#restaurants.filter((restaurant) => restaurant.getRestaurantInfoObject().category === category);
   }
 
   static sortByName(restaurants: IRestaurantInfo[]) {

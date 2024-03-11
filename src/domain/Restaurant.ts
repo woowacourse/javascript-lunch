@@ -50,7 +50,7 @@ class Restaurant {
     }
   }
 
-  getInfo() {
+  getRestaurantInfoObject() {
     return { ...this.#restaurantInfo };
   }
 }

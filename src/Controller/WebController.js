@@ -8,13 +8,13 @@ class WebController {
   run() {
     this.#init();
     this.#renderDropdownElement();
-    this.#formSubmitEventHandler();
-    this.#buttonEventHandler();
+    this.#addEventToForm();
+    this.#addEventToButton();
   }
 
   #init() {
     this.#restaurantCatalog = new RestaurantCatalog();
-    this.#defaultDataInsert();
+    this.#insertDefaultData();
     this.#initRestaurantCatalogFromLocalStorage();
     this.#assignRestaurantDataAttribute();
   }
@@ -26,7 +26,7 @@ class WebController {
     this.#renderDropdownOptions('add-distance-select', DISTANCE_FROM_CAMPUS);
   }
 
-  #buttonEventHandler() {
+  #addEventToButton() {
     const modalCloseButton = document.getElementById('form-modal-close-button');
     modalCloseButton.addEventListener('click', () => {
       this.#closeModal();
@@ -38,7 +38,7 @@ class WebController {
     });
   }
 
-  #defaultDataInsert() {
+  #insertDefaultData() {
     mockingData.forEach((data) => {
       this.#restaurantCatalog.pushNewRestaurant(data);
     });
@@ -63,21 +63,23 @@ class WebController {
     const restaurantList = document.querySelector('.restaurant-list');
     restaurantList.setAttribute(
       'data-restaurants',
-      JSON.stringify(this.#restaurantCatalog.getRestaurants().map((restaurant) => restaurant.getInfo())),
+      JSON.stringify(
+        this.#restaurantCatalog.getRestaurants().map((restaurant) => restaurant.getRestaurantInfoObject()),
+      ),
     );
   }
 
-  #formSubmitEventHandler() {
+  #addEventToForm() {
     const addForm = document.getElementById('add-restaurant-form');
 
     addForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const restaurantInfo = this.#makeRestaurantInfo(event.target);
-      this.#formSubmitEvent(restaurantInfo);
+      this.#executeFormSubmitEvent(restaurantInfo);
     });
   }
 
-  #formSubmitEvent(restaurantInfo) {
+  #executeFormSubmitEvent(restaurantInfo) {
     try {
       this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
       this.#updateRestaurantToLocalStorage(restaurantInfo);
