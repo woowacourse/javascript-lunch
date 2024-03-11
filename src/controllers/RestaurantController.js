@@ -57,10 +57,10 @@ class RestaurantController {
   }
 
   manageFormEvents() {
-    const form = $('form');
+    const formAddRestaurant = $('.form-add-restaurant');
 
-    form.addEventListener('reset', () => OutputView.closeModal());
-    form.addEventListener('submit', e => {
+    formAddRestaurant.addEventListener('reset', () => OutputView.closeModal());
+    formAddRestaurant.addEventListener('submit', e => {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
       const isAdded = RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
