@@ -1,7 +1,7 @@
 import Restaurant from '../Restaurant/Restaurant';
 import Select from '../Common/Select';
 import { $ } from '../../utils/dom';
-import { RULES } from '../../constants/rules';
+import { RULES, SELECT_FILTER_DATA } from '../../constants/rules';
 
 export default class RestaurantFilter {
   constructor(restaurants) {
@@ -9,8 +9,11 @@ export default class RestaurantFilter {
     this.handleSelectChange();
   }
 
-  render(data) {
-    return Select(data);
+  render() {
+    return (
+      Select(SELECT_FILTER_DATA.sorting, localStorage.getItem('sorting-filter')) +
+      Select(SELECT_FILTER_DATA.category, localStorage.getItem('category-filter'))
+    );
   }
 
   handleSelectChange() {
@@ -22,15 +25,6 @@ export default class RestaurantFilter {
 
       this.reRenderRestaurantList();
     });
-  }
-
-  initSelectInput(option, key) {
-    const sortingFilter = localStorage.getItem('sorting-filter');
-    const categoryFilter = localStorage.getItem('category-filter');
-
-    if (sortingFilter === key || categoryFilter === key) {
-      option.setAttribute('selected', 'selected');
-    }
   }
 
   reRenderRestaurantList() {
