@@ -1,3 +1,9 @@
+import '../style.css';
+import '../modal/AddRestaurantModal/AddRestaurantModal';
+import '../root/NavigationBar/NavigationBar';
+import '../root/SelectBoxSection/SelectBoxSection';
+import '../root/RestaurantItem/RestaurantItem';
+
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
 import { Category, SortOrder } from '../../enum/enums';
