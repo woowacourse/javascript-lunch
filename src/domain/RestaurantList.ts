@@ -1,4 +1,4 @@
-import { Restaurant, Category, SortingStandard, Link } from "../types";
+import { Restaurant, Category, SortingStandard, Link, isLink } from "../types";
 import {
   deepCopy,
   getRestaurantsFromLocalStorage,
@@ -53,23 +53,16 @@ class RestaurantList {
     }
 
     if (restaurant.name.trim() === "") {
-      throw new Error("가게 이름을 입력해주세요.");
+      throw new Error("잘못된 이름입니다.");
     }
 
     if (!distances.includes(restaurant.distance)) {
-      throw new Error("거리가 잘못되었습니다.");
+      throw new Error("잘못된 거리입니다.");
     }
 
-    if (restaurant.link !== "" && !this.isLink(restaurant.link)) {
+    if (restaurant.link && !isLink(restaurant.link)) {
       throw new Error("잘못된 참고 링크입니다.");
     }
-  }
-
-  private isLink(value: any): value is Link {
-    return (
-      typeof value === "string" &&
-      (value.startsWith("https://") || value.startsWith("http://"))
-    );
   }
 }
 

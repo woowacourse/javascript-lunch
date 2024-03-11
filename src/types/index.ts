@@ -11,9 +11,30 @@ type Restaurant = {
   name: string;
   distance: Distance;
   description?: string;
-  link?: Link | "";
+  link?: Link;
 };
 
 type SortingStandard = "name" | "distance";
 
-export { Category, Distance, Restaurant, SortingStandard, Link };
+function isCategory(category: any): category is Category {
+  return categories.includes(category as Category);
+}
+
+function isDistance(distance: any): distance is Distance {
+  return distances.includes(distance as Distance);
+}
+
+function isLink(link: any): link is Link {
+  return ["https://", "http://"].includes(link as Link);
+}
+
+export {
+  Category,
+  Distance,
+  Link,
+  Restaurant,
+  SortingStandard,
+  isCategory,
+  isDistance,
+  isLink,
+};

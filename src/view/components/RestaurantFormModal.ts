@@ -1,6 +1,13 @@
 import { categories, distances, distancesMapper } from "../../constants";
 import restaurantList from "../../domain/RestaurantList";
-import { Category, Distance, Link, Restaurant } from "../../types";
+import {
+  Category,
+  Distance,
+  Restaurant,
+  isCategory,
+  isDistance,
+  isLink,
+} from "../../types";
 
 class RestaurantFormModal {
   renderInit() {
@@ -13,7 +20,7 @@ class RestaurantFormModal {
             <!-- 카테고리 -->
             <div class="form-item form-item--required">
               <label for="category text-caption">카테고리</label>
-              <select name="category" id="category" required>
+              <select name="category" id="category" >
                 <option value="">선택해 주세요</option>
               </select>
             </div>
@@ -21,13 +28,13 @@ class RestaurantFormModal {
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
               <label for="name text-caption">이름</label>
-              <input type="text" name="name" id="name" required />
+              <input type="text" name="name" id="name"  />
             </div>
 
             <!-- 거리 -->
             <div class="form-item form-item--required">
               <label for="distance text-caption">거리(도보 이동 시간) </label>
-              <select name="distance" id="distance" required>
+              <select name="distance" id="distance" >
                 <option value="">선택해 주세요</option>
               </select>
             </div>
@@ -79,14 +86,8 @@ class RestaurantFormModal {
       "#category"
     ) as HTMLSelectElement;
 
-    const formCategoryFragment = new DocumentFragment();
-    categories.forEach((category) => {
-      const categoryTag = document.createElement("option");
-      categoryTag.value = category;
-      categoryTag.textContent = category;
-      formCategoryFragment.append(categoryTag);
-    });
-    $formCategory.appendChild(formCategoryFragment);
+    const $frag = this.getOptions(categories);
+    $formCategory.appendChild($frag);
   }
 
   renderDistance() {
@@ -94,14 +95,8 @@ class RestaurantFormModal {
       "#distance"
     ) as HTMLSelectElement;
 
-    const distanceFragment = new DocumentFragment();
-    distances.forEach((distance) => {
-      const distanceTag = document.createElement("option");
-      distanceTag.value = distance.toString();
-      distanceTag.textContent = distancesMapper[distance];
-      distanceFragment.append(distanceTag);
-    });
-    $formDistance.appendChild(distanceFragment);
+    const $frag = this.getOptions(distances);
+    $formDistance.appendChild($frag);
   }
 
   openModal() {
@@ -126,7 +121,13 @@ class RestaurantFormModal {
     $restaurantForm.addEventListener(type, (e) => {
       e.preventDefault();
       try {
-        this.addRestaurant(e);
+        const $restaurantForm = e.target as HTMLFormElement;
+        const restaurant = this.generateRestaurant(
+          new FormData($restaurantForm)
+        );
+        restaurantList.add(restaurant);
+
+        $restaurantForm.reset();
         this.closeModal();
         listener(e);
       } catch (error) {
@@ -152,21 +153,90 @@ class RestaurantFormModal {
     });
   }
 
-  private addRestaurant(e: Event) {
-    const $restaurantForm = e.target as HTMLFormElement;
-    const formData = new FormData($restaurantForm);
+  private getOptions(options: readonly Category[] | readonly Distance[]) {
+    const $frag = new DocumentFragment();
 
-    const newRestaurant: Restaurant = {
-      category: formData.get("category") as Category,
-      name: formData.get("name") as string,
-      distance: Number(formData.get("distance")) as Distance,
-      description: formData.get("description") as string,
-      link: formData.get("link") as Link,
+    options.forEach((option) => {
+      const $option = document.createElement("option");
+      $option.value = isCategory(option) ? option : option.toString();
+      $option.textContent = isCategory(option)
+        ? option
+        : distancesMapper[option];
+      $frag.append($option);
+    });
+
+    return $frag;
+  }
+
+  private generateRestaurant(formData: FormData): Restaurant {
+    const category = formData.get("category");
+    const name = formData.get("name");
+    const distance = formData.get("distance");
+    const description = formData.get("description");
+    const link = formData.get("link");
+
+    this.validateFormData({ category, name, distance, description, link });
+
+    const restaurant = {
+      category: category as Category,
+      name: name as string,
+      distance: Number(distance) as Distance,
+      description:
+        typeof description === "string" && description.trim().length > 0
+          ? description
+          : undefined,
+      link: typeof link === "string" && isLink(link) ? link : undefined,
     };
 
-    restaurantList.add(newRestaurant);
+    return restaurant;
+  }
 
-    $restaurantForm.reset();
+  private validateFormData({
+    category,
+    name,
+    distance,
+    description,
+    link,
+  }: {
+    category: FormDataEntryValue | null;
+    name: FormDataEntryValue | null;
+    distance: FormDataEntryValue | null;
+    description: FormDataEntryValue | null;
+    link: FormDataEntryValue | null;
+  }) {
+    if ([category, name, distance, description, link].includes(null)) {
+      throw new Error("누락된 폼 데이터가 있습니다.");
+    }
+
+    if (
+      typeof category !== "string" ||
+      typeof name !== "string" ||
+      typeof distance !== "string" ||
+      typeof description !== "string" ||
+      typeof link !== "string"
+    ) {
+      throw new Error("잘못된 폼 데이터 타입이 있습니다.");
+    }
+
+    if (category.trim().length === 0) {
+      throw new Error("카테고리를 선택해주세요.");
+    }
+    if (name.trim().length === 0) {
+      throw new Error("이름을 입력해주세요.");
+    }
+    if (distance.trim().length === 0) {
+      throw new Error("거리를 선택해주세요.");
+    }
+
+    if (!isCategory(category)) {
+      throw new Error("카테고리가 잘못 선택되었습니다.");
+    }
+    if (!isDistance(Number(distance))) {
+      throw new Error("거리가 잘못 선택되었습니다.");
+    }
+    if (link.trim().length > 0 && !isLink(link)) {
+      throw new Error("참고 링크가 잘못 입력되었습니다.");
+    }
   }
 }
 
