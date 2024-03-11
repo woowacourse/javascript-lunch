@@ -9,7 +9,7 @@ import RestaurantItem from './view/components/RestaurantItem';
 
 // styles
 import './view/styles/global.css';
-import './view/styles/GNB.css';
+import './view/styles/Gnb.css';
 import './view/styles/Modal.css';
 import './view/styles/Select.css';
 import './view/styles/RestaurantForm.css';
