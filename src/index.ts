@@ -21,8 +21,8 @@ import {
 import Button from './components/button/Button';
 import dom from './utils/dom';
 
-const createCategorySelect = ($restaurantFilterContainer, restaurantList) => {
-  return new SelectBoxComponent({
+const createCategorySelect = ($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList): void => {
+  new SelectBoxComponent({
     kind: 'category',
     $target: $restaurantFilterContainer,
     attributes: FILTERED_CATEGORY_ATTRIBUTE,
@@ -31,8 +31,8 @@ const createCategorySelect = ($restaurantFilterContainer, restaurantList) => {
   });
 };
 
-const createSortingSelect = ($restaurantFilterContainer, restaurantList) => {
-  return new SelectBoxComponent({
+const createSortingSelect = ($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList): void => {
+  new SelectBoxComponent({
     kind: 'sorting',
     $target: $restaurantFilterContainer,
     attributes: SORTING_ATTRIBUTE,
@@ -41,15 +41,14 @@ const createSortingSelect = ($restaurantFilterContainer, restaurantList) => {
   });
 };
 
-const createHomeSelect = restaurantList => {
-  const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
+const createHomeSelect = (restaurantList: RestaurantList): void => {
+  const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container') as HTMLElement;
   createCategorySelect($restaurantFilterContainer, restaurantList);
   createSortingSelect($restaurantFilterContainer, restaurantList);
 };
 
-
-const createModalFormSelect = (restaurantList) => {
-  const $categoryContainer = dom.getElement('#category-container');
+const createModalFormSelect = (restaurantList: RestaurantList): void => {
+  const $categoryContainer = dom.getElement('#category-container') as HTMLElement;
   new SelectBoxComponent({
     $target: $categoryContainer,
     attributes: FORM_CATEGORY_ATTRIBUTE,
@@ -57,7 +56,7 @@ const createModalFormSelect = (restaurantList) => {
     restaurantList,
   });
 
-  const $distanceContainer = dom.getElement('#distance-container');
+  const $distanceContainer = dom.getElement('#distance-container') as HTMLElement;
   new SelectBoxComponent({
     $target: $distanceContainer,
     attributes: FORM_DISTANCE_ATTRIBUTE,
@@ -66,40 +65,42 @@ const createModalFormSelect = (restaurantList) => {
   });
 };
 
-const createModalFormButton = restaurantList => {
-  const $buttonContainer = dom.getElement('.button-container');
+const createModalFormButton = (restaurantList: RestaurantList): void => {
+  const $buttonContainer = dom.getElement('.button-container') as HTMLElement;
 
   new Button({
     kind: 'close',
     $target: $buttonContainer,
     attributes: CLOSE_BUTTON_ATTRIBUTE,
-    handleCloseModal: handleCloseModal
+    handleCloseModal,
   });
+
   new Button({
     kind: 'add',
     $target: $buttonContainer,
     attributes: ADD_BUTTON_ATTRIBUTE,
     restaurantList,
+    handleCloseModal,
   });
 };
 
-const handleOpenModal = () => {
-  document.querySelector('.modal').classList.add('modal--open');
+const handleOpenModal = (): void => {
+  dom.getElement('.modal').classList.add('modal--open');
 };
 
-const handleCloseModal = () => {
+const handleCloseModal = (): void => {
   dom.getElement('.modal').classList.remove('modal--open');
   dom.getElement('#error-link').classList.add('hidden');
-  const $form = dom.getElement('form');
+  const $form = dom.getElement('form') as HTMLFormElement;
   $form.reset();
-}
+};
 
-const init = () => {
-  const getDefaultRestaurantList = () =>
+const init = (): void => {
+  const getDefaultRestaurantList = (): RestaurantList =>
     new RestaurantList(DEFAULT_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant)));
   const restaurantList = getDefaultRestaurantList();
 
-  const $restaurantList = document.querySelector('.restaurant-list');
+  const $restaurantList = dom.getElement('.restaurant-list') as HTMLElement;
   restaurantList.restaurants.forEach(restaurant => {
     new RestaurantComponent({ $target: $restaurantList, information: restaurant.information });
   });

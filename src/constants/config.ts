@@ -1,4 +1,6 @@
-const DEFAULT_RESTAURANT_LIST = [
+import { type IRestaurant } from '@/types/restaurant';
+
+const DEFAULT_RESTAURANT_LIST: IRestaurant[] = [
   {
     category: '아시안',
     name: '피양콩할마니',

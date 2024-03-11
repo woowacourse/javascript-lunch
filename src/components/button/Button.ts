@@ -46,7 +46,7 @@ class Button {
         this.handleAddRestaurant($form);
       });
     } else if (this.kind === 'close') {
-      this.$target.addEventListener('click', this.handleCloseModal);
+      this.$target.addEventListener('click', this.handleCloseModal.bind(this));
     }
   }
 
