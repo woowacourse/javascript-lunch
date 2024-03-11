@@ -1,5 +1,3 @@
-import { IRestaurant, TAllCategory, TSortingOption } from '../type/types';
-
 function getRestaurants() {
   const restaurants = localStorage.getItem('restaurants');
   return restaurants ? JSON.parse(restaurants) : [];
