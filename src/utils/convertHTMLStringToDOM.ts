@@ -1,7 +1,13 @@
-const convertHTMLStringToDOM = (htmlString: string) => {
+const convertHTMLStringToDOM = (htmlString: string): DocumentFragment => {
   const parser = new DOMParser();
-  const document = parser.parseFromString(htmlString, 'text/html');
-  return document.body.firstChild!;
+  const doc = parser.parseFromString(htmlString, 'text/html');
+  const fragment = document.createDocumentFragment();
+
+  doc.body.childNodes.forEach((node) => {
+    fragment.appendChild(node);
+  });
+
+  return fragment;
 };
 
 export default convertHTMLStringToDOM;
