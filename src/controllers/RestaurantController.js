@@ -64,8 +64,8 @@ class RestaurantController {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
       const isAdded = RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
-      const isAddedComment = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
-      alert(isAddedComment);
+      const isAddedText = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
+      alert(isAddedText);
 
       if (!isAdded) return;
       this.reload();
