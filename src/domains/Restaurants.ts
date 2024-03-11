@@ -40,7 +40,7 @@ export const validateRestaurantData = (restaurantInfo: TRestaurant) => {
     throw new Error(ERROR_MESSAGES.invalidRestaurantName);
   }
   if (!restaurantValidator.isSelected(distance)) {
-    throw new Error(ERROR_MESSAGES.invalidDisctance);
+    throw new Error(ERROR_MESSAGES.invalidDistance);
   }
   if (description && !restaurantValidator.isInRange(description, 0, 300)) {
     throw new Error(ERROR_MESSAGES.invalidDescriptionLength);
@@ -49,7 +49,7 @@ export const validateRestaurantData = (restaurantInfo: TRestaurant) => {
     throw new Error(ERROR_MESSAGES.invalidLink);
   }
   if (isAlreadyExist(name)) {
-    throw new Error(ERROR_MESSAGES.invalidRestaurantUniquness);
+    throw new Error(ERROR_MESSAGES.invalidRestaurantUniqueness);
   }
 };
 
@@ -65,7 +65,7 @@ const trimAllSpace = (str: string): string => {
   return str.replaceAll(" ", "");
 };
 
-export const initResaurantStorage = () => {
+export const initRestaurantStorage = () => {
   if (getRestaurantFromStorage().length > 0) {
     return;
   }

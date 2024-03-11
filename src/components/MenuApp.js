@@ -1,5 +1,5 @@
 import { CATEGORY_OPTIONS } from "../constants/MenuApp";
-import { initResaurantStorage } from "../domains/Restaurants";
+import { initRestaurantStorage } from "../domains/Restaurants";
 import BaseComponent from "./BaseComponent.js";
 
 class MenuApp extends BaseComponent {
@@ -8,7 +8,7 @@ class MenuApp extends BaseComponent {
   }
 
   connectedCallback() {
-    initResaurantStorage();
+    initRestaurantStorage();
     this.render();
     this.setEvent();
   }

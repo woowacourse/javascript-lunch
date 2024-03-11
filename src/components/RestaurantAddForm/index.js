@@ -1,6 +1,5 @@
 import {
   CATEGORY_OPTIONS,
-  CATEGORY_OPTION_VALUES,
   DISTANCE_OPTIONS,
   DISTANCE_OPTION_VALUES,
 } from "../../constants/MenuApp";

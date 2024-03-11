@@ -15,7 +15,7 @@ class RestaurantList extends BaseComponent {
       : filterByCategory(this.#currentCategory);
   }
 
-  #sortRestauantList(sortOption) {
+  #sortRestaurantList(sortOption) {
     this.render(sortOption);
   }
 
@@ -56,7 +56,7 @@ class RestaurantList extends BaseComponent {
       const { type, option } = event.detail;
 
       type === "sort"
-        ? this.#sortRestauantList(option)
+        ? this.#sortRestaurantList(option)
         : this.#filterRestaurantList(option);
     });
 

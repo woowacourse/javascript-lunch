@@ -11,7 +11,7 @@ class OptionSelector extends BaseComponent {
     this.innerHTML = `
       <select name="category" id="category-filter" class="restaurant-filter">
         ${optionsArray.map((option) => {
-          return `<option value=${option}>${option}</option>;`;
+          return `<option value=${option}>${option}</option>`;
         })}
       </select> 
     `;
