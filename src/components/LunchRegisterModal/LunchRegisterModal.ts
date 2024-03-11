@@ -58,7 +58,7 @@ class LunchRegisterModal extends HTMLElement {
       event.preventDefault();
 
       const newRestaurant: Restaurant = this.getNewRestaurant();
-      RestaurantRegister.execute(newRestaurant);
+      RestaurantRegister.updateLocalStorage(newRestaurant);
       this.handleModalClose();
       this.handleDropDown();
     });
