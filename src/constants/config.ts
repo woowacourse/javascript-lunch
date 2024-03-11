@@ -1,6 +1,6 @@
 import { type IRestaurant } from '@/types/restaurant';
 
-const DEFAULT_RESTAURANT_LIST: IRestaurant[] = [
+const INITIAL_RESTAURANT_LIST: IRestaurant[] = [
   {
     category: '아시안',
     name: '피양콩할마니',
@@ -46,4 +46,4 @@ const DEFAULT_RESTAURANT_LIST: IRestaurant[] = [
 
 const STORAGE_KEY = 'restaurants';
 
-export { DEFAULT_RESTAURANT_LIST, STORAGE_KEY };
+export { INITIAL_RESTAURANT_LIST, STORAGE_KEY };

@@ -1,17 +1,9 @@
 import Restaurant from '@/domain/Restaurant';
 import type { TDistance, TCategory } from '@/types/restaurant';
 import type RestaurantList from '@/domain/RestaurantList';
-import type { IButtonAttributes } from '@/types/dom';
+import type { FormElements, IButtonAttributes } from '@/types/dom';
 import dom from '@/utils/dom';
 import formValidator from '@/validator/formValidator';
-
-interface FormElements extends HTMLFormControlsCollection {
-  category: HTMLInputElement;
-  name: HTMLInputElement;
-  distance: HTMLInputElement;
-  description: HTMLInputElement;
-  link: HTMLInputElement;
-}
 
 interface IButtonProps {
   $target: HTMLElement;
@@ -78,8 +70,7 @@ class Button {
     const isValidForm = formValidator.isValidForm({ category, name, distance, referenceLink });
     if (!isValidForm) {
       const $addButton = dom.getElement('#button-add') as HTMLButtonElement;
-      $addButton.disabled = true;
-      return;
+      if (this.$target instanceof HTMLButtonElement) $addButton.disabled = true;
     }
     return new Restaurant({ category, name, distance, description, referenceLink });
   }
