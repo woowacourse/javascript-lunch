@@ -1,8 +1,8 @@
 import Restaurant from '@/domain/Restaurant';
-import type { IRestaurantList, TCategory, TDistance } from '@/types/restaurant';
+import type { TCategory, TDistance } from '@/types/restaurant';
 import type RestaurantList from '@/domain/RestaurantList';
-import type { IButtonAttributes } from '../types/dom';
-import dom from '../utils/dom';
+import type { IButtonAttributes } from '../../types/dom';
+import dom from '../../utils/dom';
 
 interface FormElements extends HTMLFormControlsCollection {
   category: HTMLInputElement;
@@ -17,7 +17,6 @@ interface IButtonProps {
   attributes: IButtonAttributes;
   kind: 'close' | 'add';
   restaurantList?: RestaurantList;
-  renderNewRestaurantList?: (newRestaurants: IRestaurantList) => void;
 }
 
 class Button {
@@ -25,14 +24,12 @@ class Button {
   attributes;
   kind;
   restaurantList;
-  renderNewRestaurantList;
 
-  constructor({ $target, attributes, kind, restaurantList, renderNewRestaurantList }: IButtonProps) {
+  constructor({ $target, attributes, kind, restaurantList }: IButtonProps) {
     this.$target = $target;
     this.attributes = attributes;
     this.kind = kind;
     this.restaurantList = restaurantList;
-    this.renderNewRestaurantList = renderNewRestaurantList;
     this.render();
     this.setEvent();
   }
@@ -64,6 +61,15 @@ class Button {
   }
 
   handleAddRestaurant(): void {
+    const restaurantInformation = this.getRestaurantFormData();
+    if (restaurantInformation === undefined) return;
+    if (this.restaurantList == null) return;
+    this.restaurantList.add(restaurantInformation);
+    this.dispatchSelectEvent();
+    this.close();
+  }
+
+  getRestaurantFormData(): Restaurant | undefined {
     const $restaurantForm = dom.getElement('form') as HTMLFormElement;
     const elements = $restaurantForm.elements as FormElements;
 
@@ -72,12 +78,13 @@ class Button {
     const distance = Number(elements.distance.value) as TDistance;
     const description = elements.description.value;
     const referenceLink = elements.link.value;
-    const restaurantInformation = new Restaurant({ category, name, distance, description, referenceLink });
 
-    if (this.restaurantList == null) return;
-    this.restaurantList.add(restaurantInformation);
-    this.renderNewRestaurantList != null && this.renderNewRestaurantList(this.restaurantList.restaurants);
-    this.close();
+    if (category == null) return;
+    if (name == null) return;
+    if (distance == null) return;
+    if (referenceLink !== '' && !(referenceLink.startsWith('http://') || referenceLink.startsWith('https://'))) return;
+
+    return new Restaurant({ category, name, distance, description, referenceLink });
   }
 }
 
