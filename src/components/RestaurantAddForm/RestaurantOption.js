@@ -19,20 +19,24 @@ class RestaurantOptions extends BaseComponent {
     return restaurantValidator.isSelected($(`#${id}-select`).value);
   }
 
-  #createOptionHTML(options, values) {
-    return options.reduce(
-      (accOptions, currOption, index) =>
-        accOptions + `<option value=${values[index]}>${currOption}</option>;`,
-      ""
-    );
-  }
-
   #renderErrorMessage() {
     this.#errorMessageClassList.remove("hidden");
   }
 
   #hideErrorMessage() {
     this.#errorMessageClassList.add("hidden");
+  }
+
+  #handleErrorMessage() {
+    this.#isSelected() ? this.#hideErrorMessage() : this.#renderErrorMessage();
+  }
+
+  #createOptionHTML(options, values) {
+    return options.reduce(
+      (accOptions, currOption, index) =>
+        accOptions + `<option value=${values[index]}>${currOption}</option>;`,
+      ""
+    );
   }
 
   render() {
@@ -55,9 +59,7 @@ class RestaurantOptions extends BaseComponent {
 
   setEvent() {
     document.addEventListener("add-form-submit", () => {
-      this.#isSelected()
-        ? this.#hideErrorMessage()
-        : this.#renderErrorMessage();
+      this.#handleErrorMessage();
     });
   }
 }
