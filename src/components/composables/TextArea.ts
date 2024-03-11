@@ -1,6 +1,6 @@
 import { TextAreaComponentPropsType } from '../../types/components';
 
-function TextArea({ name, id, rows, cols, className }: Partial<TextAreaComponentPropsType>) {
+function TextArea({ name, id, rows, cols, className }: TextAreaComponentPropsType) {
   const textArea = Object.assign(document.createElement('textarea'), {
     name,
     id,
