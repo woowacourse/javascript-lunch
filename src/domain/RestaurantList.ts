@@ -7,11 +7,18 @@ class RestaurantList {
   restaurants: IRestaurantList;
 
   constructor(restaurants: IRestaurantList) {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
-    else this.restaurants = restaurants;
+    if (!this.setRestaurants()) this.restaurants = restaurants;
     this.restaurants = this.getSortedByName();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
+  }
+
+  setRestaurants(): boolean {
+    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
+    if (restaurantsInStorage != null) {
+      this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
+      return true;
+    }
+    return false;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -36,15 +43,13 @@ class RestaurantList {
   }
 
   add(restaurant: TRestaurantInstance): void {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
+    this.setRestaurants();
     this.restaurants.push(restaurant);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
   }
 
   filterByCategory(category: TCategory): void {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
+    this.setRestaurants();
     if (category !== ALL)
       this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
   }
