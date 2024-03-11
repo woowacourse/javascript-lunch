@@ -1,5 +1,9 @@
 # 우아한테크코스 레벨1 점심 뭐 먹지 미션(javascript-lunch)
 
+## 배포링크
+
+- https://simorimi.github.io/javascript-lunch/dist/
+
 ## UI
 
 - [x] 카테고리, 거리는 셀렉트 박스, 이름/설명/참고 링크는 텍스트 인풋을 사용한다.
