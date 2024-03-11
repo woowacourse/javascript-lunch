@@ -5,7 +5,7 @@ import { RestaurantDataProvider } from '../../domain/index';
 
 import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
 
-export interface FilterPropsTypes {
+export interface FilterProps {
   category?: Category;
   sortBy?: SortBy;
 }
@@ -32,9 +32,9 @@ class LunchItems extends HTMLElement {
     this.innerHTML = LUNCH_ITEMS;
   }
 
-  renderItems({ category, sortBy }: FilterPropsTypes): void {
+  renderItems(props: FilterProps): void {
     const itemHTMLs: string[] = [];
-    this.getRestaurants({ category, sortBy }).forEach((restaurant) => {
+    this.getRestaurants(props).forEach((restaurant) => {
       itemHTMLs.push(LUNCH_ITEM(restaurant));
     });
     const itemsHTML = this.querySelector('.restaurant-list');
@@ -43,8 +43,8 @@ class LunchItems extends HTMLElement {
     }
   }
 
-  getRestaurants({ category, sortBy }: FilterPropsTypes): Restaurants {
-    return RestaurantDataProvider.execute({ category, sortBy });
+  getRestaurants(props: FilterProps): Restaurants {
+    return RestaurantDataProvider.execute(props);
   }
 }
 

@@ -33,45 +33,45 @@ type SortRestaurantsProps = {
  * @return {Array}
  */
 const RestaurantDataProvider: RestaurantDataProviderType = {
-  execute({ category, sortBy }: ExecuteProps): Restaurants {
+  execute(props: ExecuteProps): Restaurants {
     const restaurants = localStorage.getItem('restaurants');
     const allRestaurants = JSON.parse(restaurants || '[]');
 
-    const filterRestaurants = category
-      ? this.filterByCategory({ category, allRestaurants })
+    const filterRestaurants = props.category
+      ? this.filterByCategory({ category: props.category, allRestaurants })
       : allRestaurants;
-    const sortedRestaurants = this.sortRestaurants({ sortBy, filterRestaurants });
+    const sortedRestaurants = this.sortRestaurants({ sortBy: props.sortBy, filterRestaurants });
     return sortedRestaurants;
   },
 
-  filterByCategory({ category, allRestaurants }: FilterByCategoryProps): Restaurants {
-    return Object.values(allRestaurants).filter((restaurant) => {
-      return restaurant.category === category;
+  filterByCategory(props: FilterByCategoryProps): Restaurants {
+    return Object.values(props.allRestaurants).filter((restaurant) => {
+      return restaurant.category === props.category;
     });
   },
 
-  sortRestaurants({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
-    if (!sortBy || sortBy === '최신순' || sortBy === '오래된순') {
-      return this.sortByCreatedAt({ sortBy, filterRestaurants });
+  sortRestaurants(props: SortRestaurantsProps): Restaurants {
+    if (!props.sortBy || props.sortBy === '최신순' || props.sortBy === '오래된순') {
+      return this.sortByCreatedAt(props);
     }
-    if (sortBy === '가게명순▲' || sortBy === '가게명순▼') {
-      return this.sortByName({ sortBy, filterRestaurants });
+    if (props.sortBy === '가게명순▲' || props.sortBy === '가게명순▼') {
+      return this.sortByName(props);
     }
-    return this.sortByDistance({ sortBy, filterRestaurants });
+    return this.sortByDistance(props);
   },
 
-  sortByCreatedAt({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
-    return Object.values(filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
-      if (sortBy === '오래된순') {
+  sortByCreatedAt(props: SortRestaurantsProps): Restaurants {
+    return Object.values(props.filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
+      if (props.sortBy === '오래된순') {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
       }
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   },
 
-  sortByName({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
-    return Object.values(filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
-      if (sortBy === '가게명순▲') {
+  sortByName(props: SortRestaurantsProps): Restaurants {
+    return Object.values(props.filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
+      if (props.sortBy === '가게명순▲') {
         return this.compareNameOrder(a, b);
       }
       return -this.compareNameOrder(a, b);
@@ -85,9 +85,9 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
     return -1;
   },
 
-  sortByDistance({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
-    return Object.values(filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
-      if (sortBy === '거리순▲') {
+  sortByDistance(props: SortRestaurantsProps): Restaurants {
+    return Object.values(props.filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
+      if (props.sortBy === '거리순▲') {
         return a.distance - b.distance;
       }
       return b.distance - a.distance;

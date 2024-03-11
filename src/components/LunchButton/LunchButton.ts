@@ -6,8 +6,8 @@ interface LunchButtonProps {
   type: string;
 }
 
-const LUNCH_BUTTON = ({ text, color, type }: LunchButtonProps) => `
-  <button class="button button--${color} text-caption" type="${type}">${text}</button>
+const LUNCH_BUTTON = (props: LunchButtonProps) => `
+  <button class="button button--${props.color} text-caption" type="${props.type}">${props.text}</button>
 `;
 
 class LunchButton extends HTMLElement {

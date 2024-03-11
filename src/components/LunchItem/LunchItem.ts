@@ -19,14 +19,14 @@ export const CATEGORY_IMG = {
   기타: ETC,
 } as const;
 
-const LUNCH_ITEM = ({ category, name, distance, description }: LunchItemProps) => `<li class="restaurant">
+const LUNCH_ITEM = (props: LunchItemProps) => `<li class="restaurant">
     <div class="restaurant__category">
-      <img src=${CATEGORY_IMG[category]} alt=${category} class="category-icon">
+      <img src=${CATEGORY_IMG[props.category]} alt=${props.category} class="category-icon">
     </div>
     <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-      <p class="restaurant__description text-body">${description}</p>
+      <h3 class="restaurant__name text-subtitle">${props.name}</h3>
+      <span class="restaurant__distance text-body">캠퍼스부터 ${props.distance}분 내</span>
+      <p class="restaurant__description text-body">${props.description}</p>
     </div>
   </li>
 `;
