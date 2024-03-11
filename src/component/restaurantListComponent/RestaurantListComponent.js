@@ -28,7 +28,7 @@ class RestaurantListComponent extends BaseComponent {
   removeEvent() {}
 
   #handleLoadRestaurants() {
-    this.innerHTML = '';
+    this.replaceChildren();
     const $categoryFilter = $(`#category-filter .restaurant-filter`);
     const $sortingFilter = $(`#sorting-filter .restaurant-filter`);
     const list = restaurantAPI.load(
