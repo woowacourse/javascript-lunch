@@ -7,10 +7,6 @@ import { isEmptyInput } from '../utils/validation';
 class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];
 
-  constructor() {
-    super();
-  }
-
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
     this.#updateModal(JSON.parse(newValue));

@@ -1,8 +1,4 @@
 class Component extends HTMLElement {
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     if (this.isConnected) {
       this.render();

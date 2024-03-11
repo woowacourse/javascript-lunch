@@ -1,5 +1,5 @@
 import Component from './Component';
-import { $, $addEvent, $removeEvent } from '../utils/dom';
+import { $addEvent, $removeEvent } from '../utils/dom';
 
 class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];

@@ -10,7 +10,7 @@ class RestaurantList extends Component {
     this.#restaurants = JSON.parse(this.getAttribute('restaurants'));
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback() {
     this.#restaurants = JSON.parse(this.getAttribute('restaurants'));
     this.render();
   }
