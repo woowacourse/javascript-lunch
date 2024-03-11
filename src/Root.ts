@@ -5,6 +5,7 @@ import Restaurant from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
+import { CategoryValidator, DistanceValidator, NameValidator } from './validator';
 
 const { $, $$ } = DOM;
 
@@ -51,10 +52,11 @@ const root = {
         const field = item.children[1] as Select | TextArea | Input;
         return field.getValue();
       });
+
       const newRestaurant: RestaurantType = {
-        category: fieldValues[0] as CategoryType,
-        name: fieldValues[1] as string,
-        distance: Number(fieldValues[2]),
+        category: this.validateCategoryValue(fieldValues[0]) as CategoryType,
+        name: this.validateNameValue(fieldValues[1]) as string,
+        distance: this.validateDistanceValue(Number(fieldValues[2])) as number,
         introduction: fieldValues[3],
         link: fieldValues[4],
       };
@@ -64,6 +66,38 @@ const root = {
       $('.modal')?.classList.remove('modal--open');
       $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
     });
+  },
+
+  validateCategoryValue(value: string) {
+    try {
+      CategoryValidator.empty(value);
+      CategoryValidator.exist(value);
+      return value;
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+      return;
+    }
+  },
+
+  validateNameValue(value: string) {
+    try {
+      NameValidator.empty(value);
+      return value;
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+      return;
+    }
+  },
+
+  validateDistanceValue(value: number) {
+    try {
+      DistanceValidator.empty(value);
+      DistanceValidator.exist(value);
+      return value;
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+      return;
+    }
   },
 };
 
