@@ -58,6 +58,7 @@ class Button {
 
   close(): void {
     dom.getElement('.modal').classList.remove('modal--open');
+    dom.getElement('#error-link').classList.add('hidden');
     const $form = dom.getElement('form') as HTMLFormElement;
     $form.reset();
   }
