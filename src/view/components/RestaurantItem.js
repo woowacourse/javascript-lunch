@@ -28,9 +28,9 @@ export default class RestaurantItem extends HTMLLIElement {
   #initRestaurantItem() {
     const { category, name, distance, description } = this.restaurant;
 
-    this.querySelector('.restaurant__name').innerHTML = name;
-    this.querySelector('.restaurant__distance').innerHTML = `캠퍼스로부터 ${distance}분 내 `;
-    this.querySelector('.restaurant__description').innerHTML = description;
+    this.querySelector('.restaurant__name').textContent = name;
+    this.querySelector('.restaurant__distance').textContent = `캠퍼스로부터 ${distance}분 내 `;
+    this.querySelector('.restaurant__description').textContent = description;
     this.querySelector('.category-icon').src = this.#getCategoryIconUrl(category);
     this.querySelector('.category-icon').alt = category;
   }

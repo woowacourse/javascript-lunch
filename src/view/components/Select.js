@@ -40,7 +40,7 @@ export default class Select extends HTMLSelectElement {
   }
 
   #createOptions() {
-    this.innerHTML = '';
+    this.textContent = '';
 
     const fragment = document.createDocumentFragment();
     this.#generateOptions().forEach((option) => fragment.appendChild(option));
@@ -51,7 +51,7 @@ export default class Select extends HTMLSelectElement {
     return this.options.map(({ value, option }) => {
       const element = document.createElement('option');
       element.value = value;
-      element.innerHTML = option;
+      element.textContent = option;
       return element;
     });
   }
