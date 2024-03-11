@@ -50,8 +50,7 @@ class SelectBoxComponent {
   }
 
   renderNewRestaurantList(sortedList: IRestaurantList): void {
-    const $restaurantList = dom.getElement('.restaurant-list') as HTMLElement;
-
+    const $restaurantList = dom.getElement('.restaurant-list');
     $restaurantList.replaceChildren();
     sortedList.forEach(element => {
       new RestaurantComponent({ $target: $restaurantList, information: element.information });

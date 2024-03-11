@@ -7,12 +7,12 @@ import type {
 } from '../types/dom';
 
 const dom = {
-  getElement(selector: string) {
+  getElement(selector: string): HTMLElement {
     const element = document.querySelector(selector);
     if (element === null) {
       throw Error(`${selector} is not found`);
     }
-    return element;
+    return element as HTMLElement;
   },
 
   create({ tagName, id, classNames, text, children }: IDomCreation) {

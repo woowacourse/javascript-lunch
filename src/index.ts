@@ -42,13 +42,13 @@ const createSortingSelect = ($restaurantFilterContainer: HTMLElement, restaurant
 };
 
 const createHomeSelect = (restaurantList: RestaurantList): void => {
-  const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container') as HTMLElement;
+  const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container');
   createCategorySelect($restaurantFilterContainer, restaurantList);
   createSortingSelect($restaurantFilterContainer, restaurantList);
 };
 
 const createModalFormSelect = (restaurantList: RestaurantList): void => {
-  const $categoryContainer = dom.getElement('#category-container') as HTMLElement;
+  const $categoryContainer = dom.getElement('#category-container');
   new SelectBoxComponent({
     $target: $categoryContainer,
     attributes: FORM_CATEGORY_ATTRIBUTE,
@@ -56,7 +56,7 @@ const createModalFormSelect = (restaurantList: RestaurantList): void => {
     restaurantList,
   });
 
-  const $distanceContainer = dom.getElement('#distance-container') as HTMLElement;
+  const $distanceContainer = dom.getElement('#distance-container');
   new SelectBoxComponent({
     $target: $distanceContainer,
     attributes: FORM_DISTANCE_ATTRIBUTE,
@@ -66,7 +66,7 @@ const createModalFormSelect = (restaurantList: RestaurantList): void => {
 };
 
 const createModalFormButton = (restaurantList: RestaurantList): void => {
-  const $buttonContainer = dom.getElement('.button-container') as HTMLElement;
+  const $buttonContainer = dom.getElement('.button-container');
 
   new Button({
     kind: 'close',
@@ -100,7 +100,7 @@ const init = (): void => {
     new RestaurantList(DEFAULT_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant)));
   const restaurantList = getDefaultRestaurantList();
 
-  const $restaurantList = dom.getElement('.restaurant-list') as HTMLElement;
+  const $restaurantList = dom.getElement('.restaurant-list');
   restaurantList.restaurants.forEach(restaurant => {
     new RestaurantComponent({ $target: $restaurantList, information: restaurant.information });
   });
