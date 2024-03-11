@@ -1,20 +1,20 @@
 import { Restaurant, Category, SortingStandard, Link } from "../types";
 import { deepCopy } from "../util";
-import { categories, distances } from "../constants";
+import { CATEGORIES, DISTANCES, RESTAURANTS } from "../constants";
 
 function getResturantsFromLocalStorage(): Restaurant[] {
-  if (!localStorage.getItem("restaurants")) {
-    localStorage.setItem("restaurants", JSON.stringify([]));
+  if (!localStorage.getItem(RESTAURANTS)) {
+    localStorage.setItem(RESTAURANTS, JSON.stringify([]));
   }
 
-  const restaurants = localStorage.getItem("restaurants") as string;
+  const restaurants = localStorage.getItem(RESTAURANTS) as string;
 
   return JSON.parse(restaurants);
 }
 
 function setRestaurantsToLocalStorage(newRestuarant: Restaurant) {
   const newRestaurants = [...getResturantsFromLocalStorage(), newRestuarant];
-  localStorage.setItem("restaurants", JSON.stringify(newRestaurants));
+  localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
 }
 
 class RestaurantList {
@@ -59,7 +59,7 @@ class RestaurantList {
   }
 
   private validateRestaurant(restaurant: Restaurant) {
-    if (!categories.includes(restaurant.category)) {
+    if (!CATEGORIES.includes(restaurant.category)) {
       throw new Error("잘못된 카테고리입니다.");
     }
 
@@ -67,7 +67,7 @@ class RestaurantList {
       throw new Error("가게 이름을 입력해주세요.");
     }
 
-    if (!distances.includes(restaurant.distance)) {
+    if (!DISTANCES.includes(restaurant.distance)) {
       throw new Error("거리가 잘못되었습니다.");
     }
 

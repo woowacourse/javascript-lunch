@@ -1,7 +1,7 @@
 import {
-  categories,
-  sortingStandards,
-  sortingStandardsMapper,
+  CATEGORIES,
+  SORTING_STANDARDS,
+  SORTING_STANDARD_MAPPER,
 } from "../../constants";
 import { Category, SortingStandard } from "../../types";
 
@@ -33,7 +33,7 @@ class RestaurantSelectSection {
     ) as HTMLSelectElement;
 
     const categoryFragment = new DocumentFragment();
-    categories.forEach((category) => {
+    CATEGORIES.forEach((category) => {
       const categoryTag = document.createElement("option");
       categoryTag.value = category;
       categoryTag.textContent = category;
@@ -48,10 +48,10 @@ class RestaurantSelectSection {
     ) as HTMLSelectElement;
 
     const sortingFragment = new DocumentFragment();
-    sortingStandards.forEach((sortingStandard) => {
+    SORTING_STANDARDS.forEach((sortingStandard) => {
       const sortingStandardTag = document.createElement("option");
       sortingStandardTag.value = sortingStandard;
-      sortingStandardTag.textContent = sortingStandardsMapper[sortingStandard];
+      sortingStandardTag.textContent = SORTING_STANDARD_MAPPER[sortingStandard];
       sortingFragment.append(sortingStandardTag);
     });
     $sortingFilter.appendChild(sortingFragment);

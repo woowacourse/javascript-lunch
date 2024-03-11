@@ -1,4 +1,4 @@
-import { categories, distances, distancesMapper } from "../../constants";
+import { CATEGORIES, DISTANCES, DISTANCE_MAPPER } from "../../constants";
 import restaurantList from "../../domain/RestaurantList";
 import { Category, Distance, Link, Restaurant } from "../../types";
 
@@ -80,7 +80,7 @@ class RestaurantFormModal {
     ) as HTMLSelectElement;
 
     const formCategoryFragment = new DocumentFragment();
-    categories.forEach((category) => {
+    CATEGORIES.forEach((category) => {
       const categoryTag = document.createElement("option");
       categoryTag.value = category;
       categoryTag.textContent = category;
@@ -95,10 +95,10 @@ class RestaurantFormModal {
     ) as HTMLSelectElement;
 
     const distanceFragment = new DocumentFragment();
-    distances.forEach((distance) => {
+    DISTANCES.forEach((distance) => {
       const distanceTag = document.createElement("option");
       distanceTag.value = distance.toString();
-      distanceTag.textContent = distancesMapper[distance];
+      distanceTag.textContent = DISTANCE_MAPPER[distance];
       distanceFragment.append(distanceTag);
     });
     $formDistance.appendChild(distanceFragment);

@@ -1,12 +1,12 @@
-import { categories, distances, sortingStandards } from "../constants";
+import { CATEGORIES, DISTANCES, SORTING_STANDARDS } from "../constants";
 
 type ArrayToEnum<T extends readonly unknown[]> = T[number];
 
-type Category = ArrayToEnum<typeof categories>;
+type Category = ArrayToEnum<typeof CATEGORIES>;
 
-type Distance = ArrayToEnum<typeof distances>;
+type Distance = ArrayToEnum<typeof DISTANCES>;
 
-type SortingStandard = ArrayToEnum<typeof sortingStandards>;
+type SortingStandard = ArrayToEnum<typeof SORTING_STANDARDS>;
 
 type Link = `https://${string}` | `http://${string}`;
 
