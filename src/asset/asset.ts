@@ -1,10 +1,10 @@
 import addRestaurantIcon from '/src/asset/image/add-restaurant-button.png';
-import koreanIcon from '../asset/image/category-korean.png';
-import chineseIcon from '../asset/image/category-chinese.png';
-import japaneseIcon from '../asset/image/category-japanese.png';
-import westernIcon from '../asset/image/category-western.png';
-import asianIcon from '../asset/image/category-asian.png';
-import etcIcon from '../asset/image/category-etc.png';
+import koreanIcon from '/src/asset/image/category-korean.png';
+import chineseIcon from '/src/asset/image/category-chinese.png';
+import japaneseIcon from '/src/asset/image/category-japanese.png';
+import westernIcon from '/src/asset/image/category-western.png';
+import asianIcon from '/src/asset/image/category-asian.png';
+import etcIcon from '/src/asset/image/category-etc.png';
 
 export const Asset = {
   imageUrl: {
