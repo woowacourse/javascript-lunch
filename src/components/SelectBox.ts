@@ -1,8 +1,8 @@
-import type RestaurantList from '../domain/RestaurantList';
-import type { ISelectAttributes, IOptionAttributes } from '../types/dom';
-import type { IRestaurantList, TCategory, TSorting } from '../types/restaurant';
-import dom from '../utils/dom';
+import type { IOptionAttributes, ISelectAttributes } from '@/types/dom';
 import RestaurantComponent from './Restaurant';
+import type RestaurantList from '@/domain/RestaurantList';
+import dom from '@/utils/dom';
+import type { IRestaurantList, TCategory, TSorting } from '@/types/restaurant';
 
 interface ISelectBoxProps {
   $target: HTMLElement;
