@@ -37,8 +37,9 @@ class RestaurantController {
   }
 
   reload() {
-    const filteredList = RestaurantService.filterByCategory(this.#category, this.#restaurantList);
-    const processedList = RestaurantService.sortByProperty(this.#property, filteredList);
+    const restaurantService = new RestaurantService();
+    const filteredList = restaurantService.filterByCategory(this.#category, this.#restaurantList);
+    const processedList = restaurantService.sortByProperty(this.#property, filteredList);
 
     OutputView.renderRestaurantList(processedList);
   }
@@ -57,13 +58,14 @@ class RestaurantController {
   }
 
   manageFormEvents() {
+    const restaurantService = new RestaurantService();
     const formAddRestaurant = $('.form-add-restaurant');
 
     formAddRestaurant.addEventListener('reset', () => OutputView.closeModal());
     formAddRestaurant.addEventListener('submit', e => {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
-      const isAdded = RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
+      const isAdded = restaurantService.addRestaurant(newRestaurant, this.#restaurantList);
       const isAddedText = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
       alert(isAddedText);
 
