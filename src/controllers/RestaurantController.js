@@ -1,4 +1,4 @@
-import { FORM_INPUT_QUERY } from '../constant/config';
+import { FORM_INPUT_QUERY } from '../constant/constants';
 import RestaurantService from '../domain/RestaurantService';
 import { $ } from '../utils/querySelector';
 import OutputView from '../views/OutputView';
