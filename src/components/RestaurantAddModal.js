@@ -1,9 +1,9 @@
 import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
-import { OPTION } from '../constants/Condition';
-import { ERROR } from '../constants/Message';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
+import { OPTION } from '../constants/Condition';
+import { ERROR } from '../constants/Message';
 
 class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];

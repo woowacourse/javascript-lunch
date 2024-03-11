@@ -1,5 +1,4 @@
 import Component from './Component';
-import RestaurantRepository from '../domain/RestaurantRepository';
 import { $, $setAttribute } from '../utils/dom';
 import { OPTION } from '../constants/Condition';
 
