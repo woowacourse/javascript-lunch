@@ -1,4 +1,4 @@
-import inputNameHandler from './handlers';
+import inputNameHandler from './eventHandlers';
 import { renderBaseComponents, renderInputComponents } from './renderHandlers';
 
 function InputName(form: Element) {
