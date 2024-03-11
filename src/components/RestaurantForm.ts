@@ -13,7 +13,7 @@ import { Button } from './tag';
 import FormItem from './FormItem';
 import Condition from '../constants/Condition';
 
-const { CATEGORY } = Condition;
+const { CATEGORY, DISTANCE } = Condition;
 
 class RestaurantForm extends HTMLElement {
   constructor() {
@@ -89,11 +89,11 @@ class RestaurantForm extends HTMLElement {
     };
     const options: OptionProps[] = [
       { value: '', text: '선택해 주세요' },
-      { value: '5', text: '5분 내' },
-      { value: '10', text: '10분 내' },
-      { value: '15', text: '15분 내' },
-      { value: '20', text: '20분 내' },
-      { value: '30', text: '30분 내' },
+      { value: `${DISTANCE.FIVE}`, text: `${DISTANCE.FIVE}분 내` },
+      { value: `${DISTANCE.TEN}`, text: `${DISTANCE.TEN}분 내` },
+      { value: `${DISTANCE.FIFTEEN}`, text: `${DISTANCE.FIFTEEN}분 내` },
+      { value: `${DISTANCE.TWENTY}`, text: `${DISTANCE.TWENTY}분 내` },
+      { value: `${DISTANCE.THIRTY}`, text: `${DISTANCE.THIRTY}분 내` },
     ];
     const select: SelectProps = {
       name: 'distance',

@@ -8,7 +8,13 @@ const CATEGORY = {
   ETC: '기타',
 } as const;
 
-const DISTANCE = [5, 10, 15, 20, 30];
+const DISTANCE = {
+  FIVE: 5,
+  TEN: 10,
+  FIFTEEN: 15,
+  TWENTY: 20,
+  THIRTY: 30,
+} as const;
 
 const Condition = {
   CATEGORY,

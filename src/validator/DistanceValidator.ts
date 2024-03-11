@@ -10,7 +10,8 @@ const DistanceValidator = {
   },
 
   exist(distance: number) {
-    if (!DISTANCE.includes(distance)) {
+    const distanceValues = Object.values(DISTANCE).map(Number);
+    if (!distanceValues.includes(distance)) {
       throw new Error('당신 저를 어디까지 보낼 생각인거죠?');
     }
   },
