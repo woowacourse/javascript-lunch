@@ -1,14 +1,21 @@
 import { DEFAULT_RESTAURANT_DATA, ERROR_MESSAGES } from "../constants/MenuApp";
 import restaurantValidator from "../validators/restaurantValidator";
 
-type Category = "한식" | "일식" | "아시안" | "양식" | "중식" | "전체" | "기타";
-type Distance = 5 | 10 | 15 | 20 | 30;
+type CategoryType =
+  | "한식"
+  | "일식"
+  | "아시안"
+  | "양식"
+  | "중식"
+  | "전체"
+  | "기타";
+type DistanceType = 5 | 10 | 15 | 20 | 30;
 type SortType = "이름순" | "거리순";
 
-interface TRestaurant {
+interface RestaurantType {
   name: string;
-  category: Category;
-  distance: Distance;
+  category: CategoryType;
+  distance: DistanceType;
   description?: string;
   link?: string;
 }
@@ -19,7 +26,7 @@ const getRestaurantFromStorage = () => {
   const storedRestaurants = localStorage.getItem(RESTAURANT_KEY);
   if (!storedRestaurants) return [];
 
-  return JSON.parse(storedRestaurants) as TRestaurant[];
+  return JSON.parse(storedRestaurants) as RestaurantType[];
 };
 
 const isAlreadyExist = (newRestaurantName: string) => {
@@ -30,7 +37,7 @@ const isAlreadyExist = (newRestaurantName: string) => {
   );
 };
 
-export const validateRestaurantData = (restaurantInfo: TRestaurant) => {
+export const validateRestaurantData = (restaurantInfo: RestaurantType) => {
   const { name, category, distance, description, link } = restaurantInfo;
 
   if (!restaurantValidator.isSelected(category)) {
@@ -53,11 +60,11 @@ export const validateRestaurantData = (restaurantInfo: TRestaurant) => {
   }
 };
 
-const sortByName = (restaurants: TRestaurant[]) => {
+const sortByName = (restaurants: RestaurantType[]) => {
   return restaurants.sort((a, b) => (a.name < b.name ? -1 : 1));
 };
 
-const sortByDistance = (restaurants: TRestaurant[]) => {
+const sortByDistance = (restaurants: RestaurantType[]) => {
   return restaurants.sort((a, b) => a.distance - b.distance);
 };
 
@@ -70,12 +77,12 @@ export const initRestaurantStorage = () => {
     return;
   }
 
-  DEFAULT_RESTAURANT_DATA.forEach((data: TRestaurant) => {
+  DEFAULT_RESTAURANT_DATA.forEach((data: RestaurantType) => {
     add(data);
   });
 };
 
-export const add = (restaurantInfo: TRestaurant) => {
+export const add = (restaurantInfo: RestaurantType) => {
   const storedRestaurants = getRestaurantFromStorage();
   validateRestaurantData(restaurantInfo);
 
@@ -88,7 +95,7 @@ export const add = (restaurantInfo: TRestaurant) => {
 };
 
 export const filterByCategory = (category: Category) => {
-  const restaurants: TRestaurant[] = getRestaurantFromStorage();
+  const restaurants: RestaurantType[] = getRestaurantFromStorage();
 
   if (category === "전체") return restaurants;
 
