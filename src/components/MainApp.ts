@@ -22,7 +22,9 @@ class MainApp extends HTMLDivElement {
     this.#newRestaurantModal = this.querySelector('.modal')!;
   }
 
-  connectedCallback() {}
+  connectedCallback() {
+    this.repaint();
+  }
 
   repaint() {
     const restaurantDBService = new RestaurantDBService();
