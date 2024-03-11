@@ -1,5 +1,3 @@
-import BasicModal from '@/components/BasicModal/BasicModal';
-
 export const hideErrorMessage = () => {
   document.querySelectorAll('.error').forEach((el) => {
     el.classList.add('hidden');
@@ -9,7 +7,13 @@ export const hideErrorMessage = () => {
 export const closeModal = (modal: HTMLElement) => {
   hideErrorMessage();
   modal.classList.remove('modal--open');
-  BasicModal.blockModalBodyScroll();
+  blockModalBodyScroll();
+};
+
+export const blockModalBodyScroll = () => {
+  if (document.querySelector('.modal')?.classList.contains('modal--open'))
+    return (document.body.style.overflow = 'hidden');
+  return (document.body.style.overflow = 'auto');
 };
 
 export const makeLabel = ({ htmlFor, text }: { htmlFor: string; text: string }) => {

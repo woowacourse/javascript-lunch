@@ -1,7 +1,9 @@
+import { blockModalBodyScroll } from '@/utils/view';
 import BaseComponent from '../BaseComponent';
 
 class BasicModal extends BaseComponent {
   #children: Node;
+  #backdropElement: HTMLElement = document.createElement('div');
 
   constructor(children: Node) {
     super();
@@ -13,6 +15,14 @@ class BasicModal extends BaseComponent {
     this.#addModalContainer();
   }
 
+  setEvent(): void {
+    this.#backdropElement.addEventListener('click', () => {
+      const $modal = document.querySelector('.modal');
+      $modal?.classList.remove('modal--open');
+      blockModalBodyScroll();
+    });
+  }
+
   #addModalContainer() {
     const modalContainerElement = document.createElement('div');
     modalContainerElement.classList.add('modal-container');
@@ -21,20 +31,8 @@ class BasicModal extends BaseComponent {
   }
 
   #addBackDrop() {
-    const backdropElement = document.createElement('div');
-    backdropElement.classList.add('modal-backdrop');
-    this.append(backdropElement);
-
-    backdropElement.addEventListener('click', () => {
-      document.querySelector('.modal')?.classList.remove('modal--open');
-      BasicModal.blockModalBodyScroll();
-    });
-  }
-
-  static blockModalBodyScroll() {
-    if (document.querySelector('.modal')?.classList.contains('modal--open'))
-      return (document.body.style.overflow = 'hidden');
-    return (document.body.style.overflow = 'auto');
+    this.#backdropElement.classList.add('modal-backdrop');
+    this.append(this.#backdropElement);
   }
 }
 export default BasicModal;

@@ -4,6 +4,7 @@ import { Category, IRestaurant } from '@/types/Restaurant';
 import { isValidateAndMakeErrorMessage, validator } from '@/utils/validator';
 import { closeModal, hideErrorMessage } from '@/utils/view';
 import NewRestaurantModalView from './NewRestaurantModalView';
+import { ErrorMessage } from '@/constants/ErrorMessage';
 
 class NewRestaurantModal extends NewRestaurantModalView {
   #form;
@@ -56,6 +57,7 @@ class NewRestaurantModal extends NewRestaurantModalView {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
       hideErrorMessage();
+
       const values = this.#getValues();
       const { category, name, distance, description, link } = values;
 
@@ -89,12 +91,15 @@ class NewRestaurantModal extends NewRestaurantModalView {
   }
 
   #rerenderByFilter() {
-    const selectElement = document.querySelector('.restaurant-filter-container');
+    const $selectElement = document.querySelector('.restaurant-filter-container');
+    if (!$selectElement) {
+      return console.error(ErrorMessage.NULL_SELECTOR($selectElement));
+    }
     const event = new Event('change', {
       bubbles: true,
       cancelable: true,
     });
-    selectElement?.dispatchEvent(event);
+    $selectElement?.dispatchEvent(event);
   }
 }
 export default NewRestaurantModal;

@@ -1,22 +1,38 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
-import BasicModal from '../BasicModal/BasicModal';
+import { blockModalBodyScroll } from '@/utils/view';
+import { ErrorMessage } from '@/constants/ErrorMessage';
 
 class Header extends BaseComponent {
   render() {
     this.#makeTitle();
     this.#makeAddButton();
+    const $gnbButton = document.querySelector('.gnb__button');
+    if (!$gnbButton) {
+      return console.error(ErrorMessage.NULL_SELECTOR($gnbButton));
+    }
     document.querySelector('.gnb__button')?.addEventListener('click', () => {
       document.querySelector('.modal')?.classList.add('modal--open');
-      BasicModal.blockModalBodyScroll();
+      blockModalBodyScroll();
+    });
+  }
+
+  setEvent() {
+    const $gnbTitle = document.querySelector('.gnb__title');
+    if (!$gnbTitle) {
+      return console.error(ErrorMessage.NULL_SELECTOR($gnbTitle));
+    }
+    document.querySelector('.gnb__title')?.addEventListener('click', () => {
+      location.reload();
     });
   }
 
   #makeTitle() {
-    const $h1Element = document.createElement('h1');
-    $h1Element.classList.add('gnb__title', 'text-title');
-    $h1Element.textContent = '점심 뭐 먹지';
-    this.append($h1Element);
+    const $title = document.createElement('h1');
+    $title.classList.add('gnb__title', 'text-title');
+    $title.textContent = '점심 뭐 먹지';
+    $title.addEventListener('click', () => {});
+    this.append($title);
   }
 
   #makeAddButton() {

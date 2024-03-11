@@ -1,5 +1,5 @@
 import { CONDITIONS } from '@/constants/Condition';
-import { AllAndCategory, Category, IRestaurant } from '../../types/Restaurant';
+import { AllAndCategory, Category, IRestaurant, SortCriteria } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
 class RestaurantCollection {
@@ -20,7 +20,7 @@ class RestaurantCollection {
       .map((restaurant) => restaurant.get());
   }
 
-  sort(sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
+  sort(sortCriteria: SortCriteria) {
     if (sortCriteria === '이름순') return this.sortByName();
     return this.sortByDistance();
   }

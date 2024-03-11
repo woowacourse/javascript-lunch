@@ -4,6 +4,7 @@ import SelectBox from '../SelectBox/SelectBox';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
+import { ErrorMessage } from '@/constants/ErrorMessage';
 
 class FilterContainer extends BaseComponent {
   #restaurantList;
@@ -43,13 +44,17 @@ class FilterContainer extends BaseComponent {
       const restaurantDBService = new RestaurantDBService();
 
       const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
+      if (!selectedCategory) {
+        return console.error(ErrorMessage.NULL_SELECTOR(selectedCategory));
+      }
       const selectedSortCriteria = this.querySelector('#sorting-filter') as HTMLSelectElement;
-
+      if (!selectedSortCriteria) {
+        return console.error(ErrorMessage.NULL_SELECTOR(selectedSortCriteria));
+      }
       const newRestaurantList = restaurantDBService.getFromRestaurantList(
         selectedCategory.value as Category,
         selectedSortCriteria.value as SortCriteria,
       );
-
       this.#restaurantList.rerender(newRestaurantList);
     });
   }
