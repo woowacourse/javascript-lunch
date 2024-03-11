@@ -6,13 +6,14 @@ import { $ } from '../../utils/dom';
 import { RULES, SELECT_FORM_DATA } from '../../constants/rules';
 
 export default class AddRestaurantModal {
+  #restaurants;
+
   constructor(restaurants) {
-    this.restaurants = restaurants;
-    this.addEvent();
+    this.#restaurants = restaurants;
+    this.#addEvents();
   }
 
   render() {
-    // TODO: option 상수화
     return `
     <!-- 음식점 추가 모달 -->
     <div id="modal-backdrop" class="modal-backdrop"></div>
@@ -63,76 +64,72 @@ export default class AddRestaurantModal {
     `;
   }
 
-  addEvent() {
-    this.handleCancelButton();
-    this.handleCreationButton();
-    this.handleInputFocusout();
+  #addEvents() {
+    $('add-restaurant-modal').addEventListener('click', (event) => this.#handleCancelButton(event));
+    $('add-restaurant-modal').addEventListener('focusout', (event) =>
+      this.#handleInputFocusout(event),
+    );
+    $('add-restaurant-modal').addEventListener('submit', (event) => this.#handleAddButton(event));
   }
 
-  handleInputFocusout() {
-    $('restaurant-creation-modal').addEventListener('focusout', ({ target }) => {
-      if (RULES.requiredIds.some((id) => id === target.id)) {
-        tryCatchWrapper(
-          () => this.validateRequirements(target.id),
-          ({ message }) => ($(`${target.id}-error`).innerText = message),
-        );
-      }
-    });
+  #handleCancelButton(event) {
+    if (event.target.closest('#cancel-button') || event.target.closest('#modal-backdrop')) {
+      $('add-restaurant-modal').classList.remove('modal--open');
+    }
   }
 
-  // TODO: 이벤트를 addRestaurant에 보낼 것인지. 보내게 되면 prop drilling이 일어남. 어떤 방법이 더 좋은 것인가. 그렇게 된다면 target['name']으로 가져올 수 있음.
-  handleCreationButton() {
-    $('restaurant-creation-modal').addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      if (event.submitter.id === 'add-button') {
-        tryCatchWrapper(
-          () => this.addRestaurant(),
-          ({ message }) => alert(message),
-        );
-      }
-    });
+  #handleInputFocusout(event) {
+    if (RULES.requiredIds.some((id) => id === event.target.id)) {
+      tryCatchWrapper(
+        () => this.#validateRequirements(event.target.id),
+        ({ message }) => ($(`${event.target.id}-error`).innerText = message),
+      );
+    }
   }
 
-  handleCancelButton() {
-    $('restaurant-creation-modal').addEventListener('click', ({ target }) => {
-      if (target.closest('#cancel-button') || target.closest('#modal-backdrop')) {
-        $('restaurant-creation-modal').classList.remove('modal--open');
-      }
-    });
+  #handleAddButton(event) {
+    event.preventDefault();
+
+    if (event.submitter.id === 'add-button') {
+      tryCatchWrapper(
+        () => this.#addRestaurant(event),
+        ({ message }) => alert(message),
+      );
+    }
   }
 
-  addRestaurant() {
-    const inputData = this.getInputData();
+  #addRestaurant(event) {
+    const inputData = this.#getInputData(event.target);
 
-    this.validateInputData(inputData);
-    this.restaurants.addRestaurant(inputData);
-    $('restaurant-creation-modal').classList.remove('modal--open');
-    this.insertRestaurantList(inputData);
+    this.#validateInputData(inputData);
+    this.#restaurants.addRestaurant(inputData);
+    $('add-restaurant-modal').classList.remove('modal--open');
+    this.#insertRestaurantList(inputData);
   }
 
-  validateInputData(inputData) {
-    const restaurantNames = this.restaurants.storageData.map((restaurant) => restaurant.name);
+  #validateInputData(inputData) {
+    const restaurantNames = this.#restaurants.storageData.map((restaurant) => restaurant.name);
 
     validateRestaurantsName({ restaurantNames, name: inputData.name });
-    RULES.requiredIds.forEach((id) => this.validateRequirements(id));
+    RULES.requiredIds.forEach((id) => this.#validateRequirements(id));
   }
 
-  validateRequirements(id) {
+  #validateRequirements(id) {
     validateRequiredValue(id, $(id).value);
     $(`${id}-error`).innerText = '';
   }
 
-  insertRestaurantList(inputData) {
+  #insertRestaurantList(inputData) {
     $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
     $('restaurant-input-form').reset();
   }
 
-  getInputData() {
-    const category = $('category').options[$('category').selectedIndex].value;
-    const name = $('name').value;
-    const walkingTimeFromCampus = $('distance').options[$('distance').selectedIndex].value;
-    const description = $('description').value;
+  #getInputData(target) {
+    // TODO: 숫자 파싱 문제 해결
+    const category = target['category'].value;
+    const name = target['name'].value;
+    const walkingTimeFromCampus = Number(target['distance'].value);
+    const description = target['distance'].value;
 
     return { category, name, walkingTimeFromCampus, description };
   }

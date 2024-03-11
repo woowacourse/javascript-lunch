@@ -6,23 +6,23 @@ import Restaurant from './components/Restaurant/Restaurant';
 import RestaurantFilter from './components/RestaurantFilter/RestaurantFilter';
 
 import { $ } from './utils/dom';
-import { SELECT_FILTER_DATA } from './constants/rules';
 
 import './styles/index.css';
 
-// domain
-const restaurants = new Restaurants(localStorage);
+document.addEventListener('DOMContentLoaded', () => {
+  // domain
+  const restaurants = new Restaurants(localStorage);
 
-// components
-const header = new Header();
-const restaurantFilter = new RestaurantFilter(restaurants);
-const restaurant = new Restaurant();
-const modal = new RestaurantCreationModal(restaurants);
+  // components
+  const header = new Header();
+  const restaurantFilter = new RestaurantFilter(restaurants);
+  const restaurant = new Restaurant();
+  const modal = new RestaurantCreationModal(restaurants);
 
-$('header').innerHTML = header.render();
-$('restaurant-filter-container').innerHTML += restaurantFilter.render(SELECT_FILTER_DATA.sorting);
-$('restaurant-filter-container').innerHTML += restaurantFilter.render(SELECT_FILTER_DATA.category);
-restaurants.standardList.forEach((restaurantData) => {
-  $('restaurant-list').innerHTML += restaurant.render(restaurantData);
+  $('header').innerHTML = header.render();
+  $('restaurant-filter-container').innerHTML += restaurantFilter.render();
+  restaurants.standardList.forEach((restaurantData) => {
+    $('restaurant-list').innerHTML += restaurant.render(restaurantData);
+  });
+  $('add-restaurant-modal').innerHTML = modal.render();
 });
-$('restaurant-creation-modal').innerHTML = modal.render();
