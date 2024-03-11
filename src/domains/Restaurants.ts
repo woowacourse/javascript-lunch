@@ -94,7 +94,7 @@ export const add = (restaurantInfo: RestaurantType) => {
   return true;
 };
 
-export const filterByCategory = (category: Category) => {
+export const filterByCategory = (category: CategoryType) => {
   const restaurants: RestaurantType[] = getRestaurantFromStorage();
 
   if (category === "전체") return restaurants;
@@ -102,7 +102,7 @@ export const filterByCategory = (category: Category) => {
   return restaurants.filter((item) => item.category === category);
 };
 
-export const sortByType = (category: Category, type: SortType) => {
+export const sortByType = (category: CategoryType, type: SortType) => {
   const filteredRestaurants = filterByCategory(category);
   return type === "이름순"
     ? sortByName(filteredRestaurants)
