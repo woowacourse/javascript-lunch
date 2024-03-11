@@ -47,14 +47,14 @@ function render() {
     id: 'category',
     options: Object.keys(KOREAN_CATEGORY),
     required: true,
-    NoneSelcteddefaultMessage: '선택해 주세요',
+    noneSelcteddefaultMessage: '선택해 주세요',
   });
 
   const distanceSelect = createDropDown({
     id: 'walkingTime',
     options: WALKING_TIME,
     required: true,
-    NoneSelcteddefaultMessage: '선택해 주세요',
+    noneSelcteddefaultMessage: '선택해 주세요',
   });
 
   const categorySelcterLabelWrapper = createlabelWrapper({
