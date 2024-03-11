@@ -1,8 +1,6 @@
 import Component from './Component';
 
 class FilterBox extends Component {
-  static observedAttributes = ['type', 'option'];
-
   #type;
   #option;
 
@@ -11,13 +9,6 @@ class FilterBox extends Component {
 
     this.#type = this.getAttribute('type');
     this.#option = JSON.parse(this.getAttribute('option'));
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    this.#type = this.getAttribute('type');
-    this.#option = JSON.parse(this.getAttribute('option'));
-
-    this.render();
   }
 
   template() {

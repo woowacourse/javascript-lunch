@@ -7,8 +7,6 @@ import westernCategoryImg from '../assets/category-western.png';
 import etcCategoryImg from '../assets/category-etc.png';
 
 class RestaurantItem extends Component {
-  static observedAttributes = ['category', 'name', 'distance', 'description', 'reference'];
-
   #category;
   #name;
   #distance;
@@ -21,15 +19,6 @@ class RestaurantItem extends Component {
     this.#name = this.getAttribute('name');
     this.#distance = this.getAttribute('distance');
     this.#description = this.getAttribute('description');
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    this.#category = this.getAttribute('category');
-    this.#name = this.getAttribute('name');
-    this.#distance = this.getAttribute('distance');
-    this.#description = this.getAttribute('description');
-
-    this.render();
   }
 
   displayCategoryIcon(category) {
