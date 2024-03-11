@@ -8,33 +8,28 @@ class SelectBoxSection extends HTMLElement {
   }
 
   private addEvent() {
-    $('#category-filter').addEventListener('change', (event: Event) => {
-      this.dispatchEvent(
-        new CustomEvent('changeCategory', {
-          detail: (event.target as HTMLSelectElement).value,
-        }),
-      );
-    });
-
-    $('#sorting-filter').addEventListener('change', (event: Event) => {
-      this.dispatchEvent(
-        new CustomEvent('changeSortOrder', {
-          detail: (event.target as HTMLSelectElement).value,
-        }),
-      );
-    });
+    $('#category-filter').addEventListener('change', this.dispatchChangeCategoryEvent.bind(this));
+    $('#sorting-filter').addEventListener('change', this.dispatchChangeSortOrder.bind(this));
   }
 
-  private getCategoryName() {
-    return Object.values(Category).map((category) => {
-      return `<option value="${category}">${category}</option>`;
-    });
+  private dispatchChangeCategoryEvent(event: Event) {
+    this.dispatchEvent(
+      new CustomEvent('changeCategory', {
+        detail: (event.target as HTMLSelectElement).value,
+      }),
+    );
   }
 
-  private getSortOrderName() {
-    return Object.values(SortOrder).map((sortOrder) => {
-      return `<option value="${sortOrder}">${sortOrder}</option>`;
-    });
+  private dispatchChangeSortOrder(event: Event) {
+    this.dispatchEvent(
+      new CustomEvent('changeSortOrder', {
+        detail: (event.target as HTMLSelectElement).value,
+      }),
+    );
+  }
+
+  private createSelectBox(type: object) {
+    return Object.values(type).map((option) => `<option value="${option}">${option}</option>`);
   }
 
   private render() {
@@ -42,12 +37,12 @@ class SelectBoxSection extends HTMLElement {
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
-          ${this.getCategoryName()}
+          ${this.createSelectBox(Category)}
         </select>
 
         <!-- 정렬 셀렉트 박스 -->
         <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          ${this.getSortOrderName()}
+          ${this.createSelectBox(SortOrder)}
         </select>
       </section>
       `;
