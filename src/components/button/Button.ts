@@ -1,8 +1,9 @@
 import Restaurant from '@/domain/Restaurant';
-import type { TCategory, TDistance } from '@/types/restaurant';
+import type { TDistance, TCategory } from '@/types/restaurant';
 import type RestaurantList from '@/domain/RestaurantList';
-import type { IButtonAttributes } from '../../types/dom';
-import dom from '../../utils/dom';
+import type { IButtonAttributes } from '@/types/dom';
+import dom from '@/utils/dom';
+import formValidator from '@/validator/formValidator';
 
 interface FormElements extends HTMLFormControlsCollection {
   category: HTMLInputElement;
@@ -38,7 +39,8 @@ class Button {
     if (this.kind === 'add') {
       dom.getElement('form').addEventListener('submit', e => {
         e.preventDefault();
-        this.handleAddRestaurant();
+        const $form = e.target as HTMLFormElement;
+        this.handleAddRestaurant($form);
       });
     } else if (this.kind === 'close') {
       this.$target.addEventListener('click', () => {
@@ -60,8 +62,8 @@ class Button {
     $form.reset();
   }
 
-  handleAddRestaurant(): void {
-    const restaurantInformation = this.getRestaurantFormData();
+  handleAddRestaurant($form: HTMLFormElement): void {
+    const restaurantInformation = this.getRestaurantFormData($form);
     if (restaurantInformation === undefined) return;
     if (this.restaurantList == null) return;
     this.restaurantList.add(restaurantInformation);
@@ -69,8 +71,7 @@ class Button {
     this.close();
   }
 
-  getRestaurantFormData(): Restaurant | undefined {
-    const $restaurantForm = dom.getElement('form') as HTMLFormElement;
+  getRestaurantFormData($restaurantForm: HTMLFormElement): Restaurant | undefined {
     const elements = $restaurantForm.elements as FormElements;
 
     const category = elements.category.value as TCategory;
@@ -79,11 +80,8 @@ class Button {
     const description = elements.description.value;
     const referenceLink = elements.link.value;
 
-    if (category == null) return;
-    if (name == null) return;
-    if (distance == null) return;
-    if (referenceLink !== '' && !(referenceLink.startsWith('http://') || referenceLink.startsWith('https://'))) return;
-
+    const isValidForm = formValidator.isValidForm({ category, name, distance, referenceLink });
+    if (!isValidForm) return;
     return new Restaurant({ category, name, distance, description, referenceLink });
   }
 
