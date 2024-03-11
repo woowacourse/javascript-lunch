@@ -3,26 +3,10 @@ import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantOptions extends BaseComponent {
+  #errorMessageClassList = null;
+
   constructor() {
     super();
-  }
-
-  render() {
-    const optionsArray = this.getAttribute("options").split(",");
-    const valuesArray = this.getAttribute("values").split(",");
-    const id = this.getAttribute("id");
-    const text = this.#getOptionText(id);
-
-    this.innerHTML = `        
-    <div class="form-item form-item--required">
-        <label for="${id}-select">${text}</label>
-        <select name="${id}" id=${id}-select>
-          ${optionsArray.map((option, index) => {
-            return `<option value=${valuesArray[index]}>${option}</option>;`;
-          })}
-        </select>
-        <p class="hidden text-caption error-message" id=${id}-select-error-message>옵션을 선택해주세요</p>
-    </div>`;
   }
 
   #getOptionText(id) {
@@ -35,12 +19,45 @@ class RestaurantOptions extends BaseComponent {
     return restaurantValidator.isSelected($(`#${id}-select`).value);
   }
 
-  setEvent() {
+  #createOptionHTML(options, values) {
+    return options.reduce(
+      (accOptions, currOption, index) =>
+        accOptions + `<option value=${values[index]}>${currOption}</option>;`,
+      ""
+    );
+  }
+
+  #renderErrorMessage() {
+    this.#errorMessageClassList.remove("hidden");
+  }
+
+  #hideErrorMessage() {
+    this.#errorMessageClassList.add("hidden");
+  }
+
+  render() {
+    const options = this.getAttribute("options").split(",");
+    const values = this.getAttribute("values").split(",");
     const id = this.getAttribute("id");
-    document.addEventListener("add-form-submit", (e) => {
+    const text = this.#getOptionText(id);
+
+    this.innerHTML = `        
+      <div class="form-item form-item--required">
+          <label for="${id}-select">${text}</label>
+          <select name="${id}" id=${id}-select class="select-arrow-down arrow-down-grey">
+            ${this.#createOptionHTML(options, values)}
+          </select>
+          <p class="hidden text-caption error-message" id=${id}-select-error-message>옵션을 선택해주세요</p>
+      </div>`;
+
+    this.#errorMessageClassList = $(`#${id}-select-error-message`).classList;
+  }
+
+  setEvent() {
+    document.addEventListener("add-form-submit", () => {
       this.#isSelected()
-        ? $(`#${id}-select-error-message`).classList.add("hidden")
-        : $(`#${id}-select-error-message`).classList.remove("hidden");
+        ? this.#hideErrorMessage()
+        : this.#renderErrorMessage();
     });
   }
 }
