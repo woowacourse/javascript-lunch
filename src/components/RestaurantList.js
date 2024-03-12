@@ -20,10 +20,16 @@ class RestaurantList extends Component {
   }
 
   setEvent() {
-    document.addEventListener('submitButtonClick', (event) => {
-      event.preventDefault();
-      this.#updateRestaurants(event.detail);
-    });
+    document.addEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this));
+  }
+
+  removeEvent() {
+    document.removeEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this));
+  }
+
+  #handleSubmitButtonClick(event) {
+    event.preventDefault();
+    this.#updateRestaurants(event.detail);
   }
 
   #generateRestaurants() {
