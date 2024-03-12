@@ -21,4 +21,4 @@ export const categoryFilterList = [
   '기타',
 ];
 
-export const sortingFilterLsit = ['이름순', '거리순'];
+export const sortingFilterList = ['이름순', '거리순'];
