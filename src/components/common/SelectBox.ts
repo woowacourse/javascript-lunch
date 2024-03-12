@@ -7,7 +7,7 @@ interface Option {
   label: string;
 }
 
-export default class Select extends EventComponent {
+export default class SelectBox extends EventComponent {
   protected getTemplate(): string {
     const rawOptions = this.getAttribute("options");
     const selectId = this.getAttribute("select-id") || "";

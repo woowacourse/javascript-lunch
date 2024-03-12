@@ -3,7 +3,7 @@ import EventComponent from "../../abstract/EventComponent";
 import { $ } from "../../utils/selector";
 import { MODAL_EVENT, MODAL_EVENT_ACTION } from "../../constants/event";
 
-export default class Modal extends EventComponent {
+export default class ModalBox extends EventComponent {
   protected getTemplate(): string {
     const isOpen = this.getAttribute("isOpen");
     const modalId = this.getAttribute("modal-id");
