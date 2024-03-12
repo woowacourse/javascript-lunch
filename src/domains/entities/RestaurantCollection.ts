@@ -28,13 +28,13 @@ class RestaurantCollection {
   sortByName() {
     return this.restaurantList
       .map((restaurant) => restaurant.get())
-      .toSorted((a, b) => a.name.localeCompare(b.name));
+      .toSorted((a: IRestaurant, b: IRestaurant) => a.name.localeCompare(b.name));
   }
 
   sortByDistance() {
     return this.restaurantList
       .map((restaurant) => restaurant.get())
-      .toSorted((a, b) => a.distance - b.distance);
+      .toSorted((a: IRestaurant, b: IRestaurant) => a.distance - b.distance);
   }
 
   addRestaurant(restaurantArg: IRestaurant) {
