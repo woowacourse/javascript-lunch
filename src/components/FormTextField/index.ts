@@ -29,19 +29,19 @@ class FormTextField extends HTMLElement {
     // label
     const labelText = this.getAttribute('labelText');
     const labelForId = this.getAttribute('labelForId');
-    const labelEl = document.createElement('label');
+    const $label = document.createElement('label');
 
-    if (labelForId) labelEl.setAttribute('for', labelForId);
-    labelEl.textContent = labelText;
-    // customTextContainerEl
-    const customTextContainerEl = document.createElement('div');
-    customTextContainerEl.className = 'custom-text-container';
+    if (labelForId) $label.setAttribute('for', labelForId);
+    $label.textContent = labelText;
+    // $customTextContainer
+    const $customTextContainer = document.createElement('div');
+    $customTextContainer.className = 'custom-text-container';
     // errorMessage
     const errorMessageBoxEl = document.createElement('error-message-box');
 
     this.appendChild(style);
-    this.appendChild(labelEl);
-    this.appendChild(customTextContainerEl);
+    this.appendChild($label);
+    this.appendChild($customTextContainer);
     this.appendChild(errorMessageBoxEl);
   }
 
@@ -68,15 +68,15 @@ class FormTextField extends HTMLElement {
   }
 
   #addEventToChange(key: RestaurantInfoKey) {
-    const customTextContainerEl = this.querySelector('.custom-text-container');
-    const inputOrTextareaEl =
-      customTextContainerEl?.firstElementChild?.firstChild;
+    const $customTextContainer = this.querySelector('.custom-text-container');
+    const $inputOrTextarea =
+      $customTextContainer?.firstElementChild?.firstChild;
 
     if (
-      inputOrTextareaEl instanceof HTMLInputElement ||
-      inputOrTextareaEl instanceof HTMLTextAreaElement
+      $inputOrTextarea instanceof HTMLInputElement ||
+      $inputOrTextarea instanceof HTMLTextAreaElement
     ) {
-      inputOrTextareaEl.addEventListener('change', (event) =>
+      $inputOrTextarea.addEventListener('change', (event) =>
         this.#handleChangeToValidateValue(event, key),
       );
     }
@@ -99,10 +99,10 @@ class FormTextField extends HTMLElement {
   }
 
   #handleErrorMessage(error: unknown) {
-    const errorMessageBoxEl = this.querySelector('error-message-box');
+    const $errorMessageBox = this.querySelector('error-message-box');
 
-    if (errorMessageBoxEl instanceof HTMLElement) {
-      errorMessageBoxEl.textContent =
+    if ($errorMessageBox instanceof HTMLElement) {
+      $errorMessageBox.textContent =
         error instanceof Error ? error.message : null;
     }
   }

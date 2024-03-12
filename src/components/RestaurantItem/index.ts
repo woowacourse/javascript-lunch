@@ -41,6 +41,7 @@ class RestaurantItem extends HTMLElement {
 
   #handleClickToOpenInfoModal(event: MouseEvent) {
     event.stopPropagation();
+
     openModal('restaurant-info-modal-inner');
   }
 }

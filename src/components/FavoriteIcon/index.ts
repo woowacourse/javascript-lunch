@@ -35,8 +35,8 @@ class FavoriteIcon extends HTMLElement {
   #handleClickForFavorite(event: MouseEvent, storeName: string) {
     event.stopPropagation();
 
-    const favoriteIconEl = event.currentTarget as HTMLElement | null;
-    const imgEl = favoriteIconEl?.querySelector('img');
+    const $favoriteIcon = event.currentTarget as HTMLElement | null;
+    const $img = $favoriteIcon?.querySelector('img');
     const restaurantList = new RestaurantList();
 
     if (storeName) {
@@ -44,18 +44,18 @@ class FavoriteIcon extends HTMLElement {
     }
 
     if (
-      favoriteIconEl instanceof HTMLElement &&
-      imgEl instanceof HTMLImageElement
+      $favoriteIcon instanceof HTMLElement &&
+      $img instanceof HTMLImageElement
     ) {
-      const prevFavorite = favoriteIconEl.getAttribute('favorite');
+      const prevFavorite = $favoriteIcon.getAttribute('favorite');
       const changedFavorite = !(prevFavorite === 'true');
 
-      favoriteIconEl.setAttribute(
+      $favoriteIcon.setAttribute(
         'favorite',
         getFavoriteAttributeValue(changedFavorite),
       );
 
-      imgEl.src = FAVORITE_IMG[changedFavorite ? 'true' : 'false'];
+      $img.src = FAVORITE_IMG[changedFavorite ? 'true' : 'false'];
     }
   }
 }

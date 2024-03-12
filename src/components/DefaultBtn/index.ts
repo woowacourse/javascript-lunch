@@ -17,14 +17,14 @@ class DefaultBtn extends HTMLElement {
       disabled: this.getAttribute('disabled'),
     };
 
-    const btnEl = setObjectAttribute(
+    const $btn = setObjectAttribute(
       attributes,
       document.createElement('button'),
     );
 
-    btnEl.textContent = this.getAttribute('text');
+    $btn.textContent = this.getAttribute('text');
 
-    this.appendChild(btnEl);
+    this.appendChild($btn);
   }
 }
 

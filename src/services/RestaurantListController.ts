@@ -15,7 +15,7 @@ const RestaurantListController = {
   },
 
   injectRestaurantListHTML(restaurantList?: RestaurantInfo[]) {
-    const listEl = document.querySelector('.restaurant-list');
+    const $list = document.querySelector('.restaurant-list');
 
     const restaurantListText = restaurantList
       ?.map(
@@ -25,8 +25,8 @@ const RestaurantListController = {
       .join('');
 
     const noneRestaurant = /* html */ `<p id="none-restaurant-category">해당 카테고리의 음식점이 존재하지 않습니다.</p>`;
-    if (listEl) {
-      listEl.innerHTML = restaurantListText || noneRestaurant;
+    if ($list) {
+      $list.innerHTML = restaurantListText || noneRestaurant;
     }
   },
 };
