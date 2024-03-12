@@ -14,32 +14,31 @@ export default class RestaurantItem extends HTMLLIElement {
     const template = document.querySelector('#template-restaurant-item');
     const content = template.content.cloneNode(true);
     this.appendChild(content);
+
     this.classList.add('restaurant');
   }
 
-  static observedAttributes = ['data-restaurant'];
-
-  get restaurant() {
-    if (!this.dataset.restaurant) {
-      return {};
-    }
-    return JSON.parse(this.dataset.restaurant);
+  set restaurant(restaurant) {
+    const { name, distance, description, category } = restaurant;
+    this.#setName(name);
+    this.#setDistance(distance);
+    this.#setDescription(description);
+    this.#setCategoryIcon(category);
   }
 
-  set restaurant(value) {
-    this.setAttribute('data-restaurant', JSON.stringify(value));
-  }
-
-  attributeChangedCallback() {
-    this.#initRestaurantItem();
-  }
-
-  #initRestaurantItem() {
-    const { category, name, distance, description } = this.restaurant;
-
+  #setName(name) {
     this.querySelector('.restaurant__name').innerHTML = name;
+  }
+
+  #setDistance(distance) {
     this.querySelector('.restaurant__distance').innerHTML = `캠퍼스로부터 ${distance}분 내 `;
+  }
+
+  #setDescription(description) {
     this.querySelector('.restaurant__description').innerHTML = description;
+  }
+
+  #setCategoryIcon(category) {
     this.querySelector('.category-icon').src = this.#getCategoryIconUrl(category);
     this.querySelector('.category-icon').alt = category;
   }
