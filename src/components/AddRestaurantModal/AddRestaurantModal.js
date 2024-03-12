@@ -31,7 +31,7 @@ export default class AddRestaurantModal {
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
           <label for="name text-caption">이름</label>
-          <input type="text" name="name" id="name" required>
+          <input placeholder="이름을 입력해주세요." type="text" name="name" id="name" required>
           <span id="name-error" class="error-message"></span>
         </div>
 
