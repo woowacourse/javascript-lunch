@@ -1,5 +1,5 @@
 import restaurantListMock from '@/mock/restaurantList.mock';
-import type { Category, IRestaurant, SortCriteria } from '../../types/Restaurant';
+import type { IRestaurant } from '../../types/Restaurant';
 import RestaurantCollection from '../entities/RestaurantCollection';
 
 class RestaurantDBService {
@@ -10,12 +10,6 @@ class RestaurantDBService {
     this.#restaurantCollection;
     this.update();
     this.setMockData();
-  }
-
-  getFromRestaurantList(category: Category, sortCriteria: SortCriteria) {
-    this.update();
-    const restaurants = this.#restaurantCollection.filterByCategory(category);
-    return new RestaurantCollection(restaurants).sort(sortCriteria);
   }
 
   getFavorite() {

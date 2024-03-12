@@ -18,11 +18,17 @@ class RestaurantCollection {
     );
   }
 
+  filterAndSort(category: AllAndCategory, sortCriteria: SortCriteria) {
+    this.filterByCategory(category);
+    this.sort(sortCriteria);
+    return this.restaurantList;
+  }
+
   filterByCategory(category: AllAndCategory) {
     if (category === '전체') return this.restaurantList.map((restaurant) => restaurant.get());
-    return [...this.restaurantList]
+    this.restaurantList = [...this.restaurantList]
       .filter((restaurant) => restaurant.get().category === category)
-      .map((restaurant) => restaurant.get());
+      .map((restaurant) => restaurant);
   }
 
   sort(sortCriteria: SortCriteria) {
@@ -31,15 +37,15 @@ class RestaurantCollection {
   }
 
   sortByName() {
-    return [...this.restaurantList]
+    this.restaurantList = [...this.restaurantList]
       .sort((a, b) => a.get().name.localeCompare(b.get().name))
-      .map((restaurant) => restaurant.get());
+      .map((restaurant) => restaurant);
   }
 
   sortByDistance() {
-    return [...this.restaurantList]
+    this.restaurantList = [...this.restaurantList]
       .sort((a, b) => a.get().distance - b.get().distance)
-      .map((restaurant) => restaurant.get());
+      .map((restaurant) => restaurant);
   }
 
   filterFavorites() {
