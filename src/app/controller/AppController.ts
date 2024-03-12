@@ -1,30 +1,26 @@
 import '../style.css';
 import '../modal/AddRestaurantModal/AddRestaurantModal';
 import '../root/NavigationBar/NavigationBar';
-import '../root/SelectBoxSection/SelectBoxSection';
+import '../root/RestaurantListFilter/RestaurantListFilter';
 import '../root/RestaurantItem/RestaurantItem';
 
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
 import { Category, SortOrder } from '../../enum/enums';
-import { RestaurantData } from '../../type/types';
+import { RestaurantData } from '../../type/RestaurantData';
 import { $ } from '../../util/domSelector';
 
 export default class AppController {
   private sortOrder: SortOrder;
-  private category: Category | '전체';
+  private category: Category | '';
   private restaurantService: RestaurantService;
   private restaurantList: RestaurantList;
 
   constructor() {
     this.sortOrder = SortOrder.이름순;
-    this.category = '전체';
+    this.category = '';
     this.restaurantService = new RestaurantService();
     this.restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder));
-  }
-
-  connectedCallback() {
-    this.initializeApp();
   }
 
   initializeApp() {
@@ -34,8 +30,8 @@ export default class AppController {
 
   private addEvent() {
     $('nav-bar').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
-    $('select-box-section').addEventListener('changeCategory', this.changeCategory.bind(this));
-    $('select-box-section').addEventListener('changeSortOrder', this.changeSortOrder.bind(this));
+    $('restaurant-list-filter').addEventListener('changeCategory', this.changeCategory.bind(this));
+    $('restaurant-list-filter').addEventListener('changeSortOrder', this.changeSortOrder.bind(this));
     $('add-restaurant-modal').addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
   }
 
@@ -62,7 +58,7 @@ export default class AppController {
   }
 
   private updateRestaurantList() {
-    const category = this.category === '전체' ? undefined : this.category;
+    const category = this.category === '' ? undefined : this.category;
     const newRestaurantList = this.restaurantService.getRestaurants(this.sortOrder, category);
     this.restaurantList.updateRestaurantList(newRestaurantList);
   }

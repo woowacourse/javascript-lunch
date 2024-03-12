@@ -1,4 +1,4 @@
-import { RestaurantData } from '../type/types';
+import { RestaurantData } from '../type/RestaurantData';
 
 const RestaurantValidator = {
   validateUserInput(restaurantData: RestaurantData) {
