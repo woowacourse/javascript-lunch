@@ -1,26 +1,29 @@
+import Restaurant, { Category, IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantCatalog, { SORT_CONDITION } from '../../domain/RestaurantCatalog';
 import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
-function sortMethod(attribute) {
+function sortMethod(attribute: string) {
   if (attribute === SORT_BY_NAME) return restaurantCatalog.sortByName;
   if (attribute === SORT_BY_DISTANCE) return restaurantCatalog.sortByDistance;
+  throw new Error('RestaurantCards의 Attributes가 잘못 설정되었습니다.');
 }
 
 class RestaurantCards extends HTMLUListElement {
-  #renderedRestaurants = [];
+  #renderedRestaurantsId: number[] = [];
 
   #appendRestaurants() {
-    const dataFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select'))(
+    const dataFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select')!)(
       restaurantCatalog
-        .filterByCategory(this.getAttribute('data-category-select'))
-        .map((restaurant) => restaurant.getRestaurantInfoObject()),
+        .filterByCategory(this.getAttribute('data-category-select') as Category)
+        ?.map((restaurant: Restaurant) => restaurant.getRestaurantInfoObject()),
     );
+    // .map((restaurant) => restaurant.id);
     this.#appendRestaurantElement(dataFilteredAndSorted);
   }
 
-  #appendRestaurantElement(restaurants) {
+  #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
     restaurants.forEach((data) => {
       const liElement = new RestaurantCard(data);
       // TODO: renderedRestaurants에 liElement 푸시

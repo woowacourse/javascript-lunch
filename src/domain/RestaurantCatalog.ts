@@ -44,6 +44,10 @@ class RestaurantCatalog {
     });
   }
 
+  getSpecificRestaurantInfo(index: number) {
+    return this.#restaurants[index].getRestaurantInfoObject();
+  }
+
   getRestaurantsClass() {
     return [...this.#restaurants];
   }
