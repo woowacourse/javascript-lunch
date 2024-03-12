@@ -4,18 +4,9 @@ class App {
   private restaurantView;
 
   constructor() {
-    this.restaurantView = new View();
-  }
-
-  init() {
     const $body = document.querySelector("body") as HTMLBodyElement;
-    this.restaurantView.renderInit($body);
 
-    this.restaurantView.renderSelectSection();
-    this.restaurantView.renderListSection();
-    this.restaurantView.renderFormModal();
-
-    this.restaurantView.setEvents();
+    this.restaurantView = new View($body);
   }
 }
 

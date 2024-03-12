@@ -17,10 +17,15 @@ class View {
   private listSection;
   private formModal;
 
-  constructor() {
+  constructor($target: HTMLElement) {
     this.selectSection = new RestaurantSelectSection();
     this.listSection = new RestaurantListSection();
     this.formModal = new RestaurantFormModal();
+    this.renderInit($target);
+    this.renderSelectSection();
+    this.renderListSection();
+    this.renderFormModal();
+    this.setEvents();
   }
 
   renderInit($target: HTMLElement) {
@@ -70,10 +75,10 @@ class View {
   }
 
   private setEvent(type: string, listener: (event: Event) => void) {
-    const $addRestaurantButton = document.querySelector(
+    const $addRestaurantButton = document.querySelector<HTMLButtonElement>(
       "#add-restaurant__button"
-    ) as HTMLButtonElement;
-    $addRestaurantButton.addEventListener(type, listener);
+    );
+    $addRestaurantButton?.addEventListener(type, listener);
   }
 }
 
