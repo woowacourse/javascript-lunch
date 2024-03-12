@@ -29,7 +29,6 @@ describe('음식점 목록 테스트', () => {
   it('음식점을 이름순으로 정렬해 반환한다.', () => {
     // given
     const localStorageRestaurants: Restaurant[] = sortingName.input;
-    console.log(localStorageRestaurants);
     const restaurantManager: RestaurantManager = new RestaurantManager(
       localStorageRestaurants
     );
