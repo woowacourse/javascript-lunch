@@ -1,18 +1,10 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 
-export type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
-type DistanceFromCampus = 5 | 10 | 15 | 20 | 30;
+export const DISTANCE_FROM_CAMPUS = Object.freeze([5, 10, 15, 20, 30] as const);
+type DistanceFromCampus = (typeof DISTANCE_FROM_CAMPUS)[number];
 
-export const DISTANCE_FROM_CAMPUS: readonly DistanceFromCampus[] = Object.freeze([5, 10, 15, 20, 30]);
-
-export const RESTAURANT_CATEGORY: readonly Category[] = Object.freeze([
-  '한식',
-  '중식',
-  '일식',
-  '아시안',
-  '양식',
-  '기타',
-]);
+export const RESTAURANT_CATEGORY = Object.freeze(['한식', '중식', '일식', '아시안', '양식', '기타'] as const);
+export type Category = (typeof RESTAURANT_CATEGORY)[number];
 
 export interface IRestaurantInfo {
   id?: number;
