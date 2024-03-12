@@ -4,6 +4,7 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 import type { CustomEventListenerDictionary } from "../BaseComponent/BaseComponent.type";
 
 import { $ } from "../../utils/dom";
+import { getModalTemplate } from "../../utils/modal/modalTemplate";
 
 import { CUSTOM_EVENT_TYPE } from "../../constants/eventType";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
@@ -17,13 +18,12 @@ class RestaurantAddModal extends BaseComponent {
   };
 
   protected render(): void {
-    this.innerHTML = `
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-            <h2 class="modal-title text-title">새로운 음식점</h2>
-            <restaurant-add-form></restaurant-add-form>
-        </div>
-    `;
+    this.innerHTML = getModalTemplate(
+      `
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <restaurant-add-form></restaurant-add-form>
+      `
+    );
   }
 
   protected setEvent(): void {
