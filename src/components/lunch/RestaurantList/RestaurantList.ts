@@ -32,6 +32,11 @@ class RestaurantList extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.filterCategory,
       eventHandler: this.handleFilterRestaurantItems.bind(this),
     },
+
+    deleteRestaurantItem: {
+      eventName: CUSTOM_EVENT_TYPE.deleteRestaurantItem,
+      eventHandler: this.handleRerenderRestaurantList.bind(this),
+    },
   } as const;
 
   protected render(): void {
@@ -66,6 +71,8 @@ class RestaurantList extends BaseComponent {
     this.on({ ...this.eventListeners.sortChange, target: document });
 
     this.on({ ...this.eventListeners.filterCategory, target: document });
+
+    this.on({ ...this.eventListeners.deleteRestaurantItem, target: document });
   }
 
   private handleRerenderRestaurantList() {
@@ -102,6 +109,8 @@ class RestaurantList extends BaseComponent {
     this.off({ ...this.eventListeners.sortChange, target: document });
 
     this.off({ ...this.eventListeners.filterCategory, target: document });
+
+    this.off({ ...this.eventListeners.deleteRestaurantItem, target: document });
   }
 }
 

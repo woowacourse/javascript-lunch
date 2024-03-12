@@ -95,6 +95,10 @@ class Restaurant {
       (restaurantDetail) => restaurantDetail.name === name
     );
   }
+
+  public removeRestaurantDetail(targetName: string) {
+    this.storage.remove(targetName);
+  }
 }
 
 export default Restaurant;

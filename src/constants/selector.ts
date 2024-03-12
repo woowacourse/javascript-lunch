@@ -4,6 +4,7 @@ export const ELEMENT_SELECTOR = {
   restaurantAddModal: "#restaurant-add-modal",
   restaurantDetailModal: "#restaurant-detail-modal",
   modalCancelButton: "#modal-cancel-button",
+  modalDeleteButton: "#modal-delete-button",
   restaurantAddForm: "#restaurant-add-form",
   sortingFilter: "#sorting-filter",
   distanceSelect: "#distance-select>select",

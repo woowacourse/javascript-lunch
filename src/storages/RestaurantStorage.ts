@@ -15,13 +15,26 @@ const RestaurantStorage: CustomStorage<RestaurantDetail[], RestaurantDetail> = {
   },
 
   set(restaurantDetail: RestaurantDetail) {
-    const existingRestaurants = RestaurantStorage.get();
+    const existingRestaurantDetails = this.get();
 
-    existingRestaurants.push(restaurantDetail);
+    existingRestaurantDetails.push(restaurantDetail);
 
     localStorage.setItem(
       STORAGE_KEYS.restaurantDetail,
-      JSON.stringify(existingRestaurants)
+      JSON.stringify(existingRestaurantDetails)
+    );
+  },
+
+  remove(restaurantName: string) {
+    const existingRestaurantDetails = this.get();
+
+    const filteredRestaurantsDetails = existingRestaurantDetails.filter(
+      ({ name }) => name !== restaurantName
+    );
+
+    localStorage.setItem(
+      STORAGE_KEYS.restaurantDetail,
+      JSON.stringify(filteredRestaurantsDetails)
     );
   },
 };

@@ -5,6 +5,7 @@ import { ELEMENT_SELECTOR } from "../../../constants/selector";
 import { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
 import BaseComponent from "../../BaseComponent/BaseComponent";
 import { $ } from "../../../utils/dom";
+import Restaurant from "../../../domain/Restaurant/Restaurant";
 
 class RestaurantDetailModal extends BaseComponent {
   private restaurantDetail: RestaurantDetail | null = null;
@@ -18,6 +19,11 @@ class RestaurantDetailModal extends BaseComponent {
     restaurantDetailModalClose: {
       eventName: "click" as keyof HTMLElementEventMap,
       eventHandler: this.handleCloseRestaurantDetailModal.bind(this),
+    },
+
+    deleteRestaurantItem: {
+      eventName: "click" as keyof HTMLElementEventMap,
+      eventHandler: this.handleDeleteRestaurantItem.bind(this),
     },
   };
 
@@ -56,7 +62,7 @@ class RestaurantDetailModal extends BaseComponent {
                 this.restaurantDetail.url
               }</div></a>
                 <div class='button-container'>
-                  <button type='button' class='button button--secondary text-caption'>삭제하기</button>
+                  <button id='modal-delete-button' type='button' class='button button--secondary text-caption'>삭제하기</button>
                   <button id='modal-cancel-button' type='button' class='button button--primary text-caption'>닫기</button>
                 </div>`
             : ""
@@ -74,6 +80,11 @@ class RestaurantDetailModal extends BaseComponent {
 
     this.on({
       ...this.eventListeners.restaurantDetailModalClose,
+      target: this,
+    });
+
+    this.on({
+      ...this.eventListeners.deleteRestaurantItem,
       target: this,
     });
   }
@@ -97,6 +108,22 @@ class RestaurantDetailModal extends BaseComponent {
     }
   }
 
+  private handleDeleteRestaurantItem(event: Event) {
+    const modalDeleteButtonElement = $(
+      ELEMENT_SELECTOR.modalDeleteButton,
+      this
+    );
+
+    if (event.target === modalDeleteButtonElement && this.restaurantDetail) {
+      const restaurant = new Restaurant();
+
+      restaurant.removeRestaurantDetail(this.restaurantDetail.name);
+
+      this.emit(CUSTOM_EVENT_TYPE.deleteRestaurantItem);
+      this.emit(CUSTOM_EVENT_TYPE.restaurantDetailModalClose);
+    }
+  }
+
   protected removeEvent(): void {
     this.off({
       ...this.eventListeners.restaurantDetailModalOpen,
@@ -105,6 +132,11 @@ class RestaurantDetailModal extends BaseComponent {
 
     this.off({
       ...this.eventListeners.restaurantDetailModalClose,
+      target: this,
+    });
+
+    this.off({
+      ...this.eventListeners.deleteRestaurantItem,
       target: this,
     });
   }
