@@ -4,10 +4,12 @@ import {
 } from "../constants/selectOptions";
 
 import AddRestaurantForm from "../view/components/AddRestaurantForm/AddRestaurantForm";
+import FORM_ITEM_TEXTS from "../constants/formItemTexts";
 import Modal from "../view/components/Modal/Modal";
 import RestaurantItem from "../view/components/RestaurantItem/RestaurantItem";
 import RestaurantList from "../domain/RestaurantList";
 import SelectBox from "../view/components/SelectBox/SelectBox";
+import createElementByTag from "../view/utils/createElementByTag";
 import getLocalStorageItem from "../utils/getLocalStorageItem";
 import { restaurantData } from "../data/restaurantData";
 
@@ -63,7 +65,13 @@ class MainController {
       submitFunc: submitFunc.bind(this),
     });
 
-    modal.replaceContents([addRestaurantForm.element]);
+    const title = createElementByTag({
+      tag: "h2",
+      classes: ["modal-title", "text-title"],
+      contents: FORM_ITEM_TEXTS.formTitle,
+    });
+
+    modal.replaceContents([title, addRestaurantForm.element]);
 
     return modal;
   }
