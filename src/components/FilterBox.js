@@ -6,12 +6,10 @@ class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];
 
   #type;
-  #handleSelectChange;
 
   constructor() {
     super();
     this.#type = this.getAttribute('type');
-    this.#handleSelectChange = () => this.makeCustomEvent('selectChange');
   }
 
   attributeChangedCallback() {
@@ -20,11 +18,15 @@ class FilterBox extends Component {
   }
 
   setEvent() {
-    $addEvent(`.${this.#type}`, 'change', () => this.#handleSelectChange);
+    $addEvent(`.${this.#type}`, 'change', this.handleSelectChange.bind(this));
   }
 
   removeEvent() {
-    $removeEvent(`.${this.#type}`, 'change', () => this.#handleSelectChange);
+    $removeEvent(`.${this.#type}`, 'change', this.handleSelectChange.bind(this));
+  }
+
+  handleSelectChange() {
+    this.makeCustomEvent('selectChange');
   }
 
   template() {
