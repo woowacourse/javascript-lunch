@@ -1,12 +1,7 @@
 import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
-import createRestaurantCard from '../component/restaurantCard';
 import renderRestaurantList from '../component/restaurantList.js';
-import {
-  KOREAN_CATEGORY,
-  categoryFilterList,
-  sortingFilterList,
-} from '../constant/cons';
+import { categoryFilterList, sortingFilterList } from '../constant/cons';
 import { RestaurantManager } from '../domain/RestaurantManager';
 
 export const set = {
@@ -40,16 +35,10 @@ export const set = {
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
-          if (category === '전체') {
-            // restaurantManager.updateFilterRestaurants();
-            return this.updateRestaurantList(
-              restaurantManager.getRestaurants()
-            );
-          }
+          if (category === '전체')
+            return renderRestaurantList(restaurantManager.getRestaurants());
 
-          this.updateRestaurantList(
-            restaurantManager.filteredRestaurants(category)
-          );
+          renderRestaurantList(restaurantManager.filteredRestaurants());
         },
       })
     );
@@ -62,9 +51,9 @@ export const set = {
         options: sortingFilterList,
         callback: (category) => {
           if (category === '이름순')
-            this.updateRestaurantList(restaurantManager.sortByAscendingName());
+            renderRestaurantList(restaurantManager.sortByAscendingName());
           if (category === '거리순')
-            this.updateRestaurantList(
+            renderRestaurantList(
               restaurantManager.sortByAscendingWalkingTime()
             );
         },
