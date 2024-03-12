@@ -22,9 +22,9 @@ describe('점심 뭐 먹지 로컬 스토리지에 데이터가 있는 경우를
 
   it('새로운 음식점을 추가할 수 있다.', () => {
     cy.get('.gnb__button').click();
-    cy.get('.modal-category').select(addRestaurantData.category);
+    cy.get('.modalCategory').select(addRestaurantData.category);
     cy.get('.modal-restaurant-name').type(addRestaurantData.name);
-    cy.get('.modal-distance').select(addRestaurantData.distance);
+    cy.get('.modalDistance').select(addRestaurantData.distance);
     cy.get('.modal-description').type(addRestaurantData.description);
     cy.get('.modal-reference').type(addRestaurantData.reference);
     cy.get('.button--primary').click();
