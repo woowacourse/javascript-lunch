@@ -1,4 +1,6 @@
-import { Attributes } from '../types';
+import { STORAGE_KEY } from '../constants';
+import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
+import { Attributes, RestaurantInfo } from '../types';
 
 export const getDeepCopiedArray = <T>(array: T): T =>
   JSON.parse(JSON.stringify(array)) as T;
@@ -65,4 +67,14 @@ export const closeModal = () => {
 
   const bodyEl = document.querySelector('body');
   if (bodyEl) bodyEl.style.overflowY = 'scroll';
+};
+
+export const findStoreFromLocalStorage = (storeName: string | null) => {
+  const localStorageItem = localStorage.getItem(STORAGE_KEY.restaurants);
+  const storeData: RestaurantInfo[] = localStorageItem
+    ? (JSON.parse(localStorageItem) as RestaurantInfo[])
+    : INITIAL_RESTAURANT_DATA;
+  const store = storeData.find((data) => data.name === storeName);
+
+  return store;
 };

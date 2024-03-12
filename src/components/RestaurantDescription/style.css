@@ -1,0 +1,15 @@
+.restaurant__info__explanation {
+  display: -webkit-box;
+  max-width: 263px;
+  max-height: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.restaurant__info__explanation .none-description {
+  opacity: 0.5;
+  color: var(--lunch-grey-scale-3-color);
+  font-weight: 500;
+}
