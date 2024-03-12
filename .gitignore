@@ -3,8 +3,3 @@ node_modules/
 *.tsbuildinfo
 .npm
 .eslintcache
-<<<<<<< HEAD
-.gitmessage.txt
-=======
-.gitmessage.txt
->>>>>>> chore: gitignore에 gitmessage.txt 추가
