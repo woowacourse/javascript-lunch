@@ -26,6 +26,10 @@ function createNewRestaurantModal(addRestaurant, getRestaurants) {
       addRestaurant(newRestaurant);
       renderRestaurantList(getRestaurants());
       modal.remove('modal--open');
+
+      toast(
+        `${newRestaurant.name} 가게에 대한 정보가 정상적으로 추가되었습니다.`
+      );
     } catch (e) {
       toast(e.message);
     }
