@@ -40,7 +40,7 @@ class RestaurantItem extends BaseComponent {
     const img = this.#categoryToImg(category);
 
     this.innerHTML = `
-      <li class="restaurant">
+      <div class="restaurant">
         <div class="restaurant__category">
           <img src=${img} alt="한식" class="category-icon">
         </div>
@@ -53,7 +53,7 @@ class RestaurantItem extends BaseComponent {
               : ""
           }
         </div>
-      </li>
+      </div>
       `;
   }
 }
