@@ -13,12 +13,12 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    $addEvent('.button--primary', 'click', this.#handleOnAdd.bind(this));
+    $addEvent('.modal-form', 'submit', this.#handleOnSubmit.bind(this));
     $addEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
   }
 
   removeEvent() {
-    $removeEvent('.button--primary', 'click', this.#handleOnAdd.bind(this));
+    $removeEvent('.modal-form', 'submit', this.#handleOnSubmit.bind(this));
     $removeEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
   }
 
@@ -30,15 +30,16 @@ class RestaurantAddModal extends Component {
     }
   }
 
-  #handleOnAdd() {
+  #handleOnSubmit(event) {
+    event.preventDefault();
     if (this.#handleEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
       return;
     }
 
     const formData = {
-      category: $('.modal-category').value,
+      category: $('.modalCategory').value,
       name: $('.modal-restaurant-name').value,
-      distance: $('.modal-distance').value,
+      distance: $('.modalDistance').value,
       description: $('.modal-description').value,
       reference: $('.modal-reference').value,
     };
@@ -74,10 +75,10 @@ class RestaurantAddModal extends Component {
               <div class="modal-backdrop"></div>
               <div class="modal-container">
                   <h2 class="modal-title text-title">새로운 음식점</h2>
-                  <form>
+                  <form class="modal-form">
                       <div class="form-item form-item--required">
                           <label for="category text-caption">카테고리</label>
-                          <filter-box type="modalCategory" class="modal-category"></filter-box>
+                          <filter-box type="modalCategory" class="modal-category" ></filter-box>
                           <p class="modal-category-error-message"></p>
                       </div>
                       <div class="form-item form-item--required">
@@ -87,7 +88,7 @@ class RestaurantAddModal extends Component {
                       </div>
                       <div class="form-item form-item--required">
                           <label for="distance text-caption">거리(도보 이동 시간)</label>
-                          <filter-box type="modalDistance" class="modal-distance"></filter-box>
+                          <filter-box type="modalDistance" class="modal-distance" ></filter-box>
                           <p class="modal-distance-error-message"></p>
                       </div>
                       <div class="form-item">

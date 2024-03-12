@@ -19,6 +19,13 @@ class RestaurantList extends Component {
     }
   }
 
+  setEvent() {
+    document.addEventListener('submitButtonClick', (event) => {
+      event.preventDefault();
+      this.#updateRestaurants(event.detail);
+    });
+  }
+
   #generateRestaurants() {
     const category = this.getAttribute('category');
     const sorting = this.getAttribute('sorting');
@@ -28,7 +35,7 @@ class RestaurantList extends Component {
 
   #updateRestaurants(restaurant) {
     RestaurantRepository.addRestaurant(restaurant);
-    this.#restaurants = this.#generateRestaurants();
+    this.#generateRestaurants();
   }
 
   template() {
