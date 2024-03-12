@@ -1,11 +1,88 @@
 {
-  "rules": {},
+  "rules": {
+    "import/extensions": ["off"],
+    "no-await-in-loop": "off",
+    "no-constant-condition": "off",
+    "max-lines-per-function": ["error", 10],
+    "max-depth": ["error", 1],
+    "no-console": "off",
+    "class-methods-use-this": "off",
+    "spaced-comment": "off",
+    "lines-between-class-members": [
+      "error",
+      "always",
+      { "exceptAfterSingleLine": true }
+    ],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "allowSeparatedGroups": true
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          ["builtin", "external"],
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "next",
+            "group": "builtin"
+          },
+          {
+            "pattern": "react",
+            "group": "builtin"
+          },
+          {
+            "pattern": "@MyDesignSystem/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "src/**",
+            "group": "internal"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["src/**", "@MyDesignSystem/**"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  },
   "env": {
-    "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": 2023,
+    "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
 }
