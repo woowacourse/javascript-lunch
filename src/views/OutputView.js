@@ -31,9 +31,8 @@ const OutputView = {
   renderAddRestaurant() {
     const modalContainer = $('.modal-container');
 
-    const newNode = AddRestaurant();
-    modalContainer.innerHTML = newNode;
-
+    modalContainer.replaceChildren();
+    modalContainer.insertAdjacentHTML('beforeend', AddRestaurant());
     this.openModal();
   },
 
