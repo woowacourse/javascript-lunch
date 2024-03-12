@@ -1,11 +1,12 @@
 import { RestaurantState } from '../../types';
 
+import { getMatchedCategoryInfo } from './matchCategoryImage';
 import generateRestaurantListItemComponent from './renderHandlers';
 
 function RestaurantListItem(restaurant: RestaurantState) {
-  const restaurantListItem = generateRestaurantListItemComponent(restaurant);
+  const categoryInfo = getMatchedCategoryInfo(restaurant);
 
-  return restaurantListItem;
+  return generateRestaurantListItemComponent(restaurant, categoryInfo);
 }
 
 export default RestaurantListItem;

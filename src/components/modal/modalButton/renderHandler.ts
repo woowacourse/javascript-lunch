@@ -1,16 +1,16 @@
-import generateContainerComponent from '../../../uiUtils/generateContainerComponent';
 import generateButtonComponent from '../../../uiUtils/generateButtonComponent';
+import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
-import MODAL_BUTTON_CONTAINER_COMPONENT_DATA from './componentsData/modalButtonContainerComponentData';
 import ADD_BUTTON_COMPONENT_DATA from './componentsData/AddButtonComponentData';
 import CANCEL_BUTTON_COMPONENT_DATA from './componentsData/CancelButtonComponentData';
+import modalButtonTemplate from './modalButtonTemplate';
 
-const renderButtonComponents = () => {
-  const buttonContainer = generateContainerComponent(MODAL_BUTTON_CONTAINER_COMPONENT_DATA);
-  buttonContainer.appendChild(generateButtonComponent(CANCEL_BUTTON_COMPONENT_DATA));
-  buttonContainer.appendChild(generateButtonComponent(ADD_BUTTON_COMPONENT_DATA));
-
-  return buttonContainer;
+export const renderBaseModalButtonComponents = (form: Element) => {
+  form.appendChild(convertHTMLStringToDOM(modalButtonTemplate));
 };
 
-export default renderButtonComponents;
+export const renderButtonComponents = () => {
+  const buttonContainer = document.getElementsByClassName('button-container')[0];
+  buttonContainer.appendChild(generateButtonComponent(CANCEL_BUTTON_COMPONENT_DATA));
+  buttonContainer.appendChild(generateButtonComponent(ADD_BUTTON_COMPONENT_DATA));
+};

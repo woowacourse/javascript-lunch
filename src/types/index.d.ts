@@ -6,8 +6,6 @@ export type Distance = 5 | 10 | 15 | 20 | 30;
 
 export type SortType = 'name' | 'distance';
 
-export type TabValue = 'favorite' | 'all';
-
 export type InvalidResult = {
   targetClassName: string;
   success: boolean;
@@ -15,21 +13,19 @@ export type InvalidResult = {
 };
 
 export interface RestaurantState {
-  id: number;
-  category: Category;
+  category: Icategory;
   name: string;
-  distance: Distance;
+  distance: Idistance;
   description?: string;
   link?: string;
-  isFavorited: boolean;
 }
 
 export interface RestaurantHelperFunction {
-  sortByName: (restaurantList: RestaurantState[]) => RestaurantState[];
+  sortByName: (restaurantList: Irestaurant[]) => Irestaurant[];
 
-  sortByDistance: (restaurantList: RestaurantState[]) => RestaurantState[];
+  sortByDistance: (restaurantList: Irestaurant[]) => Irestaurant[];
 
-  filterByCategory: (category: Category, restaurantList: RestaurantState[]) => RestaurantState[];
+  filterByCategory: (category: Icategory, restaurantList: Irestaurant[]) => Irestaurant[];
 }
 
 export interface CategoryInfo {

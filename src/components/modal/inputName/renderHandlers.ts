@@ -1,18 +1,18 @@
 import generateInputComponent from '../../../uiUtils/generateInputComponent';
 import generateLabelComponent from '../../../uiUtils/generateLabelComponent';
+import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
 import NAME_INPUT_COMPONENT_DATA from './componentsData/NameInputComponentData';
 import NAME_LABEL_COMPONENT_DATA from './componentsData/NameLabelComponentData';
-import INPUT_NAME_CONTAINER_COMPONENT_DATA from './componentsData/inputNameContainerComponentData';
-import generateContainerComponent from '../../../uiUtils/generateContainerComponent';
+import inputNameTemplate from './inputNameTemplate';
 
-const renderInputComponents = () => {
-  const inputNameContainer = generateContainerComponent(INPUT_NAME_CONTAINER_COMPONENT_DATA);
-
-  inputNameContainer.appendChild(generateLabelComponent(NAME_LABEL_COMPONENT_DATA));
-  inputNameContainer.appendChild(generateInputComponent(NAME_INPUT_COMPONENT_DATA));
-
-  return inputNameContainer;
+export const renderBaseComponents = (form: Element) => {
+  form.appendChild(convertHTMLStringToDOM(inputNameTemplate));
 };
 
-export default renderInputComponents;
+export const renderInputComponents = () => {
+  const nameContainer = document.getElementsByClassName('name-container')[0];
+
+  nameContainer.appendChild(generateLabelComponent(NAME_LABEL_COMPONENT_DATA));
+  nameContainer.appendChild(generateInputComponent(NAME_INPUT_COMPONENT_DATA));
+};

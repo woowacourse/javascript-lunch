@@ -1,9 +1,11 @@
-import renderDescriptionComponent from './renderHandlers';
+import inputDescriptionHandler from './eventHandlers';
+import { renderBaseDescriptionComponent, renderDescriptionComponent } from './renderHandlers';
 
-function InputDescription() {
-  const inputDescription = renderDescriptionComponent();
+function InputDescription(form: Element) {
+  renderBaseDescriptionComponent(form);
+  renderDescriptionComponent();
 
-  return inputDescription;
+  inputDescriptionHandler();
 }
 
 export default InputDescription;

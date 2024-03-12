@@ -12,9 +12,12 @@ const inputNameEventHandler = (input: HTMLElement) => {
 };
 
 const inputNameHandler = () => {
-  const input = document.getElementById('name');
-  if (input) {
-    inputNameEventHandler(input);
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('name');
+
+    if (input) {
+      inputNameEventHandler(input);
+    }
+  });
 };
 export default inputNameHandler;

@@ -53,10 +53,7 @@ const validate = {
 
   checkDuplicate(name?: string) {
     const restaurantList = RestaurantListStorageService.getData();
-    if (restaurantList) {
-      return restaurantList.find((restaurant: RestaurantState) => restaurant.name === name);
-    }
-    return [];
+    return restaurantList.find((restaurant: RestaurantState) => restaurant.name === name);
   },
 
   validateDistance(distance?: number) {

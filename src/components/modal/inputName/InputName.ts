@@ -1,9 +1,11 @@
-import renderInputComponents from './renderHandlers';
+import inputNameHandler from './eventHandlers';
+import { renderBaseComponents, renderInputComponents } from './renderHandlers';
 
-function InputName() {
-  const inputNameComponent = renderInputComponents();
+function InputName(form: Element) {
+  renderBaseComponents(form);
+  renderInputComponents();
 
-  return inputNameComponent;
+  inputNameHandler();
 }
 
 export default InputName;

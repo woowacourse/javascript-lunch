@@ -13,11 +13,13 @@ const selectEventHandler = (select: HTMLElement) => {
 };
 
 const categoryChange = () => {
-  const select = document.getElementById('category');
+  document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('category');
 
-  if (select) {
-    selectEventHandler(select);
-  }
+    if (select) {
+      selectEventHandler(select);
+    }
+  });
 };
 
 export default categoryChange;

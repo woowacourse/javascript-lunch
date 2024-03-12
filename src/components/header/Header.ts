@@ -1,8 +1,10 @@
+import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
+
 import modalOpenHandler from './eventHandlers';
-import renderHeaderComponent from './renderHandlers';
+import headerTemplate from './headerTemplate';
 
 function Header() {
-  renderHeaderComponent();
+  document.body.appendChild(convertHTMLStringToDOM(headerTemplate));
 
   modalOpenHandler();
 }

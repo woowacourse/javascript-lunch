@@ -30,20 +30,14 @@ export type OptionElementPropsType = {
 };
 
 export type ButtonComponentProps = {
-  type: 'button' | 'submit' | 'reset';
+  type?: 'button' | 'submit' | 'reset';
   className: string;
   text: string;
-  id: string;
-  value: string;
-  role: string;
 };
 
 export interface ButtonElementDataType extends BasicElementDataType {
   TAG_TEXT: string;
-  TAG_TYPE: 'submit' | 'button' | 'reset';
-  TAG_ID: string;
-  TAG_VALUE: string;
-  TAG_ROLE: string;
+  TAG_TYPE?: 'submit' | 'button' | 'reset';
 }
 
 export type LabelComponentPropsType = {
@@ -143,49 +137,3 @@ export type PComponentPropsType = {
 export interface PElementDataType extends BasicElementDataType {
   TAG_TEXT_CONTENT: string;
 }
-
-export type HeaderComponentPropsType = {
-  className: string;
-};
-
-export interface HeaderElementDataType extends BasicElementDataType {}
-
-export type FormComponentPropsType = {
-  id: string;
-  className: string;
-};
-
-export interface FormElementDataType extends BasicElementDataType {
-  TAG_ID: string;
-}
-
-export type ATagComponentPropsType = {
-  href: string;
-  _blank: boolean;
-  className: string;
-  textContent: string;
-};
-
-export interface ATagElementDataType extends BasicElementDataType {
-  TAG_HREF: string;
-  TAG_BLANK: boolean;
-  TAG_TEXT_CONTENT: string;
-}
-
-export type SectionComponentPropsType = {
-  className: string;
-};
-
-export interface SectionElementDataType extends BasicElementDataType {}
-
-export type MainComponentPropsType = {
-  className: string;
-};
-
-export interface MainElementDataType extends BasicElementDataType {}
-
-export type UlTagComponentPropsType = {
-  className: string;
-};
-
-export interface UlTagElementDataType extends BasicElementDataType {}
