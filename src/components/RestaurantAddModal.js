@@ -1,17 +1,10 @@
 import Component from './Component';
-import { OPTION } from '../constants/conditions';
 import { ERROR } from '../constants/messages';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 
 class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];
-
-  constructor() {
-    super();
-    this.onSubmitHandler = (event) => this.#onSubmit(event);
-    this.onCancelHandler = () => this.#onCancel();
-  }
 
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
@@ -20,13 +13,13 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    $addEvent('.button--primary', 'click', this.onSubmitHandler);
-    $addEvent('.button--secondary', 'click', this.onCancelHandler);
+    $addEvent('.button--primary', 'click', this.#handleOnAdd.bind(this));
+    $addEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
   }
 
   removeEvent() {
-    $removeEvent('.button--primary', 'click', this.onSubmitHandler);
-    $removeEvent('.button--secondary', 'click', this.onCancelHandler);
+    $removeEvent('.button--primary', 'click', this.#handleOnAdd.bind(this));
+    $removeEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
   }
 
   #updateModal(isOpen) {
@@ -37,9 +30,7 @@ class RestaurantAddModal extends Component {
     }
   }
 
-  #onSubmit(event) {
-    event.preventDefault();
-
+  #handleOnAdd() {
     if (this.#handleEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
       return;
     }
@@ -51,11 +42,10 @@ class RestaurantAddModal extends Component {
       description: $('.modal-description').value,
       reference: $('.modal-reference').value,
     };
-
     this.makeCustomEvent('submitButtonClick', formData);
   }
 
-  #onCancel() {
+  #handleOnCancel() {
     this.makeCustomEvent('cancelButtonClick');
   }
 
