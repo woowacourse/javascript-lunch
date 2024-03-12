@@ -9,26 +9,6 @@
   position: relative;
 }
 
-.restaurant__category {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  height: 64px;
-  min-width: 64px;
-  min-height: 64px;
-
-  margin-right: 16px;
-
-  border-radius: 50%;
-  background: var(--lighten-color);
-}
-
-.categoryIcon {
-  width: 36px;
-  height: 36px;
-}
-
 .restaurant__info {
   display: flex;
   flex-direction: column;

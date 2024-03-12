@@ -38,11 +38,8 @@ class RestaurantItem extends HTMLLIElement {
   render() {
     this.className = `restaurant ${style.restaurant}`;
     this.innerHTML = `
-    <div class="restaurant__category ${style.restaurant__category}" >
-    <img src=${Icons[this.#category]} alt=${this.#category} class="category-icon ${
-      style.categoryIcon
-    }" />
-    </div>
+
+    <div is="restaurant-category-icon" category=${this.#category}> </div>
     <div class="restaurant__info ${style.restaurant__info}">
     <h3 class="restaurant__name text-subtitle ${style.restaurant__name}">${this.#name}</h3>
     <span class="restaurant__distance text-body  ${style.restaurant__distance}">캠퍼스부터 ${
@@ -52,6 +49,7 @@ class RestaurantItem extends HTMLLIElement {
     ${this.#description ?? ''}
     </p>
     <img is="favorite-icon" style="width:25px; position:absolute; right:10px; top:10px;" />
+
     </div>
    `;
   }
