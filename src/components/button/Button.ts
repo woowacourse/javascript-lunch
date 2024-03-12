@@ -4,47 +4,40 @@ import type RestaurantList from '@/domain/RestaurantList';
 import type { FormElements, IButtonAttributes } from '@/types/dom';
 import dom from '@/utils/dom';
 import formValidator from '@/validator/formValidator';
+import Component from '../core/Component';
 
 interface IButtonProps {
-  $target: HTMLElement;
   attributes: IButtonAttributes;
   kind: 'close' | 'add';
   restaurantList?: RestaurantList;
   handleCloseModal: () => void;
 }
 
-class Button {
-  $target;
-  attributes;
-  kind;
-  restaurantList;
-  handleCloseModal;
+interface IButton {
+  $target: HTMLElement;
+  props: IButtonProps;
+}
 
-  constructor({ $target, attributes, kind, restaurantList, handleCloseModal }: IButtonProps) {
-    this.$target = $target;
-    this.attributes = attributes;
-    this.kind = kind;
-    this.restaurantList = restaurantList;
-    this.handleCloseModal = handleCloseModal;
-    this.render();
-    this.setEvent();
+class Button extends Component<IButtonProps> {
+  constructor({ $target, props }: IButton) {
+    super({ $target, props });
   }
 
   setEvent(): void {
-    if (this.kind === 'add') {
+    if (this.props.kind === 'add') {
       dom.getElement('form').addEventListener('submit', e => {
         e.preventDefault();
         const $form = e.target as HTMLFormElement;
         this.handleAddRestaurant($form);
       });
-    } else if (this.kind === 'close') {
-      this.$target.addEventListener('click', this.handleCloseModal.bind(this));
+    } else if (this.props.kind === 'close') {
+      this.$target.addEventListener('click', this.props.handleCloseModal.bind(this));
     }
   }
 
   render(): void {
-    const { name, id, classNames, type, text } = this.attributes;
-    const buttonTag = dom.createButtonTag({ name, id, classNames, type, text });
+    const { id, classNames, type, text } = this.props.attributes;
+    const buttonTag = dom.createButtonTag({ id, classNames, type, text });
     this.$target.appendChild(buttonTag);
     this.$target = buttonTag;
   }
@@ -52,10 +45,10 @@ class Button {
   handleAddRestaurant($form: HTMLFormElement): void {
     const restaurantInformation = this.getRestaurantFormData($form);
     if (restaurantInformation === undefined) return;
-    if (this.restaurantList == null) return;
-    this.restaurantList.add(restaurantInformation);
+    if (this.props.restaurantList == null) return;
+    this.props.restaurantList.add(restaurantInformation);
     this.dispatchSelectEvent();
-    this.handleCloseModal();
+    this.props.handleCloseModal();
   }
 
   getRestaurantFormData($restaurantForm: HTMLFormElement): Restaurant | undefined {

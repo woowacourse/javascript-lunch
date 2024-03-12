@@ -75,18 +75,22 @@ const createModalFormButton = (restaurantList: RestaurantList): void => {
   const $buttonContainer = dom.getElement('.button-container');
 
   new Button({
-    kind: 'close',
     $target: $buttonContainer,
-    attributes: CLOSE_BUTTON_ATTRIBUTE,
-    handleCloseModal,
+    props: {
+      kind: 'close',
+      attributes: CLOSE_BUTTON_ATTRIBUTE,
+      handleCloseModal,
+    },
   });
 
   new Button({
-    kind: 'add',
     $target: $buttonContainer,
-    attributes: ADD_BUTTON_ATTRIBUTE,
-    restaurantList,
-    handleCloseModal,
+    props: {
+      kind: 'add',
+      attributes: ADD_BUTTON_ATTRIBUTE,
+      restaurantList,
+      handleCloseModal,
+    },
   });
 };
 
