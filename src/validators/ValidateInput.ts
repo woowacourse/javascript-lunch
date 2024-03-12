@@ -1,4 +1,3 @@
-import ValidateConditions from './ValidateConditions';
 import { ERROR_MESSAGES } from '../constants/messages';
 
 interface ValidationInput {
@@ -8,12 +7,11 @@ interface ValidationInput {
 
 export function validateRestaurantsName(value: ValidationInput) {
   const { restaurantNames, name } = value;
-  if (ValidateConditions.isIncluded(restaurantNames, name))
-    throw new Error(ERROR_MESSAGES.duplicateName);
+  if (restaurantNames.includes(name)) throw new Error(ERROR_MESSAGES.duplicateName);
 }
 
 export function validateRequiredValue(id: string, value: string) {
-  if (ValidateConditions.isBlank(value)) {
+  if (value === '') {
     throw new Error(ERROR_MESSAGES.requireValue(id));
   }
 }

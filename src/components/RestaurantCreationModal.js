@@ -4,7 +4,7 @@ import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
 import { closeModal } from '../utils/modalHandler';
 
-import { validateRequiredValue, validateRestaurantsName } from '../validators';
+import { validateRequiredValue, validateRestaurantsName } from '../validators/ValidateInput';
 import { FIELD_IDS } from '../constants/rules';
 
 class RestaurantCreationModal {
