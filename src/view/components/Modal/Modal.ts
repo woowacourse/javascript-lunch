@@ -41,6 +41,10 @@ class Modal {
     this.element.classList.add("modal--open");
   }
 
+  replaceContents(children: HTMLElement[]) {
+    this.#container.replaceChildren(...children);
+  }
+
   #setDefaultEvent() {
     this.element.addEventListener("keydown", (event) => {
       if (event.key === "esc") this.close();
