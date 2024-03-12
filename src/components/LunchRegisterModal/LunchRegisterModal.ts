@@ -80,7 +80,7 @@ class LunchRegisterModal extends HTMLElement {
     dropdowns.forEach((dropdown) => {
       const select = dropdown.querySelector('select');
       if (select) {
-        select.options[0].selected = true;
+        select.selectedIndex = 0;
       }
     });
     this.handleRenderItems();
