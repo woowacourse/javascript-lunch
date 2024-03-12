@@ -8,6 +8,7 @@ import '@/components/NewRestaurantModal/NewRestaurantModal';
 import '@/components/BasicButton/BasicButton';
 import '@/components/CategoryIconBox/CategoryIconBox';
 import '@/components/TabMenu/TabMenu';
+import '@/components/FavoriteButton/FavoriteButton';
 
 import '@/css/index.css';
 
@@ -21,3 +22,4 @@ import '@/components/NewRestaurantModal/NewRestaurantModal.css';
 import '@/components/BasicButton/BasicButton.css';
 import '@/components/CategoryIconBox/CategoryIconBox.css';
 import '@/components/TabMenu/TabMenu.css';
+import '@/components/FavoriteButton/FavoriteButton.css';

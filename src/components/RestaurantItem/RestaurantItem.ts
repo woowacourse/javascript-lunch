@@ -1,34 +1,22 @@
 import BaseComponent from '../BaseComponent';
-import koreanIcon from '@/assets/category-korean.png';
-import asianIcon from '@/assets/category-asian.png';
-import japaneseIcon from '@/assets/category-japanese.png';
-import chineseIcon from '@/assets/category-chinese.png';
-import westernIcon from '@/assets/category-western.png';
-import etcIcon from '@/assets/category-etc.png';
 import { IRestaurant } from '@/types/Restaurant';
 import CategoryIconBox from '../CategoryIconBox/CategoryIconBox';
-
-export const Icons = {
-  한식: koreanIcon,
-  아시안: asianIcon,
-  일식: japaneseIcon,
-  중식: chineseIcon,
-  양식: westernIcon,
-  기타: etcIcon,
-};
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 
 class RestaurantItem extends BaseComponent {
   #category;
   #distance;
   #description;
   #name;
+  #isFavorite;
 
-  constructor({ category, name, distance, description }: IRestaurant) {
+  constructor({ category, name, distance, description, isFavorite }: IRestaurant) {
     super();
     this.#category = category;
     this.#name = name;
     this.#distance = distance;
     this.#description = description;
+    this.#isFavorite = isFavorite;
   }
 
   render() {
@@ -39,9 +27,13 @@ class RestaurantItem extends BaseComponent {
     $liElement.append($categoryItemBox);
 
     const $restaurantInfoBox = this.#makeInfoBox();
+
+    //infoBox를 main과 body로 분리
     $restaurantInfoBox.append(this.#makeTitle());
     $restaurantInfoBox.append(this.#makeDistance());
     $restaurantInfoBox.append(this.#makeDescription());
+
+    $restaurantInfoBox.append(new FavoriteButton(this.#isFavorite));
 
     $liElement.append($restaurantInfoBox);
     this.append($liElement);
