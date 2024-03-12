@@ -3,13 +3,12 @@ import { $, $$ } from './DOM';
 
 export const hideErrorMessage = () => {
   const $errors = $$('.error');
-  if (!$errors.length) return console.error(ErrorMessage.NULL_SELECTOR);
-  $errors.forEach((el) => {
+  $errors?.forEach((el) => {
     el.classList.add('hidden');
   });
 };
 
-export const closeModal = (modal: HTMLElement) => {
+export const closeModal = (modal: HTMLElement | Element) => {
   hideErrorMessage();
   modal.classList.remove('modal--open');
   blockModalBodyScroll();

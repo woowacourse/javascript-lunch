@@ -12,17 +12,19 @@ class Header extends BaseComponent {
       return console.error(ErrorMessage.NULL_SELECTOR($gnbButton));
     }
     $gnbButton.addEventListener('click', () => {
-      document.querySelector('.modal')?.classList.add('modal--open');
+      const $modal = $('.modal');
+      if (!$modal) return console.error(ErrorMessage.NULL_SELECTOR);
+      $modal.classList.add('modal--open');
       blockModalBodyScroll();
     });
   }
 
   setEvent() {
-    const $gnbTitle = document.querySelector('.gnb__title');
+    const $gnbTitle = $('.gnb__title');
     if (!$gnbTitle) {
       return console.error(ErrorMessage.NULL_SELECTOR($gnbTitle));
     }
-    document.querySelector('.gnb__title')?.addEventListener('click', () => {
+    $gnbTitle.addEventListener('click', () => {
       location.reload();
     });
   }
