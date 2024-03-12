@@ -15,7 +15,7 @@ class RestaurantDescription extends HTMLElement {
     if (store) {
       const $p = document.createElement('p');
 
-      $p.className = 'restaurant__info__explanation';
+      $p.className = 'restaurant__info__description';
       $p.innerHTML = `${store.description ? store.description : noneDescription}`;
 
       this.appendChild($p);
