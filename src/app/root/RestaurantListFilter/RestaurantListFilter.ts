@@ -1,5 +1,5 @@
 import { Category, SortOrder } from '../../../enum/enums';
-import { createOptionItems } from '../../../util/createFormElement';
+import { createOptionItems } from '../../../util/createOptionItems';
 import { $ } from '../../../util/domSelector';
 
 class RestaurantListFilter extends HTMLElement {
@@ -14,23 +14,19 @@ class RestaurantListFilter extends HTMLElement {
   }
 
   private dispatchChangeCategoryEvent(event: Event) {
-    if (event.target instanceof HTMLSelectElement) {
-      this.dispatchEvent(
-        new CustomEvent('changeCategory', {
-          detail: event.target.value,
-        }),
-      );
-    }
+    this.dispatchEvent(
+      new CustomEvent('changeCategory', {
+        detail: (event.target as HTMLSelectElement).value,
+      }),
+    );
   }
 
   private dispatchChangeSortOrder(event: Event) {
-    if (event.target instanceof HTMLSelectElement) {
-      this.dispatchEvent(
-        new CustomEvent('changeSortOrder', {
-          detail: event.target.value,
-        }),
-      );
-    }
+    this.dispatchEvent(
+      new CustomEvent('changeSortOrder', {
+        detail: (event.target as HTMLSelectElement).value,
+      }),
+    );
   }
 
   private createFilterSelectBox(type: string): HTMLSelectElement {
