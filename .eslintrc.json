@@ -1,11 +1,19 @@
 {
-  "rules": {},
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off"
+  },
   "env": {
+    "browser": true,
     "es6": true,
     "node": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "project": "./tsconfig.json"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "extends": ["airbnb-typescript", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["prettier"]
 }
