@@ -15,6 +15,6 @@ import './images/category-asian.png';
 import './images/category-western.png';
 import './images/add-button.png';
 
-import { set } from './web/control';
+import { set } from './controller/control';
 
 set.start();

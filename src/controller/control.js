@@ -1,10 +1,11 @@
 import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
 import createRestaurantCard from '../component/restaurantCard';
+import renderRestaurantList from '../component/restaurantList.js';
 import {
   KOREAN_CATEGORY,
   categoryFilterList,
-  sortingFilterLsit,
+  sortingFilterList,
 } from '../constant/cons';
 import { RestaurantManager } from '../domain/RestaurantManager';
 
@@ -23,7 +24,8 @@ export const set = {
         className: 'gnb',
         left: 'logo',
         right: 'add',
-        restaurantManager,
+        addRestaurant: (restaurant) => restaurantManager.add(restaurant),
+        getRestaurants: () => restaurantManager.getRestaurants(),
       })
     );
 
@@ -33,18 +35,18 @@ export const set = {
 
     restaurantFilterContainer.appendChild(
       createDropDown({
-        name: 'categoty',
+        name: 'category',
         id: 'category-filter',
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
-          if (category === '전체'){
-            restaurantManager.udateFilterRestaurants();
+          if (category === '전체') {
+            // restaurantManager.updateFilterRestaurants();
             return this.updateRestaurantList(
               restaurantManager.getRestaurants()
             );
           }
-            
+
           this.updateRestaurantList(
             restaurantManager.filteredRestaurants(category)
           );
@@ -57,7 +59,7 @@ export const set = {
         name: 'sorting',
         id: 'sorting-filter',
         className: 'restaurant-filter',
-        options: sortingFilterLsit,
+        options: sortingFilterList,
         callback: (category) => {
           if (category === '이름순')
             this.updateRestaurantList(restaurantManager.sortByAscendingName());
@@ -69,26 +71,6 @@ export const set = {
       })
     );
 
-    this.updateRestaurantList(restaurantManager.sortByAscendingName());
-  },
-
-  updateRestaurantList(restaurants) {
-    const restaurantListContainer = document.querySelector(
-      '.restaurant-list-container'
-    );
-    restaurantListContainer.replaceChildren();
-    const restaurantList = document.createElement('ul');
-    restaurantList.className = 'restaurant-list';
-
-    restaurants.map((restaurant) => {
-      const listItem = document.createElement('li');
-      listItem.className = 'restaurant';
-
-      const categoryDiv = createRestaurantCard(restaurant);
-      listItem.append(categoryDiv);
-      restaurantList.append(listItem);
-    });
-
-    restaurantListContainer.appendChild(restaurantList);
+    renderRestaurantList(restaurantManager.sortByAscendingName());
   },
 };
