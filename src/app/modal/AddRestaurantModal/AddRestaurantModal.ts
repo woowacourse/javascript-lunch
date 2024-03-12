@@ -16,17 +16,10 @@ class AddRestaurantModal extends HTMLElement {
 
     if (addResultForm) {
       addResultForm.addEventListener('submit', (event: Event) => {
-        try {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
-          const restaurantInputData = Object.fromEntries(formData.entries());
-          RestaurantValidator.validateUserInput(restaurantInputData);
-          this.submitNewRestaurantData(restaurantInputData);
-        } catch (error) {
-          if (error instanceof Error) {
-            alert(error.message);
-          }
-        }
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
+        const restaurantInputData = Object.fromEntries(formData.entries());
+        this.submitNewRestaurantData(restaurantInputData);
       });
     }
   }
@@ -112,7 +105,7 @@ class AddRestaurantModal extends HTMLElement {
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
               <label for="restaurant-name text-caption">이름</label>
-              <input type="text" name="name" id="restaurant-name" required />
+              <input type="text" name="name" id="restaurant-name" placeholder="1~20글자 사이로 입력해주세요. 공백만 입력할 수 없습니다." pattern="^\S.*$" minlength="1" maxlength="20" required />
             </div>
 
             ${this.showCategorySelectbox()}
