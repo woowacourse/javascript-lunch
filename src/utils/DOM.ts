@@ -11,6 +11,7 @@ const DOM = {
       return document.querySelector(selector);
     } catch (error) {
       alert(error);
+      return;
     }
   },
   $$: (selector: string) => {

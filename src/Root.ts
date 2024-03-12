@@ -54,50 +54,22 @@ const root = {
       });
 
       const newRestaurant: RestaurantType = {
-        category: this.validateCategoryValue(fieldValues[0]) as CategoryType,
-        name: this.validateNameValue(fieldValues[1]) as string,
-        distance: this.validateDistanceValue(Number(fieldValues[2])) as number,
+        category: fieldValues[0] as CategoryType,
+        name: fieldValues[1],
+        distance: Number(fieldValues[2]),
         introduction: fieldValues[3],
         link: fieldValues[4],
       };
 
-      matzip.add(newRestaurant);
-      storage.addData(newRestaurant);
-      $('.modal')?.classList.remove('modal--open');
-      $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
+      try {
+        matzip.add(newRestaurant);
+        storage.addData(newRestaurant);
+        $('.modal')?.classList.remove('modal--open');
+        $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
+      } catch (error) {
+        alert(error);
+      }
     });
-  },
-
-  validateCategoryValue(value: string) {
-    try {
-      CategoryValidator.empty(value);
-      CategoryValidator.exist(value);
-      return value;
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-      return;
-    }
-  },
-
-  validateNameValue(value: string) {
-    try {
-      NameValidator.empty(value);
-      return value;
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-      return;
-    }
-  },
-
-  validateDistanceValue(value: number) {
-    try {
-      DistanceValidator.empty(value);
-      DistanceValidator.exist(value);
-      return value;
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-      return;
-    }
   },
 };
 
