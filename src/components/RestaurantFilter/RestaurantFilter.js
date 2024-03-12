@@ -4,9 +4,11 @@ import { $ } from '../../utils/dom';
 import { RULES, SELECT_FILTER_DATA } from '../../constants/rules';
 
 export default class RestaurantFilter {
+  #restaurants;
+
   constructor(restaurants) {
-    this.restaurants = restaurants;
-    this.handleSelectChange();
+    this.#restaurants = restaurants;
+    this.#addEvents();
   }
 
   render() {
@@ -16,20 +18,24 @@ export default class RestaurantFilter {
     );
   }
 
-  handleSelectChange() {
-    $('restaurant-filter-container').addEventListener('change', ({ target }) => {
-      if (RULES.selectIds.some((id) => target.id === id)) {
-        const selectedValue = target.options[target.selectedIndex].value;
-        this.restaurants.standard = { id: target.id, standard: selectedValue };
-      }
-
-      this.reRenderRestaurantList();
-    });
+  #addEvents() {
+    $('restaurant-filter-container').addEventListener('change', (event) =>
+      this.#handleSelectChange(event.target),
+    );
   }
 
-  reRenderRestaurantList() {
+  #handleSelectChange(target) {
+    if (RULES.selectIds.some((id) => target.id === id)) {
+      const selectedValue = target.options[target.selectedIndex].value;
+      this.#restaurants.standard = { id: target.id, standard: selectedValue };
+    }
+
+    this.#reRenderRestaurantList();
+  }
+
+  #reRenderRestaurantList() {
     $('restaurant-list').innerHTML = '';
-    this.restaurants.standardList.forEach((restaurantData) => {
+    this.#restaurants.standardList.forEach((restaurantData) => {
       $('restaurant-list').innerHTML += Restaurant(restaurantData);
     });
   }

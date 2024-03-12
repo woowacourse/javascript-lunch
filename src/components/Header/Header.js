@@ -3,7 +3,7 @@ import ICON from '../../icons';
 
 export default class Header {
   constructor() {
-    this.handleButtonClick();
+    this.#addEvents();
   }
 
   render() {
@@ -15,11 +15,15 @@ export default class Header {
     `;
   }
 
-  handleButtonClick() {
-    $('header').addEventListener('click', ({ target }) => {
-      if (target.closest('#gnb__button')) {
-        $('add-restaurant-modal').classList.add('modal--open');
-      }
+  #addEvents() {
+    $('header').addEventListener('click', (event) => {
+      this.#handleButtonClick(event.target);
     });
+  }
+
+  #handleButtonClick(target) {
+    if (target.closest('#gnb__button')) {
+      $('add-restaurant-modal').classList.add('modal--open');
+    }
   }
 }
