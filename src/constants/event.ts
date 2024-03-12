@@ -4,7 +4,7 @@ export const FILTER_EVENT = {
 } as const;
 
 export const MODAL_EVENT = {
-  restaurantFormModalAction: "restaurant-form-modal-action",
+  restaurantFormModalAction: "restaurantFormModalAction",
 } as const;
 
 export const MODAL_EVENT_ACTION = {
@@ -14,4 +14,11 @@ export const MODAL_EVENT_ACTION = {
 
 export const RESTAURANT_EVENT = {
   restaurantFormSubmit: "restaurantFormSubmit",
+} as const;
+
+export const TAB_SWITCH_EVENT = "tabChange" as const;
+
+export const TAB_SWITCH_EVENT_SWITCH_TO = {
+  all: "all",
+  favorite: "favorite",
 } as const;

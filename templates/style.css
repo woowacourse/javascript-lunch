@@ -311,3 +311,25 @@ input[name="link"] {
 
   color: var(--grey-300);
 }
+
+/* step2 css */
+.tab-bar {
+  display: flex;
+  padding: 0 16px;
+}
+
+.tab-bar-item {
+  width: 50%;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--grey-300);
+  border-bottom: 2.2px solid #d0d5dd;
+  padding: 25px 0 12px 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.tab-bar-item.active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}

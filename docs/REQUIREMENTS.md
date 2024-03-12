@@ -51,9 +51,9 @@
 
 #### 추가
 
-- [ ] PageTabBar (페이지 전환 탭)
-  - [ ] 현재 선택된 페이지 항목을 주황색으로 표시
-  - [ ] 페이지 전환 시 식당 리스트 변경(즐겨찾기만 리스팅) -> RestaurantList에 Event(탭 전환) 발신
+- [x] TabBar (페이지 전환 탭)
+  - [x] 현재 선택된 페이지 항목을 주황색으로 표시
+  - [x] 페이지 전환 시 식당 리스트 변경(즐겨찾기만 리스팅) -> RestaurantList에 Event(탭 전환) 발신
 - [ ] RestaurantDetail (식당 상세 정보)
   - [ ] RestaurantItem 클릭 시 해당 식당의 상세 정보를 모달로 표시
   - [ ] RestaurantItem으로부터 Event(상세 조회) 수신
