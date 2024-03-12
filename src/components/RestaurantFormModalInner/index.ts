@@ -4,6 +4,7 @@ import { DROP_BOX_MAP } from '../../constants';
 import { Restaurant, RestaurantList } from '../../domains';
 import FilteringController from '../../services/FilteringController';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
+import { closeModal } from '../../utils';
 
 class RestaurantFormModalInner extends HTMLElement {
   #newInfo: RestaurantInfo | undefined;
@@ -181,19 +182,8 @@ class RestaurantFormModalInner extends HTMLElement {
     }
   }
 
-  #closeModal() {
-    const modalEl = document
-      .querySelector('custom-modal')
-      ?.shadowRoot?.querySelector('.modal');
-
-    modalEl?.classList.toggle('open');
-
-    const bodyEl = document.querySelector('body');
-    if (bodyEl) bodyEl.style.overflowY = 'scroll';
-  }
-
   #handleResetForm() {
-    this.#closeModal();
+    closeModal();
   }
 
   #handleSubmitFormToAddStore(event: Event) {
@@ -203,6 +193,7 @@ class RestaurantFormModalInner extends HTMLElement {
     if (this.#newInfo) {
       this.#addToRestaurantList(this.#newInfo);
       this.querySelector('form')?.reset();
+      closeModal();
       FilteringController.showFilteredSortedList();
     }
   }
