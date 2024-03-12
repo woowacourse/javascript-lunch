@@ -1,4 +1,26 @@
 import initialData from '../data/initialData.json';
+import { DEFAULT, STORAGE_KEY } from '../constants/rules';
+
+type Category = '전체' | '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+type Sorting = 'distance' | 'name';
+type Minutes = 5 | 10 | 15 | 20 | 30;
+
+interface Restaurant {
+  category: Category;
+  name: string;
+  walkingTimeFromCampus: Minutes;
+  description?: string;
+  referenceLink?: string;
+}
+
+interface RestaurantsInterface {
+  initStorage(): void;
+  filterByCategory(category: Category): Restaurant[];
+  addRestaurant(restaurant: Restaurant): void;
+  orderByDistance(restaurants: Restaurant[]): Restaurant[];
+  orderByName(restaurants: Restaurant[]): Restaurant[];
+  sortByStandard(restaurants: Restaurant[], sorting: Sorting): Restaurant[];
+}
 
 class Restaurants implements RestaurantsInterface {
   private storage;
@@ -9,10 +31,10 @@ class Restaurants implements RestaurantsInterface {
   }
 
   initStorage() {
-    if (!this.storage.getItem('restaurants')) {
-      this.storage.setItem('restaurants', JSON.stringify(initialData));
-      this.storage.setItem('sorting-filter', 'name');
-      this.storage.setItem('category-filter', '전체');
+    if (!this.storage.getItem(STORAGE_KEY.restaurantData)) {
+      this.storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(initialData));
+      this.storage.setItem(STORAGE_KEY.sortingFilter, DEFAULT.sortingFilter);
+      this.storage.setItem(STORAGE_KEY.categoryFilter, DEFAULT.categoryFilter);
     }
   }
 
@@ -21,11 +43,14 @@ class Restaurants implements RestaurantsInterface {
   }
 
   addRestaurant(restaurant: Restaurant) {
-    this.storage.setItem('restaurants', JSON.stringify([restaurant, ...this.storageData]));
+    this.storage.setItem(
+      STORAGE_KEY.restaurantData,
+      JSON.stringify([restaurant, ...this.storageData]),
+    );
   }
 
   orderByDistance(restaurants: Restaurant[]) {
-    return restaurants.toSorted((prev: Restaurant, next: Restaurant) => {
+    return restaurants.toSorted((prev, next) => {
       const compareWalkingTime = prev.walkingTimeFromCampus - next.walkingTimeFromCampus;
       return compareWalkingTime || prev.name.localeCompare(next.name);
     });
@@ -37,23 +62,24 @@ class Restaurants implements RestaurantsInterface {
     );
   }
 
-  sortByStandard(restaurants: Restaurant[], sorting: string) {
+  sortByStandard(restaurants: Restaurant[], sorting: Sorting) {
     if (sorting && sorting === 'distance') return this.orderByDistance(restaurants);
     if (sorting && sorting === 'name') return this.orderByName(restaurants);
 
     return this.storageData;
   }
 
-  get storageData() {
-    return JSON.parse(this.storage.getItem('restaurants') || '{}');
+  get storageData(): Restaurant[] {
+    return JSON.parse(this.storage.getItem(STORAGE_KEY.restaurantData) || '[]');
   }
 
   get standardList() {
-    const sorting: string | null = this.storage.getItem('sorting-filter') || '이름순';
-    const category: Category | null = this.storage.getItem('category-filter') as Category;
-
-    const restaurants: Restaurant[] =
-      category === '전체' ? this.storageData : this.filterByCategory(category);
+    const sorting =
+      (this.storage.getItem(STORAGE_KEY.sortingFilter) as Sorting) ?? DEFAULT.sortingFilter;
+    const category =
+      (this.storage.getItem(STORAGE_KEY.categoryFilter) as Category) ?? DEFAULT.sortingFilter;
+    const restaurants =
+      category === DEFAULT.categoryFilter ? this.storageData : this.filterByCategory(category);
 
     return this.sortByStandard(restaurants, sorting);
   }

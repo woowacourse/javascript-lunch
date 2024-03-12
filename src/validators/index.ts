@@ -1,5 +1,5 @@
 import ValidateConditions from './ValidateConditions';
-import { ERROR_MESSAGES } from '../constants/messages';
+import { ERROR_MESSAGES, RequiredIdType } from '../constants/messages';
 
 interface ValidationInput {
   restaurantNames: string[];
@@ -12,7 +12,7 @@ export function validateRestaurantsName(value: ValidationInput) {
     throw new Error(ERROR_MESSAGES.duplicateName);
 }
 
-export function validateRequiredValue(id: string, value: string) {
+export function validateRequiredValue(id: RequiredIdType, value: string) {
   if (ValidateConditions.isBlank(value)) {
     throw new Error(ERROR_MESSAGES.requireValue(id));
   }
