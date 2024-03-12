@@ -1,14 +1,20 @@
 import { APP_NAME } from '../constant/cons.js';
 import { $ } from '../utils/selector.js';
-import createNewRestaurantModal from '../web/modal/addRestaurantModal.js';
+import createNewRestaurantModal from './modal/addRestaurantModal.js';
 import modal from './modal.js';
 
-function createHeader({ className, left, right, restaurantManager }) {
+function createHeader({
+  className,
+  left,
+  right,
+  addRestaurant,
+  getRestaurants,
+}) {
   const header = document.createElement('header');
   header.className = className;
 
   const leftElement = item[left]();
-  const rightElement = item[right](restaurantManager);
+  const rightElement = item[right](addRestaurant, getRestaurants);
 
   header.append(leftElement, rightElement);
   return header;
@@ -23,7 +29,7 @@ const item = {
     return h1;
   },
 
-  add(restaurantManager) {
+  add(addRestaurant, getRestaurants) {
     const button = document.createElement('button');
 
     button.type = 'button';
@@ -36,17 +42,19 @@ const item = {
     img.alt = '음식점 추가';
 
     button.appendChild(img);
-    eventHandler.add(button, restaurantManager);
+    eventHandler.add(button, addRestaurant, getRestaurants);
 
     return button;
   },
 };
 
 const eventHandler = {
-  add(element, restaurantManager) {
+  add(element, addRestaurant, getRestaurants) {
     element.addEventListener('click', () => {
-      const newRestaurantModalElement =
-        createNewRestaurantModal(restaurantManager);
+      const newRestaurantModalElement = createNewRestaurantModal(
+        addRestaurant,
+        getRestaurants
+      );
       const newRestaurantModal = modal.create(
         'modal--open',
         newRestaurantModalElement
