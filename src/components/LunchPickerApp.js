@@ -1,40 +1,24 @@
 import Component from './Component';
-import { $, $setAttribute } from '../utils/dom';
+import { $, $addEvent, $removeEvent, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
   setEvent() {
-    this.addEventListener('click', this.#handleClick);
-    this.addEventListener('change', this.#handleChange);
+    $addEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
+    $addEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   removeEvent() {
-    this.removeEventListener('click', this.#handleClick);
-    this.removeEventListener('change', this.#handleChange);
+    $removeEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
+    $removeEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
-  #handleClick = (event) => {
-    if (event.target.closest('.gnb__button')) {
-      $setAttribute('restaurant-add-modal', 'open', 'true');
-    }
-
-    if (event.target.classList.contains('button--primary')) {
-      this.#updateRestaurantList();
-    }
-  };
-
-  #handleChange = (event) => {
-    if (event.target.classList.contains('category') || event.target.classList.contains('sorting')) {
-      this.#updateRestaurantList();
-    }
-  };
-
-  #updateRestaurantList() {
+  #updateRestaurantList = () => {
     const category = $('.category').value || '전체';
     const sorting = $('.sorting').value || '이름순';
 
     $setAttribute('restaurant-list', 'category', `${category}`);
     $setAttribute('restaurant-list', 'sorting', `${sorting}`);
-  }
+  };
 
   template() {
     return `
