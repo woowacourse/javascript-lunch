@@ -33,7 +33,7 @@ describe('이름/거리순 정렬', () => {
     $filteringSorting.select('name');
     $filteringCategory.select('all');
 
-    cy.get('restaurant-box').then((elements) => {
+    cy.get('restaurant-item').then((elements) => {
       expect(elements[0].getAttribute('name')).to.equal('도스타코스 선릉점');
       expect(elements[elements.length - 1].getAttribute('name')).to.equal(
         '호아빈 삼성점',
@@ -48,7 +48,7 @@ describe('이름/거리순 정렬', () => {
     $filteringSorting.select('distance');
     $filteringCategory.select('all');
 
-    cy.get('restaurant-box').then((elements) => {
+    cy.get('restaurant-item').then((elements) => {
       const firstDistance = elements[0].querySelector(
         '.restaurant__info__distance',
       ).textContent;
