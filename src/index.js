@@ -18,7 +18,6 @@ import {
 import HomeEventHandler from './eventHandler/HomeEventHandler';
 import ModalEventHandler from './eventHandler/ModalEventHandler';
 
-const $restaurantList = document.querySelector('.restaurant-list');
 const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
 new ModalEventHandler(restaurantList);
