@@ -1,10 +1,10 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { RestaurantData } from '../../../type/RestaurantData';
+import { RestaurantDataType } from '../../../type/restaurantDataType';
 
 export default class RestaurantList extends HTMLElement {
-  private restaurants: RestaurantData[];
+  private restaurants: RestaurantDataType[];
 
-  constructor(restaurants: RestaurantData[]) {
+  constructor(restaurants: RestaurantDataType[]) {
     super();
     this.restaurants = restaurants;
   }
@@ -13,7 +13,7 @@ export default class RestaurantList extends HTMLElement {
     this.render();
   }
 
-  updateRestaurantList(newRestaurants: RestaurantData[]) {
+  updateRestaurantList(newRestaurants: RestaurantDataType[]) {
     this.restaurants = newRestaurants;
     this.render();
   }

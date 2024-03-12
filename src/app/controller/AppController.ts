@@ -7,7 +7,7 @@ import '../root/RestaurantItem/RestaurantItem';
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
 import { Category, SortOrder } from '../../enum/enums';
-import { RestaurantData } from '../../type/RestaurantData';
+import { RestaurantDataType } from '../../type/restaurantDataType';
 import { $ } from '../../util/domSelector';
 
 export default class AppController {
@@ -48,7 +48,7 @@ export default class AppController {
   }
 
   private addRestaurant(event: Event) {
-    const detail: RestaurantData = (event as CustomEvent).detail;
+    const detail: RestaurantDataType = (event as CustomEvent).detail;
     this.restaurantService.addRestaurant(detail);
     this.updateRestaurantList();
   }
