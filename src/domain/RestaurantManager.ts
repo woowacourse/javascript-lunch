@@ -3,8 +3,8 @@ import { IRestaurant, Category } from '../domain/interface/IRestaurant';
 export interface IRestaurantManager {
   add(newRestaurant: IRestaurant): void;
   getRestaurants(): IRestaurant[];
-  sortByAscendingName(): IRestaurant[];
-  sortByAscendingWalkingTime(): IRestaurant[];
+  sortByAscendingNameAndCategory(): IRestaurant[];
+  sortByAscendingWalkingTimeAndCategory(): IRestaurant[];
   filteredRestaurants(category: Category): IRestaurant[];
 }
 
@@ -35,33 +35,26 @@ export class RestaurantManager implements IRestaurantManager {
     this.restaurants.push(newRestaurant);
     localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
 
-    if (this.currentSortBy === '이름순')
-      this.restaurants = this.sortByAscendingName();
-    if (this.currentSortBy === '거리순')
-      this.restaurants = this.sortByAscendingWalkingTime();
+    if (this.currentSortBy === '이름순') this.sortByAscendingName();
+    if (this.currentSortBy === '거리순') this.sortByAscendingWalkingTime();
   }
 
   getRestaurants(): IRestaurant[] {
     return [...this.restaurants];
   }
 
-  sortByAscendingName(): IRestaurant[] {
-    this.currentSortBy = '이름순';
-
-    const sortedRestaurants = this.filteredRestaurants().sort((a, b) => {
+  private sortByAscendingName(): void {
+    const sortedRestaurants = [...this.restaurants].sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
       return 0;
     });
 
     this.restaurants = sortedRestaurants;
-    return sortedRestaurants;
   }
 
-  sortByAscendingWalkingTime(): IRestaurant[] {
-    this.currentSortBy = '거리순';
-
-    const sortedRestaurants = this.filteredRestaurants().sort((a, b) => {
+  private sortByAscendingWalkingTime(): void {
+    const sortedRestaurants = [...this.restaurants].sort((a, b) => {
       const aTime = Number(a.walkingTime);
       const bTime = Number(b.walkingTime);
 
@@ -74,7 +67,20 @@ export class RestaurantManager implements IRestaurantManager {
     });
 
     this.restaurants = sortedRestaurants;
-    return sortedRestaurants;
+  }
+
+  sortByAscendingNameAndCategory(): IRestaurant[] {
+    this.currentSortBy = '이름순';
+    this.sortByAscendingName();
+
+    return this.filteredRestaurants();
+  }
+
+  sortByAscendingWalkingTimeAndCategory(): IRestaurant[] {
+    this.currentSortBy = '거리순';
+    this.sortByAscendingWalkingTime();
+
+    return this.filteredRestaurants();
   }
 
   setCurrentCategory(category: Category) {
@@ -82,7 +88,7 @@ export class RestaurantManager implements IRestaurantManager {
   }
 
   filteredRestaurants(): IRestaurant[] {
-    console.log(this.currentSortBy);
+    console.log(this.currentCategory);
     if (this.currentCategory === '전체') return [...this.restaurants];
 
     return [...this.restaurants].filter(

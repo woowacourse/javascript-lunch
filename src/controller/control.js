@@ -20,7 +20,7 @@ export const set = {
         left: 'logo',
         right: 'add',
         addRestaurant: (restaurant) => restaurantManager.add(restaurant),
-        getRestaurants: () => restaurantManager.getRestaurants(),
+        getRestaurants: () => restaurantManager.filteredRestaurants(),
       })
     );
 
@@ -35,6 +35,8 @@ export const set = {
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
+          restaurantManager.setCurrentCategory(category);
+
           if (category === '전체')
             return renderRestaurantList(restaurantManager.getRestaurants());
 
@@ -51,15 +53,17 @@ export const set = {
         options: sortingFilterList,
         callback: (category) => {
           if (category === '이름순')
-            renderRestaurantList(restaurantManager.sortByAscendingName());
+            renderRestaurantList(
+              restaurantManager.sortByAscendingNameAndCategory()
+            );
           if (category === '거리순')
             renderRestaurantList(
-              restaurantManager.sortByAscendingWalkingTime()
+              restaurantManager.sortByAscendingWalkingTimeAndCategory()
             );
         },
       })
     );
 
-    renderRestaurantList(restaurantManager.sortByAscendingName());
+    renderRestaurantList(restaurantManager.sortByAscendingNameAndCategory());
   },
 };

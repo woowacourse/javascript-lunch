@@ -24,6 +24,7 @@ function createNewRestaurantModal(addRestaurant, getRestaurants) {
 
     try {
       addRestaurant(newRestaurant);
+      console.log(getRestaurants());
       renderRestaurantList(getRestaurants());
       modal.remove('modal--open');
 
