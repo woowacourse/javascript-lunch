@@ -61,11 +61,11 @@ export const validateRestaurantData = (restaurantInfo: RestaurantType) => {
 };
 
 const sortByName = (restaurants: RestaurantType[]) => {
-  return restaurants.sort((a, b) => (a.name < b.name ? -1 : 1));
+  return [...restaurants].sort((a, b) => (a.name < b.name ? -1 : 1));
 };
 
 const sortByDistance = (restaurants: RestaurantType[]) => {
-  return restaurants.sort((a, b) => a.distance - b.distance);
+  return [...restaurants].sort((a, b) => a.distance - b.distance);
 };
 
 const trimAllSpace = (str: string): string => {

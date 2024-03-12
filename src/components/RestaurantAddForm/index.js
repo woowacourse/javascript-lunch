@@ -5,6 +5,7 @@ import {
 } from "../../constants/MenuApp";
 import { add } from "../../domains/Restaurants";
 import { $ } from "../../utils/dom";
+import { removeHTMLTags } from "../../utils/removeHtmlTag";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantAddForm extends BaseComponent {
@@ -74,6 +75,7 @@ class RestaurantAddForm extends BaseComponent {
       this.emitEvent("add-form-submit");
 
       const formData = this.#getFormData();
+      formData.name = removeHTMLTags(formData.name);
 
       try {
         if (add(formData)) {
