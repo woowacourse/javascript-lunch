@@ -1,0 +1,16 @@
+.top-bar {
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  box-sizing: border-box;
+  background-color: var(--lunch-primary-color);
+  padding: 20px 16px;
+  width: 390px;
+}
+.top-bar__title {
+  color: var(--lunch-grey-scale-1-color);
+  font-weight: var(--lunch-title-font-weight);
+  font-size: var(--lunch-title-font-size);
+}

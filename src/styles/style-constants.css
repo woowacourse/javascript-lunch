@@ -1,0 +1,20 @@
+:root {
+  --lunch-primary-color: #ec4a0a;
+  --lunch-primary-lighten-color: #f6a88a;
+  --lunch-grey-scale-1-color: #ffffff;
+  --lunch-grey-scale-2-color: #d0d5dd;
+  --lunch-grey-scale-3-color: #667085;
+  --lunch-grey-scale-4-color: #344054;
+  --lunch-grey-scale-5-color: #000000;
+
+  --lunch-title-font-size: 20px;
+  --lunch-subtitle-font-size: 18px;
+  --default-font-size: 16px;
+  --label-font-size: 14px;
+
+  --default-font-weight: 400;
+  --lunch-title-font-weight: 600;
+  --lunch-subtitle-font-weight: 700;
+
+  --default-font-family: 'Roboto', sans-serif;
+}

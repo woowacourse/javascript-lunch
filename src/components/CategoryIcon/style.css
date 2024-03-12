@@ -1,0 +1,16 @@
+@import '../../styles/style-constants.css';
+
+category-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  background-color: var(--lunch-primary-lighten-color);
+  width: 64px;
+  height: 64px;
+}
+category-icon img {
+  background-size: 36px;
+  width: 36px;
+  height: 36px;
+}
