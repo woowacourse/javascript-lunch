@@ -13,7 +13,7 @@ function sortMethod(attribute: string) {
 class RestaurantCards extends HTMLUListElement {
   #renderRestaurantCards: RestaurantCard[] = [];
 
-  #render() {
+  render() {
     const restaurantFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select')!)(
       restaurantCatalog
         .filterByCategory(this.getAttribute('data-category-select') as Category)
@@ -72,7 +72,7 @@ class RestaurantCards extends HTMLUListElement {
     if (!this.getAttribute('data-sort-select') || !this.getAttribute('data-category-select')) {
       return;
     }
-    this.#render();
+    this.render();
   }
 }
 

@@ -15,7 +15,7 @@ class WebController {
   #init() {
     this.#insertDefaultData();
     this.#initRestaurantCatalogFromLocalStorage();
-    this.#renderRestaurantList();
+    this.#renderDefaultRestaurantList();
   }
 
   #insertDefaultData() {
@@ -33,7 +33,7 @@ class WebController {
     }
   }
 
-  #renderRestaurantList() {
+  #renderDefaultRestaurantList() {
     const restaurantCards = document.querySelector('.restaurant-list');
     const SORT_BY_NAME = SORT_CONDITION[0];
     restaurantCards.setAttribute('data-sort-select', SORT_BY_NAME);
@@ -89,11 +89,16 @@ class WebController {
     try {
       const newRestaurant = restaurantCatalog.pushNewRestaurant(restaurantInfo);
       this.#updateRestaurantToLocalStorage(newRestaurant);
-      this.#renderRestaurantList();
+      this.#reRenderRestaurants();
       this.#closeModal();
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  #reRenderRestaurants() {
+    const RestaurantList = document.querySelector('.restaurant-list');
+    RestaurantList.render();
   }
 
   #updateRestaurantToLocalStorage(restaurant) {
