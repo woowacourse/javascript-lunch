@@ -64,9 +64,9 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
   sortByCreatedAt(props: SortRestaurantsProps): Restaurants {
     return Object.values(props.filterRestaurants).sort((a: Restaurant, b: Restaurant): number => {
       if (props.sortBy === SORTBY.oldest) {
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        return a.createdAt - b.createdAt;
       }
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      return b.createdAt - a.createdAt;
     });
   },
 

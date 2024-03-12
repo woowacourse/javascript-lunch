@@ -7,6 +7,7 @@ import './components/LunchItems/LunchItems';
 import './components/LunchRegisterModal/LunchRegisterModal';
 
 import DUMMY from './constants/dummy';
+import { RestaurantDataProvider } from './domain';
 
 const LUNCH_APP = `
   <lunch-header></lunch-header>

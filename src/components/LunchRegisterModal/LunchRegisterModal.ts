@@ -66,7 +66,7 @@ class LunchRegisterModal extends HTMLElement {
 
   getNewRestaurant() {
     const forms: NodeListOf<LunchFormItem> = this.querySelectorAll('lunch-form-item');
-    const newRestaurant = { createdAt: new Date() } as Restaurant;
+    const newRestaurant = { createdAt: Date.now() } as Restaurant;
     forms.forEach((form: LunchFormItem) => {
       const key = form.getAttribute('name') ?? '';
       const value = form.getValue(form.getAttribute('type') as FormItemType) ?? '';
