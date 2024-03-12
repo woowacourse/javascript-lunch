@@ -5,7 +5,7 @@ import Dropdown from '../Common/Dropdown';
 const AddRestaurant = () => {
   return /*html*/ `
   <h2 class="modal-title text-title">새로운 음식점</h2>
-  <form >
+  <form id="add-restaurant">
     <div class="form-item form-item--required">
       ${Dropdown(ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS)}
     </div>

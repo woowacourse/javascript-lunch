@@ -21,6 +21,7 @@ class RestaurantController {
     this.updateRestaurantList();
     this.showAddRestaurantModal();
     this.manageFilterValue();
+    this.manageModalEvents();
   }
 
   updateRestaurantList() {
@@ -37,22 +38,21 @@ class RestaurantController {
   showAddRestaurantModal() {
     const addRestaurantButton = $('.gnb__button');
     addRestaurantButton.addEventListener('click', () => {
-      OutputView.renderAddRestaurant(this.#restaurantList);
+      OutputView.renderAddRestaurant();
       this.manageFormEvents();
-      this.manageModalEvents();
     });
   }
 
   manageFormEvents() {
-    const form = $('form');
+    const form = $('#add-restaurant');
 
     form.addEventListener('reset', () => OutputView.closeModal());
     form.addEventListener('submit', e => {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
       const isAdded = RestaurantService.addRestaurant(newRestaurant, this.#restaurantList);
-      const isAddedComment = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
-      alert(isAddedComment);
+      const isAddedMessage = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
+      alert(isAddedMessage);
 
       if (!isAdded) return;
       this.updateRestaurantList();
