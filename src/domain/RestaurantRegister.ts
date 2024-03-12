@@ -1,4 +1,4 @@
-import { LOCALSTORAGE } from '../constants/localStorage';
+import { LOCAL_STORAGE_KEYS } from '../constants/localStorageKeys';
 import { Restaurant } from '../types/Restaurant';
 
 /**
@@ -6,9 +6,9 @@ import { Restaurant } from '../types/Restaurant';
  */
 const RestaurantRegister = {
   updateLocalStorage(newRestaurant: Restaurant) {
-    const allRestaurants = JSON.parse(localStorage.getItem(LOCALSTORAGE.restaurants) ?? '[]');
+    const allRestaurants = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.restaurants) ?? '[]');
     allRestaurants.push(newRestaurant);
-    localStorage.setItem(LOCALSTORAGE.restaurants, JSON.stringify(allRestaurants));
+    localStorage.setItem(LOCAL_STORAGE_KEYS.restaurants, JSON.stringify(allRestaurants));
   },
 };
 

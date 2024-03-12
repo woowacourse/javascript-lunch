@@ -1,4 +1,4 @@
-import { LOCALSTORAGE } from '../constants/localStorage';
+import { LOCAL_STORAGE_KEYS } from '../constants/localStorageKeys';
 import { SORTBY } from '../constants/sortBy';
 import { Category } from '../types/Category';
 import { Restaurant } from '../types/Restaurant';
@@ -36,7 +36,7 @@ type SortRestaurantsProps = {
  */
 const RestaurantDataProvider: RestaurantDataProviderType = {
   execute({ category, sortBy }: ExecuteProps): Restaurants {
-    const restaurants = localStorage.getItem(LOCALSTORAGE.restaurants);
+    const restaurants = localStorage.getItem(LOCAL_STORAGE_KEYS.restaurants);
     const allRestaurants = JSON.parse(restaurants ?? '[]');
 
     const filterRestaurants = category
