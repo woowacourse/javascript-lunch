@@ -48,10 +48,6 @@ class Modal {
   }
 
   #setDefaultEvent() {
-    this.element.addEventListener("keydown", (event) => {
-      if (event.key === "esc") this.close();
-    });
-
     this.#backDrop.addEventListener("click", () => {
       this.close();
     });

@@ -73,6 +73,10 @@ class MainController {
 
     modal.replaceContents([title, addRestaurantForm.element]);
 
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") modal.close();
+    });
+
     return modal;
   }
 
