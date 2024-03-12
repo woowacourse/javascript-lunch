@@ -14,7 +14,7 @@ const SORTING_STANDARDS = ["name", "distance"] as const;
 const SORTING_STANDARD_MAPPER = {
   name: "이름순",
   distance: "거리순",
-} as const;
+};
 
 const DISTANCES = [5, 10, 15, 20, 30] as const;
 

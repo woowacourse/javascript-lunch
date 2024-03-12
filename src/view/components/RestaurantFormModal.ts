@@ -1,6 +1,7 @@
 import { CATEGORIES, DISTANCES, DISTANCE_MAPPER } from "../../constants";
 import restaurantList from "../../domain/RestaurantList";
 import { Category, Distance, Link, Restaurant } from "../../types";
+import { isCategory, isDistance, isLink } from "../../util";
 
 class RestaurantFormModal {
   renderInit() {
@@ -118,7 +119,7 @@ class RestaurantFormModal {
     $addRestaurantFormModal.classList.remove("modal--open");
   }
 
-  setEvent(type: string, listener: (event: Event) => void) {
+  setFormEvent(type: string, listener: (event: Event) => void) {
     const $restaurantForm = document.querySelector(
       "#restaurant-form"
     ) as HTMLFormElement;
@@ -153,17 +154,33 @@ class RestaurantFormModal {
   private addRestaurant(e: Event) {
     const $restaurantForm = e.target as HTMLFormElement;
     const formData = new FormData($restaurantForm);
+    const category = formData.get("category");
+    const name = formData.get("name");
+    const distance = Number(formData.get("distance"));
+    const description = formData.get("description");
+    const link = formData.get("link");
 
-    const newRestuarant: Restaurant = {
-      category: formData.get("category") as Category,
-      name: formData.get("name") as string,
-      distance: Number(formData.get("distance")) as Distance,
-      description: formData.get("description") as string,
-      link: formData.get("link") as Link,
-    };
+    if (!isCategory(category)) {
+      throw new Error("잘못된 카테고리입니다.");
+    }
 
-    restaurantList.add(newRestuarant);
+    if (typeof name !== "string" || name.trim() === "") {
+      throw new Error("잘못된 이름입니다");
+    }
 
+    if (!isDistance(distance)) {
+      throw new Error("잘못된 거리값입니다");
+    }
+
+    if (typeof description !== "string") {
+      throw new Error("잘못된 상세설명입니다");
+    }
+
+    if (!"" || !isLink(link)) {
+      throw new Error("잘못된 링크입니다.");
+    }
+
+    restaurantList.add({ category, name, distance, description, link });
     $restaurantForm.reset();
   }
 }
