@@ -1,6 +1,5 @@
 import { $, $$ } from '../../../utils/domSelector';
 import { TYPE_SETTING } from '../../../constants/setting';
-import { LocationData } from '../../../constants/typings';
 import RestaurantValidator from '../../../validator/RestaurantValidator';
 
 class AddRestaurantModal extends HTMLElement {
