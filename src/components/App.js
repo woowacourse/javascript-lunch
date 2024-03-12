@@ -1,25 +1,32 @@
-// eslint-disable-next-line
-import RestaurantManager from '../domain/RestaurantManager';
-
-import './App.css';
-
-import WebView from '../view/WebView';
+// events
 import { SELECT_EVENTS } from './Select';
 import { RESTAURANT_FORM_EVENTS } from './RestaurantForm';
 
+// domain
+import RestaurantManager from '../domain/RestaurantManager';
+
+// styles
+import './App.css';
+
 export default class App {
-  #webView;
+  #categoryFilter;
+
+  #sortingFilter;
+
+  #restaurantList;
 
   #restaurantManger;
 
   constructor() {
-    this.#webView = new WebView();
+    this.#categoryFilter = document.querySelector('#category-filter');
+    this.#sortingFilter = document.querySelector('#sorting-filter');
+    this.#restaurantList = document.querySelector('#restaurant-list');
     this.#restaurantManger = new RestaurantManager();
   }
 
   async start() {
     this.#syncLocalStorageAndDomain();
-    this.#webView.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
+    this.#restaurantList.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
 
     this.#addRestaurantSubmitEventListener();
     this.#addFilterOnchangeEventListenr();
@@ -42,7 +49,7 @@ export default class App {
 
   #updateRestaurantList(category, option) {
     const result = this.#restaurantManger.filteredAndSortedByOptions(category, option);
-    this.#webView.restaurants = result;
+    this.#restaurantList.restaurants = result;
   }
 
   #addRestaurantSubmitEventListener() {
@@ -51,15 +58,15 @@ export default class App {
 
       this.#updateLocalStorage(formData);
       this.#syncLocalStorageAndDomain();
-      this.#updateRestaurantList(formData.category, this.#webView.sortingFilter);
-      this.#webView.categoryFilter = formData.category;
+      this.#updateRestaurantList(formData.category, this.#sortingFilter.value);
+      this.#categoryFilter.value = formData.category;
     });
   }
 
   #addFilterOnchangeEventListenr() {
     document.querySelector('.restaurant-filter-container').addEventListener(SELECT_EVENTS.onchange, () => {
       this.#syncLocalStorageAndDomain();
-      this.#updateRestaurantList(this.#webView.categoryFilter, this.#webView.sortingFilter);
+      this.#updateRestaurantList(this.#categoryFilter.value, this.#sortingFilter.value);
     });
   }
 }
