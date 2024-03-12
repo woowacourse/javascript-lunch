@@ -2,8 +2,6 @@ import restaurantListHelper from "../domain/RestaurantListHelper";
 import RestaurantListStorageService from "../services/restaurantListStorageService";
 import { Irestaurant } from "../types/restaurant";
 
-import filterState from "./FilterStateStore";
-
 class RestaurantListStateStore {
   #restaurantList: Irestaurant[];
   #restaurantCount: number;
@@ -27,14 +25,7 @@ class RestaurantListStateStore {
   }
 
   getfilteredData() {
-    const filtereDataByCategory = restaurantListHelper.filterByCategory(
-      filterState.getFilterInfo().filter,
-      this.#restaurantList,
-    );
-    return restaurantListHelper.sortBySelectedValue(
-      filterState.getFilterInfo().sort,
-      filtereDataByCategory,
-    );
+    return restaurantListHelper.allFilteredData(this.#restaurantList);
   }
 
   addNewRestaurant(restaurant: Irestaurant) {
