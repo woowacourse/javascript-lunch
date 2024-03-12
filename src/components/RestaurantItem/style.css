@@ -38,9 +38,11 @@
 
 .restaurant-list #none-restaurant-category {
   position: absolute;
-  top: 50%;
-  left: 19%;
+  top: calc(50% - 20px);
+  left: 0;
+  width: 100%;
   color: var(--lunch-grey-scale-3-color);
   font-weight: var(--lunch-title-font-weight);
   font-size: var(--label-font-size);
+  text-align: center;
 }
