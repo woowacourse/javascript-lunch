@@ -13,8 +13,8 @@ class LunchPickerApp extends Component {
   }
 
   #updateRestaurantList = () => {
-    const category = $('.category').value || '전체';
-    const sorting = $('.sorting').value || '이름순';
+    const category = ($('.category') as HTMLSelectElement).value || '전체';
+    const sorting = ($('.sorting') as HTMLSelectElement).value || '이름순';
 
     $setAttribute('restaurant-list', 'category', `${category}`);
     $setAttribute('restaurant-list', 'sorting', `${sorting}`);
