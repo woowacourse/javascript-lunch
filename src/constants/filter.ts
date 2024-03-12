@@ -1,4 +1,4 @@
-import type { IButtonAttributes, ISelectAttributes, IOptionAttributes } from '../types/dom';
+import type { IButtonAttributes, IDropdownAttributes, IOptionAttributes } from '../types/dom';
 
 import korean from '../../templates/category-korean.png';
 import chinese from '../../templates/category-chinese.png';
@@ -19,7 +19,7 @@ const FOOD_CATEGORY: IOptionAttributes[] = [
   { value: '기타', text: '기타' },
 ];
 
-const FILTERED_CATEGORY_ATTRIBUTE: ISelectAttributes = {
+const FILTERED_CATEGORY_ATTRIBUTE: IDropdownAttributes = {
   name: 'category',
   id: 'category-filter',
   classNames: ['restaurant-filter'],
@@ -28,7 +28,7 @@ const FILTERED_CATEGORY: IOptionAttributes[] = [{ value: ALL, text: ALL }, ...FO
 
 const BY_NAME_ASC = '이름순';
 const BY_DISTANCE_ASC = '거리순';
-const SORTING_ATTRIBUTE: ISelectAttributes = {
+const SORTING_ATTRIBUTE: IDropdownAttributes = {
   name: 'sorting',
   id: 'sorting-filter',
   classNames: ['restaurant-filter'],
@@ -38,10 +38,10 @@ const SORTING: IOptionAttributes[] = [
   { value: 'distance', text: BY_DISTANCE_ASC },
 ];
 
-const FORM_CATEGORY_ATTRIBUTE: ISelectAttributes = { name: 'category', id: 'category', required: true };
+const FORM_CATEGORY_ATTRIBUTE: IDropdownAttributes = { name: 'category', id: 'category', required: true };
 const FORM_CATEGORY: IOptionAttributes[] = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
 
-const FORM_DISTANCE_ATTRIBUTE: ISelectAttributes = { name: 'distance', id: 'distance', required: true };
+const FORM_DISTANCE_ATTRIBUTE: IDropdownAttributes = { name: 'distance', id: 'distance', required: true };
 const FORM_DISTANCE: IOptionAttributes[] = [
   { value: '', text: '선택해 주세요' },
   { value: '5', text: '5분 내' },

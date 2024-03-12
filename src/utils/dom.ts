@@ -1,6 +1,6 @@
 import type {
   IButtonAttributes,
-  ISelectAttributes,
+  IDropdownAttributes,
   IOptionAttributes,
   IImageAttributes,
   IDomCreation,
@@ -44,7 +44,7 @@ const dom = {
     return imageTag;
   },
 
-  createSelectTag({ id, classNames, name, required }: ISelectAttributes): HTMLSelectElement {
+  createSelectTag({ id, classNames, name, required }: IDropdownAttributes): HTMLSelectElement {
     const selectTag = document.createElement('select');
     selectTag.name = name ?? '';
     selectTag.id = id ?? '';

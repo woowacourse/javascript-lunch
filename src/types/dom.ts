@@ -4,7 +4,7 @@ interface IDomAttributes {
   text?: string;
 }
 
-interface ISelectAttributes extends IDomAttributes {
+interface IDropdownAttributes extends IDomAttributes {
   name?: string;
   required?: boolean;
 }
@@ -47,7 +47,7 @@ interface IFormInput {
 
 export type {
   IDomAttributes,
-  ISelectAttributes,
+  IDropdownAttributes,
   IButtonAttributes,
   IImageAttributes,
   IOptionAttributes,
