@@ -2,7 +2,7 @@ import { IRestaurant } from '../../src/types/Restaurant';
 import Restaurant from '../../src/domains/entities/Restaurant';
 
 describe('레스토랑 클래스', () => {
-  it('성공 케이스', () => {
+  it('인자로 문제 없는 레스토랑 정보를 받아서 get요청 받을 때, 레스토랑 정보를 그대로 반환한다.', () => {
     const RESTAURANT_ARGS: IRestaurant = {
       name: '친친',
       distance: 10,
