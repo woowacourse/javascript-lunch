@@ -22,9 +22,7 @@ class View {
     this.listSection = new RestaurantListSection();
     this.formModal = new RestaurantFormModal();
     this.renderInit($target);
-    this.renderSelectSection();
     this.renderListSection();
-    this.renderFormModal();
     this.setEvents();
   }
 
@@ -51,18 +49,8 @@ class View {
       </main>`;
   }
 
-  renderSelectSection() {
-    this.selectSection.renderCategory();
-    this.selectSection.renderSorting();
-  }
-
   renderListSection() {
     this.listSection.renderRestauantList(this.selectSection.getFilterValues());
-  }
-
-  renderFormModal() {
-    this.formModal.renderCategory();
-    this.formModal.renderDistance();
   }
 
   setEvents() {

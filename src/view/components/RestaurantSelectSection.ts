@@ -14,6 +14,10 @@ class RestaurantSelectSection {
       >
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
+          ${CATEGORIES.map(
+            (category) => `<option value="${category}">${category}</option>`
+          ).join()}
+      </select>
         </select>
 
         <!-- 정렬 셀렉트 박스 -->
@@ -21,40 +25,15 @@ class RestaurantSelectSection {
           name="sorting"
           id="sorting-filter"
           class="restaurant-filter"
-        ></select>
+        >
+            ${SORTING_STANDARDS.map(
+              (sortingStandard) =>
+                `<option value="${sortingStandard}">${SORTING_STANDARD_MAPPER[sortingStandard]}</option>`
+            ).join()}
+        </select>
       </section>
 
       `;
-  }
-
-  renderCategory() {
-    const $categoryFilter = document.querySelector(
-      "#category-filter"
-    ) as HTMLSelectElement;
-
-    const categoryFragment = new DocumentFragment();
-    CATEGORIES.forEach((category) => {
-      const categoryTag = document.createElement("option");
-      categoryTag.value = category;
-      categoryTag.textContent = category;
-      categoryFragment.append(categoryTag);
-    });
-    $categoryFilter.appendChild(categoryFragment);
-  }
-
-  renderSorting() {
-    const $sortingFilter = document.querySelector(
-      "#sorting-filter"
-    ) as HTMLSelectElement;
-
-    const sortingFragment = new DocumentFragment();
-    SORTING_STANDARDS.forEach((sortingStandard) => {
-      const sortingStandardTag = document.createElement("option");
-      sortingStandardTag.value = sortingStandard;
-      sortingStandardTag.textContent = SORTING_STANDARD_MAPPER[sortingStandard];
-      sortingFragment.append(sortingStandardTag);
-    });
-    $sortingFilter.appendChild(sortingFragment);
   }
 
   getFilterValues(): {

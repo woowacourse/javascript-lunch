@@ -16,6 +16,10 @@ class RestaurantFormModal {
               <label for="category text-caption">카테고리</label>
               <select name="category" id="category" required>
                 <option value="">선택해 주세요</option>
+                  ${CATEGORIES.map(
+                    (category) =>
+                      `<option value="${category}">${category}</option>`
+                  ).join()}
               </select>
             </div>
 
@@ -30,6 +34,10 @@ class RestaurantFormModal {
               <label for="distance text-caption">거리(도보 이동 시간) </label>
               <select name="distance" id="distance" required>
                 <option value="">선택해 주세요</option>
+                ${DISTANCES.map(
+                  (distance) =>
+                    `<option value="${distance}">${DISTANCE_MAPPER[distance]}</option>`
+                ).join()}
               </select>
             </div>
 
@@ -75,34 +83,6 @@ class RestaurantFormModal {
     `;
   }
 
-  renderCategory() {
-    const $formCategory =
-      document.querySelector<HTMLSelectElement>("#category");
-
-    const formCategoryFragment = new DocumentFragment();
-    CATEGORIES.forEach((category) => {
-      const categoryTag = document.createElement("option");
-      categoryTag.value = category;
-      categoryTag.textContent = category;
-      formCategoryFragment.append(categoryTag);
-    });
-    $formCategory?.appendChild(formCategoryFragment);
-  }
-
-  renderDistance() {
-    const $formDistance =
-      document.querySelector<HTMLSelectElement>("#distance");
-
-    const distanceFragment = new DocumentFragment();
-    DISTANCES.forEach((distance) => {
-      const distanceTag = document.createElement("option");
-      distanceTag.value = distance.toString();
-      distanceTag.textContent = DISTANCE_MAPPER[distance];
-      distanceFragment.append(distanceTag);
-    });
-    $formDistance?.appendChild(distanceFragment);
-  }
-
   openModal() {
     const $addRestaurantFormModal = document.querySelector<HTMLDivElement>(
       "#add-restaurant-form__modal"
@@ -128,7 +108,8 @@ class RestaurantFormModal {
         this.closeModal();
         listener(e);
       } catch (error: any) {
-        alert(error.message);
+        const errorMessage = error?.message;
+        alert(errorMessage);
       }
     });
   }
@@ -173,7 +154,7 @@ class RestaurantFormModal {
       throw new Error("잘못된 상세설명입니다");
     }
 
-    if (!"" || !isLink(link)) {
+    if (link !== "" && !isLink(link)) {
       throw new Error("잘못된 링크입니다.");
     }
 
