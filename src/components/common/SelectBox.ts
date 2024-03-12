@@ -10,10 +10,10 @@ interface Option {
 export default class SelectBox extends EventComponent {
   protected getTemplate(): string {
     const rawOptions = this.getAttribute("options");
-    const selectId = this.getAttribute("select-id") || "";
-    const className = this.getAttribute("class-name") || "";
-    const name = this.getAttribute("name") || "";
-    const required = this.getAttribute("required") || "";
+    const selectId = this.getAttribute("select-id") ?? "";
+    const className = this.getAttribute("class-name") ?? "";
+    const name = this.getAttribute("name") ?? "";
+    const required = this.getAttribute("required") ?? "";
 
     const options = rawOptions ? (JSON.parse(rawOptions) as Option[]) : [];
 
@@ -41,8 +41,8 @@ export default class SelectBox extends EventComponent {
   }
 
   protected setEvent(): void {
-    const eventName = this.getAttribute("event-name") || "";
-    const selectId = this.getAttribute("select-id") || "";
+    const eventName = this.getAttribute("event-name") ?? "";
+    const selectId = this.getAttribute("select-id") ?? "";
 
     $(`#${selectId}`)?.addEventListener("change", (e) =>
       this.handleSelectChange(e, eventName)
