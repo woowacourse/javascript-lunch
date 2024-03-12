@@ -1,4 +1,4 @@
-import { filterByCategory, sortByType } from "../domains/Restaurants";
+import { sortByType } from "../domains/Restaurants";
 import BaseComponent from "./BaseComponent.js";
 
 class RestaurantList extends BaseComponent {

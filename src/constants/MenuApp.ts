@@ -1,10 +1,17 @@
-type Category = "한식" | "일식" | "아시안" | "양식" | "중식" | "전체" | "기타";
-type Distance = 5 | 10 | 15 | 20 | 30;
+export type CategoryType =
+  | "한식"
+  | "일식"
+  | "아시안"
+  | "양식"
+  | "중식"
+  | "전체"
+  | "기타";
+export type DistanceType = 5 | 10 | 15 | 20 | 30;
 
-interface RestaurantType {
+export interface RestaurantType {
   name: string;
-  category: Category;
-  distance: Distance;
+  category: CategoryType;
+  distance: DistanceType;
   description?: string;
 }
 

@@ -2,6 +2,7 @@ import { DEFAULT_RESTAURANT_DATA } from "../../src/constants/MenuApp";
 import { validateRestaurantData } from "../../src/domains/Restaurants";
 
 export const INVALID_DEFAULT_DATA = [
+  // 왜 유효하지 않은지 설명 적기
   {
     name: "",
     distance: 10,

@@ -3,39 +3,17 @@ import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../BaseComponent";
 
 class RestaurantNameInput extends BaseComponent {
+  constructor() {
+    super();
+  }
+
   render() {
     this.innerHTML = `
       <div class="form-item form-item--required" id="name-input">
-      </div>
-      `;
-    this.#createInputHtml();
-  }
-
-  #createInputHtml() {
-    const formItem = $("#name-input");
-
-    const label = document.createElement("label");
-    label.setAttribute("for", "name");
-    label.textContent = "이름";
-
-    const input = document.createElement("input");
-    input.type = "text";
-    input.name = "name";
-    input.id = "name";
-    input.className = "text-caption";
-
-    const errorMessage = document.createElement("p");
-    errorMessage.className = "hidden text-caption error-message";
-    errorMessage.id = "error-message";
-    errorMessage.textContent = "1글자 이상 10글자 이하로 작성해주세요";
-
-    formItem.appendChild(label);
-    formItem.appendChild(input);
-    formItem.appendChild(errorMessage);
-
-    formItem.appendChild(label);
-    formItem.appendChild(input);
-    formItem.appendChild(errorMessage);
+        <label for="name">이름</label>
+        <input type="text" name="name" id="name" class="text-caption">
+        <p class="hidden text-caption error-message" id="error-message">1글자 이상 10글자 이하로 작성해주세요</p>
+      </div>`;
   }
 
   #isValidName(value) {

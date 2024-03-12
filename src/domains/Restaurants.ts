@@ -11,7 +11,6 @@ type CategoryType =
   | "기타";
 type DistanceType = 5 | 10 | 15 | 20 | 30;
 type SortType = "이름순" | "거리순";
-
 interface RestaurantType {
   name: string;
   category: CategoryType;
