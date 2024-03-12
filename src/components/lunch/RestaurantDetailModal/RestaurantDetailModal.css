@@ -1,0 +1,24 @@
+#restaurant-detail-url {
+  display: inline-block;
+  color: var(--grey-500);
+  margin-bottom: 32px;
+  margin-top: 16px;
+}
+
+#restaurant-detail-distance {
+  margin: 16px 0px;
+  color: var(--primary-color);
+}
+
+#restaurant-detail-category {
+  margin-bottom: 16px;
+}
+
+#restaurant-detail-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+a:focus {
+  outline: none;
+}

@@ -51,7 +51,10 @@ class RestaurantList extends BaseComponent {
       (acc: string, restaurantDetail: RestaurantDetail) => {
         const restaurantItem = new RestaurantItem(restaurantDetail);
 
-        return acc + restaurantItem.getTemplate();
+        return (
+          acc +
+          `<restaurant-item class="restaurant">${restaurantItem.getTemplate()}</restaurant-item>`
+        );
       },
       ""
     );

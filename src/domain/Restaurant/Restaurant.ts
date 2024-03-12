@@ -89,6 +89,12 @@ class Restaurant {
       this.restaurantsDetails
     );
   }
+
+  public getRestaurantDetailByName(name: string) {
+    return this.restaurantsDetails.find(
+      (restaurantDetail) => restaurantDetail.name === name
+    );
+  }
 }
 
 export default Restaurant;
