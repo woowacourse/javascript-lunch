@@ -27,7 +27,7 @@ describe('레스토랑 리스트 클래스', () => {
     expect(restaurantList.get()).to.deep.equal([restaurant1, restaurant2]);
   });
 
-  it('인자로 받은 카테고리로 음식점을 필터링한다.', () => {
+  it('카테고리 필터링기준을 인자로 받았을 때, 기준대로 필터링한 음식점을 반환한다.', () => {
     const RESTAURANTS: IRestaurant[] = [restaurant1, restaurant2];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
     expect(restaurantList.filterByCategory('중식')).to.deep.equal([restaurant1]);
