@@ -17,12 +17,15 @@ function getSortedByDistance(restaurants: IRestaurant[]) {
 
 const RestaurantRepository = {
   addRestaurant(restaurant: IRestaurant) {
-    const restaurants = localStorage.getItem('restaurants');
+    const restaurants = JSON.parse(localStorage.getItem('restaurants') || '[]');
+    localStorage.setItem('restaurants', JSON.stringify([...restaurants, restaurant]));
+  },
 
-    if (restaurants) {
-      localStorage.setItem('restaurants', JSON.stringify([...JSON.parse(restaurants), restaurant]));
-    } else {
-      localStorage.setItem('restaurants', JSON.stringify([restaurant]));
+  removeRestaurant(key: number) {
+    const restaurants = JSON.parse(localStorage.getItem('restaurants') || '[]');
+
+    if (restaurants.length >= key) {
+      localStorage.setItem('restaurants', JSON.stringify(restaurants.slice(key, 1)));
     }
   },
 
