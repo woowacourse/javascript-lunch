@@ -23,21 +23,32 @@ class RestaurantCards extends HTMLUListElement {
   #appendRestaurantElement(restaurants) {
     restaurants.forEach((data) => {
       const liElement = new RestaurantCard(data);
+      // TODO: renderedRestaurants에 liElement 푸시
       this.appendChild(liElement);
     });
-  }
-
-  clear() {
-    this.innerHTML = '';
   }
 
   static get observedAttributes() {
     return ['data-sort-select', 'data-category-select'];
   }
 
+  render() {
+    // TODO: 실제 DOM 요소와 필드의 레스토랑을 비교하면서 렌더링하기
+    /**
+     * 순서 중요
+     * 1. 레스토랑이 적어졌을 경우 splice 하기
+     * 2. 기존의 레스토랑에서 id만 변경하기.
+     * 3. 레스토랑이 많아졌을 경우 append하기
+     */
+  }
+
+  clear() {
+    this.innerHTML = '';
+  }
+
   attributeChangedCallback() {
     this.clear();
-    if (!this.getAttribute('data-sort-select') && !this.getAttribute('data-category-select')) {
+    if (!this.getAttribute('data-sort-select') || !this.getAttribute('data-category-select')) {
       return;
     }
     this.#appendRestaurants();
