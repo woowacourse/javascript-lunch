@@ -76,9 +76,8 @@ class RestaurantFormModal {
   }
 
   renderCategory() {
-    const $formCategory = document.querySelector(
-      "#category"
-    ) as HTMLSelectElement;
+    const $formCategory =
+      document.querySelector<HTMLSelectElement>("#category");
 
     const formCategoryFragment = new DocumentFragment();
     CATEGORIES.forEach((category) => {
@@ -87,13 +86,12 @@ class RestaurantFormModal {
       categoryTag.textContent = category;
       formCategoryFragment.append(categoryTag);
     });
-    $formCategory.appendChild(formCategoryFragment);
+    $formCategory?.appendChild(formCategoryFragment);
   }
 
   renderDistance() {
-    const $formDistance = document.querySelector(
-      "#distance"
-    ) as HTMLSelectElement;
+    const $formDistance =
+      document.querySelector<HTMLSelectElement>("#distance");
 
     const distanceFragment = new DocumentFragment();
     DISTANCES.forEach((distance) => {
@@ -102,29 +100,28 @@ class RestaurantFormModal {
       distanceTag.textContent = DISTANCE_MAPPER[distance];
       distanceFragment.append(distanceTag);
     });
-    $formDistance.appendChild(distanceFragment);
+    $formDistance?.appendChild(distanceFragment);
   }
 
   openModal() {
-    const $addRestaurantFormModal = document.querySelector(
+    const $addRestaurantFormModal = document.querySelector<HTMLDivElement>(
       "#add-restaurant-form__modal"
-    ) as HTMLDivElement;
-    $addRestaurantFormModal.classList.add("modal--open");
+    );
+    $addRestaurantFormModal?.classList.add("modal--open");
   }
 
   closeModal() {
-    const $addRestaurantFormModal = document.querySelector(
+    const $addRestaurantFormModal = document.querySelector<HTMLDivElement>(
       "#add-restaurant-form__modal"
-    ) as HTMLDivElement;
-    $addRestaurantFormModal.classList.remove("modal--open");
+    );
+    $addRestaurantFormModal?.classList.remove("modal--open");
   }
 
   setFormEvent(type: string, listener: (event: Event) => void) {
-    const $restaurantForm = document.querySelector(
-      "#restaurant-form"
-    ) as HTMLFormElement;
+    const $restaurantForm =
+      document.querySelector<HTMLFormElement>("#restaurant-form");
 
-    $restaurantForm.addEventListener(type, (e) => {
+    $restaurantForm?.addEventListener(type, (e) => {
       e.preventDefault();
       try {
         this.addRestaurant(e);
@@ -137,15 +134,15 @@ class RestaurantFormModal {
   }
 
   setCloseEvent(type: string, listener: (event: Event) => void) {
-    const $addRestaurantCancelButton = document.querySelector(
-      "#add-restaurant-cancel__button"
-    ) as HTMLButtonElement;
+    const $addRestaurantCancelButton =
+      document.querySelector<HTMLButtonElement>(
+        "#add-restaurant-cancel__button"
+      );
 
-    $addRestaurantCancelButton.addEventListener(type, (e: Event) => {
-      const $restaurantForm = document.querySelector(
-        "#restaurant-form"
-      ) as HTMLFormElement;
-      $restaurantForm.reset();
+    $addRestaurantCancelButton?.addEventListener(type, (e: Event) => {
+      const $restaurantForm =
+        document.querySelector<HTMLFormElement>("#restaurant-form");
+      $restaurantForm?.reset();
 
       listener(e);
     });
