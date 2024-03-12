@@ -1,9 +1,12 @@
 import './style.css';
 
+type LunchButtonColor = 'primary' | 'secondary';
+type LunchButtonType = 'submit' | 'reset' | 'button';
+
 interface LunchButtonProps {
   text: string;
-  color: string;
-  type: string;
+  color: LunchButtonColor;
+  type: LunchButtonType;
 }
 
 const LUNCH_BUTTON = (props: LunchButtonProps) => `
@@ -17,8 +20,8 @@ class LunchButton extends HTMLElement {
 
   render() {
     const text = this.getAttribute('text') ?? '';
-    const color = this.getAttribute('color') ?? '';
-    const type = this.getAttribute('type') ?? '';
+    const color = (this.getAttribute('color') as LunchButtonColor) ?? 'primary';
+    const type = (this.getAttribute('type') as LunchButtonType) ?? 'button';
     this.innerHTML = LUNCH_BUTTON({ text, color, type });
   }
 }
