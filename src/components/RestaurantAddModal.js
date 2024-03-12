@@ -44,6 +44,7 @@ class RestaurantAddModal extends Component {
       reference: $('.modal-reference').value,
     };
     this.makeCustomEvent('submitButtonClick', formData);
+    this.#updateModal(false);
   }
 
   #handleOnCancel() {
