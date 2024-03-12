@@ -1,3 +1,5 @@
+import { OptionItemType } from '../type/formElementTypes';
+
 export function createOptionItem(value: string, text: string): HTMLOptionElement {
   const optionItem = document.createElement('option');
   optionItem.value = value;
@@ -5,7 +7,7 @@ export function createOptionItem(value: string, text: string): HTMLOptionElement
   return optionItem;
 }
 
-export function createOptionItems(type: object, defaultOption?: string): HTMLOptionElement[] {
+export function createOptionItems({ type, defaultOption }: OptionItemType): HTMLOptionElement[] {
   const items: HTMLOptionElement[] = [];
   if (defaultOption) {
     items.push(createOptionItem('', defaultOption));
