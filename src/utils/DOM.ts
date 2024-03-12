@@ -10,5 +10,9 @@ export const $ = <T extends HTMLElement>(selector: string) => {
 };
 
 export const $$ = (selector: string) => {
-  return document.querySelectorAll(selector);
+  const elements = document.querySelectorAll(selector);
+
+  if (!elements.length) throw new Error(`${ERROR_MESSAGE.NULL_SELECTOR(selector)}`);
+
+  return elements;
 };

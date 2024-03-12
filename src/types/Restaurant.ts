@@ -1,11 +1,15 @@
 import { CATEGORIES, CONDITIONS } from '@/constants/Condition';
 
-export interface IRestaurant {
+export interface IRestaurantInfo {
   name: string;
   distance: Distance;
   category: Category;
   description?: string;
   link?: string;
+}
+
+export interface IRestaurant extends IRestaurantInfo {
+  isFavorite: boolean;
 }
 
 export type Category = keyof typeof CATEGORIES;

@@ -2,12 +2,10 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, Distance, IRestaurant } from '@/types/Restaurant';
 import { checkAllValuesValid, validateAllValuesAndMakeErrorMessage } from '@/utils/validator';
 import { closeModal, hideErrorMessage } from '@/utils/view';
-import { ERROR_MESSAGE } from '@/constants/Message';
 import { $ } from '@/utils/DOM';
 
 class RestaurantAddService {
   #restaurantDBService;
-
   constructor() {
     this.#restaurantDBService = new RestaurantDBService();
   }
@@ -24,6 +22,7 @@ class RestaurantAddService {
       name,
       distance: distance as Distance,
       category: category as Category,
+      isFavorite: false,
       ...(description && { description }),
       ...(link && { link }),
     };

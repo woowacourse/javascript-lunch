@@ -12,6 +12,12 @@ class RestaurantCollection {
     return [...this.restaurantList].map((restaurant) => restaurant.get());
   }
 
+  set(restaurantList: IRestaurant[]) {
+    this.restaurantList = restaurantList.map(
+      (restaurant: IRestaurant) => new Restaurant(restaurant),
+    );
+  }
+
   filterByCategory(category: AllAndCategory) {
     if (category === '전체') return this.restaurantList.map((restaurant) => restaurant.get());
     return [...this.restaurantList]
@@ -34,6 +40,10 @@ class RestaurantCollection {
     return [...this.restaurantList]
       .sort((a, b) => a.get().distance - b.get().distance)
       .map((restaurant) => restaurant.get());
+  }
+
+  filterFavorites() {
+    return [...this.restaurantList].filter((restaurant) => {});
   }
 
   addRestaurant(restaurantArg: IRestaurant) {

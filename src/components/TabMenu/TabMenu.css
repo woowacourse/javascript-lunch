@@ -1,0 +1,25 @@
+.tab-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  height: 65px;
+  margin-bottom: 30px;
+}
+
+.tab {
+  width: 179px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--grey-300);
+  border-bottom: 2px solid var(--grey-200);
+  font-weight: 600;
+}
+
+.tab.active {
+  height: 100%;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}

@@ -22,12 +22,14 @@ describe('음식점 DB 서비스 테스트', () => {
       distance: 10,
       category: '중식',
       description: '게살볶음밥',
+      isFavorite: false,
     };
     const NEW_RESTAURANT2: IRestaurant = {
       name: '꺼벙이 김밥',
       distance: 10,
       category: '한식',
       description: '김밥 최저',
+      isFavorite: false,
     };
 
     const restaurantDBService = new RestaurantDBService();
@@ -50,6 +52,7 @@ describe('음식점 DB 서비스 테스트', () => {
       distance: 10,
       category: '한식',
       description: '김밥 최저',
+      isFavorite: false,
     };
 
     const RESTAURANT_SECOND: IRestaurant = {
@@ -57,6 +60,7 @@ describe('음식점 DB 서비스 테스트', () => {
       distance: 5,
       category: '한식',
       description: '게살볶음밥',
+      isFavorite: false,
     };
 
     localStorage.setItem(

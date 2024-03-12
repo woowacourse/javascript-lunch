@@ -9,7 +9,7 @@ class RestaurantDBService {
   constructor() {
     this.#restaurantCollection;
     this.update();
-    this.setMockData();
+    // this.setMockData();
   }
 
   getFromRestaurantList(category: Category, sortCriteria: SortCriteria) {
@@ -18,9 +18,15 @@ class RestaurantDBService {
     return new RestaurantCollection(restaurants).sort(sortCriteria);
   }
 
+  getFavorite() {
+    this.update();
+    const restaurants = this.#restaurantCollection.filterFavorites();
+    return new RestaurantCollection(restaurants);
+  }
+
   update() {
     const existingRestaurants = JSON.parse(this.get() || '[]');
-    this.#restaurantCollection = new RestaurantCollection(existingRestaurants);
+    this.#restaurantCollection.set(existingRestaurants);
   }
 
   get() {
@@ -31,15 +37,15 @@ class RestaurantDBService {
     localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(data));
   }
 
-  setMockData() {
-    if (!this.get()) {
-      this.set(restaurantListMock);
-    }
-  }
+  // setMockData() {
+  //   if (!this.get()) {
+  //     this.set(restaurantListMock);
+  //   }
+  // }
 
   add(restaurant: IRestaurant) {
     this.update();
-    // this.#restaurantCollection.addRestaurant(restaurant);
+    this.#restaurantCollection.addRestaurant(restaurant);
     localStorage.setItem(
       this.#RESTAURANTS_DB_KEY,
       JSON.stringify(this.#restaurantCollection.get()),
