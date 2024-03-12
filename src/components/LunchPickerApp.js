@@ -1,44 +1,27 @@
 import Component from './Component';
-import RestaurantRepository from '../domain/RestaurantRepository';
 import { $, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
-  #restaurants;
-
-  constructor() {
-    super();
-    this.#restaurants = RestaurantRepository.transformRestaurants('전체', '이름순');
-  }
+  #category;
+  #sorting;
 
   setEvent() {
-    this.addEventListener('selectChange', () => this.#generateRestaurants());
+    this.addEventListener('selectChange', () => this.#updateSelectType());
     this.addEventListener('gnbButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'true'));
     this.addEventListener('cancelButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'false'));
-    this.addEventListener('submitButtonClick', (event) => {
-      this.#updateRestaurants(event.detail);
-      $setAttribute('restaurant-add-modal', 'open', 'false');
-    });
   }
 
   removeEvent() {
     this.removeEventListener('selectChange');
     this.removeEventListener('gnbButtonClick');
     this.removeEventListener('cancelButtonClick');
-    this.removeEventListener('submitButtonClick');
   }
 
-  #updateRestaurants(restaurant) {
-    RestaurantRepository.addRestaurant(restaurant);
-    this.#restaurants = this.#generateRestaurants();
-  }
-
-  #generateRestaurants() {
-    const category = $('.category').value;
-    const sorting = $('.sorting').value;
-
-    this.#restaurants = RestaurantRepository.transformRestaurants(category, sorting);
-
-    $setAttribute('restaurant-list', 'restaurants', `${JSON.stringify(this.#restaurants)}`);
+  #updateSelectType() {
+    this.#category = $('.category').value;
+    this.#sorting = $('.sorting').value;
+    $setAttribute('restaurant-list', 'category', this.#category);
+    $setAttribute('restaurant-list', 'sorting', this.#sorting);
   }
 
   template() {
@@ -48,7 +31,7 @@ class LunchPickerApp extends Component {
           <filter-box type="category"></filter-box>
           <filter-box type="sorting"></filter-box>
       </section>
-      <restaurant-list restaurants='${JSON.stringify(this.#restaurants)}'></restaurant-list>
+      <restaurant-list category=${this.#category} sorting=${this.#sorting}></restaurant-list>
       <restaurant-add-modal open="false"></restaurant-add-modal>
     `;
   }
