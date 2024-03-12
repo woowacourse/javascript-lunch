@@ -24,13 +24,13 @@ class Restaurant {
     > = RestaurantStorage
   ) {
     this.storage = storage;
-    this.restaurantsDetails = this.getSortedRestaurants(
+    this.restaurantsDetails = this.getProcessedRestaurants(
       this.currentCategory,
       this.sortType
     );
   }
 
-  private getSortedRestaurants(
+  private getProcessedRestaurants(
     category: MenuCategory,
     sortType: SortCategory
   ): RestaurantDetail[] {
@@ -55,7 +55,7 @@ class Restaurant {
   }
 
   public updateRestaurants(sortType: SortCategory) {
-    this.restaurantsDetails = this.getSortedRestaurants(
+    this.restaurantsDetails = this.getProcessedRestaurants(
       this.currentCategory,
       sortType
     );
