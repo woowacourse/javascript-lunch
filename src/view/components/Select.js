@@ -20,8 +20,10 @@ export default class Select extends HTMLSelectElement {
     this.addEventListener('change', this.#handleOnChange.bind(this));
   }
 
-  attributeChangedCallback() {
-    this.#createOptions();
+  attributeChangedCallback(name) {
+    if (name === 'data-options') {
+      this.#createOptions();
+    }
   }
 
   // eslint-disable-next-line
