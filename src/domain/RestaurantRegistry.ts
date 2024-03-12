@@ -5,7 +5,7 @@ import { Restaurant } from '../types/Restaurant';
  */
 const RestaurantRegister = {
   registerOneRestaurant(newRestaurant: Restaurant) {
-    const allRestaurants = JSON.parse(localStorage.getItem('restaurants') ?? '');
+    const allRestaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
     allRestaurants.push(newRestaurant);
     localStorage.setItem('restaurants', JSON.stringify(allRestaurants));
   },
