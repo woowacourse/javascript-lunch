@@ -10,8 +10,7 @@ const DOM = {
       validateSelector(selector);
       return document.querySelector(selector);
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
-      return;
+      alert(error);
     }
   },
   $$: (selector: string) => {
@@ -19,7 +18,7 @@ const DOM = {
       validateSelector(selector);
       return document.querySelectorAll(selector);
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      alert(error);
       return [];
     }
   },
