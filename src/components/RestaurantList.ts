@@ -26,13 +26,8 @@ class RestaurantList extends Component {
   template() {
     return `
     <section class="restaurant-list-container">
-      ${this.#restaurants
-        .map(
-          (restaurant) =>
-            `<restaurant-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-item>`,
-        )
-        .join('')}
-      </section>
+      ${this.#restaurants.map((restaurant) => `<restaurant-item key=${restaurant.key}></restaurant-item>`).join('')}
+    </section>
     `;
   }
 }
