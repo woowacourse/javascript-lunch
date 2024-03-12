@@ -7,12 +7,13 @@ import BaseComponent from "../../BaseComponent/BaseComponent";
 import { $ } from "../../../utils/dom";
 
 import { ELEMENT_SELECTOR } from "../../../constants/selector";
+import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
 
 class GlobalNavigationBar extends BaseComponent {
   private eventListeners = {
     gnbButtonClick: {
       eventName: "click",
-      eventHandler: this.handleOpenModal,
+      eventHandler: this.handleOpenModal.bind(this),
     },
   } as const;
 
@@ -35,11 +36,7 @@ class GlobalNavigationBar extends BaseComponent {
   }
 
   private handleOpenModal() {
-    const modalContent = $(ELEMENT_SELECTOR.commonModalContent);
-
-    if (modalContent instanceof HTMLDialogElement) {
-      modalContent.showModal();
-    }
+    this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalOpen);
   }
 
   protected removeEvent(): void {

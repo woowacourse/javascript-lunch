@@ -113,14 +113,6 @@ class RestaurantAddForm extends BaseComponent {
     });
   }
 
-  private handleCloseModal() {
-    const modalContentElement = $(ELEMENT_SELECTOR.commonModalContent);
-
-    if (modalContentElement instanceof HTMLDialogElement) {
-      modalContentElement.close();
-    }
-  }
-
   private handleResetForm() {
     const formElement = $(ELEMENT_SELECTOR.restaurantAddForm);
 
@@ -137,9 +129,9 @@ class RestaurantAddForm extends BaseComponent {
 
       this.handleResetForm();
 
-      this.handleCloseModal();
-
       this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+
+      this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalClose);
     } catch (error: unknown | Error) {
       this.handleError(error);
     }
@@ -198,9 +190,9 @@ class RestaurantAddForm extends BaseComponent {
     )
       return;
 
-    this.handleCloseModal();
-
     this.handleResetForm();
+
+    this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalClose);
   }
 
   protected removeEvent(): void {
