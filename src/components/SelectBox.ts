@@ -3,40 +3,33 @@ import RestaurantComponent from './Restaurant';
 import type RestaurantList from '@/domain/RestaurantList';
 import dom from '@/utils/dom';
 import type { IRestaurantList, TCategory, TSorting } from '@/types/restaurant';
+import Component from './core/Component';
+
+interface ISelectBox {
+  $target: HTMLElement;
+  props: ISelectBoxProps;
+}
 
 interface ISelectBoxProps {
-  $target: HTMLElement;
   attributes: ISelectAttributes;
   options: IOptionAttributes[];
   kind?: 'category' | 'sorting';
   restaurantList?: RestaurantList;
 }
 
-class SelectBoxComponent {
-  kind;
-  $target;
-  attributes;
-  options;
-  restaurantList;
-
-  constructor({ $target, attributes, options, kind, restaurantList }: ISelectBoxProps) {
-    this.$target = $target;
-    this.attributes = attributes;
-    this.options = options;
-    this.kind = kind;
-    this.restaurantList = restaurantList;
-    this.render();
-    this.setEvent();
+class SelectBoxComponent extends Component<ISelectBoxProps> {
+  constructor({ $target, props }: ISelectBox) {
+    super({ $target, props });
   }
 
   setEvent(): void {
-    if (this.kind === 'category') this.$target.addEventListener('change', this.handleCategoryFilter.bind(this));
-    if (this.kind === 'sorting') this.$target.addEventListener('change', this.handleSortingFilter.bind(this));
+    if (this.props.kind === 'category') this.$target.addEventListener('change', this.handleCategoryFilter.bind(this));
+    if (this.props.kind === 'sorting') this.$target.addEventListener('change', this.handleSortingFilter.bind(this));
   }
 
   render(): void {
-    const selectTag = this.#getSelectTag();
-    this.options.forEach(option => {
+    const selectTag = this.getSelectTag();
+    this.props.options.forEach(option => {
       const optionTag = dom.createOptionTag({ value: option.value, text: option.text });
       selectTag.appendChild(optionTag);
     });
@@ -44,8 +37,8 @@ class SelectBoxComponent {
     this.$target = selectTag;
   }
 
-  #getSelectTag(): HTMLSelectElement {
-    const { name, id, classNames, required } = this.attributes;
+  getSelectTag(): HTMLSelectElement {
+    const { name, id, classNames, required } = this.props.attributes;
     return dom.createSelectTag({ name, id, classNames, required });
   }
 
@@ -60,16 +53,16 @@ class SelectBoxComponent {
   handleCategoryFilter(): void {
     const category = this.getSelectedCategory();
     const sortingCondition = this.getSelectedSortingCondition();
-    if (this.restaurantList == null) return;
-    this.restaurantList.filterByCategory(category);
-    const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
+    if (this.props.restaurantList == null) return;
+    this.props.restaurantList.filterByCategory(category);
+    const sortedList = this.props.restaurantList.getSortedByCondition(sortingCondition);
     this.renderNewRestaurantList(sortedList);
   }
 
   handleSortingFilter(): void {
     const sortingCondition = this.getSelectedSortingCondition();
-    if (this.restaurantList == null) return;
-    const sortedList = this.restaurantList.getSortedByCondition(sortingCondition);
+    if (this.props.restaurantList == null) return;
+    const sortedList = this.props.restaurantList.getSortedByCondition(sortingCondition);
     this.renderNewRestaurantList(sortedList);
   }
 

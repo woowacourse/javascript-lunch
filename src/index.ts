@@ -29,21 +29,25 @@ const getInitialRestaurantList = (): RestaurantList =>
 
 const createCategorySelect = ($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList): void => {
   new SelectBoxComponent({
-    kind: 'category',
     $target: $restaurantFilterContainer,
-    attributes: FILTERED_CATEGORY_ATTRIBUTE,
-    options: FILTERED_CATEGORY,
-    restaurantList,
+    props: {
+      kind: 'category',
+      attributes: FILTERED_CATEGORY_ATTRIBUTE,
+      options: FILTERED_CATEGORY,
+      restaurantList,
+    },
   });
 };
 
 const createSortingSelect = ($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList): void => {
   new SelectBoxComponent({
-    kind: 'sorting',
     $target: $restaurantFilterContainer,
-    attributes: SORTING_ATTRIBUTE,
-    options: SORTING,
-    restaurantList,
+    props: {
+      kind: 'sorting',
+      attributes: SORTING_ATTRIBUTE,
+      options: SORTING,
+      restaurantList,
+    },
   });
 };
 
@@ -57,17 +61,21 @@ const createModalFormSelect = (restaurantList: RestaurantList): void => {
   const $categoryContainer = dom.getElement('#category-container');
   new SelectBoxComponent({
     $target: $categoryContainer,
-    attributes: FORM_CATEGORY_ATTRIBUTE,
-    options: FORM_CATEGORY,
-    restaurantList,
+    props: {
+      attributes: FORM_CATEGORY_ATTRIBUTE,
+      options: FORM_CATEGORY,
+      restaurantList,
+    },
   });
 
   const $distanceContainer = dom.getElement('#distance-container');
   new SelectBoxComponent({
     $target: $distanceContainer,
-    attributes: FORM_DISTANCE_ATTRIBUTE,
-    options: FORM_DISTANCE,
-    restaurantList,
+    props: {
+      attributes: FORM_DISTANCE_ATTRIBUTE,
+      options: FORM_DISTANCE,
+      restaurantList,
+    },
   });
 };
 
