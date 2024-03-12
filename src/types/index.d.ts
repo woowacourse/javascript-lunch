@@ -28,7 +28,7 @@ export interface RestaurantHelperFunction {
   filterByCategory: (category: Icategory, restaurantList: Irestaurant[]) => Irestaurant[];
 }
 
-export interface IcategoryInfo {
-  category: string;
-  categoryImg: string;
+export interface CategoryInfo {
+  alt: string;
+  src: string;
 }

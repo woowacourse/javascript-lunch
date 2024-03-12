@@ -7,28 +7,28 @@ import westernCategoryImage from '../../../templates/category-western.png';
 
 const categoryMatchedImageData = [
   {
-    category: '한식',
-    categoryImg: koreanCategoryImage,
+    src: koreanCategoryImage,
+    alt: '한식',
   },
   {
-    category: '중식',
-    categoryImg: chinesecategoryImage,
+    src: chinesecategoryImage,
+    alt: '중식',
   },
   {
-    category: '일식',
-    categoryImg: japaneseCategoryImage,
+    src: japaneseCategoryImage,
+    alt: '일식',
   },
   {
-    category: '양식',
-    categoryImg: westernCategoryImage,
+    src: westernCategoryImage,
+    alt: '양식',
   },
   {
-    category: '아시안',
-    categoryImg: asianCategoryImage,
+    src: asianCategoryImage,
+    alt: '아시안',
   },
   {
-    category: '기타',
-    categoryImg: etcCategoryImage,
+    src: etcCategoryImage,
+    alt: '기타',
   },
 ];
 

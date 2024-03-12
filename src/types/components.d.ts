@@ -70,7 +70,7 @@ export type SpanComponentPropsType = {
 };
 
 export interface SpanElementDataType extends Partial<BasicElementDataType> {
-  TAG_TEXT: string;
+  TAG_TEXT_CONTENT: string;
 }
 
 export type TextAreaComponentPropsType = {
@@ -94,7 +94,7 @@ export type ContainerComponentPropsType = {
 };
 
 export interface ContainerElementDataType extends Partial<BasicElementDataType> {
-  TAG_ID: string;
+  TAG_ID?: string;
 }
 
 export type ListComponentPropsType = {
@@ -103,5 +103,37 @@ export type ListComponentPropsType = {
 };
 
 export interface ListElementDataType extends Partial<BasicElementDataType> {
+  TAG_TEXT_CONTENT: string;
+}
+
+export type ImageComponentPropsType = {
+  src: string;
+  alt: string;
+  className: string;
+};
+
+export interface ImageElementDataType extends BasicElementDataType {
+  TAG_SRC: string;
+  TAG_ALT: string;
+}
+
+export type HeadingComponentPropsType = {
+  level: number;
+  textContent: string;
+  className: string;
+};
+
+export interface HeadingElementDataType extends BasicElementDataType {
+  TAG_LEVEL: number;
+  TAG_TEXT_CONTENT: string;
+  TAG_CLASS_NAME: string;
+}
+
+export type PComponentPropsType = {
+  className: string;
+  textContent: string;
+};
+
+export interface PElementDataType extends BasicElementDataType {
   TAG_TEXT_CONTENT: string;
 }

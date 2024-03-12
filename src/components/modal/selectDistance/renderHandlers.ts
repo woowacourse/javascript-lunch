@@ -1,9 +1,9 @@
-import DISTANCE_LABEL_COMPONENT_DATA from './componentsData/DistanceLabelComponentData';
-import SELECT_DISTANCE_COMPONENT_DATA from './componentsData/SelectDistanceComponentData';
 import generateLabelComponent from '../../../uiUtils/generateLabelComponent';
 import generateSelectComponent from '../../../uiUtils/generateSelectComponent';
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
+import DISTANCE_LABEL_COMPONENT_DATA from './componentsData/DistanceLabelComponentData';
+import SELECT_DISTANCE_COMPONENT_DATA from './componentsData/SelectDistanceComponentData';
 import selectDistanceTemplate from './selectDistanceTemplate';
 
 export const renderBaseDistanceComponent = (form: Element) => {

@@ -1,6 +1,7 @@
 import TextArea from '../components/composables/TextArea';
 import { TextAreaElementDataType } from '../types/components';
 
+/* eslint-disable max-lines-per-function */
 const generateTextAreaComponent = (textAreaOptionData: Partial<TextAreaElementDataType>) => {
   const { TAG_ID, TAG_NAME, TAG_ROWS, TAG_COLS, TAG_CLASS_NAME } = textAreaOptionData;
 

@@ -8,7 +8,6 @@ function TextArea({ name, id, rows, cols, className }: TextAreaComponentPropsTyp
     cols,
     className,
   });
-
   return textArea;
 }
 

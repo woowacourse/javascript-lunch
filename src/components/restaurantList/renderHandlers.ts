@@ -1,6 +1,5 @@
 import { RestaurantState } from '../../types';
-import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
-import Restaurant from '../restaurant/Restaurant';
+import RestaurantListItem from '../restaurantListItem/RestaurantListItem';
 
 const resetPrevRestaurantList = (ul: Element) => {
   while (ul.firstChild) {
@@ -11,9 +10,11 @@ const resetPrevRestaurantList = (ul: Element) => {
 const renderRestaurantList = (filterData: RestaurantState[]) => {
   const ul = document.getElementsByClassName('restaurant-list')[0];
   resetPrevRestaurantList(ul);
-  const totalText = filterData.reduce((acc: string, cur: RestaurantState) => acc + Restaurant(cur), '');
-  const formattedTotalText = convertHTMLStringToDOM(totalText);
+  const fragment = document.createDocumentFragment();
+  filterData.forEach((restaurant) => {
+    fragment.appendChild(RestaurantListItem(restaurant));
+  });
 
-  if (formattedTotalText) ul.appendChild(formattedTotalText);
+  ul.appendChild(fragment);
 };
 export default renderRestaurantList;

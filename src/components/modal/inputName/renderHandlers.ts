@@ -1,9 +1,9 @@
-import NAME_INPUT_COMPONENT_DATA from './componentsData/NameInputComponentData';
-import NAME_LABEL_COMPONENT_DATA from './componentsData/NameLabelComponentData';
 import generateInputComponent from '../../../uiUtils/generateInputComponent';
 import generateLabelComponent from '../../../uiUtils/generateLabelComponent';
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
+import NAME_INPUT_COMPONENT_DATA from './componentsData/NameInputComponentData';
+import NAME_LABEL_COMPONENT_DATA from './componentsData/NameLabelComponentData';
 import inputNameTemplate from './inputNameTemplate';
 
 export const renderBaseComponents = (form: Element) => {

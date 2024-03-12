@@ -1,8 +1,8 @@
-import RESTAURANT_CATEGORY_DATA from './componentsData/RestaurantCategoryData';
-import SORT_BY_NAME_OR_CATEGORY_DATA from './componentsData/SortByNameOrDistanceData';
 import generateSelectElement from '../../uiUtils/generateSelectComponent';
 import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 
+import RESTAURANT_CATEGORY_DATA from './componentsData/RestaurantCategoryData';
+import SORT_BY_NAME_OR_CATEGORY_DATA from './componentsData/SortByNameOrDistanceData';
 import baseSectionTemplate from './filterBarTemplate';
 
 export const renderBaseFilterBarComponents = () => {

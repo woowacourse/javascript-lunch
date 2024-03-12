@@ -1,8 +1,8 @@
-import ADD_BUTTON_COMPONENT_DATA from './componentsData/AddButtonComponentData';
-import CANCEL_BUTTON_COMPONENT_DATA from './componentsData/CancelButtonComponentData';
 import generateButtonComponent from '../../../uiUtils/generateButtonComponent';
 import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
+import ADD_BUTTON_COMPONENT_DATA from './componentsData/AddButtonComponentData';
+import CANCEL_BUTTON_COMPONENT_DATA from './componentsData/CancelButtonComponentData';
 import modalButtonTemplate from './modalButtonTemplate';
 
 export const renderBaseModalButtonComponents = (form: Element) => {
