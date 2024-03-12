@@ -1,5 +1,5 @@
-export const SELECTED_DATA: SelectedDataType = {
-  sorting: {
+export const SELECT_FIELD: SelectFieldType = {
+  sortingFilter: {
     id: 'sorting-filter',
     name: 'sorting',
     options: {
@@ -7,7 +7,7 @@ export const SELECTED_DATA: SelectedDataType = {
       distance: '거리순',
     },
   },
-  category: {
+  categoryFilter: {
     id: 'category-filter',
     name: 'category',
     options: {

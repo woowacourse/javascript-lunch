@@ -1,18 +1,13 @@
-type SelectedDataType = {
-  sorting: {
-    id: string;
-    name: string;
-    options: {
-      [key: string]: string;
-    };
-  };
-  category: {
-    id: string;
-    name: string;
-    options: {
-      [key: string]: string;
-    };
-  };
+type OptionsType = { [key: string]: string };
+
+type SelectAttributeType = {
+  id: string;
+  name: string;
+  options: OptionsType;
+};
+
+type SelectFieldType = {
+  [key: string]: SelectAttributeType;
 };
 
 type FieldIdsType = {
@@ -20,6 +15,4 @@ type FieldIdsType = {
   selectIds: string[];
 };
 
-type ConvertType = {
-  [key: string]: string;
-};
+type ConvertType = { [key: string]: string };
