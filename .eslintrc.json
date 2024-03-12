@@ -1,11 +1,26 @@
 {
-  "rules": {},
   "env": {
-    "es6": true,
-    "node": true
+    "browser": true,
+    "es2021": true
   },
+  "parser": "@typescript-eslint/parser",
+  "extends": ["airbnb", "standard-with-typescript", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "ignorePatterns": ["cypress.config.ts", "webpack.config.js", "*.js"],
+  "rules": {
+    "@typescript-eslint/no-unused-expressions": "off",
+    "import/extensions": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      }
+    }
+  }
 }
