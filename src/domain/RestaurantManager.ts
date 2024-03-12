@@ -3,60 +3,65 @@ import { IRestaurant, Category } from '../domain/interface/IRestaurant';
 export interface IRestaurantManager {
   add(newRestaurant: IRestaurant): void;
   getRestaurants(): IRestaurant[];
-  getfilterRestaurants(): IRestaurant[];
   sortByAscendingName(): IRestaurant[];
   sortByAscendingWalkingTime(): IRestaurant[];
-  udateFilterRestaurants(): void;
   filteredRestaurants(category: Category): IRestaurant[];
 }
 
 export class RestaurantManager implements IRestaurantManager {
   private restaurants: IRestaurant[];
-  private filterRestaurants: IRestaurant[];
+  private currentCategory;
+  private currentSortBy;
 
   constructor(restaurants: IRestaurant[] = []) {
     this.restaurants = [...restaurants];
-    this.filterRestaurants = [...restaurants];
+    this.currentCategory = '전체';
+    this.currentSortBy = '이름순';
   }
 
-  add(newRestaurant: IRestaurant): void {
+  private validate(restaurant: IRestaurant): void {
     const hasSameName = this.restaurants.some(
-      ({ name }) => name === newRestaurant.name
+      ({ name }) => name === restaurant.name
     );
 
     if (hasSameName) {
       throw new Error('이미 있는 식당은 다시 추가할 수 없어요.');
     }
+  }
+
+  add(newRestaurant: IRestaurant): void {
+    this.validate(newRestaurant);
 
     this.restaurants.push(newRestaurant);
     localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
+
+    if (this.currentSortBy === '이름순')
+      this.restaurants = this.sortByAscendingName();
+    if (this.currentSortBy === '거리순')
+      this.restaurants = this.sortByAscendingWalkingTime();
   }
 
   getRestaurants(): IRestaurant[] {
     return [...this.restaurants];
   }
 
-  getfilterRestaurants(): IRestaurant[] {
-    return [...this.filterRestaurants];
-  }
-
   sortByAscendingName(): IRestaurant[] {
-    const sortingReataurants = this.filterRestaurants.sort((a, b) => {
+    this.currentSortBy = '이름순';
+
+    const sortedRestaurants = this.filteredRestaurants().sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
       return 0;
     });
 
-    this.restaurants.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
-    return [...sortingReataurants];
+    this.restaurants = sortedRestaurants;
+    return sortedRestaurants;
   }
 
   sortByAscendingWalkingTime(): IRestaurant[] {
-    const sortingReataurants = this.filterRestaurants.sort((a, b) => {
+    this.currentSortBy = '거리순';
+
+    const sortedRestaurants = this.filteredRestaurants().sort((a, b) => {
       const aTime = Number(a.walkingTime);
       const bTime = Number(b.walkingTime);
 
@@ -68,29 +73,20 @@ export class RestaurantManager implements IRestaurantManager {
       return 0;
     });
 
-    this.restaurants.sort((a, b) => {
-      const aTime = Number(a.walkingTime);
-      const bTime = Number(b.walkingTime);
-
-      if (aTime < bTime) return -1;
-      if (aTime > bTime) return 1;
-
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
-
-    return sortingReataurants;
+    this.restaurants = sortedRestaurants;
+    return sortedRestaurants;
   }
 
-  udateFilterRestaurants() {
-    this.filterRestaurants = [...this.restaurants];
+  setCurrentCategory(category: Category) {
+    this.currentCategory = category;
   }
 
-  filteredRestaurants(category: Category): IRestaurant[] {
-    this.filterRestaurants = [...this.restaurants].filter(
-      (restaurant) => restaurant.category === category
+  filteredRestaurants(): IRestaurant[] {
+    console.log(this.currentSortBy);
+    if (this.currentCategory === '전체') return [...this.restaurants];
+
+    return [...this.restaurants].filter(
+      (restaurant) => restaurant.category === this.currentCategory
     );
-    return [...this.filterRestaurants];
   }
 }
