@@ -1,4 +1,4 @@
-.restaurant__info__explanation {
+.restaurant .restaurant__info__description {
   display: -webkit-box;
   max-width: 263px;
   max-height: 48px;
@@ -7,8 +7,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-
-.restaurant__info__explanation .none-description {
+.restaurant__info__description.none-description {
   opacity: 0.5;
   color: var(--lunch-grey-scale-3-color);
   font-weight: 500;

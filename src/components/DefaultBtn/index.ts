@@ -15,6 +15,7 @@ class DefaultBtn extends HTMLElement {
       class: `btn-color-${this.getAttribute('color') || defaultBtnColor}`,
       type: this.getAttribute('type') || defaultBtnType,
       disabled: this.getAttribute('disabled'),
+      id: this.getAttribute('id'),
     };
 
     const $btn = setObjectAttribute(

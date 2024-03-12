@@ -43,7 +43,7 @@ export const openModal = (childTag: string) => {
   if (modalEl && modalContainerChildEl) {
     modalEl.classList.add('open');
     modalContainerChildEl.firstChild?.remove();
-    modalContainerChildEl.innerHTML = `<${childTag}></${childTag}>`;
+    modalContainerChildEl.innerHTML = `${childTag}`;
   }
 
   if (bodyEl) {

@@ -59,6 +59,13 @@ class RestaurantList {
     this.#saveListToLocalStore();
   }
 
+  deleteStore(storeName: string) {
+    const storeIndex = this.#list.findIndex((info) => info.name === storeName);
+
+    this.#list.splice(storeIndex, 1);
+    this.#saveListToLocalStore();
+  }
+
   #saveListToLocalStore() {
     localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(this.#list));
   }

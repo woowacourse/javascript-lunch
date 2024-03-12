@@ -16,14 +16,6 @@
   margin-left: 16px;
 }
 
-.restaurant__info__name {
-  max-width: 263px;
-  overflow: hidden;
-  font-weight: var(--lunch-subtitle-font-weight);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .restaurant-list {
   margin-top: 20px;
   height: 700px;

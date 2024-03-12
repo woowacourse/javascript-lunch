@@ -30,7 +30,7 @@ class RestaurantItem extends HTMLElement {
         `;
 
       this.addEventListener('click', (event) =>
-        this.#handleClickToOpenInfoModal(event),
+        this.#handleClickToOpenInfoModal(event, store.name),
       );
 
       return;
@@ -39,10 +39,12 @@ class RestaurantItem extends HTMLElement {
     this.innerHTML = /* html */ `<p>해당 상점을 찾을 수 없습니다.</p>`;
   }
 
-  #handleClickToOpenInfoModal(event: MouseEvent) {
+  #handleClickToOpenInfoModal(event: MouseEvent, storeName: string) {
     event.stopPropagation();
 
-    openModal('restaurant-info-modal-inner');
+    openModal(
+      `<restaurant-info-modal-inner  store-name="${storeName}"></restaurant-info-modal-inner>`,
+    );
   }
 }
 

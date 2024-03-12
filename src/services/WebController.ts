@@ -16,8 +16,8 @@ import '../components/ErrorMessageBox';
 import '../components/RestaurantDescription';
 import '../components/RestaurantDistance';
 import '../components/RestaurantName';
+import '../components/RestaurantInfoModalInner';
 import '../components/RestaurantItem';
-
 import { RestaurantList } from '../domains';
 
 import FilteringController from './FilteringController';

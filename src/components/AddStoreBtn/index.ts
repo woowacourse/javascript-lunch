@@ -22,7 +22,7 @@ class AddStoreBtn extends HTMLElement {
   #handleClickToAddStore(event: MouseEvent) {
     event.stopPropagation();
 
-    openModal('restaurant-form-inner');
+    openModal('<restaurant-form-inner></<restaurant-form-inner>');
   }
 }
 
