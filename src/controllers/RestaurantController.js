@@ -19,7 +19,7 @@ class RestaurantController {
   run() {
     OutputView.renderFilterDropdown();
     this.updateRestaurantList();
-    this.showAddRestaurantModal();
+    this.manageAddRestaurantModal();
     this.manageFilterValue();
     this.manageModalEvents();
   }
@@ -35,7 +35,7 @@ class RestaurantController {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
   }
 
-  showAddRestaurantModal() {
+  manageAddRestaurantModal() {
     const addRestaurantButton = $('.gnb__button');
     addRestaurantButton.addEventListener('click', () => {
       OutputView.renderAddRestaurant();
