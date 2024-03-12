@@ -1,4 +1,5 @@
 import { IRestaurantInfo } from '../../domain/Restaurant';
+import restaurantCatalog from '../../domain/RestaurantCatalog';
 
 const IMG_CATEGORY = Object.freeze({
   한식: 'korean',
@@ -10,10 +11,16 @@ const IMG_CATEGORY = Object.freeze({
 });
 
 class RestaurantCard extends HTMLLIElement {
-  constructor(restaurantInfo: IRestaurantInfo) {
+  constructor(id: number) {
     super();
     this.classList.add('restaurant');
-    this.innerHTML = this.#generateInnerHTML(restaurantInfo);
+    this.setAttribute('data-id', String(id));
+    this.#render();
+  }
+
+  #render() {
+    const restaurant = restaurantCatalog.restaurants[Number(this.getAttribute('data-id'))!];
+    this.innerHTML = this.#generateInnerHTML(restaurant.getRestaurantInfoObject());
   }
 
   #generateInnerHTML({ category, name, distanceFromCampus, description }: IRestaurantInfo) {
@@ -27,6 +34,15 @@ class RestaurantCard extends HTMLLIElement {
           <p class="restaurant__description text-body">${description}</p>
         </div>
       `;
+  }
+
+  static get observedAttributes() {
+    return ['data-id'];
+  }
+
+  attributeChangedCallback() {
+    this.innerHTML = '';
+    this.#render();
   }
 }
 

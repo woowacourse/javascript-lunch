@@ -8,24 +8,24 @@ export const ALL_CATEGORY = '전체';
 type ICatalogCategory = Category | typeof ALL_CATEGORY;
 
 class RestaurantCatalog {
-  #restaurants: Restaurant[] = [];
+  restaurants: Restaurant[] = [];
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
-    this.#restaurants.forEach((restaurant: Restaurant) => {
+    this.restaurants.forEach((restaurant: Restaurant) => {
       if (restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
         throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
     });
-    const newRestaurant = { ...restaurantInfo, id: this.#restaurants.length };
-    this.#restaurants.push(new Restaurant(newRestaurant));
+    const newRestaurant = { ...restaurantInfo, id: this.restaurants.length };
+    this.restaurants.push(new Restaurant(newRestaurant));
     return newRestaurant;
   }
 
   filterByCategory(category: ICatalogCategory) {
     if (category === ALL_CATEGORY) {
-      return this.#restaurants;
+      return this.restaurants;
     }
-    return this.#restaurants.filter((restaurant) => restaurant.getRestaurantInfoObject().category === category);
+    return this.restaurants.filter((restaurant) => restaurant.getRestaurantInfoObject().category === category);
   }
 
   sortByName(restaurants: IRestaurantInfo[]) {
@@ -45,11 +45,11 @@ class RestaurantCatalog {
   }
 
   getSpecificRestaurantInfo(index: number) {
-    return this.#restaurants[index].getRestaurantInfoObject();
+    return this.restaurants[index].getRestaurantInfoObject();
   }
 
   getRestaurantsClass() {
-    return [...this.#restaurants];
+    return [...this.restaurants];
   }
 }
 
