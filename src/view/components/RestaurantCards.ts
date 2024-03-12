@@ -11,42 +11,51 @@ function sortMethod(attribute: string) {
 }
 
 class RestaurantCards extends HTMLUListElement {
-  #renderedRestaurantCards: RestaurantCard[] = [];
+  #renderRestaurantCards: RestaurantCard[] = [];
 
-  #appendRestaurants() {
+  #render() {
     const restaurantFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select')!)(
       restaurantCatalog
         .filterByCategory(this.getAttribute('data-category-select') as Category)
         ?.map((restaurant: Restaurant) => restaurant.getRestaurantInfoObject()),
     );
-    this.#appendRestaurantCards(restaurantFilteredAndSorted);
-    this.#render();
+    this.#setRenderRestaurantCards(restaurantFilteredAndSorted);
+    this.#renderRestaurantsField();
   }
 
-  #appendRestaurantCards(restaurants: IRestaurantInfo[]) {
-    this.#renderedRestaurantCards = restaurants.map((data) => new RestaurantCard(data.id!));
+  #setRenderRestaurantCards(restaurants: IRestaurantInfo[]) {
+    this.#renderRestaurantCards = restaurants.map((data) => new RestaurantCard(data.id!));
   }
 
-  #render() {
-    const currentLength = this.children.length;
-    const nextLength = this.#renderedRestaurantCards.length;
-
+  #renderRestaurantsField() {
     // 1. 기존의 레스토랑에서 id만 변경하기.
-    for (let i = 0; i < Math.min(currentLength, nextLength); i += 1) {
-      if (this.children[i].getAttribute('data-id') !== this.#renderedRestaurantCards[i].getAttribute('data-id')) {
-        this.children[i].setAttribute('data-id', this.#renderedRestaurantCards[i].getAttribute('data-id')!);
+    this.#reRenderRestaurants();
+    // 2. 레스토랑이 적어졌을 경우 remove 하기
+    this.#removeRestaurants();
+    // 3. 레스토랑이 많아졌을 경우 append하기
+    this.#appendRestaurants();
+  }
+
+  #reRenderRestaurants() {
+    for (let i = 0; i < Math.min(this.children.length, this.#renderRestaurantCards.length); i += 1) {
+      if (this.children[i].getAttribute('data-id') !== this.#renderRestaurantCards[i].getAttribute('data-id')) {
+        this.children[i].setAttribute('data-id', this.#renderRestaurantCards[i].getAttribute('data-id')!);
       }
     }
-    // 2. 레스토랑이 적어졌을 경우 remove 하기
-    if (currentLength > nextLength) {
-      for (let i = currentLength; i > nextLength; i -= 1) {
+  }
+
+  #removeRestaurants() {
+    if (this.children.length > this.#renderRestaurantCards.length) {
+      for (let i = this.children.length; i > this.#renderRestaurantCards.length; i -= 1) {
         this.children[i - 1].remove();
       }
     }
-    // 3. 레스토랑이 많아졌을 경우 append하기
-    if (currentLength < nextLength) {
-      for (let i = currentLength; i < nextLength; i += 1) {
-        this.appendChild(this.#renderedRestaurantCards[i]);
+  }
+
+  #appendRestaurants() {
+    if (this.children.length < this.#renderRestaurantCards.length) {
+      for (let i = this.children.length; i < this.#renderRestaurantCards.length; i += 1) {
+        this.appendChild(this.#renderRestaurantCards[i]);
       }
     }
   }
@@ -63,7 +72,7 @@ class RestaurantCards extends HTMLUListElement {
     if (!this.getAttribute('data-sort-select') || !this.getAttribute('data-category-select')) {
       return;
     }
-    this.#appendRestaurants();
+    this.#render();
   }
 }
 
