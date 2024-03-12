@@ -32,7 +32,7 @@ class RestaurantItem extends Component {
     this.render();
   }
 
-  displayCategoryIcon(category) {
+  #displayCategoryIcon(category) {
     switch (category) {
       case '한식':
         return `<img src=${koreanCategoryImg} alt="한식" class="category-icon" />`;
@@ -55,7 +55,7 @@ class RestaurantItem extends Component {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
-          ${this.displayCategoryIcon(this.#category)}
+          ${this.#displayCategoryIcon(this.#category)}
         </div>
         <div class="restaurant__item">
           <h2 class="restaurant__name text-subtitle">${this.#name}</h3>

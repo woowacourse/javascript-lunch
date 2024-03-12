@@ -18,14 +18,14 @@ class FilterBox extends Component {
   }
 
   setEvent() {
-    $addEvent(`.${this.#type}`, 'change', this.handleSelectChange.bind(this));
+    $addEvent(`.${this.#type}`, 'change', this.#handleSelectChange.bind(this));
   }
 
   removeEvent() {
-    $removeEvent(`.${this.#type}`, 'change', this.handleSelectChange.bind(this));
+    $removeEvent(`.${this.#type}`, 'change', this.#handleSelectChange.bind(this));
   }
 
-  handleSelectChange() {
+  #handleSelectChange() {
     this.makeCustomEvent('selectChange');
   }
 
