@@ -1,3 +1,4 @@
+import RestaurantAddService from '@/domains/services/RestaurantAddService';
 import RestaurantDBService from '../../src/domains/services/RestaurantDBService';
 import { IRestaurant } from '../../src/types/Restaurant';
 
@@ -32,10 +33,10 @@ describe('음식점 DB 서비스 테스트', () => {
       isFavorite: false,
     };
 
-    const restaurantDBService = new RestaurantDBService();
+    const restaurantAddService = new RestaurantAddService();
 
-    restaurantDBService.add(NEW_RESTAURANT1);
-    restaurantDBService.add(NEW_RESTAURANT2);
+    restaurantAddService.updateRestaurantCollection(NEW_RESTAURANT1);
+    restaurantAddService.updateRestaurantCollection(NEW_RESTAURANT2);
 
     expect(JSON.parse(localStorage.getItem(RESTAURANTS_DB_TEST_KEY) || '[]')).to.deep.equal([
       NEW_RESTAURANT1,
