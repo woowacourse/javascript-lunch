@@ -17,7 +17,6 @@ class RestaurantSelectSection {
           ${CATEGORIES.map(
             (category) => `<option value="${category}">${category}</option>`
           ).join()}
-      </select>
         </select>
 
         <!-- 정렬 셀렉트 박스 -->
@@ -40,24 +39,22 @@ class RestaurantSelectSection {
     category: Category | "전체";
     sortingStandard: SortingStandard;
   } {
-    const $sortingFilter = document.querySelector(
-      "#sorting-filter"
-    ) as HTMLSelectElement;
-    const $categoryFilter = document.querySelector(
-      "#category-filter"
-    ) as HTMLSelectElement;
+    const $sortingFilter =
+      document.querySelector<HTMLSelectElement>("#sorting-filter");
+    const $categoryFilter =
+      document.querySelector<HTMLSelectElement>("#category-filter");
     return {
-      category: $categoryFilter.value as Category | "전체",
-      sortingStandard: $sortingFilter.value as SortingStandard,
+      category: $categoryFilter?.value as Category | "전체",
+      sortingStandard: $sortingFilter?.value as SortingStandard,
     };
   }
 
   setEvent(type: string, listener: (event: Event) => void) {
-    const $restaurantFilterContainer = document.querySelector(
+    const $restaurantFilterContainer = document.querySelector<HTMLDivElement>(
       "#restaurant-filter-container"
-    ) as HTMLDivElement;
+    );
 
-    $restaurantFilterContainer.addEventListener(type, listener);
+    $restaurantFilterContainer?.addEventListener(type, listener);
   }
 }
 

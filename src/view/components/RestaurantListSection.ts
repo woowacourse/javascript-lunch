@@ -1,4 +1,3 @@
-import RestaurantList from "../../domain/RestaurantList";
 import restaurantList from "../../domain/RestaurantList";
 import { CATEGORY_IMAGE_MAPPER, DISTANCE_MAPPER } from "../../constants";
 import { Category, SortingStandard } from "../../types";

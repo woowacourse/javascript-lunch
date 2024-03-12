@@ -1,6 +1,5 @@
 import { CATEGORIES, DISTANCES, DISTANCE_MAPPER } from "../../constants";
 import restaurantList from "../../domain/RestaurantList";
-import { Category, Distance, Link, Restaurant } from "../../types";
 import { isCategory, isDistance, isLink } from "../../util";
 
 class RestaurantFormModal {
@@ -108,24 +107,23 @@ class RestaurantFormModal {
         this.closeModal();
         listener(e);
       } catch (error: any) {
-        const errorMessage = error?.message;
-        alert(errorMessage);
+        alert(error?.message);
       }
     });
   }
 
-  setCloseEvent(type: string, listener: (event: Event) => void) {
+  setCloseEvent() {
     const $addRestaurantCancelButton =
       document.querySelector<HTMLButtonElement>(
         "#add-restaurant-cancel__button"
       );
 
-    $addRestaurantCancelButton?.addEventListener(type, (e: Event) => {
+    $addRestaurantCancelButton?.addEventListener("click", (e: Event) => {
       const $restaurantForm =
         document.querySelector<HTMLFormElement>("#restaurant-form");
       $restaurantForm?.reset();
 
-      listener(e);
+      this.closeModal();
     });
   }
 

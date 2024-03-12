@@ -1,6 +1,5 @@
-import { Restaurant, Category, SortingStandard, Link } from "../types";
-import { deepCopy } from "../util";
-import { CATEGORIES, DISTANCES, RESTAURANTS } from "../constants";
+import { Restaurant, Category, SortingStandard } from "../types";
+import { RESTAURANTS } from "../constants";
 
 function getResturantsFromLocalStorage(): Restaurant[] {
   if (!localStorage.getItem(RESTAURANTS)) {

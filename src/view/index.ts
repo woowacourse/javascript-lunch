@@ -59,7 +59,7 @@ class View {
     this.setEvent("click", this.formModal.openModal);
 
     this.formModal.setFormEvent("submit", this.renderListSection.bind(this));
-    this.formModal.setCloseEvent("click", this.formModal.closeModal);
+    this.formModal.setCloseEvent();
   }
 
   private setEvent(type: string, listener: (event: Event) => void) {
