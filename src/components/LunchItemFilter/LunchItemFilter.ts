@@ -18,15 +18,15 @@ class LunchItemFilter extends HTMLElement {
   render() {
     this.innerHTML = LUNCH_ITEM_FILTER;
     this.createDropdown({
-      name: 'dropdown',
-      id: 'dropdown-filter',
+      name: 'category-dropdown',
+      id: 'category-dropdown',
       className: 'restaurant-filter',
       options: CATEGORIES,
       defaultValue: '전체',
     });
     this.createDropdown({
-      name: 'dropdown',
-      id: 'dropdown-filter',
+      name: 'category-dropdown',
+      id: 'sortby-dropdown',
       className: 'restaurant-filter',
       options: SORTBY,
     });
