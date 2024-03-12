@@ -19,8 +19,8 @@ class AppController {
     const restaurantList: RestaurantList = new RestaurantList(
       this.restaurantService.getRestaurants(this.sort, category),
     );
-    const appElement = document.querySelector('#app');
 
+    const appElement = document.querySelector('#app');
     if (appElement) {
       appElement.appendChild(restaurantList);
       this.addEvent();
@@ -28,18 +28,18 @@ class AppController {
   }
 
   addEvent() {
-    const lunchHeader = document.querySelector('#lunch-header');
+    const lunchHeader = document.querySelector('lunch-header');
     if (lunchHeader) {
       lunchHeader.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
     }
 
-    const selectBoxSection = document.querySelector('#select-box-section');
+    const selectBoxSection = document.querySelector('select-box-section');
     if (selectBoxSection) {
       selectBoxSection.addEventListener('changeCategory', this.changeCategory.bind(this));
       selectBoxSection.addEventListener('changeSort', this.changeSort.bind(this));
     }
 
-    const addRestaurantModal = document.querySelector('#add-restaurant-modal');
+    const addRestaurantModal = document.querySelector('add-restaurant-modal');
     if (addRestaurantModal) {
       addRestaurantModal.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
     }
