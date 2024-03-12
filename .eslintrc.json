@@ -1,11 +1,40 @@
 {
-  "rules": {},
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "max-depth": ["error", 1],
+    "max-params": ["error", 2],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "no-useless-constructor": "off",
+    "class-methods-use-this": "off",
+    "no-shadow": "off",
+    "no-new": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
+    "import/no-cycle": "off"
+  },
   "env": {
+    "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "project": "./tsconfig.json"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ]
 }

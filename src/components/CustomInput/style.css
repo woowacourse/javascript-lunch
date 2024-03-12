@@ -1,0 +1,13 @@
+custom-input input {
+  box-sizing: border-box;
+  border: 1px solid var(--lunch-grey-scale-2-color);
+  border-radius: 8px;
+  padding: 8px;
+  width: inherit;
+  height: inherit;
+}
+
+custom-input input::placeholder {
+  opacity: 0.7;
+  color: var(--lunch-grey-scale-3-color);
+}

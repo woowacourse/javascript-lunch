@@ -1,0 +1,4 @@
+error-message-box {
+  color: var(--lunch-primary-color);
+  size: var(--label-font-size);
+}

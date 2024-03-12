@@ -1,0 +1,65 @@
+@import '../../assets/css/style-constants.css';
+
+.restaurant {
+  display: flex;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--lunch-grey-scale-2-color);
+  padding: 14px 8px 19px 7px;
+  width: 100%;
+  height: fit-content;
+  max-height: 137px;
+  line-height: 24px;
+}
+
+.restaurant__info {
+  margin-left: 16px;
+}
+
+.restaurant__info__title {
+  max-width: 263px;
+  overflow: hidden;
+  font-weight: var(--lunch-subtitle-font-weight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.restaurant__info__distance {
+  color: var(--lunch-primary-color);
+}
+
+.restaurant__info__explanation {
+  display: -webkit-box;
+  max-width: 263px;
+  max-height: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.restaurant__info__explanation .none-description {
+  opacity: 0.5;
+  color: var(--lunch-grey-scale-3-color);
+  font-weight: 500;
+}
+
+.restaurant-list {
+  margin-top: 20px;
+  height: 700px;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE와 Edge */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+.restaurant-list::-webkit-scrollbar {
+  display: none;
+}
+
+.restaurant-list #none-restaurant-category {
+  position: absolute;
+  top: 50%;
+  left: 19%;
+  color: var(--lunch-grey-scale-3-color);
+  font-weight: var(--lunch-title-font-weight);
+  font-size: var(--label-font-size);
+}

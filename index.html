@@ -1,15 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>점심 뭐 먹지</title>
-</head>
-
-<body>
-
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
+    />
+    <title>점심 뭐 먹지?🍚</title>
+  </head>
+  <body>
+    <div class="inner">
+      <header class="top-bar">
+        <h1 class="top-bar__title">점심 뭐 먹지?</h1>
+        <add-store-btn></add-store-btn>
+      </header>
+      <main>
+        <section class="restaurant-list-container">
+          <div class="drop-box-group">
+            <drop-box name="filteringCategory"></drop-box>
+            <drop-box name="filteringSorting"></drop-box>
+          </div>
+          <ul class="restaurant-list">
+            <!--레스토랑 목록-->
+          </ul>
+        </section>
+        <!--TODO: 2단계 진행-> <section>
+      즐겨찾기 목록
+    </section> -->
+      </main>
+      <custom-modal>
+        <div slot="child">
+          <restaurant-form-inner></restaurant-form-inner>
+        </div>
+      </custom-modal>
+    </div>
+  </body>
 </html>
