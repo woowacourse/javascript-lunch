@@ -4,21 +4,26 @@ import noFillStar from '@/assets/favorite-icon-lined.png';
 
 class FavoriteButton extends BaseComponent {
   #isFavorite: boolean;
+  #button: HTMLButtonElement;
 
   constructor(isFavorite: boolean) {
     super();
     this.#isFavorite = isFavorite;
+    this.#button = document.createElement('button');
   }
 
   render() {
-    const $button = document.createElement('button');
-    $button.classList.add('favorite-button');
+    this.#button.classList.add('favorite-button');
     const $imgBox = document.createElement('img');
-    $button.append($imgBox);
+    this.#button.append($imgBox);
 
     const starImg = this.#isFavorite ? fillStar : noFillStar;
     $imgBox.setAttribute('src', starImg);
-    this.outerHTML = $button.outerHTML;
+    this.replaceWith(this.#button);
+  }
+
+  setEvent(): void {
+    this.#button.addEventListener('click', () => {});
   }
 }
 
