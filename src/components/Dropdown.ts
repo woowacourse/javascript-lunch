@@ -1,25 +1,25 @@
-import type { IOptionAttributes, ISelectAttributes } from '@/types/dom';
-import RestaurantComponent from './Restaurant';
+import type { IOptionAttributes, IDropdownAttributes } from '@/types/dom';
 import type RestaurantList from '@/domain/RestaurantList';
 import dom from '@/utils/dom';
 import type { IRestaurantList, TCategory, TSorting } from '@/types/restaurant';
 import Component from './core/Component';
+import RestaurantItem from './RestaurantItem';
 
-interface ISelectBox {
+interface IDropdown {
   $target: HTMLElement;
-  props: ISelectBoxProps;
+  props: IDropdownProps;
 }
 
-interface ISelectBoxProps {
-  attributes: ISelectAttributes;
+interface IDropdownProps {
+  attributes: IDropdownAttributes;
   options: IOptionAttributes[];
   kind?: 'category' | 'sorting';
   restaurantList?: RestaurantList;
 }
 
-class SelectBoxComponent extends Component<ISelectBoxProps> {
-  constructor({ $target, props }: ISelectBox) {
-    super({ $target, props });
+class Dropdown extends Component<IDropdownProps> {
+  constructor({ $target, props }: IDropdown) {
+    super($target, props);
   }
 
   setEvent(): void {
@@ -46,7 +46,7 @@ class SelectBoxComponent extends Component<ISelectBoxProps> {
     const $restaurantList = dom.getElement('.restaurant-list');
     $restaurantList.replaceChildren();
     sortedList.forEach(element => {
-      new RestaurantComponent({ $target: $restaurantList, information: element.information });
+      new RestaurantItem({ $target: $restaurantList, information: element.information });
     });
   }
 
@@ -79,4 +79,4 @@ class SelectBoxComponent extends Component<ISelectBoxProps> {
   }
 }
 
-export default SelectBoxComponent;
+export default Dropdown;

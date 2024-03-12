@@ -17,7 +17,8 @@
     "@typescript-eslint/no-unused-vars": "warn",
     "import/extensions": "off",
     "class-methods-use-this": "off",
-    "no-new": "off"
+    "no-new": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
   },
   "settings": {
     "import/resolver": {

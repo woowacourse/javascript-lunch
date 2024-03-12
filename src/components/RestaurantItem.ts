@@ -8,9 +8,9 @@ interface IRestaurantProps {
   information: IRestaurant;
 }
 
-class RestaurantComponent extends Component<IRestaurant> {
+class RestaurantItem extends Component<IRestaurant> {
   constructor({ $target, information }: IRestaurantProps) {
-    super({ $target, props: information });
+    super($target, information);
   }
 
   render(): void {
@@ -79,4 +79,4 @@ class RestaurantComponent extends Component<IRestaurant> {
   }
 }
 
-export default RestaurantComponent;
+export default RestaurantItem;

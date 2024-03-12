@@ -3,8 +3,8 @@ import '../templates/add-button.png';
 
 import Restaurant from './domain/Restaurant';
 import RestaurantList from './domain/RestaurantList';
-import RestaurantComponent from './components/Restaurant';
-import SelectBoxComponent from './components/SelectBox';
+import RestaurantComponent from './components/RestaurantItem';
+import SelectBoxComponent from './components/Dropdown';
 import { INITIAL_RESTAURANT_LIST } from './constants/config';
 import {
   ADD_BUTTON_ATTRIBUTE,
@@ -102,60 +102,60 @@ const createModalFormButton = (restaurantList: RestaurantList): void => {
   });
 };
 
-const handleOpenModal = (): void => {
-  dom.getElement('.modal').classList.add('modal--open');
-};
+// const handleOpenModal = (): void => {
+//   dom.getElement('.modal').classList.add('modal--open');
+// };
 
-const handleCloseModal = (): void => {
-  dom.getElement('.modal').classList.remove('modal--open');
-  dom.getElement('#error-link').classList.add('hidden');
-  const $form = dom.getElement('form') as HTMLFormElement;
-  $form.reset();
-};
+// const handleCloseModal = (): void => {
+//   dom.getElement('.modal').classList.remove('modal--open');
+//   dom.getElement('#error-link').classList.add('hidden');
+//   const $form = dom.getElement('form') as HTMLFormElement;
+//   $form.reset();
+// };
 
-const getFormInputTag = (): IFormInput => {
-  const category = dom.getElement('#category') as HTMLInputElement;
-  const name = dom.getElement('#name') as HTMLInputElement;
-  const distance = dom.getElement('#distance') as HTMLInputElement;
-  const link = dom.getElement('#link') as HTMLInputElement;
-  const $addButton = dom.getElement('#button-add') as HTMLButtonElement;
-  return { category, name, distance, link, $addButton };
-};
+// const getFormInputTag = (): IFormInput => {
+//   const category = dom.getElement('#category') as HTMLInputElement;
+//   const name = dom.getElement('#name') as HTMLInputElement;
+//   const distance = dom.getElement('#distance') as HTMLInputElement;
+//   const link = dom.getElement('#link') as HTMLInputElement;
+//   const $addButton = dom.getElement('#button-add') as HTMLButtonElement;
+//   return { category, name, distance, link, $addButton };
+// };
 
-const handleFormInput = ({
-  category: $category,
-  name: $name,
-  distance: $distance,
-  link: $link,
-  $addButton,
-}: IFormInput): void => {
-  const category = $category.value as TCategory;
-  const name = $name.value;
-  const distance = $distance.value as unknown as TDistance;
-  const referenceLink = $link.value;
+// const handleFormInput = ({
+//   category: $category,
+//   name: $name,
+//   distance: $distance,
+//   link: $link,
+//   $addButton,
+// }: IFormInput): void => {
+//   const category = $category.value as TCategory;
+//   const name = $name.value;
+//   const distance = $distance.value as unknown as TDistance;
+//   const referenceLink = $link.value;
 
-  if (formValidator.isValidForm({ category, name, distance, referenceLink })) $addButton.disabled = false;
-  else $addButton.disabled = true;
-};
+//   if (formValidator.isValidForm({ category, name, distance, referenceLink })) $addButton.disabled = false;
+//   else $addButton.disabled = true;
+// };
 
-const init = (): void => {
-  const restaurantList = getInitialRestaurantList();
+// const init = (): void => {
+//   const restaurantList = getInitialRestaurantList();
 
-  const $restaurantList = dom.getElement('.restaurant-list');
-  restaurantList.restaurants.forEach(restaurant => {
-    new RestaurantComponent({ $target: $restaurantList, information: restaurant.information });
-  });
+//   const $restaurantList = dom.getElement('.restaurant-list');
+//   restaurantList.restaurants.forEach(restaurant => {
+//     new RestaurantComponent({ $target: $restaurantList, information: restaurant.information });
+//   });
 
-  createHomeSelect(restaurantList);
-  createModalFormSelect(restaurantList);
-  createModalFormButton(restaurantList);
+//   createHomeSelect(restaurantList);
+//   createModalFormSelect(restaurantList);
+//   createModalFormButton(restaurantList);
 
-  const { category, name, distance, link, $addButton } = getFormInputTag();
-  dom.getElement('.gnb__button').addEventListener('click', handleOpenModal);
-  dom.getElement('.modal-backdrop').addEventListener('click', handleCloseModal);
-  dom.getElement('form').addEventListener('input', () => {
-    handleFormInput({ category, name, distance, link, $addButton });
-  });
-};
+//   const { category, name, distance, link, $addButton } = getFormInputTag();
+//   dom.getElement('.gnb__button').addEventListener('click', handleOpenModal);
+//   dom.getElement('.modal-backdrop').addEventListener('click', handleCloseModal);
+//   dom.getElement('form').addEventListener('input', () => {
+//     handleFormInput({ category, name, distance, link, $addButton });
+//   });
+// };
 
-init();
+// init();
