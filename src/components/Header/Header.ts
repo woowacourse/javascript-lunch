@@ -1,30 +1,21 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
 import { blockModalBodyScroll } from '@/utils/view';
-import { ErrorMessage } from '@/constants/Message';
+import { ERROR_MESSAGE } from '@/constants/Message';
 import { $ } from '@/utils/DOM';
 class Header extends BaseComponent {
   render() {
     this.#makeTitle();
     this.#makeAddButton();
-    const $gnbButton = $('.gnb__button');
-    if (!$gnbButton) {
-      return console.error(ErrorMessage.NULL_SELECTOR($gnbButton));
-    }
+    const $gnbButton = $<HTMLButtonElement>('.gnb__button');
     $gnbButton.addEventListener('click', () => {
-      const $modal = $('.modal');
-      if (!$modal) return console.error(ErrorMessage.NULL_SELECTOR);
-      $modal.classList.add('modal--open');
+      $('.modal').classList.add('modal--open');
       blockModalBodyScroll();
     });
   }
 
   setEvent() {
-    const $gnbTitle = $('.gnb__title');
-    if (!$gnbTitle) {
-      return console.error(ErrorMessage.NULL_SELECTOR($gnbTitle));
-    }
-    $gnbTitle.addEventListener('click', () => {
+    $('.gnb__title').addEventListener('click', () => {
       location.reload();
     });
   }

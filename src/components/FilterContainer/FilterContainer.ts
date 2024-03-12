@@ -4,7 +4,6 @@ import SelectBox from '../SelectBox/SelectBox';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
-import { ErrorMessage } from '@/constants/Message';
 import { $ } from '@/utils/DOM';
 
 class FilterContainer extends BaseComponent {
@@ -13,7 +12,7 @@ class FilterContainer extends BaseComponent {
 
   constructor() {
     super();
-    this.#restaurantList = $('.restaurant-list-container') as RestaurantList;
+    this.#restaurantList = $<RestaurantList>('.restaurant-list-container');
     this.#restaurantDBService = new RestaurantDBService();
   }
 
@@ -44,8 +43,8 @@ class FilterContainer extends BaseComponent {
 
   setEvent() {
     this.addEventListener('change', () => {
-      const $selectedCategory = $('#category-filter') as HTMLSelectElement;
-      const $selectedSortCriteria = $('#sorting-filter') as HTMLSelectElement;
+      const $selectedCategory = $<HTMLSelectElement>('#category-filter');
+      const $selectedSortCriteria = $<HTMLSelectElement>('#sorting-filter');
 
       const newRestaurantList = this.#restaurantDBService.getFromRestaurantList(
         $selectedCategory.value as Category,

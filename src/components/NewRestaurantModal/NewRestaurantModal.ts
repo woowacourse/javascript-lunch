@@ -5,7 +5,7 @@ import {
 } from '@/constants/Condition';
 import BaseComponent from '../BaseComponent';
 import SelectBox from '../SelectBox/SelectBox';
-import { ErrorId, ErrorMessage, InfoMessage } from '@/constants/Message';
+import { ERROR_ID, ERROR_MESSAGE, INFO_MESSAGE } from '@/constants/Message';
 import BasicButton from '../BasicButton/BasicButton';
 import { closeModal, makeInputInfo, makeLabel } from '@/utils/view';
 import Input from '../Input/Input';
@@ -57,7 +57,7 @@ class NewRestaurantModal extends BaseComponent {
     $categorySelectBox.classList.add('form-item', 'form-item--required', 'category-select');
 
     const $categoryLabel = makeLabel({
-      htmlFor: 'category text-caption',
+      htmlFor: 'category',
       text: '카테고리',
     });
     const $categorySelect = new SelectBox({
@@ -70,14 +70,14 @@ class NewRestaurantModal extends BaseComponent {
 
     $categorySelectBox.append($categoryLabel);
     $categorySelectBox.append($categorySelect);
-    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_CATEGORY, 'category');
+    const $errorBox = this.#makeErrorMessage(ERROR_MESSAGE.NOT_VALID_CATEGORY, 'category');
     $categorySelectBox.append($errorBox);
     return $categorySelectBox;
   }
 
   #makeErrorMessage(text: string, id: string) {
     const $errorBox = document.createElement('div');
-    $errorBox.id = ErrorId(id);
+    $errorBox.id = ERROR_ID(id);
     $errorBox.classList.add('error', 'hidden');
     $errorBox.textContent = text;
     return $errorBox;
@@ -88,7 +88,7 @@ class NewRestaurantModal extends BaseComponent {
     $nameInputBox.classList.add('form-item', 'form-item--required', 'name-input-box');
 
     const $nameLabel = makeLabel({
-      htmlFor: 'name text-caption',
+      htmlFor: 'name',
       text: '이름',
     });
     const $nameInput = new Input({
@@ -100,7 +100,7 @@ class NewRestaurantModal extends BaseComponent {
     $nameInputBox.append($nameLabel);
     $nameInputBox.append($nameInput);
 
-    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_NAME, 'name');
+    const $errorBox = this.#makeErrorMessage(ERROR_MESSAGE.NOT_VALID_NAME, 'name');
     $nameInputBox.append($errorBox);
 
     return $nameInputBox;
@@ -111,7 +111,7 @@ class NewRestaurantModal extends BaseComponent {
     $distanceSelection.classList.add('form-item', 'form-item--required', 'distance-select');
 
     const $distanceLabel = makeLabel({
-      htmlFor: 'distance text-caption',
+      htmlFor: 'distance',
       text: '거리(도보 이동 시간)',
     });
     $distanceSelection.append($distanceLabel);
@@ -127,7 +127,7 @@ class NewRestaurantModal extends BaseComponent {
       }),
     );
 
-    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_DISTANCE, 'distance');
+    const $errorBox = this.#makeErrorMessage(ERROR_MESSAGE.NOT_VALID_DISTANCE, 'distance');
     $distanceSelection.append($errorBox);
 
     return $distanceSelection;
@@ -138,7 +138,7 @@ class NewRestaurantModal extends BaseComponent {
     $descriptionTextBox.classList.add('form-item');
 
     const $descriptionLabel = makeLabel({
-      htmlFor: 'description text-caption',
+      htmlFor: 'description',
       text: '설명',
     });
 
@@ -149,7 +149,7 @@ class NewRestaurantModal extends BaseComponent {
     $textArea.setAttribute('rows', '5');
     $textArea.setAttribute('max', '300');
 
-    const $infoSpan = makeInputInfo(InfoMessage.DESCRIPTION);
+    const $infoSpan = makeInputInfo(INFO_MESSAGE.DESCRIPTION);
 
     $descriptionTextBox.append($descriptionLabel);
     $descriptionTextBox.append($textArea);
@@ -163,18 +163,18 @@ class NewRestaurantModal extends BaseComponent {
     $linkTextBox.classList.add('form-item');
 
     const $linkLabel = makeLabel({
-      htmlFor: 'link text-caption',
+      htmlFor: 'link',
       text: '참고 링크',
     });
 
     const $linkInput = new Input({ inputId: 'link', inputName: 'link' });
-    const $infoSpan = makeInputInfo(InfoMessage.LINK);
+    const $infoSpan = makeInputInfo(INFO_MESSAGE.LINK);
 
     $linkTextBox.append($linkLabel);
     $linkTextBox.append($linkInput);
     $linkTextBox.append($infoSpan);
 
-    const $errorBox = this.#makeErrorMessage(ErrorMessage.NOT_VALID_LINK, 'link');
+    const $errorBox = this.#makeErrorMessage(ERROR_MESSAGE.NOT_VALID_LINK, 'link');
     $linkTextBox.append($errorBox);
 
     return $linkTextBox;

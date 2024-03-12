@@ -1,7 +1,6 @@
 import { blockModalBodyScroll, closeModal } from '@/utils/view';
 import BaseComponent from '../BaseComponent';
 import { $ } from '@/utils/DOM';
-import { ErrorMessage } from '@/constants/Message';
 
 class BasicModal extends BaseComponent {
   #children: Node;
@@ -19,9 +18,7 @@ class BasicModal extends BaseComponent {
 
   setEvent(): void {
     this.#backdropElement.addEventListener('click', () => {
-      const $modal = $('.modal');
-      if (!$modal) return console.error(ErrorMessage.NULL_SELECTOR);
-      closeModal($modal);
+      closeModal($('.modal'));
       blockModalBodyScroll();
     });
   }

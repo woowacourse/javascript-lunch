@@ -2,7 +2,7 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, Distance, IRestaurant } from '@/types/Restaurant';
 import { checkAllValuesValid, validateAllValuesAndMakeErrorMessage } from '@/utils/validator';
 import { closeModal, hideErrorMessage } from '@/utils/view';
-import { ErrorMessage } from '@/constants/Message';
+import { ERROR_MESSAGE } from '@/constants/Message';
 import { $ } from '@/utils/DOM';
 
 class RestaurantAddService {
@@ -30,9 +30,7 @@ class RestaurantAddService {
 
     this.#restaurantDBService.add(newRestaurant);
     this.#rerenderByFilter();
-    const $modal = $('.modal');
-    if (!$modal) return;
-    closeModal($modal);
+    closeModal($('.modal'));
     form.reset();
   }
 
@@ -47,15 +45,11 @@ class RestaurantAddService {
   }
 
   #rerenderByFilter() {
-    const $selectElement = $('.restaurant-filter-container');
-    if (!$selectElement) {
-      return console.error(ErrorMessage.NULL_SELECTOR($selectElement));
-    }
     const event = new Event('change', {
       bubbles: true,
       cancelable: true,
     });
-    $selectElement.dispatchEvent(event);
+    $('.restaurant-filter-container').dispatchEvent(event);
   }
 }
 export default RestaurantAddService;
