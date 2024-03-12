@@ -1,0 +1,8 @@
+/* 음식점 목록 */
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+}
