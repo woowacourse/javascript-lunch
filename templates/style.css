@@ -15,10 +15,17 @@ body {
   font-size: 16px;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
+  --error-color: #ff0000;
   --grey-100: #ffffff;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
@@ -27,6 +34,7 @@ body {
 }
 
 /* Typography *************************************/
+
 .text-title {
   font-size: 20px;
   line-height: 24px;
@@ -96,19 +104,29 @@ body {
   margin-top: 24px;
 }
 
-.restaurant-filter-container select {
+.restaurant-filter-select {
   height: 44px;
   min-width: 125px;
 
   border: 1px solid #d0d5dd;
   border-radius: 8px;
   background: transparent;
-
   font-size: 16px;
+  padding: 8px;
 }
 
-.restaurant-filter {
-  padding: 8px;
+.select-arrow-down {
+  background-repeat: no-repeat;
+  background-position: right 0.5rem top 50%;
+  background-size: 0.75rem auto;
+}
+
+.arrow-down-grey {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23667085%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+
+.arrow-down-black {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
 
 /* 음식점 목록 */
@@ -127,6 +145,8 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  min-height: 7rem;
 }
 
 .restaurant__category {
@@ -172,6 +192,7 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -194,14 +215,20 @@ body {
 }
 
 .modal-container {
+  width: 100%;
+  padding: 32px 16px;
   position: fixed;
   bottom: 0;
-  width: 100%;
 
-  padding: 32px 16px;
-
+  max-height: 80%;
+  overflow-y: scroll;
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+}
+
+.stop-scroll {
+  height: 100%;
+  overflow: hidden;
 }
 
 .modal-title {
@@ -243,7 +270,7 @@ body {
   font-size: 16px;
 }
 
-.form-item textarea {
+.form-item select .form-item textarea {
   resize: none;
 }
 
@@ -295,4 +322,12 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.error-message {
+  color: var(--error-color);
 }
