@@ -3,7 +3,8 @@ import Select from '../Common/Select/Select';
 import { validateRequiredValue, validateRestaurantsName } from '../../validators';
 import tryCatchWrapper from '../../utils/tryCatchWrapper';
 import { $ } from '../../utils/dom';
-import { RULES, SELECT_FORM_DATA } from '../../constants/rules';
+import { RULES } from '../../constants/rules';
+import { SELECT_FORM_DATA } from '../../data/selectData';
 
 export default class AddRestaurantModal {
   #restaurants;

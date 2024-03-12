@@ -1,7 +1,8 @@
 import Restaurant from '../Common/Restaurant/Restaurant';
 import Select from '../Common/Select/Select';
 import { $ } from '../../utils/dom';
-import { RULES, SELECT_FILTER_DATA } from '../../constants/rules';
+import { RULES } from '../../constants/rules';
+import { SELECT_FILTER_DATA } from '../../data/selectData';
 
 export default class RestaurantFilter {
   #restaurants;
