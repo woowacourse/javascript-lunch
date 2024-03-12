@@ -8,14 +8,11 @@ abstract class Component extends HTMLElement {
 
   constructor() {
     super();
-
-    const template = this.getTemplate(this.setTemplateId());
-    this.component = this.createComponent(template);
   }
 
   protected connectedCallback() {
-    this.render();
-    this.events = this.setEvents();
+    this.innerHTML = this.render(this.dataset.props as Object);
+    this.setEvents();
     this.attachEventListeners();
   }
 
@@ -23,33 +20,15 @@ abstract class Component extends HTMLElement {
     this.detachEventListeners();
   }
 
-  /** [Overriding] 이 함수에서 템플릿의 ID를 반환해야 합니다. */
-  protected abstract setTemplateId(): string;
+  /** [Overriding] 이 함수에서 컴포넌트를 랜더링해야 합니다. */
+  protected abstract render(props: Object): string;
 
-  /** [Overriding] 이 함수에서 이벤트 객체 리스트를 반환해야 합니다. */
+  /** [Overriding] 이 함수에서 this.addEvent를 호출하여야 합니다. */
   protected abstract setEvents(): EventInfo[];
 
-  /** [Overriding] 이 함수에서 컴포넌트를 랜더링해야 합니다. */
-  protected abstract render(): void;
-
-  private getTemplate(templateId: string): HTMLTemplateElement {
-    const templateElement = $(templateId);
-
-    if (!(templateElement instanceof HTMLTemplateElement)) {
-      throw new Error('The element is not an HTMLTemplateElement.');
-    }
-
-    return templateElement;
-  }
-
-  private createComponent(template: HTMLTemplateElement): HTMLElement {
-    const content = template.content;
-
-    if (!content.firstElementChild) {
-      throw new Error('Template does not contain any elements.');
-    }
-
-    return content.firstElementChild.cloneNode(true) as HTMLElement;
+  /** 이 함수를 호출하여 이벤트를 추가합니다. */
+  protected addEvent(eventInfo: EventInfo) {
+    this.events.push(eventInfo);
   }
 
   private attachEventListeners() {
