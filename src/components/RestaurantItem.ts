@@ -7,21 +7,21 @@ import westernCategoryImg from '../assets/category-western.png';
 import etcCategoryImg from '../assets/category-etc.png';
 
 class RestaurantItem extends Component {
-  #category;
-  #name;
-  #distance;
-  #description;
+  #category: TCategory;
+  #name: string;
+  #distance: TDistance;
+  #description: string;
 
   constructor() {
     super();
 
-    this.#category = this.getAttribute('category') || '';
+    this.#category = (this.getAttribute('category') as TCategory) || '';
     this.#name = this.getAttribute('name') || '';
-    this.#distance = this.getAttribute('distance') || '';
+    this.#distance = (Number(this.getAttribute('distance')) as TDistance) || '';
     this.#description = this.getAttribute('description') || '';
   }
 
-  displayCategoryIcon(category) {
+  displayCategoryIcon(category: TCategory) {
     switch (category) {
       case '한식':
         return `<img src=${koreanCategoryImg} alt="한식" class="category-icon" />`;
