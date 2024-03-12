@@ -1,4 +1,5 @@
 import { ERROR_MESSAGES } from '../constants/messages';
+import { CONVERT } from '../constants/rules';
 
 interface ValidationInput {
   restaurantNames: string[];
@@ -12,6 +13,6 @@ export function validateRestaurantsName(value: ValidationInput) {
 
 export function validateRequiredValue(id: string, value: string) {
   if (value === '') {
-    throw new Error(ERROR_MESSAGES.requireValue(id));
+    throw new Error(`${CONVERT[id]}: ${ERROR_MESSAGES.requireValue}`);
   }
 }
