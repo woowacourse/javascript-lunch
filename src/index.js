@@ -13,3 +13,8 @@ customElements.define('restaurant-list', RestaurantList);
 customElements.define('filter-box', FilterBox);
 customElements.define('restaurant-item', RestaurantItem);
 customElements.define('restaurant-add-modal', RestaurantAddModal);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new LunchPickerApp();
+  document.body.appendChild(app);
+});
