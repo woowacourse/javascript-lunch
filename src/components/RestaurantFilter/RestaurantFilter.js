@@ -1,4 +1,4 @@
-import Restaurant from '../Restaurant/Restaurant';
+import Restaurant from '../Common/Restaurant/Restaurant';
 import Select from '../Common/Select';
 import { $ } from '../../utils/dom';
 import { RULES, SELECT_FILTER_DATA } from '../../constants/rules';
@@ -30,7 +30,7 @@ export default class RestaurantFilter {
   reRenderRestaurantList() {
     $('restaurant-list').innerHTML = '';
     this.restaurants.standardList.forEach((restaurantData) => {
-      $('restaurant-list').innerHTML += new Restaurant().render(restaurantData);
+      $('restaurant-list').innerHTML += Restaurant(restaurantData);
     });
   }
 }

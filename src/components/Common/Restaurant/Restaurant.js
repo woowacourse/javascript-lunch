@@ -1,8 +1,7 @@
-import ICON from '../../icons';
+import ICON from '../../../icons';
 
-export default class Restaurant {
-  render({ category, name, walkingTimeFromCampus, description }) {
-    return `
+const Restaurant = ({ category, name, walkingTimeFromCampus, description }) => {
+  return `
     <li class="restaurant">
       <div class="restaurant__category">
         <img src="${ICON[category]}" alt="${category}" class="category-icon">
@@ -14,5 +13,6 @@ export default class Restaurant {
       </div>
     </li>
     `;
-  }
-}
+};
+
+export default Restaurant;

@@ -1,4 +1,4 @@
-import Restaurant from '../Restaurant/Restaurant';
+import Restaurant from '../Common/Restaurant/Restaurant';
 import Select from '../Common/Select';
 import { validateRequiredValue, validateRestaurantsName } from '../../validators';
 import tryCatchWrapper from '../../utils/tryCatchWrapper';
@@ -120,7 +120,7 @@ export default class AddRestaurantModal {
   }
 
   #insertRestaurantList(inputData) {
-    $('restaurant-list').insertAdjacentHTML('afterbegin', new Restaurant().render(inputData));
+    $('restaurant-list').insertAdjacentHTML('afterbegin', Restaurant(inputData));
     $('restaurant-input-form').reset();
   }
 
@@ -129,7 +129,7 @@ export default class AddRestaurantModal {
     const category = target['category'].value;
     const name = target['name'].value;
     const walkingTimeFromCampus = Number(target['distance'].value);
-    const description = target['distance'].value;
+    const description = target['description'].value;
 
     return { category, name, walkingTimeFromCampus, description };
   }
