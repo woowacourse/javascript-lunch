@@ -21,6 +21,12 @@ class RestaurantList {
     return restaurant;
   }
 
+  removeRestaurant(id: number) {
+    this.restaurants = this.restaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
+  }
+
   getRestaurants({
     category,
     sortingStandard,

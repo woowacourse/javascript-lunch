@@ -267,4 +267,55 @@ describe("음식점 목록 클래스 테스트", () => {
     // Then
     expect(restaurant).toEqual(expectedResult);
   });
+
+  test("음식점 목록에서 음식점을 제거한다.", () => {
+    // Given
+    const id = 1;
+    const category = "전체";
+    const sortingStandard = "name";
+    const expectedResult: Restaurant[] = [
+      {
+        id: 4,
+        category: "아시안",
+        name: "김밥천국",
+        distance: 15,
+        description: "원조 김밥 맛집!",
+        link: "http://map.naver.com",
+        isGoTo: false,
+      },
+      {
+        id: 2,
+        category: "일식",
+        name: "너네초밥",
+        distance: 30,
+        description: "정말 맛있는 너네집 초밥!",
+        isGoTo: false,
+      },
+      {
+        id: 5,
+        category: "한식",
+        name: "비벼비벼비빔밥",
+        distance: 20,
+        isGoTo: true,
+      },
+      {
+        id: 3,
+        category: "중식",
+        name: "친친",
+        distance: 10,
+        link: "https://map.naver.com",
+        isGoTo: true,
+      },
+    ];
+
+    // When
+    restaurantList.removeRestaurant(id);
+    const restaurants = restaurantList.getRestaurants({
+      category,
+      sortingStandard,
+    });
+
+    // Then
+    expect(restaurants).toEqual(expectedResult);
+  });
 });
