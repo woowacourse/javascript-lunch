@@ -7,7 +7,7 @@ import { RestaurantRegister } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
 
-const LUNCH_REGISTER_MODAL = /* html */ `
+const LUNCH_REGISTER_MODAL_TEMPLATE = /* html */ `
 <div class="modal">
   <div class="modal-backdrop"></div>
   <div class="modal-container">
@@ -34,7 +34,7 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   render(): void {
-    this.innerHTML = LUNCH_REGISTER_MODAL;
+    this.innerHTML = LUNCH_REGISTER_MODAL_TEMPLATE;
   }
 
   setEventListener() {

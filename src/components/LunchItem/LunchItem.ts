@@ -19,7 +19,7 @@ export const CATEGORY_IMG = {
   기타: ETC,
 } as const;
 
-const LUNCH_ITEM = ({ category, name, distance, description }: LunchItemProps) => `<li class="restaurant">
+const LUNCH_ITEM_TEMPLATE = ({ category, name, distance, description }: LunchItemProps) => /* HTML */ `<li class="restaurant">
     <div class="restaurant__category">
       <img src=${CATEGORY_IMG[category]} alt=${category} class="category-icon">
     </div>
@@ -45,7 +45,7 @@ class LunchItem extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = LUNCH_ITEM(this.getAttributes());
+    this.innerHTML = LUNCH_ITEM_TEMPLATE(this.getAttributes());
   }
 }
 

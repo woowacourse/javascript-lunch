@@ -11,14 +11,13 @@ export interface FilterPropsTypes {
   sortBy?: SortBy;
 }
 
-const LUNCH_ITEMS = `
+const LUNCH_ITEMS_TEMPLATE = /* HTML */ `
   <section class="restaurant-list-container">
-    <ul class="restaurant-list">
-    </ul>
+    <ul class="restaurant-list"></ul>
   </section>
 `;
 
-const LUNCH_ITEM = (restaurant: Restaurant) => `
+const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => `
   <lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${
   restaurant.distance
 }" description="${restaurant.description ?? ''}"></lunch-item>
@@ -31,13 +30,13 @@ class LunchItems extends HTMLElement {
   }
 
   render(): void {
-    this.innerHTML = LUNCH_ITEMS;
+    this.innerHTML = LUNCH_ITEMS_TEMPLATE;
   }
 
   renderItems({ category, sortBy }: FilterPropsTypes): void {
     const itemHTMLs: string[] = [];
     this.getRestaurants({ category, sortBy }).forEach((restaurant) => {
-      itemHTMLs.push(LUNCH_ITEM(restaurant));
+      itemHTMLs.push(LUNCH_ITEM_TEMPLATE(restaurant));
     });
 
     textInput.setInnerHtml.call(this, '.restaurant-list', itemHTMLs);

@@ -9,7 +9,7 @@ import './components/LunchRegisterModal/LunchRegisterModal';
 import DUMMY from './constants/dummy';
 import { LOCALSTORAGE } from './constants/localStorage';
 
-const LUNCH_APP = `
+const LUNCH_APP_TEMPLATE = /* HTML */ `
   <lunch-header></lunch-header>
   <lunch-item-filter></lunch-item-filter>
   <lunch-items></lunch-items>
@@ -28,7 +28,7 @@ class LunchApp extends HTMLElement {
 
   render() {
     this.setData();
-    this.innerHTML = LUNCH_APP;
+    this.innerHTML = LUNCH_APP_TEMPLATE;
   }
 }
 
