@@ -26,3 +26,8 @@ export const FILTER_OPTIONS = {
   category: [OPTION.ALL, ...OPTION.CATEGORY],
   sorting: OPTION.SORTING,
 } as const;
+
+export const INPUT_OPTIONS = {
+  modalCategory: [OPTION.INFO, ...OPTION.CATEGORY],
+  modalDistance: [OPTION.INFO, ...OPTION.DISTANCE],
+} as const;

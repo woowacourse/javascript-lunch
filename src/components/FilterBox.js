@@ -1,6 +1,6 @@
 import Component from './Component';
 import { $addEvent, $removeEvent } from '../utils/dom';
-import { FILTER_OPTIONS, OPTIONS_MAP } from '../constants/conditions';
+import { FILTER_OPTIONS, INPUT_OPTIONS } from '../constants/conditions';
 
 class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];
@@ -30,6 +30,13 @@ class FilterBox extends Component {
 
     if (this.#type === 'category' || this.#type === 'sorting') {
       const options = FILTER_OPTIONS[this.#type];
+      Object.entries(options).forEach(([key, value]) => {
+        optionsHtml.push(`<option value="${value.value}">${value.name}</option>`);
+      });
+    }
+
+    if (this.#type === 'modalCategory' || this.#type === 'modalDistance') {
+      const options = INPUT_OPTIONS[this.#type];
       Object.entries(options).forEach(([key, value]) => {
         optionsHtml.push(`<option value="${value.value}">${value.name}</option>`);
       });
