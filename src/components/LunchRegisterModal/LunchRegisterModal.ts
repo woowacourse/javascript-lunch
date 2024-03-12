@@ -76,7 +76,7 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   handleDropDown() {
-    const dropdowns = document.querySelectorAll('lunch-dropdown');
+    const dropdowns = document.querySelectorAll('restaurant-filter');
     dropdowns.forEach((dropdown) => {
       const select = dropdown.querySelector('select');
       if (select) {

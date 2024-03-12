@@ -5,30 +5,33 @@ import LunchItems from '../LunchItems/LunchItems';
 import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
 
-const LUNCH_ITEM_FILTER = `
-  <section class="restaurant-filter-container"></section>
-`;
+const DROPDOWN_PROPS = [
+  {
+    name: 'category-dropdown',
+    id: 'category-dropdown',
+    className: 'restaurant-filter',
+    options: CATEGORIES,
+    defaultValue: '전체',
+  },
+  {
+    name: 'sortby-dropdown',
+    id: 'sortby-dropdown',
+    className: 'restaurant-filter',
+    options: SORTBY,
+  },
+];
 
 class LunchItemFilter extends HTMLElement {
-  connectedCallback() {
-    this.render();
+  constructor() {
+    super();
+    this.className = 'restaurant-filter-container';
+    this.createDropdowns();
     this.setEventListener();
   }
 
-  render() {
-    this.innerHTML = LUNCH_ITEM_FILTER;
-    this.createDropdown({
-      name: 'category-dropdown',
-      id: 'category-dropdown',
-      className: 'restaurant-filter',
-      options: CATEGORIES,
-      defaultValue: '전체',
-    });
-    this.createDropdown({
-      name: 'category-dropdown',
-      id: 'sortby-dropdown',
-      className: 'restaurant-filter',
-      options: SORTBY,
+  createDropdowns() {
+    DROPDOWN_PROPS.forEach((dropdownProps) => {
+      this.createDropdown(dropdownProps);
     });
   }
 
@@ -39,18 +42,13 @@ class LunchItemFilter extends HTMLElement {
   }
 
   createDropdown(props: LunchDropdownProps) {
-    this.querySelector('section')?.insertAdjacentElement('beforeend', new LunchDropdown(props));
+    this.appendChild(new LunchDropdown(props));
   }
 
   handleRender() {
     const dropdowns = this.querySelectorAll('select');
-    const array: string[] = [];
-    dropdowns.forEach((dropdown) => {
-      const select = dropdown;
-      array.push(select?.value ?? '');
-    });
     const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({ category: array[0], sortBy: array[1] });
+    items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
   }
 }
 
