@@ -14,19 +14,23 @@ class RestaurantListFilter extends HTMLElement {
   }
 
   private dispatchChangeCategoryEvent(event: Event) {
-    this.dispatchEvent(
-      new CustomEvent('changeCategory', {
-        detail: (event.target as HTMLSelectElement).value,
-      }),
-    );
+    if (event.target instanceof HTMLSelectElement) {
+      this.dispatchEvent(
+        new CustomEvent('changeCategory', {
+          detail: event.target.value,
+        }),
+      );
+    }
   }
 
   private dispatchChangeSortOrder(event: Event) {
-    this.dispatchEvent(
-      new CustomEvent('changeSortOrder', {
-        detail: (event.target as HTMLSelectElement).value,
-      }),
-    );
+    if (event.target instanceof HTMLSelectElement) {
+      this.dispatchEvent(
+        new CustomEvent('changeSortOrder', {
+          detail: event.target.value,
+        }),
+      );
+    }
   }
 
   private createFilterSelectBox(type: string): HTMLSelectElement {
