@@ -87,3 +87,21 @@ export interface TextAreaElementDataType extends Partial<BasicElementDataType> {
   TAG_ROWS: number;
   TAG_COLS: number;
 }
+
+export type ContainerComponentPropsType = {
+  id: string;
+  className: string;
+};
+
+export interface ContainerElementDataType extends Partial<BasicElementDataType> {
+  TAG_ID: string;
+}
+
+export type ListComponentPropsType = {
+  className: string;
+  textContent: string;
+};
+
+export interface ListElementDataType extends Partial<BasicElementDataType> {
+  TAG_TEXT_CONTENT: string;
+}
