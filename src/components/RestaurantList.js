@@ -47,11 +47,8 @@ class RestaurantList extends BaseComponent {
 
     this.innerHTML = `
       <section class="restaurant-list-container">
-        <ul class="restaurant-list">
         ${this.#createRestaurantListHTML(currentList)}
-        </ul>
       </section>
-      
     `;
   }
 
