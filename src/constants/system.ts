@@ -15,6 +15,11 @@ export const SORTS = {
   BYDISTANCE: "거리순",
 };
 
+export const SORT_VALUE = {
+  BYNAME: "name",
+  BYDISTANCE: "distance",
+};
+
 export const DISTANCES = {
   "5": "5분 내",
   "10": "10분 내",

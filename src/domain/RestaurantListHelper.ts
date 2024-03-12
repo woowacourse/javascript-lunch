@@ -1,11 +1,12 @@
-import { CATEGORIES, SORTS } from "../constants/system";
+import { CATEGORIES, SORT_VALUE } from "../constants/system";
 import { Iall, Icategory } from "../types/category";
 import { Irestaurant, IrestaurantList } from "../types/restaurant";
 import { IsortType } from "../types/sort";
 
 class RestaurantListHelper implements IrestaurantList {
   sortBySelectedValue(seletedValue: IsortType, restaurantList: Irestaurant[]) {
-    if (seletedValue === SORTS.BYNAME) return this.sortByName(restaurantList);
+    if (seletedValue === SORT_VALUE.BYNAME)
+      return this.sortByName(restaurantList);
 
     return this.sortByDistance(restaurantList);
   }
