@@ -35,7 +35,7 @@ class SortDropdown extends BaseComponent {
   }
 
   protected render(): void {
-    this.innerHTML = this.dropdown.getInnerHTML();
+    this.innerHTML = this.dropdown.getTemplate();
   }
 
   private handleChangeSort(event: Event) {

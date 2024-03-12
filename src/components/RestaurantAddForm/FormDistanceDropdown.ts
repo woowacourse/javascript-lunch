@@ -26,7 +26,7 @@ class FormDistanceDropdown extends BaseComponent {
   }
 
   protected render(): void {
-    this.innerHTML = this.dropdown.getInnerHTML();
+    this.innerHTML = this.dropdown.getTemplate();
     this.setFormAttributes();
   }
 

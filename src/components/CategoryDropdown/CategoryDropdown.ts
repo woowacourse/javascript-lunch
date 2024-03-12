@@ -36,7 +36,7 @@ class CategoryDropdown extends BaseComponent {
   };
 
   protected render(): void {
-    this.innerHTML = this.dropdown.getInnerHTML();
+    this.innerHTML = this.dropdown.getTemplate();
   }
 
   private handleChangeCategoryFilter(event: Event) {

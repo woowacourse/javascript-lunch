@@ -9,7 +9,7 @@ interface DropdownConfig<T> {
   name: string;
   id: string;
   className: string;
-  options: {contents: string[], values: T[]};
+  options: { contents: string[]; values: T[] };
   eventType: string;
   eventHandler: (event: Event) => void;
 }
@@ -30,7 +30,7 @@ class Dropdown<T> extends BaseComponent {
     this.config = config;
   }
 
-  public getInnerHTML(): string {
+  public getTemplate(): string {
     const { name, id, className, options } = this.config;
 
     return `
