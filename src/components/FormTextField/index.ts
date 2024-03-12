@@ -59,7 +59,7 @@ class FormTextField extends HTMLElement {
       'description',
       'distance',
       'distance',
-      'like',
+      'favorite',
       'link',
       'name',
     ];

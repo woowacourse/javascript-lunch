@@ -14,7 +14,7 @@ export interface RestaurantInfo {
   distance: Distance;
   description?: string;
   link?: string;
-  like?: boolean;
+  favorite?: boolean;
 }
 
 export type RestaurantInfoKey = keyof RestaurantInfo;

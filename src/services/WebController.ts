@@ -3,15 +3,16 @@ import '../assets/css/main.css';
 import '../components/AddStoreBtn';
 import '../components/CategoryIcon/style.css';
 import '../components/CategoryIcon';
-import '../components/DefaultBtn';
 import '../components/CustomModal';
 import '../components/CustomInput';
 import '../components/CustomTextarea';
+import '../components/DefaultBtn';
+import '../components/FavoriteIcon';
 import '../components/FormTextField';
 import '../components/FormInput';
 import '../components/RestaurantFormModalInner';
 import '../components/ErrorMessageBox';
-import '../components/Restaurant';
+import '../components/RestaurantItem';
 import '../components/DropBox';
 
 import { RestaurantList } from '../domains';
@@ -21,7 +22,7 @@ import RestaurantListController from './RestaurantListController';
 
 const WebController = {
   setup() {
-    RestaurantListController.updateLocalStorage();
+    RestaurantListController.saveInitialDataToLocalStorage();
     RestaurantListController.injectRestaurantListHTML(
       new RestaurantList().list,
     );

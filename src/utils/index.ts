@@ -25,3 +25,6 @@ export const setObjectAttribute = (
 
   return el;
 };
+
+export const getFavoriteAttributeValue = (favorite?: boolean) =>
+  favorite ? 'true' : 'false';

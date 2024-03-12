@@ -3,7 +3,7 @@ import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { RestaurantInfo } from '../types';
 
 const RestaurantListController = {
-  updateLocalStorage() {
+  saveInitialDataToLocalStorage() {
     const data = localStorage.getItem(STORAGE_KEY.restaurants);
 
     if (!data) {
@@ -20,7 +20,7 @@ const RestaurantListController = {
     const restaurantListText = restaurantList
       ?.map(
         (info: RestaurantInfo) =>
-          `<restaurant-box name="${info.name}"></restaurant-box>`,
+          `<restaurant-item name="${info.name}"></restaurant-item>`,
       )
       .join('');
 
