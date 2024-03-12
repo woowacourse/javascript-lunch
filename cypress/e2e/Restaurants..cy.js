@@ -11,7 +11,7 @@ const createRestaurant = (name) => {
   });
 };
 
-describe("Restaurants 유닛 테스트", () => {
+describe("Restaurants 유닛 테스트한다", () => {
   const kimbobHeavenName = "김밥천국";
   const sushiHeavenName = "스시천국";
 
@@ -28,13 +28,13 @@ describe("Restaurants 유닛 테스트", () => {
     ]);
   });
 
-  it("생성자 호출 시 식당 이름이 중복될 경우 에러 발생", () => {
+  it("생성자 호출 시 식당 이름이 중복될 경우 에러 발생한다", () => {
     expect(
       () => new Restaurants([kimbobHeaven, kimbobHeavenBranch])
     ).to.throw();
   });
 
-  it("add 메서드 호출 시 식당 이름이 중복되지 않은 경우 프로퍼티에 식당 추가", () => {
+  it("add 메서드 호출 시 식당 이름이 중복되지 않은 경우 프로퍼티에 식당 추가한다", () => {
     const restaurants = new Restaurants([kimbobHeaven]);
     restaurants.add(sushiHeaven);
 
@@ -44,7 +44,7 @@ describe("Restaurants 유닛 테스트", () => {
     ]);
   });
 
-  it("add 메서드 호출 시 식당 이름이 중복될 경우 에러 발생", () => {
+  it("add 메서드 호출 시 식당 이름이 중복될 경우 에러 발생한다", () => {
     const restaurants = new Restaurants([kimbobHeaven, sushiHeaven]);
 
     expect(() => restaurants.add(kimbobHeavenBranch)).to.throw();
