@@ -10,12 +10,8 @@ const RestaurantListStorageService = {
     return [];
   },
 
-  setData(restaurant: Irestaurant) {
-    const prevData = this.getData();
-
-    const newData = [...prevData, restaurant];
-
-    localStorage.setItem("restaurantList", JSON.stringify(newData));
+  setData(restaurants: Irestaurant[]) {
+    localStorage.setItem("restaurantList", JSON.stringify(restaurants));
   },
 };
 

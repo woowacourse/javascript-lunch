@@ -13,7 +13,7 @@ class RestaurantListStateStore {
     this.#restaurantCount = this.#restaurantList.length;
   }
 
-  setNewData() {
+  getNewData() {
     this.#restaurantList = RestaurantListStorageService.getData();
     this.#restaurantCount = this.#restaurantList.length;
   }
@@ -35,6 +35,14 @@ class RestaurantListStateStore {
       filterState.getFilterInfo().sort,
       filtereDataByCategory,
     );
+  }
+
+  addNewRestaurant(restaurant: Irestaurant) {
+    const prevData = this.#restaurantList;
+    const newData = [...prevData, restaurant];
+    this.#restaurantList = newData;
+
+    RestaurantListStorageService.setData(newData);
   }
 }
 
