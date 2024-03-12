@@ -11,14 +11,18 @@ class RestaurantCatalog {
   restaurants: Restaurant[] = [];
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
+    this.#validDuplicateName(restaurantInfo);
+    const newRestaurant = { ...restaurantInfo, id: this.restaurants.length };
+    this.restaurants.push(new Restaurant(newRestaurant));
+    return newRestaurant;
+  }
+
+  #validDuplicateName(restaurantInfo: IRestaurantInfo) {
     this.restaurants.forEach((restaurant: Restaurant) => {
       if (restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
         throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
     });
-    const newRestaurant = { ...restaurantInfo, id: this.restaurants.length };
-    this.restaurants.push(new Restaurant(newRestaurant));
-    return newRestaurant;
   }
 
   filterByCategory(category: ICatalogCategory) {

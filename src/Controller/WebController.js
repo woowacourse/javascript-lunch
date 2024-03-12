@@ -74,17 +74,6 @@ class WebController {
     });
   }
 
-  #executeFormSubmitEvent(restaurantInfo) {
-    try {
-      const newRestaurant = restaurantCatalog.pushNewRestaurant(restaurantInfo);
-      this.#updateRestaurantToLocalStorage(newRestaurant);
-      // TODO: ResaurantCards에 요소 추가 및 렌더링
-      this.#closeModal();
-    } catch (error) {
-      alert(error.message);
-    }
-  }
-
   #makeRestaurantInfo(target) {
     const { category, name, distance, description, link } = target;
     return {
@@ -94,6 +83,17 @@ class WebController {
       description: description.value,
       link: link.value,
     };
+  }
+
+  #executeFormSubmitEvent(restaurantInfo) {
+    try {
+      const newRestaurant = restaurantCatalog.pushNewRestaurant(restaurantInfo);
+      this.#updateRestaurantToLocalStorage(newRestaurant);
+      this.#renderRestaurantList();
+      this.#closeModal();
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   #updateRestaurantToLocalStorage(restaurant) {
