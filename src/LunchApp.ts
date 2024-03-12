@@ -1,18 +1,17 @@
 import './reset.css';
 import './global.css';
 import './components/LunchHeader/LunchHeader';
-import './components/LunchItemFilter/LunchItemFilter';
-import './components/LunchItem/LunchItem';
-import './components/LunchItems/LunchItems';
+import './components/LunchTab/LunchTab';
+import './components/LunchTabAll/LunchTabAll';
 import './components/LunchRegisterModal/LunchRegisterModal';
 
 import DUMMY from './constants/dummy';
 import { LOCALSTORAGE } from './constants/localStorage';
 
-const LUNCH_APP_TEMPLATE = /* HTML */ `
+const LUNCH_APP = /* HTML */ `
   <lunch-header></lunch-header>
-  <lunch-item-filter></lunch-item-filter>
-  <lunch-items></lunch-items>
+  <lunch-tab></lunch-tab>
+  <lunch-tab-all></lunch-tab-all>
   <lunch-register-modal></lunch-register-modal>
 `;
 
@@ -28,7 +27,7 @@ class LunchApp extends HTMLElement {
 
   render() {
     this.setData();
-    this.innerHTML = LUNCH_APP_TEMPLATE;
+    this.innerHTML = LUNCH_APP;
   }
 }
 

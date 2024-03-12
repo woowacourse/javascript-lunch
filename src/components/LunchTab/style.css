@@ -1,0 +1,19 @@
+.lunch-tab {
+  width: 100%;
+}
+
+.tab-all {
+  color: var(--primary-color);
+}
+
+.tab-all--closed {
+  color: var(--grey-300);
+}
+
+.tab-liked {
+  color: var(--primary-color);
+}
+
+.tab-liked--closed {
+  color: var(--grey-300);
+}
