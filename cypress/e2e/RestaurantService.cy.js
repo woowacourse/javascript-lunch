@@ -22,11 +22,9 @@ describe('레스토랑 추가 기능 테스트', () => {
 
   it('옵션 값들을 입력하지 않아도 레스토랑을 추가할 수 있다.', () => {
     const newRestaurant = {
-      category: '기타',
+      category: '아시안',
       name: '오한수 우육면가',
       distance: 10,
-      description: undefined,
-      link: undefined,
     };
 
     const result = RestaurantService.addRestaurant(newRestaurant, DUMMY);
