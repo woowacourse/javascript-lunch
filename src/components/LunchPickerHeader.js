@@ -1,14 +1,19 @@
 import Component from './Component';
-import { $, $addEvent, $removeEvent } from '../utils/dom';
+import { $addEvent, $removeEvent } from '../utils/dom';
 import addButtonImg from '../assets/add-button.png';
 
 class LunchPickerHeader extends Component {
+  constructor() {
+    super();
+    this.hadleGnbButtonClick = () => this.makeCustomEvent('gnbButtonClick');
+  }
+
   setEvent() {
-    $addEvent('.gnb__button', 'click', () => this.makeCustomEvent('gnbButtonClick'));
+    $addEvent('.gnb__button', 'click', this.hadleGnbButtonClick);
   }
 
   removeEvent() {
-    $removeEvent('.gnb__button', 'click', () => this.makeCustomEvent('gnbButtonClick'));
+    $removeEvent('.gnb__button', 'click', this.hadleGnbButtonClick);
   }
 
   template() {

@@ -5,16 +5,23 @@ class LunchPickerApp extends Component {
   #category;
   #sorting;
 
+  constructor() {
+    super();
+    this.handleSelectChange = () => this.#updateSelectType();
+    this.handleGnbButtonClick = () => $setAttribute('restaurant-add-modal', 'open', 'true');
+    this.handleCancelButtonClick = () => $setAttribute('restaurant-add-modal', 'open', 'false');
+  }
+
   setEvent() {
-    this.addEventListener('selectChange', () => this.#updateSelectType());
-    this.addEventListener('gnbButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'true'));
-    this.addEventListener('cancelButtonClick', () => $setAttribute('restaurant-add-modal', 'open', 'false'));
+    this.addEventListener('selectChange', this.handleSelectChange);
+    this.addEventListener('gnbButtonClick', this.handleGnbButtonClick);
+    this.addEventListener('cancelButtonClick', this.handleCancelButtonClick);
   }
 
   removeEvent() {
-    this.removeEventListener('selectChange');
-    this.removeEventListener('gnbButtonClick');
-    this.removeEventListener('cancelButtonClick');
+    this.removeEventListener('selectChange', this.handleSelectChange);
+    this.removeEventListener('gnbButtonClick', this.handleGnbButtonClick);
+    this.removeEventListener('cancelButtonClick', this.handleCancelButtonClick);
   }
 
   #updateSelectType() {

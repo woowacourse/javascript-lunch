@@ -7,6 +7,12 @@ import { isEmptyInput } from '../utils/validation';
 class RestaurantAddModal extends Component {
   static observedAttributes = ['open'];
 
+  constructor() {
+    super();
+    this.onSubmitHandler = (event) => this.#onSubmit(event);
+    this.onCancelHandler = () => this.#onCancel();
+  }
+
   attributeChangedCallback(name, oldValue, newValue) {
     this.render();
     this.#updateModal(JSON.parse(newValue));
@@ -14,13 +20,13 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    $addEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
-    $addEvent('.button--secondary', 'click', () => this.#onCancel());
+    $addEvent('.button--primary', 'click', this.onSubmitHandler);
+    $addEvent('.button--secondary', 'click', this.onCancelHandler);
   }
 
   removeEvent() {
-    $removeEvent('.button--primary', 'click', (event) => this.#onSubmit(event));
-    $removeEvent('.button--secondary', 'click', () => this.#onCancel());
+    $removeEvent('.button--primary', 'click', this.onSubmitHandler);
+    $removeEvent('.button--secondary', 'click', this.onCancelHandler);
   }
 
   #updateModal(isOpen) {
