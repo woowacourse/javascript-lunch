@@ -21,7 +21,6 @@ class SubmitButton {
       ],
       contents: value,
     }) as HTMLButtonElement;
-
     eventListenerArgs.forEach((args) => {
       this.element.addEventListener(...args);
     });

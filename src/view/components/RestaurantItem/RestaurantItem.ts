@@ -1,9 +1,9 @@
-import ASIAN_ICON from "../../../templates/category-asian.png";
-import CHINESE_ICON from "../../../templates/category-chinese.png";
-import ECT_ICON from "../../../templates/category-etc.png";
-import JAPANESE_ICON from "../../../templates/category-japanese.png";
-import KOREAN_ICON from "../../../templates/category-korean.png";
-import WESTERN_ICON from "../../../templates/category-western.png";
+import ASIAN_ICON from "../../../../templates/category-asian.png";
+import CHINESE_ICON from "../../../../templates/category-chinese.png";
+import ECT_ICON from "../../../../templates/category-etc.png";
+import JAPANESE_ICON from "../../../../templates/category-japanese.png";
+import KOREAN_ICON from "../../../../templates/category-korean.png";
+import WESTERN_ICON from "../../../../templates/category-western.png";
 import createElementByTag from "../../generateComponent/utils/createElementByTag";
 
 const categoryImgSrcMatcher = {

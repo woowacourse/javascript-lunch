@@ -5,13 +5,29 @@ class SelectBox {
   element = createElementByTag({
     tag: "select",
     classes: ["select-box", "restaurant-filter"],
-  });
+  }) as HTMLSelectElement;
 
-  constructor(options: string[], hasDefaultOption: boolean = true) {
+  constructor({
+    options,
+    hasDefaultOption = true,
+    eventListenerArgs = [],
+  }: {
+    options: string[];
+    hasDefaultOption?: boolean;
+    eventListenerArgs?: EventListenerArg[];
+  }) {
     const optionElements = this.#createOptions(options);
     if (!hasDefaultOption) this.#setDefaultOption();
 
     this.element.append(...optionElements);
+
+    eventListenerArgs.forEach((eventListenerArg) => {
+      this.element.addEventListener(...eventListenerArg);
+    });
+  }
+
+  getValue() {
+    return this.element.value;
   }
 
   #createOptions(options: string[]) {

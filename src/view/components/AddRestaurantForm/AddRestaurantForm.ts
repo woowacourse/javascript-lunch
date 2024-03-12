@@ -16,12 +16,6 @@ class AddRestaurantForm {
   #urlFormItem: FormItem = this.#createUrlFormItem();
   #buttonDiv: HTMLElement;
 
-  #requiredFormItem = [
-    this.#categoryFormItem,
-    this.#nameFormItem,
-    this.#descriptionFormItem,
-  ];
-
   constructor({
     cancelFunc,
     submitFunc,
@@ -34,9 +28,23 @@ class AddRestaurantForm {
     this.#distanceFormItem = this.#createDistanceFormItem();
     this.#descriptionFormItem = this.#createDescriptionFormItem();
     this.#urlFormItem = this.#createUrlFormItem();
-    this.#buttonDiv = this.#createButtonDiv(cancelFunc, submitFunc);
+    this.#buttonDiv = this.#createButtonDiv(cancelFunc);
+
+    this.element.addEventListener("submit", () => {
+      const newRestaurant = this.#getRestaurant();
+      submitFunc(newRestaurant);
+      this.reset.bind(this)();
+    });
 
     this.#setElement();
+  }
+
+  reset() {
+    this.#categoryFormItem.reset();
+    this.#nameFormItem.reset();
+    this.#distanceFormItem.reset();
+    this.#descriptionFormItem.reset();
+    this.#urlFormItem.reset();
   }
 
   #setElement() {
@@ -50,16 +58,11 @@ class AddRestaurantForm {
     );
   }
 
-  reset() {
-    this.#categoryFormItem.reset();
-    this.#nameFormItem.reset();
-    this.#distanceFormItem.reset();
-    this.#descriptionFormItem.reset();
-    this.#urlFormItem.reset();
-  }
-
   #createCategoryFormItem() {
-    const categorySelectBox = new SelectBox(CATEGORY, false);
+    const categorySelectBox = new SelectBox({
+      options: CATEGORY,
+      hasDefaultOption: false,
+    });
     const categoryFormItem = new FormItem({
       subject: FORM_ITEM_TEXTS.categoryTitle,
       readableElement: categorySelectBox.element as HTMLSelectElement,
@@ -87,7 +90,10 @@ class AddRestaurantForm {
   #createDistanceFormItem() {
     const DISTANCE_STRINGS = DISTANCE.map((el) => el.toString());
 
-    const distanceSelectBoxInModal = new SelectBox(DISTANCE_STRINGS, false);
+    const distanceSelectBoxInModal = new SelectBox({
+      options: DISTANCE_STRINGS,
+      hasDefaultOption: false,
+    });
 
     const distanceFormItem = new FormItem({
       subject: FORM_ITEM_TEXTS.distanceTitle,
@@ -129,19 +135,18 @@ class AddRestaurantForm {
     return urlFormItem;
   }
 
-  #createButtonDiv(
-    cancelFunc: (...args: any[]) => any,
-    addFunc: (...args: any[]) => any
-  ) {
+  #createButtonDiv(cancelFunc: (...args: any[]) => any) {
     const buttonDiv = createElementByTag({
       tag: "div",
       classes: ["button-container"],
     });
 
     const cancelButton = this.#createCancelButton(cancelFunc);
-    const addButton = this.#createAddButton(addFunc);
+    const submitButton = this.#createSubmitButton();
 
-    buttonDiv.append(cancelButton.element, addButton.element);
+    submitButton.element.type = "submit";
+
+    buttonDiv.append(cancelButton.element, submitButton.element);
     return buttonDiv;
   }
 
@@ -164,23 +169,10 @@ class AddRestaurantForm {
     return cancelButton;
   }
 
-  #createAddButton(addFunc: (...args: any[]) => any) {
+  #createSubmitButton() {
     return new SubmitButton({
       value: FORM_ITEM_TEXTS.addButton,
       color: "orange",
-      eventListenerArgs: [
-        [
-          "submit",
-          (e: Event) => {
-            e.preventDefault();
-            const newRestaurant = this.#getRestaurant();
-            if (this.#isRequireFilled()) {
-              this.reset();
-              addFunc(newRestaurant);
-            }
-          },
-        ],
-      ],
     });
   }
 
@@ -195,9 +187,11 @@ class AddRestaurantForm {
   }
 
   #isRequireFilled() {
-    return this.#requiredFormItem.every(
-      (formItem) => formItem.getValue() !== ""
-    );
+    const isFilledCategory = this.#categoryFormItem.getValue() !== "";
+    const isFilledName = this.#nameFormItem.getValue() !== "";
+    const isFilledDistance = this.#distanceFormItem.getValue() !== "";
+
+    return isFilledCategory && isFilledName && isFilledDistance;
   }
 }
 
