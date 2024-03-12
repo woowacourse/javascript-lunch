@@ -44,6 +44,13 @@ class RestaurantListStateStore {
 
     RestaurantListStorageService.setData(newData);
   }
+
+  updateListData(id: number) {
+    const index = this.#restaurantList.findIndex((item) => item.id === id);
+    this.#restaurantList[index].isLike = !this.#restaurantList[index].isLike;
+
+    RestaurantListStorageService.setData(this.#restaurantList);
+  }
 }
 
 const restaurantListStateStore = new RestaurantListStateStore();
