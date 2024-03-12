@@ -1,21 +1,22 @@
-import ValidateConditions from '../../src/validators/ValidateConditions.ts';
+import {
+  validateRestaurantsName,
+  validateRequiredValue,
+} from '../../src/validators/ValidateInput.ts';
 
-describe('유효성 검증 테스트', () => {
-  it('배열 안에 값이 포함되어있다면 true를 반환하는 테스트', () => {
-    const inputs = [30, '한식'];
-    const datas = [
-      [5, 10, 15, 20, 30],
-      ['한식', '중식', '일식', '아시안', '양식', '기타'],
-    ];
+describe('ValidateInput 유효성 검증 테스트', () => {
+  it('주어진 식당 목록(["가게1", "가게2", "가게3"])에 이미 같은 이름의 식당("가게3")이 존재할 경우 에러를 반환한다.', () => {
+    const input = {
+      restaurantNames: ['가게1', '가게2', '가게3'],
+      name: '가게3',
+    };
 
-    datas.forEach((data, index) => {
-      expect(ValidateConditions.isIncluded(data, inputs[index])).to.be.true;
-    });
+    expect(() => validateRestaurantsName(input)).to.throw();
   });
 
-  it('값이 빈 문자열이면 true를 반환하는 테스트', () => {
-    const input = '';
+  it('필수 값으로 빈 문자열이 전달될 경우 에러를 반환한다.', () => {
+    const id = 'category';
+    const value = '';
 
-    expect(ValidateConditions.isBlank(input)).to.be.true;
+    expect(() => validateRequiredValue(id, value)).to.throw();
   });
 });
