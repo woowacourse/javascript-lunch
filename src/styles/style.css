@@ -100,15 +100,13 @@ body {
   height: 44px;
   min-width: 125px;
 
+  padding: 8px;
+
   border: 1px solid #d0d5dd;
   border-radius: 8px;
   background: transparent;
 
   font-size: 16px;
-}
-
-.restaurant-filter {
-  padding: 8px;
 }
 
 /* 음식점 목록 */
@@ -224,7 +222,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -234,6 +232,7 @@ body {
 .form-item input,
 .form-item textarea,
 .form-item select {
+  width: 100%;
   padding: 8px;
   margin: 6px 0;
 
@@ -258,8 +257,13 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+.form-item p {
+  font-size: 12px;
+  color: red;
+}
+
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 

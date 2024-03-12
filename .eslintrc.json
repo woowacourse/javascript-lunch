@@ -1,11 +1,25 @@
 {
-  "rules": {},
+  "rules": {
+    "max-lines-per-function": ["error", { "max": 10 }],
+    "max-depth": ["error", { "max": 1 }]
+  },
   "env": {
     "es6": true,
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "overrides": [
+    {
+      "files": ["*.cy.ts", "/src/components"],
+      "rules": {
+        "no-undef": "off",
+        "max-lines-per-function": "off",
+        "max-depth": "off"
+      }
+    }
+  ],
+  "extends": ["eslint:recommended"]
 }
