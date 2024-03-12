@@ -1,6 +1,7 @@
 import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
 import { Category, SortBy } from '../../types';
+import textInput from '../../utils/textInput';
 
 const LUNCH_DROPDOWN = `
   <select name="dropdown" id="dropdown-filter" class="restaurant-filter"></select>
@@ -54,14 +55,7 @@ class LunchDropdown extends HTMLElement {
         return DROPDOWN_OPTION(value);
       }),
     );
-    this.inputOptionItems(optionItems);
-  }
-
-  inputOptionItems(optionItems: string[]) {
-    const options = this.querySelector('.restaurant-filter');
-    if (options) {
-      options.innerHTML = optionItems.join('');
-    }
+    textInput.setInnerHtml.call(this, '.restaurant-filter', optionItems);
   }
 }
 

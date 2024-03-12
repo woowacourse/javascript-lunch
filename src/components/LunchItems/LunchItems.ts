@@ -4,6 +4,7 @@ import '../LunchItem/LunchItem';
 import { RestaurantDataProvider } from '../../domain/index';
 
 import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
+import textInput from '../../utils/textInput';
 
 export interface FilterPropsTypes {
   category?: Category;
@@ -18,8 +19,9 @@ const LUNCH_ITEMS = `
 `;
 
 const LUNCH_ITEM = (restaurant: Restaurant) => `
-  <lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance
-  }" description="${restaurant.description ?? ''}"></lunch-item>
+  <lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${
+  restaurant.distance
+}" description="${restaurant.description ?? ''}"></lunch-item>
 `;
 
 class LunchItems extends HTMLElement {
@@ -37,10 +39,8 @@ class LunchItems extends HTMLElement {
     this.getRestaurants({ category, sortBy }).forEach((restaurant) => {
       itemHTMLs.push(LUNCH_ITEM(restaurant));
     });
-    const itemsHTML = this.querySelector('.restaurant-list');
-    if (itemsHTML) {
-      itemsHTML.innerHTML = itemHTMLs.join('');
-    }
+
+    textInput.setInnerHtml.call(this, '.restaurant-list', itemHTMLs);
   }
 
   getRestaurants({ category, sortBy }: FilterPropsTypes): Restaurants {

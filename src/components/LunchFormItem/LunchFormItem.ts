@@ -2,6 +2,7 @@ import './style.css';
 
 import { CATEGORIES } from '../../constants/categories';
 import { DISTANCE } from '../../constants/distance';
+import textInput from '../../utils/textInput';
 
 export type FormItemType = 'dropdown' | 'input' | 'textArea';
 
@@ -104,11 +105,7 @@ class LunchFormItem extends HTMLElement {
         optionItems.push(DROPDOWN_OPTION(`${element}`));
       });
     }
-
-    const options = this.querySelector('.dropdown-items');
-    if (options) {
-      options.innerHTML = optionItems.join('');
-    }
+    textInput.setInnerHtml.call(this, '.dropdown-items', optionItems);
   }
 
   renderInput(props: FormItemProps) {
