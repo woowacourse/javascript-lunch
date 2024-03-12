@@ -4,7 +4,7 @@ import RestaurantRepository from '../domain/RestaurantRepository';
 class RestaurantList extends Component {
   static observedAttributes = ['category', 'sorting'];
 
-  #restaurants;
+  #restaurants: IRestaurant[];
 
   constructor() {
     super();
@@ -20,7 +20,7 @@ class RestaurantList extends Component {
     const category = this.getAttribute('category') || '전체';
     const sorting = this.getAttribute('sorting') || '이름순';
 
-    return RestaurantRepository.transformRestaurants(category, sorting);
+    return RestaurantRepository.transformRestaurants(category as TAllCategory, sorting as TSortingOption);
   }
 
   template() {
