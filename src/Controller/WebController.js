@@ -2,6 +2,8 @@ import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant'
 import restaurantCatalog, { ALL_CATEGORY, SORT_CONDITION } from '../domain/RestaurantCatalog';
 import mockingData from '../domain/mocking';
 
+const LOCAL_STORAGE_KEY = 'lunch_restaurants';
+
 class WebController {
   run() {
     this.#init();
@@ -23,7 +25,7 @@ class WebController {
   }
 
   #initRestaurantCatalogFromLocalStorage() {
-    const localData = localStorage.getItem('restaurants');
+    const localData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (localData) {
       JSON.parse(localData).forEach((restaurant) => {
         restaurantCatalog.pushNewRestaurant(restaurant);
@@ -95,9 +97,9 @@ class WebController {
   }
 
   #updateRestaurantToLocalStorage(restaurant) {
-    const restaurantArr = JSON.parse(localStorage.getItem('restaurants')) ?? [];
+    const restaurantArr = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) ?? [];
     restaurantArr.push(restaurant);
-    localStorage.setItem('restaurants', JSON.stringify(restaurantArr));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurantArr));
   }
 
   #closeModal() {
