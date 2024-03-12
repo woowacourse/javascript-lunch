@@ -22,7 +22,6 @@ class RestaurantDetailModal extends BaseComponent {
   };
 
   protected render(): void {
-    console.log(this.restaurantDetail);
     this.innerHTML = `
       <common-modal
         open="${CUSTOM_EVENT_TYPE.restaurantDetailModalOpen}"
@@ -75,7 +74,7 @@ class RestaurantDetailModal extends BaseComponent {
 
     this.on({
       ...this.eventListeners.restaurantDetailModalClose,
-      target: $(ELEMENT_SELECTOR.modalCancelButton, this),
+      target: this,
     });
   }
 
@@ -87,8 +86,15 @@ class RestaurantDetailModal extends BaseComponent {
     }
   }
 
-  private handleCloseRestaurantDetailModal() {
-    this.emit(CUSTOM_EVENT_TYPE.restaurantDetailModalClose);
+  private handleCloseRestaurantDetailModal(event: Event) {
+    const modalCancelButtonElement = $(
+      ELEMENT_SELECTOR.modalCancelButton,
+      this
+    );
+
+    if (event.target === modalCancelButtonElement) {
+      this.emit(CUSTOM_EVENT_TYPE.restaurantDetailModalClose);
+    }
   }
 
   protected removeEvent(): void {
@@ -99,7 +105,7 @@ class RestaurantDetailModal extends BaseComponent {
 
     this.off({
       ...this.eventListeners.restaurantDetailModalClose,
-      target: $(ELEMENT_SELECTOR.modalCancelButton, this),
+      target: this,
     });
   }
 }
