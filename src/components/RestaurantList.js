@@ -15,7 +15,7 @@ export default class RestaurantList extends HTMLUListElement {
   }
 
   set restaurants(restaurants) {
-    this.#restaurants = [...restaurants];
+    this.#restaurants = restaurants ? [...restaurants] : [];
     this.#updateList();
   }
 
