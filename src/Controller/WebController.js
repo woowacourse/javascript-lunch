@@ -95,7 +95,7 @@ class WebController {
   }
 
   #updateRestaurantToLocalStorage(restaurant) {
-    const restaurantArr = JSON.parse(localStorage.getItem('restaurants')) || [];
+    const restaurantArr = JSON.parse(localStorage.getItem('restaurants')) ?? [];
     restaurantArr.push(restaurant);
     localStorage.setItem('restaurants', JSON.stringify(restaurantArr));
   }
