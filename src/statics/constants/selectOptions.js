@@ -31,11 +31,11 @@ const DISTANCES = [
   { value: 30, option: '30분 내' },
 ];
 
-const OPTIONS = new Map([
+const SELECT_OPTIONS = new Map([
   ['categoryFilters', CATEGORY_FILTERS],
   ['sortingFilters', SORTING_FILTERS],
   ['categories', CATEGORIES],
   ['distances', DISTANCES],
 ]);
 
-export default OPTIONS;
+export default SELECT_OPTIONS;
