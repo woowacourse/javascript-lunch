@@ -13,15 +13,35 @@ export default class NavigationBar extends HTMLElement {
     });
   }
 
+  private createAppTitle(): HTMLHeadingElement {
+    const appTitle = document.createElement('h1');
+    appTitle.classList.add('gnb__title', 'text-title');
+    appTitle.textContent = '점심 뭐 먹지';
+    return appTitle;
+  }
+
+  private createAddRestaurantButton(): HTMLButtonElement {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.id = 'add-restaurant-button';
+    button.classList.add('gnb__button');
+    button.ariaLabel = '음식점 추가';
+
+    button.appendChild(this.createAddRestaurantButtonIcon());
+    return button;
+  }
+
+  private createAddRestaurantButtonIcon(): HTMLImageElement {
+    const iconImage = document.createElement('img');
+    iconImage.src = Asset.imageUrl.버튼_음식점추가;
+    iconImage.alt = '음식점 추가';
+    return iconImage;
+  }
+
   private render() {
-    this.innerHTML = `
-      <header class="gnb">
-        <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-        <button type="button" id="add-restaurant-button" class="gnb__button" aria-label="음식점 추가">
-          <img src=${Asset.imageUrl.버튼_음식점추가} alt="음식점 추가" />
-        </button>
-      </header>
-    `;
+    this.classList.add('gnb');
+    this.appendChild(this.createAppTitle());
+    this.appendChild(this.createAddRestaurantButton());
   }
 }
 
