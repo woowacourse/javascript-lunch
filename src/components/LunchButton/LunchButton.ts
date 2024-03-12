@@ -21,7 +21,7 @@ class LunchButton extends HTMLElement {
   render() {
     const text = this.getAttribute('text') ?? '';
     const color = (this.getAttribute('color') as LunchButtonColor) ?? 'primary';
-    const type = (this.getAttribute('type') as LunchButtonType) ?? 'button';
+    const type = (this.getAttribute('type') as LunchButtonType) ?? 'submit';
     this.innerHTML = LUNCH_BUTTON({ text, color, type });
   }
 }
