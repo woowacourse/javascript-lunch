@@ -1,14 +1,9 @@
-interface IComponentProps<T> {
-  $target: HTMLElement;
-  props: T;
-}
-
 class Component<T> {
   $target;
   props: T;
   state: any;
 
-  constructor({ $target, props }: IComponentProps<T>) {
+  constructor($target: HTMLElement, props: T) {
     this.$target = $target;
     this.props = props;
     this.setup();

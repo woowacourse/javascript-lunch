@@ -20,7 +20,7 @@ interface IButton {
 
 class Button extends Component<IButtonProps> {
   constructor({ $target, props }: IButton) {
-    super({ $target, props });
+    super($target, props);
   }
 
   setEvent(): void {
