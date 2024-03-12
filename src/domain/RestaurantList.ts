@@ -27,6 +27,14 @@ class RestaurantList {
     );
   }
 
+  toggleIsGoTo(id: number) {
+    this.restaurants = this.restaurants.map((restaurant) =>
+      restaurant.id === id
+        ? { ...restaurant, isGoTo: !restaurant.isGoTo }
+        : restaurant
+    );
+  }
+
   getRestaurants({
     category,
     sortingStandard,
