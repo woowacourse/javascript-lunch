@@ -59,7 +59,7 @@ export const SELECT_FORM_DATA: SelectedDataType = {
     id: 'category',
     name: 'category',
     isRequired: true,
-    classList: [],
+    classList: ['form-select'],
 
     options: [
       { value: '', content: '선택해 주세요.' },
@@ -80,7 +80,7 @@ export const SELECT_FORM_DATA: SelectedDataType = {
     id: 'distance',
     name: 'distance',
     isRequired: true,
-    classList: [],
+    classList: ['form-select'],
 
     options: [
       { value: '', content: '선택해 주세요' },

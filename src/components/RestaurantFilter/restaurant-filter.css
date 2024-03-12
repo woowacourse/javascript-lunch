@@ -5,18 +5,3 @@
   padding: 0 16px;
   margin-top: 24px;
 }
-
-.restaurant-filter-container select {
-  height: 44px;
-  min-width: 125px;
-
-  border: 1px solid var(--grey-200);
-  border-radius: 8px;
-  background: transparent;
-
-  font-size: 1rem;
-}
-
-.restaurant-filter {
-  padding: 8px;
-}

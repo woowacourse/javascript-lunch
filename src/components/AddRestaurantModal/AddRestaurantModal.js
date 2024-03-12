@@ -1,5 +1,5 @@
 import Restaurant from '../Common/Restaurant/Restaurant';
-import Select from '../Common/Select';
+import Select from '../Common/Select/Select';
 import { validateRequiredValue, validateRestaurantsName } from '../../validators';
 import tryCatchWrapper from '../../utils/tryCatchWrapper';
 import { $ } from '../../utils/dom';
