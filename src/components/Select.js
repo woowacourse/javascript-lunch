@@ -1,3 +1,4 @@
+import SELECT_OPTIONS from '../statics/constants/selectOptions';
 import './Select.css';
 
 export const SELECT_EVENTS = {
@@ -5,17 +6,10 @@ export const SELECT_EVENTS = {
 };
 
 export default class Select extends HTMLSelectElement {
-  static observedAttributes = ['data-options'];
+  static observedAttributes = ['type'];
 
-  get options() {
-    if (!this.dataset.options) {
-      return [];
-    }
-    return JSON.parse(this.dataset.options);
-  }
-
-  set options(value) {
-    this.setAttribute('data-options', JSON.stringify(value));
+  get type() {
+    return this.getAttribute('type');
   }
 
   connectedCallback() {
@@ -50,7 +44,8 @@ export default class Select extends HTMLSelectElement {
   }
 
   #generateOptions() {
-    return this.options.map(({ value, option }) => {
+    const options = SELECT_OPTIONS.get(this.type) || [];
+    return options.map(({ value, option }) => {
       const element = document.createElement('option');
       element.value = value;
       element.innerHTML = option;
