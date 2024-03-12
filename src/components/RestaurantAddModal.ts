@@ -54,6 +54,7 @@ class RestaurantAddModal extends Component {
       distance: Number(($('.modal-distance') as HTMLSelectElement).value) as TDistance,
       description: ($('.modal-description') as HTMLInputElement).value,
       reference: ($('.modal-reference') as HTMLInputElement).value,
+      isFavorite: false,
     };
 
     RestaurantRepository.addRestaurant(formData);
