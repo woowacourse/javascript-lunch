@@ -11,28 +11,23 @@ export default class LunchAppController {
   #restaurants;
   #header;
   #restaurantFilter;
-  #modal;
+  #addRestaurantmodal;
 
   constructor() {
     this.#restaurants = new Restaurants(localStorage);
-    this.#header = new Header();
-    this.#restaurantFilter = new RestaurantFilter(this.#restaurants);
-    this.#modal = new AddRestaurantModal(this.#restaurants);
+    this.#header = new Header($('header'));
+    this.#restaurantFilter = new RestaurantFilter(
+      $('restaurant-filter-container'),
+      this.#restaurants,
+    );
+    this.#addRestaurantmodal = new AddRestaurantModal($('add-restaurant-modal'), this.#restaurants);
   }
 
   init() {
-    this.#renderHeader();
-    this.#renderRestaurantFilter();
+    this.#header.render();
+    this.#restaurantFilter.render();
     this.#renderRestaurants();
-    this.#renderAddRestaurantModal();
-  }
-
-  #renderHeader() {
-    $('header').innerHTML = this.#header.render();
-  }
-
-  #renderRestaurantFilter() {
-    $('restaurant-filter-container').innerHTML = this.#restaurantFilter.render();
+    this.#addRestaurantmodal.render();
   }
 
   #renderRestaurants() {
@@ -41,9 +36,5 @@ export default class LunchAppController {
         prevRestaurantData + Restaurant(currentRestaurantData),
       '',
     );
-  }
-
-  #renderAddRestaurantModal() {
-    $('add-restaurant-modal').innerHTML = this.#modal.render();
   }
 }

@@ -7,15 +7,17 @@ import { RULES } from '../../constants/rules';
 import { SELECT_FORM_DATA } from '../../data/selectData';
 
 export default class AddRestaurantModal {
+  #element;
   #restaurants;
 
-  constructor(restaurants) {
+  constructor(element, restaurants) {
+    this.#element = element;
     this.#restaurants = restaurants;
     this.#addEvents();
   }
 
   render() {
-    return `
+    this.#element.innerHTML = `
     <!-- 음식점 추가 모달 -->
     <div id="modal-backdrop" class="modal-backdrop"></div>
     <div class="modal-container">

@@ -5,18 +5,20 @@ import { RULES } from '../../constants/rules';
 import { SELECT_FILTER_DATA } from '../../data/selectData';
 
 export default class RestaurantFilter {
+  #element;
   #restaurants;
 
-  constructor(restaurants) {
+  constructor(element, restaurants) {
+    this.#element = element;
     this.#restaurants = restaurants;
     this.#addEvents();
   }
 
   render() {
-    return (
-      Select(SELECT_FILTER_DATA.sorting, localStorage.getItem('sorting-filter')) +
-      Select(SELECT_FILTER_DATA.category, localStorage.getItem('category-filter'))
-    );
+    this.#element.innerHTML = `
+      ${Select(SELECT_FILTER_DATA.sorting, localStorage.getItem('sorting-filter'))}
+      ${Select(SELECT_FILTER_DATA.category, localStorage.getItem('category-filter'))}
+    `;
   }
 
   #addEvents() {
