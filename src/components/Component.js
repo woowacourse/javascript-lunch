@@ -18,6 +18,10 @@ class Component extends HTMLElement {
 
   removeEvent() {}
 
+  makeCustomEvent(name) {
+    return this.dispatchEvent(new CustomEvent(name, { bubbles: true }));
+  }
+
   template() {
     return ``;
   }
