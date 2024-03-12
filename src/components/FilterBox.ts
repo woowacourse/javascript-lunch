@@ -3,7 +3,7 @@ import { OPTIONS_MAP } from '../constants/Condition';
 import { $addEvent, $removeEvent } from '../utils/dom';
 
 class FilterBox extends Component {
-  #type;
+  #type: string;
 
   constructor() {
     super();

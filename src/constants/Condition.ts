@@ -22,9 +22,9 @@ export const OPTION = {
   ],
 } as const;
 
-export const OPTIONS_MAP = {
+export const OPTIONS_MAP: IOptionsMap = {
   category: [OPTION.ALL, ...OPTION.CATEGORY],
-  sorting: OPTION.SORTING,
+  sorting: [...OPTION.SORTING],
   'modal-category': [OPTION.INFO, ...OPTION.CATEGORY],
   'modal-distance': [OPTION.INFO, ...OPTION.DISTANCE],
-} as const;
+};

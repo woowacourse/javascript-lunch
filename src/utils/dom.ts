@@ -5,7 +5,7 @@ export const $ = (selector: string) => {
     throw new Error('[ERROR]');
   }
 
-  return document.querySelector(selector);
+  return element;
 };
 
 export const $setAttribute = (selector: string, key: string, value: string) => {
