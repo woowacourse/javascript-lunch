@@ -2,7 +2,7 @@ import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@assets/add-button.png';
 import './Header.css';
 
-class Header extends HTMLElement {
+class Header extends HTMLDivElement {
   constructor() {
     super();
     this.role = 'banner';
@@ -26,6 +26,6 @@ class Header extends HTMLElement {
   }
 }
 
-customElements.define('header-bar', Header);
+customElements.define('header-bar', Header, { extends: 'div' });
 
 export default Header;

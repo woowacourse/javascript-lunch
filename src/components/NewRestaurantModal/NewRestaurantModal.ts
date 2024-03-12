@@ -225,7 +225,7 @@ class NewRestaurantModal extends BasicModal {
   }
 
   #rerenderByFilter() {
-    (this.parentElement as MainApp).repaint();
+    (this.parentElement as MainApp).paint();
   }
 }
 export default NewRestaurantModal;

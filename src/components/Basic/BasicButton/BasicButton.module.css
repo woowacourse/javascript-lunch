@@ -1,7 +1,3 @@
-.button-container {
-  display: flex;
-}
-
 .button {
   width: 100%;
   height: 44px;
@@ -19,14 +15,14 @@
   margin-right: 0;
 }
 
-.button--secondary {
+.buttonSecondary {
   border: 1px solid var(--grey-300);
   background: transparent;
 
   color: var(--grey-300);
 }
 
-.button--primary {
+.buttonPrimary {
   background: var(--primary-color);
 
   color: var(--grey-100);

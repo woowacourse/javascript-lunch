@@ -23,10 +23,10 @@ class MainApp extends HTMLDivElement {
   }
 
   connectedCallback() {
-    this.repaint();
+    this.paint();
   }
 
-  repaint() {
+  paint() {
     const restaurantDBService = new RestaurantDBService();
     const { category, sortCriteria } = this.#filterContainer.get();
 

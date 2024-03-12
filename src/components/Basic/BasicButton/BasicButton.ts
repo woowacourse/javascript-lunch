@@ -1,10 +1,6 @@
-import BaseComponent from '../../BaseComponent';
-import './BasicButton.css';
-class BasicButton extends BaseComponent {
+import style from './BasicButton.module.css';
+class BasicButton extends HTMLButtonElement {
   #isPrimary;
-  #innerText;
-  #type;
-  #clickEvent;
 
   constructor(
     isPrimary: boolean,
@@ -14,32 +10,24 @@ class BasicButton extends BaseComponent {
   ) {
     super();
     this.#isPrimary = isPrimary;
-    this.#innerText = innerText;
-    this.#type = type;
-    this.#clickEvent = clickEvent;
-  }
+    this.innerText = innerText;
+    this.setAttribute('type', type);
 
-  render() {
-    const $button = this.#getButton();
-    this.append($button);
-    this.className = 'button';
-    
+    const buttonStyleClass = this.#isPrimary
+      ? ['button--primary', `${style.buttonPrimary}`]
+      : ['button--secondary', `${style.buttonSecondary}`];
+
+    this.classList.add('button', `${style.button}`, 'text-caption');
+    this.classList.add(...buttonStyleClass);
+
     this.addEventListener('click', () => {
-      this.#clickEvent();
+      clickEvent();
     });
   }
 
-  #getButton() {
-    const $button = document.createElement('button');
-    const buttonStyleClass = `${this.#isPrimary ? 'button--primary' : 'button--secondary'}`;
-    $button.classList.add('button', 'text-caption', buttonStyleClass);
-    $button.setAttribute('type', this.#type);
-    $button.innerText = this.#innerText;
-
-    return $button;
-  }
+  render() {}
 }
 
-customElements.define('basic-button', BasicButton);
+customElements.define('basic-button', BasicButton, { extends: 'button' });
 
 export default BasicButton;
