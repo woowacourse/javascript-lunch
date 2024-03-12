@@ -3,8 +3,9 @@ import './style.css';
 import { STORAGE_KEY } from '../../constants';
 import { INITIAL_RESTAURANT_DATA } from '../../data/restaurantData';
 import { RestaurantInfo } from '../../types';
+import { getFavoriteAttributeValue } from '../../utils';
 
-class RestaurantComponent extends HTMLElement {
+class RestaurantItem extends HTMLElement {
   constructor() {
     super();
   }
@@ -24,15 +25,16 @@ class RestaurantComponent extends HTMLElement {
       this.innerHTML = /* html */ `
       <li class="restaurant">
         <category-icon category="${store.category}"></category-icon>
-          <div class="restaurant__info">
-            <h3 class="restaurant__info__title">
-              ${store.name}
-            </h3>
-            <p class="restaurant__info__distance"> 캠퍼스부터 ${store.distance}분 내</p>
-            <p class="restaurant__info__explanation">
-              ${store.description ? store.description : noneDescription}
-            </p>
+        <div class="restaurant__info">
+          <h3 class="restaurant__info__title">
+            ${store.name}
+          </h3>
+          <p class="restaurant__info__distance"> 캠퍼스부터 ${store.distance}분 내</p>
+          <p class="restaurant__info__explanation">
+            ${store.description ? store.description : noneDescription}
+          </p>
           </div>
+          <favorite-icon store-name= "${store.name}" favorite= "${getFavoriteAttributeValue(store.favorite)}"></favorite-icon>
         </li>
         `;
 
@@ -43,4 +45,4 @@ class RestaurantComponent extends HTMLElement {
   }
 }
 
-customElements.define('restaurant-box', RestaurantComponent);
+customElements.define('restaurant-item', RestaurantItem);
