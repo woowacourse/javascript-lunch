@@ -19,9 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = new RestaurantCreationModal(restaurants);
 
   $('header').innerHTML = header.render();
-  $('restaurant-filter-container').innerHTML += restaurantFilter.render();
-  restaurants.standardList.forEach((restaurantData) => {
-    $('restaurant-list').innerHTML += Restaurant(restaurantData);
-  });
+  $('restaurant-filter-container').innerHTML = restaurantFilter.render();
+  $('restaurant-list').innerHTML = restaurants.standardList.reduce(
+    (prevRestaurantData, currentRestaurantData) =>
+      prevRestaurantData + Restaurant(currentRestaurantData),
+    '',
+  );
+
   $('add-restaurant-modal').innerHTML = modal.render();
 });

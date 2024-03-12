@@ -34,9 +34,10 @@ export default class RestaurantFilter {
   }
 
   #reRenderRestaurantList() {
-    $('restaurant-list').innerHTML = '';
-    this.#restaurants.standardList.forEach((restaurantData) => {
-      $('restaurant-list').innerHTML += Restaurant(restaurantData);
-    });
+    $('restaurant-list').innerHTML = this.#restaurants.standardList.reduce(
+      (prevRestaurantData, currentRestaurantData) =>
+        prevRestaurantData + Restaurant(currentRestaurantData),
+      '',
+    );
   }
 }
