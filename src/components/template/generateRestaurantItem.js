@@ -1,8 +1,8 @@
-import ICON from '../icons';
+import ICON from '../../icons';
 
-export default class Restaurant {
-  render({ category, name, walkingTimeFromCampus, description }) {
-    return `
+// TODO: createElement로 변경, createElement도 재사용할 수 있게 구현
+const generateRestaurantItem = ({ category, name, walkingTimeFromCampus, description }) => {
+  return `
     <li class="restaurant">
       <div class="restaurant__category">
         <img src="${ICON[category]}" alt="${category}" class="category-icon">
@@ -14,5 +14,6 @@ export default class Restaurant {
       </div>
     </li>
     `;
-  }
-}
+};
+
+export default generateRestaurantItem;

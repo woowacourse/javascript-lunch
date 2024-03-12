@@ -1,12 +1,12 @@
 import Restaurants from './domains/Restaurants';
 
 import Header from './components/Header';
-import Select from './components/Select';
-import Restaurant from './components/Restaurant';
+import Select from './components/FilteringSelectBox';
 import RestaurantCreationModal from './components/RestaurantCreationModal';
 
+import generateRestaurantItem from './components/template/generateRestaurantItem';
+
 import { $ } from './utils/dom';
-import { SELECTED_DATA } from './constants/rules';
 
 import './styles/index.css';
 
@@ -14,15 +14,17 @@ import './styles/index.css';
 const restaurants = new Restaurants(localStorage);
 
 // components
-new Header();
-const select = new Select(restaurants);
-const restaurant = new Restaurant();
-new RestaurantCreationModal(restaurants);
-
-$('header').innerHTML = Header.getTemplate();
-$('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.sorting));
-$('restaurant-filter-container').appendChild(select.render(SELECTED_DATA.category));
-restaurants.standardList.forEach((restaurantData) => {
-  $('restaurant-list').innerHTML += restaurant.render(restaurantData);
+const header = new Header({ targetId: 'header' });
+const select = new Select({ targetId: 'restaurant-filter-container', restaurants });
+const restaurantCreationModal = new RestaurantCreationModal({
+  targetId: 'restaurant-creation-modal',
+  restaurants,
 });
-$('restaurant-creation-modal').innerHTML = RestaurantCreationModal.getTemplate();
+
+restaurants.standardList.forEach((restaurantData) => {
+  $('restaurant-list').innerHTML += generateRestaurantItem(restaurantData);
+});
+
+header.render();
+select.render();
+restaurantCreationModal.render();
