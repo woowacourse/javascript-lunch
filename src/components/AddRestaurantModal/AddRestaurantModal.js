@@ -105,9 +105,9 @@ export default class AddRestaurantModal {
     const inputData = this.#getInputData(event.target);
 
     this.#validateInputData(inputData);
-    this.#restaurants.addRestaurant(inputData);
-    $('add-restaurant-modal').classList.remove('modal--open');
+    this.#restaurants.addRestaurant(this.#parseWalkingTime(inputData));
     this.#insertRestaurantList(inputData);
+    $('add-restaurant-modal').classList.remove('modal--open');
   }
 
   #validateInputData(inputData) {
@@ -128,12 +128,17 @@ export default class AddRestaurantModal {
   }
 
   #getInputData(target) {
-    // TODO: 숫자 파싱 문제 해결
     const category = target['category'].value;
     const name = target['name'].value;
     const walkingTimeFromCampus = Number(target['distance'].value);
     const description = target['description'].value;
 
     return { category, name, walkingTimeFromCampus, description };
+  }
+
+  #parseWalkingTime(inputData) {
+    const parsedWalkingTime = Number(inputData.walkingTimeFromCampus);
+
+    return { ...inputData, walkingTimeFromCampus: parsedWalkingTime };
   }
 }
