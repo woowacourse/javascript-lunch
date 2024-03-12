@@ -3,7 +3,7 @@ import { CATEGORY, DISTANCE } from "../../constants/selectOptions";
 import FORM_ITEM_TEXTS from "../../constants/formItemTexts";
 import FormItem from "./FormItem";
 import RestaurantList from "../../domain/RestaurantList";
-import createElementByTag from "../generateComponent/utils/createElementByTag";
+import createElementByTag from "../utils/createElementByTag";
 import generateButton from "../generateComponent/generateButton";
 import generateSelectBox from "../generateComponent/generateSelectBox";
 

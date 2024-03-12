@@ -4,7 +4,7 @@ import FORM_ITEM_TEXTS from "../../../constants/formItemTexts";
 import FormItem from "../FormItem/FormItem";
 import SelectBox from "../SelectBox/SelectBox";
 import SubmitButton from "../SubmitButton/SubmitButton";
-import createElementByTag from "../../generateComponent/utils/createElementByTag";
+import createElementByTag from "../../utils/createElementByTag";
 
 class AddRestaurantForm {
   element = document.createElement("form");

@@ -4,7 +4,7 @@ import ECT_ICON from "../../../../templates/category-etc.png";
 import JAPANESE_ICON from "../../../../templates/category-japanese.png";
 import KOREAN_ICON from "../../../../templates/category-korean.png";
 import WESTERN_ICON from "../../../../templates/category-western.png";
-import createElementByTag from "../../generateComponent/utils/createElementByTag";
+import createElementByTag from "../../utils/createElementByTag";
 
 const categoryImgSrcMatcher = {
   한식: KOREAN_ICON,

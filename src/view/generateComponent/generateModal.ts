@@ -1,4 +1,4 @@
-import createElementByTag from "./utils/createElementByTag";
+import createElementByTag from "../utils/createElementByTag";
 
 const generateModal = (contents: HTMLElement[]) => {
   const modalDiv = createElementByTag({

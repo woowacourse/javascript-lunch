@@ -1,5 +1,5 @@
 import { DEFAULT_UNSELECTED_OPTION } from "../../../constants/selectOptions";
-import createElementByTag from "../../generateComponent/utils/createElementByTag";
+import createElementByTag from "../../utils/createElementByTag";
 
 class SelectBox {
   element = createElementByTag({

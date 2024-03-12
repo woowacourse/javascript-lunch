@@ -1,4 +1,4 @@
-import createElementByTag from "../../generateComponent/utils/createElementByTag";
+import createElementByTag from "../../utils/createElementByTag";
 
 class Modal {
   element: HTMLElement = createElementByTag({
