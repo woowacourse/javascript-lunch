@@ -4,9 +4,7 @@ import Header from './components/Header';
 import Select from './components/FilteringSelectBox';
 import RestaurantCreationModal from './components/RestaurantCreationModal';
 
-import generateRestaurantItem from './components/template/generateRestaurantItem';
-
-import { $ } from './utils/dom';
+import restaurantList from './layouts/RestaurantList';
 
 import './styles/index.css';
 
@@ -21,10 +19,9 @@ const restaurantCreationModal = new RestaurantCreationModal({
   restaurants,
 });
 
-restaurants.standardList.forEach((restaurantData) => {
-  $('restaurant-list').innerHTML += generateRestaurantItem(restaurantData);
-});
-
 header.render();
 select.render();
 restaurantCreationModal.render();
+
+// layout
+restaurantList({ targetId: 'restaurant-list', restaurants: restaurants.standardList });

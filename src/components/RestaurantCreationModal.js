@@ -1,12 +1,11 @@
-import generateRestaurantItem from './template/generateRestaurantItem';
+import generateRestaurantCreationModal from './template/generateRestaurantCreationModal';
 
-import { validateRequiredValue, validateRestaurantsName } from '../validators';
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
 import { closeModal } from '../utils/modalHandler';
 
+import { validateRequiredValue, validateRestaurantsName } from '../validators';
 import { FIELD_IDS } from '../constants/rules';
-import generateRestaurantCreationModal from './template/generateRestaurantCreationModal';
 
 class RestaurantCreationModal {
   #element;
@@ -24,11 +23,9 @@ class RestaurantCreationModal {
   }
 
   #initEventListeners() {
-    const modal = $('restaurant-creation-modal');
-
-    modal.addEventListener('focusout', this.#handleRequiredInput.bind(this));
-    modal.addEventListener('click', this.#handleModalClose.bind(this));
-    modal.addEventListener('submit', this.#handleAddRestaurant.bind(this));
+    this.#element.addEventListener('focusout', this.#handleRequiredInput.bind(this));
+    this.#element.addEventListener('click', this.#handleModalClose.bind(this));
+    this.#element.addEventListener('submit', this.#handleAddRestaurant.bind(this));
   }
 
   #handleRequiredInput(event) {
@@ -66,8 +63,7 @@ class RestaurantCreationModal {
 
     this.#validateUniqueName(inputData);
     this.#restaurants.addRestaurant(inputData);
-    this.#insertRestaurantList(inputData);
-
+    $('restaurant-input-form').reset();
     closeModal($('restaurant-creation-modal'));
   }
 
@@ -79,11 +75,6 @@ class RestaurantCreationModal {
   #validateRequiredInput(id) {
     validateRequiredValue(id, $(id).value);
     $(`${id}-error`).innerText = '';
-  }
-
-  #insertRestaurantList(inputData) {
-    $('restaurant-list').insertAdjacentHTML('afterbegin', generateRestaurantItem(inputData));
-    $('restaurant-input-form').reset();
   }
 
   #getInputData(event) {

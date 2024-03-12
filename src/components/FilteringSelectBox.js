@@ -1,7 +1,8 @@
-import generateRestaurantItem from './template/generateRestaurantItem';
+import generateSelectField from './template/generateSelectField';
+import restaurantList from '../layouts/RestaurantList';
+
 import { $ } from '../utils/dom';
 import { FIELD_IDS, SELECT_FIELD } from '../constants/rules';
-import generateSelectField from './template/generateSelectField';
 
 class FilteringSelectBox {
   #element;
@@ -34,9 +35,7 @@ class FilteringSelectBox {
 
   #reRenderRestaurantList() {
     $('restaurant-list').innerHTML = '';
-    this.#restaurants.standardList.forEach((restaurantData) => {
-      $('restaurant-list').innerHTML += generateRestaurantItem(restaurantData);
-    });
+    restaurantList({ targetId: 'restaurant-list', restaurants: this.#restaurants.standardList });
   }
 }
 
