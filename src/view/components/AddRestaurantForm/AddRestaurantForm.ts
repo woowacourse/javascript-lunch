@@ -1,3 +1,5 @@
+import "./style.css";
+
 import { CATEGORY, DISTANCE } from "../../../constants/selectOptions";
 
 import FORM_ITEM_TEXTS from "../../../constants/formItemTexts";
