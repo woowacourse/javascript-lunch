@@ -85,3 +85,8 @@ export const DISTANCE_OPTIONS = [
 ];
 
 export const DISTANCE_OPTION_VALUES = ["", "5", "10", "15", "20", "30"];
+
+export const SORT_OPTIONS = {
+  category: "카테고리",
+  distance: "거리(도보 이동 시간)",
+};

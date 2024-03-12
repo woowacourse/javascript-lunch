@@ -5,27 +5,26 @@ import {
   categoryJapanese,
   categoryKorean,
   categoryWestern,
-} from "../assets/index.js";
+  defaultImg,
+} from "../assets";
 import BaseComponent from "./BaseComponent.js";
 
+export const CATEGORY_TO_IMG = {
+  한식: categoryKorean,
+  중식: categoryChinese,
+  아시안: categoryAsian,
+  일식: categoryJapanese,
+  양식: categoryWestern,
+  기타: categoryEtc,
+};
+
 class RestaurantItem extends BaseComponent {
+  constructor() {
+    super();
+  }
+
   #categoryToImg(category) {
-    switch (category) {
-      case "한식":
-        return categoryKorean;
-      case "중식":
-        return categoryChinese;
-      case "아시안":
-        return categoryAsian;
-      case "일식":
-        return categoryJapanese;
-      case "양식":
-        return categoryWestern;
-      case "기타":
-        return categoryEtc;
-      default:
-        break;
-    }
+    return CATEGORY_TO_IMG[category] || defaultImg;
   }
 
   render() {
@@ -38,7 +37,7 @@ class RestaurantItem extends BaseComponent {
     this.innerHTML = `
     <li class="restaurant">
         <div class="restaurant__category">
-            <img src=${img} alt=${category} class="category-icon">
+            <img src=${img} alt="한식" class="category-icon">
         </div>
         <div class="restaurant__info">
             <h3 class="restaurant__name text-subtitle">${name}</h3>

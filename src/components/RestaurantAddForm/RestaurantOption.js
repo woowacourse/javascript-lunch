@@ -1,3 +1,4 @@
+import { SORT_OPTIONS } from "../../constants/MenuApp";
 import { $ } from "../../utils/dom";
 import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../BaseComponent";
@@ -22,8 +23,7 @@ class RestaurantOptions extends BaseComponent {
   }
 
   #getOptionText(id) {
-    if (id === "category") return "카테고리";
-    if (id === "distance") return "거리(도보 이동 시간)";
+    return SORT_OPTIONS[id];
   }
 
   #isSelected() {
