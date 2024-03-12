@@ -13,7 +13,7 @@ import {
   createTextArea,
 } from '../../../util/createFormElement';
 
-import type { RestaurantData } from '../../../type/RestaurantData';
+import type { RestaurantDataType } from '../../../type/restaurantDataType';
 
 import { Category, DistanceByWalk } from '../../../enum/enums';
 
@@ -39,7 +39,7 @@ class AddRestaurantModal extends HTMLElement {
     }
   }
 
-  private handleFormData(formData: FormData): RestaurantData {
+  private handleFormData(formData: FormData): RestaurantDataType {
     const formDataEntries = Object.fromEntries(formData.entries());
     if (this.isRestaurantData(formDataEntries)) {
       return formDataEntries;
@@ -47,7 +47,7 @@ class AddRestaurantModal extends HTMLElement {
     throw new Error('입력된 음식점 정보가 올바르지 않습니다. 새로고침 후 다시 입력해주세요.');
   }
 
-  private submitNewRestaurant(newRestaurantData: RestaurantData) {
+  private submitNewRestaurant(newRestaurantData: RestaurantDataType) {
     try {
       RestaurantValidator.validateUserInput(newRestaurantData);
       this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: newRestaurantData }));
@@ -56,7 +56,7 @@ class AddRestaurantModal extends HTMLElement {
     }
   }
 
-  private isRestaurantData(object: any): object is RestaurantData {
+  private isRestaurantData(object: any): object is RestaurantDataType {
     return (
       'name' in object &&
       'category' in object &&

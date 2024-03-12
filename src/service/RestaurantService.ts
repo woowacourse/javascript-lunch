@@ -1,8 +1,8 @@
 import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
 
-import type { RestaurantData } from '../type/RestaurantData';
-import type { CompareFunction } from '../type/CompareFunction';
+import type { RestaurantDataType } from '../type/restaurantDataType';
+import type { CompareFunctionType } from '../type/compareFunctionType';
 
 import { Category, DistanceByWalk, SortOrder } from '../enum/enums';
 class RestaurantService {
@@ -13,7 +13,7 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  getRestaurants(sortOrder: SortOrder, category?: Category): RestaurantData[] {
+  getRestaurants(sortOrder: SortOrder, category?: Category): RestaurantDataType[] {
     const restaurants = category ? this.getRestaurantsByCategory(category) : this.restaurants;
     const compareFunction = this.getCompareFunction(sortOrder);
     const sortedRestaurants = this.getSortedRestaurants(restaurants, compareFunction);
@@ -24,7 +24,7 @@ class RestaurantService {
     return this.restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
   }
 
-  private getCompareFunction(sortOrder: SortOrder): CompareFunction {
+  private getCompareFunction(sortOrder: SortOrder): CompareFunctionType {
     const compareFunctions: { [key in SortOrder]: (a: Restaurant, b: Restaurant) => number } = {
       이름순: (a, b) => this.compareName(a, b),
       거리순: (a, b) => this.compareDistanceByWalk(a, b),
@@ -32,7 +32,7 @@ class RestaurantService {
     return compareFunctions[sortOrder];
   }
 
-  private getSortedRestaurants(restaurants: Restaurant[], compareFunction: CompareFunction) {
+  private getSortedRestaurants(restaurants: Restaurant[], compareFunction: CompareFunctionType) {
     return [...restaurants].sort(compareFunction);
   }
 
@@ -45,7 +45,7 @@ class RestaurantService {
     return compareResult === 0 ? this.compareName(a, b) : compareResult;
   }
 
-  addRestaurant(restaurant: RestaurantData) {
+  addRestaurant(restaurant: RestaurantDataType) {
     this.restaurants.push(new Restaurant(restaurant));
     this.saveRestaurants(this.restaurants);
   }
@@ -57,14 +57,14 @@ class RestaurantService {
   private loadRestaurants(): Restaurant[] {
     const restaurants = localStorage.getItem('restaurants');
     if (restaurants) {
-      return JSON.parse(restaurants).map((object: RestaurantData) => new Restaurant(object));
+      return JSON.parse(restaurants).map((object: RestaurantDataType) => new Restaurant(object));
     }
-    return this.loadDefaultRestaurantData().map((object: RestaurantData) => new Restaurant(object));
+    return this.loadDefaultRestaurantData().map((object: RestaurantDataType) => new Restaurant(object));
   }
 
-  private loadDefaultRestaurantData(): RestaurantData[] {
+  private loadDefaultRestaurantData(): RestaurantDataType[] {
     return defaultRestaurant.map((restaurant) => {
-      const restaurantObject: RestaurantData = {
+      const restaurantObject: RestaurantDataType = {
         name: restaurant.name,
         category: restaurant.category as Category,
         distanceByWalk: restaurant.distanceByWalk as DistanceByWalk,

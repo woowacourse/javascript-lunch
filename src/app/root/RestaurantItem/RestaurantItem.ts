@@ -1,10 +1,10 @@
-import { RestaurantData } from '../../../type/RestaurantData';
+import { RestaurantDataType } from '../../../type/restaurantDataType';
 import { Asset } from '../../../asset/asset';
 
 export default class RestaurantItem extends HTMLElement {
-  private restaurantData: RestaurantData;
+  private restaurantData: RestaurantDataType;
 
-  constructor(restaurantData: RestaurantData) {
+  constructor(restaurantData: RestaurantDataType) {
     super();
     this.restaurantData = restaurantData;
   }

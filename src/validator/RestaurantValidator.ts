@@ -1,7 +1,7 @@
-import { RestaurantData } from '../type/RestaurantData';
+import { RestaurantDataType } from '../type/restaurantDataType';
 
 const RestaurantValidator = {
-  validateUserInput(restaurantData: RestaurantData) {
+  validateUserInput(restaurantData: RestaurantDataType) {
     if (!restaurantData.category || !restaurantData.distanceByWalk) {
       throw new Error('값을 입력해주세요.');
     }

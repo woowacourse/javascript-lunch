@@ -1,6 +1,6 @@
 import { Category, DistanceByWalk } from '../enum/enums';
 
-export type RestaurantData = {
+export type RestaurantDataType = {
   name: string;
   category: Category;
   distanceByWalk: DistanceByWalk;

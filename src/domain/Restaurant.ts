@@ -1,5 +1,5 @@
 import { Category, DistanceByWalk } from '../enum/enums';
-import type { RestaurantData } from '../type/RestaurantData';
+import type { RestaurantDataType } from '../type/restaurantDataType';
 
 class Restaurant {
   private name: string;
@@ -8,7 +8,7 @@ class Restaurant {
   private description?: string;
   private referenceUrl?: string;
 
-  constructor({ name, category, distanceByWalk, description = '', referenceUrl = '' }: RestaurantData) {
+  constructor({ name, category, distanceByWalk, description = '', referenceUrl = '' }: RestaurantDataType) {
     this.name = name;
     this.category = category;
     this.distanceByWalk = distanceByWalk;
