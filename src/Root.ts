@@ -5,7 +5,6 @@ import Restaurant from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
-import { CategoryValidator, DistanceValidator, NameValidator } from './validator';
 
 const { $, $$ } = DOM;
 
