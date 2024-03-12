@@ -33,7 +33,7 @@ class WebController {
 
   #renderRestaurantList() {
     const restaurantCards = document.querySelector('.restaurant-list');
-    const SORT_BY_NAME = SORT_CONDITION[1];
+    const SORT_BY_NAME = SORT_CONDITION[0];
     restaurantCards.setAttribute('data-sort-select', SORT_BY_NAME);
     restaurantCards.setAttribute('data-category-select', ALL_CATEGORY);
   }
