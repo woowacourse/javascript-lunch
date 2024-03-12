@@ -13,80 +13,69 @@ interface Restaurant {
   referenceLink?: string;
 }
 
-interface RestaurantsInterface {
-  initStorage(): void;
-  filterByCategory(category: Category): Restaurant[];
-  addRestaurant(restaurant: Restaurant): void;
-  orderByDistance(restaurants: Restaurant[]): Restaurant[];
-  orderByName(restaurants: Restaurant[]): Restaurant[];
-  sortByStandard(restaurants: Restaurant[], sorting: Sorting): Restaurant[];
-}
-
-class Restaurants implements RestaurantsInterface {
-  private storage;
+export default class Restaurants {
+  #storage;
 
   constructor(storage: Storage) {
-    this.storage = storage;
-    this.initStorage();
+    this.#storage = storage;
+    this.#initStorage();
   }
 
-  initStorage() {
-    if (!this.storage.getItem(STORAGE_KEY.restaurantData)) {
-      this.storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(initialData));
-      this.storage.setItem(STORAGE_KEY.sortingFilter, DEFAULT.sortingFilter);
-      this.storage.setItem(STORAGE_KEY.categoryFilter, DEFAULT.categoryFilter);
+  #initStorage() {
+    if (!this.#storage.getItem(STORAGE_KEY.restaurantData)) {
+      this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(initialData));
+      this.#storage.setItem(STORAGE_KEY.sortingFilter, DEFAULT.sortingFilter);
+      this.#storage.setItem(STORAGE_KEY.categoryFilter, DEFAULT.categoryFilter);
     }
   }
 
-  filterByCategory(category: Category) {
+  #filterByCategory(category: Category) {
     return this.storageData.filter((restaurant: Restaurant) => restaurant.category === category);
   }
 
   addRestaurant(restaurant: Restaurant) {
-    this.storage.setItem(
+    this.#storage.setItem(
       STORAGE_KEY.restaurantData,
       JSON.stringify([restaurant, ...this.storageData]),
     );
   }
 
-  orderByDistance(restaurants: Restaurant[]) {
+  #orderByDistance(restaurants: Restaurant[]) {
     return restaurants.toSorted((prev, next) => {
       const compareWalkingTime = prev.walkingTimeFromCampus - next.walkingTimeFromCampus;
       return compareWalkingTime || prev.name.localeCompare(next.name);
     });
   }
 
-  orderByName(restaurants: Restaurant[]) {
+  #orderByName(restaurants: Restaurant[]) {
     return restaurants.toSorted((prev: Restaurant, next: Restaurant) =>
       prev.name.localeCompare(next.name),
     );
   }
 
-  sortByStandard(restaurants: Restaurant[], sorting: Sorting) {
-    if (sorting && sorting === 'distance') return this.orderByDistance(restaurants);
-    if (sorting && sorting === 'name') return this.orderByName(restaurants);
+  #sortByStandard(restaurants: Restaurant[], sorting: Sorting) {
+    if (sorting && sorting === 'distance') return this.#orderByDistance(restaurants);
+    if (sorting && sorting === 'name') return this.#orderByName(restaurants);
 
     return this.storageData;
   }
 
   get storageData(): Restaurant[] {
-    return JSON.parse(this.storage.getItem(STORAGE_KEY.restaurantData) || '[]');
+    return JSON.parse(this.#storage.getItem(STORAGE_KEY.restaurantData) || '[]');
   }
 
   get standardList() {
     const sorting =
-      (this.storage.getItem(STORAGE_KEY.sortingFilter) as Sorting) ?? DEFAULT.sortingFilter;
+      (this.#storage.getItem(STORAGE_KEY.sortingFilter) as Sorting) ?? DEFAULT.sortingFilter;
     const category =
-      (this.storage.getItem(STORAGE_KEY.categoryFilter) as Category) ?? DEFAULT.sortingFilter;
+      (this.#storage.getItem(STORAGE_KEY.categoryFilter) as Category) ?? DEFAULT.sortingFilter;
     const restaurants =
-      category === DEFAULT.categoryFilter ? this.storageData : this.filterByCategory(category);
+      category === DEFAULT.categoryFilter ? this.storageData : this.#filterByCategory(category);
 
-    return this.sortByStandard(restaurants, sorting);
+    return this.#sortByStandard(restaurants, sorting);
   }
 
   set standard(value: { id: string; standard: string }) {
-    this.storage.setItem(value.id, value.standard);
+    this.#storage.setItem(value.id, value.standard);
   }
 }
-
-export default Restaurants;
