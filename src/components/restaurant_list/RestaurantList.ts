@@ -1,6 +1,8 @@
-import RestaurantListStorageService from "../../services/restaurantListStorageService";
+// import RestaurantListStorageService from "../../services/restaurantListStorageService";
+import restaurantListStateStore from "../../store/RestaurantListStateStore";
 import { Irestaurant } from "../../types/restaurant";
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
+import { likeChange } from "../restaurant/like/handler";
 import Restaurant from "../restaurant/Restaurant";
 
 const resetPrevRestaurantList = (ul: Element) => {
@@ -21,7 +23,9 @@ const render = (filterData: Irestaurant[]) => {
 };
 
 function RestaurantList() {
-  const filterData = RestaurantListStorageService.getfilteredData();
+  const filterData = restaurantListStateStore.getfilteredData();
   render(filterData);
+
+  likeChange();
 }
 export default RestaurantList;

@@ -1,7 +1,6 @@
+import restaurantListStateStore from "../store/RestaurantListStateStore";
 import { Icategory } from "../types/category";
 import { Irestaurant } from "../types/restaurant";
-
-import RestaurantListStorageService from "./restaurantListStorageService";
 
 const valid = {
   isValid: true,
@@ -52,7 +51,7 @@ const validate = {
   },
 
   checkDuplicate(name?: string) {
-    const restaurantList = RestaurantListStorageService.getData();
+    const restaurantList = restaurantListStateStore.getListData();
     return restaurantList.find(
       (restaurant: Irestaurant) => restaurant.name === name,
     );
