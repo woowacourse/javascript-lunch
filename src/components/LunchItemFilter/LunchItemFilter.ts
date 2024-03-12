@@ -1,14 +1,12 @@
 import './style.css';
 
-import '../LunchDropdown/LunchDropdown';
+import LunchDropdown, { LunchDropdownProps } from '../LunchDropdown/LunchDropdown';
 import LunchItems from '../LunchItems/LunchItems';
-import { Category, SortBy } from '../../types';
+import { CATEGORIES } from '../../constants/categories';
+import { SORTBY } from '../../constants/sortBy';
 
 const LUNCH_ITEM_FILTER = `
-  <section class="restaurant-filter-container">
-    <lunch-dropdown options="category"></lunch-dropdown>
-    <lunch-dropdown options="sortBy"></lunch-dropdown>
-  </section>
+  <section class="restaurant-filter-container"></section>
 `;
 
 class LunchItemFilter extends HTMLElement {
@@ -19,6 +17,19 @@ class LunchItemFilter extends HTMLElement {
 
   render() {
     this.innerHTML = LUNCH_ITEM_FILTER;
+    this.createDropdown({
+      name: 'dropdown',
+      id: 'dropdown-filter',
+      className: 'restaurant-filter',
+      options: CATEGORIES,
+      defaultValue: '전체',
+    });
+    this.createDropdown({
+      name: 'dropdown',
+      id: 'dropdown-filter',
+      className: 'restaurant-filter',
+      options: SORTBY,
+    });
   }
 
   setEventListener() {
@@ -27,15 +38,19 @@ class LunchItemFilter extends HTMLElement {
     });
   }
 
+  createDropdown(props: LunchDropdownProps) {
+    this.querySelector('section')?.insertAdjacentElement('beforeend', new LunchDropdown(props));
+  }
+
   handleRender() {
-    const dropdowns = this.querySelectorAll('lunch-dropdown');
+    const dropdowns = this.querySelectorAll('select');
     const array: string[] = [];
     dropdowns.forEach((dropdown) => {
-      const select = dropdown.querySelector('select');
+      const select = dropdown;
       array.push(select?.value ?? '');
     });
     const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({ category: array[0] as Category, sortBy: array[1] as SortBy });
+    items.renderItems({ category: array[0], sortBy: array[1] });
   }
 }
 

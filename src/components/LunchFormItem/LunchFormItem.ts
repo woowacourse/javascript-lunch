@@ -19,7 +19,6 @@ type DropdownOptionsTable = {
   [keys: string]: Record<string, string | number>;
 };
 
-// type FormElementsTable = Record<string, HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
 type FormElementsTable = Record<FormItemType, string>;
 
 const LUNCH_FORM_ITEM = (props: FormItemProps) => `
