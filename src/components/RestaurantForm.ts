@@ -9,17 +9,9 @@ import {
 import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { $ } from "../utils/selector";
 import { KOREAN_CATEGORY } from "../constants/category";
+import { distanceOptions } from "../constants/selectOptions";
 
 customElements.define("form-item", FormItem);
-
-const distanceOptions = [
-  { value: "", label: "선택해&nbsp;주세요" },
-  { value: "5", label: "5분&nbsp;내" },
-  { value: "10", label: "10분&nbsp;내" },
-  { value: "15", label: "15분&nbsp;내" },
-  { value: "20", label: "20분&nbsp;내" },
-  { value: "30", label: "30분&nbsp;내" },
-];
 
 export default class RestaurantForm extends EventComponent {
   getTemplate(): string {
@@ -44,7 +36,7 @@ export default class RestaurantForm extends EventComponent {
         <select-box
           select-id="time-to-reach"
           name="time-to-reach"
-          options=${JSON.stringify(distanceOptions)}
+          options=${this.getDistanceOptions()}
           required="true"
         >
         </select-box>
@@ -127,5 +119,9 @@ export default class RestaurantForm extends EventComponent {
     const filteredOptions = convertObjectToOptions(filterLiteralObject);
 
     return JSON.stringify(filteredOptions);
+  }
+
+  private getDistanceOptions() {
+    return JSON.stringify(distanceOptions);
   }
 }
