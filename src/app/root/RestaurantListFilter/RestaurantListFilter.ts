@@ -1,5 +1,5 @@
 import { Category, SortOrder } from '../../../enum/enums';
-import { createOptionItems } from '../../../util/createOptionItems';
+import { createOptionItems } from '../../../util/createFormElement';
 import { $ } from '../../../util/domSelector';
 
 class RestaurantListFilter extends HTMLElement {

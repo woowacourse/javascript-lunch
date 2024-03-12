@@ -1,18 +1,19 @@
 import { $ } from '../../../util/domSelector';
 import handleError from '../../../util/handleError';
-import { createOptionItems } from '../../../util/createOptionItems';
 import RestaurantValidator from '../../../validator/RestaurantValidator';
+import {
+  createCaption,
+  createFormButton,
+  createFormButtonContainer,
+  createFormItemContainer,
+  createInput,
+  createLabel,
+  createOptionItems,
+  createSelectBox,
+  createTextArea,
+} from '../../../util/createFormElement';
 
 import type { RestaurantData } from '../../../type/RestaurantData';
-import type {
-  FormItemContainerElementType,
-  LabelElementType,
-  InputElementType,
-  SelectBoxElementType,
-  TextAreaElementType,
-  CaptionElementType,
-  ButtonElementType,
-} from '../../../type/formElementTypes';
 
 import { Category, DistanceByWalk } from '../../../enum/enums';
 
@@ -70,28 +71,6 @@ class AddRestaurantModal extends HTMLElement {
     $<HTMLDialogElement>('#add-restaurant-modal').close();
   }
 
-  private createSelectBox({ name, required }: SelectBoxElementType): HTMLSelectElement {
-    const selectBox = document.createElement('select');
-    selectBox.name = name;
-    selectBox.id = `restaurant-${name}`;
-    selectBox.required = required;
-    return selectBox;
-  }
-
-  private createModal(): HTMLDialogElement {
-    const modal = document.createElement('dialog');
-    modal.id = 'add-restaurant-modal';
-
-    const modalContainer = document.createElement('div');
-    modalContainer.classList.add('modal-container');
-
-    modal.appendChild(modalContainer);
-    modalContainer.appendChild(this.createModalTitle());
-    modalContainer.appendChild(this.createAddRestaurantForm());
-
-    return modal;
-  }
-
   private createModalTitle(): HTMLHeadingElement {
     const modalTitle = document.createElement('h2');
     modalTitle.classList.add('modal-title', 'text-title');
@@ -100,50 +79,50 @@ class AddRestaurantModal extends HTMLElement {
   }
 
   private createNameInput(): HTMLDivElement {
-    const nameInput = this.createFormItemContainer({ required: true });
-    nameInput.appendChild(this.createLabel({ targetId: 'name', labelText: '이름' }));
-    nameInput.appendChild(this.createInput({ type: 'text', name: 'name', required: true }));
+    const nameInput = createFormItemContainer({ required: true });
+    nameInput.appendChild(createLabel({ targetId: 'name', labelText: '이름' }));
+    nameInput.appendChild(createInput({ type: 'text', name: 'name', required: true }));
     return nameInput;
   }
 
   private createCategoryInput(): HTMLDivElement {
-    const categoryInput = this.createFormItemContainer({ required: true });
-    const categorySelectBox = this.createSelectBox({ name: 'category', required: true });
+    const categoryInput = createFormItemContainer({ required: true });
+    const categorySelectBox = createSelectBox({ name: 'category', required: true });
     categorySelectBox.append(...createOptionItems({ type: Category, defaultOption: '선택해 주세요' }));
-    categoryInput.appendChild(this.createLabel({ targetId: 'category', labelText: '카테고리' }));
+    categoryInput.appendChild(createLabel({ targetId: 'category', labelText: '카테고리' }));
     categoryInput.appendChild(categorySelectBox);
     return categoryInput;
   }
 
   private createDistanceInput(): HTMLDivElement {
-    const distanceInput = this.createFormItemContainer({ required: true });
-    const distanceSelectBox = this.createSelectBox({ name: 'distanceByWalk', required: true });
+    const distanceInput = createFormItemContainer({ required: true });
+    const distanceSelectBox = createSelectBox({ name: 'distanceByWalk', required: true });
     distanceSelectBox.append(...createOptionItems({ type: DistanceByWalk, defaultOption: '선택해 주세요' }));
-    distanceInput.appendChild(this.createLabel({ targetId: 'distanceByWalk', labelText: '거리(도보 이동 시간)' }));
+    distanceInput.appendChild(createLabel({ targetId: 'distanceByWalk', labelText: '거리(도보 이동 시간)' }));
     distanceInput.appendChild(distanceSelectBox);
     return distanceInput;
   }
 
   private createDescriptionInput(): HTMLDivElement {
-    const descriptionInput = this.createFormItemContainer({ required: false });
-    descriptionInput.appendChild(this.createLabel({ targetId: 'description', labelText: '설명 ' }));
-    descriptionInput.appendChild(this.createTextArea({ name: 'description', cols: 30, rows: 5, required: false }));
-    descriptionInput.appendChild(this.createCaption({ captionText: '메뉴 등 추가 정보를 입력해 주세요.' }));
+    const descriptionInput = createFormItemContainer({ required: false });
+    descriptionInput.appendChild(createLabel({ targetId: 'description', labelText: '설명 ' }));
+    descriptionInput.appendChild(createTextArea({ name: 'description', cols: 30, rows: 5, required: false }));
+    descriptionInput.appendChild(createCaption({ captionText: '메뉴 등 추가 정보를 입력해 주세요.' }));
     return descriptionInput;
   }
 
   private createReferenceInput(): HTMLDivElement {
-    const referenceInput = this.createFormItemContainer({ required: false });
-    referenceInput.appendChild(this.createLabel({ targetId: 'referenceUrl', labelText: '참고 링크' }));
-    referenceInput.appendChild(this.createInput({ type: 'url', name: 'referenceUrl', required: false }));
-    referenceInput.appendChild(this.createCaption({ captionText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.' }));
+    const referenceInput = createFormItemContainer({ required: false });
+    referenceInput.appendChild(createLabel({ targetId: 'referenceUrl', labelText: '참고 링크' }));
+    referenceInput.appendChild(createInput({ type: 'url', name: 'referenceUrl', required: false }));
+    referenceInput.appendChild(createCaption({ captionText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.' }));
     return referenceInput;
   }
 
   private createButtonContainer(): HTMLDivElement {
-    const buttonContainer = this.createFormButtonContainer();
+    const buttonContainer = createFormButtonContainer();
     buttonContainer.appendChild(
-      this.createFormButton({
+      createFormButton({
         type: 'button',
         style: 'secondary',
         id: 'cancel-adding-restaurant-button',
@@ -151,7 +130,7 @@ class AddRestaurantModal extends HTMLElement {
       }),
     );
     buttonContainer.appendChild(
-      this.createFormButton({
+      createFormButton({
         type: 'submit',
         style: 'primary',
         id: 'submit-adding-restaurant-button',
@@ -173,64 +152,6 @@ class AddRestaurantModal extends HTMLElement {
     form.appendChild(this.createButtonContainer());
 
     return form;
-  }
-
-  private createInput({ type, name, required }: InputElementType): HTMLInputElement {
-    const input = document.createElement('input');
-    input.type = type;
-    input.name = name;
-    input.id = `restaurant-${name}`;
-    input.required = required;
-    return input;
-  }
-
-  private createTextArea({ name, cols, rows, required }: TextAreaElementType): HTMLTextAreaElement {
-    const textArea = document.createElement('textarea');
-    textArea.name = name;
-    textArea.id = `restaurant-${name}`;
-    textArea.cols = cols;
-    textArea.rows = rows;
-    textArea.required = required;
-    return textArea;
-  }
-
-  private createLabel({ targetId, labelText }: LabelElementType): HTMLLabelElement {
-    const label = document.createElement('label');
-    label.textContent = labelText;
-    label.htmlFor = targetId;
-    label.classList.add('text-caption');
-    return label;
-  }
-
-  private createCaption({ captionText }: CaptionElementType) {
-    const caption = document.createElement('span');
-    caption.classList.add('help-text', 'text-caption');
-    caption.textContent = captionText;
-    return caption;
-  }
-
-  private createFormItemContainer({ required }: FormItemContainerElementType): HTMLDivElement {
-    const formItemContainer = document.createElement('div');
-    formItemContainer.classList.add('form-item');
-    if (required) {
-      formItemContainer.classList.add('form-item--required');
-    }
-    return formItemContainer;
-  }
-
-  private createFormButtonContainer() {
-    const buttonContainer = document.createElement('div');
-    buttonContainer.classList.add('button-container');
-    return buttonContainer;
-  }
-
-  private createFormButton({ type, style, id, textContent }: ButtonElementType) {
-    const button = document.createElement('button');
-    button.type = type;
-    button.id = id;
-    button.classList.add('button', `button--${style}`, 'text-caption');
-    button.textContent = textContent;
-    return button;
   }
 
   private render() {
