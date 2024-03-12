@@ -249,4 +249,22 @@ describe("음식점 목록 클래스 테스트", () => {
     // Then
     expect(restaurants).toEqual(expectedResult);
   });
+
+  test("음식점을 반환한다.", () => {
+    // Given
+    const id = 1;
+    const expectedResult = {
+      id: 1,
+      category: "한식",
+      name: "우리김밥",
+      distance: 5,
+      isGoTo: true,
+    };
+
+    // When
+    const restaurant = restaurantList.getRestaurant(id);
+
+    // Then
+    expect(restaurant).toEqual(expectedResult);
+  });
 });

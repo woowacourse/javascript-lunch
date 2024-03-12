@@ -10,6 +10,17 @@ class RestaurantList {
     this.restaurants = restaurants.map((restaurant) => deepCopy(restaurant));
   }
 
+  getRestaurant(id: number): Restaurant {
+    const restaurant = this.restaurants.find(
+      (restaurant) => restaurant.id === id
+    );
+    if (restaurant === undefined) {
+      throw new Error("음식점이 없습니다.");
+    }
+
+    return restaurant;
+  }
+
   getRestaurants({
     category,
     sortingStandard,
