@@ -4,8 +4,8 @@ import ASIAN_ICON from "./icons/category-asian.png";
 import CHINESE_ICON from "./icons/category-chinese.png";
 import ECT_ICON from "./icons/category-etc.png";
 import JAPANESE_ICON from "./icons/category-japanese.png";
-import KOREAN_ICON from "./icons/templates/category-korean.png";
-import WESTERN_ICON from "./icons/templates/category-western.png";
+import KOREAN_ICON from "./icons/category-korean.png";
+import WESTERN_ICON from "./icons/category-western.png";
 import createElementByTag from "../../utils/createElementByTag";
 
 const categoryImgSrcMatcher = {
