@@ -1,6 +1,5 @@
 import EventComponent from "../abstract/EventComponent";
 import RestaurantItem from "./RestaurantItem";
-import FilterBar from "./FilterBar";
 import Restaurants from "../domain/Restaurants";
 import { RestaurantInfo } from "../domain/Restaurant";
 
@@ -10,7 +9,6 @@ import { CATEGORY_FILTER, SORT_FILTER } from "../constants/filter";
 import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
 
 customElements.define("restaurant-item", RestaurantItem);
-customElements.define("filter-bar", FilterBar);
 
 export default class RestaurantList extends EventComponent {
   private restaurants: Restaurants;
