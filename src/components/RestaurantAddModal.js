@@ -14,12 +14,12 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    $addEvent('.button--primary', 'click', this.#onSubmit);
+    $addEvent('.modal-form', 'submit', this.#onSubmit);
     $addEvent('.button--secondary', 'click', this.#onCancel);
   }
 
   removeEvent() {
-    $removeEvent('.button--primary', 'click', this.#onSubmit);
+    $removeEvent('.modal-form', 'submit', this.#onSubmit);
     $removeEvent('.button--secondary', 'click', this.#onCancel);
   }
 
@@ -38,6 +38,13 @@ class RestaurantAddModal extends Component {
       return;
     }
 
+    this.#addRestaurant();
+
+    $('.modal-form').reset();
+    this.#updateModal(false);
+  };
+
+  #addRestaurant() {
     const formData = {
       category: $('.modal-category').value,
       name: $('.modal-restaurant-name').value,
@@ -47,12 +54,9 @@ class RestaurantAddModal extends Component {
     };
 
     RestaurantRepository.addRestaurant(formData);
-    this.#updateModal(false);
-  };
 
-  #onCancel = () => {
-    this.#updateModal(false);
-  };
+    this.makeCustomEvent('updateRestaurantList');
+  }
 
   #handleEmptyError(selectors) {
     const errors = selectors.filter((selector) => {
@@ -73,13 +77,15 @@ class RestaurantAddModal extends Component {
     return true;
   }
 
+  #onCancel = () => this.#updateModal(false);
+
   template() {
     return `
           <div class="modal">
               <div class="modal-backdrop"></div>
               <div class="modal-container">
                   <h2 class="modal-title text-title">새로운 음식점</h2>
-                  <form>
+                  <form class="modal-form">
                       <div class="form-item form-item--required">
                           <label for="category text-caption">카테고리</label>
                           <filter-box type="modal-category"></filter-box>
@@ -108,7 +114,7 @@ class RestaurantAddModal extends Component {
                       </div>
                       <div class="button-container">
                           <button type="button" class="button button--secondary text-caption">취소하기</button>
-                          <button class="button button--primary text-caption">추가하기</button>
+                          <input type="submit" class="button button--primary text-caption" value="추가하기"></input>
                       </div>
                   </form>
               </div>
