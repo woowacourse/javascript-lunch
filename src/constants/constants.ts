@@ -11,4 +11,4 @@ export const CATEGORY = {
 export const SORTING = {
   name: '이름순',
   distance: '거리순'
-};
+} as const;
