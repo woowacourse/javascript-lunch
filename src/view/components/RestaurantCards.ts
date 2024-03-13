@@ -4,7 +4,7 @@ import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
-function sortMethod(attribute: string) {
+function sortMethod(attribute: (typeof SORT_CONDITION)[number]) {
   if (attribute === SORT_BY_NAME) return restaurantCatalog.sortByName;
   if (attribute === SORT_BY_DISTANCE) return restaurantCatalog.sortByDistance;
   throw new Error('RestaurantCards의 Attributes가 잘못 설정되었습니다.');
@@ -14,13 +14,21 @@ class RestaurantCards extends HTMLUListElement {
   #renderRestaurantCards: RestaurantCard[] = [];
 
   render() {
-    const restaurantFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select')!)(
+    const restaurantsFilterByLike = this.#filterRestaurantsByLike();
+    const restaurantFilteredAndSorted = sortMethod(
+      this.getAttribute('data-sort-select')! as (typeof SORT_CONDITION)[number],
+    )(restaurantsFilterByLike);
+    this.#setRenderRestaurantCards(restaurantFilteredAndSorted);
+    this.#renderRestaurantsField();
+  }
+
+  #filterRestaurantsByLike() {
+    return restaurantCatalog.filterByLike(
       restaurantCatalog
         .filterByCategory(this.getAttribute('data-category-select') as Category)
         ?.map((restaurant: Restaurant) => restaurant.getRestaurantInfoObject()),
+      this.getAttribute('data-like')!,
     );
-    this.#setRenderRestaurantCards(restaurantFilteredAndSorted);
-    this.#renderRestaurantsField();
   }
 
   #setRenderRestaurantCards(restaurants: IRestaurantInfo[]) {
@@ -62,7 +70,7 @@ class RestaurantCards extends HTMLUListElement {
   }
 
   static get observedAttributes() {
-    return ['data-sort-select', 'data-category-select'];
+    return ['data-sort-select', 'data-category-select', 'data-like'];
   }
 
   clear() {
@@ -70,7 +78,11 @@ class RestaurantCards extends HTMLUListElement {
   }
 
   attributeChangedCallback() {
-    if (!this.getAttribute('data-sort-select') || !this.getAttribute('data-category-select')) {
+    if (
+      !this.getAttribute('data-sort-select') ||
+      !this.getAttribute('data-category-select') ||
+      !this.getAttribute('data-like')
+    ) {
       return;
     }
     this.render();

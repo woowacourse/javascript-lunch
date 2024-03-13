@@ -9,7 +9,8 @@
     "object-curly-newline": "off",
     "no-alert": "off",
     "linebreak-style": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "operator-linebreak": "off"
   },
 
   "overrides": [

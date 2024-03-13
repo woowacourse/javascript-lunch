@@ -46,6 +46,13 @@ class RestaurantCatalog {
     });
   }
 
+  filterByLike(restaurants: IRestaurantInfo[], attribute: string) {
+    if (attribute === 'like-restaurants') {
+      return restaurants.filter((restaurant) => restaurant.isLiked);
+    }
+    return restaurants;
+  }
+
   getSpecificRestaurantInfo(index: number) {
     return this.restaurants[index].getRestaurantInfoObject();
   }
