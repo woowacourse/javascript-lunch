@@ -37,7 +37,8 @@ class RestaurantCards extends HTMLUListElement {
   }
 
   #reRenderRestaurants() {
-    for (let i = 0; i < Math.min(this.children.length, this.#renderRestaurantCards.length); i += 1) {
+    const domChildLength = Math.min(this.children.length, this.#renderRestaurantCards.length);
+    for (let i = 0; i < domChildLength; i += 1) {
       if (this.children[i].getAttribute('data-id') !== this.#renderRestaurantCards[i].getAttribute('data-id')) {
         this.children[i].setAttribute('data-id', this.#renderRestaurantCards[i].getAttribute('data-id')!);
       }
