@@ -29,6 +29,8 @@ class MainController {
 
   #modal = this.#createModal();
 
+  #restaurantList = new RestaurantList();
+
   start() {
     this.#setRestaurantList();
     this.#renderFilterContainer();
@@ -56,8 +58,8 @@ class MainController {
     });
 
     const submitFunc = (restaurant: Restaurant) => {
-      RestaurantList.add(restaurant);
-      this.#setLocalStorage(RestaurantList.getRestaurants());
+      this.#restaurantList.add(restaurant);
+      this.#setLocalStorage(this.#restaurantList.getRestaurants());
     };
 
     const addRestaurantForm = new AddRestaurantForm({
@@ -82,7 +84,7 @@ class MainController {
 
   #setRestaurantList() {
     const restaurants = getLocalStorageItem("restaurants", restaurantData);
-    RestaurantList.init(restaurants ?? []);
+    this.#restaurantList.init(restaurants ?? []);
   }
 
   #renderFilterContainer() {
@@ -105,7 +107,7 @@ class MainController {
   #getFilteredRestaurantItem() {
     const filterSelection = this.#getFilterSelection();
     const restaurantItems =
-      RestaurantList.getOrderedRestaurant(filterSelection);
+      this.#restaurantList.getOrderedRestaurant(filterSelection);
     return restaurantItems;
   }
 
