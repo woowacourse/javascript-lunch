@@ -10,38 +10,78 @@ import { RestaurantInfo } from '../types';
 class Restaurant {
   #info!: RestaurantInfo;
 
-  constructor(info: RestaurantInfo) {
-    this.#validateInfo(info);
-    this.#info = info;
+  constructor(info?: RestaurantInfo) {
+    if (info) {
+      this.validateInfo(info);
+      this.#info = info;
+    }
   }
 
   get info() {
     return JSON.parse(JSON.stringify(this.#info)) as RestaurantInfo;
   }
 
-  #validateInfo(info: RestaurantInfo) {
+  validateInfo(info: RestaurantInfo) {
     // name
-    this.#validateStringType(info.name);
-    this.#validateNameCharacterLimit(info.name);
-    this.#validateNameDuplicate(info.name);
-
+    this.validateName(info.name);
     // category
-    this.#validateCategory(info.category);
+    this.validateCategory(info.category);
     // distance
-    this.#validateDistance(info.distance);
+    this.validateDistance(info.distance);
 
     if (info.description) {
-      this.#validateStringType(info.description);
-      this.#validateDescriptionCharacterLimit(info.description);
+      this.validateDescription(info.description);
     }
 
     if (info.link) {
-      this.#validateLinkCharacterLimit(info.link);
-      this.#validateLinkUrl(info.link);
+      this.validateLink(info.link);
     }
-
     if (info.favorite) {
-      this.#validateFavorite(info);
+      this.#validateFavorite(info.favorite);
+    }
+  }
+
+  validateName(name: string | undefined | null) {
+    this.#validateStringType(name);
+
+    if (typeof name === 'string') {
+      this.#validateNameCharacterLimit(name);
+      this.#validateNameDuplicate(name);
+    }
+  }
+
+  validateDescription(description: string) {
+    this.#validateStringType(description);
+    this.#validateDescriptionCharacterLimit(description);
+  }
+
+  validateCategory(category: string) {
+    const categories = Object.keys(CATEGORY);
+    const isInvalidCategory = !categories.find((item) => item === category);
+
+    if (isInvalidCategory) {
+      throw new Error(MESSAGE.invalidCategoryType);
+    }
+  }
+
+  validateDistance(distance: string | number) {
+    const isInValidDistance = !DISTANCES.find((item) => item === distance);
+
+    if (isInValidDistance) {
+      throw new Error(MESSAGE.invalidDistanceType);
+    }
+  }
+
+  validateLink(link: string) {
+    this.#validateLinkCharacterLimit(link);
+    this.#validateLinkUrl(link);
+  }
+
+  #validateFavorite(favorite: boolean) {
+    const isInvalidFavorite = typeof favorite !== 'boolean';
+
+    if (isInvalidFavorite) {
+      throw new Error(MESSAGE.invalidFavoriteType);
     }
   }
 
@@ -69,23 +109,6 @@ class Restaurant {
     }
   }
 
-  #validateCategory(category: string) {
-    const categories = Object.keys(CATEGORY);
-    const isInvalidCategory = !categories.find((item) => item === category);
-
-    if (isInvalidCategory) {
-      throw new Error(MESSAGE.invalidCategoryType);
-    }
-  }
-
-  #validateDistance(distance: string | number) {
-    const isInValidDistance = !DISTANCES.find((item) => item === distance);
-
-    if (isInValidDistance) {
-      throw new Error(MESSAGE.invalidDistanceType);
-    }
-  }
-
   #validateDescriptionCharacterLimit(description: string) {
     if (
       description.trim().length === 0 ||
@@ -107,16 +130,6 @@ class Restaurant {
 
     if (isInValidLink) {
       throw new Error(MESSAGE.linkHasInvalidProtocol);
-    }
-  }
-
-  #validateFavorite(info: RestaurantInfo) {
-    const isInvalidFavorite =
-      typeof info.favorite !== 'boolean' ||
-      typeof info.favorite !== 'undefined';
-
-    if (isInvalidFavorite) {
-      throw new Error(MESSAGE.invalidFavoriteType);
     }
   }
 }

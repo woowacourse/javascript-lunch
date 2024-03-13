@@ -2,6 +2,7 @@ import { STORAGE_KEY } from '../constants';
 import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { Category, RestaurantInfo } from '../types';
 import { getDeepCopiedArray } from '../utils';
+import Restaurant from './Restaurant';
 
 class RestaurantList {
   #list: RestaurantInfo[] = INITIAL_RESTAURANT_DATA;
@@ -16,12 +17,14 @@ class RestaurantList {
   }
 
   addRestaurant(info: RestaurantInfo) {
+    const restaurantInfo = new Restaurant(info).info;
+
     if (!this.#list) {
-      this.#list = [info];
+      this.#list = [restaurantInfo];
       return;
     }
 
-    this.#list.push(info);
+    this.#list.push(restaurantInfo);
 
     this.#saveListToLocalStore();
   }

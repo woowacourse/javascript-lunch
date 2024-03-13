@@ -1,6 +1,5 @@
-import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData';
 import { Restaurant } from '../../domains';
-import { RestaurantInfoKey, RestaurantInfo } from '../../types';
+import { RestaurantInfoKey } from '../../types';
 
 class FormTextField extends HTMLElement {
   $customTextField: HTMLElement | undefined;
@@ -84,17 +83,36 @@ class FormTextField extends HTMLElement {
 
   #handleChangeToValidateValue(event: Event, key: RestaurantInfoKey) {
     const { value } = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const newInfo: RestaurantInfo = { ...RESTAURANT_INFO_FOR_VALIDATE_TEST };
-    (newInfo[key] as string) = value;
 
     try {
-      // eslint[no-new] rule :off
-      // eslint-disable-next-line
-      new Restaurant(newInfo);
-
+      this.#checkInfoValidate(key, value);
       this.#handleErrorMessage('');
     } catch (error) {
       this.#handleErrorMessage(error);
+    }
+  }
+
+  #checkInfoValidate(key: RestaurantInfoKey, value: string) {
+    const restaurant = new Restaurant();
+
+    switch (key) {
+      case 'category':
+        restaurant.validateCategory(value);
+        break;
+      case 'description':
+        restaurant.validateDescription(value);
+        break;
+      case 'distance':
+        restaurant.validateDistance(value);
+        break;
+      case 'name':
+        restaurant.validateName(value);
+        break;
+      case 'link':
+        restaurant.validateLink(value);
+        break;
+      default:
+        break;
     }
   }
 
