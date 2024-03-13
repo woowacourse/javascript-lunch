@@ -10,7 +10,7 @@ class RestaurantCatalog {
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
     this.#validDuplicateName(restaurantInfo);
-    const newRestaurant = { ...restaurantInfo, id: this.restaurants.length };
+    const newRestaurant = { ...restaurantInfo, id: this.restaurants.length, isLiked: false };
     this.restaurants.push(new Restaurant(newRestaurant));
     return newRestaurant;
   }

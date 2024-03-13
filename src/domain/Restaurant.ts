@@ -13,6 +13,7 @@ export interface IRestaurantInfo {
   distanceFromCampus: DistanceFromCampus;
   description?: string;
   link?: string;
+  isLiked: boolean;
 }
 
 class Restaurant {
