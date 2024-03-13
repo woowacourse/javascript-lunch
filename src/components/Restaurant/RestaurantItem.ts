@@ -1,7 +1,7 @@
 import { CATEGORY_CONVERTER } from '../../constant/constants';
 import { Restaurant } from '../../interface/RestaurantInterfaces';
 
-const RestaurantComponent = (restaurant: Restaurant) => {
+const RestaurantItem = (restaurant: Restaurant) => {
   return /*html*/ `
   <li class="restaurant">
     <div class="restaurant__category">
@@ -18,4 +18,4 @@ const RestaurantComponent = (restaurant: Restaurant) => {
   `;
 };
 
-export default RestaurantComponent;
+export default RestaurantItem;

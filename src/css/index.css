@@ -1,5 +1,5 @@
 @import './root.css';
-@import '../components/Restaurant/RestaurantComponent.css';
+@import '../components/Restaurant/RestaurantItem.css';
 
 * {
   padding: 0;

@@ -1,5 +1,5 @@
 import AddRestaurantModal from '../components/Modal/AddRestaurantModal';
-import RestaurantComponent from '../components/Restaurant/RestaurantComponent';
+import RestaurantItem from '../components/Restaurant/RestaurantItem';
 import { $ } from '../utils/querySelector';
 
 const OutputView = {
@@ -10,7 +10,7 @@ const OutputView = {
     restaurantListElement.classList.add('restaurant-list');
 
     restaurantList.forEach(restaurant => {
-      restaurantListElement.insertAdjacentHTML('beforeend', RestaurantComponent(restaurant));
+      restaurantListElement.insertAdjacentHTML('beforeend', RestaurantItem(restaurant));
     });
     restaurantListContainer.replaceChildren();
     restaurantListContainer.append(restaurantListElement);
