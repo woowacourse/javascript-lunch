@@ -42,17 +42,20 @@ class FilterContainer extends BaseComponent {
   }
 
   setEvent() {
-    this.addEventListener('change', () => {
+    this.addEventListener('change', (event) => {
       const $selectedCategory = $<HTMLSelectElement>('#category-filter');
       const $selectedSortCriteria = $<HTMLSelectElement>('#sorting-filter');
 
-      const restaurantCollection = this.#restaurantDBService.update();
+      const colletion = (event as CustomEvent).detail?.collection || null;
+      const restaurantCollection = colletion || this.#restaurantDBService.update();
+
       const newRestaurantList = restaurantCollection.filterByCategoryAndSort(
         $selectedCategory.value as Category,
         $selectedSortCriteria.value as SortCriteria,
       );
 
       this.#restaurantList.rerender(newRestaurantList);
+      return newRestaurantList;
     });
   }
 }

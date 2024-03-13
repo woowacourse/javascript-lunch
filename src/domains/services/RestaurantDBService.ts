@@ -12,12 +12,6 @@ class RestaurantDBService {
     this.setMockData();
   }
 
-  getFavorite() {
-    this.update();
-    const restaurants = this.#restaurantCollection.filterFavorites();
-    return new RestaurantCollection(restaurants);
-  }
-
   update() {
     const existingRestaurants = JSON.parse(this.get() || '[]');
     this.#restaurantCollection.set(existingRestaurants);

@@ -1,5 +1,6 @@
-import { $$ } from '@/utils/DOM';
+import { $, $$ } from '@/utils/DOM';
 import BaseComponent from '../BaseComponent';
+import RestaurantFavoriteService from '@/domains/services/RestaurantFavoriteService';
 
 export type Tab = {
   id: string;
@@ -20,11 +21,13 @@ export const TabData: Tab[] = [
 class TabMenu extends BaseComponent {
   #tabData;
   #selectedTabId;
+  #restaurantAFavoriteService;
 
   constructor() {
     super();
     this.#tabData = TabData;
     this.#selectedTabId = 'all';
+    this.#restaurantAFavoriteService = new RestaurantFavoriteService();
   }
 
   render() {
@@ -36,7 +39,7 @@ class TabMenu extends BaseComponent {
       if (tab.id === this.#selectedTabId) $tab.classList.add('active');
 
       $tab.textContent = tab.title;
-      $tab.id = tab.id;
+      $tab.id = `${tab.id}-tab`;
       $fragment.append($tab);
     });
     this.append($fragment);
@@ -50,11 +53,19 @@ class TabMenu extends BaseComponent {
   }
 
   setEvent() {
+    $<HTMLElement>('#favorite-tab').addEventListener('click', () => {
+      this.#restaurantAFavoriteService.showFavoriteRestaurants();
+    });
+    $<HTMLElement>('#all-tab').addEventListener('click', () => {
+      this.#restaurantAFavoriteService.rerenderByFilter();
+    });
+
     $$('.tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         this.#selectedTabId = tab.id;
         this.updateSelectedTabStyles();
       });
+      tab.id === 'favorite' ? this.#restaurantAFavoriteService.showFavoriteRestaurants() : null;
     });
   }
 }

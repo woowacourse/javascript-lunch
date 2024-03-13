@@ -26,9 +26,9 @@ class RestaurantCollection {
 
   filterByCategory(category: AllAndCategory) {
     if (category === '전체') return this.restaurantList.map((restaurant) => restaurant.get());
-    this.restaurantList = [...this.restaurantList]
-      .filter((restaurant) => restaurant.get().category === category)
-      .map((restaurant) => restaurant);
+    this.restaurantList = [...this.restaurantList].filter(
+      (restaurant) => restaurant.get().category === category,
+    );
   }
 
   sort(sortCriteria: SortCriteria) {
@@ -37,19 +37,21 @@ class RestaurantCollection {
   }
 
   sortByName() {
-    this.restaurantList = [...this.restaurantList]
-      .sort((a, b) => a.get().name.localeCompare(b.get().name))
-      .map((restaurant) => restaurant);
+    this.restaurantList = [...this.restaurantList].sort((a, b) =>
+      a.get().name.localeCompare(b.get().name),
+    );
   }
 
   sortByDistance() {
-    this.restaurantList = [...this.restaurantList]
-      .sort((a, b) => a.get().distance - b.get().distance)
-      .map((restaurant) => restaurant);
+    this.restaurantList = [...this.restaurantList].sort(
+      (a, b) => a.get().distance - b.get().distance,
+    );
   }
 
   filterFavorites() {
-    return [...this.restaurantList].filter((restaurant) => {});
+    this.restaurantList = [...this.restaurantList].filter(
+      (restaurant) => restaurant.get().isFavorite === true,
+    );
   }
 
   addRestaurant(restaurantArg: IRestaurant) {

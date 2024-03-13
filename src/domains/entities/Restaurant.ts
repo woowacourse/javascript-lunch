@@ -8,13 +8,13 @@ class Restaurant implements IRestaurant {
   description?: string;
   link?: string;
 
-  constructor(restaurantArgs: IRestaurantInfo) {
+  constructor(restaurantArgs: IRestaurant) {
     this.name = restaurantArgs.name;
     this.distance = restaurantArgs.distance;
     this.category = restaurantArgs.category;
     this.description = restaurantArgs.description;
     this.link = restaurantArgs.link;
-    this.isFavorite = false;
+    this.isFavorite = restaurantArgs.isFavorite;
   }
 
   get() {

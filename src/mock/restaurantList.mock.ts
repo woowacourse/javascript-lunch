@@ -11,7 +11,7 @@ const restaurantListMock: IRestaurant[] = [
 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이
 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
     link: 'https://www.naver.com',
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     name: '친친',
@@ -20,7 +20,7 @@ const restaurantListMock: IRestaurant[] = [
     description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를
     펼쳐갑니다.`,
     link: 'https://www.naver.com',
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     name: '잇쇼우',
@@ -29,7 +29,7 @@ const restaurantListMock: IRestaurant[] = [
     description: `잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는
     신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다`,
     link: 'https://www.naver.com',
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     name: '이태리키친',

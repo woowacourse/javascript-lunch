@@ -1,18 +1,39 @@
-//즐겨찾기 기능 서비스
-
+import { $ } from '@/utils/DOM';
+import RestaurantCollection from '../entities/RestaurantCollection';
 import RestaurantDBService from './RestaurantDBService';
 
 class RestaurantFavoriteService {
   #restaurantDBService;
+  #restaurantCollection;
+
   constructor() {
     this.#restaurantDBService = new RestaurantDBService();
+    this.#restaurantCollection = new RestaurantCollection([]);
   }
 
   showFavoriteRestaurants() {
-    //TODO: DB 서비스에 getFavorite이 들어가는 게 맞는지 확인할 것
-    //TODO: DB 에는 진짜 로컬 스토리지를 관장하는 코드만 들어가야 하냐?
-    //Collection을 어디서 관리하는 게 나을까?
-    return this.#restaurantDBService.getFavorite();
+    this.#restaurantCollection = this.#restaurantDBService.update();
+    this.#restaurantCollection.filterFavorites();
+    this.#rerenderByFavoriteFilter();
+  }
+
+  #rerenderByFavoriteFilter() {
+    const event = new CustomEvent('change', {
+      bubbles: true,
+      cancelable: true,
+      detail: {
+        collection: this.#restaurantCollection,
+      },
+    });
+    $('.restaurant-filter-container').dispatchEvent(event);
+  }
+
+  rerenderByFilter() {
+    const event = new Event('change', {
+      bubbles: true,
+      cancelable: true,
+    });
+    $('.restaurant-filter-container').dispatchEvent(event);
   }
 }
 
