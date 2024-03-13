@@ -17,15 +17,9 @@
       </header>
 
       <main>
-        <section class="restaurant-filter-container">
-          <select is="drop-down" id="category-select">
-            <option value="전체">전체</option>
-          </select>
-          <select is="drop-down" id="sort-select"></select>
+        <section id="restaurant-filter-dropdown-container" class="restaurant-filter-container">
         </section>
-        <section class="restaurant-list-container">
-          <ul is="restaurant-cards" class="restaurant-list"></ul>
-        </section>
+        <section id="restaurant-cards-container" class="restaurant-list-container"></section>
 
         <!-- 모달창 -->
         <div id="add-form-modal" class="modal modal--close">
@@ -34,10 +28,8 @@
             <h2 class="modal-title text-title">새로운 음식점</h2>
             <form id="add-restaurant-form">
               <!-- 카테고리 -->
-              <div class="form-item form-item--required">
+              <div id="form-category-select-container" class="form-item form-item--required">
                 <label for="category text-caption">카테고리</label>
-                <select is="drop-down" name="category" id="add-category-select" required>
-                  <option value="">선택해 주세요</option>
                 </select>
               </div>
               <!-- 음식점 이름 -->
@@ -46,10 +38,8 @@
                 <input type="text" name="name" id="name" required />
               </div>
               <!-- 거리 -->
-              <div class="form-item form-item--required">
+              <div id="form-distance-select-container"class="form-item form-item--required">
                 <label for="distance text-caption">거리(도보 이동 시간) </label>
-                <select is="drop-down" name="distance" id="add-distance-select" required>
-                  <option value="">선택해 주세요</option>
                 </select>
               </div>
               <!-- 설명 -->
