@@ -1,5 +1,6 @@
 import restaurantAPI from '../domain/restaurantAPI';
 import { CategoryValues, RestaurantInfo } from '../types/types';
+import { $ } from '../util/dom';
 import FormItemComponent from './FormItemComponent';
 import InputComponent from './InputComponent';
 import TextareaComponent from './TextareaComponent';
@@ -75,6 +76,7 @@ export function ModalComponent() {
               FormItemComponent({
                 labelText: '설명',
                 label: 'description',
+                isRequired: false,
                 children: TextareaComponent({
                   name: 'description',
                   id: 'description',
@@ -89,6 +91,7 @@ export function ModalComponent() {
               FormItemComponent({
                 labelText: '참고 링크',
                 label: 'link',
+                isRequired: false,
                 children: InputComponent({
                   type: 'text',
                   name: 'link',
@@ -99,8 +102,8 @@ export function ModalComponent() {
             }
 
             <div class="button-container">
-              <button type="button" class="button button--secondary text-caption">취소하기</button>
-              <button class="button button--primary text-caption">추가하기</button>
+              <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
+              <button id="submitButton" class="button button--primary text-caption">추가하기</button>
             </div>
           </form>
         </div>
@@ -112,8 +115,18 @@ export function ModalComponent() {
   };
 
   const setEvent = (): void => {
-    const addButton = document.querySelector('.button--primary') as HTMLButtonElement;
-    addButton.addEventListener('click', getValue);
+    const form = document.querySelector('.modal-container form') as Element;
+    form.addEventListener('input', checkRequiredFields);
+
+    const addButton = document.querySelector('#submitButton') as HTMLButtonElement;
+    addButton.addEventListener('click', (event) => {
+      console.log(addButton.disabled);
+      if (addButton.disabled) {
+        event.preventDefault();
+        return;
+      }
+      getValue();
+    });
   };
 
   const getValue = (): RestaurantInfo => {
@@ -132,6 +145,19 @@ export function ModalComponent() {
     };
     restaurantAPI.save(modalValues);
     return modalValues;
+  };
+
+  const checkRequiredFields = () => {
+    console.log('체크');
+    const categoryValue = (document.getElementById('category') as HTMLSelectElement).value;
+    const nameValue = (document.getElementById('name') as HTMLInputElement).value;
+    const distanceValue = (document.getElementById('distance') as HTMLSelectElement).value;
+
+    const hasEmptyValue = !categoryValue || !nameValue || !distanceValue;
+
+    const addButton = document.querySelector('#submitButton') as HTMLButtonElement;
+
+    addButton.disabled = hasEmptyValue;
   };
 
   return {
