@@ -1,11 +1,11 @@
 // components
 import App from './components/App';
-import GNB from './components/gnb/GNB';
-import Modal from './components/modal/Modal';
-import Select from './components/select/Select';
-import RestaurantForm from './components/restaurantForm/RestaurantForm';
-import RestaurantList from './components/restaurantList/RestaurantList';
-import RestaurantItem from './components/restaurantItem/RestaurantItem';
+import GNB from './components/GNB/GNB';
+import Modal from './components/Modal/Modal';
+import Select from './components/Select/Select';
+import RestaurantForm from './components/RestaurantForm/RestaurantForm';
+import RestaurantList from './components/RestaurantList/RestaurantList';
+import RestaurantItem from './components/RestaurantItem/RestaurantItem';
 
 // styles
 import './components/global.css';

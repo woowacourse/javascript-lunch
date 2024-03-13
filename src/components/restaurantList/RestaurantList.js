@@ -1,6 +1,6 @@
 import './RestaurantList.css';
 
-import RestaurantItem from '../restaurantItem/RestaurantItem';
+import RestaurantItem from '../RestaurantItem/RestaurantItem';
 
 export default class RestaurantList extends HTMLUListElement {
   #restaurants;
