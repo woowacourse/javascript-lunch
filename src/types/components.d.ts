@@ -30,14 +30,20 @@ export type OptionElementPropsType = {
 };
 
 export type ButtonComponentProps = {
-  type?: 'button' | 'submit' | 'reset';
+  type: 'button' | 'submit' | 'reset';
   className: string;
   text: string;
+  id: string;
+  value: string;
+  role: string;
 };
 
 export interface ButtonElementDataType extends BasicElementDataType {
   TAG_TEXT: string;
-  TAG_TYPE?: 'submit' | 'button' | 'reset';
+  TAG_TYPE: 'submit' | 'button' | 'reset';
+  TAG_ID: string;
+  TAG_VALUE: string;
+  TAG_ROLE: string;
 }
 
 export type LabelComponentPropsType = {
