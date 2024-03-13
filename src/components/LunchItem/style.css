@@ -7,29 +7,6 @@
   border-bottom: 1px solid #e9eaed;
 }
 
-<<<<<<< HEAD
-.restaurant__category {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  height: 64px;
-  min-width: 64px;
-  min-height: 64px;
-
-  margin-right: 16px;
-
-  border-radius: 50%;
-  background: var(--lighten-color);
-}
-
-.category-icon {
-  width: 36px;
-  height: 36px;
-}
-
-=======
->>>>>>> step1
 .restaurant__info {
   display: flex;
   flex-direction: column;
