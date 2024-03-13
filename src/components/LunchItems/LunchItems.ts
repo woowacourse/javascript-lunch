@@ -1,9 +1,17 @@
 import './style.css';
+<<<<<<< HEAD
 import '../LunchItem/LunchItem';
 
 import { RestaurantDataProvider } from '../../domain/index';
 
 import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
+=======
+import LunchItem from '../LunchItem/LunchItem';
+
+import { RestaurantDataProvider } from '../../domain/index';
+
+import { Category, Restaurants, SortBy } from '../../types/index';
+>>>>>>> step1
 
 export interface FilterProps {
   category?: Category;
@@ -16,12 +24,15 @@ const LUNCH_ITEMS = `
     </ul>
   </section>
 `;
+<<<<<<< HEAD
 
 const LUNCH_ITEM = (restaurant: Restaurant) => `
   <lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance
   }" description="${restaurant.description ?? ''}"></lunch-item>
 `;
 
+=======
+>>>>>>> step1
 class LunchItems extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -33,6 +44,7 @@ class LunchItems extends HTMLElement {
   }
 
   renderItems(props: FilterProps): void {
+<<<<<<< HEAD
     const itemHTMLs: string[] = [];
     this.getRestaurants(props).forEach((restaurant) => {
       itemHTMLs.push(LUNCH_ITEM(restaurant));
@@ -41,6 +53,13 @@ class LunchItems extends HTMLElement {
     if (itemsHTML) {
       itemsHTML.innerHTML = itemHTMLs.join('');
     }
+=======
+    const container = this.querySelector('.restaurant-list');
+    container?.childNodes.forEach((child) => child.remove());
+    this.getRestaurants(props).forEach((restaurant) => {
+      container?.insertAdjacentElement('beforebegin', new LunchItem(restaurant));
+    });
+>>>>>>> step1
   }
 
   getRestaurants(props: FilterProps): Restaurants {

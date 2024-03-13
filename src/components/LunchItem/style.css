@@ -7,6 +7,7 @@
   border-bottom: 1px solid #e9eaed;
 }
 
+<<<<<<< HEAD
 .restaurant__category {
   display: flex;
   justify-content: center;
@@ -27,6 +28,8 @@
   height: 36px;
 }
 
+=======
+>>>>>>> step1
 .restaurant__info {
   display: flex;
   flex-direction: column;
