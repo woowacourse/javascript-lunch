@@ -134,10 +134,10 @@ class NewRestaurantModal extends BasicModal {
     const $buttonBox = document.createElement('div');
     $buttonBox.classList.add('button-container');
 
-    const cancelButton = new BasicButton(false, '취소하기', 'reset', () => {
+    const cancelButton = new BasicButton('secondary', '취소하기', 'reset', () => {
       this.closeModal();
     });
-    const addButton = new BasicButton(true, '추가하기', 'submit', () => {});
+    const addButton = new BasicButton('primary', '추가하기', 'submit', () => {});
 
     $buttonBox.append(cancelButton);
     $buttonBox.append(addButton);

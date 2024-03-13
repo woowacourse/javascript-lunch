@@ -3,19 +3,20 @@ class BasicButton extends HTMLButtonElement {
   #isPrimary;
 
   constructor(
-    isPrimary: boolean,
+    styleVariant: 'primary' | 'secondary',
     innerText: string,
     type: 'submit' | 'reset' | 'button',
     clickEvent: () => void,
   ) {
     super();
-    this.#isPrimary = isPrimary;
+    this.#isPrimary = styleVariant;
     this.innerText = innerText;
     this.setAttribute('type', type);
 
-    const buttonStyleClass = this.#isPrimary
-      ? ['button--primary', `${style.buttonPrimary}`]
-      : ['button--secondary', `${style.buttonSecondary}`];
+    const buttonStyleClass =
+      this.#isPrimary === 'primary'
+        ? ['button--primary', `${style.buttonPrimary}`]
+        : ['button--secondary', `${style.buttonSecondary}`];
 
     this.classList.add('button', `${style.button}`, 'text-caption');
     this.classList.add(...buttonStyleClass);
