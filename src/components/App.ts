@@ -2,12 +2,11 @@ import RestaurantList from '@/domain/RestaurantList';
 import Component from './core/Component';
 import { INITIAL_RESTAURANT_LIST } from '@/constants/config';
 import dom from '@/utils/dom';
-
 import Restaurant from '@/domain/Restaurant';
 import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from '@/constants/filter';
 import Dropdown from './Dropdown';
-import RestaurantItem from './RestaurantItem';
 import RestaurantForm from './RestaurantForm';
+import RestaurantListContainer from './RestaurantListContainer';
 
 class App extends Component<unknown> {
   constructor($target: HTMLElement) {
@@ -15,18 +14,17 @@ class App extends Component<unknown> {
   }
 
   render() {
-    const $restaurantList = dom.getElement('.restaurant-list');
     const $form = dom.getElement('form');
-
+    const $restaurantContainer = dom.getElement('.restaurant-list-container');
     const restaurantList = this.getInitialRestaurantList();
-    restaurantList.restaurants.forEach(restaurant => {
-      new RestaurantItem({ $target: $restaurantList, information: restaurant.information });
-    });
 
-    this.createHomeSelect(restaurantList);
     new RestaurantForm({
       $target: $form,
       props: { restaurantList, handleCloseModal: this.handleCloseModal.bind(this) },
+    });
+    new RestaurantListContainer({
+      $target: $restaurantContainer,
+      props: { restaurantList, kind: 'all', createHomeDropdown: this.createHomeDropdown.bind(this) },
     });
   }
 
@@ -35,7 +33,7 @@ class App extends Component<unknown> {
     dom.getElement('.modal-backdrop').addEventListener('click', this.handleCloseModal.bind(this));
   }
 
-  createCategorySelect($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
+  createCategoryDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
@@ -47,7 +45,7 @@ class App extends Component<unknown> {
     });
   }
 
-  createSortingSelect($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
+  createSortingDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
@@ -59,10 +57,10 @@ class App extends Component<unknown> {
     });
   }
 
-  createHomeSelect(restaurantList: RestaurantList) {
+  createHomeDropdown(restaurantList: RestaurantList) {
     const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container');
-    this.createCategorySelect($restaurantFilterContainer, restaurantList);
-    this.createSortingSelect($restaurantFilterContainer, restaurantList);
+    this.createCategoryDropdown($restaurantFilterContainer, restaurantList);
+    this.createSortingDropdown($restaurantFilterContainer, restaurantList);
   }
 
   getInitialRestaurantList() {
