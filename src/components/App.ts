@@ -7,6 +7,7 @@ import Restaurant from '@/domain/Restaurant';
 import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from '@/constants/filter';
 import Dropdown from './Dropdown';
 import RestaurantItem from './RestaurantItem';
+import RestaurantForm from './RestaurantForm';
 
 class App extends Component<unknown> {
   constructor($target: HTMLElement) {
@@ -15,12 +16,18 @@ class App extends Component<unknown> {
 
   render() {
     const $restaurantList = dom.getElement('.restaurant-list');
+    const $form = dom.getElement('form');
+
     const restaurantList = this.getInitialRestaurantList();
     restaurantList.restaurants.forEach(restaurant => {
       new RestaurantItem({ $target: $restaurantList, information: restaurant.information });
     });
 
     this.createHomeSelect(restaurantList);
+    new RestaurantForm({
+      $target: $form,
+      props: { restaurantList, handleCloseModal: this.handleCloseModal.bind(this) },
+    });
   }
 
   setEvent() {
@@ -58,7 +65,7 @@ class App extends Component<unknown> {
     this.createSortingSelect($restaurantFilterContainer, restaurantList);
   }
 
-  getInitialRestaurantList(): RestaurantList {
+  getInitialRestaurantList() {
     return new RestaurantList(INITIAL_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant)));
   }
 
