@@ -60,6 +60,11 @@ class RestaurantList {
     if (category !== ALL)
       this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
   }
+
+  filterByFavorite(): void {
+    this.setRestaurants();
+    this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedFavorite());
+  }
 }
 
 export default RestaurantList;
