@@ -1,6 +1,6 @@
 import { Irestaurant } from "../types/restaurant";
 
-const RestaurantListStorageService = {
+const LocalStorageService = {
   getData() {
     const restaurantList = localStorage.getItem("restaurantList");
 
@@ -15,4 +15,4 @@ const RestaurantListStorageService = {
   },
 };
 
-export default RestaurantListStorageService;
+export default LocalStorageService;

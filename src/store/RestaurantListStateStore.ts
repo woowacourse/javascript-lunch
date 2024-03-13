@@ -1,5 +1,6 @@
 import restaurantListHelper from "../domain/RestaurantListHelper";
-import RestaurantListStorageService from "../services/restaurantListStorageService";
+import LocalStorageService from "../services/localStorageService";
+import restaurantListService from "../services/restaurantListService";
 import { Irestaurant } from "../types/restaurant";
 
 class RestaurantListStateStore {
@@ -7,12 +8,12 @@ class RestaurantListStateStore {
   #restaurantCount: number;
 
   constructor() {
-    this.#restaurantList = RestaurantListStorageService.getData();
+    this.#restaurantList = LocalStorageService.getData();
     this.#restaurantCount = this.#restaurantList.length;
   }
 
   getNewData() {
-    this.#restaurantList = RestaurantListStorageService.getData();
+    this.#restaurantList = LocalStorageService.getData();
     this.#restaurantCount = this.#restaurantList.length;
   }
 
@@ -33,14 +34,17 @@ class RestaurantListStateStore {
     const newData = [...prevData, restaurant];
     this.#restaurantList = newData;
 
-    RestaurantListStorageService.setData(newData);
+    LocalStorageService.setData(newData);
   }
 
   updateListData(id: number) {
-    const index = this.#restaurantList.findIndex((item) => item.id === id);
+    const index = restaurantListService.getListIndexById(
+      id,
+      this.#restaurantList,
+    );
     this.#restaurantList[index].isLike = !this.#restaurantList[index].isLike;
 
-    RestaurantListStorageService.setData(this.#restaurantList);
+    LocalStorageService.setData(this.#restaurantList);
   }
 }
 
