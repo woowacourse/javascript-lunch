@@ -1,6 +1,5 @@
 import { $, $$ } from '../../../utils/domSelector';
-import { TYPE_SETTING } from '../../../constants/setting';
-import RestaurantValidator from '../../../validator/RestaurantValidator';
+import { Category, MinutesWalk } from '../../../constants/enums';
 
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
@@ -53,7 +52,7 @@ class AddRestaurantModal extends HTMLElement {
     `;
   }
   private getEachCategory() {
-    return TYPE_SETTING.category
+    return Object.values(Category)
       .map((category) => {
         return `<option value="${category}">${category}</option>`;
       })
@@ -74,7 +73,7 @@ class AddRestaurantModal extends HTMLElement {
   }
 
   private getEachMinutesWalk() {
-    return TYPE_SETTING.minutesWalk
+    return Object.values(MinutesWalk)
       .map((minutesWalk) => {
         return `<option value="${minutesWalk}">${minutesWalk}분 내</option>`;
       })
@@ -105,7 +104,9 @@ class AddRestaurantModal extends HTMLElement {
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
               <label for="restaurant-name text-caption">이름</label>
-              <input type="text" name="name" id="restaurant-name" placeholder="1~20글자 사이로 입력해주세요. 공백만 입력할 수 없습니다." pattern="^\S.*$" minlength="1" maxlength="20" required />
+              
+              <input type="text" name="name" id="restaurant-name" pattern="^\S.*$" minlength="1" maxlength="20" required />
+              <span class="help-text text-caption">1~20글자 사이로 입력해주세요. 공백만 입력할 수 없습니다.</span>
             </div>
 
             ${this.showCategorySelectbox()}

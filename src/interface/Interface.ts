@@ -1,4 +1,4 @@
-import type { Category, MinutesWalk } from '../constants/typings';
+import { Category, MinutesWalk } from '../constants/enums';
 
 interface ILocation {
   getName(): string;

@@ -1,4 +1,4 @@
-import { TYPE_SETTING } from '../../../constants/setting';
+import { Category, Sort } from '../../../constants/enums';
 import { $ } from '../../../utils/domSelector';
 
 class SelectBoxSection extends HTMLElement {
@@ -32,13 +32,13 @@ class SelectBoxSection extends HTMLElement {
   }
 
   private getCategoryName() {
-    return TYPE_SETTING.category.map((category) => {
+    return Object.values(Category).map((category) => {
       return `<option value="${category}">${category}</option>`;
     });
   }
 
   private getFilterName() {
-    return TYPE_SETTING.sort.map((filter) => {
+    return Object.values(Sort).map((filter) => {
       return `<option value="${filter}">${filter}</option>`;
     });
   }

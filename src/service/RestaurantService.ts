@@ -1,7 +1,7 @@
 import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
-import { Category, MinutesWalk, Sort, CompareFunction, LocationData } from '../constants/typings';
-
+import { CompareFunction, LocationData } from '../constants/typings';
+import { Category, MinutesWalk, Sort } from '../constants/enums';
 class RestaurantService {
   private restaurants: Restaurant[];
 

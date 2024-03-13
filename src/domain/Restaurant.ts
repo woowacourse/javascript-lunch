@@ -1,5 +1,5 @@
 import { ILocation } from '../interface/Interface';
-import type { Category, MinutesWalk } from '../constants/typings';
+import type { Category, MinutesWalk } from '../constants/enums';
 
 class Restaurant implements ILocation {
   private name: string;

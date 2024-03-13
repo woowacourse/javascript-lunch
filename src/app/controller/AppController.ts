@@ -1,6 +1,7 @@
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
-import { Sort, Category, LocationData } from '../../constants/typings';
+import { LocationData } from '../../constants/typings';
+import { Category, Sort } from '../../constants/enums';
 import { $ } from '../../utils/domSelector';
 
 class AppController {
@@ -9,7 +10,7 @@ class AppController {
   restaurantService: RestaurantService;
 
   constructor() {
-    this.sort = '이름순';
+    this.sort = Sort.이름순;
     this.category = '전체';
     this.restaurantService = new RestaurantService();
   }
@@ -58,6 +59,7 @@ class AppController {
   }
 
   addRestaurant(event: Event) {
+    //TODO: 여기에 Validation 연결하기
     const detail: LocationData = (event as CustomEvent).detail;
     this.restaurantService.addRestaurant(detail);
     this.refreshRestaurantList();

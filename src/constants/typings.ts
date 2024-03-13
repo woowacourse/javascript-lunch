@@ -1,9 +1,6 @@
-import { TYPE_SETTING } from './setting';
 import Restaurant from '../domain/Restaurant';
+import { Category, MinutesWalk } from './enums';
 
-type Category = (typeof TYPE_SETTING.category)[number];
-type MinutesWalk = (typeof TYPE_SETTING.minutesWalk)[number];
-type Sort = (typeof TYPE_SETTING.sort)[number];
 type CompareFunction = (a: Restaurant, b: Restaurant) => number;
 
 type LocationData = {
@@ -14,4 +11,4 @@ type LocationData = {
   referenceUrl?: string;
 };
 
-export { Category, MinutesWalk, Sort, CompareFunction, LocationData };
+export { CompareFunction, LocationData };
