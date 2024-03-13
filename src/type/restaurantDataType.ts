@@ -6,4 +6,5 @@ export type RestaurantDataType = {
   distanceByWalk: DistanceByWalk;
   description?: string;
   referenceUrl?: string;
+  favorite?: boolean;
 };

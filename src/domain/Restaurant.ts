@@ -5,15 +5,17 @@ class Restaurant {
   private name: string;
   private category: Category;
   private distanceByWalk: DistanceByWalk;
-  private description?: string;
-  private referenceUrl?: string;
+  private description: string;
+  private referenceUrl: string;
+  private favorite: boolean;
 
-  constructor({ name, category, distanceByWalk, description = '', referenceUrl = '' }: RestaurantDataType) {
+  constructor({ name, category, distanceByWalk, description = '', referenceUrl = '', favorite }: RestaurantDataType) {
     this.name = name;
     this.category = category;
     this.distanceByWalk = distanceByWalk;
     this.description = description;
     this.referenceUrl = referenceUrl;
+    this.favorite = favorite ?? false;
   }
 
   getName(): string {
@@ -24,6 +26,19 @@ class Restaurant {
     return this.distanceByWalk;
   }
 
+  isFavorite() {
+    return this.favorite;
+  }
+
+  toggleFavorite() {
+    this.favorite = !this.favorite;
+    return this.isFavorite();
+  }
+
+  isMatchedCategory(category: Category): boolean {
+    return category === this.category;
+  }
+
   getData() {
     return {
       name: this.name,
@@ -32,10 +47,6 @@ class Restaurant {
       description: this.description,
       referenceUrl: this.referenceUrl,
     };
-  }
-
-  isMatchedCategory(category: Category): boolean {
-    return category === this.category;
   }
 }
 
