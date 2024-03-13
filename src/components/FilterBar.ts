@@ -1,6 +1,5 @@
 import BaseComponent from "../abstract/BaseComponent";
 
-import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { FILTER_EVENT } from "../constants/event";
 import {
   KOREAN_RESTAURANT_DISPLAYING_FILTER,
@@ -29,16 +28,10 @@ export default class FilterBar extends BaseComponent {
   }
 
   private generateCategoryOptions() {
-    return this.generateOptions(KOREAN_RESTAURANT_DISPLAYING_FILTER);
+    return JSON.stringify(KOREAN_RESTAURANT_DISPLAYING_FILTER);
   }
 
   private generateSortingOptions() {
-    return this.generateOptions(KOREAN_SORT_FILTER);
-  }
-
-  private generateOptions(filterLiteralObject: Record<string, string>) {
-    const fiilteredOptions = convertObjectToOptions(filterLiteralObject);
-
-    return JSON.stringify(fiilteredOptions);
+    return JSON.stringify(KOREAN_SORT_FILTER);
   }
 }

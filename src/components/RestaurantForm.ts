@@ -6,7 +6,6 @@ import {
   MODAL_EVENT_ACTION,
   RESTAURANT_EVENT,
 } from "../constants/event";
-import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { $ } from "../utils/selector";
 import { KOREAN_CATEGORY } from "../constants/category";
 import { distanceOptions } from "../constants/selectOptions";
@@ -112,13 +111,7 @@ export default class RestaurantForm extends EventComponent {
   }
 
   private generateCategoryOptions() {
-    return this.generateOptions(KOREAN_CATEGORY);
-  }
-
-  private generateOptions(filterLiteralObject: Record<string, string>) {
-    const filteredOptions = convertObjectToOptions(filterLiteralObject);
-
-    return JSON.stringify(filteredOptions);
+    return JSON.stringify(KOREAN_CATEGORY);
   }
 
   private getDistanceOptions() {

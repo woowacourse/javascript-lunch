@@ -1,5 +1,10 @@
 import { Category } from "../types/Category";
 
+interface CategoryItem {
+  value: keyof typeof CATEGORY;
+  label: string;
+}
+
 export const CATEGORY: {
   [key in Category]: Category;
 } = {
@@ -11,13 +16,29 @@ export const CATEGORY: {
   etc: "etc",
 };
 
-export const KOREAN_CATEGORY: {
-  [key: string]: string;
-} = {
-  [CATEGORY.korean]: "한식",
-  [CATEGORY.chinese]: "중식",
-  [CATEGORY.japanese]: "일식",
-  [CATEGORY.western]: "양식",
-  [CATEGORY.asian]: "아시안",
-  [CATEGORY.etc]: "기타",
-};
+export const KOREAN_CATEGORY: CategoryItem[] = [
+  {
+    value: CATEGORY.korean,
+    label: "한식",
+  },
+  {
+    value: CATEGORY.chinese,
+    label: "중식",
+  },
+  {
+    value: CATEGORY.japanese,
+    label: "일식",
+  },
+  {
+    value: CATEGORY.western,
+    label: "양식",
+  },
+  {
+    value: CATEGORY.asian,
+    label: "아시안",
+  },
+  {
+    value: CATEGORY.etc,
+    label: "기타",
+  },
+];
