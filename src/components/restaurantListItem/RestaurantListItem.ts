@@ -1,12 +1,14 @@
 import { RestaurantState } from '../../types';
 
-import { getMatchedCategoryInfo } from './matchCategoryImage';
 import generateRestaurantListItemComponent from './renderHandlers';
+import changeFavoriteIconState from './eventHandlers';
 
 function RestaurantListItem(restaurant: RestaurantState) {
-  const categoryInfo = getMatchedCategoryInfo(restaurant);
+  const restaurantListItem = generateRestaurantListItemComponent(restaurant);
 
-  return generateRestaurantListItemComponent(restaurant, categoryInfo);
+  changeFavoriteIconState();
+
+  return restaurantListItem;
 }
 
 export default RestaurantListItem;

@@ -22,10 +22,25 @@ const RestaurantListStorageService = (function () {
     return [];
   }
 
+  function patchData(restaurantId: number) {
+    const data = getData();
+    if (data) {
+      const restaurantIndex = data.findIndex((restaurant) => restaurant.id === restaurantId);
+      if (restaurantIndex !== -1) {
+        data[restaurantIndex].isFavorited = !data[restaurantIndex].isFavorited;
+        cachedData = data;
+        localStorage.setItem('restaurantList', JSON.stringify(data));
+      }
+    }
+  }
+
   function setData(restaurant: RestaurantState) {
     const prevData = getData();
     if (prevData) {
-      const newData = [...prevData, restaurant];
+      const lastElementId = prevData.length > 0 ? prevData[prevData.length - 1].id || 0 : 0;
+      const newId = lastElementId + 1;
+      const newRestaurant = { ...restaurant, id: newId };
+      const newData = [...prevData, newRestaurant];
       cachedData = newData;
       localStorage.setItem('restaurantList', JSON.stringify(newData));
     }
@@ -34,6 +49,7 @@ const RestaurantListStorageService = (function () {
   return {
     getData,
     getFilteredData,
+    patchData,
     setData,
   };
 })();
