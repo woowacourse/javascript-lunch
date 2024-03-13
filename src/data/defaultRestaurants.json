@@ -11,7 +11,8 @@
     "category": "중식",
     "distanceByWalk": "5",
     "description": "Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다",
-    "referenceUrl": ""
+    "referenceUrl": "",
+    "favorite": true
   },
   {
     "name": "잇쇼우",
@@ -32,7 +33,8 @@
     "category": "아시안",
     "distanceByWalk": "15",
     "description": "푸짐한 양에 국물이 일품인 쌀국수",
-    "referenceUrl": ""
+    "referenceUrl": "",
+    "favorite": true
   },
   {
     "name": "도스타코스 선릉점",
