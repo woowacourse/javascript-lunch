@@ -27,6 +27,7 @@ class LunchTab extends HTMLElement {
       this.querySelector('.tab-button-all')?.classList.add('tab-button-all--closed');
       this.querySelector('.tab-button-liked')?.classList.remove('tab-button-liked--closed');
       document.querySelector('.lunch-tab-all')?.classList.add('lunch-tab-all--closed');
+      document.querySelector('.lunch-tab-liked')?.classList.remove('lunch-tab-liked--closed');
     });
   }
 
@@ -36,6 +37,7 @@ class LunchTab extends HTMLElement {
       this.querySelector('.tab-button-all')?.classList.remove('tab-button-all--closed');
       this.querySelector('.tab-button-liked')?.classList.add('tab-button-liked--closed');
       document.querySelector('.lunch-tab-all')?.classList.remove('lunch-tab-all--closed');
+      document.querySelector('.lunch-tab-liked')?.classList.add('lunch-tab-liked--closed');
     });
   }
 }

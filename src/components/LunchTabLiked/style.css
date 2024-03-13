@@ -1,0 +1,8 @@
+.lunch-tab-liked {
+  display: flex;
+  flex-direction: column;
+}
+
+.lunch-tab-liked--closed {
+  display: none;
+}
