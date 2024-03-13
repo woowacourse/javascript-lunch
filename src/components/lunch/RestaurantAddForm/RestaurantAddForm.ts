@@ -175,7 +175,8 @@ class RestaurantAddForm extends BaseComponent {
         userInputValues[key] = value;
       }
 
-      if (isUserInputValues(userInputValues)) return userInputValues;
+      if (isUserInputValues(userInputValues))
+        return { ...userInputValues, isFavorite: false };
     }
 
     return null;

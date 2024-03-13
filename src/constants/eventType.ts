@@ -8,4 +8,5 @@ export const CUSTOM_EVENT_TYPE = {
   restaurantAddModalOpen: "restaurantAddModalOpen",
   restaurantAddModalClose: "restaurantAddModalClose",
   deleteRestaurantItem: "deleteRestaurantItem",
+  rerenderModal: "rerenderModal",
 } as const;

@@ -7,6 +7,8 @@ import "./components/lunch/RestaurantList/RestaurantList";
 import "./components/lunch/RestaurantItem/RestaurantItem";
 import "./components/lunch/RestaurantAddForm/RestaurantAddForm";
 import "./components/lunch/RestaurantDetailModal/RestaurantDetailModal";
+import "./components/lunch/RestaurantDetailModal/RestaurantDetailModalContent/RestaurantDetailModalContent";
+
 import "./components/lunch/CategoryIcon/CategoryIcon";
 import "./components/lunch/StarIcon/StarIcon";
 

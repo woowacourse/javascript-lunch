@@ -29,10 +29,13 @@ class RestaurantItem extends BaseComponent {
         <div class='restaurant__category'>
           <category-icon class='category-icon' category='${this.restaurantDetail.category}'></category-icon>
         </div>
-        <div class='restaurant__info'>
+        <div id='restaurant-info-container'>
+          <div class='restaurant__info'>
             <h3 class='restaurant__name text-subtitle'>${this.restaurantDetail.name}</h3>
             <span class='restaurant__distance text-body'>캠퍼스로부터 ${this.restaurantDetail.distance}분 내</span>
             <p class='restaurant__description text-body'>${this.restaurantDetail.description}</p>
+          </div>
+          <star-icon name='${this.restaurantDetail.name}' favorite='${this.restaurantDetail.isFavorite}'></star-icon>
         </div>
     `;
   }

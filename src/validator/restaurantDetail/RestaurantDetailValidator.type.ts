@@ -4,7 +4,7 @@ import type { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
 import type { ErrorMessages } from "../type";
 
 export type UserInputRestaurantDetail = {
-  [K in keyof RestaurantDetail]: string;
+  [K in keyof RestaurantDetail]: K extends "isFavorite" ? boolean : string;
 };
 
 export interface RestaurantDetailIsValidType {

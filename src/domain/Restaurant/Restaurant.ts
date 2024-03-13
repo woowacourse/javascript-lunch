@@ -91,9 +91,21 @@ class Restaurant {
   }
 
   public getRestaurantDetailByName(name: string) {
-    return this.restaurantsDetails.find(
-      (restaurantDetail) => restaurantDetail.name === name
-    );
+    return this.storage
+      .get()
+      .find((restaurantDetail) => restaurantDetail.name === name);
+  }
+
+  public updateRestaurantDetailInIsFavorite(name: string) {
+    const updateRestaurantDetail = this.storage
+      .get()
+      .map((restaurantsDetail) =>
+        restaurantsDetail.name === name
+          ? { ...restaurantsDetail, isFavorite: !restaurantsDetail.isFavorite }
+          : { ...restaurantsDetail }
+      );
+
+    this.storage.update(updateRestaurantDetail);
   }
 
   public removeRestaurantDetail(targetName: string) {
