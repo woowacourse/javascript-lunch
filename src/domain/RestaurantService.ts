@@ -22,6 +22,10 @@ class RestaurantService implements Restaurants {
   sortByProperty(property: SortingProperty, restaurantList: Restaurant[]): Restaurant[] {
     return restaurantList.sort((a: Restaurant, b: Restaurant) => (a[property] > b[property] ? 1 : -1));
   }
+
+  filterByFavorite(restaurantList: Restaurant[]): Restaurant[] {
+    return restaurantList.filter(restaurant => restaurant.favorite);
+  }
 }
 
 export default RestaurantService;

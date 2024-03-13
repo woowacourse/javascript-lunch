@@ -12,12 +12,14 @@ interface Restaurant {
   distance: Distance;
   description?: string;
   link?: string;
+  favorite: boolean;
 }
 
 interface Restaurants {
   addRestaurant: (restaurant: Restaurant, restaurantList: Restaurant[]) => boolean;
   filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
   sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];
+  filterByFavorite: (restaurantList: Restaurant[]) => Restaurant[];
 }
 
 interface DropdownOption {
