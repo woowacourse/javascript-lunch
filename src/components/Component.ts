@@ -25,6 +25,46 @@ class Component extends HTMLElement {
   template(): string {
     return ``;
   }
+
+  $(selector: string) {
+    const element = this.querySelector(selector);
+
+    if (!element) {
+      throw new Error('[ERROR]');
+    }
+
+    return element;
+  }
+
+  $setAttribute(selector: string, key: string, value: string) {
+    const element = document.querySelector(selector);
+
+    if (!element) {
+      throw new Error('[ERROR]');
+    }
+
+    return element.setAttribute(key, value);
+  }
+
+  $addEvent(selector: string, type: string, listener: EventListenerOrEventListenerObject) {
+    const element = document.querySelector(selector);
+
+    if (!element) {
+      throw new Error('[ERROR]');
+    }
+
+    return element.addEventListener(type, listener);
+  }
+
+  $removeEvent(selector: string, type: string, listener: EventListenerOrEventListenerObject) {
+    const element = document.querySelector(selector);
+
+    if (!element) {
+      throw new Error('[ERROR]');
+    }
+
+    return element.removeEventListener(type, listener);
+  }
 }
 
 export default Component;
