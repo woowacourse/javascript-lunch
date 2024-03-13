@@ -6,11 +6,11 @@ class ErrorMessageBox extends HTMLElement {
   }
 
   connectedCallback() {
-    const divEl = document.createElement('div');
+    const $div = document.createElement('div');
 
-    divEl.textContent = this.getAttribute('message') || '';
+    $div.textContent = this.getAttribute('message') || '';
 
-    this.appendChild(divEl);
+    this.appendChild($div);
   }
 }
 

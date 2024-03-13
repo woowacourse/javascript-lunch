@@ -23,13 +23,13 @@ class FromInput extends FormTextField {
   }
 
   #setCustomInput(attributes: Attributes) {
-    const customInputEl = setObjectAttribute(
+    const $customInput = setObjectAttribute(
       attributes,
       document.createElement('custom-input'),
     );
-    const customTextContainerEl = this.querySelector('.custom-text-container');
+    const $customTextContainer = this.querySelector('.custom-text-container');
 
-    customTextContainerEl?.appendChild(customInputEl);
+    $customTextContainer?.appendChild($customInput);
   }
 }
 

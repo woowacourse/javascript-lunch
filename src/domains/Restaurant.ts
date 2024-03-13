@@ -39,6 +39,10 @@ class Restaurant {
       this.#validateLinkCharacterLimit(info.link);
       this.#validateLinkUrl(info.link);
     }
+
+    if (info.favorite) {
+      this.#validateFavorite(info);
+    }
   }
 
   #validateStringType(string: string | undefined | null) {
@@ -103,6 +107,16 @@ class Restaurant {
 
     if (isInValidLink) {
       throw new Error(MESSAGE.linkHasInvalidProtocol);
+    }
+  }
+
+  #validateFavorite(info: RestaurantInfo) {
+    const isInvalidFavorite =
+      typeof info.favorite !== 'boolean' ||
+      typeof info.favorite !== 'undefined';
+
+    if (isInvalidFavorite) {
+      throw new Error(MESSAGE.invalidFavoriteType);
     }
   }
 }

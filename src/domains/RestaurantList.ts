@@ -23,17 +23,9 @@ class RestaurantList {
 
     this.#list.push(info);
 
-    localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(this.#list));
+    this.#saveListToLocalStore();
   }
 
-  #updateListByLocalStorage() {
-    const item = localStorage.getItem(STORAGE_KEY.restaurants);
-    if (item) {
-      this.#list = JSON.parse(item);
-    }
-  }
-
-  //  2단계 - 즐겨찾기 편집 추가
   filterRestaurantsByCategory(
     category: Category,
   ): RestaurantInfo[] | undefined {
@@ -54,6 +46,35 @@ class RestaurantList {
       }
       return prev.name.localeCompare(current.name);
     });
+  }
+
+  changeFavorite(storeName: string) {
+    const storeIndex = this.#list.findIndex((info) => info.name === storeName);
+    const targetStore = this.#list[storeIndex];
+    this.#list.splice(storeIndex, 1, {
+      ...targetStore,
+      favorite: !targetStore.favorite,
+    });
+
+    this.#saveListToLocalStore();
+  }
+
+  deleteStore(storeName: string) {
+    const storeIndex = this.#list.findIndex((info) => info.name === storeName);
+
+    this.#list.splice(storeIndex, 1);
+    this.#saveListToLocalStore();
+  }
+
+  #saveListToLocalStore() {
+    localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(this.#list));
+  }
+
+  #updateListByLocalStorage() {
+    const item = localStorage.getItem(STORAGE_KEY.restaurants);
+    if (item) {
+      this.#list = JSON.parse(item);
+    }
   }
 }
 

@@ -12,4 +12,5 @@ export const MESSAGE = {
   // link
   linkHasInvalidProtocol: `${PROTOCOL.http}/${PROTOCOL.https}로 시작되는 유효한 url이여야합니다.`,
   linkHasInvalidCharacterLimit: `1자 이상 ${CHARACTER_LIMIT.link}자 이내만 입력이 가능합니다.`,
+  invalidFavoriteType: '즐겨찾기 여부는 true 이거나 false여야 합니다.',
 };

@@ -28,8 +28,7 @@ describe('Restaurant 테스트', () => {
       '이름이 문자 타입이 아니면 오류가 발생한다',
       (value) => {
         expect(() => {
-          // 타입 오류 검사를 위해 ts 기능 끔
-          // @ts-ignore
+          // @ts-expect-error 타입 오류 검사를 위해 ts 기능 끔
           new Restaurant({ ...initialInfo, name: value });
         }).toThrow(MESSAGE.invalidStringType);
       },
@@ -82,8 +81,7 @@ describe('Restaurant 테스트', () => {
       `카테고리가 유효한 카테코리("${Object.keys(CATEGORY).join(',')}")가 아니라면 오류가 발생한다`,
       (value) => {
         expect(() => {
-          // 타입 오류 검사를 위해 ts 기능 끔
-          // @ts-ignore
+          // @ts-expect-error 타입 오류 검사를 위해 ts 기능 끔
           new Restaurant({ ...initialInfo, category: value });
         }).toThrow(MESSAGE.invalidCategoryType);
       },
@@ -95,8 +93,7 @@ describe('Restaurant 테스트', () => {
       `거리가 숫자 타입의 유효한 거리("${DISTANCES.join(',')}")가 아니라면 오류가 발생한다`,
       (value) => {
         expect(() => {
-          // 타입 오류 검사를 위해 ts 기능 끔
-          // @ts-ignore
+          // @ts-expect-error 타입 오류 검사를 위해 ts 기능 끔
           new Restaurant({ ...initialInfo, distance: value });
         }).toThrow(MESSAGE.invalidDistanceType);
       },

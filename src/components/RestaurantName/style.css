@@ -1,0 +1,7 @@
+.restaurant__info__name {
+  max-width: 263px;
+  overflow: hidden;
+  font-weight: var(--lunch-subtitle-font-weight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

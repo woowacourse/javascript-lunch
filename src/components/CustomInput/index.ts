@@ -20,14 +20,14 @@ class CustomInput extends HTMLElement {
       maxlength: this.getAttribute('maxlength'),
     };
 
-    const inputEl = setObjectAttribute(
+    const $input = setObjectAttribute(
       attributes,
       document.createElement('input'),
     );
 
-    this.appendChild(inputEl);
+    this.appendChild($input);
 
-    inputEl.addEventListener('change', (event) => this.#handleChange(event));
+    $input.addEventListener('change', (event) => this.#handleChange(event));
   }
 
   #handleChange(event: Event) {

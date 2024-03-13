@@ -1,5 +1,11 @@
-# dist/
+dist/main.**.js
+dist/main.**.json
 node_modules/
 *.tsbuildinfo
 .npm
 .eslintcache
+cypress/support/commands.ts
+cypress.config.ts
+cypress/fixtures/example.json
+cypress/support/e2e.ts
+src/components/CustomModal/style.css

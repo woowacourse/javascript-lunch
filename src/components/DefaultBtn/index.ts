@@ -15,16 +15,17 @@ class DefaultBtn extends HTMLElement {
       class: `btn-color-${this.getAttribute('color') || defaultBtnColor}`,
       type: this.getAttribute('type') || defaultBtnType,
       disabled: this.getAttribute('disabled'),
+      id: this.getAttribute('id'),
     };
 
-    const btnEl = setObjectAttribute(
+    const $btn = setObjectAttribute(
       attributes,
       document.createElement('button'),
     );
 
-    btnEl.textContent = this.getAttribute('text');
+    $btn.textContent = this.getAttribute('text');
 
-    this.appendChild(btnEl);
+    this.appendChild($btn);
   }
 }
 

@@ -20,14 +20,14 @@ class CustomTextarea extends HTMLElement {
       maxlength: this.getAttribute('maxlength'),
     };
 
-    const textareaEl = setObjectAttribute(
+    const $textarea = setObjectAttribute(
       attributes,
       document.createElement('textarea'),
     );
 
-    this.appendChild(textareaEl);
+    this.appendChild($textarea);
 
-    textareaEl.addEventListener('change', (event) => this.#handleChange(event));
+    $textarea.addEventListener('change', (event) => this.#handleChange(event));
   }
 
   #handleChange(event: Event) {

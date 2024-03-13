@@ -1,0 +1,74 @@
+restaurant-info-modal-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 40vh;
+  max-height: 55vh;
+  overflow-y: auto;
+  font-weight: var(--default-font-weight);
+  font-size: var(--default-font-size);
+  line-height: 24px;
+}
+
+restaurant-info-modal-inner .restaurant-info-modal__btn-group {
+  display: flex;
+  justify-content: space-between;
+  default-btn {
+    box-sizing: border-box;
+    width: 47%;
+  }
+}
+
+restaurant-info-modal-inner .restaurant-info {
+  position: relative;
+  margin-bottom: 32px;
+  height: calc(100% - 44px);
+}
+restaurant-info-modal-inner {
+  restaurant-name,
+  restaurant-distance,
+  restaurant-description {
+    display: block;
+    width: 100%;
+  }
+  p {
+    width: inherit;
+  }
+
+  restaurant-name,
+  restaurant-distance,
+  restaurant-description,
+  category-icon {
+    margin-bottom: 16px;
+  }
+}
+restaurant-info-modal-inner favorite-icon {
+  top: 0;
+  right: 0;
+}
+
+restaurant-info-modal-inner category-icon {
+  width: 64px;
+  height: 64px;
+}
+
+restaurant-info-modal-inner restaurant-name {
+  font-weight: var(--lunch-title-font-weight);
+  font-size: var(--lunch-title-font-size);
+  line-height: 24px;
+}
+
+restaurant-info-modal-inner .restaurant__info__description {
+  max-width: 358px;
+}
+
+.restaurant__info__link a {
+}
+.restaurant__info__link a,
+.restaurant__info__link a:active,
+.restaurant__info__link a:visited {
+  background-color: rgb(253, 238, 205);
+  padding: 5px;
+  color: var(--lunch-grey-scale-5-color);
+  text-decoration: none;
+}

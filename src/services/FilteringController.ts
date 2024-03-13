@@ -5,14 +5,14 @@ import RestaurantListController from './RestaurantListController';
 
 const FilteringController = {
   addEventToFiltering() {
-    const filteringCategoryEl = document.getElementById('filtering-category');
-    const filteringSortingEl = document.getElementById('filtering-sorting');
+    const $filteringCategory = document.getElementById('filtering-category');
+    const $filteringSorting = document.getElementById('filtering-sorting');
 
-    filteringCategoryEl?.addEventListener(
+    $filteringCategory?.addEventListener(
       'change',
       this.showFilteredSortedList.bind(this),
     );
-    filteringSortingEl?.addEventListener(
+    $filteringSorting?.addEventListener(
       'change',
       this.showFilteredSortedList.bind(this),
     );
@@ -62,16 +62,16 @@ const FilteringController = {
   private_getSelectedOption():
     | { category: string; sorting: string }
     | undefined {
-    const filteringCategory = document.getElementById('filtering-category');
-    const filteringSorting = document.getElementById('filtering-sorting');
+    const $filteringCategory = document.getElementById('filtering-category');
+    const $filteringSorting = document.getElementById('filtering-sorting');
 
     if (
-      filteringCategory instanceof HTMLSelectElement &&
-      filteringSorting instanceof HTMLSelectElement
+      $filteringCategory instanceof HTMLSelectElement &&
+      $filteringSorting instanceof HTMLSelectElement
     ) {
       return {
-        category: this.private_getSelectedValue(filteringCategory),
-        sorting: this.private_getSelectedValue(filteringSorting),
+        category: this.private_getSelectedValue($filteringCategory),
+        sorting: this.private_getSelectedValue($filteringSorting),
       };
     }
 
