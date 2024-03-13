@@ -9,6 +9,14 @@ const StoreAddBtnController = {
         .querySelector('custom-modal')
         ?.shadowRoot?.querySelector('.modal');
 
+      const formModalInner = /*html*/ `
+      <restaurant-form-inner></restaurant-form-inner>
+`;
+
+      document
+        .querySelector('[slot="child"]')
+        ?.insertAdjacentHTML('afterbegin', formModalInner);
+
       modalEl?.classList.add('open');
 
       const bodyEl = document.querySelector('body');

@@ -141,6 +141,7 @@ class RestaurantFormModalInner extends HTMLElement {
       distance: Number(distance) as Distance,
       description: this.#getRestaurantDescription(),
       link: this.#getRestaurantLink(),
+      like: false,
     };
 
     try {
@@ -169,10 +170,16 @@ class RestaurantFormModalInner extends HTMLElement {
       .querySelector('custom-modal')
       ?.shadowRoot?.querySelector('.modal');
 
-    modalEl?.classList.toggle('open');
+    if (modalEl) {
+      modalEl.classList.toggle('open');
+      const childSlotEl = document.querySelector('[slot="child"]');
+      if (childSlotEl) {
+        childSlotEl.innerHTML = '';
+      }
 
-    const bodyEl = document.querySelector('body');
-    if (bodyEl) bodyEl.style.overflowY = 'scroll';
+      const bodyEl = document.querySelector('body');
+      if (bodyEl) bodyEl.style.overflowY = 'scroll';
+    }
   }
 
   #handleResetForm() {
