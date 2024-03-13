@@ -1,5 +1,5 @@
 import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../../domain/Restaurant';
-import { SORT_CONDITION } from '../../domain/RestaurantCatalog';
+import { CATEGORY_ALL, SORT_CONDITION } from '../../domain/RestaurantCatalog';
 
 type optionsType = typeof SORT_CONDITION | typeof RESTAURANT_CATEGORY | typeof DISTANCE_FROM_CAMPUS;
 
@@ -8,7 +8,7 @@ class Dropdown extends HTMLSelectElement {
     super();
     this.id = id;
     this.name = name;
-    this.#addDefaultSelectOption(id);
+    this.#addDefaultSelectOption();
     this.#renderDropdownOptions(options);
   }
 
@@ -36,23 +36,25 @@ class Dropdown extends HTMLSelectElement {
     }
   }
 
-  #renderDropdownOptions(options: optionsType) {
-    options.forEach((option) => {
-      const optionElement = this.#makeOptionElement(option.toString(), option.toString());
-      this.appendChild(optionElement);
-    });
-  }
-
-  #addDefaultSelectOption(id: string) {
-    if (id === 'category-select') {
-      const optionElement = this.#makeOptionElement('전체', '전체');
+  #addDefaultSelectOption() {
+    if (this.id === 'category-select') {
+      const optionElement = this.#makeOptionElement(CATEGORY_ALL, CATEGORY_ALL);
       this.appendChild(optionElement);
     }
-    if (id === 'form-category-select-container' || id === 'form-distance-select-container') {
+
+    if (this.id === 'form-category-select-container' || this.id === 'form-distance-select-container') {
       const optionElement = this.#makeOptionElement('선택해 주세요', '');
       this.appendChild(optionElement);
       this.required = true;
     }
+  }
+
+  #renderDropdownOptions(options: optionsType) {
+    options.forEach((option) => {
+      const optionElement = this.#makeOptionElement(option.toString(), option.toString());
+
+      this.appendChild(optionElement);
+    });
   }
 
   #makeOptionElement(option: string, value: string) {

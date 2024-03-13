@@ -1,10 +1,10 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 import Restaurant, { IRestaurantInfo, ICategory } from './Restaurant';
 
-export const SORT_CONDITION: readonly ('이름순' | '거리순')[] = Object.freeze(['이름순', '거리순']);
+export const CATEGORY_ALL = '전체';
+export type ICatalogCategory = ICategory | typeof CATEGORY_ALL;
 
-const ALL_CATEGORY = '전체';
-export type ICatalogCategory = ICategory | typeof ALL_CATEGORY;
+export const SORT_CONDITION: readonly ('이름순' | '거리순')[] = Object.freeze(['이름순', '거리순']);
 
 class RestaurantCatalog {
   #restaurants: Restaurant[] = [];
@@ -21,7 +21,7 @@ class RestaurantCatalog {
   }
 
   static filterByCategory(restaurants: IRestaurantInfo[], category: ICatalogCategory) {
-    if (category === ALL_CATEGORY) {
+    if (category === CATEGORY_ALL) {
       return restaurants;
     }
     return restaurants.filter((restaurant) => restaurant.category === category);
@@ -41,10 +41,6 @@ class RestaurantCatalog {
       }
       return restaurantPrev.name.localeCompare(restaurantCurrent.name);
     });
-  }
-
-  getRestaurants() {
-    return [...this.#restaurants];
   }
 
   getTotalRestaurantInfo() {
