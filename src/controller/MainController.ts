@@ -12,8 +12,11 @@ import SelectBox from "../view/components/SelectBox/SelectBox";
 import createElementByTag from "../view/utils/createElementByTag";
 import getLocalStorageItem from "../utils/getLocalStorageItem";
 import { restaurantData } from "../data/restaurantData";
+import setLocalStorage from "../utils/setLocalStorage";
 
 class MainController {
+  static #RESTAURANTS_KEY = "restaurants";
+
   #filters = {
     category: new SelectBox({
       options: CATEGORY_WITH_ENTIRE,
@@ -59,7 +62,10 @@ class MainController {
 
     const submitFunc = (restaurant: Restaurant) => {
       this.#restaurantList.add(restaurant);
-      this.#setLocalStorage(this.#restaurantList.getRestaurants());
+
+      const restaurants = this.#restaurantList.getRestaurants();
+
+      setLocalStorage(MainController.#RESTAURANTS_KEY, restaurants);
     };
 
     const addRestaurantForm = new AddRestaurantForm({
@@ -83,8 +89,12 @@ class MainController {
   }
 
   #setRestaurantList() {
-    const restaurants = getLocalStorageItem("restaurants", restaurantData);
-    this.#restaurantList.init(restaurants ?? []);
+    const restaurants =
+      getLocalStorageItem(MainController.#RESTAURANTS_KEY) ?? restaurantData;
+
+    setLocalStorage(MainController.#RESTAURANTS_KEY, restaurants);
+
+    this.#restaurantList.init(restaurants);
   }
 
   #renderFilterContainer() {
@@ -116,11 +126,6 @@ class MainController {
       category: this.#filters.category.getValue() as CategoryWithEntire,
       sortStandard: this.#filters.sortStandard.getValue() as SortStandard,
     };
-  }
-
-  #setLocalStorage(item: Restaurant[]) {
-    const stringifiedRestaurants = JSON.stringify(item);
-    localStorage.setItem("restaurants", stringifiedRestaurants);
   }
 }
 
