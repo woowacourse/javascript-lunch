@@ -2,7 +2,7 @@ import { ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS, ADD_RESTAURANT_DISTANCE_DROPDOW
 import Button from '../Common/Button';
 import Dropdown from '../Common/Dropdown';
 
-const AddRestaurant = () => {
+const AddRestaurantModal = () => {
   return /*html*/ `
   <h2 class="modal-title text-title">새로운 음식점</h2>
   <form class="form-add-restaurant">
@@ -39,4 +39,4 @@ const AddRestaurant = () => {
   `;
 };
 
-export default AddRestaurant;
+export default AddRestaurantModal;
