@@ -42,8 +42,9 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     });
   }
 
-  createModalFormSelect(restaurantList: RestaurantList) {
+  createCategoryDropdown(restaurantList: RestaurantList) {
     const $categoryContainer = dom.getElement('#category-container');
+
     new Dropdown({
       $target: $categoryContainer,
       props: {
@@ -52,7 +53,9 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
         restaurantList,
       },
     });
+  }
 
+  createDistanceDropdown(restaurantList: RestaurantList) {
     const $distanceContainer = dom.getElement('#distance-container');
     new Dropdown({
       $target: $distanceContainer,
@@ -62,6 +65,11 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
         restaurantList,
       },
     });
+  }
+
+  createModalFormSelect(restaurantList: RestaurantList) {
+    this.createCategoryDropdown(restaurantList);
+    this.createDistanceDropdown(restaurantList);
   }
 
   createModalFormButton(restaurantList: RestaurantList) {
