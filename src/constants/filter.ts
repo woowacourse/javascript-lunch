@@ -6,8 +6,8 @@ export const CATEGORY_FILTER = {
 } as const;
 
 export const KOREAN_CATEGORY_FILTER = {
-  ...KOREAN_CATEGORY,
   all: "전체",
+  ...KOREAN_CATEGORY,
 } as const;
 
 export const SORT_FILTER = {
