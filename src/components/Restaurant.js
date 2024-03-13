@@ -22,4 +22,5 @@ const RestaurantComponent = {
     return $li;
   },
 };
+
 export default RestaurantComponent;

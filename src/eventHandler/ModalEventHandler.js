@@ -28,7 +28,8 @@ class ModalEventHandler {
     const distance = Number($restaurantForm.elements.distance.value);
     const description = $restaurantForm.elements.description.value;
     const link = $restaurantForm.elements.link.value;
-    const restaurantInformation = new Restaurant({ category, name, distance, description, link });
+    const favorite = false;
+    const restaurantInformation = new Restaurant({ category, name, distance, description, link, favorite });
 
     this.restaurantList.add(restaurantInformation);
     new HomeEventHandler(this.restaurantList).handleFilter();

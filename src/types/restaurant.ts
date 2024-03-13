@@ -8,6 +8,7 @@ interface IRestaurant {
   category: TCategory;
   name: string;
   distance: TDistance;
+  favorite: boolean;
   description?: string;
   referenceLink?: string;
 }
