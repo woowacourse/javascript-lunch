@@ -163,6 +163,24 @@ body {
   justify-content: space-between;
 }
 
+.restaurant__like-button {
+  height: 40px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.restaurant__like-button img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
 .restaurant__name {
   margin: 0;
 }
@@ -188,6 +206,10 @@ body {
 }
 
 .modal--open {
+  display: block;
+}
+
+.detail-modal {
   display: block;
 }
 
