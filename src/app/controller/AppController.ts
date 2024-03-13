@@ -5,6 +5,7 @@ import { Category, Sort } from '../../constants/enums';
 import { $ } from '../../utils/domSelector';
 
 class AppController {
+  //TODO: 컴포넌트에 따라 함수 분리하기
   sort: Sort;
   category: Category | '전체';
   restaurantService: RestaurantService;
