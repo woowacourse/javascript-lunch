@@ -1,5 +1,5 @@
 export const CATEGORIES = {
-  ALL: "전체",
+  // ALL: "전체",
   KOREAN: "한식",
   CHINESE: "중식",
   JAPANESE: "일식",
@@ -7,6 +7,8 @@ export const CATEGORIES = {
   WESTERN: "양식",
   OTHER: "기타",
 };
+
+export const ALL = "전체";
 
 export type CategoryValue = (typeof CATEGORIES)[keyof typeof CATEGORIES];
 
