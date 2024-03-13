@@ -49,10 +49,9 @@ class FilterContainer extends BaseComponent {
       const restaurantCollection = this.#restaurantDBService.update();
 
       const urlParams = new URLSearchParams(window.location.search);
-      //favorite일 떄 한번 필터링 해주기
+
       if (urlParams.get('tab') === 'favorite') restaurantCollection.filterFavorites();
 
-      //무조건 sort 해주기
       const newRestaurantList = restaurantCollection.filterByCategoryAndSort(
         $selectedCategory.value as Category,
         $selectedSortCriteria.value as SortCriteria,

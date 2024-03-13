@@ -1,8 +1,9 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
 import { blockModalBodyScroll } from '@/utils/view';
-import { ERROR_MESSAGE } from '@/constants/Message';
 import { $ } from '@/utils/DOM';
+import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import RestaurantList from '../RestaurantList/RestaurantList';
 class Header extends BaseComponent {
   render() {
     this.#makeTitle();
@@ -24,7 +25,6 @@ class Header extends BaseComponent {
     const $title = document.createElement('h1');
     $title.classList.add('gnb__title', 'text-title');
     $title.textContent = '점심 뭐 먹지';
-    $title.addEventListener('click', () => {});
     this.append($title);
   }
 

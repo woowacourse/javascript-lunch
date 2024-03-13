@@ -1,6 +1,7 @@
 import { IRestaurant } from '@/types/Restaurant';
 const restaurantListMock: IRestaurant[] = [
   {
+    id: 1,
     name: '피양콩할머니',
     category: '한식',
     distance: 10,
@@ -14,6 +15,7 @@ const restaurantListMock: IRestaurant[] = [
     isFavorite: true,
   },
   {
+    id: 2,
     name: '친친',
     category: '중식',
     distance: 5,
@@ -23,6 +25,7 @@ const restaurantListMock: IRestaurant[] = [
     isFavorite: true,
   },
   {
+    id: 3,
     name: '잇쇼우',
     category: '일식',
     distance: 10,
@@ -32,6 +35,7 @@ const restaurantListMock: IRestaurant[] = [
     isFavorite: true,
   },
   {
+    id: 4,
     name: '이태리키친',
     category: '양식',
     distance: 20,
@@ -40,6 +44,7 @@ const restaurantListMock: IRestaurant[] = [
     isFavorite: false,
   },
   {
+    id: 5,
     name: '호야빈 삼성점',
     category: '아시안',
     distance: 15,
@@ -48,6 +53,7 @@ const restaurantListMock: IRestaurant[] = [
     isFavorite: false,
   },
   {
+    id: 6,
     name: '도스타코스 선릉점',
     category: '기타',
     distance: 5,
@@ -56,6 +62,7 @@ const restaurantListMock: IRestaurant[] = [
     isFavorite: false,
   },
   {
+    id: 7,
     name: '얌샘김밥',
     category: '한식',
     distance: 5,

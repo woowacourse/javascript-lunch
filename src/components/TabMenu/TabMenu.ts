@@ -64,13 +64,14 @@ class TabMenu extends BaseComponent {
     });
   }
 
+  //TODO: service로 뺼지 생각
   #showFavoriteTab() {
     $<HTMLElement>('#favorite-tab').addEventListener('click', () => {
       //TODO: url 관련 함수 util로 분리
       const urlParams = new URLSearchParams(window.location.search);
       urlParams.set('tab', 'favorite');
       window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-      this.#restaurantAFavoriteService.showFavoriteRestaurants();
+      this.#restaurantAFavoriteService.rerenderByFilter();
     });
   }
 

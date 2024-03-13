@@ -7,18 +7,21 @@ describe('레스토랑 리스트 클래스', () => {
     distance: 30,
     category: '중식',
     description: '게살볶음밥 존맛',
+    id: 1,
   };
   const restaurant2: IRestaurantInfo = {
     name: '백소정',
     distance: 15,
     category: '일식',
     description: '치즈돈까스 존맛',
+    id: 2,
   };
   const restaurant3: IRestaurantInfo = {
     name: '라밥',
     distance: 20,
     category: '한식',
     description: '라면과 밥 맛있음',
+    id: 3,
   };
 
   it('음식점들을 모두 반환한다.', () => {
@@ -72,6 +75,7 @@ describe('레스토랑 리스트 클래스', () => {
       category: '한식',
       description: '돈가스김밥 추천',
       isFavorite: false,
+      id: 1,
     };
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const RESTAURANTS_WITH_FAVORITE = RESTAURANTS.map((restaurant) => ({

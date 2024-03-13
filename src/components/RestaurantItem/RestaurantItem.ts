@@ -9,14 +9,16 @@ class RestaurantItem extends BaseComponent {
   #description;
   #name;
   #isFavorite;
+  #id;
 
-  constructor({ category, name, distance, description, isFavorite }: IRestaurant) {
+  constructor({ category, name, distance, description, isFavorite, id }: IRestaurant) {
     super();
     this.#category = category;
     this.#name = name;
     this.#distance = distance;
     this.#description = description;
     this.#isFavorite = isFavorite;
+    this.#id = id;
   }
 
   render() {
@@ -32,6 +34,7 @@ class RestaurantItem extends BaseComponent {
     $restaurantInfoBox.append(this.#makeTitle());
     $restaurantInfoBox.append(this.#makeDistance());
     $restaurantInfoBox.append(this.#makeDescription());
+    $restaurantInfoBox.id = String(this.#id);
 
     $restaurantInfoBox.append(new FavoriteButton(this.#isFavorite));
 

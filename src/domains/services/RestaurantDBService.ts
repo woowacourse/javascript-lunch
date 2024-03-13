@@ -4,19 +4,17 @@ import RestaurantCollection from '../entities/RestaurantCollection';
 
 class RestaurantDBService {
   #RESTAURANTS_DB_KEY = 'restaurants';
-  #restaurantCollection = new RestaurantCollection([]);
 
   constructor() {
-    this.#restaurantCollection;
     this.update();
     this.setMockData();
   }
 
   update() {
     const existingRestaurants = JSON.parse(this.get() || '[]');
-    this.#restaurantCollection.set(existingRestaurants);
-
-    return this.#restaurantCollection;
+    const restaurantCollection = new RestaurantCollection(existingRestaurants);
+    restaurantCollection.filterDefault();
+    return restaurantCollection;
   }
 
   get() {
@@ -24,6 +22,7 @@ class RestaurantDBService {
   }
 
   setCollection(collection: RestaurantCollection) {
+    collection.filterDefault();
     localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(collection.get()));
   }
 
@@ -33,7 +32,10 @@ class RestaurantDBService {
 
   setMockData() {
     if (!this.get()) {
-      this.set(restaurantListMock);
+      const mockRestaurantCollection = new RestaurantCollection(restaurantListMock);
+      mockRestaurantCollection.filterDefault();
+
+      return this.set(mockRestaurantCollection.get());
     }
   }
 }

@@ -7,6 +7,7 @@ class Restaurant implements IRestaurant {
   isFavorite: boolean;
   description?: string;
   link?: string;
+  id: number;
 
   constructor(restaurantArgs: IRestaurant) {
     this.name = restaurantArgs.name;
@@ -15,6 +16,7 @@ class Restaurant implements IRestaurant {
     this.description = restaurantArgs.description;
     this.link = restaurantArgs.link;
     this.isFavorite = restaurantArgs.isFavorite;
+    this.id = restaurantArgs.id;
   }
 
   get() {
@@ -23,6 +25,7 @@ class Restaurant implements IRestaurant {
       distance: this.distance,
       category: this.category,
       isFavorite: this.isFavorite,
+      id: this.id,
     };
     if (this.description) {
       result.description = this.description;

@@ -19,6 +19,7 @@ describe('음식점 DB 서비스 테스트', () => {
 
   it('새로운 음식점을 추가했을 때, 로컬 스토리지에 새로운 음식점이 추가된 음식점 목록이 가져와진다.', () => {
     const NEW_RESTAURANT1: IRestaurant = {
+      id: 1,
       name: '친친',
       distance: 10,
       category: '중식',
@@ -26,6 +27,7 @@ describe('음식점 DB 서비스 테스트', () => {
       isFavorite: false,
     };
     const NEW_RESTAURANT2: IRestaurant = {
+      id: 2,
       name: '꺼벙이 김밥',
       distance: 10,
       category: '한식',
@@ -49,6 +51,7 @@ describe('음식점 DB 서비스 테스트', () => {
     const restaurantDBService = new RestaurantDBService();
 
     const RESTAURANT_FIRST: IRestaurant = {
+      id: 1,
       name: '꺼벙이 김밥',
       distance: 10,
       category: '한식',
@@ -57,6 +60,7 @@ describe('음식점 DB 서비스 테스트', () => {
     };
 
     const RESTAURANT_SECOND: IRestaurant = {
+      id: 2,
       name: '얌샘 김밥',
       distance: 5,
       category: '한식',

@@ -8,6 +8,10 @@ class RestaurantCollection {
     this.restaurantList = restaurants.map((restaurant: IRestaurant) => new Restaurant(restaurant));
   }
 
+  getRestaurantById(id: number) {
+    return this.restaurantList.filter((restaurant) => restaurant.id === id);
+  }
+
   get() {
     return [...this.restaurantList].map((restaurant) => restaurant.get());
   }
@@ -18,6 +22,12 @@ class RestaurantCollection {
     );
   }
 
+  filterDefault() {
+    this.filterByCategory('전체');
+    this.sort('이름순');
+    return this.restaurantList;
+  }
+
   filterByCategoryAndSort(category: AllAndCategory, sortCriteria: SortCriteria) {
     this.filterByCategory(category);
     this.sort(sortCriteria);
@@ -25,7 +35,7 @@ class RestaurantCollection {
   }
 
   filterByCategory(category: AllAndCategory) {
-    if (category === '전체') return this.restaurantList.map((restaurant) => restaurant.get());
+    if (category === '전체') return;
     this.restaurantList = [...this.restaurantList].filter(
       (restaurant) => restaurant.get().category === category,
     );

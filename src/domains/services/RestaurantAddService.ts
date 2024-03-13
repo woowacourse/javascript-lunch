@@ -46,6 +46,7 @@ class RestaurantAddService {
       name,
       distance: distance as Distance,
       category: category as Category,
+      id: Math.random() * 10000, //TODO: 아이디 생성 로직
       isFavorite: false,
       ...(description && { description }),
       ...(link && { link }),

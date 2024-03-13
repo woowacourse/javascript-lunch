@@ -1,6 +1,7 @@
 import { CATEGORIES, CONDITIONS } from '@/constants/Condition';
 
 export interface IRestaurantInfo {
+  id: number;
   name: string;
   distance: Distance;
   category: Category;
