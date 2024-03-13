@@ -9,8 +9,10 @@ function RestaurantList() {
   const main = document.querySelector('main');
 
   const render = () => {
-    const filterData = RestaurantListStorageService.getfilteredData();
-    renderRestaurantList(filterData);
+    const filterData = RestaurantListStorageService.getFilteredData();
+    if (filterData) {
+      renderRestaurantList(filterData);
+    }
   };
 
   const formattedRestaurantListTemplate = convertHTMLStringToDOM(restaurantListTemplate);
