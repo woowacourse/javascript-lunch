@@ -16,9 +16,11 @@ export const RESTAURANT_EVENT = {
   restaurantFormSubmit: "restaurantFormSubmit",
 } as const;
 
-export const TAB_SWITCH_EVENT = "tabChange" as const;
+export const TAB_SWITCH_EVENT = "tabSwitch" as const;
 
 export const TAB_SWITCH_EVENT_SWITCH_TO = {
   all: "all",
   favorite: "favorite",
 } as const;
+
+export const TOGGLE_FAVORITE_EVENT = "toggleFavorite" as const;
