@@ -64,7 +64,7 @@ class NewRestaurantModal extends BasicModal {
     $categorySelectBox.append($categoryLabel);
 
     const $categorySelect = new SelectBox<CategoryOrPlaceholder>(
-      ['선택해주세요', ...CATEGORIES_KEYS],
+      { values: ['선택해주세요', ...CATEGORIES_KEYS], texts: ['선택해주세요', ...CATEGORIES_KEYS] },
       'category',
     );
     $categorySelectBox.append($categorySelect);
@@ -97,9 +97,20 @@ class NewRestaurantModal extends BasicModal {
 
     const DISTANCES_REQURIED = [
       '선택해주세요',
+      ...CONDITIONS.DISTANCES.map((num) => `${num}`),
+    ] as DistanceOrPlaceholder[];
+
+    const DISTANCES_TEXTS = [
+      '선택해주세요',
       ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
     ];
-    $distanceSelection.append(new SelectBox(DISTANCES_REQURIED, 'distance'));
+
+    $distanceSelection.append(
+      new SelectBox<DistanceOrPlaceholder>(
+        { values: DISTANCES_REQURIED, texts: DISTANCES_TEXTS },
+        'distance',
+      ),
+    );
     const errorBox = document.createElement('div');
     errorBox.classList.add('error', 'hidden');
     errorBox.textContent = '거리 값은 필수 입력입니다.';
@@ -212,10 +223,8 @@ class NewRestaurantModal extends BasicModal {
   } {
     const name: string = (this.#form.elements.namedItem('name') as HTMLInputElement).value;
     const distance = Number(
-      (this.#form.elements.namedItem('distance') as HTMLSelectElement).value.slice(
-        0,
-        -3,
-      ) as DistanceOrPlaceholder,
+      (this.#form.elements.namedItem('distance') as HTMLSelectElement)
+        .value as DistanceOrPlaceholder,
     );
 
     const category = (this.#form.elements.namedItem('category') as HTMLSelectElement).value;

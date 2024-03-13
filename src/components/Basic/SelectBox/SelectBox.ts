@@ -1,13 +1,20 @@
 import BaseComponent from '@/components/BaseComponent';
 
 import './SelectBox.css';
+
+interface Options<T> {
+  values: T[];
+  texts: string[];
+}
+
 class SelectBox<T extends string> extends HTMLSelectElement {
-  #optionValues: T[];
+  #options: Options<T>;
   #name;
 
-  constructor(optionValues: T[], name: string) {
+  constructor(options: Options<T>, name: string) {
     super();
-    this.#optionValues = optionValues;
+    this.#options = options;
+
     this.#name = name;
     this.render();
   }
@@ -21,12 +28,10 @@ class SelectBox<T extends string> extends HTMLSelectElement {
   }
 
   #makeOptionTags() {
-    this.#optionValues.forEach((option) => {
-      const optionTag = new Option();
-      optionTag.value = option; //5
-      optionTag.textContent = option; //5분 내
+    for (let i = 0; i < this.#options.values.length; i++) {
+      const optionTag = new Option(this.#options.texts[i], this.#options.values[i]);
       this.add(optionTag);
-    });
+    }
   }
 }
 

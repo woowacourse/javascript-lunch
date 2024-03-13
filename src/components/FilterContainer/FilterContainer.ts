@@ -13,8 +13,14 @@ class FilterContainer extends BaseComponent {
 
   constructor() {
     super();
-    this.#selectCategoryBox = new SelectBox<CategoryOrAll>(CATEGORIES_WITH_ALL_KEYS, 'category');
-    this.#selectSortBox = new SelectBox<SortCriteria>(SORT_CRITERION_KEYS, 'sorting');
+    this.#selectCategoryBox = new SelectBox<CategoryOrAll>(
+      { values: CATEGORIES_WITH_ALL_KEYS, texts: CATEGORIES_WITH_ALL_KEYS },
+      'category',
+    );
+    this.#selectSortBox = new SelectBox<SortCriteria>(
+      { values: SORT_CRITERION_KEYS, texts: SORT_CRITERION_KEYS },
+      'sorting',
+    );
     this.#restaurantList = document.querySelector('.restaurant-list')!;
   }
 
