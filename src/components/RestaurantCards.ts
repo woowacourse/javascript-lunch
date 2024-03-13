@@ -1,5 +1,5 @@
-import { IRestaurantInfo } from '../../domain/Restaurant';
-import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory, CATEGORY_ALL } from '../../domain/RestaurantCatalog';
+import { IRestaurantInfo } from '../domain/Restaurant';
+import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory, CATEGORY_ALL } from '../domain/RestaurantCatalog';
 
 const IMG_CATEGORY = Object.freeze({
   한식: 'korean',

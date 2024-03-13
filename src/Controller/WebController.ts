@@ -1,8 +1,8 @@
 import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from '../domain/Restaurant';
 import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
 import { mockingData } from '../domain/mocking';
-import Dropdown from '../view/components/Dropdown';
-import RestaurantCards from '../view/components/RestaurantCards';
+import Dropdown from '../components/Dropdown';
+import RestaurantCards from '../components/RestaurantCards';
 
 class WebController {
   #restaurantCatalog: RestaurantCatalog;
