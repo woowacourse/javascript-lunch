@@ -1,4 +1,4 @@
-import { Category, DistanceFromCampus, IRestaurantInfo } from '../../domain/Restaurant';
+import { Category, IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
 import '../../css/likeStar.css';
 import LikeStar from './LikeStar';
@@ -12,13 +12,6 @@ const IMG_CATEGORY = Object.freeze({
   일식: 'japanese',
 });
 
-interface IInfo {
-  name: string;
-  distanceFromCampus: DistanceFromCampus;
-  description?: string;
-  isLiked: boolean;
-}
-
 class RestaurantCard extends HTMLLIElement {
   constructor(id: number) {
     super();
@@ -31,9 +24,9 @@ class RestaurantCard extends HTMLLIElement {
     this.#executeChild(restaurant.getRestaurantInfoObject());
   }
 
-  #executeChild({ category, name, distanceFromCampus, description, isLiked }: IRestaurantInfo) {
+  #executeChild({ category, name, distanceFromCampus, description, isLiked, id }: IRestaurantInfo) {
     const imageDiv = this.#generateImageDiv(category);
-    const infoDiv = this.#generateInfoDiv({ name, distanceFromCampus, description, isLiked });
+    const infoDiv = this.#generateInfoDiv({ name, distanceFromCampus, description, isLiked, id });
     this.append(imageDiv);
     this.append(infoDiv);
   }
@@ -45,16 +38,13 @@ class RestaurantCard extends HTMLLIElement {
     return container;
   }
 
-  #generateInfoDiv({ name, distanceFromCampus, description, isLiked }: IInfo) {
+  #generateInfoDiv({ name, distanceFromCampus, description, isLiked, id }: Omit<IRestaurantInfo, 'category'>) {
     const container = document.createElement('div');
     container.classList.add('restaurant__info');
     container.innerHTML = `<h3 class="restaurant__name text-subtitle">${name}</h3>
     <span class="restaurant__distance text-body">캠퍼스부터 ${distanceFromCampus}분 내</span>
     <p class="restaurant__description text-body">${description}</p>`;
-    // <div class="like-star">
-    //   <img src="./templates/favorite-icon-lined.png" alt="like-star"/>
-    // </div>`;
-    container.appendChild(new LikeStar(isLiked));
+    container.appendChild(new LikeStar(isLiked, id));
     return container;
   }
 

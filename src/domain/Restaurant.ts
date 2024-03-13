@@ -44,6 +44,11 @@ class Restaurant {
     }
   }
 
+  changeIsLiked() {
+    const current = this.#restaurantInfo.isLiked;
+    this.#restaurantInfo.isLiked = !current;
+  }
+
   getRestaurantInfoObject() {
     return { ...this.#restaurantInfo };
   }
