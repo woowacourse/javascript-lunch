@@ -12,15 +12,13 @@ class SelectBox<T extends string> extends HTMLSelectElement {
     this.render();
   }
 
+  // TODO: 추후 id와 name을 다르게 사용할 수 있게 열어 주는 게 좋음.
   render() {
     this.className = 'restaurant-filter';
     this.name = this.#name;
     this.id = `${this.#name}-filter`;
     this.#makeOptionTags();
   }
-
-  //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 class 다름 => 고치기
-  //TODO: 메인의 필터링과 새로운 음식점 추가 모달에서 아이디가 다름 => 고치기
 
   #makeOptionTags() {
     this.#optionValues.forEach((option) => {

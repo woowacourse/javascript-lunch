@@ -4,11 +4,13 @@ import { Category, SortCriteria } from '@/types/Restaurant';
 import FilterContainer from './FilterContainer/FilterContainer';
 import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import restaurantListMock from '@/mock/restaurantList.mock';
 
 class MainApp extends HTMLDivElement {
   #filterContainer: FilterContainer;
   #restaurantList: RestaurantList;
   #newRestaurantModal: NewRestaurantModal;
+  #restaurantDBService: RestaurantDBService;
 
   constructor() {
     super();
@@ -20,6 +22,7 @@ class MainApp extends HTMLDivElement {
     this.#filterContainer = this.querySelector('.restaurant-filter-container')!;
     this.#restaurantList = this.querySelector('.restaurant-list')!;
     this.#newRestaurantModal = this.querySelector('.modal')!;
+    this.#restaurantDBService = new RestaurantDBService();
   }
 
   connectedCallback() {
@@ -27,15 +30,23 @@ class MainApp extends HTMLDivElement {
   }
 
   paint() {
-    const restaurantDBService = new RestaurantDBService();
     const { category, sortCriteria } = this.#filterContainer.get();
 
-    const newRestaurantList = restaurantDBService.getFromRestaurantList(
-      category as Category,
-      sortCriteria as SortCriteria,
-    );
+    let newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
+    if (!newRestaurantList) {
+      this.#setMock();
+      newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
+    }
 
     this.#restaurantList.paint(newRestaurantList);
+  }
+
+  #setMock() {
+    this.#restaurantDBService.set(restaurantListMock);
+  }
+
+  #getDB(category: Category, sortCriteria: SortCriteria) {
+    return this.#restaurantDBService.getFromRestaurantList(category, sortCriteria);
   }
 }
 
