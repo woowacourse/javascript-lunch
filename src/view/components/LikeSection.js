@@ -7,17 +7,21 @@ function changeRestaurantsCardsAttribute(newAttribute) {
   restaurantCards.setAttribute('data-like', newAttribute);
 }
 
+function changeColorCompareValue(currentElement, value) {
+  if (currentElement.value === value) {
+    currentElement.classList.remove('like-section-normal');
+    currentElement.classList.add('like-section-highlight');
+  }
+  if (currentElement.value !== value) {
+    currentElement.classList.add('like-section-normal');
+    currentElement.classList.remove('like-section-highlight');
+  }
+}
+
 function changeLikeSectionColor(value, section) {
   for (let i = 0; i < section.children.length; i += 1) {
     const currentElement = section.children[i];
-    if (currentElement.value === value) {
-      currentElement.classList.remove('like-section-normal');
-      currentElement.classList.add('like-section-highlight');
-    }
-    if (currentElement.value !== value) {
-      currentElement.classList.add('like-section-normal');
-      currentElement.classList.remove('like-section-highlight');
-    }
+    changeColorCompareValue(currentElement, value);
   }
 }
 
