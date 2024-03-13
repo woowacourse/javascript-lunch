@@ -1,6 +1,6 @@
 import './style.css';
 
-const LUNCH_TAB_BUTTON = /* HTML */ ` <button class="button">123</button> `;
+const LUNCH_TAB_BUTTON = (value: string) => /* HTML */ ` <button class="button">${value}</button> `;
 
 class LunchTabButton extends HTMLElement {
   connectedCallback() {
@@ -8,7 +8,8 @@ class LunchTabButton extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = LUNCH_TAB_BUTTON;
+    const value = this.getAttribute('value') ?? '';
+    this.innerHTML = LUNCH_TAB_BUTTON(value);
   }
 }
 

@@ -9,6 +9,7 @@ import textInput from '../../utils/textInput';
 export interface FilterPropsTypes {
   category?: Category;
   sortBy?: SortBy;
+  liked: boolean;
 }
 
 const LUNCH_ITEMS_TEMPLATE = /* HTML */ `
@@ -26,24 +27,25 @@ const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => `
 class LunchItems extends HTMLElement {
   connectedCallback() {
     this.render();
-    this.renderItems({});
   }
 
   render(): void {
-    this.innerHTML = LUNCH_ITEMS_TEMPLATE;
+    this.insertAdjacentHTML('beforeend', LUNCH_ITEMS_TEMPLATE);
+    const likedAttribute = this.getAttribute('liked') ?? '';
+    const liked = likedAttribute === 'true';
+    this.renderItems({ liked });
   }
 
-  renderItems({ category, sortBy }: FilterPropsTypes): void {
+  renderItems({ category, sortBy, liked }: FilterPropsTypes): void {
     const itemHTMLs: string[] = [];
-    this.getRestaurants({ category, sortBy }).forEach((restaurant) => {
+    this.getRestaurants({ category, sortBy, liked }).forEach((restaurant) => {
       itemHTMLs.push(LUNCH_ITEM_TEMPLATE(restaurant));
     });
-
     textInput.setInnerHtml.call(this, '.restaurant-list', itemHTMLs);
   }
 
-  getRestaurants({ category, sortBy }: FilterPropsTypes): Restaurants {
-    return RestaurantDataProvider.execute({ category, sortBy });
+  getRestaurants({ category, sortBy, liked }: FilterPropsTypes): Restaurants {
+    return RestaurantDataProvider.execute({ category, sortBy, liked });
   }
 }
 

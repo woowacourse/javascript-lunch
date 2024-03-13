@@ -2,9 +2,11 @@ import './style.css';
 import '../LunchItemFilter/LunchItemFilter';
 import '../LunchItems/LunchItems';
 
-const LUNCH_TAB_ALL = /* HTML */ `
-  <lunch-item-filter></lunch-item-filter>
-  <lunch-items></lunch-items>
+const LUNCH_TAB_ALL = (liked: boolean) => /* HTML */ `
+  <div class="lunch-tab-all">
+    <lunch-item-filter></lunch-item-filter>
+    <lunch-items liked="${liked}"></lunch-items>
+  </div>
 `;
 
 class LunchTabAll extends HTMLElement {
@@ -13,7 +15,8 @@ class LunchTabAll extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = LUNCH_TAB_ALL;
+    const liked: boolean = false;
+    this.innerHTML = LUNCH_TAB_ALL(liked);
   }
 }
 

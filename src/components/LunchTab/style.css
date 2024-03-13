@@ -2,18 +2,18 @@
   width: 100%;
 }
 
-.tab-all {
+.tab-button-all {
   color: var(--primary-color);
 }
 
-.tab-all--closed {
+.tab-button-all--closed {
   color: var(--grey-300);
 }
 
-.tab-liked {
+.tab-button-liked {
   color: var(--primary-color);
 }
 
-.tab-liked--closed {
+.tab-button-liked--closed {
   color: var(--grey-300);
 }

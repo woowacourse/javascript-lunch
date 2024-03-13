@@ -88,7 +88,7 @@ class LunchRegisterModal extends HTMLElement {
 
   handleRenderItems() {
     const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({});
+    items.renderItems({ liked: false });
   }
 }
 
