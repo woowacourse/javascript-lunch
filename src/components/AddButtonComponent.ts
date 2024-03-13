@@ -15,6 +15,7 @@ export function AddButtonComponent() {
 
   const handleClick = () => {
     const modal = document.querySelector('.modal');
+
     modal?.classList.add('modal--open');
   };
 

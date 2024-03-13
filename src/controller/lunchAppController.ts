@@ -1,6 +1,5 @@
 import { CATEGORY } from '../_types/types';
 
-import FilterComponent from '../components/FilterComponent';
 import { LunchHeaderComponent } from '../components/LunchHeaderComponent';
 import { ModalComponent } from '../components/ModalComponent';
 import { RestaurantCardComponent } from '../components/RestaurantCardComponent';
@@ -25,10 +24,9 @@ export default class LunchAppController {
 
   async init() {
     this.renderGNB();
+    this.renderModal();
     this.renderCategoryFilter();
     this.renderSortingFilter();
-
-    this.renderModal();
   }
 
   private renderGNB = () => {
@@ -65,7 +63,14 @@ export default class LunchAppController {
 
   private renderModal = () => {
     const modal = ModalComponent();
+
     this.$appContainer.appendChild(modal.getTemplate());
+    modal.setEvent();
+  };
+
+  private renderToast = () => {
+    // const toastComponent = ToastComponent().getTemplate('어쩌라고');
+    // this.$appContainer.appendChild(toastComponent);
   };
 }
 
