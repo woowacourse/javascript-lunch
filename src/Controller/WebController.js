@@ -1,6 +1,7 @@
 import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant';
 import restaurantCatalog, { ALL_CATEGORY, SORT_CONDITION } from '../domain/RestaurantCatalog';
 import mockingData from '../domain/mocking';
+import { ALL_RESTAURANTS } from '../view/components/LikeSection';
 
 const LOCAL_STORAGE_KEY = 'lunch_restaurants';
 
@@ -41,6 +42,7 @@ class WebController {
     const SORT_BY_NAME = SORT_CONDITION[0];
     restaurantCards.setAttribute('data-sort-select', SORT_BY_NAME);
     restaurantCards.setAttribute('data-category-select', ALL_CATEGORY);
+    restaurantCards.setAttribute('data-like', ALL_RESTAURANTS);
   }
 
   #renderDropdownElement() {
