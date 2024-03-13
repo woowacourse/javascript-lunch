@@ -22,5 +22,6 @@
         "max-lines-per-function": ["error", { "max": 10 }]
       }
     }
-  ]
+  ],
+  "plugins": ["cypress"]
 }
