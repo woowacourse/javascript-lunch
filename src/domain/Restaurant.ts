@@ -1,7 +1,7 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 
 export const DISTANCE_FROM_CAMPUS = Object.freeze([5, 10, 15, 20, 30] as const);
-type DistanceFromCampus = (typeof DISTANCE_FROM_CAMPUS)[number];
+export type DistanceFromCampus = (typeof DISTANCE_FROM_CAMPUS)[number];
 
 export const RESTAURANT_CATEGORY = Object.freeze(['한식', '중식', '일식', '아시안', '양식', '기타'] as const);
 export type Category = (typeof RESTAURANT_CATEGORY)[number];
