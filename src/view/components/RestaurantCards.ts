@@ -1,5 +1,5 @@
 import { IRestaurantInfo } from '../../domain/Restaurant';
-import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory } from '../../domain/RestaurantCatalog';
+import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory, CATEGORY_ALL } from '../../domain/RestaurantCatalog';
 
 const IMG_CATEGORY = Object.freeze({
   한식: 'korean',
@@ -23,7 +23,7 @@ class RestaurantCards extends HTMLUListElement {
 
   connectedCallback() {
     this.setAttribute('data-sort', SORT_BY_NAME);
-    this.setAttribute('data-category', '전체');
+    this.setAttribute('data-category', CATEGORY_ALL);
   }
 
   static get observedAttributes() {
@@ -32,34 +32,38 @@ class RestaurantCards extends HTMLUListElement {
 
   attributeChangedCallback() {
     this.clear();
-    this.#renderList();
+    this.#renderRestaurantList();
   }
 
   clear() {
     this.innerHTML = '';
   }
 
-  #renderList() {
-    if (this.dataset.category) {
-      const categoryString = this.dataset.category;
-      const category: ICatalogCategory = categoryString as ICatalogCategory;
+  #renderRestaurantList() {
+    const filteredRestaurantList = this.#filterRestaurantList();
 
-      const filteredRestaurants = RestaurantCatalog.filterByCategory(this.#restaurants, category);
-
-      this.#appendList(filteredRestaurants);
-    }
+    this.#sortRestaurantList(filteredRestaurantList);
   }
 
-  #appendList(restaurants: IRestaurantInfo[]) {
+  #filterRestaurantList() {
+    const categoryString = this.dataset.category;
+    const category: ICatalogCategory = categoryString as ICatalogCategory;
+
+    const filteredRestaurants = RestaurantCatalog.filterByCategory(this.#restaurants, category);
+
+    return filteredRestaurants;
+  }
+
+  #sortRestaurantList(restaurants: IRestaurantInfo[]) {
     if (this.dataset.sort === SORT_BY_NAME) {
-      this.#makeRestaurantElement(RestaurantCatalog.sortByName(restaurants));
+      this.#appendRestaurantElement(RestaurantCatalog.sortByName(restaurants));
     }
     if (this.dataset.sort === SORT_BY_DISTANCE) {
-      this.#makeRestaurantElement(RestaurantCatalog.sortByDistance(restaurants));
+      this.#appendRestaurantElement(RestaurantCatalog.sortByDistance(restaurants));
     }
   }
 
-  #makeRestaurantElement(restaurants: IRestaurantInfo[]) {
+  #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
     restaurants.forEach((restaurant: IRestaurantInfo) => {
       const liElement = document.createElement('li');
       liElement.classList.add('restaurant');
