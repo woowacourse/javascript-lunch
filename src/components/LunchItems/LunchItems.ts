@@ -28,9 +28,12 @@ class LunchItems extends HTMLElement {
 
   renderItems(props: FilterProps): void {
     const container = this.querySelector('.restaurant-list');
-    container?.childNodes.forEach((child) => child.remove());
+    if (container) {
+      container.innerHTML = '';
+    }
+
     this.getRestaurants(props).forEach((restaurant) => {
-      container?.insertAdjacentElement('beforebegin', new LunchItem(restaurant));
+      container?.insertAdjacentElement('beforeend', new LunchItem(restaurant));
     });
   }
 
