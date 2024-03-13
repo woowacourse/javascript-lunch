@@ -1,7 +1,7 @@
 import './style.css';
 
 import {
-  findStoreFromLocalStorage,
+  findRestaurant,
   getFavoriteAttributeValue,
   openModal,
 } from '../../utils';
@@ -14,7 +14,7 @@ class RestaurantItem extends HTMLElement {
   connectedCallback() {
     const storeName = this.getAttribute('name');
 
-    const store = findStoreFromLocalStorage(storeName);
+    const store = findRestaurant(storeName);
 
     if (store) {
       this.innerHTML = /* html */ `

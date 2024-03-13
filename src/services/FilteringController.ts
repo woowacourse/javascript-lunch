@@ -17,7 +17,9 @@ const FilteringController = {
       this.showFilteredSortedList.bind(this),
     );
   },
-
+  /**
+   * 현재 선택된 필터링, 정렬 기준으로 음식점 목록을 화면에 나타낸다.
+   */
   showFilteredSortedList() {
     const option = this.private_getSelectedOption();
     if (!option) return;

@@ -1,10 +1,13 @@
 import './style.css';
 
-import { STORAGE_KEY } from '../../constants';
 import RestaurantList from '../../domains/RestaurantList';
 import { RestaurantListController } from '../../services';
-import { RestaurantInfo } from '../../types';
-import { closeModal, getFavoriteAttributeValue } from '../../utils';
+
+import {
+  closeModal,
+  getFavoriteAttributeValue,
+  findRestaurant,
+} from '../../utils';
 
 class RestaurantInfoModalInner extends HTMLElement {
   constructor() {
@@ -13,7 +16,7 @@ class RestaurantInfoModalInner extends HTMLElement {
 
   connectedCallback() {
     const storeName = this.getAttribute('store-name');
-    const store = this.#getStore(storeName);
+    const store = findRestaurant(storeName);
 
     if (!store) {
       this.innerHTML = `<p>찾으시는 상점이 없습니다.</p>`;
@@ -78,15 +81,6 @@ class RestaurantInfoModalInner extends HTMLElement {
         this.#handleClickToCloseModal(event),
       );
     }
-  }
-
-  #getStore(storeName: string | null) {
-    const data = localStorage.getItem(STORAGE_KEY.restaurants);
-    if (!storeName || !data) return undefined;
-
-    const list = JSON.parse(data) as RestaurantInfo[];
-
-    return list.find((info) => info.name === storeName);
   }
 
   #handleClickToCloseModal(event: MouseEvent) {

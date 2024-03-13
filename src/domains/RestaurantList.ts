@@ -65,11 +65,14 @@ class RestaurantList {
     this.#list.splice(storeIndex, 1);
     this.#saveListToLocalStore();
   }
+  // 어디서 RestaurantList를 불러와도 서버(=localStorage)와 데이터를 동기화
+  // 1, 서버에 저장
 
   #saveListToLocalStore() {
     localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(this.#list));
   }
 
+  // 2. 서버의 데이터와 동기화
   #updateListByLocalStorage() {
     const item = localStorage.getItem(STORAGE_KEY.restaurants);
     if (item) {

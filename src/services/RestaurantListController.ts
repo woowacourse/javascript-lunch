@@ -1,15 +1,16 @@
 import { STORAGE_KEY } from '../constants';
-import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
+import { RestaurantList } from '../domains';
 import { RestaurantInfo } from '../types';
 
 const RestaurantListController = {
+  // 사이트 초기에 실행 시, 서버 역할인 localStorage에 데이터를 채워 넣는다.
   saveInitialDataToLocalStorage() {
     const data = localStorage.getItem(STORAGE_KEY.restaurants);
 
     if (!data) {
       localStorage.setItem(
         STORAGE_KEY.restaurants,
-        JSON.stringify(INITIAL_RESTAURANT_DATA),
+        JSON.stringify(new RestaurantList().list),
       );
     }
   },

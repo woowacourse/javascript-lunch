@@ -1,5 +1,5 @@
 import './style.css';
-import { findStoreFromLocalStorage } from '../../utils';
+import { findRestaurant } from '../../utils';
 
 class RestaurantDistance extends HTMLElement {
   constructor() {
@@ -8,7 +8,7 @@ class RestaurantDistance extends HTMLElement {
 
   connectedCallback() {
     const storeName = this.getAttribute('store-name');
-    const store = findStoreFromLocalStorage(storeName);
+    const store = findRestaurant(storeName);
 
     if (store) {
       const $p = document.createElement('p');

@@ -1,5 +1,5 @@
 import './style.css';
-import { findStoreFromLocalStorage } from '../../utils';
+import { findRestaurant } from '../../utils';
 
 class RestaurantDescription extends HTMLElement {
   constructor() {
@@ -8,7 +8,7 @@ class RestaurantDescription extends HTMLElement {
 
   connectedCallback() {
     const storeName = this.getAttribute('store-name');
-    const store = findStoreFromLocalStorage(storeName);
+    const store = findRestaurant(storeName);
 
     const noneDescription = /* html */ `<span class="none-description">상점 설명이 존재하지 않습니다.</span>`;
 
