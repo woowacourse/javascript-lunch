@@ -16,7 +16,7 @@ describe('음식점 DB 서비스 테스트', () => {
     });
   });
 
-  it('새로운 음식점을 추가했을 때, 로컬 스토리지에 반영된다.', () => {
+  it('새로운 음식점을 추가했을 때, DB에 반영한다.', () => {
     const NEW_RESTAURANT: IRestaurant = {
       name: '친친',
       distance: 10,
@@ -27,14 +27,11 @@ describe('음식점 DB 서비스 테스트', () => {
 
     restaurantDBService.add(NEW_RESTAURANT);
 
-    expect(JSON.parse(localStorage.getItem(RESTAURANTS_DB_TEST_KEY) ?? '[]')).to.deep.equal([
-      NEW_RESTAURANT,
-    ]);
+    expect(restaurantDBService.get() ?? '[]').to.deep.equal([NEW_RESTAURANT]);
   });
 
-  it('get했을 때, 기존에 로컬스토리지에 있던 데이터를 가져온다.', () => {
+  it('get했을 때, DB로부터 데이터를 가져온다.', () => {
     const restaurantDBService = new RestaurantDBService();
-
     const RESTAURANT_FIRST: IRestaurant = {
       name: '꺼벙이 김밥',
       distance: 10,
