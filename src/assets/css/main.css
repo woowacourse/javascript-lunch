@@ -7,7 +7,6 @@ body {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  padding-bottom: 16px;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
@@ -25,14 +24,13 @@ body {
   height: 880px;
 }
 
-main,
 modal {
   height: inherit;
 }
 main {
   box-sizing: border-box;
   padding: 0 16px;
-  padding-top: 85px;
+  height: calc(100% - 85px);
 }
 
 .screen-read-only {
