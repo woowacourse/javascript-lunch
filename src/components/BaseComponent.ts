@@ -1,9 +1,11 @@
-type EventListener = (this: Element, event: Event) => void;
-
 class BaseComponent extends HTMLElement {
   connectedCallback() {
-    this.render();
-    this.setEvent();
+    try {
+      this.render();
+      this.setEvent();
+    } catch (err) {
+      console.error(err);
+    }
   }
   render() {}
   setEvent() {}

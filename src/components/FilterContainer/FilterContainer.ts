@@ -47,7 +47,7 @@ class FilterContainer extends BaseComponent {
       const $selectedSortCriteria = $<HTMLSelectElement>('#sorting-filter');
 
       const restaurantCollection = this.#restaurantDBService.update();
-      const newRestaurantList = restaurantCollection.filterAndSort(
+      const newRestaurantList = restaurantCollection.filterByCategoryAndSort(
         $selectedCategory.value as Category,
         $selectedSortCriteria.value as SortCriteria,
       );

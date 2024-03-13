@@ -18,7 +18,7 @@ class RestaurantCollection {
     );
   }
 
-  filterAndSort(category: AllAndCategory, sortCriteria: SortCriteria) {
+  filterByCategoryAndSort(category: AllAndCategory, sortCriteria: SortCriteria) {
     this.filterByCategory(category);
     this.sort(sortCriteria);
     return this.restaurantList;

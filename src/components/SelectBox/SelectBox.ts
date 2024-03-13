@@ -24,8 +24,8 @@ class SelectBox extends BaseComponent {
   }
 
   render() {
-    const selectTag = this.#makeSelectTag();
-    this.outerHTML = selectTag.outerHTML; // TODO: 임시방편인 outerHTML 없애도록.
+    const $selectTag = this.#makeSelectTag();
+    this.replaceWith($selectTag);
   }
 
   #makeSelectTag() {

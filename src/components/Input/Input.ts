@@ -28,7 +28,7 @@ class Input extends BaseComponent {
     $input.name = this.#inputName;
     if (this.#inputMax) $input.setAttribute('max', this.#inputMax);
 
-    this.outerHTML = $input.outerHTML;
+    this.replaceWith($input);
   }
 }
 
