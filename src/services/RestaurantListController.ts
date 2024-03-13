@@ -16,7 +16,7 @@ const RestaurantListController = {
   },
 
   injectRestaurantListHTML(restaurantList?: RestaurantInfo[]) {
-    const $list = document.querySelector('.restaurant-list');
+    const $list = document.querySelector('.restaurant-list ul');
 
     const restaurantListText = restaurantList
       ?.map(

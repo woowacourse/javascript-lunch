@@ -3,6 +3,6 @@ custom-modal {
   position: absolute;
   top: 0;
   left: 0;
-  width: inherit;
-  height: inherit;
 }
+/* 모달 오픈 시,   width: inherit;
+  height: inherit; 넣어주기*/

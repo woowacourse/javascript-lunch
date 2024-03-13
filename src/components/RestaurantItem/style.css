@@ -17,15 +17,10 @@
 }
 
 .restaurant-list {
+  box-sizing: border-box;
   margin-top: 20px;
-  height: 700px;
-  overflow-y: scroll;
-  -ms-overflow-style: none; /* IE와 Edge */
-  scrollbar-width: none; /* 파이어폭스 */
-}
-
-.restaurant-list::-webkit-scrollbar {
-  display: none;
+  height: 600px;
+  overflow-y: auto;
 }
 
 .restaurant-list #none-restaurant-category {
