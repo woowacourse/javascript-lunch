@@ -1,4 +1,3 @@
-import DetailModal from "../detail-modal/DetailModal";
 import FilterBar from "../filter-bar/FilterBar";
 import Header from "../header/Header";
 import Modal from "../modal/Modal";
@@ -11,7 +10,6 @@ function App() {
   Tabs();
   FilterBar();
   RestaurantListContainer();
-  DetailModal();
 }
 
 export default App;

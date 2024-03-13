@@ -1,6 +1,7 @@
 import restaurantListStateStore from "../../store/RestaurantListStateStore";
 import { Irestaurant } from "../../types/restaurant";
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
+import { clickRestaurantModal } from "../detail-modal/handlers";
 import likeChange from "../restaurant/like/handlers";
 import Restaurant from "../restaurant/Restaurant";
 
@@ -26,5 +27,6 @@ function RestaurantList() {
   render(filterData);
 
   likeChange();
+  clickRestaurantModal();
 }
 export default RestaurantList;

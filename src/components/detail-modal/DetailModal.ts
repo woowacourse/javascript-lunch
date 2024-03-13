@@ -1,12 +1,11 @@
+import { Irestaurant } from "../../types/restaurant";
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
 import detailModalTemplate from "./detailModalTemplate";
-import { clickRestaurantModal, dimmerClickHandler } from "./handlers";
 
-const DetailModal = () => {
-  document.body.appendChild(convertHTMLStringToDOM(detailModalTemplate));
-
-  clickRestaurantModal();
-  dimmerClickHandler();
+const DetailModal = (restaurant: Irestaurant) => {
+  document.body.appendChild(
+    convertHTMLStringToDOM(detailModalTemplate(restaurant)),
+  );
 };
 export default DetailModal;
