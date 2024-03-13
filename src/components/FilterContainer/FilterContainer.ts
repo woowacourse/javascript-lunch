@@ -42,13 +42,17 @@ class FilterContainer extends BaseComponent {
   }
 
   setEvent() {
-    this.addEventListener('change', (event) => {
+    this.addEventListener('change', () => {
       const $selectedCategory = $<HTMLSelectElement>('#category-filter');
       const $selectedSortCriteria = $<HTMLSelectElement>('#sorting-filter');
 
-      const colletion = (event as CustomEvent).detail?.collection || null;
-      const restaurantCollection = colletion || this.#restaurantDBService.update();
+      const restaurantCollection = this.#restaurantDBService.update();
 
+      const urlParams = new URLSearchParams(window.location.search);
+      //favorite일 떄 한번 필터링 해주기
+      if (urlParams.get('tab') === 'favorite') restaurantCollection.filterFavorites();
+
+      //무조건 sort 해주기
       const newRestaurantList = restaurantCollection.filterByCategoryAndSort(
         $selectedCategory.value as Category,
         $selectedSortCriteria.value as SortCriteria,

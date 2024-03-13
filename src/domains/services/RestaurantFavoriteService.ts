@@ -21,9 +21,9 @@ class RestaurantFavoriteService {
     const event = new CustomEvent('change', {
       bubbles: true,
       cancelable: true,
-      detail: {
-        collection: this.#restaurantCollection,
-      },
+      // detail: {
+      //   collection: this.#restaurantCollection,
+      // },
     });
     $('.restaurant-filter-container').dispatchEvent(event);
   }

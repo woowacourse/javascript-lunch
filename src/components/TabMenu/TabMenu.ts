@@ -53,19 +53,34 @@ class TabMenu extends BaseComponent {
   }
 
   setEvent() {
-    $<HTMLElement>('#favorite-tab').addEventListener('click', () => {
-      this.#restaurantAFavoriteService.showFavoriteRestaurants();
-    });
-    $<HTMLElement>('#all-tab').addEventListener('click', () => {
-      this.#restaurantAFavoriteService.rerenderByFilter();
-    });
+    this.#showAllTab();
+    this.#showFavoriteTab();
 
     $$('.tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         this.#selectedTabId = tab.id;
         this.updateSelectedTabStyles();
       });
-      tab.id === 'favorite' ? this.#restaurantAFavoriteService.showFavoriteRestaurants() : null;
+    });
+  }
+
+  #showFavoriteTab() {
+    $<HTMLElement>('#favorite-tab').addEventListener('click', () => {
+      //TODO: url 관련 함수 util로 분리
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set('tab', 'favorite');
+      window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+      this.#restaurantAFavoriteService.showFavoriteRestaurants();
+    });
+  }
+
+  #showAllTab() {
+    $<HTMLElement>('#all-tab').addEventListener('click', () => {
+      //TODO: url 관련 함수 util로 분리
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.delete('tab');
+      window.history.replaceState({}, '', `${window.location.pathname}${urlParams}`);
+      this.#restaurantAFavoriteService.rerenderByFilter();
     });
   }
 }
