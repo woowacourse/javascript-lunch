@@ -9,13 +9,20 @@ class Restaurant {
   private referenceUrl: string;
   private favorite: boolean;
 
-  constructor({ name, category, distanceByWalk, description = '', referenceUrl = '', favorite }: RestaurantDataType) {
+  constructor({
+    name,
+    category,
+    distanceByWalk,
+    description = '',
+    referenceUrl = '',
+    favorite = false,
+  }: RestaurantDataType) {
     this.name = name;
     this.category = category;
     this.distanceByWalk = distanceByWalk;
     this.description = description;
     this.referenceUrl = referenceUrl;
-    this.favorite = favorite ?? false;
+    this.favorite = favorite;
   }
 
   getName(): string {

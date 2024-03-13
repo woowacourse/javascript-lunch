@@ -13,15 +13,23 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  getRestaurants(sortOrder: SortOrder, category?: Category): RestaurantDataType[] {
-    const restaurants = category ? this.getRestaurantsByCategory(category) : this.restaurants;
-    const compareFunction = this.getCompareFunction(sortOrder);
-    const sortedRestaurants = this.getSortedRestaurants(restaurants, compareFunction);
-    return sortedRestaurants.map((restaurant) => restaurant.getData());
+  getRestaurants(sortOrder: SortOrder, category?: Category, isFavoriteList?: boolean): RestaurantDataType[] {
+    const restaurants = isFavoriteList ? this.getRestaurantsByFavorite() : this.restaurants;
+    const restaurantsByCategory = category ? this.getRestaurantsByCategory(restaurants, category) : restaurants;
+    const sortedRestaurantsByCategory = this.getSortedRestaurants(
+      restaurantsByCategory,
+      this.getCompareFunction(sortOrder),
+    );
+    return sortedRestaurantsByCategory.map((restaurant) => restaurant.getData());
   }
 
-  private getRestaurantsByCategory(category: Category) {
-    return this.restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
+  private getRestaurantsByFavorite() {
+    console.log(this.restaurants.filter((restaurant) => restaurant.isFavorite()));
+    return this.restaurants.filter((restaurant) => restaurant.isFavorite());
+  }
+
+  private getRestaurantsByCategory(restaurants: Restaurant[], category: Category) {
+    return restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
   }
 
   private getCompareFunction(sortOrder: SortOrder): CompareFunctionType {
@@ -70,6 +78,7 @@ class RestaurantService {
         distanceByWalk: restaurant.distanceByWalk as DistanceByWalk,
         description: restaurant.description,
         referenceUrl: restaurant.referenceUrl,
+        favorite: restaurant.favorite,
       };
       return restaurantObject;
     });
