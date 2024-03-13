@@ -1,5 +1,6 @@
 import LunchPickerApp from './components/LunchPickerApp';
 import LunchPickerHeader from './components/LunchPickerHeader';
+import LunchPickerTab from './components/LunchPickerTab';
 import FilterBox from './components/FilterBox';
 import RestaurantList from './components/RestaurantList';
 import RestaurantItem from './components/RestaurantItem';
@@ -11,6 +12,7 @@ import './styles/style.css';
 
 customElements.define('lunch-picker-app', LunchPickerApp);
 customElements.define('lunch-picker-header', LunchPickerHeader);
+customElements.define('lunch-picker-tab', LunchPickerTab);
 customElements.define('restaurant-list', RestaurantList);
 customElements.define('restaurant-item', RestaurantItem);
 customElements.define('restaurant-add-modal', RestaurantAddModal);

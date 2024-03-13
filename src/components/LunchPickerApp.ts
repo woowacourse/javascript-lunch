@@ -22,6 +22,7 @@ class LunchPickerApp extends Component {
   template() {
     return `
       <lunch-picker-header></lunch-picker-header>
+      <lunch-picker-tab></lunch-picker-tab>
       <section class="restaurant-filter-container">
           <filter-box type="category"></filter-box>
           <filter-box type="sorting"></filter-box>

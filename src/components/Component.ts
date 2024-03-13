@@ -36,6 +36,16 @@ class Component extends HTMLElement {
     return element;
   }
 
+  $$(selector: string) {
+    const element = this.querySelectorAll(selector);
+
+    if (!element) {
+      throw new Error('[ERROR]');
+    }
+
+    return element;
+  }
+
   $setAttribute(selector: string, key: string, value: string) {
     const element = document.querySelector(selector);
 
