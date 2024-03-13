@@ -19,6 +19,7 @@ body {
 :root {
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
+  --error-color: #ff0000;
   --grey-100: #ffffff;
   --grey-200: #d0d5dd;
   --grey-300: #667085;
@@ -127,6 +128,8 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  min-height: 7rem;
 }
 
 .restaurant__category {
@@ -172,6 +175,7 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -194,14 +198,20 @@ body {
 }
 
 .modal-container {
+  width: 100%;
+  padding: 32px 16px;
   position: fixed;
   bottom: 0;
-  width: 100%;
 
-  padding: 32px 16px;
-
+  max-height: 80%;
+  overflow-y: scroll;
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+}
+
+.stop-scroll {
+  height: 100%;
+  overflow: hidden;
 }
 
 .modal-title {
@@ -295,4 +305,12 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.error-message {
+  color: var(--error-color);
 }
