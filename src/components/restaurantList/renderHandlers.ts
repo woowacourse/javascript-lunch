@@ -11,7 +11,7 @@ const renderRestaurantList = (filterData: RestaurantState[]) => {
   const ul = document.getElementsByClassName('restaurant-list')[0];
   resetPrevRestaurantList(ul);
   const fragment = document.createDocumentFragment();
-  filterData.forEach((restaurant) => {
+  filterData.map((restaurant) => {
     fragment.appendChild(RestaurantListItem(restaurant));
   });
 
