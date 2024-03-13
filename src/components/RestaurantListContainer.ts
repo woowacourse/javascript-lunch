@@ -11,7 +11,7 @@ interface IRestaurantListContainer {
 interface IProps {
   kind: 'all' | 'favorite';
   restaurantList: RestaurantList;
-  createHomeDropdown: (restaurantList: RestaurantList) => void;
+  renderHomeDropdown: (restaurantList: RestaurantList) => void;
 }
 class RestaurantListContainer extends Component<IProps> {
   constructor({ $target, props }: IRestaurantListContainer) {
@@ -20,9 +20,9 @@ class RestaurantListContainer extends Component<IProps> {
 
   render() {
     if (this.props.kind === 'all') {
-      const { restaurantList, createHomeDropdown } = this.props;
+      const { restaurantList, renderHomeDropdown } = this.props;
       this.renderAllRestaurants(restaurantList);
-      createHomeDropdown(restaurantList);
+      renderHomeDropdown(restaurantList);
     }
   }
 
