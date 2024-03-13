@@ -13,27 +13,28 @@ export const dimmerClickHandler = () => {
   });
 };
 
-const generateDetailModal = (restaurant: Element) => {
+const generateDetailModal = (id: string) => {
   DetailModal(
     restaurantListService.getListItemById(
-      Number(restaurant.id),
+      Number(id),
       restaurantListStateStore.getListData(),
     ) as Irestaurant,
   );
 };
 
 const detailModalOpenHandler = (restaurant: Element) => {
-  restaurant.addEventListener("click", () => {
-    generateDetailModal(restaurant);
+  restaurant.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    const restaurantElement = target.closest(".restaurant") as HTMLElement;
+    generateDetailModal(restaurantElement.id);
+
     dimmerClickHandler();
   });
 };
 
 export const clickRestaurantModal = () => {
-  document.addEventListener("DOMContentLoaded", () => {
-    const restaurants = document.querySelectorAll(".restaurant__info");
-    restaurants.forEach((restaurant) => {
-      detailModalOpenHandler(restaurant);
-    });
+  const restaurants = document.querySelectorAll(".restaurant__info");
+  restaurants.forEach((restaurant) => {
+    detailModalOpenHandler(restaurant);
   });
 };

@@ -1,5 +1,4 @@
 export const CATEGORIES = {
-  // ALL: "전체",
   KOREAN: "한식",
   CHINESE: "중식",
   JAPANESE: "일식",
