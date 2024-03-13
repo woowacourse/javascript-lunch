@@ -10,6 +10,10 @@ class Restaurant {
   isMatchedCategory(category: string): boolean {
     return this.information.category === category;
   }
+
+  isMatchedFavorite(): boolean {
+    return this.information.favorite;
+  }
 }
 
 export default Restaurant;
