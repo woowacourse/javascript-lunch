@@ -103,7 +103,7 @@ export function ModalComponent() {
 
             <div class="button-container">
               <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
-              <button id="submitButton" class="button button--primary text-caption">추가하기</button>
+              <button id="submitButton" class="button button--primary text-caption" disabled>추가하기</button>
             </div>
           </form>
         </div>
@@ -120,11 +120,12 @@ export function ModalComponent() {
 
     const addButton = document.querySelector('#submitButton') as HTMLButtonElement;
     addButton.addEventListener('click', (event) => {
-      console.log(addButton.disabled);
       if (addButton.disabled) {
+        addButton.classList.remove('button--primary');
         event.preventDefault();
         return;
       }
+      addButton.classList.add('button--primary');
       getValue();
     });
   };
@@ -148,7 +149,6 @@ export function ModalComponent() {
   };
 
   const checkRequiredFields = () => {
-    console.log('체크');
     const categoryValue = (document.getElementById('category') as HTMLSelectElement).value;
     const nameValue = (document.getElementById('name') as HTMLInputElement).value;
     const distanceValue = (document.getElementById('distance') as HTMLSelectElement).value;

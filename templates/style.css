@@ -306,3 +306,8 @@ input[name='link'] {
 
   color: var(--grey-100);
 }
+
+button:disabled {
+  background-color: var(--grey-200);
+  cursor: not-allowed;
+}
