@@ -67,3 +67,8 @@
   - 음식점 정보를 담긴 컴포넌트
 - RestaurantFormModalInner
   - 음식점 추가 modal의 내부 form
+- RestaurantInfoModalInner
+  - 클릭한 음식점 정보를 띄우는 modal의 내부
+  - 삭제하기 버튼 클릭시, 해당 데이터 삭제
+- StarBtn
+  - like(좋아요) 데이터 추가 및 삭제하는 버튼

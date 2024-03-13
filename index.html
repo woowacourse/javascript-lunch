@@ -24,6 +24,10 @@
       </header>
       <main>
         <section class="restaurant-list-container">
+          <div class="tap-btn-group">
+            <div class="tap-btn-group__btn click">모든 음식점</div>
+            <div class="tap-btn-group__btn">자주 가는 음식점</div>
+          </div>
           <div class="drop-box-group">
             <drop-box name="filteringCategory"></drop-box>
             <drop-box name="filteringSorting"></drop-box>
@@ -36,10 +40,9 @@
       즐겨찾기 목록
     </section> -->
       </main>
+
       <custom-modal>
-        <div slot="child">
-          <restaurant-form-inner></restaurant-form-inner>
-        </div>
+        <div slot="child"></div>
       </custom-modal>
     </div>
   </body>

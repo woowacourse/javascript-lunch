@@ -1,5 +1,6 @@
 @import './style-constants.css';
 @import './topbar.css';
+@import url('../components/TapBtn/style.css');
 
 body {
   box-sizing: border-box;
@@ -23,8 +24,10 @@ body {
 }
 
 main {
+  box-sizing: border-box;
   padding: 0 16px;
   padding-top: 80px;
+  width: inherit;
 }
 
 .screen-read-only {
@@ -36,5 +39,9 @@ main {
 .drop-box-group {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  margin-top: 98px;
+}
+
+.restaurant-list-container {
+  width: 100%;
 }
