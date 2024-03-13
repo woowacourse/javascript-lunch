@@ -16,20 +16,20 @@ export type InvalidResult = {
 
 export interface RestaurantState {
   id: number;
-  category: Icategory;
+  category: Category;
   name: string;
-  distance: Idistance;
+  distance: Distance;
   description?: string;
   link?: string;
   isFavorited: boolean;
 }
 
 export interface RestaurantHelperFunction {
-  sortByName: (restaurantList: Irestaurant[]) => Irestaurant[];
+  sortByName: (restaurantList: RestaurantState[]) => RestaurantState[];
 
-  sortByDistance: (restaurantList: Irestaurant[]) => Irestaurant[];
+  sortByDistance: (restaurantList: RestaurantState[]) => RestaurantState[];
 
-  filterByCategory: (category: Icategory, restaurantList: Irestaurant[]) => Irestaurant[];
+  filterByCategory: (category: Category, restaurantList: RestaurantState[]) => RestaurantState[];
 }
 
 export interface CategoryInfo {
