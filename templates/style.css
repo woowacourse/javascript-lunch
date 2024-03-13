@@ -129,6 +129,11 @@ body {
   border-bottom: 1px solid #e9eaed;
 }
 
+.restaurant__header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .restaurant__category {
   display: flex;
   justify-content: center;
@@ -147,6 +152,11 @@ body {
 .category-icon {
   width: 36px;
   height: 36px;
+}
+
+.favorite-icon {
+  width: 32px;
+  height: 32px;
 }
 
 .restaurant__info {
@@ -295,4 +305,37 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 목록 탭 *****************************************/
+.restaurant-list-tab-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+
+  padding: 0 16px;
+  margin-top: 24px;
+}
+
+.restaurant-list-tab {
+  width: 50%;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 48px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  border-bottom: 2px solid #d0d5dd;
+  color: #667085;
+}
+
+.restaurant-list-tab__active {
+  border-bottom: 2px solid #ec4a0a;
+  color: #ec4a0a;
+}
+
+/* 음식점 상세 모달 *****************************************/
+.restaurant__modal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
