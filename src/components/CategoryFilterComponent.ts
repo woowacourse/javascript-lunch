@@ -11,7 +11,6 @@ export default class CategoryFilterComponent extends FilterComponent {
     const selectElement = node.querySelector('#category-filter') as HTMLSelectElement;
     selectElement.addEventListener('change', () => {
       const selectedCategory = selectElement.value as CategoryValues;
-      console.log('selectedCategory', selectedCategory);
       restaurantList.setCategory(selectedCategory);
     });
   }

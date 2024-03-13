@@ -18,7 +18,7 @@ export function ModalComponent() {
               FormItemComponent({
                 labelText: '카테고리',
                 label: 'category',
-                children: SelectComponent({
+                children: new SelectComponent({
                   name: 'category',
                   id: 'category',
                   required: true,
@@ -54,7 +54,7 @@ export function ModalComponent() {
               FormItemComponent({
                 labelText: '거리(도보 이동 시간)',
                 label: 'distance',
-                children: SelectComponent({
+                children: new SelectComponent({
                   name: 'distance',
                   id: 'distance',
                   required: true,
@@ -108,7 +108,6 @@ export function ModalComponent() {
     `;
 
     const node = template.content;
-    console.log('아좀!!', node);
     return node;
   };
 

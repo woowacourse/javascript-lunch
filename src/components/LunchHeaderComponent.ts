@@ -1,4 +1,3 @@
-import { $ } from '../util/dom';
 import { AddButtonComponent } from './AddButtonComponent';
 
 export function LunchHeaderComponent() {

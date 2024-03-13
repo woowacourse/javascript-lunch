@@ -1,5 +1,4 @@
 import { RestaurantInfo } from '../types/types';
-import { $ } from '../util/dom';
 import { CategoryIconComponent } from './CategoryIconComponent';
 
 export function RestaurantCardComponent() {
