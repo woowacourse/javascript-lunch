@@ -13,6 +13,10 @@ import RESTAURANT_LIST_ITEM_DESCRIPTION_COMPONENT_DATA from './componentsData/Re
 import RESTAURANT_LIST_ITEM_HEADING_COMPONENT_DATA from './componentsData/RestaurantListItemHeadingComponentData';
 import RESTAURANT_LIST_ITEM_IMAGE_COMPONENT_DATA from './componentsData/RestaurantListItemImageComponentData';
 import RESTAURANT_LIST_ITEM_SPAN_COMPONENT_DATA from './componentsData/RestaurantListItemSpanComponentData';
+import RESTAURANT_LIST_ITEM_IS_FAVORITED_COMPONENT_DATA from './componentsData/RestaurantListItemIsFavoritedComponentData';
+import RESTAURANT_LIST_ITEM_IMAGE_AND_INFO_CONTAINER from './componentsData/RestaurantListItemImageAndInfoContainer';
+import RESTAURANT_LIST_ITEM_IS_FAVORITED_CONTAINER_COMPONENT_DATA from './componentsData/RestaurantListItemIsFavoritedCotainerComponentData';
+import { getMatchedCategoryInfo } from './matchCategoryImage';
 
 const generateImageComponentData = (categoryInfo: CategoryInfo) => {
   const componentData = {
@@ -52,6 +56,16 @@ const generateDescriptionComponentData = (textContent?: string) => {
   return componentData;
 };
 
+const generateIsFavoritedComponentData = (isFavorited: boolean) => {
+  const componentData = {
+    ...RESTAURANT_LIST_ITEM_IS_FAVORITED_COMPONENT_DATA,
+    TAG_ALT: RESTAURANT_LIST_ITEM_IS_FAVORITED_COMPONENT_DATA.TAG_ALT(isFavorited),
+    TAG_SRC: RESTAURANT_LIST_ITEM_IS_FAVORITED_COMPONENT_DATA.TAG_SRC(isFavorited),
+  };
+
+  return componentData;
+};
+
 const generateRestaurantListItemImageComponent = (categoryInfo: CategoryInfo) => {
   const restaurantImageContainer = generateContainerComponent(RESTAURANT_LIST_ITEM_CONTAINER_COMPONENT_DATA);
   const imageComponentData = generateImageComponentData(categoryInfo);
@@ -76,6 +90,11 @@ const createDescriptionComponent = (description: string) => {
   return generatePComponent(descriptionComponentData);
 };
 
+const createIsFavoriteImageComponent = (isFavorited: boolean) => {
+  const isFavoritedComponentData = generateIsFavoritedComponentData(isFavorited);
+  return generateImageComponent(isFavoritedComponentData);
+};
+
 const generateRestaurantListItemInfoComponent = (restaurant: RestaurantState) => {
   const restaurantInfoContainer = generateContainerComponent(RESTAURANT_INFO_CONTAINER_COMPONENT_DATA);
   const restaurantInfoTitleComponent = createTitleComponent(restaurant.name);
@@ -87,14 +106,24 @@ const generateRestaurantListItemInfoComponent = (restaurant: RestaurantState) =>
   return restaurantInfoContainer;
 };
 
-const generateRestaurantListItemComponent = (restaurant: RestaurantState, categoryInfo: CategoryInfo) => {
+const generateRestaurantListItemComponent = (restaurant: RestaurantState) => {
+  const matchedCategoryInfo = getMatchedCategoryInfo(restaurant);
   const listComponent = generateListComponent(RESTAURANT_LIST_ITEM_COMPONENT_DATA);
-  const fragment = document.createDocumentFragment();
-  const restaurantListItemImageComponent = generateRestaurantListItemImageComponent(categoryInfo);
+  const infoAndImageContainerComponent = generateContainerComponent(RESTAURANT_LIST_ITEM_IMAGE_AND_INFO_CONTAINER);
+
+  const restaurantListItemImageComponent = generateRestaurantListItemImageComponent(matchedCategoryInfo);
   const restaurantListItemInfoComponent = generateRestaurantListItemInfoComponent(restaurant);
-  fragment.appendChild(restaurantListItemImageComponent);
-  fragment.appendChild(restaurantListItemInfoComponent);
-  listComponent.appendChild(fragment);
+  infoAndImageContainerComponent.appendChild(restaurantListItemImageComponent);
+  infoAndImageContainerComponent.appendChild(restaurantListItemInfoComponent);
+  const isFavoritedImageContainerComponent = generateContainerComponent(
+    RESTAURANT_LIST_ITEM_IS_FAVORITED_CONTAINER_COMPONENT_DATA,
+  );
+  const restaurantListItemisFavoritedImageComponent = createIsFavoriteImageComponent(restaurant.isFavorited);
+  isFavoritedImageContainerComponent.appendChild(restaurantListItemisFavoritedImageComponent);
+
+  listComponent.appendChild(infoAndImageContainerComponent);
+  listComponent.appendChild(isFavoritedImageContainerComponent);
+  listComponent.dataset.id = String(restaurant.id);
   return listComponent;
 };
 

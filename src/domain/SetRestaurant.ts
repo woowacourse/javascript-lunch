@@ -7,5 +7,6 @@ export default function setRestaurant(restaurant: RestaurantState) {
     distance: restaurant.distance,
     description: restaurant.description,
     link: restaurant.link,
+    isFavoirted: false,
   };
 }

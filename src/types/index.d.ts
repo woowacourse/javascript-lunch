@@ -15,11 +15,13 @@ export type InvalidResult = {
 };
 
 export interface RestaurantState {
+  id: number;
   category: Icategory;
   name: string;
   distance: Idistance;
   description?: string;
   link?: string;
+  isFavorited: boolean;
 }
 
 export interface RestaurantHelperFunction {

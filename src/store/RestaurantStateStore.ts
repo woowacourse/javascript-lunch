@@ -3,20 +3,24 @@ import { Category, Distance, RestaurantState } from '../types';
 
 class RestaurantStateStore {
   #restaurantState: Partial<RestaurantState> = {
+    id: undefined,
     category: undefined,
     name: undefined,
     distance: undefined,
     description: undefined,
     link: undefined,
+    isFavorited: false,
   };
 
   resetState() {
     this.#restaurantState = {
+      id: undefined,
       category: undefined,
       name: undefined,
       distance: undefined,
       description: undefined,
       link: undefined,
+      isFavorited: false,
     };
   }
 
