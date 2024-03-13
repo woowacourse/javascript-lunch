@@ -1,25 +1,22 @@
+// styles
+import './App.css';
+
 // events
-import { SELECT_EVENTS } from './Select/Select';
 import { RESTAURANT_FORM_EVENTS } from './RestaurantForm/RestaurantForm';
+import { RESTAURANT_FILTERS_EVENTS } from './RestaurantFilters/RestaurantFilters';
 
 // domain
 import RestaurantManager from '../domain/RestaurantManager';
 
-// styles
-import './App.css';
-
 export default class App {
-  #categoryFilter;
-
-  #sortingFilter;
+  #restaurantFilters;
 
   #restaurantList;
 
   #restaurantManger;
 
   constructor() {
-    this.#categoryFilter = document.querySelector('#category-filter');
-    this.#sortingFilter = document.querySelector('#sorting-filter');
+    this.#restaurantFilters = document.querySelector('app-restaurant-filters');
     this.#restaurantList = document.querySelector('#restaurant-list');
     this.#restaurantManger = new RestaurantManager();
   }
@@ -30,6 +27,25 @@ export default class App {
 
     this.#addRestaurantSubmitEventListener();
     this.#addFilterOnchangeEventListenr();
+  }
+
+  #addRestaurantSubmitEventListener() {
+    document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
+      const { formData } = e.detail;
+
+      this.#updateLocalStorage(formData);
+      this.#syncLocalStorageAndDomain();
+      this.#restaurantFilters.categoryFilter = formData.category;
+      this.#updateRestaurantList(this.#restaurantFilters.categoryFilter, this.#restaurantFilters.sortingFilter);
+    });
+  }
+
+  #addFilterOnchangeEventListenr() {
+    document.addEventListener(RESTAURANT_FILTERS_EVENTS.filterChange, (e) => {
+      const { categoryFilter, sortingFilter } = e.detail;
+      this.#syncLocalStorageAndDomain();
+      this.#updateRestaurantList(categoryFilter, sortingFilter);
+    });
   }
 
   #syncLocalStorageAndDomain() {
@@ -50,23 +66,5 @@ export default class App {
   #updateRestaurantList(category, option) {
     const result = this.#restaurantManger.filteredAndSortedByOptions(category, option);
     this.#restaurantList.restaurants = result;
-  }
-
-  #addRestaurantSubmitEventListener() {
-    document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
-      const { formData } = e.detail;
-
-      this.#updateLocalStorage(formData);
-      this.#syncLocalStorageAndDomain();
-      this.#updateRestaurantList(formData.category, this.#sortingFilter.value);
-      this.#categoryFilter.value = formData.category;
-    });
-  }
-
-  #addFilterOnchangeEventListenr() {
-    document.querySelector('.restaurant-filter-container').addEventListener(SELECT_EVENTS.onchange, () => {
-      this.#syncLocalStorageAndDomain();
-      this.#updateRestaurantList(this.#categoryFilter.value, this.#sortingFilter.value);
-    });
   }
 }

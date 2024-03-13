@@ -33,8 +33,9 @@
 ### 컴포넌트 + 기능
 
 - [x] App
-  - [x] categoryFilter, sortingFilter, restaurantList를 참조한다.
-  - [ ] (변경)FilterBox, BookmarkTab을 참조한다
+  - [x] restaurantList를 참조한다.
+  - [x] FilterBox를 참조한다.
+  - [ ] BookmarkTab을 참조한다
   - [x] RestaurantManager 도메인을 참조한다.
   - [x] localStorage와 RestaurantManager 사이의 데이터를 동기화한다.
   - [x] RestaurantManager에서 받은 데이터를 restaurantList에 전달한다.

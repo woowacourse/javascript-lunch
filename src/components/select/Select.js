@@ -21,6 +21,7 @@ export default class Select extends HTMLSelectElement {
     this.#createOptions();
   }
 
+  // 함수 라인 10줄 에러 off
   // eslint-disable-next-line
   #handleOnChange(e) {
     const { value } = e.target;

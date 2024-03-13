@@ -17,6 +17,28 @@
       </header>
     </template>
 
+    <template id="template-restaurant-filter-container">
+      <section class="restaurant-filter-container">
+        <!-- 카테고리 셀렉트 박스 -->
+        <select
+          is="app-select"
+          name="category"
+          id="category-filter"
+          class="restaurant-filter"
+          type="categoryFilters"
+        ></select>
+
+        <!-- 정렬 셀렉트 박스 -->
+        <select
+          is="app-select"
+          name="sorting"
+          id="sorting-filter"
+          class="restaurant-filter"
+          type="sortingFilters"
+        ></select>
+      </section>
+    </template>
+
     <template id="template-restaurant-form">
       <div class="input-container">
         <!-- 카테고리 -->
@@ -115,25 +137,8 @@
     <!-- GNB -->
     <app-gnb></app-gnb>
 
-    <section class="restaurant-filter-container">
-      <!-- 카테고리 셀렉트 박스 -->
-      <select
-        is="app-select"
-        name="category"
-        id="category-filter"
-        class="restaurant-filter"
-        type="categoryFilters"
-      ></select>
-
-      <!-- 정렬 셀렉트 박스 -->
-      <select
-        is="app-select"
-        name="sorting"
-        id="sorting-filter"
-        class="restaurant-filter"
-        type="sortingFilters"
-      ></select>
-    </section>
+    <!-- 음식점 필터 -->
+    <app-restaurant-filters></app-restaurant-filters>
 
     <!-- 음식점 목록 -->
     <section class="restaurant-list-container">
