@@ -3,7 +3,7 @@ import { STORAGE_KEY, MESSAGE } from './../../src/constants';
 describe('template spec', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/');
-    cy.get('add-store-btn').click();
+    cy.get('add-store-btn').click({ force: true });
   });
 
   describe('음식점 폼 입력 시 추가하기 버튼 활성화', () => {
@@ -74,13 +74,13 @@ describe('template spec', () => {
       });
 
       //모달 닫힘
-      cy.get('restaurant-form-inner').should('not.be.visible');
+      cy.get('#modal-container-child').children().should('not.exist');
     });
 
     it('음식점을 추가를 취소하는 버튼을 클릭하면 모달이 닫힌다.', () => {
       cy.get('.btn-color-white').click();
 
-      cy.get('restaurant-form-inner').should('not.be.visible');
+      cy.get('#modal-container-child').children().should('not.exist');
     });
   });
 });
