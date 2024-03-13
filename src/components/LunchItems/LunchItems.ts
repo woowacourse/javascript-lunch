@@ -1,9 +1,9 @@
 import './style.css';
-import '../LunchItem/LunchItem';
+import LunchItem from '../LunchItem/LunchItem';
 
 import { RestaurantDataProvider } from '../../domain/index';
 
-import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
+import { Category, Restaurants, SortBy } from '../../types/index';
 
 export interface FilterProps {
   category?: Category;
@@ -16,12 +16,6 @@ const LUNCH_ITEMS = `
     </ul>
   </section>
 `;
-
-const LUNCH_ITEM = (restaurant: Restaurant) => `
-  <lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance
-  }" description="${restaurant.description ?? ''}"></lunch-item>
-`;
-
 class LunchItems extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -33,14 +27,11 @@ class LunchItems extends HTMLElement {
   }
 
   renderItems(props: FilterProps): void {
-    const itemHTMLs: string[] = [];
+    const container = this.querySelector('.restaurant-list');
+    container?.childNodes.forEach((child) => child.remove());
     this.getRestaurants(props).forEach((restaurant) => {
-      itemHTMLs.push(LUNCH_ITEM(restaurant));
+      container?.insertAdjacentElement('beforebegin', new LunchItem(restaurant));
     });
-    const itemsHTML = this.querySelector('.restaurant-list');
-    if (itemsHTML) {
-      itemsHTML.innerHTML = itemHTMLs.join('');
-    }
   }
 
   getRestaurants(props: FilterProps): Restaurants {
