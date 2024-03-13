@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -118,14 +118,33 @@
         <img src="" alt="" class="category-icon" />
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle"></h3>
-        <span class="restaurant__distance text-body"></span>
+        <div class="restaurant__header">
+          <div>
+            <h3 class="restaurant__name text-subtitle"></h3>
+            <span class="restaurant__distance text-body"></span>
+          </div>
+          <button type="button" class="restaurant__favorite-button" aria-label="즐겨찾기">
+            <img src="./favorite-icon-lined.png" alt="즐겨찾기" />
+          </button>
+        </div>
         <p class="restaurant__description text-body"></p>
       </div>
     </template>
 
     <!-- GNB -->
     <app-gnb></app-gnb>
+
+    <!-- 메뉴 탭 바 -->
+    <section>
+      <ul class="tab text-title">
+        <li class="tab__item active">
+          <a href="#tab1">모든 음식점</a>
+        </li>
+        <li class="tab__item">
+          <a href="#tab2">자주 가는 음식점</a>
+        </li>
+      </ul>
+    </section>
 
     <section class="restaurant-filter-container">
       <select

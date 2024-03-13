@@ -14,6 +14,7 @@ import './view/styles/Modal.css';
 import './view/styles/Select.css';
 import './view/styles/RestaurantForm.css';
 import './view/styles/RestaurantList.css';
+import './view/styles/Tab.css';
 
 // imgs
 import './view/imgs/add-button.png';
@@ -23,6 +24,8 @@ import './view/imgs/category-chinese.png';
 import './view/imgs/category-japanese.png';
 import './view/imgs/category-western.png';
 import './view/imgs/category-etc.png';
+import './view/imgs/favorite-icon-filled.png';
+import './view/imgs/favorite-icon-lined.png';
 
 window.customElements.define('app-gnb', GNB);
 window.customElements.define('app-modal', Modal);
