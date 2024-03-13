@@ -1,6 +1,5 @@
 import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
-import { $addEvent, $setAttribute } from '../utils/dom';
 
 class RestaurantItem extends Component {
   #key: number;
@@ -14,10 +13,10 @@ class RestaurantItem extends Component {
   }
 
   setEvent(): void {
-    $addEvent('.restaurant', 'click', this.#openModal);
+    this.$addEvent('.restaurant__name', 'click', (event) => console.log(event.target));
   }
 
-  #openModal = () => $setAttribute('restaurant-detail-modal', 'open', 'true');
+  #openModal = () => this.$setAttribute('restaurant-detail-modal', 'open', 'true');
 
   template() {
     return `
@@ -29,8 +28,9 @@ class RestaurantItem extends Component {
           <p class="restaurant__description text-body">
             ${this.#restaurant.description || ''}
           </p>
-      </div>
+        </div>
       </li>
+      <restaurant-detail-modal open="false" key=${this.#key}></restaurant-detail-modal>
     `;
   }
 }

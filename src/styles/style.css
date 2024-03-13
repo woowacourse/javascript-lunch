@@ -172,6 +172,26 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.restaurant-detail-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.favorite__button {
+  position: absolute;
+  right: 0;
+
+  height: 32px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  cursor: pointer;
+}
+
 /* 음식점 추가 모달 *****************************************/
 .modal {
   display: none;

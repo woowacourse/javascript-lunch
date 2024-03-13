@@ -1,23 +1,22 @@
 import Component from './Component';
-import { $, $addEvent, $removeEvent, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
   setEvent() {
-    $addEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
-    $addEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
+    this.$addEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
+    this.$addEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   removeEvent() {
-    $removeEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
-    $removeEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
+    this.$removeEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
+    this.$removeEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   #updateRestaurantList = () => {
-    const category = ($('.category') as HTMLSelectElement).value || '전체';
-    const sorting = ($('.sorting') as HTMLSelectElement).value || '이름순';
+    const category = (this.$('.category') as HTMLSelectElement).value || '전체';
+    const sorting = (this.$('.sorting') as HTMLSelectElement).value || '이름순';
 
-    $setAttribute('restaurant-list', 'category', `${category}`);
-    $setAttribute('restaurant-list', 'sorting', `${sorting}`);
+    this.$setAttribute('restaurant-list', 'category', `${category}`);
+    this.$setAttribute('restaurant-list', 'sorting', `${sorting}`);
   };
 
   template() {
