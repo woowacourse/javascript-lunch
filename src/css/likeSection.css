@@ -1,11 +1,21 @@
-.restaurant-like-section {
+.restaurant-like-container {
   display: flex;
   justify-content: space-between;
   padding: 0 16px;
   margin-top: 24px;
 }
 
-.restaurant-like-section > option {
+button {
+  background: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.restaurant-like-container > button {
   width: 50%;
   text-align: center;
   font-size: 16px;
