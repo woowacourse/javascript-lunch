@@ -1,0 +1,22 @@
+.select {
+  height: 44px;
+
+  padding: 8px;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 1rem;
+}
+
+.restaurant-filter {
+  min-width: 125px;
+
+  background: transparent;
+}
+
+.form-select {
+  color: var(--grey-300);
+
+  margin: 6px 0;
+}
