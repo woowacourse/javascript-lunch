@@ -87,6 +87,40 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* Tab */
+.tab {
+  width: 95vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 auto;
+  padding-top: 40px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--grey-300);
+}
+
+.tab-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 50%;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--grey-200);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+
+.tab-item:hover {
+  color: var(--primary-color);
+}
+
+.active-tab {
+  border-color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
