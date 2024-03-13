@@ -1,6 +1,6 @@
 import './Modal.css';
 
-import { RESTAURANT_FORM_EVENTS } from './RestaurantForm';
+import { RESTAURANT_FORM_EVENTS } from '../restaurantForm/RestaurantForm';
 
 export default class Modal extends HTMLElement {
   #shadowRoot;

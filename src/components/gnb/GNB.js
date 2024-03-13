@@ -1,6 +1,6 @@
 import './GNB.css';
 
-import '../statics/imgs/add-button.png';
+import '../../statics/imgs/add-button.png';
 
 export default class GNB extends HTMLElement {
   constructor() {

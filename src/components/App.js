@@ -1,6 +1,6 @@
 // events
-import { SELECT_EVENTS } from './Select';
-import { RESTAURANT_FORM_EVENTS } from './RestaurantForm';
+import { SELECT_EVENTS } from './select/Select';
+import { RESTAURANT_FORM_EVENTS } from './restaurantForm/RestaurantForm';
 
 // domain
 import RestaurantManager from '../domain/RestaurantManager';

@@ -1,11 +1,11 @@
 import './RestaurantItem.css';
 
-import koreanIcon from '../statics/imgs/category-korean.png';
-import chineseIcon from '../statics/imgs/category-chinese.png';
-import japaneseIcon from '../statics/imgs/category-japanese.png';
-import westernIcon from '../statics/imgs/category-western.png';
-import asianIcon from '../statics/imgs/category-asian.png';
-import etcIcon from '../statics/imgs/category-etc.png';
+import koreanIcon from '../../statics/imgs/category-korean.png';
+import chineseIcon from '../../statics/imgs/category-chinese.png';
+import japaneseIcon from '../../statics/imgs/category-japanese.png';
+import westernIcon from '../../statics/imgs/category-western.png';
+import asianIcon from '../../statics/imgs/category-asian.png';
+import etcIcon from '../../statics/imgs/category-etc.png';
 
 export default class RestaurantItem extends HTMLLIElement {
   constructor() {

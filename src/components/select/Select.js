@@ -1,4 +1,5 @@
-import SELECT_OPTIONS from '../statics/constants/selectOptions';
+import SELECT_OPTIONS from '../../statics/constants/selectOptions';
+
 import './Select.css';
 
 export const SELECT_EVENTS = {
