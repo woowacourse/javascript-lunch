@@ -32,7 +32,7 @@
 - [x] 실제 DOM 요소와 필드의 레스토랑을 비교하면서 렌더링하기
 - [x] like-section 추가하기.
   - [x] RestaurantsCards 어트리뷰트 변경.
-  - [ ] LikeSection CSS 색상 변경
+  - [x] LikeSection CSS 색상 변경
 - [ ] 자주가는 식당을 표시하는 attribute 속성을 RestaurantCard에 추가한다.
 - [ ] 버튼을 컴포넌트화 한다.
 - [ ] 상세 정보 모달 만들기

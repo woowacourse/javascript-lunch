@@ -7,6 +7,20 @@ function changeRestaurantsCardsAttribute(newAttribute) {
   restaurantCards.setAttribute('data-like', newAttribute);
 }
 
+function changeLikeSectionColor(value, section) {
+  for (let i = 0; i < section.children.length; i += 1) {
+    const currentElement = section.children[i];
+    if (currentElement.value === value) {
+      currentElement.classList.remove('like-section-normal');
+      currentElement.classList.add('like-section-highlight');
+    }
+    if (currentElement.value !== value) {
+      currentElement.classList.add('like-section-normal');
+      currentElement.classList.remove('like-section-highlight');
+    }
+  }
+}
+
 function handleClickLikeButton(e) {
   const clickedElement = e.target;
   const TEST_BTN_SELECTOR = 'button';
@@ -15,6 +29,7 @@ function handleClickLikeButton(e) {
     // TODO: RestaurantsCards 어트리뷰트 변경.
     changeRestaurantsCardsAttribute(value);
     // TODO: LikeSection CSS 색상 변경
+    changeLikeSectionColor(value, clickedElement.parentElement);
   }
 }
 
