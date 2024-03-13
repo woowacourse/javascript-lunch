@@ -45,7 +45,7 @@ describe("sortLetter 단위 테스트", () => {
 
   test.each([
     ["a", "b", ["a", "b"]],
-    ["b", "a", ["b", "a"]],
+    ["b", "a", ["a", "b"]],
   ])("영어를 오름차순으로 정렬한다.", (a, b, expected) => {
     // when
     const result = [a, b].sort(sortLetters);
@@ -109,6 +109,7 @@ describe("sortLetter 단위 테스트", () => {
     (a, b, expected) => {
       // when
       const result = [a, b].sort(sortLetters);
+      console.log(a, b, result);
 
       //then
       expect(result).toEqual(expected);

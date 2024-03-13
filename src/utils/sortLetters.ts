@@ -38,16 +38,15 @@ const compareLetterPriority = (a: string, b: string) => {
 };
 
 const sortLetters = (a: string, b: string) => {
-  const aLetters = [...a];
-  const bLetters = [...b];
-  for (let index = 0; index < a.length; index++) {
+  const minLength = Math.min(a.length, b.length);
+  for (let index = 0; index < minLength; index++) {
     const aLetter = a[index];
     const bLetter = b[index];
     if (compareLetterPriority(aLetter, bLetter) !== 0)
       return compareLetterPriority(aLetter, bLetter);
   }
-  if (aLetters.length === bLetters.length) return 0;
-  return -1;
+  if (a.length === b.length) return 0;
+  return a.length < b.length ? -1 : 1;
 };
 
 export default sortLetters;
