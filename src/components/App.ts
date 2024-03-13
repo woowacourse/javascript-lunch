@@ -7,6 +7,7 @@ import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIB
 import Dropdown from './Dropdown';
 import RestaurantForm from './RestaurantForm';
 import RestaurantListContainer from './RestaurantListContainer';
+import TabMenu from './TabMenu';
 
 class App extends Component<unknown> {
   constructor($target: HTMLElement) {
@@ -16,36 +17,56 @@ class App extends Component<unknown> {
   render() {
     const $form = dom.getElement('form');
     const $restaurantContainer = dom.getElement('.restaurant-list-container');
+    const $allTab = dom.getElement('#all-tab');
+    const $favoriteTab = dom.getElement('#favorite-tab');
     const restaurantList = this.getInitialRestaurantList();
 
+    this.renderTabMenus($allTab, $favoriteTab);
+    new RestaurantListContainer({
+      $target: $restaurantContainer,
+      props: { restaurantList, kind: 'all', renderHomeDropdown: this.renderHomeDropdown.bind(this) },
+    });
     new RestaurantForm({
       $target: $form,
       props: { restaurantList, handleCloseModal: this.handleCloseModal.bind(this) },
-    });
-    new RestaurantListContainer({
-      $target: $restaurantContainer,
-      props: { restaurantList, kind: 'all', createHomeDropdown: this.createHomeDropdown.bind(this) },
     });
   }
 
   setEvent() {
     dom.getElement('.gnb__button').addEventListener('click', this.handleOpenModal.bind(this));
     dom.getElement('.modal-backdrop').addEventListener('click', this.handleCloseModal.bind(this));
+  }
 
-    const $allTab = dom.getElement('#all-tab');
-    const $favoriteTab = dom.getElement('#favorite-tab');
-
-    $favoriteTab.addEventListener('click', () => {
-      $favoriteTab.classList.add('active-tab');
-      $allTab.classList.remove('active-tab');
+  renderTabMenus($allTab: HTMLElement, $favoriteTab: HTMLElement) {
+    new TabMenu({
+      $target: $allTab,
+      props: {
+        clickEvent: () => {
+          this.handleClickAllTab($allTab, $favoriteTab);
+        },
+      },
     });
-    $allTab.addEventListener('click', () => {
-      $allTab.classList.add('active-tab');
-      $favoriteTab.classList.remove('active-tab');
+    new TabMenu({
+      $target: $favoriteTab,
+      props: {
+        clickEvent: () => {
+          this.handleClickFavoriteTab($allTab, $favoriteTab);
+        },
+      },
     });
   }
 
-  createCategoryDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
+  handleClickAllTab($allTab: HTMLElement, $favoriteTab: HTMLElement) {
+    $allTab.classList.add('active-tab');
+    $favoriteTab.classList.remove('active-tab');
+  }
+
+  handleClickFavoriteTab($allTab: HTMLElement, $favoriteTab: HTMLElement) {
+    $favoriteTab.classList.add('active-tab');
+    $allTab.classList.remove('active-tab');
+  }
+
+  renderCategoryDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
@@ -57,7 +78,7 @@ class App extends Component<unknown> {
     });
   }
 
-  createSortingDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
+  renderSortingDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
@@ -69,10 +90,10 @@ class App extends Component<unknown> {
     });
   }
 
-  createHomeDropdown(restaurantList: RestaurantList) {
+  renderHomeDropdown(restaurantList: RestaurantList) {
     const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container');
-    this.createCategoryDropdown($restaurantFilterContainer, restaurantList);
-    this.createSortingDropdown($restaurantFilterContainer, restaurantList);
+    this.renderCategoryDropdown($restaurantFilterContainer, restaurantList);
+    this.renderSortingDropdown($restaurantFilterContainer, restaurantList);
   }
 
   getInitialRestaurantList() {
