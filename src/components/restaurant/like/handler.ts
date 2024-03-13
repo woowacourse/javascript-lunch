@@ -1,22 +1,20 @@
 import restaurantListStateStore from "../../../store/RestaurantListStateStore";
 
-export function handleLikeButtonClick(button: Element) {
+const likeButtonClickHandler = (button: Element) => {
   button.addEventListener("click", (event) => {
-    if (event.target instanceof HTMLElement) {
-      const restaurantElement = event.target.closest(
-        ".restaurant",
-      ) as HTMLElement;
-      restaurantListStateStore.updateListData(Number(restaurantElement.id));
-    }
+    const target = event.target as HTMLElement;
+    const restaurantElement = target.closest(".restaurant") as HTMLElement;
+    restaurantListStateStore.updateListData(Number(restaurantElement.id));
   });
-}
+};
 
-export const likeChange = () => {
+const likeChange = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const likeButtons = document.querySelectorAll(".like__button");
-
     likeButtons.forEach((button) => {
-      handleLikeButtonClick(button);
+      likeButtonClickHandler(button);
     });
   });
 };
+
+export default likeChange;
