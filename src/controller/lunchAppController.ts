@@ -44,11 +44,6 @@ export default class LunchAppController {
   };
 
   private renderSortingFilter = () => {
-    // const filter = FilterComponent();
-    // const node = filter.getTemplate(SORTING);
-    // filter.setEvent(node, this.restaurantList);
-    // this.$filterContainer.appendChild(node);
-
     const sortingFilter = new SortFilterComponent();
     const node = sortingFilter.getTemplate(SORTING);
 

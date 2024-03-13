@@ -4,4 +4,6 @@ export default class SubmitButton extends ButtonComponent {
   constructor() {
     super();
   }
+
+  setEvent() {}
 }
