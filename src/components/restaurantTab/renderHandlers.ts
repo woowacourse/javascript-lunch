@@ -1,8 +1,9 @@
-import TAB_CONTAINER_COMPONENT_DATA from './componentsData/TabContainerComponentData';
-import generateContainerComponent from '../../uiUtils/generateContainerComponent';
 import generateButtonComponent from '../../uiUtils/generateButtonComponent';
+import generateContainerComponent from '../../uiUtils/generateContainerComponent';
+
 import ALL_RESTAURNAT_TAB_BUTTON_DATA from './componentsData/AllRestaurantTabButtonData';
 import FAVORITE_RESTAURANTS_TAB_DATA from './componentsData/FavoriteRestaurantTabData';
+import TAB_CONTAINER_COMPONENT_DATA from './componentsData/TabContainerComponentData';
 
 export const renderRestaurantTabContainerComponent = () => {
   const container = generateContainerComponent(TAB_CONTAINER_COMPONENT_DATA);

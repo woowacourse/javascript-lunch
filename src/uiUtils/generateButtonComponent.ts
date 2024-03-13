@@ -1,6 +1,7 @@
 import Button from '../components/composables/Button';
 import { ButtonElementDataType } from '../types/components';
 
+/* eslint-disable max-lines-per-function */
 const generateButtonComponent = (buttonOptionData: Partial<ButtonElementDataType>) => {
   const { TAG_TEXT, TAG_TYPE, TAG_CLASS_NAME, TAG_ID, TAG_ROLE, TAG_VALUE } = buttonOptionData;
 

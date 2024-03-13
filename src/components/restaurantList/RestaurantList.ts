@@ -1,15 +1,14 @@
 /* eslint-disable max-lines-per-function */
-import RestaurantListStorageService from '../../services/restaurantListStorageService';
+import { RestaurantState } from '../../types/index.d';
 import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
 
 import renderRestaurantList from './renderHandlers';
 import restaurantListTemplate from './restaurantListTemplate';
 
-function RestaurantList() {
+function RestaurantList(filterData: RestaurantState[]) {
   const main = document.querySelector('main');
 
   const render = () => {
-    const filterData = RestaurantListStorageService.getFilteredData();
     if (filterData) {
       renderRestaurantList(filterData);
     }
@@ -21,10 +20,6 @@ function RestaurantList() {
   }
 
   render();
-
-  return {
-    render,
-  };
 }
 
 export default RestaurantList;

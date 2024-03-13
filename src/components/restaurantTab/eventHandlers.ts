@@ -1,19 +1,6 @@
-import { TabValue } from '../../types';
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
+import { TabValue } from '../../types';
 
-export const allRestaurantTabClickHandler = () => {
-  const allRestaurantTabButton = document.getElementById('allRestaurantTabButton');
-  if (allRestaurantTabButton instanceof HTMLButtonElement) {
-    tabHandler(allRestaurantTabButton);
-  }
-};
-
-export const favoritedRestaurantTabClickHandler = () => {
-  const favoriteRestaurantTabButton = document.getElementById('favoriteRestaurantTabButton');
-  if (favoriteRestaurantTabButton instanceof HTMLButtonElement) {
-    tabHandler(favoriteRestaurantTabButton);
-  }
-};
 const applySelectedTabStyle = (buttonElement: HTMLButtonElement) => {
   document.querySelectorAll('.tab-button').forEach((button) => {
     button.classList.remove('selected');
@@ -33,4 +20,18 @@ const tabHandler = (buttonElement: HTMLButtonElement) => {
 
     reRenderRestaurantListFromTabValue(target.value as TabValue);
   });
+};
+
+export const allRestaurantTabClickHandler = () => {
+  const allRestaurantTabButton = document.getElementById('allRestaurantTabButton');
+  if (allRestaurantTabButton instanceof HTMLButtonElement) {
+    tabHandler(allRestaurantTabButton);
+  }
+};
+
+export const favoritedRestaurantTabClickHandler = () => {
+  const favoriteRestaurantTabButton = document.getElementById('favoriteRestaurantTabButton');
+  if (favoriteRestaurantTabButton instanceof HTMLButtonElement) {
+    tabHandler(favoriteRestaurantTabButton);
+  }
 };

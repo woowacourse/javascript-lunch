@@ -1,3 +1,4 @@
+import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import filterState from '../../store/FilterStateStore';
 import { Category, SortType } from '../../types';
 import RestaurantList from '../restaurantList/RestaurantList';
@@ -7,8 +8,8 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = event.target.value as Category;
       filterState.setFilterType(selectedValue);
-
-      RestaurantList().render();
+      const filteredData = RestaurantListStorageService.getFilteredData();
+      RestaurantList(filteredData ?? []);
     }
   });
 };
@@ -22,15 +23,18 @@ export const selectOptionByFoodCategory = () => {
   });
 };
 
-const sortHandler = (sortFilter: HTMLElement) => {
-  sortFilter.addEventListener('change', (event) => {
-    if (event.target instanceof HTMLSelectElement) {
-      const selectedValue = event.target.value as SortType;
-      filterState.setSortType(selectedValue);
+const selectOptionByNameSortEvent = (event: Event) => {
+  if (event.target instanceof HTMLSelectElement) {
+    const selectedValue = event.target.value as SortType;
+    filterState.setSortType(selectedValue);
+    const filteredData = RestaurantListStorageService.getFilteredData();
 
-      RestaurantList().render();
-    }
-  });
+    RestaurantList(filteredData ?? []);
+  }
+};
+
+const sortHandler = (sortFilter: HTMLElement) => {
+  sortFilter.addEventListener('change', (event) => selectOptionByNameSortEvent(event));
 };
 
 export const selectOptionByNameOrDistance = () => {

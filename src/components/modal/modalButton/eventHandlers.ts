@@ -16,7 +16,6 @@ const addNewRestaurant = (modal: Element, restaurantInfo: RestaurantState) => {
   if (invalidMessage.length === 0) {
     modal.classList.remove('modal--open');
     RestaurantListStorageService.setData(restaurantInfo);
-    initializeFormState();
   }
 };
 
@@ -49,15 +48,23 @@ const checkValidateHandler = (restaurantInfo: Partial<RestaurantState>) => {
   });
 };
 
+const validateAndAddNewRestaurant = (modal: Element, restaurantInfo: RestaurantState) => {
+  checkValidateHandler(restaurantInfo);
+  addNewRestaurant(modal, restaurantInfo as RestaurantState);
+};
+
+const addNewRestaurantButtonHandler = (event: Event, modal: Element) => {
+  event.preventDefault();
+  const restaurantInfo = restaurantStateStore.getRestaurantField();
+  validateAndAddNewRestaurant(modal, restaurantInfo as RestaurantState);
+  const allRestaunrants = RestaurantListStorageService.getData();
+  RestaurantList(allRestaunrants ?? []);
+  initializeFormState();
+};
+
 export const submitHandler = (modal: Element) => {
   const submitButton = document.getElementsByClassName('button--primary')[0];
-  submitButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    const restaurantInfo = restaurantStateStore.getRestaurantField();
-    checkValidateHandler(restaurantInfo);
-    addNewRestaurant(modal, restaurantInfo as RestaurantState);
-    RestaurantList().render();
-  });
+  submitButton.addEventListener('click', (event) => addNewRestaurantButtonHandler(event, modal));
 };
 
 export const cancelHandler = (modal: Element) => {

@@ -56,6 +56,7 @@ const validate = {
     if (restaurantList) {
       return restaurantList.find((restaurant: RestaurantState) => restaurant.name === name);
     }
+    return [];
   },
 
   validateDistance(distance?: number) {

@@ -19,6 +19,7 @@ const RestaurantListStorageService = (function () {
       const filterDataByCategory = restaurantListHelper.filterByCategory(filterState.getFilterInfo().filter, data);
       return restaurantListHelper.sortBySelectedValue(filterState.getFilterInfo().sort, filterDataByCategory);
     }
+    return [];
   }
 
   function setData(restaurant: RestaurantState) {
