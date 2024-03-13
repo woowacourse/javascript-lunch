@@ -126,6 +126,7 @@ body {
 
 .restaurant {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
 
   padding: 16px 8px;
@@ -332,4 +333,14 @@ input[name="link"] {
 .tab-bar-item.active {
   color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+.restaurant-item-content {
+  display: flex;
+}
+
+.favorite-icon-img {
+  width: 27px;
+
+  cursor: pointer;
 }

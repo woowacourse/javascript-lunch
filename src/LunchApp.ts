@@ -1,6 +1,7 @@
 import BaseComponent from "./abstract/BaseComponent";
 import Select from "./components/common/Select";
 import Modal from "./components/common/Modal";
+import FavoriteIcon from "./components/FavoriteIcon";
 import TabBar from "./components/TabBar";
 import FilterBar from "./components/FilterBar";
 import RestaurantList from "./components/RestaurantList";
@@ -8,11 +9,12 @@ import RestaurantForm from "./components/RestaurantForm";
 
 import { MODAL_EVENT } from "./constants/event";
 
+customElements.define("select-box", Select);
+customElements.define("modal-box", Modal);
+customElements.define("favorite-icon", FavoriteIcon);
 customElements.define("tab-bar", TabBar);
 customElements.define("filter-bar", FilterBar);
 customElements.define("restaurant-list", RestaurantList);
-customElements.define("select-box", Select);
-customElements.define("modal-box", Modal);
 customElements.define("restaurant-form", RestaurantForm);
 
 export default class LunchApp extends BaseComponent {
