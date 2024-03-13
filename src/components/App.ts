@@ -31,6 +31,18 @@ class App extends Component<unknown> {
   setEvent() {
     dom.getElement('.gnb__button').addEventListener('click', this.handleOpenModal.bind(this));
     dom.getElement('.modal-backdrop').addEventListener('click', this.handleCloseModal.bind(this));
+
+    const $allTab = dom.getElement('#all-tab');
+    const $favoriteTab = dom.getElement('#favorite-tab');
+
+    $favoriteTab.addEventListener('click', () => {
+      $favoriteTab.classList.add('active-tab');
+      $allTab.classList.remove('active-tab');
+    });
+    $allTab.addEventListener('click', () => {
+      $allTab.classList.add('active-tab');
+      $favoriteTab.classList.remove('active-tab');
+    });
   }
 
   createCategoryDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
