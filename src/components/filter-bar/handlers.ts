@@ -1,7 +1,7 @@
 import filterState from "../../store/FilterStateStore";
 import { Icategory } from "../../types/category";
 import { IsortType } from "../../types/sort";
-import RestaurantList from "../restaurant_list/RestaurantList";
+import RestaurantList from "../restaurant-list/RestaurantList";
 
 const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   categoryFilter.addEventListener("change", (event) => {
@@ -38,7 +38,6 @@ const sortHandler = (sortFilter: HTMLElement) => {
 export const changeSorting = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const sortFilter = document.getElementById("sorting-filter") as HTMLElement;
-
     sortHandler(sortFilter);
   });
 };

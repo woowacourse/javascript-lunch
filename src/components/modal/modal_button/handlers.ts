@@ -3,7 +3,7 @@ import restaurantListStateStore from "../../../store/RestaurantListStateStore";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import { Irestaurant } from "../../../types/restaurant";
 import { IinvalidResult } from "../../../types/validate";
-import RestaurantList from "../../restaurant_list/RestaurantList";
+import RestaurantList from "../../restaurant-list/RestaurantList";
 
 const initializeFormState = () => {
   const modalForm: HTMLFormElement = document.getElementById(

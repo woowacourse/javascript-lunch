@@ -1,7 +1,7 @@
 import restaurantListStateStore from "../../store/RestaurantListStateStore";
 import { Irestaurant } from "../../types/restaurant";
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
-import likeChange from "../restaurant/like/handler";
+import likeChange from "../restaurant/like/handlers";
 import Restaurant from "../restaurant/Restaurant";
 
 const resetPrevRestaurantList = (ul: Element) => {
