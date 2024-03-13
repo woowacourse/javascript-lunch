@@ -183,7 +183,7 @@ describe('RestaurantList 테스트', () => {
 
   describe('음식점 삭제', () => {
     test('음식점을 삭제하면, 음식점 목록에서 삭제 대상인 음식점이 사라진다.', () => {
-      const DELETE_TARGET_INDEX = 3;
+      const DELETE_TARGET_INDEX = 0;
 
       const restaurantList = new RestaurantList();
       const targetRestaurant = restaurantList.list[DELETE_TARGET_INDEX];
