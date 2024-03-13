@@ -1,9 +1,8 @@
-import { CATEGORY } from '../_types/types';
 import { LunchHeaderComponent } from '../components/LunchHeaderComponent';
 import { ModalComponent } from '../components/ModalComponent';
 import SortFilterComponent from '../components/SortFilterComponent';
 import CategoryFilterComponent from '../components/CategoryFilterComponent';
-import { SORTING } from '../constants/constants';
+import { CATEGORY, SORTING } from '../constants/constants';
 import RestaurantList from '../domain/restaurantList';
 
 export default class LunchAppController {
