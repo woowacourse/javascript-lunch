@@ -1,7 +1,8 @@
-import FilterBar from "../filter_bar/FilterBar";
+import DetailModal from "../detail-modal/DetailModal";
+import FilterBar from "../filter-bar/FilterBar";
 import Header from "../header/Header";
 import Modal from "../modal/Modal";
-import RestaurantListContainer from "../restaurant_list/RestaurantListContainer";
+import RestaurantListContainer from "../restaurant-list/RestaurantListContainer";
 import Tabs from "../tabs/Tabs";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   Tabs();
   FilterBar();
   RestaurantListContainer();
+  DetailModal();
 }
 
 export default App;
