@@ -2,7 +2,7 @@ import { Irestaurant } from "../../types/restaurant";
 
 import categoryMatchedImageData from "./categoryMatchedImageData";
 import { categoryTemplate } from "./restaurantInfoTemplate";
-import { baseTemplate, InfoTemplate } from "./restaurantTemplate";
+import { restaurantTemplate } from "./restaurantTemplate";
 
 export const findCategory = (restaurant: Irestaurant) =>
   categoryMatchedImageData.find(
@@ -21,10 +21,10 @@ export const getMatchedCategoryInfo = (restaurant: Irestaurant) => {
 
 const render = (restaurant: Irestaurant) => {
   const categoryInfo = getMatchedCategoryInfo(restaurant);
-  const restaurantContainer = baseTemplate(
+  const restaurantContainer = restaurantTemplate(
     restaurant.id,
     categoryTemplate(categoryInfo),
-    InfoTemplate(restaurant),
+    restaurant,
   );
 
   return restaurantContainer;

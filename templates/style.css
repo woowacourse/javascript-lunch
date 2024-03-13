@@ -156,13 +156,6 @@ body {
   width: 100%;
 }
 
-.restaurant__main-info {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .restaurant__like-button {
   height: 40px;
 
