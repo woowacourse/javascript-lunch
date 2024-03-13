@@ -49,6 +49,11 @@ class RestaurantListSection {
               ${restaurant.description || ""}
             </p>
           </div>
+          <img
+          src="favorite-icon-filled.png"
+          alt="${restaurant.category}"
+          class="star-icon"
+        />
         `;
       restaurantFragment.append(restauantTag);
     });

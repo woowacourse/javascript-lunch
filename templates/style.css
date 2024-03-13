@@ -149,6 +149,12 @@ body {
   height: 36px;
 }
 
+.star-icon {
+  position: absolute;
+  top: 10;
+  right: 10;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
