@@ -191,7 +191,7 @@ class NewRestaurantModal extends BasicModal {
       const DBService = new RestaurantDBService();
       DBService.add(newRestaurant);
 
-      this.#rerenderByFilter();
+      this.#rerenderApp();
       this.closeModal();
     });
   }
@@ -233,7 +233,7 @@ class NewRestaurantModal extends BasicModal {
     return { name, distance, category, description, link };
   }
 
-  #rerenderByFilter() {
+  #rerenderApp() {
     (this.parentElement as MainApp).paint();
   }
 }
