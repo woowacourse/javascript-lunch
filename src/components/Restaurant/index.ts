@@ -2,7 +2,7 @@ import { RestaurantInfo } from '../../types';
 import './style.css';
 import { INITIAL_RESTAURANT_DATA } from '../../data/restaurantData';
 import { StorageKeyEnum } from '../../constants';
-
+import { ChangeLikeDataController } from '../../services';
 class RestaurantComponent extends HTMLElement {
   constructor() {
     super();
@@ -32,14 +32,21 @@ class RestaurantComponent extends HTMLElement {
             </h3>
             <p class="restaurant__info__distance"> 캠퍼스부터 ${store.distance}분 내</p>
             <p class="restaurant__info__explanation">
-              ${store.description ? store.description : '<span class="none-description">상점 설명이 존재하지 않습니다.</span>'}
+              ${store.description ? store.description : '<span class="none-description">가게 설명이 존재하지 않습니다.</span>'}
             </p>
           </div>
+          <star-btn isLike="${store.like}"></star-btn>
         </li>
         `;
     } else {
       this.innerHTML = '<p>해당 상점을 찾을 수 없습니다.</p>';
     }
+    this.querySelector('star-btn')?.addEventListener('click', function (event) {
+      ChangeLikeDataController.toggleLikeStatus(
+        event as MouseEvent,
+        'RESTAURANT-BOX',
+      );
+    });
   }
 }
 customElements.define('restaurant-box', RestaurantComponent);

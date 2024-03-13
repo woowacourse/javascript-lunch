@@ -2,6 +2,7 @@
 
 .restaurant {
   display: flex;
+  position: relative;
   box-sizing: border-box;
   border-bottom: 1px solid var(--lunch-grey-scale-2-color);
   padding: 14px 8px 19px 7px;
@@ -57,4 +58,10 @@
   color: var(--lunch-grey-scale-3-color);
   font-weight: var(--lunch-title-font-weight);
   font-size: var(--label-font-size);
+}
+
+.restaurant star-btn {
+  position: absolute;
+  top: 14px;
+  right: 8px;
 }
