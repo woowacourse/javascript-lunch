@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+select {
+  width: 100%;
+}
+
 ul,
 li {
   list-style: none;
@@ -295,4 +299,15 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.no-restaurant-item-message {
+  position: absolute;
+  width: fit-content;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  color: var(--grey-300);
 }
