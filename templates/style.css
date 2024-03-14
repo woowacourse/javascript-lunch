@@ -15,6 +15,10 @@ body {
   font-size: 16px;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -127,6 +131,10 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+}
+
+.restaurant__info:hover {
+  cursor: pointer;
 }
 
 .restaurant__category {

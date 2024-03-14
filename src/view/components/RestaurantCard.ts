@@ -1,7 +1,10 @@
 import { Category, IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
-import '../../css/likeStar.css';
+
+import { showRestaurantDetailModal } from './RestaurantDetailModal';
+
 import LikeStar from './LikeStar';
+import '../../css/likeStar.css';
 
 const IMG_CATEGORY = Object.freeze({
   한식: 'korean',
@@ -17,6 +20,13 @@ class RestaurantCard extends HTMLLIElement {
     super();
     this.classList.add('restaurant');
     this.setAttribute('data-id', String(id));
+  }
+
+  connectedCallback() {
+    this.addEventListener('click', () => {
+      const restaurant = restaurantCatalog.restaurants[Number(this.getAttribute('data-id'))!];
+      showRestaurantDetailModal(restaurant.getRestaurantInfoObject());
+    });
   }
 
   #render() {
