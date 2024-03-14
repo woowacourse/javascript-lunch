@@ -8,6 +8,7 @@ import {
 } from "../../../assets/images";
 
 import { MenuCategoryWithoutAll } from "../../../constants/menuCategory/menuCategory.type";
+import { isMenuCategoryWithoutAll } from "../../../utils/typeGuard";
 import BaseComponent from "../../BaseComponent/BaseComponent";
 
 class CategoryIcon extends BaseComponent {
@@ -21,7 +22,9 @@ class CategoryIcon extends BaseComponent {
   };
 
   protected render(): void {
-    const category = this.getAttribute("category") as MenuCategoryWithoutAll;
+    const category = this.getAttribute("category") ?? "";
+
+    if (!isMenuCategoryWithoutAll(category)) return;
 
     this.innerHTML = `
         <img src=${this.convertCategoryToImage(category)} alt=${category}>

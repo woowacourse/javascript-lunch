@@ -10,7 +10,7 @@ import { $ } from "../../../../utils/dom";
 class RestaurantDetailModalContent extends BaseComponent {
   private eventListeners = {
     deleteRestaurantItem: {
-      eventName: "click" as keyof HTMLElementEventMap,
+      eventName: "click",
       eventHandler: this.handleDeleteRestaurantItem.bind(this),
     },
 
@@ -18,7 +18,7 @@ class RestaurantDetailModalContent extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.rerenderModal,
       eventHandler: this.handleRerenderModalContent.bind(this),
     },
-  };
+  } as const;
 
   protected render(): void {
     const name = this.getAttribute("name") ?? "";
@@ -26,24 +26,25 @@ class RestaurantDetailModalContent extends BaseComponent {
     const restaurantDetail = new Restaurant().getRestaurantDetailByName(name);
 
     this.innerHTML = `
-    <div id='restaurant-detail-header'>
-      <div id='restaurant-detail-category' class='restaurant__category'>
-        <category-icon category='${restaurantDetail?.category}'></category-icon>
+      <div id='restaurant-detail-header'>
+        <div id='restaurant-detail-category' class='restaurant__category'>
+          <category-icon category='${restaurantDetail?.category}'></category-icon>
+        </div>
+        <star-icon name='${name}' favorite='${restaurantDetail?.isFavorite}'></star-icon>
       </div>
-      <star-icon name='${name}' favorite='${restaurantDetail?.isFavorite}'></star-icon>
-    </div>
-    <div class='restaurant__info'>
-      <h3 class='restaurant__name text-subtitle'>${name}</h3>
-      <span id='restaurant-detail-distance' class='text-body'>캠퍼스로부터 ${restaurantDetail?.distance}분 내</span>
-      <p class='restaurant__description text-body'>${restaurantDetail?.description}</p>
-    </div>
-    <a target='_blank' href='${restaurantDetail?.url}' id='restaurant-detail-url'>
-      <div border='0'>${restaurantDetail?.url}</div>
-    </a>
-    <div class='button-container'>
-      <button id='modal-delete-button' type='button' class='button button--secondary text-caption'>삭제하기</button>
-      <button id='modal-cancel-button' type='button' class='button button--primary text-caption'>닫기</button>
-    </div>`;
+      <div class='restaurant__info'>
+        <h3 class='restaurant__name text-subtitle'>${name}</h3>
+        <span id='restaurant-detail-distance' class='text-body'>캠퍼스로부터 ${restaurantDetail?.distance}분 내</span>
+        <p class='restaurant__description text-body'>${restaurantDetail?.description}</p>
+      </div>
+      <a target='_blank' href='${restaurantDetail?.url}' id='restaurant-detail-url'>
+        <div border='0'>${restaurantDetail?.url}</div>
+      </a>
+      <div class='button-container'>
+        <button id='modal-delete-button' type='button' class='button button--secondary text-caption'>삭제하기</button>
+        <button id='modal-cancel-button' type='button' class='button button--primary text-caption'>닫기</button>
+      </div>
+    `;
   }
 
   protected setEvent(): void {

@@ -1,8 +1,9 @@
 import "./CommonModal.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
-import { CustomEventType } from "../../BaseComponent/BaseComponent.type";
+
 import { $ } from "../../../utils/dom";
+import { isCustomEventType } from "../../../utils/typeGuard";
 
 class CommonModal extends BaseComponent {
   private eventHandlers = {
@@ -24,9 +25,11 @@ class CommonModal extends BaseComponent {
   }
 
   protected setEvent(): void {
-    const openState = (this.getAttribute("open") as CustomEventType) ?? "";
-    const closeState = (this.getAttribute("close") as CustomEventType) ?? "";
+    const openState = this.getAttribute("open") ?? "";
+    const closeState = this.getAttribute("close") ?? "";
     const targetSelector = this.getAttribute("targetSelector") ?? "";
+
+    if (!isCustomEventType(openState) || !isCustomEventType(closeState)) return;
 
     this.on({
       eventName: openState,
@@ -42,9 +45,11 @@ class CommonModal extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    const openState = (this.getAttribute("open") as CustomEventType) ?? "";
-    const closeState = (this.getAttribute("close") as CustomEventType) ?? "";
+    const openState = this.getAttribute("open") ?? "";
+    const closeState = this.getAttribute("close") ?? "";
     const targetSelector = this.getAttribute("targetSelector") ?? "";
+
+    if (!isCustomEventType(openState) || !isCustomEventType(closeState)) return;
 
     this.off({
       eventName: openState,
@@ -63,7 +68,7 @@ class CommonModal extends BaseComponent {
     const dialogElement = $(`${targetSelector}>dialog`);
 
     if (dialogElement instanceof HTMLDialogElement) {
-      (dialogElement as HTMLDialogElement).showModal();
+      dialogElement.showModal();
     }
   }
 
@@ -71,7 +76,7 @@ class CommonModal extends BaseComponent {
     const dialogElement = $(`${targetSelector}>dialog`);
 
     if (dialogElement instanceof HTMLDialogElement) {
-      (dialogElement as HTMLDialogElement).close();
+      dialogElement.close();
     }
   }
 }

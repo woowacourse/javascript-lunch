@@ -45,8 +45,9 @@ class RestaurantItem extends BaseComponent {
 
   private handleClickItem(event: Event) {
     if (event.currentTarget instanceof HTMLElement) {
-      const restaurantName = $("h3", event.currentTarget)
-        ?.textContent as string;
+      const restaurantName = $("h3", event.currentTarget)?.textContent;
+
+      if (typeof restaurantName !== "string") return;
 
       const restaurantDetail = new Restaurant().getRestaurantDetailByName(
         restaurantName

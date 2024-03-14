@@ -1,11 +1,13 @@
 import "../RestaurantDetailModal/RestaurantDetailModal.css";
 
+import BaseComponent from "../../BaseComponent/BaseComponent";
+
+import { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
+
 import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
 import { ELEMENT_SELECTOR } from "../../../constants/selector";
-import { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
-import BaseComponent from "../../BaseComponent/BaseComponent";
+
 import { $ } from "../../../utils/dom";
-import Restaurant from "../../../domain/Restaurant/Restaurant";
 
 class RestaurantDetailModal extends BaseComponent {
   private restaurantDetail: RestaurantDetail | null = null;
@@ -17,10 +19,10 @@ class RestaurantDetailModal extends BaseComponent {
     },
 
     restaurantDetailModalClose: {
-      eventName: "click" as keyof HTMLElementEventMap,
+      eventName: "click",
       eventHandler: this.handleCloseRestaurantDetailModal.bind(this),
     },
-  };
+  } as const;
 
   protected render(): void {
     this.innerHTML = `
