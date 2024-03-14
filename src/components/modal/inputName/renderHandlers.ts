@@ -4,15 +4,14 @@ import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
 
 import NAME_INPUT_COMPONENT_DATA from './componentsData/NameInputComponentData';
 import NAME_LABEL_COMPONENT_DATA from './componentsData/NameLabelComponentData';
-import inputNameTemplate from './inputNameTemplate';
-
-export const renderBaseComponents = (form: Element) => {
-  form.appendChild(convertHTMLStringToDOM(inputNameTemplate));
-};
+import INPUT_NAME_CONTAINER_COMPONENT_DATA from './componentsData/inputNameContainerComponentData';
+import generateContainerComponent from '../../../uiUtils/generateContainerComponent';
 
 export const renderInputComponents = () => {
-  const nameContainer = document.getElementsByClassName('name-container')[0];
+  const inputNameContainer = generateContainerComponent(INPUT_NAME_CONTAINER_COMPONENT_DATA);
 
-  nameContainer.appendChild(generateLabelComponent(NAME_LABEL_COMPONENT_DATA));
-  nameContainer.appendChild(generateInputComponent(NAME_INPUT_COMPONENT_DATA));
+  inputNameContainer.appendChild(generateLabelComponent(NAME_LABEL_COMPONENT_DATA));
+  inputNameContainer.appendChild(generateInputComponent(NAME_INPUT_COMPONENT_DATA));
+
+  return inputNameContainer;
 };

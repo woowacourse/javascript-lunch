@@ -1,12 +1,7 @@
-import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
+import { renderBaseModalContainer } from './renderHandlers';
 
-import modalTemplate from './modalTemplate';
-import renderModalContent from './renderHandlers';
-
-function Modal() {
-  document.body.appendChild(convertHTMLStringToDOM(modalTemplate));
-
-  renderModalContent();
+function Modal(modalContents?: Element) {
+  renderBaseModalContainer(modalContents);
 }
 
 export default Modal;

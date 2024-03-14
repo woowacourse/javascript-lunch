@@ -1,11 +1,9 @@
-import categoryChange from './eventHandlers';
-import { renderBaseSelectCategoryComponent, renderSelectCategoryLabelComponent } from './renderHandlers';
+import { renderSelectCategoryComponent } from './renderHandlers';
 
-function SelectCategory(form: Element) {
-  renderBaseSelectCategoryComponent(form);
-  renderSelectCategoryLabelComponent();
+function SelectCategory() {
+  const selectCategoryContainer = renderSelectCategoryComponent();
 
-  categoryChange();
+  return selectCategoryContainer;
 }
 
 export default SelectCategory;

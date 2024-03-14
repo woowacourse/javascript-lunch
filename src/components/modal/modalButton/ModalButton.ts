@@ -1,12 +1,9 @@
-import { cancelHandler, submitHandler } from './eventHandlers';
-import { renderBaseModalButtonComponents, renderButtonComponents } from './renderHandler';
+import renderButtonComponents from './renderHandler';
 
-function ModalButton(modal: Element, form: Element) {
-  renderBaseModalButtonComponents(form);
-  renderButtonComponents();
+function ModalButton() {
+  const modalButton = renderButtonComponents();
 
-  submitHandler(modal);
-  cancelHandler(modal);
+  return modalButton;
 }
 
 export default ModalButton;
