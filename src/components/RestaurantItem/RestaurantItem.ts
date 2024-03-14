@@ -40,7 +40,8 @@ class RestaurantItem extends BaseComponent {
     $restaurantInfoBox.append(this.#makeDescription());
     $restaurantInfoBox.id = String(this.#id);
 
-    $restaurantInfoBox.append(new FavoriteButton(this.#isFavorite));
+    const favoriteButton = new FavoriteButton(this.#isFavorite, false);
+    $restaurantInfoBox.append(favoriteButton);
 
     $liElement.append($restaurantInfoBox);
 
