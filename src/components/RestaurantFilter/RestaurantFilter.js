@@ -11,6 +11,7 @@ export default class RestaurantFilter {
   constructor(element, restaurants) {
     this.#element = element;
     this.#restaurants = restaurants;
+    this.render();
     this.#addEvents();
   }
 

@@ -7,6 +7,7 @@ export default class RestaurantList {
   constructor(element, restaurants) {
     this.#element = element;
     this.#restaurants = restaurants;
+    this.render();
   }
 
   render() {

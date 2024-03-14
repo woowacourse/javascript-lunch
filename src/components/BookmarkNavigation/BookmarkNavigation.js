@@ -3,6 +3,7 @@ export default class BookmarkNavigation {
 
   constructor(element) {
     this.#element = element;
+    this.render();
   }
 
   render() {

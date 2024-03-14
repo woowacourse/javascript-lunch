@@ -18,6 +18,9 @@ export default class LunchAppController {
 
   constructor() {
     this.#restaurants = new Restaurants(localStorage);
+  }
+
+  init() {
     this.#header = new Header($('header'));
     this.#bookmarkNavigation = new BookmarkNavigation($('restaurants-selector-container'));
     this.#restaurantFilter = new RestaurantFilter(
@@ -26,13 +29,5 @@ export default class LunchAppController {
     );
     this.#restaurantList = new RestaurantList($('restaurant-list-container'), this.#restaurants);
     this.#addRestaurantmodal = new AddRestaurantModal($('add-restaurant-modal'), this.#restaurants);
-  }
-
-  init() {
-    this.#header.render();
-    this.#bookmarkNavigation.render();
-    this.#restaurantFilter.render();
-    this.#restaurantList.render();
-    this.#addRestaurantmodal.render();
   }
 }

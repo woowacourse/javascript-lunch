@@ -6,6 +6,7 @@ export default class Header {
 
   constructor(element) {
     this.#element = element;
+    this.render();
     this.#addEvents();
   }
 

@@ -13,6 +13,7 @@ export default class AddRestaurantModal {
   constructor(element, restaurants) {
     this.#element = element;
     this.#restaurants = restaurants;
+    this.render();
     this.#addEvents();
   }
 
