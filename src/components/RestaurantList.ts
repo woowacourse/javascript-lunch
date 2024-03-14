@@ -6,7 +6,13 @@ import { RestaurantInfo } from "../domain/Restaurant";
 import { CategoryFilter, SortFilter } from "../types/Filter";
 import restaurantStore from "../store/restaurantStore";
 import { CATEGORY_FILTER, SORT_FILTER } from "../constants/filter";
-import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
+import {
+  FILTER_EVENT,
+  RESTAURANT_EVENT,
+  TAB_SWITCH_EVENT,
+  TAB_SWITCH_EVENT_SWITCH_TO,
+} from "../constants/event";
+import favoriteStore from "../store/favoriteStore";
 
 customElements.define("restaurant-item", RestaurantItem);
 
@@ -14,19 +20,24 @@ export default class RestaurantList extends EventComponent {
   private restaurants: Restaurants;
   private categoryFilter: CategoryFilter;
   private sortFilter: SortFilter;
+  private isFavoriteTab: boolean;
 
   constructor(
     restaurants = restaurantStore.get(),
     categoryFilter = CATEGORY_FILTER.all,
-    sortFilter = SORT_FILTER.name
+    sortFilter = SORT_FILTER.name,
+    isFavoriteTab = false
   ) {
     super();
     this.restaurants = restaurants;
     this.categoryFilter = categoryFilter;
     this.sortFilter = sortFilter;
+    this.isFavoriteTab = isFavoriteTab;
   }
 
   protected getTemplate(): string {
+    const favoriteRestaurantNames = favoriteStore.get();
+
     const restaurantInfos = this.restaurants.getDetails();
 
     const filteredRestaurantInfos = this.filterByCategory(
@@ -34,9 +45,15 @@ export default class RestaurantList extends EventComponent {
       this.categoryFilter
     );
 
-    const displayingRestaurantInfos = this.sort(
+    const sortedRestaurantInfos = this.sort(
       filteredRestaurantInfos,
       this.sortFilter
+    );
+
+    const displayingRestaurantInfos = this.filterByFavorite(
+      sortedRestaurantInfos,
+      favoriteRestaurantNames,
+      this.isFavoriteTab
     );
 
     return `
@@ -53,7 +70,14 @@ export default class RestaurantList extends EventComponent {
                   link,
                 }: RestaurantInfo) =>
                   `
-            <restaurant-item name="${name}" category="${category}" timeToReach="${timeToReach}" description="${description}" link="${link}">
+            <restaurant-item
+              name="${name}"
+              category="${category}"
+              timeToReach="${timeToReach}"
+              description="${description}"
+              link="${link}"
+              isFavorite="${favoriteRestaurantNames.includes(name)}"
+            >
             </restaurant-item>`
               )
               .join("") ||
@@ -73,6 +97,10 @@ export default class RestaurantList extends EventComponent {
       this.handleSortFilterChange(e as CustomEvent)
     );
 
+    document.addEventListener(TAB_SWITCH_EVENT, (e) => {
+      this.handleTabSwitch(e as CustomEvent);
+    });
+
     document.addEventListener(RESTAURANT_EVENT.restaurantFormSubmit, (e) => {
       this.handleRestaurantFormSubmit(e as CustomEvent);
     });
@@ -90,6 +118,15 @@ export default class RestaurantList extends EventComponent {
     const { value: sortFilter } = event?.detail;
 
     this.sortFilter = sortFilter;
+
+    this.render();
+  }
+
+  private handleTabSwitch(event: CustomEvent) {
+    const { switchTo } = event?.detail;
+
+    const isFavoriteTab = switchTo === TAB_SWITCH_EVENT_SWITCH_TO.favorite;
+    this.isFavoriteTab = isFavoriteTab;
 
     this.render();
   }
@@ -132,6 +169,20 @@ export default class RestaurantList extends EventComponent {
     }
 
     return restaurantInfos;
+  }
+
+  private filterByFavorite(
+    restaurantInfos: RestaurantInfo[],
+    favoriteRestaurantNames: string[],
+    isFilterOn: boolean
+  ): RestaurantInfo[] {
+    if (!isFilterOn) {
+      return restaurantInfos;
+    }
+
+    return restaurantInfos.filter(({ name }) =>
+      favoriteRestaurantNames.includes(name)
+    );
   }
 
   static get observedAttributes() {
