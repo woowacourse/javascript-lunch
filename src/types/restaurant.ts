@@ -5,14 +5,18 @@ type TSorting = '이름순' | '거리순';
 type TDistance = 5 | 10 | 15 | 20 | 30;
 
 interface IRestaurant {
+  id: string;
   category: TCategory;
   name: string;
   distance: TDistance;
+  isFavorite: boolean;
   description?: string;
   referenceLink?: string;
 }
 
+type TFormValidRestaurant = Omit<IRestaurant, 'id' | 'isFavorite'>;
+
 type TRestaurantInstance = InstanceType<typeof Restaurant>;
 type IRestaurantList = TRestaurantInstance[];
 
-export type { TCategory, TSorting, TDistance, IRestaurant, TRestaurantInstance, IRestaurantList };
+export type { TCategory, TSorting, TDistance, IRestaurant, TFormValidRestaurant, TRestaurantInstance, IRestaurantList };

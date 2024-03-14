@@ -1,8 +1,8 @@
-import type { IRestaurant, TCategory, TDistance } from '@/types/restaurant';
+import type { TCategory, TDistance, TFormValidRestaurant } from '@/types/restaurant';
 import dom from '@/utils/dom';
 
 const formValidator = {
-  isValidForm({ category, name, distance, referenceLink }: IRestaurant): boolean {
+  isValidForm({ category, name, distance, referenceLink }: TFormValidRestaurant): boolean {
     return (
       this.isValidCategory(category) &&
       this.isValidName(name) &&
