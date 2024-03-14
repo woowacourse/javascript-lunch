@@ -9,6 +9,7 @@ class RestaurantCatalog {
   restaurants: Array<Restaurant | null> = [];
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
+    if (!restaurantInfo) return;
     if (restaurantInfo.id) {
       this.restaurants[restaurantInfo.id] = new Restaurant(restaurantInfo);
       return;
