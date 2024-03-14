@@ -5,7 +5,29 @@ import restaurantCatalog from '../../domain/RestaurantCatalog';
 
 const dialog = document.getElementById('restaurant-detail-modal');
 
-function applyRestaurantDetailByInfo({ category, name, distanceFromCampus, description }) {
+function applyRestaurantDescription(description) {
+  const restaurantDescription = document.getElementById('restaurant-detail-description');
+  if (description) {
+    restaurantDescription.innerText = description;
+  }
+  if (!description) {
+    restaurantDescription.innerText = '설명이 없습니다.';
+  }
+}
+
+function applyRestaurantLink(link) {
+  const restaurantLink = document.getElementById('restaurant-detail-link');
+  if (link) {
+    restaurantLink.href = link;
+    restaurantLink.innerText = '📍 홈페이지 바로가기!';
+  }
+  if (!link) {
+    restaurantLink.href = '';
+    restaurantLink.innerText = '';
+  }
+}
+
+function applyRestaurantDetailByInfo({ category, name, distanceFromCampus, description, link }) {
   const categoryIcon = document.getElementById('restaurant-detail-icon');
   categoryIcon.src = `./templates/category-${IMG_CATEGORY[category]}.png`;
   categoryIcon.alt = category;
@@ -13,8 +35,8 @@ function applyRestaurantDetailByInfo({ category, name, distanceFromCampus, descr
   restaurantName.innerText = name;
   const restaurantDistance = document.getElementById('restaurant-detail-distance');
   restaurantDistance.innerText = `캠퍼스부터 ${distanceFromCampus}분 내`;
-  const restaurantDescription = document.getElementById('restaurant-detail-description');
-  restaurantDescription.innerText = description;
+  applyRestaurantDescription(description);
+  applyRestaurantLink(link);
 }
 
 let deleteEventHandler;

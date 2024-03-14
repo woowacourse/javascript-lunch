@@ -34,3 +34,7 @@
   -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
 }
+
+#restaurant-detail-link:focus-visible {
+  outline: none;
+}

@@ -17,6 +17,7 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     distanceFromCampus: 15,
     description: '선릉 수요미식회 맛집 순대국밥이 맛있는 농민 백암순대',
     isLiked: false,
+    link: 'https://map.naver.com/p/entry/place/20694317?lng=127.0314467&lat=37.4949366&placePath=%2Fhome&entry=plt&searchType=place&c=15.00,0,0,0,dh',
   },
   {
     id: 2,
