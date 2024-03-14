@@ -87,6 +87,36 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 모든 음식점/자주 가는 음식점 필터 */
+.matzip-nav-container {
+  display: flex;
+  width: 100%;
+  padding: 30px 16px;
+}
+
+.container--close {
+  display: none;
+}
+
+.total-matzip,
+.favorite-matzip {
+  width: 50%;
+  border-bottom: 3px solid #ec4a0a;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ec4a0a;
+  padding: 10px 0px;
+}
+
+.favorite-matzip {
+}
+
+.matzip-nav--close {
+  color: #667085;
+  border-bottom: 3px solid #d0d5dd;
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -301,4 +331,31 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세 정보 모달 *****************************************/
+.detailed-info-container {
+  display: none;
+
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  padding: 32px 16px;
+}
+
+.detailed-info-container--open {
+  display: block;
+}
+
+.detail-modal-backdrop {
+  display: none;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.35);
 }
