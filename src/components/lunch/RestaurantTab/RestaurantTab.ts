@@ -31,7 +31,6 @@ class RestaurantTab extends BaseComponent {
         <restaurant-tab-body
           status="${this.tabStatus}"
         >
-        ${`
           <div id='restaurant-dropdown-container' class='${
             this.tabStatus === RESTAURANT_TAB_STATUS_TABLE.favorite
               ? "close"
@@ -57,7 +56,6 @@ class RestaurantTab extends BaseComponent {
           <restaurant-list
             status='${this.tabStatus}'
           ></restaurant-list>
-        `}
         </restaurant-tab-body>
     `;
   }
