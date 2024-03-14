@@ -63,6 +63,7 @@ const generateTotalCategoryImageAndInfoComponent = (targetRestaurantListItem: Re
   if (restaurantDescriptionComponent) {
     fragment.appendChild(restaurantDescriptionComponent);
   }
+
   const totalButtonComponent = generateTotalButtonComponent();
 
   fragment.appendChild(restaurantLinkComponent);

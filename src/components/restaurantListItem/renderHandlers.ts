@@ -31,7 +31,7 @@ const generateRestaurantListItemImageComponent = (categoryInfo: CategoryInfo) =>
 const generateRestaurantListItemInfoComponent = (restaurant: RestaurantState) => {
   const restaurantInfoContainer = generateContainerComponent(RESTAURANT_INFO_CONTAINER_COMPONENT_DATA);
   const restaurantInfoTitleComponent = createTitleComponent(restaurant.name);
-  const restaurantInfoDistanceComponent = createDistanceComponent(String(restaurant.distance));
+  const restaurantInfoDistanceComponent = createDistanceComponent(restaurant.distance);
   const restaurantDescriptionComponent = createDescriptionComponent(restaurant.description);
   restaurantInfoContainer.appendChild(restaurantInfoTitleComponent);
   restaurantInfoContainer.appendChild(restaurantInfoDistanceComponent);
