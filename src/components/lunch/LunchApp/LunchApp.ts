@@ -18,11 +18,9 @@ class LunchApp extends BaseComponent {
             targetSelector="${ELEMENT_SELECTOR.restaurantAddModal}"  
             open="${CUSTOM_EVENT_TYPE.restaurantAddModalOpen}"
             close="${CUSTOM_EVENT_TYPE.restaurantAddModalClose}"
-            children="${`
-              <h2 class='modal-title text-title'>새로운 음식점</h2>
-              <restaurant-add-form></restaurant-add-form>
-            `}"
           >
+            <h2 class='modal-title text-title'>새로운 음식점</h2>
+            <restaurant-add-form></restaurant-add-form>
           </common-modal>
           <restaurant-detail-modal></restaurant-detail-modal>
         `;

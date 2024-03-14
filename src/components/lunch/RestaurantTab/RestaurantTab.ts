@@ -30,34 +30,35 @@ class RestaurantTab extends BaseComponent {
         ></restaurant-tab-header>
         <restaurant-tab-body
           status="${this.tabStatus}"
-          children="${`
-            <div id='restaurant-dropdown-container' class='${
-              this.tabStatus === RESTAURANT_TAB_STATUS_TABLE.favorite
-                ? "close"
-                : "open"
-            }'>
-              <common-dropdown 
-                classList='restaurant-filter' 
-                eventType='${CUSTOM_EVENT_TYPE.filterCategory}' 
-                target='${ELEMENT_SELECTOR.categoryFilter}' 
-                id='category-filter' 
-                options='${menuCategoryOptions}' 
-              >
-              </common-dropdown>            
-              <common-dropdown 
-                classList='restaurant-filter' 
-                eventType='${CUSTOM_EVENT_TYPE.sortChange}' 
-                target='${ELEMENT_SELECTOR.sortingFilter}' 
-                id='sorting-filter' 
-                options='${sortCategoryOptions}'
-              >
-              </common-dropdown>
-            </div>
-            <restaurant-list
-              status='${this.tabStatus}'
-            ></restaurant-list>
-          `}"
-        ></restaurant-tab-body>
+        >
+        ${`
+          <div id='restaurant-dropdown-container' class='${
+            this.tabStatus === RESTAURANT_TAB_STATUS_TABLE.favorite
+              ? "close"
+              : "open"
+          }'>
+            <common-dropdown 
+              classList='restaurant-filter' 
+              eventType='${CUSTOM_EVENT_TYPE.filterCategory}' 
+              target='${ELEMENT_SELECTOR.categoryFilter}' 
+              id='category-filter' 
+              options='${menuCategoryOptions}' 
+            >
+            </common-dropdown>            
+            <common-dropdown 
+              classList='restaurant-filter' 
+              eventType='${CUSTOM_EVENT_TYPE.sortChange}' 
+              target='${ELEMENT_SELECTOR.sortingFilter}' 
+              id='sorting-filter' 
+              options='${sortCategoryOptions}'
+            >
+            </common-dropdown>
+          </div>
+          <restaurant-list
+            status='${this.tabStatus}'
+          ></restaurant-list>
+        `}
+        </restaurant-tab-body>
     `;
   }
 

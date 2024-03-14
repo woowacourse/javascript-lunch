@@ -28,19 +28,20 @@ class RestaurantDetailModal extends BaseComponent {
         open="${CUSTOM_EVENT_TYPE.restaurantDetailModalOpen}"
         close="${CUSTOM_EVENT_TYPE.restaurantDetailModalClose}"
         targetSelector="${ELEMENT_SELECTOR.restaurantDetailModal}"  
-        children="${
+        id="restaurant-detail-modal"
+      >
+        ${
           this.restaurantDetail
             ? `<restaurant-detail-modal-content 
-                  name='${this.restaurantDetail.name}'
-                  category='${this.restaurantDetail.category}'
-                  description='${this.restaurantDetail.description}'
-                  distance='${this.restaurantDetail.distance}'
-                  isFavorite='${this.restaurantDetail.isFavorite}'
-                  url='${this.restaurantDetail.url}'
-               ></restaurant-detail-modal-content>`
+                name='${this.restaurantDetail.name}'
+                category='${this.restaurantDetail.category}'
+                description='${this.restaurantDetail.description}'
+                distance='${this.restaurantDetail.distance}'
+                isFavorite='${this.restaurantDetail.isFavorite}'
+                url='${this.restaurantDetail.url}'
+              ></restaurant-detail-modal-content>`
             : ""
-        }" 
-        id="restaurant-detail-modal">
+        }
       </common-modal>
     `;
   }

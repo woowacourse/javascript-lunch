@@ -2,7 +2,7 @@ import BaseComponent from "../../../BaseComponent/BaseComponent";
 
 class RestaurantTabBody extends BaseComponent {
   public render() {
-    const children = this.getAttribute("children");
+    const children = this.innerHTML;
 
     this.innerHTML = `
         ${children}
