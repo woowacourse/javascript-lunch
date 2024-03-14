@@ -1,3 +1,4 @@
+import { getCategoryImageSource } from "../domain/utils";
 import { Restaurant } from "../types";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 }
 
 export const createRestaurantItem = ({
-  restaurant: { name, distance, description },
+  restaurant: { category, name, distance, description },
   onClick,
 }: Props) => {
   const restaurantItem = document.createElement("li");
@@ -15,8 +16,8 @@ export const createRestaurantItem = ({
   restaurantItem.innerHTML = /*html*/ `
     <div class="restaurant__category">
       <img
-        src="./category-korean.png"
-        alt="한식"
+        src=${getCategoryImageSource(category)}
+        alt=${category}
         class="category-icon"
       />
     </div>

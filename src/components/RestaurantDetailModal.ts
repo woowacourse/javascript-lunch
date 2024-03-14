@@ -1,15 +1,19 @@
+import { getCategoryImageSource } from "../domain/utils";
 import { Restaurant } from "../types";
 import Modal from "./Modal";
 
 const restaurantDetailContent = document.createElement("div");
 
 const generateTemplate = ({
+  category,
   name,
   distance,
   description,
 }: Restaurant) => /*html*/ `
 <div class="restaurant__category">
-  <img src="./category-korean.png" alt="한식" class="category-icon">
+  <img src="${getCategoryImageSource(
+    category
+  )}" alt="${category}" class="category-icon">
 </div>
 <div class="restaurant__info">
   <h3 class="restaurant__name text-subtitle">${name}</h3>

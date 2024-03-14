@@ -29,7 +29,6 @@ const restaurantItems = RESTAURANTS_SAMPLE.map((restaurantItem) =>
     },
   })
 );
-
 restaurantItems.forEach((child) => restaurantList.appendChild(child));
 
 // 3. 컴포넌트를 document에 붙인다.
