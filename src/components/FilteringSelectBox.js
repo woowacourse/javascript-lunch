@@ -1,5 +1,5 @@
 import generateSelectField from './template/generateSelectField';
-import restaurantList from '../layouts/RestaurantList';
+import RestaurantList from '../layouts/RestaurantList';
 
 import { $ } from '../utils/dom';
 import { FIELD_IDS, SELECT_FIELD } from '../constants/rules';
@@ -35,7 +35,10 @@ class FilteringSelectBox {
 
   #reRenderRestaurantList() {
     $('restaurant-list').innerHTML = '';
-    restaurantList({ targetId: 'restaurant-list', restaurants: this.#restaurants.standardList });
+    new RestaurantList({
+      targetId: 'restaurant-list',
+      restaurants: this.#restaurants.standardList,
+    }).render();
   }
 }
 

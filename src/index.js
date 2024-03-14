@@ -2,9 +2,8 @@ import Restaurants from './domains/Restaurants';
 
 import Header from './components/Header';
 import Select from './components/FilteringSelectBox';
+import RestaurantList from './layouts/RestaurantList';
 import RestaurantCreationModal from './components/RestaurantCreationModal';
-
-import restaurantList from './layouts/RestaurantList';
 
 import './styles/index.css';
 
@@ -14,6 +13,10 @@ const restaurants = new Restaurants(localStorage);
 // components
 const header = new Header({ targetId: 'header' });
 const select = new Select({ targetId: 'restaurant-filter-container', restaurants });
+const restaurantList = new RestaurantList({
+  targetId: 'restaurant-list',
+  restaurants: restaurants.standardList,
+});
 const restaurantCreationModal = new RestaurantCreationModal({
   targetId: 'restaurant-creation-modal',
   restaurants,
@@ -22,6 +25,4 @@ const restaurantCreationModal = new RestaurantCreationModal({
 header.render();
 select.render();
 restaurantCreationModal.render();
-
-// layout
-restaurantList({ targetId: 'restaurant-list', restaurants: restaurants.standardList });
+restaurantList.render();

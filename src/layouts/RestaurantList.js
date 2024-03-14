@@ -1,12 +1,26 @@
-import generateRestaurantItem from '../components/template/generateRestaurantItem';
+import RestaurantItem from '../components/RestaurantItem';
 import { $ } from '../utils/dom';
 
-const restaurantList = ({ targetId, restaurants }) => {
-  const restaurantListHTML = restaurants.reduce((acc, restaurantData) => {
-    return acc + generateRestaurantItem(restaurantData);
-  }, '');
+class restaurantList {
+  #element;
+  #restaurants;
 
-  $(targetId).innerHTML = restaurantListHTML;
-};
+  constructor({ targetId, restaurants }) {
+    this.#element = $(targetId);
+    this.#restaurants = restaurants;
+
+    this.#initEventListeners();
+  }
+
+  render() {
+    const restaurantListHTML = this.#restaurants.reduce((acc, restaurantData) => {
+      return acc + new RestaurantItem(restaurantData).getTemplate();
+    }, '');
+
+    this.#element.innerHTML = restaurantListHTML;
+  }
+
+  #initEventListeners() {}
+}
 
 export default restaurantList;
