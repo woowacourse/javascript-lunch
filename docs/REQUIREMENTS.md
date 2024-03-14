@@ -12,7 +12,6 @@ https://jinhokim98.github.io/javascript-lunch/dist/
 - 이름
   - 입력이 되지 않았을 때
 - 거리
-
   - 입력이 되지 않았을 때
   - 5, 10, 15, 20, 30이 아닌 입력이 들어왔을 때
 
@@ -21,7 +20,6 @@ https://jinhokim98.github.io/javascript-lunch/dist/
 - 설명, 참고 링크는 입력이 필수는 아니다.
 
 UI
-
 - 음식점 목록을 확인할 수 있다.
 - 카테고리별로 필터링해서 확인할 수 있다.
 - 이름순/거리순으로 정렬해서 확인할 수 있다.
