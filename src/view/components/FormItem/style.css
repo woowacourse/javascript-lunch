@@ -58,6 +58,14 @@
   border: red 1px solid !important;
 }
 
+.form-item--invalid-input:user-invalid {
+  border: red 1px solid !important;
+}
+
 .form-item-error-span {
   color: red !important;
+}
+
+.form-item-invalid-input {
+  border: red 1px solid !important;
 }

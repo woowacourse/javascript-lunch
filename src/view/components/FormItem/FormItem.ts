@@ -48,15 +48,16 @@ class FormItem {
   }
 
   removeErrorPrint() {
-    this.#readableElement.setCustomValidity("");
     this.#span.classList.remove("form-item-error-span");
     this.#span.textContent = this.#description;
+
+    this.#readableElement.classList.remove("form-item-invalid-input");
   }
 
-  printErrorMessage(errorMessage: string) {
-    this.#span.textContent = errorMessage;
-    this.#readableElement.setCustomValidity(errorMessage);
+  renderErrorMessage(errorMessage: string) {
     this.#span.classList.add("form-item-error-span");
+    this.#readableElement.classList.add("form-item-invalid-input");
+    this.#span.textContent = errorMessage;
   }
 
   #createElement(isRequired: boolean) {
@@ -89,7 +90,7 @@ class FormItem {
     this.#readableElement.required = true;
     this.#readableElement.addEventListener("invalid", (event) => {
       event.preventDefault();
-      this.printErrorMessage("필수 제출 항목입니다.");
+      this.renderErrorMessage("필수 입력 값입니다.");
     });
   }
 }

@@ -39,16 +39,16 @@ class AddRestaurantForm {
         submitFunc(newRestaurant);
         this.reset.bind(this)();
       } catch (error) {
-        this.#nameFormItem.printErrorMessage("중복된 이름이 존재합니다.");
+        this.#nameFormItem.renderErrorMessage("중복된 이름이 존재합니다.");
         event.preventDefault();
         event.stopPropagation();
       }
     });
-
     this.#setElement();
   }
 
   reset() {
+    this.element.reset();
     this.#categoryFormItem.reset();
     this.#nameFormItem.reset();
     this.#distanceFormItem.reset();
