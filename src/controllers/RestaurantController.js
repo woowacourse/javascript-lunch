@@ -116,27 +116,22 @@ class RestaurantController {
       const favoriteButton = event.target.closest('.favorite-button');
       const restaurantItem = event.target.closest('.restaurant');
 
+      const restaurant = this.#restaurantList[restaurantItem.id];
+
       if (favoriteButton) {
-        this.changeFavoriteButton(favoriteButton);
+        this.changeFavoriteButton(restaurant, favoriteButton);
       } else if (restaurantItem) {
-        this.showDetailRestaurantModal(restaurantItem);
+        this.showDetailRestaurantModal(restaurant);
       }
     });
   }
 
-  changeFavoriteButton(favoriteButton) {
-    const lined = './favorite-icon-lined.png';
-    const filled = './favorite-icon-filled.png';
-
-    const restaurant = this.#restaurantList[favoriteButton.id];
-
+  changeFavoriteButton(restaurant, favoriteButton) {
     restaurant.favorite = !restaurant.favorite;
-    favoriteButton.src = restaurant.favorite ? filled : lined;
+    favoriteButton.src = restaurant.favorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
   }
 
-  showDetailRestaurantModal(restaurantItem) {
-    const restaurant = this.#restaurantList[restaurantItem.id];
-
+  showDetailRestaurantModal(restaurant) {
     OutputView.renderDetailRestaurant(restaurant);
     // this.manageAddRestaurantFormEvents();
     this.manageModalEvents();

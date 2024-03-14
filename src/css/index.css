@@ -1,6 +1,7 @@
 @import './root.css';
 @import '../components/Common/Common.css';
 @import '../components/Restaurant/RestaurantItem.css';
+@import '../components/Modal/ModalContent.css';
 
 * {
   padding: 0;
