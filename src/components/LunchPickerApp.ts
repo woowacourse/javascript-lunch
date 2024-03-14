@@ -1,26 +1,27 @@
-import Component from './Component';
+import Component from './core/Component';
+import { $, $addEvent, $removeEvent, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
   setEvent() {
-    this.$addEvent('lunch-picker-tab', 'updateRestaurantList', this.#updateRestaurantList);
-    this.$addEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
-    this.$addEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
+    $addEvent(this, 'lunch-picker-tab', 'updateRestaurantList', this.#updateRestaurantList);
+    $addEvent(this, '.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
+    $addEvent(this, 'restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   removeEvent() {
-    this.$removeEvent('lunch-picker-tab', 'lunch-picker-tab', this.#updateRestaurantList);
-    this.$removeEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
-    this.$removeEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
+    $removeEvent(this, 'lunch-picker-tab', 'lunch-picker-tab', this.#updateRestaurantList);
+    $removeEvent(this, '.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
+    $removeEvent(this, 'restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   #updateRestaurantList = () => {
-    const category = (this.$('.category') as HTMLSelectElement)?.value;
-    const sorting = (this.$('.sorting') as HTMLSelectElement)?.value;
-    const type = this.$('.tab-item--checked').textContent;
+    const category = ($(this, '.category') as HTMLSelectElement)?.value;
+    const sorting = ($(this, '.sorting') as HTMLSelectElement)?.value;
+    const type = $(this, '.tab-item--checked').textContent;
 
-    this.$setAttribute('restaurant-list', 'category', `${category}`);
-    this.$setAttribute('restaurant-list', 'sorting', `${sorting}`);
-    this.$setAttribute('restaurant-list', 'type', `${type}`);
+    $setAttribute(this, 'restaurant-list', 'category', `${category}`);
+    $setAttribute(this, 'restaurant-list', 'sorting', `${sorting}`);
+    $setAttribute(this, 'restaurant-list', 'type', `${type}`);
   };
 
   template() {

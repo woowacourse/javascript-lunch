@@ -1,5 +1,6 @@
-import Component from './Component';
+import Component from './core/Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
+import { $ } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 import { ERROR } from '../constants/Message';
 
@@ -31,9 +32,9 @@ class RestaurantAddModal extends Component {
 
   #updateModal(isOpen: boolean) {
     if (isOpen) {
-      this.$('.modal').classList.add('modal--open');
+      $(this, '.modal').classList.add('modal--open');
     } else {
-      this.$('.modal').classList.remove('modal--open');
+      $(this, '.modal').classList.remove('modal--open');
     }
   }
 
@@ -46,17 +47,17 @@ class RestaurantAddModal extends Component {
 
     this.#addRestaurant();
 
-    (this.$('.modal-form') as HTMLFormElement).reset();
+    ($(this, '.modal-form') as HTMLFormElement).reset();
     this.#updateModal(false);
   }
 
   #addRestaurant() {
     const formData = {
-      category: (this.$('.modal-category') as HTMLSelectElement).value as TCategory,
-      name: (this.$('.modal-restaurant-name') as HTMLInputElement).value,
-      distance: Number((this.$('.modal-distance') as HTMLSelectElement).value) as TDistance,
-      description: (this.$('.modal-description') as HTMLInputElement).value,
-      reference: (this.$('.modal-reference') as HTMLInputElement).value,
+      category: ($(this, '.modal-category') as HTMLSelectElement).value as TCategory,
+      name: ($(this, '.modal-restaurant-name') as HTMLInputElement).value,
+      distance: Number(($(this, '.modal-distance') as HTMLSelectElement).value) as TDistance,
+      description: ($(this, '.modal-description') as HTMLInputElement).value,
+      reference: ($(this, '.modal-reference') as HTMLInputElement).value,
       isFavorite: false,
     };
 
@@ -67,12 +68,12 @@ class RestaurantAddModal extends Component {
 
   #handleEmptyError(selectors: string[]) {
     const errors = selectors.filter((selector) => {
-      if (isEmptyInput((this.$(selector) as HTMLInputElement | HTMLSelectElement).value)) {
-        this.$(`${selector}-error-message`).textContent = ERROR.NULL;
+      if (isEmptyInput(($(this, selector) as HTMLInputElement | HTMLSelectElement).value)) {
+        $(this, `${selector}-error-message`).textContent = ERROR.NULL;
         return true;
       }
 
-      this.$(`${selector}-error-message`).textContent = '';
+      $(this, `${selector}-error-message`).textContent = '';
       return false;
     });
 
@@ -80,7 +81,7 @@ class RestaurantAddModal extends Component {
       return false;
     }
 
-    (this.$(errors[0]) as HTMLInputElement | HTMLSelectElement).focus();
+    ($(this, errors[0]) as HTMLInputElement | HTMLSelectElement).focus();
     return true;
   }
 

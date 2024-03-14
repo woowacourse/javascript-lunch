@@ -1,4 +1,5 @@
-import Component from './Component';
+import Component from './core/Component';
+import { $addEvent, $setAttribute } from '../utils/dom';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
 import favoriteLinedIcon from '../assets/favorite-icon-lined.png';
@@ -20,12 +21,12 @@ class RestaurantItem extends Component {
   }
 
   setEvent(): void {
-    this.$addEvent(`.favorite__button__${this.#key}`, 'click', () => this.#toggleFavorite());
-    this.$addEvent(`.restaurant__info__${this.#key}`, 'click', () => this.#openModal());
+    $addEvent(this, `.favorite__button`, 'click', this.#toggleFavorite.bind(this));
+    $addEvent(this, `.restaurant__info`, 'click', this.#openModal.bind(this));
   }
 
   #openModal() {
-    this.$setAttribute(`.restaurant__${this.#key} > restaurant-detail-modal`, 'open', 'true');
+    $setAttribute(this, `restaurant-detail-modal`, 'open', 'true');
   }
 
   #toggleFavorite() {
@@ -41,16 +42,16 @@ class RestaurantItem extends Component {
 
   template() {
     return `
-      <div class="restaurant restaurant__${this.#key}">
+      <div class="restaurant">
         <category-icon category=${this.#restaurant.category}></category-icon>
-        <div class="restaurant__info restaurant__info__${this.#key}">
+        <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${this.#restaurant.name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${this.#restaurant.distance}분 내</span>
           <p class="restaurant__description text-body">
             ${this.#restaurant.description || ''}
           </p>
         </div>
-        <button class="favorite__button favorite__button__${this.#key}">
+        <button class="favorite__button">
           ${this.#handleFavoriteIcon(this.#restaurant.isFavorite)}
         </button>
         <restaurant-detail-modal key=${this.#key} open="false"></restaurant-detail-modal>

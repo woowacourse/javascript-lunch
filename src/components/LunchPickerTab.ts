@@ -1,4 +1,5 @@
-import Component from './Component';
+import Component from './core/Component';
+import { $$, $addEvent } from '../utils/dom';
 
 class LunchPickerTab extends Component {
   constructor() {
@@ -6,8 +7,8 @@ class LunchPickerTab extends Component {
   }
 
   setEvent(): void {
-    this.$addEvent('.all', 'click', () => this.#changeTabItem('all'));
-    this.$addEvent('.favorites', 'click', () => this.#changeTabItem('favorites'));
+    $addEvent(this, '.all', 'click', () => this.#changeTabItem('all'));
+    $addEvent(this, '.favorites', 'click', () => this.#changeTabItem('favorites'));
   }
 
   #changeTabItem(type: string) {
@@ -16,7 +17,7 @@ class LunchPickerTab extends Component {
   }
 
   #changeColor(type: string) {
-    this.$$('.tab-item').forEach((item) => {
+    $$(this, '.tab-item').forEach((item) => {
       if (item.classList.contains(type)) {
         item.classList.add('tab-item--checked');
         item.classList.remove('tab-item--disabled');

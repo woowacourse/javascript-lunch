@@ -1,4 +1,5 @@
-import Component from './Component';
+import Component from './core/Component';
+import { $ } from '../utils/dom';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
 import favoriteLinedIcon from '../assets/favorite-icon-lined.png';
@@ -39,9 +40,9 @@ class RestaurantDetailModal extends Component {
 
   #updateModal(isOpen: boolean) {
     if (isOpen) {
-      this.$('.modal').classList.add('modal--open');
+      $(this, '.modal').classList.add('modal--open');
     } else {
-      this.$('.modal').classList.remove('modal--open');
+      $(this, '.modal').classList.remove('modal--open');
     }
   }
 
