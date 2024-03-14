@@ -1,13 +1,10 @@
+import RestaurantStorage from '../store/RestaurantStorage';
+
 class RestaurantRepository {
   #restaurants;
 
   constructor() {
-    this.#restaurants = this.#getRestaurants();
-  }
-
-  #getRestaurants(): IRestaurant[] {
-    const restaurants = localStorage.getItem('restaurants');
-    return restaurants ? JSON.parse(restaurants) : [];
+    this.#restaurants = RestaurantStorage.getRestaurants();
   }
 
   #getFavoriteRestaurants() {
@@ -28,7 +25,7 @@ class RestaurantRepository {
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurants = [...this.#restaurants, { key: this.#restaurants.length + 1, ...restaurant }];
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+    RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
   getRestaurant(key: number) {
@@ -36,8 +33,8 @@ class RestaurantRepository {
   }
 
   removeRestaurant(key: number) {
-    this.#restaurants = this.#restaurants.slice(key, 1);
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+    this.#restaurants = this.#restaurants.filter((restaurant: IRestaurant) => restaurant.key !== key);
+    RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
   transformRestaurants(category: TAllCategory, sortingOption: TSortingOption, tabOption: TTabOption) {
@@ -59,7 +56,7 @@ class RestaurantRepository {
       restaurant.key === key ? { ...restaurant, isFavorite: !restaurant.isFavorite } : restaurant,
     );
 
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+    RestaurantStorage.setRestaurants(this.#restaurants);
   }
 }
 

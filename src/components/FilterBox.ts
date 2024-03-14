@@ -1,5 +1,6 @@
 import Component from './Component';
 import { OPTIONS_MAP } from '../constants/Condition';
+import { $addEvent, $removeEvent } from '../utils/dom';
 
 class FilterBox extends Component {
   #type: string;
@@ -11,13 +12,13 @@ class FilterBox extends Component {
 
   setEvent() {
     if (this.#type === 'category' || this.#type === 'sorting') {
-      this.$addEvent(`.${this.#type}`, 'change', this.#updateRestaurantList);
+      $addEvent(this, `.${this.#type}`, 'change', this.#updateRestaurantList);
     }
   }
 
   removeEvent() {
     if (this.#type === 'category' || this.#type === 'sorting') {
-      this.$removeEvent(`.${this.#type}`, 'change', this.#updateRestaurantList);
+      $removeEvent(this, `.${this.#type}`, 'change', this.#updateRestaurantList);
     }
   }
 

@@ -1,17 +1,13 @@
-import Component from './core/Component';
+import Component from './Component';
 import { $, $addEvent, $removeEvent, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
   setEvent() {
-    $addEvent(this, 'lunch-picker-tab', 'updateRestaurantList', this.#updateRestaurantList);
-    $addEvent(this, '.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
-    $addEvent(this, 'restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
+    $addEvent(this, '#app', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   removeEvent() {
-    $removeEvent(this, 'lunch-picker-tab', 'lunch-picker-tab', this.#updateRestaurantList);
-    $removeEvent(this, '.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
-    $removeEvent(this, 'restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
+    $removeEvent(this, '#app', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   #updateRestaurantList = () => {
@@ -26,14 +22,16 @@ class LunchPickerApp extends Component {
 
   template() {
     return `
-      <lunch-picker-header></lunch-picker-header>
-      <lunch-picker-tab></lunch-picker-tab>
-      <section class="restaurant-filter-container">
-          <filter-box type="category"></filter-box>
-          <filter-box type="sorting"></filter-box>
-      </section>
-      <restaurant-list category="전체" sorting="이름순"></restaurant-list>
-      <restaurant-add-modal open="false"></restaurant-add-modal>
+      <div id="app">
+        <lunch-picker-header></lunch-picker-header>
+        <lunch-picker-tab></lunch-picker-tab>
+        <section class="restaurant-filter-container">
+            <filter-box type="category"></filter-box>
+            <filter-box type="sorting"></filter-box>
+        </section>
+        <restaurant-list category="전체" sorting="이름순"></restaurant-list>
+        <restaurant-add-modal open="false"></restaurant-add-modal>
+      </div>
     `;
   }
 }

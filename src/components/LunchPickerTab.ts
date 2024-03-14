@@ -1,4 +1,4 @@
-import Component from './core/Component';
+import Component from './Component';
 import { $$, $addEvent } from '../utils/dom';
 
 class LunchPickerTab extends Component {

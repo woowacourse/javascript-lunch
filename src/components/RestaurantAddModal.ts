@@ -1,4 +1,4 @@
-import Component from './core/Component';
+import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import { $ } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';

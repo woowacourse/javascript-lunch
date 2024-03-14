@@ -1,4 +1,4 @@
-import Component from './core/Component';
+import Component from './Component';
 import { $addEvent, $setAttribute } from '../utils/dom';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import favoriteFilledIcon from '../assets/favorite-icon-filled.png';

@@ -1,4 +1,4 @@
-import Component from './core/Component';
+import Component from './Component';
 import { $ } from '../utils/dom';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
@@ -33,9 +33,16 @@ class RestaurantDetailModal extends Component {
       }
 
       if ((event.target as HTMLElement).classList.contains('button--secondary')) {
+        RestaurantRepository.removeRestaurant(this.#key);
+        this.makeCustomEvent('updateRestaurantList');
         this.#updateModal(false);
       }
     });
+  }
+
+  #toggleFavorite() {
+    RestaurantRepository.toggleFavoriteRestaurant(this.#key);
+    this.reRender();
   }
 
   #updateModal(isOpen: boolean) {
