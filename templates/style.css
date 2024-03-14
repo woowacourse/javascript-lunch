@@ -182,7 +182,7 @@ body {
   color: var(--primary-color);
 }
 
-.restaurant__description {
+.restaurant__description-summary {
   display: -webkit-box;
 
   padding-top: 8px;
@@ -191,6 +191,21 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__description {
+  display: -webkit-box;
+
+  padding-top: 8px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.restaurant__link {
+  display: block;
+  color: var(--grey-500);
+  margin-top: 16px;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -216,7 +231,8 @@ body {
   background: rgba(0, 0, 0, 0.35);
 }
 
-.modal-container {
+.modal-container,
+.detail-modal-container {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -227,8 +243,20 @@ body {
   background: var(--grey-100);
 }
 
+.detail-modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .modal-title {
   margin-bottom: 36px;
+}
+
+.modal-top-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .form-item {
