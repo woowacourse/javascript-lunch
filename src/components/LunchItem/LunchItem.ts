@@ -1,9 +1,9 @@
 import './style.css';
 
-import { KOREAN, CHINESE, JAPANESE, ASIAN, WESTERN, ETC, LIKE, UNLIKE } from '../../imgs/index';
+import { KOREAN, CHINESE, JAPANESE, ASIAN, WESTERN, ETC } from '../../imgs/index';
 import { Restaurant } from '../../types/index';
 import LunchRestaurantTypeIcon from '../LunchRestaurantTypeIcon/LunchRestaurantTypeIcon';
-import FavoriteRestaurantsRegistry from '../../domain/FavoriteRestaurantsRegistry';
+import LunchFavoriteIcon from '../LunchFavoriteIcon/LunchFavoriteIcon';
 
 export const CATEGORY_IMG: Record<string, string> = {
   한식: KOREAN,
@@ -49,16 +49,12 @@ class LunchItem extends HTMLLIElement {
     const header = document.createElement('div');
     header.appendChild(this.createInfoTitles(restaurant));
     header.classList.add('restaurant__info-header');
-    header.insertAdjacentHTML('beforeend', this.favoriteIconHTMLFromStatus(restaurant));
+    header.insertAdjacentElement('beforeend', this.createFavoriteIcon(restaurant));
     return header;
   }
 
-  favoriteIconHTMLFromStatus(restaurant: Restaurant) {
-    if (FavoriteRestaurantsRegistry.isLikedRestaurant(restaurant)) {
-      return `<img src=${LIKE} alt = 'favorite-icon-filled' class= "favorite-icon" >`;
-    }
-
-    return `<img src=${UNLIKE} alt = 'favorite-icon-lined' class= "favorite-icon" >`;
+  createFavoriteIcon(restaurant: Restaurant) {
+    return new LunchFavoriteIcon(restaurant);
   }
 
   createInfoTitles(restaurant: Restaurant) {
