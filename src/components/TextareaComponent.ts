@@ -16,7 +16,7 @@ export default function TextareaComponent({
   const getTemplate = () => {
     const template = document.createElement('template');
     template.innerHTML = `
-        <textarea 
+        <textarea
           ${name ? `name="${name}"` : ''}
           ${id ? `id="${id}"` : ''}
           ${cols ? `cols="${cols}"` : ''}
