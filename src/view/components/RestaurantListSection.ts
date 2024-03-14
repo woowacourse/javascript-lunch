@@ -18,13 +18,16 @@ class RestaurantListSection {
     `;
   }
 
-  renderRestaurantList({
-    category,
-    sortingStandard,
-  }: {
-    category: Category | "전체";
-    sortingStandard: SortingStandard;
-  }) {
+  renderRestaurantList(
+    {
+      category,
+      sortingStandard,
+    }: {
+      category: Category | "전체";
+      sortingStandard: SortingStandard;
+    },
+    isGoToFilter: boolean = false
+  ) {
     const $restaurantList = document.querySelector(
       "#restaurant-list"
     ) as HTMLUListElement;
@@ -33,6 +36,7 @@ class RestaurantListSection {
     const restaurants = this.restaurantList.getRestaurants({
       category,
       sortingStandard,
+      isGoToFilter,
     });
 
     restaurants.forEach((restaurant) => {

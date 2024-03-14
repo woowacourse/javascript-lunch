@@ -56,10 +56,10 @@ class View {
 
       <main>
         <section class="restaurant-list-tab-container">
-          <div class="restaurant-list-tab restaurant-list-tab__active">
+          <div id="all-tab" class="restaurant-list-tab restaurant-list-tab__active">
             모든 음식점
           </div>
-          <div class="restaurant-list-tab">자주 가는 음식점</div>
+          <div id="favorite-tab" class="restaurant-list-tab">자주 가는 음식점</div>
         </section>
         ${this.selectSection.renderInit()}
 
@@ -76,8 +76,11 @@ class View {
     this.selectSection.renderSorting();
   }
 
-  renderListSection() {
-    this.listSection.renderRestaurantList(this.selectSection.getFilterValues());
+  renderListSection(isGoToFilter: boolean = false) {
+    this.listSection.renderRestaurantList(
+      this.selectSection.getFilterValues(),
+      isGoToFilter
+    );
   }
 
   renderFormModal() {
@@ -91,6 +94,7 @@ class View {
     this.selectSection.setEvent("change", this.renderListSection.bind(this));
 
     this.setEvent("click", this.formModal.openModal.bind(this));
+    this.setTabChangeEvent("click", () => {});
 
     this.formModal.setEvent("submit", this.renderListSection.bind(this));
     this.formModal.setCloseEvent("click", this.formModal.closeModal);
@@ -104,10 +108,14 @@ class View {
       this.renderListSection.bind(this)
     );
 
-    this.detailModal.setEvent("click", this.renderListSection.bind(this));
+    this.detailModal.setRemoveEvent("click", () => {
+      const $listTab = document.querySelector(".restaurant-list-tab__active");
+      this.renderListSection($listTab?.id === "favorite-tab" ? true : false);
+    });
     this.detailModal.setCloseEvent("click", () => {
       this.detailModal.closeModal();
-      this.renderListSection();
+      const $listTab = document.querySelector(".restaurant-list-tab__active");
+      this.renderListSection($listTab?.id === "favorite-tab" ? true : false);
     });
     this.detailModal.setToggleIsGoToEvent(
       "click",
@@ -120,6 +128,34 @@ class View {
       "#add-restaurant__button"
     ) as HTMLButtonElement;
     $addRestaurantButton.addEventListener(type, listener);
+  }
+
+  private setTabChangeEvent(type: string, listener: () => void) {
+    const $tabContainer = document.querySelector(
+      ".restaurant-list-tab-container"
+    );
+    $tabContainer?.addEventListener(type, (event: Event) => {
+      const $target = event.target as HTMLElement;
+      if ($target.id === "all-tab") {
+        $target.classList.add("restaurant-list-tab__active");
+        document
+          .querySelector("#favorite-tab")
+          ?.classList.remove("restaurant-list-tab__active");
+        this.selectSection.show();
+        this.renderSelectSection();
+        this.renderListSection();
+        return;
+      }
+      if ($target.id === "favorite-tab") {
+        $target.classList.add("restaurant-list-tab__active");
+        document
+          .querySelector("#all-tab")
+          ?.classList.remove("restaurant-list-tab__active");
+        this.selectSection.hide();
+        this.renderSelectSection();
+        this.renderListSection(true);
+      }
+    });
   }
 }
 

@@ -119,7 +119,7 @@ class RestaurantFormModal {
     $addRestaurantFormModal.classList.remove("modal--open");
   }
 
-  setEvent(type: string, listener: (event: Event) => void) {
+  setEvent(type: string, listener: () => void) {
     const $restaurantForm = document.querySelector(
       "#restaurant-form"
     ) as HTMLFormElement;
@@ -135,7 +135,7 @@ class RestaurantFormModal {
 
         $restaurantForm.reset();
         this.closeModal();
-        listener(e);
+        listener();
       } catch (error) {
         if (error instanceof Error) {
           alert(error.message);

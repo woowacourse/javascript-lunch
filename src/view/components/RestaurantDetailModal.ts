@@ -59,8 +59,8 @@ class RestaurantDetailModal {
         <span class="restaurant__distance text-body"
           >캠퍼스부터 ${distancesMapper[restaurant.distance]}</span
         >
-        <p>${restaurant.description}</p>
-        <a href=${restaurant.link}>${restaurant.link}</a>
+        <p>${restaurant.description || ""}</p>
+        <a href=${restaurant.link || ""}>${restaurant.link || ""}</a>
         <div class="button-container">
           <button
             type="button"
@@ -86,7 +86,7 @@ class RestaurantDetailModal {
     $restaurantDetailModal.classList.remove("modal--open");
   }
 
-  setEvent(type: string, listener: (event: Event) => void) {
+  setRemoveEvent(type: string, listener: () => void) {
     const $restaurantDetailModal = document.querySelector(
       "#restaurant-detail__modal"
     );
@@ -100,7 +100,7 @@ class RestaurantDetailModal {
       if ($target instanceof HTMLElement) {
         this.restaurantList.removeRestaurant(Number($target.dataset.id));
         this.closeModal();
-        listener(event);
+        listener();
       }
     });
   }

@@ -32,9 +32,9 @@ class RestaurantSelectSection {
       "#category-filter"
     ) as HTMLSelectElement;
 
-    const $frag = this.getOptions(categories);
+    const $frag = this.getOptions(["전체", ...categories]);
 
-    $categoryFilter.appendChild($frag);
+    $categoryFilter.replaceChildren($frag);
   }
 
   renderSorting() {
@@ -44,26 +44,26 @@ class RestaurantSelectSection {
 
     const $frag = this.getOptions(sortingStandards);
 
-    $sortingFilter.appendChild($frag);
+    $sortingFilter.replaceChildren($frag);
   }
 
   getFilterValues(): {
     category: Category | "전체";
     sortingStandard: SortingStandard;
   } {
-    const $sortingFilter = document.querySelector(
-      "#sorting-filter"
-    ) as HTMLSelectElement;
-    const $categoryFilter = document.querySelector(
-      "#category-filter"
-    ) as HTMLSelectElement;
+    const $sortingFilter = document.querySelector("#sorting-filter");
+    const $categoryFilter = document.querySelector("#category-filter");
+
     return {
-      category: $categoryFilter.value as Category | "전체",
-      sortingStandard: $sortingFilter.value as SortingStandard,
+      category: ($categoryFilter as HTMLSelectElement).value as
+        | Category
+        | "전체",
+      sortingStandard: ($sortingFilter as HTMLSelectElement)
+        .value as SortingStandard,
     };
   }
 
-  setEvent(type: string, listener: (event: Event) => void) {
+  setEvent(type: string, listener: () => void) {
     const $restaurantFilterContainer = document.querySelector(
       "#restaurant-filter-container"
     ) as HTMLDivElement;
@@ -71,8 +71,24 @@ class RestaurantSelectSection {
     $restaurantFilterContainer.addEventListener(type, listener);
   }
 
+  hide() {
+    const $restaurantFilterContainer = document.querySelector(
+      "#restaurant-filter-container"
+    ) as HTMLDivElement;
+
+    $restaurantFilterContainer.style.display = "none";
+  }
+
+  show() {
+    const $restaurantFilterContainer = document.querySelector(
+      "#restaurant-filter-container"
+    ) as HTMLDivElement;
+
+    $restaurantFilterContainer.style.display = "flex";
+  }
+
   private getOptions(
-    options: readonly Category[] | readonly SortingStandard[]
+    options: Array<Category | "전체"> | readonly SortingStandard[]
   ) {
     const $frag = new DocumentFragment();
 

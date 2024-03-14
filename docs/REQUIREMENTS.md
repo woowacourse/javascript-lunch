@@ -23,12 +23,12 @@
 
 ## UI
 
-- [ ] RestaurantListView
+- [x] RestaurantListView
   - [x] header
     - [x] add restaurant button
       - click event: RestaurantFormModal 띄우기
-  - [ ] main
-    - [ ] tab: 모든 음식점 | 자주가는 음식점
+  - [x] main
+    - [x] tab: 모든 음식점 | 자주가는 음식점
       - 모든 음식점
         - [x] RestaurantSelectSection
           - [x] category select
@@ -41,9 +41,9 @@
             - [x] isGoTo button
               - click event: toggle (domain + ui)
       - 자주가는 음식점
-        - [ ] RestaurantListSection
-          - [ ] RestaurantItem
-            - [ ] isGoTo button
+        - [x] RestaurantListSection
+          - [x] RestaurantItem
+            - [x] isGoTo button
               - click event: toggle (domain + ui)
 - [x] RestaurantFormModal
   - [x] AddRestaurantForm
