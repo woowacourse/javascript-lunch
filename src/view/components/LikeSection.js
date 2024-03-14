@@ -1,4 +1,6 @@
 import '../../css/likeSection.css';
+import { RESTAURANT_CATEGORY } from '../../domain/Restaurant';
+import { SORT_CONDITION } from '../../domain/RestaurantCatalog';
 
 export const [ALL_RESTAURANTS, LIKE_RESTAURANTS] = Object.freeze(['all-restaurants', 'like-restaurants']);
 
@@ -25,15 +27,32 @@ function changeLikeSectionColor(value, section) {
   }
 }
 
+const categorySection = document.querySelector('.restaurant-filter-container');
+const categorySectionClone = categorySection.cloneNode(true);
+
+function setSortAndFilterAttribute(currentElement) {
+  if (currentElement === 'like-restaurants') {
+    const restaurantCards = document.querySelector('.restaurant-list');
+    categorySection.remove();
+    restaurantCards.setAttribute('data-sort-select', '이름순');
+    restaurantCards.setAttribute('data-category-select', '전체');
+  }
+  if (currentElement === 'all-restaurants') {
+    const main = document.querySelector('main');
+    main.insertBefore(categorySectionClone, main.children[1]);
+    document.getElementById('category-select').addOptions(RESTAURANT_CATEGORY);
+    document.getElementById('sort-select').addOptions(SORT_CONDITION);
+  }
+}
+
 function handleClickLikeButton(e) {
   const clickedElement = e.target;
   const TEST_BTN_SELECTOR = 'button';
   if (clickedElement.matches(TEST_BTN_SELECTOR)) {
     const { value } = clickedElement;
-    // TODO: RestaurantsCards 어트리뷰트 변경.
     changeRestaurantsCardsAttribute(value);
-    // TODO: LikeSection CSS 색상 변경
     changeLikeSectionColor(value, clickedElement.parentElement);
+    setSortAndFilterAttribute(value);
   }
 }
 
