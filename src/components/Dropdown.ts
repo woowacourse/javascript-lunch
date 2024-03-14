@@ -12,30 +12,6 @@ class Dropdown extends HTMLSelectElement {
     this.#renderDropdownOptions(options);
   }
 
-  connectedCallback() {
-    this.addEventListener('change', (event) => {
-      const target = event.target as HTMLSelectElement;
-      const selectedValue = target.value;
-
-      this.#setAttributeCategorySelect(selectedValue);
-      this.#setAttributeSortSelect(selectedValue);
-    });
-  }
-
-  #setAttributeCategorySelect(selectedValue: string) {
-    const restaurantList = document.querySelector('.restaurant-list');
-    if (this.id === 'category-select') {
-      restaurantList?.setAttribute('data-category', selectedValue);
-    }
-  }
-
-  #setAttributeSortSelect(selectedValue: string) {
-    const restaurantList = document.querySelector('.restaurant-list');
-    if (this.id === 'sort-select') {
-      restaurantList?.setAttribute('data-sort', selectedValue);
-    }
-  }
-
   #addDefaultSelectOption() {
     if (this.id === 'category-select') {
       const optionElement = this.#makeOptionElement(CATEGORY_ALL, CATEGORY_ALL);

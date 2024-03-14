@@ -7,8 +7,11 @@ import RestaurantStore from './store/RestaurantStore';
 class App {
   #restaurantStore;
 
+  #RestaurantListComponent;
+
   constructor() {
     this.#restaurantStore = new RestaurantStore();
+    this.#RestaurantListComponent = new RestaurantList();
   }
 
   run() {
@@ -17,6 +20,7 @@ class App {
     this.#renderFormDropdowns();
     this.#formSubmitEventHandler();
     this.#buttonEventHandler();
+    this.#addDropdownEventListener();
   }
 
   #renderRestaurants() {
@@ -25,9 +29,9 @@ class App {
 
     if (restaurantsFromStorage && RestaurantListSection) {
       RestaurantListSection.innerHTML = '';
-      const RestaurantListBody = new RestaurantList(JSON.parse(restaurantsFromStorage));
+      this.#RestaurantListComponent.renderRestaurantList(JSON.parse(restaurantsFromStorage));
 
-      RestaurantListSection.appendChild(RestaurantListBody);
+      RestaurantListSection.appendChild(this.#RestaurantListComponent);
     }
   }
 
@@ -48,6 +52,33 @@ class App {
     formDistanceSelectContainer?.appendChild(
       new Dropdown('form-distance-select-container', 'distance', DISTANCE_FROM_CAMPUS),
     );
+  }
+
+  #addDropdownEventListener() {
+    this.#addCategoryDropdownEventListener();
+    this.#addSortDropdownEventListener();
+  }
+
+  #addCategoryDropdownEventListener() {
+    const categorySelect = document.getElementById('category-select');
+
+    categorySelect?.addEventListener('change', (event) => {
+      const target = event.target as HTMLSelectElement;
+      const selectedValue = target.value;
+
+      this.#RestaurantListComponent.updateCategoryFilter(selectedValue);
+    });
+  }
+
+  #addSortDropdownEventListener() {
+    const sortSelect = document.getElementById('sort-select');
+
+    sortSelect?.addEventListener('change', (event) => {
+      const target = event.target as HTMLSelectElement;
+      const selectedValue = target.value;
+
+      this.#RestaurantListComponent.updateSortCondition(selectedValue);
+    });
   }
 
   #formSubmitEventHandler() {

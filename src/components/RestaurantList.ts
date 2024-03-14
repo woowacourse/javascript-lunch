@@ -5,29 +5,35 @@ import RestaurantCard from './RestaurantCard';
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
 class RestaurantList extends HTMLUListElement {
-  #restaurants: IRestaurantInfo[];
+  #restaurants: IRestaurantInfo[] = [];
 
-  constructor(restaurants: IRestaurantInfo[]) {
+  #categoryFilter: string;
+
+  #sortCondition: string;
+
+  constructor() {
     super();
     this.classList.add('restaurant-list');
+    this.#categoryFilter = CATEGORY_ALL;
+    this.#sortCondition = SORT_BY_NAME;
+  }
+
+  renderRestaurantList(restaurants: IRestaurantInfo[]) {
     this.#restaurants = restaurants;
-  }
-
-  connectedCallback() {
-    this.setAttribute('data-sort', SORT_BY_NAME);
-    this.setAttribute('data-category', CATEGORY_ALL);
-  }
-
-  static get observedAttributes() {
-    return ['data-category', 'data-sort'];
-  }
-
-  attributeChangedCallback() {
-    this.clear();
     this.#renderRestaurantList();
   }
 
-  clear() {
+  updateCategoryFilter(category: string) {
+    this.#categoryFilter = category;
+    this.#renderRestaurantList();
+  }
+
+  updateSortCondition(sortCondition: string) {
+    this.#sortCondition = sortCondition;
+    this.#renderRestaurantList();
+  }
+
+  #clear() {
     this.innerHTML = '';
   }
 
@@ -38,8 +44,7 @@ class RestaurantList extends HTMLUListElement {
   }
 
   #filterRestaurantList() {
-    const categoryString = this.dataset.category;
-    const category: ICatalogCategory = categoryString as ICatalogCategory;
+    const category = this.#categoryFilter as ICatalogCategory;
 
     const filteredRestaurants = RestaurantCatalog.filterByCategory(this.#restaurants, category);
 
@@ -47,15 +52,16 @@ class RestaurantList extends HTMLUListElement {
   }
 
   #sortRestaurantList(restaurants: IRestaurantInfo[]) {
-    if (this.dataset.sort === SORT_BY_NAME) {
+    if (this.#sortCondition === SORT_BY_NAME) {
       this.#appendRestaurantElement(RestaurantCatalog.sortByName(restaurants));
     }
-    if (this.dataset.sort === SORT_BY_DISTANCE) {
+    if (this.#sortCondition === SORT_BY_DISTANCE) {
       this.#appendRestaurantElement(RestaurantCatalog.sortByDistance(restaurants));
     }
   }
 
   #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
+    this.#clear();
     restaurants.forEach((restaurant: IRestaurantInfo) => {
       const item = new RestaurantCard(restaurant);
       this.appendChild(item);
