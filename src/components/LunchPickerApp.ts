@@ -2,31 +2,35 @@ import Component from './Component';
 import { $, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
-  #category;
-  #sorting;
+  #category: TCategory = '한식';
+  #sorting: TSortingOption = '이름순';
+
+  handleSelectChange: () => void;
+  handleGnbButtonClick: () => void;
+  handleCancelButtonClick: () => void;
 
   constructor() {
     super();
-    this.handleSelectChange = () => this.#updateSelectType();
-    this.handleGnbButtonClick = () => $setAttribute('restaurant-add-modal', 'open', 'true');
-    this.handleCancelButtonClick = () => $setAttribute('restaurant-add-modal', 'open', 'false');
+    this.handleSelectChange = (): void => this.#updateSelectType();
+    this.handleGnbButtonClick = (): void => $setAttribute('restaurant-add-modal', 'open', 'true');
+    this.handleCancelButtonClick = (): void => $setAttribute('restaurant-add-modal', 'open', 'false');
   }
 
-  setEvent() {
+  setEvent(): void {
     this.addEventListener('selectChange', this.handleSelectChange);
     this.addEventListener('gnbButtonClick', this.handleGnbButtonClick);
     this.addEventListener('cancelButtonClick', this.handleCancelButtonClick);
   }
 
-  removeEvent() {
+  removeEvent(): void {
     this.removeEventListener('selectChange', this.handleSelectChange);
     this.removeEventListener('gnbButtonClick', this.handleGnbButtonClick);
     this.removeEventListener('cancelButtonClick', this.handleCancelButtonClick);
   }
 
-  #updateSelectType() {
-    this.#category = $('.category').value;
-    this.#sorting = $('.sorting').value;
+  #updateSelectType(): void {
+    this.#category = ($('.category') as HTMLInputElement).value as TCategory;
+    this.#sorting = ($('.sorting') as HTMLInputElement).value as TSortingOption;
     $setAttribute('restaurant-list', 'category', this.#category);
     $setAttribute('restaurant-list', 'sorting', this.#sorting);
   }

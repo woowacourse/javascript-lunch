@@ -4,61 +4,61 @@ import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 
 class RestaurantAddModal extends Component {
-  static observedAttributes = ['open'];
+  static observedAttributes: string[] = ['open'];
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
     this.render();
     this.#updateModal(JSON.parse(newValue));
     this.setEvent();
   }
 
-  setEvent() {
+  setEvent(): void {
     $addEvent('.modal-form', 'submit', this.#handleOnSubmit.bind(this));
     $addEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
   }
 
-  removeEvent() {
+  removeEvent(): void {
     $removeEvent('.modal-form', 'submit', this.#handleOnSubmit.bind(this));
     $removeEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
   }
 
-  #updateModal(isOpen) {
+  #updateModal(isOpen: boolean): void {
     if (isOpen) {
-      $('.modal').classList.add('modal--open');
+      ($('.modal') as HTMLElement).classList.add('modal--open');
     } else {
-      $('.modal').classList.remove('modal--open');
+      ($('.modal') as HTMLElement).classList.remove('modal--open');
     }
   }
 
-  #handleOnSubmit(event) {
+  #handleOnSubmit(event: Event): void {
     event.preventDefault();
     if (this.#handleEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
       return;
     }
 
     const formData = {
-      category: $('.modalCategory').value,
-      name: $('.modal-restaurant-name').value,
-      distance: $('.modalDistance').value,
-      description: $('.modal-description').value,
-      reference: $('.modal-reference').value,
+      category: ($('.modalCategory') as HTMLFormElement).value,
+      name: ($('.modal-restaurant-name') as HTMLFormElement).value,
+      distance: ($('.modalDistance') as HTMLFormElement).value,
+      description: ($('.modal-description') as HTMLFormElement).value,
+      reference: ($('.modal-reference') as HTMLFormElement).value,
     };
     this.makeCustomEvent('submitButtonClick', formData);
     this.#updateModal(false);
   }
 
-  #handleOnCancel() {
+  #handleOnCancel(): void {
     this.makeCustomEvent('cancelButtonClick');
   }
 
-  #handleEmptyError(selectors) {
-    const errors = selectors.filter((selector) => {
-      if (isEmptyInput($(selector).value)) {
-        $(`${selector}-error-message`).textContent = ERROR.NULL;
+  #handleEmptyError(selectors: string[]): boolean {
+    const errors = selectors.filter((selector: string) => {
+      if (isEmptyInput(($(selector) as HTMLSelectElement).value)) {
+        ($(`${selector}-error-message`) as HTMLElement).textContent = ERROR.NULL;
         return true;
       }
 
-      $(`${selector}-error-message`).textContent = '';
+      ($(`${selector}-error-message`) as HTMLElement).textContent = '';
       return false;
     });
 
@@ -66,11 +66,11 @@ class RestaurantAddModal extends Component {
       return false;
     }
 
-    $(errors[0]).focus();
+    ($(errors[0]) as HTMLElement).focus();
     return true;
   }
 
-  template() {
+  template(): string {
     return `
           <div class="modal">
               <div class="modal-backdrop"></div>

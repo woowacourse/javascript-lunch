@@ -1,10 +1,11 @@
 import RestaurantRepository from '../domain/RestaurantRepository';
+import { $addEvent } from '../utils/dom';
 import Component from './Component';
 
 class RestaurantList extends Component {
-  static observedAttributes = ['category', 'sorting'];
+  static observedAttributes: string[] = ['category', 'sorting'];
 
-  #restaurants;
+  #restaurants: IRestaurant[] = [];
 
   constructor() {
     super();
@@ -13,33 +14,33 @@ class RestaurantList extends Component {
     this.#generateRestaurants();
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'category' || name === 'sorting') {
       this.#generateRestaurants();
     }
   }
 
-  setEvent() {
-    document.addEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this));
+  setEvent(): void {
+    document.addEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this) as EventListener);
   }
 
-  removeEvent() {
-    document.removeEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this));
+  removeEvent(): void {
+    document.removeEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this) as EventListener);
   }
 
-  #handleSubmitButtonClick(event) {
+  #handleSubmitButtonClick(event: CustomEvent<IRestaurant>) {
     event.preventDefault();
     this.#updateRestaurants(event.detail);
   }
 
   #generateRestaurants() {
-    const category = this.getAttribute('category');
-    const sorting = this.getAttribute('sorting');
+    const category = this.getAttribute('category') as TAllCategory;
+    const sorting = this.getAttribute('sorting') as TSortingOption;
     this.#restaurants = RestaurantRepository.transformRestaurants(category, sorting);
     this.render();
   }
 
-  #updateRestaurants(restaurant) {
+  #updateRestaurants(restaurant: IRestaurant) {
     RestaurantRepository.addRestaurant(restaurant);
     this.#generateRestaurants();
   }

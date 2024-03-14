@@ -10,3 +10,5 @@ interface IRestaurant {
   description?: string;
   reference?: string;
 }
+
+declare module '*.png';

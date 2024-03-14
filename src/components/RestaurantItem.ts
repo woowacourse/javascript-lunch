@@ -7,12 +7,12 @@ import westernCategoryImg from '../assets/category-western.png';
 import etcCategoryImg from '../assets/category-etc.png';
 
 class RestaurantItem extends Component {
-  static observedAttributes = ['category', 'name', 'distance', 'description', 'reference'];
+  static observedAttributes: string[] = ['category', 'name', 'distance', 'description', 'reference'];
 
-  #category;
-  #name;
-  #distance;
-  #description;
+  #category: string | null;
+  #name: string | null;
+  #distance: string | null;
+  #description: string | null;
 
   constructor() {
     super();
@@ -23,7 +23,7 @@ class RestaurantItem extends Component {
     this.#description = this.getAttribute('description');
   }
 
-  attributeChangedCallback() {
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
     this.#category = this.getAttribute('category');
     this.#name = this.getAttribute('name');
     this.#distance = this.getAttribute('distance');
@@ -32,7 +32,7 @@ class RestaurantItem extends Component {
     this.render();
   }
 
-  #displayCategoryIcon(category) {
+  #displayCategoryIcon(category: string | null): string {
     switch (category) {
       case '한식':
         return `<img src=${koreanCategoryImg} alt="한식" class="category-icon" />`;
@@ -51,7 +51,7 @@ class RestaurantItem extends Component {
     }
   }
 
-  template() {
+  template(): string {
     return `
       <li class="restaurant">
         <div class="restaurant__category">
