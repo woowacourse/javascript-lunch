@@ -1,6 +1,9 @@
 import './reset.css';
 import './global.css';
 import './components/LunchHeader/LunchHeader';
+// eslint-disable-next-line import/no-duplicates
+import './components/LunchTab/LunchTab';
+import LunchTab from './components/LunchTab/LunchTab';
 import './components/LunchItemFilter/LunchItemFilter';
 import './components/LunchItem/LunchItem';
 import './components/LunchItems/LunchItems';
@@ -16,8 +19,27 @@ const LUNCH_APP = `
 `;
 
 class LunchApp extends HTMLElement {
+  constructor() {
+    super();
+
+    this.render();
+  }
+
   connectedCallback() {
     this.render();
+    this.querySelector('lunch-header')?.insertAdjacentElement(
+      'afterend',
+      new LunchTab([
+        {
+          name: `all-restaurants`,
+          textContent: '모든 음식점',
+        },
+        {
+          name: `favorite-restaurants`,
+          textContent: '자주 가는 음식점',
+        },
+      ]),
+    );
   }
 
   render() {
