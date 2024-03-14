@@ -1,10 +1,10 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { LocationData } from '../../../constants/typings';
+import { ILocation } from '../../../interface/interface';
 
 class RestaurantList extends HTMLElement {
-  private restaurants: LocationData[];
+  private restaurants: ILocation[];
 
-  constructor(restaurants: LocationData[]) {
+  constructor(restaurants: ILocation[]) {
     super();
     this.restaurants = restaurants;
   }

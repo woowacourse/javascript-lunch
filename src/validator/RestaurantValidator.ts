@@ -1,5 +1,5 @@
-import { LocationData } from '../constants/typings';
 import RestaurantService from '../service/RestaurantService';
+import { ILocation } from '../interface/interface';
 
 const RestaurantValidator = {
   validateRestaurantName(userInput: string) {
@@ -14,21 +14,21 @@ const RestaurantValidator = {
     }
   },
 
-  validateRestaurantCategory(inputData: LocationData) {
+  validateRestaurantCategory(inputData: ILocation) {
     if (!inputData.category) {
       throw new Error('값을 선택해주세요.');
     }
   },
 
   validateRestaurantMinutesWalk(inputData: Object) {
-    const inputLocationData = inputData as LocationData;
+    const inputLocationData = inputData as ILocation;
     if (!inputLocationData.minutesWalk) {
       throw new Error('값을 선택해주세요.');
     }
   },
 
   validateRestaurantOverlapping(inputData: Object) {
-    const inputLocationData = inputData as LocationData;
+    const inputLocationData = inputData as ILocation;
     //TODO: 코드 완성하기
   },
 };

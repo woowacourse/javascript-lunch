@@ -74,6 +74,7 @@ class AddRestaurantModal extends HTMLElement {
 
   private getEachMinutesWalk() {
     return Object.values(MinutesWalk)
+      .filter((_) => typeof MinutesWalk[_ as any] !== 'number')
       .map((minutesWalk) => {
         return `<option value="${minutesWalk}">${minutesWalk}분 내</option>`;
       })
@@ -105,7 +106,7 @@ class AddRestaurantModal extends HTMLElement {
             <div class="form-item form-item--required">
               <label for="restaurant-name text-caption">이름</label>
               
-              <input type="text" name="name" id="restaurant-name" pattern="^\S.*$" minlength="1" maxlength="20" required />
+              <input type="text" name="name" id="restaurant-name" pattern=".*+\S+.*" minlength="1" maxlength="20" required />
               <span class="help-text text-caption">1~20글자 사이로 입력해주세요. 공백만 입력할 수 없습니다.</span>
             </div>
 
