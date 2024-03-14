@@ -7,6 +7,8 @@ import './images/category-chinese.png';
 import './images/category-asian.png';
 import './images/category-western.png';
 import './images/add-button.png';
+import './images/favorite-icon-filled.png'
+import './images/favorite-icon-lined.png'
 import { appController } from './web/AppControl';
 
-appController.start();
+new appController().setMainPage();

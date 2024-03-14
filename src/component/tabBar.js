@@ -13,6 +13,7 @@ function render(tabs){
         tabItem.className = className;
         tabItem.textContent = text;
         tabItem.addEventListener('click', (event) => {
+            callback();
             if(tabItem.className.includes('tab__bar__item')){
                 $('.tab__bar__item__checked').className = 'tab__bar__item';
                 tabItem.className = 'tab__bar__item__checked';

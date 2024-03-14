@@ -8,23 +8,34 @@ import {
 } from '../constant/select';
 import { RestaurantManager } from '../domain/RestaurantManager';
 
-export const appController = {
-  start() {
-    const data = JSON.parse(localStorage.getItem('restaurants')) || [];
-    const restaurantManager = new RestaurantManager(data);
+export class appController {
+  #restaurantManager;
+  #currentTab;
 
-    this.setMainPage(restaurantManager);
-  },
+  constructor(){
+    const totalRestaurantsData = JSON.parse(localStorage.getItem('restaurants')) || [];
+    const favoriteRestaurantsData = JSON.parse(localStorage.getItem('favoriteRestaurants')) || [];
+    this.#restaurantManager = new RestaurantManager(totalRestaurantsData, favoriteRestaurantsData);
+    this.#currentTab = '모든 음식점';
+  } 
 
-  setMainPage(restaurantManager) {
+  setMainPage() {
     document.body.insertAdjacentElement(
       'afterbegin',
       createtabBar([{
         className: 'tab__bar__item__checked',
-        text: '모든 음식점'
-      },{
+        text: '모든 음식점',
+        callback: () => {
+          this.updateRestaurantList(this.#restaurantManager.getUpdatedTotalRsetaurants())
+          this.#currentTab = '모든 음식점';
+      }},{
         className: 'tab__bar__item',
-        text: '자주 가는 음식점'
+        text: '자주 가는 음식점',
+        callback: () => {
+          this.updateRestaurantList(this.#restaurantManager.getUpdatedFavoriteRestaurants());
+          this.#currentTab = '자주 가는 음식점';
+        }
+        
       }])
     );
     document.body.insertAdjacentElement(
@@ -33,7 +44,7 @@ export const appController = {
         className: 'gnb',
         left: 'logo',
         right: 'RestaurantAdditionButton',
-        restaurantManager,
+        restaurantManager: this.#restaurantManager,
       })
     );
 
@@ -48,9 +59,14 @@ export const appController = {
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
-          restaurantManager.udateCurentCategoty(category);  
-          this.updateRestaurantList(
-            restaurantManager.getUpdatedTotalRsetaurants()
+          this.#restaurantManager.udateCurentCategoty(category);  
+          if(this.#currentTab === '모든 음식점')
+          return this.updateRestaurantList(
+            this.#restaurantManager.getUpdatedTotalRsetaurants()
+          );
+          if(this.#currentTab === '자주 가는 음식점');
+          return this.updateRestaurantList(
+            this.#restaurantManager.getUpdatedFavoriteRestaurants()
           );
         },
       })
@@ -63,14 +79,21 @@ export const appController = {
         className: 'restaurant-filter',
         options: sortingFilterLsit,
         callback: (category) => {
-          restaurantManager.udateCurentSelectedSorting(category);
-            this.updateRestaurantList(restaurantManager.getUpdatedTotalRsetaurants());
+          this.#restaurantManager.udateCurentSelectedSorting(category);
+          if(this.#currentTab === '모든 음식점')
+          return this.updateRestaurantList(
+            this.#restaurantManager.getUpdatedTotalRsetaurants()
+          );
+          if(this.#currentTab === '자주 가는 음식점');
+          return this.updateRestaurantList(
+            this.#restaurantManager.getUpdatedFavoriteRestaurants()
+          );
         },
       })
     );
 
-    this.updateRestaurantList(restaurantManager.getUpdatedTotalRsetaurants());
-  },
+    this.updateRestaurantList(this.#restaurantManager.getUpdatedTotalRsetaurants());
+  }
 
   updateRestaurantList(restaurants) {
     const restaurantListContainer = document.querySelector(
@@ -84,21 +107,25 @@ export const appController = {
       const listItem = document.createElement('li');
       listItem.className = 'restaurant';
 
-      const categoryDiv = createRestaurantCard(restaurant);
-      listItem.addEventListener('click', (event) => this.chageStar(event));
+      const favoriteRestaurantNames = this.#restaurantManager.getUpdatedFavoriteRestaurants().map(({name}) => name);
+
+      const categoryDiv = createRestaurantCard(restaurant, favoriteRestaurantNames);
+      listItem.addEventListener('click', (event) => this.chageStar(event, restaurant));
       listItem.append(categoryDiv);
       restaurantList.append(listItem);
     });
 
     restaurantListContainer.appendChild(restaurantList);
-  },
+  }
 
-  chageStar(event){
+  chageStar(event, restaurant){
     const target = event.target;
     if(target.className === 'star lined'){
+      this.#restaurantManager.addFavoriteRestaurant(restaurant);
       target.src= './favorite-icon-filled.png';
       target.className = 'star filled';
     } else if(target.className === 'star filled'){
+      this.#restaurantManager.removeFavoriteRestaurant(restaurant);
       target.src = './favorite-icon-lined.png';
       target.className = 'star lined';
     }
