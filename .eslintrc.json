@@ -4,7 +4,7 @@
     "es2021": true
   },
   "parser": "@typescript-eslint/parser",
-  "extends": ["standard-with-typescript", "plugin:prettier/recommended"],
+  "extends": ["standard-with-typescript", "plugin:prettier/recommended", "plugin:import/recommended"],
   "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -18,7 +18,19 @@
     "import/extensions": "off",
     "class-methods-use-this": "off",
     "no-new": "off",
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", ["external", "type"], ["parent", "sibling"], "index"],
+        
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
