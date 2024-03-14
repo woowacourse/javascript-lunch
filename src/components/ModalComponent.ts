@@ -10,8 +10,6 @@ import ButtonComponent from './common/ButtonComponent';
 
 export function ModalComponent() {
   const buttonComponent = new ButtonComponent();
-  const cancelButtonNode = buttonComponent.getTemplate('취소하기', 'secondary', 'button');
-  const submitButtonNode = buttonComponent.getTemplate('추가하기', 'primary', 'submit');
 
   const getTemplate = () => {
     const template = document.createElement('template');
