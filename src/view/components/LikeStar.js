@@ -13,10 +13,11 @@ class LikeStar extends HTMLElement {
 
   connectedCallback() {
     this.classList.add('like-star');
-    this.addEventListener('click', this.#handleClick);
+    this.addEventListener('click', (e) => this.#clickHandler(e));
   }
 
-  #handleClick() {
+  #clickHandler(e) {
+    e.stopPropagation();
     // 도메인의 데이터의 isLiked값을 변경한다.
     restaurantCatalog.restaurants[this.#restaurantId].changeIsLiked();
     // LocalStorage의 데이터 isLiked값을 변경한다.
