@@ -1,4 +1,5 @@
 import { KOREAN_CATEGORY } from '../constant/cons';
+import { starButton } from './iconButtons/starButton.js';
 
 function createRestaurantCard(restaurant) {
   const restaurantCard = render(restaurant);
@@ -7,20 +8,37 @@ function createRestaurantCard(restaurant) {
 }
 
 function render({ category, name, walkingTime, description = '' }) {
-  const categoryDiv = document.createElement('div');
-  categoryDiv.className = 'restaurant__category';
-  categoryDiv.append(createCategoryImage(category));
   const fragment = new DocumentFragment();
   fragment.append(
-    categoryDiv,
-    createInfoDiv({ name, walkingTime, description })
+    createRestaurantCategory(category),
+    createRestaurantInfo({ name, walkingTime, description })
   );
+
   return fragment;
 }
 
-function createInfoDiv({ name, walkingTime, description = '' }) {
+function createRestaurantCategory(category) {
+  const restaurantCategory = document.createElement('div');
+  restaurantCategory.className = 'restaurant__category';
+
+  const categoryImg = document.createElement('img');
+  categoryImg.src = `./category-${KOREAN_CATEGORY[category]}.png`;
+  categoryImg.alt = category;
+  categoryImg.className = 'category-icon';
+
+  restaurantCategory.append(categoryImg);
+
+  return restaurantCategory;
+}
+
+function createRestaurantInfo({ name, walkingTime, description = '' }) {
   const infoDiv = document.createElement('div');
   infoDiv.className = 'restaurant__info';
+
+  const mainDiv = document.createElement('div');
+  mainDiv.className = 'restaurant__info__main';
+
+  const nameAndDistanceDiv = document.createElement('div');
 
   const restaurantName = document.createElement('h3');
   restaurantName.className = 'restaurant__name text-subtitle';
@@ -30,24 +48,22 @@ function createInfoDiv({ name, walkingTime, description = '' }) {
   restaurantDistance.className = 'restaurant__distance text-body';
   restaurantDistance.textContent = `캠퍼스부터 ${walkingTime}분 내`;
 
+  const favoriteButton = starButton.create({ id: 1 });
+
   const restaurantDescription = document.createElement('p');
   restaurantDescription.className = 'restaurant__description text-body';
   restaurantDescription.textContent = description;
 
-  infoDiv.append(restaurantName);
-  infoDiv.append(restaurantDistance);
-  infoDiv.append(restaurantDescription);
+  nameAndDistanceDiv.appendChild(restaurantName);
+  nameAndDistanceDiv.appendChild(restaurantDistance);
+
+  mainDiv.appendChild(nameAndDistanceDiv);
+  mainDiv.appendChild(favoriteButton);
+
+  infoDiv.appendChild(mainDiv);
+  infoDiv.appendChild(restaurantDescription);
 
   return infoDiv;
-}
-
-function createCategoryImage(category) {
-  const categoryImg = document.createElement('img');
-  categoryImg.src = `./category-${KOREAN_CATEGORY[category]}.png`;
-  categoryImg.alt = category;
-  categoryImg.className = 'category-icon';
-
-  return categoryImg;
 }
 
 export default createRestaurantCard;
