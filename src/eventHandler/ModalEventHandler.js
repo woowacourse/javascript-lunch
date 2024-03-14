@@ -1,3 +1,4 @@
+import { FAVORITE } from '../constants/config';
 import Restaurant from '../domain/Restaurant';
 import HomeEventHandler from './HomeEventHandler';
 
@@ -28,8 +29,8 @@ class ModalEventHandler {
     const distance = Number($restaurantForm.elements.distance.value);
     const description = $restaurantForm.elements.description.value;
     const link = $restaurantForm.elements.link.value;
-    const favorite = false;
-    const restaurantInformation = new Restaurant({ category, name, distance, description, link, favorite });
+    const favorite = FAVORITE.no;
+    const restaurantInformation = new Restaurant({ category, name, distance, favorite, description, link });
 
     this.restaurantList.add(restaurantInformation);
     new HomeEventHandler(this.restaurantList).handleFilter();

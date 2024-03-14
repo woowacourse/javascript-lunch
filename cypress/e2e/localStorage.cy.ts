@@ -17,9 +17,9 @@ describe('localStorage 테스트', () => {
     const stringifyFn = (array: IRestaurantList): string => JSON.stringify(array);
     const parseFn = (value: string): IRestaurantList => JSON.parse(value);
     const STORAGE_KEY = 'restaurants';
-    const RESTAURANT_1 = new Restaurant({ category: '아시안', name: 'cypress', distance: 30, favorite: false });
-    const RESTAURANT_2 = new Restaurant({ category: '중식', name: 'apple', distance: 15, favorite: false });
-    const RESTAURANT_3 = new Restaurant({ category: '아시안', name: 'banana', distance: 5, favorite: false });
+    const RESTAURANT_1 = new Restaurant({ category: '아시안', name: 'cypress', distance: 30, favorite: 'N' });
+    const RESTAURANT_2 = new Restaurant({ category: '중식', name: 'apple', distance: 15, favorite: 'N' });
+    const RESTAURANT_3 = new Restaurant({ category: '아시안', name: 'banana', distance: 5, favorite: 'N' });
     const RESTAURANT_LIST = new RestaurantList([RESTAURANT_1, RESTAURANT_2, RESTAURANT_3]);
     localStorage.setItem(STORAGE_KEY, stringifyFn([RESTAURANT_1, RESTAURANT_2]));
 

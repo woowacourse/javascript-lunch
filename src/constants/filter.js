@@ -4,6 +4,8 @@ import japanese from '../../templates/category-japanese.png';
 import western from '../../templates/category-western.png';
 import asian from '../../templates/category-asian.png';
 import etc from '../../templates/category-etc.png';
+import favoriteIconFilled from '../../templates/favorite-icon-filled.png';
+import favoriteIconLined from '../../templates/favorite-icon-lined.png';
 
 const ALL = '전체';
 
@@ -49,6 +51,11 @@ const CATEGORY_IMG_SRC = {
   기타: etc,
 };
 
+const FAVORITE_IMG_SRC = {
+  Y: favoriteIconFilled,
+  N: favoriteIconLined,
+};
+
 export {
   ALL,
   FILTERED_CATEGORY_ATTRIBUTE,
@@ -62,4 +69,5 @@ export {
   FORM_DISTANCE_ATTRIBUTE,
   FORM_DISTANCE,
   CATEGORY_IMG_SRC,
+  FAVORITE_IMG_SRC,
 };

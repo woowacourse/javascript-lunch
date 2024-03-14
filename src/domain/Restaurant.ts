@@ -1,3 +1,4 @@
+import { FAVORITE } from '../constants/config';
 import type { IRestaurant } from '../types/restaurant';
 
 class Restaurant {
@@ -12,7 +13,7 @@ class Restaurant {
   }
 
   isMatchedFavorite(): boolean {
-    return this.information.favorite;
+    return this.information.favorite === FAVORITE.yes;
   }
 }
 
