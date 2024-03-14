@@ -1,6 +1,7 @@
 import "./style.css";
 
 import createElementByTag from "../../utils/createElementByTag";
+import { error } from "console";
 
 class FormItem {
   element = createElementByTag({
@@ -8,6 +9,10 @@ class FormItem {
     classes: ["form-item"],
   });
   #readableElement;
+
+  #span;
+
+  #spanDescription;
 
   constructor({
     subject,
@@ -27,9 +32,11 @@ class FormItem {
     this.#readableElement = readableElement;
     this.#readableElement.required = isRequired;
 
-    const span = this.#createSpan(description);
+    this.#spanDescription = description;
 
-    this.element.append(label, this.#readableElement, span);
+    this.#span = this.#createSpan();
+
+    this.element.append(label, this.#readableElement, this.#span);
   }
 
   getValue() {
@@ -38,6 +45,12 @@ class FormItem {
 
   reset() {
     this.#readableElement.value = "";
+    this.#span.classList.remove(".form-item-error-span");
+  }
+
+  printErrorMessage(errorMessage: string) {
+    this.#span.nodeValue = errorMessage;
+    this.#span.classList.add(".form-item-error-span");
   }
 
   #createItem(isRequired: boolean) {
@@ -57,11 +70,11 @@ class FormItem {
     return label;
   }
 
-  #createSpan(description: string) {
+  #createSpan() {
     const span = createElementByTag({
       tag: "span",
       classes: ["help-text", "text-caption"],
-      contents: description,
+      contents: this.#spanDescription,
     });
     return span;
   }

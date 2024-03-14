@@ -49,3 +49,7 @@
 
   color: var(--grey-300);
 }
+
+.form-item-error-span {
+  color: red;
+}
