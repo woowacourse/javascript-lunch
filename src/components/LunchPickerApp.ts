@@ -14,7 +14,7 @@ class LunchPickerApp extends Component {
   #updateRestaurantList(): void {
     const category = ($(this, '.category') as HTMLSelectElement)?.value;
     const sorting = ($(this, '.sorting') as HTMLSelectElement)?.value;
-    const type = $(this, '.tab-item--checked').textContent;
+    const type = ($(this, '.tab-item--checked') as HTMLButtonElement)?.value;
 
     $setAttribute(this, 'restaurant-list', 'category', `${category}`);
     $setAttribute(this, 'restaurant-list', 'sorting', `${sorting}`);

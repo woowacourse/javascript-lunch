@@ -2,37 +2,25 @@ import Component from './Component';
 import { $$, $addEvent } from '../utils/dom';
 
 class LunchPickerTab extends Component {
-  constructor() {
-    super();
-  }
-
   setEvent(): void {
-    $addEvent(this, '.all', 'click', () => this.#changeTabItem('all'));
-    $addEvent(this, '.favorites', 'click', () => this.#changeTabItem('favorites'));
+    $addEvent(this, '.all', 'click', () => this.#updateTabItem('all'));
+    $addEvent(this, '.favorites', 'click', () => this.#updateTabItem('favorites'));
   }
 
-  #changeTabItem(type: string) {
-    this.#changeColor(type);
+  #updateTabItem(type: string) {
+    this.#updateTabItemColor(type);
     this.makeCustomEvent('updateRestaurantList');
   }
 
-  #changeColor(type: string) {
-    $$(this, '.tab-item').forEach((item) => {
-      if (item.classList.contains(type)) {
-        item.classList.add('tab-item--checked');
-        item.classList.remove('tab-item--disabled');
-      } else {
-        item.classList.add('tab-item--disabled');
-        item.classList.remove('tab-item--checked');
-      }
-    });
+  #updateTabItemColor(type: string) {
+    $$(this, '.tab-item').forEach((item) => item.classList.toggle('tab-item--checked', item.classList.contains(type)));
   }
 
   template(): string {
     return `
       <section class="lunch-picker-tab">
-          <div class="tab-item tab-item--checked all">모든 음식점</div>
-          <div class="tab-item tab-item--disabled favorites">자주 가는 음식점</div>
+          <button class="tab-item tab-item--checked all" value="모든 음식점">모든 음식점</button>
+          <button class="tab-item favorites" value="자주 가는 음식점">자주 가는 음식점</button>
       </section>
       `;
   }
