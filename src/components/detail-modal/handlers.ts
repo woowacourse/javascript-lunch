@@ -3,6 +3,7 @@ import restaurantListStateStore from "../../store/RestaurantListStateStore";
 import { Irestaurant } from "../../types/restaurant";
 
 import DetailModal from "./DetailModal";
+import clickLikeHandler from "./modal-like/handlers";
 
 export const dimmerClickHandler = () => {
   const modal = document.getElementsByClassName("detail-modal")[0];
@@ -29,6 +30,7 @@ const detailModalOpenHandler = (restaurant: Element) => {
     generateDetailModal(restaurantElement.id);
 
     dimmerClickHandler();
+    clickLikeHandler(restaurantElement.id);
   });
 };
 

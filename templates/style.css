@@ -156,7 +156,8 @@ body {
   width: 100%;
 }
 
-.restaurant__like-button {
+.restaurant__like-button,
+.modal__like-button {
   height: 40px;
 
   border: none;
@@ -167,7 +168,8 @@ body {
   cursor: pointer;
 }
 
-.restaurant__like-button img {
+.restaurant__like-button img,
+.modal__like-button img {
   display: block;
   width: 40px;
   height: 40px;

@@ -4,15 +4,15 @@ import {
   categoryTemplate,
   descriptionTemplate,
   distanceTemplate,
-  likeTemplate,
   linkTemplate,
+  modalLikeTemplate,
   restaurantNameTemplate,
 } from "../restaurant/restaurantInfoTemplate";
 
 const restaurantInfoTemplate = (restaurant: Irestaurant) => /*html*/ `
 <div class="modal-top-content"> 
     ${categoryTemplate(getMatchedCategoryInfo(restaurant))}
-    ${likeTemplate(restaurant.isLike)}
+    ${modalLikeTemplate(restaurant.isLike)}
 </div>
 ${restaurantNameTemplate(restaurant.name)} ${distanceTemplate(restaurant.distance)}
 ${descriptionTemplate(restaurant.description)}

@@ -18,6 +18,12 @@ export const likeTemplate = (isLike: boolean) => /*html*/ `
 </button>
 `;
 
+export const modalLikeTemplate = (isLike: boolean) => /*html*/ `
+<button type="button" class="modal__like-button" aria-label="즐겨찾기">
+    ${isLike ? `<img src="${likeImg}" alt="자주 가는 음식점" />` : `<img src="${unlikeImg}" alt="자주 가지 않는 음식점" />`}
+</button>
+`;
+
 export const restaurantNameTemplate = (name: string) => /*html*/ `
 <h3 class="restaurant__name text-subtitle">${name}</h3>
 `;

@@ -9,11 +9,9 @@ const likeButtonClickHandler = (button: Element) => {
 };
 
 const likeChange = () => {
-  document.addEventListener("DOMContentLoaded", () => {
-    const likeButtons = document.querySelectorAll(".restaurant__like-button");
-    likeButtons.forEach((button) => {
-      likeButtonClickHandler(button);
-    });
+  const likeButtons = document.querySelectorAll(".restaurant__like-button");
+  likeButtons.forEach((button) => {
+    likeButtonClickHandler(button);
   });
 };
 
