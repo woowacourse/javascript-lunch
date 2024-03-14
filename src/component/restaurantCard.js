@@ -1,23 +1,44 @@
 import { KOREAN_CATEGORY } from '../constant/cons';
 import { starButton } from './iconButtons/starButton.js';
+import createNewRestaurantModal from './modal/addRestaurantModal.js';
+import modal from './modal/modalLayout.js';
+import createRestaurantDetailModal from './modal/restaurantDetailModal.js';
 
-function createRestaurantCard(restaurant) {
-  const restaurantCard = render(restaurant);
+function createRestaurantCard({ restaurant, baseComponent }) {
+  const restaurantCard = render({ ...restaurant, baseComponent });
+
+  restaurantCard.addEventListener('click', (event) => {
+    if (event.target.classList.contains('star__button')) {
+      starButton.toggle(event.target);
+    } else {
+      const newRestaurantModalElement = createRestaurantDetailModal();
+      const newRestaurantModal = modal.create(
+        'modal--open',
+        newRestaurantModalElement
+      );
+      document.body.append(newRestaurantModal);
+    }
+  });
 
   return restaurantCard;
 }
 
-function render({ category, name, walkingTime, description = '' }) {
-  const fragment = new DocumentFragment();
-  fragment.append(
+function render({
+  category,
+  name,
+  walkingTime,
+  description = '',
+  baseComponent,
+}) {
+  baseComponent.append(
     createRestaurantCategory(category),
     createRestaurantInfo({ name, walkingTime, description })
   );
 
-  return fragment;
+  return baseComponent;
 }
 
-function createRestaurantCategory(category) {
+export function createRestaurantCategory(category) {
   const restaurantCategory = document.createElement('div');
   restaurantCategory.className = 'restaurant__category';
 
@@ -29,6 +50,14 @@ function createRestaurantCategory(category) {
   restaurantCategory.append(categoryImg);
 
   return restaurantCategory;
+}
+
+export function createRestaurantWalkingTime(walkingTime) {
+  const restaurantWalkingTime = document.createElement('span');
+  restaurantWalkingTime.className = 'restaurant__distance text-body';
+  restaurantWalkingTime.textContent = `캠퍼스부터 ${walkingTime}분 내`;
+
+  return restaurantWalkingTime;
 }
 
 function createRestaurantInfo({ name, walkingTime, description = '' }) {
@@ -44,9 +73,7 @@ function createRestaurantInfo({ name, walkingTime, description = '' }) {
   restaurantName.className = 'restaurant__name text-subtitle';
   restaurantName.textContent = name;
 
-  const restaurantDistance = document.createElement('span');
-  restaurantDistance.className = 'restaurant__distance text-body';
-  restaurantDistance.textContent = `캠퍼스부터 ${walkingTime}분 내`;
+  const restaurantWalkingTime = createRestaurantWalkingTime(walkingTime);
 
   const favoriteButton = starButton.create({ id: 1 });
 
@@ -55,7 +82,7 @@ function createRestaurantInfo({ name, walkingTime, description = '' }) {
   restaurantDescription.textContent = description;
 
   nameAndDistanceDiv.appendChild(restaurantName);
-  nameAndDistanceDiv.appendChild(restaurantDistance);
+  nameAndDistanceDiv.appendChild(restaurantWalkingTime);
 
   mainDiv.appendChild(nameAndDistanceDiv);
   mainDiv.appendChild(favoriteButton);
