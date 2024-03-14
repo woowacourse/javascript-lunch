@@ -15,14 +15,34 @@ function applyRestaurantDetailByInfo({ category, name, distanceFromCampus, descr
   restaurantDescription.innerText = description;
 }
 
+let deleteEventHandler;
+
+function addDeleteEventToButton(id) {
+  const deleteButton = document.getElementById('restaurant-detail-modal-delete-button');
+  deleteEventHandler = () => {
+    // TODO: 삭제하는 기능을 만듭니다.
+    // 1. domian data를 삭제합니다.
+    // 2. LS data를 삭제합니다.
+    console.log(id);
+  };
+  deleteButton.addEventListener('click', deleteEventHandler);
+}
+
 export function showRestaurantDetailModal(restaurantInfo) {
   applyRestaurantDetailByInfo(restaurantInfo);
-  // TODO: 버튼이벤트 추가
+  addDeleteEventToButton(restaurantInfo.id);
   dialog.showModal();
 }
 
-export function closeRestaurantDetailModal() {
-  dialog.innerHTML = '';
-  // TODO: 버튼 이벤트 삭제
+function removeDeleteEventToButton() {
+  const deleteButton = document.getElementById('restaurant-detail-modal-delete-button');
+  deleteButton.removeEventListener('click', deleteEventHandler);
+}
+
+function closeRestaurantDetailModal() {
+  removeDeleteEventToButton();
   dialog.close();
 }
+
+const closeButton = document.getElementById('restaurant-detail-modal-close-button');
+closeButton.addEventListener('click', closeRestaurantDetailModal);
