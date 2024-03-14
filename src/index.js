@@ -1,16 +1,14 @@
 import "./resources.js";
 import { createHeader } from "./components/Header.ts";
-import Modal from "./components/Modal.ts";
+import AddingRestaurantModal from "./components/AddingRestaurantModal.ts";
 
 // 1. 컴포넌트를 따로 만든다
-const testModalContent = document.createElement("div");
-testModalContent.innerHTML = `<h2>식당 추가</h2>`;
-const modal = new Modal({ child: testModalContent });
 
+const addingRestaurantModal = new AddingRestaurantModal();
 const header = createHeader({
   title: "점심 뭐 먹니?",
   imageSource: "./add-button.png",
-  onButtonClick: () => modal.toggle(),
+  onButtonClick: () => addingRestaurantModal.toggle(),
 });
 
 // 2. 컴포넌트를 결합한다
@@ -19,4 +17,4 @@ const header = createHeader({
 
 const container = document.querySelector("#container");
 container.prepend(header);
-container.appendChild(modal.element);
+container.appendChild(addingRestaurantModal.element);
