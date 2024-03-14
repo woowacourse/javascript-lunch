@@ -171,3 +171,15 @@ export interface ATagElementDataType extends BasicElementDataType {
   TAG_HREF: string;
   TAG_BLANK: boolean;
 }
+
+export type SectionComponentPropsType = {
+  className: string;
+};
+
+export interface SectionElementDataType extends BasicElementDataType {}
+
+export type MainComponentPropsType = {
+  className: string;
+};
+
+export interface MainElementDataType extends BasicElementDataType {}
