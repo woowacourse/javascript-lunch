@@ -9,6 +9,9 @@ class BasicButton extends HTMLButtonElement {
     clickEvent: () => void,
   ) {
     super();
+    styleVariant = styleVariant ?? this.getAttribute('style-variant');
+    innerText = innerText ?? this.innerText;
+    type = type ?? this.getAttribute('type');
     this.#isPrimary = styleVariant;
     this.innerText = innerText;
     this.setAttribute('type', type);

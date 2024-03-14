@@ -12,6 +12,8 @@ class MainApp extends HTMLDivElement {
   #newRestaurantModal: NewRestaurantModal;
   #restaurantDBService: RestaurantDBService;
 
+  observedAttributes = [];
+
   constructor() {
     super();
     this.className = 'main-app';
@@ -23,22 +25,25 @@ class MainApp extends HTMLDivElement {
     this.#restaurantList = this.querySelector('.restaurant-list')!;
     this.#newRestaurantModal = this.querySelector('.modal')!;
     this.#restaurantDBService = new RestaurantDBService();
-  }
-
-  connectedCallback() {
     this.paint();
   }
 
-  paint() {
-    const { category, sortCriteria } = this.#filterContainer.get();
+  // connectedCallback() {
+  //   this.paint();
+  // }
 
+  paint() {
+    this.#restaurantList.paint(this.#getNewRestaurantList());
+  }
+
+  #getNewRestaurantList() {
+    const { category, sortCriteria } = this.#filterContainer.get();
     let newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
     if (!newRestaurantList) {
       this.#setMock();
       newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
     }
-
-    this.#restaurantList.paint(newRestaurantList);
+    return newRestaurantList;
   }
 
   #setMock() {

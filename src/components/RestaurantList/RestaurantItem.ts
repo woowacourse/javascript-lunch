@@ -1,6 +1,7 @@
 import { Category, IRestaurant } from '@/types/Restaurant';
 
 import style from './RestaurantItem.module.css';
+import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon/RestaurantCategoryIcon';
 
 class RestaurantItem extends HTMLLIElement {
   #category;
@@ -31,10 +32,9 @@ class RestaurantItem extends HTMLLIElement {
     </div>
    `;
 
-    this.querySelector('div[is=restaurant-category-icon]')!.setAttribute(
-      'category',
-      this.#category,
-    );
+    (
+      this.querySelector('div[is="restaurant-category-icon"]') as RestaurantCategoryIcon
+    ).setCategory(this.#category);
     this.querySelector('.restaurant__name')!.textContent = `${this.#name}`;
     this.querySelector('.restaurant__distance')!.textContent = `캠퍼스부터 ${this.#distance}분 내`;
     this.querySelector('.restaurant__description')!.textContent = `${this.#description ?? ''}`;

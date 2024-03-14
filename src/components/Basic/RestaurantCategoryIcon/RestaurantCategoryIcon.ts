@@ -6,8 +6,12 @@ class RestaurantCategoryIcon extends HTMLDivElement {
   constructor() {
     super();
     this.className = `restaurant__category ${style.restaurant__category}`;
+  }
 
-    const category = this.getAttribute('category') as Category;
+  setCategory(category: Category) {
+    while (this.firstChild) {
+      this.removeChild(this.firstChild);
+    }
     this.append(new CategoryIcon(category));
   }
 }
