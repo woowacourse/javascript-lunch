@@ -5,6 +5,7 @@ import { RestaurantDataProvider } from '../../domain/index';
 
 import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
 import textInput from '../../utils/textInput';
+import RestaurantDataUpdater from '../../domain/RestaurantDataUpdater';
 
 export interface FilterPropsTypes {
   category?: Category;
@@ -31,12 +32,12 @@ const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => /* HTML */ `
 class LunchItems extends HTMLElement {
   connectedCallback() {
     this.render();
+    this.setEventListener();
   }
 
   render(): void {
     this.insertAdjacentHTML('beforeend', LUNCH_ITEMS_TEMPLATE);
-    const likedAttribute = this.getAttribute('liked') ?? '';
-    const liked = likedAttribute === 'true';
+    const liked = this.getLikedAttribute();
     this.renderItems({ liked });
   }
 
@@ -50,6 +51,23 @@ class LunchItems extends HTMLElement {
 
   getRestaurants({ category, sortBy, liked }: FilterPropsTypes): Restaurants {
     return RestaurantDataProvider.execute({ category, sortBy, liked });
+  }
+
+  setEventListener() {
+    this.addEventListener('clickLikedButton', (e: any) => this.handleLiked(e));
+  }
+
+  handleLiked(e: any) {
+    const name: string = e.target.getAttribute('name') ?? '';
+    const liked = this.getLikedAttribute();
+    RestaurantDataUpdater.updateLiked({ name });
+    this.renderItems({ liked });
+  }
+
+  getLikedAttribute(): boolean {
+    const likedAttribute = this.getAttribute('liked') ?? '';
+    const liked = likedAttribute === 'true';
+    return liked;
   }
 }
 

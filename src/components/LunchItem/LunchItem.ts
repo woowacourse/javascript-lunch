@@ -39,7 +39,7 @@ const LUNCH_ITEM_TEMPLATE = ({
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
         </div>
         <div class="restaurant__info--liked">
-          <img src=${liked === 'true' ? LIKED : NOT_LIKED} alt="liked" class="liked- icon" />
+          <img src=${liked === 'true' ? LIKED : NOT_LIKED} alt="liked" class="liked-icon" />
         </div>
       </div>
       <div class="restaurant__info--description">
@@ -52,6 +52,7 @@ const LUNCH_ITEM_TEMPLATE = ({
 class LunchItem extends HTMLElement {
   connectedCallback(): void {
     this.render();
+    this.setEventListener();
   }
 
   getAttributes(): LunchItemProps {
@@ -65,6 +66,16 @@ class LunchItem extends HTMLElement {
 
   render() {
     this.innerHTML = LUNCH_ITEM_TEMPLATE(this.getAttributes());
+  }
+
+  setEventListener() {
+    const clickLiked = this.querySelector('.liked-icon');
+    clickLiked?.addEventListener('click', () => this.setClickLikedEvent());
+  }
+
+  setClickLikedEvent() {
+    const clickLikedButtonEvent = new CustomEvent('clickLikedButton', { bubbles: true });
+    this.dispatchEvent(clickLikedButtonEvent);
   }
 }
 
