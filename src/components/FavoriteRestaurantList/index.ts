@@ -1,3 +1,5 @@
+import './style.css';
+
 import { RestaurantList } from '../../domains';
 
 class FavoriteRestaurantList extends HTMLElement {
@@ -10,27 +12,56 @@ class FavoriteRestaurantList extends HTMLElement {
       (info) => info.favorite,
     );
 
-    const $ul = document.createElement('ul');
-    $ul.className = 'restaurant-list';
+    const $restaurantList = document.createElement('ul');
+    $restaurantList.className = 'restaurant-list';
 
-    if (favoriteList) {
+    const isFavoriteRestaurant = !!favoriteList[0];
+
+    if (isFavoriteRestaurant) {
       favoriteList.forEach((info) => {
         const $item = document.createElement('restaurant-item');
         $item.setAttribute('name', info.name);
 
-        $ul.appendChild($item);
+        $restaurantList.appendChild($item);
       });
     }
 
-    if (!favoriteList) {
-      const $noneStore = document.createElement('p');
-      $noneStore.className = 'none-favorite-store';
-      $noneStore.textContent = '자주 가는 음식점이 존재하지 않습니다.';
-
-      $ul.appendChild($noneStore);
+    if (!isFavoriteRestaurant) {
+      $restaurantList.innerHTML = '<none-restaurant></none-restaurant>';
     }
 
-    this.appendChild($ul);
+    this.appendChild($restaurantList);
+
+    this.#addEventToFavoriteIconInFavoriteList();
+  }
+
+  #addEventToFavoriteIconInFavoriteList() {
+    const $favoriteIcon = this.querySelectorAll('favorite-icon');
+
+    $favoriteIcon?.forEach(($el) => {
+      $el.addEventListener('click', (event) =>
+        this.#handleClickToRemoveFromDisplay(event),
+      );
+    });
+  }
+
+  #handleClickToRemoveFromDisplay(event: Event) {
+    event.stopPropagation();
+
+    const { currentTarget } = event;
+
+    if (!(currentTarget instanceof HTMLElement)) return;
+    const $restaurant = currentTarget.closest('restaurant-item');
+    const favorite = currentTarget.getAttribute('favorite');
+
+    if (favorite !== 'false' || !$restaurant) return;
+    const $restaurantList = this.querySelector('.restaurant-list');
+
+    $restaurantList?.removeChild($restaurant);
+
+    if ($restaurantList?.childElementCount === 0) {
+      $restaurantList.innerHTML = '<none-restaurant></none-restaurant>';
+    }
   }
 }
 
