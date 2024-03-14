@@ -108,8 +108,8 @@ export function ModalComponent() {
             }
 
             <div class="button-container">
-            ${cancelButtonNode.firstElementChild!.outerHTML}
-            ${submitButtonNode.firstElementChild!.outerHTML}
+              <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
+              <button id="submitButton" class="button button--primary text-caption" disabled>추가하기</button>
             </div>
           </form>
         </div>
