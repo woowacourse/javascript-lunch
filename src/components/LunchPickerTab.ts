@@ -7,12 +7,12 @@ class LunchPickerTab extends Component {
     $addEvent(this, '.favorites', 'click', () => this.#updateTabItem('favorites'));
   }
 
-  #updateTabItem(type: string) {
+  #updateTabItem(type: string): void {
     this.#updateTabItemColor(type);
     this.makeCustomEvent('updateRestaurantList');
   }
 
-  #updateTabItemColor(type: string) {
+  #updateTabItemColor(type: string): void {
     $$(this, '.tab-item').forEach((item) => item.classList.toggle('tab-item--checked', item.classList.contains(type)));
   }
 
