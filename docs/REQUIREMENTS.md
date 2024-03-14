@@ -37,6 +37,7 @@
             - select event: 해당 value에 맞도록 정렬 -> RestaurantListSection에 반영
         - [ ] RestaurantListSection
           - [ ] RestaurantItem
+            - [x] click event: RestaurantDetailModal 띄우기
             - [ ] isGoTo button
               - click event: toggle (domain + ui)
       - 자주가는 음식점
@@ -53,9 +54,9 @@
 - [ ] RestaurantDetailModal
   - [ ] remove button
     - click event: 해당 음식점 삭제, 모달 닫기, 음식점 목록 불러오기
-  - [ ] cancel button
+  - [x] cancel button
     - click event: 모달 닫기
-    - [ ] isGoTo button
+  - [ ] isGoTo button
     - click event: toggle (domain + ui)
 - [x] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 -> alert
 

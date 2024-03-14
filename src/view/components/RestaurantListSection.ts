@@ -38,6 +38,7 @@ class RestaurantListSection {
     restaurants.forEach((restaurant) => {
       const restaurantTag = document.createElement("li");
       restaurantTag.className = "restaurant";
+      restaurantTag.dataset.id = restaurant.id.toString();
       restaurantTag.innerHTML = /*html*/ `
           <div class="restaurant__category">
             <img
@@ -59,6 +60,20 @@ class RestaurantListSection {
       restaurantFragment.append(restaurantTag);
     });
     $restaurantList.replaceChildren(restaurantFragment);
+  }
+
+  setEvent(type: string, listener: (id: number) => void) {
+    const $restaurantList = document.querySelector("#restaurant-list");
+    if ($restaurantList === null) {
+      return;
+    }
+    $restaurantList.addEventListener(type, (event: Event) => {
+      const $element = (event.target as Element).closest(
+        `[data-id]`
+      ) as HTMLElement;
+      const id = $element.dataset.id;
+      listener(Number(id));
+    });
   }
 }
 

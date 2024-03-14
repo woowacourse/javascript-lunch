@@ -183,10 +183,12 @@ class RestaurantFormModal {
 
     this.validateFormData({ category, name, distance, description, link });
 
-    const restaurant = {
+    const restaurant: Restaurant = {
+      id: Date.now(),
       category: category as Category,
       name: name as string,
       distance: Number(distance) as Distance,
+      isGoTo: false,
       description:
         typeof description === "string" && description.trim().length > 0
           ? description
