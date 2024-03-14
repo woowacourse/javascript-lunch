@@ -4,7 +4,7 @@ import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
-class RestaurantCards extends HTMLUListElement {
+class RestaurantList extends HTMLUListElement {
   #restaurants: IRestaurantInfo[];
 
   constructor(restaurants: IRestaurantInfo[]) {
@@ -63,4 +63,4 @@ class RestaurantCards extends HTMLUListElement {
   }
 }
 
-export default RestaurantCards;
+export default RestaurantList;

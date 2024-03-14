@@ -2,7 +2,7 @@ import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from '../d
 import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
 import { mockingData } from '../domain/mocking';
 import Dropdown from '../components/Dropdown';
-import RestaurantCards from '../components/RestaurantCards';
+import RestaurantList from '../components/RestaurantList';
 
 class WebController {
   #restaurantCatalog: RestaurantCatalog;
@@ -57,12 +57,12 @@ class WebController {
   }
 
   #renderRestaurants() {
-    const restaurantCardsContainer = document.getElementById('restaurant-cards-container');
+    const RestaurantListSection = document.getElementById('restaurant-list-section');
     const restaurantsFromStorage = localStorage.getItem('restaurants');
 
-    if (restaurantsFromStorage && restaurantCardsContainer) {
-      restaurantCardsContainer.innerHTML = '';
-      restaurantCardsContainer.appendChild(new RestaurantCards(JSON.parse(restaurantsFromStorage)));
+    if (restaurantsFromStorage && RestaurantListSection) {
+      RestaurantListSection.innerHTML = '';
+      RestaurantListSection.appendChild(new RestaurantList(JSON.parse(restaurantsFromStorage)));
     }
   }
 
