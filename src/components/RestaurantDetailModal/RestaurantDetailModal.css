@@ -1,5 +1,5 @@
-.aa {
-  background-color: pink;
-  width: 100px;
-  height: 100px;
+#restaurant-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

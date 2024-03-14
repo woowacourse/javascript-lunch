@@ -4,22 +4,25 @@ import CategoryIconBox from '../CategoryIconBox/CategoryIconBox';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import RestaurantDetailModal from '../RestaurantDetailModal/RestaurantDetailModal';
 import { $ } from '@/utils/DOM';
+import { DISTANCE_FROM_CAMPUS } from '@/constants/Condition';
 
 class RestaurantItem extends BaseComponent {
   #category;
   #distance;
   #description;
+  #link;
   #name;
   #isFavorite;
   #id;
 
-  constructor({ category, name, distance, description, isFavorite, id }: IRestaurant) {
+  constructor({ category, name, distance, description, isFavorite, id, link }: IRestaurant) {
     super();
     this.#category = category;
     this.#name = name;
     this.#distance = distance;
     this.#description = description;
     this.#isFavorite = isFavorite;
+    this.#link = link;
     this.#id = id;
   }
 
@@ -32,7 +35,6 @@ class RestaurantItem extends BaseComponent {
 
     const $restaurantInfoBox = this.#makeInfoBox();
 
-    //infoBox를 main과 body로 분리
     $restaurantInfoBox.append(this.#makeTitle());
     $restaurantInfoBox.append(this.#makeDistance());
     $restaurantInfoBox.append(this.#makeDescription());
@@ -41,23 +43,28 @@ class RestaurantItem extends BaseComponent {
     $restaurantInfoBox.append(new FavoriteButton(this.#isFavorite));
 
     $liElement.append($restaurantInfoBox);
-    this.append($liElement);
-  }
 
-  setEvent(): void {
-    this.addEventListener('click', () => {
-      const Detail = new RestaurantDetailModal({
+    $restaurantInfoBox.addEventListener('click', () => {
+      const detail = new RestaurantDetailModal({
         name: this.#name,
         distance: this.#distance,
         description: this.#description,
         category: this.#category,
+        link: this.#link,
+        isFavorite: this.#isFavorite,
       });
-      $('#detail-modal').classList.add('modal--open');
-      while ($('#detail-modal').firstChild) {
-        $('#detail-modal').removeChild($('#detail-modal').firstChild!);
-      }
-      $('#detail-modal').append(Detail);
+      this.#makeDetailModal(detail);
     });
+
+    this.append($liElement);
+  }
+
+  #makeDetailModal(detail: HTMLElement) {
+    $('#detail-modal').classList.add('modal--open');
+    while ($('#detail-modal').firstChild) {
+      $('#detail-modal').removeChild($('#detail-modal').firstChild!);
+    }
+    $('#detail-modal').append(detail);
   }
 
   #makeInfoBox() {
@@ -76,7 +83,7 @@ class RestaurantItem extends BaseComponent {
   #makeDistance() {
     const $distance = document.createElement('span');
     $distance.classList.add('restaurant__distance', 'text-body');
-    $distance.textContent = `캠퍼스부터 ${this.#distance}분 내`;
+    $distance.textContent = DISTANCE_FROM_CAMPUS(this.#distance);
     return $distance;
   }
 

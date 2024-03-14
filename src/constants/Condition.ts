@@ -34,3 +34,5 @@ export const DISTANCES_REQURIED_TEXT = [
   '선택해주세요',
   ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
 ];
+
+export const DISTANCE_FROM_CAMPUS = (distance: number) => `캠퍼스부터 ${distance}분 내`;

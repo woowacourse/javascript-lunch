@@ -2,6 +2,7 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import BaseComponent from '../BaseComponent';
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
+import { resetBodyScroll } from '@/utils/view';
 
 class RestaurantList extends BaseComponent {
   #restaurantList;

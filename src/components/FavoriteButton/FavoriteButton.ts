@@ -34,25 +34,30 @@ class FavoriteButton extends BaseComponent {
   }
 
   setEvent(): void {
-    this.#button.addEventListener('click', () => {
-      const restaurantInfo = this.#button.parentNode as HTMLElement;
-      const targetId = restaurantInfo.id;
+    this.#button.addEventListener(
+      'click',
+      (event) => {
+        event.stopPropagation();
+        const restaurantInfo = this.#button.parentNode as HTMLElement;
+        const targetId = restaurantInfo.id;
 
-      const restaurantDBService = new RestaurantDBService();
-      const existedRestaurantList = [...restaurantDBService.update().restaurantList];
+        const restaurantDBService = new RestaurantDBService();
+        const existedRestaurantList = [...restaurantDBService.update().restaurantList];
 
-      existedRestaurantList.forEach((restaurant) => {
-        if (restaurant.id === Number(targetId)) {
-          restaurant.isFavorite
-            ? restaurant.changeIsFavoriteFalse()
-            : restaurant.changeIsFavoriteTrue();
-        }
-      });
+        existedRestaurantList.forEach((restaurant) => {
+          if (restaurant.id === Number(targetId)) {
+            restaurant.isFavorite
+              ? restaurant.changeIsFavoriteFalse()
+              : restaurant.changeIsFavoriteTrue();
+          }
+        });
 
-      const newCollection = new RestaurantCollection(existedRestaurantList);
-      restaurantDBService.set(newCollection);
-      this.rerenderByFilter();
-    });
+        const newCollection = new RestaurantCollection(existedRestaurantList);
+        restaurantDBService.set(newCollection);
+        this.rerenderByFilter();
+      },
+      false,
+    );
   }
 
   rerenderByFilter() {

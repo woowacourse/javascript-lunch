@@ -1,4 +1,4 @@
-import { $, $$ } from './DOM';
+import { $$ } from './DOM';
 
 export const hideErrorMessage = () => {
   const $errors = $$('.error');
@@ -14,15 +14,13 @@ export const closeModal = (modal: HTMLElement | Element) => {
 };
 
 export const blockModalBodyScroll = () => {
-  document.body.style.overflow = 'hidden';
-  // const $modals = $$('.modal');
-  // const isModalOpen = [...$modals].some((modal) => {
-  //   modal.classList.contains('modal--opens');
-  // });
-  // if (isModalOpen) {
-  //   return (document.body.style.overflow = 'hidden');
-  // }
-  // document.body.style.overflow = 'auto';
+  if (
+    [...$$('.modal')].some((modal) => {
+      return modal.classList.contains('modal--open');
+    })
+  ) {
+    document.body.style.overflow = 'hidden';
+  }
 };
 
 export const resetBodyScroll = () => {

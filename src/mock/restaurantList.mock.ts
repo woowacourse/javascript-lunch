@@ -62,12 +62,12 @@ const restaurantListMock: IRestaurant[] = [
     isFavorite: false,
   },
   {
-    id: 7,
-    name: '얌샘김밥',
+    id: 6,
+    name: '싸다김밥',
     category: '한식',
-    distance: 5,
-    description: `멕시칸 캐주얼 그릴`,
-    link: 'https://www.naver.com',
+    distance: 10,
+    description: `싸다김밥은 전 메뉴를 직접 생산한 특제 소스로 요리해 일관된 맛을 만들어 냅니다. 창업 전 꼭 모든 경쟁브랜드를 들려 맛을 꼭 비교해 보세요. 3,000원 싸다김밥을 기준으로 하루에 김밥을 200줄만 판매한다고 해도 60만원 가량의 기본 매출이 발생합니다.`,
+    link: 'https://ssadagimbab.modoo.at/?link=4hmxgtiw',
     isFavorite: false,
   },
 ];

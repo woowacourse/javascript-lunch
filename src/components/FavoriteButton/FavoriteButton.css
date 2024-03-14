@@ -16,7 +16,6 @@
 
 .favorite-button:hover {
   transition: all 0.5s;
-  transform: scale(1.2);
 }
 
 .not-show {
