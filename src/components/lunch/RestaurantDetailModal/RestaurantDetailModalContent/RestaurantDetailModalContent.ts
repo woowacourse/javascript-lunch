@@ -71,7 +71,7 @@ class RestaurantDetailModalContent extends BaseComponent {
 
       restaurant.removeRestaurantDetail(restaurantName);
 
-      this.emit(CUSTOM_EVENT_TYPE.deleteRestaurantItem);
+      this.emit(CUSTOM_EVENT_TYPE.rerenderRestaurantList);
       this.emit(CUSTOM_EVENT_TYPE.restaurantDetailModalClose);
     }
   }

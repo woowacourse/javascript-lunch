@@ -38,7 +38,7 @@ class StarIcon extends BaseComponent {
 
       new Restaurant().updateRestaurantDetailInIsFavorite(restaurantName);
 
-      this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+      this.emit(CUSTOM_EVENT_TYPE.rerenderRestaurantList);
       this.emit(CUSTOM_EVENT_TYPE.rerenderModal);
     }
   }

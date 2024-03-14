@@ -24,8 +24,8 @@ class RestaurantList extends BaseComponent {
   ) as RestaurantTabStatus;
 
   private eventListeners = {
-    addRestaurant: {
-      eventName: CUSTOM_EVENT_TYPE.addRestaurant,
+    rerenderRestaurantList: {
+      eventName: CUSTOM_EVENT_TYPE.rerenderRestaurantList,
       eventHandler: this.handleRerenderRestaurantList.bind(this),
     },
 
@@ -37,11 +37,6 @@ class RestaurantList extends BaseComponent {
     filterCategory: {
       eventName: CUSTOM_EVENT_TYPE.filterCategory,
       eventHandler: this.handleFilterRestaurantItems.bind(this),
-    },
-
-    deleteRestaurantItem: {
-      eventName: CUSTOM_EVENT_TYPE.deleteRestaurantItem,
-      eventHandler: this.handleRerenderRestaurantList.bind(this),
     },
   } as const;
 
@@ -74,13 +69,14 @@ class RestaurantList extends BaseComponent {
   }
 
   protected setEvent(): void {
-    this.on({ ...this.eventListeners.addRestaurant, target: document });
+    this.on({
+      ...this.eventListeners.rerenderRestaurantList,
+      target: document,
+    });
 
     this.on({ ...this.eventListeners.sortChange, target: document });
 
     this.on({ ...this.eventListeners.filterCategory, target: document });
-
-    this.on({ ...this.eventListeners.deleteRestaurantItem, target: document });
   }
 
   private handleRerenderRestaurantList() {
@@ -110,13 +106,14 @@ class RestaurantList extends BaseComponent {
   }
 
   protected removeEvent(): void {
-    this.off({ ...this.eventListeners.addRestaurant, target: document });
+    this.off({
+      ...this.eventListeners.rerenderRestaurantList,
+      target: document,
+    });
 
     this.off({ ...this.eventListeners.sortChange, target: document });
 
     this.off({ ...this.eventListeners.filterCategory, target: document });
-
-    this.off({ ...this.eventListeners.deleteRestaurantItem, target: document });
   }
 }
 

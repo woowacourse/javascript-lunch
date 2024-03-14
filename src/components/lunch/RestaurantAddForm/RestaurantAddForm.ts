@@ -119,7 +119,7 @@ class RestaurantAddForm extends BaseComponent {
 
       this.handleResetForm();
 
-      this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+      this.emit(CUSTOM_EVENT_TYPE.rerenderRestaurantList);
 
       this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalClose);
     } catch (error: unknown | Error) {
