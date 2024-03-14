@@ -1,9 +1,12 @@
-import { Category, MinutesWalk } from '../constants/enums';
+import { Category, MinutesWalk } from './../constants/enums';
 
 interface ILocation {
-  getName(): string;
-  getMinutesWalk(): MinutesWalk;
-  isMatchedCategory(category: Category): boolean;
+  name: string;
+  category: Category;
+  minutesWalk: MinutesWalk;
+  description?: string | undefined;
+  referenceUrl?: string | undefined;
+  favorite: boolean;
 }
 
 export { ILocation };
