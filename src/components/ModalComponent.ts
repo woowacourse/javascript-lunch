@@ -5,6 +5,7 @@ import FormItemComponent from './FormItemComponent';
 import InputComponent from './InputComponent';
 import TextareaComponent from './TextareaComponent';
 import SelectComponent from './common/SelectComponent';
+import restaurantInfoValidator from './validator/restaurantInfoValidator';
 
 export function ModalComponent() {
   const getTemplate = () => {
@@ -104,7 +105,6 @@ export function ModalComponent() {
             <div class="button-container">
               <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
               <button id="submitButton" class="button button--primary text-caption" disabled>추가하기</button>
-              <div class="tooltip">필수 입력 값을 다 입력해주세요</div>
             </div>
           </form>
         </div>
@@ -154,7 +154,7 @@ export function ModalComponent() {
     });
   };
 
-  const getValue = (): RestaurantInfo => {
+  const getValue = (): RestaurantInfo | undefined => {
     const categoryValue = ($('#category') as HTMLSelectElement).value;
     const nameValue = ($('#name') as HTMLInputElement).value;
     const distanceValue = ($('#distance') as HTMLSelectElement).value;
@@ -169,10 +169,22 @@ export function ModalComponent() {
       link: linkValue
     };
 
-    restaurantAPI.save(modalValues);
+    const isNameValid = restaurantInfoValidator.checkRestaurantName(nameValue);
+    const isDescriptionValid = restaurantInfoValidator.checkRestaurantDescription(descriptionValue);
 
-    const modal = $('.modal') as HTMLElement;
-    modal.classList.remove('modal--open');
+    if (!isNameValid) {
+      const nameField = document.getElementById('name') as HTMLInputElement;
+      nameField.focus();
+      return;
+    }
+
+    if (!isDescriptionValid) {
+      const descriptionField = document.getElementById('description') as HTMLTextAreaElement;
+      descriptionField.focus();
+      return;
+    }
+
+    restaurantAPI.save(modalValues);
 
     return modalValues;
   };
@@ -181,11 +193,15 @@ export function ModalComponent() {
     const categoryValue = ($('#category') as HTMLSelectElement).value;
     const nameValue = ($('#name') as HTMLInputElement).value;
     const distanceValue = ($('#distance') as HTMLSelectElement).value;
+    const descriptionValue = ($('#description') as HTMLTextAreaElement).value;
 
-    const hasEmptyValue = !categoryValue || !nameValue || !distanceValue;
+    const isNameValid = restaurantInfoValidator.checkRestaurantName(nameValue);
+    const isDescriptionValid = restaurantInfoValidator.checkRestaurantDescription(descriptionValue);
+
+    const hasEmptyValue =
+      !categoryValue || !nameValue || !distanceValue || !isNameValid || !isDescriptionValid;
 
     const addButton = $('#submitButton') as HTMLButtonElement;
-
     addButton.disabled = hasEmptyValue;
   };
 
