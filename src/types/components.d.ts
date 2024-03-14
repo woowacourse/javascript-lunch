@@ -36,6 +36,7 @@ export type ButtonComponentProps = {
   id: string;
   value: string;
   role: string;
+  ariaLabel: string;
 };
 
 export interface ButtonElementDataType extends BasicElementDataType {
@@ -44,6 +45,7 @@ export interface ButtonElementDataType extends BasicElementDataType {
   TAG_ID: string;
   TAG_VALUE: string;
   TAG_ROLE: string;
+  TAG_ARIA_LABEL: string;
 }
 
 export type LabelComponentPropsType = {
@@ -143,3 +145,9 @@ export type PComponentPropsType = {
 export interface PElementDataType extends BasicElementDataType {
   TAG_TEXT_CONTENT: string;
 }
+
+export type HeaderComponentPropsType = {
+  className: string;
+};
+
+export interface HeaderElementDataType extends BasicElementDataType {}
