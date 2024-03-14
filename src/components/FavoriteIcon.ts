@@ -1,7 +1,9 @@
 import "../../templates/blank-favorite-icon.png";
 import "../../templates/filled-favorite-icon.png";
+
 import EventComponent from "../abstract/EventComponent";
 import { TOGGLE_FAVORITE_EVENT } from "../constants/event";
+import favoriteStore from "../store/favoriteStore";
 
 const blankIconPath = "./blank-favorite-icon.png";
 const filledIconPath = "./filled-favorite-icon.png";
@@ -23,7 +25,7 @@ export default class FavoriteIcon extends EventComponent {
     this.addEventListener("click", this.handleIconClick.bind(this));
 
     document.addEventListener(TOGGLE_FAVORITE_EVENT, (e) =>
-      this.handleToggleFavorite(e as CustomEvent)
+      this.handleToggleFavoriteEvent(e as CustomEvent)
     );
   }
 
@@ -33,21 +35,26 @@ export default class FavoriteIcon extends EventComponent {
     this.dispatchEvent(
       new CustomEvent(TOGGLE_FAVORITE_EVENT, {
         bubbles: true,
-        detail: {
-          itemName,
-          isActive: this.getAttribute("isActive") !== "true",
-        },
+        detail: { itemName },
       })
     );
   }
 
-  private handleToggleFavorite(e: CustomEvent) {
-    const { itemName, isActive } = e.detail;
+  private handleToggleFavoriteEvent(e: CustomEvent) {
+    const { itemName } = e.detail;
 
     if (itemName === this.getAttribute("itemName")) {
-      this.setAttribute("isActive", isActive);
+      this.toggleFavorite(itemName);
       this.render();
     }
+  }
+
+  private toggleFavorite(itemName: string) {
+    const isActive = this.getAttribute("isActive") === "true";
+
+    favoriteStore.toggle(itemName, isActive);
+
+    this.setAttribute("isActive", String(!isActive));
   }
 
   static get observedAttributes(): string[] {
