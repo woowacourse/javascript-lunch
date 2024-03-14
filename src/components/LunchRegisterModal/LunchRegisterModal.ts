@@ -8,10 +8,10 @@ import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
 
 const LUNCH_REGISTER_MODAL_TEMPLATE = /* html */ `
-<div class="modal">
-  <div class="modal-backdrop"></div>
-  <div class="modal-container">
-    <h2 class="modal-title text-title">새로운 음식점</h2>
+<div class="register-modal">
+  <div class="register-modal-backdrop"></div>
+  <div class="register-modal-container">
+    <h2 class="register-modal-title text-title">새로운 음식점</h2>
     <form>
       <lunch-form-item type="dropdown" name="category" label="카테고리"  required="true"></lunch-form-item>
       <lunch-form-item type="input" name="name" label="가게명"  required="true"></lunch-form-item>
@@ -45,9 +45,9 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   handleModalClose() {
-    const modal = this.querySelector('.modal');
+    const modal = this.querySelector('.register-modal');
     if (modal?.className) {
-      modal.classList.remove('modal--open');
+      modal.classList.remove('register-modal--open');
     }
 
     this.querySelector('form')?.reset();
