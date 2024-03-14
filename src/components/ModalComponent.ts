@@ -5,7 +5,6 @@ import FormItemComponent from './FormItemComponent';
 import InputComponent from './InputComponent';
 import TextareaComponent from './TextareaComponent';
 import SelectComponent from './common/SelectComponent';
-import restaurantInfoValidator from './validator/restaurantInfoValidator';
 
 export function ModalComponent() {
   const getTemplate = () => {
@@ -120,32 +119,29 @@ export function ModalComponent() {
     const form = $('.modal-container form') as Element;
     form.addEventListener('input', checkRequiredFields);
 
-    const addButton = $('#submitButton') as HTMLButtonElement;
-    addButton.addEventListener('click', (event) => {
-      if (addButton.disabled) {
-        addButton.classList.remove('button--primary');
-        event.preventDefault();
-        return;
-      }
-      addButton.classList.add('button--primary');
-      getValue();
-    });
+    handleCancelButtonClick();
+    handleAddButtonClick();
+    handleModalBackDropClick();
+  };
 
-    const textarea = document.getElementById('description') as HTMLTextAreaElement;
-    const counterElement = document.getElementById('description-id');
-
-    if (textarea && counterElement) {
-      textarea.addEventListener('input', () => {
-        console.log('textarea.value.length', textarea.value.length);
-        counterElement.textContent = `${textarea.value.length}/150`;
-      });
-    }
-
+  const handleCancelButtonClick = () => {
     const cancelButton = $('#cancelButton') as HTMLButtonElement;
     cancelButton.addEventListener('click', () => {
       const modal = $('.modal') as HTMLElement;
       modal.classList.remove('modal--open');
     });
+  };
+
+  const handleModalBackDropClick = () => {
+    const modalBackdrop = document.querySelector('.modal-backdrop') as HTMLButtonElement;
+    modalBackdrop.addEventListener('click', () => {
+      const modal = $('.modal') as HTMLElement;
+      modal.classList.remove('modal--open');
+    });
+  };
+
+  const handleAddButtonClick = () => {
+    const addButton = $('#submitButton') as HTMLButtonElement;
 
     addButton.addEventListener('click', (event) => {
       if (addButton.disabled) {
@@ -157,10 +153,14 @@ export function ModalComponent() {
       getValue();
     });
 
-    const modalBackdrop = document.querySelector('.modal-backdrop') as HTMLButtonElement;
-    modalBackdrop.addEventListener('click', () => {
-      const modal = $('.modal') as HTMLElement;
-      modal.classList.remove('modal--open');
+    addButton.addEventListener('click', (event) => {
+      if (addButton.disabled) {
+        addButton.classList.remove('button--primary');
+        event.preventDefault();
+        return;
+      }
+      addButton.classList.add('button--primary');
+      getValue();
     });
   };
 
