@@ -5,7 +5,11 @@ import { Restaurants } from '../types/Restaurants';
 import { SortBy } from '../types/SortBy';
 
 type RestaurantDataProviderType = {
-  getAllRestaurantsByOption: ({ category, sortBy }: getAllRestaurantsByOptionProps) => Restaurants;
+  getAllRestaurantsByOption: ({
+    category,
+    sortBy,
+    database,
+  }: getAllRestaurantsByOptionProps) => Restaurants;
   filterByCategory: ({ category, allRestaurants }: FilterByCategoryProps) => Restaurants;
   sortRestaurants: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
   sortByCreatedAt: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;

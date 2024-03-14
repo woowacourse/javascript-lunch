@@ -3,6 +3,8 @@ import './style.css';
 import { LIKE, UNLIKE } from '../../imgs';
 import { Restaurant } from '../../types';
 import FavoriteRestaurantsRegistry from '../../domain/FavoriteRestaurantsRegistry';
+import LunchItems from '../LunchItems/LunchItems';
+import LunchTab from '../LunchTab/LunchTab';
 
 class LunchFavoriteIcon extends HTMLImageElement {
   constructor(restaurant: Restaurant) {
@@ -14,8 +16,11 @@ class LunchFavoriteIcon extends HTMLImageElement {
   }
 
   setEventListener(restaurant: Restaurant) {
+    const items = document.querySelector('lunch-items') as LunchItems;
     this.addEventListener('click', () => {
       this.handleFavorite(restaurant);
+      const tab = (document.querySelector('.lunch-tab') as LunchTab).nowSelected;
+      items.renderItems({ database: tab === 'favorite-restaurants' ? 'liked' : 'restaurants' });
     });
   }
 

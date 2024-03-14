@@ -50,6 +50,12 @@ class LunchItemFilter extends HTMLElement {
     const items = document.querySelector('lunch-items') as LunchItems;
     items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
   }
+
+  resetDropdown() {
+    this.querySelectorAll('select').forEach((element) => {
+      element.value = element.options[0].value;
+    });
+  }
 }
 
 customElements.define('lunch-item-filter', LunchItemFilter);

@@ -31,6 +31,7 @@ class LunchApp extends HTMLElement {
       'afterend',
       new LunchTab([
         {
+          className: ['tab-button__active'],
           name: `all-restaurants`,
           textContent: '모든 음식점',
         },

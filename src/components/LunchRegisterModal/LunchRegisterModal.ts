@@ -6,6 +6,7 @@ import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
 import { RestaurantRegistry } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
+import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
 
 const LUNCH_REGISTER_MODAL = /* html */ `
 <div class="modal">
@@ -56,11 +57,11 @@ class LunchRegisterModal extends HTMLElement {
   setSubmitListener() {
     this.addEventListener('submit', (event) => {
       event.preventDefault();
-
       const newRestaurant: Restaurant = this.getNewRestaurant();
       RestaurantRegistry.registerOneRestaurant(newRestaurant);
       this.handleModalClose();
       this.handleDropDown();
+      this.handleResetFilter();
     });
   }
 
@@ -89,6 +90,11 @@ class LunchRegisterModal extends HTMLElement {
   handleRenderItems() {
     const items = document.querySelector('lunch-items') as LunchItems;
     items.renderItems({});
+  }
+
+  handleResetFilter() {
+    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
+    filter.resetDropdown();
   }
 }
 

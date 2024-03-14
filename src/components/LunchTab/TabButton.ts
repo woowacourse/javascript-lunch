@@ -1,6 +1,7 @@
 import './style.css';
 
 interface TabButtonProps {
+  className?: string[];
   name: string;
   textContent: string;
 }
@@ -10,6 +11,7 @@ class TabButton extends HTMLButtonElement {
     super();
 
     this.className = 'tab-button text-subtitle';
+    this.classList.add(...(props.className ?? ''));
     this.name = props.name;
     this.textContent = props.textContent;
     this.setEventListener();

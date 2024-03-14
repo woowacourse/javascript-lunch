@@ -8,6 +8,7 @@ import { Category, Restaurants, SortBy } from '../../types/index';
 export interface FilterProps {
   category?: Category;
   sortBy?: SortBy;
+  database?: string;
 }
 
 const LUNCH_ITEMS = `
