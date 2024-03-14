@@ -28,7 +28,7 @@ export default class App {
 
   async start() {
     const { category, sort } = this.#restaurantFilters;
-    this.#syncLocalStorageAndDomain();
+    this.#loadDataFromLocalStorage();
     this.#updateRestaurantList({
       category,
       sort,
@@ -37,14 +37,11 @@ export default class App {
     this.#addEventListeners();
   }
 
-  // TODO: 이건 localStorage 서비스로 분리 가능할듯?
-  // localStorage -> domain
-  #syncLocalStorageAndDomain() {
+  #loadDataFromLocalStorage() {
     this.#restaurantManger.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
   }
 
-  // domain -> localStorage
-  #updateLocalStorage() {
+  #updateDataToLocalStorage() {
     window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantManger.restaurants));
   }
 
@@ -64,7 +61,7 @@ export default class App {
     document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
       const { formData } = e.detail;
       this.#restaurantManger.add(formData);
-      this.#updateLocalStorage();
+      this.#updateDataToLocalStorage();
 
       this.#restaurantFilters.category = formData.category;
       const { category, sort } = this.#restaurantFilters;
@@ -90,7 +87,7 @@ export default class App {
     document.addEventListener(RESTAURANT_ITEM_EVENTS.bookmarkBtnClicked, (e) => {
       const { restaurant } = e.detail;
       this.#restaurantManger.update(restaurant);
-      this.#updateLocalStorage();
+      this.#updateDataToLocalStorage();
     });
   }
 }
