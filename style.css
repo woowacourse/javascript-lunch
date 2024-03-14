@@ -120,13 +120,18 @@ body {
   margin: 16px 0;
 }
 
+.restaurant-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #e9eaed;
+}
+
 .restaurant {
   display: flex;
   align-items: flex-start;
 
   padding: 16px 8px;
-
-  border-bottom: 1px solid #e9eaed;
 }
 
 .restaurant__category {

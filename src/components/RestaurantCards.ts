@@ -1,14 +1,6 @@
 import { IRestaurantInfo } from '../domain/Restaurant';
 import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory, CATEGORY_ALL } from '../domain/RestaurantCatalog';
-
-const IMG_CATEGORY = Object.freeze({
-  한식: 'korean',
-  아시안: 'asian',
-  중식: 'chinese',
-  기타: 'etc',
-  양식: 'western',
-  일식: 'japanese',
-});
+import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
@@ -65,25 +57,9 @@ class RestaurantCards extends HTMLUListElement {
 
   #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
     restaurants.forEach((restaurant: IRestaurantInfo) => {
-      const liElement = document.createElement('li');
-      liElement.classList.add('restaurant');
-      liElement.innerHTML = this.#generateRestaurantElementTemplate(restaurant);
-      this.appendChild(liElement);
+      const item = new RestaurantCard(restaurant);
+      this.appendChild(item);
     });
-  }
-
-  #generateRestaurantElementTemplate(restaurant: IRestaurantInfo) {
-    const categoryKey = restaurant.category as keyof typeof IMG_CATEGORY;
-    return `
-    <div class="restaurant__category">
-      <img src="./assets/category-${IMG_CATEGORY[categoryKey]}.png" alt="${restaurant.category}" class="category-icon">
-    </div>
-    <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distanceFromCampus}분 내</span>
-      <p class="restaurant__description text-body">${restaurant.description}</p>
-    </div>
-  `;
   }
 }
 
