@@ -1,6 +1,6 @@
 import './style.css';
 
-import { RestaurantListContainerController } from '../../services';
+import { RestaurantListController } from '../../services';
 
 const SELECTED = 'selected';
 class NavigationBar extends HTMLElement {
@@ -59,14 +59,14 @@ class NavigationBar extends HTMLElement {
     event.stopPropagation();
 
     this.#toggleClassName();
-    RestaurantListContainerController.injectAllRestaurantList();
+    RestaurantListController.injectAllRestaurantList();
   }
 
   #addEventToOpenFavoriteList(event: MouseEvent) {
     event.stopPropagation();
 
     this.#toggleClassName();
-    RestaurantListContainerController.injectFavoriteRestaurantList();
+    RestaurantListController.injectFavoriteRestaurantList();
   }
 }
 

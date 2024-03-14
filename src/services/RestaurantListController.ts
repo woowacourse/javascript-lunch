@@ -2,6 +2,8 @@ import { STORAGE_KEY } from '../constants';
 import { RestaurantList } from '../domains';
 import { RestaurantInfo } from '../types';
 
+import FilteringController from './FilteringController';
+
 const RestaurantListController = {
   // 사이트 초기에 실행 시, 서버 역할인 localStorage에 데이터를 채워 넣는다.
   saveInitialDataToLocalStorage() {
@@ -30,6 +32,28 @@ const RestaurantListController = {
     if ($list) {
       $list.innerHTML = restaurantListText || noneRestaurant;
     }
+  },
+  private_injectChildToListContainer(tag: string) {
+    const $restaurantListContainer = document.querySelector(
+      '.restaurant-list-container',
+    );
+
+    if ($restaurantListContainer) {
+      $restaurantListContainer.firstChild?.remove();
+      $restaurantListContainer.innerHTML = `<${tag}></${tag}>`;
+    }
+  },
+
+  injectAllRestaurantList() {
+    this.private_injectChildToListContainer('all-restaurant-list');
+
+    FilteringController.showFilteredSortedList();
+  },
+
+  injectFavoriteRestaurantList() {
+    this.private_injectChildToListContainer('favorite-restaurant-list');
+
+    FilteringController.showFilteredSortedList();
   },
 };
 

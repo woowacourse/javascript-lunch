@@ -24,14 +24,12 @@ import '../components/RestaurantInfoModalInner';
 import '../components/RestaurantItem';
 
 import FilteringController from './FilteringController';
-import RestaurantListContainerController from './RestaurantListContainerController';
 import RestaurantListController from './RestaurantListController';
 
 const WebController = {
   setup() {
     RestaurantListController.saveInitialDataToLocalStorage();
-    RestaurantListContainerController.injectAllRestaurantList();
-
+    RestaurantListController.injectAllRestaurantList();
     FilteringController.addEventToFiltering();
   },
 };
