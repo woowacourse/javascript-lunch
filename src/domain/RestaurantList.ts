@@ -30,6 +30,14 @@ class RestaurantList {
     return this.restaurants.length;
   }
 
+  getFavoriteList() {
+    return [...this.restaurants].filter(restaurant => restaurant.information.isFavorite);
+  }
+
+  getAllList() {
+    return [...this.restaurants];
+  }
+
   add(restaurant: TRestaurantInstance): void {
     const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
     this.restaurants = restaurantsInStorage.length > 0 ? [...restaurantsInStorage, restaurant] : [restaurant];
