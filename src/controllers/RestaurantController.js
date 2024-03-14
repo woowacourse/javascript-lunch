@@ -1,4 +1,10 @@
-import { FORM_INPUT_QUERY, LOCAL_STORAGE_KEY } from '../constant/constants';
+import {
+  DEFAULT_FILTERING_CATEGORY,
+  DEFAULT_SORTING_PROPERTY,
+  DEFAULT_TAB,
+  FORM_INPUT_QUERY,
+  LOCAL_STORAGE_KEY,
+} from '../constant/constants';
 import { $, $$ } from '../utils/querySelector';
 import RestaurantService from '../domain/RestaurantService';
 import OutputView from '../views/OutputView';
@@ -14,35 +20,28 @@ class RestaurantController {
 
   constructor() {
     this.#restaurantList = this.fetchData();
-    this.#activeTab = 'all';
-    this.#category = '전체';
-    this.#property = 'name';
+    this.#activeTab = DEFAULT_TAB;
+    this.#category = DEFAULT_FILTERING_CATEGORY;
+    this.#property = DEFAULT_SORTING_PROPERTY;
   }
 
   run() {
-    this.initTabActive();
-    this.manageTabEvents();
-
-    OutputView.renderFilterDropdown();
-    this.manageFilterValue();
+    this.setTabEvents();
+    this.setFilterValue();
 
     this.updateRestaurantList();
-    this.manageModalEvents();
   }
 
-  initTabActive() {
-    const defaultTab = $(`#${this.#activeTab}`);
-    defaultTab.classList.add('active');
-  }
-
-  manageTabEvents() {
+  setTabEvents() {
     const tabButtons = Array.from($$('.button--tabmenu'));
     tabButtons.forEach(tabButton => {
       tabButton.addEventListener('click', e => {
         e.preventDefault();
         if (e.target.classList.contains('active')) return;
+
         tabButtons.forEach(button => button.classList.remove('active'));
         e.target.classList.add('active');
+
         this.#activeTab = e.target.id;
         this.updateRestaurantList();
       });
@@ -64,7 +63,7 @@ class RestaurantController {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
   }
 
-  manageFormEvents() {
+  setAddRestaurantFormEvents() {
     const form = $('#add-restaurant');
 
     form.addEventListener('reset', () => OutputView.closeModal());
@@ -93,15 +92,7 @@ class RestaurantController {
     return formData;
   }
 
-  manageModalEvents() {
-    const modalBackdrop = $('.modal-backdrop');
-
-    modalBackdrop.addEventListener('click', () => {
-      OutputView.closeModal();
-    });
-  }
-
-  manageFilterValue() {
+  setFilterValue() {
     const categoryFilter = $('#category-filter');
     categoryFilter.addEventListener('change', () => {
       this.#category = categoryFilter.options[categoryFilter.selectedIndex].value;
