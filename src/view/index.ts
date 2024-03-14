@@ -111,6 +111,10 @@ class View {
       "click",
       this.detailModal.closeModal.bind(this.detailModal)
     );
+    this.detailModal.setToggleIsGoToEvent(
+      "click",
+      this.detailModal.openModal.bind(this.detailModal)
+    );
   }
 
   private setEvent(type: string, listener: (event: Event) => void) {

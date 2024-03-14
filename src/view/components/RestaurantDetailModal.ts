@@ -43,15 +43,17 @@ class RestaurantDetailModal {
               class="category-icon"
             />
           </div>
-          <img
+            <img
+            id="is-go-to-button"
+            data-id=${restaurant.id}
             class="favorite-icon"
             src=${
               restaurant.isGoTo
                 ? "favorite-icon-filled.png"
-                : "./favorite-icon-lined.png"
+                : "favorite-icon-lined.png"
             }
             alt=${restaurant.isGoTo ? "자주가는음식점" : "자주가지않는음식점"}
-          />
+            />
         </div>
         <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
         <span class="restaurant__distance text-body"
@@ -115,6 +117,23 @@ class RestaurantDetailModal {
         (event.target as Element).closest("#restaurant-detail-close-button")
       ) {
         listener(event);
+      }
+    });
+  }
+
+  setToggleIsGoToEvent(type: string, listener: (id: number) => void) {
+    const $restaurantDetailModal = document.querySelector(
+      "#restaurant-detail__modal"
+    );
+    if ($restaurantDetailModal === null) {
+      return;
+    }
+    $restaurantDetailModal.addEventListener(type, (event: Event) => {
+      const $target = (event.target as Element).closest("#is-go-to-button");
+      if ($target instanceof HTMLElement) {
+        const id = Number($target.dataset.id);
+        this.restaurantList.toggleIsGoTo(id);
+        listener(id);
       }
     });
   }

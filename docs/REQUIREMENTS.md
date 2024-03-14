@@ -51,12 +51,12 @@
       - click event: RestaurantFormModal 닫기
     - [x] submit button
       - submit event: 음식점 추가 및 RestaurantListSection에 반영
-- [ ] RestaurantDetailModal
+- [x] RestaurantDetailModal
   - [x] remove button
     - click event: 해당 음식점 삭제, 모달 닫기, 음식점 목록 불러오기
   - [x] cancel button
     - click event: 모달 닫기
-  - [ ] isGoTo button
+  - [x] isGoTo button
     - click event: toggle (domain + ui)
 - [x] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 -> alert
 
