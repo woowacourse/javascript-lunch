@@ -1,6 +1,7 @@
 @import url('../components/Header/header.css');
 @import url('../components/BookmarkNavigation/bookmark-navigation.css');
 @import url('../components/RestaurantFilter/restaurant-filter.css');
+@import url('../components/RestaurantList/restaurant-list.css');
 @import url('../components/Common/Restaurant/restaurant.css');
 @import url('../components/Common/Select/select.css');
 @import url('../components/AddRestaurantModal/add-restaurant-modal.css');
@@ -21,6 +22,7 @@ html,
 body {
   font-family: sans-serif;
   font-size: 1rem;
+  overflow-x: hidden;
 }
 
 main {
