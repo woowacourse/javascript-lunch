@@ -8,6 +8,8 @@
   </head>
 
   <body>
+    <!-- Templates -->
+    <!-- GNB -->
     <template id="template-header">
       <header class="gnb">
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -17,6 +19,7 @@
       </header>
     </template>
 
+    <!-- BookmarkTab -->
     <template id="template-bookmark-tab">
       <section class="bookmark-tab-container">
         <ul class="bookmark-tab text-title">
@@ -26,6 +29,7 @@
       </section>
     </template>
 
+    <!-- RestaurantFilters -->
     <template id="template-restaurant-filter-container">
       <section class="restaurant-filter-container">
         <!-- 카테고리 셀렉트 박스 -->
@@ -48,6 +52,7 @@
       </section>
     </template>
 
+    <!-- RestaurantForm -->
     <template id="template-restaurant-form">
       <div class="input-container">
         <!-- 카테고리 -->
@@ -90,6 +95,7 @@
       </div>
     </template>
 
+    <!-- Modal -->
     <template id="template-modal">
       <style>
         .modal {
@@ -132,6 +138,7 @@
       </div>
     </template>
 
+    <!-- RestaurantItem -->
     <template id="template-restaurant-item">
       <div class="restaurant__category">
         <img src="" alt="" class="category-icon" />
@@ -143,6 +150,7 @@
       </div>
     </template>
 
+    <!-- App -->
     <!-- GNB -->
     <app-gnb></app-gnb>
 
@@ -158,9 +166,6 @@
     </section>
 
     <!-- 음식점 추가 모달 -->
-    <app-modal>
-      <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
-      <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
-    </app-modal>
+    <app-modal></app-modal>
   </body>
 </html>

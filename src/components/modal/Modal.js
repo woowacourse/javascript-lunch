@@ -21,9 +21,11 @@ export default class Modal extends HTMLElement {
     this.#shadowRoot.querySelector('.modal-backdrop').addEventListener('click', this.#handleCloseModal.bind(this));
   }
 
-  openModal() {
+  openModal({ title, body }) {
     const modal = this.#shadowRoot.querySelector('.modal');
     modal.classList.add('modal--open');
+    this.appendChild(title);
+    this.appendChild(body);
   }
 
   #handleCloseModal() {
