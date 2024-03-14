@@ -1,8 +1,8 @@
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 
-type FilteringCategory = '전체' | Category;
-
 type Distance = 5 | 10 | 15 | 20 | 30;
+
+type FilteringCategory = '전체' | Category;
 
 type SortingProperty = 'name' | 'distance';
 
@@ -22,27 +22,4 @@ interface Restaurants {
   filterByFavorite: (restaurantList: Restaurant[]) => Restaurant[];
 }
 
-interface DropdownOption {
-  value: string;
-  content: string;
-}
-
-interface DropdownProps {
-  options: DropdownOption[];
-  label?: string;
-  name?: string;
-  id?: string;
-  className?: string;
-  isRequired: boolean;
-}
-
-export {
-  Category,
-  FilteringCategory,
-  Distance,
-  SortingProperty,
-  Restaurant,
-  Restaurants,
-  DropdownOption,
-  DropdownProps,
-};
+export { Category, Distance, FilteringCategory, SortingProperty, Restaurant, Restaurants };

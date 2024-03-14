@@ -1,4 +1,4 @@
-import { DropdownOption, DropdownProps } from '../../interface/RestaurantInterfaces';
+import { DropdownOption, DropdownProps } from '../../interface/DropdownInterfaces';
 
 const Dropdown = ({ options, label, name, id, className, isRequired }: DropdownProps) => {
   return /*html*/ `
