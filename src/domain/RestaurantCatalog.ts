@@ -9,6 +9,10 @@ class RestaurantCatalog {
   restaurants: Array<Restaurant | null> = [];
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
+    if (restaurantInfo.id) {
+      this.restaurants[restaurantInfo.id] = new Restaurant(restaurantInfo);
+      return;
+    }
     this.#validDuplicateName(restaurantInfo);
     const newRestaurant = {
       ...restaurantInfo,

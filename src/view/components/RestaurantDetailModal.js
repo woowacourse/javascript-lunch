@@ -1,5 +1,7 @@
+import { LOCAL_STORAGE_KEY } from '../../Controller/WebController';
 import '../../css/restaurantDetailModal.css';
 import { IMG_CATEGORY } from '../../domain/Restaurant';
+import restaurantCatalog from '../../domain/RestaurantCatalog';
 
 const dialog = document.getElementById('restaurant-detail-modal');
 
@@ -17,22 +19,6 @@ function applyRestaurantDetailByInfo({ category, name, distanceFromCampus, descr
 
 let deleteEventHandler;
 
-function addDeleteEventToButton(id) {
-  const deleteButton = document.getElementById('restaurant-detail-modal-delete-button');
-  deleteEventHandler = () => {
-    // TODO: 삭제하는 기능을 만듭니다.
-    // 1. domian data를 삭제합니다.
-    // 2. LS data를 삭제합니다.
-  };
-  deleteButton.addEventListener('click', deleteEventHandler);
-}
-
-export function showRestaurantDetailModal(restaurantInfo) {
-  applyRestaurantDetailByInfo(restaurantInfo);
-  addDeleteEventToButton(restaurantInfo.id);
-  dialog.showModal();
-}
-
 function removeDeleteEventToButton() {
   const deleteButton = document.getElementById('restaurant-detail-modal-delete-button');
   deleteButton.removeEventListener('click', deleteEventHandler);
@@ -41,6 +27,29 @@ function removeDeleteEventToButton() {
 function closeRestaurantDetailModal() {
   removeDeleteEventToButton();
   dialog.close();
+}
+
+function removeRestaurantInLocalStorage(index) {
+  const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+  localData[index] = null;
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+}
+
+function addDeleteEventToButton(id) {
+  const deleteButton = document.getElementById('restaurant-detail-modal-delete-button');
+  deleteEventHandler = () => {
+    restaurantCatalog.removeRestaurant(id); // domain data 삭제
+    removeRestaurantInLocalStorage(id); // LocalStorage data 삭제
+    document.querySelector('.restaurant-list').render(); // rerender
+    closeRestaurantDetailModal();
+  };
+  deleteButton.addEventListener('click', deleteEventHandler);
+}
+
+export function showRestaurantDetailModal(restaurantInfo) {
+  applyRestaurantDetailByInfo(restaurantInfo);
+  addDeleteEventToButton(restaurantInfo.id);
+  dialog.showModal();
 }
 
 const closeButton = document.getElementById('restaurant-detail-modal-close-button');
