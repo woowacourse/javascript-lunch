@@ -28,6 +28,12 @@ class RestaurantList extends HTMLUListElement {
       this.removeChild(this.firstChild);
     }
   }
+
+  get() {
+    return (Array.from(this.children) as RestaurantItem[]).map((restaurantItem) =>
+      restaurantItem.get(),
+    );
+  }
 }
 
 customElements.define('restaurant-list', RestaurantList, { extends: 'ul' });

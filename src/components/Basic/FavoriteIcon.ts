@@ -31,6 +31,18 @@ class FavoriteIcon extends HTMLImageElement {
       }
     });
   }
+
+  isFavorite() {
+    if (this.getAttribute('clicked') === 'on') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  set(isFavorite: boolean) {
+    this.setAttribute('clicked', isFavorite ? 'on' : 'off');
+  }
 }
 
 customElements.define('favorite-icon', FavoriteIcon, { extends: 'img' });
