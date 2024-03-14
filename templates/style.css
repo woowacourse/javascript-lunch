@@ -19,6 +19,11 @@ body {
   display: none;
 }
 
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;

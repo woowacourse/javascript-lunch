@@ -3,26 +3,26 @@ import { IMG_CATEGORY } from '../../domain/Restaurant';
 
 const dialog = document.getElementById('restaurant-detail-modal');
 
-function generateRestaurantDetailByInfo({ category, name, distanceFromCampus, description }) {
-  const infoDiv = document.createElement('div');
-  infoDiv.id = 'restaurant-detail-main';
-  infoDiv.innerHTML = `
-  <div class="restaurant__category">
-  <img src="./templates/category-${IMG_CATEGORY[category]}.png" alt="${category}" class="category-icon">
-  </div>
-  <h3 class="restaurant__name text-subtitle">${name}</h3>
-    <span class="restaurant__distance text-body">캠퍼스부터 ${distanceFromCampus}분 내</span>
-    <p class=".restaurant-detail-modal-description text-body">${description}</p>`;
-  return infoDiv;
+function applyRestaurantDetailByInfo({ category, name, distanceFromCampus, description }) {
+  const categoryIcon = document.getElementById('restaurant-detail-icon');
+  categoryIcon.src = `./templates/category-${IMG_CATEGORY[category]}.png`;
+  categoryIcon.alt = category;
+  const restaurantName = document.getElementById('restaurant-detail-name');
+  restaurantName.innerText = name;
+  const restaurantDistance = document.getElementById('restaurant-detail-distance');
+  restaurantDistance.innerText = `캠퍼스부터 ${distanceFromCampus}분 내`;
+  const restaurantDescription = document.getElementById('restaurant-detail-description');
+  restaurantDescription.innerText = description;
 }
 
 export function showRestaurantDetailModal(restaurantInfo) {
-  const infoDiv = generateRestaurantDetailByInfo(restaurantInfo);
-  dialog.append(infoDiv);
+  applyRestaurantDetailByInfo(restaurantInfo);
+  // TODO: 버튼이벤트 추가
   dialog.showModal();
 }
 
 export function closeRestaurantDetailModal() {
   dialog.innerHTML = '';
+  // TODO: 버튼 이벤트 삭제
   dialog.close();
 }

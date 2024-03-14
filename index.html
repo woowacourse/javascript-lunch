@@ -80,7 +80,28 @@
         </div>
 
         <!-- 레스토랑 디테일 모달창-->
-        <dialog id="restaurant-detail-modal"></dialog>
+        <dialog id="restaurant-detail-modal">
+          <div id="restaurant-detail-main">
+            <div class="restaurant__category">
+              <img class="category-icon" id="restaurant-detail-icon" />
+            </div>
+            <h3 class="restaurant__name text-subtitle" id="restaurant-detail-name"></h3>
+            <span class="restaurant__distance text-body" id="restaurant-detail-distance"></span>
+            <p class="restaurant-detail-modal-description text-body" id="restaurant-detail-description"></p>
+            <div class="flex-between">
+              <button
+                type="button"
+                class="button button--secondary text-caption"
+                id="restaurant-detail-modal-delete-button"
+              >
+                삭제하기
+              </button>
+              <button class="button button--primary text-caption" id="restaurant-detail-modal-close-button">
+                닫기
+              </button>
+            </div>
+          </div>
+        </dialog>
       </main>
     </div>
   </body>
