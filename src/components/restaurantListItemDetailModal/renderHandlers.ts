@@ -37,7 +37,7 @@ const generateCategoryImageAndInfoComponent = (targetRestaurantListItem: Restaur
   return imageAndFavoritedContainer;
 };
 
-const renderRestaurantListItemBottomSheetComponent = (targetRestaurantListItem: RestaurantState) => {
+export const renderRestaurantListItemBottomSheetComponent = (targetRestaurantListItem: RestaurantState) => {
   const detailContainer = generateContainerComponent(RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA);
   const fragment = document.createDocumentFragment();
   const categoryImageAndInfoComponent = generateCategoryImageAndInfoComponent(targetRestaurantListItem);
@@ -64,5 +64,3 @@ const renderRestaurantListItemBottomSheetComponent = (targetRestaurantListItem: 
 
   return detailContainer;
 };
-
-export default renderRestaurantListItemBottomSheetComponent;

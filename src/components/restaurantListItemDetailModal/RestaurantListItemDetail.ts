@@ -1,5 +1,5 @@
 import { RestaurantState } from '../../types';
-import renderRestaurantListItemBottomSheetComponent from './renderHandlers';
+import { renderRestaurantListItemBottomSheetComponent } from './renderHandlers';
 
 function RestaurantListItemDetail(targetRestaurantListItem: RestaurantState) {
   const restaurantListItemDetailComponent = renderRestaurantListItemBottomSheetComponent(targetRestaurantListItem);

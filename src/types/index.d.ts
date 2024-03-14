@@ -6,7 +6,7 @@ export type Distance = 5 | 10 | 15 | 20 | 30;
 
 export type SortType = 'name' | 'distance';
 
-export type TabValue = 'favorited' | 'all';
+export type TabValue = 'favorite' | 'all';
 
 export type InvalidResult = {
   targetClassName: string;

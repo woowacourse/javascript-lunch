@@ -14,7 +14,7 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   });
 };
 
-export const selectOptionByFoodCategory = () => {
+const selectOptionByFoodCategory = () => {
   document.addEventListener('DOMContentLoaded', () => {
     const categoryFilter = document.getElementById('category-filter');
     if (categoryFilter) {
@@ -37,11 +37,16 @@ const sortHandler = (sortFilter: HTMLElement) => {
   sortFilter.addEventListener('change', (event) => selectOptionByNameSortEvent(event));
 };
 
-export const selectOptionByNameOrDistance = () => {
+const selectOptionByNameOrDistance = () => {
   document.addEventListener('DOMContentLoaded', () => {
     const sortFilter = document.getElementById('sorting-filter');
     if (sortFilter) {
       sortHandler(sortFilter);
     }
   });
+};
+
+export const bindSelectCategoryOrDistanceOrNameFilterEvent = () => {
+  selectOptionByNameOrDistance();
+  selectOptionByFoodCategory();
 };

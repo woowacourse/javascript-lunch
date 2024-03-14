@@ -1,5 +1,7 @@
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import { TabValue } from '../../types';
+import FilterBar from '../filterBar/FilterBar';
+import { mountFilterBarComponent, unMountFilterBarComponent } from './renderHandlers';
 
 const applySelectedTabStyle = (buttonElement: HTMLButtonElement) => {
   document.querySelectorAll('.tab-button').forEach((button) => {
@@ -8,9 +10,10 @@ const applySelectedTabStyle = (buttonElement: HTMLButtonElement) => {
   buttonElement.classList.add('selected');
 };
 
-const reRenderRestaurantListFromTabValue = (tabValue: TabValue) => {
-  console.log(tabValue);
-  // const filteredRestaurantList =
+const reRenderRestaurantListFromTabValue = (targetValue: TabValue) => {
+  const filteredRestaurantListFromTabValueQuery = RestaurantListStorageService.getDataFromQuery(targetValue) ?? [];
+  if (targetValue === 'all') mountFilterBarComponent(filteredRestaurantListFromTabValueQuery);
+  if (targetValue === 'favorite') unMountFilterBarComponent();
 };
 
 const tabHandler = (buttonElement: HTMLButtonElement) => {

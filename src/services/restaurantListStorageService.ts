@@ -1,6 +1,6 @@
 import restaurantListHelper from '../helpers/RestaurantListHelper';
 import filterState from '../store/FilterStateStore';
-import { RestaurantState } from '../types';
+import { RestaurantState, TabValue } from '../types';
 
 const RestaurantListStorageService = (function () {
   let cachedData: RestaurantState[] | null = null; // 내부 캐시 데이터를 저장할 변수
@@ -55,12 +55,24 @@ const RestaurantListStorageService = (function () {
     }
   }
 
+  function getDataFromQuery(tabValue: TabValue) {
+    const allData = getData();
+    if (tabValue === 'all') {
+      return allData;
+    }
+
+    const filteredDataByFavorite = allData?.filter((restaurant) => restaurant.isFavorited) ?? [];
+
+    return filteredDataByFavorite;
+  }
+
   return {
     getData,
     getFilteredData,
     patchData,
     setData,
     deleteData,
+    getDataFromQuery,
   };
 })();
 
