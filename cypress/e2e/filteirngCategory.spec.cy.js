@@ -55,7 +55,7 @@ describe('template spec', () => {
       }
       // 기타
       if (category === 'asian') {
-        cy.get('#none-restaurant-category').should('be.visible');
+        cy.get('none-restaurant').should('be.visible');
       } else {
         cy.get('category-icon').each(($el) => {
           expect($el.attr('category')).to.equal(category);
