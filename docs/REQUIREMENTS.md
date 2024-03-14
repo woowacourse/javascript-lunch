@@ -35,10 +35,10 @@
             - select event: 해당 value에 맞도록 필터링 -> RestaurantListSection에 반영
           - [x] sort select
             - select event: 해당 value에 맞도록 정렬 -> RestaurantListSection에 반영
-        - [ ] RestaurantListSection
-          - [ ] RestaurantItem
+        - [x] RestaurantListSection
+          - [x] RestaurantItem
             - [x] click event: RestaurantDetailModal 띄우기
-            - [ ] isGoTo button
+            - [x] isGoTo button
               - click event: toggle (domain + ui)
       - 자주가는 음식점
         - [ ] RestaurantListSection

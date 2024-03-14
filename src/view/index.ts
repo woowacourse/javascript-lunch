@@ -88,29 +88,27 @@ class View {
   renderDetailModal() {}
 
   setEvents() {
-    this.selectSection.setEvent(
-      "change",
-      this.renderListSection.bind(this.selectSection)
-    );
+    this.selectSection.setEvent("change", this.renderListSection.bind(this));
 
     this.setEvent("click", this.formModal.openModal.bind(this));
 
-    this.formModal.setEvent(
-      "submit",
-      this.renderListSection.bind(this.formModal)
-    );
+    this.formModal.setEvent("submit", this.renderListSection.bind(this));
     this.formModal.setCloseEvent("click", this.formModal.closeModal);
 
     this.listSection.setEvent(
       "click",
       this.detailModal.openModal.bind(this.detailModal)
     );
+    this.listSection.setToggleIsGoToEvent(
+      "click",
+      this.renderListSection.bind(this)
+    );
 
     this.detailModal.setEvent("click", this.renderListSection.bind(this));
-    this.detailModal.setCloseEvent(
-      "click",
-      this.detailModal.closeModal.bind(this.detailModal)
-    );
+    this.detailModal.setCloseEvent("click", () => {
+      this.detailModal.closeModal();
+      this.renderListSection();
+    });
     this.detailModal.setToggleIsGoToEvent(
       "click",
       this.detailModal.openModal.bind(this.detailModal)

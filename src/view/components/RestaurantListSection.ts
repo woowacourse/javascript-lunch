@@ -48,10 +48,27 @@ class RestaurantListSection {
             />
           </div>
           <div class="restaurant__info">
-            <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-            <span class="restaurant__distance text-body"
-              >캠퍼스부터 ${distancesMapper[restaurant.distance]}</span
-            >
+            <div class="restaurant__header">
+              <div>
+                <h3 class="restaurant__name text-subtitle">${
+                  restaurant.name
+                }</h3>
+                <span class="restaurant__distance text-body">캠퍼스부터 ${
+                  distancesMapper[restaurant.distance]
+                }</span>
+              </div>
+              <img
+                  class="favorite-icon"
+                  src=${
+                    restaurant.isGoTo
+                      ? "favorite-icon-filled.png"
+                      : "favorite-icon-lined.png"
+                  }
+                  alt=${
+                    restaurant.isGoTo ? "자주가는음식점" : "자주가지않는음식점"
+                  }
+                />
+            </div>
             <p class="restaurant__description text-body">
               ${restaurant.description || ""}
             </p>
@@ -68,11 +85,28 @@ class RestaurantListSection {
       return;
     }
     $restaurantList.addEventListener(type, (event: Event) => {
-      const $element = (event.target as Element).closest(
-        `[data-id]`
-      ) as HTMLElement;
-      const id = $element.dataset.id;
+      const $target = event.target as Element;
+      if ($target.classList.contains("favorite-icon")) {
+        return;
+      }
+      const id = ($target.closest(`[data-id]`) as HTMLElement).dataset.id;
       listener(Number(id));
+    });
+  }
+
+  setToggleIsGoToEvent(type: string, listener: () => void) {
+    const $restaurantList = document.querySelector("#restaurant-list");
+    if ($restaurantList === null) {
+      return;
+    }
+    $restaurantList.addEventListener(type, (event: Event) => {
+      const $target = event.target as Element;
+      if (!$target.classList.contains("favorite-icon")) {
+        return;
+      }
+      const id = ($target.closest(`[data-id]`) as HTMLElement).dataset.id;
+      this.restaurantList.toggleIsGoTo(Number(id));
+      listener();
     });
   }
 }

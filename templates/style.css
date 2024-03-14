@@ -123,7 +123,6 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
@@ -160,6 +159,7 @@ body {
 }
 
 .restaurant__info {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
