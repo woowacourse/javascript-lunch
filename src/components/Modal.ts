@@ -2,23 +2,30 @@ interface Props {
   child: HTMLElement;
 }
 
-export const createModal = ({ child }: Props) => {
-  const modal = document.createElement("div");
+class Modal {
+  #modal = document.createElement("div");
+  #modalBackdrop = document.createElement("div");
+  #modalContainer = document.createElement("div");
 
-  const modalBackdrop = document.createElement("div");
-  const modalContainer = document.createElement("div");
+  constructor({ child }: Props) {
+    this.#modal.classList.add("modal");
+    this.#modalBackdrop.classList.add("modal-backdrop");
+    this.#modalContainer.classList.add("modal-container");
 
-  modal.classList.add("modal", "modal--open");
-  modalBackdrop.classList.add("modal-backdrop");
-  modalContainer.classList.add("modal-container");
+    this.#modalContainer.appendChild(child);
+    this.#modal.appendChild(this.#modalBackdrop);
+    this.#modal.appendChild(this.#modalContainer);
 
-  modalContainer.appendChild(child);
-  modal.appendChild(modalBackdrop);
-  modal.appendChild(modalContainer);
+    this.#modalBackdrop.addEventListener("click", this.toggle.bind(this));
+  }
 
-  modalBackdrop.addEventListener("click", () =>
-    modal.classList.toggle("modal--open")
-  );
+  get element() {
+    return this.#modal;
+  }
 
-  return modal;
-};
+  toggle() {
+    this.#modal.classList.toggle("modal--open");
+  }
+}
+
+export default Modal;
