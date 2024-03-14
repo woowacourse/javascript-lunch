@@ -34,6 +34,7 @@ class AddRestaurantForm {
 
     this.element.addEventListener("submit", () => {
       const newRestaurant = this.#getRestaurant();
+
       submitFunc(newRestaurant);
       this.reset.bind(this)();
     });
@@ -186,14 +187,6 @@ class AddRestaurantForm {
       description: this.#descriptionFormItem.getValue(),
       url: this.#urlFormItem.getValue(),
     };
-  }
-
-  #isRequireFilled() {
-    const isFilledCategory = this.#categoryFormItem.getValue() !== "";
-    const isFilledName = this.#nameFormItem.getValue() !== "";
-    const isFilledDistance = this.#distanceFormItem.getValue() !== "";
-
-    return isFilledCategory && isFilledName && isFilledDistance;
   }
 }
 

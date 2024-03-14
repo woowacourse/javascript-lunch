@@ -8,17 +8,17 @@ class FormItem {
     tag: "div",
     classes: ["form-item"],
   });
-  #readableElement;
+  #readableElement: HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement;
 
   #span;
 
-  #spanDescription;
+  #description;
 
   constructor({
     subject,
     readableElement,
     isRequired = false,
-    description = "",
+    description = "ㅤ",
   }: {
     subject: string;
     readableElement: HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement;
@@ -26,14 +26,13 @@ class FormItem {
     description?: string;
   }) {
     if (isRequired) this.element.classList.add("form-item--required");
-    this.element = this.#createItem(isRequired);
+    this.element = this.#createElement(isRequired);
     const label = this.#createLabel(subject, readableElement.id);
 
     this.#readableElement = readableElement;
-    this.#readableElement.required = isRequired;
+    if (isRequired) this.#setReadableElementToRequire();
 
-    this.#spanDescription = description;
-
+    this.#description = description;
     this.#span = this.#createSpan();
 
     this.element.append(label, this.#readableElement, this.#span);
@@ -45,15 +44,18 @@ class FormItem {
 
   reset() {
     this.#readableElement.value = "";
-    this.#span.classList.remove(".form-item-error-span");
+    this.#readableElement.setCustomValidity("");
+    this.#span.classList.remove("form-item-error-span");
   }
 
   printErrorMessage(errorMessage: string) {
-    this.#span.nodeValue = errorMessage;
-    this.#span.classList.add(".form-item-error-span");
+    this.#span.innerText = errorMessage;
+    this.#readableElement.setCustomValidity(errorMessage);
+    this.#span.classList.add("form-item-error-span");
+    console.log(this.#span);
   }
 
-  #createItem(isRequired: boolean) {
+  #createElement(isRequired: boolean) {
     return createElementByTag({
       tag: "div",
       classes: isRequired
@@ -74,9 +76,18 @@ class FormItem {
     const span = createElementByTag({
       tag: "span",
       classes: ["help-text", "text-caption"],
-      contents: this.#spanDescription,
+      contents: this.#description,
     });
     return span;
+  }
+
+  #setReadableElementToRequire() {
+    this.#readableElement.required = true;
+    this.#readableElement.addEventListener("invalid", (event) => {
+      event.preventDefault();
+      this.printErrorMessage("필수 제출 항목입니다.");
+      console.log(event.target);
+    });
   }
 }
 
