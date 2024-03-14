@@ -35,6 +35,8 @@
 }
 
 .restaurant__info {
+  flex: 1;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -57,4 +59,15 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.favorite-button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+.favorite-icon {
+  width: 32px;
+  height: 32px;
 }

@@ -5,6 +5,8 @@ import CATEGORY_ETC from '../../templates/category-etc.png';
 import CATEGORY_JAPANESE from '../../templates/category-japanese.png';
 import CATEGORY_KOREAN from '../../templates/category-korean.png';
 import CATEGORY_WESTERN from '../../templates/category-western.png';
+import FAVORITE_FILLED from '../../templates/favorite-icon-filled.png';
+import FAVORITE_LINED from '../../templates/favorite-icon-lined.png';
 
 const ICON = {
   추가버튼: ADD_BUTTON,
@@ -14,6 +16,8 @@ const ICON = {
   일식: CATEGORY_JAPANESE,
   한식: CATEGORY_KOREAN,
   양식: CATEGORY_WESTERN,
+  즐겨찾기추가: FAVORITE_FILLED,
+  즐겨찾기해제: FAVORITE_LINED,
 };
 
 export default ICON;

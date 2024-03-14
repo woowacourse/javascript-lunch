@@ -11,6 +11,11 @@ const Restaurant = ({ category, name, walkingTimeFromCampus, description }) => {
         <span class="restaurant__distance text-body">캠퍼스부터 ${walkingTimeFromCampus}분 내</span>
         <p class="restaurant__description text-body">${description}</p>
       </div>
+      <div class="restaurant__favorite">
+        <button class="favorite-button">
+          <img src="${ICON['즐겨찾기해제']}" alt="${'즐겨찾기해제'}" class="favorite-icon" />
+        </button>
+      </div>
     </li>
     `;
 };
