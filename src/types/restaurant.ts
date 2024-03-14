@@ -14,9 +14,20 @@ interface IRestaurant {
   referenceLink?: string;
 }
 
+type TTabMenu = 'all' | 'favorite';
+
 type TFormValidRestaurant = Omit<IRestaurant, 'id' | 'isFavorite'>;
 
 type TRestaurantInstance = InstanceType<typeof Restaurant>;
 type IRestaurantList = TRestaurantInstance[];
 
-export type { TCategory, TSorting, TDistance, IRestaurant, TFormValidRestaurant, TRestaurantInstance, IRestaurantList };
+export type {
+  TCategory,
+  TSorting,
+  TDistance,
+  IRestaurant,
+  TTabMenu,
+  TFormValidRestaurant,
+  TRestaurantInstance,
+  IRestaurantList,
+};
