@@ -2,7 +2,6 @@ class Component extends HTMLElement {
   connectedCallback(): void {
     if (this.isConnected) {
       this.render();
-      this.setEvent();
     }
   }
 
@@ -12,13 +11,16 @@ class Component extends HTMLElement {
 
   render(): void {
     this.innerHTML = this.template();
+    this.setEvent();
   }
-
-  reRender(): void {}
 
   setEvent(): void {}
 
   removeEvent(): void {}
+
+  makeEvent(name: string): void {
+    this.dispatchEvent(new Event(name, { bubbles: true }));
+  }
 
   makeCustomEvent(name: string): void {
     this.dispatchEvent(new CustomEvent(name, { bubbles: true }));
