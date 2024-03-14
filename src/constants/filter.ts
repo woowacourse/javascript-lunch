@@ -1,12 +1,12 @@
 import type { IButtonAttributes, IDropdownAttributes, IOptionAttributes } from '../types/dom';
 import type { TCategory } from '../types/restaurant';
 
-import asian from '../../templates/category-asian.png';
-import chinese from '../../templates/category-chinese.png';
-import etc from '../../templates/category-etc.png';
-import japanese from '../../templates/category-japanese.png';
-import korean from '../../templates/category-korean.png';
-import western from '../../templates/category-western.png';
+import asian from '../assets/images/category-asian.png';
+import chinese from '../assets/images/category-chinese.png';
+import etc from '../assets/images/category-etc.png';
+import japanese from '../assets/images/category-japanese.png';
+import korean from '../assets/images/category-korean.png';
+import western from '../assets/images/category-western.png';
 
 const ALL = '전체';
 
