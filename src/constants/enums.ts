@@ -1,4 +1,4 @@
-export enum Category {
+enum Category {
   한식 = '한식',
   중식 = '중식',
   일식 = '일식',
@@ -7,15 +7,17 @@ export enum Category {
   기타 = '기타',
 }
 
-export enum MinutesWalk {
-  '5분 내' = 5,
-  '10분 내' = 10,
-  '15분 내' = 15,
-  '20분 내' = 20,
-  '30분 내' = 30,
+enum MinutesWalk {
+  Five = 5,
+  Ten = 10,
+  Fifteen = 15,
+  twelve = 20,
+  thirty = 30,
 }
 
-export enum Sort {
+enum Sort {
   이름순 = '이름순',
   거리순 = '거리순',
 }
+
+export { Category, MinutesWalk, Sort };
