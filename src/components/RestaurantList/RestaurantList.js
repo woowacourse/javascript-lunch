@@ -16,21 +16,22 @@ export default class RestaurantList {
 
   render() {
     this.#element.innerHTML = `
-    <ul id="restaurant-list" class="restaurant-list">
       ${this.#restaurants.standardList.reduce(
         (prevRestaurantData, currentRestaurantData) =>
           prevRestaurantData + Restaurant(currentRestaurantData),
         '',
       )}
-    </ul>`;
+    `;
   }
 
   // TODO: 이벤트 구체적 작성, 리팩토링
   #addEvents() {
     $('restaurant-list').addEventListener('click', (event) => {
       if (!event.target.closest('button')) {
+        const restaurant = this.#restaurants.getRestaurant(event.target.closest('li').id);
+
+        new RestaurantDetail($('modal'), this.#restaurants, restaurant, this);
         $('modal').classList.add('modal--open');
-        $('modal-container').innerHTML = RestaurantDetail();
       } else {
         const favoriteIcon = event.target.closest('button img');
 

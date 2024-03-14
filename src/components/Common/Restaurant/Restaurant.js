@@ -2,7 +2,7 @@ import ICON from '../../../icons';
 
 const Restaurant = ({ category, name, walkingTimeFromCampus, description }) => {
   return `
-    <li class="restaurant">
+    <li id="${name}" class="restaurant">
       <div class="restaurant__category">
         <img src="${ICON[category]}" alt="${category}" class="category-icon">
       </div>
