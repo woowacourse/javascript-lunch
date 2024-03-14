@@ -15,6 +15,7 @@ import '../components/FavoriteRestaurantList';
 import '../components/FormTextField';
 import '../components/FormInput';
 import '../components/NavigationBar';
+import '../components/NoneRestaurant';
 import '../components/RestaurantDescription';
 import '../components/RestaurantFormModalInner';
 import '../components/RestaurantDistance';

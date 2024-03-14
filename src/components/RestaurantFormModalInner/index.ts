@@ -32,7 +32,7 @@ class RestaurantFormModalInner extends HTMLElement {
             type="text"
             required="true",
             placeholder="이름을 입력해주세요(10자 이내)"
-            maxlength="10"
+            max-length="10"
           > 
           </form-input>
         </div>
@@ -51,7 +51,7 @@ class RestaurantFormModalInner extends HTMLElement {
             cols="30"
             rows="5"
             placeholder="메뉴 등 추가 정보를 입력해 주세요.(150자 이내)"
-            maxlength="150"
+            max-length="150"
           >
           </custom-textarea>
         </div>
@@ -64,7 +64,7 @@ class RestaurantFormModalInner extends HTMLElement {
           key="link"
           type="text"
           placeholder="음식점 링크 (http/https 포함, 예시: https://example.com)"
-          maxlength="2000"
+          max-length="2000"
         > 
         </form-input>
         </div>
@@ -77,14 +77,17 @@ class RestaurantFormModalInner extends HTMLElement {
     `;
 
     // 이벤트
-    const formEl = this.querySelector('form');
+    const $restaurantForm = this.querySelector('form');
 
-    if (formEl instanceof HTMLFormElement) {
-      formEl.addEventListener('reset', this.#handleResetForm.bind(this));
-      formEl.addEventListener('submit', (event) =>
+    if ($restaurantForm instanceof HTMLFormElement) {
+      $restaurantForm.addEventListener(
+        'reset',
+        this.#handleResetForm.bind(this),
+      );
+      $restaurantForm.addEventListener('submit', (event) =>
         this.#handleSubmitFormToAddStore(event),
       );
-      formEl.addEventListener(
+      $restaurantForm.addEventListener(
         'focusout',
         this.#handleFocusOutToActiveSubmitBtn.bind(this),
       );
@@ -122,12 +125,15 @@ class RestaurantFormModalInner extends HTMLElement {
   }
 
   #getTextFieldValue(elementId: string, textFiledTagName: string) {
-    const el = document
+    const $textField = document
       .getElementById(elementId)
       ?.querySelector(textFiledTagName);
 
-    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
-      return el.value;
+    if (
+      $textField instanceof HTMLInputElement ||
+      $textField instanceof HTMLTextAreaElement
+    ) {
+      return $textField.value;
     }
 
     return undefined;

@@ -17,7 +17,7 @@ class CustomInput extends HTMLElement {
       name: this.getAttribute('name'),
       required: this.getAttribute('required'),
       placeholder: this.getAttribute('placeholder'),
-      maxlength: this.getAttribute('maxlength'),
+      maxLength: this.getAttribute('max-length'),
     };
 
     const $input = setObjectAttribute(

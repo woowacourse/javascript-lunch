@@ -11,11 +11,11 @@ class RestaurantDistance extends HTMLElement {
     const store = findRestaurant(storeName);
 
     if (store) {
-      const $p = document.createElement('p');
-      $p.className = 'restaurant__info__distance';
-      $p.textContent = `캠퍼스부터 ${store.distance}분 내`;
+      const $distance = document.createElement('p');
+      $distance.className = 'restaurant__info__distance';
+      $distance.textContent = `캠퍼스부터 ${store.distance}분 내`;
 
-      this.appendChild($p);
+      this.appendChild($distance);
     }
   }
 }

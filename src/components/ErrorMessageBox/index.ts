@@ -8,7 +8,7 @@ class ErrorMessageBox extends HTMLElement {
   connectedCallback() {
     const $div = document.createElement('div');
 
-    $div.textContent = this.getAttribute('message') || '';
+    $div.textContent = this.getAttribute('message');
 
     this.appendChild($div);
   }

@@ -15,9 +15,9 @@ class RestaurantItem extends HTMLElement {
     const storeName = this.getAttribute('name');
 
     const store = findRestaurant(storeName);
+    if (!store) return;
 
-    if (store) {
-      this.innerHTML = /* html */ `
+    this.innerHTML = /* html */ `
       <li class="restaurant">
         <category-icon category="${store.category}"></category-icon>
         <div class="restaurant__info">
@@ -29,14 +29,9 @@ class RestaurantItem extends HTMLElement {
         </li>
         `;
 
-      this.addEventListener('click', (event) =>
-        this.#handleClickToOpenInfoModal(event, store.name),
-      );
-
-      return;
-    }
-
-    this.innerHTML = /* html */ `<p>해당 상점을 찾을 수 없습니다.</p>`;
+    this.addEventListener('click', (event) =>
+      this.#handleClickToOpenInfoModal(event, store.name),
+    );
   }
 
   #handleClickToOpenInfoModal(event: MouseEvent, storeName: string) {

@@ -44,3 +44,12 @@ main {
   justify-content: space-between;
   margin-top: 24px;
 }
+
+.restaurant-list {
+  box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 20px;
+  width: inherit;
+  height: inherit;
+  overflow-y: auto;
+}

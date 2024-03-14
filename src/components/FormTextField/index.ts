@@ -92,18 +92,15 @@ class FormTextField extends HTMLElement {
     }
   }
 
+  /**
+   * 글자로 입력하는 정보(이름,설명,링크)에 대한 유효성 검사
+   */
   #checkInfoValidate(key: RestaurantInfoKey, value: string) {
     const restaurant = new Restaurant();
 
     switch (key) {
-      case 'category':
-        restaurant.validateCategory(value);
-        break;
       case 'description':
         restaurant.validateDescription(value);
-        break;
-      case 'distance':
-        restaurant.validateDistance(value);
         break;
       case 'name':
         restaurant.validateName(value);

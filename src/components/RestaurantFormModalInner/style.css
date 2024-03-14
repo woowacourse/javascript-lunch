@@ -22,6 +22,11 @@ restaurant-form-inner {
     height: 90px;
   }
 }
+.restaurant-form-container drop-box {
+  width: 358px;
+  height: 44px;
+}
+
 .restaurant-form-modal-title {
   margin-bottom: 36px;
   font-weight: var(--lunch-title-font-weight);

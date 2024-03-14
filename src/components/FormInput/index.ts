@@ -13,7 +13,7 @@ class FromInput extends FormTextField {
       id: this.getAttribute('labelForId'),
       name: this.getAttribute('labelForId'),
       required: this.getAttribute('required'),
-      maxlength: this.getAttribute('maxlength'),
+      maxLength: this.getAttribute('max-length'),
       placeholder: this.getAttribute('placeholder'),
     };
 

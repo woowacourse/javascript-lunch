@@ -19,7 +19,8 @@ class RestaurantInfoModalInner extends HTMLElement {
     const store = findRestaurant(storeName);
 
     if (!store) {
-      this.innerHTML = `<p>찾으시는 상점이 없습니다.</p>`;
+      this.innerHTML = `<none-restaurant></none-restaurant>`;
+
       return;
     }
 

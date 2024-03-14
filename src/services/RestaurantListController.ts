@@ -25,7 +25,7 @@ const RestaurantListController = {
       )
       .join('');
 
-    const noneRestaurant = /* html */ `<p id="none-restaurant-category">해당 카테고리의 음식점이 존재하지 않습니다.</p>`;
+    const noneRestaurant = '<none-restaurant></none-restaurant>';
     if ($list) {
       $list.innerHTML = restaurantListText || noneRestaurant;
     }

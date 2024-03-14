@@ -33,8 +33,11 @@ class CategoryIcon extends HTMLElement {
       const item = iconMap.get(category as Category);
 
       const { imageUrl, alt } = item as IconMapValue;
+      const $img =document.createElement('img');
+      $img.src = imageUrl;
+      $img.alt =alt;
 
-      this.innerHTML = /* html */ `<img src="${imageUrl}" alt="${alt}"/>`;
+      this.appendChild($img);
     }
   }
 }

@@ -1,5 +1,7 @@
+import './style.css';
+
+import { DROP_BOX_MAP } from '../../constants';
 import { DropBoxName } from '../../types';
-import DropBoxInnerHtmlMaker from './DropBoxInnerHtmlMaker';
 
 class DropBox extends HTMLElement {
   constructor() {
@@ -10,7 +12,7 @@ class DropBox extends HTMLElement {
     const dropBoxName = this.getAttribute('name') as DropBoxName;
 
     if (this.#isDropBoxName(dropBoxName)) {
-      this.innerHTML = new DropBoxInnerHtmlMaker(dropBoxName).innerHtml || '';
+      this.#setInnerHtml(dropBoxName);
     }
   }
 
@@ -23,6 +25,33 @@ class DropBox extends HTMLElement {
     ];
 
     return ([...dropBoxNames] as string[]).includes(name);
+  }
+
+  #setInnerHtml(name: DropBoxName) {
+    const dropBoxProps = DROP_BOX_MAP.get(name);
+
+    if (!dropBoxProps) return;
+
+    const { selectProps, labelText, options } = dropBoxProps;
+
+    this.innerHTML = /* html */ `
+        <label class="screen-read-only" for="${selectProps.id}">
+          ${labelText}
+        </label >
+        <select
+          name="${selectProps.name}"
+          id="${selectProps.id}"
+          class="${selectProps.class}"
+          ${selectProps.required ? 'required' : ''}
+        >
+        ${options
+          .map(
+            (option) =>
+              `<option value="${option.value}" ${option.hidden ? 'hidden' : ''}>${option.text}</option>`,
+          )
+          .join('')}
+        </select>
+    `;
   }
 }
 

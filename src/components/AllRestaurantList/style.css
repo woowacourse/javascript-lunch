@@ -1,0 +1,8 @@
+.restaurant-list-container drop-box {
+  width: 125px;
+  height: 40px;
+}
+
+all-restaurant-list .restaurant-list {
+  height: 600px;
+}

@@ -2,6 +2,7 @@ import './style.css';
 
 import FavoriteTrueIcon from '../../assets/svg/favorite-icon-filled.svg';
 import FavoriteFalseIcon from '../../assets/svg/favorite-icon-lined.svg';
+
 import { RestaurantList } from '../../domains';
 import { getFavoriteAttributeValue } from '../../utils';
 
@@ -18,12 +19,13 @@ class FavoriteIcon extends HTMLElement {
   connectedCallback() {
     const storeName = this.getAttribute('store-name');
     const favorite = this.getAttribute('favorite');
+    const $btn = document.createElement('button');
+    const $img = document.createElement('img');
 
-    this.innerHTML = /* html */ `
-    <button>
-      <img src="${FAVORITE_IMG[favorite === 'true' ? 'true' : 'false']}" />
-    </button>
-  `;
+    $img.src = FAVORITE_IMG[favorite === 'true' ? 'true' : 'false'];
+
+    $btn.appendChild($img);
+    this.appendChild($btn);
 
     if (storeName) {
       this.addEventListener('click', (event) =>
@@ -39,9 +41,9 @@ class FavoriteIcon extends HTMLElement {
     const $img = $favoriteIcon?.querySelector('img');
     const restaurantList = new RestaurantList();
 
-    if (storeName) {
-      restaurantList.changeFavorite(storeName);
-    }
+    if (!storeName) return;
+
+    restaurantList.changeFavorite(storeName);
 
     if (
       $favoriteIcon instanceof HTMLElement &&

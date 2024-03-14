@@ -11,6 +11,9 @@ navigation-bar nav {
 navigation-bar .nav__btn-container {
   width: 50%;
   height: 35px;
+  button {
+    padding: 0;
+  }
 }
 
 .nav__btn-container .under-bar {

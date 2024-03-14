@@ -1,4 +1,5 @@
 import './style.css';
+
 import { findRestaurant } from '../../utils';
 
 class RestaurantDescription extends HTMLElement {
@@ -13,12 +14,12 @@ class RestaurantDescription extends HTMLElement {
     const noneDescription = /* html */ `<span class="none-description">상점 설명이 존재하지 않습니다.</span>`;
 
     if (store) {
-      const $p = document.createElement('p');
+      const $description = document.createElement('p');
 
-      $p.className = 'restaurant__info__description';
-      $p.innerHTML = `${store.description ? store.description : noneDescription}`;
+      $description.className = 'restaurant__info__description';
+      $description.innerHTML = `${store.description ? store.description : noneDescription}`;
 
-      this.appendChild($p);
+      this.appendChild($description);
     }
   }
 }

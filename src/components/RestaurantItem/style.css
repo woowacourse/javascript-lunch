@@ -15,21 +15,3 @@
 .restaurant__info {
   margin-left: 16px;
 }
-
-.restaurant-list {
-  box-sizing: border-box;
-  margin-top: 20px;
-  height: 600px;
-  overflow-y: auto;
-}
-
-.restaurant-list #none-restaurant-category {
-  position: absolute;
-  top: calc(50% - 20px);
-  left: 0;
-  width: 100%;
-  color: var(--lunch-grey-scale-3-color);
-  font-weight: var(--lunch-title-font-weight);
-  font-size: var(--label-font-size);
-  text-align: center;
-}

@@ -1,3 +1,5 @@
+import './style.css';
+
 class AllRestaurantList extends HTMLElement {
   constructor() {
     super();
