@@ -3,4 +3,8 @@ import "./image/add-button.png";
 
 import MainController from "./controller/MainController";
 
-new MainController().start();
+// import MainController from "./controller/MainController";
+
+// new MainController().start();
+
+MainController.start();
