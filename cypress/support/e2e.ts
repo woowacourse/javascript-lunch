@@ -184,13 +184,13 @@ export const filterTests: filterTestDate = {
       filteredRestaurants: [
         {
           category: '한식',
-          name: '마녀김밥',
-          walkingTime: 10,
+          name: '나',
+          walkingTime: 20,
         },
         {
           category: '한식',
-          name: '나',
-          walkingTime: 20,
+          name: '마녀김밥',
+          walkingTime: 10,
         },
       ],
     },
