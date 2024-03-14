@@ -57,13 +57,28 @@ class FormTextField extends HTMLElement {
 
   #handleChangeToValidateValue(event: Event, key: RestaurantInfoKey) {
     const { value } = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const linkValue: RestaurantInfo['link'] = value;
 
     try {
-      new Restaurant().validateLink(linkValue);
+      this.#validateRestaurantInfoByKey(key, value);
       this.#handleErrorMessage('');
     } catch (error) {
       if (error instanceof Error) this.#handleErrorMessage(error.message);
+    }
+  }
+
+  #validateRestaurantInfoByKey(
+    key: RestaurantInfoKey,
+    validationTarget: string,
+  ) {
+    const restaurant = new Restaurant();
+    if (key === 'link') {
+      restaurant.validateLink(validationTarget);
+    }
+    if (key === 'name') {
+      restaurant.validateName(validationTarget);
+    }
+    if (key === 'description') {
+      restaurant.validateDescription(validationTarget);
     }
   }
 
