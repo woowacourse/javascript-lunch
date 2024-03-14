@@ -1,5 +1,6 @@
 import { LOCALSTORAGE_KEY } from '../constant/constants';
 import { FilteringCategory, SortingProperty, Restaurant, Restaurants } from '../interface/RestaurantInterfaces';
+import useId from '../utils/useId';
 
 class RestaurantService implements Restaurants {
   addRestaurant(restaurant: Restaurant, restaurantList: Restaurant[]): boolean {
@@ -8,7 +9,8 @@ class RestaurantService implements Restaurants {
     );
     if (existingRestaurant) return false;
 
-    const newRestaurant: Restaurant = { ...restaurant, favorite: false };
+    const createdId = useId();
+    const newRestaurant: Restaurant = { ...restaurant, id: createdId, favorite: false };
 
     restaurantList.push(newRestaurant);
     localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(restaurantList));

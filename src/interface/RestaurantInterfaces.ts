@@ -7,6 +7,7 @@ type FilteringCategory = '전체' | Category;
 type SortingProperty = 'name' | 'distance';
 
 interface Restaurant {
+  id: number;
   category: Category;
   name: string;
   distance: Distance;

@@ -116,25 +116,36 @@ class RestaurantController {
       const favoriteButton = event.target.closest('.favorite-button');
       const restaurantItem = event.target.closest('.restaurant');
 
-      const restaurant = this.#restaurantList[restaurantItem.id];
-
       if (favoriteButton) {
-        this.changeFavoriteButton(restaurant, favoriteButton);
+        this.changeFavoriteButton(restaurantItem.id, favoriteButton);
       } else if (restaurantItem) {
-        this.showDetailRestaurantModal(restaurant);
+        this.showDetailRestaurantModal(restaurantItem.id);
       }
     });
   }
 
-  changeFavoriteButton(restaurant, favoriteButton) {
-    restaurant.favorite = !restaurant.favorite;
-    favoriteButton.src = restaurant.favorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
+  changeFavoriteButton(restaurantId, favoriteButton) {
+    const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === Number(restaurantId));
+
+    targetRestaurant.favorite = !targetRestaurant.favorite;
+    favoriteButton.src = targetRestaurant.favorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
   }
 
-  showDetailRestaurantModal(restaurant) {
-    OutputView.renderDetailRestaurant(restaurant);
+  showDetailRestaurantModal(restaurantId) {
+    const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === Number(restaurantId));
+
+    OutputView.renderDetailRestaurant(targetRestaurant);
     // this.manageAddRestaurantFormEvents();
     this.manageModalEvents();
+
+    const modalContainer = $('.modal-container');
+    modalContainer.addEventListener('click', event => {
+      const favoriteButton = event.target.closest('.favorite-button');
+
+      if (favoriteButton) {
+        this.changeFavoriteButton(restaurantId, favoriteButton);
+      }
+    });
   }
 }
 

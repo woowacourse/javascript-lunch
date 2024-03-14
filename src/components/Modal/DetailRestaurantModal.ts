@@ -4,7 +4,7 @@ import FavoriteButton from '../Common/FavoriteButton';
 
 const DetailRestaurantModal = (restaurant: Restaurant) => {
   return /* html */ `
-  <div class="detail-restaurant">
+  <div class="detail-restaurant" id=${restaurant.id}>
     <div class="detail-restaurant__image">
       <div class="restaurant__category">
         <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.png" alt=${restaurant.category} class="category-icon" />

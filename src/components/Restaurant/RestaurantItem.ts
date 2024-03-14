@@ -2,9 +2,9 @@ import { CATEGORY_CONVERTER } from '../../constant/constants';
 import { Restaurant } from '../../interface/RestaurantInterfaces';
 import FavoriteButton from '../Common/FavoriteButton';
 
-const RestaurantItem = (restaurant: Restaurant, index: number) => {
+const RestaurantItem = (restaurant: Restaurant) => {
   return /*html*/ `
-  <li class="restaurant" id=${index}>
+  <li class="restaurant" id=${restaurant.id}>
     <div class="restaurant__category">
       <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.png" alt=${restaurant.category} class="category-icon" />
     </div>
