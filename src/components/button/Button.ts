@@ -1,3 +1,5 @@
+import './Button.css';
+
 import type RestaurantList from '@/domain/RestaurantList';
 import type { FormElements, IButtonAttributes } from '@/types/dom';
 import type { TDistance, TCategory } from '@/types/restaurant';
