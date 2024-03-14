@@ -11,9 +11,6 @@ const restaurantAPI = {
       (existingRestaurant) => existingRestaurant.name === restaurant.name
     );
 
-    console.log('isExisting', isExisting);
-    console.log('restaurant', restaurant);
-
     if (isExisting) {
       alert(`${restaurant.name} 가 이미 존재합니다.`);
     }
