@@ -7,24 +7,20 @@ class FilterBox extends Component {
 
   constructor() {
     super();
-    this.#type = this.getAttribute('type') || '';
+    this.#type = this.getAttribute('type') ?? '';
   }
 
-  setEvent() {
+  setEvent(): void {
     if (this.#type === 'category' || this.#type === 'sorting') {
-      $addEvent(this, `.${this.#type}`, 'change', this.#updateRestaurantList);
+      $addEvent(this, `.${this.#type}`, 'change', this.#updateRestaurantList.bind(this));
     }
   }
 
-  removeEvent() {
-    if (this.#type === 'category' || this.#type === 'sorting') {
-      $removeEvent(this, `.${this.#type}`, 'change', this.#updateRestaurantList);
-    }
+  #updateRestaurantList() {
+    this.makeCustomEvent('updateRestaurantList');
   }
 
-  #updateRestaurantList = () => this.makeCustomEvent('updateRestaurantList');
-
-  template() {
+  template(): string {
     return `
       <select name=${this.#type} id=${this.#type} class=${this.#type}>
         ${OPTIONS_MAP[this.#type].map((el) => `<option value=${el.value}>${el.name}</option>`).join('')}
