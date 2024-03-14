@@ -32,11 +32,17 @@ class AddRestaurantForm {
     this.#urlFormItem = this.#createUrlFormItem();
     this.#buttonDiv = this.#createButtonDiv(cancelFunc);
 
-    this.element.addEventListener("submit", () => {
+    this.element.addEventListener("submit", (event) => {
       const newRestaurant = this.#getRestaurant();
-
-      submitFunc(newRestaurant);
-      this.reset.bind(this)();
+      this.removeErrorPrint();
+      try {
+        submitFunc(newRestaurant);
+        this.reset.bind(this)();
+      } catch (error) {
+        this.#nameFormItem.printErrorMessage("중복된 이름이 존재합니다.");
+        event.preventDefault();
+        event.stopPropagation();
+      }
     });
 
     this.#setElement();
@@ -48,6 +54,14 @@ class AddRestaurantForm {
     this.#distanceFormItem.reset();
     this.#descriptionFormItem.reset();
     this.#urlFormItem.reset();
+  }
+
+  removeErrorPrint() {
+    this.#categoryFormItem.removeErrorPrint();
+    this.#nameFormItem.removeErrorPrint();
+    this.#distanceFormItem.removeErrorPrint();
+    this.#descriptionFormItem.removeErrorPrint();
+    this.#urlFormItem.removeErrorPrint();
   }
 
   #setElement() {

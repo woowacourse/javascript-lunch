@@ -23,6 +23,9 @@ class RestaurantList {
   }
 
   add(restaurant: Restaurant) {
+    if (this.#restaurants.get(restaurant.name) !== undefined) {
+      throw new Error("NAME IS DUPLICATED");
+    }
     this.#restaurants.set(restaurant.name, restaurant);
     return this;
   }

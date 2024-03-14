@@ -18,12 +18,20 @@ class Modal {
     classes: ["modal-container"],
   });
 
+  #openFunc;
+
+  #closeFunc;
+
   constructor({
     contents = [],
     eventListenerArgs = [],
+    openFunc = () => {},
+    closeFunc = () => {},
   }: {
     contents?: HTMLElement[];
     eventListenerArgs?: EventListenerArg[];
+    openFunc?: any;
+    closeFunc?: any;
   }) {
     this.#container.append(...contents);
     this.element.append(this.#backDrop, this.#container);
@@ -33,14 +41,19 @@ class Modal {
     eventListenerArgs.forEach((args) => {
       this.element.addEventListener(...args);
     });
+
+    this.#openFunc = openFunc;
+    this.#closeFunc = closeFunc;
   }
 
   close() {
     this.element.classList.remove("modal--open");
+    this.#closeFunc();
   }
 
   open() {
     this.element.classList.add("modal--open");
+    this.#openFunc();
   }
 
   replaceContents(children: HTMLElement[]) {
