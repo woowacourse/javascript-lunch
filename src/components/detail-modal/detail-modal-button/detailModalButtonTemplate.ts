@@ -1,16 +1,11 @@
+import ButtonPrimary from "../../common/buttons/button-primary";
+import ButtonSecondary from "../../common/buttons/button-secondary";
+
 const detailModalButtonTemplate = /*html*/ `
 <div class="button-container detail-modal-button-container">
-    <button
-    type="button"
-    class="button button--secondary button--remove text-caption"
-    >
-    삭제하기
-    </button>
-    <button class="button button--primary button--close text-caption">
-    닫기
-    </button>
+    ${ButtonSecondary("삭제하기", "button--remove")}
+    ${ButtonPrimary("닫기", "button--close")}
 </div>
 `;
 
 export default detailModalButtonTemplate;
-// TODO: 재사용 컴포넌트로 분리하기
