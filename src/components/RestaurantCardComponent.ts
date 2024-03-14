@@ -23,14 +23,7 @@ export function RestaurantCardComponent() {
     return node;
   };
 
-  const setEvent = () => {
-    // // GNB 컴포넌트 이벤트 설정
-    // const $button = $('.gnb__button') as Element;
-    // $button.addEventListener('click', buttonComponent.handleClick);
-  };
-
   return {
-    getTemplate,
-    setEvent
+    getTemplate
   };
 }
