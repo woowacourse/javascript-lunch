@@ -23,7 +23,10 @@ restaurantList.classList.add("restaurant-list");
 const restaurantItems = RESTAURANTS_SAMPLE.map((restaurantItem) =>
   createRestaurantItem({
     restaurant: restaurantItem,
-    onClick: () => restaurantDetailModal.toggle(),
+    onClick: () => {
+      restaurantDetailModal.restaurant = restaurantItem;
+      restaurantDetailModal.toggle();
+    },
   })
 );
 
