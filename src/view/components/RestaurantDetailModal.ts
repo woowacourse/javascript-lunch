@@ -63,6 +63,8 @@ class RestaurantDetailModal {
           <button
             type="button"
             class="button button--secondary text-caption"
+            id="restaurant-detail-remove-button"
+            data-id=${restaurant.id}
           >
             삭제하기
           </button>
@@ -83,6 +85,25 @@ class RestaurantDetailModal {
   }
 
   setEvent(type: string, listener: (event: Event) => void) {
+    const $restaurantDetailModal = document.querySelector(
+      "#restaurant-detail__modal"
+    );
+    if ($restaurantDetailModal === null) {
+      return;
+    }
+    $restaurantDetailModal.addEventListener(type, (event: Event) => {
+      const $target = (event.target as Element).closest(
+        "#restaurant-detail-remove-button"
+      );
+      if ($target instanceof HTMLElement) {
+        this.restaurantList.removeRestaurant(Number($target.dataset.id));
+        this.closeModal();
+        listener(event);
+      }
+    });
+  }
+
+  setCloseEvent(type: string, listener: (event: Event) => void) {
     const $restaurantDetailModal = document.querySelector(
       "#restaurant-detail__modal"
     );

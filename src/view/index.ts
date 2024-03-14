@@ -106,7 +106,8 @@ class View {
       this.detailModal.openModal.bind(this.detailModal)
     );
 
-    this.detailModal.setEvent(
+    this.detailModal.setEvent("click", this.renderListSection.bind(this));
+    this.detailModal.setCloseEvent(
       "click",
       this.detailModal.closeModal.bind(this.detailModal)
     );

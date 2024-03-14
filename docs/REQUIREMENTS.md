@@ -52,7 +52,7 @@
     - [x] submit button
       - submit event: 음식점 추가 및 RestaurantListSection에 반영
 - [ ] RestaurantDetailModal
-  - [ ] remove button
+  - [x] remove button
     - click event: 해당 음식점 삭제, 모달 닫기, 음식점 목록 불러오기
   - [x] cancel button
     - click event: 모달 닫기
