@@ -1,59 +1,22 @@
-import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from '../domain/Restaurant';
-import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
-import { mockingData } from '../domain/mocking';
-import Dropdown from '../components/Dropdown';
-import RestaurantList from '../components/RestaurantList';
+import Dropdown from './components/Dropdown';
+import RestaurantList from './components/RestaurantList';
+import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from './domain/Restaurant';
+import { SORT_CONDITION } from './domain/RestaurantCatalog';
+import RestaurantStore from './store/RestaurantStore';
 
-class WebController {
-  #restaurantCatalog: RestaurantCatalog;
+class App {
+  #restaurantStore;
 
   constructor() {
-    this.#restaurantCatalog = new RestaurantCatalog();
+    this.#restaurantStore = new RestaurantStore();
   }
 
   run() {
-    this.#initDefaultData();
     this.#renderRestaurants();
     this.#renderFilterDropdowns();
     this.#renderFormDropdowns();
     this.#formSubmitEventHandler();
     this.#buttonEventHandler();
-  }
-
-  #initDefaultData() {
-    this.#insertDefaultData();
-    this.#initRestaurantCatalogFromLocalStorage();
-    this.#setLocalStorage();
-  }
-
-  #insertDefaultData() {
-    if (!localStorage.getItem('restaurants')) {
-      mockingData.forEach((data) => {
-        this.#restaurantCatalog.pushNewRestaurant(data);
-      });
-    }
-  }
-
-  #initRestaurantCatalogFromLocalStorage() {
-    const localData = localStorage.getItem('restaurants');
-    if (localData) {
-      JSON.parse(localData).forEach((restaurant: any) => {
-        this.#restaurantCatalog.pushNewRestaurant(restaurant);
-      });
-    }
-  }
-
-  #setLocalStorage() {
-    const restaurants = JSON.stringify(this.#restaurantCatalog.getTotalRestaurantInfo());
-
-    localStorage.setItem('restaurants', restaurants);
-  }
-
-  #renderFilterDropdowns() {
-    const restaurantFilterDropdownContainer = document.getElementById('restaurant-filter-dropdown-container');
-
-    restaurantFilterDropdownContainer?.appendChild(new Dropdown('category-select', 'category', RESTAURANT_CATEGORY));
-    restaurantFilterDropdownContainer?.appendChild(new Dropdown('sort-select', 'sort', SORT_CONDITION));
   }
 
   #renderRestaurants() {
@@ -62,8 +25,17 @@ class WebController {
 
     if (restaurantsFromStorage && RestaurantListSection) {
       RestaurantListSection.innerHTML = '';
-      RestaurantListSection.appendChild(new RestaurantList(JSON.parse(restaurantsFromStorage)));
+      const RestaurantListBody = new RestaurantList(JSON.parse(restaurantsFromStorage));
+
+      RestaurantListSection.appendChild(RestaurantListBody);
     }
+  }
+
+  #renderFilterDropdowns() {
+    const restaurantFilterDropdownContainer = document.getElementById('restaurant-filter-dropdown-container');
+
+    restaurantFilterDropdownContainer?.appendChild(new Dropdown('category-select', 'category', RESTAURANT_CATEGORY));
+    restaurantFilterDropdownContainer?.appendChild(new Dropdown('sort-select', 'sort', SORT_CONDITION));
   }
 
   #renderFormDropdowns() {
@@ -103,19 +75,11 @@ class WebController {
 
   #formSubmitEvent(restaurantInfo: IRestaurantInfo) {
     try {
-      this.#restaurantCatalog.pushNewRestaurant(restaurantInfo);
-      this.#updateRestaurantToLocalStorage();
+      this.#restaurantStore.addNewRestaurantToStore(restaurantInfo);
       this.#renderRestaurants();
       this.#closeModal();
     } catch (error: any) {
       alert(error.message);
-    }
-  }
-
-  #updateRestaurantToLocalStorage() {
-    if (localStorage.getItem('restaurants') !== null) {
-      localStorage.removeItem('restaurants');
-      this.#setLocalStorage();
     }
   }
 
@@ -148,4 +112,4 @@ class WebController {
   }
 }
 
-export default WebController;
+export default App;
