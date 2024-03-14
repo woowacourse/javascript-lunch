@@ -163,7 +163,7 @@ export function ModalComponent() {
     const categoryValue = ($('#category') as HTMLSelectElement).value;
     const nameValue = ($('#name') as HTMLInputElement).value;
     const distanceValue = ($('#distance') as HTMLSelectElement).value;
-    const descriptionValue = ($('#distance') as HTMLTextAreaElement).value;
+    const descriptionValue = ($('#description') as HTMLTextAreaElement).value;
     const linkValue = ($('#link') as HTMLInputElement).value;
 
     const modalValues: RestaurantInfo = {
