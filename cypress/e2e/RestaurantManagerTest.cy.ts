@@ -1,19 +1,19 @@
-import { IRestaurant, Category } from '../../src/domain/interface/IRestaurant';
+import { Restaurant, Category } from '../../src/domain/interface/Restaurant';
 import {
-  IRestaurantManager,
+  RestaurantManager,
   RestaurantManager,
 } from '../../src/domain/RestaurantManager';
 
 describe('음식점 목록 테스트', () => {
   it('음식점을 추가하면 정상적으로 추가되었는지 확인한다.', () => {
     // given
-    const newRestaurant: IRestaurant = {
+    const newRestaurant: Restaurant = {
       category: '중식',
       name: '친친',
       walkingTime: 5,
     };
 
-    const restaurantManager: IRestaurantManager = new RestaurantManager([]);
+    const restaurantManager: RestaurantManager = new RestaurantManager([]);
 
     // when
     restaurantManager.add(newRestaurant);
@@ -24,7 +24,7 @@ describe('음식점 목록 테스트', () => {
 
   it('음식점을 이름순으로 정렬해 반환한다.', () => {
     // given
-    const localStorageRestaurants: IRestaurant[] = [
+    const localStorageRestaurants: Restaurant[] = [
       {
         category: '한식',
         name: '바',
@@ -46,10 +46,10 @@ describe('음식점 목록 테스트', () => {
         walkingTime: 5,
       },
     ];
-    const restaurantManager: IRestaurantManager = new RestaurantManager(
+    const restaurantManager: RestaurantManager = new RestaurantManager(
       localStorageRestaurants
     );
-    const sortedByAscendingName: IRestaurant[] = [
+    const sortedByAscendingName: Restaurant[] = [
       {
         category: '한식',
         name: '가',
@@ -73,14 +73,14 @@ describe('음식점 목록 테스트', () => {
     ];
 
     // then
-    expect(restaurantManager.sortByAscendingName()).to.eql(
+    expect(restaurantManager.sortByAscendingNameAndCategory()).to.eql(
       sortedByAscendingName
     );
   });
 
   it('음식점을 거리순으로 정렬해 반환한다.', () => {
     // given
-    const localStorageRestaurants: IRestaurant[] = [
+    const localStorageRestaurants: Restaurant[] = [
       {
         category: '한식',
         name: '바',
@@ -107,10 +107,10 @@ describe('음식점 목록 테스트', () => {
         walkingTime: 10,
       },
     ];
-    const restaurantManager: IRestaurantManager = new RestaurantManager(
+    const restaurantManager: RestaurantManager = new RestaurantManager(
       localStorageRestaurants
     );
-    const sortedByAscendingWalkingTime: IRestaurant[] = [
+    const sortedByAscendingWalkingTime: Restaurant[] = [
       {
         category: '한식',
         name: '가',
@@ -139,20 +139,20 @@ describe('음식점 목록 테스트', () => {
     ];
 
     // then
-    expect(restaurantManager.sortByAscendingWalkingTime()).to.eql(
+    expect(restaurantManager.sortByAscendingWalkingTimeAndCategory()).to.eql(
       sortedByAscendingWalkingTime
     );
   });
 
   it('입력받은 카테고리로 필터링된 메뉴 목록 반환한다.', () => {
     // given
-    const newRestaurant: IRestaurant = {
+    const newRestaurant: Restaurant = {
       category: '중식',
       name: '친친',
       walkingTime: 5,
     };
 
-    const restaurantManager: IRestaurantManager = new RestaurantManager([]);
+    const restaurantManager: RestaurantManager = new RestaurantManager([]);
 
     // when
     restaurantManager.add(newRestaurant);
@@ -161,7 +161,7 @@ describe('음식점 목록 테스트', () => {
     expect(restaurantManager.getRestaurantList()).to.eql([newRestaurant]);
   });
 
-  const totalRestaurants: IRestaurant[] = [
+  const totalRestaurants: Restaurant[] = [
     {
       category: '중식',
       name: '가',
@@ -184,7 +184,7 @@ describe('음식점 목록 테스트', () => {
     },
   ];
 
-  const testData: { category: Category; filteredRestaurants: IRestaurant[] }[] =
+  const testData: { category: Category; filteredRestaurants: Restaurant[] }[] =
     [
       {
         category: '중식',
@@ -224,14 +224,15 @@ describe('음식점 목록 테스트', () => {
     ];
 
   testData.forEach(({ category, filteredRestaurants }) => {
-    it(`${category}로 정렬한 결과를 받아온다.`, () => {
+    it(`${category}(으)로 정렬한 결과를 받아온다.`, () => {
       // given
-      const restaurantManager: IRestaurantManager = new RestaurantManager(
+      const restaurantManager: RestaurantManager = new RestaurantManager(
         totalRestaurants
       );
 
+      restaurantManager.setCurrentCategory(category);
       // then
-      expect(restaurantManager.filteredRestaurants(category)).to.eql(
+      expect(restaurantManager.filteredRestaurantList()).to.eql(
         filteredRestaurants
       );
     });

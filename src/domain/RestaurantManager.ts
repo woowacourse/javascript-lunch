@@ -1,26 +1,26 @@
-import { IRestaurant, Category } from '../domain/interface/IRestaurant';
+import { Restaurant, Category } from '../domain/interface/Restaurant';
 
-export interface IRestaurantManager {
-  add(newRestaurant: IRestaurant): void;
-  getRestaurants(): IRestaurant[];
-  sortByAscendingNameAndCategory(): IRestaurant[];
-  sortByAscendingWalkingTimeAndCategory(): IRestaurant[];
-  filteredRestaurants(category: Category): IRestaurant[];
+export interface RestaurantManager {
+  add(newRestaurant: Restaurant): void;
+  getRestaurantList(): Restaurant[];
+  sortByAscendingNameAndCategory(): Restaurant[];
+  sortByAscendingWalkingTimeAndCategory(): Restaurant[];
+  filteredRestaurantList(category: Category): Restaurant[];
 }
 
-export class RestaurantManager implements IRestaurantManager {
-  private restaurants: IRestaurant[];
+export class RestaurantManager implements RestaurantManager {
+  private restaurantList: Restaurant[];
   private currentCategory;
   private currentSortBy;
 
-  constructor(restaurants: IRestaurant[] = []) {
-    this.restaurants = [...restaurants];
+  constructor(restaurantList: Restaurant[] = []) {
+    this.restaurantList = [...restaurantList];
     this.currentCategory = '전체';
     this.currentSortBy = '이름순';
   }
 
-  private validate(restaurant: IRestaurant): void {
-    const hasSameName = this.restaurants.some(
+  private validate(restaurant: Restaurant): void {
+    const hasSameName = this.restaurantList.some(
       ({ name }) => name === restaurant.name
     );
 
@@ -29,32 +29,32 @@ export class RestaurantManager implements IRestaurantManager {
     }
   }
 
-  add(newRestaurant: IRestaurant): void {
+  add(newRestaurant: Restaurant): void {
     this.validate(newRestaurant);
 
-    this.restaurants.push(newRestaurant);
-    localStorage.setItem('restaurants', JSON.stringify(this.restaurants));
+    this.restaurantList.push(newRestaurant);
+    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
 
     if (this.currentSortBy === '이름순') this.sortByAscendingName();
     if (this.currentSortBy === '거리순') this.sortByAscendingWalkingTime();
   }
 
-  getRestaurants(): IRestaurant[] {
-    return [...this.restaurants];
+  getRestaurantList(): Restaurant[] {
+    return [...this.restaurantList];
   }
 
   private sortByAscendingName(): void {
-    const sortedRestaurants = [...this.restaurants].sort((a, b) => {
+    const sortedRestaurantList = [...this.restaurantList].sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
       return 0;
     });
 
-    this.restaurants = sortedRestaurants;
+    this.restaurantList = sortedRestaurantList;
   }
 
   private sortByAscendingWalkingTime(): void {
-    const sortedRestaurants = [...this.restaurants].sort((a, b) => {
+    const sortedRestaurantList = [...this.restaurantList].sort((a, b) => {
       const aTime = Number(a.walkingTime);
       const bTime = Number(b.walkingTime);
 
@@ -66,32 +66,32 @@ export class RestaurantManager implements IRestaurantManager {
       return 0;
     });
 
-    this.restaurants = sortedRestaurants;
+    this.restaurantList = sortedRestaurantList;
   }
 
-  sortByAscendingNameAndCategory(): IRestaurant[] {
+  sortByAscendingNameAndCategory(): Restaurant[] {
     this.currentSortBy = '이름순';
     this.sortByAscendingName();
 
-    return this.filteredRestaurants();
+    return this.filteredRestaurantList();
   }
 
-  sortByAscendingWalkingTimeAndCategory(): IRestaurant[] {
+  sortByAscendingWalkingTimeAndCategory(): Restaurant[] {
     this.currentSortBy = '거리순';
     this.sortByAscendingWalkingTime();
 
-    return this.filteredRestaurants();
+    return this.filteredRestaurantList();
   }
 
   setCurrentCategory(category: Category) {
     this.currentCategory = category;
   }
 
-  filteredRestaurants(): IRestaurant[] {
+  filteredRestaurantList(): Restaurant[] {
     console.log(this.currentCategory);
-    if (this.currentCategory === '전체') return [...this.restaurants];
+    if (this.currentCategory === '전체') return [...this.restaurantList];
 
-    return [...this.restaurants].filter(
+    return [...this.restaurantList].filter(
       (restaurant) => restaurant.category === this.currentCategory
     );
   }

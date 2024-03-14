@@ -21,6 +21,7 @@ function createNewRestaurantModal(addRestaurant, getRestaurantList) {
       restaurant[id] = form.querySelector(`#${id}`).value;
       return restaurant;
     }, {});
+    newRestaurant.favorite = false;
 
     try {
       addRestaurant(newRestaurant);
