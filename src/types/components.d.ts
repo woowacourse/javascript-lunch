@@ -160,3 +160,14 @@ export type FormComponentPropsType = {
 export interface FormElementDataType extends BasicElementDataType {
   TAG_ID: string;
 }
+
+export type ATagComponentPropsType = {
+  href: string;
+  _blank: boolean;
+  className: string;
+};
+
+export interface ATagElementDataType extends BasicElementDataType {
+  TAG_HREF: string;
+  TAG_BLANK: boolean;
+}
