@@ -1,6 +1,5 @@
 @import './style-constants.css';
 @import './topbar.css';
-@import url('../components/TapBtn/style.css');
 
 body {
   box-sizing: border-box;

@@ -1,4 +1,4 @@
-.tap-btn-group {
+tap-btn {
   display: flex;
   position: fixed;
   top: 85px;
@@ -9,7 +9,9 @@
   width: 358px;
 }
 .tap-btn-group__btn {
+  border: none;
   border-bottom: 2px solid var(--lunch-grey-scale-2-color);
+  background-color: var(--lunch-grey-scale-1-color);
   padding: 9px 0;
   width: 100%;
   color: var(--lunch-grey-scale-3-color);

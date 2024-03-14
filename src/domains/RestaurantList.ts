@@ -38,11 +38,20 @@ class RestaurantList {
     }
   }
   //2단계 - 즐겨찾기 편집
-  filterRestaurantsByCategory(category: Category) {
+  filterRestaurantsByLike(like: Boolean) {
     return this.#list
       ? JSON.parse(JSON.stringify(this.#list)).filter(
-          (info: RestaurantInfo) => info.category === category,
+          (info: RestaurantInfo) => info.like === like,
         )
+      : undefined;
+  }
+
+  filterRestaurantsByCategory(
+    restaurants: RestaurantInfo[],
+    category: Category,
+  ) {
+    return this.#list
+      ? restaurants.filter((info: RestaurantInfo) => info.category === category)
       : undefined;
   }
 

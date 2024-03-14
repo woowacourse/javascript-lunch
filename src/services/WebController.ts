@@ -12,13 +12,13 @@ import '../components/FormTextField/index.ts';
 import '../components/DropBox/index.ts';
 import '../components/StarBtn/index.ts';
 import '../components/RestaurantInfoModalInner/index.ts';
+import '../components/TapBtn/index.ts';
 import { RestaurantList } from '../domains';
 import {
   RestaurantListController,
   StoreAddBtnController,
   FilteringController,
   ShowRestaurantDetailsModalController,
-  ChangeLikeDataController,
 } from '../services';
 
 const WebController = {
@@ -30,7 +30,6 @@ const WebController = {
     StoreAddBtnController.addEventToBtn();
     FilteringController.addEventToFiltering();
     ShowRestaurantDetailsModalController.showDetailInfo();
-    // ChangeLikeDataController.toggleLikeStatus();
   },
 };
 

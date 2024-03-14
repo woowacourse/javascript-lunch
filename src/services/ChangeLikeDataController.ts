@@ -2,7 +2,6 @@ import { StorageKeyEnum } from '../constants';
 import { RestaurantInfo } from '../types';
 import FilteringController from './FilteringController';
 import findParentBox from '../utils/findParentBox';
-import ShowRestaurantDetailsModalController from './ShowRestaurantDetailsModalController';
 
 const ChangeLikeDataController = {
   toggleLikeStatus(event: MouseEvent, findParentTagName: string) {

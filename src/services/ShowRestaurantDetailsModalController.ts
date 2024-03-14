@@ -1,5 +1,4 @@
 import findParentBox from '../utils/findParentBox';
-import ChangeLikeDataController from './ChangeLikeDataController';
 
 const ShowRestaurantDetailsModalController = {
   showDetailInfo() {
