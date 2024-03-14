@@ -152,16 +152,6 @@ export function ModalComponent() {
       addButton.classList.add('button--primary');
       getValue();
     });
-
-    addButton.addEventListener('click', (event) => {
-      if (addButton.disabled) {
-        addButton.classList.remove('button--primary');
-        event.preventDefault();
-        return;
-      }
-      addButton.classList.add('button--primary');
-      getValue();
-    });
   };
 
   const getValue = (): RestaurantInfo => {
@@ -178,7 +168,12 @@ export function ModalComponent() {
       description: descriptionValue,
       link: linkValue
     };
+
     restaurantAPI.save(modalValues);
+
+    const modal = $('.modal') as HTMLElement;
+    modal.classList.remove('modal--open');
+
     return modalValues;
   };
 
