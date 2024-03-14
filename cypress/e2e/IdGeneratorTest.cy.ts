@@ -5,6 +5,7 @@
  */
 
 import { Restaurant } from '../../src/domain/interface/Restaurant';
+import IdGenerator from '../../src/domain/IdGenerator';
 
 const localStorageRestaurantList: Restaurant[] = [
   {
@@ -36,8 +37,11 @@ const localStorageRestaurantList: Restaurant[] = [
 describe('아이디 생성기 테스트', () => {
   it('입력된 데이터에서 연속되도록 아이디를 반환한다.', () => {
     const idGenerator = new IdGenerator(localStorageRestaurantList);
-    const expectedNewId = 5;
+    const expectedNewIdList = [5, 6, 7];
 
-    expect(idGenerator.generateNewId()).to.eq(expectedNewId);
+    // TODO: testEach로 리펙토링
+    expect(idGenerator.generateNewId()).to.eq(expectedNewIdList[0]);
+    expect(idGenerator.generateNewId()).to.eq(expectedNewIdList[1]);
+    expect(idGenerator.generateNewId()).to.eq(expectedNewIdList[2]);
   });
 });
