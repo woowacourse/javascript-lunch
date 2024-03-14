@@ -2,8 +2,7 @@ import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
 import { blockModalBodyScroll } from '@/utils/view';
 import { $ } from '@/utils/DOM';
-import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import RestaurantList from '../RestaurantList/RestaurantList';
+
 class Header extends BaseComponent {
   render() {
     this.#makeTitle();

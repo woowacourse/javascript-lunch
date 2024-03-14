@@ -2,7 +2,7 @@ import { $, $$ } from './DOM';
 
 export const hideErrorMessage = () => {
   const $errors = $$('.error');
-  $$('.error').forEach((el) => {
+  $errors.forEach((el) => {
     el.classList.add('hidden');
   });
 };
@@ -10,12 +10,22 @@ export const hideErrorMessage = () => {
 export const closeModal = (modal: HTMLElement | Element) => {
   hideErrorMessage();
   modal.classList.remove('modal--open');
-  blockModalBodyScroll();
+  resetBodyScroll();
 };
 
 export const blockModalBodyScroll = () => {
-  if ($('.modal').classList.contains('modal--open'))
-    return (document.body.style.overflow = 'hidden');
+  document.body.style.overflow = 'hidden';
+  // const $modals = $$('.modal');
+  // const isModalOpen = [...$modals].some((modal) => {
+  //   modal.classList.contains('modal--opens');
+  // });
+  // if (isModalOpen) {
+  //   return (document.body.style.overflow = 'hidden');
+  // }
+  // document.body.style.overflow = 'auto';
+};
+
+export const resetBodyScroll = () => {
   document.body.style.overflow = 'auto';
 };
 

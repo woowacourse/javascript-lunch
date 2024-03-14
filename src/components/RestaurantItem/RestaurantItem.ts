@@ -2,6 +2,8 @@ import BaseComponent from '../BaseComponent';
 import { IRestaurant } from '@/types/Restaurant';
 import CategoryIconBox from '../CategoryIconBox/CategoryIconBox';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import RestaurantDetailModal from '../RestaurantDetailModal/RestaurantDetailModal';
+import { $ } from '@/utils/DOM';
 
 class RestaurantItem extends BaseComponent {
   #category;
@@ -40,6 +42,22 @@ class RestaurantItem extends BaseComponent {
 
     $liElement.append($restaurantInfoBox);
     this.append($liElement);
+  }
+
+  setEvent(): void {
+    this.addEventListener('click', () => {
+      const Detail = new RestaurantDetailModal({
+        name: this.#name,
+        distance: this.#distance,
+        description: this.#description,
+        category: this.#category,
+      });
+      $('#detail-modal').classList.add('modal--open');
+      while ($('#detail-modal').firstChild) {
+        $('#detail-modal').removeChild($('#detail-modal').firstChild!);
+      }
+      $('#detail-modal').append(Detail);
+    });
   }
 
   #makeInfoBox() {

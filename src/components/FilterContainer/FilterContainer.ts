@@ -48,6 +48,7 @@ class FilterContainer extends BaseComponent {
 
       const restaurantCollection = this.#restaurantDBService.update();
 
+      //TODO: url에서 가져오는 로직
       const urlParams = new URLSearchParams(window.location.search);
 
       if (urlParams.get('tab') === 'favorite') restaurantCollection.filterFavorites();

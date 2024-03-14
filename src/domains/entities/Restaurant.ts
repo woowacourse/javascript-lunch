@@ -1,4 +1,4 @@
-import type { Category, IRestaurant, Distance, IRestaurantInfo } from '../../types/Restaurant';
+import type { Category, IRestaurant, Distance } from '../../types/Restaurant';
 
 class Restaurant implements IRestaurant {
   name: string;

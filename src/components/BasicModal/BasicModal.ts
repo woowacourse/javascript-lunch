@@ -1,4 +1,4 @@
-import { blockModalBodyScroll, closeModal } from '@/utils/view';
+import { blockModalBodyScroll, closeModal, resetBodyScroll } from '@/utils/view';
 import BaseComponent from '../BaseComponent';
 import { $ } from '@/utils/DOM';
 
@@ -14,12 +14,14 @@ class BasicModal extends BaseComponent {
   render() {
     this.#addBackDrop();
     this.#addModalContainer();
+    blockModalBodyScroll();
   }
 
   setEvent(): void {
     this.#backdropElement.addEventListener('click', () => {
       closeModal($('.modal'));
-      blockModalBodyScroll();
+      closeModal($('#detail-modal'));
+      resetBodyScroll();
     });
   }
 
