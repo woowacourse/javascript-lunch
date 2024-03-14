@@ -17,11 +17,19 @@ class FavoriteButton extends BaseComponent {
 
   render() {
     this.#button.classList.add('favorite-button');
-    const $imgBox = document.createElement('img');
-    this.#button.append($imgBox);
 
-    const starImg = this.#isFavorite ? fillStar : noFillStar;
-    $imgBox.setAttribute('src', starImg);
+    const $fillStar = document.createElement('img');
+    $fillStar.id = 'fill-star';
+    this.#isFavorite ? $fillStar.classList.remove('not-show') : $fillStar.classList.add('not-show');
+    $fillStar.src = fillStar;
+
+    const $noFillStar = document.createElement('img');
+    $noFillStar.id = 'nofill-star';
+    $noFillStar.src = noFillStar;
+
+    this.#button.append($fillStar);
+    this.#button.append($noFillStar);
+
     this.replaceWith(this.#button);
   }
 

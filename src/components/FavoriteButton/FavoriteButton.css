@@ -4,7 +4,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.favorite-button img {
+  position: absolute;
+}
+
+.favorite-button:hover {
+  transition: all 0.5s;
+  transform: scale(1.2);
+}
+
+.not-show {
+  opacity: 0;
+  transition: all 0.5s;
 }
