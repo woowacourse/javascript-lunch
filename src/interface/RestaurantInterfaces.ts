@@ -21,6 +21,7 @@ interface Restaurants {
   filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
   sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];
   filterByFavorite: (restaurantList: Restaurant[]) => Restaurant[];
+  changeFavorite: (restaurantId: number, restaurantList: Restaurant[]) => boolean;
 }
 
 export { Category, Distance, FilteringCategory, SortingProperty, Restaurant, Restaurants };

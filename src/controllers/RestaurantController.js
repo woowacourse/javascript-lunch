@@ -12,8 +12,11 @@ class RestaurantController {
 
   #property;
 
+  #restaurantService;
+
   constructor() {
     this.#restaurantList = this.getRecentData();
+    this.#restaurantService = new RestaurantService();
 
     this.#category = '전체';
     this.#property = 'name';
@@ -41,9 +44,8 @@ class RestaurantController {
   }
 
   updateRestaurantList() {
-    const restaurantService = new RestaurantService();
-    const filteredList = restaurantService.filterByCategory(this.#category, this.#restaurantList);
-    const processedList = restaurantService.sortByProperty(this.#property, filteredList);
+    const filteredList = this.#restaurantService.filterByCategory(this.#category, this.#restaurantList);
+    const processedList = this.#restaurantService.sortByProperty(this.#property, filteredList);
 
     OutputView.renderRestaurantList(processedList);
 
@@ -60,14 +62,13 @@ class RestaurantController {
   }
 
   manageAddRestaurantFormEvents() {
-    const restaurantService = new RestaurantService();
     const formAddRestaurant = $('.form-add-restaurant');
 
     formAddRestaurant.addEventListener('reset', () => OutputView.closeModal());
     formAddRestaurant.addEventListener('submit', e => {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
-      const isAdded = restaurantService.addRestaurant(newRestaurant, this.#restaurantList);
+      const isAdded = this.#restaurantService.addRestaurant(newRestaurant, this.#restaurantList);
       const isAddedText = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
       alert(isAddedText);
 
@@ -116,8 +117,10 @@ class RestaurantController {
       const favoriteButton = event.target.closest('.favorite-button');
       const restaurantItem = event.target.closest('.restaurant');
 
+      const restaurantId = Number(restaurantItem.id);
+
       if (favoriteButton) {
-        this.changeFavoriteButton(restaurantItem.id, favoriteButton);
+        this.changeFavoriteButton(restaurantId, favoriteButton);
       } else if (restaurantItem) {
         this.showDetailRestaurantModal(restaurantItem.id);
       }
@@ -125,10 +128,9 @@ class RestaurantController {
   }
 
   changeFavoriteButton(restaurantId, favoriteButton) {
-    const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === Number(restaurantId));
-
-    targetRestaurant.favorite = !targetRestaurant.favorite;
-    favoriteButton.src = targetRestaurant.favorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
+    const isFavorite = this.#restaurantService.changeFavorite(restaurantId, this.#restaurantList);
+    console.log(isFavorite);
+    favoriteButton.src = isFavorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
   }
 
   showDetailRestaurantModal(restaurantId) {
