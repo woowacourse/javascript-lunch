@@ -64,7 +64,8 @@ class NewRestaurantModal extends BasicModal {
     $categorySelectBox.append($categoryLabel);
 
     const $categorySelect = new SelectBox<CategoryOrPlaceholder>(
-      { values: ['선택해주세요', ...CATEGORIES_KEYS], texts: ['선택해주세요', ...CATEGORIES_KEYS] },
+      ['선택해주세요', ...CATEGORIES_KEYS],
+      ['선택해주세요', ...CATEGORIES_KEYS],
       'category',
     );
     $categorySelectBox.append($categorySelect);
@@ -106,10 +107,7 @@ class NewRestaurantModal extends BasicModal {
     ];
 
     $distanceSelection.append(
-      new SelectBox<DistanceOrPlaceholder>(
-        { values: DISTANCES_REQURIED, texts: DISTANCES_TEXTS },
-        'distance',
-      ),
+      new SelectBox<DistanceOrPlaceholder>(DISTANCES_REQURIED, DISTANCES_TEXTS, 'distance'),
     );
     const errorBox = document.createElement('div');
     errorBox.classList.add('error', 'hidden');
@@ -132,26 +130,23 @@ class NewRestaurantModal extends BasicModal {
   }
 
   #makeLinkInput() {
-    const inputBoxArgs = {
+    return new VerticalInputBox({
       name: '링크',
       idName: 'link',
       helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
-    };
-
-    return new VerticalInputBox(inputBoxArgs);
+    });
   }
 
   #makeButtons() {
     const $buttonBox = document.createElement('div');
     $buttonBox.classList.add('button-container');
 
-    const cancelButton = new BasicButton('secondary', '취소하기', 'reset', () => {
-      this.closeModal();
-    });
-    const addButton = new BasicButton('primary', '추가하기', 'submit', () => {});
-
-    $buttonBox.append(cancelButton);
-    $buttonBox.append(addButton);
+    $buttonBox.append(
+      new BasicButton('secondary', '취소하기', 'reset', () => {
+        this.closeModal();
+      }),
+    );
+    $buttonBox.append(new BasicButton('primary', '추가하기', 'submit', () => {}));
 
     return $buttonBox;
   }

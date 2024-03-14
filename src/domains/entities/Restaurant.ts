@@ -6,6 +6,7 @@ class Restaurant implements IRestaurant {
   category: Category;
   description?: string;
   link?: string;
+  isFavorite?: boolean;
 
   constructor(restaurantArgs: IRestaurant) {
     this.name = restaurantArgs.name;
@@ -13,6 +14,8 @@ class Restaurant implements IRestaurant {
     this.category = restaurantArgs.category;
     this.description = restaurantArgs.description;
     this.link = restaurantArgs.link;
+    this.isFavorite = restaurantArgs.isFavorite;
+
     this.#validateName();
     this.#validateDescription();
   }
@@ -28,6 +31,9 @@ class Restaurant implements IRestaurant {
     }
     if (this.link) {
       result.link = this.link;
+    }
+    if (this.isFavorite !== undefined) {
+      result.isFavorite = this.isFavorite;
     }
     return result;
   }

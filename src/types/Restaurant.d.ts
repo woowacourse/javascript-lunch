@@ -5,6 +5,7 @@ export interface IRestaurant {
   category: Category;
   description?: string;
   link?: string;
+  isFavorite?: boolean;
 }
 
 export type Category = keyof typeof CATEGORIES;

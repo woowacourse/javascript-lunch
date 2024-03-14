@@ -8,15 +8,13 @@ describe('레스토랑 클래스', () => {
       distance: 10,
       category: '중식',
       description: '게살볶음밥',
+      link: 'https://www.naver.com/',
+      isFavorite: false,
     };
-    const EXPECTED_RESULT: IRestaurant = {
-      name: '친친',
-      distance: 10,
-      category: '중식',
-      description: '게살볶음밥',
-    };
+    const EXPECTED_RESULT: IRestaurant = RESTAURANT_ARGS;
 
     const restaurant = new Restaurant(RESTAURANT_ARGS);
+    console.log(restaurant.get());
     expect(restaurant.get()).to.deep.equal(EXPECTED_RESULT);
   });
 
