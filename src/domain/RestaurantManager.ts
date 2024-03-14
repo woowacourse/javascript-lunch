@@ -49,6 +49,10 @@ export class RestaurantManager implements RestaurantManager {
         this.sortByAscendingWalkingTime();
         break;
     }
+    localStorage.setItem(
+      'favoriteRestaurants',
+      JSON.stringify(this.favoriteRestaurants)
+    );
   }
 
   getRestaurants(): Restaurant[] {
@@ -129,6 +133,10 @@ export class RestaurantManager implements RestaurantManager {
     this.favoriteRestaurants = this.favoriteRestaurants.filter((restaurant) => {
       return restaurant['name'] !== removeRestaurant['name'];
     });
+    localStorage.setItem(
+      'favoriteRestaurants',
+      JSON.stringify(this.favoriteRestaurants)
+    );
 
     return [...this.favoriteRestaurants];
   }
