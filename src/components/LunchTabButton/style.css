@@ -1,8 +1,11 @@
 lunch-tab-button {
   width: 100%;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
 }
 
-.button {
-  width: 100%;
+button {
   height: 44px;
+  color: inherit;
+  background-color: transparent;
 }

@@ -1,3 +1,4 @@
+import './style.css';
 import '../LunchTabButton/LunchTabButton';
 
 const LUNCH_TAB = /* HTML */ `
@@ -24,8 +25,8 @@ class LunchTab extends HTMLElement {
   handleTabLiked() {
     this.querySelector('.tab-button-liked')?.addEventListener('click', () => {
       console.log('tab-button-liked 클릭');
-      this.querySelector('.tab-button-all')?.classList.add('tab-button-all--closed');
-      this.querySelector('.tab-button-liked')?.classList.remove('tab-button-liked--closed');
+      this.querySelector('.tab-button-all')?.classList.add('tab--closed');
+      this.querySelector('.tab-button-liked')?.classList.remove('tab--closed');
       document.querySelector('.lunch-tab-all')?.classList.add('lunch-tab-all--closed');
       document.querySelector('.lunch-tab-liked')?.classList.remove('lunch-tab-liked--closed');
     });
@@ -34,8 +35,8 @@ class LunchTab extends HTMLElement {
   handleTabAll() {
     this.querySelector('.tab-button-all')?.addEventListener('click', () => {
       console.log('tab-button-all 클릭');
-      this.querySelector('.tab-button-all')?.classList.remove('tab-button-all--closed');
-      this.querySelector('.tab-button-liked')?.classList.add('tab-button-liked--closed');
+      this.querySelector('.tab-button-all')?.classList.remove('tab--closed');
+      this.querySelector('.tab-button-liked')?.classList.add('tab--closed');
       document.querySelector('.lunch-tab-all')?.classList.remove('lunch-tab-all--closed');
       document.querySelector('.lunch-tab-liked')?.classList.add('lunch-tab-liked--closed');
     });

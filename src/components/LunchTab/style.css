@@ -1,19 +1,11 @@
 .lunch-tab {
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px;
+  margin-top: 31px;
 }
 
-.tab-button-all {
-  color: var(--primary-color);
-}
-
-.tab-button-all--closed {
+.tab--closed {
   color: var(--grey-300);
-}
-
-.tab-button-liked {
-  color: var(--primary-color);
-}
-
-.tab-button-liked--closed {
-  color: var(--grey-300);
+  border-bottom: 2px solid #d0d5dd;
 }

@@ -1,6 +1,7 @@
 import './style.css';
 
-const LUNCH_TAB_BUTTON = (value: string) => /* HTML */ ` <button class="button">${value}</button> `;
+const LUNCH_TAB_BUTTON = (value: string) =>
+  /* HTML */ ` <button class="button text-body">${value}</button> `;
 
 class LunchTabButton extends HTMLElement {
   connectedCallback() {
