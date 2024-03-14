@@ -8,6 +8,7 @@ type LunchItemProps = {
   name: string;
   distance: Distance;
   description: string;
+  liked: string;
 };
 
 export const CATEGORY_IMG = {
@@ -25,6 +26,7 @@ const LUNCH_ITEM_TEMPLATE = ({
   name,
   distance,
   description,
+  liked,
 }: LunchItemProps) => /* HTML */ `
   <li class="restaurant">
     <div class="restaurant__category--img">
@@ -37,7 +39,7 @@ const LUNCH_ITEM_TEMPLATE = ({
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
         </div>
         <div class="restaurant__info--liked">
-          <img src=${LIKED} alt="liked" class="liked- icon" />
+          <img src=${liked === 'true' ? LIKED : NOT_LIKED} alt="liked" class="liked- icon" />
         </div>
       </div>
       <div class="restaurant__info--description">
@@ -57,7 +59,8 @@ class LunchItem extends HTMLElement {
     const name: string = this.getAttribute('name') ?? '';
     const distance: Distance = (Number(this.getAttribute('distance')) as Distance) ?? 10;
     const description: string = this.getAttribute('description') ?? '';
-    return { category, name, distance, description };
+    const liked: string = this.getAttribute('liked') ?? '';
+    return { category, name, distance, description, liked };
   }
 
   render() {

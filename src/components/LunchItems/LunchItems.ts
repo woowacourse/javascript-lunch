@@ -18,10 +18,14 @@ const LUNCH_ITEMS_TEMPLATE = /* HTML */ `
   </section>
 `;
 
-const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => `
-  <lunch-item category="${restaurant.category}" name="${restaurant.name}" distance="${
-  restaurant.distance
-}" description="${restaurant.description ?? ''}"></lunch-item>
+const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => /* HTML */ `
+  <lunch-item
+    category="${restaurant.category}"
+    name="${restaurant.name}"
+    distance="${restaurant.distance}"
+    description="${restaurant.description ?? ''}"
+    liked="${restaurant.liked}"
+  ></lunch-item>
 `;
 
 class LunchItems extends HTMLElement {
