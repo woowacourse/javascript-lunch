@@ -1,7 +1,7 @@
 import { Irestaurant } from "../../types/restaurant";
 
 import {
-  descriptionTemplate,
+  descriptionSummaryTemplate,
   distanceTemplate,
   likeTemplate,
   restaurantNameTemplate,
@@ -11,7 +11,7 @@ export const InfoTemplate = (restaurant: Irestaurant) => /*html*/ `
 <div class="restaurant__info">
   ${restaurantNameTemplate(restaurant.name)} 
   ${distanceTemplate(restaurant.distance)}
-  ${descriptionTemplate(restaurant.description)}
+  ${descriptionSummaryTemplate(restaurant.description)}
 </div>`;
 
 export const restaurantTemplate = (

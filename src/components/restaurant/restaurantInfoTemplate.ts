@@ -26,10 +26,14 @@ export const distanceTemplate = (distance: Idistance) => /*html*/ `
 <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
 `;
 
+export const descriptionSummaryTemplate = (description?: string) => /*html*/ `
+<p class="restaurant__description-summary text-body">${description || ""}</p>
+`;
+
 export const descriptionTemplate = (description?: string) => /*html*/ `
 <p class="restaurant__description text-body">${description || ""}</p>
 `;
 
-export const LinkTemplate = (link?: string) => /*html*/ `
-<p class="restaurant__description text-body">${link || ""}</p>
+export const linkTemplate = (link?: string) => /*html*/ `
+<a href="${link}" class="restaurant__link text-body">${link || ""}</a>
 `;
