@@ -1,0 +1,6 @@
+.rest-list-container {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+  padding: 0 16px;
+}

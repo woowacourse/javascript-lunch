@@ -26,31 +26,20 @@
     "max-params": ["error", 3],
     "quotes": ["error", "single", { "avoidEscape": true }],
 
-    // prettier conflict
     "prettier/prettier": [
       "error",
       {
         "endOfLine": "auto",
-        "printWidth": 100,
+        "printWidth": 120,
         "singleQuote": true
       }
     ],
 
-    // import convention
     "import/extensions": ["error", { "js": "ignorePackages" }],
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling"],
-          "index",
-          "object",
-          "type",
-          "unknown"
-        ],
+        "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index", "object", "type", "unknown"],
         "pathGroups": [
           {
             "pattern": "next",

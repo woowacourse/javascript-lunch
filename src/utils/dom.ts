@@ -1,4 +1,4 @@
-export const $ = (selectors: string, target: HTMLElement | ShadowRoot | Document = document) =>
-  target.querySelector(selectors);
-export const $$ = (selectors: string, target: HTMLElement | ShadowRoot | Document = document) =>
-  target.querySelectorAll(selectors);
+export const $ = (selector: string, target: HTMLElement | Document = document) =>
+  target.querySelector(selector) as HTMLElement;
+
+export const $$ = (selector: string, target: HTMLElement | Document = document) => target.querySelectorAll(selector);

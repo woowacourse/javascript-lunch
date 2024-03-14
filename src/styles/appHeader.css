@@ -1,0 +1,28 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 64px;
+  background-color: var(--primary-color);
+}
+
+.app-header__title {
+  color: #fcfcfd;
+}
+
+.app-header__button {
+  border: none;
+  height: 40px;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.app-header__button img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}

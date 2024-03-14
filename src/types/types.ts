@@ -1,46 +1,28 @@
+import { CATEGORY, DISTANCE, FILTER_DATASET, SORTING_KEY } from '../constants/constants';
+
+export type KeyOfSortingKey = keyof typeof SORTING_KEY;
+export type KeyOfCategory = keyof typeof CATEGORY;
+export type KeyOfDistance = keyof typeof DISTANCE;
+export type KeyOfFilterDataset = keyof typeof FILTER_DATASET;
+
 export type Restaurant = {
-  category: Category;
+  category: Exclude<KeyOfCategory, 'all'>;
   name: string;
-  distance: Distance;
+  distance: KeyOfDistance;
   description: string;
   link: string;
 };
 
-const Distance = {
-  Five: 5,
-  Ten: 10,
-  Fifteen: 15,
-  Twenty: 20,
-  Thirty: 30
-} as const;
-export type Distance = (typeof Distance)[keyof typeof Distance];
-
-export const CATEGORY = {
-  all: '전체',
-  korean: '한식',
-  chinese: '중식',
-  japanese: '일식',
-  asian: '아시안',
-  western: '양식',
-  etc: '기타'
-} as const;
-export type Category = (typeof CATEGORY)[keyof typeof CATEGORY];
-
-export const SORTING_KEY = {
-  name: '이름순',
-  distance: '거리순'
-} as const;
-
-export type SortingKey = (typeof SORTING_KEY)[keyof typeof SORTING_KEY];
-
-export const DEFAULT = {
-  category: CATEGORY.all,
-  sortingKey: SORTING_KEY.name
+export type EventInfo = {
+  target: HTMLElement | Document;
+  type: string;
+  handler: EventListener;
 };
 
-export const EVENT = {
-  changedFilter: 'changedFilter',
-  clickedGNBButton: 'clickedGNBButton',
-  clickedModalSubmitButton: 'clickedModalSubmitButton',
-  clickedModalResetButton: 'clickedModalResetButton'
+export type FormItem = {
+  label: string;
+  type: string;
+  id: string;
+  options?: string[];
+  required?: boolean;
 };
