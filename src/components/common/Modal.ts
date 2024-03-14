@@ -11,7 +11,7 @@ export default class Modal extends EventComponent {
     const children = this.innerHTML;
 
     return `
-      <div id=${modalId} class="modal ${isOpen ? "modal--open" : ""}">
+      <div id=${modalId} class="${isOpen ? "" : "close"}">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           ${children}
