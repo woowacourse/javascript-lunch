@@ -53,6 +53,7 @@ class Restaurant {
       distanceByWalk: this.distanceByWalk,
       description: this.description,
       referenceUrl: this.referenceUrl,
+      favorite: this.favorite,
     };
   }
 }

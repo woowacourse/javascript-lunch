@@ -3,13 +3,14 @@ import { RestaurantDataType } from '../../src/type/restaurantDataType';
 import { Category, DistanceByWalk } from '../../src/enum/enums';
 
 describe('[Restaurant] 음식점 객체 테스트', () => {
-  it('음식점은 자신의 카테고리, 이름, 거리, 설명, 참고 링크를 반환할 수 있다.', () => {
+  it('음식점은 자신의 카테고리, 이름, 거리, 설명, 참고 링크, 자주 가는 음식점 여부를 반환할 수 있다.', () => {
     const restaurantData: RestaurantDataType = {
       name: '한식당',
       category: Category.한식,
       distanceByWalk: DistanceByWalk['10분 내'],
       description: '한식당에 대한 설명',
       referenceUrl: 'https://naver.com',
+      favorite: true,
     };
 
     const restaurant = new Restaurant(restaurantData);
