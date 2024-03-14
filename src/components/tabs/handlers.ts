@@ -1,4 +1,5 @@
 import filterState from "../../store/FilterStateStore";
+import RestaurantList from "../restaurant-list/RestaurantList";
 
 const removeCurrentClassName = () => {
   const allTab = document.getElementsByClassName("tab-item");
@@ -14,6 +15,7 @@ const changeFavFilter = (clickedTab: HTMLElement) => {
   return filterState.setFavType(false);
 };
 
+// eslint-disable-next-line max-lines-per-function
 const tabClicked = (tabs: HTMLElement) => {
   tabs.addEventListener("click", (event) => {
     removeCurrentClassName();
@@ -21,6 +23,8 @@ const tabClicked = (tabs: HTMLElement) => {
       const clickedTab = event.target.closest(".tab-item") as HTMLElement;
       clickedTab.classList.add("current");
       changeFavFilter(clickedTab);
+
+      RestaurantList();
     }
   });
 };

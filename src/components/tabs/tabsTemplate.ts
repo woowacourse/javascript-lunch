@@ -1,13 +1,12 @@
+import Tab from "../common/tab/tab";
+import TabCurrent from "../common/tab/tab-current";
+
 export const rightTabTemplate = /*html*/ `
-<li class="tab-item current" data-tab="all">모든 음식점
-<div class="line_item"></div>
-</li>
+${TabCurrent("모든 음식점", "all")}
 `;
 
 export const LeftTabTemplate = /*html*/ `
-<li class="tab-item" data-tab="fav">자주 가는 음식점
-<div class="line_item"></div>
-</li>
+${Tab("자주 가는 음식점", "fav")}
 `;
 
 export const tabsTemplate = /*html*/ `
@@ -15,6 +14,3 @@ export const tabsTemplate = /*html*/ `
     ${rightTabTemplate} ${LeftTabTemplate}
 </ul>
 `;
-
-// 1. 필터링처럼 처리하기
-// 2. 랜더하고 display none 하기
