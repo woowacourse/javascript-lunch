@@ -5,6 +5,7 @@ import FormItemComponent from './FormItemComponent';
 import InputComponent from './InputComponent';
 import TextareaComponent from './TextareaComponent';
 import SelectComponent from './common/SelectComponent';
+import restaurantInfoValidator from './validator/restaurantInfoValidator';
 
 export function ModalComponent() {
   const getTemplate = () => {
@@ -93,7 +94,7 @@ export function ModalComponent() {
                 label: 'link',
                 isRequired: false,
                 children: InputComponent({
-                  type: 'text',
+                  type: 'url',
                   name: 'link',
                   id: 'link',
                   className: 'custom-input'
@@ -104,6 +105,7 @@ export function ModalComponent() {
             <div class="button-container">
               <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
               <button id="submitButton" class="button button--primary text-caption" disabled>추가하기</button>
+              <div class="tooltip">필수 입력 값을 다 입력해주세요</div>
             </div>
           </form>
         </div>
@@ -115,10 +117,10 @@ export function ModalComponent() {
   };
 
   const setEvent = (): void => {
-    const form = document.querySelector('.modal-container form') as Element;
+    const form = $('.modal-container form') as Element;
     form.addEventListener('input', checkRequiredFields);
 
-    const addButton = document.querySelector('#submitButton') as HTMLButtonElement;
+    const addButton = $('#submitButton') as HTMLButtonElement;
     addButton.addEventListener('click', (event) => {
       if (addButton.disabled) {
         addButton.classList.remove('button--primary');
@@ -128,14 +130,46 @@ export function ModalComponent() {
       addButton.classList.add('button--primary');
       getValue();
     });
+
+    const textarea = document.getElementById('description') as HTMLTextAreaElement;
+    const counterElement = document.getElementById('description-id');
+
+    if (textarea && counterElement) {
+      textarea.addEventListener('input', () => {
+        console.log('textarea.value.length', textarea.value.length);
+        counterElement.textContent = `${textarea.value.length}/150`;
+      });
+    }
+
+    const cancelButton = $('#cancelButton') as HTMLButtonElement;
+    cancelButton.addEventListener('click', () => {
+      const modal = $('.modal') as HTMLElement;
+      modal.classList.remove('modal--open');
+    });
+
+    addButton.addEventListener('click', (event) => {
+      if (addButton.disabled) {
+        addButton.classList.remove('button--primary');
+        event.preventDefault();
+        return;
+      }
+      addButton.classList.add('button--primary');
+      getValue();
+    });
+
+    const modalBackdrop = document.querySelector('.modal-backdrop') as HTMLButtonElement;
+    modalBackdrop.addEventListener('click', () => {
+      const modal = $('.modal') as HTMLElement;
+      modal.classList.remove('modal--open');
+    });
   };
 
   const getValue = (): RestaurantInfo => {
-    const categoryValue = (document.getElementById('category') as HTMLSelectElement).value;
-    const nameValue = (document.getElementById('name') as HTMLInputElement).value;
-    const distanceValue = (document.getElementById('distance') as HTMLSelectElement).value;
-    const descriptionValue = (document.getElementById('description') as HTMLTextAreaElement).value;
-    const linkValue = (document.getElementById('link') as HTMLInputElement).value;
+    const categoryValue = ($('#category') as HTMLSelectElement).value;
+    const nameValue = ($('#name') as HTMLInputElement).value;
+    const distanceValue = ($('#distance') as HTMLSelectElement).value;
+    const descriptionValue = ($('#distance') as HTMLTextAreaElement).value;
+    const linkValue = ($('#link') as HTMLInputElement).value;
 
     const modalValues: RestaurantInfo = {
       category: categoryValue as CategoryValues,
@@ -149,13 +183,13 @@ export function ModalComponent() {
   };
 
   const checkRequiredFields = () => {
-    const categoryValue = (document.getElementById('category') as HTMLSelectElement).value;
-    const nameValue = (document.getElementById('name') as HTMLInputElement).value;
-    const distanceValue = (document.getElementById('distance') as HTMLSelectElement).value;
+    const categoryValue = ($('#category') as HTMLSelectElement).value;
+    const nameValue = ($('#name') as HTMLInputElement).value;
+    const distanceValue = ($('#distance') as HTMLSelectElement).value;
 
     const hasEmptyValue = !categoryValue || !nameValue || !distanceValue;
 
-    const addButton = document.querySelector('#submitButton') as HTMLButtonElement;
+    const addButton = $('#submitButton') as HTMLButtonElement;
 
     addButton.disabled = hasEmptyValue;
   };
