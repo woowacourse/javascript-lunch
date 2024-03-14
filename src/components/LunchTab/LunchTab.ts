@@ -5,7 +5,7 @@ const LUNCH_TAB = /* HTML */ `
   <div class="lunch-tab">
     <lunch-tab-button class="tab-button-all" value="모든 음식점"></lunch-tab-button>
     <lunch-tab-button
-      class="tab-button-liked tab-button-liked--closed"
+      class="tab-button-liked tab--closed"
       value="자주 가는 음식점"
     ></lunch-tab-button>
   </div>
