@@ -20,10 +20,12 @@ describe('음식점 목록 테스트', () => {
     const restaurantManager = new RestaurantManager([]);
 
     // when
-    restaurantManager.add(addition.output[0]);
+    restaurantManager.addRestaurant(addition.output[0]);
 
     // then
-    expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
+    expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql([
+      newRestaurant,
+    ]);
   });
 
   it('음식점을 이름순으로 정렬해 반환한다.', () => {
@@ -34,7 +36,7 @@ describe('음식점 목록 테스트', () => {
     );
     const sortedByAscendingName: RestaurantData[] = sortingName.output;
     // then
-    expect(restaurantManager.sortByAscendingName()).to.eql(
+    expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql(
       sortedByAscendingName
     );
   });
@@ -47,9 +49,10 @@ describe('음식점 목록 테스트', () => {
     );
     const sortedByAscendingWalkingTime: Restaurant[] =
       sortingWalkingTime.output;
+    restaurantManager.udateCurentSelectedSorting('거리순');
 
     // then
-    expect(restaurantManager.sortByAscendingWalkingTime()).to.eql(
+    expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql(
       sortedByAscendingWalkingTime
     );
   });
@@ -65,7 +68,7 @@ describe('음식점 목록 테스트', () => {
     const restaurantManager: RestaurantManager = new RestaurantManager([]);
 
     // when
-    restaurantManager.add(newRestaurant);
+    restaurantManager.addRestaurant(newRestaurant);
 
     // then
     expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
@@ -85,9 +88,38 @@ describe('음식점 목록 테스트', () => {
       restaurantManager.udateCurentCategoty(category);
 
       // then
-      expect(restaurantManager.filteredRestaurants()).to.eql(
+      expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql(
         filteredRestaurants
       );
     });
+  });
+
+  it('자주가는 음식점을 추가한다.', () => {
+    // given
+    const newRestaurant: RestaurantData = addition.input[0];
+
+    const restaurantManager = new RestaurantManager([], []);
+
+    // when
+    restaurantManager.addFavoriteRestaurant(addition.output[0]);
+
+    // then
+    expect(restaurantManager.getUpdatedFavoriteRestaurants()).to.eql([
+      newRestaurant,
+    ]);
+  });
+
+  it('자주가는 음식점을 삭제한다.', () => {
+    // given
+    const newRestaurant: RestaurantData = addition.input[0];
+
+    const restaurantManager = new RestaurantManager([], []);
+
+    // when
+    restaurantManager.addFavoriteRestaurant(addition.output[0]);
+    restaurantManager.removeFavoriteRestaurant(addition.output[0]);
+
+    // then
+    expect(restaurantManager.getUpdatedFavoriteRestaurants()).to.eql([]);
   });
 });
