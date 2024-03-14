@@ -1,10 +1,12 @@
 import { FORM_INPUT_QUERY, LOCAL_STORAGE_KEY } from '../constant/constants';
-import { $ } from '../utils/querySelector';
+import { $, $$ } from '../utils/querySelector';
 import RestaurantService from '../domain/RestaurantService';
 import OutputView from '../views/OutputView';
 
 class RestaurantController {
   #restaurantList;
+
+  #activeTab;
 
   #category;
 
@@ -12,35 +14,54 @@ class RestaurantController {
 
   constructor() {
     this.#restaurantList = this.fetchData();
+    this.#activeTab = 'all';
     this.#category = '전체';
     this.#property = 'name';
   }
 
   run() {
+    this.initTabActive();
+    this.manageTabEvents();
+
     OutputView.renderFilterDropdown();
-    this.updateRestaurantList();
-    this.manageAddRestaurantModal();
     this.manageFilterValue();
+
+    this.updateRestaurantList();
     this.manageModalEvents();
   }
 
-  updateRestaurantList() {
-    const filteredList = RestaurantService.filterByCategory(this.#category, this.#restaurantList);
-    const processedList = RestaurantService.sortByProperty(this.#property, filteredList);
+  initTabActive() {
+    const defaultTab = $(`#${this.#activeTab}`);
+    defaultTab.classList.add('active');
+  }
 
-    OutputView.renderRestaurantList(processedList);
+  manageTabEvents() {
+    const tabButtons = Array.from($$('.button--tabmenu'));
+    tabButtons.forEach(tabButton => {
+      tabButton.addEventListener('click', e => {
+        e.preventDefault();
+        if (e.target.classList.contains('active')) return;
+        tabButtons.forEach(button => button.classList.remove('active'));
+        e.target.classList.add('active');
+        this.#activeTab = e.target.id;
+        this.updateRestaurantList();
+      });
+    });
+  }
+
+  updateRestaurantList() {
+    if (this.#activeTab === 'favorite') {
+      const favoriteList = RestaurantService.filterFavorite(this.#restaurantList);
+      OutputView.renderRestaurantList(favoriteList);
+    } else {
+      const filteredList = RestaurantService.filterByCategory(this.#category, this.#restaurantList);
+      const processedList = RestaurantService.sortByProperty(this.#property, filteredList);
+      OutputView.renderRestaurantList(processedList);
+    }
   }
 
   fetchData() {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-  }
-
-  manageAddRestaurantModal() {
-    const addRestaurantButton = $('.gnb__button');
-    addRestaurantButton.addEventListener('click', () => {
-      OutputView.renderAddRestaurant();
-      this.manageFormEvents();
-    });
   }
 
   manageFormEvents() {
@@ -67,6 +88,7 @@ class RestaurantController {
       const input = $(id);
       formData[input.name] = input.name === 'distance' ? parseInt(input.value, 10) : input.value;
     });
+    formData.isFavorite = false;
 
     return formData;
   }

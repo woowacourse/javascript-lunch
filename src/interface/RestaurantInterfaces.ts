@@ -1,3 +1,5 @@
+type ButtonVariant = 'primary' | 'secondary' | 'tabmenu';
+
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 
 type FilteringCategory = '전체' | Category;
@@ -12,12 +14,14 @@ interface Restaurant {
   distance: Distance;
   description?: string;
   link?: string;
+  isFavorite: boolean;
 }
 
 interface Restaurants {
   addRestaurant: (restaurant: Restaurant, restaurantList: Restaurant[]) => boolean;
   filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
   sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];
+  filterFavorite: (restaurantList: Restaurant[]) => Restaurant[];
 }
 
 interface DropdownOption {
@@ -34,7 +38,13 @@ interface DropdownProps {
   isRequired: boolean;
 }
 
+interface TabMenuProps {
+  id: string;
+  content: string;
+}
+
 export {
+  ButtonVariant,
   Category,
   FilteringCategory,
   Distance,
@@ -43,4 +53,5 @@ export {
   Restaurants,
   DropdownOption,
   DropdownProps,
+  TabMenuProps,
 };

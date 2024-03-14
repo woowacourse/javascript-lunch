@@ -21,6 +21,10 @@ const RestaurantService: Restaurants = {
   sortByProperty(property: SortingProperty, restaurantList: Restaurant[]) {
     return restaurantList.sort((first, second) => (first[property] > second[property] ? 1 : -1));
   },
+
+  filterFavorite(restaurantList: Restaurant[]) {
+    return restaurantList.filter(restaurant => restaurant.isFavorite);
+  },
 };
 
 export default RestaurantService;
