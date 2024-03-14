@@ -7,15 +7,12 @@ customElements.define("category-icon", CategoryIcon);
 
 export default class RestaurantItem extends BaseComponent {
   protected getTemplate(): string {
-    const favoriteRestaurantNames = favoriteStore.get();
-
     const category = this.getAttribute("category") ?? "";
     const name = this.getAttribute("name") ?? "";
     const timeToReach = this.getAttribute("timeToReach") ?? "";
     const description = this.getAttribute("description") ?? "";
     const link = this.getAttribute("link") ?? "";
-
-    const isFavorite = favoriteRestaurantNames.includes(name);
+    const isFavorite = this.getAttribute("isFavorite") === "true";
 
     return `
       <li class="restaurant">
@@ -34,6 +31,13 @@ export default class RestaurantItem extends BaseComponent {
   }
 
   static get observedAttributes() {
-    return ["category", "name", "timeToReach", "description"];
+    return [
+      "category",
+      "name",
+      "timeToReach",
+      "description",
+      "link",
+      "isFavorite",
+    ];
   }
 }
