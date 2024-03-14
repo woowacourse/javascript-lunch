@@ -1,5 +1,5 @@
+import RestaurantCRUD from "../../../domain/RestaurantCRUD";
 import validateRestaurantState from "../../../services/validateRestaurantState";
-import restaurantListStateStore from "../../../store/RestaurantListStateStore";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import { Irestaurant } from "../../../types/restaurant";
 import { IinvalidResult } from "../../../types/validate";
@@ -18,7 +18,8 @@ const addNewRestaurant = (modal: Element, restaurantInfo: Irestaurant) => {
 
   if (invalidMessage.length === 0) {
     modal.classList.remove("modal--open");
-    restaurantListStateStore.addNewRestaurant(restaurantInfo);
+    RestaurantCRUD.addNewRestaurant(restaurantInfo);
+    // restaurantListStateStore.addNewRestaurant(restaurantInfo);
     initializeFormState();
   }
 };
