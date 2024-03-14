@@ -45,6 +45,7 @@ class LunchApp extends HTMLElement {
   render() {
     localStorage.getItem('restaurants') ??
       localStorage.setItem('restaurants', JSON.stringify(DUMMY));
+    localStorage.getItem('liked') ?? localStorage.setItem('liked', JSON.stringify([]));
     this.innerHTML = LUNCH_APP;
   }
 }
