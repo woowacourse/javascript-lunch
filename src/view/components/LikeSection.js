@@ -33,7 +33,7 @@ const categorySectionClone = categorySection.cloneNode(true);
 function setSortAndFilterAttribute(currentElement) {
   if (currentElement === 'like-restaurants') {
     const restaurantCards = document.querySelector('.restaurant-list');
-    categorySection.remove();
+    document.querySelector('.restaurant-filter-container').remove();
     restaurantCards.setAttribute('data-sort-select', '이름순');
     restaurantCards.setAttribute('data-category-select', '전체');
   }
