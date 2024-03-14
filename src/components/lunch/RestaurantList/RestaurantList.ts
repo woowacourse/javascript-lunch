@@ -2,8 +2,6 @@ import "./RestaurantList.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
 
-import RestaurantItem from "../RestaurantItem/RestaurantItem";
-
 import Restaurant from "../../../domain/Restaurant/Restaurant";
 import { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
 
@@ -56,12 +54,20 @@ class RestaurantList extends BaseComponent {
     const restaurantDetails = this.restaurant.getRestaurantDetails();
 
     return restaurantDetails.reduce(
-      (acc: string, restaurantDetail: RestaurantDetail) => {
-        const restaurantItem = new RestaurantItem(restaurantDetail);
-
+      (
+        acc: string,
+        { name, category, distance, description, isFavorite }: RestaurantDetail
+      ) => {
         return (
           acc +
-          `<restaurant-item class="restaurant">${restaurantItem.getTemplate()}</restaurant-item>`
+          `<restaurant-item 
+            name="${name}"
+            category="${category}"
+            distance="${distance}"
+            description="${description}"
+            isFavorite="${isFavorite}"
+            class="restaurant"
+           ></restaurant-item>`
         );
       },
       ""

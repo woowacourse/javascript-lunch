@@ -2,15 +2,11 @@ import "./RestaurantItem.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
 
-import type { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
-
 import { $ } from "../../../utils/dom";
 import Restaurant from "../../../domain/Restaurant/Restaurant";
 import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
 
 class RestaurantItem extends BaseComponent {
-  private restaurantDetail: RestaurantDetail;
-
   private eventListeners = {
     listItemClick: {
       eventName: "click",
@@ -18,24 +14,24 @@ class RestaurantItem extends BaseComponent {
     },
   } as const;
 
-  constructor(restaurantDetail: RestaurantDetail) {
-    super();
+  protected render() {
+    const category = this.getAttribute("category") ?? "";
+    const name = this.getAttribute("name") ?? "";
+    const distance = this.getAttribute("distance") ?? "";
+    const description = this.getAttribute("description") ?? "";
+    const isFavorite = this.getAttribute("isFavorite") ?? "";
 
-    this.restaurantDetail = restaurantDetail;
-  }
-
-  public getTemplate() {
-    return `
+    this.innerHTML = `
         <div class='restaurant__category'>
-          <category-icon class='category-icon' category='${this.restaurantDetail.category}'></category-icon>
+          <category-icon class='category-icon' category='${category}'></category-icon>
         </div>
         <div id='restaurant-info-container'>
           <div class='restaurant__info'>
-            <h3 class='restaurant__name text-subtitle'>${this.restaurantDetail.name}</h3>
-            <span class='restaurant__distance text-body'>캠퍼스로부터 ${this.restaurantDetail.distance}분 내</span>
-            <p class='restaurant__description text-body'>${this.restaurantDetail.description}</p>
+            <h3 class='restaurant__name text-subtitle'>${name}</h3>
+            <span class='restaurant__distance text-body'>캠퍼스로부터 ${distance}분 내</span>
+            <p class='restaurant__description text-body'>${description}</p>
           </div>
-          <star-icon name='${this.restaurantDetail.name}' favorite='${this.restaurantDetail.isFavorite}'></star-icon>
+          <star-icon name='${name}' favorite='${isFavorite}'></star-icon>
         </div>
     `;
   }
