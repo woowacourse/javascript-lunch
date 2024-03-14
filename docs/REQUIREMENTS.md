@@ -42,6 +42,8 @@
 - [x] GNB
   - 앱의 navigation bar.
   - 음식점 추가 버튼을 누르면 음식점 추가 form이 modal 안에 열린다.
+- [x] BookmarkTab
+  - 즐겨찾기 여부로 음식점 리스트를 구분할 수 있는 탭
 - [x] RestaurantForm
   - 음식점 추가를 위한 form.
   - 카테고리, 거리는 셀렉트 박스, 이름/설명/참고 링크는 텍스트 인풋을 사용한다.

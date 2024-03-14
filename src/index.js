@@ -10,6 +10,7 @@ import RestaurantForm from './components/RestaurantForm/RestaurantForm';
 import RestaurantList from './components/RestaurantList/RestaurantList';
 import RestaurantItem from './components/RestaurantItem/RestaurantItem';
 import RestaurantFilters from './components/RestaurantFilters/RestaurantFilters';
+import BookmarkTab from './components/BookmarkTab/BookmarkTab';
 
 window.customElements.define('app-gnb', GNB);
 window.customElements.define('app-modal', Modal);
@@ -18,6 +19,7 @@ window.customElements.define('app-restaurant-form', RestaurantForm, { extends: '
 window.customElements.define('app-restaurant-item', RestaurantItem, { extends: 'li' });
 window.customElements.define('app-restaurant-list', RestaurantList, { extends: 'ul' });
 window.customElements.define('app-restaurant-filters', RestaurantFilters);
+window.customElements.define('app-bookmark-tab', BookmarkTab);
 
 const app = new App();
 app.start();

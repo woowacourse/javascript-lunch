@@ -17,6 +17,15 @@
       </header>
     </template>
 
+    <template id="template-bookmark-tab">
+      <section class="bookmark-tab-container">
+        <ul class="bookmark-tab text-title">
+          <li id="all" class="tab-item active">모든 음식점</li>
+          <li id="bookmark" class="tab-item">자주 가는 음식점</li>
+        </ul>
+      </section>
+    </template>
+
     <template id="template-restaurant-filter-container">
       <section class="restaurant-filter-container">
         <!-- 카테고리 셀렉트 박스 -->
@@ -136,6 +145,9 @@
 
     <!-- GNB -->
     <app-gnb></app-gnb>
+
+    <!-- 즐겨찾기 탭 -->
+    <app-bookmark-tab></app-bookmark-tab>
 
     <!-- 음식점 필터 -->
     <app-restaurant-filters></app-restaurant-filters>

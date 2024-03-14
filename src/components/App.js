@@ -7,9 +7,12 @@ import { RESTAURANT_FILTERS_EVENTS } from './RestaurantFilters/RestaurantFilters
 
 // domain
 import RestaurantManager from '../domain/RestaurantManager';
+import { BOOKMARK_TAB_EVENTS } from './BookmarkTab/BookmarkTab';
 
 export default class App {
   #restaurantFilters;
+
+  #bookmarkTab;
 
   #restaurantList;
 
@@ -17,6 +20,7 @@ export default class App {
 
   constructor() {
     this.#restaurantFilters = document.querySelector('app-restaurant-filters');
+    this.#bookmarkTab = document.querySelector('app-bookmark-tab');
     this.#restaurantList = document.querySelector('#restaurant-list');
     this.#restaurantManger = new RestaurantManager();
   }
@@ -27,6 +31,7 @@ export default class App {
 
     this.#addRestaurantSubmitEventListener();
     this.#addFilterOnchangeEventListenr();
+    this.#addBookmarkTabChangeEventListener();
   }
 
   #addRestaurantSubmitEventListener() {
@@ -45,6 +50,13 @@ export default class App {
       const { categoryFilter, sortingFilter } = e.detail;
       this.#syncLocalStorageAndDomain();
       this.#updateRestaurantList(categoryFilter, sortingFilter);
+    });
+  }
+
+  #addBookmarkTabChangeEventListener() {
+    document.addEventListener(BOOKMARK_TAB_EVENTS.changeTab, (e) => {
+      const { isBookmark } = e.detail;
+      console.log(isBookmark);
     });
   }
 
