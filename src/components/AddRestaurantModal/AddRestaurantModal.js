@@ -5,13 +5,15 @@ import tryCatchWrapper from '../../utils/tryCatchWrapper';
 import { $ } from '../../utils/dom';
 import { RULES } from '../../constants/rules';
 import { SELECT_FORM_DATA } from '../../data/selectData';
+import ModalWrapper from '../Common/ModalWrapper/ModalWrapper';
 
-// TODO: 클래스명 수정
-export default class AddRestaurantModal {
+// TODO: 클래스명 수정, 모달 컨테이너 수정
+export default class AddRestaurantModal extends ModalWrapper {
   #element;
   #restaurants;
 
   constructor(element, restaurants) {
+    super();
     this.#element = element;
     this.#restaurants = restaurants;
     this.render();
@@ -19,7 +21,7 @@ export default class AddRestaurantModal {
   }
 
   render() {
-    this.#element.innerHTML = `
+    this.#element.innerHTML = this.getTemplate(`
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form id="restaurant-input-form">
 
@@ -62,17 +64,14 @@ export default class AddRestaurantModal {
           <button id="add-button" class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
-    `;
+    `);
   }
 
   #addEvents() {
-    $('add-restaurant-cancel-button').addEventListener('click', () => this.#handleCancelButton());
+    $('modal-backdrop').addEventListener('click', this._handleClose.bind(this));
+    $('add-restaurant-cancel-button').addEventListener('click', this._handleClose.bind(this));
     $('modal').addEventListener('focusout', (event) => this.#handleInputFocusout(event));
     $('modal').addEventListener('submit', (event) => this.#handleAddButton(event));
-  }
-
-  #handleCancelButton() {
-    $('modal').classList.remove('modal--open');
   }
 
   #handleInputFocusout(event) {
@@ -97,11 +96,13 @@ export default class AddRestaurantModal {
 
   #addRestaurant(event) {
     const inputData = this.#getInputData(event.target);
+    const close = this._handleClose.bind(this);
 
     this.#validateInputData(inputData);
     this.#restaurants.addRestaurant(this.#parseWalkingTime(inputData));
     this.#insertRestaurantList(inputData);
-    $('modal').classList.remove('modal--open');
+
+    close();
   }
 
   #validateInputData(inputData) {

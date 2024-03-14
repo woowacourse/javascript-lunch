@@ -35,7 +35,7 @@ export default class Header {
       $('modal').classList.add('modal--open');
       // TODO: 리팩터링, 이 방법이 좋은 방법인가? 이벤트는 지우지 않는 한 사라지지 않나요?
       if (!this.#addRestaurant) {
-        this.#addRestaurant = new AddRestaurantModal($('modal-container'), this.#restaurants);
+        this.#addRestaurant = new AddRestaurantModal($('modal'), this.#restaurants);
         return;
       }
       this.#addRestaurant.render();
