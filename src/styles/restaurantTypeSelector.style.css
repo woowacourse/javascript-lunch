@@ -1,0 +1,26 @@
+.restaurant-type-selector-container {
+  margin-top: 31px;
+  padding: 0 16px;
+}
+
+.restaurant-type-selector-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.restaurant-type-button {
+  width: 50%;
+  padding-bottom: 9px;
+  border: none;
+  background: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  border-bottom: 1px solid var(--grey-200);
+  color: var(--grey-300);
+}
+
+.restaurant-type-active {
+  border-bottom: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
