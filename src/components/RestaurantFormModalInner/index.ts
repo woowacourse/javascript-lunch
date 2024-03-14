@@ -165,6 +165,7 @@ class RestaurantFormModalInner extends HTMLElement {
       JSON.stringify(restaurants),
     );
   }
+
   #closeModal() {
     const modalEl = document
       .querySelector('custom-modal')

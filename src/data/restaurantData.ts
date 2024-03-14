@@ -54,10 +54,3 @@ export const INITIAL_RESTAURANT_DATA: RestaurantInfo[] = [
     like: false,
   },
 ];
-
-// 상점 입력폼에서 링크등에 대한 유효성 검사 진행 시 사용
-export const RESTAURANT_INFO_FOR_VALIDATE_TEST: RestaurantInfo = {
-  category: 'korean',
-  name: '이름',
-  distance: 5,
-};

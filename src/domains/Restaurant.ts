@@ -4,9 +4,11 @@ import { RestaurantInfo } from '../types';
 class Restaurant {
   #info!: RestaurantInfo;
 
-  constructor(info: RestaurantInfo) {
-    this.#validateInfo(info);
-    this.#info = info;
+  constructor(info?: RestaurantInfo) {
+    if (info !== undefined) {
+      this.#validateInfo(info);
+      this.#info = info;
+    }
   }
 
   get info() {
@@ -24,6 +26,24 @@ class Restaurant {
       this.#validateLinkCharacterLimit(info.link);
       this.#validateLinkEnglishChars(info.link);
       this.#validateLinkProtocol(info.link);
+    }
+  }
+
+  validateName(name: RestaurantInfo['name']) {
+    this.#validateNameCharacterLimit(name);
+  }
+
+  validateDescription(description: RestaurantInfo['description']) {
+    if (description) {
+      this.#validateDescriptionCharacterLimit(description);
+    }
+  }
+
+  validateLink(link: RestaurantInfo['link']) {
+    if (link) {
+      this.#validateLinkCharacterLimit(link);
+      this.#validateLinkEnglishChars(link);
+      this.#validateLinkProtocol(link);
     }
   }
 

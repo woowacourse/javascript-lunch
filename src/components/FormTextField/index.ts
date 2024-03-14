@@ -1,7 +1,5 @@
 import { RestaurantInfoKey, RestaurantInfo } from '../../types';
 import { Restaurant } from '../../domains';
-import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData';
-
 class FormTextField extends HTMLElement {
   constructor() {
     super();
@@ -59,12 +57,10 @@ class FormTextField extends HTMLElement {
 
   #handleChangeToValidateValue(event: Event, key: RestaurantInfoKey) {
     const { value } = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const newInfo: RestaurantInfo = { ...RESTAURANT_INFO_FOR_VALIDATE_TEST };
-
-    (newInfo[key] as string) = value;
+    const linkValue: RestaurantInfo['link'] = value;
 
     try {
-      new Restaurant(newInfo);
+      new Restaurant().validateLink(linkValue);
       this.#handleErrorMessage('');
     } catch (error) {
       if (error instanceof Error) this.#handleErrorMessage(error.message);
