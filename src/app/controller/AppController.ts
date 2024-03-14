@@ -36,21 +36,27 @@ export default class AppController {
   }
 
   private changeCategory(event: Event) {
-    const category: Category = (event as CustomEvent).detail;
-    this.category = category;
-    this.updateRestaurantList();
+    if (event instanceof CustomEvent) {
+      const category: Category = event.detail;
+      this.category = category;
+      this.updateRestaurantList();
+    }
   }
 
   private changeSortOrder(event: Event) {
-    const sortOrder: SortOrder = (event as CustomEvent).detail;
-    this.sortOrder = sortOrder;
-    this.updateRestaurantList();
+    if (event instanceof CustomEvent) {
+      const sortOrder: SortOrder = event.detail;
+      this.sortOrder = sortOrder;
+      this.updateRestaurantList();
+    }
   }
 
   private addRestaurant(event: Event) {
-    const detail: RestaurantDataType = (event as CustomEvent).detail;
-    this.restaurantService.addRestaurant(detail);
-    this.updateRestaurantList();
+    if (event instanceof CustomEvent) {
+      const detail: RestaurantDataType = event.detail;
+      this.restaurantService.addRestaurant(detail);
+      this.updateRestaurantList();
+    }
   }
 
   private showRestaurantList() {
