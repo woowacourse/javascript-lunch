@@ -11,6 +11,24 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  width: 100%;
+}
+
+.restaurant__info-titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.restaurant__info-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.favorite-icon {
+  width: 2rem;
+  height: 2rem;
 }
 
 .restaurant__name {
