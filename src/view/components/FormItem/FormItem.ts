@@ -1,5 +1,6 @@
 import "./style.css";
 
+import FORM_ITEM_TEXTS from "../../../constants/formItemTexts";
 import createElementByTag from "../../utils/createElementByTag";
 import { error } from "console";
 
@@ -90,7 +91,7 @@ class FormItem {
     this.#readableElement.required = true;
     this.#readableElement.addEventListener("invalid", (event) => {
       event.preventDefault();
-      this.renderErrorMessage("필수 입력 값입니다.");
+      this.renderErrorMessage(FORM_ITEM_TEXTS.requireItem);
     });
   }
 }

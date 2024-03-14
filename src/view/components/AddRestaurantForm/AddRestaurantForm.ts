@@ -39,7 +39,7 @@ class AddRestaurantForm {
         submitFunc(newRestaurant);
         this.reset.bind(this)();
       } catch (error) {
-        this.#nameFormItem.renderErrorMessage("중복된 이름이 존재합니다.");
+        this.#nameFormItem.renderErrorMessage(FORM_ITEM_TEXTS.duplicatedName);
         event.preventDefault();
         event.stopPropagation();
       }
