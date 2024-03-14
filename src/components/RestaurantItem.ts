@@ -1,4 +1,5 @@
 import BaseComponent from "../abstract/BaseComponent";
+import favoriteStore from "../store/favoriteStore";
 
 import CategoryIcon from "./CategoryIcon";
 
@@ -6,11 +7,15 @@ customElements.define("category-icon", CategoryIcon);
 
 export default class RestaurantItem extends BaseComponent {
   protected getTemplate(): string {
-    const category = this.getAttribute("category");
-    const name = this.getAttribute("name");
-    const timeToReach = this.getAttribute("timeToReach");
-    const description = this.getAttribute("description");
-    const link = this.getAttribute("link");
+    const favoriteRestaurantNames = favoriteStore.get();
+
+    const category = this.getAttribute("category") ?? "";
+    const name = this.getAttribute("name") ?? "";
+    const timeToReach = this.getAttribute("timeToReach") ?? "";
+    const description = this.getAttribute("description") ?? "";
+    const link = this.getAttribute("link") ?? "";
+
+    const isFavorite = favoriteRestaurantNames.includes(name);
 
     return `
       <li class="restaurant">
@@ -23,7 +28,7 @@ export default class RestaurantItem extends BaseComponent {
         </div>
       </div>
 
-      <favorite-icon class="restaurant__favorite" isActive="true" itemName=${name}></favorite-icon>
+      <favorite-icon class="restaurant__favorite" isActive="${isFavorite}" itemName="${name}"></favorite-icon>
       </li>
     `;
   }
