@@ -14,9 +14,9 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  getRestaurants(sortOrder: SortOrder, category?: Category, isFavoriteList?: boolean): RestaurantDataType[] {
-    const restaurants = isFavoriteList ? this.getRestaurantsByFavorite() : this.restaurants;
-    const restaurantsByCategory = category ? this.getRestaurantsByCategory(restaurants, category) : restaurants;
+  getRestaurants(sortOrder: SortOrder, category?: Category): RestaurantDataType[] {
+    const restaurants = this.restaurants;
+    const restaurantsByCategory = category ? this.getRestaurantsByCategory(restaurants, category) : this.restaurants;
     const sortedRestaurantsByCategory = this.getSortedRestaurants(
       restaurantsByCategory,
       this.getCompareFunction(sortOrder),
@@ -24,9 +24,8 @@ class RestaurantService {
     return sortedRestaurantsByCategory.map((restaurant) => restaurant.getData());
   }
 
-  private getRestaurantsByFavorite() {
-    console.log(this.restaurants.filter((restaurant) => restaurant.isFavorite()));
-    return this.restaurants.filter((restaurant) => restaurant.isFavorite());
+  getFavoriteRestaurants() {
+    return this.restaurants.filter((restaurant) => restaurant.isFavorite()).map((restaurant) => restaurant.getData());
   }
 
   private getRestaurantsByCategory(restaurants: Restaurant[], category: Category) {

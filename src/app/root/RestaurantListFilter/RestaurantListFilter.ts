@@ -2,10 +2,18 @@ import { Category, SortOrder } from '../../../enum/enums';
 import { createOptionItems } from '../../../util/createFormElement';
 import { $ } from '../../../util/domSelector';
 
-class RestaurantListFilter extends HTMLElement {
+export default class RestaurantListFilter extends HTMLElement {
   connectedCallback() {
     this.render();
     this.addEvent();
+  }
+
+  show() {
+    this.classList.remove('disabled');
+  }
+
+  hide() {
+    this.classList.add('disabled');
   }
 
   private addEvent() {

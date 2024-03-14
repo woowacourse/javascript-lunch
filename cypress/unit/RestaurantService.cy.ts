@@ -13,10 +13,10 @@ describe('[RestaurantService] 음식점 서비스 객체 테스트', () => {
     expect(expectedData.length).to.eql(defaultRestaurant.length);
   });
 
-  it('getRestaurants() 메서드에 isFavoriteList가 true라면 자주 가는 음식점 목록의 전체 크기만큼의 음식점들을 반환해야 한다.', () => {
+  it('getFavoriteRestaurants() 메서드는 자주 가는 음식점 목록의 전체 크기만큼의 음식점들을 반환해야 한다.', () => {
     const restaurantService = new RestaurantService();
 
-    const expectedData = restaurantService.getRestaurants(SortOrder.이름순, undefined, true);
+    const expectedData = restaurantService.getFavoriteRestaurants();
 
     const expectedFavoriteRestaurantCount = defaultRestaurant.filter((restaurant) => restaurant.favorite).length;
     expect(expectedData.length).to.eql(expectedFavoriteRestaurantCount);
