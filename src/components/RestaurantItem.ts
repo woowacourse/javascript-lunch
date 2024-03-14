@@ -1,8 +1,10 @@
-import { FAVORITE_STAR, NOT_FAVORITE_STAR } from '@/constants/config';
-import { CATEGORY_IMG_SRC } from '../constants/filter';
 import type { IRestaurant } from '../types/restaurant';
-import dom from '../utils/dom';
+
 import Component from './core/Component';
+import { CATEGORY_IMG_SRC } from '../constants/filter';
+import dom from '../utils/dom';
+
+import { FAVORITE_STAR, NOT_FAVORITE_STAR } from '@/constants/config';
 
 interface IRestaurantItem {
   $target: HTMLElement;

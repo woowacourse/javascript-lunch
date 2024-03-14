@@ -1,8 +1,10 @@
-import dom from '@/utils/dom';
-import Component from './core/Component';
 import type RestaurantList from '@/domain/RestaurantList';
-import RestaurantItem from './RestaurantItem';
 import type { TTabMenu } from '@/types/restaurant';
+
+import Component from './core/Component';
+import RestaurantItem from './RestaurantItem';
+
+import dom from '@/utils/dom';
 
 interface IRestaurantListContainer {
   $target: HTMLElement;

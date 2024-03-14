@@ -1,8 +1,11 @@
-import dom from '@/utils/dom';
-import Component from './core/Component';
-import Button from './button/Button';
 import type RestaurantList from '@/domain/RestaurantList';
+import type { IFormInput } from '@/types/dom';
+import type { TCategory, TDistance } from '@/types/restaurant';
+
+import Button from './button/Button';
+import Component from './core/Component';
 import Dropdown from './Dropdown';
+
 import {
   ADD_BUTTON_ATTRIBUTE,
   CLOSE_BUTTON_ATTRIBUTE,
@@ -11,8 +14,7 @@ import {
   FORM_DISTANCE,
   FORM_DISTANCE_ATTRIBUTE,
 } from '@/constants/filter';
-import type { TCategory, TDistance } from '@/types/restaurant';
-import type { IFormInput } from '@/types/dom';
+import dom from '@/utils/dom';
 import formValidator from '@/validator/formValidator';
 
 interface IRestaurantForm {

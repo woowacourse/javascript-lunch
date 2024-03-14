@@ -1,8 +1,9 @@
 import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from '../types/restaurant';
+
+import Restaurant from './Restaurant';
+import RestaurantStorage from './RestaurantStorage';
 import { STORAGE_KEY } from '../constants/config';
 import { ALL, BY_NAME_ASC } from '../constants/filter';
-import RestaurantStorage from './RestaurantStorage';
-import Restaurant from './Restaurant';
 
 class RestaurantList {
   restaurants: IRestaurantList;

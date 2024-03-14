@@ -1,14 +1,16 @@
-import RestaurantList from '@/domain/RestaurantList';
+import type { TTabMenu } from '@/types/restaurant';
+
 import Component from './core/Component';
-import { INITIAL_RESTAURANT_LIST } from '@/constants/config';
-import dom from '@/utils/dom';
-import Restaurant from '@/domain/Restaurant';
-import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from '@/constants/filter';
 import Dropdown from './Dropdown';
 import RestaurantForm from './RestaurantForm';
 import RestaurantListContainer from './RestaurantListContainer';
 import TabMenu from './TabMenu';
-import type { TTabMenu } from '@/types/restaurant';
+
+import { INITIAL_RESTAURANT_LIST } from '@/constants/config';
+import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from '@/constants/filter';
+import Restaurant from '@/domain/Restaurant';
+import RestaurantList from '@/domain/RestaurantList';
+import dom from '@/utils/dom';
 
 class App extends Component<unknown> {
   constructor($target: HTMLElement) {

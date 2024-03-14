@@ -1,9 +1,11 @@
-import Restaurant from '@/domain/Restaurant';
-import type { TDistance, TCategory } from '@/types/restaurant';
 import type RestaurantList from '@/domain/RestaurantList';
 import type { FormElements, IButtonAttributes } from '@/types/dom';
-import dom from '@/utils/dom';
+import type { TDistance, TCategory } from '@/types/restaurant';
+
 import Component from '../core/Component';
+
+import Restaurant from '@/domain/Restaurant';
+import dom from '@/utils/dom';
 
 interface IButtonProps {
   attributes: IButtonAttributes;

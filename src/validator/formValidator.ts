@@ -1,4 +1,5 @@
 import type { TCategory, TDistance, TFormValidRestaurant } from '@/types/restaurant';
+
 import dom from '@/utils/dom';
 
 const formValidator = {

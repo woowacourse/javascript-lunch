@@ -1,9 +1,11 @@
-import type { IOptionAttributes, IDropdownAttributes } from '@/types/dom';
 import type RestaurantList from '@/domain/RestaurantList';
-import dom from '@/utils/dom';
+import type { IOptionAttributes, IDropdownAttributes } from '@/types/dom';
 import type { IRestaurantList, TCategory, TSorting } from '@/types/restaurant';
+
 import Component from './core/Component';
 import RestaurantItem from './RestaurantItem';
+
+import dom from '@/utils/dom';
 
 interface IDropdown {
   $target: HTMLElement;

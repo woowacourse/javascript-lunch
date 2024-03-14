@@ -1,6 +1,7 @@
-import { STORAGE_KEY } from '../constants/config';
 import type { IRestaurantList } from '../types/restaurant';
+
 import Restaurant from './Restaurant';
+import { STORAGE_KEY } from '../constants/config';
 
 const RestaurantStorage = {
   get(key: typeof STORAGE_KEY) {
