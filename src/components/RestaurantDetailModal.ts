@@ -1,7 +1,7 @@
 import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
 import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
-import favoriteLinedIcon from '../assets/favorite-icon-filled.png';
+import favoriteLinedIcon from '../assets/favorite-icon-lined.png';
 
 class RestaurantDetailModal extends Component {
   static observedAttributes = ['key', 'open'];
@@ -23,6 +23,18 @@ class RestaurantDetailModal extends Component {
     if (newValue) {
       this.#updateModal(JSON.parse(newValue));
     }
+  }
+
+  setEvent() {
+    this.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).classList.contains('button--primary')) {
+        this.#updateModal(false);
+      }
+
+      if ((event.target as HTMLElement).classList.contains('button--secondary')) {
+        this.#updateModal(false);
+      }
+    });
   }
 
   #updateModal(isOpen: boolean) {
