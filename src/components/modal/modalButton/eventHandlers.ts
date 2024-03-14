@@ -5,8 +5,10 @@ import { InvalidResult, RestaurantState } from '../../../types';
 import RestaurantList from '../../restaurantList/RestaurantList';
 
 const initializeFormState = () => {
-  const modalForm = document.getElementById('modal-form') as HTMLFormElement;
-  modalForm.reset();
+  const modal = document.getElementsByClassName('modal')[0];
+  const modalContainer = document.getElementsByClassName('modal-container')[0];
+  modalContainer.innerHTML = '';
+  modal.classList.remove('modal--open');
   restaurantStateStore.resetState();
 };
 
@@ -14,10 +16,8 @@ const addNewRestaurant = (modal: Element, restaurantInfo: RestaurantState) => {
   const invalidMessage = document.getElementsByClassName('invalid_message');
 
   if (invalidMessage.length === 0) {
-    const modalContainer = document.getElementsByClassName('modal-container')[0];
-    modalContainer.innerHTML = '';
-    modal.classList.remove('modal--open');
     RestaurantListStorageService.setData(restaurantInfo);
+    initializeFormState();
   }
 };
 
@@ -66,22 +66,15 @@ const addNewRestaurantButtonHandler = (event: Event, modal: Element) => {
 
 export const submitHandler = () => {
   const submitButton = document.getElementsByClassName('button--primary')[0];
-  console.log('submitButton : ', submitButton);
   const modal = document.getElementsByClassName('modal')[0];
-  console.log('modal : ', modal);
   submitButton.addEventListener('click', (event) => addNewRestaurantButtonHandler(event, modal));
 };
 
 export const cancelHandler = () => {
   const cancelButton = document.getElementsByClassName('button--secondary')[0];
-  const modal = document.getElementsByClassName('modal')[0];
-  const modalContainer = document.getElementsByClassName('modal-container')[0];
 
   cancelButton.addEventListener('click', (event) => {
     event.preventDefault();
-    modalContainer.innerHTML = '';
-    modal.classList.remove('modal--open');
-
-    // initializeFormState();
+    initializeFormState();
   });
 };
