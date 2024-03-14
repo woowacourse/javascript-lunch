@@ -60,14 +60,17 @@ class RestaurantList extends BaseComponent {
       ) => {
         return (
           acc +
-          `<restaurant-item 
-            name="${name}"
-            category="${category}"
-            distance="${distance}"
-            description="${description}"
-            isFavorite="${isFavorite}"
-            class="restaurant"
-           ></restaurant-item>`
+          `
+          <li>
+            <restaurant-item 
+              name="${name}"
+              category="${category}"
+              distance="${distance}"
+              description="${description}"
+              isFavorite="${isFavorite}"
+              class="restaurant"
+            ></restaurant-item>
+          </li>`
         );
       },
       ""
