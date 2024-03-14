@@ -336,3 +336,8 @@ input[name='link'] {
 .favorited-icon-container {
   cursor: pointer;
 }
+
+.image-favorite-container {
+  display: flex;
+  justify-content: space-between;
+}

@@ -46,11 +46,21 @@ const RestaurantListStorageService = (function () {
     }
   }
 
+  function deleteData(restaurant: RestaurantState) {
+    const prevData = getData();
+    if (prevData) {
+      const filteredData = prevData.filter((data) => data.id !== restaurant.id);
+      cachedData = filteredData;
+      localStorage.setItem('restaurantList', JSON.stringify(filteredData));
+    }
+  }
+
   return {
     getData,
     getFilteredData,
     patchData,
     setData,
+    deleteData,
   };
 })();
 

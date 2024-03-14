@@ -14,6 +14,10 @@ import {
 import RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA from './componentsData/detailContainerComponentData';
 import CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA from './componentsData/categoryImageContainerComponentData';
 import IS_FAVORITED_ICON_CONTAINER_COMPONENT_DATA from './componentsData/isFavoritedIconContainerComponentData';
+import BUTTON_CONTAINER_COMPONENT_DATA from './componentsData/buttonContainerComponentData';
+import generateButtonComponent from '../../uiUtils/generateButtonComponent';
+import DELETE_BUTTON_COMPONENT_DATA from './componentsData/deleteButtonComponentData';
+import CLOSE_BUTTON_COMPONENT_DATA from './componentsData/closeButtonComponentData';
 
 const generateCategoryImageAndInfoComponent = (targetRestaurantListItem: RestaurantState) => {
   const imageAndFavoritedContainer = generateContainerComponent(IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA);
@@ -33,7 +37,7 @@ const generateCategoryImageAndInfoComponent = (targetRestaurantListItem: Restaur
   return imageAndFavoritedContainer;
 };
 
-const renderRestaurantListItemDetailComponent = (targetRestaurantListItem: RestaurantState) => {
+const renderRestaurantListItemBottomSheetComponent = (targetRestaurantListItem: RestaurantState) => {
   const detailContainer = generateContainerComponent(RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA);
   const fragment = document.createDocumentFragment();
   const categoryImageAndInfoComponent = generateCategoryImageAndInfoComponent(targetRestaurantListItem);
@@ -41,6 +45,12 @@ const renderRestaurantListItemDetailComponent = (targetRestaurantListItem: Resta
   const restaurantDistanceComponent = createDistanceComponent(targetRestaurantListItem.distance);
   const restaurantDescriptionComponent = createDescriptionComponent(targetRestaurantListItem.description);
   const restaurantLinkComponent = createRestaurantLinkComponent(targetRestaurantListItem.link);
+  const buttonContainer = generateContainerComponent(BUTTON_CONTAINER_COMPONENT_DATA);
+  const restaurantListItemDeleteButton = generateButtonComponent(DELETE_BUTTON_COMPONENT_DATA);
+  const bottomSheetCloseButtonComponent = generateButtonComponent(CLOSE_BUTTON_COMPONENT_DATA);
+
+  buttonContainer.appendChild(restaurantListItemDeleteButton);
+  buttonContainer.appendChild(bottomSheetCloseButtonComponent);
   fragment.appendChild(categoryImageAndInfoComponent);
   fragment.appendChild(restaurantNameComponent);
   fragment.appendChild(restaurantDistanceComponent);
@@ -48,10 +58,11 @@ const renderRestaurantListItemDetailComponent = (targetRestaurantListItem: Resta
     fragment.appendChild(restaurantDescriptionComponent);
   }
   fragment.appendChild(restaurantLinkComponent);
+  fragment.appendChild(buttonContainer);
 
   detailContainer.appendChild(fragment);
 
   return detailContainer;
 };
 
-export default renderRestaurantListItemDetailComponent;
+export default renderRestaurantListItemBottomSheetComponent;

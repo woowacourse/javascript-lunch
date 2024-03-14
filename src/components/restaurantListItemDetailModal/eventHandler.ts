@@ -2,6 +2,8 @@ import { RestaurantState } from '../../types/index.d';
 import { changeFavoriteState } from '../restaurantListItem/favoriteStateChangeHandler';
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import { createIsFavoriteImageComponent } from '../../services/createComponent';
+import { initializeModal } from '../modal/modalButton/eventHandlers';
+import renderRestaurantList from '../restaurantList/renderHandlers';
 
 const updateFavoriteIconUI = (newHtml: HTMLElement) => {
   const favoritedIcon = document.querySelector('.favorited-icon');
@@ -30,13 +32,26 @@ const favoriteIconChangeHandler = (event: Event, targetRestaurantListItem: Resta
     reRenderFavoriteIconComponent(targetRestaurantListItem);
   }
 };
+const deleteButtonClickHandler = (targetRestaurantListItem: RestaurantState) => {
+  RestaurantListStorageService.deleteData(targetRestaurantListItem);
+  const filteredData = RestaurantListStorageService.getData() ?? [];
+  renderRestaurantList(filteredData);
+  initializeModal();
+};
 
-const ListItemDetailModalChangeState = (targetRestaurantListItem: RestaurantState) => {
+const closeBottomSheetClickHandler = () => {
+  initializeModal();
+};
+
+export const ListItemDetailBottomSheetEventHandler = (targetRestaurantListItem: RestaurantState) => {
   const favoritedIconContainer = document.querySelector('.favorited-icon-container') as HTMLElement;
+
+  const deleteButton = document.querySelector('.button--secondary') as HTMLButtonElement;
+  const closeButton = document.querySelector('.button--primary') as HTMLButtonElement;
 
   favoritedIconContainer.addEventListener('click', (event) =>
     favoriteIconChangeHandler(event, targetRestaurantListItem),
   );
+  deleteButton.addEventListener('click', () => deleteButtonClickHandler(targetRestaurantListItem));
+  closeButton.addEventListener('click', closeBottomSheetClickHandler);
 };
-
-export default ListItemDetailModalChangeState;
