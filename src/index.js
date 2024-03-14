@@ -16,9 +16,17 @@ const restaurantList = document.createElement("ul");
 restaurantList.classList.add("restaurant-list");
 
 // 2. 컴포넌트를 결합한다
-restaurantList.appendChild(createRestaurantItem());
-restaurantList.appendChild(createRestaurantItem());
-restaurantList.appendChild(createRestaurantItem());
+restaurantList.appendChild(
+  createRestaurantItem({
+    restaurant: {
+      category: "한식",
+      name: "피양콩할머니",
+      distance: 8,
+      description: "달려가면 8분",
+    },
+    onClick: () => alert("아이템 클릭"),
+  })
+);
 
 // 3. 컴포넌트를 document에 붙인다.
 
