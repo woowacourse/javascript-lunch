@@ -45,14 +45,7 @@ class RestaurantItem extends BaseComponent {
     $liElement.append($restaurantInfoBox);
 
     $restaurantInfoBox.addEventListener('click', () => {
-      const detail = new RestaurantDetailModal({
-        name: this.#name,
-        distance: this.#distance,
-        description: this.#description,
-        category: this.#category,
-        link: this.#link,
-        isFavorite: this.#isFavorite,
-      });
+      const detail = new RestaurantDetailModal(this.#id);
       this.#makeDetailModal(detail);
     });
 

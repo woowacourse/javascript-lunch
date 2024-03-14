@@ -1,5 +1,9 @@
-#restaurant-detail {
+.restaurant-detail {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
+}
+
+.restaurant__link {
+  text-decoration: none;
 }

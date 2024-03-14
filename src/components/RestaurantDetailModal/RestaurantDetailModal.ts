@@ -1,69 +1,99 @@
-import { Category, Distance, IRestaurant } from '@/types/Restaurant';
+import { Category, Distance } from '@/types/Restaurant';
 import BaseComponent from '../BaseComponent';
 import BasicModal from '../BasicModal/BasicModal';
 import CategoryIconBox from '../CategoryIconBox/CategoryIconBox';
 import { DISTANCE_FROM_CAMPUS } from '@/constants/Condition';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
-
-export type DetailModalProps = {
-  name: string;
-  distance: Distance;
-  isFavorite: boolean;
-  description?: string;
-  category: Category;
-  link?: string;
-};
+import BasicButton from '../BasicButton/BasicButton';
+import { closeModal } from '@/utils/view';
+import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import { IRestaurant } from '@/types/Restaurant';
 
 class RestaurantDetailModal extends BaseComponent {
-  #name: string;
-  #distance: Distance;
-  #category: Category;
-  #description?: string;
-  #link?: string;
-  #isFavorite: boolean;
+  #id: number;
+  #restaurantData: IRestaurant;
 
-  constructor({ name, distance, description, category, link, isFavorite }: DetailModalProps) {
+  constructor(id: number) {
     super();
-    this.#category = category;
-    this.#name = name;
-    this.#distance = distance;
-    this.#description = description;
-    this.#link = link;
-    this.#isFavorite = isFavorite;
+    this.#id = id;
+
+    const DBService = new RestaurantDBService();
+    //TODO: id 값으로 데이터 빼오는 유틸 만들기
+    const restaurantData = [...DBService.update().get()].filter(
+      (restaurant) => restaurant.id === this.#id,
+    )[0];
+    this.#restaurantData = restaurantData;
   }
 
   render() {
     const $detailInfo = document.createElement('div');
-    $detailInfo.id = 'restaurant-detail';
+    $detailInfo.classList.add('restaurant-detail');
+    $detailInfo.id = String(this.#id);
 
-    const $categoryIcon = new CategoryIconBox(this.#category);
+    const $categoryIcon = new CategoryIconBox(this.#restaurantData.category);
     $detailInfo.append($categoryIcon);
 
     const $title = document.createElement('div');
-    $title.textContent = this.#name;
+    $title.textContent = this.#restaurantData.name;
     $title.classList.add('restaurant__name', 'text-subtitle');
     $title.id = 'category-title';
     $detailInfo.append($title);
 
     const $distance = document.createElement('div');
-    $distance.textContent = DISTANCE_FROM_CAMPUS(this.#distance);
+    $distance.textContent = DISTANCE_FROM_CAMPUS(this.#restaurantData.distance);
     $distance.classList.add('restaurant__distance', 'text-body');
     $detailInfo.append($distance);
 
     const $description = document.createElement('div');
-    $description.textContent = this.#description || '';
-    $description.classList.add('restaurant__description', 'text-body');
+    $description.textContent = this.#restaurantData.description || '';
+    $description.classList.add('text-body');
     $detailInfo.append($description);
 
-    const $link = document.createElement('div');
+    const $link = document.createElement('a');
     $link.classList.add('restaurant__link', 'text-body');
-    $link.textContent = this.#link || '';
+    $link.href = this.#restaurantData.link || '';
+    $link.textContent = this.#restaurantData.link || '';
     $detailInfo.append($link);
 
-    const favoriteButton = new FavoriteButton(this.#isFavorite);
+    const favoriteButton = new FavoriteButton(this.#restaurantData.isFavorite);
+
     $detailInfo.append(favoriteButton);
 
+    const buttons = this.#makeButtons();
+    $detailInfo.append(buttons);
+
     this.replaceWith(new BasicModal($detailInfo));
+  }
+
+  #makeButtons() {
+    const $buttonBox = document.createElement('div');
+    $buttonBox.classList.add('button-container');
+
+    const $cancelButton = this.#makeCancelButton();
+    const $addButton = this.#makeAddButton();
+
+    $buttonBox.append($cancelButton);
+    $buttonBox.append($addButton);
+
+    return $buttonBox;
+  }
+
+  #makeCancelButton() {
+    return new BasicButton({
+      variant: 'secondary',
+      textContent: '삭제하기',
+      type: 'button',
+      clickEvent: () => closeModal(this),
+    });
+  }
+
+  #makeAddButton() {
+    return new BasicButton({
+      variant: 'primary',
+      textContent: '닫기',
+      type: 'button',
+      clickEvent: () => closeModal(this),
+    });
   }
 }
 

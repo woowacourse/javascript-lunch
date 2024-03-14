@@ -38,7 +38,9 @@ class FavoriteButton extends BaseComponent {
       'click',
       (event) => {
         event.stopPropagation();
+
         const restaurantInfo = this.#button.parentNode as HTMLElement;
+        console.log('restaurantInfo', restaurantInfo);
         const targetId = restaurantInfo.id;
 
         const restaurantDBService = new RestaurantDBService();
