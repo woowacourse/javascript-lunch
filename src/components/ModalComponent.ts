@@ -5,9 +5,14 @@ import FormItemComponent from './FormItemComponent';
 import InputComponent from './InputComponent';
 import TextareaComponent from './TextareaComponent';
 import SelectComponent from './common/SelectComponent';
-import restaurantInfoValidator from './validator/restaurantInfoValidator';
+import restaurantInfoValidator from '../validator/restaurantInfoValidator';
+import ButtonComponent from './common/ButtonComponent';
 
 export function ModalComponent() {
+  const buttonComponent = new ButtonComponent();
+  const cancelButtonNode = buttonComponent.getTemplate('취소하기', 'secondary', 'button');
+  const submitButtonNode = buttonComponent.getTemplate('추가하기', 'primary', 'submit');
+
   const getTemplate = () => {
     const template = document.createElement('template');
     template.innerHTML = /*html*/ `
@@ -103,8 +108,8 @@ export function ModalComponent() {
             }
 
             <div class="button-container">
-              <button id="cancelButton" type="button" class="button button--secondary text-caption">취소하기</button>
-              <button id="submitButton" class="button button--primary text-caption" disabled>추가하기</button>
+            ${cancelButtonNode.firstElementChild!.outerHTML}
+            ${submitButtonNode.firstElementChild!.outerHTML}
             </div>
           </form>
         </div>
