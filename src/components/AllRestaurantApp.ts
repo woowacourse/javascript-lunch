@@ -36,6 +36,7 @@ class AllRestaurantApp extends HTMLDivElement {
           event.target.parentElement?.parentElement?.parentElement as RestaurantList
         ).get();
         this.#restaurantDBService.set(restaurants);
+        this.paint();
       }
     });
   }

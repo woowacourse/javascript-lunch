@@ -48,5 +48,13 @@ class Restaurant implements IRestaurant {
       throw new Error('[ERROR] 음식점 설명 길이는 500자를 초과할 수 없습니다.');
     }
   }
+
+  isEqual(another: IRestaurant) {
+    return (
+      this.name === another.name &&
+      this.distance === another.distance &&
+      this.category === another.category
+    );
+  }
 }
 export default Restaurant;

@@ -1,11 +1,13 @@
 import '@/css/index.css';
 import RestaurantList from './RestaurantList/RestaurantList';
-import { Category, SortCriteria } from '@/types/Restaurant';
+import { Category, IRestaurant, SortCriteria } from '@/types/Restaurant';
 import FilterContainer from './FilterContainer/FilterContainer';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import restaurantListMock from '@/mock/restaurantList.mock';
 import FavoriteIcon from './Basic/FavoriteIcon';
 import RestaurantItem from './RestaurantList/RestaurantItem';
+import Restaurant from '@/domains/entities/Restaurant';
+import { rest } from 'cypress/types/lodash';
 
 class FavoriteRestaurantApp extends HTMLDivElement {
   #filterContainer: FilterContainer;
@@ -28,13 +30,14 @@ class FavoriteRestaurantApp extends HTMLDivElement {
     this.paint();
     this.addEventListener('click', (event) => {
       if (event.target instanceof FavoriteIcon) {
-        console.log(
-          (event.target.parentElement?.parentElement?.parentElement as RestaurantList).get(),
+        const restaurants = this.#getDBRaw();
+        const targetRestaurant = event.target.parentElement?.parentElement as RestaurantItem;
+        const newRestaurants = restaurants.filter(
+          (restaurant: IRestaurant) => !new Restaurant(restaurant).isEqual(targetRestaurant.get()),
         );
-        const restaurants = (
-          event.target.parentElement?.parentElement?.parentElement as RestaurantList
-        ).get();
-        this.#restaurantDBService.set(restaurants);
+        newRestaurants.push(targetRestaurant.get());
+        this.#restaurantDBService.set(newRestaurants);
+        this.paint();
       }
     });
   }
@@ -49,11 +52,11 @@ class FavoriteRestaurantApp extends HTMLDivElement {
     const { category, sortCriteria } = this.#filterContainer.get();
 
     let newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
-    if (!newRestaurantList) {
+    if (newRestaurantList.length === 0) {
       this.#setMock();
       newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
     }
-    return newRestaurantList;
+    return newRestaurantList.filter((restaurant: IRestaurant) => restaurant.isFavorite);
   }
 
   #setMock() {
@@ -62,6 +65,10 @@ class FavoriteRestaurantApp extends HTMLDivElement {
 
   #getDB(category: Category, sortCriteria: SortCriteria) {
     return this.#restaurantDBService.getFromRestaurantList(category, sortCriteria);
+  }
+
+  #getDBRaw() {
+    return this.#restaurantDBService.get();
   }
 }
 
