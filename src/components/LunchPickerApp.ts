@@ -1,16 +1,17 @@
 import Component from './Component';
-import { $, $addEvent, $removeEvent, $setAttribute } from '../utils/dom';
+import { $, $addEvent, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
-  setEvent() {
-    $addEvent(this, '#app', 'updateRestaurantList', this.#updateRestaurantList);
+  setEvent(): void {
+    $addEvent(this, '#app', 'updateRestaurantList', this.#updateRestaurantList.bind(this));
+    $addEvent(this, 'lunch-picker-header', 'click', this.#updateModal.bind(this));
   }
 
-  removeEvent() {
-    $removeEvent(this, '#app', 'updateRestaurantList', this.#updateRestaurantList);
+  #updateModal(): void {
+    $setAttribute(this, 'restaurant-add-modal', 'open', 'true');
   }
 
-  #updateRestaurantList = () => {
+  #updateRestaurantList(): void {
     const category = ($(this, '.category') as HTMLSelectElement)?.value;
     const sorting = ($(this, '.sorting') as HTMLSelectElement)?.value;
     const type = $(this, '.tab-item--checked').textContent;
@@ -18,9 +19,9 @@ class LunchPickerApp extends Component {
     $setAttribute(this, 'restaurant-list', 'category', `${category}`);
     $setAttribute(this, 'restaurant-list', 'sorting', `${sorting}`);
     $setAttribute(this, 'restaurant-list', 'type', `${type}`);
-  };
+  }
 
-  template() {
+  template(): string {
     return `
       <div id="app">
         <lunch-picker-header></lunch-picker-header>

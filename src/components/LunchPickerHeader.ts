@@ -1,18 +1,14 @@
 import Component from './Component';
 import addButtonImg from '../assets/add-button.png';
-import { $addEvent, $removeEvent, $setAttribute } from '../utils/dom';
+import { $addEvent } from '../utils/dom';
 
 class LunchPickerHeader extends Component {
   setEvent() {
     $addEvent(this, '.gnb__button', 'click', this.#openModal.bind(this));
   }
 
-  removeEvent() {
-    $removeEvent(this, '.gnb__button', 'click', this.#openModal.bind(this));
-  }
-
   #openModal() {
-    document.querySelector('restaurant-add-modal')?.setAttribute('open', 'true');
+    this.makeEvent('click');
   }
 
   template() {
