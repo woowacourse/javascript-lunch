@@ -26,6 +26,10 @@ class RestaurantController {
     this.manageFilterValue();
   }
 
+  getRecentData() {
+    return JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
+  }
+
   showFilterDropdown() {
     const filterContainer = $('.restaurant-filter-container');
 
@@ -37,15 +41,23 @@ class RestaurantController {
   }
 
   updateRestaurantList() {
+    const heart = './favorite-icon-lined.png';
+    const redHeart = './favorite-icon-filled.png';
+
     const restaurantService = new RestaurantService();
     const filteredList = restaurantService.filterByCategory(this.#category, this.#restaurantList);
     const processedList = restaurantService.sortByProperty(this.#property, filteredList);
 
     OutputView.renderRestaurantList(processedList);
-  }
 
-  getRecentData() {
-    return JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
+    const restaurantListContainer = $('.restaurant-list-container');
+    restaurantListContainer.addEventListener('click', event => {
+      const id = event.target.id;
+      const restaurant = this.#restaurantList[id];
+      const newFavoriteState = !restaurant.favorite;
+      restaurant.favorite = newFavoriteState;
+      event.target.src = newFavoriteState ? redHeart : heart;
+    });
   }
 
   showAddRestaurantModal() {

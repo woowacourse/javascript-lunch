@@ -9,9 +9,10 @@ const OutputView = {
     const restaurantListElement = document.createElement('ul');
     restaurantListElement.classList.add('restaurant-list');
 
-    restaurantList.forEach(restaurant => {
-      restaurantListElement.insertAdjacentHTML('beforeend', RestaurantItem(restaurant));
+    restaurantList.forEach((restaurant, index) => {
+      restaurantListElement.insertAdjacentHTML('beforeend', RestaurantItem(restaurant, index));
     });
+
     restaurantListContainer.replaceChildren();
     restaurantListContainer.append(restaurantListElement);
   },

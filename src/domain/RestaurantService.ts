@@ -6,10 +6,11 @@ class RestaurantService implements Restaurants {
     const existingRestaurant = restaurantList.find(
       item => item.category === restaurant.category && item.name === restaurant.name,
     );
-    if (existingRestaurant) {
-      return false;
-    }
-    restaurantList.push(restaurant);
+    if (existingRestaurant) return false;
+
+    const newRestaurant: Restaurant = { ...restaurant, favorite: false };
+
+    restaurantList.push(newRestaurant);
     localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(restaurantList));
     return true;
   }
