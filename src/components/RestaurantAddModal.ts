@@ -1,47 +1,38 @@
 import Component from './Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
-import { $ } from '../utils/dom';
+import { $, $addEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
+import { generateRandomNumber } from '../utils/random';
 import { ERROR } from '../constants/Message';
 
 class RestaurantAddModal extends Component {
-  static observedAttributes = ['open'];
+  static observedAttributes: string[] = ['open'];
 
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
     this.render();
-    this.setEvent();
 
     if (newValue) {
       this.#updateModal(JSON.parse(newValue));
     }
   }
 
-  setEvent() {
-    this.addEventListener('click', (event) => {
-      if ((event.target as HTMLElement).classList.contains('button--secondary')) {
-        this.#updateModal(false);
-      }
-    });
-
-    this.addEventListener('submit', (event) => {
-      if ((event.target as HTMLElement).classList.contains('modal-form')) {
-        this.#onSubmit(event);
-      }
-    });
+  setEvent(): void {
+    $addEvent(this, '.button--primary', 'click', (event) => this.#onSubmit(event));
+    $addEvent(this, '.button--secondary', 'click', () => this.#updateModal(false));
   }
 
-  #updateModal(isOpen: boolean) {
+  #updateModal(isOpen: boolean): void {
     if (isOpen) {
-      $(this, '.modal').classList.add('modal--open');
+      ($(this, 'dialog') as HTMLDialogElement).showModal();
     } else {
-      $(this, '.modal').classList.remove('modal--open');
+      ($(this, 'dialog') as HTMLDialogElement).close();
     }
   }
 
-  #onSubmit(event: Event) {
+  #onSubmit(event: Event): void {
     event.preventDefault();
 
-    if (this.#handleEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
+    if (this.#isEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
       return;
     }
 
@@ -51,8 +42,9 @@ class RestaurantAddModal extends Component {
     this.#updateModal(false);
   }
 
-  #addRestaurant() {
-    const formData = {
+  #addRestaurant(): void {
+    const restaurantData = {
+      key: generateRandomNumber(),
       category: ($(this, '.modal-category') as HTMLSelectElement).value as TCategory,
       name: ($(this, '.modal-restaurant-name') as HTMLInputElement).value,
       distance: Number(($(this, '.modal-distance') as HTMLSelectElement).value) as TDistance,
@@ -61,12 +53,11 @@ class RestaurantAddModal extends Component {
       isFavorite: false,
     };
 
-    RestaurantRepository.addRestaurant(formData);
-
+    RestaurantRepository.addRestaurant(restaurantData);
     this.makeCustomEvent('updateRestaurantList');
   }
 
-  #handleEmptyError(selectors: string[]) {
+  #isEmptyError(selectors: string[]): boolean {
     const errors = selectors.filter((selector) => {
       if (isEmptyInput(($(this, selector) as HTMLInputElement | HTMLSelectElement).value)) {
         $(this, `${selector}-error-message`).textContent = ERROR.NULL;
@@ -85,9 +76,9 @@ class RestaurantAddModal extends Component {
     return true;
   }
 
-  template() {
+  template(): string {
     return `
-          <div class="modal">
+          <dialog>
               <div class="modal-backdrop"></div>
               <div class="modal-container">
                   <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -124,7 +115,7 @@ class RestaurantAddModal extends Component {
                       </div>
                   </form>
               </div>
-          </div>
+          </dialog>
       `;
   }
 }

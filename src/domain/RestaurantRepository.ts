@@ -24,8 +24,8 @@ class RestaurantRepository {
     return [...restaurants].sort((a, b) => a.distance - b.distance);
   }
 
-  addRestaurant(restaurant: Restaurant) {
-    this.#restaurants = [...this.#restaurants, { key: generateRandomNumber(), ...restaurant }];
+  addRestaurant(restaurant: IRestaurant) {
+    this.#restaurants = [...this.#restaurants, restaurant];
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
