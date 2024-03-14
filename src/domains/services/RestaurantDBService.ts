@@ -6,7 +6,6 @@ class RestaurantDBService {
   #RESTAURANTS_DB_KEY = 'restaurants';
 
   constructor() {
-    this.update();
     this.setMockData();
   }
 
@@ -21,21 +20,15 @@ class RestaurantDBService {
     return localStorage.getItem(this.#RESTAURANTS_DB_KEY);
   }
 
-  setCollection(collection: RestaurantCollection) {
+  set(collection: RestaurantCollection) {
     collection.filterDefault();
     localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(collection.get()));
-  }
-
-  set(data: IRestaurant[]) {
-    localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(data));
   }
 
   setMockData() {
     if (!this.get()) {
       const mockRestaurantCollection = new RestaurantCollection(restaurantListMock);
-      mockRestaurantCollection.filterDefault();
-
-      return this.set(mockRestaurantCollection.get());
+      this.set(mockRestaurantCollection);
     }
   }
 }

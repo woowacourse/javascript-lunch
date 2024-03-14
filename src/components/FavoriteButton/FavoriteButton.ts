@@ -1,8 +1,8 @@
 import BaseComponent from '../BaseComponent';
 import fillStar from '@/assets/favorite-icon-filled.png';
 import noFillStar from '@/assets/favorite-icon-lined.png';
+import RestaurantCollection from '@/domains/entities/RestaurantCollection';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import { IRestaurant } from '@/types/Restaurant';
 import { $ } from '@/utils/DOM';
 
 class FavoriteButton extends BaseComponent {
@@ -31,41 +31,20 @@ class FavoriteButton extends BaseComponent {
       const targetId = restaurantInfo.id;
 
       const restaurantDBService = new RestaurantDBService();
-      const existedRestaurantList = restaurantDBService.update().restaurantList;
-      console.log('updata', restaurantDBService.update());
+      const existedRestaurantList = [...restaurantDBService.update().restaurantList];
 
-      const $restElements = [...existedRestaurantList].filter((e) => {
-        return e.id !== Number(targetId);
+      existedRestaurantList.forEach((restaurant) => {
+        if (restaurant.id === Number(targetId)) {
+          restaurant.isFavorite
+            ? restaurant.changeIsFavoriteFalse()
+            : restaurant.changeIsFavoriteTrue();
+        }
       });
 
-      const $targetElement = [...existedRestaurantList].filter((e) => {
-        return e.id === Number(targetId);
-      })[0];
-
-      if ($targetElement.isFavorite) {
-        $targetElement.changeIsFavoriteFalse();
-      } else {
-        $targetElement.changeIsFavoriteTrue();
-      }
-
-      restaurantDBService.set([...$restElements, $targetElement]);
+      const newCollection = new RestaurantCollection(existedRestaurantList);
+      restaurantDBService.set(newCollection);
       this.rerenderByFilter();
     });
-  }
-
-  toggleFavorite(restaurantId: number) {
-    const restaurantDBService = new RestaurantDBService();
-    const restaurantList = restaurantDBService.update().restaurantList;
-    const updatedList = restaurantList.map((restaurant: IRestaurant) => {
-      if (restaurant.id === restaurantId) {
-        return {
-          ...restaurant,
-          isFavorite: !restaurant.isFavorite, // 즐겨찾기 상태 토글
-        };
-      }
-      return restaurant;
-    });
-    restaurantDBService.set(updatedList);
   }
 
   rerenderByFilter() {

@@ -11,6 +11,7 @@ class RestaurantFavoriteService {
     this.#restaurantCollection = new RestaurantCollection([]);
   }
 
+  //TODO: 이걸 재사용하는 게 좋을 듯
   rerenderByFilter() {
     const event = new Event('change', {
       bubbles: true,

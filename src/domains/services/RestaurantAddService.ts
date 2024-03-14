@@ -29,7 +29,7 @@ class RestaurantAddService {
   updateRestaurantCollection(newRestaurant: IRestaurant) {
     this.#restaurantCollection = this.#restaurantDBService.update();
     this.#restaurantCollection.addRestaurant(newRestaurant);
-    this.#restaurantDBService.setCollection(this.#restaurantCollection);
+    this.#restaurantDBService.set(this.#restaurantCollection);
   }
 
   #getValues(form: HTMLFormElement) {
