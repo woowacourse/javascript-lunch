@@ -1,11 +1,16 @@
 import { $ } from '../../utils/dom';
 import ICON from '../../icons';
+import AddRestaurantModal from '../AddRestaurantModal/AddRestaurantModal';
 
 export default class Header {
   #element;
+  #restaurants;
+  #addRestaurant;
 
-  constructor(element) {
+  // TODO: restaurants prop Drilling
+  constructor(element, restaurants) {
     this.#element = element;
+    this.#restaurants = restaurants;
     this.render();
     this.#addEvents();
   }
@@ -27,7 +32,13 @@ export default class Header {
 
   #handleButtonClick(target) {
     if (target.closest('#gnb__button')) {
-      $('add-restaurant-modal').classList.add('modal--open');
+      $('modal').classList.add('modal--open');
+      // TODO: 리팩터링, 이 방법이 좋은 방법인가? 이벤트는 지우지 않는 한 사라지지 않나요?
+      if (!this.#addRestaurant) {
+        this.#addRestaurant = new AddRestaurantModal($('modal-container'), this.#restaurants);
+        return;
+      }
+      this.#addRestaurant.render();
     }
   }
 }

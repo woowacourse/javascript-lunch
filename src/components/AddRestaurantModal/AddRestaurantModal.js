@@ -6,6 +6,7 @@ import { $ } from '../../utils/dom';
 import { RULES } from '../../constants/rules';
 import { SELECT_FORM_DATA } from '../../data/selectData';
 
+// TODO: 클래스명 수정
 export default class AddRestaurantModal {
   #element;
   #restaurants;
@@ -19,9 +20,6 @@ export default class AddRestaurantModal {
 
   render() {
     this.#element.innerHTML = `
-    <!-- 음식점 추가 모달 -->
-    <div id="modal-backdrop" class="modal-backdrop"></div>
-    <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form id="restaurant-input-form">
 
@@ -60,26 +58,21 @@ export default class AddRestaurantModal {
 
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
-          <button type="button" id="cancel-button" class="button button--secondary text-caption">취소하기</button>
+          <button type="button" id="add-restaurant-cancel-button" class="button button--secondary text-caption">취소하기</button>
           <button id="add-button" class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
-    </div>
     `;
   }
 
   #addEvents() {
-    $('add-restaurant-modal').addEventListener('click', (event) => this.#handleCancelButton(event));
-    $('add-restaurant-modal').addEventListener('focusout', (event) =>
-      this.#handleInputFocusout(event),
-    );
-    $('add-restaurant-modal').addEventListener('submit', (event) => this.#handleAddButton(event));
+    $('add-restaurant-cancel-button').addEventListener('click', () => this.#handleCancelButton());
+    $('modal').addEventListener('focusout', (event) => this.#handleInputFocusout(event));
+    $('modal').addEventListener('submit', (event) => this.#handleAddButton(event));
   }
 
-  #handleCancelButton(event) {
-    if (event.target.closest('#cancel-button') || event.target.closest('#modal-backdrop')) {
-      $('add-restaurant-modal').classList.remove('modal--open');
-    }
+  #handleCancelButton() {
+    $('modal').classList.remove('modal--open');
   }
 
   #handleInputFocusout(event) {
@@ -108,7 +101,7 @@ export default class AddRestaurantModal {
     this.#validateInputData(inputData);
     this.#restaurants.addRestaurant(this.#parseWalkingTime(inputData));
     this.#insertRestaurantList(inputData);
-    $('add-restaurant-modal').classList.remove('modal--open');
+    $('modal').classList.remove('modal--open');
   }
 
   #validateInputData(inputData) {
