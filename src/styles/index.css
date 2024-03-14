@@ -1,9 +1,10 @@
 @import url('../components/Header/header.css');
-@import url('../components/AddRestaurantModal/add-restaurant-modal.css');
 @import url('../components/BookmarkNavigation/bookmark-navigation.css');
 @import url('../components/RestaurantFilter/restaurant-filter.css');
 @import url('../components/Common/Restaurant/restaurant.css');
 @import url('../components/Common/Select/select.css');
+@import url('../components/AddRestaurantModal/add-restaurant-modal.css');
+@import url('../components/Common/RestaurantDetail/restaurant-detail.css');
 
 * {
   padding: 0;
