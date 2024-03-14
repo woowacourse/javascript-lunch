@@ -1,20 +1,20 @@
 import { KOREAN_CATEGORY } from "../constant/select";
 
-function createRestaurantCard(restaurant) {
-  const restaurantCard = render(restaurant);
+function createRestaurantCard(restaurant, favoriteRestaurantNames = []) {
+  const restaurantCard = render(restaurant, favoriteRestaurantNames);
   return restaurantCard;
 }
 
-function render({ category, name, walkingTime, description = '' }) {
+function render({ category, name, walkingTime, description = '' }, favoriteRestaurantNames) {
   const categoryDiv = document.createElement('div');
   categoryDiv.className = 'restaurant__category';
   categoryDiv.append(createCategoryImage(category))
   const fragment = new DocumentFragment();
-  fragment.append(categoryDiv, createInfoDiv({ name, walkingTime, description }));
+  fragment.append(categoryDiv, createInfoDiv({ name, walkingTime, description }, favoriteRestaurantNames));
   return fragment;
 }
 
-function createInfoDiv({ name, walkingTime, description = '' }) {
+function createInfoDiv({ name, walkingTime, description = '' }, favoriteRestaurantNames) {
   const infoDiv = document.createElement('div');
   infoDiv.className = 'restaurant__info';
 
@@ -26,7 +26,7 @@ function createInfoDiv({ name, walkingTime, description = '' }) {
   
   const star = document.createElement('img');
   star.className = 'star lined'
-  star.src = './favorite-icon-lined.png'
+  star.src = favoriteRestaurantNames.includes(name) ? './favorite-icon-filled.png' : './favorite-icon-lined.png' 
   star.alt = '추천별'
 
   const restaurantName = document.createElement('h3');
