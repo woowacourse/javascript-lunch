@@ -10,6 +10,10 @@ class RestaurantRepository {
     return restaurants ? JSON.parse(restaurants) : [];
   }
 
+  #getFavoriteRestaurants() {
+    return this.#restaurants.filter((restaurant) => restaurant.isFavorite);
+  }
+
   #getFilteredByCategory(restaurants: IRestaurant[], category: TAllCategory) {
     return category === '전체' ? restaurants : restaurants.filter((restaurant) => restaurant.category === category);
   }
@@ -36,8 +40,15 @@ class RestaurantRepository {
     localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
   }
 
-  transformRestaurants(category: TAllCategory, sortingOption: TSortingOption) {
-    const filteredRestaurants = this.#getFilteredByCategory(this.#restaurants, category);
+  transformRestaurants(category: TAllCategory, sortingOption: TSortingOption, tabOption: TTabOption) {
+    let filteredRestaurants;
+
+    if (tabOption === '자주 가는 음식점') {
+      filteredRestaurants = this.#getFilteredByCategory(this.#getFavoriteRestaurants(), category);
+    } else {
+      filteredRestaurants = this.#getFilteredByCategory(this.#restaurants, category);
+    }
+
     return sortingOption === '이름순'
       ? this.#getSortedByName(filteredRestaurants)
       : this.#getSortedByDistance(filteredRestaurants);
@@ -49,10 +60,6 @@ class RestaurantRepository {
     );
 
     localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
-  }
-
-  getFavoriteRestaurants() {
-    return this.#restaurants.filter((restaurant) => restaurant.isFavorite);
   }
 }
 

@@ -34,7 +34,6 @@ class RestaurantItem extends Component {
   }
 
   #handleFavoriteIcon(isFavorite: boolean) {
-    console.log(isFavorite);
     return isFavorite
       ? `<img src=${favoriteFilledIcon} alt="즐겨찾기"></img>`
       : `<img src=${favoriteLinedIcon} alt="즐겨찾기"></img>`;

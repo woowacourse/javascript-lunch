@@ -2,21 +2,25 @@ import Component from './Component';
 
 class LunchPickerApp extends Component {
   setEvent() {
+    this.$addEvent('lunch-picker-tab', 'updateRestaurantList', this.#updateRestaurantList);
     this.$addEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
     this.$addEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   removeEvent() {
+    this.$removeEvent('lunch-picker-tab', 'lunch-picker-tab', this.#updateRestaurantList);
     this.$removeEvent('.restaurant-filter-container', 'updateRestaurantList', this.#updateRestaurantList);
     this.$removeEvent('restaurant-add-modal', 'updateRestaurantList', this.#updateRestaurantList);
   }
 
   #updateRestaurantList = () => {
-    const category = (this.$('.category') as HTMLSelectElement).value || '전체';
-    const sorting = (this.$('.sorting') as HTMLSelectElement).value || '이름순';
+    const category = (this.$('.category') as HTMLSelectElement)?.value;
+    const sorting = (this.$('.sorting') as HTMLSelectElement)?.value;
+    const type = this.$('.tab-item--checked').textContent;
 
     this.$setAttribute('restaurant-list', 'category', `${category}`);
     this.$setAttribute('restaurant-list', 'sorting', `${sorting}`);
+    this.$setAttribute('restaurant-list', 'type', `${type}`);
   };
 
   template() {

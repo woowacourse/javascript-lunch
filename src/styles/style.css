@@ -344,14 +344,16 @@ input[name='link'] {
 
   padding: 9px 0;
 
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
-
   text-align: center;
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
   letter-spacing: 0.5px;
+}
+
+.tab-item--checked {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .tab-item--disabled {
