@@ -2,6 +2,7 @@ import dom from '@/utils/dom';
 import Component from './core/Component';
 import type RestaurantList from '@/domain/RestaurantList';
 import RestaurantItem from './RestaurantItem';
+import type { TTabMenu } from '@/types/restaurant';
 
 interface IRestaurantListContainer {
   $target: HTMLElement;
@@ -11,25 +12,42 @@ interface IRestaurantListContainer {
 interface IProps {
   kind: 'all' | 'favorite';
   restaurantList: RestaurantList;
-  renderHomeDropdown: (restaurantList: RestaurantList) => void;
 }
+
 class RestaurantListContainer extends Component<IProps> {
   constructor({ $target, props }: IRestaurantListContainer) {
     super($target, props);
   }
 
   render() {
-    if (this.props.kind === 'all') {
-      const { restaurantList, renderHomeDropdown } = this.props;
-      this.renderAllRestaurants(restaurantList);
-      renderHomeDropdown(restaurantList);
-    }
+    const { restaurantList } = this.props;
+    this.renderRestaurantList(restaurantList, this.props.kind);
+  }
+
+  renderRestaurantList(restaurantList: RestaurantList, kind: TTabMenu) {
+    if (kind === 'all') this.renderAllRestaurants(restaurantList);
+    else if (kind === 'favorite') this.renderFavoriteRestaurants(restaurantList);
   }
 
   renderAllRestaurants(restaurantList: RestaurantList) {
     const $restaurantList = dom.getElement('.restaurant-list');
     $restaurantList.replaceChildren();
-    restaurantList.restaurants.forEach(restaurant => {
+    restaurantList.getAllList().forEach(restaurant => {
+      new RestaurantItem({
+        $target: $restaurantList,
+        props: {
+          information: restaurant.information,
+          handleClickFavorite: this.handleClickFavorite.bind(this),
+        },
+      });
+    });
+  }
+
+  renderFavoriteRestaurants(restaurantList: RestaurantList) {
+    const $restaurantList = dom.getElement('.restaurant-list');
+    $restaurantList.replaceChildren();
+    const favoriteRestaurants = restaurantList.getFavoriteList();
+    favoriteRestaurants.forEach(restaurant => {
       new RestaurantItem({
         $target: $restaurantList,
         props: {
