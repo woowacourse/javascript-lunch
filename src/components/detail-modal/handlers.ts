@@ -30,7 +30,7 @@ const detailModalOpenHandler = (restaurant: Element) => {
     generateDetailModal(restaurantElement.id);
 
     dimmerClickHandler();
-    clickLikeHandler(restaurantElement.id);
+    clickLikeHandler(restaurantElement);
   });
 };
 

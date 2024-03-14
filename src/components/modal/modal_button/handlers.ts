@@ -19,7 +19,6 @@ const addNewRestaurant = (modal: Element, restaurantInfo: Irestaurant) => {
   if (invalidMessage.length === 0) {
     modal.classList.remove("modal--open");
     RestaurantCRUD.addNewRestaurant(restaurantInfo);
-    // restaurantListStateStore.addNewRestaurant(restaurantInfo);
     initializeFormState();
   }
 };

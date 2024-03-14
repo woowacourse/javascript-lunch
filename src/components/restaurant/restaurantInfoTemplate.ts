@@ -12,15 +12,22 @@ export const categoryTemplate = (categoryInfo: IcategoryInfo) => /*html*/ `
   />
 </div>`;
 
+export const likeImgTemplate = `
+<img class="liked" src="${likeImg}" alt="자주 가는 음식점" />
+`;
+
+export const unlikeImgTemplate = `
+<img class="unlike" src="${unlikeImg}" alt="자주 가지 않는 음식점" />`;
+
 export const likeTemplate = (isLike: boolean) => /*html*/ `
 <button type="button" class="restaurant__like-button" aria-label="즐겨찾기">
-    ${isLike ? `<img src="${likeImg}" alt="자주 가는 음식점" />` : `<img src="${unlikeImg}" alt="자주 가지 않는 음식점" />`}
+    ${isLike ? likeImgTemplate : unlikeImgTemplate}
 </button>
 `;
 
 export const modalLikeTemplate = (isLike: boolean) => /*html*/ `
 <button type="button" class="modal__like-button" aria-label="즐겨찾기">
-    ${isLike ? `<img src="${likeImg}" alt="자주 가는 음식점" />` : `<img src="${unlikeImg}" alt="자주 가지 않는 음식점" />`}
+    ${isLike ? likeImgTemplate : unlikeImgTemplate}
 </button>
 `;
 
