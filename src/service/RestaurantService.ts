@@ -5,6 +5,7 @@ import type { RestaurantDataType } from '../type/restaurantDataType';
 import type { CompareFunctionType } from '../type/compareFunctionType';
 
 import { Category, DistanceByWalk, SortOrder } from '../enum/enums';
+
 class RestaurantService {
   private restaurants: Restaurant[];
 
@@ -55,6 +56,15 @@ class RestaurantService {
 
   addRestaurant(restaurant: RestaurantDataType) {
     this.restaurants.push(new Restaurant(restaurant));
+    this.saveRestaurants(this.restaurants);
+  }
+
+  toggleRestaurantFavorite(restaurantName: string) {
+    const restaurant = this.restaurants.filter((restaurant) => restaurant.getName() === restaurantName);
+    if (restaurant.length !== 1) {
+      throw new Error('찾으시는 음식점 정보를 찾을 수 없습니다.');
+    }
+    restaurant[0].toggleFavorite();
     this.saveRestaurants(this.restaurants);
   }
 
