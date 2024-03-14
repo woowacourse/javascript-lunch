@@ -30,11 +30,11 @@ class RestaurantList extends Component {
 
   template(): string {
     return `
-      <section class="restaurant-list-container">
+      <ul class="restaurant-list-container">
         ${this.#restaurants
           .map((restaurant: IRestaurant) => `<restaurant-item key=${restaurant.key}></restaurant-item>`)
           .join('')}
-      </section>
+      </ul>
     `;
   }
 }

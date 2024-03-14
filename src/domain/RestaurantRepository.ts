@@ -29,12 +29,26 @@ class RestaurantRepository {
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
-  getRestaurant(key: number) {
-    return this.#restaurants.find((restaurant) => restaurant.key === key);
+  getRestaurant(key: number): IRestaurant {
+    const restaurant = this.#restaurants.find((restaurant) => restaurant.key === key);
+
+    if (restaurant === undefined) {
+      throw new Error('[ERROR] 음식점이 없습니다.');
+    }
+
+    return restaurant;
   }
 
   removeRestaurant(key: number) {
     this.#restaurants = this.#restaurants.filter((restaurant: IRestaurant) => restaurant.key !== key);
+    RestaurantStorage.setRestaurants(this.#restaurants);
+  }
+
+  toggleFavoriteRestaurant(key: number) {
+    this.#restaurants = this.#restaurants.map((restaurant) =>
+      restaurant.key === key ? { ...restaurant, isFavorite: !restaurant.isFavorite } : restaurant,
+    );
+
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
@@ -50,16 +64,6 @@ class RestaurantRepository {
     return sortingOption === '이름순'
       ? this.#getSortedByName(filteredRestaurants)
       : this.#getSortedByDistance(filteredRestaurants);
-  }
-
-  toggleFavoriteRestaurant(key: number) {
-    this.#restaurants = this.#restaurants.map((restaurant) =>
-      restaurant.key === key ? { ...restaurant, isFavorite: !restaurant.isFavorite } : restaurant,
-    );
-
-    console.log(this.#restaurants);
-
-    RestaurantStorage.setRestaurants(this.#restaurants);
   }
 }
 

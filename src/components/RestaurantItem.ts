@@ -11,13 +11,10 @@ class RestaurantItem extends Component {
   constructor() {
     super();
 
-    this.#key = Number(this.getAttribute('key')) || 0;
-    this.#restaurant = RestaurantRepository.getRestaurant(this.#key) as IRestaurant;
-  }
+    const key = Number(this.getAttribute('key')) ?? 0;
 
-  reRender(): void {
-    this.#restaurant = RestaurantRepository.getRestaurant(this.#key) as IRestaurant;
-    this.connectedCallback();
+    this.#key = key;
+    this.#restaurant = RestaurantRepository.getRestaurant(key);
   }
 
   setEvent(): void {
@@ -25,24 +22,26 @@ class RestaurantItem extends Component {
     $addEvent(this, `.restaurant__info`, 'click', this.#openModal.bind(this));
   }
 
-  #openModal() {
-    $setAttribute(this, `restaurant-detail-modal`, 'open', 'true');
+  #openModal(): void {
+    $setAttribute(this, 'restaurant-detail-modal', 'open', 'true');
   }
 
-  #toggleFavorite() {
+  #toggleFavorite(): void {
     RestaurantRepository.toggleFavoriteRestaurant(this.#key);
-    this.reRender();
+
+    this.#restaurant = RestaurantRepository.getRestaurant(this.#key);
+    this.render();
   }
 
-  #handleFavoriteIcon(isFavorite: boolean) {
+  #handleFavoriteIcon(isFavorite: boolean): string {
     return isFavorite
       ? `<img src=${favoriteFilledIcon} alt="즐겨찾기"></img>`
       : `<img src=${favoriteLinedIcon} alt="즐겨찾기"></img>`;
   }
 
-  template() {
+  template(): string {
     return `
-      <div class="restaurant">
+      <li class="restaurant">
         <category-icon category=${this.#restaurant.category}></category-icon>
         <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${this.#restaurant.name}</h3>
@@ -55,7 +54,7 @@ class RestaurantItem extends Component {
           ${this.#handleFavoriteIcon(this.#restaurant.isFavorite)}
         </button>
         <restaurant-detail-modal key=${this.#key} open="false"></restaurant-detail-modal>
-      </div>
+      </li>
     `;
   }
 }
