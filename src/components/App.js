@@ -59,11 +59,10 @@ export default class App {
 
   #addRestaurantSubmitEventListener() {
     document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
-      const { formData } = e.detail;
-      this.#restaurantManger.add(formData);
+      this.#restaurantManger.add(e.detail.formData);
       this.#updateDataToLocalStorage();
 
-      this.#restaurantFilters.category = formData.category;
+      this.#restaurantFilters.category = e.detail.formData.category;
       const { category, sort } = this.#restaurantFilters;
       this.#updateRestaurantList({ category, sort }, this.#bookmarkTab.isBookmark);
     });
