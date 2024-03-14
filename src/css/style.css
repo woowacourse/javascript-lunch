@@ -15,6 +15,11 @@ body {
   font-size: 16px;
 }
 
+button {
+  border: none;
+  background: none;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -87,6 +92,30 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 즐겨찾기 필터 */
+
+.favorite-tabnb-container {
+  display: flex;
+  justify-content: space-around;
+
+  padding: 16px;
+}
+
+.favorite-filter {
+  width: 50%;
+  height: 50px;
+  border-bottom: 5px solid var(--grey-200);
+  color: var(--grey-300);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.sel {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -123,10 +152,11 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  position: relative;
 }
 
 .restaurant__category {
@@ -147,6 +177,12 @@ body {
 .category-icon {
   width: 36px;
   height: 36px;
+}
+
+.favorite-icon {
+  margin-left: auto;
+  position: absolute;
+  right: 5px;
 }
 
 .restaurant__info {
@@ -175,7 +211,7 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
-/* .modal {
+.modal {
   display: none;
 }
 
@@ -191,7 +227,7 @@ body {
   left: 0;
 
   background: rgba(0, 0, 0, 0.35);
-} */
+}
 
 #add-restaurant-modal::backdrop {
   background: rgba(0, 0, 0, 0.35);
