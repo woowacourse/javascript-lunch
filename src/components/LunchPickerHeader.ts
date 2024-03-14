@@ -3,14 +3,8 @@ import { $addEvent, $removeEvent } from '../utils/dom';
 import addButtonImg from '../assets/add-button.png';
 
 class LunchPickerHeader extends Component {
-  hadleGnbButtonClick: () => void;
-
   constructor() {
     super();
-    this.hadleGnbButtonClick = (): void => {
-      this.makeCustomEvent('gnbButtonClick');
-      return;
-    };
   }
 
   setEvent(): void {
@@ -19,6 +13,10 @@ class LunchPickerHeader extends Component {
 
   removeEvent(): void {
     $removeEvent('.gnb__button', 'click', this.hadleGnbButtonClick);
+  }
+
+  hadleGnbButtonClick(): void {
+    this.makeCustomEvent('gnbButtonClick');
   }
 
   template(): string {
