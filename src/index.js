@@ -10,7 +10,10 @@ const header = createHeader({
   onButtonClick: () => alert("안녕"),
 });
 
-const modal = createModal();
+const testModalContent = document.createElement("div");
+testModalContent.innerHTML = `<h2>식당 추가</h2>`;
+
+const modal = createModal({ child: testModalContent });
 
 // 2. 컴포넌트를 결합한다
 

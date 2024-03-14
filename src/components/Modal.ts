@@ -1,7 +1,8 @@
-const textElement = document.createElement("p");
-textElement.textContent = "모달입니다";
+interface Props {
+  child: HTMLElement;
+}
 
-export const createModal = () => {
+export const createModal = ({ child }: Props) => {
   const modal = document.createElement("div");
 
   const modalBackdrop = document.createElement("div");
@@ -11,10 +12,13 @@ export const createModal = () => {
   modalBackdrop.classList.add("modal-backdrop");
   modalContainer.classList.add("modal-container");
 
-  modalContainer.appendChild(textElement);
-
+  modalContainer.appendChild(child);
   modal.appendChild(modalBackdrop);
   modal.appendChild(modalContainer);
+
+  modalBackdrop.addEventListener("click", () =>
+    modal.classList.toggle("modal--open")
+  );
 
   return modal;
 };
