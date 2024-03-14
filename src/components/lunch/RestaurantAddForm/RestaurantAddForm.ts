@@ -79,8 +79,8 @@ class RestaurantAddForm extends BaseComponent {
               <span class='help-text text-caption'>매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
             </common-form-item>
             <div class="button-container">
-                <button id="modal-cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
-                <button type="submit" class="button button--primary text-caption">추가하기</button>
+              <button id="modal-cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
+              <button type="submit" class="button button--primary text-caption">추가하기</button>
             </div>
         </form>
     `;
@@ -169,7 +169,7 @@ class RestaurantAddForm extends BaseComponent {
         return { ...userInputValues, isFavorite: false };
     }
 
-    return null;
+    throw new Error("잘못 입력하셨습니다. 다시 입력해주세요.");
   }
 
   private handleCancelButton(event: Event) {
