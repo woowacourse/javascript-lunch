@@ -27,7 +27,6 @@ export default class LunchAppController {
       $('restaurant-filter-container'),
       this.#restaurants,
     );
-    this.#restaurantList = new RestaurantList($('restaurant-list-container'), this.#restaurants);
-    this.#modalWrapper = new ModalWrapper($('modal'));
+    this.#restaurantList = new RestaurantList($('restaurant-list'), this.#restaurants);
   }
 }

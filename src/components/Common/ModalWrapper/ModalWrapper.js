@@ -1,26 +1,17 @@
 import { $ } from '../../../utils/dom';
 
 export default class ModalWrapper {
-  #element;
-  constructor(element) {
-    this.#element = element;
-    this.render();
-    this.#AddEvents();
-  }
-
-  render() {
-    this.#element.innerHTML = `
+  getTemplate(element) {
+    return `
       <div id="modal-backdrop" class="modal-backdrop"></div>
-      <div id="modal-container" class="modal-container"></div>
+      <div id="modal-container" class="modal-container">
+        ${element}
+      </div>
     `;
   }
 
-  #AddEvents() {
-    $('modal-backdrop').addEventListener('click', () => this.#handleModalBackdropClick());
-  }
-
-  #handleModalBackdropClick() {
+  _handleClose() {
     $('modal').classList.remove('modal--open');
-    $('modal-container').innerHTML = '';
+    $('modal').innerHTML = '';
   }
 }
