@@ -8,11 +8,11 @@ class LunchPickerHeader extends Component {
   }
 
   setEvent(): void {
-    $addEvent('.gnb__button', 'click', this.hadleGnbButtonClick);
+    $addEvent('.gnb__button', 'click', this.hadleGnbButtonClick.bind(this));
   }
 
   removeEvent(): void {
-    $removeEvent('.gnb__button', 'click', this.hadleGnbButtonClick);
+    $removeEvent('.gnb__button', 'click', this.hadleGnbButtonClick.bind(this));
   }
 
   hadleGnbButtonClick(): void {
