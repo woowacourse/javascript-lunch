@@ -21,4 +21,6 @@ export const $$ = <T extends string>(selector: T, target = document) => {
       `Selector '${selector}'에 해당하는 요소를 찾을 수 없습니다.`
     );
   }
+
+  return targetElements;
 };
