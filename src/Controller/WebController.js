@@ -3,7 +3,7 @@ import restaurantCatalog, { ALL_CATEGORY, SORT_CONDITION } from '../domain/Resta
 import mockingData from '../domain/mocking';
 import { ALL_RESTAURANTS } from '../view/components/LikeSection';
 
-const LOCAL_STORAGE_KEY = 'lunch_restaurants';
+export const LOCAL_STORAGE_KEY = 'lunch_restaurants';
 
 class WebController {
   run() {
@@ -14,14 +14,19 @@ class WebController {
   }
 
   #init() {
-    this.#insertDefaultData();
+    // localStorage가 있을 경우 LS데이터를 Server에 넣기.
     this.#initRestaurantCatalogFromLocalStorage();
+    // localStorage가 비었을 경우 LS와 Server에 mocking data 둘다 넣기.
+    this.#insertDefaultData();
     this.#renderDefaultRestaurantList();
   }
 
   #insertDefaultData() {
+    const localData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (localData) return;
     mockingData.forEach((data) => {
       restaurantCatalog.pushNewRestaurant(data);
+      this.#updateRestaurantsToLocalStorage(data);
     });
   }
 
@@ -93,7 +98,7 @@ class WebController {
   #executeFormSubmitEvent(restaurantInfo) {
     try {
       const newRestaurant = restaurantCatalog.pushNewRestaurant(restaurantInfo);
-      this.#updateRestaurantToLocalStorage(newRestaurant);
+      this.#updateRestaurantsToLocalStorage(newRestaurant);
       this.#reRenderRestaurants();
       this.#closeModal();
     } catch (error) {
@@ -106,9 +111,9 @@ class WebController {
     RestaurantList.render();
   }
 
-  #updateRestaurantToLocalStorage(restaurant) {
+  #updateRestaurantsToLocalStorage(...restaurants) {
     const restaurantArr = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) ?? [];
-    restaurantArr.push(restaurant);
+    restaurants.forEach((restaurant) => restaurantArr.push(restaurant));
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurantArr));
   }
 

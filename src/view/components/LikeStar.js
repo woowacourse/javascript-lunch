@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE_KEY } from '../../Controller/WebController';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
 
 class LikeStar extends HTMLElement {
@@ -5,7 +6,7 @@ class LikeStar extends HTMLElement {
 
   constructor(isLiked, id) {
     super();
-    this.setAttribute('data-isLiked', isLiked);
+    this.setAttribute('data-is-liked', isLiked);
     this.#applyColor();
     this.#restaurantId = id;
   }
@@ -18,12 +19,23 @@ class LikeStar extends HTMLElement {
   #handleClick() {
     // 도메인의 데이터의 isLiked값을 변경한다.
     restaurantCatalog.restaurants[this.#restaurantId].changeIsLiked();
-    // TODO: LocalStorage의 데이터 isLiked값을 변경한다.
-    // this.#editLocalStorageData();
-    // TODO: this의 data-isLiked속성을 변경한다.
+    // LocalStorage의 데이터 isLiked값을 변경한다.
+    this.#editLocalStorageData();
+    // this의 data-isLiked속성을 변경한다.
+    this.#changeIsLikeAttribute();
   }
 
-  #editLocalStorageData() {}
+  #editLocalStorageData() {
+    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    localData[this.#restaurantId].isLiked = !localData[this.#restaurantId].isLiked;
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
+  }
+
+  #changeIsLikeAttribute() {
+    const isLikedString = this.getAttribute('data-is-liked');
+    const expectedValue = isLikedString === 'true' ? 'false' : 'true';
+    this.setAttribute('data-is-liked', expectedValue);
+  }
 
   #applyColor() {
     const IMAGE_ID = this.#isLikedStar() ? 'filled' : 'lined';
@@ -31,7 +43,7 @@ class LikeStar extends HTMLElement {
   }
 
   #isLikedStar() {
-    const isLikedString = this.getAttribute('data-isLiked');
+    const isLikedString = this.getAttribute('data-is-liked');
     if (isLikedString === 'true') {
       return true;
     }
@@ -42,7 +54,7 @@ class LikeStar extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['data-isLiked'];
+    return ['data-is-liked'];
   }
 
   attributeChangedCallback() {

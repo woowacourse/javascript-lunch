@@ -34,7 +34,7 @@
   - [x] RestaurantsCards 어트리뷰트 변경.
   - [x] LikeSection CSS 색상 변경
 - [x] 자주가는 식당을 표시하는 attribute 속성을 RestaurantCard에 추가한다.
-- [ ] 별 UI 및 로직
+- [x] 별 UI 및 로직
 - [ ] 버튼을 컴포넌트화 한다.
 - [ ] 상세 정보 모달 만들기
 - [ ] 모달에는 상세정보를 삭제하는 기능이 있다.
