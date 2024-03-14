@@ -296,3 +296,38 @@ input[name='link'] {
 
   color: var(--grey-100);
 }
+
+.restaurant__info__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.star {
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 20px;
+}
+
+.tab__bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px 0;
+}
+
+.tab__bar__item__checked {
+  margin: 0;
+  padding: 20px;
+  color: #f6a88a;
+  border-bottom: 2px solid #f6a88a;
+  text-align: center;
+  width: 100vh;
+}
+
+.tab__bar__item {
+  margin: 0;
+  padding: 20px;
+  color: #667085;
+  border-bottom: 2px solid #d0d5dd;
+  text-align: center;
+  width: 100vh;
+}
