@@ -60,6 +60,16 @@ export default class Restaurants {
     return this.storageData;
   }
 
+  getRestaurant(name: string) {
+    return this.storageData.find((restaurant) => restaurant.name === name);
+  }
+
+  deleteRestaurant(name: string) {
+    const filteredRestaurants = this.storageData.filter((restaurant) => restaurant.name !== name);
+
+    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(filteredRestaurants));
+  }
+
   get storageData(): Restaurant[] {
     return JSON.parse(this.#storage.getItem(STORAGE_KEY.restaurantData) || '[]');
   }
