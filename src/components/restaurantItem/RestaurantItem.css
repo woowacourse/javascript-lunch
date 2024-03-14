@@ -31,6 +31,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  width: 100%;
 }
 
 .restaurant__name {
@@ -50,4 +52,13 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__bookmark {
+  background: none;
+  border: none;
+}
+
+.restaurant__bookmark > img {
+  width: 32px;
 }

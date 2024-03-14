@@ -1,10 +1,14 @@
+import getUniqueID from '../utils/getUniqueID';
+
 type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타' | '전체';
 type Distance = 5 | 10 | 15 | 20 | 30;
 type Option = 'name' | 'distance';
 
 interface Restaurant {
-  category: Category;
+  id: number;
   name: string;
+  isBookmark: boolean;
+  category: Category;
   distance: Distance;
   description?: string;
   link?: string;
@@ -21,8 +25,13 @@ class RestaurantManager {
     this.#restaurants = restaurants ?? [];
   }
 
-  add(restaurant: Restaurant): void {
-    this.#restaurants.push(restaurant);
+  add(restaurant: Omit<Restaurant, 'id' | 'isBookmark'>): void {
+    this.#restaurants.push({ id: getUniqueID(), isBookmark: false, ...restaurant });
+  }
+
+  update(restaurant: Restaurant): void {
+    const idx = this.#restaurants.findIndex((prevRestaurant) => prevRestaurant.id === restaurant.id);
+    this.#restaurants[idx] = { ...restaurant };
   }
 
   filteredAndSortedByOptions(category: Category, option: Option): Restaurant[] | void {

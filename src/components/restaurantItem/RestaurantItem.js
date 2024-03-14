@@ -1,5 +1,6 @@
 import './RestaurantItem.css';
 
+// icon images
 import koreanIcon from '../../statics/imgs/category-korean.png';
 import chineseIcon from '../../statics/imgs/category-chinese.png';
 import japaneseIcon from '../../statics/imgs/category-japanese.png';
@@ -7,7 +8,19 @@ import westernIcon from '../../statics/imgs/category-western.png';
 import asianIcon from '../../statics/imgs/category-asian.png';
 import etcIcon from '../../statics/imgs/category-etc.png';
 
+// bookmark button images
+import bookmarkIconFilled from '../../statics/imgs/favorite-icon-filled.png';
+import bookmarkIconLined from '../../statics/imgs/favorite-icon-lined.png';
+
+export const RESTAURANT_ITEM_EVENTS = {
+  bookmarkBtnClicked: 'bookmarkBtnClicked',
+};
+// TODO: category icon 컴포넌트로 분리하기
 export default class RestaurantItem extends HTMLLIElement {
+  #restaurant;
+
+  #bookmarkBtn;
+
   constructor() {
     super();
 
@@ -16,31 +29,53 @@ export default class RestaurantItem extends HTMLLIElement {
     this.appendChild(content);
 
     this.classList.add('restaurant');
+    this.#bookmarkBtn = this.querySelector('.restaurant__bookmark');
   }
 
   set restaurant(restaurant) {
-    const { name, distance, description, category } = restaurant;
-    this.#setName(name);
-    this.#setDistance(distance);
-    this.#setDescription(description);
-    this.#setCategoryIcon(category);
+    this.#restaurant = restaurant;
+    this.#setName();
+    this.#setDistance();
+    this.#setDescription();
+    this.#setCategoryIcon();
+    this.#setBookmarkButton();
   }
 
-  #setName(name) {
-    this.querySelector('.restaurant__name').innerHTML = name;
+  connectedCallback() {
+    this.#bookmarkBtn.addEventListener('click', this.#handleToggleBookmarkBtn.bind(this));
   }
 
-  #setDistance(distance) {
-    this.querySelector('.restaurant__distance').innerHTML = `캠퍼스로부터 ${distance}분 내 `;
+  #handleToggleBookmarkBtn() {
+    this.#restaurant.isBookmark = !this.#restaurant.isBookmark;
+    this.#setBookmarkButton();
+    this.dispatchEvent(
+      new CustomEvent(RESTAURANT_ITEM_EVENTS.bookmarkBtnClicked, {
+        bubbles: true,
+        detail: { restaurant: { ...this.#restaurant } },
+      }),
+    );
   }
 
-  #setDescription(description) {
-    this.querySelector('.restaurant__description').innerHTML = description;
+  #setName() {
+    this.querySelector('.restaurant__name').innerHTML = this.#restaurant.name;
   }
 
-  #setCategoryIcon(category) {
-    this.querySelector('.category-icon').src = this.#getCategoryIconUrl(category);
-    this.querySelector('.category-icon').alt = category;
+  #setDistance() {
+    this.querySelector('.restaurant__distance').innerHTML = `캠퍼스로부터 ${this.#restaurant.distance}분 내 `;
+  }
+
+  #setDescription() {
+    this.querySelector('.restaurant__description').innerHTML = this.#restaurant.description;
+  }
+
+  #setCategoryIcon() {
+    this.querySelector('.category-icon').src = this.#getCategoryIconUrl(this.#restaurant.category);
+    this.querySelector('.category-icon').alt = this.#restaurant.category;
+  }
+
+  #setBookmarkButton() {
+    const img = this.#bookmarkBtn.querySelector('img');
+    img.src = this.#restaurant.isBookmark ? bookmarkIconFilled : bookmarkIconLined;
   }
 
   #getCategoryIconUrl(category) {

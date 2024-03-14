@@ -8,6 +8,7 @@ import { RESTAURANT_FILTERS_EVENTS } from './RestaurantFilters/RestaurantFilters
 // domain
 import RestaurantManager from '../domain/RestaurantManager';
 import { BOOKMARK_TAB_EVENTS } from './BookmarkTab/BookmarkTab';
+import { RESTAURANT_ITEM_EVENTS } from './RestaurantItem/RestaurantItem';
 
 export default class App {
   #restaurantFilters;
@@ -30,25 +31,25 @@ export default class App {
     this.#restaurantList.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
 
     this.#addRestaurantSubmitEventListener();
-    this.#addFilterOnchangeEventListenr();
+    this.#addFilterOnchangeEventListener();
     this.#addBookmarkTabChangeEventListener();
+    this.#addRestaurantBookmarkOnchangeEventListener();
   }
 
   #addRestaurantSubmitEventListener() {
     document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
       const { formData } = e.detail;
 
-      this.#updateLocalStorage(formData);
-      this.#syncLocalStorageAndDomain();
+      this.#restaurantManger.add(formData);
+      this.#updateLocalStorage();
       this.#restaurantFilters.categoryFilter = formData.category;
       this.#updateRestaurantList(this.#restaurantFilters.categoryFilter, this.#restaurantFilters.sortingFilter);
     });
   }
 
-  #addFilterOnchangeEventListenr() {
+  #addFilterOnchangeEventListener() {
     document.addEventListener(RESTAURANT_FILTERS_EVENTS.filterChange, (e) => {
       const { categoryFilter, sortingFilter } = e.detail;
-      this.#syncLocalStorageAndDomain();
       this.#updateRestaurantList(categoryFilter, sortingFilter);
     });
   }
@@ -60,19 +61,23 @@ export default class App {
     });
   }
 
+  #addRestaurantBookmarkOnchangeEventListener() {
+    document.addEventListener(RESTAURANT_ITEM_EVENTS.bookmarkBtnClicked, (e) => {
+      const { restaurant } = e.detail;
+      this.#restaurantManger.update(restaurant);
+      this.#updateLocalStorage();
+    });
+  }
+
+  // TODO: 이건 localStorage 서비스로 분리 가능할듯?
+  // localStorage -> domain
   #syncLocalStorageAndDomain() {
     this.#restaurantManger.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
   }
 
-  #updateLocalStorage(restaurant) {
-    const curData = window.localStorage.getItem('restaurants');
-    if (curData) {
-      const restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
-      restaurants.push(restaurant);
-      window.localStorage.setItem('restaurants', JSON.stringify(restaurants));
-    } else {
-      window.localStorage.setItem('restaurants', JSON.stringify([restaurant]));
-    }
+  // domain -> localStorage
+  #updateLocalStorage() {
+    window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantManger.restaurants));
   }
 
   #updateRestaurantList(category, option) {

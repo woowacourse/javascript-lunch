@@ -14,10 +14,11 @@ export default class GNB extends HTMLElement {
 
   connectedCallback() {
     const button = this.querySelector('.gnb__button');
+
     button.addEventListener('click', () => {
+      const modal = document.querySelector('app-modal');
       const title = this.#createRestaurantFormTitle();
       const body = this.#createRestaurantForm();
-      const modal = document.querySelector('app-modal');
       modal.openModal({ title, body });
     });
   }
