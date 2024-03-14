@@ -2,10 +2,16 @@ import "./resources.js";
 import { createHeader } from "./components/Header.ts";
 import AddingRestaurantModal from "./components/AddingRestaurantModal.ts";
 import { createRestaurantItem } from "./components/ResetaurantItem.ts";
+import Modal from "./components/Modal.ts";
 
 // 1. 컴포넌트를 따로 만든다
 
 const addingRestaurantModal = new AddingRestaurantModal();
+
+const restaurantDetailContent = document.createElement("div");
+restaurantDetailContent.innerHTML = "<h2>레스토랑 상세 보기</h2>";
+const restaurantDetailModal = new Modal({ child: restaurantDetailContent });
+
 const header = createHeader({
   title: "점심 뭐 먹니?",
   imageSource: "./add-button.png",
@@ -24,7 +30,7 @@ restaurantList.appendChild(
       distance: 8,
       description: "달려가면 8분",
     },
-    onClick: () => alert("아이템 클릭"),
+    onClick: () => restaurantDetailModal.toggle(),
   })
 );
 
@@ -32,5 +38,6 @@ restaurantList.appendChild(
 
 const container = document.querySelector("#container");
 container.prepend(header);
-container.appendChild(addingRestaurantModal.element);
 container.appendChild(restaurantList);
+container.appendChild(addingRestaurantModal.element);
+container.appendChild(restaurantDetailModal.element);
