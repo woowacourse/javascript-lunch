@@ -1,0 +1,66 @@
+[
+  {
+    "category": "한식",
+    "name": "한식당1",
+    "distance": "10",
+    "description": "맛있는 한식당",
+    "url": "http://example.com/1",
+    "isFavorite": false
+  },
+  {
+    "category": "한식",
+    "name": "한식당2",
+    "distance": "5",
+    "description": "저렴한 한식당",
+    "url": "http://example.com/2",
+    "isFavorite": false
+  },
+  {
+    "category": "중식",
+    "name": "중식당1",
+    "distance": "15",
+    "description": "중국집",
+    "url": "http://example.com/3",
+    "isFavorite": false
+  },
+  {
+    "category": "중식",
+    "name": "중식당2",
+    "distance": "10",
+    "description": "중국집2",
+    "url": "http://example.com/44",
+    "isFavorite": false
+  },
+  {
+    "category": "일식",
+    "name": "일식당1",
+    "distance": "20",
+    "description": "일본 음식",
+    "url": "http://example.com/4",
+    "isFavorite": false
+  },
+  {
+    "category": "양식",
+    "name": "양식당1",
+    "distance": "30",
+    "description": "서양 음식",
+    "url": "http://example.com/5",
+    "isFavorite": false
+  },
+  {
+    "category": "아시안",
+    "name": "아시안 음식당1",
+    "distance": "20",
+    "description": "다양한 아시아 음식",
+    "url": "http://example.com/6",
+    "isFavorite": false
+  },
+  {
+    "category": "기타",
+    "name": "세계 음식당1",
+    "distance": "15",
+    "description": "세계 각국의 음식을 제공",
+    "url": "http://example.com/7",
+    "isFavorite": false
+  }
+]
