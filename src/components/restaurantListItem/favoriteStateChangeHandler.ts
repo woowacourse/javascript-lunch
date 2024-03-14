@@ -19,6 +19,7 @@ export const changeFavoriteState = (restaurantId: number) => {
 export const favoriteIconEventPhaseHandler = (event: Event) => {
   const target = (event.target as Element).closest('.favorited-icon') as HTMLElement;
   if (target) {
+    event.stopPropagation();
     const listItem = target.closest('li') as HTMLLIElement;
     const restaurantId = Number(listItem.dataset.id);
     changeFavoriteState(restaurantId ?? '');
