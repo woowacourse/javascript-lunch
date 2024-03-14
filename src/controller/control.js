@@ -6,7 +6,7 @@ import { RestaurantManager } from '../domain/RestaurantManager';
 
 export const set = {
   start() {
-    const data = JSON.parse(localStorage.getItem('restaurants')) || [];
+    const data = JSON.parse(localStorage.getItem('restaurantList')) || [];
     const restaurantManager = new RestaurantManager(data);
 
     this.setMainPage(restaurantManager);
@@ -20,7 +20,7 @@ export const set = {
         left: 'logo',
         right: 'add',
         addRestaurant: (restaurant) => restaurantManager.add(restaurant),
-        getRestaurants: () => restaurantManager.filteredRestaurants(),
+        getRestaurantList: () => restaurantManager.filteredRestaurantList(),
       })
     );
 
@@ -38,9 +38,9 @@ export const set = {
           restaurantManager.setCurrentCategory(category);
 
           if (category === '전체')
-            return renderRestaurantList(restaurantManager.getRestaurants());
+            return renderRestaurantList(restaurantManager.getRestaurantList());
 
-          renderRestaurantList(restaurantManager.filteredRestaurants());
+          renderRestaurantList(restaurantManager.filteredRestaurantList());
         },
       })
     );

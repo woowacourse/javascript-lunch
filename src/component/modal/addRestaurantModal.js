@@ -10,7 +10,7 @@ import renderRestaurantList from '../restaurantList.js';
 
 const formIds = ['category', 'name', 'walkingTime', 'description', 'link'];
 
-function createNewRestaurantModal(addRestaurant, getRestaurants) {
+function createNewRestaurantModal(addRestaurant, getRestaurantList) {
   const container = render();
   const form = container.querySelector('form');
 
@@ -24,8 +24,8 @@ function createNewRestaurantModal(addRestaurant, getRestaurants) {
 
     try {
       addRestaurant(newRestaurant);
-      console.log(getRestaurants());
-      renderRestaurantList(getRestaurants());
+      console.log(getRestaurantList());
+      renderRestaurantList(getRestaurantList());
       modal.remove('modal--open');
 
       toast(

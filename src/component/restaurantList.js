@@ -1,6 +1,6 @@
 import createRestaurantCard from './restaurantCard.js';
 
-function renderRestaurantList(restaurants) {
+function renderRestaurantList(restaurantList) {
   const restaurantListContainer = document.querySelector(
     '.restaurant-list-container'
   );
@@ -10,7 +10,7 @@ function renderRestaurantList(restaurants) {
   const restaurantList = document.createElement('ul');
   restaurantList.className = 'restaurant-list';
 
-  restaurants.map((restaurant) => {
+  restaurantList.map((restaurant) => {
     const listItem = document.createElement('li');
     listItem.className = 'restaurant';
 
