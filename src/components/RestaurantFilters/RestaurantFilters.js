@@ -18,15 +18,15 @@ export default class RestaurantFilters extends HTMLElement {
     this.appendChild(content);
   }
 
-  get sortingFilter() {
+  get sort() {
     return this.#sortingFilter.value;
   }
 
-  get categoryFilter() {
+  get category() {
     return this.#categoryFilter.value;
   }
 
-  set categoryFilter(category) {
+  set category(category) {
     this.#categoryFilter.value = category;
   }
 
@@ -44,8 +44,8 @@ export default class RestaurantFilters extends HTMLElement {
       new CustomEvent(RESTAURANT_FILTERS_EVENTS.filterChange, {
         bubbles: true,
         detail: {
-          categoryFilter: this.categoryFilter,
-          sortingFilter: this.sortingFilter,
+          category: this.category,
+          sort: this.sort,
         },
       }),
     );

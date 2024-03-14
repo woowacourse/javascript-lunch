@@ -27,11 +27,11 @@ export default class App {
   }
 
   async start() {
-    const { categoryFilter, sortingFilter } = this.#restaurantFilters;
+    const { category, sort } = this.#restaurantFilters;
     this.#syncLocalStorageAndDomain();
     this.#updateRestaurantList({
-      category: categoryFilter,
-      option: sortingFilter,
+      category,
+      sort,
     });
 
     this.#addEventListeners();
@@ -48,8 +48,8 @@ export default class App {
     window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantManger.restaurants));
   }
 
-  #updateRestaurantList({ category, option }, isBookmark) {
-    const result = this.#restaurantManger.getList({ category, option }, isBookmark);
+  #updateRestaurantList({ category, sort }, isBookmark) {
+    const result = this.#restaurantManger.getList({ category, sort }, isBookmark);
     this.#restaurantList.restaurants = result;
   }
 
@@ -66,24 +66,23 @@ export default class App {
       this.#restaurantManger.add(formData);
       this.#updateLocalStorage();
 
-      this.#restaurantFilters.categoryFilter = formData.category;
-
-      const { categoryFilter, sortingFilter } = this.#restaurantFilters;
-      this.#updateRestaurantList({ category: categoryFilter, option: sortingFilter }, this.#bookmarkTab.isBookmark);
+      this.#restaurantFilters.category = formData.category;
+      const { category, sort } = this.#restaurantFilters;
+      this.#updateRestaurantList({ category, sort }, this.#bookmarkTab.isBookmark);
     });
   }
 
   #addFilterOnchangeEventListener() {
     document.addEventListener(RESTAURANT_FILTERS_EVENTS.filterChange, (e) => {
-      const { categoryFilter, sortingFilter } = e.detail;
-      this.#updateRestaurantList({ category: categoryFilter, option: sortingFilter }, this.#bookmarkTab.isBookmark);
+      const { category, sort } = e.detail;
+      this.#updateRestaurantList({ category, sort }, this.#bookmarkTab.isBookmark);
     });
   }
 
   #addBookmarkTabChangeEventListener() {
     document.addEventListener(BOOKMARK_TAB_EVENTS.changeTab, () => {
-      const { categoryFilter, sortingFilter } = this.#restaurantFilters;
-      this.#updateRestaurantList({ category: categoryFilter, option: sortingFilter }, this.#bookmarkTab.isBookmark);
+      const { category, sort } = this.#restaurantFilters;
+      this.#updateRestaurantList({ category, sort }, this.#bookmarkTab.isBookmark);
     });
   }
 
