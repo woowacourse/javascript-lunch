@@ -16,13 +16,17 @@ class RestaurantAddModal extends Component {
   }
 
   setEvent() {
-    this.$addEvent('.modal-form', 'submit', this.#onSubmit);
-    this.$addEvent('.button--secondary', 'click', this.#onCancel);
-  }
+    this.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).classList.contains('button--secondary')) {
+        this.#updateModal(false);
+      }
+    });
 
-  removeEvent() {
-    this.$removeEvent('.modal-form', 'submit', this.#onSubmit);
-    this.$removeEvent('.button--secondary', 'click', this.#onCancel);
+    this.addEventListener('submit', (event) => {
+      if ((event.target as HTMLElement).classList.contains('modal-form')) {
+        this.#onSubmit(event);
+      }
+    });
   }
 
   #updateModal(isOpen: boolean) {
@@ -33,7 +37,7 @@ class RestaurantAddModal extends Component {
     }
   }
 
-  #onSubmit = (event: Event) => {
+  #onSubmit(event: Event) {
     event.preventDefault();
 
     if (this.#handleEmptyError(['.modal-category', '.modal-restaurant-name', '.modal-distance'])) {
@@ -44,7 +48,7 @@ class RestaurantAddModal extends Component {
 
     (this.$('.modal-form') as HTMLFormElement).reset();
     this.#updateModal(false);
-  };
+  }
 
   #addRestaurant() {
     const formData = {
@@ -79,8 +83,6 @@ class RestaurantAddModal extends Component {
     (this.$(errors[0]) as HTMLInputElement | HTMLSelectElement).focus();
     return true;
   }
-
-  #onCancel = () => this.#updateModal(false);
 
   template() {
     return `
