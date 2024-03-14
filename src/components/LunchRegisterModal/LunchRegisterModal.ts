@@ -7,12 +7,10 @@ import { RestaurantRegistry } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
 import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
+import LunchModal from '../LunchModal/LunchModal';
 
 const LUNCH_REGISTER_MODAL = /* html */ `
-<div class="modal">
-  <div class="modal-backdrop"></div>
-  <div class="modal-container">
-    <h2 class="modal-title text-title">새로운 음식점</h2>
+    <h2 class="register-modal-title text-title">새로운 음식점</h2>
     <form>
       <lunch-form-item type="dropdown" name="category" label="카테고리"  required="true"></lunch-form-item>
       <lunch-form-item type="input" name="name" label="가게명"  required="true"></lunch-form-item>
@@ -24,10 +22,15 @@ const LUNCH_REGISTER_MODAL = /* html */ `
         <lunch-button text="추가하기" color="primary"></lunch-button>
       </div>
     </form>
-</div>
 `;
 
 class LunchRegisterModal extends HTMLElement {
+  constructor() {
+    super();
+    this.className = 'lunch-register-modal';
+    this.appendChild(new LunchModal());
+  }
+
   connectedCallback() {
     this.render();
     this.setEventListener();
@@ -35,7 +38,10 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   render(): void {
-    this.innerHTML = LUNCH_REGISTER_MODAL;
+    const container = this.querySelector('.modal-container');
+    if (container) {
+      container.innerHTML = LUNCH_REGISTER_MODAL;
+    }
   }
 
   setEventListener() {
