@@ -4,11 +4,15 @@ import restaurantStateStore from '../../../store/RestaurantStateStore';
 import { InvalidResult, RestaurantState } from '../../../types';
 import RestaurantList from '../../restaurantList/RestaurantList';
 
-const initializeFormState = () => {
+export const initializeModal = () => {
   const modal = document.getElementsByClassName('modal')[0];
   const modalContainer = document.getElementsByClassName('modal-container')[0];
   modalContainer.innerHTML = '';
   modal.classList.remove('modal--open');
+};
+
+const initializeFormState = () => {
+  initializeModal();
   restaurantStateStore.resetState();
 };
 

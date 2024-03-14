@@ -8,7 +8,7 @@ const updateRestaurantListItemUI = (restaurantId: number, newHtml: HTMLElement) 
   }
 };
 
-const changeFavoriteState = (restaurantId: number) => {
+export const changeFavoriteState = (restaurantId: number) => {
   RestaurantListStorageService.patchData(restaurantId);
   const allRestaurants = RestaurantListStorageService.getData();
   const targetRestaurant = allRestaurants?.filter((restaurant) => restaurant.id === restaurantId)!;
@@ -16,7 +16,7 @@ const changeFavoriteState = (restaurantId: number) => {
   updateRestaurantListItemUI(restaurantId, listComponent);
 };
 
-const favoriteIconEventPhaseHandler = (event: Event) => {
+export const favoriteIconEventPhaseHandler = (event: Event) => {
   const target = (event.target as Element).closest('.favorited-icon') as HTMLElement;
   if (target) {
     const listItem = target.closest('li') as HTMLLIElement;
