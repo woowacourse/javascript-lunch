@@ -2,20 +2,26 @@ import "./RestaurantList.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
 
+import RestaurantItem from "../RestaurantItem/RestaurantItem";
+
 import Restaurant from "../../../domain/Restaurant/Restaurant";
 import { RestaurantDetail } from "../../../domain/Restaurant/Restaurant.type";
-import RestaurantItem from "../RestaurantItem/RestaurantItem";
 
 import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
 import { SORT_CATEGORIES_TYPE } from "../../../constants/sortCategory/sortCategory";
 import type { SortCategory } from "../../../constants/sortCategory/sortCategory.type";
 
 import RestaurantStorage from "../../../storages/RestaurantStorage";
+import { RestaurantTabStatus } from "../RestaurantTab/RestaurantTab.type";
 
 class RestaurantList extends BaseComponent {
   private restaurant = new Restaurant(RestaurantStorage);
 
   private sortType: SortCategory = SORT_CATEGORIES_TYPE.name;
+
+  private tabStatus: RestaurantTabStatus = this.getAttribute(
+    "status"
+  ) as RestaurantTabStatus;
 
   private eventListeners = {
     addRestaurant: {
@@ -50,6 +56,8 @@ class RestaurantList extends BaseComponent {
   }
 
   private createRestaurantItems() {
+    this.restaurant.updateRestaurants(this.sortType, this.tabStatus);
+
     const restaurantDetails = this.restaurant.getRestaurantDetails();
 
     return restaurantDetails.reduce(
@@ -76,8 +84,6 @@ class RestaurantList extends BaseComponent {
   }
 
   private handleRerenderRestaurantList() {
-    this.restaurant.updateRestaurants(this.sortType);
-
     this.connectedCallback();
   }
 

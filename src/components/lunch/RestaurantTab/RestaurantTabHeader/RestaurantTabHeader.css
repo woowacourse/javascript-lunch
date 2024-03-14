@@ -1,0 +1,10 @@
+#restaurant-tab-header {
+  display: flex;
+  height: 35px;
+  margin: 32px 16px;
+}
+
+restaurant-tab-button {
+  width: 100%;
+  display: flex;
+}

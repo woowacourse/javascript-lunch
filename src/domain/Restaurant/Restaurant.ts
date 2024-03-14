@@ -8,6 +8,8 @@ import RestaurantDetailValidator from "../../validator/restaurantDetail/Restaura
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
 import type { SortCategory } from "../../constants/sortCategory/sortCategory.type";
+import { RestaurantTabStatus } from "../../components/lunch/RestaurantTab/RestaurantTab.type";
+import { RESTAURANT_TAB_STATUS_TABLE } from "../../components/lunch/RestaurantTab/RestaurantTab.constant";
 
 class Restaurant {
   private currentCategory: MenuCategory = MENU_CATEGORIES.all;
@@ -33,10 +35,18 @@ class Restaurant {
 
   private getSortedRestaurants(
     category: MenuCategory,
-    sortType: SortCategory
+    sortType: SortCategory,
+    tabStatus?: RestaurantTabStatus
   ): RestaurantDetail[] {
+    const isFavoriteSelected =
+      tabStatus === RESTAURANT_TAB_STATUS_TABLE.favorite;
+
     return this.storage
       .get()
+      .filter(
+        (restaurantDetail: RestaurantDetail) =>
+          !isFavoriteSelected || restaurantDetail.isFavorite
+      )
       .filter(
         (restaurantDetail: RestaurantDetail) =>
           category === MENU_CATEGORIES.all ||
@@ -55,10 +65,14 @@ class Restaurant {
     return this.restaurantsDetails;
   }
 
-  public updateRestaurants(sortType: SortCategory) {
+  public updateRestaurants(
+    sortType: SortCategory,
+    tabStatus?: RestaurantTabStatus
+  ) {
     this.restaurantsDetails = this.getSortedRestaurants(
       this.currentCategory,
-      sortType
+      sortType,
+      tabStatus
     );
   }
 
