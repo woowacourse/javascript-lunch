@@ -84,14 +84,33 @@ body {
   height: 40px;
   object-fit: contain;
 }
-
 /* 음식점 목록 *****************************************/
+/* 모든 음식점, 자주 가는 음식점 탭 */
+.restaurant-tap-container {
+  display: flex;
+  justify-content: space-between;
+  height: 36px;
+  margin: 32px 16px;
+}
 
+.restaurant-tap-container div {
+  width: 50%;
+  text-align: center;
+}
+
+.restaurant-tap_grey {
+  color: var(--grey-300);
+  border-bottom: 2px solid var(--grey-300);
+}
+
+.restaurant-tap_primary {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
-
   padding: 0 16px;
   margin-top: 24px;
 }
