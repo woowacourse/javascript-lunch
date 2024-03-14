@@ -19,6 +19,7 @@ class FakeRestaurantStorage
       distance: "10",
       description: "맛있는 한식당",
       url: "http://example.com/1",
+      isFavorite: false,
     },
     {
       category: "한식",
@@ -26,6 +27,7 @@ class FakeRestaurantStorage
       distance: "5",
       description: "저렴한 한식당",
       url: "http://example.com/2",
+      isFavorite: false,
     },
     {
       category: "중식",
@@ -33,6 +35,7 @@ class FakeRestaurantStorage
       distance: "15",
       description: "중국집",
       url: "http://example.com/3",
+      isFavorite: false,
     },
     {
       category: "중식",
@@ -40,6 +43,7 @@ class FakeRestaurantStorage
       distance: "10",
       description: "중국집2",
       url: "http://example.com/44",
+      isFavorite: false,
     },
     {
       category: "일식",
@@ -47,6 +51,7 @@ class FakeRestaurantStorage
       distance: "20",
       description: "일본 음식",
       url: "http://example.com/4",
+      isFavorite: false,
     },
     {
       category: "양식",
@@ -54,6 +59,7 @@ class FakeRestaurantStorage
       distance: "30",
       description: "서양 음식",
       url: "http://example.com/5",
+      isFavorite: false,
     },
     {
       category: "아시안",
@@ -61,6 +67,7 @@ class FakeRestaurantStorage
       distance: "20",
       description: "다양한 아시아 음식",
       url: "http://example.com/6",
+      isFavorite: false,
     },
     {
       category: "기타",
@@ -68,6 +75,7 @@ class FakeRestaurantStorage
       distance: "15",
       description: "세계 각국의 음식을 제공",
       url: "http://example.com/7",
+      isFavorite: false,
     },
   ];
 
@@ -78,6 +86,10 @@ class FakeRestaurantStorage
   set(newRestaurantDetail: RestaurantDetail) {
     this.restaurants.push(newRestaurantDetail);
   }
+
+  remove() {}
+
+  update() {}
 }
 
 describe("Restaurant 모듈 테스트", () => {
@@ -109,6 +121,7 @@ describe("Restaurant 모듈 테스트", () => {
         distance: "30",
         description: "모던 유럽 요리",
         url: "http://example.com/6",
+        isFavorite: false,
       };
 
       // when
@@ -129,6 +142,7 @@ describe("Restaurant 모듈 테스트", () => {
       distance: "15",
       description: "새로운 한식당",
       url: "http://example.com/new",
+      isFavorite: false,
     };
     test(`중복된 음식점 이름이 존재 할 경우 "${RestaurantDetailValidator.validationTypes.duplicateNames.errorMessage}" 메시지와 함께 에러를 발생시킨다`, () => {
       // when - then
@@ -224,6 +238,7 @@ describe("Restaurant 모듈 테스트", () => {
         distance: "30",
         description: "신규 한식당",
         url: "http://example.com/new",
+        isFavorite: false,
       };
 
       // when
@@ -243,6 +258,7 @@ describe("Restaurant 모듈 테스트", () => {
         distance: "30",
         description: "신규 양식당",
         url: "http://example.com/new",
+        isFavorite: false,
       };
 
       // when
