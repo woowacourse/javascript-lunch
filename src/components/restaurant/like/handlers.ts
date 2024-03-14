@@ -1,10 +1,10 @@
-import restaurantListStateStore from "../../../store/RestaurantListStateStore";
+import RestaurantCRUD from "../../../domain/RestaurantCRUD";
 
 const likeButtonClickHandler = (button: Element) => {
   button.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
     const restaurantElement = target.closest(".restaurant") as HTMLElement;
-    restaurantListStateStore.updateListData(Number(restaurantElement.id));
+    RestaurantCRUD.updateRestaurant(Number(restaurantElement.id));
   });
 };
 
