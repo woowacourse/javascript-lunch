@@ -1,8 +1,7 @@
 import { KOREAN_CATEGORY } from "../constant/select";
 
 function createRestaurantCard(restaurant) {
-  const restaurantCard = render(restaurant)
-
+  const restaurantCard = render(restaurant);
   return restaurantCard;
 }
 
@@ -18,7 +17,18 @@ function render({ category, name, walkingTime, description = '' }) {
 function createInfoDiv({ name, walkingTime, description = '' }) {
   const infoDiv = document.createElement('div');
   infoDiv.className = 'restaurant__info';
+
+  const infoHeader = document.createElement('div');
+  infoHeader.className = 'restaurant__info__header'
+
+  const infoHeaderTextArea = document.createElement('div');
+  infoHeaderTextArea.className = 'restaurant__info';
   
+  const star = document.createElement('img');
+  star.className = 'star lined'
+  star.src = './favorite-icon-lined.png'
+  star.alt = '추천별'
+
   const restaurantName = document.createElement('h3');
   restaurantName.className = 'restaurant__name text-subtitle';
   restaurantName.textContent = name;
@@ -31,9 +41,9 @@ function createInfoDiv({ name, walkingTime, description = '' }) {
   restaurantDescription.className = 'restaurant__description text-body';
   restaurantDescription.textContent = description;
   
-  infoDiv.append(restaurantName);
-  infoDiv.append(restaurantDistance);
-  infoDiv.append(restaurantDescription);
+  infoHeaderTextArea.append(restaurantName, restaurantDistance);
+  infoHeader.append(infoHeaderTextArea, star);
+  infoDiv.append(infoHeader, restaurantDescription);
 
   return infoDiv;
 }
@@ -48,3 +58,5 @@ function createCategoryImage(category) {
 }
 
 export default createRestaurantCard;
+
+

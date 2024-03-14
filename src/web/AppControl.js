@@ -1,6 +1,7 @@
 import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
 import createRestaurantCard from '../component/restaurantCard';
+import { createtabBar } from '../component/tabBar';
 import {
   categoryFilterList,
   sortingFilterLsit,
@@ -16,6 +17,16 @@ export const appController = {
   },
 
   setMainPage(restaurantManager) {
+    document.body.insertAdjacentElement(
+      'afterbegin',
+      createtabBar([{
+        className: 'tab__bar__item__checked',
+        text: '모든 음식점'
+      },{
+        className: 'tab__bar__item',
+        text: '자주 가는 음식점'
+      }])
+    );
     document.body.insertAdjacentElement(
       'afterbegin',
       createHeader({
@@ -85,10 +96,22 @@ export const appController = {
       listItem.className = 'restaurant';
 
       const categoryDiv = createRestaurantCard(restaurant);
+      listItem.addEventListener('click', (event) => this.chageStar(event));
       listItem.append(categoryDiv);
       restaurantList.append(listItem);
     });
 
     restaurantListContainer.appendChild(restaurantList);
   },
+
+  chageStar(event){
+    const target = event.target;
+    if(target.className === 'star lined'){
+      target.src= './favorite-icon-filled.png';
+      target.className = 'star filled';
+    } else if(target.className === 'star filled'){
+      target.src = './favorite-icon-lined.png';
+      target.className = 'star lined';
+    }
+  }
 };
