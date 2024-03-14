@@ -30,19 +30,27 @@ function changeLikeSectionColor(value, section) {
 const categorySection = document.querySelector('.restaurant-filter-container');
 const categorySectionClone = categorySection.cloneNode(true);
 
-function setSortAndFilterAttribute(currentElement) {
+function setAttributeInLike(currentElement) {
   if (currentElement === 'like-restaurants') {
     const restaurantCards = document.querySelector('.restaurant-list');
     document.querySelector('.restaurant-filter-container').remove();
     restaurantCards.setAttribute('data-sort-select', '이름순');
     restaurantCards.setAttribute('data-category-select', '전체');
   }
+}
+
+function setAttributeInAll(currentElement) {
   if (currentElement === 'all-restaurants') {
     const main = document.querySelector('main');
     main.insertBefore(categorySectionClone, main.children[1]);
     document.getElementById('category-select').addOptions(RESTAURANT_CATEGORY);
     document.getElementById('sort-select').addOptions(SORT_CONDITION);
   }
+}
+
+function setSortAndFilterAttribute(currentElement) {
+  setAttributeInLike(currentElement);
+  setAttributeInAll(currentElement);
 }
 
 function handleClickLikeButton(e) {

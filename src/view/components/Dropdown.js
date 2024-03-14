@@ -7,6 +7,7 @@ class Dropdown extends HTMLSelectElement {
   }
 
   addOptions(options) {
+    this.innerHTML = '';
     options.forEach((option) => {
       const optionElement = document.createElement('option');
       optionElement.value = option;
