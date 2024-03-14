@@ -16,6 +16,15 @@ export interface IRestaurantInfo {
   isLiked: boolean;
 }
 
+export const IMG_CATEGORY = Object.freeze({
+  한식: 'korean',
+  아시안: 'asian',
+  중식: 'chinese',
+  기타: 'etc',
+  양식: 'western',
+  일식: 'japanese',
+});
+
 class Restaurant {
   #restaurantInfo: IRestaurantInfo;
 

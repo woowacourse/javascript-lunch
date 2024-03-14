@@ -1,19 +1,10 @@
-import { Category, IRestaurantInfo } from '../../domain/Restaurant';
+import { Category, IMG_CATEGORY, IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
 
 import { showRestaurantDetailModal } from './RestaurantDetailModal';
 
 import LikeStar from './LikeStar';
 import '../../css/likeStar.css';
-
-const IMG_CATEGORY = Object.freeze({
-  한식: 'korean',
-  아시안: 'asian',
-  중식: 'chinese',
-  기타: 'etc',
-  양식: 'western',
-  일식: 'japanese',
-});
 
 class RestaurantCard extends HTMLLIElement {
   constructor(id: number) {
