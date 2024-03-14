@@ -14,7 +14,6 @@ class FavoriteRestaurantList extends HTMLElement {
 
     const $restaurantList = document.createElement('ul');
     $restaurantList.className = 'restaurant-list';
-
     const isFavoriteRestaurant = !!favoriteList[0];
 
     if (isFavoriteRestaurant) {
@@ -31,37 +30,6 @@ class FavoriteRestaurantList extends HTMLElement {
     }
 
     this.appendChild($restaurantList);
-
-    this.#addEventToFavoriteIconInFavoriteList();
-  }
-
-  #addEventToFavoriteIconInFavoriteList() {
-    const $favoriteIcon = this.querySelectorAll('favorite-icon');
-
-    $favoriteIcon?.forEach(($el) => {
-      $el.addEventListener('click', (event) =>
-        this.#handleClickToRemoveFromDisplay(event),
-      );
-    });
-  }
-
-  #handleClickToRemoveFromDisplay(event: Event) {
-    event.stopPropagation();
-
-    const { currentTarget } = event;
-
-    if (!(currentTarget instanceof HTMLElement)) return;
-    const $restaurant = currentTarget.closest('restaurant-item');
-    const favorite = currentTarget.getAttribute('favorite');
-
-    if (favorite !== 'false' || !$restaurant) return;
-    const $restaurantList = this.querySelector('.restaurant-list');
-
-    $restaurantList?.removeChild($restaurant);
-
-    if ($restaurantList?.childElementCount === 0) {
-      $restaurantList.innerHTML = '<none-restaurant></none-restaurant>';
-    }
   }
 }
 

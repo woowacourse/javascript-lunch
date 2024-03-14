@@ -93,9 +93,18 @@ class RestaurantInfoModalInner extends HTMLElement {
   #handleClickToDeleteStore(event: MouseEvent, storeName: string) {
     event.stopPropagation();
     const restaurantList = new RestaurantList();
+
     restaurantList.deleteStore(storeName);
 
-    RestaurantListController.injectRestaurantListHTML(restaurantList.list);
+    const isOpenFavoriteList = document.querySelector(
+      'favorite-restaurant-list',
+    );
+
+    const list = isOpenFavoriteList
+      ? restaurantList.list.filter((info) => info.favorite)
+      : restaurantList.list;
+
+    RestaurantListController.injectRestaurantListHTML(list);
 
     closeModal();
   }

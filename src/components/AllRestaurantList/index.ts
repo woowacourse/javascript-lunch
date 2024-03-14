@@ -11,11 +11,11 @@ class AllRestaurantList extends HTMLElement {
       <drop-box name="filteringCategory"></drop-box>
       <drop-box name="filteringSorting"></drop-box>
     </div>
-    <div class="restaurant-list">
-      <ul >
+
+      <ul class="restaurant-list" >
         <!--레스토랑 목록-->
       </ul>
-    </div>
+
     `;
   }
 }

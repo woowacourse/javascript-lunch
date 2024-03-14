@@ -16,7 +16,7 @@ const RestaurantListController = {
   },
 
   injectRestaurantListHTML(restaurantList?: RestaurantInfo[]) {
-    const $list = document.querySelector('.restaurant-list ul');
+    const $list = document.querySelector('.restaurant-list');
 
     const restaurantListText = restaurantList
       ?.map(
@@ -26,6 +26,7 @@ const RestaurantListController = {
       .join('');
 
     const noneRestaurant = '<none-restaurant></none-restaurant>';
+
     if ($list) {
       $list.innerHTML = restaurantListText || noneRestaurant;
     }

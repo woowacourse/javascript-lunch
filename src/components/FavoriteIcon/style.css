@@ -1,6 +1,22 @@
 favorite-icon {
   position: absolute;
+  img {
+    display: none;
+  }
 }
+
+favorite-icon.favorite-true {
+  .favorite-true-img {
+    display: block;
+  }
+}
+
+favorite-icon.favorite-false {
+  .favorite-false-img {
+    display: block;
+  }
+}
+
 favorite-icon button {
   box-sizing: border-box;
   border: none;
