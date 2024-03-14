@@ -151,3 +151,12 @@ export type HeaderComponentPropsType = {
 };
 
 export interface HeaderElementDataType extends BasicElementDataType {}
+
+export type FormComponentPropsType = {
+  id: string;
+  className: string;
+};
+
+export interface FormElementDataType extends BasicElementDataType {
+  TAG_ID: string;
+}
