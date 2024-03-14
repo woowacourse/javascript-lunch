@@ -57,13 +57,19 @@ function removeRestaurantInLocalStorage(index) {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
 }
 
+function executeDelete(id) {
+  restaurantCatalog.removeRestaurant(id); // domain data 삭제
+  removeRestaurantInLocalStorage(id); // LocalStorage data 삭제
+  document.querySelector('.restaurant-list').render(); // rerender
+  closeRestaurantDetailModal();
+}
+
 function addDeleteEventToButton(id) {
   const deleteButton = document.getElementById('restaurant-detail-modal-delete-button');
   deleteEventHandler = () => {
-    restaurantCatalog.removeRestaurant(id); // domain data 삭제
-    removeRestaurantInLocalStorage(id); // LocalStorage data 삭제
-    document.querySelector('.restaurant-list').render(); // rerender
-    closeRestaurantDetailModal();
+    const CONFIRM_STRING = '정말로 삭제하시겠습니까?';
+    const isConfirm = window.confirm(CONFIRM_STRING);
+    if (isConfirm) executeDelete(id);
   };
   deleteButton.addEventListener('click', deleteEventHandler);
 }
