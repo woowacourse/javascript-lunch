@@ -1,6 +1,6 @@
 import './style.css';
 
-import { KOREAN, CHINESE, JAPANESE, ASIAN, WESTERN, ETC } from '../../imgs/index';
+import { KOREAN, CHINESE, JAPANESE, ASIAN, WESTERN, ETC, LIKED, NOT_LIKED } from '../../imgs/index';
 import { Category, Distance } from '../../types/index';
 
 type LunchItemProps = {
@@ -19,14 +19,30 @@ export const CATEGORY_IMG = {
   기타: ETC,
 } as const;
 
-const LUNCH_ITEM_TEMPLATE = ({ category, name, distance, description }: LunchItemProps) => /* HTML */ `<li class="restaurant">
-    <div class="restaurant__category">
-      <img src=${CATEGORY_IMG[category]} alt=${category} class="category-icon">
+// eslint-disable-next-line max-lines-per-function
+const LUNCH_ITEM_TEMPLATE = ({
+  category,
+  name,
+  distance,
+  description,
+}: LunchItemProps) => /* HTML */ `
+  <li class="restaurant">
+    <div class="restaurant__category--img">
+      <img src=${CATEGORY_IMG[category]} alt=${category} class="category-icon" />
     </div>
     <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-      <p class="restaurant__description text-body">${description}</p>
+      <div class="restaurant__info--header">
+        <div class="restaurant__info--title">
+          <h3 class="restaurant__name text-subtitle">${name}</h3>
+          <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+        </div>
+        <div class="restaurant__info--liked">
+          <img src=${LIKED} alt="liked" class="liked- icon" />
+        </div>
+      </div>
+      <div class="restaurant__info--description">
+        <p class="restaurant__description text-body">${description}</p>
+      </div>
     </div>
   </li>
 `;

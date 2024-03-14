@@ -1,13 +1,14 @@
 .restaurant {
   display: flex;
   align-items: flex-start;
+  flex-direction: row;
 
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
 }
 
-.restaurant__category {
+.restaurant__category--img {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,6 +30,7 @@
 
 .restaurant__info {
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -50,4 +52,10 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__info--header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

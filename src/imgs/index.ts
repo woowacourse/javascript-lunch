@@ -5,3 +5,5 @@ export { default as ETC } from './category-etc.png';
 export { default as JAPANESE } from './category-japanese.png';
 export { default as KOREAN } from './category-korean.png';
 export { default as WESTERN } from './category-western.png';
+export { default as LIKED } from './favorite-icon-filled.png';
+export { default as NOT_LIKED } from './favorite-icon-lined.png';
