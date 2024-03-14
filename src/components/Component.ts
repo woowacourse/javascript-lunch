@@ -14,6 +14,8 @@ class Component extends HTMLElement {
     this.innerHTML = this.template();
   }
 
+  reRender(): void {}
+
   setEvent(): void {}
 
   removeEvent(): void {}

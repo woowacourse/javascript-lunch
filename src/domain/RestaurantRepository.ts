@@ -43,7 +43,13 @@ class RestaurantRepository {
       : this.#getSortedByDistance(filteredRestaurants);
   }
 
-  toggleFavoriteRestaurant(key: number) {}
+  toggleFavoriteRestaurant(key: number) {
+    this.#restaurants = this.#restaurants.map((restaurant) =>
+      restaurant.key === key ? { ...restaurant, isFavorite: !restaurant.isFavorite } : restaurant,
+    );
+
+    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+  }
 
   getFavoriteRestaurants() {
     return this.#restaurants.filter((restaurant) => restaurant.isFavorite);
