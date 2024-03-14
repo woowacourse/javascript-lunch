@@ -15,6 +15,10 @@ export default class BookmarkTab extends HTMLElement {
     this.appendChild(content);
   }
 
+  get isBookmark() {
+    return this.querySelector('.active').id === 'bookmark';
+  }
+
   connectedCallback() {
     this.#tabItems = this.querySelectorAll('.tab-item');
     this.addEventListener('click', this.#handleClickTabItem.bind(this));
@@ -31,9 +35,6 @@ export default class BookmarkTab extends HTMLElement {
     this.dispatchEvent(
       new CustomEvent(BOOKMARK_TAB_EVENTS.changeTab, {
         bubbles: true,
-        detail: {
-          isBookmark: targetItem.id === 'bookmark',
-        },
       }),
     );
   }

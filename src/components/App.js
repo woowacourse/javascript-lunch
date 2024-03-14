@@ -27,46 +27,14 @@ export default class App {
   }
 
   async start() {
+    const { categoryFilter, sortingFilter } = this.#restaurantFilters;
     this.#syncLocalStorageAndDomain();
-    this.#restaurantList.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
-
-    this.#addRestaurantSubmitEventListener();
-    this.#addFilterOnchangeEventListener();
-    this.#addBookmarkTabChangeEventListener();
-    this.#addRestaurantBookmarkOnchangeEventListener();
-  }
-
-  #addRestaurantSubmitEventListener() {
-    document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
-      const { formData } = e.detail;
-
-      this.#restaurantManger.add(formData);
-      this.#updateLocalStorage();
-      this.#restaurantFilters.categoryFilter = formData.category;
-      this.#updateRestaurantList(this.#restaurantFilters.categoryFilter, this.#restaurantFilters.sortingFilter);
+    this.#updateRestaurantList({
+      category: categoryFilter,
+      option: sortingFilter,
     });
-  }
 
-  #addFilterOnchangeEventListener() {
-    document.addEventListener(RESTAURANT_FILTERS_EVENTS.filterChange, (e) => {
-      const { categoryFilter, sortingFilter } = e.detail;
-      this.#updateRestaurantList(categoryFilter, sortingFilter);
-    });
-  }
-
-  #addBookmarkTabChangeEventListener() {
-    document.addEventListener(BOOKMARK_TAB_EVENTS.changeTab, (e) => {
-      const { isBookmark } = e.detail;
-      console.log(isBookmark);
-    });
-  }
-
-  #addRestaurantBookmarkOnchangeEventListener() {
-    document.addEventListener(RESTAURANT_ITEM_EVENTS.bookmarkBtnClicked, (e) => {
-      const { restaurant } = e.detail;
-      this.#restaurantManger.update(restaurant);
-      this.#updateLocalStorage();
-    });
+    this.#addEventListeners();
   }
 
   // TODO: 이건 localStorage 서비스로 분리 가능할듯?
@@ -80,8 +48,50 @@ export default class App {
     window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantManger.restaurants));
   }
 
-  #updateRestaurantList(category, option) {
-    const result = this.#restaurantManger.filteredAndSortedByOptions(category, option);
+  #updateRestaurantList({ category, option }, isBookmark) {
+    const result = this.#restaurantManger.getList({ category, option }, isBookmark);
     this.#restaurantList.restaurants = result;
+  }
+
+  #addEventListeners() {
+    this.#addRestaurantSubmitEventListener();
+    this.#addFilterOnchangeEventListener();
+    this.#addBookmarkTabChangeEventListener();
+    this.#addRestaurantBookmarkOnchangeEventListener();
+  }
+
+  #addRestaurantSubmitEventListener() {
+    document.addEventListener(RESTAURANT_FORM_EVENTS.submit, (e) => {
+      const { formData } = e.detail;
+      this.#restaurantManger.add(formData);
+      this.#updateLocalStorage();
+
+      this.#restaurantFilters.categoryFilter = formData.category;
+
+      const { categoryFilter, sortingFilter } = this.#restaurantFilters;
+      this.#updateRestaurantList({ category: categoryFilter, option: sortingFilter }, this.#bookmarkTab.isBookmark);
+    });
+  }
+
+  #addFilterOnchangeEventListener() {
+    document.addEventListener(RESTAURANT_FILTERS_EVENTS.filterChange, (e) => {
+      const { categoryFilter, sortingFilter } = e.detail;
+      this.#updateRestaurantList({ category: categoryFilter, option: sortingFilter }, this.#bookmarkTab.isBookmark);
+    });
+  }
+
+  #addBookmarkTabChangeEventListener() {
+    document.addEventListener(BOOKMARK_TAB_EVENTS.changeTab, () => {
+      const { categoryFilter, sortingFilter } = this.#restaurantFilters;
+      this.#updateRestaurantList({ category: categoryFilter, option: sortingFilter }, this.#bookmarkTab.isBookmark);
+    });
+  }
+
+  #addRestaurantBookmarkOnchangeEventListener() {
+    document.addEventListener(RESTAURANT_ITEM_EVENTS.bookmarkBtnClicked, (e) => {
+      const { restaurant } = e.detail;
+      this.#restaurantManger.update(restaurant);
+      this.#updateLocalStorage();
+    });
   }
 }

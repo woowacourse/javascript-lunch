@@ -34,12 +34,14 @@ class RestaurantManager {
     this.#restaurants[idx] = { ...restaurant };
   }
 
-  filteredAndSortedByOptions(category: Category, option: Option): Restaurant[] | void {
-    const filteredRestaurants = this.#filterByCategory(category);
+  getList({ category, option }: { category: Category; option: Option }, isBookmark: boolean): Restaurant[] | void {
+    const filteredCategoryList = this.#filterByCategory(category);
+    const filteredList = isBookmark
+      ? filteredCategoryList.filter((restaurant) => restaurant.isBookmark)
+      : filteredCategoryList;
 
-    if (option === 'name') return this.#sortByName(filteredRestaurants);
-
-    if (option === 'distance') return this.#sortByDistance(filteredRestaurants);
+    if (option === 'name') return this.#sortByName(filteredList);
+    if (option === 'distance') return this.#sortByDistance(filteredList);
   }
 
   #filterByCategory(category: Category): Restaurant[] {
