@@ -8,7 +8,6 @@ class RestCardComponent extends Component {
     const { category, name, distance, description, link } = props;
 
     this.checkTypeProps(props);
-    this.classList.add('rest-card');
 
     return `
     <li class="rest-card">

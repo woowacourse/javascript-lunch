@@ -2,6 +2,7 @@ import './styles/reset.css';
 import './styles/index.css';
 import './styles/appHeader.css';
 import './styles/restFilterContainer.css';
+import './styles/restLIstContainer.css';
 import './styles/restCard.css';
 import './styles/customModal.css';
 import './styles/addRestForm.css';
