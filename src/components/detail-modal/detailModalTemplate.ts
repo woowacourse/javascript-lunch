@@ -1,4 +1,5 @@
 import { Irestaurant } from "../../types/restaurant";
+import ModalBase from "../common/modal/modal";
 import { getMatchedCategoryInfo } from "../restaurant/Restaurant";
 import {
   categoryTemplate,
@@ -20,10 +21,6 @@ ${linkTemplate(restaurant.link)}
 `;
 
 const detailModalTemplate = (restaurant: Irestaurant) => /*html*/ `
-<div class="detail-modal">
-  <div class="modal-backdrop detail-modal-dackdrop"></div>
-  <div class="detail-modal-container">
-    ${restaurantInfoTemplate(restaurant)}
-  </div>
-</div>`;
+${ModalBase(restaurantInfoTemplate(restaurant), "detail-modal", "detail-modal-dackdrop", "detail-modal-container")}
+`;
 export default detailModalTemplate;
