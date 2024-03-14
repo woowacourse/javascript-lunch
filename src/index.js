@@ -3,7 +3,11 @@ import { createHeader } from "./components/Header.ts";
 
 // 1. 컴포넌트를 따로 만든다
 
-const header = createHeader();
+const header = createHeader({
+  title: "점심 뭐 먹니?",
+  imageSource: "./add-button.png",
+  onButtonClick: () => alert("안녕"),
+});
 
 // 2. 컴포넌트를 결합한다
 
