@@ -9,9 +9,22 @@ const header = createHeader({
   onButtonClick: () => alert("안녕"),
 });
 
+const modal = document.createElement("div");
+
+const modalBackdrop = document.createElement("div");
+const modalContainer = document.createElement("div");
+
+modal.classList.add("modal", "modal--open");
+modalBackdrop.classList.add("modal-backdrop");
+modalContainer.classList.add("modal-container");
+
 // 2. 컴포넌트를 결합한다
+
+modal.appendChild(modalBackdrop);
+modal.appendChild(modalContainer);
 
 // 3. 컴포넌트를 document에 붙인다.
 
 const container = document.querySelector("#container");
 container.prepend(header);
+container.appendChild(modal);
