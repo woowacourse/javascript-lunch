@@ -50,7 +50,7 @@ class Button extends Component<IButtonProps> {
     this.props.handleCloseModal();
   }
 
-  getRestaurantFormData($restaurantForm: HTMLFormElement): Restaurant {
+  getRestaurantFormData($restaurantForm: HTMLFormElement) {
     const elements = $restaurantForm.elements as FormElements;
 
     const category = elements.category.value as TCategory;
@@ -59,7 +59,18 @@ class Button extends Component<IButtonProps> {
     const description = elements.description.value;
     const referenceLink = elements.link.value;
 
-    return new Restaurant({ category, name, distance, description, referenceLink });
+    if (this.props.restaurantList != null) {
+      const nextId = this.props.restaurantList.getRestaurantListLength().toString();
+      return new Restaurant({
+        id: nextId,
+        category,
+        name,
+        distance,
+        isFavorite: false,
+        description,
+        referenceLink,
+      });
+    }
   }
 
   dispatchSelectEvent(): void {
