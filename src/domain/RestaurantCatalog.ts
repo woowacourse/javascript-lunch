@@ -6,7 +6,7 @@ export const SORT_CONDITION = Object.freeze(['이름순', '거리순'] as const)
 export const ALL_CATEGORY = '전체';
 
 class RestaurantCatalog {
-  restaurants: Restaurant[] = [];
+  restaurants: Array<Restaurant | null> = [];
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
     this.#validDuplicateName(restaurantInfo);
@@ -19,19 +19,25 @@ class RestaurantCatalog {
     return newRestaurant;
   }
 
+  removeRestaurant(index: number) {
+    this.restaurants[index] = null;
+  }
+
   #validDuplicateName(restaurantInfo: IRestaurantInfo) {
-    this.restaurants.forEach((restaurant: Restaurant) => {
-      if (restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
+    this.restaurants.forEach((restaurant: Restaurant | null) => {
+      if (restaurant && restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
         throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
     });
   }
 
-  filterByCategory(category: Category | typeof ALL_CATEGORY) {
+  filterByCategory(category: Category | typeof ALL_CATEGORY): Restaurant[] | [] {
     if (category === ALL_CATEGORY) {
-      return this.restaurants;
+      return this.restaurants.filter((restaurant) => restaurant) as Restaurant[];
     }
-    return this.restaurants.filter((restaurant) => restaurant.getRestaurantInfoObject().category === category);
+    return this.restaurants.filter(
+      (restaurant) => restaurant && restaurant?.getRestaurantInfoObject().category === category,
+    ) as Restaurant[];
   }
 
   sortByName(restaurants: IRestaurantInfo[]) {
@@ -58,7 +64,7 @@ class RestaurantCatalog {
   }
 
   getSpecificRestaurantInfo(index: number) {
-    return this.restaurants[index].getRestaurantInfoObject();
+    return this.restaurants[index]?.getRestaurantInfoObject();
   }
 
   getRestaurantsClass() {

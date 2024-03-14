@@ -16,13 +16,13 @@ class RestaurantCard extends HTMLLIElement {
   connectedCallback() {
     this.addEventListener('click', () => {
       const restaurant = restaurantCatalog.restaurants[Number(this.getAttribute('data-id'))!];
-      showRestaurantDetailModal(restaurant.getRestaurantInfoObject());
+      showRestaurantDetailModal(restaurant?.getRestaurantInfoObject());
     });
   }
 
   #render() {
     const restaurant = restaurantCatalog.restaurants[Number(this.getAttribute('data-id'))!];
-    this.#executeChild(restaurant.getRestaurantInfoObject());
+    if (restaurant) this.#executeChild(restaurant?.getRestaurantInfoObject());
   }
 
   #executeChild({ category, name, distanceFromCampus, description, isLiked, id }: IRestaurantInfo) {

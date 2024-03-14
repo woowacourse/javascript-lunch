@@ -23,7 +23,6 @@ function addDeleteEventToButton(id) {
     // TODO: 삭제하는 기능을 만듭니다.
     // 1. domian data를 삭제합니다.
     // 2. LS data를 삭제합니다.
-    console.log(id);
   };
   deleteButton.addEventListener('click', deleteEventHandler);
 }
