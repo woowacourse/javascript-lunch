@@ -1,4 +1,5 @@
 @import './root.css';
+@import '../components/Common/Common.css';
 @import '../components/Restaurant/RestaurantItem.css';
 
 * {
@@ -178,34 +179,4 @@ input[name='link'] {
 
 .button-container {
   display: flex;
-}
-
-.button {
-  width: 100%;
-  height: 44px;
-
-  margin-right: 16px;
-
-  border: none;
-  border-radius: 8px;
-
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.button:last-child {
-  margin-right: 0;
-}
-
-.button--secondary {
-  border: 1px solid var(--grey-300);
-  background: transparent;
-
-  color: var(--grey-300);
-}
-
-.button--primary {
-  background: var(--primary-color);
-
-  color: var(--grey-100);
 }

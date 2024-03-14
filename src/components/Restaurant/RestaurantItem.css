@@ -31,6 +31,12 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__sub-info {
+  display: flex;
+  justify-content: space-between;
 }
 
 .restaurant__name {
