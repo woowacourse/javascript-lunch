@@ -2,25 +2,31 @@ import Dropdown from './components/Dropdown';
 import RestaurantList from './components/RestaurantList';
 import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from './domain/Restaurant';
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
+import DropdownEvent from './event/DropdownEvent';
 import RestaurantStore from './store/RestaurantStore';
 
 class App {
   #restaurantStore;
 
-  #RestaurantListComponent;
+  #restaurantListComponent;
 
   constructor() {
     this.#restaurantStore = new RestaurantStore();
-    this.#RestaurantListComponent = new RestaurantList();
+    this.#restaurantListComponent = new RestaurantList();
   }
 
   run() {
     this.#renderRestaurants();
     this.#renderFilterDropdowns();
     this.#renderFormDropdowns();
-    this.#formSubmitEventHandler();
-    this.#buttonEventHandler();
-    this.#addDropdownEventListener();
+    this.#addEventListeners();
+  }
+
+  #addEventListeners() {
+    DropdownEvent.addCategoryDropdownEventListener(this.#restaurantListComponent);
+    DropdownEvent.addSortDropdownEventListener(this.#restaurantListComponent);
+    this.#addRestaurantFormEventListener();
+    this.#addModalButtonEventHandler();
   }
 
   #renderRestaurants() {
@@ -29,9 +35,9 @@ class App {
 
     if (restaurantsFromStorage && RestaurantListSection) {
       RestaurantListSection.innerHTML = '';
-      this.#RestaurantListComponent.renderRestaurantList(JSON.parse(restaurantsFromStorage));
+      this.#restaurantListComponent.renderRestaurantList(JSON.parse(restaurantsFromStorage));
 
-      RestaurantListSection.appendChild(this.#RestaurantListComponent);
+      RestaurantListSection.appendChild(this.#restaurantListComponent);
     }
   }
 
@@ -54,34 +60,7 @@ class App {
     );
   }
 
-  #addDropdownEventListener() {
-    this.#addCategoryDropdownEventListener();
-    this.#addSortDropdownEventListener();
-  }
-
-  #addCategoryDropdownEventListener() {
-    const categorySelect = document.getElementById('category-select');
-
-    categorySelect?.addEventListener('change', (event) => {
-      const target = event.target as HTMLSelectElement;
-      const selectedValue = target.value;
-
-      this.#RestaurantListComponent.updateCategoryFilter(selectedValue);
-    });
-  }
-
-  #addSortDropdownEventListener() {
-    const sortSelect = document.getElementById('sort-select');
-
-    sortSelect?.addEventListener('change', (event) => {
-      const target = event.target as HTMLSelectElement;
-      const selectedValue = target.value;
-
-      this.#RestaurantListComponent.updateSortCondition(selectedValue);
-    });
-  }
-
-  #formSubmitEventHandler() {
+  #addRestaurantFormEventListener() {
     const addForm = document.getElementById('add-restaurant-form');
 
     addForm?.addEventListener('submit', (event) => {
@@ -114,7 +93,7 @@ class App {
     }
   }
 
-  #buttonEventHandler() {
+  #addModalButtonEventHandler() {
     const modalCloseButton = document.getElementById('form-modal-close-button');
     modalCloseButton?.addEventListener('click', () => {
       this.#closeModal();
