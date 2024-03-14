@@ -2,6 +2,7 @@ import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from '
 import { STORAGE_KEY } from '../constants/config';
 import { ALL, BY_NAME_ASC } from '../constants/filter';
 import RestaurantStorage from './RestaurantStorage';
+import Restaurant from './Restaurant';
 
 class RestaurantList {
   restaurants: IRestaurantList;
@@ -25,6 +26,10 @@ class RestaurantList {
     return sortingCondition === BY_NAME_ASC ? this.getSortedByName() : this.getSortedByDistance();
   }
 
+  getRestaurantListLength() {
+    return this.restaurants.length;
+  }
+
   add(restaurant: TRestaurantInstance): void {
     const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
     this.restaurants = restaurantsInStorage.length > 0 ? [...restaurantsInStorage, restaurant] : [restaurant];
@@ -35,6 +40,15 @@ class RestaurantList {
     this.restaurants = RestaurantStorage.get(STORAGE_KEY);
     if (category !== ALL)
       this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
+  }
+
+  setFavoriteRestaurantList(targetId: string) {
+    this.restaurants = this.restaurants.map(restaurant =>
+      restaurant.information.id === targetId
+        ? new Restaurant({ ...restaurant.information, isFavorite: !restaurant.information.isFavorite })
+        : restaurant,
+    );
+    RestaurantStorage.set(this.restaurants);
   }
 }
 

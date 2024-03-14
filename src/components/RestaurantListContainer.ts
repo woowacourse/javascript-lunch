@@ -30,8 +30,20 @@ class RestaurantListContainer extends Component<IProps> {
     const $restaurantList = dom.getElement('.restaurant-list');
     $restaurantList.replaceChildren();
     restaurantList.restaurants.forEach(restaurant => {
-      new RestaurantItem({ $target: $restaurantList, information: restaurant.information });
+      new RestaurantItem({
+        $target: $restaurantList,
+        props: {
+          information: restaurant.information,
+          handleClickFavorite: this.handleClickFavorite.bind(this),
+        },
+      });
     });
+  }
+
+  handleClickFavorite(id: string) {
+    const { restaurantList } = this.props;
+    restaurantList.setFavoriteRestaurantList(id);
+    this.renderAllRestaurants(restaurantList);
   }
 }
 

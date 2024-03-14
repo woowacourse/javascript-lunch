@@ -45,8 +45,11 @@ class Dropdown extends Component<IDropdownProps> {
   renderNewRestaurantList(sortedList: IRestaurantList): void {
     const $restaurantList = dom.getElement('.restaurant-list');
     $restaurantList.replaceChildren();
-    sortedList.forEach(element => {
-      new RestaurantItem({ $target: $restaurantList, information: element.information });
+    sortedList.forEach(restaurant => {
+      new RestaurantItem({
+        $target: $restaurantList,
+        props: { information: restaurant.information },
+      });
     });
   }
 
