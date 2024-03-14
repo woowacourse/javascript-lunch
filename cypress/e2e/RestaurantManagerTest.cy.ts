@@ -8,6 +8,7 @@ describe('음식점 목록 테스트', () => {
   it('음식점을 추가하면 정상적으로 추가되었는지 확인한다.', () => {
     // given
     const newRestaurant: Restaurant = {
+      id: 1,
       category: '중식',
       name: '친친',
       walkingTime: 5,
@@ -26,21 +27,25 @@ describe('음식점 목록 테스트', () => {
     // given
     const localStorageRestaurants: Restaurant[] = [
       {
+        id: 1,
         category: '한식',
         name: '바',
         walkingTime: 5,
       },
       {
+        id: 2,
         category: '한식',
         name: '가',
         walkingTime: 5,
       },
       {
+        id: 3,
         category: '한식',
         name: '나',
         walkingTime: 5,
       },
       {
+        id: 4,
         category: '한식',
         name: '마녀김밥',
         walkingTime: 5,
@@ -51,21 +56,25 @@ describe('음식점 목록 테스트', () => {
     );
     const sortedByAscendingName: Restaurant[] = [
       {
+        id: 2,
         category: '한식',
         name: '가',
         walkingTime: 5,
       },
       {
+        id: 3,
         category: '한식',
         name: '나',
         walkingTime: 5,
       },
       {
+        id: 4,
         category: '한식',
         name: '마녀김밥',
         walkingTime: 5,
       },
       {
+        id: 1,
         category: '한식',
         name: '바',
         walkingTime: 5,
@@ -82,26 +91,31 @@ describe('음식점 목록 테스트', () => {
     // given
     const localStorageRestaurants: Restaurant[] = [
       {
+        id: 1,
         category: '한식',
         name: '바',
         walkingTime: 30,
       },
       {
+        id: 2,
         category: '한식',
         name: '간',
         walkingTime: 5,
       },
       {
+        id: 3,
         category: '한식',
         name: '가',
         walkingTime: 5,
       },
       {
+        id: 4,
         category: '한식',
         name: '나',
         walkingTime: 20,
       },
       {
+        id: 5,
         category: '한식',
         name: '마녀김밥',
         walkingTime: 10,
@@ -112,26 +126,31 @@ describe('음식점 목록 테스트', () => {
     );
     const sortedByAscendingWalkingTime: Restaurant[] = [
       {
+        id: 3,
         category: '한식',
         name: '가',
         walkingTime: 5,
       },
       {
+        id: 2,
         category: '한식',
         name: '간',
         walkingTime: 5,
       },
       {
+        id: 5,
         category: '한식',
         name: '마녀김밥',
         walkingTime: 10,
       },
       {
+        id: 4,
         category: '한식',
         name: '나',
         walkingTime: 20,
       },
       {
+        id: 1,
         category: '한식',
         name: '바',
         walkingTime: 30,
@@ -163,21 +182,25 @@ describe('음식점 목록 테스트', () => {
 
   const totalRestaurants: Restaurant[] = [
     {
+      id: 1,
       category: '중식',
       name: '가',
       walkingTime: 5,
     },
     {
+      id: 2,
       category: '한식',
       name: '마녀김밥',
       walkingTime: 10,
     },
     {
+      id: 3,
       category: '한식',
       name: '나',
       walkingTime: 20,
     },
     {
+      id: 4,
       category: '일식',
       name: '바',
       walkingTime: 30,
@@ -190,6 +213,7 @@ describe('음식점 목록 테스트', () => {
         category: '중식',
         filteredRestaurants: [
           {
+            id: 1,
             category: '중식',
             name: '가',
             walkingTime: 5,
@@ -200,6 +224,7 @@ describe('음식점 목록 테스트', () => {
         category: '일식',
         filteredRestaurants: [
           {
+            id: 4,
             category: '일식',
             name: '바',
             walkingTime: 30,
@@ -210,11 +235,13 @@ describe('음식점 목록 테스트', () => {
         category: '한식',
         filteredRestaurants: [
           {
+            id: 2,
             category: '한식',
             name: '마녀김밥',
             walkingTime: 10,
           },
           {
+            id: 3,
             category: '한식',
             name: '나',
             walkingTime: 20,
