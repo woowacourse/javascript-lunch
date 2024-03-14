@@ -21,6 +21,8 @@ class MatzipContainer extends HTMLElement {
 
   openTotalMatzip() {
     $('.total-matzip')?.addEventListener('click', () => {
+      $('.total-matzip')?.classList.remove('matzip-nav--close');
+      $('.favorite-matzip')?.classList.add('matzip-nav--close');
       $('matzip-favorite-container')?.classList.add('container--close');
       $('matzip-default-container')?.classList.remove('container--close');
     });
@@ -28,6 +30,8 @@ class MatzipContainer extends HTMLElement {
 
   openFavoriteMatzip() {
     $('.favorite-matzip')?.addEventListener('click', () => {
+      $('.total-matzip')?.classList.add('matzip-nav--close');
+      $('.favorite-matzip')?.classList.remove('matzip-nav--close');
       $('matzip-favorite-container')?.classList.remove('container--close');
       $('matzip-default-container')?.classList.add('container--close');
     });
