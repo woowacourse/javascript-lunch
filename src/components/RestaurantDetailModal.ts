@@ -1,11 +1,11 @@
 import Component from './Component';
-import { $ } from '../utils/dom';
 import RestaurantRepository from '../domain/RestaurantRepository';
+import { $, $addEvent } from '../utils/dom';
 import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
 import favoriteLinedIcon from '../assets/favorite-icon-lined.png';
 
 class RestaurantDetailModal extends Component {
-  static observedAttributes = ['key', 'open'];
+  static observedAttributes: string[] = ['key', 'open'];
 
   #key: number;
   #restaurant: IRestaurant;
@@ -13,55 +13,47 @@ class RestaurantDetailModal extends Component {
   constructor() {
     super();
 
-    this.#key = Number(this.getAttribute('key')) || 0;
-    this.#restaurant = RestaurantRepository.getRestaurant(this.#key) as IRestaurant;
+    const key = Number(this.getAttribute('key')) ?? 0;
+
+    this.#key = key;
+    this.#restaurant = RestaurantRepository.getRestaurant(key);
   }
 
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
     this.render();
-    this.setEvent();
 
     if (newValue) {
       this.#updateModal(JSON.parse(newValue));
     }
   }
 
-  setEvent() {
-    this.addEventListener('click', (event) => {
-      if ((event.target as HTMLElement).classList.contains('button--primary')) {
-        this.#updateModal(false);
-      }
-
-      if ((event.target as HTMLElement).classList.contains('button--secondary')) {
-        RestaurantRepository.removeRestaurant(this.#key);
-        this.makeCustomEvent('updateRestaurantList');
-        this.#updateModal(false);
-      }
-    });
+  setEvent(): void {
+    $addEvent(this, '.button--primary', 'click', () => this.#updateModal(false));
+    $addEvent(this, '.button--secondary', 'click', () => this.#removeRestaurant());
   }
 
-  #toggleFavorite() {
-    RestaurantRepository.toggleFavoriteRestaurant(this.#key);
-    this.reRender();
-  }
-
-  #updateModal(isOpen: boolean) {
+  #updateModal(isOpen: boolean): void {
     if (isOpen) {
-      $(this, '.modal').classList.add('modal--open');
+      ($(this, 'dialog') as HTMLDialogElement).showModal();
     } else {
-      $(this, '.modal').classList.remove('modal--open');
+      ($(this, 'dialog') as HTMLDialogElement).close();
     }
   }
 
-  #handleFavoriteIcon(isFavorite: boolean) {
+  #removeRestaurant(): void {
+    RestaurantRepository.removeRestaurant(this.#key);
+    this.makeCustomEvent('updateRestaurantList');
+  }
+
+  #handleFavoriteIcon(isFavorite: boolean): string {
     return isFavorite
       ? `<img src=${favoriteFilledIcon} alt="즐겨찾기"></img>`
       : `<img src=${favoriteLinedIcon} alt="즐겨찾기"></img>`;
   }
 
-  template() {
+  template(): string {
     return `
-        <div class="modal">
+        <dialog>
             <div class="modal-backdrop"></div>
             <div class="modal-container">
               <div class="restaurant-detail-container">
@@ -79,7 +71,7 @@ class RestaurantDetailModal extends Component {
                   <button type="button" class="button button--primary text-caption">닫기</button>
               </div>
             </div>
-        </div>
+        </dialog>
       `;
   }
 }
