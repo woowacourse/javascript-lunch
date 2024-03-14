@@ -2,7 +2,7 @@ import { IRestaurantInfo } from './Restaurant';
 
 const mockingData: readonly IRestaurantInfo[] = Object.freeze([
   {
-    id: 1,
+    id: 0,
     category: '한식',
     name: '피양콩할마니',
     distanceFromCampus: 10,
@@ -11,7 +11,7 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     isLiked: false,
   },
   {
-    id: 2,
+    id: 1,
     category: '한식',
     name: '농민백암순대 본점',
     distanceFromCampus: 15,
@@ -19,7 +19,7 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     isLiked: false,
   },
   {
-    id: 3,
+    id: 2,
     category: '중식',
     name: '친친',
     distanceFromCampus: 5,
@@ -27,7 +27,7 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     isLiked: false,
   },
   {
-    id: 4,
+    id: 3,
     category: '중식',
     name: '영빈관',
     distanceFromCampus: 10,
@@ -35,7 +35,7 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     isLiked: false,
   },
   {
-    id: 5,
+    id: 4,
     category: '일식',
     name: '잇쇼우',
     distanceFromCampus: 10,
@@ -44,7 +44,7 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     isLiked: false,
   },
   {
-    id: 6,
+    id: 5,
     category: '양식',
     name: '이태리키친',
     distanceFromCampus: 20,
@@ -52,7 +52,7 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     isLiked: false,
   },
   {
-    id: 7,
+    id: 6,
     category: '기타',
     name: '도스타코스 선릉점',
     distanceFromCampus: 5,
