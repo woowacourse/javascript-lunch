@@ -41,23 +41,13 @@ class RestaurantController {
   }
 
   updateRestaurantList() {
-    const heart = './favorite-icon-lined.png';
-    const redHeart = './favorite-icon-filled.png';
-
     const restaurantService = new RestaurantService();
     const filteredList = restaurantService.filterByCategory(this.#category, this.#restaurantList);
     const processedList = restaurantService.sortByProperty(this.#property, filteredList);
 
     OutputView.renderRestaurantList(processedList);
 
-    const restaurantListContainer = $('.restaurant-list-container');
-    restaurantListContainer.addEventListener('click', event => {
-      const id = event.target.id;
-      const restaurant = this.#restaurantList[id];
-      const newFavoriteState = !restaurant.favorite;
-      restaurant.favorite = newFavoriteState;
-      event.target.src = newFavoriteState ? redHeart : heart;
-    });
+    this.manageRestaurantItems();
   }
 
   showAddRestaurantModal() {
@@ -118,6 +108,38 @@ class RestaurantController {
       this.#property = sortingFilter.options[sortingFilter.selectedIndex].value;
       this.updateRestaurantList();
     });
+  }
+
+  manageRestaurantItems() {
+    const restaurantList = $('.restaurant-list');
+    restaurantList.addEventListener('click', event => {
+      const favoriteButton = event.target.closest('.favorite-button');
+      const restaurantItem = event.target.closest('.restaurant');
+
+      if (favoriteButton) {
+        this.changeFavoriteButton(favoriteButton);
+      } else if (restaurantItem) {
+        this.showDetailRestaurantModal(restaurantItem);
+      }
+    });
+  }
+
+  changeFavoriteButton(favoriteButton) {
+    const lined = './favorite-icon-lined.png';
+    const filled = './favorite-icon-filled.png';
+
+    const restaurant = this.#restaurantList[favoriteButton.id];
+
+    restaurant.favorite = !restaurant.favorite;
+    favoriteButton.src = restaurant.favorite ? filled : lined;
+  }
+
+  showDetailRestaurantModal(restaurantItem) {
+    const restaurant = this.#restaurantList[restaurantItem.id];
+
+    OutputView.renderDetailRestaurant(restaurant);
+    // this.manageAddRestaurantFormEvents();
+    this.manageModalEvents();
   }
 }
 

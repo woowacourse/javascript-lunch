@@ -1,4 +1,5 @@
 import AddRestaurantModal from '../components/Modal/AddRestaurantModal';
+import DetailRestaurantModal from '../components/Modal/DetailRestaurantModal';
 import RestaurantItem from '../components/Restaurant/RestaurantItem';
 import { $ } from '../utils/querySelector';
 
@@ -21,6 +22,15 @@ const OutputView = {
     const modalContainer = $('.modal-container');
 
     const newNode = AddRestaurantModal();
+    modalContainer.innerHTML = newNode;
+
+    this.openModal();
+  },
+
+  renderDetailRestaurant(restaurant) {
+    const modalContainer = $('.modal-container');
+
+    const newNode = DetailRestaurantModal(restaurant);
     modalContainer.innerHTML = newNode;
 
     this.openModal();
