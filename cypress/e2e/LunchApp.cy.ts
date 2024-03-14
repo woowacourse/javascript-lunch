@@ -51,7 +51,7 @@ describe("점심 뭐 먹지 앱 e2e 기능 테스트", () => {
       cy.get("#url-input").type("http://example.com");
       cy.get("#restaurant-add-form").submit();
 
-      cy.get("restaurant-add-modal").should("not.exist");
+      cy.get("restaurant-add-modal").should("not.be.visible");
       cy.get("restaurant-item").should(
         "have.length",
         restaurantDetailJson.length + 1
