@@ -1,4 +1,5 @@
 import RestaurantStorage from '../store/RestaurantStorage';
+import { generateRandomNumber } from '../utils/random';
 
 class RestaurantRepository {
   #restaurants;
@@ -24,7 +25,7 @@ class RestaurantRepository {
   }
 
   addRestaurant(restaurant: Restaurant) {
-    this.#restaurants = [...this.#restaurants, { key: this.#restaurants.length + 1, ...restaurant }];
+    this.#restaurants = [...this.#restaurants, { key: generateRandomNumber(), ...restaurant }];
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
@@ -55,6 +56,8 @@ class RestaurantRepository {
     this.#restaurants = this.#restaurants.map((restaurant) =>
       restaurant.key === key ? { ...restaurant, isFavorite: !restaurant.isFavorite } : restaurant,
     );
+
+    console.log(this.#restaurants);
 
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
