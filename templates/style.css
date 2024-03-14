@@ -13,12 +13,22 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+  
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+html:-webkit-scrollbar {
+  display: none;
 }
 
 button {
   border: 0;
   background-color: transparent;
 }
+
+
 
 /* Colors *****************************************/
 :root {
