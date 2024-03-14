@@ -6,6 +6,7 @@ import RestaurantList from '../RestaurantList/RestaurantList';
 
 import './FilterContainer.css';
 import MainApp from '../MainApp';
+import AllRestaurantApp from '../AllRestaurantApp';
 class FilterContainer extends BaseComponent {
   #selectCategoryBox: SelectBox<CategoryOrAll>;
   #selectSortBox: SelectBox<SortCriteria>;
@@ -39,7 +40,7 @@ class FilterContainer extends BaseComponent {
 
   setEvent() {
     this.addEventListener('change', () => {
-      (this.parentElement as MainApp).paint();
+      (this.parentElement as AllRestaurantApp).paint();
     });
   }
 }

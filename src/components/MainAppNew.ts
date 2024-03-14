@@ -8,7 +8,7 @@ import restaurantListMock from '@/mock/restaurantList.mock';
 import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
 
-class MainApp extends HTMLDivElement {
+class MainAppNew extends HTMLDivElement {
   #newRestaurantModal: NewRestaurantModal;
   #restaurantDBService: RestaurantDBService;
 
@@ -56,6 +56,6 @@ class MainApp extends HTMLDivElement {
   }
 }
 
-customElements.define('main-app', MainApp, { extends: 'div' });
+customElements.define('main-app-newa', MainAppNew, { extends: 'div' });
 
-export default MainApp;
+export default MainAppNew;

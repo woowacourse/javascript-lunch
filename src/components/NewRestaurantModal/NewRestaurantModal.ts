@@ -16,6 +16,7 @@ import {
 import './NewRestaurantModal.css';
 import VerticalInputBox from '../Basic/VerticalInputBox/VerticalInputBox';
 import MainApp from '../MainApp';
+import AllRestaurantApp from '../AllRestaurantApp';
 class NewRestaurantModal extends BasicModal {
   #title: HTMLHeadingElement;
   #form: HTMLFormElement;
@@ -210,7 +211,7 @@ class NewRestaurantModal extends BasicModal {
   }
 
   #rerenderApp() {
-    (this.parentElement as MainApp).paint();
+    (this.parentElement as AllRestaurantApp).paint();
   }
 
   #domParse(string: string) {
