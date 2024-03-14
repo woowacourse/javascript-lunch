@@ -1,0 +1,5 @@
+const RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA = Object.freeze({
+  TAG_CLASS_NAME: 'detail-container',
+});
+
+export default RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA;

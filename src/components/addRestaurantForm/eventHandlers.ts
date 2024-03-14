@@ -4,7 +4,6 @@ import inputDescriptionHandler from '../modal/inputDescription/eventHandlers';
 import { submitHandler, cancelHandler } from '../modal/modalButton/eventHandlers';
 import categoryChange from '../modal/selectCategory/eventHandlers';
 import distanceChange from '../modal/selectDistance/eventHandlers';
-import dimmerClickHandler from '../modal/eventHandlers';
 
 const addNewRestaurantFormEventHandler = () => {
   inputNameHandler();
@@ -14,7 +13,6 @@ const addNewRestaurantFormEventHandler = () => {
   cancelHandler();
   categoryChange();
   distanceChange();
-  dimmerClickHandler();
 };
 
 export default addNewRestaurantFormEventHandler;

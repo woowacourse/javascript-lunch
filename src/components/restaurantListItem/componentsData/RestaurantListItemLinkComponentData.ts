@@ -1,0 +1,7 @@
+const RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA = {
+  TAG_HREF: (href: string) => href,
+  TAG_CLASS_NAME: '',
+  TAG_BLANK: true,
+};
+
+export default RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA;

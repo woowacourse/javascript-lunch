@@ -1,0 +1,5 @@
+const IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA = Object.freeze({
+  TAG_CLASS_NAME: 'image-favorite-container',
+});
+
+export default IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA;
