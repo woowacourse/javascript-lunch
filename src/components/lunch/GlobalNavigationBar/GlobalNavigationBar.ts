@@ -31,7 +31,7 @@ class GlobalNavigationBar extends BaseComponent {
   protected setEvent(): void {
     this.on({
       ...this.eventListeners.gnbButtonClick,
-      target: $(ELEMENT_SELECTOR.gnbButton),
+      target: $(ELEMENT_SELECTOR.gnbButton) ?? document,
     });
   }
 
@@ -42,7 +42,7 @@ class GlobalNavigationBar extends BaseComponent {
   protected removeEvent(): void {
     this.off({
       ...this.eventListeners.gnbButtonClick,
-      target: $(ELEMENT_SELECTOR.gnbButton),
+      target: $(ELEMENT_SELECTOR.gnbButton) ?? document,
     });
   }
 }

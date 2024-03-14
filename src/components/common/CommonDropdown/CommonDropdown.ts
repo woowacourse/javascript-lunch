@@ -44,7 +44,7 @@ class CommonDropdown extends BaseComponent {
 
     this.on({
       ...this.eventListeners.dropDown,
-      target: $(target ?? ""),
+      target: $(target ?? "") ?? document,
     });
   }
 
@@ -69,7 +69,7 @@ class CommonDropdown extends BaseComponent {
 
     this.off({
       ...this.eventListeners.dropDown,
-      target: $(target ?? ""),
+      target: $(target ?? "") ?? document,
     });
   }
 }

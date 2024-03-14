@@ -104,12 +104,12 @@ class RestaurantAddForm extends BaseComponent {
 
     this.on({
       ...this.eventListeners.resetForm,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
 
     this.on({
       ...this.eventListeners.modalCancelButtonClick,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
   }
 
@@ -204,12 +204,12 @@ class RestaurantAddForm extends BaseComponent {
 
     this.off({
       ...this.eventListeners.resetForm,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
 
     this.off({
       ...this.eventListeners.modalCancelButtonClick,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
   }
 }
