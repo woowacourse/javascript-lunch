@@ -35,10 +35,10 @@ export const mountFilterBarComponent = (filteredRestaurantListFromTabValueQuery:
   const main = document.querySelector('main');
   const filterBar = FilterBar();
 
-  bindSelectCategoryOrDistanceOrNameFilterEvent();
   if (main) {
     main.innerHTML = '';
     main.appendChild(filterBar);
     RestaurantList(filteredRestaurantListFromTabValueQuery);
+    bindSelectCategoryOrDistanceOrNameFilterEvent();
   }
 };

@@ -15,12 +15,10 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
 };
 
 const selectOptionByFoodCategory = () => {
-  document.addEventListener('DOMContentLoaded', () => {
-    const categoryFilter = document.getElementById('category-filter');
-    if (categoryFilter) {
-      categoryFilterHandler(categoryFilter);
-    }
-  });
+  const categoryFilter = document.getElementById('category-filter');
+  if (categoryFilter) {
+    categoryFilterHandler(categoryFilter);
+  }
 };
 
 const selectOptionByNameSortEvent = (event: Event) => {
@@ -38,12 +36,10 @@ const sortHandler = (sortFilter: HTMLElement) => {
 };
 
 const selectOptionByNameOrDistance = () => {
-  document.addEventListener('DOMContentLoaded', () => {
-    const sortFilter = document.getElementById('sorting-filter');
-    if (sortFilter) {
-      sortHandler(sortFilter);
-    }
-  });
+  const sortFilter = document.getElementById('sorting-filter');
+  if (sortFilter) {
+    sortHandler(sortFilter);
+  }
 };
 
 export const bindSelectCategoryOrDistanceOrNameFilterEvent = () => {

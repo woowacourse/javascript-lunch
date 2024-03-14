@@ -23,8 +23,12 @@ const RestaurantListItemDetailPhaseHandler = (event: Event) => {
 };
 
 const listItemClickHandler = () => {
-  const listContainer = document.querySelector('.restaurant-list') as HTMLLIElement;
-  listContainer.addEventListener('click', (event) => RestaurantListItemDetailPhaseHandler(event));
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (target && target.closest('.restaurant-list li')) {
+      RestaurantListItemDetailPhaseHandler(event);
+    }
+  });
 };
 
 const showRestaurantListItemDetail = () => {
