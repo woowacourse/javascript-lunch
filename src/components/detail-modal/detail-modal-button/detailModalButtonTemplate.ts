@@ -1,5 +1,5 @@
 const detailModalButtonTemplate = /*html*/ `
-<div class="button-container">
+<div class="button-container detail-modal-button-container">
     <button
     type="button"
     class="button button--secondary button--remove text-caption"
