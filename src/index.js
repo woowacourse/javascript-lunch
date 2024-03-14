@@ -1,16 +1,14 @@
 import "./resources.js";
+import { RESTAURANTS_SAMPLE } from "./constants.ts";
 import { createHeader } from "./components/Header.ts";
 import AddingRestaurantModal from "./components/AddingRestaurantModal.ts";
 import { createRestaurantItem } from "./components/ResetaurantItem.ts";
-import Modal from "./components/Modal.ts";
+import RestaurantDetailModal from "./components/RestaurantDetailModal.ts";
 
 // 1. 컴포넌트를 따로 만든다
 
 const addingRestaurantModal = new AddingRestaurantModal();
-
-const restaurantDetailContent = document.createElement("div");
-restaurantDetailContent.innerHTML = "<h2>레스토랑 상세 보기</h2>";
-const restaurantDetailModal = new Modal({ child: restaurantDetailContent });
+const restaurantDetailModal = new RestaurantDetailModal();
 
 const header = createHeader({
   title: "점심 뭐 먹니?",
@@ -22,17 +20,14 @@ const restaurantList = document.createElement("ul");
 restaurantList.classList.add("restaurant-list");
 
 // 2. 컴포넌트를 결합한다
-restaurantList.appendChild(
+const restaurantItems = RESTAURANTS_SAMPLE.map((restaurantItem) =>
   createRestaurantItem({
-    restaurant: {
-      category: "한식",
-      name: "피양콩할머니",
-      distance: 8,
-      description: "달려가면 8분",
-    },
+    restaurant: restaurantItem,
     onClick: () => restaurantDetailModal.toggle(),
   })
 );
+
+restaurantItems.forEach((child) => restaurantList.appendChild(child));
 
 // 3. 컴포넌트를 document에 붙인다.
 
