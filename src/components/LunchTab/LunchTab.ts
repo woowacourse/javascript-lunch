@@ -6,17 +6,12 @@ interface LunchTabProps {
   textContent: string;
 }
 
-interface HandleEventProps {
-  props: LunchTabProps[];
-  name: string;
-}
-
 class LunchTab extends HTMLElement {
   constructor(props: LunchTabProps[]) {
     super();
     this.className = 'lunch-tab';
     this.createTabItems(props);
-    this.setEventListener(props);
+    this.setEventListener();
   }
 
   createTabItems(props: LunchTabProps[]) {
@@ -25,18 +20,19 @@ class LunchTab extends HTMLElement {
     });
   }
 
-  setEventListener(props: LunchTabProps[]) {
+  setEventListener() {
     this.addEventListener('tabClick', (event) => {
-      const { name } = (event as CustomEvent).detail;
-      this.handleTabClickEvent({ props, name });
+      if (!(event instanceof CustomEvent)) return;
+      this.handleTabClickEvent(event);
     });
   }
 
-  handleTabClickEvent(props: HandleEventProps) {
+  handleTabClickEvent(event: CustomEvent) {
+    const { name } = event.detail;
     const tabItems = this.querySelectorAll('.tab-button');
     tabItems.forEach((tabButton) => {
       tabButton.classList.remove('tab-button__active');
-      if ((tabButton as HTMLButtonElement).name === props.name) {
+      if ((tabButton as HTMLButtonElement).name === name) {
         tabButton.classList.add('tab-button__active');
       }
     });
