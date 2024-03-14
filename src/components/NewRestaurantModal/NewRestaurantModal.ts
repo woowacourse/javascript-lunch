@@ -28,12 +28,6 @@ class NewRestaurantModal extends BasicModal {
     this.#setSubmitEvent();
   }
 
-  render() {
-    //this.closeModal();
-    // NOTE : 필요시 Shadow DOM 을 고려해보는것도 좋음.
-    //this.attachShadow({ mode: 'open' });
-  }
-
   #makeTitle() {
     const title = document.createElement('h2');
     title.classList.add('modal-title', 'text-title');

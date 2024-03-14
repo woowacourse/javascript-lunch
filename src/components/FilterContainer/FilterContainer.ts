@@ -1,7 +1,6 @@
 import { CATEGORIES_WITH_ALL_KEYS, SORT_CRITERION_KEYS } from '@/constants/Condition';
 import BaseComponent from '../BaseComponent';
 import SelectBox from '../Basic/SelectBox/SelectBox';
-import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, CategoryOrAll, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
 

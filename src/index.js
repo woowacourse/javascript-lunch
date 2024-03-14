@@ -9,6 +9,8 @@ import '@/components/Basic/RestaurantCategoryIcon/RestaurantCategoryIcon';
 import '@/components/RestaurantList/RestaurantList';
 import '@/components/RestaurantList/RestaurantItem';
 import '@/components/NewRestaurantModal/NewRestaurantModal';
+import '@/components/Tab';
+import '@/components/OnOffButton';
 import '@/components/MainApp';
 
 import '@/css/index.css';

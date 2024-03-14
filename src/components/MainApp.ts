@@ -17,7 +17,12 @@ class MainApp extends HTMLDivElement {
   constructor() {
     super();
     this.className = 'main-app';
-    this.innerHTML = `<filter-container class="restaurant-filter-container"></filter-container>
+    this.innerHTML = `
+    <div is="my-tab" class="restaurant-nav-tab" style="margin-top:22px;"> 
+    <div is="on-off-button" class="text-subtitle" checked="on">모든 음식점</div>
+    <div is="on-off-button" class="text-subtitle">자주 가는 음식점</div>
+    </div>
+    <filter-container class="restaurant-filter-container"></filter-container>
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
     <div is="new-restaurant-modal" class="modal"></div>`;
 
@@ -27,10 +32,6 @@ class MainApp extends HTMLDivElement {
     this.#restaurantDBService = new RestaurantDBService();
     this.paint();
   }
-
-  // connectedCallback() {
-  //   this.paint();
-  // }
 
   paint() {
     this.#restaurantList.paint(this.#getNewRestaurantList());
