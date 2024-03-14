@@ -34,28 +34,29 @@ class RestaurantManager {
     this.#restaurants[idx] = { ...restaurant };
   }
 
-  getList({ category, sort }: { category: Category; sort: Option }, isBookmark: boolean): Restaurant[] | void {
-    const filteredCategoryList = this.#filterByCategory(category);
-    const filteredList = isBookmark
-      ? filteredCategoryList.filter((restaurant) => restaurant.isBookmark)
-      : filteredCategoryList;
+  getList(options: { category: Category; sort: Option }, isBookmark: boolean): Restaurant[] | void {
+    const restaurants = isBookmark ? this.#filterByBookmark() : this.restaurants;
+    const filteredRestaurants = this.#filterByCategory(restaurants, options.category);
 
-    if (sort === 'name') return this.#sortByName(filteredList);
-    if (sort === 'distance') return this.#sortByDistance(filteredList);
+    return this.#sortByOption(filteredRestaurants, options.sort);
   }
 
-  #filterByCategory(category: Category): Restaurant[] {
-    if (category === '전체') return this.restaurants;
+  #filterByBookmark(): Restaurant[] {
+    return this.restaurants.filter((restaurant) => restaurant.isBookmark);
+  }
 
-    return this.restaurants.filter((restaurant) => restaurant.category === category);
+  #filterByCategory(restaurants: Restaurant[], category: Category): Restaurant[] {
+    if (category === '전체') return restaurants;
+    return restaurants.filter((restaurant) => restaurant.category === category);
+  }
+
+  #sortByOption(restaurants: Restaurant[], sort: Option): Restaurant[] | void {
+    if (sort === 'name') return this.#sortByName(restaurants);
+    if (sort === 'distance') return this.#sortByDistance(restaurants);
   }
 
   #sortByName(restaurants: Restaurant[]): Restaurant[] {
-    return [...restaurants].sort((a, b) => {
-      if (a.name > b.name) return 1;
-      if (a.name < b.name) return -1;
-      return 0;
-    });
+    return [...restaurants].sort((a, b) => a.name.localeCompare(b.name));
   }
 
   #sortByDistance(restaurants: Restaurant[]): Restaurant[] {

@@ -1,5 +1,6 @@
-import { SELECT_EVENTS } from '../Select/Select';
 import './RestaurantFilters.css';
+
+import { SELECT_EVENTS } from '../Select/Select';
 
 export const RESTAURANT_FILTERS_EVENTS = {
   filterChange: 'filterChange',
