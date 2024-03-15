@@ -1,37 +1,38 @@
-import { $ } from '../../utils/querySelector';
-
 interface Props {
-  child: HTMLElement;
+  child: string;
 }
 
-const createModal = ({ child }: Props) => {
-  const toggle = () => {
-    const modalContainer = $('.modal');
-    if (modalContainer.classList.contains('modal--open')) {
-      modalContainer.classList.remove('modal--open');
-    } else modalContainer.classList.add('modal--open');
-  };
+class Modal {
+  #modal = document.createElement('div');
 
-  const setEvents = () => {
-    const backdrop = $('.modal-backdrop');
-    backdrop.addEventListener('click', () => toggle());
-  };
+  constructor({ child }: Props) {
+    this.render(child);
+  }
 
-  const render = () => {
-    const modalStructure = /* html */ `
-    <div class="modal">
-      <div class="modal-backdrop"></div>
-      <div class="modal-container">${child}</div>
-    </div>
-    `;
+  render(child: string) {
+    const backdrop = document.createElement('div');
+    const container = document.createElement('div');
 
-    const mainContainer = $('main');
-    mainContainer.insertAdjacentHTML('beforeend', modalStructure);
+    this.#modal.classList.add('modal');
+    backdrop.classList.add('modal-backdrop');
+    container.classList.add('modal-container');
 
-    setEvents();
-  };
+    container.append(child);
+    this.#modal.appendChild(backdrop);
+    this.#modal.appendChild(container);
 
-  render();
-};
+    backdrop.addEventListener('click', () => this.toggle.bind(this));
+  }
 
-export default createModal;
+  get element() {
+    return this.#modal;
+  }
+
+  toggle() {
+    if (this.#modal.classList.contains('modal--open')) {
+      this.#modal.classList.remove('modal--open');
+    } else this.#modal.classList.add('modal--open');
+  }
+}
+
+export default Modal;
