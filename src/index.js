@@ -20,7 +20,10 @@ const header = createHeader({
 const restaurantList = document.createElement("ul");
 restaurantList.classList.add("restaurant-list");
 
-const categoryDropdown = createDropdown();
+const categoryDropdown = createDropdown({
+  items: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
+  onSelect: (item) => console.log(item),
+});
 
 // 2. 컴포넌트를 결합한다
 const restaurantItems = RESTAURANTS_SAMPLE.map((restaurantItem) =>
