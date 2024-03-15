@@ -6,6 +6,7 @@ class FavoriteIcon extends HTMLImageElement {
 
   constructor() {
     super();
+    this.classList.add('clickable');
     this.src = favoriteIconLined;
     this.alt = '즐겨찾기 아이콘';
     this.setAttribute('clicked', 'off');

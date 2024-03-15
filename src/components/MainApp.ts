@@ -29,8 +29,8 @@ class MainApp extends HTMLDivElement {
     </div>
     <div is="all-restaurant-app" class="hidden" data-id="all"></div>
     <div is="favorite-restaurant-app" class="" data-id="favorite"></div>
-    <div is="new-restaurant-modal" class="modal"></div>
-    `;
+    <div is="new-restaurant-modal" class="modal new-restaurant-modal"></div>
+    `; // <div is="restaurant-item-detail-modal" class="modal restaurant-detail-modal"></div>
 
     this.#myTab = this.querySelector('div[is="my-tab"]')!;
     this.#newRestaurantModal = this.querySelector('.modal')!;

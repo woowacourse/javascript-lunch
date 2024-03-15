@@ -1,22 +1,20 @@
 import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
 import BasicModal from '../Basic/BasicModal/BasicModal';
 import SelectBox from '../Basic/SelectBox/SelectBox';
-import BaseComponent from '../BaseComponent';
 import BasicButton from '../Basic/BasicButton/BasicButton';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import {
   IRestaurant,
   CategoryOrPlaceholder,
   DistanceOrPlaceholder,
-  CategoryOrAll,
   Category,
   DistanceNumeric,
 } from '@/types/Restaurant';
 
 import './NewRestaurantModal.css';
 import VerticalInputBox from '../Basic/VerticalInputBox/VerticalInputBox';
-import MainApp from '../MainApp';
 import AllRestaurantApp from '../AllRestaurantApp';
+
 class NewRestaurantModal extends BasicModal {
   #title: HTMLHeadingElement;
   #form: HTMLFormElement;
@@ -37,55 +35,50 @@ class NewRestaurantModal extends BasicModal {
   }
 
   #makeForm() {
-    const form = document.createElement('form') as HTMLFormElement;
+    const $form = document.createElement('form') as HTMLFormElement;
+    $form.innerHTML = `
+    <div class="form-item form-item--required category-select">
+      <label for="category text-caption">카테고리</label>
+      <select is="select-box"></select>
+      <div class="error hidden">카테고리는 필수 입력입니다.</div>
+    </div>
+    
+    <div is="vertical-input-box"></div>
 
-    form.append(this.#makeCategorySelectBox());
-    form.append(this.#makeNameInput());
-    form.append(this.#makeDistanceSelectBox());
-    form.append(this.#makeDescriptionTextArea());
-    form.append(this.#makeLinkInput());
-    form.append(this.#makeButtons());
+    <div class="form-item form-item--required distance-select">
+      <label for="distance text-caption">거리(도보 이동 시간)</label>
+      <select is="select-box"></select>
+      <div class="error hidden">거리 값은 필수 입력입니다.</div>
+    </div>
 
-    return form;
-  }
+    <div class="form-item">
+      <label for="description text-caption">설명</label>
+      <textarea name="description" id="description" cols="30" rows="5"></textarea>
+      <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+    </div>
 
-  #makeCategorySelectBox() {
-    const $categorySelectBox = this
-      .#domParse(`<div class="form-item form-item--required category-select">
-    <label for="category text-caption">카테고리</label>
-    </div>`);
+    <div is="vertical-input-box" class="link-input-box"></div>
 
-    $categorySelectBox.append(
-      new SelectBox<CategoryOrPlaceholder>(
-        ['선택해주세요', ...CATEGORIES_KEYS],
-        ['선택해주세요', ...CATEGORIES_KEYS],
-        'category',
-      ),
+    <div class="button-container"></div>
+    `;
+
+    const selectBox = $form.querySelector(
+      '.category-select select[is="select-box"]',
+    ) as SelectBox<CategoryOrPlaceholder>;
+
+    selectBox.set(
+      ['선택해주세요', ...CATEGORIES_KEYS],
+      ['선택해주세요', ...CATEGORIES_KEYS],
+      'category',
     );
 
-    const errorBox = document.createElement('div');
-    errorBox.classList.add('error', 'hidden');
-    errorBox.textContent = '카테고리는 필수 입력입니다.';
-    $categorySelectBox.append(errorBox);
-
-    return $categorySelectBox;
-  }
-
-  #makeNameInput() {
-    return new VerticalInputBox({
+    ($form.querySelector('div[is="vertical-input-box"]') as VerticalInputBox).setState({
       name: '이름',
       idName: 'name',
       classList: ['name-input-box'],
       hasVerification: true,
       isRequired: true,
     });
-  }
-
-  #makeDistanceSelectBox() {
-    const $distanceSelection = this
-      .#domParse(`<div class="form-item form-item--required distance-select">
-    <label for="distance text-caption">거리(도보 이동 시간)</label>
-    </div>`);
 
     const DISTANCES_REQURIED = [
       '선택해주세요',
@@ -95,34 +88,21 @@ class NewRestaurantModal extends BasicModal {
       '선택해주세요',
       ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
     ];
-    const errorBox = this.#domParse(`<div class="error hidden">거리 값은 필수 입력입니다.</div>`);
 
-    $distanceSelection.append(
-      new SelectBox<DistanceOrPlaceholder>(DISTANCES_REQURIED, DISTANCES_TEXTS, 'distance'),
-    );
-    $distanceSelection.append(errorBox);
+    const distanceSelectBox = $form.querySelector(
+      '.distance-select select[is="select-box"]',
+    ) as SelectBox<DistanceOrPlaceholder>;
 
-    return $distanceSelection;
-  }
+    distanceSelectBox.set(DISTANCES_REQURIED, DISTANCES_TEXTS, 'distance');
 
-  #makeDescriptionTextArea() {
-    return this.#domParse(`<div class="form-item">
-                  <label for="description text-caption">설명</label>
-                  <textarea name="description" id="description" cols="30" rows="5"></textarea>
-                  <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-        </div>`);
-  }
-
-  #makeLinkInput() {
-    return new VerticalInputBox({
+    const linkInputBox = $form.querySelector('.link-input-box') as VerticalInputBox;
+    linkInputBox.setState({
       name: '링크',
       idName: 'link',
       helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
     });
-  }
 
-  #makeButtons() {
-    const $buttonBox = this.#domParse('<div class="button-container"></div>');
+    const $buttonBox = $form.querySelector('.button-container')!;
     $buttonBox.append(
       new BasicButton('secondary', '취소하기', 'reset', () => {
         this.closeModal();
@@ -130,7 +110,7 @@ class NewRestaurantModal extends BasicModal {
     );
     $buttonBox.append(new BasicButton('primary', '추가하기', 'submit', () => {}));
 
-    return $buttonBox;
+    return $form;
   }
 
   #validateRequiredValues(category: string, distance: number, name: string | null) {
@@ -178,13 +158,10 @@ class NewRestaurantModal extends BasicModal {
     this.classList.remove('modal--open');
   }
 
-  openModal() {
-    this.classList.add('modal--open');
-  }
-
   getForm() {
     return this.#form;
   }
+
   #hideErrorMessage() {
     document.querySelector('.category-select > .error')?.classList.add('hidden');
     document.querySelector('.distance-select > .error')?.classList.add('hidden');
@@ -212,10 +189,6 @@ class NewRestaurantModal extends BasicModal {
 
   #rerenderApp() {
     (this.parentElement as AllRestaurantApp).paint();
-  }
-
-  #domParse(string: string) {
-    return new DOMParser().parseFromString(string, 'text/html').body.children[0];
   }
 }
 export default NewRestaurantModal;

@@ -6,6 +6,7 @@ import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import restaurantListMock from '@/mock/restaurantList.mock';
 import FavoriteIcon from './Basic/FavoriteIcon';
+import RestaurantItem from './RestaurantList/RestaurantItem';
 
 class AllRestaurantApp extends HTMLDivElement {
   #filterContainer: FilterContainer;
@@ -38,6 +39,12 @@ class AllRestaurantApp extends HTMLDivElement {
         this.#restaurantDBService.set(restaurants);
         this.paint();
       }
+    });
+
+    this.addEventListener('click', (event) => {
+      // if (event.target instanceof RestaurantItem) {
+      //   document.
+      // }
     });
   }
   connectedCallback() {

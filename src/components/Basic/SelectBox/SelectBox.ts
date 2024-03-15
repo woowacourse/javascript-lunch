@@ -1,18 +1,32 @@
 import './SelectBox.css';
 
 class SelectBox<T extends string> extends HTMLSelectElement {
-  #values: T[];
-  #texts: string[];
-  #name;
+  values: T[] = [];
+  #texts: string[] = [];
+  #name = '';
 
-  constructor(values: T[], texts: string[], name: string) {
+  constructor(values: T[] = [], texts: string[] = [], name: string = '') {
     super();
-    this.#values = values;
+    this.values = values;
     this.#texts = texts;
     this.#name = name;
     this.render();
   }
 
+  set(values: T[], texts: string[], name: string) {
+    this.values = values;
+    this.#texts = texts;
+    this.#name = name;
+    this.render();
+  }
+
+  get() {
+    return {
+      values: this.values,
+      texts: this.#texts,
+      names: this.#name,
+    };
+  }
   render() {
     this.className = 'restaurant-filter';
     this.name = this.#name;
@@ -21,8 +35,8 @@ class SelectBox<T extends string> extends HTMLSelectElement {
   }
 
   #makeOptionTags() {
-    for (let i = 0; i < this.#values.length; i++) {
-      const optionTag = new Option(this.#texts[i], this.#values[i]);
+    for (let i = 0; i < this.values.length; i++) {
+      const optionTag = new Option(this.#texts[i], this.values[i]);
       this.add(optionTag);
     }
   }

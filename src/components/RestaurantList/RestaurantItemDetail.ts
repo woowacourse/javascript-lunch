@@ -4,7 +4,7 @@ import style from './RestaurantItem.module.css';
 import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 
-class RestaurantItem extends HTMLLIElement {
+class RestaurantItemDetail extends HTMLLIElement {
   #category;
   #distance;
   #description;
@@ -12,6 +12,7 @@ class RestaurantItem extends HTMLLIElement {
   #link;
   #isFavorite;
   #favoriteIcon?: FavoriteIcon;
+
   constructor({ category, name, distance, description, link, isFavorite }: IRestaurant) {
     super();
     this.#category = category;
@@ -59,6 +60,6 @@ class RestaurantItem extends HTMLLIElement {
   }
 }
 
-export default RestaurantItem;
+export default RestaurantItemDetail;
 
-customElements.define('restaurant-item', RestaurantItem, { extends: 'li' });
+customElements.define('restaurant-item-detail', RestaurantItemDetail, { extends: 'li' });

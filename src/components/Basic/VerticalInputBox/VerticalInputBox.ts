@@ -1,8 +1,8 @@
 import BaseComponent from '@/components/BaseComponent';
 
-interface InputBoxArgs {
-  name: string;
-  idName: string;
+interface Props {
+  name?: string;
+  idName?: string;
   hasVerification?: boolean;
   classList?: string[];
   isRequired?: boolean;
@@ -13,10 +13,19 @@ class VerticalInputBox extends HTMLDivElement {
   name: string;
   idName: string;
 
-  constructor({ name, idName, classList, hasVerification, isRequired, helpText }: InputBoxArgs) {
+  constructor(props: Props) {
     super();
-    this.name = name;
-    this.idName = idName;
+    this.name = '';
+    this.idName = '';
+    if (props) {
+      this.setState(props);
+    }
+  }
+
+  setState(props: Props) {
+    const { name, idName, classList, hasVerification, isRequired, helpText } = props;
+    this.name = name ?? '';
+    this.idName = idName ?? '';
 
     this.innerHTML = `
     <label for="${this.idName} text-caption">${this.name}</label>
