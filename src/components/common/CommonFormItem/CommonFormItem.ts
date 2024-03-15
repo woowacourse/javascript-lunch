@@ -8,7 +8,7 @@ class CommonFormItem extends BaseComponent {
 
     const children = this.innerHTML;
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
             <div class="form-item ${classList}">
                 <label for="${labelTarget}" text-caption">${labelText}</label>
                 ${children}

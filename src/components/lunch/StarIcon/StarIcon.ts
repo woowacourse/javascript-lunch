@@ -17,10 +17,13 @@ class StarIcon extends BaseComponent {
   protected render(): void {
     const isFavorite = this.getAttribute("favorite") === "true";
 
-    this.innerHTML = `
-            <img id='star-icon' src='${
-              isFavorite ? favoriteStar : nonFavoriteStar
-            }' alt='${isFavorite ? "favoriteStar" : "nonFavoriteStar"}' />`;
+    this.innerHTML = /* html */ `
+      <img 
+        id='star-icon' 
+        src='${isFavorite ? favoriteStar : nonFavoriteStar}' 
+        alt='${isFavorite ? "favoriteStar" : "nonFavoriteStar"}' 
+      />
+    `;
   }
 
   protected setEvent(): void {

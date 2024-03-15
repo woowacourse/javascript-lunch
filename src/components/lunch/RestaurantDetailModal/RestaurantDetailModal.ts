@@ -25,7 +25,7 @@ class RestaurantDetailModal extends BaseComponent {
   } as const;
 
   protected render(): void {
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
       <common-modal
         open="${CUSTOM_EVENT_TYPE.restaurantDetailModalOpen}"
         close="${CUSTOM_EVENT_TYPE.restaurantDetailModalClose}"

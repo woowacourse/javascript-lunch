@@ -60,7 +60,7 @@ class RestaurantList extends BaseComponent {
       ) => {
         return (
           acc +
-          `
+          /* html */ `
           <li>
             <restaurant-item 
               name="${name}"

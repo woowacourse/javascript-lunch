@@ -21,7 +21,7 @@ class RestaurantItem extends BaseComponent {
     const description = this.getAttribute("description") ?? "";
     const isFavorite = this.getAttribute("isFavorite") ?? "";
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <div class='restaurant__category'>
           <category-icon class='category-icon' category='${category}'></category-icon>
         </div>

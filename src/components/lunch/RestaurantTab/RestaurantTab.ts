@@ -18,7 +18,7 @@ class RestaurantTab extends BaseComponent {
   } as const;
 
   public render() {
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
       <restaurant-tab-header
         status="${this.tabStatus}"
       ></restaurant-tab-header>

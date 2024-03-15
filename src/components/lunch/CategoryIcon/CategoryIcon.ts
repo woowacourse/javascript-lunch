@@ -26,7 +26,7 @@ class CategoryIcon extends BaseComponent {
 
     if (!isMenuCategoryWithoutAll(category)) return;
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <img src=${this.convertCategoryToImage(category)} alt=${category}>
       `;
   }

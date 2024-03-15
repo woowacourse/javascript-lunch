@@ -7,7 +7,7 @@ import { ELEMENT_SELECTOR } from "../../../constants/selector";
 
 class RestaurantAddModal extends BaseComponent {
   protected render(): void {
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <common-modal
             id="restaurant-add-modal"
             targetSelector="${ELEMENT_SELECTOR.restaurantAddModal}"  

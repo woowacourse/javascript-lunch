@@ -14,7 +14,7 @@ class CommonModal extends BaseComponent {
   protected render() {
     const children = this.innerHTML;
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <dialog id="common-modal-dialog">
           <div class="modal-backdrop"></div>
           <div class="modal-container">

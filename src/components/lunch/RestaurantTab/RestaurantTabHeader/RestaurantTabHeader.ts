@@ -8,7 +8,7 @@ class RestaurantTabHeader extends BaseComponent {
   public render() {
     const tabStatus = this.getAttribute("status");
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <nav id='restaurant-tab-header'>
             <restaurant-tab-button
               isActiveTab='${tabStatus === RESTAURANT_TAB_STATUS_TABLE.all}'

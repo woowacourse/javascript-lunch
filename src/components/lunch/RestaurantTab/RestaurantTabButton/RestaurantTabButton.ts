@@ -17,7 +17,7 @@ class RestaurantTabButton extends BaseComponent {
     const id = this.getAttribute("id");
     const buttonText = this.getAttribute("text");
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
       <button type='button' id='${id}' class='${
       isActiveTab === "true" ? "tab-active" : "tab-inactive"
     } restaurant-tab-header-button'>

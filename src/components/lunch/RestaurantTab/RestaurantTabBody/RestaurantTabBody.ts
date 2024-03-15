@@ -13,7 +13,7 @@ class RestaurantTabBody extends BaseComponent {
     const menuCategoryOptions = Object.values(MENU_CATEGORIES);
     const sortCategoryOptions = Object.values(SORT_CATEGORIES_TYPE);
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
       <div id='restaurant-dropdown-container' class='${
         tabStatus === RESTAURANT_TAB_STATUS_TABLE.favorite ? "close" : "open"
       }'>

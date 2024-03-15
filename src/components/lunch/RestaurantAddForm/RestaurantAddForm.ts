@@ -41,7 +41,7 @@ class RestaurantAddForm extends BaseComponent {
     const menuCategoryWithoutAllOptions =
       Object.values(MENU_CATEGORIES).slice(1);
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <form id="restaurant-add-form">
             <common-form-item
               for='category'
