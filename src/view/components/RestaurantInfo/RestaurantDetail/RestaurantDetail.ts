@@ -1,49 +1,69 @@
-// import createElementByTag from "../../../utils/createElementByTag";
+import categoryImgSrcMatcher from "../utils/categoryImgSrcMatcher";
+import createElementByTag from "../../../utils/createElementByTag";
 
-// class RestaurantDetail{
-//   #element:HTMLElement=document.createElement("section");
+class RestaurantDetail {
+  #element: HTMLElement = document.createElement("section");
 
-//   #categoryDiv=this.#createCategoryDiv();
+  #categoryImg = createElementByTag({
+    tag: "img",
+    classes: ["category-icon"],
+  });
 
-//   #name:HTMLElement= createElementByTag({
-//     tag: "h2",
-//     classes: ["text-title"],
-//   });
+  #name: HTMLElement = createElementByTag({
+    tag: "h2",
+    classes: ["text-title"],
+  });
 
-//   #distance:HTMLElement = createElementByTag({
-//     tag: "span",
-//     classes: [ "text-body"],
-//   });
+  #distance: HTMLElement = createElementByTag({
+    tag: "span",
+    classes: ["text-body"],
+  });
 
-//   #description:HTMLElement= createElementByTag({
-//     tag: "p",
-//     classes: [ "text-body"],
-//   });
+  #description: HTMLElement = createElementByTag({
+    tag: "p",
+    classes: ["text-body"],
+  });
 
-//   #url:HTMLElement= createElementByTag({
-//     tag: "a"
-//   });
+  #url: HTMLAnchorElement = createElementByTag({
+    tag: "a",
+  }) as HTMLAnchorElement;
 
-//   constructor(){
-//     this.#element.append(this.#categoryDiv,this.#name,this.#distance,this.#description,this.#url);
-//   }
+  constructor() {
+    this.#element.append(
+      this.#createCategoryDiv(),
+      this.#name,
+      this.#distance,
+      this.#description,
+      this.#url
+    );
+  }
 
-//   setDetail(restaurant:Restaurant){
-//     this.#name.textContent=restaurant.name;
-//     this.#distance=
-//   }
-//   #createCategoryDiv() {
-//     const div = createElementByTag({
-//       tag: "div",
-//       classes: ["restaurant__category"],
-//     });
-//     const img = createElementByTag({
-//       tag: "img",
-//       classes: ["category-icon"],
-//     });
+  setDetail(restaurant: Restaurant) {
+    this.#name.textContent = restaurant.name;
+    this.#distance.textContent = `캠퍼스로부터 ${restaurant.distance}분 내`;
+    this.#setCategoryDiv(restaurant.category);
+    if (restaurant.description)
+      this.#description.textContent = restaurant.description;
+    if (restaurant.url) this.#setUrl(restaurant.url);
+  }
 
-//     div.appendChild(img);
-//     return div;
-//   }
+  #createCategoryDiv() {
+    const div = createElementByTag({
+      tag: "div",
+      classes: ["restaurant__category"],
+    });
 
-// }
+    div.appendChild(this.#categoryImg);
+    return div;
+  }
+
+  #setCategoryDiv(category: Category) {
+    this.#categoryImg.setAttribute("src", categoryImgSrcMatcher[category]);
+    this.#categoryImg.setAttribute("alt", category);
+  }
+
+  #setUrl(url: string) {
+    this.#url.href = url;
+    this.#url.text = url;
+  }
+}
