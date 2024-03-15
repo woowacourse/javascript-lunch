@@ -93,4 +93,11 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
       cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리네 짜장면');
     });
   });
+
+  it('음식점을 클릭하면 음식점 상세 정보를 확인할 수 있다.', () => {
+    cy.get('.restaurant').first().find('.restaurant__info').click();
+
+    cy.get('restaurant-detail-modal').find('.restaurant__name').should('contain', '썬데이네 반찬가게');
+    cy.get('restaurant-detail-modal').find('.restaurant__distance').should('contain', '5');
+  });
 });
