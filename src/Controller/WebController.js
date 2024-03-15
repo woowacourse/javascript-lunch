@@ -51,7 +51,7 @@ class WebController {
   }
 
   #renderDropdownElement() {
-    this.#renderDropdownOptions('category-select', RESTAURANT_CATEGORY);
+    this.#renderDropdownOptions('category-select', [ALL_CATEGORY, ...RESTAURANT_CATEGORY]);
     this.#renderDropdownOptions('sort-select', SORT_CONDITION);
     this.#renderDropdownOptions('add-category-select', RESTAURANT_CATEGORY);
     this.#renderDropdownOptions('add-distance-select', DISTANCE_FROM_CAMPUS);

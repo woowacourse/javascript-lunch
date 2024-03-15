@@ -1,6 +1,6 @@
 import '../../css/likeSection.css';
 import { RESTAURANT_CATEGORY } from '../../domain/Restaurant';
-import { SORT_CONDITION } from '../../domain/RestaurantCatalog';
+import { ALL_CATEGORY, SORT_CONDITION } from '../../domain/RestaurantCatalog';
 
 export const [ALL_RESTAURANTS, LIKE_RESTAURANTS] = Object.freeze(['all-restaurants', 'like-restaurants']);
 
@@ -43,7 +43,7 @@ function setAttributeInAll(currentElement) {
   if (currentElement === 'all-restaurants') {
     const main = document.querySelector('main');
     main.insertBefore(categorySectionClone, main.children[1]);
-    document.getElementById('category-select').addOptions(RESTAURANT_CATEGORY);
+    document.getElementById('category-select').addOptions([ALL_CATEGORY, ...RESTAURANT_CATEGORY]);
     document.getElementById('sort-select').addOptions(SORT_CONDITION);
   }
 }
