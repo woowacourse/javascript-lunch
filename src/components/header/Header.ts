@@ -1,3 +1,5 @@
+import './Header.css';
+
 import createImageButton from './ImageButton';
 import Component from '../core/Component';
 
