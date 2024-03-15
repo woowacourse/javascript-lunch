@@ -26,7 +26,8 @@ class LunchItemModal extends HTMLElement {
   setEventListener() {
     document.addEventListener('clickItem', (event) => {
       if (!(event instanceof CustomEvent)) return;
-      this.querySelector('.modal')?.classList.add('modal--open');
+      const modal = this.querySelector('.modal') as LunchModal;
+      modal.handleModalOpen();
       this.createContent(event.detail.info);
     });
   }
