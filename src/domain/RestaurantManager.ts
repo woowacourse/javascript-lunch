@@ -29,11 +29,17 @@ class RestaurantManager {
     this.#restaurants.push({ id: getUniqueID(), isBookmark: false, ...restaurant });
   }
 
+  delete(id: number): void {
+    const deletedItemIdx = this.#restaurants.findIndex((restaurant) => restaurant.id === id);
+    this.#restaurants.splice(deletedItemIdx, 1);
+  }
+
   update(restaurant: Restaurant): void {
     const idx = this.#restaurants.findIndex((prevRestaurant) => prevRestaurant.id === restaurant.id);
     this.#restaurants[idx] = { ...restaurant };
   }
 
+  //TODO: getFilteredList로 변경하기
   getList(options: { category: Category; sort: Option }, isBookmark: boolean): Restaurant[] | void {
     const restaurants = isBookmark ? this.#filterByBookmark() : this.restaurants;
     const filteredRestaurants = this.#filterByCategory(restaurants, options.category);

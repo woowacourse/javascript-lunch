@@ -50,11 +50,17 @@
   - 유효하지 않은 링크가 입력되면 '유효하지 않은 링크입니다.'를 노출한다.
 - [x] RestaurantList
   - [x] App으로부터 전달 받은 데이터로 RestaurantItem 컴포넌트를 동적으로 생성한다.
-- [ ] RestaurantItem
+- [x] RestaurantItem
   - [x] RestaurantList로부터 전달 받은 데이터로 음식점 정보를 렌더링한다.
-  - [ ] click 이벤트가 발생하면 모달을 연다.
-  - [ ] RestaurantList에서 사용되는 버전과 디테일을 보여주는 버전이 있다(레이아웃 차이)
+  - [x] click 이벤트가 발생하면 모달을 열어 상세 정보를 보여준다.
   - [x] 즐겨찾기 버튼으로 자주 가는 음식점을 설정할 수 있다.
+- [x] CategoryIcon
+  - [x] 카테고리 정보를 받아 알맞은 이미지를 렌더링한다.
+- [x] BookmarkButton
+  - [x] 버튼을 누르면 즐겨찾기 여부를 저장할 수 있다.
+- [x] RestaurantDetail
+  - [x] RestaurantItem으로부터 전달 받은 데이터로 음식점 상세 정보를 렌더링한다.
+  - [x] 음식점 삭제 버튼과 모달 닫기 버튼이 있다.
 
 ## Bug🐞
 

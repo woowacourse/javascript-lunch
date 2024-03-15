@@ -9,6 +9,7 @@ import { RESTAURANT_FILTERS_EVENTS } from './RestaurantFilters/RestaurantFilters
 import RestaurantManager from '../domain/RestaurantManager';
 import { BOOKMARK_TAB_EVENTS } from './BookmarkTab/BookmarkTab';
 import { RESTAURANT_ITEM_EVENTS } from './RestaurantItem/RestaurantItem';
+import { RESTAURANT_DETAIL_EVENTS } from './RestaurantDetail/RestaurantDetail';
 
 export default class App {
   #restaurantFilters;
@@ -37,6 +38,7 @@ export default class App {
     this.#addEventListeners();
   }
 
+  // TODO: restaurants 상수로 만들기
   #loadDataFromLocalStorage() {
     this.#restaurantManger.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
   }
@@ -53,8 +55,9 @@ export default class App {
   #addEventListeners() {
     this.#addRestaurantSubmitEventListener();
     this.#addFilterOnchangeEventListener();
-    this.#addBookmarkTabChangeEventListener();
-    this.#addRestaurantBookmarkOnchangeEventListener();
+    this.#addBookmarkTabOnChangeEventListener();
+    this.#addBookmarkOnchangeEventListener();
+    this.#addDeleteRestaurantItemEventListener();
   }
 
   #addRestaurantSubmitEventListener() {
@@ -75,18 +78,29 @@ export default class App {
     });
   }
 
-  #addBookmarkTabChangeEventListener() {
+  #addBookmarkTabOnChangeEventListener() {
     document.addEventListener(BOOKMARK_TAB_EVENTS.changeTab, () => {
       const { category, sort } = this.#restaurantFilters;
       this.#updateRestaurantList({ category, sort }, this.#bookmarkTab.isBookmark);
     });
   }
 
-  #addRestaurantBookmarkOnchangeEventListener() {
+  #addBookmarkOnchangeEventListener() {
     document.addEventListener(RESTAURANT_ITEM_EVENTS.isBookmarkChanged, (e) => {
       const { restaurant } = e.detail;
       this.#restaurantManger.update(restaurant);
       this.#updateDataToLocalStorage();
+    });
+  }
+
+  #addDeleteRestaurantItemEventListener() {
+    document.addEventListener(RESTAURANT_DETAIL_EVENTS.deleteItem, (e) => {
+      const { id } = e.detail;
+      this.#restaurantManger.delete(id);
+      this.#updateDataToLocalStorage();
+
+      const { category, sort } = this.#restaurantFilters;
+      this.#updateRestaurantList({ category, sort }, this.#bookmarkTab.isBookmark);
     });
   }
 }

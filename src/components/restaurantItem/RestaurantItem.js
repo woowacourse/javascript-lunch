@@ -2,6 +2,7 @@ import './RestaurantItem.css';
 
 import CategoryIcon from './CategoryIcon/CategoryIcon';
 import BookmarkButton, { BOOKMARK_BUTTON_EVENTS } from './BookmarkButton/BookmarkButton';
+import RestaurantDetail from '../RestaurantDetail/RestaurantDetail';
 
 export const RESTAURANT_ITEM_EVENTS = {
   isBookmarkChanged: 'isBookmarkChanged',
@@ -51,7 +52,13 @@ export default class RestaurantItem extends HTMLLIElement {
     );
   }
 
-  #handleBodyClick() {}
+  #handleBodyClick() {
+    const restaurantDetail = new RestaurantDetail({ ...this.#restaurant });
+    restaurantDetail.setAttribute('slot', 'body');
+
+    const modal = document.querySelector('app-modal');
+    modal.openModal({ body: restaurantDetail });
+  }
 
   #render() {
     this.#setName();
@@ -60,14 +67,14 @@ export default class RestaurantItem extends HTMLLIElement {
   }
 
   #setName() {
-    this.querySelector('.restaurant__name').innerHTML = this.#restaurant.name;
+    this.querySelector('.restaurant__name').textContent = this.#restaurant.name;
   }
 
   #setDistance() {
-    this.querySelector('.restaurant__distance').innerHTML = `캠퍼스로부터 ${this.#restaurant.distance}분 내 `;
+    this.querySelector('.restaurant__distance').textContent = `캠퍼스로부터 ${this.#restaurant.distance}분 내 `;
   }
 
   #setDescription() {
-    this.querySelector('.restaurant__description').innerHTML = this.#restaurant.description;
+    this.querySelector('.restaurant__description').textContent = this.#restaurant.description;
   }
 }
