@@ -1,17 +1,14 @@
 import { $ } from '../../utils/querySelector';
-import OutputView from '../../views/OutputView';
 
-const Header = () => {
-  const setEvents = () => {
-    const addRestaurantButton = $('.gnb__button');
-    addRestaurantButton.addEventListener('click', () => {
-      OutputView.renderAddRestaurant();
-    });
-  };
+interface Props {
+  title: string;
+  buttonEvent?: () => void;
+}
 
+const createHeader = ({ title, buttonEvent }: Props) => {
   const render = () => {
     const content = /* html */ `
-    <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+    <h1 class="gnb__title text-title">${title}</h1>
     <button type="button" class="gnb__button" aria-label="음식점 추가">
       <img src="./add-button.png" alt="음식점 추가" />
     </button>
@@ -20,10 +17,13 @@ const Header = () => {
     const headerContainer = $('.gnb');
     headerContainer.insertAdjacentHTML('beforeend', content);
 
-    setEvents();
+    if (buttonEvent) {
+      const imgButton = $('.gnb__button');
+      imgButton.addEventListener('click', buttonEvent);
+    }
   };
 
   render();
 };
 
-export default Header;
+export default createHeader;
