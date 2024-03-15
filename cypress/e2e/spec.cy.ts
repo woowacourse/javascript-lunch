@@ -109,4 +109,26 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 쌀국수');
     cy.get('.restaurant').first().find('.restaurant__distance').should('contain', '15');
   });
+
+  context('자주 가는 음식점을 추가할 수 있다.', () => {
+    it('음식점 목록에서 아이콘을 클릭하면 자주 가는 음식점에 추가된다.', () => {
+      cy.get('.restaurant').first().find('.favorite__button').click();
+      cy.get('.favorites').click();
+
+      cy.get('.restaurant').should('have.length', 4);
+      cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 반찬가게');
+      cy.get('.restaurant').first().find('.restaurant__distance').should('contain', '5');
+    });
+
+    it('음식점 상세 정보에서 아이콘을 클릭하면 자주 가는 음식점에 추가된다.', () => {
+      cy.get('.restaurant').first().find('.restaurant__info').click();
+      cy.get('restaurant-detail-modal').first().find('.favorite__button').click();
+      cy.get('restaurant-detail-modal').first().find('.button--primary').click();
+      cy.get('.favorites').click();
+
+      cy.get('.restaurant').should('have.length', 4);
+      cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 반찬가게');
+      cy.get('.restaurant').first().find('.restaurant__distance').should('contain', '5');
+    });
+  });
 });
