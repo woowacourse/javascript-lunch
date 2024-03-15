@@ -61,10 +61,10 @@ describe('[Restaurant] 음식점 객체 테스트', () => {
     };
 
     const restaurant = new Restaurant(restaurantData);
-    restaurant.toggleFavorite();
+    restaurant.updateFavorite(true);
     const expectedResultTrue = restaurant.isFavorite();
 
-    restaurant.toggleFavorite();
+    restaurant.updateFavorite(false);
     const expectedResultFalse = restaurant.isFavorite();
 
     expect(expectedResultTrue).to.eql(true);

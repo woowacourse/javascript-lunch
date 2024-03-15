@@ -37,9 +37,9 @@ class Restaurant {
     return this.favorite;
   }
 
-  toggleFavorite() {
-    this.favorite = !this.favorite;
-    return this.isFavorite();
+  updateFavorite(isFavorited: boolean) {
+    this.favorite = isFavorited;
+    // return this.isFavorite();
   }
 
   isMatchedCategory(category: Category): boolean {
