@@ -4,6 +4,8 @@ import {
   generateRestaurantIsFavoritedComponentData,
   generateRestaurantDistanceComponentData,
   generateRestaurantLinkComponentData,
+  generateRestaurantBottomSheetDescriptionComponentData,
+  generateRestaurantBottomSheetLinkComponentData,
 } from './generateRestaurantComponentData';
 import generateHeadingComponent from '../uiUtils/generateHeadingComponent';
 import generateSpanComponent from '../uiUtils/generateSpanComponent';
@@ -26,6 +28,17 @@ export const createDescriptionComponent = (description?: string) => {
     const descriptionComponentData = generateRestaurantDescriptionComponentData(description);
     return generatePComponent(descriptionComponentData);
   }
+};
+
+export const createBottomSheetDescriptionComponent = (textContent?: string) => {
+  const bottomSheetComponentData = generateRestaurantBottomSheetDescriptionComponentData(textContent);
+  return generatePComponent(bottomSheetComponentData);
+};
+
+export const createBottomSheetRestaurantLinkComponent = (link?: string) => {
+  const bottomSheetLinkComponentData = generateRestaurantBottomSheetLinkComponentData(link);
+
+  return generateATagComponenet(bottomSheetLinkComponentData);
 };
 
 export const createIsFavoriteImageComponent = (isFavorited: boolean) => {

@@ -3,8 +3,10 @@ import RESTAURANT_LIST_ITEM_HEADING_COMPONENT_DATA from '../components/restauran
 import RESTAURANT_LIST_ITEM_SPAN_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemSpanComponentData';
 import RESTAURANT_LIST_ITEM_DESCRIPTION_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemDescriptionComponentData';
 import RESTAURANT_LIST_ITEM_IS_FAVORITED_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemIsFavoritedComponentData';
+import BOTTOM_SHEET_DESCRIPTION_COMPONENT_DATA from '../components/restaurantListItemDetailModal/componentsData/bottomSheetDescriptionComponentData';
 import { CategoryInfo } from '../types';
 import RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemLinkComponentData';
+import BOTTOM_SHEET_LINK_COMPONENT_DATA from '../components/restaurantListItemDetailModal/componentsData/bottomSheetLinkComponentData';
 
 export const generateRestaurantCategoryImageComponentData = (categoryInfo: CategoryInfo) => {
   const componentData = {
@@ -39,6 +41,24 @@ export const generateRestaurantDescriptionComponentData = (textContent?: string)
   const componentData = {
     ...RESTAURANT_LIST_ITEM_DESCRIPTION_COMPONENT_DATA,
     TAG_TEXT_CONTENT: textContent ?? '',
+  };
+
+  return componentData;
+};
+
+export const generateRestaurantBottomSheetDescriptionComponentData = (textContent?: string) => {
+  const componentData = {
+    ...BOTTOM_SHEET_DESCRIPTION_COMPONENT_DATA,
+    TAG_TEXT_CONTENT: textContent ?? '',
+  };
+
+  return componentData;
+};
+
+export const generateRestaurantBottomSheetLinkComponentData = (link?: string) => {
+  const componentData = {
+    ...BOTTOM_SHEET_LINK_COMPONENT_DATA,
+    TAG_HREF: BOTTOM_SHEET_LINK_COMPONENT_DATA.TAG_HREF(link) ?? '',
   };
 
   return componentData;

@@ -183,3 +183,9 @@ export type MainComponentPropsType = {
 };
 
 export interface MainElementDataType extends BasicElementDataType {}
+
+export type UlTagComponentPropsType = {
+  className: string;
+};
+
+export interface UlTagElementDataType extends BasicElementDataType {}
