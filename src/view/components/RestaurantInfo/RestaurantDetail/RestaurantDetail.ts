@@ -1,31 +1,45 @@
+import "../style.css";
+
 import categoryImgSrcMatcher from "../utils/categoryImgSrcMatcher";
 import createElementByTag from "../../../utils/createElementByTag";
 
 class RestaurantDetail {
-  element: HTMLElement = document.createElement("section");
+  element: HTMLElement = createElementByTag({
+    tag: "section",
+    classes: ["restaurant-detail"],
+  });
 
   #categoryImg = createElementByTag({
     tag: "img",
-    classes: ["category-icon"],
+    classes: ["category-icon", "restaurant-detail--item"],
   });
 
   #name: HTMLElement = createElementByTag({
     tag: "h2",
-    classes: ["text-title"],
+    classes: ["text-title", "restaurant-detail--item"],
   });
 
   #distance: HTMLElement = createElementByTag({
     tag: "span",
-    classes: ["text-body"],
+    classes: [
+      "text-body",
+      "restaurant-detail--item",
+      "restaurant-detail__distance",
+    ],
   });
 
   #description: HTMLElement = createElementByTag({
     tag: "p",
-    classes: ["text-body"],
+    classes: [
+      "text-body",
+      "restaurant-detail--item",
+      "restaurant-detail__description",
+    ],
   });
 
   #url: HTMLAnchorElement = createElementByTag({
     tag: "a",
+    classes: ["text-body", "restaurant-detail__url"],
   }) as HTMLAnchorElement;
 
   constructor() {
@@ -42,15 +56,14 @@ class RestaurantDetail {
     this.#name.textContent = restaurant.name;
     this.#distance.textContent = `캠퍼스로부터 ${restaurant.distance}분 내`;
     this.#setCategoryDiv(restaurant.category);
-    if (restaurant.description)
-      this.#description.textContent = restaurant.description;
-    if (restaurant.url) this.#setUrl(restaurant.url);
+    this.#description.textContent = restaurant.description ?? "";
+    this.#setUrl(restaurant.url ?? "");
   }
 
   #createCategoryDiv() {
     const div = createElementByTag({
       tag: "div",
-      classes: ["restaurant__category"],
+      classes: ["restaurant__category", "restaurant-detail--item"],
     });
 
     div.appendChild(this.#categoryImg);

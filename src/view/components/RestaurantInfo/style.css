@@ -55,3 +55,33 @@
 .restaurant__link {
   display: none;
 }
+
+.restaurant-detail {
+  display       : flex;
+  width         : 100%;
+  flex-direction: column;
+  align-items   : left;
+}
+
+.restaurant-detail--item {
+  margin: 10px 0;
+}
+
+.restaurant-detail__url {
+  color: var(--grey-500) !important;
+}
+
+.restaurant-detail__description {
+  max-height        : 60vh;
+  overflow-y        : scroll;
+  -ms-overflow-style: none;
+  scrollbar-width   : none;
+}
+
+.restaurant-detail__description::-webkit-scrollbar {
+  display: none;
+}
+
+.restaurant-detail__distance {
+  color: var(--primary-color) !important;
+}
