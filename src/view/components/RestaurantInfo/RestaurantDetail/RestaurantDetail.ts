@@ -67,3 +67,5 @@ class RestaurantDetail {
     this.#url.text = url;
   }
 }
+
+export default RestaurantDetail;
