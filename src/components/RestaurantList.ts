@@ -20,24 +20,24 @@ class RestaurantList extends HTMLUListElement {
 
   renderRestaurantList(restaurants: IRestaurantInfo[]) {
     this.#restaurants = restaurants;
-    this.#renderRestaurantList();
+    this.#makeRestaurantList();
   }
 
   updateCategoryFilter(category: string) {
     this.#categoryFilter = category;
-    this.#renderRestaurantList();
+    this.#makeRestaurantList();
   }
 
   updateSortCondition(sortCondition: string) {
     this.#sortCondition = sortCondition;
-    this.#renderRestaurantList();
+    this.#makeRestaurantList();
   }
 
   #clear() {
     this.innerHTML = '';
   }
 
-  #renderRestaurantList() {
+  #makeRestaurantList() {
     const filteredRestaurantList = this.#filterRestaurantList();
 
     this.#sortRestaurantList(filteredRestaurantList);
@@ -64,6 +64,7 @@ class RestaurantList extends HTMLUListElement {
     this.#clear();
     restaurants.forEach((restaurant: IRestaurantInfo) => {
       const item = new RestaurantCard(restaurant);
+
       this.appendChild(item);
     });
   }
