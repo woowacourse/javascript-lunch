@@ -19,8 +19,8 @@ const LUNCH_REGISTER_MODAL_TEMPLATE = /* html */ `
       <lunch-form-item type="textArea" name="description" label="설명" message="메뉴 등 추가 정보를 입력해 주세요." ></lunch-form-item>
       <lunch-form-item type="input" name="link" label="링크" message="매장 정보를 확인할 수 있는 링크를 입력해 주세요." ></lunch-form-item>
       <div class="button-container">
-        <lunch-button type="button" text="취소하기" color="secondary"></lunch-button>
-        <lunch-button text="추가하기" color="primary"></lunch-button>
+        <lunch-button type="button" text="취소하기" color="secondary" class="register-button--cancel"></lunch-button>
+        <lunch-button text="추가하기" color="primary" class="register-button--submit"></lunch-button>
       </div>
     </form>
 </div>
@@ -38,7 +38,7 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   setEventListener() {
-    const cancelButton = this.querySelector('.button--secondary');
+    const cancelButton = this.querySelector('.register-button--cancel');
     cancelButton?.addEventListener('click', () => {
       this.handleModalClose();
     });
