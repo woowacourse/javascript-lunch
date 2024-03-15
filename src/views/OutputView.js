@@ -1,5 +1,4 @@
 import Dropdown from '../components/Common/Dropdown';
-import AddRestaurant from '../components/Modal/AddRestaurant';
 import RestaurantComponent from '../components/Restaurant/RestaurantComponent';
 import { FILTER_DROPDOWN_PROPS, SORT_DROPDOWN_PROPS } from '../constant/options';
 import { $ } from '../utils/querySelector';
@@ -22,18 +21,11 @@ const OutputView = {
     restaurantListElement.classList.add('restaurant-list');
 
     restaurantList.forEach(restaurant => {
-      restaurantListElement.insertAdjacentHTML('beforeend', RestaurantComponent(restaurant));
+      const newRestaurant = new RestaurantComponent(restaurant);
+      restaurantListElement.insertAdjacentHTML('beforeend', newRestaurant.render());
     });
     restaurantListContainer.replaceChildren();
     restaurantListContainer.append(restaurantListElement);
-  },
-
-  renderAddRestaurant() {
-    const modalContainer = $('.modal-container');
-
-    modalContainer.replaceChildren();
-    modalContainer.insertAdjacentHTML('beforeend', AddRestaurant());
-    this.openModal();
   },
 
   openModal() {
