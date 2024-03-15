@@ -17,7 +17,7 @@ export const likeImgTemplate = `
 `;
 
 export const unlikeImgTemplate = `
-<img class="unlike" src="${unlikeImg}" alt="자주 가지 않는 음식점" />`;
+<img class="unliked" src="${unlikeImg}" alt="자주 가지 않는 음식점" />`;
 
 export const likeTemplate = (isLike: boolean) => /*html*/ `
 <button type="button" class="restaurant__like-button" aria-label="즐겨찾기">
