@@ -1,7 +1,21 @@
+import DOM from "../utils/DOM";
+import Restaurant from "./restaurant/Restaurant";
+
+const { insertElementsInTarget } = DOM;
+
 class ListContainer extends HTMLUListElement {
-  constructor() {
+  constructor(restaurants: Restaurant[]) {
     super();
-    this.className = 'restaurant-lists'
+    this.className = 'restaurant-lists';
+    this.createRestaurants(restaurants);
+  }
+
+  createRestaurants(restaurants: Restaurant[]) {
+    insertElementsInTarget(this, restaurants);
+  }
+
+  addRestaurants(restaurant: Restaurant) {
+    this.appendChild(restaurant);
   }
 }
 

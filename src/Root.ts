@@ -30,10 +30,8 @@ const root = {
     document.addEventListener('DOMContentLoaded', () => {
       const initSort = $<HTMLSelectElement>('#sorting-filter');
       const sortBy = initSort.options[initSort.selectedIndex].value;
-      const listContainer = new ListContainer();
       const restaurantElements: Restaurant[] = matzip.filterAndSort(CATEGORY.whole, sortBy as SortType).map((restaurant) => new Restaurant(restaurant));
-
-      insertElementsInTarget(listContainer, restaurantElements);
+      const listContainer = new ListContainer(restaurantElements);
       this.appendMain(listContainer);
     });
   },
@@ -65,8 +63,7 @@ const root = {
         selectedSort as SortType,
       ).map((restaurant) => new Restaurant(restaurant));
 
-      const listContainer = new ListContainer();      
-      insertElementsInTarget(listContainer, restaurantElements);
+      const listContainer = new ListContainer(restaurantElements);      
       this.appendMain(listContainer);
     });
   },
@@ -93,7 +90,7 @@ const root = {
         
         storage.addData(newRestaurant);
         $<HTMLElement>('.modal').classList.remove('modal--open');
-        $<HTMLUListElement>('.restaurant-lists').appendChild(new Restaurant(newRestaurant));
+        $<ListContainer>('.restaurant-lists').addRestaurants(new Restaurant(newRestaurant));
       } catch (error) {
         alert(error);
       }
