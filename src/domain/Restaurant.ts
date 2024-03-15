@@ -32,6 +32,25 @@ class Restaurant {
     this.#restaurantInfo = obj;
   }
 
+  static generateImageSrc(category: ICategory) {
+    switch (category) {
+      case '한식':
+        return 'korean';
+      case '중식':
+        return 'chinese';
+      case '일식':
+        return 'japanese';
+      case '양식':
+        return 'western';
+      case '아시안':
+        return 'asian';
+      case '기타':
+        return 'etc';
+      default:
+        return 'korean';
+    }
+  }
+
   #validateRestaurantCategory(category: ICategory) {
     if (!RESTAURANT_CATEGORY.includes(category)) {
       throw new Error(`${ERROR_PREFIX}${RESTAURANT_ERROR_MESSAGES.WRONG_CATEGORY}`);
