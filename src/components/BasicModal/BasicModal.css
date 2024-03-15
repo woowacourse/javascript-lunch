@@ -28,6 +28,6 @@
   position: fixed;
   bottom: 0;
 
-  max-height: 80%;
-  overflow-y: scroll;
+  max-height: 90%;
+  overflow-y: auto;
 }

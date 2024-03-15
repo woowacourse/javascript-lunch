@@ -12,13 +12,9 @@
 
 .favorite-button img {
   position: absolute;
-}
-
-.favorite-button:hover {
   transition: all 0.5s;
 }
 
 .not-show {
   opacity: 0;
-  transition: all 0.5s;
 }

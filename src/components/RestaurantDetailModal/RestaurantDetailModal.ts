@@ -1,73 +1,47 @@
 import BaseComponent from '../BaseComponent';
 import BasicModal from '../BasicModal/BasicModal';
 import CategoryIconBox from '../CategoryIconBox/CategoryIconBox';
-import { DISTANCE_FROM_CAMPUS } from '@/constants/Condition';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import BasicButton from '../BasicButton/BasicButton';
-import { closeModal } from '@/utils/view';
-import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import { closeModal, makeDescription, makeDistance, makeTitle } from '@/utils/view';
 import { IRestaurant } from '@/types/Restaurant';
 
 class RestaurantDetailModal extends BaseComponent {
-  #id: number;
-  #restaurantData: IRestaurant;
-  #DBService;
+  #restaurant: IRestaurant;
   #detailInfo;
-  // #favoriteButton;
 
-  constructor(id: number) {
+  constructor(restaurant: IRestaurant) {
     super();
-    this.#id = id;
-    this.#DBService = new RestaurantDBService();
-
-    const DBService = new RestaurantDBService();
-    //TODO: id 값으로 데이터 빼오는 유틸 만들기
-    const restaurantData = [...DBService.update().get()].filter(
-      (restaurant) => restaurant.id === this.#id,
-    )[0];
-    this.#restaurantData = restaurantData;
+    this.#restaurant = restaurant;
     this.#detailInfo = document.createElement('div');
-    //this.#favoriteButton = favoriteButton;
   }
 
   render() {
     this.#detailInfo.classList.add('restaurant-detail');
-    this.#detailInfo.id = String(this.#id);
+    this.#detailInfo.id = String(this.#restaurant.id);
 
-    const $categoryIcon = new CategoryIconBox(this.#restaurantData.category);
+    const $categoryIcon = new CategoryIconBox(this.#restaurant.category);
     this.#detailInfo.append($categoryIcon);
 
-    const $title = document.createElement('div');
-    $title.textContent = this.#restaurantData.name;
-    $title.classList.add('restaurant__name', 'text-subtitle');
-    $title.id = 'category-title';
+    const $title = makeTitle(this.#restaurant.name);
     this.#detailInfo.append($title);
 
-    const $distance = document.createElement('div');
-    $distance.textContent = DISTANCE_FROM_CAMPUS(this.#restaurantData.distance);
-    $distance.classList.add('restaurant__distance', 'text-body');
+    const $distance = makeDistance(this.#restaurant.distance);
     this.#detailInfo.append($distance);
 
-    const $description = document.createElement('div');
-    $description.textContent = this.#restaurantData.description || '';
-    $description.classList.add('text-body');
+    const $description = makeDescription(this.#restaurant.description);
     this.#detailInfo.append($description);
 
     const $link = document.createElement('a');
     $link.classList.add('restaurant__link', 'text-body');
-    $link.href = this.#restaurantData.link || '';
-    $link.textContent = this.#restaurantData.link || '';
+    $link.href = this.#restaurant.link || '';
+    $link.textContent = this.#restaurant.link || '';
     this.#detailInfo.append($link);
 
     const buttons = this.#makeButtons();
     this.#detailInfo.append(buttons);
 
-    // //const favoriteButton = new FavoriteButton(this.#restaurantData.isFavorite, true);
-    // const favoriteButton = this.#favoriteButton; // // favoriteButton.addEventListener('click', this.rerender.bind(this)); // favoriteButton.addEventListener('click', this.rerender);
-
-    // favoriteButton.classList.add('detail-favorite');
-    //this.#detailInfo.append(this.#favoriteButton);
-    const favoriteButton = new FavoriteButton(this.#restaurantData.isFavorite, true);
+    const favoriteButton = new FavoriteButton(this.#restaurant.isFavorite, true);
     this.#detailInfo.append(favoriteButton);
     this.replaceWith(new BasicModal(this.#detailInfo));
   }
@@ -102,15 +76,6 @@ class RestaurantDetailModal extends BaseComponent {
       clickEvent: () => closeModal(this),
     });
   }
-
-  // rerender() {
-  //   console.log('리렌더링');
-  //   const existedButton = document.querySelector('#detail-modal .favorite-button');
-  //   const newButton = new FavoriteButton(this.#restaurantData.isFavorite, true);
-  //   if (existedButton) {
-  //     document.querySelector('#detail-modal')!.replaceChild(existedButton, newButton);
-  //   }
-  // }
 }
 
 export default RestaurantDetailModal;

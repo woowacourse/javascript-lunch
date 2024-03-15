@@ -18,7 +18,6 @@ class FavoriteButton extends BaseComponent {
   }
 
   render() {
-    console.log('aa');
     this.#button.classList.add('favorite-button');
 
     if (this.#isDetail) this.#button.id = 'detail-favorite-button';

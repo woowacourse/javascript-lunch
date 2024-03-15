@@ -1,3 +1,4 @@
+import { DISTANCE_FROM_CAMPUS } from '@/constants/Condition';
 import { $$ } from './DOM';
 
 export const hideErrorMessage = () => {
@@ -40,4 +41,25 @@ export const makeInputInfo = (infoText: string) => {
   $inputInfo.classList.add('help-text', 'text-caption');
   $inputInfo.textContent = infoText;
   return $inputInfo;
+};
+
+export const makeTitle = (name: string) => {
+  const $title = document.createElement('div');
+  $title.classList.add('restaurant__name', 'text-subtitle');
+  $title.textContent = name;
+  return $title;
+};
+
+export const makeDistance = (distance: number) => {
+  const $distance = document.createElement('span');
+  $distance.classList.add('restaurant__distance', 'text-body');
+  $distance.textContent = DISTANCE_FROM_CAMPUS(distance);
+  return $distance;
+};
+
+export const makeDescription = (description?: string) => {
+  const $description = document.createElement('p');
+  $description.classList.add('restaurant__description', 'text-body');
+  $description.textContent = `${description ?? ''}`;
+  return $description;
 };
