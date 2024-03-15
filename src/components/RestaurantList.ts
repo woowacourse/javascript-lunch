@@ -8,7 +8,8 @@ import restaurantStore from "../store/restaurantStore";
 import { CATEGORY_FILTER, SORT_FILTER } from "../constants/filter";
 import {
   FILTER_EVENT,
-  RESTAURANT_EVENT,
+  RESTAURANT_FORM_SUBMIT_EVENT,
+  RESTAURANT_DETAIL_SHOW_EVENT,
   TAB_SWITCH_EVENT,
   TAB_SWITCH_EVENT_SWITCH_TO,
 } from "../constants/event";
@@ -42,12 +43,14 @@ export default class RestaurantList extends EventComponent {
 
     const filteredRestaurantInfos = this.filterByCategory(
       restaurantInfos,
-      this.categoryFilter
+      this.categoryFilter,
+      this.isFavoriteTab
     );
 
     const sortedRestaurantInfos = this.sort(
       filteredRestaurantInfos,
-      this.sortFilter
+      this.sortFilter,
+      this.isFavoriteTab
     );
 
     const displayingRestaurantInfos = this.filterByFavorite(
@@ -81,7 +84,9 @@ export default class RestaurantList extends EventComponent {
             </restaurant-item>`
               )
               .join("") ||
-            "<p class='no-restaurant-item-message'>등록된 식당이 없습니다.<br/> 식당을 추가해주세요 👨🏻‍🍳</p>"
+            (this.isFavoriteTab
+              ? "<p class='no-restaurant-item-message'>자주 가는 음식점이 없습니다.<br/> 모든 음식점 탭에서 음식점을 둘러보고 추가해 보세요 👩🏻‍🍳</p>"
+              : "<p class='no-restaurant-item-message'>등록된 식당이 없습니다.<br/> 식당을 추가해주세요 👨🏻‍🍳</p>")
           }
         </ul>
       </section>
@@ -101,8 +106,12 @@ export default class RestaurantList extends EventComponent {
       this.handleTabSwitch(e as CustomEvent);
     });
 
-    document.addEventListener(RESTAURANT_EVENT.restaurantFormSubmit, (e) => {
+    document.addEventListener(RESTAURANT_FORM_SUBMIT_EVENT, (e) => {
       this.handleRestaurantFormSubmit(e as CustomEvent);
+    });
+
+    this.addEventListener("click", (e) => {
+      this.handleRestaurantItemClick(e);
     });
   }
 
@@ -139,10 +148,38 @@ export default class RestaurantList extends EventComponent {
     this.render();
   }
 
+  private handleRestaurantItemClick(event: Event) {
+    const target = event.target as HTMLElement;
+    const restaurantItem = target?.closest(".restaurant") as HTMLElement;
+
+    if (!restaurantItem?.classList.contains("restaurant")) {
+      return;
+    }
+
+    const restaurantName = restaurantItem.dataset.name;
+
+    const restaurantInfos = this.restaurants.getDetails();
+    const targetRestaurantInfo = restaurantInfos.find(
+      ({ name }) => name === restaurantName
+    );
+
+    this.dispatchEvent(
+      new CustomEvent(RESTAURANT_DETAIL_SHOW_EVENT, {
+        bubbles: true,
+        detail: { restaurantInfo: targetRestaurantInfo },
+      })
+    );
+  }
+
   private filterByCategory(
     restaurantInfos: RestaurantInfo[],
-    categoryFilter: CategoryFilter
+    categoryFilter: CategoryFilter,
+    isFavoriteTab: boolean
   ): RestaurantInfo[] {
+    if (isFavoriteTab) {
+      return restaurantInfos;
+    }
+
     if (!Object.keys(CATEGORY_FILTER).includes(categoryFilter)) {
       return restaurantInfos;
     }
@@ -158,8 +195,13 @@ export default class RestaurantList extends EventComponent {
 
   private sort(
     restaurantInfos: RestaurantInfo[],
-    sortFilter: SortFilter
+    sortFilter: SortFilter,
+    isFavoriteTab: boolean
   ): RestaurantInfo[] {
+    if (isFavoriteTab) {
+      return restaurantInfos;
+    }
+
     if (sortFilter === SORT_FILTER.name) {
       return restaurantInfos.sort((a, b) => a.name.localeCompare(b.name));
     }

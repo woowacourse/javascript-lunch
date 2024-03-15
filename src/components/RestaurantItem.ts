@@ -15,7 +15,7 @@ export default class RestaurantItem extends BaseComponent {
     const isFavorite = this.getAttribute("isFavorite") === "true";
 
     return `
-      <li class="restaurant">
+      <li class="restaurant" data-name="${name}">
       <div class="restaurant-item-content">
         <category-icon category=${category}></category-icon>
         <div class="restaurant__info">
