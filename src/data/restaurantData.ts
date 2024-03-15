@@ -5,6 +5,7 @@ export const initialData: RestaurantInfo[] = [
     category: '한식',
     name: '피양콩할마니',
     distance: 10,
+    isFavorite: false,
     description: `평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은
       되비지를 맛볼 수 있는 곳으로, ‘피양’은 평안도 사투리로 ‘평양’을 의미한다. 딸과 함께
       운영하는 이곳에선 맷돌로 직접 간 콩만을 사용하며, 일체의 조미료를 넣지 않은 건강식을
@@ -16,6 +17,7 @@ export const initialData: RestaurantInfo[] = [
     category: '중식',
     name: '친친',
     distance: 5,
+    isFavorite: false,
     description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를
       펼쳐갑니다`
   },
@@ -23,6 +25,7 @@ export const initialData: RestaurantInfo[] = [
     category: '일식',
     name: '잇쇼우',
     distance: 5,
+    isFavorite: false,
     description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를
       펼쳐갑니다`
   },
@@ -30,12 +33,14 @@ export const initialData: RestaurantInfo[] = [
     category: '양식',
     name: '호아빈 삼성점',
     distance: 15,
+    isFavorite: false,
     description: `늘 변화를 추구하는 이태리키친입니다.`
   },
   {
     category: '양식',
     name: '이태리키친',
     distance: 20,
+    isFavorite: false,
     description: `푸짐한 양에 국물이 일품인 쌀국수.`
   }
 ];

@@ -168,6 +168,7 @@ export function ModalComponent() {
       category: categoryValue as CategoryValues,
       name: nameValue,
       distance: Number(distanceValue),
+      isFavorite: false,
       description: descriptionValue,
       link: linkValue
     };
