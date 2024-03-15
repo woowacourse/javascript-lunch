@@ -4,7 +4,7 @@ import FormItem from "./common/FormItem";
 import {
   MODAL_EVENT,
   MODAL_EVENT_ACTION,
-  RESTAURANT_EVENT,
+  RESTAURANT_FORM_SUBMIT_EVENT,
 } from "../constants/event";
 import convertObjectToOptions from "../utils/convertObjectToOptions";
 import { $ } from "../utils/selector";
@@ -98,7 +98,7 @@ export default class RestaurantForm extends EventComponent {
       restaurantStore.add(newRestaurant);
 
       this.dispatchEvent(
-        new CustomEvent(RESTAURANT_EVENT.restaurantFormSubmit, {
+        new CustomEvent(RESTAURANT_FORM_SUBMIT_EVENT, {
           bubbles: true,
           detail: { newRestaurant },
         })

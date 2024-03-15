@@ -12,9 +12,7 @@ export const MODAL_EVENT_ACTION = {
   close: "close",
 } as const;
 
-export const RESTAURANT_EVENT = {
-  restaurantFormSubmit: "restaurantFormSubmit",
-} as const;
+export const RESTAURANT_FORM_SUBMIT_EVENT = "restaurantFormSubmit" as const;
 
 export const TAB_SWITCH_EVENT = "tabSwitch" as const;
 
@@ -24,3 +22,5 @@ export const TAB_SWITCH_EVENT_SWITCH_TO = {
 } as const;
 
 export const TOGGLE_FAVORITE_EVENT = "toggleFavorite" as const;
+
+export const RESTAURANT_DETAIL_SHOW_EVENT = "restaurantItemClick" as const;
