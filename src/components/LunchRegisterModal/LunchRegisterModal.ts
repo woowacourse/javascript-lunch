@@ -1,13 +1,14 @@
 import './style.css';
 // eslint-disable-next-line import/no-duplicates
 import '../LunchFormItem/LunchFormItem';
-import '../LunchButton/LunchButton';
+import LunchButton from '../LunchButton/LunchButton';
 import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
 import { RestaurantRegistry } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
 import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
 import LunchModal from '../LunchModal/LunchModal';
+import LunchTab from '../LunchTab/LunchTab';
 
 const LUNCH_REGISTER_MODAL = /* html */ `
     <h2 class="register-modal-title text-title">새로운 음식점</h2>
@@ -18,8 +19,7 @@ const LUNCH_REGISTER_MODAL = /* html */ `
       <lunch-form-item type="textArea" name="description" label="설명" message="메뉴 등 추가 정보를 입력해 주세요." ></lunch-form-item>
       <lunch-form-item type="input" name="link" label="링크" message="매장 정보를 확인할 수 있는 링크를 입력해 주세요." ></lunch-form-item>
       <div class="button-container">
-        <lunch-button type="button" text="취소하기" color="secondary"></lunch-button>
-        <lunch-button text="추가하기" color="primary"></lunch-button>
+        
       </div>
     </form>
 `;
@@ -41,6 +41,7 @@ class LunchRegisterModal extends HTMLElement {
     if (container) {
       container.innerHTML = LUNCH_REGISTER_MODAL;
     }
+    this.createButtons();
   }
 
   setEventListener() {
@@ -55,19 +56,36 @@ class LunchRegisterModal extends HTMLElement {
     if (modal?.className) {
       modal.classList.remove('modal--open');
     }
+  }
 
-    this.querySelector('form')?.reset();
+  createButtons() {
+    const buttonContainer = this.querySelector('.button-container');
+    buttonContainer?.appendChild(
+      new LunchButton({ color: 'secondary', type: 'button', text: '취소하기' }),
+    );
+    buttonContainer?.appendChild(
+      new LunchButton({
+        color: 'primary',
+        type: 'submit',
+        text: '추가하기',
+      }),
+    );
   }
 
   setSubmitListener() {
     this.addEventListener('submit', (event) => {
       event.preventDefault();
-      const newRestaurant: Restaurant = this.getNewRestaurant();
-      RestaurantRegistry.registerOneRestaurant(newRestaurant);
-      this.handleModalClose();
-      this.handleDropDown();
-      this.handleResetFilter();
+      this.handleSubmit();
     });
+  }
+
+  handleSubmit() {
+    const newRestaurant: Restaurant = this.getNewRestaurant();
+    RestaurantRegistry.registerOneRestaurant(newRestaurant);
+    // this.handleModalClose();
+    this.handleModalOpen();
+    this.querySelector('form')?.reset();
+    this.handleResetFilter();
   }
 
   getNewRestaurant() {
@@ -79,6 +97,11 @@ class LunchRegisterModal extends HTMLElement {
       newRestaurant[key] = value;
     });
     return newRestaurant;
+  }
+
+  handleModalOpen() {
+    const modal = this.querySelector('.modal') as LunchModal;
+    modal?.handleModalOpen();
   }
 
   handleDropDown() {
