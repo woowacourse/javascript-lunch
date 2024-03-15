@@ -1,23 +1,31 @@
-import { $ } from '../../utils/selector.js';
+import { $, $$ } from '../../utils/selector.js';
 
 const STAR_ICONS = {
   fill: './favorite-icon-filled.png',
   noFill: './favorite-icon-lined.png',
 };
 
-function createStarButton({ id }) {
+function createStarButton({ initialState, id }) {
   const starButton = renderStarButton({ id });
+
+  if (initialState) toggleStarButton(starButton);
 
   return starButton;
 }
 
-// 별 버튼의 이미지를 채움, 안채움 두 가지에서 토글하는 기능
-function starButtonClickHandler(starButton) {
-  starButton.classList.toggle('star__filled');
+// 별 버튼의 이                                                           지를 채움, 안채움 두 가지에서 토글하는 기능
+function toggleStarButton(starButtonId) {
+  const starButtonList = $$(`.star__button__${starButtonId}`);
 
-  if (starButton.classList.contains('star__filled'))
-    starButton.style.backgroundImage = `url(${STAR_ICONS.fill})`;
-  else starButton.style.backgroundImage = `url(${STAR_ICONS.noFill})`;
+  starButtonList.forEach((starButton) => {
+    starButton.classList.toggle('star__filled');
+
+    starButton.style.backgroundImage = `url(${
+      starButton.classList.contains('star__filled')
+        ? STAR_ICONS.fill
+        : STAR_ICONS.noFill
+    })`;
+  });
 }
 
 function renderStarButton({ id }) {
@@ -32,13 +40,15 @@ function renderStarButton({ id }) {
 
   starButton.style.border = 'none';
 
-  starButton.classList.add('star__button');
-  starButton.id = id;
+  starButton.classList.add(`star__button__${id}`);
 
   return starButton;
 }
 
-export const starButton = {
-  create: createStarButton,
-  clickHandle: starButtonClickHandler,
-};
+function isOnStarButton(starButtonId) {
+  const starButton = $(`.star__button__${starButtonId}`);
+
+  return starButton.classList.contains('star__filled');
+}
+
+export { createStarButton, toggleStarButton, isOnStarButton };
