@@ -46,7 +46,6 @@ export default class RestaurantForm extends HTMLFormElement {
         detail: { formData },
       }),
     );
-
     this.reset();
   }
 

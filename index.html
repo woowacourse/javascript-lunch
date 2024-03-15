@@ -97,15 +97,22 @@
 
     <!-- RestaurantItem -->
     <template id="template-restaurant-item">
-      <div class="restaurant__category">
-        <img src="" alt="" class="category-icon" />
-      </div>
+      <div class="restaurant__category"></div>
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle"></h3>
         <span class="restaurant__distance text-body"></span>
         <p class="restaurant__description text-body"></p>
       </div>
       <button class="restaurant__bookmark"><img src="" /></button>
+    </template>
+
+    <!-- RestaurantDetail -->
+    <template id="template-restaurant-detail">
+      <a class="restaurant__link" href=""></a>
+      <div class="button-container">
+        <button id="delete" class="button button--secondary text-caption">삭제하기</button>
+        <button id="close" class="button button--primary text-caption">닫기</button>
+      </div>
     </template>
 
     <!-- Modal -->
