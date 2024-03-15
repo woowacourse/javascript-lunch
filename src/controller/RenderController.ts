@@ -3,8 +3,8 @@ import {
   SORT_STANDARD,
 } from "../constants/selectOptions";
 
-import RestaurantItem from "../view/components/RestaurantItem/RestaurantItem";
 import RestaurantListController from "./RestaurantListController";
+import RestaurantPreview from "../view/components/RestaurantInfo/RestaurantPreview/RestaurantPreview";
 import SelectBox from "../view/components/SelectBox/SelectBox";
 
 class RenderController {
@@ -31,7 +31,7 @@ class RenderController {
     const filteredRestaurantItem =
       RestaurantListController.getNowRestaurantItem();
     const restaurantItemElements = filteredRestaurantItem.map((restaurant) => {
-      return new RestaurantItem({ restaurant }).element;
+      return new RestaurantPreview({ restaurant }).element;
     });
 
     RenderController.#restaurantListUl?.replaceChildren(

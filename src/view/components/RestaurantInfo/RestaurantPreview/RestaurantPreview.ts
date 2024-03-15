@@ -1,23 +1,9 @@
-import "./style.css";
+import "../style.css";
 
-import ASIAN_ICON from "./icons/category-asian.png";
-import CHINESE_ICON from "./icons/category-chinese.png";
-import ECT_ICON from "./icons/category-etc.png";
-import JAPANESE_ICON from "./icons/category-japanese.png";
-import KOREAN_ICON from "./icons/category-korean.png";
-import WESTERN_ICON from "./icons/category-western.png";
-import createElementByTag from "../../utils/createElementByTag";
+import categoryImgSrcMatcher from "../utils/categoryImgSrcMatcher";
+import createElementByTag from "../../../utils/createElementByTag";
 
-const categoryImgSrcMatcher = {
-  한식: KOREAN_ICON,
-  중식: CHINESE_ICON,
-  일식: JAPANESE_ICON,
-  아시안: ASIAN_ICON,
-  양식: WESTERN_ICON,
-  기타: ECT_ICON,
-};
-
-class RestaurantItem {
+class RestaurantPreview {
   element = createElementByTag({
     tag: "li",
     classes: ["restaurant"],
@@ -102,4 +88,4 @@ class RestaurantItem {
   };
 }
 
-export default RestaurantItem;
+export default RestaurantPreview;

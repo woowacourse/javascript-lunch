@@ -14,6 +14,8 @@ class ModalController {
 
   static #addRestaurantForm = this.#createAddRestaurantForm();
 
+  static #restaurantModalItem: any;
+
   static modal = this.#createModal();
 
   static changeIntoAddRestaurantForm() {
@@ -21,6 +23,11 @@ class ModalController {
       this.#addRestaurantTitle,
       this.#addRestaurantForm.element,
     ]);
+  }
+
+  static changeIntoRestaurantItem(restaurantItem: HTMLElement) {
+    const restaurantModalItem = this.#getRestaurantModalItem(restaurantItem);
+    this.modal.replaceContents([restaurantModalItem]);
   }
 
   static openModal() {
@@ -66,6 +73,60 @@ class ModalController {
     });
 
     return addRestaurantForm;
+  }
+
+  static #getRestaurantModalItem(restaurantItem: HTMLElement) {
+    const cloneRestaurantItemObject =
+      this.#getCloneRestaurantItemObject(restaurantItem);
+
+    this.#setClassAtRestaurantModalItem(cloneRestaurantItemObject);
+
+    const { icon, name, distance, description, url } =
+      cloneRestaurantItemObject;
+
+    const restaurantModalItem = document.createElement("section");
+
+    restaurantModalItem.append(icon, name, distance, description, url);
+
+    return restaurantModalItem;
+  }
+
+  static #getCloneRestaurantItemObject(restaurantItem: HTMLElement) {
+    const icon = restaurantItem
+      .querySelector(".restaurant__category")
+      ?.cloneNode(true) as HTMLElement;
+    const name = restaurantItem
+      .querySelector(".restaurant__name")
+      ?.cloneNode(true) as HTMLElement;
+    const distance = restaurantItem
+      .querySelector(".restaurant__distance")
+      ?.cloneNode(true) as HTMLElement;
+    const description = restaurantItem
+      .querySelector(".restaurant__description")
+      ?.cloneNode(true) as HTMLElement;
+    const url = restaurantItem
+      .querySelector(".restaurant__link")
+      ?.cloneNode(true) as HTMLAnchorElement;
+
+    url.href = url.textContent ?? "";
+
+    return { icon, name, distance, description, url };
+  }
+
+  static #setClassAtRestaurantModalItem(restaurantItemElementObject: {
+    icon: HTMLElement;
+    name: HTMLElement;
+    distance: HTMLElement;
+    description: HTMLElement;
+    url: HTMLElement;
+  }) {
+    restaurantItemElementObject.name.classList.add("text-title");
+    restaurantItemElementObject.name.classList.remove("text-subtitle");
+    restaurantItemElementObject.url.classList.remove("restaurant__link");
+
+    console.log(restaurantItemElementObject.url);
+
+    return restaurantItemElementObject;
   }
 }
 
