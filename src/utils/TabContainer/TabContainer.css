@@ -1,0 +1,40 @@
+.tab-container {
+  display: flex;
+  justify-content: center;
+
+  margin: 20px 20px 50px; /* 위, 좌우, 아래 */
+}
+
+.tab-container ul {
+  display: flex;
+  flex-direction: row;
+
+  list-style-type: none;
+}
+
+.tab-item {
+  border-bottom: 3px solid #d0d5dd;
+}
+
+.tab-item button {
+  font-size: 18px;
+  font-weight: bold;
+
+  color: #667085;
+
+  padding: 5px 0;
+  margin: 10px 200px;
+
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.tab-item-selected {
+  border-bottom: 3px solid #ec4a0a;
+}
+
+.tab-item-selected button {
+  color: #ec4a0a;
+}

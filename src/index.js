@@ -4,6 +4,7 @@ import "../src/styles/reset.css";
 import "./components/LunchApp/LunchApp";
 
 import "./components/GlobalNavigationBar/GlobalNavigationBar";
+import "./components/RestaurantTabContainer/RestaurantTabContainer";
 import "./components/CategoryDropdown/CategoryDropdown";
 import "./components/SortDropdown/SortDropdown";
 

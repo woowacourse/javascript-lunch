@@ -104,3 +104,5 @@ class RestaurantList extends BaseComponent {
 }
 
 customElements.define("restaurant-list", RestaurantList);
+
+export default RestaurantList;

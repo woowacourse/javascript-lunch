@@ -56,15 +56,6 @@ class SortDropdown extends BaseComponent {
       target: $(ELEMENT_SELECTOR.sortingFilter),
     });
   }
-
-  protected removeEvent(): void {
-    this.dropdown.removeEvent();
-
-    this.off({
-      ...this.eventListeners.sortingFilterChange,
-      target: $(ELEMENT_SELECTOR.sortingFilter),
-    });
-  }
 }
 
 customElements.define("sort-dropdown", SortDropdown);
