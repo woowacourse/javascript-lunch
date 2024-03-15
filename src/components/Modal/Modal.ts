@@ -1,5 +1,5 @@
 interface Props {
-  child: string;
+  child: HTMLElement;
 }
 
 class Modal {
@@ -9,7 +9,7 @@ class Modal {
     this.render(child);
   }
 
-  render(child: string) {
+  render(child: HTMLElement) {
     const backdrop = document.createElement('div');
     const container = document.createElement('div');
 
