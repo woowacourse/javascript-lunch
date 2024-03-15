@@ -4,6 +4,7 @@ import Modal from "../view/components/Modal/Modal";
 import RenderController from "./RenderController";
 import RestaurantDetail from "../view/components/RestaurantInfo/RestaurantDetail/RestaurantDetail";
 import RestaurantListController from "./RestaurantListController";
+import SubmitButton from "../view/components/SubmitButton/SubmitButton";
 import createElementByTag from "../view/utils/createElementByTag";
 
 class ModalController {
@@ -17,6 +18,8 @@ class ModalController {
 
   static #restaurantDetail = new RestaurantDetail();
 
+  static #restaurantDetailButtonDiv = this.#createRestaurantDetailButtonDiv();
+
   static modal = this.#createModal();
 
   static changeIntoAddRestaurantForm() {
@@ -27,7 +30,10 @@ class ModalController {
   }
 
   static changeIntoRestaurantDetail() {
-    this.modal.replaceContents([this.#restaurantDetail.element]);
+    this.modal.replaceContents([
+      this.#restaurantDetail.element,
+      this.#restaurantDetailButtonDiv,
+    ]);
   }
 
   static setRestaurantDetail(restaurant: Restaurant) {
@@ -77,6 +83,41 @@ class ModalController {
     });
 
     return addRestaurantForm;
+  }
+
+  static #createRestaurantDetailButtonDiv() {
+    const div = document.createElement("div");
+
+    const deleteButton = new SubmitButton({
+      value: "삭제하기",
+      color: "white",
+      eventListenerArgs: [
+        [
+          "click",
+          () => {
+            ModalController.closeModal();
+          },
+        ],
+      ],
+    });
+
+    const closeButton = new SubmitButton({
+      value: "닫기",
+      color: "orange",
+      eventListenerArgs: [
+        [
+          "click",
+          () => {
+            ModalController.closeModal();
+          },
+        ],
+      ],
+    });
+
+    div.append(deleteButton.element, closeButton.element);
+
+    div.classList.add("button-container");
+    return div;
   }
 }
 
