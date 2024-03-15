@@ -30,7 +30,7 @@ class LunchPickerApp extends Component {
   }
 
   #updateSelectType(): void {
-    this.#theme = ($('.restaurant-type-active') as HTMLButtonElement).value as TTheme;
+    this.#theme = ($('.restaurant-theme-active') as HTMLButtonElement).value as TTheme;
     this.#category = ($('.category') as HTMLInputElement).value as TCategory;
     this.#sorting = ($('.sorting') as HTMLInputElement).value as TSortingOption;
     $setAttribute('restaurant-list', 'theme', this.#theme);
@@ -41,8 +41,8 @@ class LunchPickerApp extends Component {
   template() {
     return `
       <lunch-picker-header></lunch-picker-header>
-      <section class="restaurant-type-selector-container">
-        <restaurant-type-selector></restaurant-type-selector>
+      <section class="restaurant-theme-selector-container">
+        <restaurant-theme-selector></restaurant-theme-selector>
       </section>
       <section class="restaurant-filter-container">
           <filter-box type="category"></filter-box>

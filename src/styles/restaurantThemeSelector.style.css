@@ -1,14 +1,14 @@
-.restaurant-type-selector-container {
+.restaurant-theme-selector-container {
   margin-top: 31px;
   padding: 0 16px;
 }
 
-.restaurant-type-selector-wrapper {
+.restaurant-theme-selector-wrapper {
   display: flex;
   justify-content: center;
 }
 
-.restaurant-type-button {
+.restaurant-theme-button {
   width: 50%;
   padding-bottom: 9px;
   border: none;
@@ -20,7 +20,7 @@
   color: var(--grey-300);
 }
 
-.restaurant-type-active {
+.restaurant-theme-active {
   border-bottom: 1px solid var(--primary-color);
   color: var(--primary-color);
 }

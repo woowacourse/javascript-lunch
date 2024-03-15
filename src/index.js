@@ -6,12 +6,12 @@ import RestaurantItem from './components/RestaurantItem';
 import RestaurantAddModal from './components/RestaurantAddModal';
 
 import './styles/style.css';
-import './styles/restaurantTypeSelector.style.css';
-import RestaurantTypeSelector from './components/RestaurantTypeSelector';
+import './styles/restaurantThemeSelector.style.css';
+import RestaurantThemeSelector from './components/RestaurantThemeSelector';
 
 customElements.define('lunch-picker-app', LunchPickerApp);
 customElements.define('lunch-picker-header', LunchPickerHeader);
-customElements.define('restaurant-type-selector', RestaurantTypeSelector);
+customElements.define('restaurant-theme-selector', RestaurantThemeSelector);
 customElements.define('restaurant-list', RestaurantList);
 customElements.define('filter-box', FilterBox);
 customElements.define('restaurant-item', RestaurantItem);
