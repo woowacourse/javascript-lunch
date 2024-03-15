@@ -15,12 +15,23 @@ describe("새 레스토랑 추가 모달 테스트", () => {
       cy.get(".modal.modal--open").should("exist");
     });
 
-    it("새 레스토랑 모달 창 닫기 ", () => {
+    it("새 레스토랑 모달 창 닫기 (취소 버튼)", () => {
       // given
       cy.get(".gnb__button").click();
 
       // when
       cy.get("button").contains("취소하기").click();
+
+      // then
+      cy.get(".modal.modal--open").should("not.exist");
+    });
+
+    it("레스토랑 디테일 모달 창 닫기 (다이머)", () => {
+      // given
+      cy.get(".gnb__button").click();
+
+      // when
+      cy.get(".modal-backdrop").click({ force: true });
 
       // then
       cy.get(".modal.modal--open").should("not.exist");
