@@ -7,9 +7,8 @@ class RestaurantList {
   restaurants: IRestaurantList;
 
   constructor(restaurants: IRestaurantList) {
-    if (!this.setRestaurants()) this.restaurants = restaurants;
-    this.restaurants = this.getSortedByName();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
+    this.restaurants = restaurants;
+    this.setStorageRestaurantList(restaurants);
   }
 
   setRestaurants(): boolean {
@@ -19,6 +18,12 @@ class RestaurantList {
       return true;
     }
     return false;
+  }
+
+  setStorageRestaurantList(restaurants: IRestaurantList): void {
+    this.restaurants = restaurants;
+    this.restaurants = this.getSortedByName();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
   }
 
   // eslint-disable-next-line class-methods-use-this
