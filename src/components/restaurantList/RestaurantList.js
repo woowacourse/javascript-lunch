@@ -24,15 +24,9 @@ export default class RestaurantList extends HTMLUListElement {
 
     const fragment = document.createDocumentFragment();
     this.restaurants?.forEach((restaurant) => {
-      const restaurantItem = this.#createRestaurantItem(restaurant);
+      const restaurantItem = new RestaurantItem(restaurant);
       fragment.appendChild(restaurantItem);
     });
     this.appendChild(fragment);
-  }
-
-  #createRestaurantItem(restaurant) {
-    const restaurantItem = new RestaurantItem();
-    restaurantItem.restaurant = restaurant;
-    return restaurantItem;
   }
 }

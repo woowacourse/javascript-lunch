@@ -12,6 +12,7 @@ import RestaurantItem from './components/RestaurantItem/RestaurantItem';
 import RestaurantFilters from './components/RestaurantFilters/RestaurantFilters';
 import BookmarkTab from './components/BookmarkTab/BookmarkTab';
 import CategoryIcon from './components/RestaurantItem/CategoryIcon/CategoryIcon';
+import BookmarkButton from './components/RestaurantItem/BookmarkButton/BookmarkButton';
 // import RestaurantDetail from './components/RestaurantDetail/RestaurantDetail';
 
 window.customElements.define('app-gnb', GNB);
@@ -21,6 +22,7 @@ window.customElements.define('app-restaurant-form', RestaurantForm, { extends: '
 window.customElements.define('app-restaurant-list', RestaurantList, { extends: 'ul' });
 window.customElements.define('app-restaurant-item', RestaurantItem, { extends: 'li' });
 window.customElements.define('app-category-image', CategoryIcon, { extends: 'img' });
+window.customElements.define('app-bookmark-button', BookmarkButton, { extends: 'button' });
 // window.customElements.define('app-restaurant-detail', RestaurantDetail, { extends: 'li' });
 window.customElements.define('app-restaurant-filters', RestaurantFilters);
 window.customElements.define('app-bookmark-tab', BookmarkTab);

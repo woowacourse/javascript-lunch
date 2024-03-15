@@ -1,46 +1,50 @@
 import './RestaurantItem.css';
 
-// bookmark button images
-import bookmarkIconFilled from '../../statics/imgs/favorite-icon-filled.png';
-import bookmarkIconLined from '../../statics/imgs/favorite-icon-lined.png';
 import CategoryIcon from './CategoryIcon/CategoryIcon';
+import BookmarkButton, { BOOKMARK_BUTTON_EVENTS } from './BookmarkButton/BookmarkButton';
 
 export const RESTAURANT_ITEM_EVENTS = {
-  bookmarkBtnClicked: 'bookmarkBtnClicked',
+  isBookmarkChanged: 'isBookmarkChanged',
 };
-// TODO: button-container 컴포넌트로 분리하기
+
 export default class RestaurantItem extends HTMLLIElement {
   #restaurant;
 
+  #categoryIcon;
+
   #bookmarkBtn;
 
-  constructor() {
+  constructor(restaurant) {
     super();
+
+    this.classList.add('restaurant');
 
     const template = document.querySelector('#template-restaurant-item');
     const content = template.content.cloneNode(true);
     this.appendChild(content);
-    this.classList.add('restaurant');
 
-    this.#bookmarkBtn = this.querySelector('.restaurant__bookmark');
-  }
-
-  set restaurant(restaurant) {
     this.#restaurant = restaurant;
-    this.#render();
+
+    this.#categoryIcon = new CategoryIcon(this.#restaurant.category);
+    this.querySelector('.restaurant__category').appendChild(this.#categoryIcon);
+
+    this.#bookmarkBtn = new BookmarkButton(this.#restaurant.isBookmark);
+    this.appendChild(this.#bookmarkBtn);
   }
 
   connectedCallback() {
-    this.#bookmarkBtn.addEventListener('click', this.#handleToggleBookmarkBtn.bind(this));
+    this.#bookmarkBtn.addEventListener(BOOKMARK_BUTTON_EVENTS.click, this.#handleToggleBookmarkBtn.bind(this));
     this.addEventListener('click', this.#handleBodyClick.bind(this));
+
+    this.#render();
   }
 
-  #handleToggleBookmarkBtn() {
-    this.#restaurant.isBookmark = !this.#restaurant.isBookmark;
-    this.#setBookmarkButton();
+  #handleToggleBookmarkBtn(e) {
+    const { isBookmark } = e.detail;
+    this.#restaurant.isBookmark = isBookmark;
 
     this.dispatchEvent(
-      new CustomEvent(RESTAURANT_ITEM_EVENTS.bookmarkBtnClicked, {
+      new CustomEvent(RESTAURANT_ITEM_EVENTS.isBookmarkChanged, {
         bubbles: true,
         detail: { restaurant: { ...this.#restaurant } },
       }),
@@ -53,8 +57,6 @@ export default class RestaurantItem extends HTMLLIElement {
     this.#setName();
     this.#setDistance();
     this.#setDescription();
-    this.#setCategoryIcon();
-    this.#setBookmarkButton();
   }
 
   #setName() {
@@ -67,15 +69,5 @@ export default class RestaurantItem extends HTMLLIElement {
 
   #setDescription() {
     this.querySelector('.restaurant__description').innerHTML = this.#restaurant.description;
-  }
-
-  #setCategoryIcon() {
-    const categoryIcon = new CategoryIcon(this.#restaurant.category);
-    this.querySelector('.restaurant__category').appendChild(categoryIcon);
-  }
-
-  #setBookmarkButton() {
-    const img = this.#bookmarkBtn.querySelector('img');
-    img.src = this.#restaurant.isBookmark ? bookmarkIconFilled : bookmarkIconLined;
   }
 }

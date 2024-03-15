@@ -83,7 +83,7 @@ export default class App {
   }
 
   #addRestaurantBookmarkOnchangeEventListener() {
-    document.addEventListener(RESTAURANT_ITEM_EVENTS.bookmarkBtnClicked, (e) => {
+    document.addEventListener(RESTAURANT_ITEM_EVENTS.isBookmarkChanged, (e) => {
       const { restaurant } = e.detail;
       this.#restaurantManger.update(restaurant);
       this.#updateDataToLocalStorage();
