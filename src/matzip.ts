@@ -66,6 +66,13 @@ class Matzip implements MatzipInterface {
     DistanceValidator.empty(restaurant.distance);
     DistanceValidator.exist(restaurant.distance);
   }
+
+  delete(id: string) {
+    const targetIndex = this.restaurants.findIndex((restaurant) => restaurant.id === id);
+    const front = this.restaurants.slice(0, targetIndex);
+    const back = this.restaurants.slice(targetIndex + 1, this.restaurants.length);
+    this.restaurants = [...front, ...back];
+  };
 }
 
 export default Matzip;

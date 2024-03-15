@@ -8,6 +8,7 @@ describe('맛집 클래스 테스트', () => {
       // given
       const matzip = new Matzip([]);
       const matzip1: Restaurant = {
+        id: 'id1',
         name: '쑤쑤네짜장면',
         category: '' as CategoryType,
         distance: 5,
@@ -19,6 +20,7 @@ describe('맛집 클래스 테스트', () => {
       // given
       const matzip = new Matzip([]);
       const matzip1: Restaurant = {
+        id: 'id1',
         name: '쑤쑤네짜장면',
         category: '이탈리안' as CategoryType,
         distance: 5,
@@ -30,6 +32,7 @@ describe('맛집 클래스 테스트', () => {
       // given
       const matzip = new Matzip([]);
       const matzip1: Restaurant = {
+        id: 'id1',
         name: '',
         category: '중식',
         distance: 5,
@@ -41,6 +44,7 @@ describe('맛집 클래스 테스트', () => {
       // given
       const matzip = new Matzip([]);
       const matzip1: Restaurant = {
+        id: 'id1',
         name: '쑤쑤네짜장면',
         category: '중식',
         distance: 0,
@@ -52,6 +56,7 @@ describe('맛집 클래스 테스트', () => {
       // given
       const matzip = new Matzip([]);
       const matzip1: Restaurant = {
+        id: 'id1',
         name: '쑤쑤네짜장면',
         category: '중식',
         distance: 6,
@@ -63,6 +68,7 @@ describe('맛집 클래스 테스트', () => {
       // given
       const matzip = new Matzip([]);
       const matzip1: Restaurant = {
+        id: 'id2',
         name: '쑤쑤네짜장면',
         category: '중식',
         distance: 5,
@@ -105,6 +111,18 @@ describe('맛집 클래스 테스트', () => {
       const result = matzip.filterByCategory('기타');
       // then
       expect(result.map((restaurant) => restaurant.name)).to.include(filterByCategoryResult);
+    });
+  });
+  describe('맛집 삭제 테스트', () => {
+    it('쑤쑤당(id2) 을 삭제하면 남아있는 리스트의 개수는 3개이다.', () => {
+      // given
+      const matzip = new Matzip(matzipList);
+      const resultLength = 3;
+      // when
+      matzip.delete('id2');
+      
+      // then
+      expect(matzip.getRestaurants().length).to.eq(resultLength);
     });
   });
 });
