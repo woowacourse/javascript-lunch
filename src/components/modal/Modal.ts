@@ -1,28 +1,21 @@
-import DOM from '../../utils/DOM';
-import RestaurantForm from '../RestaurantForm';
 import './modal.css';
 
-const { $ } = DOM;
+interface ModalProps {
+  title: string;
+  child: HTMLElement;
+}
 
-class Modal extends HTMLElement {
-  constructor() {
+class Modal extends HTMLDivElement {
+  constructor(props: ModalProps) {
     super();
-    this.setEvent();
+    this.className = 'modal';
+    this.createLayout(props);    
   }
 
-  setEvent() {
-    this.createLayout();
-    this.appendForm();
-    this.closeModal();
-  }
-
-  createLayout() {
-    const modal = document.createElement('div');
-    modal.setAttribute('class', 'modal');
-    
+  createLayout({child, title}: ModalProps) {
     const modalBackdrop = document.createElement('div');
     modalBackdrop.className = 'modal-backdrop';
-    modal.appendChild(modalBackdrop);
+    this.appendChild(modalBackdrop);
 
     const modalContainer = document.createElement('div');
     modalContainer.className = 'modal-container';
@@ -30,26 +23,19 @@ class Modal extends HTMLElement {
     const modalTitle = document.createElement('h2');
     modalTitle.className = 'modal-title';
     const modalTitleClassList = ['modal-title', 'text-title'];
-    modalTitle.textContent = '새로운 음식점';
+    modalTitle.textContent = title;
     modalTitle.classList.add(...modalTitleClassList);
     
     modalContainer.appendChild(modalTitle);
-    modal.appendChild(modalContainer);
-    this.appendChild(modal);
+    modalContainer.appendChild(child);
+    this.appendChild(modalContainer);
   }
 
-  appendForm() {
-    $<HTMLDivElement>('.modal-container').appendChild(new RestaurantForm());
-  }
-
-  closeModal() {
-    $<HTMLDivElement>('.modal-backdrop').addEventListener('click', () => {
-      $<HTMLDivElement>('.modal').classList.remove('modal--open');
-    });
-    $<HTMLButtonElement>('.modal--close')?.addEventListener('click', () => {
-      $<HTMLDivElement>('.modal').classList.remove('modal--open');
-    });
+  toggleModal() {
+    this.classList.toggle('modal--open');
   }
 }
 
-customElements.define('matzip-modal', Modal);
+customElements.define('matzip-modal', Modal, { extends: 'div' });
+
+export default Modal;

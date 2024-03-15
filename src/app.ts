@@ -5,7 +5,6 @@ class App extends HTMLElement {
     <matzip-gnb></matzip-gnb>
     <main>
       <matzip-filter-container></matzip-filter-container>
-      <matzip-modal></matzip-modal>
     </main>
     `;
   }

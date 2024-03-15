@@ -8,6 +8,7 @@ import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
+import Modal from './components/modal/Modal';
 
 const { $, insertElementsInTarget } = DOM;
 const { CATEGORY } = Condition;
@@ -16,8 +17,13 @@ const root = {
   init() {
     const matzip = new Matzip(storage.getData());
     this.initList(matzip);
+    this.createAddModal();
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
+  },
+
+  appendMain(content: HTMLElement) {
+    $<HTMLElement>('main').appendChild(content);
   },
 
   initList(matzip: Matzip) {
@@ -28,7 +34,22 @@ const root = {
       const restaurantElements: Restaurant[] = matzip.filterAndSort(CATEGORY.whole, sortBy as SortType).map((restaurant) => new Restaurant(restaurant));
 
       insertElementsInTarget(listContainer, restaurantElements);
-      $<HTMLElement>('main').appendChild(listContainer);
+      this.appendMain(listContainer);
+    });
+  },
+
+  createAddModal() {
+    const modal = new Modal({ title: '새로운 음식점', child: new RestaurantForm() });
+    this.appendMain(modal);
+    this.listenModalToggle(modal);
+  },
+
+  listenModalToggle(modal: Modal) {
+    $<HTMLDivElement>('.modal-backdrop').addEventListener('click', () => {
+      modal.toggleModal();
+    });
+    $<HTMLButtonElement>('.modal--close').addEventListener('click', () => {
+      modal.toggleModal();
     });
   },
 
@@ -46,7 +67,7 @@ const root = {
 
       const listContainer = new ListContainer();      
       insertElementsInTarget(listContainer, restaurantElements);
-      $<HTMLElement>('main').appendChild(listContainer);
+      this.appendMain(listContainer);
     });
   },
 
