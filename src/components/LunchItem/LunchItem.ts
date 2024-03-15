@@ -1,24 +1,16 @@
 import './style.css';
 
-import { KOREAN, CHINESE, JAPANESE, ASIAN, WESTERN, ETC, LIKED, NOT_LIKED } from '../../imgs/index';
+import { LIKED, NOT_LIKED } from '../../imgs/index';
 import { Category, Distance } from '../../types/index';
+import { CATEGORY_IMG } from '../../constants/categoriesImage';
 
-type LunchItemProps = {
+export type LunchItemProps = {
   category: Category;
   name: string;
   distance: Distance;
   description: string;
   liked: string;
 };
-
-export const CATEGORY_IMG = {
-  한식: KOREAN,
-  중식: CHINESE,
-  일식: JAPANESE,
-  아시안: ASIAN,
-  양식: WESTERN,
-  기타: ETC,
-} as const;
 
 // eslint-disable-next-line max-lines-per-function
 const LUNCH_ITEM_TEMPLATE = ({
