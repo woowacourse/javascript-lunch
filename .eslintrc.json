@@ -8,11 +8,7 @@
     "no-console": "off",
     "class-methods-use-this": "off",
     "spaced-comment": "off",
-    "lines-between-class-members": [
-      "error",
-      "always",
-      { "exceptAfterSingleLine": true }
-    ],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
     "sort-imports": [
       "error",
       {
@@ -26,13 +22,7 @@
       "error",
       {
         "newlines-between": "always",
-        "groups": [
-          ["builtin", "external"],
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
+        "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
         "pathGroups": [
           {
             "pattern": "next",
