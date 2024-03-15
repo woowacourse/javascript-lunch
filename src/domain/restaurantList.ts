@@ -71,16 +71,16 @@ export default class RestaurantList {
   }
 
   render() {
-    const restaurantCardComponent = RestaurantCardComponent();
     const $restaurantListContainer = document.querySelector(
       '.restaurant-list-container'
     ) as HTMLElement;
 
     $restaurantListContainer.replaceChildren();
 
-    this.#restaurantData.forEach(({ category, name, distance, description }) => {
-      const node = restaurantCardComponent.getTemplate({ category, name, distance, description });
-      $restaurantListContainer.appendChild(node);
+    this.#restaurantData.forEach(({ category, name, distance, isFavorite, description }) => {
+      $restaurantListContainer.appendChild(
+        RestaurantCardComponent({ category, name, distance, isFavorite, description }).create()
+      );
     });
   }
 }

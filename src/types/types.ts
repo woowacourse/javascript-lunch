@@ -13,6 +13,7 @@ export type RestaurantInfo = {
   category: CategoryValues;
   name: string;
   distance: number;
+  isFavorite: boolean;
   description?: string;
   link?: string;
 };
