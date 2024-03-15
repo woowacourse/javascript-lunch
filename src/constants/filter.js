@@ -56,6 +56,11 @@ const FAVORITE_IMG_SRC = {
   N: favoriteIconLined,
 };
 
+const FILTER_CONDITION = {
+  category: 0,
+  sortingCondition: 1,
+};
+
 export {
   ALL,
   FILTERED_CATEGORY_ATTRIBUTE,
@@ -70,4 +75,5 @@ export {
   FORM_DISTANCE,
   CATEGORY_IMG_SRC,
   FAVORITE_IMG_SRC,
+  FILTER_CONDITION,
 };

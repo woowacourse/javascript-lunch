@@ -20,12 +20,11 @@ import ModalEventHandler from './eventHandler/ModalEventHandler';
 
 const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
-new ModalEventHandler(restaurantList);
-const homeEventHandler = new HomeEventHandler(restaurantList);
 
 const init = () => {
   RestaurantComponent.render(restaurantList.restaurants);
-
+  new ModalEventHandler(restaurantList);
+  const homeEventHandler = new HomeEventHandler(restaurantList);
   // 홈화면 select 생성
   const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
 
