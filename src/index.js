@@ -1,10 +1,10 @@
 import App from './App';
 import '../style.css';
 
-import Dropdown from './components/Dropdown';
 import RestaurantList from './components/RestaurantList';
 import RestaurantCard from './components/RestaurantCard';
 import FormModal from './components/FormModal';
+import Dropdown from './components/Dropdown/Dropdown';
 
 window.customElements.define('drop-down', Dropdown, { extends: 'select' });
 window.customElements.define('restaurant-list', RestaurantList, { extends: 'ul' });

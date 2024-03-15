@@ -1,5 +1,5 @@
-import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant';
-import { CATEGORY_ALL, SORT_CONDITION } from '../domain/RestaurantCatalog';
+import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../../domain/Restaurant';
+import { CATEGORY_ALL, SORT_CONDITION } from '../../domain/RestaurantCatalog';
 
 type optionsType = typeof SORT_CONDITION | typeof RESTAURANT_CATEGORY | typeof DISTANCE_FROM_CAMPUS;
 

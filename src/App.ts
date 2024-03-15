@@ -1,8 +1,8 @@
-import Dropdown from './components/Dropdown';
+import Dropdown from './components/Dropdown/Dropdown';
 import RestaurantList from './components/RestaurantList';
 import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from './domain/Restaurant';
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
-import DropdownEvent from './event/DropdownEvent';
+import DropdownEvent from './components/Dropdown/DropdownEvent';
 import RestaurantStore from './store/RestaurantStore';
 
 class App {
