@@ -14,7 +14,6 @@ const likeButtonClickHandler = (button: Element) => {
     const restaurantElement = target.closest(".restaurant") as HTMLElement;
     RestaurantCRUD.updateRestaurant(Number(restaurantElement.id));
     updateLikeState(button);
-    console.log(button);
   });
 };
 

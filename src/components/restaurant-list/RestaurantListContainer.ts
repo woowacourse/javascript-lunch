@@ -8,9 +8,7 @@ function RestaurantListContainer() {
   const formattedRestaurantListTemplate = convertHTMLStringToDOM(
     restaurantListTemplate,
   );
-
   main.appendChild(formattedRestaurantListTemplate);
-
   RestaurantList();
 }
 export default RestaurantListContainer;

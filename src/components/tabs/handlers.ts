@@ -9,21 +9,24 @@ const removeCurrentClassName = () => {
   });
 };
 
+const addCurrentClassName = (target: HTMLElement) => {
+  const clickedTab = target.closest(".tab-item") as HTMLElement;
+  clickedTab.classList.add("current");
+  return clickedTab;
+};
+
 const changeFavFilter = (clickedTab: HTMLElement) => {
   if (clickedTab.getAttribute("data-tab") === "fav")
     return filterState.setFavType(true);
   return filterState.setFavType(false);
 };
 
-// eslint-disable-next-line max-lines-per-function
 const tabClicked = (tabs: HTMLElement) => {
   tabs.addEventListener("click", (event) => {
     removeCurrentClassName();
     if (event.target instanceof HTMLElement) {
-      const clickedTab = event.target.closest(".tab-item") as HTMLElement;
-      clickedTab.classList.add("current");
+      const clickedTab = addCurrentClassName(event.target);
       changeFavFilter(clickedTab);
-
       RestaurantList();
     }
   });

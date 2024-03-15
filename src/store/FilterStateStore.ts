@@ -21,7 +21,6 @@ class FilterStateStore {
   }
 
   setFavType(fav: boolean) {
-    console.log(fav);
     this.#filterState.fav = fav;
   }
 
