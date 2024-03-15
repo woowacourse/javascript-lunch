@@ -24,11 +24,8 @@ class RestaurantService implements Restaurants {
 
   sortByProperty(property: SortingProperty, restaurantList: Restaurant[]): Restaurant[] {
     return restaurantList.sort((a: Restaurant, b: Restaurant) => {
-      if (a[property] === b[property]) {
-        return a.id - b.id;
-      } else {
-        return a[property] > b[property] ? 1 : -1;
-      }
+      if (a[property] === b[property]) return a.id - b.id;
+      return a[property] > b[property] ? 1 : -1;
     });
   }
 
@@ -40,7 +37,6 @@ class RestaurantService implements Restaurants {
     const targetRestaurant = restaurantList.find(restaurant => restaurant.id === restaurantId);
 
     if (!targetRestaurant) return false;
-    console.log(targetRestaurant);
 
     targetRestaurant.favorite = !targetRestaurant.favorite;
     localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(restaurantList));
