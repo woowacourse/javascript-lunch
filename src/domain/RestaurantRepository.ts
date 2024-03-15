@@ -3,6 +3,13 @@ function getRestaurants() {
   return restaurants ? JSON.parse(restaurants) : [];
 }
 
+function getFilteredByTheme(restaurants: IRestaurant[], theme: TTheme) {
+  if (theme === '모든 음식점') return restaurants;
+  if (theme === '자주 가는 음식점') {
+    return restaurants.filter((restaurant) => restaurant.favorite === true);
+  }
+}
+
 function getFilteredByCategory(restaurants: IRestaurant[], category: TAllCategory) {
   return category === '전체' ? restaurants : restaurants.filter((restaurant) => restaurant.category === category);
 }
@@ -30,10 +37,15 @@ const RestaurantRepository = {
     }
   },
 
-  transformRestaurants(category: TAllCategory, sortingOption: TSortingOption) {
+  transformByTheme(theme: TTheme) {
     const restaurants = getRestaurants();
-    const filteredRestaurants = getFilteredByCategory(restaurants, category);
+    const filteredRestaurants = getFilteredByTheme(restaurants, theme);
+    return filteredRestaurants;
+  },
 
+  transformBySelector(filteredByThemeRestaurant: IRestaurant[], category: TAllCategory, sortingOption: TSortingOption) {
+    const restaurants = filteredByThemeRestaurant;
+    const filteredRestaurants = getFilteredByCategory(restaurants, category);
     return sortingOption === '이름순' ? getSortedByName(filteredRestaurants) : getSortedByDistance(filteredRestaurants);
   },
 };

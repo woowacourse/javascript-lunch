@@ -2,6 +2,7 @@ import Component from './Component';
 import { $, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {
+  #theme: string = '모든 음식점';
   #category: TCategory = '한식';
   #sorting: TSortingOption = '이름순';
 
@@ -29,8 +30,10 @@ class LunchPickerApp extends Component {
   }
 
   #updateSelectType(): void {
+    this.#theme = ($('.restaurant-type-active') as HTMLButtonElement).value as TTheme;
     this.#category = ($('.category') as HTMLInputElement).value as TCategory;
     this.#sorting = ($('.sorting') as HTMLInputElement).value as TSortingOption;
+    $setAttribute('restaurant-list', 'theme', this.#theme);
     $setAttribute('restaurant-list', 'category', this.#category);
     $setAttribute('restaurant-list', 'sorting', this.#sorting);
   }
@@ -38,6 +41,9 @@ class LunchPickerApp extends Component {
   template() {
     return `
       <lunch-picker-header></lunch-picker-header>
+      <section class="restaurant-type-selector-container">
+        <restaurant-type-selector></restaurant-type-selector>
+      </section>
       <section class="restaurant-filter-container">
           <filter-box type="category"></filter-box>
           <filter-box type="sorting"></filter-box>

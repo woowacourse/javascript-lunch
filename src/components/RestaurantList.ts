@@ -1,22 +1,22 @@
 import RestaurantRepository from '../domain/RestaurantRepository';
-import { $addEvent } from '../utils/dom';
 import Component from './Component';
 
 class RestaurantList extends Component {
-  static observedAttributes: string[] = ['category', 'sorting'];
+  static observedAttributes: string[] = ['theme', 'category', 'sorting'];
 
   #restaurants: IRestaurant[] = [];
 
   constructor() {
     super();
+    this.setAttribute('theme', '모든 음식점');
     this.setAttribute('category', '전체');
     this.setAttribute('sorting', '이름순');
-    this.#generateRestaurants();
+    this.#generateThemeResult();
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === 'category' || name === 'sorting') {
-      this.#generateRestaurants();
+    if (name === 'theme' || name === 'category' || name === 'sorting') {
+      this.#generateThemeResult();
     }
   }
 
@@ -33,16 +33,22 @@ class RestaurantList extends Component {
     this.#updateRestaurants(event.detail);
   }
 
-  #generateRestaurants() {
+  #generateThemeResult() {
+    const theme = this.getAttribute('theme') as TTheme;
+    const filteredByThemeRestaurants = RestaurantRepository.transformByTheme(theme) as IRestaurant[];
+    this.#generateSelectResult(filteredByThemeRestaurants);
+  }
+
+  #generateSelectResult(filteredByThemeRestaurants: IRestaurant[]) {
     const category = this.getAttribute('category') as TAllCategory;
     const sorting = this.getAttribute('sorting') as TSortingOption;
-    this.#restaurants = RestaurantRepository.transformRestaurants(category, sorting);
+    this.#restaurants = RestaurantRepository.transformBySelector(filteredByThemeRestaurants, category, sorting);
     this.render();
   }
 
   #updateRestaurants(restaurant: IRestaurant) {
     RestaurantRepository.addRestaurant(restaurant);
-    this.#generateRestaurants();
+    this.#generateThemeResult();
   }
 
   template() {

@@ -42,6 +42,7 @@ class RestaurantAddModal extends Component {
       distance: ($('.modalDistance') as HTMLFormElement).value,
       description: ($('.modal-description') as HTMLFormElement).value,
       reference: ($('.modal-reference') as HTMLFormElement).value,
+      favorite: false,
     };
     this.makeCustomEvent('submitButtonClick', formData);
     this.#updateModal(false);
