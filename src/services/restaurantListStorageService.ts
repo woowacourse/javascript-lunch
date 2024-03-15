@@ -24,26 +24,20 @@ const RestaurantListStorageService = (function () {
 
   function patchData(restaurantId: number) {
     const data = getData();
-    if (data) {
-      const restaurantIndex = data.findIndex((restaurant) => restaurant.id === restaurantId);
-      if (restaurantIndex !== -1) {
-        data[restaurantIndex].isFavorited = !data[restaurantIndex].isFavorited;
-        cachedData = data;
-        localStorage.setItem('restaurantList', JSON.stringify(data));
-      }
+    const restaurant = data?.find((restaurant) => restaurant.id === restaurantId);
+    if (restaurant) {
+      restaurant.isFavorited = !restaurant.isFavorited;
+      localStorage.setItem('restaurantList', JSON.stringify(data));
     }
   }
 
   function setData(restaurant: RestaurantState) {
-    const prevData = getData();
-    if (prevData) {
-      const lastElementId = prevData.length > 0 ? prevData[prevData.length - 1].id || 0 : 0;
-      const newId = lastElementId + 1;
-      const newRestaurant = { ...restaurant, id: newId };
-      const newData = [...prevData, newRestaurant];
-      cachedData = newData;
-      localStorage.setItem('restaurantList', JSON.stringify(newData));
-    }
+    const prevData = getData() || [];
+    const lastElementId = prevData.length > 0 ? prevData[prevData.length - 1].id : 0;
+    const newRestaurant = { ...restaurant, id: lastElementId + 1 };
+    const newData = [...prevData, newRestaurant];
+    cachedData = newData;
+    localStorage.setItem('restaurantList', JSON.stringify(newData));
   }
 
   function deleteData(restaurant: RestaurantState) {

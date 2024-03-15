@@ -1,11 +1,10 @@
 import {
   generateRestaurantDescriptionComponentData,
   generateRestaurantNameComponentData,
-  generateRestaurantIsFavoritedComponentData,
   generateRestaurantDistanceComponentData,
-  generateRestaurantLinkComponentData,
   generateRestaurantBottomSheetDescriptionComponentData,
   generateRestaurantBottomSheetLinkComponentData,
+  generateRestaurantIsFavoritedComponentData,
 } from './generateRestaurantComponentData';
 import generateHeadingComponent from '../uiUtils/generateHeadingComponent';
 import generateSpanComponent from '../uiUtils/generateSpanComponent';

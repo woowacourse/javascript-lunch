@@ -1,4 +1,4 @@
-import { renderInputComponents } from './renderHandlers';
+import renderInputComponents from './renderHandlers';
 
 function InputName() {
   const inputNameComponent = renderInputComponents();

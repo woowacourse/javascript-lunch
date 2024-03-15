@@ -11,7 +11,7 @@ const generateSelectCategoryContainer = () => {
   return selectCategoryContainer;
 };
 
-export const renderSelectCategoryComponent = () => {
+const renderSelectCategoryComponent = () => {
   const selectCategoryContainer = generateSelectCategoryContainer();
   const selectCategoryLabel = generateLabelComponent(SELECT_CATEGORY_LABEL_COMPONENT_DATA);
   const selectCategorySelect = generateSelectComponent(SELECT_CATEGORY_COMPONENT_DATA);
@@ -20,3 +20,5 @@ export const renderSelectCategoryComponent = () => {
 
   return selectCategoryContainer;
 };
+
+export default renderSelectCategoryComponent;

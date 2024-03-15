@@ -19,6 +19,7 @@ import generateButtonComponent from '../../uiUtils/generateButtonComponent';
 import DELETE_BUTTON_COMPONENT_DATA from './componentsData/deleteButtonComponentData';
 import CLOSE_BUTTON_COMPONENT_DATA from './componentsData/closeButtonComponentData';
 
+/* eslint-disable max-lines-per-function */
 const generateCategoryImageAndInfoComponent = (targetRestaurantListItem: RestaurantState) => {
   const imageAndFavoritedContainer = generateContainerComponent(IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA);
   const restaurantCategory = getMatchedCategoryInfo(targetRestaurantListItem);
@@ -37,31 +38,46 @@ const generateCategoryImageAndInfoComponent = (targetRestaurantListItem: Restaur
   return imageAndFavoritedContainer;
 };
 
-export const renderRestaurantListItemBottomSheetComponent = (targetRestaurantListItem: RestaurantState) => {
-  const detailContainer = generateContainerComponent(RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA);
+const generateTotalButtonComponent = () => {
+  const buttonContainer = generateContainerComponent(BUTTON_CONTAINER_COMPONENT_DATA);
+  const restaurantListItemDeleteButton = generateButtonComponent(DELETE_BUTTON_COMPONENT_DATA);
+  const bottomSheetCloseButtonComponent = generateButtonComponent(CLOSE_BUTTON_COMPONENT_DATA);
+  buttonContainer.appendChild(restaurantListItemDeleteButton);
+  buttonContainer.appendChild(bottomSheetCloseButtonComponent);
+
+  return buttonContainer;
+};
+
+/* eslint-disable max-lines-per-function */
+const generateTotalCategoryImageAndInfoComponent = (targetRestaurantListItem: RestaurantState) => {
   const fragment = document.createDocumentFragment();
   const categoryImageAndInfoComponent = generateCategoryImageAndInfoComponent(targetRestaurantListItem);
   const restaurantNameComponent = createTitleComponent(targetRestaurantListItem.name);
   const restaurantDistanceComponent = createDistanceComponent(targetRestaurantListItem.distance);
   const restaurantDescriptionComponent = createBottomSheetDescriptionComponent(targetRestaurantListItem.description);
   const restaurantLinkComponent = createBottomSheetRestaurantLinkComponent(targetRestaurantListItem.link);
-  const buttonContainer = generateContainerComponent(BUTTON_CONTAINER_COMPONENT_DATA);
-  const restaurantListItemDeleteButton = generateButtonComponent(DELETE_BUTTON_COMPONENT_DATA);
-  const bottomSheetCloseButtonComponent = generateButtonComponent(CLOSE_BUTTON_COMPONENT_DATA);
 
-  buttonContainer.appendChild(restaurantListItemDeleteButton);
-  buttonContainer.appendChild(bottomSheetCloseButtonComponent);
   fragment.appendChild(categoryImageAndInfoComponent);
   fragment.appendChild(restaurantNameComponent);
   fragment.appendChild(restaurantDistanceComponent);
   if (restaurantDescriptionComponent) {
     fragment.appendChild(restaurantDescriptionComponent);
   }
+  const totalButtonComponent = generateTotalButtonComponent();
 
   fragment.appendChild(restaurantLinkComponent);
-  fragment.appendChild(buttonContainer);
+  fragment.appendChild(totalButtonComponent);
 
-  detailContainer.appendChild(fragment);
+  return fragment;
+};
+
+const renderRestaurantListItemBottomSheetComponent = (targetRestaurantListItem: RestaurantState) => {
+  const detailContainer = generateContainerComponent(RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA);
+  const totalCategoryImageAndInfoComponent = generateTotalCategoryImageAndInfoComponent(targetRestaurantListItem);
+
+  detailContainer.appendChild(totalCategoryImageAndInfoComponent);
 
   return detailContainer;
 };
+
+export default renderRestaurantListItemBottomSheetComponent;

@@ -75,20 +75,7 @@ export const generateRestaurantIsFavoritedComponentData = (isFavorited: boolean)
   return componentData;
 };
 
-export const generateRestaurantLinkComponentData = (link?: string) => {
-  if (link) {
-    const componentData = {
-      ...RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA,
-      TAG_HREF: RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA.TAG_HREF(link),
-    };
-
-    return componentData;
-  }
-
-  const componentData = {
-    ...RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA,
-    TAG_HREF: RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA.TAG_HREF(''),
-  };
-
-  return componentData;
-};
+export const generateRestaurantLinkComponentData = (link?: string) => ({
+  ...RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA,
+  TAG_HREF: RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA.TAG_HREF(link || ''),
+});

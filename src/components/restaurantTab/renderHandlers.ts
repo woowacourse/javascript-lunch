@@ -7,7 +7,7 @@ import ALL_RESTAURNAT_TAB_BUTTON_DATA from './componentsData/AllRestaurantTabBut
 import FAVORITE_RESTAURANTS_TAB_DATA from './componentsData/FavoriteRestaurantTabData';
 import TAB_CONTAINER_COMPONENT_DATA from './componentsData/TabContainerComponentData';
 import RestaurantList from '../restaurantList/RestaurantList';
-import { bindSelectCategoryOrDistanceOrNameFilterEvent } from '../filterBar/eventHandlers';
+import bindSelectCategoryOrDistanceOrNameFilterEvent from '../filterBar/eventHandlers';
 
 export const renderRestaurantTabContainerComponent = () => {
   const container = generateContainerComponent(TAB_CONTAINER_COMPONENT_DATA);
@@ -35,7 +35,6 @@ export const unMountFilterBarComponent = (filteredRestaurantListFromTabValueQuer
 export const mountFilterBarComponent = (filteredRestaurantListFromTabValueQuery: RestaurantState[]) => {
   const main = document.querySelector('main');
   const filterBar = FilterBar();
-
   if (main) {
     main.innerHTML = '';
     main.appendChild(filterBar);

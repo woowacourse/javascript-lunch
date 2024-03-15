@@ -1,6 +1,5 @@
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import { TabValue } from '../../types';
-import FilterBar from '../filterBar/FilterBar';
 import { mountFilterBarComponent, unMountFilterBarComponent } from './renderHandlers';
 
 const applySelectedTabStyle = (buttonElement: HTMLButtonElement) => {

@@ -5,7 +5,7 @@ import SORT_BY_NAME_OR_CATEGORY_DATA from './componentsData/SortByNameOrDistance
 import FILTER_BAR_SECTION_COMPONENT_DATA from './componentsData/filterBarSectionComponentData';
 import generateSectionComponent from '../../uiUtils/generateSectionComponent';
 
-export const renderFilterBarComponents = () => {
+const renderFilterBarComponents = () => {
   const barContainer = generateSectionComponent(FILTER_BAR_SECTION_COMPONENT_DATA);
 
   barContainer.appendChild(generateSelectElement(RESTAURANT_CATEGORY_DATA));
@@ -13,3 +13,5 @@ export const renderFilterBarComponents = () => {
 
   return barContainer;
 };
+
+export default renderFilterBarComponents;

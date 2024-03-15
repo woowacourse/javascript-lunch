@@ -1,4 +1,4 @@
-import { renderBaseModalContainer } from './renderHandlers';
+import renderBaseModalContainer from './renderHandlers';
 import dimmerClickHandler from './eventHandlers';
 
 function Modal(modalContents?: Element) {

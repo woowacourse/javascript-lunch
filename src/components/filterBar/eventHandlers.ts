@@ -42,7 +42,9 @@ const selectOptionByNameOrDistance = () => {
   }
 };
 
-export const bindSelectCategoryOrDistanceOrNameFilterEvent = () => {
+const bindSelectCategoryOrDistanceOrNameFilterEvent = () => {
   selectOptionByNameOrDistance();
   selectOptionByFoodCategory();
 };
+
+export default bindSelectCategoryOrDistanceOrNameFilterEvent;

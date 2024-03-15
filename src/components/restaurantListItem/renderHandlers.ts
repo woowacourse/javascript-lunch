@@ -17,6 +17,7 @@ import {
   createIsFavoriteImageComponent,
 } from '../../services/createComponent';
 
+/* eslint-disable max-lines-per-function */
 const generateRestaurantListItemImageComponent = (categoryInfo: CategoryInfo) => {
   const restaurantImageContainer = generateContainerComponent(RESTAURANT_LIST_ITEM_CONTAINER_COMPONENT_DATA);
   const imageComponentData = generateRestaurantCategoryImageComponentData(categoryInfo);
@@ -26,6 +27,7 @@ const generateRestaurantListItemImageComponent = (categoryInfo: CategoryInfo) =>
   return restaurantImageContainer;
 };
 
+/* eslint-disable max-lines-per-function */
 const generateRestaurantListItemInfoComponent = (restaurant: RestaurantState) => {
   const restaurantInfoContainer = generateContainerComponent(RESTAURANT_INFO_CONTAINER_COMPONENT_DATA);
   const restaurantInfoTitleComponent = createTitleComponent(restaurant.name);
@@ -40,6 +42,7 @@ const generateRestaurantListItemInfoComponent = (restaurant: RestaurantState) =>
   return restaurantInfoContainer;
 };
 
+/* eslint-disable max-lines-per-function */
 const generateRestaurantListItemComponent = (restaurant: RestaurantState) => {
   const matchedCategoryInfo = getMatchedCategoryInfo(restaurant);
   const listComponent = generateListComponent(RESTAURANT_LIST_ITEM_COMPONENT_DATA);

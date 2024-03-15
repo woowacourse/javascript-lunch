@@ -43,15 +43,15 @@ const closeBottomSheetClickHandler = () => {
   initializeModal();
 };
 
-export const ListItemDetailBottomSheetEventHandler = (targetRestaurantListItem: RestaurantState) => {
+const ListItemDetailBottomSheetEventHandler = (targetRestaurantListItem: RestaurantState) => {
   const favoritedIconContainer = document.querySelector('.favorited-icon-container') as HTMLElement;
-
   const deleteButton = document.querySelector('.button--secondary') as HTMLButtonElement;
   const closeButton = document.querySelector('.button--primary') as HTMLButtonElement;
-
   favoritedIconContainer.addEventListener('click', (event) =>
     favoriteIconChangeHandler(event, targetRestaurantListItem),
   );
   deleteButton.addEventListener('click', () => deleteButtonClickHandler(targetRestaurantListItem));
   closeButton.addEventListener('click', closeBottomSheetClickHandler);
 };
+
+export default ListItemDetailBottomSheetEventHandler;

@@ -1,4 +1,4 @@
-import { renderFilterBarComponents } from './renderHandlers';
+import renderFilterBarComponents from './renderHandlers';
 
 const FilterBar = () => {
   const filterBarComponent = renderFilterBarComponents();

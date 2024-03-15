@@ -23,20 +23,12 @@ const rendereAddNewRestaurantFormElements = () => {
 const renderAddNewRestaurantForm = () => {
   const h2Component = generateHeadingComponent(ADD_RESTAURANT_FORM_H2_COMPONENT_DATA);
   const formComponent = generateFormComponent(ADD_RESTAURANT_FORM_COMPONENT_DATA);
-  const { selectCategory, inputName, selectDistance, inputDescription, inputLink, modalButton } =
-    rendereAddNewRestaurantFormElements();
-  formComponent.appendChild(h2Component);
-  formComponent.appendChild(selectCategory);
-  formComponent.appendChild(inputName);
-  formComponent.appendChild(selectDistance);
-  formComponent.appendChild(inputDescription);
-  formComponent.appendChild(inputLink);
-  formComponent.appendChild(modalButton);
-
+  const formElements = rendereAddNewRestaurantFormElements();
+  const elementsToAdd = [h2Component, ...Object.values(formElements)];
+  elementsToAdd.forEach((element) => {
+    formComponent.appendChild(element);
+  });
   return formComponent;
 };
 
 export default renderAddNewRestaurantForm;
-
-// <h2 class="modal-title text-title">새로운 음식점</h2>
-// <form id="modal-form" class="modal-form"></form>

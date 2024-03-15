@@ -1,4 +1,4 @@
-import { renderSelectCategoryComponent } from './renderHandlers';
+import renderSelectCategoryComponent from './renderHandlers';
 
 function SelectCategory() {
   const selectCategoryContainer = renderSelectCategoryComponent();

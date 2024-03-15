@@ -1,6 +1,7 @@
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import RestaurantListItemDetail from '../restaurantListItemDetailModal/RestaurantListItemDetail';
-import { ListItemDetailBottomSheetEventHandler } from '../restaurantListItemDetailModal/eventHandler';
+import ListItemDetailBottomSheetEventHandler from '../restaurantListItemDetailModal/eventHandler';
+import { RestaurantState } from '../../types';
 
 const appendDetailToModal = (listItemDetailComponent: HTMLElement) => {
   const modal = document.getElementsByClassName('modal')[0];
@@ -9,16 +10,29 @@ const appendDetailToModal = (listItemDetailComponent: HTMLElement) => {
   modalContainer.appendChild(listItemDetailComponent);
 };
 
-const RestaurantListItemDetailPhaseHandler = (event: Event) => {
+const getRestaurantIdFromEventTarget = (event: Event): number | null => {
   const target = event.target as Element as HTMLElement;
-  if (target) {
-    const listItem = target.closest('li') as HTMLLIElement;
-    const restaurantId = Number(listItem.dataset.id);
-    const targetRestaurantListItem =
-      RestaurantListStorageService.getData()!.filter((restaurant) => restaurant.id === restaurantId)[0] ?? [];
-    const listItemDetailComponent = RestaurantListItemDetail(targetRestaurantListItem);
+  const listItem = target?.closest('li') as HTMLLIElement;
+  return listItem ? Number(listItem.dataset.id) : null;
+};
+
+const getRestaurantDataById = (restaurantId: number) => {
+  return RestaurantListStorageService.getData()?.find((restaurant) => restaurant.id === restaurantId) ?? null;
+};
+
+const createAndAppendDetailComponent = (restaurant: RestaurantState | null) => {
+  if (restaurant) {
+    const listItemDetailComponent = RestaurantListItemDetail(restaurant);
     appendDetailToModal(listItemDetailComponent);
-    ListItemDetailBottomSheetEventHandler(targetRestaurantListItem);
+    ListItemDetailBottomSheetEventHandler(restaurant);
+  }
+};
+
+const RestaurantListItemDetailPhaseHandler = (event: Event) => {
+  const restaurantId = getRestaurantIdFromEventTarget(event);
+  if (restaurantId !== null) {
+    const restaurantData = getRestaurantDataById(restaurantId);
+    createAndAppendDetailComponent(restaurantData);
   }
 };
 
