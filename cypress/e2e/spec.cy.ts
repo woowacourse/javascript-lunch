@@ -16,7 +16,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('.modal-description').type('파슬리와 썬데이가 장인 정신으로 한땀한땀 구워주는 삼겹살 맛집입니다.');
     cy.get('.modal-reference').type('https://www.woowacourse.io/');
 
-    cy.get('.button--primary').click();
+    cy.get('restaurant-add-modal').find('.button--primary').click();
 
     cy.get('.restaurant').last().find('.restaurant__name').should('contain', '파슬리와 썬데이의 삼겹살집');
     cy.get('.restaurant').last().find('.restaurant__distance').should('contain', '5');
@@ -24,6 +24,20 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
       .last()
       .find('.restaurant__description')
       .should('contain', '파슬리와 썬데이가 장인 정신으로 한땀한땀 구워주는 삼겹살 맛집입니다.');
+  });
+
+  context('탭을 클릭하여 음식점 목록을 확인할 수 있다.', () => {
+    it('모든 음식점 탭에서는 모든 음식점 목록이 표시된다.', () => {
+      cy.get('.all').click();
+
+      cy.get('.restaurant').should('have.length', 6);
+    });
+
+    it('자주 가는 음식점 탭에서는 자주 가는 음식점 목록이 표시된다.', () => {
+      cy.get('.favorites').click();
+
+      cy.get('.restaurant').should('have.length', 3);
+    });
   });
 
   context('음식점을 카테고리 별로 필터링할 수 있다.', () => {
