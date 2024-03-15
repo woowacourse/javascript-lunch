@@ -41,7 +41,7 @@ describe('[RestaurantService] 음식점 서비스 객체 테스트', () => {
     expect(expectedData.length).to.eql(1);
   });
 
-  it('toggleRestaurantFavorite() 메서드는 해당 이름을 가진 음식점의 favorite 정보를 toggle한 뒤 저장해야 한다.', () => {
+  it('updateRestaurantFavorite() 메서드는 해당 이름을 가진 음식점의 favorite 정보를 toggle한 뒤 저장해야 한다.', () => {
     const restaurantService = new RestaurantService();
     const restaurantName = '한식당';
     const restaurantData: RestaurantDataType = {
@@ -54,7 +54,7 @@ describe('[RestaurantService] 음식점 서비스 객체 테스트', () => {
     };
 
     restaurantService.addRestaurant(restaurantData);
-    restaurantService.toggleRestaurantFavorite(restaurantName);
+    restaurantService.updateRestaurantFavorite(restaurantName, false);
 
     const expectedResult = restaurantService
       .getRestaurants(SortOrder.이름순)

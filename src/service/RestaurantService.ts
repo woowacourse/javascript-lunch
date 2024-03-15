@@ -58,12 +58,12 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  toggleRestaurantFavorite(restaurantName: string) {
-    const restaurant = this.restaurants.filter((restaurant) => restaurant.getName() === restaurantName);
-    if (restaurant.length !== 1) {
+  updateRestaurantFavorite(restaurantName: string, isFavorited: boolean) {
+    const restaurant = this.restaurants.find((restaurant) => restaurant.getName() === restaurantName);
+    if (!restaurant) {
       throw new Error('찾으시는 음식점 정보를 찾을 수 없습니다.');
     }
-    restaurant[0].toggleFavorite();
+    restaurant.updateFavorite(isFavorited);
     this.saveRestaurants(this.restaurants);
   }
 
