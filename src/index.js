@@ -6,6 +6,7 @@ import RestaurantItem from './components/RestaurantItem';
 import RestaurantAddModal from './components/modal/RestaurantAddModal';
 import RestaurantDetailModal from './components/modal/RestaurantDetailModal';
 import CategoryIcon from './components/CategoryIcon';
+import FavoriteButton from './components/FavoriteButton';
 import FilterBox from './components/FilterBox';
 
 import './styles/style.css';
@@ -17,6 +18,7 @@ customElements.define('restaurant-list', RestaurantList);
 customElements.define('restaurant-item', RestaurantItem);
 customElements.define('restaurant-add-modal', RestaurantAddModal);
 customElements.define('restaurant-detail-modal', RestaurantDetailModal);
+customElements.define('favorite-button', FavoriteButton);
 customElements.define('category-icon', CategoryIcon);
 customElements.define('filter-box', FilterBox);
 
