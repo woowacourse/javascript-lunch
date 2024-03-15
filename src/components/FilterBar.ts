@@ -1,35 +1,57 @@
-import BaseComponent from "../abstract/BaseComponent";
-
+import EventComponent from "../abstract/EventComponent";
 import convertObjectToOptions from "../utils/convertObjectToOptions";
-import { FILTER_EVENT } from "../constants/event";
+import {
+  FILTER_EVENT,
+  TAB_SWITCH_EVENT,
+  TAB_SWITCH_EVENT_SWITCH_TO,
+} from "../constants/event";
 import {
   KOREAN_CATEGORY_FILTER,
   KOREAN_SORT_FILTER,
 } from "../constants/filter";
+import { $ } from "../utils/selector";
 
-export default class FilterBar extends BaseComponent {
+export default class FilterBar extends EventComponent {
   protected getTemplate(): string {
     return `
-    <section class="restaurant-filter-container">
-      <select-box
-        select-id="category-filter-select"
-        class-name="restaurant-filter" 
-        name="category-filter"
-        options=${this.generateCategoryOptions()}
-        event-name=${FILTER_EVENT.categoryFilterChange}
-        label-name="카테고리필터"
-      ></select-box>
+      <section id="restaurant-filter-container" class="restaurant-filter-container">
+        <select-box
+          select-id="category-filter-select"
+          class-name="restaurant-filter" 
+          name="category-filter"
+          options=${this.generateCategoryOptions()}
+          event-name=${FILTER_EVENT.categoryFilterChange}
+          label-name="카테고리필터"
+        ></select-box>
 
-      <select-box
-        select-id="sorting-filter-select"
-        class-name="restaurant-filter"
-        name="sorting-filter"
-        options=${this.generateSortingOptions()}
-        event-name=${FILTER_EVENT.sortFilterChange}
-        label-name="정렬기준"
-      ></select-box>
-    </section>
+        <select-box
+          select-id="sorting-filter-select"
+          class-name="restaurant-filter"
+          name="sorting-filter"
+          options=${this.generateSortingOptions()}
+          event-name=${FILTER_EVENT.sortFilterChange}
+          label-name="정렬기준"
+        ></select-box>
+      </section>
 `;
+  }
+
+  protected setEvent(): void {
+    document.addEventListener(TAB_SWITCH_EVENT, (e) =>
+      this.handleFilterChange(e as CustomEvent)
+    );
+  }
+
+  private handleFilterChange(e: CustomEvent) {
+    const { switchTo } = e.detail;
+
+    if (switchTo === TAB_SWITCH_EVENT_SWITCH_TO.favorite) {
+      return $("#restaurant-filter-container")?.classList.add("close");
+    }
+
+    if (switchTo === TAB_SWITCH_EVENT_SWITCH_TO.all) {
+      return $("#restaurant-filter-container")?.classList.remove("close");
+    }
   }
 
   private generateCategoryOptions() {
