@@ -65,6 +65,10 @@ const LUNCH_DETAIL_MODAL_TEMPLATE = ({
 `;
 
 class LunchDetailModal extends HTMLElement {
+  static get observedAttributes() {
+    return ['category', 'name', 'distance', 'description', 'liked', 'link'];
+  }
+
   connectedCallback() {
     this.render();
     this.setEventListener();
@@ -95,10 +99,13 @@ class LunchDetailModal extends HTMLElement {
 
   handleModalClose() {
     const modal = this.querySelector('.detail-modal');
-    console.log(modal);
     if (modal?.className) {
       modal.classList.remove('detail-modal--open');
     }
+  }
+
+  attributeChangedCallback() {
+    this.connectedCallback();
   }
 }
 

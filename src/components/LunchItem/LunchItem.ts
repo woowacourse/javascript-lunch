@@ -5,6 +5,7 @@ import { Category, Distance } from '../../types/index';
 import { CATEGORY_IMG } from '../../constants/categoriesImage';
 
 export type LunchItemProps = {
+  [key: string]: string | Category | Distance | number;
   category: Category;
   name: string;
   distance: Distance;
@@ -85,7 +86,18 @@ class LunchItem extends HTMLElement {
   }
 
   handleDetailModal() {
-    this.insertAdjacentHTML('afterend', LUNCH_DETAIL_MODAL_TEMPLATE(this.getAttributes()));
+    // TODO : 리팩터링
+    const lunchDetailModal = document.querySelector('lunch-detail-modal');
+    const lunchDetailModalChild = document.querySelector('.detail-modal');
+    if (!lunchDetailModal) {
+      this.insertAdjacentHTML('afterend', LUNCH_DETAIL_MODAL_TEMPLATE(this.getAttributes()));
+    } else {
+      const attributesToSet = this.getAttributes();
+      for (const key in attributesToSet) {
+        lunchDetailModal.setAttribute(key, attributesToSet[key].toString());
+      }
+      lunchDetailModalChild?.classList.add('detail-modal--open');
+    }
   }
 }
 
