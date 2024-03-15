@@ -33,7 +33,7 @@ export default class AddRestaurantModal extends ModalWrapper {
 
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
-          <label for="name text-caption">이름</label>
+          <label for="name" class="text-caption">이름</label>
           <input placeholder="이름을 입력해주세요." type="text" name="name" id="name" required>
           <span id="name-error" class="error-message"></span>
         </div>
@@ -46,14 +46,14 @@ export default class AddRestaurantModal extends ModalWrapper {
 
         <!-- 설명 -->
         <div class="form-item">
-          <label for="description text-caption">설명</label>
+          <label for="description" class="text-caption">설명</label>
           <textarea name="description" id="description" cols="30" rows="5"></textarea>
           <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
         </div>
 
         <!-- 링크 -->
         <div class="form-item">
-          <label for="link text-caption">참고 링크</label>
+          <label for="link" class="text-caption">참고 링크</label>
           <input type="text" name="link" id="link">
           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
         </div>
@@ -70,8 +70,10 @@ export default class AddRestaurantModal extends ModalWrapper {
   #addEvents() {
     $('modal-backdrop').addEventListener('click', this._handleClose.bind(this));
     $('add-restaurant-cancel-button').addEventListener('click', this._handleClose.bind(this));
-    $('modal').addEventListener('focusout', (event) => this.#handleInputFocusout(event));
-    $('modal').addEventListener('submit', (event) => this.#handleAddButton(event));
+    $('restaurant-input-form').addEventListener('focusout', (event) =>
+      this.#handleInputFocusout(event),
+    );
+    $('restaurant-input-form').addEventListener('submit', (event) => this.#handleAddButton(event));
   }
 
   #handleInputFocusout(event) {

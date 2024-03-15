@@ -5,7 +5,6 @@ import AddRestaurantModal from '../AddRestaurantModal/AddRestaurantModal';
 export default class Header {
   #element;
   #restaurants;
-  #addRestaurant;
 
   // TODO: restaurants prop Drilling
   constructor(element, restaurants) {
@@ -32,13 +31,9 @@ export default class Header {
 
   #handleButtonClick(target) {
     if (target.closest('#gnb__button')) {
+      // TODO: 리팩터링, 해당 방법에 대해서 다시 고민해보기
+      new AddRestaurantModal($('modal'), this.#restaurants);
       $('modal').classList.add('modal--open');
-      // TODO: 리팩터링, 이 방법이 좋은 방법인가? 이벤트는 지우지 않는 한 사라지지 않나요?
-      if (!this.#addRestaurant) {
-        this.#addRestaurant = new AddRestaurantModal($('modal'), this.#restaurants);
-        return;
-      }
-      this.#addRestaurant.render();
     }
   }
 }
