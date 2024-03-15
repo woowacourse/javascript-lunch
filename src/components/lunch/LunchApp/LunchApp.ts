@@ -1,4 +1,3 @@
-import "../../common/CommonModal/CommonModal.css";
 import "./LunchApp.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
