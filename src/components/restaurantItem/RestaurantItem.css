@@ -48,12 +48,3 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
-.restaurant__bookmark {
-  background: none;
-  border: none;
-}
-
-.restaurant__bookmark > img {
-  width: 32px;
-}
