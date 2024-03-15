@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from './core/Component';
 import { $addEvent, $setAttribute } from '../utils/dom';
 import RestaurantRepository from '../domain/RestaurantRepository';
 

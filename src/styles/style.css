@@ -178,9 +178,12 @@ body {
 
 .restaurant-detail-container {
   position: relative;
+
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+
+  margin-bottom: 32px;
 }
 
 .favorite__button {

@@ -1,4 +1,4 @@
-import Component from '../Component';
+import Component from '../core/Component';
 import { $ } from '../../utils/dom';
 
 class Modal extends Component {
@@ -27,7 +27,7 @@ class Modal extends Component {
   }
 
   modalContent(): string {
-    return ``;
+    return '';
   }
 
   template(): string {

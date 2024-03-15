@@ -1,6 +1,6 @@
-import Component from './Component';
+import Component from './core/Component';
 import { OPTIONS_MAP } from '../constants/Condition';
-import { $addEvent, $removeEvent } from '../utils/dom';
+import { $addEvent } from '../utils/dom';
 
 class FilterBox extends Component {
   #type: string;

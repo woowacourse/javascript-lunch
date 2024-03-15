@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from './core/Component';
 import koreanIcon from '../assets/category-korean.png';
 import japaneseIcon from '../assets/category-japanese.png';
 import chineseIcon from '../assets/category-chinese.png';

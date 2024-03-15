@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from './core/Component';
 import { $, $addEvent, $setAttribute } from '../utils/dom';
 
 class LunchPickerApp extends Component {

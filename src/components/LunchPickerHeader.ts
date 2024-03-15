@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from './core/Component';
 import addButtonImg from '../assets/add-button.png';
 import { $addEvent } from '../utils/dom';
 
@@ -8,7 +8,7 @@ class LunchPickerHeader extends Component {
   }
 
   #openModal() {
-    this.makeEvent('click');
+    this.makeCustomEvent('click');
   }
 
   template() {

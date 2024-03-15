@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from './core/Component';
 import RestaurantRepository from '../domain/RestaurantRepository';
 
 class RestaurantList extends Component {

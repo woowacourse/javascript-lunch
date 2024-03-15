@@ -5,10 +5,6 @@ class Component extends HTMLElement {
     }
   }
 
-  disconnectedCallback(): void {
-    this.removeEvent();
-  }
-
   render(): void {
     this.innerHTML = this.template();
     this.setEvent();
@@ -16,18 +12,12 @@ class Component extends HTMLElement {
 
   setEvent(): void {}
 
-  removeEvent(): void {}
-
-  makeEvent(name: string): void {
-    this.dispatchEvent(new Event(name, { bubbles: true }));
-  }
-
   makeCustomEvent(name: string): void {
     this.dispatchEvent(new CustomEvent(name, { bubbles: true }));
   }
 
   template(): string {
-    return ``;
+    return '';
   }
 }
 
