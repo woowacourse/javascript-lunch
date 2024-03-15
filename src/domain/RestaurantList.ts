@@ -1,7 +1,7 @@
-import { Restaurant, Category, SortingStandard } from "../types";
+import { RestaurantType, Category, SortingStandard } from "../types";
 import { RESTAURANTS } from "../constants";
 
-function getResturantsFromLocalStorage(): Restaurant[] {
+function getResturantsFromLocalStorage(): RestaurantType[] {
   if (!localStorage.getItem(RESTAURANTS)) {
     localStorage.setItem(RESTAURANTS, JSON.stringify([]));
   }
@@ -11,7 +11,7 @@ function getResturantsFromLocalStorage(): Restaurant[] {
   return JSON.parse(restaurants);
 }
 
-function setRestaurantsToLocalStorage(newRestuarant: Restaurant) {
+function setRestaurantsToLocalStorage(newRestuarant: RestaurantType) {
   const newRestaurants = [...getResturantsFromLocalStorage(), newRestuarant];
   localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
 }
@@ -23,8 +23,8 @@ class RestaurantList {
   }: {
     category: Category | "전체";
     sortingStandard: SortingStandard;
-  }): Restaurant[] {
-    const restaurants: Restaurant[] = getResturantsFromLocalStorage();
+  }): RestaurantType[] {
+    const restaurants: RestaurantType[] = getResturantsFromLocalStorage();
     if (category === "전체") {
       return restaurants.toSorted((a, b) => {
         if (a[sortingStandard] < b[sortingStandard]) {
@@ -46,7 +46,7 @@ class RestaurantList {
       });
   }
 
-  add(restaurant: Restaurant) {
+  add(restaurant: RestaurantType) {
     setRestaurantsToLocalStorage(restaurant);
   }
 }

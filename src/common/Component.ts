@@ -1,8 +1,8 @@
 export default class Component {
   $target;
-  state: unknown;
+  state: any;
   props;
-  constructor($target: Element | null, props?: unknown[]) {
+  constructor($target: Element | null, props?: any) {
     this.$target = $target;
     this.props = props;
     this.setup();

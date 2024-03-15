@@ -1,38 +1,48 @@
-import "./styles/style.css";
-import "./styles/Header.css";
-import "../templates/add-button.png";
-import "../templates/category-asian.png";
-import "../templates/category-chinese.png";
-import "../templates/category-etc.png";
-import "../templates/category-japanese.png";
-import "../templates/category-korean.png";
-import "../templates/category-western.png";
-import "../templates/favorite-icon-filled.png";
-import "../templates/favorite-icon-lined.png";
 import Component from "./common/Component";
 import Header from "./components/Header";
 import restaurantList from "./domain/RestaurantList";
+import Restaurants from "./components/Restuarants";
+import Filter from "./components/Filter";
+import { RestaurantType } from "./types";
 
 export default class App extends Component {
   setup(): void {
     this.state = {
       filter: "all",
-      restuarnt: restaurantList.getRestaurants({
-        category: "전체",
-        sortingStandard: "name",
-      }),
+      restuarnts: [
+        {
+          category: "한식",
+          name: "한식집1",
+          distance: 20,
+          bookmark: true,
+          description: "",
+          link: "",
+        },
+        {
+          category: "한식",
+          name: "한식집1",
+          distance: 20,
+          bookmark: false,
+          description: "",
+          link: "",
+        },
+      ],
+      // restuarnts: restaurantList.getRestaurants({
+      //   category: "전체",
+      //   sortingStandard: "name",
+      // }),
     };
   }
 
   render() {
-    return `
+    return /*html*/ `
             <header class="gnb"></header>
             <main>
-              <section class="restaurant-filter"></section>
+              <section class="filter-container"></section>
               <section class="restaurant-select">
 
               </section>
-              <section class="restaurant-list"></section>
+              <section class="restaurants"></section>
             </main>
             <div class="modal"></div>
         `;
@@ -40,6 +50,23 @@ export default class App extends Component {
 
   componentDidMount(): void {
     const $header = document.querySelector(".gnb");
+    const $restaurants = document.querySelector(".restaurants");
+    const $filter = document.querySelector(".filter-container");
     new Header($header);
+    new Restaurants($restaurants, { restuarnts: this.state.restuarnts });
+    new Filter($filter, { filter: this.state.filter });
   }
+
+  // changeFilter(filter: string) {
+  //   if (filter === 'all') {
+  //     this.setState({
+  //       filter: 'all',
+  //       restaurants: this.state.restaurants.filter((restaurant) => restaurant.bookmark === '')
+  //     })
+  //   } else if (filter === 'bookmark') {
+
+  //   }
+  // }
+
+  addRestaurant(newRestaurant: Restaurants) {}
 }

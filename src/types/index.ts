@@ -10,12 +10,13 @@ type SortingStandard = ArrayToEnum<typeof SORTING_STANDARDS>;
 
 type Link = `https://${string}` | `http://${string}`;
 
-type Restaurant = {
+type RestaurantType = {
   category: Category;
   name: string;
   distance: Distance;
+  bookmark: boolean;
   description?: string;
   link?: Link | "";
 };
 
-export { Category, Distance, Restaurant, SortingStandard, Link };
+export { Category, Distance, RestaurantType, SortingStandard, Link };

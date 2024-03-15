@@ -1,0 +1,16 @@
+.filter-container {
+  padding: 30px 16px 0px;
+  display: flex;
+  cursor: pointer;
+}
+
+.filter {
+  width: 50%;
+  text-align: center;
+  padding: 10px;
+}
+
+.filter-on {
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+}
