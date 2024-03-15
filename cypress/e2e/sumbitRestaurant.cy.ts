@@ -1,11 +1,11 @@
-describe('The Home Page', () => {
-  it('successfully loads', () => {
+describe('Restaurant Form Modal Test', () => {
+  it('Restaurant Form 제출 시 List에 추가된다.', () => {
     cy.visit('/');
 
     cy.get('.restaurant-list')
       .children()
       .its('length')
-      .then((count: number) => {
+      .then((RestaurantCountBeforeAdd: number) => {
         cy.get('#add-restaurant-button').click();
         cy.get('#add-category-select').invoke('val', '한식');
         cy.get('#name').type('평가옥');
@@ -19,7 +19,7 @@ describe('The Home Page', () => {
         cy.get('.restaurant-list')
           .children()
           .its('length')
-          .should('eq', count + 1);
+          .should('eq', RestaurantCountBeforeAdd + 1);
       });
   });
 });
