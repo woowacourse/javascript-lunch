@@ -19,6 +19,17 @@ class LunchItem extends HTMLLIElement {
     super();
     this.className = 'restaurant';
     this.createTypeIcon(restaurant);
+    this.setEventListener(restaurant);
+  }
+
+  setEventListener(restaurant: Restaurant) {
+    this.addEventListener('click', () => {
+      const clickItemEvent = new CustomEvent('clickItem', {
+        detail: { info: restaurant },
+        bubbles: true,
+      });
+      this.dispatchEvent(clickItemEvent);
+    });
   }
 
   createTypeIcon(restaurant: Restaurant) {

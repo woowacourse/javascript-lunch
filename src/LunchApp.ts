@@ -8,6 +8,7 @@ import './components/LunchItemFilter/LunchItemFilter';
 import './components/LunchItem/LunchItem';
 import './components/LunchItems/LunchItems';
 import './components/LunchRegisterModal/LunchRegisterModal';
+import './components/LunchItemModal/LunchItemModal';
 
 import DUMMY from './constants/dummy';
 
@@ -16,6 +17,7 @@ const LUNCH_APP = `
   <lunch-item-filter></lunch-item-filter>
   <lunch-items></lunch-items>
   <lunch-register-modal></lunch-register-modal>
+  <lunch-item-modal></lunch-item-modal>
 `;
 
 class LunchApp extends HTMLElement {

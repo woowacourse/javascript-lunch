@@ -16,12 +16,21 @@ class LunchFavoriteIcon extends HTMLImageElement {
   }
 
   setEventListener(restaurant: Restaurant) {
-    const items = document.querySelector('lunch-items') as LunchItems;
     this.addEventListener('click', () => {
       this.handleFavorite(restaurant);
-      const tab = (document.querySelector('.lunch-tab') as LunchTab).nowSelected;
-      items.renderItems({ database: tab === 'favorite-restaurants' ? 'liked' : 'restaurants' });
+      this.handleRender();
     });
+  }
+
+  handleRender() {
+    const items = document.querySelector('lunch-items') as LunchItems;
+    const tab = (document.querySelector('.lunch-tab') as LunchTab).nowSelected;
+    const dropdowns = this.querySelectorAll('select');
+    if (tab === 'favorite-restaurants') {
+      items.renderItems({ database: 'liked' });
+    } else {
+      items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
+    }
   }
 
   handleFavorite(restaurant: Restaurant) {

@@ -27,7 +27,6 @@ const LUNCH_REGISTER_MODAL = /* html */ `
 class LunchRegisterModal extends HTMLElement {
   constructor() {
     super();
-    this.className = 'lunch-register-modal';
     this.appendChild(new LunchModal());
   }
 
