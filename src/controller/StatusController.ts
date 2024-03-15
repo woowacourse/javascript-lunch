@@ -13,6 +13,32 @@ class StatusController {
       sortStandard: (sortStandardFilter.value as SortStandard) ?? "이름순",
     };
   }
+
+  static getRestaurantFromPreview(preview: HTMLElement): Restaurant {
+    const category = (
+      preview.querySelector(".category-icon") as HTMLImageElement
+    )?.alt as Category;
+    const name = preview.querySelector(".restaurant__name")
+      ?.textContent as string;
+
+    const distanceString = preview.querySelector(".restaurant__distance")
+      ?.textContent as string;
+    const distance = this.#getNumberInSentence(distanceString) as Distance;
+
+    const description = preview.querySelector(".restaurant__description")
+      ?.textContent as string;
+    const url = preview.querySelector(".restaurant__link")
+      ?.textContent as string;
+
+    console.log({ category, name, distance, description, url });
+    return { category, name, distance, description, url };
+  }
+
+  static #getNumberInSentence(string: string): Number {
+    const regex = /[^0-9]/g;
+    const result = string.replace(regex, "");
+    return Number(result);
+  }
 }
 
 export default StatusController;

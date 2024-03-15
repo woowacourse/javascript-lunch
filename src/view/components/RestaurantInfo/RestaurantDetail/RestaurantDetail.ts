@@ -2,7 +2,7 @@ import categoryImgSrcMatcher from "../utils/categoryImgSrcMatcher";
 import createElementByTag from "../../../utils/createElementByTag";
 
 class RestaurantDetail {
-  #element: HTMLElement = document.createElement("section");
+  element: HTMLElement = document.createElement("section");
 
   #categoryImg = createElementByTag({
     tag: "img",
@@ -29,7 +29,7 @@ class RestaurantDetail {
   }) as HTMLAnchorElement;
 
   constructor() {
-    this.#element.append(
+    this.element.append(
       this.#createCategoryDiv(),
       this.#name,
       this.#distance,

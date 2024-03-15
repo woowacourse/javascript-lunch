@@ -2,6 +2,7 @@ import Modal from "../view/components/Modal/Modal";
 import ModalController from "./ModalController";
 import RenderController from "./RenderController";
 import RestaurantListController from "./RestaurantListController";
+import StatusController from "./StatusController";
 import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class MainController {
@@ -29,9 +30,15 @@ class MainController {
     const restaurantListUl = document.getElementById("restaurant-list-ul");
     restaurantListUl?.addEventListener("click", (event) => {
       const targetElement = event.target as HTMLElement;
-      const restaurantItem = findAncestorHasClass(targetElement, "restaurant");
-      if (restaurantItem) {
-        ModalController.changeIntoRestaurantItem(restaurantItem);
+      const restaurantPreview = findAncestorHasClass(
+        targetElement,
+        "restaurant"
+      );
+      if (restaurantPreview) {
+        const restaurant =
+          StatusController.getRestaurantFromPreview(restaurantPreview);
+        ModalController.changeIntoRestaurantDetail();
+        ModalController.setRestaurantDetail(restaurant);
         ModalController.openModal();
       }
     });
