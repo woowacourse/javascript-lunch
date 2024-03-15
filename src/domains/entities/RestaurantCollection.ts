@@ -65,6 +65,10 @@ class RestaurantCollection {
   }
 
   addRestaurant(newRestaurant: IRestaurant) {
+    const isDuplicated = this.restaurantList.some((restaurant) => {
+      return restaurant.name === newRestaurant.name;
+    });
+    if (isDuplicated) throw new Error('중복된 음식점이 있습니다.');
     this.restaurantList = [...this.restaurantList, new Restaurant(newRestaurant)];
   }
 

@@ -6,6 +6,7 @@ import BasicButton from '../BasicButton/BasicButton';
 import { closeModal, makeDescription, makeDistance, makeTitle } from '@/utils/view';
 import { IRestaurant } from '@/types/Restaurant';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
+import AlertModal from '../AlertModal/AlertModal';
 
 class RestaurantDetailModal extends BaseComponent {
   #restaurant: IRestaurant;
@@ -32,7 +33,7 @@ class RestaurantDetailModal extends BaseComponent {
     const $distance = makeDistance(this.#restaurant.distance);
     this.#detailInfo.append($distance);
 
-    const $description = makeDescription(this.#restaurant.description);
+    const $description = makeDescription('full', this.#restaurant.description);
     this.#detailInfo.append($description);
 
     const $link = this.#makeLink();
@@ -43,6 +44,7 @@ class RestaurantDetailModal extends BaseComponent {
 
     const favoriteButton = new FavoriteButton(this.#restaurant.isFavorite, true);
     this.#detailInfo.append(favoriteButton);
+
     this.replaceWith(new BasicModal(this.#detailInfo));
   }
 
@@ -73,9 +75,9 @@ class RestaurantDetailModal extends BaseComponent {
       textContent: '삭제하기',
       type: 'button',
       clickEvent: () => {
-        alert('a');
-        console.log('asdfas');
-        this.#restaurantUpdateService.deleteRestaurant(this.#restaurant.id);
+        if (confirm('정말 삭제하시겠습니까?')) {
+          this.#restaurantUpdateService.deleteRestaurant(this.#restaurant.id);
+        }
       },
     });
   }

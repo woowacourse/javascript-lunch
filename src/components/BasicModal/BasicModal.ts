@@ -1,6 +1,5 @@
 import { blockModalBodyScroll, closeModal, resetBodyScroll } from '@/utils/view';
 import BaseComponent from '../BaseComponent';
-import { $ } from '@/utils/DOM';
 
 class BasicModal extends BaseComponent {
   #children: Node;

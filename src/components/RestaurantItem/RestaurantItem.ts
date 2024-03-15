@@ -32,7 +32,7 @@ class RestaurantItem extends BaseComponent {
 
     $restaurantInfoBox.append(makeTitle(name));
     $restaurantInfoBox.append(makeDistance(distance));
-    $restaurantInfoBox.append(makeDescription(description));
+    $restaurantInfoBox.append(makeDescription('omit', description));
     $restaurantInfoBox.id = String(id);
 
     const favoriteButton = new FavoriteButton(isFavorite, false);

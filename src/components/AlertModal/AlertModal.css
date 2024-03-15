@@ -1,0 +1,7 @@
+.alert-modal {
+  background-color: pink;
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 0;
+}

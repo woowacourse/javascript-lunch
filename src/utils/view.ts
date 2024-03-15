@@ -70,9 +70,12 @@ export const makeDistance = (distance: number) => {
   return $distance;
 };
 
-export const makeDescription = (description?: string) => {
+export const makeDescription = (showType: 'omit' | 'full', description?: string) => {
   const $description = document.createElement('p');
-  $description.classList.add('restaurant__description', 'text-body');
+  if (showType === 'omit') {
+    $description.classList.add('restaurant__description');
+  }
+  $description.classList.add('text-body');
   $description.textContent = `${description ?? ''}`;
   return $description;
 };
