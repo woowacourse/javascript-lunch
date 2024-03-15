@@ -7,7 +7,7 @@ import clickLikeHandler from "./modal-like/handlers";
 
 export const dimmerClickHandler = () => {
   const modal = document.getElementsByClassName("detail-modal")[0];
-  const dimmer = document.getElementsByClassName("detail-modal-dackdrop")[0];
+  const dimmer = document.getElementsByClassName("detail-modal-backdrop")[0];
 
   dimmer.addEventListener("click", () => {
     modal.remove();

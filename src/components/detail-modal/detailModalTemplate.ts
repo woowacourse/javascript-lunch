@@ -21,6 +21,6 @@ ${linkTemplate(restaurant.link)}
 `;
 
 const detailModalTemplate = (restaurant: Irestaurant) => /*html*/ `
-${ModalBase(restaurantInfoTemplate(restaurant), "detail-modal", "detail-modal-dackdrop", "detail-modal-container")}
+${ModalBase(restaurantInfoTemplate(restaurant), "detail-modal", "detail-modal-backdrop", "detail-modal-container")}
 `;
 export default detailModalTemplate;
