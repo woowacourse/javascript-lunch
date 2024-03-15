@@ -100,4 +100,13 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('restaurant-detail-modal').find('.restaurant__name').should('contain', '썬데이네 반찬가게');
     cy.get('restaurant-detail-modal').find('.restaurant__distance').should('contain', '5');
   });
+
+  it('음식점 상세 정보에서 음식점을 삭제할 수 있다.', () => {
+    cy.get('.restaurant').first().find('.restaurant__info').click();
+    cy.get('restaurant-detail-modal').first().find('.button--secondary').click();
+
+    cy.get('.restaurant').should('have.length', 5);
+    cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 쌀국수');
+    cy.get('.restaurant').first().find('.restaurant__distance').should('contain', '15');
+  });
 });
