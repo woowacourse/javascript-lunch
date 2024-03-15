@@ -75,7 +75,7 @@ class RestaurantDetailModal extends BaseComponent {
       clickEvent: () => {
         alert('a');
         console.log('asdfas');
-        // this.#restaurantUpdateService.deleteRestaurant()
+        this.#restaurantUpdateService.deleteRestaurant(this.#restaurant.id);
       },
     });
   }

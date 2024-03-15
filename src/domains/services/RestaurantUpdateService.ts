@@ -33,6 +33,8 @@ class RestaurantUpdateService {
       this.#restaurantCollection = this.#restaurantDBService.update();
       this.#restaurantCollection.deleteRestaurant(id);
       this.#restaurantDBService.set(this.#restaurantCollection);
+      this.rerenderByFilter();
+      closeModal();
     }
   }
 

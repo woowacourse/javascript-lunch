@@ -69,9 +69,10 @@ class RestaurantCollection {
   }
 
   deleteRestaurant(id: number) {
-    this.restaurantList = [...this.restaurantList].filter((restaurant) => {
-      restaurant.id !== id;
+    const newRestaurantList = [...this.restaurantList].filter((restaurant) => {
+      return restaurant.id !== id;
     });
+    this.restaurantList = newRestaurantList;
   }
 }
 
