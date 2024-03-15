@@ -10,6 +10,7 @@ export type LunchItemProps = {
   distance: Distance;
   description: string;
   liked: string;
+  link: string;
 };
 
 // eslint-disable-next-line max-lines-per-function
@@ -41,6 +42,17 @@ const LUNCH_ITEM_TEMPLATE = ({
   </li>
 `;
 
+const LUNCH_DETAIL_MODAL_TEMPLATE = (restaurant: LunchItemProps) => /* HTML */ `
+  <lunch-detail-modal
+    category="${restaurant.category}"
+    name="${restaurant.name}"
+    distance="${restaurant.distance}"
+    description="${restaurant.description ?? ''}"
+    liked="${restaurant.liked}"
+    link="${restaurant.link ?? ''}"
+  ></lunch-detail-modal>
+`;
+
 class LunchItem extends HTMLElement {
   connectedCallback(): void {
     this.render();
@@ -53,7 +65,8 @@ class LunchItem extends HTMLElement {
     const distance: Distance = (Number(this.getAttribute('distance')) as Distance) ?? 10;
     const description: string = this.getAttribute('description') ?? '';
     const liked: string = this.getAttribute('liked') ?? '';
-    return { category, name, distance, description, liked };
+    const link: string = this.getAttribute('link') ?? '';
+    return { category, name, distance, description, liked, link };
   }
 
   render() {
@@ -63,11 +76,16 @@ class LunchItem extends HTMLElement {
   setEventListener() {
     const clickLiked = this.querySelector('.liked-icon');
     clickLiked?.addEventListener('click', () => this.setClickLikedEvent());
+    this.addEventListener('click', () => this.handleDetailModal());
   }
 
   setClickLikedEvent() {
     const clickLikedButtonEvent = new CustomEvent('clickLikedButton', { bubbles: true });
     this.dispatchEvent(clickLikedButtonEvent);
+  }
+
+  handleDetailModal() {
+    this.insertAdjacentHTML('afterend', LUNCH_DETAIL_MODAL_TEMPLATE(this.getAttributes()));
   }
 }
 

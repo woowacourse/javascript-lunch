@@ -5,7 +5,7 @@ import './components/LunchTab/LunchTab';
 import './components/LunchTabAll/LunchTabAll';
 import './components/LunchTabLiked/LunchTabLiked';
 import './components/LunchRegisterModal/LunchRegisterModal';
-import './components/LunchDetailModal/LunchDetailModal';
+// import './components/LunchDetailModal/LunchDetailModal';
 
 import DUMMY from './constants/dummy';
 import { LOCAL_STORAGE_KEYS } from './constants/localStorageKeys';
@@ -16,7 +16,6 @@ const LUNCH_APP = /* HTML */ `
   <lunch-tab-all></lunch-tab-all>
   <lunch-tab-liked></lunch-tab-liked>
   <lunch-register-modal></lunch-register-modal>
-  <lunch-detail-modal></lunch-detail-modal>
 `;
 
 class LunchApp extends HTMLElement {

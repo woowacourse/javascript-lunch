@@ -1,6 +1,6 @@
 import './style.css';
 import '../LunchItem/LunchItem';
-
+import '../LunchDetailModal/LunchDetailModal';
 import { RestaurantDataProvider } from '../../domain/index';
 
 import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
@@ -26,8 +26,20 @@ const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => /* HTML */ `
     distance="${restaurant.distance}"
     description="${restaurant.description ?? ''}"
     liked="${restaurant.liked}"
+    link="${restaurant.link ?? ''}"
   ></lunch-item>
 `;
+
+// const LUNCH_DETAIL_MODAL_TEMPLATE = (restaurant: Restaurant) => /* HTML */ `
+//   <lunch-detail-modal
+//     category="${restaurant.category}"
+//     name="${restaurant.name}"
+//     distance="${restaurant.distance}"
+//     description="${restaurant.description ?? ''}"
+//     liked="${restaurant.liked}"
+//     link="${restaurant.link}"
+//   ></lunch-detail-modal>
+// `;
 
 class LunchItems extends HTMLElement {
   connectedCallback() {
@@ -37,6 +49,7 @@ class LunchItems extends HTMLElement {
 
   render(): void {
     this.insertAdjacentHTML('beforeend', LUNCH_ITEMS_TEMPLATE);
+    // this.insertAdjacentHTML('beforeend', LUNCH_DETAIL_MODAL_TEMPLATE());
     const liked = this.getLikedAttribute();
     this.renderItems({ liked });
   }
@@ -55,6 +68,7 @@ class LunchItems extends HTMLElement {
 
   setEventListener() {
     this.addEventListener('clickLikedButton', (e: any) => this.handleLiked(e));
+    // this.addEventListener('click', (e: any) => this.handleDetailModal(e), true);
   }
 
   handleLiked(e: any) {
@@ -69,6 +83,11 @@ class LunchItems extends HTMLElement {
     const liked = likedAttribute === 'true';
     return liked;
   }
+
+  // handleDetailModal(e: any) {
+  //   e.stopPropagation();
+  //   console.log(e.target);
+  // }
 }
 
 customElements.define('lunch-items', LunchItems);
