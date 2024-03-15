@@ -1,6 +1,7 @@
 import RestaurantComponent from '../components/Restaurant';
-import { FAVORITE } from '../constants/config';
+import { FAVORITE, STORAGE_KEY } from '../constants/config';
 import { FAVORITE_IMG_SRC, FILTER_CONDITION } from '../constants/filter';
+import LocalStorage from '../domain/LocalStorage';
 
 class HomeEventHandler {
   restaurantList;
@@ -14,7 +15,6 @@ class HomeEventHandler {
     document.querySelector('.gnb__button').addEventListener('click', this.handleOpenModal);
     const $favoriteIconNodeList = document.querySelectorAll('.favorite-icon');
     $favoriteIconNodeList.forEach((favoriteIconNode, index) => {
-      console.log(favoriteIconNode);
       favoriteIconNode.addEventListener('click', e => this.handleFavorite(e, index));
     });
   }
@@ -32,6 +32,7 @@ class HomeEventHandler {
 
     $restaurantList.replaceChildren();
     RestaurantComponent.render(sortedList);
+    this.setEvent();
   }
 
   getFilterCondition() {
@@ -48,13 +49,24 @@ class HomeEventHandler {
 
   handleFavorite(e, index) {
     const target = this.restaurantList.restaurants[index].information;
-    if (target.favorite === FAVORITE.yes) {
-      target.favorite = FAVORITE.no;
+    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
+    const localStorageRestaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
+
+    localStorageRestaurants.forEach(restaurant => {
+      if (restaurant.information.name === target.name) {
+        this.changeFavorite(restaurant);
+        e.target.src = FAVORITE_IMG_SRC[restaurant.information.favorite];
+      }
+    });
+    LocalStorage.setStorageRestaurantList(localStorageRestaurants);
+  }
+
+  changeFavorite(restaurant) {
+    if (restaurant.information.favorite === FAVORITE.yes) {
+      restaurant.information.favorite = FAVORITE.no;
     } else {
-      target.favorite = FAVORITE.yes;
+      restaurant.information.favorite = FAVORITE.yes;
     }
-    e.target.src = FAVORITE_IMG_SRC[target.favorite];
-    this.restaurantList.setStorageRestaurantList(this.restaurantList.restaurants);
   }
 }
 export default HomeEventHandler;
