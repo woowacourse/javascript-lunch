@@ -15,6 +15,9 @@ class BasicModal extends HTMLDivElement {
     this.append(this.#backdrop);
 
     this.#modalContainer = document.createElement('div');
+    if (this.getAttribute('class-container')) {
+      this.#modalContainer.className = this.getAttribute('class-container')!;
+    }
     this.#modalContainer.classList.add('modal-container');
     this.append(this.#modalContainer);
 

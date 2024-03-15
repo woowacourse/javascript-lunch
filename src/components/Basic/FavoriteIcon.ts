@@ -44,6 +44,13 @@ class FavoriteIcon extends HTMLImageElement {
   set(isFavorite: boolean) {
     this.setAttribute('clicked', isFavorite ? 'on' : 'off');
   }
+
+  on() {
+    this.setAttribute('clicked', 'on');
+  }
+  off() {
+    this.setAttribute('clicked', 'off');
+  }
 }
 
 customElements.define('favorite-icon', FavoriteIcon, { extends: 'img' });

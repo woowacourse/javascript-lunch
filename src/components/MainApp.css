@@ -1,1 +1,4 @@
-
+.modal.basic-modal .detail-modal__container {
+  min-height: 556px;
+  height: 80vh !important;
+}

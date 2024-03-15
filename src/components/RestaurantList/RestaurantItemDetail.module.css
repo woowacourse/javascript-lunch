@@ -1,0 +1,35 @@
+.restaurant {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  align-items: flex-start;
+
+  padding: 16px 8px;
+
+  border-bottom: 1px solid #e9eaed;
+
+  position: relative;
+}
+
+.restaurant__name {
+  margin: 0;
+}
+
+.restaurant .restaurant__distance {
+  color: var(--primary-color);
+}
+
+.restaurant__description {
+  display: -webkit-box;
+
+  padding-top: 8px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.restaurant__link {
+  text-decoration: underline;
+}

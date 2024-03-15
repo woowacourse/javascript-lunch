@@ -3,6 +3,7 @@ import { Category, IRestaurant } from '@/types/Restaurant';
 import style from './RestaurantItem.module.css';
 import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
+import MainApp from '../MainApp';
 
 class RestaurantItem extends HTMLLIElement {
   #category;
@@ -25,7 +26,7 @@ class RestaurantItem extends HTMLLIElement {
   }
 
   render() {
-    this.className = `restaurant ${style.restaurant}`;
+    this.classList.add(`restaurant`, `${style.restaurant}`);
     this.innerHTML = `
     <div is="restaurant-category-icon"> </div>
     <div class="restaurant__info ${style.restaurant__info}">
@@ -33,7 +34,7 @@ class RestaurantItem extends HTMLLIElement {
     <span class="restaurant__distance text-body  ${style.restaurant__distance}"></span>
     <p class="restaurant__description text-body ${style.restaurant__description}">
     </p>
-    <img is="favorite-icon" style="width:25px; position:absolute; right:10px; top:10px;"/>
+    <img is="favorite-icon" class="favorite-icon" style="width:26px; position:absolute; right:10px; top:10px;"/>
     </div>
    `;
 

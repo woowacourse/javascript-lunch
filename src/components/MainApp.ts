@@ -1,15 +1,13 @@
 import '@/css/index.css';
-import RestaurantList from './RestaurantList/RestaurantList';
-import { Category, SortCriteria } from '@/types/Restaurant';
-import FilterContainer from './FilterContainer/FilterContainer';
 import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import restaurantListMock from '@/mock/restaurantList.mock';
 import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
-import { Thenable } from 'cypress/types/bluebird';
 import Tab from './Tab';
 import RestaurantItemDetail from './RestaurantList/RestaurantItemDetail';
+import './MainApp.css';
+import BasicModal from './Basic/BasicModal/BasicModal';
+import FavoriteIcon from './Basic/FavoriteIcon';
 
 class MainApp extends HTMLDivElement {
   #myTab: Tab;
@@ -17,6 +15,7 @@ class MainApp extends HTMLDivElement {
   #restaurantDBService: RestaurantDBService;
   #allRestaurantApp: AllRestaurantApp;
   #favoriteRestaurantApp: FavoriteRestaurantApp;
+  #restaurantItemDetail: RestaurantItemDetail;
 
   observedAttributes = [];
 
@@ -33,9 +32,8 @@ class MainApp extends HTMLDivElement {
   
     <div is="new-restaurant-modal" class="modal new-restaurant-modal"></div>
 
-
-    <div is="basic-modal" class="modal basic-modal modal--open">
-      <li is="restaurant-item-detail" class="restaurant-item-detail"></li>
+    <div is="basic-modal" class="modal basic-modal detail-modal modal--open" class-container="detail-modal__container" >
+      <li is="restaurant-item-detail" class="restaurant-item-detail" style=""></li>
     </div>
 
 
@@ -55,7 +53,10 @@ class MainApp extends HTMLDivElement {
     });
 
     console.log(this.querySelector('.restaurant-item-detail') as RestaurantItemDetail);
-    (this.querySelector('.restaurant-item-detail') as RestaurantItemDetail).setState({
+    this.#restaurantItemDetail = this.querySelector(
+      '.restaurant-item-detail',
+    ) as RestaurantItemDetail;
+    this.#restaurantItemDetail.setState({
       name: '피양콩할머니',
       category: '한식',
       distance: 10,
@@ -66,6 +67,7 @@ class MainApp extends HTMLDivElement {
   만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이
   먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
       link: 'https://www.naver.com',
+      isFavorite: false,
     });
   }
 
@@ -81,6 +83,20 @@ class MainApp extends HTMLDivElement {
       this.#allRestaurantApp.classList.add('hidden');
       this.#favoriteRestaurantApp.classList.remove('hidden');
       this.#favoriteRestaurantApp.paint();
+    }
+  }
+
+  paintDetailModal(restaurant: any) {
+    (this.querySelector('.detail-modal') as BasicModal).openModal();
+    this.#restaurantItemDetail.setState(restaurant);
+  }
+
+  #updateDetailFavoriteListener(event: Event) {
+    // TODO
+    if ((event.target as HTMLElement).classList.contains('restaurant')) {
+      (document.querySelector('.main-app-new') as MainApp).paintDetailModal(
+        (event.target as FavoriteIcon).isFavorite(),
+      );
     }
   }
 }

@@ -3,6 +3,7 @@ import RestaurantItem from './RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantList.css';
+import MainApp from '../MainApp';
 
 class RestaurantList extends HTMLUListElement {
   #restaurants: IRestaurant[];
@@ -11,6 +12,7 @@ class RestaurantList extends HTMLUListElement {
     super();
     this.classList.add('restaurant-list');
     this.#restaurants = [];
+    this.addEventListener('click', this.#showDetailListener.bind(this));
   }
 
   paint(restaurants: IRestaurant[]) {
@@ -33,6 +35,14 @@ class RestaurantList extends HTMLUListElement {
     return (Array.from(this.children) as RestaurantItem[]).map((restaurantItem) =>
       restaurantItem.get(),
     );
+  }
+
+  #showDetailListener(event: Event) {
+    if ((event.target as HTMLElement).classList.contains('restaurant')) {
+      (document.querySelector('.main-app-new') as MainApp).paintDetailModal(
+        (event.target as RestaurantItem).get(),
+      );
+    }
   }
 }
 
