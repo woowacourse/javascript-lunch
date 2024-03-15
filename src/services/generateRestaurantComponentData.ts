@@ -59,6 +59,7 @@ export const generateRestaurantBottomSheetLinkComponentData = (link?: string) =>
   const componentData = {
     ...BOTTOM_SHEET_LINK_COMPONENT_DATA,
     TAG_HREF: BOTTOM_SHEET_LINK_COMPONENT_DATA.TAG_HREF(link) ?? '',
+    TAG_TEXT_CONTENT: BOTTOM_SHEET_LINK_COMPONENT_DATA.TAG_TEXT_CONTENT(link),
   };
 
   return componentData;

@@ -45,9 +45,3 @@ export const createIsFavoriteImageComponent = (isFavorited: boolean) => {
   const isFavoritedComponentData = generateRestaurantIsFavoritedComponentData(isFavorited);
   return generateImageComponent(isFavoritedComponentData);
 };
-
-export const createRestaurantLinkComponent = (link?: string) => {
-  const restaurantLinkComponentData = generateRestaurantLinkComponentData(link);
-
-  return generateATagComponenet(restaurantLinkComponentData);
-};

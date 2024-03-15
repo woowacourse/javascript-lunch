@@ -165,11 +165,13 @@ export type ATagComponentPropsType = {
   href: string;
   _blank: boolean;
   className: string;
+  textContent: string;
 };
 
 export interface ATagElementDataType extends BasicElementDataType {
   TAG_HREF: string;
   TAG_BLANK: boolean;
+  TAG_TEXT_CONTENT: string;
 }
 
 export type SectionComponentPropsType = {

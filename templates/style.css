@@ -347,4 +347,21 @@ input[name='link'] {
   padding-top: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 20px;
+}
+
+a {
+  border: none;
+}
+
+.bottom-sheet-link {
+  color: var(--grey-500);
+}
+
+.bottom-sheet-button {
+  margin-top: 35px;
+}
+
+.bottom-sheet-distance {
+  margin-bottom: 20px;
 }

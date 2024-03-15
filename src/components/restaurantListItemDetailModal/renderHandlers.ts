@@ -8,9 +8,8 @@ import {
   createDistanceComponent,
   createIsFavoriteImageComponent,
   createTitleComponent,
-  createDescriptionComponent,
-  createRestaurantLinkComponent,
   createBottomSheetDescriptionComponent,
+  createBottomSheetRestaurantLinkComponent,
 } from '../../services/createComponent';
 import RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA from './componentsData/detailContainerComponentData';
 import CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA from './componentsData/categoryImageContainerComponentData';
@@ -45,7 +44,7 @@ export const renderRestaurantListItemBottomSheetComponent = (targetRestaurantLis
   const restaurantNameComponent = createTitleComponent(targetRestaurantListItem.name);
   const restaurantDistanceComponent = createDistanceComponent(targetRestaurantListItem.distance);
   const restaurantDescriptionComponent = createBottomSheetDescriptionComponent(targetRestaurantListItem.description);
-  const restaurantLinkComponent = createRestaurantLinkComponent(targetRestaurantListItem.link);
+  const restaurantLinkComponent = createBottomSheetRestaurantLinkComponent(targetRestaurantListItem.link);
   const buttonContainer = generateContainerComponent(BUTTON_CONTAINER_COMPONENT_DATA);
   const restaurantListItemDeleteButton = generateButtonComponent(DELETE_BUTTON_COMPONENT_DATA);
   const bottomSheetCloseButtonComponent = generateButtonComponent(CLOSE_BUTTON_COMPONENT_DATA);
