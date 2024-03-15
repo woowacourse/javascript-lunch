@@ -17,6 +17,13 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+
+  /* hide scroll bar */
+  scrollbar-width: none; /* firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Colors *****************************************/
@@ -342,5 +349,9 @@ input[name="link"] {
 .favorite-icon-img {
   width: 27px;
 
+  cursor: pointer;
+}
+
+.restaurant {
   cursor: pointer;
 }
