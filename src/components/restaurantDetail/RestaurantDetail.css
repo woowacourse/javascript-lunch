@@ -5,12 +5,14 @@
   position: relative;
   flex-direction: column;
   align-items: flex-start;
-
-  padding: 32px 16px;
 }
 
 .detail__field {
   margin-bottom: 16px;
+}
+
+.detail__title {
+  margin-top: 16px;
 }
 
 .detail__field:last-child {

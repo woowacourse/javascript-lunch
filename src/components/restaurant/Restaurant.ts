@@ -55,7 +55,7 @@ class Restaurant extends HTMLLIElement {
 
   listenClickForCreateDetailModal(restaurant: RestaurantType) {
     this.addEventListener('click', () => {            
-      const modal = new Modal({ classname: 'detail-modal', title: '', child: new RestaurantDetail(restaurant)});   
+      const modal = new Modal({ classname: 'detail-modal', child: new RestaurantDetail(restaurant)});   
       modal.toggleModal('detail-modal');         
       $<HTMLElement>('main').appendChild(modal);
       

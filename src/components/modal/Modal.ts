@@ -2,7 +2,7 @@ import './modal.css';
 
 interface ModalProps {
   classname: string;
-  title: string;
+  title?: string;
   child: HTMLElement;
 }
 
@@ -21,13 +21,15 @@ class Modal extends HTMLDivElement {
     const modalContainer = document.createElement('div');
     modalContainer.className = `${classname}-container`;
     
-    const modalTitle = document.createElement('h2');
-    modalTitle.className = 'modal-title';
-    const modalTitleClassList = ['modal-title', 'text-title'];
-    modalTitle.textContent = title;
-    modalTitle.classList.add(...modalTitleClassList);
+    if (title !== undefined) {
+      const modalTitle = document.createElement('h2');
+      modalTitle.className = 'modal-title';
+      const modalTitleClassList = ['modal-title', 'text-title'];
+      modalTitle.textContent = title;
+      modalTitle.classList.add(...modalTitleClassList);
+      modalContainer.appendChild(modalTitle);
+    }
     
-    modalContainer.appendChild(modalTitle);
     modalContainer.appendChild(child);
     this.appendChild(modalContainer);
   }

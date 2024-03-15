@@ -28,7 +28,7 @@ class RestaurantDetail extends HTMLDivElement {
 
   createRestaurantName(name: string) {
     const title = document.createElement('h2');
-    title.classList.add('text-subtitle', 'detail__field');
+    title.classList.add('text-subtitle', 'detail__field', 'detail__title');
     title.textContent = name;
     this.appendChild(title);
   }
