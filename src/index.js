@@ -22,13 +22,18 @@ restaurantList.classList.add("restaurant-list");
 
 const categoryDropdown = createDropdown({
   items: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
-  onSelect: (item) => console.log(item),
+  onSelect: (category) => renderRestaurantItems(category),
 });
 
 // 2. 컴포넌트를 결합한다
 renderRestaurantItems();
 
-function renderRestaurantItems(category = "전체") {
+function renderRestaurantItems(category) {
+  const listFragment = getRestaurantItemsFragment(category);
+  restaurantList.replaceChildren(listFragment);
+}
+
+function getRestaurantItemsFragment(category = "전체") {
   const listFragment = document.createDocumentFragment();
   const filteredItems = RESTAURANTS_SAMPLE.filter((restaurantItem) => {
     if (category === "전체") {
@@ -48,7 +53,7 @@ function renderRestaurantItems(category = "전체") {
   );
 
   restaurantItems.forEach((child) => listFragment.appendChild(child));
-  restaurantList.replaceChildren(listFragment);
+  return listFragment;
 }
 
 // 3. 컴포넌트를 document에 붙인다.
