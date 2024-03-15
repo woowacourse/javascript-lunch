@@ -51,7 +51,7 @@ const generateTotalCategoryImageAndInfoComponent = (targetRestaurantListItem: Re
   const fragment = document.createDocumentFragment();
   const categoryImageAndInfoComponent = generateCategoryImageAndInfoComponent(targetRestaurantListItem);
   const restaurantNameComponent = createTitleComponent(targetRestaurantListItem.name);
-  const restaurantDistanceComponent = createDistanceComponent(targetRestaurantListItem.distance);
+  const restaurantDistanceComponent = createDistanceComponent(String(targetRestaurantListItem.distance));
   const restaurantDescriptionComponent = createBottomSheetDescriptionComponent(targetRestaurantListItem.description);
   const restaurantLinkComponent = createBottomSheetRestaurantLinkComponent(targetRestaurantListItem.link);
 
