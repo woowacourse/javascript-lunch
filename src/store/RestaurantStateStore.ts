@@ -12,6 +12,7 @@ class RestaurantStateStore {
     isFavorited: false,
   };
 
+  /* eslint-disable max-lines-per-function */
   resetState() {
     this.#restaurantState = {
       id: undefined,
