@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from '../../Controller/WebController';
+import { LOCAL_STORAGE_KEY } from '../../constants/LocalStorageKey';
 import '../../css/restaurantDetailModal.css';
 import { IMG_CATEGORY } from '../../domain/Restaurant';
 import restaurantCatalog from '../../domain/RestaurantCatalog';

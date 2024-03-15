@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from '../../Controller/WebController';
+import { LOCAL_STORAGE_KEY } from '../../constants/LocalStorageKey';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
 
 class LikeStar extends HTMLElement {

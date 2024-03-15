@@ -1,16 +1,16 @@
+import { LOCAL_STORAGE_KEY } from '../constants/LocalStorageKey';
 import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../domain/Restaurant';
 import restaurantCatalog, { ALL_CATEGORY, SORT_CONDITION } from '../domain/RestaurantCatalog';
 import mockingData from '../domain/mocking';
 import { ALL_RESTAURANTS } from '../view/components/LikeSection';
-
-export const LOCAL_STORAGE_KEY = 'lunch_restaurants';
+import { addEventToButton, addEventToForm, updateRestaurantsToLocalStorage } from '../view/components/SubmitFormModal';
 
 class WebController {
   run() {
     this.#init();
     this.#renderDropdownElement();
-    this.#addEventToForm();
-    this.#addEventToButton();
+    addEventToForm();
+    addEventToButton();
   }
 
   #init() {
@@ -26,7 +26,7 @@ class WebController {
     if (localData) return;
     mockingData.forEach((data) => {
       restaurantCatalog.pushNewRestaurant(data);
-      this.#updateRestaurantsToLocalStorage(data);
+      updateRestaurantsToLocalStorage(data);
     });
   }
 
@@ -57,80 +57,9 @@ class WebController {
     this.#renderDropdownOptions('add-distance-select', DISTANCE_FROM_CAMPUS);
   }
 
-  #addEventToButton() {
-    const modalCloseButton = document.getElementById('form-modal-close-button');
-    modalCloseButton.addEventListener('click', () => {
-      this.#closeModal();
-    });
-
-    const modalOpenButton = document.getElementById('add-restaurant-button');
-    modalOpenButton.addEventListener('click', () => {
-      this.#openModal();
-    });
-  }
-
   #renderDropdownOptions(id, options) {
     const select = document.getElementById(id);
     select.addOptions(options);
-  }
-
-  #addEventToForm() {
-    const addForm = document.getElementById('add-restaurant-form');
-
-    addForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const restaurantInfo = this.#makeRestaurantInfo(event.target);
-      this.#executeFormSubmitEvent(restaurantInfo);
-    });
-  }
-
-  #makeRestaurantInfo(target) {
-    const { category, name, distance, description, link } = target;
-    return {
-      category: category.value,
-      name: name.value,
-      distanceFromCampus: Number(distance.value),
-      description: description.value,
-      link: link.value,
-    };
-  }
-
-  #executeFormSubmitEvent(restaurantInfo) {
-    try {
-      const newRestaurant = restaurantCatalog.pushNewRestaurant(restaurantInfo);
-      this.#updateRestaurantsToLocalStorage(newRestaurant);
-      this.#reRenderRestaurants();
-      this.#closeModal();
-    } catch (error) {
-      alert(error.message);
-    }
-  }
-
-  #reRenderRestaurants() {
-    const RestaurantList = document.querySelector('.restaurant-list');
-    RestaurantList.render();
-  }
-
-  #updateRestaurantsToLocalStorage(...restaurants) {
-    const restaurantArr = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) ?? [];
-    restaurants.forEach((restaurant) => restaurantArr.push(restaurant));
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurantArr));
-  }
-
-  #closeModal() {
-    const modal = document.getElementById('add-form-modal');
-    const form = document.getElementById('add-restaurant-form');
-
-    modal.classList.remove('modal--open');
-    modal.classList.add('modal--close');
-    form.reset();
-  }
-
-  #openModal() {
-    const modal = document.getElementById('add-form-modal');
-
-    modal.classList.remove('modal--close');
-    modal.classList.add('modal--open');
   }
 }
 
