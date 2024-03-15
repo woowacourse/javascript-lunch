@@ -6,6 +6,7 @@ class LunchModal extends HTMLDivElement {
 
     this.className = 'modal';
     this.createBackdrop();
+    this.setEventListener();
   }
 
   createBackdrop() {
@@ -15,6 +16,17 @@ class LunchModal extends HTMLDivElement {
     container.className = 'modal-container';
     this.insertAdjacentElement('beforeend', backDrop);
     this.insertAdjacentElement('beforeend', container);
+  }
+
+  setEventListener() {
+    const backdrop = this.querySelector('.modal-backdrop');
+    backdrop?.addEventListener('click', () => {
+      this.handleModalOpen();
+    });
+  }
+
+  handleModalOpen() {
+    this.classList.toggle('modal--open');
   }
 }
 
