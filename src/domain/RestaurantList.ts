@@ -1,35 +1,21 @@
 import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from '../types/restaurant';
 import { STORAGE_KEY } from '../constants/config';
 import { ALL, BY_NAME_ASC } from '../constants/filter';
-import Restaurant from './Restaurant';
+import LocalStorage from './LocalStorage';
 
 class RestaurantList {
   restaurants: IRestaurantList;
 
   constructor(restaurants: IRestaurantList) {
-    this.restaurants = restaurants;
-    this.setStorageRestaurantList(restaurants);
-  }
-
-  setRestaurants(): boolean {
     const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) {
-      this.restaurants = this.getStorageRestaurantList(restaurantsInStorage);
-      return true;
-    }
-    return false;
+    if (restaurantsInStorage != null) this.restaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
+    else this.restaurants = restaurants;
+    LocalStorage.setStorageRestaurantList(this.restaurants);
   }
 
-  setStorageRestaurantList(restaurants: IRestaurantList): void {
-    this.restaurants = restaurants;
-    this.restaurants = this.getSortedByName();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  getStorageRestaurantList(restaurantsInStorage: string): IRestaurantList {
-    const parsedRestaurantList: IRestaurantList = JSON.parse(restaurantsInStorage);
-    return parsedRestaurantList.map(parsedRestaurant => new Restaurant(parsedRestaurant.information));
+  setRestaurants(): void {
+    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
+    if (restaurantsInStorage != null) this.restaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
   }
 
   getSortedByName(): IRestaurantList {
@@ -47,6 +33,17 @@ class RestaurantList {
     return this.getSortedByDistance();
   }
 
+  filterByCategory(category: TCategory): void {
+    this.setRestaurants();
+    if (category !== ALL)
+      this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
+  }
+
+  filterByFavorite(): void {
+    this.setRestaurants();
+    this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedFavorite());
+  }
+
   add(restaurant: TRestaurantInstance): void {
     this.setRestaurants();
     this.restaurants.push(restaurant);
@@ -58,17 +55,6 @@ class RestaurantList {
     const restaurantIndex = this.restaurants.indexOf(restaurant);
     this.restaurants.splice(restaurantIndex, 1);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
-  }
-
-  filterByCategory(category: TCategory): void {
-    this.setRestaurants();
-    if (category !== ALL)
-      this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
-  }
-
-  filterByFavorite(): void {
-    this.setRestaurants();
-    this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedFavorite());
   }
 }
 
