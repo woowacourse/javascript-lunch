@@ -64,10 +64,12 @@ class RestaurantItem {
     name,
     distance,
     description = "",
+    url = "",
   }: {
     name: string;
     distance: number;
     description?: string;
+    url?: string;
   }) => {
     const div = createElementByTag({
       tag: "div",
@@ -88,8 +90,13 @@ class RestaurantItem {
       classes: ["restaurant__description", "text-body"],
       contents: description,
     });
+    const a = createElementByTag({
+      tag: "a",
+      classes: ["restaurant__link"],
+      contents: url,
+    });
 
-    div.append(h3, span, p);
+    div.append(h3, span, p, a);
 
     return div;
   };

@@ -1,5 +1,3 @@
-/* TODO:import하기 */
-/* @import url(''); */
 .restaurant {
   display    : flex;
   align-items: flex-start;
@@ -52,4 +50,8 @@
   text-overflow     : ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__link {
+  display: none;
 }
