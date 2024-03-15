@@ -19,6 +19,28 @@ const header = createHeader({
 const restaurantList = document.createElement("ul");
 restaurantList.classList.add("restaurant-list");
 
+const categoryDropdown = document.createElement("select");
+categoryDropdown.classList.add("restaurant-filter");
+categoryDropdown.setAttribute("name", "category");
+categoryDropdown.setAttribute("id", "category-filter");
+
+const categoryOptions = [
+  "전체",
+  "한식",
+  "중식",
+  "일식",
+  "양식",
+  "아시안",
+  "기타",
+].map((category) => {
+  const option = document.createElement("option");
+  option.textContent = category;
+  return option;
+});
+categoryOptions.forEach((option) => {
+  categoryDropdown.appendChild(option);
+});
+
 // 2. 컴포넌트를 결합한다
 const restaurantItems = RESTAURANTS_SAMPLE.map((restaurantItem) =>
   createRestaurantItem({
@@ -35,6 +57,7 @@ restaurantItems.forEach((child) => restaurantList.appendChild(child));
 
 const container = document.querySelector("#container");
 container.prepend(header);
+container.appendChild(categoryDropdown);
 container.appendChild(restaurantList);
 container.appendChild(addingRestaurantModal.element);
 container.appendChild(restaurantDetailModal.element);
