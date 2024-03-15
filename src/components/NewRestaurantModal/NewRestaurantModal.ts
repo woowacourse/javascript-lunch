@@ -41,6 +41,21 @@ class NewRestaurantModal extends BasicModal {
     return isNotValidCategory || isNotValidDistance || isNotValidName;
   }
 
+  closeModal() {
+    this.#hideErrorMessage();
+    this.classList.remove('modal--open');
+  }
+
+  getForm() {
+    return this.#form;
+  }
+
+  #hideErrorMessage() {
+    this.querySelector('.category-select > .error')?.classList.add('hidden');
+    this.querySelector('.distance-select > .error')?.classList.add('hidden');
+    this.querySelector('.name-input-box > .error')?.classList.add('hidden');
+  }
+
   #setSubmitEvent() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -63,21 +78,6 @@ class NewRestaurantModal extends BasicModal {
       this.#rerenderApp();
       this.closeModal();
     });
-  }
-
-  closeModal() {
-    this.#hideErrorMessage();
-    this.classList.remove('modal--open');
-  }
-
-  getForm() {
-    return this.#form;
-  }
-
-  #hideErrorMessage() {
-    document.querySelector('.category-select > .error')?.classList.add('hidden');
-    document.querySelector('.distance-select > .error')?.classList.add('hidden');
-    document.querySelector('.name-input-box > .error')?.classList.add('hidden');
   }
 
   #getValues(): {
