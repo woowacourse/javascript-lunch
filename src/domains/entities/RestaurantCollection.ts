@@ -64,9 +64,14 @@ class RestaurantCollection {
     );
   }
 
-  addRestaurant(restaurantArg: IRestaurant) {
-    const restaurant = new Restaurant(restaurantArg);
-    this.restaurantList.push(restaurant);
+  addRestaurant(newRestaurant: IRestaurant) {
+    this.restaurantList = [...this.restaurantList, new Restaurant(newRestaurant)];
+  }
+
+  deleteRestaurant(id: number) {
+    this.restaurantList = [...this.restaurantList].filter((restaurant) => {
+      restaurant.id !== id;
+    });
   }
 }
 

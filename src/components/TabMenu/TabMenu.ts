@@ -1,7 +1,6 @@
 import { $, $$ } from '@/utils/DOM';
 import BaseComponent from '../BaseComponent';
-import RestaurantFavoriteService from '@/domains/services/RestaurantFavoriteService';
-
+import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
 export type Tab = {
   id: string;
   title: string;
@@ -21,13 +20,13 @@ export const TabData: Tab[] = [
 class TabMenu extends BaseComponent {
   #tabData;
   #selectedTabId;
-  #restaurantAFavoriteService;
+  #restaurantUpdateService;
 
   constructor() {
     super();
     this.#tabData = TabData;
     this.#selectedTabId = 'all';
-    this.#restaurantAFavoriteService = new RestaurantFavoriteService();
+    this.#restaurantUpdateService = new RestaurantUpdateService();
   }
 
   render() {
@@ -71,7 +70,7 @@ class TabMenu extends BaseComponent {
       const urlParams = new URLSearchParams(window.location.search);
       urlParams.set('tab', 'favorite');
       window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-      this.#restaurantAFavoriteService.rerenderByFilter();
+      this.#restaurantUpdateService.rerenderByFilter();
     });
   }
 
@@ -81,7 +80,7 @@ class TabMenu extends BaseComponent {
       const urlParams = new URLSearchParams(window.location.search);
       urlParams.delete('tab');
       window.history.replaceState({}, '', `${window.location.pathname}${urlParams}`);
-      this.#restaurantAFavoriteService.rerenderByFilter();
+      this.#restaurantUpdateService.rerenderByFilter();
     });
   }
 }

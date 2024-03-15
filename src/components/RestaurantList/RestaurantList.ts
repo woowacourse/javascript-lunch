@@ -2,6 +2,7 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import BaseComponent from '../BaseComponent';
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
+import { removeAllChildren } from '@/utils/view';
 
 class RestaurantList extends BaseComponent {
   #restaurantList;
@@ -19,16 +20,10 @@ class RestaurantList extends BaseComponent {
   }
 
   rerender(restaurantList: IRestaurant[]) {
-    this.#removeChildren();
+    removeAllChildren(this);
     this.#restaurantList = restaurantList;
     const restaurantListAll = this.#makeRestaurantList(this.#restaurantList);
     this.append(restaurantListAll);
-  }
-
-  #removeChildren() {
-    while (this.firstChild) {
-      this.removeChild(this.firstChild);
-    }
   }
 
   #makeRestaurantList(data: IRestaurant[]) {

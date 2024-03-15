@@ -19,8 +19,7 @@ class BasicModal extends BaseComponent {
 
   setEvent(): void {
     this.#backdropElement.addEventListener('click', () => {
-      closeModal($('.modal'));
-      closeModal($('#detail-modal'));
+      closeModal();
       resetBodyScroll();
     });
   }

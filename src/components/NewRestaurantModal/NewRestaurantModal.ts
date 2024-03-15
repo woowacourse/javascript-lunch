@@ -10,12 +10,12 @@ import BasicButton from '../BasicButton/BasicButton';
 import { closeModal, makeInputInfo, makeLabel } from '@/utils/view';
 import Input from '../Input/Input';
 import BasicModal from '../BasicModal/BasicModal';
-import RestaurantAddService from '@/domains/services/RestaurantAddService';
+import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
   #title;
-  #restaurantAddService;
+  #restaurantUpdateService;
 
   constructor() {
     super();
@@ -24,14 +24,14 @@ class NewRestaurantModal extends BaseComponent {
     this.#title = document.createElement('h2');
     this.#title.classList.add('modal-title', 'text-title');
     this.#title.textContent = '새로운 음식점';
-    this.#restaurantAddService = new RestaurantAddService();
+    this.#restaurantUpdateService = new RestaurantUpdateService();
   }
 
   render() {
     this.#makeForm();
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
-      this.#restaurantAddService.addNewRestaurant(this.#form);
+      this.#restaurantUpdateService.addNewRestaurant(this.#form);
     });
   }
 
@@ -198,7 +198,7 @@ class NewRestaurantModal extends BaseComponent {
       variant: 'secondary',
       textContent: '취소하기',
       type: 'reset',
-      clickEvent: () => closeModal(this),
+      clickEvent: () => closeModal(),
     });
   }
 

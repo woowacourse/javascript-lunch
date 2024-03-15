@@ -1,5 +1,5 @@
 import { DISTANCE_FROM_CAMPUS } from '@/constants/Condition';
-import { $$ } from './DOM';
+import { $, $$ } from './DOM';
 
 export const hideErrorMessage = () => {
   const $errors = $$('.error');
@@ -8,10 +8,23 @@ export const hideErrorMessage = () => {
   });
 };
 
-export const closeModal = (modal: HTMLElement | Element) => {
+export const closeModal = () => {
   hideErrorMessage();
-  modal.classList.remove('modal--open');
+  const $modal = $$('.modal');
+  [...$modal].forEach((modal) => {
+    modal.classList.remove('modal--open');
+  });
   resetBodyScroll();
+};
+
+export const openModal = (modalType: 'add' | 'detail') => {
+  if (modalType === 'add') {
+    $('#add-modal').classList.add('modal--open');
+  }
+  if (modalType === 'detail') {
+    $('#detail-modal').classList.add('modal--open');
+  }
+  blockModalBodyScroll();
 };
 
 export const blockModalBodyScroll = () => {
@@ -62,4 +75,10 @@ export const makeDescription = (description?: string) => {
   $description.classList.add('restaurant__description', 'text-body');
   $description.textContent = `${description ?? ''}`;
   return $description;
+};
+
+export const removeAllChildren = (element: HTMLElement) => {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild!);
+  }
 };

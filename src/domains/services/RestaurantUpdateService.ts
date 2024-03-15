@@ -5,7 +5,7 @@ import { closeModal, hideErrorMessage } from '@/utils/view';
 import { $ } from '@/utils/DOM';
 import RestaurantCollection from '../entities/RestaurantCollection';
 
-class RestaurantAddService {
+class RestaurantUpdateService {
   #restaurantDBService;
   #restaurantCollection;
 
@@ -19,14 +19,24 @@ class RestaurantAddService {
     const newRestaurant = this.#getValues(form);
 
     if (newRestaurant) {
-      this.updateRestaurantCollection(newRestaurant);
-      this.#rerenderByFilter();
-      closeModal($('.modal'));
+      this.updateAddedRestaurantCollection(newRestaurant);
+      this.rerenderByFilter();
+      closeModal();
       form.reset();
     }
   }
 
-  updateRestaurantCollection(newRestaurant: IRestaurant) {
+  deleteRestaurant(id: number) {
+    //진짜 삭제하겠는지 모달 띄우기
+    const answer = true;
+    if (answer) {
+      this.#restaurantCollection = this.#restaurantDBService.update();
+      this.#restaurantCollection.deleteRestaurant(id);
+      this.#restaurantDBService.set(this.#restaurantCollection);
+    }
+  }
+
+  updateAddedRestaurantCollection(newRestaurant: IRestaurant) {
     this.#restaurantCollection = this.#restaurantDBService.update();
     this.#restaurantCollection.addRestaurant(newRestaurant);
     this.#restaurantDBService.set(this.#restaurantCollection);
@@ -55,7 +65,7 @@ class RestaurantAddService {
     return newRestaurant;
   }
 
-  #rerenderByFilter() {
+  rerenderByFilter() {
     const event = new Event('change', {
       bubbles: true,
       cancelable: true,
@@ -63,4 +73,5 @@ class RestaurantAddService {
     $('.restaurant-filter-container').dispatchEvent(event);
   }
 }
-export default RestaurantAddService;
+
+export default RestaurantUpdateService;

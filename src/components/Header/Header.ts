@@ -1,6 +1,6 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
-import { blockModalBodyScroll } from '@/utils/view';
+import { openModal } from '@/utils/view';
 import { $ } from '@/utils/DOM';
 
 class Header extends BaseComponent {
@@ -9,8 +9,7 @@ class Header extends BaseComponent {
     this.#makeAddButton();
     const $gnbButton = $<HTMLButtonElement>('.gnb__button');
     $gnbButton.addEventListener('click', () => {
-      $('.modal').classList.add('modal--open');
-      blockModalBodyScroll();
+      openModal('add');
     });
   }
 

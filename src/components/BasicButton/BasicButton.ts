@@ -12,6 +12,7 @@ class BasicButton extends BaseComponent {
   #textContent;
   #type;
   #clickEvent;
+  #button;
 
   constructor({ variant, textContent, type, clickEvent }: ButtonProps) {
     super();
@@ -19,15 +20,16 @@ class BasicButton extends BaseComponent {
     this.#textContent = textContent;
     this.#type = type;
     this.#clickEvent = clickEvent;
+    this.#button = this.#addButton();
   }
 
   render() {
-    const $button = this.#addButton();
-    this.replaceWith($button);
+    this.replaceWith(this.#button);
   }
 
   setEvent(): void {
-    this.addEventListener('click', () => {
+    this.#button.addEventListener('click', () => {
+      console.log('sadf');
       this.#clickEvent();
     });
   }

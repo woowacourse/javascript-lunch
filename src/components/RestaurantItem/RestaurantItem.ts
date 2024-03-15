@@ -4,7 +4,13 @@ import CategoryIconBox from '../CategoryIconBox/CategoryIconBox';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import RestaurantDetailModal from '../RestaurantDetailModal/RestaurantDetailModal';
 import { $ } from '@/utils/DOM';
-import { makeDescription, makeDistance, makeTitle } from '@/utils/view';
+import {
+  makeDescription,
+  makeDistance,
+  makeTitle,
+  openModal,
+  removeAllChildren,
+} from '@/utils/view';
 
 class RestaurantItem extends BaseComponent {
   #restaurant;
@@ -43,10 +49,8 @@ class RestaurantItem extends BaseComponent {
   }
 
   #makeDetailModal(detail: HTMLElement) {
-    $('#detail-modal').classList.add('modal--open');
-    while ($('#detail-modal').firstChild) {
-      $('#detail-modal').removeChild($('#detail-modal').firstChild!);
-    }
+    openModal('detail');
+    removeAllChildren($('#detail-modal'));
     $('#detail-modal').append(detail);
   }
 
