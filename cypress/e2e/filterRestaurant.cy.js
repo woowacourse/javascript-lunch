@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 import LocalStorageService from "../../src/services/localStorageService";
 
-describe("레스토랑 정보 확인 테스트", () => {
-  context("모달 내 입력 폼 확인", () => {
+describe("리스트 필터링/솔팅 테스트", () => {
+  context("필터링/솔팅 확인", () => {
     const data = [
       {
         id: 0,
