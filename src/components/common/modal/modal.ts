@@ -5,9 +5,9 @@ const ModalBase = (
   backDropClassName?: string,
   ContainerClassName?: string,
 ) => /*html*/ `
-<div class="modal ${modalClassName}">
-  <div class="modal-backdrop ${backDropClassName}"></div>
-  <div class="modal-container ${ContainerClassName}">
+<div class="modal ${modalClassName || ""}">
+  <div class="modal-backdrop ${backDropClassName || ""}"></div>
+  <div class="modal-container ${ContainerClassName || ""}">
     ${text}
   </div>
 </div>
