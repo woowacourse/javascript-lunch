@@ -1,11 +1,31 @@
 {
-  "rules": {},
+  "rules": {
+    "max-depth": ["warn", 1],
+    "max-params": ["warn", 3],
+    "class-methods-use-this": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "max-len": "off",
+    "object-curly-newline": "off",
+    "no-alert": "off"
+  },
+
+  "overrides": [
+    {
+      "files": ["./src/**"],
+      "rules": { "max-lines-per-function": ["warn", { "max": 12 }] }
+    }
+  ],
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true,
+    "browser": true
   },
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["prettier", "airbnb"]
 }
