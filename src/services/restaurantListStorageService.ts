@@ -1,5 +1,3 @@
-import restaurantListHelper from "../domain/RestaurantListHelper";
-import filterState from "../store/FilterStateStore";
 import { Irestaurant } from "../types/restaurant";
 
 const RestaurantListStorageService = {
@@ -9,17 +7,6 @@ const RestaurantListStorageService = {
       return JSON.parse(restaurantList);
     }
     return [];
-  },
-
-  getfilteredData() {
-    const filtereDataByCategory = restaurantListHelper.filterByCategory(
-      filterState.getFilterInfo().filter,
-      this.getData(),
-    );
-    return restaurantListHelper.sortBySelectedValue(
-      filterState.getFilterInfo().sort,
-      filtereDataByCategory,
-    );
   },
 
   setData(restaurant: Irestaurant) {
