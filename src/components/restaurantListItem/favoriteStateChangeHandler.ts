@@ -16,8 +16,9 @@ export const changeFavoriteState = (restaurantId: number) => {
   updateRestaurantListItemUI(restaurantId, listComponent);
 };
 
-export const favoriteIconEventPhaseHandler = (event: Event) => {
+const favoriteIconEventPhaseHandler = (event: Event) => {
   const target = (event.target as Element).closest('.favorited-icon') as HTMLElement;
+
   if (target) {
     event.stopPropagation();
     const listItem = target.closest('li') as HTMLLIElement;
@@ -26,13 +27,7 @@ export const favoriteIconEventPhaseHandler = (event: Event) => {
   }
 };
 
-const changeFavoriteIconStateHandler = () => {
+export const bindChangeFavoriteIconStateHandler = () => {
   const listContainer = document.querySelector('.restaurant-list') as HTMLLIElement;
   listContainer.addEventListener('click', (event) => favoriteIconEventPhaseHandler(event));
 };
-
-const changeFavoriteIconState = () => {
-  document.addEventListener('DOMContentLoaded', changeFavoriteIconStateHandler);
-};
-
-export default changeFavoriteIconState;

@@ -3,7 +3,7 @@ import filterState from '../store/FilterStateStore';
 import { RestaurantState, TabValue } from '../types';
 
 const RestaurantListStorageService = (function () {
-  let cachedData: RestaurantState[] | null = null; // 내부 캐시 데이터를 저장할 변수
+  let cachedData: RestaurantState[] | null = null;
 
   function getData() {
     if (cachedData === null) {
@@ -61,7 +61,7 @@ const RestaurantListStorageService = (function () {
       return allData;
     }
 
-    const filteredDataByFavorite = allData?.filter((restaurant) => restaurant.isFavorited) ?? [];
+    const filteredDataByFavorite = allData?.filter((restaurant) => restaurant.isFavorited === true) ?? [];
 
     return filteredDataByFavorite;
   }

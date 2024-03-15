@@ -341,3 +341,10 @@ input[name='link'] {
   display: flex;
   justify-content: space-between;
 }
+
+.bottom-sheet-description {
+  display: -webkit-box;
+  padding-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

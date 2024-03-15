@@ -3,7 +3,7 @@ import { changeFavoriteState } from '../restaurantListItem/favoriteStateChangeHa
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import { createIsFavoriteImageComponent } from '../../services/createComponent';
 import { initializeModal } from '../modal/modalButton/eventHandlers';
-import renderRestaurantList from '../restaurantList/renderHandlers';
+import RestaurantList from '../restaurantList/RestaurantList';
 
 const updateFavoriteIconUI = (newHtml: HTMLElement) => {
   const favoritedIcon = document.querySelector('.favorited-icon');
@@ -35,7 +35,7 @@ const favoriteIconChangeHandler = (event: Event, targetRestaurantListItem: Resta
 const deleteButtonClickHandler = (targetRestaurantListItem: RestaurantState) => {
   RestaurantListStorageService.deleteData(targetRestaurantListItem);
   const filteredData = RestaurantListStorageService.getData() ?? [];
-  renderRestaurantList(filteredData);
+  RestaurantList(filteredData);
   initializeModal();
 };
 

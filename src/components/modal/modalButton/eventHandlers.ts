@@ -12,7 +12,6 @@ export const initializeModal = () => {
 };
 
 const initializeFormState = () => {
-  initializeModal();
   restaurantStateStore.resetState();
 };
 
@@ -22,6 +21,8 @@ const addNewRestaurant = (modal: Element, restaurantInfo: RestaurantState) => {
   if (invalidMessage.length === 0) {
     RestaurantListStorageService.setData(restaurantInfo);
     initializeFormState();
+    initializeModal();
+    window.location.reload();
   }
 };
 
@@ -80,5 +81,6 @@ export const cancelHandler = () => {
   cancelButton.addEventListener('click', (event) => {
     event.preventDefault();
     initializeFormState();
+    initializeModal();
   });
 };

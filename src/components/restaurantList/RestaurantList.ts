@@ -1,25 +1,16 @@
 /* eslint-disable max-lines-per-function */
 import { RestaurantState } from '../../types/index.d';
-import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
-
-import renderRestaurantList from './renderHandlers';
-import restaurantListTemplate from './restaurantListTemplate';
+import { renderRestaurantList } from './renderHandlers';
+import { bindChangeFavoriteIconStateHandler } from '../restaurantListItem/favoriteStateChangeHandler';
 
 function RestaurantList(filterData: RestaurantState[]) {
   const main = document.querySelector('main');
+  const existingSection = document.querySelector('.restaurant-list-container');
+  const restaurantList = renderRestaurantList(filterData);
 
-  const render = () => {
-    if (filterData) {
-      renderRestaurantList(filterData);
-    }
-  };
-
-  const formattedRestaurantListTemplate = convertHTMLStringToDOM(restaurantListTemplate);
-  if (main) {
-    main.appendChild(formattedRestaurantListTemplate);
-  }
-
-  render();
+  if (main && existingSection) main.removeChild(existingSection);
+  if (main) main.appendChild(restaurantList);
+  bindChangeFavoriteIconStateHandler();
 }
 
 export default RestaurantList;

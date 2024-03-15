@@ -10,7 +10,6 @@ const modalOpenHandler = () => {
     const addRestaurantFormElements = AddRestaurantForm();
     modal.classList.add('modal--open');
     modalContainer.appendChild(addRestaurantFormElements);
-
     addNewRestaurantFormEventHandler();
   });
 };

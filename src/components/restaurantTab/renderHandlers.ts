@@ -22,12 +22,13 @@ export const renderRestaurantTabButtonContainer = () => {
   tabContainer.appendChild(generateButtonComponent(FAVORITE_RESTAURANTS_TAB_DATA));
 };
 
-export const unMountFilterBarComponent = () => {
+export const unMountFilterBarComponent = (filteredRestaurantListFromTabValueQuery: RestaurantState[]) => {
   const main = document.querySelector('main');
   const sectionContainer = document.querySelector('.restaurant-filter-container');
 
   if (main && sectionContainer) {
     main.removeChild(sectionContainer);
+    RestaurantList(filteredRestaurantListFromTabValueQuery);
   }
 };
 

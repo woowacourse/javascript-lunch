@@ -10,6 +10,7 @@ import {
   createTitleComponent,
   createDescriptionComponent,
   createRestaurantLinkComponent,
+  createBottomSheetDescriptionComponent,
 } from '../../services/createComponent';
 import RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA from './componentsData/detailContainerComponentData';
 import CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA from './componentsData/categoryImageContainerComponentData';
@@ -43,7 +44,7 @@ export const renderRestaurantListItemBottomSheetComponent = (targetRestaurantLis
   const categoryImageAndInfoComponent = generateCategoryImageAndInfoComponent(targetRestaurantListItem);
   const restaurantNameComponent = createTitleComponent(targetRestaurantListItem.name);
   const restaurantDistanceComponent = createDistanceComponent(targetRestaurantListItem.distance);
-  const restaurantDescriptionComponent = createDescriptionComponent(targetRestaurantListItem.description);
+  const restaurantDescriptionComponent = createBottomSheetDescriptionComponent(targetRestaurantListItem.description);
   const restaurantLinkComponent = createRestaurantLinkComponent(targetRestaurantListItem.link);
   const buttonContainer = generateContainerComponent(BUTTON_CONTAINER_COMPONENT_DATA);
   const restaurantListItemDeleteButton = generateButtonComponent(DELETE_BUTTON_COMPONENT_DATA);
@@ -57,6 +58,7 @@ export const renderRestaurantListItemBottomSheetComponent = (targetRestaurantLis
   if (restaurantDescriptionComponent) {
     fragment.appendChild(restaurantDescriptionComponent);
   }
+
   fragment.appendChild(restaurantLinkComponent);
   fragment.appendChild(buttonContainer);
 
