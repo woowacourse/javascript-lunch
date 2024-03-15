@@ -5,6 +5,8 @@ import generateImageComponent from '../../uiUtils/generateImageComponent';
 import { generateRestaurantCategoryImageComponentData } from '../../services/generateRestaurantComponentData';
 import { getMatchedCategoryInfo } from '../restaurantListItem/matchCategoryImage';
 import {
+  createBottomSheetDescriptionComponent,
+  createBottomSheetRestaurantLinkComponent,
   createDistanceComponent,
   createIsFavoriteImageComponent,
   createTitleComponent,
@@ -51,7 +53,7 @@ const generateTotalCategoryImageAndInfoComponent = (targetRestaurantListItem: Re
   const fragment = document.createDocumentFragment();
   const categoryImageAndInfoComponent = generateCategoryImageAndInfoComponent(targetRestaurantListItem);
   const restaurantNameComponent = createTitleComponent(targetRestaurantListItem.name);
-  const restaurantDistanceComponent = createDistanceComponent(String(targetRestaurantListItem.distance));
+  const restaurantDistanceComponent = createDistanceComponent(targetRestaurantListItem.distance);
   const restaurantDescriptionComponent = createBottomSheetDescriptionComponent(targetRestaurantListItem.description);
   const restaurantLinkComponent = createBottomSheetRestaurantLinkComponent(targetRestaurantListItem.link);
 

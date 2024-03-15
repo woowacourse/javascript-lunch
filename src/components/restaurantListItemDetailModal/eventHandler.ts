@@ -53,3 +53,5 @@ const ListItemDetailBottomSheetEventHandler = (targetRestaurantListItem: Restaur
   deleteButton.addEventListener('click', () => deleteButtonClickHandler(targetRestaurantListItem));
   closeButton.addEventListener('click', closeBottomSheetClickHandler);
 };
+
+export default ListItemDetailBottomSheetEventHandler;
