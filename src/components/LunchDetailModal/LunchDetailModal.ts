@@ -18,7 +18,7 @@ const LUNCH_DETAIL_MODAL_TEMPLATE = ({
   link,
   liked,
 }: LunchDetailModalProps) => /* HTML */ `
-  <div class="detail-modal">
+  <div class="detail-modal detail-modal--open">
     <div class="detail-modal-backdrop">
       <div class="detail-modal-container">
         <div class="detail-modal-header">
@@ -45,8 +45,20 @@ const LUNCH_DETAIL_MODAL_TEMPLATE = ({
         </div>
 
         <!-- 하단 영역 -->
-        <lunch-button></lunch-button>
-        <lunch-button></lunch-button>
+        <div class="detail-modal-footer">
+          <lunch-button
+            type="button"
+            text="삭제하기"
+            color="secondary"
+            class="detail-modal-delete"
+          ></lunch-button>
+          <lunch-button
+            type="button"
+            text="닫기"
+            color="primary"
+            class="detail-modal-closed"
+          ></lunch-button>
+        </div>
       </div>
     </div>
   </div>
@@ -55,6 +67,7 @@ const LUNCH_DETAIL_MODAL_TEMPLATE = ({
 class LunchDetailModal extends HTMLElement {
   connectedCallback() {
     this.render();
+    this.setEventListener();
   }
 
   render() {
@@ -73,6 +86,19 @@ class LunchDetailModal extends HTMLElement {
       link,
       liked,
     });
+  }
+
+  setEventListener() {
+    const closeModalButton = this.querySelector('.detail-modal-closed');
+    closeModalButton?.addEventListener('click', () => this.handleModalClose());
+  }
+
+  handleModalClose() {
+    const modal = this.querySelector('.detail-modal');
+    console.log(modal);
+    if (modal?.className) {
+      modal.classList.remove('detail-modal--open');
+    }
   }
 }
 
