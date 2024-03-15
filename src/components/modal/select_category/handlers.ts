@@ -1,6 +1,6 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import { Icategory } from "../../../types";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import { Icategory } from "../../../types/category";
+import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
 export const selectEventHandler = (select: HTMLElement) => {
   select.addEventListener("change", (event) => {
@@ -14,10 +14,8 @@ export const selectEventHandler = (select: HTMLElement) => {
 
 export const categoryChange = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const select = document.getElementById("category");
+    const select = document.getElementById("category") as HTMLElement;
 
-    if (select) {
-      selectEventHandler(select);
-    }
+    selectEventHandler(select);
   });
 };

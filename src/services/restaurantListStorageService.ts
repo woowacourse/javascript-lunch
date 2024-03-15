@@ -1,6 +1,6 @@
 import restaurantListHelper from "../domain/RestaurantListHelper";
 import filterState from "../store/FilterStateStore";
-import { Irestaurant } from "../types";
+import { Irestaurant } from "../types/restaurant";
 
 const RestaurantListStorageService = {
   getData() {

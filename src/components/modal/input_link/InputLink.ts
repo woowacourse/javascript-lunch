@@ -4,13 +4,9 @@ import { inputLinkHandler } from "./handlers";
 import inputLinkTemplate from "./inputLinkTemplate";
 
 function InputLink(form: Element) {
-  const render = () => {
-    form.appendChild(convertHTMLStringToDOM(inputLinkTemplate));
+  form.appendChild(convertHTMLStringToDOM(inputLinkTemplate));
 
-    inputLinkHandler();
-  };
-
-  render();
+  inputLinkHandler();
 }
 
 export default InputLink;

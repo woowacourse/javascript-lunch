@@ -1,11 +1,14 @@
 import RestaurantListStorageService from "../../../services/restaurantListStorageService";
 import validateRestaurantState from "../../../services/validateRestaurantState";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import { IinvalidResult, Irestaurant, MappedType } from "../../../types";
+import { Irestaurant } from "../../../types/restaurant";
+import { IinvalidResult } from "../../../types/validate";
 import RestaurantList from "../../restaurant_list/RestaurantList";
 
 const initializeFormState = () => {
-  const modalForm = document.getElementById("modal-form") as HTMLFormElement;
+  const modalForm: HTMLFormElement = document.getElementById(
+    "modal-form",
+  ) as HTMLFormElement;
   modalForm.reset();
   restaurantStateStore.resetState();
 };
@@ -30,10 +33,7 @@ const removePrevErrorMessage = () => {
   });
 };
 
-const renderErrorMessage = (
-  index: number,
-  result: MappedType<IinvalidResult>,
-) => {
+const renderErrorMessage = (index: number, result: Partial<IinvalidResult>) => {
   const targetTag = document.getElementsByClassName("form-item")[index];
   const p = document.createElement("p");
   p.setAttribute("class", `invalid_message ${result.targetClassName}`);
@@ -41,7 +41,7 @@ const renderErrorMessage = (
   targetTag.appendChild(p);
 };
 
-const checkValidateHandler = (restaurantInfo: MappedType<Irestaurant>) => {
+const checkValidateHandler = (restaurantInfo: Partial<Irestaurant>) => {
   const validateResult = validateRestaurantState(restaurantInfo);
   removePrevErrorMessage();
 
@@ -59,7 +59,7 @@ export const submitHandler = (modal: Element) => {
     const restaurantInfo = restaurantStateStore.getRestaurantField();
     checkValidateHandler(restaurantInfo);
     addNewRestaurant(modal, restaurantInfo as Irestaurant);
-    RestaurantList().reRender();
+    RestaurantList();
   });
 };
 

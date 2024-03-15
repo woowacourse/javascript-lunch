@@ -4,30 +4,31 @@ import etcCategoryImage from "../../../templates/category-etc.png";
 import japaneseCategoryImage from "../../../templates/category-japanese.png";
 import koreanCategoryImage from "../../../templates/category-korean.png";
 import westernCategoryImage from "../../../templates/category-western.png";
+import { CATEGORIES } from "../../constants/system";
 
 const categoryMatchedImageData = [
   {
-    category: "한식",
+    category: CATEGORIES.KOREAN,
     categoryImg: koreanCategoryImage,
   },
   {
-    category: "중식",
+    category: CATEGORIES.CHINESE,
     categoryImg: chinesecategoryImage,
   },
   {
-    category: "일식",
+    category: CATEGORIES.JAPANESE,
     categoryImg: japaneseCategoryImage,
   },
   {
-    category: "양식",
+    category: CATEGORIES.WESTERN,
     categoryImg: westernCategoryImage,
   },
   {
-    category: "아시안",
+    category: CATEGORIES.ASIAN,
     categoryImg: asianCategoryImage,
   },
   {
-    category: "기타",
+    category: CATEGORIES.OTHER,
     categoryImg: etcCategoryImage,
   },
 ];

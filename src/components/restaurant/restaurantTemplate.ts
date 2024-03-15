@@ -1,4 +1,5 @@
-import { IcategoryInfo, Irestaurant } from "../../types";
+import { IcategoryInfo } from "../../types/category";
+import { Irestaurant } from "../../types/restaurant";
 
 export const baseTemplate = (
   categoryTemplate: string,

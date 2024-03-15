@@ -1,5 +1,5 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
 const descriptionEventHandler = (description: HTMLElement) => {
   description.addEventListener("input", (event) => {
@@ -13,11 +13,9 @@ const descriptionEventHandler = (description: HTMLElement) => {
 
 const inputDescriptionHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const description = document.getElementById("description");
+    const description = document.getElementById("description") as HTMLElement;
 
-    if (description) {
-      descriptionEventHandler(description);
-    }
+    descriptionEventHandler(description);
   });
 };
 

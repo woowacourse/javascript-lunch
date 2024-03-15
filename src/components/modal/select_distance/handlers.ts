@@ -1,6 +1,6 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import { Idistance } from "../../../types";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import { Idistance } from "../../../types/distance";
+import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
 export const selectDistanceEventHandler = (select: HTMLElement) => {
   select.addEventListener("change", (event) => {
@@ -14,10 +14,8 @@ export const selectDistanceEventHandler = (select: HTMLElement) => {
 
 export const distanceChange = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const select = document.getElementById("distance");
+    const select = document.getElementById("distance") as HTMLElement;
 
-    if (select) {
-      selectDistanceEventHandler(select);
-    }
+    selectDistanceEventHandler(select);
   });
 };

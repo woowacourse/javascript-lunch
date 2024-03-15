@@ -1,5 +1,5 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import removeHTMLElementByClassName from "../../../utils/removeHTMLElementByClassName";
+import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
 const inputNameEventHandler = (input: HTMLElement) => {
   input.addEventListener("input", (event) => {
@@ -13,11 +13,9 @@ const inputNameEventHandler = (input: HTMLElement) => {
 
 const inputNameHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("name");
+    const input = document.getElementById("name") as HTMLElement;
 
-    if (input) {
-      inputNameEventHandler(input);
-    }
+    inputNameEventHandler(input);
   });
 };
 export default inputNameHandler;
