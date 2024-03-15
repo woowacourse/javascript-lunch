@@ -41,6 +41,10 @@ export default class AppController {
     $('add-restaurant-modal').addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
   }
 
+  private addEventForRestaurantList() {
+    $('restaurant-list').addEventListener('updateRestaurantFavorite', this.updateRestaurantFavorite.bind(this));
+  }
+
   private changeTab(event: Event) {
     if (event instanceof CustomEvent) {
       const changedTab: Tab = event.detail;
@@ -73,9 +77,17 @@ export default class AppController {
     }
   }
 
+  private updateRestaurantFavorite(event: Event) {
+    if (event instanceof CustomEvent) {
+      const { name, isFavorited } = event.detail;
+      this.restaurantService.updateRestaurantFavorite(name, isFavorited);
+    }
+  }
+
   private showRestaurantList() {
     $('#restaurant-list').appendChild(this.restaurantListFilter);
     $('#restaurant-list').appendChild(this.restaurantList);
+    this.addEventForRestaurantList();
   }
 
   private updateRestaurantList() {

@@ -138,6 +138,7 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
+  position: relative;
 
   padding: 16px 8px;
 
