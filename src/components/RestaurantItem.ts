@@ -22,6 +22,7 @@ class RestaurantItem extends Component {
 
   #updateRestaurant(): void {
     this.#restaurant = RestaurantRepository.getRestaurant(this.#key);
+    this.render();
   }
 
   #openModal(): void {
@@ -40,8 +41,8 @@ class RestaurantItem extends Component {
           <p class="restaurant__description text-body">${description || ''}</p>
         </div>
         <favorite-button key=${this.#key} isFavorite=${isFavorite}></favorite-button>
-        <restaurant-detail-modal key=${this.#key} open="false"></restaurant-detail-modal>
       </li>
+      <restaurant-detail-modal key=${this.#key} open="false"></restaurant-detail-modal>
     `;
   }
 }
