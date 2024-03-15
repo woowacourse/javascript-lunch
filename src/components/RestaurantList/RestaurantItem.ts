@@ -46,6 +46,8 @@ class RestaurantItem extends HTMLLIElement {
     this.querySelector('.restaurant__description')!.textContent = `${this.#description ?? ''}`;
     this.#favoriteIcon = this.querySelector('img[is="favorite-icon"]') as FavoriteIcon;
     this.#favoriteIcon.set(this.#isFavorite);
+
+    this.addEventListener('click', this.#showDetailListener.bind(this));
   }
 
   get() {
@@ -57,6 +59,12 @@ class RestaurantItem extends HTMLLIElement {
       link: this.#link,
       isFavorite: this.#favoriteIcon?.isFavorite(),
     };
+  }
+
+  #showDetailListener(event: Event) {
+    if (!(event.target as HTMLElement).classList.contains('favorite-icon')) {
+      (document.querySelector('.main-app-new') as MainApp).paintDetailModal(this.get());
+    }
   }
 }
 

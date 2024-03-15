@@ -23,7 +23,7 @@ class RestaurantDBService {
     this.#restaurantCollection = new RestaurantCollection(existingRestaurants);
   }
 
-  get() {
+  get(): IRestaurant[] {
     return JSON.parse(localStorage.getItem(this.#RESTAURANTS_DB_KEY) ?? '[]');
   }
 

@@ -1,14 +1,12 @@
-import '@/css/index.css';
 import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
 import Tab from './Tab';
 import RestaurantItemDetail from './RestaurantList/RestaurantItemDetail';
-import './MainApp.css';
 import BasicModal from './Basic/BasicModal/BasicModal';
-import FavoriteIcon from './Basic/FavoriteIcon';
-import RestaurantItem from './RestaurantList/RestaurantItem';
+import '@/css/index.css';
+import './MainApp.css';
 
 class MainApp extends HTMLDivElement {
   #myTab: Tab;
@@ -28,18 +26,18 @@ class MainApp extends HTMLDivElement {
     <div is="on-off-button" class="text-subtitle" checked="on" data-id="all">모든 음식점</div>
     <div is="on-off-button" class="text-subtitle" data-id="favorite">자주 가는 음식점</div>
     </div>
+    
     <div is="all-restaurant-app" class="hidden" data-id="all"></div>
     <div is="favorite-restaurant-app" class="" data-id="favorite"></div>
   
     <div is="new-restaurant-modal" class="modal new-restaurant-modal"></div>
 
-    <div is="basic-modal" class="modal basic-modal detail-modal modal--open" class-container="detail-modal__container" >
+    <div is="basic-modal" class="modal basic-modal detail-modal" class-container="detail-modal__container" >
       <li is="restaurant-item-detail" class="restaurant-item-detail" style=""></li>
     </div>
 
 
-    `; // <div is="restaurant-item-detail-modal" class="modal restaurant-detail-modal"></div>
-    //  <div is="new-restaurant-modal" class="modal new-restaurant-modal"></div>
+    `;
     this.#myTab = this.querySelector('div[is="my-tab"]')!;
     this.#newRestaurantModal = this.querySelector('.modal')!;
     this.#restaurantDBService = new RestaurantDBService();
@@ -75,15 +73,6 @@ class MainApp extends HTMLDivElement {
   paintDetailModal(restaurant: any) {
     this.#restaurantDetailModal.openModal();
     this.#restaurantDetailModal.replaceChildNodes([new RestaurantItemDetail(restaurant)]);
-  }
-
-  #updateDetailFavoriteListener(event: Event) {
-    // TODO
-    if ((event.target as HTMLElement).classList.contains('restaurant')) {
-      (document.querySelector('.main-app-new') as MainApp).paintDetailModal(
-        (event.target as FavoriteIcon).isFavorite(),
-      );
-    }
   }
 }
 

@@ -3,6 +3,9 @@ import { Category, DistanceNumeric, IRestaurant } from '@/types/Restaurant';
 import style from './RestaurantItemDetail.module.css';
 import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
+import MainApp from '../MainApp';
+import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import Restaurant from '@/domains/entities/Restaurant';
 
 class RestaurantItemDetail extends HTMLLIElement {
   #category: Category = '기타';
@@ -15,10 +18,10 @@ class RestaurantItemDetail extends HTMLLIElement {
   constructor(props?: IRestaurant) {
     super();
 
+    this.template();
     if (props) {
       this.setState(props);
     }
-
     this.render();
   }
 
@@ -29,11 +32,10 @@ class RestaurantItemDetail extends HTMLLIElement {
     this.#description = description ?? '';
     this.#link = link ?? '';
     this.#isFavorite = isFavorite ?? false;
-
     this.render();
   }
 
-  render() {
+  template() {
     this.classList.add(`restaurant-item-detail`, `${style.restaurant}`);
     this.innerHTML = `
       <div is="restaurant-category-icon"> </div>
@@ -45,7 +47,9 @@ class RestaurantItemDetail extends HTMLLIElement {
       <img is="favorite-icon" class="restaurant__favorite-icon" style="width:25px; position:absolute; right:10px; top:10px;"/>
 
      `;
-
+    this.addEventListener('click', this.#favoriteIconDBListener.bind(this));
+  }
+  render() {
     (
       this.querySelector('div[is="restaurant-category-icon"]') as RestaurantCategoryIcon
     ).setCategory(this.#category);
@@ -53,20 +57,40 @@ class RestaurantItemDetail extends HTMLLIElement {
     this.querySelector('.restaurant__distance')!.textContent = `캠퍼스부터 ${this.#distance}분 내`;
     this.querySelector('.restaurant__description')!.textContent = `${this.#description ?? ''}`;
     (this.querySelector('.restaurant__favorite-icon')! as FavoriteIcon).set(this.#isFavorite);
-    console.log(this);
     const link = this.querySelector('.restaurant__link') as HTMLAnchorElement;
     link.setAttribute('href', this.#link!);
     link.textContent = this.#link!;
   }
 
-  get() {
+  get(): IRestaurant {
     return {
       category: this.#category,
       name: this.#name,
-      distance: this.#distance,
+      distance: this.#distance!,
       description: this.#description,
       link: this.#link,
+      isFavorite: this.#isFavorite,
     };
+  }
+
+  #favoriteIconDBListener(event: Event) {
+    if ((event.target as HTMLElement).classList.contains('restaurant__favorite-icon')) {
+      console.log('fav');
+      this.#isFavorite =
+        (this.querySelector('.restaurant__favorite-icon')! as FavoriteIcon).getAttribute(
+          'clicked',
+        ) === 'on';
+      const newRestaurants = this.#getDBRaw().filter(
+        (restaurant) => !new Restaurant(this.get()).isEqual(restaurant),
+      );
+      console.log(newRestaurants);
+      new RestaurantDBService().set([...newRestaurants, this.get()]);
+
+      (document.querySelector('.main-app-new') as MainApp).paint();
+    }
+  }
+  #getDBRaw() {
+    return new RestaurantDBService().get();
   }
 }
 
