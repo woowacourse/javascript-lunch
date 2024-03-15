@@ -254,6 +254,11 @@ body {
   margin-bottom: 36px;
 }
 
+.modal-form {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
 .modal-top-content {
   display: flex;
   flex-direction: row;
