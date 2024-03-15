@@ -4,6 +4,7 @@ import { createHeader } from "./components/Header.ts";
 import AddingRestaurantModal from "./components/AddingRestaurantModal.ts";
 import { createRestaurantItem } from "./components/ResetaurantItem.ts";
 import RestaurantDetailModal from "./components/RestaurantDetailModal.ts";
+import { createDropdown } from "./components/Dropdown.ts";
 
 // 1. 컴포넌트를 따로 만든다
 
@@ -19,27 +20,7 @@ const header = createHeader({
 const restaurantList = document.createElement("ul");
 restaurantList.classList.add("restaurant-list");
 
-const categoryDropdown = document.createElement("select");
-categoryDropdown.classList.add("restaurant-filter");
-categoryDropdown.setAttribute("name", "category");
-categoryDropdown.setAttribute("id", "category-filter");
-
-const categoryOptions = [
-  "전체",
-  "한식",
-  "중식",
-  "일식",
-  "양식",
-  "아시안",
-  "기타",
-].map((category) => {
-  const option = document.createElement("option");
-  option.textContent = category;
-  return option;
-});
-categoryOptions.forEach((option) => {
-  categoryDropdown.appendChild(option);
-});
+const categoryDropdown = createDropdown();
 
 // 2. 컴포넌트를 결합한다
 const restaurantItems = RESTAURANTS_SAMPLE.map((restaurantItem) =>
