@@ -50,6 +50,28 @@ class CustomModal extends HTMLElement {
         </div>
       </div>
     `;
+
+    const modal = this?.shadowRoot?.querySelector('.modal');
+    modal
+      ?.querySelector('.modal-backdrop')
+      ?.addEventListener('click', this.#closeModal);
+  }
+
+  #closeModal() {
+    const modalEl = document
+      .querySelector('custom-modal')
+      ?.shadowRoot?.querySelector('.modal');
+
+    if (modalEl) {
+      modalEl.classList.toggle('open');
+      const childSlotEl = document.querySelector('[slot="child"]');
+      if (childSlotEl) {
+        childSlotEl.innerHTML = '';
+      }
+
+      const bodyEl = document.querySelector('body');
+      if (bodyEl) bodyEl.style.overflowY = 'scroll';
+    }
   }
 }
 
