@@ -26,16 +26,30 @@ const categoryDropdown = createDropdown({
 });
 
 // 2. 컴포넌트를 결합한다
-const restaurantItems = RESTAURANTS_SAMPLE.map((restaurantItem) =>
-  createRestaurantItem({
-    restaurant: restaurantItem,
-    onClick: () => {
-      restaurantDetailModal.restaurant = restaurantItem;
-      restaurantDetailModal.toggle();
-    },
-  })
-);
-restaurantItems.forEach((child) => restaurantList.appendChild(child));
+renderRestaurantItems();
+
+function renderRestaurantItems(category = "전체") {
+  const listFragment = document.createDocumentFragment();
+  const filteredItems = RESTAURANTS_SAMPLE.filter((restaurantItem) => {
+    if (category === "전체") {
+      return true;
+    }
+    return restaurantItem.category === category;
+  });
+
+  const restaurantItems = filteredItems.map((restaurantItem) =>
+    createRestaurantItem({
+      restaurant: restaurantItem,
+      onClick: () => {
+        restaurantDetailModal.restaurant = restaurantItem;
+        restaurantDetailModal.toggle();
+      },
+    })
+  );
+
+  restaurantItems.forEach((child) => listFragment.appendChild(child));
+  restaurantList.replaceChildren(listFragment);
+}
 
 // 3. 컴포넌트를 document에 붙인다.
 
