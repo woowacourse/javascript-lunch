@@ -8,8 +8,6 @@ import {
   createDistanceComponent,
   createIsFavoriteImageComponent,
   createTitleComponent,
-  createBottomSheetDescriptionComponent,
-  createBottomSheetRestaurantLinkComponent,
 } from '../../services/createComponent';
 import RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA from './componentsData/detailContainerComponentData';
 import CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA from './componentsData/categoryImageContainerComponentData';

@@ -3,7 +3,7 @@ import { changeFavoriteState } from '../restaurantListItem/favoriteStateChangeHa
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import { createIsFavoriteImageComponent } from '../../services/createComponent';
 import { initializeModal } from '../modal/modalButton/eventHandlers';
-import RestaurantList from '../restaurantList/RestaurantList';(feat: 바텀시트내에서 버튼 컴포넌트 구현)
+import RestaurantList from '../restaurantList/RestaurantList';
 
 const updateFavoriteIconUI = (newHtml: HTMLElement) => {
   const favoritedIcon = document.querySelector('.favorited-icon');
@@ -53,5 +53,3 @@ const ListItemDetailBottomSheetEventHandler = (targetRestaurantListItem: Restaur
   deleteButton.addEventListener('click', () => deleteButtonClickHandler(targetRestaurantListItem));
   closeButton.addEventListener('click', closeBottomSheetClickHandler);
 };
-
-export default ListItemDetailBottomSheetEventHandler;
