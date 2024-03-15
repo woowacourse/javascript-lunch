@@ -33,6 +33,15 @@ class BasicModal extends HTMLDivElement {
     children.forEach((child) => this.#modalContainer.append(child));
   }
 
+  removeAll() {
+    this.#modalContainer.replaceChildren();
+  }
+
+  replaceChildNodes(children: Node[]) {
+    this.removeAll();
+    this.appendAll(children);
+  }
+
   closeModal() {
     this.classList.remove('modal--open');
   }
