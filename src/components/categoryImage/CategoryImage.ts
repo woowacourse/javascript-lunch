@@ -1,3 +1,5 @@
+import './CategoryImage.css';
+
 import { CategoryType } from "../../types";
 import {
   CategoryAsian,

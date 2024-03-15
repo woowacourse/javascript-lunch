@@ -14,6 +14,7 @@ class Restaurant extends HTMLLIElement {
     
     this.className = 'restaurant';
     this.createLayout(restaurant);
+    this.listenClickForCreateDetailModal(restaurant);
   };
 
   createLayout(restaurant: RestaurantType) {
@@ -53,9 +54,21 @@ class Restaurant extends HTMLLIElement {
   }
 
   listenClickForCreateDetailModal(restaurant: RestaurantType) {
-    this.addEventListener('click', () => {
-      const modal = new Modal({ title: '', child: new RestaurantDetail(restaurant)});
+    this.addEventListener('click', () => {            
+      const modal = new Modal({ classname: 'detail-modal', title: '', child: new RestaurantDetail(restaurant)});   
+      modal.toggleModal('detail-modal');         
       $<HTMLElement>('main').appendChild(modal);
+      
+      this.listenModalToggle(modal, 'detail-modal');
+    });
+  }
+
+  private listenModalToggle(modal: Modal, classname: string) {    
+    $<HTMLDivElement>(`.${classname}-backdrop`).addEventListener('click', () => { 
+      $<HTMLElement>('main').removeChild(modal);
+    });
+    $<HTMLButtonElement>('.modal--close').addEventListener('click', () => {
+      $<HTMLElement>('main').removeChild(modal);
     });
   }
 }

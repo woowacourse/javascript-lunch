@@ -1,6 +1,7 @@
 import './modal.css';
 
 interface ModalProps {
+  classname: string;
   title: string;
   child: HTMLElement;
 }
@@ -8,17 +9,17 @@ interface ModalProps {
 class Modal extends HTMLDivElement {
   constructor(props: ModalProps) {
     super();
-    this.className = 'modal';
+    this.className = props.classname;
     this.createLayout(props);    
   }
 
-  createLayout({child, title}: ModalProps) {
+  createLayout({classname, child, title}: ModalProps) {
     const modalBackdrop = document.createElement('div');
-    modalBackdrop.className = 'modal-backdrop';
+    modalBackdrop.className = `${classname}-backdrop`;
     this.appendChild(modalBackdrop);
 
     const modalContainer = document.createElement('div');
-    modalContainer.className = 'modal-container';
+    modalContainer.className = `${classname}-container`;
     
     const modalTitle = document.createElement('h2');
     modalTitle.className = 'modal-title';
@@ -31,8 +32,8 @@ class Modal extends HTMLDivElement {
     this.appendChild(modalContainer);
   }
 
-  toggleModal() {
-    this.classList.toggle('modal--open');
+  toggleModal(classname: string) {
+    this.classList.toggle(`${classname}--open`);
   }
 }
 

@@ -37,17 +37,17 @@ const root = {
   },
 
   createAddModal() {
-    const modal = new Modal({ title: '새로운 음식점', child: new RestaurantForm() });
+    const modal = new Modal({ classname: 'modal', title: '새로운 음식점', child: new RestaurantForm() });
     this.appendMain(modal);
     this.listenModalToggle(modal);
   },
 
   listenModalToggle(modal: Modal) {
     $<HTMLDivElement>('.modal-backdrop').addEventListener('click', () => {
-      modal.toggleModal();
+      modal.toggleModal('modal');
     });
     $<HTMLButtonElement>('.modal--close').addEventListener('click', () => {
-      modal.toggleModal();
+      modal.toggleModal('modal');
     });
   },
 
