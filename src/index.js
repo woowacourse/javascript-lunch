@@ -3,8 +3,8 @@ import LunchPickerHeader from './components/LunchPickerHeader';
 import LunchPickerTab from './components/LunchPickerTab';
 import RestaurantList from './components/RestaurantList';
 import RestaurantItem from './components/RestaurantItem';
-import RestaurantAddModal from './components/RestaurantAddModal';
-import RestaurantDetailModal from './components/RestaurantDetailModal';
+import RestaurantAddModal from './components/modal/RestaurantAddModal';
+import RestaurantDetailModal from './components/modal/RestaurantDetailModal';
 import CategoryIcon from './components/CategoryIcon';
 import FilterBox from './components/FilterBox';
 
