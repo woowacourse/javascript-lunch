@@ -1,24 +1,12 @@
-import { Restaurant as RestaurantType, CategoryType } from '../../types/index';
-import {
-  CategoryAsian,
-  CategoryChinese,
-  CategoryEtc,
-  CategoryJapanese,
-  CategoryKorean,
-  CategoryWestern,
-} from '../../asset/img/index';
-
 import './restaurant.css';
 
-const CATEGORY_IMAGE: Record<CategoryType, string> = {
-  한식: CategoryKorean,
-  중식: CategoryChinese,
-  일식: CategoryJapanese,
-  양식: CategoryWestern,
-  아시안: CategoryAsian,
-  기타: CategoryEtc,
-  전체: '',
-};
+import { Restaurant as RestaurantType } from '../../types/index';
+import Modal from '../modal/Modal';
+import RestaurantDetail from '../restaurantDetail/RestaurantDetail';
+import DOM from '../../utils/DOM';
+import CategoryImage from '../categoryImage/CategoryImage';
+
+const { $ } = DOM;
 
 class Restaurant extends HTMLLIElement {
   constructor(restaurant: RestaurantType) {
@@ -30,24 +18,12 @@ class Restaurant extends HTMLLIElement {
 
   createLayout(restaurant: RestaurantType) {
     const frag = document.createDocumentFragment();
-    const restaurantCategory = this.createRestaurantCategory(restaurant.category);
+    const restaurantCategory = new CategoryImage(restaurant.category);
     const restaurantInfo = this.createRestaurantInfo(restaurant);
 
     frag.appendChild(restaurantCategory);
     frag.appendChild(restaurantInfo);
     this.appendChild(frag);
-  }
-
-  createRestaurantCategory(category: CategoryType) {
-    const restaurantCategory = document.createElement('div');
-    restaurantCategory.className = 'restaurant__category';
-    
-    const img = document.createElement('img');
-    img.setAttribute('src', CATEGORY_IMAGE[category]);
-    img.setAttribute('alt', category);
-    img.className = 'category-icon';
-    restaurantCategory.appendChild(img);
-    return restaurantCategory;
   }
 
   createRestaurantInfo(restaurant: RestaurantType) {
@@ -74,6 +50,13 @@ class Restaurant extends HTMLLIElement {
     restaurantInfo.appendChild(span);
     restaurantInfo.appendChild(p);
     return restaurantInfo;
+  }
+
+  listenClickForCreateDetailModal(restaurant: RestaurantType) {
+    this.addEventListener('click', () => {
+      const modal = new Modal({ title: '', child: new RestaurantDetail(restaurant)});
+      $<HTMLElement>('main').appendChild(modal);
+    });
   }
 }
 

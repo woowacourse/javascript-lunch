@@ -10,7 +10,7 @@ import ListContainer from './components/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
 import Modal from './components/modal/Modal';
 
-const { $, insertElementsInTarget } = DOM;
+const { $ } = DOM;
 const { CATEGORY } = Condition;
 
 const root = {
