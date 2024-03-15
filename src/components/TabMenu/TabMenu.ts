@@ -1,25 +1,35 @@
-import { DEFAULT_TAB } from '../../constant/constants';
-import { TabMenuProps } from '../../interface/RestaurantInterfaces';
 import { $ } from '../../utils/querySelector';
 
-const TabMenu = (menuList: TabMenuProps[]) => {
+interface TabMenuItem {
+  id: string;
+  content: string;
+}
+
+interface Props {
+  tabs: TabMenuItem[];
+  defaultTab: string;
+}
+
+const createTabMenu = ({ tabs, defaultTab }: Props) => {
   const initTab = () => {
-    const defaultTab = $(`#${DEFAULT_TAB}`);
-    defaultTab.classList.add('active');
+    const tab = $(`#${defaultTab}`);
+    tab.classList.add('active');
   };
 
   const render = () => {
-    const menuButtons = /* html */ menuList.map(menu => {
-      return `<button id=${menu.id} class="button button--tabmenu">${menu.content}</button>`;
+    const menuButtons = tabs.map(menu => {
+      return /* html */ `
+        <button id=${menu.id} class="button button--tabmenu">${menu.content}</button>
+      `;
     });
 
     const tabContainer = $('.restaurant-tab-container');
-
     tabContainer.insertAdjacentHTML('beforeend', menuButtons.join(''));
+
     initTab();
   };
 
   render();
 };
 
-export default TabMenu;
+export default createTabMenu;

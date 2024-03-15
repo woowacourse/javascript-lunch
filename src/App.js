@@ -1,24 +1,27 @@
-import Header from './components/Header/Header';
-import TabMenu from './components/TabMenu/TabMenu';
-import { TAB_MENUS } from './constant/constants';
+import Dropdown from './components/Common/Dropdown';
+import createHeader from './components/Header/Header';
+import createModal from './components/Modal/Modal';
+import createTabMenu from './components/TabMenu/TabMenu';
+import { DEFAULT_TAB, TAB_MENUS } from './constant/constants';
+import { FILTER_DROPDOWN_PROPS, SORT_DROPDOWN_PROPS } from './constant/options';
 import { $ } from './utils/querySelector';
-import OutputView from './views/OutputView';
 
 const App = {
   initApp() {
-    Header();
-    TabMenu(TAB_MENUS);
-    OutputView.renderFilterDropdown();
-
-    this.setModalEvents();
+    createHeader({ title: '점심 뭐 먹지', buttonEvent: () => {} });
+    createTabMenu({ tabs: TAB_MENUS, defaultTab: DEFAULT_TAB });
+    this.renderFilterDropdown();
+    createModal({ child: '' });
   },
 
-  setModalEvents() {
-    const modalBackdrop = $('.modal-backdrop');
+  renderFilterDropdown() {
+    const filterContainer = $('.restaurant-filter-container');
 
-    modalBackdrop.addEventListener('click', () => {
-      OutputView.closeModal();
-    });
+    const filterDropdown = Dropdown(FILTER_DROPDOWN_PROPS);
+    const sortDropdown = Dropdown(SORT_DROPDOWN_PROPS);
+
+    filterContainer.insertAdjacentHTML('beforeend', filterDropdown);
+    filterContainer.insertAdjacentHTML('beforeend', sortDropdown);
   },
 };
 
