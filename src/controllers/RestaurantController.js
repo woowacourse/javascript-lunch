@@ -163,7 +163,7 @@ class RestaurantController {
     const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === restaurantId);
 
     OutputView.renderDetailRestaurant(targetRestaurant);
-    // this.manageAddRestaurantFormEvents();
+    this.managedetailRestaurantEvents(restaurantId);
     this.manageModalEvents();
 
     const modalContainer = $('.modal-container');
@@ -172,6 +172,22 @@ class RestaurantController {
     favoriteButton.addEventListener('click', () => {
       this.changeFavoriteButton(restaurantId, favoriteButton);
       this.updateRestaurantList();
+    });
+  }
+
+  managedetailRestaurantEvents(restaurantId) {
+    const detailRestaurant = $('.detail-restaurant');
+    const buttonContainer = detailRestaurant.querySelector('.button-container');
+    const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === restaurantId);
+    buttonContainer.addEventListener('click', event => {
+      const target = event.target;
+
+      if (target.innerText === '삭제하기') {
+        this.#restaurantList = this.#restaurantService.removeRestaurant(targetRestaurant, this.#restaurantList);
+        this.updateRestaurantList();
+        alert('삭제되었습니다.');
+      }
+      OutputView.closeModal();
     });
   }
 }

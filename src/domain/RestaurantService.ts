@@ -17,6 +17,12 @@ class RestaurantService implements Restaurants {
     return true;
   }
 
+  removeRestaurant(restaurant: Restaurant, restaurantList: Restaurant[]): Restaurant[] {
+    const newRestaurantList = restaurantList.filter(item => item !== restaurant);
+    localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(newRestaurantList));
+    return newRestaurantList;
+  }
+
   filterByCategory(category: FilteringCategory, restaurantList: Restaurant[]): Restaurant[] {
     if (category === '전체') return restaurantList;
     return restaurantList.filter(restaurant => restaurant.category === category);
