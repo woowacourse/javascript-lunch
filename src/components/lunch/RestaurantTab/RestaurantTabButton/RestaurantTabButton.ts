@@ -3,7 +3,6 @@ import "./RestaurantTabButton.css";
 import BaseComponent from "../../../BaseComponent/BaseComponent";
 import { $ } from "../../../../utils/dom";
 import { CUSTOM_EVENT_TYPE } from "../../../../constants/eventType";
-import { RESTAURANT_TAB_STATUS_TABLE } from "../RestaurantTab.constant";
 
 class RestaurantTabButton extends BaseComponent {
   private eventListeners = {
