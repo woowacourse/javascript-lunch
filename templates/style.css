@@ -133,6 +133,7 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
+  position: relative;
 
   padding: 16px 8px;
 
@@ -152,6 +153,12 @@ body {
 
   border-radius: 50%;
   background: var(--lighten-color);
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 .category-icon {
@@ -339,7 +346,8 @@ button:disabled + .tooltip {
 .tabBar {
   display: flex;
   align-items: center;
-  padding: 30px 16px;
+  justify-content: space-between;
+  padding: 30px 16px 0 16px;
 }
 
 .tabBar_button {
