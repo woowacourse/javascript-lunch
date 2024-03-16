@@ -31,14 +31,9 @@ export default class TabBar extends EventComponent {
 
     this.toggleTabItems();
 
-    this.dispatchEvent(
-      new CustomEvent(TAB_SWITCH_EVENT, {
-        bubbles: true,
-        detail: {
-          switchTo: target.dataset.switchTo,
-        },
-      })
-    );
+    this.dispatchCustomEvent(TAB_SWITCH_EVENT, {
+      switchTo: target.dataset.switchTo,
+    });
   }
 
   private toggleTabItems() {

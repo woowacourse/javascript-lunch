@@ -33,12 +33,7 @@ export default class Select extends EventComponent {
     const select = e.target as HTMLSelectElement;
     const selectedValue = select.value;
 
-    this.dispatchEvent(
-      new CustomEvent(eventName, {
-        detail: { value: selectedValue },
-        bubbles: true,
-      })
-    );
+    this.dispatchCustomEvent(eventName, { value: selectedValue });
   }
 
   protected setEvent(): void {

@@ -92,14 +92,9 @@ export default class RestaurantDetail extends EventComponent {
   }
 
   private handleCloseButtonClick() {
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
-        bubbles: true,
-        detail: {
-          action: MODAL_EVENT_ACTION.close,
-        },
-      })
-    );
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
+      action: MODAL_EVENT_ACTION.close,
+    });
   }
 
   private handleDeleteButtonClick() {
@@ -115,22 +110,10 @@ export default class RestaurantDetail extends EventComponent {
     restaurantStore.removeByName(restaurantName);
     favoriteStore.toggle(restaurantName, false);
 
-    this.dispatchEvent(
-      new CustomEvent(RESTAURANT_REMOVE_EVENT, {
-        bubbles: true,
-        detail: {
-          name: restaurantName,
-        },
-      })
-    );
+    this.dispatchCustomEvent(RESTAURANT_REMOVE_EVENT, { name: restaurantName });
 
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
-        bubbles: true,
-        detail: {
-          action: MODAL_EVENT_ACTION.close,
-        },
-      })
-    );
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
+      action: MODAL_EVENT_ACTION.close,
+    });
   }
 }

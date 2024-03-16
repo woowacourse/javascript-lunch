@@ -185,19 +185,11 @@ export default class RestaurantList extends EventComponent {
         : false,
     };
 
-    this.dispatchEvent(
-      new CustomEvent(RESTAURANT_DETAIL_SHOW_EVENT, {
-        bubbles: true,
-        detail: { restaurantInfo },
-      })
-    );
+    this.dispatchCustomEvent(RESTAURANT_DETAIL_SHOW_EVENT, { restaurantInfo });
 
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
-        bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.open },
-      })
-    );
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
+      action: MODAL_EVENT_ACTION.open,
+    });
   }
 
   private filterByCategory(

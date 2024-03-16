@@ -82,12 +82,9 @@ export default class RestaurantForm extends EventComponent {
   }
 
   private handleCloseButtonClick() {
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
-        bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.close },
-      })
-    );
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+      action: MODAL_EVENT_ACTION.close,
+    });
   }
 
   private handleSubmit(e: Event): void {
@@ -100,12 +97,7 @@ export default class RestaurantForm extends EventComponent {
       const newRestaurant = new Restaurant(restaurantInfo as RestaurantInfo);
       restaurantStore.add(newRestaurant);
 
-      this.dispatchEvent(
-        new CustomEvent(RESTAURANT_FORM_SUBMIT_EVENT, {
-          bubbles: true,
-          detail: { newRestaurant },
-        })
-      );
+      this.dispatchCustomEvent(RESTAURANT_FORM_SUBMIT_EVENT, { newRestaurant });
     } catch (error) {
       if (error instanceof Error) {
         return alert(error.message);
@@ -147,11 +139,8 @@ export default class RestaurantForm extends EventComponent {
   private cleanUpSubmit(form: HTMLFormElement) {
     form.reset();
 
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
-        bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.close },
-      })
-    );
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+      action: MODAL_EVENT_ACTION.close,
+    });
   }
 }

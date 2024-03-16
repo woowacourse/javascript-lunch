@@ -35,12 +35,10 @@ export default class FavoriteIcon extends EventComponent {
 
     favoriteStore.toggle(itemName, changesToActive);
 
-    this.dispatchEvent(
-      new CustomEvent(TOGGLE_FAVORITE_EVENT, {
-        bubbles: true,
-        detail: { itemName, changesToActive },
-      })
-    );
+    this.dispatchCustomEvent(TOGGLE_FAVORITE_EVENT, {
+      itemName,
+      changesToActive,
+    });
   }
 
   private handleToggleFavoriteEvent(e: CustomEvent) {

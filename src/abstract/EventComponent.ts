@@ -7,4 +7,11 @@ export default abstract class EventComponent extends BaseComponent {
   }
 
   protected abstract setEvent(): void;
+
+  protected dispatchCustomEvent(
+    eventName: string,
+    detail: Record<string, unknown>
+  ) {
+    this.dispatchEvent(new CustomEvent(eventName, { detail, bubbles: true }));
+  }
 }
