@@ -11,6 +11,7 @@ interface Restaurant {
   walkingTimeFromCampus: Minutes;
   description?: string;
   referenceLink?: string;
+  favorite: boolean;
 }
 
 export default class Restaurants {
@@ -83,6 +84,10 @@ export default class Restaurants {
       category === DEFAULT.categoryFilter ? this.storageData : this.#filterByCategory(category);
 
     return this.#sortByStandard(restaurants, sorting);
+  }
+
+  get favoriteList() {
+    return this.storageData.filter((restaurant) => restaurant.favorite === true);
   }
 
   set standard(value: { id: string; standard: string }) {
