@@ -51,4 +51,5 @@
   - [ ] 자주가는 음식점에서 추가된 음식점 목록 확인 가능
 
 - [ ] 상수화 상세 분리
+- [ ] invalid한 restaurantFormItem 값이 valid하게 되었을 시 즉시 errorPrint 없애기
 - [x] 메인 컨트롤러와 모달 컨트롤러, 렌더링 컨트롤러 분리
