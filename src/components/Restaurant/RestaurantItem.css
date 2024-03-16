@@ -1,10 +1,25 @@
 .restaurant {
+  position: relative;
   display: flex;
   align-items: flex-start;
 
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+}
+
+.restaurant__favorite {
+  position: absolute;
+  top: 16px;
+  right: 8px;
+}
+
+.restaurant__favorite img {
+  cursor: pointer;
+}
+
+.restaurant__favorite .hidden {
+  display: none;
 }
 
 .restaurant__category {

@@ -1,7 +1,7 @@
 import Dropdown from './components/Common/Dropdown';
 import createHeader from './components/Header/Header';
 import AddRestaurantModal from './components/Modal/AddRestaurantModal';
-import Modal from './components/Modal/Modal';
+import createRestaurantItem from './components/Restaurant/RestaurantItem';
 import createTabMenu from './components/TabMenu/TabMenu';
 import { DEFAULT_TAB, TAB_MENUS } from './constant/constants';
 import { FILTER_DROPDOWN_PROPS, SORT_DROPDOWN_PROPS } from './constant/options';
@@ -15,6 +15,26 @@ const App = {
     createHeader({ title: '점심 뭐 먹지', buttonEvent: () => addRestaurantModal.toggle() });
     createTabMenu({ tabs: TAB_MENUS, defaultTab: DEFAULT_TAB });
     this.renderFilterDropdown();
+
+    const restaurantList = document.createElement('ul');
+    restaurantList.classList.add('restaurant-list');
+
+    restaurantList.append(
+      createRestaurantItem({
+        restaurant: {
+          id: '친친',
+          category: '중식',
+          name: '친친',
+          distance: 5,
+        },
+        onClick: () => {
+          console.log('clicked!');
+        },
+      }),
+    );
+
+    const restaurantListContainer = $('.restaurant-list-container');
+    restaurantListContainer.append(restaurantList);
   },
 
   renderFilterDropdown() {
