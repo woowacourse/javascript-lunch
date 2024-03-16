@@ -1,5 +1,7 @@
 import "./RestaurantItem.css";
 
+import BaseComponent from "../BaseComponent/BaseComponent";
+
 import {
   categoryKorean,
   categoryAsian,
@@ -9,10 +11,7 @@ import {
   categoryWestern,
 } from "../../assets/images/index";
 
-import BaseComponent from "../BaseComponent/BaseComponent";
-
 import type { RestaurantDetail } from "../../domain/Restaurant/Restaurant.type";
-
 import type { MenuCategoryWithoutAll } from "../../constants/menuCategory/menuCategory.type";
 
 class RestaurantItem extends BaseComponent {
@@ -42,15 +41,28 @@ class RestaurantItem extends BaseComponent {
                 )} alt=${this.restaurantDetail.category} class="category-icon">
             </div>
             <div class="restaurant__info">
-                <h3 class="restaurant__name text-subtitle">${
-                  this.restaurantDetail.name
-                }</h3>
-                <span class="restaurant__distance text-body">캠퍼스로부터 ${
-                  this.restaurantDetail.distance
-                }분 내</span>
-                <p class="restaurant__description text-body">${
-                  this.restaurantDetail.description
-                }</p>
+              <div class="restaurant__required__info">
+                <div class="left-align">
+                  <h3 class="restaurant__name text-subtitle">${
+                    this.restaurantDetail.name
+                  }</h3>
+                  <span 
+                    class="restaurant__distance text-body">
+                      캠퍼스로부터 ${this.restaurantDetail.distance}분 내
+                  </span>
+                </div>
+                <div class="right-align">
+                  <favorite-button 
+                    data-restaurant-name=${this.restaurantDetail.name}
+                    data-restaurant-favorite=${this.restaurantDetail.favorite} 
+                  >
+                  </favorite-button>
+                </div>
+              </div>
+                
+              <p class="restaurant__description text-body">${
+                this.restaurantDetail.description
+              }</p> 
             </div>
         </li>
     `;

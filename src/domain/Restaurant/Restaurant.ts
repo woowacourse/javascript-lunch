@@ -95,6 +95,24 @@ class Restaurant {
       throw new Error(ERROR_MESSAGE.duplicateRestaurant);
     }
   }
+
+  public toggleFavoriteStatus(restaurantName: string) {
+    const restaurantIndex = this.restaurantsDetails.findIndex(
+      (restaurantDetail) => restaurantDetail.name === restaurantName
+    );
+
+    if (restaurantIndex !== -1) {
+      this.restaurantsDetails[restaurantIndex].favorite =
+        !this.restaurantsDetails[restaurantIndex].favorite;
+      this.updateRestaurant();
+    }
+  }
+
+  public updateRestaurant() {
+    const detailsString = JSON.stringify(this.restaurantsDetails);
+
+    localStorage.setItem(STORAGE_KEYS.restaurantDetail, detailsString);
+  }
 }
 
 export default Restaurant;

@@ -33,7 +33,17 @@ class RestaurantList extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.filterCategory,
       eventHandler: this.handleFilterRestaurantItems.bind(this),
     },
+
+    toggleFavoriteButton: {
+      eventName: CUSTOM_EVENT_TYPE.toggleFavoriteButton,
+      eventHandler: this.handleToggleFavoriteButton.bind(this),
+    },
   };
+
+  private handleToggleFavoriteButton(event: Event) {
+    const customEvent = event as CustomEvent;
+    this.restaurant.toggleFavoriteStatus(customEvent.detail.restaurantName);
+  }
 
   protected render(): void {
     this.innerHTML = `
@@ -64,10 +74,12 @@ class RestaurantList extends BaseComponent {
     this.on({ ...this.eventListeners.sortChange, target: document });
 
     this.on({ ...this.eventListeners.filterCategory, target: document });
+
+    this.on({ ...this.eventListeners.toggleFavoriteButton, target: document });
   }
 
   private handleRerenderRestaurantList() {
-    this.restaurant.updateRestaurants(this.sortType);
+    this.restaurant.updateRestaurantsSortType(this.sortType);
 
     this.connectedCallback();
   }

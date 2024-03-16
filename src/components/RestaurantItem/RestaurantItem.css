@@ -7,6 +7,15 @@
   border-bottom: 1px solid #e9eaed;
 }
 
+.restaurant__info {
+  width: 100%;
+}
+
+.restaurant__required__info {
+  display: flex;
+  justify-content: space-between;
+}
+
 .restaurant__category {
   display: flex;
   justify-content: center;
