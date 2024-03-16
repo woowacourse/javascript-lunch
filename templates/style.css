@@ -355,3 +355,36 @@ input[name="link"] {
 .restaurant {
   cursor: pointer;
 }
+
+.restaurant-detail-icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant-detail-container {
+  padding: 0 8px;
+}
+
+.restaurant-detail-anchor {
+  margin-top: 20px;
+  color: var(--grey-500);
+  text-decoration-color: var(--grey-500);
+}
+
+.restaurant-detail-link {
+  margin-top: 20px;
+  color: var(--grey-500);
+  text-decoration-color: var(--grey-500);
+}
+
+.restaurant-detail-item-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--grey-400);
+
+  margin: 15px 0 12px 0;
+}
+
+.restaurant-detail-description {
+  margin-top: 12px;
+}
