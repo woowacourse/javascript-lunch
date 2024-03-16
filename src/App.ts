@@ -4,7 +4,7 @@ import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from './do
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
 import DropdownEvent from './components/Dropdown/DropdownEvent';
 import restaurantStore from './store/RestaurantStore';
-import Navigator from './components/Navigator';
+import Navigator from './components/Navigator/Navigator';
 
 class App {
   #restaurantStore;
