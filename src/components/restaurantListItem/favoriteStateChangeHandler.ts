@@ -1,9 +1,13 @@
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import generateRestaurantListItemComponent from './renderHandlers';
 
+function isHTMLElement(element: any): element is HTMLElement {
+  return element instanceof HTMLElement;
+}
+
 const updateRestaurantListItemUI = (restaurantId: number, newHtml: HTMLElement) => {
   const existingElement = document.querySelector(`li[data-id="${restaurantId}"]`);
-  if (existingElement && existingElement.parentNode) {
+  if (isHTMLElement(existingElement) && isHTMLElement(existingElement.parentNode)) {
     existingElement.parentNode.replaceChild(newHtml, existingElement);
   }
 };
@@ -11,23 +15,31 @@ const updateRestaurantListItemUI = (restaurantId: number, newHtml: HTMLElement) 
 export const changeFavoriteState = (restaurantId: number) => {
   RestaurantListStorageService.patchData(restaurantId);
   const allRestaurants = RestaurantListStorageService.getData();
-  const targetRestaurant = allRestaurants?.filter((restaurant) => restaurant.id === restaurantId)!;
-  const listComponent = generateRestaurantListItemComponent(targetRestaurant[0]);
-  updateRestaurantListItemUI(restaurantId, listComponent);
+  const targetRestaurant = allRestaurants?.find((restaurant) => restaurant.id === restaurantId);
+  if (targetRestaurant) {
+    const listComponent = generateRestaurantListItemComponent(targetRestaurant);
+    updateRestaurantListItemUI(restaurantId, listComponent);
+  }
 };
 
 const favoriteIconEventPhaseHandler = (event: Event) => {
-  const target = (event.target as Element).closest('.favorited-icon') as HTMLElement;
-
-  if (target) {
+  const target = event.target as Element;
+  const favoritedIcon = target.closest('.favorited-icon');
+  if (isHTMLElement(favoritedIcon)) {
     event.stopPropagation();
-    const listItem = target.closest('li') as HTMLLIElement;
-    const restaurantId = Number(listItem.dataset.id);
-    changeFavoriteState(restaurantId ?? '');
+    const listItem = favoritedIcon.closest('li');
+    if (isHTMLElement(listItem)) {
+      const restaurantId = Number(listItem.dataset.id);
+      if (!isNaN(restaurantId)) {
+        changeFavoriteState(restaurantId);
+      }
+    }
   }
 };
 
 export const bindChangeFavoriteIconStateHandler = () => {
-  const listContainer = document.querySelector('.restaurant-list') as HTMLLIElement;
-  listContainer.addEventListener('click', (event) => favoriteIconEventPhaseHandler(event));
+  const listContainer = document.querySelector('.restaurant-list');
+  if (isHTMLElement(listContainer)) {
+    listContainer.addEventListener('click', favoriteIconEventPhaseHandler);
+  }
 };
