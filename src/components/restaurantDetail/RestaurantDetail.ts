@@ -5,6 +5,12 @@ import FavoriteIcon from '../favoriteIcon/FavoriteIcon';
 import { Button, ButtonProps } from '../tag/button';
 import Modal from '../modal/Modal';
 
+export interface RestaurantDeleteEvent extends CustomEvent {
+  detail: {
+    targetId: string;
+  }
+}
+
 class RestaurantDetail extends HTMLDivElement {
   private cancelButton: Button;
   private deleteButton: Button;
@@ -116,6 +122,24 @@ class RestaurantDetail extends HTMLDivElement {
     this.cancelButton.addEventListener('click', () => {      
       (this.parentElement?.parentElement as Modal).toggleModal('detail-modal');
     });
+  }
+
+  listenDeleteButonClick(toggleModal: Function) { 
+    this.deleteButton.addEventListener('click', () => {
+      if (window.confirm('정말 삭제하시겠습니까?')) {
+        toggleModal();
+        this.dispatchRestaurantDeleteEvent();
+      }
+    })
+  }
+
+  private dispatchRestaurantDeleteEvent() {
+    const restaurantDeleteEvent = new CustomEvent('deleteRestaurant', {
+      detail: {
+        targetId: this.id,
+      }
+    });        
+    document.dispatchEvent(restaurantDeleteEvent);
   }
 }
 

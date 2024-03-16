@@ -3,11 +3,7 @@ import './restaurant.css';
 import { Restaurant as RestaurantType } from '../../types/index';
 import Modal from '../modal/Modal';
 import RestaurantDetail from '../restaurantDetail/RestaurantDetail';
-import DOM from '../../utils/DOM';
 import CategoryImage from '../categoryImage/CategoryImage';
-import { Button } from '../tag/button';
-
-const { $ } = DOM;
 
 class Restaurant extends HTMLLIElement {
   private modal: Modal;
@@ -16,6 +12,7 @@ class Restaurant extends HTMLLIElement {
   constructor(restaurant: RestaurantType) {
     super();
     
+    this.id = `restaurant-list${restaurant.id}`;
     this.className = 'restaurant';
     this.createLayout(restaurant);
     const { modal, content } = this.createDetailModal(restaurant);
@@ -23,6 +20,7 @@ class Restaurant extends HTMLLIElement {
     this.content = content;
     this.listenOpenDetailModal();
     this.listenCancelButtonClick();
+    this.listenDeleteButtonClick();
   };
 
   createLayout(restaurant: RestaurantType) {
@@ -72,12 +70,20 @@ class Restaurant extends HTMLLIElement {
   listenOpenDetailModal() {
     this.addEventListener('click', () => {
       this.modal.stopEventBubbling();
-      this.modal.toggleModal('detail-modal');
+      this.toggleModal();
     });
+  }
+
+  toggleModal() {
+    this.modal.toggleModal('detail-modal');
   }
 
   listenCancelButtonClick() {    
     this.content.listenCloseButtonClick();
+  }
+
+  listenDeleteButtonClick() {
+    this.content.listenDeleteButonClick(this.toggleModal.bind(this));
   }
 }
 

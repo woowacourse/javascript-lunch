@@ -9,6 +9,7 @@ import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
 import Modal from './components/modal/Modal';
+import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
 
 const { $ } = DOM;
 const { CATEGORY } = Condition;
@@ -20,6 +21,7 @@ const root = {
     this.createAddModal();
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
+    this.listenRestaurantDelete(matzip);
   },
 
   appendMain(content: HTMLElement) {
@@ -96,6 +98,17 @@ const root = {
       }
     });
   },
+
+  listenRestaurantDelete(matzip: Matzip) {
+    document.addEventListener('deleteRestaurant', (event: Event) => {            
+      const restaurantDeleteEvent = event as RestaurantDeleteEvent;      
+      const targetId = restaurantDeleteEvent.detail.targetId;
+      
+      matzip.delete(targetId);
+      storage.removeData(targetId);
+      $<ListContainer>('.restaurant-lists').deleteRestaurant(targetId);
+    });
+  }
 };
 
 export default root;

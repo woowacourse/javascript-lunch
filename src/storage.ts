@@ -21,6 +21,18 @@ const storage = {
     if (localStorageData === null) return [];
     return JSON.parse(localStorageData);
   },
+
+  removeData(targetId: string) {
+    const localStorageData = localStorage.getItem(MATZIP_DATA);
+    if (localStorageData !== null) {
+      const existingData: Restaurant[] = JSON.parse(localStorageData);
+      const targetIndex = existingData.findIndex(data => data.id === targetId);
+
+      const front = existingData.slice(0, targetIndex);
+      const back = existingData.slice(targetIndex + 1, existingData.length);
+      localStorage.setItem(MATZIP_DATA, JSON.stringify([...front, ...back]));
+    }
+  }
 };
 
 export default storage;
