@@ -2,7 +2,7 @@ import './style.css';
 import '../LunchItems/LunchItems';
 
 const LUNCH_TAB_LIKED = (liked: boolean) => /* HTML */ `
-  <lunch-items liked="${liked}" class="lunch-tab-liked lunch-tab-liked--closed"></lunch-items>
+  <lunch-items liked="${liked}"></lunch-items>
 `;
 
 class LunchTabLiked extends HTMLElement {
@@ -17,3 +17,5 @@ class LunchTabLiked extends HTMLElement {
 }
 
 customElements.define('lunch-tab-liked', LunchTabLiked);
+
+export default LunchTabLiked;

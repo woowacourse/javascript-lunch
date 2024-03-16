@@ -14,7 +14,7 @@ const LUNCH_APP = /* HTML */ `
   <lunch-header></lunch-header>
   <lunch-tab></lunch-tab>
   <lunch-tab-all></lunch-tab-all>
-  <lunch-tab-liked></lunch-tab-liked>
+  <lunch-tab-liked class="lunch-tab-liked--closed"></lunch-tab-liked>
   <lunch-register-modal></lunch-register-modal>
 `;
 

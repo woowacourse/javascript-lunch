@@ -3,7 +3,7 @@ import '../LunchItemFilter/LunchItemFilter';
 import '../LunchItems/LunchItems';
 
 const LUNCH_TAB_ALL = (liked: boolean) => /* HTML */ `
-  <div class="lunch-tab-all">
+  <div>
     <lunch-item-filter></lunch-item-filter>
     <lunch-items liked="${liked}"></lunch-items>
   </div>
@@ -21,3 +21,5 @@ class LunchTabAll extends HTMLElement {
 }
 
 customElements.define('lunch-tab-all', LunchTabAll);
+
+export default LunchTabAll;
