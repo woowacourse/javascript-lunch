@@ -7,15 +7,21 @@ import './header.css';
 const { $ } = DOM;
 
 class Header extends HTMLElement {
+  private gnbButton: Button;
+
   constructor() {
     super();
-    this.innerHTML = `
-    <header class="gnb">
-      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-    </header>`;
-
-    this.createButton();
+    this.className = 'gnb';   
+    this.createH1();
+    this.gnbButton = this.createButton();
     this.openModal();
+  }
+
+  createH1() {
+    const h1 = document.createElement('h1');
+    h1.classList.add('gnb__title', 'text-title');
+    h1.textContent = '점심 뭐 먹지';
+    this.appendChild(h1);
   }
 
   createButton() {
@@ -29,14 +35,18 @@ class Header extends HTMLElement {
       ariaLabel: '음식점 추가',
       children: new Image(image),
     };
-    $<HTMLElement>('.gnb')?.appendChild(new Button(button));
+    const buttonElement = new Button(button);
+    this.appendChild(buttonElement);
+    return buttonElement;
   }
 
   openModal() {
-    $<HTMLButtonElement>('.gnb__button').addEventListener('click', () => {
+    this.gnbButton.addEventListener('click', () => {
       $<HTMLElement>('.modal').classList.add('modal--open');
     });
   }
 }
 
-customElements.define('matzip-gnb', Header);
+customElements.define('matzip-gnb', Header, {extends: 'header'});
+
+export default Header;

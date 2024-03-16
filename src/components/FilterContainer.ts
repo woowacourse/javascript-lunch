@@ -1,8 +1,5 @@
-import DOM from '../utils/DOM';
 import { OptionProps } from './tag/option';
 import { Select, SelectProps } from './tag/select';
-
-const { $ } = DOM;
 
 export interface FilterChangeEvent extends CustomEvent {
   detail: {
@@ -11,16 +8,19 @@ export interface FilterChangeEvent extends CustomEvent {
   };
 }
 
-class FilterContainer extends HTMLElement {
+class FilterContainer extends HTMLDivElement {
+  private category: Select;
+  private sort: Select;
+
   constructor() {
     super();
     this.className = 'restaurant-filter-container';
+    this.category = this.createCategorySelect();
+    this.sort = this.createSortSelect();
     this.setEvent();
   }
 
   setEvent() {
-    this.createCategorySelect();
-    this.createSortSelect();
     this.categoryChange();
     this.sortChange();
   }
@@ -42,7 +42,9 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: options,
     };
-    this.appendChild(new Select(selectBox));
+    const select = new Select(selectBox);
+    this.appendChild(select);
+    return select;
   }
 
   createSortSelect() {
@@ -57,18 +59,17 @@ class FilterContainer extends HTMLElement {
       required: true,
       options: sortOptions,
     };
-    this.appendChild(new Select(sortBox));
+    const select = new Select(sortBox);
+    this.appendChild(select);
+    return select;
   }
 
   categoryChange() {
-    const categorySelect = $<Select>('#category-filter');
-    const sortSelect = $<Select>('#sorting-filter');
-
-    categorySelect.addEventListener('change', () => {
+    this.category.addEventListener('change', () => {
       const filterChangeEvent = new CustomEvent('filterChange', {
         detail: {
-          selectedCategory: categorySelect.getValue(),
-          selectedSort: sortSelect.getValue(),
+          selectedCategory: this.category.getValue(),
+          selectedSort: this.sort.getValue(),
         },
       });
       document.dispatchEvent(filterChangeEvent);
@@ -76,14 +77,11 @@ class FilterContainer extends HTMLElement {
   }
 
   sortChange() {
-    const categorySelect = $<Select>('#category-filter');
-    const sortSelect = $<Select>('#sorting-filter');
-
-    sortSelect.addEventListener('change', () => {
+    this.sort.addEventListener('change', () => {
       const filterChangeEvent = new CustomEvent('filterChange', {
         detail: {
-          selectedCategory: categorySelect.getValue(),
-          selectedSort: sortSelect.getValue(),
+          selectedCategory: this.category.getValue(),
+          selectedSort: this.sort.getValue(),
         },
       });
       document.dispatchEvent(filterChangeEvent);
@@ -91,4 +89,6 @@ class FilterContainer extends HTMLElement {
   }
 }
 
-customElements.define('matzip-filter-container', FilterContainer);
+customElements.define('matzip-filter-container', FilterContainer, {extends: 'div'});
+
+export default FilterContainer;

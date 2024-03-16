@@ -4,7 +4,7 @@ import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import Condition from './constants/Condition';
 
 import DOM from './utils/DOM';
-import { FilterChangeEvent } from './components/FilterContainer';
+import FilterContainer, { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/listContainer/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
@@ -12,8 +12,6 @@ import Modal from './components/modal/Modal';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
 
 import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
-import TabElementProps from './components/tab/TabElementProps';
-import Tab from './components/tab/Tab';
 
 const { $ } = DOM;
 const { CATEGORY } = Condition;
@@ -23,7 +21,7 @@ const root = {
   init() {
     const matzip = new Matzip(storage.getData(MATZIP_DATA));
     this.initList(matzip);
-    this.createTab();
+    this.createFilterContainer();
     this.createAddModal();
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
@@ -34,14 +32,9 @@ const root = {
     $<HTMLElement>('main').appendChild(content);
   },
 
-  createTab() {
-    const tabElementProps: TabElementProps[] = [
-      {active: true, text: '모든 음식점'},
-      {active: false, text: '자주 가는 음식점'}
-    ];
-
-    const tab = new Tab(tabElementProps);
-    $<HTMLElement>('main').prepend(tab);
+  createFilterContainer() {
+    const filterContainer = new FilterContainer();
+    this.appendMain(filterContainer);
   },
 
   initList(matzip: Matzip) {
