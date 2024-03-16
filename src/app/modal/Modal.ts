@@ -15,6 +15,7 @@ export default class Modal {
     this.modal.id = id;
     this.modal.appendChild(this.modalContainer);
     this.modal.addEventListener('click', this.handleBackgroundClick.bind(this));
+    this.modal.addEventListener('keydown', this.handleEscapeKeyDown.bind(this));
   }
 
   showModal() {
@@ -38,6 +39,13 @@ export default class Modal {
 
   protected handleBackgroundClick(event: Event) {
     if (event.target === this.modal) {
+      this.closeModal();
+    }
+  }
+
+  protected handleEscapeKeyDown(event: Event) {
+    if (event instanceof KeyboardEvent && event.key === 'Escape') {
+      event.preventDefault();
       this.closeModal();
     }
   }
