@@ -1,8 +1,8 @@
 import './resources.ts';
 
 import { $ } from './utils/dom';
-import { createAppHeader } from './components/header/AppHeader.js';
-import { createRestViewer } from './components/main/RestListMain';
+import { createAppHeader } from './components/header/AppHeader.ts';
+import { createRestViewer } from './components/main/RestListMain.ts';
 
 const $app = $('#app');
 const $appHeader = createAppHeader();
