@@ -21,7 +21,7 @@ interface RestaurantType {
 
 const RESTAURANT_KEY = "restaurants";
 
-const getRestaurantFromStorage = () => {
+export const getRestaurantFromStorage = () => {
   const storedRestaurants = localStorage.getItem(RESTAURANT_KEY);
   if (!storedRestaurants) return [];
 
