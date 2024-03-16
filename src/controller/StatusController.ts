@@ -18,8 +18,7 @@ class StatusController {
     const category = (
       preview.querySelector(".category-icon") as HTMLImageElement
     )?.alt as Category;
-    const name = preview.querySelector(".restaurant__name")
-      ?.textContent as string;
+    const name = this.getRestaurantName(preview);
 
     const distanceString = preview.querySelector(".restaurant__distance")
       ?.textContent as string;
@@ -31,6 +30,10 @@ class StatusController {
       ?.textContent as string;
 
     return { category, name, distance, description, url };
+  }
+
+  static getRestaurantName(preview: HTMLElement): string {
+    return preview.querySelector(".restaurant__name")?.textContent as string;
   }
 
   static #getNumberInSentence(string: string): Number {

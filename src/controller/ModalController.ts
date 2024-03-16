@@ -101,7 +101,9 @@ class ModalController {
               "#restaurant-detail--name"
             ) as HTMLElement;
             const nowRestaurantName = nowRestaurantNameEl?.textContent ?? "";
-            RestaurantListController.deleteRestaurant(nowRestaurantName);
+            RestaurantListController.deleteRestaurantInEntireRestaurant(
+              nowRestaurantName
+            );
             RenderController.renderRestaurantListUl();
           },
         ],

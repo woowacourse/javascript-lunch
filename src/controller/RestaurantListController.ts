@@ -8,14 +8,19 @@ class RestaurantListController {
   static #entireRestaurantList = new RestaurantList();
   static #favoriteRestaurantList = new RestaurantList();
   static #ENTIRE_RESTAURANTS_KEY = "entireRestaurants";
+  static #FAVORITE_RESTAURANTS_KEY = "favoriteRestaurants";
 
   static initEntireRestaurantList() {
-    const restaurants =
+    const entireRestaurants =
       getLocalStorageItem(this.#ENTIRE_RESTAURANTS_KEY) ?? restaurantData;
 
-    setLocalStorage(this.#ENTIRE_RESTAURANTS_KEY, restaurants);
+    const favoriteRestaurants =
+      getLocalStorageItem(this.#FAVORITE_RESTAURANTS_KEY) ?? [];
 
-    this.#entireRestaurantList.init(restaurants);
+    setLocalStorage(this.#ENTIRE_RESTAURANTS_KEY, entireRestaurants);
+
+    this.#entireRestaurantList.init(entireRestaurants);
+    this.#favoriteRestaurantList.init(favoriteRestaurants);
   }
 
   static addToEntireRestaurantList(restaurant: Restaurant) {
@@ -24,6 +29,18 @@ class RestaurantListController {
     const entireRestaurants = this.#entireRestaurantList.getRestaurants();
 
     setLocalStorage(this.#ENTIRE_RESTAURANTS_KEY, entireRestaurants);
+  }
+
+  static addInFavoriteRestaurantList(name: string) {
+    console.log("favorite add");
+    const favoriteRestaurant = this.#entireRestaurantList.getRestaurantByName(
+      name
+    ) as Restaurant;
+    this.#favoriteRestaurantList.add(favoriteRestaurant);
+
+    const favoriteRestaurants = this.#favoriteRestaurantList.getRestaurants();
+
+    setLocalStorage(this.#FAVORITE_RESTAURANTS_KEY, favoriteRestaurants);
   }
 
   static getNowRestaurantItem() {
@@ -35,8 +52,25 @@ class RestaurantListController {
     return restaurantItems;
   }
 
-  static deleteRestaurant(name: string) {
+  static hasRestaurantInFavoriteRestaurant(name: string) {
+    return this.#favoriteRestaurantList.hasRestaurantName(name);
+  }
+
+  static getRestaurantInEntireRestaurant(name: string): Restaurant {
+    return this.#entireRestaurantList.getRestaurantByName(name) as Restaurant;
+  }
+
+  static deleteRestaurantInEntireRestaurant(name: string) {
     this.#entireRestaurantList.delete(name);
+    setLocalStorage(
+      RestaurantListController.#ENTIRE_RESTAURANTS_KEY,
+      this.#entireRestaurantList.getRestaurants()
+    );
+  }
+
+  static deleteInFavoriteRestaurantList(name: string) {
+    console.log("delete");
+    this.#favoriteRestaurantList.delete(name);
     setLocalStorage(
       RestaurantListController.#ENTIRE_RESTAURANTS_KEY,
       this.#entireRestaurantList.getRestaurants()

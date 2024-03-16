@@ -1,4 +1,4 @@
-import Modal from "../view/components/Modal/Modal";
+import FavoriteToggler from "../view/components/FavoriteToggler/FavoriteToggler";
 import ModalController from "./ModalController";
 import RenderController from "./RenderController";
 import RestaurantListController from "./RestaurantListController";
@@ -13,6 +13,13 @@ class MainController {
     RenderController.renderInMain(ModalController.modal.element);
     this.#setAddButton();
     this.#setRestaurantListUlEvent();
+    // const button = new FavoriteToggler({ isOn: true });
+    // button.element.addEventListener("click", () => {
+    //   button.toggle();
+    // });
+    // (document.querySelector(".restaurant") as HTMLElement)?.append(
+    //   button.element
+    // );
   }
 
   static #setAddButton() {
