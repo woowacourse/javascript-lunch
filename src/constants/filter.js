@@ -42,6 +42,11 @@ const FORM_DISTANCE = [
   { value: '30', text: '30분 내' },
 ];
 
+const FOMR_BUTTON_INFORMATION = {
+  closeButton: { id: 'button-close', type: 'button', buttonOrder: 'button--secondary', text: '취소하기' },
+  addButton: { id: 'button-add', buttonOrder: 'button--primary', text: '추가하기' },
+};
+
 const CATEGORY_IMG_SRC = {
   한식: korean,
   중식: chinese,
@@ -73,6 +78,7 @@ export {
   FORM_CATEGORY,
   FORM_DISTANCE_ATTRIBUTE,
   FORM_DISTANCE,
+  FOMR_BUTTON_INFORMATION,
   CATEGORY_IMG_SRC,
   FAVORITE_IMG_SRC,
   FILTER_CONDITION,
