@@ -26,6 +26,10 @@ body {
   --grey-500: #000000;
 }
 
+main {
+  padding: 16px;
+}
+
 /* Typography *************************************/
 .text-title {
   font-size: 20px;

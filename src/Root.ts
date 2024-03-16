@@ -12,15 +12,18 @@ import Modal from './components/modal/Modal';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
 
 import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
+import TabElementProps from './components/tab/TabElementProps';
+import Tab from './components/tab/Tab';
 
 const { $ } = DOM;
 const { CATEGORY } = Condition;
-const { MATZIP_DATA } = LOCAL_STORAGE_KEY;
+const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 
 const root = {
   init() {
     const matzip = new Matzip(storage.getData(MATZIP_DATA));
     this.initList(matzip);
+    this.createTab();
     this.createAddModal();
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
@@ -29,6 +32,16 @@ const root = {
 
   appendMain(content: HTMLElement) {
     $<HTMLElement>('main').appendChild(content);
+  },
+
+  createTab() {
+    const tabElementProps: TabElementProps[] = [
+      {active: true, text: '모든 음식점'},
+      {active: false, text: '자주 가는 음식점'}
+    ];
+
+    const tab = new Tab(tabElementProps);
+    $<HTMLElement>('main').prepend(tab);
   },
 
   initList(matzip: Matzip) {

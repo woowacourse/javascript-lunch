@@ -1,0 +1,27 @@
+@import url('../../styles/style.css');
+
+.tab-element {
+  position: relative;
+  flex: 1;
+  color: var(--grey-300);
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.indicator {
+  position: absolute;
+  bottom: -2px;
+  width: 100%;
+  content: "";
+}
+
+.indicator-active {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-element-active {
+  color: var(--primary-color);
+}
+
