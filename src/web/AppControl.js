@@ -24,6 +24,8 @@ export class appController {
   }
 
   setMainPage() {
+
+    // tabBar 부착
     document.body.insertAdjacentElement(
       'afterbegin',
       createtabBar([
@@ -49,6 +51,8 @@ export class appController {
         },
       ])
     );
+
+    // header 부착
     document.body.insertAdjacentElement(
       'afterbegin',
       createHeader({
@@ -117,7 +121,7 @@ export class appController {
         favoriteRestaurantNames
       );
       listItem.addEventListener('click', (event) =>
-        this.restaurantItemEvent(event, restaurant, favoriteRestaurantNames)
+        this.restaurantListItemEvent(event, restaurant, favoriteRestaurantNames)
       );
       listItem.append(categoryDiv);
       restaurantList.append(listItem);
@@ -134,10 +138,10 @@ export class appController {
     this.#restaurantManager.removeFavoriteRestaurant(restaurant);
   }
 
-  restaurantItemEvent(event, restaurant, favoriteRestaurantNames) {
+  restaurantListItemEvent(event, restaurant, favoriteRestaurantNames) {
     const target = event.target;
     if (target.className.includes('star')) {
-      this.changeStar(event, restaurant);
+      this.changeStarEvent(event, restaurant);
     } else {
       const restaurantDetailModal = modal.create(
         'modal--open',
@@ -145,7 +149,7 @@ export class appController {
           restaurant,
           favoriteRestaurantNames,
           starCallback: (event) => {
-            this.changeStar(event, restaurant);
+            this.changeStarEvent(event, restaurant);
           },
           deleteCallback: (event) => {
             event.preventDefault();
@@ -167,7 +171,7 @@ export class appController {
     }
   }
 
-  changeStar(event, restaurant) {
+  changeStarEvent(event, restaurant) {
     const target = event.target;
     if (target.className === 'star lined') {
       this.#restaurantManager.addFavoriteRestaurant(restaurant);
