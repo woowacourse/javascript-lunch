@@ -35,7 +35,7 @@ export default class RestaurantItem extends HTMLLIElement {
 
   connectedCallback() {
     this.#bookmarkBtn.addEventListener(BOOKMARK_BUTTON_EVENTS.click, this.#handleToggleBookmarkBtn.bind(this));
-    this.addEventListener('click', this.#handleBodyClick.bind(this));
+    this.querySelector('.restaurant__info').addEventListener('click', this.#handleBodyClick.bind(this));
 
     this.#render();
   }
