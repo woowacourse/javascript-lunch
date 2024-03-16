@@ -12,11 +12,8 @@ describe('음식점 리스트 불러오기 테스트', () => {
       'have.length',
       JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').length,
     );
-    // cy.get('restaurant-item').first().click();
-    // cy.get('#detail-modal').should('exist');
-    // const localData = JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').length;
-    // cy.get('.restaurant').should('have.length', localData.length);
   });
+
   it('음식점 아이템에는 카테고리, 이름, 거리, 설명, 즐겨찾기 버튼이 모두 렌더링 된다.', () => {
     cy.get('.restaurant').then(($restaurant) => {
       cy.wrap($restaurant).find('category-icon');
