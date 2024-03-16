@@ -22,6 +22,24 @@ const restaurantAPI = {
   load: () => {
     const json = window.localStorage.getItem(KEY);
     return json ? JSON.parse(json) : [];
+  },
+
+  updateFavorite: (name: string) => {
+    const json = window.localStorage.getItem(KEY);
+    const restaurants: RestaurantInfo[] = json ? JSON.parse(json) : [];
+
+    const updatedRestaurants = restaurants.map((restaurant) => {
+      if (restaurant.name === name) {
+        return {
+          ...restaurant,
+          isFavorite: !restaurant.isFavorite
+        };
+      }
+      return restaurant;
+    });
+
+    window.localStorage.setItem(KEY, JSON.stringify(updatedRestaurants));
+    alert(`${name} 식당의 좋아요 상태가 변경되었습니다.`);
   }
 };
 

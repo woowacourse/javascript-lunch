@@ -39,7 +39,7 @@ export const RestaurantCardComponent = ({
 
   li.appendChild(divCategory);
   li.appendChild(divInfo);
-  li.appendChild(FavoriteButton(isFavorite).create());
+  li.appendChild(FavoriteButton({ name, initialIsFavorite: isFavorite }).create());
 
   const create = () => li;
 

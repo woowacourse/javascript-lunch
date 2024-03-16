@@ -7,7 +7,7 @@ import ModalComponent from './common/ModalComponent';
 const RestaurantDetailModalComponent = (restaurantInfo: RestaurantInfo) => {
   const { category, name, distance, isFavorite, description, link } = restaurantInfo;
   console.log({ category, name, distance, isFavorite, description, link });
-  const favoriteButton = FavoriteButton(isFavorite).create();
+  const favoriteButton = FavoriteButton({ name, initialIsFavorite: isFavorite }).create();
 
   const restaurantNameH3 = document.createElement('h3');
   restaurantNameH3.textContent = name;

@@ -1,6 +1,13 @@
+import restaurantAPI from '../domain/restaurantAPI';
+
+type Props = {
+  name: string;
+  initialIsFavorite: boolean;
+};
+
 const getImgName = (isFavorite: boolean) => `favorite-icon-${isFavorite ? 'filled' : 'lined'}`;
 
-const FavoriteButton = (initialIsFavorite: boolean) => {
+const FavoriteButton = ({ name, initialIsFavorite }: Props) => {
   const button = document.createElement('button');
   const img = document.createElement('img');
   let isFavorite = initialIsFavorite;
@@ -20,7 +27,10 @@ const FavoriteButton = (initialIsFavorite: boolean) => {
     console.log('클릭됨');
   };
 
-  button.addEventListener('click', updateImage);
+  button.addEventListener('click', () => {
+    updateImage();
+    restaurantAPI.updateFavorite(name);
+  });
 
   const create = () => button;
 
