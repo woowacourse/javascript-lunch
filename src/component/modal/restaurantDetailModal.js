@@ -38,7 +38,7 @@ function render({
 }) {
   const container = createModalContainer();
   container.style.gap = '10px';
-  container.classList.add(`restaurant__${id}`);
+  container.classList.add(`restaurant__id__${id}`);
 
   const categoryAndFavoriteButtonContainer = document.createElement('div');
   categoryAndFavoriteButtonContainer.className = 'space__between__row';
