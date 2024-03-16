@@ -1,3 +1,5 @@
+import { Category } from '@/types/Restaurant';
+
 export const CONDITIONS = {
   DISTANCES: [5, 10, 15, 20, 30],
   SORT_CRITERION: {
@@ -6,7 +8,7 @@ export const CONDITIONS = {
   },
 } as const;
 
-export const CATEGORIES = {
+export const CATEGORIES: Record<Category, string> = {
   한식: 'korean',
   중식: 'chinese',
   일식: 'japanese',
@@ -34,5 +36,7 @@ export const DISTANCES_REQURIED_TEXT = [
   '선택해주세요',
   ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
 ];
+
+export const RESTAURANTS_DB_KEY = 'restaurants';
 
 export const DISTANCE_FROM_CAMPUS = (distance: number) => `캠퍼스부터 ${distance}분 내`;

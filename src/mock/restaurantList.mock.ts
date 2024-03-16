@@ -56,7 +56,7 @@ const restaurantListMock: IRestaurant[] = [
     id: 6,
     name: '도스타코스 선릉점',
     category: '기타',
-    distance: 5,
+    distance: 10,
     description: `멕시칸 캐주얼 그릴`,
     link: 'https://www.naver.com',
     isFavorite: false,

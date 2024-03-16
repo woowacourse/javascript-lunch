@@ -9,19 +9,17 @@ import { removeAllChildren } from '@/utils/view';
 class FavoriteButton extends BaseComponent {
   #isFavorite: boolean;
   #button: HTMLButtonElement;
-  #isDetail: boolean;
 
   constructor(isFavorite: boolean, isDetail: boolean) {
     super();
     this.#isFavorite = isFavorite;
     this.#button = document.createElement('button');
     this.#button.classList.add('favorite-button');
-
-    this.#isDetail = isDetail;
   }
 
   render() {
     const $img = document.createElement('img');
+    $img.classList.add('star');
     $img.src = this.#isFavorite ? fillStar : noFillStar;
 
     this.#button.append($img);

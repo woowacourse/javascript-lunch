@@ -1,9 +1,8 @@
 import restaurantListMock from '@/mock/restaurantList.mock';
 import RestaurantCollection from '../entities/RestaurantCollection';
+import { RESTAURANTS_DB_KEY } from '@/constants/Condition';
 
 class RestaurantDBService {
-  #RESTAURANTS_DB_KEY = 'restaurants';
-
   constructor() {
     this.setMockData();
   }
@@ -16,12 +15,12 @@ class RestaurantDBService {
   }
 
   get() {
-    return localStorage.getItem(this.#RESTAURANTS_DB_KEY);
+    return localStorage.getItem(RESTAURANTS_DB_KEY);
   }
 
   set(collection: RestaurantCollection) {
     collection.filterDefault();
-    localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(collection.get()));
+    localStorage.setItem(RESTAURANTS_DB_KEY, JSON.stringify(collection.get()));
   }
 
   setMockData() {
