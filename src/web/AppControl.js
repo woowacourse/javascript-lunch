@@ -1,42 +1,53 @@
 import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
+import modal from '../component/modal';
 import createRestaurantCard from '../component/restaurantCard';
 import { createtabBar } from '../component/tabBar';
-import {
-  categoryFilterList,
-  sortingFilterLsit,
-} from '../constant/select';
+import { categoryFilterList, sortingFilterLsit } from '../constant/select';
 import { RestaurantManager } from '../domain/RestaurantManager';
+import { createRestaurantDetail } from '../component/modal/restaurantDetail';
 
 export class appController {
   #restaurantManager;
   #currentTab;
 
-  constructor(){
-    const totalRestaurantsData = JSON.parse(localStorage.getItem('restaurants')) || [];
-    const favoriteRestaurantsData = JSON.parse(localStorage.getItem('favoriteRestaurants')) || [];
-    this.#restaurantManager = new RestaurantManager(totalRestaurantsData, favoriteRestaurantsData);
+  constructor() {
+    const totalRestaurantsData =
+      JSON.parse(localStorage.getItem('restaurants')) || [];
+    const favoriteRestaurantsData =
+      JSON.parse(localStorage.getItem('favoriteRestaurants')) || [];
+    this.#restaurantManager = new RestaurantManager(
+      totalRestaurantsData,
+      favoriteRestaurantsData
+    );
     this.#currentTab = '모든 음식점';
-  } 
+  }
 
   setMainPage() {
     document.body.insertAdjacentElement(
       'afterbegin',
-      createtabBar([{
-        className: 'tab__bar__item__checked',
-        text: '모든 음식점',
-        callback: () => {
-          this.updateRestaurantList(this.#restaurantManager.getUpdatedTotalRsetaurants())
-          this.#currentTab = '모든 음식점';
-      }},{
-        className: 'tab__bar__item',
-        text: '자주 가는 음식점',
-        callback: () => {
-          this.updateRestaurantList(this.#restaurantManager.getUpdatedFavoriteRestaurants());
-          this.#currentTab = '자주 가는 음식점';
-        }
-        
-      }])
+      createtabBar([
+        {
+          className: 'tab__bar__item__checked',
+          text: '모든 음식점',
+          callback: () => {
+            this.updateRestaurantList(
+              this.#restaurantManager.getUpdatedTotalRsetaurants()
+            );
+            this.#currentTab = '모든 음식점';
+          },
+        },
+        {
+          className: 'tab__bar__item',
+          text: '자주 가는 음식점',
+          callback: () => {
+            this.updateRestaurantList(
+              this.#restaurantManager.getUpdatedFavoriteRestaurants()
+            );
+            this.#currentTab = '자주 가는 음식점';
+          },
+        },
+      ])
     );
     document.body.insertAdjacentElement(
       'afterbegin',
@@ -44,7 +55,11 @@ export class appController {
         className: 'gnb',
         left: 'logo',
         right: 'RestaurantAdditionButton',
-        restaurantManager: this.#restaurantManager,
+        addrestaurantCallback: (newRestaurant) => {
+          this.#restaurantManager.addRestaurant(newRestaurant)
+          this.curentTabRestaurantList();
+          modal.remove('modal--open');
+        }
       })
     );
 
@@ -59,15 +74,8 @@ export class appController {
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
-          this.#restaurantManager.udateCurentCategoty(category);  
-          if(this.#currentTab === '모든 음식점')
-          return this.updateRestaurantList(
-            this.#restaurantManager.getUpdatedTotalRsetaurants()
-          );
-          if(this.#currentTab === '자주 가는 음식점');
-          return this.updateRestaurantList(
-            this.#restaurantManager.getUpdatedFavoriteRestaurants()
-          );
+          this.#restaurantManager.udateCurentCategoty(category);
+          this.curentTabRestaurantList();
         },
       })
     );
@@ -80,19 +88,12 @@ export class appController {
         options: sortingFilterLsit,
         callback: (category) => {
           this.#restaurantManager.udateCurentSelectedSorting(category);
-          if(this.#currentTab === '모든 음식점')
-          return this.updateRestaurantList(
-            this.#restaurantManager.getUpdatedTotalRsetaurants()
-          );
-          if(this.#currentTab === '자주 가는 음식점');
-          return this.updateRestaurantList(
-            this.#restaurantManager.getUpdatedFavoriteRestaurants()
-          );
+          this.curentTabRestaurantList();
         },
       })
     );
 
-    this.updateRestaurantList(this.#restaurantManager.getUpdatedTotalRsetaurants());
+    this.curentTabRestaurantList();
   }
 
   updateRestaurantList(restaurants) {
@@ -107,10 +108,17 @@ export class appController {
       const listItem = document.createElement('li');
       listItem.className = 'restaurant';
 
-      const favoriteRestaurantNames = this.#restaurantManager.getUpdatedFavoriteRestaurants().map(({name}) => name);
+      const favoriteRestaurantNames = this.#restaurantManager
+        .getUpdatedFavoriteRestaurants()
+        .map(({ name }) => name);
 
-      const categoryDiv = createRestaurantCard(restaurant, favoriteRestaurantNames);
-      listItem.addEventListener('click', (event) => this.chageStar(event, restaurant));
+      const categoryDiv = createRestaurantCard(
+        restaurant,
+        favoriteRestaurantNames
+      );
+      listItem.addEventListener('click', (event) =>
+        this.restaurantItemEvent(event, restaurant, favoriteRestaurantNames)
+      );
       listItem.append(categoryDiv);
       restaurantList.append(listItem);
     });
@@ -118,16 +126,66 @@ export class appController {
     restaurantListContainer.appendChild(restaurantList);
   }
 
-  chageStar(event, restaurant){
+  addFavoriteRestaurant(restaurant) {
+    this.#restaurantManager.addFavoriteRestaurant(restaurant);
+  }
+
+  removeFavoriteRestaurant(restaurant) {
+    this.#restaurantManager.removeFavoriteRestaurant(restaurant);
+  }
+
+  restaurantItemEvent(event, restaurant, favoriteRestaurantNames) {
     const target = event.target;
-    if(target.className === 'star lined'){
+    if (target.className.includes('star')) {
+      this.changeStar(event, restaurant);
+    } else {
+      const restaurantDetailModal = modal.create(
+        'modal--open',
+        createRestaurantDetail({
+          restaurant,
+          favoriteRestaurantNames,
+          starCallback: (event) => {
+            this.changeStar(event, restaurant);
+          },
+          deleteCallback: (event) => {
+            event.preventDefault();
+            document.body.classList.remove('stop-scroll');
+            this.#restaurantManager.removeTotalRestaurant(restaurant);
+            this.#restaurantManager.removeFavoriteRestaurant(restaurant);
+            this.curentTabRestaurantList()
+            modal.remove('modal--open');
+          },
+          cancelCallback: (event) => {
+            document.body.classList.remove("stop-scroll");
+            modal.remove('modal--open');
+            this.curentTabRestaurantList();
+          }
+        })
+      );
+      document.body.classList.add('stop-scroll');
+      document.body.append(restaurantDetailModal);
+    }
+  }
+
+  changeStar(event, restaurant) {
+    const target = event.target;
+    if (target.className === 'star lined') {
       this.#restaurantManager.addFavoriteRestaurant(restaurant);
-      target.src= './favorite-icon-filled.png';
+      target.src = './favorite-icon-filled.png';
       target.className = 'star filled';
-    } else if(target.className === 'star filled'){
+    } else if (target.className === 'star filled') {
       this.#restaurantManager.removeFavoriteRestaurant(restaurant);
       target.src = './favorite-icon-lined.png';
       target.className = 'star lined';
     }
   }
-};
+
+  curentTabRestaurantList(){
+    if (this.#currentTab === '모든 음식점') return this.updateRestaurantList(
+              this.#restaurantManager.getUpdatedTotalRsetaurants()
+            );
+    if (this.#currentTab === '자주 가는 음식점') return this.updateRestaurantList(
+            this.#restaurantManager.getUpdatedFavoriteRestaurants()
+          );
+  }
+}
