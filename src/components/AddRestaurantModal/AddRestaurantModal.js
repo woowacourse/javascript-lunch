@@ -129,8 +129,10 @@ export default class AddRestaurantModal extends ModalWrapper {
     const name = target['name'].value;
     const walkingTimeFromCampus = Number(target['distance'].value);
     const description = target['description'].value;
+    const link = target['link'].value;
+    const favorite = false;
 
-    return { category, name, walkingTimeFromCampus, description };
+    return { category, name, walkingTimeFromCampus, description, link, favorite };
   }
 
   #parseWalkingTime(inputData) {

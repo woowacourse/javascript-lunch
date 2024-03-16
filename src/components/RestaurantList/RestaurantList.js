@@ -6,17 +6,19 @@ import RestaurantDetail from '../Common/RestaurantDetail/RestaurantDetail';
 export default class RestaurantList {
   #element;
   #restaurants;
+  #renderList;
 
-  constructor(element, restaurants) {
+  constructor(element, { restaurants, renderList }) {
     this.#element = element;
     this.#restaurants = restaurants;
-    this.render();
+    this.#renderList = renderList;
+    this.render(renderList);
     this.#addEvents();
   }
 
-  render() {
+  render(renderList) {
     this.#element.innerHTML = `
-      ${this.#restaurants.standardList.reduce(
+      ${renderList.reduce(
         (prevRestaurantData, currentRestaurantData) =>
           prevRestaurantData + Restaurant(currentRestaurantData),
         '',
