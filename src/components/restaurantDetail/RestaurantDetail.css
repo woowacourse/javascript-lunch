@@ -15,10 +15,6 @@
   margin-top: 16px;
 }
 
-.detail__field:last-child {
-  margin-bottom: 32px;
-}
-
 .restaurant__distance {
   color: var(--primary-color);
 }
@@ -36,4 +32,14 @@
 
 .restaurant__link {
   color: var(--grey-500);
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.button-container button {
+  flex: 1;
 }

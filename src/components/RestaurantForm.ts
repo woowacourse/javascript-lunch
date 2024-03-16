@@ -205,9 +205,7 @@ class RestaurantForm extends HTMLFormElement {
   }
 
   updateButtonState() {
-    const formFields = this.getFormFields();
-    console.log(formFields[4].isValidate());
-    
+    const formFields = this.getFormFields();    
     const allFieldsValid = formFields.every(field => field.isValidate());  
     
     if (allFieldsValid) {

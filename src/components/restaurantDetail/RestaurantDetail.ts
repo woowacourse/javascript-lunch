@@ -18,6 +18,7 @@ class RestaurantDetail extends HTMLDivElement {
     this.createDistance(distance);
     this.createIntroduction(introduction);
     this.createLink(link);
+    this.createButtons();
     this.createFavoriteIcon();
   }
 
@@ -50,12 +51,24 @@ class RestaurantDetail extends HTMLDivElement {
   }
 
   createLink(link?: string) {
-    if (link === undefined) return;
+    if (link === undefined || link === '') {
+      this.createLinkFallback();
+      return;
+    };    
 
     const a = document.createElement('a');
     a.classList.add('restaurant__link', 'text-body', 'detail__field');
     a.href = link;
+    a.textContent = link;
+    a.target = 'blank'
     this.appendChild(a);
+  }
+
+  createLinkFallback() {
+    const p = document.createElement('p');
+    p.classList.add('restaurant__description', 'text-body', 'detail__field');
+    p.textContent = '등록된 url이 없습니다ㅜㅜ';
+    this.appendChild(p);
   }
 
   createFavoriteIcon() {
