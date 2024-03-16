@@ -138,8 +138,8 @@ body {
   min-width: 64px;
   min-height: 64px;
 
-  margin-right: 16px;
-
+  /* margin-right: 16px; */
+  margin: 0 16px 16px 0;
   border-radius: 50%;
   background: var(--lighten-color);
 }
@@ -330,4 +330,24 @@ input[name='link'] {
   border-bottom: 2px solid #d0d5dd;
   text-align: center;
   width: 100vh;
+}
+
+.stop-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+.modal__restaurantDetail__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__restaurant__description {
+  padding-top: 8px;
+  margin: 5px 0 5px;
+}
+.modal__restaurant__link {
+  padding-top: 8px;
+  margin: 5px 0 5px;
+  color: #000000;
 }
