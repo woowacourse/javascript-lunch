@@ -67,6 +67,11 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
+  deleteRestaurant(restaurantName: string) {
+    this.restaurants = this.restaurants.filter((restaurant) => restaurant.getName() !== restaurantName);
+    this.saveRestaurants(this.restaurants);
+  }
+
   private saveRestaurants(restaurants: Restaurant[]) {
     localStorage.setItem('restaurants', JSON.stringify(restaurants));
   }
