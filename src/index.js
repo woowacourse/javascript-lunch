@@ -11,6 +11,6 @@ import './images/category-western.svg';
 import './images/favorite-icon-filled.svg';
 import './images/favorite-icon-lined.svg';
 
-import RestaurantController from './controllers/RestaurantController';
+import App from './App';
 
-new RestaurantController().run();
+new App().run();
