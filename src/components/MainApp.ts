@@ -26,7 +26,7 @@ class MainApp extends HTMLDivElement {
     <div is="on-off-button" class="text-subtitle" checked="on" data-id="all">모든 음식점</div>
     <div is="on-off-button" class="text-subtitle" data-id="favorite">자주 가는 음식점</div>
     </div>
-    
+
     <div is="all-restaurant-app" class="hidden" data-id="all"></div>
     <div is="favorite-restaurant-app" class="" data-id="favorite"></div>
   
@@ -35,8 +35,6 @@ class MainApp extends HTMLDivElement {
     <div is="basic-modal" class="modal basic-modal detail-modal" class-container="detail-modal__container" >
       <li is="restaurant-item-detail" class="restaurant-item-detail" style=""></li>
     </div>
-
-
     `;
     this.#myTab = this.querySelector('div[is="my-tab"]')!;
     this.#newRestaurantModal = this.querySelector('.modal')!;

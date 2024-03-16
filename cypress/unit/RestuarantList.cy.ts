@@ -1,3 +1,4 @@
+import Restaurant from '@/domains/entities/Restaurant';
 import RestaurantCollection from '../../src/domains/entities/RestaurantCollection';
 import { IRestaurant } from '../../src/types/Restaurant';
 

@@ -38,10 +38,10 @@ class RestaurantCollection {
   }
 
   addRestaurant(restaurantArg: IRestaurant) {
-    const restaurants = this.restaurantList.map((restaurant) => {
-      return JSON.stringify(restaurant.get());
+    const restaurants = this.restaurantList.filter((restaurant) => {
+      return restaurant.isEqual(restaurantArg);
     });
-    if (restaurants.includes(JSON.stringify(restaurantArg))) {
+    if (restaurants.length === 1) {
       throw new Error('[ERROR] 이미 존재하는 음식점입니다.');
     }
     const restaurant = new Restaurant(restaurantArg);

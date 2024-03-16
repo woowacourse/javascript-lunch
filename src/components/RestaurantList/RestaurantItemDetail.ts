@@ -6,6 +6,8 @@ import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import Restaurant from '@/domains/entities/Restaurant';
+import BasicButton from '../Basic/BasicButton/BasicButton';
+import BasicModal from '../Basic/BasicModal/BasicModal';
 
 class RestaurantItemDetail extends HTMLLIElement {
   #category: Category = '기타';
@@ -44,9 +46,15 @@ class RestaurantItemDetail extends HTMLLIElement {
       <p class="restaurant__description text-body ${style.restaurant__description}">
       </p>
       <a class="restaurant__link text-body ${style.restaurant__link}"></a>
+      <div class="restaurant__button-container ${style.restaurant__buttonContainer}" > </div>
       <img is="favorite-icon" class="restaurant__favorite-icon" style="width:25px; position:absolute; right:10px; top:10px;"/>
 
      `;
+
+    const $buttonBox = this.querySelector('.restaurant__button-container')!;
+    $buttonBox.append(new BasicButton('secondary', '삭제하기', 'reset', () => {}));
+    $buttonBox.append(new BasicButton('primary', '닫기', 'submit', () => {}));
+
     this.addEventListener('click', this.#favoriteIconDBListener.bind(this));
   }
   render() {
