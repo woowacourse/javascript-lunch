@@ -7,17 +7,22 @@ interface ModalProps {
 }
 
 class Modal extends HTMLDivElement {
+  private modalContainer: HTMLDivElement;
+
   constructor(props: ModalProps) {
     super();
     this.className = props.classname;
-    this.createLayout(props);    
+    this.createBackdrop(props);
+    this.modalContainer = this.createModalContainer(props);    
   }
 
-  createLayout({classname, child, title}: ModalProps) {
+  createBackdrop({classname}: ModalProps) {
     const modalBackdrop = document.createElement('div');
     modalBackdrop.className = `${classname}-backdrop`;
     this.appendChild(modalBackdrop);
+  }
 
+  createModalContainer({classname, child, title}: ModalProps) {
     const modalContainer = document.createElement('div');
     modalContainer.className = `${classname}-container`;
     
@@ -32,6 +37,13 @@ class Modal extends HTMLDivElement {
     
     modalContainer.appendChild(child);
     this.appendChild(modalContainer);
+    return modalContainer;
+  }
+
+  stopEventBubbling() {
+    this.modalContainer.addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
   }
 
   toggleModal(classname: string) {

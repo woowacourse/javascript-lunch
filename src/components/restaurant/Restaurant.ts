@@ -5,16 +5,20 @@ import Modal from '../modal/Modal';
 import RestaurantDetail from '../restaurantDetail/RestaurantDetail';
 import DOM from '../../utils/DOM';
 import CategoryImage from '../categoryImage/CategoryImage';
+import { Button } from '../tag/button';
 
 const { $ } = DOM;
 
 class Restaurant extends HTMLLIElement {
+  private modal: Modal;
+
   constructor(restaurant: RestaurantType) {
     super();
     
     this.className = 'restaurant';
     this.createLayout(restaurant);
-    this.listenClickForCreateDetailModal(restaurant);
+    this.modal = this.createDetailModal(restaurant);
+    this.listenOpenDetailModal();
   };
 
   createLayout(restaurant: RestaurantType) {
@@ -53,13 +57,16 @@ class Restaurant extends HTMLLIElement {
     return restaurantInfo;
   }
 
-  listenClickForCreateDetailModal(restaurant: RestaurantType) {
-    this.addEventListener('click', () => {            
-      const modal = new Modal({ classname: 'detail-modal', child: new RestaurantDetail(restaurant)});   
-      modal.toggleModal('detail-modal');         
-      $<HTMLElement>('main').appendChild(modal);
-      
-      this.listenModalToggle(modal, 'detail-modal');
+  createDetailModal(restaurant: RestaurantType) {
+    const modal = new Modal({ classname: 'detail-modal', child: new RestaurantDetail(restaurant)});
+    this.appendChild(modal);
+    return modal;
+  }
+
+  listenOpenDetailModal() {
+    this.addEventListener('click', () => {
+      this.modal.stopEventBubbling();
+      this.modal.toggleModal('detail-modal');
     });
   }
 
@@ -67,8 +74,14 @@ class Restaurant extends HTMLLIElement {
     $<HTMLDivElement>(`.${classname}-backdrop`).addEventListener('click', () => { 
       $<HTMLElement>('main').removeChild(modal);
     });
-    $<HTMLButtonElement>('.modal--close').addEventListener('click', () => {
+    $<HTMLButtonElement>(`.${classname}--close`).addEventListener('click', () => {
       $<HTMLElement>('main').removeChild(modal);
+    });
+  }
+
+  private listenDeleteRestaurant() {
+    $<Button>('.delete-restaurant-button').addEventListener('click', () => {
+      
     });
   }
 }

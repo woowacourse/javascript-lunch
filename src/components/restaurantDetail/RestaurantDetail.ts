@@ -82,13 +82,13 @@ class RestaurantDetail extends HTMLDivElement {
 
     const deleteButton: ButtonProps = {
       type: 'button',
-      classnames: ['button', 'text-caption'],
+      classnames: ['button', 'text-caption', 'delete-restaurant-button'],
       varient: 'secondary',
       children: '삭제하기',
     };
     const cancelButton: ButtonProps = {
       type: 'button',
-      classnames: ['button', 'text-caption', 'modal--close'],
+      classnames: ['button', 'text-caption', 'detail-modal--close'],
       varient: 'primary',
       children: '닫기',
     };
