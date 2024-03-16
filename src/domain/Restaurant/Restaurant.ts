@@ -8,6 +8,7 @@ import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
 import { ERROR_MESSAGE } from "../../constants/errorMessage";
 
+import { STORAGE_KEYS } from "../../storages/constant";
 class Restaurant {
   private currentCategory: MenuCategory = MENU_CATEGORIES.all;
 
@@ -24,13 +25,13 @@ class Restaurant {
     > = RestaurantStorage
   ) {
     this.storage = storage;
-    this.restaurantsDetails = this.getProcessedRestaurants(
+    this.restaurantsDetails = this.getSortedAndFilteredRestaurant(
       this.currentCategory,
       this.sortType
     );
   }
 
-  private getProcessedRestaurants(
+  private getSortedAndFilteredRestaurant(
     category: MenuCategory,
     sortType: SortCategory
   ): RestaurantDetail[] {
@@ -54,8 +55,8 @@ class Restaurant {
     return this.restaurantsDetails;
   }
 
-  public updateRestaurants(sortType: SortCategory) {
-    this.restaurantsDetails = this.getProcessedRestaurants(
+  public updateRestaurantsSortType(sortType: SortCategory) {
+    this.restaurantsDetails = this.getSortedAndFilteredRestaurant(
       this.currentCategory,
       sortType
     );
@@ -64,13 +65,13 @@ class Restaurant {
   public addRestaurant(restaurantDetail: RestaurantDetail) {
     this.storage.set(restaurantDetail);
 
-    this.updateRestaurants(this.sortType);
+    this.updateRestaurantsSortType(this.sortType);
   }
 
   public sortRestaurants(sortType: SortCategory) {
     this.sortType = sortType;
 
-    this.updateRestaurants(sortType);
+    this.updateRestaurantsSortType(sortType);
   }
 
   public filterRestaurants(
@@ -79,7 +80,7 @@ class Restaurant {
   ) {
     this.currentCategory = filterType;
 
-    this.updateRestaurants(sortType);
+    this.updateRestaurantsSortType(sortType);
   }
 
   public findDuplicateRestaurantByName(
