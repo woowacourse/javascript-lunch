@@ -22,7 +22,7 @@ const restaurantStore = {
     }
   },
 
-  setRestaurnats(restaurants: Restaurants) {
+  setRestaurants(restaurants: Restaurants) {
     localStore.setItem("restaurants", restaurants.getDetails());
   },
 };

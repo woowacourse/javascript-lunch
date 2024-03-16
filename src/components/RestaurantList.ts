@@ -102,7 +102,7 @@ export default class RestaurantList extends EventComponent {
     try {
       const restaurant = new Restaurant(payload);
       this.restaurants.add(restaurant);
-      restaurantStore.setRestaurnats(this.restaurants);
+      restaurantStore.setRestaurants(this.restaurants);
     } catch (error: any) {
       return alert(error.message);
     }
