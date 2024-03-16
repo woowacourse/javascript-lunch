@@ -9,8 +9,7 @@ class LunchApp extends BaseComponent {
           <global-navigation-bar></global-navigation-bar>
           <main>
             <restaurant-tab-container></restaurant-tab-container>
-            <section class="selected-list-container">
-            </section>
+            <section class="selected-list-container"></section>
           </main>
           
           <restaurant-add-modal class="modal"></restaurant-add-modal>

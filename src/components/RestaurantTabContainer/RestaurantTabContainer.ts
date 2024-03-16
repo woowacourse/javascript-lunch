@@ -67,9 +67,12 @@ class RestaurantTabContainer extends BaseComponent {
     `;
   }
 
+  // 여기서 즐찾리스트를 렌더링해줘야하나 아니면 lunchApp에 놔두긴해야하나 ㅋㅋ
   private handleClickFavoriteRestaurantTab() {
     $(ELEMENT_SELECTOR.selectedListContainer).innerHTML = `
-      <p>즐겨찾기 란</p>
+      <section class="selected-list-container">
+        <favorite-restaurant-list></favorite-restaurant-list>
+      </section>
     `;
   }
 
