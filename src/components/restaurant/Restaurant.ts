@@ -11,14 +11,18 @@ const { $ } = DOM;
 
 class Restaurant extends HTMLLIElement {
   private modal: Modal;
+  private content: RestaurantDetail;
 
   constructor(restaurant: RestaurantType) {
     super();
     
     this.className = 'restaurant';
     this.createLayout(restaurant);
-    this.modal = this.createDetailModal(restaurant);
+    const { modal, content } = this.createDetailModal(restaurant);
+    this.modal = modal;
+    this.content = content;
     this.listenOpenDetailModal();
+    this.listenCancelButtonClick();
   };
 
   createLayout(restaurant: RestaurantType) {
@@ -57,10 +61,12 @@ class Restaurant extends HTMLLIElement {
     return restaurantInfo;
   }
 
-  createDetailModal(restaurant: RestaurantType) {
-    const modal = new Modal({ classname: 'detail-modal', child: new RestaurantDetail(restaurant)});
+  createDetailModal(restaurant: RestaurantType) { 
+    const restaurantDetail = new RestaurantDetail(restaurant);
+    const modal = new Modal({ classname: 'detail-modal', child: restaurantDetail});
+    
     this.appendChild(modal);
-    return modal;
+    return { modal, content: restaurantDetail };
   }
 
   listenOpenDetailModal() {
@@ -70,19 +76,8 @@ class Restaurant extends HTMLLIElement {
     });
   }
 
-  private listenModalToggle(modal: Modal, classname: string) {    
-    $<HTMLDivElement>(`.${classname}-backdrop`).addEventListener('click', () => { 
-      $<HTMLElement>('main').removeChild(modal);
-    });
-    $<HTMLButtonElement>(`.${classname}--close`).addEventListener('click', () => {
-      $<HTMLElement>('main').removeChild(modal);
-    });
-  }
-
-  private listenDeleteRestaurant() {
-    $<Button>('.delete-restaurant-button').addEventListener('click', () => {
-      
-    });
+  listenCancelButtonClick() {    
+    this.content.listenCloseButtonClick();
   }
 }
 

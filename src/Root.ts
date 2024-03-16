@@ -77,7 +77,7 @@ const root = {
       const fieldValues = formFields.map((field) => field.getValue());
 
       const newRestaurant: RestaurantType = {
-        id: crypto.randomUUID(),
+        id: crypto.randomUUID().replace(/-/g, ''),
         category: fieldValues[0] as CategoryType,
         name: fieldValues[1],
         distance: Number(fieldValues[2]),

@@ -3,13 +3,21 @@ import { Restaurant, CategoryType } from "../../types";
 import CategoryImage from "../categoryImage/CategoryImage";
 import FavoriteIcon from '../favoriteIcon/FavoriteIcon';
 import { Button, ButtonProps } from '../tag/button';
+import Modal from '../modal/Modal';
 
 class RestaurantDetail extends HTMLDivElement {
+  private cancelButton: Button;
+  private deleteButton: Button;
+
   constructor(restaurant: Restaurant) {
     super();
+        
     this.id = restaurant.id;
     this.className = 'detail__container';
     this.createLayout(restaurant);
+    const { cancelButton, deleteButton } = this.createButtons();
+    this.cancelButton = cancelButton;
+    this.deleteButton = deleteButton;
   }
 
   createLayout({category, name, distance, introduction, link}: Restaurant) {    
@@ -18,7 +26,6 @@ class RestaurantDetail extends HTMLDivElement {
     this.createDistance(distance);
     this.createIntroduction(introduction);
     this.createLink(link);
-    this.createButtons();
     this.createFavoriteIcon();
   }
 
@@ -93,12 +100,25 @@ class RestaurantDetail extends HTMLDivElement {
       children: '닫기',
     };
 
-    buttonContainer.appendChild(new Button(deleteButton));
-    buttonContainer.appendChild(new Button(cancelButton));
+    const buttons = {
+      cancelButton: new Button(cancelButton),
+      deleteButton: new Button(deleteButton),
+    }
+
+    buttonContainer.appendChild(buttons.deleteButton);
+    buttonContainer.appendChild(buttons.cancelButton);
     this.appendChild(buttonContainer);
+    return buttons;
+  }
+
+  // 나중에 as 리팩토링
+  listenCloseButtonClick() {        
+    this.cancelButton.addEventListener('click', () => {      
+      (this.parentElement?.parentElement as Modal).toggleModal('detail-modal');
+    });
   }
 }
 
-customElements.define('matzip-restaurant-detail', RestaurantDetail, {extends: 'div'});
+customElements.define('matzip-restaurant-detail-modal', RestaurantDetail, {extends: 'div'});
 
 export default RestaurantDetail;
