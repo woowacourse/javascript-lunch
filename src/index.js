@@ -1,10 +1,9 @@
 import './resources.ts';
 
-import { createAppHeader } from './components/AppHeader.ts';
-import { IMAGE_MAP } from './constants/imageMap';
+import { createAppHeader } from './components/container/AppHeader.ts';
 import { $ } from './utils/dom';
 
 const $app = $('#app');
-const $appHeader = createAppHeader({ titleTextContent: '점심 뭐 먹지', buttonImageSource: IMAGE_MAP.addButton });
+const $appHeader = createAppHeader();
 
 $app.appendChild($appHeader);
