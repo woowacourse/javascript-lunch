@@ -41,6 +41,7 @@ class AddRestaurantModal extends Modal {
     this.#restaurantList.add(restaurantInformation);
 
     new RestaurantFilterContainer(this.#restaurantList).handleFilter();
+
     this.close();
   }
 }
