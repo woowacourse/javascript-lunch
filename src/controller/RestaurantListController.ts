@@ -74,7 +74,7 @@ class RestaurantListController {
     this.#favoriteRestaurantList.delete(name);
     setLocalStorage(
       RestaurantListController.#FAVORITE_RESTAURANTS_KEY,
-      this.#entireRestaurantList.getRestaurants()
+      this.#favoriteRestaurantList.getRestaurants()
     );
   }
 }
