@@ -1,6 +1,7 @@
 import ICON from '../../../icons';
 
-const Restaurant = ({ category, name, walkingTimeFromCampus, description }) => {
+// TODO: 즐겨찾기 추가, 해제 상수 분리
+const Restaurant = ({ category, name, walkingTimeFromCampus, description, favorite }) => {
   return `
     <li id="${name}" class="restaurant">
       <div class="restaurant__category">
@@ -12,7 +13,7 @@ const Restaurant = ({ category, name, walkingTimeFromCampus, description }) => {
         <p class="restaurant__description text-body">${description}</p>
       </div>
       <button class="favorite-button">
-        <img src="${ICON['즐겨찾기해제']}" alt="${'즐겨찾기해제'}" class="favorite-icon" />
+        <img src="${favorite ? ICON['즐겨찾기추가'] : ICON['즐겨찾기해제']}" alt="${favorite ? '즐겨찾기추가' : '즐겨찾기해제'}" class="favorite-icon" />
       </button>
     </li>
     `;
