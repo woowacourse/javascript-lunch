@@ -5,7 +5,10 @@ const KEY = 'restaurant';
 
 const restaurantAPI = {
   initialize: () => {
-    window.localStorage.setItem(KEY, JSON.stringify(initialData));
+    const existingData = window.localStorage.getItem(KEY);
+    if (!existingData) {
+      window.localStorage.setItem(KEY, JSON.stringify(initialData));
+    }
   },
 
   save: (restaurant: RestaurantInfo) => {
