@@ -28,6 +28,12 @@ npm run jest-test
 
 ## 구현
 
+### 점심 뭐 먹지: 2단계 구현
+
+<img src="./lunch_step2.gif" alt="미션- 점심 뭐 먹지 :2단계 구현"/>
+
+### 점심 뭐 먹지: 1단계 구현
+
 <img src="./lunch_step1.gif" alt="미션- 점심 뭐 먹지 :1단계 구현"/>
 
 ## 폴더,파일 구조
@@ -53,10 +59,6 @@ npm run jest-test
 ```
 src
  ┣ assets
- ┃ ┣ css
- ┃ ┃ ┣ main.css
- ┃ ┃ ┣ style-constants.css
- ┃ ┃ ┗ topbar.css
  ┃ ┗ svg
  ┃ ┃ ┣ add-button.svg
  ┃ ┃ ┣ category-asian.svg
@@ -89,7 +91,6 @@ src
  ┃ ┃ ┣ index.ts
  ┃ ┃ ┗ style.css
  ┃ ┣ DropBox
- ┃ ┃ ┣ DropBoxInnerHtmlMaker.ts
  ┃ ┃ ┣ index.ts
  ┃ ┃ ┗ style.css
  ┃ ┣ ErrorMessageBox
@@ -100,12 +101,22 @@ src
  ┃ ┣ Restaurant
  ┃ ┃ ┣ index.ts
  ┃ ┃ ┗ style.css
- ┃ ┗ RestaurantFormModalInner
+ ┃ ┣ RestaurantFormModalInner
+ ┃ ┃ ┣ index.ts
+ ┃ ┃ ┗ style.css
+ ┃ ┣ RestaurantInfoModalInner
+ ┃ ┃ ┣ index.ts
+ ┃ ┃ ┗ style.css
+ ┃ ┣ StarBtn
+ ┃ ┃ ┣ index.ts
+ ┃ ┃ ┗ style.css
+ ┃ ┗ TapBtn
  ┃ ┃ ┣ index.ts
  ┃ ┃ ┗ style.css
  ┣ constants
+ ┃ ┣ data-enum.ts
+ ┃ ┣ domain-enum.ts
  ┃ ┣ dropBox.ts
- ┃ ┣ enum.ts
  ┃ ┣ index.ts
  ┃ ┣ message.ts
  ┃ ┗ rule.ts
@@ -116,17 +127,26 @@ src
  ┃ ┣ RestaurantList.ts
  ┃ ┗ index.ts
  ┣ services
+ ┃ ┣ ChangeLikeDataController.ts
  ┃ ┣ FilteringController.ts
  ┃ ┣ RestaurantListController.ts
+ ┃ ┣ ShowRestaurantDetailsModalController.ts
  ┃ ┣ StoreAddBtnController.ts
  ┃ ┣ WebController.ts
  ┃ ┗ index.ts
+ ┣ styles
+ ┃ ┣ main.css
+ ┃ ┣ style-constants.css
+ ┃ ┗ topbar.css
  ┣ types
  ┃ ┣ addBtnType.ts
  ┃ ┣ dropBoxType.ts
  ┃ ┣ index.ts
- ┃ ┣ restaurantType.ts
- ┃ ┗ storageKeyType.ts
+ ┃ ┗ restaurantType.ts
+ ┣ utils
+ ┃ ┣ closeModal.ts
+ ┃ ┣ findParentBox.ts
+ ┃ ┗ index.ts
  ┣ custom.d.ts
  ┗ index.js
 ```
