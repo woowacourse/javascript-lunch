@@ -1,0 +1,25 @@
+.restaurant-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restaurant-detail > .restaurant__info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  margin-bottom: 32px;
+}
+
+.restaurant-detail > .restaurant__info > .restaurant__description {
+  padding: 0;
+  text-overflow: unset;
+  -webkit-line-clamp: unset;
+}
+
+.restaurant-detail > .restaurant__info > .restaurant__bookmark {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+}
