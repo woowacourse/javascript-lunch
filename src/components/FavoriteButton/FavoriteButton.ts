@@ -4,6 +4,7 @@ import noFillStar from '@/assets/favorite-icon-lined.png';
 import RestaurantCollection from '@/domains/entities/RestaurantCollection';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { $ } from '@/utils/DOM';
+import { removeAllChildren } from '@/utils/view';
 
 class FavoriteButton extends BaseComponent {
   #isFavorite: boolean;
@@ -14,26 +15,23 @@ class FavoriteButton extends BaseComponent {
     super();
     this.#isFavorite = isFavorite;
     this.#button = document.createElement('button');
+    this.#button.classList.add('favorite-button');
+
     this.#isDetail = isDetail;
   }
 
   render() {
-    this.#button.classList.add('favorite-button');
+    const $img = document.createElement('img');
+    $img.src = this.#isFavorite ? fillStar : noFillStar;
 
-    if (this.#isDetail) this.#button.id = 'detail-favorite-button';
-    const $fillStar = document.createElement('img');
-    $fillStar.id = 'fill-star';
-    this.#isFavorite ? $fillStar.classList.remove('not-show') : $fillStar.classList.add('not-show');
-    $fillStar.src = fillStar;
-
-    const $noFillStar = document.createElement('img');
-    $noFillStar.id = 'nofill-star';
-    $noFillStar.src = noFillStar;
-
-    this.#button.append($fillStar);
-    this.#button.append($noFillStar);
+    this.#button.append($img);
 
     this.replaceWith(this.#button);
+  }
+
+  rerender() {
+    removeAllChildren(this.#button);
+    this.render();
   }
 
   setEvent(): void {
@@ -46,7 +44,6 @@ class FavoriteButton extends BaseComponent {
       const restaurantDBService = new RestaurantDBService();
       const existedRestaurantList = [...restaurantDBService.update().restaurantList];
 
-      //TODO: 매번 모든 별이 리렌더링 됨
       existedRestaurantList.forEach((restaurant) => {
         if (restaurant.id === Number(targetId)) {
           restaurant.isFavorite
@@ -58,14 +55,9 @@ class FavoriteButton extends BaseComponent {
       const newCollection = new RestaurantCollection(existedRestaurantList);
       restaurantDBService.set(newCollection);
 
-      if (this.#isDetail) {
-        const star = $('#detail-favorite-button #fill-star');
-        if (!star.classList.contains('not-show')) {
-          star.classList.add('not-show');
-        } else {
-          star.classList.remove('not-show');
-        }
-      }
+      this.#isFavorite = !this.#isFavorite;
+
+      this.rerender();
       this.rerenderByFilter();
     });
   }

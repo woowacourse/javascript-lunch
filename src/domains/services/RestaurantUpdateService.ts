@@ -6,13 +6,8 @@ import { $ } from '@/utils/DOM';
 import RestaurantCollection from '../entities/RestaurantCollection';
 
 class RestaurantUpdateService {
-  #restaurantDBService;
-  #restaurantCollection;
-
-  constructor() {
-    this.#restaurantDBService = new RestaurantDBService();
-    this.#restaurantCollection = new RestaurantCollection([]);
-  }
+  #restaurantDBService = new RestaurantDBService();
+  #restaurantCollection = new RestaurantCollection([]);
 
   addNewRestaurant(form: HTMLFormElement) {
     hideErrorMessage();
@@ -27,15 +22,11 @@ class RestaurantUpdateService {
   }
 
   deleteRestaurant(id: number) {
-    //진짜 삭제하겠는지 모달 띄우기
-    const answer = true;
-    if (answer) {
-      this.#restaurantCollection = this.#restaurantDBService.update();
-      this.#restaurantCollection.deleteRestaurant(id);
-      this.#restaurantDBService.set(this.#restaurantCollection);
-      this.rerenderByFilter();
-      closeModal();
-    }
+    this.#restaurantCollection = this.#restaurantDBService.update();
+    this.#restaurantCollection.deleteRestaurant(id);
+    this.#restaurantDBService.set(this.#restaurantCollection);
+    this.rerenderByFilter();
+    closeModal();
   }
 
   updateAddedRestaurantCollection(newRestaurant: IRestaurant) {

@@ -1,5 +1,4 @@
 import restaurantListMock from '@/mock/restaurantList.mock';
-import type { IRestaurant } from '../../types/Restaurant';
 import RestaurantCollection from '../entities/RestaurantCollection';
 
 class RestaurantDBService {

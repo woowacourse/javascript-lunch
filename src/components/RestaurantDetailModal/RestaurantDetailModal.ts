@@ -6,7 +6,6 @@ import BasicButton from '../BasicButton/BasicButton';
 import { closeModal, makeDescription, makeDistance, makeTitle } from '@/utils/view';
 import { IRestaurant } from '@/types/Restaurant';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
-import AlertModal from '../AlertModal/AlertModal';
 
 class RestaurantDetailModal extends BaseComponent {
   #restaurant: IRestaurant;

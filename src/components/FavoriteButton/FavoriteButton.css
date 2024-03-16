@@ -8,6 +8,7 @@
   position: absolute;
   right: 0;
   top: 0;
+  transition: all 0.5s;
 }
 
 .favorite-button img {
@@ -16,5 +17,24 @@
 }
 
 .not-show {
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*#fill-star {
+  animation: fadeIn 1s forwards;
+} */
+
+#fill-star.not-show {
+  transition: all 0.5s;
   opacity: 0;
 }
