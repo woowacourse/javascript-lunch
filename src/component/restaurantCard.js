@@ -1,66 +1,48 @@
-import { KOREAN_CATEGORY } from '../constant/cons';
-import { starButton } from './iconButtons/starButton.js';
-import createNewRestaurantModal from './modal/addRestaurantModal.js';
-import modal from './modal/modalLayout.js';
-import createRestaurantDetailModal from './modal/restaurantDetailModal.js';
+import createRestaurantCategoryIcon from './restaurantCategoryIcon/restaurantCategoryIcon.js';
+import { createStarButton } from './iconButtons/starButton.js';
 
-function createRestaurantCard({ restaurant, baseComponent }) {
-  const restaurantCard = render({ ...restaurant, baseComponent });
-
-  restaurantCard.addEventListener('click', (event) => {
-    if (event.target.classList.contains('star__button')) {
-      starButton.toggle(event.target);
-    } else {
-      const newRestaurantModalElement = createRestaurantDetailModal();
-      const newRestaurantModal = modal.create(
-        'modal--open',
-        newRestaurantModalElement
-      );
-      document.body.append(newRestaurantModal);
-    }
+function createRestaurantCard({ restaurant, baseComponent, hasFavorite }) {
+  const restaurantCard = render({
+    ...restaurant,
+    baseComponent,
+    hasFavorite,
   });
 
   return restaurantCard;
 }
 
 function render({
+  id,
   category,
   name,
   walkingTime,
   description = '',
   baseComponent,
+  hasFavorite,
 }) {
   baseComponent.append(
-    createRestaurantCategory(category),
-    createRestaurantInfo({ name, walkingTime, description })
+    createRestaurantCategoryIcon(category),
+    createRestaurantInfo({ id, name, walkingTime, description, hasFavorite })
   );
 
   return baseComponent;
 }
 
-export function createRestaurantCategory(category) {
-  const restaurantCategory = document.createElement('div');
-  restaurantCategory.className = 'restaurant__category';
-
-  const categoryImg = document.createElement('img');
-  categoryImg.src = `./category-${KOREAN_CATEGORY[category]}.png`;
-  categoryImg.alt = category;
-  categoryImg.className = 'category-icon';
-
-  restaurantCategory.append(categoryImg);
-
-  return restaurantCategory;
-}
-
 export function createRestaurantWalkingTime(walkingTime) {
   const restaurantWalkingTime = document.createElement('span');
   restaurantWalkingTime.className = 'restaurant__distance text-body';
-  restaurantWalkingTime.textContent = `캠퍼스부터 ${walkingTime}분 내`;
+  restaurantWalkingTime.textContent = `캠퍼스로부터 ${walkingTime}분 내`;
 
   return restaurantWalkingTime;
 }
 
-function createRestaurantInfo({ name, walkingTime, description = '' }) {
+function createRestaurantInfo({
+  id,
+  name,
+  walkingTime,
+  description = '',
+  hasFavorite,
+}) {
   const infoDiv = document.createElement('div');
   infoDiv.className = 'restaurant__info';
 
@@ -73,9 +55,12 @@ function createRestaurantInfo({ name, walkingTime, description = '' }) {
   restaurantName.className = 'restaurant__name text-subtitle';
   restaurantName.textContent = name;
 
-  const restaurantWalkingTime = createRestaurantWalkingTime(walkingTime);
+  const favoriteButton = createStarButton({
+    id,
+    initialState: hasFavorite(id),
+  });
 
-  const favoriteButton = starButton.create({ id: 1 });
+  const restaurantWalkingTime = createRestaurantWalkingTime(walkingTime);
 
   const restaurantDescription = document.createElement('p');
   restaurantDescription.className = 'restaurant__description text-body';
