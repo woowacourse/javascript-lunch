@@ -77,7 +77,7 @@ class LunchItem extends HTMLElement {
   setEventListener() {
     const clickLiked = this.querySelector('.liked-icon');
     clickLiked?.addEventListener('click', () => this.setClickLikedEvent());
-    this.addEventListener('click', () => this.handleDetailModal());
+    this.addEventListener('click', (e: any) => this.handleDetailModal(e));
   }
 
   setClickLikedEvent() {
@@ -85,12 +85,14 @@ class LunchItem extends HTMLElement {
     this.dispatchEvent(clickLikedButtonEvent);
   }
 
-  handleDetailModal() {
+  handleDetailModal(e: any) {
+    if (e.target.className === 'liked-icon') return;
     // TODO : 리팩터링
     const lunchDetailModal = document.querySelector('lunch-detail-modal');
     const lunchDetailModalChild = document.querySelector('.detail-modal');
     if (!lunchDetailModal) {
-      this.insertAdjacentHTML('afterend', LUNCH_DETAIL_MODAL_TEMPLATE(this.getAttributes()));
+      const lunchApp = document.querySelector('lunch-app') as HTMLElement;
+      lunchApp.insertAdjacentHTML('beforeend', LUNCH_DETAIL_MODAL_TEMPLATE(this.getAttributes()));
     } else {
       const attributesToSet = this.getAttributes();
       for (const key in attributesToSet) {
