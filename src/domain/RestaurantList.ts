@@ -47,14 +47,14 @@ class RestaurantList {
   add(restaurant: TRestaurantInstance): void {
     this.setRestaurants();
     this.restaurants.push(restaurant);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
+    LocalStorage.setStorageRestaurantList(this.restaurants);
   }
 
   remove(restaurant: TRestaurantInstance): void {
     this.setRestaurants();
     const restaurantIndex = this.restaurants.indexOf(restaurant);
     this.restaurants.splice(restaurantIndex, 1);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.restaurants));
+    LocalStorage.setStorageRestaurantList(this.restaurants);
   }
 }
 
