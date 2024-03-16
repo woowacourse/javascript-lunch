@@ -43,18 +43,31 @@ export const RestaurantCardComponent = ({
 
   const create = () => li;
 
-  li.addEventListener('click', () => {
-    const detailModal = RestaurantDetailModalComponent({
-      category,
-      name,
-      distance,
-      isFavorite,
-      description,
-      link
-    }).create();
+  li.addEventListener('click', (event: Event) => {
+    // const detailModal = RestaurantDetailModalComponent({
+    //   category,
+    //   name,
+    //   distance,
+    //   isFavorite,
+    //   description,
+    //   link
+    // }).create();
 
-    document.querySelector('#app')?.appendChild(detailModal);
-    document.querySelector('.modal-detail')?.classList.add('modal--open');
+    // document.querySelector('#app')?.appendChild(detailModal);
+    // document.querySelector('.modal-detail')?.classList.add('modal--open');
+    if (!(event.target as Element).closest('.favorite-button')) {
+      const detailModal = RestaurantDetailModalComponent({
+        category,
+        name,
+        distance,
+        isFavorite,
+        description,
+        link
+      }).create();
+
+      document.querySelector('#app')?.appendChild(detailModal);
+      document.querySelector('.modal-detail')?.classList.add('modal--open');
+    }
   });
 
   return {
