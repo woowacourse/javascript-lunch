@@ -61,8 +61,16 @@ export default class Restaurants {
     return this.storageData;
   }
 
-  getRestaurant(name: string) {
-    return this.storageData.find((restaurant) => restaurant.name === name);
+  getRestaurant(name: string): Restaurant | undefined {
+    return this.storageData.find((restaurant: Restaurant) => restaurant.name === name);
+  }
+
+  toggleFavoriteState(name: string) {
+    const data = this.storageData.map((restaurant) =>
+      restaurant.name === name ? { ...restaurant, favorite: !restaurant.favorite } : restaurant,
+    );
+
+    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(data));
   }
 
   deleteRestaurant(name: string) {
