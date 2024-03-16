@@ -115,15 +115,13 @@ class NewRestaurantModal extends BaseComponent {
       text: '거리(도보 이동 시간)',
     });
     $distanceSelection.append($distanceLabel);
-    $distanceSelection.id = 'distance';
-
     $distanceSelection.append(
       new SelectBox({
         optionValues: DISTANCES_REQURIED_VALUES,
         optionTexts: DISTANCES_REQURIED_TEXT,
         name: 'distance',
         classList: [],
-        id: '',
+        id: 'distance',
       }),
     );
 
