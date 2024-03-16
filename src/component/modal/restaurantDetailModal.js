@@ -1,35 +1,56 @@
 import { closeModal, createModalContainer } from './modal';
 import { createRestaurantWalkingTime } from '../restaurantCard.js';
-import { starButton } from '../iconButtons/starButton.js';
+import { createStarButton, starButton } from '../iconButtons/starButton.js';
 import createRestaurantCategoryIcon from '../restaurantCategoryIcon/restaurantCategoryIcon.js';
 import createButton from '../button.js';
 
-function createRestaurantDetailModal(restaurantInfo) {
-  const container = render(restaurantInfo);
+const deleteRestaurantInModalEvent = new Event('deleteRestaurantInModal', {
+  bubbles: true,
+});
+
+function createRestaurantDetailModal({
+  restaurant,
+  hasFavorite,
+  handleFavorite,
+}) {
+  const container = render({
+    ...restaurant,
+    hasFavorite,
+  });
+
+  container.addEventListener('starButtonClick', () => {
+    const { id } = restaurant;
+
+    handleFavorite(id);
+  });
 
   return container;
 }
 
 function render({
+  id,
   name,
   walkingTime,
   description,
   category,
   link,
-  isFavorite,
+  hasFavorite,
 }) {
   const container = createModalContainer();
   container.style.gap = '10px';
+  container.classList.add(`restaurant__${id}`);
 
   const categoryAndFavoriteButtonContainer = document.createElement('div');
   categoryAndFavoriteButtonContainer.className = 'space__between__row';
 
   const restaurantCategory = createRestaurantCategoryIcon(category);
-  const favoriteButton = starButton.create({
-    id: 1,
-    initialState: isFavorite(),
+
+  const favoriteButton = createStarButton({
+    id,
+    initialState: hasFavorite(id),
   });
 
+  favoriteButton.addEventListener('click', () => {});
   categoryAndFavoriteButtonContainer.append(restaurantCategory, favoriteButton);
 
   const restaurantName = document.createElement('h1');
@@ -47,16 +68,20 @@ function render({
   buttonContainer.className = 'button-container';
 
   const restaurantUrl = document.createElement('a');
-  restaurantUrl.href = link.startsWith('https://') ? link : `https://${link}`;
-  restaurantUrl.textContent = link;
-  restaurantUrl.target = '_blank'; // 새 창에서 링크 열기
+
+  if (link === '') restaurantUrl.textContent = '(이 음식점은 링크가 없어요)';
+  else {
+    restaurantUrl.href = link.startsWith('https://') ? link : `https://${link}`;
+    restaurantUrl.textContent = link;
+    restaurantUrl.target = '_blank'; // 새 창에서 링크 열기
+  }
 
   const cancelButton = createButton({
     className: 'button button--secondary text-caption',
     eventType: 'click',
     name: '삭제하기',
     // TODO: 삭제 기능 구현
-    callback: () => {},
+    callback: () => cancelButton.dispatchEvent(deleteRestaurantInModalEvent),
   });
 
   const addButton = createButton({
@@ -76,19 +101,6 @@ function render({
     restaurantUrl,
     buttonContainer
   );
-
-  // buttonWrapper.append(cancelButton, addButton);
-
-  // form.append(
-  //   categorySelecterLabelWrapper,
-  //   nameLabelWrapper,
-  //   walkingTimeLabelWrapper,
-  //   textAreaLabelWrapper,
-  //   linkLabelWrapper,
-  //   buttonWrapper
-  // );
-
-  // container.append(modalTitle, form);
 
   return container;
 }
