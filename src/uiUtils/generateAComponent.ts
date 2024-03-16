@@ -1,10 +1,10 @@
 import { ATagElementDataType } from '../types/components';
-import ATag from '../components/composables/ATag';
+import A from '../components/composables/A';
 
-const generateATagComponenet = (ATagOptionData: ATagElementDataType) => {
+const generateAComponenet = (ATagOptionData: ATagElementDataType) => {
   const { TAG_CLASS_NAME, TAG_HREF, TAG_BLANK, TAG_TEXT_CONTENT } = ATagOptionData;
 
-  return ATag({
+  return A({
     className: TAG_CLASS_NAME ?? '',
     href: TAG_HREF ?? '',
     _blank: TAG_BLANK ?? false,
@@ -12,4 +12,4 @@ const generateATagComponenet = (ATagOptionData: ATagElementDataType) => {
   });
 };
 
-export default generateATagComponenet;
+export default generateAComponenet;

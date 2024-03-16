@@ -10,7 +10,7 @@ import generateHeadingComponent from '../uiUtils/generateHeadingComponent';
 import generateSpanComponent from '../uiUtils/generateSpanComponent';
 import generatePComponent from '../uiUtils/generatePComponent';
 import generateImageComponent from '../uiUtils/generateImageComponent';
-import generateATagComponenet from '../uiUtils/generateATagComponent';
+import generateAComponenet from '../uiUtils/generateAComponent';
 
 export const createTitleComponent = (name: string) => {
   const titleComponentData = generateRestaurantNameComponentData(name);
@@ -37,7 +37,7 @@ export const createBottomSheetDescriptionComponent = (textContent?: string) => {
 export const createBottomSheetRestaurantLinkComponent = (link?: string) => {
   const bottomSheetLinkComponentData = generateRestaurantBottomSheetLinkComponentData(link);
 
-  return generateATagComponenet(bottomSheetLinkComponentData);
+  return generateAComponenet(bottomSheetLinkComponentData);
 };
 
 export const createIsFavoriteImageComponent = (isFavorited: boolean) => {
