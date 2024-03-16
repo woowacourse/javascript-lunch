@@ -1,10 +1,12 @@
 import Component from './Component';
-import koreanCategoryImg from '../assets/category-korean.png';
-import japaneseCategoryImg from '../assets/category-japanese.png';
-import chineseCategoryImg from '../assets/category-chinese.png';
-import asianCategoryImg from '../assets/category-asian.png';
-import westernCategoryImg from '../assets/category-western.png';
-import etcCategoryImg from '../assets/category-etc.png';
+import koreanCategoryIcon from '../assets/category-korean.png';
+import japaneseCategoryIcon from '../assets/category-japanese.png';
+import chineseCategoryIcon from '../assets/category-chinese.png';
+import asianCategoryIcon from '../assets/category-asian.png';
+import westernCategoryIcon from '../assets/category-western.png';
+import etcCategoryIcon from '../assets/category-etc.png';
+import favoriteLinedIcon from '../assets/favorite-icon-lined.png';
+import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
 
 class RestaurantItem extends Component {
   static observedAttributes: string[] = ['category', 'name', 'distance', 'description', 'reference'];
@@ -13,6 +15,7 @@ class RestaurantItem extends Component {
   #name: string | null;
   #distance: string | null;
   #description: string | null;
+  #favorite: boolean;
 
   constructor() {
     super();
@@ -35,17 +38,17 @@ class RestaurantItem extends Component {
   #displayCategoryIcon(category: string | null): string {
     switch (category) {
       case '한식':
-        return `<img src=${koreanCategoryImg} alt="한식" class="category-icon" />`;
+        return `<img src=${koreanCategoryIcon} alt="한식" class="category-icon" />`;
       case '중식':
-        return `<img src=${chineseCategoryImg} alt="중식" class="category-icon" />`;
+        return `<img src=${chineseCategoryIcon} alt="중식" class="category-icon" />`;
       case '일식':
-        return `<img src=${japaneseCategoryImg} alt="일식" class="category-icon" />`;
+        return `<img src=${japaneseCategoryIcon} alt="일식" class="category-icon" />`;
       case '양식':
-        return `<img src=${westernCategoryImg} alt="양식" class="category-icon" />`;
+        return `<img src=${westernCategoryIcon} alt="양식" class="category-icon" />`;
       case '아시안':
-        return `<img src=${asianCategoryImg} alt="아시안" class="category-icon" />`;
+        return `<img src=${asianCategoryIcon} alt="아시안" class="category-icon" />`;
       case '기타':
-        return `<img src=${etcCategoryImg} alt="기타" class="category-icon" />`;
+        return `<img src=${etcCategoryIcon} alt="기타" class="category-icon" />`;
       default:
         return '';
     }
@@ -53,19 +56,30 @@ class RestaurantItem extends Component {
 
   template(): string {
     return `
-      <li class="restaurant">
-        <div class="restaurant__category">
-          ${this.#displayCategoryIcon(this.#category)}
+      <li class="restaurant-list">
+        <div class="restaurant-item-img-wrapper">
+        ${this.#displayCategoryIcon(this.#category)}
         </div>
-        <div class="restaurant__item">
-          <h2 class="restaurant__name text-subtitle">${this.#name}</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 ${this.#distance}분 내</span>
-          <p class="restaurant__description text-body">
-            ${this.#description !== undefined ? this.#description : ''}
-          </p>
+        <div class="restaurant-item-content-wrapper">
+          <div class="restaurant-item-subtitle-distance-favorite-wrapper">
+            <div class="restaurant-item-subtitle-distance-wrapper">
+              <h2 class="restaurant__name text-subtitle">${this.#name}</h2>
+              <span class="restaurant__distance text-body">캠퍼스부터 ${this.#distance}분 내</span>
+            </div>
+            <div class="restaurant-item-favorite-icon-wrapper">
+              <img src=${
+                this.#favorite ? favoriteFilledIcon : favoriteLinedIcon
+              } alt="즐겨찾기" class="favorite-icon" />
+            </div>
+          </div>
+          <div class="restaurant-item-discrption-wrapper">
+            <p class="restaurant__description text-body">
+              ${this.#description !== undefined ? this.#description : ''}
+            </p>
+          </div>
         </div>
       </li>
-    `;
+      `;
   }
 }
 

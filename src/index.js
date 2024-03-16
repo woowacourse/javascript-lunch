@@ -7,6 +7,7 @@ import RestaurantAddModal from './components/RestaurantAddModal';
 
 import './styles/style.css';
 import './styles/restaurantThemeSelector.style.css';
+import './styles/restaurantItem.style.css';
 import RestaurantThemeSelector from './components/RestaurantThemeSelector';
 
 customElements.define('lunch-picker-app', LunchPickerApp);
