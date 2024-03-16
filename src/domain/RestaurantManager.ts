@@ -129,6 +129,17 @@ export class RestaurantManager implements RestaurantManager {
     return [];
   }
 
+  removeTotalRestaurant(removeRestaurant: Restaurant): Restaurant[] {
+    this.totalRestaurants = this.totalRestaurants.filter((restaurant) => {
+      return restaurant['name'] !== removeRestaurant['name'];
+    });
+    localStorage.setItem(
+      'restaurants',
+      JSON.stringify(this.favoriteRestaurants)
+    );
+    return [...this.favoriteRestaurants];
+  }
+
   removeFavoriteRestaurant(removeRestaurant: Restaurant): Restaurant[] {
     this.favoriteRestaurants = this.favoriteRestaurants.filter((restaurant) => {
       return restaurant['name'] !== removeRestaurant['name'];
