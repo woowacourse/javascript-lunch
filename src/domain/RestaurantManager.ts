@@ -33,12 +33,16 @@ export class RestaurantManager implements RestaurantManager {
     }
   }
 
+  postRestaurantList() {
+    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+  }
+
   add(newRestaurant: Restaurant): void {
     this.validate(newRestaurant);
     newRestaurant.id = this.idGenerator.generateNewId();
 
     this.restaurantList.push(newRestaurant);
-    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+    this.postRestaurantList();
 
     if (this.currentSortBy === '이름순') this.sortByAscendingName();
     if (this.currentSortBy === '거리순') this.sortByAscendingWalkingTime();
@@ -48,6 +52,8 @@ export class RestaurantManager implements RestaurantManager {
     this.restaurantList = this.restaurantList.filter(
       ({ id }) => id !== restaurantId
     );
+
+    this.postRestaurantList();
   }
 
   getRestaurantList(): Restaurant[] {
@@ -81,14 +87,12 @@ export class RestaurantManager implements RestaurantManager {
   }
 
   sortByAscendingNameAndCategory(): Restaurant[] {
-    this.currentSortBy = '이름순';
     this.sortByAscendingName();
 
     return this.filteredRestaurantList();
   }
 
   sortByAscendingWalkingTimeAndCategory(): Restaurant[] {
-    this.currentSortBy = '거리순';
     this.sortByAscendingWalkingTime();
 
     return this.filteredRestaurantList();
@@ -98,11 +102,22 @@ export class RestaurantManager implements RestaurantManager {
     this.currentCategory = category;
   }
 
+  setSortBy(sortBy: string) {
+    this.currentSortBy = sortBy;
+  }
+
   filteredRestaurantList(): Restaurant[] {
     if (this.currentCategory === '전체') return [...this.restaurantList];
 
     return [...this.restaurantList].filter(
       (restaurant) => restaurant.category === this.currentCategory
     );
+  }
+
+  getAppliedFiltersRestaurantList() {
+    if (this.currentSortBy === '이름순')
+      return this.sortByAscendingNameAndCategory();
+    if (this.currentSortBy === '거리순')
+      return this.sortByAscendingWalkingTimeAndCategory();
   }
 }
