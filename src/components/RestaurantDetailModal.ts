@@ -1,6 +1,6 @@
 import Restaurant, { IRestaurantInfo } from '../domain/Restaurant';
 import restaurantStore from '../store/RestaurantStore';
-import Button from './Button';
+import Button from './base/Button';
 
 class RestaurantDetailModal extends HTMLDivElement {
   #restaurant: IRestaurantInfo;
@@ -49,6 +49,7 @@ class RestaurantDetailModal extends HTMLDivElement {
 
     const deleteButton = new Button({
       content: '삭제',
+      addClassList: ['button--secondary'],
       onClick: () => {
         restaurantStore.removeRestaurantFromStore(this.#restaurant);
         this.toggle();
@@ -57,6 +58,8 @@ class RestaurantDetailModal extends HTMLDivElement {
     });
     const closeButton = new Button({
       content: '닫기',
+
+      addClassList: ['button--primary'],
       onClick: () => {
         this.toggle();
       },

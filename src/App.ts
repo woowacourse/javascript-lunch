@@ -4,6 +4,7 @@ import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from './do
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
 import DropdownEvent from './components/Dropdown/DropdownEvent';
 import restaurantStore from './store/RestaurantStore';
+import Navigator from './components/Navigator';
 
 class App {
   #restaurantStore;
@@ -16,6 +17,10 @@ class App {
   }
 
   run() {
+    const navigator = new Navigator();
+    const navigatorSection = document.getElementById('navigator-section');
+    navigatorSection?.appendChild(navigator.element);
+
     this.#renderRestaurants();
     this.#renderFilterDropdowns();
     this.#renderFormDropdowns();

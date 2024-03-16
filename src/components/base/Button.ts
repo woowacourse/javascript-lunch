@@ -1,5 +1,6 @@
 interface Props {
   content: string;
+  addClassList?: string[];
   onClick?: () => void;
 }
 
@@ -8,13 +9,25 @@ class Button {
 
   #onClick?: () => void;
 
-  constructor({ content, onClick }: Props) {
+  constructor({ content, addClassList, onClick }: Props) {
     this.#onClick = onClick;
     this.#buttonElement.setAttribute('type', 'button');
-    this.#buttonElement.classList.add('button', 'button--secondary', 'text-caption');
-
+    this.#buttonElement.classList.add('button', 'text-caption');
     this.#buttonElement.innerText = content;
 
+    if (addClassList) {
+      this.#addClasses(addClassList);
+    }
+    this.#addEvent();
+  }
+
+  #addClasses(addClassList: string[]) {
+    if (addClassList) {
+      this.#buttonElement.classList.add(...addClassList);
+    }
+  }
+
+  #addEvent() {
     this.#buttonElement.addEventListener('click', () => {
       if (this.#onClick) this.#onClick();
     });
