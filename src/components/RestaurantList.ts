@@ -12,6 +12,8 @@ import {
   RESTAURANT_DETAIL_SHOW_EVENT,
   TAB_SWITCH_EVENT,
   TAB_SWITCH_EVENT_SWITCH_TO,
+  MODAL_EVENT,
+  MODAL_EVENT_ACTION,
 } from "../constants/event";
 import favoriteStore from "../store/favoriteStore";
 
@@ -41,21 +43,21 @@ export default class RestaurantList extends EventComponent {
 
     const restaurantInfos = this.restaurants.getDetails();
 
-    const filteredRestaurantInfos = this.filterByCategory(
+    const restaurantInfosFilteredByFavorite = this.filterByFavorite(
       restaurantInfos,
+      favoriteRestaurantNames,
+      this.isFavoriteTab
+    );
+
+    const restaurantInfosFilteredByCategory = this.filterByCategory(
+      restaurantInfosFilteredByFavorite,
       this.categoryFilter,
       this.isFavoriteTab
     );
 
-    const sortedRestaurantInfos = this.sort(
-      filteredRestaurantInfos,
+    const displayingRestaurantInfos = this.sort(
+      restaurantInfosFilteredByCategory,
       this.sortFilter,
-      this.isFavoriteTab
-    );
-
-    const displayingRestaurantInfos = this.filterByFavorite(
-      sortedRestaurantInfos,
-      favoriteRestaurantNames,
       this.isFavoriteTab
     );
 
@@ -70,7 +72,6 @@ export default class RestaurantList extends EventComponent {
                   category,
                   timeToReach,
                   description,
-                  link,
                 }: RestaurantInfo) =>
                   `
             <restaurant-item
@@ -78,7 +79,6 @@ export default class RestaurantList extends EventComponent {
               category="${category}"
               timeToReach="${timeToReach}"
               description="${description}"
-              link="${link}"
               isFavorite="${favoriteRestaurantNames.includes(name)}"
             >
             </restaurant-item>`
@@ -86,7 +86,7 @@ export default class RestaurantList extends EventComponent {
               .join("") ||
             (this.isFavoriteTab
               ? "<p class='no-restaurant-item-message'>자주 가는 음식점이 없습니다.<br/> 모든 음식점 탭에서 음식점을 둘러보고 추가해 보세요 👩🏻‍🍳</p>"
-              : "<p class='no-restaurant-item-message'>등록된 식당이 없습니다.<br/> 식당을 추가해주세요 👨🏻‍🍳</p>")
+              : "<p class='no-restaurant-item-message'>등록된 식당이 없습니다.<br/> 우측 상단 버튼을 눌러 식당을 추가해주세요 👨🏻‍🍳</p>")
           }
         </ul>
       </section>
@@ -163,10 +163,26 @@ export default class RestaurantList extends EventComponent {
       ({ name }) => name === restaurantName
     );
 
+    const favoriteRestaurantNames = favoriteStore.get();
+
+    const restaurantInfo = {
+      ...targetRestaurantInfo,
+      isFavorite: targetRestaurantInfo?.name
+        ? favoriteRestaurantNames.includes(targetRestaurantInfo?.name)
+        : false,
+    };
+
     this.dispatchEvent(
       new CustomEvent(RESTAURANT_DETAIL_SHOW_EVENT, {
         bubbles: true,
-        detail: { restaurantInfo: targetRestaurantInfo },
+        detail: { restaurantInfo },
+      })
+    );
+
+    this.dispatchEvent(
+      new CustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
+        bubbles: true,
+        detail: { action: MODAL_EVENT_ACTION.open },
       })
     );
   }
