@@ -6,11 +6,8 @@ import InputComponent from './InputComponent';
 import TextareaComponent from './TextareaComponent';
 import SelectComponent from './common/SelectComponent';
 import restaurantInfoValidator from '../validator/restaurantInfoValidator';
-import ButtonComponent from './common/ButtonComponent';
 
 export function ModalComponent() {
-  const buttonComponent = new ButtonComponent();
-
   const getTemplate = () => {
     const template = document.createElement('template');
     template.innerHTML = /*html*/ `
