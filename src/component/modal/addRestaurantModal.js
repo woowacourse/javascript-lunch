@@ -9,7 +9,6 @@ import toast from '../toast/toast';
 import { formIds } from '../../constant/appString';
 import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/select';
 
-
 function createNewRestaurantModal(addrestaurantCallback) {
   const container = render();
   const form = container.querySelector('form');
@@ -27,7 +26,6 @@ function createNewRestaurantModal(addrestaurantCallback) {
     } catch (e) {
       toast(e.message);
     }
-
   });
   return container;
 }

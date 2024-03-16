@@ -1,16 +1,34 @@
-import createButton from "../button";
-import modal from "../modal";
-import { createStarButton } from "../starButton";
-import { KOREAN_CATEGORY } from "../../constant/select";
-import { createCategoryImage } from "../categoryImage";
+import createButton from '../button';
+import modal from '../modal';
+import { createStarButton } from '../starButton';
+import { KOREAN_CATEGORY } from '../../constant/select';
+import { createCategoryImage } from '../categoryImage';
 
-export function createRestaurantDetail({restaurant, favoriteRestaurantNames, starCallback, deleteCallback, cancelCallback}) {
-  const container = render({restaurant, favoriteRestaurantNames, starCallback, cancelCallback});
-  container.querySelector('form').addEventListener('submit', (event) => deleteCallback(event))
+export function createRestaurantDetail({
+  restaurant,
+  favoriteRestaurantNames,
+  starCallback,
+  deleteCallback,
+  cancelCallback,
+}) {
+  const container = render({
+    restaurant,
+    favoriteRestaurantNames,
+    starCallback,
+    cancelCallback,
+  });
+  container
+    .querySelector('form')
+    .addEventListener('submit', (event) => deleteCallback(event));
   return container;
 }
 
-function render({restaurant : {category, name, walkingTime, description = '', link = ''}, favoriteRestaurantNames, starCallback, cancelCallback}) {
+function render({
+  restaurant: { category, name, walkingTime, description = '', link = '' },
+  favoriteRestaurantNames,
+  starCallback,
+  cancelCallback,
+}) {
   const container = modal.createContainer();
 
   const form = document.createElement('form');
@@ -41,10 +59,13 @@ function render({restaurant : {category, name, walkingTime, description = '', li
   restaurantLink.className = 'modal__restaurant__link text-body';
   restaurantLink.textContent = link;
   restaurantLink.href = link;
-  
-  infoHeaderTextArea.append(restaurantName, restaurantDistance ,restaurantDescription, restaurantLink);
 
-  
+  infoHeaderTextArea.append(
+    restaurantName,
+    restaurantDistance,
+    restaurantDescription,
+    restaurantLink
+  );
 
   const buttonWrapper = document.createElement('div');
   buttonWrapper.className = 'button-container';
@@ -60,16 +81,12 @@ function render({restaurant : {category, name, walkingTime, description = '', li
     className: 'button button--primary text-caption',
     eventType: 'click',
     name: '닫기',
-    callback: cancelCallback
+    callback: cancelCallback,
   });
 
   buttonWrapper.append(cancelButton, addButton);
 
-  form.append(
-    headerDiv,
-    infoHeaderTextArea,
-    buttonWrapper
-  );
+  form.append(headerDiv, infoHeaderTextArea, buttonWrapper);
 
   container.append(form);
 

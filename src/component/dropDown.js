@@ -1,5 +1,18 @@
-function createDropDown({ id, callback, options, className, required, noneSelcteddefaultMessage }) {
-  const dropdown = render({ options, id, className, required ,noneSelcteddefaultMessage});
+function createDropDown({
+  id,
+  callback,
+  options,
+  className,
+  required,
+  noneSelcteddefaultMessage,
+}) {
+  const dropdown = render({
+    options,
+    id,
+    className,
+    required,
+    noneSelcteddefaultMessage,
+  });
 
   if (!callback) return dropdown;
 
@@ -11,15 +24,21 @@ function createDropDown({ id, callback, options, className, required, noneSelcte
   return dropdown;
 }
 
-function render({ options, id, className, required, noneSelcteddefaultMessage}) {
+function render({
+  options,
+  id,
+  className,
+  required,
+  noneSelcteddefaultMessage,
+}) {
   const select = document.createElement('select');
   select.id = id;
   select.className = className;
   select.required = required;
 
-  if(!!noneSelcteddefaultMessage) {
+  if (!!noneSelcteddefaultMessage) {
     const option = document.createElement('option');
-    option.value = ''
+    option.value = '';
     option.textContent = noneSelcteddefaultMessage;
     select.appendChild(option);
   }
