@@ -1,6 +1,27 @@
+const NEW_RESTAURANT = {
+  name: '아웃백',
+  category: '양식',
+  distance: '20',
+  description: '호주 컨셉의 미국의 외식업체이다.',
+  link: 'https://www.naver.com',
+};
+
 describe('즐겨찾기 버튼 작동 테스트', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/');
+
+    const $addModalButton = cy.get('.gnb__button');
+    $addModalButton.click();
+
+    const $addModal = cy.get('#add-modal');
+    $addModal.get('#category').select(NEW_RESTAURANT.category);
+    $addModal.get('#name').type(NEW_RESTAURANT.name);
+    $addModal.get('#distance').select(NEW_RESTAURANT.distance);
+    $addModal.get('#description').type(NEW_RESTAURANT.description);
+    $addModal.get('#link').type(NEW_RESTAURANT.link);
+
+    const $addButton = $addModal.get('button').contains('추가하기');
+    $addButton.click();
   });
 
   const filledStarImg = 'http://localhost:8080/favorite-icon-filled.png';
@@ -45,13 +66,9 @@ describe('즐겨찾기 버튼 작동 테스트', () => {
   });
 
   it('자주 가는 음식점에서 즐겨찾기를 해제하면 해당 음식점은 리스트에서 사라진다.', () => {
+    cy.get('.favorite-button').first().click();
     cy.get('#favorite-tab').click();
-
-    cy.get('restaurant-item')
-      .its('length')
-      .then((before) => {
-        cy.get('.favorite-button').first().click();
-        cy.get('restaurant-item').should('have.length', before - 1);
-      });
+    cy.get('.favorite-button').first().click();
+    cy.get('.restaurant-list').contains(NEW_RESTAURANT.name).should('not.exist');
   });
 });

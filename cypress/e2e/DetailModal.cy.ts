@@ -2,9 +2,30 @@ import { CATEGORIES, RESTAURANTS_DB_KEY } from '@/constants/Condition';
 import { Category, IRestaurant } from '@/types/Restaurant';
 import { DISTANCE_FROM_CAMPUS } from '@/constants/Condition';
 
+const NEW_RESTAURANT = {
+  name: '아웃백',
+  category: '양식',
+  distance: '20',
+  description: '호주 컨셉의 미국의 외식업체이다.',
+  link: 'https://www.naver.com',
+};
+
 describe('디테일 모달 테스트', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/');
+
+    const $addModalButton = cy.get('.gnb__button');
+    $addModalButton.click();
+
+    const $addModal = cy.get('#add-modal');
+    $addModal.get('#category').select(NEW_RESTAURANT.category);
+    $addModal.get('#name').type(NEW_RESTAURANT.name);
+    $addModal.get('#distance').select(NEW_RESTAURANT.distance);
+    $addModal.get('#description').type(NEW_RESTAURANT.description);
+    $addModal.get('#link').type(NEW_RESTAURANT.link);
+
+    const $addButton = $addModal.get('button').contains('추가하기');
+    $addButton.click();
   });
 
   it('특정 음식점을 클릭하면 디테일 모달이 열린다.', () => {
@@ -66,11 +87,7 @@ describe('디테일 모달 테스트', () => {
     const $deleteConfirmButton = cy.get('#alert-modal').find('button').contains('삭제하기');
     $deleteConfirmButton.click({ force: true });
 
-    const firstRestaurant = JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').sort(
-      (a: IRestaurant, b: IRestaurant) => a.name.localeCompare(b.name),
-    )[0];
-
-    cy.get('.restaurant').first().should('not.contain', firstRestaurant.name);
+    cy.get('restaurant-list').should('not.contain', NEW_RESTAURANT.name);
   });
 
   it('모달의 삭제하기 버튼을 누르면 alert가 뜨고 alert의 취소를 누르면 해당 음식점이 삭제되지 않는다.', () => {
@@ -82,10 +99,6 @@ describe('디테일 모달 테스트', () => {
     const $deleteConfirmButton = cy.get('#alert-modal').find('button').contains('취소하기');
     $deleteConfirmButton.click({ force: true });
 
-    const firstRestaurant = JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').sort(
-      (a: IRestaurant, b: IRestaurant) => a.name.localeCompare(b.name),
-    )[0];
-
-    cy.get('.restaurant').first().should('contain', firstRestaurant.name);
+    cy.get('.restaurant').first().should('contain', NEW_RESTAURANT.name);
   });
 });
