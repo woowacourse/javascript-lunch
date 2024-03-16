@@ -19,24 +19,34 @@ import generateButtonComponent from '../../uiUtils/generateButtonComponent';
 import DELETE_BUTTON_COMPONENT_DATA from './componentsData/deleteButtonComponentData';
 import CLOSE_BUTTON_COMPONENT_DATA from './componentsData/closeButtonComponentData';
 
-/* eslint-disable max-lines-per-function */
-const generateCategoryImageAndInfoComponent = (targetRestaurantListItem: RestaurantState) => {
-  const imageAndFavoritedContainer = generateContainerComponent(IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA);
-  const restaurantCategory = getMatchedCategoryInfo(targetRestaurantListItem);
+function generateCategoryImageComponent(targetRestaurantListItem: RestaurantState) {
   const categoryContainer = generateContainerComponent(CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA);
+  const restaurantCategory = getMatchedCategoryInfo(targetRestaurantListItem);
   const categoryImageComponentData = generateRestaurantCategoryImageComponentData(restaurantCategory);
   const categoryImageComponent = generateImageComponent(categoryImageComponentData);
+
+  categoryContainer.appendChild(categoryImageComponent);
+  return categoryContainer;
+}
+
+function generateFavoritedIconComponent(targetRestaurantListItem: RestaurantState) {
   const isFavoritedIconContainer = generateContainerComponent(IS_FAVORITED_ICON_CONTAINER_COMPONENT_DATA);
   const isFavoritedIconComponent = createIsFavoriteImageComponent(targetRestaurantListItem.isFavorited);
 
   isFavoritedIconContainer.appendChild(isFavoritedIconComponent);
-  categoryContainer.appendChild(categoryImageComponent);
+  return isFavoritedIconContainer;
+}
 
-  imageAndFavoritedContainer.appendChild(categoryContainer);
-  imageAndFavoritedContainer.appendChild(isFavoritedIconContainer);
+function generateCategoryImageAndInfoComponent(targetRestaurantListItem: RestaurantState) {
+  const imageAndFavoritedContainer = generateContainerComponent(IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA);
+  const categoryImageComponent = generateCategoryImageComponent(targetRestaurantListItem);
+  const favoritedIconComponent = generateFavoritedIconComponent(targetRestaurantListItem);
+
+  imageAndFavoritedContainer.appendChild(categoryImageComponent);
+  imageAndFavoritedContainer.appendChild(favoritedIconComponent);
 
   return imageAndFavoritedContainer;
-};
+}
 
 const generateTotalButtonComponent = () => {
   const buttonContainer = generateContainerComponent(BUTTON_CONTAINER_COMPONENT_DATA);
