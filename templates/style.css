@@ -275,6 +275,7 @@ input[name="link"] {
 
 .button-container {
   display: flex;
+  margin-top: 20px;
 }
 
 .button {
@@ -313,4 +314,44 @@ input[name="link"] {
 
 .error-message {
   color: var(--error-color);
+}
+
+/* 음식점 디테일 모달 *****************************************/
+.detail-name {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+
+  margin: 20px 0;
+}
+
+.detail-description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  margin-bottom: 20px;
+}
+
+.detail-distance {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: var(--primary-color);
+
+  margin-bottom: 20px;
+}
+
+/* 네비게이션 바 *****************************************/
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 20px;
 }
