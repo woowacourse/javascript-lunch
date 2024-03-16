@@ -2,7 +2,7 @@ type RestaurantName = string;
 
 interface FavoriteStore {
   get(): RestaurantName[];
-  toggle(restaurantName: RestaurantName, isDelete: boolean): void;
+  toggle(restaurantName: RestaurantName, isAdded: boolean): void;
   set(restaurantNames: RestaurantName[]): void;
 }
 
@@ -26,12 +26,12 @@ const favoriteStore: FavoriteStore = {
     return parsedNames;
   },
 
-  toggle(restaurantName, isDelete): void {
+  toggle(restaurantName, isAdded): void {
     const restaurantNames = this.get();
 
-    const updatedNames = isDelete
-      ? restaurantNames.filter((name) => name !== restaurantName)
-      : [...restaurantNames, restaurantName];
+    const updatedNames = isAdded
+      ? [...restaurantNames, restaurantName]
+      : restaurantNames.filter((name) => name !== restaurantName);
 
     this.set(updatedNames);
   },

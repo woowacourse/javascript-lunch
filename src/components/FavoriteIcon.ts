@@ -30,31 +30,30 @@ export default class FavoriteIcon extends EventComponent {
   }
 
   private handleIconClick() {
-    const itemName = this.getAttribute("itemName");
+    const itemName = this.getAttribute("itemName") ?? "";
+    const changesToActive = !(this.getAttribute("isActive") === "true");
+
+    favoriteStore.toggle(itemName, changesToActive);
 
     this.dispatchEvent(
       new CustomEvent(TOGGLE_FAVORITE_EVENT, {
         bubbles: true,
-        detail: { itemName },
+        detail: { itemName, changesToActive },
       })
     );
   }
 
   private handleToggleFavoriteEvent(e: CustomEvent) {
-    const { itemName } = e.detail;
+    const { itemName, changesToActive } = e.detail;
 
     if (itemName === this.getAttribute("itemName")) {
-      this.toggleFavorite(itemName);
+      this.toggleFavorite(changesToActive);
       this.render();
     }
   }
 
-  private toggleFavorite(itemName: string) {
-    const isActive = this.getAttribute("isActive") === "true";
-
-    favoriteStore.toggle(itemName, isActive);
-
-    this.setAttribute("isActive", String(!isActive));
+  private toggleFavorite(changesToActive: boolean) {
+    this.setAttribute("isActive", String(changesToActive));
   }
 
   static get observedAttributes(): string[] {
