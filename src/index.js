@@ -47,24 +47,6 @@ const init = () => {
     options: SORTING,
   };
   SelectBoxComponent.render(sortingInformation);
-
-  // 모달 form select 생성
-  const $categoryContainer = document.getElementById('category-container');
-  const $distanceContainer = document.getElementById('distance-container');
-
-  const formCategoryInformation = {
-    $target: $categoryContainer,
-    attributes: FORM_CATEGORY_ATTRIBUTE,
-    options: FORM_CATEGORY,
-  };
-  SelectBoxComponent.render(formCategoryInformation);
-
-  const formDistanceInformation = {
-    $target: $distanceContainer,
-    attributes: FORM_DISTANCE_ATTRIBUTE,
-    options: FORM_DISTANCE,
-  };
-  SelectBoxComponent.render(formDistanceInformation);
 };
 
 init();

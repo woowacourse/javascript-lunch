@@ -37,11 +37,49 @@ class AddRestaurantModal extends Modal {
     return form;
   }
 
-  createCategoryContainer() {}
+  createCategoryContainer() {
+    const categoryContainer = document.createElement('div');
+    const categoryLabel = document.createElement('label');
+
+    categoryContainer.setAttribute('id', 'category-container');
+    categoryContainer.classList.add('form-item', 'form-item--required');
+    categoryLabel.setAttribute('for', 'category text-caption');
+    categoryLabel.textContent = '카테고리';
+
+    categoryContainer.appendChild(categoryLabel);
+
+    const formCategoryInformation = {
+      $target: categoryContainer,
+      attributes: FORM_CATEGORY_ATTRIBUTE,
+      options: FORM_CATEGORY,
+    };
+    SelectBoxComponent.render(formCategoryInformation);
+
+    return categoryContainer;
+  }
 
   createNameContainer() {}
 
-  createDistanceContainer() {}
+  createDistanceContainer() {
+    const distanceContainer = document.createElement('div');
+    const distanceLabel = document.createElement('label');
+
+    distanceContainer.setAttribute('id', 'distance-container');
+    distanceContainer.classList.add('form-item', 'form-item--required');
+    distanceLabel.setAttribute('for', 'distance text-caption');
+    distanceLabel.textContent = '거리(도보 이동 시간)';
+
+    distanceContainer.appendChild(distanceLabel);
+
+    const formDistanceInformation = {
+      $target: distanceContainer,
+      attributes: FORM_DISTANCE_ATTRIBUTE,
+      options: FORM_DISTANCE,
+    };
+    SelectBoxComponent.render(formDistanceInformation);
+
+    return distanceContainer;
+  }
 
   createDescriptionContainer() {}
 
