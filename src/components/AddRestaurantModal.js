@@ -39,7 +39,6 @@ class AddRestaurantModal extends Modal {
     const restaurantInformation = new Restaurant({ category, name, distance, favorite, description, link });
 
     this.#restaurantList.add(restaurantInformation);
-    new HomeEventHandler(this.restaurantList).handleFilter();
     this.close();
   }
 }
