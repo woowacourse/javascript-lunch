@@ -1,5 +1,6 @@
 import ICON from '../../../icons';
 import { $ } from '../../../utils/dom';
+import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import ModalWrapper from '../ModalWrapper/ModalWrapper';
 
 // TODO: 즐겨찾기 버튼 분리, 데이터 받아오기
@@ -18,16 +19,14 @@ export default class RestaurantDetail extends ModalWrapper {
     this.#addEvent();
   }
 
-  render({ category, name, walkingTimeFromCampus, description = '', link = '' }) {
+  render({ category, name, walkingTimeFromCampus, description = '', link = '', favorite }) {
     this.#element.innerHTML = /*html*/ this.getTemplate(`
       <div class="restaurant-detail-container">
         <section class="restaurant-detail-header">
           <div class="restaurant__category">
             <img src="${ICON[category]}" alt="${category}" class="category-icon">
           </div>
-          <button class="favorite-button">
-            <img src="${ICON['즐겨찾기해제']}" alt="${'즐겨찾기해제'}" class="favorite-icon" />
-          </button>
+          ${FavoriteButton('detail-favorite-buttton', favorite ? '즐겨찾기추가' : '즐겨찾기해제')}
         </section>
         <section class="restaurant-detail-main">
           <div class="restaurant-detail-title">
