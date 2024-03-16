@@ -8,6 +8,7 @@ import RestaurantService from '../../service/RestaurantService';
 import RestaurantListFilter from '../root/RestaurantListFilter/RestaurantListFilter';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
 import RestaurantAddModal from '../modal/RestaurantAddModal/RestaurantAddModal';
+import RestaurantDetailModal from '../modal/RestaurantDetailModal/RestaurantDetailModal';
 import { Category, SortOrder, Tab } from '../../enum/enums';
 import { RestaurantDataType } from '../../type/restaurantDataType';
 import { $ } from '../../util/domSelector';
@@ -20,6 +21,7 @@ export default class AppController {
   private restaurantListFilter: RestaurantListFilter;
   private restaurantList: RestaurantList;
   private restaurantAddModal: RestaurantAddModal;
+  private restaurantDetailModal: RestaurantDetailModal;
 
   constructor() {
     this.sortOrder = SortOrder.이름순;
@@ -27,11 +29,18 @@ export default class AppController {
     this.tab = Tab['모든 음식점'];
     this.restaurantService = new RestaurantService();
     this.restaurantListFilter = new RestaurantListFilter();
-    this.restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder));
+    this.restaurantList = new RestaurantList(
+      this.restaurantService.getRestaurants(this.sortOrder),
+      this.showRestaurantDetailModal.bind(this),
+    );
     this.restaurantAddModal = new RestaurantAddModal({
       title: '음식점 추가하기',
       id: 'add-restaurant-modal',
-      onSubmit: this.addNewRestaurant.bind(this),
+      onSubmit: this.addRestaurant.bind(this),
+    });
+    this.restaurantDetailModal = new RestaurantDetailModal({
+      id: 'restaurant-detail-modal',
+      onDelete: this.deleteRestaurant.bind(this),
     });
   }
 
@@ -40,7 +49,8 @@ export default class AppController {
     this.initiateRestaurantListTab();
     this.initiateRestaurantListFilter();
     this.initiateRestaurantList();
-    this.initiateAddRestaurantModal();
+    this.initiateRestaurantAddModal();
+    this.initiateRestaurantDetailModal();
   }
 
   private changeTab(event: Event) {
@@ -75,7 +85,7 @@ export default class AppController {
   }
 
   private initiateNavBar() {
-    $('nav-bar').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
+    $('nav-bar').addEventListener('showRestaurantAddModal', this.showRestaurantAddModal.bind(this));
   }
 
   private initiateRestaurantListTab() {
@@ -93,8 +103,12 @@ export default class AppController {
     $('#restaurant-list').appendChild(this.restaurantList);
   }
 
-  private initiateAddRestaurantModal() {
+  private initiateRestaurantAddModal() {
     document.body.appendChild(this.restaurantAddModal.render());
+  }
+
+  private initiateRestaurantDetailModal() {
+    document.body.appendChild(this.restaurantDetailModal.render());
   }
 
   private updateRestaurantList() {
@@ -115,12 +129,21 @@ export default class AppController {
     this.restaurantListFilter.show();
   }
 
-  private showAddRestaurantModal() {
+  private showRestaurantAddModal() {
     this.restaurantAddModal.showModal();
   }
 
-  private addNewRestaurant(newRestaurantData: RestaurantDataType) {
-    this.restaurantService.addRestaurant(newRestaurantData);
+  private showRestaurantDetailModal(restaurantData: RestaurantDataType) {
+    this.restaurantDetailModal.showRestaurantDetail(restaurantData);
+  }
+
+  private addRestaurant(restaurantData: RestaurantDataType) {
+    this.restaurantService.addRestaurant(restaurantData);
+    this.updateRestaurantList();
+  }
+
+  private deleteRestaurant(restaurantName: string) {
+    this.restaurantService.deleteRestaurant(restaurantName);
     this.updateRestaurantList();
   }
 }

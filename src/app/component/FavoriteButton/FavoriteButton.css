@@ -10,6 +10,10 @@
   background-image: url('../../../asset/image/favorite-icon-lined.png');
 }
 
+.restaurant__favorite-button:hover {
+  cursor: pointer;
+}
+
 .restaurant__favorite-button.favorited {
   background-image: url('../../../asset/image/favorite-icon-filled.png');
 }

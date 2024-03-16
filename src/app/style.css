@@ -145,6 +145,10 @@ body {
   border-bottom: 1px solid #e9eaed;
 }
 
+.restaurant:hover {
+  cursor: pointer;
+}
+
 .restaurant__category {
   display: flex;
   justify-content: center;

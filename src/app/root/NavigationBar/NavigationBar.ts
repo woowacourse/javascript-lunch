@@ -9,7 +9,7 @@ export default class NavigationBar extends HTMLElement {
 
   private addEvent() {
     $('#add-restaurant-button').addEventListener('click', () => {
-      this.dispatchEvent(new CustomEvent('showAddRestaurantModal'));
+      this.dispatchEvent(new CustomEvent('showRestaurantAddModal'));
     });
   }
 

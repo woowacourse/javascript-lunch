@@ -1,0 +1,30 @@
+.restaurant__detail {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.restaurant__name {
+  margin: 0;
+}
+
+.restaurant__distance {
+  color: var(--primary-color);
+}
+
+.restaurant__detail > .restaurant__description {
+  display: inherit;
+
+  overflow: inherit;
+  text-overflow: inherit;
+  -webkit-line-clamp: inherit;
+  -webkit-box-orient: inherit;
+}
+
+.restaurant__detail > .restaurant__favorite-button {
+  top: 0;
+  right: 0;
+}

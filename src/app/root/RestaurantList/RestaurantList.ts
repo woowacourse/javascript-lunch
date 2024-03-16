@@ -4,10 +4,13 @@ import { $$ } from '../../../util/domSelector';
 
 export default class RestaurantList extends HTMLElement {
   private restaurants: RestaurantDataType[];
+  private showRestaurantDetail: Function;
 
-  constructor(restaurants: RestaurantDataType[]) {
+  constructor(restaurants: RestaurantDataType[], onClick: Function) {
     super();
     this.restaurants = restaurants;
+    this.showRestaurantDetail = onClick;
+    this.handleClickRestaurantItem = this.handleClickRestaurantItem.bind(this);
   }
 
   connectedCallback() {
@@ -51,6 +54,10 @@ export default class RestaurantList extends HTMLElement {
     }
   }
 
+  private handleClickRestaurantItem(restaurantData: RestaurantDataType) {
+    this.showRestaurantDetail(restaurantData);
+  }
+
   private clear() {
     while (this.firstChild) {
       this.removeChild(this.firstChild);
@@ -60,7 +67,7 @@ export default class RestaurantList extends HTMLElement {
   private render() {
     this.classList.add('restaurant-list-container');
     this.restaurants.forEach((restaurantData) => {
-      const restaurantItem = new RestaurantItem(restaurantData);
+      const restaurantItem = new RestaurantItem(restaurantData, this.handleClickRestaurantItem);
       this.appendChild(restaurantItem);
     });
   }
