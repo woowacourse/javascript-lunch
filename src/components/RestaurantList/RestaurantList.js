@@ -6,19 +6,23 @@ import RestaurantDetail from '../Common/RestaurantDetail/RestaurantDetail';
 export default class RestaurantList {
   #element;
   #restaurants;
-  #renderList;
+  #standard;
 
-  constructor(element, { restaurants, renderList }) {
+  constructor(element, { restaurants, standard }) {
     this.#element = element;
     this.#restaurants = restaurants;
-    this.#renderList = renderList;
-    this.render(renderList);
+    this.#standard = standard;
+    this.render();
     this.#addEvents();
   }
 
-  render(renderList) {
+  render() {
+    const restaurantList = this.#standard
+      ? this.#restaurants.standardList
+      : this.#restaurants.favoriteList;
+
     this.#element.innerHTML = `
-      ${renderList.reduce(
+      ${restaurantList.reduce(
         (prevRestaurantData, currentRestaurantData) =>
           prevRestaurantData + Restaurant(currentRestaurantData),
         '',
@@ -29,16 +33,17 @@ export default class RestaurantList {
   // TODO: 이벤트 구체적 작성, 리팩토링
   #addEvents() {
     $('restaurant-list').addEventListener('click', (event) => {
-      if (!event.target.closest('button')) {
-        const restaurant = this.#restaurants.getRestaurant(event.target.closest('li').id);
+      const favoriteIcon = event.target.closest('button img');
+      const restaurant = this.#restaurants.getRestaurant(event.target.closest('li').id);
 
+      if (!event.target.closest('button')) {
         new RestaurantDetail($('modal'), this.#restaurants, restaurant, this);
         $('modal').classList.add('modal--open');
       } else {
-        const favoriteIcon = event.target.closest('button img');
-
         // TODO: 이건 왜 null을 반환하는 경우가 있을까?
         if (!favoriteIcon) return;
+
+        this.#restaurants.toggleFavoriteState(restaurant.name);
 
         favoriteIcon.src === ICON['즐겨찾기추가']
           ? (favoriteIcon.src = ICON['즐겨찾기해제'])

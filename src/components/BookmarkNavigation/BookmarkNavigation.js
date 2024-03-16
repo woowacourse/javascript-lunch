@@ -42,7 +42,7 @@ export default class BookmarkNavigation {
       new RestaurantFilter($('content'), this.#restaurants);
       new RestaurantList($('restaurant-list'), {
         restaurants: this.#restaurants,
-        renderList: this.#restaurants.standardList,
+        standard: true,
       });
     }
   }
@@ -52,7 +52,7 @@ export default class BookmarkNavigation {
       $('restaurant-filter-container').remove();
       new RestaurantList($('restaurant-list'), {
         restaurants: this.#restaurants,
-        renderList: this.#restaurants.favoriteList,
+        standard: false,
       });
     }
   }

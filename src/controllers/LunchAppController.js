@@ -27,7 +27,7 @@ export default class LunchAppController {
     this.#restaurantFilter = new RestaurantFilter($('content'), this.#restaurants);
     this.#restaurantList = new RestaurantList($('restaurant-list'), {
       restaurants: this.#restaurants,
-      renderList: this.#restaurants.standardList,
+      standard: false,
     });
   }
 }

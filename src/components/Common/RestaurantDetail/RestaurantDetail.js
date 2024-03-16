@@ -8,10 +8,11 @@ export default class RestaurantDetail extends ModalWrapper {
   #element;
   #restaurant;
   #restaurants;
+  #restaurantList;
 
   constructor(element, restaurants, restaurant, restaurantList) {
     super();
-    this.restaurantList = restaurantList;
+    this.#restaurantList = restaurantList;
     this.#restaurants = restaurants;
     this.#restaurant = restaurant;
     this.#element = element;
@@ -56,6 +57,19 @@ export default class RestaurantDetail extends ModalWrapper {
     $('delete-restaurant-button').addEventListener('click', () =>
       this.#handleDeleteRestaurantButton(),
     );
+
+    $('detail-favorite-buttton').addEventListener('click', (event) => {
+      const favoriteIcon = event.target.closest('img');
+      if (!favoriteIcon) return;
+
+      this.#restaurants.toggleFavoriteState(this.#restaurant.name);
+
+      favoriteIcon.src === ICON['즐겨찾기추가']
+        ? (favoriteIcon.src = ICON['즐겨찾기해제'])
+        : (favoriteIcon.src = ICON['즐겨찾기추가']);
+
+      this.#restaurantList.render();
+    });
   }
 
   #handleDeleteRestaurantButton() {
@@ -64,7 +78,7 @@ export default class RestaurantDetail extends ModalWrapper {
 
       this.#restaurants.deleteRestaurant(this.#restaurant.name);
       close();
-      this.restaurantList.render();
+      this.#restaurantList.render();
     }
   }
 }
