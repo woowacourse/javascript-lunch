@@ -43,6 +43,7 @@ class RestaurantDetail {
   }) as HTMLAnchorElement;
 
   constructor() {
+    this.#name.id = "restaurant-detail--name";
     this.element.append(
       this.#createCategoryDiv(),
       this.#name,

@@ -30,7 +30,6 @@ class StatusController {
     const url = preview.querySelector(".restaurant__link")
       ?.textContent as string;
 
-    console.log({ category, name, distance, description, url });
     return { category, name, distance, description, url };
   }
 

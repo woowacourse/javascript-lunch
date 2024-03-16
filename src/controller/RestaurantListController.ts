@@ -34,6 +34,14 @@ class RestaurantListController {
 
     return restaurantItems;
   }
+
+  static deleteRestaurant(name: string) {
+    this.#entireRestaurantList.delete(name);
+    setLocalStorage(
+      RestaurantListController.#ENTIRE_RESTAURANTS_KEY,
+      this.#entireRestaurantList.getRestaurants()
+    );
+  }
 }
 
 export default RestaurantListController;

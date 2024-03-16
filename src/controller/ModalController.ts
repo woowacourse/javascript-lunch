@@ -6,6 +6,7 @@ import RestaurantDetail from "../view/components/RestaurantInfo/RestaurantDetail
 import RestaurantListController from "./RestaurantListController";
 import SubmitButton from "../view/components/SubmitButton/SubmitButton";
 import createElementByTag from "../view/utils/createElementByTag";
+import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class ModalController {
   static #addRestaurantTitle = createElementByTag({
@@ -94,8 +95,14 @@ class ModalController {
       eventListenerArgs: [
         [
           "click",
-          () => {
+          (event) => {
             ModalController.closeModal();
+            const nowRestaurantNameEl = document.querySelector(
+              "#restaurant-detail--name"
+            ) as HTMLElement;
+            const nowRestaurantName = nowRestaurantNameEl?.textContent ?? "";
+            RestaurantListController.deleteRestaurant(nowRestaurantName);
+            RenderController.renderRestaurantListUl();
           },
         ],
       ],
