@@ -38,19 +38,19 @@ export default class FilterBar extends EventComponent {
 
   protected setEvent(): void {
     document.addEventListener(TAB_SWITCH_EVENT, (e) =>
-      this.handleFilterChange(e as CustomEvent)
+      this.handleTabSwitch(e as CustomEvent)
     );
   }
 
-  private handleFilterChange(e: CustomEvent) {
+  private handleTabSwitch(e: CustomEvent) {
     const { switchTo } = e.detail;
 
-    if (switchTo === TAB_SWITCH_EVENT_SWITCH_TO.favorite) {
-      return $("#restaurant-filter-container")?.classList.add("close");
-    }
+    switch (switchTo) {
+      case TAB_SWITCH_EVENT_SWITCH_TO.favorite:
+        return $("#restaurant-filter-container")?.classList.add("close");
 
-    if (switchTo === TAB_SWITCH_EVENT_SWITCH_TO.all) {
-      return $("#restaurant-filter-container")?.classList.remove("close");
+      case TAB_SWITCH_EVENT_SWITCH_TO.all:
+        return $("#restaurant-filter-container")?.classList.remove("close");
     }
   }
 
