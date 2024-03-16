@@ -63,6 +63,9 @@ describe('디테일 모달 테스트', () => {
     const $deleteButton = cy.get('#detail-modal').contains('삭제하기');
     $deleteButton.click();
 
+    const $deleteConfirmButton = cy.get('#alert-modal').find('button').contains('삭제하기');
+    $deleteConfirmButton.click({ force: true });
+
     const firstRestaurant = JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').sort(
       (a: IRestaurant, b: IRestaurant) => a.name.localeCompare(b.name),
     )[0];
@@ -70,7 +73,19 @@ describe('디테일 모달 테스트', () => {
     cy.get('.restaurant').first().should('not.contain', firstRestaurant.name);
   });
 
-  // it('모달의 삭제하기 버튼을 누르면 alert가 뜨고 alert의 취소를 누르면 해당 음식점이 삭제되지 않는다.', () => {
-  //   cy.get('#add-modal').should('not.be.visible');
-  // });
+  it('모달의 삭제하기 버튼을 누르면 alert가 뜨고 alert의 취소를 누르면 해당 음식점이 삭제되지 않는다.', () => {
+    cy.get('.restaurant').first().click();
+
+    const $deleteButton = cy.get('#detail-modal').contains('삭제하기');
+    $deleteButton.click();
+
+    const $deleteConfirmButton = cy.get('#alert-modal').find('button').contains('취소하기');
+    $deleteConfirmButton.click({ force: true });
+
+    const firstRestaurant = JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').sort(
+      (a: IRestaurant, b: IRestaurant) => a.name.localeCompare(b.name),
+    )[0];
+
+    cy.get('.restaurant').first().should('contain', firstRestaurant.name);
+  });
 });
