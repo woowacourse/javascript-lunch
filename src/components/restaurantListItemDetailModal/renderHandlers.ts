@@ -5,11 +5,11 @@ import generateImageComponent from '../../uiUtils/generateImageComponent';
 import { generateRestaurantCategoryImageComponentData } from '../../services/generateRestaurantComponentData';
 import { getMatchedCategoryInfo } from '../restaurantListItem/matchCategoryImage';
 import {
-  createBottomSheetDescriptionComponent,
-  createBottomSheetRestaurantLinkComponent,
   createDistanceComponent,
   createIsFavoriteImageComponent,
   createTitleComponent,
+  createBottomSheetDescriptionComponent,
+  createBottomSheetRestaurantLinkComponent,
 } from '../../services/createComponent';
 import RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA from './componentsData/detailContainerComponentData';
 import CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA from './componentsData/categoryImageContainerComponentData';
@@ -63,7 +63,6 @@ const generateTotalCategoryImageAndInfoComponent = (targetRestaurantListItem: Re
   if (restaurantDescriptionComponent) {
     fragment.appendChild(restaurantDescriptionComponent);
   }
-
   const totalButtonComponent = generateTotalButtonComponent();
 
   fragment.appendChild(restaurantLinkComponent);

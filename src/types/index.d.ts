@@ -6,6 +6,8 @@ export type Distance = 5 | 10 | 15 | 20 | 30;
 
 export type SortType = 'name' | 'distance';
 
+export type TabValue = 'favorite' | 'all';
+
 export type InvalidResult = {
   targetClassName: string;
   success: boolean;
@@ -13,11 +15,13 @@ export type InvalidResult = {
 };
 
 export interface RestaurantState {
+  id: number;
   category: Icategory;
   name: string;
   distance: Idistance;
   description?: string;
   link?: string;
+  isFavorited: boolean;
 }
 
 export interface RestaurantHelperFunction {

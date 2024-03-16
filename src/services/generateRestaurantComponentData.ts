@@ -28,7 +28,7 @@ export const generateRestaurantNameComponentData = (restaurantName: string) => {
   return componentData;
 };
 
-export const generateRestaurantDistanceComponentData = (textContent: number) => {
+export const generateRestaurantDistanceComponentData = (textContent: string) => {
   const componentData = {
     ...RESTAURANT_LIST_ITEM_SPAN_COMPONENT_DATA,
     TAG_TEXT_CONTENT: RESTAURANT_LIST_ITEM_SPAN_COMPONENT_DATA.TAG_TEXT_CONTENT(textContent),

@@ -17,7 +17,7 @@ export const createTitleComponent = (name: string) => {
   return generateHeadingComponent(titleComponentData);
 };
 
-export const createDistanceComponent = (distance: number) => {
+export const createDistanceComponent = (distance: string) => {
   const distanceComponentData = generateRestaurantDistanceComponentData(distance);
   return generateSpanComponent(distanceComponentData);
 };

@@ -1,11 +1,8 @@
-import { selectOptionByFoodCategory, selectOptionByNameOrDistance } from './eventHandlers';
-import { renderBaseFilterBarComponents, renderFilterBarComponents } from './renderHandlers';
+import renderFilterBarComponents from './renderHandlers';
 
 const FilterBar = () => {
-  renderBaseFilterBarComponents();
-  renderFilterBarComponents();
+  const filterBarComponent = renderFilterBarComponents();
 
-  selectOptionByFoodCategory();
-  selectOptionByNameOrDistance();
+  return filterBarComponent;
 };
 export default FilterBar;

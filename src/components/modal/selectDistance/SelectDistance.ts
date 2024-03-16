@@ -1,11 +1,9 @@
-import { distanceChange } from './eventHandlers';
-import { renderBaseDistanceComponent, renderDistanceSelectComponent } from './renderHandlers';
+import renderDistanceSelectComponent from './renderHandlers';
 
-function SelectDistance(form: Element) {
-  renderBaseDistanceComponent(form);
-  renderDistanceSelectComponent();
+function SelectDistance() {
+  const distanceContainer = renderDistanceSelectComponent();
 
-  distanceChange();
+  return distanceContainer;
 }
 
 export default SelectDistance;
