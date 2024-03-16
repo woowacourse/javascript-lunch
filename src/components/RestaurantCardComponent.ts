@@ -1,22 +1,24 @@
 import { RestaurantInfo } from '../types/types';
-import { CategoryIconComponent } from './CategoryIconComponent';
+import CategoryIconComponent from './CategoryIconComponent';
 import FavoriteButton from './FavoriteButtonComponent';
+import RestaurantDetailModalComponent from './RestaurantDetailModalComponent';
 
 export const RestaurantCardComponent = ({
   category,
   name,
   distance,
   isFavorite,
-  description
+  description,
+  link
 }: RestaurantInfo) => {
-  const categoryIconComponent = CategoryIconComponent();
+  const categoryIconComponent = CategoryIconComponent(category).create();
 
   const li = document.createElement('li');
   li.classList.add('restaurant');
 
   const divCategory = document.createElement('div');
   divCategory.classList.add('restaurant__category');
-  divCategory.innerHTML = categoryIconComponent.getTemplate(category);
+  divCategory.innerHTML = categoryIconComponent.outerHTML;
 
   const divInfo = document.createElement('div');
   divInfo.classList.add('restaurant__info');
@@ -40,6 +42,20 @@ export const RestaurantCardComponent = ({
   li.appendChild(FavoriteButton(isFavorite).create());
 
   const create = () => li;
+
+  li.addEventListener('click', () => {
+    const detailModal = RestaurantDetailModalComponent({
+      category,
+      name,
+      distance,
+      isFavorite,
+      description,
+      link
+    }).create();
+
+    document.querySelector('#app')?.appendChild(detailModal);
+    document.querySelector('.modal-detail')?.classList.add('modal--open');
+  });
 
   return {
     create
