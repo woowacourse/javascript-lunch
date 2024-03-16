@@ -11,6 +11,7 @@ import '@/components/TabMenu/TabMenu';
 import '@/components/FavoriteButton/FavoriteButton';
 import '@/components/RestaurantDetailModal/RestaurantDetailModal';
 import '@/components/AlertModal/AlertModal';
+import '@/components/EmptyView/EmptyView';
 
 import '@/css/index.css';
 
@@ -27,3 +28,4 @@ import '@/components/TabMenu/TabMenu.css';
 import '@/components/FavoriteButton/FavoriteButton.css';
 import '@/components/RestaurantDetailModal/RestaurantDetailModal.css';
 import '@/components/AlertModal/AlertModal.css';
+import '@/components/EmptyView/EmptyView.css';

@@ -4,7 +4,7 @@ import { RESTAURANTS_DB_KEY } from '@/constants/Condition';
 
 class RestaurantDBService {
   constructor() {
-    this.setMockData();
+    // this.setMockData();
   }
 
   update() {
@@ -23,12 +23,12 @@ class RestaurantDBService {
     localStorage.setItem(RESTAURANTS_DB_KEY, JSON.stringify(collection.get()));
   }
 
-  setMockData() {
-    if (!this.get()) {
-      const mockRestaurantCollection = new RestaurantCollection(restaurantListMock);
-      this.set(mockRestaurantCollection);
-    }
-  }
+  // setMockData() {
+  //   if (!this.get()) {
+  //     const mockRestaurantCollection = new RestaurantCollection(restaurantListMock);
+  //     this.set(mockRestaurantCollection);
+  //   }
+  // }
 }
 
 export default RestaurantDBService;

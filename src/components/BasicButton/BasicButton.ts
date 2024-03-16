@@ -29,7 +29,6 @@ class BasicButton extends BaseComponent {
 
   setEvent(): void {
     this.#button.addEventListener('click', () => {
-      console.log('sadf');
       this.#clickEvent();
     });
   }

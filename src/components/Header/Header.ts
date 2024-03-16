@@ -15,7 +15,8 @@ class Header extends BaseComponent {
 
   setEvent() {
     $('.gnb__title').addEventListener('click', () => {
-      location.reload();
+      const baseUrl = window.location.href.split('?')[0];
+      window.location.href = baseUrl;
     });
   }
 

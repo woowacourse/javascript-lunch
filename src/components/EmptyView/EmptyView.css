@@ -1,0 +1,20 @@
+.no-data-box {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 50px;
+}
+
+.no-data-box button {
+  width: 150px;
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
