@@ -9,7 +9,9 @@ class App extends HTMLElement {
         <matzip-filter-container></matzip-filter-container>
         <matzip-list-container></matzip-list-container>
       </matzip-default-container>
-      <matzip-favorite-container></matzip-favorite-container>
+      <matzip-favorite-container>
+        <matzip-list-container></matzip-list-container>
+      </matzip-favorite-container>
       <matzip-modal></matzip-modal>
     </main>
     `;

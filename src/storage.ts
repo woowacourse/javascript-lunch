@@ -1,25 +1,30 @@
 import { Restaurant } from './types';
 
-const MATZIP_DATA = 'matzipData';
+// const MATZIP_DATA = 'matzipData';
+// const FAVORITE_MATZIP_DATA = 'favoriteMatzipData';
 
 const storage = {
-  addData(data: Restaurant) {
-    const localStorageData = localStorage.getItem(MATZIP_DATA);
+  addData(key: string, data: Restaurant) {
+    const localStorageData = localStorage.getItem(key);
 
     if (localStorageData === null) {
-      localStorage.setItem(MATZIP_DATA, JSON.stringify([data]));
+      localStorage.setItem(key, JSON.stringify([data]));
       return;
     }
 
     const existingData: Restaurant[] = JSON.parse(localStorageData);
     const newData = [...existingData, data];
-    localStorage.setItem(MATZIP_DATA, JSON.stringify(newData));
+    localStorage.setItem(key, JSON.stringify(newData));
   },
 
-  getData(): Restaurant[] {
-    const localStorageData = localStorage.getItem(MATZIP_DATA);
+  getData(key: string): Restaurant[] {
+    const localStorageData = localStorage.getItem(key);
     if (localStorageData === null) return [];
     return JSON.parse(localStorageData);
+  },
+
+  removeData(key: string) {
+    localStorage.removeItem(key);
   },
 };
 

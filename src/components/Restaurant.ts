@@ -1,4 +1,5 @@
 import { Restaurant as RestaurantType, CategoryType } from '../types/index';
+
 import {
   CategoryAsian,
   CategoryChinese,
@@ -6,9 +7,11 @@ import {
   CategoryJapanese,
   CategoryKorean,
   CategoryWestern,
+  FavoriteIconFilled,
+  FavoriteIconLined,
 } from '../asset/img/index';
 
-const CATEGORY_IMAGE: Record<CategoryType, string> = {
+export const CATEGORY_IMAGE: Record<CategoryType, string> = {
   한식: CategoryKorean,
   중식: CategoryChinese,
   일식: CategoryJapanese,
@@ -18,13 +21,26 @@ const CATEGORY_IMAGE: Record<CategoryType, string> = {
   전체: '',
 };
 
-class Restaurant extends HTMLUListElement {
-  constructor(restaurant: RestaurantType) {
-    super();
+import DOM from '../utils/DOM';
+import RestaurantDetail from './RestaurantDetail';
+import Category from '../types/category';
+import Matzip from '../matzip';
 
-    const { category, name, distance, introduction } = restaurant;
+const { $, $$ } = DOM;
+
+type favoriteType = boolean;
+
+class Restaurant extends HTMLUListElement {
+  #isFavorite;
+
+  constructor(restaurant: RestaurantType, isFavorite: favoriteType) {
+    super();
+    this.#isFavorite = isFavorite;
+
+    const { category, name, distance, introduction, link } = restaurant;
+    this.classList.add('restaurant-box');
     this.innerHTML = `
-    <li class="restaurant">
+    <li id="${category}_${name}" class="restaurant">
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE[category]}" alt="${category}" class="category-icon">
       </div>
@@ -32,9 +48,44 @@ class Restaurant extends HTMLUListElement {
         <h2 class="restaurant__name text-subtitle">${name}</h2>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
         <p class="restaurant__description text-body">${introduction}</p>
+        <div class="restaurant__link" style="display:none">${link}</div>
+        <div class="restaurant__favorite_img">
+          <img src="${isFavorite ? FavoriteIconFilled : FavoriteIconLined}">
+        </div>
       </div>
     </li>
     `;
+
+    this.setEvent(restaurant);
+  }
+
+  setEvent(restaurant: RestaurantType) {
+    this.openRestaurantDetail(restaurant);
+    this.toggleFavoriteIcon(restaurant);
+  }
+
+  openRestaurantDetail(restaurant: RestaurantType) {
+    $('.restaurant', this)?.addEventListener('click', (event) => {
+      console.log('hi');
+      $('.detailed-info-container')?.appendChild(new RestaurantDetail(restaurant));
+    });
+  }
+
+  toggleFavoriteIcon(restaurant: RestaurantType) {
+    const favoriteImg = $('.restaurant__favorite_img img', this);
+    favoriteImg?.addEventListener('click', (e) => {
+      favoriteImg.setAttribute('src', this.#isFavorite ? FavoriteIconLined : FavoriteIconFilled);
+      this.#isFavorite = !this.#isFavorite;
+
+      if (this.#isFavorite) {
+        const matzip = new Matzip([restaurant]);
+        $('matzip-favorite-container .restaurant-list-container')?.appendChild(
+          new Restaurant(restaurant, true),
+        );
+      } else {
+        $(`matzip-favorite-container #${restaurant.category}_${restaurant.name}`)?.remove();
+      }
+    });
   }
 }
 

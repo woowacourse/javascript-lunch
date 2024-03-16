@@ -109,9 +109,6 @@ body {
   padding: 10px 0px;
 }
 
-.favorite-matzip {
-}
-
 .matzip-nav--close {
   color: #667085;
   border-bottom: 3px solid #d0d5dd;
@@ -342,7 +339,7 @@ input[name='link'] {
 
 /* 음식점 상세 정보 모달 *****************************************/
 .detailed-info-container {
-  display: none;
+  /* display: none; */
 
   position: fixed;
   bottom: 0;
