@@ -1,7 +1,7 @@
 import { FAVORITE } from '../constants/config';
 import Restaurant from '../domain/Restaurant';
-import HomeEventHandler from '../eventHandler/HomeEventHandler';
 import Modal from './Modal';
+import RestaurantFilterContainer from './RestaurantFilterContainer';
 
 class AddRestaurantModal extends Modal {
   #restaurantList;
@@ -39,6 +39,8 @@ class AddRestaurantModal extends Modal {
     const restaurantInformation = new Restaurant({ category, name, distance, favorite, description, link });
 
     this.#restaurantList.add(restaurantInformation);
+
+    new RestaurantFilterContainer(this.#restaurantList).handleFilter();
     this.close();
   }
 }
