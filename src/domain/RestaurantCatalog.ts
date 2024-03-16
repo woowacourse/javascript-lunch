@@ -20,6 +20,14 @@ class RestaurantCatalog {
     this.#restaurants.push(newRestaurant);
   }
 
+  removeRestaurant(restaurantInfo: IRestaurantInfo) {
+    this.#restaurants.forEach((restaurant: Restaurant, idx: number) => {
+      if (restaurant.getInfo().name === restaurantInfo.name) {
+        this.#restaurants.splice(idx, 1);
+      }
+    });
+  }
+
   static filterByCategory(restaurants: IRestaurantInfo[], category: ICatalogCategory) {
     if (category === CATEGORY_ALL) {
       return restaurants;
