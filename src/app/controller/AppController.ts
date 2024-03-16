@@ -3,6 +3,7 @@ import RestaurantList from '../root/RestaurantList/RestaurantList';
 import { ILocation } from '../../interface/interface';
 import { Category, Sort } from '../../constants/enums';
 import { $ } from '../../utils/domSelector';
+import RestaurantInfoModal from '../modal/RestaurantInfoModal/RestaurantInfoModal';
 
 class AppController {
   //TODO: 컴포넌트에 따라 함수 분리하기
@@ -32,6 +33,7 @@ class AppController {
   }
 
   addEvent() {
+    console.log(123123);
     const lunchHeader = document.querySelector('lunch-header');
     if (lunchHeader) {
       lunchHeader.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
@@ -40,6 +42,11 @@ class AppController {
     const addRestaurantModal = document.querySelector('add-restaurant-modal');
     if (addRestaurantModal) {
       addRestaurantModal.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
+    }
+
+    const restaurantInfoModal = document.querySelector('restaurant-info-modal');
+    if (restaurantInfoModal) {
+      restaurantInfoModal.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
     }
 
     const selectBoxSection = document.querySelector('select-box-section');
@@ -52,6 +59,16 @@ class AppController {
     if (favoriteNavBar) {
       favoriteNavBar.addEventListener('showAll', this.showAll.bind(this));
       favoriteNavBar.addEventListener('showFavorite', this.showFavorite.bind(this));
+    }
+
+    const restaurantItems = document.querySelectorAll('restaurant-item');
+    if (restaurantItems) {
+      restaurantItems.forEach((item) => {
+        item.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
+        item.addEventListener('showRestaurantInfoModal', (event: any) => {
+          this.showRestaurantInfoModal(event.detail);
+        });
+      });
     }
   }
 
@@ -100,6 +117,12 @@ class AppController {
     this.refreshRestaurantList();
   }
 
+  toggleFavorite(event: Event) {
+    const detail: string = (event as CustomEvent).detail;
+    this.restaurantService.toggleFavorite(detail);
+    this.refreshRestaurantList();
+  }
+
   refreshRestaurantList() {
     const category = this.category === '전체' ? undefined : this.category;
     const appElement = $('#app');
@@ -110,12 +133,36 @@ class AppController {
         this.restaurantService.getRestaurants(this.sort, this.favorite, category),
       );
       appElement.appendChild(restaurantList);
+      this.addEventToRestaurantList(restaurantList);
+    }
+  }
+
+  addEventToRestaurantList(restaurantList: RestaurantList) {
+    const restaurantItems = restaurantList.querySelectorAll('restaurant-item');
+    if (restaurantItems) {
+      restaurantItems.forEach((item) => {
+        item.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
+        item.addEventListener('showRestaurantInfoModal', (event: any) => {
+          this.showRestaurantInfoModal(event.detail);
+        });
+      });
     }
   }
 
   showAddRestaurantModal() {
-    const addResultModal = $<HTMLDialogElement>('#add-restaurant-modal');
-    if (addResultModal) addResultModal.showModal();
+    const addRestaurantModal = $<HTMLDialogElement>('#add-restaurant-modal');
+    if (addRestaurantModal) addRestaurantModal.showModal();
+  }
+
+  showRestaurantInfoModal(data: ILocation) {
+    const restaurantInfoModal = document.querySelector('restaurant-info-modal') as RestaurantInfoModal;
+    if (restaurantInfoModal) {
+      const customEvent = new CustomEvent('restaurantDataUpdated', { detail: data });
+      restaurantInfoModal.dispatchEvent(customEvent);
+
+      const dialogElement = restaurantInfoModal.querySelector('dialog');
+      if (dialogElement instanceof HTMLDialogElement) dialogElement.showModal();
+    }
   }
 }
 
