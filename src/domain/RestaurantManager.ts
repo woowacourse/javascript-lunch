@@ -1,7 +1,9 @@
 import { Restaurant, Category } from '../domain/interface/Restaurant';
+import IdGenerator from './IdGenerator';
 
 export interface RestaurantManager {
   add(newRestaurant: Restaurant): void;
+  delete(restaurantId: number): void;
   getRestaurantList(): Restaurant[];
   sortByAscendingNameAndCategory(): Restaurant[];
   sortByAscendingWalkingTimeAndCategory(): Restaurant[];
@@ -12,11 +14,13 @@ export class RestaurantManager implements RestaurantManager {
   private restaurantList: Restaurant[];
   private currentCategory;
   private currentSortBy;
+  private idGenerator;
 
   constructor(restaurantList: Restaurant[] = []) {
     this.restaurantList = [...restaurantList];
     this.currentCategory = '전체';
     this.currentSortBy = '이름순';
+    this.idGenerator = new IdGenerator(restaurantList);
   }
 
   private validate(restaurant: Restaurant): void {
@@ -31,12 +35,19 @@ export class RestaurantManager implements RestaurantManager {
 
   add(newRestaurant: Restaurant): void {
     this.validate(newRestaurant);
+    newRestaurant.id = this.idGenerator.generateNewId();
 
     this.restaurantList.push(newRestaurant);
     localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
 
     if (this.currentSortBy === '이름순') this.sortByAscendingName();
     if (this.currentSortBy === '거리순') this.sortByAscendingWalkingTime();
+  }
+
+  delete(restaurantId: number): void {
+    this.restaurantList = this.restaurantList.filter(
+      ({ id }) => id !== restaurantId
+    );
   }
 
   getRestaurantList(): Restaurant[] {
@@ -88,7 +99,6 @@ export class RestaurantManager implements RestaurantManager {
   }
 
   filteredRestaurantList(): Restaurant[] {
-    console.log(this.currentCategory);
     if (this.currentCategory === '전체') return [...this.restaurantList];
 
     return [...this.restaurantList].filter(
