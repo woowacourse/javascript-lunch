@@ -47,6 +47,10 @@ class RestaurantCollection {
   has(newRestaurant: IRestaurant) {
     return this.restaurantList.some((restaurant) => restaurant.isEqual(newRestaurant));
   }
+
+  remove(newRestaurant: IRestaurant) {
+    return this.restaurantList.filter((restaurant) => !restaurant.isEqual(newRestaurant));
+  }
 }
 
 export default RestaurantCollection;
