@@ -25,3 +25,5 @@ export const TAB_SWITCH_EVENT_SWITCH_TO = {
 export const TOGGLE_FAVORITE_EVENT = "toggleFavorite" as const;
 
 export const RESTAURANT_DETAIL_SHOW_EVENT = "restaurantDetailShow" as const;
+
+export const RESTAURANT_REMOVE_EVENT = "restaurantRemove" as const;

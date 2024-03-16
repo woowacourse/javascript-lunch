@@ -14,6 +14,7 @@ import {
   TAB_SWITCH_EVENT_SWITCH_TO,
   MODAL_EVENT,
   MODAL_EVENT_ACTION,
+  RESTAURANT_REMOVE_EVENT,
 } from "../constants/event";
 import favoriteStore from "../store/favoriteStore";
 
@@ -110,6 +111,10 @@ export default class RestaurantList extends EventComponent {
       this.handleRestaurantFormSubmit(e as CustomEvent);
     });
 
+    document.addEventListener(RESTAURANT_REMOVE_EVENT, (e) =>
+      this.handleRestaurantRemove(e as CustomEvent)
+    );
+
     this.addEventListener("click", (e) => {
       this.handleRestaurantItemClick(e);
     });
@@ -144,6 +149,14 @@ export default class RestaurantList extends EventComponent {
     const { newRestaurant } = event?.detail;
 
     this.restaurants.add(newRestaurant);
+
+    this.render();
+  }
+
+  private handleRestaurantRemove(event: CustomEvent) {
+    const { name } = event?.detail;
+
+    this.restaurants.removeByName(name);
 
     this.render();
   }

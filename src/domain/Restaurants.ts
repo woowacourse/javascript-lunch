@@ -14,6 +14,12 @@ class Restaurants {
     this.#restaurants = [...this.#restaurants, restaurant];
   }
 
+  removeByName(restaurantName: string) {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.getName() !== restaurantName
+    );
+  }
+
   getDetails(): RestaurantInfo[] {
     return this.#restaurants.map((restaurant) => restaurant.getInfo());
   }

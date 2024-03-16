@@ -3,14 +3,24 @@ import EventComponent from "../abstract/EventComponent";
 import {
   MODAL_EVENT,
   MODAL_EVENT_ACTION,
+  RESTAURANT_REMOVE_EVENT,
   RESTAURANT_DETAIL_SHOW_EVENT,
 } from "../constants/event";
 import { $ } from "../utils/selector";
+import restaurantStore from "../store/restaurantStore";
+import favoriteStore from "../store/favoriteStore";
 
 export default class RestaurantDetail extends EventComponent {
   private restaurantDetailInfo:
     | (RestaurantInfo & { isFavorite: boolean })
     | null;
+
+  private eventListeners = {
+    restaurantDetailShow: {
+      eventName: RESTAURANT_DETAIL_SHOW_EVENT,
+      handler: this.handleRestaurantDetailShow.bind(this),
+    },
+  };
 
   constructor(restaurantDetailInfo = null) {
     super();
@@ -39,29 +49,38 @@ export default class RestaurantDetail extends EventComponent {
       </a>
 
       <div class="button-container">
-        <button type="button" class="button button--secondary text-caption">삭제하기</button>
-        <button id="close-button" class="button button--primary text-caption">닫기</button>
+        <button id="restaurant-delete-button" type="button" class="button button--secondary text-caption">삭제하기</button>
+        <button id="detail-close-button" class="button button--primary text-caption">닫기</button>
       </div>
     </div>
     `;
   }
 
   protected setEvent(): void {
-    document.addEventListener(RESTAURANT_DETAIL_SHOW_EVENT, (e) =>
-      this.handleRestaurantDetailShow(e as CustomEvent)
+    document.addEventListener(
+      this.eventListeners.restaurantDetailShow.eventName,
+      this.eventListeners.restaurantDetailShow.handler
     );
 
-    const closeButton = $("#close-button");
+    const closeButton = $("#detail-close-button");
     if (closeButton) {
       closeButton.addEventListener(
         "click",
         this.handleCloseButtonClick.bind(this)
       );
     }
+
+    const deleteButton = $("#restaurant-delete-button");
+    if (deleteButton) {
+      deleteButton.addEventListener(
+        "click",
+        this.handleDeleteButtonClick.bind(this)
+      );
+    }
   }
 
-  private handleRestaurantDetailShow(e: CustomEvent) {
-    const { restaurantInfo } = e.detail;
+  private handleRestaurantDetailShow(e: Event) {
+    const { restaurantInfo } = (e as CustomEvent).detail;
 
     if (!restaurantInfo) {
       return;
@@ -73,6 +92,38 @@ export default class RestaurantDetail extends EventComponent {
   }
 
   private handleCloseButtonClick() {
+    this.dispatchEvent(
+      new CustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
+        bubbles: true,
+        detail: {
+          action: MODAL_EVENT_ACTION.close,
+        },
+      })
+    );
+  }
+
+  private handleDeleteButtonClick() {
+    const restaurantName = this.restaurantDetailInfo?.name;
+    if (!restaurantName) {
+      return alert("삭제 대상이 존재하지 않습니다.");
+    }
+
+    if (!confirm(`${restaurantName}을 정말 삭제하시겠습니까?`)) {
+      return;
+    }
+
+    restaurantStore.removeByName(restaurantName);
+    favoriteStore.toggle(restaurantName, false);
+
+    this.dispatchEvent(
+      new CustomEvent(RESTAURANT_REMOVE_EVENT, {
+        bubbles: true,
+        detail: {
+          name: restaurantName,
+        },
+      })
+    );
+
     this.dispatchEvent(
       new CustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
         bubbles: true,
