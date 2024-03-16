@@ -21,7 +21,6 @@ class FavoriteButton extends BaseComponent {
     const $img = document.createElement('img');
     $img.classList.add('star');
     $img.src = this.#isFavorite ? fillStar : noFillStar;
-
     this.#button.append($img);
 
     this.replaceWith(this.#button);

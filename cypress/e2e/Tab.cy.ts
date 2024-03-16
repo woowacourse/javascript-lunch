@@ -19,7 +19,7 @@ describe('탭 작동 테스트', () => {
   it('자주 가는 음식점을 클릭하면 favorite 요소가 true인 음식점들만 나온다.', () => {
     cy.get('#favorite-tab').click();
 
-    cy.get('.restaurant').then(($restaurant) => {
+    cy.get('restaurant-item').then(($restaurant) => {
       const $star = $restaurant.find('.star');
       if ($star.length > 0) {
         const filledStarImg = 'http://localhost:8080/favorite-icon-filled.png';
@@ -32,7 +32,7 @@ describe('탭 작동 테스트', () => {
     cy.get('#favorite-tab').click();
     cy.get('#all-tab').click();
 
-    cy.get('.restaurant').should(
+    cy.get('restaurant-item').should(
       'have.length',
       JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').length,
     );

@@ -94,7 +94,7 @@ class NewRestaurantModal extends BaseComponent {
     const $nameInput = new Input({
       inputId: 'name',
       inputName: 'name',
-      inputMax: '10',
+      inputMax: 10,
     });
 
     $nameInputBox.append($nameLabel);
@@ -145,7 +145,7 @@ class NewRestaurantModal extends BaseComponent {
     $textArea.setAttribute('id', 'description');
     $textArea.setAttribute('cols', '30');
     $textArea.setAttribute('rows', '5');
-    $textArea.setAttribute('max', '300');
+    $textArea.setAttribute('maxLength', '300');
 
     const $infoSpan = makeInputInfo(INFO_MESSAGE.DESCRIPTION);
 

@@ -12,7 +12,7 @@ describe('디테일 모달 테스트', () => {
     cy.get('#detail-modal').should('have.class', 'modal--open');
   });
 
-  it('디테일 모달에는 카테고리, 제목, 설명, 링크가 보인다.', () => {
+  it('디테일 모달에는 해당 식당의 카테고리, 제목, 설명, 링크가 보인다.', () => {
     cy.get('.restaurant').first().click();
 
     const firstRestaurant = JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]').sort(
@@ -21,10 +21,10 @@ describe('디테일 모달 테스트', () => {
 
     cy.get('.restaurant-detail').then((restaurant) => {
       const $categoryImg = restaurant.find('img');
-      const koreanCategoryImg = `http://localhost:8080/category-${
+      const categoryImg = `http://localhost:8080/category-${
         CATEGORIES[firstRestaurant.category as Category]
       }.png`;
-      expect($categoryImg.attr('src')).to.equal(koreanCategoryImg);
+      expect($categoryImg.attr('src')).to.equal(categoryImg);
     });
 
     cy.get('.restaurant-detail').find('.restaurant__name').should('text', firstRestaurant.name);

@@ -1,6 +1,5 @@
 import { RESTAURANTS_DB_KEY } from '@/constants/Condition';
 
-//
 describe('음식점 리스트 불러오기 테스트', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/');
