@@ -1,19 +1,10 @@
-import './styles/reset.css';
-import './styles/index.css';
-import './styles/appHeader.css';
-import './styles/restFilterContainer.css';
-import './styles/restLIstContainer.css';
-import './styles/restCard.css';
-import './styles/customModal.css';
-import './styles/addRestForm.css';
+import './resources.ts';
 
-import './components/AppHeaderComponent';
-import './components/RestViewerComponent';
-import './components/RestFilterContainerComponent';
-import './components/RestFilterComponent';
-import './components/RestListContainerComponent';
-import './components/RestCardComponent';
-import './components/CustomModalComponent';
-import './components/AddRestFormComponent';
+import { createAppHeader } from './components/AppHeader.ts';
+import { IMAGE_MAP } from './constants/imageMap';
+import { $ } from './utils/dom';
 
-import './controllers/AppController';
+const app = $('#app');
+const appHeader = createAppHeader({ titleTextContent: '점심 뭐 먹지', buttonImageSource: IMAGE_MAP.addButton });
+
+app.appendChild(appHeader);
