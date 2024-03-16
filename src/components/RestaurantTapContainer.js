@@ -1,4 +1,5 @@
 import RestaurantComponent from './Restaurant';
+import RestaurantFilterContainer from './RestaurantFilterContainer';
 
 class RestaurantTapContainer {
   #restaurantAllTap = this.createRestaurantAllTap();
@@ -21,8 +22,15 @@ class RestaurantTapContainer {
   }
 
   handleRestaurantAllTap() {
+    const $restaurantList = document.querySelector('.restaurant-list');
+    const restaurantFilterContainer = new RestaurantFilterContainer(this.#restaurantList);
+
     this.#restaurantAllTap.classList.add('restaurant-tap_primary');
     this.#restaurantFavoriteTap.classList.remove('restaurant-tap_primary');
+
+    restaurantFilterContainer.set();
+    $restaurantList.replaceChildren();
+    restaurantFilterContainer.handleFilter();
   }
 
   handleRestaurantFavoriteTap() {
