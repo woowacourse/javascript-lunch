@@ -13,10 +13,11 @@ export default class RestaurantList {
   private async initialize() {
     const additionalData = await restaurantAPI.load();
 
-    return [...initialData, ...additionalData];
+    return additionalData;
   }
 
   constructor() {
+    restaurantAPI.initialize();
     this.updateRestaurants();
     this.render();
   }

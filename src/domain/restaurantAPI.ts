@@ -1,8 +1,13 @@
+import { initialData } from '../data/restaurantData';
 import { RestaurantInfo } from '../types/types';
 
 const KEY = 'restaurant';
 
 const restaurantAPI = {
+  initialize: () => {
+    window.localStorage.setItem(KEY, JSON.stringify(initialData));
+  },
+
   save: (restaurant: RestaurantInfo) => {
     const json = window.localStorage.getItem(KEY);
     const existingRestaurants: RestaurantInfo[] = json ? JSON.parse(json) : [];
