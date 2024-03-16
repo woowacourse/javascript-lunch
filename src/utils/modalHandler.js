@@ -1,11 +1,8 @@
-export const openModal = (selector) => {
-  if (selector) {
-    selector.classList.add('modal--open');
-  }
-};
+import { $ } from './dom';
 
-export const closeModal = (selector) => {
-  if (selector) {
-    selector.classList.remove('modal--open');
+export const toggleModal = (selector) => {
+  const element = $(selector);
+  if (element) {
+    element.classList.toggle('modal--open');
   }
 };

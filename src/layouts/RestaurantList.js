@@ -14,7 +14,10 @@ class restaurantList {
 
   render() {
     const restaurantListHTML = this.#restaurants.reduce((acc, restaurantData) => {
-      return acc + new RestaurantItem(restaurantData).getTemplate();
+      return (
+        acc +
+        new RestaurantItem({ element: this.#element, restaurant: restaurantData }).getTemplate()
+      );
     }, '');
 
     this.#element.innerHTML = restaurantListHTML;

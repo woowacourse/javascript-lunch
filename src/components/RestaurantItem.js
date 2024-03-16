@@ -1,10 +1,15 @@
+import { $ } from '../utils/dom';
+import { toggleModal } from '../utils/modalHandler';
 import generateRestaurantItem from './template/generateRestaurantItem';
 
 class RestaurantItem {
+  #element;
   #restaurant;
 
-  constructor(restaurant) {
+  constructor({ element, restaurant }) {
+    this.#element = element;
     this.#restaurant = restaurant;
+
     this.#initEventListeners();
   }
 
@@ -12,9 +17,16 @@ class RestaurantItem {
     return generateRestaurantItem(this.#restaurant);
   }
 
-  #initEventListeners() {}
+  #initEventListeners() {
+    this.#element.addEventListener('click', this.#handleRestaurantItemClick.bind(this));
+  }
 
-  #handleFavoriteButtonStatusChange(event) {}
+  #handleRestaurantItemClick(event) {
+    const name = this.#restaurant.name.replace(/\s+/g, '-');
+    if (event.target.closest(`#${name}`)) {
+      toggleModal('restaurant-detail-modal');
+    }
+  }
 }
 
 export default RestaurantItem;

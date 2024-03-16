@@ -10,7 +10,7 @@ class FavoriteButton {
   constructor({ targetId, name, isFavorite }) {
     this.#element = $(targetId);
     this.#isFavorite = isFavorite;
-    this.#name = name.replace(/\s+/g, '-');
+    this.#name = name;
     this.#initEventListeners();
   }
 

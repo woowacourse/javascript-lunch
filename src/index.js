@@ -6,6 +6,7 @@ import RestaurantList from './layouts/RestaurantList';
 import RestaurantCreationModal from './components/RestaurantCreationModal';
 
 import './styles/index.css';
+import RestaurantDetailModal from './components/RestaurantDetailModal';
 
 // domain
 const restaurants = new Restaurants(localStorage);
@@ -22,7 +23,13 @@ const restaurantCreationModal = new RestaurantCreationModal({
   restaurants,
 });
 
+const restaurantDetailModal = new RestaurantDetailModal({
+  targetId: 'restaurant-detail-modal',
+  restaurants,
+});
+
 header.render();
 select.render();
 restaurantCreationModal.render();
 restaurantList.render();
+restaurantDetailModal.render();

@@ -2,10 +2,11 @@ import generateRestaurantCreationModal from './template/generateRestaurantCreati
 
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
-import { closeModal } from '../utils/modalHandler';
+import { toggleModal } from '../utils/modalHandler';
 
 import { validateRequiredValue, validateRestaurantsName } from '../validators/ValidateInput';
 import { FIELD_IDS } from '../constants/rules';
+import generateModal from './template/generateModal';
 
 class RestaurantCreationModal {
   #element;
@@ -19,7 +20,7 @@ class RestaurantCreationModal {
   }
 
   render() {
-    this.#element.innerHTML = generateRestaurantCreationModal();
+    generateModal(this.#element, generateRestaurantCreationModal());
   }
 
   #initEventListeners() {
@@ -43,7 +44,7 @@ class RestaurantCreationModal {
     const targetId = event.target.id;
 
     if (targetId === 'cancel-button' || targetId === 'modal-backdrop') {
-      closeModal($('restaurant-creation-modal'));
+      toggleModal('restaurant-creation-modal');
     }
   }
 
@@ -64,7 +65,7 @@ class RestaurantCreationModal {
     this.#validateUniqueName(inputData);
     this.#restaurants.addRestaurant(inputData);
     $('restaurant-input-form').reset();
-    closeModal($('restaurant-creation-modal'));
+    toggleModal('restaurant-creation-modal');
   }
 
   #validateUniqueName(inputData) {

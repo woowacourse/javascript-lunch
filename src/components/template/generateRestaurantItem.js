@@ -1,6 +1,8 @@
 import FavoriteButton from '../FavoriteButton';
 import ICON from '../../icons';
 
+const convertNameToId = (name) => name.replace(/\s+/g, '-');
+
 const renderFavoriteButton = (name, isFavorite) => {
   const favoriteButton = new FavoriteButton({
     targetId: `restaurant-list`,
@@ -19,7 +21,7 @@ const generateRestaurantItem = ({
   isFavorite,
 }) => {
   return `
-    <li class="restaurant" id="${name}">
+    <li class="restaurant" id="${convertNameToId(name)}">
       <div class="restaurant__category">
         <img src="${ICON[category]}" alt="${category}" class="category-icon">
       </div>
@@ -28,7 +30,7 @@ const generateRestaurantItem = ({
         <span class="restaurant__distance text-body">캠퍼스부터 ${walkingTimeFromCampus}분 내</span>
         <p class="restaurant__description text-body">${description}</p>
       </div>
-      ${renderFavoriteButton(name, isFavorite)}
+      ${renderFavoriteButton(convertNameToId(name), isFavorite)}
     </li>
     `;
 };
