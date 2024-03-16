@@ -14,6 +14,7 @@ export default class Filter extends Component {
   }
 
   componentDidMount(): void {
+    const { changeFilter } = this.props;
     const $allFilter = document.querySelector<HTMLDivElement>(".filter.all");
     const $bookmarkFilter =
       document.querySelector<HTMLDivElement>(".filter.bookmark");
@@ -23,12 +24,14 @@ export default class Filter extends Component {
       if (!$allFilter.classList.contains("filter-on")) {
         $allFilter.classList.toggle("filter-on");
         $bookmarkFilter.classList.toggle("filter-on");
+        changeFilter("all");
       }
     });
     $bookmarkFilter.addEventListener("click", () => {
       if (!$bookmarkFilter.classList.contains("filter-on")) {
         $allFilter.classList.toggle("filter-on");
         $bookmarkFilter.classList.toggle("filter-on");
+        changeFilter("bookmark");
       }
     });
   }

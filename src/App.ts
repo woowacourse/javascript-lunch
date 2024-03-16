@@ -1,6 +1,6 @@
 import Component from "./common/Component";
 import Header from "./components/Header";
-import restaurantList from "./domain/RestaurantList";
+import RestauranStorage from "./domain/RestauranStorage";
 import Restaurants from "./components/Restuarants";
 import Filter from "./components/Filter";
 import { RestaurantType } from "./types";
@@ -8,29 +8,7 @@ import { RestaurantType } from "./types";
 export default class App extends Component {
   setup(): void {
     this.state = {
-      filter: "all",
-      restaurants: [
-        {
-          category: "한식",
-          name: "한식집1",
-          distance: 20,
-          bookmark: true,
-          description: "",
-          link: "",
-        },
-        {
-          category: "한식",
-          name: "한식집1",
-          distance: 20,
-          bookmark: false,
-          description: "",
-          link: "",
-        },
-      ],
-      // restuarnts: restaurantList.getRestaurants({
-      //   category: "전체",
-      //   sortingStandard: "name",
-      // }),
+      restaurants: RestauranStorage.getRestaurants(),
     };
   }
 
@@ -52,29 +30,43 @@ export default class App extends Component {
   }
 
   componentDidMount(): void {
+    const filter = this.state.filter;
+    const restaurants: RestaurantType[] = this.state.restaurants;
     const $header = document.querySelector(".gnb");
     const $restaurants = document.querySelector(".restaurants");
     const $filter = document.querySelector(".filter-container");
-    new Header($header, { addRestaurant: this.addRestaurant.bind(this) });
-    new Restaurants($restaurants, { restaurants: this.state.restaurants });
-    new Filter($filter, { filter: this.state.filter });
+    new Header($header, {
+      addRestaurant: this.addRestaurant.bind(this),
+      loadRestaurant: this.loadRestaurant.bind(this),
+    });
+    new Filter($filter, {
+      filter: this.state.filter,
+      changeFilter: this.changeFilter.bind(this),
+      loadRestaurant: this.loadRestaurant.bind(this),
+    });
+    new Restaurants($restaurants, {
+      restaurants: this.state.restaurants,
+      loadRestaurant: this.loadRestaurant.bind(this),
+    });
   }
 
-  // changeFilter(filter: string) {
-  //   if (filter === 'all') {
-  //     this.setState({
-  //       filter: 'all',
-  //       restaurants: this.state.restaurants.filter((restaurant) => restaurant.bookmark === '')
-  //     })
-  //   } else if (filter === 'bookmark') {
-
-  //   }
-  // }
+  loadRestaurant() {
+    this.setState({
+      restaurants: RestauranStorage.getRestaurants(),
+    });
+  }
 
   addRestaurant(newRestaurant: Restaurants) {
     this.setState({
       filter: this.state.filter,
       restaurants: [newRestaurant, ...this.state.restaurants],
+    });
+  }
+
+  changeFilter(newFilter: "all" | "bookmark") {
+    this.setState({
+      filter: newFilter,
+      restaurants: RestauranStorage.getRestaurants(),
     });
   }
 }

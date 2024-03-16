@@ -16,7 +16,6 @@ export default class Header extends Component {
     const $modalContainer = document.querySelector(".modal-container");
     const $modal = document.querySelector(".modal");
     $gnbButton?.addEventListener("click", () => {
-      console.log("test");
       $modal?.classList.add("modal--open");
       new FormModal($modalContainer, {
         addRestaurant: this.props.addRestaurant,
