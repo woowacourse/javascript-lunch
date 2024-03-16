@@ -4,11 +4,11 @@ import { CATEGORY_IMAGE_MAPPER, DISTANCE_MAPPER } from "../constants";
 
 export default class Restaurants extends Component {
   render() {
-    const { restuarnts } = this.props;
+    const { restaurants } = this.props;
     return /*html*/ `    
         <section class="restaurant-list-container">
             <ul class="restaurant-list" id="restaurant-list">
-                ${restuarnts
+                ${restaurants
                   .map(
                     (
                       restaurant: RestaurantType

@@ -9,7 +9,7 @@ export default class App extends Component {
   setup(): void {
     this.state = {
       filter: "all",
-      restuarnts: [
+      restaurants: [
         {
           category: "한식",
           name: "한식집1",
@@ -44,7 +44,10 @@ export default class App extends Component {
               </section>
               <section class="restaurants"></section>
             </main>
-            <div class="modal"></div>
+            <div class="modal">
+              <div class="modal-backdrop"></div>
+              <div class="modal-container"></div>
+            </div>
         `;
   }
 
@@ -52,8 +55,8 @@ export default class App extends Component {
     const $header = document.querySelector(".gnb");
     const $restaurants = document.querySelector(".restaurants");
     const $filter = document.querySelector(".filter-container");
-    new Header($header);
-    new Restaurants($restaurants, { restuarnts: this.state.restuarnts });
+    new Header($header, { addRestaurant: this.addRestaurant.bind(this) });
+    new Restaurants($restaurants, { restaurants: this.state.restaurants });
     new Filter($filter, { filter: this.state.filter });
   }
 
@@ -68,5 +71,10 @@ export default class App extends Component {
   //   }
   // }
 
-  addRestaurant(newRestaurant: Restaurants) {}
+  addRestaurant(newRestaurant: Restaurants) {
+    this.setState({
+      filter: this.state.filter,
+      restaurants: [newRestaurant, ...this.state.restaurants],
+    });
+  }
 }

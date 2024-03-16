@@ -1,4 +1,5 @@
 import Component from "../common/Component";
+import FormModal from "./FormModal";
 
 export default class Header extends Component {
   render() {
@@ -8,5 +9,18 @@ export default class Header extends Component {
           <img src="./add-button.png" alt="음식점 추가" />
         </button>
     `;
+  }
+
+  componentDidMount(): void {
+    const $gnbButton = document.querySelector(".gnb__button");
+    const $modalContainer = document.querySelector(".modal-container");
+    const $modal = document.querySelector(".modal");
+    $gnbButton?.addEventListener("click", () => {
+      console.log("test");
+      $modal?.classList.add("modal--open");
+      new FormModal($modalContainer, {
+        addRestaurant: this.props.addRestaurant,
+      });
+    });
   }
 }
