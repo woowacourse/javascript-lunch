@@ -11,12 +11,15 @@ import RestaurantForm from './components/RestaurantForm';
 import Modal from './components/modal/Modal';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
 
+import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
+
 const { $ } = DOM;
 const { CATEGORY } = Condition;
+const { MATZIP_DATA } = LOCAL_STORAGE_KEY;
 
 const root = {
   init() {
-    const matzip = new Matzip(storage.getData());
+    const matzip = new Matzip(storage.getData(MATZIP_DATA));
     this.initList(matzip);
     this.createAddModal();
     this.listenCategoryChange(matzip);
@@ -90,7 +93,7 @@ const root = {
       try {
         matzip.add(newRestaurant);
         
-        storage.addData(newRestaurant);
+        storage.addData(MATZIP_DATA, newRestaurant);
         $<HTMLElement>('.modal').classList.remove('modal--open');
         $<ListContainer>('.restaurant-lists').addRestaurants(new Restaurant(newRestaurant));
         form.reset();
@@ -106,7 +109,7 @@ const root = {
       const targetId = restaurantDeleteEvent.detail.targetId;
       
       matzip.delete(targetId);
-      storage.removeData(targetId);
+      storage.removeData(MATZIP_DATA, targetId);
       $<ListContainer>('.restaurant-lists').deleteRestaurant(targetId);
     });
   }
