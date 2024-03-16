@@ -18,6 +18,14 @@ class RestaurantList {
     this.#restaurants = new Map(restaurantEntries);
   }
 
+  getRestaurantByName(name: string) {
+    return this.#restaurants.get(name);
+  }
+
+  hasRestaurantName(name: string) {
+    return this.#restaurants.has(name);
+  }
+
   getRestaurants() {
     return Array.from(this.#restaurants.values());
   }
