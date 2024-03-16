@@ -3,7 +3,7 @@ interface InputProps {
   name: string;
   id: string;
   required: boolean;
-  pattern?: string;
+  pattern?: RegExp;
 }
 
 export default InputProps;

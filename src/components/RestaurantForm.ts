@@ -149,7 +149,7 @@ class RestaurantForm extends HTMLFormElement {
       name: 'link',
       id: 'link',
       required: false,
-      pattern: String(REGULAR_EXPRESSION.URL),
+      pattern: REGULAR_EXPRESSION.URL,
     };
 
     const caption: CaptionProps = {
@@ -206,8 +206,10 @@ class RestaurantForm extends HTMLFormElement {
 
   updateButtonState() {
     const formFields = this.getFormFields();
-    const allFieldsValid = formFields.every(field => field.isValidate());
-  
+    console.log(formFields[4].isValidate());
+    
+    const allFieldsValid = formFields.every(field => field.isValidate());  
+    
     if (allFieldsValid) {
       this.submitButton.removeAttribute('disabled');
     } else {
