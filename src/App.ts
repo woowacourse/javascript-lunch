@@ -3,7 +3,7 @@ import RestaurantList from './components/RestaurantList';
 import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from './domain/Restaurant';
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
 import DropdownEvent from './components/Dropdown/DropdownEvent';
-import RestaurantStore from './store/RestaurantStore';
+import restaurantStore from './store/RestaurantStore';
 
 class App {
   #restaurantStore;
@@ -11,7 +11,7 @@ class App {
   #restaurantListComponent;
 
   constructor() {
-    this.#restaurantStore = new RestaurantStore();
+    this.#restaurantStore = restaurantStore;
     this.#restaurantListComponent = new RestaurantList();
   }
 

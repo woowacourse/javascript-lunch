@@ -15,6 +15,11 @@ class RestaurantStore {
     this.#updateRestaurantToLocalStorage();
   }
 
+  removeRestaurantFromStore(restaurantInfo: IRestaurantInfo) {
+    this.#restaurantCatalog.removeRestaurant(restaurantInfo);
+    this.#updateRestaurantToLocalStorage();
+  }
+
   #initDefaultData() {
     this.#insertDefaultData();
     this.#initRestaurantCatalogFromLocalStorage();
@@ -52,4 +57,6 @@ class RestaurantStore {
   }
 }
 
-export default RestaurantStore;
+const restaurantStore = new RestaurantStore();
+
+export default restaurantStore;
