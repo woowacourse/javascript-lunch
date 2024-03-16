@@ -3,6 +3,7 @@ import { DROP_BOX_MAP, StorageKeyEnum } from '../../constants';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
 import { Restaurant } from '../../domains';
 import { FilteringController } from '../../services';
+import { closeModal } from '../../utils';
 class RestaurantFormModalInner extends HTMLElement {
   constructor() {
     super();
@@ -166,25 +167,8 @@ class RestaurantFormModalInner extends HTMLElement {
     );
   }
 
-  #closeModal() {
-    const modalEl = document
-      .querySelector('custom-modal')
-      ?.shadowRoot?.querySelector('.modal');
-
-    if (modalEl) {
-      modalEl.classList.toggle('open');
-      const childSlotEl = document.querySelector('[slot="child"]');
-      if (childSlotEl) {
-        childSlotEl.innerHTML = '';
-      }
-
-      const bodyEl = document.querySelector('body');
-      if (bodyEl) bodyEl.style.overflowY = 'scroll';
-    }
-  }
-
   #handleResetForm() {
-    this.#closeModal();
+    closeModal();
   }
 
   #handleSubmitFormToAddStore(event: Event) {

@@ -1,4 +1,4 @@
-import findParentBox from '../utils/findParentBox';
+import { findParentBox } from '../utils';
 
 const ShowRestaurantDetailsModalController = {
   showDetailInfo() {

@@ -6,7 +6,7 @@ import {
   ChangeLikeDataController,
   ShowRestaurantDetailsModalController,
 } from '../../services';
-import findParentBox from '../../utils/findParentBox';
+import { closeModal, findParentBox } from '../../utils';
 
 class RestaurantInfoModalInner extends HTMLElement {
   constructor() {
@@ -59,7 +59,7 @@ class RestaurantInfoModalInner extends HTMLElement {
 
       const deleteBtn = this.querySelector('#delete-store');
       const closeStoreInfoBtn = this.querySelector('#close-store-info');
-      closeStoreInfoBtn?.addEventListener('click', this.#closeModal);
+      closeStoreInfoBtn?.addEventListener('click', closeModal);
       deleteBtn?.addEventListener('click', () =>
         this.#deleteStoreData(storeData, storeName),
       );
@@ -74,25 +74,8 @@ class RestaurantInfoModalInner extends HTMLElement {
       StorageKeyEnum.restaurants,
       JSON.stringify(newData),
     );
-    this.#closeModal();
+    closeModal();
     FilteringController.showFilteredSortedList();
-  }
-
-  #closeModal() {
-    const modalEl = document
-      .querySelector('custom-modal')
-      ?.shadowRoot?.querySelector('.modal');
-
-    if (modalEl) {
-      modalEl.classList.toggle('open');
-      const childSlotEl = document.querySelector('[slot="child"]');
-      if (childSlotEl) {
-        childSlotEl.innerHTML = '';
-      }
-
-      const bodyEl = document.querySelector('body');
-      if (bodyEl) bodyEl.style.overflowY = 'scroll';
-    }
   }
 }
 
