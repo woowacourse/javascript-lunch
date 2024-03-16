@@ -30,7 +30,7 @@ export default class LunchAppController {
   };
 
   private renderTabBar = () => {
-    const tabBar = TabBarComponent().create();
+    const tabBar = TabBarComponent(this.restaurantList).create();
 
     const headerElement = this.$appContainer.querySelector('.gnb');
 

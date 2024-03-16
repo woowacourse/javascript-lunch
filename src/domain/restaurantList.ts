@@ -6,6 +6,7 @@ import restaurantAPI from './restaurantAPI';
 export default class RestaurantList {
   #category: CategoryValues = '전체';
   #sorting: SortingValues = '이름순';
+  #isFavorite: boolean = false;
 
   #restaurantData = initialData;
 
@@ -32,6 +33,12 @@ export default class RestaurantList {
     this.updateRestaurants();
   }
 
+  setIsFavorite(isFavorite: boolean) {
+    this.#isFavorite = isFavorite;
+
+    this.updateRestaurants();
+  }
+
   async getRestaurants(): Promise<RestaurantInfo[]> {
     this.#restaurantData = await this.initialize();
     return this.#restaurantData;
@@ -43,6 +50,13 @@ export default class RestaurantList {
     if (category === '전체') return this.#restaurantData;
 
     return [...this.#restaurantData].filter((restaurant) => restaurant.category === category);
+  }
+
+  sortFavorite(data: RestaurantInfo[], isFavorite: boolean): RestaurantInfo[] {
+    if (isFavorite === false) {
+      return data;
+    }
+    return [...data].filter((restaurant) => restaurant.isFavorite === true);
   }
 
   sortByKey(data: RestaurantInfo[], sorting: SortingValues): RestaurantInfo[] {
@@ -64,8 +78,9 @@ export default class RestaurantList {
 
   async updateRestaurants() {
     const filteredData = await this.filterByCategory(this.#category);
-    const sortedData = this.sortByKey(filteredData, this.#sorting);
-
+    const sortByIsFavorite = this.sortFavorite(filteredData, this.#isFavorite);
+    const sortedData = this.sortByKey(sortByIsFavorite, this.#sorting);
+    console.log('sortedData', sortedData);
     this.#restaurantData = sortedData;
     this.render();
   }
