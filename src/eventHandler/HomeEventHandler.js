@@ -1,3 +1,5 @@
+import AddRestaurant from '../components/AddRestaurant';
+import AddRestaurantModal from '../components/AddRestaurantModal';
 import RestaurantComponent from '../components/Restaurant';
 import { FAVORITE, STORAGE_KEY } from '../constants/config';
 import { FAVORITE_IMG_SRC, FILTER_CONDITION } from '../constants/filter';
@@ -12,15 +14,20 @@ class HomeEventHandler {
   }
 
   setEvent() {
-    document.querySelector('.gnb__button').addEventListener('click', this.handleOpenModal);
+    document.querySelector('.gnb__button').addEventListener('click', () => this.handleOpenAddRestaurantModal());
     const $favoriteIconNodeList = document.querySelectorAll('.favorite-icon');
     $favoriteIconNodeList.forEach((favoriteIconNode, index) => {
       favoriteIconNode.addEventListener('click', e => this.handleFavorite(e, index));
     });
   }
 
-  handleOpenModal() {
-    document.querySelector('.modal').classList.add('modal--open');
+  handleOpenAddRestaurantModal() {
+    const addRestaurantModal = new AddRestaurantModal(new AddRestaurant(), this.restaurantList);
+    const addRestaurantModalElement = addRestaurantModal.getElement();
+    const $modalContainer = document.getElementById('modal-container');
+
+    $modalContainer.appendChild(addRestaurantModalElement);
+    addRestaurantModal.toggle();
   }
 
   handleFilter() {
