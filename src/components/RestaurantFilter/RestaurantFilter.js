@@ -16,16 +16,17 @@ export default class RestaurantFilter {
   }
 
   render() {
-    this.#element.innerHTML = `
-      ${Select(SELECT_FILTER_DATA.sorting, localStorage.getItem('sorting-filter'))}
-      ${Select(SELECT_FILTER_DATA.category, localStorage.getItem('category-filter'))}
-    `;
+    this.#element.insertAdjacentHTML(
+      'afterbegin',
+      `<section id="restaurant-filter-container" class="restaurant-filter-container">
+        ${Select(SELECT_FILTER_DATA.sorting, localStorage.getItem('sorting-filter'))}
+        ${Select(SELECT_FILTER_DATA.category, localStorage.getItem('category-filter'))}
+      </section>`,
+    );
   }
 
   #addEvents() {
-    $('restaurant-filter-container').addEventListener('change', (event) =>
-      this.#handleSelectChange(event.target),
-    );
+    $('content').addEventListener('change', (event) => this.#handleSelectChange(event.target));
   }
 
   #handleSelectChange(target) {
