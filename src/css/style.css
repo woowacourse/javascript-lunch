@@ -147,6 +147,9 @@ button {
 
   padding: 0 16px;
   margin: 16px 0;
+
+  overflow-y: scroll;
+  cursor: pointer;
 }
 
 .restaurant {
@@ -183,6 +186,7 @@ button {
   margin-left: auto;
   position: absolute;
   right: 5px;
+  cursor: pointer;
 }
 
 .restaurant__info {
@@ -203,11 +207,17 @@ button {
   display: -webkit-box;
 
   padding-top: 8px;
+}
 
+.text-overflow {
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__referenceurl {
+  text-decoration: underline;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -233,6 +243,10 @@ button {
   background: rgba(0, 0, 0, 0.35);
 }
 
+#restaurant-info-modal::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
 .modal-container {
   position: fixed;
   bottom: 0;
@@ -242,6 +256,10 @@ button {
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+}
+
+restaurant-info-modal .modal-container > * {
+  margin: 10px 10px; /* 각 요소의 아래쪽에 10px의 간격 추가 */
 }
 
 .modal-title {
