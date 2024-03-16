@@ -7,12 +7,14 @@ import SelectBoxComponent from './components/SelectBox';
 import { DEFAULT_RESTAURAMT_LIST } from './constants/config';
 import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from './constants/filter';
 import HomeEventHandler from './eventHandler/HomeEventHandler';
+import Header from './components/Header';
 
 const getDefaultRestaurantList = () => DEFAULT_RESTAURAMT_LIST.map(restaurant => new Restaurant(restaurant));
 const restaurantList = new RestaurantList(getDefaultRestaurantList());
 
 const init = () => {
-  RestaurantComponent.render(restaurantList.restaurants);
+  Header.set(restaurantList);
+  RestaurantComponent.render(restaurantList.getSortedByName());
   const homeEventHandler = new HomeEventHandler(restaurantList);
   // 홈화면 select 생성
   const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
