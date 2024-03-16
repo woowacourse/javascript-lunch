@@ -112,6 +112,8 @@ class RestaurantList extends BaseComponent {
     this.off({ ...this.eventListeners.sortChange, target: document });
 
     this.off({ ...this.eventListeners.filterCategory, target: document });
+
+    this.off({ ...this.eventListeners.toggleFavoriteButton, target: document });
   }
 }
 
