@@ -2,14 +2,16 @@ import RestaurantListStorageService from '../../services/restaurantListStorageSe
 import filterState from '../../store/FilterStateStore';
 import { Category, SortType } from '../../types';
 import RestaurantList from '../restaurantList/RestaurantList';
+import RestaurantListFilterService from '../../services/restaurantListFilterService';
 
 const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   categoryFilter.addEventListener('change', (event) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = event.target.value as Category;
       filterState.setFilterType(selectedValue);
-      const filteredData = RestaurantListStorageService.getFilteredData();
-      RestaurantList(filteredData ?? []);
+      const allData = RestaurantListStorageService.getData()!;
+      const filterData = RestaurantListFilterService.getFilteredData(allData);
+      RestaurantList(filterData ?? []);
     }
   });
 };
@@ -25,9 +27,10 @@ const selectOptionByNameSortEvent = (event: Event) => {
   if (event.target instanceof HTMLSelectElement) {
     const selectedValue = event.target.value as SortType;
     filterState.setSortType(selectedValue);
-    const filteredData = RestaurantListStorageService.getFilteredData();
+    const allData = RestaurantListStorageService.getData()!;
+    const filterData = RestaurantListFilterService.getFilteredData(allData);
 
-    RestaurantList(filteredData ?? []);
+    RestaurantList(filterData ?? []);
   }
 };
 

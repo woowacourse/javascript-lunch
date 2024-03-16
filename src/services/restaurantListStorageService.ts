@@ -1,5 +1,3 @@
-import restaurantListHelper from '../helpers/RestaurantListHelper';
-import filterState from '../store/FilterStateStore';
 import { RestaurantState, TabValue } from '../types';
 
 const RestaurantListStorageService = (function () {
@@ -11,15 +9,6 @@ const RestaurantListStorageService = (function () {
       cachedData = restaurantList ? JSON.parse(restaurantList) : [];
     }
     return cachedData;
-  }
-
-  function getFilteredData() {
-    const data = getData();
-    if (data) {
-      const filterDataByCategory = restaurantListHelper.filterByCategory(filterState.getFilterInfo().filter, data);
-      return restaurantListHelper.sortBySelectedValue(filterState.getFilterInfo().sort, filterDataByCategory);
-    }
-    return [];
   }
 
   function patchData(restaurantId: number) {
@@ -49,7 +38,7 @@ const RestaurantListStorageService = (function () {
     }
   }
 
-  function getDataFromQuery(tabValue: TabValue) {
+  function getDataFromTabValueQuery(tabValue: TabValue) {
     const allData = getData();
     if (tabValue === 'all') {
       return allData;
@@ -62,11 +51,10 @@ const RestaurantListStorageService = (function () {
 
   return {
     getData,
-    getFilteredData,
     patchData,
     setData,
     deleteData,
-    getDataFromQuery,
+    getDataFromTabValueQuery,
   };
 })();
 

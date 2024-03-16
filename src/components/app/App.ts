@@ -5,8 +5,10 @@ import RestaurantList from '../restaurantList/RestaurantList';
 import { mountFilterBarComponent } from '../restaurantTab/renderHandlers';
 import RestaurantTab from '../restaurantTab/RestaurantTab';
 import ApplicationMain from './applicationMain/ApplicationMain';
+import RestaurantListFilterService from '../../services/restaurantListFilterService';
 
-const filterData = RestaurantListStorageService.getFilteredData() ?? [];
+const allData = RestaurantListStorageService.getData()!;
+const filterData = RestaurantListFilterService.getFilteredData(allData);
 
 function App() {
   Modal();

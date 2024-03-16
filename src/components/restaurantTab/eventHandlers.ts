@@ -10,7 +10,8 @@ const applySelectedTabStyle = (buttonElement: HTMLButtonElement) => {
 };
 
 const reRenderRestaurantListFromTabValue = (targetValue: TabValue) => {
-  const filteredRestaurantListFromTabValueQuery = RestaurantListStorageService.getDataFromQuery(targetValue) ?? [];
+  const filteredRestaurantListFromTabValueQuery =
+    RestaurantListStorageService.getDataFromTabValueQuery(targetValue) ?? [];
   if (targetValue === 'all') mountFilterBarComponent(filteredRestaurantListFromTabValueQuery);
   if (targetValue === 'favorite') unMountFilterBarComponent(filteredRestaurantListFromTabValueQuery);
 };
