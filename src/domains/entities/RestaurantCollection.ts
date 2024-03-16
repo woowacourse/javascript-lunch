@@ -38,14 +38,14 @@ class RestaurantCollection {
   }
 
   addRestaurant(restaurantArg: IRestaurant) {
-    const restaurants = this.restaurantList.filter((restaurant) => {
-      return restaurant.isEqual(restaurantArg);
-    });
-    if (restaurants.length === 1) {
+    if (this.has(restaurantArg)) {
       throw new Error('[ERROR] 이미 존재하는 음식점입니다.');
     }
-    const restaurant = new Restaurant(restaurantArg);
-    this.restaurantList.push(restaurant);
+    this.restaurantList.push(new Restaurant(restaurantArg));
+  }
+
+  has(newRestaurant: IRestaurant) {
+    return this.restaurantList.some((restaurant) => restaurant.isEqual(newRestaurant));
   }
 }
 
