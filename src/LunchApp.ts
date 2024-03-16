@@ -9,9 +9,11 @@ import RestaurantForm from "./components/RestaurantForm";
 import RestaurantDetail from "./components/RestaurantDetail";
 
 import { MODAL_EVENT } from "./constants/event";
+import CategoryIcon from "./components/CategoryIcon";
 
 customElements.define("select-box", Select);
 customElements.define("modal-box", Modal);
+customElements.define("category-icon", CategoryIcon);
 customElements.define("favorite-icon", FavoriteIcon);
 customElements.define("tab-bar", TabBar);
 customElements.define("filter-bar", FilterBar);
