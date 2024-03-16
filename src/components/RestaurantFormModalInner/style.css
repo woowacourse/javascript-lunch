@@ -60,3 +60,7 @@ restaurant-form-inner {
   font-size: var(--label-font-size);
   line-height: 20px;
 }
+
+restaurant-form-inner button:disabled {
+  background-color: var(--lunch-grey-scale-2-color);
+}
