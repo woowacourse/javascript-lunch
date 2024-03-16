@@ -1,9 +1,10 @@
 import { createRestFilterSection } from '../section/RestFilterSection';
+import { createRestListSection } from '../section/RestListSection';
 
-export const createRestViewer = (): HTMLElement => {
+export const createRestListMain = (): HTMLElement => {
   const $main = document.createElement('main');
   const $filterSection = createRestFilterSection();
-  const $listSection = document.createElement('section');
+  const $listSection = createRestListSection();
 
   $main.appendChild($filterSection);
   $main.appendChild($listSection);
