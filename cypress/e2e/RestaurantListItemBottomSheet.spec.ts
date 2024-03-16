@@ -2,10 +2,13 @@ import mockRestaurants from './mocks/mockRestaurants';
 
 describe('음식점 바텀시트 모달에 관한 테스트', () => {
   beforeEach(() => {
-    cy.window().then((win) => {
-      win.localStorage.setItem('restaurantList', JSON.stringify(mockRestaurants));
+    cy.fixture('mockRestaurants.json').then((restaurants) => {
+      cy.window().then((win) => {
+        win.localStorage.setItem('restaurantList', JSON.stringify(restaurants));
+      });
     });
   });
+
   it('메인 페이지에 있는 음식점 li태그를 클릭하면 바텀시트 모달이 띄워진다', () => {
     cy.visitMainPage();
 
