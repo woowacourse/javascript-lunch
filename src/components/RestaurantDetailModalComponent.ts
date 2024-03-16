@@ -1,3 +1,4 @@
+import restaurantAPI from '../domain/restaurantAPI';
 import { RestaurantInfo } from '../types/types';
 import CategoryIconComponent from './CategoryIconComponent';
 import FavoriteButton from './FavoriteButtonComponent';
@@ -61,11 +62,19 @@ const RestaurantDetailModalComponent = (restaurantInfo: RestaurantInfo) => {
     ]
   }).create();
 
+  const deleteRestaurant = () => {
+    restaurantAPI.delete(name);
+  };
+
   const closeModal = () => {
     const modalElement = document.querySelector('.modal-detail');
     modalElement?.classList.remove('modal--open');
     modalElement?.remove();
   };
+
+  buttonContainerDiv
+    .querySelector('#restaurant-detail-modal_delete-button')
+    ?.addEventListener('click', deleteRestaurant);
 
   buttonContainerDiv
     .querySelector('#restaurant-detail-modal_close-button')
