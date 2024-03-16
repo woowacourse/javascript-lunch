@@ -25,7 +25,6 @@ export default class GNB extends HTMLElement {
 
   #createRestaurantFormTitle() {
     const restaurantFormTitle = document.createElement('h2');
-    restaurantFormTitle.setAttribute('slot', 'title');
     restaurantFormTitle.setAttribute('class', 'modal-title text-title');
     restaurantFormTitle.textContent = '새로운 음식점';
     return restaurantFormTitle;
@@ -34,7 +33,6 @@ export default class GNB extends HTMLElement {
   #createRestaurantForm() {
     const restaurantForm = new RestaurantForm();
     restaurantForm.setAttribute('is', 'app-restaurant-form');
-    restaurantForm.setAttribute('slot', 'body');
     restaurantForm.setAttribute('id', 'restaurant-form');
     return restaurantForm;
   }
