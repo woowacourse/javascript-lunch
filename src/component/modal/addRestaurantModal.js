@@ -1,16 +1,16 @@
-import { createDropDown } from '../../component/dropDown';
-import createInput from '../../component/input';
-import createlabelWrapper from '../../component/labelWrapper';
-import createTextArea from '../../component/textArea';
-import modal from '../../component/modal';
-import createButton from '../../component/button';
-import { appController } from '../AppControl';
-import toast from '../../component/toast/toast';
+import { createDropDown } from '../dropDown';
+import createInput from '../input';
+import createlabelWrapper from '../labelWrapper';
+import createTextArea from '../textArea';
+import modal from '../modal';
+import createButton from '../button';
+import { appController } from '../../web/AppControl';
+import toast from '../toast/toast';
 import { formIds } from '../../constant/appString';
 import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/select';
 
 
-function createNewRestaurantModal(restaurantManager) {
+function createNewRestaurantModal(addrestaurantCallback) {
   const container = render();
   const form = container.querySelector('form');
 
@@ -23,9 +23,7 @@ function createNewRestaurantModal(restaurantManager) {
     }, {});
 
     try {
-      restaurantManager.add(newRestaurant);
-      appController.updateRestaurantList(restaurantManager.getUpdatedTotalRsetaurants());
-      modal.remove('modal--open');
+      addrestaurantCallback(newRestaurant);
     } catch (e) {
       toast(e.message);
     }
