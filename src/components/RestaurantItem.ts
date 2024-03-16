@@ -1,9 +1,4 @@
 import BaseComponent from "../abstract/BaseComponent";
-import favoriteStore from "../store/favoriteStore";
-
-import CategoryIcon from "./CategoryIcon";
-
-customElements.define("category-icon", CategoryIcon);
 
 export default class RestaurantItem extends BaseComponent {
   protected getTemplate(): string {
@@ -11,7 +6,6 @@ export default class RestaurantItem extends BaseComponent {
     const name = this.getAttribute("name") ?? "";
     const timeToReach = this.getAttribute("timeToReach") ?? "";
     const description = this.getAttribute("description") ?? "";
-    const link = this.getAttribute("link") ?? "";
     const isFavorite = this.getAttribute("isFavorite") === "true";
 
     return `
@@ -31,13 +25,6 @@ export default class RestaurantItem extends BaseComponent {
   }
 
   static get observedAttributes() {
-    return [
-      "category",
-      "name",
-      "timeToReach",
-      "description",
-      "link",
-      "isFavorite",
-    ];
+    return ["category", "name", "timeToReach", "description", "isFavorite"];
   }
 }
