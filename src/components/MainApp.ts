@@ -21,6 +21,7 @@ class MainApp extends HTMLDivElement {
   constructor() {
     super();
     this.className = 'main-app-new';
+    this.id = 'main-app';
     this.innerHTML = `
     <div is="my-tab" class="restaurant-nav-tab" style="margin-top:22px;"> 
     <div is="on-off-button" class="text-subtitle" checked="on" data-id="all">모든 음식점</div>

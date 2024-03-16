@@ -56,4 +56,33 @@ describe('음식점 DB 서비스 테스트', () => {
 
     expect(restaurantDBService.get()).to.deep.equal([RESTAURANT_FIRST, RESTAURANT_SECOND]);
   });
+
+  it('레스토랑 인자와 함께 remove명령을 받았을 때, 기존에 로컬스토리지에 있던 데이터중 해당하는 데이터를 삭제한다.', () => {
+    // Arrange
+    const restaurantDBService = new RestaurantDBService();
+
+    const RESTAURANT_FIRST: IRestaurant = {
+      name: '꺼벙이 김밥',
+      distance: 10,
+      category: '한식',
+      description: '김밥 취저',
+    };
+
+    const RESTAURANT_SECOND: IRestaurant = {
+      name: '얌샘 김밥',
+      distance: 5,
+      category: '한식',
+      description: '게살볶음밥',
+    };
+    localStorage.setItem(
+      RESTAURANTS_DB_TEST_KEY,
+      JSON.stringify([RESTAURANT_FIRST, RESTAURANT_SECOND]),
+    );
+
+    // Act
+    restaurantDBService.remove(RESTAURANT_SECOND);
+
+    // Assert
+    expect(restaurantDBService.get()).to.deep.equal([RESTAURANT_FIRST]);
+  });
 });

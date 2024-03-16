@@ -39,6 +39,14 @@ class RestaurantDBService {
       JSON.stringify(this.#restaurantCollection.get()),
     );
   }
+
+  remove(restaurant: IRestaurant) {
+    this.update();
+    localStorage.setItem(
+      this.#RESTAURANTS_DB_KEY,
+      JSON.stringify(this.#restaurantCollection.remove(restaurant)),
+    );
+  }
 }
 
 export default RestaurantDBService;
