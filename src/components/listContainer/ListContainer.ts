@@ -9,6 +9,7 @@ class ListContainer extends HTMLUListElement {
 
   constructor(restaurants: Restaurant[]) {
     super();
+    this.id = 'restaurant-lists';
     this.className = 'restaurant-lists';
     this.restaurants = this.createRestaurants(restaurants);
   }

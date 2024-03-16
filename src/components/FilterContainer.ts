@@ -64,6 +64,14 @@ class FilterContainer extends HTMLDivElement {
     return select;
   }
 
+  getFilterValues() {
+    const filterValues = {
+      category: this.category.getValue(),
+      sort: this.sort.getValue(),
+    };
+    return filterValues;
+  }
+
   categoryChange() {
     this.category.addEventListener('change', () => {
       const filterChangeEvent = new CustomEvent('filterChange', {
