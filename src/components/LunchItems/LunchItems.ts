@@ -43,13 +43,12 @@ const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => /* HTML */ `
 
 class LunchItems extends HTMLElement {
   connectedCallback() {
+    this.insertAdjacentHTML('beforeend', LUNCH_ITEMS_TEMPLATE);
     this.render();
     this.setEventListener();
   }
 
   render(): void {
-    this.insertAdjacentHTML('beforeend', LUNCH_ITEMS_TEMPLATE);
-    // this.insertAdjacentHTML('beforeend', LUNCH_DETAIL_MODAL_TEMPLATE());
     const liked = this.getLikedAttribute();
     this.renderItems({ liked });
   }

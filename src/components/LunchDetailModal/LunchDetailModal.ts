@@ -4,6 +4,8 @@ import { CATEGORY_IMG } from '../../constants/categoriesImage';
 import { LIKED, NOT_LIKED } from '../../imgs';
 import { Category, Distance } from '../../types';
 import { LunchItemProps } from '../LunchItem/LunchItem';
+import RestaurantDataUpdater from '../../domain/RestaurantDataUpdater';
+import LunchItems from '../LunchItems/LunchItems';
 
 type LunchDetailModalProps = LunchItemProps & {
   link: string;
@@ -75,7 +77,6 @@ class LunchDetailModal extends HTMLElement {
   }
 
   render() {
-    // const { category, name, distance, description, liked, link} :LunchDetailModalProps = this.getAttribute('restaurant') as Restaurant;
     const category: Category = this.getAttribute('category') as Category;
     const name: string = this.getAttribute('name') ?? '';
     const distance: Distance = (Number(this.getAttribute('distance')) as Distance) ?? 10;
@@ -95,6 +96,9 @@ class LunchDetailModal extends HTMLElement {
   setEventListener() {
     const closeModalButton = this.querySelector('.detail-modal-closed');
     closeModalButton?.addEventListener('click', () => this.handleModalClose());
+
+    const deleteItemButton = this.querySelector('.detail-modal-delete');
+    deleteItemButton?.addEventListener('click', () => this.handleDeleteItem.call(this));
   }
 
   handleModalClose() {
@@ -106,6 +110,20 @@ class LunchDetailModal extends HTMLElement {
 
   attributeChangedCallback() {
     this.connectedCallback();
+  }
+
+  handleDeleteItem() {
+    const name: string = this.getAttribute('name') ?? '';
+    RestaurantDataUpdater.deleteItem({ name });
+    this.handleModalClose();
+    this.renderItems();
+  }
+
+  renderItems() {
+    const lunchItems = document.querySelector('lunch-items') as LunchItems;
+    if (lunchItems) {
+      lunchItems.render();
+    }
   }
 }
 
