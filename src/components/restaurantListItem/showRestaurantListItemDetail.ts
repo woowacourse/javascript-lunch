@@ -3,6 +3,10 @@ import RestaurantListItemDetail from '../restaurantListItemDetailModal/Restauran
 import ListItemDetailBottomSheetEventHandler from '../restaurantListItemDetailModal/eventHandler';
 import { RestaurantState } from '../../types';
 
+function isHTMLElement(element: any): element is HTMLElement {
+  return element instanceof HTMLElement;
+}
+
 const appendDetailToModal = (listItemDetailComponent: HTMLElement) => {
   const modal = document.getElementsByClassName('modal')[0];
   const modalContainer = document.getElementsByClassName('modal-container')[0];
@@ -11,8 +15,9 @@ const appendDetailToModal = (listItemDetailComponent: HTMLElement) => {
 };
 
 const getRestaurantIdFromEventTarget = (event: Event): number | null => {
-  const target = event.target as Element as HTMLElement;
-  const listItem = target?.closest('li') as HTMLLIElement;
+  if (!isHTMLElement(event.target)) return null;
+  const target = event.target;
+  const listItem = target?.closest('li');
   return listItem ? Number(listItem.dataset.id) : null;
 };
 
@@ -38,10 +43,8 @@ const RestaurantListItemDetailPhaseHandler = (event: Event) => {
 
 const listItemClickHandler = () => {
   document.addEventListener('click', (event) => {
-    const target = event.target as HTMLElement;
-    if (target && target.closest('.restaurant-list li')) {
-      RestaurantListItemDetailPhaseHandler(event);
-    }
+    if (!isHTMLElement(event.target)) return;
+    if (event.target.closest('.restaurant-list li')) RestaurantListItemDetailPhaseHandler(event);
   });
 };
 
