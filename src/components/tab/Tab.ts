@@ -1,23 +1,47 @@
 import './Tab.css';
 import TabElement from "./TabElement";
-import TabElementProps from "./TabElementProps";
 import DOM from '../../utils/DOM';
 
 const { insertElementsInTarget } = DOM;
 
 class Tab extends HTMLDivElement {
   private tabElements: TabElement[];
+  private activeIndex: number;
 
-  constructor(tabElementsProps: TabElementProps[]) {
+  constructor(tabNames: string[]) {
     super();
-    this.className = 'tab-container';
-    this.tabElements = this.createTabElements(tabElementsProps);
+    this.className = 'tab';
+    this.activeIndex = 0;
+    this.tabElements = this.createTabElements(tabNames);
+    this.tabChange();
   }
 
-  createTabElements(tabElementsProps: TabElementProps[]) {
-    const tabElements = tabElementsProps.map((tabProps) => new TabElement(tabProps));
+  createTabElements(tabNames: string[]) {
+    const tabElements = tabNames.map((tabName, index) => new TabElement({
+      active: index === this.activeIndex, 
+      tabName,
+      index,
+    }));
     insertElementsInTarget(this, tabElements);
     return tabElements;
+  }
+
+  tabChange() {
+    this.tabElements.forEach((tabElement) => {
+      tabElement.tabClick(this.clearActivate.bind(this), this.setActiveTab.bind(this));
+    });
+  }
+
+  private clearActivate() {
+    this.tabElements.forEach((tab) => tab.setInactive());
+  }
+
+  setActiveTab(index: number) {
+    this.activeIndex = index;
+  }
+  
+  get activeTabIndex() {
+    return this.activeIndex;
   }
 }
 

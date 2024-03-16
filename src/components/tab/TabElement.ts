@@ -3,17 +3,19 @@ import TabElementProps from './TabElementProps';
 
 class TabElement extends HTMLButtonElement {
   private active: boolean;
+  private index: number;
   private indicator: HTMLDivElement;
 
   constructor(tabElement: TabElementProps) {
     super();
 
-    const { active, text } = tabElement;
+    const { active, tabName, index } = tabElement;
     this.classList.add('tab-element', 'text-subtitle');
-    this.textContent = text;
+    this.textContent = tabName;
+    this.index = index;
     this.active = active;
     this.indicator = this.createIndicator();
-    this.activeTab();
+    this.initTab();
   }
 
   createIndicator() {
@@ -24,17 +26,27 @@ class TabElement extends HTMLButtonElement {
   }
 
   setActive() {
+    this.active = true;
     this.classList.add('tab-element-active');
     this.indicator.classList.add('indicator-active');
   }
 
   setInactive() {
+    this.active = false;
     this.classList.remove('tab-element-active');
     this.indicator.classList.remove('indicator-active');
   }
 
-  activeTab() {
+  private initTab() {
     this.active ? this.setActive() : this.setInactive();
+  }
+
+  tabClick(clearActivate: () => void, setActiveTab: (index: number) => void) {
+    this.addEventListener('click', () => {      
+      clearActivate();
+      this.setActive();
+      setActiveTab(this.index);
+    });
   }
 }
 

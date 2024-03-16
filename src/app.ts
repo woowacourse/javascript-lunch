@@ -10,7 +10,6 @@ import FilterContainer, { FilterChangeEvent } from "./components/FilterContainer
 import TabPane from "./components/TabPane";
 import Header from "./components/header/Header";
 import Tab from "./components/tab/Tab";
-import TabElementProps from "./components/tab/TabElementProps";
 import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/listContainer/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
@@ -62,12 +61,7 @@ class App extends HTMLElement {
   }
 
   createTab() {
-    const tabElementProps: TabElementProps[] = [
-      { active: true, text: '모든 음식점' },
-      { active: false, text: '자주 가는 음식점' }
-    ];
-
-    const tab = new Tab(tabElementProps);
+    const tab = new Tab(['모든 음식점', '자주 가는 음식점']);
     this.main.prepend(tab);
     return tab;
   }

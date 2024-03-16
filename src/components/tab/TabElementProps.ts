@@ -1,5 +1,6 @@
 interface TabElementProps {
-  text: string;
+  tabName: string;
+  index: number;
   active: boolean;
 }
 
