@@ -42,6 +42,10 @@ class Restaurant {
     return this.favorite;
   }
 
+  toggleFavorite() {
+    this.favorite = !this.favorite;
+  }
+
   getData() {
     return {
       name: this.name,
