@@ -13,7 +13,7 @@ class RestaurantService {
 
   getRestaurants(sort: Sort, favorite: boolean, category?: Category) {
     const restaurants = favorite ? this.getFavoriteRestaurants() : this.restaurants;
-    const categorizedRestaurants = category ? this.getRestaurantsByCategory(category) : restaurants;
+    const categorizedRestaurants = category ? this.getRestaurantsByCategory(restaurants, category) : restaurants;
     const compareFunction = this.getCompareFunction(sort);
     const sortedRestaurants = this.getSortedRestaurants(categorizedRestaurants, compareFunction);
     return sortedRestaurants.map((restaurant) => restaurant.getData());
@@ -23,8 +23,17 @@ class RestaurantService {
     return this.restaurants.filter((restaurant) => restaurant.getFavorite());
   }
 
-  private getRestaurantsByCategory(category: Category) {
-    return this.restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
+  toggleFavorite(detail: string) {
+    this.restaurants.forEach((restaurant) => {
+      if (restaurant.getName() === detail) {
+        restaurant.toggleFavorite();
+      }
+    });
+    this.saveRestaurants(this.restaurants);
+  }
+
+  private getRestaurantsByCategory(restaurants: Restaurant[], category: Category) {
+    return restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
   }
 
   private getCompareFunction(sort: Sort): CompareFunction {
