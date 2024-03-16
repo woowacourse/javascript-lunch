@@ -1,4 +1,4 @@
-import BaseComponent from "./BaseComponent.js";
+import BaseComponent from "./common/BaseComponent.js";
 
 class OptionSelector extends BaseComponent {
   render() {

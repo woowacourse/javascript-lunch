@@ -1,7 +1,7 @@
 import { SORT_OPTIONS } from "../../constants/MenuApp";
 import { $ } from "../../utils/dom";
 import restaurantValidator from "../../validators/restaurantValidator";
-import BaseComponent from "../BaseComponent";
+import BaseComponent from "../common/BaseComponent";
 
 class RestaurantOptions extends BaseComponent {
   render() {

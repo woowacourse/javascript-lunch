@@ -1,6 +1,6 @@
 import { $ } from "../../utils/dom";
 import restaurantValidator from "../../validators/restaurantValidator";
-import BaseComponent from "../BaseComponent";
+import BaseComponent from "../common/BaseComponent";
 
 class RestaurantNameInput extends BaseComponent {
   constructor() {

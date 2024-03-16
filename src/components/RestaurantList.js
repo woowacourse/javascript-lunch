@@ -1,5 +1,5 @@
 import { sortByType } from "../domains/Restaurants";
-import BaseComponent from "./BaseComponent.js";
+import BaseComponent from "./common/BaseComponent.js";
 
 class RestaurantList extends BaseComponent {
   #currentCategory;
@@ -59,6 +59,10 @@ class RestaurantList extends BaseComponent {
     });
 
     document.addEventListener("add-restaurant", () => {
+      this.render();
+    });
+
+    document.addEventListener("delete-restaurant", () => {
       this.render();
     });
   }

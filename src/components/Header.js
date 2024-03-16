@@ -1,6 +1,6 @@
 import { addButton } from "../assets/index.js";
 import { $ } from "../utils/dom.js";
-import BaseComponent from "./BaseComponent.js";
+import BaseComponent from "./common/BaseComponent.js";
 
 class Header extends BaseComponent {
   render() {
@@ -16,7 +16,7 @@ class Header extends BaseComponent {
 
   setEvent() {
     $(".gnb__button").addEventListener("click", (e) => {
-      this.emitEvent("modal-open");
+      this.emitEvent("form-modal-open");
     });
   }
 }
