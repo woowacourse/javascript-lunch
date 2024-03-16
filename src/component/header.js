@@ -1,20 +1,26 @@
 import { APP_NAME } from '../constant/cons.js';
 import { $ } from '../utils/selector.js';
-import createNewRestaurantModal from './modal/addRestaurantModal.js';
-import modal from './modal.js';
+import { openModal } from './modal/modal.js';
 
 function createHeader({
   className,
   left,
   right,
   addRestaurant,
-  getRestaurants,
+  getRestaurantList,
+  favoriteToggle,
+  hasFavorite,
 }) {
   const header = document.createElement('header');
   header.className = className;
 
   const leftElement = item[left]();
-  const rightElement = item[right](addRestaurant, getRestaurants);
+  const rightElement = item[right]({
+    addRestaurant,
+    getRestaurantList,
+    favoriteToggle,
+    hasFavorite,
+  });
 
   header.append(leftElement, rightElement);
   return header;
@@ -29,7 +35,7 @@ const item = {
     return h1;
   },
 
-  add(addRestaurant, getRestaurants) {
+  add({ addRestaurant, getRestaurantList, favoriteToggle, hasFavorite }) {
     const button = document.createElement('button');
 
     button.type = 'button';
@@ -42,24 +48,33 @@ const item = {
     img.alt = '음식점 추가';
 
     button.appendChild(img);
-    eventHandler.add(button, addRestaurant, getRestaurants);
+    eventHandler.add({
+      element: button,
+      addRestaurant,
+      getRestaurantList,
+      favoriteToggle,
+      hasFavorite,
+    });
 
     return button;
   },
 };
 
 const eventHandler = {
-  add(element, addRestaurant, getRestaurants) {
+  add({
+    element,
+    addRestaurant,
+    getRestaurantList,
+    favoriteToggle,
+    hasFavorite,
+  }) {
     element.addEventListener('click', () => {
-      const newRestaurantModalElement = createNewRestaurantModal(
+      openModal('addRestaurant', {
         addRestaurant,
-        getRestaurants
-      );
-      const newRestaurantModal = modal.create(
-        'modal--open',
-        newRestaurantModalElement
-      );
-      document.body.append(newRestaurantModal);
+        getRestaurantList,
+        favoriteToggle,
+        hasFavorite,
+      });
     });
   },
 };
