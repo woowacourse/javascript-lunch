@@ -19,11 +19,11 @@ class RestaurantList {
   }
 
   getSortedByName(): IRestaurantList {
-    return [...this.restaurants].sort((a, b) => (a.information.name > b.information.name ? 1 : -1));
+    return this.restaurants.sort((a, b) => (a.information.name > b.information.name ? 1 : -1));
   }
 
   getSortedByDistance(): IRestaurantList {
-    return [...this.restaurants].sort((a, b) => (a.information.distance > b.information.distance ? 1 : -1));
+    return this.restaurants.sort((a, b) => (a.information.distance > b.information.distance ? 1 : -1));
   }
 
   getSortedByCondition(sortingCondition: TSorting): IRestaurantList {
