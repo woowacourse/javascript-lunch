@@ -4,7 +4,6 @@ import Restaurant from './domain/Restaurant';
 import RestaurantList from './domain/RestaurantList';
 import RestaurantComponent from './components/Restaurant';
 import { DEFAULT_RESTAURAMT_LIST } from './constants/config';
-import HomeEventHandler from './eventHandler/HomeEventHandler';
 import Header from './components/Header';
 import RestaurantTapContainer from './components/RestaurantTapContainer';
 import RestaurantFilterContainer from './components/RestaurantFilterContainer';
@@ -18,8 +17,6 @@ const init = () => {
   new RestaurantFilterContainer(restaurantList).set();
 
   RestaurantComponent.render(restaurantList.getSortedByName());
-
-  new HomeEventHandler(restaurantList);
 };
 
 init();

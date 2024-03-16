@@ -1,4 +1,6 @@
+import { FAVORITE, STORAGE_KEY } from '../constants/config';
 import { CATEGORY_IMG_SRC, FAVORITE_IMG_SRC } from '../constants/filter';
+import LocalStorage from '../domain/LocalStorage';
 
 const RestaurantComponent = {
   render(restaurantList) {
@@ -113,7 +115,30 @@ const RestaurantComponent = {
     favoriteIcon.setAttribute('alt', `${information.favorite}`);
     favoriteIcon.classList.add('favorite-icon');
 
+    favoriteIcon.addEventListener('click', e => this.handleFavorite(e));
+
     return favoriteIcon;
+  },
+
+  handleFavorite(e) {
+    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
+    const localStorageRestaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
+
+    localStorageRestaurants.forEach(restaurant => {
+      if (restaurant.information.name === e.target.parentNode.previousSibling.firstElementChild.textContent) {
+        this.changeFavorite(restaurant);
+        e.target.src = FAVORITE_IMG_SRC[restaurant.information.favorite];
+      }
+    });
+    LocalStorage.setStorageRestaurantList(localStorageRestaurants);
+  },
+
+  changeFavorite(restaurant) {
+    if (restaurant.information.favorite === FAVORITE.yes) {
+      restaurant.information.favorite = FAVORITE.no;
+    } else {
+      restaurant.information.favorite = FAVORITE.yes;
+    }
   },
 
   createRestaurantDescription(information) {
