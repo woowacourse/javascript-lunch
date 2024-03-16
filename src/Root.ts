@@ -93,6 +93,7 @@ const root = {
         storage.addData(newRestaurant);
         $<HTMLElement>('.modal').classList.remove('modal--open');
         $<ListContainer>('.restaurant-lists').addRestaurants(new Restaurant(newRestaurant));
+        form.reset();
       } catch (error) {
         alert(error);
       }
