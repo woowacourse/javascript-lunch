@@ -70,9 +70,10 @@ class RestaurantListController {
 
   static deleteInFavoriteRestaurantList(name: string) {
     console.log("delete");
+
     this.#favoriteRestaurantList.delete(name);
     setLocalStorage(
-      RestaurantListController.#ENTIRE_RESTAURANTS_KEY,
+      RestaurantListController.#FAVORITE_RESTAURANTS_KEY,
       this.#entireRestaurantList.getRestaurants()
     );
   }
