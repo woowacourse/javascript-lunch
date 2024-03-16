@@ -6,6 +6,7 @@ import BasicButton from '../BasicButton/BasicButton';
 import { closeModal, makeDescription, makeDistance, makeTitle } from '@/utils/view';
 import { IRestaurant } from '@/types/Restaurant';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
+import { INFO_MESSAGE } from '@/constants/Message';
 
 class RestaurantDetailModal extends BaseComponent {
   #restaurant: IRestaurant;
@@ -74,7 +75,7 @@ class RestaurantDetailModal extends BaseComponent {
       textContent: '삭제하기',
       type: 'button',
       clickEvent: () => {
-        if (confirm('정말 삭제하시겠습니까?')) {
+        if (confirm(INFO_MESSAGE.DELETE_CONFIRM)) {
           this.#restaurantUpdateService.deleteRestaurant(this.#restaurant.id);
         }
       },

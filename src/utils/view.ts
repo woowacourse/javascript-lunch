@@ -75,7 +75,7 @@ export const makeDescription = (showType: 'omit' | 'full', description?: string)
   if (showType === 'omit') {
     $description.classList.add('restaurant__description');
   }
-  $description.classList.add('text-body');
+  $description.classList.add('text-body', 'restaurant__description');
   $description.textContent = `${description || ''}`;
   return $description;
 };
