@@ -1,6 +1,5 @@
-import RestaurantComponent from '../components/Restaurant';
 import { FAVORITE, STORAGE_KEY } from '../constants/config';
-import { FAVORITE_IMG_SRC, FILTER_CONDITION } from '../constants/filter';
+import { FAVORITE_IMG_SRC } from '../constants/filter';
 import LocalStorage from '../domain/LocalStorage';
 
 class HomeEventHandler {
@@ -16,30 +15,6 @@ class HomeEventHandler {
     $favoriteIconNodeList.forEach((favoriteIconNode, index) => {
       favoriteIconNode.addEventListener('click', e => this.handleFavorite(e, index));
     });
-  }
-
-  handleFilter() {
-    const $restaurantList = document.querySelector('.restaurant-list');
-    const filterCondition = this.getFilterCondition();
-
-    this.restaurantList.filterByCategory(filterCondition[FILTER_CONDITION.category]);
-    const sortedList = this.restaurantList.getSortedByCondition(filterCondition[FILTER_CONDITION.sortingCondition]);
-
-    $restaurantList.replaceChildren();
-    RestaurantComponent.render(sortedList);
-    this.setEvent();
-  }
-
-  getFilterCondition() {
-    const $categoryFilter = document.getElementById('category-filter');
-    const $sortingFilter = document.getElementById('sorting-filter');
-
-    const categoryOptions = $categoryFilter.options;
-    const category = categoryOptions[categoryOptions.selectedIndex].text;
-    const sortingOptions = $sortingFilter.options;
-    const sortingCondition = sortingOptions[sortingOptions.selectedIndex].text;
-
-    return [category, sortingCondition];
   }
 
   handleFavorite(e, index) {
