@@ -6,7 +6,7 @@ import Condition from './constants/Condition';
 import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
 import Restaurant from './components/restaurant/Restaurant';
-import ListContainer from './components/ListContainer';
+import ListContainer from './components/listContainer/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
 import Modal from './components/modal/Modal';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';

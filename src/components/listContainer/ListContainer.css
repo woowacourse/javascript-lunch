@@ -1,0 +1,15 @@
+@import url('../../styles/style.css');
+
+.nothing__restaurant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 400px;
+}
+
+.nothing__ment {
+  text-align: center;
+  color: var(--grey-500);
+}
