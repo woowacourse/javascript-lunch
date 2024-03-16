@@ -1,6 +1,3 @@
-import { $ } from '../../../util/domSelector';
-import handleError from '../../../util/handleError';
-import RestaurantValidator from '../../../validator/RestaurantValidator';
 import {
   createCaption,
   createFormButton,
@@ -12,28 +9,68 @@ import {
   createSelectBox,
   createTextArea,
 } from '../../../util/createFormElement';
-
-import type { RestaurantDataType } from '../../../type/restaurantDataType';
-
+import { RestaurantDataType } from '../../../type/restaurantDataType';
 import { Category, DistanceByWalk } from '../../../enum/enums';
+import handleError from '../../../util/handleError';
+import RestaurantValidator from '../../../validator/RestaurantValidator';
 
-class AddRestaurantModal extends HTMLElement {
-  connectedCallback() {
-    this.render();
+type RestaurantAddFormType = {
+  parentComponent: object;
+  onCancel: () => void;
+  onSubmit: (data: RestaurantDataType) => void;
+};
+
+export default class RestaurantAddForm {
+  private form: HTMLFormElement;
+  private cancelSubmitFormData: Function;
+  private submitFormData: Function;
+  private cancelButton: HTMLButtonElement;
+  private submitButton: HTMLButtonElement;
+
+  constructor({ onCancel, onSubmit }: RestaurantAddFormType) {
+    this.cancelButton = createFormButton({
+      type: 'button',
+      style: 'secondary',
+      id: 'cancel-adding-restaurant-button',
+      textContent: '취소하기',
+    });
+    this.submitButton = createFormButton({
+      type: 'submit',
+      style: 'primary',
+      id: 'submit-adding-restaurant-button',
+      textContent: '추가하기',
+    });
+    this.form = this.createAddRestaurantForm();
+    this.cancelSubmitFormData = onCancel;
+    this.submitFormData = onSubmit;
     this.addEvent();
   }
 
+  render() {
+    return this.form;
+  }
+
   private addEvent() {
-    $('#cancel-adding-restaurant-button').addEventListener('click', this.clearModal.bind(this));
-    $('#add-restaurant-form').addEventListener('submit', this.handleSubmit.bind(this));
+    this.cancelButton.addEventListener('click', this.handleCancel.bind(this));
+    this.form.addEventListener('submit', this.handleSubmit.bind(this));
+  }
+
+  private clearForm() {
+    this.form.reset();
+  }
+
+  private handleCancel() {
+    this.clearForm();
+    this.cancelSubmitFormData();
   }
 
   private handleSubmit(event: Event) {
     try {
       event.preventDefault();
-      const newRestaurantData = this.handleFormData(new FormData(event.target as HTMLFormElement));
-      this.submitNewRestaurant(newRestaurantData);
-      this.clearModal();
+      const restaurantData = this.handleFormData(new FormData(event.target as HTMLFormElement));
+      RestaurantValidator.validateUserInput(restaurantData);
+      this.clearForm();
+      this.submitFormData(restaurantData);
     } catch (error) {
       handleError(error);
     }
@@ -47,15 +84,6 @@ class AddRestaurantModal extends HTMLElement {
     throw new Error('입력된 음식점 정보가 올바르지 않습니다. 새로고침 후 다시 입력해주세요.');
   }
 
-  private submitNewRestaurant(newRestaurantData: RestaurantDataType) {
-    try {
-      RestaurantValidator.validateUserInput(newRestaurantData);
-      this.dispatchEvent(new CustomEvent('submitAddingRestaurant', { detail: newRestaurantData }));
-    } catch (error) {
-      handleError(error);
-    }
-  }
-
   private isRestaurantData(object: any): object is RestaurantDataType {
     return (
       'name' in object &&
@@ -66,26 +94,14 @@ class AddRestaurantModal extends HTMLElement {
     );
   }
 
-  private clearModal() {
-    $<HTMLFormElement>('#add-restaurant-form').reset();
-    $<HTMLDialogElement>('#add-restaurant-modal').close();
-  }
-
-  private createModalTitle(): HTMLHeadingElement {
-    const modalTitle = document.createElement('h2');
-    modalTitle.classList.add('modal-title', 'text-title');
-    modalTitle.textContent = '새로운 음식점';
-    return modalTitle;
-  }
-
-  private createNameInput(): HTMLDivElement {
+  private createNameInput() {
     const nameInput = createFormItemContainer({ required: true });
     nameInput.appendChild(createLabel({ targetId: 'name', labelText: '이름' }));
     nameInput.appendChild(createInput({ type: 'text', name: 'name', required: true }));
     return nameInput;
   }
 
-  private createCategoryInput(): HTMLDivElement {
+  private createCategoryInput() {
     const categoryInput = createFormItemContainer({ required: true });
     const categorySelectBox = createSelectBox({ name: 'category', required: true });
     categorySelectBox.append(...createOptionItems({ type: Category, defaultOption: '선택해 주세요' }));
@@ -94,7 +110,7 @@ class AddRestaurantModal extends HTMLElement {
     return categoryInput;
   }
 
-  private createDistanceInput(): HTMLDivElement {
+  private createDistanceInput() {
     const distanceInput = createFormItemContainer({ required: true });
     const distanceSelectBox = createSelectBox({ name: 'distanceByWalk', required: true });
     distanceSelectBox.append(...createOptionItems({ type: DistanceByWalk, defaultOption: '선택해 주세요' }));
@@ -103,7 +119,7 @@ class AddRestaurantModal extends HTMLElement {
     return distanceInput;
   }
 
-  private createDescriptionInput(): HTMLDivElement {
+  private createDescriptionInput() {
     const descriptionInput = createFormItemContainer({ required: false });
     descriptionInput.appendChild(createLabel({ targetId: 'description', labelText: '설명 ' }));
     descriptionInput.appendChild(createTextArea({ name: 'description', cols: 30, rows: 5, required: false }));
@@ -111,7 +127,7 @@ class AddRestaurantModal extends HTMLElement {
     return descriptionInput;
   }
 
-  private createReferenceInput(): HTMLDivElement {
+  private createReferenceInput() {
     const referenceInput = createFormItemContainer({ required: false });
     referenceInput.appendChild(createLabel({ targetId: 'referenceUrl', labelText: '참고 링크' }));
     referenceInput.appendChild(createInput({ type: 'url', name: 'referenceUrl', required: false }));
@@ -119,28 +135,13 @@ class AddRestaurantModal extends HTMLElement {
     return referenceInput;
   }
 
-  private createButtonContainer(): HTMLDivElement {
+  private createButtonContainer() {
     const buttonContainer = createFormButtonContainer();
-    buttonContainer.appendChild(
-      createFormButton({
-        type: 'button',
-        style: 'secondary',
-        id: 'cancel-adding-restaurant-button',
-        textContent: '취소하기',
-      }),
-    );
-    buttonContainer.appendChild(
-      createFormButton({
-        type: 'submit',
-        style: 'primary',
-        id: 'submit-adding-restaurant-button',
-        textContent: '추가하기',
-      }),
-    );
+    buttonContainer.append(this.cancelButton, this.submitButton);
     return buttonContainer;
   }
 
-  private createAddRestaurantForm(): HTMLFormElement {
+  private createAddRestaurantForm() {
     const form = document.createElement('form');
     form.id = 'add-restaurant-form';
 
@@ -153,19 +154,4 @@ class AddRestaurantModal extends HTMLElement {
 
     return form;
   }
-
-  private render() {
-    const modal = document.createElement('dialog');
-    modal.id = 'add-restaurant-modal';
-    const modalContainer = document.createElement('div');
-    modalContainer.classList.add('modal-container');
-
-    modal.appendChild(modalContainer);
-    modalContainer.appendChild(this.createModalTitle());
-    modalContainer.appendChild(this.createAddRestaurantForm());
-
-    this.appendChild(modal);
-  }
 }
-
-customElements.define('add-restaurant-modal', AddRestaurantModal);
