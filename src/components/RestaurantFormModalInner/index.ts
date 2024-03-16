@@ -44,7 +44,7 @@ class RestaurantFormModalInner extends HTMLElement {
 
         <!-- 링크 -->
         <div class="form-item">
-          <form-text-filed
+          <form-text-field
           labelText="참고 링크"
           labelForId="restaurant-link"
           key="link"
@@ -52,7 +52,7 @@ class RestaurantFormModalInner extends HTMLElement {
           <div slot="formChild">
             <custom-input type="text" id="restaurant-link" name="restaurant-link" placeholder="음식점 링크 (http/https 포함, 예시: https://example.com)" maxlength="2000"></custom-input>
           </div>
-        </form-text-filed>
+        </form-text-field>
         </div>
         <!-- 취소/추가 버튼 -->
         <div class="button-container">

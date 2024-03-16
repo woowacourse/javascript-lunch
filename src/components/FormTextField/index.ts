@@ -1,4 +1,4 @@
-import { RestaurantInfoKey, RestaurantInfo } from '../../types';
+import { RestaurantInfoKey } from '../../types';
 import { Restaurant } from '../../domains';
 class FormTextField extends HTMLElement {
   constructor() {
@@ -91,4 +91,4 @@ class FormTextField extends HTMLElement {
     }
   }
 }
-customElements.define('form-text-filed', FormTextField);
+customElements.define('form-text-field', FormTextField);
