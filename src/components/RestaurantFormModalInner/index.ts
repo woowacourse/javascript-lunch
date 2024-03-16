@@ -1,7 +1,7 @@
 import './style.css';
 
 import { DROP_BOX_MAP } from '../../constants';
-import { Restaurant, RestaurantList } from '../../domains';
+import { RestaurantList, RestaurantValidator } from '../../domains';
 import FilteringController from '../../services/FilteringController';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
 import { closeModal } from '../../utils';
@@ -181,7 +181,9 @@ class RestaurantFormModalInner extends HTMLElement {
     if (!info) return;
 
     try {
-      this.#newInfo = new Restaurant(info).info;
+      RestaurantValidator.validateInfo(info);
+
+      this.#newInfo = info;
       this.#handleSubmitBtnDisabled(false);
     } catch (error) {
       this.#handleSubmitBtnDisabled(true);

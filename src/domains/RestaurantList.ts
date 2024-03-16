@@ -2,7 +2,7 @@ import { STORAGE_KEY } from '../constants';
 import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { Category, RestaurantInfo } from '../types';
 import { getDeepCopiedArray } from '../utils';
-import Restaurant from './Restaurant';
+import RestaurantValidator from './RestaurantValidator';
 
 class RestaurantList {
   #list: RestaurantInfo[] = INITIAL_RESTAURANT_DATA;
@@ -17,14 +17,13 @@ class RestaurantList {
   }
 
   addRestaurant(info: RestaurantInfo) {
-    const restaurantInfo = new Restaurant(info).info;
+    RestaurantValidator.validateInfo(info);
 
-    if (!this.#list) {
-      this.#list = [restaurantInfo];
-      return;
+    if (this.#list[0]) {
+      this.#list.push(info);
+    } else {
+      this.#list = [info];
     }
-
-    this.#list.push(restaurantInfo);
 
     this.#saveListToLocalStore();
   }
@@ -68,9 +67,9 @@ class RestaurantList {
     this.#list.splice(storeIndex, 1);
     this.#saveListToLocalStore();
   }
+
   // 어디서 RestaurantList를 불러와도 서버(=localStorage)와 데이터를 동기화
   // 1, 서버에 저장
-
   #saveListToLocalStore() {
     localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(this.#list));
   }

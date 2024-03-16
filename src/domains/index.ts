@@ -1,4 +1,4 @@
-import Restaurant from './Restaurant';
 import RestaurantList from './RestaurantList';
+import RestaurantValidator from './RestaurantValidator';
 
-export { Restaurant, RestaurantList };
+export { RestaurantList, RestaurantValidator };

@@ -1,5 +1,5 @@
-import { Restaurant } from '../../domains';
-import { RestaurantInfoKey } from '../../types';
+import { RestaurantValidator } from '../../domains';
+import { RestaurantTextInfoKey } from '../../types';
 
 class FormTextField extends HTMLElement {
   $customTextField: HTMLElement | undefined;
@@ -52,13 +52,9 @@ class FormTextField extends HTMLElement {
     }
   }
 
-  #isRestaurantInfoKey(key: string | null): key is RestaurantInfoKey {
-    const restaurantInfoKeys: RestaurantInfoKey[] = [
-      'category',
+  #isRestaurantInfoKey(key: string | null): key is RestaurantTextInfoKey {
+    const restaurantInfoKeys: RestaurantTextInfoKey[] = [
       'description',
-      'distance',
-      'distance',
-      'favorite',
       'link',
       'name',
     ];
@@ -66,7 +62,7 @@ class FormTextField extends HTMLElement {
     return key ? ([...restaurantInfoKeys] as string[]).includes(key) : false;
   }
 
-  #addEventToChange(key: RestaurantInfoKey) {
+  #addEventToChange(key: RestaurantTextInfoKey) {
     const $customTextContainer = this.querySelector('.custom-text-container');
     const $inputOrTextarea =
       $customTextContainer?.firstElementChild?.firstChild;
@@ -81,7 +77,7 @@ class FormTextField extends HTMLElement {
     }
   }
 
-  #handleChangeToValidateValue(event: Event, key: RestaurantInfoKey) {
+  #handleChangeToValidateValue(event: Event, key: RestaurantTextInfoKey) {
     const { value } = event.target as HTMLInputElement | HTMLTextAreaElement;
 
     try {
@@ -95,22 +91,8 @@ class FormTextField extends HTMLElement {
   /**
    * 글자로 입력하는 정보(이름,설명,링크)에 대한 유효성 검사
    */
-  #checkInfoValidate(key: RestaurantInfoKey, value: string) {
-    const restaurant = new Restaurant();
-
-    switch (key) {
-      case 'description':
-        restaurant.validateDescription(value);
-        break;
-      case 'name':
-        restaurant.validateName(value);
-        break;
-      case 'link':
-        restaurant.validateLink(value);
-        break;
-      default:
-        break;
-    }
+  #checkInfoValidate(key: RestaurantTextInfoKey, value: string) {
+    RestaurantValidator.validateTextAboutInfo(key, value);
   }
 
   #handleErrorMessage(error: unknown) {

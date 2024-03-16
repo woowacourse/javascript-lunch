@@ -5,99 +5,102 @@ import {
   MESSAGE,
   STORAGE_KEY,
 } from '../constants';
-import { RestaurantInfo } from '../types';
+import { RestaurantTextInfoKey, RestaurantInfo } from '../types';
 
-class Restaurant {
-  #info!: RestaurantInfo;
-
-  constructor(info?: RestaurantInfo) {
-    if (info) {
-      this.validateInfo(info);
-      this.#info = info;
-    }
-  }
-
-  get info() {
-    return JSON.parse(JSON.stringify(this.#info)) as RestaurantInfo;
-  }
-
+const RestaurantValidator = {
   validateInfo(info: RestaurantInfo) {
     // name
-    this.validateName(info.name);
+    this.validateTextAboutInfo('name', info.name);
     // category
-    this.validateCategory(info.category);
+    this.private_validateCategory(info.category);
     // distance
-    this.validateDistance(info.distance);
+    this.private_validateDistance(info.distance);
 
     if (info.description) {
-      this.validateDescription(info.description);
+      this.validateTextAboutInfo('description', info.description);
     }
 
     if (info.link) {
-      this.validateLink(info.link);
+      this.validateTextAboutInfo('link', info.link);
     }
     if (info.favorite) {
-      this.#validateFavorite(info.favorite);
+      this.private_validateFavorite(info.favorite);
     }
-  }
+  },
 
-  validateName(name: string | undefined | null) {
-    this.#validateStringType(name);
+  validateTextAboutInfo(key: RestaurantTextInfoKey, value: string) {
+    switch (key) {
+      case 'name':
+        this.private_validateName(value);
+        break;
+      case 'description':
+        this.private_validateDescription(value);
+        break;
+      case 'link':
+        this.private_validateLink(value);
+        break;
+      default:
+        break;
+    }
+  },
+
+  private_validateName(name: string | undefined) {
+    this.private_validateStringType(name);
 
     if (typeof name === 'string') {
-      this.#validateNameCharacterLimit(name);
-      this.#validateNameDuplicate(name);
+      this.private_validateNameCharacterLimit(name);
+      this.private_validateNameDuplicate(name);
     }
-  }
+  },
 
-  validateDescription(description: string) {
-    this.#validateStringType(description);
-    this.#validateDescriptionCharacterLimit(description);
-  }
+  private_validateDescription(description: string) {
+    this.private_validateStringType(description);
+    this.private_validateDescriptionCharacterLimit(description);
+  },
 
-  validateCategory(category: string) {
+  private_validateCategory(category: string) {
     const categories = Object.keys(CATEGORY);
     const isInvalidCategory = !categories.find((item) => item === category);
 
     if (isInvalidCategory) {
       throw new Error(MESSAGE.invalidCategoryType);
     }
-  }
+  },
 
-  validateDistance(distance: string | number) {
+  private_validateDistance(distance: string | number) {
     const isInValidDistance = !DISTANCES.find((item) => item === distance);
 
     if (isInValidDistance) {
       throw new Error(MESSAGE.invalidDistanceType);
     }
-  }
+  },
 
-  validateLink(link: string) {
-    this.#validateLinkCharacterLimit(link);
-    this.#validateLinkUrl(link);
-  }
+  private_validateLink(link: string) {
+    this.private_validateLinkCharacterLimit(link);
+    this.private_validateLinkUrl(link);
+  },
 
-  #validateFavorite(favorite: boolean) {
+  private_validateFavorite(favorite: boolean) {
     const isInvalidFavorite = typeof favorite !== 'boolean';
 
     if (isInvalidFavorite) {
       throw new Error(MESSAGE.invalidFavoriteType);
     }
-  }
+  },
 
-  #validateStringType(string: string | undefined | null) {
+  private_validateStringType(string: string | undefined | null) {
     if (typeof string !== 'string') {
       throw new Error(MESSAGE.invalidStringType);
     }
-  }
+  },
 
-  #validateNameCharacterLimit(name: string) {
+  private_validateNameCharacterLimit(name: string) {
     if (name.trim().length === 0 || name.length > CHARACTER_LIMIT.name) {
       throw new Error(MESSAGE.nameHasInvalidCharacterLimit);
     }
-  }
+  },
 
-  #validateNameDuplicate(name: string) {
+  private_validateNameDuplicate(name: string) {
     const storageRestaurantList = localStorage.getItem(STORAGE_KEY.restaurants);
 
     if (!storageRestaurantList) return;
@@ -107,31 +110,31 @@ class Restaurant {
     if (list.some((info) => info.name === name)) {
       throw new Error(MESSAGE.duplicateRestaurantName);
     }
-  }
+  },
 
-  #validateDescriptionCharacterLimit(description: string) {
+  private_validateDescriptionCharacterLimit(description: string) {
     if (
       description.trim().length === 0 ||
       description.length > CHARACTER_LIMIT.description
     ) {
       throw new Error(MESSAGE.descriptionHasInvalidCharacterLimit);
     }
-  }
+  },
 
-  #validateLinkCharacterLimit(link: string) {
+  private_validateLinkCharacterLimit(link: string) {
     if (link.length > CHARACTER_LIMIT.link) {
       throw new Error(MESSAGE.linkHasInvalidCharacterLimit);
     }
-  }
+  },
 
-  #validateLinkUrl(link: string) {
+  private_validateLinkUrl(link: string) {
     const regexp = /^(https?:\/\/)/;
     const isInValidLink = !regexp.test(link);
 
     if (isInValidLink) {
       throw new Error(MESSAGE.linkHasInvalidProtocol);
     }
-  }
-}
+  },
+};
 
-export default Restaurant;
+export default RestaurantValidator;

@@ -19,6 +19,11 @@ export interface RestaurantInfo {
 
 export type RestaurantInfoKey = keyof RestaurantInfo;
 
+export type RestaurantTextInfoKey = Exclude<
+  RestaurantInfoKey,
+  'category' | 'favorite' | 'distance'
+>;
+
 // dropbox
 export type DropBoxName =
   | 'filteringSorting'
