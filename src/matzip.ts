@@ -1,5 +1,8 @@
 import { MatzipInterface, Restaurant, SortType, CategoryType } from './types';
 import { CategoryValidator, NameValidator, DistanceValidator } from './validator/index';
+import Condition from './constants/Condition';
+
+const { CATEGORY } = Condition;
 
 class Matzip implements MatzipInterface {
   restaurants: Restaurant[] = [];
@@ -18,7 +21,7 @@ class Matzip implements MatzipInterface {
   }
 
   filterAndSort(category: CategoryType, sortBy: SortType) {
-    if (category === '전체') return this.sort(sortBy, this.restaurants);
+    if (category === CATEGORY.whole) return this.sort(sortBy, this.restaurants);
     const filterResult = [...this.restaurants].filter(
       (restaurant) => restaurant.category === category,
     );
@@ -35,7 +38,7 @@ class Matzip implements MatzipInterface {
   }
 
   filterByCategory(category: CategoryType) {
-    if (category === '전체') return [...this.restaurants];
+    if (category === CATEGORY.whole) return [...this.restaurants];
     return [...this.restaurants].filter((restaurant) => restaurant.category === category);
   }
 
