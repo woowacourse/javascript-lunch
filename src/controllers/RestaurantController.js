@@ -121,6 +121,7 @@ class RestaurantController {
 
     modalBackdrop.addEventListener('click', () => {
       OutputView.closeModal();
+      this.updateRestaurantList();
     });
   }
 
@@ -156,7 +157,7 @@ class RestaurantController {
 
   changeFavoriteButton(restaurantId, favoriteButton) {
     const isFavorite = this.#restaurantService.changeFavorite(restaurantId, this.#restaurantList);
-    favoriteButton.src = isFavorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
+    favoriteButton.src = isFavorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
   }
 
   showDetailRestaurantModal(restaurantId) {
@@ -171,7 +172,6 @@ class RestaurantController {
 
     favoriteButton.addEventListener('click', () => {
       this.changeFavoriteButton(restaurantId, favoriteButton);
-      this.updateRestaurantList();
     });
   }
 
@@ -184,9 +184,9 @@ class RestaurantController {
 
       if (target.innerText === '삭제하기') {
         this.#restaurantList = this.#restaurantService.removeRestaurant(targetRestaurant, this.#restaurantList);
-        this.updateRestaurantList();
         alert('삭제되었습니다.');
       }
+      this.updateRestaurantList();
       OutputView.closeModal();
     });
   }

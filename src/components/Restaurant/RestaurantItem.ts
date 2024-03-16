@@ -6,7 +6,7 @@ const RestaurantItem = (restaurant: Restaurant) => {
   return /*html*/ `
   <li class="restaurant" id=${restaurant.id}>
     <div class="restaurant__category">
-      <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.png" alt=${restaurant.category} class="category-icon" />
+      <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.svg" alt=${restaurant.category} class="category-icon" />
     </div>
     <div class="restaurant__info">   
       <div class="restaurant__sub-info">

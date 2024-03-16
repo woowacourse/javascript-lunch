@@ -8,7 +8,7 @@ const DetailRestaurantModal = (restaurant: Restaurant) => {
   <div class="detail-restaurant" id=${restaurant.id}>
     <div class="detail-restaurant__image">
       <div class="restaurant__category">
-        <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.png" alt=${restaurant.category} class="category-icon" />
+        <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.svg" alt=${restaurant.category} class="category-icon" />
       </div>
       <div>${FavoriteButton(restaurant.favorite)}</div>
     </div>
