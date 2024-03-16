@@ -35,7 +35,6 @@ const DISTANCE_FILTER_OPTIONS = [
 
 const ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS = {
   options: CATEGORY_OPTIONS,
-  label: '카테고리',
   name: 'category',
   id: 'category',
   isRequired: true,
@@ -43,7 +42,6 @@ const ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS = {
 
 const ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS = {
   options: DISTANCE_OPTIONS,
-  label: '거리(도보 이동 시간)',
   name: 'distance',
   id: 'distance',
   isRequired: true,

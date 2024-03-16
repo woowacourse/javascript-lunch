@@ -5,7 +5,6 @@ interface DropdownOption {
 
 interface DropdownProps {
   options: DropdownOption[];
-  label?: string;
   name?: string;
   id?: string;
   className?: string;

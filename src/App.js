@@ -1,4 +1,6 @@
+import createFilterDropdown from './components/FilterDropdown/FilterDropdown';
 import createHeader from './components/Header/Header';
+import createNavbar from './components/Navbar/Navbar';
 import { FORM_INPUT_QUERY, LOCALSTORAGE_KEY } from './constant/constants';
 import RestaurantService from './domain/RestaurantService';
 import { $ } from './utils/querySelector';
@@ -26,8 +28,8 @@ class App {
 
   run() {
     this.renderHeader();
-    this.showNavBar();
-    this.showFilterDropdown();
+    this.renderNavbar();
+    this.renderFilterDropdown();
     this.updateRestaurantList();
     this.showAddRestaurantModal();
     this.manageFilterValue();
@@ -45,28 +47,36 @@ class App {
     container.prepend(header);
   }
 
-  showNavBar() {
-    const restaurantNavContainer = $('.restaurant-nav-container');
-    const allRestaurantNav = $('#all-restaurant');
-    const favoriteRestaurantNav = $('#favorite-restaurant');
+  renderNavbar() {
+    const container = $('#container');
 
-    restaurantNavContainer.addEventListener('click', event => {
-      allRestaurantNav.classList.remove('selected');
-      favoriteRestaurantNav.classList.remove('selected');
-
-      if (event.target === allRestaurantNav) {
-        this.#isAllSelected = true;
+    const navbar = createNavbar({
+      firstTitle: '모든 음식점',
+      secondTitle: '자주 가는 음식점',
+      onClick: isAllSelected => {
+        this.#isAllSelected = isAllSelected;
         this.updateRestaurantList();
-      } else {
-        this.#isAllSelected = false;
-        this.updateRestaurantList();
-      }
-      event.target.classList.add('selected');
+      },
     });
+
+    container.appendChild(navbar);
   }
 
-  showFilterDropdown() {
-    OutputView.renderFilterDropdown();
+  renderFilterDropdown() {
+    const container = $('#container');
+
+    const filterDropdown = createFilterDropdown({
+      onChangeFilter: category => {
+        this.#category = category;
+        this.updateRestaurantList();
+      },
+      onChangeSort: property => {
+        this.#property = property;
+        this.updateRestaurantList();
+      },
+    });
+
+    container.appendChild(filterDropdown);
   }
 
   updateRestaurantList() {
@@ -131,20 +141,6 @@ class App {
 
     modalBackdrop.addEventListener('click', () => {
       OutputView.closeModal();
-      this.updateRestaurantList();
-    });
-  }
-
-  manageFilterValue() {
-    const categoryFilter = $('#category-filter');
-    categoryFilter.addEventListener('change', () => {
-      this.#category = categoryFilter.options[categoryFilter.selectedIndex].value;
-      this.updateRestaurantList();
-    });
-
-    const sortingFilter = $('#sorting-filter');
-    sortingFilter.addEventListener('change', () => {
-      this.#property = sortingFilter.options[sortingFilter.selectedIndex].value;
       this.updateRestaurantList();
     });
   }
