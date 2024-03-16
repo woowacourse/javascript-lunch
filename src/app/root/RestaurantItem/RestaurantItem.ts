@@ -16,29 +16,52 @@ class RestaurantItem extends HTMLElement {
   }
 
   private addEvent() {
-    const favoriteButton = $('favorite-button');
+    const restaurantItem = $(`restaurant-info-${this.restaurantData.name.replaceAll(' ', '')}`);
+    if (restaurantItem) {
+      restaurantItem.addEventListener('click', (event: Event) => {
+        this.dispatchEvent(
+          new CustomEvent('showRestaurantInfoModal', {
+            detail: this.restaurantData,
+          }),
+        );
+      });
+    }
+
+    const favoriteButton = $(`#favorite-button-${this.restaurantData.name.replaceAll(' ', '')}`);
     if (favoriteButton) {
-      favoriteButton.addEventListener('click', () => this.dispatchEvent(new CustomEvent('favorite', {})));
+      favoriteButton.addEventListener('click', (event: Event) => {
+        event.stopPropagation();
+        this.dispatchEvent(
+          new CustomEvent('toggleFavorite', {
+            detail: this.restaurantData.name,
+          }),
+        );
+      });
     }
   }
 
   private render() {
     this.innerHTML = ` 
-      <li class="restaurant">
+      <li class="restaurant" id="restaurant-item">
         <div class="restaurant__category">
           <img src="${IMAGE.url[this.restaurantData.category]}" \
           alt="${this.restaurantData.category}" class="category-icon" />
         </div>
-        <div class="restaurant__info">
+        <div class="restaurant__info" id="restaurant-info-${this.restaurantData.name.replaceAll(' ', '')}">
           <h3 class="restaurant__name text-subtitle">${this.restaurantData.name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${this.restaurantData.minutesWalk}분 내</span>
-          <p class="restaurant__description text-body">${this.restaurantData.description}</p>
+          <p class="restaurant__description text-body text-overflow">${this.restaurantData.description}</p>
+          
         </div>
         <div>
-          <button type="button" class="favorite-icon" id="favoite-button">
+          <button type="button" class="favorite-icon" id="favorite-button-${this.restaurantData.name.replaceAll(
+            ' ',
+            '',
+          )}" onclick>
+          
             <img src="${this.restaurantData.favorite ? IMAGE.url.버튼_즐겨찾기등록됨 : IMAGE.url.버튼_즐겨찾기해제됨}"/>
           </button>
-        </div>
+          </div>
       </li>
     `;
   }
