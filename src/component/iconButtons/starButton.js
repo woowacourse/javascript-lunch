@@ -1,14 +1,18 @@
 import { $, $$ } from '../../utils/selector.js';
 
+const starButtonClickEvent = new Event('starButtonClick', { bubbles: true });
+
 const STAR_ICONS = {
   fill: './favorite-icon-filled.png',
   noFill: './favorite-icon-lined.png',
 };
 
-function createStarButton({ initialState, id }) {
-  const starButton = renderStarButton({ id });
+function createStarButton(buttonProps) {
+  const starButton = renderStarButton(buttonProps);
 
-  if (initialState) toggleStarButton(starButton);
+  starButton.addEventListener('click', () =>
+    starButton.dispatchEvent(starButtonClickEvent)
+  );
 
   return starButton;
 }
@@ -28,19 +32,22 @@ function toggleStarButton(starButtonId) {
   });
 }
 
-function renderStarButton({ id }) {
+function renderStarButton({ id, initialState }) {
   const starButton = document.createElement('button');
 
   starButton.style.width = '32px';
   starButton.style.height = '32px';
 
-  starButton.style.backgroundImage = `url(${STAR_ICONS.noFill})`;
+  starButton.style.backgroundImage = initialState
+    ? `url(${STAR_ICONS.fill})`
+    : `url(${STAR_ICONS.noFill})`;
   starButton.style.backgroundSize = 'cover';
   starButton.style.backgroundColor = 'transparent';
 
   starButton.style.border = 'none';
 
   starButton.classList.add(`star__button__${id}`);
+  if (initialState) starButton.classList.add('star__filled');
 
   return starButton;
 }
