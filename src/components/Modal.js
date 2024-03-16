@@ -1,7 +1,7 @@
 class Modal {
   #modal = document.createElement('div');
 
-  constructor(modalContainer) {
+  constructor(container) {
     const modalBackDrop = document.createElement('div');
 
     this.#modal.classList.add('modal');
@@ -9,7 +9,7 @@ class Modal {
 
     this.#modal.appendChild(modalBackDrop);
 
-    this.#modal.appendChild(modalContainer);
+    this.#modal.appendChild(container);
   }
 
   toggle() {

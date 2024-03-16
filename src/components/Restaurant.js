@@ -2,9 +2,9 @@ import { CATEGORY_IMG_SRC, FAVORITE_IMG_SRC } from '../constants/filter';
 
 const RestaurantComponent = {
   render(restaurantList) {
-    const restaurantList = document.querySelector('.restaurant-list');
+    const $restaurantList = document.querySelector('.restaurant-list');
     restaurantList.forEach(element => {
-      restaurantList.appendChild(this.mounted(element.information));
+      $restaurantList.appendChild(this.mounted(element.information));
     });
   },
 
