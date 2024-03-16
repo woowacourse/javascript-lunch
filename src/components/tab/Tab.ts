@@ -13,7 +13,7 @@ class Tab extends HTMLDivElement {
     this.className = 'tab';
     this.activeIndex = 0;
     this.tabElements = this.createTabElements(tabNames);
-    this.tabChange();
+    this.listenTabChange();
   }
 
   createTabElements(tabNames: string[]) {
@@ -26,7 +26,7 @@ class Tab extends HTMLDivElement {
     return tabElements;
   }
 
-  tabChange() {
+  listenTabChange() {
     this.tabElements.forEach((tabElement) => {
       tabElement.tabClick(this.clearActivate.bind(this), this.setActiveTab.bind(this));
     });

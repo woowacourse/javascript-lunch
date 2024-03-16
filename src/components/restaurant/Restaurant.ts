@@ -5,6 +5,9 @@ import Modal from '../modal/Modal';
 import RestaurantDetail from '../restaurantDetail/RestaurantDetail';
 import CategoryImage from '../categoryImage/CategoryImage';
 
+import LOCAL_STORAGE_KEY from '../../constants/LocalStorageKey';
+import storage from '../../storage';
+
 class Restaurant extends HTMLLIElement {
   private modal: Modal;
   private content: RestaurantDetail;
@@ -84,6 +87,10 @@ class Restaurant extends HTMLLIElement {
 
   listenDeleteButtonClick() {
     this.content.listenDeleteButonClick(this.toggleModal.bind(this));
+  }
+
+  addFavorite() {
+    storage.addData
   }
 }
 

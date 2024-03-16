@@ -145,7 +145,7 @@ class App extends HTMLElement {
       const targetId = restaurantDeleteEvent.detail.targetId;
       
       this.matzip.delete(targetId);
-      storage.removeData(MATZIP_DATA, targetId);
+      storage.modifyData<RestaurantType>(MATZIP_DATA, this.matzip.getRestaurants());
       this.tabPane.showListDelete(targetId);
     });
   }

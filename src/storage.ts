@@ -1,7 +1,5 @@
-import { Restaurant } from './types';
-
 const storage = {
-  addData(key: string, data: Restaurant) {
+  addData<T>(key: string, data: T) {
     const localStorageData = localStorage.getItem(key);
 
     if (localStorageData === null) {
@@ -9,26 +7,21 @@ const storage = {
       return;
     }
 
-    const existingData: Restaurant[] = JSON.parse(localStorageData);
+    const existingData: T[] = JSON.parse(localStorageData);
     const newData = [...existingData, data];
     localStorage.setItem(key, JSON.stringify(newData));
   },
 
-  getData(key: string): Restaurant[] {
+  getData<T>(key: string): T[] {
     const localStorageData = localStorage.getItem(key);
     if (localStorageData === null) return [];
     return JSON.parse(localStorageData);
   },
 
-  removeData(key: string, targetId: string) {
+  modifyData<T>(key: string, newList: T[]) {
     const localStorageData = localStorage.getItem(key);
     if (localStorageData !== null) {
-      const existingData: Restaurant[] = JSON.parse(localStorageData);
-      const targetIndex = existingData.findIndex(data => data.id === targetId);
-
-      const front = existingData.slice(0, targetIndex);
-      const back = existingData.slice(targetIndex + 1, existingData.length);
-      localStorage.setItem(key, JSON.stringify([...front, ...back]));
+      localStorage.setItem(key, JSON.stringify(newList));
     }
   }
 };

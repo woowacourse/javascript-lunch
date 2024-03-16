@@ -12,6 +12,7 @@ export interface RestaurantDeleteEvent extends CustomEvent {
 }
 
 class RestaurantDetail extends HTMLDivElement {
+  private favoriteIcon: FavoriteIcon;
   private cancelButton: Button;
   private deleteButton: Button;
 
@@ -24,6 +25,7 @@ class RestaurantDetail extends HTMLDivElement {
     const { cancelButton, deleteButton } = this.createButtons();
     this.cancelButton = cancelButton;
     this.deleteButton = deleteButton;
+    this.favoriteIcon = this.createFavoriteIcon();
   }
 
   createLayout({category, name, distance, introduction, link}: Restaurant) {    
@@ -32,7 +34,6 @@ class RestaurantDetail extends HTMLDivElement {
     this.createDistance(distance);
     this.createIntroduction(introduction);
     this.createLink(link);
-    this.createFavoriteIcon();
   }
 
   createCategoryImage(category: CategoryType) {
@@ -87,6 +88,7 @@ class RestaurantDetail extends HTMLDivElement {
   createFavoriteIcon() {
     const button = new FavoriteIcon({active: false});
     this.appendChild(button);
+    return button;
   }
 
   createButtons() {
