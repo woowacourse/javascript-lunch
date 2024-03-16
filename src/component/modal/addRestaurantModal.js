@@ -2,15 +2,20 @@ import { createDropDown } from '../dropDown';
 import createInput from '../input';
 import createLabelWrapper from '../labelWrapper';
 import createTextArea from '../textArea';
-import modal from '../modal';
+import { closeModal, createModalContainer } from './modal';
 import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/cons';
 import createButton from '../button';
 import toast from '../toast/toast';
-import renderRestaurantList from '../restaurantList.js';
+import createRestaurantList from '../restaurantList.js';
 
 const formIds = ['category', 'name', 'walkingTime', 'description', 'link'];
 
-function createNewRestaurantModal(addRestaurant, getRestaurantList) {
+function createNewRestaurantModal({
+  addRestaurant,
+  getRestaurantList,
+  favoriteToggle,
+  hasFavorite,
+}) {
   const container = render();
   const form = container.querySelector('form');
 
@@ -21,13 +26,17 @@ function createNewRestaurantModal(addRestaurant, getRestaurantList) {
       restaurant[id] = form.querySelector(`#${id}`).value;
       return restaurant;
     }, {});
-    newRestaurant.favorite = false;
+    newRestaurant.id = 0; // TODO: 임시로 박아놓은 아이디
 
     try {
       addRestaurant(newRestaurant);
-      console.log(getRestaurantList());
-      renderRestaurantList(getRestaurantList());
-      modal.remove('modal--open');
+      createRestaurantList({
+        restaurantList: getRestaurantList(),
+        favoriteToggle,
+        hasFavorite,
+      });
+
+      closeModal();
 
       toast(
         `${newRestaurant.name} 가게에 대한 정보가 정상적으로 추가되었습니다.`
@@ -40,7 +49,7 @@ function createNewRestaurantModal(addRestaurant, getRestaurantList) {
 }
 
 function render() {
-  const container = modal.createContainer();
+  const container = createModalContainer();
 
   const modalTitle = document.createElement('h2');
   modalTitle.className = 'modal-title text-title';
@@ -111,14 +120,14 @@ function render() {
     innerElement: createInput({ name: 'link', id: 'link', type: 'text' }),
   });
 
-  const buttonWrapper = document.createElement('div');
-  buttonWrapper.className = 'button-container';
+  const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'button-container';
 
   const cancelButton = createButton({
     className: 'button button--secondary text-caption',
     eventType: 'click',
     name: '취소하기',
-    callback: () => modal.remove('modal--open'),
+    callback: closeModal,
   });
 
   const addButton = createButton({
@@ -128,16 +137,20 @@ function render() {
     name: '추가하기',
   });
 
-  buttonWrapper.append(cancelButton, addButton);
+  const scrollContainer = document.createElement('div');
+  scrollContainer.classList.add('scroll-container');
 
-  form.append(
+  scrollContainer.append(
     categorySelecterLabelWrapper,
     nameLabelWrapper,
     walkingTimeLabelWrapper,
     textAreaLabelWrapper,
-    linkLabelWrapper,
-    buttonWrapper
+    linkLabelWrapper
   );
+
+  buttonContainer.append(cancelButton, addButton);
+
+  form.append(scrollContainer, buttonContainer);
 
   container.append(modalTitle, form);
 
