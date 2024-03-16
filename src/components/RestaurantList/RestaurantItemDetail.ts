@@ -54,7 +54,9 @@ class RestaurantItemDetail extends HTMLLIElement {
     const $buttonBox = this.querySelector('.restaurant__button-container')!;
     $buttonBox.append(
       new BasicButton('secondary', '삭제하기', 'reset', () => {
-        // new RestaurantDBService().remove();
+        new RestaurantDBService().remove(this.get());
+        (this.parentElement!.parentElement as BasicModal).closeModal();
+        (document.querySelector('#main-app') as MainApp).paint();
       }),
     );
     $buttonBox.append(new BasicButton('primary', '닫기', 'submit', () => {}));
