@@ -5,7 +5,6 @@ import './components/LunchTab/LunchTab';
 import './components/LunchTabAll/LunchTabAll';
 import './components/LunchTabLiked/LunchTabLiked';
 import './components/LunchRegisterModal/LunchRegisterModal';
-// import './components/LunchDetailModal/LunchDetailModal';
 
 import DUMMY from './constants/dummy';
 import { LOCAL_STORAGE_KEYS } from './constants/localStorageKeys';

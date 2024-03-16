@@ -30,17 +30,6 @@ const LUNCH_ITEM_TEMPLATE = (restaurant: Restaurant) => /* HTML */ `
   ></lunch-item>
 `;
 
-// const LUNCH_DETAIL_MODAL_TEMPLATE = (restaurant: Restaurant) => /* HTML */ `
-//   <lunch-detail-modal
-//     category="${restaurant.category}"
-//     name="${restaurant.name}"
-//     distance="${restaurant.distance}"
-//     description="${restaurant.description ?? ''}"
-//     liked="${restaurant.liked}"
-//     link="${restaurant.link}"
-//   ></lunch-detail-modal>
-// `;
-
 class LunchItems extends HTMLElement {
   connectedCallback() {
     this.insertAdjacentHTML('beforeend', LUNCH_ITEMS_TEMPLATE);
@@ -67,7 +56,6 @@ class LunchItems extends HTMLElement {
 
   setEventListener() {
     this.addEventListener('clickLikedButton', (e: any) => this.handleLiked(e));
-    // this.addEventListener('click', (e: any) => this.handleDetailModal(e), true);
   }
 
   handleLiked(e: any) {
@@ -82,11 +70,6 @@ class LunchItems extends HTMLElement {
     const liked = likedAttribute === 'true';
     return liked;
   }
-
-  // handleDetailModal(e: any) {
-  //   e.stopPropagation();
-  //   console.log(e.target);
-  // }
 }
 
 customElements.define('lunch-items', LunchItems);

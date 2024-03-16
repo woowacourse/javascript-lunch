@@ -83,14 +83,7 @@ class LunchDetailModal extends HTMLElement {
     const description: string = this.getAttribute('description') ?? '';
     const liked: string = this.getAttribute('liked') ?? '';
     const link: string = this.getAttribute('link') ?? '';
-    this.innerHTML = LUNCH_DETAIL_MODAL_TEMPLATE({
-      category,
-      name,
-      distance,
-      description,
-      link,
-      liked,
-    });
+    this.innerHTML = LUNCH_DETAIL_MODAL_TEMPLATE({ category, name, distance, description, link, liked });
   }
 
   setEventListener() {
