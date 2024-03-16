@@ -4,10 +4,12 @@ import BaseComponent from '../BaseComponent';
 class BasicModal extends BaseComponent {
   #children: Node;
   #backdropElement: HTMLElement = document.createElement('div');
+  #position;
 
-  constructor(children: Node) {
+  constructor(children: Node, position: 'bottom' | 'center') {
     super();
     this.#children = children;
+    this.#position = position;
   }
 
   render() {
@@ -18,14 +20,21 @@ class BasicModal extends BaseComponent {
 
   setEvent(): void {
     this.#backdropElement.addEventListener('click', () => {
-      closeModal();
+      this.#position === 'bottom' && closeModal();
       resetBodyScroll();
     });
   }
 
   #addModalContainer() {
     const modalContainerElement = document.createElement('div');
-    modalContainerElement.classList.add('modal-container');
+
+    if (this.#position === 'center') {
+      modalContainerElement.classList.add('modal-center');
+    }
+    if (this.#position === 'bottom') {
+      modalContainerElement.classList.add('modal-container');
+    }
+
     modalContainerElement.append(this.#children);
     this.append(modalContainerElement);
   }

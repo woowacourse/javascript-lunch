@@ -1,5 +1,4 @@
-import { CATEGORIES, RESTAURANTS_DB_KEY } from '@/constants/Condition';
-import { Category, IRestaurant } from '@/types/Restaurant';
+import { RESTAURANTS_DB_KEY } from '@/constants/Condition';
 
 describe('탭 작동 테스트', () => {
   beforeEach(() => {

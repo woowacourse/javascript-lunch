@@ -7,6 +7,8 @@ import { closeModal, makeDescription, makeDistance, makeTitle } from '@/utils/vi
 import { IRestaurant } from '@/types/Restaurant';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
 import { INFO_MESSAGE } from '@/constants/Message';
+import { $ } from '@/utils/DOM';
+import AlertModal from '../AlertModal/AlertModal';
 
 class RestaurantDetailModal extends BaseComponent {
   #restaurant: IRestaurant;
@@ -45,8 +47,14 @@ class RestaurantDetailModal extends BaseComponent {
     const favoriteButton = new FavoriteButton(this.#restaurant.isFavorite, true);
     this.#detailInfo.append(favoriteButton);
 
-    this.replaceWith(new BasicModal(this.#detailInfo));
+    this.replaceWith(new BasicModal(this.#detailInfo, 'bottom'));
   }
+
+  // deleteRestaurant() {
+  //   console.log('as');
+  //   this.#restaurantUpdateService.deleteRestaurant(this.#restaurant.id);
+  //   $('.alert-modal').classList.add('hidden');
+  // }
 
   #makeLink() {
     const $link = document.createElement('a');
@@ -75,9 +83,7 @@ class RestaurantDetailModal extends BaseComponent {
       textContent: '삭제하기',
       type: 'button',
       clickEvent: () => {
-        if (confirm(INFO_MESSAGE.DELETE_CONFIRM)) {
-          this.#restaurantUpdateService.deleteRestaurant(this.#restaurant.id);
-        }
+        $('#alert-modal').classList.remove('hidden');
       },
     });
   }

@@ -49,7 +49,7 @@ class NewRestaurantModal extends BaseComponent {
     const $fragment2 = new DocumentFragment();
     $fragment2.append(this.#title);
     $fragment2.append(this.#form);
-    this.append(new BasicModal($fragment2));
+    this.append(new BasicModal($fragment2, 'bottom'));
   }
 
   #makeCategorySelectBox() {
