@@ -1,18 +1,29 @@
-import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
-import renderRestaurantList from '../component/restaurantList.js';
-import { categoryFilterList, sortingFilterList } from '../constant/cons';
+import { closeModal } from '../component/modal/modal.js';
+import createTabBar from '../component/tabBar/tabBar.js';
+import FavoriteRestaurantList from '../domain/FavoriteRestaurantList';
 import { RestaurantManager } from '../domain/RestaurantManager';
+import { createAllRestaurantList } from '../page/allRestaurantList.js';
+import { createFavoriteRestaurantList } from '../page/favoriteRestaurantList.js';
+import { $ } from '../utils/selector.js';
 
 export const set = {
   start() {
-    const data = JSON.parse(localStorage.getItem('restaurantList')) || [];
-    const restaurantManager = new RestaurantManager(data);
+    const restaurantListData =
+      JSON.parse(localStorage.getItem('restaurantList')) || [];
+    const favoriteRestaurantListData =
+      JSON.parse(localStorage.getItem('favoriteRestaurantList')) || [];
 
-    this.setMainPage(restaurantManager);
+    const restaurantManager = new RestaurantManager(restaurantListData);
+    const favoriteRestaurantList = new FavoriteRestaurantList(
+      favoriteRestaurantListData
+    );
+
+    this.initPage(restaurantManager, favoriteRestaurantList);
   },
 
-  setMainPage(restaurantManager) {
+  initPage(restaurantManager, favoriteRestaurantList) {
+    // 헤더
     document.body.insertAdjacentElement(
       'afterbegin',
       createHeader({
@@ -21,49 +32,71 @@ export const set = {
         right: 'add',
         addRestaurant: (restaurant) => restaurantManager.add(restaurant),
         getRestaurantList: () => restaurantManager.filteredRestaurantList(),
+        hasFavorite: favoriteRestaurantList.hasRestaurant,
       })
     );
 
-    const restaurantFilterContainer = document.querySelector(
-      '.restaurant-filter-container'
-    );
+    const tabBarList = [
+      {
+        name: '모든 음식점',
+        render: () =>
+          createAllRestaurantList({
+            restaurantManager,
+            favoriteRestaurantList,
+          }),
+      },
+      {
+        name: '즐겨찾는 음식점',
+        render: () =>
+          createFavoriteRestaurantList({
+            getFavoriteRestaurantList: () =>
+              restaurantManager
+                .getRestaurantList()
+                .filter(({ id }) => favoriteRestaurantList.hasRestaurant(id)),
+            favoriteRestaurantList,
+          }),
+      },
+    ];
 
-    restaurantFilterContainer.appendChild(
-      createDropDown({
-        name: 'category',
-        id: 'category-filter',
-        options: categoryFilterList,
-        className: 'restaurant-filter',
-        callback: (category) => {
-          restaurantManager.setCurrentCategory(category);
+    createTabBar(tabBarList);
+    createAllRestaurantList({ restaurantManager, favoriteRestaurantList });
 
-          if (category === '전체')
-            return renderRestaurantList(restaurantManager.getRestaurantList());
+    this.addEventList({
+      restaurantManager,
+      favoriteRestaurantList,
+      tabBarList,
+    });
+  },
 
-          renderRestaurantList(restaurantManager.filteredRestaurantList());
-        },
-      })
-    );
+  // TODO: 전역으로 이벤트 관리
+  addEventList({ restaurantManager, favoriteRestaurantList, tabBarList }) {
+    document.body.addEventListener('deleteRestaurantInModal', (event) => {
+      const modalContainer = event.target.closest('[class*="restaurant__id"]');
+      const restaurantId = Number(
+        [...modalContainer.classList]
+          .find((className) => className.includes('id'))
+          .split('__')
+          .pop()
+      );
 
-    restaurantFilterContainer.appendChild(
-      createDropDown({
-        name: 'sorting',
-        id: 'sorting-filter',
-        className: 'restaurant-filter',
-        options: sortingFilterList,
-        callback: (category) => {
-          if (category === '이름순')
-            renderRestaurantList(
-              restaurantManager.sortByAscendingNameAndCategory()
-            );
-          if (category === '거리순')
-            renderRestaurantList(
-              restaurantManager.sortByAscendingWalkingTimeAndCategory()
-            );
-        },
-      })
-    );
+      restaurantManager.delete(restaurantId);
 
-    renderRestaurantList(restaurantManager.sortByAscendingNameAndCategory());
+      if (favoriteRestaurantList.hasRestaurant(restaurantId))
+        favoriteRestaurantList.deleteRestaurant(restaurantId);
+
+      closeModal();
+
+      const selectedTab =
+        $('.tab-bar').querySelector('.selected__tab').textContent;
+
+      tabBarList.find(({ name }) => name === selectedTab).render();
+    });
+
+    document.body.addEventListener('starButtonClick', () => {
+      const selectedTab =
+        $('.tab-bar').querySelector('.selected__tab').textContent;
+
+      tabBarList.find(({ name }) => name === selectedTab).render();
+    });
   },
 };
