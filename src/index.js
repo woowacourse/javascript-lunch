@@ -4,7 +4,7 @@ import './components/Header.ts';
 import './components/FilterContainer.ts';
 import './components/ListContainer.ts';
 import './components/Modal.ts';
-import './components/MatzipContainer';
+import './components/MatzipNav.ts';
 import './components/Restaurant.ts';
 import './components/RestaurantForm.ts';
 import './components/RestaurantDetail.ts';

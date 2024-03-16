@@ -94,12 +94,12 @@ body {
   padding: 30px 16px;
 }
 
-.container--close {
+.matzip-container--close {
   display: none;
 }
 
-.total-matzip,
-.favorite-matzip {
+.all-matzip-tab,
+.favorite-matzip-tab {
   width: 50%;
   border-bottom: 3px solid #ec4a0a;
   text-align: center;
@@ -154,6 +154,8 @@ body {
   display: flex;
   align-items: flex-start;
 
+  position: relative;
+
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
@@ -202,6 +204,11 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__favorite_img {
+  position: absolute;
+  right: 0;
 }
 
 /* 음식점 추가 모달 *****************************************/
