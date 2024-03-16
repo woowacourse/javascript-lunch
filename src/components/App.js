@@ -48,7 +48,7 @@ export default class App {
   }
 
   #updateRestaurantList({ category, sort }, isBookmark) {
-    const result = this.#restaurantManger.getList({ category, sort }, isBookmark);
+    const result = this.#restaurantManger.getFilteredList({ category, sort }, isBookmark);
     this.#restaurantList.restaurants = result;
   }
 
