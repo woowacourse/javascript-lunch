@@ -1,9 +1,10 @@
-import { FORM_INPUT_QUERY, LOCALSTORAGE_KEY } from '../constant/constants';
-import RestaurantService from '../domain/RestaurantService';
-import { $ } from '../utils/querySelector';
-import OutputView from '../views/OutputView';
+import createHeader from './components/Header/Header';
+import { FORM_INPUT_QUERY, LOCALSTORAGE_KEY } from './constant/constants';
+import RestaurantService from './domain/RestaurantService';
+import { $ } from './utils/querySelector';
+import OutputView from './views/OutputView';
 
-class RestaurantController {
+class App {
   #restaurantList;
 
   #restaurantService;
@@ -24,6 +25,7 @@ class RestaurantController {
   }
 
   run() {
+    this.renderHeader();
     this.showNavBar();
     this.showFilterDropdown();
     this.updateRestaurantList();
@@ -33,6 +35,14 @@ class RestaurantController {
 
   getRecentData() {
     return JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
+  }
+
+  renderHeader() {
+    const container = $('#container');
+
+    const header = createHeader({ title: '점심 뭐 먹지', imageSource: './add-button.png' });
+
+    container.prepend(header);
   }
 
   showNavBar() {
@@ -192,4 +202,4 @@ class RestaurantController {
   }
 }
 
-export default RestaurantController;
+export default App;
