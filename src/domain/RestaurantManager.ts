@@ -1,5 +1,6 @@
 import getUniqueID from '../utils/getUniqueID';
-import { Category, FilterOptions, Option, Restaurant } from './types';
+import { filterByBookmark, filterByCategory, sortByOption } from './RestaurantFilters';
+import { FilterOptions, Restaurant } from './types';
 
 export default class RestaurantManager {
   private restaurants: Restaurant[] = [];
@@ -24,33 +25,8 @@ export default class RestaurantManager {
   }
 
   getFilteredList(options: FilterOptions, isBookmark: boolean): Restaurant[] {
-    const restaurants = this.filterByBookmark(this.restaurants, isBookmark);
-    const filteredRestaurants = this.filterByCategory(restaurants, options.category);
-
-    return this.sortByOption(filteredRestaurants, options.sort);
-  }
-
-  private filterByBookmark(restaurants: Restaurant[], isBookmark: boolean): Restaurant[] {
-    if (isBookmark) {
-      return this.restaurants.filter((restaurant) => restaurant.isBookmark);
-    }
-    return restaurants;
-  }
-
-  private filterByCategory(restaurants: Restaurant[], category: Category): Restaurant[] {
-    if (category === '전체') {
-      return restaurants;
-    }
-    return restaurants.filter((restaurant) => restaurant.category === category);
-  }
-
-  private sortByOption(restaurants: Restaurant[], sort: Option): Restaurant[] {
-    if (sort === 'name') {
-      return restaurants.sort((a, b) => a.name.localeCompare(b.name));
-    }
-    if (sort === 'distance') {
-      return restaurants.sort((a, b) => a.distance - b.distance);
-    }
-    return restaurants;
+    const restaurants = filterByBookmark(this.restaurants, isBookmark);
+    const filteredRestaurants = filterByCategory(restaurants, options.category);
+    return sortByOption(filteredRestaurants, options.sort);
   }
 }
