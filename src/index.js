@@ -14,9 +14,9 @@ const restaurantList = new RestaurantList(getDefaultRestaurantList());
 const init = () => {
   Header.set(restaurantList);
   new RestaurantTapContainer(restaurantList);
-  new RestaurantFilterContainer(restaurantList).set();
+  new RestaurantFilterContainer(restaurantList).createFilters();
   RestaurantComponent.setRestaurantList(restaurantList);
-  RestaurantComponent.render(restaurantList.getSortedByName());
+  RestaurantComponent.create(restaurantList.getSortedByName());
 };
 
 init();
