@@ -6,34 +6,35 @@ export const SORT_CONDITION = Object.freeze(['이름순', '거리순'] as const)
 export const ALL_CATEGORY = '전체';
 
 export class RestaurantCatalog {
-  restaurants: Array<Restaurant | null> = [];
+  restaurants: Map<number, Restaurant> = new Map();
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
     if (!restaurantInfo) return;
+    this.#validDuplicateName(restaurantInfo);
     if (restaurantInfo.id) {
-      this.restaurants[restaurantInfo.id] = new Restaurant(restaurantInfo);
+      this.restaurants.set(restaurantInfo.id, new Restaurant(restaurantInfo));
       return;
     }
-    this.#validDuplicateName(restaurantInfo);
     const newRestaurant = this.#generateNewRestaurantInfo(restaurantInfo);
-    this.restaurants.push(new Restaurant(newRestaurant));
+    this.restaurants.set(newRestaurant.id, new Restaurant(newRestaurant));
     return newRestaurant;
   }
 
   #generateNewRestaurantInfo(restaurantInfo: IRestaurantInfo) {
+    const lastId = Array.from(this.restaurants.keys()).pop() || 0;
     return {
       ...restaurantInfo,
-      id: restaurantInfo.id ?? this.restaurants.length,
+      id: restaurantInfo.id ?? lastId + 1,
       isLiked: restaurantInfo.isLiked ?? false,
     };
   }
 
   removeRestaurant(index: number) {
-    this.restaurants[index] = null;
+    this.restaurants.delete(index);
   }
 
   #validDuplicateName(restaurantInfo: IRestaurantInfo) {
-    this.restaurants.forEach((restaurant: Restaurant | null) => {
+    this.getRestaurantsClass().forEach((restaurant: Restaurant | null) => {
       if (restaurant && restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
         throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
@@ -42,9 +43,9 @@ export class RestaurantCatalog {
 
   filterByCategory(category: Category | typeof ALL_CATEGORY): Restaurant[] | [] {
     if (category === ALL_CATEGORY) {
-      return this.restaurants.filter((restaurant) => restaurant) as Restaurant[];
+      return this.getRestaurantsClass().filter((restaurant) => restaurant) as Restaurant[];
     }
-    return this.restaurants.filter(
+    return this.getRestaurantsClass().filter(
       (restaurant) => restaurant && restaurant?.getRestaurantInfoObject().category === category,
     ) as Restaurant[];
   }
@@ -72,12 +73,12 @@ export class RestaurantCatalog {
     return restaurants;
   }
 
-  getSpecificRestaurantInfo(index: number) {
-    return this.restaurants[index]?.getRestaurantInfoObject();
+  getSpecificRestaurantInfo(id: number) {
+    return this.restaurants.get(id)?.getRestaurantInfoObject();
   }
 
   getRestaurantsClass() {
-    return [...this.restaurants];
+    return Array.from(this.restaurants.values());
   }
 }
 

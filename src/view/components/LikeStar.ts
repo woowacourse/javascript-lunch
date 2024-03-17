@@ -4,9 +4,9 @@ import restaurantCatalog from '../../domain/RestaurantCatalog';
 class LikeStar extends HTMLElement {
   #restaurantId;
 
-  constructor(isLiked, id) {
+  constructor(isLiked: boolean, id: number) {
     super();
-    this.setAttribute('data-is-liked', isLiked);
+    this.setAttribute('data-is-liked', String(isLiked));
     this.#applyColor();
     this.#restaurantId = id;
   }
@@ -16,10 +16,10 @@ class LikeStar extends HTMLElement {
     this.addEventListener('click', (e) => this.#clickHandler(e));
   }
 
-  #clickHandler(e) {
+  #clickHandler(e: Event) {
     e.stopPropagation();
     // 도메인의 데이터의 isLiked값을 변경한다.
-    restaurantCatalog.restaurants[this.#restaurantId].changeIsLiked();
+    restaurantCatalog.restaurants.get(this.#restaurantId)?.changeIsLiked();
     // LocalStorage의 데이터 isLiked값을 변경한다.
     this.#editLocalStorageData();
     // this의 data-isLiked속성을 변경한다.
@@ -27,7 +27,7 @@ class LikeStar extends HTMLElement {
   }
 
   #editLocalStorageData() {
-    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!);
     localData[this.#restaurantId].isLiked = !localData[this.#restaurantId].isLiked;
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
   }

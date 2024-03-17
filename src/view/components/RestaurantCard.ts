@@ -15,14 +15,14 @@ class RestaurantCard extends HTMLLIElement {
 
   connectedCallback() {
     this.addEventListener('click', () => {
-      const restaurant = restaurantCatalog.restaurants[Number(this.getAttribute('data-id'))!];
-      showRestaurantDetailModal(restaurant?.getRestaurantInfoObject());
+      const restaurantInfo = restaurantCatalog.getSpecificRestaurantInfo(Number(this.getAttribute('data-id'))!);
+      showRestaurantDetailModal(restaurantInfo);
     });
   }
 
   #render() {
-    const restaurant = restaurantCatalog.restaurants[Number(this.getAttribute('data-id'))!];
-    if (restaurant) this.#executeChild(restaurant?.getRestaurantInfoObject());
+    const restaurantInfo = restaurantCatalog.getSpecificRestaurantInfo(Number(this.getAttribute('data-id'))!);
+    if (restaurantInfo) this.#executeChild(restaurantInfo);
   }
 
   #executeChild({ category, name, distanceFromCampus, description, isLiked, id }: IRestaurantInfo) {
@@ -45,7 +45,7 @@ class RestaurantCard extends HTMLLIElement {
     container.innerHTML = `<h3 class="restaurant__name text-subtitle">${name}</h3>
     <span class="restaurant__distance text-body">캠퍼스부터 ${distanceFromCampus}분 내</span>
     <p class="restaurant__description text-body">${description}</p>`;
-    container.appendChild(new LikeStar(isLiked, id));
+    container.appendChild(new LikeStar(isLiked!, id!));
     return container;
   }
 
