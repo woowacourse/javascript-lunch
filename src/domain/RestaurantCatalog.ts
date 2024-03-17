@@ -15,13 +15,17 @@ class RestaurantCatalog {
       return;
     }
     this.#validDuplicateName(restaurantInfo);
-    const newRestaurant = {
+    const newRestaurant = this.#generateNewRestaurantInfo(restaurantInfo);
+    this.restaurants.push(new Restaurant(newRestaurant));
+    return newRestaurant;
+  }
+
+  #generateNewRestaurantInfo(restaurantInfo: IRestaurantInfo) {
+    return {
       ...restaurantInfo,
       id: restaurantInfo.id ?? this.restaurants.length,
       isLiked: restaurantInfo.isLiked ?? false,
     };
-    this.restaurants.push(new Restaurant(newRestaurant));
-    return newRestaurant;
   }
 
   removeRestaurant(index: number) {
