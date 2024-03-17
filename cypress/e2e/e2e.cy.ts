@@ -47,3 +47,20 @@ describe('필터링 테스트', () => {
     cy.get('.restaurant-list').find('li').should('have.length', 2);
   });
 });
+
+describe('상세보기 모달 테스트', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    cy.viewport('macbook-13');
+  });
+
+  it('음식점을 클릭하면 음식점 상세보기 모달이 나오고, 닫기버튼 또는 외부 영역을 클릭하면 모달이 닫힌다.', () => {
+    cy.get('#restaurant-info').click();
+    cy.get('#detail-modal').should('have.class', 'modal--open');
+
+    cy.get('#button-modal-close').click();
+    cy.get('#restaurant-info').click();
+    cy.get('#detail-modal-backdrop').click();
+    cy.get('#detail-modal').should('not.have.class', 'modal--open');
+  });
+});
