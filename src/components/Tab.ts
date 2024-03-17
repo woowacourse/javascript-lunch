@@ -1,4 +1,3 @@
-import { add } from 'cypress/types/lodash';
 import OnOffButton from './OnOffButton';
 import './Tab.css';
 

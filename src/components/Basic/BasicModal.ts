@@ -1,4 +1,3 @@
-import BaseComponent from '../BaseComponent';
 import './BasicModal.css';
 class BasicModal extends HTMLDivElement {
   #backdrop: HTMLDivElement;
@@ -9,16 +8,10 @@ class BasicModal extends HTMLDivElement {
     this.classList.add('modal');
     const children = Array.from(this.querySelectorAll('.modal > *')!);
 
-    this.#backdrop = document.createElement('div');
-    this.#backdrop.classList.add('modal-backdrop');
-    this.#backdrop.addEventListener('click', this.closeModal.bind(this));
+    this.#backdrop = this.#makeBackdrop();
     this.append(this.#backdrop);
 
-    this.#modalContainer = document.createElement('div');
-    if (this.getAttribute('class-container')) {
-      this.#modalContainer.className = this.getAttribute('class-container')!;
-    }
-    this.#modalContainer.classList.add('modal-container');
+    this.#modalContainer = this.#makeModalContainer();
     this.append(this.#modalContainer);
 
     this.appendAll(children);
@@ -27,7 +20,21 @@ class BasicModal extends HTMLDivElement {
     });
   }
 
-  render() {}
+  #makeBackdrop() {
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('modal-backdrop');
+    backdrop.addEventListener('click', this.closeModal.bind(this));
+    return backdrop;
+  }
+
+  #makeModalContainer() {
+    const modalContainer = document.createElement('div');
+    if (this.getAttribute('class-container')) {
+      modalContainer.className = this.getAttribute('class-container')!;
+    }
+    modalContainer.classList.add('modal-container');
+    return modalContainer;
+  }
 
   appendAll(children: Node[]) {
     children.forEach((child) => this.#modalContainer.append(child));
