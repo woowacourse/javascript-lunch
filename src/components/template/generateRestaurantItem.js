@@ -1,26 +1,24 @@
 import FavoriteButton from '../FavoriteButton';
+import { convertNameToId } from '../../utils/nameConverter';
 import ICON from '../../icons';
 
-const convertNameToId = (name) => name.replace(/\s+/g, '-');
-
-const renderFavoriteButton = (name, isFavorite) => {
-  const favoriteButton = new FavoriteButton({
+const createFavoriteButtonInstance = (restaurantsInstance, name, isFavorite) => {
+  return new FavoriteButton({
     targetId: `restaurant-list`,
-    name,
-    isFavorite,
+    restaurantsInstance,
+    name: convertNameToId(name),
+    isFavorite: isFavorite,
   });
-  return favoriteButton.render();
 };
 
-// TODO: createElement로 변경, createElement도 재사용할 수 있게 구현
-const generateRestaurantItem = ({
-  category,
-  name,
-  walkingTimeFromCampus,
-  description,
-  link,
-  isFavorite,
-}) => {
+const generateRestaurantItem = ({ restaurantsInstance, restaurant }) => {
+  const { category, name, walkingTimeFromCampus, description, link, isFavorite } = restaurant;
+  const favoriteButtonInstance = createFavoriteButtonInstance(
+    restaurantsInstance,
+    name,
+    isFavorite,
+  );
+
   return `
     <li class="restaurant" id="${convertNameToId(name)}">
       <div class="restaurant__category">
@@ -32,9 +30,9 @@ const generateRestaurantItem = ({
         <p class="restaurant__description text-body">${description}</p>
         <div><a href="${link}">${link}</a></div>
       </div>
-      ${renderFavoriteButton(convertNameToId(name), isFavorite)}
+      ${favoriteButtonInstance.render()}
     </li>
-    `;
+  `;
 };
 
 export default generateRestaurantItem;

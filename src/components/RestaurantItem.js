@@ -1,18 +1,22 @@
 import RestaurantDetailModal from './RestaurantDetailModal';
 import generateRestaurantItem from './template/generateRestaurantItem';
 
-import { toggleModal } from '../utils/modalHandler';
+import { openModal } from '../utils/modalHandler';
 
 class RestaurantItem {
   #element;
+  #restaurantsInstance;
   #restaurant;
   #restaurantDetailModal;
 
-  constructor({ element, restaurant }) {
+  constructor({ element, restaurantsInstance, restaurant }) {
     this.#element = element;
+    this.#restaurantsInstance = restaurantsInstance;
     this.#restaurant = restaurant;
+
     this.#restaurantDetailModal = new RestaurantDetailModal({
       targetId: 'restaurant-detail-modal',
+      restaurantInstance: this.#restaurantsInstance,
       restaurant: this.#restaurant,
     });
 
@@ -20,7 +24,10 @@ class RestaurantItem {
   }
 
   getTemplate() {
-    return generateRestaurantItem(this.#restaurant);
+    return generateRestaurantItem({
+      restaurantsInstance: this.#restaurantsInstance,
+      restaurant: this.#restaurant,
+    });
   }
 
   #initEventListeners() {
@@ -32,7 +39,7 @@ class RestaurantItem {
 
     if (event.target.closest(`#info-${name}`)) {
       this.#restaurantDetailModal.render();
-      toggleModal('restaurant-detail-modal');
+      openModal('restaurant-detail-modal');
     }
   }
 }

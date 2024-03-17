@@ -1,5 +1,14 @@
+import { $ } from '../../utils/dom';
+
 const generateModal = (element, child) => {
-  console.log(element.id);
+  const existingBackdrop = $(`${element.id}-backdrop`);
+  const existingModalContainer = $(`${element.id}-container`);
+  if (existingBackdrop) {
+    existingBackdrop.remove();
+  }
+  if (existingModalContainer) {
+    existingModalContainer.remove();
+  }
 
   const modalBackdrop = document.createElement('div');
   const modalContainer = document.createElement('div');

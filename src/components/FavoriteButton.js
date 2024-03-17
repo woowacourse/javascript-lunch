@@ -1,17 +1,20 @@
 import generateFavoriteButton from './template/generateFavoriteButton';
-
-import ICON from '../icons';
 import { $ } from '../utils/dom';
+import { convertIdToName } from '../utils/nameConverter';
+import ICON from '../icons';
 
 class FavoriteButton {
   #element;
+  #restaurantsInstance;
   #isFavorite;
   #name;
 
-  constructor({ targetId, name, isFavorite }) {
+  constructor({ targetId, restaurantsInstance, name, isFavorite }) {
     this.#element = $(targetId);
+    this.#restaurantsInstance = restaurantsInstance;
     this.#isFavorite = isFavorite;
     this.#name = name;
+
     this.#initEventListeners();
   }
 
@@ -29,6 +32,7 @@ class FavoriteButton {
     if (clickedButton) {
       this.#isFavorite = !this.#isFavorite;
       this.changeFavoriteButtonIcon(clickedButton);
+      this.#restaurantsInstance.updateFavoriteStatus(convertIdToName(this.#name), this.#isFavorite);
     }
   }
 

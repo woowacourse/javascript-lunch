@@ -45,6 +45,17 @@ class Restaurants implements RestaurantsInterface {
     this.storage.setItem(STORAGE.restaurants, JSON.stringify([restaurant, ...this.storageData]));
   }
 
+  updateFavoriteStatus(restaurantName: string, isFavorite: boolean) {
+    const restaurants = this.storageData.map((restaurant: Restaurant) => {
+      if (restaurant.name === restaurantName) {
+        return { ...restaurant, isFavorite };
+      }
+      return restaurant;
+    });
+
+    this.storage.setItem(STORAGE.restaurants, JSON.stringify(restaurants));
+  }
+
   get storageData() {
     return JSON.parse(this.storage.getItem(STORAGE.restaurants) ?? '[]');
   }

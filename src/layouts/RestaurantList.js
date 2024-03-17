@@ -3,20 +3,27 @@ import { $ } from '../utils/dom';
 
 class RestaurantList {
   #element;
-  #restaurants;
+  #restaurantsInstance;
 
-  constructor({ targetId, restaurants }) {
+  constructor({ targetId, restaurantsInstance }) {
     this.#element = $(targetId);
-    this.#restaurants = restaurants;
+    this.#restaurantsInstance = restaurantsInstance;
   }
 
   render() {
-    const restaurantListHTML = this.#restaurants.reduce((acc, restaurantData) => {
-      return (
-        acc +
-        new RestaurantItem({ element: this.#element, restaurant: restaurantData }).getTemplate()
-      );
-    }, '');
+    const restaurantListHTML = this.#restaurantsInstance.standardList.reduce(
+      (acc, restaurantData) => {
+        return (
+          acc +
+          new RestaurantItem({
+            element: this.#element,
+            restaurantsInstance: this.#restaurantsInstance,
+            restaurant: restaurantData,
+          }).getTemplate()
+        );
+      },
+      '',
+    );
 
     this.#element.innerHTML = restaurantListHTML;
   }

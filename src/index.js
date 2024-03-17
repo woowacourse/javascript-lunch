@@ -16,12 +16,12 @@ const select = new Select({ targetId: 'restaurant-filter-container', restaurants
 
 const restaurantList = new RestaurantList({
   targetId: 'restaurant-list',
-  restaurants: restaurants.standardList,
+  restaurantsInstance: restaurants,
 });
 
 const restaurantCreationModal = new RestaurantCreationModal({
   targetId: 'restaurant-creation-modal',
-  restaurants,
+  restaurantsInstance: restaurants,
 });
 
 header.render();

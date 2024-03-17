@@ -1,6 +1,6 @@
 import generateHeader from './template/generateHeader';
 import { $ } from '../utils/dom';
-import { toggleModal } from '../utils/modalHandler';
+import { openModal } from '../utils/modalHandler';
 
 class Header {
   #element;
@@ -21,7 +21,7 @@ class Header {
 
   #openRestaurantCreationModal(event) {
     if (event.target.closest('#gnb__button')) {
-      toggleModal('restaurant-creation-modal');
+      openModal('restaurant-creation-modal');
     }
   }
 }

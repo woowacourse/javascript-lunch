@@ -1,8 +1,17 @@
 import { $ } from './dom';
 
-export const toggleModal = (selector) => {
+const openModal = (selector) => {
   const element = $(selector);
   if (element) {
-    element.classList.toggle('modal--open');
+    element.classList.add('modal--open');
   }
 };
+
+const closeModal = (selector) => {
+  const element = $(selector);
+  if (element) {
+    element.classList.remove('modal--open');
+  }
+};
+
+export { openModal, closeModal };

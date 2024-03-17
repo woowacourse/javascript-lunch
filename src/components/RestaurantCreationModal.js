@@ -3,18 +3,18 @@ import generateRestaurantCreationModal from './template/generateRestaurantCreati
 
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
-import { toggleModal } from '../utils/modalHandler';
+import { closeModal } from '../utils/modalHandler';
 
 import { validateRequiredValue, validateRestaurantsName } from '../validators/ValidateInput';
 import { FIELD_IDS } from '../constants/rules';
 
 class RestaurantCreationModal {
   #element;
-  #restaurants;
+  #restaurantsInstance;
 
-  constructor({ targetId, restaurants }) {
+  constructor({ targetId, restaurantsInstance }) {
     this.#element = $(targetId);
-    this.#restaurants = restaurants;
+    this.#restaurantsInstance = restaurantsInstance;
 
     this.#initEventListeners();
   }
@@ -44,7 +44,7 @@ class RestaurantCreationModal {
     const targetId = event.target.id;
 
     if (targetId === 'cancel-button' || targetId === 'restaurant-creation-modal-backdrop') {
-      toggleModal('restaurant-creation-modal');
+      closeModal('restaurant-creation-modal');
     }
   }
 
@@ -63,13 +63,15 @@ class RestaurantCreationModal {
     const inputData = this.#getInputData(event);
 
     this.#validateUniqueName(inputData);
-    this.#restaurants.addRestaurant(inputData);
+    this.#restaurantsInstance.addRestaurant(inputData);
     $('restaurant-input-form').reset();
-    toggleModal('restaurant-creation-modal');
+    closeModal('restaurant-creation-modal');
   }
 
   #validateUniqueName(inputData) {
-    const restaurantNames = this.#restaurants.storageData.map((restaurant) => restaurant.name);
+    const restaurantNames = this.#restaurantsInstance.storageData.map(
+      (restaurant) => restaurant.name,
+    );
     validateRestaurantsName({ restaurantNames, name: inputData.name });
   }
 

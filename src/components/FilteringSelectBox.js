@@ -38,7 +38,7 @@ class FilteringSelectBox {
 
     new RestaurantList({
       targetId: 'restaurant-list',
-      restaurants: this.#restaurants.standardList,
+      restaurantsInstance: this.#restaurants,
     }).render();
   }
 }
