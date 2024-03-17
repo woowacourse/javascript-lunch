@@ -20,6 +20,7 @@ export interface IRestaurantInfo {
   distanceFromCampus: IDistanceFromCampus;
   description?: string;
   link?: string;
+  isFavorite: boolean;
 }
 
 class Restaurant {
