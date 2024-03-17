@@ -12,7 +12,6 @@ export default class RestaurantItem extends BaseComponent {
     const name = this.getAttribute("name");
     const timeToReach = this.getAttribute("timeToReach");
     const description = this.getAttribute("description");
-    const link = this.getAttribute("link");
 
     return `
       <li class="restaurant" data-name="${name}">
@@ -23,7 +22,7 @@ export default class RestaurantItem extends BaseComponent {
             <span class="restaurant__distance text-body">캠퍼스부터 ${timeToReach}분 내</span>
             <p class="restaurant__description text-body">${description}</p>
           </div>
-          <star-button></star-button>
+          <star-button name="${name}"></star-button>
         </div>
       </li>
     `;
