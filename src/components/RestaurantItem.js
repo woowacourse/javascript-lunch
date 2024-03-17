@@ -5,7 +5,6 @@ import {
   categoryJapanese,
   categoryKorean,
   categoryWestern,
-  defaultImg,
 } from "../assets";
 import { categoryToImg } from "../utils/categoryToImg";
 
@@ -31,6 +30,7 @@ class RestaurantItem extends BaseComponent {
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
     const img = categoryToImg(category);
+    const isFavorite = this.getAttribute("isFavorite");
 
     this.innerHTML = `
       <li class="restaurant">
@@ -42,21 +42,31 @@ class RestaurantItem extends BaseComponent {
           <span class="restaurant__distance text-body"
             >캠퍼스부터 ${distance}분 내</span
           >
+
           ${
             description
               ? `<p class="restaurant__description text-body">${description}</p>`
               : ""
           }
         </div>
+
+
+        <button class="star" aria-label="즐겨찾기 추가 버튼">
+        <favorite-toggle isFavorite=${isFavorite} name="${name}"></favorite-toggle>
+        </button>
+
       </li>
     `;
   }
 
   setEvent() {
     this.addEventListener("click", (e) => {
-      this.emitEvent("detail-modal-open", {
-        name: this.getAttribute("name"),
-      });
+      e.target.classList.contains("star") ||
+      e.target.parentElement.classList.contains("star")
+        ? ""
+        : this.emitEvent("detail-modal-open", {
+            name: this.getAttribute("name"),
+          });
     });
   }
 }
