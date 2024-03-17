@@ -68,7 +68,7 @@ delete(restaurantName : string) : boolean
 
 - UI
 
-  - 전체, 한식, 중식,,, 등 카테고리에 따라 다른 이미지를 보여준다.
+- [x] 전체, 한식, 중식,,, 등 카테고리에 따라 다른 이미지를 보여준다.
 
 ## restaurant-detail
 
