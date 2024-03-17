@@ -52,9 +52,13 @@ class RestaurantList {
 
   remove(restaurant: TRestaurantInstance): void {
     this.setRestaurants();
-    const restaurantIndex = this.restaurants.indexOf(restaurant);
-    this.restaurants.splice(restaurantIndex, 1);
-    LocalStorage.setStorageRestaurantList(this.restaurants);
+
+    this.restaurants.forEach((thisRestaurant, index) => {
+      if (thisRestaurant.information.name === restaurant.information.name) {
+        this.restaurants.splice(index, 1);
+        LocalStorage.setStorageRestaurantList(this.restaurants);
+      }
+    });
   }
 }
 
