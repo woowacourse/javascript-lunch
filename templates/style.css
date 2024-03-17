@@ -165,10 +165,22 @@ select {
   background: var(--lighten-color);
 }
 
-.favorite-icon {
+.favorite-button {
   position: absolute;
-  top: 8px;
+  top: 12px;
   right: 8px;
+
+  background-color: transparent;
+  color: transparent;
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+}
+
+.modal-container__detail .favorite-button {
+  top: 30px;
+  right: 16px;
 }
 
 .category-icon {
