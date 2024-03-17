@@ -1,3 +1,4 @@
+import { $, $$ } from './utils/querySelector';
 import createFilteringBar from './components/FilteringBar/FilteringBar';
 import createHeader from './components/Header/Header';
 import AddRestaurantModal from './components/Modal/AddRestaurantModal';
@@ -7,7 +8,6 @@ import RestaurantList from './components/RestaurantList/RestaurantList';
 import createTabMenu from './components/TabMenu/TabMenu';
 import { DEFAULT_FILTERING_CATEGORY, DEFAULT_SORTING_PROPERTY, DEFAULT_TAB, TAB_MENUS } from './constant/constants';
 import RestaurantService from './domain/services/RestaurantService';
-import { $, $$ } from './utils/querySelector';
 
 class App {
   #restaurantList = new RestaurantList();
@@ -119,7 +119,10 @@ class App {
   restaurantItemClickHandler(restaurantItem) {
     this.#restaurantDetailModal.restaurant = {
       restaurant: restaurantItem,
-      deleteHandler: item => {
+      onToggle: () => {
+        this.restaurantItemFavoriteToggleHandler();
+      },
+      onDelete: item => {
         alert('삭제되었습니다!');
         this.#restaurantList.list = RestaurantService.deleteRestaurant(item, this.#restaurantList.list);
         this.renderRestaurantList();

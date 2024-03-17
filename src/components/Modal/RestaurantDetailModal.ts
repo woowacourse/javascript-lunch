@@ -9,19 +9,26 @@ import Modal from './Modal';
 const restaurantDetailLayout = document.createElement('div');
 restaurantDetailLayout.classList.add('modal-detail-container');
 
-const render = (restaurant: Restaurant) => {
+const render = (restaurant: RestaurantEntity) => {
   const favorite = document.createElement('div');
   favorite.classList.add('restaurant__favorite');
+  favorite.setAttribute('id', 'detail-favorite');
 
   const starredIcon = document.createElement('img');
   starredIcon.setAttribute('src', 'favorite-icon-filled.png');
-  starredIcon.classList.add('favorite', 'hidden');
+  starredIcon.classList.add('favorite');
   favorite.appendChild(starredIcon);
 
   const unstarredIcon = document.createElement('img');
   unstarredIcon.setAttribute('src', 'favorite-icon-lined.png');
   unstarredIcon.classList.add('favorite');
   favorite.appendChild(unstarredIcon);
+
+  if (restaurant.isFavorite) {
+    unstarredIcon.classList.add('hidden');
+  } else {
+    starredIcon.classList.add('hidden');
+  }
 
   restaurantDetailLayout.appendChild(favorite);
 
@@ -78,7 +85,8 @@ const render = (restaurant: Restaurant) => {
 
 interface setProps {
   restaurant: RestaurantEntity;
-  deleteHandler: (id: string) => void;
+  onToggle: () => void;
+  onDelete: (id: string) => void;
 }
 
 class RestaurantDetailModal extends Modal {
@@ -88,19 +96,30 @@ class RestaurantDetailModal extends Modal {
     super({ child: restaurantDetailLayout });
   }
 
-  set restaurant({ restaurant, deleteHandler }: setProps) {
+  set restaurant({ restaurant, onToggle, onDelete }: setProps) {
     this.#restaurant = restaurant;
     restaurantDetailLayout.replaceChildren();
     render(this.#restaurant);
-    this.setEvents(deleteHandler);
+    this.setEvents(onToggle, onDelete);
   }
 
-  setEvents(deleteHandler: Function) {
+  setEvents(toggleHandler: Function, deleteHandler: Function) {
+    const favorite = $('#detail-favorite');
     const deleteButton = $('#delete');
     const closeButton = $('#close');
+
+    favorite.addEventListener('click', () => {
+      this.#restaurant?.favoriteToggle();
+      restaurantDetailLayout.replaceChildren();
+      if (this.#restaurant) render(this.#restaurant);
+      toggleHandler();
+      this.setEvents(toggleHandler, deleteHandler);
+    });
+
     deleteButton.addEventListener('click', () => {
       deleteHandler(this.#restaurant?.id);
     });
+
     closeButton.addEventListener('click', () => this.toggle.bind(this)());
   }
 }
