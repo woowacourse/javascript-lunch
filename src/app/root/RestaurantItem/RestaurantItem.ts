@@ -1,23 +1,31 @@
 import { RestaurantDataType } from '../../../type/restaurantDataType';
-import createCategoryContainer from '../../../util/createCategoryContainer';
 import { $ } from '../../../util/domSelector';
+import createCategoryContainer from '../../../util/createCategoryContainer';
 import FavoriteButton from '../../component/FavoriteButton/FavoriteButton';
 import RestaurantInfoContainer from '../../component/RestaurantItemContainer/RestaurantItemContainer';
+
+type RestaurantItemType = {
+  restaurantData: RestaurantDataType;
+  onClick: Function;
+  onFavorite: Function;
+};
 
 export default class RestaurantItem extends HTMLElement {
   private restaurantData: RestaurantDataType;
   private restaurantInfoContainer: HTMLDivElement;
   private favoriteButton: FavoriteButton;
   private showRestaurantDetail: Function;
+  private updateRestaurantFavorite: Function;
 
-  constructor(restaurantData: RestaurantDataType, onClick: Function) {
+  constructor({ restaurantData, onClick, onFavorite }: RestaurantItemType) {
     super();
     this.restaurantData = restaurantData;
     this.restaurantInfoContainer = RestaurantInfoContainer(restaurantData);
     this.favoriteButton = new FavoriteButton(restaurantData.favorite ?? false);
-    this.toggleFavorite = this.toggleFavorite.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.showRestaurantDetail = onClick;
+    this.updateRestaurantFavorite = onFavorite;
+    this.updateFavorite = this.updateFavorite.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   connectedCallback() {
@@ -30,12 +38,12 @@ export default class RestaurantItem extends HTMLElement {
   }
 
   private addEvent() {
-    $('button.restaurant__favorite-button', this).addEventListener('click', this.toggleFavorite);
+    $('button.restaurant__favorite-button', this).addEventListener('click', this.updateFavorite);
     this.addEventListener('click', this.handleClick);
   }
 
   private removeEvent() {
-    $('button.restaurant__favorite-button', this).removeEventListener('click', this.toggleFavorite);
+    $('button.restaurant__favorite-button', this).removeEventListener('click', this.updateFavorite);
     this.removeEventListener('click', this.handleClick);
   }
 
@@ -45,14 +53,10 @@ export default class RestaurantItem extends HTMLElement {
     }
   }
 
-  private toggleFavorite() {
+  private updateFavorite() {
     this.restaurantData.favorite = !this.restaurantData.favorite;
     this.favoriteButton.setFavorited(this.restaurantData.favorite);
-    this.dispatchEvent(
-      new CustomEvent('updateFavorite', {
-        detail: { name: this.restaurantData.name, isFavorited: this.restaurantData.favorite },
-      }),
-    );
+    this.updateRestaurantFavorite(this.restaurantData.name, this.restaurantData.favorite);
   }
 
   private render() {

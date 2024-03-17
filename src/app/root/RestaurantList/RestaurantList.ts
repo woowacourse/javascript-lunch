@@ -1,61 +1,42 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { RestaurantDataType } from '../../../type/restaurantDataType';
-import { $$ } from '../../../util/domSelector';
+
+type RestaurantListType = {
+  restaurants: RestaurantDataType[];
+  onRestaurantItemClick: Function;
+  onRestaurantItemFavorite: Function;
+};
 
 export default class RestaurantList extends HTMLElement {
   private restaurants: RestaurantDataType[];
   private showRestaurantDetail: Function;
+  private updateRestaurantItemFavorite: Function;
 
-  constructor(restaurants: RestaurantDataType[], onClick: Function) {
+  constructor({ restaurants, onRestaurantItemClick, onRestaurantItemFavorite }: RestaurantListType) {
     super();
     this.restaurants = restaurants;
-    this.showRestaurantDetail = onClick;
+    this.showRestaurantDetail = onRestaurantItemClick;
+    this.updateRestaurantItemFavorite = onRestaurantItemFavorite;
     this.handleClickRestaurantItem = this.handleClickRestaurantItem.bind(this);
+    this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
   }
 
   connectedCallback() {
     this.render();
-    this.addEventForEachRestaurant();
-  }
-
-  disconnectedCallback() {
-    this.removeEventForEachRestaurant();
   }
 
   updateRestaurantList(newRestaurants: RestaurantDataType[]) {
     this.restaurants = newRestaurants;
     this.clear();
     this.render();
-    this.addEventForEachRestaurant();
-  }
-
-  private addEventForEachRestaurant() {
-    $$('restaurant-item').forEach((item) => {
-      item.addEventListener('updateFavorite', this.handleUpdateFavorite.bind(this));
-    });
-  }
-
-  private removeEventForEachRestaurant() {
-    $$('restaurant-item').forEach((item) => {
-      item.removeEventListener('updateFavorite', this.handleUpdateFavorite.bind(this));
-    });
-  }
-
-  private handleUpdateFavorite(event: Event) {
-    if (event instanceof CustomEvent) {
-      this.dispatchEvent(
-        new CustomEvent('updateRestaurantFavorite', {
-          detail: {
-            name: event.detail.name,
-            isFavorited: event.detail.isFavorited,
-          },
-        }),
-      );
-    }
   }
 
   private handleClickRestaurantItem(restaurantData: RestaurantDataType) {
     this.showRestaurantDetail(restaurantData);
+  }
+
+  private handleClickFavoriteButton(restaurantName: string, isFavorited: boolean) {
+    this.updateRestaurantItemFavorite(restaurantName, isFavorited);
   }
 
   private clear() {
@@ -67,7 +48,11 @@ export default class RestaurantList extends HTMLElement {
   private render() {
     this.classList.add('restaurant-list-container');
     this.restaurants.forEach((restaurantData) => {
-      const restaurantItem = new RestaurantItem(restaurantData, this.handleClickRestaurantItem);
+      const restaurantItem = new RestaurantItem({
+        restaurantData: restaurantData,
+        onClick: this.handleClickRestaurantItem,
+        onFavorite: this.handleClickFavoriteButton,
+      });
       this.appendChild(restaurantItem);
     });
   }

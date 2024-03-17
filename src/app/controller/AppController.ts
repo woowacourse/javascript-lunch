@@ -29,10 +29,11 @@ export default class AppController {
     this.tab = Tab['모든 음식점'];
     this.restaurantService = new RestaurantService();
     this.restaurantListFilter = new RestaurantListFilter();
-    this.restaurantList = new RestaurantList(
-      this.restaurantService.getRestaurants(this.sortOrder),
-      this.showRestaurantDetailModal.bind(this),
-    );
+    this.restaurantList = new RestaurantList({
+      restaurants: this.restaurantService.getRestaurants(this.sortOrder),
+      onRestaurantItemClick: this.showRestaurantDetailModal.bind(this),
+      onRestaurantItemFavorite: this.updateRestaurantFavorite.bind(this),
+    });
     this.restaurantAddModal = new RestaurantAddModal({
       title: '음식점 추가하기',
       id: 'add-restaurant-modal',
@@ -77,11 +78,8 @@ export default class AppController {
     }
   }
 
-  private updateRestaurantFavorite(event: Event) {
-    if (event instanceof CustomEvent) {
-      const { name, isFavorited } = event.detail;
-      this.restaurantService.updateRestaurantFavorite(name, isFavorited);
-    }
+  private updateRestaurantFavorite(name: string, isFavorited: boolean) {
+    this.restaurantService.updateRestaurantFavorite(name, isFavorited);
   }
 
   private initiateNavBar() {
@@ -99,7 +97,6 @@ export default class AppController {
   }
 
   private initiateRestaurantList() {
-    this.restaurantList.addEventListener('updateRestaurantFavorite', this.updateRestaurantFavorite.bind(this));
     $('#restaurant-list').appendChild(this.restaurantList);
   }
 
