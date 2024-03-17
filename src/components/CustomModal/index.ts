@@ -16,11 +16,13 @@ class CustomModal extends HTMLElement {
         display:block;
         z-index: 3;
         width: inherit;
-        height: 880px;
+        height: inherit
       }
 
       .modal-backdrop {
-        position:fixed;
+        position:absolute;
+        top:0;
+        left:0;
         height: inherit;
         width: inherit;
         background:rgba(0, 0, 0, 0.35);
