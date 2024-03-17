@@ -16,16 +16,14 @@ class Restaurant {
   }
 
   #validateInfo(info: RestaurantInfo) {
-    this.#validateNameCharacterLimit(info.name);
+    this.validateName(info.name);
 
     if (info.description) {
-      this.#validateDescriptionCharacterLimit(info.description);
+      this.validateDescription(info.description);
     }
 
     if (info.link) {
-      this.#validateLinkCharacterLimit(info.link);
-      this.#validateLinkEnglishChars(info.link);
-      this.#validateLinkProtocol(info.link);
+      this.validateLink(info.link);
     }
   }
 
@@ -34,17 +32,19 @@ class Restaurant {
   }
 
   validateDescription(description: RestaurantInfo['description']) {
-    if (description) {
-      this.#validateDescriptionCharacterLimit(description);
+    if (!description) {
+      return;
     }
+    this.#validateDescriptionCharacterLimit(description);
   }
 
   validateLink(link: RestaurantInfo['link']) {
-    if (link) {
-      this.#validateLinkCharacterLimit(link);
-      this.#validateLinkEnglishChars(link);
-      this.#validateLinkProtocol(link);
+    if (!link) {
+      return;
     }
+    this.#validateLinkCharacterLimit(link);
+    this.#validateLinkEnglishChars(link);
+    this.#validateLinkProtocol(link);
   }
 
   #validateNameCharacterLimit(name: string) {
