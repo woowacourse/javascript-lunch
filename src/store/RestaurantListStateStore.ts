@@ -4,31 +4,29 @@ import { Irestaurant } from "../types/restaurant";
 
 class RestaurantListStateStore {
   #restaurantList: Irestaurant[];
-  #restaurantCount: number;
+  #restaurantNumber: number;
 
   constructor() {
     this.#restaurantList = LocalStorageService.getData();
-    this.#restaurantCount = this.#restaurantList.length;
-  }
-
-  setNewDataFromLocalStorage() {
-    this.#restaurantList = LocalStorageService.getData();
-    this.#restaurantCount = this.#restaurantList.length;
+    this.#restaurantNumber = this.#restaurantList.length;
   }
 
   setNewData(restaurantList: Irestaurant[]) {
     this.#restaurantList = restaurantList;
-    this.#restaurantCount = restaurantList.length;
 
     LocalStorageService.setData(this.#restaurantList);
+  }
+
+  setNewNumber() {
+    this.#restaurantNumber += 1;
   }
 
   getListData() {
     return this.#restaurantList;
   }
 
-  getListCount() {
-    return this.#restaurantCount;
+  getIdNumber() {
+    return this.#restaurantNumber;
   }
 
   getfilteredData() {

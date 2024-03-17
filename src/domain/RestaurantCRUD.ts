@@ -8,6 +8,7 @@ const RestaurantCRUD = {
     const prevData = restaurantListStateStore.getListData();
     const newData = [...prevData, restaurant];
 
+    restaurantListStateStore.setNewNumber();
     restaurantListStateStore.setNewData(newData);
   },
 
