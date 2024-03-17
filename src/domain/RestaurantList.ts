@@ -69,8 +69,8 @@ class RestaurantList {
   }
 
   deleteRestaurant(id: string) {
-    this.restaurants = RestaurantStorage.get(STORAGE_KEY).filter(restaurant => restaurant.information.id !== id);
-    RestaurantStorage.set(this.restaurants);
+    this.restaurants = this.restaurants.filter(restaurant => restaurant.information.id !== id);
+    RestaurantStorage.set(RestaurantStorage.get(STORAGE_KEY).filter(restaurant => restaurant.information.id !== id));
   }
 }
 
