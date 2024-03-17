@@ -34,7 +34,7 @@ const detailModalOpenHandler = (restaurant: Element) => {
   });
 };
 
-export const clickRestaurantModal = () => {
+export const addModalClickEvent = () => {
   const restaurants = document.querySelectorAll(".restaurant__info");
   restaurants.forEach((restaurant) => {
     detailModalOpenHandler(restaurant);

@@ -1,8 +1,8 @@
 import restaurantListStateStore from "../../store/RestaurantListStateStore";
 import { Irestaurant } from "../../types/restaurant";
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
-import { clickRestaurantModal } from "../detail-modal/handlers";
-import likeChange from "../restaurant/like/handlers";
+import { addModalClickEvent } from "../detail-modal/handlers";
+import addLikeClickEvent from "../restaurant/like/handlers";
 import Restaurant from "../restaurant/Restaurant";
 
 const resetPrevRestaurantList = (ul: Element) => {
@@ -26,7 +26,7 @@ function RestaurantList() {
   const filterData = restaurantListStateStore.getfilteredData();
   render(filterData);
 
-  likeChange();
-  clickRestaurantModal();
+  addLikeClickEvent();
+  addModalClickEvent();
 }
 export default RestaurantList;

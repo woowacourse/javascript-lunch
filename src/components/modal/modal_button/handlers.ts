@@ -41,7 +41,7 @@ const renderErrorMessage = (index: number, result: Partial<IinvalidResult>) => {
   targetTag.appendChild(p);
 };
 
-const checkValidateHandler = (restaurantInfo: Partial<Irestaurant>) => {
+const checkValidate = (restaurantInfo: Partial<Irestaurant>) => {
   const validateResult = validateRestaurantState(restaurantInfo);
   removePrevErrorMessage();
 
@@ -57,7 +57,7 @@ export const submitHandler = (modal: Element) => {
   submitButton.addEventListener("click", (event) => {
     event.preventDefault();
     const restaurantInfo = restaurantStateStore.getRestaurantField();
-    checkValidateHandler(restaurantInfo);
+    checkValidate(restaurantInfo);
     addNewRestaurant(modal, restaurantInfo as Irestaurant);
     RestaurantList();
   });

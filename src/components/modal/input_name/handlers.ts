@@ -1,7 +1,7 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
 
-const inputNameEventHandler = (input: HTMLElement) => {
+const inputNameHandler = (input: HTMLElement) => {
   input.addEventListener("input", (event) => {
     if (event.target instanceof HTMLInputElement) {
       const inputValue = event.target.value;
@@ -11,11 +11,11 @@ const inputNameEventHandler = (input: HTMLElement) => {
   });
 };
 
-const inputNameHandler = () => {
+const nameEventHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("name") as HTMLElement;
 
-    inputNameEventHandler(input);
+    inputNameHandler(input);
   });
 };
-export default inputNameHandler;
+export default nameEventHandler;

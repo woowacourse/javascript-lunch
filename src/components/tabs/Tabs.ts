@@ -1,11 +1,11 @@
 import convertHTMLStringToDOM from "../../utils/convertHTMLStringToDOM";
 
-import clickTabHandler from "./handlers";
+import tabEventHandler from "./handlers";
 import { tabsTemplate } from "./tabsTemplate";
 
 const Tabs = () => {
   document.body.appendChild(convertHTMLStringToDOM(tabsTemplate));
 
-  clickTabHandler();
+  tabEventHandler();
 };
 export default Tabs;

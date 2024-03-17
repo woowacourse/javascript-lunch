@@ -3,7 +3,7 @@ import { Icategory } from "../../types/category";
 import { IsortType } from "../../types/sort";
 import RestaurantList from "../restaurant-list/RestaurantList";
 
-const categoryFilterHandler = (categoryFilter: HTMLElement) => {
+const changeFilterHandler = (categoryFilter: HTMLElement) => {
   categoryFilter.addEventListener("change", (event) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = event.target.value as Icategory;
@@ -14,17 +14,17 @@ const categoryFilterHandler = (categoryFilter: HTMLElement) => {
   });
 };
 
-export const changeFilter = () => {
+export const categoryFilterHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const categoryFilter: HTMLElement = document.getElementById(
       "category-filter",
     ) as HTMLElement;
 
-    categoryFilterHandler(categoryFilter);
+    changeFilterHandler(categoryFilter);
   });
 };
 
-const sortHandler = (sortFilter: HTMLElement) => {
+const changeSortingHandler = (sortFilter: HTMLElement) => {
   sortFilter.addEventListener("change", (event) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = event.target.value as IsortType;
@@ -35,9 +35,9 @@ const sortHandler = (sortFilter: HTMLElement) => {
   });
 };
 
-export const changeSorting = () => {
+export const sortHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const sortFilter = document.getElementById("sorting-filter") as HTMLElement;
-    sortHandler(sortFilter);
+    changeSortingHandler(sortFilter);
   });
 };

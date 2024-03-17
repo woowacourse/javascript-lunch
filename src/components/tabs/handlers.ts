@@ -21,7 +21,7 @@ const changeLikedFilter = (clickedTab: HTMLElement) => {
   return filterState.setLikedType(false);
 };
 
-const tabClicked = (tabs: HTMLElement) => {
+const clickTabHandler = (tabs: HTMLElement) => {
   tabs.addEventListener("click", (event) => {
     removeCurrentClassName();
     if (event.target instanceof HTMLElement) {
@@ -32,11 +32,11 @@ const tabClicked = (tabs: HTMLElement) => {
   });
 };
 
-const clickTabHandler = () => {
+const tabEventHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const tabs = document.querySelector(".tabs") as HTMLElement;
 
-    tabClicked(tabs);
+    clickTabHandler(tabs);
   });
 };
-export default clickTabHandler;
+export default tabEventHandler;
