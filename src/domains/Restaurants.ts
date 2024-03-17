@@ -125,3 +125,14 @@ export const navigateToRestaurant = () => {
   );
   return restaurant;
 };
+
+export const favoriteToggle = (name: string) => {
+  const storedRestaurants = getRestaurantFromStorage();
+  const updatedRestaurants = storedRestaurants.map((restaurant) => {
+    if (restaurant.name === name) {
+      return { ...restaurant, isFavorite: !restaurant.isFavorite };
+    }
+    return restaurant;
+  });
+  localStorage.setItem("restaurants", JSON.stringify(updatedRestaurants));
+};

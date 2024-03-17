@@ -15,14 +15,3 @@ export const deleteRestaurant = (name: string) => {
   );
   localStorage.setItem("restaurants", JSON.stringify(updatedRestaurants));
 };
-
-export const favoriteToggle = (name: string) => {
-  const storedRestaurants = getRestaurantFromStorage();
-  const updatedRestaurants = storedRestaurants.map((restaurant) => {
-    if (restaurant.name === name) {
-      return { ...restaurant, isFavorite: !restaurant.isFavorite };
-    }
-    return restaurant;
-  });
-  localStorage.setItem("restaurants", JSON.stringify(updatedRestaurants));
-};
