@@ -31,7 +31,8 @@ class RestaurantForm extends HTMLFormElement {
 
   createCategoryField() {
     const label: LabelProps = {
-      htmlFor: 'category text-caption',
+      htmlFor: 'category',
+      classname: 'text-caption',
       text: '카테고리',
     };
     const options: OptionProps[] = [
@@ -61,7 +62,8 @@ class RestaurantForm extends HTMLFormElement {
 
   createRestaurantNameField() {
     const label: LabelProps = {
-      htmlFor: 'name text-caption',
+      htmlFor: 'name',
+      classname: 'text-caption',
       text: '이름',
     };
 
@@ -83,7 +85,8 @@ class RestaurantForm extends HTMLFormElement {
 
   createDistanceField() {
     const label: LabelProps = {
-      htmlFor: 'distance text-caption',
+      htmlFor: 'distance',
+      classname: 'text-caption',
       text: '거리(도보 이동 시간)',
     };
     const options: OptionProps[] = [
@@ -112,7 +115,8 @@ class RestaurantForm extends HTMLFormElement {
 
   createDescriptionField() {
     const label: LabelProps = {
-      htmlFor: 'description text-caption',
+      htmlFor: 'description',
+      classname: 'text-caption',
       text: '설명',
     };
 
@@ -140,7 +144,8 @@ class RestaurantForm extends HTMLFormElement {
 
   createLinkField() {
     const label: LabelProps = {
-      htmlFor: 'link text-caption',
+      htmlFor: 'link',
+      classname: 'text-caption',
       text: '참고 링크',
     };
 
