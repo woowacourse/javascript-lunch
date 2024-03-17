@@ -1,11 +1,13 @@
-import { MENU_APP_EVENTS } from "../constants/event";
 import { CATEGORIES, RESTAURANT_TABS, SORT_TYPE } from "../constants/menu";
 
 export type Distance = 5 | 10 | 15 | 20 | 30;
 
 export type Category = keyof typeof CATEGORIES;
 export type CategoryString = (typeof CATEGORIES)[Category];
-export type CategoryStringWithoutAll = (typeof CATEGORIES)[Exclude<Category, "all">];
+export type CategoryStringWithoutAll = (typeof CATEGORIES)[Exclude<
+  Category,
+  "all"
+>];
 
 export type SortOption = keyof typeof SORT_TYPE;
 export type SortOptionString = (typeof SORT_TYPE)[SortOption];
