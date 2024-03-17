@@ -86,6 +86,35 @@ body {
 }
 
 /* 음식점 목록 *****************************************/
+/* 모든 음식점/자주 가는 음식점 탭 */
+
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+
+  height: 64px;
+}
+
+.tab-container button {
+  width: 45%;
+  height: 100%;
+  cursor: pointer;
+
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+
+  border-bottom: 2px solid var(--grey-200);
+
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--grey-200);
+}
+
+.tab-container button.active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {

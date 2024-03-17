@@ -21,13 +21,14 @@ class TabBar {
   }
 
   #renderRestaurantList(event) {
-    if (event.target.closest('#favorite-restaurants')) {
-      this.#restaurants = this.#restaurantsInstance.favoriteList;
-      this.#toggleFilteringSelectBox(false);
-    } else {
-      this.#restaurants = this.#restaurantsInstance.standardList;
-      this.#toggleFilteringSelectBox(true);
-    }
+    const isFavoriteTab = event.target.closest('#favorite-restaurants') !== null;
+
+    this.#restaurants = isFavoriteTab
+      ? this.#restaurantsInstance.favoriteList
+      : this.#restaurantsInstance.standardList;
+
+    this.#toggleFilteringSelectBox(!isFavoriteTab);
+    this.#toggleTabActive(isFavoriteTab);
 
     this.#restaurantListInstance.updateRestaurantList(this.#restaurants);
   }
@@ -40,5 +41,14 @@ class TabBar {
     sortingElement.style.display = displayStyle;
     categoryElement.style.display = displayStyle;
   }
+
+  #toggleTabActive(isFavoriteTab) {
+    const favoriteTab = $('favorite-restaurants');
+    const allTab = $('all-restaurants');
+
+    favoriteTab.classList.toggle('active', isFavoriteTab);
+    allTab.classList.toggle('active', !isFavoriteTab);
+  }
 }
+
 export default TabBar;
