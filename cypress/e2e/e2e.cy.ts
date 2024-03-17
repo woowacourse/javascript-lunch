@@ -1,5 +1,5 @@
 describe('음식점 등록 테스트', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/');
     cy.viewport('macbook-13');
   });
@@ -19,6 +19,7 @@ describe('음식점 등록 테스트', () => {
 
   it('음식점 등록하다가 취소하기 클릭 시 작성하던 form은 리셋된다.', () => {
     cy.get('.gnb__button').click();
+
     cy.get('#category').select('한식').should('have.value', '한식');
     cy.get('#name').type('e2e 테스트!!!!!!');
     cy.get('#distance').select('10분 내').should('have.value', '10');
@@ -56,6 +57,16 @@ describe('필터링 테스트', () => {
     cy.get('#button-add').click();
 
     cy.get('.restaurant-list').find('li').should('have.length', 2);
+  });
+
+  it('일식 1개, 중식 1개를 즐겨찾기 추가 후 자주 가는 음식점에서 일식을 필터링하면 일식 1개만 출력된다.', () => {
+    cy.get('.restaurant-list').find('#1').find('.favorite').click();
+    cy.get('.restaurant-list').find('#2').find('.favorite').click();
+    cy.get('#favorite-tab').click();
+    cy.get('.restaurant-list').find('li').should('have.length', 2);
+
+    cy.get('#category-filter').select('일식');
+    cy.get('.restaurant-list').find('li').should('have.length', 1);
   });
 });
 
