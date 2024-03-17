@@ -9,7 +9,7 @@
 
   - [x] RestaurantStore.ts - 레스토랑 데이터 저장, localStorage
   - [x] App.ts - 컴포넌트 렌더링, 이벤트
-  - [ ] modal.ts - 모달 컴포넌트 분리
+  - [x] modal.ts - 모달 컴포넌트 분리
 
-- [ ] App.ts에서 event 리팩토링
+- [x] App.ts에서 event 리팩토링
 - [ ] querySelect시 null에 대한 에러 처리
