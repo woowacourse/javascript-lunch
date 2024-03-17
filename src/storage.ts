@@ -2,35 +2,34 @@ import { Restaurant } from './types';
 import Matzip from './matzip';
 import matzipList from './mock/restaurants';
 
-// const MATZIP_DATA = 'matzipData';
-// const FAVORITE_MATZIP_DATA = 'favoriteMatzipData';
+const MATZIP_DATA = 'matzipData';
 
 const storage = {
-  addData(key: string, data: Restaurant) {
-    const localStorageData = localStorage.getItem(key);
+  addData(data: Restaurant) {
+    const localStorageData = localStorage.getItem(MATZIP_DATA);
 
     if (localStorageData === null) {
-      localStorage.setItem(key, JSON.stringify([data]));
+      localStorage.setItem(MATZIP_DATA, JSON.stringify([data]));
       return;
     }
 
     const existingData: Restaurant[] = JSON.parse(localStorageData);
     const newData = [...existingData, data];
-    localStorage.setItem(key, JSON.stringify(newData));
+    localStorage.setItem(MATZIP_DATA, JSON.stringify(newData));
   },
 
-  getData(key: string): Restaurant[] {
-    const localStorageData = localStorage.getItem(key);
+  getData(): Restaurant[] {
+    const localStorageData = localStorage.getItem(MATZIP_DATA);
     if (localStorageData === null) return [];
     return JSON.parse(localStorageData);
   },
 
-  updateData(matzip: Matzip, key: string) {
-    localStorage.setItem(key, JSON.stringify(matzip.getRestaurants()));
+  updateData(matzip: Matzip) {
+    localStorage.setItem(MATZIP_DATA, JSON.stringify(matzip.getRestaurants()));
   },
 
   setMockData() {
-    localStorage.setItem('matzipData', JSON.stringify(matzipList));
+    localStorage.setItem(MATZIP_DATA, JSON.stringify(matzipList));
   },
 };
 

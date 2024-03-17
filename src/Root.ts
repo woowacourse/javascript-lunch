@@ -5,18 +5,14 @@ import Restaurant, { FavoriteRestaurantEvent } from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
-import { FavoriteIconFilled, FavoriteIconLined } from './asset/img';
 import RestaurantDetail, { RestaurantDetailEvent } from './components/RestaurantDetail';
 
 const { $, $$ } = DOM;
 
-const MATZIP_DATA = 'matzipData';
-const FAVORITE_MATZIP_DATA = 'favoriteMatzipData';
-
 const root = {
   init() {
     //storage.setMockData();
-    const matzip = new Matzip(storage.getData(MATZIP_DATA));
+    const matzip = new Matzip(storage.getData());
     this.initList(matzip);
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
@@ -44,7 +40,7 @@ const root = {
 
   listenCategoryChange(matzip: Matzip) {
     document.addEventListener('filterChange', (event: Event) => {
-      Array.from($$('.restaurant')).map((node) => node.remove());
+      Array.from($$('matzip-default-container .restaurant')).map((node) => node.remove());
 
       const customEvent = event as FilterChangeEvent;
       const selectedCategory = customEvent.detail.selectedCategory;
@@ -77,7 +73,7 @@ const root = {
 
       try {
         matzip.add(newRestaurant);
-        storage.addData(MATZIP_DATA, newRestaurant);
+        storage.addData(newRestaurant);
         $('.restaurant-form-modal')?.classList.remove('modal--open');
         $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
       } catch (error) {
@@ -92,7 +88,7 @@ const root = {
       const restaurantInfo = customEvent.detail.restaurant;
 
       matzip.delete(restaurantInfo);
-      storage.updateData(matzip, MATZIP_DATA);
+      storage.updateData(matzip);
     });
   },
 
@@ -102,7 +98,7 @@ const root = {
       const restaurantInfo = customEvent.detail.restaurant;
 
       matzip.change(restaurantInfo);
-      storage.updateData(matzip, MATZIP_DATA);
+      storage.updateData(matzip);
     });
   },
 };

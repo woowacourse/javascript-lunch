@@ -54,23 +54,11 @@ class Matzip implements MatzipInterface {
   }
 
   sortByName(a: Restaurant, b: Restaurant) {
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    return 0;
+    return a.name.localeCompare(b.name);
   }
 
   sortByDistance(a: Restaurant, b: Restaurant) {
-    if (a.distance < b.distance) {
-      return -1;
-    }
-    if (a.distance > b.distance) {
-      return 1;
-    }
-    return 0;
+    return a.distance - b.distance;
   }
 
   addValidate(restaurant: Restaurant) {
