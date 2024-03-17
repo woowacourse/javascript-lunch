@@ -17,4 +17,6 @@ export const ACTION_TYPES = {
 export const RESTAURANT_EVENT = {
   restaurantFormSubmit: "restaurantFormSubmit",
   restaurantDetail: "restaurantDetail",
+  showFavoriteList: "showFavoriteList",
+  reRenderingList: "rerenderingList",
 };

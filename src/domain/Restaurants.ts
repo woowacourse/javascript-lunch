@@ -14,10 +14,12 @@ class Restaurants {
     this.restaurants = [...this.restaurants, restaurant];
   }
 
-  remove(restaurant: Restaurant): void {
+  remove(restaurantName: string): Restaurant[] {
     this.restaurants = this.restaurants.filter(
-      (item) => JSON.stringify(item) !== JSON.stringify(restaurant)
+      (item) => item.getName() !== restaurantName
     );
+
+    return this.restaurants;
   }
 
   findRestaurantByName(restaurantName: string) {

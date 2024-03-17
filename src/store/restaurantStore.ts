@@ -26,6 +26,11 @@ const restaurantStore = {
     localStore.setItem("restaurants", restaurants.getDetails());
   },
 
+  removeRestaurantByName(name: string) {
+    const newRestaurants = this.getRestaurants().remove(name);
+    this.setRestaurants(new Restaurants(newRestaurants));
+  },
+
   findRestaurantInfo(restaurantName: string): Restaurant | undefined {
     return this.getRestaurants().findRestaurantByName(restaurantName);
   },

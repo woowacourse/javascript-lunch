@@ -10,11 +10,13 @@ import { $ } from "../utils/selector";
 export default class RestaurantDetail extends EventComponent {
   private restaurantName: string | null;
   private showRestaurantInfoBind: (e: Event) => void;
+  private handleRemoveRestaurantBind: () => void;
 
   constructor() {
     super();
     this.restaurantName = null;
     this.showRestaurantInfoBind = this.showRestaurantInfo.bind(this);
+    this.handleRemoveRestaurantBind = this.handleRemoveRestaurant.bind(this);
   }
 
   protected getTemplate(): string {
@@ -50,6 +52,10 @@ export default class RestaurantDetail extends EventComponent {
     );
 
     $("#close-detail-button")?.addEventListener("click", this.handleCloseModal);
+    $("#remove-restaurant-button")?.addEventListener(
+      "click",
+      this.handleRemoveRestaurantBind
+    );
   }
 
   private handleCloseModal() {
@@ -59,6 +65,20 @@ export default class RestaurantDetail extends EventComponent {
         detail: { action: ACTION_TYPES.close },
       })
     );
+  }
+
+  private handleRemoveRestaurant() {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+    if (!this.restaurantName) return;
+
+    restaurantStore.removeFavoriteRestaurantName(this.restaurantName);
+    restaurantStore.removeRestaurantByName(this.restaurantName);
+    this.dispatchEvent(
+      new CustomEvent(RESTAURANT_EVENT.reRenderingList, {
+        bubbles: true,
+      })
+    );
+    this.handleCloseModal();
   }
 
   private showRestaurantInfo(e: Event) {
