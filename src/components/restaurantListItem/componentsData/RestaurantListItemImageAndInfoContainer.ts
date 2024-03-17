@@ -1,5 +1,0 @@
-const RESTAURANT_LIST_ITEM_IMAGE_AND_INFO_CONTAINER = Object.freeze({
-  TAG_CLASS_NAME: 'image-info-container',
-});
-
-export default RESTAURANT_LIST_ITEM_IMAGE_AND_INFO_CONTAINER;

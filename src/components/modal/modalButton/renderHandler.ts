@@ -1,9 +1,11 @@
 import generateContainerComponent from '../../../uiUtils/generateContainerComponent';
 import generateButtonComponent from '../../../uiUtils/generateButtonComponent';
 
-import MODAL_BUTTON_CONTAINER_COMPONENT_DATA from './componentsData/modalButtonContainerComponentData';
-import ADD_BUTTON_COMPONENT_DATA from './componentsData/AddButtonComponentData';
-import CANCEL_BUTTON_COMPONENT_DATA from './componentsData/CancelButtonComponentData';
+import {
+  MODAL_BUTTON_CONTAINER_COMPONENT_DATA,
+  ADD_BUTTON_COMPONENT_DATA,
+  CANCEL_BUTTON_COMPONENT_DATA,
+} from './componentsData/ModalButtonComponentData';
 
 const renderButtonComponents = () => {
   const buttonContainer = generateContainerComponent(MODAL_BUTTON_CONTAINER_COMPONENT_DATA);

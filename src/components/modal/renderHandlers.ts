@@ -1,7 +1,9 @@
 import generateContainerComponent from '../../uiUtils/generateContainerComponent';
-import MODAL_COMPONENT_DATA from './modalComponentsData/modalComponentData';
-import MODAL_BACK_DROP_COMPONENT_DATA from './modalComponentsData/modalBackdropComponentData';
-import MODAL_CONTAINER_COMPONENT_DATA from './modalComponentsData/modalContainerComponentData';
+import {
+  MODAL_COMPONENT_DATA,
+  MODAL_BACK_DROP_COMPONENT_DATA,
+  MODAL_CONTAINER_COMPONENT_DATA,
+} from './modalComponentsData/modalComponentData';
 
 const generateBaseModalComponent = () => {
   const modal = generateContainerComponent(MODAL_COMPONENT_DATA);

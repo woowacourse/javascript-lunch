@@ -1,8 +1,10 @@
 import generateSelectElement from '../../uiUtils/generateSelectComponent';
+import {
+  RESTAURANT_CATEGORY_DATA,
+  FILTER_BAR_SECTION_COMPONENT_DATA,
+  SORT_BY_NAME_OR_CATEGORY_DATA,
+} from './componentsData/FilterBarComponentData';
 
-import RESTAURANT_CATEGORY_DATA from './componentsData/RestaurantCategoryData';
-import SORT_BY_NAME_OR_CATEGORY_DATA from './componentsData/SortByNameOrDistanceData';
-import FILTER_BAR_SECTION_COMPONENT_DATA from './componentsData/filterBarSectionComponentData';
 import generateSectionComponent from '../../uiUtils/generateSectionComponent';
 
 const renderFilterBarComponents = () => {

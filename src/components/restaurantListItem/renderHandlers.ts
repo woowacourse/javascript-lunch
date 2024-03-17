@@ -3,11 +3,14 @@ import generateContainerComponent from '../../uiUtils/generateContainerComponent
 import generateImageComponent from '../../uiUtils/generateImageComponent';
 import generateListComponent from '../../uiUtils/generateListComponent';
 
-import RESTAURANT_INFO_CONTAINER_COMPONENT_DATA from './componentsData/RestaurantInfoContainerComponentData';
-import RESTAURANT_LIST_ITEM_COMPONENT_DATA from './componentsData/RestaurantListItemComponentData';
-import RESTAURANT_LIST_ITEM_CONTAINER_COMPONENT_DATA from './componentsData/RestaurantListItemContainerComponentData';
-import RESTAURANT_LIST_ITEM_IMAGE_AND_INFO_CONTAINER from './componentsData/RestaurantListItemImageAndInfoContainer';
-import RESTAURANT_LIST_ITEM_IS_FAVORITED_CONTAINER_COMPONENT_DATA from './componentsData/RestaurantListItemIsFavoritedCotainerComponentData';
+import {
+  RESTAURANT_INFO_CONTAINER_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_CONTAINER_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_IMAGE_AND_INFO_CONTAINER,
+  RESTAURANT_LIST_ITEM_IS_FAVORITED_CONTAINER_COMPONENT_DATA,
+} from './componentsData/RestaurantInfoComponentData';
+
 import { getMatchedCategoryInfo } from './matchCategoryImage';
 import { generateRestaurantCategoryImageComponentData } from '../../services/generateRestaurantComponentData';
 import {

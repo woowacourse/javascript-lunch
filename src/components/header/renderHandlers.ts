@@ -1,11 +1,13 @@
 import generateHeaderComponent from '../../uiUtils/generateHeaderComponent';
-import HEADER_COMPONENT_DATA from './componentsData/headerComponentData';
+import {
+  HEADER_COMPONENT_DATA,
+  HEADER_H1_COMPONENT_DATA,
+  HEADER_BUTTON_COMPONENT_DATA,
+  HEADER_BUTTON_IMAGE_COMPONENT_DATA,
+} from './componentsData/headerComponentData';
 import generateHeadingComponent from '../../uiUtils/generateHeadingComponent';
-import HEADER_H1_COMPONENT_DATA from './componentsData/headerH1ComponentData';
 import generateButtonComponent from '../../uiUtils/generateButtonComponent';
-import HEADER_BUTTON_COMPONENT_DATA from './componentsData/headerButtonComponentData';
 import generateImageComponent from '../../uiUtils/generateImageComponent';
-import HEADER_BUTTON_IMAGE_COMPONENT_DATA from './componentsData/headerButtonImageComponentData';
 
 const generateElementComponents = () => {
   const headerContainer = generateHeaderComponent(HEADER_COMPONENT_DATA);

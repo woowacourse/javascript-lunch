@@ -1,7 +1,9 @@
 import generateHeadingComponent from '../../uiUtils/generateHeadingComponent';
-import ADD_RESTAURANT_FORM_H2_COMPONENT_DATA from './componentsData/addRestaurantFormH2ComponentData';
+import {
+  ADD_RESTAURANT_FORM_H2_COMPONENT_DATA,
+  ADD_RESTAURANT_FORM_COMPONENT_DATA,
+} from './componentsData/AddRestaurantFormComponentDatat';
 import generateFormComponent from '../../uiUtils/generateFormComponent';
-import ADD_RESTAURANT_FORM_COMPONENT_DATA from './componentsData/addRestaurantFormComponentData';
 import SelectCategory from '../modal/selectCategory/SelectCategory';
 import InputName from '../modal/inputName/InputName';
 import SelectDistance from '../modal/selectDistance/SelectDistance';

@@ -1,6 +1,14 @@
 import { RestaurantState } from '../../types/index.d';
 import generateContainerComponent from '../../uiUtils/generateContainerComponent';
-import IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA from './componentsData/imageAndFavoritedIconContainerComponentData';
+import {
+  IMAGE_AND_FAVORITED_ICON_CONTAINER_COMPONENT_DATA,
+  RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA,
+  CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA,
+  IS_FAVORITED_ICON_CONTAINER_COMPONENT_DATA,
+  BUTTON_CONTAINER_COMPONENT_DATA,
+  DELETE_BUTTON_COMPONENT_DATA,
+  CLOSE_BUTTON_COMPONENT_DATA,
+} from './componentsData/BottomSheetModalComponentData';
 import generateImageComponent from '../../uiUtils/generateImageComponent';
 import { generateRestaurantCategoryImageComponentData } from '../../services/generateRestaurantComponentData';
 import { getMatchedCategoryInfo } from '../restaurantListItem/matchCategoryImage';
@@ -11,13 +19,7 @@ import {
   createBottomSheetDescriptionComponent,
   createBottomSheetRestaurantLinkComponent,
 } from '../../services/createComponent';
-import RESTAURANT_DETAIL_CONTAINER_COMPONENT_DATA from './componentsData/detailContainerComponentData';
-import CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA from './componentsData/categoryImageContainerComponentData';
-import IS_FAVORITED_ICON_CONTAINER_COMPONENT_DATA from './componentsData/isFavoritedIconContainerComponentData';
-import BUTTON_CONTAINER_COMPONENT_DATA from './componentsData/buttonContainerComponentData';
 import generateButtonComponent from '../../uiUtils/generateButtonComponent';
-import DELETE_BUTTON_COMPONENT_DATA from './componentsData/deleteButtonComponentData';
-import CLOSE_BUTTON_COMPONENT_DATA from './componentsData/closeButtonComponentData';
 
 function generateCategoryImageComponent(targetRestaurantListItem: RestaurantState) {
   const categoryContainer = generateContainerComponent(CATEGORY_IMAGE_CONTAINER_COMPONENT_DATA);
