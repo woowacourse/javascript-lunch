@@ -3,7 +3,7 @@ describe('음식점 추가 테스트', () => {
     cy.visit('http://localhost:8080/');
 
     cy.get('.gnb__button').click();
-    cy.get('form').should('be.visible');
+    cy.get('.modal-container').should('be.visible');
 
     cy.contains('취소하기').click();
     cy.get('.restaurant-list-container').should('be.visible');
