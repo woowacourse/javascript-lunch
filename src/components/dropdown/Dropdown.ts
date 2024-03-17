@@ -1,7 +1,7 @@
 import './Dropdown.css';
 import type RestaurantList from '@/domain/RestaurantList';
 import type { IOptionAttributes, IDropdownAttributes } from '@/types/dom';
-import type { IRestaurantList, TCategory, TSorting } from '@/types/restaurant';
+import type { TCategory, TSorting, TTabMenu } from '@/types/restaurant';
 
 import Component from '../core/Component';
 
@@ -16,8 +16,9 @@ interface IDropdownProps {
   attributes: IDropdownAttributes;
   options: IOptionAttributes[];
   kind?: 'category' | 'sorting';
+  tabKind?: 'all' | 'favorite';
   restaurantList?: RestaurantList;
-  renderRestaurantList?: (restaurants: IRestaurantList) => void;
+  renderRestaurantList?: (restaurants: RestaurantList, tabKind: TTabMenu) => void;
 }
 
 class Dropdown extends Component<IDropdownProps> {
@@ -46,25 +47,23 @@ class Dropdown extends Component<IDropdownProps> {
   }
 
   handleCategoryFilter(): void {
-    const { restaurantList, renderRestaurantList } = this.props;
+    const { restaurantList, renderRestaurantList, tabKind } = this.props;
     const category = this.getSelectedCategory();
     const sortingCondition = this.getSelectedSortingCondition();
-    if (restaurantList === undefined) return;
-    if (renderRestaurantList === undefined) return;
+    if (restaurantList === undefined || renderRestaurantList === undefined || tabKind === undefined) return;
 
-    restaurantList.filterByCategory(category);
-    const sortedList = restaurantList.getSortedByCondition(sortingCondition);
-    renderRestaurantList(sortedList);
+    restaurantList.filterByCategory(category, tabKind);
+    restaurantList.sortByCondition(sortingCondition);
+    renderRestaurantList(restaurantList, tabKind);
   }
 
   handleSortingFilter(): void {
-    const { restaurantList, renderRestaurantList } = this.props;
+    const { restaurantList, renderRestaurantList, tabKind } = this.props;
     const sortingCondition = this.getSelectedSortingCondition();
-    if (restaurantList === undefined) return;
-    if (renderRestaurantList === undefined) return;
+    if (restaurantList === undefined || renderRestaurantList === undefined || tabKind === undefined) return;
 
-    const sortedList = restaurantList.getSortedByCondition(sortingCondition);
-    renderRestaurantList(sortedList);
+    restaurantList.sortByCondition(sortingCondition);
+    renderRestaurantList(restaurantList, tabKind);
   }
 
   getSelectedCategory(): TCategory {
