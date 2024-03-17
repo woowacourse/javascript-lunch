@@ -14,13 +14,6 @@ class MainController {
     RenderController.renderInMain(ModalController.modal.element);
     this.#setAddButton();
     this.#setRestaurantListUlEvent();
-    // const button = new FavoriteToggler({ isOn: true });
-    // button.element.addEventListener("click", () => {
-    //   button.toggle();
-    // });
-    // (document.querySelector(".restaurant") as HTMLElement)?.append(
-    //   button.element
-    // );
   }
 
   static #setAddButton() {
