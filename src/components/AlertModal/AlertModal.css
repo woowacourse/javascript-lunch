@@ -1,18 +1,3 @@
-/* #alert-modal {
-  width: 350px;
-  height: 150px;
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  position: absolute;
-  background-color: var(--grey-100);
-  border: 2px solid var(--grey-200);
-  border-radius: 10px;
-  z-index: 100;
-} */
-
 .delete-button-box {
   margin-top: 20px;
 }
