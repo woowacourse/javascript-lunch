@@ -129,40 +129,63 @@ const AddForm = () => {
     formElements.forEach((element) => form.appendChild(element));
   };
 
-  const getValue = (): RestaurantInfo => {
-    const category = form.querySelector('#category') as HTMLSelectElement;
-    const name = form.querySelector('#name') as HTMLInputElement;
-    const distance = form.querySelector('#distance') as HTMLInputElement;
-    const description = form.querySelector('#description') as HTMLTextAreaElement;
-    const link = form.querySelector('#link') as HTMLInputElement;
+  const getValue = (): RestaurantInfo | undefined => {
+    const categoryElement = form.querySelector('#category');
+    const nameElement = form.querySelector('#name');
+    const distanceElement = form.querySelector('#distance');
+    const descriptionElement = form.querySelector('#description');
+    const linkElement = form.querySelector('#link');
 
-    return {
-      category: category.value as CategoryValues,
-      name: name.value,
-      distance: Number(distance.value),
-      isFavorite: false,
-      description: description.value,
-      link: link.value
-    };
+    if (
+      categoryElement instanceof HTMLSelectElement &&
+      nameElement instanceof HTMLInputElement &&
+      distanceElement instanceof HTMLSelectElement &&
+      descriptionElement instanceof HTMLTextAreaElement &&
+      linkElement instanceof HTMLInputElement
+    ) {
+      const category = categoryElement.value as CategoryValues;
+      const name = nameElement.value;
+      const distance = Number(distanceElement.value);
+      const description = descriptionElement.value;
+      const link = linkElement.value;
+
+      return {
+        category,
+        name,
+        distance,
+        isFavorite: false,
+        description,
+        link
+      };
+    }
+
+    throw new Error('Form elements가 예상 타입과 다르다.');
   };
 
   const checkRequiredFields = () => {
-    const { category, name, distance, description } = getValue();
+    const restaurantInfo = getValue();
 
-    const isNameValid = restaurantInfoValidator.checkRestaurantName(name);
-    const isDescriptionValid = description
-      ? restaurantInfoValidator.checkRestaurantDescription(description)
-      : true;
+    if (restaurantInfo) {
+      const { category, name, distance, description } = restaurantInfo;
 
-    const hasEmptyValue = !category || !name || !distance || !isNameValid || !isDescriptionValid;
+      const isNameValid = restaurantInfoValidator.checkRestaurantName(name);
+      const isDescriptionValid = description
+        ? restaurantInfoValidator.checkRestaurantDescription(description)
+        : true;
 
-    const submitButton = form.querySelector('#submitButton') as HTMLButtonElement;
-    submitButton.disabled = hasEmptyValue;
+      const hasEmptyValue = !category || !name || !distance || !isNameValid || !isDescriptionValid;
+
+      const submitButton = form.querySelector('#submitButton') as HTMLButtonElement;
+      submitButton.disabled = hasEmptyValue;
+    }
   };
 
   const handleSubmit = () => {
     const restaurantInfo = getValue();
-    restaurantAPI.save(restaurantInfo);
+    if (restaurantInfo) {
+      restaurantAPI.save(restaurantInfo);
+    }
+
     closeModal();
   };
 
