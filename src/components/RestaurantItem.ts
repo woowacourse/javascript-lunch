@@ -9,7 +9,7 @@ import favoriteLinedIcon from '../assets/favorite-icon-lined.png';
 import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
 
 class RestaurantItem extends Component {
-  static observedAttributes: string[] = ['category', 'name', 'distance', 'description', 'reference'];
+  static observedAttributes: string[] = ['category', 'name', 'distance', 'description', 'reference', 'favorite'];
 
   #category: string | null;
   #name: string | null;
@@ -19,19 +19,22 @@ class RestaurantItem extends Component {
 
   constructor() {
     super();
-
     this.#category = this.getAttribute('category');
     this.#name = this.getAttribute('name');
     this.#distance = this.getAttribute('distance');
     this.#description = this.getAttribute('description');
+    this.#favorite = this.#convertStringToBoolean(this.getAttribute('favorite'));
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
-    this.#category = this.getAttribute('category');
-    this.#name = this.getAttribute('name');
-    this.#distance = this.getAttribute('distance');
-    this.#description = this.getAttribute('description');
-
+    if (name === 'favorite') {
+      this.#favorite = this.#convertStringToBoolean(newValue);
+    } else {
+      this.#category = this.getAttribute('category');
+      this.#name = this.getAttribute('name');
+      this.#distance = this.getAttribute('distance');
+      this.#description = this.getAttribute('description');
+    }
     this.render();
   }
 
@@ -54,9 +57,13 @@ class RestaurantItem extends Component {
     }
   }
 
+  #convertStringToBoolean(value: string | null): boolean {
+    return value === 'true';
+  }
+
   template(): string {
     return `
-      <li class="restaurant-list">
+      <li class="restaurant-list" name="${this.#name}">
         <div class="restaurant-item-img-wrapper">
         ${this.#displayCategoryIcon(this.#category)}
         </div>

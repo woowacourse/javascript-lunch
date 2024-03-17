@@ -22,15 +22,27 @@ class RestaurantList extends Component {
 
   setEvent(): void {
     document.addEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this) as EventListener);
+    document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const restaurantName = target.closest('.restaurant-list')?.getAttribute('name');
+      if (restaurantName) {
+        this.#updateFavoriteStateAndRegenerateList(restaurantName);
+      }
+    });
   }
 
   removeEvent(): void {
     document.removeEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this) as EventListener);
   }
 
+  render(): void {
+    this.innerHTML = this.template();
+    this.setEvent();
+  }
+
   #handleSubmitButtonClick(event: CustomEvent<IRestaurant>) {
     event.preventDefault();
-    this.#updateRestaurants(event.detail);
+    this.#addRestaurantAndRegenerateResults(event.detail);
   }
 
   #generateThemeResult() {
@@ -46,7 +58,12 @@ class RestaurantList extends Component {
     this.render();
   }
 
-  #updateRestaurants(restaurant: IRestaurant) {
+  #updateFavoriteStateAndRegenerateList(restaurantName: string) {
+    this.#restaurants = RestaurantRepository.changeFavoriteState(restaurantName);
+    this.#generateThemeResult();
+  }
+
+  #addRestaurantAndRegenerateResults(restaurant: IRestaurant) {
     RestaurantRepository.addRestaurant(restaurant);
     this.#generateThemeResult();
   }
@@ -57,11 +74,11 @@ class RestaurantList extends Component {
     }
     return `
     <section class="restaurant-list-container">
-      <ol>
+      <ol class="restaurant-list-wrapper">
         ${this.#restaurants
           .map(
             (restaurant) =>
-              `<restaurant-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}"></restaurant-item>`,
+              `<restaurant-item category="${restaurant.category}" name="${restaurant.name}" distance="${restaurant.distance}" description="${restaurant.description}" reference="${restaurant.reference}" favorite="${restaurant.favorite}"></restaurant-item>`,
           )
           .join('')}
       </ol>

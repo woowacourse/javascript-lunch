@@ -37,6 +37,19 @@ const RestaurantRepository = {
     }
   },
 
+  changeFavoriteState(restaurantName: string) {
+    const restaurants = getRestaurants();
+    const updatedRestaurants = restaurants.map((restaurant: IRestaurant) => {
+      if (restaurant.name === restaurantName) {
+        return { ...restaurant, favorite: !restaurant.favorite };
+      }
+      return restaurant;
+    });
+
+    localStorage.setItem('restaurants', JSON.stringify(updatedRestaurants));
+    return updatedRestaurants;
+  },
+
   transformByTheme(theme: TTheme) {
     const restaurants = getRestaurants();
     const filteredRestaurants = getFilteredByTheme(restaurants, theme);
