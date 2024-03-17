@@ -5,6 +5,7 @@ import { Restaurant } from '../../interface/RestaurantInterfaces';
 interface Props {
   restaurant: RestaurantEntity;
   onClick?: () => void;
+  onToggle: () => void;
 }
 
 class createRestaurantItem {
@@ -12,15 +13,15 @@ class createRestaurantItem {
   #starredIcon = document.createElement('img');
   #unstarredIcon = document.createElement('img');
 
-  constructor({ restaurant, onClick }: Props) {
-    this.render(restaurant);
+  constructor({ restaurant, onClick, onToggle }: Props) {
+    this.render(restaurant, onToggle);
 
     if (onClick) {
       this.#itemContainer.addEventListener('click', onClick.bind(this));
     }
   }
 
-  render(restaurant: RestaurantEntity) {
+  render(restaurant: RestaurantEntity, onToggle: () => void) {
     this.#itemContainer.classList.add('restaurant');
 
     const favorite = document.createElement('div');
@@ -72,6 +73,7 @@ class createRestaurantItem {
     favorite.addEventListener('click', e => {
       e.stopPropagation();
       this.favoriteToggle.bind(this)(restaurant);
+      onToggle();
     });
   }
 

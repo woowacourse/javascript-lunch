@@ -241,3 +241,11 @@ input[name='link'] {
   color: var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
 }
+
+.empty--message {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+
+  margin-top: 32px;
+}

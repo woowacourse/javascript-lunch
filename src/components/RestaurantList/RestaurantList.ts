@@ -17,10 +17,7 @@ class RestaurantList {
   }
 
   updateData() {
-    const storageData = this.fetchData();
-    if (storageData) {
-      this.#restaurantList = Array.from(storageData, item => new RestaurantEntity({ restaurant: item }));
-    }
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.#restaurantList));
   }
 
   get list() {

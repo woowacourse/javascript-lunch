@@ -82,6 +82,10 @@ class App {
             this.#restaurantDetailModal.restaurant = restaurantItem;
             this.#restaurantDetailModal.toggle();
           },
+          onToggle: () => {
+            this.#restaurantList.updateData();
+            this.renderRestaurantList();
+          },
         }).element,
       );
     });
