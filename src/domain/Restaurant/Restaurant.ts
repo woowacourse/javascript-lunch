@@ -51,6 +51,12 @@ class Restaurant {
       );
   }
 
+  private findRestaurantIndexByName(restaurantName: string): number {
+    return this.restaurantsDetails.findIndex(
+      (restaurantDetail) => restaurantDetail.name === restaurantName
+    );
+  }
+
   public getRestaurantDetails() {
     return this.restaurantsDetails;
   }
@@ -77,9 +83,7 @@ class Restaurant {
   }
 
   public deleteRestaurantByName(restaurantName: string) {
-    const restaurantIndex = this.restaurantsDetails.findIndex(
-      (restaurantDetail) => restaurantDetail.name === restaurantName
-    );
+    const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
 
     if (restaurantIndex !== -1) {
       this.restaurantsDetails.splice(restaurantIndex, 1);
@@ -116,9 +120,7 @@ class Restaurant {
   }
 
   public toggleFavoriteStatus(restaurantName: string) {
-    const restaurantIndex = this.restaurantsDetails.findIndex(
-      (restaurantDetail) => restaurantDetail.name === restaurantName
-    );
+    const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
 
     if (restaurantIndex !== -1) {
       this.restaurantsDetails[restaurantIndex].favorite =
