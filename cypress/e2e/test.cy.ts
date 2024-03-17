@@ -1,7 +1,7 @@
 context('Assertions', () => {
   beforeEach(() => {
     cy.viewport('iphone-xr'); // 모바일 화면으로 설정
-    cy.visit('http://localhost:8080/');
+    cy.visit('/');
   });
 
   describe('E2E 테스트', () => {
@@ -45,15 +45,9 @@ context('Assertions', () => {
           const beforeItemsCount = length;
 
           // then
-          cy.get('lunch-items[liked=false]')
-            .find('lunch-item')
-            .first()
-            .click();
-          cy.get('lunch-detail-modal', { timeout: 10000 })
-            .should('exist');
-          cy.get('lunch-detail-modal')
-            .find('.detail-modal-delete')
-            .click();
+          cy.get('lunch-items[liked=false]').find('lunch-item').first().click();
+          cy.get('lunch-detail-modal', { timeout: 10000 }).should('exist');
+          cy.get('lunch-detail-modal').find('.detail-modal-delete').click();
 
           // when
           cy.get('lunch-items[liked=false]')
