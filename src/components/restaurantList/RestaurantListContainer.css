@@ -1,0 +1,7 @@
+.restaurant-list-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 95vw;
+    margin: 0 auto;
+}

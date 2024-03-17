@@ -1,9 +1,10 @@
-import type RestaurantDetailModal from './modal/restaurantDetailModal/RestaurantDetailModal';
+import './RestaurantListContainer.css';
+import type RestaurantDetailModal from '../modal/restaurantDetailModal/RestaurantDetailModal';
 import type RestaurantList from '@/domain/RestaurantList';
 import type { TTabMenu } from '@/types/restaurant';
 
-import Component from './core/Component';
-import RestaurantItem from './RestaurantItem';
+import Component from '../core/Component';
+import RestaurantItem from '../restaurantItem/RestaurantItem';
 
 import dom from '@/utils/dom';
 
