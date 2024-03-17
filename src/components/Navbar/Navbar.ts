@@ -9,7 +9,7 @@ const createNavbar = ({ firstTitle, secondTitle, onClick }: Props) => {
   const allRestaurantNav = document.createElement('div');
   const favoriteRestaurantNav = document.createElement('div');
 
-  container.classList.add('restaurant-nav-container');
+  container.classList.add('restaurant-navbar-container');
   allRestaurantNav.textContent = firstTitle;
   allRestaurantNav.id = 'all-restaurant';
   allRestaurantNav.classList.add('restaurant-nav', 'text-body', 'selected');

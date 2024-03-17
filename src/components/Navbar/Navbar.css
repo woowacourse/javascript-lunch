@@ -1,0 +1,22 @@
+.restaurant-navbar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 31px 0 8px 0;
+  padding: 0 16px;
+}
+
+.restaurant-navbar-container div {
+  width: 50%;
+  font-weight: 700;
+  text-align: center;
+  padding: 9px;
+  color: var(--grey-300);
+  border-bottom: 2px solid var(--grey-200);
+  cursor: pointer;
+}
+
+.restaurant-navbar-container .selected {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
