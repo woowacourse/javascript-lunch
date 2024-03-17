@@ -1,12 +1,10 @@
 import './Button.css';
 
 import type RestaurantList from '@/domain/RestaurantList';
-import type { FormElements, IButtonAttributes } from '@/types/dom';
-import type { TDistance, TCategory, TFormValidRestaurant } from '@/types/restaurant';
+import type { IButtonAttributes } from '@/types/dom';
 
 import Component from '../core/Component';
 
-import Restaurant from '@/domain/Restaurant';
 import dom from '@/utils/dom';
 
 interface IButtonProps {
@@ -15,6 +13,7 @@ interface IButtonProps {
   handleCloseModal: () => void;
   restaurantList?: RestaurantList;
   handleDeleteRestaurant?: (id: string) => void;
+  handleSubmitRestaurant?: (e: SubmitEvent) => void;
 }
 
 class Button extends Component<IButtonProps> {
@@ -26,11 +25,11 @@ class Button extends Component<IButtonProps> {
   }
 
   setEvent() {
-    const { kind, handleCloseModal, handleDeleteRestaurant } = this.props;
+    const { kind, handleCloseModal, handleDeleteRestaurant, handleSubmitRestaurant } = this.props;
 
     if (kind === 'add') {
       dom.getElement('form').addEventListener('submit', e => {
-        this.handleSubmitRestaurant(e);
+        handleSubmitRestaurant && handleSubmitRestaurant(e);
       });
     } else if (kind === 'close') {
       this.$target.addEventListener('click', handleCloseModal.bind(this));
@@ -40,56 +39,6 @@ class Button extends Component<IButtonProps> {
         handleDeleteRestaurant && handleDeleteRestaurant($button.id);
       });
     }
-  }
-
-  handleSubmitRestaurant(e: SubmitEvent) {
-    e.preventDefault();
-    const $form = e.target as HTMLFormElement;
-    const restaurantInformation = this.getRestaurantFormData($form);
-    if (restaurantInformation === undefined) return;
-    if (this.props.restaurantList === undefined) return;
-
-    this.props.restaurantList.add(restaurantInformation);
-    this.dispatchSelectEvent();
-    this.props.handleCloseModal();
-  }
-
-  getRestaurantFormData($restaurantForm: HTMLFormElement) {
-    const elements = $restaurantForm.elements as FormElements;
-
-    const category = elements.category.value as TCategory;
-    const name = elements.name.value;
-    const distance = Number(elements.distance.value) as TDistance;
-    const description = elements.description.value;
-    const referenceLink = elements.link.value;
-
-    return this.createNewRestaurant({ category, name, distance, description, referenceLink });
-  }
-
-  createNewRestaurant(information: TFormValidRestaurant) {
-    const { category, name, distance, description, referenceLink } = information;
-
-    if (this.props.restaurantList === undefined) return;
-
-    const nextId = this.props.restaurantList.getRestaurantListLength().toString();
-    return new Restaurant({
-      id: nextId,
-      category,
-      name,
-      distance,
-      isFavorite: false,
-      description,
-      referenceLink,
-    });
-  }
-
-  dispatchSelectEvent() {
-    const $categoryFilter = dom.getElement('#category-filter');
-    const filterEvent = new Event('change', {
-      bubbles: true,
-      cancelable: true,
-    });
-    $categoryFilter.dispatchEvent(filterEvent);
   }
 }
 

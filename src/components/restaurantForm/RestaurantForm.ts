@@ -1,7 +1,7 @@
 import './RestaurantForm.css';
 import type RestaurantList from '@/domain/RestaurantList';
-import type { IFormInput } from '@/types/dom';
-import type { TCategory, TDistance } from '@/types/restaurant';
+import type { FormElements, IFormInput } from '@/types/dom';
+import type { TCategory, TDistance, TFormValidRestaurant } from '@/types/restaurant';
 
 import Button from '../button/Button';
 import Component from '../core/Component';
@@ -9,6 +9,7 @@ import Dropdown from '../dropdown/Dropdown';
 
 import { ADD_BUTTON_ATTRIBUTE, CLOSE_BUTTON_ATTRIBUTE } from '@/constants/button';
 import { FORM_CATEGORY, FORM_CATEGORY_ATTRIBUTE, FORM_DISTANCE, FORM_DISTANCE_ATTRIBUTE } from '@/constants/filter';
+import Restaurant from '@/domain/Restaurant';
 import dom from '@/utils/dom';
 import formValidator from '@/validator/formValidator';
 
@@ -59,6 +60,7 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
 
   render() {
     this.$target.innerHTML += this.template();
+    this.$target = dom.getTargetElement(this.$target, 'form');
     this.createModalFormSelect();
     this.createModalFormButton(this.props.restaurantList);
   }
@@ -119,6 +121,9 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
       attributes: ADD_BUTTON_ATTRIBUTE,
       restaurantList,
       handleCloseModal: this.props.handleResetModal,
+      handleSubmitRestaurant: (e: SubmitEvent) => {
+        this.handleSubmitRestaurant(e);
+      },
     });
   }
 
@@ -146,6 +151,56 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     if (formValidator.isValidForm({ category, name, distance, referenceLink })) $addButton.disabled = false;
     else $addButton.disabled = true;
   };
+
+  handleSubmitRestaurant(e: SubmitEvent) {
+    e.preventDefault();
+    const $form = e.target as HTMLFormElement;
+    const restaurantInformation = this.getRestaurantFormData($form);
+    if (restaurantInformation === undefined) return;
+    if (this.props.restaurantList === undefined) return;
+
+    this.props.restaurantList.add(restaurantInformation);
+    this.dispatchSelectEvent();
+    this.props.handleResetModal();
+  }
+
+  getRestaurantFormData($restaurantForm: HTMLFormElement) {
+    const elements = $restaurantForm.elements as FormElements;
+
+    const category = elements.category.value as TCategory;
+    const name = elements.name.value;
+    const distance = Number(elements.distance.value) as TDistance;
+    const description = elements.description.value;
+    const referenceLink = elements.link.value;
+
+    return this.createNewRestaurant({ category, name, distance, description, referenceLink });
+  }
+
+  createNewRestaurant(information: TFormValidRestaurant) {
+    const { category, name, distance, description, referenceLink } = information;
+
+    if (this.props.restaurantList === undefined) return;
+
+    const nextId = this.props.restaurantList.getRestaurantListLength().toString();
+    return new Restaurant({
+      id: nextId,
+      category,
+      name,
+      distance,
+      isFavorite: false,
+      description,
+      referenceLink,
+    });
+  }
+
+  dispatchSelectEvent() {
+    const $categoryFilter = dom.getElement('#category-filter');
+    const filterEvent = new Event('change', {
+      bubbles: true,
+      cancelable: true,
+    });
+    $categoryFilter.dispatchEvent(filterEvent);
+  }
 }
 
 export default RestaurantForm;
