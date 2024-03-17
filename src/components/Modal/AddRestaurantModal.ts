@@ -4,7 +4,6 @@ import {
   ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS,
   CANCEL_BUTTON_PROPS,
 } from '../../constant/options';
-import { $ } from '../../utils/querySelector';
 import createButton from '../Common/Button';
 import Dropdown from '../Common/Dropdown';
 import Modal from './Modal';
@@ -48,17 +47,6 @@ addRestaurantLayout.innerHTML = /*html*/ `
 class AddRestaurantModal extends Modal {
   constructor() {
     super({ child: addRestaurantLayout });
-  }
-
-  setEvents() {
-    const addButton = $('#add');
-    const cancelButton = $('#cancel');
-    addButton.addEventListener('click', () => {
-      console.log('add');
-    });
-    cancelButton.addEventListener('click', () => {
-      this.toggle.bind(this)();
-    });
   }
 }
 

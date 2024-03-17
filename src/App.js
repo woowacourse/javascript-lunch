@@ -10,9 +10,9 @@ import RestaurantService from './domain/services/RestaurantService';
 import { $, $$ } from './utils/querySelector';
 
 class App {
+  #restaurantList = new RestaurantList();
   #addRestaurantModal = new AddRestaurantModal();
   #restaurantDetailModal = new RestaurantDetailModal();
-  #restaurantList = new RestaurantList();
 
   #activeTab;
   #filterCategory = DEFAULT_FILTERING_CATEGORY;
@@ -32,9 +32,33 @@ class App {
       },
     });
 
+    this.setAddRestaurantModalEvents();
     this.setTabEvents();
 
     this.renderRestaurantList();
+  }
+
+  setAddRestaurantModalEvents() {
+    const addRestaurantForm = $('#add-restaurant');
+    const cancelButton = $('#cancel');
+
+    addRestaurantForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const newRestaurant = RestaurantService.createRestaurant();
+
+      const isAdded = RestaurantService.addRestaurant(newRestaurant, this.#restaurantList.list);
+      const isAddedMessage = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
+      alert(isAddedMessage);
+
+      if (!isAdded) return;
+      this.renderRestaurantList();
+      addRestaurantForm.reset();
+      this.#addRestaurantModal.toggle();
+    });
+
+    cancelButton.addEventListener('click', () => {
+      this.#addRestaurantModal.toggle();
+    });
   }
 
   setTabEvents() {
