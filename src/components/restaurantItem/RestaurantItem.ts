@@ -1,11 +1,12 @@
-import type { IRestaurant } from '../types/restaurant';
+import './RestaurantItem.css';
+import type { IRestaurant } from '../../types/restaurant';
 
-import createImageButton from './common/ImageButton';
-import Component from './core/Component';
-import FAVORITE_STAR from '../assets/images/favorite-icon-filled.png';
-import NOT_FAVORITE_STAR from '../assets/images/favorite-icon-lined.png';
-import { CATEGORY_IMG_SRC } from '../constants/filter';
-import dom from '../utils/dom';
+import FAVORITE_STAR from '../../assets/images/favorite-icon-filled.png';
+import NOT_FAVORITE_STAR from '../../assets/images/favorite-icon-lined.png';
+import { CATEGORY_IMG_SRC } from '../../constants/filter';
+import dom from '../../utils/dom';
+import createImageButton from '../common/ImageButton';
+import Component from '../core/Component';
 
 interface IRestaurantItem {
   $target: HTMLElement;
