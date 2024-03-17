@@ -1,17 +1,11 @@
 import { Category, DistanceByWalk } from '../../../enum/enums';
 import { RestaurantDataType } from '../../../type/restaurantDataType';
 import createCategoryContainer from '../../../util/createCategoryContainer';
-import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import './RestaurantDetailContainer.css';
 
 export default function RestaurantDetailContainer(restaurantData: RestaurantDataType) {
   const container = document.createElement('div');
   container.classList.add('restaurant__detail');
-
-  const favoriteButton = (isFavorite?: boolean) => {
-    const favoriteButton = new FavoriteButton(isFavorite ?? false).render();
-    return favoriteButton;
-  };
 
   const restaurantCategory = (category: Category) => {
     return createCategoryContainer(category);
@@ -48,14 +42,10 @@ export default function RestaurantDetailContainer(restaurantData: RestaurantData
   };
 
   container.append(
-    favoriteButton(restaurantData.favorite),
     restaurantCategory(restaurantData.category),
     restaurantTitle(restaurantData.name),
     restaurantDistance(restaurantData.distanceByWalk),
   );
-  // container.appendChild(restaurantCategory(restaurantData.category));
-  // container.appendChild(restaurantTitle(restaurantData.name));
-  // container.appendChild(restaurantDistance(restaurantData.distanceByWalk));
 
   if (restaurantData.description) {
     container.appendChild(restaurantDescription(restaurantData.description));

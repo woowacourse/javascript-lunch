@@ -31,8 +31,8 @@ export default class AppController {
     this.restaurantListFilter = new RestaurantListFilter();
     this.restaurantList = new RestaurantList({
       restaurants: this.restaurantService.getRestaurants(this.sortOrder),
-      onRestaurantItemClick: this.showRestaurantDetailModal.bind(this),
-      onRestaurantItemFavorite: this.updateRestaurantFavorite.bind(this),
+      onRestaurantClick: this.showRestaurantDetailModal.bind(this),
+      onRestaurantFavorite: this.updateRestaurantFavorite.bind(this),
     });
     this.restaurantAddModal = new RestaurantAddModal({
       title: '음식점 추가하기',
@@ -42,6 +42,7 @@ export default class AppController {
     this.restaurantDetailModal = new RestaurantDetailModal({
       id: 'restaurant-detail-modal',
       onDelete: this.deleteRestaurant.bind(this),
+      onFavorite: this.updateRestaurantFavorite.bind(this),
     });
   }
 

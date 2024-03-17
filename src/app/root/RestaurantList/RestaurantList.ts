@@ -3,8 +3,8 @@ import { RestaurantDataType } from '../../../type/restaurantDataType';
 
 type RestaurantListType = {
   restaurants: RestaurantDataType[];
-  onRestaurantItemClick: Function;
-  onRestaurantItemFavorite: Function;
+  onRestaurantClick: Function;
+  onRestaurantFavorite: Function;
 };
 
 export default class RestaurantList extends HTMLElement {
@@ -12,12 +12,12 @@ export default class RestaurantList extends HTMLElement {
   private showRestaurantDetail: Function;
   private updateRestaurantItemFavorite: Function;
 
-  constructor({ restaurants, onRestaurantItemClick, onRestaurantItemFavorite }: RestaurantListType) {
+  constructor({ restaurants, onRestaurantClick, onRestaurantFavorite }: RestaurantListType) {
     super();
     this.restaurants = restaurants;
-    this.showRestaurantDetail = onRestaurantItemClick;
-    this.updateRestaurantItemFavorite = onRestaurantItemFavorite;
-    this.handleClickRestaurantItem = this.handleClickRestaurantItem.bind(this);
+    this.showRestaurantDetail = onRestaurantClick;
+    this.updateRestaurantItemFavorite = onRestaurantFavorite;
+    this.handleClickRestaurant = this.handleClickRestaurant.bind(this);
     this.handleClickFavoriteButton = this.handleClickFavoriteButton.bind(this);
   }
 
@@ -31,7 +31,7 @@ export default class RestaurantList extends HTMLElement {
     this.render();
   }
 
-  private handleClickRestaurantItem(restaurantData: RestaurantDataType) {
+  private handleClickRestaurant(restaurantData: RestaurantDataType) {
     this.showRestaurantDetail(restaurantData);
   }
 
@@ -50,7 +50,7 @@ export default class RestaurantList extends HTMLElement {
     this.restaurants.forEach((restaurantData) => {
       const restaurantItem = new RestaurantItem({
         restaurantData: restaurantData,
-        onClick: this.handleClickRestaurantItem,
+        onClick: this.handleClickRestaurant,
         onFavorite: this.handleClickFavoriteButton,
       });
       this.appendChild(restaurantItem);

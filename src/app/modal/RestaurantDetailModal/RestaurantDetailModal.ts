@@ -1,4 +1,5 @@
 import Modal from '../Modal';
+import FavoriteButton from '../../component/FavoriteButton/FavoriteButton';
 import RestaurantDetailContainer from '../../component/RestaurantDetailContainer/RestaurantDetailContainer';
 import { ModalType } from '../../../type/modalTypes';
 import { RestaurantDataType } from '../../../type/restaurantDataType';
@@ -6,17 +7,23 @@ import { createFormButton, createFormButtonContainer } from '../../../util/creat
 
 type RestaurantDetailModalType = ModalType & {
   onDelete: Function;
+  onFavorite: Function;
 };
 
 export default class RestaurantDetailModal extends Modal {
   private restaurantData?: RestaurantDataType;
   private deleteRestaurant: Function;
+  private updateRestaurantFavorite: Function;
+  private favoriteButton: FavoriteButton;
   private buttonContainer: HTMLDivElement;
 
-  constructor({ id, onDelete }: RestaurantDetailModalType) {
+  constructor({ id, onDelete, onFavorite }: RestaurantDetailModalType) {
     super({ id });
     this.deleteRestaurant = onDelete;
+    this.updateRestaurantFavorite = onFavorite;
+    this.favoriteButton = new FavoriteButton(false);
     this.buttonContainer = this.createButtonContainer();
+    this.updateFavorite = this.updateFavorite.bind(this);
   }
 
   private createButtonContainer() {
@@ -41,8 +48,8 @@ export default class RestaurantDetailModal extends Modal {
 
   showRestaurantDetail(data: RestaurantDataType) {
     this.restaurantData = data;
-    this.modalContainer.appendChild(RestaurantDetailContainer(this.restaurantData));
-    this.modalContainer.appendChild(this.buttonContainer);
+    this.favoriteButton.setFavorited(this.restaurantData.favorite ?? false);
+    this.renderComponents(this.restaurantData);
     this.showModal();
   }
 
@@ -51,9 +58,27 @@ export default class RestaurantDetailModal extends Modal {
     this.modal.close();
   }
 
+  private renderComponents(restaurantData: RestaurantDataType) {
+    const restaurantDetailContainer = RestaurantDetailContainer(restaurantData);
+    const buttonContainer = this.buttonContainer;
+    const favoriteButton = this.favoriteButton.render();
+    favoriteButton.addEventListener('click', this.updateFavorite);
+    restaurantDetailContainer.appendChild(favoriteButton);
+
+    this.modalContainer.append(restaurantDetailContainer, buttonContainer);
+  }
+
   private clearContainer() {
     while (this.modalContainer.firstChild) {
       this.modalContainer.removeChild(this.modalContainer.firstChild);
+    }
+  }
+
+  private updateFavorite() {
+    if (this.restaurantData) {
+      this.restaurantData.favorite = !this.restaurantData.favorite;
+      this.favoriteButton.setFavorited(this.restaurantData.favorite);
+      this.updateRestaurantFavorite(this.restaurantData.name, this.restaurantData.favorite);
     }
   }
 
