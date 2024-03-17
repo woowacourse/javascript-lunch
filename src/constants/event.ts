@@ -20,3 +20,7 @@ export const RESTAURANT_EVENT = {
   showFavoriteList: "showFavoriteList",
   reRenderingList: "rerenderingList",
 };
+
+export const CUSTOM_BUTTON_EVENT = {
+  starButton: "starButton",
+};
