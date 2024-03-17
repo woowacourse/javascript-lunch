@@ -2,10 +2,11 @@ import AddingRestaurantModal from './components/AddRestaurantModal/AddRestaurant
 import createFilterDropdown from './components/FilterDropdown/FilterDropdown';
 import createHeader from './components/Header/Header';
 import createNavbar from './components/Navbar/Navbar';
+import DetailRestaurantModal from './components/Restaurant/DetailRestaurantModal';
+import createRestaurantItem from './components/Restaurant/RestaurantItem';
 import { FORM_INPUT_QUERY, LOCALSTORAGE_KEY } from './constant/constants';
 import RestaurantService from './domain/RestaurantService';
 import { $ } from './utils/querySelector';
-import OutputView from './views/OutputView';
 
 class App {
   #restaurantList;
@@ -20,7 +21,7 @@ class App {
 
   #addingRestaurantModal = new AddingRestaurantModal();
 
-  // #restaurantDetailModal = new RestaurantDetailModal();
+  #detailRestaurantModal = new DetailRestaurantModal();
 
   constructor() {
     this.#restaurantList = this.getRecentData();
@@ -32,8 +33,13 @@ class App {
   }
 
   run() {
+    const container = $('#container');
+
+    container.appendChild(this.#addingRestaurantModal.element);
+    container.appendChild(this.#detailRestaurantModal.element);
+
     this.renderHeader();
-    this.showAddRestaurantModal();
+    this.openAddRestaurantModal();
     this.renderNavbar();
     this.renderFilterDropdown();
     this.updateRestaurantList();
@@ -49,16 +55,14 @@ class App {
     const header = createHeader({ title: '점심 뭐 먹지', imageSource: './add-button.png' });
 
     container.prepend(header);
-    container.appendChild(this.#addingRestaurantModal.element);
   }
 
-  showAddRestaurantModal() {
+  openAddRestaurantModal() {
     const addRestaurantButton = $('.gnb__button');
 
     addRestaurantButton.addEventListener('click', () => {
       this.#addingRestaurantModal.open();
       this.manageAddRestaurantFormEvents();
-      this.manageModalEvents();
     });
   }
 
@@ -95,14 +99,16 @@ class App {
   }
 
   updateRestaurantList() {
-    const currentRestaurantList = this.currentRestaurantList();
+    const restaurantListContainer = $('.restaurant-list-container');
 
+    const currentRestaurantList = this.currentRestaurantList();
     const filteredList = this.#restaurantService.filterByCategory(this.#category, currentRestaurantList);
     const processedList = this.#restaurantService.sortByProperty(this.#property, filteredList);
 
-    OutputView.renderRestaurantList(processedList);
+    const listFragment = this.getRestaurantItemsFragment(processedList);
 
-    this.manageRestaurantItems();
+    restaurantListContainer.replaceChildren(listFragment);
+    container.appendChild(restaurantListContainer);
   }
 
   currentRestaurantList() {
@@ -112,10 +118,35 @@ class App {
     return this.#restaurantList;
   }
 
+  getRestaurantItemsFragment(processedList) {
+    const listFragment = document.createElement('ul');
+    listFragment.classList.add('restaurant-list');
+
+    const restaurantItems = processedList.map(restaurantItem =>
+      createRestaurantItem({
+        restaurant: restaurantItem,
+        onItemClick: () => {
+          this.#detailRestaurantModal.restaurant = restaurantItem;
+          this.#detailRestaurantModal.open();
+        },
+        onFavoriteButtonClick: img => {
+          restaurantItem.favorite = !restaurantItem.favorite;
+          localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(this.#restaurantList));
+          img.target.src = restaurantItem.favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
+        },
+      }),
+    );
+
+    listFragment.replaceChildren();
+    restaurantItems.forEach(child => listFragment.appendChild(child));
+    return listFragment;
+  }
+
   manageAddRestaurantFormEvents() {
     const formAddRestaurant = $('.form-add-restaurant');
 
     formAddRestaurant.addEventListener('reset', () => this.#addingRestaurantModal.close());
+
     formAddRestaurant.addEventListener('submit', e => {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
@@ -141,66 +172,29 @@ class App {
     return formData;
   }
 
-  manageModalEvents() {
-    const modalBackdrop = $('.modal-backdrop');
-
-    modalBackdrop.addEventListener('click', () => {
-      OutputView.closeModal();
-      this.updateRestaurantList();
-    });
+  handleButtonChange(restaurantItem) {
+    // const favoriteButton = restaurantItem.querySelector('.favorite-button');
+    // favoriteButton.addEventListener('click', () => {
+    //   const isFavorite = this.#restaurantService.changeFavorite(restaurantItem.restaurant, this.#restaurantList);
+    //   favoriteButton.src = isFavorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
+    // });
   }
 
-  manageRestaurantItems() {
-    const restaurantList = $('.restaurant-list');
-    restaurantList.addEventListener('click', event => {
-      const favoriteButton = event.target.closest('.favorite-button');
-      const restaurantItem = event.target.closest('.restaurant');
+  // managedetailRestaurantEvents(restaurantId) {
+  //   const detailRestaurant = $('.detail-restaurant');
+  //   const buttonContainer = detailRestaurant.querySelector('.button-container');
+  //   const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === restaurantId);
+  //   buttonContainer.addEventListener('click', event => {
+  //     const target = event.target;
 
-      const restaurantId = Number(restaurantItem.id);
-
-      if (favoriteButton) {
-        this.changeFavoriteButton(restaurantId, favoriteButton);
-      } else if (restaurantItem) {
-        this.showDetailRestaurantModal(restaurantId);
-      }
-    });
-  }
-
-  changeFavoriteButton(restaurantId, favoriteButton) {
-    const isFavorite = this.#restaurantService.changeFavorite(restaurantId, this.#restaurantList);
-    favoriteButton.src = isFavorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
-  }
-
-  showDetailRestaurantModal(restaurantId) {
-    const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === restaurantId);
-
-    OutputView.renderDetailRestaurant(targetRestaurant);
-    this.managedetailRestaurantEvents(restaurantId);
-    this.manageModalEvents();
-
-    const modalContainer = $('.modal-container');
-    const favoriteButton = modalContainer.querySelector('.favorite-button');
-
-    favoriteButton.addEventListener('click', () => {
-      this.changeFavoriteButton(restaurantId, favoriteButton);
-    });
-  }
-
-  managedetailRestaurantEvents(restaurantId) {
-    const detailRestaurant = $('.detail-restaurant');
-    const buttonContainer = detailRestaurant.querySelector('.button-container');
-    const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === restaurantId);
-    buttonContainer.addEventListener('click', event => {
-      const target = event.target;
-
-      if (target.innerText === '삭제하기') {
-        this.#restaurantList = this.#restaurantService.removeRestaurant(targetRestaurant, this.#restaurantList);
-        alert('삭제되었습니다.');
-      }
-      this.updateRestaurantList();
-      OutputView.closeModal();
-    });
-  }
+  //     if (target.innerText === '삭제하기') {
+  //       this.#restaurantList = this.#restaurantService.removeRestaurant(targetRestaurant, this.#restaurantList);
+  //       alert('삭제되었습니다.');
+  //     }
+  //     this.updateRestaurantList();
+  //     this.#detailRestaurantModal.close();
+  //   });
+  // }
 }
 
 export default App;

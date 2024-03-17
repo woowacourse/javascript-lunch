@@ -63,3 +63,20 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+.detail-restaurant {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.detail-restaurant__image {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant__link {
+  color: var(--grey-500);
+}

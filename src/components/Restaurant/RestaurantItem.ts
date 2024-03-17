@@ -1,25 +1,58 @@
-import { CATEGORY_CONVERTER } from '../../constant/constants';
 import { Restaurant } from '../../interface/RestaurantInterfaces';
-import FavoriteButton from '../Common/FavoriteButton';
+import CategoryImage from './CategoryImage';
+import FavoriteButton from './FavoriteButton';
 
-const RestaurantItem = (restaurant: Restaurant) => {
-  return /*html*/ `
-  <li class="restaurant" id=${restaurant.id}>
-    <div class="restaurant__category">
-      <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.svg" alt=${restaurant.category} class="category-icon" />
-    </div>
-    <div class="restaurant__info">   
-      <div class="restaurant__sub-info">
-        <div>
-          <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
-        </div>
-        <div>${FavoriteButton(restaurant.favorite)}</div>
-      </div>
-      <p class="restaurant__description text-body">${restaurant.description}</p>
-    </div>
-  </li>
-  `;
+interface Props {
+  restaurant: Restaurant;
+  onItemClick?: () => void;
+  onFavoriteButtonClick?: (event: any) => void;
+}
+
+const createRestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Props) => {
+  const restaurantItem = document.createElement('li');
+  restaurantItem.classList.add('restaurant');
+
+  const restaurantCategory = document.createElement('div');
+  restaurantCategory.classList.add('restaurant__category');
+  restaurantCategory.appendChild(CategoryImage(restaurant.category));
+
+  const restaurantInfo = document.createElement('div');
+  restaurantInfo.classList.add('restaurant__info');
+
+  const restaurantSubInfo = document.createElement('div');
+  restaurantSubInfo.classList.add('restaurant__sub-info');
+
+  const restaurantSubInfoFirst = document.createElement('div');
+
+  const restaurantName = document.createElement('h3');
+  restaurantName.classList.add('restaurant__name', 'text-subtitle');
+  restaurantName.textContent = restaurant.name;
+  restaurantSubInfoFirst.appendChild(restaurantName);
+
+  const restaurantDistance = document.createElement('span');
+  restaurantDistance.classList.add('restaurant__distance', 'text-body');
+  restaurantDistance.textContent = `캠퍼스부터 ${restaurant.distance}분 내`;
+  restaurantSubInfoFirst.appendChild(restaurantDistance);
+
+  const restaurantSubInfoSecond = document.createElement('div');
+  restaurantSubInfoSecond.appendChild(FavoriteButton({ favorite: restaurant.favorite, onFavoriteButtonClick }));
+
+  const restaurantDescription = document.createElement('p');
+  restaurantDescription.classList.add('restaurant__description', 'text-body');
+  if (restaurant.description) restaurantDescription.textContent = restaurant.description;
+
+  restaurantSubInfo.appendChild(restaurantSubInfoFirst);
+  restaurantSubInfo.appendChild(restaurantSubInfoSecond);
+  restaurantInfo.appendChild(restaurantSubInfo);
+  restaurantInfo.appendChild(restaurantDescription);
+  restaurantItem.appendChild(restaurantCategory);
+  restaurantItem.appendChild(restaurantInfo);
+
+  if (onItemClick) {
+    restaurantItem.addEventListener('click', onItemClick);
+  }
+
+  return restaurantItem;
 };
 
-export default RestaurantItem;
+export default createRestaurantItem;
