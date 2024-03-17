@@ -32,13 +32,7 @@ class AddRestaurantModal extends Modal {
     e.preventDefault();
     const $restaurantForm = e.target;
     const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
-    const category = $restaurantForm.elements.category.value;
-    const name = $restaurantForm.elements.name.value;
-    const distance = Number($restaurantForm.elements.distance.value);
-    const description = $restaurantForm.elements.description.value;
-    const link = $restaurantForm.elements.link.value;
-    const favorite = FAVORITE.no;
-    const restaurantInformation = new Restaurant({ category, name, distance, favorite, description, link });
+    const restaurantInformation = this.targetRestaurantInformaiton($restaurantForm);
 
     this.#restaurantList.add(restaurantInformation);
 
@@ -47,6 +41,18 @@ class AddRestaurantModal extends Modal {
     } else new RestaurantFilterContainer(this.#restaurantList).handleFilter();
 
     this.close();
+  }
+
+  targetRestaurantInformaiton(restaurantForm) {
+    const category = restaurantForm.elements.category.value;
+    const name = restaurantForm.elements.name.value;
+    const distance = Number(restaurantForm.elements.distance.value);
+    const description = restaurantForm.elements.description.value;
+    const link = restaurantForm.elements.link.value;
+    const favorite = FAVORITE.no;
+    const restaurantInformation = new Restaurant({ category, name, distance, favorite, description, link });
+
+    return restaurantInformation;
   }
 }
 
