@@ -87,19 +87,27 @@ class LunchItem extends HTMLElement {
 
   handleDetailModal(e: any) {
     if (e.target.className === 'liked-icon') return;
-    // TODO : 리팩터링
     const lunchDetailModal = document.querySelector('lunch-detail-modal');
-    const lunchDetailModalChild = document.querySelector('.detail-modal');
     if (!lunchDetailModal) {
-      const lunchApp = document.querySelector('lunch-app') as HTMLElement;
-      lunchApp.insertAdjacentHTML('beforeend', LUNCH_DETAIL_MODAL_TEMPLATE(this.getAttributes()));
+      this.createDetailModal();
     } else {
-      const attributesToSet = this.getAttributes();
-      for (const key in attributesToSet) {
-        lunchDetailModal.setAttribute(key, attributesToSet[key].toString());
-      }
-      lunchDetailModalChild?.classList.add('detail-modal--open');
+      this.updateDetailModalAttributes(lunchDetailModal);
     }
+  }
+
+  createDetailModal() {
+    const lunchApp = document.querySelector('lunch-app') as HTMLElement;
+    lunchApp.insertAdjacentHTML('beforeend', LUNCH_DETAIL_MODAL_TEMPLATE(this.getAttributes()));
+  }
+
+  updateDetailModalAttributes(lunchDetailModal: Element) {
+    const attributesToSet = this.getAttributes();
+    Object.keys(attributesToSet).forEach((key) => {
+      lunchDetailModal.setAttribute(key, attributesToSet[key].toString());
+    });
+
+    const lunchDetailModalChild = lunchDetailModal.querySelector('.detail-modal');
+    lunchDetailModalChild?.classList.add('detail-modal--open');
   }
 }
 
