@@ -59,7 +59,7 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
 
   render() {
     this.$target.innerHTML += this.template();
-    this.createModalFormSelect(this.props.restaurantList);
+    this.createModalFormSelect();
     this.createModalFormButton(this.props.restaurantList);
   }
 
@@ -70,9 +70,9 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     });
   }
 
-  createModalFormSelect(restaurantList: RestaurantList) {
-    this.createCategoryDropdown(restaurantList);
-    this.createDistanceDropdown(restaurantList);
+  createModalFormSelect() {
+    this.createCategoryDropdown();
+    this.createDistanceDropdown();
   }
 
   createModalFormButton(restaurantList: RestaurantList) {
@@ -81,7 +81,7 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     this.createModalAddButton($buttonContainer, restaurantList);
   }
 
-  createCategoryDropdown(restaurantList: RestaurantList) {
+  createCategoryDropdown() {
     const $categoryContainer = dom.getElement('#category-container');
 
     new Dropdown({
@@ -89,12 +89,11 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
       props: {
         attributes: FORM_CATEGORY_ATTRIBUTE,
         options: FORM_CATEGORY,
-        restaurantList,
       },
     });
   }
 
-  createDistanceDropdown(restaurantList: RestaurantList) {
+  createDistanceDropdown() {
     const $distanceContainer = dom.getElement('#distance-container');
 
     new Dropdown({
@@ -102,7 +101,6 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
       props: {
         attributes: FORM_DISTANCE_ATTRIBUTE,
         options: FORM_DISTANCE,
-        restaurantList,
       },
     });
   }
