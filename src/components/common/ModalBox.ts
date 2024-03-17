@@ -1,9 +1,17 @@
 import EventComponent from "../../abstract/EventComponent";
 
 import { $ } from "../../utils/selector";
-import { MODAL_EVENT, MODAL_EVENT_ACTION } from "../../constants/event";
+import { MODAL_EVENT, ACTION_TYPES } from "../../constants/event";
+import MODAL_ID from "../../constants/modalId";
 
 export default class ModalBox extends EventComponent {
+  private handleFormModalActionBind: (e: Event, modalId: string) => void;
+
+  constructor() {
+    super();
+    this.handleFormModalActionBind = this.handleFormModalAction.bind(this);
+  }
+
   protected getTemplate(): string {
     const isOpen = this.getAttribute("isOpen");
     const modalId = this.getAttribute("modal-id");
@@ -23,24 +31,32 @@ export default class ModalBox extends EventComponent {
   setEvent(): void {
     const modalId = this.getAttribute("modal-id") || "";
 
-    document.addEventListener(MODAL_EVENT.restaurantFormModalAction, (e) =>
-      this.handleFormModalAction(e as CustomEvent, modalId)
-    );
+    modalId === MODAL_ID.restaurantFormModal &&
+      document.addEventListener(MODAL_EVENT.restaurantFormModalAction, (e) =>
+        this.handleFormModalActionBind(e, modalId)
+      );
+
+    modalId === MODAL_ID.restaurantDetailModal &&
+      document.addEventListener(MODAL_EVENT.restaurantDetailModalAction, (e) =>
+        this.handleFormModalActionBind(e, modalId)
+      );
 
     $(`#${modalId} > .modal-backdrop`)?.addEventListener("click", () => {
       this.closeModal(modalId);
     });
   }
 
-  private handleFormModalAction(e: CustomEvent, modalId: string) {
-    const { action } = e.detail;
+  private handleFormModalAction(e: Event, modalId: string) {
+    if (e instanceof CustomEvent) {
+      const { action } = e.detail;
 
-    if (action === MODAL_EVENT_ACTION.open) {
-      this.openModal(modalId);
-    }
+      if (action === ACTION_TYPES.open) {
+        this.openModal(modalId);
+      }
 
-    if (action === MODAL_EVENT_ACTION.close) {
-      this.closeModal(modalId);
+      if (action === ACTION_TYPES.close) {
+        this.closeModal(modalId);
+      }
     }
   }
 
@@ -54,5 +70,24 @@ export default class ModalBox extends EventComponent {
 
   static get observedAttributes() {
     return ["isOpen", "modal-id"];
+  }
+
+  protected removeEvent(): void {
+    const modalId = this.getAttribute("modal-id") || "";
+
+    modalId === MODAL_ID.restaurantFormModal &&
+      document.removeEventListener(MODAL_EVENT.restaurantFormModalAction, (e) =>
+        this.handleFormModalActionBind(e, modalId)
+      );
+
+    modalId === MODAL_ID.restaurantDetailModal &&
+      document.removeEventListener(
+        MODAL_EVENT.restaurantDetailModalAction,
+        (e) => this.handleFormModalActionBind(e, modalId)
+      );
+
+    $(`#${modalId} > .modal-backdrop`)?.removeEventListener("click", () => {
+      this.closeModal(modalId);
+    });
   }
 }

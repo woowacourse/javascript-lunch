@@ -7,7 +7,12 @@ import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
 import { CategoryFilter, SortFilter } from "../types/Filter";
 import restaurantStore from "../store/restaurantStore";
 import { RESTAURANT_DISPLAYING_FILTER, SORT_FILTER } from "../constants/filter";
-import { FILTER_EVENT, RESTAURANT_EVENT } from "../constants/event";
+import {
+  FILTER_EVENT,
+  MODAL_EVENT,
+  ACTION_TYPES,
+  RESTAURANT_EVENT,
+} from "../constants/event";
 
 customElements.define("restaurant-item", RestaurantItem);
 customElements.define("filter-bar", FilterBar);
@@ -16,6 +21,10 @@ export default class RestaurantList extends EventComponent {
   private restaurants: Restaurants;
   private categoryFilter: CategoryFilter;
   private sortFilter: SortFilter;
+  private handleCategoryFilterChangeBind: (e: Event) => void;
+  private handleSortFilterChangeBind: (e: Event) => void;
+  private handleRestaurantFormSubmitBind: (e: Event) => void;
+  private showRestaurantDetailBind: (e: MouseEvent) => void;
 
   constructor(
     restaurants = restaurantStore.getRestaurants(),
@@ -26,6 +35,12 @@ export default class RestaurantList extends EventComponent {
     this.restaurants = restaurants;
     this.categoryFilter = categoryFilter;
     this.sortFilter = sortFilter;
+    this.handleCategoryFilterChangeBind =
+      this.handleCategoryFilterChange.bind(this);
+    this.handleSortFilterChangeBind = this.handleSortFilterChange.bind(this);
+    this.handleRestaurantFormSubmitBind =
+      this.handleRestaurantFormSubmit.bind(this);
+    this.showRestaurantDetailBind = this.showRestaurantDetail.bind(this);
   }
 
   protected getTemplate(): string {
@@ -67,48 +82,59 @@ export default class RestaurantList extends EventComponent {
   }
 
   protected setEvent() {
-    document.addEventListener(FILTER_EVENT.categoryFilterChange, (e) =>
-      this.handleCategoryFilterChange(e as CustomEvent)
+    document.addEventListener(
+      FILTER_EVENT.categoryFilterChange,
+      this.handleCategoryFilterChangeBind
     );
 
-    document.addEventListener(FILTER_EVENT.sortFilterChange, (e) =>
-      this.handleSortFilterChange(e as CustomEvent)
+    document.addEventListener(
+      FILTER_EVENT.sortFilterChange,
+      this.handleSortFilterChangeBind
     );
 
-    document.addEventListener(RESTAURANT_EVENT.restaurantFormSubmit, (e) => {
-      this.handleRestaurantFormSubmit(e as CustomEvent);
-    });
+    document.addEventListener(
+      RESTAURANT_EVENT.restaurantFormSubmit,
+      this.handleRestaurantFormSubmitBind
+    );
+
+    this.addEventListener("click", this.showRestaurantDetailBind);
   }
 
-  private handleCategoryFilterChange(event: CustomEvent) {
-    const { value: categoryFilter } = event?.detail;
+  private handleCategoryFilterChange(event: Event) {
+    if (event instanceof CustomEvent) {
+      const { value: categoryFilter } = event?.detail;
 
-    this.categoryFilter = categoryFilter;
+      this.categoryFilter = categoryFilter;
 
-    this.render();
-  }
-
-  private handleSortFilterChange(event: CustomEvent) {
-    const { value: sortFilter } = event?.detail;
-
-    this.sortFilter = sortFilter;
-
-    this.render();
-  }
-
-  private handleRestaurantFormSubmit(event: CustomEvent) {
-    const { payload, cleanUp } = event?.detail;
-
-    try {
-      const restaurant = new Restaurant(payload);
-      this.restaurants.add(restaurant);
-      restaurantStore.setRestaurants(this.restaurants);
-    } catch (error: any) {
-      return alert(error.message);
+      this.render();
     }
+  }
 
-    cleanUp();
-    this.render();
+  private handleSortFilterChange(event: Event) {
+    if (event instanceof CustomEvent) {
+      const { value: sortFilter } = event?.detail;
+
+      this.sortFilter = sortFilter;
+
+      this.render();
+    }
+  }
+
+  private handleRestaurantFormSubmit(event: Event) {
+    if (event instanceof CustomEvent) {
+      const { payload, cleanUp } = event?.detail;
+
+      try {
+        const restaurant = new Restaurant(payload);
+        this.restaurants.add(restaurant);
+        restaurantStore.setRestaurants(this.restaurants);
+      } catch (error: any) {
+        return alert(error.message);
+      }
+
+      cleanUp();
+      this.render();
+    }
   }
 
   private filterByCategory(
@@ -145,5 +171,62 @@ export default class RestaurantList extends EventComponent {
 
   static get observedAttributes() {
     return ["restaurants"];
+  }
+
+  private showRestaurantDetail(e: MouseEvent) {
+    const targetElement = e.target as HTMLElement;
+    const li = targetElement.closest<HTMLElement>(".restaurant");
+
+    const name = li?.dataset.name;
+
+    if (!name) return;
+
+    this.handleRestaurantModal(name);
+  }
+
+  private handleRestaurantModal(name: string) {
+    this.openRestaurantModal();
+    this.emitRestaurantInfo(name);
+  }
+
+  private openRestaurantModal() {
+    this.dispatchEvent(
+      new CustomEvent(MODAL_EVENT.restaurantDetailModalAction, {
+        bubbles: true,
+        detail: {
+          action: ACTION_TYPES.open,
+        },
+      })
+    );
+  }
+
+  private emitRestaurantInfo(name: string) {
+    this.dispatchEvent(
+      new CustomEvent(RESTAURANT_EVENT.restaurantDetail, {
+        bubbles: true,
+        detail: {
+          name,
+        },
+      })
+    );
+  }
+
+  protected removeEvent(): void {
+    document.removeEventListener(
+      FILTER_EVENT.categoryFilterChange,
+      this.handleCategoryFilterChangeBind
+    );
+
+    document.removeEventListener(
+      FILTER_EVENT.sortFilterChange,
+      this.handleSortFilterChange
+    );
+
+    document.removeEventListener(
+      RESTAURANT_EVENT.restaurantFormSubmit,
+      this.handleRestaurantFormSubmit
+    );
+
+    this.removeEventListener("click", this.showRestaurantDetailBind);
   }
 }
