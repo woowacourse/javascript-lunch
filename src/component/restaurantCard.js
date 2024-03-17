@@ -1,5 +1,5 @@
 import { createCategoryImage } from './categoryImage';
-import { createStarButton } from './starButton';
+import { createFavoriteButton } from './favoriteButton';
 
 function createRestaurantCard(restaurant, favoriteRestaurantNames = []) {
   const restaurantCard = render(restaurant, favoriteRestaurantNames);
@@ -32,7 +32,7 @@ function createInfoDiv(
   const infoHeaderTextArea = document.createElement('div');
   infoHeaderTextArea.className = 'restaurant__info';
 
-  const star = createStarButton({name, favoriteRestaurantNames});
+  const star = createFavoriteButton({name, favoriteRestaurantNames});
 
   const restaurantName = document.createElement('h3');
   restaurantName.className = 'restaurant__name text-subtitle';

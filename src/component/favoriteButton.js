@@ -1,7 +1,7 @@
-export function createStarButton({name, favoriteRestaurantNames, starCallback = ''}) {
+export function createFavoriteButton({name, favoriteRestaurantNames, favoriteCallback = ''}) {
   const starButton = render({name, favoriteRestaurantNames});
-  if (starCallback) starButton.addEventListener('click', (event) => {
-      starCallback(event);
+  if (favoriteCallback) starButton.addEventListener('click', (event) => {
+    favoriteCallback(event);
     });
   return starButton;
 }

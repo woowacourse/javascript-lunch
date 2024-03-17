@@ -1,19 +1,19 @@
 import createButton from '../button';
 import modal from '../modal';
-import { createStarButton } from '../starButton';
+import { createFavoriteButton } from '../favoriteButton';
 import { createCategoryImage } from '../categoryImage';
 
 export function createRestaurantDetail({
   restaurant,
   favoriteRestaurantNames,
-  starCallback,
+  favoriteCallback,
   deleteCallback,
   cancelCallback,
 }) {
   const container = render({
     restaurant,
     favoriteRestaurantNames,
-    starCallback,
+    favoriteCallback,
     cancelCallback,
   });
   container
@@ -25,7 +25,7 @@ export function createRestaurantDetail({
 function render({
   restaurant: { category, name, walkingTime, description = '', link = '' },
   favoriteRestaurantNames,
-  starCallback,
+  favoriteCallback,
   cancelCallback,
 }) {
   const container = modal.createContainer();
@@ -35,7 +35,7 @@ function render({
 
   const headerDiv = document.createElement('div');
   headerDiv.className = 'modal__restaurantDetail__header';
-  const star = createStarButton({name, favoriteRestaurantNames, starCallback});
+  const star = createFavoriteButton({name, favoriteRestaurantNames, favoriteCallback});
 
   headerDiv.append(categoryDiv, star);
 
