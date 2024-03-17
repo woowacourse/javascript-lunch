@@ -6,7 +6,7 @@ import Dropdown from './dropdown/Dropdown';
 import Header from './header/Header';
 import RestaurantAddModal from './modal/restaurantAddModal/RestaurantAddModal';
 import RestaurantDetailModal from './modal/restaurantDetailModal/RestaurantDetailModal';
-import RestaurantListContainer from './RestaurantListContainer';
+import RestaurantListContainer from './restaurantList/RestaurantListContainer';
 import TabMenu from './tabMenu/TabMenu';
 
 import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from '@/constants/filter';
@@ -26,8 +26,8 @@ class App extends Component<Props> {
   render() {
     const restaurantDetailModal = this.createRestaurantDetailModal();
     const restaurantAddModal = this.createRestaurantAddModal();
-
     const restaurantListContainer = this.createRestaurantList('all', restaurantDetailModal);
+
     this.renderHeader(restaurantAddModal);
     this.renderTabMenu(restaurantListContainer);
     this.renderHomeDropdown(restaurantListContainer, 'all');

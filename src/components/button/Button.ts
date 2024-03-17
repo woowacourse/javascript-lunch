@@ -27,18 +27,16 @@ class Button extends Component<IButtonProps> {
 
   setEvent() {
     const { kind, handleCloseModal, handleDeleteRestaurant } = this.props;
-    const $form = dom.getElement('form');
-    const $detailFavoriteContainer = dom.getElement('#detail-favorite-container');
 
     if (kind === 'add') {
-      $form.addEventListener('submit', e => {
+      dom.getElement('form').addEventListener('submit', e => {
         this.handleSubmitRestaurant(e);
       });
     } else if (kind === 'close') {
       this.$target.addEventListener('click', handleCloseModal.bind(this));
     } else if (kind === 'delete') {
       this.$target.addEventListener('click', () => {
-        const $button = dom.getTargetElement($detailFavoriteContainer, 'button');
+        const $button = dom.getTargetElement(dom.getElement('#detail-favorite-container'), 'button');
         handleDeleteRestaurant && handleDeleteRestaurant($button.id);
       });
     }
