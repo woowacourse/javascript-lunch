@@ -174,27 +174,14 @@ export default class RestaurantList extends EventComponent {
 
   private handleRestaurantItemClick(event: Event) {
     const target = event.target as HTMLElement;
-    const restaurantItem = target?.closest(".restaurant") as HTMLElement;
+    const restaurantItem = target.closest(".restaurant") as HTMLElement;
 
-    if (!restaurantItem?.classList.contains("restaurant")) {
+    const restaurantName = restaurantItem?.dataset.name;
+    if (!restaurantName) {
       return;
     }
 
-    const restaurantName = restaurantItem.dataset.name;
-
-    const restaurantInfos = this.restaurants.getDetails();
-    const targetRestaurantInfo = restaurantInfos.find(
-      ({ name }) => name === restaurantName
-    );
-
-    const favoriteRestaurantNames = favoriteStore.get();
-
-    const restaurantInfo = {
-      ...targetRestaurantInfo,
-      isFavorite: targetRestaurantInfo?.name
-        ? favoriteRestaurantNames.includes(targetRestaurantInfo?.name)
-        : false,
-    };
+    const restaurantInfo = this.findRestaurantInfoByName(restaurantName);
 
     this.dispatchCustomEvent(RESTAURANT_DETAIL_SHOW_EVENT, { restaurantInfo });
 
@@ -257,5 +244,23 @@ export default class RestaurantList extends EventComponent {
     return restaurantInfos.filter(({ name }) =>
       favoriteRestaurantNames.includes(name)
     );
+  }
+
+  private findRestaurantInfoByName(restaurantName: string) {
+    const restaurantInfos = this.restaurants.getDetails();
+    const targetRestaurantInfo = restaurantInfos.find(
+      ({ name }) => name === restaurantName
+    );
+
+    const favoriteRestaurantNames = favoriteStore.get();
+
+    const restaurantInfo = {
+      ...targetRestaurantInfo,
+      isFavorite: targetRestaurantInfo?.name
+        ? favoriteRestaurantNames.includes(targetRestaurantInfo?.name)
+        : false,
+    };
+
+    return restaurantInfo;
   }
 }
