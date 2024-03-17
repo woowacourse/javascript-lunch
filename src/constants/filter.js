@@ -47,6 +47,11 @@ const FOMR_BUTTON_INFORMATION = {
   addButton: { id: 'button-add', buttonOrder: 'button--primary', text: '추가하기' },
 };
 
+const DETAIL_BUTTON_INFORMATION = {
+  removeButton: { id: 'button-remove', type: 'button', buttonOrder: 'button--secondary', text: '삭제하기' },
+  closeButton: { id: 'button-close', type: 'button', buttonOrder: 'button--primary', text: '닫기' },
+};
+
 const CATEGORY_IMG_SRC = {
   한식: korean,
   중식: chinese,
@@ -79,6 +84,7 @@ export {
   FORM_DISTANCE_ATTRIBUTE,
   FORM_DISTANCE,
   FOMR_BUTTON_INFORMATION,
+  DETAIL_BUTTON_INFORMATION,
   CATEGORY_IMG_SRC,
   FAVORITE_IMG_SRC,
   FILTER_CONDITION,
