@@ -1,8 +1,9 @@
-import { sortByType } from "../domains/Restaurants";
+import { navigateToRestaurant, sortByType } from "../domains/Restaurants";
 import BaseComponent from "./common/BaseComponent.js";
 
 class RestaurantList extends BaseComponent {
   #currentCategory;
+  #navigateBar;
 
   constructor() {
     super();
@@ -10,7 +11,7 @@ class RestaurantList extends BaseComponent {
   }
 
   #getCurrentList(sortOption) {
-    return sortByType(this.#currentCategory, sortOption);
+    return sortByType(this.#currentCategory, sortOption, this.#navigateBar);
   }
 
   #sortRestaurantList(sortOption) {
@@ -29,7 +30,8 @@ class RestaurantList extends BaseComponent {
     <section class="restaurant-list-container">
         <ul class="restaurant-list">
         ${currentList.reduce((accRestaurants, currRestaurant) => {
-          const { name, category, distance, description } = currRestaurant;
+          const { name, category, distance, description, isFavorite } =
+            currRestaurant;
 
           return (
             accRestaurants +
@@ -39,6 +41,7 @@ class RestaurantList extends BaseComponent {
               category = "${category}"
               distance = "${distance}"
               description = "${description}"
+              isFavorite = "${isFavorite}"
             >
             </restaurant-item>
             `
@@ -46,6 +49,7 @@ class RestaurantList extends BaseComponent {
         }, "")}
         </ul>
     </section>
+    
     `;
   }
 
@@ -63,6 +67,19 @@ class RestaurantList extends BaseComponent {
     });
 
     document.addEventListener("delete-restaurant", () => {
+      this.render();
+    });
+
+    document.addEventListener("favorite-click", () => {
+      this.render();
+    });
+
+    document.addEventListener("favorite-restaurants", () => {
+      this.#navigateBar = true;
+      this.render();
+    });
+    document.addEventListener("all-restaurants", () => {
+      this.#navigateBar = false;
       this.render();
     });
   }
