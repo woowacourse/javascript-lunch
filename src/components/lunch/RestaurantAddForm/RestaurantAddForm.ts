@@ -21,11 +21,6 @@ class RestaurantAddForm extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = ["5", "10", "15", "20", "30"];
 
   private eventListeners = {
-    resetForm: {
-      eventName: CUSTOM_EVENT_TYPE.resetForm,
-      eventHandler: this.handleResetForm.bind(this),
-    },
-
     restaurantAddFormSubmit: {
       eventName: "submit",
       eventHandler: this.handleSubmitAddRestaurant.bind(this),
@@ -34,6 +29,11 @@ class RestaurantAddForm extends BaseComponent {
     modalCancelButtonClick: {
       eventName: "click",
       eventHandler: this.handleCancelButton.bind(this),
+    },
+
+    enabledAddButton: {
+      eventName: "input",
+      eventHandler: this.handleChangeAddButton.bind(this),
     },
   } as const;
 
@@ -48,21 +48,32 @@ class RestaurantAddForm extends BaseComponent {
               classList='form-item--required'
               labelText='카테고리'
             >
-              <common-dropdown name='category' id='category-select' options='${menuCategoryWithoutAllOptions}' title='선택해 주세요'></common-dropdown>
+              <common-dropdown 
+                name='category' 
+                id='category-select' 
+                options='${menuCategoryWithoutAllOptions}' 
+                title='선택해 주세요'
+              ></common-dropdown>
             </common-form-item>
             <common-form-item
               for='name'
               classList='form-item--required'
               labelText='이름'
             >
-              <input type='text' name='name' id='name-input' required>
+              <input type='text' name='name' id='name-input' />
             </common-form-item>
             <common-form-item
               for="distance"
               classList="form-item--required"
               labelText="거리(도보 이동 시간)"
             >
-              <common-dropdown name='distance' addOptionText='분 내' id='distance-select' options='${RestaurantAddForm.DISTANCES_OPTIONS}' title='선택해 주세요' /></common-dropdown>
+              <common-dropdown 
+                name='distance' 
+                addOptionText='분 내' 
+                id='distance-select' 
+                options='${RestaurantAddForm.DISTANCES_OPTIONS}' 
+                title='선택해 주세요'
+              ></common-dropdown>
             </common-form-item>
             <common-form-item
               for="description"
@@ -80,7 +91,7 @@ class RestaurantAddForm extends BaseComponent {
             </common-form-item>
             <div class="button-container">
               <button id="modal-cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
-              <button type="submit" class="button button--primary text-caption">추가하기</button>
+              <button disabled id="modal-add-button" type="submit" class="button button--primary text-caption">추가하기</button>
             </div>
         </form>
     `;
@@ -93,13 +104,13 @@ class RestaurantAddForm extends BaseComponent {
     });
 
     this.on({
-      ...this.eventListeners.resetForm,
+      ...this.eventListeners.modalCancelButtonClick,
       target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
 
     this.on({
-      ...this.eventListeners.modalCancelButtonClick,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
+      ...this.eventListeners.enabledAddButton,
+      target: this,
     });
   }
 
@@ -186,15 +197,25 @@ class RestaurantAddForm extends BaseComponent {
     this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalClose);
   }
 
+  private handleChangeAddButton() {
+    const formItems = this.createFormDataToRestaurantDetail();
+    const requiredFormItems = Object.values(formItems).slice(0, 3);
+
+    const addButtonElement = $(ELEMENT_SELECTOR.modalAddButton);
+
+    if (!(addButtonElement instanceof HTMLButtonElement)) return;
+
+    if (requiredFormItems.every((value) => value !== "")) {
+      addButtonElement.disabled = false;
+    } else {
+      addButtonElement.disabled = true;
+    }
+  }
+
   protected removeEvent(): void {
     this.off({
       ...this.eventListeners.restaurantAddFormSubmit,
       target: document,
-    });
-
-    this.off({
-      ...this.eventListeners.resetForm,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
 
     this.off({
