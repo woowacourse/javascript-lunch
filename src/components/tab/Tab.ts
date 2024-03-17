@@ -39,10 +39,6 @@ class Tab extends HTMLDivElement {
   setActiveTab(index: number) {
     this.activeIndex = index;
   }
-  
-  get activeTabIndex() {
-    return this.activeIndex;
-  }
 }
 
 customElements.define('matzip-tab', Tab, {extends: 'div'});

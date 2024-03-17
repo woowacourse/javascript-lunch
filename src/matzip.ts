@@ -21,6 +21,11 @@ class Matzip implements MatzipInterface {
     return [...this.myFavorites];
   }
 
+  getMyFavoriteRestaurants() {
+    const favoriteRestaurants = this.restaurants.filter((restaurant) => this.myFavorites.includes(restaurant.id));
+    return [...favoriteRestaurants];
+  }
+
   add(restaurant: Restaurant) {
     this.addValidate(restaurant);
     this.restaurants.push(restaurant);

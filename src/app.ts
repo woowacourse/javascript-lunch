@@ -15,6 +15,7 @@ import ListContainer from './components/listContainer/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
 import Modal from './components/modal/Modal';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
+import { TabChangeEvent } from "./components/tab/TabElement";
 
 const { $ } = DOM;
 
@@ -34,19 +35,33 @@ class App extends HTMLElement {
     this.tab = this.createTab();
     this.tabPane = this.createTabpane();
     this.appendModal = this.createAppendModal();
+    this.listenTabChange();
     this.setEvent();
+  }
+
+  listenTabChange() {
+    document.addEventListener('tabChangeEvent', (event: Event) => {
+      const tabChangeEvent = event as TabChangeEvent;
+      const activeTabIndex = tabChangeEvent.detail.activeTabIndex;
+
+      activeTabIndex === 0 ? this.setEventWholeMode() : this.setMyFavoriteMode();
+    });
   }
 
   setEvent() {
     this.listenModalToggle();
-    this.setEventWholeMode();
     this.listenRestaurantAdd();
+    this.setEventWholeMode();
     this.listenRestaurantDelete();
   }
 
   setEventWholeMode() {
     this.createWholeRestaurant();
     this.changeFilter();
+  }
+
+  setMyFavoriteMode() {
+    this.createMyFavoriteList();
   }
   
   createHeader() {
@@ -79,6 +94,12 @@ class App extends HTMLElement {
     const listContainer = new ListContainer(restaurantElements);
     
     this.tabPane.showContent({filterContainer, listContainer});
+  }
+
+  createMyFavoriteList() {
+    const favoriteRestaurants: Restaurant[] = App.matzip.getMyFavoriteRestaurants().map((restaurant) => new Restaurant(restaurant, true));
+    const listContainer = new ListContainer(favoriteRestaurants);
+    this.tabPane.showContent({listContainer});
   }
 
   createAppendModal() {

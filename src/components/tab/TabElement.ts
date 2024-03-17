@@ -1,6 +1,12 @@
 import './TabElement.css';
 import TabElementProps from './TabElementProps';
 
+export interface TabChangeEvent extends CustomEvent {
+  detail: {
+    activeTabIndex: number;
+  }
+}
+
 class TabElement extends HTMLButtonElement {
   private active: boolean;
   private index: number;
@@ -46,6 +52,12 @@ class TabElement extends HTMLButtonElement {
       clearActivate();
       this.setActive();
       setActiveTab(this.index);
+      const tabChangeEvent = new CustomEvent('tabChangeEvent', {
+        detail: {
+          activeTabIndex: this.index,
+        }
+      });
+      document.dispatchEvent(tabChangeEvent);
     });
   }
 }
