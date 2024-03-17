@@ -120,7 +120,6 @@ body {
   justify-content: space-between;
 
   padding: 0 16px;
-  margin-top: 24px;
 }
 
 .restaurant-filter-container select {
@@ -201,6 +200,8 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+
+  color: var(--grey-400);
 }
 
 .restaurant__favorite_img {
@@ -338,7 +339,7 @@ input[name='link'] {
 }
 
 /* 음식점 상세 정보 모달 *****************************************/
-.detailed-info-container {
+.detail-info-container {
   /* display: none; */
 
   position: fixed;
@@ -346,15 +347,18 @@ input[name='link'] {
   width: 100%;
 
   padding: 32px 16px;
+  background: var(--grey-100);
 }
 
-.detailed-info-container--open {
-  display: block;
+detail-info-container {
+  position: relative;
+}
+
+.detail-info-container--close {
+  display: none;
 }
 
 .detail-modal-backdrop {
-  display: none;
-
   position: fixed;
   top: 0;
   right: 0;
@@ -362,4 +366,29 @@ input[name='link'] {
   left: 0;
 
   background: rgba(0, 0, 0, 0.35);
+}
+
+.detail-info-column {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.detail-info-column > * {
+  margin: 6px 0px;
+}
+
+.detail-info-column > .restaurant__description {
+  padding-top: 0px;
+}
+
+.restaurant__favorite__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.restaurant__detail__description {
+  height: 400px;
+  overflow-y: scroll;
 }

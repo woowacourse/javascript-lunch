@@ -39,7 +39,7 @@ class Restaurant extends HTMLUListElement {
 
     const { category, name, distance, introduction, link } = restaurant;
     this.classList.add('restaurant-box');
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
     <li id="${category}_${name}" class="restaurant">
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE[category]}" alt="${category}" class="category-icon">
@@ -67,7 +67,10 @@ class Restaurant extends HTMLUListElement {
   openRestaurantDetail(restaurant: RestaurantType) {
     $('.restaurant', this)?.addEventListener('click', (event) => {
       console.log('hi');
-      $('.detailed-info-container')?.appendChild(new RestaurantDetail(restaurant));
+      $('.detail-info-container')?.classList.remove('detail-info-container--close');
+
+      $('.detail-info-container')?.appendChild(new RestaurantDetail(restaurant));
+      $('.detail-modal-backdrop')?.classList.remove('detail-info-container--close');
     });
   }
 
@@ -77,12 +80,20 @@ class Restaurant extends HTMLUListElement {
       favoriteImg.setAttribute('src', this.#isFavorite ? FavoriteIconLined : FavoriteIconFilled);
       this.#isFavorite = !this.#isFavorite;
 
+      //const storageDate = storage.getData('favoriteMatzipData');
+      //const storageIndex = storageDate.findIndex((data) => data.name === restaurant.name);
+
       if (this.#isFavorite) {
         const matzip = new Matzip([restaurant]);
+        //storage.addData('favoriteMatzipData', restaurant);
         $('matzip-favorite-container .restaurant-list-container')?.appendChild(
           new Restaurant(restaurant, true),
         );
       } else {
+        // storage.removeData('favoriteMatzipData');
+        // storageDate.forEach((data, index) => {
+        //   if (index !== storageIndex) storage.addData('favoriteMatzipData', data);
+        // });
         $(`matzip-favorite-container #${restaurant.category}_${restaurant.name}`)?.remove();
       }
     });
