@@ -59,6 +59,11 @@ class RestaurantList {
     );
     RestaurantStorage.set(this.restaurants);
   }
+
+  deleteRestaurant(id: string) {
+    this.restaurants = RestaurantStorage.get(STORAGE_KEY).filter(restaurant => restaurant.information.id !== id);
+    RestaurantStorage.set(this.restaurants);
+  }
 }
 
 export default RestaurantList;
