@@ -17,8 +17,8 @@ class Modal extends HTMLElement {
       </div>
       </div>
       <div class="detail-modal">
-        <div class="detail-modal-backdrop detail-info-container--close"></div>
-        <div class="detail-info-container detail-info-container--close"></div>
+        <div class="detail-modal-backdrop modal--close"></div>
+        <div class="detail-info-container modal--close"></div>
       </div>
     `;
     this.setEvent();
@@ -46,8 +46,8 @@ class Modal extends HTMLElement {
   closeRestaurantDetailInfo() {
     $('.detail-modal-backdrop', this)?.addEventListener('click', () => {
       $('detail-info-container')?.remove();
-      $('.detail-info-container')?.classList.add('detail-info-container--close');
-      $('.detail-modal-backdrop', this)?.classList.add('detail-info-container--close');
+      $('.detail-info-container')?.classList.add('modal--close');
+      $('.detail-modal-backdrop', this)?.classList.add('modal--close');
     });
   }
 }

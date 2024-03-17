@@ -218,6 +218,10 @@ body {
   display: block;
 }
 
+.modal--close {
+  display: none;
+}
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -352,10 +356,6 @@ input[name='link'] {
 
 detail-info-container {
   position: relative;
-}
-
-.detail-info-container--close {
-  display: none;
 }
 
 .detail-modal-backdrop {

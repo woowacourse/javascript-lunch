@@ -25,6 +25,12 @@ class Matzip implements MatzipInterface {
     this.restaurants = newRestaurants;
   }
 
+  change(restaurant: Restaurant) {
+    this.restaurants.forEach((item) => {
+      if (item.name === restaurant.name) return (item.favorite = restaurant.favorite);
+    });
+  }
+
   filterAndSort(category: CategoryType, sortBy: SortType) {
     if (category === '전체') return this.sort(sortBy, this.restaurants);
     const filterResult = [...this.restaurants].filter(

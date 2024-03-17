@@ -58,7 +58,7 @@ class RestaurantDetail extends HTMLElement {
       document.dispatchEvent(deleteRestaurantInfo);
 
       $('detail-info-container')?.remove();
-      $('.detail-modal-backdrop')?.classList.add('detail-info-container--close');
+      $('.detail-modal-backdrop')?.classList.add('modal--close');
 
       $(`#${restaurant.category}_${restaurant.name}`)?.remove();
     });
@@ -67,7 +67,7 @@ class RestaurantDetail extends HTMLElement {
   clickCloseButton() {
     $('.close-btn', this)?.addEventListener('click', (event) => {
       $('detail-info-container')?.remove();
-      $('.detail-modal-backdrop')?.classList.add('detail-info-container--close');
+      $('.detail-modal-backdrop')?.classList.add('modal--close');
     });
   }
 }

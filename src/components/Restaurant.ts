@@ -24,16 +24,20 @@ export const CATEGORY_IMAGE: Record<CategoryType, string> = {
 import DOM from '../utils/DOM';
 import RestaurantDetail from './RestaurantDetail';
 import Category from '../types/category';
-import Matzip from '../matzip';
 
 const { $, $$ } = DOM;
+
+export interface FavoriteRestaurantEvent extends CustomEvent {
+  detail: {
+    restaurant: RestaurantType;
+  };
+}
 
 class Restaurant extends HTMLUListElement {
   constructor(restaurant: RestaurantType) {
     super();
 
     const { category, name, distance, introduction, link, favorite } = restaurant;
-    //this.classList.add('restaurant-box');
     this.setAttribute('id', `${category}_${name}`);
     this.innerHTML = /* html */ `
     <li class="restaurant">
@@ -63,10 +67,10 @@ class Restaurant extends HTMLUListElement {
   openRestaurantDetail(restaurant: RestaurantType) {
     $('.restaurant', this)?.addEventListener('click', (event) => {
       event.preventDefault();
-      $('.detail-info-container')?.classList.remove('detail-info-container--close');
+      $('.detail-info-container')?.classList.remove('modal--close');
 
       $('.detail-info-container')?.appendChild(new RestaurantDetail(restaurant));
-      $('.detail-modal-backdrop')?.classList.remove('detail-info-container--close');
+      $('.detail-modal-backdrop')?.classList.remove('modal--close');
     });
   }
 
@@ -78,8 +82,15 @@ class Restaurant extends HTMLUListElement {
       favoriteImg.setAttribute('src', restaurant.favorite ? FavoriteIconLined : FavoriteIconFilled);
       restaurant.favorite = !restaurant.favorite;
 
+      const changeRestaurantInfo = new CustomEvent('changeRestaurantInfo', {
+        detail: {
+          restaurant,
+        },
+      });
+
+      document.dispatchEvent(changeRestaurantInfo);
+
       if (restaurant.favorite) {
-        const matzip = new Matzip([restaurant]);
         $('matzip-favorite-container .restaurant-list-container')?.appendChild(
           new Restaurant(restaurant),
         );

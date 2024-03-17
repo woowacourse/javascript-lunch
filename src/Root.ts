@@ -1,7 +1,7 @@
 import Matzip from './matzip';
 import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
-import Restaurant from './components/Restaurant';
+import Restaurant, { FavoriteRestaurantEvent } from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
@@ -20,6 +20,7 @@ const root = {
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
     this.listenRestaurantDelete(matzip);
+    this.listenFavoriteRestaurantChange(matzip);
   },
 
   initList(matzip: Matzip) {
@@ -29,6 +30,13 @@ const root = {
 
       matzip.filterAndSort('전체', sortBy as SortType).forEach((restaurant) => {
         $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant));
+      });
+
+      matzip.getRestaurants().forEach((restaurant) => {
+        if (restaurant.favorite)
+          $('matzip-favorite-container .restaurant-list-container')?.appendChild(
+            new Restaurant(restaurant),
+          );
       });
     });
   },
@@ -83,6 +91,16 @@ const root = {
       const restaurantInfo = customEvent.detail.restaurant;
 
       matzip.delete(restaurantInfo);
+      storage.updateData(matzip, MATZIP_DATA);
+    });
+  },
+
+  listenFavoriteRestaurantChange(matzip: Matzip) {
+    document.addEventListener('changeRestaurantInfo', (event: Event) => {
+      const customEvent = event as FavoriteRestaurantEvent;
+      const restaurantInfo = customEvent.detail.restaurant;
+
+      matzip.change(restaurantInfo);
       storage.updateData(matzip, MATZIP_DATA);
     });
   },
