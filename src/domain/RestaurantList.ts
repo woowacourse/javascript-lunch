@@ -1,4 +1,4 @@
-import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from '../types/restaurant';
+import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting, TTabMenu } from '../types/restaurant';
 
 import Restaurant from './Restaurant';
 import RestaurantStorage from './RestaurantStorage';
@@ -23,8 +23,8 @@ class RestaurantList {
     return [...this.restaurants].sort((a, b) => (a.information.distance > b.information.distance ? 1 : -1));
   }
 
-  getSortedByCondition(sortingCondition: TSorting): IRestaurantList {
-    return sortingCondition === BY_NAME_ASC ? this.getSortedByName() : this.getSortedByDistance();
+  sortByCondition(sortingCondition: TSorting) {
+    this.restaurants = sortingCondition === BY_NAME_ASC ? this.getSortedByName() : this.getSortedByDistance();
   }
 
   getRestaurantListLength() {
@@ -45,8 +45,12 @@ class RestaurantList {
     RestaurantStorage.set(this.restaurants);
   }
 
-  filterByCategory(category: TCategory): void {
-    this.restaurants = RestaurantStorage.get(STORAGE_KEY);
+  filterByCategory(category: TCategory, tabKind: TTabMenu): void {
+    const restaurantsInStorage = RestaurantStorage.get(STORAGE_KEY);
+    this.restaurants =
+      tabKind === 'all'
+        ? restaurantsInStorage
+        : restaurantsInStorage.filter(restaurant => restaurant.information.isFavorite);
     if (category !== ALL)
       this.restaurants = this.restaurants.filter(restaurant => restaurant.isMatchedCategory(category));
   }
@@ -69,8 +73,8 @@ class RestaurantList {
   }
 
   deleteRestaurant(id: string) {
-    this.restaurants = this.restaurants.filter(restaurant => restaurant.information.id !== id);
-    RestaurantStorage.set(RestaurantStorage.get(STORAGE_KEY).filter(restaurant => restaurant.information.id !== id));
+    this.restaurants = RestaurantStorage.get(STORAGE_KEY).filter(restaurant => restaurant.information.id !== id);
+    RestaurantStorage.set(this.restaurants);
   }
 }
 
