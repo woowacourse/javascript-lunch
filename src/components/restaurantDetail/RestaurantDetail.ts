@@ -1,9 +1,17 @@
 import './RestaurantDetail.css';
-import { Restaurant, CategoryType } from "../../types";
+import { Restaurant as RestaurantType, CategoryType } from "../../types";
 import CategoryImage from "../categoryImage/CategoryImage";
-import FavoriteIcon from '../favoriteIcon/FavoriteIcon';
+import FavoriteIcon, { IconStateChangeEvent } from '../favoriteIcon/FavoriteIcon';
 import { Button, ButtonProps } from '../tag/button';
 import Modal from '../modal/Modal';
+import App from '../../app';
+import storage from '../../storage';
+import LOCAL_STORAGE_KEY from '../../constants/LocalStorageKey';
+import DOM from '../../utils/DOM';
+import Restaurant from '../restaurant/Restaurant';
+
+const { $ } = DOM;
+const { FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 
 export interface RestaurantDeleteEvent extends CustomEvent {
   detail: {
@@ -16,19 +24,20 @@ class RestaurantDetail extends HTMLDivElement {
   private cancelButton: Button;
   private deleteButton: Button;
 
-  constructor(restaurant: Restaurant) {
-    super();
-        
+  constructor(restaurant: RestaurantType, favoriteIcon: FavoriteIcon) {
+    super();    
     this.id = restaurant.id;
     this.className = 'detail__container';
     this.createLayout(restaurant);
     const { cancelButton, deleteButton } = this.createButtons();
     this.cancelButton = cancelButton;
-    this.deleteButton = deleteButton;
-    this.favoriteIcon = this.createFavoriteIcon();
+    this.deleteButton = deleteButton;    
+    this.favoriteIcon = favoriteIcon;
+    this.appendChild(this.favoriteIcon);
+    this.listenRerender();    
   }
 
-  createLayout({category, name, distance, introduction, link}: Restaurant) {    
+  createLayout({category, name, distance, introduction, link}: RestaurantType) {    
     this.createCategoryImage(category);
     this.createRestaurantName(name);
     this.createDistance(distance);
@@ -85,12 +94,6 @@ class RestaurantDetail extends HTMLDivElement {
     this.appendChild(p);
   }
 
-  createFavoriteIcon() {
-    const button = new FavoriteIcon({active: false});
-    this.appendChild(button);
-    return button;
-  }
-
   createButtons() {
     const buttonContainer = document.createElement('div');
     buttonContainer.setAttribute('class', 'button-container');
@@ -141,6 +144,32 @@ class RestaurantDetail extends HTMLDivElement {
       }
     });        
     document.dispatchEvent(restaurantDeleteEvent);
+  }
+
+  getChangeState(id: string) {
+    return {
+      addFavorite: () => {
+        App.matzip.addFavorite(id);
+        storage.addData<string>(FAVORITE_DATA, id);     
+      },
+      deleteFavorite: () => {
+        App.matzip.deleteFavorite(id);        
+        storage.modifyData<string>(FAVORITE_DATA, App.matzip.getMyFavorites());
+      },
+      targetId: id,
+    };
+  }
+
+  listenRerender() {
+    document.addEventListener('iconStateChange', (event: Event) => {
+      const iconStateChangeEvent = event as IconStateChangeEvent;
+      const {targetId, state} = iconStateChangeEvent.detail;
+      
+      const newElement = new FavoriteIcon({active: state, isChild: false, changeState: this.getChangeState(targetId) });
+      const target = $<Restaurant>(`#restaurant-list${targetId}`);
+      const oldElement = target.querySelector('.favorite-icon-origin') as Node; 
+      $<Restaurant>(`#restaurant-list${targetId}`).replaceChild(newElement, oldElement);
+    });
   }
 }
 

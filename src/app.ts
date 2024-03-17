@@ -19,7 +19,7 @@ import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantD
 const { $ } = DOM;
 
 class App extends HTMLElement {
-  private matzip: Matzip;
+  static matzip: Matzip;
   private main: HTMLElement;
   private tab: Tab;
   private tabPane: TabPane;
@@ -27,7 +27,7 @@ class App extends HTMLElement {
 
   constructor() {
     super();
-    this.matzip = new Matzip(storage.getData(MATZIP_DATA), storage.getData(FAVORITE_DATA));
+    App.matzip = new Matzip(storage.getData(MATZIP_DATA), storage.getData(FAVORITE_DATA));
 
     this.createHeader();
     this.main = this.createMain();
@@ -75,7 +75,7 @@ class App extends HTMLElement {
   createWholeRestaurant() {
     const filterContainer = new FilterContainer();
     const { category, sort } = filterContainer.getFilterValues();
-    const restaurantElements: Restaurant[] = this.matzip.filterAndSort(category as CategoryType, sort as SortType).map((restaurant) => new Restaurant(restaurant, this.matzip.isFavorite(restaurant.id)));
+    const restaurantElements: Restaurant[] = App.matzip.filterAndSort(category as CategoryType, sort as SortType).map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
     const listContainer = new ListContainer(restaurantElements);
     
     this.tabPane.showContent({filterContainer, listContainer});
@@ -100,10 +100,10 @@ class App extends HTMLElement {
       const customEvent = event as FilterChangeEvent;
       const selectedCategory = customEvent.detail.selectedCategory;
       const selectedSort = customEvent.detail.selectedSort;
-      const restaurantElements: Restaurant[] = this.matzip.filterAndSort(
+      const restaurantElements: Restaurant[] = App.matzip.filterAndSort(
         selectedCategory as CategoryType,
         selectedSort as SortType,
-      ).map((restaurant) => new Restaurant(restaurant, this.matzip.isFavorite(restaurant.id)));
+      ).map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
 
       const listContainer = new ListContainer(restaurantElements);   
       this.tabPane.showListChange(listContainer);   
@@ -128,7 +128,7 @@ class App extends HTMLElement {
       };
 
       try {
-        this.matzip.add(newRestaurant);        
+        App.matzip.add(newRestaurant);        
         storage.addData(MATZIP_DATA, newRestaurant);
         this.appendModal.toggleModal('modal');
         this.tabPane.showListAppend(new Restaurant(newRestaurant, false));
@@ -144,11 +144,13 @@ class App extends HTMLElement {
       const restaurantDeleteEvent = event as RestaurantDeleteEvent;      
       const targetId = restaurantDeleteEvent.detail.targetId;
       
-      this.matzip.delete(targetId);
-      storage.modifyData<RestaurantType>(MATZIP_DATA, this.matzip.getRestaurants());
+      App.matzip.delete(targetId);
+      storage.modifyData<RestaurantType>(MATZIP_DATA, App.matzip.getRestaurants());
       this.tabPane.showListDelete(targetId);
     });
   }
 }
 
 customElements.define('matzip-app', App);
+
+export default App;

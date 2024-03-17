@@ -16,6 +16,10 @@ class Matzip implements MatzipInterface {
   getRestaurants() {
     return [...this.restaurants];
   }
+  
+  getMyFavorites() {
+    return [...this.myFavorites];
+  }
 
   add(restaurant: Restaurant) {
     this.addValidate(restaurant);
@@ -28,9 +32,7 @@ class Matzip implements MatzipInterface {
 
   deleteFavorite(targetId: string) {
     const targetIndex = this.myFavorites.findIndex((id) => id === targetId);
-    const front = this.myFavorites.slice(0, targetIndex);
-    const back = this.myFavorites.slice(targetIndex + 1, this.myFavorites.length);
-    this.myFavorites = [...front, ...back];
+    this.myFavorites.splice(targetIndex, 1);
   }
 
   isFavorite(targetId: string) {
@@ -89,9 +91,8 @@ class Matzip implements MatzipInterface {
 
   delete(id: string) {
     const targetIndex = this.restaurants.findIndex((restaurant) => restaurant.id === id);
-    const front = this.restaurants.slice(0, targetIndex);
-    const back = this.restaurants.slice(targetIndex + 1, this.restaurants.length);
-    this.restaurants = [...front, ...back];
+    this.restaurants.splice(targetIndex, 1);
+    this.deleteFavorite(id);
   };
 }
 

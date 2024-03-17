@@ -5,9 +5,14 @@ import Modal from '../modal/Modal';
 import RestaurantDetail from '../restaurantDetail/RestaurantDetail';
 import CategoryImage from '../categoryImage/CategoryImage';
 
-import LOCAL_STORAGE_KEY from '../../constants/LocalStorageKey';
+import FavoriteIcon, { IconStateChangeEvent } from '../favoriteIcon/FavoriteIcon';
+import App from '../../app';
 import storage from '../../storage';
-import FavoriteIcon from '../favoriteIcon/FavoriteIcon';
+import LOCAL_STORAGE_KEY from '../../constants/LocalStorageKey';
+import cloneFavoriteIcon from '../favoriteIcon/cloneFavoriteIcon';
+import DOM from '../../utils/DOM';
+
+const { $ } = DOM;
 
 const { FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 
@@ -22,14 +27,24 @@ class Restaurant extends HTMLLIElement {
     this.id = `restaurant-list${restaurant.id}`;
     this.className = 'restaurant';
     this.createLayout(restaurant);
-    this.favoriteIcon = this.createFavoriteIcon(isFavorite);
-    const { modal, content } = this.createDetailModal(restaurant);
+    this.favoriteIcon = this.createFavoriteIcon(restaurant, isFavorite); 
+    const { modal, content } = this.createDetailModal(restaurant, isFavorite);
     this.modal = modal;
     this.content = content;
     this.listenOpenDetailModal();
     this.listenCancelButtonClick();
     this.listenDeleteButtonClick();
+    this.listenRerender();
   };
+
+  rerenderModal(restaurant: RestaurantType, isFavorite: boolean) {
+    const { modal, content } = this.createDetailModal(restaurant, isFavorite);
+    this.modal = modal;
+    this.content = content;
+    this.listenOpenDetailModal();
+    this.listenCancelButtonClick();
+    this.listenDeleteButtonClick();
+  }
 
   createLayout(restaurant: RestaurantType) {
     const frag = document.createDocumentFragment();
@@ -41,9 +56,9 @@ class Restaurant extends HTMLLIElement {
     this.appendChild(frag);
   }
 
-  createFavoriteIcon(isFavorite: boolean) {
-    const favoriteIcon = new FavoriteIcon({active: isFavorite});
-    this.appendChild(favoriteIcon);
+  createFavoriteIcon(restaurant: RestaurantType, isFavorite: boolean) {
+    const favoriteIcon = new FavoriteIcon({active: isFavorite, isChild: false, changeState: this.getChangeState(restaurant.id)});    
+    this.appendChild(favoriteIcon);    
     return favoriteIcon;
   }
 
@@ -73,8 +88,8 @@ class Restaurant extends HTMLLIElement {
     return restaurantInfo;
   }
 
-  createDetailModal(restaurant: RestaurantType) { 
-    const restaurantDetail = new RestaurantDetail(restaurant);
+  createDetailModal(restaurant: RestaurantType, isFavorite: boolean) { 
+    const restaurantDetail = new RestaurantDetail(restaurant, cloneFavoriteIcon(this.favoriteIcon, isFavorite, this.getChangeState(restaurant.id)));
     const modal = new Modal({ classname: 'detail-modal', child: restaurantDetail});
     
     this.appendChild(modal);
@@ -100,14 +115,30 @@ class Restaurant extends HTMLLIElement {
     this.content.listenDeleteButonClick(this.toggleModal.bind(this));
   }
 
-  addFavorite() {
-    storage.addData<string>(FAVORITE_DATA, this.id);
+  getChangeState(id: string) {    
+    return {
+      addFavorite: () => {
+        App.matzip.addFavorite(id);
+        storage.addData<string>(FAVORITE_DATA, id);     
+      },
+      deleteFavorite: () => {
+        App.matzip.deleteFavorite(id);        
+        storage.modifyData<string>(FAVORITE_DATA, App.matzip.getMyFavorites());
+      },
+      targetId: id,
+    };
   }
-  
-  deleteFavorite() {
-    const getData = storage.getData<string>(FAVORITE_DATA);
-    const newList = getData.filter((data) => data !== this.id);
-    storage.modifyData<string>(FAVORITE_DATA, newList);
+
+  listenRerender() {
+    document.addEventListener('iconStateChange', (event: Event) => {
+      const iconStateChangeEvent = event as IconStateChangeEvent;
+      const {targetId, state} = iconStateChangeEvent.detail;
+
+      const newElement = new FavoriteIcon({active: state, isChild: true, changeState: this.getChangeState(targetId) });
+      const target = $<RestaurantDetail>(`#${targetId}`);
+      const oldElement = target.querySelector('.favorite-icon-cloned') as Node;
+      $<RestaurantDetail>(`#${targetId}`).replaceChild(newElement, oldElement);
+    });
   }
 }
 

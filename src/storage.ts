@@ -1,5 +1,5 @@
 const storage = {
-  addData<T>(key: string, data: T) {
+  addData<T>(key: string, data: T) {    
     const localStorageData = localStorage.getItem(key);
 
     if (localStorageData === null) {
