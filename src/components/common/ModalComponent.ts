@@ -32,6 +32,12 @@ const ModalComponent = ({ modalClass, modalContainerClass, child, children }: Pr
 
   const create = () => modalDiv;
 
+  const closeModal = () => {
+    modalDiv.classList.remove('modal--open');
+  };
+
+  modalBackdropDiv.addEventListener('click', closeModal);
+
   return {
     create
   };
