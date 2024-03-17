@@ -20,8 +20,8 @@ export default class Modal extends EventComponent {
   ];
 
   protected getTemplate(): string {
-    const isOpen = this.getAttribute("isOpen");
-    const modalId = this.getAttribute("modal-id");
+    const isOpen = this.getAttribute("isOpen") ?? false;
+    const modalId = this.getAttribute("modal-id") ?? "";
 
     const children = this.innerHTML;
 

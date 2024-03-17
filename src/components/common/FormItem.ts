@@ -2,10 +2,10 @@ import BaseComponent from "../../abstract/BaseComponent";
 
 export default class FormItem extends BaseComponent {
   protected getTemplate(): string {
-    const labelFor = this.getAttribute("label-for");
-    const title = this.getAttribute("title");
-    const required = this.getAttribute("required");
-    const helpText = this.getAttribute("help-text");
+    const labelFor = this.getAttribute("label-for") ?? "";
+    const title = this.getAttribute("title") ?? "";
+    const required = this.getAttribute("required") ?? false;
+    const helpText = this.getAttribute("help-text") ?? "";
 
     const children = this.innerHTML;
 
