@@ -4,7 +4,7 @@ import type { TCategory, TDistance } from '@/types/restaurant';
 
 import Button from './button/Button';
 import Component from './core/Component';
-import Dropdown from './Dropdown';
+import Dropdown from './dropdown/Dropdown';
 
 import { ADD_BUTTON_ATTRIBUTE, CLOSE_BUTTON_ATTRIBUTE } from '@/constants/button';
 import { FORM_CATEGORY, FORM_CATEGORY_ATTRIBUTE, FORM_DISTANCE, FORM_DISTANCE_ATTRIBUTE } from '@/constants/filter';
@@ -13,7 +13,7 @@ import formValidator from '@/validator/formValidator';
 
 interface IRestaurantFormProps {
   restaurantList: RestaurantList;
-  handleCloseModal: () => void;
+  handleResetModal: () => void;
 }
 
 class RestaurantForm extends Component<IRestaurantFormProps> {
@@ -110,7 +110,7 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     new Button($buttonContainer, {
       kind: 'close',
       attributes: CLOSE_BUTTON_ATTRIBUTE,
-      handleCloseModal: this.props.handleCloseModal,
+      handleCloseModal: this.props.handleResetModal,
     });
   }
 
@@ -119,7 +119,7 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
       kind: 'add',
       attributes: ADD_BUTTON_ATTRIBUTE,
       restaurantList,
-      handleCloseModal: this.props.handleCloseModal,
+      handleCloseModal: this.props.handleResetModal,
     });
   }
 
