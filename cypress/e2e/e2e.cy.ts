@@ -63,4 +63,12 @@ describe('상세보기 모달 테스트', () => {
     cy.get('#detail-modal-backdrop').click();
     cy.get('#detail-modal').should('not.have.class', 'modal--open');
   });
+
+  it('음식점을 클릭하면 음식점 상세보기 모달이 나오고, 삭제버튼 클릭 시 해당 음식점이 삭제되고 모달이 닫힌다.', () => {
+    cy.get('#restaurant-info').click();
+
+    cy.get('#button-modal-delete').click();
+
+    cy.get('.restaurant-list').find('li').should('have.length', 5);
+  });
 });
