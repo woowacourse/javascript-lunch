@@ -1,12 +1,14 @@
 import { FAVORITE, STORAGE_KEY } from '../constants/config';
 import { CATEGORY_IMG_SRC, FAVORITE_IMG_SRC } from '../constants/filter';
 import LocalStorage from '../domain/LocalStorage';
+import RestaurantDetail from './RestaurantDetail';
+import RestaurantDetailModal from './RestaurantDetailModal';
 
 const RestaurantComponent = {
-  render(restaurantList) {
+  render(restaurants) {
     const $restaurantList = document.querySelector('.restaurant-list');
-    restaurantList.forEach(element => {
-      $restaurantList.appendChild(this.mounted(element.information));
+    restaurants.forEach(restaurant => {
+      $restaurantList.appendChild(this.mounted(restaurant.information));
     });
   },
 
@@ -20,7 +22,38 @@ const RestaurantComponent = {
     restaurant.appendChild(restaurantCategory);
     restaurant.appendChild(restaurantInfo);
 
+    restaurant.addEventListener('click', e => this.handleRestaurantDetail(e, information));
+
     return restaurant;
+  },
+
+  setRestaurantList(restaurantList) {
+    this.restaurantList = restaurantList;
+  },
+
+  getRestaurantList() {
+    return this.restaurantList;
+  },
+
+  handleRestaurantDetail(e, information) {
+    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
+    const localStorageRestaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
+
+    if (!(e.target.tagName === 'IMG')) {
+      localStorageRestaurants.forEach(localStorageRestaurant => {
+        if (localStorageRestaurant.information.name === information.name) {
+          const $modalContainer = document.getElementById('modal-container');
+
+          const restaurantDetailModal = new RestaurantDetailModal(
+            new RestaurantDetail(localStorageRestaurant),
+            this.getRestaurantList(),
+          );
+
+          $modalContainer.appendChild(restaurantDetailModal.getElement());
+          restaurantDetailModal.toggle();
+        }
+      });
+    }
   },
 
   createRestaurantCategory(information) {
@@ -123,9 +156,8 @@ const RestaurantComponent = {
   handleFavorite(e) {
     const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
     const localStorageRestaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
-
     localStorageRestaurants.forEach(restaurant => {
-      if (restaurant.information.name === e.target.parentNode.previousSibling.firstElementChild.textContent) {
+      if (restaurant.information.name === e.target.parentNode.parentNode.parentNode.querySelector('h3').textContent) {
         this.changeFavorite(restaurant);
         e.target.src = FAVORITE_IMG_SRC[restaurant.information.favorite];
       }
@@ -148,6 +180,15 @@ const RestaurantComponent = {
     restaurantDescription.textContent = `${information.description}`;
 
     return restaurantDescription;
+  },
+
+  createRestaurantLink(information) {
+    const restaurantLink = document.createElement('a');
+
+    restaurantLink.setAttribute('href', `${information.link}`);
+    restaurantLink.textContent = `${information.link}`;
+
+    return restaurantLink;
   },
 };
 
