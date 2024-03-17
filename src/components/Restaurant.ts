@@ -61,6 +61,7 @@ class Restaurant extends HTMLUListElement {
 
   openRestaurantDetail(restaurant: RestaurantType) {
     $('.restaurant', this)?.addEventListener('click', (event) => {
+      event.preventDefault();
       $('.detail-info-container')?.classList.remove('detail-info-container--close');
 
       $('.detail-info-container')?.appendChild(new RestaurantDetail(restaurant));
@@ -71,6 +72,8 @@ class Restaurant extends HTMLUListElement {
   toggleFavoriteIcon(restaurant: RestaurantType) {
     const favoriteImg = $('.restaurant__favorite_img img', this);
     favoriteImg?.addEventListener('click', (e) => {
+      e.stopPropagation();
+
       favoriteImg.setAttribute('src', restaurant.favorite ? FavoriteIconLined : FavoriteIconFilled);
       restaurant.favorite = !restaurant.favorite;
 
