@@ -18,7 +18,7 @@ class Modal extends HTMLElement {
       </div>
       <div class="detail-modal">
         <div class="detail-modal-backdrop detail-info-container--close"></div>
-        <div class="detail-info-container"></div>
+        <div class="detail-info-container detail-info-container--close"></div>
       </div>
     `;
     this.setEvent();

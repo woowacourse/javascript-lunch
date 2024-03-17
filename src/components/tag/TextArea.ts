@@ -12,7 +12,7 @@ class TextArea extends HTMLTextAreaElement {
   }
 
   getValue(): string {
-    return this.value;
+    return this.value.split('\n').join('<br>');
   }
 }
 
