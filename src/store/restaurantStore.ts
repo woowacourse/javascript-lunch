@@ -25,6 +25,10 @@ const restaurantStore = {
   setRestaurants(restaurants: Restaurants) {
     localStore.setItem("restaurants", restaurants.getDetails());
   },
+
+  getRestaurantInfo(restaurantName: string): Restaurant | undefined {
+    return this.getRestaurants().findRestaurantByName(restaurantName);
+  },
 };
 
 export default restaurantStore;

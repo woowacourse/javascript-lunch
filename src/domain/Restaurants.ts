@@ -20,6 +20,12 @@ class Restaurants {
     );
   }
 
+  findRestaurantByName(restaurantName: string) {
+    return this.restaurants.find(
+      (restaurant) => restaurant.getName() === restaurantName
+    );
+  }
+
   getDetails(): RestaurantInfo[] {
     return this.restaurants.map((restaurant) => restaurant.getInfo());
   }
