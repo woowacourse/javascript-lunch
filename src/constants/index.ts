@@ -24,3 +24,8 @@ export const CATEGORY_VALUES: CategoryValues[] = [
   '아시안',
   '기타'
 ];
+
+export const VALIDATOR_CONSTANTS = {
+  NAME_MAX_LENGTH: 15,
+  DESCRIPTION_MAX_LENGTH: 150
+};
