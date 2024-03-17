@@ -1,5 +1,6 @@
+import type RestaurantDetailModal from './modal/restaurantDetailModal/RestaurantDetailModal';
 import type RestaurantList from '@/domain/RestaurantList';
-import type { TTabMenu } from '@/types/restaurant';
+import type { IRestaurantList } from '@/types/restaurant';
 
 import Component from './core/Component';
 import RestaurantItem from './RestaurantItem';
@@ -14,6 +15,7 @@ interface IRestaurantListContainer {
 interface IProps {
   kind: 'all' | 'favorite';
   restaurantList: RestaurantList;
+  restaurantDetailModal: RestaurantDetailModal;
 }
 
 class RestaurantListContainer extends Component<IProps> {
@@ -22,39 +24,26 @@ class RestaurantListContainer extends Component<IProps> {
   }
 
   render() {
-    const { restaurantList } = this.props;
-    this.renderRestaurantList(restaurantList, this.props.kind);
+    const { restaurantList, kind } = this.props;
+    const restaurants = kind === 'all' ? restaurantList.getAllList() : restaurantList.getFavoriteList();
+    this.renderRestaurantList(restaurants);
   }
 
-  renderRestaurantList(restaurantList: RestaurantList, kind: TTabMenu) {
-    if (kind === 'all') this.renderAllRestaurants(restaurantList);
-    else if (kind === 'favorite') this.renderFavoriteRestaurants(restaurantList);
-  }
-
-  renderAllRestaurants(restaurantList: RestaurantList) {
+  renderRestaurantList(restaurants: IRestaurantList) {
     const $restaurantList = dom.getElement('.restaurant-list');
     $restaurantList.replaceChildren();
-    restaurantList.getAllList().forEach(restaurant => {
+    restaurants.forEach(({ information }) => {
       new RestaurantItem({
         $target: $restaurantList,
         props: {
-          information: restaurant.information,
-          handleClickFavorite: this.handleClickFavorite.bind(this),
-        },
-      });
-    });
-  }
-
-  renderFavoriteRestaurants(restaurantList: RestaurantList) {
-    const $restaurantList = dom.getElement('.restaurant-list');
-    $restaurantList.replaceChildren();
-    const favoriteRestaurants = restaurantList.getFavoriteList();
-    favoriteRestaurants.forEach(restaurant => {
-      new RestaurantItem({
-        $target: $restaurantList,
-        props: {
-          information: restaurant.information,
-          handleClickFavorite: this.handleClickFavorite.bind(this),
+          information,
+          handleClickFavorite: () => {
+            this.handleClickFavorite(information.id);
+          },
+          handleClickDetail: () => {
+            this.props.restaurantDetailModal.setRestaurant(information, this.handleClickFavorite.bind(this));
+            this.props.restaurantDetailModal.toggle();
+          },
         },
       });
     });
@@ -63,7 +52,8 @@ class RestaurantListContainer extends Component<IProps> {
   handleClickFavorite(id: string) {
     const { restaurantList } = this.props;
     restaurantList.setFavoriteRestaurantList(id);
-    this.renderAllRestaurants(restaurantList);
+    const restaurants = this.props.kind === 'all' ? restaurantList.getAllList() : restaurantList.getFavoriteList();
+    this.renderRestaurantList(restaurants);
   }
 }
 
