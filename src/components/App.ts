@@ -1,125 +1,133 @@
+import type RestaurantList from '@/domain/RestaurantList';
 import type { TTabMenu } from '@/types/restaurant';
 
 import Component from './core/Component';
-import Dropdown from './Dropdown';
-import RestaurantForm from './RestaurantForm';
+import Dropdown from './dropdown/Dropdown';
+import Header from './header/Header';
+import RestaurantAddModal from './modal/restaurantAddModal/RestaurantAddModal';
+import RestaurantDetailModal from './modal/restaurantDetailModal/RestaurantDetailModal';
 import RestaurantListContainer from './RestaurantListContainer';
-import TabMenu from './TabMenu';
+import TabMenu from './tabMenu/TabMenu';
 
-import { INITIAL_RESTAURANT_LIST } from '@/constants/config';
 import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from '@/constants/filter';
-import Restaurant from '@/domain/Restaurant';
-import RestaurantList from '@/domain/RestaurantList';
 import dom from '@/utils/dom';
 
-class App extends Component<unknown> {
-  constructor($target: HTMLElement) {
-    super($target, {});
+interface Props {
+  restaurantList: RestaurantList;
+}
+
+class App extends Component<Props> {
+  render() {
+    const restaurantDetailModal = this.createRestaurantDetailModal();
+    const restaurantAddModal = this.createRestaurantAddModal();
+
+    this.renderHeader(restaurantAddModal);
+    this.renderTabMenu(restaurantDetailModal);
+    this.renderHomeDropdown();
+    this.renderRestaurantList('all', restaurantDetailModal);
   }
 
-  render() {
-    const $form = dom.getElement('form');
-    const $allTab = dom.getElement('#all-tab');
-    const $favoriteTab = dom.getElement('#favorite-tab');
-    const restaurantList = this.getInitialRestaurantList();
+  handleClickAllTab(restaurantDetailModal: RestaurantDetailModal) {
+    this.renderRestaurantList('all', restaurantDetailModal);
+  }
 
-    this.renderTabMenus($allTab, $favoriteTab, restaurantList);
-    this.renderHomeDropdown(restaurantList);
-    this.renderRestaurantList(restaurantList, 'all');
-    new RestaurantForm({
-      $target: $form,
-      props: { restaurantList, handleCloseModal: this.handleCloseModal.bind(this) },
+  handleClickFavoriteTab(restaurantDetailModal: RestaurantDetailModal) {
+    this.renderRestaurantList('favorite', restaurantDetailModal);
+  }
+
+  createRestaurantDetailModal() {
+    const $detailModalContainer = dom.getElement('#detail-modal');
+    return new RestaurantDetailModal($detailModalContainer, {
+      restaurantList: this.props.restaurantList,
     });
   }
 
-  setEvent() {
-    dom.getElement('.gnb__button').addEventListener('click', this.handleOpenModal.bind(this));
-    dom.getElement('.modal-backdrop').addEventListener('click', this.handleCloseModal.bind(this));
+  createRestaurantAddModal() {
+    const $addModalContainer = dom.getElement('#add-modal');
+    return new RestaurantAddModal($addModalContainer, {
+      restaurantList: this.props.restaurantList,
+    });
   }
 
-  renderRestaurantList(restaurantList: RestaurantList, kind: TTabMenu) {
+  renderHeader(restaurantAddModal: RestaurantAddModal) {
+    new Header(document.body, {
+      title: '점심 뭐먹지?',
+      imageSrc: './images/add-button.png',
+      onClick: () => {
+        restaurantAddModal.toggle();
+      },
+    });
+  }
+
+  renderTabMenu(restaurantDetailModal: RestaurantDetailModal) {
+    const $tabContainer = dom.getElement('#tab-container');
+    this.renderAllTab($tabContainer, restaurantDetailModal);
+    this.renderFavoriteTab($tabContainer, restaurantDetailModal);
+  }
+
+  renderAllTab($tabContainer: HTMLElement, restaurantDetailModal: RestaurantDetailModal) {
+    new TabMenu($tabContainer, {
+      attributes: {
+        id: 'all-tab',
+        classNames: ['tab-item', 'active-tab'],
+        text: '모든 음식점',
+      },
+      clickEvent: () => {
+        this.handleClickAllTab(restaurantDetailModal);
+      },
+    });
+  }
+
+  renderFavoriteTab($tabContainer: HTMLElement, restaurantDetailModal: RestaurantDetailModal) {
+    new TabMenu($tabContainer, {
+      attributes: {
+        id: 'favorite-tab',
+        classNames: ['tab-item'],
+        text: '자주 가는 음식점',
+      },
+      clickEvent: () => {
+        this.handleClickFavoriteTab(restaurantDetailModal);
+      },
+    });
+  }
+
+  renderRestaurantList(kind: TTabMenu, restaurantDetailModal: RestaurantDetailModal) {
     const $restaurantContainer = dom.getElement('.restaurant-list-container');
     new RestaurantListContainer({
       $target: $restaurantContainer,
-      props: { restaurantList, kind },
+      props: { restaurantList: this.props.restaurantList, kind, restaurantDetailModal },
     });
   }
 
-  renderTabMenus($allTab: HTMLElement, $favoriteTab: HTMLElement, restaurantList: RestaurantList) {
-    new TabMenu({
-      $target: $allTab,
-      props: {
-        clickEvent: () => {
-          this.handleClickAllTab($allTab, $favoriteTab, restaurantList);
-        },
-      },
-    });
-    new TabMenu({
-      $target: $favoriteTab,
-      props: {
-        clickEvent: () => {
-          this.handleClickFavoriteTab($allTab, $favoriteTab, restaurantList);
-        },
-      },
-    });
+  renderHomeDropdown() {
+    const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container');
+    $restaurantFilterContainer.replaceChildren();
+    this.renderCategoryDropdown($restaurantFilterContainer);
+    this.renderSortingDropdown($restaurantFilterContainer);
   }
 
-  handleClickAllTab($allTab: HTMLElement, $favoriteTab: HTMLElement, restaurantList: RestaurantList) {
-    $allTab.classList.add('active-tab');
-    $favoriteTab.classList.remove('active-tab');
-    this.renderRestaurantList(restaurantList, 'all');
-  }
-
-  handleClickFavoriteTab($allTab: HTMLElement, $favoriteTab: HTMLElement, restaurantList: RestaurantList) {
-    $favoriteTab.classList.add('active-tab');
-    $allTab.classList.remove('active-tab');
-    this.renderRestaurantList(restaurantList, 'favorite');
-  }
-
-  renderCategoryDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
+  renderCategoryDropdown($restaurantFilterContainer: HTMLElement) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
         kind: 'category',
         attributes: FILTERED_CATEGORY_ATTRIBUTE,
         options: FILTERED_CATEGORY,
-        restaurantList,
+        restaurantList: this.props.restaurantList,
       },
     });
   }
 
-  renderSortingDropdown($restaurantFilterContainer: HTMLElement, restaurantList: RestaurantList) {
+  renderSortingDropdown($restaurantFilterContainer: HTMLElement) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
         kind: 'sorting',
         attributes: SORTING_ATTRIBUTE,
         options: SORTING,
-        restaurantList,
+        restaurantList: this.props.restaurantList,
       },
     });
-  }
-
-  renderHomeDropdown(restaurantList: RestaurantList) {
-    const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container');
-    $restaurantFilterContainer.replaceChildren();
-    this.renderCategoryDropdown($restaurantFilterContainer, restaurantList);
-    this.renderSortingDropdown($restaurantFilterContainer, restaurantList);
-  }
-
-  getInitialRestaurantList() {
-    return new RestaurantList(INITIAL_RESTAURANT_LIST.map(restaurant => new Restaurant(restaurant)));
-  }
-
-  handleOpenModal() {
-    dom.getElement('.modal').classList.add('modal--open');
-  }
-
-  handleCloseModal() {
-    dom.getElement('.modal').classList.remove('modal--open');
-    dom.getElement('#error-link').classList.add('hidden');
-    const $form = dom.getElement('form') as HTMLFormElement;
-    $form.reset();
   }
 }
 
