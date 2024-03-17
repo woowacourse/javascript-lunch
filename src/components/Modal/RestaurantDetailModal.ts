@@ -1,13 +1,16 @@
-import Restaurant, { IRestaurantInfo } from '../domain/Restaurant';
-import restaurantStore from '../store/RestaurantStore';
-import Button from './base/Button';
+import Restaurant, { IRestaurantInfo } from '../../domain/Restaurant';
+import restaurantStore from '../../store/RestaurantStore';
+import Button from '../Button/Button';
 
 class RestaurantDetailModal extends HTMLDivElement {
   #restaurant: IRestaurantInfo;
 
-  constructor(restaurant: IRestaurantInfo) {
+  #onClick?: () => void;
+
+  constructor(restaurant: IRestaurantInfo, onClick?: () => void) {
     super();
     this.#restaurant = restaurant;
+    this.#onClick = onClick;
     this.id = 'restaurant-detail-modal';
     this.classList.add('modal', 'modal--close');
 
@@ -53,7 +56,9 @@ class RestaurantDetailModal extends HTMLDivElement {
       onClick: () => {
         restaurantStore.removeRestaurantFromStore(this.#restaurant);
         this.toggle();
-        window.location.reload(); // TODO: 새로고침 말고 다시 렌더링 하도록
+        if (this.#onClick) {
+          this.#onClick();
+        }
       },
     });
     const closeButton = new Button({
