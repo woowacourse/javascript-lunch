@@ -21,10 +21,13 @@ export default class RestaurantList extends EventComponent {
   private restaurants: Restaurants;
   private categoryFilter: CategoryFilter;
   private sortFilter: SortFilter;
+  private showFavorite: boolean;
   private handleCategoryFilterChangeBind: (e: Event) => void;
   private handleSortFilterChangeBind: (e: Event) => void;
   private handleRestaurantFormSubmitBind: (e: Event) => void;
   private showRestaurantDetailBind: (e: MouseEvent) => void;
+  private handleFavoriteFilterChangeBind: (e: Event) => void;
+  private reRenderPageBind: () => void;
 
   constructor(
     restaurants = restaurantStore.getRestaurants(),
@@ -35,26 +38,36 @@ export default class RestaurantList extends EventComponent {
     this.restaurants = restaurants;
     this.categoryFilter = categoryFilter;
     this.sortFilter = sortFilter;
+    this.showFavorite = false;
     this.handleCategoryFilterChangeBind =
       this.handleCategoryFilterChange.bind(this);
     this.handleSortFilterChangeBind = this.handleSortFilterChange.bind(this);
     this.handleRestaurantFormSubmitBind =
       this.handleRestaurantFormSubmit.bind(this);
     this.showRestaurantDetailBind = this.showRestaurantDetail.bind(this);
+    this.handleFavoriteFilterChangeBind =
+      this.handleFavoriteFilterChange.bind(this);
+    this.reRenderPageBind = this.reRenderPage.bind(this);
   }
 
   protected getTemplate(): string {
     const restaurantInfos = this.restaurants.getDetails();
 
-    const filteredRestaurantInfos = this.filterByCategory(
-      restaurantInfos,
-      this.categoryFilter
-    );
+    let displayingRestaurantInfos;
 
-    const displayingRestaurantInfos = this.sort(
-      filteredRestaurantInfos,
-      this.sortFilter
-    );
+    if (this.showFavorite) {
+      displayingRestaurantInfos = this.filterByFavorite(restaurantInfos);
+    } else {
+      const filteredRestaurantInfos = this.filterByCategory(
+        restaurantInfos,
+        this.categoryFilter
+      );
+
+      displayingRestaurantInfos = this.sort(
+        filteredRestaurantInfos,
+        this.sortFilter
+      );
+    }
 
     return `
       <section class="restaurant-list-container">
@@ -97,7 +110,33 @@ export default class RestaurantList extends EventComponent {
       this.handleRestaurantFormSubmitBind
     );
 
+    document.addEventListener(
+      RESTAURANT_EVENT.showFavoriteList,
+      this.handleFavoriteFilterChangeBind
+    );
+
+    document.addEventListener(
+      RESTAURANT_EVENT.reRenderingList,
+      this.reRenderPageBind
+    );
+
     this.addEventListener("click", this.showRestaurantDetailBind);
+  }
+
+  private reRenderPage() {
+    this.restaurants = restaurantStore.getRestaurants();
+    this.render();
+  }
+
+  private handleFavoriteFilterChange(event: Event) {
+    if (event instanceof CustomEvent) {
+      const { action } = event?.detail;
+
+      if (action) this.showFavorite = true;
+      else this.showFavorite = false;
+
+      this.render();
+    }
   }
 
   private handleCategoryFilterChange(event: Event) {
@@ -151,6 +190,12 @@ export default class RestaurantList extends EventComponent {
 
     return restaurantInfos.filter(
       ({ category }) => category === categoryFilter
+    );
+  }
+
+  private filterByFavorite(restaurantInfos: RestaurantInfo[]) {
+    return restaurantInfos.filter(({ name }) =>
+      restaurantStore.getFavoriteRestaurantsName().includes(name)
     );
   }
 
@@ -225,6 +270,16 @@ export default class RestaurantList extends EventComponent {
     document.removeEventListener(
       RESTAURANT_EVENT.restaurantFormSubmit,
       this.handleRestaurantFormSubmit
+    );
+
+    document.removeEventListener(
+      RESTAURANT_EVENT.showFavoriteList,
+      this.handleFavoriteFilterChangeBind
+    );
+
+    document.removeEventListener(
+      RESTAURANT_EVENT.reRenderingList,
+      this.reRenderPageBind
     );
 
     this.removeEventListener("click", this.showRestaurantDetailBind);

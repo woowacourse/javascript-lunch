@@ -1,5 +1,9 @@
 import EventComponent from "../abstract/EventComponent";
-import { ACTION_TYPES, FILTER_EVENT } from "../constants/event";
+import {
+  ACTION_TYPES,
+  FILTER_EVENT,
+  RESTAURANT_EVENT,
+} from "../constants/event";
 import { $ } from "../utils/selector";
 
 type SelectedBar = "all" | "favorite";
@@ -61,6 +65,7 @@ export default class HeaderTab extends EventComponent {
     }
 
     this.handleShowFilterBar(this.selectedBar);
+    this.handleRestaurantListFiltering(this.selectedBar);
   }
 
   private handleShowFilterBar(selectedBar: SelectedBar) {
@@ -73,6 +78,17 @@ export default class HeaderTab extends EventComponent {
         detail: {
           action,
         },
+      })
+    );
+  }
+
+  private handleRestaurantListFiltering(selectedBar: SelectedBar) {
+    const action = selectedBar === "all" ? false : true;
+
+    this.dispatchEvent(
+      new CustomEvent(RESTAURANT_EVENT.showFavoriteList, {
+        bubbles: true,
+        detail: { action },
       })
     );
   }
