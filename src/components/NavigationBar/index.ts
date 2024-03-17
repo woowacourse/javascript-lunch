@@ -1,7 +1,5 @@
 import './style.css';
 
-import { RestaurantListController } from '../../services';
-
 const SELECTED = 'selected';
 class NavigationBar extends HTMLElement {
   constructor() {
@@ -10,63 +8,50 @@ class NavigationBar extends HTMLElement {
 
   connectedCallback() {
     const $navigation = document.createElement('nav');
-    const $allListBtnContainer = document.createElement('div');
-    const $favoriteListBtnContainer = document.createElement('div');
 
-    const CONTAINER_CLASS = 'nav__btn-container';
-    const UNDER_BAR_CLASS = 'under-bar';
-
-    const $allListBtn = document.createElement('button');
-    const $favoriteListBtn = document.createElement('button');
-
-    $allListBtnContainer.appendChild($allListBtn);
-    $allListBtnContainer.className = `${CONTAINER_CLASS} ${SELECTED}`;
-    $allListBtn.textContent = '모든 음식점';
-
-    $favoriteListBtnContainer.appendChild($favoriteListBtn);
-    $favoriteListBtnContainer.className = CONTAINER_CLASS;
-    $favoriteListBtn.textContent = '자주 가는 음식점';
-
-    // under-bar
-    [$allListBtnContainer, $favoriteListBtn].forEach((el) => {
-      const $underBar = document.createElement('div');
-      $underBar.className = UNDER_BAR_CLASS;
-
-      el.appendChild($underBar);
-    });
-
-    $navigation.appendChild($allListBtnContainer);
-    $navigation.appendChild($favoriteListBtnContainer);
+    $navigation.innerHTML = /* html */ `
+    <nav-bar-btn-container name="all" btn-text="모든 음식점" class=${SELECTED}></nav-bar-btn-container>
+    <nav-bar-btn-container name="favorite" btn-text="자주 가는 음식점"></nav-bar-btn-container>
+    `;
 
     this.appendChild($navigation);
-
-    $allListBtn.addEventListener('click', (event) =>
-      this.#addEventToOpenAllList(event),
-    );
-
-    $favoriteListBtn.addEventListener('click', (event) =>
-      this.#addEventToOpenFavoriteList(event),
-    );
+    $navigation.querySelectorAll('nav-bar-btn-container').forEach(($el) => {
+      $el.addEventListener('click', (event) =>
+        this.#handleClickToChangeClassOfNavBtnContainer(event),
+      );
+    });
   }
 
-  #toggleClassName() {
-    this.querySelectorAll('.nav__btn-container').forEach((el) =>
-      el.classList.toggle(SELECTED),
-    );
+  #handleClickToChangeClassOfNavBtnContainer(event: Event) {
+    const { currentTarget } = event;
+
+    if (!(currentTarget instanceof HTMLElement)) return;
+
+    if (currentTarget.classList.contains(SELECTED)) return;
+
+    const $selectedBtnContainer = this.querySelector(`.${SELECTED}`);
+
+    $selectedBtnContainer?.classList.remove(SELECTED);
+    currentTarget.classList.add(SELECTED);
+
+    const name = currentTarget.getAttribute('name');
+
+    if (name) {
+      this.#changeRestaurantList(name);
+    }
   }
 
-  #addEventToOpenAllList(event: MouseEvent) {
-    event.stopPropagation();
+  #changeRestaurantList(selectedName: string) {
+    const $listContainer = document.querySelector('.restaurant-list-container');
 
-    this.#toggleClassName();
-    RestaurantListController.injectAllRestaurantList();
-  }
+    if (!$listContainer) return;
 
-  #addEventToOpenFavoriteList(event: MouseEvent) {
-    event.stopPropagation();
+    if (selectedName === 'favorite') {
+      $listContainer.innerHTML = `<restaurant-list list-category="favorite"></restaurant-list>`;
+      return;
+    }
 
-    this.#toggleClassName();
-    RestaurantListController.injectFavoriteRestaurantList();
+    $listContainer.innerHTML = `<all-restaurant-list></all-restaurant-list>`;
   }
 }
 

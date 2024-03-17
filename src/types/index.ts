@@ -50,6 +50,7 @@ export interface DropBoxMapValue {
   options: OptionProps[];
 }
 
+export type SortingOption = 'distance' | 'name';
 // attributes
 export interface Attributes {
   [key: string]: string | null;

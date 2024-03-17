@@ -1,6 +1,6 @@
 import { STORAGE_KEY } from '../constants';
 import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
-import { Category, RestaurantInfo } from '../types';
+import { Category, RestaurantInfo, SortingOption } from '../types';
 import { getDeepCopiedArray } from '../utils';
 import RestaurantValidator from './RestaurantValidator';
 
@@ -38,12 +38,16 @@ class RestaurantList {
       : undefined;
   }
 
+  filterFavorites() {
+    return this.#list.filter((info) => info.favorite);
+  }
+
   sortRestaurants(
     restaurants: RestaurantInfo[],
-    sorting: 'name' | 'distance',
+    sortingOption: SortingOption,
   ): RestaurantInfo[] {
     return getDeepCopiedArray(restaurants).sort((prev, current) => {
-      if (sorting === 'distance') {
+      if (sortingOption === 'distance') {
         return prev.distance - current.distance;
       }
       return prev.name.localeCompare(current.name);

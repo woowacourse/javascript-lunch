@@ -100,11 +100,12 @@ class RestaurantInfoModalInner extends HTMLElement {
       'favorite-restaurant-list',
     );
 
-    const list = isOpenFavoriteList
-      ? restaurantList.list.filter((info) => info.favorite)
-      : restaurantList.list;
-
-    RestaurantListController.injectRestaurantListHTML(list);
+    if (isOpenFavoriteList) {
+      const list = restaurantList.filterFavorites();
+      RestaurantListController.injectRestaurantList(list);
+    } else {
+      RestaurantListController.injectFilteringAndSortingRestaurantList();
+    }
 
     closeModal();
   }

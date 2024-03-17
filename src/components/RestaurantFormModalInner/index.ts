@@ -2,7 +2,7 @@ import './style.css';
 
 import { DROP_BOX_MAP } from '../../constants';
 import { RestaurantList, RestaurantValidator } from '../../domains';
-import FilteringController from '../../services/FilteringController';
+import { RestaurantListController } from '../../services';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
 import { closeModal } from '../../utils';
 
@@ -201,9 +201,16 @@ class RestaurantFormModalInner extends HTMLElement {
     if (this.#newInfo) {
       this.#addToRestaurantList(this.#newInfo);
       this.querySelector('form')?.reset();
+      this.#showChangedAllRestaurantList();
       closeModal();
-      FilteringController.showFilteredSortedList();
     }
+  }
+
+  #showChangedAllRestaurantList() {
+    const $allRestaurantList = document.querySelector('all-restaurant-list');
+    if (!$allRestaurantList) return;
+
+    RestaurantListController.injectFilteringAndSortingRestaurantList();
   }
 }
 

@@ -8,25 +8,10 @@ navigation-bar nav {
   }
 }
 
-navigation-bar .nav__btn-container {
+navigation-bar nav-bar-btn-container {
   width: 50%;
   height: 35px;
   button {
     padding: 0;
   }
-}
-
-.nav__btn-container .under-bar {
-  margin-top: 9px;
-  background-color: var(--lunch-grey-scale-2-color);
-  width: 100%;
-  height: 2px;
-}
-
-.nav__btn-container.selected button {
-  color: var(--lunch-primary-color);
-}
-
-.nav__btn-container.selected .under-bar {
-  background-color: var(--lunch-primary-color);
 }

@@ -4,6 +4,7 @@ import FavoriteTrueIcon from '../../assets/svg/favorite-icon-filled.svg';
 import FavoriteFalseIcon from '../../assets/svg/favorite-icon-lined.svg';
 
 import { RestaurantList } from '../../domains';
+import { RestaurantListController } from '../../services';
 import { getFavoriteAttributeValue } from '../../utils';
 
 class FavoriteIcon extends HTMLElement {
@@ -81,23 +82,27 @@ class FavoriteIcon extends HTMLElement {
     $allFavoriteIconAboutStore.forEach((el) => {
       el.setAttribute('favorite', changedFavorite);
       el.setAttribute('class', this.#getClassName(changedFavorite));
-
       // 자주 가는 목록이 열려있고  음식점 정보 모달 내에서 즐겨찾기를 취소했을대 적용
-      if (document.querySelector('favorite-restaurant-list')) {
-        this.#removeItemFromFavoriteList(el);
-      }
+      this.#removeItemFromFavoriteList(el);
     });
   }
 
   #removeItemFromFavoriteList($favoriteIcon: Element) {
-    const $restaurantList = $favoriteIcon.closest('.restaurant-list');
-    const $restaurantItem = $favoriteIcon.closest('restaurant-item');
-    if (!$restaurantList || !$restaurantItem) return;
+    const $restaurantList = document.querySelector('restaurant-list');
 
-    $restaurantList?.removeChild($restaurantItem);
+    if (
+      !$restaurantList ||
+      $restaurantList?.getAttribute('list-category') !== 'favorite'
+    )
+      return;
+
+    const $restaurantItem = $favoriteIcon.closest('restaurant-item');
+    if (!$restaurantItem) return;
+
+    $restaurantList.firstChild?.removeChild($restaurantItem);
 
     if ($restaurantList?.childElementCount === 0) {
-      $restaurantList.innerHTML = '<none-restaurant></none-restaurant>';
+      RestaurantListController.injectRestaurantList();
     }
   }
 }
