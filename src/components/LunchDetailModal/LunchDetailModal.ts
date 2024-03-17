@@ -6,10 +6,7 @@ import { Category, Distance } from '../../types';
 import { LunchItemProps } from '../LunchItem/LunchItem';
 import RestaurantDataUpdater from '../../domain/RestaurantDataUpdater';
 import LunchItems from '../LunchItems/LunchItems';
-
-type LunchDetailModalProps = LunchItemProps & {
-  link: string;
-};
+import getLikedAttribute from '../../utils/getLikeAttribute';
 
 // eslint-disable-next-line max-lines-per-function
 const LUNCH_DETAIL_MODAL_TEMPLATE = ({
@@ -19,7 +16,7 @@ const LUNCH_DETAIL_MODAL_TEMPLATE = ({
   description,
   link,
   liked,
-}: LunchDetailModalProps) => /* HTML */ `
+}: LunchItemProps) => /* HTML */ `
   <div class="detail-modal detail-modal--open">
     <div class="detail-modal-backdrop">
       <div class="detail-modal-container">
@@ -92,6 +89,9 @@ class LunchDetailModal extends HTMLElement {
 
     const deleteItemButton = this.querySelector('.detail-modal-delete');
     deleteItemButton?.addEventListener('click', () => this.handleDeleteItem.call(this));
+
+    const likedButton = this.querySelector('.liked-icon');
+    likedButton?.addEventListener('click', () => this.handleLiked());
   }
 
   handleModalClose() {
@@ -117,6 +117,13 @@ class LunchDetailModal extends HTMLElement {
     if (lunchItems) {
       lunchItems.render();
     }
+  }
+
+  handleLiked() {
+    const name: string = this.getAttribute('name') ?? '';
+    const liked = getLikedAttribute.execute.call(this);
+    RestaurantDataUpdater.updateLiked({ name });
+    this.setAttribute('liked', `${!liked}`);
   }
 }
 

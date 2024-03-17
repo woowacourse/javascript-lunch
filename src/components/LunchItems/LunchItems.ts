@@ -6,6 +6,7 @@ import { RestaurantDataProvider } from '../../domain/index';
 import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
 import textInput from '../../utils/textInput';
 import RestaurantDataUpdater from '../../domain/RestaurantDataUpdater';
+import getLikedAttribute from '../../utils/getLikeAttribute';
 
 export interface FilterPropsTypes {
   category?: Category;
@@ -38,7 +39,7 @@ class LunchItems extends HTMLElement {
   }
 
   render(): void {
-    const liked = this.getLikedAttribute();
+    const liked = getLikedAttribute.execute.call(this);
     this.renderItems({ liked });
   }
 
@@ -60,15 +61,9 @@ class LunchItems extends HTMLElement {
 
   handleLiked(e: any) {
     const name: string = e.target.getAttribute('name') ?? '';
-    const liked = this.getLikedAttribute();
+    const liked = getLikedAttribute.execute.call(this);
     RestaurantDataUpdater.updateLiked({ name });
     this.renderItems({ liked });
-  }
-
-  getLikedAttribute(): boolean {
-    const likedAttribute = this.getAttribute('liked') ?? '';
-    const liked = likedAttribute === 'true';
-    return liked;
   }
 }
 
