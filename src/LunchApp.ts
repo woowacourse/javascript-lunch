@@ -7,9 +7,9 @@ import FilterBar from "./components/FilterBar";
 import RestaurantList from "./components/RestaurantList";
 import RestaurantForm from "./components/RestaurantForm";
 import RestaurantDetail from "./components/RestaurantDetail";
+import CategoryIcon from "./components/CategoryIcon";
 
 import { MODAL_EVENT } from "./constants/event";
-import CategoryIcon from "./components/CategoryIcon";
 
 customElements.define("select-box", Select);
 customElements.define("modal-box", Modal);
