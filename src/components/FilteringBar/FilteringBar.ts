@@ -1,9 +1,13 @@
 import { FILTER_DROPDOWN_PROPS, SORT_DROPDOWN_PROPS } from '../../constant/options';
-import { Restaurant } from '../../interface/RestaurantInterfaces';
 import { $ } from '../../utils/querySelector';
 import Dropdown from '../Common/Dropdown';
 
-const createFilteringBar = () => {
+interface Props {
+  onCategoryChanged: (value: string) => void;
+  onSortChanged: (value: string) => void;
+}
+
+const createFilteringBar = ({ onCategoryChanged, onSortChanged }: Props) => {
   const render = () => {
     const filterContainer = $('.restaurant-filter-container');
 
@@ -20,15 +24,9 @@ const createFilteringBar = () => {
     const categoryFilter = $('#category-filter');
     const sortingFilter = $('#sorting-filter');
 
-    categoryFilter.addEventListener('change', () => {
-      console.log(categoryFilter.value);
-      console.log(sortingFilter.value);
-    });
+    categoryFilter.addEventListener('change', (e: Event) => onCategoryChanged((e.target as HTMLSelectElement).value));
 
-    sortingFilter.addEventListener('change', () => {
-      console.log(categoryFilter.value);
-      console.log(sortingFilter.value);
-    });
+    sortingFilter.addEventListener('change', (e: Event) => onSortChanged((e.target as HTMLSelectElement).value));
   };
 
   render();

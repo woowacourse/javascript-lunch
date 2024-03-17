@@ -5,7 +5,8 @@ import RestaurantDetailModal from './components/Modal/RestaurantDetailModal';
 import createRestaurantItem from './components/Restaurant/RestaurantItem';
 import RestaurantList from './components/RestaurantList/RestaurantList';
 import createTabMenu from './components/TabMenu/TabMenu';
-import { DEFAULT_TAB, TAB_MENUS } from './constant/constants';
+import { DEFAULT_FILTERING_CATEGORY, DEFAULT_SORTING_PROPERTY, DEFAULT_TAB, TAB_MENUS } from './constant/constants';
+import RestaurantService from './domain/services/RestaurantService';
 import { $, $$ } from './utils/querySelector';
 
 class App {
@@ -13,10 +14,23 @@ class App {
   #restaurantDetailModal = new RestaurantDetailModal();
   #restaurantList = new RestaurantList();
 
+  #activeTab;
+  #filterCategory = DEFAULT_FILTERING_CATEGORY;
+  #sortProperty = DEFAULT_SORTING_PROPERTY;
+
   initApp() {
     createHeader({ title: '점심 뭐 먹지', buttonEvent: () => this.#addRestaurantModal.toggle() });
     createTabMenu({ tabs: TAB_MENUS, defaultTab: DEFAULT_TAB });
-    createFilteringBar();
+    createFilteringBar({
+      onCategoryChanged: item => {
+        this.#filterCategory = item;
+        this.renderRestaurantList();
+      },
+      onSortChanged: item => {
+        this.#sortProperty = item;
+        this.renderRestaurantList();
+      },
+    });
 
     this.setTabEvents();
 
@@ -33,13 +47,26 @@ class App {
         tabButtons.forEach(button => button.classList.remove('active'));
         e.target.classList.add('active');
 
+        this.#activeTab = e.target.id;
         this.renderRestaurantList();
       });
     });
   }
 
+  generateRenderingList() {
+    const filteredItems = RestaurantService.filterByCategory(this.#filterCategory, this.#restaurantList.list);
+    const sortedItems = RestaurantService.sortByProperty(this.#sortProperty, filteredItems);
+
+    if (this.#activeTab === 'favorite') {
+      return RestaurantService.filterFavorite(sortedItems);
+    }
+    return sortedItems;
+  }
+
   renderRestaurantList() {
-    if (this.#restaurantList.list.length === 0) {
+    const renderingList = this.generateRenderingList();
+
+    if (renderingList.length === 0) {
       this.renderEmptyListMessage();
       return;
     }
@@ -47,7 +74,7 @@ class App {
     const restaurantUl = document.createElement('ul');
     restaurantUl.classList.add('restaurant-list');
 
-    this.#restaurantList.list.map(restaurantItem => {
+    renderingList.map(restaurantItem => {
       restaurantUl.append(
         new createRestaurantItem({
           restaurant: restaurantItem,
