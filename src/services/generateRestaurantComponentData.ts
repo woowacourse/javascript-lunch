@@ -1,12 +1,17 @@
-import RESTAURANT_LIST_ITEM_IMAGE_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemImageComponentData';
-import RESTAURANT_LIST_ITEM_HEADING_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemHeadingComponentData';
-import RESTAURANT_LIST_ITEM_SPAN_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemSpanComponentData';
-import RESTAURANT_LIST_ITEM_DESCRIPTION_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemDescriptionComponentData';
-import RESTAURANT_LIST_ITEM_IS_FAVORITED_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemIsFavoritedComponentData';
-import BOTTOM_SHEET_DESCRIPTION_COMPONENT_DATA from '../components/restaurantListItemDetailModal/componentsData/bottomSheetDescriptionComponentData';
+import {
+  RESTAURANT_LIST_ITEM_IMAGE_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_HEADING_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_SPAN_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_DESCRIPTION_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_IS_FAVORITED_COMPONENT_DATA,
+  RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA,
+} from '../components/restaurantListItem/componentsData/RestaurantInfoComponentData';
+
+import {
+  BOTTOM_SHEET_DESCRIPTION_COMPONENT_DATA,
+  BOTTOM_SHEET_LINK_COMPONENT_DATA,
+} from '../components/restaurantListItemDetailModal/componentsData/BottomSheetModalComponentData';
 import { CategoryInfo } from '../types';
-import RESTAURANT_LIST_ITEM_LINK_COMPONENT_DATA from '../components/restaurantListItem/componentsData/RestaurantListItemLinkComponentData';
-import BOTTOM_SHEET_LINK_COMPONENT_DATA from '../components/restaurantListItemDetailModal/componentsData/bottomSheetLinkComponentData';
 
 export const generateRestaurantCategoryImageComponentData = (categoryInfo: CategoryInfo) => {
   const componentData = {
