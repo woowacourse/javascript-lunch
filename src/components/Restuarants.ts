@@ -1,6 +1,7 @@
 import Component from "../common/Component";
 import { RestaurantType } from "../types";
 import { CATEGORY_IMAGE_MAPPER, DISTANCE_MAPPER } from "../constants";
+import RestauranStorage from "../domain/RestauranStorage";
 
 export default class Restaurants extends Component {
   render() {

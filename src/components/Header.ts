@@ -18,7 +18,7 @@ export default class Header extends Component {
     $gnbButton?.addEventListener("click", () => {
       $modal?.classList.add("modal--open");
       new FormModal($modalContainer, {
-        addRestaurant: this.props.addRestaurant,
+        loadRestaurant: this.props.loadRestaurant,
       });
     });
   }

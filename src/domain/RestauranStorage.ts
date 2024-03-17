@@ -20,21 +20,29 @@ class RestauranStorage {
   sortingStandard: SortingStandard = "name";
   filter = "all";
 
+  getCategory() {
+    return this.category;
+  }
+
+  getSortingStandard() {
+    return this.sortingStandard;
+  }
+
+  getFilter() {
+    return this.filter;
+  }
+
   getRestaurants(): RestaurantType[] {
     const restaurants: RestaurantType[] = getResturantsFromLocalStorage();
-    if (this.category === "전체") {
-      return restaurants.toSorted((a, b) => {
-        if (a[this.sortingStandard] < b[this.sortingStandard]) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-    }
-
     return restaurants
-      .filter((restaurant) => restaurant.category === this.category)
-      .toSorted((a: any, b: any) => {
+      .filter(
+        (restaurant) =>
+          this.category === "전체" || restaurant.category === this.category
+      )
+      .filter(
+        (restaurant) => this.filter === "all" || restaurant.bookmark === true
+      )
+      .toSorted((a, b) => {
         if (a[this.sortingStandard] < b[this.sortingStandard]) {
           return -1;
         } else {

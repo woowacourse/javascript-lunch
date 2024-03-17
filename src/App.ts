@@ -4,6 +4,7 @@ import RestauranStorage from "./domain/RestauranStorage";
 import Restaurants from "./components/Restuarants";
 import Filter from "./components/Filter";
 import { RestaurantType } from "./types";
+import Selects from "./components/Selects";
 
 export default class App extends Component {
   setup(): void {
@@ -17,7 +18,7 @@ export default class App extends Component {
             <header class="gnb"></header>
             <main>
               <section class="filter-container"></section>
-              <section class="restaurant-select">
+              <section class="select-container">
 
               </section>
               <section class="restaurants"></section>
@@ -30,18 +31,17 @@ export default class App extends Component {
   }
 
   componentDidMount(): void {
-    const filter = this.state.filter;
-    const restaurants: RestaurantType[] = this.state.restaurants;
     const $header = document.querySelector(".gnb");
     const $restaurants = document.querySelector(".restaurants");
     const $filter = document.querySelector(".filter-container");
+    const $select = document.querySelector(".select-container");
     new Header($header, {
-      addRestaurant: this.addRestaurant.bind(this),
       loadRestaurant: this.loadRestaurant.bind(this),
     });
     new Filter($filter, {
-      filter: this.state.filter,
-      changeFilter: this.changeFilter.bind(this),
+      loadRestaurant: this.loadRestaurant.bind(this),
+    });
+    new Selects($select, {
       loadRestaurant: this.loadRestaurant.bind(this),
     });
     new Restaurants($restaurants, {
@@ -52,20 +52,6 @@ export default class App extends Component {
 
   loadRestaurant() {
     this.setState({
-      restaurants: RestauranStorage.getRestaurants(),
-    });
-  }
-
-  addRestaurant(newRestaurant: Restaurants) {
-    this.setState({
-      filter: this.state.filter,
-      restaurants: [newRestaurant, ...this.state.restaurants],
-    });
-  }
-
-  changeFilter(newFilter: "all" | "bookmark") {
-    this.setState({
-      filter: newFilter,
       restaurants: RestauranStorage.getRestaurants(),
     });
   }

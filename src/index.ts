@@ -2,6 +2,7 @@ import "./styles/common.css";
 import "./styles/Header.css";
 import "./styles/RestaurantList.css";
 import "./styles/Filter.css";
+import "./styles/Selects.css";
 
 import "../templates/add-button.png";
 import "../templates/category-asian.png";

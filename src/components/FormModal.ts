@@ -1,5 +1,6 @@
 import Component from "../common/Component";
 import { RestaurantType } from "../types";
+import RestauranStorage from "../domain/RestauranStorage";
 
 export default class FormModal extends Component {
   render(): string {
@@ -79,7 +80,7 @@ export default class FormModal extends Component {
   }
 
   componentDidMount(): void {
-    const { addRestaurant } = this.props;
+    const { loadRestaurant } = this.props;
     const $restaurantForm =
       document.querySelector<HTMLFormElement>(".restaurant-form");
     $restaurantForm?.addEventListener("submit", (e) => {
@@ -90,7 +91,9 @@ export default class FormModal extends Component {
       for (const [key, value] of formData.entries()) {
         newRestaurant[key] = value;
       }
-      addRestaurant(newRestaurant);
+      newRestaurant["bookmark"] = false;
+      RestauranStorage.addRestaurant(newRestaurant);
+      loadRestaurant();
     });
   }
 }

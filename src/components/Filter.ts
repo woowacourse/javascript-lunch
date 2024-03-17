@@ -1,8 +1,9 @@
 import Component from "../common/Component";
+import RestauranStorage from "../domain/RestauranStorage";
 
 export default class Filter extends Component {
   render() {
-    const { filter } = this.props;
+    const filter = RestauranStorage.getFilter();
     return /*html*/ `
             <div class="filter all text-body ${
               filter === "all" && "filter-on"
@@ -14,7 +15,7 @@ export default class Filter extends Component {
   }
 
   componentDidMount(): void {
-    const { changeFilter } = this.props;
+    const { loadRestaurant } = this.props;
     const $allFilter = document.querySelector<HTMLDivElement>(".filter.all");
     const $bookmarkFilter =
       document.querySelector<HTMLDivElement>(".filter.bookmark");
@@ -22,16 +23,14 @@ export default class Filter extends Component {
 
     $allFilter.addEventListener("click", () => {
       if (!$allFilter.classList.contains("filter-on")) {
-        $allFilter.classList.toggle("filter-on");
-        $bookmarkFilter.classList.toggle("filter-on");
-        changeFilter("all");
+        RestauranStorage.changeFilter("all");
+        loadRestaurant();
       }
     });
     $bookmarkFilter.addEventListener("click", () => {
       if (!$bookmarkFilter.classList.contains("filter-on")) {
-        $allFilter.classList.toggle("filter-on");
-        $bookmarkFilter.classList.toggle("filter-on");
-        changeFilter("bookmark");
+        RestauranStorage.changeFilter("bookmark");
+        loadRestaurant();
       }
     });
   }
