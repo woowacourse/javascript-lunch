@@ -8,7 +8,7 @@ import {
 import Button from './Button';
 import SelectBoxComponent from './SelectBox';
 
-class CreateAddingRestaurant {
+class AddRestaurant {
   form;
   container;
   closeButton;
@@ -179,4 +179,4 @@ class CreateAddingRestaurant {
   }
 }
 
-export default CreateAddingRestaurant;
+export default AddRestaurant;
