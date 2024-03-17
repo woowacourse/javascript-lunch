@@ -1,8 +1,4 @@
-import { MENU_APP_EVENTS } from "../constants/event";
-
-type MenuAppEvent =
-  | keyof HTMLElementEventMap
-  | (typeof MENU_APP_EVENTS)[keyof typeof MENU_APP_EVENTS];
+import { TotalMenuAppEvent } from "../types/event";
 
 export default class BaseComponent extends HTMLElement {
   constructor() {
@@ -20,7 +16,7 @@ export default class BaseComponent extends HTMLElement {
 
   protected setEvent() {}
 
-  protected emitEvent<T>(event: MenuAppEvent, data?: T) {
+  protected emitEvent<T>(event: TotalMenuAppEvent, data?: T) {
     this.dispatchEvent(
       new CustomEvent(event, {
         bubbles: true,
