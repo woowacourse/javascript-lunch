@@ -16,7 +16,7 @@ class RestaurantCard extends HTMLLIElement {
   connectedCallback() {
     this.addEventListener('click', () => {
       const restaurantInfo = restaurantCatalog.getSpecificRestaurantInfo(Number(this.getAttribute('data-id'))!);
-      showRestaurantDetailModal(restaurantInfo);
+      showRestaurantDetailModal(restaurantInfo!);
     });
   }
 
