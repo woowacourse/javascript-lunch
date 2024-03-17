@@ -49,9 +49,9 @@ class LunchItemFilter extends HTMLElement {
     this.dispatchEvent(renderEvent);
   }
 
-  resetDropdown() {
+  resetDropdowns() {
     this.querySelectorAll('select').forEach((element) => {
-      element.value = element.options[0].value;
+      element.options[0].selected = true;
     });
   }
 }

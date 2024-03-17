@@ -31,6 +31,7 @@ class LunchRegisterModal extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    this.setSubmitEventListener();
   }
 
   render(): void {
@@ -64,9 +65,14 @@ class LunchRegisterModal extends HTMLElement {
         color: 'primary',
         type: 'submit',
         text: '추가하기',
-        onClick: this.handleSubmit.bind(this),
       }),
     );
+  }
+
+  setSubmitEventListener() {
+    this.addEventListener('submit', () => {
+      this.handleSubmit();
+    });
   }
 
   handleSubmit() {
@@ -74,8 +80,7 @@ class LunchRegisterModal extends HTMLElement {
     RestaurantRegistry.registerOneRestaurant(newRestaurant);
     this.handleToggleModal();
     this.querySelector('form')?.reset();
-    this.resetFilter();
-    this.renderItems();
+    this.resetTab();
   }
 
   getNewRestaurant() {
@@ -89,25 +94,9 @@ class LunchRegisterModal extends HTMLElement {
     return newRestaurant;
   }
 
-  handleDropDown() {
-    const dropdowns = document.querySelectorAll('restaurant-filter');
-    dropdowns.forEach((dropdown) => {
-      const select = dropdown.querySelector('select');
-      if (select) {
-        select.options[0].selected = true;
-      }
-    });
-    this.renderItems();
-  }
-
-  renderItems() {
-    const renderEvent = new CustomEvent('render', { bubbles: true });
-    this.dispatchEvent(renderEvent);
-  }
-
-  resetFilter() {
-    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
-    filter.resetDropdown();
+  resetTab() {
+    const resetFavoriteTab = new CustomEvent('resetFavoriteTab', { bubbles: true });
+    this.dispatchEvent(resetFavoriteTab);
   }
 }
 

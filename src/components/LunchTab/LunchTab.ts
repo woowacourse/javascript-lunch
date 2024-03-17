@@ -1,4 +1,5 @@
 import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
+import LunchItems from '../LunchItems/LunchItems';
 import './style.css';
 import TabButton from './TabButton';
 
@@ -32,28 +33,39 @@ class LunchTab extends HTMLElement {
     });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   setEventListener() {
     this.addEventListener('tabClick', (event) => {
       if (!(event instanceof CustomEvent)) return;
-      this.handleNowSelected(event);
-      this.handleTabDesign();
+      if (this.nowSelected !== event.detail.name) {
+        this.handleNowSelected(event);
+        this.handleChangeTabDesign();
+        this.handleRenderItems();
+        this.handleResetFilter();
+      }
+    });
+  }
+
+  tabReset() {
+    if (this.nowSelected !== 'all-restaurants') {
+      this.nowSelected = 'all-restaurants';
+      this.handleChangeTabDesign();
       this.handleRenderItems();
       this.handleResetFilter();
-    });
+    }
   }
 
   handleNowSelected(event: CustomEvent) {
     this.nowSelected = event.detail.name;
   }
 
-  handleTabDesign() {
+  handleChangeTabDesign() {
     const tabItems = this.querySelectorAll('.tab-button');
     tabItems.forEach((tabButton) => {
-      tabButton.classList.remove('tab-button__active');
-      if ((tabButton as HTMLButtonElement).name === this.nowSelected) {
-        tabButton.classList.add('tab-button__active');
-      }
+      tabButton.classList.toggle('tab-button__active');
     });
+    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
+    filter.classList.toggle('restaurant-filter-container__hidden');
   }
 
   handleRenderItems() {
@@ -62,13 +74,8 @@ class LunchTab extends HTMLElement {
   }
 
   handleResetFilter() {
-    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
-    filter.resetDropdown();
-    if (this.nowSelected === 'favorite-restaurants') {
-      filter.classList.add('restaurant-filter-container__hidden');
-    } else {
-      filter.classList.remove('restaurant-filter-container__hidden');
-    }
+    const resetFilterDropdowns = new CustomEvent('resetFilterDropdowns', { bubbles: true });
+    this.dispatchEvent(resetFilterDropdowns);
   }
 }
 

@@ -33,6 +33,7 @@ class LunchApp extends HTMLElement {
     this.setRenderEventListener();
     this.setToggleRegisterModalEventListener();
     this.setToggleItemDetailModalEventListener();
+    this.setResetFilterDropdownsEventListener();
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -72,9 +73,9 @@ class LunchApp extends HTMLElement {
 
   // eslint-disable-next-line max-lines-per-function
   handleRender() {
-    const items = document.querySelector('lunch-items') as LunchItems;
-    const tab = (document.querySelector('.lunch-tab') as LunchTab).nowSelected;
-    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
+    const items = this.querySelector('lunch-items') as LunchItems;
+    const tab = (this.querySelector('.lunch-tab') as LunchTab).nowSelected;
+    const filter = this.querySelector('lunch-item-filter') as LunchItemFilter;
     const dropdowns = filter.querySelectorAll('select');
     if (tab === 'favorite-restaurants') {
       items.renderItems({ database: 'liked' });
@@ -118,7 +119,21 @@ class LunchApp extends HTMLElement {
   }
 
   handleResetFilterDropdowns() {
-    // const filter = this.querySelector('lunch-item-filter');
+    const filter = this.querySelector('lunch-item-filter');
+    if (!(filter instanceof LunchItemFilter)) return;
+    filter.resetDropdowns();
+  }
+
+  setResetFavoriteTabEventListener() {
+    this.addEventListener('resetFavoriteTab', () => {
+      this.handleResetFavoriteTab();
+    });
+  }
+
+  handleResetFavoriteTab() {
+    const tab = this.querySelector('lunch-tab');
+    if (!(tab instanceof LunchTab)) return;
+    tab.tabReset();
   }
 }
 
