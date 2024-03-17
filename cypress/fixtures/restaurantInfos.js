@@ -4,7 +4,7 @@ export const RESTAURANTS_INFOS = [
   {
     name: "김밥이 좋다",
     category: CATEGORY.korean,
-    timeToReach: 10,
+    timeToReach: 20,
     description:
       "김밥을 정말 잘하는 김밥집입니다. 김밥을 정말 잘하는 김밥집입니다. 김밥을 정말 잘하는 김밥집입니다. 김밥을 정말 잘하는 김밥집입니다. 김밥을 정말 잘하는 김밥집입니다. 김밥을 정말 잘하는 김밥집입니다.",
     link: "https://www.naver.com/kimbab",
@@ -44,7 +44,7 @@ export const RESTAURANTS_INFOS = [
   {
     name: "뚝배기 쌀국수",
     category: CATEGORY.asian,
-    timeToReach: 15,
+    timeToReach: 10,
     description:
       "쌀국수를 맛있게 먹을 수 있는 쌀국수집입니다. 쌀국수를 맛있게 먹을 수 있는 쌀국수집입니다. 쌀국수를 맛있게 먹을 수 있는 쌀국수집입니다.",
     link: "https://www.naver.com/vietnam",
