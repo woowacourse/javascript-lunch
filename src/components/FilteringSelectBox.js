@@ -35,6 +35,7 @@ class FilteringSelectBox {
 
   #reRenderRestaurantList() {
     $('restaurant-list').innerHTML = '';
+
     new RestaurantList({
       targetId: 'restaurant-list',
       restaurants: this.#restaurants.standardList,

@@ -1,3 +1,4 @@
+import generateModal from './template/generateModal';
 import generateRestaurantCreationModal from './template/generateRestaurantCreationModal';
 
 import tryCatchWrapper from '../utils/tryCatchWrapper';
@@ -6,7 +7,6 @@ import { toggleModal } from '../utils/modalHandler';
 
 import { validateRequiredValue, validateRestaurantsName } from '../validators/ValidateInput';
 import { FIELD_IDS } from '../constants/rules';
-import generateModal from './template/generateModal';
 
 class RestaurantCreationModal {
   #element;
@@ -43,7 +43,7 @@ class RestaurantCreationModal {
   #handleModalClose(event) {
     const targetId = event.target.id;
 
-    if (targetId === 'cancel-button' || targetId === 'modal-backdrop') {
+    if (targetId === 'cancel-button' || targetId === 'restaurant-creation-modal-backdrop') {
       toggleModal('restaurant-creation-modal');
     }
   }
@@ -85,8 +85,8 @@ class RestaurantCreationModal {
     const name = form['name'].value;
     const walkingTimeFromCampus = form['distance'].value;
     const description = form['description'].value;
-
-    return { category, name, walkingTimeFromCampus, description };
+    const link = form['link'].value;
+    return { category, name, walkingTimeFromCampus, description, link };
   }
 }
 

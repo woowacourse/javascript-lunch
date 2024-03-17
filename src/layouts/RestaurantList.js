@@ -1,15 +1,13 @@
 import RestaurantItem from '../components/RestaurantItem';
 import { $ } from '../utils/dom';
 
-class restaurantList {
+class RestaurantList {
   #element;
   #restaurants;
 
   constructor({ targetId, restaurants }) {
     this.#element = $(targetId);
     this.#restaurants = restaurants;
-
-    this.#initEventListeners();
   }
 
   render() {
@@ -22,8 +20,6 @@ class restaurantList {
 
     this.#element.innerHTML = restaurantListHTML;
   }
-
-  #initEventListeners() {}
 }
 
-export default restaurantList;
+export default RestaurantList;

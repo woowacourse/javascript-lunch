@@ -1,6 +1,7 @@
+import generateFavoriteButton from './template/generateFavoriteButton';
+
 import ICON from '../icons';
 import { $ } from '../utils/dom';
-import generateFavoriteButton from './template/generateFavoriteButton';
 
 class FavoriteButton {
   #element;
