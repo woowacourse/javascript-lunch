@@ -11,9 +11,13 @@ const localStorageHandler = (key: string) => {
     return cache;
   };
 
-  const set = (value: any) => {
-    cache = value;
-    localStorage.setItem(key, JSON.stringify(value));
+  const set = (restaurant: RestaurantState[] | RestaurantState) => {
+    const prevData = JSON.parse(localStorage.getItem(key)!);
+    const lastElementId = prevData.length > 0 ? prevData[prevData.length - 1].id : 0;
+    const newRestaurant = { ...restaurant, id: lastElementId + 1 };
+    const newData = [...prevData, newRestaurant];
+    cache = newData;
+    localStorage.setItem(key, JSON.stringify(newData));
   };
 
   const remove = () => {
