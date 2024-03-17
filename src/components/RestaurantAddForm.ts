@@ -3,7 +3,7 @@ import { ERROR } from '../constants/messages';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 
-class RestaurantAddModal extends Component {
+class RestaurantAddForm extends Component {
   static observedAttributes: string[] = ['open'];
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -115,4 +115,4 @@ class RestaurantAddModal extends Component {
   }
 }
 
-export default RestaurantAddModal;
+export default RestaurantAddForm;
