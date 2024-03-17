@@ -43,7 +43,7 @@ class RenderController {
     );
   }
 
-  static renderInMain(element: HTMLElement) {
+  static appendToMain(element: HTMLElement) {
     document.getElementById("main")?.append(element);
   }
 

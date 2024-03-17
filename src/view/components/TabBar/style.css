@@ -23,13 +23,13 @@
 }
 
 .tab-bar__item:hover {
-  color       : var(--primary-color);
-  border-color: var(--primary-color);
+  color       : var(--grey-500);
+  border-color: var(--grey-500);
 }
 
 .tab-bar__item--on {
-  color       : var(--primary-color);
-  border-color: var(--primary-color);
+  color       : var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
   ;
 }
 

@@ -4,14 +4,21 @@ import ModalController from "./ModalController";
 import RenderController from "./RenderController";
 import RestaurantListController from "./RestaurantListController";
 import StatusController from "./StatusController";
+import TabBar from "../view/components/TabBar/TabBar";
 import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class MainController {
   static start() {
+    const tabBar = new TabBar([
+      { value: "모든 음식점" },
+      { value: "자주 가는 음식점" },
+    ]);
+    document.getElementById("main")?.prepend(tabBar.element);
+
     RestaurantListController.initEntireRestaurantList();
+
     RenderController.renderFilterContainer();
     RenderController.renderEntireRestaurantListUl();
-    RenderController.renderInMain(ModalController.modal.element);
     this.#setAddButton();
     this.#setRestaurantListUlEvent();
   }

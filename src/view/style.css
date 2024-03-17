@@ -130,3 +130,7 @@ input[name="name"],
 input[name="link"] {
   height: 44px;
 }
+
+#main {
+  margin: 20px 0px;
+}
