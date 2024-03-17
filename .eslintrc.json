@@ -10,7 +10,6 @@
     "class-methods-use-this": "off",
     "import/no-cycle": "off",
     "spaced-comment": "off",
-    "sort-imports": "off",
     "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }]
   },
   "env": {
