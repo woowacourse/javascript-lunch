@@ -11,23 +11,23 @@
   height: 35px;
 
   padding-bottom: 9px;
-  border-bottom: 2px solid #d0d5dd; /* lunch-grayscale-2 */
+  border-bottom: 2px solid var(--grey-200);
   background: transparent;
 
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.5px;
   line-height: 24px;
-  color: #667085; /* lunch-grayscale-3 */
+  color: var(--grey-300);
 }
 
 .tab-button:hover {
   cursor: pointer;
-  color: #ec4a0a; /* lunch-primary */
-  border-color: #ec4a0a; /* lunch-primary */
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .active {
-  color: #ec4a0a; /* lunch-primary */
-  border-color: #ec4a0a; /* lunch-primary */
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }

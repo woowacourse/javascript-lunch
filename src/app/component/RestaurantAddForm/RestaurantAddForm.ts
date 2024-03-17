@@ -13,6 +13,7 @@ import { RestaurantDataType } from '../../type/restaurantTypes';
 import { Category, DistanceByWalk } from '../../enum/enums';
 import handleError from '../../util/handleError';
 import RestaurantValidator from '../../validator/RestaurantValidator';
+import './RestaurantAddForm.css';
 
 type RestaurantAddFormType = {
   parentComponent: object;

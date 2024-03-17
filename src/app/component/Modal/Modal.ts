@@ -1,4 +1,5 @@
 import { ModalType } from '../../type/modalTypes';
+import './Modal.css';
 
 export default class Modal {
   protected modal: HTMLDialogElement;

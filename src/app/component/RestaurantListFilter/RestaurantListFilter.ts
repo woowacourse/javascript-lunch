@@ -1,6 +1,7 @@
 import { Category, SortOrder } from '../../enum/enums';
 import { createOptionItems } from '../../util/createFormElement';
 import { $ } from '../../util/domSelector';
+import './RestaurantListFilter.css';
 
 export default class RestaurantListFilter extends HTMLElement {
   connectedCallback() {

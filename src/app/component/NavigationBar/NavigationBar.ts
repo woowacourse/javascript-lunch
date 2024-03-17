@@ -1,5 +1,6 @@
 import { Asset } from '../../../asset/asset';
 import { $ } from '../../util/domSelector';
+import './NavigationBar.css';
 
 export default class NavigationBar extends HTMLElement {
   connectedCallback() {
