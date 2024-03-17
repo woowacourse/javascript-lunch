@@ -1,5 +1,5 @@
 import { Category, DistanceByWalk } from '../enum/enums';
-import type { RestaurantDataType } from '../type/restaurantDataType';
+import type { RestaurantDataType } from '../type/restaurantTypes';
 
 type RestaurantType = RestaurantDataType & {
   id: string;

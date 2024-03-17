@@ -9,7 +9,7 @@ import {
   createSelectBox,
   createTextArea,
 } from '../../../util/createFormElement';
-import { RestaurantDataType } from '../../../type/restaurantDataType';
+import { RestaurantDataType } from '../../../type/restaurantTypes';
 import { Category, DistanceByWalk } from '../../../enum/enums';
 import handleError from '../../../util/handleError';
 import RestaurantValidator from '../../../validator/RestaurantValidator';

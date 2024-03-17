@@ -1,17 +1,17 @@
-import { RestaurantDataType } from '../../../type/restaurantDataType';
+import { RestaurantType } from '../../../type/restaurantTypes';
 import { $ } from '../../../util/domSelector';
 import createCategoryContainer from '../../../util/createCategoryContainer';
 import FavoriteButton from '../../component/FavoriteButton/FavoriteButton';
 import RestaurantInfoContainer from '../../component/RestaurantItemContainer/RestaurantItemContainer';
 
 type RestaurantItemType = {
-  restaurantData: RestaurantDataType;
+  restaurantData: RestaurantType;
   onClick: Function;
   onFavorite: Function;
 };
 
 export default class RestaurantItem extends HTMLElement {
-  private restaurantData: RestaurantDataType;
+  private restaurantData: RestaurantType;
   private restaurantInfoContainer: HTMLDivElement;
   private favoriteButton: FavoriteButton;
   private showRestaurantDetail: Function;
@@ -39,6 +39,10 @@ export default class RestaurantItem extends HTMLElement {
 
   getRestaurantName() {
     return this.restaurantData.name;
+  }
+
+  getRestaurantId() {
+    return this.restaurantData.id;
   }
 
   setFavoriteButtonStyle(isFavorited: boolean) {

@@ -10,7 +10,7 @@ import RestaurantList from '../root/RestaurantList/RestaurantList';
 import RestaurantAddModal from '../modal/RestaurantAddModal/RestaurantAddModal';
 import RestaurantDetailModal from '../modal/RestaurantDetailModal/RestaurantDetailModal';
 import { Category, SortOrder, Tab } from '../../enum/enums';
-import { RestaurantDataType } from '../../type/restaurantDataType';
+import { RestaurantDataType, RestaurantType } from '../../type/restaurantTypes';
 import { $ } from '../../util/domSelector';
 
 export default class AppController {
@@ -79,8 +79,8 @@ export default class AppController {
     }
   }
 
-  private updateRestaurantFavorite(name: string, isFavorited: boolean) {
-    this.restaurantService.updateRestaurantFavorite(name, isFavorited);
+  private updateRestaurantFavorite(id: string, isFavorited: boolean) {
+    this.restaurantService.updateRestaurantFavorite(id, isFavorited);
   }
 
   private initiateNavBar() {
@@ -131,8 +131,8 @@ export default class AppController {
     this.restaurantAddModal.showModal();
   }
 
-  private showRestaurantDetailModal(restaurantData: RestaurantDataType) {
-    this.restaurantDetailModal.showRestaurantDetail(restaurantData);
+  private showRestaurantDetailModal(restaurant: RestaurantType) {
+    this.restaurantDetailModal.showRestaurantDetail(restaurant);
   }
 
   private addRestaurant(restaurantData: RestaurantDataType) {

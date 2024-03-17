@@ -2,7 +2,7 @@ import Modal from '../Modal';
 import FavoriteButton from '../../component/FavoriteButton/FavoriteButton';
 import RestaurantDetailContainer from '../../component/RestaurantDetailContainer/RestaurantDetailContainer';
 import { ModalType } from '../../../type/modalTypes';
-import { RestaurantDataType } from '../../../type/restaurantDataType';
+import { RestaurantType } from '../../../type/restaurantTypes';
 import { createFormButton, createFormButtonContainer } from '../../../util/createFormElement';
 
 type RestaurantDetailModalType = ModalType & {
@@ -11,7 +11,7 @@ type RestaurantDetailModalType = ModalType & {
 };
 
 export default class RestaurantDetailModal extends Modal {
-  private restaurantData?: RestaurantDataType;
+  private restaurant?: RestaurantType;
   private deleteRestaurant: Function;
   private updateRestaurantFavorite: Function;
   private favoriteButton: FavoriteButton;
@@ -46,10 +46,10 @@ export default class RestaurantDetailModal extends Modal {
     return buttonContainer;
   }
 
-  showRestaurantDetail(data: RestaurantDataType) {
-    this.restaurantData = data;
-    this.favoriteButton.setFavorited(this.restaurantData.favorite ?? false);
-    this.renderComponents(this.restaurantData);
+  showRestaurantDetail(data: RestaurantType) {
+    this.restaurant = data;
+    this.favoriteButton.setFavorited(this.restaurant.favorite ?? false);
+    this.renderComponents(this.restaurant);
     this.showModal();
   }
 
@@ -58,8 +58,8 @@ export default class RestaurantDetailModal extends Modal {
     this.modal.close();
   }
 
-  private renderComponents(restaurantData: RestaurantDataType) {
-    const restaurantDetailContainer = RestaurantDetailContainer(restaurantData);
+  private renderComponents(restaurant: RestaurantType) {
+    const restaurantDetailContainer = RestaurantDetailContainer(restaurant);
     const buttonContainer = this.buttonContainer;
     const favoriteButton = this.favoriteButton.render();
     favoriteButton.addEventListener('click', this.updateFavorite);
@@ -75,19 +75,19 @@ export default class RestaurantDetailModal extends Modal {
   }
 
   private updateFavorite() {
-    if (this.restaurantData) {
-      this.restaurantData.favorite = !this.restaurantData.favorite;
-      this.favoriteButton.setFavorited(this.restaurantData.favorite);
-      this.updateRestaurantFavorite(this.restaurantData.name, this.restaurantData.favorite);
-      this.updateFavoriteInRestaurantList(this.restaurantData.name, this.restaurantData.favorite);
+    if (this.restaurant) {
+      this.restaurant.favorite = !this.restaurant.favorite;
+      this.favoriteButton.setFavorited(this.restaurant.favorite);
+      this.updateRestaurantFavorite(this.restaurant.id, this.restaurant.favorite);
+      this.updateFavoriteInRestaurantList(this.restaurant.id, this.restaurant.favorite);
     }
   }
 
-  private updateFavoriteInRestaurantList(name: string, isFavorited: boolean) {
+  private updateFavoriteInRestaurantList(id: string, isFavorited: boolean) {
     this.modal.dispatchEvent(
       new CustomEvent('updateRestaurantFavorite', {
         detail: {
-          name: name,
+          id: id,
           isFavorited: isFavorited,
         },
       }),
@@ -95,8 +95,8 @@ export default class RestaurantDetailModal extends Modal {
   }
 
   private handleDelete() {
-    if (this.restaurantData) {
-      this.deleteRestaurant(this.restaurantData.name);
+    if (this.restaurant) {
+      this.deleteRestaurant(this.restaurant.id);
       this.closeModal();
     }
   }

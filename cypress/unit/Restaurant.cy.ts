@@ -1,5 +1,5 @@
 import Restaurant from '../../src/domain/Restaurant';
-import { RestaurantDataType } from '../../src/type/restaurantDataType';
+import { RestaurantDataType } from '../../src/type/restaurantTypes';
 import { Category, DistanceByWalk } from '../../src/enum/enums';
 
 describe('[Restaurant] 음식점 객체 테스트', () => {

@@ -1,5 +1,5 @@
 import { Category, DistanceByWalk } from '../../../enum/enums';
-import { RestaurantDataType } from '../../../type/restaurantDataType';
+import { RestaurantDataType } from '../../../type/restaurantTypes';
 import createCategoryContainer from '../../../util/createCategoryContainer';
 import './RestaurantDetailContainer.css';
 

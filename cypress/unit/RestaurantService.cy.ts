@@ -1,7 +1,7 @@
 import RestaurantService from '../../src/service/RestaurantService';
 import defaultRestaurant from '../../src/data/defaultRestaurants.json';
 
-import type { RestaurantDataType } from '../../src/type/restaurantDataType';
+import type { RestaurantDataType } from '../../src/type/restaurantTypes';
 import { Category, DistanceByWalk, SortOrder } from '../../src/enum/enums';
 
 describe('[RestaurantService] 음식점 서비스 객체 테스트', () => {

@@ -1,7 +1,7 @@
 import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
 
-import type { RestaurantDataType } from '../type/restaurantDataType';
+import type { RestaurantDataType, RestaurantType } from '../type/restaurantTypes';
 import type { CompareFunctionType } from '../type/compareFunctionType';
 
 import { Category, DistanceByWalk, SortOrder } from '../enum/enums';
@@ -18,7 +18,7 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  getRestaurants(sortOrder: SortOrder, category?: Category): RestaurantDataType[] {
+  getRestaurants(sortOrder: SortOrder, category?: Category): RestaurantType[] {
     const restaurants = this.restaurants;
     const restaurantsByCategory = category ? this.getRestaurantsByCategory(restaurants, category) : this.restaurants;
     const sortedRestaurantsByCategory = this.getSortedRestaurants(
@@ -32,13 +32,13 @@ class RestaurantService {
     return this.restaurants.filter((restaurant) => restaurant.isFavorite()).map((restaurant) => restaurant.getData());
   }
 
-  addRestaurant(restaurant: RestaurantDataType) {
-    this.restaurants.push(new Restaurant({ ...restaurant, id: this.setRestaurantId() }));
+  addRestaurant(restaurantData: RestaurantDataType) {
+    this.restaurants.push(new Restaurant({ ...restaurantData, id: this.setRestaurantId() }));
     this.saveRestaurants(this.restaurants);
   }
 
-  updateRestaurantFavorite(restaurantName: string, isFavorited: boolean) {
-    const restaurant = this.restaurants.find((restaurant) => restaurant.getName() === restaurantName);
+  updateRestaurantFavorite(id: string, isFavorited: boolean) {
+    const restaurant = this.restaurants.find((restaurant) => restaurant.getId() === id);
     if (!restaurant) {
       throw new Error('찾으시는 음식점 정보를 찾을 수 없습니다.');
     }
@@ -46,8 +46,8 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  deleteRestaurant(restaurantName: string) {
-    this.restaurants = this.restaurants.filter((restaurant) => restaurant.getName() !== restaurantName);
+  deleteRestaurant(id: string) {
+    this.restaurants = this.restaurants.filter((restaurant) => restaurant.getId() !== id);
     this.saveRestaurants(this.restaurants);
   }
 
@@ -83,9 +83,7 @@ class RestaurantService {
   private loadRestaurants(): Restaurant[] {
     const restaurants = localStorage.getItem('restaurants');
     if (restaurants) {
-      return JSON.parse(restaurants).map(
-        (object: RestaurantDataType & { id: string }) => new Restaurant({ ...object }),
-      );
+      return JSON.parse(restaurants).map((object: RestaurantType) => new Restaurant({ ...object }));
     }
     return this.loadDefaultRestaurantData().map(
       (object: RestaurantDataType) => new Restaurant({ ...object, id: this.setRestaurantId() }),

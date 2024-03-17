@@ -1,9 +1,9 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { RestaurantDataType } from '../../../type/restaurantDataType';
+import { RestaurantType } from '../../../type/restaurantTypes';
 import { $ } from '../../../util/domSelector';
 
 type RestaurantListType = {
-  restaurants: RestaurantDataType[];
+  restaurants: RestaurantType[];
   onRestaurantClick: Function;
   onRestaurantFavorite: Function;
 };
@@ -32,25 +32,25 @@ export default class RestaurantList extends HTMLElement {
     $('#restaurant-detail-modal').removeEventListener('updateRestaurantFavorite', this.handleUpdateRestaurantFavorite);
   }
 
-  updateRestaurantList(restaurants: RestaurantDataType[]) {
+  updateRestaurantList(restaurants: RestaurantType[]) {
     this.restaurantItems = this.createRestaurantItems(restaurants);
     this.clear();
     this.render();
   }
 
-  private createRestaurantItems(restaurants: RestaurantDataType[]) {
+  private createRestaurantItems(restaurants: RestaurantType[]) {
     return restaurants.map(
-      (restaurantData) =>
+      (restaurant) =>
         new RestaurantItem({
-          restaurantData: restaurantData,
+          restaurantData: restaurant,
           onClick: this.handleClickRestaurant,
           onFavorite: this.handleClickFavoriteButton,
         }),
     );
   }
 
-  private handleClickRestaurant(restaurantData: RestaurantDataType) {
-    this.showRestaurantDetail(restaurantData);
+  private handleClickRestaurant(restaurant: RestaurantType) {
+    this.showRestaurantDetail(restaurant);
   }
 
   private handleClickFavoriteButton(restaurantName: string, isFavorited: boolean) {
@@ -60,7 +60,7 @@ export default class RestaurantList extends HTMLElement {
   private handleUpdateRestaurantFavorite(event: Event) {
     if (event instanceof CustomEvent) {
       const restaurant = this.restaurantItems.find(
-        (restaurantItem: RestaurantItem) => restaurantItem.getRestaurantName() === event.detail.name,
+        (restaurantItem: RestaurantItem) => restaurantItem.getRestaurantId() === event.detail.id,
       );
       this.setRestaurantItemFavoriteButtonStyle(event.detail.isFavorited, restaurant);
     }

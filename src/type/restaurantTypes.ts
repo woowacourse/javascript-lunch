@@ -8,3 +8,7 @@ export type RestaurantDataType = {
   referenceUrl?: string;
   favorite?: boolean;
 };
+
+export type RestaurantType = RestaurantDataType & {
+  id: string;
+};

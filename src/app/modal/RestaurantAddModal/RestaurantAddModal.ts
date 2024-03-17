@@ -1,7 +1,7 @@
 import Modal from '../Modal';
 import RestaurantAddForm from '../../component/RestaurantAddForm/RestaurantAddForm';
 import { RestaurantAddModalType } from '../../../type/modalTypes';
-import { RestaurantDataType } from '../../../type/restaurantDataType';
+import { RestaurantDataType } from '../../../type/restaurantTypes';
 
 export default class RestaurantAddModal extends Modal {
   private form: RestaurantAddForm;
