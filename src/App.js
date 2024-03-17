@@ -20,17 +20,28 @@ const App = {
     restaurantList.classList.add('restaurant-list');
 
     restaurantList.append(
-      createRestaurantItem({
+      new createRestaurantItem({
         restaurant: {
           id: '친친',
           category: '중식',
           name: '친친',
           distance: 5,
         },
-        onClick: () => {
-          console.log('clicked!');
+        onClick: e => {
+          console.log(e.target);
         },
-      }),
+      }).element,
+      new createRestaurantItem({
+        restaurant: {
+          id: '백소정',
+          category: '일식',
+          name: '백소정',
+          distance: 15,
+        },
+        onClick: e => {
+          console.log(e.target);
+        },
+      }).element,
     );
 
     const restaurantListContainer = $('.restaurant-list-container');

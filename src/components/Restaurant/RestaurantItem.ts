@@ -6,43 +6,86 @@ interface Props {
   onClick?: () => void;
 }
 
-const createRestaurantItem = ({ restaurant, onClick }: Props) => {
-  const render = () => {
-    const itemContainer = document.createElement('li');
-    itemContainer.classList.add('restaurant');
+class createRestaurantItem {
+  #itemContainer = document.createElement('li');
+  #starredIcon = document.createElement('img');
+  #unstarredIcon = document.createElement('img');
 
-    itemContainer.innerHTML = /* html */ `
-      <div class="restaurant__favorite">
-        ${
-          restaurant.isFavorite
-            ? `<img src="favorite-icon-filled.png" alt="즐겨찾기된 식당" id="star"/>`
-            : `<img src="favorite-icon-lined.png" alt="즐겨찾기되지 않은 식당" id="unstar"/>`
-        }
-      </div>
-      <div class="restaurant__category">
-        <img src="./category-${CATEGORY_CONVERTER[restaurant.category]}.png" alt=${restaurant.category} class="category-icon" />
-      </div>
-      <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
-        ${
-          restaurant.description
-            ? `<p class="restaurant__description text-body">
-          ${restaurant.description}
-        </p>`
-            : ''
-        }
-      </div>
-    `;
+  isFavorite: boolean;
+
+  constructor({ restaurant, onClick }: Props) {
+    this.render(restaurant);
+    this.isFavorite = restaurant.isFavorite;
 
     if (onClick) {
-      itemContainer.addEventListener('click', onClick);
+      this.#itemContainer.addEventListener('click', onClick.bind(this));
+    }
+  }
+
+  render(restaurant: Restaurant) {
+    this.#itemContainer.classList.add('restaurant');
+
+    const favorite = document.createElement('div');
+    favorite.classList.add('restaurant__favorite');
+
+    this.#starredIcon.setAttribute('src', 'favorite-icon-filled.png');
+    this.#starredIcon.classList.add('favorite', 'hidden');
+    favorite.appendChild(this.#starredIcon);
+
+    this.#unstarredIcon.setAttribute('src', 'favorite-icon-lined.png');
+    this.#unstarredIcon.classList.add('favorite');
+    favorite.appendChild(this.#unstarredIcon);
+
+    const category = document.createElement('div');
+    category.classList.add('restaurant__category');
+
+    const categoryIcon = document.createElement('img');
+    categoryIcon.setAttribute('src', `./category-${CATEGORY_CONVERTER[restaurant.category]}.png`);
+    categoryIcon.classList.add('category-icon');
+    category.appendChild(categoryIcon);
+
+    const info = document.createElement('div');
+    info.classList.add('restaurant__info');
+
+    const infoName = document.createElement('h3');
+    infoName.classList.add('restaurant__name', 'text-subtitle');
+    infoName.textContent = restaurant.name;
+    info.appendChild(infoName);
+
+    const infoDistance = document.createElement('span');
+    infoDistance.classList.add('restaurant__distance', 'text-body');
+    infoDistance.textContent = `캠퍼스부터 ${restaurant.distance}분 내`;
+    info.appendChild(infoDistance);
+
+    if (restaurant.description) {
+      const infoDescription = document.createElement('p');
+      infoDescription.classList.add('restaurant__description', 'text-body');
+      infoDescription.textContent = restaurant.description;
+      info.appendChild(infoDescription);
     }
 
-    return itemContainer;
-  };
+    this.#itemContainer.appendChild(favorite);
+    this.#itemContainer.appendChild(category);
+    this.#itemContainer.appendChild(info);
 
-  return render();
-};
+    favorite.addEventListener('click', () => this.favoriteToggle.bind(this)());
+  }
+
+  get element() {
+    return this.#itemContainer;
+  }
+
+  favoriteToggle() {
+    if (this.#starredIcon.classList.contains('hidden')) {
+      this.#starredIcon.classList.remove('hidden');
+      this.#unstarredIcon.classList.add('hidden');
+      this.isFavorite = false;
+    } else {
+      this.#starredIcon.classList.add('hidden');
+      this.#unstarredIcon.classList.remove('hidden');
+      this.isFavorite = true;
+    }
+  }
+}
 
 export default createRestaurantItem;
