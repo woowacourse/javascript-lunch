@@ -8,11 +8,13 @@ class AddStoreBtn extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = /* html */ `
-    <button>
-      <img src=${AddButtonIcon} alt="음식점 추가 버튼"/>
-    </button>
-    `;
+    const $btn = document.createElement('button');
+    const $img = document.createElement('img');
+    $img.src = AddButtonIcon;
+    $img.alt = '음식점 추가 버튼';
+
+    $btn.appendChild($img);
+    this.appendChild($btn);
 
     this.addEventListener('click', (event) =>
       this.#handleClickToAddStore(event),

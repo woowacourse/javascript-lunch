@@ -59,7 +59,7 @@ class FormTextField extends HTMLElement {
       'name',
     ];
 
-    return key ? ([...restaurantInfoKeys] as string[]).includes(key) : false;
+    return key ? key in restaurantInfoKeys : false;
   }
 
   #addEventToChange(key: RestaurantTextInfoKey) {

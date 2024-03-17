@@ -79,19 +79,16 @@ class RestaurantFormModalInner extends HTMLElement {
     // 이벤트
     const $restaurantForm = this.querySelector('form');
 
-    if ($restaurantForm instanceof HTMLFormElement) {
-      $restaurantForm.addEventListener(
-        'reset',
-        this.#handleResetForm.bind(this),
-      );
-      $restaurantForm.addEventListener('submit', (event) =>
-        this.#handleSubmitFormToAddStore(event),
-      );
-      $restaurantForm.addEventListener(
-        'focusout',
-        this.#handleFocusOutToActiveSubmitBtn.bind(this),
-      );
-    }
+    if (!$restaurantForm) return;
+
+    $restaurantForm.addEventListener('reset', this.#handleResetForm.bind(this));
+    $restaurantForm.addEventListener('submit', (event) =>
+      this.#handleSubmitFormToAddStore(event),
+    );
+    $restaurantForm.addEventListener(
+      'focusout',
+      this.#handleFocusOutToActiveSubmitBtn.bind(this),
+    );
   }
 
   // 이벤트 함수 정의
@@ -158,8 +155,6 @@ class RestaurantFormModalInner extends HTMLElement {
       link: this.#getTextFieldValue('restaurant-link', 'input'),
     };
 
-    // consistent-return : off
-    // eslint-disable-next-line
     return info;
   }
 

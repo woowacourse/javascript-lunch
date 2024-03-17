@@ -38,7 +38,7 @@ class RestaurantItem extends HTMLElement {
     event.stopPropagation();
 
     openModal(
-      `<restaurant-info-modal-inner  store-name="${storeName}"></restaurant-info-modal-inner>`,
+      `<restaurant-info-modal-inner store-name="${storeName}"></restaurant-info-modal-inner>`,
     );
   }
 }
