@@ -52,12 +52,20 @@ class RestaurantList {
   }
 
   setFavoriteRestaurantList(targetId: string) {
+    // 필터링한 상태에서도 데이터 위치가 변하지 않도록 상태값에서 isFavorite 값만 변경
     this.restaurants = this.restaurants.map(restaurant =>
       restaurant.information.id === targetId
         ? new Restaurant({ ...restaurant.information, isFavorite: !restaurant.information.isFavorite })
         : restaurant,
     );
-    RestaurantStorage.set(this.restaurants);
+    // DB에 저장되는 데이터는 전체에서 해당 id를 가진 데이터의 isFavorite 값만 변경
+    RestaurantStorage.set(
+      RestaurantStorage.get(STORAGE_KEY).map(restaurant =>
+        restaurant.information.id === targetId
+          ? new Restaurant({ ...restaurant.information, isFavorite: !restaurant.information.isFavorite })
+          : restaurant,
+      ),
+    );
   }
 
   deleteRestaurant(id: string) {
