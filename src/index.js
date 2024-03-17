@@ -7,3 +7,8 @@ import "./components/RestaurantAddForm/RestaurantNameInput.js";
 import "./components/RestaurantAddForm/RestaurantOption.js";
 import "./components/RestaurantAddForm/index.js";
 import "./components/MenuApp.js";
+import "./components/common/BaseModal.js";
+import "./components/RestaurantDetail.js";
+import "./components/common/ModalButton.js";
+import "./components/NavigationBar.js";
+import "./components/common/FavoriteToggle.js";

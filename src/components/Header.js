@@ -16,7 +16,7 @@ class Header extends BaseComponent {
 
   setEvent() {
     $(".gnb__button").addEventListener("click", (e) => {
-      this.emitEvent("modal-open");
+      this.emitEvent("form-modal-open");
     });
   }
 }

@@ -5,9 +5,10 @@ import {
   categoryJapanese,
   categoryKorean,
   categoryWestern,
-  defaultImg,
 } from "../assets";
-import BaseComponent from "./BaseComponent.js";
+import { categoryToImg } from "../utils/categoryToImg";
+
+import BaseComponent from "./common/BaseComponent.js";
 
 export const CATEGORY_TO_IMG = {
   한식: categoryKorean,
@@ -23,33 +24,50 @@ class RestaurantItem extends BaseComponent {
     super();
   }
 
-  #categoryToImg(category) {
-    return CATEGORY_TO_IMG[category] || defaultImg;
-  }
-
   render() {
     const category = this.getAttribute("category");
     const name = this.getAttribute("name");
     const distance = this.getAttribute("distance");
     const description = this.getAttribute("description");
-    const img = this.#categoryToImg(category);
+    const img = categoryToImg(category);
+    const isFavorite = this.getAttribute("isFavorite");
 
     this.innerHTML = `
-    <li class="restaurant">
+      <li class="restaurant">
         <div class="restaurant__category">
-            <img src=${img} alt="한식" class="category-icon">
+          <img src=${img} alt=${category} class="category-icon" />
         </div>
         <div class="restaurant__info">
-            <h3 class="restaurant__name text-subtitle">${name}</h3>
-            <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-            ${
-              description
-                ? `<p class="restaurant__description text-body">${description}</p>`
-                : ""
-            }
+          <h3 class="restaurant__name text-subtitle">${name}</h3>
+          <span class="restaurant__distance text-body"
+            >캠퍼스부터 ${distance}분 내</span
+          >
+
+          ${
+            description
+              ? `<p class="restaurant__description text-body">${description}</p>`
+              : ""
+          }
         </div>
-    </li>
+
+
+        <button class="star" aria-label="즐겨찾기 추가 버튼">
+        <favorite-toggle isFavorite=${isFavorite} name="${name}"></favorite-toggle>
+        </button>
+
+      </li>
     `;
+  }
+
+  setEvent() {
+    this.addEventListener("click", (e) => {
+      e.target.classList.contains("star") ||
+      e.target.parentElement.classList.contains("star")
+        ? ""
+        : this.emitEvent("detail-modal-open", {
+            name: this.getAttribute("name"),
+          });
+    });
   }
 }
 
