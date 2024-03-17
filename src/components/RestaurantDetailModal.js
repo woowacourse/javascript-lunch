@@ -10,8 +10,8 @@ class RestaurantDetailModal {
 
   constructor({ targetId, restaurantInstance, restaurant }) {
     this.#element = $(targetId);
-    this.#restaurant = restaurant;
     this.#restaurantInstance = restaurantInstance;
+    this.#restaurant = restaurant;
 
     this.#initEventListeners();
   }

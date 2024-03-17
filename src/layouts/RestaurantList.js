@@ -29,6 +29,7 @@ class RestaurantList {
 
   updateRestaurantList(newRestaurantList) {
     this.#restaurants = newRestaurantList;
+
     this.render();
   }
 }

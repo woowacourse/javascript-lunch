@@ -13,7 +13,6 @@ class RestaurantItem {
     this.#element = element;
     this.#restaurantsInstance = restaurantsInstance;
     this.#restaurant = restaurant;
-
     this.#restaurantDetailModal = new RestaurantDetailModal({
       targetId: 'restaurant-detail-modal',
       restaurantInstance: this.#restaurantsInstance,
