@@ -1,5 +1,15 @@
-import { CATEGORIES, DEFAULT_DATA, ERROR_MESSAGES, SORT_TYPE } from "../constants/menu";
-import { CategoryString, RestaurantAddItem, RestaurantItem, SortOptionString } from "../types/menu";
+import {
+  CATEGORIES,
+  DEFAULT_DATA,
+  ERROR_MESSAGES,
+  SORT_TYPE,
+} from "../constants/menu";
+import {
+  CategoryString,
+  RestaurantAddItem,
+  RestaurantItem,
+  SortOptionString,
+} from "../types/menu";
 import restaurantValidator from "../validators/restaurantValidator";
 
 const RESTAURANT_KEY = "restaurants";
@@ -14,7 +24,9 @@ const getRestaurantFromStorage = () => {
 const isAlreadyExist = (newRestaurantName: string) => {
   const storedRestaurants = getRestaurantFromStorage();
 
-  return storedRestaurants.some(({ name }) => trimAllSpace(newRestaurantName) === trimAllSpace(name));
+  return storedRestaurants.some(
+    ({ name }) => trimAllSpace(newRestaurantName) === trimAllSpace(name)
+  );
 };
 
 const sortByName = (restaurants: RestaurantItem[]) => {
@@ -42,13 +54,13 @@ export const initRestaurantStorage = () => {
 export const validateRestaurantData = (restaurantInfo: RestaurantAddItem) => {
   const { name, category, distance, description, link } = restaurantInfo;
 
-  if (!restaurantValidator.isSelected(category)) {
+  if (!restaurantValidator.isValidCategory(category)) {
     throw new Error(ERROR_MESSAGES.invalidCategory);
   }
   if (!restaurantValidator.isInRange(name, 0, 10)) {
     throw new Error(ERROR_MESSAGES.invalidRestaurantName);
   }
-  if (!restaurantValidator.isSelected(distance)) {
+  if (!restaurantValidator.isValidDistance(distance)) {
     throw new Error(ERROR_MESSAGES.invalidDistance);
   }
   if (description && !restaurantValidator.isInRange(description, 0, 300)) {
@@ -62,9 +74,13 @@ export const validateRestaurantData = (restaurantInfo: RestaurantAddItem) => {
   }
 };
 
-export const findRestaurantByName = (restaurantName: string): RestaurantItem | null => {
+export const findRestaurantByName = (
+  restaurantName: string
+): RestaurantItem | null => {
   const storedRestaurants = getRestaurantFromStorage();
-  const foundRestaurant = storedRestaurants.find(({ name }) => name === restaurantName);
+  const foundRestaurant = storedRestaurants.find(
+    ({ name }) => name === restaurantName
+  );
 
   return foundRestaurant ? foundRestaurant : null;
 };
@@ -87,7 +103,9 @@ export const toggleFavoriteStateByName = (targetName: string) => {
 
 export const deleteRestaurantByName = (restaurantName: string): void => {
   const storedRestaurants = getRestaurantFromStorage();
-  const filteredRestaurants = storedRestaurants.filter(({ name }) => restaurantName !== name);
+  const filteredRestaurants = storedRestaurants.filter(
+    ({ name }) => restaurantName !== name
+  );
 
   localStorage.setItem(RESTAURANT_KEY, JSON.stringify(filteredRestaurants));
 };
@@ -104,7 +122,10 @@ export const add = (restaurantInfo: RestaurantAddItem) => {
 
   localStorage.setItem(
     RESTAURANT_KEY,
-    JSON.stringify([...storedRestaurants, { ...restaurantInfo, isFavorite: false }])
+    JSON.stringify([
+      ...storedRestaurants,
+      { ...restaurantInfo, isFavorite: false },
+    ])
   );
 
   return true;
@@ -118,8 +139,13 @@ export const filterByCategory = (category: CategoryString) => {
   return restaurants.filter((item) => item.category === category);
 };
 
-export const sortByType = (category: CategoryString, type: SortOptionString) => {
+export const sortByType = (
+  category: CategoryString,
+  type: SortOptionString
+) => {
   const filteredRestaurants = filterByCategory(category);
 
-  return type === SORT_TYPE.name ? sortByName(filteredRestaurants) : sortByDistance(filteredRestaurants);
+  return type === SORT_TYPE.name
+    ? sortByName(filteredRestaurants)
+    : sortByDistance(filteredRestaurants);
 };
