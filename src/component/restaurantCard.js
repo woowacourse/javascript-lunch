@@ -1,4 +1,3 @@
-import { KOREAN_CATEGORY } from '../constant/select';
 import { createCategoryImage } from './categoryImage';
 import { createStarButton } from './starButton';
 
@@ -33,7 +32,7 @@ function createInfoDiv(
   const infoHeaderTextArea = document.createElement('div');
   infoHeaderTextArea.className = 'restaurant__info';
 
-  const star = createStarButton(name, favoriteRestaurantNames);
+  const star = createStarButton({name, favoriteRestaurantNames});
 
   const restaurantName = document.createElement('h3');
   restaurantName.className = 'restaurant__name text-subtitle';

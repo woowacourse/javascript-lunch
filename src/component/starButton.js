@@ -1,13 +1,12 @@
-export function createStarButton(name, favoriteRestaurantNames, starCallback) {
-  const starButton = render(name, favoriteRestaurantNames);
-  if (starCallback)
-    starButton.addEventListener('click', (event) => {
+export function createStarButton({name, favoriteRestaurantNames, starCallback = ''}) {
+  const starButton = render({name, favoriteRestaurantNames});
+  if (starCallback) starButton.addEventListener('click', (event) => {
       starCallback(event);
     });
   return starButton;
 }
 
-function render(name, favoriteRestaurantNames) {
+function render({name, favoriteRestaurantNames}) {
   const star = document.createElement('img');
   if (favoriteRestaurantNames.includes(name)) {
     star.className = 'star filled';

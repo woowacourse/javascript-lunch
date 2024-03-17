@@ -21,4 +21,4 @@ export const categoryFilterList: readonly string[] = [
   '기타',
 ];
 
-export const sortingFilterLsit: readonly string[] = ['이름순', '거리순'];
+export const sortingFilterList: readonly string[] = ['이름순', '거리순'];

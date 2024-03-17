@@ -4,14 +4,14 @@ function createDropDown({
   options,
   className,
   required,
-  noneSelcteddefaultMessage,
+  noneSelectedDefaultMessage,
 }) {
   const dropdown = render({
     options,
     id,
     className,
     required,
-    noneSelcteddefaultMessage,
+    noneSelectedDefaultMessage,
   });
 
   if (!callback) return dropdown;
@@ -29,17 +29,17 @@ function render({
   id,
   className,
   required,
-  noneSelcteddefaultMessage,
+  noneSelectedDefaultMessage,
 }) {
   const select = document.createElement('select');
   select.id = id;
   select.className = className;
   select.required = required;
 
-  if (!!noneSelcteddefaultMessage) {
+  if (!!noneSelectedDefaultMessage) {
     const option = document.createElement('option');
     option.value = '';
-    option.textContent = noneSelcteddefaultMessage;
+    option.textContent = noneSelectedDefaultMessage;
     select.appendChild(option);
   }
 

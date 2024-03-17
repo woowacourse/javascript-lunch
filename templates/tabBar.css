@@ -4,7 +4,7 @@
   padding: 0 20px 0;
 }
 
-.tab__bar__item__checked {
+.tab__bar__item.checked {
   margin: 0;
   padding: 20px;
   color: #f6a88a;

@@ -2,8 +2,8 @@ import { createDropDown } from '../component/dropDown';
 import createHeader from '../component/header';
 import modal from '../component/modal';
 import createRestaurantCard from '../component/restaurantCard';
-import { createtabBar } from '../component/tabBar';
-import { categoryFilterList, sortingFilterLsit } from '../constant/select';
+import { createTabBar } from '../component/tabBar';
+import { categoryFilterList, sortingFilterList } from '../constant/select';
 import { RestaurantManager } from '../domain/RestaurantManager';
 import { createRestaurantDetail } from '../component/modal/restaurantDetail';
 
@@ -28,13 +28,13 @@ export class appController {
     // tabBar 부착
     document.body.insertAdjacentElement(
       'afterbegin',
-      createtabBar([
+      createTabBar([
         {
-          className: 'tab__bar__item__checked',
+          className: 'tab__bar__item checked',
           text: '모든 음식점',
           callback: () => {
             this.updateRestaurantList(
-              this.#restaurantManager.getUpdatedTotalRsetaurants()
+              this.#restaurantManager.getUpdatedTotalRestaurants()
             );
             this.#currentTab = '모든 음식점';
           },
@@ -59,9 +59,9 @@ export class appController {
         className: 'gnb',
         left: 'logo',
         right: 'RestaurantAdditionButton',
-        addrestaurantCallback: (newRestaurant) => {
+        RestaurantAdditionCallback: (newRestaurant) => {
           this.#restaurantManager.addRestaurant(newRestaurant);
-          this.curentTabRestaurantList();
+          this.currentTabRestaurantList();
           modal.remove('modal--open');
         },
       })
@@ -73,13 +73,13 @@ export class appController {
 
     restaurantFilterContainer.appendChild(
       createDropDown({
-        name: 'categoty',
+        name: 'category',
         id: 'category-filter',
         options: categoryFilterList,
         className: 'restaurant-filter',
         callback: (category) => {
-          this.#restaurantManager.udateCurentCategoty(category);
-          this.curentTabRestaurantList();
+          this.#restaurantManager.updateCurrentCategory(category);
+          this.currentTabRestaurantList();
         },
       })
     );
@@ -89,15 +89,15 @@ export class appController {
         name: 'sorting',
         id: 'sorting-filter',
         className: 'restaurant-filter',
-        options: sortingFilterLsit,
+        options: sortingFilterList,
         callback: (category) => {
-          this.#restaurantManager.udateCurentSelectedSorting(category);
-          this.curentTabRestaurantList();
+          this.#restaurantManager.updateCurrentSelectedSorting(category);
+          this.currentTabRestaurantList();
         },
       })
     );
 
-    this.curentTabRestaurantList();
+    this.currentTabRestaurantList();
   }
 
   updateRestaurantList(restaurants) {
@@ -130,14 +130,6 @@ export class appController {
     restaurantListContainer.appendChild(restaurantList);
   }
 
-  addFavoriteRestaurant(restaurant) {
-    this.#restaurantManager.addFavoriteRestaurant(restaurant);
-  }
-
-  removeFavoriteRestaurant(restaurant) {
-    this.#restaurantManager.removeFavoriteRestaurant(restaurant);
-  }
-
   restaurantListItemEvent(event, restaurant, favoriteRestaurantNames) {
     const target = event.target;
     if (target.className.includes('star')) {
@@ -156,13 +148,13 @@ export class appController {
             document.body.classList.remove('stop-scroll');
             this.#restaurantManager.removeTotalRestaurant(restaurant);
             this.#restaurantManager.removeFavoriteRestaurant(restaurant);
-            this.curentTabRestaurantList();
+            this.currentTabRestaurantList();
             modal.remove('modal--open');
           },
           cancelCallback: (event) => {
             document.body.classList.remove('stop-scroll');
             modal.remove('modal--open');
-            this.curentTabRestaurantList();
+            this.currentTabRestaurantList();
           },
         })
       );
@@ -184,10 +176,10 @@ export class appController {
     }
   }
 
-  curentTabRestaurantList() {
+  currentTabRestaurantList() {
     if (this.#currentTab === '모든 음식점')
       return this.updateRestaurantList(
-        this.#restaurantManager.getUpdatedTotalRsetaurants()
+        this.#restaurantManager.getUpdatedTotalRestaurants()
       );
     if (this.#currentTab === '자주 가는 음식점')
       return this.updateRestaurantList(

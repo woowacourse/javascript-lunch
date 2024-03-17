@@ -23,7 +23,7 @@ describe('음식점 목록 테스트', () => {
     restaurantManager.addRestaurant(addition.output[0]);
 
     // then
-    expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql([
+    expect(restaurantManager.getUpdatedTotalRestaurants()).to.eql([
       newRestaurant,
     ]);
   });
@@ -36,7 +36,7 @@ describe('음식점 목록 테스트', () => {
     );
     const sortedByAscendingName: RestaurantData[] = sortingName.output;
     // then
-    expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql(
+    expect(restaurantManager.getUpdatedTotalRestaurants()).to.eql(
       sortedByAscendingName
     );
   });
@@ -49,10 +49,10 @@ describe('음식점 목록 테스트', () => {
     );
     const sortedByAscendingWalkingTime: Restaurant[] =
       sortingWalkingTime.output;
-    restaurantManager.udateCurentSelectedSorting('거리순');
+    restaurantManager.updateCurrentSelectedSorting('거리순');
 
     // then
-    expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql(
+    expect(restaurantManager.getUpdatedTotalRestaurants()).to.eql(
       sortedByAscendingWalkingTime
     );
   });
@@ -85,10 +85,10 @@ describe('음식점 목록 테스트', () => {
       const restaurantManager: RestaurantManager = new RestaurantManager(
         totalRestaurants
       );
-      restaurantManager.udateCurentCategoty(category);
+      restaurantManager.updateCurrentCategory(category);
 
       // then
-      expect(restaurantManager.getUpdatedTotalRsetaurants()).to.eql(
+      expect(restaurantManager.getUpdatedTotalRestaurants()).to.eql(
         filteredRestaurants
       );
     });

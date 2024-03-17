@@ -1,6 +1,6 @@
 import { createDropDown } from '../dropDown';
 import createInput from '../input';
-import createlabelWrapper from '../labelWrapper';
+import createLabelWrapper from '../labelWrapper';
 import createTextArea from '../textArea';
 import modal from '../modal';
 import createButton from '../button';
@@ -9,7 +9,7 @@ import toast from '../toast/toast';
 import { formIds } from '../../constant/appString';
 import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/select';
 
-function createNewRestaurantModal(addrestaurantCallback) {
+function createNewRestaurantModal(RestaurantAdditionCallback) {
   const container = render();
   const form = container.querySelector('form');
 
@@ -22,7 +22,7 @@ function createNewRestaurantModal(addrestaurantCallback) {
     }, {});
 
     try {
-      addrestaurantCallback(newRestaurant);
+      RestaurantAdditionCallback(newRestaurant);
     } catch (e) {
       toast(e.message);
     }
@@ -43,24 +43,24 @@ function render() {
     id: 'category',
     options: Object.keys(KOREAN_CATEGORY),
     required: true,
-    noneSelcteddefaultMessage: '선택해 주세요',
+    noneSelectedDefaultMessage: '선택해 주세요',
   });
 
   const distanceSelect = createDropDown({
     id: 'walkingTime',
     options: WALKING_TIME,
     required: true,
-    noneSelcteddefaultMessage: '선택해 주세요',
+    noneSelectedDefaultMessage: '선택해 주세요',
   });
 
-  const categorySelcterLabelWrapper = createlabelWrapper({
+  const categorySelectorLabelWrapper = createLabelWrapper({
     className: 'form-item form-item--required',
     htmlFor: 'category',
     name: '카테고리',
     innerElement: categorySelect,
   });
 
-  const nameLabelWrapper = createlabelWrapper({
+  const nameLabelWrapper = createLabelWrapper({
     className: 'form-item form-item--required',
     htmlFor: 'name',
     name: '이름',
@@ -72,14 +72,14 @@ function render() {
     }),
   });
 
-  const walkingTimeLabelWrapper = createlabelWrapper({
+  const walkingTimeLabelWrapper = createLabelWrapper({
     className: 'form-item form-item--required',
     htmlFor: 'distance',
     name: '거리(도보 이동 시간)',
     innerElement: distanceSelect,
   });
 
-  const textAreaLabelWrapper = createlabelWrapper({
+  const textAreaLabelWrapper = createLabelWrapper({
     className: 'form-item',
     htmlFor: 'description',
     description: '메뉴 등 추가 정보를 입력해 주세요.',
@@ -92,7 +92,7 @@ function render() {
     }),
   });
 
-  const linkLabelWrapper = createlabelWrapper({
+  const linkLabelWrapper = createLabelWrapper({
     className: 'form-item',
     htmlFor: 'link',
     description: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
@@ -120,7 +120,7 @@ function render() {
   buttonWrapper.append(cancelButton, addButton);
 
   form.append(
-    categorySelcterLabelWrapper,
+    categorySelectorLabelWrapper,
     nameLabelWrapper,
     walkingTimeLabelWrapper,
     textAreaLabelWrapper,

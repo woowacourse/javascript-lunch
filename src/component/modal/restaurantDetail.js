@@ -1,7 +1,6 @@
 import createButton from '../button';
 import modal from '../modal';
 import { createStarButton } from '../starButton';
-import { KOREAN_CATEGORY } from '../../constant/select';
 import { createCategoryImage } from '../categoryImage';
 
 export function createRestaurantDetail({
@@ -36,7 +35,7 @@ function render({
 
   const headerDiv = document.createElement('div');
   headerDiv.className = 'modal__restaurantDetail__header';
-  const star = createStarButton(name, favoriteRestaurantNames, starCallback);
+  const star = createStarButton({name, favoriteRestaurantNames, starCallback});
 
   headerDiv.append(categoryDiv, star);
 
