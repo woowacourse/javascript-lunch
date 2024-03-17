@@ -1,15 +1,5 @@
-import {
-  CATEGORIES,
-  DEFAULT_DATA,
-  ERROR_MESSAGES,
-  SORT_TYPE,
-} from "../constants/menu";
-import {
-  CategoryString,
-  RestaurantAddItem,
-  RestaurantItem,
-  SortOptionString,
-} from "../types/menu";
+import { CATEGORIES, DEFAULT_DATA, ERROR_MESSAGES, SORT_TYPE } from "../constants/menu";
+import { CategoryString, RestaurantAddItem, RestaurantItem, SortOptionString } from "../types/menu";
 import restaurantValidator from "../validators/restaurantValidator";
 
 const RESTAURANT_KEY = "restaurants";
@@ -17,16 +7,14 @@ const RESTAURANT_KEY = "restaurants";
 const getRestaurantFromStorage = () => {
   const storedRestaurants = localStorage.getItem(RESTAURANT_KEY);
   if (!storedRestaurants) return [];
-  // TODO : type assertion을 사용하지 않는 방법을 고민해본다.
+
   return JSON.parse(storedRestaurants) as RestaurantItem[];
 };
 
 const isAlreadyExist = (newRestaurantName: string) => {
   const storedRestaurants = getRestaurantFromStorage();
 
-  return storedRestaurants.some(
-    ({ name }) => trimAllSpace(newRestaurantName) === trimAllSpace(name)
-  );
+  return storedRestaurants.some(({ name }) => trimAllSpace(newRestaurantName) === trimAllSpace(name));
 };
 
 const sortByName = (restaurants: RestaurantItem[]) => {
@@ -74,21 +62,40 @@ export const validateRestaurantData = (restaurantInfo: RestaurantAddItem) => {
   }
 };
 
-export const findRestaurantByName = (
-  restaurantName: string
-): RestaurantItem | undefined => {
+export const findRestaurantByName = (restaurantName: string): RestaurantItem | null => {
   const storedRestaurants = getRestaurantFromStorage();
+  const foundRestaurant = storedRestaurants.find(({ name }) => name === restaurantName);
 
-  return storedRestaurants.find(({ name }) => name === restaurantName);
+  return foundRestaurant ? foundRestaurant : null;
+};
+
+export const toggleFavoriteStateByName = (targetName: string) => {
+  const storedRestaurants = getRestaurantFromStorage();
+  const updatedRestaurants = storedRestaurants.map((restaurant) => {
+    return restaurant.name !== targetName
+      ? {
+          ...restaurant,
+        }
+      : {
+          ...restaurant,
+          isFavorite: restaurant.isFavorite ? false : true,
+        };
+  });
+
+  localStorage.setItem(RESTAURANT_KEY, JSON.stringify(updatedRestaurants));
 };
 
 export const deleteRestaurantByName = (restaurantName: string): void => {
   const storedRestaurants = getRestaurantFromStorage();
-  const filteredRestaurants = storedRestaurants.filter(
-    ({ name }) => restaurantName !== name
-  );
+  const filteredRestaurants = storedRestaurants.filter(({ name }) => restaurantName !== name);
 
   localStorage.setItem(RESTAURANT_KEY, JSON.stringify(filteredRestaurants));
+};
+
+export const getFavoriteRestaurants = (): RestaurantItem[] | [] => {
+  const storedRestaurants = getRestaurantFromStorage();
+
+  return storedRestaurants.filter(({ isFavorite }) => isFavorite);
 };
 
 export const add = (restaurantInfo: RestaurantAddItem) => {
@@ -97,10 +104,7 @@ export const add = (restaurantInfo: RestaurantAddItem) => {
 
   localStorage.setItem(
     RESTAURANT_KEY,
-    JSON.stringify([
-      ...storedRestaurants,
-      { ...restaurantInfo, isFavorite: false },
-    ])
+    JSON.stringify([...storedRestaurants, { ...restaurantInfo, isFavorite: false }])
   );
 
   return true;
@@ -114,13 +118,8 @@ export const filterByCategory = (category: CategoryString) => {
   return restaurants.filter((item) => item.category === category);
 };
 
-export const sortByType = (
-  category: CategoryString,
-  type: SortOptionString
-) => {
+export const sortByType = (category: CategoryString, type: SortOptionString) => {
   const filteredRestaurants = filterByCategory(category);
 
-  return type === SORT_TYPE.name
-    ? sortByName(filteredRestaurants)
-    : sortByDistance(filteredRestaurants);
+  return type === SORT_TYPE.name ? sortByName(filteredRestaurants) : sortByDistance(filteredRestaurants);
 };
