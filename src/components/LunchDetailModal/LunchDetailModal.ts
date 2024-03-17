@@ -4,9 +4,9 @@ import { CATEGORY_IMG } from '../../constants/categoriesImage';
 import { LIKED, NOT_LIKED } from '../../imgs';
 import { Category, Distance } from '../../types';
 import { LunchItemProps } from '../LunchItem/LunchItem';
-import RestaurantDataUpdater from '../../domain/RestaurantDataUpdater';
 import LunchItems from '../LunchItems/LunchItems';
 import getLikedAttribute from '../../utils/getLikeAttribute';
+import { RestaurantDataUpdater } from '../../domain';
 
 // eslint-disable-next-line max-lines-per-function
 const LUNCH_DETAIL_MODAL_TEMPLATE = ({

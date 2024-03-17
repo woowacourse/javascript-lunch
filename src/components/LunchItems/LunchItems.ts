@@ -1,11 +1,10 @@
 import './style.css';
 import '../LunchItem/LunchItem';
 import '../LunchDetailModal/LunchDetailModal';
-import { RestaurantDataProvider } from '../../domain/index';
+import { RestaurantDataProvider, RestaurantDataUpdater } from '../../domain/index';
 
 import { Category, Restaurant, Restaurants, SortBy } from '../../types/index';
 import textInput from '../../utils/textInput';
-import RestaurantDataUpdater from '../../domain/RestaurantDataUpdater';
 import getLikedAttribute from '../../utils/getLikeAttribute';
 
 export interface FilterPropsTypes {
