@@ -4,7 +4,7 @@ import type RestaurantList from '@/domain/RestaurantList';
 
 import Modal from '../Modal';
 
-import RestaurantForm from '@/components/RestaurantForm';
+import RestaurantForm from '@/components/restaurantForm/RestaurantForm';
 import dom from '@/utils/dom';
 
 interface IAddModalProps {
