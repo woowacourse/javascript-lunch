@@ -14,6 +14,8 @@ import LunchItemFilter from './components/LunchItemFilter/LunchItemFilter';
 import LunchItems from './components/LunchItems/LunchItems';
 
 import DUMMY from './constants/dummy';
+import LunchItemModal from './components/LunchItemModal/LunchItemModal';
+import LunchRegisterModal from './components/LunchRegisterModal/LunchRegisterModal';
 
 const LUNCH_APP = `
   <lunch-header></lunch-header>
@@ -30,6 +32,7 @@ class LunchApp extends HTMLElement {
     this.render();
     this.setRenderEventListener();
     this.setToggleRegisterModalEventListener();
+    this.setToggleItemDetailModalEventListener();
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -88,7 +91,24 @@ class LunchApp extends HTMLElement {
 
   handleToggleRegisterModal() {
     const modal = this.querySelector('lunch-register-modal')?.querySelector('.modal');
+    if (!(modal instanceof LunchRegisterModal)) return;
     if (modal?.className) {
+      modal.classList.toggle('modal--open');
+    }
+  }
+
+  setToggleItemDetailModalEventListener() {
+    this.addEventListener('toggleItemDetailModal', (event) => {
+      if (!(event instanceof CustomEvent)) return;
+      this.handleToggleItemDetailModal(event);
+    });
+  }
+
+  handleToggleItemDetailModal(event: CustomEvent) {
+    const modal = this.querySelector('lunch-item-modal')?.querySelector('.modal');
+    if (!(modal instanceof LunchItemModal)) return;
+    modal.setRestaurant(event.detail.info);
+    if (modal.className) {
       modal.classList.toggle('modal--open');
     }
   }

@@ -112,3 +112,5 @@ class LunchRegisterModal extends HTMLElement {
 }
 
 customElements.define('lunch-register-modal', LunchRegisterModal);
+
+export default LunchRegisterModal;

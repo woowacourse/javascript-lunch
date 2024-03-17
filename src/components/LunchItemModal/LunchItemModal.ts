@@ -26,6 +26,10 @@ class LunchItemModal extends HTMLElement {
     this.setEventListener();
   }
 
+  setRestaurant(restaurant: Restaurant) {
+    this.#restaurant = restaurant;
+  }
+
   setEventListener() {
     document.addEventListener('clickItem', (event) => {
       if (!(event instanceof CustomEvent)) return;

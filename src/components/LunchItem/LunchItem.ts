@@ -24,11 +24,11 @@ class LunchItem extends HTMLLIElement {
 
   setEventListener(restaurant: Restaurant) {
     this.addEventListener('click', () => {
-      const clickItemEvent = new CustomEvent('clickItem', {
+      const toggleItemDetailModal = new CustomEvent('toggleItemDetailModal', {
         detail: { info: restaurant },
         bubbles: true,
       });
-      this.dispatchEvent(clickItemEvent);
+      this.dispatchEvent(toggleItemDetailModal);
     });
   }
 
