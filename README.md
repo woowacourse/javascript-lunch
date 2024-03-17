@@ -222,4 +222,4 @@ src
 
 ### 컴포넌트 상속 및 프로세스
 
-<img src="./lunch.drawio.png" width="700px" alt="컴포넌트 상속 및 프로세스">
+<img src="./lunch-diagram.png" width="700px" alt="컴포넌트 상속 및 프로세스">
