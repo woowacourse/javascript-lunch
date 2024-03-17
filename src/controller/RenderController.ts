@@ -8,11 +8,32 @@ import RestaurantListController from "./RestaurantListController";
 import RestaurantPreview from "../view/components/RestaurantInfo/RestaurantPreview/RestaurantPreview";
 import SelectBox from "../view/components/SelectBox/SelectBox";
 import StatusController from "./StatusController";
+import TabBar from "../view/components/TabBar/TabBar";
 import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class RenderController {
   static #entireRestaurantListUl =
     document.getElementById("restaurant-list-ul");
+
+  static #favoriteRestaurantListUl = document.getElementById(
+    "favorite-restaurant-list-ul"
+  );
+
+  static renderTabBar() {
+    const tabBar = new TabBar([
+      {
+        value: "모든 음식점",
+        onFunction: RenderController.showEntireRestaurantListUl.bind(this),
+        offFunction: RenderController.hideEntireRestaurantListUl.bind(this),
+      },
+      {
+        value: "자주 가는 음식점",
+        onFunction: RenderController.showFavoriteRestaurantListUl.bind(this),
+        offFunction: RenderController.hideFavoriteRestaurantListUl.bind(this),
+      },
+    ]);
+    document.getElementById("main")?.prepend(tabBar.element);
+  }
 
   static renderFilterContainer() {
     const filterContainer = document.getElementById("filter-container");
@@ -32,9 +53,9 @@ class RenderController {
   }
 
   static renderEntireRestaurantListUl() {
-    const filteredRestaurantItem =
-      RestaurantListController.getNowRestaurantItem();
-    const restaurantItemElements = filteredRestaurantItem.map((restaurant) => {
+    const filteredRestaurants =
+      RestaurantListController.getNowEntireRestaurants();
+    const restaurantItemElements = filteredRestaurants.map((restaurant) => {
       return this.#getRestaurantPreviewWithToggler(restaurant).element;
     });
 
@@ -43,8 +64,41 @@ class RenderController {
     );
   }
 
+  static renderFavoriteRestaurantListUl() {
+    const favoriteRestaurants =
+      RestaurantListController.getFavoriteRestaurants();
+    const restaurantItemElements = favoriteRestaurants.map((restaurant) => {
+      return this.#getRestaurantPreviewWithToggler(restaurant).element;
+    });
+
+    RenderController.#favoriteRestaurantListUl?.replaceChildren(
+      ...restaurantItemElements
+    );
+  }
+
+  static renderAllUl() {
+    RenderController.renderEntireRestaurantListUl();
+    RenderController.renderFavoriteRestaurantListUl();
+  }
+
   static appendToMain(element: HTMLElement) {
     document.getElementById("main")?.append(element);
+  }
+
+  static hideEntireRestaurantListUl() {
+    this.#entireRestaurantListUl?.classList.add("display-none");
+  }
+
+  static showEntireRestaurantListUl() {
+    this.#entireRestaurantListUl?.classList.remove("display-none");
+  }
+
+  static hideFavoriteRestaurantListUl() {
+    this.#favoriteRestaurantListUl?.classList.add("display-none");
+  }
+
+  static showFavoriteRestaurantListUl() {
+    this.#favoriteRestaurantListUl?.classList.remove("display-none");
   }
 
   static #getRestaurantPreviewWithToggler(restaurant: Restaurant) {
@@ -64,6 +118,7 @@ class RenderController {
         if (favoriteToggler.isOn())
           RestaurantListController.addInFavoriteRestaurantList(name);
         else RestaurantListController.deleteInFavoriteRestaurantList(name);
+        RenderController.renderAllUl();
       },
     });
     restaurantPreview.element.append(favoriteToggler.element);

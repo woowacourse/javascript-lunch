@@ -43,13 +43,19 @@ class RestaurantListController {
     setLocalStorage(this.#FAVORITE_RESTAURANTS_KEY, favoriteRestaurants);
   }
 
-  static getNowRestaurantItem() {
+  static getNowEntireRestaurants() {
     const filterSelection = StatusController.getFilterSelection();
 
-    const restaurantItems =
+    const restaurants =
       this.#entireRestaurantList.getOrderedRestaurant(filterSelection);
 
-    return restaurantItems;
+    return restaurants;
+  }
+
+  static getFavoriteRestaurants() {
+    const restaurants = this.#favoriteRestaurantList.getRestaurants();
+
+    return restaurants;
   }
 
   static hasRestaurantInFavoriteRestaurant(name: string) {
@@ -69,8 +75,6 @@ class RestaurantListController {
   }
 
   static deleteInFavoriteRestaurantList(name: string) {
-    console.log("delete");
-
     this.#favoriteRestaurantList.delete(name);
     setLocalStorage(
       RestaurantListController.#FAVORITE_RESTAURANTS_KEY,

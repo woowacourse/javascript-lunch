@@ -134,3 +134,7 @@ input[name="link"] {
 #main {
   margin: 20px 0px;
 }
+
+.display-none {
+  display: none;
+}

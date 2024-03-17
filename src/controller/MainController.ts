@@ -9,18 +9,15 @@ import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class MainController {
   static start() {
-    const tabBar = new TabBar([
-      { value: "모든 음식점" },
-      { value: "자주 가는 음식점" },
-    ]);
-    document.getElementById("main")?.prepend(tabBar.element);
+    document.getElementById("main")?.append(ModalController.modal.element);
 
     RestaurantListController.initEntireRestaurantList();
 
+    RenderController.renderTabBar();
     RenderController.renderFilterContainer();
-    RenderController.renderEntireRestaurantListUl();
+    RenderController.renderAllUl();
     this.#setAddButton();
-    this.#setRestaurantListUlEvent();
+    this.#setUlEvent();
   }
 
   static #setAddButton() {
@@ -34,26 +31,32 @@ class MainController {
     });
   }
 
-  static #setRestaurantListUlEvent() {
+  static #setUlEvent() {
     const restaurantListUl = document.getElementById("restaurant-list-ul");
-    restaurantListUl?.addEventListener("click", (event) => {
-      const targetElement = event.target as HTMLElement;
-      const restaurantPreview = findAncestorHasClass(
-        targetElement,
-        "restaurant"
-      );
-      if (restaurantPreview) {
-        const restaurant =
-          StatusController.getRestaurantFromPreview(restaurantPreview);
-        const originalToggler =
-          StatusController.getTogglerInPreview(restaurantPreview);
-        const connectedToggler = this.#getConnectedToggler(originalToggler);
-        ModalController.changeIntoRestaurantDetail();
-        ModalController.setRestaurantDetail(restaurant);
-        ModalController.setRestaurantDetailToggler(connectedToggler.element);
-        ModalController.openModal();
-      }
-    });
+    const favoriteRestaurantListUl = document.getElementById(
+      "favorite-restaurant-list-ul"
+    );
+    restaurantListUl?.addEventListener("click", this.#UlClickEvent.bind(this));
+    favoriteRestaurantListUl?.addEventListener(
+      "click",
+      this.#UlClickEvent.bind(this)
+    );
+  }
+
+  static #UlClickEvent(event: Event) {
+    const targetElement = event.target as HTMLElement;
+    const restaurantPreview = findAncestorHasClass(targetElement, "restaurant");
+    if (restaurantPreview) {
+      const restaurant =
+        StatusController.getRestaurantFromPreview(restaurantPreview);
+      const originalToggler =
+        StatusController.getTogglerInPreview(restaurantPreview);
+      const connectedToggler = this.#getConnectedToggler(originalToggler);
+      ModalController.changeIntoRestaurantDetail();
+      ModalController.setRestaurantDetail(restaurant);
+      ModalController.setRestaurantDetailToggler(connectedToggler.element);
+      ModalController.openModal();
+    }
   }
 
   static #getConnectedToggler(toggler: HTMLButtonElement) {
