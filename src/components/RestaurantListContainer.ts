@@ -1,6 +1,6 @@
 import type RestaurantDetailModal from './modal/restaurantDetailModal/RestaurantDetailModal';
 import type RestaurantList from '@/domain/RestaurantList';
-import type { IRestaurantList } from '@/types/restaurant';
+import type { TTabMenu } from '@/types/restaurant';
 
 import Component from './core/Component';
 import RestaurantItem from './RestaurantItem';
@@ -25,12 +25,12 @@ class RestaurantListContainer extends Component<IProps> {
 
   render() {
     const { restaurantList, kind } = this.props;
-    const restaurants = kind === 'all' ? restaurantList.getAllList() : restaurantList.getFavoriteList();
-    this.renderRestaurantList(restaurants);
+    this.renderRestaurantList(restaurantList, kind);
   }
 
-  renderRestaurantList(restaurants: IRestaurantList) {
+  renderRestaurantList(restaurantList: RestaurantList, tabKind: TTabMenu) {
     const $restaurantList = dom.getElement('.restaurant-list');
+    const restaurants = tabKind === 'all' ? restaurantList.getAllList() : restaurantList.getFavoriteList();
     $restaurantList.replaceChildren();
     restaurants.forEach(({ information }) => {
       new RestaurantItem({
@@ -52,8 +52,7 @@ class RestaurantListContainer extends Component<IProps> {
   handleClickFavorite(id: string) {
     const { restaurantList } = this.props;
     restaurantList.setFavoriteRestaurantList(id);
-    const restaurants = this.props.kind === 'all' ? restaurantList.getAllList() : restaurantList.getFavoriteList();
-    this.renderRestaurantList(restaurants);
+    this.renderRestaurantList(restaurantList, this.props.kind);
   }
 }
 
