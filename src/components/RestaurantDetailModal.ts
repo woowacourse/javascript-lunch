@@ -1,17 +1,17 @@
 import restaurantAPI from '../domain/restaurantAPI';
 import RestaurantList from '../domain/restaurantList';
 import { RestaurantInfo } from '../types/types';
-import CategoryIconComponent from './CategoryIconComponent';
-import FavoriteButton from './FavoriteButtonComponent';
-import ButtonComponent from './common/ButtonComponent';
-import ModalComponent from './common/ModalComponent';
+import CategoryIcon from './CategoryIcon';
+import FavoriteButton from './FavoriteButton';
+import Button from './common/Button';
+import Modal from './common/Modal';
 
 type Props = {
   restaurantInfo: RestaurantInfo;
   restaurantList: RestaurantList;
 };
 
-const RestaurantDetailModalComponent = ({ restaurantInfo, restaurantList }: Props) => {
+const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
   const { category, name, distance, isFavorite, description, link } = restaurantInfo;
   console.log({ category, name, distance, isFavorite, description, link });
   const favoriteButton = FavoriteButton({ name, initialIsFavorite: isFavorite }).create();
@@ -19,7 +19,7 @@ const RestaurantDetailModalComponent = ({ restaurantInfo, restaurantList }: Prop
   const restaurantNameH3 = document.createElement('h3');
   restaurantNameH3.textContent = name;
 
-  const categoryIconComponent = CategoryIconComponent(category).create();
+  const categoryIconComponent = CategoryIcon(category).create();
 
   const restaurantDistanceSpan = document.createElement('span');
   restaurantDistanceSpan.classList.add('restaurant__distance', 'text-body');
@@ -38,7 +38,7 @@ const RestaurantDetailModalComponent = ({ restaurantInfo, restaurantList }: Prop
   buttonContainerDiv.classList.add('button-container');
 
   buttonContainerDiv.appendChild(
-    ButtonComponent({
+    Button({
       id: 'restaurant-detail-modal_delete-button',
       text: '삭제하기',
       variant: 'secondary',
@@ -47,14 +47,14 @@ const RestaurantDetailModalComponent = ({ restaurantInfo, restaurantList }: Prop
   );
 
   buttonContainerDiv.appendChild(
-    ButtonComponent({
+    Button({
       id: 'restaurant-detail-modal_close-button',
       text: '닫기',
       variant: 'primary'
     }).create()
   );
 
-  const modalComponent = ModalComponent({
+  const modalComponent = Modal({
     modalClass: 'modal-detail',
     modalContainerClass: 'modal-container__detail',
     children: [
@@ -97,4 +97,4 @@ const RestaurantDetailModalComponent = ({ restaurantInfo, restaurantList }: Prop
   };
 };
 
-export default RestaurantDetailModalComponent;
+export default RestaurantDetailModal;

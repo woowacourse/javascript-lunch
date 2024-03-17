@@ -6,7 +6,7 @@ type Props = {
   isDisabled?: boolean;
 };
 
-const ButtonComponent = ({ id, text, variant, type, isDisabled = false }: Props) => {
+const Button = ({ id, text, variant, type, isDisabled = false }: Props) => {
   const button = document.createElement('button');
   if (type) {
     button.type = type;
@@ -26,4 +26,4 @@ const ButtonComponent = ({ id, text, variant, type, isDisabled = false }: Props)
   };
 };
 
-export default ButtonComponent;
+export default Button;

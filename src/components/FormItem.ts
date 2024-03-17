@@ -6,7 +6,7 @@ type Props = {
   description?: string;
 };
 
-const FormItemComponent = ({ labelText, label, children, isRequired = true }: Props) => {
+const FormItem = ({ labelText, label, children, isRequired = true }: Props) => {
   const containerDiv = document.createElement('div');
   containerDiv.className = `form-item ${isRequired ? 'form-item--required' : ''}`;
 
@@ -25,4 +25,4 @@ const FormItemComponent = ({ labelText, label, children, isRequired = true }: Pr
   };
 };
 
-export default FormItemComponent;
+export default FormItem;

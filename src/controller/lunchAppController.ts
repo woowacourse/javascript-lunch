@@ -1,10 +1,10 @@
-import { LunchHeaderComponent } from '../components/LunchHeaderComponent';
-import SortFilterComponent from '../components/SortFilterComponent';
-import CategoryFilterComponent from '../components/CategoryFilterComponent';
+import { Header } from '../components/Header';
+import SortFilter from '../components/SortFilter';
+import CategoryFilter from '../components/CategoryFilter';
 import { CATEGORY, SORTING } from '../constants';
 import RestaurantList from '../domain/restaurantList';
-import TabBarComponent from '../components/TabBarComponents';
-import AddModalComponent from '../components/AddModalComponent';
+import TabBar from '../components/TabBar';
+import AddModal from '../components/AddModal';
 
 export default class LunchAppController {
   private $appContainer: HTMLElement;
@@ -25,12 +25,12 @@ export default class LunchAppController {
   }
 
   private renderGNB = () => {
-    const lunchHeader = LunchHeaderComponent();
+    const lunchHeader = Header();
     this.$appContainer.prepend(lunchHeader.create());
   };
 
   private renderTabBar = () => {
-    const tabBar = TabBarComponent(this.restaurantList).create();
+    const tabBar = TabBar(this.restaurantList).create();
 
     const headerElement = this.$appContainer.querySelector('.gnb');
 
@@ -40,17 +40,17 @@ export default class LunchAppController {
   };
 
   private renderCategoryFilter = () => {
-    const categoryFilter = CategoryFilterComponent(this.restaurantList).create();
+    const categoryFilter = CategoryFilter(this.restaurantList).create();
     this.$filterContainer.appendChild(categoryFilter);
   };
 
   private renderSortingFilter = () => {
-    const categoryFilter = SortFilterComponent(this.restaurantList).create();
+    const categoryFilter = SortFilter(this.restaurantList).create();
     this.$filterContainer.appendChild(categoryFilter);
   };
 
   private renderModal = () => {
-    const addModal = AddModalComponent().create();
+    const addModal = AddModal().create();
     this.$appContainer.appendChild(addModal);
   };
 }

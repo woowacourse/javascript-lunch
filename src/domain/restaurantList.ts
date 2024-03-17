@@ -1,4 +1,4 @@
-import { RestaurantCardComponent } from '../components/RestaurantCardComponent';
+import { RestaurantCard } from '../components/RestaurantCard';
 import { initialData } from '../data/restaurantData';
 import { RestaurantInfo, CategoryValues, SortingValues } from '../types/types';
 import restaurantAPI from './restaurantAPI';
@@ -95,7 +95,7 @@ export default class RestaurantList {
 
     this.#restaurantData.forEach((restaurantInfo) => {
       $restaurantListContainer.appendChild(
-        RestaurantCardComponent({ restaurantInfo, restaurantList: this }).create()
+        RestaurantCard({ restaurantInfo, restaurantList: this }).create()
       );
     });
   }

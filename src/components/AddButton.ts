@@ -1,4 +1,4 @@
-const AddButtonComponent = () => {
+const AddButton = () => {
   const handleClick = () => {
     const modal = document.querySelector('.modal');
     modal?.classList.add('modal--open');
@@ -24,4 +24,4 @@ const AddButtonComponent = () => {
   };
 };
 
-export default AddButtonComponent;
+export default AddButton;

@@ -5,7 +5,7 @@ type Props = {
   isPrimary: boolean;
 };
 
-const TabBarButtonComponent = ({ text, onClick, id, isPrimary }: Props) => {
+const TabBarButton = ({ text, onClick, id, isPrimary }: Props) => {
   const tapBarButton = document.createElement('button');
   const buttonStateClass = `tabBar_button--${isPrimary ? 'primary' : 'secondary'}`;
 
@@ -25,4 +25,4 @@ const TabBarButtonComponent = ({ text, onClick, id, isPrimary }: Props) => {
   };
 };
 
-export default TabBarButtonComponent;
+export default TabBarButton;

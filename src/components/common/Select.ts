@@ -18,7 +18,7 @@ const createOptionElement = ({ value, label }: SelectOption): HTMLOptionElement 
   return optionElement;
 };
 
-const SelectComponent = ({ options, name, required = false, id, className }: SelectProps) => {
+const Select = ({ options, name, required = false, id, className }: SelectProps) => {
   const select = document.createElement('select');
 
   if (name) select.name = name;
@@ -36,4 +36,4 @@ const SelectComponent = ({ options, name, required = false, id, className }: Sel
   };
 };
 
-export default SelectComponent;
+export default Select;

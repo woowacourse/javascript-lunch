@@ -1,12 +1,12 @@
 import RestaurantList from '../domain/restaurantList';
 import { SortingValues } from '../types/types';
-import SelectComponent from './common/SelectComponent';
+import Select from './common/Select';
 
-const SortFilterComponent = (restaurantList: RestaurantList) => {
+const SortFilter = (restaurantList: RestaurantList) => {
   const section = document.createElement('section');
   section.classList.add('restaurant-filter-container');
 
-  const select = SelectComponent({
+  const select = Select({
     name: 'sort',
     id: 'sort-filter',
     className: 'restaurant-filter',
@@ -30,4 +30,4 @@ const SortFilterComponent = (restaurantList: RestaurantList) => {
   };
 };
 
-export default SortFilterComponent;
+export default SortFilter;

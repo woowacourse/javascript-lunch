@@ -1,7 +1,7 @@
-import AddButtonComponent from './AddButtonComponent';
+import AddButton from './AddButton';
 
-export function LunchHeaderComponent() {
-  const buttonComponent = AddButtonComponent().create();
+export function Header() {
+  const buttonComponent = AddButton().create();
 
   const header = document.createElement('header');
   header.className = 'gnb';

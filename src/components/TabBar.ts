@@ -1,19 +1,19 @@
 import RestaurantList from '../domain/restaurantList';
 import { swapClasses } from '../domain/util';
-import TabBarButtonComponent from './TabBarButtonComponent';
+import TabBarButton from './TabBarButton';
 
-const TabBarComponent = (restaurantList: RestaurantList) => {
+const TabBar = (restaurantList: RestaurantList) => {
   const tabBar = document.createElement('nav');
   tabBar.classList.add('tabBar');
 
-  const allRestaurantButton = TabBarButtonComponent({
+  const allRestaurantButton = TabBarButton({
     text: '모든 음식점',
     id: 'all-restaurants-button',
     onClick: () => {},
     isPrimary: true
   }).create();
 
-  const favoriteRestaurantsButton = TabBarButtonComponent({
+  const favoriteRestaurantsButton = TabBarButton({
     text: '자주 가는 음식점',
     id: 'favorite-restaurants-button',
     onClick: () => {},
@@ -58,4 +58,4 @@ const TabBarComponent = (restaurantList: RestaurantList) => {
   };
 };
 
-export default TabBarComponent;
+export default TabBar;

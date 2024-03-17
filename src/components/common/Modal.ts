@@ -5,7 +5,7 @@ type Props = {
   children?: HTMLElement[];
 };
 
-const ModalComponent = ({ modalClass, modalContainerClass, child, children }: Props) => {
+const Modal = ({ modalClass, modalContainerClass, child, children }: Props) => {
   const modalDiv = document.createElement('div');
   modalDiv.classList.add(modalClass);
 
@@ -43,4 +43,4 @@ const ModalComponent = ({ modalClass, modalContainerClass, child, children }: Pr
   };
 };
 
-export default ModalComponent;
+export default Modal;

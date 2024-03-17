@@ -1,18 +1,18 @@
 import RestaurantList from '../domain/restaurantList';
 import { RestaurantInfo } from '../types/types';
-import CategoryIconComponent from './CategoryIconComponent';
-import FavoriteButton from './FavoriteButtonComponent';
-import RestaurantDetailModalComponent from './RestaurantDetailModalComponent';
+import CategoryIcon from './CategoryIcon';
+import FavoriteButton from './FavoriteButton';
+import RestaurantDetailModal from './RestaurantDetailModal';
 
 type Props = {
   restaurantInfo: RestaurantInfo;
   restaurantList: RestaurantList;
 };
 
-export const RestaurantCardComponent = ({ restaurantInfo, restaurantList }: Props) => {
+export const RestaurantCard = ({ restaurantInfo, restaurantList }: Props) => {
   const { name, distance, category, isFavorite, link, description } = restaurantInfo;
 
-  const categoryIconComponent = CategoryIconComponent(category).create();
+  const categoryIconComponent = CategoryIcon(category).create();
 
   const li = document.createElement('li');
   li.classList.add('restaurant');
@@ -46,7 +46,7 @@ export const RestaurantCardComponent = ({ restaurantInfo, restaurantList }: Prop
 
   li.addEventListener('click', (event: Event) => {
     if (!(event.target as Element).closest('.favorite-button')) {
-      const detailModal = RestaurantDetailModalComponent({
+      const detailModal = RestaurantDetailModal({
         restaurantInfo,
         restaurantList
       }).create();

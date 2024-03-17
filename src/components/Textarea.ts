@@ -6,7 +6,7 @@ type TextareaProps = {
   className?: string;
 };
 
-const TextareaComponent = ({ name, id, cols = 30, rows = 5, className }: TextareaProps) => {
+const Textarea = ({ name, id, cols = 30, rows = 5, className }: TextareaProps) => {
   const textarea = document.createElement('textarea');
 
   textarea.name = name;
@@ -23,4 +23,4 @@ const TextareaComponent = ({ name, id, cols = 30, rows = 5, className }: Textare
   return { create };
 };
 
-export default TextareaComponent;
+export default Textarea;

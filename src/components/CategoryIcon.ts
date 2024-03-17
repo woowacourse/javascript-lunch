@@ -1,7 +1,7 @@
 import { CATEGORY } from '../constants';
 import { CategoryValues } from '../types/types';
 
-const CategoryIconComponent = (category: CategoryValues) => {
+const CategoryIcon = (category: CategoryValues) => {
   const key = Object.keys(CATEGORY).find(
     (key) => CATEGORY[key as keyof typeof CATEGORY] === category
   );
@@ -22,4 +22,4 @@ const CategoryIconComponent = (category: CategoryValues) => {
   };
 };
 
-export default CategoryIconComponent;
+export default CategoryIcon;

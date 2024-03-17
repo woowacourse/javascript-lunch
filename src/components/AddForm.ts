@@ -1,20 +1,20 @@
 import restaurantAPI from '../domain/restaurantAPI';
 import { CategoryValues, RestaurantInfo } from '../types/types';
 import restaurantInfoValidator from '../validator/restaurantInfoValidator';
-import FormItemComponent from './FormItemComponent';
-import InputComponent from './InputComponent';
-import TextareaComponent from './TextareaComponent';
-import ButtonComponent from './common/ButtonComponent';
-import SelectComponent from './common/SelectComponent';
+import FormItem from './FormItem';
+import Input from './Input';
+import Textarea from './Textarea';
+import Button from './common/Button';
+import Select from './common/Select';
 
 const AddForm = () => {
   const form = document.createElement('form');
 
   const createCategoryForm = () => {
-    return FormItemComponent({
+    return FormItem({
       labelText: '카테고리',
       label: 'category',
-      children: SelectComponent({
+      children: Select({
         name: 'category',
         id: 'category',
         required: true,
@@ -33,10 +33,10 @@ const AddForm = () => {
   };
 
   const createNameForm = () => {
-    return FormItemComponent({
+    return FormItem({
       labelText: '이름',
       label: 'name',
-      children: InputComponent({
+      children: Input({
         type: 'text',
         name: 'name',
         id: 'name',
@@ -47,10 +47,10 @@ const AddForm = () => {
   };
 
   const createDistanceForm = () => {
-    return FormItemComponent({
+    return FormItem({
       labelText: '거리(도보 이동 시간)',
       label: 'distance',
-      children: SelectComponent({
+      children: Select({
         name: 'distance',
         id: 'distance',
         required: true,
@@ -68,11 +68,11 @@ const AddForm = () => {
   };
 
   const createDescriptionForm = () => {
-    return FormItemComponent({
+    return FormItem({
       labelText: '설명',
       label: 'description',
       isRequired: false,
-      children: TextareaComponent({
+      children: Textarea({
         name: 'description',
         id: 'description'
       }).create()
@@ -80,11 +80,11 @@ const AddForm = () => {
   };
 
   const createLinkForm = () => {
-    return FormItemComponent({
+    return FormItem({
       labelText: '참고 링크',
       label: 'link',
       isRequired: false,
-      children: InputComponent({
+      children: Input({
         type: 'url',
         name: 'link',
         id: 'link',
@@ -97,14 +97,14 @@ const AddForm = () => {
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
-    const cancelButton = ButtonComponent({
+    const cancelButton = Button({
       id: 'cancelButton',
       text: '닫기',
       variant: 'secondary',
       type: 'button'
     }).create();
 
-    const submitButton = ButtonComponent({
+    const submitButton = Button({
       id: 'submitButton',
       text: '등록하기',
       variant: 'primary',

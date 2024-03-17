@@ -6,7 +6,7 @@ type InputProps = {
   className?: string;
 };
 
-const InputComponent = ({ type, name, id, required, className }: InputProps) => {
+const Input = ({ type, name, id, required, className }: InputProps) => {
   const input = document.createElement('input');
   input.type = type;
 
@@ -35,4 +35,4 @@ const InputComponent = ({ type, name, id, required, className }: InputProps) => 
   };
 };
 
-export default InputComponent;
+export default Input;

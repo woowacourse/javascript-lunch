@@ -184,17 +184,17 @@
 
 // export default AddModalComponent;
 
-import ModalComponent from './common/ModalComponent';
+import Modal from './common/Modal';
 import AddForm from './AddForm';
 
-const AddModalComponent = () => {
+const AddModal = () => {
   const modalTitle = document.createElement('h2');
   modalTitle.classList.add('modal-title', 'text-title');
   modalTitle.textContent = '새로운 음식점';
 
   const form = AddForm().create();
 
-  const modalComponent = ModalComponent({
+  const modalComponent = Modal({
     modalClass: 'modal',
     modalContainerClass: 'modal-container',
     children: [modalTitle, form]
@@ -207,4 +207,4 @@ const AddModalComponent = () => {
   };
 };
 
-export default AddModalComponent;
+export default AddModal;
