@@ -1,14 +1,20 @@
+import RestaurantManager from '../../domain/RestaurantManager.ts';
+
 export default class RestaurantItem extends HTMLLIElement {
   constructor() {
     super();
-
-    const template = document.querySelector('#template-restaurant-item');
-    const content = template.content.cloneNode(true);
-    this.appendChild(content);
-    this.classList.add('restaurant');
+    this.#initialize();
   }
 
   static observedAttributes = ['data-restaurant'];
+
+  #initialize() {
+    this.#setupTemplate();
+    this.classList.add('restaurant');
+    this.#bindEventListeners();
+    this.restaurantManager = new RestaurantManager();
+    this.restaurantManager.loadRestaurantsFromLocalStorage();
+  }
 
   get restaurant() {
     if (!this.dataset.restaurant) {
@@ -25,14 +31,29 @@ export default class RestaurantItem extends HTMLLIElement {
     this.#initRestaurantItem();
   }
 
+  connectedCallback() {
+    this.#initRestaurantItem();
+  }
+
+  #setupTemplate() {
+    const template = document.querySelector('#template-restaurant-item');
+    const content = template.content.cloneNode(true);
+    this.appendChild(content);
+  }
+
+  #bindEventListeners() {
+    this.querySelector('.restaurant__favorite-button').addEventListener('click', this.#handleFavoriteClick.bind(this));
+  }
+
   #initRestaurantItem() {
-    const { category, name, distance, description } = this.restaurant;
+    const { category, name, distance, description, favorite } = this.restaurant;
 
     this.querySelector('.restaurant__name').textContent = name;
     this.querySelector('.restaurant__distance').textContent = `캠퍼스로부터 ${distance}분 내 `;
     this.querySelector('.restaurant__description').textContent = description;
     this.querySelector('.category-icon').src = this.#getCategoryIconUrl(category);
     this.querySelector('.category-icon').alt = category;
+    this.#updateFavoriteIcon(favorite);
   }
 
   #getCategoryIconUrl(category) {
@@ -43,5 +64,21 @@ export default class RestaurantItem extends HTMLLIElement {
     if (category === '아시안') return './category-asian.png';
     if (category === '기타') return './category-etc.png';
     return '';
+  }
+
+  #handleFavoriteClick(event) {
+    event.stopPropagation();
+    const restaurantName = this.querySelector('.restaurant__name').textContent;
+    const restaurant = this.restaurantManager.restaurants.find((res) => res.name === restaurantName);
+    if (restaurant) {
+      restaurant.favorite = !restaurant.favorite;
+      this.restaurantManager.updateLocalStorage();
+      this.#updateFavoriteIcon(restaurant.favorite);
+    }
+  }
+
+  #updateFavoriteIcon(isFavorite) {
+    const iconImg = this.querySelector('.restaurant__favorite-button img');
+    iconImg.src = isFavorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
   }
 }
