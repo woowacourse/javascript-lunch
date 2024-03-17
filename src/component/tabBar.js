@@ -1,6 +1,6 @@
 import { $ } from '../utils/selector';
 
-export function createtabBar(tabs = []) {
+export function createTabBar(tabs = []) {
   const tabBarsDiv = document.createElement('div');
   tabBarsDiv.className = 'tab__bar';
   tabBarsDiv.append(...render(tabs));
@@ -14,11 +14,12 @@ function render(tabs) {
     tabItem.textContent = text;
     tabItem.addEventListener('click', (event) => {
       callback();
-      if (tabItem.className.includes('tab__bar__item')) {
-        $('.tab__bar__item__checked').className = 'tab__bar__item';
-        tabItem.className = 'tab__bar__item__checked';
+      if (tabItem.className === 'tab__bar__item') {
+        $('.tab__bar__item.checked').classList.toggle('checked');
+        tabItem.classList.toggle('checked');
       }
     });
     return tabItem;
   });
 }
+
