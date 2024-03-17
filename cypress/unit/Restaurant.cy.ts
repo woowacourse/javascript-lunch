@@ -13,7 +13,7 @@ describe('[Restaurant] 음식점 객체 테스트', () => {
       favorite: true,
     };
 
-    const restaurant = new Restaurant(restaurantData);
+    const restaurant = new Restaurant({ ...restaurantData, id: '1' });
     const expectedData = Object.entries(restaurant.getData()).toString();
 
     expect(expectedData).to.eql(Object.entries(restaurantData).toString());
@@ -28,7 +28,7 @@ describe('[Restaurant] 음식점 객체 테스트', () => {
       referenceUrl: 'https://naver.com',
     };
 
-    const restaurant = new Restaurant(restaurantData);
+    const restaurant = new Restaurant({ ...restaurantData, id: '1' });
     const expectedResult = restaurant.isMatchedCategory(Category.한식);
 
     expect(expectedResult).to.eql(true);
@@ -44,7 +44,7 @@ describe('[Restaurant] 음식점 객체 테스트', () => {
       favorite: true,
     };
 
-    const restaurant = new Restaurant(restaurantData);
+    const restaurant = new Restaurant({ ...restaurantData, id: '1' });
     const expectedResult = restaurant.isFavorite();
 
     expect(expectedResult).to.eql(true);
@@ -60,7 +60,7 @@ describe('[Restaurant] 음식점 객체 테스트', () => {
       favorite: false,
     };
 
-    const restaurant = new Restaurant(restaurantData);
+    const restaurant = new Restaurant({ ...restaurantData, id: '1' });
     restaurant.updateFavorite(true);
     const expectedResultTrue = restaurant.isFavorite();
 

@@ -1,7 +1,12 @@
 import { Category, DistanceByWalk } from '../enum/enums';
 import type { RestaurantDataType } from '../type/restaurantDataType';
 
+type RestaurantType = RestaurantDataType & {
+  id: string;
+};
+
 class Restaurant {
+  private id: string;
   private name: string;
   private category: Category;
   private distanceByWalk: DistanceByWalk;
@@ -10,19 +15,25 @@ class Restaurant {
   private favorite: boolean;
 
   constructor({
+    id,
     name,
     category,
     distanceByWalk,
     description = '',
     referenceUrl = '',
     favorite = false,
-  }: RestaurantDataType) {
+  }: RestaurantType) {
+    this.id = id;
     this.name = name;
     this.category = category;
     this.distanceByWalk = distanceByWalk;
     this.description = description;
     this.referenceUrl = referenceUrl;
     this.favorite = favorite;
+  }
+
+  getId(): string {
+    return this.id;
   }
 
   getName(): string {
@@ -39,7 +50,6 @@ class Restaurant {
 
   updateFavorite(isFavorited: boolean) {
     this.favorite = isFavorited;
-    // return this.isFavorite();
   }
 
   isMatchedCategory(category: Category): boolean {
@@ -48,6 +58,7 @@ class Restaurant {
 
   getData() {
     return {
+      id: this.id,
       name: this.name,
       category: this.category,
       distanceByWalk: this.distanceByWalk,
