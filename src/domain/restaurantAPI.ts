@@ -1,5 +1,5 @@
 import { initialData } from '../data/restaurantData';
-import { RestaurantInfo } from '../types/types';
+import { RestaurantInfo } from '../types';
 
 const KEY = 'restaurant';
 

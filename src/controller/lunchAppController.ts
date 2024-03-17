@@ -1,9 +1,5 @@
-import Header from '../components/Header';
-import SortFilter from '../components/SortFilter';
-import CategoryFilter from '../components/CategoryFilter';
+import { AddModal, CategoryFilter, Header, SortFilter, TabBar } from '../components';
 import RestaurantList from '../domain/restaurantList';
-import TabBar from '../components/TabBar';
-import AddModal from '../components/AddModal';
 
 export default class LunchAppController {
   private $appContainer: HTMLElement;

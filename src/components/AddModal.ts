@@ -1,4 +1,4 @@
-import Modal from './common/Modal';
+import { Modal } from './common';
 import AddForm from './AddForm';
 
 const AddModal = () => {

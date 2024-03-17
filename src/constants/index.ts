@@ -1,4 +1,4 @@
-import { CategoryValues } from '../types/types';
+import { CategoryValues } from '../types';
 
 export const CATEGORY = {
   all: '전체',

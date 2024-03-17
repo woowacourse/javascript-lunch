@@ -1,5 +1,5 @@
 import RestaurantList from '../domain/restaurantList';
-import { RestaurantInfo } from '../types/types';
+import { RestaurantInfo } from '../types';
 import CategoryIcon from './CategoryIcon';
 import FavoriteButton from './FavoriteButton';
 import RestaurantDetailModal from './RestaurantDetailModal';
@@ -9,7 +9,7 @@ type Props = {
   restaurantList: RestaurantList;
 };
 
-export const RestaurantCard = ({ restaurantInfo, restaurantList }: Props) => {
+const RestaurantCard = ({ restaurantInfo, restaurantList }: Props) => {
   const { name, distance, category, isFavorite, description } = restaurantInfo;
 
   const createCategoryIcon = () => {
@@ -68,3 +68,5 @@ export const RestaurantCard = ({ restaurantInfo, restaurantList }: Props) => {
 
   return { create };
 };
+
+export default RestaurantCard;

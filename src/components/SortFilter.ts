@@ -1,5 +1,5 @@
 import RestaurantList from '../domain/restaurantList';
-import { SortingValues } from '../types/types';
+import { SortingValues } from '../types';
 import Select from './common/Select';
 
 const SortFilter = (restaurantList: RestaurantList) => {

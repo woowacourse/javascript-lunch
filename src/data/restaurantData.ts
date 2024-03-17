@@ -1,4 +1,4 @@
-import { RestaurantInfo } from '../types/types';
+import { RestaurantInfo } from '../types';
 
 export const initialData: RestaurantInfo[] = [
   {

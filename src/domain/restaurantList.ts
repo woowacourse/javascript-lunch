@@ -1,6 +1,6 @@
-import { RestaurantCard } from '../components/RestaurantCard';
+import { RestaurantCard } from '../components';
 import { initialData } from '../data/restaurantData';
-import { RestaurantInfo, CategoryValues, SortingValues } from '../types/types';
+import { RestaurantInfo, CategoryValues, SortingValues } from '../types';
 import restaurantAPI from './restaurantAPI';
 
 export default class RestaurantList {

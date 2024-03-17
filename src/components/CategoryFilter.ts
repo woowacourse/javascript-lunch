@@ -1,6 +1,6 @@
 import { CATEGORY_VALUES } from '../constants';
 import RestaurantList from '../domain/restaurantList';
-import { CategoryValues } from '../types/types';
+import { CategoryValues } from '../types';
 import Select from './common/Select';
 
 const CategoryFilter = (restaurantList: RestaurantList) => {

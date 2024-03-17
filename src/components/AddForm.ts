@@ -1,11 +1,10 @@
 import restaurantAPI from '../domain/restaurantAPI';
-import { CategoryValues, RestaurantInfo } from '../types/types';
+import { CategoryValues, RestaurantInfo } from '../types';
 import restaurantInfoValidator from '../validator/restaurantInfoValidator';
 import FormItem from './FormItem';
 import Input from './Input';
 import Textarea from './Textarea';
-import Button from './common/Button';
-import Select from './common/Select';
+import { Button, Select } from './common';
 
 const AddForm = () => {
   const form = document.createElement('form');

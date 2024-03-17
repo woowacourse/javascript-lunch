@@ -1,10 +1,9 @@
 import restaurantAPI from '../domain/restaurantAPI';
 import RestaurantList from '../domain/restaurantList';
-import { RestaurantInfo } from '../types/types';
+import { RestaurantInfo } from '../types';
 import CategoryIcon from './CategoryIcon';
 import FavoriteButton from './FavoriteButton';
-import Button from './common/Button';
-import Modal from './common/Modal';
+import { Button, Modal } from './common';
 
 type Props = {
   restaurantInfo: RestaurantInfo;

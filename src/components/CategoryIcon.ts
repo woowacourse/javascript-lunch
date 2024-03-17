@@ -1,5 +1,5 @@
 import { CATEGORY } from '../constants';
-import { CategoryValues } from '../types/types';
+import { CategoryValues } from '../types';
 
 const CategoryIcon = (category: CategoryValues) => {
   const findCategoryKey = (categoryValue: CategoryValues) => {
