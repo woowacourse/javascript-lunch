@@ -1,4 +1,4 @@
-describe('like Restaurant Section Test', () => {
+describe('자주가는 음식점 Section에 대한 테스트', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false);
     cy.visit('/');

@@ -1,4 +1,4 @@
-describe('Restaurant Detail Modal Test', () => {
+describe('음식점을 클릭하였을 경우 나타나는 모달창 테스트', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false);
     cy.visit('/');

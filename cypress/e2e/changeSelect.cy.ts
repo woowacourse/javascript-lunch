@@ -1,4 +1,4 @@
-describe('Select change Test', () => {
+describe('정렬 Select 테스트', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false);
     cy.visit('/');

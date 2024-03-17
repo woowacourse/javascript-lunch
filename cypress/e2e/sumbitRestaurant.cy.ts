@@ -1,4 +1,4 @@
-describe('Restaurant Form Modal Test', () => {
+describe('음식점 제출 모달 테스트', () => {
   it('Restaurant Form 제출 시 List에 추가된다.', () => {
     cy.on('uncaught:exception', () => false);
     cy.visit('/');
