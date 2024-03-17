@@ -62,7 +62,7 @@ class ModalController {
           "submit",
           (e) => {
             e.preventDefault();
-            RenderController.renderRestaurantListUl();
+            RenderController.renderEntireRestaurantListUl();
             modal.close();
           },
         ],
@@ -111,7 +111,7 @@ class ModalController {
             RestaurantListController.deleteRestaurantInEntireRestaurant(
               nowRestaurantName
             );
-            RenderController.renderRestaurantListUl();
+            RenderController.renderEntireRestaurantListUl();
           },
         ],
       ],

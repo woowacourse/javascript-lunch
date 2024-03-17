@@ -11,18 +11,19 @@ import StatusController from "./StatusController";
 import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class RenderController {
-  static #restaurantListUl = document.getElementById("restaurant-list-ul");
+  static #entireRestaurantListUl =
+    document.getElementById("restaurant-list-ul");
 
   static renderFilterContainer() {
     const filterContainer = document.getElementById("filter-container");
 
     const categoryFilter = new SelectBox({
       options: CATEGORY_WITH_ENTIRE,
-      eventListenerArgs: [["change", this.renderRestaurantListUl]],
+      eventListenerArgs: [["change", this.renderEntireRestaurantListUl]],
     });
     const sortStandardFilter = new SelectBox({
       options: SORT_STANDARD,
-      eventListenerArgs: [["change", this.renderRestaurantListUl]],
+      eventListenerArgs: [["change", this.renderEntireRestaurantListUl]],
     });
 
     categoryFilter.element.id = "category-filter";
@@ -30,14 +31,14 @@ class RenderController {
     filterContainer?.append(categoryFilter.element, sortStandardFilter.element);
   }
 
-  static renderRestaurantListUl() {
+  static renderEntireRestaurantListUl() {
     const filteredRestaurantItem =
       RestaurantListController.getNowRestaurantItem();
     const restaurantItemElements = filteredRestaurantItem.map((restaurant) => {
       return this.#getRestaurantPreviewWithToggler(restaurant).element;
     });
 
-    RenderController.#restaurantListUl?.replaceChildren(
+    RenderController.#entireRestaurantListUl?.replaceChildren(
       ...restaurantItemElements
     );
   }

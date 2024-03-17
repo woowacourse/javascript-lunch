@@ -10,7 +10,7 @@ class MainController {
   static start() {
     RestaurantListController.initEntireRestaurantList();
     RenderController.renderFilterContainer();
-    RenderController.renderRestaurantListUl();
+    RenderController.renderEntireRestaurantListUl();
     RenderController.renderInMain(ModalController.modal.element);
     this.#setAddButton();
     this.#setRestaurantListUlEvent();
