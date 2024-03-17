@@ -71,6 +71,8 @@ const FILTER_CONDITION = {
   sortingCondition: 1,
 };
 
+const FAVORITE_TAP_CONDITION = 0;
+
 export {
   ALL,
   FILTERED_CATEGORY_ATTRIBUTE,
@@ -88,4 +90,5 @@ export {
   CATEGORY_IMG_SRC,
   FAVORITE_IMG_SRC,
   FILTER_CONDITION,
+  FAVORITE_TAP_CONDITION,
 };

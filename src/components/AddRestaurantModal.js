@@ -1,4 +1,5 @@
 import { FAVORITE } from '../constants/config';
+import { FAVORITE_TAP_CONDITION } from '../constants/filter';
 import Restaurant from '../domain/Restaurant';
 import Modal from './Modal';
 import RestaurantFilterContainer from './RestaurantFilterContainer';
@@ -30,6 +31,7 @@ class AddRestaurantModal extends Modal {
   handleAddRestaurant(e) {
     e.preventDefault();
     const $restaurantForm = e.target;
+    const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
     const category = $restaurantForm.elements.category.value;
     const name = $restaurantForm.elements.name.value;
     const distance = Number($restaurantForm.elements.distance.value);
@@ -40,7 +42,9 @@ class AddRestaurantModal extends Modal {
 
     this.#restaurantList.add(restaurantInformation);
 
-    new RestaurantFilterContainer(this.#restaurantList).handleFilter();
+    if ($restaurantFilterContainer.children.length === FAVORITE_TAP_CONDITION) {
+      new RestaurantFilterContainer(this.#restaurantList).favoriteTapFilter();
+    } else new RestaurantFilterContainer(this.#restaurantList).handleFilter();
 
     this.close();
   }
