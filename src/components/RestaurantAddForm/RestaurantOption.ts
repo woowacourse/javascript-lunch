@@ -1,6 +1,7 @@
 import BaseComponent from "../BaseComponent";
 import { $ } from "../../utils/dom";
 import restaurantValidator from "../../validators/restaurantValidator";
+import { MENU_APP_EVENTS } from "../../constants/event";
 
 class RestaurantOptions extends BaseComponent {
   private errorMessageClassList: DOMTokenList | null = null;
@@ -57,7 +58,7 @@ class RestaurantOptions extends BaseComponent {
   }
 
   setEvent() {
-    document.addEventListener("add-form-submit", () => {
+    document.addEventListener(MENU_APP_EVENTS.restaurantFormSubmit, () => {
       this.handleErrorMessage();
     });
   }
