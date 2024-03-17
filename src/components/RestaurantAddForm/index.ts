@@ -28,14 +28,11 @@ class RestaurantAddForm extends BaseComponent {
             id="distance" 
             label="거리(도보 이동 시간)"
             values="${["", ...DISTANCES.map((v) => String(v))]}" 
-            options="${[
-              "선택해주세요",
-              ...DISTANCES.map((v) => `${v}분 내`),
-            ]}"></restaurant-option>
+            options="${["선택해주세요", ...DISTANCES.map((v) => `${v}분 내`)]}"></restaurant-option>
       
           <div class="form-item">
             <label for="description">설명</label>
-            <textarea name="description" id="description" cols="30" rows="5" maxlength="300"></textarea>
+            <textarea name="description" id="description" cols="30" rows="5"></textarea>
             <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
             <p class="hidden" id="error-message">10글자 이하로 작성해주세요</p>
           </div>
@@ -55,13 +52,9 @@ class RestaurantAddForm extends BaseComponent {
     this.addFormElement = $<HTMLFormElement>("#restaurant-add-form");
   }
 
-  private isRestaurantItemType(
-    addingItem: object | undefined
-  ): addingItem is RestaurantAddItem {
+  private isRestaurantItemType(addingItem: object | undefined): addingItem is RestaurantAddItem {
     if (!addingItem) return false;
-    return Object.keys(addingItem).every((key) =>
-      ["name", "category", "distance", "description", "link"].includes(key)
-    );
+    return Object.keys(addingItem).every((key) => ["name", "category", "distance", "description", "link"].includes(key));
   }
 
   private resetFormData() {
@@ -92,7 +85,7 @@ class RestaurantAddForm extends BaseComponent {
         this.resetFormData();
       }
     } catch (error) {
-      error instanceof Error && alert(error);
+      error instanceof Error && alert(error.message);
     }
   }
 
