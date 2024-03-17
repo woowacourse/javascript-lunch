@@ -8,7 +8,6 @@ class Modal {
     modalBackDrop.classList.add('modal-backdrop');
 
     this.#modal.appendChild(modalBackDrop);
-
     this.#modal.appendChild(container);
   }
 
@@ -22,11 +21,3 @@ class Modal {
 }
 
 export default Modal;
-
-/*
-<div class="modal">
-    <div class="modal-backdrop"></div>
-    <div class="modal-container">
-</div>
-</div>
-*/
