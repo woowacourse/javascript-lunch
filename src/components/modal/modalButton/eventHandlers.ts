@@ -1,8 +1,8 @@
-import RestaurantListStorageService from '../../../services/restaurantListStorageService';
 import validateRestaurantState from '../../../services/validateRestaurantState';
 import restaurantStateStore from '../../../store/RestaurantStateStore';
 import { InvalidResult, RestaurantState } from '../../../types';
 import RestaurantList from '../../restaurantList/RestaurantList';
+import localStorageHandler from '../../../services/localStorageHandler';
 
 export const initializeModal = () => {
   const modal = document.getElementsByClassName('modal')[0];
@@ -19,7 +19,7 @@ const addNewRestaurant = (modal: Element, restaurantInfo: RestaurantState) => {
   const invalidMessage = document.getElementsByClassName('invalid_message');
 
   if (invalidMessage.length === 0) {
-    RestaurantListStorageService.setData(restaurantInfo);
+    localStorageHandler('restaurantList').set(restaurantInfo);
     initializeFormState();
     initializeModal();
     window.location.reload();
@@ -64,7 +64,7 @@ const addNewRestaurantButtonHandler = (event: Event, modal: Element) => {
   event.preventDefault();
   const restaurantInfo = restaurantStateStore.getRestaurantField();
   validateAndAddNewRestaurant(modal, restaurantInfo as RestaurantState);
-  const allRestaunrants = RestaurantListStorageService.getData();
+  const allRestaunrants = localStorageHandler('restaurantList').get()!;
   RestaurantList(allRestaunrants ?? []);
   initializeFormState();
 };

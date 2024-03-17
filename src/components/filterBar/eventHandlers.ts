@@ -3,6 +3,7 @@ import filterState from '../../store/FilterStateStore';
 import { Category, SortType } from '../../types';
 import RestaurantList from '../restaurantList/RestaurantList';
 import RestaurantListFilterService from '../../services/restaurantListFilterService';
+import localStorageHandler from '../../services/localStorageHandler';
 
 const setFilterStateByCategoryValue = (selectedValue: Category) => {
   filterState.setFilterType(selectedValue);
@@ -13,7 +14,7 @@ const setSortStateByNameOrDistance = (selectedValue: SortType) => {
 };
 
 const reRenderRestaurantListComponent = () => {
-  const allData = RestaurantListStorageService.getData()!;
+  const allData = localStorageHandler('restaurantList').get()!;
   const filterData = RestaurantListFilterService.getFilteredData(allData);
   RestaurantList(filterData ?? []);
 };

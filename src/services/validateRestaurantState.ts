@@ -1,7 +1,7 @@
 import ERROR from '../constants/error';
 import { Category, RestaurantState } from '../types';
 
-import RestaurantListStorageService from './restaurantListStorageService';
+import localStorageHandler from './localStorageHandler';
 
 const valid = {
   success: true,
@@ -52,9 +52,9 @@ const validate = {
   },
 
   checkDuplicate(name?: string) {
-    const restaurantList = RestaurantListStorageService.getData();
-    if (restaurantList) {
-      return restaurantList.find((restaurant: RestaurantState) => restaurant.name === name);
+    const allRestaurants = localStorageHandler('restaurantList').get()!;
+    if (allRestaurants) {
+      return allRestaurants.find((restaurant: RestaurantState) => restaurant.name === name);
     }
     return [];
   },

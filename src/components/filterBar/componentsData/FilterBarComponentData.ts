@@ -1,5 +1,7 @@
-import { ROOT_RESTAURANT_CATEGORY_UI_OPIONS } from '../../../constants/selectOptions/restaurantCategoryUiOptions';
-import { MODAL_RESTAURANT_CATEGORY_UI_OPTIONS } from '../../../constants/selectOptions/restaurantCategoryUiOptions';
+import {
+  ROOT_RESTAURANT_CATEGORY_UI_OPIONS,
+  MODAL_RESTAURANT_CATEGORY_UI_OPTIONS,
+} from '../../../constants/selectOptions/restaurantCategoryUiOptions';
 
 export const FILTER_BAR_SECTION_COMPONENT_DATA = Object.freeze({
   TAG_CLASS_NAME: 'restaurant-filter-container',

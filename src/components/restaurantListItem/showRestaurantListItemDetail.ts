@@ -2,10 +2,8 @@ import RestaurantListStorageService from '../../services/restaurantListStorageSe
 import RestaurantListItemDetail from '../restaurantListItemDetailModal/RestaurantListItemDetail';
 import ListItemDetailBottomSheetEventHandler from '../restaurantListItemDetailModal/eventHandler';
 import { RestaurantState } from '../../types';
-
-function isHTMLElement(element: any): element is HTMLElement {
-  return element instanceof HTMLElement;
-}
+import isHTMLElement from '../../utils/isHTMLElement';
+import localStorageHandler from '../../services/localStorageHandler';
 
 const appendDetailToModal = (listItemDetailComponent: HTMLElement) => {
   const modal = document.getElementsByClassName('modal')[0];
@@ -16,13 +14,17 @@ const appendDetailToModal = (listItemDetailComponent: HTMLElement) => {
 
 const getRestaurantIdFromEventTarget = (event: Event): number | null => {
   if (!isHTMLElement(event.target)) return null;
-  const target = event.target;
+  const { target } = event;
   const listItem = target?.closest('li');
   return listItem ? Number(listItem.dataset.id) : null;
 };
 
 const getRestaurantDataById = (restaurantId: number) => {
-  return RestaurantListStorageService.getData()?.find((restaurant) => restaurant.id === restaurantId) ?? null;
+  return (
+    localStorageHandler('restaurantList')
+      .get()!
+      ?.find((restaurant) => restaurant.id === restaurantId) ?? null
+  );
 };
 
 const createAndAppendDetailComponent = (restaurant: RestaurantState | null) => {

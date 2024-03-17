@@ -22,9 +22,7 @@ const generateUlSection = () => {
 
 const appendRestaurantListDataToFragment = (filterData: RestaurantState[]) => {
   const fragment = document.createDocumentFragment();
-  filterData.map((restaurant) => {
-    fragment.appendChild(RestaurantListItem(restaurant));
-  });
+  filterData.map((restaurant) => fragment.appendChild(RestaurantListItem(restaurant)));
 
   return fragment;
 };

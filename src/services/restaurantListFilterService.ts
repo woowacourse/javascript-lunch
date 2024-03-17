@@ -1,4 +1,3 @@
-// RestaurantListFilterService.ts
 import { RestaurantState } from '../types/index.d';
 import restaurantListHelper from '../helpers/RestaurantListHelper';
 import filterState from '../store/FilterStateStore';
