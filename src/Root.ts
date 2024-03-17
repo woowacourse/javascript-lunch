@@ -6,6 +6,7 @@ import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
 import RestaurantDetail, { RestaurantDetailEvent } from './components/RestaurantDetail';
+import { FavoriteIconLined } from './asset/img';
 
 const { $, $$ } = DOM;
 
@@ -95,9 +96,21 @@ const root = {
   listenFavoriteRestaurantChange(matzip: Matzip) {
     document.addEventListener('changeRestaurantInfo', (event: Event) => {
       const customEvent = event as FavoriteRestaurantEvent;
-      const restaurantInfo = customEvent.detail.restaurant;
+      const restaurant = customEvent.detail.restaurant;
 
-      matzip.change(restaurantInfo);
+      if (restaurant.favorite) {
+        $('matzip-favorite-container .restaurant-list-container')?.appendChild(
+          new Restaurant(restaurant),
+        );
+      } else {
+        $(`matzip-favorite-container #${restaurant.category}_${restaurant.name}`)?.remove();
+        $(`#${restaurant.category}_${restaurant.name} .restaurant__favorite_img img`)?.setAttribute(
+          'src',
+          FavoriteIconLined,
+        );
+      }
+
+      matzip.change(restaurant);
       storage.updateData(matzip);
     });
   },

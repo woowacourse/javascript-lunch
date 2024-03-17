@@ -34,12 +34,12 @@ class Modal extends HTMLElement {
   }
 
   closeModal() {
-    $('.modal-backdrop')?.addEventListener('click', () => {
-      $('.restaurant-form-modal')?.classList.remove('modal--open');
-    });
-    $('.modal--close')?.addEventListener('click', () => {
-      $('.restaurant-form-modal')?.classList.remove('modal--open');
-    });
+    $('.modal-backdrop')?.addEventListener('click', () => this.toggleModal());
+    $('.modal--close')?.addEventListener('click', () => this.toggleModal());
+  }
+
+  toggleModal() {
+    $('.restaurant-form-modal')?.classList.toggle('modal--open', false);
   }
 }
 

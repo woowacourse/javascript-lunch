@@ -43,15 +43,12 @@ class RestaurantDetail extends HTMLElement {
   }
 
   setEvent(restaurant: Restaurant) {
-    this.openRestaurantDetail();
     this.clickDeleteButton(restaurant);
     this.closeModal();
   }
 
-  openRestaurantDetail() {}
-
   clickDeleteButton(restaurant: Restaurant) {
-    $('.delete-btn', this)?.addEventListener('click', (event) => {
+    $('.delete-btn', this)?.addEventListener('click', () => {
       const deleteRestaurantInfo = new CustomEvent('deleteRestuarantInfo', {
         detail: {
           restaurant,
@@ -59,22 +56,22 @@ class RestaurantDetail extends HTMLElement {
       });
       document.dispatchEvent(deleteRestaurantInfo);
 
-      $('detail-info-container')?.remove();
-      $('.detail-info-modal')?.classList.remove('modal--open');
+      this.toggleRestaurantDetail();
 
-      $(`#${restaurant.category}_${restaurant.name}`)?.remove();
+      $$(`#${restaurant.category}_${restaurant.name}`)?.forEach((node) => node.remove());
     });
   }
 
   closeModal() {
-    $('.detail-info-modal .modal-backdrop')?.addEventListener('click', () => {
-      $('.detail-info-modal')?.classList.remove('modal--open');
-      $('detail-info-container')?.remove();
-    });
-    $('.modal--close', this)?.addEventListener('click', () => {
-      $('.detail-info-modal')?.classList.remove('modal--open');
-      $('detail-info-container')?.remove();
-    });
+    $('.detail-info-modal .modal-backdrop')?.addEventListener('click', () =>
+      this.toggleRestaurantDetail(),
+    );
+    $('.modal--close', this)?.addEventListener('click', () => this.toggleRestaurantDetail());
+  }
+
+  toggleRestaurantDetail() {
+    $('.detail-info-modal')?.classList.toggle('modal--open', false);
+    $('detail-info-container')?.remove();
   }
 }
 

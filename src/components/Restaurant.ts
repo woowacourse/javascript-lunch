@@ -23,7 +23,6 @@ export const CATEGORY_IMAGE: Record<CategoryType, string> = {
 
 import DOM from '../utils/DOM';
 import RestaurantDetail from './RestaurantDetail';
-import Category from '../types/category';
 
 const { $, $$ } = DOM;
 
@@ -66,7 +65,7 @@ class Restaurant extends HTMLUListElement {
 
   openRestaurantDetail(restaurant: RestaurantType) {
     $('.restaurant', this)?.addEventListener('click', (event) => {
-      $('.detail-info-modal')?.classList.add('modal--open');
+      $('.detail-info-modal')?.classList.toggle('modal--open', true);
       $('.detail-info-container')?.appendChild(new RestaurantDetail(restaurant));
     });
   }
@@ -86,14 +85,6 @@ class Restaurant extends HTMLUListElement {
       });
 
       document.dispatchEvent(changeRestaurantInfo);
-
-      if (restaurant.favorite) {
-        $('matzip-favorite-container .restaurant-list-container')?.appendChild(
-          new Restaurant(restaurant),
-        );
-      } else {
-        $(`matzip-favorite-container #${restaurant.category}_${restaurant.name}`)?.remove();
-      }
     });
   }
 }
