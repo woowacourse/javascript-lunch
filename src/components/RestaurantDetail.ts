@@ -21,15 +21,15 @@ export default class RestaurantDetail extends EventComponent {
     if (!this.restaurantName) return "";
 
     const restaurantInfo = restaurantStore
-      .getRestaurantInfo(this.restaurantName)
+      .findRestaurantInfo(this.restaurantName)
       ?.getInfo();
     if (!restaurantInfo) return "";
 
     return `
         <article class="restaurant-detail">
             <div class="icon-wrapper">
-                <category-icon category=${restaurantInfo.category}></category-icon>
-                <star-button></star-button>
+                <category-icon category="${restaurantInfo.category}"></category-icon>
+                <star-button name="${restaurantInfo.name}"></star-button>
             </div>
             <h2>${restaurantInfo.name}</h2>
             <p class="time-to-reach">캠퍼스부터 ${restaurantInfo.timeToReach}분 내</p>

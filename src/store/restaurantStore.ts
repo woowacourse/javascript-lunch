@@ -1,4 +1,4 @@
-import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
+import Restaurant from "../domain/Restaurant";
 import Restaurants from "../domain/Restaurants";
 import localStore from "./localStorageStore";
 
@@ -26,8 +26,28 @@ const restaurantStore = {
     localStore.setItem("restaurants", restaurants.getDetails());
   },
 
-  getRestaurantInfo(restaurantName: string): Restaurant | undefined {
+  findRestaurantInfo(restaurantName: string): Restaurant | undefined {
     return this.getRestaurants().findRestaurantByName(restaurantName);
+  },
+
+  getFavoriteRestaurantsName(): string[] {
+    const favoriteRestaurantNames = localStore.getParsedItem(
+      "favoriteRestaurantsNames"
+    );
+
+    return favoriteRestaurantNames ? favoriteRestaurantNames : [];
+  },
+
+  setNewFavoriteRestaurantName(name: string): void {
+    const newFavoriteRestaurants = [...this.getFavoriteRestaurantsName(), name];
+    localStore.setItem("favoriteRestaurantsNames", newFavoriteRestaurants);
+  },
+
+  removeFavoriteRestaurantName(name: string): void {
+    const newFavoriteRestaurants = this.getFavoriteRestaurantsName().filter(
+      (restaurantName) => restaurantName !== name
+    );
+    localStore.setItem("favoriteRestaurantsNames", newFavoriteRestaurants);
   },
 };
 
