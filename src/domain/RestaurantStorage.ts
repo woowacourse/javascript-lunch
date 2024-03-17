@@ -10,7 +10,7 @@ const getResturantsFromLocalStorage = (): RestaurantType[] => {
   return JSON.parse(restaurants);
 };
 
-const setRestaurantsToLocalStorage = (newRestuarant: RestaurantType) => {
+const addRestaurantToLocalStorage = (newRestuarant: RestaurantType) => {
   const newRestaurants = [...getResturantsFromLocalStorage(), newRestuarant];
   localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
 };
@@ -52,10 +52,10 @@ class RestauranStorage {
   }
 
   addRestaurant(restaurant: RestaurantType) {
-    setRestaurantsToLocalStorage(restaurant);
+    addRestaurantToLocalStorage(restaurant);
   }
 
-  changeCategory(newCategory: Category) {
+  changeCategory(newCategory: Category | "전체") {
     this.category = newCategory;
   }
 
@@ -65,6 +65,16 @@ class RestauranStorage {
 
   changeFilter(newFilter: "all" | "bookmark") {
     this.filter = newFilter;
+  }
+
+  toggleBookmark(name: string) {
+    const newRestaurants = getResturantsFromLocalStorage().map((restaurant) => {
+      if (restaurant.name === name) {
+        return { ...restaurant, bookmark: !restaurant.bookmark };
+      }
+      return restaurant;
+    });
+    localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
   }
 }
 

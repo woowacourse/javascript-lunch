@@ -1,6 +1,6 @@
 import Component from "./common/Component";
 import Header from "./components/Header";
-import RestauranStorage from "./domain/RestauranStorage";
+import RestauranStorage from "./domain/RestaurantStorage";
 import Restaurants from "./components/Restuarants";
 import Filter from "./components/Filter";
 import { RestaurantType } from "./types";
@@ -18,9 +18,7 @@ export default class App extends Component {
             <header class="gnb"></header>
             <main>
               <section class="filter-container"></section>
-              <section class="select-container">
-
-              </section>
+              <section class="select-container"></section>
               <section class="restaurants"></section>
             </main>
             <div class="modal">
@@ -41,9 +39,12 @@ export default class App extends Component {
     new Filter($filter, {
       loadRestaurant: this.loadRestaurant.bind(this),
     });
-    new Selects($select, {
-      loadRestaurant: this.loadRestaurant.bind(this),
-    });
+    if (RestauranStorage.getFilter() === "all") {
+      new Selects($select, {
+        loadRestaurant: this.loadRestaurant.bind(this),
+      });
+    }
+
     new Restaurants($restaurants, {
       restaurants: this.state.restaurants,
       loadRestaurant: this.loadRestaurant.bind(this),

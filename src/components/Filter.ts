@@ -1,5 +1,5 @@
 import Component from "../common/Component";
-import RestauranStorage from "../domain/RestauranStorage";
+import RestauranStorage from "../domain/RestaurantStorage";
 
 export default class Filter extends Component {
   render() {

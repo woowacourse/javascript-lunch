@@ -1,6 +1,6 @@
 import Component from "../common/Component";
 import { RestaurantType } from "../types";
-import RestauranStorage from "../domain/RestauranStorage";
+import RestauranStorage from "../domain/RestaurantStorage";
 
 export default class FormModal extends Component {
   render(): string {
