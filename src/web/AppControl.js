@@ -133,7 +133,7 @@ export class appController {
   restaurantListItemEvent(event, restaurant, favoriteRestaurantNames) {
     const target = event.target;
     if (target.className.includes('star')) {
-      this.changeStarEvent(event, restaurant);
+      this.clickFavoriteButton(event, restaurant);
     } else {
       const restaurantDetailModal = modal.create(
         'modal--open',
@@ -141,7 +141,7 @@ export class appController {
           restaurant,
           favoriteRestaurantNames,
           starCallback: (event) => {
-            this.changeStarEvent(event, restaurant);
+            this.clickFavoriteButton(event, restaurant);
           },
           deleteCallback: (event) => {
             event.preventDefault();
@@ -163,7 +163,7 @@ export class appController {
     }
   }
 
-  changeStarEvent(event, restaurant) {
+  clickFavoriteButton(event, restaurant) {
     const target = event.target;
     if (target.className === 'star lined') {
       this.#restaurantManager.addFavoriteRestaurant(restaurant);
