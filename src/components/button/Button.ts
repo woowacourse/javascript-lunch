@@ -13,7 +13,7 @@ interface IButtonProps {
   handleCloseModal: () => void;
   restaurantList?: RestaurantList;
   handleDeleteRestaurant?: (id: string) => void;
-  handleSubmitRestaurant?: (e: SubmitEvent) => void;
+  handleAddRestaurant?: (e: SubmitEvent) => void;
 }
 
 class Button extends Component<IButtonProps> {
@@ -25,11 +25,11 @@ class Button extends Component<IButtonProps> {
   }
 
   setEvent() {
-    const { kind, handleCloseModal, handleDeleteRestaurant, handleSubmitRestaurant } = this.props;
+    const { kind, handleCloseModal, handleDeleteRestaurant, handleAddRestaurant } = this.props;
 
     if (kind === 'add') {
       dom.getElement('form').addEventListener('submit', e => {
-        handleSubmitRestaurant && handleSubmitRestaurant(e);
+        handleAddRestaurant && handleAddRestaurant(e);
       });
     } else if (kind === 'close') {
       this.$target.addEventListener('click', handleCloseModal.bind(this));

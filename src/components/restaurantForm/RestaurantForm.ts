@@ -121,8 +121,8 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
       attributes: ADD_BUTTON_ATTRIBUTE,
       restaurantList,
       handleCloseModal: this.props.handleResetModal,
-      handleSubmitRestaurant: (e: SubmitEvent) => {
-        this.handleSubmitRestaurant(e);
+      handleAddRestaurant: (e: SubmitEvent) => {
+        this.handleAddRestaurant(e);
       },
     });
   }
@@ -152,7 +152,7 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     else $addButton.disabled = true;
   };
 
-  handleSubmitRestaurant(e: SubmitEvent) {
+  handleAddRestaurant(e: SubmitEvent) {
     e.preventDefault();
     const $form = e.target as HTMLFormElement;
     const restaurantInformation = this.getRestaurantFormData($form);
