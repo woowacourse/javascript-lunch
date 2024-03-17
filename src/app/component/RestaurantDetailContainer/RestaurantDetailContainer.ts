@@ -1,6 +1,6 @@
-import { Category, DistanceByWalk } from '../../../enum/enums';
-import { RestaurantDataType } from '../../../type/restaurantTypes';
-import createCategoryContainer from '../../../util/createCategoryContainer';
+import { Category, DistanceByWalk } from '../../enum/enums';
+import { RestaurantDataType } from '../../type/restaurantTypes';
+import createCategoryContainer from '../../util/createCategoryContainer';
 import './RestaurantDetailContainer.css';
 
 export default function RestaurantDetailContainer(restaurantData: RestaurantDataType) {

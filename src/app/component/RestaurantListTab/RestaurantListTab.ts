@@ -1,5 +1,5 @@
-import { $$ } from '../../../util/domSelector';
-import { Tab } from '../../../enum/enums';
+import { $$ } from '../../util/domSelector';
+import { Tab } from '../../enum/enums';
 import './RestaurantListTab.css';
 
 class RestaurantListTab extends HTMLElement {

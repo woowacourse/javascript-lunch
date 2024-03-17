@@ -1,8 +1,8 @@
-import RestaurantService from '../../src/service/RestaurantService';
+import RestaurantService from '../../src/app/service/RestaurantService';
 import defaultRestaurant from '../../src/data/defaultRestaurants.json';
 
-import type { RestaurantDataType } from '../../src/type/restaurantTypes';
-import { Category, DistanceByWalk, SortOrder } from '../../src/enum/enums';
+import type { RestaurantDataType } from '../../src/app/type/restaurantTypes';
+import { Category, DistanceByWalk, SortOrder } from '../../src/app/enum/enums';
 
 describe('[RestaurantService] 음식점 서비스 객체 테스트', () => {
   it('getRestaurants() 메서드는 전체 음식점 목록 크기만큼의 음식점들을 반환해야 한다.', () => {

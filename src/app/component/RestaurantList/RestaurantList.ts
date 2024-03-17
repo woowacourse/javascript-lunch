@@ -1,6 +1,6 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { RestaurantType } from '../../../type/restaurantTypes';
-import { $ } from '../../../util/domSelector';
+import { RestaurantType } from '../../type/restaurantTypes';
+import { $ } from '../../util/domSelector';
 
 type RestaurantListType = {
   restaurants: RestaurantType[];

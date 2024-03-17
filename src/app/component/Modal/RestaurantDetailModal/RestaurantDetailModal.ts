@@ -1,6 +1,6 @@
 import Modal from '../Modal';
-import FavoriteButton from '../../component/FavoriteButton/FavoriteButton';
-import RestaurantDetailContainer from '../../component/RestaurantDetailContainer/RestaurantDetailContainer';
+import FavoriteButton from '../../FavoriteButton/FavoriteButton';
+import RestaurantDetailContainer from '../../RestaurantDetailContainer/RestaurantDetailContainer';
 import { ModalType } from '../../../type/modalTypes';
 import { RestaurantType } from '../../../type/restaurantTypes';
 import { createFormButton, createFormButtonContainer } from '../../../util/createFormElement';

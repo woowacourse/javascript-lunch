@@ -1,5 +1,5 @@
 import Restaurant from '../domain/Restaurant';
-import defaultRestaurant from '../data/defaultRestaurants.json';
+import defaultRestaurant from '../../data/defaultRestaurants.json';
 
 import type { RestaurantDataType, RestaurantType } from '../type/restaurantTypes';
 import type { CompareFunctionType } from '../type/compareFunctionType';

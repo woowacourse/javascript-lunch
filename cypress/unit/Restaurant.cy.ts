@@ -1,6 +1,6 @@
-import Restaurant from '../../src/domain/Restaurant';
-import { RestaurantDataType } from '../../src/type/restaurantTypes';
-import { Category, DistanceByWalk } from '../../src/enum/enums';
+import Restaurant from '../../src/app/domain/Restaurant';
+import { RestaurantDataType } from '../../src/app/type/restaurantTypes';
+import { Category, DistanceByWalk } from '../../src/app/enum/enums';
 
 describe('[Restaurant] 음식점 객체 테스트', () => {
   it('음식점은 자신의 카테고리, 이름, 거리, 설명, 참고 링크, 자주 가는 음식점 여부를 반환할 수 있다.', () => {

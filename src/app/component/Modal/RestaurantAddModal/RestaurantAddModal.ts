@@ -1,5 +1,5 @@
 import Modal from '../Modal';
-import RestaurantAddForm from '../../component/RestaurantAddForm/RestaurantAddForm';
+import RestaurantAddForm from '../../RestaurantAddForm/RestaurantAddForm';
 import { RestaurantAddModalType } from '../../../type/modalTypes';
 import { RestaurantDataType } from '../../../type/restaurantTypes';
 

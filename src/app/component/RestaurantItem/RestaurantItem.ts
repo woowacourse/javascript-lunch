@@ -1,8 +1,8 @@
-import { RestaurantType } from '../../../type/restaurantTypes';
-import { $ } from '../../../util/domSelector';
-import createCategoryContainer from '../../../util/createCategoryContainer';
-import FavoriteButton from '../../component/FavoriteButton/FavoriteButton';
-import RestaurantInfoContainer from '../../component/RestaurantItemContainer/RestaurantItemContainer';
+import { RestaurantType } from '../../type/restaurantTypes';
+import { $ } from '../../util/domSelector';
+import createCategoryContainer from '../../util/createCategoryContainer';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import RestaurantInfoContainer from '../RestaurantItemContainer/RestaurantItemContainer';
 
 type RestaurantItemType = {
   restaurantData: RestaurantType;

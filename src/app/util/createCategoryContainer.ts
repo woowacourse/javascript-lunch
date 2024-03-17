@@ -1,4 +1,4 @@
-import { Asset } from '../asset/asset';
+import { Asset } from '../../asset/asset';
 import { Category } from '../enum/enums';
 
 export default function createCategoryContainer(category: Category) {

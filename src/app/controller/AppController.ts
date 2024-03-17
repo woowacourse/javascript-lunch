@@ -1,17 +1,17 @@
 import '../style.css';
-import '../modal/RestaurantAddModal/RestaurantAddModal';
-import '../root/NavigationBar/NavigationBar';
-import '../root/RestaurantListTab/RestaurantListTab';
-import '../root/RestaurantItem/RestaurantItem';
+import '../component/Modal/RestaurantAddModal/RestaurantAddModal';
+import '../component/NavigationBar/NavigationBar';
+import '../component/RestaurantListTab/RestaurantListTab';
+import '../component/RestaurantItem/RestaurantItem';
 
-import RestaurantService from '../../service/RestaurantService';
-import RestaurantListFilter from '../root/RestaurantListFilter/RestaurantListFilter';
-import RestaurantList from '../root/RestaurantList/RestaurantList';
-import RestaurantAddModal from '../modal/RestaurantAddModal/RestaurantAddModal';
-import RestaurantDetailModal from '../modal/RestaurantDetailModal/RestaurantDetailModal';
-import { Category, SortOrder, Tab } from '../../enum/enums';
-import { RestaurantDataType, RestaurantType } from '../../type/restaurantTypes';
-import { $ } from '../../util/domSelector';
+import RestaurantService from '../service/RestaurantService';
+import RestaurantListFilter from '../component/RestaurantListFilter/RestaurantListFilter';
+import RestaurantList from '../component/RestaurantList/RestaurantList';
+import RestaurantAddModal from '../component/Modal/RestaurantAddModal/RestaurantAddModal';
+import RestaurantDetailModal from '../component/Modal/RestaurantDetailModal/RestaurantDetailModal';
+import { Category, SortOrder, Tab } from '../enum/enums';
+import { RestaurantDataType, RestaurantType } from '../type/restaurantTypes';
+import { $ } from '../util/domSelector';
 
 export default class AppController {
   private sortOrder: SortOrder;

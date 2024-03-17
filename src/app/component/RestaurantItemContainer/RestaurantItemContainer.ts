@@ -1,5 +1,5 @@
-import { DistanceByWalk } from '../../../enum/enums';
-import { RestaurantDataType } from '../../../type/restaurantTypes';
+import { DistanceByWalk } from '../../enum/enums';
+import { RestaurantDataType } from '../../type/restaurantTypes';
 import './RestaurantItemContainer.css';
 
 export default function RestaurantItemContainer(restaurantData: RestaurantDataType) {
