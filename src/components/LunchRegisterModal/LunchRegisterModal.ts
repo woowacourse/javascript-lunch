@@ -56,7 +56,7 @@ class LunchRegisterModal extends HTMLElement {
         color: 'secondary',
         type: 'button',
         text: '취소하기',
-        onClick: this.handleModalClose,
+        onClick: this.handleModalClose.bind(this),
       }),
     );
     buttonContainer?.appendChild(
@@ -64,7 +64,7 @@ class LunchRegisterModal extends HTMLElement {
         color: 'primary',
         type: 'submit',
         text: '추가하기',
-        onClick: this.handleSubmit,
+        onClick: this.handleSubmit.bind(this),
       }),
     );
   }
