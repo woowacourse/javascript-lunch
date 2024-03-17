@@ -20,10 +20,10 @@
 
 ### STEP1 리뷰 반영할 것
 
-- [ ] 정보 검증에 쓰이는 숫자들(길이제한 숫자) 상수화하기
-- [ ] constants/constants.ts -> index.ts로 수정하기
-- [ ] `as HTMLElement;`로 타입 확정하지 말고 null일 수 있는 상황에 대한 에러처리를 진행하고 할당하기.
+- [x] 정보 검증에 쓰이는 숫자들(길이제한 숫자) 상수화하기
+- [x] constants/constants.ts -> index.ts로 수정하기
+- [x] `as HTMLElement;`로 타입 확정하지 말고 null일 수 있는 상황에 대한 에러처리를 진행하고 할당하기.
 - [x] 카테고리 아이콘 button 태그 고치기
-- [ ] 음식점 정보 저장할 때 중복된 경우 경고창 뒤에 `return` 붙여서 저장안되게하기
+- [x] 음식점 정보 저장할 때 중복된 경우 경고창 뒤에 `return` 붙여서 저장안되게하기
 - [x] ModalComponent.ts에서 안쓰이고있는 컴포넌트 삭제하기
-- [ ] ModalComponent에서 Form 부분 분리하기
+- [x] ModalComponent에서 Form 부분 분리하기
