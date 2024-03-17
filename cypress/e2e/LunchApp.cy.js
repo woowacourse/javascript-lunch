@@ -2,6 +2,7 @@ import { RESTAURANTS_INFOS } from "../fixtures/restaurantInfos";
 
 describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
   beforeEach(() => {
+    cy.viewport(550, 1000);
     cy.visit("http://localhost:8080/");
     localStorage.setItem("restaurants", JSON.stringify(RESTAURANTS_INFOS));
   });
@@ -88,6 +89,36 @@ describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
         .first()
         .find(".favorite-icon-img")
         .should("have.attr", "src", "./filled-favorite-icon.png");
+    });
+  });
+
+  context("음식점 정보 조작 관련 기능 확인", () => {
+    it("음식점을 등록하면 등록한 음식점이 restaurant item에 추가된다.", () => {
+      cy.get("#add-button").click();
+      cy.get("restaurant-form").should("be.visible");
+
+      cy.get(".category-select").select("한식");
+      cy.get("#restaurant-name").type("새로운 음식점");
+      cy.get(".time-to-reach-select").select("10");
+      cy.get("#description").type("맛있는 음식점입니다.");
+      cy.get("#link").type("https://www.naver.com/newrestaurant");
+
+      cy.get("button").contains("추가하기").click();
+      cy.get("restaurant-item").should(
+        "have.length",
+        RESTAURANTS_INFOS.length + 1
+      );
+    });
+
+    it("음식점을 삭제하면 삭제한 음식점 정보를 담은 restaurant item이 사라진다.", () => {
+      const restaurantName = RESTAURANTS_INFOS[0].name;
+
+      cy.get("restaurant-item").first().contains(restaurantName);
+
+      cy.get("restaurant-item").first().click();
+      cy.get("button").contains("삭제하기").click();
+
+      cy.get("restaurant-item").should("not.contain", restaurantName);
     });
   });
 });
