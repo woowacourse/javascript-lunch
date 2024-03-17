@@ -31,5 +31,26 @@ context('Assertions', () => {
           cy.contains(description).should('exist');
         });
     });
+
+    it('식당 세부 정보를 확인하는 모달을 열고 식당을 삭제한다.', () => {
+      cy.get('lunch-items')
+        .find('lunch-item')
+        .its('length')
+        .should('be.a', 'number')
+        .then((length) => {
+          const beforeItemsCount = length;
+          cy.get('lunch-item').first().click();
+          cy.get('lunch-detail-modal', { timeout: 10000 }).should('exist');
+          cy.get('lunch-detail-modal').find('.detail-modal-delete').click();
+
+          cy.get('lunch-items')
+            .find('lunch-item')
+            .its('length')
+            .then((afterItemsCount) => {
+              const expectedItemsCount = beforeItemsCount - 1;
+              expect(afterItemsCount).to.be.gte(expectedItemsCount);
+            });
+        });
+    });
   });
 });
