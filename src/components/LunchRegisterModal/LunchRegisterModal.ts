@@ -32,8 +32,6 @@ class LunchRegisterModal extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    this.setEventListener();
-    this.setSubmitListener();
   }
 
   render(): void {
@@ -42,13 +40,6 @@ class LunchRegisterModal extends HTMLElement {
       container.innerHTML = LUNCH_REGISTER_MODAL;
     }
     this.createButtons();
-  }
-
-  setEventListener() {
-    const cancelButton = this.querySelector('.button--secondary');
-    cancelButton?.addEventListener('click', () => {
-      this.handleModalClose();
-    });
   }
 
   handleModalClose() {
@@ -61,31 +52,30 @@ class LunchRegisterModal extends HTMLElement {
   createButtons() {
     const buttonContainer = this.querySelector('.button-container');
     buttonContainer?.appendChild(
-      new LunchButton({ color: 'secondary', type: 'button', text: '취소하기' }),
+      new LunchButton({
+        color: 'secondary',
+        type: 'button',
+        text: '취소하기',
+        onClick: this.handleModalClose,
+      }),
     );
     buttonContainer?.appendChild(
       new LunchButton({
         color: 'primary',
         type: 'submit',
         text: '추가하기',
+        onClick: this.handleSubmit,
       }),
     );
-  }
-
-  setSubmitListener() {
-    this.addEventListener('submit', (event) => {
-      event.preventDefault();
-      this.handleSubmit();
-    });
   }
 
   handleSubmit() {
     const newRestaurant: Restaurant = this.getNewRestaurant();
     RestaurantRegistry.registerOneRestaurant(newRestaurant);
-    // this.handleModalClose();
     this.handleModalOpen();
     this.querySelector('form')?.reset();
-    this.handleResetFilter();
+    this.resetFilter();
+    this.renderItems();
   }
 
   getNewRestaurant() {
@@ -112,15 +102,15 @@ class LunchRegisterModal extends HTMLElement {
         select.options[0].selected = true;
       }
     });
-    this.handleRenderItems();
+    this.renderItems();
   }
 
-  handleRenderItems() {
+  renderItems() {
     const items = document.querySelector('lunch-items') as LunchItems;
     items.renderItems({});
   }
 
-  handleResetFilter() {
+  resetFilter() {
     const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
     filter.resetDropdown();
   }
