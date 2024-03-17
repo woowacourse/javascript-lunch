@@ -85,10 +85,17 @@ class RestaurantList extends BaseComponent {
     this.handleRerenderRestaurantList();
   }
 
+  private isFavoriteButtonClick(event: Event): boolean {
+    return (event.target as HTMLElement).classList.contains(
+      "favorite-image-button"
+    );
+  }
+
   private handleClickRestaurantItem(event: Event) {
     const restaurantEl = (event.target as HTMLElement)?.closest(".restaurant");
-
     if (!restaurantEl) return;
+
+    if (this.isFavoriteButtonClick(event)) return;
 
     const restaurantNameEl = restaurantEl.querySelector(".restaurant__name");
     if (!restaurantNameEl) return;
@@ -98,6 +105,7 @@ class RestaurantList extends BaseComponent {
 
     const restaurantDetail =
       this.restaurant.getRestaurantDetailByName(restaurantName);
+
     this.emit(CUSTOM_EVENT_TYPE.restaurantItemClick, {
       restaurantDetail: restaurantDetail,
     });
