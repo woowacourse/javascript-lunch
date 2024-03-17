@@ -1,10 +1,11 @@
 import Restaurant from '../../src/app/domain/Restaurant';
-import { RestaurantDataType } from '../../src/app/type/restaurantTypes';
+import { RestaurantDataType, RestaurantType } from '../../src/app/type/restaurantTypes';
 import { Category, DistanceByWalk } from '../../src/app/enum/enums';
 
 describe('[Restaurant] 음식점 객체 테스트', () => {
-  it('음식점은 자신의 카테고리, 이름, 거리, 설명, 참고 링크, 자주 가는 음식점 여부를 반환할 수 있다.', () => {
-    const restaurantData: RestaurantDataType = {
+  it('음식점은 자신의 ID, 카테고리, 이름, 거리, 설명, 참고 링크, 자주 가는 음식점 여부를 반환할 수 있다.', () => {
+    const restaurantData: RestaurantType = {
+      id: '1',
       name: '한식당',
       category: Category.한식,
       distanceByWalk: DistanceByWalk['10분 내'],
@@ -13,7 +14,7 @@ describe('[Restaurant] 음식점 객체 테스트', () => {
       favorite: true,
     };
 
-    const restaurant = new Restaurant({ ...restaurantData, id: '1' });
+    const restaurant = new Restaurant(restaurantData);
     const expectedData = Object.entries(restaurant.getData()).toString();
 
     expect(expectedData).to.eql(Object.entries(restaurantData).toString());
