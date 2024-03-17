@@ -35,7 +35,8 @@ const createRestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }
   restaurantSubInfoFirst.appendChild(restaurantDistance);
 
   const restaurantSubInfoSecond = document.createElement('div');
-  restaurantSubInfoSecond.appendChild(FavoriteButton({ favorite: restaurant.favorite, onFavoriteButtonClick }));
+  const favoriteButton = FavoriteButton({ favorite: restaurant.favorite });
+  restaurantSubInfoSecond.appendChild(favoriteButton);
 
   const restaurantDescription = document.createElement('p');
   restaurantDescription.classList.add('restaurant__description', 'text-body');
@@ -50,6 +51,13 @@ const createRestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }
 
   if (onItemClick) {
     restaurantItem.addEventListener('click', onItemClick);
+  }
+
+  if (onFavoriteButtonClick) {
+    favoriteButton.addEventListener('click', event => {
+      onFavoriteButtonClick(event);
+      event.stopPropagation();
+    });
   }
 
   return restaurantItem;

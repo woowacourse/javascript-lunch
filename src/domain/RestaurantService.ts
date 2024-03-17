@@ -39,16 +39,9 @@ class RestaurantService implements Restaurants {
     return restaurantList.filter(restaurant => restaurant.favorite);
   }
 
-  changeFavorite(restaurantId: number, restaurantList: Restaurant[]) {
-    const targetRestaurant = restaurantList.find(restaurant => restaurant.id === restaurantId);
-
-    if (!targetRestaurant) return false;
-
-    targetRestaurant.favorite = !targetRestaurant.favorite;
+  changeFavorite(restaurant: Restaurant, restaurantList: Restaurant[]) {
+    restaurant.favorite = !restaurant.favorite;
     localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(restaurantList));
-
-    if (targetRestaurant.favorite) return true;
-    return false;
   }
 }
 

@@ -50,10 +50,10 @@ class App {
   }
 
   renderHeader() {
-    const container = $('#container');
-
-    const header = createHeader({ title: '점심 뭐 먹지', imageSource: './add-button.png' });
-
+    const header = createHeader({
+      title: '점심 뭐 먹지',
+      imageSource: './add-button.png',
+    });
     container.prepend(header);
   }
 
@@ -67,8 +67,6 @@ class App {
   }
 
   renderNavbar() {
-    const container = $('#container');
-
     const navbar = createNavbar({
       firstTitle: '모든 음식점',
       secondTitle: '자주 가는 음식점',
@@ -82,8 +80,6 @@ class App {
   }
 
   renderFilterDropdown() {
-    const container = $('#container');
-
     const filterDropdown = createFilterDropdown({
       onChangeFilter: category => {
         this.#category = category;
@@ -101,7 +97,9 @@ class App {
   updateRestaurantList() {
     const restaurantListContainer = $('.restaurant-list-container');
 
-    const currentRestaurantList = this.currentRestaurantList();
+    const currentRestaurantList = this.#isAllSelected
+      ? this.#restaurantList
+      : this.#restaurantService.filterByFavorite(this.#restaurantList);
     const filteredList = this.#restaurantService.filterByCategory(this.#category, currentRestaurantList);
     const processedList = this.#restaurantService.sortByProperty(this.#property, filteredList);
 
@@ -109,13 +107,6 @@ class App {
 
     restaurantListContainer.replaceChildren(listFragment);
     container.appendChild(restaurantListContainer);
-  }
-
-  currentRestaurantList() {
-    if (!this.#isAllSelected) {
-      return this.#restaurantService.filterByFavorite(this.#restaurantList);
-    }
-    return this.#restaurantList;
   }
 
   getRestaurantItemsFragment(processedList) {
@@ -128,24 +119,22 @@ class App {
         onItemClick: () => {
           this.#detailRestaurantModal.restaurant = restaurantItem;
           this.#detailRestaurantModal.open();
+          this.managedetailRestaurantEvents(restaurantItem);
         },
         onFavoriteButtonClick: img => {
-          restaurantItem.favorite = !restaurantItem.favorite;
-          localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(this.#restaurantList));
-          img.target.src = restaurantItem.favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
+          this.handleButtonChange(img, restaurantItem);
         },
       }),
     );
 
     listFragment.replaceChildren();
     restaurantItems.forEach(child => listFragment.appendChild(child));
+
     return listFragment;
   }
 
   manageAddRestaurantFormEvents() {
     const formAddRestaurant = $('.form-add-restaurant');
-
-    formAddRestaurant.addEventListener('reset', () => this.#addingRestaurantModal.close());
 
     formAddRestaurant.addEventListener('submit', e => {
       e.preventDefault();
@@ -172,29 +161,31 @@ class App {
     return formData;
   }
 
-  handleButtonChange(restaurantItem) {
-    // const favoriteButton = restaurantItem.querySelector('.favorite-button');
-    // favoriteButton.addEventListener('click', () => {
-    //   const isFavorite = this.#restaurantService.changeFavorite(restaurantItem.restaurant, this.#restaurantList);
-    //   favoriteButton.src = isFavorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
-    // });
+  handleButtonChange(img, restaurantItem) {
+    this.#restaurantService.changeFavorite(restaurantItem, this.#restaurantList);
+    img.target.src = restaurantItem.favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
   }
 
-  // managedetailRestaurantEvents(restaurantId) {
-  //   const detailRestaurant = $('.detail-restaurant');
-  //   const buttonContainer = detailRestaurant.querySelector('.button-container');
-  //   const targetRestaurant = this.#restaurantList.find(restaurant => restaurant.id === restaurantId);
-  //   buttonContainer.addEventListener('click', event => {
-  //     const target = event.target;
+  managedetailRestaurantEvents(restaurantItem) {
+    const detailRestaurant = $('.detail-restaurant');
+    const favoriteButton = $('.favorite-button');
 
-  //     if (target.innerText === '삭제하기') {
-  //       this.#restaurantList = this.#restaurantService.removeRestaurant(targetRestaurant, this.#restaurantList);
-  //       alert('삭제되었습니다.');
-  //     }
-  //     this.updateRestaurantList();
-  //     this.#detailRestaurantModal.close();
-  //   });
-  // }
+    favoriteButton.addEventListener('click', event => {
+      this.handleButtonChange(event, restaurantItem);
+      this.updateRestaurantList();
+    });
+
+    const buttonContainer = detailRestaurant.querySelector('.button-container');
+
+    buttonContainer.addEventListener('click', event => {
+      if (event.target.innerText === '삭제하기') {
+        this.#restaurantList = this.#restaurantService.removeRestaurant(restaurantItem, this.#restaurantList);
+        alert('삭제되었습니다.');
+      }
+      this.updateRestaurantList();
+      this.#detailRestaurantModal.close();
+    });
+  }
 }
 
 export default App;
