@@ -1,3 +1,4 @@
+import { ILocalData } from '../../Controller/WebController';
 import { LOCAL_STORAGE_KEY } from '../../constants/LocalStorageKey';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
 
@@ -27,8 +28,8 @@ class LikeStar extends HTMLElement {
   }
 
   #editLocalStorageData() {
-    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!);
-    localData[this.#restaurantId].isLiked = !localData[this.#restaurantId].isLiked;
+    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!) as ILocalData;
+    localData[this.#restaurantId]!.isLiked = !localData[this.#restaurantId]!.isLiked;
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
   }
 

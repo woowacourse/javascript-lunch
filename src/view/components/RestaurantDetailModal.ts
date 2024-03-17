@@ -1,3 +1,4 @@
+import { ILocalData } from '../../Controller/WebController';
 import { LOCAL_STORAGE_KEY } from '../../constants/LocalStorageKey';
 import '../../css/restaurantDetailModal.css';
 import { IMG_CATEGORY, IRestaurantInfo } from '../../domain/Restaurant';
@@ -52,9 +53,9 @@ function closeRestaurantDetailModal() {
   dialog.close();
 }
 
-function removeRestaurantInLocalStorage(index: number) {
-  const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!);
-  localData[index] = null;
+function removeRestaurantInLocalStorage(id: number) {
+  const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!) as ILocalData;
+  localData[id] = null;
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
 }
 
