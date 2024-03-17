@@ -3,6 +3,7 @@ import "./styles/Header.css";
 import "./styles/RestaurantList.css";
 import "./styles/Filter.css";
 import "./styles/Selects.css";
+import "./styles/RestaurantModal.css";
 
 import "../templates/add-button.png";
 import "../templates/category-asian.png";
@@ -14,5 +15,6 @@ import "../templates/category-western.png";
 import "../templates/favorite-icon-filled.png";
 import "../templates/favorite-icon-lined.png";
 import App from "./App";
+import RestaurantModal from "./components/RestaurantModal";
 
 new App(document.querySelector("#app"));

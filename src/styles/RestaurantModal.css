@@ -1,0 +1,29 @@
+.restuarant-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-button,
+.cancel-button {
+  border-radius: 8px;
+  width: 120px;
+  height: 40px;
+}
+
+.delete-button {
+  color: #667085;
+  background-color: white;
+  border: 1px solid #667085;
+}
+
+.cancel-button {
+  color: white;
+  background-color: #ec4a0a;
+  border: 1px solid #ec4a0a;
+}
