@@ -1,3 +1,4 @@
+import './TabMenu.css';
 import Component from '../core/Component';
 
 import dom from '@/utils/dom';
