@@ -1,4 +1,4 @@
-import type { IButtonAttributes, IDropdownAttributes, IOptionAttributes } from '../types/dom';
+import type { IDropdownAttributes, IOptionAttributes } from '../types/dom';
 import type { TCategory } from '../types/restaurant';
 
 import asian from '../assets/images/category-asian.png';
@@ -51,18 +51,6 @@ const FORM_DISTANCE: IOptionAttributes[] = [
   { value: '30', text: '30분 내' },
 ];
 
-const CLOSE_BUTTON_ATTRIBUTE: IButtonAttributes = {
-  id: 'button-close',
-  type: 'button',
-  classNames: ['button', 'button--secondary', 'text-caption'],
-  text: '취소하기',
-};
-const ADD_BUTTON_ATTRIBUTE: IButtonAttributes = {
-  id: 'button-add',
-  classNames: ['button', 'button--primary', 'text-caption'],
-  text: '추가하기',
-};
-
 const CATEGORY_IMG_SRC: Record<TCategory, any> = {
   전체: '',
   한식: korean,
@@ -85,7 +73,5 @@ export {
   FORM_CATEGORY,
   FORM_DISTANCE_ATTRIBUTE,
   FORM_DISTANCE,
-  CLOSE_BUTTON_ATTRIBUTE,
-  ADD_BUTTON_ATTRIBUTE,
   CATEGORY_IMG_SRC,
 };
