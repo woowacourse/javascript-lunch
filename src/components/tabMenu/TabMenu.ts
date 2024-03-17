@@ -32,6 +32,7 @@ class TabMenu extends Component<TabMenuProps> {
       });
       this.$target.classList.add('active-tab');
       this.props.clickEvent();
+      this.dispatchSelectEvent();
     });
   }
 
@@ -48,6 +49,15 @@ class TabMenu extends Component<TabMenuProps> {
       tagName: 'p',
       text,
     });
+  }
+
+  dispatchSelectEvent() {
+    const $categoryFilter = dom.getElement('#category-filter');
+    const filterEvent = new Event('change', {
+      bubbles: true,
+      cancelable: true,
+    });
+    $categoryFilter.dispatchEvent(filterEvent);
   }
 }
 
