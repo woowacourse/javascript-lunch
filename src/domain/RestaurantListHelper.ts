@@ -1,4 +1,4 @@
-import { ALL, SORT_VALUE } from "../constants/system";
+import { ALL_CATEGORY, SORT_VALUE } from "../constants/system";
 import filterState from "../store/FilterStateStore";
 import { Iall, Icategory } from "../types/category";
 import { Irestaurant, IrestaurantList } from "../types/restaurant";
@@ -26,7 +26,7 @@ class RestaurantListHelper implements IrestaurantList {
   }
 
   filterByCategory(category: Icategory | Iall, restaurantList: Irestaurant[]) {
-    if (category === ALL) {
+    if (category === ALL_CATEGORY) {
       return restaurantList;
     }
 

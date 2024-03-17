@@ -7,7 +7,7 @@ export const CATEGORIES = {
   OTHER: "기타",
 };
 
-export const ALL = "전체";
+export const ALL_CATEGORY = "전체";
 
 export type CategoryValue = (typeof CATEGORIES)[keyof typeof CATEGORIES];
 
