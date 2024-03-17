@@ -4,8 +4,10 @@
 @import url('../components/RestaurantList/restaurant-list.css');
 @import url('../components/Common/Restaurant/restaurant.css');
 @import url('../components/Common/Select/select.css');
+@import url('../components/Common/ModalWrapper/modal-wrapper.css');
 @import url('../components/AddRestaurantModal/add-restaurant-modal.css');
 @import url('../components/Common/RestaurantDetail/restaurant-detail.css');
+@import url('../components/Common/FavoriteButton/favorite-button.css');
 
 * {
   padding: 0;

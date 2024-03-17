@@ -53,19 +53,3 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
-.favorite-button {
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-}
-
-.favorite-button {
-  width: 32px;
-  height: 32px;
-}
-
-.favorite-icon {
-  width: 100%;
-  height: 100%;
-}

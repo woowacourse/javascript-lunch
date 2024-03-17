@@ -9,17 +9,6 @@
   justify-content: space-between;
 }
 
-.favorite-button {
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-}
-
-.favorite-icon {
-  width: 32px;
-  height: 32px;
-}
-
 .restaurant-detail-main {
   display: flex;
   flex-direction: column;
