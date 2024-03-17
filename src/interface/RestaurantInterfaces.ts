@@ -7,6 +7,7 @@ type Distance = 5 | 10 | 15 | 20 | 30;
 type SortingProperty = 'name' | 'distance';
 
 interface Restaurant {
+  id: string;
   category: Category;
   name: string;
   distance: Distance;
@@ -16,7 +17,7 @@ interface Restaurant {
 }
 
 interface Restaurants {
-  createRestaurant: (formData: Restaurant) => Restaurant;
+  createRestaurant: () => Restaurant;
   addRestaurant: (restaurant: Restaurant, restaurantList: Restaurant[]) => boolean;
   filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
   sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];

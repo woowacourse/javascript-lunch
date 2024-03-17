@@ -1,15 +1,23 @@
 import { LOCAL_STORAGE_KEY } from '../../constant/constants';
 import { FilteringCategory, SortingProperty, Restaurant, Restaurants } from '../../interface/RestaurantInterfaces';
+import { $ } from '../../utils/querySelector';
+import RestaurantEntity from './../entities/RestaurantEntity';
 
 const RestaurantService: Restaurants = {
-  createRestaurant(formData: Restaurant) {
+  createRestaurant() {
+    const category = $('#category').value;
+    const name = $('#name').value;
+    const distance = $('#distance').value;
+    const description = $('#description').value;
+    const link = $('#link').value;
+
     return {
-      id: formData.id,
-      category: formData.category,
-      name: formData.name,
-      distance: formData.distance,
-      description: formData.description,
-      link: formData.link,
+      id: category + name,
+      category: category,
+      name: name,
+      distance: distance,
+      description: description,
+      link: link,
       isFavorite: false,
     };
   },
@@ -20,7 +28,7 @@ const RestaurantService: Restaurants = {
     );
     if (existingRestaurant) return false;
 
-    restaurantList.push(restaurant);
+    restaurantList.push(new RestaurantEntity({ restaurant: restaurant }));
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurantList));
     return true;
   },
@@ -31,12 +39,9 @@ const RestaurantService: Restaurants = {
   },
 
   sortByProperty(property: SortingProperty, restaurantList: Restaurant[]) {
-    // return restaurantList.sort((first, second) => {
-    //   if (first[property] === second[property]) return first.id > second.id ? 1 : -1;
-    //   else return first[property] > second[property] ? 1 : -1;
-    // });
     return restaurantList.sort((first, second) => {
-      return first[property] > second[property] ? 1 : -1;
+      if (first[property] === second[property]) return first.id > second.id ? 1 : -1;
+      else return first[property] > second[property] ? 1 : -1;
     });
   },
 
