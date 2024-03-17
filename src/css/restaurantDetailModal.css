@@ -1,11 +1,11 @@
 #restaurant-detail-modal {
   position: fixed;
-  height: 100vh;
   width: 100vw;
-  border: none;
   max-width: 100vw;
+  height: 100vh;
   max-height: 100vh;
   background-color: #00000059;
+  border: none;
 }
 
 #restaurant-detail-modal:focus-visible {
@@ -15,13 +15,13 @@
 #restaurant-detail-main {
   position: absolute;
   bottom: 0;
-  width: 100%;
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 32px 16px;
   background-color: #ffffff;
   border-radius: 8px 8px 0px 0px;
-  flex-direction: column;
-  padding: 32px 16px;
-  gap: 16px;
 }
 
 .restaurant-detail-modal-description {
