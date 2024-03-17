@@ -21,7 +21,9 @@ const restaurantAPI = {
 
     if (isExisting) {
       alert(`${restaurant.name} 가 이미 존재합니다.`);
+      return;
     }
+
     const updatedRestaurants = [...existingRestaurants, restaurant];
     window.localStorage.setItem(KEY, JSON.stringify(updatedRestaurants));
     alert(`${restaurant.name} 가 추가되었습니다.`);
