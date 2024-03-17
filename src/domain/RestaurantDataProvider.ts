@@ -41,7 +41,7 @@ type SortRestaurantsProps = {
 const RestaurantDataProvider: RestaurantDataProviderType = {
   getAllRestaurantsByOption(props: getAllRestaurantsByOptionProps): Restaurants {
     const restaurants = localStorage.getItem(props.database ?? 'restaurants');
-    const allRestaurants = JSON.parse(restaurants || '[]');
+    const allRestaurants = JSON.parse(restaurants ?? '[]');
 
     const filterRestaurants = props.category
       ? this.filterByCategory({ category: props.category, allRestaurants })

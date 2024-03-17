@@ -1,5 +1,4 @@
 import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
-import LunchItems from '../LunchItems/LunchItems';
 import './style.css';
 import TabButton from './TabButton';
 

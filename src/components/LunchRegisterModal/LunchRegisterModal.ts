@@ -1,12 +1,12 @@
 import './style.css';
 // eslint-disable-next-line import/no-duplicates
 import '../LunchFormItem/LunchFormItem';
+
 import LunchButton from '../LunchButton/LunchButton';
 // eslint-disable-next-line import/no-duplicates
 import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
 import { RestaurantRegistry } from '../../domain';
 import { Restaurant } from '../../types';
-import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
 import LunchModal from '../LunchModal/LunchModal';
 
 const LUNCH_REGISTER_MODAL = /* html */ `
