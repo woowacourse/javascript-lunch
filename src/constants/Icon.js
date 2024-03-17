@@ -14,7 +14,7 @@ fill="#EC4A0A"
 </svg>`;
 
 export const emptyFavoriteToggle = `<svg
-id="empty-star"
+
 class="favorite-toggle star"
 width="32"
 height="32"
@@ -29,9 +29,5 @@ xmlns="http://www.w3.org/2000/svg"
     fill-opacity="0.5"
   />
 </g>
-<defs>
-  <clipPath id="clip0_3339_1451">
-    <rect width="32" height="32" fill="white" />
-  </clipPath>
-</defs>
+
 </svg>`;

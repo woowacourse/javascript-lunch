@@ -412,3 +412,9 @@ input[name="link"] {
   justify-content: space-between;
   align-items: center;
 }
+
+#filled-star {
+  position: relative;
+  right: 2px;
+  top: 2px;
+}
