@@ -19,12 +19,14 @@ class RenderController {
     "favorite-restaurant-list-ul"
   );
 
+  static #filterContainer = document.getElementById("filter-container");
+
   static renderTabBar() {
     const tabBar = new TabBar([
       {
         value: "모든 음식점",
-        onFunction: RenderController.showEntireRestaurantListUl.bind(this),
-        offFunction: RenderController.hideEntireRestaurantListUl.bind(this),
+        onFunction: RenderController.showEntireRestaurantAndFilter.bind(this),
+        offFunction: RenderController.hideEntireRestaurantAndFilter.bind(this),
       },
       {
         value: "자주 가는 음식점",
@@ -36,8 +38,6 @@ class RenderController {
   }
 
   static renderFilterContainer() {
-    const filterContainer = document.getElementById("filter-container");
-
     const categoryFilter = new SelectBox({
       options: CATEGORY_WITH_ENTIRE,
       eventListenerArgs: [["change", this.renderEntireRestaurantListUl]],
@@ -49,7 +49,10 @@ class RenderController {
 
     categoryFilter.element.id = "category-filter";
     sortStandardFilter.element.id = "sort-standard-filter";
-    filterContainer?.append(categoryFilter.element, sortStandardFilter.element);
+    this.#filterContainer?.append(
+      categoryFilter.element,
+      sortStandardFilter.element
+    );
   }
 
   static renderEntireRestaurantListUl() {
@@ -85,12 +88,14 @@ class RenderController {
     document.getElementById("main")?.append(element);
   }
 
-  static hideEntireRestaurantListUl() {
+  static hideEntireRestaurantAndFilter() {
     this.#entireRestaurantListUl?.classList.add("display-none");
+    this.#filterContainer?.classList.add("display-none");
   }
 
-  static showEntireRestaurantListUl() {
+  static showEntireRestaurantAndFilter() {
     this.#entireRestaurantListUl?.classList.remove("display-none");
+    this.#filterContainer?.classList.remove("display-none");
   }
 
   static hideFavoriteRestaurantListUl() {
