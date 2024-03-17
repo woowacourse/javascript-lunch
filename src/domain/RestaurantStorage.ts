@@ -76,6 +76,13 @@ class RestauranStorage {
     });
     localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
   }
+
+  deleteRestaurant(name: string) {
+    const newRestaurants = getResturantsFromLocalStorage().filter(
+      (restaurant) => restaurant.name !== name
+    );
+    localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
+  }
 }
 
 export default new RestauranStorage();

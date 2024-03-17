@@ -1,6 +1,7 @@
 import Component from "../common/Component";
 import { CATEGORY_IMAGE_MAPPER, DISTANCE_MAPPER } from "../constants";
 import { RestaurantType } from "../types";
+import RestaurantStorage from "../domain/RestaurantStorage";
 
 export default class RestaurantModal extends Component {
   render(): string {
@@ -43,14 +44,15 @@ export default class RestaurantModal extends Component {
   }
 
   componentDidMount(): void {
-    const { restaurant }: { restaurant: RestaurantType } = this.props;
+    const { restaurant, loadRestaurant } = this.props;
     const $deleteButton = document.querySelector(".delete-button");
     const $cancelButton = document.querySelector(".cancel-button");
     const $modal = document.querySelector(".modal");
 
     $deleteButton?.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log("delete button", restaurant.name);
+      RestaurantStorage.deleteRestaurant(restaurant.name);
+      loadRestaurant();
     });
 
     $cancelButton?.addEventListener("click", (e) => {
