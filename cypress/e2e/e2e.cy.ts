@@ -1,4 +1,4 @@
-describe('점심 뭐먹지 e2e 테스트', () => {
+describe('음식점 등록 테스트', () => {
   before(() => {
     cy.visit('/');
     cy.viewport('macbook-13');
@@ -15,6 +15,17 @@ describe('점심 뭐먹지 e2e 테스트', () => {
     cy.get('#button-add').click();
 
     cy.get('.restaurant-list').find('li').should('have.length', 7);
+  });
+
+  it('음식점 등록하다가 취소하기 클릭 시 작성하던 form은 리셋된다.', () => {
+    cy.get('.gnb__button').click();
+    cy.get('#category').select('한식').should('have.value', '한식');
+    cy.get('#name').type('e2e 테스트!!!!!!');
+    cy.get('#distance').select('10분 내').should('have.value', '10');
+    cy.get('#button-close').click();
+
+    cy.get('.gnb__button').click();
+    cy.get('#category').should('have.value', '');
   });
 });
 
