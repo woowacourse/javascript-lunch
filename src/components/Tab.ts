@@ -9,7 +9,7 @@ class Tab extends HTMLDivElement {
   constructor() {
     super();
     this.classList.add('custom-tab', ELEMENT_NAME);
-    this.#selected = this.querySelector(`div[is=${ELEMENT_NAME}] > *`)!;
+    this.#selected = this.querySelector(`:scope > *`)!;
 
     this.addEventListener('click', (event) => {
       if (this.contains(event.target as Node)) {

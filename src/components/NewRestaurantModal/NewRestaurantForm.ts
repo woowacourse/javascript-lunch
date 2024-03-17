@@ -13,7 +13,7 @@ class NewRestaurantForm extends HTMLFormElement {
     <div class="form-item form-item--required category-select">
       <label for="category text-caption">카테고리</label>
       <select is="select-box"></select>
-      <div class="error hidden">카테고리는 필수 입력입니다.</div>
+      <div class="error invisible">카테고리는 필수 입력입니다.</div>
     </div>
     
     <div is="vertical-input-box"></div>
@@ -21,7 +21,7 @@ class NewRestaurantForm extends HTMLFormElement {
     <div class="form-item form-item--required distance-select">
       <label for="distance text-caption">거리(도보 이동 시간)</label>
       <select is="select-box"></select>
-      <div class="error hidden">거리 값은 필수 입력입니다.</div>
+      <div class="error invisible">거리 값은 필수 입력입니다.</div>
     </div>
 
     <div class="form-item">

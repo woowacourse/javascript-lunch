@@ -29,12 +29,12 @@ class VerticalInputBox extends HTMLDivElement {
     <label class="text-caption"></label>
     <input type="text" name=""  id="" />
     <span class="help-text text-caption"></span>
-    <div class="error hidden"></span>`;
+    <div class="error invisible"></span>`;
 
-    this.#name = this.querySelector(':scope > label') as HTMLLabelElement;
-    this.#input = this.querySelector(':scope > input') as HTMLInputElement;
-    this.#help = this.querySelector(':scope > span') as HTMLSpanElement;
-    this.#error = this.querySelector(':scope > .error') as HTMLDivElement;
+    this.#name = this.querySelector(':scope > label')!;
+    this.#input = this.querySelector(':scope > input')!;
+    this.#help = this.querySelector(':scope > span')!;
+    this.#error = this.querySelector(':scope > .error')!;
 
     if (props) {
       this.setState(props);

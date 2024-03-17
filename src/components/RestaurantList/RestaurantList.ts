@@ -3,7 +3,6 @@ import RestaurantItem from './RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantList.css';
-import MainApp from '../MainApp';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 
 class RestaurantList extends HTMLUListElement {

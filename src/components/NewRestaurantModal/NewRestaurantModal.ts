@@ -30,19 +30,19 @@ class NewRestaurantModal extends BasicModal {
     const isNotValidDistance = Number.isNaN(distance);
     const isNotValidName = !name;
     if (isNotValidCategory) {
-      this.querySelector('.category-select > .error')?.classList.remove('hidden');
+      this.querySelector('.category-select > .error')?.classList.remove('invisible');
     }
     if (isNotValidDistance) {
-      this.querySelector('.distance-select > .error')?.classList.remove('hidden');
+      this.querySelector('.distance-select > .error')?.classList.remove('invisible');
     }
     if (isNotValidName) {
-      this.querySelector('.name-input-box > .error')?.classList.remove('hidden');
+      this.querySelector('.name-input-box > .error')?.classList.remove('invisible');
     }
     return isNotValidCategory || isNotValidDistance || isNotValidName;
   }
 
   closeModal() {
-    this.#hideErrorMessage();
+    this.#invisibleErrorMessage();
     this.classList.remove('modal--open');
   }
 
@@ -50,16 +50,16 @@ class NewRestaurantModal extends BasicModal {
     return this.#form;
   }
 
-  #hideErrorMessage() {
-    this.querySelector('.category-select > .error')?.classList.add('hidden');
-    this.querySelector('.distance-select > .error')?.classList.add('hidden');
-    this.querySelector('.name-input-box > .error')?.classList.add('hidden');
+  #invisibleErrorMessage() {
+    this.querySelector('.category-select > .error')?.classList.add('invisible');
+    this.querySelector('.distance-select > .error')?.classList.add('invisible');
+    this.querySelector('.name-input-box > .error')?.classList.add('invisible');
   }
 
   #setSubmitEvent() {
     this.#form.addEventListener('submit', (e) => {
       e.preventDefault();
-      this.#hideErrorMessage();
+      this.#invisibleErrorMessage();
       const { name, distance, category, description, link } = this.#getValues();
       if (this.#validateRequiredValues(category, distance, name)) return;
 
