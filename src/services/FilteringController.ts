@@ -27,10 +27,9 @@ const FilteringController = {
 
     const restaurantList = new RestaurantList();
 
-    const filteredLike =
-      like === true
-        ? restaurantList.filterRestaurantsByLike(like)
-        : restaurantList.list;
+    const filteredLike = like
+      ? restaurantList.filterRestaurantsByLike(like)
+      : restaurantList.list;
 
     const filteredCategory =
       category === 'all'
