@@ -35,4 +35,5 @@
 
 .restaurant-detail-link a {
   text-decoration: underline;
+  color: var(--grey-500);
 }

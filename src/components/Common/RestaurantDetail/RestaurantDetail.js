@@ -42,7 +42,7 @@ export default class RestaurantDetail extends ModalWrapper {
             </p>
           </div>
           <div class="restaurant-detail-link">
-            <a>${link}</a>
+            <a target="_blank" href="${link}">${link}</a>
           </div>
         </section>
         <div class="button-container">
