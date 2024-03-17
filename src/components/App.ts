@@ -1,5 +1,5 @@
 import type RestaurantList from '@/domain/RestaurantList';
-import type { TTabMenu } from '@/types/restaurant';
+import type { IRestaurantList, TTabMenu } from '@/types/restaurant';
 
 import Component from './core/Component';
 import Dropdown from './dropdown/Dropdown';
@@ -21,18 +21,10 @@ class App extends Component<Props> {
     const restaurantDetailModal = this.createRestaurantDetailModal();
     const restaurantAddModal = this.createRestaurantAddModal();
 
+    const restaurantList = this.createRestaurantList('all', restaurantDetailModal);
     this.renderHeader(restaurantAddModal);
     this.renderTabMenu(restaurantDetailModal);
-    this.renderHomeDropdown();
-    this.renderRestaurantList('all', restaurantDetailModal);
-  }
-
-  handleClickAllTab(restaurantDetailModal: RestaurantDetailModal) {
-    this.renderRestaurantList('all', restaurantDetailModal);
-  }
-
-  handleClickFavoriteTab(restaurantDetailModal: RestaurantDetailModal) {
-    this.renderRestaurantList('favorite', restaurantDetailModal);
+    this.renderHomeDropdown(restaurantList);
   }
 
   createRestaurantDetailModal() {
@@ -91,22 +83,30 @@ class App extends Component<Props> {
     });
   }
 
-  renderRestaurantList(kind: TTabMenu, restaurantDetailModal: RestaurantDetailModal) {
+  handleClickAllTab(restaurantDetailModal: RestaurantDetailModal) {
+    this.createRestaurantList('all', restaurantDetailModal);
+  }
+
+  handleClickFavoriteTab(restaurantDetailModal: RestaurantDetailModal) {
+    this.createRestaurantList('favorite', restaurantDetailModal);
+  }
+
+  createRestaurantList(kind: TTabMenu, restaurantDetailModal: RestaurantDetailModal) {
     const $restaurantContainer = dom.getElement('.restaurant-list-container');
-    new RestaurantListContainer({
+    return new RestaurantListContainer({
       $target: $restaurantContainer,
       props: { restaurantList: this.props.restaurantList, kind, restaurantDetailModal },
     });
   }
 
-  renderHomeDropdown() {
+  renderHomeDropdown(restaurantListContainer: RestaurantListContainer) {
     const $restaurantFilterContainer = dom.getElement('.restaurant-filter-container');
     $restaurantFilterContainer.replaceChildren();
-    this.renderCategoryDropdown($restaurantFilterContainer);
-    this.renderSortingDropdown($restaurantFilterContainer);
+    this.renderCategoryDropdown($restaurantFilterContainer, restaurantListContainer);
+    this.renderSortingDropdown($restaurantFilterContainer, restaurantListContainer);
   }
 
-  renderCategoryDropdown($restaurantFilterContainer: HTMLElement) {
+  renderCategoryDropdown($restaurantFilterContainer: HTMLElement, restaurantListContainer: RestaurantListContainer) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
@@ -114,11 +114,14 @@ class App extends Component<Props> {
         attributes: FILTERED_CATEGORY_ATTRIBUTE,
         options: FILTERED_CATEGORY,
         restaurantList: this.props.restaurantList,
+        renderRestaurantList: (restaurants: IRestaurantList) => {
+          restaurantListContainer.renderRestaurantList(restaurants);
+        },
       },
     });
   }
 
-  renderSortingDropdown($restaurantFilterContainer: HTMLElement) {
+  renderSortingDropdown($restaurantFilterContainer: HTMLElement, restaurantListContainer: RestaurantListContainer) {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
@@ -126,6 +129,9 @@ class App extends Component<Props> {
         attributes: SORTING_ATTRIBUTE,
         options: SORTING,
         restaurantList: this.props.restaurantList,
+        renderRestaurantList: (restaurants: IRestaurantList) => {
+          restaurantListContainer.renderRestaurantList(restaurants);
+        },
       },
     });
   }
