@@ -59,19 +59,9 @@ export default class RestaurantDetail extends ModalWrapper {
     $('delete-restaurant-button').addEventListener('click', () =>
       this.#handleDeleteRestaurantButton(),
     );
-
-    $('detail-favorite-buttton').addEventListener('click', (event) => {
-      const favoriteIcon = event.target.closest('img');
-      if (!favoriteIcon) return;
-
-      this.#restaurants.toggleFavoriteState(this.#restaurant.name);
-
-      favoriteIcon.src === ICON[FAVORITE_ICON.add]
-        ? (favoriteIcon.src = ICON[FAVORITE_ICON.remove])
-        : (favoriteIcon.src = ICON[FAVORITE_ICON]);
-
-      this.#restaurantList.render();
-    });
+    $('detail-favorite-buttton').addEventListener('click', (event) =>
+      this.#handleClickFavoriteButton(event),
+    );
   }
 
   #handleDeleteRestaurantButton() {
@@ -82,5 +72,24 @@ export default class RestaurantDetail extends ModalWrapper {
       close();
       this.#restaurantList.render();
     }
+  }
+
+  #handleClickFavoriteButton(event) {
+    const favoriteIcon = event.target.closest('img');
+    if (!favoriteIcon) return;
+
+    this.#restaurants.toggleFavoriteState(this.#restaurant.name);
+    this.#toggleIconImg(favoriteIcon);
+    this.#restaurantList.render();
+  }
+
+  #toggleIconImg(iconImg) {
+    iconImg.src === ICON[FAVORITE_ICON.add]
+      ? (iconImg.src = ICON[FAVORITE_ICON.remove])
+      : (iconImg.src = ICON[FAVORITE_ICON.add]);
+
+    iconImg.alt === FAVORITE_ICON.add
+      ? (iconImg.alt = FAVORITE_ICON.remove)
+      : (iconImg.alt = FAVORITE_ICON.add);
   }
 }
