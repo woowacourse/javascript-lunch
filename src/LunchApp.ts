@@ -29,6 +29,7 @@ class LunchApp extends HTMLElement {
 
     this.render();
     this.setRenderEventListener();
+    this.setToggleRegisterModalEventListener();
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -76,6 +77,19 @@ class LunchApp extends HTMLElement {
       items.renderItems({ database: 'liked' });
     } else {
       items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
+    }
+  }
+
+  setToggleRegisterModalEventListener() {
+    this.addEventListener('toggleRegisterModal', () => {
+      this.handleToggleRegisterModal();
+    });
+  }
+
+  handleToggleRegisterModal() {
+    const modal = this.querySelector('lunch-register-modal')?.querySelector('.modal');
+    if (modal?.className) {
+      modal.classList.toggle('modal--open');
     }
   }
 }

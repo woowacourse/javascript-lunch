@@ -23,10 +23,10 @@ class LunchHeader extends HTMLElement {
   setEventListener() {
     const button = this.querySelector('.gnb__button');
     button?.addEventListener('click', () => {
-      const modal = document.querySelector('.modal');
-      if (modal?.classList) {
-        modal.classList.add('modal--open');
-      }
+      const toggleRegisterModal = new CustomEvent('toggleRegisterModal', {
+        bubbles: true,
+      });
+      this.dispatchEvent(toggleRegisterModal);
     });
   }
 }

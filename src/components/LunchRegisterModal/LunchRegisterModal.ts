@@ -41,11 +41,11 @@ class LunchRegisterModal extends HTMLElement {
     this.createButtons();
   }
 
-  handleModalClose() {
-    const modal = this.querySelector('.modal');
-    if (modal?.className) {
-      modal.classList.remove('modal--open');
-    }
+  handleToggleModal() {
+    const toggleRegisterModal = new CustomEvent('toggleRegisterModal', {
+      bubbles: true,
+    });
+    this.dispatchEvent(toggleRegisterModal);
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -56,7 +56,7 @@ class LunchRegisterModal extends HTMLElement {
         color: 'secondary',
         type: 'button',
         text: '취소하기',
-        onClick: this.handleModalClose.bind(this),
+        onClick: this.handleToggleModal.bind(this),
       }),
     );
     buttonContainer?.appendChild(
@@ -72,7 +72,7 @@ class LunchRegisterModal extends HTMLElement {
   handleSubmit() {
     const newRestaurant: Restaurant = this.getNewRestaurant();
     RestaurantRegistry.registerOneRestaurant(newRestaurant);
-    this.handleModalOpen();
+    this.handleToggleModal();
     this.querySelector('form')?.reset();
     this.resetFilter();
     this.renderItems();
@@ -87,11 +87,6 @@ class LunchRegisterModal extends HTMLElement {
       newRestaurant[key] = value;
     });
     return newRestaurant;
-  }
-
-  handleModalOpen() {
-    const modal = this.querySelector('.modal') as LunchModal;
-    modal?.handleModalOpen();
   }
 
   handleDropDown() {
