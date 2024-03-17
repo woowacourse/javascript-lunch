@@ -51,4 +51,43 @@ describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
       cy.get("restaurant-item").first().contains(RESTAURANTS_INFOS[5].name);
     });
   });
+
+  context("자주 가는 음식점 관련 기능 확인", () => {
+    it("자주 가는 음식점이 등록되지 않은 상태에서 자주 가는 음식점 탭을 클릭하면 restaurant item이 나타나지 않는다.", () => {
+      cy.get("#tab-item-favorite").click();
+      cy.get("restaurant-item").should("not.exist");
+    });
+
+    it("별 아이콘을 클릭하면 해당 음식점의 별 아이콘이 색칠된다.", () => {
+      cy.get("restaurant-item").first().find(".favorite-icon-img").click();
+      cy.get("restaurant-item")
+        .first()
+        .find(".favorite-icon-img")
+        .should("have.attr", "src", "./filled-favorite-icon.png");
+    });
+
+    it("별 아이콘을 두 번 클릭하면 해당 음식점의 별 아이콘이 색칠이 해제된다.", () => {
+      cy.get("restaurant-item").first().find(".favorite-icon-img").click();
+      cy.get("restaurant-item").first().find(".favorite-icon-img").click();
+      cy.get("restaurant-item")
+        .first()
+        .find(".favorite-icon-img")
+        .should("have.attr", "src", "./blank-favorite-icon.png");
+    });
+
+    it("자주 가는 음식점을 등록하면 자주 가는 음식점 탭에 해당 음식점이 추가된다.", () => {
+      cy.get("restaurant-item").first().find(".favorite-icon-img").click();
+      cy.get("#tab-item-favorite").click();
+      cy.get("restaurant-item").should("have.length", 1);
+    });
+
+    it("자주 가는 음식점을 등록하면 해당 정보는 새로고침 후에도 유지된다.", () => {
+      cy.get("restaurant-item").first().find(".favorite-icon-img").click();
+      cy.reload();
+      cy.get("restaurant-item")
+        .first()
+        .find(".favorite-icon-img")
+        .should("have.attr", "src", "./filled-favorite-icon.png");
+    });
+  });
 });
