@@ -15,6 +15,7 @@ interface RestaurantType {
   name: string;
   category: CategoryType;
   distance: DistanceType;
+  isFavorite: boolean;
   description?: string;
   link?: string;
 }
@@ -93,17 +94,34 @@ export const initRestaurantStorage = () => {
   });
 };
 
-export const filterByCategory = (category: CategoryType) => {
-  const restaurants: RestaurantType[] = getRestaurantFromStorage();
+export const filterByCategory = (
+  category: CategoryType,
+  navigateBar: boolean
+) => {
+  const restaurants: RestaurantType[] = navigateBar
+    ? navigateToRestaurant()
+    : getRestaurantFromStorage();
 
   if (category === "전체") return restaurants;
 
   return restaurants.filter((item) => item.category === category);
 };
 
-export const sortByType = (category: CategoryType, type: SortType) => {
-  const filteredRestaurants = filterByCategory(category);
+export const sortByType = (
+  category: CategoryType,
+  type: SortType,
+  navigateBar: boolean
+) => {
+  const filteredRestaurants = filterByCategory(category, navigateBar);
   return type === "이름순"
     ? sortByName(filteredRestaurants)
     : sortByDistance(filteredRestaurants);
+};
+
+export const navigateToRestaurant = () => {
+  const storedRestaurants = getRestaurantFromStorage();
+  const restaurant = storedRestaurants.filter(
+    (restaurant) => restaurant.isFavorite
+  );
+  return restaurant;
 };
