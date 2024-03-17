@@ -5,7 +5,6 @@ import LunchRestaurantTypeIcon from '../LunchRestaurantTypeIcon/LunchRestaurantT
 import LunchFavoriteIcon from '../LunchFavoriteIcon/LunchFavoriteIcon';
 import { CATEGORY_IMG } from '../LunchItem/LunchItem';
 import LunchButton from '../LunchButton/LunchButton';
-import FavoriteRestaurantsRegistry from '../../domain/FavoriteRestaurantsRegistry';
 import { RestaurantRegistry } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
 import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
@@ -16,8 +15,8 @@ const LUNCH_ITEM_MODAL_CONTENT_HTML = (restaurant: Restaurant) => `
   <div class="restaurant__category-favorite"></div>
   <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
   <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
-  <p class="restaurant__description text-body">${restaurant.description}</p>
-  <p class="link text-body">${restaurant.link}</p>
+  <p class="restaurant__description text-body">${restaurant.description ?? ''}</p>
+  <p class="link text-body">${restaurant.link ?? ''}</p>
 </div>
 <div class="button-container"></div>`;
 
