@@ -30,3 +30,5 @@ export const DISTANCES = {
 };
 
 export const MAX_LENGTH_OF_DESCRIPTION = 300;
+
+export const REMOVE_INNER_TAG = /<[^>]*>?/gm;
