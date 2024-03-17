@@ -13,11 +13,11 @@ export const categoryTemplate = (categoryInfo: IcategoryInfo) => /*html*/ `
 </div>`;
 
 export const likeImgTemplate = `
-<img class="liked" src="${likeImg}" alt="자주 가는 음식점" />
+<img class="liked" src="${likeImg}" alt="즐겨찾기 추가" />
 `;
 
 export const unlikeImgTemplate = `
-<img class="unliked" src="${unlikeImg}" alt="자주 가지 않는 음식점" />`;
+<img class="unliked" src="${unlikeImg}" alt="즐겨찾기 추가 안함" />`;
 
 export const likeTemplate = (isLike: boolean) => /*html*/ `
 <button type="button" class="restaurant__like-button" aria-label="즐겨찾기">
