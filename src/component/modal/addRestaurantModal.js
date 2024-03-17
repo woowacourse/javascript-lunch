@@ -4,7 +4,6 @@ import createLabelWrapper from '../labelWrapper';
 import createTextArea from '../textArea';
 import modal from '../modal';
 import createButton from '../button';
-import { appController } from '../../web/AppControl';
 import toast from '../toast/toast';
 import { formIds } from '../../constant/appString';
 import { KOREAN_CATEGORY, WALKING_TIME } from '../../constant/select';

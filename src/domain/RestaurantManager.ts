@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../constant/error';
-import { Restaurant, Category } from '../interface/Restaurant';
+import { Restaurant } from '../interface/Restaurant';
 
 export interface RestaurantManager {
   addRestaurant(newRestaurant: Restaurant): void;
