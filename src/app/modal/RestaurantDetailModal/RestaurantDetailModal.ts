@@ -79,7 +79,19 @@ export default class RestaurantDetailModal extends Modal {
       this.restaurantData.favorite = !this.restaurantData.favorite;
       this.favoriteButton.setFavorited(this.restaurantData.favorite);
       this.updateRestaurantFavorite(this.restaurantData.name, this.restaurantData.favorite);
+      this.updateFavoriteInRestaurantList(this.restaurantData.name, this.restaurantData.favorite);
     }
+  }
+
+  private updateFavoriteInRestaurantList(name: string, isFavorited: boolean) {
+    this.modal.dispatchEvent(
+      new CustomEvent('updateRestaurantFavorite', {
+        detail: {
+          name: name,
+          isFavorited: isFavorited,
+        },
+      }),
+    );
   }
 
   private handleDelete() {

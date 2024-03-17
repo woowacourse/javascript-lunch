@@ -50,9 +50,9 @@ export default class AppController {
     this.initiateNavBar();
     this.initiateRestaurantListTab();
     this.initiateRestaurantListFilter();
-    this.initiateRestaurantList();
     this.initiateRestaurantAddModal();
     this.initiateRestaurantDetailModal();
+    this.initiateRestaurantList();
   }
 
   private changeTab(event: Event) {

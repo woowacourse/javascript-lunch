@@ -37,6 +37,14 @@ export default class RestaurantItem extends HTMLElement {
     this.removeEvent();
   }
 
+  getRestaurantName() {
+    return this.restaurantData.name;
+  }
+
+  setFavoriteButtonStyle(isFavorited: boolean) {
+    this.favoriteButton.setFavorited(isFavorited);
+  }
+
   private addEvent() {
     $('button.restaurant__favorite-button', this).addEventListener('click', this.updateFavorite);
     this.addEventListener('click', this.handleClick);
@@ -55,7 +63,7 @@ export default class RestaurantItem extends HTMLElement {
 
   private updateFavorite() {
     this.restaurantData.favorite = !this.restaurantData.favorite;
-    this.favoriteButton.setFavorited(this.restaurantData.favorite);
+    this.setFavoriteButtonStyle(this.restaurantData.favorite);
     this.updateRestaurantFavorite(this.restaurantData.name, this.restaurantData.favorite);
   }
 
