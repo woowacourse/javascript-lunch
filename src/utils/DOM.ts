@@ -5,9 +5,9 @@ function validateSelector(selector: string) {
   }
 }
 
-function validateExistElement(element: Element | null) {
+function validateExistElement(selector: string, element: Element | null) {
   if (element === null) {
-    alert('element를 찾을 수 없습니다,');
+    alert(`element를 찾을 수 없습니다, ${selector}`);
     throw new Error('element를 찾을 수 없습니다');
   }
 }
@@ -24,7 +24,7 @@ const DOM = {
     validateSelector(selector);    
     const element = document.querySelector(selector);    
     
-    validateExistElement(element);
+    validateExistElement(selector, element);
     return element as T;
   },
 
