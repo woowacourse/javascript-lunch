@@ -14,9 +14,10 @@ type Props = {
   text: string;
   variant: 'primary' | 'secondary';
   type?: 'button';
+  isDisabled?: boolean;
 };
 
-const ButtonComponent = ({ id, text, variant, type }: Props) => {
+const ButtonComponent = ({ id, text, variant, type, isDisabled = false }: Props) => {
   const button = document.createElement('button');
   if (type) {
     button.type = type;
@@ -24,6 +25,10 @@ const ButtonComponent = ({ id, text, variant, type }: Props) => {
   button.classList.add('button', `button--${variant}`, 'text-caption');
   button.textContent = text;
   button.id = id;
+
+  if (isDisabled === true) {
+    button.disabled = true;
+  }
 
   const create = () => button;
 
