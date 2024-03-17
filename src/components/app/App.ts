@@ -6,8 +6,9 @@ import { mountFilterBarComponent } from '../restaurantTab/renderHandlers';
 import RestaurantTab from '../restaurantTab/RestaurantTab';
 import ApplicationMain from './applicationMain/ApplicationMain';
 import RestaurantListFilterService from '../../services/restaurantListFilterService';
+import localStorageHandler from '../../services/localStorageHandler';
 
-const allData = RestaurantListStorageService.getData()!;
+const allData = localStorageHandler('restaurantList').get()!;
 const filterData = RestaurantListFilterService.getFilteredData(allData);
 
 function App() {
