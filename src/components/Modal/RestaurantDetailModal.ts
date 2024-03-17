@@ -1,6 +1,8 @@
 import { CATEGORY_CONVERTER } from '../../constant/constants';
 import { CLOSE_BUTTON_PROPS, DELETE_BUTTON_PROPS } from '../../constant/options';
 import { Restaurant } from '../../interface/RestaurantInterfaces';
+import { $ } from '../../utils/querySelector';
+import RestaurantEntity from '../../domain/entities/RestaurantEntity';
 import createButton from '../Common/Button';
 import Modal from './Modal';
 
@@ -74,17 +76,32 @@ const render = (restaurant: Restaurant) => {
   restaurantDetailLayout.appendChild(buttonContainer);
 };
 
+interface setProps {
+  restaurant: RestaurantEntity;
+  deleteHandler: (id: string) => void;
+}
+
 class RestaurantDetailModal extends Modal {
-  #restaurant?: Restaurant;
+  #restaurant?: RestaurantEntity;
 
   constructor() {
     super({ child: restaurantDetailLayout });
   }
 
-  set restaurant(restaurant: Restaurant) {
+  set restaurant({ restaurant, deleteHandler }: setProps) {
     this.#restaurant = restaurant;
     restaurantDetailLayout.replaceChildren();
     render(this.#restaurant);
+    this.setEvents(deleteHandler);
+  }
+
+  setEvents(deleteHandler: Function) {
+    const deleteButton = $('#delete');
+    const closeButton = $('#close');
+    deleteButton.addEventListener('click', () => {
+      deleteHandler(this.#restaurant?.id);
+    });
+    closeButton.addEventListener('click', () => this.toggle.bind(this)());
   }
 }
 

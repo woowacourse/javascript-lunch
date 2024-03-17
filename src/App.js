@@ -33,6 +33,7 @@ class App {
     });
 
     this.setAddRestaurantModalEvents();
+    this.setRestaurantDetailModalEvents();
     this.setTabEvents();
 
     this.renderRestaurantList();
@@ -60,6 +61,8 @@ class App {
       this.#addRestaurantModal.toggle();
     });
   }
+
+  setRestaurantDetailModalEvents() {}
 
   setTabEvents() {
     const tabButtons = Array.from($$('.button--tabmenu'));
@@ -102,14 +105,8 @@ class App {
       restaurantUl.append(
         new createRestaurantItem({
           restaurant: restaurantItem,
-          onClick: () => {
-            this.#restaurantDetailModal.restaurant = restaurantItem;
-            this.#restaurantDetailModal.toggle();
-          },
-          onToggle: () => {
-            this.#restaurantList.updateData();
-            this.renderRestaurantList();
-          },
+          onClick: () => this.restaurantItemClickHandler(restaurantItem),
+          onToggle: () => this.restaurantItemFavoriteToggleHandler(),
         }).element,
       );
     });
@@ -117,6 +114,24 @@ class App {
     const restaurantListContainer = $('.restaurant-list-container');
     restaurantListContainer.replaceChildren();
     restaurantListContainer.append(restaurantUl);
+  }
+
+  restaurantItemClickHandler(restaurantItem) {
+    this.#restaurantDetailModal.restaurant = {
+      restaurant: restaurantItem,
+      deleteHandler: item => {
+        alert('삭제되었습니다!');
+        this.#restaurantList.list = RestaurantService.deleteRestaurant(item, this.#restaurantList.list);
+        this.renderRestaurantList();
+        this.#restaurantDetailModal.toggle();
+      },
+    };
+    this.#restaurantDetailModal.toggle();
+  }
+
+  restaurantItemFavoriteToggleHandler() {
+    this.#restaurantList.updateData();
+    this.renderRestaurantList();
   }
 
   renderEmptyListMessage() {

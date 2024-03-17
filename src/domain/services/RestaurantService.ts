@@ -33,6 +33,14 @@ const RestaurantService: Restaurants = {
     return true;
   },
 
+  deleteRestaurant(deleteID: string, restaurantList: Restaurant[]) {
+    const newRestaurantList = [...restaurantList].filter(restaurant => {
+      return restaurant.id !== deleteID;
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newRestaurantList));
+    return newRestaurantList;
+  },
+
   filterByCategory(category: FilteringCategory, restaurantList: Restaurant[]) {
     if (category === '전체') return restaurantList;
     return restaurantList.filter(restaurant => restaurant.category === category);

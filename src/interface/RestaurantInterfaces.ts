@@ -19,6 +19,7 @@ interface Restaurant {
 interface Restaurants {
   createRestaurant: () => Restaurant;
   addRestaurant: (restaurant: Restaurant, restaurantList: Restaurant[]) => boolean;
+  deleteRestaurant: (deleteID: string, restaurantList: Restaurant[]) => Restaurant[];
   filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
   sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];
   filterFavorite: (restaurantList: Restaurant[]) => Restaurant[];
