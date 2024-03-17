@@ -1,4 +1,5 @@
 /* eslint-disable max-lines-per-function */
+import ERROR_MESSAGE from "../../src/constants/error";
 /* eslint-disable no-undef */
 
 describe("새 레스토랑 추가 모달 테스트", () => {
@@ -47,15 +48,12 @@ describe("새 레스토랑 추가 모달 테스트", () => {
       // then
       cy.get(".invalid_category").should(
         "have.text",
-        "카테고리는 필수적으로 선택해주세요.",
+        ERROR_MESSAGE.REQUIRED_CATEGORY,
       );
-      cy.get(".invalid_name").should(
-        "have.text",
-        "레스토랑 이름은 필수적으로 작성해주세요",
-      );
+      cy.get(".invalid_name").should("have.text", ERROR_MESSAGE.REQUIRED_NAME);
       cy.get(".invalid_distance").should(
         "have.text",
-        "거리를 필수적으로 선택해주세요.",
+        ERROR_MESSAGE.REQUIRED_DISTANCE,
       );
     });
 
@@ -76,12 +74,9 @@ describe("새 레스토랑 추가 모달 테스트", () => {
       // then
       cy.get(".invalid_description").should(
         "have.text",
-        "설명의 최대 글자수는 300자입니다.",
+        ERROR_MESSAGE.INVALID_DESCRIPTION_MAX_LENGTH,
       );
-      cy.get(".invalid_link").should(
-        "have.text",
-        "유효한 주소값을 입력해주세요.",
-      );
+      cy.get(".invalid_link").should("have.text", ERROR_MESSAGE.INVALID_LINK);
     });
 
     it("유효한 값 입력 시 정상 등록 (필수값만 등록)", () => {

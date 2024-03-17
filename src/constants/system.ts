@@ -28,3 +28,5 @@ export const DISTANCES = {
   "20": "20분 내",
   "30": "30분 내",
 };
+
+export const MAX_LENGTH_OF_DESCRIPTION = 300;
