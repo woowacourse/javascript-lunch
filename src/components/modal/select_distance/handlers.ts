@@ -1,12 +1,12 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import { Idistance } from "../../../types/distance";
-import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
+import removeErrorMessageById from "../../../utils/removeErrorMessageById";
 
 const changeDistanceHandler = (select: HTMLElement) => {
   select.addEventListener("change", (event) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = Number(event.target.value) as Idistance;
-      removeHTMLElementByClassName("invalid_distance");
+      removeErrorMessageById("invalid_distance");
       restaurantStateStore.setDistance(selectedValue);
     }
   });

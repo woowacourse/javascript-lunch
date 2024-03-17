@@ -36,7 +36,8 @@ const removePrevErrorMessage = () => {
 const renderErrorMessage = (index: number, result: Partial<IinvalidResult>) => {
   const targetTag = document.getElementsByClassName("form-item")[index];
   const p = document.createElement("p");
-  p.setAttribute("class", `invalid_message ${result.targetClassName}`);
+  p.setAttribute("id", result.targetId as string);
+  p.setAttribute("class", "invalid_message");
   p.textContent = result.errorMessage as string;
   targetTag.appendChild(p);
 };

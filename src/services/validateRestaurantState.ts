@@ -12,7 +12,7 @@ const validate = {
   validateCategory(category?: Icategory) {
     if (category === undefined || category.length <= 0) {
       return {
-        targetClassName: "invalid_category",
+        targetId: "invalid_category",
         isValid: false,
         errorMessage: ERROR_MESSAGE.REQUIRED_CATEGORY,
       };
@@ -23,7 +23,7 @@ const validate = {
   validateNoName(name?: string) {
     if (name === undefined || name.length <= 0) {
       return {
-        targetClassName: "invalid_name",
+        targetId: "invalid_name",
         isValid: false,
         errorMessage: ERROR_MESSAGE.REQUIRED_NAME,
       };
@@ -34,7 +34,7 @@ const validate = {
   validateDuplicateName(name?: string) {
     if (this.checkDuplicate(name)) {
       return {
-        targetClassName: "invalid_name",
+        targetId: "invalid_name",
         isValid: false,
         errorMessage: ERROR_MESSAGE.DUPLICATE_NAME,
       };
@@ -62,7 +62,7 @@ const validate = {
   validateDistance(distance?: number) {
     if (distance === undefined) {
       return {
-        targetClassName: "invalid_distance",
+        targetId: "invalid_distance",
         isValid: false,
         errorMessage: ERROR_MESSAGE.REQUIRED_DISTANCE,
       };
@@ -73,7 +73,7 @@ const validate = {
   validateDescription(description?: string) {
     if (description?.length && description.length > MAX_LENGTH_OF_DESCRIPTION) {
       return {
-        targetClassName: "invalid_description",
+        targetId: "invalid_description",
         isValid: false,
         errorMessage: ERROR_MESSAGE.INVALID_DESCRIPTION_MAX_LENGTH,
       };
@@ -84,7 +84,7 @@ const validate = {
   validateLink(link?: string) {
     if (!link?.startsWith("http") && link !== undefined) {
       return {
-        targetClassName: "invalid_link",
+        targetId: "invalid_link",
         isValid: false,
         errorMessage: ERROR_MESSAGE.INVALID_LINK,
       };

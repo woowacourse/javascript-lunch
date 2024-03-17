@@ -1,5 +1,5 @@
 export type IinvalidResult = {
-  targetClassName: string;
+  targetId: string;
   isValid: boolean;
   errorMessage: string;
 };
