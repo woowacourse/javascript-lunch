@@ -5,14 +5,22 @@ import RestaurantDetail from './RestaurantDetail';
 import RestaurantDetailModal from './RestaurantDetailModal';
 
 const RestaurantComponent = {
-  create(restaurants) {
+  createRestaurants(restaurants) {
     const $restaurantList = document.querySelector('.restaurant-list');
     restaurants.forEach(restaurant => {
-      $restaurantList.appendChild(this.mounted(restaurant.information));
+      $restaurantList.appendChild(this.setEvent(restaurant.information));
     });
   },
 
-  mounted(information) {
+  setEvent(information) {
+    const restaurant = this.createRestaurant(information);
+
+    restaurant.addEventListener('click', e => this.handleRestaurantDetail(e, information));
+
+    return restaurant;
+  },
+
+  createRestaurant(information) {
     const restaurant = document.createElement('li');
     const restaurantCategory = this.createRestaurantCategory(information);
     const restaurantInfo = this.createRestaurantInfo(information);
@@ -21,8 +29,6 @@ const RestaurantComponent = {
 
     restaurant.appendChild(restaurantCategory);
     restaurant.appendChild(restaurantInfo);
-
-    restaurant.addEventListener('click', e => this.handleRestaurantDetail(e, information));
 
     return restaurant;
   },
@@ -41,18 +47,21 @@ const RestaurantComponent = {
 
     if (!(e.target.tagName === 'IMG')) {
       localStorageRestaurants.forEach(localStorageRestaurant => {
-        if (localStorageRestaurant.information.name === information.name) {
-          const $modalContainer = document.getElementById('modal-container');
-
-          const restaurantDetailModal = new RestaurantDetailModal(
-            new RestaurantDetail(localStorageRestaurant),
-            this.getRestaurantList(),
-          );
-
-          $modalContainer.appendChild(restaurantDetailModal.getElement());
-          restaurantDetailModal.toggle();
-        }
+        this.openRestaurantDetail(localStorageRestaurant, information);
       });
+    }
+  },
+
+  openRestaurantDetail(localStorageRestaurant, information) {
+    if (localStorageRestaurant.information.name === information.name) {
+      const $modalContainer = document.getElementById('modal-container');
+      const restaurantDetailModal = new RestaurantDetailModal(
+        new RestaurantDetail(localStorageRestaurant),
+        this.getRestaurantList(),
+      );
+
+      $modalContainer.appendChild(restaurantDetailModal.getElement());
+      restaurantDetailModal.toggle();
     }
   },
 
