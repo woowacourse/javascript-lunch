@@ -71,14 +71,16 @@ class FormTextField extends HTMLElement {
     validationTarget: string,
   ) {
     const restaurant = new Restaurant();
-    if (key === 'link') {
-      restaurant.validateLink(validationTarget);
-    }
-    if (key === 'name') {
-      restaurant.validateName(validationTarget);
-    }
-    if (key === 'description') {
-      restaurant.validateDescription(validationTarget);
+    switch (key) {
+      case 'link':
+        restaurant.validateLink(validationTarget);
+        break;
+      case 'name':
+        restaurant.validateName(validationTarget);
+        break;
+      case 'description':
+        restaurant.validateDescription(validationTarget);
+        break;
     }
   }
 
