@@ -17,14 +17,16 @@ const createFilterDropdown = ({ onChangeFilter, onChangeSort }: Props) => {
   filterContainer.appendChild(sortDropdown);
 
   if (onChangeFilter) {
-    filterDropdown.addEventListener('change', (event: any) => {
-      onChangeFilter(event.target.value);
+    filterDropdown.addEventListener('change', (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      onChangeFilter(target.value);
     });
   }
 
   if (onChangeSort) {
-    sortDropdown.addEventListener('change', (event: any) => {
-      onChangeSort(event.target.value);
+    sortDropdown.addEventListener('change', (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      onChangeSort(target.value);
     });
   }
 

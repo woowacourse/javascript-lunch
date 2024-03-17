@@ -5,7 +5,7 @@ import FavoriteButton from './FavoriteButton';
 interface Props {
   restaurant: Restaurant;
   onItemClick?: () => void;
-  onFavoriteButtonClick?: (event: any) => void;
+  onFavoriteButtonClick?: (event: MouseEvent) => void; // 변경된 부분
 }
 
 const createRestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Props) => {
@@ -55,8 +55,10 @@ const createRestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }
 
   if (onFavoriteButtonClick) {
     favoriteButton.addEventListener('click', event => {
-      onFavoriteButtonClick(event);
-      event.stopPropagation();
+      if (onFavoriteButtonClick) {
+        onFavoriteButtonClick(event);
+        event.stopPropagation();
+      }
     });
   }
 

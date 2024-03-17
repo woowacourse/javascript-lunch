@@ -1,8 +1,11 @@
 @import './root.css';
-@import '../components/Common/Common.css';
 @import '../components/AddRestaurantModal/AddRestaurantModal.css';
-@import '../components/Restaurant/Restaurant.css';
+@import '../components/Common/Common.css';
+@import '../components/FilterDropdown/FilterDropdown.css';
+@import '../components/Header/Header.css';
 @import '../components/Modal/Modal.css';
+@import '../components/Navbar/Navbar.css';
+@import '../components/Restaurant/Restaurant.css';
 
 * {
   padding: 0;
