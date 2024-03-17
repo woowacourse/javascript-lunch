@@ -13,7 +13,7 @@ export interface IRestaurantInfo {
   distanceFromCampus: DistanceFromCampus;
   description?: string;
   link?: string;
-  isLiked: boolean;
+  isLiked?: boolean;
 }
 
 export const IMG_CATEGORY = Object.freeze({

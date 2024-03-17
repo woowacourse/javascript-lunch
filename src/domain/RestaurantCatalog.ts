@@ -5,7 +5,7 @@ export const SORT_CONDITION = Object.freeze(['이름순', '거리순'] as const)
 
 export const ALL_CATEGORY = '전체';
 
-class RestaurantCatalog {
+export class RestaurantCatalog {
   restaurants: Array<Restaurant | null> = [];
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
