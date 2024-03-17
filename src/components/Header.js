@@ -24,18 +24,24 @@ const Header = {
 
   createGnbButton() {
     const gnbButton = document.createElement('button');
-    const addImg = document.createElement('img');
+    const addImg = this.createAddImg();
 
     gnbButton.setAttribute('type', 'button');
     gnbButton.setAttribute('aria-label', '음식점 추가');
     gnbButton.classList.add('gnb__button');
 
-    addImg.setAttribute('src', './images/add-button.png');
-    addImg.setAttribute('alt', '음식점 추가');
-
     gnbButton.appendChild(addImg);
 
     return gnbButton;
+  },
+
+  createAddImg() {
+    const addImg = document.createElement('img');
+
+    addImg.setAttribute('src', './images/add-button.png');
+    addImg.setAttribute('alt', '음식점 추가');
+
+    return addImg;
   },
 
   handleOpenAddRestaurantModal(restaurantList) {
