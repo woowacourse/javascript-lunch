@@ -1,10 +1,11 @@
 type Props = {
   modalClass: string;
   modalContainerClass?: string;
-  children: HTMLElement[];
+  child?: HTMLElement;
+  children?: HTMLElement[];
 };
 
-const ModalComponent = ({ modalClass, modalContainerClass, children }: Props) => {
+const ModalComponent = ({ modalClass, modalContainerClass, child, children }: Props) => {
   const modalDiv = document.createElement('div');
   modalDiv.classList.add(modalClass);
 
@@ -21,7 +22,13 @@ const ModalComponent = ({ modalClass, modalContainerClass, children }: Props) =>
   modalDiv.appendChild(modalBackdropDiv);
   modalDiv.appendChild(modalContainerDiv);
 
-  children.forEach((element) => modalContainerDiv.appendChild(element));
+  if (children) {
+    children.forEach((element) => modalContainerDiv.appendChild(element));
+  }
+
+  if (child) {
+    modalContainerDiv.appendChild(child);
+  }
 
   const create = () => modalDiv;
 

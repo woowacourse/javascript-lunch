@@ -1,10 +1,11 @@
 import { LunchHeaderComponent } from '../components/LunchHeaderComponent';
-import { ModalComponent } from '../components/ModalComponent';
+// import { ModalComponent } from '../components/_ModalComponent';
 import SortFilterComponent from '../components/SortFilterComponent';
 import CategoryFilterComponent from '../components/CategoryFilterComponent';
 import { CATEGORY, SORTING } from '../constants/constants';
 import RestaurantList from '../domain/restaurantList';
 import TabBarComponent from '../components/TabBarComponents';
+import AddModalComponent from '../components/AddModalComponent';
 
 export default class LunchAppController {
   private $appContainer: HTMLElement;
@@ -26,7 +27,7 @@ export default class LunchAppController {
 
   private renderGNB = () => {
     const lunchHeader = LunchHeaderComponent();
-    this.$appContainer.prepend(lunchHeader.getTemplate());
+    this.$appContainer.prepend(lunchHeader.create());
   };
 
   private renderTabBar = () => {
@@ -55,10 +56,12 @@ export default class LunchAppController {
   };
 
   private renderModal = () => {
-    const modal = ModalComponent();
+    // const modal = ModalComponent();
 
-    this.$appContainer.appendChild(modal.getTemplate());
-    modal.setEvent();
+    // this.$appContainer.appendChild(modal.getTemplate());
+    // modal.setEvent();
+    const addModal = AddModalComponent().create();
+    this.$appContainer.appendChild(addModal);
   };
 }
 
