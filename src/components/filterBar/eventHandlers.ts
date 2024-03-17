@@ -4,16 +4,30 @@ import { Category, SortType } from '../../types';
 import RestaurantList from '../restaurantList/RestaurantList';
 import RestaurantListFilterService from '../../services/restaurantListFilterService';
 
+const setFilterStateByCategoryValue = (selectedValue: Category) => {
+  filterState.setFilterType(selectedValue);
+};
+
+const setSortStateByNameOrDistance = (selectedValue: SortType) => {
+  filterState.setSortType(selectedValue);
+};
+
+const reRenderRestaurantListComponent = () => {
+  const allData = RestaurantListStorageService.getData()!;
+  const filterData = RestaurantListFilterService.getFilteredData(allData);
+  RestaurantList(filterData ?? []);
+};
+
+const reRenderRestaurantListByCategoryEvent = (event: Event) => {
+  if (event.target instanceof HTMLSelectElement) {
+    const selectedValue = event.target.value as Category;
+    setFilterStateByCategoryValue(selectedValue);
+    reRenderRestaurantListComponent();
+  }
+};
+
 const categoryFilterHandler = (categoryFilter: HTMLElement) => {
-  categoryFilter.addEventListener('change', (event) => {
-    if (event.target instanceof HTMLSelectElement) {
-      const selectedValue = event.target.value as Category;
-      filterState.setFilterType(selectedValue);
-      const allData = RestaurantListStorageService.getData()!;
-      const filterData = RestaurantListFilterService.getFilteredData(allData);
-      RestaurantList(filterData ?? []);
-    }
-  });
+  categoryFilter.addEventListener('change', (event) => reRenderRestaurantListByCategoryEvent(event));
 };
 
 const selectOptionByFoodCategory = () => {
@@ -26,11 +40,8 @@ const selectOptionByFoodCategory = () => {
 const selectOptionByNameSortEvent = (event: Event) => {
   if (event.target instanceof HTMLSelectElement) {
     const selectedValue = event.target.value as SortType;
-    filterState.setSortType(selectedValue);
-    const allData = RestaurantListStorageService.getData()!;
-    const filterData = RestaurantListFilterService.getFilteredData(allData);
-
-    RestaurantList(filterData ?? []);
+    setSortStateByNameOrDistance(selectedValue);
+    reRenderRestaurantListComponent();
   }
 };
 
