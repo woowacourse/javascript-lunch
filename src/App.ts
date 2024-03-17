@@ -1,9 +1,11 @@
 import { RESTAURANT_CATEGORY } from './domain/Restaurant';
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
 import Navigator from './components/Navigator/Navigator';
-import RestaurantDropdown from './components/RestaurantDropdown';
-import RestaurantList2 from './components/RestaurantList2';
-import FormModal from './components/FormModal';
+
+import RestaurantList from './components/RestaurantList';
+
+import RestaurantDropdown from './components/Dropdown/RestaurantDropdown';
+import FormModal from './components/Modal/FormModal';
 
 class App {
   #main = document.getElementById('main');
@@ -11,7 +13,7 @@ class App {
   #restaurantUlElement;
 
   constructor() {
-    this.#restaurantUlElement = new RestaurantList2('total');
+    this.#restaurantUlElement = new RestaurantList('total');
 
     this.#renderNavBar();
     this.#renderFormModal();
