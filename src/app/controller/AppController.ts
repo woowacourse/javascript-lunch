@@ -33,7 +33,6 @@ class AppController {
   }
 
   addEvent() {
-    console.log(123123);
     const lunchHeader = document.querySelector('lunch-header');
     if (lunchHeader) {
       lunchHeader.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
@@ -47,6 +46,7 @@ class AppController {
     const restaurantInfoModal = document.querySelector('restaurant-info-modal');
     if (restaurantInfoModal) {
       restaurantInfoModal.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
+      restaurantInfoModal.addEventListener('deleteRestaurantInfo', this.deleteRestaurantInfo.bind(this));
     }
 
     const selectBoxSection = document.querySelector('select-box-section');
@@ -117,6 +117,12 @@ class AppController {
     this.refreshRestaurantList();
   }
 
+  deleteRestaurantInfo(event: Event) {
+    const detail: string = (event as CustomEvent).detail;
+    this.restaurantService.deleteRestaurant(detail);
+    this.refreshRestaurantList();
+  }
+
   toggleFavorite(event: Event) {
     const detail: string = (event as CustomEvent).detail;
     this.restaurantService.toggleFavorite(detail);
@@ -141,10 +147,14 @@ class AppController {
     const restaurantItems = restaurantList.querySelectorAll('restaurant-item');
     if (restaurantItems) {
       restaurantItems.forEach((item) => {
+        const restaurantInfoModal = document.querySelector('restaurant-info-modal');
         item.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
         item.addEventListener('showRestaurantInfoModal', (event: any) => {
           this.showRestaurantInfoModal(event.detail);
         });
+        if (restaurantInfoModal) {
+          restaurantInfoModal.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
+        }
       });
     }
   }
