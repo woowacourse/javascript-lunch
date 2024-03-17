@@ -1,6 +1,7 @@
 import Restaurants from './domains/Restaurants';
 
 import Header from './components/Header';
+import TabBar from './components/TabBar';
 import Select from './components/FilteringSelectBox';
 import RestaurantList from './layouts/RestaurantList';
 import RestaurantCreationModal from './components/RestaurantCreationModal';
@@ -19,12 +20,19 @@ const restaurantList = new RestaurantList({
   restaurantsInstance: restaurants,
 });
 
+const tabBar = new TabBar({
+  targetId: 'tab-container',
+  restaurantsInstance: restaurants,
+  restaurantListInstance: restaurantList,
+});
+
 const restaurantCreationModal = new RestaurantCreationModal({
   targetId: 'restaurant-creation-modal',
   restaurantsInstance: restaurants,
 });
 
 header.render();
+// tabBar.render();
 select.render();
 restaurantCreationModal.render();
 restaurantList.render();

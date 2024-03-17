@@ -71,6 +71,10 @@ class Restaurants implements RestaurantsInterface {
     return this.sortByStandard(restaurants, sorting);
   }
 
+  get favoriteList() {
+    return this.storageData.filter((restaurant: Restaurant) => restaurant.isFavorite);
+  }
+
   set standard(value: { id: string; standard: string }) {
     this.storage.setItem(value.id, value.standard);
   }
