@@ -153,4 +153,24 @@ describe('점심 뭐 먹지 E2E테스트', () => {
       .find('[class^="star__button"]')
       .should('have.class', 'star__filled');
   });
+
+  it('삭제를 누르면 리스트의 아이템이 삭제된다.', () => {
+    /**
+     * 아이템을 클릭한다.
+     * 모달의 삭제 버튼을 찾아 click한다.
+     * list-container에 해당 아이템이 존재하지 않음을 확인한다.
+     */
+    const targetRestaurantName = dummyRestaurantListData[0].name;
+    const targetRestaurantId = dummyRestaurantListData[0].id;
+
+    cy.contains(targetRestaurantName).click();
+    cy.get('.modal-container').contains('삭제하기').click();
+    cy.get(`#${targetRestaurantId}.restaurant`).should('not.exist');
+  });
+
+  it('모달의 닫기를 누르면 모달이 사라진다.', () => {
+    cy.get('.restaurant').eq(0).click(); // eq은 첫번째 요소를 선택 === [0]
+    cy.get('.modal-container').contains('닫기').click();
+    cy.get('.modal-container').should('not.exist');
+  });
 });
