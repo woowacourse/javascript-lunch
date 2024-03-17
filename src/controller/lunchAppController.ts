@@ -1,7 +1,7 @@
 import { LunchHeaderComponent } from '../components/LunchHeaderComponent';
 import SortFilterComponent from '../components/SortFilterComponent';
 import CategoryFilterComponent from '../components/CategoryFilterComponent';
-import { CATEGORY, SORTING } from '../constants/constants';
+import { CATEGORY, SORTING } from '../constants';
 import RestaurantList from '../domain/restaurantList';
 import TabBarComponent from '../components/TabBarComponents';
 import AddModalComponent from '../components/AddModalComponent';

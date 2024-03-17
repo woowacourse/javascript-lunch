@@ -1,4 +1,4 @@
-import { CATEGORY } from '../constants/constants';
+import { CATEGORY } from '../constants';
 import { CategoryValues } from '../types/types';
 
 const CategoryIconComponent = (category: CategoryValues) => {
