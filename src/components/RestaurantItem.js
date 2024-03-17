@@ -24,6 +24,7 @@ class RestaurantItem {
 
   getTemplate() {
     return generateRestaurantItem({
+      targetId: this.#element.id,
       restaurantsInstance: this.#restaurantsInstance,
       restaurant: this.#restaurant,
     });

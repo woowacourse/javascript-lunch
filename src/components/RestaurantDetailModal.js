@@ -28,7 +28,8 @@ class RestaurantDetailModal {
     const buttonContainer = this.generateButtonContainer();
     const content =
       generateRestaurantItem({
-        restaurantInstance: this.#restaurantInstance,
+        targetId: this.#element.id,
+        restaurantsInstance: this.#restaurantInstance,
         restaurant: this.#restaurant,
       }) + buttonContainer;
 

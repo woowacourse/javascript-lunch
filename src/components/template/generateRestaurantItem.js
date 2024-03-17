@@ -2,22 +2,23 @@ import FavoriteButton from '../FavoriteButton';
 import { convertNameToId } from '../../utils/nameConverter';
 import ICON from '../../icons';
 
-const createFavoriteButtonInstance = (restaurantsInstance, name, isFavorite) => {
+const createFavoriteButtonInstance = ({ targetId, restaurantsInstance, name, isFavorite }) => {
   return new FavoriteButton({
-    targetId: `restaurant-list`,
+    targetId,
     restaurantsInstance,
     name: convertNameToId(name),
-    isFavorite: isFavorite,
+    isFavorite,
   });
 };
 
-const generateRestaurantItem = ({ restaurantsInstance, restaurant }) => {
+const generateRestaurantItem = ({ targetId, restaurantsInstance, restaurant }) => {
   const { category, name, walkingTimeFromCampus, description, link, isFavorite } = restaurant;
-  const favoriteButtonInstance = createFavoriteButtonInstance(
+  const favoriteButtonInstance = createFavoriteButtonInstance({
+    targetId,
     restaurantsInstance,
     name,
     isFavorite,
-  );
+  });
 
   return `
     <li class="restaurant" id="${convertNameToId(name)}">
