@@ -8,14 +8,14 @@ export interface RestaurantManager {
   sortByAscendingName(): Restaurant[];
   sortByAscendingWalkingTime(): Restaurant[];
   filteredRestaurants(): Restaurant[];
-  getUpdatedTotalRsetaurants(): Restaurant[];
+  getUpdatedTotalRestaurants(): Restaurant[];
   getUpdatedFavoriteRestaurants(): Restaurant[];
 }
 
 export class RestaurantManager implements RestaurantManager {
   private totalRestaurants: Restaurant[];
-  private curentSelectedCategory: string;
-  private curentSelectedSorting: string;
+  private currentSelectedCategory: string;
+  private currentSelectedSorting: string;
   private favoriteRestaurants: Restaurant[];
 
   constructor(
@@ -24,8 +24,8 @@ export class RestaurantManager implements RestaurantManager {
   ) {
     this.totalRestaurants = [...restaurants];
     this.favoriteRestaurants = [...favoriteRestaurants];
-    this.curentSelectedCategory = '전체';
-    this.curentSelectedSorting = '이름순';
+    this.currentSelectedCategory = '전체';
+    this.currentSelectedSorting = '이름순';
   }
 
   addRestaurant(newRestaurant: Restaurant): void {
@@ -41,7 +41,7 @@ export class RestaurantManager implements RestaurantManager {
 
   addFavoriteRestaurant(favoriteRestaurant: Restaurant): void {
     this.favoriteRestaurants.push(favoriteRestaurant);
-    switch (this.curentSelectedSorting) {
+    switch (this.currentSelectedSorting) {
       case '이름순':
         this.sortByAscendingName();
         break;
@@ -60,7 +60,7 @@ export class RestaurantManager implements RestaurantManager {
   }
 
   sortByAscendingName(selectedRestaurants: Restaurant[] = []): Restaurant[] {
-    const sortingReataurants = this.filteredRestaurants(
+    const sortingRestaurants = this.filteredRestaurants(
       selectedRestaurants
     ).sort((a, b) => {
       if (a.name < b.name) return -1;
@@ -68,13 +68,13 @@ export class RestaurantManager implements RestaurantManager {
       return 0;
     });
 
-    return [...sortingReataurants];
+    return [...sortingRestaurants];
   }
 
   sortByAscendingWalkingTime(
     selectedRestaurants: Restaurant[] = []
   ): Restaurant[] {
-    const sortingReataurants = this.filteredRestaurants(
+    const sortingRestaurants = this.filteredRestaurants(
       selectedRestaurants
     ).sort((a, b) => {
       const aTime = Number(a.walkingTime);
@@ -88,29 +88,29 @@ export class RestaurantManager implements RestaurantManager {
       return 0;
     });
 
-    return [...sortingReataurants];
+    return [...sortingRestaurants];
   }
 
-  udateCurentCategoty(curentSelectedCategory = '전체') {
-    this.curentSelectedCategory = curentSelectedCategory;
+  updateCurrentCategory(currentSelectedCategory = '전체') {
+    this.currentSelectedCategory = currentSelectedCategory;
   }
 
-  udateCurentSelectedSorting(curentSelectedSorting = '이름순') {
-    this.curentSelectedSorting = curentSelectedSorting;
+  updateCurrentSelectedSorting(currentSelectedSorting = '이름순') {
+    this.currentSelectedSorting = currentSelectedSorting;
   }
 
   filteredRestaurants(selectedRestaurants: Restaurant[] = []): Restaurant[] {
-    if (this.curentSelectedCategory === '전체') {
+    if (this.currentSelectedCategory === '전체') {
       return [...selectedRestaurants];
     }
 
     return selectedRestaurants.filter(
-      (restaurant) => restaurant.category === this.curentSelectedCategory
+      (restaurant) => restaurant.category === this.currentSelectedCategory
     );
   }
 
-  getUpdatedTotalRsetaurants(): Restaurant[] {
-    switch (this.curentSelectedSorting) {
+  getUpdatedTotalRestaurants(): Restaurant[] {
+    switch (this.currentSelectedSorting) {
       case '이름순':
         return this.sortByAscendingName([...this.totalRestaurants]);
       case '거리순':
@@ -120,7 +120,7 @@ export class RestaurantManager implements RestaurantManager {
   }
 
   getUpdatedFavoriteRestaurants(): Restaurant[] {
-    switch (this.curentSelectedSorting) {
+    switch (this.currentSelectedSorting) {
       case '이름순':
         return this.sortByAscendingName([...this.favoriteRestaurants]);
       case '거리순':
