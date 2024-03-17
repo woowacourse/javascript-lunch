@@ -10,7 +10,7 @@ const TabBarButton = ({ text, onClick, id, isPrimary }: Props) => {
   const buttonStateClass = `tabBar_button--${isPrimary ? 'primary' : 'secondary'}`;
 
   tapBarButton.classList.add('tabBar_button', 'text-tabBar');
-  tapBarButton.classList.add(buttonStateClass);
+  tapBarButton.classList.add(buttonStateClass, 'text-subtitle');
   tapBarButton.id = id;
 
   tapBarButton.textContent = text;
