@@ -7,14 +7,14 @@ class RestaurantListStateStore {
   #restaurantNumber: number;
 
   constructor() {
-    this.#restaurantList = LocalStorageService.getData();
+    this.#restaurantList = LocalStorageService.getData("restaurantList");
     this.#restaurantNumber = this.#restaurantList.length;
   }
 
   setNewData(restaurantList: Irestaurant[]) {
     this.#restaurantList = restaurantList;
 
-    LocalStorageService.setData(this.#restaurantList);
+    LocalStorageService.setData("restaurantList", this.#restaurantList);
   }
 
   setNewNumber() {

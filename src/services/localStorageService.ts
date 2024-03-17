@@ -1,17 +1,17 @@
 import { Irestaurant } from "../types/restaurant";
 
 const LocalStorageService = {
-  getData() {
-    const restaurantList = localStorage.getItem("restaurantList");
+  getData(itemName: string) {
+    const item = localStorage.getItem(itemName);
 
-    if (restaurantList) {
-      return JSON.parse(restaurantList);
+    if (item) {
+      return JSON.parse(item);
     }
     return [];
   },
 
-  setData(restaurants: Irestaurant[]) {
-    localStorage.setItem("restaurantList", JSON.stringify(restaurants));
+  setData(itemName: string, item: Irestaurant[]) {
+    localStorage.setItem(itemName, JSON.stringify(item));
   },
 };
 
