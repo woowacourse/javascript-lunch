@@ -1,9 +1,6 @@
 import RestaurantListStorageService from '../../services/restaurantListStorageService';
 import generateRestaurantListItemComponent from './renderHandlers';
-
-function isHTMLElement(element: any): element is HTMLElement {
-  return element instanceof HTMLElement;
-}
+import isHTMLElement from '../../utils/isHTMLElement';
 
 const updateRestaurantListItemUI = (restaurantId: number, newHtml: HTMLElement) => {
   const existingElement = document.querySelector(`li[data-id="${restaurantId}"]`);
@@ -22,18 +19,23 @@ export const changeFavoriteState = (restaurantId: number) => {
   }
 };
 
+const getRestaurantIdFromListItem = (element: Element) => {
+  const listItem = element.closest('li');
+  if (isHTMLElement(listItem)) {
+    const restaurantId = Number(listItem.dataset.id);
+    return !Number.isNaN(restaurantId) ? restaurantId : undefined;
+  }
+  return undefined;
+};
+
 const favoriteIconEventPhaseHandler = (event: Event) => {
   const target = event.target as Element;
   const favoritedIcon = target.closest('.favorited-icon');
-  if (isHTMLElement(favoritedIcon)) {
-    event.stopPropagation();
-    const listItem = favoritedIcon.closest('li');
-    if (isHTMLElement(listItem)) {
-      const restaurantId = Number(listItem.dataset.id);
-      if (!isNaN(restaurantId)) {
-        changeFavoriteState(restaurantId);
-      }
-    }
+  if (!isHTMLElement(favoritedIcon)) return;
+  // event.stopPropagation();
+  const restaurantId = getRestaurantIdFromListItem(favoritedIcon);
+  if (restaurantId !== undefined) {
+    changeFavoriteState(restaurantId);
   }
 };
 

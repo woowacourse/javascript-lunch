@@ -1,5 +1,6 @@
 import restaurantStateStore from '../../../store/RestaurantStateStore';
 import removeHTMLElementByClassName from '../../../utils/removeHTMLElementByClassName';
+import isHTMLElement from '../../../utils/isHTMLElement';
 
 const linkEventHandler = (link: HTMLElement) => {
   link.addEventListener('input', (event) => {
@@ -13,9 +14,8 @@ const linkEventHandler = (link: HTMLElement) => {
 
 const inputRestaurantLinkHandler = () => {
   const link = document.getElementById('link');
-  if (link) {
-    linkEventHandler(link);
-  }
+  if (!isHTMLElement(link)) return null;
+  linkEventHandler(link);
 };
 
 export default inputRestaurantLinkHandler;
