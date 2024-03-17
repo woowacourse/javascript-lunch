@@ -20,6 +20,7 @@ export default class Modal {
   }
 
   showModal() {
+    this.modalContainer.scrollTop = 0;
     this.modal.showModal();
   }
 

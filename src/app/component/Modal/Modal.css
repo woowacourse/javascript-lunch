@@ -6,6 +6,8 @@ dialog::backdrop {
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: calc(100vh - 65px);
+  overflow-y: scroll;
 
   padding: 32px 16px;
 
