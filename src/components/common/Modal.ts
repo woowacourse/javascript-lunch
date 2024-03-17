@@ -1,9 +1,24 @@
-import EventComponent from "../../abstract/EventComponent";
+import EventComponent, {
+  EventListenerRegistration,
+} from "../../abstract/EventComponent";
 
 import { $ } from "../../utils/selector";
-import { MODAL_EVENT, MODAL_EVENT_ACTION } from "../../constants/event";
+import { MODAL_EVENT_ACTION } from "../../constants/event";
 
 export default class Modal extends EventComponent {
+  protected eventHandlerRegistrations: EventListenerRegistration[] = [
+    {
+      target: document,
+      eventName: this.getAttribute("listening-event-name") ?? "",
+      handler: (e: Event) => this.handleModalAction(e as CustomEvent),
+    },
+    {
+      target: `#${this.getAttribute("modal-id") ?? ""} > .modal-backdrop`,
+      eventName: "click",
+      handler: () => this.closeModal(),
+    },
+  ];
+
   protected getTemplate(): string {
     const isOpen = this.getAttribute("isOpen");
     const modalId = this.getAttribute("modal-id");
@@ -20,40 +35,25 @@ export default class Modal extends EventComponent {
     `;
   }
 
-  setEvent(): void {
-    const modalId = this.getAttribute("modal-id") || "";
-    const listeningEventName = this.getAttribute("listening-event-name") || "";
-
-    document.addEventListener(listeningEventName, (e) =>
-      this.handleFormModalAction(e as CustomEvent, modalId)
-    );
-
-    $(`#${modalId} > .modal-backdrop`)?.addEventListener("click", () => {
-      this.closeModal(modalId);
-    });
-  }
-
-  private handleFormModalAction(e: CustomEvent, modalId: string) {
+  private handleModalAction(e: CustomEvent) {
     const { action } = e.detail;
 
     if (action === MODAL_EVENT_ACTION.open) {
-      this.openModal(modalId);
+      this.openModal();
     }
 
     if (action === MODAL_EVENT_ACTION.close) {
-      this.closeModal(modalId);
+      this.closeModal();
     }
   }
 
-  private openModal(modalId: string): void {
-    $(`#${modalId}`)?.classList.add("modal--open");
+  private openModal(): void {
+    $(`#${this.getAttribute("modal-id") ?? ""}`)?.classList.add("modal--open");
   }
 
-  private closeModal(modalId: string): void {
-    $(`#${modalId}`)?.classList.remove("modal--open");
-  }
-
-  static get observedAttributes() {
-    return ["isOpen", "modal-id", "listening-event-name"];
+  private closeModal(): void {
+    $(`#${this.getAttribute("modal-id") ?? ""}`)?.classList.remove(
+      "modal--open"
+    );
   }
 }

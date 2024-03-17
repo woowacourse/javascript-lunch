@@ -1,8 +1,17 @@
 import EventComponent from "../abstract/EventComponent";
+
+import { $$ } from "../utils/selector";
 import { TAB_SWITCH_EVENT } from "../constants/event";
-import { $, $$ } from "../utils/selector";
 
 export default class TabBar extends EventComponent {
+  protected eventHandlerRegistrations = [
+    {
+      target: ".tab-bar",
+      eventName: "click",
+      handler: this.handleTabItemClick.bind(this),
+    },
+  ];
+
   protected getTemplate(): string {
     return `
       <div class="tab-bar">
@@ -10,13 +19,6 @@ export default class TabBar extends EventComponent {
         <div id="tab-item-favorite" class="tab-bar-item" data-switch-to="favorite">자주 가는 음식점</div>
       </div>
     `;
-  }
-
-  protected setEvent(): void {
-    $(".tab-bar")?.addEventListener(
-      "click",
-      this.handleTabItemClick.bind(this)
-    );
   }
 
   private handleTabItemClick(e: Event) {

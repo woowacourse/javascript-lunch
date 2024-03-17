@@ -1,16 +1,17 @@
-import EventComponent from "../abstract/EventComponent";
+import EventComponent, {
+  EventListenerRegistration,
+} from "../abstract/EventComponent";
 import FormItem from "./common/FormItem";
 
+import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
+import restaurantStore from "../store/restaurantStore";
+import convertObjectToOptions from "../utils/convertObjectToOptions";
 import {
   MODAL_EVENT,
   MODAL_EVENT_ACTION,
   RESTAURANT_FORM_SUBMIT_EVENT,
 } from "../constants/event";
-import convertObjectToOptions from "../utils/convertObjectToOptions";
-import { $ } from "../utils/selector";
 import { KOREAN_CATEGORY } from "../constants/category";
-import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
-import restaurantStore from "../store/restaurantStore";
 
 customElements.define("form-item", FormItem);
 
@@ -24,6 +25,19 @@ const distanceOptions = [
 ];
 
 export default class RestaurantForm extends EventComponent {
+  protected eventHandlerRegistrations: EventListenerRegistration[] = [
+    {
+      target: this,
+      eventName: "submit",
+      handler: this.handleSubmit.bind(this),
+    },
+    {
+      target: "#restaurant-form-close-button",
+      eventName: "click",
+      handler: this.handleCloseButtonClick.bind(this),
+    },
+  ];
+
   getTemplate(): string {
     return `
     <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -72,26 +86,10 @@ export default class RestaurantForm extends EventComponent {
 `;
   }
 
-  protected setEvent() {
-    this.addEventListener("submit", this.handleSubmit);
-
-    $("#restaurant-form-close-button")?.addEventListener(
-      "click",
-      this.handleCloseButtonClick
-    );
-  }
-
-  private handleCloseButtonClick() {
-    this.dispatchCustomEvent(MODAL_EVENT.restaurantFormModalAction, {
-      action: MODAL_EVENT_ACTION.close,
-    });
-  }
-
   private handleSubmit(e: Event): void {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-
     try {
       const restaurantInfo = this.extractRestaurantInfo(form);
       const newRestaurant = new Restaurant(restaurantInfo as RestaurantInfo);
@@ -105,6 +103,12 @@ export default class RestaurantForm extends EventComponent {
     }
 
     this.cleanUpSubmit(form);
+  }
+
+  private handleCloseButtonClick() {
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+      action: MODAL_EVENT_ACTION.close,
+    });
   }
 
   private generateCategoryOptions() {

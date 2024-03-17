@@ -1,10 +1,10 @@
 import EventComponent from "../abstract/EventComponent";
 import RestaurantItem from "./RestaurantItem";
+
 import Restaurants from "../domain/Restaurants";
 import { RestaurantInfo } from "../domain/Restaurant";
-
-import { CategoryFilter, SortFilter } from "../types/Filter";
 import restaurantStore from "../store/restaurantStore";
+import { CategoryFilter, SortFilter } from "../types/Filter";
 import { CATEGORY_FILTER, SORT_FILTER } from "../constants/filter";
 import {
   FILTER_EVENT,
@@ -21,6 +21,43 @@ import favoriteStore from "../store/favoriteStore";
 customElements.define("restaurant-item", RestaurantItem);
 
 export default class RestaurantList extends EventComponent {
+  protected eventHandlerRegistrations = [
+    {
+      target: document,
+      eventName: FILTER_EVENT.categoryFilterChange,
+      handler: (e: Event) => this.handleCategoryFilterChange(e as CustomEvent),
+    },
+    {
+      target: document,
+      eventName: FILTER_EVENT.sortFilterChange,
+      handler: (e: Event) => this.handleSortFilterChange(e as CustomEvent),
+    },
+    {
+      target: document,
+      eventName: TAB_SWITCH_EVENT,
+      handler: (e: Event) => {
+        this.handleTabSwitch(e as CustomEvent);
+      },
+    },
+    {
+      target: document,
+      eventName: RESTAURANT_FORM_SUBMIT_EVENT,
+      handler: (e: Event) => this.handleRestaurantFormSubmit(e as CustomEvent),
+    },
+    {
+      target: document,
+      eventName: RESTAURANT_REMOVE_EVENT,
+      handler: (e: Event) => this.handleRestaurantRemove(e as CustomEvent),
+    },
+    {
+      target: this,
+      eventName: "click",
+      handler: (e: Event) => {
+        this.handleRestaurantItemClick(e);
+      },
+    },
+  ];
+
   private restaurants: Restaurants;
   private categoryFilter: CategoryFilter;
   private sortFilter: SortFilter;
@@ -94,38 +131,12 @@ export default class RestaurantList extends EventComponent {
     `;
   }
 
-  protected setEvent() {
-    document.addEventListener(FILTER_EVENT.categoryFilterChange, (e) =>
-      this.handleCategoryFilterChange(e as CustomEvent)
-    );
-
-    document.addEventListener(FILTER_EVENT.sortFilterChange, (e) =>
-      this.handleSortFilterChange(e as CustomEvent)
-    );
-
-    document.addEventListener(TAB_SWITCH_EVENT, (e) => {
-      this.handleTabSwitch(e as CustomEvent);
-    });
-
-    document.addEventListener(RESTAURANT_FORM_SUBMIT_EVENT, (e) => {
-      this.handleRestaurantFormSubmit(e as CustomEvent);
-    });
-
-    document.addEventListener(RESTAURANT_REMOVE_EVENT, (e) =>
-      this.handleRestaurantRemove(e as CustomEvent)
-    );
-
-    this.addEventListener("click", (e) => {
-      this.handleRestaurantItemClick(e);
-    });
-  }
-
   private handleCategoryFilterChange(event: CustomEvent) {
     const { value: categoryFilter } = event?.detail;
 
     this.categoryFilter = categoryFilter;
 
-    this.render();
+    this.init();
   }
 
   private handleSortFilterChange(event: CustomEvent) {
@@ -133,7 +144,7 @@ export default class RestaurantList extends EventComponent {
 
     this.sortFilter = sortFilter;
 
-    this.render();
+    this.init();
   }
 
   private handleTabSwitch(event: CustomEvent) {
@@ -142,7 +153,7 @@ export default class RestaurantList extends EventComponent {
     const isFavoriteTab = switchTo === TAB_SWITCH_EVENT_SWITCH_TO.favorite;
     this.isFavoriteTab = isFavoriteTab;
 
-    this.render();
+    this.init();
   }
 
   private handleRestaurantFormSubmit(event: CustomEvent) {
@@ -150,7 +161,7 @@ export default class RestaurantList extends EventComponent {
 
     this.restaurants.add(newRestaurant);
 
-    this.render();
+    this.init();
   }
 
   private handleRestaurantRemove(event: CustomEvent) {
@@ -158,7 +169,7 @@ export default class RestaurantList extends EventComponent {
 
     this.restaurants.removeByName(name);
 
-    this.render();
+    this.init();
   }
 
   private handleRestaurantItemClick(event: Event) {
@@ -246,9 +257,5 @@ export default class RestaurantList extends EventComponent {
     return restaurantInfos.filter(({ name }) =>
       favoriteRestaurantNames.includes(name)
     );
-  }
-
-  static get observedAttributes() {
-    return ["restaurants"];
   }
 }

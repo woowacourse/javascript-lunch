@@ -1,13 +1,19 @@
 import EventComponent from "../../abstract/EventComponent";
 
-import { $ } from "../../utils/selector";
-
 interface Option {
   value: string;
   label: string;
 }
 
 export default class Select extends EventComponent {
+  protected eventHandlerRegistrations = [
+    {
+      target: `#${this.getAttribute("select-id") || ""}`,
+      eventName: "change",
+      handler: (e: Event) => this.handleSelectChange(e),
+    },
+  ];
+
   protected getTemplate(): string {
     const rawOptions = this.getAttribute("options");
     const selectId = this.getAttribute("select-id") || "";
@@ -29,33 +35,12 @@ export default class Select extends EventComponent {
     `;
   }
 
-  private handleSelectChange(e: Event, eventName: string) {
+  private handleSelectChange(e: Event) {
     const select = e.target as HTMLSelectElement;
     const selectedValue = select.value;
 
-    this.dispatchCustomEvent(eventName, { value: selectedValue });
-  }
-
-  protected setEvent(): void {
-    const eventName = this.getAttribute("event-name") || "";
-    const selectId = this.getAttribute("select-id") || "";
-
-    if (eventName === "" || selectId === "") return;
-
-    $(`#${selectId}`)?.addEventListener("change", (e) =>
-      this.handleSelectChange(e, eventName)
-    );
-  }
-
-  static get observedAttributes() {
-    return [
-      "options",
-      "event-name",
-      "select-id",
-      "class-name",
-      "name",
-      "required",
-      "label-name",
-    ];
+    this.dispatchCustomEvent(this.getAttribute("event-name") || "", {
+      value: selectedValue,
+    });
   }
 }

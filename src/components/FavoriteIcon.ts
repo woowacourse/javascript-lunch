@@ -1,7 +1,10 @@
 import "../../templates/blank-favorite-icon.png";
 import "../../templates/filled-favorite-icon.png";
 
-import EventComponent from "../abstract/EventComponent";
+import EventComponent, {
+  EventListenerRegistration,
+} from "../abstract/EventComponent";
+
 import { TOGGLE_FAVORITE_EVENT } from "../constants/event";
 import favoriteStore from "../store/favoriteStore";
 
@@ -9,6 +12,19 @@ const blankIconPath = "./blank-favorite-icon.png";
 const filledIconPath = "./filled-favorite-icon.png";
 
 export default class FavoriteIcon extends EventComponent {
+  protected eventHandlerRegistrations: EventListenerRegistration[] = [
+    {
+      target: this,
+      eventName: "click",
+      handler: this.handleIconClick.bind(this),
+    },
+    {
+      target: document,
+      eventName: TOGGLE_FAVORITE_EVENT,
+      handler: (e) => this.handleToggleFavoriteEvent(e as CustomEvent),
+    },
+  ];
+
   protected getTemplate(): string {
     const isActive = this.getAttribute("isActive") === "true";
 
@@ -19,14 +35,6 @@ export default class FavoriteIcon extends EventComponent {
         } alt="좋아하는 식당 아이콘" />
       </div>
     `;
-  }
-
-  protected setEvent(): void {
-    this.addEventListener("click", this.handleIconClick.bind(this));
-
-    document.addEventListener(TOGGLE_FAVORITE_EVENT, (e) =>
-      this.handleToggleFavoriteEvent(e as CustomEvent)
-    );
   }
 
   private handleIconClick() {
@@ -46,15 +54,11 @@ export default class FavoriteIcon extends EventComponent {
 
     if (itemName === this.getAttribute("itemName")) {
       this.toggleFavorite(changesToActive);
-      this.render();
+      this.init();
     }
   }
 
   private toggleFavorite(changesToActive: boolean) {
     this.setAttribute("isActive", String(changesToActive));
-  }
-
-  static get observedAttributes(): string[] {
-    return ["itemName", "isActive"];
   }
 }

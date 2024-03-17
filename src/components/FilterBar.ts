@@ -1,5 +1,9 @@
-import EventComponent from "../abstract/EventComponent";
+import EventComponent, {
+  EventListenerRegistration,
+} from "../abstract/EventComponent";
+
 import convertObjectToOptions from "../utils/convertObjectToOptions";
+import { $ } from "../utils/selector";
 import {
   FILTER_EVENT,
   TAB_SWITCH_EVENT,
@@ -9,9 +13,16 @@ import {
   KOREAN_CATEGORY_FILTER,
   KOREAN_SORT_FILTER,
 } from "../constants/filter";
-import { $ } from "../utils/selector";
 
 export default class FilterBar extends EventComponent {
+  protected eventHandlerRegistrations: EventListenerRegistration[] = [
+    {
+      target: document,
+      eventName: TAB_SWITCH_EVENT,
+      handler: (e: Event) => this.handleTabSwitch(e as CustomEvent),
+    },
+  ];
+
   protected getTemplate(): string {
     return `
       <section id="restaurant-filter-container" class="restaurant-filter-container">
@@ -34,12 +45,6 @@ export default class FilterBar extends EventComponent {
         ></select-box>
       </section>
 `;
-  }
-
-  protected setEvent(): void {
-    document.addEventListener(TAB_SWITCH_EVENT, (e) =>
-      this.handleTabSwitch(e as CustomEvent)
-    );
   }
 
   private handleTabSwitch(e: CustomEvent) {

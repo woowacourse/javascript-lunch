@@ -1,26 +1,37 @@
-import { RestaurantInfo } from "./../domain/Restaurant";
 import EventComponent from "../abstract/EventComponent";
+
+import { RestaurantInfo } from "./../domain/Restaurant";
+import restaurantStore from "../store/restaurantStore";
+import favoriteStore from "../store/favoriteStore";
 import {
   MODAL_EVENT,
   MODAL_EVENT_ACTION,
   RESTAURANT_REMOVE_EVENT,
   RESTAURANT_DETAIL_SHOW_EVENT,
 } from "../constants/event";
-import { $ } from "../utils/selector";
-import restaurantStore from "../store/restaurantStore";
-import favoriteStore from "../store/favoriteStore";
 
 export default class RestaurantDetail extends EventComponent {
-  private restaurantDetailInfo:
-    | (RestaurantInfo & { isFavorite: boolean })
-    | null;
-
-  private eventListeners = {
-    restaurantDetailShow: {
+  protected eventHandlerRegistrations = [
+    {
+      target: document,
       eventName: RESTAURANT_DETAIL_SHOW_EVENT,
       handler: this.handleRestaurantDetailShow.bind(this),
     },
-  };
+    {
+      target: "#detail-close-button",
+      eventName: "click",
+      handler: this.handleCloseButtonClick.bind(this),
+    },
+    {
+      target: "#restaurant-delete-button",
+      eventName: "click",
+      handler: this.handleDeleteButtonClick.bind(this),
+    },
+  ];
+
+  private restaurantDetailInfo:
+    | (RestaurantInfo & { isFavorite: boolean })
+    | null;
 
   constructor(restaurantDetailInfo = null) {
     super();
@@ -56,29 +67,6 @@ export default class RestaurantDetail extends EventComponent {
     `;
   }
 
-  protected setEvent(): void {
-    document.addEventListener(
-      this.eventListeners.restaurantDetailShow.eventName,
-      this.eventListeners.restaurantDetailShow.handler
-    );
-
-    const closeButton = $("#detail-close-button");
-    if (closeButton) {
-      closeButton.addEventListener(
-        "click",
-        this.handleCloseButtonClick.bind(this)
-      );
-    }
-
-    const deleteButton = $("#restaurant-delete-button");
-    if (deleteButton) {
-      deleteButton.addEventListener(
-        "click",
-        this.handleDeleteButtonClick.bind(this)
-      );
-    }
-  }
-
   private handleRestaurantDetailShow(e: Event) {
     const { restaurantInfo } = (e as CustomEvent).detail;
 
@@ -88,7 +76,7 @@ export default class RestaurantDetail extends EventComponent {
 
     this.restaurantDetailInfo = restaurantInfo;
 
-    this.connectedCallback();
+    this.init();
   }
 
   private handleCloseButtonClick() {
