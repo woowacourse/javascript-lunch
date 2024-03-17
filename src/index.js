@@ -9,6 +9,7 @@ import "./components/lunch/RestaurantAddForm/RestaurantAddForm";
 import "./components/lunch/RestaurantDetailModal/RestaurantDetailModal";
 import "./components/lunch/RestaurantDetailModal/RestaurantDetailModalContent/RestaurantDetailModalContent";
 import "./components/lunch/RestaurantAddModal/RestaurantAddModal";
+import "./components/lunch/RestaurantDropdown/RestaurantDropdown";
 
 import "./components/lunch/RestaurantTab/RestaurantTab";
 import "./components/lunch/RestaurantTab/RestaurantTabHeader/RestaurantTabHeader";
