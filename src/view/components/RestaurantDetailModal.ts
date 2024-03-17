@@ -1,11 +1,28 @@
 import { ILocalData } from '../../Controller/WebController';
 import { LOCAL_STORAGE_KEY } from '../../constants/LocalStorageKey';
 import '../../css/restaurantDetailModal.css';
-import { IMG_CATEGORY, IRestaurantInfo } from '../../domain/Restaurant';
+import { Category, DistanceFromCampus, IMG_CATEGORY, IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
+import LikeStar from './LikeStar';
 import RestaurantCards from './RestaurantCards';
 
 const dialog = document.getElementById('restaurant-detail-modal') as HTMLDialogElement;
+
+function applyRestaurantIconNameDistance(category: Category) {
+  const categoryIcon = document.getElementById('restaurant-detail-icon') as HTMLImageElement;
+  categoryIcon.src = `./templates/category-${IMG_CATEGORY[category]}.png`;
+  categoryIcon.alt = category;
+}
+
+function applyRestaurantName(name: string) {
+  const restaurantName = document.getElementById('restaurant-detail-name') as HTMLElement;
+  restaurantName.innerText = name;
+}
+
+function applyRestaurantDistance(distanceFromCampus: DistanceFromCampus) {
+  const restaurantDistance = document.getElementById('restaurant-detail-distance') as HTMLElement;
+  restaurantDistance.innerText = `캠퍼스부터 ${distanceFromCampus}분 내`;
+}
 
 function applyRestaurantDescription(description: string | undefined) {
   const restaurantDescription = document.getElementById('restaurant-detail-description') as HTMLElement;
@@ -29,16 +46,18 @@ function applyRestaurantLink(link: string | undefined) {
   }
 }
 
-function applyRestaurantDetailByInfo({ category, name, distanceFromCampus, description, link }: IRestaurantInfo) {
-  const categoryIcon = document.getElementById('restaurant-detail-icon') as HTMLImageElement;
-  categoryIcon.src = `./templates/category-${IMG_CATEGORY[category]}.png`;
-  categoryIcon.alt = category;
-  const restaurantName = document.getElementById('restaurant-detail-name') as HTMLElement;
-  restaurantName.innerText = name;
-  const restaurantDistance = document.getElementById('restaurant-detail-distance') as HTMLElement;
-  restaurantDistance.innerText = `캠퍼스부터 ${distanceFromCampus}분 내`;
-  applyRestaurantDescription(description);
-  applyRestaurantLink(link);
+// function applyRestaurantStar(id: number, isLiked: boolean) {
+//   const restaurantDetailMain = document.getElementById('restaurant-detail-main') as HTMLElement;
+//   restaurantDetailMain.append(new LikeStar(isLiked, id));
+// }
+
+function applyRestaurantDetailByInfo(restaurantInfo: IRestaurantInfo) {
+  applyRestaurantIconNameDistance(restaurantInfo.category);
+  applyRestaurantName(restaurantInfo.name);
+  applyRestaurantDistance(restaurantInfo.distanceFromCampus);
+  applyRestaurantDescription(restaurantInfo.description);
+  applyRestaurantLink(restaurantInfo.link);
+  // applyRestaurantStar(restaurantInfo.id!, restaurantInfo.isLiked!);
 }
 
 let deleteEventHandler: () => void;
