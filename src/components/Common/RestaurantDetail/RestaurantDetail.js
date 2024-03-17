@@ -2,6 +2,7 @@ import ICON from '../../../icons';
 import { $ } from '../../../utils/dom';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import ModalWrapper from '../ModalWrapper/ModalWrapper';
+import { FAVORITE_ICON } from '../../../constants/rules';
 
 // TODO: 즐겨찾기 버튼 분리, 데이터 받아오기
 export default class RestaurantDetail extends ModalWrapper {
@@ -10,6 +11,7 @@ export default class RestaurantDetail extends ModalWrapper {
   #restaurants;
   #restaurantList;
 
+  // TODO: 멤버변수 개수 문제
   constructor(element, restaurants, restaurant, restaurantList) {
     super();
     this.#restaurantList = restaurantList;
@@ -27,7 +29,7 @@ export default class RestaurantDetail extends ModalWrapper {
           <div class="restaurant__category">
             <img src="${ICON[category]}" alt="${category}" class="category-icon">
           </div>
-          ${FavoriteButton('detail-favorite-buttton', favorite ? '즐겨찾기추가' : '즐겨찾기해제')}
+          ${FavoriteButton('detail-favorite-buttton', favorite ? FAVORITE_ICON.add : FAVORITE_ICON.remove)}
         </section>
         <section class="restaurant-detail-main">
           <div class="restaurant-detail-title">
@@ -64,9 +66,9 @@ export default class RestaurantDetail extends ModalWrapper {
 
       this.#restaurants.toggleFavoriteState(this.#restaurant.name);
 
-      favoriteIcon.src === ICON['즐겨찾기추가']
-        ? (favoriteIcon.src = ICON['즐겨찾기해제'])
-        : (favoriteIcon.src = ICON['즐겨찾기추가']);
+      favoriteIcon.src === ICON[FAVORITE_ICON.add]
+        ? (favoriteIcon.src = ICON[FAVORITE_ICON.remove])
+        : (favoriteIcon.src = ICON[FAVORITE_ICON]);
 
       this.#restaurantList.render();
     });

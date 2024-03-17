@@ -1,5 +1,6 @@
 import ICON from '../../../icons';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
+import { FAVORITE_ICON } from '../../../constants/rules';
 
 // TODO: 즐겨찾기 추가, 해제 상수 분리
 const Restaurant = ({ category, name, walkingTimeFromCampus, description, favorite }) => {
@@ -13,7 +14,7 @@ const Restaurant = ({ category, name, walkingTimeFromCampus, description, favori
         <span class="restaurant__distance text-body">캠퍼스부터 ${walkingTimeFromCampus}분 내</span>
         <p class="restaurant__description text-body">${description}</p>
       </div>
-      ${FavoriteButton(name, favorite ? '즐겨찾기추가' : '즐겨찾기해제')}
+      ${FavoriteButton(name, favorite ? FAVORITE_ICON.add : FAVORITE_ICON.remove)}
     </li>
     `;
 };

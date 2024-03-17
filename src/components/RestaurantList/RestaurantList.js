@@ -2,6 +2,7 @@ import Restaurant from '../Common/Restaurant/Restaurant';
 import { $ } from '../../utils/dom';
 import ICON from '../../icons';
 import RestaurantDetail from '../Common/RestaurantDetail/RestaurantDetail';
+import { FAVORITE_ICON } from '../../constants/rules';
 
 export default class RestaurantList {
   #element;
@@ -55,8 +56,12 @@ export default class RestaurantList {
   }
 
   #toggleIconImg(iconImg) {
-    iconImg.src === ICON['즐겨찾기추가']
-      ? (iconImg.src = ICON['즐겨찾기해제'])
-      : (iconImg.src = ICON['즐겨찾기추가']);
+    iconImg.src === ICON[FAVORITE_ICON.add]
+      ? (iconImg.src = ICON[FAVORITE_ICON.remove])
+      : (iconImg.src = ICON[FAVORITE_ICON.add]);
+
+    iconImg.alt === FAVORITE_ICON.add
+      ? (iconImg.alt = FAVORITE_ICON.remove)
+      : (iconImg.alt = FAVORITE_ICON.add);
   }
 }
