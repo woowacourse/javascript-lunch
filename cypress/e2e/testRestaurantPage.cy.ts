@@ -11,7 +11,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
 
   it('자주 가는 음식점 추가 버튼 클릭 시, 자주 가는 음식 점에 1개의 항목이 추가된다.', () => {
     cy.get('.restaurant').first().find('.star').click();
-    cy.get('.tab__bar__item').click();
+    cy.get('.tab__bar__item').last().click();
     cy.get('.restaurant').should('have.length', 1);
   });
   context('레스토랑 추가 기능 검증', () => {
@@ -108,7 +108,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
       cy.get('.restaurant').first().click();
       cy.get('.modal--open .star').click();
       cy.get('.button.button--primary.text-caption').click();
-      cy.get('.tab__bar__item').click();
+      cy.get('.tab__bar__item').last().click();
       cy.get('.restaurant').should('have.length', 1);
     });
   });

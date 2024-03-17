@@ -121,7 +121,7 @@ export class appController {
         favoriteRestaurantNames
       );
       listItem.addEventListener('click', (event) =>
-        this.restaurantListItemEvent(event, restaurant, favoriteRestaurantNames)
+        this.clickRestaurantCardListItem(event, restaurant, favoriteRestaurantNames)
       );
       listItem.append(categoryDiv);
       restaurantList.append(listItem);
@@ -130,37 +130,47 @@ export class appController {
     restaurantListContainer.appendChild(restaurantList);
   }
 
-  restaurantListItemEvent(event, restaurant, favoriteRestaurantNames) {
+  clickRestaurantCardListItem(event, restaurant, favoriteRestaurantNames) {
     const target = event.target;
     if (target.className.includes('star')) {
       this.clickFavoriteButton(event, restaurant);
     } else {
-      const restaurantDetailModal = modal.create(
-        'modal--open',
-        createRestaurantDetail({
-          restaurant,
-          favoriteRestaurantNames,
-          starCallback: (event) => {
-            this.clickFavoriteButton(event, restaurant);
-          },
-          deleteCallback: (event) => {
-            event.preventDefault();
-            document.body.classList.remove('stop-scroll');
-            this.#restaurantManager.removeTotalRestaurant(restaurant);
-            this.#restaurantManager.removeFavoriteRestaurant(restaurant);
-            this.currentTabRestaurantList();
-            modal.remove('modal--open');
-          },
-          cancelCallback: (event) => {
-            document.body.classList.remove('stop-scroll');
-            modal.remove('modal--open');
-            this.currentTabRestaurantList();
-          },
-        })
-      );
-      document.body.classList.add('stop-scroll');
-      document.body.append(restaurantDetailModal);
+      this.openRestaurantDetailModal(restaurant, favoriteRestaurantNames);
     }
+  }
+
+  openRestaurantDetailModal(restaurant, favoriteRestaurantNames) {
+    const favoriteCallback = (event) => {
+      this.clickFavoriteButton(event, restaurant);
+    }
+
+    const deleteCallback = (event) => {
+      event.preventDefault();
+      document.body.classList.remove('stop-scroll');
+      this.#restaurantManager.removeTotalRestaurant(restaurant);
+      this.#restaurantManager.removeFavoriteRestaurant(restaurant);
+      this.currentTabRestaurantList();
+      modal.remove('modal--open');
+    }
+
+    const cancelCallback = (event) => {
+      document.body.classList.remove('stop-scroll');
+      modal.remove('modal--open');
+      this.currentTabRestaurantList();
+    }
+
+    const restaurantDetailModal = modal.create(
+      'modal--open',
+      createRestaurantDetail({
+        restaurant,
+        favoriteRestaurantNames,
+        favoriteCallback,
+        deleteCallback,
+        cancelCallback,
+      })
+    );
+    document.body.classList.add('stop-scroll');
+    document.body.append(restaurantDetailModal);
   }
 
   clickFavoriteButton(event, restaurant) {
