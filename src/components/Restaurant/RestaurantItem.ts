@@ -1,8 +1,9 @@
 import { CATEGORY_CONVERTER } from '../../constant/constants';
+import RestaurantEntity from '../../domain/entities/RestaurantEntity';
 import { Restaurant } from '../../interface/RestaurantInterfaces';
 
 interface Props {
-  restaurant: Restaurant;
+  restaurant: RestaurantEntity;
   onClick?: () => void;
 }
 
@@ -11,30 +12,30 @@ class createRestaurantItem {
   #starredIcon = document.createElement('img');
   #unstarredIcon = document.createElement('img');
 
-  isFavorite: boolean;
-
   constructor({ restaurant, onClick }: Props) {
     this.render(restaurant);
-    this.isFavorite = restaurant.isFavorite;
 
     if (onClick) {
       this.#itemContainer.addEventListener('click', onClick.bind(this));
     }
   }
 
-  render(restaurant: Restaurant) {
+  render(restaurant: RestaurantEntity) {
     this.#itemContainer.classList.add('restaurant');
 
     const favorite = document.createElement('div');
     favorite.classList.add('restaurant__favorite');
 
     this.#starredIcon.setAttribute('src', 'favorite-icon-filled.png');
-    this.#starredIcon.classList.add('favorite', 'hidden');
+    this.#starredIcon.classList.add('favorite');
     favorite.appendChild(this.#starredIcon);
 
     this.#unstarredIcon.setAttribute('src', 'favorite-icon-lined.png');
     this.#unstarredIcon.classList.add('favorite');
     favorite.appendChild(this.#unstarredIcon);
+
+    if (restaurant.isFavorite) this.#unstarredIcon.classList.add('hidden');
+    else this.#starredIcon.classList.add('hidden');
 
     const category = document.createElement('div');
     category.classList.add('restaurant__category');
@@ -68,23 +69,25 @@ class createRestaurantItem {
     this.#itemContainer.appendChild(category);
     this.#itemContainer.appendChild(info);
 
-    favorite.addEventListener('click', () => this.favoriteToggle.bind(this)());
+    favorite.addEventListener('click', e => {
+      e.stopPropagation();
+      this.favoriteToggle.bind(this)(restaurant);
+    });
   }
 
   get element() {
     return this.#itemContainer;
   }
 
-  favoriteToggle() {
+  favoriteToggle(restaurant: RestaurantEntity) {
     if (this.#starredIcon.classList.contains('hidden')) {
       this.#starredIcon.classList.remove('hidden');
       this.#unstarredIcon.classList.add('hidden');
-      this.isFavorite = false;
     } else {
       this.#starredIcon.classList.add('hidden');
       this.#unstarredIcon.classList.remove('hidden');
-      this.isFavorite = true;
     }
+    restaurant.favoriteToggle();
   }
 }
 

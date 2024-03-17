@@ -10,11 +10,10 @@
 
 .restaurant__favorite {
   position: absolute;
-  top: 16px;
   right: 8px;
 }
 
-.restaurant__favorite img {
+.restaurant__favorite .favorite {
   cursor: pointer;
 }
 
@@ -65,4 +64,10 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__link {
+  padding-top: 8px;
+  text-decoration: underline;
+  color: black;
 }
