@@ -42,56 +42,53 @@ class AddRestaurant {
   createForm() {
     const form = document.createElement('form');
 
-    const categoryContainer = this.createCategoryContainer();
-    const nameContainer = this.createNameContainer();
-    const distanceContainer = this.createDistanceContainer();
-    const descriptionContainer = this.createDescriptionContainer();
-    const linkContainer = this.createLinkContainer();
-    const buttonContainer = this.createButtonContainer();
-
-    form.appendChild(categoryContainer);
-    form.appendChild(nameContainer);
-    form.appendChild(distanceContainer);
-    form.appendChild(descriptionContainer);
-    form.appendChild(linkContainer);
-    form.appendChild(buttonContainer);
+    form.appendChild(this.createCategoryContainer());
+    form.appendChild(this.createNameContainer());
+    form.appendChild(this.createDistanceContainer());
+    form.appendChild(this.createDescriptionContainer());
+    form.appendChild(this.createLinkContainer());
+    form.appendChild(this.createButtonContainer());
 
     return form;
   }
 
   createCategoryContainer() {
     const categoryContainer = document.createElement('div');
-    const categoryLabel = document.createElement('label');
+    const categoryLabel = this.createCategoryLabel();
 
     categoryContainer.setAttribute('id', 'category-container');
     categoryContainer.classList.add('form-item', 'form-item--required');
+
+    categoryContainer.appendChild(categoryLabel);
+    this.createCategorySelectBox(categoryContainer);
+
+    return categoryContainer;
+  }
+
+  createCategoryLabel() {
+    const categoryLabel = document.createElement('label');
+
     categoryLabel.setAttribute('for', 'category text-caption');
     categoryLabel.textContent = '카테고리';
 
-    categoryContainer.appendChild(categoryLabel);
+    return categoryLabel;
+  }
 
+  createCategorySelectBox(categoryContainer) {
     const formCategoryInformation = {
       $target: categoryContainer,
       attributes: FORM_CATEGORY_ATTRIBUTE,
       options: FORM_CATEGORY,
     };
     SelectBoxComponent.create(formCategoryInformation);
-
-    return categoryContainer;
   }
 
   createNameContainer() {
     const nameContainer = document.createElement('div');
-    const nameLabel = document.createElement('label');
-    const nameInput = document.createElement('input');
+    const nameLabel = this.createNameLabel();
+    const nameInput = this.createNameInput();
 
     nameContainer.classList.add('form-item', 'form-item--required');
-    nameLabel.setAttribute('for', 'name text-caption');
-    nameLabel.textContent = '이름';
-    nameInput.setAttribute('type', 'text');
-    nameInput.setAttribute('name', 'name');
-    nameInput.setAttribute('id', 'name');
-    nameInput.setAttribute('required', 'true');
 
     nameContainer.appendChild(nameLabel);
     nameContainer.appendChild(nameInput);
@@ -99,70 +96,142 @@ class AddRestaurant {
     return nameContainer;
   }
 
+  createNameLabel() {
+    const nameLabel = document.createElement('label');
+
+    nameLabel.setAttribute('for', 'name text-caption');
+    nameLabel.textContent = '이름';
+
+    return nameLabel;
+  }
+
+  createNameInput() {
+    const nameInput = document.createElement('input');
+
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('name', 'name');
+    nameInput.setAttribute('id', 'name');
+    nameInput.setAttribute('required', 'true');
+
+    return nameInput;
+  }
+
   createDistanceContainer() {
     const distanceContainer = document.createElement('div');
-    const distanceLabel = document.createElement('label');
+    const distanceLabel = this.createDistanceLabel();
 
     distanceContainer.setAttribute('id', 'distance-container');
     distanceContainer.classList.add('form-item', 'form-item--required');
+
+    distanceContainer.appendChild(distanceLabel);
+    this.createDistanceSelectBox(distanceContainer);
+
+    return distanceContainer;
+  }
+
+  createDistanceLabel() {
+    const distanceLabel = document.createElement('label');
+
     distanceLabel.setAttribute('for', 'distance text-caption');
     distanceLabel.textContent = '거리(도보 이동 시간)';
 
-    distanceContainer.appendChild(distanceLabel);
+    return distanceLabel;
+  }
 
+  createDistanceSelectBox(distanceContainer) {
     const formDistanceInformation = {
       $target: distanceContainer,
       attributes: FORM_DISTANCE_ATTRIBUTE,
       options: FORM_DISTANCE,
     };
     SelectBoxComponent.create(formDistanceInformation);
-
-    return distanceContainer;
   }
 
   createDescriptionContainer() {
     const descriptionContainer = document.createElement('div');
-    const descriptionLabel = document.createElement('label');
-    const description = document.createElement('textarea');
-    const helpText = document.createElement('span');
+    const descriptionLabel = this.createDescriptionLabel();
+    const description = this.createDescription();
+    const descriptionHelpText = this.createDescriptionHelpText();
 
     descriptionContainer.classList.add('form-item');
-    descriptionLabel.setAttribute('for', 'description text-caption');
-    descriptionLabel.textContent = '설명';
-    description.setAttribute('name', 'description');
-    description.setAttribute('id', 'description');
-    description.setAttribute('cols', '30');
-    description.setAttribute('rows', '5');
-    helpText.classList.add('help-text', 'text-caption');
-    helpText.textContent = '메뉴 등 추가 정보를 입력해 주세요.';
 
     descriptionContainer.appendChild(descriptionLabel);
     descriptionContainer.appendChild(description);
-    descriptionContainer.appendChild(helpText);
+    descriptionContainer.appendChild(descriptionHelpText);
 
     return descriptionContainer;
   }
 
+  createDescriptionLabel() {
+    const descriptionLabel = document.createElement('label');
+
+    descriptionLabel.setAttribute('for', 'description text-caption');
+    descriptionLabel.textContent = '설명';
+
+    return descriptionLabel;
+  }
+
+  createDescription() {
+    const description = document.createElement('textarea');
+
+    description.setAttribute('name', 'description');
+    description.setAttribute('id', 'description');
+    description.setAttribute('cols', '30');
+    description.setAttribute('rows', '5');
+
+    return description;
+  }
+
+  createDescriptionHelpText() {
+    const descriptionHelpText = document.createElement('span');
+
+    descriptionHelpText.classList.add('help-text', 'text-caption');
+    descriptionHelpText.textContent = '메뉴 등 추가 정보를 입력해 주세요.';
+
+    return descriptionHelpText;
+  }
+
   createLinkContainer() {
     const linkContainer = document.createElement('div');
-    const linkLabel = document.createElement('label');
-    const linkInput = document.createElement('input');
-    const helpText = document.createElement('span');
+    const linkLabel = this.createLinkLabel();
+    const linkInput = this.createLinkInput();
+    const linkHelpText = this.createLinkHelpText();
 
     linkContainer.classList.add('form-item');
-    linkLabel.setAttribute('for', 'link text-caption');
-    linkLabel.textContent = '참고 링크';
-    linkInput.setAttribute('type', 'text');
-    linkInput.setAttribute('name', 'link');
-    linkInput.setAttribute('id', 'link');
-    helpText.classList.add('help-text', 'text-caption');
-    helpText.textContent = '매장 정보를 확인할 수 있는 링크를 입력해 주세요.';
 
     linkContainer.appendChild(linkLabel);
     linkContainer.appendChild(linkInput);
-    linkContainer.appendChild(helpText);
+    linkContainer.appendChild(linkHelpText);
 
     return linkContainer;
+  }
+
+  createLinkLabel() {
+    const linkLabel = document.createElement('label');
+
+    linkLabel.setAttribute('for', 'link text-caption');
+    linkLabel.textContent = '참고 링크';
+
+    return linkLabel;
+  }
+
+  createLinkInput() {
+    const linkInput = document.createElement('input');
+
+    linkInput.setAttribute('type', 'text');
+    linkInput.setAttribute('name', 'link');
+    linkInput.setAttribute('id', 'link');
+
+    return linkInput;
+  }
+
+  createLinkHelpText() {
+    const linkHelpText = document.createElement('span');
+
+    linkHelpText.classList.add('help-text', 'text-caption');
+    linkHelpText.textContent = '매장 정보를 확인할 수 있는 링크를 입력해 주세요.';
+
+    return linkHelpText;
   }
 
   createButtonContainer() {
