@@ -7,7 +7,6 @@ import { RULES } from '../../constants/rules';
 import { SELECT_FORM_DATA } from '../../data/selectData';
 import ModalWrapper from '../Common/ModalWrapper/ModalWrapper';
 
-// TODO: 클래스명 수정, 모달 컨테이너 수정
 export default class AddRestaurantModal extends ModalWrapper {
   #element;
   #restaurants;

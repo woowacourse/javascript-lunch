@@ -6,7 +6,6 @@ export default class Header {
   #element;
   #restaurants;
 
-  // TODO: restaurants prop Drilling
   constructor(element, restaurants) {
     this.#element = element;
     this.#restaurants = restaurants;
@@ -31,7 +30,6 @@ export default class Header {
 
   #handleButtonClick(target) {
     if (target.closest('#gnb__button')) {
-      // TODO: 리팩터링, 해당 방법에 대해서 다시 고민해보기
       new AddRestaurantModal($('modal'), this.#restaurants);
       $('modal').classList.add('modal--open');
     }

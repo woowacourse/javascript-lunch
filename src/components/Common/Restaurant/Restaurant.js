@@ -2,7 +2,6 @@ import ICON from '../../../icons';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { FAVORITE_ICON } from '../../../constants/rules';
 
-// TODO: 즐겨찾기 추가, 해제 상수 분리
 const Restaurant = ({ category, name, walkingTimeFromCampus, description, favorite }) => {
   return `
     <li id="${name}" class="restaurant">
