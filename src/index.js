@@ -1,3 +1,5 @@
 import './styles/style.css';
 import './app.ts';
-import './components/RestaurantForm.ts';
+import App from './app.ts';
+
+new App();
