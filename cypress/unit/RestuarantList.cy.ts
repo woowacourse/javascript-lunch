@@ -1,5 +1,5 @@
 import RestaurantCollection from '../../src/domains/entities/RestaurantCollection';
-import { IRestaurant, IRestaurantInfo } from '../../src/types/Restaurant';
+import { IRestaurant } from '../../src/types/Restaurant';
 
 describe('레스토랑 리스트 클래스', () => {
   const restaurant1: IRestaurant = {

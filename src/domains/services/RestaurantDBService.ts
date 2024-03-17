@@ -4,14 +4,14 @@ import { RESTAURANTS_DB_KEY } from '@/constants/Condition';
 
 class RestaurantDBService {
   update() {
-    const existingRestaurants = JSON.parse(this.get() || '[]');
+    const existingRestaurants = this.get();
     const restaurantCollection = new RestaurantCollection(existingRestaurants);
     restaurantCollection.filterDefault();
     return restaurantCollection;
   }
 
   get() {
-    return localStorage.getItem(RESTAURANTS_DB_KEY);
+    return JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]');
   }
 
   set(collection: RestaurantCollection) {

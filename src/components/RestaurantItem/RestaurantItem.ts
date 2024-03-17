@@ -33,9 +33,12 @@ class RestaurantItem extends BaseComponent {
     $restaurantInfoBox.append(makeTitle(name));
     $restaurantInfoBox.append(makeDistance(distance));
     $restaurantInfoBox.append(makeDescription('omit', description));
-    $restaurantInfoBox.id = String(id);
+    $restaurantInfoBox.dataset.id = String(id);
 
-    const favoriteButton = new FavoriteButton(isFavorite, false);
+    const favoriteButton = new FavoriteButton({
+      isFavorite: isFavorite,
+      targetId: Number($restaurantInfoBox.dataset.id),
+    });
     $restaurantInfoBox.append(favoriteButton);
 
     $liElement.append($restaurantInfoBox);

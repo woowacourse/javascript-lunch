@@ -46,7 +46,10 @@ class RestaurantDetailModal extends BaseComponent {
     const buttons = this.#makeButtons();
     this.#detailInfo.append(buttons);
 
-    const favoriteButton = new FavoriteButton(this.#restaurant.isFavorite, true);
+    const favoriteButton = new FavoriteButton({
+      isFavorite: this.#restaurant.isFavorite,
+      targetId: this.#restaurant.id,
+    });
     this.#detailInfo.append(favoriteButton);
   }
 

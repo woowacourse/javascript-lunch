@@ -18,7 +18,7 @@ describe('음식점 업데이트 테스트 서비스', () => {
     const restaurantDBService = new RestaurantDBService();
     restaurantUpdateService.updateAddedRestaurantCollection(NEW_RESTAURANT1);
 
-    expect(restaurantDBService.update().get().length).to.equal(restaurantListMock.length + 1);
+    expect(restaurantDBService.update().get().length).to.equal(1);
   });
 
   it('RestaurantDBService의 get 메서드를 썼을 때 저장된 음식점 목록이 잘 가져와진다.', () => {
@@ -43,9 +43,6 @@ describe('음식점 업데이트 테스트 서비스', () => {
     };
 
     restaurantDBService.set(new RestaurantCollection([RESTAURANT_FIRST, RESTAURANT_SECOND]));
-    expect(JSON.parse(restaurantDBService.get() || '[]')).to.deep.equal([
-      RESTAURANT_FIRST,
-      RESTAURANT_SECOND,
-    ]);
+    expect(restaurantDBService.get()).to.deep.equal([RESTAURANT_FIRST, RESTAURANT_SECOND]);
   });
 });

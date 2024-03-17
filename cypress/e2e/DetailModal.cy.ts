@@ -30,6 +30,7 @@ describe('디테일 모달 테스트', () => {
 
   it('특정 음식점을 클릭하면 디테일 모달이 열린다.', () => {
     cy.get('.restaurant').first().click();
+    cy.get('.restaurant-detail').should('be.visible');
     cy.get('#detail-modal').should('have.class', 'modal--open');
   });
 

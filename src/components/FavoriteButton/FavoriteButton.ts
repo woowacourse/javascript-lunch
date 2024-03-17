@@ -6,15 +6,22 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { $ } from '@/utils/DOM';
 import { removeAllChildren } from '@/utils/view';
 
+type Props = {
+  isFavorite: boolean;
+  targetId: number;
+};
+
 class FavoriteButton extends BaseComponent {
   #isFavorite: boolean;
   #button: HTMLButtonElement;
+  #targetId: number;
 
-  constructor(isFavorite: boolean, isDetail: boolean) {
+  constructor({ isFavorite, targetId }: Props) {
     super();
     this.#isFavorite = isFavorite;
     this.#button = document.createElement('button');
     this.#button.classList.add('favorite-button');
+    this.#targetId = targetId;
   }
 
   render() {
@@ -35,17 +42,12 @@ class FavoriteButton extends BaseComponent {
     this.#button.addEventListener('click', (event) => {
       event.stopPropagation();
 
-      const restaurantInfo = this.#button.parentNode as HTMLElement;
-      const targetId = restaurantInfo.id;
-
       const restaurantDBService = new RestaurantDBService();
       const existedRestaurantList = [...restaurantDBService.update().restaurantList];
 
       existedRestaurantList.forEach((restaurant) => {
-        if (restaurant.id === Number(targetId)) {
-          restaurant.isFavorite
-            ? restaurant.changeIsFavoriteFalse()
-            : restaurant.changeIsFavoriteTrue();
+        if (restaurant.id === this.#targetId) {
+          restaurant.toggleChangeIsFavorite();
         }
       });
 

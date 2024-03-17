@@ -1,7 +1,7 @@
 import { $, $$ } from '@/utils/DOM';
 import BaseComponent from '../BaseComponent';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
-import { deleteParams, setUrlParams } from '@/utils/url';
+import { deleteParams, getUrlParams, setUrlParams } from '@/utils/url';
 export type Tab = {
   id: string;
   title: string;
@@ -31,6 +31,7 @@ class TabMenu extends BaseComponent {
   }
 
   render() {
+    deleteParams('tab');
     const $fragment = new DocumentFragment();
     this.#tabData.forEach((tab) => {
       const $tab = document.createElement('div');
@@ -64,7 +65,6 @@ class TabMenu extends BaseComponent {
     });
   }
 
-  //TODO: service로 뺼지 생각
   #showFavoriteTab() {
     $<HTMLElement>('#favorite-tab').addEventListener('click', () => {
       setUrlParams('tab', 'favorite');
@@ -75,7 +75,6 @@ class TabMenu extends BaseComponent {
   #showAllTab() {
     $<HTMLElement>('#all-tab').addEventListener('click', () => {
       deleteParams('tab');
-
       this.#restaurantUpdateService.rerenderByFilter();
     });
   }

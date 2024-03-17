@@ -1,4 +1,4 @@
-import { IRestaurant, IRestaurantInfo } from '../../src/types/Restaurant';
+import { IRestaurant } from '../../src/types/Restaurant';
 import Restaurant from '../../src/domains/entities/Restaurant';
 
 describe('레스토랑 클래스', () => {
@@ -46,7 +46,7 @@ describe('레스토랑 클래스', () => {
     };
 
     const restaurant = new Restaurant(RESTAURANT_ARGS);
-    restaurant.changeIsFavoriteFalse();
+    restaurant.toggleChangeIsFavorite();
     expect(restaurant.isFavorite).to.equal(false);
   });
   it('즐겨찾기가 성공적으로 true로 변경된다.', () => {
@@ -60,7 +60,7 @@ describe('레스토랑 클래스', () => {
     };
 
     const restaurant = new Restaurant(RESTAURANT_ARGS);
-    restaurant.changeIsFavoriteTrue();
+    restaurant.toggleChangeIsFavorite();
     expect(restaurant.isFavorite).to.equal(true);
   });
 });

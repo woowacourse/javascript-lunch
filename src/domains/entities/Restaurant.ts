@@ -36,12 +36,8 @@ class Restaurant implements IRestaurant {
     return result;
   }
 
-  changeIsFavoriteFalse() {
-    this.isFavorite = false;
-  }
-
-  changeIsFavoriteTrue() {
-    this.isFavorite = true;
+  toggleChangeIsFavorite() {
+    this.isFavorite = !this.isFavorite;
   }
 }
 export default Restaurant;
