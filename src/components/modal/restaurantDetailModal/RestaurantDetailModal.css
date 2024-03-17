@@ -5,6 +5,10 @@
     margin-bottom: 20px;
 }
 
+#detail-favorite-container img:hover {
+    opacity: 0.8;
+}
+
 .detail-body-wrapper {
     padding: 10px;
     display: flex;

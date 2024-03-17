@@ -98,7 +98,6 @@ class RestaurantDetailModal extends Modal<IDetailModalProps> {
       buttonAttributes: {
         type: 'button',
         id,
-        classNames: ['gnb__button'],
         ariaLabel: '자주 가는 음식점 등록',
       },
       imageAttributes: {
