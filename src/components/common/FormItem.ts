@@ -21,8 +21,4 @@ export default class FormItem extends BaseComponent {
       </div>
     `;
   }
-
-  static get observedAttributes() {
-    return ["title", "required", "help-text", "label-for"];
-  }
 }

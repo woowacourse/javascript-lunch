@@ -32,7 +32,7 @@ export default class CategoryIcon extends BaseComponent {
 
     return `
       <div class="restaurant__category">
-        <img class="category-icon" src=${categoryImage} alt=${category}>
+        <img class="category-icon" src="${categoryImage}" alt="${category}">
       </div>
     `;
   }
@@ -43,9 +43,5 @@ export default class CategoryIcon extends BaseComponent {
 
   private convertCategoryToImage(category: Category): ImagePath {
     return CATEGORY_TO_IMAGE_PATH[category];
-  }
-
-  static get observedAttributes() {
-    return ["category"];
   }
 }

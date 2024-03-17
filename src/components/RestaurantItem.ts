@@ -23,8 +23,4 @@ export default class RestaurantItem extends BaseComponent {
       </li>
     `;
   }
-
-  static get observedAttributes() {
-    return ["category", "name", "timeToReach", "description", "isFavorite"];
-  }
 }
