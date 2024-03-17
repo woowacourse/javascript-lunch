@@ -153,6 +153,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__info__main {
+  display: flex;
+  justify-content: space-between;
 }
 
 .restaurant__name {
@@ -194,6 +200,9 @@ body {
 }
 
 .modal-container {
+  display: flex;
+  flex-direction: column;
+
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -295,4 +304,22 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.space__between__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.modal--open p {
+  word-wrap: break-word;
+  max-height: 220px;
+
+  overflow: auto;
+}
+
+.scroll-container--on {
+  height: 60vh;
+  overflow-y: scroll;
 }
