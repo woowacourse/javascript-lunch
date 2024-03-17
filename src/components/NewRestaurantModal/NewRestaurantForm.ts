@@ -1,9 +1,9 @@
 import { CategoryOrPlaceholder, DistanceOrPlaceholder } from '@/types/Restaurant';
-import SelectBox from '../Basic/SelectBox/SelectBox';
+import SelectBox from '../Basic/SelectBox';
 import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
-import VerticalInputBox from '../Basic/VerticalInputBox/VerticalInputBox';
-import BasicButton from '../Basic/BasicButton/BasicButton';
-import BasicModal from '../Basic/BasicModal/BasicModal';
+import VerticalInputBox from '../Basic/VerticalInputBox';
+import BasicButton from '../Basic/BasicButton';
+import BasicModal from '../Basic/BasicModal';
 
 class NewRestaurantForm extends HTMLFormElement {
   constructor() {

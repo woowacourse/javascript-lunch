@@ -2,13 +2,15 @@ import { add } from 'cypress/types/lodash';
 import OnOffButton from './OnOffButton';
 import './Tab.css';
 
+const ELEMENT_NAME = 'my-tab';
+
 class Tab extends HTMLDivElement {
   #selected: HTMLElement;
 
   constructor() {
     super();
-    this.classList.add('custom-tab');
-    this.#selected = this.querySelector('div[is="my-tab"] > *')!;
+    this.classList.add('custom-tab', ELEMENT_NAME);
+    this.#selected = this.querySelector(`div[is=${ELEMENT_NAME}] > *`)!;
 
     this.addEventListener('click', (event) => {
       if (this.contains(event.target as Node)) {
@@ -24,5 +26,5 @@ class Tab extends HTMLDivElement {
   }
 }
 
-customElements.define('my-tab', Tab, { extends: 'div' });
+customElements.define(ELEMENT_NAME, Tab, { extends: 'div' });
 export default Tab;

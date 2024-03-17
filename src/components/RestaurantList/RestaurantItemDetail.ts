@@ -1,13 +1,13 @@
 import { Category, DistanceNumeric, IRestaurant } from '@/types/Restaurant';
 
 import style from './RestaurantItemDetail.module.css';
-import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon/RestaurantCategoryIcon';
+import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import Restaurant from '@/domains/entities/Restaurant';
-import BasicButton from '../Basic/BasicButton/BasicButton';
-import BasicModal from '../Basic/BasicModal/BasicModal';
+import BasicButton from '../Basic/BasicButton';
+import BasicModal from '../Basic/BasicModal';
 
 class RestaurantItemDetail extends HTMLLIElement {
   #category: Category = '기타';
@@ -23,8 +23,9 @@ class RestaurantItemDetail extends HTMLLIElement {
     this.template();
     if (props) {
       this.setState(props);
+    } else {
+      this.paint();
     }
-    this.render();
   }
 
   setState({ category, name, distance, description, link, isFavorite }: IRestaurant) {
@@ -34,7 +35,7 @@ class RestaurantItemDetail extends HTMLLIElement {
     this.#description = description ?? '';
     this.#link = link ?? '';
     this.#isFavorite = isFavorite ?? false;
-    this.render();
+    this.paint();
   }
 
   template() {
@@ -43,8 +44,7 @@ class RestaurantItemDetail extends HTMLLIElement {
       <div is="restaurant-category-icon"> </div>
       <h3 class="restaurant__name text-subtitle ${style.restaurant__name}"></h3>
       <span class="restaurant__distance text-body ${style.restaurant__distance}"></span>
-      <p class="restaurant__description text-body ${style.restaurant__description}">
-      </p>
+      <p class="restaurant__description text-body ${style.restaurant__description}"></p>
       <a class="restaurant__link text-body ${style.restaurant__link}"></a>
       <div class="restaurant__button-container ${style.restaurant__buttonContainer}" > </div>
       <img is="favorite-icon" class="restaurant__favorite-icon" style="width:25px; position:absolute; right:10px; top:10px;"/>
@@ -59,11 +59,15 @@ class RestaurantItemDetail extends HTMLLIElement {
         (document.querySelector('#main-app') as MainApp).paint();
       }),
     );
-    $buttonBox.append(new BasicButton('primary', '닫기', 'submit', () => {}));
+    $buttonBox.append(
+      new BasicButton('primary', '닫기', 'submit', () => {
+        (this.parentElement!.parentElement as BasicModal).closeModal();
+      }),
+    );
 
     this.addEventListener('click', this.#favoriteIconDBListener.bind(this));
   }
-  render() {
+  paint() {
     (
       this.querySelector('div[is="restaurant-category-icon"]') as RestaurantCategoryIcon
     ).setCategory(this.#category);
@@ -89,22 +93,18 @@ class RestaurantItemDetail extends HTMLLIElement {
 
   #favoriteIconDBListener(event: Event) {
     if ((event.target as HTMLElement).classList.contains('restaurant__favorite-icon')) {
-      console.log('fav');
       this.#isFavorite =
         (this.querySelector('.restaurant__favorite-icon')! as FavoriteIcon).getAttribute(
           'clicked',
         ) === 'on';
-      const newRestaurants = this.#getDBRaw().filter(
-        (restaurant) => !new Restaurant(this.get()).isEqual(restaurant),
-      );
+      const newRestaurants = new RestaurantDBService()
+        .get()
+        .filter((restaurant) => !new Restaurant(this.get()).isEqual(restaurant));
       console.log(newRestaurants);
       new RestaurantDBService().set([...newRestaurants, this.get()]);
 
       (document.querySelector('.main-app-new') as MainApp).paint();
     }
-  }
-  #getDBRaw() {
-    return new RestaurantDBService().get();
   }
 }
 

@@ -9,10 +9,7 @@ class RestaurantCategoryIcon extends HTMLDivElement {
   }
 
   setCategory(category: Category) {
-    while (this.firstChild) {
-      this.removeChild(this.firstChild);
-    }
-    this.append(new CategoryIcon(category));
+    this.replaceChildren(new CategoryIcon(category));
   }
 }
 

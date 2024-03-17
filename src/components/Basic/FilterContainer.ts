@@ -1,12 +1,12 @@
 import { CATEGORIES_WITH_ALL_KEYS, SORT_CRITERION_KEYS } from '@/constants/Condition';
-import BaseComponent from '../BaseComponent';
-import SelectBox from '../Basic/SelectBox/SelectBox';
 import { Category, CategoryOrAll, SortCriteria } from '@/types/Restaurant';
+import BaseComponent from '../BaseComponent';
+
+import AllRestaurantApp from '../AllRestaurantApp';
+import SelectBox from './SelectBox';
 import RestaurantList from '../RestaurantList/RestaurantList';
 
 import './FilterContainer.css';
-import MainApp from '../MainApp';
-import AllRestaurantApp from '../AllRestaurantApp';
 class FilterContainer extends BaseComponent {
   #selectCategoryBox: SelectBox<CategoryOrAll>;
   #selectSortBox: SelectBox<SortCriteria>;

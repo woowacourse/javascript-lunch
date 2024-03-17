@@ -1,4 +1,4 @@
-import BasicModal from '../Basic/BasicModal/BasicModal';
+import BasicModal from '../Basic/BasicModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { IRestaurant, DistanceOrPlaceholder, Category, DistanceNumeric } from '@/types/Restaurant';
 

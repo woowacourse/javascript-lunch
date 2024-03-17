@@ -4,16 +4,15 @@ import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
 import Tab from './Tab';
 import RestaurantItemDetail from './RestaurantList/RestaurantItemDetail';
-import BasicModal from './Basic/BasicModal/BasicModal';
+import BasicModal from './Basic/BasicModal';
 import '@/css/index.css';
 import './MainApp.css';
 
 class MainApp extends HTMLDivElement {
-  #myTab: Tab;
-  #newRestaurantModal: NewRestaurantModal;
-  #restaurantDBService: RestaurantDBService;
+  #navTab: Tab;
   #allRestaurantApp: AllRestaurantApp;
   #favoriteRestaurantApp: FavoriteRestaurantApp;
+  #newRestaurantModal: NewRestaurantModal;
   #restaurantDetailModal: BasicModal;
 
   observedAttributes = [];
@@ -24,8 +23,8 @@ class MainApp extends HTMLDivElement {
     this.id = 'main-app';
     this.innerHTML = `
     <div is="my-tab" class="restaurant-nav-tab" style="margin-top:22px;"> 
-    <div is="on-off-button" class="text-subtitle" checked="on" data-id="all">모든 음식점</div>
-    <div is="on-off-button" class="text-subtitle" data-id="favorite">자주 가는 음식점</div>
+      <div is="on-off-button" class="text-subtitle" checked="on" data-id="all">모든 음식점</div>
+      <div is="on-off-button" class="text-subtitle" data-id="favorite">자주 가는 음식점</div>
     </div>
 
     <div is="all-restaurant-app" class="hidden" data-id="all"></div>
@@ -37,16 +36,16 @@ class MainApp extends HTMLDivElement {
       <li is="restaurant-item-detail" class="restaurant-item-detail" style=""></li>
     </div>
     `;
-    this.#myTab = this.querySelector('div[is="my-tab"]')!;
-    this.#newRestaurantModal = this.querySelector('.modal')!;
-    this.#restaurantDBService = new RestaurantDBService();
+
+    this.#navTab = this.querySelector('div[is="my-tab"]')!;
+    this.#newRestaurantModal = this.querySelector('.new-restaurant-modal')!;
     this.#allRestaurantApp = this.querySelector('div[is="all-restaurant-app"]') as AllRestaurantApp;
     this.#favoriteRestaurantApp = this.querySelector(
       'div[is="favorite-restaurant-app"]',
     ) as FavoriteRestaurantApp;
     this.paint();
 
-    this.#myTab.addEventListener('click', () => {
+    this.#navTab.addEventListener('click', () => {
       this.paint();
     });
 
@@ -57,7 +56,7 @@ class MainApp extends HTMLDivElement {
   paint() {
     if (
       this.#allRestaurantApp ===
-      this.querySelector(`.main-app-new > div[data-id="${this.#myTab.getSelected().dataset.id}"]`)
+      this.querySelector(`.main-app-new > div[data-id="${this.#navTab.getSelected().dataset.id}"]`)
     ) {
       this.#favoriteRestaurantApp.classList.add('hidden');
       this.#allRestaurantApp.classList.remove('hidden');

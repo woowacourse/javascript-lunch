@@ -1,13 +1,12 @@
 import '@/css/index.css';
 import RestaurantList from './RestaurantList/RestaurantList';
 import { Category, IRestaurant, SortCriteria } from '@/types/Restaurant';
-import FilterContainer from './FilterContainer/FilterContainer';
+import FilterContainer from './Basic/FilterContainer';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import restaurantListMock from '@/mock/restaurantList.mock';
 import FavoriteIcon from './Basic/FavoriteIcon';
 import RestaurantItem from './RestaurantList/RestaurantItem';
 import Restaurant from '@/domains/entities/Restaurant';
-import { rest } from 'cypress/types/lodash';
 
 class FavoriteRestaurantApp extends HTMLDivElement {
   #filterContainer: FilterContainer;

@@ -1,4 +1,4 @@
-import BaseComponent from '../../BaseComponent';
+import BaseComponent from '../BaseComponent';
 import './BasicModal.css';
 class BasicModal extends HTMLDivElement {
   #backdrop: HTMLDivElement;

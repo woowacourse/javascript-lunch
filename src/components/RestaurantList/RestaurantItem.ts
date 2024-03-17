@@ -1,7 +1,7 @@
 import { Category, IRestaurant } from '@/types/Restaurant';
 
 import style from './RestaurantItem.module.css';
-import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon/RestaurantCategoryIcon';
+import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
 
@@ -22,10 +22,11 @@ class RestaurantItem extends HTMLLIElement {
     this.#link = link ?? '';
     this.#isFavorite = isFavorite ?? false;
 
-    this.render();
+    this.template();
+    this.paint();
   }
 
-  render() {
+  template() {
     this.classList.add(`restaurant`, `${style.restaurant}`);
     this.innerHTML = `
     <div is="restaurant-category-icon"> </div>
@@ -37,7 +38,9 @@ class RestaurantItem extends HTMLLIElement {
     <img is="favorite-icon" class="favorite-icon" style="width:26px; position:absolute; right:10px; top:10px;"/>
     </div>
    `;
+  }
 
+  paint() {
     (
       this.querySelector('div[is="restaurant-category-icon"]') as RestaurantCategoryIcon
     ).setCategory(this.#category);

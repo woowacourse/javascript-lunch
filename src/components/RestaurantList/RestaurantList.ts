@@ -4,6 +4,7 @@ import { IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantList.css';
 import MainApp from '../MainApp';
+import FavoriteIcon from '../Basic/FavoriteIcon';
 
 class RestaurantList extends HTMLUListElement {
   #restaurants: IRestaurant[];
@@ -12,6 +13,14 @@ class RestaurantList extends HTMLUListElement {
     super();
     this.classList.add('restaurant-list');
     this.#restaurants = [];
+
+    this.addEventListener('click', (event) => {
+      if (event.target instanceof FavoriteIcon) {
+        const restaurants = this.get();
+        new RestaurantDBService().set(restaurants);
+        this.paint(restaurants);
+      }
+    });
   }
 
   paint(restaurants: IRestaurant[]) {

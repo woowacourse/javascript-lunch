@@ -1,7 +1,7 @@
 import '@/css/index.css';
 import RestaurantList from './RestaurantList/RestaurantList';
 import { Category, SortCriteria } from '@/types/Restaurant';
-import FilterContainer from './FilterContainer/FilterContainer';
+import FilterContainer from './Basic/FilterContainer';
 import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import restaurantListMock from '@/mock/restaurantList.mock';
@@ -17,7 +17,7 @@ class AllRestaurantApp extends HTMLDivElement {
 
   constructor() {
     super();
-    this.classList.add('all-retaurant-app');
+    this.classList.add('all-restaurant-app');
     this.innerHTML = `
     <filter-container class="restaurant-filter-container"></filter-container>
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
@@ -25,27 +25,9 @@ class AllRestaurantApp extends HTMLDivElement {
 
     this.#filterContainer = this.querySelector('.restaurant-filter-container')!;
     this.#restaurantList = this.querySelector('.restaurant-list')!;
-    //this.#newRestaurantModal = this.querySelector('.modal')!;
+
     this.#restaurantDBService = new RestaurantDBService();
     this.paint();
-    this.addEventListener('click', (event) => {
-      if (event.target instanceof FavoriteIcon) {
-        console.log(
-          (event.target.parentElement?.parentElement?.parentElement as RestaurantList).get(),
-        );
-        const restaurants = (
-          event.target.parentElement?.parentElement?.parentElement as RestaurantList
-        ).get();
-        this.#restaurantDBService.set(restaurants);
-        this.paint();
-      }
-    });
-
-    this.addEventListener('click', (event) => {
-      // if (event.target instanceof RestaurantItem) {
-      //   document.
-      // }
-    });
   }
   connectedCallback() {
     this.paint();
