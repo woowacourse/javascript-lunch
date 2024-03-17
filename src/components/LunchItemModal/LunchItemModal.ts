@@ -6,9 +6,6 @@ import LunchFavoriteIcon from '../LunchFavoriteIcon/LunchFavoriteIcon';
 import { CATEGORY_IMG } from '../LunchItem/LunchItem';
 import LunchButton from '../LunchButton/LunchButton';
 import { RestaurantRegistry } from '../../domain';
-import LunchItems from '../LunchItems/LunchItems';
-import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
-import LunchTab from '../LunchTab/LunchTab';
 
 const LUNCH_ITEM_MODAL_CONTENT_HTML = (restaurant: Restaurant) => `
 <div class="restaurant__modal-container">
@@ -60,6 +57,7 @@ class LunchItemModal extends HTMLElement {
     title?.appendChild(new LunchFavoriteIcon(this.#restaurant));
   }
 
+  // eslint-disable-next-line max-lines-per-function
   createButtons() {
     const buttonContainer = this.querySelector('.button-container');
     buttonContainer?.appendChild(
@@ -82,23 +80,18 @@ class LunchItemModal extends HTMLElement {
 
   handleDeleteItem() {
     RestaurantRegistry.deleteOneRestaurant(this.#restaurant);
-
-    const items = document.querySelector('lunch-items') as LunchItems;
-    const tab = (document.querySelector('.lunch-tab') as LunchTab).nowSelected;
-    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
-    const dropdowns = filter.querySelectorAll('select');
-    if (tab === 'favorite-restaurants') {
-      items.renderItems({ database: 'liked' });
-    } else {
-      items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
-    }
-
+    this.handleRender();
     this.handleModalOpen();
   }
 
   handleModalOpen() {
     const modal = this.querySelector('.modal') as LunchModal;
     modal?.handleModalOpen();
+  }
+
+  handleRender() {
+    const renderEvent = new CustomEvent('render', { bubbles: true });
+    this.dispatchEvent(renderEvent);
   }
 }
 

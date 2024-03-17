@@ -1,7 +1,6 @@
 import './style.css';
 
 import LunchDropdown, { LunchDropdownProps } from '../LunchDropdown/LunchDropdown';
-import LunchItems from '../LunchItems/LunchItems';
 import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
 
@@ -46,9 +45,8 @@ class LunchItemFilter extends HTMLElement {
   }
 
   handleRender() {
-    const dropdowns = this.querySelectorAll('select');
-    const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
+    const renderEvent = new CustomEvent('render', { bubbles: true });
+    this.dispatchEvent(renderEvent);
   }
 
   resetDropdown() {

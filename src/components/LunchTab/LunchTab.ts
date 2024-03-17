@@ -1,5 +1,4 @@
 import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
-import LunchItems from '../LunchItems/LunchItems';
 import './style.css';
 import TabButton from './TabButton';
 
@@ -20,6 +19,7 @@ class LunchTab extends HTMLElement {
     this.setEventListener();
   }
 
+  // eslint-disable-next-line max-lines-per-function
   createTabItems(props: LunchTabProps[]) {
     props.forEach((prop) => {
       this.appendChild(
@@ -57,14 +57,8 @@ class LunchTab extends HTMLElement {
   }
 
   handleRenderItems() {
-    const items = document.querySelector('lunch-items') as LunchItems;
-    if (this.nowSelected === 'favorite-restaurants') {
-      items.renderItems({
-        database: this.nowSelected === 'favorite-restaurants' ? 'liked' : '',
-      });
-    } else {
-      items.renderItems({});
-    }
+    const renderEvent = new CustomEvent('render', { bubbles: true });
+    this.dispatchEvent(renderEvent);
   }
 
   handleResetFilter() {

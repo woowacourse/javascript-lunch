@@ -1,14 +1,17 @@
+/* eslint-disable import/no-duplicates */
 import './reset.css';
 import './global.css';
 import './components/LunchHeader/LunchHeader';
-// eslint-disable-next-line import/no-duplicates
 import './components/LunchTab/LunchTab';
-import LunchTab from './components/LunchTab/LunchTab';
 import './components/LunchItemFilter/LunchItemFilter';
 import './components/LunchItem/LunchItem';
 import './components/LunchItems/LunchItems';
 import './components/LunchRegisterModal/LunchRegisterModal';
 import './components/LunchItemModal/LunchItemModal';
+
+import LunchTab from './components/LunchTab/LunchTab';
+import LunchItemFilter from './components/LunchItemFilter/LunchItemFilter';
+import LunchItems from './components/LunchItems/LunchItems';
 
 import DUMMY from './constants/dummy';
 
@@ -25,8 +28,10 @@ class LunchApp extends HTMLElement {
     super();
 
     this.render();
+    this.setRenderEventListener();
   }
 
+  // eslint-disable-next-line max-lines-per-function
   connectedCallback() {
     this.render();
     this.querySelector('lunch-header')?.insertAdjacentElement(
@@ -46,10 +51,32 @@ class LunchApp extends HTMLElement {
   }
 
   render() {
-    localStorage.getItem('restaurants') ??
+    if (!localStorage.getItem('restaurants')) {
       localStorage.setItem('restaurants', JSON.stringify(DUMMY));
-    localStorage.getItem('liked') ?? localStorage.setItem('liked', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('liked')) {
+      localStorage.setItem('liked', JSON.stringify([]));
+    }
     this.innerHTML = LUNCH_APP;
+  }
+
+  setRenderEventListener() {
+    this.addEventListener('render', () => {
+      this.handleRender();
+    });
+  }
+
+  // eslint-disable-next-line max-lines-per-function
+  handleRender() {
+    const items = document.querySelector('lunch-items') as LunchItems;
+    const tab = (document.querySelector('.lunch-tab') as LunchTab).nowSelected;
+    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
+    const dropdowns = filter.querySelectorAll('select');
+    if (tab === 'favorite-restaurants') {
+      items.renderItems({ database: 'liked' });
+    } else {
+      items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
+    }
   }
 }
 

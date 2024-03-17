@@ -24,15 +24,8 @@ class LunchFavoriteIcon extends HTMLImageElement {
   }
 
   handleRender() {
-    const items = document.querySelector('lunch-items') as LunchItems;
-    const tab = (document.querySelector('.lunch-tab') as LunchTab).nowSelected;
-    const filter = document.querySelector('lunch-item-filter') as LunchItemFilter;
-    const dropdowns = filter.querySelectorAll('select');
-    if (tab === 'favorite-restaurants') {
-      items.renderItems({ database: 'liked' });
-    } else {
-      items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
-    }
+    const renderEvent = new CustomEvent('render', { bubbles: true });
+    this.dispatchEvent(renderEvent);
   }
 
   handleFavorite(restaurant: Restaurant) {

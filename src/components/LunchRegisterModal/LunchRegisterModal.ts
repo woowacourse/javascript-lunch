@@ -2,13 +2,12 @@ import './style.css';
 // eslint-disable-next-line import/no-duplicates
 import '../LunchFormItem/LunchFormItem';
 import LunchButton from '../LunchButton/LunchButton';
+// eslint-disable-next-line import/no-duplicates
 import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
 import { RestaurantRegistry } from '../../domain';
-import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
 import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
 import LunchModal from '../LunchModal/LunchModal';
-import LunchTab from '../LunchTab/LunchTab';
 
 const LUNCH_REGISTER_MODAL = /* html */ `
     <h2 class="register-modal-title text-title">새로운 음식점</h2>
@@ -49,6 +48,7 @@ class LunchRegisterModal extends HTMLElement {
     }
   }
 
+  // eslint-disable-next-line max-lines-per-function
   createButtons() {
     const buttonContainer = this.querySelector('.button-container');
     buttonContainer?.appendChild(
@@ -106,8 +106,8 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   renderItems() {
-    const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({});
+    const renderEvent = new CustomEvent('render', { bubbles: true });
+    this.dispatchEvent(renderEvent);
   }
 
   resetFilter() {
