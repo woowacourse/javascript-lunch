@@ -17,10 +17,6 @@ class RestaurantTabContainer extends BaseComponent {
 
   private tabContainer = new TabContainer(this.tabContainerConfig);
 
-  constructor() {
-    super();
-  }
-
   private eventListeners: CustomEventListenerDictionary = {
     allRestaurantTabClick: {
       eventName: "click",
@@ -32,6 +28,10 @@ class RestaurantTabContainer extends BaseComponent {
       eventHandler: this.handleClickFavoriteRestaurantTab.bind(this),
     },
   };
+
+  constructor() {
+    super();
+  }
 
   private getAllRestaurantBtn(): string {
     return `
@@ -58,16 +58,15 @@ class RestaurantTabContainer extends BaseComponent {
 
   private handleClickAllRestaurantTab() {
     $(ELEMENT_SELECTOR.selectedListContainer).innerHTML = `
-      <section class="restaurant-filter-container"> 
-        <category-dropdown></category-dropdown>         
+      <section class="restaurant-filter-container">
+        <category-dropdown></category-dropdown>
         <sort-dropdown></sort-dropdown>
       </section>
-
+      
       <restaurant-list></restaurant-list>
     `;
   }
 
-  // 여기서 즐찾리스트를 렌더링해줘야하나 아니면 lunchApp에 놔두긴해야하나 ㅋㅋ
   private handleClickFavoriteRestaurantTab() {
     $(ELEMENT_SELECTOR.selectedListContainer).innerHTML = `
       <section class="selected-list-container">

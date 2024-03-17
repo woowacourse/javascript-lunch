@@ -17,6 +17,8 @@ class FavoriteRestaurantList extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.toggleFavoriteButton,
       eventHandler: this.handleToggleFavoriteButton.bind(this),
     },
+
+    
   };
 
   private handleToggleFavoriteButton(event: Event) {

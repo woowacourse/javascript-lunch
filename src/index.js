@@ -13,6 +13,7 @@ import "./components/FavoriteRestaurantList/FavoriteRestaurantList";
 import "./components/RestaurantItem/RestaurantItem";
 import "./components/FavoriteButton/FavoriteButton";
 import "./components/RestaurantAddModal/RestaurantAddModal";
+import "./components/RestaurantInfoModal/RestaurantInfoModal";
 
 import "./components/RestaurantAddForm/RestaurantAddForm";
 import "./components/RestaurantAddForm/FormCategoryDropdown";

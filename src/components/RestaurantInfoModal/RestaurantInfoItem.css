@@ -1,0 +1,62 @@
+.space-between-display {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.restaurant-info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-info-item .restaurant__info {
+  width: 100%;
+  margin: 20px 10px;
+}
+
+.restaurant__category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  margin-right: 16px;
+  border-radius: 50%;
+  background: var(--lighten-color);
+}
+
+.category-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.restaurant__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.restaurant-info-item .restaurant__name {
+  margin-bottom: 5px;
+}
+
+.restaurant-info-item .restaurant__distance {
+  color: var(--primary-color);
+  margin: 7px 0;
+}
+
+.restaurant-info-item .restaurant__description {
+  display: -webkit-box;
+  padding-top: 8px;
+  overflow: auto;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.restaurant-info-item a {
+  color: black;
+}

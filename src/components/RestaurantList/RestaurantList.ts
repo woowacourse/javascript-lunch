@@ -15,6 +15,7 @@ import RestaurantStorage from "../../storages/RestaurantStorage";
 
 class RestaurantList extends BaseComponent {
   private restaurant = new Restaurant(RestaurantStorage);
+  private restaurantItems: RestaurantItem[] = [];
 
   private sortType: SortCategory = SORT_CATEGORIES_TYPE.name;
 
@@ -38,12 +39,17 @@ class RestaurantList extends BaseComponent {
       eventName: CUSTOM_EVENT_TYPE.toggleFavoriteButton,
       eventHandler: this.handleToggleFavoriteButton.bind(this),
     },
-  };
 
-  private handleToggleFavoriteButton(event: Event) {
-    const customEvent = event as CustomEvent;
-    this.restaurant.toggleFavoriteStatus(customEvent.detail.restaurantName);
-  }
+    clickRestaurantItem: {
+      eventName: "click",
+      eventHandler: this.handleClickRestaurantItem.bind(this),
+    },
+
+    editRestaurantItem: {
+      eventName: CUSTOM_EVENT_TYPE.rerenderRestaurantList,
+      eventHandler: this.handleEditRestaurantItem.bind(this),
+    },
+  };
 
   protected render(): void {
     this.innerHTML = `
@@ -61,6 +67,7 @@ class RestaurantList extends BaseComponent {
     return restaurantDetails.reduce(
       (acc: string, restaurantDetail: RestaurantDetail) => {
         const restaurantItem = new RestaurantItem(restaurantDetail);
+        this.restaurantItems.push(restaurantItem);
 
         return acc + restaurantItem.getTemplate();
       },
@@ -68,14 +75,32 @@ class RestaurantList extends BaseComponent {
     );
   }
 
-  protected setEvent(): void {
-    this.on({ ...this.eventListeners.addRestaurant, target: document });
+  private handleToggleFavoriteButton(event: Event) {
+    const customEvent = event as CustomEvent;
+    this.restaurant.toggleFavoriteStatus(customEvent.detail.restaurantName);
+  }
 
-    this.on({ ...this.eventListeners.sortChange, target: document });
+  private handleEditRestaurantItem() {
+    this.restaurant = new Restaurant(RestaurantStorage);
+    this.handleRerenderRestaurantList();
+  }
 
-    this.on({ ...this.eventListeners.filterCategory, target: document });
+  private handleClickRestaurantItem(event: Event) {
+    const restaurantEl = (event.target as HTMLElement)?.closest(".restaurant");
 
-    this.on({ ...this.eventListeners.toggleFavoriteButton, target: document });
+    if (!restaurantEl) return;
+
+    const restaurantNameEl = restaurantEl.querySelector(".restaurant__name");
+    if (!restaurantNameEl) return;
+
+    const restaurantName = restaurantNameEl.textContent;
+    if (!restaurantName) return;
+
+    const restaurantDetail =
+      this.restaurant.getRestaurantDetailByName(restaurantName);
+    this.emit(CUSTOM_EVENT_TYPE.restaurantItemClick, {
+      restaurantDetail: restaurantDetail,
+    });
   }
 
   private handleRerenderRestaurantList() {
@@ -106,14 +131,22 @@ class RestaurantList extends BaseComponent {
     }
   }
 
+  protected setEvent(): void {
+    this.on({ ...this.eventListeners.addRestaurant, target: document });
+    this.on({ ...this.eventListeners.sortChange, target: document });
+    this.on({ ...this.eventListeners.filterCategory, target: document });
+    this.on({ ...this.eventListeners.toggleFavoriteButton, target: this });
+    this.on({ ...this.eventListeners.clickRestaurantItem, target: this });
+    this.on({ ...this.eventListeners.editRestaurantItem, target: document });
+  }
+
   protected removeEvent(): void {
     this.off({ ...this.eventListeners.addRestaurant, target: document });
-
     this.off({ ...this.eventListeners.sortChange, target: document });
-
     this.off({ ...this.eventListeners.filterCategory, target: document });
-
     this.off({ ...this.eventListeners.toggleFavoriteButton, target: document });
+    this.off({ ...this.eventListeners.clickRestaurantItem, target: this });
+    this.off({ ...this.eventListeners.editRestaurantItem, target: document });
   }
 }
 

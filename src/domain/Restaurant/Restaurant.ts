@@ -55,6 +55,14 @@ class Restaurant {
     return this.restaurantsDetails;
   }
 
+  public getRestaurantDetailByName(
+    restaurantName: string
+  ): RestaurantDetail | undefined {
+    return this.restaurantsDetails.find(
+      (detail) => detail.name === restaurantName
+    );
+  }
+
   public updateRestaurantsSortType(sortType: SortCategory) {
     this.restaurantsDetails = this.getSortedAndFilteredRestaurant(
       this.currentCategory,
@@ -66,6 +74,17 @@ class Restaurant {
     this.storage.set(restaurantDetail);
 
     this.updateRestaurantsSortType(this.sortType);
+  }
+
+  public deleteRestaurantByName(restaurantName: string) {
+    const restaurantIndex = this.restaurantsDetails.findIndex(
+      (restaurantDetail) => restaurantDetail.name === restaurantName
+    );
+
+    if (restaurantIndex !== -1) {
+      this.restaurantsDetails.splice(restaurantIndex, 1);
+      this.updateRestaurant();
+    }
   }
 
   public sortRestaurants(sortType: SortCategory) {

@@ -3,7 +3,7 @@ export const CUSTOM_EVENT_TYPE = {
   addRestaurant: "addRestaurant",
   filterCategory: "filterCategory",
   resetForm: "resetForm",
-
   toggleFavoriteButton: "toggleFavoriteButton",
-  //test: "test",
+  restaurantItemClick: "restaurantItemClick",
+  rerenderRestaurantList: "rerenderRestaurantList",
 } as const;
