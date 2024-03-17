@@ -29,17 +29,26 @@ class RestaurantInfoModal extends HTMLElement {
     const closeRestaurantInfoModal = $('#close-restaurant-info-modal');
     if (closeRestaurantInfoModal) {
       closeRestaurantInfoModal.addEventListener('click', (event: Event) => {
-        event.preventDefault();
         const restaurantInfoModal = $<HTMLDialogElement>('#restaurant-info-modal');
         if (restaurantInfoModal) restaurantInfoModal.close();
       });
+      const deleteRestaurantInfo = $('#delete-restaurant-info');
+      if (deleteRestaurantInfo) {
+        deleteRestaurantInfo.addEventListener('click', (event: Event) => {
+          this.dispatchEvent(
+            new CustomEvent('deleteRestaurantInfo', {
+              detail: this.restaurantData.name,
+            }),
+          );
+          const restaurantInfoModal = $<HTMLDialogElement>('#restaurant-info-modal');
+          if (restaurantInfoModal) restaurantInfoModal.close();
+        });
+      }
     }
 
     const deleteRestaurantInfo = $('#delete-restaurant-info');
     if (deleteRestaurantInfo) {
-      deleteRestaurantInfo.addEventListener('click', (event: Event) => {
-        event.preventDefault();
-      });
+      deleteRestaurantInfo.addEventListener('click', (event: Event) => {});
     }
 
     const favoriteButton = $(`#favorite-button-${this.restaurantData.name.replaceAll(' ', '')}`);
@@ -53,11 +62,10 @@ class RestaurantInfoModal extends HTMLElement {
       });
     }
   }
-
   showUrl() {
     if (this.restaurantData.referenceUrl !== '') {
       return `<p>
-      <a href="${this.restaurantData.referenceUrl}" class="restaurant__referenceurl text-body" target="_blank">네이버 지도에서 보기</a>
+      <a href="${this.restaurantData.referenceUrl}" class="restaurant__referenceurl text-body" target="_blank">${this.restaurantData.referenceUrl}</a>
       </p>`;
     }
     return ``;
