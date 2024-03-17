@@ -1,18 +1,16 @@
+import ModalWrapper from '../ModalWrapper/ModalWrapper';
+import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import ICON from '../../../icons';
 import { $ } from '../../../utils/dom';
-import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
-import ModalWrapper from '../ModalWrapper/ModalWrapper';
 import { FAVORITE_ICON } from '../../../constants/rules';
 
-// TODO: 즐겨찾기 버튼 분리, 데이터 받아오기
 export default class RestaurantDetail extends ModalWrapper {
   #element;
   #restaurant;
   #restaurants;
   #restaurantList;
 
-  // TODO: 멤버변수 개수 문제
-  constructor(element, restaurants, restaurant, restaurantList) {
+  constructor(element, { restaurants, restaurant, restaurantList }) {
     super();
     this.#restaurantList = restaurantList;
     this.#restaurants = restaurants;
@@ -23,7 +21,7 @@ export default class RestaurantDetail extends ModalWrapper {
   }
 
   render({ category, name, walkingTimeFromCampus, description = '', link = '', favorite }) {
-    this.#element.innerHTML = /*html*/ this.getTemplate(`
+    this.#element.innerHTML = this.getTemplate(`
       <div class="restaurant-detail-container">
         <section class="restaurant-detail-header">
           <div class="restaurant__category">

@@ -51,7 +51,11 @@ export default class RestaurantList {
   }
 
   #openRestaurantDetail(restaurant) {
-    new RestaurantDetail($('modal'), this.#restaurants, restaurant, this);
+    new RestaurantDetail($('modal'), {
+      restaurants: this.#restaurants,
+      restaurant: restaurant,
+      restaurantList: this,
+    });
     $('modal').classList.add('modal--open');
   }
 
