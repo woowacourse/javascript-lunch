@@ -41,8 +41,8 @@ class RestaurantDetail extends BaseComponent {
         <div class="restaurant-detail">
           ${this.getDetailTemplate()}
           <div class="button-container">
-            <button type="reset" id="delete-button" class="button button--secondary text-caption">삭제하기</button>
-            <button type="submit" id="detail-close-button" class="button button--primary text-caption">닫기</button>
+            <button id="delete-button" class="button button--secondary text-caption">삭제하기</button>
+            <button id="detail-close-button" class="button button--primary text-caption">닫기</button>
           </div>
         </div>
       <div>
