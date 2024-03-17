@@ -1,4 +1,4 @@
-import Dropdown from './components/Common/Dropdown';
+import createFilteringBar from './components/FilteringBar/FilteringBar';
 import createHeader from './components/Header/Header';
 import AddRestaurantModal from './components/Modal/AddRestaurantModal';
 import RestaurantDetailModal from './components/Modal/RestaurantDetailModal';
@@ -6,7 +6,6 @@ import createRestaurantItem from './components/Restaurant/RestaurantItem';
 import RestaurantList from './components/RestaurantList/RestaurantList';
 import createTabMenu from './components/TabMenu/TabMenu';
 import { DEFAULT_TAB, TAB_MENUS } from './constant/constants';
-import { FILTER_DROPDOWN_PROPS, SORT_DROPDOWN_PROPS } from './constant/options';
 import { $, $$ } from './utils/querySelector';
 
 class App {
@@ -17,22 +16,11 @@ class App {
   initApp() {
     createHeader({ title: '점심 뭐 먹지', buttonEvent: () => this.#addRestaurantModal.toggle() });
     createTabMenu({ tabs: TAB_MENUS, defaultTab: DEFAULT_TAB });
-    this.#addRestaurantModal.setEvents();
+    createFilteringBar();
+
     this.setTabEvents();
-    this.renderFilterDropdown();
 
-    if (this.#restaurantList.list.length > 0) this.render();
-    else this.renderEmptyListMessage();
-  }
-
-  renderFilterDropdown() {
-    const filterContainer = $('.restaurant-filter-container');
-
-    const filterDropdown = Dropdown(FILTER_DROPDOWN_PROPS);
-    const sortDropdown = Dropdown(SORT_DROPDOWN_PROPS);
-
-    filterContainer.insertAdjacentHTML('beforeend', filterDropdown);
-    filterContainer.insertAdjacentHTML('beforeend', sortDropdown);
+    this.renderRestaurantList();
   }
 
   setTabEvents() {
@@ -45,12 +33,12 @@ class App {
         tabButtons.forEach(button => button.classList.remove('active'));
         e.target.classList.add('active');
 
-        this.render();
+        this.renderRestaurantList();
       });
     });
   }
 
-  render() {
+  renderRestaurantList() {
     if (this.#restaurantList.list.length === 0) {
       this.renderEmptyListMessage();
       return;
