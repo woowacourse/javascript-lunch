@@ -65,6 +65,34 @@ const SORT_DROPDOWN_PROPS = {
   isRequired: false,
 };
 
+const CANCEL_BUTTON_PROPS = {
+  id: 'cancel',
+  type: 'reset',
+  variant: 'secondary',
+  content: '취소하기',
+};
+
+const ADD_BUTTON_PROPS = {
+  id: 'add',
+  type: 'submit',
+  variant: 'primary',
+  content: '추가하기',
+};
+
+const DELETE_BUTTON_PROPS = {
+  id: 'delete',
+  type: 'button',
+  variant: 'secondary',
+  content: '삭제하기',
+};
+
+const CLOSE_BUTTON_PROPS = {
+  id: 'close',
+  type: 'button',
+  variant: 'primary',
+  content: '닫기',
+};
+
 export {
   CATEGORY_OPTIONS,
   DISTANCE_OPTIONS,
@@ -74,4 +102,8 @@ export {
   ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS,
   FILTER_DROPDOWN_PROPS,
   SORT_DROPDOWN_PROPS,
+  CANCEL_BUTTON_PROPS,
+  ADD_BUTTON_PROPS,
+  DELETE_BUTTON_PROPS,
+  CLOSE_BUTTON_PROPS,
 };

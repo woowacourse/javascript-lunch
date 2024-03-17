@@ -1,12 +1,13 @@
 interface Props {
+  id: string;
   type: string;
   variant: string;
   content: string;
 }
 
-const createButton = ({ type, variant, content }: Props) => {
+const createButton = ({ id, type, variant, content }: Props) => {
   return /*html*/ `
-  <button type=${type} class="button button--${variant} text-caption">${content}</button>
+  <button id=${id} type=${type} class="button button--${variant} text-caption">${content}</button>
   `;
 };
 
