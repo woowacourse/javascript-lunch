@@ -2,7 +2,7 @@ import Matzip from "./matzip";
 import storage from './storage';
 import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
 
-const { MATZIP_DATA } = LOCAL_STORAGE_KEY;
+const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import DOM from './utils/DOM';
 
@@ -27,7 +27,7 @@ class App extends HTMLElement {
 
   constructor() {
     super();
-    this.matzip = new Matzip(storage.getData(MATZIP_DATA));
+    this.matzip = new Matzip(storage.getData(MATZIP_DATA), storage.getData(FAVORITE_DATA));
 
     this.createHeader();
     this.main = this.createMain();
@@ -75,7 +75,7 @@ class App extends HTMLElement {
   createWholeRestaurant() {
     const filterContainer = new FilterContainer();
     const { category, sort } = filterContainer.getFilterValues();
-    const restaurantElements: Restaurant[] = this.matzip.filterAndSort(category as CategoryType, sort as SortType).map((restaurant) => new Restaurant(restaurant));
+    const restaurantElements: Restaurant[] = this.matzip.filterAndSort(category as CategoryType, sort as SortType).map((restaurant) => new Restaurant(restaurant, this.matzip.isFavorite(restaurant.id)));
     const listContainer = new ListContainer(restaurantElements);
     
     this.tabPane.showContent({filterContainer, listContainer});
@@ -103,7 +103,7 @@ class App extends HTMLElement {
       const restaurantElements: Restaurant[] = this.matzip.filterAndSort(
         selectedCategory as CategoryType,
         selectedSort as SortType,
-      ).map((restaurant) => new Restaurant(restaurant));
+      ).map((restaurant) => new Restaurant(restaurant, this.matzip.isFavorite(restaurant.id)));
 
       const listContainer = new ListContainer(restaurantElements);   
       this.tabPane.showListChange(listContainer);   
@@ -131,7 +131,7 @@ class App extends HTMLElement {
         this.matzip.add(newRestaurant);        
         storage.addData(MATZIP_DATA, newRestaurant);
         this.appendModal.toggleModal('modal');
-        this.tabPane.showListAppend(new Restaurant(newRestaurant));
+        this.tabPane.showListAppend(new Restaurant(newRestaurant, false));
         form.reset();
       } catch (error) {
         alert(error);

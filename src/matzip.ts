@@ -6,9 +6,11 @@ const { CATEGORY } = Condition;
 
 class Matzip implements MatzipInterface {
   restaurants: Restaurant[] = [];
+  myFavorites: string[] = [];
 
-  constructor(restaurants: Restaurant[]) {
+  constructor(restaurants: Restaurant[], myFavorites: string[]) {
     this.restaurants = restaurants;
+    this.myFavorites = myFavorites;
   }
 
   getRestaurants() {
@@ -18,6 +20,21 @@ class Matzip implements MatzipInterface {
   add(restaurant: Restaurant) {
     this.addValidate(restaurant);
     this.restaurants.push(restaurant);
+  }
+
+  addFavorite(targetId: string) {
+    this.myFavorites.push(targetId);
+  }
+
+  deleteFavorite(targetId: string) {
+    const targetIndex = this.myFavorites.findIndex((id) => id === targetId);
+    const front = this.myFavorites.slice(0, targetIndex);
+    const back = this.myFavorites.slice(targetIndex + 1, this.myFavorites.length);
+    this.myFavorites = [...front, ...back];
+  }
+
+  isFavorite(targetId: string) {
+    return this.myFavorites.includes(targetId);
   }
 
   filterAndSort(category: CategoryType, sortBy: SortType) {

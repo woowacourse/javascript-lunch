@@ -7,17 +7,22 @@ import CategoryImage from '../categoryImage/CategoryImage';
 
 import LOCAL_STORAGE_KEY from '../../constants/LocalStorageKey';
 import storage from '../../storage';
+import FavoriteIcon from '../favoriteIcon/FavoriteIcon';
+
+const { FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 
 class Restaurant extends HTMLLIElement {
   private modal: Modal;
   private content: RestaurantDetail;
+  private favoriteIcon: FavoriteIcon;
 
-  constructor(restaurant: RestaurantType) {
+  constructor(restaurant: RestaurantType, isFavorite: boolean) {
     super();
     
     this.id = `restaurant-list${restaurant.id}`;
     this.className = 'restaurant';
     this.createLayout(restaurant);
+    this.favoriteIcon = this.createFavoriteIcon(isFavorite);
     const { modal, content } = this.createDetailModal(restaurant);
     this.modal = modal;
     this.content = content;
@@ -34,6 +39,12 @@ class Restaurant extends HTMLLIElement {
     frag.appendChild(restaurantCategory);
     frag.appendChild(restaurantInfo);
     this.appendChild(frag);
+  }
+
+  createFavoriteIcon(isFavorite: boolean) {
+    const favoriteIcon = new FavoriteIcon({active: isFavorite});
+    this.appendChild(favoriteIcon);
+    return favoriteIcon;
   }
 
   createRestaurantInfo(restaurant: RestaurantType) {
@@ -90,7 +101,13 @@ class Restaurant extends HTMLLIElement {
   }
 
   addFavorite() {
-    storage.addData
+    storage.addData<string>(FAVORITE_DATA, this.id);
+  }
+  
+  deleteFavorite() {
+    const getData = storage.getData<string>(FAVORITE_DATA);
+    const newList = getData.filter((data) => data !== this.id);
+    storage.modifyData<string>(FAVORITE_DATA, newList);
   }
 }
 

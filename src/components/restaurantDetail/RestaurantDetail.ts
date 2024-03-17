@@ -119,7 +119,6 @@ class RestaurantDetail extends HTMLDivElement {
     return buttons;
   }
 
-  // 나중에 as 리팩토링
   listenCloseButtonClick() {        
     this.cancelButton.addEventListener('click', () => {      
       (this.parentElement?.parentElement as Modal).toggleModal('detail-modal');
