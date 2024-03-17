@@ -2,6 +2,7 @@ import './BasicModal.css';
 class BasicModal extends HTMLDivElement {
   #backdrop: HTMLDivElement;
   #modalContainer: HTMLDivElement;
+
   constructor() {
     super();
 
