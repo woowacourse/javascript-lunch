@@ -1,32 +1,29 @@
-import generateModal from './template/generateModal';
+import Modal from './Modal';
 import generateRestaurantCreationModal from './template/generateRestaurantCreationModal';
 
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
-import { closeModal } from '../utils/modalHandler';
-
 import { validateRequiredValue, validateRestaurantsName } from '../validators/ValidateInput';
 import { FIELD_IDS } from '../constants/rules';
 
-class RestaurantCreationModal {
-  #element;
+class RestaurantCreationModal extends Modal {
   #restaurantsInstance;
 
   constructor({ targetId, restaurantsInstance }) {
-    this.#element = $(targetId);
+    super({ targetId });
     this.#restaurantsInstance = restaurantsInstance;
 
     this.#initEventListeners();
   }
 
   render() {
-    generateModal(this.#element, generateRestaurantCreationModal());
+    super.render(generateRestaurantCreationModal());
   }
 
   #initEventListeners() {
-    this.#element.addEventListener('focusout', this.#handleRequiredInput.bind(this));
-    this.#element.addEventListener('click', this.#handleModalClose.bind(this));
-    this.#element.addEventListener('submit', this.#handleAddRestaurant.bind(this));
+    this.element.addEventListener('focusout', this.#handleRequiredInput.bind(this));
+    this.element.addEventListener('click', this.#handleModalClose.bind(this));
+    this.element.addEventListener('submit', this.#handleAddRestaurant.bind(this));
   }
 
   #handleRequiredInput(event) {
@@ -44,7 +41,7 @@ class RestaurantCreationModal {
     const targetId = event.target.id;
 
     if (targetId === 'cancel-button' || targetId === 'restaurant-creation-modal-backdrop') {
-      closeModal('restaurant-creation-modal');
+      this.closeModal();
     }
   }
 
@@ -65,7 +62,7 @@ class RestaurantCreationModal {
     this.#validateUniqueName(inputData);
     this.#restaurantsInstance.addRestaurant(inputData);
     $('restaurant-input-form').reset();
-    closeModal('restaurant-creation-modal');
+    this.closeModal();
   }
 
   #validateUniqueName(inputData) {

@@ -1,16 +1,15 @@
+import Modal from './Modal';
 import generateModal from './template/generateModal';
 import generateRestaurantItem from './template/generateRestaurantItem';
 import { $ } from '../utils/dom';
-import { closeModal } from '../utils/modalHandler';
 import { convertIdToName, convertNameToId } from '../utils/nameConverter';
 
-class RestaurantDetailModal {
-  #element;
+class RestaurantDetailModal extends Modal {
   #restaurantInstance;
   #restaurant;
 
   constructor({ targetId, restaurantInstance, restaurant }) {
-    this.#element = $(targetId);
+    super({ targetId });
     this.#restaurantInstance = restaurantInstance;
     this.#restaurant = restaurant;
 
@@ -18,7 +17,7 @@ class RestaurantDetailModal {
   }
 
   initEventListeners() {
-    this.#element.addEventListener('click', (event) => {
+    this.element.addEventListener('click', (event) => {
       this.handleModalClose(event);
       this.handleRestaurantDelete(event);
     });
@@ -28,14 +27,14 @@ class RestaurantDetailModal {
     const buttonContainer = this.generateButtonContainer();
     const content =
       generateRestaurantItem({
-        targetId: this.#element.id,
+        targetId: this.element.id,
         restaurantsInstance: this.#restaurantInstance,
         restaurant: this.#restaurant,
       }) + buttonContainer;
 
-    generateModal(this.#element, content);
+    generateModal(this.element, content);
 
-    return this.#element;
+    return this.element;
   }
 
   generateButtonContainer() {
@@ -57,7 +56,7 @@ class RestaurantDetailModal {
       event.target.closest('#restaurant-detail-modal-backdrop');
 
     if (isCloseAction) {
-      closeModal('restaurant-detail-modal');
+      this.closeModal();
     }
   }
 
@@ -67,7 +66,7 @@ class RestaurantDetailModal {
 
     if (isDeleteAction) {
       this.#restaurantInstance.deleteRestaurant(convertIdToName(this.#restaurant.name));
-      closeModal('restaurant-detail-modal');
+      this.closeModal();
       $('restaurant-detail-modal').innerHTML = '';
       $(`${convertNameToId(this.#restaurant.name)}`).remove();
     }
