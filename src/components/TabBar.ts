@@ -3,59 +3,62 @@ import { swapClasses } from '../domain/util';
 import TabBarButton from './TabBarButton';
 
 const TabBar = (restaurantList: RestaurantList) => {
-  const tabBar = document.createElement('nav');
-  tabBar.classList.add('tabBar');
-
-  const allRestaurantButton = TabBarButton({
-    text: '모든 음식점',
-    id: 'all-restaurants-button',
-    onClick: () => {},
-    isPrimary: true
-  }).create();
-
-  const favoriteRestaurantsButton = TabBarButton({
-    text: '자주 가는 음식점',
-    id: 'favorite-restaurants-button',
-    onClick: () => {},
-    isPrimary: false
-  }).create();
-
-  tabBar.appendChild(allRestaurantButton);
-  tabBar.appendChild(favoriteRestaurantsButton);
-
-  const handleTabBarClick = () => {
-    updateButtonClasses();
+  const createTabBar = (): HTMLElement => {
+    const tabBar = document.createElement('nav');
+    tabBar.classList.add('tabBar');
+    return tabBar;
   };
 
-  const buttons = tabBar.getElementsByClassName('tabBar_button');
+  const createTabButtons = () => {
+    const allRestaurantButton = TabBarButton({
+      text: '모든 음식점',
+      id: 'all-restaurants-button',
+      onClick: () => restaurantList.setIsFavorite(false),
+      isPrimary: true
+    }).create();
 
-  const updateButtonClasses = () => {
+    const favoriteRestaurantsButton = TabBarButton({
+      text: '자주 가는 음식점',
+      id: 'favorite-restaurants-button',
+      onClick: () => restaurantList.setIsFavorite(true),
+      isPrimary: false
+    }).create();
+
+    return [allRestaurantButton, favoriteRestaurantsButton];
+  };
+
+  const updateButtonClasses = (buttons: HTMLCollectionOf<Element>) => {
     Array.from(buttons).forEach((button) => {
       swapClasses({
-        element: button,
+        element: button as HTMLElement,
         classA: 'tabBar_button--primary',
         classB: 'tabBar_button--secondary'
       });
     });
   };
 
-  const setEvent = () => {
-    tabBar
-      .querySelector('#all-restaurants-button')
-      ?.addEventListener('click', () => restaurantList.setIsFavorite(false));
-    tabBar
-      .querySelector('#favorite-restaurants-button')
-      ?.addEventListener('click', () => restaurantList.setIsFavorite(true));
+  const setupTabBarEvents = (tabBar: HTMLElement) => {
+    const buttons = tabBar.getElementsByClassName('tabBar_button');
+    tabBar.addEventListener('click', () => updateButtonClasses(buttons));
   };
 
-  tabBar.addEventListener('click', handleTabBarClick);
-  setEvent();
+  const assembleTabBar = (): HTMLElement => {
+    const tabBar = createTabBar();
+    const [allRestaurantButton, favoriteRestaurantsButton] = createTabButtons();
 
-  const create = () => tabBar;
+    tabBar.appendChild(allRestaurantButton);
+    tabBar.appendChild(favoriteRestaurantsButton);
 
-  return {
-    create
+    setupTabBarEvents(tabBar);
+
+    return tabBar;
   };
+
+  const tabBarElement = assembleTabBar();
+
+  const create = (): HTMLElement => tabBarElement;
+
+  return { create };
 };
 
 export default TabBar;

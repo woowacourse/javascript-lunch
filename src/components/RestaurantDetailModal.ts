@@ -12,89 +12,111 @@ type Props = {
 };
 
 const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
-  const { category, name, distance, isFavorite, description, link } = restaurantInfo;
+  const createRestaurantName = (name: string): HTMLElement => {
+    const restaurantNameH3 = document.createElement('h3');
+    restaurantNameH3.textContent = name;
+    return restaurantNameH3;
+  };
 
-  const favoriteButton = FavoriteButton({ name, initialIsFavorite: isFavorite }).create();
+  const createRestaurantDistance = (distance: number): HTMLElement => {
+    const restaurantDistanceSpan = document.createElement('span');
+    restaurantDistanceSpan.classList.add('restaurant__distance', 'text-body');
+    restaurantDistanceSpan.textContent = `캠퍼스부터 ${distance}분 내`;
+    return restaurantDistanceSpan;
+  };
 
-  const restaurantNameH3 = document.createElement('h3');
-  restaurantNameH3.textContent = name;
+  const createRestaurantDescription = (description?: string): HTMLElement => {
+    const restaurantDescriptionP = document.createElement('p');
+    restaurantDescriptionP.textContent = description || '';
+    return restaurantDescriptionP;
+  };
 
-  const categoryIconComponent = CategoryIcon(category).create();
+  const createRestaurantLink = (name: string, link?: string): HTMLElement => {
+    const linkA = document.createElement('a');
+    linkA.href = link || '';
+    linkA.title = `${name} 음식점 관련 링크 사이트`;
+    linkA.target = '_blank';
+    linkA.textContent = link || '';
+    return linkA;
+  };
 
-  const restaurantDistanceSpan = document.createElement('span');
-  restaurantDistanceSpan.classList.add('restaurant__distance', 'text-body');
-  restaurantDistanceSpan.textContent = `캠퍼스부터 ${distance}분 내`;
+  const createButtonContainer = (): HTMLElement => {
+    const buttonContainerDiv = document.createElement('div');
+    buttonContainerDiv.classList.add('button-container');
+    return buttonContainerDiv;
+  };
 
-  const restaurantDescriptionP = document.createElement('p');
-  restaurantDescriptionP.textContent = description || '';
+  const setupModalActions = (
+    buttonContainerDiv: HTMLElement,
+    modalComponent: HTMLElement
+  ): void => {
+    const deleteRestaurant = (): void => {
+      restaurantAPI.delete(restaurantInfo.name);
+      restaurantList.updateRestaurants();
+      closeModal();
+    };
 
-  const linkA = document.createElement('a');
-  linkA.href = link || '';
-  linkA.title = `${name} 음식점 관련 링크 사이트`;
-  linkA.target = '_blank';
-  linkA.textContent = link || '';
+    const closeModal = (): void => {
+      modalComponent.classList.remove('modal--open');
+      modalComponent.remove();
+    };
 
-  const buttonContainerDiv = document.createElement('div');
-  buttonContainerDiv.classList.add('button-container');
+    buttonContainerDiv
+      .querySelector('#restaurant-detail-modal_delete-button')
+      ?.addEventListener('click', deleteRestaurant);
 
-  buttonContainerDiv.appendChild(
-    Button({
-      id: 'restaurant-detail-modal_delete-button',
-      text: '삭제하기',
-      variant: 'secondary',
-      type: 'button'
-    }).create()
-  );
+    buttonContainerDiv
+      .querySelector('#restaurant-detail-modal_close-button')
+      ?.addEventListener('click', closeModal);
+  };
 
-  buttonContainerDiv.appendChild(
-    Button({
-      id: 'restaurant-detail-modal_close-button',
-      text: '닫기',
-      variant: 'primary'
-    }).create()
-  );
+  const assembleButtonContainer = () => {
+    const buttonContainerDiv = createButtonContainer();
+
+    buttonContainerDiv.appendChild(
+      Button({
+        id: 'restaurant-detail-modal_delete-button',
+        text: '삭제하기',
+        variant: 'secondary',
+        type: 'button'
+      }).create()
+    );
+
+    buttonContainerDiv.appendChild(
+      Button({
+        id: 'restaurant-detail-modal_close-button',
+        text: '닫기',
+        variant: 'primary'
+      }).create()
+    );
+
+    return buttonContainerDiv;
+  };
+
+  const buttonContainer = assembleButtonContainer();
 
   const modalComponent = Modal({
     modalClass: 'modal-detail',
     modalContainerClass: 'modal-container__detail',
     children: [
-      categoryIconComponent,
-      favoriteButton,
-      restaurantNameH3,
-      restaurantDistanceSpan,
-      restaurantDescriptionP,
-      linkA,
-      buttonContainerDiv
+      CategoryIcon(restaurantInfo.category).create(),
+      FavoriteButton({
+        name: restaurantInfo.name,
+        initialIsFavorite: restaurantInfo.isFavorite
+      }).create(),
+      createRestaurantName(restaurantInfo.name),
+      createRestaurantDistance(restaurantInfo.distance),
+      createRestaurantDescription(restaurantInfo.description),
+      createRestaurantLink(restaurantInfo.name, restaurantInfo.link),
+      buttonContainer
     ]
   }).create();
 
-  const deleteRestaurant = () => {
-    restaurantAPI.delete(name);
-    restaurantList.updateRestaurants();
-  };
-
-  const closeModal = () => {
-    const modalElement = document.querySelector('.modal-detail');
-    modalElement?.classList.remove('modal--open');
-    modalElement?.remove();
-  };
-
-  buttonContainerDiv
-    .querySelector('#restaurant-detail-modal_delete-button')
-    ?.addEventListener('click', () => {
-      deleteRestaurant();
-      closeModal();
-    });
-
-  buttonContainerDiv
-    .querySelector('#restaurant-detail-modal_close-button')
-    ?.addEventListener('click', closeModal);
+  setupModalActions(buttonContainer, modalComponent);
 
   const create = () => modalComponent;
 
-  return {
-    create
-  };
+  return { create };
 };
 
 export default RestaurantDetailModal;

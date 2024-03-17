@@ -7,18 +7,35 @@ type Props = {
 };
 
 const FormItem = ({ labelText, label, children, isRequired = true }: Props) => {
-  const containerDiv = document.createElement('div');
-  containerDiv.className = `form-item ${isRequired ? 'form-item--required' : ''}`;
+  const createFormItemContainer = () => {
+    const containerDiv = document.createElement('div');
+    containerDiv.className = `form-item ${isRequired ? 'form-item--required' : ''}`;
 
-  const labelElement = document.createElement('label');
-  labelElement.setAttribute('for', label);
-  labelElement.className = 'text-caption';
-  labelElement.textContent = labelText;
+    return containerDiv;
+  };
 
-  containerDiv.appendChild(labelElement);
-  containerDiv.appendChild(children);
+  const createLabel = () => {
+    const labelElement = document.createElement('label');
+    labelElement.setAttribute('for', label);
+    labelElement.className = 'text-caption';
+    labelElement.textContent = labelText;
 
-  const create = () => containerDiv;
+    return labelElement;
+  };
+
+  const assembleFormItem = () => {
+    const containerDiv = createFormItemContainer();
+    const labelElement = createLabel();
+
+    containerDiv.appendChild(labelElement);
+    containerDiv.appendChild(children);
+
+    return containerDiv;
+  };
+
+  const formItem = assembleFormItem();
+
+  const create = () => formItem;
 
   return {
     create

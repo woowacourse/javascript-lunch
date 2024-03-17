@@ -2,19 +2,29 @@ import Modal from './common/Modal';
 import AddForm from './AddForm';
 
 const AddModal = () => {
-  const modalTitle = document.createElement('h2');
-  modalTitle.classList.add('modal-title', 'text-title');
-  modalTitle.textContent = '새로운 음식점';
+  const createModalTitle = () => {
+    const modalTitle = document.createElement('h2');
+    modalTitle.classList.add('modal-title', 'text-title');
+    modalTitle.textContent = '새로운 음식점';
+    return modalTitle;
+  };
 
-  const form = AddForm().create();
+  const createForm = () => AddForm().create();
 
-  const modalComponent = Modal({
-    modalClass: 'modal',
-    modalContainerClass: 'modal-container',
-    children: [modalTitle, form]
-  }).create();
+  const createModalComponent = () => {
+    const modalTitle = createModalTitle();
+    const form = createForm();
 
-  const create = () => modalComponent;
+    const modalComponent = Modal({
+      modalClass: 'modal',
+      modalContainerClass: 'modal-container',
+      children: [modalTitle, form]
+    }).create();
+
+    return modalComponent;
+  };
+
+  const create = () => createModalComponent();
 
   return {
     create

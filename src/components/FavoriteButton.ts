@@ -5,37 +5,45 @@ type Props = {
   initialIsFavorite: boolean;
 };
 
-const getImgName = (isFavorite: boolean) => `favorite-icon-${isFavorite ? 'filled' : 'lined'}`;
-
 const FavoriteButton = ({ name, initialIsFavorite }: Props) => {
-  const button = document.createElement('button');
-  const img = document.createElement('img');
   let isFavorite = initialIsFavorite;
-  let imgName = getImgName(isFavorite);
-  button.appendChild(img);
-  button.classList.add('favorite-button');
 
-  img.classList.add('favorite-icon');
-  img.src = `./templates/${imgName}.png`;
-  img.alt = '즐겨찾기 버튼';
+  const getImgName = (isFavorite: boolean) => `favorite-icon-${isFavorite ? 'filled' : 'lined'}`;
 
-  const updateImage = () => {
-    isFavorite = !isFavorite;
-    imgName = getImgName(isFavorite);
-    img.src = `./templates/${imgName}.png`;
-    img.alt = isFavorite ? '즐겨찾기 해제 버튼' : '즐겨찾기 버튼';
+  const createImageElement = (isFavorite: boolean) => {
+    const img = document.createElement('img');
+    img.classList.add('favorite-icon');
+    img.src = `./templates/${getImgName(isFavorite)}.png`;
+    img.alt = '즐겨찾기 버튼';
+    return img;
   };
 
-  button.addEventListener('click', () => {
-    updateImage();
-    restaurantAPI.updateFavorite(name);
-  });
+  const createFavoriteButton = (img: HTMLImageElement) => {
+    const button = document.createElement('button');
+    button.classList.add('favorite-button');
+    button.appendChild(img);
 
-  const create = () => button;
+    button.addEventListener('click', () => {
+      isFavorite = !isFavorite;
+      img.src = `./templates/${getImgName(isFavorite)}.png`;
+      img.alt = isFavorite ? '즐겨찾기 해제 버튼' : '즐겨찾기 버튼';
+      restaurantAPI.updateFavorite(name);
+    });
 
-  return {
-    create
+    return button;
   };
+
+  const assembleFavoriteButton = () => {
+    const imgElement = createImageElement(isFavorite);
+    const favoriteButton = createFavoriteButton(imgElement);
+
+    return favoriteButton;
+  };
+
+  const favoriteButton = assembleFavoriteButton();
+  const create = () => favoriteButton;
+
+  return { create };
 };
 
 export default FavoriteButton;
