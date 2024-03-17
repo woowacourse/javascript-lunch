@@ -5,6 +5,7 @@ import {
   FilteringController,
   ChangeLikeDataController,
   ShowRestaurantDetailsModalController,
+  LocalStorageService,
 } from '../../services';
 import { closeModal, findParentBox } from '../../utils';
 
@@ -14,12 +15,11 @@ class RestaurantInfoModalInner extends HTMLElement {
   }
   connectedCallback() {
     const storeName = this.getAttribute('name');
-    const localStorageItem = window.localStorage.getItem(
+    const storeData: RestaurantInfo[] = LocalStorageService.getData(
       StorageKeyEnum.restaurants,
     );
 
-    if (localStorageItem !== null && storeName) {
-      const storeData: RestaurantInfo[] = JSON.parse(localStorageItem);
+    if (storeData !== null && storeName) {
       const store = storeData.find((data) => data.name === storeName);
 
       if (store) {
@@ -70,10 +70,8 @@ class RestaurantInfoModalInner extends HTMLElement {
     const newData = storeData.filter(
       (item: { name: string }) => item.name !== storeName,
     );
-    window.localStorage.setItem(
-      StorageKeyEnum.restaurants,
-      JSON.stringify(newData),
-    );
+
+    LocalStorageService.setData(StorageKeyEnum.restaurants, newData);
     closeModal();
     FilteringController.showFilteredSortedList();
   }

@@ -1,15 +1,16 @@
 import { RestaurantInfo } from '../types';
 import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { StorageKeyEnum } from '../constants';
+import LocalStorageService from './LocalStorageService';
 
 const RestaurantListController = {
   updateLocalStorage() {
-    const data = localStorage.getItem(StorageKeyEnum.restaurants);
+    const data = LocalStorageService.getData(StorageKeyEnum.restaurants);
 
     if (!data) {
-      localStorage.setItem(
+      LocalStorageService.setData(
         StorageKeyEnum.restaurants,
-        JSON.stringify(INITIAL_RESTAURANT_DATA),
+        INITIAL_RESTAURANT_DATA,
       );
     }
   },

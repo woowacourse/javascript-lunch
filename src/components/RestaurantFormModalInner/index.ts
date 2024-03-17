@@ -2,7 +2,7 @@ import './style.css';
 import { DROP_BOX_MAP, StorageKeyEnum } from '../../constants';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
 import { Restaurant } from '../../domains';
-import { FilteringController } from '../../services';
+import { FilteringController, LocalStorageService } from '../../services';
 import { closeModal } from '../../utils';
 class RestaurantFormModalInner extends HTMLElement {
   constructor() {
@@ -155,16 +155,9 @@ class RestaurantFormModalInner extends HTMLElement {
   }
 
   #updateLocalStorage(info: RestaurantInfo) {
-    const previousData = localStorage.getItem(StorageKeyEnum.restaurants);
-
-    const restaurants = previousData ? JSON.parse(previousData) : [];
-
+    const restaurants = LocalStorageService.getData(StorageKeyEnum.restaurants);
     restaurants.push(info);
-
-    localStorage.setItem(
-      StorageKeyEnum.restaurants,
-      JSON.stringify(restaurants),
-    );
+    LocalStorageService.setData(StorageKeyEnum.restaurants, restaurants);
   }
 
   #handleResetForm() {

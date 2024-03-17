@@ -2,7 +2,7 @@ import { RestaurantInfo } from '../../types';
 import './style.css';
 import { INITIAL_RESTAURANT_DATA } from '../../data/restaurantData';
 import { StorageKeyEnum } from '../../constants';
-import { ChangeLikeDataController } from '../../services';
+import { ChangeLikeDataController, LocalStorageService } from '../../services';
 class RestaurantComponent extends HTMLElement {
   constructor() {
     super();
@@ -10,12 +10,13 @@ class RestaurantComponent extends HTMLElement {
 
   connectedCallback() {
     const storeName = this.getAttribute('name');
-    //TODO: 초기 렌더링 시, 로컬 스토리지에 초기 데이터 넣어주면 로컬 스토리지만 사용
-    const localStorageItem = window.localStorage.getItem(
+
+    const localStorageItem = LocalStorageService.getData(
       StorageKeyEnum.restaurants,
     );
-    const storeData = localStorageItem
-      ? (JSON.parse(localStorageItem) as RestaurantInfo[])
+
+    const storeData: RestaurantInfo[] = localStorageItem
+      ? localStorageItem
       : INITIAL_RESTAURANT_DATA;
 
     const store = storeData.find((data) => data.name === storeName);

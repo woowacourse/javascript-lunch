@@ -2,6 +2,7 @@ import { StorageKeyEnum } from '../constants';
 import { RestaurantInfo } from '../types';
 import FilteringController from './FilteringController';
 import { findParentBox } from '../utils';
+import LocalStorageService from './LocalStorageService';
 
 const ChangeLikeDataController = {
   toggleLikeStatus(event: MouseEvent, findParentTagName: string) {
@@ -20,20 +21,17 @@ const ChangeLikeDataController = {
 };
 
 function changeLikeData(restaurantName: string) {
-  const localStorageItem = window.localStorage.getItem(
+  const storeData: RestaurantInfo[] = LocalStorageService.getData(
     StorageKeyEnum.restaurants,
   );
-  if (localStorageItem !== null) {
-    const storeData: RestaurantInfo[] = JSON.parse(localStorageItem);
+
+  if (storeData !== null) {
     const restaurant = storeData.find((item) => item.name === restaurantName);
 
     if (restaurant && 'like' in restaurant) {
       restaurant.like = !restaurant.like;
 
-      localStorage.setItem(
-        StorageKeyEnum.restaurants,
-        JSON.stringify(storeData),
-      );
+      LocalStorageService.setData(StorageKeyEnum.restaurants, storeData);
       FilteringController.showFilteredSortedList();
     }
   }

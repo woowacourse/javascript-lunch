@@ -1,6 +1,7 @@
 import { StorageKeyEnum, MESSAGE } from '../constants';
 import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { Category, RestaurantInfo } from '../types';
+import { LocalStorageService } from '../services';
 
 class RestaurantList {
   #list: RestaurantInfo[] = INITIAL_RESTAURANT_DATA;
@@ -26,9 +27,10 @@ class RestaurantList {
   }
 
   #updateListByLocalStorage() {
-    const item = localStorage.getItem(StorageKeyEnum.restaurants);
+    const item = LocalStorageService.getData(StorageKeyEnum.restaurants);
+
     if (item) {
-      this.#list = JSON.parse(item);
+      this.#list = item;
     }
   }
 
