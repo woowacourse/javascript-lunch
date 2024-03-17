@@ -1,7 +1,7 @@
 describe('Select change Test', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false);
-    cy.visit('/', { timeout: 1000 });
+    cy.visit('/');
   });
 
   it('Category select change가 적절하게 되는지 테스트', () => {

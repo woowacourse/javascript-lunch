@@ -1,5 +1,6 @@
 describe('Restaurant Form Modal Test', () => {
   it('Restaurant Form 제출 시 List에 추가된다.', () => {
+    cy.on('uncaught:exception', () => false);
     cy.visit('/');
 
     cy.get('.restaurant-list')

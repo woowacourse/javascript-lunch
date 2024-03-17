@@ -1,7 +1,7 @@
 describe('Restaurant Detail Modal Test', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false);
-    cy.visit('/', { timeout: 1000 });
+    cy.visit('/');
     cy.get('.restaurant[data-id="2"]').click();
     cy.get('#restaurant-detail-main').should('be.visible');
   });

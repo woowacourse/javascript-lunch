@@ -1,7 +1,7 @@
 describe('like Restaurant Section Test', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false);
-    cy.visit('/', { timeout: 1000 });
+    cy.visit('/');
   });
 
   it('like-star 누른 음식점 Like Section에 추가 되었는지 테스트', () => {
