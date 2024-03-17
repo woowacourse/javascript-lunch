@@ -1,7 +1,6 @@
 import BaseComponent from "../BaseComponent";
 import { MENU_APP_EVENTS } from "../../constants/event";
-import { CATEGORIES } from "../../constants/menu";
-import { CategoryStringWithoutAll, SortOptionString } from "../../types/menu";
+import { CategoryString, SortOptionString } from "../../types/menu";
 import { isValidOption } from "../../utils/types";
 
 interface OptionDetail {
@@ -18,15 +17,12 @@ class OptionSelector extends BaseComponent {
   }
 
   private createOptionHTML(options: string[]) {
-    return options.reduce(
-      (accOptions, currOption) => accOptions + /*html*/ `<option value=${currOption}>${currOption}</option>;`,
-      ""
-    );
+    return options.reduce((accOptions, currOption) => accOptions + /*html*/ `<option value=${currOption}>${currOption}</option>;`, "");
   }
 
-  private isValidOptionType(value: string): value is CategoryStringWithoutAll | SortOptionString {
+  private isValidOptionType(value: string): value is CategoryString | SortOptionString {
     return (
-      isValidOption<CategoryStringWithoutAll>(["한식", "아시안", "일식", "중식", "양식", "기타"], value) ||
+      isValidOption<CategoryString>(["전체", "한식", "아시안", "일식", "중식", "양식", "기타"], value) ||
       isValidOption<SortOptionString>(["거리순", "이름순"], value)
     );
   }
@@ -43,11 +39,12 @@ class OptionSelector extends BaseComponent {
 
   render() {
     const options = this.getAttribute("options")!.split(",");
+    this.selectType = this.getAttribute("type");
 
     this.innerHTML = /*html*/ `
-      <select name="category" id="category-filter" class="restaurant-filter-select select-arrow-down arrow-down-black" aria-label="${
-        this.selectType
-      }-select">
+      <select name="category" id="${this.selectType}-option-select" class="restaurant-filter-select select-arrow-down arrow-down-black" aria-label="${
+      this.selectType
+    }-select">
         ${this.createOptionHTML(options)}
       </select> 
     `;
