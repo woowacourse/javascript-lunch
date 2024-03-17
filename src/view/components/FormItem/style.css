@@ -5,6 +5,10 @@
   margin-bottom: 36px;
 }
 
+.form-item--required {
+  margin: 0px 0px 10px
+}
+
 .form-item--required label::after {
   padding-left: 4px;
 
