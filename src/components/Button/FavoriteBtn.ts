@@ -1,5 +1,5 @@
-import restaurantStore from '../store/RestaurantStore';
-import Button from './base/Button';
+import restaurantStore from '../../store/RestaurantStore';
+import Button from './Button';
 
 const favoriteImage = './assets/favorite-icon-filled.png';
 const linedImage = './assets/favorite-icon-lined.png';
