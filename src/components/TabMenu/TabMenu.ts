@@ -1,6 +1,7 @@
 import { $, $$ } from '@/utils/DOM';
 import BaseComponent from '../BaseComponent';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
+import { deleteParams, setUrlParams } from '@/utils/url';
 export type Tab = {
   id: string;
   title: string;
@@ -66,20 +67,15 @@ class TabMenu extends BaseComponent {
   //TODO: service로 뺼지 생각
   #showFavoriteTab() {
     $<HTMLElement>('#favorite-tab').addEventListener('click', () => {
-      //TODO: url 관련 함수 util로 분리
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set('tab', 'favorite');
-      window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+      setUrlParams('tab', 'favorite');
       this.#restaurantUpdateService.rerenderByFilter();
     });
   }
 
   #showAllTab() {
     $<HTMLElement>('#all-tab').addEventListener('click', () => {
-      //TODO: url 관련 함수 util로 분리
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.delete('tab');
-      window.history.replaceState({}, '', `${window.location.pathname}${urlParams}`);
+      deleteParams('tab');
+
       this.#restaurantUpdateService.rerenderByFilter();
     });
   }

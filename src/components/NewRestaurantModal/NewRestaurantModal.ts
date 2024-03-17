@@ -206,6 +206,7 @@ class NewRestaurantModal extends BaseComponent {
       textContent: '추가하기',
       type: 'submit',
       clickEvent: () => {},
+      id: 'add-button',
     });
   }
 }

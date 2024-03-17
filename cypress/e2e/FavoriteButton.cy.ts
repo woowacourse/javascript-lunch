@@ -19,8 +19,7 @@ describe('즐겨찾기 버튼 작동 테스트', () => {
     $addModal.get('#distance').select(NEW_RESTAURANT.distance);
     $addModal.get('#description').type(NEW_RESTAURANT.description);
     $addModal.get('#link').type(NEW_RESTAURANT.link);
-
-    const $addButton = $addModal.get('button').contains('추가하기');
+    const $addButton = $addModal.get('#add-button');
     $addButton.click();
   });
 

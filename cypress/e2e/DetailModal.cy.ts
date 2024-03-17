@@ -24,7 +24,7 @@ describe('디테일 모달 테스트', () => {
     $addModal.get('#description').type(NEW_RESTAURANT.description);
     $addModal.get('#link').type(NEW_RESTAURANT.link);
 
-    const $addButton = $addModal.get('button').contains('추가하기');
+    const $addButton = $addModal.get('#add-button');
     $addButton.click();
   });
 

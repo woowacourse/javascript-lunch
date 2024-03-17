@@ -4,6 +4,7 @@ import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
 import { removeAllChildren } from '@/utils/view';
 import EmptyView from '../EmptyView/EmptyView';
+import { getUrlParams } from '@/utils/url';
 
 class RestaurantList extends BaseComponent {
   #restaurantList;
@@ -30,8 +31,7 @@ class RestaurantList extends BaseComponent {
   }
 
   #showEmptyView() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('tab') === 'favorite') {
+    if (getUrlParams('tab') === 'favorite') {
       if (!this.#restaurantList.length || !this.#restaurantList) {
         return this.append(new EmptyView('favorite'));
       }

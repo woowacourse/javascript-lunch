@@ -22,7 +22,7 @@ describe('음식점 리스트 불러오기 테스트', () => {
     $addModal.get('#description').type(NEW_RESTAURANT.description);
     $addModal.get('#link').type(NEW_RESTAURANT.link);
 
-    const $addButton = $addModal.get('button').contains('추가하기');
+    const $addButton = cy.get('#add-button');
     $addButton.click();
   });
 

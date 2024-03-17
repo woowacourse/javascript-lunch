@@ -57,7 +57,7 @@ describe('필터링 작동 테스트', () => {
       $addModal.get('#distance').select(restaurant.distance);
       $addModal.get('#link').type(restaurant.link);
 
-      const $addButton = $addModal.get('button').contains('추가하기');
+      const $addButton = $addModal.get('#add-button');
       $addButton.click();
     });
 

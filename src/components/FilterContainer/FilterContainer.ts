@@ -5,6 +5,7 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
 import { $ } from '@/utils/DOM';
+import { getUrlParams } from '@/utils/url';
 
 class FilterContainer extends BaseComponent {
   #restaurantList;
@@ -48,10 +49,7 @@ class FilterContainer extends BaseComponent {
 
       const restaurantCollection = this.#restaurantDBService.update();
 
-      //TODO: url에서 가져오는 로직
-      const urlParams = new URLSearchParams(window.location.search);
-
-      if (urlParams.get('tab') === 'favorite') restaurantCollection.filterFavorites();
+      getUrlParams('tab') === 'favorite' && restaurantCollection.filterFavorites();
 
       const newRestaurantList = restaurantCollection.filterByCategoryAndSort(
         $selectedCategory.value as Category,
