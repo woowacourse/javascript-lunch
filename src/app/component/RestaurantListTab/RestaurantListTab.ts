@@ -39,38 +39,25 @@ class RestaurantListTab extends HTMLElement {
     });
   }
 
-  private render() {
-    this.innerHTML = ``;
-    this.classList.add('restaurant-tab-container');
-    const tabButtons = Object.entries(Tab).map(
-      ([tabId, tabValue]) => new TabButton(this.currentTab === tabValue, tabId, tabValue),
-    );
-    this.append(...tabButtons.map((button) => button.render()));
-  }
-}
-
-export class TabButton {
-  private isActive: boolean;
-  private tabId: string;
-  private tabValue: Tab;
-
-  constructor(isActive: boolean, tabId: string, tabValue: Tab) {
-    this.isActive = isActive;
-    this.tabId = tabId;
-    this.tabValue = tabValue;
-  }
-
-  render() {
+  private createTabButton(isActive: boolean, tabId: string, tabValue: Tab) {
     const tabButton = document.createElement('button');
     tabButton.classList.add('tab-button');
-    tabButton.id = `tab-${this.tabId}-button`;
+    tabButton.id = `tab-${tabId}-button`;
     tabButton.type = 'button';
-    tabButton.value = this.tabValue;
-    tabButton.textContent = this.tabValue;
-    if (this.isActive) {
+    tabButton.value = tabValue;
+    tabButton.textContent = tabValue;
+    if (isActive) {
       tabButton.classList.add('active');
     }
     return tabButton;
+  }
+
+  private render() {
+    this.classList.add('restaurant-tab-container');
+    const tabButtons = Object.entries(Tab).map(([tabId, tabValue]) =>
+      this.createTabButton(this.currentTab === tabValue, tabId, tabValue),
+    );
+    this.append(...tabButtons);
   }
 }
 
