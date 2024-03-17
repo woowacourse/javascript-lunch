@@ -26,7 +26,7 @@ export default class AppController {
   constructor() {
     this.sortOrder = SortOrder.이름순;
     this.category = '';
-    this.tab = Tab['모든 음식점'];
+    this.tab = Tab.all;
     this.restaurantService = new RestaurantService();
     this.restaurantListFilter = new RestaurantListFilter();
     this.restaurantList = new RestaurantList({
@@ -58,7 +58,7 @@ export default class AppController {
   private changeTab(event: Event) {
     if (event instanceof CustomEvent) {
       const changedTab: Tab = event.detail;
-      this.tab = Tab[changedTab];
+      this.tab = changedTab;
     }
     this.updateRestaurantList();
   }
@@ -111,7 +111,7 @@ export default class AppController {
 
   private updateRestaurantList() {
     const category = this.category === '' ? undefined : this.category;
-    const isFavoriteList = this.tab === Tab['자주 가는 음식점'];
+    const isFavoriteList = this.tab === Tab.favorite;
     const restaurantList = isFavoriteList
       ? this.restaurantService.getFavoriteRestaurants()
       : this.restaurantService.getRestaurants(this.sortOrder, category);
@@ -120,7 +120,7 @@ export default class AppController {
   }
 
   private toggleRestaurantListFilter() {
-    if (this.tab === Tab['자주 가는 음식점']) {
+    if (this.tab === Tab.favorite) {
       this.restaurantListFilter.hide();
       return;
     }

@@ -7,7 +7,7 @@ class RestaurantListTab extends HTMLElement {
 
   constructor() {
     super();
-    this.currentTab = Tab['모든 음식점'];
+    this.currentTab = Tab.all;
   }
 
   connectedCallback() {
@@ -22,7 +22,7 @@ class RestaurantListTab extends HTMLElement {
   }
 
   private handleClickTabButton(event: Event) {
-    if (event.target instanceof HTMLButtonElement && Object.keys(Tab).includes(event.target.value)) {
+    if (event.target instanceof HTMLButtonElement && Object.values(Tab).includes(event.target.value as Tab)) {
       this.currentTab = event.target.value as Tab;
       this.dispatchEvent(new CustomEvent('changeTab', { detail: this.currentTab }));
       this.updateActiveTab();
@@ -42,26 +42,31 @@ class RestaurantListTab extends HTMLElement {
   private render() {
     this.innerHTML = ``;
     this.classList.add('restaurant-tab-container');
-    const tabButtons = Object.values(Tab).map((tab) => new TabButton(this.currentTab === tab, tab));
+    const tabButtons = Object.entries(Tab).map(
+      ([tabId, tabValue]) => new TabButton(this.currentTab === tabValue, tabId, tabValue),
+    );
     this.append(...tabButtons.map((button) => button.render()));
   }
 }
 
 export class TabButton {
   private isActive: boolean;
-  private tab: Tab;
+  private tabId: string;
+  private tabValue: Tab;
 
-  constructor(isActive: boolean, tab: Tab) {
+  constructor(isActive: boolean, tabId: string, tabValue: Tab) {
     this.isActive = isActive;
-    this.tab = tab;
+    this.tabId = tabId;
+    this.tabValue = tabValue;
   }
 
   render() {
     const tabButton = document.createElement('button');
     tabButton.classList.add('tab-button');
+    tabButton.id = `tab-${this.tabId}-button`;
     tabButton.type = 'button';
-    tabButton.value = this.tab;
-    tabButton.textContent = this.tab;
+    tabButton.value = this.tabValue;
+    tabButton.textContent = this.tabValue;
     if (this.isActive) {
       tabButton.classList.add('active');
     }

@@ -21,6 +21,6 @@ export enum SortOrder {
 }
 
 export enum Tab {
-  '모든 음식점' = '모든 음식점',
-  '자주 가는 음식점' = '자주 가는 음식점',
+  'all' = '모든 음식점',
+  'favorite' = '자주 가는 음식점',
 }
