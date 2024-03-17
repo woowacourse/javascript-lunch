@@ -1,6 +1,7 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { RestaurantType } from '../../type/restaurantTypes';
 import { $ } from '../../util/domSelector';
+import './RestaurantList.css';
 
 type RestaurantListType = {
   restaurants: RestaurantType[];
@@ -53,8 +54,8 @@ export default class RestaurantList extends HTMLElement {
     this.showRestaurantDetail(restaurant);
   }
 
-  private handleClickFavoriteButton(restaurantName: string, isFavorited: boolean) {
-    this.updateRestaurantItemFavorite(restaurantName, isFavorited);
+  private handleClickFavoriteButton(restaurantId: string, isFavorited: boolean) {
+    this.updateRestaurantItemFavorite(restaurantId, isFavorited);
   }
 
   private handleUpdateRestaurantFavorite(event: Event) {

@@ -2,7 +2,7 @@ import { RestaurantType } from '../../type/restaurantTypes';
 import { $ } from '../../util/domSelector';
 import createCategoryContainer from '../../util/createCategoryContainer';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
-import RestaurantInfoContainer from '../RestaurantItemContainer/RestaurantItemContainer';
+import RestaurantItemContainer from '../RestaurantItemContainer/RestaurantItemContainer';
 
 type RestaurantItemType = {
   restaurantData: RestaurantType;
@@ -20,7 +20,7 @@ export default class RestaurantItem extends HTMLElement {
   constructor({ restaurantData, onClick, onFavorite }: RestaurantItemType) {
     super();
     this.restaurantData = restaurantData;
-    this.restaurantInfoContainer = RestaurantInfoContainer(restaurantData);
+    this.restaurantInfoContainer = RestaurantItemContainer(restaurantData);
     this.favoriteButton = new FavoriteButton(restaurantData.favorite ?? false);
     this.showRestaurantDetail = onClick;
     this.updateRestaurantFavorite = onFavorite;
@@ -68,7 +68,7 @@ export default class RestaurantItem extends HTMLElement {
   private updateFavorite() {
     this.restaurantData.favorite = !this.restaurantData.favorite;
     this.setFavoriteButtonStyle(this.restaurantData.favorite);
-    this.updateRestaurantFavorite(this.restaurantData.name, this.restaurantData.favorite);
+    this.updateRestaurantFavorite(this.restaurantData.id, this.restaurantData.favorite);
   }
 
   private render() {
