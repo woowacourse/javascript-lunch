@@ -2,6 +2,7 @@ import BaseComponent from "../BaseComponent";
 import { MENU_APP_EVENTS } from "../../constants/event";
 import { CATEGORIES } from "../../constants/menu";
 import { CategoryStringWithoutAll, SortOptionString } from "../../types/menu";
+import { isValidOption } from "../../utils/types";
 
 interface OptionDetail {
   type: string;
@@ -23,16 +24,11 @@ class OptionSelector extends BaseComponent {
     );
   }
 
-  private isCategoryType(category: string): category is CategoryStringWithoutAll {
-    return ["한식", "아시안", "일식", "중식", "양식", "기타"].includes(category);
-  }
-
-  private isSortType(category: string): category is SortOptionString {
-    return ["이름순", "거리순"].includes(category);
-  }
-
-  private isValidOptionType(value: string) {
-    return this.isCategoryType(value) || this.isSortType(value);
+  private isValidOptionType(value: string): value is CategoryStringWithoutAll | SortOptionString {
+    return (
+      isValidOption<CategoryStringWithoutAll>(["한식", "아시안", "일식", "중식", "양식", "기타"], value) ||
+      isValidOption<SortOptionString>(["거리순", "이름순"], value)
+    );
   }
 
   private handleChangeOption(element: HTMLSelectElement) {
