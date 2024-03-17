@@ -26,8 +26,8 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
           <form-input
-            labelText="이름"
-            labelForId="restaurant-name"
+            label-text="이름"
+            label-for-id="restaurant-name"
             key="name"
             type="text"
             required="true",
@@ -59,8 +59,8 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 링크 -->
         <div class="form-item">
         <form-input
-          labelText="참고 링크"
-          labelForId="restaurant-link"
+          label-text="참고 링크"
+          label-for-id="restaurant-link"
           key="link"
           type="text"
           placeholder="음식점 링크 (http/https 포함, 예시: https://example.com)"

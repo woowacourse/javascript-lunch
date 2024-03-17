@@ -2,8 +2,6 @@ import { RestaurantValidator } from '../../domains';
 import { RestaurantTextInfoKey } from '../../types';
 
 class FormTextField extends HTMLElement {
-  $customTextField: HTMLElement | undefined;
-
   constructor() {
     super();
   }
@@ -26,8 +24,8 @@ class FormTextField extends HTMLElement {
       }
     `;
     // label
-    const labelText = this.getAttribute('labelText');
-    const labelForId = this.getAttribute('labelForId');
+    const labelText = this.getAttribute('label-text');
+    const labelForId = this.getAttribute('label-for-id');
     const $label = document.createElement('label');
 
     if (labelForId) $label.setAttribute('for', labelForId);

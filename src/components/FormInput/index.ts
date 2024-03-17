@@ -10,8 +10,8 @@ class FromInput extends FormTextField {
   connectedCallback() {
     const attributes: Attributes = {
       type: this.getAttribute('type'),
-      id: this.getAttribute('labelForId'),
-      name: this.getAttribute('labelForId'),
+      id: this.getAttribute('label-for-id'),
+      name: this.getAttribute('label-for-id'),
       required: this.getAttribute('required'),
       maxLength: this.getAttribute('max-length'),
       placeholder: this.getAttribute('placeholder'),
