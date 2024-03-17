@@ -37,9 +37,14 @@ class RestaurantList extends BaseComponent {
       }
     } else {
       if (!this.#restaurantList.length || !this.#restaurantList) {
-        return this.append(new EmptyView('all'));
+        return this.append(new EmptyView('all', this.#setMockDataAndRender.bind(this)));
       }
     }
+  }
+
+  #setMockDataAndRender() {
+    this.#restaurantDBService.setMockData();
+    this.rerender(this.#restaurantDBService.update().get());
   }
 
   #makeRestaurantList(data: IRestaurant[]) {

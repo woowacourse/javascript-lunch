@@ -5,27 +5,29 @@ import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import BasicButton from '../BasicButton/BasicButton';
 import { closeModal, makeDescription, makeDistance, makeTitle } from '@/utils/view';
 import { IRestaurant } from '@/types/Restaurant';
-import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
-import { INFO_MESSAGE } from '@/constants/Message';
 import { $ } from '@/utils/DOM';
-import AlertModal from '../AlertModal/AlertModal';
 
 class RestaurantDetailModal extends BaseComponent {
   #restaurant: IRestaurant;
   #detailInfo;
-  #restaurantUpdateService;
 
   constructor(restaurant: IRestaurant) {
     super();
     this.#restaurant = restaurant;
     this.#detailInfo = document.createElement('div');
-    this.#restaurantUpdateService = new RestaurantUpdateService();
   }
 
   render() {
-    this.#detailInfo.classList.add('restaurant-detail');
-    this.#detailInfo.id = String(this.#restaurant.id);
+    if (this.#restaurant) {
+      this.#detailInfo.classList.add('restaurant-detail');
+      this.#detailInfo.id = String(this.#restaurant.id);
 
+      this.makeInfoBox();
+      this.replaceWith(new BasicModal(this.#detailInfo, 'bottom'));
+    }
+  }
+
+  makeInfoBox() {
     const $categoryIcon = new CategoryIconBox(this.#restaurant.category);
     this.#detailInfo.append($categoryIcon);
 
@@ -46,15 +48,7 @@ class RestaurantDetailModal extends BaseComponent {
 
     const favoriteButton = new FavoriteButton(this.#restaurant.isFavorite, true);
     this.#detailInfo.append(favoriteButton);
-
-    this.replaceWith(new BasicModal(this.#detailInfo, 'bottom'));
   }
-
-  // deleteRestaurant() {
-  //   console.log('as');
-  //   this.#restaurantUpdateService.deleteRestaurant(this.#restaurant.id);
-  //   $('.alert-modal').classList.add('hidden');
-  // }
 
   #makeLink() {
     const $link = document.createElement('a');

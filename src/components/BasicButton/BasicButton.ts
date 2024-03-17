@@ -5,6 +5,7 @@ type ButtonProps = {
   textContent: string;
   type: 'submit' | 'reset' | 'button';
   clickEvent: () => void;
+  id?: string;
 };
 
 class BasicButton extends BaseComponent {
@@ -13,17 +14,22 @@ class BasicButton extends BaseComponent {
   #type;
   #clickEvent;
   #button;
+  #id?;
 
-  constructor({ variant, textContent, type, clickEvent }: ButtonProps) {
+  constructor({ variant, textContent, type, clickEvent, id }: ButtonProps) {
     super();
     this.#variant = variant;
     this.#textContent = textContent;
     this.#type = type;
     this.#clickEvent = clickEvent;
     this.#button = this.#addButton();
+    this.#id = id;
   }
 
   render() {
+    if (this.#id) {
+      this.#button.id = this.#id;
+    }
     this.replaceWith(this.#button);
   }
 

@@ -4,11 +4,14 @@ import BasicButton from '../BasicButton/BasicButton';
 
 class EmptyView extends BaseComponent {
   #type;
+  #mockEvent?;
 
-  constructor(type: 'all' | 'favorite') {
+  constructor(type: 'all' | 'favorite', mockEvent?: () => void) {
     super();
     this.#type = type;
+    this.#mockEvent = mockEvent;
   }
+
   render() {
     const $box = document.createElement('div');
     $box.classList.add('no-data-box');
@@ -30,24 +33,40 @@ class EmptyView extends BaseComponent {
       $text2.innerText = `음식점의 ⭐️을 눌러보세요!`;
     }
 
-    const $addbutton = new BasicButton({
-      variant: 'primary',
-      textContent: '추가하러 가기',
-      type: 'button',
-      clickEvent: () => openModal('add'),
-    });
-
     $textBox.append($text1);
     $textBox.append($text2);
     $textBox.append($text3);
 
     $box.append($textBox);
 
-    if (this.#type === 'all') {
-      $box.append($addbutton);
-    }
-
     this.append($box);
+
+    if (this.#type === 'all') {
+      const $buttonBox = document.createElement('div');
+
+      if (this.#mockEvent) {
+        const $mockButton = new BasicButton({
+          variant: 'secondary',
+          textContent: '기본 데이터 추가하기',
+          type: 'button',
+          clickEvent: this.#mockEvent,
+          id: 'mock-add-button',
+        });
+        $buttonBox.append($mockButton);
+      }
+
+      $buttonBox.classList.add('button-box');
+      const $addButton = new BasicButton({
+        variant: 'primary',
+        textContent: '직접 추가하기',
+        type: 'button',
+        clickEvent: () => openModal('add'),
+        id: 'direct-add-button',
+      });
+      $buttonBox.append($addButton);
+
+      this.append($buttonBox);
+    }
   }
 }
 
