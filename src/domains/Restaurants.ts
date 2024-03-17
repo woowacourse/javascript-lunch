@@ -56,6 +56,14 @@ class Restaurants implements RestaurantsInterface {
     this.storage.setItem(STORAGE.restaurants, JSON.stringify(restaurants));
   }
 
+  deleteRestaurant(restaurantName: string) {
+    console.log(restaurantName);
+    const restaurants = this.storageData.filter(
+      (restaurant: Restaurant) => restaurant.name !== restaurantName,
+    );
+    this.storage.setItem(STORAGE.restaurants, JSON.stringify(restaurants));
+  }
+
   get storageData() {
     return JSON.parse(this.storage.getItem(STORAGE.restaurants) ?? '[]');
   }

@@ -31,12 +31,12 @@ class FavoriteButton {
 
     if (clickedButton) {
       this.#isFavorite = !this.#isFavorite;
-      this.changeFavoriteButtonIcon(clickedButton);
+      this.#changeFavoriteButtonIcon(clickedButton);
       this.#restaurantsInstance.updateFavoriteStatus(convertIdToName(this.#name), this.#isFavorite);
     }
   }
 
-  changeFavoriteButtonIcon(clickedButton) {
+  #changeFavoriteButtonIcon(clickedButton) {
     const iconSrc = this.#isFavorite ? ICON.즐겨찾기추가 : ICON.즐겨찾기해제;
     const iconImg = clickedButton.querySelector('img');
 
