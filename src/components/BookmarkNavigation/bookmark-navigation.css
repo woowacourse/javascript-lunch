@@ -7,6 +7,10 @@
   height: 100%;
 }
 
+.restaurant-list-selector li {
+  cursor: pointer;
+}
+
 .restaurant-list-select-item {
   flex: 1 1 0;
 
