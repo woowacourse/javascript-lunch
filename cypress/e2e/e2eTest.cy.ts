@@ -173,4 +173,22 @@ describe('점심 뭐 먹지 E2E테스트', () => {
     cy.get('.modal-container').contains('닫기').click();
     cy.get('.modal-container').should('not.exist');
   });
+
+  it('새로운 음식점을 추가하면 리스트에 음식점이 추가되며 toast 알림이 뜬다.', () => {
+    const newRestaurant = {
+      name: '새로운 음식점 이름',
+      category: '양식',
+      walkingTime: 5,
+    };
+    cy.get('img[alt="음식점 추가"]').click();
+
+    cy.get('select#category').select(newRestaurant.category);
+    cy.get('input[name="name"]').type(newRestaurant.name);
+    cy.get('select#walkingTime').select(newRestaurant.walkingTime);
+    cy.contains('추가하기').click();
+
+    cy.contains(
+      `${newRestaurant.name} 가게에 대한 정보가 정상적으로 추가되었습니다.`
+    ).should('exist');
+  });
 });
