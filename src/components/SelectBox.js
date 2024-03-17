@@ -1,5 +1,5 @@
 const SelectBoxComponent = {
-  render(selectBoxInformation) {
+  create(selectBoxInformation) {
     this.mounted(selectBoxInformation);
     this.setEvent(selectBoxInformation);
   },

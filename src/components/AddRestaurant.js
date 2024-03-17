@@ -75,7 +75,7 @@ class AddRestaurant {
       attributes: FORM_CATEGORY_ATTRIBUTE,
       options: FORM_CATEGORY,
     };
-    SelectBoxComponent.render(formCategoryInformation);
+    SelectBoxComponent.create(formCategoryInformation);
 
     return categoryContainer;
   }
@@ -115,7 +115,7 @@ class AddRestaurant {
       attributes: FORM_DISTANCE_ATTRIBUTE,
       options: FORM_DISTANCE,
     };
-    SelectBoxComponent.render(formDistanceInformation);
+    SelectBoxComponent.create(formDistanceInformation);
 
     return distanceContainer;
   }

@@ -28,7 +28,7 @@ class RestaurantTapContainer {
     this.#restaurantAllTap.classList.add('restaurant-tap_primary');
     this.#restaurantFavoriteTap.classList.remove('restaurant-tap_primary');
 
-    restaurantFilterContainer.set();
+    restaurantFilterContainer.createFilters();
     $restaurantList.replaceChildren();
     restaurantFilterContainer.handleFilter();
   }
@@ -43,7 +43,7 @@ class RestaurantTapContainer {
 
     $restaurantFilterContainer.replaceChildren();
     $restaurantList.replaceChildren();
-    RestaurantComponent.render(this.#restaurantList.restaurants);
+    RestaurantComponent.create(this.#restaurantList.restaurants);
   }
 
   createRestaurantAllTap() {

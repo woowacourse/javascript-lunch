@@ -9,7 +9,7 @@ class RestaurantFilterContainer {
     this.#restaurantList = restaurantList;
   }
 
-  set() {
+  createFilters() {
     const $restaurantFilterContainer = document.querySelector('.restaurant-filter-container');
     this.createFilterByCategory($restaurantFilterContainer);
     this.createSorting($restaurantFilterContainer);
@@ -24,7 +24,7 @@ class RestaurantFilterContainer {
       },
       options: FILTERED_CATEGORY,
     };
-    SelectBoxComponent.render(filterByCategoryInformation);
+    SelectBoxComponent.create(filterByCategoryInformation);
   }
 
   createSorting($restaurantFilterContainer) {
@@ -36,7 +36,7 @@ class RestaurantFilterContainer {
       },
       options: SORTING,
     };
-    SelectBoxComponent.render(sortingInformation);
+    SelectBoxComponent.create(sortingInformation);
   }
 
   handleFilter() {
@@ -46,7 +46,16 @@ class RestaurantFilterContainer {
     const sortedList = this.#restaurantList.getSortedByCondition(this.getSortingCondition());
 
     $restaurantList.replaceChildren();
-    RestaurantComponent.render(sortedList);
+    RestaurantComponent.create(sortedList);
+  }
+
+  favoriteTapFilter() {
+    const $restaurantList = document.querySelector('.restaurant-list');
+
+    this.#restaurantList.filterByFavorite();
+
+    $restaurantList.replaceChildren();
+    RestaurantComponent.create(this.#restaurantList.getSortedByName());
   }
 
   getCategoryCondition() {

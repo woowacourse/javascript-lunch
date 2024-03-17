@@ -5,7 +5,7 @@ import RestaurantDetail from './RestaurantDetail';
 import RestaurantDetailModal from './RestaurantDetailModal';
 
 const RestaurantComponent = {
-  render(restaurants) {
+  create(restaurants) {
     const $restaurantList = document.querySelector('.restaurant-list');
     restaurants.forEach(restaurant => {
       $restaurantList.appendChild(this.mounted(restaurant.information));
