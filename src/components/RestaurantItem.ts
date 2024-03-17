@@ -1,10 +1,11 @@
 import type { IRestaurant } from '../types/restaurant';
 
+import createImageButton from './common/ImageButton';
 import Component from './core/Component';
+import FAVORITE_STAR from '../assets/images/favorite-icon-filled.png';
+import NOT_FAVORITE_STAR from '../assets/images/favorite-icon-lined.png';
 import { CATEGORY_IMG_SRC } from '../constants/filter';
 import dom from '../utils/dom';
-
-import { FAVORITE_STAR, NOT_FAVORITE_STAR } from '@/constants/config';
 
 interface IRestaurantItem {
   $target: HTMLElement;
@@ -12,6 +13,7 @@ interface IRestaurantItem {
 }
 interface IRestaurantProps {
   information: IRestaurant;
+  handleClickDetail: () => void;
   handleClickFavorite?: (key: string) => void;
 }
 
@@ -26,17 +28,17 @@ class RestaurantItem extends Component<IRestaurantProps> {
 
     const restaurantWrapper = dom.create({
       tagName: 'li',
+      id: `${this.props.information.id}`,
       classNames: ['restaurant'],
       children: [categoryWrapper, restaurantInfoWrapper],
     });
     this.$target.appendChild(restaurantWrapper);
+    this.$target = restaurantWrapper;
   }
 
   setEvent() {
-    const key = this.props.information.id;
-    dom.getElement(`#favorite_${key}`).addEventListener('click', () => {
-      this.props.handleClickFavorite != null && this.props.handleClickFavorite(key);
-    });
+    const infoContainer = dom.getTargetElement(this.$target, '#restaurant-info');
+    infoContainer.addEventListener('click', this.props.handleClickDetail.bind(this));
   }
 
   getRestaurantCategory(): HTMLElement {
@@ -53,14 +55,20 @@ class RestaurantItem extends Component<IRestaurantProps> {
     const subtitle = this.getRestaurantSubtitle();
     const distance = this.getRestaurantDistance();
     const description = this.getRestaurantDescription();
-    const textInfoWrapper = dom.create({ tagName: 'div', children: [subtitle, distance, description] });
+    const textInfoWrapper = dom.create({
+      tagName: 'div',
+      id: 'restaurant-info',
+      children: [subtitle, distance, description],
+    });
 
     const favoriteButton = this.getFavoriteButton();
+
     const restaurantInfoWrapper = dom.create({
       tagName: 'div',
       classNames: ['restaurant__info__wrapper'],
       children: [textInfoWrapper, favoriteButton],
     });
+
     return restaurantInfoWrapper;
   }
 
@@ -102,13 +110,22 @@ class RestaurantItem extends Component<IRestaurantProps> {
 
   getFavoriteButton() {
     const key = this.props.information.id;
-    const favoriteButtonTag = dom.create({
-      tagName: 'button',
-      id: `favorite_${key}`,
-      classNames: ['favorite'],
-      text: this.props.information.isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
+    const imageButton = createImageButton({
+      buttonAttributes: {
+        type: 'button',
+        id: `favorite_${key}`,
+        classNames: ['favorite'],
+        ariaLabel: '자주 가는 음식점 추가',
+      },
+      imageAttributes: {
+        src: this.props.information.isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
+        alt: '자주 가는 음식점 추가',
+      },
+      onClick: () => {
+        if (this.props.handleClickFavorite) this.props.handleClickFavorite(key);
+      },
     });
-    return favoriteButtonTag;
+    return imageButton;
   }
 }
 
