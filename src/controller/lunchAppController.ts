@@ -40,18 +40,13 @@ export default class LunchAppController {
   };
 
   private renderCategoryFilter = () => {
-    const categoryFilter = new CategoryFilterComponent();
-    const node = categoryFilter.getTemplate(CATEGORY);
-    categoryFilter.setEvent(node, this.restaurantList);
-    this.$filterContainer.appendChild(node);
+    const categoryFilter = CategoryFilterComponent(this.restaurantList).create();
+    this.$filterContainer.appendChild(categoryFilter);
   };
 
   private renderSortingFilter = () => {
-    const sortingFilter = new SortFilterComponent();
-    const node = sortingFilter.getTemplate(SORTING);
-
-    sortingFilter.setEvent(node, this.restaurantList);
-    this.$filterContainer.appendChild(node);
+    const categoryFilter = SortFilterComponent(this.restaurantList).create();
+    this.$filterContainer.appendChild(categoryFilter);
   };
 
   private renderModal = () => {

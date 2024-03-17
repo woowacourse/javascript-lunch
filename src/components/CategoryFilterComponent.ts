@@ -1,17 +1,38 @@
 import RestaurantList from '../domain/restaurantList';
 import { CategoryValues } from '../types/types';
-import FilterComponent from './FilterComponent';
+import SelectComponent from './common/SelectComponent';
 
-export default class CategoryFilterComponent extends FilterComponent {
-  constructor() {
-    super();
-  }
+const CategoryFilterComponent = (restaurantList: RestaurantList) => {
+  const section = document.createElement('section');
+  section.classList.add('restaurant-filter-container');
 
-  setEvent(node: DocumentFragment, restaurantList: RestaurantList) {
-    const selectElement = node.querySelector('#category-filter') as HTMLSelectElement;
-    selectElement.addEventListener('change', () => {
-      const selectedCategory = selectElement.value as CategoryValues;
-      restaurantList.setCategory(selectedCategory);
-    });
-  }
-}
+  const select = SelectComponent({
+    name: 'category',
+    id: 'category-filter',
+    className: 'restaurant-filter',
+    options: [
+      { value: '전체', label: '전체' },
+      { value: '한식', label: '한식' },
+      { value: '중식', label: '중식' },
+      { value: '일식', label: '일식' },
+      { value: '양식', label: '양식' },
+      { value: '아시안', label: '아시안' },
+      { value: '기타', label: '기타' }
+    ]
+  }).create();
+
+  section.appendChild(select);
+
+  const create = () => section;
+
+  select.addEventListener('change', () => {
+    const selectedCategory = select.value as CategoryValues;
+    restaurantList.setCategory(selectedCategory);
+  });
+
+  return {
+    create
+  };
+};
+
+export default CategoryFilterComponent;
