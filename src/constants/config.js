@@ -11,6 +11,7 @@ const DEFAULT_RESTAURAMT_LIST = [
   콩만을 사용하며, 일체의 조미료를 넣지 않은 건강식을 선보인다. 콩비지와 피양 만두가 이곳의 대표 메뉴지만,
   할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은
   손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
+    link: 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%ED%94%BC%EC%96%91%EC%BD%A9%ED%95%A0%EB%A8%B8%EB%8B%88',
   },
   {
     category: '중식',
@@ -18,6 +19,7 @@ const DEFAULT_RESTAURAMT_LIST = [
     distance: 5,
     favorite: FAVORITE.no,
     description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다`,
+    link: 'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EC%84%A0%EB%A6%89+%EC%B9%9C%EC%B9%9C&oquery=%EC%B9%9C%EC%B9%9C&tqi=iQkRKsqps8wssiEXRplssssssN0-488609',
   },
   {
     category: '일식',
@@ -26,6 +28,7 @@ const DEFAULT_RESTAURAMT_LIST = [
     favorite: FAVORITE.no,
     description: `잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에
     최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다`,
+    link: 'https://search.naver.com/search.naver?sm=tab_sug.top&where=nexearch&ssc=tab.nx.all&query=%EC%84%A0%EB%A6%89+%EC%9E%87%EC%87%BC%EC%9A%B0&oquery=%EC%84%A0%EB%A6%89+%EC%B9%9C%EC%B9%9C&tqi=iQkRLsqo1awssR8ufORssssssrN-184706&acq=%EC%84%A0%EB%A6%89+%EC%9E%87%E3%85%85&acr=1&qdt=0',
   },
   {
     category: '양식',
@@ -33,6 +36,7 @@ const DEFAULT_RESTAURAMT_LIST = [
     distance: 20,
     favorite: FAVORITE.no,
     description: `늘 변화를 추구하는 이태리키친입니다.`,
+    link: 'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EC%84%A0%EB%A6%89++%EC%9D%B4%ED%83%9C%EB%A6%AC%ED%82%A4%EC%B9%9C&oquery=%EC%84%A0%EB%A6%89++dlxoflzlcls&tqi=iQkRUlqo15VssQiIkbossssssRl-097688',
   },
   {
     category: '아시안',
@@ -47,6 +51,7 @@ const DEFAULT_RESTAURAMT_LIST = [
     distance: 5,
     favorite: FAVORITE.no,
     description: `멕시칸 캐주얼 그릴`,
+    link: 'https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EB%8F%84%EC%8A%A4%ED%83%80%EC%BD%94%EC%8A%A4+%EC%84%A0%EB%A6%89%EC%A0%90&oquery=%EB%8F%84%EC%8A%A4%ED%83%80%EC%BD%94%EC%8A%A4&tqi=iQkRulqo1e8sss3gQfhssssssds-256733',
   },
 ];
 
