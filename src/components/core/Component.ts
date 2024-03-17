@@ -4,7 +4,6 @@ class Component<T> {
   state: any;
 
   constructor($target: HTMLElement, props: T) {
-    props;
     this.$target = $target;
     this.props = props;
     this.setup();
