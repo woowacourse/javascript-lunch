@@ -6,7 +6,7 @@ import "./components/Restaurants/RestaurantList";
 import "./components/Restaurants/RestaurantTab";
 import "./components/Restaurants/RestaurantTabContainer";
 import "./components/RestaurantAddForm/index";
-import "./components/RestaurantAddForm/RestaurantNameInput";
+import "./components/RestaurantAddForm/RestaurantTextInput";
 import "./components/RestaurantAddForm/RestaurantOption";
 import "./components/OptionSelector/OptionSelectorContainer";
 import "./components/OptionSelector/index";
