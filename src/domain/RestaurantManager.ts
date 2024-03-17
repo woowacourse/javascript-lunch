@@ -48,15 +48,12 @@ export class RestaurantManager implements RestaurantManager {
       case '거리순':
         this.sortByAscendingWalkingTime();
         break;
+      default:
+        localStorage.setItem(
+          'favoriteRestaurants',
+          JSON.stringify(this.favoriteRestaurants)
+        );
     }
-    localStorage.setItem(
-      'favoriteRestaurants',
-      JSON.stringify(this.favoriteRestaurants)
-    );
-  }
-
-  getRestaurants(): Restaurant[] {
-    return [...this.totalRestaurants];
   }
 
   sortByAscendingName(selectedRestaurants: Restaurant[] = []): Restaurant[] {
@@ -115,8 +112,9 @@ export class RestaurantManager implements RestaurantManager {
         return this.sortByAscendingName([...this.totalRestaurants]);
       case '거리순':
         return this.sortByAscendingWalkingTime([...this.totalRestaurants]);
+      default:
+        return [];
     }
-    return [];
   }
 
   getUpdatedFavoriteRestaurants(): Restaurant[] {
@@ -125,8 +123,9 @@ export class RestaurantManager implements RestaurantManager {
         return this.sortByAscendingName([...this.favoriteRestaurants]);
       case '거리순':
         return this.sortByAscendingWalkingTime([...this.favoriteRestaurants]);
+      default:
+        return [];
     }
-    return [];
   }
 
   removeTotalRestaurant(removeRestaurant: Restaurant): Restaurant[] {
