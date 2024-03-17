@@ -1,30 +1,46 @@
 import Restaurant, { IRestaurantInfo } from '../domain/Restaurant';
-import FavoriteBtn from './FavoriteBtn';
-import RestaurantDetailModal from './RestaurantDetailModal';
+import FavoriteBtn from './Button/FavoriteBtn';
+import RestaurantDetailModal from './Modal/RestaurantDetailModal';
 
-class RestaurantCard extends HTMLLIElement {
+interface Props {
+  restaurant: IRestaurantInfo;
+  onClick?: () => void;
+}
+
+class RestaurantCard {
   #restaurant: IRestaurantInfo;
 
-  #restaurantCardElement: HTMLElement = document.createElement('div');
+  #restaurantListElement = document.createElement('li');
 
-  constructor(restaurant: IRestaurantInfo) {
-    super();
+  #onClick?: () => void;
+
+  constructor({ restaurant, onClick }: Props) {
     this.#restaurant = restaurant;
+    this.#onClick = onClick;
+    this.#restaurantListElement.classList.add('restaurant-container');
 
-    this.classList.add('restaurant-container');
-    this.#restaurantCardElement.id = 'restaurant-card';
-    this.#restaurantCardElement.classList.add('restaurant');
-
-    this.#appendRestaurantElement();
-    this.#addRestaurantDetailModalEvent();
+    this.#init();
   }
 
-  #addRestaurantDetailModalEvent() {
+  #init() {
+    const restaurantContentElement = document.createElement('div');
+
+    restaurantContentElement.id = 'restaurant-card';
+    restaurantContentElement.classList.add('restaurant');
+    restaurantContentElement.innerHTML = this.#generateRestaurantContentTemplate();
+
+    this.#restaurantListElement.appendChild(restaurantContentElement);
+    this.#restaurantListElement.appendChild(this.#makeFavoriteBtn());
+
+    this.#addPopupModalEvent(restaurantContentElement);
+  }
+
+  #addPopupModalEvent(restaurantContentElement: HTMLElement) {
     const restaurantDetailModalSection = document.getElementById('restaurant-detail-modal-section');
 
-    this.#restaurantCardElement.addEventListener('click', () => {
+    restaurantContentElement.addEventListener('click', () => {
       if (restaurantDetailModalSection) {
-        const restaurantDetailModal = new RestaurantDetailModal(this.#restaurant);
+        const restaurantDetailModal = new RestaurantDetailModal(this.#restaurant, this.#onClick);
         restaurantDetailModalSection.innerHTML = '';
         restaurantDetailModalSection.appendChild(restaurantDetailModal);
         restaurantDetailModal.toggle();
@@ -32,20 +48,20 @@ class RestaurantCard extends HTMLLIElement {
     });
   }
 
-  #appendRestaurantElement() {
-    this.appendChild(this.#restaurantCardElement);
-    this.#generateRestaurantElementTemplate();
-    this.#makeFavoriteBtn();
-  }
-
   #makeFavoriteBtn() {
     const favoriteBtn = new FavoriteBtn(this.#restaurant.name, this.#restaurant.isFavorite);
 
-    this.appendChild(favoriteBtn.element);
+    favoriteBtn.element.addEventListener('click', () => {
+      if (this.#onClick) {
+        this.#onClick();
+      }
+    });
+
+    return favoriteBtn.element;
   }
 
-  #generateRestaurantElementTemplate() {
-    this.#restaurantCardElement.innerHTML = /* html */ `
+  #generateRestaurantContentTemplate() {
+    return /* html */ `
     <div class="restaurant__info__container">
       <div class="restaurant__category">
         <img src="./assets/category-${Restaurant.generateImageSrc(this.#restaurant.category)}.png" alt="${
@@ -58,6 +74,10 @@ class RestaurantCard extends HTMLLIElement {
         <p class="restaurant__description text-body">${this.#restaurant.description}</p>
       </div>
     </div>`;
+  }
+
+  get element() {
+    return this.#restaurantListElement;
   }
 }
 
