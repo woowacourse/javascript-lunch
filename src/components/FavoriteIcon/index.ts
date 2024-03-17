@@ -43,18 +43,6 @@ class FavoriteIcon extends HTMLElement {
     return `favorite-${favorite === 'true' || 'false'}`;
   }
 
-  #getAllFavoriteIconAboutStore(storeName: string) {
-    const $allFavoriteIconAboutStore = [
-      ...document.querySelectorAll('favorite-icon'),
-    ]?.filter((el) => {
-      const name = el.getAttribute('store-name');
-
-      return name === storeName;
-    });
-
-    return $allFavoriteIconAboutStore;
-  }
-
   #handleClickForFavorite(event: MouseEvent, storeName: string) {
     event.stopPropagation();
 
@@ -66,43 +54,28 @@ class FavoriteIcon extends HTMLElement {
     restaurantList.changeFavorite(storeName);
     // ui 변경
     if ($favoriteIcon instanceof HTMLElement) {
-      this.#changeUIByChangingFavorite($favoriteIcon, storeName);
+      this.#changeUIByChangingFavorite($favoriteIcon);
     }
   }
 
-  #changeUIByChangingFavorite($favoriteIcon: HTMLElement, storeName: string) {
+  #changeUIByChangingFavorite($favoriteIcon: HTMLElement) {
     const prevFavorite = $favoriteIcon.getAttribute('favorite');
     const changedFavorite = getFavoriteAttributeValue(
       !(prevFavorite === 'true'),
     );
-    const $allFavoriteIconAboutStore =
-      this.#getAllFavoriteIconAboutStore(storeName);
+    // 해당 즐겨찾기 아이콘 변경
+    $favoriteIcon.setAttribute('favorite', changedFavorite);
+    $favoriteIcon.setAttribute('class', this.#getClassName(changedFavorite));
 
-    // 음식점 정보 모달에서 즐겨찾기 변경해도, 모든 음식점 또는 자주 가는 음식점 리스트 화면에서 즐겨찾기 아이콘도 변경되도록 함
-    $allFavoriteIconAboutStore.forEach((el) => {
-      el.setAttribute('favorite', changedFavorite);
-      el.setAttribute('class', this.#getClassName(changedFavorite));
-      // 자주 가는 목록이 열려있고  음식점 정보 모달 내에서 즐겨찾기를 취소했을대 적용
-      this.#removeItemFromFavoriteList(el);
-    });
-  }
+    // 즐겨찾기 변경에 따른 음식점 목록 수정
+    const $allRestaurantList = document.querySelector('all-restaurant-list');
 
-  #removeItemFromFavoriteList($favoriteIcon: Element) {
-    const $restaurantList = document.querySelector('restaurant-list');
-
-    if (
-      !$restaurantList ||
-      $restaurantList?.getAttribute('list-category') !== 'favorite'
-    )
-      return;
-
-    const $restaurantItem = $favoriteIcon.closest('restaurant-item');
-    if (!$restaurantItem) return;
-
-    $restaurantList.firstChild?.removeChild($restaurantItem);
-
-    if ($restaurantList?.childElementCount === 0) {
-      RestaurantListController.injectRestaurantList();
+    if ($allRestaurantList) {
+      RestaurantListController.injectFilteringAndSortingRestaurantList();
+    } else {
+      RestaurantListController.injectRestaurantList(
+        new RestaurantList().filterFavorites(),
+      );
     }
   }
 }
