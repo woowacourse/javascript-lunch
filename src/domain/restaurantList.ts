@@ -81,7 +81,7 @@ export default class RestaurantList {
     const filteredData = await this.filterByCategory(this.#category);
     const sortByIsFavorite = this.sortFavorite(filteredData, this.#isFavorite);
     const sortedData = this.sortByKey(sortByIsFavorite, this.#sorting);
-    console.log('sortedData', sortedData);
+
     this.#restaurantData = sortedData;
     this.render();
   }

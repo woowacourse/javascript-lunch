@@ -1,4 +1,4 @@
-import { CATEGORY, CATEGORY_VALUES } from '../constants';
+import { CATEGORY_VALUES } from '../constants';
 import RestaurantList from '../domain/restaurantList';
 import { CategoryValues } from '../types/types';
 import Select from './common/Select';

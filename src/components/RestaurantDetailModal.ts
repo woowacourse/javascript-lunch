@@ -13,7 +13,7 @@ type Props = {
 
 const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
   const { category, name, distance, isFavorite, description, link } = restaurantInfo;
-  console.log({ category, name, distance, isFavorite, description, link });
+
   const favoriteButton = FavoriteButton({ name, initialIsFavorite: isFavorite }).create();
 
   const restaurantNameH3 = document.createElement('h3');
