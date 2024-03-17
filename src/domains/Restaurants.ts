@@ -41,6 +41,24 @@ export default class Restaurants {
     );
   }
 
+  getRestaurant(name: string): Restaurant | undefined {
+    return this.storageData.find((restaurant: Restaurant) => restaurant.name === name);
+  }
+
+  toggleFavoriteState(name: string) {
+    const data = this.storageData.map((restaurant) =>
+      restaurant.name === name ? { ...restaurant, favorite: !restaurant.favorite } : restaurant,
+    );
+
+    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(data));
+  }
+
+  deleteRestaurant(name: string) {
+    const filteredRestaurants = this.storageData.filter((restaurant) => restaurant.name !== name);
+
+    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(filteredRestaurants));
+  }
+
   #orderByDistance(restaurants: Restaurant[]) {
     return restaurants.toSorted((prev, next) => {
       const compareWalkingTime = prev.walkingTimeFromCampus - next.walkingTimeFromCampus;
@@ -59,24 +77,6 @@ export default class Restaurants {
     if (sorting && sorting === 'name') return this.#orderByName(restaurants);
 
     return this.storageData;
-  }
-
-  getRestaurant(name: string): Restaurant | undefined {
-    return this.storageData.find((restaurant: Restaurant) => restaurant.name === name);
-  }
-
-  toggleFavoriteState(name: string) {
-    const data = this.storageData.map((restaurant) =>
-      restaurant.name === name ? { ...restaurant, favorite: !restaurant.favorite } : restaurant,
-    );
-
-    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(data));
-  }
-
-  deleteRestaurant(name: string) {
-    const filteredRestaurants = this.storageData.filter((restaurant) => restaurant.name !== name);
-
-    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(filteredRestaurants));
   }
 
   get storageData(): Restaurant[] {
