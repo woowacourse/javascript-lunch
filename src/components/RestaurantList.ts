@@ -1,5 +1,6 @@
 import { IRestaurantInfo } from '../domain/Restaurant';
 import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory, CATEGORY_ALL } from '../domain/RestaurantCatalog';
+import restaurantStore from '../store/RestaurantStore';
 import { NAV_FAVORITE, NAV_TOTAL } from './Navigator/Navigator';
 import RestaurantCard from './RestaurantCard';
 
@@ -19,10 +20,15 @@ class RestaurantList extends HTMLUListElement {
     this.classList.add('restaurant-list');
     this.#categoryFilter = CATEGORY_ALL;
     this.#sortCondition = SORT_BY_NAME;
+    this.addEventListener('click', () => {
+      this.renderRestaurantList();
+    });
   }
 
-  renderRestaurantList(restaurants: IRestaurantInfo[]) {
-    this.#restaurants = restaurants;
+  renderRestaurantList() {
+    const restaurantsFormLocalStorage = restaurantStore.restaurants;
+
+    this.#restaurants = restaurantsFormLocalStorage;
     this.#makeRestaurantList();
   }
 

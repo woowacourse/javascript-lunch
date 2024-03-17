@@ -20,6 +20,11 @@ class RestaurantStore {
     this.#updateRestaurantToLocalStorage();
   }
 
+  updateFavoriteRestaurant(restaurantName: string, isFavorite: boolean) {
+    this.#restaurantCatalog.updateRestaurant(restaurantName, isFavorite);
+    this.#updateRestaurantToLocalStorage();
+  }
+
   #initDefaultData() {
     this.#insertDefaultData();
     this.#initRestaurantCatalogFromLocalStorage();
@@ -54,6 +59,15 @@ class RestaurantStore {
     const restaurants = JSON.stringify(this.#restaurantCatalog.getTotalRestaurantInfo());
 
     localStorage.setItem('restaurants', restaurants);
+  }
+
+  get restaurants() {
+    const restaurants = localStorage.getItem('restaurants');
+
+    if (restaurants) {
+      return JSON.parse(restaurants);
+    }
+    return false;
   }
 }
 

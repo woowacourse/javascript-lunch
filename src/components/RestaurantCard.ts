@@ -39,7 +39,7 @@ class RestaurantCard extends HTMLLIElement {
   }
 
   #makeFavoriteBtn() {
-    const favoriteBtn = new FavoriteBtn(this.#restaurant.isFavorite);
+    const favoriteBtn = new FavoriteBtn(this.#restaurant.name, this.#restaurant.isFavorite);
 
     this.appendChild(favoriteBtn.element);
   }

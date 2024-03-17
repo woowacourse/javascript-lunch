@@ -28,6 +28,19 @@ class RestaurantCatalog {
     });
   }
 
+  updateRestaurant(restaurantName: string, isFavorite: boolean) {
+    this.#restaurants.forEach((restaurant: Restaurant, idx: number) => {
+      const restaurantInfo = restaurant.getInfo();
+      if (restaurantInfo.name === restaurantName && restaurantInfo.isFavorite === isFavorite) {
+        const prev = restaurant.getInfo();
+        prev.isFavorite = !isFavorite;
+
+        const newRestaurant = new Restaurant(prev);
+        this.#restaurants[idx] = newRestaurant;
+      }
+    });
+  }
+
   static filterByCategory(restaurants: IRestaurantInfo[], category: ICatalogCategory) {
     if (category === CATEGORY_ALL) {
       return restaurants;

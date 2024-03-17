@@ -40,7 +40,7 @@ class App {
 
     if (restaurantsFromStorage && RestaurantListSection) {
       RestaurantListSection.innerHTML = '';
-      this.#restaurantListComponent.renderRestaurantList(JSON.parse(restaurantsFromStorage));
+      this.#restaurantListComponent.renderRestaurantList();
 
       RestaurantListSection.appendChild(this.#restaurantListComponent);
     }
