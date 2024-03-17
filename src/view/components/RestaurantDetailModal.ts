@@ -1,10 +1,14 @@
-import { ILocalData } from '../../Controller/WebController';
-import { LOCAL_STORAGE_KEY } from '../../constants/LocalStorageKey';
-import '../../css/restaurantDetailModal.css';
-import { Category, DistanceFromCampus, IMG_CATEGORY, IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantCatalog from '../../domain/RestaurantCatalog';
-import LikeStar from './LikeStar';
+import { Category, DistanceFromCampus, IMG_CATEGORY, IRestaurantInfo } from '../../domain/Restaurant';
+import { ILocalData } from '../../Controller/WebController';
+
+import { LOCAL_STORAGE_KEY } from '../../constants/LocalStorageKey';
+
 import RestaurantCards from './RestaurantCards';
+import ModalLikeStar from './ModalLikeStar';
+
+import '../../css/restaurantDetailModal.css';
+import '../../css/likeStar.css';
 
 const dialog = document.getElementById('restaurant-detail-modal') as HTMLDialogElement;
 
@@ -46,10 +50,12 @@ function applyRestaurantLink(link: string | undefined) {
   }
 }
 
-// function applyRestaurantStar(id: number, isLiked: boolean) {
-//   const restaurantDetailMain = document.getElementById('restaurant-detail-main') as HTMLElement;
-//   restaurantDetailMain.append(new LikeStar(isLiked, id));
-// }
+function applyRestaurantStar(id: number, isLiked: boolean) {
+  const restaurantDetailMain = document.getElementById('restaurant-detail-main') as HTMLElement;
+  const modalStar = new ModalLikeStar(isLiked, id);
+  modalStar.classList.add('modal-like-star');
+  restaurantDetailMain.append(modalStar);
+}
 
 function applyRestaurantDetailByInfo(restaurantInfo: IRestaurantInfo) {
   applyRestaurantIconNameDistance(restaurantInfo.category);
@@ -57,7 +63,7 @@ function applyRestaurantDetailByInfo(restaurantInfo: IRestaurantInfo) {
   applyRestaurantDistance(restaurantInfo.distanceFromCampus);
   applyRestaurantDescription(restaurantInfo.description);
   applyRestaurantLink(restaurantInfo.link);
-  // applyRestaurantStar(restaurantInfo.id!, restaurantInfo.isLiked!);
+  applyRestaurantStar(restaurantInfo.id!, restaurantInfo.isLiked!);
 }
 
 let deleteEventHandler: () => void;
@@ -69,6 +75,8 @@ function removeDeleteEventToButton() {
 
 function closeRestaurantDetailModal() {
   removeDeleteEventToButton();
+  const modalLikeStar = document.querySelector('.modal-like-star') as ModalLikeStar;
+  modalLikeStar.remove();
   dialog.close();
 }
 
