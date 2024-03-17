@@ -15,10 +15,10 @@ const addCurrentClassName = (target: HTMLElement) => {
   return clickedTab;
 };
 
-const changeFavFilter = (clickedTab: HTMLElement) => {
-  if (clickedTab.getAttribute("data-tab") === "fav")
-    return filterState.setFavType(true);
-  return filterState.setFavType(false);
+const changeLikedFilter = (clickedTab: HTMLElement) => {
+  if (clickedTab.getAttribute("data-tab") === "liked")
+    return filterState.setLikedType(true);
+  return filterState.setLikedType(false);
 };
 
 const tabClicked = (tabs: HTMLElement) => {
@@ -26,7 +26,7 @@ const tabClicked = (tabs: HTMLElement) => {
     removeCurrentClassName();
     if (event.target instanceof HTMLElement) {
       const clickedTab = addCurrentClassName(event.target);
-      changeFavFilter(clickedTab);
+      changeLikedFilter(clickedTab);
       RestaurantList();
     }
   });

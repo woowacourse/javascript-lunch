@@ -35,8 +35,8 @@ class RestaurantListHelper implements IrestaurantList {
     );
   }
 
-  filterByFav(fav: boolean, restaurantList: Irestaurant[]) {
-    if (fav === true)
+  filterByLiked(liked: boolean, restaurantList: Irestaurant[]) {
+    if (liked === true)
       return restaurantList.filter((restaurant) => restaurant.isLike);
     return restaurantList;
   }
@@ -46,7 +46,10 @@ class RestaurantListHelper implements IrestaurantList {
       filterState.getFilterInfo().sort,
       this.filterByCategory(filterState.getFilterInfo().filter, restaurantList),
     );
-    return this.filterByFav(filterState.getFilterInfo().fav, filteredBarData);
+    return this.filterByLiked(
+      filterState.getFilterInfo().liked,
+      filteredBarData,
+    );
   }
 }
 

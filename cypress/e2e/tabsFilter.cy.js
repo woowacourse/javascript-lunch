@@ -39,14 +39,14 @@ describe("즐겨찾기 탭 테스트", () => {
 
       cy.get(".tab-item.current")
         .invoke("attr", "data-tab")
-        .should("eq", "fav");
+        .should("eq", "liked");
     });
 
     it("탭 전환 확인 (즐겨찾기 -> 전체)", () => {
       cy.get(".tab-item:not(.current)").click();
       cy.get(".tab-item.current")
         .invoke("attr", "data-tab")
-        .should("eq", "fav");
+        .should("eq", "liked");
 
       cy.get(".tab-item:not(.current)").click();
       cy.get(".tab-item.current")
@@ -58,7 +58,7 @@ describe("즐겨찾기 탭 테스트", () => {
       cy.get(".tab-item:not(.current)").click();
       cy.get(".tab-item.current")
         .invoke("attr", "data-tab")
-        .should("eq", "fav");
+        .should("eq", "liked");
 
       cy.get(".restaurant").each(($restaurantItem) => {
         cy.wrap($restaurantItem)

@@ -7,7 +7,7 @@ ${TabCurrent("모든 음식점", "all")}
 `;
 
 export const LeftTabTemplate = /*html*/ `
-${Tab("자주 가는 음식점", "fav")}
+${Tab("자주 가는 음식점", "liked")}
 `;
 
 export const tabsTemplate = /*html*/ `
