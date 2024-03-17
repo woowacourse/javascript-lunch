@@ -11,9 +11,9 @@ class Navigator {
 
   #navState: NAV_STATE = NAV_TOTAL;
 
-  #onClick: (ss: string) => void;
+  #onClick: (state: string) => void;
 
-  constructor(onClick: (ss: string) => void) {
+  constructor(onClick: (state: string) => void) {
     this.#generateButtons();
     this.#navigatorElement.classList.add('navigator-container');
 

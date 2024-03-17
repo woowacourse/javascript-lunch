@@ -1,6 +1,7 @@
 import { ICategory, IRestaurantInfo } from '../domain/Restaurant';
 import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
 import restaurantStore from '../store/RestaurantStore';
+import { NAV_FAVORITE, NAV_TOTAL } from './Navigator/Navigator';
 import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
@@ -38,14 +39,12 @@ class RestaurantList {
 
   #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
     this.#restaurantUlElement.innerHTML = '';
-    if (this.#navState === 'favorite') {
+    if (this.#navState === NAV_FAVORITE) {
       restaurants.forEach((restaurant: IRestaurantInfo) => {
         if (restaurant.isFavorite) {
           const restaurantCard = new RestaurantCard({
             restaurant,
             onClick: () => {
-              // main?.removeChild(this.#restaurantUlElement);
-              // this.#restaurantUlElement.innerHTML = '';
               this.renderRestaurantList();
             },
           });
@@ -54,7 +53,7 @@ class RestaurantList {
       });
     }
 
-    if (this.#navState === 'total') {
+    if (this.#navState === NAV_TOTAL) {
       restaurants.forEach((restaurant: IRestaurantInfo) => {
         const restaurantCard = new RestaurantCard({
           restaurant,
