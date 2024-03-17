@@ -36,6 +36,14 @@ class StatusController {
     return preview.querySelector(".restaurant__name")?.textContent as string;
   }
 
+  static getTogglerInPreview(preview: HTMLElement) {
+    const originalToggler = preview.querySelector(
+      ".favorite-button"
+    ) as HTMLButtonElement;
+
+    return originalToggler;
+  }
+
   static #getNumberInSentence(string: string): Number {
     const regex = /[^0-9]/g;
     const result = string.replace(regex, "");

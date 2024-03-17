@@ -5,33 +5,29 @@ import LINED_ICON from "./Icons/favorite-icon-lined.png";
 import createElementByTag from "../../utils/createElementByTag";
 
 class FavoriteToggler {
-  element = this.#createElement();
+  element = this.#createElement() as HTMLButtonElement;
 
   #onImage = this.#createOnImage();
 
   #offImage = this.#createOffImage();
 
+  #toggleAction;
+
   #isOn: boolean;
-
-  get isOn() {
-    return this.#isOn;
-  }
-
-  set isOn(boolean: boolean) {
-    this.#isOn = boolean;
-    if (this.#isOn) this.on();
-    else this.off();
-  }
 
   constructor({
     isOn = false,
+    toggleAction: toggleAction = () => {},
     eventListenerArgs = [],
   }: {
     isOn: boolean;
+    toggleAction?: () => any;
     eventListenerArgs?: EventListenerArg[];
   }) {
     this.#isOn = isOn;
-    this.isOn = this.#isOn;
+    if (this.#isOn) this.on();
+    else this.off();
+    this.#toggleAction = toggleAction;
 
     eventListenerArgs.forEach((args) => {
       this.element.addEventListener(...args);
@@ -47,9 +43,14 @@ class FavoriteToggler {
   }
 
   toggle() {
-    if (this.element.children[0] === this.#offImage) this.on();
-    else this.off();
-    this.isOn = !this.isOn;
+    if (this.#isOn) this.off();
+    else this.on();
+    this.#isOn = !this.#isOn;
+    this.#toggleAction();
+  }
+
+  isOn() {
+    return this.#isOn;
   }
 
   #createElement() {

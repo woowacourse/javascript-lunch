@@ -52,23 +52,18 @@ class RenderController {
       isOn: RestaurantListController.hasRestaurantInFavoriteRestaurant(
         restaurant.name
       ),
-      eventListenerArgs: [
-        [
-          "click",
-          (event) => {
-            const restaurantPreview = findAncestorHasClass(
-              event.currentTarget as HTMLElement,
-              "restaurant"
-            ) as HTMLElement;
+      toggleAction: function () {
+        const restaurantPreview = findAncestorHasClass(
+          favoriteToggler.element,
+          "restaurant"
+        ) as HTMLElement;
 
-            const name = StatusController.getRestaurantName(restaurantPreview);
+        const name = StatusController.getRestaurantName(restaurantPreview);
 
-            if (favoriteToggler.isOn)
-              RestaurantListController.addInFavoriteRestaurantList(name);
-            else RestaurantListController.deleteInFavoriteRestaurantList(name);
-          },
-        ],
-      ],
+        if (favoriteToggler.isOn())
+          RestaurantListController.addInFavoriteRestaurantList(name);
+        else RestaurantListController.deleteInFavoriteRestaurantList(name);
+      },
     });
     restaurantPreview.element.append(favoriteToggler.element);
     return restaurantPreview;

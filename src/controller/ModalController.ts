@@ -1,12 +1,12 @@
 import AddRestaurantForm from "../view/components/AddRestaurantForm/AddRestaurantForm";
 import FORM_ITEM_TEXTS from "../constants/formItemTexts";
+import FavoriteToggler from "../view/components/FavoriteToggler/FavoriteToggler";
 import Modal from "../view/components/Modal/Modal";
 import RenderController from "./RenderController";
 import RestaurantDetail from "../view/components/RestaurantInfo/RestaurantDetail/RestaurantDetail";
 import RestaurantListController from "./RestaurantListController";
 import SubmitButton from "../view/components/SubmitButton/SubmitButton";
 import createElementByTag from "../view/utils/createElementByTag";
-import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class ModalController {
   static #addRestaurantTitle = createElementByTag({
@@ -39,6 +39,13 @@ class ModalController {
 
   static setRestaurantDetail(restaurant: Restaurant) {
     this.#restaurantDetail.setDetail(restaurant);
+  }
+
+  static setRestaurantDetailToggler(element: HTMLButtonElement) {
+    const leftToggler =
+      this.#restaurantDetail.element.querySelector(".favorite-button");
+    leftToggler?.remove();
+    this.#restaurantDetail.element.append(element);
   }
 
   static openModal() {
@@ -95,7 +102,7 @@ class ModalController {
       eventListenerArgs: [
         [
           "click",
-          (event) => {
+          () => {
             ModalController.closeModal();
             const nowRestaurantNameEl = document.querySelector(
               "#restaurant-detail--name"
