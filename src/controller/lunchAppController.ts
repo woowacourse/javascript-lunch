@@ -1,7 +1,6 @@
-import { Header } from '../components/Header';
+import Header from '../components/Header';
 import SortFilter from '../components/SortFilter';
 import CategoryFilter from '../components/CategoryFilter';
-import { CATEGORY, SORTING } from '../constants';
 import RestaurantList from '../domain/restaurantList';
 import TabBar from '../components/TabBar';
 import AddModal from '../components/AddModal';

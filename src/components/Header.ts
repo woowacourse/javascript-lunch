@@ -1,6 +1,6 @@
 import AddButton from './AddButton';
 
-export function Header() {
+const Header = () => {
   const buttonComponent = AddButton().create();
 
   const header = document.createElement('header');
@@ -18,4 +18,6 @@ export function Header() {
   return {
     create
   };
-}
+};
+
+export default Header;
