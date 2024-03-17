@@ -3,7 +3,7 @@ import { STORAGE_KEY, MESSAGE } from './../../src/constants';
 describe('template spec', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/');
-    cy.get('add-store-btn').click({ force: true });
+    cy.get('add-store-btn').click();
   });
 
   describe('음식점 폼 입력 시 추가하기 버튼 활성화', () => {

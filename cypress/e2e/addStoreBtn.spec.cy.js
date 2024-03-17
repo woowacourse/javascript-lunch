@@ -11,8 +11,7 @@ describe('template spec', () => {
   });
 
   it('음식점 버튼을 클릭하면, 입력 폼 모달이 화면에 나타난다.', () => {
-    cy.get('add-store-btn').click({ force: true });
-
+    cy.get('add-store-btn').click();
     cy.get('restaurant-form-inner').should('be.visible');
   });
 });
