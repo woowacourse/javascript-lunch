@@ -1,11 +1,12 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 
-export type ICategory = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
+export type ICategory = '전체' | '한식' | '중식' | '일식' | '아시안' | '양식' | '기타';
 type IDistanceFromCampus = 5 | 10 | 15 | 20 | 30;
 
 export const DISTANCE_FROM_CAMPUS: readonly IDistanceFromCampus[] = Object.freeze([5, 10, 15, 20, 30]);
 
 export const RESTAURANT_CATEGORY: readonly ICategory[] = Object.freeze([
+  '전체',
   '한식',
   '중식',
   '일식',

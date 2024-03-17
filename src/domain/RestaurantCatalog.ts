@@ -2,9 +2,10 @@ import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessa
 import Restaurant, { IRestaurantInfo, ICategory } from './Restaurant';
 
 export const CATEGORY_ALL = '전체';
-export type ICatalogCategory = ICategory | typeof CATEGORY_ALL;
 
-export const SORT_CONDITION: readonly ('이름순' | '거리순')[] = Object.freeze(['이름순', '거리순']);
+export type TSortCondition = '이름순' | '거리순';
+
+export const SORT_CONDITION: readonly TSortCondition[] = Object.freeze(['이름순', '거리순']);
 
 class RestaurantCatalog {
   #restaurants: Restaurant[] = [];
@@ -41,7 +42,7 @@ class RestaurantCatalog {
     });
   }
 
-  static filterByCategory(restaurants: IRestaurantInfo[], category: ICatalogCategory) {
+  static filterByCategory(restaurants: IRestaurantInfo[], category: ICategory) {
     if (category === CATEGORY_ALL) {
       return restaurants;
     }
