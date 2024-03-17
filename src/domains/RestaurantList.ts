@@ -25,7 +25,7 @@ class RestaurantList {
       this.#list = [info];
     }
 
-    this.#saveListToLocalStore();
+    this.saveListToLocalStore();
   }
 
   filterRestaurantsByCategory(
@@ -62,19 +62,19 @@ class RestaurantList {
       favorite: !targetStore.favorite,
     });
 
-    this.#saveListToLocalStore();
+    this.saveListToLocalStore();
   }
 
   deleteStore(storeName: string) {
     const storeIndex = this.#list.findIndex((info) => info.name === storeName);
 
     this.#list.splice(storeIndex, 1);
-    this.#saveListToLocalStore();
+    this.saveListToLocalStore();
   }
 
   // 어디서 RestaurantList를 불러와도 서버(=localStorage)와 데이터를 동기화
   // 1, 서버에 저장
-  #saveListToLocalStore() {
+  saveListToLocalStore() {
     localStorage.setItem(STORAGE_KEY.restaurants, JSON.stringify(this.#list));
   }
 

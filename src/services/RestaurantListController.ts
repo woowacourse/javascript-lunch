@@ -10,10 +10,7 @@ const RestaurantListController = {
     const data = localStorage.getItem(STORAGE_KEY.restaurants);
 
     if (!data) {
-      localStorage.setItem(
-        STORAGE_KEY.restaurants,
-        JSON.stringify(new RestaurantList().list),
-      );
+      new RestaurantList().saveListToLocalStore();
     }
   },
   /**
