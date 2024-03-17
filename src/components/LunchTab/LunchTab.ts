@@ -39,18 +39,16 @@ class LunchTab extends HTMLElement {
       if (this.nowSelected !== event.detail.name) {
         this.handleNowSelected(event);
         this.handleChangeTabDesign();
-        this.handleRenderItems();
         this.handleResetFilter();
+        this.handleRenderItems();
       }
     });
   }
 
-  tabReset() {
+  handleResetTab() {
     if (this.nowSelected !== 'all-restaurants') {
       this.nowSelected = 'all-restaurants';
       this.handleChangeTabDesign();
-      this.handleRenderItems();
-      this.handleResetFilter();
     }
   }
 

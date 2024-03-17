@@ -78,9 +78,9 @@ class LunchApp extends HTMLElement {
     const filter = this.querySelector('lunch-item-filter') as LunchItemFilter;
     const dropdowns = filter.querySelectorAll('select');
     if (tab === 'favorite-restaurants') {
-      items.renderItems({ database: 'liked' });
+      items.render({ database: 'liked' });
     } else {
-      items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
+      items.render({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
     }
   }
 
@@ -133,7 +133,9 @@ class LunchApp extends HTMLElement {
   handleResetFavoriteTab() {
     const tab = this.querySelector('lunch-tab');
     if (!(tab instanceof LunchTab)) return;
-    tab.tabReset();
+    tab.handleResetTab();
+    this.handleResetFilterDropdowns();
+    this.handleRender();
   }
 }
 

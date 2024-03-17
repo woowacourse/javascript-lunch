@@ -1,0 +1,24 @@
+.lunch-fallback-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.lunch-fallback-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  width: 100%;
+  height: 100%;
+  gap: 2rem;
+
+  padding: 0 4rem;
+}
+
+.fallback__text{
+  color: var(--grey-200)
+}
