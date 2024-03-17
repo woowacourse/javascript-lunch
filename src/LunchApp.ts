@@ -15,7 +15,7 @@ import LunchItems from './components/LunchItems/LunchItems';
 
 import DUMMY from './constants/dummy';
 import LunchItemModal from './components/LunchItemModal/LunchItemModal';
-import LunchRegisterModal from './components/LunchRegisterModal/LunchRegisterModal';
+import LunchModal from './components/LunchModal/LunchModal';
 
 const LUNCH_APP = `
   <lunch-header></lunch-header>
@@ -91,10 +91,8 @@ class LunchApp extends HTMLElement {
 
   handleToggleRegisterModal() {
     const modal = this.querySelector('lunch-register-modal')?.querySelector('.modal');
-    if (!(modal instanceof LunchRegisterModal)) return;
-    if (modal?.className) {
-      modal.classList.toggle('modal--open');
-    }
+    if (!(modal instanceof LunchModal)) return;
+    modal.handleToggleModal();
   }
 
   setToggleItemDetailModalEventListener() {
@@ -105,12 +103,22 @@ class LunchApp extends HTMLElement {
   }
 
   handleToggleItemDetailModal(event: CustomEvent) {
-    const modal = this.querySelector('lunch-item-modal')?.querySelector('.modal');
-    if (!(modal instanceof LunchItemModal)) return;
-    modal.setRestaurant(event.detail.info);
-    if (modal.className) {
-      modal.classList.toggle('modal--open');
-    }
+    const lunchItemModal = this.querySelector('lunch-item-modal');
+    if (!(lunchItemModal instanceof LunchItemModal)) return;
+    lunchItemModal.setRestaurant(event.detail.info);
+    const modal = lunchItemModal.querySelector('.modal');
+    if (!(modal instanceof LunchModal)) return;
+    modal.handleToggleModal();
+  }
+
+  setResetFilterDropdownsEventListener() {
+    this.addEventListener('resetFilterDropdowns', () => {
+      this.handleResetFilterDropdowns();
+    });
+  }
+
+  handleResetFilterDropdowns() {
+    // const filter = this.querySelector('lunch-item-filter');
   }
 }
 

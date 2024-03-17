@@ -21,11 +21,11 @@ class LunchModal extends HTMLDivElement {
   setEventListener() {
     const backdrop = this.querySelector('.modal-backdrop');
     backdrop?.addEventListener('click', () => {
-      this.handleModalOpen();
+      this.handleToggleModal();
     });
   }
 
-  handleModalOpen() {
+  handleToggleModal() {
     this.classList.toggle('modal--open');
   }
 }
