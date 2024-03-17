@@ -27,7 +27,6 @@ class Modal extends HTMLElement {
   setEvent() {
     this.appendForm();
     this.closeModal();
-    //this.appendRestaurantDetailInfo();
     this.closeRestaurantDetailInfo();
   }
 
@@ -42,17 +41,6 @@ class Modal extends HTMLElement {
     $('.modal--close')?.addEventListener('click', () => {
       $('.modal')?.classList.remove('modal--open');
     });
-  }
-
-  appendRestaurantDetailInfo() {
-    const info: Restaurant = {
-      name: '쑤쑤당',
-      category: '기타',
-      distance: 5,
-      introduction: '현수연입니다.',
-      link: 'www.naver.com',
-    };
-    $('.detailed-info-container')?.appendChild(new RestaurantDetail(info));
   }
 
   closeRestaurantDetailInfo() {

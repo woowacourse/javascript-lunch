@@ -28,16 +28,11 @@ import Matzip from '../matzip';
 
 const { $, $$ } = DOM;
 
-type favoriteType = boolean;
-
 class Restaurant extends HTMLUListElement {
-  #isFavorite;
-
-  constructor(restaurant: RestaurantType, isFavorite: favoriteType) {
+  constructor(restaurant: RestaurantType) {
     super();
-    this.#isFavorite = isFavorite;
 
-    const { category, name, distance, introduction, link } = restaurant;
+    const { category, name, distance, introduction, link, favorite } = restaurant;
     this.classList.add('restaurant-box');
     this.innerHTML = /* html */ `
     <li id="${category}_${name}" class="restaurant">
@@ -50,7 +45,7 @@ class Restaurant extends HTMLUListElement {
         <p class="restaurant__description text-body">${introduction}</p>
         <div class="restaurant__link" style="display:none">${link}</div>
         <div class="restaurant__favorite_img">
-          <img src="${isFavorite ? FavoriteIconFilled : FavoriteIconLined}">
+          <img src="${favorite ? FavoriteIconFilled : FavoriteIconLined}">
         </div>
       </div>
     </li>
@@ -66,7 +61,6 @@ class Restaurant extends HTMLUListElement {
 
   openRestaurantDetail(restaurant: RestaurantType) {
     $('.restaurant', this)?.addEventListener('click', (event) => {
-      console.log('hi');
       $('.detail-info-container')?.classList.remove('detail-info-container--close');
 
       $('.detail-info-container')?.appendChild(new RestaurantDetail(restaurant));
@@ -77,23 +71,15 @@ class Restaurant extends HTMLUListElement {
   toggleFavoriteIcon(restaurant: RestaurantType) {
     const favoriteImg = $('.restaurant__favorite_img img', this);
     favoriteImg?.addEventListener('click', (e) => {
-      favoriteImg.setAttribute('src', this.#isFavorite ? FavoriteIconLined : FavoriteIconFilled);
-      this.#isFavorite = !this.#isFavorite;
+      favoriteImg.setAttribute('src', restaurant.favorite ? FavoriteIconLined : FavoriteIconFilled);
+      restaurant.favorite = !restaurant.favorite;
 
-      //const storageDate = storage.getData('favoriteMatzipData');
-      //const storageIndex = storageDate.findIndex((data) => data.name === restaurant.name);
-
-      if (this.#isFavorite) {
+      if (restaurant.favorite) {
         const matzip = new Matzip([restaurant]);
-        //storage.addData('favoriteMatzipData', restaurant);
         $('matzip-favorite-container .restaurant-list-container')?.appendChild(
-          new Restaurant(restaurant, true),
+          new Restaurant(restaurant),
         );
       } else {
-        // storage.removeData('favoriteMatzipData');
-        // storageDate.forEach((data, index) => {
-        //   if (index !== storageIndex) storage.addData('favoriteMatzipData', data);
-        // });
         $(`matzip-favorite-container #${restaurant.category}_${restaurant.name}`)?.remove();
       }
     });

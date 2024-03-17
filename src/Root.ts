@@ -28,7 +28,7 @@ const root = {
       const sortBy = initSort.options[initSort.selectedIndex].value;
 
       matzip.filterAndSort('전체', sortBy as SortType).forEach((restaurant) => {
-        $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant, false));
+        $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant));
       });
     });
   },
@@ -45,7 +45,7 @@ const root = {
         selectedSort as SortType,
       );
       restaurants.forEach((restaurant) => {
-        $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant, false));
+        $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant));
       });
     });
   },
@@ -70,7 +70,7 @@ const root = {
         matzip.add(newRestaurant);
         storage.addData(MATZIP_DATA, newRestaurant);
         $('.modal')?.classList.remove('modal--open');
-        $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant, false));
+        $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
       } catch (error) {
         alert(error);
       }

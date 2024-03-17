@@ -9,14 +9,14 @@ class RestaurantDetail extends HTMLElement {
   constructor(restaurant: Restaurant) {
     super();
 
-    const { category, name, distance, introduction, link } = restaurant;
+    const { category, name, distance, introduction, link, favorite } = restaurant;
     this.innerHTML = /* html */ `
     <div class="detail-info-column">
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE[category]}" alt="${category}" class="category-icon">
       </div>
       <div class="restaurant__favorite_img">
-        <img src="${FavoriteIconFilled}">
+        <img src="${favorite ? FavoriteIconFilled : FavoriteIconLined}">
       </div>
     </div>
     <div class="detail-info-column">
