@@ -4,7 +4,6 @@ import { Restaurant } from '../interface/Restaurant';
 export interface RestaurantManager {
   addRestaurant(newRestaurant: Restaurant): void;
   addFavoriteRestaurant(favoriteRestaurant: Restaurant): void;
-  getRestaurants(): Restaurant[];
   sortByAscendingName(): Restaurant[];
   sortByAscendingWalkingTime(): Restaurant[];
   filteredRestaurants(): Restaurant[];

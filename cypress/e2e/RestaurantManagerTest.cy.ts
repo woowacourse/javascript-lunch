@@ -71,7 +71,9 @@ describe('음식점 목록 테스트', () => {
     restaurantManager.addRestaurant(newRestaurant);
 
     // then
-    expect(restaurantManager.getRestaurants()).to.eql([newRestaurant]);
+    expect(restaurantManager.getUpdatedTotalRestaurants()).to.eql([
+      newRestaurant,
+    ]);
   });
 
   const totalRestaurants: Restaurant[] = filterTests.output;
