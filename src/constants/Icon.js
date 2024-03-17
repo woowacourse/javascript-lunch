@@ -5,7 +5,7 @@ height="26"
 viewBox="0 0 28 26"
 fill="none"
 xmlns="http://www.w3.org/2000/svg"
-class="favorite-toggle star"
+class="favorite-toggle"
 >
 <path
 d="M14 21.0267L22.24 26L20.0534 16.6267L27.3334 10.32L17.7467 9.50666L14 0.666656L10.2534 9.50666L0.666687 10.32L7.94669 16.6267L5.76002 26L14 21.0267Z"
@@ -15,7 +15,7 @@ fill="#EC4A0A"
 
 export const EMPTY_FAVORITE_TOGGLE = `<svg
 
-class="favorite-toggle star"
+class="favorite-toggle"
 width="32"
 height="32"
 viewBox="0 0 32 32"
