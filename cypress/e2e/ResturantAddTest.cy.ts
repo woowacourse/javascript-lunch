@@ -14,7 +14,8 @@ const VALID_TEST_DATA = [
     category: "아시안",
     distance: 10,
     isFavorite: false,
-    description: "브리튀시 숏헤어 김시루가 운영하는 식당. 까칠한 고양이 사장님이지만, 맛은 보장된다. 🐈‍⬛",
+    description:
+      "브리튀시 숏헤어 김시루가 운영하는 식당. 까칠한 고양이 사장님이지만, 맛은 보장된다. 🐈‍⬛",
     link: "",
   },
   {
@@ -22,7 +23,8 @@ const VALID_TEST_DATA = [
     category: "일식",
     distance: 15,
     isFavorite: false,
-    description: "우아한테크코스 6기 FE 해리가 운영하는 식당. 선릉 캠퍼스와 매우 까우며, 맛집으로 유명하다.",
+    description:
+      "우아한테크코스 6기 FE 해리가 운영하는 식당. 선릉 캠퍼스와 매우 까우며, 맛집으로 유명하다.",
     link: "https://github.com/hwinkr",
   },
   {
@@ -30,7 +32,8 @@ const VALID_TEST_DATA = [
     category: "중식",
     distance: 20,
     isFavorite: false,
-    description: "우아한테크코스 웹 프론트엔드 리뷰어 하루가 운영하는 식당. 사장님의 리뷰가 정말 좋은 것으로 유명하다. 😊",
+    description:
+      "우아한테크코스 웹 프론트엔드 리뷰어 하루가 운영하는 식당. 사장님의 리뷰가 정말 좋은 것으로 유명하다. 😊",
     link: "",
   },
   {
@@ -103,26 +106,28 @@ describe("새로운 음식점 추가 테스트", () => {
   });
 
   it("식당 입력값이 유효할 경우, 음식점 목록의 가장 마지막에 추가된다.", () => {
-    VALID_TEST_DATA.forEach(({ name, category, distance, description, link }) => {
-      cy.get(".gnb__button").click();
+    VALID_TEST_DATA.forEach(
+      ({ name, category, distance, description, link }) => {
+        cy.get(".gnb__button").click();
 
-      cy.get("select#category-select").select(category);
-      cy.get("input#name").type(name);
-      cy.get("select#distance-select").select(String(distance));
-      description && cy.get("textarea#description").type(description);
-      link && cy.get("input#link").type(link);
+        cy.get("select#category-select").select(category);
+        cy.get("input#name-input").type(name);
+        cy.get("select#distance-select").select(String(distance));
+        description && cy.get("textarea#description").type(description);
+        link && cy.get("input#link-input").type(link);
 
-      cy.get("#restaurant-add-form").submit();
+        cy.get("#restaurant-add-form").submit();
 
-      cy.get(".restaurant-list-container")
-        .children()
-        .last()
-        .should("have.attr", "name", name)
-        .and("have.attr", "category", category)
-        .and("have.attr", "distance", distance)
-        .and("have.attr", "description", description)
-        .and("have.attr", "is-favorite", "false");
-    });
+        cy.get(".restaurant-list-container")
+          .children()
+          .last()
+          .should("have.attr", "name", name)
+          .and("have.attr", "category", category)
+          .and("have.attr", "distance", distance)
+          .and("have.attr", "description", description)
+          .and("have.attr", "is-favorite", "false");
+      }
+    );
   });
 
   it("새로고침을 해도 새로 추가한 음식점 정보가 유지된다.", () => {
@@ -132,16 +137,18 @@ describe("새로운 음식점 추가 테스트", () => {
     cy.get(".gnb__button").click();
 
     cy.get("select#category-select").select(category);
-    cy.get("input#name").type(name);
+    cy.get("input#name-input").type(name);
     cy.get("select#distance-select").select(String(distance));
     description && cy.get("textarea#description").type(description);
-    link && cy.get("input#link").type(link);
+    link && cy.get("input#link-input").type(link);
 
     cy.get("#restaurant-add-form").submit();
 
     cy.reload();
 
-    cy.get(".restaurant-list-container").children().should("have.length", EXPECTED_RESTAURANT_LENGTH);
+    cy.get(".restaurant-list-container")
+      .children()
+      .should("have.length", EXPECTED_RESTAURANT_LENGTH);
 
     cy.get(".restaurant-list-container")
       .children()
@@ -160,10 +167,10 @@ describe("새로운 음식점 추가 테스트", () => {
       cy.get(".gnb__button").click();
 
       category && cy.get("select#category-select").select(category);
-      name && cy.get("input#name").type(name);
+      name && cy.get("input#name-input").type(name);
       distance && cy.get("select#distance-select").select(String(distance));
       description && cy.get("textarea#description").type(description);
-      link && cy.get("input#link").type(link);
+      link && cy.get("input#link-input").type(link);
 
       const alertStub = cy.stub();
       cy.on("window:alert", alertStub);
