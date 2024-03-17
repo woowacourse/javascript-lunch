@@ -8,7 +8,7 @@ import "./components/Restaurants/RestaurantTabContainer";
 import "./components/RestaurantAddForm/index";
 import "./components/RestaurantAddForm/RestaurantNameInput";
 import "./components/RestaurantAddForm/RestaurantOption";
-import "./components/OptionSelector/OPtionSelectorContainer";
+import "./components/OptionSelector/OptionSelectorContainer";
 import "./components/OptionSelector/index";
 import "./components/FavoriteIcon/index";
 import "./components/CategoryImage/index";
