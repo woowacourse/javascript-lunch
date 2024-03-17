@@ -210,15 +210,7 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
-  display: none;
-}
-
-.modal--open {
-  display: block;
-}
-
-.modal--close {
+.restaurant-form-modal {
   display: none;
 }
 
@@ -343,6 +335,10 @@ input[name='link'] {
 }
 
 /* 음식점 상세 정보 모달 *****************************************/
+.detail-info-modal {
+  display: none;
+}
+
 .detail-info-container {
   /* display: none; */
 
@@ -391,4 +387,8 @@ detail-info-container {
 .restaurant__detail__description {
   height: 400px;
   overflow: overlay;
+}
+
+.modal--open {
+  display: block;
 }

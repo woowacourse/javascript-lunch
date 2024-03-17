@@ -15,6 +15,7 @@ const FAVORITE_MATZIP_DATA = 'favoriteMatzipData';
 
 const root = {
   init() {
+    //storage.setMockData();
     const matzip = new Matzip(storage.getData(MATZIP_DATA));
     this.initList(matzip);
     this.listenCategoryChange(matzip);
@@ -77,7 +78,7 @@ const root = {
       try {
         matzip.add(newRestaurant);
         storage.addData(MATZIP_DATA, newRestaurant);
-        $('.modal')?.classList.remove('modal--open');
+        $('.restaurant-form-modal')?.classList.remove('modal--open');
         $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
       } catch (error) {
         alert(error);

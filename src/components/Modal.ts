@@ -9,17 +9,17 @@ class Modal extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = /*html*/ `
-    <div class="modal">
-      <div class="modal-backdrop"></div>
+    <div class="restaurant-form-modal">
+    <div class="modal-backdrop"></div>
       <div class="modal-container">
-        <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form id="restaurant-form"></form>
-      </div>
-      </div>
-      <div class="detail-modal">
-        <div class="detail-modal-backdrop modal--close"></div>
-        <div class="detail-info-container modal--close"></div>
-      </div>
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+      <form id="restaurant-form"></form>
+    </div>
+    </div>
+    <div class="detail-info-modal">
+      <div class="modal-backdrop"></div>
+      <div class="detail-info-container"></div>
+    </div>
     `;
     this.setEvent();
   }
@@ -27,7 +27,6 @@ class Modal extends HTMLElement {
   setEvent() {
     this.appendForm();
     this.closeModal();
-    this.closeRestaurantDetailInfo();
   }
 
   appendForm() {
@@ -36,18 +35,10 @@ class Modal extends HTMLElement {
 
   closeModal() {
     $('.modal-backdrop')?.addEventListener('click', () => {
-      $('.modal')?.classList.remove('modal--open');
+      $('.restaurant-form-modal')?.classList.remove('modal--open');
     });
     $('.modal--close')?.addEventListener('click', () => {
-      $('.modal')?.classList.remove('modal--open');
-    });
-  }
-
-  closeRestaurantDetailInfo() {
-    $('.detail-modal-backdrop', this)?.addEventListener('click', () => {
-      $('detail-info-container')?.remove();
-      $('.detail-info-container')?.classList.add('modal--close');
-      $('.detail-modal-backdrop', this)?.classList.add('modal--close');
+      $('.restaurant-form-modal')?.classList.remove('modal--open');
     });
   }
 }

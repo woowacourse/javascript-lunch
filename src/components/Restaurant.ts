@@ -66,11 +66,8 @@ class Restaurant extends HTMLUListElement {
 
   openRestaurantDetail(restaurant: RestaurantType) {
     $('.restaurant', this)?.addEventListener('click', (event) => {
-      event.preventDefault();
-      $('.detail-info-container')?.classList.remove('modal--close');
-
+      $('.detail-info-modal')?.classList.add('modal--open');
       $('.detail-info-container')?.appendChild(new RestaurantDetail(restaurant));
-      $('.detail-modal-backdrop')?.classList.remove('modal--close');
     });
   }
 

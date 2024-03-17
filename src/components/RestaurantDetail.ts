@@ -28,12 +28,14 @@ class RestaurantDetail extends HTMLElement {
     <div class="detail-info-column">
         <h2 class="restaurant__name text-title">${name}</h2>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-        <p class="restaurant__description text-body restaurant__detail__description">${introduction}</p>
+        <p class="restaurant__description text-body restaurant__detail__description">${introduction
+          ?.split('\n')
+          .join('<br />')}</p>
         <span class="detailed-info-link">${link}</span>
     </div>
     <div class="button-container">
         <button type="button" class="button button--secondary text-caption delete-btn">삭제하기</button>
-        <button type="button" class="button button--primary text-caption close-btn">닫기</button>
+        <button type="button" class="button button--primary text-caption modal--close">닫기</button>
     </div>
     `;
 
@@ -43,7 +45,7 @@ class RestaurantDetail extends HTMLElement {
   setEvent(restaurant: Restaurant) {
     this.openRestaurantDetail();
     this.clickDeleteButton(restaurant);
-    this.clickCloseButton();
+    this.closeModal();
   }
 
   openRestaurantDetail() {}
@@ -58,16 +60,20 @@ class RestaurantDetail extends HTMLElement {
       document.dispatchEvent(deleteRestaurantInfo);
 
       $('detail-info-container')?.remove();
-      $('.detail-modal-backdrop')?.classList.add('modal--close');
+      $('.detail-info-modal')?.classList.remove('modal--open');
 
       $(`#${restaurant.category}_${restaurant.name}`)?.remove();
     });
   }
 
-  clickCloseButton() {
-    $('.close-btn', this)?.addEventListener('click', (event) => {
+  closeModal() {
+    $('.detail-info-modal .modal-backdrop')?.addEventListener('click', () => {
+      $('.detail-info-modal')?.classList.remove('modal--open');
       $('detail-info-container')?.remove();
-      $('.detail-modal-backdrop')?.classList.add('modal--close');
+    });
+    $('.modal--close', this)?.addEventListener('click', () => {
+      $('.detail-info-modal')?.classList.remove('modal--open');
+      $('detail-info-container')?.remove();
     });
   }
 }
