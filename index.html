@@ -13,7 +13,7 @@
     <template id="template-header">
       <header class="gnb">
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-        <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <button type="button" class="gnb__button" aria-label="음식점 추가" data-cy="add-button">
           <img src="./add-button.png" alt="음식점 추가" />
         </button>
       </header>
@@ -56,32 +56,32 @@
     <template id="template-restaurant-form">
       <div class="input-container">
         <!-- 카테고리 -->
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required" data-cy="category">
           <label for="category" class="text-caption">카테고리</label>
           <select is="app-select" name="category" id="category" type="categories" required></select>
         </div>
 
         <!-- 음식점 이름 -->
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required" data-cy="name">
           <label for="name" class="text-caption">이름</label>
           <input type="text" name="name" id="name" required />
         </div>
 
         <!-- 거리 -->
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required" data-cy="distances">
           <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
           <select is="app-select" name="distance" id="distance" type="distances" required></select>
         </div>
 
         <!-- 설명 -->
-        <div class="form-item">
+        <div class="form-item" data-cy="description">
           <label for="description" class="text-caption">설명</label>
-          <textarea name="description" id="description" cols="30" rows="5"></textarea>
+          <textarea name="description" id="description" cols="30" rows="5" maxlength="300"></textarea>
           <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
         </div>
 
         <!-- 링크 -->
-        <div class="form-item">
+        <div class="form-item" data-cy="link">
           <label for="link" class="text-caption">참고 링크</label>
           <input type="text" name="link" id="link" />
           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
@@ -90,8 +90,8 @@
 
       <!-- 취소/추가 버튼 -->
       <div class="button-container">
-        <button type="reset" class="button button--secondary text-caption">취소하기</button>
-        <button type="submit" class="button button--primary text-caption">추가하기</button>
+        <button data-cy="reset" type="reset" class="button button--secondary text-caption">취소하기</button>
+        <button data-cy="submit" type="submit" class="button button--primary text-caption">추가하기</button>
       </div>
     </template>
 
@@ -121,7 +121,7 @@
     <!-- Modal -->
     <template id="template-modal">
       <div class="modal-backdrop"></div>
-      <div class="modal-container"></div>
+      <div class="modal-container" data-cy="modal-container"></div>
     </template>
 
     <!-- App -->
@@ -136,7 +136,7 @@
 
     <!-- 음식점 목록 -->
     <section class="restaurant-list-container">
-      <ul is="app-restaurant-list" id="restaurant-list" data-restaurants=""></ul>
+      <ul data-cy="restaurant-list" is="app-restaurant-list" id="restaurant-list" data-restaurants=""></ul>
     </section>
 
     <!-- 모달 -->

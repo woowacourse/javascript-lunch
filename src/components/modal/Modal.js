@@ -21,11 +21,11 @@ export default class Modal extends HTMLElement {
   }
 
   connectedCallback() {
-    this.addEventListener(RESTAURANT_FORM_EVENTS.submit, this.#handleCloseModal.bind(this));
-    this.addEventListener(RESTAURANT_FORM_EVENTS.reset, this.#handleCloseModal.bind(this));
-    this.addEventListener(RESTAURANT_DETAIL_EVENTS.deleteItem, this.#handleCloseModal.bind(this));
-    this.addEventListener(RESTAURANT_DETAIL_EVENTS.closeModal, this.#handleCloseModal.bind(this));
-    this.#backdrop.addEventListener('click', this.#handleCloseModal.bind(this));
+    this.addEventListener(RESTAURANT_FORM_EVENTS.submit, this.#closeModal.bind(this));
+    this.addEventListener(RESTAURANT_FORM_EVENTS.reset, this.#closeModal.bind(this));
+    this.addEventListener(RESTAURANT_DETAIL_EVENTS.deleteItem, this.#closeModal.bind(this));
+    this.addEventListener(RESTAURANT_DETAIL_EVENTS.closeModal, this.#closeModal.bind(this));
+    this.#backdrop.addEventListener('click', this.#closeModal.bind(this));
   }
 
   openModal({ title, body }) {
@@ -36,7 +36,8 @@ export default class Modal extends HTMLElement {
     this.classList.add('modal--open');
   }
 
-  #handleCloseModal() {
+  #closeModal() {
+    this.#container.innerHTML = '';
     this.classList.remove('modal--open');
   }
 }

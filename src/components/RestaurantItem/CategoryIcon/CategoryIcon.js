@@ -19,7 +19,7 @@ export default class CategoryIcon extends HTMLImageElement {
   }
 
   #render() {
-    this.src = this.#getCategoryIconUrl(this.#category);
+    this.src = this.#getCategoryIconUrl();
     this.alt = this.#category;
   }
 
