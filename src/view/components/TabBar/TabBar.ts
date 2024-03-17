@@ -22,7 +22,7 @@ class TabBar {
       );
       return item;
     });
-    this.#items[0].on();
+    this.#items[0].element.click();
 
     this.element = createElementByTag({
       tag: "section",
