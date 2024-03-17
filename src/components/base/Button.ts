@@ -13,7 +13,7 @@ class Button {
     this.#onClick = onClick;
     this.#buttonElement.setAttribute('type', 'button');
     this.#buttonElement.classList.add('button', 'text-caption');
-    this.#buttonElement.innerText = content;
+    this.#buttonElement.innerHTML = content;
 
     if (addClassList) {
       this.#addClasses(addClassList);

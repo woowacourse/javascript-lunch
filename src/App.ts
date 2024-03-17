@@ -17,7 +17,7 @@ class App {
   }
 
   run() {
-    const navigator = new Navigator();
+    const navigator = new Navigator(this.#restaurantListComponent);
     const navigatorSection = document.getElementById('navigator-section');
     navigatorSection?.appendChild(navigator.element);
 
@@ -85,6 +85,7 @@ class App {
       distanceFromCampus: Number(distance.value),
       description: description.value,
       link: link.value,
+      isFavorite: false,
     } as IRestaurantInfo;
   }
 

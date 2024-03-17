@@ -15,6 +15,16 @@ body {
   font-size: 16px;
 }
 
+button {
+  cursor: pointer;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  background: inherit;
+  padding: 0;
+  overflow: visible;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -122,16 +132,24 @@ body {
 
 .restaurant-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
+
   border-bottom: 1px solid #e9eaed;
 }
 
 .restaurant {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
 
   padding: 16px 8px;
+}
+
+.restaurant__info__container {
+  display: flex;
+  align-items: flex-start;
 }
 
 .restaurant__category {
@@ -299,4 +317,13 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.favorite-container {
+  padding-top: 5px;
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
 }

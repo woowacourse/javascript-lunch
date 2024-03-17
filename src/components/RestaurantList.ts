@@ -1,5 +1,6 @@
 import { IRestaurantInfo } from '../domain/Restaurant';
 import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory, CATEGORY_ALL } from '../domain/RestaurantCatalog';
+import { NAV_FAVORITE, NAV_TOTAL } from './Navigator/Navigator';
 import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
@@ -11,6 +12,8 @@ class RestaurantList extends HTMLUListElement {
 
   #sortCondition: string;
 
+  #navState: string = NAV_TOTAL;
+
   constructor() {
     super();
     this.classList.add('restaurant-list');
@@ -20,6 +23,11 @@ class RestaurantList extends HTMLUListElement {
 
   renderRestaurantList(restaurants: IRestaurantInfo[]) {
     this.#restaurants = restaurants;
+    this.#makeRestaurantList();
+  }
+
+  renderFavoriteRestaurantList(navState: string) {
+    this.#navState = navState;
     this.#makeRestaurantList();
   }
 
@@ -62,11 +70,21 @@ class RestaurantList extends HTMLUListElement {
 
   #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
     this.#clear();
-    restaurants.forEach((restaurant: IRestaurantInfo) => {
-      const item = new RestaurantCard(restaurant);
+    if (this.#navState === NAV_FAVORITE) {
+      restaurants.forEach((restaurant: IRestaurantInfo) => {
+        if (restaurant.isFavorite === true) {
+          const item = new RestaurantCard(restaurant);
 
-      this.appendChild(item);
-    });
+          this.appendChild(item);
+        }
+      });
+    } else {
+      restaurants.forEach((restaurant: IRestaurantInfo) => {
+        const item = new RestaurantCard(restaurant);
+
+        this.appendChild(item);
+      });
+    }
   }
 }
 

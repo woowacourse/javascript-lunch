@@ -1,17 +1,21 @@
+import RestaurantList from '../RestaurantList';
 import Button from '../base/Button';
 import './Navigator.css';
 
-const TOTAL = 'total';
-const FAVORITE = 'favorite';
+export const NAV_TOTAL = 'total';
+export const NAV_FAVORITE = 'favorite';
 
 type NAV_STATE = 'total' | 'favorite';
 
 class Navigator {
   #navigatorElement = document.createElement('div');
 
-  #navState: NAV_STATE = TOTAL;
+  #navState: NAV_STATE = NAV_TOTAL;
 
-  constructor() {
+  #restaurantListElement;
+
+  constructor(restaurantListElement: RestaurantList) {
+    this.#restaurantListElement = restaurantListElement;
     this.#generateButtons();
     this.#navigatorElement.classList.add('navigator-container');
   }
@@ -31,7 +35,7 @@ class Navigator {
         totalRestaurantButtonContainer.classList.remove('nav-button-container');
         favoriteRestaurantButtonContainer.classList.remove('nav-button-container-clicked');
         favoriteRestaurantButtonContainer.classList.add('nav-button-container');
-        this.changeState(FAVORITE);
+        this.changeState(NAV_FAVORITE);
       },
     });
 
@@ -43,7 +47,7 @@ class Navigator {
         totalRestaurantButtonContainer.classList.add('nav-button-container');
         favoriteRestaurantButtonContainer.classList.add('nav-button-container-clicked');
         favoriteRestaurantButtonContainer.classList.remove('nav-button-container');
-        this.changeState(TOTAL);
+        this.changeState(NAV_TOTAL);
       },
     });
 
@@ -55,11 +59,13 @@ class Navigator {
   }
 
   changeState(prevState: NAV_STATE) {
-    if (prevState === TOTAL) {
-      this.#navState = FAVORITE;
+    if (prevState === NAV_TOTAL) {
+      this.#navState = NAV_FAVORITE;
+      this.#restaurantListElement.renderFavoriteRestaurantList(this.#navState);
       return;
     }
-    this.#navState = TOTAL;
+    this.#navState = NAV_TOTAL;
+    this.#restaurantListElement.renderFavoriteRestaurantList(this.#navState);
   }
 
   get element() {
