@@ -43,7 +43,7 @@ class RestaurantTapContainer {
 
     $restaurantFilterContainer.replaceChildren();
     $restaurantList.replaceChildren();
-    RestaurantComponent.create(this.#restaurantList.restaurants);
+    RestaurantComponent.createRestaurants(this.#restaurantList.restaurants);
   }
 
   createRestaurantAllTap() {

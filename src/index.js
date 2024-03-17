@@ -16,7 +16,7 @@ const init = () => {
   new RestaurantTapContainer(restaurantList);
   new RestaurantFilterContainer(restaurantList).createFilters();
   RestaurantComponent.setRestaurantList(restaurantList);
-  RestaurantComponent.create(restaurantList.getSortedByName());
+  RestaurantComponent.createRestaurants(restaurantList.getSortedByName());
 };
 
 init();

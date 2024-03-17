@@ -46,7 +46,7 @@ class RestaurantFilterContainer {
     const sortedList = this.#restaurantList.getSortedByCondition(this.getSortingCondition());
 
     $restaurantList.replaceChildren();
-    RestaurantComponent.create(sortedList);
+    RestaurantComponent.createRestaurants(sortedList);
   }
 
   favoriteTapFilter() {
@@ -55,7 +55,7 @@ class RestaurantFilterContainer {
     this.#restaurantList.filterByFavorite();
 
     $restaurantList.replaceChildren();
-    RestaurantComponent.create(this.#restaurantList.getSortedByName());
+    RestaurantComponent.createRestaurants(this.#restaurantList.getSortedByName());
   }
 
   getCategoryCondition() {
