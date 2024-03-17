@@ -1,10 +1,9 @@
-import ButtonPrimary from "../../common/buttons/button-primary";
-import ButtonSecondary from "../../common/buttons/button-secondary";
+import ButtonBase from "../../common/buttons/button";
 
 const detailModalButtonTemplate = /*html*/ `
 <div class="button-container detail-modal-button-container">
-    ${ButtonSecondary("삭제하기", "button--remove")}
-    ${ButtonPrimary("닫기", "button--close")}
+    ${ButtonBase("삭제하기", "button--secondary", "button--remove")}
+    ${ButtonBase("닫기", "button--primary", "button--close")}
 </div>
 `;
 
