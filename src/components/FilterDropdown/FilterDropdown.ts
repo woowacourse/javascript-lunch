@@ -10,19 +10,21 @@ const createFilterDropdown = ({ onChangeFilter, onChangeSort }: Props) => {
   const filterContainer = document.createElement('div');
   filterContainer.classList.add('restaurant-filter-container');
 
-  const filterDropdown = Dropdown(FILTER_DROPDOWN_PROPS);
-  const sortDropdown = Dropdown(SORT_DROPDOWN_PROPS);
+  const filterDropdownHTML = Dropdown(FILTER_DROPDOWN_PROPS);
+  const sortDropdownHTML = Dropdown(SORT_DROPDOWN_PROPS);
 
-  filterContainer.appendChild(filterDropdown);
-  filterContainer.appendChild(sortDropdown);
+  filterContainer.innerHTML = filterDropdownHTML + sortDropdownHTML;
 
-  if (onChangeFilter) {
+  const filterDropdown = filterContainer.querySelector('.filter-dropdown');
+  const sortDropdown = filterContainer.querySelector('.sort-dropdown');
+
+  if (onChangeFilter && filterDropdown) {
     filterDropdown.addEventListener('change', (event: any) => {
       onChangeFilter(event.target.value);
     });
   }
 
-  if (onChangeSort) {
+  if (onChangeSort && sortDropdown) {
     sortDropdown.addEventListener('change', (event: any) => {
       onChangeSort(event.target.value);
     });

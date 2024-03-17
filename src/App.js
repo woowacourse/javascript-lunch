@@ -1,3 +1,4 @@
+import AddingRestaurantModal from './components/AddRestaurantModal/AddRestaurantModal';
 import createFilterDropdown from './components/FilterDropdown/FilterDropdown';
 import createHeader from './components/Header/Header';
 import createNavbar from './components/Navbar/Navbar';
@@ -17,6 +18,10 @@ class App {
 
   #property;
 
+  #addingRestaurantModal = new AddingRestaurantModal();
+
+  // #restaurantDetailModal = new RestaurantDetailModal();
+
   constructor() {
     this.#restaurantList = this.getRecentData();
     this.#restaurantService = new RestaurantService();
@@ -28,11 +33,10 @@ class App {
 
   run() {
     this.renderHeader();
+    this.showAddRestaurantModal();
     this.renderNavbar();
     this.renderFilterDropdown();
     this.updateRestaurantList();
-    this.showAddRestaurantModal();
-    this.manageFilterValue();
   }
 
   getRecentData() {
@@ -45,6 +49,17 @@ class App {
     const header = createHeader({ title: '점심 뭐 먹지', imageSource: './add-button.png' });
 
     container.prepend(header);
+    container.appendChild(this.#addingRestaurantModal.element);
+  }
+
+  showAddRestaurantModal() {
+    const addRestaurantButton = $('.gnb__button');
+
+    addRestaurantButton.addEventListener('click', () => {
+      this.#addingRestaurantModal.open();
+      this.manageAddRestaurantFormEvents();
+      this.manageModalEvents();
+    });
   }
 
   renderNavbar() {
@@ -97,20 +112,10 @@ class App {
     return this.#restaurantList;
   }
 
-  showAddRestaurantModal() {
-    const addRestaurantButton = $('.gnb__button');
-
-    addRestaurantButton.addEventListener('click', () => {
-      OutputView.renderAddRestaurant(this.#restaurantList);
-      this.manageAddRestaurantFormEvents();
-      this.manageModalEvents();
-    });
-  }
-
   manageAddRestaurantFormEvents() {
     const formAddRestaurant = $('.form-add-restaurant');
 
-    formAddRestaurant.addEventListener('reset', () => OutputView.closeModal());
+    formAddRestaurant.addEventListener('reset', () => this.#addingRestaurantModal.close());
     formAddRestaurant.addEventListener('submit', e => {
       e.preventDefault();
       const newRestaurant = this.createRestaurant();
@@ -121,7 +126,7 @@ class App {
       if (!isAdded) return;
 
       this.updateRestaurantList();
-      OutputView.closeModal();
+      this.#addingRestaurantModal.close();
     });
   }
 
