@@ -5,18 +5,24 @@ import RestaurantDetailModal from './RestaurantDetailModal';
 class RestaurantCard extends HTMLLIElement {
   #restaurant: IRestaurantInfo;
 
+  #restaurantCardElement: HTMLElement = document.createElement('div');
+
   constructor(restaurant: IRestaurantInfo) {
     super();
     this.#restaurant = restaurant;
+
+    this.classList.add('restaurant-container');
+    this.#restaurantCardElement.id = 'restaurant-card';
+    this.#restaurantCardElement.classList.add('restaurant');
+
     this.#appendRestaurantElement();
-    this.#makeFavoriteBtn();
     this.#addRestaurantDetailModalEvent();
   }
 
   #addRestaurantDetailModalEvent() {
     const restaurantDetailModalSection = document.getElementById('restaurant-detail-modal-section');
 
-    this.addEventListener('click', () => {
+    this.#restaurantCardElement.addEventListener('click', () => {
       if (restaurantDetailModalSection) {
         const restaurantDetailModal = new RestaurantDetailModal(this.#restaurant);
         restaurantDetailModalSection.innerHTML = '';
@@ -27,23 +33,19 @@ class RestaurantCard extends HTMLLIElement {
   }
 
   #appendRestaurantElement() {
-    this.classList.add('restaurant-container');
-    this.appendChild(this.#generateRestaurantElementTemplate());
+    this.appendChild(this.#restaurantCardElement);
+    this.#generateRestaurantElementTemplate();
+    this.#makeFavoriteBtn();
   }
 
   #makeFavoriteBtn() {
-    const restaurantCard = document.getElementById('restaurant-card');
     const favoriteBtn = new FavoriteBtn(this.#restaurant.isFavorite);
 
-    restaurantCard?.appendChild(favoriteBtn.element);
+    this.appendChild(favoriteBtn.element);
   }
 
   #generateRestaurantElementTemplate() {
-    const restaurantCard = document.createElement('div');
-    restaurantCard.id = 'restaurant-card';
-    restaurantCard.classList.add('restaurant');
-
-    restaurantCard.innerHTML = /* html */ `
+    this.#restaurantCardElement.innerHTML = /* html */ `
     <div class="restaurant__info__container">
       <div class="restaurant__category">
         <img src="./assets/category-${Restaurant.generateImageSrc(this.#restaurant.category)}.png" alt="${
@@ -56,12 +58,6 @@ class RestaurantCard extends HTMLLIElement {
         <p class="restaurant__description text-body">${this.#restaurant.description}</p>
       </div>
     </div>`;
-
-    const favoriteBtn = new FavoriteBtn(this.#restaurant.isFavorite);
-
-    restaurantCard.appendChild(favoriteBtn.element);
-
-    return restaurantCard;
   }
 }
 
