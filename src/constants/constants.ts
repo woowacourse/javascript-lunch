@@ -1,3 +1,5 @@
+import { CategoryValues } from '../types/types';
+
 export const CATEGORY = {
   all: '전체',
   korean: '한식',
@@ -12,3 +14,13 @@ export const SORTING = {
   name: '이름순',
   distance: '거리순'
 } as const;
+
+export const CATEGORY_VALUES: CategoryValues[] = [
+  '전체',
+  '한식',
+  '중식',
+  '일식',
+  '양식',
+  '아시안',
+  '기타'
+];

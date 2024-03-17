@@ -1,3 +1,4 @@
+import { CATEGORY, CATEGORY_VALUES } from '../constants/constants';
 import RestaurantList from '../domain/restaurantList';
 import { CategoryValues } from '../types/types';
 import SelectComponent from './common/SelectComponent';
@@ -26,8 +27,11 @@ const CategoryFilterComponent = (restaurantList: RestaurantList) => {
   const create = () => section;
 
   select.addEventListener('change', () => {
-    const selectedCategory = select.value as CategoryValues;
-    restaurantList.setCategory(selectedCategory);
+    const selectedCategory: string = select.value;
+
+    if (CATEGORY_VALUES.includes(selectedCategory as CategoryValues)) {
+      restaurantList.setCategory(selectedCategory as CategoryValues);
+    }
   });
 
   return {
