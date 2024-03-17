@@ -71,4 +71,14 @@ describe('상세보기 모달 테스트', () => {
 
     cy.get('.restaurant-list').find('li').should('have.length', 5);
   });
+
+  it('음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.', () => {
+    cy.get('#restaurant-info').click();
+
+    cy.get('#detail-favorite-container').find('[type="button"]').click();
+    cy.get('#button-modal-close').click();
+    cy.get('#favorite-tab').click();
+
+    cy.get('.restaurant-list').find('li').should('have.length', 1);
+  });
 });
