@@ -1,7 +1,8 @@
 .restaurant {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 12px;
+  justify-content: space-between;
   align-items: flex-start;
 
   padding: 16px 8px;
@@ -9,6 +10,11 @@
   border-bottom: 1px solid #e9eaed;
 
   position: relative;
+}
+.restaurantContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
 }
 
 .restaurant__name {
@@ -26,7 +32,7 @@
 
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
 }
 
