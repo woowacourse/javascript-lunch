@@ -7,7 +7,6 @@ const RestaurantListController = {
     const data = localStorage.getItem(StorageKeyEnum.restaurants);
 
     if (!data) {
-      console.log('dd', INITIAL_RESTAURANT_DATA);
       localStorage.setItem(
         StorageKeyEnum.restaurants,
         JSON.stringify(INITIAL_RESTAURANT_DATA),
