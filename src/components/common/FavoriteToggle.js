@@ -1,8 +1,8 @@
 import {
-  emptyFavoriteToggle,
-  filledFavoriteToggle,
+  EMPTY_FAVORITE_TOGGLE,
+  FILLED_FAVORITE_TOGGLE,
 } from "../../constants/Icon";
-import { favoriteToggle } from "../../domains/RestaurantDetail";
+import { favoriteToggle } from "../../domains/Restaurants";
 import BaseComponent from "./BaseComponent";
 
 class FavoriteToggle extends BaseComponent {
@@ -17,7 +17,7 @@ class FavoriteToggle extends BaseComponent {
 
   render() {
     this.innerHTML = `
-    ${this.#isFavorite ? filledFavoriteToggle : emptyFavoriteToggle}
+    ${this.#isFavorite ? FILLED_FAVORITE_TOGGLE : EMPTY_FAVORITE_TOGGLE}
 
     `;
   }

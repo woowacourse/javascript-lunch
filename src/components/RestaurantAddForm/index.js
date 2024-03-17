@@ -6,7 +6,6 @@ import {
 import { add } from "../../domains/Restaurants";
 import { $ } from "../../utils/dom";
 import { removeHTMLTags } from "../../utils/removeHtmlTag";
-import BaseComponent from "../common/BaseComponent";
 import BaseModal from "../common/BaseModal";
 
 class RestaurantAddForm extends BaseModal {

@@ -1,4 +1,4 @@
-export const filledFavoriteToggle = `<svg
+export const FILLED_FAVORITE_TOGGLE = `<svg
 id="filled-star"
 width="28"
 height="26"
@@ -13,7 +13,7 @@ fill="#EC4A0A"
 />
 </svg>`;
 
-export const emptyFavoriteToggle = `<svg
+export const EMPTY_FAVORITE_TOGGLE = `<svg
 
 class="favorite-toggle star"
 width="32"
@@ -31,3 +31,8 @@ xmlns="http://www.w3.org/2000/svg"
 </g>
 
 </svg>`;
+
+export const ADD_RESTAURANT_FORM_BUTTON = `<svg width="34" height="24" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.3333 6.66667H0.333336V10H20.3333V6.66667ZM20.3333 0H0.333336V3.33333H20.3333V0ZM27 13.3333V6.66667H23.6667V13.3333H17V16.6667H23.6667V23.3333H27V16.6667H33.6667V13.3333H27ZM0.333336 16.6667H13.6667V13.3333H0.333336V16.6667Z" fill="white"/>
+</svg>
+`;
