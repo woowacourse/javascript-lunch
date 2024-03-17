@@ -326,3 +326,24 @@ input[name='link'] {
 
   color: var(--grey-100);
 }
+
+/* 음식점 상세 모달 *****************************************/
+.restaurant__detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.restaurant__detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restaurant__detail-info h3 {
+  font-size: 24px;
+}
+
+.restaurant__detail-info p {
+  -webkit-line-clamp: unset;
+}
