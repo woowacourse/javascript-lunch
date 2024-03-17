@@ -30,25 +30,33 @@ export default class RestaurantList {
     `;
   }
 
-  // TODO: 이벤트 구체적 작성, 리팩토링
   #addEvents() {
-    $('restaurant-list').addEventListener('click', (event) => {
-      const favoriteIcon = event.target.closest('button img');
-      const restaurant = this.#restaurants.getRestaurant(event.target.closest('li').id);
+    $('restaurant-list').addEventListener('click', (event) => this.#handleClickRestaurant(event));
+  }
 
-      if (!event.target.closest('button')) {
-        new RestaurantDetail($('modal'), this.#restaurants, restaurant, this);
-        $('modal').classList.add('modal--open');
-      } else {
-        // TODO: 이건 왜 null을 반환하는 경우가 있을까?
-        if (!favoriteIcon) return;
+  #handleClickRestaurant(event) {
+    const restaurant = this.#restaurants.getRestaurant(event.target.closest('li').id);
+    const favoriteIcon = event.target.closest('button img');
+    const favoriteButton = event.target.closest('.favorite-button');
 
-        this.#restaurants.toggleFavoriteState(restaurant.name);
+    favoriteButton && favoriteIcon
+      ? this.#handleClickFavoriteButton(favoriteIcon, restaurant.name)
+      : this.#openRestaurantDetail(restaurant);
+  }
 
-        favoriteIcon.src === ICON['즐겨찾기추가']
-          ? (favoriteIcon.src = ICON['즐겨찾기해제'])
-          : (favoriteIcon.src = ICON['즐겨찾기추가']);
-      }
-    });
+  #handleClickFavoriteButton(favoriteIcon, restaurantName) {
+    this.#restaurants.toggleFavoriteState(restaurantName);
+    this.#toggleIconImg(favoriteIcon);
+  }
+
+  #openRestaurantDetail(restaurant) {
+    new RestaurantDetail($('modal'), this.#restaurants, restaurant, this);
+    $('modal').classList.add('modal--open');
+  }
+
+  #toggleIconImg(iconImg) {
+    iconImg.src === ICON['즐겨찾기추가']
+      ? (iconImg.src = ICON['즐겨찾기해제'])
+      : (iconImg.src = ICON['즐겨찾기추가']);
   }
 }
