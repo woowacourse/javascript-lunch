@@ -32,7 +32,6 @@ const favoriteIconEventPhaseHandler = (event: Event) => {
   const target = event.target as Element;
   const favoritedIcon = target.closest('.favorited-icon');
   if (!isHTMLElement(favoritedIcon)) return;
-  // event.stopPropagation();
   const restaurantId = getRestaurantIdFromListItem(favoritedIcon);
   if (restaurantId !== undefined) {
     changeFavoriteState(restaurantId);
