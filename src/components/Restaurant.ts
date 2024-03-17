@@ -33,9 +33,10 @@ class Restaurant extends HTMLUListElement {
     super();
 
     const { category, name, distance, introduction, link, favorite } = restaurant;
-    this.classList.add('restaurant-box');
+    //this.classList.add('restaurant-box');
+    this.setAttribute('id', `${category}_${name}`);
     this.innerHTML = /* html */ `
-    <li id="${category}_${name}" class="restaurant">
+    <li class="restaurant">
       <div class="restaurant__category">
         <img src="${CATEGORY_IMAGE[category]}" alt="${category}" class="category-icon">
       </div>

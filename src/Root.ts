@@ -6,7 +6,7 @@ import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
 import { FavoriteIconFilled, FavoriteIconLined } from './asset/img';
-import RestaurantDetail from './components/RestaurantDetail';
+import RestaurantDetail, { RestaurantDetailEvent } from './components/RestaurantDetail';
 
 const { $, $$ } = DOM;
 
@@ -19,7 +19,7 @@ const root = {
     this.initList(matzip);
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
-    //this.toggleFavoriteIcon(matzip);
+    this.listenRestaurantDelete(matzip);
   },
 
   initList(matzip: Matzip) {
@@ -77,43 +77,15 @@ const root = {
     });
   },
 
-  // toggleFavoriteIcon(matzip: Matzip) {
-  //   const favoriteImg = $('.restaurant__favorite_img img');
+  listenRestaurantDelete(matzip: Matzip) {
+    document.addEventListener('deleteRestuarantInfo', (event: Event) => {
+      const customEvent = event as RestaurantDetailEvent;
+      const restaurantInfo = customEvent.detail.restaurant;
 
-  //   favoriteImg?.addEventListener('click', (e) => {
-  //     console.log('hi');
-  //     const isFavorite = favoriteImg.getAttribute('src') === FavoriteIconFilled ? true : false;
-  //     favoriteImg.setAttribute('src', isFavorite ? FavoriteIconLined : FavoriteIconFilled);
-
-  //     const parentId = favoriteImg.parentElement?.parentElement?.getAttribute('id');
-  //     console.log('parentID:', parentId);
-
-  //     const matzipList = matzip.getRestaurants();
-
-  //     const item = matzipList.find((matzip) => {
-  //       return parentId === `${matzip.category}_${matzip.name}`;
-  //     });
-
-  //     if (item === undefined) return;
-
-  //     const storageDate = storage.getData('favoriteMatzipData');
-
-  //     console.log('item : ', item);
-
-  //     if (!isFavorite) {
-  //       storage.addData('favoriteMatzipData', item);
-  //       $('matzip-favorite-container .restaurant-list-container')?.appendChild(
-  //         new Restaurant(item, true),
-  //       );
-  //     } else {
-  //       storage.removeData('favoriteMatzipData');
-  //       storageDate.forEach((data) => {
-  //         if (data !== item) storage.addData('favoriteMatzipData', data);
-  //       });
-  //       $(`matzip-favorite-container #${item.category}_${item.name}`)?.remove();
-  //     }
-  //   });
-  // },
+      matzip.delete(restaurantInfo);
+      storage.updateData(matzip, MATZIP_DATA);
+    });
+  },
 };
 
 export default root;

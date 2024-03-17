@@ -17,6 +17,14 @@ class Matzip implements MatzipInterface {
     this.restaurants.push(restaurant);
   }
 
+  delete(restaurant: Restaurant) {
+    const newRestaurants = this.restaurants.filter((item) => {
+      return item.name !== restaurant.name;
+    });
+
+    this.restaurants = newRestaurants;
+  }
+
   filterAndSort(category: CategoryType, sortBy: SortType) {
     if (category === '전체') return this.sort(sortBy, this.restaurants);
     const filterResult = [...this.restaurants].filter(

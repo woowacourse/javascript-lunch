@@ -5,6 +5,12 @@ import DOM from '../utils/DOM';
 
 const { $, $$ } = DOM;
 
+export interface RestaurantDetailEvent extends CustomEvent {
+  detail: {
+    restaurant: Restaurant;
+  };
+}
+
 class RestaurantDetail extends HTMLElement {
   constructor(restaurant: Restaurant) {
     super();
@@ -31,18 +37,32 @@ class RestaurantDetail extends HTMLElement {
     </div>
     `;
 
-    this.setEvent();
+    this.setEvent(restaurant);
   }
 
-  setEvent() {
+  setEvent(restaurant: Restaurant) {
     this.openRestaurantDetail();
-    this.clickDeleteButton();
+    this.clickDeleteButton(restaurant);
     this.clickCloseButton();
   }
 
   openRestaurantDetail() {}
 
-  clickDeleteButton() {}
+  clickDeleteButton(restaurant: Restaurant) {
+    $('.delete-btn', this)?.addEventListener('click', (event) => {
+      const deleteRestaurantInfo = new CustomEvent('deleteRestuarantInfo', {
+        detail: {
+          restaurant,
+        },
+      });
+      document.dispatchEvent(deleteRestaurantInfo);
+
+      $('detail-info-container')?.remove();
+      $('.detail-modal-backdrop')?.classList.add('detail-info-container--close');
+
+      $(`#${restaurant.category}_${restaurant.name}`)?.remove();
+    });
+  }
 
   clickCloseButton() {
     $('.close-btn', this)?.addEventListener('click', (event) => {
