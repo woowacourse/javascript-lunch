@@ -12,9 +12,6 @@ import './images/category-western.png';
 import './images/favorite-icon-filled.png';
 import './images/favorite-icon-lined.png';
 
-import RestaurantController from './controllers/RestaurantController';
 import App from './App';
 
-App.initApp();
-
-new RestaurantController().run();
+new App().initApp();
