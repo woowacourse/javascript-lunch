@@ -1,16 +1,17 @@
+import RestaurantList from '../domain/restaurantList';
 import { RestaurantInfo } from '../types/types';
 import CategoryIconComponent from './CategoryIconComponent';
 import FavoriteButton from './FavoriteButtonComponent';
 import RestaurantDetailModalComponent from './RestaurantDetailModalComponent';
 
-export const RestaurantCardComponent = ({
-  category,
-  name,
-  distance,
-  isFavorite,
-  description,
-  link
-}: RestaurantInfo) => {
+type Props = {
+  restaurantInfo: RestaurantInfo;
+  restaurantList: RestaurantList;
+};
+
+export const RestaurantCardComponent = ({ restaurantInfo, restaurantList }: Props) => {
+  const { name, distance, category, isFavorite, link, description } = restaurantInfo;
+
   const categoryIconComponent = CategoryIconComponent(category).create();
 
   const li = document.createElement('li');
@@ -44,25 +45,10 @@ export const RestaurantCardComponent = ({
   const create = () => li;
 
   li.addEventListener('click', (event: Event) => {
-    // const detailModal = RestaurantDetailModalComponent({
-    //   category,
-    //   name,
-    //   distance,
-    //   isFavorite,
-    //   description,
-    //   link
-    // }).create();
-
-    // document.querySelector('#app')?.appendChild(detailModal);
-    // document.querySelector('.modal-detail')?.classList.add('modal--open');
     if (!(event.target as Element).closest('.favorite-button')) {
       const detailModal = RestaurantDetailModalComponent({
-        category,
-        name,
-        distance,
-        isFavorite,
-        description,
-        link
+        restaurantInfo,
+        restaurantList
       }).create();
 
       document.querySelector('#app')?.appendChild(detailModal);

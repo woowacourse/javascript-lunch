@@ -13,6 +13,7 @@ const FavoriteButton = ({ name, initialIsFavorite }: Props) => {
   let isFavorite = initialIsFavorite;
   let imgName = getImgName(isFavorite);
   button.appendChild(img);
+  button.classList.add('favorite-button');
 
   img.classList.add('favorite-icon');
   img.src = `./templates/${imgName}.png`;
@@ -23,8 +24,6 @@ const FavoriteButton = ({ name, initialIsFavorite }: Props) => {
     imgName = getImgName(isFavorite);
     img.src = `./templates/${imgName}.png`;
     img.alt = isFavorite ? '즐겨찾기 해제 버튼' : '즐겨찾기 버튼';
-
-    console.log('클릭됨');
   };
 
   button.addEventListener('click', () => {

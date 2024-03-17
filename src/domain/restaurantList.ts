@@ -93,16 +93,9 @@ export default class RestaurantList {
 
     $restaurantListContainer.replaceChildren();
 
-    this.#restaurantData.forEach(({ category, name, distance, isFavorite, description, link }) => {
+    this.#restaurantData.forEach((restaurantInfo) => {
       $restaurantListContainer.appendChild(
-        RestaurantCardComponent({
-          category,
-          name,
-          distance,
-          isFavorite,
-          description,
-          link
-        }).create()
+        RestaurantCardComponent({ restaurantInfo, restaurantList: this }).create()
       );
     });
   }

@@ -1,11 +1,17 @@
 import restaurantAPI from '../domain/restaurantAPI';
+import RestaurantList from '../domain/restaurantList';
 import { RestaurantInfo } from '../types/types';
 import CategoryIconComponent from './CategoryIconComponent';
 import FavoriteButton from './FavoriteButtonComponent';
 import ButtonComponent from './common/ButtonComponent';
 import ModalComponent from './common/ModalComponent';
 
-const RestaurantDetailModalComponent = (restaurantInfo: RestaurantInfo) => {
+type Props = {
+  restaurantInfo: RestaurantInfo;
+  restaurantList: RestaurantList;
+};
+
+const RestaurantDetailModalComponent = ({ restaurantInfo, restaurantList }: Props) => {
   const { category, name, distance, isFavorite, description, link } = restaurantInfo;
   console.log({ category, name, distance, isFavorite, description, link });
   const favoriteButton = FavoriteButton({ name, initialIsFavorite: isFavorite }).create();
@@ -64,6 +70,7 @@ const RestaurantDetailModalComponent = (restaurantInfo: RestaurantInfo) => {
 
   const deleteRestaurant = () => {
     restaurantAPI.delete(name);
+    restaurantList.updateRestaurants();
   };
 
   const closeModal = () => {
@@ -74,7 +81,10 @@ const RestaurantDetailModalComponent = (restaurantInfo: RestaurantInfo) => {
 
   buttonContainerDiv
     .querySelector('#restaurant-detail-modal_delete-button')
-    ?.addEventListener('click', deleteRestaurant);
+    ?.addEventListener('click', () => {
+      deleteRestaurant();
+      closeModal();
+    });
 
   buttonContainerDiv
     .querySelector('#restaurant-detail-modal_close-button')
