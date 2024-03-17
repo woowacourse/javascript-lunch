@@ -1,5 +1,4 @@
 import { LunchHeaderComponent } from '../components/LunchHeaderComponent';
-// import { ModalComponent } from '../components/_ModalComponent';
 import SortFilterComponent from '../components/SortFilterComponent';
 import CategoryFilterComponent from '../components/CategoryFilterComponent';
 import { CATEGORY, SORTING } from '../constants/constants';
@@ -56,10 +55,6 @@ export default class LunchAppController {
   };
 
   private renderModal = () => {
-    // const modal = ModalComponent();
-
-    // this.$appContainer.appendChild(modal.getTemplate());
-    // modal.setEvent();
     const addModal = AddModalComponent().create();
     this.$appContainer.appendChild(addModal);
   };

@@ -6,25 +6,6 @@ type InputProps = {
   className?: string;
 };
 
-// export default function InputComponent({ type, name, id, required, className }: InputProps) {
-//   const getTemplate = () => {
-//     const template = document.createElement('template');
-//     template.innerHTML = `
-//         <input
-//           type="${type}"
-//           ${name ? `name="${name}"` : ''}
-//           ${id ? `id="${id}"` : ''}
-//           ${required ? 'required' : ''}
-//           ${className ? `class="${className}"` : ''}
-//           placeholder="${type === 'text' ? '(15자 이하)' : 'ex ) https://www.example.com'}"
-//         >
-//       `;
-//     return template.content;
-//   };
-
-//   return { getTemplate };
-// }
-
 const InputComponent = ({ type, name, id, required, className }: InputProps) => {
   const input = document.createElement('input');
   input.type = type;

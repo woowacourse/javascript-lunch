@@ -196,6 +196,10 @@ body {
   display: none;
 }
 
+.modal-detail {
+  display: none;
+}
+
 .modal--open {
   display: block;
 }
@@ -347,14 +351,14 @@ button:disabled + .tooltip {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 16px 0 16px;
+  padding: 10px;
 }
 
 .tabBar_button {
   width: 180px;
   border: none;
   background-color: var(--grey-100);
-  padding-bottom: 9px;
+  padding: 20px 10px;
 }
 
 .tabBar_button--primary {
@@ -365,4 +369,32 @@ button:disabled + .tooltip {
 .tabBar_button—secondary {
   border-bottom: solid 2px var(—grey-300);
   color: var(—grey-200);
+}
+
+/* ********************* */
+
+.restaurant_detail__description {
+  display: -webkit-box;
+
+  padding-top: 8px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
+}
+
+.modal-container__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.restaurant-detail_header {
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  color: var(--grey-500);
 }
