@@ -1,130 +1,78 @@
-import Dropdown from './components/Dropdown/Dropdown';
-import RestaurantList from './components/RestaurantList';
-import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from './domain/Restaurant';
+import { RESTAURANT_CATEGORY } from './domain/Restaurant';
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
-import DropdownEvent from './components/Dropdown/DropdownEvent';
-import restaurantStore from './store/RestaurantStore';
 import Navigator from './components/Navigator/Navigator';
+import RestaurantDropdown from './components/RestaurantDropdown';
+import RestaurantList2 from './components/RestaurantList2';
+import FormModal from './components/FormModal';
 
 class App {
-  #restaurantStore;
+  #main = document.getElementById('main');
 
-  #restaurantListComponent;
+  #restaurantUlElement;
 
   constructor() {
-    this.#restaurantStore = restaurantStore;
-    this.#restaurantListComponent = new RestaurantList();
+    this.#restaurantUlElement = new RestaurantList2('total');
+
+    this.#renderNavBar();
+    this.#renderFormModal();
+    this.#renderDropdown();
+
+    this.#main?.appendChild(this.#restaurantUlElement.element);
+
+    this.#addFormButtonEvent();
   }
 
-  run() {
-    const navigator = new Navigator(this.#restaurantListComponent);
-    const navigatorSection = document.getElementById('navigator-section');
-    navigatorSection?.appendChild(navigator.element);
+  #renderNavBar() {
+    const navBar = new Navigator((navState) => {
+      this.#restaurantUlElement.navState = navState;
+    });
 
-    this.#renderRestaurants();
-    this.#renderFilterDropdowns();
-    this.#renderFormDropdowns();
-    this.#addEventListeners();
+    this.#main?.appendChild(navBar.element);
   }
 
-  #addEventListeners() {
-    DropdownEvent.addCategoryDropdownEventListener(this.#restaurantListComponent);
-    DropdownEvent.addSortDropdownEventListener(this.#restaurantListComponent);
-    this.#addRestaurantFormEventListener();
-    this.#addModalButtonEventHandler();
+  #renderFormModal() {
+    const formModal = new FormModal(() => {
+      this.#restaurantUlElement.renderRestaurantList();
+    });
+
+    this.#main?.appendChild(formModal.element);
   }
 
-  #renderRestaurants() {
-    const RestaurantListSection = document.getElementById('restaurant-list-section');
-    const restaurantsFromStorage = localStorage.getItem('restaurants');
+  #renderDropdown() {
+    const dropdownContainer = document.createElement('div');
+    dropdownContainer.classList.add('restaurant-filter-container');
 
-    if (restaurantsFromStorage && RestaurantListSection) {
-      RestaurantListSection.innerHTML = '';
-      this.#restaurantListComponent.renderRestaurantList();
-
-      RestaurantListSection.appendChild(this.#restaurantListComponent);
-    }
+    this.#generateCategoryDropdown(dropdownContainer);
+    this.#generateSortDropdown(dropdownContainer);
+    this.#main?.appendChild(dropdownContainer);
   }
 
-  #renderFilterDropdowns() {
-    const restaurantFilterDropdownContainer = document.getElementById('restaurant-filter-dropdown-container');
+  #generateCategoryDropdown(dropdownContainer: HTMLElement) {
+    const onChange = (category: string) => {
+      this.#restaurantUlElement.categoryFilter = category;
+    };
 
-    restaurantFilterDropdownContainer?.appendChild(new Dropdown('category-select', 'category', RESTAURANT_CATEGORY));
-    restaurantFilterDropdownContainer?.appendChild(new Dropdown('sort-select', 'sort', SORT_CONDITION));
-  }
-
-  #renderFormDropdowns() {
-    const formCategorySelectContainer = document.getElementById('form-category-select-container');
-    const formDistanceSelectContainer = document.getElementById('form-distance-select-container');
-
-    formCategorySelectContainer?.appendChild(
-      new Dropdown('form-category-select-container', 'category', RESTAURANT_CATEGORY),
-    );
-    formDistanceSelectContainer?.appendChild(
-      new Dropdown('form-distance-select-container', 'distance', DISTANCE_FROM_CAMPUS),
+    dropdownContainer.appendChild(
+      new RestaurantDropdown('category-select', 'category', RESTAURANT_CATEGORY, onChange).element,
     );
   }
 
-  #addRestaurantFormEventListener() {
-    const addForm = document.getElementById('add-restaurant-form');
+  #generateSortDropdown(dropdownContainer: HTMLElement) {
+    const onChange = (sortFilter: string) => {
+      this.#restaurantUlElement.sortFilter = sortFilter;
+    };
 
-    addForm?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const target = event.target as HTMLFormElement;
-      const restaurantInfo = this.#makeRestaurantInfo(target);
-      this.#formSubmitEvent(restaurantInfo);
-    });
+    dropdownContainer.appendChild(new RestaurantDropdown('sort-select', 'sort', SORT_CONDITION, onChange).element);
   }
 
-  #makeRestaurantInfo(target: HTMLFormElement) {
-    const name = (target.querySelector('#name') as HTMLInputElement).value;
-    const { category, distance, description, link } = target;
-    return {
-      category: category.value,
-      name,
-      distanceFromCampus: Number(distance.value),
-      description: description.value,
-      link: link.value,
-      isFavorite: false,
-    } as IRestaurantInfo;
-  }
-
-  #formSubmitEvent(restaurantInfo: IRestaurantInfo) {
-    try {
-      this.#restaurantStore.addNewRestaurantToStore(restaurantInfo);
-      this.#renderRestaurants();
-      this.#closeModal();
-    } catch (error: any) {
-      alert(error.message);
-    }
-  }
-
-  #addModalButtonEventHandler() {
-    const modalCloseButton = document.getElementById('form-modal-close-button');
-    modalCloseButton?.addEventListener('click', () => {
-      this.#closeModal();
-    });
-
+  #addFormButtonEvent() {
     const modalOpenButton = document.getElementById('add-restaurant-button');
     modalOpenButton?.addEventListener('click', () => {
-      this.#openModal();
+      const modal = document.getElementById('add-form-modal');
+
+      modal?.classList.remove('modal--close');
+      modal?.classList.add('modal--open');
     });
-  }
-
-  #closeModal() {
-    const modal = document.getElementById('add-form-modal');
-    const form = document.getElementById('add-restaurant-form') as HTMLFormElement;
-
-    modal?.classList.remove('modal--open');
-    modal?.classList.add('modal--close');
-    form?.reset();
-  }
-
-  #openModal() {
-    const modal = document.getElementById('add-form-modal');
-
-    modal?.classList.remove('modal--close');
-    modal?.classList.add('modal--open');
   }
 }
 

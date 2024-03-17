@@ -11,4 +11,4 @@ window.customElements.define('restaurant-list', RestaurantList, { extends: 'ul' 
 window.customElements.define('restaurant-item', RestaurantCard, { extends: 'li' });
 window.customElements.define('restaurant-detail-modal', RestaurantDetailModal, { extends: 'div' });
 
-new App().run();
+const app = new App();
