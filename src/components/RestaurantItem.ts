@@ -5,32 +5,42 @@ import RestaurantRepository from '../domain/RestaurantRepository';
 class RestaurantItem extends Component {
   #key: number;
   #restaurant: IRestaurant;
+  #modalState = false;
 
   constructor() {
     super();
 
-    const key = Number(this.getAttribute('key')) ?? 0;
-
-    this.#key = key;
-    this.#restaurant = RestaurantRepository.getRestaurant(key);
+    this.#key = Number(this.getAttribute('key')) ?? 0;
+    this.#restaurant = RestaurantRepository.getRestaurant(this.#key);
   }
 
   setEvent(): void {
-    $addEvent(this, 'favorite-button', 'click', this.#updateRestaurant.bind(this));
     $addEvent(this, '.restaurant__info', 'click', this.#openModal.bind(this));
+    $addEvent(this, 'favorite-button', 'updateRestaurant', this.#updateRestaurant.bind(this));
+    $addEvent(this, 'restaurant-detail-modal', 'updateRestaurant', this.#updateRestaurant.bind(this));
+  }
+
+  reRender(): void {
+    this.render();
+    this.#updateModalState();
   }
 
   #updateRestaurant(): void {
     this.#restaurant = RestaurantRepository.getRestaurant(this.#key);
-    this.render();
+    this.reRender();
+  }
+
+  #updateModalState(): void {
+    $setAttribute(this, 'restaurant-detail-modal', 'open', `${this.#modalState}`);
   }
 
   #openModal(): void {
-    $setAttribute(this, 'restaurant-detail-modal', 'open', 'true');
+    this.#modalState = true;
+    this.#updateModalState();
   }
 
   template(): string {
-    const { category, name, distance, description, isFavorite } = this.#restaurant;
+    const { key, category, name, distance, description, isFavorite } = this.#restaurant;
 
     return `
       <li class="restaurant">
@@ -40,9 +50,9 @@ class RestaurantItem extends Component {
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description text-body">${description || ''}</p>
         </div>
-        <favorite-button key=${this.#key} isFavorite=${isFavorite}></favorite-button>
+        <favorite-button key=${key} isFavorite=${isFavorite}></favorite-button>
       </li>
-      <restaurant-detail-modal key=${this.#key} open="false"></restaurant-detail-modal>
+      <restaurant-detail-modal key=${key} open="false"></restaurant-detail-modal>
     `;
   }
 }

@@ -11,10 +11,8 @@ class RestaurantDetailModal extends Modal {
   constructor() {
     super();
 
-    const key = Number(this.getAttribute('key')) ?? 0;
-
-    this.#key = key;
-    this.#restaurant = RestaurantRepository.getRestaurant(key);
+    this.#key = Number(this.getAttribute('key')) ?? 0;
+    this.#restaurant = RestaurantRepository.getRestaurant(this.#key);
   }
 
   setEvent(): void {
@@ -24,7 +22,6 @@ class RestaurantDetailModal extends Modal {
 
   #closeModal(): void {
     this.updateModal(false);
-    this.makeCustomEvent('updateRestaurantList');
   }
 
   #removeRestaurant(): void {
@@ -33,11 +30,11 @@ class RestaurantDetailModal extends Modal {
   }
 
   modalContent(): string {
-    const { category, name, distance, description, isFavorite, reference } = this.#restaurant;
+    const { key, category, name, distance, description, isFavorite, reference } = this.#restaurant;
 
     return `
       <div class="restaurant-detail-container">
-        <favorite-button key=${this.#key} isFavorite=${isFavorite}></favorite-button>
+        <favorite-button key=${key} isFavorite=${isFavorite}></favorite-button>
         <category-icon category=${category}></category-icon>
         <h2 class="restaurant__name text-subtitle">${name}</h2>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>

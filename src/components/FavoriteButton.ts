@@ -22,14 +22,17 @@ class FavoriteButton extends Component {
   #toggleFavorite(): void {
     RestaurantRepository.toggleFavoriteRestaurant(this.#key);
     this.#isFavorite = !this.#isFavorite;
+
     this.render();
+    this.makeCustomEvent('updateRestaurant');
   }
 
   template(): string {
     return `
       <button class="favorite__button">
         <img src=${this.#isFavorite ? favoriteFilledIcon : favoriteLinedIcon} alt="즐겨찾기">
-      </button>`;
+      </button>
+    `;
   }
 }
 
