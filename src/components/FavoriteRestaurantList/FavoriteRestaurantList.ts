@@ -31,7 +31,7 @@ class FavoriteRestaurantList extends BaseComponent {
   protected render(): void {
     this.innerHTML = `
       <section class="restaurant-list-container">
-        <ul class="restaurant-list">
+        <ul class="favorite-restaurant-list restaurant-list">
           ${this.createFavoriteRestaurantItems()}
         </ul> 
       </section>

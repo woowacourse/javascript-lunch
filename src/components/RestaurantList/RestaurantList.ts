@@ -54,7 +54,7 @@ class RestaurantList extends BaseComponent {
   protected render(): void {
     this.innerHTML = `
       <section class="restaurant-list-container">
-        <ul class="restaurant-list">
+        <ul class="all-restaurant-list restaurant-list">
           ${this.createRestaurantItems()}
         </ul> 
       </section>
