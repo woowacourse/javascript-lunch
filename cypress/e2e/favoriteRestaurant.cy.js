@@ -40,4 +40,22 @@ describe('자주 가는 식당 테스트', () => {
       });
     });
   });
+
+  it('자주 가는 식당인 잇쇼우, 도스타코스 선릉점에 농민백암순대 본점을 추가한 후 자주 가는 음식점 목록에 앞선 세 음식점이 있다.', () => {
+    cy.visit('http://localhost:8080/');
+
+    cy.get('.restaurant-container').each((restaurant) => {
+      const favRestaurant = restaurant.find('.restaurant__name').text();
+
+      if (favRestaurant === '농민백암순대 본점') {
+        restaurant.find('.fav-button').click();
+      }
+    });
+
+    cy.contains('자주 가는 음식점').click();
+
+    cy.contains('농민백암순대 본점').should('be.visible');
+    cy.contains('잇쇼우').should('be.visible'); // mocking
+    cy.contains('도스타코스 선릉점').should('be.visible'); // mocking
+  });
 });
