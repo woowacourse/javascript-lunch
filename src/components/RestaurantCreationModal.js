@@ -5,6 +5,7 @@ import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
 import { validateRequiredValue, validateRestaurantsName } from '../validators/ValidateInput';
 import { FIELD_IDS } from '../constants/rules';
+import generateRestaurantItem from './template/generateRestaurantItem';
 
 class RestaurantCreationModal extends Modal {
   #restaurantsInstance;
@@ -61,6 +62,15 @@ class RestaurantCreationModal extends Modal {
 
     this.#validateUniqueName(inputData);
     this.#restaurantsInstance.addRestaurant(inputData);
+
+    $('restaurant-list').insertAdjacentHTML(
+      'afterbegin',
+      generateRestaurantItem({
+        targetId: 'restaurant-list',
+        restaurantsInstance: this.#restaurantsInstance,
+        restaurant: inputData,
+      }),
+    );
     $('restaurant-input-form').reset();
     this.closeModal();
   }

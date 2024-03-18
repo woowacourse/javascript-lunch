@@ -57,7 +57,6 @@ class Restaurants implements RestaurantsInterface {
   }
 
   deleteRestaurant(restaurantName: string) {
-    console.log(restaurantName);
     const restaurants = this.storageData.filter(
       (restaurant: Restaurant) => restaurant.name !== restaurantName,
     );
