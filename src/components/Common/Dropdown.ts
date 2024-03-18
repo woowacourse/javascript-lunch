@@ -17,7 +17,7 @@ const Dropdown = (props: DropdownProps) => {
 
   return /*html*/ `
   ${label ? `<label for="${name}" class="text-caption">${label}</label>` : ''}
-  <select name="${name}" id="${id}" class="${className}" ${isRequired ? 'required' : ''}>
+  <select ${name ? `name="${name}"` : ''} ${id ? `id="${id}"` : ''} ${className ? `class="${className}"` : ''} ${isRequired ? 'required' : ''}>
     ${options.map((option: DropdownOption) => {
       return `<option value="${option.value}">${option.content}</option>`;
     })}
