@@ -11,19 +11,23 @@ class NavigationBar extends BaseComponent {
     `;
   }
 
-  #selectItem() {
-    $(".all-restaurants").classList.toggle("selected");
-    $(".favorite-restaurants").classList.toggle("selected");
+  #selectAllItem() {
+    $(".all-restaurants").classList.add("selected");
+    $(".favorite-restaurants").classList.remove("selected");
+  }
+  #selectFavoriteItem() {
+    $(".all-restaurants").classList.remove("selected");
+    $(".favorite-restaurants").classList.add("selected");
   }
 
   setEvent() {
     $(".all-restaurants").addEventListener("click", (e) => {
-      this.#selectItem();
+      this.#selectAllItem();
       this.emitEvent("all-restaurants");
     });
 
     $(".favorite-restaurants").addEventListener("click", (e) => {
-      this.#selectItem();
+      this.#selectFavoriteItem();
       this.emitEvent("favorite-restaurants");
     });
   }
