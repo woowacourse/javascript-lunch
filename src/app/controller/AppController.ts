@@ -2,11 +2,10 @@ import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
 import { ILocation } from '../../interface/interface';
 import { Category, Sort } from '../../constants/enums';
-import { $ } from '../../utils/domSelector';
+import { $, $$ } from '../../utils/domSelector';
 import RestaurantInfoModal from '../modal/RestaurantInfoModal/RestaurantInfoModal';
 
 class AppController {
-  //TODO: 컴포넌트에 따라 함수 분리하기
   sort: Sort;
   category: Category | '전체';
   favorite: boolean;
@@ -33,35 +32,35 @@ class AppController {
   }
 
   addEvent() {
-    const lunchHeader = document.querySelector('lunch-header');
+    const lunchHeader = $('lunch-header');
     if (lunchHeader) {
       lunchHeader.addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
     }
 
-    const addRestaurantModal = document.querySelector('add-restaurant-modal');
+    const addRestaurantModal = $('add-restaurant-modal');
     if (addRestaurantModal) {
       addRestaurantModal.addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
     }
 
-    const restaurantInfoModal = document.querySelector('restaurant-info-modal');
+    const restaurantInfoModal = $('restaurant-info-modal');
     if (restaurantInfoModal) {
-      restaurantInfoModal.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
+      restaurantInfoModal.addEventListener('toggleFavorite', this.toggleFavoriteInModal.bind(this));
       restaurantInfoModal.addEventListener('deleteRestaurantInfo', this.deleteRestaurantInfo.bind(this));
     }
 
-    const selectBoxSection = document.querySelector('select-box-section');
+    const selectBoxSection = $('select-box-section');
     if (selectBoxSection) {
       selectBoxSection.addEventListener('changeCategory', this.changeCategory.bind(this));
       selectBoxSection.addEventListener('changeSort', this.changeSort.bind(this));
     }
 
-    const favoriteNavBar = document.querySelector('favorite-tabnb');
+    const favoriteNavBar = $('favorite-tabnb');
     if (favoriteNavBar) {
       favoriteNavBar.addEventListener('showAll', this.showAll.bind(this));
       favoriteNavBar.addEventListener('showFavorite', this.showFavorite.bind(this));
     }
 
-    const restaurantItems = document.querySelectorAll('restaurant-item');
+    const restaurantItems = $$('restaurant-item');
     if (restaurantItems) {
       restaurantItems.forEach((item) => {
         item.addEventListener('toggleFavorite', this.toggleFavorite.bind(this));
@@ -111,7 +110,6 @@ class AppController {
   }
 
   addRestaurant(event: Event) {
-    //TODO: 여기에 Validation 연결하기
     const detail: ILocation = (event as CustomEvent).detail;
     this.restaurantService.addRestaurant(detail);
     this.refreshRestaurantList();
@@ -127,6 +125,11 @@ class AppController {
     const detail: string = (event as CustomEvent).detail;
     this.restaurantService.toggleFavorite(detail);
     this.refreshRestaurantList();
+  }
+
+  toggleFavoriteInModal(event: Event) {
+    const detail: string = (event as CustomEvent).detail;
+    this.restaurantService.toggleFavoriteFromModal(detail);
   }
 
   refreshRestaurantList() {
@@ -165,13 +168,15 @@ class AppController {
   }
 
   showRestaurantInfoModal(data: ILocation) {
-    const restaurantInfoModal = document.querySelector('restaurant-info-modal') as RestaurantInfoModal;
-    if (restaurantInfoModal) {
+    const restaurantInfoModal = document.querySelector('restaurant-info-modal');
+    if (restaurantInfoModal instanceof RestaurantInfoModal) {
       const customEvent = new CustomEvent('restaurantDataUpdated', { detail: data });
       restaurantInfoModal.dispatchEvent(customEvent);
 
-      const dialogElement = restaurantInfoModal.querySelector('dialog');
-      if (dialogElement instanceof HTMLDialogElement) dialogElement.showModal();
+      const dialogElement = restaurantInfoModal?.querySelector('dialog');
+      if (dialogElement instanceof HTMLDialogElement) {
+        dialogElement.showModal();
+      }
     }
   }
 }
