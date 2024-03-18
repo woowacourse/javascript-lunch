@@ -35,7 +35,6 @@ class FavoriteButton extends BaseComponent {
   }
 
   rerender() {
-    console.log('aaa');
     removeAllChildren(this.#button);
     this.render();
   }
