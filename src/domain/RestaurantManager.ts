@@ -66,6 +66,6 @@ class RestaurantManager {
       this.#restaurants = JSON.parse(storedRestaurants);
     }
   }
-
+}
 
 export default RestaurantManager;
