@@ -37,10 +37,10 @@ const makeRestaurantInfo = (target: EventTarget & IForm) => {
   return {
     category: category.value,
     name: name.value,
-    distanceFromCampus: Number(distance.value),
+    distanceFromCampus: Number(distance.value) as DistanceFromCampus,
     description: description?.value || undefined,
     link: link?.value || undefined,
-  } as IRestaurantInfo;
+  };
 };
 
 export const updateRestaurantsToLocalStorage = (...restaurants: IRestaurantInfo[]) => {
