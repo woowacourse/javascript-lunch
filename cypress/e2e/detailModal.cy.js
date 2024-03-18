@@ -1,6 +1,6 @@
 describe('레스토랑 상세 모달 테스트', () => {
   it('레스토랑 Card element를 클릭 시, 상세 모달이 나온다.', () => {
-    cy.visit('http://localhost:8080/');
+    cy.customVisit();
 
     cy.contains('농민백암순대 본점').click();
 
@@ -9,7 +9,7 @@ describe('레스토랑 상세 모달 테스트', () => {
   });
 
   it('레스토랑 상세 모달에서 닫기 버튼을 클릭 시, 상세 모달이 닫힌다.', () => {
-    cy.visit('http://localhost:8080/');
+    cy.customVisit();
 
     cy.contains('농민백암순대 본점').click();
     cy.contains('닫기').click();
@@ -19,7 +19,7 @@ describe('레스토랑 상세 모달 테스트', () => {
   });
 
   it('레스토랑 상세 모달에서 삭제 버튼을 클릭 시, 해당 레스토랑이 지워지고 모달이 닫힌다', () => {
-    cy.visit('http://localhost:8080/');
+    cy.customVisit();
 
     // 삭제 버튼 클릭 시
     cy.contains('농민백암순대 본점').click();

@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+Cypress.Commands.add('customVisit', () => {
+  cy.visit('http://localhost:8080/');
+});
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
