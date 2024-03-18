@@ -5,6 +5,7 @@ import {
   filterSelectTemplate,
   sortSelectTemplate,
 } from "./filterBarTemplate";
+import { categoryFilterHandler, sortHandler } from "./handlers";
 
 export const generateBaseComponents = () => {
   const formattedBaseSectionTemplate =
@@ -21,3 +22,12 @@ export const generateFilterBarComponents = () => {
   barContainer.appendChild(convertHTMLStringToDOM(filterSelectTemplate));
   barContainer.appendChild(convertHTMLStringToDOM(sortSelectTemplate));
 };
+
+const FilterBar = () => {
+  generateBaseComponents();
+  generateFilterBarComponents();
+
+  categoryFilterHandler();
+  sortHandler();
+};
+export default FilterBar;

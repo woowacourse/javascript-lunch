@@ -1,9 +1,9 @@
-import RestaurantListStorageService from "../../../services/restaurantListStorageService";
+import RestaurantCRUD from "../../../domain/RestaurantCRUD";
 import validateRestaurantState from "../../../services/validateRestaurantState";
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import { Irestaurant } from "../../../types/restaurant";
 import { IinvalidResult } from "../../../types/validate";
-import RestaurantList from "../../restaurant_list/RestaurantList";
+import RestaurantList from "../../restaurant-list/RestaurantList";
 
 const initializeFormState = () => {
   const modalForm: HTMLFormElement = document.getElementById(
@@ -18,7 +18,7 @@ const addNewRestaurant = (modal: Element, restaurantInfo: Irestaurant) => {
 
   if (invalidMessage.length === 0) {
     modal.classList.remove("modal--open");
-    RestaurantListStorageService.setData(restaurantInfo);
+    RestaurantCRUD.addNewRestaurant(restaurantInfo);
     initializeFormState();
   }
 };
@@ -36,12 +36,13 @@ const removePrevErrorMessage = () => {
 const renderErrorMessage = (index: number, result: Partial<IinvalidResult>) => {
   const targetTag = document.getElementsByClassName("form-item")[index];
   const p = document.createElement("p");
-  p.setAttribute("class", `invalid_message ${result.targetClassName}`);
+  p.setAttribute("id", result.targetId as string);
+  p.setAttribute("class", "invalid_message");
   p.textContent = result.errorMessage as string;
   targetTag.appendChild(p);
 };
 
-const checkValidateHandler = (restaurantInfo: Partial<Irestaurant>) => {
+const checkValidate = (restaurantInfo: Partial<Irestaurant>) => {
   const validateResult = validateRestaurantState(restaurantInfo);
   removePrevErrorMessage();
 
@@ -57,7 +58,7 @@ export const submitHandler = (modal: Element) => {
   submitButton.addEventListener("click", (event) => {
     event.preventDefault();
     const restaurantInfo = restaurantStateStore.getRestaurantField();
-    checkValidateHandler(restaurantInfo);
+    checkValidate(restaurantInfo);
     addNewRestaurant(modal, restaurantInfo as Irestaurant);
     RestaurantList();
   });

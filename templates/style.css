@@ -153,6 +153,27 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__like-button,
+.modal__like-button {
+  height: 40px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.restaurant__like-button img,
+.modal__like-button img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .restaurant__name {
@@ -163,7 +184,7 @@ body {
   color: var(--primary-color);
 }
 
-.restaurant__description {
+.restaurant__description-summary {
   display: -webkit-box;
 
   padding-top: 8px;
@@ -174,12 +195,31 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.restaurant__description {
+  display: -webkit-box;
+
+  padding-top: 8px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.restaurant__link {
+  display: block;
+  color: var(--grey-500);
+  margin-top: 16px;
+}
+
 /* 음식점 추가 모달 *****************************************/
 .modal {
   display: none;
 }
 
 .modal--open {
+  display: block;
+}
+
+.detail-modal {
   display: block;
 }
 
@@ -204,8 +244,25 @@ body {
   background: var(--grey-100);
 }
 
+.detail-modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .modal-title {
   margin-bottom: 36px;
+}
+
+.modal-form {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.modal-top-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .form-item {
@@ -267,6 +324,10 @@ input[name="link"] {
   display: flex;
 }
 
+.detail-modal-button-container {
+  margin-top: 10px;
+}
+
 .button {
   width: 100%;
   height: 44px;
@@ -299,4 +360,31 @@ input[name="link"] {
 
 .invalid_message {
   color: var(--primary-color);
+}
+
+/* 즐겨찾기 탭 *****************************************/
+
+.tabs {
+  margin: 0px 15px;
+  padding: 0px;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tab-item {
+  font-weight: bold;
+  color: var(--grey-300);
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 10px;
+  border-bottom: solid 2px var(--grey-300);
+}
+
+.current {
+  color: var(--primary-color);
+  border-bottom: solid 2px var(--primary-color);
 }

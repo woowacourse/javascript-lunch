@@ -1,12 +1,12 @@
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
-import inputDescriptionHandler from "./handlers";
+import descriptionEventHandler from "./handlers";
 import inputDescriptionTemplate from "./inputDescriptionTemplate";
 
 function InputDescription(form: Element) {
   form.appendChild(convertHTMLStringToDOM(inputDescriptionTemplate));
 
-  inputDescriptionHandler();
+  descriptionEventHandler();
 }
 
 export default InputDescription;

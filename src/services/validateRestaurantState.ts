@@ -1,7 +1,8 @@
+import ERROR_MESSAGE from "../constants/error";
+import { MAX_LENGTH_OF_DESCRIPTION } from "../constants/system";
+import restaurantListStateStore from "../store/RestaurantListStateStore";
 import { Icategory } from "../types/category";
 import { Irestaurant } from "../types/restaurant";
-
-import RestaurantListStorageService from "./restaurantListStorageService";
 
 const valid = {
   isValid: true,
@@ -11,9 +12,9 @@ const validate = {
   validateCategory(category?: Icategory) {
     if (category === undefined || category.length <= 0) {
       return {
-        targetClassName: "invalid_category",
+        targetId: "invalid_category",
         isValid: false,
-        errorMessage: "카테고리는 필수적으로 선택해주세요.",
+        errorMessage: ERROR_MESSAGE.REQUIRED_CATEGORY,
       };
     }
     return valid;
@@ -22,9 +23,9 @@ const validate = {
   validateNoName(name?: string) {
     if (name === undefined || name.length <= 0) {
       return {
-        targetClassName: "invalid_name",
+        targetId: "invalid_name",
         isValid: false,
-        errorMessage: "레스토랑 이름은 필수적으로 작성해주세요",
+        errorMessage: ERROR_MESSAGE.REQUIRED_NAME,
       };
     }
     return valid;
@@ -33,9 +34,9 @@ const validate = {
   validateDuplicateName(name?: string) {
     if (this.checkDuplicate(name)) {
       return {
-        targetClassName: "invalid_name",
+        targetId: "invalid_name",
         isValid: false,
-        errorMessage: "이미 등록된 레스토랑입니다.",
+        errorMessage: ERROR_MESSAGE.DUPLICATE_NAME,
       };
     }
     return valid;
@@ -52,7 +53,7 @@ const validate = {
   },
 
   checkDuplicate(name?: string) {
-    const restaurantList = RestaurantListStorageService.getData();
+    const restaurantList = restaurantListStateStore.getListData();
     return restaurantList.find(
       (restaurant: Irestaurant) => restaurant.name === name,
     );
@@ -61,20 +62,20 @@ const validate = {
   validateDistance(distance?: number) {
     if (distance === undefined) {
       return {
-        targetClassName: "invalid_distance",
+        targetId: "invalid_distance",
         isValid: false,
-        errorMessage: "거리를 필수적으로 선택해주세요.",
+        errorMessage: ERROR_MESSAGE.REQUIRED_DISTANCE,
       };
     }
     return valid;
   },
 
   validateDescription(description?: string) {
-    if (description?.length && description.length > 200) {
+    if (description?.length && description.length > MAX_LENGTH_OF_DESCRIPTION) {
       return {
-        targetClassName: "invalid_description",
+        targetId: "invalid_description",
         isValid: false,
-        errorMessage: "설명의 최대 글자수는 200자입니다.",
+        errorMessage: ERROR_MESSAGE.INVALID_DESCRIPTION_MAX_LENGTH,
       };
     }
     return valid;
@@ -83,9 +84,9 @@ const validate = {
   validateLink(link?: string) {
     if (!link?.startsWith("http") && link !== undefined) {
       return {
-        targetClassName: "invalid_link",
+        targetId: "invalid_link",
         isValid: false,
-        errorMessage: "유효한 주소값을 입력해주세요",
+        errorMessage: ERROR_MESSAGE.INVALID_LINK,
       };
     }
     return valid;

@@ -1,4 +1,9 @@
-import { CATEGORIES, CategoryValue, SORTS } from "../../constants/system";
+import {
+  ALL_CATEGORY,
+  CATEGORIES,
+  CategoryValue,
+  SORTS,
+} from "../../constants/system";
 
 export const baseSectionTemplate = /*html*/ `
 <main>
@@ -9,9 +14,8 @@ export const baseSectionTemplate = /*html*/ `
 
 export const filterSelectTemplate = /*html*/ `
 <select name="category" id="category-filter" class="restaurant-filter">
-  <option value="${CATEGORIES.ALL}">${CATEGORIES.ALL}</option>
+  <option value="${ALL_CATEGORY}">${ALL_CATEGORY}</option>
   ${Object.values(CATEGORIES)
-    .filter((value) => value !== CATEGORIES.ALL)
     .map(
       (category: CategoryValue) => `
     <option value="${category}">${category}</option>

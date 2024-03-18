@@ -1,21 +1,21 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
+import removeErrorMessageById from "../../../utils/removeErrorMessageById";
 
-const inputNameEventHandler = (input: HTMLElement) => {
+const inputNameHandler = (input: HTMLElement) => {
   input.addEventListener("input", (event) => {
     if (event.target instanceof HTMLInputElement) {
       const inputValue = event.target.value;
-      removeHTMLElementByClassName("invalid_name");
+      removeErrorMessageById("invalid_name");
       restaurantStateStore.setName(inputValue);
     }
   });
 };
 
-const inputNameHandler = () => {
+const nameEventHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("name") as HTMLElement;
 
-    inputNameEventHandler(input);
+    inputNameHandler(input);
   });
 };
-export default inputNameHandler;
+export default nameEventHandler;

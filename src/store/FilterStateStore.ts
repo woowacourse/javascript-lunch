@@ -5,9 +5,11 @@ class FilterStateStore {
   #filterState: {
     filter: Icategory | Iall;
     sort: IsortType;
+    liked: boolean;
   } = {
     filter: "전체",
     sort: "name",
+    liked: false,
   };
 
   setFilterType(filter: Icategory | Iall) {
@@ -16,6 +18,10 @@ class FilterStateStore {
 
   setSortType(sort: IsortType) {
     this.#filterState.sort = sort;
+  }
+
+  setLikedType(liked: boolean) {
+    this.#filterState.liked = liked;
   }
 
   getFilterInfo() {

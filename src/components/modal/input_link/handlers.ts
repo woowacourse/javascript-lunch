@@ -1,20 +1,22 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
-import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
+import removeErrorMessageById from "../../../utils/removeErrorMessageById";
 
-export const linkEventHandler = (link: HTMLElement) => {
+const inputLinkHandler = (link: HTMLElement) => {
   link.addEventListener("input", (event) => {
     if (event.target instanceof HTMLInputElement) {
       const inputLink = event.target.value;
-      removeHTMLElementByClassName("invalid_link");
+      removeErrorMessageById("invalid_link");
       restaurantStateStore.setLink(inputLink);
     }
   });
 };
 
-export const inputLinkHandler = () => {
+const linkEventHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const link = document.getElementById("link") as HTMLElement;
 
-    linkEventHandler(link);
+    inputLinkHandler(link);
   });
 };
+
+export default linkEventHandler;

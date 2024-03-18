@@ -1,12 +1,12 @@
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
-import { categoryChange } from "./handlers";
+import categoryEventHandler from "./handlers";
 import selectCategoryTemplate from "./selectCategoryTemplate";
 
 function SelectCategory(form: Element) {
   form.appendChild(convertHTMLStringToDOM(selectCategoryTemplate));
 
-  categoryChange();
+  categoryEventHandler();
 }
 
 export default SelectCategory;

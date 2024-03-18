@@ -1,21 +1,22 @@
 import restaurantStateStore from "../../../store/RestaurantStateStore";
 import { Icategory } from "../../../types/category";
-import removeHTMLElementByClassName from "../../../utils/removeErrorMessageByClassName";
+import removeErrorMessageById from "../../../utils/removeErrorMessageById";
 
-export const selectEventHandler = (select: HTMLElement) => {
+const changeCategoryHandler = (select: HTMLElement) => {
   select.addEventListener("change", (event) => {
     if (event.target instanceof HTMLSelectElement) {
       const selectedValue = event.target.value;
-      removeHTMLElementByClassName("invalid_category");
+      removeErrorMessageById("invalid_category");
       restaurantStateStore.setCategory(selectedValue as Icategory);
     }
   });
 };
 
-export const categoryChange = () => {
+const categoryEventHandler = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const select = document.getElementById("category") as HTMLElement;
 
-    selectEventHandler(select);
+    changeCategoryHandler(select);
   });
 };
+export default categoryEventHandler;

@@ -1,12 +1,12 @@
 import convertHTMLStringToDOM from "../../../utils/convertHTMLStringToDOM";
 
-import { distanceChange } from "./handlers";
+import distanceEventHandler from "./handlers";
 import selectDistanceTemplate from "./selectDistanceTemplate";
 
 function SelectDistance(form: Element) {
   form.appendChild(convertHTMLStringToDOM(selectDistanceTemplate));
 
-  distanceChange();
+  distanceEventHandler();
 }
 
 export default SelectDistance;

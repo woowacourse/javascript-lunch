@@ -4,13 +4,11 @@ import RestaurantList from "./RestaurantList";
 import restaurantListTemplate from "./restaurantListTemplate";
 
 function RestaurantListContainer() {
-  const main = document.querySelector("main");
+  const main = document.querySelector("main") as HTMLElement;
   const formattedRestaurantListTemplate = convertHTMLStringToDOM(
     restaurantListTemplate,
   );
-  if (main) {
-    main.appendChild(formattedRestaurantListTemplate);
-  }
+  main.appendChild(formattedRestaurantListTemplate);
   RestaurantList();
 }
 export default RestaurantListContainer;
