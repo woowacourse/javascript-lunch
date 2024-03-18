@@ -16,7 +16,6 @@ const generateOption = (key, value) => {
   return option;
 };
 
-// TODO: createElement 재사용할 수 있게 구현
 const generateSelectField = ({ id, name, options }) => {
   const select = document.createElement('select');
   select.setAttribute('id', id);

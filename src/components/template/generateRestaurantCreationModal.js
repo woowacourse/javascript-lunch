@@ -1,6 +1,3 @@
-// TODO: generateSelect 사용해서 카테고리, 거리 select field 생성
-// TODO: createElement로 변경, createElement도 재사용할 수 있게 구현
-
 const generateRestaurantCreationModal = () => {
   return `
     <!-- 음식점 추가 모달 -->
