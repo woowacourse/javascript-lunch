@@ -85,4 +85,22 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
 
     cy.get('.restaurant').should('have.length', 1);
   });
+
+  it('식당 리스트를 누르면 식당 상세 모달이 뜨고 식당을 삭제할 수 있다.', () => {
+    cy.get('.restaurant').eq(2).click();
+
+    cy.get('.modal').should('have.class', 'modal--open');
+
+    cy.get('.detail-restaurant').within(() => {
+      cy.get('.button').eq(0).click();
+    });
+
+    cy.on('window:alert', alertText => {
+      expect(alertText).to.equal('삭제되었습니다.');
+    });
+
+    cy.get('.modal').should('not.be.visible');
+
+    cy.get('.restaurant').should('have.length', 3);
+  });
 });
