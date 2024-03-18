@@ -89,9 +89,4 @@ export default class RestaurantItem extends HTMLLIElement {
     modal.dispatchEvent(new CustomEvent('restaurantDetailOpen', { bubbles: true, detail: this.restaurant }));
     modal.openModal();
   }
-
-  #displayRestaurantDetailInModal(modal, content) {
-    const modalContainer = modal.shadowRoot.querySelector('.detail-container');
-    modal.openModal();
-  }
 }
