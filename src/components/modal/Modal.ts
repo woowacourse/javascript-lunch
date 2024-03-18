@@ -20,9 +20,9 @@ class Modal extends Component {
 
   updateModal(isOpen: boolean): void {
     if (isOpen) {
-      ($(this, 'dialog') as HTMLDialogElement).showModal();
+      $<HTMLDialogElement>(this, 'dialog').showModal();
     } else {
-      ($(this, 'dialog') as HTMLDialogElement).close();
+      $<HTMLDialogElement>(this, 'dialog').close();
     }
   }
 

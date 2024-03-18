@@ -22,18 +22,18 @@ class RestaurantAddModal extends Modal {
 
     this.#addRestaurant();
 
-    ($(this, '.modal-form') as HTMLFormElement).reset();
+    $<HTMLFormElement>(this, '.modal-form').reset();
     this.updateModal(false);
   }
 
   #addRestaurant(): void {
     const restaurantData = {
       key: generateRandomNumber(),
-      category: ($(this, '.modal-category') as HTMLSelectElement).value as TCategory,
-      name: ($(this, '.modal-restaurant-name') as HTMLInputElement).value,
-      distance: Number(($(this, '.modal-distance') as HTMLSelectElement).value) as TDistance,
-      description: ($(this, '.modal-description') as HTMLInputElement).value,
-      reference: ($(this, '.modal-reference') as HTMLInputElement).value,
+      category: $<HTMLSelectElement>(this, '.modal-category').value as TCategory,
+      name: $<HTMLInputElement>(this, '.modal-restaurant-name').value,
+      distance: Number($<HTMLSelectElement>(this, '.modal-distance').value) as TDistance,
+      description: $<HTMLInputElement>(this, '.modal-description').value,
+      reference: $<HTMLInputElement>(this, '.modal-reference').value,
       isFavorite: false,
     };
 
@@ -43,7 +43,7 @@ class RestaurantAddModal extends Modal {
 
   #isEmptyError(selectors: string[]): boolean {
     const errors = selectors.filter((selector) => {
-      if (isEmptyInput(($(this, selector) as HTMLInputElement | HTMLSelectElement).value)) {
+      if (isEmptyInput($<HTMLInputElement | HTMLSelectElement>(this, selector).value)) {
         $(this, `${selector}-error-message`).textContent = ERROR.NULL;
         return true;
       }
@@ -56,7 +56,7 @@ class RestaurantAddModal extends Modal {
       return false;
     }
 
-    ($(this, errors[0]) as HTMLInputElement | HTMLSelectElement).focus();
+    $<HTMLInputElement | HTMLSelectElement>(this, errors[0]).focus();
     return true;
   }
 

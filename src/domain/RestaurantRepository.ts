@@ -1,5 +1,5 @@
 import RestaurantStorage from '../store/RestaurantStorage';
-import { generateRandomNumber } from '../utils/random';
+import { ERROR } from '../constants/Message';
 
 class RestaurantRepository {
   #restaurants;
@@ -33,7 +33,7 @@ class RestaurantRepository {
     const restaurant = this.#restaurants.find((restaurant) => restaurant.key === key);
 
     if (restaurant === undefined) {
-      throw new Error('[ERROR] 음식점이 없습니다.');
+      throw new Error(ERROR.NO_RESTAURANT);
     }
 
     return restaurant;

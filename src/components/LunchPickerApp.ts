@@ -4,17 +4,12 @@ import { $, $addEvent, $setAttribute } from '../utils/dom';
 class LunchPickerApp extends Component {
   setEvent(): void {
     $addEvent(this, '#app', 'updateRestaurantList', this.#updateRestaurantList.bind(this));
-    $addEvent(this, 'lunch-picker-header', 'click', this.#updateModal.bind(this));
-  }
-
-  #updateModal(): void {
-    $setAttribute(this, 'restaurant-add-modal', 'open', 'true');
   }
 
   #updateRestaurantList(): void {
-    const category = ($(this, '.category') as HTMLSelectElement)?.value;
-    const sorting = ($(this, '.sorting') as HTMLSelectElement)?.value;
-    const type = ($(this, '.tab-item--checked') as HTMLButtonElement)?.value;
+    const category = $<HTMLSelectElement>(this, '.category').value;
+    const sorting = $<HTMLSelectElement>(this, '.sorting').value;
+    const type = $<HTMLButtonElement>(this, '.tab-item--checked').value;
 
     $setAttribute(this, 'restaurant-list', 'category', category);
     $setAttribute(this, 'restaurant-list', 'sorting', sorting);

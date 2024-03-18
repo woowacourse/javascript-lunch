@@ -1,25 +1,27 @@
-export const $ = ($target: Element, selector: string) => {
-  const element = $target.querySelector(selector);
+import { ERROR } from '../constants/Message';
+
+export const $ = <E extends Element>($target: Element | Document, selector: string): E => {
+  const element = $target.querySelector<E>(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
   return element;
 };
 
-export const $$ = ($target: Element, selector: string) => {
+export const $$ = ($target: Element | Document, selector: string) => {
   const element = $target.querySelectorAll(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
   return element;
 };
 
 export const $addEvent = (
-  $target: Element,
+  $target: Element | Document,
   selector: string,
   type: string,
   listener: EventListenerOrEventListenerObject,
@@ -27,32 +29,17 @@ export const $addEvent = (
   const element = $target.querySelector(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
   return element.addEventListener(type, listener);
 };
 
-export const $removeEvent = (
-  $target: Element,
-  selector: string,
-  type: string,
-  listener: EventListenerOrEventListenerObject,
-) => {
+export const $setAttribute = ($target: Element | Document, selector: string, key: string, value: string) => {
   const element = $target.querySelector(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
-  }
-
-  return element.removeEventListener(type, listener);
-};
-
-export const $setAttribute = ($target: Element, selector: string, key: string, value: string) => {
-  const element = $target.querySelector(selector);
-
-  if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
   return element.setAttribute(key, value);

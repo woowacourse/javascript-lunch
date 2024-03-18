@@ -1,6 +1,6 @@
 import Component from './core/Component';
 import addButtonImg from '../assets/add-button.png';
-import { $addEvent } from '../utils/dom';
+import { $addEvent, $setAttribute } from '../utils/dom';
 
 class LunchPickerHeader extends Component {
   setEvent() {
@@ -8,7 +8,7 @@ class LunchPickerHeader extends Component {
   }
 
   #openModal() {
-    this.makeCustomEvent('click');
+    $setAttribute(document, 'restaurant-add-modal', 'open', 'true');
   }
 
   template() {
