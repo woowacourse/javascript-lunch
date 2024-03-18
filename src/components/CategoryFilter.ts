@@ -32,7 +32,9 @@ const CategoryFilter = (restaurantList: RestaurantList) => {
       const selectedCategory: string = select.value;
       if (CATEGORY_VALUES.includes(selectedCategory as CategoryValues)) {
         restaurantList.setCategory(selectedCategory as CategoryValues);
+        return;
       }
+      throw new Error('알 수 없는 카테고리입니다.');
     });
   };
 
