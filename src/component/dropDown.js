@@ -27,9 +27,10 @@ function render({ options, id, className, required, cover }) {
   select.className = className;
   select.required = required;
 
-  if (!!cover) {
+  if (!cover) {
     const option = document.createElement('option');
     option.value = '';
+
     option.textContent = cover;
     select.appendChild(option);
   }

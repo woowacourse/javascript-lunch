@@ -2,6 +2,7 @@ import { APP_NAME } from '../constant/cons.js';
 import { $ } from '../utils/selector.js';
 import { openModal } from './modal/modal.js';
 
+
 function createHeader({
   className,
   left,
@@ -22,6 +23,7 @@ function createHeader({
     hasFavorite,
   });
 
+
   header.append(leftElement, rightElement);
   return header;
 }
@@ -36,6 +38,7 @@ const item = {
   },
 
   add({ addRestaurant, getRestaurantList, favoriteToggle, hasFavorite }) {
+
     const button = document.createElement('button');
 
     button.type = 'button';
@@ -55,6 +58,7 @@ const item = {
       favoriteToggle,
       hasFavorite,
     });
+
 
     return button;
   },

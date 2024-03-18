@@ -3,6 +3,7 @@ import { openModal } from './modal/modal.js';
 import createRestaurantCard from './restaurantCard.js';
 
 function createRestaurantList({ restaurantList, toggleFavorite, hasFavorite }) {
+
   const restaurantListContainer = document.querySelector(
     '.restaurant-list-container'
   );
@@ -62,3 +63,4 @@ function createRestaurantList({ restaurantList, toggleFavorite, hasFavorite }) {
 }
 
 export default createRestaurantList;
+

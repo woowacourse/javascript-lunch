@@ -1,9 +1,3 @@
-// start {
-//   헤더 렌더
-//   소트 렌더
-//   목록 = 로컬스토리지에서 목록 받아오기
-//   리스트 렌더(목록)
-// }
 import '../templates/style.css';
 import './component/toast/toast.css';
 import './component/tabBar/tabBar.css';

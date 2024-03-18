@@ -16,6 +16,7 @@ function createNewRestaurantModal({
   favoriteToggle,
   hasFavorite,
 }) {
+
   const container = render();
   const form = container.querySelector('form');
 
@@ -38,6 +39,7 @@ function createNewRestaurantModal({
 
       closeModal();
 
+
       toast(
         `${newRestaurant.name} 가게에 대한 정보가 정상적으로 추가되었습니다.`
       );
@@ -50,6 +52,7 @@ function createNewRestaurantModal({
 
 function render() {
   const container = createModalContainer();
+
 
   const modalTitle = document.createElement('h2');
   modalTitle.className = 'modal-title text-title';

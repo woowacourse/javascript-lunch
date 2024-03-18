@@ -1,8 +1,5 @@
 import { Restaurant, Category } from '../../src/domain/interface/Restaurant';
-import {
-  RestaurantManager,
-  RestaurantManager,
-} from '../../src/domain/RestaurantManager';
+import { RestaurantManager } from '../../src/domain/RestaurantManager';
 
 describe('음식점 목록 테스트', () => {
   it('음식점을 추가하면 정상적으로 추가되었는지 확인한다.', () => {
@@ -57,6 +54,7 @@ describe('음식점 목록 테스트', () => {
     const sortedByAscendingName: Restaurant[] = [
       {
         id: 2,
+
         category: '한식',
         name: '가',
         walkingTime: 5,
