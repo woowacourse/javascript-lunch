@@ -1,7 +1,8 @@
 import { $, $$ } from '@/utils/DOM';
 import BaseComponent from '../BaseComponent';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
-import { deleteParams, getUrlParams, setUrlParams } from '@/utils/url';
+import { deleteParams, setUrlParams } from '@/utils/url';
+import FilterContainer from '../FilterContainer/FilterContainer';
 export type Tab = {
   id: string;
   title: string;
@@ -21,13 +22,13 @@ export const TabData: Tab[] = [
 class TabMenu extends BaseComponent {
   #tabData;
   #selectedTabId;
-  #restaurantUpdateService;
+  // #restaurantUpdateService;
 
   constructor() {
     super();
     this.#tabData = TabData;
     this.#selectedTabId = 'all';
-    this.#restaurantUpdateService = new RestaurantUpdateService();
+    // this.#restaurantUpdateService = new RestaurantUpdateService();
   }
 
   render() {
@@ -68,14 +69,14 @@ class TabMenu extends BaseComponent {
   #showFavoriteTab() {
     $<HTMLElement>('#favorite-tab').addEventListener('click', () => {
       setUrlParams('tab', 'favorite');
-      this.#restaurantUpdateService.rerenderByFilter();
+      FilterContainer.rerenderByFilter();
     });
   }
 
   #showAllTab() {
     $<HTMLElement>('#all-tab').addEventListener('click', () => {
       deleteParams('tab');
-      this.#restaurantUpdateService.rerenderByFilter();
+      FilterContainer.rerenderByFilter();
     });
   }
 }

@@ -5,6 +5,7 @@ import RestaurantCollection from '@/domains/entities/RestaurantCollection';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { $ } from '@/utils/DOM';
 import { removeAllChildren } from '@/utils/view';
+import FilterContainer from '../FilterContainer/FilterContainer';
 
 type Props = {
   isFavorite: boolean;
@@ -34,6 +35,7 @@ class FavoriteButton extends BaseComponent {
   }
 
   rerender() {
+    console.log('aaa');
     removeAllChildren(this.#button);
     this.render();
   }
@@ -57,16 +59,8 @@ class FavoriteButton extends BaseComponent {
       this.#isFavorite = !this.#isFavorite;
 
       this.rerender();
-      this.rerenderByFilter();
+      FilterContainer.rerenderByFilter();
     });
-  }
-
-  rerenderByFilter() {
-    const event = new Event('change', {
-      bubbles: true,
-      cancelable: true,
-    });
-    $('.restaurant-filter-container').dispatchEvent(event);
   }
 }
 

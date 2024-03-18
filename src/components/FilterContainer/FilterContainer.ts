@@ -60,6 +60,16 @@ class FilterContainer extends BaseComponent {
       return newRestaurantList;
     });
   }
+
+  static rerenderByFilter() {
+    const event = new Event('change', {
+      bubbles: true,
+      cancelable: true,
+    });
+    $('.restaurant-filter-container').dispatchEvent(event);
+  }
 }
+
+export default FilterContainer;
 
 customElements.define('filter-container', FilterContainer);

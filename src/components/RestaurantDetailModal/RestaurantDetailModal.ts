@@ -76,7 +76,7 @@ class RestaurantDetailModal extends BaseComponent {
 
   #makeDeleteButton() {
     return new BasicButton({
-      variant: 'secondary',
+      variant: 'primary',
       textContent: '삭제하기',
       type: 'button',
       clickEvent: () => {
@@ -87,7 +87,7 @@ class RestaurantDetailModal extends BaseComponent {
 
   #makeCloseButton() {
     return new BasicButton({
-      variant: 'primary',
+      variant: 'secondary',
       textContent: '닫기',
       type: 'button',
       clickEvent: () => closeModal(),

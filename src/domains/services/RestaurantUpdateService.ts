@@ -4,6 +4,7 @@ import { checkAllValuesValid, validateAllValuesAndMakeErrorMessage } from '@/uti
 import { closeModal, hideErrorMessage } from '@/utils/view';
 import { $ } from '@/utils/DOM';
 import RestaurantCollection from '../entities/RestaurantCollection';
+import FilterContainer from '@/components/FilterContainer/FilterContainer';
 
 class RestaurantUpdateService {
   #restaurantDBService = new RestaurantDBService();
@@ -15,7 +16,7 @@ class RestaurantUpdateService {
 
     if (newRestaurant) {
       this.updateAddedRestaurantCollection(newRestaurant);
-      this.rerenderByFilter();
+      FilterContainer.rerenderByFilter();
       closeModal();
       form.reset();
     }
@@ -25,7 +26,7 @@ class RestaurantUpdateService {
     this.#restaurantCollection = this.#restaurantDBService.update();
     this.#restaurantCollection.deleteRestaurant(id);
     this.#restaurantDBService.set(this.#restaurantCollection);
-    this.rerenderByFilter();
+    FilterContainer.rerenderByFilter();
     closeModal();
   }
 
@@ -56,14 +57,6 @@ class RestaurantUpdateService {
     };
 
     return newRestaurant;
-  }
-
-  rerenderByFilter() {
-    const event = new Event('change', {
-      bubbles: true,
-      cancelable: true,
-    });
-    $('.restaurant-filter-container').dispatchEvent(event);
   }
 }
 

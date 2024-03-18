@@ -11,6 +11,7 @@ import { closeModal, makeInputInfo, makeLabel } from '@/utils/view';
 import Input from '../Input/Input';
 import BasicModal from '../BasicModal/BasicModal';
 import RestaurantUpdateService from '@/domains/services/RestaurantUpdateService';
+import { $ } from '@/utils/DOM';
 
 class NewRestaurantModal extends BaseComponent {
   #form;
@@ -30,8 +31,14 @@ class NewRestaurantModal extends BaseComponent {
   render() {
     this.#makeForm();
     this.#form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      this.#restaurantUpdateService.addNewRestaurant(this.#form);
+      try {
+        e.preventDefault();
+        this.#restaurantUpdateService.addNewRestaurant(this.#form);
+      } catch (error) {
+        const $nameError = $(`#${ERROR_ID('name')}`);
+        $nameError.textContent = '중복된 음식점이 있습니다.';
+        $nameError.classList.remove('hidden');
+      }
     });
   }
 

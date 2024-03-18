@@ -1,5 +1,5 @@
 import { DISTANCE_FROM_CAMPUS } from '@/constants/Condition';
-import { ERROR_MESSAGE } from '@/constants/Message';
+import { ERROR_ID, ERROR_MESSAGE } from '@/constants/Message';
 
 describe('새 음식점 추가 모달 테스트', () => {
   const NEW_RESTAURANT = {
@@ -224,5 +224,30 @@ describe('새 음식점 추가 모달 테스트', () => {
 
     $addButton.click();
     cy.get('.restaurant__description').should('text', 'a'.repeat(300));
+  });
+
+  it('중복되는 이름의 음식점을 입력하면 에러메세지가 뜨고 추가되지 않는다.', () => {
+    const $addModalButton = cy.get('.gnb__button');
+    const $addModal = cy.get('#add-modal');
+    const $addButton = cy.get('#add-button');
+
+    $addModalButton.click();
+
+    $addModal.get('#category').select(NEW_RESTAURANT.category);
+    $addModal.get('#name').type(NEW_RESTAURANT.name);
+    $addModal.get('#distance').select(NEW_RESTAURANT.distance);
+
+    $addButton.click();
+
+    $addModalButton.click();
+
+    $addModal.get('#category').select(NEW_RESTAURANT.category);
+    $addModal.get('#name').type(NEW_RESTAURANT.name);
+    $addModal.get('#distance').select(NEW_RESTAURANT.distance);
+    $addButton.click();
+
+    cy.get('.restaurant__name').should('length', 1);
+    cy.get('.modal-container').should('be.visible');
+    cy.get(`#${ERROR_ID('name')}`).should('have.text', ERROR_MESSAGE.DUPLICATE_NAME);
   });
 });

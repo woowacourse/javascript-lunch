@@ -6,6 +6,7 @@ export const ERROR_MESSAGE = {
   NULL_SELECTOR: (selector: string | null) => {
     return `${selector} 가 존재하지 않습니다.`;
   },
+  DUPLICATE_NAME: '중복된 음식점이 있습니다.',
 };
 
 export const INFO_MESSAGE = {

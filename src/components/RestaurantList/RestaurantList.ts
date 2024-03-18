@@ -5,6 +5,7 @@ import { IRestaurant } from '@/types/Restaurant';
 import { removeAllChildren } from '@/utils/view';
 import EmptyView from '../EmptyView/EmptyView';
 import { getUrlParams } from '@/utils/url';
+import FilterContainer from '../FilterContainer/FilterContainer';
 
 class RestaurantList extends BaseComponent {
   #restaurantList;
@@ -44,7 +45,7 @@ class RestaurantList extends BaseComponent {
 
   #setMockDataAndRender() {
     this.#restaurantDBService.setMockData();
-    this.rerender(this.#restaurantDBService.update().get());
+    FilterContainer.rerenderByFilter();
   }
 
   #makeRestaurantList(data: IRestaurant[]) {

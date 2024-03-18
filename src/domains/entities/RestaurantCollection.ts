@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '@/constants/Message';
 import type { AllAndCategory, IRestaurant, SortCriteria } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
@@ -24,13 +25,13 @@ class RestaurantCollection {
 
   filterDefault() {
     this.filterByCategory('전체');
-    this.sort('이름순');
+    this.sortList('이름순');
     return this.restaurantList;
   }
 
   filterByCategoryAndSort(category: AllAndCategory, sortCriteria: SortCriteria) {
     this.filterByCategory(category);
-    this.sort(sortCriteria);
+    this.sortList(sortCriteria);
     return this.restaurantList;
   }
 
@@ -41,7 +42,7 @@ class RestaurantCollection {
     );
   }
 
-  sort(sortCriteria: SortCriteria) {
+  sortList(sortCriteria: SortCriteria) {
     if (sortCriteria === '이름순') return this.sortByName();
     return this.sortByDistance();
   }
@@ -68,7 +69,7 @@ class RestaurantCollection {
     const isDuplicated = this.restaurantList.some((restaurant) => {
       return restaurant.name === newRestaurant.name;
     });
-    if (isDuplicated) throw new Error('중복된 음식점이 있습니다.');
+    if (isDuplicated) throw new Error(ERROR_MESSAGE.DUPLICATE_NAME);
     this.restaurantList = [...this.restaurantList, new Restaurant(newRestaurant)];
   }
 
