@@ -1,18 +1,20 @@
 import generateLabelComponent from '../../../uiUtils/generateLabelComponent';
 import generateSelectComponent from '../../../uiUtils/generateSelectComponent';
-import convertHTMLStringToDOM from '../../../utils/convertHTMLStringToDOM';
+import generateContainerComponent from '../../../uiUtils/generateContainerComponent';
 
-import DISTANCE_LABEL_COMPONENT_DATA from './componentsData/DistanceLabelComponentData';
-import SELECT_DISTANCE_COMPONENT_DATA from './componentsData/SelectDistanceComponentData';
-import selectDistanceTemplate from './selectDistanceTemplate';
+import {
+  SELECT_DISTANCE_COMPONENT_DATA,
+  DISTANCE_LABEL_COMPONENT_DATA,
+  DISTANCE_CONTAINER_COMPONENT_DATA,
+} from './componentsData/SelectDistanceComponentData';
 
-export const renderBaseDistanceComponent = (form: Element) => {
-  form.appendChild(convertHTMLStringToDOM(selectDistanceTemplate));
-};
-
-export const renderDistanceSelectComponent = () => {
-  const distanceContainer = document.getElementsByClassName('distance-container')[0];
+const renderDistanceSelectComponent = () => {
+  const distanceContainer = generateContainerComponent(DISTANCE_CONTAINER_COMPONENT_DATA);
 
   distanceContainer.appendChild(generateLabelComponent(DISTANCE_LABEL_COMPONENT_DATA));
   distanceContainer.appendChild(generateSelectComponent(SELECT_DISTANCE_COMPONENT_DATA));
+
+  return distanceContainer;
 };
+
+export default renderDistanceSelectComponent;

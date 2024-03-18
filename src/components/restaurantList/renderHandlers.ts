@@ -1,20 +1,39 @@
 import { RestaurantState } from '../../types';
 import RestaurantListItem from '../restaurantListItem/RestaurantListItem';
+import generateUlTagComponent from '../../uiUtils/generateUlTagComponent';
+import UL_CONTAINER_COMPONENT_DATA from './componentsData/ulContainerComponentData';
+import generateSectionComponent from '../../uiUtils/generateSectionComponent';
+import UL_SECTION_COMPONENT_DATA from './componentsData/ulSectionComponentData';
 
-const resetPrevRestaurantList = (ul: Element) => {
+export const resetPrevRestaurantList = (ul: Element) => {
   while (ul.firstChild) {
     ul.removeChild(ul.firstChild);
   }
 };
 
-const renderRestaurantList = (filterData: RestaurantState[]) => {
-  const ul = document.getElementsByClassName('restaurant-list')[0];
-  resetPrevRestaurantList(ul);
-  const fragment = document.createDocumentFragment();
-  filterData.forEach((restaurant) => {
-    fragment.appendChild(RestaurantListItem(restaurant));
-  });
+const generateUlSection = () => {
+  const ulSection = generateSectionComponent(UL_SECTION_COMPONENT_DATA);
+  const ul = generateUlTagComponent(UL_CONTAINER_COMPONENT_DATA);
 
-  ul.appendChild(fragment);
+  ulSection.appendChild(ul);
+
+  return { ulSection, ul };
 };
-export default renderRestaurantList;
+
+const appendRestaurantListDataToFragment = (filterData: RestaurantState[]) => {
+  const fragment = document.createDocumentFragment();
+  filterData.map((restaurant) => fragment.appendChild(RestaurantListItem(restaurant)));
+
+  return fragment;
+};
+
+export const renderRestaurantList = (filterData: RestaurantState[]) => {
+  const { ulSection, ul } = generateUlSection();
+  const restaurantList = appendRestaurantListDataToFragment(filterData);
+  resetPrevRestaurantList(ul);
+
+  ul.appendChild(restaurantList);
+  ulSection.appendChild(ul);
+
+  return ulSection;
+};

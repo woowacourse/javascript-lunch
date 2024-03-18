@@ -1,12 +1,10 @@
-import convertHTMLStringToDOM from '../../utils/convertHTMLStringToDOM';
+import renderBaseModalContainer from './renderHandlers';
+import dimmerClickHandler from './eventHandlers';
 
-import modalTemplate from './modalTemplate';
-import renderModalContent from './renderHandlers';
+function Modal(modalContents?: Element) {
+  renderBaseModalContainer(modalContents);
 
-function Modal() {
-  document.body.appendChild(convertHTMLStringToDOM(modalTemplate));
-
-  renderModalContent();
+  dimmerClickHandler();
 }
 
 export default Modal;

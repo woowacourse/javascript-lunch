@@ -1,7 +1,8 @@
 import restaurantStateStore from '../../../store/RestaurantStateStore';
 import removeHTMLElementByClassName from '../../../utils/removeHTMLElementByClassName';
+import isHTMLElement from '../../../utils/isHTMLElement';
 
-export const linkEventHandler = (link: HTMLElement) => {
+const linkEventHandler = (link: HTMLElement) => {
   link.addEventListener('input', (event) => {
     if (event.target instanceof HTMLInputElement) {
       const inputLink = event.target.value;
@@ -11,12 +12,10 @@ export const linkEventHandler = (link: HTMLElement) => {
   });
 };
 
-export const inputRestaurantLinkHandler = () => {
-  document.addEventListener('DOMContentLoaded', () => {
-    const link = document.getElementById('link');
-
-    if (link) {
-      linkEventHandler(link);
-    }
-  });
+const inputRestaurantLinkHandler = () => {
+  const link = document.getElementById('link');
+  if (!isHTMLElement(link)) return null;
+  linkEventHandler(link);
 };
+
+export default inputRestaurantLinkHandler;
