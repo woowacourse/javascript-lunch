@@ -33,19 +33,7 @@ const DetailModalChildren = (restaurant: Restaurant) => {
   const favoritesButton = generateFavoriteButton({
     isFavorites: favorites,
     restaurantName: name,
-    onClickHandler: () => {
-      const restaurantContainer = document.querySelector(
-        ".restaurant-list-container"
-      );
-
-      const restaurantList =
-        restaurantContainer?.getAttribute("id") ===
-        "restaurant-all-list-container"
-          ? AllRestaurantList
-          : new RestaurantList(AllRestaurantList.withFavorites());
-
-      renderFilteredContainer(restaurantContainer, restaurantList);
-    },
+    onClickHandler: reRenderRestaurantList,
   });
 
   const restaurantInfoDiv = createElementByTag({
@@ -53,11 +41,12 @@ const DetailModalChildren = (restaurant: Restaurant) => {
     classes: ["restaurant__detail"],
     attribute: { name: name },
   });
-  const categoryAndFavoriteDiv = createElementByTag({
-    tag: "div",
-    classes: ["restaurant__detail__category_and_favorite"],
-  });
-  categoryAndFavoriteDiv.append(categoryDiv, favoritesButton);
+
+  const categoryAndFavoriteDiv = generateCategoryAndFavoriteDiv(
+    categoryDiv,
+    favoritesButton
+  );
+
   restaurantInfoDiv.append(
     categoryAndFavoriteDiv,
     nameH3,
@@ -66,57 +55,91 @@ const DetailModalChildren = (restaurant: Restaurant) => {
     linkDiv
   );
 
+  const buttonDiv = generateButtonDiv();
+
+  return [restaurantInfoDiv, buttonDiv];
+};
+
+const generateCategoryAndFavoriteDiv = (
+  categoryDiv: HTMLElement,
+  favoritesButton: HTMLElement
+) => {
+  const categoryAndFavoriteDiv = createElementByTag({
+    tag: "div",
+    classes: ["restaurant__detail__category_and_favorite"],
+  });
+
+  categoryAndFavoriteDiv.append(categoryDiv, favoritesButton);
+  return categoryAndFavoriteDiv;
+};
+
+const generateButtonDiv = () => {
   const buttonDiv = createElementByTag({
     tag: "div",
     classes: ["button-container"],
   });
   const deleteButton = generateSecondaryButton({
     value: "삭제하기",
-    onClickHandler: (e) => {
-      if (e.target instanceof HTMLElement) {
-        const restaurantInfoDiv =
-          e.target.closest(".modal-container")?.firstChild;
-        if (restaurantInfoDiv instanceof HTMLElement) {
-          const name = restaurantInfoDiv.getAttribute("name");
-
-          if (!name) {
-            throw new Error(
-              "[ERROR_IN_DetailModal_deleteButton_onClickHandler()] Can't find valid restaurantName"
-            );
-          }
-
-          if (window.confirm("이 음식점을 정말 삭제하시겠습니까?")) {
-            deleteRestaurant(name);
-          }
-
-          const restaurantContainer = document.querySelector(
-            ".restaurant-list-container"
-          );
-
-          const restaurantList =
-            restaurantContainer?.getAttribute("id") ===
-            "restaurant-all-list-container"
-              ? AllRestaurantList
-              : new RestaurantList(AllRestaurantList.withFavorites());
-
-          renderFilteredContainer(restaurantContainer, restaurantList);
-        }
-        e.target.closest(".modal")?.classList.remove("modal--open");
-      }
-    },
+    onClickHandler: onClickHandlerForDeleteButton,
   });
   const closeButton = generatePrimaryButton({
     value: "닫기",
-    onClickHandler: (e) => {
-      if (e.target instanceof HTMLElement) {
-        e.target.closest(".modal")?.classList.remove("modal--open");
-      }
-    },
+    onClickHandler: onClickHandlerForCloseButton,
   });
 
   buttonDiv.append(deleteButton, closeButton);
+  return buttonDiv;
+};
 
-  return [restaurantInfoDiv, buttonDiv];
+const reRenderRestaurantList = () => {
+  const restaurantContainer = document.querySelector(
+    ".restaurant-list-container"
+  );
+
+  const restaurantList =
+    restaurantContainer?.getAttribute("id") === "restaurant-all-list-container"
+      ? AllRestaurantList
+      : new RestaurantList(AllRestaurantList.withFavorites());
+
+  renderFilteredContainer(restaurantContainer, restaurantList);
+};
+
+const onClickHandlerForCloseButton = (e: Event) => {
+  if (e.target instanceof HTMLElement) {
+    e.target.closest(".modal")?.classList.remove("modal--open");
+  }
+};
+
+const onClickHandlerForDeleteButton = (e: Event) => {
+  if (!(e.target instanceof HTMLElement)) {
+    throw new Error(
+      "[ERROR_IN_onClickHandlerForDeleteButton()] e.target is not HTMLElement"
+    );
+  }
+
+  const restaurantInfoDiv = e.target.closest(".modal-container")?.firstChild;
+
+  if (!(restaurantInfoDiv instanceof HTMLElement)) {
+    throw new Error(
+      "[ERROR_IN_onClickHandlerForDeleteButton()] e.target is not HTMLElement"
+    );
+  }
+
+  const name = restaurantInfoDiv.getAttribute("name");
+
+  if (!name) {
+    throw new Error(
+      "[ERROR_IN_onClickHandlerForDeleteButton()] Can't find valid restaurantName"
+    );
+  }
+
+  if (window.confirm("이 음식점을 정말 삭제하시겠습니까?")) {
+    deleteRestaurant(name);
+  }
+
+  reRenderRestaurantList();
+
+  e.target.closest(".modal")?.classList.remove("modal--open");
 };
 
 export default RestaurantDetailModal;
