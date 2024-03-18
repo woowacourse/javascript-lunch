@@ -1,40 +1,28 @@
-import Restaurant from '../../src/domain/Restaurant';
-import { IRestaurant } from '../../src/interface/Interface';
-
-describe('[Restaurant] 음식점 객체 테스트', () => {
-  it('음식점은 자신의 카테고리, 이름, 거리, 설명, 참고 링크를 반환할 수 있다.', () => {
-    // Assign
-    const restaurantObject: IRestaurant = {
-      name: '한식당',
-      category: '한식',
-      minutesWalk: 10,
-      description: '한식당에 대한 설명',
-      referenceUrl: 'https://naver.com',
-    };
-
-    // Action
-    const restaurant = new Restaurant(restaurantObject);
-    const expectedData = Object.entries(restaurant.getData()).toString();
-
-    // Assert
-    expect(expectedData).to.eql(Object.entries(restaurantObject).toString());
+describe('점심 뭐 먹지 root 테스트', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+  it('음식점 등록 시 음식점 목록에 추가된다.', () => {
+    cy.get('.gnb__button').click();
+    cy.get('#restaurant-name').type('e2e test-restaurantName');
+    cy.get('#restaurant-category').select('한식').should('have.value', '한식');
+    cy.get('#restaurant-minuteswalk').select('10분 내').should('have.value', '10');
+    cy.get('#restaurant-description').type('e2e test-restaurantDescription');
+    cy.get('#restaurant-referenceurl').type('https://github.com/greetings1012');
+    cy.get('#submit-adding-restaurant-button').click();
+    cy.get('.restaurant-list').find('li').should('have.length', 7);
   });
 
-  it('음식점은 주어진 카테고리에 속하는지 여부를 반환할 수 있다.', () => {
-    // Assign
-    const restaurantObject: IRestaurant = {
-      name: '한식당',
-      category: '한식',
-      minutesWalk: 15,
-      description: '한식당에 대한 설명',
-      referenceUrl: 'https://naver.com',
-    };
+  it('음식점 삭제 시 음식점 목록에서 제거된다.', () => {
+    cy.get('#restaurant-item-도스타코스선릉점').click();
+    cy.get('#delete-restaurant-info').click();
+    cy.get('.restaurant-list').find('li').should('have.length', 5);
+  });
 
-    // Action
-    const restaurant = new Restaurant(restaurantObject);
-    const expectedResult = restaurant.isMatchedCategory('한식');
-
-    // Assert
-    expect(expectedResult).to.eql(true);
+  it('음식점을 즐겨찾기에 추가하면 자주 찾는 음식점 탭에서 따로 확인할 수 있다.', () => {
+    cy.get('#favorite-button-친친').click();
+    cy.get('#favorite-button-이태리키친').click();
+    cy.get('#show-favorite').click();
+    cy.get('.restaurant-list').find('li').should('have.length', 2);
   });
 });
