@@ -88,7 +88,7 @@ class LunchDetailModal extends HTMLElement {
     closeModalButton?.addEventListener('click', () => this.handleModalClose());
 
     const deleteItemButton = this.querySelector('.detail-modal-delete');
-    deleteItemButton?.addEventListener('click', () => this.handleDeleteItem.call(this));
+    deleteItemButton?.addEventListener('click', () => this.handleDeleteItem());
 
     const likedButton = this.querySelector('.liked-icon');
     likedButton?.addEventListener('click', () => this.handleLiked());
