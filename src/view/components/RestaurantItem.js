@@ -91,6 +91,18 @@ export default class RestaurantItem extends HTMLLIElement {
     this.#displayRestaurantDetailInModal(modal, restaurantDetailContent);
   }
 
+  #setupLinkElement(linkElement, link) {
+    const updatedLinkElement = linkElement.cloneNode(true); // 기존 요소를 복제하여 새로운 요소 생성
+    updatedLinkElement.textContent = link;
+    updatedLinkElement.href = link;
+    updatedLinkElement.target = '_blank';
+    updatedLinkElement.addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+
+    return updatedLinkElement;
+  }
+
   #createRestaurantDetailContent() {
     const restaurantDetailTemplate = document.querySelector('#template-restaurant-detail');
     const restaurantDetailContent = restaurantDetailTemplate.content.cloneNode(true);
@@ -104,7 +116,10 @@ export default class RestaurantItem extends HTMLLIElement {
     restaurantDetail.querySelector('.restaurant-detail__name').textContent = name;
     restaurantDetail.querySelector('.restaurant-detail__distance').textContent = `캠퍼스로부터 ${distance}분 내`;
     restaurantDetail.querySelector('.restaurant-detail__description').textContent = description;
-    restaurantDetail.querySelector('.restaurant-detail__link').textContent = link;
+
+    const linkElement = restaurantDetail.querySelector('.restaurant-detail__link');
+    const updatedLinkElement = this.#setupLinkElement(linkElement, link);
+    linkElement.parentNode.replaceChild(updatedLinkElement, linkElement);
 
     return restaurantDetailContent;
   }
