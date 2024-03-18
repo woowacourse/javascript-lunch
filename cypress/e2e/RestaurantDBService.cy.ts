@@ -27,9 +27,7 @@ describe('음식점 DB 서비스 테스트', () => {
 
     restaurantDBService.add(NEW_RESTAURANT);
 
-    expect(JSON.parse(localStorage.getItem(RESTAURANTS_DB_TEST_KEY) ?? '[]')).to.deep.equal([
-      NEW_RESTAURANT,
-    ]);
+    expect(restaurantDBService.get()).to.deep.equal([NEW_RESTAURANT]);
   });
 
   it('get했을 때, 기존에 로컬스토리지에 있던 데이터를 가져온다.', () => {
@@ -49,10 +47,7 @@ describe('음식점 DB 서비스 테스트', () => {
       description: '게살볶음밥',
     };
 
-    localStorage.setItem(
-      RESTAURANTS_DB_TEST_KEY,
-      JSON.stringify([RESTAURANT_FIRST, RESTAURANT_SECOND]),
-    );
+    restaurantDBService.set([RESTAURANT_FIRST, RESTAURANT_SECOND]);
 
     expect(restaurantDBService.get()).to.deep.equal([RESTAURANT_FIRST, RESTAURANT_SECOND]);
   });
@@ -74,10 +69,7 @@ describe('음식점 DB 서비스 테스트', () => {
       category: '한식',
       description: '게살볶음밥',
     };
-    localStorage.setItem(
-      RESTAURANTS_DB_TEST_KEY,
-      JSON.stringify([RESTAURANT_FIRST, RESTAURANT_SECOND]),
-    );
+    restaurantDBService.set([RESTAURANT_FIRST, RESTAURANT_SECOND]);
 
     // Act
     restaurantDBService.remove(RESTAURANT_SECOND);
