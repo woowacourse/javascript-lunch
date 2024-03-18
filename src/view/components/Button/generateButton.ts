@@ -1,14 +1,16 @@
-import createElementByTag from "./utils/createElementByTag";
+import createElementByTag from "../../utils/createElementByTag";
+
+export interface ButtonProps {
+  value: string;
+  classes?: string[];
+  onClickHandler?: (e: Event) => void;
+}
 
 const generateButton = ({
   value,
   classes = [],
-  onclick = () => {},
-}: {
-  value: string;
-  classes?: string[];
-  onclick: (e: Event) => void;
-}): HTMLButtonElement => {
+  onClickHandler = () => {},
+}: ButtonProps): HTMLButtonElement => {
   const button = createElementByTag({
     tag: "button",
     classes,
@@ -19,7 +21,7 @@ const generateButton = ({
     throw new Error("[ERROR] Button is not HTMLButtonElement");
   }
 
-  button.addEventListener("click", onclick);
+  button.addEventListener("click", onClickHandler);
   return button;
 };
 
