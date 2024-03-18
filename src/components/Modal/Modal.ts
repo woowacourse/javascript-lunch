@@ -1,3 +1,5 @@
+import { $ } from '../../utils/querySelector';
+
 interface Props {
   child: HTMLElement;
 }
@@ -21,7 +23,10 @@ class Modal {
     this.#modal.appendChild(backdrop);
     this.#modal.appendChild(container);
 
-    backdrop.addEventListener('click', () => this.toggle.bind(this));
+    const mainContainer = $('main');
+    mainContainer.append(this.#modal);
+
+    backdrop.addEventListener('click', () => this.toggle.bind(this)());
   }
 
   get element() {

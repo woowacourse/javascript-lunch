@@ -1,6 +1,5 @@
 import { CATEGORY_CONVERTER } from '../../constant/constants';
 import RestaurantEntity from '../../domain/entities/RestaurantEntity';
-import { Restaurant } from '../../interface/RestaurantInterfaces';
 
 interface Props {
   restaurant: RestaurantEntity;

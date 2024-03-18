@@ -1,6 +1,5 @@
 import { CATEGORY_CONVERTER } from '../../constant/constants';
 import { CLOSE_BUTTON_PROPS, DELETE_BUTTON_PROPS } from '../../constant/options';
-import { Restaurant } from '../../interface/RestaurantInterfaces';
 import { $ } from '../../utils/querySelector';
 import RestaurantEntity from '../../domain/entities/RestaurantEntity';
 import createButton from '../Common/Button';
