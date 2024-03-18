@@ -25,6 +25,9 @@ class LunchPickerModal extends Component {
         const restaurant = this.#handleRestaurantDetail(restaurantName);
         this.render(restaurant);
       }
+      if (this.#type === 'add') {
+        this.render();
+      }
       this.#open = this.#convertStringToBoolean(newValue);
       this.#updateModal(this.#open);
     }
@@ -105,7 +108,6 @@ class LunchPickerModal extends Component {
 
   template(restaurant?: IRestaurant): string {
     const modalHtml = [];
-
     if (this.#type === 'add') {
       modalHtml.push(RestaurantAddForm());
     }
