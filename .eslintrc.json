@@ -27,5 +27,5 @@
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "extends": ["prettier", "airbnb"]
+  "extends": ["prettier", "airbnb", "plugin:cypress/recommended"]
 }
