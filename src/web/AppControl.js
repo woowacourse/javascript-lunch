@@ -26,28 +26,31 @@ export class appController {
   setMainPage() {
 
     // tabBar 부착
+    const handleTotalRestaurantTabClick = () => {
+      this.updateRestaurantList(
+        this.#restaurantManager.getUpdatedTotalRestaurants()
+      );
+      this.#currentTab = '모든 음식점';
+    }
+    const handleFavoriteRestaurantTabClick = () => {
+      this.updateRestaurantList(
+        this.#restaurantManager.getUpdatedFavoriteRestaurants()
+      );
+      this.#currentTab = '자주 가는 음식점';
+    }
+
     document.body.insertAdjacentElement(
       'afterbegin',
       createTabBar([
         {
           className: 'tab__bar__item checked',
           text: '모든 음식점',
-          callback: () => {
-            this.updateRestaurantList(
-              this.#restaurantManager.getUpdatedTotalRestaurants()
-            );
-            this.#currentTab = '모든 음식점';
-          },
+          callback: handleTotalRestaurantTabClick,
         },
         {
           className: 'tab__bar__item',
           text: '자주 가는 음식점',
-          callback: () => {
-            this.updateRestaurantList(
-              this.#restaurantManager.getUpdatedFavoriteRestaurants()
-            );
-            this.#currentTab = '자주 가는 음식점';
-          },
+          callback: handleFavoriteRestaurantTabClick,
         },
       ])
     );
