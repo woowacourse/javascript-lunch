@@ -57,4 +57,14 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('.restaurant__name').eq(0).should('contain', '꺼벙이분식');
     cy.get('.restaurant__name').eq(1).should('contain', '배가무닭볶음탕');
   });
+
+  // 식당 즐겨찾기
+  it('식당 리스트에서 별 버튼을 누르면 자주가는 음식점에서 필터링된 리스트를 확인할 수 있다.', () => {
+    cy.get('.favorite-button').eq(0).click();
+    cy.get('.favorite-button').eq(3).click();
+
+    cy.get('#favorite-restaurant').click();
+
+    cy.get('.restaurant').should('have.length', 2);
+  });
 });
