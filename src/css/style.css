@@ -104,7 +104,7 @@ button {
 .favorite-filter {
   width: 50%;
   height: 50px;
-  border-bottom: 5px solid var(--grey-200);
+  border-bottom: 2px solid var(--grey-200);
   color: var(--grey-300);
   font-size: 16px;
   font-weight: 700;
