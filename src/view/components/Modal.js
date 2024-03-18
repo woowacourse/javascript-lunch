@@ -14,6 +14,23 @@ export default class Modal extends HTMLElement {
     this.#shadowRoot.appendChild(content);
   }
 
+  static get observedAttributes() {
+    return ['height'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'height') {
+      this.render();
+    }
+  }
+
+  render() {
+    const modalContainer = this.shadowRoot.querySelector('.modal-container');
+    if (modalContainer) {
+      modalContainer.style.height = this.getAttribute('height');
+    }
+  }
+
   // eslint-disable-next-line max-lines-per-function
   connectedCallback() {
     if (this.id === 'addModal') {

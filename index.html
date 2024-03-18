@@ -95,7 +95,6 @@
           position: fixed;
           bottom: 0;
           width: 100%;
-          height: 90%;
 
           padding: 32px 16px;
           box-sizing: border-box;
@@ -106,9 +105,10 @@
       </style>
       <div class="modal">
         <div class="modal-backdrop"></div>
-        <div class="modal-container">
+        <div class="modal-container" id="modal-container">
           <slot name="title"></slot>
           <slot name="body"></slot>
+          <div id="TESTDIV"></div>
         </div>
       </div>
     </template>
@@ -132,6 +132,106 @@
     </template>
 
     <template id="template-restaurant-detail">
+      <style>
+        .detail-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+
+          z-index: 111;
+        }
+
+        .restaurant-detail__header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          margin-bottom: 16px;
+        }
+
+        .restaurant-detail__category {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 64px;
+          height: 64px;
+          min-width: 64px;
+          min-height: 64px;
+
+          margin-right: 16px;
+
+          border-radius: 50%;
+          background: var(--lighten-color);
+        }
+
+        .restaurant-detail__favorite-button {
+          width: 32px;
+          height: 32px;
+
+          border: none;
+          background: transparent;
+
+          margin-right: 0;
+
+          cursor: pointer;
+        }
+
+        .restaurant-detail__body {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .restaurant-detail__name {
+          margin-bottom: 16px;
+        }
+
+        .restaurant-detail__distance {
+          margin-bottom: 16px;
+        }
+
+        .restaurant-detail__description {
+          height: 300px;
+          margin-bottom: 16px;
+        }
+
+        .restaurant-detail__link {
+          margin-bottom: 16px;
+        }
+
+        .button-container {
+          display: flex;
+        }
+
+        .button {
+          width: 100%;
+          height: 44px;
+
+          margin-right: 16px;
+
+          border: none;
+          border-radius: 8px;
+
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        .button:last-child {
+          margin-right: 0;
+        }
+
+        .button--secondary {
+          border: 1px solid var(--grey-300);
+          background: transparent;
+
+          color: var(--grey-300);
+        }
+
+        .button--primary {
+          background: var(--primary-color);
+
+          color: var(--grey-100);
+        }
+      </style>
       <div class="detail-container">
         <!-- 레스토랑 정보 -->
         <div class="restaurant-detail__header">
@@ -153,7 +253,7 @@
         <!-- 삭제 / 닫기 버튼 -->
         <div class="button-container">
           <button type="button" class="button button--secondary text-caption">삭제하기</button>
-          <button type="button" class="button button--primary text-caption">닫기</button>
+          <button type="button" class="button button--primary text-caption" id="close">닫기</button>
         </div>
       </div>
     </template>
@@ -198,18 +298,14 @@
     </section>
 
     <!-- 음식점 추가 모달 -->
-    <!-- <app-modal>
-      <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
-      <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
-    </app-modal> -->
-    <app-modal id="addModal">
+    <app-modal id="addModal" height="90%">
       <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
       <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
     </app-modal>
 
     <!-- 음식점 상세 정보 모달 -->
-    <app-modal id="detailModal">
-      <div is="app-restaurant-detail" slot="body" id="restaurant-detail"></div>
+    <app-modal id="detailModal" height="75%">
+      <app-restaurant-detail slot="body" id="restaurant-detail"></app-restaurant-detail>
     </app-modal>
   </body>
 </html>
