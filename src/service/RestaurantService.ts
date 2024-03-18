@@ -3,6 +3,8 @@ import defaultRestaurant from '../data/defaultRestaurants.json';
 import { CompareFunction } from '../constants/typings';
 import { Category, MinutesWalk, Sort } from '../constants/enums';
 import { ILocation } from '../interface/interface';
+import RestaurantValidator from '../validator/RestaurantValidator';
+import { $ } from '../utils/domSelector';
 class RestaurantService {
   private restaurants: Restaurant[];
 
@@ -32,6 +34,16 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
+  toggleFavoriteFromModal(detail: string) {
+    this.restaurants.forEach((restaurant) => {
+      if (restaurant.getName() === detail) {
+        restaurant.toggleFavorite();
+      }
+    });
+    this.saveRestaurants(this.restaurants);
+    location.reload();
+  }
+
   private getRestaurantsByCategory(restaurants: Restaurant[], category: Category) {
     return restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
   }
@@ -58,8 +70,15 @@ class RestaurantService {
   }
 
   addRestaurant(restaurant: ILocation) {
-    this.restaurants.push(new Restaurant(restaurant));
-    this.saveRestaurants(this.restaurants);
+    try {
+      RestaurantValidator.validateUserInput(restaurant);
+      this.restaurants.push(new Restaurant(restaurant));
+      this.saveRestaurants(this.restaurants);
+      const addRestaurantModal = $<HTMLDialogElement>('#add-restaurant-modal');
+      if (addRestaurantModal) addRestaurantModal.close();
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
   }
 
   deleteRestaurant(detail: string) {
