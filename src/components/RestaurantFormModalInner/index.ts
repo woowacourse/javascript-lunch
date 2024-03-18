@@ -2,7 +2,8 @@ import './style.css';
 import { DROP_BOX_MAP, StorageKeyEnum } from '../../constants';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
 import { Restaurant } from '../../domains';
-import { FilteringController } from '../../services';
+import { FilteringController, LocalStorageService } from '../../services';
+import { closeModal } from '../../utils';
 class RestaurantFormModalInner extends HTMLElement {
   constructor() {
     super();
@@ -44,7 +45,7 @@ class RestaurantFormModalInner extends HTMLElement {
 
         <!-- 링크 -->
         <div class="form-item">
-          <form-text-filed
+          <form-text-field
           labelText="참고 링크"
           labelForId="restaurant-link"
           key="link"
@@ -52,7 +53,7 @@ class RestaurantFormModalInner extends HTMLElement {
           <div slot="formChild">
             <custom-input type="text" id="restaurant-link" name="restaurant-link" placeholder="음식점 링크 (http/https 포함, 예시: https://example.com)" maxlength="2000"></custom-input>
           </div>
-        </form-text-filed>
+        </form-text-field>
         </div>
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
@@ -141,6 +142,7 @@ class RestaurantFormModalInner extends HTMLElement {
       distance: Number(distance) as Distance,
       description: this.#getRestaurantDescription(),
       link: this.#getRestaurantLink(),
+      like: false,
     };
 
     try {
@@ -153,30 +155,13 @@ class RestaurantFormModalInner extends HTMLElement {
   }
 
   #updateLocalStorage(info: RestaurantInfo) {
-    const previousData = localStorage.getItem(StorageKeyEnum.restaurants);
-
-    const restaurants = previousData ? JSON.parse(previousData) : [];
-
+    const restaurants = LocalStorageService.getData(StorageKeyEnum.restaurants);
     restaurants.push(info);
-
-    localStorage.setItem(
-      StorageKeyEnum.restaurants,
-      JSON.stringify(restaurants),
-    );
-  }
-  #closeModal() {
-    const modalEl = document
-      .querySelector('custom-modal')
-      ?.shadowRoot?.querySelector('.modal');
-
-    modalEl?.classList.toggle('open');
-
-    const bodyEl = document.querySelector('body');
-    if (bodyEl) bodyEl.style.overflowY = 'scroll';
+    LocalStorageService.setData(StorageKeyEnum.restaurants, restaurants);
   }
 
   #handleResetForm() {
-    this.#closeModal();
+    closeModal();
   }
 
   #handleSubmitFormToAddStore(event: Event) {

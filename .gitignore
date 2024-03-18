@@ -4,3 +4,4 @@ node_modules/
 .npm
 .eslintcache
 .DS_Store
+cypress/support/e2e.js

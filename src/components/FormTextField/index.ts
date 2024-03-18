@@ -1,7 +1,5 @@
-import { RestaurantInfoKey, RestaurantInfo } from '../../types';
+import { RestaurantInfoKey } from '../../types';
 import { Restaurant } from '../../domains';
-import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData';
-
 class FormTextField extends HTMLElement {
   constructor() {
     super();
@@ -59,15 +57,30 @@ class FormTextField extends HTMLElement {
 
   #handleChangeToValidateValue(event: Event, key: RestaurantInfoKey) {
     const { value } = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const newInfo: RestaurantInfo = { ...RESTAURANT_INFO_FOR_VALIDATE_TEST };
-
-    (newInfo[key] as string) = value;
 
     try {
-      new Restaurant(newInfo);
+      this.#validateRestaurantInfoByKey(key, value);
       this.#handleErrorMessage('');
     } catch (error) {
       if (error instanceof Error) this.#handleErrorMessage(error.message);
+    }
+  }
+
+  #validateRestaurantInfoByKey(
+    key: RestaurantInfoKey,
+    validationTarget: string,
+  ) {
+    const restaurant = new Restaurant();
+    switch (key) {
+      case 'link':
+        restaurant.validateLink(validationTarget);
+        break;
+      case 'name':
+        restaurant.validateName(validationTarget);
+        break;
+      case 'description':
+        restaurant.validateDescription(validationTarget);
+        break;
     }
   }
 
@@ -80,4 +93,4 @@ class FormTextField extends HTMLElement {
     }
   }
 }
-customElements.define('form-text-filed', FormTextField);
+customElements.define('form-text-field', FormTextField);

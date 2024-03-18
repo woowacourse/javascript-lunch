@@ -1,5 +1,5 @@
 import { DropBoxName, SelectProps, OptionProps } from '../types';
-// TODO: 파일 분리
+
 export type DropBoxMapValue = {
   selectProps: SelectProps;
   labelText: string;

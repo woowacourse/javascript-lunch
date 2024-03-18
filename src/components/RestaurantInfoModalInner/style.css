@@ -1,0 +1,35 @@
+.restaurant-info-modal__title {
+  font-weight: var(--lunch-title-font-weight);
+  font-size: var(--lunch-title-font-size);
+}
+.restaurant-info-modal__distance {
+  color: var(--lunch-primary-color);
+}
+.restaurant-info-modal__explanation {
+  line-height: 24px;
+}
+
+.restaurant-info-modal__explanation .none-description {
+  opacity: 0.5;
+  color: var(--lunch-grey-scale-3-color);
+  font-weight: 500;
+}
+.restaurant-info-modal__link {
+  color: var(--lunch-primary-lighten-color);
+  font-weight: var(--lunch-title-font-weight);
+}
+.restaurant-info-modal__btn-box {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+}
+restaurant-info-modal-inner {
+  display: grid;
+  position: relative;
+  gap: 16px;
+}
+restaurant-info-modal-inner star-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

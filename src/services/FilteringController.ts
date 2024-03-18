@@ -22,17 +22,26 @@ const FilteringController = {
       category: string;
       sorting: string;
     };
+    const getClickedTapBtn = document.querySelector('.click');
+    const like = getClickedTapBtn?.id === 'like-restaurant';
 
     const restaurantList = new RestaurantList();
 
-    const filteredList =
-      category === 'all'
-        ? restaurantList.list
-        : restaurantList.filterRestaurantsByCategory(category as Category);
+    const filteredLike = like
+      ? restaurantList.filterRestaurantsByLike(like)
+      : restaurantList.list;
 
-    const sortedList = filteredList[0]
+    const filteredCategory =
+      category === 'all'
+        ? filteredLike
+        : restaurantList.filterRestaurantsByCategory(
+            filteredLike,
+            category as Category,
+          );
+
+    const sortedList = filteredCategory[0]
       ? restaurantList.sortRestaurants(
-          filteredList,
+          filteredCategory,
           sorting as 'name' | 'distance',
         )
       : undefined;

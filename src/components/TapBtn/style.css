@@ -1,0 +1,26 @@
+tap-btn {
+  display: flex;
+  position: fixed;
+  top: 85px;
+  justify-content: space-around;
+  z-index: 2;
+  background-color: var(--lunch-grey-scale-1-color);
+  padding-top: 31px;
+  width: 358px;
+}
+.tap-btn-group__btn {
+  border: none;
+  border-bottom: 2px solid var(--lunch-grey-scale-2-color);
+  background-color: var(--lunch-grey-scale-1-color);
+  padding: 9px 0;
+  width: 100%;
+  color: var(--lunch-grey-scale-3-color);
+  font-weight: var(--lunch-subtitle-font-weight);
+  text-align: center;
+}
+
+.tap-btn-group__btn:hover,
+.tap-btn-group__btn.click {
+  border-color: var(--lunch-primary-color);
+  color: var(--lunch-primary-color);
+}

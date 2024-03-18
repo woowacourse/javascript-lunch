@@ -1,4 +1,5 @@
 import './style.css';
+import { closeModal } from '../../utils';
 
 class CustomModal extends HTMLElement {
   constructor() {
@@ -50,6 +51,11 @@ class CustomModal extends HTMLElement {
         </div>
       </div>
     `;
+
+    const modal = this?.shadowRoot?.querySelector('.modal');
+    modal
+      ?.querySelector('.modal-backdrop')
+      ?.addEventListener('click', closeModal);
   }
 }
 

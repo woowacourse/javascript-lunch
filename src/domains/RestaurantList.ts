@@ -1,6 +1,7 @@
 import { StorageKeyEnum, MESSAGE } from '../constants';
 import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
 import { Category, RestaurantInfo } from '../types';
+import { LocalStorageService } from '../services';
 
 class RestaurantList {
   #list: RestaurantInfo[] = INITIAL_RESTAURANT_DATA;
@@ -26,9 +27,10 @@ class RestaurantList {
   }
 
   #updateListByLocalStorage() {
-    const item = localStorage.getItem(StorageKeyEnum.restaurants);
+    const item = LocalStorageService.getData(StorageKeyEnum.restaurants);
+
     if (item) {
-      this.#list = JSON.parse(item);
+      this.#list = item;
     }
   }
 
@@ -38,11 +40,20 @@ class RestaurantList {
     }
   }
   //2단계 - 즐겨찾기 편집
-  filterRestaurantsByCategory(category: Category) {
+  filterRestaurantsByLike(like: Boolean) {
     return this.#list
       ? JSON.parse(JSON.stringify(this.#list)).filter(
-          (info: RestaurantInfo) => info.category === category,
+          (info: RestaurantInfo) => info.like === like,
         )
+      : undefined;
+  }
+
+  filterRestaurantsByCategory(
+    restaurants: RestaurantInfo[],
+    category: Category,
+  ) {
+    return this.#list
+      ? restaurants.filter((info: RestaurantInfo) => info.category === category)
       : undefined;
   }
 
