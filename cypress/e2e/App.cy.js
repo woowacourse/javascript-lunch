@@ -27,7 +27,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('.restaurant').should('have.length', restaurantList.length);
   });
 
-  // 식당 추가
+  // 식당 추가 모달
   it('카테고리, 이름, 거리 등을 입력한 후 추가하기 버튼을 누르면 식당이 추가된다.', () => {
     cy.get('.gnb__button').click();
 
@@ -66,5 +66,23 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('#favorite-restaurant').click();
 
     cy.get('.restaurant').should('have.length', 2);
+  });
+
+  // 식당 상세 모달/즐겨찾기/식당 삭제
+  it('식당 리스트를 누르면 식당 상세 모달이 뜨고 즐겨찾기를 등록할 수 있다.', () => {
+    cy.get('.restaurant').eq(1).click();
+
+    cy.get('.modal').should('have.class', 'modal--open');
+
+    cy.get('.detail-restaurant').within(() => {
+      cy.get('.favorite-button').click();
+      cy.get('.button').eq(1).click();
+    });
+
+    cy.get('.modal').should('not.be.visible');
+
+    cy.get('#favorite-restaurant').click();
+
+    cy.get('.restaurant').should('have.length', 1);
   });
 });
