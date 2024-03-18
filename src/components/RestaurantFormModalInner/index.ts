@@ -202,10 +202,10 @@ class RestaurantFormModalInner extends HTMLElement {
   }
 
   #showChangedAllRestaurantList() {
-    const $allRestaurantList = document.querySelector('all-restaurant-list');
+    const $allRestaurantList = document.querySelector('.all-restaurant-list');
     if (!$allRestaurantList) return;
 
-    RestaurantListController.injectFilteringAndSortingRestaurantList();
+    RestaurantListController.injectAllRestaurantList(new RestaurantList().list);
   }
 }
 

@@ -19,7 +19,8 @@ class RestaurantInfoModalInner extends HTMLElement {
     const store = findRestaurant(storeName);
 
     if (!store) {
-      this.innerHTML = `<none-restaurant></none-restaurant>`;
+      const $noneRestaurant = document.createElement('<none-restaurant>');
+      this.appendChild($noneRestaurant);
 
       return;
     }
@@ -101,10 +102,9 @@ class RestaurantInfoModalInner extends HTMLElement {
     );
 
     if (isOpenFavoriteList) {
-      const list = restaurantList.filterFavorites();
-      RestaurantListController.injectRestaurantList(list);
+      RestaurantListController.injectFavoriteRestaurantList();
     } else {
-      RestaurantListController.injectFilteringAndSortingRestaurantList();
+      RestaurantListController.injectAllRestaurantList(restaurantList.list);
     }
 
     closeModal();

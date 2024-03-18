@@ -1,8 +1,8 @@
-restaurant-list {
+.restaurant-list-container {
   width: 100%;
-  height: 750px;
+  height: 700px;
 }
 
-restaurant-list .restaurant-list {
-  height: 700px;
+.restaurant-list-container .restaurant-list {
+  overflow-y: auto;
 }

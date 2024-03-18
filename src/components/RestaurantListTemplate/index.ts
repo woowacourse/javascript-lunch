@@ -1,32 +1,53 @@
 import './style.css';
 
-import { RestaurantList } from '../../domains';
-import { RestaurantListController } from '../../services';
 import { RestaurantInfo } from '../../types';
 
-class RestaurantListTemplate extends HTMLElement {
-  constructor() {
-    super();
+export interface RestaurantListTemplateProps {
+  $parent: HTMLElement | Element | null;
+  restaurantList?: RestaurantInfo[];
+  classList?: string[];
+}
+class RestaurantListTemplate {
+  constructor(RestaurantListTemplateProps: RestaurantListTemplateProps) {
+    const { $parent, restaurantList, classList } = RestaurantListTemplateProps;
+
+    const layout = this.createListLayout(restaurantList, classList);
+    this.#addListToListParentElement(layout, $parent);
   }
 
-  connectedCallback() {
+  createListLayout(restaurantList?: RestaurantInfo[], classList?: string[]) {
     const $list = document.createElement('ul');
-    $list.className = 'restaurant-list';
+    classList?.forEach((item) => $list.classList.add(item));
+    $list.classList.add('restaurant-list');
 
-    this.appendChild($list);
+    if (!restaurantList || !restaurantList[0]) {
+      const $noneRestaurant = document.createElement('none-restaurant');
+      $list.appendChild($noneRestaurant);
 
-    const listCategory = this.getAttribute('list-category');
-
-    if (listCategory === 'favorite') {
-      const restaurantList = new RestaurantList();
-      this.injectRestaurantItemsToList(restaurantList.filterFavorites());
+      return $list;
     }
+
+    restaurantList.forEach((info) => {
+      const $item = document.createElement('restaurant-item');
+      $item.setAttribute('name', info.name);
+
+      $list.appendChild($item);
+    });
+
+    return $list;
   }
 
-  injectRestaurantItemsToList(list: RestaurantInfo[] | undefined) {
-    RestaurantListController.injectRestaurantList(list);
+  #addListToListParentElement(
+    layout: HTMLElement,
+    $parent: HTMLElement | Element | null,
+  ) {
+    if (!$parent) return;
+    const $newParent = document.createElement($parent.tagName);
+    $newParent.className = $parent.className;
+    $newParent.appendChild(layout);
+
+    $parent.parentElement?.replaceChild($newParent, $parent);
   }
 }
-export default RestaurantListTemplate;
 
-customElements.define('restaurant-list', RestaurantListTemplate);
+export default RestaurantListTemplate;

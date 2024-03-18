@@ -68,15 +68,16 @@ class FavoriteIcon extends HTMLElement {
     $favoriteIcon.setAttribute('class', this.#getClassName(changedFavorite));
 
     // 즐겨찾기 변경에 따른 음식점 목록 수정
-    const $allRestaurantList = document.querySelector('all-restaurant-list');
+    const $allRestaurantList = document.querySelector('.all-restaurant-list');
 
     if ($allRestaurantList) {
-      RestaurantListController.injectFilteringAndSortingRestaurantList();
-    } else {
-      RestaurantListController.injectRestaurantList(
-        new RestaurantList().filterFavorites(),
+      RestaurantListController.injectAllRestaurantList(
+        new RestaurantList().list,
       );
+      return;
     }
+
+    RestaurantListController.injectFavoriteRestaurantList();
   }
 }
 

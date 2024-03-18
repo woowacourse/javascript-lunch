@@ -3,6 +3,6 @@
   height: 40px;
 }
 
-all-restaurant-list .restaurant-list {
-  height: 600px;
+.restaurant-list-container .all-restaurant-list {
+  height: 625px;
 }

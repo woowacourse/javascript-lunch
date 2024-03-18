@@ -24,11 +24,13 @@ import '../components/RestaurantInfoModalInner';
 import '../components/RestaurantItem';
 import '../components/RestaurantListTemplate';
 
+import { RestaurantList } from '../domains';
 import RestaurantListController from './RestaurantListController';
 
 const WebController = {
   setup() {
     RestaurantListController.saveInitialDataToLocalStorage();
+    RestaurantListController.injectAllRestaurantList(new RestaurantList().list);
   },
 };
 

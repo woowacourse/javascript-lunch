@@ -1,3 +1,5 @@
+import { RestaurantList } from '../../domains';
+import { RestaurantListController } from '../../services';
 import './style.css';
 
 const SELECTED = 'selected';
@@ -42,16 +44,12 @@ class NavigationBar extends HTMLElement {
   }
 
   #changeRestaurantList(selectedName: string) {
-    const $listContainer = document.querySelector('.restaurant-list-container');
-
-    if (!$listContainer) return;
-
     if (selectedName === 'favorite') {
-      $listContainer.innerHTML = `<restaurant-list list-category="favorite"></restaurant-list>`;
+      RestaurantListController.injectFavoriteRestaurantList();
       return;
     }
 
-    $listContainer.innerHTML = `<all-restaurant-list></all-restaurant-list>`;
+    RestaurantListController.injectAllRestaurantList(new RestaurantList().list);
   }
 }
 

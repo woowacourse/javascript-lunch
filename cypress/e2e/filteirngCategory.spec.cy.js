@@ -43,10 +43,9 @@ describe('template spec', () => {
 
       $filteringCategory.select(category);
 
-      const $filteredList = cy.get('.restaurant-list');
-
       // all
       if (category === 'all') {
+        const $filteredList = cy.get('.restaurant-list');
         const numberOfFilteredList = $filteredList.childElementCount;
 
         expect(numberOfRestaurant).to.equal(numberOfFilteredList);
