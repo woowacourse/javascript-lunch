@@ -79,7 +79,7 @@ class RestaurantDetailModal extends HTMLDivElement {
 
   #generateRestaurantDetailTemplate(restaurant: IRestaurantInfo) {
     return /* html */ `
-    <div class="restaurant">
+    <div class="restaurant-container">
       <div class="restaurant__category">
         <img src="./assets/category-${Restaurant.generateImageSrc(restaurant.category)}.png" alt="${
       restaurant.category
