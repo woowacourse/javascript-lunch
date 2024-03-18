@@ -66,11 +66,25 @@ function applyRestaurantDetailByInfo(restaurantInfo: IRestaurantInfo) {
   applyRestaurantStar(restaurantInfo.id!, restaurantInfo.isLiked!);
 }
 
-let deleteEventHandler: () => void;
+function deleteEventHandlerCloser() {
+  let deleteEventHandler: () => void;
+
+  function setDeleteEventHandler(handler: () => void) {
+    deleteEventHandler = handler;
+  }
+
+  function getDeleteEventHandler() {
+    return deleteEventHandler;
+  }
+
+  return { setDeleteEventHandler, getDeleteEventHandler };
+}
+
+const deleteEventHandlerInstance = deleteEventHandlerCloser();
 
 function removeDeleteEventToButton() {
   const deleteButton = document.getElementById('restaurant-detail-modal-delete-button') as HTMLButtonElement;
-  deleteButton.removeEventListener('click', deleteEventHandler);
+  deleteButton.removeEventListener('click', deleteEventHandlerInstance.getDeleteEventHandler());
 }
 
 function closeRestaurantDetailModal() {
@@ -96,12 +110,12 @@ function executeDelete(id: number) {
 
 function addDeleteEventToButton(id: number) {
   const deleteButton = document.getElementById('restaurant-detail-modal-delete-button') as HTMLButtonElement;
-  deleteEventHandler = () => {
+  deleteEventHandlerInstance.setDeleteEventHandler(() => {
     const CONFIRM_STRING = '정말로 삭제하시겠습니까?';
     const isConfirm = window.confirm(CONFIRM_STRING);
     if (isConfirm) executeDelete(id);
-  };
-  deleteButton.addEventListener('click', deleteEventHandler);
+  });
+  deleteButton.addEventListener('click', deleteEventHandlerInstance.getDeleteEventHandler());
 }
 
 const closeButton = document.getElementById('restaurant-detail-modal-close-button') as HTMLElement;
