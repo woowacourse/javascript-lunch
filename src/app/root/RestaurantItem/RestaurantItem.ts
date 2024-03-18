@@ -16,7 +16,7 @@ class RestaurantItem extends HTMLElement {
   }
 
   private addEvent() {
-    const restaurantItem = $(`restaurant-info-${this.restaurantData.name.replaceAll(' ', '')}`);
+    const restaurantItem = $(`#restaurant-item-${this.restaurantData.name.replaceAll(' ', '')}`);
     if (restaurantItem) {
       restaurantItem.addEventListener('click', (event: Event) => {
         this.dispatchEvent(
@@ -42,12 +42,12 @@ class RestaurantItem extends HTMLElement {
 
   private render() {
     this.innerHTML = ` 
-      <li class="restaurant" id="restaurant-item">
+      <li class="restaurant" id="restaurant-item-${this.restaurantData.name.replaceAll(' ', '')}">
         <div class="restaurant__category">
           <img src="${IMAGE.url[this.restaurantData.category]}" \
           alt="${this.restaurantData.category}" class="category-icon" />
         </div>
-        <div class="restaurant__info" id="restaurant-info-${this.restaurantData.name.replaceAll(' ', '')}">
+        <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${this.restaurantData.name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${this.restaurantData.minutesWalk}분 내</span>
           <p class="restaurant__description text-body text-overflow">${this.restaurantData.description}</p>
@@ -57,7 +57,7 @@ class RestaurantItem extends HTMLElement {
           <button type="button" class="favorite-icon" id="favorite-button-${this.restaurantData.name.replaceAll(
             ' ',
             '',
-          )}" onclick>
+          )}">
           
             <img src="${this.restaurantData.favorite ? IMAGE.url.버튼_즐겨찾기등록됨 : IMAGE.url.버튼_즐겨찾기해제됨}"/>
           </button>
