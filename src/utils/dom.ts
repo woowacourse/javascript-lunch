@@ -1,4 +1,9 @@
-export const $ = (selector: string, target: HTMLElement | Document = document) =>
-  target.querySelector(selector) as HTMLElement;
+export const $ = <T extends Element = HTMLElement>(
+  selector: string,
+  target: HTMLElement | Document = document
+): T | null => target.querySelector<T>(selector);
 
-export const $$ = (selector: string, target: HTMLElement | Document = document) => target.querySelectorAll(selector);
+export const $$ = <T extends Element = HTMLElement>(
+  selector: string,
+  target: HTMLElement | Document = document
+): NodeListOf<T> => target.querySelectorAll<T>(selector);
