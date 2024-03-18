@@ -1,0 +1,106 @@
+@import url(./style.css);
+.modal {
+  display: none;
+}
+
+.modal--open {
+  display: block;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.modal-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  padding: 32px 16px;
+
+  border-radius: 8px 8px 0px 0px;
+  background: var(--grey-100);
+}
+
+.modal-title {
+  margin-bottom: 36px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 36px;
+}
+
+.form-item label {
+  color: var(--grey-400);
+  font-size: 14px;
+}
+
+.form-item--required label::after {
+  padding-left: 4px;
+
+  color: var(--primary-color);
+  content: '*';
+}
+
+.form-item .help-text {
+  color: var(--grey-300);
+}
+
+.form-item input,
+.form-item textarea,
+.form-item select {
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 16px;
+}
+
+.form-item textarea {
+  resize: none;
+}
+
+.form-item select {
+  height: 44px;
+
+  padding: 8px;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  color: var(--grey-300);
+}
+
+input[name='name'],
+input[name='link'] {
+  height: 44px;
+}
+.restaurant__info__header {
+  display: flex;
+  justify-content: space-between;
+}
+.modal__restaurantDetail__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__restaurant__description {
+  padding-top: 8px;
+  margin: 5px 0 5px;
+}
+.modal__restaurant__link {
+  padding-top: 8px;
+  margin: 5px 0 5px;
+  color: #000000;
+}

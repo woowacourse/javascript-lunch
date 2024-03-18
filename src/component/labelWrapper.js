@@ -1,4 +1,4 @@
-function createlabelWrapper({
+function createLabelWrapper({
   className,
   htmlFor,
   description = '',
@@ -24,4 +24,4 @@ function createlabelWrapper({
   return wrapper;
 }
 
-export default createlabelWrapper;
+export default createLabelWrapper;

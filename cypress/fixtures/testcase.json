@@ -1,0 +1,58 @@
+[
+  {
+    "category": "한식",
+    "name": "한식레스토탕1",
+    "walkingTime": "10",
+    "description": "한식레스토탕",
+    "link": "http://example.com/1"
+  },
+  {
+    "category": "한식",
+    "name": "한식레스토탕2",
+    "walkingTime": "20",
+    "description": "한식레스토탕",
+    "link": "http://example.com/2"
+  },
+  {
+    "category": "한식",
+    "name": "한식레스토탕3",
+    "walkingTime": "5",
+    "description": "중식레스토랑",
+    "link": "http://example.com/3"
+  },
+  {
+    "category": "중식",
+    "name": "중식레스토랑1",
+    "walkingTime": "10",
+    "description": "중식레스토랑1",
+    "link": "http://example.com/4"
+  },
+  {
+    "category": "일식",
+    "name": "일식레스토랑1",
+    "walkingTime": "20",
+    "description": "일식레스토랑1",
+    "link": "http://example.com/5"
+  },
+  {
+    "category": "양식",
+    "name": "양식레스토랑1",
+    "walkingTime": "30",
+    "description": "양식레스토랑1",
+    "link": "http://example.com/6"
+  },
+  {
+    "category": "아시안",
+    "name": "아시안레스토랑1",
+    "walkingTime": "5",
+    "description": "아시안레스토랑1",
+    "link": "http://example.com/7"
+  },
+  {
+    "category": "기타",
+    "name": "기타레스토랑",
+    "walkingTime": "10",
+    "description": "가타는 맛있어",
+    "link": "http://example.com/8"
+  }
+]

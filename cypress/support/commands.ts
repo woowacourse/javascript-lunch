@@ -1,4 +1,16 @@
 /// <reference types="cypress" />
+Cypress.Commands.add('visitMain', () => {
+  cy.visit('http://localhost:8080/');
+});
+
+Cypress.Commands.add('setRsetaurants', (restaurants) => {
+  window.localStorage.setItem('restaurants', JSON.stringify(restaurants));
+});
+
+Cypress.Commands.add('openAddModal', () => {
+  cy.get('.gnb__button').click();
+});
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -25,13 +37,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+declare namespace Cypress {
+  interface Chainable {
+    visitMain(): Chainable<Element>;
+    setRsetaurants(restaurant): Chainable<Element>;
+    openAddModal(): Chainable<Element>;
+  }
+}

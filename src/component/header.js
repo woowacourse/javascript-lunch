@@ -1,13 +1,13 @@
 import { APP_NAME } from '../constant/appString.ts';
-import createNewRestaurantModal from '../web/modal/addRestaurantModal.js';
+import createNewRestaurantModal from './modal/addRestaurantModal.js';
 import modal from './modal.js';
 
-function createHeader({ className, left, right, restaurantManager }) {
+function createHeader({ className, left, right, restaurantAdditionCallback }) {
   const header = document.createElement('header');
   header.className = className;
 
   const leftElement = item[left]();
-  const rightElement = item[right](restaurantManager);
+  const rightElement = item[right](restaurantAdditionCallback);
 
   header.append(leftElement, rightElement);
   return header;
@@ -21,7 +21,7 @@ const item = {
     return h1;
   },
 
-  RestaurantAdditionButton(restaurantManager) {
+  restaurantAdditionButton(restaurantAdditionCallback) {
     const button = document.createElement('button');
 
     button.type = 'button';
@@ -34,17 +34,18 @@ const item = {
     img.alt = '음식점 추가';
 
     button.appendChild(img);
-    eventHandler.addEventRestaurantButton(button, restaurantManager);
+    eventHandler.addEventRestaurantButton(button, restaurantAdditionCallback);
 
     return button;
   },
 };
 
 const eventHandler = {
-  addEventRestaurantButton(element, restaurantManager) {
+  addEventRestaurantButton(element, restaurantAdditionCallback) {
     element.addEventListener('click', () => {
-      const newRestaurantModalElement =
-        createNewRestaurantModal(restaurantManager);
+      const newRestaurantModalElement = createNewRestaurantModal(
+        restaurantAdditionCallback
+      );
       const newRestaurantModal = modal.create(
         'modal--open',
         newRestaurantModalElement
