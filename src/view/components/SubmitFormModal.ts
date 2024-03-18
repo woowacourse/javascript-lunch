@@ -62,8 +62,8 @@ export function executeFormSubmitEvent(restaurantInfo: IRestaurantInfo) {
     updateRestaurantsToLocalStorage(newRestaurant!);
     reRenderRestaurants();
     closeModal();
-  } catch (error: any) {
-    alert(error.message);
+  } catch (error) {
+    if (error instanceof Error) alert(error.message);
   }
 }
 

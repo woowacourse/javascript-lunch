@@ -44,8 +44,8 @@ class WebController {
       Object.values(localDataRestaurants).forEach((restaurant) => {
         restaurantCatalog.pushNewRestaurant(restaurant);
       });
-    } catch (e: any) {
-      alert(`LocalStorage의 Data값이 잘못되었습니다. ${e.message}`);
+    } catch (error) {
+      if (error instanceof Error) alert(`LocalStorage의 Data값이 잘못되었습니다. ${error.message}`);
     }
   }
 
