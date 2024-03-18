@@ -58,8 +58,8 @@ export class appController {
       createHeader({
         className: 'gnb',
         left: 'logo',
-        right: 'RestaurantAdditionButton',
-        RestaurantAdditionCallback: (newRestaurant) => {
+        right: 'restaurantAdditionButton',
+        restaurantAdditionCallback: (newRestaurant) => {
           this.#restaurantManager.addRestaurant(newRestaurant);
           this.currentTabRestaurantList();
           modal.remove('modal--open');
