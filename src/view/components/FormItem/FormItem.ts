@@ -2,7 +2,6 @@ import "./style.css";
 
 import FORM_ITEM_TEXTS from "../../../constants/formItemTexts";
 import createElementByTag from "../../utils/createElementByTag";
-import { error } from "console";
 
 class FormItem {
   element = createElementByTag({

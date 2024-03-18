@@ -32,7 +32,6 @@ class RestaurantListController {
   }
 
   static addInFavoriteRestaurantList(name: string) {
-    console.log("favorite add");
     const favoriteRestaurant = this.#entireRestaurantList.getRestaurantByName(
       name
     ) as Restaurant;
@@ -76,7 +75,6 @@ class RestaurantListController {
 
   static deleteInFavoriteRestaurantList(name: string) {
     this.#favoriteRestaurantList.delete(name);
-    console.log(this.#favoriteRestaurantList.getRestaurants());
     setLocalStorage(
       RestaurantListController.#FAVORITE_RESTAURANTS_KEY,
       this.#favoriteRestaurantList.getRestaurants()
