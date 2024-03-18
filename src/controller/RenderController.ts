@@ -21,8 +21,10 @@ class RenderController {
 
   static #filterContainer = document.getElementById("filter-container");
 
+  static #tabBar: TabBar;
+
   static renderTabBar() {
-    const tabBar = new TabBar([
+    this.#tabBar = new TabBar([
       {
         value: "모든 음식점",
         onFunction: RenderController.showEntireRestaurantAndFilter.bind(this),
@@ -34,7 +36,11 @@ class RenderController {
         offFunction: RenderController.hideFavoriteRestaurantListUl.bind(this),
       },
     ]);
-    document.getElementById("main")?.prepend(tabBar.element);
+    document.getElementById("main")?.prepend(this.#tabBar.element);
+  }
+
+  static selectTabBarItem(index: number) {
+    this.#tabBar.selectTabBarItem(index);
   }
 
   static renderFilterContainer() {

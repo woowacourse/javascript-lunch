@@ -31,6 +31,13 @@ class TabBar {
     this.element.append(...this.#items.map((item) => item.element));
   }
 
+  selectTabBarItem(index: number) {
+    if (this.#items.length <= index) index = this.#items.length - 1;
+    if (index < 0) index = 0;
+
+    this.#items[index].element.click();
+  }
+
   #renderTabBarInItemByClickEvent(event: Event) {
     const eventTarget = event.target;
     this.#items.forEach((item) => {

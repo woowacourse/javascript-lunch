@@ -83,6 +83,7 @@ class ModalController {
   static #createAddRestaurantForm() {
     const submitFunc = (restaurant: Restaurant) => {
       RestaurantListController.addToEntireRestaurantList(restaurant);
+      RenderController.selectTabBarItem(0);
     };
 
     const addRestaurantForm = new AddRestaurantForm({
