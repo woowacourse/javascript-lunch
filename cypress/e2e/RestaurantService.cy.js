@@ -3,8 +3,22 @@ import RestaurantService from '../../src/domain/RestaurantService';
 describe('레스토랑 추가 기능 테스트', () => {
   const restaurantService = new RestaurantService();
   const DUMMY = [
-    { category: '한식', name: '꺼벙이분식', distance: 5, description: '돈까스 김밥 맛집', link: 'www.naver.com' },
-    { category: '중식', name: '친친', distance: 5, description: '게살볶음밥 굿', link: 'www.daum.net' },
+    {
+      category: '한식',
+      name: '꺼벙이분식',
+      distance: 5,
+      description: '돈까스 김밥 맛집',
+      link: 'www.naver.com',
+      favorite: false,
+    },
+    {
+      category: '중식',
+      name: '친친',
+      distance: 5,
+      description: '게살볶음밥 굿',
+      link: 'www.daum.net',
+      favorite: false,
+    },
   ];
 
   it('모든 속성을 입력한 경우 레스토랑을 추가할 수 있다.', () => {
@@ -14,6 +28,7 @@ describe('레스토랑 추가 기능 테스트', () => {
       distance: 10,
       description: '우육면 + 군만두',
       link: 'www.naver.com',
+      favorite: false,
     };
 
     const result = restaurantService.addRestaurant(newRestaurant, DUMMY);
@@ -28,6 +43,7 @@ describe('레스토랑 추가 기능 테스트', () => {
       distance: 10,
       description: undefined,
       link: undefined,
+      favorite: false,
     };
 
     const result = restaurantService.addRestaurant(newRestaurant, DUMMY);
@@ -42,6 +58,7 @@ describe('레스토랑 추가 기능 테스트', () => {
       distance: 10,
       description: '돈까스 김밥 + 순대',
       link: 'www.naver.com',
+      favorite: false,
     };
 
     const result = restaurantService.addRestaurant(newRestaurant, DUMMY);
@@ -53,8 +70,22 @@ describe('레스토랑 추가 기능 테스트', () => {
 describe('레스토랑 삭제 기능 테스트', () => {
   const restaurantService = new RestaurantService();
   const DUMMY = [
-    { category: '한식', name: '꺼벙이분식', distance: 5, description: '돈까스 김밥 맛집', link: 'www.naver.com' },
-    { category: '중식', name: '친친', distance: 5, description: '게살볶음밥 굿', link: 'www.daum.net' },
+    {
+      category: '한식',
+      name: '꺼벙이분식',
+      distance: 5,
+      description: '돈까스 김밥 맛집',
+      link: 'www.naver.com',
+      favorite: false,
+    },
+    {
+      category: '중식',
+      name: '친친',
+      distance: 5,
+      description: '게살볶음밥 굿',
+      link: 'www.daum.net',
+      favorite: false,
+    },
   ];
 
   it('해당 레스토랑을 찾아 삭제할 수 있다.', () => {
@@ -65,6 +96,7 @@ describe('레스토랑 삭제 기능 테스트', () => {
         distance: 5,
         description: '돈까스 김밥 맛집',
         link: 'www.naver.com',
+        favorite: false,
       },
     ];
 
@@ -76,9 +108,30 @@ describe('레스토랑 삭제 기능 테스트', () => {
 describe('레스토랑 카테고리 별 필터링 기능 테스트', () => {
   const restaurantService = new RestaurantService();
   const DUMMY = [
-    { category: '한식', name: '꺼벙이분식', distance: 5, description: '돈까스 김밥 맛집', link: 'www.naver.com' },
-    { category: '한식', name: '용호동낙지', distance: 10, description: '사장님 츤데레', link: 'www.naver.com' },
-    { category: '중식', name: '친친', distance: 5, description: '게살볶음밥 굿', link: 'www.daum.net' },
+    {
+      category: '한식',
+      name: '꺼벙이분식',
+      distance: 5,
+      description: '돈까스 김밥 맛집',
+      link: 'www.naver.com',
+      favorite: false,
+    },
+    {
+      category: '한식',
+      name: '용호동낙지',
+      distance: 10,
+      description: '사장님 츤데레',
+      link: 'www.naver.com',
+      favorite: false,
+    },
+    {
+      category: '중식',
+      name: '친친',
+      distance: 5,
+      description: '게살볶음밥 굿',
+      link: 'www.daum.net',
+      favorite: false,
+    },
   ];
 
   it('카테고리가 전체인 경우 전체 레스토랑 리스트를 반환한다.', () => {
@@ -105,9 +158,30 @@ describe('레스토랑 정렬 기능 테스트', () => {
   const restaurantService = new RestaurantService();
 
   const DUMMY = [
-    { category: '한식', name: '배가무닭볶음탕', distance: 15, description: '무가 맛있어요', link: 'www.naver.com' },
-    { category: '한식', name: '용호동낙지', distance: 10, description: '사장님 츤데레', link: 'www.naver.com' },
-    { category: '중식', name: '친친', distance: 5, description: '게살볶음밥 굿', link: 'www.daum.net' },
+    {
+      category: '한식',
+      name: '배가무닭볶음탕',
+      distance: 15,
+      description: '무가 맛있어요',
+      link: 'www.naver.com',
+      favorite: false,
+    },
+    {
+      category: '한식',
+      name: '용호동낙지',
+      distance: 10,
+      description: '사장님 츤데레',
+      link: 'www.naver.com',
+      favorite: false,
+    },
+    {
+      category: '중식',
+      name: '친친',
+      distance: 5,
+      description: '게살볶음밥 굿',
+      link: 'www.daum.net',
+      favorite: false,
+    },
   ];
 
   const properties = ['name', 'distance'];
@@ -123,5 +197,43 @@ describe('레스토랑 정렬 기능 테스트', () => {
 
       expect(result).to.deep.equal(expectedResult[index]);
     });
+  });
+});
+
+describe('레스토랑 자주가는 음식점 기능 테스트', () => {
+  const restaurantService = new RestaurantService();
+
+  const DUMMY = [
+    {
+      category: '한식',
+      name: '배가무닭볶음탕',
+      distance: 15,
+      description: '무가 맛있어요',
+      link: 'www.naver.com',
+      favorite: true,
+    },
+    {
+      category: '한식',
+      name: '용호동낙지',
+      distance: 10,
+      description: '사장님 츤데레',
+      link: 'www.naver.com',
+      favorite: false,
+    },
+    {
+      category: '중식',
+      name: '친친',
+      distance: 5,
+      description: '게살볶음밥 굿인데 양 좀 적음',
+      link: 'www.daum.net',
+      favorite: true,
+    },
+  ];
+
+  it('자주가는 음식점만 필터링하여 보여줄 수 있다.', () => {
+    const expectedResult = [DUMMY[0], DUMMY[2]];
+
+    const result = restaurantService.filterByFavorite(DUMMY);
+    expect(result).to.deep.equal(expectedResult);
   });
 });
