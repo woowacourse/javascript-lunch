@@ -38,6 +38,7 @@
 
 .restaurant-item-subtitle-distance-wrapper {
   flex-grow: 1;
+  cursor: pointer;
 }
 
 .restaurant__name {

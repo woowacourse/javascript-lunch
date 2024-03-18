@@ -21,43 +21,35 @@ class RestaurantList extends Component {
     }
   }
 
+  #handleListWrapper(event: Event) {
+    const target = event.target as HTMLElement;
+    const restaurantName = target.closest('.restaurant-list')?.getAttribute('name');
+    if (target.className === 'favorite-icon' && restaurantName) {
+      this.#updateFavoriteStateAndRegenerateList(restaurantName);
+    }
+
+    const validTargetElement = {
+      name: 'restaurant__name',
+      distance: 'restaurant__distance',
+      description: 'restaurant__description',
+      reference: 'restaurant__reference',
+    };
+    if (Object.values(validTargetElement).some((className) => target.className.includes(className))) {
+      const restaurantName =
+        target.closest('.restaurant-item-content-wrapper')?.querySelector('.restaurant__name')?.innerHTML ||
+        target.innerHTML;
+      if (restaurantName) this.dispatchEvent(new CustomEvent('detailClick', { bubbles: true, detail: restaurantName }));
+    }
+  }
+
   setEvent(): void {
     document.addEventListener('submitButtonClick', this.#handleSubmitButtonClick.bind(this) as EventListener);
-    document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      const restaurantName = target.closest('.restaurant-list')?.getAttribute('name');
-      if (target.className === 'favorite-icon' && restaurantName) {
-        this.#updateFavoriteStateAndRegenerateList(restaurantName);
-      }
-    });
+    document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', this.#handleListWrapper);
     document.addEventListener(
       'detailFavoriteButtonClick',
       this.#handleDetailFavoriteButtonClick.bind(this) as EventListener,
     );
-    document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      const validTargetElement = {
-        name: 'restaurant__name',
-        distance: 'restaurant__distance',
-        description: 'restaurant__description',
-        reference: 'restaurant__reference',
-      };
-      if (
-        target.className.includes(validTargetElement.name) ||
-        target.className.includes(validTargetElement.distance) ||
-        target.className.includes(validTargetElement.description) ||
-        target.className.includes(validTargetElement.reference)
-      ) {
-        if (target.className.includes(validTargetElement.name)) {
-          const restaurantName = target.innerHTML;
-          if (restaurantName) this.#handleItemClick(restaurantName);
-        } else {
-          const restaurantName = target.closest('.restaurant-item-content-wrapper')?.children[0].children[0].children[0]
-            .innerHTML;
-          if (restaurantName) this.#handleItemClick(restaurantName);
-        }
-      }
-    });
+    document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', this.#handleListWrapper.bind(this));
     document.addEventListener('deleteButtonClick', this.#handleDelete.bind(this) as EventListener);
   }
 

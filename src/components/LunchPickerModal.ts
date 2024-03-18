@@ -37,16 +37,10 @@ class LunchPickerModal extends Component {
   setEvent(): void {
     $addEvent('.modal-form', 'submit', this.#handleOnSubmit.bind(this));
     $addEvent('.button-cancel', 'click', this.#handleOnCancel.bind(this));
-    this.querySelector('.button-delete')?.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      const restaurantName = target?.parentNode?.parentNode?.children[0].children[1]?.firstChild?.nodeValue as string;
-      this.#handleRestaurantDelete(restaurantName);
-    });
-    this.querySelector('.detail-favorite-icon')?.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      const restaurantName = target?.parentNode?.parentNode?.children[1].innerHTML as string;
-      this.#handleDetailFavoriteClick(restaurantName);
-    });
+    const deleteButton = this.querySelector('.button-delete');
+    const favoriteIcon = this.querySelector('.detail-favorite-icon');
+    deleteButton?.addEventListener('click', this.#handleDeleteClick.bind(this));
+    favoriteIcon?.addEventListener('click', this.#handleFavoriteClick.bind(this));
   }
 
   removeEvent(): void {
@@ -64,15 +58,6 @@ class LunchPickerModal extends Component {
     } else {
       ($('.modal') as HTMLElement).classList.remove('modal--open');
     }
-  }
-
-  #handleRestaurantDelete(restaurantName: string) {
-    this.dispatchEvent(new CustomEvent('deleteButtonClick', { bubbles: true, detail: restaurantName }));
-    this.#open = false;
-  }
-
-  #handleDetailFavoriteClick(restaurantName: string) {
-    this.dispatchEvent(new CustomEvent('detailFavoriteButtonClick', { bubbles: true, detail: restaurantName }));
   }
 
   #handleRestaurantDetail(restaurantName: string) {
@@ -119,6 +104,19 @@ class LunchPickerModal extends Component {
 
     ($(errors[0]) as HTMLElement).focus();
     return true;
+  }
+
+  #handleDeleteClick(event: Event) {
+    const target = event.target as HTMLElement;
+    const restaurantName = target?.parentNode?.parentNode?.children[0].children[1]?.firstChild?.nodeValue as string;
+    this.dispatchEvent(new CustomEvent('deleteButtonClick', { bubbles: true, detail: restaurantName }));
+    this.#open = false;
+  }
+
+  #handleFavoriteClick(event: Event) {
+    const target = event.target as HTMLElement;
+    const restaurantName = target?.parentNode?.parentNode?.children[1].innerHTML as string;
+    this.dispatchEvent(new CustomEvent('detailFavoriteButtonClick', { bubbles: true, detail: restaurantName }));
   }
 
   render(restaurant?: IRestaurant): void {
