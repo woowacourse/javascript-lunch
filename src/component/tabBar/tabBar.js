@@ -1,5 +1,4 @@
 import { $ } from '../../utils/selector.js';
-import createHeader from '../header.js';
 
 function createTabBar(tabInfoList) {
   const tabBarBaseComponent = $('.restaurant-tab-bar-container');
