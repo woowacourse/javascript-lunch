@@ -3,8 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  height: 50%;
-  overflow-y: scroll;
+  z-index: 111;
 }
 
 .restaurant-detail__header {
@@ -13,8 +12,21 @@
   justify-content: space-between;
 
   margin-bottom: 16px;
+}
 
-  background-color: aliceblue;
+.restaurant-detail__category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+
+  margin-right: 16px;
+
+  border-radius: 50%;
+  background: var(--lighten-color);
 }
 
 .restaurant-detail__favorite-button {
@@ -31,8 +43,7 @@
 
 .restaurant-detail__body {
   display: flex;
-
-  background-color: antiquewhite;
+  flex-direction: column;
 }
 
 .restaurant-detail__name {
@@ -44,7 +55,7 @@
 }
 
 .restaurant-detail__description {
-  height: 360px;
+  height: 300px;
   margin-bottom: 16px;
 }
 
