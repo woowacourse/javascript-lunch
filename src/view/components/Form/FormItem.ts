@@ -1,4 +1,4 @@
-import createElementByTag from "../generateComponent/utils/createElementByTag";
+import createElementByTag from "../../utils/createElementByTag";
 
 class FormItem {
   item;
@@ -24,10 +24,6 @@ class FormItem {
     const span = this.#createSpan(description);
 
     this.item.append(label, this.#readableElement, span);
-  }
-
-  getValue() {
-    return this.#readableElement.value;
   }
 
   resetForm() {
