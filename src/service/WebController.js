@@ -18,6 +18,7 @@ export default class WebController {
     this.#restaurantManager = new RestaurantManager();
   }
 
+  // eslint-disable-next-line max-lines-per-function
   start() {
     this.#syncLocalStorageAndDomain();
     this.#webView.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
@@ -26,6 +27,18 @@ export default class WebController {
     this.#addFilterOnchangeEventListener();
 
     this.#renderTabs();
+
+    const restaurantDetailElement = document.querySelector('#restaurant-detail');
+    restaurantDetailElement.addEventListener('restaurantItemDelete', (event) => {
+      const deletedRestaurantId = event.detail.id;
+      this.#updateRestaurantListAfterDelete(deletedRestaurantId);
+    });
+  }
+
+  #updateRestaurantListAfterDelete(deletedRestaurantId) {
+    const restaurants = this.#webView.restaurants.filter((restaurant) => restaurant.id !== deletedRestaurantId);
+    this.#webView.restaurants = restaurants;
+    this.#updateLocalStorage();
   }
 
   #renderTabs() {
@@ -64,7 +77,7 @@ export default class WebController {
       this.#handleFormSubmitUpdateUI(formData.category);
     });
   }
-  
+
   #handleFormSubmitUpdateUI(category) {
     if (this.#favoriteTab.isActive()) {
       this.#updateFavoriteRestaurantList();
