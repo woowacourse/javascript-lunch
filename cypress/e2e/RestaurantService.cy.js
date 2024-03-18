@@ -50,6 +50,29 @@ describe('레스토랑 추가 기능 테스트', () => {
   });
 });
 
+describe('레스토랑 삭제 기능 테스트', () => {
+  const restaurantService = new RestaurantService();
+  const DUMMY = [
+    { category: '한식', name: '꺼벙이분식', distance: 5, description: '돈까스 김밥 맛집', link: 'www.naver.com' },
+    { category: '중식', name: '친친', distance: 5, description: '게살볶음밥 굿', link: 'www.daum.net' },
+  ];
+
+  it('해당 레스토랑을 찾아 삭제할 수 있다.', () => {
+    const existRestaurant = [
+      {
+        category: '한식',
+        name: '꺼벙이분식',
+        distance: 5,
+        description: '돈까스 김밥 맛집',
+        link: 'www.naver.com',
+      },
+    ];
+
+    const result = restaurantService.removeRestaurant(existRestaurant, DUMMY);
+    expect(result).to.deep.equal(DUMMY);
+  });
+});
+
 describe('레스토랑 카테고리 별 필터링 기능 테스트', () => {
   const restaurantService = new RestaurantService();
   const DUMMY = [
