@@ -4,7 +4,9 @@ import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
-function sortMethod(attribute: (typeof SORT_CONDITION)[number]) {
+type AttributeType = (typeof SORT_CONDITION)[number];
+
+function sortMethod(attribute: AttributeType) {
   if (attribute === SORT_BY_NAME) return restaurantCatalog.sortByName;
   if (attribute === SORT_BY_DISTANCE) return restaurantCatalog.sortByDistance;
   throw new Error('RestaurantCards의 Attributes가 잘못 설정되었습니다.');
@@ -15,9 +17,9 @@ class RestaurantCards extends HTMLUListElement {
 
   render() {
     const restaurantsFilterByLike = this.#filterRestaurantsByLike();
-    const restaurantFilteredAndSorted = sortMethod(
-      this.getAttribute('data-sort-select')! as (typeof SORT_CONDITION)[number],
-    )(restaurantsFilterByLike);
+    const restaurantFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select')! as AttributeType)(
+      restaurantsFilterByLike,
+    );
     this.#setRenderRestaurantCards(restaurantFilteredAndSorted);
     this.#renderRestaurantsField();
   }
