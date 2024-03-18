@@ -22,6 +22,7 @@ describe('정렬 선택 테스트', () => {
     cy.get('select[id=sort-select]').select('이름순');
 
     const names = [];
+
     cy.get('.restaurant__name')
       .each((name) => {
         names.push(name.text());
@@ -36,6 +37,16 @@ describe('정렬 선택 테스트', () => {
     cy.visit('http://localhost:8080/');
     cy.get('select[id=sort-select]').select('거리순');
 
-    // TODO
+    const distances = [];
+
+    cy.get('.restaurant__distance')
+      .each((distance) => {
+        distances.push(parseInt(distance.text().match(/\d+/))); // '캠퍼스부터 10분 내'
+      })
+      .then(() => {
+        const sortedDistances = [...distances].sort((a, b) => a - b);
+
+        expect(distances).to.deep.equal(sortedDistances);
+      });
   });
 });
