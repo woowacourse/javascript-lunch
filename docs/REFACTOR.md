@@ -12,4 +12,4 @@
   - [x] modal.ts - 모달 컴포넌트 분리
 
 - [x] App.ts에서 event 리팩토링
-- [ ] querySelect시 null에 대한 에러 처리
+- [x] querySelect시 null에 대한 에러 처리
