@@ -62,6 +62,7 @@ class RestaurantInfoModal extends HTMLElement {
       });
     }
   }
+
   showUrl() {
     if (this.restaurantData.referenceUrl !== '') {
       return `<p>
@@ -75,10 +76,7 @@ class RestaurantInfoModal extends HTMLElement {
     this.innerHTML = `
     <dialog id="restaurant-info-modal">
     <div class="modal-container">
-    <button type="button" class="favorite-icon" id="favorite-button-${this.restaurantData.name.replaceAll(
-      ' ',
-      '',
-    )}" onclick>
+    <button type="button" class="favorite-icon" id="favorite-button-${this.restaurantData.name.replaceAll(' ', '')}" >
       <img src="${this.restaurantData.favorite ? IMAGE.url.버튼_즐겨찾기등록됨 : IMAGE.url.버튼_즐겨찾기해제됨}"/>
     </button>
     <div class="restaurant__category">
