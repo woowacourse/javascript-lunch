@@ -1,0 +1,37 @@
+[
+  {
+    "category": "korean",
+    "name": "한식당1",
+    "timeToReach": 10,
+    "description": "맛있는 한식당",
+    "link": "http://example.com/1"
+  },
+  {
+    "category": "korean",
+    "name": "한식당2",
+    "timeToReach": 5,
+    "description": "저렴한 한식당",
+    "link": "http://example.com/2"
+  },
+  {
+    "category": "chinese",
+    "name": "중식당1",
+    "timeToReach": 15,
+    "description": "중국집",
+    "link": "http://example.com/3"
+  },
+  {
+    "category": "chinese",
+    "name": "중식당2",
+    "timeToReach": 10,
+    "description": "중국집2",
+    "link": "http://example.com/44"
+  },
+  {
+    "category": "japanese",
+    "name": "일식당1",
+    "timeToReach": 20,
+    "description": "일본 음식",
+    "link": "http://example.com/4"
+  }
+]
