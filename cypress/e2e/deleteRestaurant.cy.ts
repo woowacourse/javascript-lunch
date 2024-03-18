@@ -3,12 +3,7 @@ describe('음식점 삭제 테스트', () => {
     cy.visit('');
 
     cy.fixture('dummyRestaurant').then((restaurants) => {
-      restaurants.forEach((restaurant) => {
-        cy.get('[data-cy="add-button"]').click();
-
-        cy.fillOutRestaurantForm(restaurant);
-        cy.get('[data-cy="submit"]').click();
-      });
+      cy.addRestaurantItems(restaurants);
     });
 
     cy.get('[data-cy="category-select"]').select('전체');

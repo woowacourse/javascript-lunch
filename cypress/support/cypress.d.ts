@@ -1,5 +1,6 @@
 declare namespace Cypress {
   interface Chainable {
-    fillOutRestaurantForm(restaurant: RestaurantFormProps): Chainable<JQuery<HTMLElement>>;
+    fillOutRestaurantForm(restaurant: RestaurantFormData): Chainable<JQuery<HTMLElement>>;
+    addRestaurantItems(restaurants: RestaurantFormData[]): Chainable<JQuery<HTMLElement>>;
   }
 }

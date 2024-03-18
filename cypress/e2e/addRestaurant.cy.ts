@@ -1,7 +1,6 @@
 describe('음식점 추가 테스트', () => {
   beforeEach(() => {
     cy.visit('');
-
     cy.get('[data-cy="add-button"]').click();
   });
 
@@ -15,8 +14,8 @@ describe('음식점 추가 테스트', () => {
     cy.fixture('dummyRestaurant').then(([ dummyRestaurant ]) => {
       cy.fillOutRestaurantForm(dummyRestaurant);
     });
-
     cy.get('[data-cy="reset"]').click();
+    
     cy.get('[data-cy="modal-container"]').should('not.be.visible');
   });
 
@@ -24,8 +23,8 @@ describe('음식점 추가 테스트', () => {
     cy.fixture('dummyRestaurant').then(([ dummyRestaurant ]) => {
       cy.fillOutRestaurantForm(dummyRestaurant);
     });
-
     cy.get('[data-cy="submit"]').click();
+    
     cy.get('[data-cy="modal-container"]').should('not.be.visible');
     cy.get('[data-cy="restaurant-list"]').children('li').should('have.length', 1);
   });
