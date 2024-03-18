@@ -5,16 +5,6 @@
   padding: 0 16px;
 }
 
-button {
-  padding: 0;
-  overflow: visible;
-  background: inherit;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  cursor: pointer;
-}
-
 .restaurant-like-container > button {
   width: 50%;
   padding-bottom: 24px;

@@ -1,4 +1,6 @@
 import '../templates/style.css';
+import './css/reset.css';
+
 import WebController from './Controller/WebController';
 
 import Dropdown from './view/components/Dropdown';
@@ -15,7 +17,6 @@ window.customElements.define('restaurant-card', RestaurantCard, { extends: 'li' 
 window.customElements.define('like-star', LikeStar);
 window.customElements.define('modal-like-star', ModalLikeStar);
 window.customElements.define('custom-button', Button, { extends: 'button' });
+runLikeSectionLogic();
 
 new WebController().run();
-
-runLikeSectionLogic();
