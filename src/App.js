@@ -11,11 +11,15 @@ import RestaurantService from './domain/services/RestaurantService';
 
 class App {
   #restaurantList = new RestaurantList();
+
   #addRestaurantModal = new AddRestaurantModal();
+
   #restaurantDetailModal = new RestaurantDetailModal();
 
   #activeTab;
+
   #filterCategory = DEFAULT_FILTERING_CATEGORY;
+
   #sortProperty = DEFAULT_SORTING_PROPERTY;
 
   initApp() {
@@ -119,9 +123,8 @@ class App {
   restaurantItemClickHandler(restaurantItem) {
     this.#restaurantDetailModal.restaurant = {
       restaurant: restaurantItem,
-      onToggle: () => {
-        this.restaurantItemFavoriteToggleHandler();
-      },
+      reRender: () => this.renderRestaurantList(),
+      onUpdate: () => this.#restaurantList.updateData(),
       onDelete: item => {
         alert('삭제되었습니다!');
         this.#restaurantList.list = RestaurantService.deleteRestaurant(item, this.#restaurantList.list);

@@ -82,9 +82,10 @@ const render = (restaurant: RestaurantEntity) => {
   restaurantDetailLayout.appendChild(buttonContainer);
 };
 
-interface setProps {
+interface SetProps {
   restaurant: RestaurantEntity;
-  onToggle: () => void;
+  reRender: () => void;
+  onUpdate: () => void;
   onDelete: (id: string) => void;
 }
 
@@ -95,14 +96,14 @@ class RestaurantDetailModal extends Modal {
     super({ child: restaurantDetailLayout });
   }
 
-  set restaurant({ restaurant, onToggle, onDelete }: setProps) {
+  set restaurant({ restaurant, reRender, onUpdate, onDelete }: SetProps) {
     this.#restaurant = restaurant;
     restaurantDetailLayout.replaceChildren();
     render(this.#restaurant);
-    this.setEvents(onToggle, onDelete);
+    this.setEvents(reRender, onUpdate, onDelete);
   }
 
-  setEvents(toggleHandler: Function, deleteHandler: Function) {
+  setEvents(reRender: Function, onUpdate: Function, onDelete: Function) {
     const favorite = $('#detail-favorite');
     const deleteButton = $('#delete');
     const closeButton = $('#close');
@@ -111,15 +112,19 @@ class RestaurantDetailModal extends Modal {
       this.#restaurant?.favoriteToggle();
       restaurantDetailLayout.replaceChildren();
       if (this.#restaurant) render(this.#restaurant);
-      toggleHandler();
-      this.setEvents(toggleHandler, deleteHandler);
+      onUpdate();
+      this.setEvents(reRender, onUpdate, onDelete);
     });
 
     deleteButton.addEventListener('click', () => {
-      deleteHandler(this.#restaurant?.id);
+      onDelete(this.#restaurant?.id);
     });
 
-    closeButton.addEventListener('click', () => this.toggle.bind(this)());
+    closeButton.addEventListener('click', () => {
+      this.toggle.bind(this)();
+      onUpdate();
+      reRender();
+    });
   }
 }
 
