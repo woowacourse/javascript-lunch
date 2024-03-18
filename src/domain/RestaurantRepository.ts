@@ -44,6 +44,14 @@ const RestaurantRepository = {
     }
   },
 
+  deleteRestaurant(restaurantName: string) {
+    const restaurants = getRestaurants();
+    const filteredRestaurants = restaurants.filter((restaurant: IRestaurant) => {
+      return restaurant.name !== restaurantName;
+    });
+    localStorage.setItem('restaurants', JSON.stringify(filteredRestaurants));
+  },
+
   changeFavoriteState(restaurantName: string) {
     const restaurants = getRestaurants();
     const updatedRestaurants = restaurants.map((restaurant: IRestaurant) => {

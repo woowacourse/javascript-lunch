@@ -28,7 +28,7 @@ const RestaurantAddForm = () => {
           <p class="modal-reference-error-message"></p>
       </div>
       <div class="button-container">
-          <button type="button" class="button button--secondary text-caption">취소하기</button>
+          <button type="button" class="button button--secondary text-caption button-cancel">취소하기</button>
           <button class="button button--primary text-caption">추가하기</button>
       </div>
   </form>

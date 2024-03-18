@@ -1,4 +1,5 @@
 import RestaurantRepository from '../domain/RestaurantRepository';
+import { $setAttribute } from '../utils/dom';
 import Component from './Component';
 
 class RestaurantList extends Component {
@@ -53,6 +54,7 @@ class RestaurantList extends Component {
         }
       }
     });
+    document.addEventListener('deleteButtonClick', this.#handleDelete.bind(this) as EventListener);
   }
 
   removeEvent(): void {
@@ -62,6 +64,12 @@ class RestaurantList extends Component {
   render(): void {
     this.innerHTML = this.template();
     this.setEvent();
+  }
+
+  #handleDelete(event: CustomEvent<string>) {
+    RestaurantRepository.deleteRestaurant(event.detail);
+    $setAttribute('lunch-picker-modal', 'open', 'false');
+    this.#generateThemeResult();
   }
 
   #handleItemClick(restaurantName: string) {

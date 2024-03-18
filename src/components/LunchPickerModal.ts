@@ -36,12 +36,17 @@ class LunchPickerModal extends Component {
 
   setEvent(): void {
     $addEvent('.modal-form', 'submit', this.#handleOnSubmit.bind(this));
-    $addEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
+    $addEvent('.button-cancel', 'click', this.#handleOnCancel.bind(this));
+    this.querySelector('.button-delete')?.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const restaurantName = target?.parentNode?.parentNode?.children[0].children[1]?.firstChild?.nodeValue as string;
+      this.#handleRestaurantDelete(restaurantName);
+    });
   }
 
   removeEvent(): void {
     $removeEvent('.modal-form', 'submit', this.#handleOnSubmit.bind(this));
-    $removeEvent('.button--secondary', 'click', this.#handleOnCancel.bind(this));
+    $removeEvent('.button-cancel', 'click', this.#handleOnCancel.bind(this));
   }
 
   #convertStringToBoolean(value: string | null): boolean {
@@ -54,6 +59,11 @@ class LunchPickerModal extends Component {
     } else {
       ($('.modal') as HTMLElement).classList.remove('modal--open');
     }
+  }
+
+  #handleRestaurantDelete(restaurantName: string) {
+    this.dispatchEvent(new CustomEvent('deleteButtonClick', { bubbles: true, detail: restaurantName }));
+    this.#open = false;
   }
 
   #handleRestaurantDetail(restaurantName: string) {

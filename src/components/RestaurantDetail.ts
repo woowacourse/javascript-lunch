@@ -16,8 +16,8 @@ const RestaurantDetail = (detail: IRestaurant) => {
         <p class="detail-restaurant-reference">${detail.reference}</p>
       </div>
       <div class="restaurant-detail-button button-container">
-        <button class="button button--secondary restaurant-delete">삭제하기</button>
-        <button class="button button--primary">닫기</button>
+        <button class="button button--secondary button-delete">삭제하기</button>
+        <button class="button button--primary button-cancel">닫기</button>
       </div>
   `;
 };
