@@ -2,29 +2,29 @@ import RestaurantStorage from '../store/RestaurantStorage';
 import { ERROR } from '../constants/Message';
 
 class RestaurantRepository {
-  #restaurants;
+  #restaurants: IRestaurant[];
 
   constructor() {
     this.#restaurants = RestaurantStorage.getRestaurants();
   }
 
-  #getFavoriteRestaurants() {
+  #getFavoriteRestaurants(): IRestaurant[] {
     return this.#restaurants.filter((restaurant) => restaurant.isFavorite);
   }
 
-  #getFilteredByCategory(restaurants: IRestaurant[], category: TAllCategory) {
+  #getFilteredByCategory(restaurants: IRestaurant[], category: TAllCategory): IRestaurant[] {
     return category === '전체' ? restaurants : restaurants.filter((restaurant) => restaurant.category === category);
   }
 
-  #getSortedByName(restaurants: IRestaurant[]) {
+  #getSortedByName(restaurants: IRestaurant[]): IRestaurant[] {
     return [...restaurants].sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  #getSortedByDistance(restaurants: IRestaurant[]) {
+  #getSortedByDistance(restaurants: IRestaurant[]): IRestaurant[] {
     return [...restaurants].sort((a, b) => a.distance - b.distance);
   }
 
-  addRestaurant(restaurant: IRestaurant) {
+  addRestaurant(restaurant: IRestaurant): void {
     this.#restaurants = [...this.#restaurants, restaurant];
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
@@ -39,12 +39,12 @@ class RestaurantRepository {
     return restaurant;
   }
 
-  removeRestaurant(key: number) {
+  removeRestaurant(key: number): void {
     this.#restaurants = this.#restaurants.filter((restaurant: IRestaurant) => restaurant.key !== key);
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
-  toggleFavoriteRestaurant(key: number) {
+  toggleFavoriteRestaurant(key: number): void {
     this.#restaurants = this.#restaurants.map((restaurant) =>
       restaurant.key === key ? { ...restaurant, isFavorite: !restaurant.isFavorite } : restaurant,
     );
@@ -52,7 +52,7 @@ class RestaurantRepository {
     RestaurantStorage.setRestaurants(this.#restaurants);
   }
 
-  transformRestaurants(category: TAllCategory, sortingOption: TSortingOption, tabOption: TTabOption) {
+  transformRestaurants(category: TAllCategory, sortingOption: TSortingOption, tabOption: TTabOption): IRestaurant[] {
     let filteredRestaurants;
 
     if (tabOption === '자주 가는 음식점') {

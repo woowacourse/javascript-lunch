@@ -32,7 +32,7 @@ export const $addEvent = (
     throw new Error(ERROR.NO_ELEMENT);
   }
 
-  return element.addEventListener(type, listener);
+  element.addEventListener(type, listener);
 };
 
 export const $setAttribute = ($target: Element | Document, selector: string, key: string, value: string) => {
@@ -42,5 +42,5 @@ export const $setAttribute = ($target: Element | Document, selector: string, key
     throw new Error(ERROR.NO_ELEMENT);
   }
 
-  return element.setAttribute(key, value);
+  element.setAttribute(key, value);
 };

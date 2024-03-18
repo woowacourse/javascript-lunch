@@ -1,5 +1,5 @@
 const RestaurantStorage = {
-  setRestaurants(restaurants: IRestaurant[]) {
+  setRestaurants(restaurants: IRestaurant[]): void {
     localStorage.setItem('restaurants', JSON.stringify(restaurants));
   },
 
