@@ -26,7 +26,9 @@ class LunchButton extends HTMLButtonElement {
   }
 
   setEventListener(props: LunchButtonProps) {
-    this.addEventListener('click', () => props.onClick?.call(this));
+    if (props.onClick) {
+      this.addEventListener('click', props.onClick);
+    }
   }
 }
 
