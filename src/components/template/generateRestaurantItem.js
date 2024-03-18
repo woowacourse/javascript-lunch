@@ -20,6 +20,8 @@ const generateRestaurantItem = ({ targetId, restaurantsInstance, restaurant }) =
     isFavorite,
   });
 
+  const linkContent = link ? `<div><a href="${link}">${name} 링크</a></div>` : '';
+
   return `
     <li class="restaurant" id="${convertNameToId(name)}">
       <div class="restaurant__category">
@@ -29,7 +31,7 @@ const generateRestaurantItem = ({ targetId, restaurantsInstance, restaurant }) =
         <h3 class="restaurant__name text-subtitle">${name}</h3>
         <span class="restaurant__distance text-body">캠퍼스부터 ${walkingTimeFromCampus}분 내</span>
         <p class="restaurant__description text-body">${description}</p>
-        <div><a href="${link}">${link}</a></div>
+        ${linkContent}
       </div>
       ${favoriteButtonInstance.render()}
     </li>
