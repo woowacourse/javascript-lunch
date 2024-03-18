@@ -19,7 +19,7 @@ import { TabChangeEvent } from "./components/tab/TabElement";
 
 const { $ } = DOM;
 
-class App extends HTMLDivElement {
+class App extends HTMLElement {
   static matzip: Matzip;
   private main: HTMLElement;
   private tab: Tab;
@@ -30,9 +30,6 @@ class App extends HTMLDivElement {
     super();
     App.matzip = new Matzip(storage.getData(MATZIP_DATA), storage.getData(FAVORITE_DATA));
 
-    this.id = 'app';
-    $<HTMLBodyElement>('body').prepend(this);
-    
     this.createHeader();
     this.main = this.createMain();
     this.tab = this.createTab();
@@ -175,6 +172,6 @@ class App extends HTMLDivElement {
   }
 }
 
-customElements.define('matzip-app', App, {extends: 'div'});
+customElements.define('matzip-app', App);
 
 export default App;
