@@ -5,6 +5,7 @@ import { IRestaurant } from '@/types/Restaurant';
 import './RestaurantList.css';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import Restaurant from '@/domains/entities/Restaurant';
+import MainApp from '../MainApp';
 
 class RestaurantList extends HTMLUListElement {
   #restaurants: IRestaurant[];
@@ -20,13 +21,12 @@ class RestaurantList extends HTMLUListElement {
         const changed = (
           (event.target as FavoriteIcon).parentElement?.parentElement as RestaurantItem
         ).get();
-        const changedRestaurant = new Restaurant(changed);
 
         const newRestaurants: IRestaurant[] = restaurants.map((restaurant) =>
           new Restaurant(changed).isEqual(restaurant) ? changed : restaurant,
         );
         new RestaurantDBService().set(newRestaurants);
-        this.paint(newRestaurants);
+        (this.parentElement?.parentElement as MainApp).paint();
       }
     });
   }
