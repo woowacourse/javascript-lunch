@@ -10,12 +10,13 @@ class RestaurantList extends HTMLElement {
   }
 
   connectedCallback() {
-    const restaurantList: HTMLElement[] = this.createRestaurantList();
-    this.render(restaurantList);
+    const restaurantList: HTMLElement[] | null = this.createRestaurantList();
+    restaurantList ? this.render(restaurantList) : console.log('Falied to load RestaurantList!');
   }
 
   createRestaurantList() {
-    return this.restaurants.map((restaurantData) => new RestaurantItem(restaurantData));
+    if (this.restaurants) return this.restaurants.map((restaurantData) => new RestaurantItem(restaurantData));
+    return null;
   }
 
   private render(restaurantList: HTMLElement[]) {
