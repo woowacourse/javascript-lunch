@@ -1,9 +1,10 @@
 interface Props {
   title: string;
   imageSource: string;
+  onClick: () => void;
 }
 
-const createHeader = ({ title, imageSource }: Props) => {
+const createHeader = ({ title, imageSource, onClick }: Props) => {
   const header = document.createElement('header');
   const headerTitle = document.createElement('h1');
   const addButton = document.createElement('button');
@@ -19,6 +20,10 @@ const createHeader = ({ title, imageSource }: Props) => {
   addButton.appendChild(image);
   header.appendChild(headerTitle);
   header.appendChild(addButton);
+
+  if (onClick) {
+    addButton.addEventListener('click', onClick);
+  }
 
   return header;
 };

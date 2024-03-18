@@ -1,9 +1,9 @@
-import AddingRestaurantModal from './components/AddRestaurantModal/AddRestaurantModal';
-import createFilterDropdown from './components/FilterDropdown/FilterDropdown';
 import createHeader from './components/Header/Header';
+import AddingRestaurantModal from './components/AddRestaurantModal/AddRestaurantModal';
 import createNavbar from './components/Navbar/Navbar';
-import DetailRestaurantModal from './components/Restaurant/DetailRestaurantModal';
+import createFilterDropdown from './components/FilterDropdown/FilterDropdown';
 import createRestaurantItem from './components/Restaurant/RestaurantItem';
+import DetailRestaurantModal from './components/Restaurant/DetailRestaurantModal';
 import { FORM_INPUT_QUERY, LOCALSTORAGE_KEY } from './constant/constants';
 import RestaurantService from './domain/RestaurantService';
 import { $ } from './utils/querySelector';
@@ -19,13 +19,15 @@ class App {
 
   #property;
 
-  #addingRestaurantModal = new AddingRestaurantModal();
+  #addingRestaurantModal;
 
-  #detailRestaurantModal = new DetailRestaurantModal();
+  #detailRestaurantModal;
 
   constructor() {
-    this.#restaurantList = this.getRecentData();
+    this.#restaurantList = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
     this.#restaurantService = new RestaurantService();
+    this.#addingRestaurantModal = new AddingRestaurantModal();
+    this.#detailRestaurantModal = new DetailRestaurantModal();
 
     this.#isAllSelected = true;
     this.#category = '전체';
@@ -39,31 +41,22 @@ class App {
     container.appendChild(this.#detailRestaurantModal.element);
 
     this.renderHeader();
-    this.openAddRestaurantModal();
     this.renderNavbar();
     this.renderFilterDropdown();
     this.updateRestaurantList();
-  }
-
-  getRecentData() {
-    return JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
   }
 
   renderHeader() {
     const header = createHeader({
       title: '점심 뭐 먹지',
       imageSource: './add-button.png',
+      onClick: () => {
+        this.#addingRestaurantModal.open();
+        this.manageAddRestaurantFormEvents();
+      },
     });
+
     container.prepend(header);
-  }
-
-  openAddRestaurantModal() {
-    const addRestaurantButton = $('.gnb__button');
-
-    addRestaurantButton.addEventListener('click', () => {
-      this.#addingRestaurantModal.open();
-      this.manageAddRestaurantFormEvents();
-    });
   }
 
   renderNavbar() {
@@ -121,8 +114,8 @@ class App {
           this.#detailRestaurantModal.open();
           this.managedetailRestaurantEvents(restaurantItem);
         },
-        onFavoriteButtonClick: img => {
-          this.handleButtonChange(img, restaurantItem);
+        onFavoriteButtonClick: event => {
+          this.handleButtonChange(event, restaurantItem);
         },
       }),
     );
@@ -161,11 +154,6 @@ class App {
     return formData;
   }
 
-  handleButtonChange(img, restaurantItem) {
-    this.#restaurantService.changeFavorite(restaurantItem, this.#restaurantList);
-    img.target.src = restaurantItem.favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
-  }
-
   managedetailRestaurantEvents(restaurantItem) {
     const detailRestaurant = $('.detail-restaurant');
     const favoriteButton = $('.favorite-button');
@@ -185,6 +173,11 @@ class App {
       this.updateRestaurantList();
       this.#detailRestaurantModal.close();
     });
+  }
+
+  handleButtonChange(event, restaurantItem) {
+    this.#restaurantService.changeFavorite(restaurantItem, this.#restaurantList);
+    event.target.src = restaurantItem.favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
   }
 }
 
