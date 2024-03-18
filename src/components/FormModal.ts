@@ -1,6 +1,8 @@
 import Component from "../common/Component";
-import { RestaurantType } from "../types";
+import { Category, RestaurantType } from "../types";
 import RestauranStorage from "../domain/RestaurantStorage";
+import { CATEGORIES, DISTANCES } from "../constants";
+import { isDistance, isLink, isCategory } from "../util";
 
 export default class FormModal extends Component {
   render(): string {
@@ -67,7 +69,7 @@ export default class FormModal extends Component {
           <div class="button-container">
             <button
               type="button"
-              class="button button--secondary text-caption"
+              class="button form-cancel button--secondary text-caption"
             >
               취소하기
             </button>
@@ -83,17 +85,59 @@ export default class FormModal extends Component {
     const { loadRestaurant } = this.props;
     const $restaurantForm =
       document.querySelector<HTMLFormElement>(".restaurant-form");
+    const $formCancel =
+      document.querySelector<HTMLButtonElement>(".form-cancel");
+    const $modal = document.querySelector<HTMLDivElement>(".modal");
+
     $restaurantForm?.addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new FormData($restaurantForm);
-      const newRestaurant: any = {};
-
-      for (const [key, value] of formData.entries()) {
-        newRestaurant[key] = value;
+      const category = formData.get("category");
+      try {
+        if (!isCategory(category)) {
+          throw new Error("잘못된 카테고리입니다.");
+        }
+      } catch (error: any) {
+        alert(error.message);
       }
-      newRestaurant["bookmark"] = false;
-      RestauranStorage.addRestaurant(newRestaurant);
+      category;
+      const name = formData.get("name") || "";
+      const distance = Number(formData.get("distance"));
+      const description = formData.get("description");
+      const link = formData.get("link");
+      const bookmark = false;
+      if (!isCategory(category)) {
+        throw new Error("잘못된 카테고리입니다.");
+      }
+
+      if (typeof name !== "string" || name.trim() === "") {
+        throw new Error("잘못된 이름입니다");
+      }
+
+      if (!isDistance(distance)) {
+        throw new Error("잘못된 거리값입니다");
+      }
+
+      if (typeof description !== "string") {
+        throw new Error("잘못된 상세설명입니다");
+      }
+
+      if (link !== "" && !isLink(link)) {
+        throw new Error("잘못된 링크입니다.");
+      }
+      RestauranStorage.addRestaurant({
+        category,
+        name,
+        distance,
+        description,
+        link,
+        bookmark,
+      });
       loadRestaurant();
+    });
+
+    $formCancel?.addEventListener("click", (e) => {
+      $modal?.classList.remove("modal--open");
     });
   }
 }
