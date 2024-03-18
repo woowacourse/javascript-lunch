@@ -2,10 +2,10 @@ class Dropdown {
   #dropdownElement = document.createElement('select');
 
   constructor(id: string, name: string, options?: string[]) {
-    if (id && name && options) {
-      this.#dropdownElement.id = id;
-      this.#dropdownElement.name = name;
+    if (id) this.#dropdownElement.id = id;
+    if (name) this.#dropdownElement.name = name;
 
+    if (options) {
       options.forEach((option) => {
         this.#generateOptionElement(option, option);
       });
