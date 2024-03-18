@@ -47,7 +47,7 @@ const AddForm = () => {
     }).create();
 
     const nameTooltip = Tooltip({
-      text: `이름은 2자 이상 ${VALIDATOR_CONSTANTS.NAME_MAX_LENGTH}자 이하여야 합니다.`,
+      text: `이름은 ${VALIDATOR_CONSTANTS.NAME_MAX_LENGTH}자 이하여야 합니다.`,
       id: 'name-tooltip'
     }).create();
 
