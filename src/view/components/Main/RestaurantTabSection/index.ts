@@ -1,4 +1,4 @@
-import BaseComponent from "../../../util/BaseComponent";
+import BaseComponent from "../../../../util/BaseComponent";
 
 interface Props {
   currentTab: string;
@@ -16,7 +16,6 @@ class RestaurantTabSection extends BaseComponent<Props, State> {
     $section.classList.add("restaurant-list-tab-container");
     super($section, props);
     this.state = {};
-    console.log(props.currentTab);
   }
 
   protected setEvent(): void {

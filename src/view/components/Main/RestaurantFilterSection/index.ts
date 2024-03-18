@@ -2,9 +2,9 @@ import {
   categories,
   sortingStandards,
   sortingStandardsMapper,
-} from "../../../constants";
-import { Category, SortingStandard, isCategory } from "../../../types";
-import BaseComponent from "../../../util/BaseComponent";
+} from "../../../../constants";
+import { Category, SortingStandard, isCategory } from "../../../../types";
+import BaseComponent from "../../../../util/BaseComponent";
 
 interface Props {
   currentCategory: Category | "전체";

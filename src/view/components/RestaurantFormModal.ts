@@ -19,10 +19,10 @@ class RestaurantFormModal extends BaseComponent<Props, State> {
   protected state: State;
 
   constructor(props: Props) {
-    const modal = document.createElement("div");
-    modal.classList.add("modal", "modal--open");
-    modal.id = "add-restaurant-form__modal";
-    super(modal, props);
+    const $modal = document.createElement("div");
+    $modal.classList.add("modal", "modal--open");
+    $modal.id = "add-restaurant-form__modal";
+    super($modal, props);
     this.state = {};
   }
 

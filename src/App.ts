@@ -33,7 +33,9 @@ class App extends BaseComponent<AppProps, {}> {
       new Header({
         onButtonClick: this.onHeaderButtonClick.bind(this),
       }).render(),
-      new Main({ restaurantList: this.props.restaurantList }).render()
+      new Main({
+        restaurantList: this.props.restaurantList,
+      }).render()
     );
   }
 

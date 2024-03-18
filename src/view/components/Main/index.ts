@@ -4,6 +4,7 @@ import RestaurantFilterSection from "./RestaurantFilterSection";
 import RestaurantTabSection from "./RestaurantTabSection";
 import BaseComponent from "../../../util/BaseComponent";
 import { Category, SortingStandard } from "../../../types";
+import RestaurantDetailModal from "./RestaurantDetailModal";
 
 interface Props {
   restaurantList: RestaurantList;
@@ -58,8 +59,33 @@ class Main extends BaseComponent<Props, State> {
           sortingStandard: this.state.currentSortingStandard,
           isGoToFilter: this.state.currentTab === "favorite",
         }),
+        onItemClick: this.onRestaurantItemClick.bind(this),
+        onFavoriteIconClick: this.onFavoriteIconClick.bind(this),
       }).render()
     );
+  }
+
+  private onFavoriteIconClick(id: number) {
+    this.props.restaurantList.toggleIsGoTo(id);
+    this.render();
+  }
+
+  private onRestaurantItemClick(id: number) {
+    const restaurant = this.props.restaurantList.getRestaurant(id);
+    const detailModal = new RestaurantDetailModal({
+      restaurant,
+      onRemoveButtonClick: (id: number) => {
+        this.props.restaurantList.removeRestaurant(id);
+        this.render();
+      },
+      onFavoriteIconClick: (id: number) => {
+        this.props.restaurantList.toggleIsGoTo(id);
+      },
+      onCancelButtonClick: () => {
+        this.render();
+      },
+    });
+    this.$root.appendChild(detailModal.render());
   }
 }
 
