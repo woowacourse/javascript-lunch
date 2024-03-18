@@ -38,7 +38,6 @@ export default class App {
     this.#addEventListeners();
   }
 
-  // TODO: restaurants 상수로 만들기
   #loadDataFromLocalStorage() {
     this.#restaurantManger.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
   }

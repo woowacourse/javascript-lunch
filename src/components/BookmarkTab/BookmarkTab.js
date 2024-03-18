@@ -24,7 +24,6 @@ export default class BookmarkTab extends HTMLElement {
     this.addEventListener('click', this.#handleClickTabItem.bind(this));
   }
 
-  // TODO: 이 로직이 최선인가? 리팩토링
   #handleClickTabItem(e) {
     const targetItem = e.target;
     this.#tabItems.forEach((tabItem) => {

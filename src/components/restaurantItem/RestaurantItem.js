@@ -54,8 +54,6 @@ export default class RestaurantItem extends HTMLLIElement {
 
   #handleBodyClick() {
     const restaurantDetail = new RestaurantDetail({ ...this.#restaurant });
-    restaurantDetail.setAttribute('slot', 'body');
-
     const modal = document.querySelector('app-modal');
     modal.openModal({ body: restaurantDetail });
   }
