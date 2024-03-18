@@ -112,6 +112,7 @@ class RestaurantList extends BaseComponent {
   }
 
   private handleRerenderRestaurantList() {
+    this.restaurant = new Restaurant(RestaurantStorage);
     this.restaurant.updateRestaurantsSortType(this.sortType);
 
     this.connectedCallback();

@@ -83,6 +83,8 @@ class Restaurant {
   }
 
   public deleteRestaurantByName(restaurantName: string) {
+    this.updateRestaurantsDetails();
+
     const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
 
     if (restaurantIndex !== -1) {
@@ -120,6 +122,8 @@ class Restaurant {
   }
 
   public toggleFavoriteStatus(restaurantName: string) {
+    this.updateRestaurantsDetails();
+
     const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
 
     if (restaurantIndex !== -1) {
@@ -133,6 +137,20 @@ class Restaurant {
     const detailsString = JSON.stringify(this.restaurantsDetails);
 
     localStorage.setItem(STORAGE_KEYS.restaurantDetail, detailsString);
+  }
+
+  public updateRestaurantsDetails() {
+    const storedDetails = localStorage.getItem(STORAGE_KEYS.restaurantDetail);
+    if (storedDetails) {
+      this.restaurantsDetails = JSON.parse(storedDetails);
+    } else {
+      this.restaurantsDetails = [];
+    }
+
+    this.restaurantsDetails = this.getSortedAndFilteredRestaurant(
+      this.currentCategory,
+      this.sortType
+    );
   }
 }
 

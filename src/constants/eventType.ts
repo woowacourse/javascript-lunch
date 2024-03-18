@@ -6,4 +6,5 @@ export const CUSTOM_EVENT_TYPE = {
   toggleFavoriteButton: "toggleFavoriteButton",
   restaurantItemClick: "restaurantItemClick",
   rerenderRestaurantList: "rerenderRestaurantList",
+  rerenderFavoriteRestaurantList: "rerenderFavoriteRestaurantList",
 } as const;
