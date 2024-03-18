@@ -24,11 +24,11 @@
     "favorite": false
   },
   {
-    "category": "중식",
-    "name": "친친",
-    "distance": 5,
-    "description": "게살볶음밥 굿",
-    "link": "www.daum.net",
+    "category": "한식",
+    "name": "배가무닭볶음탕",
+    "distance": 15,
+    "description": "무가 맛있어요",
+    "link": "www.naver.com",
     "favorite": false
   }
 ]
