@@ -1,5 +1,3 @@
-import BaseComponent from '@/components/BaseComponent';
-
 interface Props {
   name?: string;
   idName?: string;

@@ -43,17 +43,18 @@
 .modal--open .modal-container {
   visibility: visible;
   opacity: 1;
+  overflow-y: auto;
 }
 
 .modal-title {
-  margin-bottom: 36px;
+  margin-bottom: 16px;
 }
 
 .form-item {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 36px;
+  margin-bottom: 16px;
 }
 
 .form-item label {
@@ -85,7 +86,7 @@
 }
 
 .form-item textarea {
-  resize: none;
+  height: 60px;
 }
 
 .form-item select {

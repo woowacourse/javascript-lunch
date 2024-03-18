@@ -1,5 +1,4 @@
 import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
-import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
 import Tab from './Tab';
