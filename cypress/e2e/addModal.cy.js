@@ -27,6 +27,16 @@ describe('음식점 추가 모달 테스트', () => {
     cy.get('#submitButton').should('be.disabled');
   });
 
+  it('이름 길이가 15자를 초과하면 이름폼 밑에 툴팁이 보여진다.', () => {
+    cy.get('#name').type('긴 이름을 가진 새로운 음식점'); // NOTE: 16자 이름
+    cy.get('#name-tooltip').should('have.class', 'tooltip--show');
+  });
+
+  it('이름 길이가 15자를 초과하지 않으면 이름폼 밑에 툴팁이 사라진다.', () => {
+    cy.get('#name').type('김밥천국'); // NOTE: 4자 이름
+    cy.get('#name-tooltip').should('not.have.class', 'tooltip--show');
+  });
+
   it('설명 길이가 150자를 초과하면 등록하기 버튼은 비활성화된다.', () => {
     const longDescription = 'a'.repeat(VALIDATOR_CONSTANTS.DESCRIPTION_MAX_LENGTH + 1);
     cy.get('#description').type(longDescription);
