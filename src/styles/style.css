@@ -118,6 +118,13 @@ body {
   margin: 16px 0;
 }
 
+.restaurant-list__default {
+  margin: 64px 0;
+
+  color: var(--grey-300);
+  text-align: center;
+}
+
 .restaurant {
   position: relative;
 

@@ -28,12 +28,18 @@ class RestaurantList extends Component {
     );
   }
 
+  #generateRestaurantListContent(): string {
+    return this.#restaurants.length > 0
+      ? this.#restaurants
+          .map((restaurant: IRestaurant) => `<restaurant-item key=${restaurant.key}></restaurant-item>`)
+          .join('')
+      : `<p class="text-caption restaurant-list__default">음식점이 없습니다.<br/>음식점을 추가해 주세요.</p>`;
+  }
+
   template(): string {
     return `
       <ul class="restaurant-list-container">
-        ${this.#restaurants
-          .map((restaurant: IRestaurant) => `<restaurant-item key=${restaurant.key}></restaurant-item>`)
-          .join('')}
+        ${this.#generateRestaurantListContent()}
       </ul>
     `;
   }
