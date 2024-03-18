@@ -84,3 +84,15 @@ input[name='name'],
 input[name='link'] {
   height: 44px;
 }
+
+.restaurant__description-full {
+  display: -webkit-box;
+  padding-top: 8px;
+  overflow: hidden;
+}
+
+.restaurant__link {
+  display: block;
+  color: var(--grey-500);
+  margin: 16px 0px;
+}
