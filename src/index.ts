@@ -1,9 +1,9 @@
 import RestaurantList from "./domain/RestaurantList";
-import View from "./view";
 import {
   getRestaurantsFromLocalStorage,
   setRestaurantsToLocalStorage,
 } from "./util";
+import App from "./App";
 
 (function initRestaurants() {
   if (getRestaurantsFromLocalStorage().length !== 0) {
@@ -76,4 +76,7 @@ window.addEventListener("unload", () => {
   );
 });
 
-new View(document.querySelector("body") as HTMLBodyElement, restaurantList);
+const $app = document.querySelector("#app");
+if ($app instanceof HTMLElement) {
+  new App($app, { restaurantList }).render();
+}
