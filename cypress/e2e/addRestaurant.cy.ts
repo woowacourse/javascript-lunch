@@ -12,7 +12,7 @@ describe('음식점 추가 테스트', () => {
   });
 
   it('취소하기 버튼을 눌러 모달을 닫을 수 있다.', () => {
-    cy.fixture('dummyRestaurant').then((dummyRestaurant) => {
+    cy.fixture('dummyRestaurant').then(([ dummyRestaurant ]) => {
       cy.fillOutRestaurantForm(dummyRestaurant);
     });
 
@@ -21,7 +21,7 @@ describe('음식점 추가 테스트', () => {
   });
 
   it('카테고리, 이름, 거리, 설명, 링크를 입력한 후 제출하면 모달이 닫히고 음식점 리스트가 업데이트된다.', () => {
-    cy.fixture('dummyRestaurant').then((dummyRestaurant) => {
+    cy.fixture('dummyRestaurant').then(([ dummyRestaurant ]) => {
       cy.fillOutRestaurantForm(dummyRestaurant);
     });
 

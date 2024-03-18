@@ -85,7 +85,6 @@ export default class App {
     });
   }
 
-  // TODO: 코드 중복 없애기
   #addBookmarkOnchangeEventListener() {
     document.addEventListener(RESTAURANT_ITEM_EVENTS.isBookmarkChanged, (e) => {
       const { restaurant } = e.detail;

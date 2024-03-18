@@ -34,6 +34,7 @@
       <section class="restaurant-filter-container">
         <!-- 카테고리 셀렉트 박스 -->
         <select
+          data-cy="category-select"
           is="app-select"
           name="category"
           id="category-filter"
@@ -43,6 +44,7 @@
 
         <!-- 정렬 셀렉트 박스 -->
         <select
+          data-cy="sorting-select"
           is="app-select"
           name="sorting"
           id="sorting-filter"
@@ -113,7 +115,7 @@
         <span class="restaurant__distance text-body"></span>
       </div>
       <div class="button-container">
-        <button id="delete" class="button button--secondary text-caption">삭제하기</button>
+        <button data-cy="delete-button" id="delete" class="button button--secondary text-caption">삭제하기</button>
         <button id="close" class="button button--primary text-caption">닫기</button>
       </div>
     </template>
