@@ -51,12 +51,8 @@ class FormTextField extends HTMLElement {
   }
 
   #isRestaurantInfoKey(key: string | null): key is RestaurantTextInfoKey {
-    const restaurantInfoKeys: RestaurantTextInfoKey[] = [
-      'description',
-      'link',
-      'name',
-    ];
-    return key ? (restaurantInfoKeys as string[]).includes(key) : false;
+    const restaurantInfoKeys = ['description', 'link', 'name'];
+    return key ? restaurantInfoKeys.includes(key) : false;
   }
 
   #addEventToChange(key: RestaurantTextInfoKey) {
