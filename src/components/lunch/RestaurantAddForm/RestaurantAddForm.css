@@ -87,3 +87,16 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+#modal-add-button:disabled,
+#modal-add-button:disabled:hover {
+  background-color: var(--lighten-color);
+}
+
+#modal-add-button:hover {
+  background-color: var(--button-hover-color);
+}
+
+#modal-cancel-button:hover {
+  background-color: var(--grey-200);
+}

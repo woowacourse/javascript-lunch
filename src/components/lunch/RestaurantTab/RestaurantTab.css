@@ -1,0 +1,25 @@
+.open {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.open select {
+  height: 44px;
+  min-width: 125px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 16px;
+}
+
+.close {
+  display: none;
+}
+
+.restaurant-filter {
+  padding: 8px;
+}

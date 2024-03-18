@@ -6,6 +6,7 @@ export interface RestaurantDetail {
   distance: Distance;
   description?: string;
   url?: string;
+  isFavorite: boolean;
 }
 
 export type MenuCategory =

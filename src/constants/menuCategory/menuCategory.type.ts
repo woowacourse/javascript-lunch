@@ -1,13 +1,7 @@
+import { ObjectToUnion } from "../../types/common";
 import { MENU_CATEGORIES } from "./menuCategory";
 
-export type MenuCategory =
-  | "전체"
-  | "한식"
-  | "중식"
-  | "일식"
-  | "양식"
-  | "아시안"
-  | "기타";
+export type MenuCategory = ObjectToUnion<typeof MENU_CATEGORIES>;
 
 export type MenuCategoryWithoutAll = Exclude<
   MenuCategory,

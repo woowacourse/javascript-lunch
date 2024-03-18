@@ -2,11 +2,19 @@ import "./CommonModal.css";
 
 import BaseComponent from "../../BaseComponent/BaseComponent";
 
-class CommonModal extends BaseComponent {
-  protected render() {
-    const children = this.getAttribute("children");
+import { $ } from "../../../utils/dom";
+import { isCustomEventType } from "../../../utils/typeGuard";
 
-    this.innerHTML = `
+class CommonModal extends BaseComponent {
+  private eventHandlers = {
+    handleOpen: (targetSelector: string) => this.handleOpen(targetSelector),
+    handleClose: (targetSelector: string) => this.handleClose(targetSelector),
+  };
+
+  protected render() {
+    const children = this.innerHTML;
+
+    this.innerHTML = /* html */ `
         <dialog id="common-modal-dialog">
           <div class="modal-backdrop"></div>
           <div class="modal-container">
@@ -14,6 +22,62 @@ class CommonModal extends BaseComponent {
           </div>
         </dialog>
       `;
+  }
+
+  protected setEvent(): void {
+    const openState = this.getAttribute("open") ?? "";
+    const closeState = this.getAttribute("close") ?? "";
+    const targetSelector = this.getAttribute("targetSelector") ?? "";
+
+    if (!isCustomEventType(openState) || !isCustomEventType(closeState)) return;
+
+    this.on({
+      eventName: openState,
+      eventHandler: this.eventHandlers.handleOpen.bind(this, targetSelector),
+      target: document,
+    });
+
+    this.on({
+      eventName: closeState,
+      eventHandler: this.eventHandlers.handleClose.bind(this, targetSelector),
+      target: document,
+    });
+  }
+
+  protected removeEvent(): void {
+    const openState = this.getAttribute("open") ?? "";
+    const closeState = this.getAttribute("close") ?? "";
+    const targetSelector = this.getAttribute("targetSelector") ?? "";
+
+    if (!isCustomEventType(openState) || !isCustomEventType(closeState)) return;
+
+    this.off({
+      eventName: openState,
+      eventHandler: this.eventHandlers.handleOpen.bind(this, targetSelector),
+      target: document,
+    });
+
+    this.off({
+      eventName: closeState,
+      eventHandler: this.eventHandlers.handleClose.bind(this, targetSelector),
+      target: document,
+    });
+  }
+
+  private handleOpen(targetSelector: string) {
+    const dialogElement = $(`${targetSelector}>dialog`);
+
+    if (dialogElement instanceof HTMLDialogElement) {
+      dialogElement.showModal();
+    }
+  }
+
+  private handleClose(targetSelector: string) {
+    const dialogElement = $(`${targetSelector}>dialog`);
+
+    if (dialogElement instanceof HTMLDialogElement) {
+      dialogElement.close();
+    }
   }
 }
 

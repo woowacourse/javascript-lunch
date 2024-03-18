@@ -4,10 +4,11 @@ class CommonFormItem extends BaseComponent {
   protected render(): void {
     const labelTarget = this.getAttribute("for") ?? "";
     const classList = this.getAttribute("classList") ?? "";
-    const children = this.getAttribute("children") ?? null;
     const labelText = this.getAttribute("labelText") ?? "";
 
-    this.innerHTML = `
+    const children = this.innerHTML;
+
+    this.innerHTML = /* html */ `
             <div class="form-item ${classList}">
                 <label for="${labelTarget}" text-caption">${labelText}</label>
                 ${children}

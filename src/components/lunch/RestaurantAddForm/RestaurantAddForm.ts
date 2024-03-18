@@ -21,11 +21,6 @@ class RestaurantAddForm extends BaseComponent {
   static DISTANCES_OPTIONS: Distance[] = ["5", "10", "15", "20", "30"];
 
   private eventListeners = {
-    resetForm: {
-      eventName: CUSTOM_EVENT_TYPE.resetForm,
-      eventHandler: this.handleResetForm.bind(this),
-    },
-
     restaurantAddFormSubmit: {
       eventName: "submit",
       eventHandler: this.handleSubmitAddRestaurant.bind(this),
@@ -35,62 +30,68 @@ class RestaurantAddForm extends BaseComponent {
       eventName: "click",
       eventHandler: this.handleCancelButton.bind(this),
     },
+
+    enabledAddButton: {
+      eventName: "input",
+      eventHandler: this.handleChangeAddButton.bind(this),
+    },
   } as const;
 
   protected render(): void {
     const menuCategoryWithoutAllOptions =
       Object.values(MENU_CATEGORIES).slice(1);
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <form id="restaurant-add-form">
             <common-form-item
-              for="category"
-              classList="form-item--required"
-              children="
-                ${`<common-dropdown name='category' id='category-select' options='${menuCategoryWithoutAllOptions}' title='선택해 주세요'></common-dropdown>`}
-              "
-              labelText="카테고리"
+              for='category'
+              classList='form-item--required'
+              labelText='카테고리'
             >
+              <common-dropdown 
+                name='category' 
+                id='category-select' 
+                options='${menuCategoryWithoutAllOptions}' 
+                title='선택해 주세요'
+              ></common-dropdown>
             </common-form-item>
             <common-form-item
-              for="name"
-              classList="form-item--required"
-              children="
-                ${`<input type='text' name='name' id='name-input' required>`}
-              "
-              labelText="이름"
+              for='name'
+              classList='form-item--required'
+              labelText='이름'
             >
+              <input type='text' name='name' id='name-input' />
             </common-form-item>
             <common-form-item
               for="distance"
               classList="form-item--required"
-              children="
-                ${`<common-dropdown name='distance' addOptionText='분 내' id='distance-select' options='${RestaurantAddForm.DISTANCES_OPTIONS}' title='선택해 주세요' /></common-dropdown>`}
-              "
               labelText="거리(도보 이동 시간)"
             >
+              <common-dropdown 
+                name='distance' 
+                addOptionText='분 내' 
+                id='distance-select' 
+                options='${RestaurantAddForm.DISTANCES_OPTIONS}' 
+                title='선택해 주세요'
+              ></common-dropdown>
             </common-form-item>
             <common-form-item
               for="description"
-              children="
-                ${`<textarea name='description' id='description-textarea' cols='30' rows='5'></textarea>
-                <span class='help-text text-caption'>메뉴 등 추가 정보를 입력해 주세요.</span>`}
-              "
               labelText="설명"
             >
+              <textarea name='description' id='description-textarea' cols='30' rows='5'></textarea>
+              <span class='help-text text-caption'>메뉴 등 추가 정보를 입력해 주세요.</span>
             </common-form-item>
             <common-form-item
               for="url"
-              children="
-                ${`<input type='text' name='url' id='url-input'/>
-                <span class='help-text text-caption'>매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`}
-              "
               labelText="참고 링크"
             >
+              <input type='text' name='url' id='url-input'/>
+              <span class='help-text text-caption'>매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
             </common-form-item>
             <div class="button-container">
-                <button id="modal-cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
-                <button type="submit" class="button button--primary text-caption">추가하기</button>
+              <button id="modal-cancel-button" type="button" class="button button--secondary text-caption">취소하기</button>
+              <button disabled id="modal-add-button" type="submit" class="button button--primary text-caption">추가하기</button>
             </div>
         </form>
     `;
@@ -103,22 +104,14 @@ class RestaurantAddForm extends BaseComponent {
     });
 
     this.on({
-      ...this.eventListeners.resetForm,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      ...this.eventListeners.modalCancelButtonClick,
+      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
 
     this.on({
-      ...this.eventListeners.modalCancelButtonClick,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      ...this.eventListeners.enabledAddButton,
+      target: this,
     });
-  }
-
-  private handleCloseModal() {
-    const modalContentElement = $(ELEMENT_SELECTOR.commonModalContent);
-
-    if (modalContentElement instanceof HTMLDialogElement) {
-      modalContentElement.close();
-    }
   }
 
   private handleResetForm() {
@@ -137,9 +130,9 @@ class RestaurantAddForm extends BaseComponent {
 
       this.handleResetForm();
 
-      this.handleCloseModal();
+      this.emit(CUSTOM_EVENT_TYPE.rerenderRestaurantList);
 
-      this.emit(CUSTOM_EVENT_TYPE.addRestaurant);
+      this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalClose);
     } catch (error: unknown | Error) {
       this.handleError(error);
     }
@@ -183,10 +176,11 @@ class RestaurantAddForm extends BaseComponent {
         userInputValues[key] = value;
       }
 
-      if (isUserInputValues(userInputValues)) return userInputValues;
+      if (isUserInputValues(userInputValues))
+        return { ...userInputValues, isFavorite: false };
     }
 
-    return null;
+    throw new Error("잘못 입력하셨습니다. 다시 입력해주세요.");
   }
 
   private handleCancelButton(event: Event) {
@@ -198,9 +192,24 @@ class RestaurantAddForm extends BaseComponent {
     )
       return;
 
-    this.handleCloseModal();
-
     this.handleResetForm();
+
+    this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalClose);
+  }
+
+  private handleChangeAddButton() {
+    const formItems = this.createFormDataToRestaurantDetail();
+    const requiredFormItems = Object.values(formItems).slice(0, 3);
+
+    const addButtonElement = $(ELEMENT_SELECTOR.modalAddButton);
+
+    if (!(addButtonElement instanceof HTMLButtonElement)) return;
+
+    if (requiredFormItems.every((value) => value !== "")) {
+      addButtonElement.disabled = false;
+    } else {
+      addButtonElement.disabled = true;
+    }
   }
 
   protected removeEvent(): void {
@@ -210,13 +219,8 @@ class RestaurantAddForm extends BaseComponent {
     });
 
     this.off({
-      ...this.eventListeners.resetForm,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
-    });
-
-    this.off({
       ...this.eventListeners.modalCancelButtonClick,
-      target: $(ELEMENT_SELECTOR.restaurantAddForm),
+      target: $(ELEMENT_SELECTOR.restaurantAddForm) ?? document,
     });
   }
 }

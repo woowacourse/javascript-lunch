@@ -44,7 +44,10 @@ const RestaurantDetailValidator = {
     invalidUrlFormat: {
       errorMessage: "유효하지 않은 이메일 형식 입니다. 다시 입력해주세요.",
       isValid({ userInputRestaurantDetail }: RestaurantDetailIsValidType) {
-        return URL_REGEXP.test(userInputRestaurantDetail?.url ?? "");
+        return (
+          userInputRestaurantDetail.url === "" ||
+          URL_REGEXP.test(userInputRestaurantDetail?.url ?? "")
+        );
       },
     },
   } as const,

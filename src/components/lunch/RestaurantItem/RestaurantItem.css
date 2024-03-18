@@ -3,6 +3,7 @@
   align-items: flex-start;
 
   padding: 16px 8px;
+  width: 100%;
 
   border-bottom: 1px solid #e9eaed;
 }
@@ -25,6 +26,12 @@
 .category-icon {
   width: 36px;
   height: 36px;
+}
+
+#restaurant-info-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .restaurant__info {

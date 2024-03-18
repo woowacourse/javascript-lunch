@@ -7,17 +7,18 @@ import BaseComponent from "../../BaseComponent/BaseComponent";
 import { $ } from "../../../utils/dom";
 
 import { ELEMENT_SELECTOR } from "../../../constants/selector";
+import { CUSTOM_EVENT_TYPE } from "../../../constants/eventType";
 
 class GlobalNavigationBar extends BaseComponent {
   private eventListeners = {
     gnbButtonClick: {
       eventName: "click",
-      eventHandler: this.handleOpenModal,
+      eventHandler: this.handleOpenModal.bind(this),
     },
   } as const;
 
   protected render() {
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <header class="gnb">
             <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
             <button id="gnb-button" type="button" class="gnb__button" aria-label="음식점 추가">
@@ -30,22 +31,18 @@ class GlobalNavigationBar extends BaseComponent {
   protected setEvent(): void {
     this.on({
       ...this.eventListeners.gnbButtonClick,
-      target: $(ELEMENT_SELECTOR.gnbButton),
+      target: $(ELEMENT_SELECTOR.gnbButton) ?? document,
     });
   }
 
   private handleOpenModal() {
-    const modalContent = $(ELEMENT_SELECTOR.commonModalContent);
-
-    if (modalContent instanceof HTMLDialogElement) {
-      modalContent.showModal();
-    }
+    this.emit(CUSTOM_EVENT_TYPE.restaurantAddModalOpen);
   }
 
   protected removeEvent(): void {
     this.off({
       ...this.eventListeners.gnbButtonClick,
-      target: $(ELEMENT_SELECTOR.gnbButton),
+      target: $(ELEMENT_SELECTOR.gnbButton) ?? document,
     });
   }
 }

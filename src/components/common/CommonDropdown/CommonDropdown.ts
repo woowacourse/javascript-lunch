@@ -23,7 +23,7 @@ class CommonDropdown extends BaseComponent {
     const title = this.getAttribute("title");
     const addOptionText = this.getAttribute("addOptionText");
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
         <select name="${name ?? ""}" id="${id}" class="${classList}">
             ${title ? `<option value="">${title}</option>` : ""}
 
@@ -44,7 +44,7 @@ class CommonDropdown extends BaseComponent {
 
     this.on({
       ...this.eventListeners.dropDown,
-      target: $(target ?? ""),
+      target: $(target ?? "") ?? document,
     });
   }
 
@@ -69,7 +69,7 @@ class CommonDropdown extends BaseComponent {
 
     this.off({
       ...this.eventListeners.dropDown,
-      target: $(target ?? ""),
+      target: $(target ?? "") ?? document,
     });
   }
 }

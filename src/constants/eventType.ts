@@ -1,6 +1,12 @@
 export const CUSTOM_EVENT_TYPE = {
   sortChange: "sortChange",
-  addRestaurant: "addRestaurant",
+  rerenderRestaurantList: "rerenderRestaurantList",
   filterCategory: "filterCategory",
   resetForm: "resetForm",
+  restaurantDetailModalOpen: "restaurantDetailModalOpen",
+  restaurantDetailModalClose: "restaurantDetailModalClose",
+  restaurantAddModalOpen: "restaurantAddModalOpen",
+  restaurantAddModalClose: "restaurantAddModalClose",
+  rerenderModal: "rerenderModal",
+  changeTab: "changeTab",
 } as const;
