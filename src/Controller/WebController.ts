@@ -1,15 +1,15 @@
 import { LOCAL_STORAGE_KEY } from '../constants/LocalStorageKey';
+
 import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from '../domain/Restaurant';
 import restaurantCatalog, { ALL_CATEGORY, SORT_CONDITION } from '../domain/RestaurantCatalog';
 import mockingData from '../domain/mocking';
+
 import Dropdown from '../view/components/Dropdown';
 import { ALL_RESTAURANTS } from '../view/components/LikeSection';
 import RestaurantCards from '../view/components/RestaurantCards';
 import { addEventToButton, addEventToForm, updateRestaurantsToLocalStorage } from '../view/components/SubmitFormModal';
 
-export interface ILocalData {
-  [key: number]: IRestaurantInfo | null;
-}
+export type LocalData = Record<number, IRestaurantInfo | null>;
 
 class WebController {
   run() {
@@ -40,9 +40,9 @@ class WebController {
     const localData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!localData) return;
     try {
-      const localDataRestaurants = JSON.parse(localData) as ILocalData;
+      const localDataRestaurants = JSON.parse(localData) as LocalData;
       Object.values(localDataRestaurants).forEach((restaurant) => {
-        restaurantCatalog.pushNewRestaurant(restaurant);
+        restaurantCatalog.pushNewRestaurant(restaurant!);
       });
     } catch (error) {
       if (error instanceof Error) alert(`LocalStorage의 Data값이 잘못되었습니다. ${error.message}`);
