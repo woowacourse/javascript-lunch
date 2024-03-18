@@ -51,4 +51,4 @@ export default class LunchAppController {
 }
 
 const lunchAppController = new LunchAppController();
-await lunchAppController.init();
+lunchAppController.init();
