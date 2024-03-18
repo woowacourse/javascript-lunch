@@ -14,13 +14,6 @@
   - 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.
   - 자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다.
 
-## 유효성 검사
-
-- [ ] 음식점 추가 유효성 검사
-  - [ ] 중복되는 음식점은 추가할 수 없다.
-  - [ ] url 형식에 맞지 않는 주소는 추가할 수 없다.
-  - [ ] description은 300자 이하여야 한다.
-
 ## 컴포넌트
 
 ## 범용 컴포넌트
@@ -33,12 +26,14 @@
 ### 컴포넌트 + 기능
 
 - [x] App
-  - [x] restaurantList를 참조한다.
-  - [x] FilterBox를 참조한다.
-  - [ ] BookmarkTab을 참조한다
-  - [x] RestaurantManager 도메인을 참조한다.
-  - [x] localStorage와 RestaurantManager 사이의 데이터를 동기화한다.
-  - [x] RestaurantManager에서 받은 데이터를 restaurantList에 전달한다.
+  - BookmarkTab, RestaurantFilters, RestaurantList 컴포넌트를을 참조한다.
+  - RestaurantManager 도메인을 참조한다.
+  - 앱의 localStorage, RestaurantManager, RestaurantList의 데이터 흐름을 조작하기 위해 관련한 이벤트 리스너를 관리한다.
+    - RestaurantForm의 제출 이벤트를 관찰한다.
+    - RestaurantFilters의 변경 이벤트를 관찰한다.
+    - BookmarkTab의 변경 이벤트를 관찰한다.
+    - BookmarkButton의 클릭 이벤트를 관찰한다.
+    - RestaurantDetail의 삭제 이벤트를 관찰한다.
 - [x] GNB
   - 앱의 navigation bar.
   - 음식점 추가 버튼을 누르면 음식점 추가 form이 modal 안에 열린다.
@@ -49,19 +44,15 @@
   - 카테고리, 거리는 셀렉트 박스, 이름/설명/참고 링크는 텍스트 인풋을 사용한다.
   - 유효하지 않은 링크가 입력되면 '유효하지 않은 링크입니다.'를 노출한다.
 - [x] RestaurantList
-  - [x] App으로부터 전달 받은 데이터로 RestaurantItem 컴포넌트를 동적으로 생성한다.
+  - App으로부터 전달 받은 데이터로 RestaurantItem 컴포넌트를 동적으로 생성한다.
 - [x] RestaurantItem
-  - [x] RestaurantList로부터 전달 받은 데이터로 음식점 정보를 렌더링한다.
-  - [x] click 이벤트가 발생하면 모달을 열어 상세 정보를 보여준다.
-  - [x] 즐겨찾기 버튼으로 자주 가는 음식점을 설정할 수 있다.
+  - RestaurantList로부터 전달 받은 데이터로 음식점 정보를 렌더링한다.
+  - click 이벤트가 발생하면 모달을 열어 상세 정보를 보여준다.
+  - 즐겨찾기 버튼으로 자주 가는 음식점을 설정할 수 있다.
 - [x] CategoryIcon
-  - [x] 카테고리 정보를 받아 알맞은 이미지를 렌더링한다.
+  - 카테고리 정보를 받아 알맞은 이미지를 렌더링한다.
 - [x] BookmarkButton
-  - [x] 버튼을 누르면 즐겨찾기 여부를 저장할 수 있다.
+  - 버튼을 누르면 즐겨찾기 여부를 저장할 수 있다.
 - [x] RestaurantDetail
-  - [x] RestaurantItem으로부터 전달 받은 데이터로 음식점 상세 정보를 렌더링한다.
-  - [x] 음식점 삭제 버튼과 모달 닫기 버튼이 있다.
-
-## Bug🐞
-
-- [ ] 유효하지 않은 링크를 입력한 뒤 유효한 링크를 입력했을 때 정상제출 되지 않는 버그 해결
+  - RestaurantItem으로부터 전달 받은 데이터로 음식점 상세 정보를 렌더링한다.
+  - 음식점 삭제 버튼과 모달 닫기 버튼이 있다.
