@@ -1,7 +1,9 @@
+
 import { DEFAULT_KEY } from '../constants/filter';
 import { KeyOfCategoryKey, KeyOfSortingKey } from '../types/filter';
 import { Restaurant } from '../types/restaurant';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
+
 
 class RestDataAPI {
   public static save(restaurant: Restaurant): void {
@@ -11,8 +13,10 @@ class RestDataAPI {
   }
 
   public static load(
+
     category: KeyOfCategoryKey = DEFAULT_KEY.category,
     sortingKey: KeyOfSortingKey = DEFAULT_KEY.sortingKey
+
   ): Restaurant[] {
     const restaurants = this.getRestaurantsList();
     const filteredData = this.filterByCategory(restaurants, category);
@@ -29,7 +33,9 @@ class RestDataAPI {
     window.localStorage.setItem(LOCAL_STORAGE_KEY.restaurant, JSON.stringify(restaurants));
   }
 
+
   private static filterByCategory(restaurants: Restaurant[], category: KeyOfCategoryKey): Restaurant[] {
+
     if (category === 'all') {
       return restaurants;
     }

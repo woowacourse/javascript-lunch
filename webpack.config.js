@@ -7,10 +7,12 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+
     clean: true
 
     // NOTE: 이미지(정적자원) 빌드 안되는 문제 해결
     // publicPath: '/javascript-lunch/'
+
   },
   resolve: {
     extensions: ['.ts', '.js', '.mjs']

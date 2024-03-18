@@ -1,3 +1,4 @@
+
 // import { CATEGORY, DISTANCE, FILTER_DATASET, SORTING_KEY } from '../constants/constants';
 
 // export type KeyOfDistance = keyof typeof DISTANCE;

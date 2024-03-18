@@ -1,3 +1,4 @@
+
 export const $ = <T extends Element = HTMLElement>(
   selector: string,
   target: HTMLElement | Document = document
