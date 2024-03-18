@@ -133,10 +133,9 @@ class Restaurant extends HTMLLIElement {
     document.addEventListener('iconStateChange', (event: Event) => {
       const iconStateChangeEvent = event as IconStateChangeEvent;
       const {targetId, state} = iconStateChangeEvent.detail;
-
       const newElement = new FavoriteIcon({active: state, isChild: true, changeState: this.getChangeState(targetId) });
-      const target = $<RestaurantDetail>(`#${targetId}`);
-      const oldElement = target.querySelector('.favorite-icon-cloned') as Node;
+      const target = $<RestaurantDetail>(`#${targetId}`);      
+      const oldElement = target.querySelector('.favorite-icon-cloned') as Node;      
       $<RestaurantDetail>(`#${targetId}`).replaceChild(newElement, oldElement);
     });
   }
