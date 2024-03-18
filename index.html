@@ -131,6 +131,33 @@
       </div>
     </template>
 
+    <template id="template-restaurant-detail">
+      <div class="detail-container">
+        <!-- 레스토랑 정보 -->
+        <div class="restaurant-detail__header">
+          <div class="restaurant-detail__category">
+            <img src="" alt="" class="category-icon" />
+          </div>
+          <button type="button" class="restaurant-detail__favorite-button" aria-label="즐겨찾기">
+            <img src="./favorite-icon-lined.png" alt="즐겨찾기" />
+          </button>
+        </div>
+
+        <div class="restaurant-detail__body">
+          <h1 class="restaurant-detail__name text-title"></h1>
+          <span class="restaurant-detail__distance text-subtitle"></span>
+          <p class="restaurant-detail__description text-body"></p>
+          <a class="restaurant-detail__link text-body"></a>
+        </div>
+
+        <!-- 삭제 / 닫기 버튼 -->
+        <div class="button-container">
+          <button type="button" class="button button--secondary text-caption">삭제하기</button>
+          <button type="button" class="button button--primary text-caption">닫기</button>
+        </div>
+      </div>
+    </template>
+
     <!-- GNB -->
     <app-gnb></app-gnb>
 
@@ -171,9 +198,18 @@
     </section>
 
     <!-- 음식점 추가 모달 -->
-    <app-modal>
+    <!-- <app-modal>
       <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
       <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
+    </app-modal> -->
+    <app-modal id="addModal">
+      <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
+      <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
+    </app-modal>
+
+    <!-- 음식점 상세 정보 모달 -->
+    <app-modal id="detailModal">
+      <div is="app-restaurant-detail" slot="body" id="restaurant-detail"></div>
     </app-modal>
   </body>
 </html>

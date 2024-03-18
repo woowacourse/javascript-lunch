@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import RestaurantManager from '../../domain/RestaurantManager.ts';
 
 export default class RestaurantItem extends HTMLLIElement {
@@ -14,6 +15,7 @@ export default class RestaurantItem extends HTMLLIElement {
     this.#bindEventListeners();
     this.restaurantManager = new RestaurantManager();
     this.restaurantManager.loadRestaurantsFromLocalStorage();
+    this.addEventListener('click', this.#handleRestaurantItemClick.bind(this));
   }
 
   get restaurant() {
@@ -80,5 +82,37 @@ export default class RestaurantItem extends HTMLLIElement {
   #updateFavoriteIcon(isFavorite) {
     const iconImg = this.querySelector('.restaurant__favorite-button img');
     iconImg.src = isFavorite ? './favorite-icon-filled.png' : './favorite-icon-lined.png';
+  }
+
+  #handleRestaurantItemClick() {
+    const modal = document.querySelector('#detailModal');
+    const restaurantDetailContent = this.#createRestaurantDetailContent();
+
+    this.#displayRestaurantDetailInModal(modal, restaurantDetailContent);
+  }
+
+  #createRestaurantDetailContent() {
+    const restaurantDetailTemplate = document.querySelector('#template-restaurant-detail');
+    const restaurantDetailContent = restaurantDetailTemplate.content.cloneNode(true);
+    const { category, name, distance, description, link } = this.restaurant;
+
+    const restaurantDetail = restaurantDetailContent.querySelector('.detail-container');
+
+    restaurantDetail.querySelector('.category-icon').src = this.#getCategoryIconUrl(category);
+    restaurantDetail.querySelector('.category-icon').alt = category;
+
+    restaurantDetail.querySelector('.restaurant-detail__name').textContent = name;
+    restaurantDetail.querySelector('.restaurant-detail__distance').textContent = `캠퍼스로부터 ${distance}분 내`;
+    restaurantDetail.querySelector('.restaurant-detail__description').textContent = description;
+    restaurantDetail.querySelector('.restaurant-detail__link').textContent = link;
+
+    return restaurantDetailContent;
+  }
+
+  #displayRestaurantDetailInModal(modal, content) {
+    const modalContainer = modal.shadowRoot.querySelector('.modal-container');
+    modalContainer.innerHTML = '';
+    modalContainer.appendChild(content);
+    modal.openModal();
   }
 }
