@@ -7,7 +7,7 @@ import RestaurantAddForm from './RestaurantAddForm';
 import RestaurantDetail from './RestaurantDetail';
 
 class LunchPickerModal extends Component {
-  static observedAttributes: string[] = ['type', 'open', 'detailItem'];
+  static observedAttributes: string[] = ['type', 'open'];
   #type: string | null;
   #open: boolean;
 
@@ -42,6 +42,11 @@ class LunchPickerModal extends Component {
       const restaurantName = target?.parentNode?.parentNode?.children[0].children[1]?.firstChild?.nodeValue as string;
       this.#handleRestaurantDelete(restaurantName);
     });
+    this.querySelector('.detail-favorite-icon')?.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const restaurantName = target?.parentNode?.parentNode?.children[1].innerHTML as string;
+      this.#handleDetailFavoriteClick(restaurantName);
+    });
   }
 
   removeEvent(): void {
@@ -64,6 +69,10 @@ class LunchPickerModal extends Component {
   #handleRestaurantDelete(restaurantName: string) {
     this.dispatchEvent(new CustomEvent('deleteButtonClick', { bubbles: true, detail: restaurantName }));
     this.#open = false;
+  }
+
+  #handleDetailFavoriteClick(restaurantName: string) {
+    this.dispatchEvent(new CustomEvent('detailFavoriteButtonClick', { bubbles: true, detail: restaurantName }));
   }
 
   #handleRestaurantDetail(restaurantName: string) {

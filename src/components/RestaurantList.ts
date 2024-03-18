@@ -30,6 +30,10 @@ class RestaurantList extends Component {
         this.#updateFavoriteStateAndRegenerateList(restaurantName);
       }
     });
+    document.addEventListener(
+      'detailFavoriteButtonClick',
+      this.#handleDetailFavoriteButtonClick.bind(this) as EventListener,
+    );
     document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       const validTargetElement = {
@@ -64,6 +68,11 @@ class RestaurantList extends Component {
   render(): void {
     this.innerHTML = this.template();
     this.setEvent();
+  }
+
+  #handleDetailFavoriteButtonClick(event: CustomEvent<string>) {
+    this.#updateFavoriteStateAndRegenerateList(event.detail);
+    this.makeCustomEvent('detailClick');
   }
 
   #handleDelete(event: CustomEvent<string>) {
