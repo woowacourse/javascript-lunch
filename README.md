@@ -180,30 +180,30 @@ src
 
 #### 컴포넌트 설명
 
-| 컴포넌트                  | 설명                                                                                                                                                                                                                           |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| AddStoreBtn               | 음식점 추가 버튼                                                                                                                                                                                                               |
-| AllRestaurantList         | 모든 음식점 리스트, RestaurantListTemplate를 상속받아 사용                                                                                                                                                                     |
-| CategoryIcon              | 음식점 카테고리에 따른 아이콘                                                                                                                                                                                                  |
-| CustomInput               | XSS를 방지하는 input                                                                                                                                                                                                           |
-| CustomModal               | 모달                                                                                                                                                                                                                           |
-| CustomTextarea            | XSS를 방지하는 textarea                                                                                                                                                                                                        |
-| DefaultBtn                | 기본적으로 사용되는 버튼 형태                                                                                                                                                                                                  |
-| DropBox                   | 옵션들을 선택 가능한 select 드롭 박스                                                                                                                                                                                          |
-| ErrorMessageBox           | 에러 메세지                                                                                                                                                                                                                    |
-| FavoriteIcon              | 즐겨찾기 아이콘                                                                                                                                                                                                                |
-| FormInput                 | FormTextField 를 상속받아서, input을 통한 입력값을 받고 입력값에 대한 오류 메세지를 보여주는 컴포넌트                                                                                                                          |
-| FormTextField             | 입력값의 오류 여부에 따라 오류 메세지를 입력란 하위에 보여주는 컴포넌트로, 이를 상속받아서 input,textarea에 대한 컴포넌트로 적용할 수 있음                                                                                     |
-| NavigationBar             | 모든 음식점, 자주 가는 음식점 리스트을 선택할 수 잇는 네비게이션 바                                                                                                                                                            |
-| NavigationBarBtnContainer | NavigationBar 에 들어가는 요소로, button, under bar로 구성되어 있음                                                                                                                                                            |
-| NoneRestaurant            | 찾는 음식점이 없을 경우 화면에 나타나는 컴포넌트                                                                                                                                                                               |
-| RestaurantDescription     | 음식점 설명                                                                                                                                                                                                                    |
-| RestaurantDistance        | 음식점 거리                                                                                                                                                                                                                    |
-| RestaurantFormModalInner  | 음식점 추가에 대한 모달 내의 입력폼                                                                                                                                                                                            |
-| RestaurantInfoModalInner  | 음식점 상세 정보와 음식점 삭제 버튼이 담긴 모달                                                                                                                                                                                |
-| RestaurantItem            | 음식점 정보를 담긴 컴포넌트                                                                                                                                                                                                    |
-| RestaurantListTemplate    | 음식점 목록에 대한 템플릿으로 해당 클래스를 상속 받아 다양한 음식점 목록 요소를 만들 수 있고, 리스트만 있을 경우 해당 요소의 list-category 속성값을 변경해 열려야하는 리스트 목록에 대한 메소드를 추가해 기능을 구현할 수 있음 |
-| RestaurantName            | 음식점의 이름                                                                                                                                                                                                                  |
+| 컴포넌트                  | 설명                                                                                                                                       | custom-element 여부                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| AddStoreBtn               | 음식점 추가 버튼                                                                                                                           | o                                                                            |
+| AllRestaurantList         | 모든 음식점 리스트, RestaurantListTemplate를 상속받아 사용                                                                                 | x <br/> (인스턴스 생성시, props의 parent 요소의 하위 요소로 컴포넌트 생성됨) |
+| CategoryIcon              | 음식점 카테고리에 따른 아이콘                                                                                                              | o                                                                            |
+| CustomInput               | XSS를 방지하는 input                                                                                                                       | o                                                                            |
+| CustomModal               | 모달                                                                                                                                       | o                                                                            |
+| CustomTextarea            | XSS를 방지하는 textarea                                                                                                                    | o                                                                            |
+| DefaultBtn                | 기본적으로 사용되는 버튼 형태                                                                                                              | o                                                                            |
+| DropBox                   | 옵션들을 선택 가능한 select 드롭 박스                                                                                                      | o                                                                            |
+| ErrorMessageBox           | 에러 메세지                                                                                                                                | o                                                                            |
+| FavoriteIcon              | 즐겨찾기 아이콘                                                                                                                            | o                                                                            |
+| FormInput                 | FormTextField 를 상속받아서, input을 통한 입력값을 받고 입력값에 대한 오류 메세지를 보여주는 컴포넌트                                      | o                                                                            |
+| FormTextField             | 입력값의 오류 여부에 따라 오류 메세지를 입력란 하위에 보여주는 컴포넌트로, 이를 상속받아서 input,textarea에 대한 컴포넌트로 적용할 수 있음 | o                                                                            |
+| NavigationBar             | 모든 음식점, 자주 가는 음식점 리스트을 선택할 수 잇는 네비게이션 바                                                                        | o                                                                            |
+| NavigationBarBtnContainer | NavigationBar 에 들어가는 요소로, button, under bar로 구성되어 있음                                                                        | o                                                                            |
+| NoneRestaurant            | 찾는 음식점이 없을 경우 화면에 나타나는 컴포넌트                                                                                           | o                                                                            |
+| RestaurantDescription     | 음식점 설명                                                                                                                                | o                                                                            |
+| RestaurantDistance        | 음식점 거리                                                                                                                                | o                                                                            |
+| RestaurantFormModalInner  | 음식점 추가에 대한 모달 내의 입력폼                                                                                                        | o                                                                            |
+| RestaurantInfoModalInner  | 음식점 상세 정보와 음식점 삭제 버튼이 담긴 모달                                                                                            | o                                                                            |
+| RestaurantItem            | 음식점 정보를 담긴 컴포넌트                                                                                                                | o                                                                            |
+| RestaurantListTemplate    | 음식점 목록에 대한 템플릿으로 해당 클래스를 상속 받아 다양한 음식점 목록 요소를 만들 수 있는 컴포넌트                                      | x <br/>(인스턴스 생성시, props의 parent 요소의 하위 요소로 컴포넌트 생성됨)  |
+| RestaurantName            | 음식점의 이름                                                                                                                              | o                                                                            |
 
 ### 컨트롤러(services) 설명
 
@@ -222,4 +222,4 @@ src
 
 ### 컴포넌트 상속 및 프로세스
 
-<img src="./lunch-diagram.png" width="700px" alt="컴포넌트 상속 및 프로세스">
+<img src="./lunch-diagram2.png" width="700px" alt="컴포넌트 상속 및 프로세스">
