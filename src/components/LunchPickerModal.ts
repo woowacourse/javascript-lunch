@@ -99,7 +99,7 @@ class LunchPickerModal extends Component {
     }
 
     if (this.#type === 'detail') {
-      modalHtml.push(RestaurantDetail());
+      //modalHtml.push(RestaurantDetail());
     }
 
     return `
