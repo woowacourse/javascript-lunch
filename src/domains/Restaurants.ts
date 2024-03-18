@@ -10,6 +10,7 @@ import {
   RestaurantItem,
   SortOptionString,
 } from "../types/menu";
+import { trimAllSpace } from "../utils/format-text";
 import restaurantValidator from "../validators/restaurantValidator";
 
 const RESTAURANT_KEY = "restaurants";
@@ -35,10 +36,6 @@ const sortByName = (restaurants: RestaurantItem[]) => {
 
 const sortByDistance = (restaurants: RestaurantItem[]) => {
   return [...restaurants.sort((a, b) => a.distance - b.distance)];
-};
-
-const trimAllSpace = (str: string): string => {
-  return str.replaceAll(" ", "");
 };
 
 export const initRestaurantStorage = () => {
