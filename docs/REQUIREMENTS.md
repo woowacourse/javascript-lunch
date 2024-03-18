@@ -43,9 +43,9 @@
 
 ## UI
 
-- [ ] '자주 가는 음식점' 탭 바
-- [ ] 음식점 즐겨찾기
-- [ ] 음식점 상세 페이지 모달
+- [x] '자주 가는 음식점' 탭 바
+- [x] 음식점 즐겨찾기
+- [x] 음식점 상세 페이지 모달
 
 ## 추가된 도메인
 
@@ -55,7 +55,6 @@
 
 ### 컴포넌트(클래스)
 
-- [ ] HeaderTab
-- [ ] FavoriteRestaurantList
-- [ ] RestaurantDetail
-- [ ] RestaurantItem - 자주 가는 음식점 등록 기능 추가 필요
+- [x] HeaderTab
+- [x] RestaurantDetail
+- [x] RestaurantItem
