@@ -9,6 +9,7 @@ import RestaurantThemeSelector from './components/RestaurantThemeSelector';
 import './styles/style.css';
 import './styles/restaurantThemeSelector.style.css';
 import './styles/restaurantItem.style.css';
+import './styles/restaurantDetail.style.css';
 
 customElements.define('lunch-picker-app', LunchPickerApp);
 customElements.define('lunch-picker-header', LunchPickerHeader);

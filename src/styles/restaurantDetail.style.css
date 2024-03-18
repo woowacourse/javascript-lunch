@@ -1,12 +1,22 @@
 .restaurant-detail-content {
   display: flex;
   flex-direction: column;
-  gap: ;
 }
 
 .restaurant-detail-icon-favorite-wrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.detail-category-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 64px;
+  min-height: 64px;
+  margin-right: 16px;
+  border-radius: 50%;
+  background: var(--lighten-color);
 }
 
 .detail-category-icon {
@@ -15,8 +25,8 @@
 }
 
 .detail-favorite-icon {
-  width: 26.67px;
-  height: 25.33px;
+  width: 32px;
+  height: 32px;
 }
 
 .detail-restaurant-name {

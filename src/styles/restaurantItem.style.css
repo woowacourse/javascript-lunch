@@ -21,6 +21,10 @@
   height: 36px;
 }
 
+.favorite-icon {
+  cursor: pointer;
+}
+
 .restaurant-item-content-wrapper {
   display: flex;
   flex-direction: column;
