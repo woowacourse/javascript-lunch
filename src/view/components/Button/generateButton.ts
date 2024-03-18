@@ -18,7 +18,9 @@ const generateButton = ({
   });
 
   if (!(button instanceof HTMLButtonElement)) {
-    throw new Error("[ERROR] Button is not HTMLButtonElement");
+    throw new Error(
+      "[ERROR_IN_generateButton()] Button is not HTMLButtonElement"
+    );
   }
 
   button.addEventListener("click", onClickHandler);

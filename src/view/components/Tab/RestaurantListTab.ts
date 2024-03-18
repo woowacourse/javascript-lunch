@@ -64,7 +64,7 @@ class RestaurantListTab {
         )
       ) {
         throw new Error(
-          "[ERROR_IN_styledCurrentTab] Invalid e.currentTarget Or e.target"
+          "[ERROR_IN_styledCurrentTab] e.currentTarget Or e.target is not HTMLElement"
         );
       }
 
@@ -94,7 +94,9 @@ const onClickHandle = (e: MouseEvent) => {
   ) {
     const restaurantName = e.target.closest("li")?.getAttribute("name");
     if (!restaurantName) {
-      throw new Error("[ERROR_IN_RestaurantListTab_onClickHandle]");
+      throw new Error(
+        "[ERROR_IN_RestaurantListTab_onClickHandle()] Can't find valid restaurantName"
+      );
     }
     const detail = getRestaurant(restaurantName);
     const detailModal = new RestaurantDetailModal(detail!);

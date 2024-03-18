@@ -43,7 +43,9 @@ const getFavoriteImage = (isFavorites: boolean, restaurantName: string) => {
 
 const handleFavorite = (e: Event) => {
   if (!(e.target instanceof HTMLElement)) {
-    throw new Error("[ERROR_IN_handleFavorite] EventTarget is not HTMLElement");
+    throw new Error(
+      "[ERROR_IN_handleFavorite()] EventTarget is not HTMLElement"
+    );
   }
 
   toggleFavoriteButtonImage(e.target);

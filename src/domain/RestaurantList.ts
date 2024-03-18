@@ -31,7 +31,7 @@ class RestaurantList {
   delete(name: string) {
     if (this.#restaurants.get(name) === undefined) {
       throw new Error(
-        "[ERROR_IN_RestaurantList.ts] RestaurantList 상태(#restaurants)에 전달받은 name을 찾을 수 없습니다.(undefined)"
+        "[ERROR_IN_RestaurantList_delete()] This is invalid restaurant name)"
       );
     }
     this.#restaurants.delete(name);
@@ -39,7 +39,9 @@ class RestaurantList {
 
   bringRestaurantInfo(name: string) {
     if (this.#restaurants.get(name) === undefined) {
-      throw new Error("[ERROR] This is invalid restaurant name");
+      throw new Error(
+        "[ERROR_IN_RestaurantList_bringRestaurantInfo()] This is invalid restaurant name"
+      );
     }
     return this.#restaurants.get(name);
   }
@@ -48,7 +50,9 @@ class RestaurantList {
     const restaurantValue = this.#restaurants.get(name);
 
     if (!restaurantValue) {
-      throw new Error("[ERROR] This is invalid restaurant name");
+      throw new Error(
+        "[ERROR_IN_RestaurantList_updateFavorites()] This is invalid restaurant name"
+      );
     }
 
     const favoritesState = restaurantValue.favorites;

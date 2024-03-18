@@ -80,7 +80,9 @@ const DetailModalChildren = (restaurant: Restaurant) => {
           const name = restaurantInfoDiv.getAttribute("name");
 
           if (!name) {
-            throw new Error("[ERROR] name is invalid");
+            throw new Error(
+              "[ERROR_IN_DetailModal_deleteButton_onClickHandler()] Can't find valid restaurantName"
+            );
           }
 
           if (window.confirm("이 음식점을 정말 삭제하시겠습니까?")) {
