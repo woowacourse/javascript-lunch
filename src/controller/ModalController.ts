@@ -112,7 +112,10 @@ class ModalController {
             RestaurantListController.deleteRestaurantInEntireRestaurant(
               nowRestaurantName
             );
-            RenderController.renderEntireRestaurantListUl();
+            RestaurantListController.deleteInFavoriteRestaurantList(
+              nowRestaurantName
+            );
+            RenderController.renderAllUl();
           },
         ],
       ],
