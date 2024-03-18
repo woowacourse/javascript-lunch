@@ -25,8 +25,32 @@ class RestaurantList extends Component {
     document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       const restaurantName = target.closest('.restaurant-list')?.getAttribute('name');
-      if (restaurantName) {
+      if (target.className === 'favorite-icon' && restaurantName) {
         this.#updateFavoriteStateAndRegenerateList(restaurantName);
+      }
+    });
+    document.querySelector('.restaurant-list-wrapper')?.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const validTargetElement = {
+        name: 'restaurant__name',
+        distance: 'restaurant__distance',
+        description: 'restaurant__description',
+        reference: 'restaurant__reference',
+      };
+      if (
+        target.className.includes(validTargetElement.name) ||
+        target.className.includes(validTargetElement.distance) ||
+        target.className.includes(validTargetElement.description) ||
+        target.className.includes(validTargetElement.reference)
+      ) {
+        if (target.className.includes(validTargetElement.name)) {
+          const restaurantName = target.innerHTML;
+          if (restaurantName) this.#handleItemClick(restaurantName);
+        } else {
+          const restaurantName = target.closest('.restaurant-item-content-wrapper')?.children[0].children[0].children[0]
+            .innerHTML;
+          if (restaurantName) this.#handleItemClick(restaurantName);
+        }
       }
     });
   }
@@ -38,6 +62,10 @@ class RestaurantList extends Component {
   render(): void {
     this.innerHTML = this.template();
     this.setEvent();
+  }
+
+  #handleItemClick(restaurantName: string) {
+    this.dispatchEvent(new CustomEvent('detailClick', { bubbles: true, detail: restaurantName }));
   }
 
   #handleSubmitButtonClick(event: CustomEvent<IRestaurant>) {

@@ -1,4 +1,5 @@
 import { ERROR } from '../constants/messages';
+import RestaurantRepository from '../domain/RestaurantRepository';
 import { $, $addEvent, $removeEvent } from '../utils/dom';
 import { isEmptyInput } from '../utils/validation';
 import Component from './Component';
@@ -6,7 +7,7 @@ import RestaurantAddForm from './RestaurantAddForm';
 import RestaurantDetail from './RestaurantDetail';
 
 class LunchPickerModal extends Component {
-  static observedAttributes: string[] = ['type', 'open'];
+  static observedAttributes: string[] = ['type', 'open', 'detailItem'];
   #type: string | null;
   #open: boolean;
 
@@ -17,11 +18,13 @@ class LunchPickerModal extends Component {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    this.render();
-    if (name === 'type') {
+    if (name === 'type' || name === 'open') {
       this.#type = newValue;
-    }
-    if (name === 'open') {
+      const restaurantName = this.getAttribute('restaurantName');
+      if (this.#type === 'detail' && restaurantName) {
+        const restaurant = this.#handleRestaurantDetail(restaurantName);
+        this.render(restaurant);
+      }
       this.#open = this.#convertStringToBoolean(newValue);
       this.#updateModal(this.#open);
     }
@@ -48,6 +51,11 @@ class LunchPickerModal extends Component {
     } else {
       ($('.modal') as HTMLElement).classList.remove('modal--open');
     }
+  }
+
+  #handleRestaurantDetail(restaurantName: string) {
+    const restaurant = RestaurantRepository.getByDetailItem(restaurantName);
+    return restaurant;
   }
 
   #handleOnSubmit(event: Event): void {
@@ -91,15 +99,19 @@ class LunchPickerModal extends Component {
     return true;
   }
 
-  template(): string {
+  render(restaurant?: IRestaurant): void {
+    this.innerHTML = this.template(restaurant);
+  }
+
+  template(restaurant?: IRestaurant): string {
     const modalHtml = [];
 
     if (this.#type === 'add') {
       modalHtml.push(RestaurantAddForm());
     }
 
-    if (this.#type === 'detail') {
-      //modalHtml.push(RestaurantDetail());
+    if (this.#type === 'detail' && restaurant) {
+      modalHtml.push(RestaurantDetail(restaurant));
     }
 
     return `
@@ -109,7 +121,7 @@ class LunchPickerModal extends Component {
           ${modalHtml.join('')}
         </div>
     </div>
-`;
+    `;
   }
 }
 

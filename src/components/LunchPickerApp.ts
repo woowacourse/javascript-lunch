@@ -16,9 +16,16 @@ class LunchPickerApp extends Component {
   }
 
   setEvent(): void {
+    this.addEventListener('detailClick', this.#handleDetailClick as EventListener);
     this.addEventListener('selectChange', this.handleSelectChange);
     this.addEventListener('gnbButtonClick', this.#handleGnbButtonClick);
     this.addEventListener('cancelButtonClick', this.handleCancelButtonClick);
+  }
+
+  #handleDetailClick(event: CustomEvent<string>) {
+    $setAttribute('lunch-picker-modal', 'type', 'detail');
+    $setAttribute('lunch-picker-modal', 'open', 'true');
+    $setAttribute('lunch-picker-modal', 'restaurantName', event.detail);
   }
 
   removeEvent(): void {

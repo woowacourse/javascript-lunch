@@ -27,6 +27,13 @@ function getSortedByDistance(restaurants: IRestaurant[]) {
 }
 
 const RestaurantRepository = {
+  getByDetailItem(name: string) {
+    const restaurants = getRestaurants();
+    const restaurant = restaurants.find((restaurant: IRestaurant) => restaurant.name === name);
+    if (restaurant === undefined) throw new Error();
+    return restaurant;
+  },
+
   addRestaurant(restaurant: IRestaurant) {
     const restaurants = localStorage.getItem('restaurants');
 

@@ -47,7 +47,7 @@ class RestaurantItem extends Component {
           <div class="restaurant-item-subtitle-distance-favorite-wrapper">
             <div class="restaurant-item-subtitle-distance-wrapper">
               <h2 class="restaurant__name text-subtitle">${this.#name}</h2>
-              <span class="restaurant__distance text-body">캠퍼스부터 ${this.#distance}분 내</span>
+              <p class="restaurant__distance text-body">캠퍼스부터 ${this.#distance}분 내</p>
             </div>
             <div class="restaurant-item-favorite-icon-wrapper">
               <img src=${
