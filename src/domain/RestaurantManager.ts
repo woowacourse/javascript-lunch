@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../constant/error';
-import { Restaurant } from '../interface/Restaurant';
+import { Restaurant, localKey } from '../interface/Restaurant';
 
 export interface RestaurantManager {
   addRestaurant(newRestaurant: Restaurant): void;
@@ -27,6 +27,10 @@ export class RestaurantManager implements RestaurantManager {
     this.currentSelectedSorting = '이름순';
   }
 
+  #updateLocalStorage(key: localKey, value: Restaurant[]) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
   addRestaurant(newRestaurant: Restaurant): void {
     const hasSameName = this.totalRestaurants.some(
       ({ name }) => name === newRestaurant.name
@@ -35,7 +39,7 @@ export class RestaurantManager implements RestaurantManager {
       throw new Error(ERROR_MESSAGE.sameRestaurantName);
     }
     this.totalRestaurants.push(newRestaurant);
-    localStorage.setItem('restaurants', JSON.stringify(this.totalRestaurants));
+    this.#updateLocalStorage('restaurants', this.totalRestaurants);
   }
 
   addFavoriteRestaurant(favoriteRestaurant: Restaurant): void {
@@ -48,9 +52,9 @@ export class RestaurantManager implements RestaurantManager {
         this.sortByAscendingWalkingTime();
         break;
       default:
-        localStorage.setItem(
+        this.#updateLocalStorage(
           'favoriteRestaurants',
-          JSON.stringify(this.favoriteRestaurants)
+          this.favoriteRestaurants
         );
     }
   }
@@ -131,7 +135,7 @@ export class RestaurantManager implements RestaurantManager {
     this.totalRestaurants = this.totalRestaurants.filter((restaurant) => {
       return restaurant['name'] !== removeRestaurant['name'];
     });
-    localStorage.setItem('restaurants', JSON.stringify(this.totalRestaurants));
+    this.#updateLocalStorage('restaurants', this.totalRestaurants);
     return [...this.totalRestaurants];
   }
 
@@ -139,10 +143,7 @@ export class RestaurantManager implements RestaurantManager {
     this.favoriteRestaurants = this.favoriteRestaurants.filter((restaurant) => {
       return restaurant['name'] !== removeRestaurant['name'];
     });
-    localStorage.setItem(
-      'favoriteRestaurants',
-      JSON.stringify(this.favoriteRestaurants)
-    );
+    this.#updateLocalStorage('favoriteRestaurants', this.favoriteRestaurants);
 
     return [...this.favoriteRestaurants];
   }
