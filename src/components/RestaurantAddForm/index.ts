@@ -21,8 +21,8 @@ class RestaurantAddForm extends BaseComponent {
           <restaurant-option 
             id="category" 
             label="카테고리"
-            options="${["선택해주세요", ...Object.values(CATEGORIES)]}"
             values="${["", ...Object.values(CATEGORIES)]}" 
+            options="${["선택해주세요", ...Object.values(CATEGORIES)]}"
             ></restaurant-option>
           <restaurant-text-input
             label-text="이름"
