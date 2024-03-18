@@ -3,5 +3,6 @@ interface Restaurant {
   name: string;
   distance: Distance;
   description?: string;
-  url?: string;
+  link?: string;
+  favorites: boolean;
 }
