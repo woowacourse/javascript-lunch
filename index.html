@@ -68,10 +68,10 @@
               </div>
               <!-- 취소/추가 버튼 -->
               <div class="button-container">
-                <button type="button" class="button button--secondary text-caption" id="form-modal-close-button">
+                <button is="custom-button" type="button" class="button--secondary" id="form-modal-close-button">
                   취소하기
                 </button>
-                <button class="button button--primary text-caption">추가하기</button>
+                <button is="custom-button" class="button--primary">추가하기</button>
               </div>
             </form>
           </div>
@@ -89,15 +89,14 @@
             <a id="restaurant-detail-link"></a>
             <div class="flex-between">
               <button
+                is="custom-button"
                 type="button"
-                class="button button--secondary text-caption"
+                class="button--secondary"
                 id="restaurant-detail-modal-delete-button"
               >
                 삭제하기
               </button>
-              <button class="button button--primary text-caption" id="restaurant-detail-modal-close-button">
-                닫기
-              </button>
+              <button is="custom-button" class="button--primary" id="restaurant-detail-modal-close-button">닫기</button>
             </div>
           </div>
         </dialog>
