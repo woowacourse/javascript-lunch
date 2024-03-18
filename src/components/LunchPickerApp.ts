@@ -7,26 +7,29 @@ class LunchPickerApp extends Component {
   #sorting: TSortingOption = '이름순';
 
   handleSelectChange: () => void;
-  handleGnbButtonClick: () => void;
   handleCancelButtonClick: () => void;
 
   constructor() {
     super();
     this.handleSelectChange = (): void => this.#updateSelectType();
-    this.handleGnbButtonClick = (): void => $setAttribute('restaurant-add-modal', 'open', 'true');
-    this.handleCancelButtonClick = (): void => $setAttribute('restaurant-add-modal', 'open', 'false');
+    this.handleCancelButtonClick = (): void => $setAttribute('lunch-picker-modal', 'open', 'false');
   }
 
   setEvent(): void {
     this.addEventListener('selectChange', this.handleSelectChange);
-    this.addEventListener('gnbButtonClick', this.handleGnbButtonClick);
+    this.addEventListener('gnbButtonClick', this.#handleGnbButtonClick);
     this.addEventListener('cancelButtonClick', this.handleCancelButtonClick);
   }
 
   removeEvent(): void {
     this.removeEventListener('selectChange', this.handleSelectChange);
-    this.removeEventListener('gnbButtonClick', this.handleGnbButtonClick);
+    this.removeEventListener('gnbButtonClick', this.#handleGnbButtonClick);
     this.removeEventListener('cancelButtonClick', this.handleCancelButtonClick);
+  }
+
+  #handleGnbButtonClick(): void {
+    $setAttribute('lunch-picker-modal', 'type', 'add');
+    $setAttribute('lunch-picker-modal', 'open', 'true');
   }
 
   #updateSelectType(): void {
@@ -49,8 +52,8 @@ class LunchPickerApp extends Component {
           <filter-box type="sorting"></filter-box>
       </section>
       <restaurant-list category=${this.#category} sorting=${this.#sorting}></restaurant-list>
-      <restaurant-add-modal open="false"></restaurant-add-modal>
-    `;
+      <lunch-picker-modal open="false"></lunch-picker-modal>
+      `;
   }
 }
 

@@ -15,7 +15,7 @@ class RestaurantList extends Component {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === 'theme' || name === 'category' || name === 'sorting') {
+    if (oldValue !== newValue && (name === 'theme' || name === 'category' || name === 'sorting')) {
       this.#generateThemeResult();
     }
   }
