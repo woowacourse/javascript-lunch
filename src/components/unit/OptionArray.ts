@@ -6,7 +6,10 @@ export const createOptionArray = ({ optionData }: Props) => {
   const $optionArray = Object.entries(optionData).map(([key, value]) => {
     const $option = document.createElement('option');
 
-    $option.value = key;
+    if (key) {
+      $option.value = key;
+    }
+
     $option.text = value;
 
     return $option;

@@ -1,5 +1,5 @@
 import { FILTER_OPTIONS } from '../../constants/filter';
-import { createSelect } from '../unit/Select';
+import { createSelect } from '../single/Select';
 
 export const createRestFilterSection = (): HTMLElement => {
   /* section */

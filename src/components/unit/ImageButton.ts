@@ -2,7 +2,7 @@ import setAttributes from '../../utils/setAttributes';
 
 interface Props {
   button: {
-    ariaLabel?: string;
+    'aria-label'?: string;
     class?: string;
     onclick?: () => void;
     type?: string;

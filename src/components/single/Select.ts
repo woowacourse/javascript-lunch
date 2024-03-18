@@ -1,8 +1,10 @@
 import setAttributes from '../../utils/setAttributes';
-import { createOptionArray } from './OptionArray';
+import { createOptionArray } from '../unit/OptionArray';
 
 interface Props {
   select?: {
+    id?: string;
+    name?: string;
     class?: string;
   };
   optionData: Record<string, string>;

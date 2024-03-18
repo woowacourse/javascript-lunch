@@ -1,7 +1,3 @@
-.modal-title {
-  margin-bottom: 36px;
-}
-
 .form-item {
   display: flex;
   flex-direction: column;
@@ -54,37 +50,4 @@
 input[name='name'],
 input[name='link'] {
   height: 44px;
-}
-
-.button-container {
-  display: flex;
-}
-
-.button {
-  margin-right: 16px;
-
-  border: none;
-  width: 100%;
-  height: 44px;
-
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-.button:last-child {
-  margin-right: 0;
-}
-
-.button--secondary {
-  border: 1px solid var(--grey-300);
-  background: transparent;
-
-  color: var(--grey-300);
-}
-
-.button--primary {
-  background: var(--primary-color);
-
-  color: var(--grey-100);
 }
