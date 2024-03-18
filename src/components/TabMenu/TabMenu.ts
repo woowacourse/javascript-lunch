@@ -22,13 +22,11 @@ export const TabData: Tab[] = [
 class TabMenu extends BaseComponent {
   #tabData;
   #selectedTabId;
-  // #restaurantUpdateService;
 
   constructor() {
     super();
     this.#tabData = TabData;
     this.#selectedTabId = 'all';
-    // this.#restaurantUpdateService = new RestaurantUpdateService();
   }
 
   render() {
