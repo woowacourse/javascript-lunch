@@ -1,9 +1,8 @@
+import './App.css';
 import { RESTAURANT_CATEGORY } from './domain/Restaurant';
 import { SORT_CONDITION } from './domain/RestaurantCatalog';
 import Navigator from './components/Navigator/Navigator';
-
 import RestaurantList from './components/RestaurantList';
-
 import RestaurantDropdown from './components/Dropdown/RestaurantDropdown';
 import FormModal from './components/Modal/FormModal';
 

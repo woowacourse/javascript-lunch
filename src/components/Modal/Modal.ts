@@ -1,3 +1,5 @@
+import './Modal.css';
+
 class Modal {
   #modalElement = document.createElement('div');
 

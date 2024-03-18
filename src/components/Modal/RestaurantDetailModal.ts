@@ -1,6 +1,7 @@
 import Restaurant, { IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantStore from '../../store/RestaurantStore';
 import Button from '../Button/Button';
+import './Modal.css';
 
 class RestaurantDetailModal extends HTMLDivElement {
   #restaurant: IRestaurantInfo;

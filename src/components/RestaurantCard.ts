@@ -1,6 +1,7 @@
 import Restaurant, { IRestaurantInfo } from '../domain/Restaurant';
 import FavoriteBtn from './Button/FavoriteBtn';
 import RestaurantDetailModal from './Modal/RestaurantDetailModal';
+import './RestaurantCard.css';
 
 interface Props {
   restaurant: IRestaurantInfo;

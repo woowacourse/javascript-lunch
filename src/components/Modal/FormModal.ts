@@ -1,8 +1,8 @@
 import { DISTANCE_FROM_CAMPUS, IRestaurantInfo, RESTAURANT_CATEGORY } from '../../domain/Restaurant';
 import restaurantStore from '../../store/RestaurantStore';
 import Button from '../Button/Button';
-import FormDropdown from '../Dropdown/FormDropdown';
 import Modal from './Modal';
+import FormDropdown from '../Dropdown/FormDropdown';
 
 class FormModal extends Modal {
   #formModalElement = this.element;

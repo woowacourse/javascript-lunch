@@ -3,6 +3,7 @@ import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
 import restaurantStore from '../store/RestaurantStore';
 import { NAV_FAVORITE, NAV_TOTAL } from './Navigator/Navigator';
 import RestaurantCard from './RestaurantCard';
+import './RestaurantList.css';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
