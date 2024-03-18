@@ -19,6 +19,7 @@ export default class WebController {
   }
 
   // eslint-disable-next-line max-lines-per-function
+
   start() {
     this.#syncLocalStorageAndDomain();
     this.#webView.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
@@ -85,6 +86,7 @@ export default class WebController {
       this.#updateRestaurantList(category, this.#webView.sortingFilter);
       this.#webView.categoryFilter = category;
     }
+
   }
 
   #addFilterOnchangeEventListener() {
