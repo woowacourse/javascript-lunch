@@ -127,7 +127,7 @@ select {
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
-  height: calc(100dvh - 200px);
+  height: calc(100dvh - 220px);
   overflow-y: auto;
 
   padding: 0 16px;
