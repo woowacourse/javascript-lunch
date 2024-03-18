@@ -1,20 +1,25 @@
-export function createFavoriteButton({name, favoriteRestaurantNames, favoriteCallback = ''}) {
-  const starButton = render({name, favoriteRestaurantNames});
-  if (favoriteCallback) starButton.addEventListener('click', (event) => {
-    favoriteCallback(event);
+export function createFavoriteButton({
+  name,
+  favoriteRestaurantNames,
+  favoriteCallback = '',
+}) {
+  const favoriteButton = render({ name, favoriteRestaurantNames });
+  if (favoriteCallback)
+    favoriteButton.addEventListener('click', (event) => {
+      favoriteCallback(event);
     });
-  return starButton;
+  return favoriteButton;
 }
 
-function render({name, favoriteRestaurantNames}) {
-  const star = document.createElement('img');
+function render({ name, favoriteRestaurantNames }) {
+  const buttonImage = document.createElement('img');
   if (favoriteRestaurantNames.includes(name)) {
-    star.className = 'star filled';
-    star.src = './favorite-icon-filled.png';
+    buttonImage.className = 'star filled';
+    buttonImage.src = './favorite-icon-filled.png';
   } else {
-    star.className = 'star lined';
-    star.src = './favorite-icon-lined.png';
+    buttonImage.className = 'star lined';
+    buttonImage.src = './favorite-icon-lined.png';
   }
-  star.alt = '추천별';
-  return star;
+  buttonImage.alt = '추천별';
+  return buttonImage;
 }
