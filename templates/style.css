@@ -254,6 +254,7 @@ select {
 .form-item {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   margin-bottom: 36px;
 }
@@ -346,29 +347,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.tooltip {
-  visibility: hidden;
-
-  background-color: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 10px;
-
-  position: absolute;
-  z-index: 1;
-  bottom: 55px;
-  right: 0;
-}
-
-.button-container:hover .tooltip {
-  visibility: visible;
-}
-
-button:disabled + .tooltip {
-  visibility: hidden;
-}
-
 .tabBar {
   display: flex;
   align-items: center;
@@ -393,6 +371,17 @@ button:disabled + .tooltip {
 .tabBar_button--secondary {
   border-bottom: solid 2px var(--grey-200);
   color: var(--grey-300);
+}
+
+.tooltip {
+  display: none;
+  color: var(--primary-color);
+}
+
+.tooltip--show {
+  display: block;
+  position: absolute;
+  bottom: -20px;
 }
 
 /* ********************* */

@@ -1,9 +1,11 @@
+import { VALIDATOR_CONSTANTS } from '../constants';
 import restaurantAPI from '../domain/restaurantAPI';
 import { CategoryValues, RestaurantInfo } from '../types';
 import restaurantInfoValidator from '../validator/restaurantInfoValidator';
 import FormItem from './FormItem';
 import Input from './Input';
 import Textarea from './Textarea';
+import Tooltip from './Tooltip';
 import { Button, Select } from './common';
 
 const AddForm = () => {
@@ -32,7 +34,7 @@ const AddForm = () => {
   };
 
   const createNameForm = () => {
-    return FormItem({
+    const nameForm = FormItem({
       labelText: '이름',
       label: 'name',
       children: Input({
@@ -43,6 +45,17 @@ const AddForm = () => {
         className: 'custom-input'
       }).create()
     }).create();
+
+    const nameTooltip = Tooltip({
+      text: `이름은 2자 이상 ${VALIDATOR_CONSTANTS.NAME_MAX_LENGTH}자 이하여야 합니다.`,
+      id: 'name-tooltip'
+    }).create();
+
+    nameForm.appendChild(nameTooltip);
+
+    nameForm.appendChild(nameTooltip);
+
+    return nameForm;
   };
 
   const createDistanceForm = () => {
@@ -67,7 +80,7 @@ const AddForm = () => {
   };
 
   const createDescriptionForm = () => {
-    return FormItem({
+    const descriptionForm = FormItem({
       labelText: '설명',
       label: 'description',
       isRequired: false,
@@ -76,8 +89,16 @@ const AddForm = () => {
         id: 'description'
       }).create()
     }).create();
-  };
 
+    const descriptionTooltip = Tooltip({
+      text: `설명은 ${VALIDATOR_CONSTANTS.DESCRIPTION_MAX_LENGTH}자 이하여야 합니다.`,
+      id: 'description-tooltip'
+    }).create();
+
+    descriptionForm.appendChild(descriptionTooltip);
+
+    return descriptionForm;
+  };
   const createLinkForm = () => {
     return FormItem({
       labelText: '참고 링크',
@@ -176,6 +197,18 @@ const AddForm = () => {
 
       const submitButton = form.querySelector('#submitButton') as HTMLButtonElement;
       submitButton.disabled = hasEmptyValue;
+
+      const nameTooltip = form.querySelector('#name-tooltip') as HTMLElement;
+      const descriptionTooltip = form.querySelector('#description-tooltip') as HTMLElement;
+
+      !isNameValid
+        ? nameTooltip.classList.add('tooltip--show')
+        : nameTooltip.classList.remove('tooltip--show');
+      !isDescriptionValid
+        ? descriptionTooltip.classList.add('tooltip--show')
+        : descriptionTooltip.classList.remove('tooltip--show');
+
+      console.log(nameTooltip, descriptionTooltip);
     }
   };
 
