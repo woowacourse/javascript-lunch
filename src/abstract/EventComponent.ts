@@ -45,7 +45,7 @@ export default abstract class EventComponent extends BaseComponent {
   private removeEvent() {
     this.eventHandlerRegistrations.forEach(({ target, eventName, handler }) => {
       if (typeof target === "string") {
-        return $(target)?.addEventListener(eventName, handler);
+        return $(target)?.removeEventListener(eventName, handler);
       }
 
       target?.removeEventListener(eventName, handler);
