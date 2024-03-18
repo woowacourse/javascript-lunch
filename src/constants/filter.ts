@@ -1,3 +1,4 @@
+import { KeyOfCategoryKey, KeyOfSortingKey } from '../types/filter';
 import { CATEGORY } from './restaurant';
 
 export const SORTING_KEY = {
@@ -6,6 +7,15 @@ export const SORTING_KEY = {
 } as const;
 
 export const FILTER_OPTIONS = {
-  category: { all: '전체', ...CATEGORY },
+  categoryKey: { all: '전체', ...CATEGORY },
   sortingKey: SORTING_KEY
+} as const;
+
+interface I_DEFAULT_KEY {
+  category: KeyOfCategoryKey;
+  sortingKey: KeyOfSortingKey;
+}
+export const DEFAULT_KEY: I_DEFAULT_KEY = {
+  category: 'all',
+  sortingKey: 'name'
 } as const;

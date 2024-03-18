@@ -8,7 +8,7 @@ export const createRestFilterSection = (): HTMLElement => {
 
   /* 카테고리 필터 */
   const $categoryFilter = createSelect({
-    optionData: FILTER_OPTIONS.category
+    optionData: FILTER_OPTIONS.categoryKey
   });
 
   /* 정렬 필터 */
