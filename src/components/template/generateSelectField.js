@@ -1,8 +1,8 @@
-import { STORAGE } from '../../constants/rules';
+import { STORAGE_KEYS } from '../../constants/rules';
 
 const initSelectInput = (option, key) => {
-  const sortingFilter = localStorage.getItem(STORAGE.sorting);
-  const categoryFilter = localStorage.getItem(STORAGE.category);
+  const sortingFilter = localStorage.getItem(STORAGE_KEYS.sorting);
+  const categoryFilter = localStorage.getItem(STORAGE_KEYS.category);
 
   if (sortingFilter === key || categoryFilter === key) {
     option.setAttribute('selected', 'selected');

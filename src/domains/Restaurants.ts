@@ -1,4 +1,4 @@
-import { STORAGE } from '../constants/rules';
+import { STORAGE_KEYS, STORAGE_INITIAL_VALUES } from '../constants/rules';
 import initialData from '../data/initialData.json';
 
 class Restaurants implements RestaurantsInterface {
@@ -10,10 +10,10 @@ class Restaurants implements RestaurantsInterface {
   }
 
   initStorage() {
-    if (!this.storage.getItem(STORAGE.restaurants)) {
-      this.storage.setItem(STORAGE.restaurants, JSON.stringify(initialData));
-      this.storage.setItem(STORAGE.sorting, STORAGE.initialSorting);
-      this.storage.setItem(STORAGE.category, STORAGE.initialCategory);
+    if (!this.storage.getItem(STORAGE_KEYS.restaurants)) {
+      this.storage.setItem(STORAGE_KEYS.restaurants, JSON.stringify(initialData));
+      this.storage.setItem(STORAGE_KEYS.sorting, STORAGE_INITIAL_VALUES.initialSorting);
+      this.storage.setItem(STORAGE_KEYS.category, STORAGE_INITIAL_VALUES.initialCategory);
     }
   }
 
@@ -42,7 +42,10 @@ class Restaurants implements RestaurantsInterface {
   }
 
   addRestaurant(restaurant: Restaurant) {
-    this.storage.setItem(STORAGE.restaurants, JSON.stringify([restaurant, ...this.storageData]));
+    this.storage.setItem(
+      STORAGE_KEYS.restaurants,
+      JSON.stringify([restaurant, ...this.storageData]),
+    );
   }
 
   updateFavoriteStatus(restaurantName: string, isFavorite: boolean) {
@@ -53,27 +56,31 @@ class Restaurants implements RestaurantsInterface {
       return restaurant;
     });
 
-    this.storage.setItem(STORAGE.restaurants, JSON.stringify(restaurants));
+    this.storage.setItem(STORAGE_KEYS.restaurants, JSON.stringify(restaurants));
   }
 
   deleteRestaurant(restaurantName: string) {
     const restaurants = this.storageData.filter(
       (restaurant: Restaurant) => restaurant.name !== restaurantName,
     );
-    this.storage.setItem(STORAGE.restaurants, JSON.stringify(restaurants));
+    this.storage.setItem(STORAGE_KEYS.restaurants, JSON.stringify(restaurants));
   }
 
   get storageData() {
-    return JSON.parse(this.storage.getItem(STORAGE.restaurants) ?? '[]');
+    return JSON.parse(this.storage.getItem(STORAGE_KEYS.restaurants) ?? '[]');
   }
 
   get standardList() {
-    const sorting = this.storage.getItem(STORAGE.sorting) ?? STORAGE.initialSorting;
+    const sorting =
+      this.storage.getItem(STORAGE_KEYS.sorting) ?? STORAGE_INITIAL_VALUES.initialSorting;
     const category =
-      (this.storage.getItem(STORAGE.category) as Category) ?? STORAGE.initialCategory;
+      (this.storage.getItem(STORAGE_KEYS.category) as Category) ??
+      STORAGE_INITIAL_VALUES.initialCategory;
 
     const restaurants: Restaurant[] =
-      category === STORAGE.initialCategory ? this.storageData : this.filterByCategory(category);
+      category === STORAGE_INITIAL_VALUES.initialCategory
+        ? this.storageData
+        : this.filterByCategory(category);
 
     return this.sortByStandard(restaurants, sorting);
   }

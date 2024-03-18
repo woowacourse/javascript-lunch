@@ -33,10 +33,13 @@ export const CONVERT: ConvertType = {
   distance: '거리',
 };
 
-export const STORAGE = {
+export const STORAGE_KEYS = {
   restaurants: 'restaurants',
   sorting: 'sorting-filter',
   category: 'category-filter',
+};
+
+export const STORAGE_INITIAL_VALUES = {
   initialSorting: 'name',
   initialCategory: '전체',
 };

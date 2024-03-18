@@ -1,5 +1,5 @@
 import { $ } from '../utils/dom';
-import { STORAGE } from '../constants/rules';
+import { STORAGE_KEYS } from '../constants/rules';
 
 class TabBar {
   #element;
@@ -35,8 +35,8 @@ class TabBar {
 
   #toggleFilteringSelectBox(isVisible) {
     const displayStyle = isVisible ? 'block' : 'none';
-    const sortingElement = $(STORAGE.sorting);
-    const categoryElement = $(STORAGE.category);
+    const sortingElement = $(STORAGE_KEYS.sorting);
+    const categoryElement = $(STORAGE_KEYS.category);
 
     sortingElement.style.display = displayStyle;
     categoryElement.style.display = displayStyle;
