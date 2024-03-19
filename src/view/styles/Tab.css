@@ -1,0 +1,33 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+
+  padding: 0 16px;
+  margin-bottom: 30px;
+
+  color: var(--grey-300);
+}
+
+.tab__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+
+  padding: 12px 0;
+
+  border-bottom: 2px solid var(--grey-200);
+}
+
+.tab__item.active {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}

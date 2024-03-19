@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -95,7 +95,6 @@
           position: fixed;
           bottom: 0;
           width: 100%;
-          height: 90%;
 
           padding: 32px 16px;
           box-sizing: border-box;
@@ -106,7 +105,7 @@
       </style>
       <div class="modal">
         <div class="modal-backdrop"></div>
-        <div class="modal-container">
+        <div class="modal-container" id="modal-container">
           <slot name="title"></slot>
           <slot name="body"></slot>
         </div>
@@ -118,15 +117,62 @@
         <img src="" alt="" class="category-icon" />
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle"></h3>
-        <span class="restaurant__distance text-body"></span>
+        <div class="restaurant__header">
+          <div>
+            <h3 class="restaurant__name text-subtitle"></h3>
+            <span class="restaurant__distance text-body"></span>
+          </div>
+          <button type="button" class="restaurant__favorite-button" aria-label="즐겨찾기">
+            <img src="" alt="즐겨찾기" />
+          </button>
+        </div>
         <p class="restaurant__description text-body"></p>
+      </div>
+    </template>
+
+    <template id="template-restaurant-detail">
+      <div class="detail-container">
+        <!-- 레스토랑 정보 -->
+        <div class="restaurant-detail__header">
+          <div class="restaurant-detail__category">
+            <img src="" alt="" class="category-icon" />
+          </div>
+          <button type="button" class="restaurant-detail__favorite-button" aria-label="즐겨찾기">
+            <img src="./favorite-icon-lined.png" alt="즐겨찾기" />
+          </button>
+        </div>
+
+        <div class="restaurant-detail__body">
+          <h1 class="restaurant-detail__name text-title"></h1>
+          <span class="restaurant-detail__distance text-subtitle"></span>
+          <p class="restaurant-detail__description text-body"></p>
+          <a class="restaurant-detail__link text-body"></a>
+        </div>
+
+        <!-- 삭제 / 닫기 버튼 -->
+        <div class="button-container">
+          <button type="button" class="button button--secondary text-caption">삭제하기</button>
+          <button type="button" class="button button--primary text-caption" id="close">닫기</button>
+        </div>
       </div>
     </template>
 
     <!-- GNB -->
     <app-gnb></app-gnb>
 
+    <!-- 메뉴 탭 바 -->
+    <section>
+      <ul class="tab text-title">
+        <li class="tab__item active">
+          <a href="#tab1">모든 음식점</a>
+        </li>
+        <li class="tab__item">
+          <a href="#tab2">자주 가는 음식점</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 정렬 -->
     <section class="restaurant-filter-container">
       <select
         is="app-select"
@@ -152,9 +198,14 @@
     </section>
 
     <!-- 음식점 추가 모달 -->
-    <app-modal>
+    <app-modal id="addModal" height="90%">
       <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
       <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
+    </app-modal>
+
+    <!-- 음식점 상세 정보 모달 -->
+    <app-modal id="detailModal" height="75%">
+      <app-restaurant-detail slot="body" id="restaurant-detail"></app-restaurant-detail>
     </app-modal>
   </body>
 </html>

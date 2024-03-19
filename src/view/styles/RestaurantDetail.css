@@ -1,0 +1,98 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  z-index: 111;
+}
+
+.restaurant-detail__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+.restaurant-detail__category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+
+  margin-right: 16px;
+
+  border-radius: 50%;
+  background: var(--lighten-color);
+}
+
+.restaurant-detail__favorite-button {
+  width: 32px;
+  height: 32px;
+
+  border: none;
+  background: transparent;
+
+  margin-right: 0;
+
+  cursor: pointer;
+}
+
+.restaurant-detail__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-detail__name {
+  margin-bottom: 16px;
+}
+
+.restaurant-detail__distance {
+  margin-bottom: 16px;
+}
+
+.restaurant-detail__description {
+  height: 300px;
+  margin-bottom: 16px;
+}
+
+.restaurant-detail__link {
+  margin-bottom: 16px;
+}
+
+.button-container {
+  display: flex;
+}
+
+.button {
+  width: 100%;
+  height: 44px;
+
+  margin-right: 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:last-child {
+  margin-right: 0;
+}
+
+.button--secondary {
+  border: 1px solid var(--grey-300);
+  background: transparent;
+
+  color: var(--grey-300);
+}
+
+.button--primary {
+  background: var(--primary-color);
+
+  color: var(--grey-100);
+}

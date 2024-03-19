@@ -1,3 +1,4 @@
+import { RESTAURANT_DETAIL_EVENTS } from './RestaurantDetail';
 import { RESTAURANT_FORM_EVENTS } from './RestaurantForm';
 
 export default class Modal extends HTMLElement {
@@ -13,9 +14,33 @@ export default class Modal extends HTMLElement {
     this.#shadowRoot.appendChild(content);
   }
 
+  static get observedAttributes() {
+    return ['height'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'height') {
+      this.render();
+    }
+  }
+
+  render() {
+    const modalContainer = this.shadowRoot.querySelector('.modal-container');
+    if (modalContainer) {
+      modalContainer.style.height = this.getAttribute('height');
+    }
+  }
+
+  // eslint-disable-next-line max-lines-per-function
   connectedCallback() {
-    this.addEventListener(RESTAURANT_FORM_EVENTS.submit, this.#handleCloseModal.bind(this));
-    this.addEventListener(RESTAURANT_FORM_EVENTS.reset, this.#handleCloseModal.bind(this));
+    if (this.id === 'addModal') {
+      this.addEventListener(RESTAURANT_FORM_EVENTS.submit, this.#handleCloseModal.bind(this));
+      this.addEventListener(RESTAURANT_FORM_EVENTS.reset, this.#handleCloseModal.bind(this));
+    } else if (this.id === 'detailModal') {
+      this.addEventListener(RESTAURANT_DETAIL_EVENTS.delete, this.#handleCloseModal.bind(this));
+      this.addEventListener(RESTAURANT_DETAIL_EVENTS.close, this.#handleCloseModal.bind(this));
+    }
+
     this.#shadowRoot.querySelector('.modal-backdrop').addEventListener('click', this.#handleCloseModal.bind(this));
   }
 

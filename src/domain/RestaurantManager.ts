@@ -8,6 +8,7 @@ interface Restaurant {
   distance: 5 | 10 | 15 | 20 | 30;
   description?: string;
   link?: string;
+  favorite?: boolean;
 }
 
 class RestaurantManager {
@@ -45,6 +46,25 @@ class RestaurantManager {
 
   #sortByDistance(restaurants: Restaurant[]): Restaurant[] {
     return [...restaurants].sort((a, b) => a.distance - b.distance);
+  }
+
+  toggleFavorite(restaurantName: string): void {
+    const restaurantIndex = this.#restaurants.findIndex((restaurant) => restaurant.name === restaurantName);
+    if (restaurantIndex !== -1) {
+      this.#restaurants[restaurantIndex].favorite = !this.#restaurants[restaurantIndex].favorite;
+      this.updateLocalStorage();
+    }
+  }
+
+  updateLocalStorage(): void {
+    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+  }
+
+  loadRestaurantsFromLocalStorage() {
+    const storedRestaurants = localStorage.getItem('restaurants');
+    if (storedRestaurants) {
+      this.#restaurants = JSON.parse(storedRestaurants);
+    }
   }
 }
 
