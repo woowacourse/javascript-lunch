@@ -7,8 +7,8 @@
     "watch": "webpack --watch",
     "start": "webpack serve",
     "build": "webpack --mode=production",
-    "test-step2": "cypress open",
-    "test": "jest"
+    "test-e2e": "cypress open",
+    "test-unit": "jest"
   },
   "repository": {
     "type": "git",

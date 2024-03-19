@@ -6,46 +6,89 @@ class RestaurantList {
   private restaurants;
 
   constructor(restaurants: Restaurant[]) {
+    restaurants.forEach((restaurant) => this.validateRestaurant(restaurant));
     this.restaurants = restaurants.map((restaurant) => deepCopy(restaurant));
+  }
+
+  getRestaurant(id: number): Restaurant {
+    const restaurant = this.restaurants.find(
+      (restaurant) => restaurant.id === id
+    );
+    if (restaurant === undefined) {
+      throw new Error("음식점이 없습니다.");
+    }
+
+    return restaurant;
+  }
+
+  removeRestaurant(id: number) {
+    this.restaurants = this.restaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
+  }
+
+  toggleIsGoTo(id: number) {
+    this.restaurants = this.restaurants.map((restaurant) =>
+      restaurant.id === id
+        ? { ...restaurant, isGoTo: !restaurant.isGoTo }
+        : restaurant
+    );
   }
 
   getRestaurants({
     category,
     sortingStandard,
+    isGoToFilter = false,
   }: {
     category: Category | "전체";
     sortingStandard: SortingStandard;
+    isGoToFilter?: boolean;
   }): Restaurant[] {
-    if (category === "전체") {
-      return this.restaurants
-        .map((restaurant) => deepCopy(restaurant))
-        .sort((a, b) => {
-          if (a[sortingStandard] < b[sortingStandard]) {
-            return -1;
-          } else if (a[sortingStandard] < b[sortingStandard]) {
-            return 1;
-          }
-          return 0;
-        });
-    }
+    const copiedRestaurants = this.restaurants.map((restaurant) =>
+      deepCopy(restaurant)
+    );
 
-    return this.restaurants
-      .map((restaurant) => deepCopy(restaurant))
-      .filter((restaurant) => restaurant.category === category)
-      .sort((a, b) => {
-        if (a[sortingStandard] < b[sortingStandard]) {
-          return -1;
-        } else if (a[sortingStandard] < b[sortingStandard]) {
-          return 1;
-        }
-        return 0;
-      });
+    return this.sort(
+      this.filterIsGoTo(
+        this.filterCategory(copiedRestaurants, category),
+        isGoToFilter
+      ),
+      sortingStandard
+    );
   }
 
   add(restaurant: Restaurant) {
     this.validateRestaurant(restaurant);
 
     this.restaurants = [...this.restaurants, deepCopy(restaurant)];
+  }
+
+  private filterCategory(
+    restaurants: Restaurant[],
+    category: Category | "전체"
+  ) {
+    if (category === "전체") {
+      return restaurants;
+    }
+    return restaurants.filter((restaurant) => restaurant.category === category);
+  }
+
+  private filterIsGoTo(restaurants: Restaurant[], isGoToFilter: boolean) {
+    if (!isGoToFilter) {
+      return restaurants;
+    }
+    return restaurants.filter((restaurant) => restaurant.isGoTo);
+  }
+
+  private sort(restaurants: Restaurant[], sortingStandard: SortingStandard) {
+    return restaurants.sort((a, b) => {
+      if (a[sortingStandard] < b[sortingStandard]) {
+        return -1;
+      } else if (a[sortingStandard] < b[sortingStandard]) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
   private validateRestaurant(restaurant: Restaurant) {
