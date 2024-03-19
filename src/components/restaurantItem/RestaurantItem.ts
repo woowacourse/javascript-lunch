@@ -113,7 +113,6 @@ class RestaurantItem extends Component<IRestaurantProps> {
     const key = this.props.information.id;
     const imageButton = createImageButton({
       buttonAttributes: {
-        type: 'button',
         id: `favorite_${key}`,
         classNames: ['favorite'],
         ariaLabel: '자주 가는 음식점 추가',

@@ -72,7 +72,7 @@ const dom = {
     id,
     classNames,
     name,
-    type,
+    type = 'button',
     text,
     ariaLabel,
     disabled = false,

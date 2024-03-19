@@ -94,7 +94,6 @@ class RestaurantDetailModal extends Modal<IDetailModalProps> {
     $detailWrapper.replaceChildren();
     const imageButton = createImageButton({
       buttonAttributes: {
-        type: 'button',
         id,
         ariaLabel: '자주 가는 음식점 등록',
       },

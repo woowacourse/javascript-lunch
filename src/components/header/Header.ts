@@ -14,7 +14,7 @@ interface Props {
 class Header extends Component<Props> {
   render() {
     const imageButton = createImageButton({
-      buttonAttributes: { type: 'button', classNames: ['gnb__button'], ariaLabel: '음식점 추가' },
+      buttonAttributes: { classNames: ['gnb__button'], ariaLabel: '음식점 추가' },
       imageAttributes: { src: this.props.imageSrc, alt: '음식점 추가' },
       onClick: this.props.onClick,
     });
