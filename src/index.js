@@ -1,4 +1,4 @@
-import LunchPickerApp from './components/LunchPickerApp';
+import LunchPickerApp from './LunchPickerApp';
 import LunchPickerHeader from './components/LunchPickerHeader';
 import LunchPickerTab from './components/LunchPickerTab';
 import RestaurantList from './components/RestaurantList';
