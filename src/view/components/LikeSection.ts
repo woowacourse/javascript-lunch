@@ -12,7 +12,7 @@ function changeRestaurantsCardsAttribute(newAttribute: string) {
   restaurantCards.setAttribute('data-like', newAttribute);
 }
 
-function changeColorCompareValue(currentElement: IHTMLWithValue, value: string) {
+function evaluateValueDifference(currentElement: IHTMLWithValue, value: string) {
   if (currentElement?.value && currentElement.value === value) {
     currentElement.classList.remove('like-section-normal');
     currentElement.classList.add('like-section-highlight');
@@ -26,7 +26,7 @@ function changeColorCompareValue(currentElement: IHTMLWithValue, value: string) 
 function changeLikeSectionColor(value: string, section: HTMLElement) {
   for (let i = 0; i < section.children.length; i += 1) {
     const currentElement = section.children[i] as IHTMLWithValue;
-    changeColorCompareValue(currentElement, value);
+    evaluateValueDifference(currentElement, value);
   }
 }
 
