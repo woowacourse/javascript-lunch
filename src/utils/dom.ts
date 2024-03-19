@@ -7,12 +7,12 @@ import type {
 } from '../types/dom';
 
 const dom = {
-  getElement(selector: string): HTMLElement {
-    const element = document.querySelector(selector);
+  getElement<T extends HTMLElement>(selector: string): T {
+    const element: T | null = document.querySelector(selector);
     if (element === null) {
       throw Error(`${selector} is not found`);
     }
-    return element as HTMLElement;
+    return element;
   },
 
   getTargetElement($target: HTMLElement, selector: string): HTMLElement {

@@ -67,13 +67,13 @@ class Dropdown extends Component<IDropdownProps> {
   }
 
   getSelectedCategory(): TCategory {
-    const $categoryFilter = dom.getElement('#category-filter') as HTMLSelectElement;
+    const $categoryFilter = dom.getElement<HTMLSelectElement>('#category-filter');
     const categoryOptions = $categoryFilter.options;
     return categoryOptions[categoryOptions.selectedIndex].text as TCategory;
   }
 
   getSelectedSortingCondition(): TSorting {
-    const $sortingFilter = dom.getElement('#sorting-filter') as HTMLSelectElement;
+    const $sortingFilter = dom.getElement<HTMLSelectElement>('#sorting-filter');
     const sortingOptions = $sortingFilter.options;
     return sortingOptions[sortingOptions.selectedIndex].text as TSorting;
   }

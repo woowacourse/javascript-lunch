@@ -125,11 +125,11 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
   }
 
   getFormInputTag(): IFormInput {
-    const category = dom.getElement('#category') as HTMLInputElement;
-    const name = dom.getElement('#name') as HTMLInputElement;
-    const distance = dom.getElement('#distance') as HTMLInputElement;
-    const link = dom.getElement('#link') as HTMLInputElement;
-    const $addButton = dom.getElement('#button-add') as HTMLButtonElement;
+    const category = dom.getElement<HTMLInputElement>('#category');
+    const name = dom.getElement<HTMLInputElement>('#name');
+    const distance = dom.getElement<HTMLInputElement>('#distance');
+    const link = dom.getElement<HTMLInputElement>('#link');
+    const $addButton = dom.getElement<HTMLButtonElement>('#button-add');
     return { category, name, distance, link, $addButton };
   }
 

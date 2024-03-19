@@ -27,7 +27,7 @@ class RestaurantAddModal extends Modal<IAddModalProps> {
 
   handleResetModal() {
     dom.getElement('#error-link').classList.add('hidden');
-    const $form = dom.getElement('form') as HTMLFormElement;
+    const $form = dom.getElement<HTMLFormElement>('form');
     $form.reset();
     this.toggle();
   }
