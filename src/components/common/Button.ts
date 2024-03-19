@@ -15,9 +15,7 @@ const Button = ({ id, text, variant, type, isDisabled = false }: Props) => {
   button.textContent = text;
   button.id = id;
 
-  if (isDisabled === true) {
-    button.disabled = isDisabled;
-  }
+  button.disabled = isDisabled;
 
   const create = () => button;
 
