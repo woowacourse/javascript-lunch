@@ -96,7 +96,7 @@ function closeRestaurantDetailModal() {
 
 function removeRestaurantInLocalStorage(id: number) {
   const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!) as LocalData;
-  localData[id] = null;
+  delete localData[id];
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
 }
 

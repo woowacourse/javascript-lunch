@@ -29,7 +29,7 @@ class LikeStar extends HTMLElement {
 
   #editLocalStorageData() {
     const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!) as LocalData;
-    localData[this.#restaurantId]!.isLiked = !localData[this.#restaurantId]!.isLiked;
+    localData[this.#restaurantId].isLiked = !localData[this.#restaurantId].isLiked;
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
   }
 

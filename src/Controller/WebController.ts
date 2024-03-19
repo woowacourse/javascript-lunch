@@ -9,7 +9,7 @@ import { ALL_RESTAURANTS } from '../view/components/LikeSection';
 import RestaurantCards from '../view/components/RestaurantCards';
 import { addEventToButton, addEventToForm, updateRestaurantsToLocalStorage } from '../view/components/SubmitFormModal';
 
-export type LocalData = Record<number, IRestaurantInfo | null>;
+export type LocalData = Record<number, Required<IRestaurantInfo>>;
 
 class WebController {
   run() {
