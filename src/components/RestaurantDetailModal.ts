@@ -24,9 +24,9 @@ const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
     return restaurantDistanceSpan;
   };
 
-  const createRestaurantDescription = (description?: string): HTMLElement => {
+  const createRestaurantDescription = (description: string = ''): HTMLElement => {
     const restaurantDescriptionP = document.createElement('p');
-    restaurantDescriptionP.textContent = description || '';
+    restaurantDescriptionP.textContent = description;
     return restaurantDescriptionP;
   };
 
