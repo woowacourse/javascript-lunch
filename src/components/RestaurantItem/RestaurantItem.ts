@@ -1,6 +1,8 @@
-import Component from './core/Component';
-import { $addEvent, $setAttribute } from '../utils/dom';
-import RestaurantRepository from '../domain/RestaurantRepository';
+import Component from '../_core/Component';
+import RestaurantRepository from '../../domain/RestaurantRepository';
+import { $addEvent, $setAttribute } from '../../utils/dom';
+
+import './RestaurantItem.css';
 
 class RestaurantItem extends Component {
   #key: number;

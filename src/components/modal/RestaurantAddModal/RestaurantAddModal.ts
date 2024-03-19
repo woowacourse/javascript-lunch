@@ -1,9 +1,11 @@
-import Modal from './Modal';
-import RestaurantRepository from '../../domain/RestaurantRepository';
-import { $, $addEvent } from '../../utils/dom';
-import { isEmptyInput } from '../../utils/validation';
-import { generateRandomNumber } from '../../utils/random';
-import { ERROR } from '../../constants/Message';
+import Modal from '../Modal/Modal';
+import RestaurantRepository from '../../../domain/RestaurantRepository';
+import { $, $addEvent } from '../../../utils/dom';
+import { isEmptyInput } from '../../../utils/validation';
+import { generateRandomNumber } from '../../../utils/random';
+import { ERROR } from '../../../constants/Message';
+
+import './RestaurantAddModal.css';
 
 class RestaurantAddModal extends Modal {
   static observedAttributes: string[] = ['open'];

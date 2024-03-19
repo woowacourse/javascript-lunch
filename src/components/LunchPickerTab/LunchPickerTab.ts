@@ -1,5 +1,7 @@
-import Component from './core/Component';
-import { $$, $addEvent } from '../utils/dom';
+import Component from '../_core/Component';
+import { $$, $addEvent } from '../../utils/dom';
+
+import './LunchPickerTab.css';
 
 class LunchPickerTab extends Component {
   setEvent(): void {

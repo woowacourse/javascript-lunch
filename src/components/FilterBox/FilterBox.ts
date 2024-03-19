@@ -1,6 +1,8 @@
-import Component from './core/Component';
-import { OPTIONS_MAP } from '../constants/Condition';
-import { $addEvent } from '../utils/dom';
+import Component from '../_core/Component';
+import { $addEvent } from '../../utils/dom';
+import { OPTIONS_MAP } from '../../constants/Condition';
+
+import './FilterBox.css';
 
 class FilterBox extends Component {
   #type: string;

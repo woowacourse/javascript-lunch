@@ -1,8 +1,10 @@
-import Component from './core/Component';
-import { $addEvent } from '../utils/dom';
-import RestaurantRepository from '../domain/RestaurantRepository';
-import favoriteFilledIcon from '../assets/favorite-icon-filled.png';
-import favoriteLinedIcon from '../assets/favorite-icon-lined.png';
+import Component from '../_core/Component';
+import RestaurantRepository from '../../domain/RestaurantRepository';
+import { $addEvent } from '../../utils/dom';
+import favoriteFilledIcon from '../../assets/favorite-icon-filled.png';
+import favoriteLinedIcon from '../../assets/favorite-icon-lined.png';
+
+import './FavoriteButton.css';
 
 class FavoriteButton extends Component {
   #key: number;

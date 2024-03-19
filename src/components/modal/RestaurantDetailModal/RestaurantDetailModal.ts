@@ -1,6 +1,8 @@
-import Modal from './Modal';
-import RestaurantRepository from '../../domain/RestaurantRepository';
-import { $addEvent } from '../../utils/dom';
+import Modal from '../Modal/Modal';
+import RestaurantRepository from '../../../domain/RestaurantRepository';
+import { $addEvent } from '../../../utils/dom';
+
+import './RestaurantDetailModal.css';
 
 class RestaurantDetailModal extends Modal {
   static observedAttributes: string[] = ['key', 'open'];

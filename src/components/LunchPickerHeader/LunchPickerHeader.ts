@@ -1,6 +1,8 @@
-import Component from './core/Component';
-import addButtonImg from '../assets/add-button.png';
-import { $addEvent, $setAttribute } from '../utils/dom';
+import Component from '../_core/Component';
+import { $addEvent, $setAttribute } from '../../utils/dom';
+import addButtonImg from '../../assets/add-button.png';
+
+import './LunchPickerHeader.css';
 
 class LunchPickerHeader extends Component {
   setEvent() {

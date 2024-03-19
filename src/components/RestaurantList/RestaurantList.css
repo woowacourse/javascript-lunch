@@ -1,0 +1,14 @@
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+}
+
+.restaurant-list__default {
+  margin: 64px 0;
+
+  color: var(--grey-300);
+  text-align: center;
+}

@@ -1,5 +1,7 @@
-import Component from './core/Component';
-import RestaurantRepository from '../domain/RestaurantRepository';
+import Component from '../_core/Component';
+import RestaurantRepository from '../../domain/RestaurantRepository';
+
+import './RestaurantList.css';
 
 class RestaurantList extends Component {
   static observedAttributes: string[] = ['category', 'sorting', 'type'];

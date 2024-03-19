@@ -1,5 +1,7 @@
-import Component from '../core/Component';
-import { $ } from '../../utils/dom';
+import Component from '../../_core/Component';
+import { $ } from '../../../utils/dom';
+
+import './Modal.css';
 
 class Modal extends Component {
   static observedAttributes: string[] = ['open'];

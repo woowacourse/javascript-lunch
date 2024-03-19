@@ -1,15 +1,15 @@
 import LunchPickerApp from './LunchPickerApp';
-import LunchPickerHeader from './components/LunchPickerHeader';
-import LunchPickerTab from './components/LunchPickerTab';
-import RestaurantList from './components/RestaurantList';
-import RestaurantItem from './components/RestaurantItem';
-import RestaurantAddModal from './components/modal/RestaurantAddModal';
-import RestaurantDetailModal from './components/modal/RestaurantDetailModal';
-import CategoryIcon from './components/CategoryIcon';
-import FavoriteButton from './components/FavoriteButton';
-import FilterBox from './components/FilterBox';
+import LunchPickerHeader from './components/LunchPickerHeader/LunchPickerHeader';
+import LunchPickerTab from './components/LunchPickerTab/LunchPickerTab';
+import RestaurantList from './components/RestaurantList/RestaurantList';
+import RestaurantItem from './components/RestaurantItem/RestaurantItem';
+import RestaurantAddModal from './components/modal/RestaurantAddModal/RestaurantAddModal';
+import RestaurantDetailModal from './components/modal/RestaurantDetailModal/RestaurantDetailModal';
+import CategoryIcon from './components/CategoryIcon/CategoryIcon';
+import FavoriteButton from './components/FavoriteButton/FavoriteButton';
+import FilterBox from './components/FilterBox/FilterBox';
 
-import './styles/style.css';
+import './styles/common.css';
 
 customElements.define('lunch-picker-app', LunchPickerApp);
 customElements.define('lunch-picker-header', LunchPickerHeader);

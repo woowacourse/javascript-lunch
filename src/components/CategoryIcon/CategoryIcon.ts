@@ -1,10 +1,12 @@
-import Component from './core/Component';
-import koreanIcon from '../assets/category-korean.png';
-import japaneseIcon from '../assets/category-japanese.png';
-import chineseIcon from '../assets/category-chinese.png';
-import asianIcon from '../assets/category-asian.png';
-import westernIcon from '../assets/category-western.png';
-import etcIcon from '../assets/category-etc.png';
+import Component from '../_core/Component';
+import koreanIcon from '../../assets/category-korean.png';
+import japaneseIcon from '../../assets/category-japanese.png';
+import chineseIcon from '../../assets/category-chinese.png';
+import asianIcon from '../../assets/category-asian.png';
+import westernIcon from '../../assets/category-western.png';
+import etcIcon from '../../assets/category-etc.png';
+
+import './CategoryIcon.css';
 
 const CATEGORY_ICON: Record<TCategory, string> = {
   한식: koreanIcon,
