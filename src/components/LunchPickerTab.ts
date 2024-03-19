@@ -19,8 +19,8 @@ class LunchPickerTab extends Component {
   template(): string {
     return `
       <section class="lunch-picker-tab">
-          <button class="tab-item tab-item--checked all" value="모든 음식점">모든 음식점</button>
-          <button class="tab-item favorites" value="자주 가는 음식점">자주 가는 음식점</button>
+          <button class="tab-item tab-item--checked all" type="button" value="모든 음식점">모든 음식점</button>
+          <button class="tab-item favorites" type="button" value="자주 가는 음식점">자주 가는 음식점</button>
       </section>
       `;
   }
