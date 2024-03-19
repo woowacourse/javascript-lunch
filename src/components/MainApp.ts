@@ -6,6 +6,8 @@ import RestaurantItemDetail from './RestaurantList/RestaurantItemDetail';
 import BasicModal from './Basic/BasicModal';
 import '@/css/index.css';
 import './MainApp.css';
+import { dom } from '@/util/dom';
+import { IRestaurant } from '@/types/Restaurant';
 
 class MainApp extends HTMLDivElement {
   #navTab: Tab;
@@ -36,19 +38,20 @@ class MainApp extends HTMLDivElement {
     </div>
     `;
 
-    this.#navTab = this.querySelector('div[is="my-tab"]')!;
-    this.#newRestaurantModal = this.querySelector('.new-restaurant-modal')!;
-    this.#allRestaurantApp = this.querySelector('div[is="all-restaurant-app"]') as AllRestaurantApp;
-    this.#favoriteRestaurantApp = this.querySelector(
+    this.#navTab = dom.getElement<Tab>(this, 'div[is="my-tab"]');
+    this.#newRestaurantModal = dom.getElement<NewRestaurantModal>(this, '.new-restaurant-modal');
+    this.#allRestaurantApp = dom.getElement<AllRestaurantApp>(this, 'div[is="all-restaurant-app"]');
+    this.#favoriteRestaurantApp = dom.getElement<FavoriteRestaurantApp>(
+      this,
       'div[is="favorite-restaurant-app"]',
-    ) as FavoriteRestaurantApp;
+    );
     this.paint();
 
     this.#navTab.addEventListener('click', () => {
       this.paint();
     });
 
-    this.#restaurantDetailModal = this.querySelector('.detail-modal') as BasicModal;
+    this.#restaurantDetailModal = dom.getElement<BasicModal>(this, '.detail-modal');
     this.#restaurantDetailModal.appendAll([]);
   }
 
@@ -67,7 +70,7 @@ class MainApp extends HTMLDivElement {
     }
   }
 
-  paintDetailModal(restaurant: any) {
+  paintDetailModal(restaurant: IRestaurant) {
     this.#restaurantDetailModal.openModal();
     this.#restaurantDetailModal.replaceChildNodes([new RestaurantItemDetail(restaurant)]);
   }

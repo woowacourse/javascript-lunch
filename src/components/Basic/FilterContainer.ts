@@ -10,7 +10,6 @@ import './FilterContainer.css';
 class FilterContainer extends BaseComponent {
   #selectCategoryBox: SelectBox<CategoryOrAll>;
   #selectSortBox: SelectBox<SortCriteria>;
-  #restaurantList: RestaurantList;
 
   constructor() {
     super();
@@ -25,8 +24,6 @@ class FilterContainer extends BaseComponent {
       SORT_CRITERION_KEYS,
       'sorting',
     );
-
-    this.#restaurantList = document.querySelector('.restaurant-list')!;
   }
 
   render() {
@@ -34,8 +31,11 @@ class FilterContainer extends BaseComponent {
     this.append(this.#selectSortBox);
   }
 
-  get() {
-    return { category: this.#selectCategoryBox.value, sortCriteria: this.#selectSortBox.value };
+  get(): { category: Category; sortCriteria: SortCriteria } {
+    return {
+      category: this.#selectCategoryBox.value as Category,
+      sortCriteria: this.#selectSortBox.value as SortCriteria,
+    };
   }
 
   setEvent() {

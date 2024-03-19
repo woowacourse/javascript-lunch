@@ -8,6 +8,7 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import Restaurant from '@/domains/entities/Restaurant';
 import BasicButton from '../Basic/BasicButton';
 import BasicModal from '../Basic/BasicModal';
+import { dom } from '@/util/dom';
 
 class RestaurantItemDetail extends HTMLLIElement {
   #category: Category = '기타';
@@ -70,14 +71,16 @@ class RestaurantItemDetail extends HTMLLIElement {
     this.addEventListener('click', this.#favoriteIconDBListener.bind(this));
   }
   paint() {
-    (
-      this.querySelector('div[is="restaurant-category-icon"]') as RestaurantCategoryIcon
-    ).setCategory(this.#category);
-    this.querySelector('.restaurant__name')!.textContent = `${this.#name}`;
-    this.querySelector('.restaurant__distance')!.textContent = `캠퍼스부터 ${this.#distance}분 내`;
-    this.querySelector('.restaurant__description')!.textContent = `${this.#description ?? ''}`;
-    (this.querySelector('.restaurant__favorite-icon')! as FavoriteIcon).set(this.#isFavorite);
-    const link = this.querySelector('.restaurant__link') as HTMLAnchorElement;
+    const categoryIcon = dom.getElement<RestaurantCategoryIcon>(
+      this,
+      'div[is="restaurant-category-icon"]',
+    );
+    categoryIcon.setCategory(this.#category);
+    dom.getElement(this, '.restaurant__name').textContent = `${this.#name}`;
+    dom.getElement(this, '.restaurant__distance').textContent = `캠퍼스부터 ${this.#distance}분 내`;
+    dom.getElement(this, '.restaurant__description').textContent = `${this.#description ?? ''}`;
+    dom.getElement<FavoriteIcon>(this, '.restaurant__favorite-icon').set(this.#isFavorite);
+    const link = dom.getElement<HTMLAnchorElement>(this, '.restaurant__link');
     link.setAttribute('href', this.#link!);
     link.textContent = this.#link!;
   }
@@ -96,14 +99,13 @@ class RestaurantItemDetail extends HTMLLIElement {
   #favoriteIconDBListener(event: Event) {
     if ((event.target as HTMLElement).classList.contains('restaurant__favorite-icon')) {
       this.#isFavorite =
-        (this.querySelector('.restaurant__favorite-icon')! as FavoriteIcon).getAttribute(
-          'clicked',
-        ) === 'on';
-      const newRestaurants = new RestaurantDBService()
-        .get()
-        .filter((restaurant) => !new Restaurant(this.get()).isEqual(restaurant));
-      console.log(newRestaurants);
-      new RestaurantDBService().set([...newRestaurants, this.get()]);
+        dom.getElement<FavoriteIcon>(this, '.restaurant__favorite-icon').getAttribute('clicked') ===
+        'on';
+      const newRestaurants: IRestaurant[] = new RestaurantDBService().get();
+      const filteredRestaurants = newRestaurants.filter(
+        (restaurant) => !new Restaurant(this.get()).isEqual(restaurant),
+      );
+      new RestaurantDBService().set([...filteredRestaurants, this.get()]);
 
       (document.querySelector('.main-app-new') as MainApp).paint();
     }

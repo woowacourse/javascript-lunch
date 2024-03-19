@@ -2,11 +2,9 @@ import '@/css/index.css';
 import RestaurantList from './RestaurantList/RestaurantList';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import FilterContainer from './Basic/FilterContainer';
-import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import restaurantListMock from '@/mock/restaurantList.mock';
-import FavoriteIcon from './Basic/FavoriteIcon';
-import RestaurantItem from './RestaurantList/RestaurantItem';
+import { dom } from '@/util/dom';
 
 class AllRestaurantApp extends HTMLDivElement {
   #filterContainer: FilterContainer;
@@ -23,8 +21,8 @@ class AllRestaurantApp extends HTMLDivElement {
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
     `;
 
-    this.#filterContainer = this.querySelector('.restaurant-filter-container')!;
-    this.#restaurantList = this.querySelector('.restaurant-list')!;
+    this.#filterContainer = dom.getElement<FilterContainer>(this, '.restaurant-filter-container');
+    this.#restaurantList = dom.getElement<RestaurantList>(this, '.restaurant-list');
 
     this.#restaurantDBService = new RestaurantDBService();
     this.paint();
@@ -39,11 +37,11 @@ class AllRestaurantApp extends HTMLDivElement {
   #getNewRestaurantList() {
     const { category, sortCriteria } = this.#filterContainer.get();
 
-    const newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
+    const newRestaurantList = this.#getDB(category, sortCriteria);
     if (!newRestaurantList) {
       this.#setMock();
     }
-    return this.#getDB(category as Category, sortCriteria as SortCriteria);
+    return this.#getDB(category, sortCriteria);
   }
 
   #setMock() {

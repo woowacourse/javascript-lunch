@@ -4,6 +4,7 @@ import style from './RestaurantItem.module.css';
 import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
+import { dom } from '@/util/dom';
 
 class RestaurantItem extends HTMLLIElement {
   #category;
@@ -41,13 +42,15 @@ class RestaurantItem extends HTMLLIElement {
   }
 
   paint() {
-    (
-      this.querySelector('div[is="restaurant-category-icon"]') as RestaurantCategoryIcon
-    ).setCategory(this.#category);
-    this.querySelector('.restaurant__name')!.textContent = `${this.#name}`;
-    this.querySelector('.restaurant__distance')!.textContent = `캠퍼스부터 ${this.#distance}분 내`;
-    this.querySelector('.restaurant__description')!.textContent = `${this.#description ?? ''}`;
-    this.#favoriteIcon = this.querySelector('img[is="favorite-icon"]') as FavoriteIcon;
+    const categoryIcon = dom.getElement<RestaurantCategoryIcon>(
+      this,
+      'div[is="restaurant-category-icon"]',
+    );
+    categoryIcon.setCategory(this.#category);
+    dom.getElement(this, '.restaurant__name').textContent = `${this.#name}`;
+    dom.getElement(this, '.restaurant__distance').textContent = `캠퍼스부터 ${this.#distance}분 내`;
+    dom.getElement(this, '.restaurant__description').textContent = `${this.#description ?? ''}`;
+    this.#favoriteIcon = dom.getElement<FavoriteIcon>(this, 'img[is="favorite-icon"]');
     this.#favoriteIcon.set(this.#isFavorite);
 
     this.addEventListener('click', this.#showDetailListener.bind(this));

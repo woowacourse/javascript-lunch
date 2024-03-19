@@ -4,6 +4,7 @@ import { IRestaurant, DistanceOrPlaceholder, Category, DistanceNumeric } from '@
 
 import './NewRestaurantModal.css';
 import AllRestaurantApp from '../AllRestaurantApp';
+import { dom } from '@/util/dom';
 
 class NewRestaurantModal extends BasicModal {
   #title: HTMLHeadingElement;
@@ -25,22 +26,6 @@ class NewRestaurantModal extends BasicModal {
     this.#setSubmitEvent();
   }
 
-  #validateRequiredValues(category: string, distance: number, name: string | null) {
-    const isNotValidCategory = category === '선택해주세요';
-    const isNotValidDistance = Number.isNaN(distance);
-    const isNotValidName = !name;
-    if (isNotValidCategory) {
-      this.querySelector('.category-select > .error')?.classList.remove('invisible');
-    }
-    if (isNotValidDistance) {
-      this.querySelector('.distance-select > .error')?.classList.remove('invisible');
-    }
-    if (isNotValidName) {
-      this.querySelector('.name-input-box > .error')?.classList.remove('invisible');
-    }
-    return isNotValidCategory || isNotValidDistance || isNotValidName;
-  }
-
   closeModal() {
     this.#invisibleErrorMessage();
     this.classList.remove('modal--open');
@@ -51,9 +36,9 @@ class NewRestaurantModal extends BasicModal {
   }
 
   #invisibleErrorMessage() {
-    this.querySelector('.category-select > .error')?.classList.add('invisible');
-    this.querySelector('.distance-select > .error')?.classList.add('invisible');
-    this.querySelector('.name-input-box > .error')?.classList.add('invisible');
+    dom.getElement<HTMLElement>(this, '.category-select > .error').classList.add('invisible');
+    dom.getElement<HTMLElement>(this, '.distance-select > .error').classList.add('invisible');
+    dom.getElement<HTMLElement>(this, '.name-input-box > .error').classList.add('invisible');
   }
 
   #setSubmitEvent() {
@@ -97,6 +82,22 @@ class NewRestaurantModal extends BasicModal {
     const description = (this.#form.elements.namedItem('description') as HTMLInputElement).value;
     const link = (this.#form.elements.namedItem('link') as HTMLInputElement).value;
     return { name, distance, category, description, link };
+  }
+
+  #validateRequiredValues(category: string, distance: number, name: string | null) {
+    const isNotValidCategory = category === '선택해주세요';
+    const isNotValidDistance = Number.isNaN(distance);
+    const isNotValidName = !name;
+    if (isNotValidCategory) {
+      dom.getElement(this, '.category-select > .error').classList.remove('invisible');
+    }
+    if (isNotValidDistance) {
+      dom.getElement(this, '.distance-select > .error').classList.remove('invisible');
+    }
+    if (isNotValidName) {
+      dom.getElement(this, '.name-input-box > .error').classList.remove('invisible');
+    }
+    return isNotValidCategory || isNotValidDistance || isNotValidName;
   }
 
   #rerenderApp() {

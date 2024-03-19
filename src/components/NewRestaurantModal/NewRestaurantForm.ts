@@ -4,6 +4,7 @@ import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
 import VerticalInputBox from '../Basic/VerticalInputBox';
 import BasicButton from '../Basic/BasicButton';
 import BasicModal from '../Basic/BasicModal';
+import { dom } from '@/util/dom';
 
 class NewRestaurantForm extends HTMLFormElement {
   constructor() {
@@ -45,7 +46,7 @@ class NewRestaurantForm extends HTMLFormElement {
       'category',
     );
 
-    (this.querySelector('div[is="vertical-input-box"]') as VerticalInputBox).setState({
+    dom.getElement<VerticalInputBox>(this, 'div[is="vertical-input-box"]').setState({
       name: '이름',
       idName: 'name',
       classList: ['name-input-box'],
@@ -62,20 +63,21 @@ class NewRestaurantForm extends HTMLFormElement {
       ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
     ];
 
-    const distanceSelectBox = this.querySelector(
+    const distanceSelectBox = dom.getElement<SelectBox<DistanceOrPlaceholder>>(
+      this,
       '.distance-select select[is="select-box"]',
-    ) as SelectBox<DistanceOrPlaceholder>;
+    );
 
     distanceSelectBox.set(DISTANCES_REQURIED, DISTANCES_TEXTS, 'distance');
 
-    const linkInputBox = this.querySelector('.link-input-box') as VerticalInputBox;
+    const linkInputBox = dom.getElement<VerticalInputBox>(this, '.link-input-box');
     linkInputBox.setState({
       name: '링크',
       idName: 'link',
       helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
     });
 
-    const $buttonBox = this.querySelector('.button-container')!;
+    const $buttonBox = dom.getElement<HTMLElement>(this, '.button-container');
     $buttonBox.append(
       new BasicButton('secondary', '취소하기', 'reset', () => {
         (this.parentElement?.parentElement as BasicModal).closeModal();

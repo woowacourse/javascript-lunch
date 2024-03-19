@@ -1,3 +1,5 @@
+import { dom } from '@/util/dom';
+
 interface Props {
   name?: string;
   idName?: string;
@@ -29,15 +31,13 @@ class VerticalInputBox extends HTMLDivElement {
     <span class="help-text text-caption"></span>
     <div class="error invisible"></span>`;
 
-    this.#name = this.querySelector(':scope > label')!;
-    this.#input = this.querySelector(':scope > input')!;
-    this.#help = this.querySelector(':scope > span')!;
-    this.#error = this.querySelector(':scope > .error')!;
+    this.#name = dom.getElement<HTMLLabelElement>(this, ':scope > label');
+    this.#input = dom.getElement<HTMLInputElement>(this, ':scope > input');
+    this.#help = dom.getElement<HTMLSpanElement>(this, ':scope > span');
+    this.#error = dom.getElement<HTMLDivElement>(this, ':scope > .error');
 
     if (props) {
       this.setState(props);
-    } else {
-      this.print();
     }
     this.print();
   }

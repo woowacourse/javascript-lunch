@@ -1,6 +1,7 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@assets/add-button.png';
 import './Header.css';
+import { dom } from '@/util/dom';
 
 class Header extends HTMLDivElement {
   constructor() {
@@ -20,8 +21,8 @@ class Header extends HTMLDivElement {
         <img src=${AddButton} alt="음식점 추가" />
       </button>`;
 
-    this.querySelector('button')?.addEventListener('click', () => {
-      document.querySelector('.modal')?.classList.add('modal--open');
+    dom.getElement(this, 'button').addEventListener('click', () => {
+      dom.getElement(document.body, '.modal').classList.add('modal--open');
     });
   }
 }
