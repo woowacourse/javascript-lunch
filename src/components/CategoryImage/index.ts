@@ -9,12 +9,9 @@ import {
   categoryWestern,
   categoryEtc,
 } from "../../assets";
+import { isArrayElement } from "../../utils/types";
 
 class CategoryImage extends BaseComponent {
-  private isCategoryType(category: string): category is CategoryStringWithoutAll {
-    return ["한식", "아시안", "일식", "중식", "양식", "기타"].includes(category);
-  }
-
   private categoryToImg(category: CategoryStringWithoutAll) {
     if (!category) return;
 
@@ -38,7 +35,13 @@ class CategoryImage extends BaseComponent {
 
   render() {
     const category = this.getAttribute("category") ?? "";
-    if (!this.isCategoryType(category)) return;
+    if (
+      !isArrayElement<CategoryStringWithoutAll>(
+        Object.values(CATEGORIES),
+        category
+      )
+    )
+      return;
 
     const categoryImage = this.categoryToImg(category);
     this.innerHTML = /*html*/ `
