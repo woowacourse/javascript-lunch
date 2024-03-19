@@ -2,7 +2,7 @@ import EventComponent from "../abstract/EventComponent";
 import RestaurantItem from "./RestaurantItem";
 
 import Restaurants from "../domain/Restaurants";
-import { RestaurantInfo } from "../domain/Restaurant";
+import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
 import restaurantStore from "../store/restaurantStore";
 import { CategoryFilter, SortFilter } from "../types/Filter";
 import { CATEGORY_FILTER, SORT_FILTER } from "../constants/filter";
@@ -131,7 +131,9 @@ export default class RestaurantList extends EventComponent {
     `;
   }
 
-  private handleCategoryFilterChange(event: CustomEvent) {
+  private handleCategoryFilterChange(
+    event: CustomEvent<{ value: CategoryFilter }>
+  ) {
     const { value: categoryFilter } = event?.detail;
 
     this.categoryFilter = categoryFilter;
@@ -139,7 +141,7 @@ export default class RestaurantList extends EventComponent {
     this.init();
   }
 
-  private handleSortFilterChange(event: CustomEvent) {
+  private handleSortFilterChange(event: CustomEvent<{ value: SortFilter }>) {
     const { value: sortFilter } = event?.detail;
 
     this.sortFilter = sortFilter;
@@ -147,7 +149,9 @@ export default class RestaurantList extends EventComponent {
     this.init();
   }
 
-  private handleTabSwitch(event: CustomEvent) {
+  private handleTabSwitch(
+    event: CustomEvent<{ switchTo: keyof typeof TAB_SWITCH_EVENT_SWITCH_TO }>
+  ) {
     const { switchTo } = event?.detail;
 
     const isFavoriteTab = switchTo === TAB_SWITCH_EVENT_SWITCH_TO.favorite;
@@ -156,7 +160,9 @@ export default class RestaurantList extends EventComponent {
     this.init();
   }
 
-  private handleRestaurantFormSubmit(event: CustomEvent) {
+  private handleRestaurantFormSubmit(
+    event: CustomEvent<{ newRestaurant: Restaurant }>
+  ) {
     const { newRestaurant } = event?.detail;
 
     this.restaurants.add(newRestaurant);
@@ -164,7 +170,7 @@ export default class RestaurantList extends EventComponent {
     this.init();
   }
 
-  private handleRestaurantRemove(event: CustomEvent) {
+  private handleRestaurantRemove(event: CustomEvent<{ name: string }>) {
     const { name } = event?.detail;
 
     this.restaurants.removeByName(name);

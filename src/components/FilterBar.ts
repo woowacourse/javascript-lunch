@@ -47,7 +47,9 @@ export default class FilterBar extends EventComponent {
 `;
   }
 
-  private handleTabSwitch(e: CustomEvent) {
+  private handleTabSwitch(
+    e: CustomEvent<{ switchTo: keyof typeof TAB_SWITCH_EVENT_SWITCH_TO }>
+  ) {
     const { switchTo } = e.detail;
 
     switch (switchTo) {

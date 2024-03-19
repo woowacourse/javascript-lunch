@@ -49,7 +49,9 @@ export default class FavoriteIcon extends EventComponent {
     });
   }
 
-  private handleToggleFavoriteEvent(e: CustomEvent) {
+  private handleToggleFavoriteEvent(
+    e: CustomEvent<{ itemName: string; changesToActive: boolean }>
+  ) {
     const { itemName, changesToActive } = e.detail;
 
     if (itemName === this.getAttribute("itemName")) {

@@ -35,7 +35,9 @@ export default class Modal extends EventComponent {
     `;
   }
 
-  private handleModalAction(e: CustomEvent) {
+  private handleModalAction(
+    e: CustomEvent<{ action: keyof typeof MODAL_EVENT_ACTION }>
+  ) {
     const { action } = e.detail;
 
     if (action === MODAL_EVENT_ACTION.open) {
