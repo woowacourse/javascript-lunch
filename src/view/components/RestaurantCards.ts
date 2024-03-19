@@ -4,7 +4,9 @@ import RestaurantCard from './RestaurantCard';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
-function sortMethod(attribute: string) {
+type AttributeType = (typeof SORT_CONDITION)[number];
+
+function sortMethod(attribute: AttributeType) {
   if (attribute === SORT_BY_NAME) return restaurantCatalog.sortByName;
   if (attribute === SORT_BY_DISTANCE) return restaurantCatalog.sortByDistance;
   throw new Error('RestaurantCards의 Attributes가 잘못 설정되었습니다.');
@@ -14,13 +16,21 @@ class RestaurantCards extends HTMLUListElement {
   #renderRestaurantCards: RestaurantCard[] = [];
 
   render() {
-    const restaurantFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select')!)(
-      restaurantCatalog
-        .filterByCategory(this.getAttribute('data-category-select') as Category)
-        ?.map((restaurant: Restaurant) => restaurant.getRestaurantInfoObject()),
+    const restaurantsFilterByLike = this.#filterRestaurantsByLike();
+    const restaurantFilteredAndSorted = sortMethod(this.getAttribute('data-sort-select')! as AttributeType)(
+      restaurantsFilterByLike,
     );
     this.#setRenderRestaurantCards(restaurantFilteredAndSorted);
     this.#renderRestaurantsField();
+  }
+
+  #filterRestaurantsByLike() {
+    return restaurantCatalog.filterByLike(
+      restaurantCatalog
+        .filterByCategory(this.getAttribute('data-category-select') as Category)
+        ?.map((restaurant: Restaurant) => restaurant.getRestaurantInfoObject()),
+      this.getAttribute('data-like')!,
+    );
   }
 
   #setRenderRestaurantCards(restaurants: IRestaurantInfo[]) {
@@ -37,7 +47,8 @@ class RestaurantCards extends HTMLUListElement {
   }
 
   #reRenderRestaurants() {
-    for (let i = 0; i < Math.min(this.children.length, this.#renderRestaurantCards.length); i += 1) {
+    const domChildLength = Math.min(this.children.length, this.#renderRestaurantCards.length);
+    for (let i = 0; i < domChildLength; i += 1) {
       if (this.children[i].getAttribute('data-id') !== this.#renderRestaurantCards[i].getAttribute('data-id')) {
         this.children[i].setAttribute('data-id', this.#renderRestaurantCards[i].getAttribute('data-id')!);
       }
@@ -61,7 +72,7 @@ class RestaurantCards extends HTMLUListElement {
   }
 
   static get observedAttributes() {
-    return ['data-sort-select', 'data-category-select'];
+    return ['data-sort-select', 'data-category-select', 'data-like'];
   }
 
   clear() {
@@ -69,7 +80,11 @@ class RestaurantCards extends HTMLUListElement {
   }
 
   attributeChangedCallback() {
-    if (!this.getAttribute('data-sort-select') || !this.getAttribute('data-category-select')) {
+    if (
+      !this.getAttribute('data-sort-select') ||
+      !this.getAttribute('data-category-select') ||
+      !this.getAttribute('data-like')
+    ) {
       return;
     }
     this.render();

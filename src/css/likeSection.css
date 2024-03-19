@@ -1,0 +1,24 @@
+.restaurant-like-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 0 16px;
+}
+
+.restaurant-like-container > button {
+  width: 50%;
+  padding-bottom: 24px;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+}
+
+.like-section-normal {
+  color: #667085;
+  border-bottom: 2px solid #d0d5dd;
+}
+
+.like-section-highlight {
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
+}

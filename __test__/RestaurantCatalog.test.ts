@@ -1,6 +1,6 @@
 import { ERROR_PREFIX } from '../src/constants/errorMessage.js';
 import { IRestaurantInfo } from '../src/domain/Restaurant.ts';
-import RestaurantCatalog from '../src/domain/RestaurantCatalog.ts';
+import restaurantCatalog, { RestaurantCatalog } from '../src/domain/RestaurantCatalog.ts';
 
 describe('RestaurantCatalog 예외 테스트', () => {
   const invalidRestaurantCase: IRestaurantInfo[] = [
@@ -69,11 +69,11 @@ describe('RestaurantCatalog 기능 테스트', () => {
   });
 
   test('category 이름순 정렬 테스트 - 오름차순 정렬', () => {
-    expect(RestaurantCatalog.sortByName(validRestaurantCase)[0].name).toEqual('깡장시골보리밥');
+    expect(restaurantCatalog.sortByName(validRestaurantCase)[0].name).toEqual('깡장시골보리밥');
   });
 
   test('category 거리순 정렬 테스트 - 오름차순 정렬, 동률일 시 이름의 오름차순으로', () => {
-    const restaurantsSorted = RestaurantCatalog.sortByDistance(validRestaurantCase);
+    const restaurantsSorted = restaurantCatalog.sortByDistance(validRestaurantCase);
     expect(restaurantsSorted[0].name).toEqual('깡장시골보리밥');
     expect(restaurantsSorted[1].name).toEqual('반포식스');
   });

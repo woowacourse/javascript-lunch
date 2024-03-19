@@ -1,5 +1,7 @@
 {
-  "name": "Using fixtures to represent data",
-  "email": "hello@cypress.io",
-  "body": "Fixtures are a great way to mock data for responses to routes"
+  "category": "한식",
+  "name": "평가옥",
+  "distanceFromCampus": "15",
+  "description": "어복쟁반도 맛있지만 만두전골",
+  "link": "https://map.naver.com/p/entry/place/12943462?lng=127.0528376&lat=37.5070417&placePath=%2Fhome&entry=plt&searchType=place&c=15.00,0,0,0,dh"
 }

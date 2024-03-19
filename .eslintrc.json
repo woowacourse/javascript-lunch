@@ -9,7 +9,9 @@
     "object-curly-newline": "off",
     "no-alert": "off",
     "linebreak-style": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "operator-linebreak": "off",
+    "jest/expect-expect": "off"
   },
 
   "overrides": [
@@ -29,5 +31,5 @@
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "extends": ["prettier", "airbnb"]
+  "extends": ["prettier", "airbnb", "plugin:cypress/recommended"]
 }

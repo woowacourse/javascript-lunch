@@ -1,7 +1,7 @@
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 ul,
@@ -11,8 +11,17 @@ li {
 
 html,
 body {
-  font-family: sans-serif;
   font-size: 16px;
+  font-family: sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Colors *****************************************/
@@ -28,34 +37,34 @@ body {
 
 /* Typography *************************************/
 .text-title {
+  font-weight: 600;
   font-size: 20px;
   line-height: 24px;
-  font-weight: 600;
 }
 
 .text-subtitle {
+  font-weight: 600;
   font-size: 18px;
   line-height: 28px;
-  font-weight: 600;
 }
 
 .text-body {
+  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 400;
 }
 
 .text-caption {
+  font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  font-weight: 400;
 }
 
 /* GNB ********************************************/
 .gnb {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   height: 64px;
 
   padding: 0 16px;
@@ -70,11 +79,11 @@ body {
 .gnb__button {
   height: 40px;
 
-  border: none;
-  border-radius: 8px;
+  font-size: 24px;
   background: transparent;
 
-  font-size: 24px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -91,20 +100,20 @@ body {
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 24px;
 
   padding: 0 16px;
-  margin-top: 24px;
 }
 
 .restaurant-filter-container select {
-  height: 44px;
   min-width: 125px;
+  height: 44px;
+
+  font-size: 16px;
+  background: transparent;
 
   border: 1px solid #d0d5dd;
   border-radius: 8px;
-  background: transparent;
-
-  font-size: 16px;
 }
 
 .restaurant-filter {
@@ -115,9 +124,9 @@ body {
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
+  margin: 16px 0;
 
   padding: 0 16px;
-  margin: 16px 0;
 }
 
 .restaurant {
@@ -129,19 +138,23 @@ body {
   border-bottom: 1px solid #e9eaed;
 }
 
+.restaurant__info:hover {
+  cursor: pointer;
+}
+
 .restaurant__category {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 64px;
-  height: 64px;
   min-width: 64px;
+  height: 64px;
   min-height: 64px;
 
   margin-right: 16px;
+  background: var(--lighten-color);
 
   border-radius: 50%;
-  background: var(--lighten-color);
 }
 
 .category-icon {
@@ -150,9 +163,11 @@ body {
 }
 
 .restaurant__info {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .restaurant__name {
@@ -196,11 +211,11 @@ body {
 .modal-container {
   position: fixed;
   bottom: 0;
-  padding: 32px 16px;
   width: 100%;
+  padding: 32px 16px;
+  background: var(--grey-100);
 
   border-radius: 8px 8px 0px 0px;
-  background: var(--grey-100);
 }
 
 .modal-title {
@@ -233,13 +248,13 @@ body {
 .form-item input,
 .form-item textarea,
 .form-item select {
-  padding: 8px;
   margin: 6px 0;
+  padding: 8px;
+
+  font-size: 16px;
 
   border: 1px solid var(--grey-200);
   border-radius: 8px;
-
-  font-size: 16px;
 }
 
 .form-item textarea {
@@ -251,10 +266,10 @@ body {
 
   padding: 8px;
 
+  color: var(--grey-300);
+
   border: 1px solid var(--grey-200);
   border-radius: 8px;
-
-  color: var(--grey-300);
 }
 
 input[name='name'],
@@ -272,10 +287,10 @@ input[name='link'] {
 
   margin-right: 16px;
 
+  font-weight: 600;
+
   border: none;
   border-radius: 8px;
-
-  font-weight: 600;
   cursor: pointer;
 }
 
@@ -284,14 +299,12 @@ input[name='link'] {
 }
 
 .button--secondary {
-  border: 1px solid var(--grey-300);
-  background: transparent;
-
   color: var(--grey-300);
+  background: transparent;
+  border: 1px solid var(--grey-300);
 }
 
 .button--primary {
-  background: var(--primary-color);
-
   color: var(--grey-100);
+  background: var(--primary-color);
 }

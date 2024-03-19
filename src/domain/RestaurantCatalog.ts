@@ -1,33 +1,53 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 import Restaurant, { IRestaurantInfo, Category } from './Restaurant';
 
-export const SORT_CONDITION = Object.freeze(['이름순', '거리순'] as const);
+export const SORT_CONDITION = ['이름순', '거리순'] as const;
 
 export const ALL_CATEGORY = '전체';
 
-class RestaurantCatalog {
-  restaurants: Restaurant[] = [];
+export class RestaurantCatalog {
+  restaurants: Map<number, Restaurant> = new Map();
 
   pushNewRestaurant(restaurantInfo: IRestaurantInfo) {
+    if (!restaurantInfo) return;
     this.#validDuplicateName(restaurantInfo);
-    const newRestaurant = { ...restaurantInfo, id: this.restaurants.length };
-    this.restaurants.push(new Restaurant(newRestaurant));
+    if (restaurantInfo.id) {
+      this.restaurants.set(restaurantInfo.id, new Restaurant(restaurantInfo));
+      return;
+    }
+    const newRestaurant = this.#generateNewRestaurantInfo(restaurantInfo);
+    this.restaurants.set(newRestaurant.id, new Restaurant(newRestaurant));
     return newRestaurant;
   }
 
+  #generateNewRestaurantInfo(restaurantInfo: IRestaurantInfo) {
+    const lastId = Array.from(this.restaurants.keys()).pop() || 0;
+    return {
+      ...restaurantInfo,
+      id: restaurantInfo.id ?? lastId + 1,
+      isLiked: restaurantInfo.isLiked ?? false,
+    };
+  }
+
+  removeRestaurant(index: number) {
+    this.restaurants.delete(index);
+  }
+
   #validDuplicateName(restaurantInfo: IRestaurantInfo) {
-    this.restaurants.forEach((restaurant: Restaurant) => {
-      if (restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
+    this.getRestaurantsClass().forEach((restaurant: Restaurant | null) => {
+      if (restaurant && restaurant.getRestaurantInfoObject().name === restaurantInfo.name) {
         throw new Error(`${ERROR_PREFIX} ${RESTAURANT_ERROR_MESSAGES.DUPLICATE_NAME}`);
       }
     });
   }
 
-  filterByCategory(category: Category | typeof ALL_CATEGORY) {
+  filterByCategory(category: Category | typeof ALL_CATEGORY): Restaurant[] | [] {
     if (category === ALL_CATEGORY) {
-      return this.restaurants;
+      return this.getRestaurantsClass().filter((restaurant) => restaurant) as Restaurant[];
     }
-    return this.restaurants.filter((restaurant) => restaurant.getRestaurantInfoObject().category === category);
+    return this.getRestaurantsClass().filter(
+      (restaurant) => restaurant && restaurant?.getRestaurantInfoObject().category === category,
+    ) as Restaurant[];
   }
 
   sortByName(restaurants: IRestaurantInfo[]) {
@@ -46,12 +66,19 @@ class RestaurantCatalog {
     });
   }
 
-  getSpecificRestaurantInfo(index: number) {
-    return this.restaurants[index].getRestaurantInfoObject();
+  filterByLike(restaurants: IRestaurantInfo[], attribute: string) {
+    if (attribute === 'like-restaurants') {
+      return restaurants.filter((restaurant) => restaurant.isLiked);
+    }
+    return restaurants;
+  }
+
+  getSpecificRestaurantInfo(id: number) {
+    return this.restaurants.get(id)?.getRestaurantInfoObject();
   }
 
   getRestaurantsClass() {
-    return [...this.restaurants];
+    return Array.from(this.restaurants.values());
   }
 }
 

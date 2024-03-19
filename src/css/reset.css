@@ -1,0 +1,9 @@
+button {
+  padding: 0;
+  overflow: visible;
+  background: inherit;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+}

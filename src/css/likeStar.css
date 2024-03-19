@@ -1,0 +1,15 @@
+.like-star {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.like-star > img {
+  width: 32px;
+  height: 32px;
+}
+
+.modal-like-star {
+  top: 32px;
+  right: 16px;
+}

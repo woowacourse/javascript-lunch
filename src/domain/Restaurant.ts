@@ -1,9 +1,9 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 
-export const DISTANCE_FROM_CAMPUS = Object.freeze([5, 10, 15, 20, 30] as const);
-type DistanceFromCampus = (typeof DISTANCE_FROM_CAMPUS)[number];
+export const DISTANCE_FROM_CAMPUS = [5, 10, 15, 20, 30] as const;
+export type DistanceFromCampus = (typeof DISTANCE_FROM_CAMPUS)[number];
 
-export const RESTAURANT_CATEGORY = Object.freeze(['한식', '중식', '일식', '아시안', '양식', '기타'] as const);
+export const RESTAURANT_CATEGORY = ['한식', '중식', '일식', '아시안', '양식', '기타'] as const;
 export type Category = (typeof RESTAURANT_CATEGORY)[number];
 
 export interface IRestaurantInfo {
@@ -13,7 +13,17 @@ export interface IRestaurantInfo {
   distanceFromCampus: DistanceFromCampus;
   description?: string;
   link?: string;
+  isLiked?: boolean;
 }
+
+export const IMG_CATEGORY = {
+  한식: 'korean',
+  아시안: 'asian',
+  중식: 'chinese',
+  기타: 'etc',
+  양식: 'western',
+  일식: 'japanese',
+} as const;
 
 class Restaurant {
   #restaurantInfo: IRestaurantInfo;
@@ -41,6 +51,10 @@ class Restaurant {
     if (!DISTANCE_FROM_CAMPUS.includes(distanceFromCampus)) {
       throw new Error(`${ERROR_PREFIX}${RESTAURANT_ERROR_MESSAGES.WRONG_DISTANCE}`);
     }
+  }
+
+  toggleIsLiked() {
+    this.#restaurantInfo.isLiked = !this.#restaurantInfo.isLiked;
   }
 
   getRestaurantInfoObject() {
