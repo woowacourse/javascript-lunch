@@ -5,7 +5,7 @@ import { filledFavoriteIcon, linedFavoriteIcon } from "../../assets/index";
 
 class FavoriteIcon extends BaseComponent {
   protected render() {
-    const isFavorite = this.getAttribute("is-favorite") === "true" ? true : false;
+    const isFavorite = this.getAttribute("is-favorite") === "true";
 
     this.innerHTML = /*html*/ `
       <img alt="favorite-icon" class="favorite-icon" 
