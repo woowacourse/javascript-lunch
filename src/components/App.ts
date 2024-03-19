@@ -1,5 +1,5 @@
 import type RestaurantList from '@/domain/RestaurantList';
-import type { TTabMenu } from '@/types/restaurant';
+import type { TCategory, TSorting, TTabMenu } from '@/types/restaurant';
 
 import Component from './core/Component';
 import Dropdown from './dropdown/Dropdown';
@@ -11,6 +11,7 @@ import TabMenu from './tabMenu/TabMenu';
 
 import { FILTERED_CATEGORY, FILTERED_CATEGORY_ATTRIBUTE, SORTING, SORTING_ATTRIBUTE } from '@/constants/filter';
 import dom from '@/utils/dom';
+import dropdown from '@/utils/dropdown';
 
 interface ICreateDropdown {
   $restaurantFilterContainer: HTMLElement;
@@ -108,13 +109,14 @@ class App extends Component<Props> {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
-        kind: 'category',
-        tabKind,
         attributes: FILTERED_CATEGORY_ATTRIBUTE,
         options: FILTERED_CATEGORY,
-        restaurantList: this.props.restaurantList,
-        renderRestaurantList: (restaurants: RestaurantList, tabKind: TTabMenu) => {
-          restaurantListContainer.renderRestaurantList(restaurants, tabKind);
+        onSelect: () => {
+          const category = dropdown.getSelectedValue<TCategory>('#category-filter');
+          const sortingCondition = dropdown.getSelectedValue<TSorting>('#sorting-filter');
+          this.props.restaurantList.filterByCategory(category, tabKind);
+          this.props.restaurantList.sortByCondition(sortingCondition);
+          restaurantListContainer.renderRestaurantList(this.props.restaurantList, tabKind);
         },
       },
     });
@@ -124,13 +126,12 @@ class App extends Component<Props> {
     new Dropdown({
       $target: $restaurantFilterContainer,
       props: {
-        kind: 'sorting',
-        tabKind,
         attributes: SORTING_ATTRIBUTE,
         options: SORTING,
-        restaurantList: this.props.restaurantList,
-        renderRestaurantList: (restaurants: RestaurantList, tabKind: TTabMenu) => {
-          restaurantListContainer.renderRestaurantList(restaurants, tabKind);
+        onSelect: () => {
+          const sortingCondition = dropdown.getSelectedValue<TSorting>('#sorting-filter');
+          this.props.restaurantList.sortByCondition(sortingCondition);
+          restaurantListContainer.renderRestaurantList(this.props.restaurantList, tabKind);
         },
       },
     });
