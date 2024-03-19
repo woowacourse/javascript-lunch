@@ -53,7 +53,7 @@ class Restaurant {
     }
   }
 
-  changeIsLiked() {
+  toggleIsLiked() {
     this.#restaurantInfo.isLiked = !this.#restaurantInfo.isLiked;
   }
 

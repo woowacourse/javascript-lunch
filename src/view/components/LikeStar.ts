@@ -20,11 +20,11 @@ class LikeStar extends HTMLElement {
   #clickHandler(e: Event) {
     e.stopPropagation();
     // 도메인의 데이터의 isLiked값을 변경한다.
-    restaurantCatalog.restaurants.get(this.#restaurantId)?.changeIsLiked();
+    restaurantCatalog.restaurants.get(this.#restaurantId)?.toggleIsLiked();
     // LocalStorage의 데이터 isLiked값을 변경한다.
     this.#editLocalStorageData();
     // this의 data-isLiked속성을 변경한다.
-    this.#changeIsLikeAttribute();
+    this.#toggleIsLikeAttribute();
   }
 
   #editLocalStorageData() {
@@ -33,7 +33,7 @@ class LikeStar extends HTMLElement {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localData));
   }
 
-  #changeIsLikeAttribute() {
+  #toggleIsLikeAttribute() {
     const isLikedString = this.getAttribute('data-is-liked');
     const expectedValue = isLikedString === 'true' ? 'false' : 'true';
     this.setAttribute('data-is-liked', expectedValue);
