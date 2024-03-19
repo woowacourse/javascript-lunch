@@ -30,13 +30,13 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     it('모든 음식점 탭에서는 모든 음식점 목록이 표시된다.', () => {
       cy.get('.all').click();
 
-      cy.get('.restaurant').should('have.length', 6);
+      cy.get('.restaurant').should('have.length', restaurants.length);
     });
 
     it('자주 가는 음식점 탭에서는 자주 가는 음식점 목록이 표시된다.', () => {
       cy.get('.favorites').click();
 
-      cy.get('.restaurant').should('have.length', 3);
+      cy.get('.restaurant').should('have.length', restaurants.length);
     });
   });
 
@@ -105,7 +105,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('.restaurant').first().find('.restaurant__info').click();
     cy.get('restaurant-detail-modal').first().find('.button--secondary').click();
 
-    cy.get('.restaurant').should('have.length', 5);
+    cy.get('.restaurant').should('have.length', restaurants.length - 1);
     cy.get('.restaurant').first().find('.restaurant__name').should('contain', '썬데이네 쌀국수');
     cy.get('.restaurant').first().find('.restaurant__distance').should('contain', '15');
   });
