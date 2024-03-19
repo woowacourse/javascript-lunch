@@ -1,8 +1,8 @@
-export default class Component {
-  $target;
+export default class Component<T extends HTMLElement, K> {
+  $target: T;
   state: any;
   props;
-  constructor($target: Element | null, props?: any) {
+  constructor($target: T, props?: K) {
     this.$target = $target;
     this.props = props;
     this.setup();

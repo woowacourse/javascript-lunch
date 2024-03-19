@@ -1,7 +1,7 @@
 import Component from "../common/Component";
 import FormModal from "./FormModal";
 
-export default class Header extends Component {
+export default class Header<T extends HTMLElement, K> extends Component<T, K> {
   render() {
     return /*html*/ `    
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -17,9 +17,12 @@ export default class Header extends Component {
     const $modal = document.querySelector(".modal");
     $gnbButton?.addEventListener("click", () => {
       $modal?.classList.add("modal--open");
-      new FormModal($modalContainer, {
-        loadRestaurant: this.props.loadRestaurant,
-      });
+      new FormModal<HTMLDivElement, { loadRestaurant: Function }>(
+        $modalContainer,
+        {
+          loadRestaurant: this.props.loadRestaurant,
+        }
+      );
     });
   }
 }

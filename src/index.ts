@@ -15,6 +15,5 @@ import "../templates/category-western.png";
 import "../templates/favorite-icon-filled.png";
 import "../templates/favorite-icon-lined.png";
 import App from "./App";
-import RestaurantModal from "./components/RestaurantModal";
 
 new App(document.querySelector("#app"));

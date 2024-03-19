@@ -33,7 +33,7 @@ export default class App extends Component {
     const $restaurants = document.querySelector(".restaurants");
     const $filter = document.querySelector(".filter-container");
     const $select = document.querySelector(".select-container");
-    new Header($header, {
+    new Header<HTMLElement, { loadRestaurant: Function }>($header, {
       loadRestaurant: this.loadRestaurant.bind(this),
     });
     new Filter($filter, {
