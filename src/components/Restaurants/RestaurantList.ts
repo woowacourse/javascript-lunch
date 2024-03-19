@@ -1,12 +1,7 @@
 import BaseComponent from "../BaseComponent";
 import { MENU_APP_EVENTS } from "../../constants/event";
 import { CategoryString, RestaurantItem, RestaurantTab, SortOptionString } from "../../types/menu";
-import {
-  filterByCategory,
-  findRestaurantByName,
-  getFavoriteRestaurants,
-  sortByType,
-} from "../../domains/Restaurants";
+import { filterByCategory, findRestaurantByName, getFavoriteRestaurants, sortByType } from "../../domains/Restaurants";
 
 class RestaurantList extends BaseComponent {
   private currentCategory: CategoryString;
