@@ -45,19 +45,12 @@ class Modal extends BaseComponent {
     this.innerHTML = this.getModalTemplate();
   }
 
-  isModalOpenEvent(type: string): type is MenuAppEvent {
-    return ["open-add-form", "open-restaurant-detail"].includes(type);
-  }
-
   setEvent() {
-    $<HTMLDivElement>(`#${this.modalId}-backdrop`)!.addEventListener(
-      "click",
-      (event) => {
-        if (event.target === event.currentTarget) {
-          this.hideModal();
-        }
+    $<HTMLDivElement>(`#${this.modalId}-backdrop`)!.addEventListener("click", (event) => {
+      if (event.target === event.currentTarget) {
+        this.hideModal();
       }
-    );
+    });
 
     const modalId = this.getAttribute("id") ?? "";
 
