@@ -13,7 +13,7 @@ interface IAddModalProps {
 
 class RestaurantAddModal extends Modal<IAddModalProps> {
   render() {
-    const $modalContainer = dom.getTargetElement(this.$target, '.modal-container');
+    const $modalContainer = dom.getTargetElement(this.$target, '.modal-add-container');
     new RestaurantForm($modalContainer, {
       restaurantList: this.props.restaurantList,
       handleResetModal: this.handleResetModal.bind(this),
