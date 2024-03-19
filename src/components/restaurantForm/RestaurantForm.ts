@@ -145,8 +145,8 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     const distance = $distance.value as unknown as TDistance;
     const referenceLink = $link.value;
 
+    $addButton.disabled = true;
     if (formValidator.isValidForm({ category, name, distance, referenceLink })) $addButton.disabled = false;
-    else $addButton.disabled = true;
   };
 
   handleAddRestaurant(e: SubmitEvent) {
