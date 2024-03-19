@@ -50,6 +50,34 @@ describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
     });
   });
 
+  context("음식점 상세 정보 모달과의 상호작용 기능 확인", () => {
+    it("backdrop을 클릭하여 모달을 닫을 수 있다.", () => {
+      cy.get("restaurant-item").first().click();
+      cy.get("restaurant-detail").should("be.visible");
+
+      cy.get(".modal-backdrop").filter(":visible").click();
+      cy.get("restaurant-detail").should("not.be.visible");
+    });
+
+    it("닫기 버튼을 클릭하여 모달을 닫을 수 있다.", () => {
+      cy.get("restaurant-item").first().click();
+      cy.get("restaurant-detail").should("be.visible");
+
+      cy.get("button").contains("닫기").click();
+      cy.get("restaurant-detail").should("not.be.visible");
+    });
+
+    it("삭제하기 버튼을 클릭하여 해당 음식점을 삭제할 수 있다.", () => {
+      cy.get("restaurant-item").first().click();
+      cy.get("button").contains("삭제하기").click();
+      cy.on("window:confirm", () => true);
+      cy.get("restaurant-item").should(
+        "have.length",
+        RESTAURANTS_INFOS.length - 1
+      );
+    });
+  });
+
   context("자주 가는 음식점 관련 기능 확인", () => {
     it("자주 가는 음식점이 등록되지 않은 상태에서 자주 가는 음식점 탭을 클릭하면 restaurant item이 나타나지 않는다.", () => {
       cy.get("#tab-item-favorite").click();
