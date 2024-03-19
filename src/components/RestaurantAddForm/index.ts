@@ -4,7 +4,7 @@ import { CATEGORIES, DISTANCES, ERROR_MESSAGES } from "../../constants/menu";
 import { RestaurantAddItem } from "../../types/menu";
 import { add } from "../../domains/Restaurants";
 import { $ } from "../../utils/dom";
-import { isRestaurantItemType } from "../../utils/types";
+import { isObjectWithKeys } from "../../utils/types";
 
 class RestaurantAddForm extends BaseComponent {
   private addFormElement: HTMLFormElement | null = null;
@@ -97,7 +97,7 @@ class RestaurantAddForm extends BaseComponent {
 
     if (
       addItem &&
-      isRestaurantItemType<RestaurantAddItem>(addItem, [
+      isObjectWithKeys<RestaurantAddItem>(addItem, [
         "name",
         "category",
         "distance",
