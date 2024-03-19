@@ -15,7 +15,7 @@ const Modal = ({ modalClass, modalContainerClass, child, children }: Props) => {
   const modalContainerDiv = document.createElement('div');
   modalContainerDiv.classList.add('modal-container');
 
-  if (modalContainerClass) {
+  if (typeof modalContainerClass === 'string') {
     modalContainerDiv.classList.add(modalContainerClass);
   }
 
