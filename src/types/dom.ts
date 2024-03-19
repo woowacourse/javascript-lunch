@@ -13,6 +13,7 @@ interface IButtonAttributes extends IDomAttributes {
   name?: string;
   type?: 'submit' | 'reset' | 'button';
   ariaLabel?: string;
+  disabled?: boolean;
 }
 
 interface IImageAttributes extends IDomAttributes {

@@ -10,6 +10,7 @@ const ADD_BUTTON_ATTRIBUTE: IButtonAttributes = {
   id: 'button-add',
   classNames: ['button', 'button--primary', 'text-caption'],
   text: '추가하기',
+  disabled: true,
 };
 const MODAL_CLOSE_BUTTON_ATTRIBUTE: IButtonAttributes = {
   id: 'button-modal-close',

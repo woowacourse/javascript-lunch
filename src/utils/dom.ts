@@ -68,7 +68,15 @@ const dom = {
     return selectTag;
   },
 
-  createButtonTag({ id, classNames, name, type, text, ariaLabel }: IButtonAttributes): HTMLButtonElement {
+  createButtonTag({
+    id,
+    classNames,
+    name,
+    type,
+    text,
+    ariaLabel,
+    disabled = false,
+  }: IButtonAttributes): HTMLButtonElement {
     const buttonTag = document.createElement('button');
 
     if (id) buttonTag.id = id;
@@ -81,6 +89,7 @@ const dom = {
     if (type) buttonTag.setAttribute('type', type);
     if (text) buttonTag.textContent = text;
     if (ariaLabel) buttonTag.setAttribute('aria-label', ariaLabel);
+    buttonTag.disabled = disabled;
 
     return buttonTag;
   },
