@@ -5,32 +5,32 @@ import { FILTER_OPTIONS, INPUT_OPTIONS } from '../constants/conditions';
 class FilterBox extends Component {
   static observedAttributes = ['type', 'option'];
 
-  #type;
+  #type: string | null;
 
   constructor() {
     super();
     this.#type = this.getAttribute('type');
   }
 
-  attributeChangedCallback() {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
     this.#type = this.getAttribute('type');
     this.render();
   }
 
-  setEvent() {
+  setEvent(): void {
     $addEvent(`.${this.#type}`, 'change', this.#handleSelectChange.bind(this));
   }
 
-  removeEvent() {
+  removeEvent(): void {
     $removeEvent(`.${this.#type}`, 'change', this.#handleSelectChange.bind(this));
   }
 
-  #handleSelectChange() {
+  #handleSelectChange(): void {
     this.makeCustomEvent('selectChange');
   }
 
-  template() {
-    const optionsHtml = [];
+  template(): string {
+    const optionsHtml: string[] = [];
 
     if (this.#type === 'category' || this.#type === 'sorting') {
       const options = FILTER_OPTIONS[this.#type];

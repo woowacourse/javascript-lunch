@@ -3,6 +3,13 @@ function getRestaurants() {
   return restaurants ? JSON.parse(restaurants) : [];
 }
 
+function getFilteredByTheme(restaurants: IRestaurant[], theme: TTheme) {
+  if (theme === '모든 음식점') return restaurants;
+  if (theme === '자주 가는 음식점') {
+    return restaurants.filter((restaurant) => restaurant.favorite === true);
+  }
+}
+
 function getFilteredByCategory(restaurants: IRestaurant[], category: TAllCategory) {
   return category === '전체' ? restaurants : restaurants.filter((restaurant) => restaurant.category === category);
 }
@@ -20,6 +27,13 @@ function getSortedByDistance(restaurants: IRestaurant[]) {
 }
 
 const RestaurantRepository = {
+  getByDetailItem(name: string) {
+    const restaurants = getRestaurants();
+    const restaurant = restaurants.find((restaurant: IRestaurant) => restaurant.name === name);
+    if (restaurant === undefined) throw new Error();
+    return restaurant;
+  },
+
   addRestaurant(restaurant: IRestaurant) {
     const restaurants = localStorage.getItem('restaurants');
 
@@ -30,10 +44,36 @@ const RestaurantRepository = {
     }
   },
 
-  transformRestaurants(category: TAllCategory, sortingOption: TSortingOption) {
+  deleteRestaurant(restaurantName: string) {
     const restaurants = getRestaurants();
-    const filteredRestaurants = getFilteredByCategory(restaurants, category);
+    const filteredRestaurants = restaurants.filter((restaurant: IRestaurant) => {
+      return restaurant.name !== restaurantName;
+    });
+    localStorage.setItem('restaurants', JSON.stringify(filteredRestaurants));
+  },
 
+  changeFavoriteState(restaurantName: string) {
+    const restaurants = getRestaurants();
+    const updatedRestaurants = restaurants.map((restaurant: IRestaurant) => {
+      if (restaurant.name === restaurantName) {
+        return { ...restaurant, favorite: !restaurant.favorite };
+      }
+      return restaurant;
+    });
+
+    localStorage.setItem('restaurants', JSON.stringify(updatedRestaurants));
+    return updatedRestaurants;
+  },
+
+  transformByTheme(theme: TTheme) {
+    const restaurants = getRestaurants();
+    const filteredRestaurants = getFilteredByTheme(restaurants, theme);
+    return filteredRestaurants;
+  },
+
+  transformBySelector(filteredByThemeRestaurant: IRestaurant[], category: TAllCategory, sortingOption: TSortingOption) {
+    const restaurants = filteredByThemeRestaurant;
+    const filteredRestaurants = getFilteredByCategory(restaurants, category);
     return sortingOption === '이름순' ? getSortedByName(filteredRestaurants) : getSortedByDistance(filteredRestaurants);
   },
 };

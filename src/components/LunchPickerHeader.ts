@@ -5,18 +5,21 @@ import addButtonImg from '../assets/add-button.png';
 class LunchPickerHeader extends Component {
   constructor() {
     super();
-    this.hadleGnbButtonClick = () => this.makeCustomEvent('gnbButtonClick');
   }
 
-  setEvent() {
-    $addEvent('.gnb__button', 'click', this.hadleGnbButtonClick);
+  setEvent(): void {
+    $addEvent('.gnb__button', 'click', this.hadleGnbButtonClick.bind(this));
   }
 
-  removeEvent() {
-    $removeEvent('.gnb__button', 'click', this.hadleGnbButtonClick);
+  removeEvent(): void {
+    $removeEvent('.gnb__button', 'click', this.hadleGnbButtonClick.bind(this));
   }
 
-  template() {
+  hadleGnbButtonClick(): void {
+    this.makeCustomEvent('gnbButtonClick');
+  }
+
+  template(): string {
     return `
       <header class="gnb">
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>

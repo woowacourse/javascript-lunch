@@ -3,12 +3,12 @@ export const $ = (selector: string) => {
 
   if (!element) {
     console.error(`[ERROR] Invalid selector: ${selector}`);
-    return;
+    return null;
   }
 
   if (typeof selector !== 'string' || selector.trim() === '') {
     console.error(`[ERROR] Invalid selector: ${selector}`);
-    return;
+    return null;
   }
 
   return element;

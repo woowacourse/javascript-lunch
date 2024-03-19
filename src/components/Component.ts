@@ -3,30 +3,30 @@ class Component extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     if (this.isConnected) {
       this.render();
       this.setEvent();
     }
   }
 
-  disconnectedCallback() {
+  disconnectedCallback(): void {
     this.removeEvent();
   }
 
-  render() {
+  render(): void {
     this.innerHTML = this.template();
   }
 
-  setEvent() {}
+  setEvent(): void {}
 
-  removeEvent() {}
+  removeEvent(): void {}
 
-  makeCustomEvent(name, detail) {
+  makeCustomEvent(name: string, detail?: IRestaurant): boolean {
     return this.dispatchEvent(new CustomEvent(name, { bubbles: true, detail: detail }));
   }
 
-  template() {
+  template(): string {
     return ``;
   }
 }

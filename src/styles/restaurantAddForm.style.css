@@ -1,0 +1,60 @@
+.form-item {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 36px;
+}
+
+.form-item label {
+  color: var(--grey-400);
+  font-size: 14px;
+}
+
+.form-item--required label::after {
+  padding-left: 4px;
+
+  color: var(--primary-color);
+  content: '*';
+}
+
+.form-item .help-text {
+  color: var(--grey-300);
+}
+
+.form-item input,
+.form-item textarea,
+.form-item select {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  font-size: 16px;
+}
+
+.form-item textarea {
+  resize: none;
+}
+
+.form-item select {
+  height: 44px;
+
+  padding: 8px;
+
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+
+  color: var(--grey-300);
+}
+
+.form-item p {
+  font-size: 12px;
+  color: red;
+}
+
+input[name='name'],
+input[name='link'] {
+  height: 44px;
+}

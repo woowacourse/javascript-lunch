@@ -1,0 +1,54 @@
+.restaurant-detail-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-detail-icon-favorite-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-category-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 64px;
+  min-height: 64px;
+  margin-right: 16px;
+  border-radius: 50%;
+  background: var(--lighten-color);
+}
+
+.detail-category-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.detail-favorite-icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.detail-restaurant-name {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 16px 0 16px 0;
+}
+
+.detail-restaurant-distance {
+  padding-bottom: 16px;
+  color: #ec4a0a;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.detail-restaurant-discription {
+  padding-bottom: 16px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.detail-restaurant-reference {
+  padding-bottom: 16px;
+}
