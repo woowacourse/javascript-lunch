@@ -24,10 +24,11 @@ function evaluateValueDifference(currentElement: IHTMLWithValue, value: string) 
 }
 
 function changeLikeSectionColor(value: string, section: HTMLElement) {
-  for (let i = 0; i < section.children.length; i += 1) {
+  // section의 자식 요소들을 순회합니다.
+  Array.from(section.children).forEach((_, i) => {
     const currentElement = section.children[i] as IHTMLWithValue;
     evaluateValueDifference(currentElement, value);
-  }
+  });
 }
 
 function setAttributeInLike(currentValue: string) {
