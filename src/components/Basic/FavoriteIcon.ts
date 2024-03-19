@@ -34,11 +34,7 @@ class FavoriteIcon extends HTMLImageElement {
   }
 
   isFavorite() {
-    if (this.getAttribute('clicked') === 'on') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.getAttribute('clicked') === 'on';
   }
 
   set(isFavorite: boolean) {
