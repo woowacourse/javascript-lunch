@@ -45,14 +45,7 @@ class LikeStar extends HTMLElement {
   }
 
   #isLikedStar() {
-    const isLikedString = this.getAttribute('data-is-liked');
-    if (isLikedString === 'true') {
-      return true;
-    }
-    if (isLikedString === 'false') {
-      return false;
-    }
-    throw new Error('비정상적인 접근입니다.');
+    return this.getAttribute('data-is-liked') === 'true';
   }
 
   static get observedAttributes() {

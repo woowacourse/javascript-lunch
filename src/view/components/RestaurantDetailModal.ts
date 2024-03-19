@@ -40,14 +40,8 @@ function applyRestaurantDescription(description: string | undefined) {
 
 function applyRestaurantLink(link: string | undefined) {
   const restaurantLink = document.getElementById('restaurant-detail-link') as HTMLLinkElement;
-  if (link) {
-    restaurantLink.href = link;
-    restaurantLink.innerText = '📍 홈페이지 바로가기!';
-  }
-  if (!link) {
-    restaurantLink.href = '';
-    restaurantLink.innerText = '';
-  }
+  restaurantLink.href = link || '';
+  restaurantLink.innerText = link ? '📍 홈페이지 바로가기!' : '';
 }
 
 function applyRestaurantStar(id: number, isLiked: boolean) {
