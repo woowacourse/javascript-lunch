@@ -34,21 +34,17 @@ export default abstract class EventComponent extends BaseComponent {
 
   private setEvent() {
     this.eventHandlerRegistrations.forEach(({ target, eventName, handler }) => {
-      if (typeof target === "string") {
-        return $(target)?.addEventListener(eventName, handler);
-      }
+      const targetElem = typeof target === "string" ? $(target) : target;
 
-      target?.addEventListener(eventName, handler);
+      targetElem?.addEventListener(eventName, handler);
     });
   }
 
   private removeEvent() {
     this.eventHandlerRegistrations.forEach(({ target, eventName, handler }) => {
-      if (typeof target === "string") {
-        return $(target)?.removeEventListener(eventName, handler);
-      }
+      const targetElem = typeof target === "string" ? $(target) : target;
 
-      target?.removeEventListener(eventName, handler);
+      targetElem?.addEventListener(eventName, handler);
     });
   }
 }
