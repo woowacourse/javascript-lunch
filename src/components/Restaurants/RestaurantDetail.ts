@@ -3,7 +3,7 @@ import { MENU_APP_EVENTS } from "../../constants/event";
 import { RestaurantItem } from "../../types/menu";
 import { deleteRestaurantByName } from "../../domains/Restaurants";
 import { $ } from "../../utils/dom";
-import { isRestaurantItemType } from "../../utils/types";
+import { isObjectWithKeys } from "../../utils/types";
 
 const RESTAURANT_KEYS = ["name", "category", "distance", "isFavorite", "description", "link"];
 
@@ -12,9 +12,7 @@ class RestaurantDetail extends BaseComponent {
 
   private getDetailTemplate(): string {
     if (!this.detailInfo) return ``;
-
     const { name, category, distance, description, isFavorite, link } = this.detailInfo;
-
     return /*html*/ `
       <div class="restaurant__info gap-4">
         <div class="flex justify-between">
@@ -51,7 +49,7 @@ class RestaurantDetail extends BaseComponent {
 
   private handleShowRestaurantDetailModal(event: CustomEvent) {
     const { detailInfo } = event.detail;
-    if (!isRestaurantItemType<RestaurantItem>(detailInfo, RESTAURANT_KEYS)) {
+    if (!isObjectWithKeys<RestaurantItem>(detailInfo, RESTAURANT_KEYS)) {
       return;
     }
 
