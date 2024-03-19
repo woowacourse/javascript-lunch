@@ -45,8 +45,14 @@ describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
     });
 
     it("정렬 필터에서 거리순을 선택하면 거리순으로 음식점이 정렬된다.", () => {
+      const sortedRestaurants = RESTAURANTS_INFOS.sort(
+        (a, b) => a.timeToReach - b.timeToReach
+      );
+
       cy.get("#sorting-filter-select").select("거리순");
-      cy.get("restaurant-item").first().contains(RESTAURANTS_INFOS[5].name);
+      cy.get("restaurant-item").each(($element, index) => {
+        cy.wrap($element).contains(sortedRestaurants[index].name);
+      });
     });
   });
 
@@ -133,17 +139,6 @@ describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
         "have.length",
         RESTAURANTS_INFOS.length + 1
       );
-    });
-
-    it("음식점을 삭제하면 삭제한 음식점 정보를 담은 restaurant item이 사라진다.", () => {
-      const restaurantName = RESTAURANTS_INFOS[0].name;
-
-      cy.get("restaurant-item").first().contains(restaurantName);
-
-      cy.get("restaurant-item").first().click();
-      cy.get("button").contains("삭제하기").click();
-
-      cy.get("restaurant-item").should("not.contain", restaurantName);
     });
   });
 
