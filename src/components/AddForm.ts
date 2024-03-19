@@ -208,8 +208,6 @@ const AddForm = () => {
       !isDescriptionValid
         ? descriptionTooltip.classList.add('tooltip--show')
         : descriptionTooltip.classList.remove('tooltip--show');
-
-      console.log(nameTooltip, descriptionTooltip);
     }
   };
 
