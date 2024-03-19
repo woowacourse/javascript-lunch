@@ -5,14 +5,22 @@ import { deleteRestaurantByName } from "../../domains/Restaurants";
 import { $ } from "../../utils/dom";
 import { isObjectWithKeys } from "../../utils/types";
 
-const RESTAURANT_KEYS = ["name", "category", "distance", "isFavorite", "description", "link"];
+const RESTAURANT_KEYS = [
+  "name",
+  "category",
+  "distance",
+  "isFavorite",
+  "description",
+  "link",
+];
 
 class RestaurantDetail extends BaseComponent {
   private detailInfo: RestaurantItem | null = null;
 
   private getDetailTemplate(): string {
     if (!this.detailInfo) return ``;
-    const { name, category, distance, description, isFavorite, link } = this.detailInfo;
+    const { name, category, distance, description, isFavorite, link } =
+      this.detailInfo;
     return /*html*/ `
       <div class="restaurant__info gap-4">
         <div class="flex justify-between">
@@ -27,7 +35,7 @@ class RestaurantDetail extends BaseComponent {
         ${
           link
             ? `<a href=${link} target="_blank" class="detail-link">${link}</a>`
-            : '<p class="text-body font-orange">참고 링크가 존재하지 않습니다.</p>'
+            : '<p class="text-body">참고 링크가 존재하지 않습니다.</p>'
         }
       </div>
     `;
@@ -61,16 +69,20 @@ class RestaurantDetail extends BaseComponent {
     document.addEventListener(
       MENU_APP_EVENTS.openRestaurantDetail,
       (event) => {
-        event instanceof CustomEvent && this.handleShowRestaurantDetailModal(event);
+        event instanceof CustomEvent &&
+          this.handleShowRestaurantDetailModal(event);
       },
       {
         once: true,
       }
     );
 
-    $<HTMLButtonElement>(`#detail-close-button`)?.addEventListener("click", () => {
-      this.emitEvent(MENU_APP_EVENTS.closeModal);
-    });
+    $<HTMLButtonElement>(`#detail-close-button`)?.addEventListener(
+      "click",
+      () => {
+        this.emitEvent(MENU_APP_EVENTS.closeModal);
+      }
+    );
 
     $<HTMLButtonElement>(`#delete-button`)?.addEventListener("click", () => {
       this.detailInfo && deleteRestaurantByName(this.detailInfo.name);
