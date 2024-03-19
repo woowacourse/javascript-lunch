@@ -38,7 +38,7 @@ class RestaurantDetailModal extends Modal {
         <category-icon category=${category}></category-icon>
         <h2 class="restaurant__name text-subtitle">${name}</h2>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-        <p class="restaurant__description text-body">${description || ''}</p>
+        <p class="text-body">${description || ''}</p>
         <a href="${reference || ''}">${reference || ''}</a>
       </div>
       <div class="button-container">
