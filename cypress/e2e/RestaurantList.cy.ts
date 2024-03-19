@@ -36,6 +36,16 @@ describe("음식점 목록 테스트", () => {
     cy.get(".restaurant-list-container").children().should("have.length", EXPECTED_RESTAURANT_LENGTH);
   });
 
+  it("사용자가 처음 방문할 경우 기본 제공 음식점 목록이 이름순으로 정렬된 상태로 보여진다", () => {
+    const EXPECTED_NAME_SEQUENCE = ["도스타코스 선릉점", "이태리키친", "잇쇼우", "친친", "피양콩 할마니", "호아빈 삼성점"];
+
+    cy.get(".restaurant-list-container")
+      .children()
+      .each((element, index) => {
+        cy.wrap(element.attr("name")).should("equal", EXPECTED_NAME_SEQUENCE[index]);
+      });
+  });
+
   it("사용자가 선택한 카테고리에 맞는 음식점 목록이 보여져야 한다.", () => {
     FILTERING_TEST_DATA.forEach(({ category, expectedRestaurantName }) => {
       const FILTERED_RESTAURANT_LIST = 1;
@@ -51,7 +61,7 @@ describe("음식점 목록 테스트", () => {
     cy.get(".restaurant-list-container").children().should("have.length", EXPECTED_RESTAURANT_LENGTH);
   });
 
-  it("사용자가 이름순 정렬 옵션을 선택할 경우, 이름순으로 목록이 정렬된다", () => {
+  it("사용자가 거리순 정렬 옵션을 선택할 경우, 거리순으로 목록이 정렬된다", () => {
     const EXPECTED_NAME_SEQUENCE = ["도스타코스 선릉점", "친친", "잇쇼우", "피양콩 할마니", "호아빈 삼성점", "이태리키친"];
 
     cy.get("select#sort-option-select").select("거리순");
@@ -63,7 +73,7 @@ describe("음식점 목록 테스트", () => {
       });
   });
 
-  it("사용자가 거리순 정렬 옵션을 선택할 경우, 거리순으로 음식점 목록이 정렬된다", () => {
+  it("사용자가 이름순 정렬 옵션을 선택할 경우, 이름순으로 음식점 목록이 정렬된다", () => {
     const EXPECTED_NAME_SEQUENCE = ["도스타코스 선릉점", "이태리키친", "잇쇼우", "친친", "피양콩 할마니", "호아빈 삼성점"];
 
     cy.get("select#sort-option-select").select("이름순");
