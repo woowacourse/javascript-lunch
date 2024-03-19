@@ -43,13 +43,13 @@ const makeRestaurantInfo = (target: EventTarget & IForm) => {
   };
 };
 
-export const updateRestaurantsToLocalStorage = (...restaurants: IRestaurantInfo[]) => {
+export function updateRestaurantsToLocalStorage(...restaurants: IRestaurantInfo[]) {
   const restaurantArr = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? '{}');
   restaurants.forEach((restaurant) => {
     restaurantArr[restaurant.id!] = restaurant;
   });
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurantArr));
-};
+}
 
 const reRenderRestaurants = () => {
   const RestaurantList = document.querySelector('.restaurant-list') as RestaurantCards;
