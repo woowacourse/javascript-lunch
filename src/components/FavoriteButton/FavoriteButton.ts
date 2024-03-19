@@ -32,7 +32,11 @@ class FavoriteButton extends Component {
   template(): string {
     return `
       <button class="favorite__button" type="button">
-        <img src=${this.#isFavorite ? favoriteFilledIcon : favoriteLinedIcon} alt="즐겨찾기">
+        ${
+          this.#isFavorite
+            ? `<img src=${favoriteFilledIcon} alt="즐겨찾기">`
+            : `<img src=${favoriteLinedIcon} alt="즐겨찾기 해제">`
+        }
       </button>
     `;
   }
