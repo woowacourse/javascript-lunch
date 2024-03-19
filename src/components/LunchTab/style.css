@@ -1,0 +1,11 @@
+.lunch-tab {
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px;
+  margin-top: 31px;
+}
+
+.tab--closed {
+  color: var(--grey-300);
+  border-bottom: 2px solid #d0d5dd;
+}

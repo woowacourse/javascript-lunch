@@ -1,6 +1,6 @@
 {
   "env": {
-    "es6": true,
+    "es2021": true,
     "node": true
   },
   "parser": "@typescript-eslint/parser",
@@ -8,14 +8,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": [
-    "airbnb-base",
-    "prettier",
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["airbnb-base", "prettier"],
   "rules": {
     "no-use-before-define": ["off"],
     "import/prefer-default-export": ["off"],
@@ -26,5 +19,15 @@
     "import/no-unresolved": ["off"],
     "class-methods-use-this": ["off"],
     "no-param-reassign": ["off"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["cypress/**"],
+      "rules": {
+        "max-lines-per-function": ["off"],
+        "spaced-comment": ["off"],
+        "no-undef": ["off"]
+      }
+    }
+  ]
 }

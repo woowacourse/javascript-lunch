@@ -1,4 +1,4 @@
-import { LOCALSTORAGE } from '../constants/localStorage';
+import { LOCAL_STORAGE_KEYS } from '../constants/localStorageKeys';
 import { SORTBY } from '../constants/sortBy';
 import { Category } from '../types/Category';
 import { Restaurant } from '../types/Restaurant';
@@ -7,22 +7,27 @@ import { SortBy } from '../types/SortBy';
 
 type RestaurantDataProviderType = {
   execute: ({ category, sortBy }: ExecuteProps) => Restaurants;
-  filterByCategory: ({ category, allRestaurants }: FilterByCategoryProps) => Restaurants;
+  filterByCategory: ({
+    category,
+    filterByLikedAllRestaurants,
+  }: FilterByCategoryProps) => Restaurants;
   sortRestaurants: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
   sortByCreatedAt: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
   sortByName: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
   compareNameOrder: (a: Restaurant, b: Restaurant) => number;
   sortByDistance: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
+  filterByLiked: ({ allRestaurants, liked }: FilterByLikedProps) => Restaurants;
 };
 
 type ExecuteProps = {
   category?: Category;
   sortBy?: SortBy;
+  liked: boolean;
 };
 
 type FilterByCategoryProps = {
   category?: Category;
-  allRestaurants: Restaurants;
+  filterByLikedAllRestaurants: Restaurants;
 };
 
 type SortRestaurantsProps = {
@@ -30,24 +35,32 @@ type SortRestaurantsProps = {
   filterRestaurants: Restaurants;
 };
 
+type FilterByLikedProps = {
+  allRestaurants: Restaurants;
+  liked: boolean;
+};
+
 /**
  * local에 저장된 key의 value 값을 array로 반환
  * @return {Array}
  */
 const RestaurantDataProvider: RestaurantDataProviderType = {
-  execute({ category, sortBy }: ExecuteProps): Restaurants {
-    const restaurants = localStorage.getItem(LOCALSTORAGE.restaurants);
+  execute({ category, sortBy, liked }: ExecuteProps): Restaurants {
+    const restaurants = localStorage.getItem(LOCAL_STORAGE_KEYS.restaurants);
     const allRestaurants = JSON.parse(restaurants ?? '[]');
 
+    const filterByLikedAllRestaurants = this.filterByLiked({ allRestaurants, liked });
     const filterRestaurants = category
-      ? this.filterByCategory({ category, allRestaurants })
-      : allRestaurants;
+      ? this.filterByCategory({ category, filterByLikedAllRestaurants })
+      : filterByLikedAllRestaurants;
     const sortedRestaurants = this.sortRestaurants({ sortBy, filterRestaurants });
     return sortedRestaurants;
   },
 
-  filterByCategory({ category, allRestaurants }: FilterByCategoryProps): Restaurants {
-    return Object.values(allRestaurants).filter((restaurant) => restaurant.category === category);
+  filterByCategory({ category, filterByLikedAllRestaurants }: FilterByCategoryProps): Restaurants {
+    return Object.values(filterByLikedAllRestaurants).filter(
+      (restaurant) => restaurant.category === category,
+    );
   },
 
   sortRestaurants({ sortBy, filterRestaurants }: SortRestaurantsProps): Restaurants {
@@ -89,6 +102,13 @@ const RestaurantDataProvider: RestaurantDataProviderType = {
       }
       return b.distance - a.distance;
     });
+  },
+
+  filterByLiked({ allRestaurants, liked }: FilterByLikedProps): Restaurants {
+    if (liked) {
+      return allRestaurants.filter((restaurant) => restaurant.liked === liked);
+    }
+    return allRestaurants;
   },
 };
 

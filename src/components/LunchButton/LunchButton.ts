@@ -6,7 +6,7 @@ interface LunchButtonProps {
   type: string;
 }
 
-const LUNCH_BUTTON = ({ text, color, type }: LunchButtonProps) => `
+const LUNCH_BUTTON_TEMPLATE = ({ text, color, type }: LunchButtonProps) => /* HTML */ `
   <button class="button button--${color} text-caption" type="${type}">${text}</button>
 `;
 
@@ -19,7 +19,9 @@ class LunchButton extends HTMLElement {
     const text = this.getAttribute('text') ?? '';
     const color = this.getAttribute('color') ?? '';
     const type = this.getAttribute('type') ?? '';
-    this.innerHTML = LUNCH_BUTTON({ text, color, type });
+    const classAttribute = this.getAttribute('class') ?? '';
+    this.classList.add(classAttribute);
+    this.innerHTML = LUNCH_BUTTON_TEMPLATE({ text, color, type });
   }
 }
 

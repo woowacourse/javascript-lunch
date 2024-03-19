@@ -1,12 +1,12 @@
-.modal {
+.register-modal {
   display: none;
 }
 
-.modal--open {
+.register-modal--open {
   display: block;
 }
 
-.modal-backdrop {
+.register-modal-backdrop {
   position: fixed;
   top: 0;
   right: 0;
@@ -16,7 +16,7 @@
   background: rgba(0, 0, 0, 0.35);
 }
 
-.modal-container {
+.register-modal-container {
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
@@ -28,7 +28,7 @@
   background: var(--grey-100);
 }
 
-.modal-title {
+.register-modal-title {
   margin-bottom: 36px;
 }
 

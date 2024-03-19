@@ -1,18 +1,19 @@
 import './reset.css';
 import './global.css';
 import './components/LunchHeader/LunchHeader';
-import './components/LunchItemFilter/LunchItemFilter';
-import './components/LunchItem/LunchItem';
-import './components/LunchItems/LunchItems';
+import './components/LunchTab/LunchTab';
+import './components/LunchTabAll/LunchTabAll';
+import './components/LunchTabLiked/LunchTabLiked';
 import './components/LunchRegisterModal/LunchRegisterModal';
 
 import DUMMY from './constants/dummy';
-import { LOCALSTORAGE } from './constants/localStorage';
+import { LOCAL_STORAGE_KEYS } from './constants/localStorageKeys';
 
-const LUNCH_APP = `
+const LUNCH_APP = /* HTML */ `
   <lunch-header></lunch-header>
-  <lunch-item-filter></lunch-item-filter>
-  <lunch-items></lunch-items>
+  <lunch-tab></lunch-tab>
+  <lunch-tab-all></lunch-tab-all>
+  <lunch-tab-liked class="lunch-tab-liked--closed"></lunch-tab-liked>
   <lunch-register-modal></lunch-register-modal>
 `;
 
@@ -22,8 +23,8 @@ class LunchApp extends HTMLElement {
   }
 
   setData() {
-    localStorage.getItem(LOCALSTORAGE.restaurants) ??
-      localStorage.setItem(LOCALSTORAGE.restaurants, JSON.stringify(DUMMY));
+    localStorage.getItem(LOCAL_STORAGE_KEYS.restaurants) ??
+      localStorage.setItem(LOCAL_STORAGE_KEYS.restaurants, JSON.stringify(DUMMY));
   }
 
   render() {

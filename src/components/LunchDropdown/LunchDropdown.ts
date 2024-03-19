@@ -3,11 +3,11 @@ import { SORTBY } from '../../constants/sortBy';
 import { Category, SortBy } from '../../types';
 import textInput from '../../utils/textInput';
 
-const LUNCH_DROPDOWN = `
+const LUNCH_DROPDOWN_TEMPLATE = /* HTML */ `
   <select name="dropdown" id="dropdown-filter" class="restaurant-filter"></select>
 `;
 
-const DROPDOWN_OPTION = (value: string) => `
+const DROPDOWN_OPTION_TEMPLATE = (value: string) => /* HTML */ `
   <option value=${value === '전체' ? '' : value}>${value}</option>
 `;
 
@@ -19,7 +19,7 @@ class LunchDropdown extends HTMLElement {
   }
 
   render(): void {
-    this.innerHTML = LUNCH_DROPDOWN;
+    this.innerHTML = LUNCH_DROPDOWN_TEMPLATE;
   }
 
   setEventListener(): void {
@@ -40,7 +40,7 @@ class LunchDropdown extends HTMLElement {
     const optionsAttribute = this.getAttribute('options');
     const optionItems: string[] = [];
     if (optionsAttribute === 'category') {
-      optionItems.push(DROPDOWN_OPTION('전체'));
+      optionItems.push(DROPDOWN_OPTION_TEMPLATE('전체'));
       this.handleOptionItems(optionItems, CATEGORIES);
     }
     if (optionsAttribute === 'sortBy') {
@@ -52,7 +52,7 @@ class LunchDropdown extends HTMLElement {
     optionItems.push(
       ...Object.values(object).map((element) => {
         const value = element as Category | SortBy;
-        return DROPDOWN_OPTION(value);
+        return DROPDOWN_OPTION_TEMPLATE(value);
       }),
     );
     textInput.setInnerHtml.call(this, '.restaurant-filter', optionItems);

@@ -4,7 +4,7 @@ import '../LunchDropdown/LunchDropdown';
 import LunchItems from '../LunchItems/LunchItems';
 import { Category, SortBy } from '../../types';
 
-const LUNCH_ITEM_FILTER = `
+const LUNCH_ITEM_FILTER_TEMPLATE = /* HTML */ `
   <section class="restaurant-filter-container">
     <lunch-dropdown options="category"></lunch-dropdown>
     <lunch-dropdown options="sortBy"></lunch-dropdown>
@@ -18,7 +18,7 @@ class LunchItemFilter extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = LUNCH_ITEM_FILTER;
+    this.innerHTML = LUNCH_ITEM_FILTER_TEMPLATE;
   }
 
   setEventListener() {
@@ -35,7 +35,7 @@ class LunchItemFilter extends HTMLElement {
       array.push(select?.value ?? '');
     });
     const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({ category: array[0] as Category, sortBy: array[1] as SortBy });
+    items.renderItems({ category: array[0] as Category, sortBy: array[1] as SortBy, liked: false });
   }
 }
 

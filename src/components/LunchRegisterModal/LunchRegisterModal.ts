@@ -7,11 +7,11 @@ import { RestaurantRegister } from '../../domain';
 import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
 
-const LUNCH_REGISTER_MODAL = /* html */ `
-<div class="modal">
-  <div class="modal-backdrop"></div>
-  <div class="modal-container">
-    <h2 class="modal-title text-title">새로운 음식점</h2>
+const LUNCH_REGISTER_MODAL_TEMPLATE = /* html */ `
+<div class="register-modal">
+  <div class="register-modal-backdrop"></div>
+  <div class="register-modal-container">
+    <h2 class="register-modal-title text-title">새로운 음식점</h2>
     <form>
       <lunch-form-item type="dropdown" name="category" label="카테고리"  required="true"></lunch-form-item>
       <lunch-form-item type="input" name="name" label="가게명"  required="true"></lunch-form-item>
@@ -19,8 +19,8 @@ const LUNCH_REGISTER_MODAL = /* html */ `
       <lunch-form-item type="textArea" name="description" label="설명" message="메뉴 등 추가 정보를 입력해 주세요." ></lunch-form-item>
       <lunch-form-item type="input" name="link" label="링크" message="매장 정보를 확인할 수 있는 링크를 입력해 주세요." ></lunch-form-item>
       <div class="button-container">
-        <lunch-button type="button" text="취소하기" color="secondary"></lunch-button>
-        <lunch-button text="추가하기" color="primary"></lunch-button>
+        <lunch-button type="button" text="취소하기" color="secondary" class="register-button--cancel"></lunch-button>
+        <lunch-button text="추가하기" color="primary" class="register-button--submit"></lunch-button>
       </div>
     </form>
 </div>
@@ -34,20 +34,20 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   render(): void {
-    this.innerHTML = LUNCH_REGISTER_MODAL;
+    this.innerHTML = LUNCH_REGISTER_MODAL_TEMPLATE;
   }
 
   setEventListener() {
-    const cancelButton = this.querySelector('.button--secondary');
+    const cancelButton = this.querySelector('.register-button--cancel');
     cancelButton?.addEventListener('click', () => {
       this.handleModalClose();
     });
   }
 
   handleModalClose() {
-    const modal = this.querySelector('.modal');
+    const modal = this.querySelector('.register-modal');
     if (modal?.className) {
-      modal.classList.remove('modal--open');
+      modal.classList.remove('register-modal--open');
     }
 
     this.querySelector('form')?.reset();
@@ -88,7 +88,7 @@ class LunchRegisterModal extends HTMLElement {
 
   handleRenderItems() {
     const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({});
+    items.renderItems({ liked: false });
   }
 }
 
