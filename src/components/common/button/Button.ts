@@ -2,7 +2,7 @@ import './Button.css';
 
 import type { IButtonAttributes } from '@/types/dom';
 
-import Component from '../core/Component';
+import Component from '../../core/Component';
 
 import dom from '@/utils/dom';
 

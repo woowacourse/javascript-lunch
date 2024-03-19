@@ -1,8 +1,8 @@
 import type RestaurantList from '@/domain/RestaurantList';
 import type { TCategory, TSorting, TTabMenu } from '@/types/restaurant';
 
+import Dropdown from './common/dropdown/Dropdown';
 import Component from './core/Component';
-import Dropdown from './dropdown/Dropdown';
 import Header from './header/Header';
 import RestaurantAddModal from './modal/restaurantAddModal/RestaurantAddModal';
 import RestaurantDetailModal from './modal/restaurantDetailModal/RestaurantDetailModal';

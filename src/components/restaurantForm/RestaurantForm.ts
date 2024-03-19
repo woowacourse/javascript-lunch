@@ -3,9 +3,9 @@ import type RestaurantList from '@/domain/RestaurantList';
 import type { FormElements, IFormInput } from '@/types/dom';
 import type { TCategory, TDistance, TFormValidRestaurant } from '@/types/restaurant';
 
-import Button from '../button/Button';
+import Button from '../common/button/Button';
+import Dropdown from '../common/dropdown/Dropdown';
 import Component from '../core/Component';
-import Dropdown from '../dropdown/Dropdown';
 
 import { ADD_BUTTON_ATTRIBUTE, CLOSE_BUTTON_ATTRIBUTE } from '@/constants/button';
 import { FORM_CATEGORY, FORM_CATEGORY_ATTRIBUTE, FORM_DISTANCE, FORM_DISTANCE_ATTRIBUTE } from '@/constants/filter';

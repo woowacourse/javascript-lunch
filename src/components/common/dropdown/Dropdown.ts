@@ -1,7 +1,7 @@
 import './Dropdown.css';
 import type { IOptionAttributes, IDropdownAttributes } from '@/types/dom';
 
-import Component from '../core/Component';
+import Component from '../../core/Component';
 
 import dom from '@/utils/dom';
 

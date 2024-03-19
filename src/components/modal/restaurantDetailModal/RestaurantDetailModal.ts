@@ -3,7 +3,7 @@ import './RestaurantDetailModal.css';
 import type RestaurantList from '@/domain/RestaurantList';
 import type { IRestaurant } from '@/types/restaurant';
 
-import Button from '../../button/Button';
+import Button from '../../common/button/Button';
 import createImageButton from '../../common/ImageButton';
 import Modal from '../Modal';
 
