@@ -15,12 +15,12 @@ const dom = {
     return element;
   },
 
-  getTargetElement($target: HTMLElement, selector: string): HTMLElement {
-    const element = $target.querySelector(selector);
+  getTargetElement<T extends HTMLElement>($target: HTMLElement, selector: string): T {
+    const element: T | null = $target.querySelector(selector);
     if (element === null) {
       throw Error(`${selector} is not found`);
     }
-    return element as HTMLElement;
+    return element;
   },
 
   create({ tagName, id, classNames, text, children }: IDomCreation) {
