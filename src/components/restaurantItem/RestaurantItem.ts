@@ -112,15 +112,10 @@ class RestaurantItem extends Component<IRestaurantProps> {
   getFavoriteButton() {
     const key = this.props.information.id;
     const imageButton = createImageButton({
-      buttonAttributes: {
-        id: `favorite_${key}`,
-        classNames: ['favorite'],
-        ariaLabel: '자주 가는 음식점 추가',
-      },
-      imageAttributes: {
-        src: this.props.information.isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
-        alt: '자주 가는 음식점 추가',
-      },
+      buttonId: `favorite_${key}`,
+      classNames: ['favorite'],
+      imageSrc: this.props.information.isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
+      alt: '자주 가는 음식점 추가',
       onClick: () => {
         if (this.props.handleClickFavorite) this.props.handleClickFavorite(key);
       },

@@ -93,14 +93,9 @@ class RestaurantDetailModal extends Modal<IDetailModalProps> {
     const $detailWrapper = dom.getElement('#detail-favorite-container');
     $detailWrapper.replaceChildren();
     const imageButton = createImageButton({
-      buttonAttributes: {
-        id,
-        ariaLabel: '자주 가는 음식점 등록',
-      },
-      imageAttributes: {
-        src: isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
-        alt: '자주 가는 음식점 등록',
-      },
+      buttonId: id,
+      imageSrc: isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
+      alt: '자주 가는 음식점 등록',
       onClick: () => {
         handleClickFavorite(id);
         this.renderDetailImageButton(id, !isFavorite, handleClickFavorite);
