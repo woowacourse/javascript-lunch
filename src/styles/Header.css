@@ -11,7 +11,7 @@
 }
 
 .gnb__title {
-  color: #fcfcfd;
+  color: var(--grey-100);
 }
 
 .gnb__button {
