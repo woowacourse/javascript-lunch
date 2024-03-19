@@ -23,18 +23,6 @@ class RestauranStorage {
     localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
   }
 
-  getCategory() {
-    return this.category;
-  }
-
-  getSortingStandard() {
-    return this.sortingStandard;
-  }
-
-  getFilter() {
-    return this.filter;
-  }
-
   private filterByCategory(restaurant: RestaurantType) {
     return this.category === "전체" || restaurant.category === this.category;
   }
@@ -49,6 +37,18 @@ class RestauranStorage {
     } else {
       return 1;
     }
+  }
+
+  getCategory() {
+    return this.category;
+  }
+
+  getSortingStandard() {
+    return this.sortingStandard;
+  }
+
+  getFilter() {
+    return this.filter;
   }
 
   getRestaurants(): RestaurantType[] {

@@ -1,33 +1,22 @@
 import Component from "../common/Component";
 import RestauranStorage from "../domain/RestaurantStorage";
 import { Category, SortingStandard } from "../types";
+import { CATEGORIES } from "../constants";
 
 export default class Selects extends Component {
   render() {
     const category = RestauranStorage.getCategory();
     const sortingStandard = RestauranStorage.getSortingStandard();
-
+    console.log(category);
     return /*html*/ `
         <select name="category" class="category-select">
             <option value="전체">전체</option>
-            <option ${
-              category === "한식" ? "selected" : ""
-            } value="한식">한식</option>
-            <option ${
-              category === "중식" ? "selected" : ""
-            } value="중식">중식</option>
-            <option ${
-              category === "일식" ? "selected" : ""
-            } value="일식">일식</option>
-            <option ${
-              category === "양식" ? "selected" : ""
-            } value="양식">양식</option>
-            <option ${
-              category === "아시안" ? "selected" : ""
-            } value="아시안">아시안</option>
-            <option ${
-              category === "기타" ? "selected" : ""
-            } value="기타">기타</option>
+            ${CATEGORIES.map(
+              (CATEGORY) =>
+                `<option ${
+                  category === CATEGORY ? "selected" : ""
+                }>${CATEGORY}</option>`
+            ).join("")}
         </select>
 
         <!-- 정렬 셀렉트 박스 -->
