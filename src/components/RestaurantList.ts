@@ -79,24 +79,8 @@ export default class RestaurantList extends EventComponent {
   protected getTemplate(): string {
     const favoriteRestaurantNames = favoriteStore.get();
 
-    const restaurantInfos = this.restaurants.getDetails();
-
-    const restaurantInfosFilteredByFavorite = this.filterByFavorite(
-      restaurantInfos,
-      favoriteRestaurantNames,
-      this.isFavoriteTab
-    );
-
-    const restaurantInfosFilteredByCategory = this.filterByCategory(
-      restaurantInfosFilteredByFavorite,
-      this.categoryFilter,
-      this.isFavoriteTab
-    );
-
-    const displayingRestaurantInfos = this.sort(
-      restaurantInfosFilteredByCategory,
-      this.sortFilter,
-      this.isFavoriteTab
+    const displayingRestaurantInfos = this.filterRestaurantInfos(
+      favoriteRestaurantNames
     );
 
     return `
@@ -196,6 +180,44 @@ export default class RestaurantList extends EventComponent {
     });
   }
 
+  private filterRestaurantInfos(favoriteRestaurantNames: string[]) {
+    const restaurantInfos = this.restaurants.getDetails();
+
+    const restaurantInfosFilteredByFavorite = this.filterByFavorite(
+      restaurantInfos,
+      favoriteRestaurantNames,
+      this.isFavoriteTab
+    );
+
+    const restaurantInfosFilteredByCategory = this.filterByCategory(
+      restaurantInfosFilteredByFavorite,
+      this.categoryFilter,
+      this.isFavoriteTab
+    );
+
+    const displayingRestaurantInfos = this.sort(
+      restaurantInfosFilteredByCategory,
+      this.sortFilter,
+      this.isFavoriteTab
+    );
+
+    return displayingRestaurantInfos;
+  }
+
+  private filterByFavorite(
+    restaurantInfos: RestaurantInfo[],
+    favoriteRestaurantNames: string[],
+    isFilterOn: boolean
+  ): RestaurantInfo[] {
+    if (!isFilterOn) {
+      return restaurantInfos;
+    }
+
+    return restaurantInfos.filter(({ name }) =>
+      favoriteRestaurantNames.includes(name)
+    );
+  }
+
   private filterByCategory(
     restaurantInfos: RestaurantInfo[],
     categoryFilter: CategoryFilter,
@@ -236,20 +258,6 @@ export default class RestaurantList extends EventComponent {
     }
 
     return restaurantInfos;
-  }
-
-  private filterByFavorite(
-    restaurantInfos: RestaurantInfo[],
-    favoriteRestaurantNames: string[],
-    isFilterOn: boolean
-  ): RestaurantInfo[] {
-    if (!isFilterOn) {
-      return restaurantInfos;
-    }
-
-    return restaurantInfos.filter(({ name }) =>
-      favoriteRestaurantNames.includes(name)
-    );
   }
 
   private findRestaurantInfoByName(restaurantName: string) {
