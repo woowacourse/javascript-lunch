@@ -55,7 +55,7 @@ export const INVALID_TEST_DATA = [
       description: "",
       link: "",
     },
-    errorMessage: ERROR_MESSAGES.invalidCategory,
+    errorMessage: ERROR_MESSAGES.invalidCategory, // 카테고리 입력 누락
   },
   {
     invalidData: {
@@ -65,17 +65,17 @@ export const INVALID_TEST_DATA = [
       description: "",
       link: "",
     },
-    errorMessage: ERROR_MESSAGES.invalidRestaurantName,
+    errorMessage: ERROR_MESSAGES.invalidRestaurantName, // 식당 이름 입력 누락
   },
   {
     invalidData: {
-      name: "점심뭐먹을지고민하지마세요",
+      name: "오늘점심은과연무엇일까",
       category: "일식",
       distance: 10,
       description: "",
       link: "",
     },
-    errorMessage: ERROR_MESSAGES.invalidRestaurantName,
+    errorMessage: ERROR_MESSAGES.invalidRestaurantName, // 식당 이름 길이 제한(10) 초과
   },
   {
     invalidData: {
@@ -85,7 +85,7 @@ export const INVALID_TEST_DATA = [
       description: "",
       link: "",
     },
-    errorMessage: ERROR_MESSAGES.invalidDistance,
+    errorMessage: ERROR_MESSAGES.invalidDistance, // 거리(도보 이동 시간) 입력 누락
   },
   {
     invalidData: {
@@ -93,10 +93,10 @@ export const INVALID_TEST_DATA = [
       category: "양식",
       distance: 5,
       description:
-        "멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴",
+        "그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그릴멕시칸 캐주얼 그",
       link: "",
     },
-    errorMessage: ERROR_MESSAGES.invalidDescriptionLength,
+    errorMessage: ERROR_MESSAGES.invalidDescriptionLength, // 식당 설명 입력 길이 제한(300) 초과
   },
 ];
 
