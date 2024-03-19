@@ -7,7 +7,7 @@ import './RestaurantItem.css';
 class RestaurantItem extends Component {
   #key: number;
   #restaurant: IRestaurant;
-  #modalState = false;
+  #modalOpenState = false;
 
   constructor() {
     super();
@@ -33,11 +33,11 @@ class RestaurantItem extends Component {
   }
 
   #updateModalState(): void {
-    $setAttribute(this, 'restaurant-detail-modal', 'open', `${this.#modalState}`);
+    $setAttribute(this, 'restaurant-detail-modal', 'open', `${this.#modalOpenState}`);
   }
 
   #openModal(): void {
-    this.#modalState = true;
+    this.#modalOpenState = true;
     this.#updateModalState();
   }
 
