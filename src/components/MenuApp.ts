@@ -1,5 +1,4 @@
 import BaseComponent from "./BaseComponent";
-import { MENU_APP_EVENTS } from "../constants/event";
 import { initRestaurantStorage } from "../domains/Restaurants";
 
 class MenuApp extends BaseComponent {
@@ -17,12 +16,10 @@ class MenuApp extends BaseComponent {
         <restaurant-list></restaurant-list>
       </main>
       <modal-wrapper 
-        open-type=${MENU_APP_EVENTS.openAddForm} 
         id='add-form'>
         <restaurant-add-form></restaurant-add-form>
       </modal-wrapper>
       <modal-wrapper 
-        open-type=${MENU_APP_EVENTS.openRestaurantDetail} 
         id="restaurant-detail" >
         <restaurant-detail></restaurant-detail>
       </modal-wrapper>
