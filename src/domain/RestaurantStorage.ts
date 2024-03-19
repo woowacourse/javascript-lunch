@@ -1,24 +1,27 @@
 import { RestaurantType, Category, SortingStandard } from "../types";
 import { RESTAURANTS } from "../constants";
 
-const getResturantsFromLocalStorage = (): RestaurantType[] => {
-  if (!localStorage.getItem(RESTAURANTS)) {
-    localStorage.setItem(RESTAURANTS, JSON.stringify([]));
-  }
-
-  const restaurants = localStorage.getItem(RESTAURANTS) as string;
-  return JSON.parse(restaurants);
-};
-
-const addRestaurantToLocalStorage = (newRestuarant: RestaurantType) => {
-  const newRestaurants = [...getResturantsFromLocalStorage(), newRestuarant];
-  localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
-};
-
 class RestauranStorage {
   category: Category | "전체" = "전체";
   sortingStandard: SortingStandard = "name";
   filter = "all";
+
+  private getResturantsFromLocalStorage(): RestaurantType[] {
+    if (!localStorage.getItem(RESTAURANTS)) {
+      localStorage.setItem(RESTAURANTS, JSON.stringify([]));
+    }
+
+    const restaurants = localStorage.getItem(RESTAURANTS) as string;
+    return JSON.parse(restaurants);
+  }
+
+  private addRestaurantToLocalStorage(newRestuarant: RestaurantType) {
+    const newRestaurants = [
+      ...this.getResturantsFromLocalStorage(),
+      newRestuarant,
+    ];
+    localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
+  }
 
   getCategory() {
     return this.category;
@@ -32,27 +35,32 @@ class RestauranStorage {
     return this.filter;
   }
 
+  private filterByCategory(restaurant: RestaurantType) {
+    return this.category === "전체" || restaurant.category === this.category;
+  }
+
+  private filterByBookmark(restaurant: RestaurantType) {
+    return this.filter === "all" || restaurant.bookmark === true;
+  }
+
+  private CompareFunction(a: RestaurantType, b: RestaurantType) {
+    if (a[this.sortingStandard] < b[this.sortingStandard]) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
+
   getRestaurants(): RestaurantType[] {
-    const restaurants: RestaurantType[] = getResturantsFromLocalStorage();
+    const restaurants: RestaurantType[] = this.getResturantsFromLocalStorage();
     return restaurants
-      .filter(
-        (restaurant) =>
-          this.category === "전체" || restaurant.category === this.category
-      )
-      .filter(
-        (restaurant) => this.filter === "all" || restaurant.bookmark === true
-      )
-      .toSorted((a, b) => {
-        if (a[this.sortingStandard] < b[this.sortingStandard]) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
+      .filter(this.filterByCategory)
+      .filter(this.filterByBookmark)
+      .toSorted(this.CompareFunction);
   }
 
   addRestaurant(restaurant: RestaurantType) {
-    addRestaurantToLocalStorage(restaurant);
+    this.addRestaurantToLocalStorage(restaurant);
   }
 
   changeCategory(newCategory: Category | "전체") {
@@ -68,17 +76,19 @@ class RestauranStorage {
   }
 
   toggleBookmark(name: string) {
-    const newRestaurants = getResturantsFromLocalStorage().map((restaurant) => {
-      if (restaurant.name === name) {
-        return { ...restaurant, bookmark: !restaurant.bookmark };
+    const newRestaurants = this.getResturantsFromLocalStorage().map(
+      (restaurant) => {
+        if (restaurant.name === name) {
+          return { ...restaurant, bookmark: !restaurant.bookmark };
+        }
+        return restaurant;
       }
-      return restaurant;
-    });
+    );
     localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
   }
 
   deleteRestaurant(name: string) {
-    const newRestaurants = getResturantsFromLocalStorage().filter(
+    const newRestaurants = this.getResturantsFromLocalStorage().filter(
       (restaurant) => restaurant.name !== name
     );
     localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
