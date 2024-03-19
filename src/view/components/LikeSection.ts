@@ -3,12 +3,16 @@ import { addOptionsToSelect } from './Dropdown';
 
 export const [ALL_RESTAURANTS, LIKE_RESTAURANTS] = ['all-restaurants', 'like-restaurants'] as const;
 
+interface IHTMLWithValue extends HTMLElement {
+  value: string;
+}
+
 function changeRestaurantsCardsAttribute(newAttribute: string) {
   const restaurantCards = document.querySelector('.restaurant-list') as HTMLElement;
   restaurantCards.setAttribute('data-like', newAttribute);
 }
 
-function changeColorCompareValue(currentElement: HTMLElement & { value: string }, value: string) {
+function changeColorCompareValue(currentElement: IHTMLWithValue, value: string) {
   if (currentElement?.value && currentElement.value === value) {
     currentElement.classList.remove('like-section-normal');
     currentElement.classList.add('like-section-highlight');
@@ -21,7 +25,7 @@ function changeColorCompareValue(currentElement: HTMLElement & { value: string }
 
 function changeLikeSectionColor(value: string, section: HTMLElement) {
   for (let i = 0; i < section.children.length; i += 1) {
-    const currentElement = section.children[i] as HTMLElement & { value: string };
+    const currentElement = section.children[i] as IHTMLWithValue;
     changeColorCompareValue(currentElement, value);
   }
 }
@@ -53,7 +57,7 @@ function setSortAndFilterAttribute(currentElement: string) {
 }
 
 function handleClickLikeButton(e: Event) {
-  const clickedElement = e.target as HTMLElement & { value: string };
+  const clickedElement = e.target as IHTMLWithValue;
   const TEST_BTN_SELECTOR = 'button';
   if (clickedElement?.matches(TEST_BTN_SELECTOR)) {
     const { value } = clickedElement;
