@@ -1,7 +1,8 @@
 import BaseComponent from "../BaseComponent";
 import { MENU_APP_EVENTS } from "../../constants/event";
 import { CategoryString, SortOptionString } from "../../types/menu";
-import { isValidOption } from "../../utils/types";
+import { isArrayElement } from "../../utils/types";
+import { CATEGORIES, SORT_TYPE } from "../../constants/menu";
 
 interface OptionDetail {
   type: string;
@@ -21,10 +22,7 @@ class OptionSelector extends BaseComponent {
   }
 
   private isValidOptionType(value: string): value is CategoryString | SortOptionString {
-    return (
-      isValidOption<CategoryString>(["전체", "한식", "아시안", "일식", "중식", "양식", "기타"], value) ||
-      isValidOption<SortOptionString>(["거리순", "이름순"], value)
-    );
+    return isArrayElement<CategoryString>(Object.values(CATEGORIES), value) || isArrayElement<SortOptionString>(Object.values(SORT_TYPE), value);
   }
 
   private handleChangeOption(element: HTMLSelectElement) {
