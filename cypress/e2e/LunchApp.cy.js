@@ -118,4 +118,25 @@ describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
       cy.get("restaurant-item").should("not.contain", restaurantName);
     });
   });
+
+  context("로컬 스토리지에 데이터가 없는 경우", () => {
+    beforeEach(() => {
+      cy.viewport(550, 1000);
+      cy.visit("http://localhost:8080/");
+      localStorage.removeItem("restaurants");
+    });
+
+    it("음식점 항목이 존재하지 않는다.", () => {
+      cy.get("restaurant-item").should("not.exist");
+    });
+
+    it("등록된 음식점이 없다는 메시지가 보인다.", () => {
+      cy.get(".no-restaurant-item-message").should("be.visible");
+    });
+
+    it("자주 가는 음식점 탭을 클릭하면 등록된 음식점이 없다는 메시지가 보인다.", () => {
+      cy.get("#tab-item-favorite").click();
+      cy.get(".no-restaurant-item-message").should("be.visible");
+    });
+  });
 });
