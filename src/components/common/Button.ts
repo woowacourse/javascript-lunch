@@ -4,7 +4,7 @@ type Props = {
   variant: 'primary' | 'secondary';
   type?: 'button';
   isDisabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const Button = ({ id, text, variant, type, isDisabled = false, onClick }: Props) => {
@@ -17,7 +17,10 @@ const Button = ({ id, text, variant, type, isDisabled = false, onClick }: Props)
   button.id = id;
 
   button.disabled = isDisabled;
-  button.addEventListener('click', onClick);
+
+  if (typeof onClick === 'function') {
+    button.addEventListener('click', onClick);
+  }
 
   const create = () => button;
 

@@ -121,7 +121,8 @@ const AddForm = () => {
       id: 'cancelButton',
       text: '닫기',
       variant: 'secondary',
-      type: 'button'
+      type: 'button',
+      onClick: closeModal
     }).create();
 
     const submitButton = Button({

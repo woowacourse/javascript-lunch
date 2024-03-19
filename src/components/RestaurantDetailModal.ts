@@ -45,28 +45,15 @@ const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
     return buttonContainerDiv;
   };
 
-  const setupModalActions = (
-    buttonContainerDiv: HTMLElement,
-    modalComponent: HTMLElement
-  ): void => {
-    const deleteRestaurant = (): void => {
-      restaurantAPI.delete(restaurantInfo.name);
-      restaurantList.updateRestaurants();
-      closeModal();
-    };
+  const deleteRestaurant = (): void => {
+    restaurantAPI.delete(restaurantInfo.name);
+    restaurantList.updateRestaurants();
+    closeModal();
+  };
 
-    const closeModal = (): void => {
-      modalComponent.classList.remove('modal--open');
-      modalComponent.remove();
-    };
-
-    buttonContainerDiv
-      .querySelector('#restaurant-detail-modal_delete-button')
-      ?.addEventListener('click', deleteRestaurant);
-
-    buttonContainerDiv
-      .querySelector('#restaurant-detail-modal_close-button')
-      ?.addEventListener('click', closeModal);
+  const closeModal = (): void => {
+    modalComponent.classList.remove('modal--open');
+    modalComponent.remove();
   };
 
   const assembleButtonContainer = () => {
@@ -77,7 +64,8 @@ const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
         id: 'restaurant-detail-modal_delete-button',
         text: '삭제하기',
         variant: 'secondary',
-        type: 'button'
+        type: 'button',
+        onClick: deleteRestaurant
       }).create()
     );
 
@@ -85,7 +73,8 @@ const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
       Button({
         id: 'restaurant-detail-modal_close-button',
         text: '닫기',
-        variant: 'primary'
+        variant: 'primary',
+        onClick: closeModal
       }).create()
     );
 
@@ -110,8 +99,6 @@ const RestaurantDetailModal = ({ restaurantInfo, restaurantList }: Props) => {
       buttonContainer
     ]
   }).create();
-
-  setupModalActions(buttonContainer, modalComponent);
 
   const create = () => modalComponent;
 
