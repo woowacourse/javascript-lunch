@@ -1,6 +1,6 @@
 import { IRestaurantInfo } from './Restaurant';
 
-const mockingData: readonly IRestaurantInfo[] = Object.freeze([
+const mockingData: readonly IRestaurantInfo[] = [
   {
     id: 0,
     category: '한식',
@@ -60,6 +60,6 @@ const mockingData: readonly IRestaurantInfo[] = Object.freeze([
     description: '멕시칸 캐주얼 그릴',
     isLiked: false,
   },
-]);
+];
 
 export default mockingData;

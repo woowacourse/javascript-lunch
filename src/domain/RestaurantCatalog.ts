@@ -1,7 +1,7 @@
 import { ERROR_PREFIX, RESTAURANT_ERROR_MESSAGES } from '../constants/errorMessage';
 import Restaurant, { IRestaurantInfo, Category } from './Restaurant';
 
-export const SORT_CONDITION = Object.freeze(['이름순', '거리순'] as const);
+export const SORT_CONDITION = ['이름순', '거리순'] as const;
 
 export const ALL_CATEGORY = '전체';
 

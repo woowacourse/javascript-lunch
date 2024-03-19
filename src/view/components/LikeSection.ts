@@ -1,7 +1,7 @@
 import '../../css/likeSection.css';
 import { addOptionsToSelect } from './Dropdown';
 
-export const [ALL_RESTAURANTS, LIKE_RESTAURANTS] = Object.freeze(['all-restaurants', 'like-restaurants']);
+export const [ALL_RESTAURANTS, LIKE_RESTAURANTS] = ['all-restaurants', 'like-restaurants'] as const;
 
 function changeRestaurantsCardsAttribute(newAttribute: string) {
   const restaurantCards = document.querySelector('.restaurant-list') as HTMLElement;
