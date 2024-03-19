@@ -26,10 +26,10 @@ class RestaurantAddModal extends Modal<IAddModalProps> {
   }
 
   handleResetModal() {
-    this.toggle();
     dom.getElement('#error-link').classList.add('hidden');
     const $form = dom.getElement('form') as HTMLFormElement;
     $form.reset();
+    this.toggle();
   }
 }
 

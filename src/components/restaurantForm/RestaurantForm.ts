@@ -62,13 +62,17 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     this.$target.innerHTML += this.template();
     this.$target = dom.getTargetElement(this.$target, 'form');
     this.createModalFormSelect();
-    this.createModalFormButton(this.props.restaurantList);
+    this.createModalFormButton();
   }
 
   setEvent() {
     const restaurantInputs = this.getFormInputTag();
     this.$target.addEventListener('input', () => {
       this.handleFormInput(restaurantInputs);
+    });
+    this.$target.addEventListener('submit', (e: SubmitEvent) => {
+      this.handleAddRestaurant(e);
+      this.props.handleResetModal();
     });
   }
 
@@ -77,10 +81,10 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     this.createDistanceDropdown();
   }
 
-  createModalFormButton(restaurantList: RestaurantList) {
+  createModalFormButton() {
     const $buttonContainer = dom.getElement('.button-container');
     this.createModalCloseButton($buttonContainer);
-    this.createModalAddButton($buttonContainer, restaurantList);
+    this.createModalAddButton($buttonContainer);
   }
 
   createCategoryDropdown() {
@@ -109,21 +113,14 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
 
   createModalCloseButton($buttonContainer: HTMLElement) {
     new Button($buttonContainer, {
-      kind: 'close',
       attributes: CLOSE_BUTTON_ATTRIBUTE,
-      handleCloseModal: this.props.handleResetModal,
+      onClick: this.props.handleResetModal,
     });
   }
 
-  createModalAddButton($buttonContainer: HTMLElement, restaurantList: RestaurantList) {
+  createModalAddButton($buttonContainer: HTMLElement) {
     new Button($buttonContainer, {
-      kind: 'add',
       attributes: ADD_BUTTON_ATTRIBUTE,
-      restaurantList,
-      handleCloseModal: this.props.handleResetModal,
-      handleAddRestaurant: (e: SubmitEvent) => {
-        this.handleAddRestaurant(e);
-      },
     });
   }
 
@@ -161,7 +158,6 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
 
     this.props.restaurantList.add(restaurantInformation);
     this.dispatchSelectEvent();
-    this.props.handleResetModal();
   }
 
   getRestaurantFormData($restaurantForm: HTMLFormElement) {

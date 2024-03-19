@@ -48,23 +48,6 @@ class RestaurantDetailModal extends Modal<IDetailModalProps> {
   render() {
     const $modalContainer = dom.getElement('#detail-modal-container');
     $modalContainer.innerHTML += this.template();
-
-    const $buttonContainer = dom.getElement('#detail-button-container');
-    new Button($buttonContainer, {
-      kind: 'delete',
-      attributes: MODAL_DELETE_BUTTON_ATTRIBUTE,
-      handleCloseModal: this.toggle.bind(this),
-      handleDeleteRestaurant: (id: string) => {
-        this.props.restaurantList.deleteRestaurant(id);
-        this.dispatchSelectEvent();
-        this.toggle();
-      },
-    });
-    new Button($buttonContainer, {
-      kind: 'close',
-      attributes: MODAL_CLOSE_BUTTON_ATTRIBUTE,
-      handleCloseModal: this.toggle.bind(this),
-    });
   }
 
   dispatchSelectEvent() {
@@ -89,6 +72,21 @@ class RestaurantDetailModal extends Modal<IDetailModalProps> {
     linkTag.textContent = referenceLink ?? '';
 
     this.renderDetailImageButton(id, isFavorite, handleClickFavorite);
+
+    const $buttonContainer = dom.getElement('#detail-button-container');
+    $buttonContainer.replaceChildren();
+    new Button($buttonContainer, {
+      attributes: MODAL_DELETE_BUTTON_ATTRIBUTE,
+      onClick: () => {
+        this.props.restaurantList.deleteRestaurant(id);
+        this.dispatchSelectEvent();
+        this.toggle();
+      },
+    });
+    new Button($buttonContainer, {
+      attributes: MODAL_CLOSE_BUTTON_ATTRIBUTE,
+      onClick: this.toggle.bind(this),
+    });
   }
 
   renderDetailImageButton(id: string, isFavorite: boolean, handleClickFavorite: (id: string) => void) {
