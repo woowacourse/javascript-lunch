@@ -6,7 +6,7 @@ import asianIcon from '../assets/category-asian.png';
 import westernIcon from '../assets/category-western.png';
 import etcIcon from '../assets/category-etc.png';
 
-const CATEGORY_ICON = {
+const CATEGORY_ICON: Record<TCategory, string> = {
   한식: koreanIcon,
   중식: chineseIcon,
   일식: japaneseIcon,
