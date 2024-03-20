@@ -30,7 +30,7 @@ export default class App extends Component<HTMLDivElement, AppProps> {
         `;
   }
 
-  componentDidMount(): void {
+  setEvents(): void {
     const $header = document.querySelector<HTMLDivElement>(".gnb");
     const $restaurants = document.querySelector<HTMLDivElement>(".restaurants");
     const $filter = document.querySelector<HTMLDivElement>(".filter-container");

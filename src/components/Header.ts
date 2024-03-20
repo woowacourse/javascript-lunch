@@ -15,7 +15,7 @@ export default class Header extends Component<HTMLElement, HeaderProps> {
     `;
   }
 
-  componentDidMount(): void {
+  setEvents(): void {
     if (!this.props) return;
     const { loadRestaurant } = this.props;
     const $gnbButton =

@@ -85,7 +85,7 @@ export default class FormModal extends Component<HTMLElement, FormModalProps> {
         `;
   }
 
-  componentDidMount(): void {
+  setEvents(): void {
     if (!this.props) return;
 
     const { loadRestaurant } = this.props;

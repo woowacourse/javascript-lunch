@@ -52,7 +52,7 @@ export default class Restaurant extends Component<
         `;
   }
 
-  componentDidMount(): void {
+  setEvents(): void {
     if (!this.props) return;
     const { restaurant, loadRestaurant } = this.props;
     const $bookmark = document.querySelector<HTMLImageElement>(

@@ -18,7 +18,7 @@ export default class Filter extends Component<HTMLDivElement, FilterProps> {
         `;
   }
 
-  componentDidMount(): void {
+  setEvents(): void {
     if (!this.props) return;
     const { loadRestaurant } = this.props;
     const $allFilter = document.querySelector<HTMLDivElement>(".filter.all");

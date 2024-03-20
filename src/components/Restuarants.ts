@@ -24,7 +24,7 @@ export default class Restaurants extends Component<
     `;
   }
 
-  componentDidMount(): void {
+  setEvents(): void {
     if (!this.props) return;
 
     const { restaurants, loadRestaurant } = this.props;

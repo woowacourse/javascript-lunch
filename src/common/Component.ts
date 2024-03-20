@@ -12,7 +12,13 @@ export default class Component<T extends HTMLElement, K> {
   initialize() {
     if (!this.$target) return;
     this.$target.innerHTML = this.render();
-    this.componentDidMount();
+    this.setEvents();
+  }
+
+  componentDidUpdate() {
+    if (!this.$target) return;
+    this.$target.innerHTML = this.render();
+    this.setEvents();
   }
 
   setup() {}
@@ -20,10 +26,10 @@ export default class Component<T extends HTMLElement, K> {
   render() {
     return ``;
   }
-  componentDidMount() {}
+  setEvents() {}
 
   setState(newState: unknown) {
     this.state = newState;
-    this.initialize();
+    this.componentDidUpdate();
   }
 }

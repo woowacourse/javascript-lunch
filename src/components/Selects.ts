@@ -34,7 +34,7 @@ export default class Selects extends Component<HTMLDivElement, SelectsProps> {
         `;
   }
 
-  componentDidMount(): void {
+  setEvents(): void {
     if (!this.props) return;
     const { loadRestaurant } = this.props;
 
