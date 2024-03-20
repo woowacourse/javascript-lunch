@@ -142,6 +142,40 @@ describe("LunchApp(점심 뭐 먹지) E2E 테스트", () => {
     });
   });
 
+  context("음식점 등록 시 필수 요소를 입력하지 않은 경우", () => {
+    it("이름을 입력하지 않으면 음식점이 등록되지 않는다.", () => {
+      cy.get("#add-button").click();
+      cy.get("restaurant-form").should("be.visible");
+
+      cy.get(".category-select").select("한식");
+      // skip typing restaurant name
+      cy.get(".time-to-reach-select").select("10");
+      cy.get("#description").type("맛있는 음식점입니다.");
+      cy.get("#link").type("https://www.naver.com/newrestaurant");
+
+      cy.get("button").contains("추가하기").click();
+
+      const previousRestaurantCount = RESTAURANTS_INFOS.length;
+      cy.get("restaurant-item").should("have.length", previousRestaurantCount);
+    });
+
+    it("거리(도보 시간)을 입력하지 않으면 음식점이 등록되지 않는다.", () => {
+      cy.get("#add-button").click();
+      cy.get("restaurant-form").should("be.visible");
+
+      cy.get(".category-select").select("한식");
+      cy.get("#restaurant-name").type("새로운 음식점");
+      // skip selecting timeToReach
+      cy.get("#description").type("맛있는 음식점입니다.");
+      cy.get("#link").type("https://www.naver.com/newrestaurant");
+
+      cy.get("button").contains("추가하기").click();
+
+      const previousRestaurantCount = RESTAURANTS_INFOS.length;
+      cy.get("restaurant-item").should("have.length", previousRestaurantCount);
+    });
+  });
+
   context("로컬 스토리지에 데이터가 없는 경우", () => {
     beforeEach(() => {
       cy.viewport(550, 1000);
