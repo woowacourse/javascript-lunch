@@ -4,7 +4,6 @@ import ModalController from "./ModalController";
 import RenderController from "./RenderController";
 import RestaurantListController from "./RestaurantListController";
 import StatusController from "./StatusController";
-import TabBar from "../view/components/TabBar/TabBar";
 import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class MainController {
