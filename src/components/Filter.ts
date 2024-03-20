@@ -10,10 +10,10 @@ export default class Filter extends Component<HTMLDivElement, FilterProps> {
     const filter = RestauranStorage.getFilter();
     return /*html*/ `
             <div class="filter all text-body ${
-              filter === "all" && "filter-on"
+              filter === "all" ? "filter-on" : ""
             }">모든 음식점</div> 
             <div class="filter bookmark text-body ${
-              filter === "bookmark" && "filter-on"
+              filter === "bookmark" ? "filter-on" : ""
             }" >자주 가는 음식점</div>
         `;
   }

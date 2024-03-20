@@ -24,7 +24,6 @@ class RestauranStorage {
   }
 
   private filterByCategory(restaurant: RestaurantType) {
-    console.log(this.category);
     return this.category === "전체" || restaurant.category === this.category;
   }
 
@@ -55,9 +54,9 @@ class RestauranStorage {
   getRestaurants(): RestaurantType[] {
     const restaurants: RestaurantType[] = this.getResturantsFromLocalStorage();
     return restaurants
-      .filter(this.filterByCategory)
-      .filter(this.filterByBookmark)
-      .toSorted(this.CompareFunction);
+      .filter(this.filterByCategory.bind(this))
+      .filter(this.filterByBookmark.bind(this))
+      .toSorted(this.CompareFunction.bind(this));
   }
 
   addRestaurant(restaurant: RestaurantType) {
@@ -95,5 +94,4 @@ class RestauranStorage {
     localStorage.setItem(RESTAURANTS, JSON.stringify(newRestaurants));
   }
 }
-
 export default new RestauranStorage();

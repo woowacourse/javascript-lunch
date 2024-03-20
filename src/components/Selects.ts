@@ -11,7 +11,6 @@ export default class Selects extends Component<HTMLDivElement, SelectsProps> {
   render() {
     const category = RestauranStorage.getCategory();
     const sortingStandard = RestauranStorage.getSortingStandard();
-    console.log(category);
     return /*html*/ `
         <select name="category" class="category-select">
             <option value="전체">전체</option>

@@ -99,38 +99,38 @@ export default class FormModal extends Component<HTMLElement, FormModalProps> {
       e.preventDefault();
       const formData = new FormData($restaurantForm);
       const category = formData.get("category");
-      try {
-        if (!isCategory(category)) {
-          throw new Error("잘못된 카테고리입니다.");
-        }
-      } catch (error: any) {
-        alert(error.message);
-      }
 
       const name = formData.get("name") || "";
       const distance = Number(formData.get("distance"));
       const description = formData.get("description");
       const link = formData.get("link");
       const bookmark = false;
+
       if (!isCategory(category)) {
-        throw new Error("잘못된 카테고리입니다.");
+        alert("잘못된 카테고리입니다.");
+        return;
       }
 
       if (typeof name !== "string" || name.trim() === "") {
-        throw new Error("잘못된 이름입니다");
+        alert("잘못된 이름입니다");
+        return;
       }
 
       if (!isDistance(distance)) {
-        throw new Error("잘못된 거리값입니다");
+        alert("잘못된 거리값입니다");
+        return;
       }
 
       if (typeof description !== "string") {
-        throw new Error("잘못된 상세설명입니다");
+        alert("잘못된 상세설명입니다");
+        return;
       }
 
       if (link !== "" && !isLink(link)) {
-        throw new Error("잘못된 링크입니다.");
+        alert("잘못된 링크입니다.");
+        return;
       }
+
       RestauranStorage.addRestaurant({
         category,
         name,
