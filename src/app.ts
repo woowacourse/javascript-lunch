@@ -4,7 +4,6 @@ import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
 
 const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
-import DOM from './utils/DOM';
 
 import FilterContainer, { FilterChangeEvent } from './components/FilterContainer';
 import TabPane from './components/TabPane';
@@ -12,11 +11,8 @@ import Header from './components/header/Header';
 import Tab from './components/tab/Tab';
 import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/listContainer/ListContainer';
-import RestaurantForm from './components/RestaurantForm';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
 import { TabChangeEvent } from './components/tab/TabElement';
-
-const { $ } = DOM;
 
 class App extends HTMLElement {
   static matzip: Matzip;
@@ -45,7 +41,6 @@ class App extends HTMLElement {
   }
 
   setEvent() {
-    this.listenRestaurantAdd();
     this.setEventWholeMode();
     this.listenRestaurantDelete();
   }
@@ -111,34 +106,6 @@ class App extends HTMLElement {
 
       const listContainer = new ListContainer(restaurantElements);
       this.tabPane.showListChange(listContainer);
-    });
-  }
-
-  listenRestaurantAdd() {
-    const form = $<RestaurantForm>('#restaurant-form');
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const formFields = form.getFormFields();
-      const fieldValues = formFields.map((field) => field.getValue());
-
-      const newRestaurant: RestaurantType = {
-        id: `matzip${crypto.randomUUID().replace(/-/g, '')}`,
-        category: fieldValues[0] as CategoryType,
-        name: fieldValues[1],
-        distance: Number(fieldValues[2]),
-        introduction: fieldValues[3],
-        link: fieldValues[4],
-      };
-
-      try {
-        App.matzip.add(newRestaurant);
-        storage.addData(MATZIP_DATA, newRestaurant);
-        this.tabPane.showListAppend(new Restaurant(newRestaurant, false));
-        form.reset();
-      } catch (error) {
-        alert(error);
-      }
     });
   }
 

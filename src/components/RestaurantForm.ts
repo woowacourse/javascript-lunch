@@ -1,6 +1,12 @@
+import App from '../app';
 import Condition from '../constants/Condition';
+import storage from '../storage';
+import LOCAL_STORAGE_KEY from '../constants/LocalStorageKey';
+import { CategoryType, Restaurant as RestaurantType } from '../types';
+
 import FormItem from './formItem/FormItem';
 import Modal from './modal/Modal';
+import DOM from '../utils/DOM';
 
 import { Button, ButtonProps } from './tag/button';
 import { CaptionProps } from './tag/caption';
@@ -9,8 +15,12 @@ import { LabelProps } from './tag/label';
 import { OptionProps } from './tag/option';
 import { Select, SelectProps } from './tag/select';
 import { TextArea, TextAreaProps } from './tag/textarea';
+import Restaurant from './restaurant/Restaurant';
+import TabPane from './TabPane';
 
 const { REGULAR_EXPRESSION } = Condition;
+const { MATZIP_DATA } = LOCAL_STORAGE_KEY;
+const { $ } = DOM;
 
 class RestaurantForm extends HTMLFormElement {
   private modal: Modal;
@@ -21,6 +31,7 @@ class RestaurantForm extends HTMLFormElement {
     this.submitButton = null;
     this.modal = modal;
     this.createElements();
+    this.listenSubmitEvent();
   }
 
   createElements() {
@@ -186,6 +197,7 @@ class RestaurantForm extends HTMLFormElement {
       children: '취소하기',
       onClick: this.modal.toggleModal.bind(this.modal),
     };
+
     const submitButton: ButtonProps = {
       type: 'submit',
       classnames: ['button', 'text-caption', 'form-submit'],
@@ -234,6 +246,34 @@ class RestaurantForm extends HTMLFormElement {
       field.addEventListener('input', () => {
         this.updateButtonState();
       });
+    });
+  }
+
+  listenSubmitEvent() {
+    this.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formFields = this.getFormFields();
+      const fieldValues = formFields.map((field) => field.getValue());
+
+      const newRestaurant: RestaurantType = {
+        id: `matzip${crypto.randomUUID().replace(/-/g, '')}`,
+        category: fieldValues[0] as CategoryType,
+        name: fieldValues[1],
+        distance: Number(fieldValues[2]),
+        introduction: fieldValues[3],
+        link: fieldValues[4],
+      };
+
+      try {
+        App.matzip.add(newRestaurant);
+        storage.addData(MATZIP_DATA, newRestaurant);
+        const tabPane = $<TabPane>('.tabpane');
+        tabPane.showListAppend(new Restaurant(newRestaurant, false));
+        this.reset();
+        this.modal.toggleModal();
+      } catch (error) {
+        alert(error);
+      }
     });
   }
 }
