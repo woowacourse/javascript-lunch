@@ -3,7 +3,11 @@ import RestauranStorage from "../domain/RestaurantStorage";
 import { Category, SortingStandard } from "../types";
 import { CATEGORIES } from "../constants";
 
-export default class Selects extends Component {
+interface SelectsProps {
+  loadRestaurant: Function;
+}
+
+export default class Selects extends Component<HTMLDivElement, SelectsProps> {
   render() {
     const category = RestauranStorage.getCategory();
     const sortingStandard = RestauranStorage.getSortingStandard();
@@ -32,6 +36,7 @@ export default class Selects extends Component {
   }
 
   componentDidMount(): void {
+    if (!this.props) return;
     const { loadRestaurant } = this.props;
 
     const $categorySelect =

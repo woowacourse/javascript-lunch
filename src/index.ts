@@ -16,4 +16,7 @@ import "../templates/favorite-icon-filled.png";
 import "../templates/favorite-icon-lined.png";
 import App from "./App";
 
-new App(document.querySelector("#app"));
+const $app = document.querySelector<HTMLDivElement>("#app");
+if ($app) {
+  new App($app);
+}

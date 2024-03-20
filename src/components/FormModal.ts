@@ -4,7 +4,11 @@ import RestauranStorage from "../domain/RestaurantStorage";
 import { CATEGORIES, DISTANCES } from "../constants";
 import { isDistance, isLink, isCategory } from "../util";
 
-export default class FormModal extends Component {
+interface FormModalProps {
+  loadRestaurant: Function;
+}
+
+export default class FormModal extends Component<HTMLElement, FormModalProps> {
   render(): string {
     return /*html*/ `
         <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -82,6 +86,8 @@ export default class FormModal extends Component {
   }
 
   componentDidMount(): void {
+    if (!this.props) return;
+
     const { loadRestaurant } = this.props;
     const $restaurantForm =
       document.querySelector<HTMLFormElement>(".restaurant-form");
@@ -100,7 +106,7 @@ export default class FormModal extends Component {
       } catch (error: any) {
         alert(error.message);
       }
-      category;
+
       const name = formData.get("name") || "";
       const distance = Number(formData.get("distance"));
       const description = formData.get("description");

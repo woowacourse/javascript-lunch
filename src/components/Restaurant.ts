@@ -4,9 +4,18 @@ import { RestaurantType } from "../types";
 import RestaurantStorage from "../domain/RestaurantStorage";
 import RestaurantModal from "./RestaurantModal";
 
-export default class Restaurant extends Component {
+interface RestaurantProps {
+  restaurant: RestaurantType;
+  loadRestaurant: Function;
+}
+
+export default class Restaurant extends Component<
+  HTMLLIElement,
+  RestaurantProps
+> {
   render(): string {
-    const { restaurant }: { restaurant: RestaurantType } = this.props;
+    if (!this.props) return "";
+    const { restaurant } = this.props;
     return /*html*/ `
         <div id="${restaurant.name}" class="restaurant">
             <div class="restaurant__category">
@@ -44,14 +53,18 @@ export default class Restaurant extends Component {
   }
 
   componentDidMount(): void {
+    if (!this.props) return;
     const { restaurant, loadRestaurant } = this.props;
 
     const $bookmark = document.querySelector<HTMLImageElement>(
       `img#${restaurant.name}`
     );
-    const $restaurant = document.querySelector(`div#${restaurant.name}`);
-    const $modalContainer = document.querySelector(".modal-container");
-    const $modal = document.querySelector(".modal");
+    const $restaurant = document.querySelector<HTMLDivElement>(
+      `div#${restaurant.name}`
+    );
+    const $modalContainer =
+      document.querySelector<HTMLDivElement>(".modal-container");
+    const $modal = document.querySelector<HTMLDivElement>(".modal");
 
     $bookmark?.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -60,12 +73,14 @@ export default class Restaurant extends Component {
       loadRestaurant();
     });
 
-    $restaurant?.addEventListener("click", (e) => {
-      $modal?.classList.add("modal--open");
-      new RestaurantModal($modalContainer, {
-        loadRestaurant: this.props.loadRestaurant,
-        restaurant,
+    if ($modalContainer) {
+      $restaurant?.addEventListener("click", (e) => {
+        $modal?.classList.add("modal--open");
+        new RestaurantModal($modalContainer, {
+          loadRestaurant,
+          restaurant,
+        });
       });
-    });
+    }
   }
 }

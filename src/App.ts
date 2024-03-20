@@ -6,7 +6,9 @@ import Filter from "./components/Filter";
 import { RestaurantType } from "./types";
 import Selects from "./components/Selects";
 
-export default class App extends Component {
+interface AppProps {}
+
+export default class App extends Component<HTMLDivElement, AppProps> {
   setup(): void {
     this.state = {
       restaurants: RestauranStorage.getRestaurants(),
@@ -29,26 +31,34 @@ export default class App extends Component {
   }
 
   componentDidMount(): void {
-    const $header = document.querySelector(".gnb");
-    const $restaurants = document.querySelector(".restaurants");
-    const $filter = document.querySelector(".filter-container");
-    const $select = document.querySelector(".select-container");
-    new Header<HTMLElement, { loadRestaurant: Function }>($header, {
-      loadRestaurant: this.loadRestaurant.bind(this),
-    });
-    new Filter($filter, {
-      loadRestaurant: this.loadRestaurant.bind(this),
-    });
-    if (RestauranStorage.getFilter() === "all") {
-      new Selects($select, {
+    const $header = document.querySelector<HTMLDivElement>(".gnb");
+    const $restaurants = document.querySelector<HTMLDivElement>(".restaurants");
+    const $filter = document.querySelector<HTMLDivElement>(".filter-container");
+    const $select = document.querySelector<HTMLDivElement>(".select-container");
+    const restaurants = this.state.restaurants as RestaurantType[];
+    if ($header) {
+      new Header($header, {
         loadRestaurant: this.loadRestaurant.bind(this),
       });
     }
 
-    new Restaurants($restaurants, {
-      restaurants: this.state.restaurants,
-      loadRestaurant: this.loadRestaurant.bind(this),
-    });
+    if ($filter) {
+      new Filter($filter, {
+        loadRestaurant: this.loadRestaurant.bind(this),
+      });
+    }
+
+    if (RestauranStorage.getFilter() === "all" && $select) {
+      new Selects($select, {
+        loadRestaurant: this.loadRestaurant.bind(this),
+      });
+    }
+    if ($restaurants) {
+      new Restaurants($restaurants, {
+        restaurants,
+        loadRestaurant: this.loadRestaurant.bind(this),
+      });
+    }
   }
 
   loadRestaurant() {

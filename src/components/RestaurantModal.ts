@@ -3,9 +3,18 @@ import { CATEGORY_IMAGE_MAPPER, DISTANCE_MAPPER } from "../constants";
 import { RestaurantType } from "../types";
 import RestaurantStorage from "../domain/RestaurantStorage";
 
-export default class RestaurantModal extends Component {
+interface RestaurantModalProps {
+  restaurant: RestaurantType;
+  loadRestaurant: Function;
+}
+
+export default class RestaurantModal extends Component<
+  HTMLDivElement,
+  RestaurantModalProps
+> {
   render(): string {
-    const { restaurant }: { restaurant: RestaurantType } = this.props;
+    if (!this.props) return "";
+    const { restaurant } = this.props;
 
     return /*html*/ `
     <div id="${restaurant.name}" class="restaurant restuarant-modal">
@@ -44,6 +53,8 @@ export default class RestaurantModal extends Component {
   }
 
   componentDidMount(): void {
+    if (!this.props) return;
+
     const { restaurant, loadRestaurant } = this.props;
     const $deleteButton = document.querySelector(".delete-button");
     const $cancelButton = document.querySelector(".cancel-button");

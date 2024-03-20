@@ -24,6 +24,7 @@ class RestauranStorage {
   }
 
   private filterByCategory(restaurant: RestaurantType) {
+    console.log(this.category);
     return this.category === "전체" || restaurant.category === this.category;
   }
 

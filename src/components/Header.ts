@@ -1,7 +1,11 @@
 import Component from "../common/Component";
 import FormModal from "./FormModal";
 
-export default class Header<T extends HTMLElement, K> extends Component<T, K> {
+interface HeaderProps {
+  loadRestaurant: Function;
+}
+
+export default class Header extends Component<HTMLElement, HeaderProps> {
   render() {
     return /*html*/ `    
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -12,17 +16,20 @@ export default class Header<T extends HTMLElement, K> extends Component<T, K> {
   }
 
   componentDidMount(): void {
-    const $gnbButton = document.querySelector(".gnb__button");
-    const $modalContainer = document.querySelector(".modal-container");
-    const $modal = document.querySelector(".modal");
-    $gnbButton?.addEventListener("click", () => {
-      $modal?.classList.add("modal--open");
-      new FormModal<HTMLDivElement, { loadRestaurant: Function }>(
-        $modalContainer,
-        {
-          loadRestaurant: this.props.loadRestaurant,
-        }
-      );
-    });
+    if (!this.props) return;
+    const { loadRestaurant } = this.props;
+    const $gnbButton =
+      document.querySelector<HTMLButtonElement>(".gnb__button");
+    const $modalContainer =
+      document.querySelector<HTMLDivElement>(".modal-container");
+    const $modal = document.querySelector<HTMLDivElement>(".modal");
+    if ($modalContainer) {
+      $gnbButton?.addEventListener("click", () => {
+        $modal?.classList.add("modal--open");
+        new FormModal($modalContainer, {
+          loadRestaurant,
+        });
+      });
+    }
   }
 }

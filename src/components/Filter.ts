@@ -1,7 +1,11 @@
 import Component from "../common/Component";
 import RestauranStorage from "../domain/RestaurantStorage";
 
-export default class Filter extends Component {
+interface FilterProps {
+  loadRestaurant: Function;
+}
+
+export default class Filter extends Component<HTMLDivElement, FilterProps> {
   render() {
     const filter = RestauranStorage.getFilter();
     return /*html*/ `
@@ -15,6 +19,7 @@ export default class Filter extends Component {
   }
 
   componentDidMount(): void {
+    if (!this.props) return;
     const { loadRestaurant } = this.props;
     const $allFilter = document.querySelector<HTMLDivElement>(".filter.all");
     const $bookmarkFilter =

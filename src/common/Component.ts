@@ -1,5 +1,5 @@
 export default class Component<T extends HTMLElement, K> {
-  $target: T;
+  $target;
   state: any;
   props;
   constructor($target: T, props?: K) {
