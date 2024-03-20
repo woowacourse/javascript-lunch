@@ -13,19 +13,16 @@ interface TabPaneProps {
 }
 
 class TabPane extends HTMLElement {
-  private filterContainer: FilterContainer | null;
   private listContainer: ListContainer | null;
 
   constructor() {
     super();
     this.className = 'tabpane';
-    this.filterContainer = null;
     this.listContainer = null;
   }
 
   private removeTabPane() {
     this.replaceChildren();
-    this.filterContainer = null;
     this.listContainer = null;
   }
 
@@ -40,7 +37,6 @@ class TabPane extends HTMLElement {
     const { filterContainer, listContainer } = tabPaneProps;
     if (filterContainer !== undefined) {
       this.appendChild(filterContainer);
-      this.filterContainer = filterContainer;
     }
 
     this.appendChild(listContainer);
