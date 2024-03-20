@@ -6,7 +6,7 @@ describe('점심 뭐 먹지 동작 테스트', () => {
     cy.title().should('eq', title);
   });
 
-  it('"양식점" 이름을 가진 음식점을 추가할 수 있다.', () => {
+  it('"양식점" 이름을 가진 음식점을 추가하면, 음식점 리스트에 "양식점" 이름을 가진 음식점이 추가된다.', () => {
     const restaurantName = '양식점';
 
     cy.visit('http://localhost:8080');
