@@ -35,7 +35,7 @@ class TabPane extends HTMLElement {
     this.removeTabPane();
 
     const { filterContainer, listContainer } = tabPaneProps;
-    if (filterContainer !== undefined) {
+    if (typeof filterContainer !== 'undefined') {
       this.appendChild(filterContainer);
     }
 

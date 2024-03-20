@@ -12,7 +12,7 @@ class Select extends HTMLSelectElement {
 
     this.name = name;
     this.id = id;
-    if (classname !== undefined) this.classList.add(classname);
+    if (typeof classname !== 'undefined') this.classList.add(classname);
     this.required = required;
     this.addOptions(options);
     if (onChange) this.addEventListener('change', onChange);

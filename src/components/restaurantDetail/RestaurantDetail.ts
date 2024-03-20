@@ -65,7 +65,7 @@ class RestaurantDetail extends HTMLDivElement {
   }
 
   createIntroduction(introduction?: string) {
-    if (introduction === undefined) return;
+    if (typeof introduction === 'undefined') return;
 
     const p = document.createElement('p');
     p.classList.add('restaurant__description', 'text-body', 'detail__field');
@@ -74,7 +74,7 @@ class RestaurantDetail extends HTMLDivElement {
   }
 
   createLink(link?: string) {
-    if (link === undefined || link === '') {
+    if (typeof link === 'undefined' || link === '') {
       this.createLinkFallback();
       return;
     }

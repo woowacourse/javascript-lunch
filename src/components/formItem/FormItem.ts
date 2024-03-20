@@ -38,22 +38,22 @@ class FormItem extends HTMLDivElement {
   }
 
   createSelect(select?: SelectProps) {
-    if (select === undefined) return;
+    if (typeof select === 'undefined') return;
     this.appendChild(new Select(select));
   }
 
   createInput(input?: InputProps) {
-    if (input === undefined) return;
+    if (typeof input === 'undefined') return;
     this.appendChild(new Input(input));
   }
 
   createTextArea(textarea?: TextAreaProps) {
-    if (textarea === undefined) return;
+    if (typeof textarea === 'undefined') return;
     this.appendChild(new TextArea(textarea));
   }
 
   createCaption(caption?: CaptionProps) {
-    if (caption === undefined) return;
+    if (typeof caption === 'undefined') return;
     this.appendChild(new Caption(caption));
   }
 }

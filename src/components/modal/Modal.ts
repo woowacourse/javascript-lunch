@@ -27,7 +27,7 @@ class Modal extends HTMLDivElement {
     const modalContainer = document.createElement('div');
     modalContainer.className = 'modal-container';
 
-    if (title !== undefined) {
+    if (typeof title !== 'undefined') {
       const modalTitle = document.createElement('h2');
       modalTitle.className = 'modal-title';
       const modalTitleClassList = ['modal-title', 'text-title'];

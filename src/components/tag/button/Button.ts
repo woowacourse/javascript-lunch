@@ -7,7 +7,7 @@ class Button extends HTMLButtonElement {
     const { type, classnames, ariaLabel, children, disabled, varient, onClick } = props;
 
     this.type = type;
-    if (classnames !== undefined) this.classList.add(...classnames);
+    if (typeof classnames !== 'undefined') this.classList.add(...classnames);
     this.classList.add(`${varient}__button`);
     if (ariaLabel !== undefined) this.ariaLabel = ariaLabel;
 
@@ -18,7 +18,7 @@ class Button extends HTMLButtonElement {
     if (typeof onClick !== 'undefined') {
       this.addEventListener('click', onClick);
     }
-    if (disabled !== undefined) this.disabled = disabled;
+    if (typeof disabled !== 'undefined') this.disabled = disabled;
   }
 }
 
