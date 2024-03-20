@@ -1,7 +1,7 @@
 import Restaurants from '../domains/Restaurants';
 
 import Header from '../components/Header/Header';
-import BookmarkNavigation from '../components/BookmarkNavigation/BookmarkNavigation';
+import RestaurantNavigationMenu from '../components/RestaurantNavigationMenu/RestaurantNavigationMenu';
 import RestaurantFilter from '../components/RestaurantFilter/RestaurantFilter';
 import RestaurantList from '../components/RestaurantList/RestaurantList';
 
@@ -10,7 +10,7 @@ import { $ } from '../utils/dom';
 export default class LunchAppController {
   #restaurants;
   #header;
-  #bookmarkNavigation;
+  #restaurantNavigationMenu;
   #restaurantFilter;
   #restaurantList;
 
@@ -20,7 +20,7 @@ export default class LunchAppController {
 
   init() {
     this.#header = new Header($('header'), this.#restaurants);
-    this.#bookmarkNavigation = new BookmarkNavigation(
+    this.#restaurantNavigationMenu = new RestaurantNavigationMenu(
       $('restaurants-selector-container'),
       this.#restaurants,
     );

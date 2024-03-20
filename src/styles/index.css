@@ -1,5 +1,5 @@
 @import url('../components/Header/header.css');
-@import url('../components/BookmarkNavigation/bookmark-navigation.css');
+@import url('../components/RestaurantNavigationMenu/restaurant-navigation-menu.css');
 @import url('../components/RestaurantFilter/restaurant-filter.css');
 @import url('../components/RestaurantList/restaurant-list.css');
 @import url('../components/Common/Restaurant/restaurant.css');

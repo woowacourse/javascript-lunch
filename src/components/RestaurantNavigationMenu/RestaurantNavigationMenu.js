@@ -2,7 +2,7 @@ import { $ } from '../../utils/dom';
 import RestaurantFilter from '../RestaurantFilter/RestaurantFilter';
 import RestaurantList from '../RestaurantList/RestaurantList';
 
-export default class BookmarkNavigation {
+export default class RestaurantNavigationMenu {
   #element;
   #restaurants;
 
