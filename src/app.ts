@@ -22,7 +22,6 @@ const { $ } = DOM;
 class App extends HTMLElement {
   static matzip: Matzip;
   private main: HTMLElement;
-  private tab: Tab;
   private tabPane: TabPane;
   private appendModal: Modal;
 
@@ -32,7 +31,7 @@ class App extends HTMLElement {
 
     this.createHeader();
     this.main = this.createMain();
-    this.tab = this.createTab();
+    this.createTab();
     this.tabPane = this.createTabpane();
     this.appendModal = this.createAppendModal();
     this.listenTabChange();
@@ -78,7 +77,6 @@ class App extends HTMLElement {
   createTab() {
     const tab = new Tab(['모든 음식점', '자주 가는 음식점']);
     this.main.prepend(tab);
-    return tab;
   }
 
   createTabpane() {
