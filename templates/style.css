@@ -17,6 +17,15 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+
+  min-width: 300px;
+
+  /* hide scroll bar */
+  scrollbar-width: none; /* firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Colors *****************************************/
@@ -126,6 +135,7 @@ body {
 
 .restaurant {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
 
   padding: 16px 8px;
@@ -179,7 +189,7 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
+.close {
   display: none;
 }
 
@@ -310,4 +320,73 @@ input[name="link"] {
   transform: translate(-50%, -50%);
 
   color: var(--grey-300);
+}
+
+/* step2 css */
+.tab-bar {
+  display: flex;
+  padding: 0 16px;
+}
+
+.tab-bar-item {
+  width: 50%;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--grey-300);
+  border-bottom: 2.2px solid #d0d5dd;
+  padding: 25px 0 12px 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.tab-bar-item.active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.restaurant-item-content {
+  display: flex;
+}
+
+.favorite-icon-img {
+  width: 27px;
+
+  cursor: pointer;
+}
+
+.restaurant {
+  cursor: pointer;
+}
+
+.restaurant-detail-icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant-detail-container {
+  padding: 0 8px;
+}
+
+.restaurant-detail-anchor {
+  margin-top: 20px;
+  color: var(--grey-500);
+  text-decoration-color: var(--grey-500);
+}
+
+.restaurant-detail-link {
+  margin: 20px 0 30px 0;
+  color: var(--grey-500);
+  text-decoration-color: var(--grey-500);
+}
+
+.restaurant-detail-item-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--grey-400);
+
+  margin: 15px 0 12px 0;
+}
+
+.restaurant-detail-description {
+  margin-top: 12px;
 }

@@ -37,6 +37,35 @@
 - [x] Modal
 - [x] Select
 
-## 추가 구현 사항
+## Step2 추가 기능
 
-- [ ] customElement attribute 유효성 검증
+- [x] 즐겨찾기 기능
+  - [x] 즐겨찾기 토글 기능 추가
+- [x] 탭 변경 (모든 음식점 / 자주 가는 음식점)
+  - [x] 현재 탭을 주황색으로 표시
+  - [x] 자주 가는 음식점 선택시 필터 안 보임
+- [x] 음식점 상세보기
+  - [x] 음식점 아이템 클릭 시 모달에 세부정보 표시
+
+### 구현 사항
+
+#### 추가
+
+- [x] TabBar (페이지 전환 탭)
+  - [x] 현재 선택된 페이지 항목을 주황색으로 표시
+  - [x] 페이지 전환 시 식당 리스트 변경(즐겨찾기만 리스팅) -> RestaurantList에 Event(탭 전환) 발신
+- [x] RestaurantDetail (식당 상세 정보)
+  - [x] RestaurantItem 클릭 시 해당 식당의 상세 정보를 모달로 표시
+  - [x] RestaurantItem으로부터 Event(상세 조회) 수신
+  - [x] 모달 컴포넌트 재활용
+- [x] FavoriteIcon (즐겨찾기 아이콘)
+  - [x] 즐겨찾기 여부에 따라 fill/blank 다르게 표시
+  - [x] updateFavorite 이벤트 발신, 수신 (detail: { restaurantName: "", action: "add" })
+
+#### 수정
+
+- [x] RestaurantList
+  - [x] TabChange 이벤트를 감지해서 Restaurant 목록을 수정
+  - [x] deleteRestaurant 이벤트를 감지해서 Restaurant 목록을 수정
+- [x] FilterBar
+  - [x] TabChange 이벤트를 감지해서 보여주거나 숨김

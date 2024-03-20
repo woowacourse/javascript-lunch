@@ -1,16 +1,17 @@
-import EventComponent from "../abstract/EventComponent";
+import EventComponent, {
+  EventListenerRegistration,
+} from "../abstract/EventComponent";
 import FormItem from "./common/FormItem";
 
+import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
+import restaurantStore from "../store/restaurantStore";
+import convertObjectToOptions from "../utils/convertObjectToOptions";
 import {
   MODAL_EVENT,
   MODAL_EVENT_ACTION,
-  RESTAURANT_EVENT,
+  RESTAURANT_FORM_SUBMIT_EVENT,
 } from "../constants/event";
-import convertObjectToOptions from "../utils/convertObjectToOptions";
-import { $ } from "../utils/selector";
 import { KOREAN_CATEGORY } from "../constants/category";
-import Restaurant, { RestaurantInfo } from "../domain/Restaurant";
-import restaurantStore from "../store/restaurantStore";
 
 customElements.define("form-item", FormItem);
 
@@ -24,6 +25,19 @@ const distanceOptions = [
 ];
 
 export default class RestaurantForm extends EventComponent {
+  protected eventHandlerRegistrations: EventListenerRegistration[] = [
+    {
+      target: this,
+      eventName: "submit",
+      handler: this.handleSubmit.bind(this),
+    },
+    {
+      target: "#restaurant-form-close-button",
+      eventName: "click",
+      handler: this.handleCloseButtonClick.bind(this),
+    },
+  ];
+
   getTemplate(): string {
     return `
     <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -65,44 +79,23 @@ export default class RestaurantForm extends EventComponent {
       </form-item>
 
       <div class="button-container">
-        <button id="close-button" type="button" class="button button--secondary text-caption">취소하기</button>
+        <button id="restaurant-form-close-button" type="button" class="button button--secondary text-caption">취소하기</button>
         <button class="button button--primary text-caption">추가하기</button>
       </div>
     </form>
 `;
   }
 
-  protected setEvent() {
-    this.addEventListener("submit", this.handleSubmit);
-
-    $("#close-button")?.addEventListener("click", this.handleCloseButtonClick);
-  }
-
-  private handleCloseButtonClick() {
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
-        bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.close },
-      })
-    );
-  }
-
   private handleSubmit(e: Event): void {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-
     try {
       const restaurantInfo = this.extractRestaurantInfo(form);
       const newRestaurant = new Restaurant(restaurantInfo as RestaurantInfo);
       restaurantStore.add(newRestaurant);
 
-      this.dispatchEvent(
-        new CustomEvent(RESTAURANT_EVENT.restaurantFormSubmit, {
-          bubbles: true,
-          detail: { newRestaurant },
-        })
-      );
+      this.dispatchCustomEvent(RESTAURANT_FORM_SUBMIT_EVENT, { newRestaurant });
     } catch (error) {
       if (error instanceof Error) {
         return alert(error.message);
@@ -110,6 +103,12 @@ export default class RestaurantForm extends EventComponent {
     }
 
     this.cleanUpSubmit(form);
+  }
+
+  private handleCloseButtonClick() {
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+      action: MODAL_EVENT_ACTION.close,
+    });
   }
 
   private generateCategoryOptions() {
@@ -144,11 +143,8 @@ export default class RestaurantForm extends EventComponent {
   private cleanUpSubmit(form: HTMLFormElement) {
     form.reset();
 
-    this.dispatchEvent(
-      new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
-        bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.close },
-      })
-    );
+    this.dispatchCustomEvent(MODAL_EVENT.restaurantFormModalAction, {
+      action: MODAL_EVENT_ACTION.close,
+    });
   }
 }

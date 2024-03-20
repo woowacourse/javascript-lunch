@@ -1,35 +1,64 @@
-import BaseComponent from "../abstract/BaseComponent";
+import EventComponent, {
+  EventListenerRegistration,
+} from "../abstract/EventComponent";
 
 import convertObjectToOptions from "../utils/convertObjectToOptions";
-import { FILTER_EVENT } from "../constants/event";
+import { $ } from "../utils/selector";
+import {
+  FILTER_EVENT,
+  TAB_SWITCH_EVENT,
+  TAB_SWITCH_EVENT_SWITCH_TO,
+} from "../constants/event";
 import {
   KOREAN_CATEGORY_FILTER,
   KOREAN_SORT_FILTER,
 } from "../constants/filter";
 
-export default class FilterBar extends BaseComponent {
+export default class FilterBar extends EventComponent {
+  protected eventHandlerRegistrations: EventListenerRegistration[] = [
+    {
+      target: document,
+      eventName: TAB_SWITCH_EVENT,
+      handler: (e: Event) => this.handleTabSwitch(e as CustomEvent),
+    },
+  ];
+
   protected getTemplate(): string {
     return `
-    <section class="restaurant-filter-container">
-      <select-box
-        select-id="category-filter-select"
-        class-name="restaurant-filter" 
-        name="category-filter"
-        options=${this.generateCategoryOptions()}
-        event-name=${FILTER_EVENT.categoryFilterChange}
-        label-name="카테고리필터"
-      ></select-box>
+      <section id="restaurant-filter-container" class="restaurant-filter-container">
+        <select-box
+          select-id="category-filter-select"
+          class-name="restaurant-filter" 
+          name="category-filter"
+          options=${this.generateCategoryOptions()}
+          event-name=${FILTER_EVENT.categoryFilterChange}
+          label-name="카테고리필터"
+        ></select-box>
 
-      <select-box
-        select-id="sorting-filter-select"
-        class-name="restaurant-filter"
-        name="sorting-filter"
-        options=${this.generateSortingOptions()}
-        event-name=${FILTER_EVENT.sortFilterChange}
-        label-name="정렬기준"
-      ></select-box>
-    </section>
+        <select-box
+          select-id="sorting-filter-select"
+          class-name="restaurant-filter"
+          name="sorting-filter"
+          options=${this.generateSortingOptions()}
+          event-name=${FILTER_EVENT.sortFilterChange}
+          label-name="정렬기준"
+        ></select-box>
+      </section>
 `;
+  }
+
+  private handleTabSwitch(
+    e: CustomEvent<{ switchTo: keyof typeof TAB_SWITCH_EVENT_SWITCH_TO }>
+  ) {
+    const { switchTo } = e.detail;
+
+    switch (switchTo) {
+      case TAB_SWITCH_EVENT_SWITCH_TO.favorite:
+        return $("#restaurant-filter-container")?.classList.add("close");
+
+      case TAB_SWITCH_EVENT_SWITCH_TO.all:
+        return $("#restaurant-filter-container")?.classList.remove("close");
+    }
   }
 
   private generateCategoryOptions() {
