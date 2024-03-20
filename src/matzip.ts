@@ -16,13 +16,15 @@ class Matzip implements MatzipInterface {
   getRestaurants() {
     return [...this.restaurants];
   }
-  
+
   getMyFavorites() {
     return [...this.myFavorites];
   }
 
   getMyFavoriteRestaurants() {
-    const favoriteRestaurants = this.restaurants.filter((restaurant) => this.myFavorites.includes(restaurant.id));
+    const favoriteRestaurants = this.restaurants.filter((restaurant) =>
+      this.myFavorites.includes(restaurant.id),
+    );
     return [...favoriteRestaurants];
   }
 
@@ -98,7 +100,7 @@ class Matzip implements MatzipInterface {
     const targetIndex = this.restaurants.findIndex((restaurant) => restaurant.id === id);
     this.restaurants.splice(targetIndex, 1);
     this.deleteFavorite(id);
-  };
+  }
 }
 
 export default Matzip;

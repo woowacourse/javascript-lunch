@@ -1,5 +1,5 @@
-import DOM from "../../utils/DOM";
-import Restaurant from "../restaurant/Restaurant";
+import DOM from '../../utils/DOM';
+import Restaurant from '../restaurant/Restaurant';
 import './ListContainer.css';
 
 const { insertElementsInTarget } = DOM;
@@ -21,7 +21,7 @@ class ListContainer extends HTMLUListElement {
       this.fallbackUI = this.createFallback();
       return [];
     }
-    insertElementsInTarget(this, restaurants);    
+    insertElementsInTarget(this, restaurants);
     return restaurants;
   }
 
@@ -47,12 +47,16 @@ class ListContainer extends HTMLUListElement {
     this.restaurants.push(restaurant);
   }
 
-  deleteRestaurant(targetId: string) {    
-    const targetNode = this.restaurants.find((restaurant) => restaurant.id === `restaurant-list${targetId}`);    
-    const targetNodeIndex = this.restaurants.findIndex((restaurant) => restaurant.id === `restaurant-list${targetId}`);
-    
+  deleteRestaurant(targetId: string) {
+    const targetNode = this.restaurants.find(
+      (restaurant) => restaurant.id === `restaurant-list${targetId}`,
+    );
+    const targetNodeIndex = this.restaurants.findIndex(
+      (restaurant) => restaurant.id === `restaurant-list${targetId}`,
+    );
+
     if (targetNode === undefined) return;
-    
+
     this.removeChild(targetNode);
     this.restaurants.splice(targetNodeIndex, 1);
 

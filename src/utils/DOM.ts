@@ -21,9 +21,9 @@ function validateExistElements(elements: NodeListOf<Element>) {
 
 const DOM = {
   $: <T>(selector: string) => {
-    validateSelector(selector);    
-    const element = document.querySelector(selector);    
-    
+    validateSelector(selector);
+    const element = document.querySelector(selector);
+
     validateExistElement(selector, element);
     return element as T;
   },
@@ -36,10 +36,10 @@ const DOM = {
     return elements as NodeListOf<T>;
   },
 
-   // fragment에 추가해두고 타겟에 appendChild하는 방식으로 리플로우, 리페인팅 최적화
+  // fragment에 추가해두고 타겟에 appendChild하는 방식으로 리플로우, 리페인팅 최적화
   insertElementsInTarget(target: HTMLElement, elements: HTMLElement[]) {
     const frag = document.createDocumentFragment();
-    
+
     elements.forEach((element) => {
       frag.appendChild(element);
     });

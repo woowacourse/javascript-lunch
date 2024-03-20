@@ -31,18 +31,20 @@ class FavoriteIcon extends HTMLImageElement {
     this.src = this.showStarIcon();
     this.alt = 'favorite-icon';
     this.className = 'favorite-icon';
-    isChild ? this.classList.add('favorite-icon-cloned') : this.classList.add('favorite-icon-origin');
+    isChild
+      ? this.classList.add('favorite-icon-cloned')
+      : this.classList.add('favorite-icon-origin');
     this.stopEventBubbling();
     this.listenChangeState(changeState);
   }
 
-  showStarIcon() {  
+  showStarIcon() {
     return this.active ? Filled : Lined;
   }
 
-  listenChangeState({addFavorite, deleteFavorite, targetId}: ChangeStateProps) {    
-    this.addEventListener('click', (event) => {      
-      event.stopPropagation();        
+  listenChangeState({ addFavorite, deleteFavorite, targetId }: ChangeStateProps) {
+    this.addEventListener('click', (event) => {
+      event.stopPropagation();
       this.active ? deleteFavorite() : addFavorite();
       this.active = !this.active;
       this.src = this.showStarIcon();
@@ -50,7 +52,7 @@ class FavoriteIcon extends HTMLImageElement {
         detail: {
           targetId,
           state: this.active,
-        }
+        },
       });
       document.dispatchEvent(iconStateChangeEvent);
     });
@@ -63,6 +65,6 @@ class FavoriteIcon extends HTMLImageElement {
   }
 }
 
-customElements.define('matzip-favorite-icon', FavoriteIcon, {extends: 'img'});
+customElements.define('matzip-favorite-icon', FavoriteIcon, { extends: 'img' });
 
 export default FavoriteIcon;

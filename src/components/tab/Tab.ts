@@ -1,5 +1,5 @@
 import './Tab.css';
-import TabElement from "./TabElement";
+import TabElement from './TabElement';
 import DOM from '../../utils/DOM';
 
 const { insertElementsInTarget } = DOM;
@@ -17,11 +17,14 @@ class Tab extends HTMLDivElement {
   }
 
   createTabElements(tabNames: string[]) {
-    const tabElements = tabNames.map((tabName, index) => new TabElement({
-      active: index === this.activeIndex, 
-      tabName,
-      index,
-    }));
+    const tabElements = tabNames.map(
+      (tabName, index) =>
+        new TabElement({
+          active: index === this.activeIndex,
+          tabName,
+          index,
+        }),
+    );
     insertElementsInTarget(this, tabElements);
     return tabElements;
   }
@@ -41,6 +44,6 @@ class Tab extends HTMLDivElement {
   }
 }
 
-customElements.define('matzip-tab', Tab, {extends: 'div'});
+customElements.define('matzip-tab', Tab, { extends: 'div' });
 
 export default Tab;

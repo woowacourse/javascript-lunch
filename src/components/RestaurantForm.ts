@@ -197,8 +197,10 @@ class RestaurantForm extends HTMLFormElement {
   }
 
   getFormFields(): Array<Select | TextArea | Input> {
-    const formFields = [...this.children].filter((children) => children.className.includes('form-item'));
-    
+    const formFields = [...this.children].filter((children) =>
+      children.className.includes('form-item'),
+    );
+
     return formFields.map((field) => {
       const inputField = Array.from(field.children).find((child) => this.getInputField(child));
       return inputField as Select | TextArea | Input;
@@ -210,9 +212,9 @@ class RestaurantForm extends HTMLFormElement {
   }
 
   updateButtonState() {
-    const formFields = this.getFormFields();    
-    const allFieldsValid = formFields.every(field => field.isValidate());  
-    
+    const formFields = this.getFormFields();
+    const allFieldsValid = formFields.every((field) => field.isValidate());
+
     if (allFieldsValid) {
       this.submitButton.removeAttribute('disabled');
     } else {
@@ -223,7 +225,7 @@ class RestaurantForm extends HTMLFormElement {
   setupValidation() {
     const formFields = this.getFormFields();
 
-    formFields.forEach(field => {
+    formFields.forEach((field) => {
       field.addEventListener('input', () => {
         this.updateButtonState();
       });

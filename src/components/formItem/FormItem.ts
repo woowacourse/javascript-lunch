@@ -1,8 +1,8 @@
-import { Caption, CaptionProps } from "../tag/caption";
-import { Input, InputProps } from "../tag/input";
-import { Label, LabelProps } from "../tag/label";
-import { Select, SelectProps } from "../tag/select";
-import { TextArea, TextAreaProps } from "../tag/textarea";
+import { Caption, CaptionProps } from '../tag/caption';
+import { Input, InputProps } from '../tag/input';
+import { Label, LabelProps } from '../tag/label';
+import { Select, SelectProps } from '../tag/select';
+import { TextArea, TextAreaProps } from '../tag/textarea';
 import './formItem.css';
 
 interface FormItemProps {

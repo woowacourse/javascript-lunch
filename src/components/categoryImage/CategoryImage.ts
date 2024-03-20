@@ -1,6 +1,6 @@
 import './CategoryImage.css';
 
-import { CategoryType } from "../../types";
+import { CategoryType } from '../../types';
 import {
   CategoryAsian,
   CategoryChinese,
@@ -36,7 +36,6 @@ class CategoryImage extends HTMLDivElement {
   }
 }
 
-customElements.define('matzip-category-image', CategoryImage, {extends: 'div'});
+customElements.define('matzip-category-image', CategoryImage, { extends: 'div' });
 
 export default CategoryImage;
-

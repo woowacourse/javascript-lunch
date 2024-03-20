@@ -14,20 +14,20 @@ class Modal extends HTMLDivElement {
     super();
     this.className = props.classname;
     this.modalBackdrop = this.createBackdrop(props);
-    this.modalContainer = this.createModalContainer(props);    
+    this.modalContainer = this.createModalContainer(props);
   }
 
-  createBackdrop({classname}: ModalProps) {
+  createBackdrop({ classname }: ModalProps) {
     const modalBackdrop = document.createElement('div');
     modalBackdrop.className = `${classname}-backdrop`;
     this.appendChild(modalBackdrop);
     return modalBackdrop;
   }
 
-  createModalContainer({classname, child, title}: ModalProps) {
+  createModalContainer({ classname, child, title }: ModalProps) {
     const modalContainer = document.createElement('div');
     modalContainer.className = `${classname}-container`;
-    
+
     if (title !== undefined) {
       const modalTitle = document.createElement('h2');
       modalTitle.className = 'modal-title';
@@ -36,7 +36,7 @@ class Modal extends HTMLDivElement {
       modalTitle.classList.add(...modalTitleClassList);
       modalContainer.appendChild(modalTitle);
     }
-    
+
     modalContainer.appendChild(child);
     this.appendChild(modalContainer);
     return modalContainer;
@@ -48,10 +48,10 @@ class Modal extends HTMLDivElement {
     });
   }
 
-  backdropClick(modal: Modal, classname: string) {    
-    this.modalBackdrop.addEventListener('click', () => {      
+  backdropClick(modal: Modal, classname: string) {
+    this.modalBackdrop.addEventListener('click', () => {
       modal.toggleModal(classname);
-    })
+    });
   }
 
   toggleModal(classname: string) {

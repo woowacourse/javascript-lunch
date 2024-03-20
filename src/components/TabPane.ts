@@ -1,7 +1,7 @@
-import FilterContainer from "./FilterContainer";
-import ListContainer from "./listContainer/ListContainer";
-import DOM from "../utils/DOM";
-import Restaurant from "./restaurant/Restaurant";
+import FilterContainer from './FilterContainer';
+import ListContainer from './listContainer/ListContainer';
+import DOM from '../utils/DOM';
+import Restaurant from './restaurant/Restaurant';
 
 const { $ } = DOM;
 
@@ -34,7 +34,7 @@ class TabPane extends HTMLElement {
 
   showContent(tabPaneProps: TabPaneProps) {
     this.removeTabPane();
-    
+
     const { filterContainer, listContainer } = tabPaneProps;
     if (filterContainer !== undefined) {
       this.appendChild(filterContainer);
@@ -58,9 +58,8 @@ class TabPane extends HTMLElement {
   showListDelete(targetId: string) {
     this.listContainer?.deleteRestaurant(targetId);
   }
-
 }
 
-customElements.define('matzip-tabpane', TabPane, {extends: 'section'});
+customElements.define('matzip-tabpane', TabPane, { extends: 'section' });
 
 export default TabPane;

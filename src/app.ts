@@ -1,4 +1,4 @@
-import Matzip from "./matzip";
+import Matzip from './matzip';
 import storage from './storage';
 import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
 
@@ -6,16 +6,16 @@ const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import DOM from './utils/DOM';
 
-import FilterContainer, { FilterChangeEvent } from "./components/FilterContainer";
-import TabPane from "./components/TabPane";
-import Header from "./components/header/Header";
-import Tab from "./components/tab/Tab";
+import FilterContainer, { FilterChangeEvent } from './components/FilterContainer';
+import TabPane from './components/TabPane';
+import Header from './components/header/Header';
+import Tab from './components/tab/Tab';
 import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/listContainer/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
 import Modal from './components/modal/Modal';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
-import { TabChangeEvent } from "./components/tab/TabElement";
+import { TabChangeEvent } from './components/tab/TabElement';
 
 const { $ } = DOM;
 
@@ -63,7 +63,7 @@ class App extends HTMLElement {
   setMyFavoriteMode() {
     this.createMyFavoriteList();
   }
-  
+
   createHeader() {
     const header = new Header();
     this.prepend(header);
@@ -90,25 +90,33 @@ class App extends HTMLElement {
   createWholeRestaurant() {
     const filterContainer = new FilterContainer();
     const { category, sort } = filterContainer.getFilterValues();
-    const restaurantElements: Restaurant[] = App.matzip.filterAndSort(category as CategoryType, sort as SortType).map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
+    const restaurantElements: Restaurant[] = App.matzip
+      .filterAndSort(category as CategoryType, sort as SortType)
+      .map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
     const listContainer = new ListContainer(restaurantElements);
-    
-    this.tabPane.showContent({filterContainer, listContainer});
+
+    this.tabPane.showContent({ filterContainer, listContainer });
   }
 
   createMyFavoriteList() {
-    const favoriteRestaurants: Restaurant[] = App.matzip.getMyFavoriteRestaurants().map((restaurant) => new Restaurant(restaurant, true));
+    const favoriteRestaurants: Restaurant[] = App.matzip
+      .getMyFavoriteRestaurants()
+      .map((restaurant) => new Restaurant(restaurant, true));
     const listContainer = new ListContainer(favoriteRestaurants);
-    this.tabPane.showContent({listContainer});
+    this.tabPane.showContent({ listContainer });
   }
 
   createAppendModal() {
-    const modal = new Modal({ classname: 'modal', title: '새로운 음식점', child: new RestaurantForm() });
+    const modal = new Modal({
+      classname: 'modal',
+      title: '새로운 음식점',
+      child: new RestaurantForm(),
+    });
     this.main.appendChild(modal);
     return modal;
   }
 
-  listenModalToggle() {    
+  listenModalToggle() {
     this.appendModal.backdropClick(this.appendModal, 'modal');
 
     $<HTMLButtonElement>('.modal--close').addEventListener('click', () => {
@@ -121,22 +129,21 @@ class App extends HTMLElement {
       const customEvent = event as FilterChangeEvent;
       const selectedCategory = customEvent.detail.selectedCategory;
       const selectedSort = customEvent.detail.selectedSort;
-      const restaurantElements: Restaurant[] = App.matzip.filterAndSort(
-        selectedCategory as CategoryType,
-        selectedSort as SortType,
-      ).map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
+      const restaurantElements: Restaurant[] = App.matzip
+        .filterAndSort(selectedCategory as CategoryType, selectedSort as SortType)
+        .map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
 
-      const listContainer = new ListContainer(restaurantElements);   
-      this.tabPane.showListChange(listContainer);   
+      const listContainer = new ListContainer(restaurantElements);
+      this.tabPane.showListChange(listContainer);
     });
   }
-  
+
   listenRestaurantAdd() {
-    const form = $<RestaurantForm>('#restaurant-form'); 
+    const form = $<RestaurantForm>('#restaurant-form');
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const formFields = form.getFormFields();      
+      const formFields = form.getFormFields();
       const fieldValues = formFields.map((field) => field.getValue());
 
       const newRestaurant: RestaurantType = {
@@ -149,7 +156,7 @@ class App extends HTMLElement {
       };
 
       try {
-        App.matzip.add(newRestaurant);        
+        App.matzip.add(newRestaurant);
         storage.addData(MATZIP_DATA, newRestaurant);
         this.appendModal.toggleModal('modal');
         this.tabPane.showListAppend(new Restaurant(newRestaurant, false));
@@ -161,10 +168,10 @@ class App extends HTMLElement {
   }
 
   listenRestaurantDelete() {
-    document.addEventListener('deleteRestaurant', (event: Event) => {            
-      const restaurantDeleteEvent = event as RestaurantDeleteEvent;      
+    document.addEventListener('deleteRestaurant', (event: Event) => {
+      const restaurantDeleteEvent = event as RestaurantDeleteEvent;
       const targetId = restaurantDeleteEvent.detail.targetId;
-      
+
       App.matzip.delete(targetId);
       storage.modifyData<RestaurantType>(MATZIP_DATA, App.matzip.getRestaurants());
       this.tabPane.showListDelete(targetId);

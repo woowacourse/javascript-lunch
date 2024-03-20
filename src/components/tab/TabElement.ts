@@ -4,7 +4,7 @@ import TabElementProps from './TabElementProps';
 export interface TabChangeEvent extends CustomEvent {
   detail: {
     activeTabIndex: number;
-  }
+  };
 }
 
 class TabElement extends HTMLButtonElement {
@@ -48,20 +48,20 @@ class TabElement extends HTMLButtonElement {
   }
 
   tabClick(clearActivate: () => void, setActiveTab: (index: number) => void) {
-    this.addEventListener('click', () => {      
+    this.addEventListener('click', () => {
       clearActivate();
       this.setActive();
       setActiveTab(this.index);
       const tabChangeEvent = new CustomEvent('tabChangeEvent', {
         detail: {
           activeTabIndex: this.index,
-        }
+        },
       });
       document.dispatchEvent(tabChangeEvent);
     });
   }
 }
 
-customElements.define('matzip-tab-element', TabElement, {extends: 'button'});
+customElements.define('matzip-tab-element', TabElement, { extends: 'button' });
 
 export default TabElement;

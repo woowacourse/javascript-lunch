@@ -97,6 +97,6 @@ class FilterContainer extends HTMLDivElement {
   }
 }
 
-customElements.define('matzip-filter-container', FilterContainer, {extends: 'div'});
+customElements.define('matzip-filter-container', FilterContainer, { extends: 'div' });
 
 export default FilterContainer;

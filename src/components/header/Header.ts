@@ -11,7 +11,7 @@ class Header extends HTMLElement {
 
   constructor() {
     super();
-    this.className = 'gnb';   
+    this.className = 'gnb';
     this.createH1();
     this.gnbButton = this.createButton();
     this.openModal();
@@ -47,6 +47,6 @@ class Header extends HTMLElement {
   }
 }
 
-customElements.define('matzip-gnb', Header, {extends: 'header'});
+customElements.define('matzip-gnb', Header, { extends: 'header' });
 
 export default Header;
