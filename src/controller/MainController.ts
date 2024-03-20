@@ -4,7 +4,6 @@ import ModalController from "./ModalController";
 import RenderController from "./RenderController";
 import RestaurantListController from "./RestaurantListController";
 import StatusController from "./StatusController";
-import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class MainController {
   static start() {
@@ -44,7 +43,7 @@ class MainController {
 
   static #UlClickEvent(event: Event) {
     const targetElement = event.target as HTMLElement;
-    const restaurantPreview = findAncestorHasClass(targetElement, "restaurant");
+    const restaurantPreview = targetElement.closest<HTMLElement>(".restaurant");
     if (restaurantPreview) {
       const restaurant =
         StatusController.getRestaurantFromPreview(restaurantPreview);

@@ -3,14 +3,10 @@ import {
   SORT_STANDARD,
 } from "../constants/selectOptions";
 
-import FavoriteToggler from "../view/components/FavoriteToggler/FavoriteToggler";
 import RestaurantListController from "./RestaurantListController";
-import RestaurantPreview from "../view/components/RestaurantInfo/RestaurantPreview/RestaurantPreview";
 import RestaurantPreviewWithToggler from "../view/components/RestaurantInfo/RestaurantPreviewWithToggler";
 import SelectBox from "../view/components/SelectBox/SelectBox";
-import StatusController from "./StatusController";
 import TabBar from "../view/components/TabBar/TabBar";
-import findAncestorHasClass from "../utils/findAncestorHasClass";
 
 class RenderController {
   static #entireRestaurantListUl =
