@@ -31,7 +31,7 @@ class RestaurantList {
   delete(name: string) {
     if (this.#restaurants.get(name) === undefined) {
       throw new Error(
-        "[ERROR_IN_RestaurantList_delete()] This is invalid restaurant name)"
+        "[ERROR_IN_RestaurantList_delete()] This is invalid restaurant name"
       );
     }
     this.#restaurants.delete(name);
