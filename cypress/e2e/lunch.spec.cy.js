@@ -32,15 +32,19 @@ describe('점심 뭐 먹지 동작 테스트', () => {
     cy.get('#restaurant-list').children().should('not.contain.text', restaurantName);
   });
 
-  it('자주 가는 음식점 목록의 음식점은 모두 즐겨찾기가 추가되어 있다.', () => {
-    const favorite = '즐겨찾기추가';
+  it('"도스타코스 선릉점"의 즐겨찾기가 활성화 되면 자주가는 음식점 목록에 "도스타코스 선릉점"이 추가된다.', () => {
+    const restaurant = '도스타코스 선릉점';
 
     cy.visit('http://localhost:8080');
 
+    cy.get('#restaurant-list > li')
+      .contains(restaurant)
+      .closest('li')
+      .children('.favorite-button')
+      .click();
+
     cy.contains('자주 가는 음식점').click();
 
-    cy.get('#restaurant-list li').each(($element) => {
-      cy.get($element).find('.favorite-button img').should('have.attr', 'alt', favorite);
-    });
+    cy.get('#restaurant-list li').should('contains.text', restaurant);
   });
 });
