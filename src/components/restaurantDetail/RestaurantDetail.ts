@@ -14,15 +14,8 @@ import TabPane from '../TabPane';
 const { $ } = DOM;
 const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 
-export interface RestaurantDeleteEvent extends CustomEvent {
-  detail: {
-    targetId: string;
-  };
-}
-
 class RestaurantDetail extends HTMLDivElement {
   private favoriteIcon: FavoriteIcon;
-  private deleteButton: Button;
   private modal: Modal;
 
   constructor(restaurant: RestaurantType, favoriteIcon: FavoriteIcon, modal: Modal) {
@@ -31,8 +24,7 @@ class RestaurantDetail extends HTMLDivElement {
     this.className = 'detail__container';
     this.modal = modal;
     this.createLayout(restaurant);
-    const { deleteButton } = this.createButtons();
-    this.deleteButton = deleteButton;
+    this.createButtons();
     this.favoriteIcon = favoriteIcon;
     this.appendChild(this.favoriteIcon);
     this.listenRerender();
@@ -123,7 +115,6 @@ class RestaurantDetail extends HTMLDivElement {
     buttonContainer.appendChild(buttons.deleteButton);
     buttonContainer.appendChild(buttons.cancelButton);
     this.appendChild(buttonContainer);
-    return buttons;
   }
 
   getChangeState(id: string) {
