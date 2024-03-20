@@ -1,5 +1,6 @@
 import Condition from '../constants/Condition';
 import FormItem from './formItem/FormItem';
+import Modal from './modal/Modal';
 
 import { Button, ButtonProps } from './tag/button';
 import { CaptionProps } from './tag/caption';
@@ -12,10 +13,13 @@ import { TextArea, TextAreaProps } from './tag/textarea';
 const { REGULAR_EXPRESSION } = Condition;
 
 class RestaurantForm extends HTMLFormElement {
-  constructor() {
+  private modal: Modal;
+
+  constructor(modal: Modal) {
     super();
     this.id = 'restaurant-form';
     this.submitButton = null;
+    this.modal = modal;
     this.createElements();
   }
 
@@ -180,6 +184,7 @@ class RestaurantForm extends HTMLFormElement {
       classnames: ['button', 'text-caption', 'modal--close'],
       varient: 'secondary',
       children: '취소하기',
+      onClick: this.modal.toggleModal.bind(this.modal),
     };
     const submitButton: ButtonProps = {
       type: 'submit',

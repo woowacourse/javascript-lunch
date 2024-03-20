@@ -4,7 +4,7 @@ import './button.css';
 class Button extends HTMLButtonElement {
   constructor(props: ButtonProps) {
     super();
-    const { type, classnames, ariaLabel, children, disabled, varient } = props;
+    const { type, classnames, ariaLabel, children, disabled, varient, onClick } = props;
 
     this.type = type;
     if (classnames !== undefined) this.classList.add(...classnames);
@@ -14,6 +14,9 @@ class Button extends HTMLButtonElement {
     if (typeof children === 'string') this.textContent = children;
     if (children instanceof HTMLImageElement) {
       this.appendChild(children);
+    }
+    if (typeof onClick !== 'undefined') {
+      this.addEventListener('click', onClick);
     }
     if (disabled !== undefined) this.disabled = disabled;
   }

@@ -13,7 +13,6 @@ import Tab from './components/tab/Tab';
 import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/listContainer/ListContainer';
 import RestaurantForm from './components/RestaurantForm';
-import Modal from './components/modal/Modal';
 import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
 import { TabChangeEvent } from './components/tab/TabElement';
 
@@ -23,17 +22,15 @@ class App extends HTMLElement {
   static matzip: Matzip;
   private main: HTMLElement;
   private tabPane: TabPane;
-  private appendModal: Modal;
 
   constructor() {
     super();
     App.matzip = new Matzip(storage.getData(MATZIP_DATA), storage.getData(FAVORITE_DATA));
 
-    this.createHeader();
     this.main = this.createMain();
+    this.createHeader(this.main);
     this.createTab();
     this.tabPane = this.createTabpane();
-    this.appendModal = this.createAppendModal();
     this.listenTabChange();
     this.setEvent();
   }
@@ -48,7 +45,6 @@ class App extends HTMLElement {
   }
 
   setEvent() {
-    this.listenModalToggle();
     this.listenRestaurantAdd();
     this.setEventWholeMode();
     this.listenRestaurantDelete();
@@ -63,8 +59,8 @@ class App extends HTMLElement {
     this.createMyFavoriteList();
   }
 
-  createHeader() {
-    const header = new Header();
+  createHeader(main: HTMLElement) {
+    const header = new Header(main);
     this.prepend(header);
   }
 
@@ -104,24 +100,6 @@ class App extends HTMLElement {
     this.tabPane.showContent({ listContainer });
   }
 
-  createAppendModal() {
-    const modal = new Modal({
-      classname: 'modal',
-      title: '새로운 음식점',
-      child: new RestaurantForm(),
-    });
-    this.main.appendChild(modal);
-    return modal;
-  }
-
-  listenModalToggle() {
-    this.appendModal.backdropClick(this.appendModal, 'modal');
-
-    $<HTMLButtonElement>('.modal--close').addEventListener('click', () => {
-      this.appendModal.toggleModal('modal');
-    });
-  }
-
   changeFilter() {
     document.addEventListener('filterChange', (event: Event) => {
       const customEvent = event as FilterChangeEvent;
@@ -156,7 +134,6 @@ class App extends HTMLElement {
       try {
         App.matzip.add(newRestaurant);
         storage.addData(MATZIP_DATA, newRestaurant);
-        this.appendModal.toggleModal('modal');
         this.tabPane.showListAppend(new Restaurant(newRestaurant, false));
         form.reset();
       } catch (error) {

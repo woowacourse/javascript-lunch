@@ -1,20 +1,19 @@
 import { AddButton } from '../../asset/img/index';
-import DOM from '../../utils/DOM';
+import RestaurantForm from '../RestaurantForm';
+import Modal from '../modal/Modal';
 import { Button, ButtonProps } from '../tag/button';
 import { Image, ImageProps } from '../tag/image';
 import './header.css';
 
-const { $ } = DOM;
-
 class Header extends HTMLElement {
-  private gnbButton: Button;
+  private modal: Modal;
 
-  constructor() {
+  constructor(main: HTMLElement) {
     super();
     this.className = 'gnb';
     this.createH1();
-    this.gnbButton = this.createButton();
-    this.openModal();
+    this.modal = this.createModal(main);
+    this.createButton();
   }
 
   createH1() {
@@ -34,16 +33,21 @@ class Header extends HTMLElement {
       varient: 'gnb',
       ariaLabel: '음식점 추가',
       children: new Image(image),
+      onClick: this.modal.toggleModal.bind(this.modal),
     };
+
     const buttonElement = new Button(button);
     this.appendChild(buttonElement);
-    return buttonElement;
   }
 
-  openModal() {
-    this.gnbButton.addEventListener('click', () => {
-      $<HTMLElement>('.modal').classList.add('modal--open');
+  createModal(main: HTMLElement) {
+    const modal = new Modal({
+      title: '새로운 음식점',
     });
+    const restaurantForm = new RestaurantForm(modal);
+    modal.appendChildNode(restaurantForm);
+    main.appendChild(modal);
+    return modal;
   }
 }
 

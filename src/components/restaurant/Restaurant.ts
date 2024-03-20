@@ -18,7 +18,6 @@ const { FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 
 class Restaurant extends HTMLLIElement {
   private modal: Modal;
-  private content: RestaurantDetail;
   private favoriteIcon: FavoriteIcon;
 
   constructor(restaurant: RestaurantType, isFavorite: boolean) {
@@ -28,22 +27,9 @@ class Restaurant extends HTMLLIElement {
     this.className = 'restaurant';
     this.createLayout(restaurant);
     this.favoriteIcon = this.createFavoriteIcon(restaurant, isFavorite);
-    const { modal, content } = this.createDetailModal(restaurant, isFavorite);
-    this.modal = modal;
-    this.content = content;
+    this.modal = this.createDetailModal(restaurant, isFavorite);
     this.listenOpenDetailModal();
-    this.listenCancelButtonClick();
-    this.listenDeleteButtonClick();
     this.listenRerender();
-  }
-
-  rerenderModal(restaurant: RestaurantType, isFavorite: boolean) {
-    const { modal, content } = this.createDetailModal(restaurant, isFavorite);
-    this.modal = modal;
-    this.content = content;
-    this.listenOpenDetailModal();
-    this.listenCancelButtonClick();
-    this.listenDeleteButtonClick();
   }
 
   createLayout(restaurant: RestaurantType) {
@@ -93,33 +79,23 @@ class Restaurant extends HTMLLIElement {
   }
 
   createDetailModal(restaurant: RestaurantType, isFavorite: boolean) {
+    const modal = new Modal({});
     const restaurantDetail = new RestaurantDetail(
       restaurant,
       cloneFavoriteIcon(this.favoriteIcon, isFavorite, this.getChangeState(restaurant.id)),
+      modal,
     );
-    const modal = new Modal({ classname: 'detail-modal', child: restaurantDetail });
+    modal.appendChildNode(restaurantDetail);
 
     this.appendChild(modal);
-    return { modal, content: restaurantDetail };
+    return modal;
   }
 
   listenOpenDetailModal() {
     this.addEventListener('click', () => {
       this.modal.stopEventBubbling();
-      this.toggleModal();
+      this.modal.toggleModal();
     });
-  }
-
-  toggleModal() {
-    this.modal.toggleModal('detail-modal');
-  }
-
-  listenCancelButtonClick() {
-    this.content.listenCloseButtonClick();
-  }
-
-  listenDeleteButtonClick() {
-    this.content.listenDeleteButonClick(this.toggleModal.bind(this));
   }
 
   getChangeState(id: string) {

@@ -21,20 +21,21 @@ export interface RestaurantDeleteEvent extends CustomEvent {
 
 class RestaurantDetail extends HTMLDivElement {
   private favoriteIcon: FavoriteIcon;
-  private cancelButton: Button;
   private deleteButton: Button;
+  private modal: Modal;
 
-  constructor(restaurant: RestaurantType, favoriteIcon: FavoriteIcon) {
+  constructor(restaurant: RestaurantType, favoriteIcon: FavoriteIcon, modal: Modal) {
     super();
     this.id = restaurant.id;
     this.className = 'detail__container';
+    this.modal = modal;
     this.createLayout(restaurant);
-    const { cancelButton, deleteButton } = this.createButtons();
-    this.cancelButton = cancelButton;
+    const { deleteButton } = this.createButtons();
     this.deleteButton = deleteButton;
     this.favoriteIcon = favoriteIcon;
     this.appendChild(this.favoriteIcon);
     this.listenRerender();
+    this.listenDeleteButonClick();
   }
 
   createLayout({ category, name, distance, introduction, link }: RestaurantType) {
@@ -100,20 +101,22 @@ class RestaurantDetail extends HTMLDivElement {
 
     const deleteButton: ButtonProps = {
       type: 'button',
-      classnames: ['button', 'text-caption', 'delete-restaurant-button'],
+      classnames: ['button', 'text-caption'],
       varient: 'secondary',
       children: '삭제하기',
     };
+
     const cancelButton: ButtonProps = {
       type: 'button',
-      classnames: ['button', 'text-caption', 'detail-modal--close'],
+      classnames: ['button', 'text-caption'],
       varient: 'primary',
       children: '닫기',
+      onClick: this.modal.toggleModal.bind(this.modal),
     };
 
     const buttons = {
-      cancelButton: new Button(cancelButton),
       deleteButton: new Button(deleteButton),
+      cancelButton: new Button(cancelButton),
     };
 
     buttonContainer.appendChild(buttons.deleteButton);
@@ -122,16 +125,10 @@ class RestaurantDetail extends HTMLDivElement {
     return buttons;
   }
 
-  listenCloseButtonClick() {
-    this.cancelButton.addEventListener('click', () => {
-      (this.parentElement?.parentElement as Modal).toggleModal('detail-modal');
-    });
-  }
-
-  listenDeleteButonClick(toggleModal: Function) {
+  listenDeleteButonClick() {
     this.deleteButton.addEventListener('click', () => {
       if (window.confirm('정말 삭제하시겠습니까?')) {
-        toggleModal();
+        this.modal.toggleModal.bind(this.modal);
         this.dispatchRestaurantDeleteEvent();
       }
     });
