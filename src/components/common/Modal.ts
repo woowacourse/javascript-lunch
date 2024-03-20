@@ -5,6 +5,8 @@ import EventComponent, {
 import { $ } from "../../utils/selector";
 import { MODAL_EVENT_ACTION } from "../../constants/event";
 
+import classNames from "classnames";
+
 export default class Modal extends EventComponent {
   protected eventHandlerRegistrations: EventListenerRegistration[] = [
     {
@@ -20,13 +22,14 @@ export default class Modal extends EventComponent {
   ];
 
   protected getTemplate(): string {
-    const isOpen = this.getAttribute("isOpen") ?? false;
     const modalId = this.getAttribute("modal-id") ?? "";
 
     const children = this.innerHTML;
 
     return `
-      <div id=${modalId} class="${isOpen ? "" : "close"}">
+      <div id=${modalId} class="${classNames({
+      close: !this.getAttribute("isOpen") ?? false,
+    })}">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           ${children}
@@ -50,12 +53,10 @@ export default class Modal extends EventComponent {
   }
 
   private openModal(): void {
-    $(`#${this.getAttribute("modal-id") ?? ""}`)?.classList.add("modal--open");
+    $(`#${this.getAttribute("modal-id") ?? ""}`)?.classList.remove("close");
   }
 
   private closeModal(): void {
-    $(`#${this.getAttribute("modal-id") ?? ""}`)?.classList.remove(
-      "modal--open"
-    );
+    $(`#${this.getAttribute("modal-id") ?? ""}`)?.classList.add("close");
   }
 }
