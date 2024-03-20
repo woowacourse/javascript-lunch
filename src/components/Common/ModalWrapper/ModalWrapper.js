@@ -1,13 +1,21 @@
 import { $ } from '../../../utils/dom';
 
 export default class ModalWrapper {
-  getTemplate(element) {
-    return `
+  constructor(parentElement) {
+    this.render(parentElement);
+    this._handleModalBackdropClick();
+  }
+
+  render(parentElement) {
+    parentElement.innerHTML = `
       <div id="modal-backdrop" class="modal-backdrop"></div>
       <div id="modal-container" class="modal-container">
-        ${element}
       </div>
     `;
+  }
+
+  _handleModalBackdropClick() {
+    $('modal-backdrop').addEventListener('click', () => this._handleClose());
   }
 
   _handleClose() {

@@ -8,19 +8,19 @@ import { SELECT_FORM_DATA } from '../../data/selectData';
 import ModalWrapper from '../Common/ModalWrapper/ModalWrapper';
 
 export default class AddRestaurantModal extends ModalWrapper {
-  #element;
   #restaurants;
 
   constructor(element, restaurants) {
-    super();
-    this.#element = element;
+    super(element);
+    this.insertTemplate();
     this.#restaurants = restaurants;
-    this.render();
     this.#addEvents();
   }
 
-  render() {
-    this.#element.innerHTML = this.getTemplate(`
+  insertTemplate() {
+    $('modal-container').insertAdjacentHTML(
+      'afterbegin',
+      `
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form id="restaurant-input-form">
 
@@ -63,11 +63,11 @@ export default class AddRestaurantModal extends ModalWrapper {
           <button id="add-button" class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
-    `);
+    `,
+    );
   }
 
   #addEvents() {
-    $('modal-backdrop').addEventListener('click', this._handleClose.bind(this));
     $('add-restaurant-cancel-button').addEventListener('click', this._handleClose.bind(this));
     $('restaurant-input-form').addEventListener('focusout', (event) =>
       this.#handleInputFocusout(event),

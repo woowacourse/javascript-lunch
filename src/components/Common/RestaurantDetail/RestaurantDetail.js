@@ -5,23 +5,23 @@ import { $ } from '../../../utils/dom';
 import { FAVORITE_ICON } from '../../../constants/rules';
 
 export default class RestaurantDetail extends ModalWrapper {
-  #element;
   #restaurant;
   #restaurants;
   #restaurantList;
 
   constructor(element, { restaurants, restaurant, restaurantList }) {
-    super();
+    super(element);
+    this.insertTemplate(restaurant);
     this.#restaurantList = restaurantList;
     this.#restaurants = restaurants;
     this.#restaurant = restaurant;
-    this.#element = element;
-    this.render(restaurant);
     this.#addEvent();
   }
 
-  render({ category, name, walkingTimeFromCampus, description = '', link = '', favorite }) {
-    this.#element.innerHTML = this.getTemplate(`
+  insertTemplate({ category, name, walkingTimeFromCampus, description = '', link = '', favorite }) {
+    $('modal-container').insertAdjacentHTML(
+      'afterbegin',
+      `
       <div class="restaurant-detail-container">
         <section class="restaurant-detail-header">
           <div class="restaurant__category">
@@ -48,11 +48,11 @@ export default class RestaurantDetail extends ModalWrapper {
             <button id="close-detail-button" type="button" class="button button--primary text-caption">닫기</button>
           </div>
       </div>
-    `);
+    `,
+    );
   }
 
   #addEvent() {
-    $('modal-backdrop').addEventListener('click', this._handleClose.bind(this));
     $('close-detail-button').addEventListener('click', this._handleClose.bind(this));
     $('delete-restaurant-button').addEventListener('click', () =>
       this.#handleDeleteRestaurantButton(),
